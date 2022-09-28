@@ -2,10 +2,15 @@ from typing import Optional
 
 from fastapi import BackgroundTasks, Depends
 from pydantic import UUID4
+from sqlalchemy.orm.session import Session
 
 from mealie.core.config import get_app_settings
 from mealie.db.db_setup import generate_session
-from mealie.services.event_bus_service.event_bus_listeners import AppriseEventListener, EventListenerBase
+from mealie.services.event_bus_service.event_bus_listeners import (
+    AppriseEventListener,
+    EventListenerBase,
+    WebhookEventListener,
+)
 
 from .event_types import Event, EventBusMessage, EventDocumentDataBase, EventTypes
 
@@ -35,12 +40,20 @@ class EventSource:
 
 
 class EventBusService:
-    def __init__(self, bg: BackgroundTasks, session=Depends(generate_session)) -> None:
+    def __init__(
+        self, bg: Optional[BackgroundTasks] = None, session: Optional[Session] = None, group_id: UUID4 | None = None
+    ) -> None:
+        if not session:
+            session = next(generate_session())
+
         self.bg = bg
         self.session = session
-        self.group_id: UUID4 | None = None
+        self.group_id = group_id
 
-        self.listeners: list[EventListenerBase] = [AppriseEventListener(self.session, self.group_id)]
+        self.listeners: list[EventListenerBase] = [
+            AppriseEventListener(self.session, self.group_id),
+            WebhookEventListener(self.session, self.group_id),
+        ]
 
     def dispatch(
         self,
@@ -59,10 +72,18 @@ class EventBusService:
             document_data=document_data,
         )
 
-        self.bg.add_task(self.publish_event, event=event)
+        if self.bg:
+            self.bg.add_task(self.publish_event, event=event)
+
+        else:
+            self.publish_event(event)
 
     def publish_event(self, event: Event) -> None:
         """Publishes the event to all listeners"""
         for listener in self.listeners:
             if subscribers := listener.get_subscribers(event):
                 listener.publish_to_subscribers(event, subscribers)
+
+    @classmethod
+    def create(cls, bg: BackgroundTasks, session=Depends(generate_session), group_id: UUID4 | None = None):
+        return cls(bg, session, group_id)

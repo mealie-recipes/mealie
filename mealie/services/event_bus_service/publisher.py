@@ -1,6 +1,8 @@
 from typing import Protocol
 
 import apprise
+import requests
+from fastapi.encoders import jsonable_encoder
 
 from mealie.services.event_bus_service.event_types import Event
 
@@ -34,3 +36,15 @@ class ApprisePublisher:
                 raise Exception("Apprise URL Add Failed")
 
         self.apprise.notify(title=event.message.title, body=event.message.body, tag=tags)
+
+
+class WebhookPublisher:
+    def __init__(self, hard_fail=False) -> None:
+        self.hard_fail = hard_fail
+
+    def publish(self, event: Event, notification_urls: list[str]):
+        event_payload = jsonable_encoder(event)
+        for url in notification_urls:
+            r = requests.post(url, json=event_payload, timeout=15)
+            if self.hard_fail:
+                r.raise_for_status()

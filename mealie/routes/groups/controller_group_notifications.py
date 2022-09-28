@@ -35,7 +35,7 @@ router = APIRouter(
 
 @controller(router)
 class GroupEventsNotifierController(BaseUserController):
-    event_bus: EventBusService = Depends(EventBusService)
+    event_bus: EventBusService = Depends(EventBusService.create)
 
     @cached_property
     def repo(self):

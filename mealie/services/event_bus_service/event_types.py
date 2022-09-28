@@ -1,10 +1,13 @@
 import uuid
 from datetime import datetime
 from enum import Enum, auto
+from typing import Any
 
 from pydantic import UUID4
 
 from ...schema._mealie.mealie_model import MealieModel
+
+INTERNAL_INTEGRATION_ID = "mealie_generic_user"
 
 
 class EventTypes(Enum):
@@ -18,7 +21,9 @@ class EventTypes(Enum):
     (like shopping list items), modify the event document type instead (which is not tied to a database entry).
     """
 
+    # used internally and cannot be subscribed to
     test_message = auto()
+    webhook_task = auto()
 
     recipe_created = auto()
     recipe_updated = auto()
@@ -54,6 +59,7 @@ class EventDocumentType(Enum):
 
     category = "category"
     cookbook = "cookbook"
+    mealplan = "mealplan"
     shopping_list = "shopping_list"
     shopping_list_item = "shopping_list_item"
     recipe = "recipe"
@@ -120,6 +126,12 @@ class EventRecipeBulkReportData(EventDocumentDataBase):
 class EventTagData(EventDocumentDataBase):
     document_type = EventDocumentType.tag
     tag_id: UUID4
+
+
+class EventWebhookData(EventDocumentDataBase):
+    webhook_start_dt: datetime
+    webhook_end_dt: datetime
+    webhook_body: Any
 
 
 class EventBusMessage(MealieModel):
