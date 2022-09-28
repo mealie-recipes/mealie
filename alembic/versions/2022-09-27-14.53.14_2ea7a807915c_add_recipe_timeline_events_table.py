@@ -1,7 +1,7 @@
 """add recipe_timeline_events table
 
 Revision ID: 2ea7a807915c
-Revises: 089bfa50d0ed
+Revises: 44e8d670719d
 Create Date: 2022-09-27 14:53:14.111054
 
 """
@@ -12,7 +12,7 @@ from alembic import op
 
 # revision identifiers, used by Alembic.
 revision = "2ea7a807915c"
-down_revision = "089bfa50d0ed"
+down_revision = "44e8d670719d"
 branch_labels = None
 depends_on = None
 
