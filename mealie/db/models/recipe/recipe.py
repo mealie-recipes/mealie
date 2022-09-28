@@ -10,7 +10,7 @@ from mealie.db.models._model_utils.guid import GUID
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import auto_init
 from ..users.user_to_favorite import users_to_favorites
-from .api_extras import ApiExtras
+from .api_extras import ApiExtras, api_extras
 from .assets import RecipeAsset
 from .category import recipes_to_categories
 from .comment import RecipeComment
@@ -22,21 +22,6 @@ from .settings import RecipeSettings
 from .shared import RecipeShareTokenModel
 from .tag import recipes_to_tags
 from .tool import recipes_to_tools
-
-
-# Decorator function to unpack the extras into a dict
-def recipe_extras(func):
-    def wrapper(*args, **kwargs):
-        extras = kwargs.pop("extras")
-
-        if extras is None:
-            extras = []
-        else:
-            extras = [{"key": key, "value": value} for key, value in extras.items()]
-
-        return func(*args, extras=extras, **kwargs)
-
-    return wrapper
 
 
 class RecipeModel(SqlAlchemyBase, BaseMixins):
@@ -139,7 +124,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         assert name != ""
         return name
 
-    @recipe_extras
+    @api_extras
     @auto_init()
     def __init__(
         self,

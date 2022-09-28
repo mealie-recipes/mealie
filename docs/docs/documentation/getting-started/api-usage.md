@@ -10,10 +10,25 @@ Mealie supports long-live api tokens in the user frontend. See [user settings pa
 ### Exploring Your Local API
 On your local installation you can access interactive API documentation that provides `curl` examples and expected results. This allows you to easily test and interact with your API to identify places to include your own functionality. You can visit the documentation at `http://mealie.yourdomain.com/docs` or see the example at the [Demo Site](https://mealie-demo.hay-kot.dev/docs)
 
-### Recipe Extras
+### Extras
+#### Recipe Extras
 Recipes extras are a key feature of the Mealie API. They allow you to create custom json key/value pairs within a recipe to reference from 3rd part applications. You can use these keys to contain information to trigger automation or custom messages to relay to your desired device.
 
 For example you could add `{"message": "Remember to thaw the chicken"}` to a recipe and use the webhooks built into mealie to send that message payload to a destination to be processed.
+
+#### Shopping List and Food Extras
+Similarly to recipes, extras are supported on shopping lists, shopping list items, and foods. At this time they are only accessible through the API. Extras for these objects allow for rich integrations between the Mealie shopping list and your favorite list manager, such as Alexa, ToDoist, Trello, or any other list manager with an API.
+
+To keep shopping lists in sync, for instance, you can store your Trello list id on your Mealie shopping list: <br />
+`{"trello_list_id": "5abbe4b7ddc1b351ef961414"}`
+
+Now if an update is made to your shopping list, you know which Trello list also needs to be updated. Similarly, you can also keep track of individual cards on your Trello list by storing data on shopping list items: <br />
+`{"trello_card_id": "bab414bde415cd715efb9361"}`
+
+Sometimes you may want to exclude certain foods from syncing to your external list, such as water, so you can add a custom property to your "water" food: <br />
+`{"trello_exclude_food": "true"}`
+
+You can combine your custom data definitions with our Event Subscriptions API, enabling you to keep your external list up-to-date in real time.
 
 ### Pagination and Filtering
 Most document types share a uniform pagination and filtering API (e.g. `GET /api/recipes`). These allow you to filter by an arbitrary combination of criteria and return only a certain number of documents (i.e. a single "page" of documents).
