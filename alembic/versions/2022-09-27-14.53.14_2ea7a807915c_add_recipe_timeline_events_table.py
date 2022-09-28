@@ -30,7 +30,7 @@ def upgrade():
         sa.Column("message", sa.String(), nullable=True),
         sa.Column("event_type", sa.Enum("system", "info", "comment", name="timelineeventtype"), nullable=True),
         sa.Column("image", sa.String(), nullable=True),
-        sa.Column("event_dt", sa.DateTime(), nullable=True),
+        sa.Column("timestamp", sa.DateTime(), nullable=True),
         sa.ForeignKeyConstraint(
             ["recipe_id"],
             ["recipes.id"],

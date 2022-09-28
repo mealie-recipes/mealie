@@ -34,12 +34,12 @@ class RecipeTimelineEvent(SqlAlchemyBase, BaseMixins):
     image = Column(String)
 
     # Timestamps
-    event_dt = Column(DateTime)
+    timestamp = Column(DateTime)
 
     @auto_init()
     def __init__(
         self,
-        event_dt=None,
+        timestamp=None,
         **_,
     ) -> None:
-        self.event_dt = event_dt or datetime.now()
+        self.timestamp = timestamp or datetime.now()

@@ -135,7 +135,7 @@ class RecipeService(BaseService):
             recipe_id=new_recipe.id,
             subject="Recipe Created",
             event_type=TimelineEventType.system,
-            event_dt=new_recipe.created_at or datetime.now(),
+            timestamp=new_recipe.created_at or datetime.now(),
         )
 
         self.repos.recipe_timeline_events.create(timeline_event_data)

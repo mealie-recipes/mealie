@@ -17,7 +17,7 @@ class RecipeTimelineEventIn(MealieModel):
     message: str | None = None
     image: str | None = None
 
-    event_dt: datetime = datetime.now()
+    timestamp: datetime = datetime.now()
 
 
 class RecipeTimelineEventCreate(RecipeTimelineEventIn):
