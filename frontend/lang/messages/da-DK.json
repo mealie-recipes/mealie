@@ -248,7 +248,8 @@
     "trim-prefix-description": "Beskær første tegn fra hver linje",
     "split-by-numbered-line-description": "Forsøger at opdele et afsnit ved at matche '1)' eller '1.' mønstre",
     "import-by-url": "Importér opskrift fra en webside",
-    "create-manually": "Opret opskrift manuelt"
+    "create-manually": "Opret opskrift manuelt",
+    "make-recipe-image": "Gør dette til opskriftsbillede"
   },
   "page": {
     "404-page-not-found": "404 Siden blev ikke fundet",
@@ -660,5 +661,34 @@
     "info_message_with_version": "Dette er en demo for version: {version}",
     "demo_username": "Brugernavn: {username}",
     "demo_password": "Adgangskode: {password}"
+  },
+  "ocr-editor": {
+    "ocr-editor": "Ocr redigering",
+    "selection-mode": "Markeringstilstand",
+    "pan-and-zoom-picture": "Panorer og zoom på billede",
+    "split-text": "Opdel tekst",
+    "preserve-line-breaks": "Bevar original linjeskift",
+    "split-by-block": "Opdelt efter tekstblok",
+    "flatten": "Udjævn på trods af original formatering",
+    "help": {
+      "selection-mode": "Markeringstilstand (standard)",
+      "selection-mode-desc": "Markeringstilstanden er den primære tilstand, der kan benyttes til at indtaste data:",
+      "selection-mode-steps": {
+        "draw": "Tegn et rektangel over den tekst, du vil vælge.",
+        "click": "Klik på et felt til højre og klik derefter tilbage på rektanglet over billedet.",
+        "result": "Den valgte tekst vises i det tidligere markerede felt."
+      },
+      "pan-and-zoom-mode": "Panorerings- og zoom-tilstand",
+      "pan-and-zoom-desc": "Vælg panorering og zoom ved at klikke på ikonet. Denne tilstand gør det lettere at zoome og flytte rundt på billedet, ved brug af store billeder.",
+      "split-text-mode": "Opdelt teksttilstand",
+      "split-modes": {
+        "line-mode": "Linjetilstand (standard)",
+        "line-mode-desc": "I linjetilstand vil teksten blive opskaleret ved at beholde de oprindelige linjeskift. Denne tilstand er nyttig, når du massetilføjer på en liste over ingredienser, hvor en ingredienserne har deres egne linjer.",
+        "block-mode": "Bloktilstand",
+        "block-mode-desc": "I bloktilstand vil teksten blive opdelt i blokke. Denne tilstand er nyttig når der massetilføjes instruktioner, der normalt skrives i paragraffer.",
+        "flat-mode": "Flad tilstand",
+        "flat-mode-desc": "I flad tilstand vil teksten blive tilføjet til det valgte opskriftfelt uden linjeskift."
+      }
+    }
   }
 }

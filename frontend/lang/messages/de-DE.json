@@ -248,7 +248,8 @@
     "trim-prefix-description": "Erste Zeichen aus jeder Zeile entfernen",
     "split-by-numbered-line-description": "Absätze nach dem Schema '1)' oder '1.' aufzuteilen versuchen",
     "import-by-url": "Ein Rezept von einer Webseite importieren",
-    "create-manually": "Ein Rezept manuell erstellen"
+    "create-manually": "Ein Rezept manuell erstellen",
+    "make-recipe-image": "Als Rezept-Titelbild verwenden"
   },
   "page": {
     "404-page-not-found": "404 Seite nicht gefunden",
@@ -660,5 +661,34 @@
     "info_message_with_version": "Dies ist eine Demo für Version: {version}",
     "demo_username": "Benutzername: {username}",
     "demo_password": "Passwort: {password}"
+  },
+  "ocr-editor": {
+    "ocr-editor": "OCR Editor",
+    "selection-mode": "Auswahlmodus",
+    "pan-and-zoom-picture": "Bild verschieben und zoomen",
+    "split-text": "Text aufteilen",
+    "preserve-line-breaks": "Zeilenumbrüche beibehalten",
+    "split-by-block": "Nach Textblöcken aufteilen",
+    "flatten": "Ursprüngliche Formatierung verwerfen",
+    "help": {
+      "selection-mode": "Auswahlmodus (Standard)",
+      "selection-mode-desc": "Der Auswahlmodus ist die Standardmethode, um Daten hinzuzufügen:",
+      "selection-mode-steps": {
+        "draw": "Zeichne ein Rechteck um den Text, den du auswählen möchtest.",
+        "click": "Klicke auf ein beliebiges Feld rechts und klicke dann auf das Rechteck über dem Bild.",
+        "result": "Der ausgewählte Text wird im zuvor ausgewählten Feld angezeigt."
+      },
+      "pan-and-zoom-mode": "Verschiebe-Modus",
+      "pan-and-zoom-desc": "Wähle den Verschiebe-Modus aus, indem du auf das Symbol klickst. Mit diesem Modus kannst du das Bild vergrößern, verkleinern und verschieben, was das Verwenden großer Bilder erleichtert.",
+      "split-text-mode": "Text aufteilen",
+      "split-modes": {
+        "line-mode": "Zeilenmodus (Standard)",
+        "line-mode-desc": "Im Zeilenmodus wird der Text mit den ursprünglichen Zeilenumbrüchen übernommen. Dieser Modus ist sinnvoll für den Massenimport mit einer Zutatenliste, bei der jeweils eine Zutat in einer Zeile steht.",
+        "block-mode": "Blockmodus",
+        "block-mode-desc": "Im Blockmodus wird der Text in Blöcke aufgeteilt. Dieser Modus ist sinnvoll beim Massenimport von Zubereitungsschritten, die in Absätze unterteilt sind.",
+        "flat-mode": "Fließtext-Modus",
+        "flat-mode-desc": "Im Fließtext-Modus wird der Text ohne Zeilenumbrüche in das ausgewählte Rezeptfeld übernommen."
+      }
+    }
   }
 }

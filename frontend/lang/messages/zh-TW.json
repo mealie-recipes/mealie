@@ -248,7 +248,8 @@
     "trim-prefix-description": "Trim first character from each line",
     "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns",
     "import-by-url": "Import a recipe by URL",
-    "create-manually": "Create a recipe manually"
+    "create-manually": "Create a recipe manually",
+    "make-recipe-image": "Make this the recipe image"
   },
   "page": {
     "404-page-not-found": "404 找不到頁面",
@@ -660,5 +661,34 @@
     "info_message_with_version": "This is a Demo for version: {version}",
     "demo_username": "Username: {username}",
     "demo_password": "Password: {password}"
+  },
+  "ocr-editor": {
+    "ocr-editor": "Ocr editor",
+    "selection-mode": "Selection mode",
+    "pan-and-zoom-picture": "Pan and zoom picture",
+    "split-text": "Split text",
+    "preserve-line-breaks": "Preserve original line breaks",
+    "split-by-block": "Split by text block",
+    "flatten": "Flatten regardless of original formating",
+    "help": {
+      "selection-mode": "Selection Mode (default)",
+      "selection-mode-desc": "The selection mode is the main mode that can be used to enter data:",
+      "selection-mode-steps": {
+        "draw": "Draw a rectangle on the text you want to select.",
+        "click": "Click on any field on the right and then click back on the rectangle above the image.",
+        "result": "The selected text will appear inside the previously selected field."
+      },
+      "pan-and-zoom-mode": "Pan and Zoom Mode",
+      "pan-and-zoom-desc": "Select pan and zoom by clicking the icon. This mode allows to zoom inside the image and move around to make using big images easier.",
+      "split-text-mode": "Split Text modes",
+      "split-modes": {
+        "line-mode": "Line mode (default)",
+        "line-mode-desc": "In line mode, the text will be propagated by keeping the original line breaks. This mode is useful when using bulk add on a list of ingredients where one ingredient is one line.",
+        "block-mode": "Block mode",
+        "block-mode-desc": "In block mode, the text will be split in blocks. This mode is useful when bulk adding instructions that are usually written in paragraphs.",
+        "flat-mode": "Flat mode",
+        "flat-mode-desc": "In flat mode, the text will be added to the selected recipe field with no line breaks."
+      }
+    }
   }
 }

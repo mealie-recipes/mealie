@@ -37,7 +37,7 @@
     "milliliter": {
         "name": "mililitre",
         "description": "",
-        "abbreviation": "mL"
+        "abbreviation": "ml"
     },
     "liter": {
         "name": "litre",
