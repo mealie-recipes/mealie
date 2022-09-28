@@ -3,7 +3,7 @@ from fastapi.testclient import TestClient
 from pydantic import UUID4
 
 from mealie.schema.recipe.recipe import Recipe
-from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventOut
+from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventOut, RecipeTimelineEventPagination
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 
@@ -55,6 +55,38 @@ def test_create_timeline_event(api_client: TestClient, unique_user: TestUser, re
     event = RecipeTimelineEventOut.parse_obj(event_response.json())
     assert event.recipe_id == recipe.id
     assert str(event.user_id) == str(unique_user.user_id)
+
+
+def test_get_all_timeline_events(api_client: TestClient, unique_user: TestUser, recipes: list[Recipe]):
+    # create some events
+    recipe = recipes[0]
+    events_data = [
+        {
+            "user_id": unique_user.user_id,
+            "subject": random_string(),
+            "event_type": "info",
+            "message": random_string(),
+        }
+        for _ in range(10)
+    ]
+
+    events: list[RecipeTimelineEventOut] = []
+    for event_data in events_data:
+        event_response = api_client.post(Routes.event_base(recipe.slug), json=event_data, headers=unique_user.token)
+        events.append(RecipeTimelineEventOut.parse_obj(event_response.json()))
+
+    # check that we see them all
+    params = {"page": 1, "perPage": -1}
+
+    events_response = api_client.get(Routes.event_base(recipe.slug), params=params, headers=unique_user.token)
+    events_pagination = RecipeTimelineEventPagination.parse_obj(events_response.json())
+
+    event_ids = [event.id for event in events]
+    paginated_event_ids = [event.id for event in events_pagination.items]
+
+    assert len(event_ids) <= len(paginated_event_ids)
+    for event_id in event_ids:
+        assert event_id in paginated_event_ids
 
 
 def test_get_timeline_event(api_client: TestClient, unique_user: TestUser, recipes: list[Recipe]):
@@ -130,6 +162,14 @@ def test_delete_timeline_event(api_client: TestClient, unique_user: TestUser, re
     # try to get the event
     event_response = api_client.get(Routes.event_item(recipe.slug, deleted_event.id), headers=unique_user.token)
     assert event_response.status_code == 404
+
+
+def test_create_recipe_with_timeline_event(api_client: TestClient, unique_user: TestUser, recipes: list[Recipe]):
+    # make sure when the recipes fixture was created that all recipes have at least one event
+    for recipe in recipes:
+        events_response = api_client.get(Routes.event_base(recipe.slug), headers=unique_user.token)
+        events_pagination = RecipeTimelineEventPagination.parse_obj(events_response.json())
+        assert events_pagination.items
 
 
 def test_invalid_recipe_slug(api_client: TestClient, unique_user: TestUser):
