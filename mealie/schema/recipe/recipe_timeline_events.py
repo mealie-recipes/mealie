@@ -26,8 +26,7 @@ class RecipeTimelineEventCreate(RecipeTimelineEventIn):
 
 
 class RecipeTimelineEventUpdate(MealieModel):
-    id: UUID4
-    subject: str | None = None
+    subject: str
     message: str | None = None
     image: str | None = None
 

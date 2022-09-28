@@ -4,7 +4,7 @@ from datetime import datetime
 from sqlalchemy import Column, DateTime, Enum, ForeignKey, String
 from sqlalchemy.orm import relationship
 
-from .._model_base import SqlAlchemyBase
+from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import auto_init
 from .._model_utils.guid import GUID
 
@@ -15,7 +15,7 @@ class TimelineEventType(enum.Enum):
     comment = "comment"
 
 
-class RecipeTimelineEvent(SqlAlchemyBase):
+class RecipeTimelineEvent(SqlAlchemyBase, BaseMixins):
     __tablename__ = "recipe_timeline_events"
     id = Column(GUID, primary_key=True, default=GUID.generate)
 
