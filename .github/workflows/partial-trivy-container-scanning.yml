@@ -1,13 +1,14 @@
 name: Trivy Container Scanning
 
 on:
-  push:
-  pull_request:
+  workflow_call:
 
 jobs:
   build:
     name: Build and Scan Container
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
