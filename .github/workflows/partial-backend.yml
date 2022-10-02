@@ -50,13 +50,22 @@ jobs:
           path: .venv
           key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
 
+      - name: Check venv cache
+        id: cache-validate
+        if: steps.cached-poetry-dependencies.outputs.cache-hit == 'true'
+        run: |
+          echo "print('venv good?')" > test.py && poetry run python test.py
+          echo ::set-output name=cache-hit-success::true
+          rm test.py
+        continue-on-error: true
+
       - name: Install dependencies
         run: |
           sudo apt-get update
           sudo apt-get install libsasl2-dev libldap2-dev libssl-dev tesseract-ocr-all
           poetry install
           poetry add "psycopg2-binary==2.8.6"
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true' || steps.cache-validate.outputs.cache-hit-success != 'true'
 
       - name: Formatting (Black & isort)
         run: |
