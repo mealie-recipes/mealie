@@ -3,7 +3,6 @@ name: Backend Test/Lint
 on:
   workflow_call:
 
-
 jobs:
   tests:
     runs-on: ubuntu-latest
@@ -30,56 +29,56 @@ jobs:
           - 5432:5432
     # Steps
     steps:
-      #----------------------------------------------
-      #       check-out repo and set-up python
-      #----------------------------------------------
       - name: Check out repository
         uses: actions/checkout@v2
+
       - name: Set up python
         uses: actions/setup-python@v2
         with:
           python-version: "3.10"
-      #----------------------------------------------
-      #  -----  install & configure poetry  -----
-      #----------------------------------------------
+
       - name: Install Poetry
         uses: snok/install-poetry@v1
         with:
           virtualenvs-create: true
           virtualenvs-in-project: true
-      #----------------------------------------------
-      #       load cached venv if cache exists
-      #----------------------------------------------
+
       - name: Load cached venv
         id: cached-poetry-dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: .venv
           key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
-      #----------------------------------------------
-      # install dependencies if cache does not exist
-      #----------------------------------------------
+
+      - name: Check venv cache
+        id: cache-validate
+        if: steps.cached-poetry-dependencies.outputs.cache-hit == 'true'
+        run: |
+          echo "print('venv good?')" > test.py && poetry run python test.py && echo ::set-output name=cache-hit-success::true
+          rm test.py
+        continue-on-error: true
+
       - name: Install dependencies
         run: |
           sudo apt-get update
           sudo apt-get install libsasl2-dev libldap2-dev libssl-dev tesseract-ocr-all
           poetry install
           poetry add "psycopg2-binary==2.8.6"
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true' || steps.cache-validate.outputs.cache-hit-success != 'true'
 
-      #----------------------------------------------
-      #              run test suite
-      #----------------------------------------------
       - name: Formatting (Black & isort)
         run: |
           poetry run black . --check
           poetry run isort . --check-only
+
       - name: Lint (Flake8)
         run: |
           make backend-lint
+
       - name: Mypy Typecheck
         run: |
           make backend-typecheck
+
       - name: Pytest
         env:
           DB_ENGINE: ${{ matrix.Database }}
