@@ -42,7 +42,7 @@ RUN apt-get update \
 
 # install poetry - respects $POETRY_VERSION & $POETRY_HOME
 ENV POETRY_VERSION=1.2.1
-RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python -
+RUN curl -sSL https://install.python-poetry.org | python3 -
 
 # copy project requirement files here to ensure they will be cached.
 WORKDIR $PYSETUP_PATH
