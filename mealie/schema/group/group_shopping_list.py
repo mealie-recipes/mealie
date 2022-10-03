@@ -8,13 +8,14 @@ from pydantic.utils import GetterDict
 
 from mealie.db.models.group.shopping_list import ShoppingList, ShoppingListItem
 from mealie.schema._mealie import MealieModel
+from mealie.schema._mealie.types import NoneFloat
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit
 from mealie.schema.response.pagination import PaginationBase
 
 
 class ShoppingListItemRecipeRef(MealieModel):
     recipe_id: UUID4
-    recipe_quantity: float
+    recipe_quantity: NoneFloat = 0
 
 
 class ShoppingListItemRecipeRefOut(ShoppingListItemRecipeRef):
