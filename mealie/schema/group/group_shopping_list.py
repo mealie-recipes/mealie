@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Optional, Union
 
-from pydantic import UUID4, validator
+from pydantic import UUID4
 from pydantic.utils import GetterDict
 
 from mealie.db.models.group.shopping_list import ShoppingList, ShoppingListItem
