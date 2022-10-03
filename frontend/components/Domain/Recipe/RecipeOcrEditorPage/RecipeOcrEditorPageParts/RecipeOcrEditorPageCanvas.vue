@@ -33,7 +33,7 @@
     >
     </canvas>
     <span style="white-space: pre-wrap">
-      {{ selectedText }}
+      {{ selectedText.trim() }}
     </span>
   </v-card>
 </template>

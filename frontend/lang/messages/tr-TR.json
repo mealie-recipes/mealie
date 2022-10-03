@@ -248,7 +248,8 @@
     "trim-prefix-description": "Trim first character from each line",
     "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns",
     "import-by-url": "Import a recipe by URL",
-    "create-manually": "Create a recipe manually"
+    "create-manually": "Create a recipe manually",
+    "make-recipe-image": "Bunu tarif resmi yap"
   },
   "page": {
     "404-page-not-found": "404 Page not found",
@@ -660,5 +661,34 @@
     "info_message_with_version": "This is a Demo for version: {version}",
     "demo_username": "Kullanıcı adı: {username}",
     "demo_password": "Şifre: {password}"
+  },
+  "ocr-editor": {
+    "ocr-editor": "Ocr editör",
+    "selection-mode": "Seçim modu",
+    "pan-and-zoom-picture": "Resmi kaydır ve yakınlaştır",
+    "split-text": "Bölünmüş metin",
+    "preserve-line-breaks": "Orijinal satır sonlarını koru",
+    "split-by-block": "Metin bloğuna göre böl",
+    "flatten": "Orijinal biçimlendirmeden bağımsız olarak düzleştir",
+    "help": {
+      "selection-mode": "Seçim Modu (varsayılan)",
+      "selection-mode-desc": "Seçim modu, veri girmek için kullanılabilecek ana moddur:",
+      "selection-mode-steps": {
+        "draw": "Seçmek istediğiniz metnin üzerine bir dikdörtgen çizin.",
+        "click": "Sağdaki herhangi bir alana tıklayın ve ardından resmin üzerindeki dikdörtgene geri tıklayın.",
+        "result": "Seçilen metin, önceden seçilen alanın içinde görünecektir."
+      },
+      "pan-and-zoom-mode": "Kaydırma ve Yakınlaştırma Modu",
+      "pan-and-zoom-desc": "Simgeye tıklayarak kaydırma ve yakınlaştırmayı seçin. Bu mod, büyük görüntülerin kullanımını kolaylaştırmak için görüntünün içinde yakınlaştırmaya ve hareket etmeye izin verir.",
+      "split-text-mode": "Bölünmüş Metin modları",
+      "split-modes": {
+        "line-mode": "Satır modu (varsayılan)",
+        "line-mode-desc": "Satır modunda, metin orijinal satır sonları korunarak yayılacaktır. Bu mod, bir bileşenin bir satır olduğu bir içerik listesine toplu ekleme kullanıldığında kullanışlıdır.",
+        "block-mode": "Blok modu",
+        "block-mode-desc": "Blok modunda metin bloklara bölünecektir. Bu mod, genellikle paragraflar halinde yazılan talimatları toplu olarak eklerken kullanışlıdır.",
+        "flat-mode": "Düz mod",
+        "flat-mode-desc": "Düz modda, metin, satır sonu olmadan seçilen tarif alanına eklenecektir."
+      }
+    }
   }
 }

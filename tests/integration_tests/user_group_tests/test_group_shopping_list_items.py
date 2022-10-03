@@ -1,6 +1,7 @@
 import random
 from uuid import uuid4
 
+import pytest
 from fastapi.testclient import TestClient
 from pydantic import UUID4
 
@@ -14,10 +15,12 @@ class Routes:
     shopping = "/api/groups/shopping"
     items = shopping + "/items"
 
-    def item(item_id: str) -> str:
+    @staticmethod
+    def item(item_id: str | UUID4) -> str:
         return f"{Routes.items}/{item_id}"
 
-    def shopping_list(list_id: str) -> str:
+    @staticmethod
+    def shopping_list(list_id: str | UUID4) -> str:
         return f"{Routes.shopping}/lists/{list_id}"
 
 
@@ -162,9 +165,9 @@ def test_shopping_list_items_update_many_reorder(
     response = api_client.get(Routes.shopping_list(list_with_items.id), headers=unique_user.token)
     response_list = utils.assert_derserialize(response, 200)
 
-    for i, item in enumerate(response_list["listItems"]):
-        assert item["position"] == i
-        assert item["id"] == str(list_items[i].id)
+    for i, item_data in enumerate(response_list["listItems"]):
+        assert item_data["position"] == i
+        assert item_data["id"] == str(list_items[i].id)
 
 
 def test_shopping_list_items_update_many_consolidates_common_items(
@@ -194,6 +197,7 @@ def test_shopping_list_items_update_many_consolidates_common_items(
     assert response_list["listItems"][0]["note"] == master_note
 
 
+@pytest.mark.skip("TODO: Implement")
 def test_shopping_list_items_update_many_remove_recipe_with_other_items(
     api_client: TestClient,
     unique_user: TestUser,
@@ -201,3 +205,38 @@ def test_shopping_list_items_update_many_remove_recipe_with_other_items(
 ) -> None:
     # list_items = list_with_items.list_items
     pass
+
+
+def test_shopping_list_item_extras(
+    api_client: TestClient, unique_user: TestUser, shopping_list: ShoppingListOut
+) -> None:
+    key_str_1 = random_string()
+    val_str_1 = random_string()
+
+    key_str_2 = random_string()
+    val_str_2 = random_string()
+
+    # create an item with extras
+    new_item_data = create_item(shopping_list.id)
+    new_item_data["extras"] = {key_str_1: val_str_1}
+
+    response = api_client.post(Routes.items, json=new_item_data, headers=unique_user.token)
+    item_as_json = utils.assert_derserialize(response, 201)
+
+    # make sure the extra persists
+    extras = item_as_json["extras"]
+    assert key_str_1 in extras
+    assert extras[key_str_1] == val_str_1
+
+    # add more extras to the item
+    item_as_json["extras"][key_str_2] = val_str_2
+
+    response = api_client.put(Routes.item(item_as_json["id"]), json=item_as_json, headers=unique_user.token)
+    item_as_json = utils.assert_derserialize(response, 200)
+
+    # make sure both the new extra and original extra persist
+    extras = item_as_json["extras"]
+    assert key_str_1 in extras
+    assert key_str_2 in extras
+    assert extras[key_str_1] == val_str_1
+    assert extras[key_str_2] == val_str_2

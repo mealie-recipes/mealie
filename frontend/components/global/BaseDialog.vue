@@ -7,6 +7,10 @@
       :width="width"
       :content-class="top ? 'top-dialog' : undefined"
       :fullscreen="$vuetify.breakpoint.xsOnly"
+      @keydown.enter="
+        $emit('submit');
+        dialog = false;
+      "
     >
       <v-card height="100%">
         <v-app-bar dark dense :color="color" class="">

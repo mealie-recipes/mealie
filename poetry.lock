@@ -1271,7 +1271,7 @@ rdflib = ">=5.0.0"
 
 [[package]]
 name = "recipe-scrapers"
-version = "14.14.0"
+version = "14.14.1"
 description = "Python package, scraping recipes from all over the internet"
 category = "main"
 optional = false
@@ -1281,6 +1281,8 @@ python-versions = ">=3.6"
 beautifulsoup4 = ">=4.10.0"
 extruct = ">=0.8.0"
 requests = ">=2.19.1"
+types-beautifulsoup4 = ">=4.11.6"
+types-requests = ">=2.28.10"
 
 [[package]]
 name = "requests"
@@ -1458,6 +1460,14 @@ optional = false
 python-versions = ">=3.6,<4.0"
 
 [[package]]
+name = "types-beautifulsoup4"
+version = "4.11.6"
+description = "Typing stubs for beautifulsoup4"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "types-python-dateutil"
 version = "2.8.18"
 description = "Typing stubs for python-dateutil"
@@ -1483,9 +1493,9 @@ python-versions = "*"
 
 [[package]]
 name = "types-requests"
-version = "2.28.0"
+version = "2.28.11"
 description = "Typing stubs for requests"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -1496,7 +1506,7 @@ types-urllib3 = "<1.27"
 name = "types-urllib3"
 version = "1.26.16"
 description = "Typing stubs for urllib3"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -1657,7 +1667,7 @@ pgsql = ["psycopg2-binary"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "ca180bde6c864c179c667a7602eea204e1fd4fc401f25189283a0632f41fb79a"
+content-hash = "cdb8c0e668b4ccc85b017a43f705432d989323a1558274e126e96d6434f2fe71"
 
 [metadata.files]
 aiofiles = [
@@ -2610,8 +2620,8 @@ rdflib-jsonld = [
     {file = "rdflib_jsonld-0.6.2-py2.py3-none-any.whl", hash = "sha256:011afe67672353ca9978ab9a4bee964dff91f14042f2d8a28c22a573779d2f8b"},
 ]
 recipe-scrapers = [
-    {file = "recipe_scrapers-14.14.0-py3-none-any.whl", hash = "sha256:47f87115bdbb612dcb42d39c4b6e79e66be4c229dbea4c685293dfa060f3a1fa"},
-    {file = "recipe_scrapers-14.14.0.tar.gz", hash = "sha256:d618131b76fee41e0fedbe333ef5438596ee5cf509081dde0ad5d1060d54b3dd"},
+    {file = "recipe_scrapers-14.14.1-py3-none-any.whl", hash = "sha256:c6fb87c9ebd8db1b1c04bd1356cd420a1cc46df79f04431b8e9c92a5a76c34e3"},
+    {file = "recipe_scrapers-14.14.1.tar.gz", hash = "sha256:1b2345a1ef9617863df981fcb43c9ad417aa8c10815ab917eeffbf55fea6b8ca"},
 ]
 requests = [
     {file = "requests-2.28.1-py3-none-any.whl", hash = "sha256:8fefa2a1a1365bf5520aac41836fbee479da67864514bdb821f31ce07ce65349"},
@@ -2703,6 +2713,10 @@ tomlkit = [
     {file = "tomlkit-0.11.1-py3-none-any.whl", hash = "sha256:1c5bebdf19d5051e2e1de6cf70adfc5948d47221f097fcff7a3ffc91e953eaf5"},
     {file = "tomlkit-0.11.1.tar.gz", hash = "sha256:61901f81ff4017951119cd0d1ed9b7af31c821d6845c8c477587bbdcd5e5854e"},
 ]
+types-beautifulsoup4 = [
+    {file = "types-beautifulsoup4-4.11.6.tar.gz", hash = "sha256:2670dd71995df464041e2941fa9bbb694795271e3dedd7262b4766649a1cbe82"},
+    {file = "types_beautifulsoup4-4.11.6-py3-none-any.whl", hash = "sha256:ac9dd1383481201ea07f27c5a43e7b1ee71caf9c720b7ae951db15d60d126e80"},
+]
 types-python-dateutil = [
     {file = "types-python-dateutil-2.8.18.tar.gz", hash = "sha256:8695c7d7a5b1aef4002f3ab4e1247e23b1d41cd7cc1286d4594c2d8c5593c991"},
     {file = "types_python_dateutil-2.8.18-py3-none-any.whl", hash = "sha256:fd5ed97262b76ae684695ea38ace8dd7c1bc9491aba7eb4edf6654b7ecabc870"},
@@ -2716,8 +2730,8 @@ types-pyyaml = [
     {file = "types_PyYAML-6.0.9-py3-none-any.whl", hash = "sha256:b738e9ef120da0af8c235ba49d3b72510f56ef9bcc308fc8e7357100ff122284"},
 ]
 types-requests = [
-    {file = "types-requests-2.28.0.tar.gz", hash = "sha256:9863d16dfbb3fa55dcda64fa3b989e76e8859033b26c1e1623e30465cfe294d3"},
-    {file = "types_requests-2.28.0-py3-none-any.whl", hash = "sha256:85383b4ef0535f639c3f06c5bbb6494bbf59570c4cd88bbcf540f0b2ac1b49ab"},
+    {file = "types-requests-2.28.11.tar.gz", hash = "sha256:7ee827eb8ce611b02b5117cfec5da6455365b6a575f5e3ff19f655ba603e6b4e"},
+    {file = "types_requests-2.28.11-py3-none-any.whl", hash = "sha256:af5f55e803cabcfb836dad752bd6d8a0fc8ef1cd84243061c0e27dee04ccf4fd"},
 ]
 types-urllib3 = [
     {file = "types-urllib3-1.26.16.tar.gz", hash = "sha256:8bb3832c684c30cbed40b96e28bc04703becb2b97d82ac65ba4b968783453b0e"},

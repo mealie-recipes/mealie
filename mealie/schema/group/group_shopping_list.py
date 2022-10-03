@@ -4,7 +4,9 @@ from datetime import datetime
 from typing import Optional, Union
 
 from pydantic import UUID4, validator
+from pydantic.utils import GetterDict
 
+from mealie.db.models.group.shopping_list import ShoppingList, ShoppingListItem
 from mealie.schema._mealie import MealieModel
 from mealie.schema._mealie.types import NoneFloat
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit
@@ -45,6 +47,7 @@ class ShoppingListItemCreate(MealieModel):
 
     label_id: Optional[UUID4] = None
     recipe_references: list[ShoppingListItemRecipeRef] = []
+    extras: Optional[dict] = {}
 
     created_at: Optional[datetime]
     update_at: Optional[datetime]
@@ -61,9 +64,17 @@ class ShoppingListItemOut(ShoppingListItemUpdate):
     class Config:
         orm_mode = True
 
+        @classmethod
+        def getter_dict(cls, name_orm: ShoppingListItem):
+            return {
+                **GetterDict(name_orm),
+                "extras": {x.key_name: x.value for x in name_orm.extras},
+            }
+
 
 class ShoppingListCreate(MealieModel):
     name: str = None
+    extras: Optional[dict] = {}
 
     created_at: Optional[datetime]
     update_at: Optional[datetime]
@@ -89,6 +100,13 @@ class ShoppingListSummary(ShoppingListSave):
 
     class Config:
         orm_mode = True
+
+        @classmethod
+        def getter_dict(cls, name_orm: ShoppingList):
+            return {
+                **GetterDict(name_orm),
+                "extras": {x.key_name: x.value for x in name_orm.extras},
+            }
 
 
 class ShoppingListPagination(PaginationBase):

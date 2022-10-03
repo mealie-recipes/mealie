@@ -1,9 +1,9 @@
 <template>
   <div>
     <v-card-text>
-      <v-switch v-model="webhookCopy.enabled" label="$t('general.enabled')"></v-switch>
-      <v-text-field v-model="webhookCopy.name" label="$t('settings.webhooks.webhook-name')"></v-text-field>
-      <v-text-field v-model="webhookCopy.url" label="$t('settings.webhooks.webhook-url')"></v-text-field>
+      <v-switch v-model="webhookCopy.enabled" :label="$t('general.enabled')"></v-switch>
+      <v-text-field v-model="webhookCopy.name" :label="$t('settings.webhooks.webhook-name')"></v-text-field>
+      <v-text-field v-model="webhookCopy.url" :label="$t('settings.webhooks.webhook-url')"></v-text-field>
       <v-time-picker v-model="scheduledTime" class="elevation-2" ampm-in-title format="ampm"></v-time-picker>
     </v-card-text>
     <v-card-actions class="py-0 justify-end">

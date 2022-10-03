@@ -2,6 +2,7 @@ from sqlalchemy import Boolean, Column, Float, ForeignKey, Integer, String, orm
 from sqlalchemy.ext.orderinglist import ordering_list
 
 from mealie.db.models.labels import MultiPurposeLabel
+from mealie.db.models.recipe.api_extras import ShoppingListExtras, ShoppingListItemExtras, api_extras
 
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import GUID, auto_init
@@ -38,6 +39,7 @@ class ShoppingListItem(SqlAlchemyBase, BaseMixins):
     note = Column(String)
 
     is_food = Column(Boolean, default=False)
+    extras: list[ShoppingListItemExtras] = orm.relationship("ShoppingListItemExtras", cascade="all, delete-orphan")
 
     # Scaling Items
     unit_id = Column(GUID, ForeignKey("ingredient_units.id"))
@@ -55,6 +57,7 @@ class ShoppingListItem(SqlAlchemyBase, BaseMixins):
     class Config:
         exclude = {"id", "label", "food", "unit"}
 
+    @api_extras
     @auto_init()
     def __init__(self, **_) -> None:
         pass
@@ -95,10 +98,12 @@ class ShoppingList(SqlAlchemyBase, BaseMixins):
     )
 
     recipe_references = orm.relationship(ShoppingListRecipeReference, cascade="all, delete, delete-orphan")
+    extras: list[ShoppingListExtras] = orm.relationship("ShoppingListExtras", cascade="all, delete-orphan")
 
     class Config:
         exclude = {"id", "list_items"}
 
+    @api_extras
     @auto_init()
     def __init__(self, **_) -> None:
         pass

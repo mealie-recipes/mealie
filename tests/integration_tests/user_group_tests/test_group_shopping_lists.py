@@ -1,6 +1,7 @@
 import random
 
 from fastapi.testclient import TestClient
+from pydantic import UUID4
 
 from mealie.schema.group.group_shopping_list import ShoppingListOut
 from mealie.schema.recipe.recipe import Recipe
@@ -12,17 +13,19 @@ from tests.utils.fixture_schemas import TestUser
 class Routes:
     base = "/api/groups/shopping/lists"
 
-    def item(item_id: str) -> str:
+    @staticmethod
+    def item(item_id: str | UUID4) -> str:
         return f"{Routes.base}/{item_id}"
 
-    def add_recipe(item_id: str, recipe_id: str) -> str:
+    @staticmethod
+    def add_recipe(item_id: str | UUID4, recipe_id: str | UUID4) -> str:
         return f"{Routes.item(item_id)}/recipe/{recipe_id}"
 
 
 def test_shopping_lists_get_all(api_client: TestClient, unique_user: TestUser, shopping_lists: list[ShoppingListOut]):
-    all_lists = api_client.get(Routes.base, headers=unique_user.token)
-    assert all_lists.status_code == 200
-    all_lists = all_lists.json()["items"]
+    response = api_client.get(Routes.base, headers=unique_user.token)
+    assert response.status_code == 200
+    all_lists = response.json()["items"]
 
     assert len(all_lists) == len(shopping_lists)
 
@@ -199,3 +202,39 @@ def test_shopping_lists_remove_recipe_multiple_quantity(
     refs = as_json["recipeReferences"]
     assert len(refs) == 1
     assert refs[0]["recipeId"] == str(recipe.id)
+
+
+def test_shopping_list_extras(
+    api_client: TestClient,
+    unique_user: TestUser,
+):
+    key_str_1 = random_string()
+    val_str_1 = random_string()
+
+    key_str_2 = random_string()
+    val_str_2 = random_string()
+
+    # create a list with extras
+    new_list_data: dict = {"name": random_string()}
+    new_list_data["extras"] = {key_str_1: val_str_1}
+
+    response = api_client.post(Routes.base, json=new_list_data, headers=unique_user.token)
+    list_as_json = utils.assert_derserialize(response, 201)
+
+    # make sure the extra persists
+    extras = list_as_json["extras"]
+    assert key_str_1 in extras
+    assert extras[key_str_1] == val_str_1
+
+    # add more extras to the list
+    list_as_json["extras"][key_str_2] = val_str_2
+
+    response = api_client.put(Routes.item(list_as_json["id"]), json=list_as_json, headers=unique_user.token)
+    list_as_json = utils.assert_derserialize(response, 200)
+
+    # make sure both the new extra and original extra persist
+    extras = list_as_json["extras"]
+    assert key_str_1 in extras
+    assert key_str_2 in extras
+    assert extras[key_str_1] == val_str_1
+    assert extras[key_str_2] == val_str_2
