@@ -663,15 +663,15 @@
     "demo_password": "Contrasenya: {password}"
   },
   "ocr-editor": {
-    "ocr-editor": "Ocr editor",
-    "selection-mode": "Selection mode",
-    "pan-and-zoom-picture": "Pan and zoom picture",
-    "split-text": "Split text",
-    "preserve-line-breaks": "Preserve original line breaks",
-    "split-by-block": "Split by text block",
+    "ocr-editor": "Editor OCR",
+    "selection-mode": "Mode de selecció",
+    "pan-and-zoom-picture": "Amplia la imatge",
+    "split-text": "Divideix el text",
+    "preserve-line-breaks": "Preserveu els salts de línia originals",
+    "split-by-block": "Dividiu per blocs de text",
     "flatten": "Flatten regardless of original formating",
     "help": {
-      "selection-mode": "Selection Mode (default)",
+      "selection-mode": "Mode de selecció (predeterminat)",
       "selection-mode-desc": "The selection mode is the main mode that can be used to enter data:",
       "selection-mode-steps": {
         "draw": "Draw a rectangle on the text you want to select.",

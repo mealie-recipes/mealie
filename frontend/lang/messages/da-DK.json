@@ -593,7 +593,7 @@
     "you-are-not-allowed-to-delete-this-user": "Du har ikke rettigheder til at slette denne bruger",
     "enable-advanced-content": "Tillad avanceret indhold",
     "enable-advanced-content-description": "Aktiverer avancerede funktioner som skalering af opskrifter, API-nøgler, Webhooks og data håndtering. Du kan altid ændre dit valgt senere",
-    "favorite-recipes": "Favorit Opskrifter"
+    "favorite-recipes": "Favoritopskrifter"
   },
   "language-dialog": {
     "translated": "oversat",
@@ -649,7 +649,7 @@
   "banner-experimental": {
     "title": "Eksperimentelle funktioner",
     "description": "Denne side indeholder eksperimentelle eller funktioner under udvikling. Undskyld rodet.",
-    "issue-link-text": "Følg dine fremskridt"
+    "issue-link-text": "Følg vores fremgang her"
   },
   "form": {
     "quantity-label-abbreviated": "Antal"
