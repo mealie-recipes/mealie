@@ -34,13 +34,14 @@ RUN apt-get update \
     build-essential \
     libpq-dev \
     libwebp-dev \
+    tesseract-ocr-all \
     # LDAP Dependencies
     libsasl2-dev libldap2-dev libssl-dev \
     gnupg gnupg2 gnupg1 \
     && pip install -U --no-cache-dir pip
 
 # install poetry - respects $POETRY_VERSION & $POETRY_HOME
-ENV POETRY_VERSION=1.1.6
+ENV POETRY_VERSION=1.2.1
 RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python -
 
 # copy project requirement files here to ensure they will be cached.
@@ -98,6 +99,7 @@ ENV GIT_COMMIT_HASH=$COMMIT
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
     curl gosu \
+    tesseract-ocr-all \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
 
