@@ -663,19 +663,19 @@
     "demo_password": "Mot de passe: {password}"
   },
   "ocr-editor": {
-    "ocr-editor": "Ocr editor",
-    "selection-mode": "Selection mode",
+    "ocr-editor": "Éditeur d'Ocr",
+    "selection-mode": "Mode de sélection",
     "pan-and-zoom-picture": "Pan and zoom picture",
     "split-text": "Split text",
     "preserve-line-breaks": "Preserve original line breaks",
-    "split-by-block": "Split by text block",
+    "split-by-block": "Séparer par bloc de texte",
     "flatten": "Flatten regardless of original formating",
     "help": {
-      "selection-mode": "Selection Mode (default)",
-      "selection-mode-desc": "The selection mode is the main mode that can be used to enter data:",
+      "selection-mode": "Mode de sélection (Par défaut)",
+      "selection-mode-desc": "Le mode de sélection est le mode principal qui peut être utilisé pour saisir des données :",
       "selection-mode-steps": {
         "draw": "Draw a rectangle on the text you want to select.",
-        "click": "Click on any field on the right and then click back on the rectangle above the image.",
+        "click": "Cliquez sur n'importe quel champ à droite, puis cliquez sur le rectangle au-dessus de l'image.",
         "result": "The selected text will appear inside the previously selected field."
       },
       "pan-and-zoom-mode": "Pan and Zoom Mode",
