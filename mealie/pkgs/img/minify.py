@@ -65,9 +65,6 @@ class PillowMinifier(ABCMinifier):
         Converts an image to the webp format in-place. The original image is not
         removed By default, the quality is set to 100.
         """
-        if image_file.suffix == WEBP:
-            return image_file
-
         img = Image.open(image_file)
 
         dest = dest or image_file.with_suffix(WEBP)
