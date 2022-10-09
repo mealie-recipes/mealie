@@ -249,7 +249,7 @@
     "split-by-numbered-line-description": "Tente de découper un paragraphe par correspondance de motifs : '1) ou '1.'",
     "import-by-url": "Importer une recette par son URL",
     "create-manually": "Créer une recette manuellement",
-    "make-recipe-image": "Make this the recipe image"
+    "make-recipe-image": "Faire de cette image l'image de recette"
   },
   "page": {
     "404-page-not-found": "404 Page introuvable",
@@ -665,29 +665,29 @@
   "ocr-editor": {
     "ocr-editor": "Éditeur d'Ocr",
     "selection-mode": "Mode de sélection",
-    "pan-and-zoom-picture": "Pan and zoom picture",
-    "split-text": "Split text",
-    "preserve-line-breaks": "Preserve original line breaks",
+    "pan-and-zoom-picture": "Déplacer et zoomer dans l'image",
+    "split-text": "Découper le texte",
+    "preserve-line-breaks": "Conserver les sauts de lignes d'origine",
     "split-by-block": "Séparer par bloc de texte",
-    "flatten": "Flatten regardless of original formating",
+    "flatten": "Aplatir quel que soit le formatage original",
     "help": {
       "selection-mode": "Mode de sélection (Par défaut)",
       "selection-mode-desc": "Le mode de sélection est le mode principal qui peut être utilisé pour saisir des données :",
       "selection-mode-steps": {
-        "draw": "Draw a rectangle on the text you want to select.",
+        "draw": "Dessiner un rectangle sur le texte que vous voulez sélectionner.",
         "click": "Cliquez sur n'importe quel champ à droite, puis cliquez sur le rectangle au-dessus de l'image.",
-        "result": "The selected text will appear inside the previously selected field."
+        "result": "Le texte sélectionné apparaîtra à l'intérieur du champ précédemment sélectionné."
       },
-      "pan-and-zoom-mode": "Pan and Zoom Mode",
-      "pan-and-zoom-desc": "Select pan and zoom by clicking the icon. This mode allows to zoom inside the image and move around to make using big images easier.",
-      "split-text-mode": "Split Text modes",
+      "pan-and-zoom-mode": "Mode Panoramique et Zoom",
+      "pan-and-zoom-desc": "Sélectionnez Panoramique et Zoom en cliquant sur l'icône. Ce mode permet de zoomer dans l'image et de la déplacer pour rendre l'utilisation des images de grande taille plus facile.",
+      "split-text-mode": "Modes de découpage de texte",
       "split-modes": {
-        "line-mode": "Line mode (default)",
-        "line-mode-desc": "In line mode, the text will be propagated by keeping the original line breaks. This mode is useful when using bulk add on a list of ingredients where one ingredient is one line.",
-        "block-mode": "Block mode",
-        "block-mode-desc": "In block mode, the text will be split in blocks. This mode is useful when bulk adding instructions that are usually written in paragraphs.",
-        "flat-mode": "Flat mode",
-        "flat-mode-desc": "In flat mode, the text will be added to the selected recipe field with no line breaks."
+        "line-mode": "Mode ligne (par défaut)",
+        "line-mode-desc": "En mode ligne, le texte sera propagé en gardant les sauts de ligne d'origine. Ce mode est utile lors de l'utilisation d'ajout en vrac sur une liste d'ingrédients où chaque ingrédient est une ligne.",
+        "block-mode": "Mode bloc",
+        "block-mode-desc": "En mode bloc, le texte sera divisé en blocs. Ce mode est utile lorsque vous ajoutez en masse des instructions qui sont généralement écrites en paragraphes.",
+        "flat-mode": "Mode à plat",
+        "flat-mode-desc": "En mode à plat, le texte sera ajouté au champ de recette sélectionné sans saut de ligne."
       }
     }
   }
