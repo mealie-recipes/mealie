@@ -1,11 +1,11 @@
-name: Trivy Container Scanning
+name: Trivy Frontend Container Scanning
 
 on:
   workflow_call:
 
 jobs:
   build:
-    name: Build and Scan Container
+    name: Build and Scan Frontend Container
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
@@ -15,7 +15,7 @@ jobs:
 
       - name: Build Dockerfile
         run: |
-          docker build -t mealie .
+          docker build -t mealie ./frontend/Dockerfile
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
