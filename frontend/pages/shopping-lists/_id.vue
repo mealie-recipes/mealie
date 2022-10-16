@@ -188,6 +188,7 @@
 import draggable from "vuedraggable";
 
 import { defineComponent, useAsync, useRoute, computed, ref, watch } from "@nuxtjs/composition-api";
+import { onUnmounted } from "vue-demi";
 import { useToggle } from "@vueuse/core";
 import { useCopyList } from "~/composables/use-copy";
 import { useUserApi } from "~/composables/api";
@@ -237,6 +238,12 @@ export default defineComponent({
     async function refresh() {
       shoppingList.value = await fetchShoppingList();
     }
+
+    // constantly polls for changes
+    const pollTimer: ReturnType<typeof setInterval> = setInterval(() => { refresh() }, 5000);
+    onUnmounted(() => {
+      clearInterval(pollTimer);
+    });
 
     // =====================================
     // List Item CRUD
