@@ -45,7 +45,7 @@ from mealie.schema.group.webhook import ReadWebhook
 from mealie.schema.labels import MultiPurposeLabelOut
 from mealie.schema.meal_plan.new_meal import ReadPlanEntry
 from mealie.schema.meal_plan.plan_rules import PlanRulesOut
-from mealie.schema.recipe import Recipe, RecipeCommentOut, RecipeTool
+from mealie.schema.recipe import Recipe, RecipeCommentOut, RecipeToolOut
 from mealie.schema.recipe.recipe_category import CategoryOut, TagOut
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit
 from mealie.schema.recipe.recipe_share_token import RecipeShareToken
@@ -104,8 +104,8 @@ class AllRepositories:
         return RepositoryUnit(self.session, PK_ID, IngredientUnitModel, IngredientUnit)
 
     @cached_property
-    def tools(self) -> RepositoryGeneric[RecipeTool, Tool]:
-        return RepositoryGeneric(self.session, PK_ID, Tool, RecipeTool)
+    def tools(self) -> RepositoryGeneric[RecipeToolOut, Tool]:
+        return RepositoryGeneric(self.session, PK_ID, Tool, RecipeToolOut)
 
     @cached_property
     def comments(self) -> RepositoryGeneric[RecipeCommentOut, RecipeComment]:

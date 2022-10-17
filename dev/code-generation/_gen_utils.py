@@ -22,7 +22,12 @@ def render_python_template(template_file: Path | str, dest: Path, data: dict):
         tplt = Template(template_file)
 
     text = tplt.render(data=data)
-    text = black.format_str(text, mode=black.FileMode())
+
+    try:
+        text = black.format_str(text, mode=black.FileMode())
+    except Exception:
+        log.error("Failed to format with Black")
+        log.info(text)
     dest.write_text(text)
     isort.file(dest)
 
@@ -90,7 +95,7 @@ def inject_inline(file_path: Path, key: str, code: list[str]) -> None:
 
     """
 
-    with open(file_path, "r") as f:
+    with open(file_path) as f:
         file_text = f.readlines()
 
     start, end, indentation = find_start_end(file_text, key)
