@@ -40,12 +40,13 @@ class EventSource:
 
 
 class EventBusService:
+    bg: BackgroundTasks | None
+    session: Session | None
+    group_id: UUID4 | None
+
     def __init__(
         self, bg: Optional[BackgroundTasks] = None, session: Optional[Session] = None, group_id: UUID4 | None = None
     ) -> None:
-        if not session:
-            session = next(generate_session())
-
         self.bg = bg
         self.session = session
         self.group_id = group_id
