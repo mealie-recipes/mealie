@@ -10,7 +10,7 @@ from mealie.services.recipe.recipe_data_service import RecipeDataService
 class MigrationReaders:
     @staticmethod
     def json(json_file: Path) -> dict:
-        with open(json_file, "r") as f:
+        with open(json_file) as f:
             return json.loads(f.read())
 
     @staticmethod
@@ -24,7 +24,7 @@ class MigrationReaders:
         Returns:
             dict: representing the yaml file as a dictionary
         """
-        with open(yaml_file, "r") as f:
+        with open(yaml_file) as f:
             contents = f.read().split("---")
             recipe_data = {}
             for document in contents:

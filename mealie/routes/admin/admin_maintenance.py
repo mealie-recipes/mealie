@@ -57,7 +57,7 @@ def clean_recipe_folders(root_dir: Path, dry_run: bool) -> int:
 
 def tail_log(log_file: Path, n: int) -> list[str]:
     try:
-        with open(log_file, "r") as f:
+        with open(log_file) as f:
             lines = f.readlines()
     except FileNotFoundError:
         return ["no log file found"]

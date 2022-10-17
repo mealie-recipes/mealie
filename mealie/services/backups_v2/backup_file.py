@@ -36,7 +36,7 @@ class BackupContents:
 
     def read_tables(self) -> dict:
         if self._tables is None:
-            with open(self.tables, "r") as f:
+            with open(self.tables) as f:
                 self._tables = json.load(f)
 
         return self._tables

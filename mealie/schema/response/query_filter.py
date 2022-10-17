@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import re
 from enum import Enum
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 
 from dateutil import parser as date_parser
 from dateutil.parser import ParserError
@@ -209,13 +209,13 @@ class QueryFilter:
     @staticmethod
     def _parse_base_components_into_filter_components(
         base_components: list[str],
-    ) -> list[Union[str, QueryFilterComponent, LogicalOperator]]:
+    ) -> list[str | QueryFilterComponent | LogicalOperator]:
         """Walk through base components and construct filter collections"""
         relational_operators = [op.value for op in RelationalOperator]
         logical_operators = [op.value for op in LogicalOperator]
 
         # parse QueryFilterComponents and logical operators
-        components: list[Union[str, QueryFilterComponent, LogicalOperator]] = []
+        components: list[str | QueryFilterComponent | LogicalOperator] = []
         for i, base_component in enumerate(base_components):
             if base_component in QueryFilter.seps:
                 components.append(base_component)

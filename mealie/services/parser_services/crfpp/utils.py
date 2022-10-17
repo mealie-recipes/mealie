@@ -95,7 +95,7 @@ def insideParenthesis(token, tokens):
     else:
         line = " ".join(tokens)
         return (
-            re.match(r".*\(.*" + re.escape(token) + ".*\).*", line) is not None  # noqa: W605 - invalid dscape sequence
+            re.match(r".*\(.*" + re.escape(token) + r".*\).*", line) is not None  # noqa: W605 - invalid dscape sequence
         )
 
 
@@ -107,7 +107,7 @@ def displayIngredient(ingredient):
         # => <span class='qty'>1</span> <span class='name'>cat pie</span>
     """
 
-    return "".join(["<span class='%s'>%s</span>" % (tag, " ".join(tokens)) for tag, tokens in ingredient])
+    return "".join(["<span class='{}'>{}</span>".format(tag, " ".join(tokens)) for tag, tokens in ingredient])
 
 
 # HACK: fix this
@@ -189,7 +189,7 @@ def import_data(lines):
 
             # turn B-NAME/123 back into "name"
             tag, confidence = re.split(r"/", columns[-1], 1)
-            tag = re.sub("^[BI]\-", "", tag).lower()  # noqa: W605 - invalid dscape sequence
+            tag = re.sub(r"^[BI]\-", "", tag).lower()  # noqa: W605 - invalid dscape sequence
 
             # ====================
             # Confidence Getter
@@ -231,9 +231,7 @@ def import_data(lines):
             data[-1][tag].append(token)
 
     # reassemble the output into a list of dicts.
-    output = [
-        dict([(k, smartJoin(tokens)) for k, tokens in ingredient.items()]) for ingredient in data if len(ingredient)
-    ]
+    output = [{k: smartJoin(tokens) for k, tokens in ingredient.items()} for ingredient in data if len(ingredient)]
 
     # Preclean Confidence
     for i, c in enumerate(confidence_all):

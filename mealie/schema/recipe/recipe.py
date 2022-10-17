@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import datetime
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any
 from uuid import uuid4
 
 from pydantic import UUID4, BaseModel, Field, validator
@@ -69,35 +69,35 @@ class CreateRecipe(MealieModel):
 
 
 class RecipeSummary(MealieModel):
-    id: Optional[UUID4]
+    id: UUID4 | None
 
     user_id: UUID4 = Field(default_factory=uuid4)
     group_id: UUID4 = Field(default_factory=uuid4)
 
-    name: Optional[str]
+    name: str | None
     slug: str = ""
-    image: Optional[Any]
-    recipe_yield: Optional[str]
+    image: Any | None
+    recipe_yield: str | None
 
-    total_time: Optional[str] = None
-    prep_time: Optional[str] = None
-    cook_time: Optional[str] = None
-    perform_time: Optional[str] = None
+    total_time: str | None = None
+    prep_time: str | None = None
+    cook_time: str | None = None
+    perform_time: str | None = None
 
-    description: Optional[str] = ""
-    recipe_category: Optional[list[RecipeCategory]] = []
-    tags: Optional[list[RecipeTag]] = []
+    description: str | None = ""
+    recipe_category: list[RecipeCategory] | None = []
+    tags: list[RecipeTag] | None = []
     tools: list[RecipeTool] = []
-    rating: Optional[int]
-    org_url: Optional[str] = Field(None, alias="orgURL")
+    rating: int | None
+    org_url: str | None = Field(None, alias="orgURL")
 
-    recipe_ingredient: Optional[list[RecipeIngredient]] = []
+    recipe_ingredient: list[RecipeIngredient] | None = []
 
-    date_added: Optional[datetime.date]
-    date_updated: Optional[datetime.datetime]
+    date_added: datetime.date | None
+    date_updated: datetime.datetime | None
 
-    created_at: Optional[datetime.datetime]
-    update_at: Optional[datetime.datetime]
+    created_at: datetime.datetime | None
+    update_at: datetime.datetime | None
 
     class Config:
         orm_mode = True
@@ -137,17 +137,17 @@ class RecipePagination(PaginationBase):
 
 class Recipe(RecipeSummary):
     recipe_ingredient: list[RecipeIngredient] = []
-    recipe_instructions: Optional[list[RecipeStep]] = []
-    nutrition: Optional[Nutrition]
+    recipe_instructions: list[RecipeStep] | None = []
+    nutrition: Nutrition | None
 
     # Mealie Specific
-    settings: Optional[RecipeSettings] = None
-    assets: Optional[list[RecipeAsset]] = []
-    notes: Optional[list[RecipeNote]] = []
-    extras: Optional[dict] = {}
-    is_ocr_recipe: Optional[bool] = False
+    settings: RecipeSettings | None = None
+    assets: list[RecipeAsset] | None = []
+    notes: list[RecipeNote] | None = []
+    extras: dict | None = {}
+    is_ocr_recipe: bool | None = False
 
-    comments: Optional[list[RecipeCommentOut]] = []
+    comments: list[RecipeCommentOut] | None = []
 
     @staticmethod
     def directory_from_id(recipe_id: UUID4 | str) -> Path:
@@ -205,7 +205,7 @@ class Recipe(RecipeSummary):
         return recipe_ingredient
 
 
-from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
+from mealie.schema.recipe.recipe_ingredient import RecipeIngredient  # noqa: E402
 
 RecipeSummary.update_forward_refs()
 Recipe.update_forward_refs()

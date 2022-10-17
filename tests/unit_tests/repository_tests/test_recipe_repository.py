@@ -11,7 +11,7 @@ from tests.utils.fixture_schemas import TestUser
 
 def test_recipe_repo_get_by_categories_basic(database: AllRepositories, unique_user: TestUser):
     # Bootstrap the database with categories
-    slug1, slug2, slug3 = [random_string(10) for _ in range(3)]
+    slug1, slug2, slug3 = (random_string(10) for _ in range(3))
 
     categories: list[CategoryOut | CategorySave] = [
         CategorySave(group_id=unique_user.group_id, name=slug1, slug=slug1),
@@ -68,7 +68,7 @@ def test_recipe_repo_get_by_categories_basic(database: AllRepositories, unique_u
 
 
 def test_recipe_repo_get_by_categories_multi(database: AllRepositories, unique_user: TestUser):
-    slug1, slug2 = [random_string(10) for _ in range(2)]
+    slug1, slug2 = (random_string(10) for _ in range(2))
 
     categories = [
         CategorySave(group_id=unique_user.group_id, name=slug1, slug=slug1),
@@ -120,7 +120,7 @@ def test_recipe_repo_get_by_categories_multi(database: AllRepositories, unique_u
 
 
 def test_recipe_repo_pagination_by_categories(database: AllRepositories, unique_user: TestUser):
-    slug1, slug2 = [random_string(10) for _ in range(2)]
+    slug1, slug2 = (random_string(10) for _ in range(2))
 
     categories = [
         CategorySave(group_id=unique_user.group_id, name=slug1, slug=slug1),
@@ -201,7 +201,7 @@ def test_recipe_repo_pagination_by_categories(database: AllRepositories, unique_
 
 
 def test_recipe_repo_pagination_by_tags(database: AllRepositories, unique_user: TestUser):
-    slug1, slug2 = [random_string(10) for _ in range(2)]
+    slug1, slug2 = (random_string(10) for _ in range(2))
 
     tags = [
         TagSave(group_id=unique_user.group_id, name=slug1, slug=slug1),
@@ -280,7 +280,7 @@ def test_recipe_repo_pagination_by_tags(database: AllRepositories, unique_user: 
 
 
 def test_recipe_repo_pagination_by_tools(database: AllRepositories, unique_user: TestUser):
-    slug1, slug2 = [random_string(10) for _ in range(2)]
+    slug1, slug2 = (random_string(10) for _ in range(2))
 
     tools = [
         RecipeToolSave(group_id=unique_user.group_id, name=slug1, slug=slug1),
