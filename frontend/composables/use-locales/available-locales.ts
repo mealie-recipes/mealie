@@ -3,12 +3,12 @@ export const LOCALES = [
   {
     name: "繁體中文 (Chinese traditional)",
     value: "zh-TW",
-    progress: 77,
+    progress: 68,
   },
   {
     name: "简体中文 (Chinese simplified)",
     value: "zh-CN",
-    progress: 64,
+    progress: 57,
   },
   {
     name: "Tiếng Việt (Vietnamese)",
@@ -23,32 +23,32 @@ export const LOCALES = [
   {
     name: "Türkçe (Turkish)",
     value: "tr-TR",
-    progress: 5,
+    progress: 32,
   },
   {
     name: "Svenska (Swedish)",
     value: "sv-SE",
-    progress: 93,
+    progress: 91,
   },
   {
     name: "српски (Serbian)",
     value: "sr-SP",
-    progress: 12,
+    progress: 11,
   },
   {
     name: "Slovenian",
     value: "sl-SI",
-    progress: 100,
+    progress: 95,
   },
   {
     name: "Slovak",
     value: "sk-SK",
-    progress: 78,
+    progress: 86,
   },
   {
     name: "Pусский (Russian)",
     value: "ru-RU",
-    progress: 64,
+    progress: 57,
   },
   {
     name: "Română (Romanian)",
@@ -58,27 +58,27 @@ export const LOCALES = [
   {
     name: "Português (Portuguese)",
     value: "pt-PT",
-    progress: 10,
+    progress: 9,
   },
   {
     name: "Português do Brasil (Brazilian Portuguese)",
     value: "pt-BR",
-    progress: 44,
+    progress: 39,
   },
   {
     name: "Polski (Polish)",
     value: "pl-PL",
-    progress: 99,
+    progress: 88,
   },
   {
     name: "Norsk (Norwegian)",
     value: "no-NO",
-    progress: 64,
+    progress: 80,
   },
   {
     name: "Nederlands (Dutch)",
     value: "nl-NL",
-    progress: 85,
+    progress: 91,
   },
   {
     name: "Lithuanian",
@@ -98,17 +98,17 @@ export const LOCALES = [
   {
     name: "Italiano (Italian)",
     value: "it-IT",
-    progress: 93,
+    progress: 83,
   },
   {
     name: "Magyar (Hungarian)",
     value: "hu-HU",
-    progress: 88,
+    progress: 78,
   },
   {
     name: "עברית (Hebrew)",
     value: "he-IL",
-    progress: 0,
+    progress: 33,
   },
   {
     name: "Français (French)",
@@ -118,17 +118,17 @@ export const LOCALES = [
   {
     name: "French, Canada",
     value: "fr-CA",
-    progress: 85,
+    progress: 84,
   },
   {
     name: "Suomi (Finnish)",
     value: "fi-FI",
-    progress: 0,
+    progress: 23,
   },
   {
     name: "Español (Spanish)",
     value: "es-ES",
-    progress: 64,
+    progress: 95,
   },
   {
     name: "American English",
@@ -138,17 +138,17 @@ export const LOCALES = [
   {
     name: "British English",
     value: "en-GB",
-    progress: 35,
+    progress: 32,
   },
   {
     name: "Ελληνικά (Greek)",
     value: "el-GR",
-    progress: 79,
+    progress: 70,
   },
   {
     name: "Deutsch (German)",
     value: "de-DE",
-    progress: 99,
+    progress: 100,
   },
   {
     name: "Dansk (Danish)",
@@ -158,12 +158,12 @@ export const LOCALES = [
   {
     name: "Čeština (Czech)",
     value: "cs-CZ",
-    progress: 55,
+    progress: 66,
   },
   {
     name: "Català (Catalan)",
     value: "ca-ES",
-    progress: 64,
+    progress: 95,
   },
   {
     name: "Bulgarian",
@@ -173,7 +173,7 @@ export const LOCALES = [
   {
     name: "العربية (Arabic)",
     value: "ar-SA",
-    progress: 11,
+    progress: 24,
   },
   {
     name: "Afrikaans (Afrikaans)",
