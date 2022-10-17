@@ -31,22 +31,31 @@ SessionLocal, engine = sql_global_init(settings.DB_URL)  # type: ignore
 
 
 @contextmanager
-def with_session() -> Session:
+def session_context() -> Session:
+    """
+    session_context() provides a managed session to the database that is automatically
+    closed when the context is exited. This is the preferred method of accessing the
+    database.
+
+    Note: use `generate_session` when using the `Depends` function from FastAPI
+    """
     global SessionLocal
     sess = SessionLocal()
-
     try:
         yield sess
     finally:
         sess.close()
 
 
-def create_session() -> Session:
-    global SessionLocal
-    return SessionLocal()
-
-
 def generate_session() -> Generator[Session, None, None]:
+    """
+    WARNING: This function should _only_ be called when used with
+    using the `Depends` function from FastAPI. This function will leak
+    sessions if used outside of the context of a request.
+
+    Use `with_session` instead. That function will allow you to use the
+    session within a context manager
+    """
     global SessionLocal
     db = SessionLocal()
     try:

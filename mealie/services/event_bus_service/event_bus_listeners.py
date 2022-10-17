@@ -10,7 +10,7 @@ from fastapi.encoders import jsonable_encoder
 from pydantic import UUID4
 from sqlalchemy.orm.session import Session
 
-from mealie.db.db_setup import with_session
+from mealie.db.db_setup import session_context
 from mealie.db.models.group.webhooks import GroupWebhooksModel
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
@@ -52,7 +52,7 @@ class EventListenerBase(ABC):
         run as a scheduled task, the session is not provided and must be created.
         """
         if self.session is None:
-            with with_session() as session:
+            with session_context() as session:
                 self.session = session
                 yield
 

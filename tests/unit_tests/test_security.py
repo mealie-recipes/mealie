@@ -5,7 +5,7 @@ from pytest import MonkeyPatch
 from mealie.core import security
 from mealie.core.config import get_app_settings
 from mealie.core.dependencies import validate_file_token
-from mealie.db.db_setup import create_session
+from mealie.db.db_setup import session_context
 from tests.utils.factories import random_string
 
 
@@ -47,5 +47,8 @@ def test_ldap_authentication_mocked(monkeypatch: MonkeyPatch):
     monkeypatch.setattr(ldap, "initialize", ldap_initialize_mock)
 
     get_app_settings.cache_clear()
-    result = security.authenticate_user(create_session(), user, password)
+
+    with session_context() as session:
+        result = security.authenticate_user(session, user, password)
+
     assert result is False

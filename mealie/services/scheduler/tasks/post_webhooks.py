@@ -3,7 +3,7 @@ from typing import Optional
 
 from pydantic import UUID4
 
-from mealie.db.db_setup import with_session
+from mealie.db.db_setup import session_context
 from mealie.repos.all_repositories import get_repositories
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.event_bus_service.event_bus_service import EventBusService
@@ -32,7 +32,7 @@ def post_group_webhooks(start_dt: Optional[datetime] = None, group_id: Optional[
     if group_id is None:
         # publish the webhook event to each group's event bus
 
-        with with_session() as session:
+        with session_context() as session:
             repos = get_repositories(session)
             groups_data = repos.groups.page_all(PaginationQuery(page=1, per_page=-1))
             group_ids = [group.id for group in groups_data.items]
