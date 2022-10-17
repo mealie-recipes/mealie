@@ -57,7 +57,7 @@ def get_indentation_of_string(line: str, comment_char: str = "//") -> str:
     return re.sub(rf"{comment_char}.*", "", line).removesuffix("\n")
 
 
-def find_start_end(file_text: list[str], gen_id: str) -> tuple[int, int]:
+def find_start_end(file_text: list[str], gen_id: str) -> tuple[int, int, str]:
     start = None
     end = None
     indentation = None

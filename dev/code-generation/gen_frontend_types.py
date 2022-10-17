@@ -114,9 +114,13 @@ def generate_typescript_types() -> None:
         log.error(f"   ❌ {f.name}")
 
 
-if __name__ == "__main__":
+def main():
     log.info("\n-- Starting Global Components Generator --")
     generate_global_components_types()
 
     log.info("\n-- Starting Pydantic To Typescript Generator --")
     generate_typescript_types()
+
+
+if __name__ == "__main__":
+    main()
