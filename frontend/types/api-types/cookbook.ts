@@ -5,11 +5,6 @@
 /* Do not modify it by hand - just update the pydantic models and then re-run the script
 */
 
-export interface CategoryBase {
-  name: string;
-  id: string;
-  slug: string;
-}
 export interface CreateCookBook {
   name: string;
   description?: string;
@@ -22,6 +17,11 @@ export interface CreateCookBook {
   requireAllCategories?: boolean;
   requireAllTags?: boolean;
   requireAllTools?: boolean;
+}
+export interface CategoryBase {
+  name: string;
+  id: string;
+  slug: string;
 }
 export interface TagBase {
   name: string;
@@ -112,6 +112,9 @@ export interface RecipeIngredient {
 export interface IngredientUnit {
   name: string;
   description?: string;
+  extras?: {
+    [k: string]: unknown;
+  };
   fraction?: boolean;
   abbreviation?: string;
   useAbbreviation?: boolean;
@@ -122,6 +125,9 @@ export interface IngredientUnit {
 export interface CreateIngredientUnit {
   name: string;
   description?: string;
+  extras?: {
+    [k: string]: unknown;
+  };
   fraction?: boolean;
   abbreviation?: string;
   useAbbreviation?: boolean;
@@ -129,6 +135,9 @@ export interface CreateIngredientUnit {
 export interface IngredientFood {
   name: string;
   description?: string;
+  extras?: {
+    [k: string]: unknown;
+  };
   labelId?: string;
   id: string;
   label?: MultiPurposeLabelSummary;
@@ -144,6 +153,9 @@ export interface MultiPurposeLabelSummary {
 export interface CreateIngredientFood {
   name: string;
   description?: string;
+  extras?: {
+    [k: string]: unknown;
+  };
   labelId?: string;
 }
 export interface SaveCookBook {

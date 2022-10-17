@@ -5,17 +5,13 @@
 /* Do not modify it by hand - just update the pydantic models and then re-run the script
 */
 
-export interface CategoryBase {
-  name: string;
-  id: string;
-  slug: string;
-}
 export interface ChangePassword {
   currentPassword: string;
   newPassword: string;
 }
 export interface CreateToken {
   name: string;
+  integrationId?: string;
   userId: string;
   token: string;
 }
@@ -47,6 +43,11 @@ export interface GroupInDB {
   webhooks?: unknown[];
   users?: UserOut[];
   preferences?: ReadGroupPreferences;
+}
+export interface CategoryBase {
+  name: string;
+  id: string;
+  slug: string;
 }
 export interface UserOut {
   username?: string;
@@ -83,9 +84,11 @@ export interface ReadGroupPreferences {
 }
 export interface LongLiveTokenIn {
   name: string;
+  integrationId?: string;
 }
 export interface LongLiveTokenInDB {
   name: string;
+  integrationId?: string;
   userId: string;
   token: string;
   id: number;
@@ -114,6 +117,57 @@ export interface PrivatePasswordResetToken {
   userId: string;
   token: string;
   user: PrivateUser;
+}
+export interface ResetPassword {
+  token: string;
+  email: string;
+  password: string;
+  passwordConfirm: string;
+}
+export interface SavePasswordResetToken {
+  userId: string;
+  token: string;
+}
+export interface Token {
+  access_token: string;
+  token_type: string;
+}
+export interface TokenData {
+  user_id?: string;
+  username?: string;
+}
+export interface UnlockResults {
+  unlocked?: number;
+}
+export interface UpdateGroup {
+  name: string;
+  id: string;
+  categories?: CategoryBase[];
+  webhooks?: unknown[];
+}
+export interface UserBase {
+  username?: string;
+  fullName?: string;
+  email: string;
+  admin?: boolean;
+  group?: string;
+  advanced?: boolean;
+  favoriteRecipes?: string[];
+  canInvite?: boolean;
+  canManage?: boolean;
+  canOrganize?: boolean;
+}
+export interface UserFavorites {
+  username?: string;
+  fullName?: string;
+  email: string;
+  admin?: boolean;
+  group?: string;
+  advanced?: boolean;
+  favoriteRecipes?: RecipeSummary[];
+  canInvite?: boolean;
+  canManage?: boolean;
+  canOrganize?: boolean;
 }
 export interface RecipeSummary {
   id?: string;
@@ -168,6 +222,9 @@ export interface RecipeIngredient {
 export interface IngredientUnit {
   name: string;
   description?: string;
+  extras?: {
+    [k: string]: unknown;
+  };
   fraction?: boolean;
   abbreviation?: string;
   useAbbreviation?: boolean;
@@ -178,6 +235,9 @@ export interface IngredientUnit {
 export interface CreateIngredientUnit {
   name: string;
   description?: string;
+  extras?: {
+    [k: string]: unknown;
+  };
   fraction?: boolean;
   abbreviation?: string;
   useAbbreviation?: boolean;
@@ -185,6 +245,9 @@ export interface CreateIngredientUnit {
 export interface IngredientFood {
   name: string;
   description?: string;
+  extras?: {
+    [k: string]: unknown;
+  };
   labelId?: string;
   id: string;
   label?: MultiPurposeLabelSummary;
@@ -200,58 +263,10 @@ export interface MultiPurposeLabelSummary {
 export interface CreateIngredientFood {
   name: string;
   description?: string;
+  extras?: {
+    [k: string]: unknown;
+  };
   labelId?: string;
-}
-export interface ResetPassword {
-  token: string;
-  email: string;
-  password: string;
-  passwordConfirm: string;
-}
-export interface SavePasswordResetToken {
-  userId: string;
-  token: string;
-}
-export interface Token {
-  access_token: string;
-  token_type: string;
-}
-export interface TokenData {
-  user_id?: string;
-  username?: string;
-}
-export interface UnlockResults {
-  unlocked?: number;
-}
-export interface UpdateGroup {
-  name: string;
-  id: string;
-  categories?: CategoryBase[];
-  webhooks?: unknown[];
-}
-export interface UserBase {
-  username?: string;
-  fullName?: string;
-  email: string;
-  admin?: boolean;
-  group?: string;
-  advanced?: boolean;
-  favoriteRecipes?: string[];
-  canInvite?: boolean;
-  canManage?: boolean;
-  canOrganize?: boolean;
-}
-export interface UserFavorites {
-  username?: string;
-  fullName?: string;
-  email: string;
-  admin?: boolean;
-  group?: string;
-  advanced?: boolean;
-  favoriteRecipes?: RecipeSummary[];
-  canInvite?: boolean;
-  canManage?: boolean;
-  canOrganize?: boolean;
 }
 export interface UserIn {
   username?: string;
