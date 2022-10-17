@@ -1,9 +1,11 @@
 import pathlib
+from pathlib import Path
 
 import _static
 import dotenv
 import requests
-from _gen_utils import log
+from _gen_utils import inject_inline, log
+from _static import CodeKeys
 from jinja2 import Template
 from requests import Response
 
@@ -126,11 +128,6 @@ class CrowdinApi:
         )
         return response.json()
 
-
-from pathlib import Path
-
-from _gen_utils import inject_inline
-from _static import CodeKeys
 
 PROJECT_DIR = Path(__file__).parent.parent.parent
 
