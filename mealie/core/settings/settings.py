@@ -13,7 +13,7 @@ def determine_secrets(data_dir: Path, production: bool) -> str:
 
     secrets_file = data_dir.joinpath(".secret")
     if secrets_file.is_file():
-        with open(secrets_file, "r") as f:
+        with open(secrets_file) as f:
             return f.read()
     else:
         data_dir.mkdir(parents=True, exist_ok=True)

@@ -105,7 +105,7 @@ class TemplateService(BaseService):
         if not j2_path.is_file():
             raise FileNotFoundError(f"Template '{j2_path}' not found.")
 
-        with open(j2_path, "r") as f:
+        with open(j2_path) as f:
             template_text = f.read()
 
         template = Template(template_text)

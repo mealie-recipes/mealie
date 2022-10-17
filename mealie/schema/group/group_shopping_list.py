@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Optional, Union
 
 from pydantic import UUID4
 from pydantic.utils import GetterDict
@@ -33,19 +32,19 @@ class ShoppingListItemCreate(MealieModel):
 
     is_food: bool = False
 
-    note: Optional[str] = ""
+    note: str | None = ""
     quantity: float = 1
     unit_id: UUID4 = None
-    unit: Optional[IngredientUnit]
+    unit: IngredientUnit | None
     food_id: UUID4 = None
-    food: Optional[IngredientFood]
+    food: IngredientFood | None
 
-    label_id: Optional[UUID4] = None
+    label_id: UUID4 | None = None
     recipe_references: list[ShoppingListItemRecipeRef] = []
-    extras: Optional[dict] = {}
+    extras: dict | None = {}
 
-    created_at: Optional[datetime]
-    update_at: Optional[datetime]
+    created_at: datetime | None
+    update_at: datetime | None
 
 
 class ShoppingListItemUpdate(ShoppingListItemCreate):
@@ -53,8 +52,8 @@ class ShoppingListItemUpdate(ShoppingListItemCreate):
 
 
 class ShoppingListItemOut(ShoppingListItemUpdate):
-    label: Optional[MultiPurposeLabelSummary]
-    recipe_references: list[Union[ShoppingListItemRecipeRef, ShoppingListItemRecipeRefOut]] = []
+    label: MultiPurposeLabelSummary | None
+    recipe_references: list[ShoppingListItemRecipeRef | ShoppingListItemRecipeRefOut] = []
 
     class Config:
         orm_mode = True
@@ -69,10 +68,10 @@ class ShoppingListItemOut(ShoppingListItemUpdate):
 
 class ShoppingListCreate(MealieModel):
     name: str = None
-    extras: Optional[dict] = {}
+    extras: dict | None = {}
 
-    created_at: Optional[datetime]
-    update_at: Optional[datetime]
+    created_at: datetime | None
+    update_at: datetime | None
 
 
 class ShoppingListRecipeRefOut(MealieModel):
@@ -119,8 +118,8 @@ class ShoppingListOut(ShoppingListUpdate):
         orm_mode = True
 
 
-from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary
-from mealie.schema.recipe.recipe import RecipeSummary
+from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary  # noqa: E402
+from mealie.schema.recipe.recipe import RecipeSummary  # noqa: E402
 
 ShoppingListRecipeRefOut.update_forward_refs()
 ShoppingListItemOut.update_forward_refs()

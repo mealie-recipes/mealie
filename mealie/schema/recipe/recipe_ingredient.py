@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import datetime
 import enum
-from typing import Optional, Union
 from uuid import UUID, uuid4
 
 from pydantic import UUID4, Field, validator
@@ -17,11 +16,11 @@ from mealie.schema.response.pagination import PaginationBase
 class UnitFoodBase(MealieModel):
     name: str
     description: str = ""
-    extras: Optional[dict] = {}
+    extras: dict | None = {}
 
 
 class CreateIngredientFood(UnitFoodBase):
-    label_id: Optional[UUID4] = None
+    label_id: UUID4 | None = None
 
 
 class SaveIngredientFood(CreateIngredientFood):
@@ -30,9 +29,9 @@ class SaveIngredientFood(CreateIngredientFood):
 
 class IngredientFood(CreateIngredientFood):
     id: UUID4
-    label: Optional[MultiPurposeLabelSummary] = None
-    created_at: Optional[datetime.datetime]
-    update_at: Optional[datetime.datetime]
+    label: MultiPurposeLabelSummary | None = None
+    created_at: datetime.datetime | None
+    update_at: datetime.datetime | None
 
     class Config:
         orm_mode = True
@@ -61,8 +60,8 @@ class SaveIngredientUnit(CreateIngredientUnit):
 
 class IngredientUnit(CreateIngredientUnit):
     id: UUID4
-    created_at: Optional[datetime.datetime]
-    update_at: Optional[datetime.datetime]
+    created_at: datetime.datetime | None
+    update_at: datetime.datetime | None
 
     class Config:
         orm_mode = True
@@ -73,13 +72,13 @@ class IngredientUnitPagination(PaginationBase):
 
 
 class RecipeIngredient(MealieModel):
-    title: Optional[str]
-    note: Optional[str]
-    unit: Optional[Union[IngredientUnit, CreateIngredientUnit]]
-    food: Optional[Union[IngredientFood, CreateIngredientFood]]
+    title: str | None
+    note: str | None
+    unit: IngredientUnit | CreateIngredientUnit | None
+    food: IngredientFood | CreateIngredientFood | None
     disable_amount: bool = True
     quantity: NoneFloat = 1
-    original_text: Optional[str]
+    original_text: str | None
 
     # Ref is used as a way to distinguish between an individual ingredient on the frontend
     # It is required for the reorder and section titles to function properly because of how
@@ -123,7 +122,7 @@ class IngredientConfidence(MealieModel):
 
 
 class ParsedIngredient(MealieModel):
-    input: Optional[str]
+    input: str | None
     confidence: IngredientConfidence = IngredientConfidence()
     ingredient: RecipeIngredient
 
@@ -153,6 +152,6 @@ class MergeUnit(MealieModel):
     to_unit: UUID4
 
 
-from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary
+from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary  # noqa: E402
 
 IngredientFood.update_forward_refs()
