@@ -3,7 +3,7 @@ from pathlib import Path
 
 from mealie.core import root_logger
 from mealie.core.config import get_app_dirs
-from mealie.db.db_setup import create_session
+from mealie.db.db_setup import session_context
 from mealie.db.models.group.exports import GroupDataExportsModel
 
 ONE_DAY_AS_MINUTES = 1440
@@ -15,20 +15,19 @@ def purge_group_data_exports(max_minutes_old=ONE_DAY_AS_MINUTES):
 
     logger.info("purging group data exports")
     limit = datetime.datetime.now() - datetime.timedelta(minutes=max_minutes_old)
-    session = create_session()
 
-    results = session.query(GroupDataExportsModel).filter(GroupDataExportsModel.expires <= limit)
+    with session_context() as session:
+        results = session.query(GroupDataExportsModel).filter(GroupDataExportsModel.expires <= limit)
 
-    total_removed = 0
-    for result in results:
-        session.delete(result)
-        Path(result.path).unlink(missing_ok=True)
-        total_removed += 1
+        total_removed = 0
+        for result in results:
+            session.delete(result)
+            Path(result.path).unlink(missing_ok=True)
+            total_removed += 1
 
-    session.commit()
-    session.close()
+        session.commit()
 
-    logger.info(f"finished purging group data exports. {total_removed} exports removed from group data")
+        logger.info(f"finished purging group data exports. {total_removed} exports removed from group data")
 
 
 def purge_excess_files() -> None:

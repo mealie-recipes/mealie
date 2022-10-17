@@ -9,7 +9,7 @@ from alembic.config import Config
 from alembic.runtime import migration
 from mealie.core import root_logger
 from mealie.core.config import get_app_settings
-from mealie.db.db_setup import create_session
+from mealie.db.db_setup import session_context
 from mealie.db.fixes.fix_slug_foods import fix_slug_food_names
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
@@ -67,41 +67,40 @@ def connect(session: orm.Session) -> bool:
 
 
 def main():
-    session = create_session()
-
     # Wait for database to connect
     max_retry = 10
     wait_seconds = 1
 
-    while True:
-        if connect(session):
-            logger.info("Database connection established.")
-            break
+    with session_context() as session:
+        while True:
+            if connect(session):
+                logger.info("Database connection established.")
+                break
 
-        logger.error(f"Database connection failed. Retrying in {wait_seconds} seconds...")
-        max_retry -= 1
+            logger.error(f"Database connection failed. Retrying in {wait_seconds} seconds...")
+            max_retry -= 1
 
-        sleep(wait_seconds)
+            sleep(wait_seconds)
 
-        if max_retry == 0:
-            raise ConnectionError("Database connection failed - exiting application.")
+            if max_retry == 0:
+                raise ConnectionError("Database connection failed - exiting application.")
 
-    alembic_cfg = Config(str(PROJECT_DIR / "alembic.ini"))
-    if db_is_at_head(alembic_cfg):
-        logger.info("Migration not needed.")
-    else:
-        logger.info("Migration needed. Performing migration...")
-        command.upgrade(alembic_cfg, "head")
+        alembic_cfg = Config(str(PROJECT_DIR / "alembic.ini"))
+        if db_is_at_head(alembic_cfg):
+            logger.info("Migration not needed.")
+        else:
+            logger.info("Migration needed. Performing migration...")
+            command.upgrade(alembic_cfg, "head")
 
-    db = get_repositories(session)
+        db = get_repositories(session)
 
-    if db.users.get_all():
-        logger.info("Database exists")
-    else:
-        logger.info("Database contains no users, initializing...")
-        init_db(db)
+        if db.users.get_all():
+            logger.info("Database exists")
+        else:
+            logger.info("Database contains no users, initializing...")
+            init_db(db)
 
-    safe_try(lambda: fix_slug_food_names(db))
+        safe_try(lambda: fix_slug_food_names(db))
 
 
 if __name__ == "__main__":
