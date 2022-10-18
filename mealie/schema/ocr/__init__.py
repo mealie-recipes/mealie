@@ -2,6 +2,6 @@
 from .ocr import OcrAssetReq, OcrTsvResponse
 
 __all__ = [
-    "OcrTsvResponse",
     "OcrAssetReq",
+    "OcrTsvResponse",
 ]

@@ -10,9 +10,9 @@ from .multi_purpose_label import (
 
 __all__ = [
     "MultiPurposeLabelCreate",
-    "MultiPurposeLabelSave",
-    "MultiPurposeLabelUpdate",
-    "MultiPurposeLabelSummary",
-    "MultiPurposeLabelPagination",
     "MultiPurposeLabelOut",
+    "MultiPurposeLabelPagination",
+    "MultiPurposeLabelSave",
+    "MultiPurposeLabelSummary",
+    "MultiPurposeLabelUpdate",
 ]

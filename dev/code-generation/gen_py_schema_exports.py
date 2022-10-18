@@ -35,6 +35,7 @@ class PyFile:
         self.classes = []
 
         self.classes = PyFile.extract_classes(path)
+        self.classes.sort()
 
     def import_str(self) -> str:
         """Returns a string that can be used to import the file"""
