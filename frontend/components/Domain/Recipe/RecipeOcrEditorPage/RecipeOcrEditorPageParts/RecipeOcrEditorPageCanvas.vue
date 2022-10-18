@@ -41,8 +41,13 @@
 <script lang="ts">
 import { defineComponent, reactive, useContext, ref, toRefs, watch } from "@nuxtjs/composition-api";
 import { onMounted } from "vue-demi";
-import { OcrTsvResponse } from "~/types/api-types/ocr";
+import { NoUndefinedField } from "~/types/api";
+import { OcrTsvResponse as NullableOcrTsvResponse } from "~/types/api-types/ocr";
 import { CanvasModes, SelectedTextSplitModes, ImagePosition, Mouse, CanvasRect, ToolbarIcons } from "~/types/ocr-types";
+
+// Temporary Shim until we have a better solution
+// https://github.com/phillipdupuis/pydantic-to-typescript/issues/28
+type OcrTsvResponse = NoUndefinedField<NullableOcrTsvResponse>;
 
 export default defineComponent({
   props: {

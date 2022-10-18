@@ -146,7 +146,7 @@ import { until } from "@vueuse/core";
 import { invoke } from "@vueuse/shared";
 import draggable from "vuedraggable";
 import { useUserApi, useStaticRoutes } from "~/composables/api";
-import { OcrTsvResponse } from "~/types/api-types/ocr";
+import { OcrTsvResponse as NullableOcrTsvResponse } from "~/types/api-types/ocr";
 import { validators } from "~/composables/use-validators";
 import { Recipe, RecipeIngredient, RecipeStep } from "~/types/api-types/recipe";
 import { Paths, Leaves, SelectedRecipeLeaves } from "~/types/ocr-types";
@@ -158,6 +158,10 @@ import RecipeOcrEditorPageCanvas from "~/components/Domain/Recipe/RecipeOcrEdito
 import RecipeOcrEditorPageHelp from "~/components/Domain/Recipe/RecipeOcrEditorPage/RecipeOcrEditorPageParts/RecipeOcrEditorPageHelp.vue";
 import { uuid4 } from "~/composables/use-utils";
 import { NoUndefinedField } from "~/types/api";
+
+// Temporary Shim until we have a better solution
+// https://github.com/phillipdupuis/pydantic-to-typescript/issues/28
+type OcrTsvResponse = NoUndefinedField<NullableOcrTsvResponse>;
 
 export default defineComponent({
   components: {
