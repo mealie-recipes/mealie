@@ -1,25 +1,15 @@
 import pytest
 from fastapi.testclient import TestClient
 
+from tests.utils import api_routes
 from tests.utils.factories import user_registration_factory
 from tests.utils.fixture_schemas import TestUser
-
-
-class Routes:
-    base = "/api/groups/invitations"
-    auth_token = "/api/auth/token"
-    self = "/api/users/self"
-
-    register = "/api/users/register"
-
-    def item(item_id: int) -> str:
-        return f"{Routes.base}/{item_id}"
 
 
 @pytest.fixture(scope="function")
 def invite(api_client: TestClient, unique_user: TestUser) -> None:
     # Test Creation
-    r = api_client.post(Routes.base, json={"uses": 2}, headers=unique_user.token)
+    r = api_client.post(api_routes.groups_invitations, json={"uses": 2}, headers=unique_user.token)
     assert r.status_code == 201
     invitation = r.json()
     return invitation["token"]
@@ -27,7 +17,7 @@ def invite(api_client: TestClient, unique_user: TestUser) -> None:
 
 def test_get_all_invitation(api_client: TestClient, unique_user: TestUser, invite: str) -> None:
     # Get All Invites
-    r = api_client.get(Routes.base, headers=unique_user.token)
+    r = api_client.get(api_routes.groups_invitations, headers=unique_user.token)
 
     assert r.status_code == 200
 
@@ -46,7 +36,7 @@ def register_user(api_client, invite):
     registration.group = ""
     registration.group_token = invite
 
-    response = api_client.post(Routes.register, json=registration.dict(by_alias=True))
+    response = api_client.post(api_routes.users_register, json=registration.dict(by_alias=True))
     return registration, response
 
 
@@ -57,13 +47,13 @@ def test_group_invitation_link(api_client: TestClient, unique_user: TestUser, in
     # Login as new User
     form_data = {"username": registration.email, "password": registration.password}
 
-    r = api_client.post(Routes.auth_token, form_data)
+    r = api_client.post(api_routes.auth_token, form_data)
     assert r.status_code == 200
     token = r.json().get("access_token")
     assert token is not None
 
     # Check user Group is Same
-    r = api_client.get(Routes.self, headers={"Authorization": f"Bearer {token}"})
+    r = api_client.get(api_routes.users_self, headers={"Authorization": f"Bearer {token}"})
 
     assert r.status_code == 200
     assert r.json()["groupId"] == unique_user.group_id

@@ -3,18 +3,19 @@ from datetime import date, timedelta
 from fastapi.testclient import TestClient
 
 from mealie.schema.meal_plan.new_meal import CreatePlanEntry
+from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
+
+
+def route_all_slice(page: int, perPage: int, start_date: str, end_date: str):
+    return f"{api_routes.groups_mealplans}?page={page}&perPage={perPage}&start_date={start_date}&end_date={end_date}"
 
 
 class Routes:
     base = "/api/groups/mealplans"
     recipe = "/api/recipes"
     today = "/api/groups/mealplans/today"
-
-    @staticmethod
-    def all_slice(page: int, perPage: int, start_date: str, end_date: str):
-        return f"{Routes.base}?page={page}&perPage={perPage}&start_date={start_date}&end_date={end_date}"
 
     @staticmethod
     def item(item_id: int) -> str:
@@ -138,7 +139,7 @@ def test_get_slice_mealplans(api_client: TestClient, unique_user: TestUser):
         start_date = date_range[0].strftime("%Y-%m-%d")
         end_date = date_range[-1].strftime("%Y-%m-%d")
 
-        response = api_client.get(Routes.all_slice(1, -1, start_date, end_date), headers=unique_user.token)
+        response = api_client.get(route_all_slice(1, -1, start_date, end_date), headers=unique_user.token)
 
         assert response.status_code == 200
         response_json = response.json()

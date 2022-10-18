@@ -2,22 +2,14 @@ from uuid import UUID
 
 import pytest
 from fastapi.testclient import TestClient
-from pydantic import UUID4
 
 from mealie.repos.all_repositories import AllRepositories
 from mealie.schema.meal_plan.plan_rules import PlanRulesOut, PlanRulesSave
 from mealie.schema.recipe.recipe import RecipeCategory
 from mealie.schema.recipe.recipe_category import CategorySave
 from tests import utils
+from tests.utils import api_routes
 from tests.utils.fixture_schemas import TestUser
-
-
-class Routes:
-    base = "/api/groups/mealplans/rules"
-
-    @staticmethod
-    def item(item_id: UUID4) -> str:
-        return f"{Routes.base}/{item_id}"
 
 
 @pytest.fixture(scope="function")
@@ -65,7 +57,9 @@ def test_group_mealplan_rules_create(
         "categories": [category.dict()],
     }
 
-    response = api_client.post(Routes.base, json=utils.jsonify(payload), headers=unique_user.token)
+    response = api_client.post(
+        api_routes.groups_mealplans_rules, json=utils.jsonify(payload), headers=unique_user.token
+    )
     assert response.status_code == 201
 
     # Validate the response data
@@ -90,7 +84,7 @@ def test_group_mealplan_rules_create(
 
 
 def test_group_mealplan_rules_read(api_client: TestClient, unique_user: TestUser, plan_rule: PlanRulesOut):
-    response = api_client.get(Routes.item(plan_rule.id), headers=unique_user.token)
+    response = api_client.get(api_routes.groups_mealplans_rules_item_id(plan_rule.id), headers=unique_user.token)
     assert response.status_code == 200
 
     # Validate the response data
@@ -109,7 +103,9 @@ def test_group_mealplan_rules_update(api_client: TestClient, unique_user: TestUs
         "entryType": "lunch",
     }
 
-    response = api_client.put(Routes.item(plan_rule.id), json=payload, headers=unique_user.token)
+    response = api_client.put(
+        api_routes.groups_mealplans_rules_item_id(plan_rule.id), json=payload, headers=unique_user.token
+    )
     assert response.status_code == 200
 
     # Validate the response data
@@ -124,7 +120,7 @@ def test_group_mealplan_rules_update(api_client: TestClient, unique_user: TestUs
 def test_group_mealplan_rules_delete(
     api_client: TestClient, unique_user: TestUser, plan_rule: PlanRulesOut, database: AllRepositories
 ):
-    response = api_client.delete(Routes.item(plan_rule.id), headers=unique_user.token)
+    response = api_client.delete(api_routes.groups_mealplans_rules_item_id(plan_rule.id), headers=unique_user.token)
     assert response.status_code == 200
 
     # Validate no entry in database

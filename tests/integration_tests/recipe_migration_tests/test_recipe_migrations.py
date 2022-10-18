@@ -6,14 +6,8 @@ from fastapi.testclient import TestClient
 
 from mealie.schema.group.group_migration import SupportedMigrations
 from tests import data as test_data
+from tests.utils import api_routes
 from tests.utils.fixture_schemas import TestUser
-
-
-class Routes:
-    base = "/api/groups/migrations"
-
-    def report(item_id: str) -> str:
-        return f"/api/groups/reports/{item_id}"
 
 
 @dataclass
@@ -47,14 +41,16 @@ def test_recipe_migration(api_client: TestClient, unique_user: TestUser, mig: Mi
         "archive": mig.archive.read_bytes(),
     }
 
-    response = api_client.post(Routes.base, data=payload, files=file_payload, headers=unique_user.token)
+    response = api_client.post(
+        api_routes.groups_migrations, data=payload, files=file_payload, headers=unique_user.token
+    )
 
     assert response.status_code == 200
 
     report_id = response.json()["id"]
 
     # Validate Results
-    response = api_client.get(Routes.report(report_id), headers=unique_user.token)
+    response = api_client.get(api_routes.groups_reports_item_id(report_id), headers=unique_user.token)
 
     assert response.status_code == 200
 
