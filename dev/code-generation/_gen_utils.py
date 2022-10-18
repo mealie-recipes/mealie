@@ -23,11 +23,8 @@ def render_python_template(template_file: Path | str, dest: Path, data: dict):
 
     text = tplt.render(data=data)
 
-    try:
-        text = black.format_str(text, mode=black.FileMode())
-    except Exception:
-        log.error("Failed to format with Black")
-        log.info(text)
+    text = black.format_str(text, mode=black.FileMode())
+
     dest.write_text(text)
     isort.file(dest)
 

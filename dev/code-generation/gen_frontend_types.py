@@ -102,24 +102,25 @@ def generate_typescript_types() -> None:
             failed_modules.append(module)
             log.error(f"Module Error: {e}")
 
-    log.info("\n📁 Skipped Directories:")
+    log.debug("\n📁 Skipped Directories:")
     for skipped_dir in skipped_dirs:
-        log.info(f"   📁 {skipped_dir.name}")
+        log.debug(f"   📁 {skipped_dir.name}")
 
-    log.info("📄 Skipped Files:")
+    log.debug("📄 Skipped Files:")
     for f in skipped_files:
-        log.info(f"   📄 {f.name}")
+        log.debug(f"   📄 {f.name}")
 
-    log.error("❌ Failed Modules:")
-    for f in failed_modules:
-        log.error(f"   ❌ {f.name}")
+    if len(failed_modules) > 0:
+        log.error("❌ Failed Modules:")
+        for f in failed_modules:
+            log.error(f"   ❌ {f.name}")
 
 
 def main():
-    log.info("\n-- Starting Global Components Generator --")
+    log.debug("\n-- Starting Global Components Generator --")
     generate_global_components_types()
 
-    log.info("\n-- Starting Pydantic To Typescript Generator --")
+    log.debug("\n-- Starting Pydantic To Typescript Generator --")
     generate_typescript_types()
 
 

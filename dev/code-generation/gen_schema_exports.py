@@ -65,7 +65,13 @@ class Modules:
             if file.name.startswith("_"):
                 continue
 
-            self.files.append(PyFile(file))
+            pfile = PyFile(file)
+
+            if len(pfile.classes) > 0:
+                self.files.append(pfile)
+
+            else:
+                log.debug(f"Skipping {file.name} as it has no classes")
 
 
 def find_modules(root: pathlib.Path) -> list[Modules]:
@@ -73,28 +79,23 @@ def find_modules(root: pathlib.Path) -> list[Modules]:
     modules: list[Modules] = []
     for file in root.iterdir():
         if file.is_dir() and file.name not in SKIP:
-            module_file = file / "__init__.py"
 
-            if module_file.exists():
-                modules.append(Modules(directory=file))
+            modules.append(Modules(directory=file))
 
     return modules
 
 
 def main():
-    log.info("Starting...")
 
     modules = find_modules(SCHEMA_PATH)
 
     for module in modules:
-        log.info(f"Module: {module.directory.name}")
+        log.debug(f"Module: {module.directory.name}")
         for file in module.files:
-            log.info(f"  File: {file.import_path}")
-            log.info(f"    Classes: [{', '.join(file.classes)}]")
+            log.debug(f"  File: {file.import_path}")
+            log.debug(f"    Classes: [{', '.join(file.classes)}]")
 
         render_python_template(template, module.directory / "__init__.py", {"module": module})
-
-    log.info("Finished...")
 
 
 if __name__ == "__main__":

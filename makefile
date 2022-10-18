@@ -129,3 +129,6 @@ docker-dev: ## 🐳 Build and Start Docker Development Stack
 
 docker-prod: ## 🐳 Build and Start Docker Production Stack
 	docker-compose -f docker-compose.yml -p mealie up --build
+
+generate:
+	poetry run python dev/code-generation/main.py

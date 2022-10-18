@@ -6,8 +6,6 @@ from _open_api_parser import OpenAPIParser
 from _static import CodeDest, CodeTemplates
 from rich.console import Console
 
-from mealie.app import app
-
 """
 This code is used for generating route objects for each route in the OpenAPI Specification.
 Currently, they are NOT automatically injected into the test suite. As such, you'll need to copy
@@ -25,7 +23,8 @@ def write_dict_to_file(file_name: str, data: dict[str, Any]):
 
 
 def main():
-    print("Starting...")
+    from mealie.app import app
+
     open_api = OpenAPIParser(app)
     modules = open_api.get_by_module()
 
@@ -45,8 +44,6 @@ def main():
         mods.append(module)
 
     render_python_template(CodeTemplates.pytest_routes, CodeDest.pytest_routes, {"mods": mods})
-
-    print("Finished...")
 
 
 if __name__ == "__main__":

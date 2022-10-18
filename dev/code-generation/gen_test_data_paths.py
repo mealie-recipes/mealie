@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from pathlib import Path
 
-from _gen_utils import log, render_python_template
+from _gen_utils import render_python_template
 from slugify import slugify
 
 CWD = Path(__file__).parent
@@ -97,8 +97,6 @@ def rename_non_compliant_paths():
 
 
 def main():
-    log.info("Starting Template Generation")
-
     rename_non_compliant_paths()
 
     GENERATED.mkdir(exist_ok=True)
@@ -114,8 +112,6 @@ def main():
         GENERATED / "__init__.py",
         {"children": all_children},
     )
-
-    log.info("Finished Template Generation")
 
 
 if __name__ == "__main__":
