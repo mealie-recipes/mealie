@@ -1,7 +1,8 @@
 # This Content is Auto Generated for Pytest
 prefix = "{{paths.prefix}}"
 {% for path in paths.static_paths %}
-{{ path.router_slug }} = "{{path.prefix}}{{ path.route }}"{% endfor %}
+{{ path.router_slug }} = "{{path.prefix}}{{ path.route }}"
+"""`{{path.prefix}}{{ path.route }}`"""{% endfor %}
 {% for path in paths.function_paths  %}
 
 def {{path.router_slug}}({{path.var|join(", ")}}):
