@@ -19,7 +19,6 @@ class Routes:
 
 @pytest.fixture(scope="function")
 def ten_slugs(api_client: TestClient, unique_user: TestUser, database: AllRepositories) -> list[str]:
-
     slugs = []
 
     for _ in range(10):
