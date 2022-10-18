@@ -100,127 +100,169 @@ class AppRoutes:
         self.validators_user_name = "/api/validators/user/name"
 
     def admin_backups_file_name(self, file_name):
+        """`/admin/backups/{file_name}`"""
         return f"{self.prefix}/admin/backups/{file_name}"
 
     def admin_backups_file_name_restore(self, file_name):
+        """`/admin/backups/{file_name}/restore`"""
         return f"{self.prefix}/admin/backups/{file_name}/restore"
 
     def admin_groups_item_id(self, item_id):
+        """`/admin/groups/{item_id}`"""
         return f"{self.prefix}/admin/groups/{item_id}"
 
     def admin_logs_num(self, num):
+        """`/admin/logs/{num}`"""
         return f"{self.prefix}/admin/logs/{num}"
 
     def admin_users_item_id(self, item_id):
+        """`/admin/users/{item_id}`"""
         return f"{self.prefix}/admin/users/{item_id}"
 
     def comments_item_id(self, item_id):
+        """`/comments/{item_id}`"""
         return f"{self.prefix}/comments/{item_id}"
 
     def explore_recipes_group_id_recipe_slug(self, group_id, recipe_slug):
+        """`/explore/recipes/{group_id}/{recipe_slug}`"""
         return f"{self.prefix}/explore/recipes/{group_id}/{recipe_slug}"
 
     def foods_item_id(self, item_id):
+        """`/foods/{item_id}`"""
         return f"{self.prefix}/foods/{item_id}"
 
     def groups_cookbooks_item_id(self, item_id):
+        """`/groups/cookbooks/{item_id}`"""
         return f"{self.prefix}/groups/cookbooks/{item_id}"
 
     def groups_events_notifications_item_id(self, item_id):
+        """`/groups/events/notifications/{item_id}`"""
         return f"{self.prefix}/groups/events/notifications/{item_id}"
 
     def groups_events_notifications_item_id_test(self, item_id):
+        """`/groups/events/notifications/{item_id}/test`"""
         return f"{self.prefix}/groups/events/notifications/{item_id}/test"
 
     def groups_labels_item_id(self, item_id):
+        """`/groups/labels/{item_id}`"""
         return f"{self.prefix}/groups/labels/{item_id}"
 
     def groups_mealplans_item_id(self, item_id):
+        """`/groups/mealplans/{item_id}`"""
         return f"{self.prefix}/groups/mealplans/{item_id}"
 
     def groups_mealplans_rules_item_id(self, item_id):
+        """`/groups/mealplans/rules/{item_id}`"""
         return f"{self.prefix}/groups/mealplans/rules/{item_id}"
 
     def groups_reports_item_id(self, item_id):
+        """`/groups/reports/{item_id}`"""
         return f"{self.prefix}/groups/reports/{item_id}"
 
     def groups_shopping_items_item_id(self, item_id):
+        """`/groups/shopping/items/{item_id}`"""
         return f"{self.prefix}/groups/shopping/items/{item_id}"
 
     def groups_shopping_lists_item_id(self, item_id):
+        """`/groups/shopping/lists/{item_id}`"""
         return f"{self.prefix}/groups/shopping/lists/{item_id}"
 
     def groups_shopping_lists_item_id_recipe_recipe_id(self, item_id, recipe_id):
+        """`/groups/shopping/lists/{item_id}/recipe/{recipe_id}`"""
         return f"{self.prefix}/groups/shopping/lists/{item_id}/recipe/{recipe_id}"
 
     def groups_webhooks_item_id(self, item_id):
+        """`/groups/webhooks/{item_id}`"""
         return f"{self.prefix}/groups/webhooks/{item_id}"
 
     def media_recipes_recipe_id_assets_file_name(self, recipe_id, file_name):
+        """`/media/recipes/{recipe_id}/assets/{file_name}`"""
         return f"{self.prefix}/media/recipes/{recipe_id}/assets/{file_name}"
 
     def media_recipes_recipe_id_images_file_name(self, recipe_id, file_name):
+        """`/media/recipes/{recipe_id}/images/{file_name}`"""
         return f"{self.prefix}/media/recipes/{recipe_id}/images/{file_name}"
 
     def media_users_user_id_file_name(self, user_id, file_name):
+        """`/media/users/{user_id}/{file_name}`"""
         return f"{self.prefix}/media/users/{user_id}/{file_name}"
 
     def organizers_categories_item_id(self, item_id):
+        """`/organizers/categories/{item_id}`"""
         return f"{self.prefix}/organizers/categories/{item_id}"
 
     def organizers_categories_slug_category_slug(self, category_slug):
+        """`/organizers/categories/slug/{category_slug}`"""
         return f"{self.prefix}/organizers/categories/slug/{category_slug}"
 
     def organizers_tags_item_id(self, item_id):
+        """`/organizers/tags/{item_id}`"""
         return f"{self.prefix}/organizers/tags/{item_id}"
 
     def organizers_tags_slug_tag_slug(self, tag_slug):
+        """`/organizers/tags/slug/{tag_slug}`"""
         return f"{self.prefix}/organizers/tags/slug/{tag_slug}"
 
     def organizers_tools_item_id(self, item_id):
+        """`/organizers/tools/{item_id}`"""
         return f"{self.prefix}/organizers/tools/{item_id}"
 
     def organizers_tools_slug_tool_slug(self, tool_slug):
+        """`/organizers/tools/slug/{tool_slug}`"""
         return f"{self.prefix}/organizers/tools/slug/{tool_slug}"
 
     def recipes_shared_token_id(self, token_id):
+        """`/recipes/shared/{token_id}`"""
         return f"{self.prefix}/recipes/shared/{token_id}"
 
     def recipes_slug(self, slug):
+        """`/recipes/{slug}`"""
         return f"{self.prefix}/recipes/{slug}"
 
     def recipes_slug_assets(self, slug):
+        """`/recipes/{slug}/assets`"""
         return f"{self.prefix}/recipes/{slug}/assets"
 
     def recipes_slug_comments(self, slug):
+        """`/recipes/{slug}/comments`"""
         return f"{self.prefix}/recipes/{slug}/comments"
 
     def recipes_slug_exports(self, slug):
+        """`/recipes/{slug}/exports`"""
         return f"{self.prefix}/recipes/{slug}/exports"
 
     def recipes_slug_exports_zip(self, slug):
+        """`/recipes/{slug}/exports/zip`"""
         return f"{self.prefix}/recipes/{slug}/exports/zip"
 
     def recipes_slug_image(self, slug):
+        """`/recipes/{slug}/image`"""
         return f"{self.prefix}/recipes/{slug}/image"
 
     def shared_recipes_item_id(self, item_id):
+        """`/shared/recipes/{item_id}`"""
         return f"{self.prefix}/shared/recipes/{item_id}"
 
     def units_item_id(self, item_id):
+        """`/units/{item_id}`"""
         return f"{self.prefix}/units/{item_id}"
 
     def users_api_tokens_token_id(self, token_id):
+        """`/users/api-tokens/{token_id}`"""
         return f"{self.prefix}/users/api-tokens/{token_id}"
 
     def users_id_favorites(self, id):
+        """`/users/{id}/favorites`"""
         return f"{self.prefix}/users/{id}/favorites"
 
     def users_id_favorites_slug(self, id, slug):
+        """`/users/{id}/favorites/{slug}`"""
         return f"{self.prefix}/users/{id}/favorites/{slug}"
 
     def users_id_image(self, id):
+        """`/users/{id}/image`"""
         return f"{self.prefix}/users/{id}/image"
 
     def users_item_id(self, item_id):
+        """`/users/{item_id}`"""
         return f"{self.prefix}/users/{item_id}"

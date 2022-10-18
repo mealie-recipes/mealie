@@ -8,5 +8,6 @@ class AppRoutes:
         self.{{ path.router_slug }} = "{{path.prefix}}{{ path.route }}"{% endfor %}
 {% for path in paths.function_paths  %}
     def {{path.router_slug}}(self, {{path.var|join(", ")}}):
+        """`{{ paths.repfix }}{{ path.route }}`"""
         return f"{self.prefix}{{ path.route }}"
 {% endfor %}
