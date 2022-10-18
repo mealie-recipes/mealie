@@ -1,14 +1,12 @@
 import pathlib
 from pathlib import Path
 
-import _static
 import dotenv
 import requests
-from _gen_utils import inject_inline, log
-from _static import CodeKeys
 from jinja2 import Template
 from pydantic import Extra
 from requests import Response
+from utils import CodeDest, CodeKeys, inject_inline, log
 
 from mealie.schema._mealie import MealieModel
 
@@ -165,8 +163,8 @@ def generate_locales_ts_file():
     tmpl = Template(LOCALE_TEMPLATE)
     rendered = tmpl.render(locales=models)
 
-    log.debug(f"generating locales ts file -> {_static.CodeDest.use_locales}")
-    with open(_static.CodeDest.use_locales, "w") as f:
+    log.debug(f"generating locales ts file -> {CodeDest.use_locales}")
+    with open(CodeDest.use_locales, "w") as f:
         f.write(rendered)  # type:ignore
 
 

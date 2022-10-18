@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from pathlib import Path
 
-from _gen_utils import render_python_template
 from slugify import slugify
+from utils import render_python_template
 
 CWD = Path(__file__).parent
 

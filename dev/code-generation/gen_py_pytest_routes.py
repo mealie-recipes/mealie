@@ -1,10 +1,8 @@
 import json
 from typing import Any
 
-from _gen_utils import render_python_template
-from _open_api_parser import OpenAPIParser
-from _static import CodeDest, CodeTemplates
 from rich.console import Console
+from utils import CodeDest, CodeTemplates, OpenAPIParser, render_python_template
 
 """
 This code is used for generating route objects for each route in the OpenAPI Specification.

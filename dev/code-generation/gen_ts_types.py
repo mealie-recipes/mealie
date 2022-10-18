@@ -1,8 +1,8 @@
 from pathlib import Path
 
-from _gen_utils import log
 from jinja2 import Template
 from pydantic2ts import generate_typescript_defs
+from utils import log
 
 # ============================================================
 
