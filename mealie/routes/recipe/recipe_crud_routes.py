@@ -3,10 +3,10 @@ from shutil import copyfileobj
 from typing import Optional
 from zipfile import ZipFile
 
+import orjson
 import sqlalchemy
 from fastapi import BackgroundTasks, Depends, File, Form, HTTPException, Query, Request, status
 from fastapi.datastructures import UploadFile
-from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from pydantic import UUID4, BaseModel, Field
 from slugify import slugify
@@ -25,13 +25,7 @@ from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.recipe import Recipe, RecipeImageTypes, ScrapeRecipe
-from mealie.schema.recipe.recipe import (
-    CreateRecipe,
-    CreateRecipeByUrlBulk,
-    RecipePagination,
-    RecipePaginationQuery,
-    RecipeSummary,
-)
+from mealie.schema.recipe.recipe import CreateRecipe, CreateRecipeByUrlBulk, RecipePagination, RecipePaginationQuery
 from mealie.schema.recipe.recipe_asset import RecipeAsset
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_scraper import ScrapeRecipeTest
@@ -53,6 +47,18 @@ from mealie.services.scraper.recipe_bulk_scraper import RecipeBulkScraperService
 from mealie.services.scraper.scraped_extras import ScraperContext
 from mealie.services.scraper.scraper import create_from_url
 from mealie.services.scraper.scraper_strategies import ForceTimeoutException, RecipeScraperPackage
+
+
+class JSONBytes(JSONResponse):
+    """
+    JSONBytes overrides the render method to return the bytes instead of a string.
+    You can use this when you want to use orjson and bypass the jsonable_encoder
+    """
+
+    media_type = "application/json"
+
+    def render(self, content: bytes) -> bytes:
+        return content
 
 
 class BaseRecipeController(BaseCrudController):
@@ -260,21 +266,10 @@ class RecipeController(BaseRecipeController):
             {k: v for k, v in query_params.items() if v is not None},
         )
 
-        new_items = []
-        for item in pagination_response.items:
-            # Pydantic/FastAPI can't seem to serialize the ingredient field on their own.
-            new_item = item.__dict__
-
-            if q.load_food:
-                new_item["recipe_ingredient"] = [x.__dict__ for x in item.recipe_ingredient]
-
-            new_items.append(new_item)
-
-        pagination_response.items = [RecipeSummary.construct(**x) for x in new_items]
-        json_compatible_response = jsonable_encoder(pagination_response)
+        json_compatible_response = orjson.dumps(pagination_response.dict(by_alias=True))
 
         # Response is returned directly, to avoid validation and improve performance
-        return JSONResponse(content=json_compatible_response)
+        return JSONBytes(content=json_compatible_response)
 
     @router.get("/{slug}", response_model=Recipe)
     def get_one(self, slug: str):

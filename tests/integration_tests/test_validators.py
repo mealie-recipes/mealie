@@ -5,28 +5,8 @@ from fastapi.testclient import TestClient
 
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import Recipe
-from tests.utils import random_string
+from tests.utils import api_routes, random_string
 from tests.utils.fixture_schemas import TestUser
-
-
-class Routes:
-    base = "/api/validators"
-
-    @staticmethod
-    def username(username: str):
-        return f"{Routes.base}/user/name?name={username}"
-
-    @staticmethod
-    def email(email: str):
-        return f"{Routes.base}/user/email?email={email}"
-
-    @staticmethod
-    def group(group_name: str):
-        return f"{Routes.base}/group?name={group_name}"
-
-    @staticmethod
-    def recipe(group_id, name) -> str:
-        return f"{Routes.base}/recipe?group_id={group_id}&name={name}"
 
 
 @dataclass(slots=True)
@@ -42,7 +22,7 @@ def test_validators_username(api_client: TestClient, unique_user: TestUser):
     ]
 
     for user in users:
-        response = api_client.get(Routes.username(user.value))
+        response = api_client.get(api_routes.validators_user_name + "?name=" + user.value)
         assert response.status_code == 200
         response_data = response.json()
         assert response_data["valid"] == user.is_valid
@@ -55,7 +35,7 @@ def test_validators_email(api_client: TestClient, unique_user: TestUser):
     ]
 
     for user in emails:
-        response = api_client.get(Routes.email(user.value))
+        response = api_client.get(api_routes.validators_user_email + "?email=" + user.value)
         assert response.status_code == 200
         response_data = response.json()
         assert response_data["valid"] == user.is_valid
@@ -70,7 +50,7 @@ def test_validators_group_name(api_client: TestClient, unique_user: TestUser, da
     ]
 
     for user in groups:
-        response = api_client.get(Routes.group(user.value))
+        response = api_client.get(api_routes.validators_group + "?name=" + user.value)
         assert response.status_code == 200
         response_data = response.json()
         assert response_data["valid"] == user.is_valid
@@ -91,7 +71,7 @@ def test_validators_recipe(api_client: TestClient, random_recipe: Recipe):
     ]
 
     for recipe in recipes:
-        response = api_client.get(Routes.recipe(recipe.group, recipe.name))
+        response = api_client.get(api_routes.validators_recipe + f"?group_id={recipe.group}&name={recipe.name}")
         assert response.status_code == 200
         response_data = response.json()
         assert response_data["valid"] == recipe.is_valid

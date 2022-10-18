@@ -25,7 +25,7 @@ help:
 
 .PHONY: docs
 docs: ## 📄 Start Mkdocs Development Server
-	poetry run python dev/scripts/api_docs_gen.py && \
+	poetry run python dev/code-generation/gen_docs_api.py && \
 	cd docs && poetry run python -m mkdocs serve
 
 code-gen: ## 🤖 Run Code-Gen Scripts
@@ -129,3 +129,6 @@ docker-dev: ## 🐳 Build and Start Docker Development Stack
 
 docker-prod: ## 🐳 Build and Start Docker Production Stack
 	docker-compose -f docker-compose.yml -p mealie up --build
+
+generate:
+	poetry run python dev/code-generation/main.py

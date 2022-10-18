@@ -5,6 +5,8 @@
 /* Do not modify it by hand - just update the pydantic models and then re-run the script
 */
 
+export type OrderDirection = "asc" | "desc";
+
 export interface ErrorResponse {
   message: string;
   error?: boolean;
@@ -12,6 +14,13 @@ export interface ErrorResponse {
 }
 export interface FileTokenResponse {
   fileToken: string;
+}
+export interface PaginationQuery {
+  page?: number;
+  perPage?: number;
+  orderBy?: string;
+  orderDirection?: OrderDirection & string;
+  queryFilter?: string;
 }
 export interface SuccessResponse {
   message: string;

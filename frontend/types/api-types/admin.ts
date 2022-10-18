@@ -133,6 +133,9 @@ export interface RecipeIngredient {
 export interface IngredientUnit {
   name: string;
   description?: string;
+  extras?: {
+    [k: string]: unknown;
+  };
   fraction?: boolean;
   abbreviation?: string;
   useAbbreviation?: boolean;
@@ -143,6 +146,9 @@ export interface IngredientUnit {
 export interface CreateIngredientUnit {
   name: string;
   description?: string;
+  extras?: {
+    [k: string]: unknown;
+  };
   fraction?: boolean;
   abbreviation?: string;
   useAbbreviation?: boolean;
@@ -150,6 +156,9 @@ export interface CreateIngredientUnit {
 export interface IngredientFood {
   name: string;
   description?: string;
+  extras?: {
+    [k: string]: unknown;
+  };
   labelId?: string;
   id: string;
   label?: MultiPurposeLabelSummary;
@@ -165,6 +174,9 @@ export interface MultiPurposeLabelSummary {
 export interface CreateIngredientFood {
   name: string;
   description?: string;
+  extras?: {
+    [k: string]: unknown;
+  };
   labelId?: string;
 }
 export interface CustomPageImport {

@@ -2,17 +2,12 @@ from fastapi.testclient import TestClient
 
 from mealie.core.config import get_app_settings
 from mealie.core.settings.static import APP_VERSION
+from tests.utils import api_routes
 from tests.utils.fixture_schemas import TestUser
 
 
-class Routes:
-    base = "/api/admin/about"
-    statistics = f"{base}/statistics"
-    check = f"{base}/check"
-
-
 def test_admin_about_get_app_info(api_client: TestClient, admin_user: TestUser):
-    response = api_client.get(Routes.base, headers=admin_user.token)
+    response = api_client.get(api_routes.admin_about, headers=admin_user.token)
 
     as_dict = response.json()
 
@@ -28,7 +23,7 @@ def test_admin_about_get_app_info(api_client: TestClient, admin_user: TestUser):
 
 
 def test_admin_about_get_app_statistics(api_client: TestClient, admin_user: TestUser):
-    response = api_client.get(Routes.statistics, headers=admin_user.token)
+    response = api_client.get(api_routes.admin_about_statistics, headers=admin_user.token)
 
     as_dict = response.json()
 
@@ -41,7 +36,7 @@ def test_admin_about_get_app_statistics(api_client: TestClient, admin_user: Test
 
 
 def test_admin_about_check_app_config(api_client: TestClient, admin_user: TestUser):
-    response = api_client.get(Routes.check, headers=admin_user.token)
+    response = api_client.get(api_routes.admin_about_check, headers=admin_user.token)
 
     as_dict = response.json()
 

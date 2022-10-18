@@ -5,16 +5,9 @@ from fastapi.testclient import TestClient
 
 from mealie.schema.recipe.recipe_ingredient import CreateIngredientFood
 from tests import utils
+from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
-
-
-class Routes:
-    base = "/api/foods"
-
-    @staticmethod
-    def item(item_id: int) -> str:
-        return f"{Routes.base}/{item_id}"
 
 
 @pytest.fixture(scope="function")
@@ -24,13 +17,13 @@ def food(api_client: TestClient, unique_user: TestUser) -> Generator[dict, None,
         description=random_string(10),
     ).dict(by_alias=True)
 
-    response = api_client.post(Routes.base, json=data, headers=unique_user.token)
+    response = api_client.post(api_routes.foods, json=data, headers=unique_user.token)
 
     assert response.status_code == 201
 
     yield response.json()
 
-    response = api_client.delete(Routes.item(response.json()["id"]), headers=unique_user.token)
+    response = api_client.delete(api_routes.foods_item_id(response.json()["id"]), headers=unique_user.token)
 
 
 def test_create_food(api_client: TestClient, unique_user: TestUser):
@@ -39,12 +32,12 @@ def test_create_food(api_client: TestClient, unique_user: TestUser):
         description=random_string(10),
     ).dict(by_alias=True)
 
-    response = api_client.post(Routes.base, json=data, headers=unique_user.token)
+    response = api_client.post(api_routes.foods, json=data, headers=unique_user.token)
     assert response.status_code == 201
 
 
 def test_read_food(api_client: TestClient, food: dict, unique_user: TestUser):
-    response = api_client.get(Routes.item(food["id"]), headers=unique_user.token)
+    response = api_client.get(api_routes.foods_item_id(food["id"]), headers=unique_user.token)
     assert response.status_code == 200
 
     as_json = response.json()
@@ -60,7 +53,7 @@ def test_update_food(api_client: TestClient, food: dict, unique_user: TestUser):
         "name": random_string(10),
         "description": random_string(10),
     }
-    response = api_client.put(Routes.item(food["id"]), json=update_data, headers=unique_user.token)
+    response = api_client.put(api_routes.foods_item_id(food["id"]), json=update_data, headers=unique_user.token)
     assert response.status_code == 200
     as_json = response.json()
 
@@ -72,11 +65,11 @@ def test_update_food(api_client: TestClient, food: dict, unique_user: TestUser):
 def test_delete_food(api_client: TestClient, food: dict, unique_user: TestUser):
     id = food["id"]
 
-    response = api_client.delete(Routes.item(id), headers=unique_user.token)
+    response = api_client.delete(api_routes.foods_item_id(id), headers=unique_user.token)
 
     assert response.status_code == 200
 
-    response = api_client.get(Routes.item(id), headers=unique_user.token)
+    response = api_client.get(api_routes.foods_item_id(id), headers=unique_user.token)
     assert response.status_code == 404
 
 
@@ -94,7 +87,7 @@ def test_food_extras(
     new_food_data: dict = {"name": random_string()}
     new_food_data["extras"] = {key_str_1: val_str_1}
 
-    response = api_client.post(Routes.base, json=new_food_data, headers=unique_user.token)
+    response = api_client.post(api_routes.foods, json=new_food_data, headers=unique_user.token)
     food_as_json = utils.assert_derserialize(response, 201)
 
     # make sure the extra persists
@@ -105,7 +98,9 @@ def test_food_extras(
     # add more extras to the food
     food_as_json["extras"][key_str_2] = val_str_2
 
-    response = api_client.put(Routes.item(food_as_json["id"]), json=food_as_json, headers=unique_user.token)
+    response = api_client.put(
+        api_routes.foods_item_id(food_as_json["id"]), json=food_as_json, headers=unique_user.token
+    )
     food_as_json = utils.assert_derserialize(response, 200)
 
     # make sure both the new extra and original extra persist

@@ -22,7 +22,9 @@ def render_python_template(template_file: Path | str, dest: Path, data: dict):
         tplt = Template(template_file)
 
     text = tplt.render(data=data)
+
     text = black.format_str(text, mode=black.FileMode())
+
     dest.write_text(text)
     isort.file(dest)
 
@@ -52,7 +54,7 @@ def get_indentation_of_string(line: str, comment_char: str = "//") -> str:
     return re.sub(rf"{comment_char}.*", "", line).removesuffix("\n")
 
 
-def find_start_end(file_text: list[str], gen_id: str) -> tuple[int, int]:
+def find_start_end(file_text: list[str], gen_id: str) -> tuple[int, int, str]:
     start = None
     end = None
     indentation = None
@@ -90,7 +92,7 @@ def inject_inline(file_path: Path, key: str, code: list[str]) -> None:
 
     """
 
-    with open(file_path, "r") as f:
+    with open(file_path) as f:
         file_text = f.readlines()
 
     start, end, indentation = find_start_end(file_text, key)

@@ -39,6 +39,7 @@ pydantic = "^1.9.1"
 tzdata = "^2021.5"
 pyhumps = "^3.5.3"
 pytesseract = "^0.3.9"
+orjson = "^3.8.0"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.6.0"
@@ -105,3 +106,4 @@ python_version = "3.10"
 ignore_missing_imports = true
 follow_imports = "skip"
 strict_optional = false # TODO: Fix none type checks - temporary stop-gap to implement mypy
+plugins = "pydantic.mypy"

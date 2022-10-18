@@ -2,19 +2,11 @@ from dataclasses import dataclass
 
 import pytest
 from fastapi.testclient import TestClient
-from pydantic import UUID4
 
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import Recipe
+from tests.utils import api_routes
 from tests.utils.fixture_schemas import TestUser
-
-
-class Routes:
-    base = "/api/explore/recipes"
-
-    @staticmethod
-    def recipe(groud_id: str | UUID4, recipe_slug: str | UUID4) -> str:
-        return f"{Routes.base}/{groud_id}/{recipe_slug}"
 
 
 @dataclass(slots=True)
@@ -50,7 +42,12 @@ def test_public_recipe_success(
     database.recipes.update(random_recipe.slug, random_recipe)
 
     # Try to access recipe
-    response = api_client.get(Routes.recipe(random_recipe.group_id, random_recipe.slug))
+    response = api_client.get(
+        api_routes.explore_recipes_group_id_recipe_slug(
+            random_recipe.group_id,
+            random_recipe.slug,
+        )
+    )
     assert response.status_code == test_case.status_code
 
     if test_case.error:

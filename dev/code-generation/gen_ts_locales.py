@@ -1,11 +1,12 @@
 import pathlib
+from pathlib import Path
 
-import _static
 import dotenv
 import requests
-from _gen_utils import log
 from jinja2 import Template
+from pydantic import Extra
 from requests import Response
+from utils import CodeDest, CodeKeys, inject_inline, log
 
 from mealie.schema._mealie import MealieModel
 
@@ -13,9 +14,6 @@ BASE = pathlib.Path(__file__).parent.parent.parent
 
 API_KEY = dotenv.get_key(BASE / ".env", "CROWDIN_API_KEY")
 
-if API_KEY is None or API_KEY == "":
-    log.info("CROWDIN_API_KEY is not set")
-    exit(1)
 
 NAMES = {
     "en-US": "American English",
@@ -70,6 +68,9 @@ class TargetLanguage(MealieModel):
     threeLettersCode: str
     twoLettersCode: str
     progress: float = 0.0
+
+    class Config:
+        extra = Extra.allow
 
 
 class CrowdinApi:
@@ -127,11 +128,6 @@ class CrowdinApi:
         return response.json()
 
 
-from pathlib import Path
-
-from _gen_utils import inject_inline
-from _static import CodeKeys
-
 PROJECT_DIR = Path(__file__).parent.parent.parent
 
 
@@ -156,7 +152,7 @@ def inject_nuxt_values():
         lang_string = f'{{ code: "{match.stem}", file: "{match.name}" }},'
         all_langs.append(lang_string)
 
-    log.info(f"injecting locales into nuxt config -> {nuxt_config}")
+    log.debug(f"injecting locales into nuxt config -> {nuxt_config}")
     inject_inline(nuxt_config, CodeKeys.nuxt_local_messages, all_langs)
     inject_inline(nuxt_config, CodeKeys.nuxt_local_dates, all_date_locales)
 
@@ -167,17 +163,18 @@ def generate_locales_ts_file():
     tmpl = Template(LOCALE_TEMPLATE)
     rendered = tmpl.render(locales=models)
 
-    log.info(f"generating locales ts file -> {_static.CodeDest.use_locales}")
-    with open(_static.CodeDest.use_locales, "w") as f:
+    log.debug(f"generating locales ts file -> {CodeDest.use_locales}")
+    with open(CodeDest.use_locales, "w") as f:
         f.write(rendered)  # type:ignore
 
 
 def main():
+    if API_KEY is None or API_KEY == "":
+        log.error("CROWDIN_API_KEY is not set")
+        return
+
     generate_locales_ts_file()
-
     inject_nuxt_values()
-
-    log.info("finished code generation")
 
 
 if __name__ == "__main__":

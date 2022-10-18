@@ -1,15 +1,8 @@
 import pytest
 from fastapi.testclient import TestClient
 
+from tests.utils import api_routes
 from tests.utils.fixture_schemas import TestUser
-
-
-class Routes:
-    base = "/api/recipes"
-    bulk = "/api/recipes/create-url/bulk"
-
-    def item(item_id: str) -> str:
-        return f"{Routes.base}/{item_id}"
 
 
 @pytest.mark.skip("Long Running Scraper")
@@ -26,10 +19,10 @@ def test_bulk_import(api_client: TestClient, unique_user: TestUser):
         "best-chocolate-chip-cookies",
     ]
 
-    response = api_client.post(Routes.bulk, json=recipes, headers=unique_user.token)
+    response = api_client.post(api_routes.recipes_create_url_bulk, json=recipes, headers=unique_user.token)
 
     assert response.status_code == 201
 
     for slug in slugs:
-        response = api_client.get(Routes.item(slug), headers=unique_user.token)
+        response = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token)
         assert response.status_code == 200

@@ -41,8 +41,13 @@
 <script lang="ts">
 import { defineComponent, reactive, useContext, ref, toRefs, watch } from "@nuxtjs/composition-api";
 import { onMounted } from "vue-demi";
-import { OcrTsvResponse } from "~/types/api-types/ocr";
+import { NoUndefinedField } from "~/types/api";
+import { OcrTsvResponse as NullableOcrTsvResponse } from "~/types/api-types/ocr";
 import { CanvasModes, SelectedTextSplitModes, ImagePosition, Mouse, CanvasRect, ToolbarIcons } from "~/types/ocr-types";
+
+// Temporary Shim until we have a better solution
+// https://github.com/phillipdupuis/pydantic-to-typescript/issues/28
+type OcrTsvResponse = NoUndefinedField<NullableOcrTsvResponse>;
 
 export default defineComponent({
   props: {
@@ -451,8 +456,10 @@ export default defineComponent({
             correctedRect.startY - state.imagePosition.dy < element.top * state.imagePosition.scale &&
             correctedRect.startX - state.imagePosition.dx < element.left * state.imagePosition.scale &&
             correctedRect.startX + correctedRect.w >
+              // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
               (element.left + element.width) * state.imagePosition.scale + state.imagePosition.dx &&
             correctedRect.startY + correctedRect.h >
+              // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
               (element.top + element.height) * state.imagePosition.scale + state.imagePosition.dy
         )
         .map((element, index, array) => {
@@ -464,6 +471,7 @@ export default defineComponent({
           ) {
             separator = "\n";
           }
+          // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
           return element.text + separator;
         })
         .join("");

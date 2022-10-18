@@ -5,15 +5,9 @@ from fastapi.testclient import TestClient
 
 from mealie.db.db_setup import session_context
 from mealie.services.user_services.password_reset_service import PasswordResetService
+from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
-
-
-class Routes:
-    base = "/api/users/reset-password"
-
-    login = "/api/auth/token"
-    self = "/api/users/self"
 
 
 @pytest.mark.parametrize("casing", ["lower", "upper", "mixed"])
@@ -46,19 +40,19 @@ def test_password_reset(api_client: TestClient, unique_user: TestUser, casing: s
     }
 
     # Test successful password reset
-    response = api_client.post(Routes.base, json=payload)
+    response = api_client.post(api_routes.users_reset_password, json=payload)
     assert response.status_code == 200
 
     # Test Login
     form_data = {"username": unique_user.email, "password": new_password}
-    response = api_client.post(Routes.login, form_data)
+    response = api_client.post(api_routes.auth_token, form_data)
     assert response.status_code == 200
 
     # Test Token
     new_token = json.loads(response.text).get("access_token")
-    response = api_client.get(Routes.self, headers={"Authorization": f"Bearer {new_token}"})
+    response = api_client.get(api_routes.users_self, headers={"Authorization": f"Bearer {new_token}"})
     assert response.status_code == 200
 
     # Test successful password reset
-    response = api_client.post(Routes.base, json=payload)
+    response = api_client.post(api_routes.users_reset_password, json=payload)
     assert response.status_code == 400

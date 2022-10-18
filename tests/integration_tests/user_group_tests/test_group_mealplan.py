@@ -3,26 +3,13 @@ from datetime import date, timedelta
 from fastapi.testclient import TestClient
 
 from mealie.schema.meal_plan.new_meal import CreatePlanEntry
+from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 
 
-class Routes:
-    base = "/api/groups/mealplans"
-    recipe = "/api/recipes"
-    today = "/api/groups/mealplans/today"
-
-    @staticmethod
-    def all_slice(page: int, perPage: int, start_date: str, end_date: str):
-        return f"{Routes.base}?page={page}&perPage={perPage}&start_date={start_date}&end_date={end_date}"
-
-    @staticmethod
-    def item(item_id: int) -> str:
-        return f"{Routes.base}/{item_id}"
-
-    @staticmethod
-    def recipe_slug(recipe_name: str) -> str:
-        return f"{Routes.recipe}/{recipe_name}"
+def route_all_slice(page: int, perPage: int, start_date: str, end_date: str):
+    return f"{api_routes.groups_mealplans}?page={page}&perPage={perPage}&start_date={start_date}&end_date={end_date}"
 
 
 def test_create_mealplan_no_recipe(api_client: TestClient, unique_user: TestUser):
@@ -31,7 +18,7 @@ def test_create_mealplan_no_recipe(api_client: TestClient, unique_user: TestUser
     new_plan = CreatePlanEntry(date=date.today(), entry_type="breakfast", title=title, text=text).dict()
     new_plan["date"] = date.today().strftime("%Y-%m-%d")
 
-    response = api_client.post(Routes.base, json=new_plan, headers=unique_user.token)
+    response = api_client.post(api_routes.groups_mealplans, json=new_plan, headers=unique_user.token)
 
     assert response.status_code == 201
 
@@ -42,10 +29,10 @@ def test_create_mealplan_no_recipe(api_client: TestClient, unique_user: TestUser
 
 def test_create_mealplan_with_recipe(api_client: TestClient, unique_user: TestUser):
     recipe_name = random_string(length=25)
-    response = api_client.post(Routes.recipe, json={"name": recipe_name}, headers=unique_user.token)
+    response = api_client.post(api_routes.recipes, json={"name": recipe_name}, headers=unique_user.token)
     assert response.status_code == 201
 
-    response = api_client.get(Routes.recipe_slug(recipe_name), headers=unique_user.token)
+    response = api_client.get(api_routes.recipes_slug(recipe_name), headers=unique_user.token)
     recipe = response.json()
     recipe_id = recipe["id"]
 
@@ -53,7 +40,7 @@ def test_create_mealplan_with_recipe(api_client: TestClient, unique_user: TestUs
     new_plan["date"] = date.today().strftime("%Y-%m-%d")
     new_plan["recipeId"] = str(recipe_id)
 
-    response = api_client.post(Routes.base, json=new_plan, headers=unique_user.token)
+    response = api_client.post(api_routes.groups_mealplans, json=new_plan, headers=unique_user.token)
     response_json = response.json()
     assert response.status_code == 201
 
@@ -70,7 +57,7 @@ def test_crud_mealplan(api_client: TestClient, unique_user: TestUser):
 
     # Create
     new_plan["date"] = date.today().strftime("%Y-%m-%d")
-    response = api_client.post(Routes.base, json=new_plan, headers=unique_user.token)
+    response = api_client.post(api_routes.groups_mealplans, json=new_plan, headers=unique_user.token)
     response_json = response.json()
     assert response.status_code == 201
     plan_id = response_json["id"]
@@ -79,7 +66,9 @@ def test_crud_mealplan(api_client: TestClient, unique_user: TestUser):
     response_json["title"] = random_string()
     response_json["text"] = random_string()
 
-    response = api_client.put(Routes.item(plan_id), headers=unique_user.token, json=response_json)
+    response = api_client.put(
+        api_routes.groups_mealplans_item_id(plan_id), headers=unique_user.token, json=response_json
+    )
 
     assert response.status_code == 200
 
@@ -87,11 +76,11 @@ def test_crud_mealplan(api_client: TestClient, unique_user: TestUser):
     assert response.json()["text"] == response_json["text"]
 
     # Delete
-    response = api_client.delete(Routes.item(plan_id), headers=unique_user.token)
+    response = api_client.delete(api_routes.groups_mealplans_item_id(plan_id), headers=unique_user.token)
 
     assert response.status_code == 200
 
-    response = api_client.get(Routes.item(plan_id), headers=unique_user.token)
+    response = api_client.get(api_routes.groups_mealplans_item_id(plan_id), headers=unique_user.token)
     assert response.status_code == 404
 
 
@@ -106,10 +95,10 @@ def test_get_all_mealplans(api_client: TestClient, unique_user: TestUser):
         ).dict()
 
         new_plan["date"] = date.today().strftime("%Y-%m-%d")
-        response = api_client.post(Routes.base, json=new_plan, headers=unique_user.token)
+        response = api_client.post(api_routes.groups_mealplans, json=new_plan, headers=unique_user.token)
         assert response.status_code == 201
 
-    response = api_client.get(Routes.base, headers=unique_user.token, params={"page": 1, "perPage": -1})
+    response = api_client.get(api_routes.groups_mealplans, headers=unique_user.token, params={"page": 1, "perPage": -1})
 
     assert response.status_code == 200
     assert len(response.json()["items"]) >= 3
@@ -128,7 +117,7 @@ def test_get_slice_mealplans(api_client: TestClient, unique_user: TestUser):
     # Add the meal plans to the database
     for meal_plan in meal_plans:
         meal_plan["date"] = meal_plan["date"].strftime("%Y-%m-%d")
-        response = api_client.post(Routes.base, json=meal_plan, headers=unique_user.token)
+        response = api_client.post(api_routes.groups_mealplans, json=meal_plan, headers=unique_user.token)
         assert response.status_code == 201
 
     # Get meal slice of meal plans from database
@@ -138,7 +127,7 @@ def test_get_slice_mealplans(api_client: TestClient, unique_user: TestUser):
         start_date = date_range[0].strftime("%Y-%m-%d")
         end_date = date_range[-1].strftime("%Y-%m-%d")
 
-        response = api_client.get(Routes.all_slice(1, -1, start_date, end_date), headers=unique_user.token)
+        response = api_client.get(route_all_slice(1, -1, start_date, end_date), headers=unique_user.token)
 
         assert response.status_code == 200
         response_json = response.json()
@@ -157,11 +146,11 @@ def test_get_mealplan_today(api_client: TestClient, unique_user: TestUser):
     # Add the meal plans to the database
     for meal_plan in test_meal_plans:
         meal_plan["date"] = meal_plan["date"].strftime("%Y-%m-%d")
-        response = api_client.post(Routes.base, json=meal_plan, headers=unique_user.token)
+        response = api_client.post(api_routes.groups_mealplans, json=meal_plan, headers=unique_user.token)
         assert response.status_code == 201
 
     # Get meal plan for today
-    response = api_client.get(Routes.today, headers=unique_user.token)
+    response = api_client.get(api_routes.groups_mealplans_today, headers=unique_user.token)
 
     assert response.status_code == 200
 

@@ -56,11 +56,17 @@ export interface CategorySave {
 export interface CreateIngredientFood {
   name: string;
   description?: string;
+  extras?: {
+    [k: string]: unknown;
+  };
   labelId?: string;
 }
 export interface CreateIngredientUnit {
   name: string;
   description?: string;
+  extras?: {
+    [k: string]: unknown;
+  };
   fraction?: boolean;
   abbreviation?: string;
   useAbbreviation?: boolean;
@@ -107,6 +113,9 @@ export interface IngredientConfidence {
 export interface IngredientFood {
   name: string;
   description?: string;
+  extras?: {
+    [k: string]: unknown;
+  };
   labelId?: string;
   id: string;
   label?: MultiPurposeLabelSummary;
@@ -132,6 +141,9 @@ export interface IngredientRequest {
 export interface IngredientUnit {
   name: string;
   description?: string;
+  extras?: {
+    [k: string]: unknown;
+  };
   fraction?: boolean;
   abbreviation?: string;
   useAbbreviation?: boolean;
@@ -159,13 +171,6 @@ export interface Nutrition {
   fiberContent?: string;
   sodiumContent?: string;
   sugarContent?: string;
-}
-export interface PaginationQuery {
-  page?: number;
-  perPage?: number;
-  orderBy?: string;
-  orderDirection?: OrderDirection & string;
-  queryFilter?: string;
 }
 export interface ParsedIngredient {
   input?: string;
@@ -213,8 +218,8 @@ export interface Recipe {
   extras?: {
     [k: string]: unknown;
   };
-  comments?: RecipeCommentOut[];
   isOcrRecipe?: boolean;
+  comments?: RecipeCommentOut[];
 }
 export interface RecipeTool {
   id: string;
@@ -335,15 +340,15 @@ export interface RecipeTagResponse {
   slug: string;
   recipes?: RecipeSummary[];
 }
-export interface RecipeTool1 {
+export interface RecipeToolCreate {
+  name: string;
+  onHand?: boolean;
+}
+export interface RecipeToolOut {
   name: string;
   onHand?: boolean;
   id: string;
   slug: string;
-}
-export interface RecipeToolCreate {
-  name: string;
-  onHand?: boolean;
 }
 export interface RecipeToolResponse {
   name: string;
@@ -363,12 +368,18 @@ export interface RecipeZipTokenResponse {
 export interface SaveIngredientFood {
   name: string;
   description?: string;
+  extras?: {
+    [k: string]: unknown;
+  };
   labelId?: string;
   groupId: string;
 }
 export interface SaveIngredientUnit {
   name: string;
   description?: string;
+  extras?: {
+    [k: string]: unknown;
+  };
   fraction?: boolean;
   abbreviation?: string;
   useAbbreviation?: boolean;
@@ -398,7 +409,17 @@ export interface TagSave {
 export interface UnitFoodBase {
   name: string;
   description?: string;
+  extras?: {
+    [k: string]: unknown;
+  };
 }
 export interface UpdateImageResponse {
   image: string;
+}
+export interface PaginationQuery {
+  page?: number;
+  perPage?: number;
+  orderBy?: string;
+  orderDirection?: OrderDirection & string;
+  queryFilter?: string;
 }

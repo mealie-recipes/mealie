@@ -1,9 +1,11 @@
-{% for mod in mods  %}
-class {{mod.name}}Routes:{% for route in mod.routes  %}{% if not route.path_is_func   %}
-    {{route.name_snake}} = "{{ route.py_route }}"{% endif %}{% endfor %}{% for route in mod.routes  %}
-{% if route.path_is_func   %}
-    @staticmethod
-    def {{route.name_snake}}({{ route.path_vars|join(", ") }}):
-        return f"{{route.py_route}}"       
-{% endif %}{% endfor %}
+# This Content is Auto Generated for Pytest
+prefix = "{{paths.prefix}}"
+{% for path in paths.static_paths %}
+{{ path.router_slug }} = "{{path.prefix}}{{ path.route }}"
+"""`{{path.prefix}}{{ path.route }}`"""{% endfor %}
+{% for path in paths.function_paths  %}
+
+def {{path.router_slug}}({{path.var|join(", ")}}):
+    """`{{ paths.prefix }}{{ path.route }}`"""
+    return f"{prefix}{{ path.route }}"
 {% endfor %}

@@ -3,10 +3,11 @@ import re
 from pathlib import Path
 from typing import Any
 
-from _static import Directories
 from fastapi import FastAPI
 from humps import camelize
 from slugify import slugify
+
+from .static import Directories
 
 
 def get_openapi_spec_by_ref(app, type_reference: str) -> dict:
