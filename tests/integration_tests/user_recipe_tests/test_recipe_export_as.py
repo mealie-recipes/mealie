@@ -21,7 +21,7 @@ def test_get_available_exports(api_client: TestClient, unique_user: TestUser) ->
 def test_render_jinja_template(api_client: TestClient, unique_user: TestUser) -> None:
     # Create Recipe
     recipe_name = random_string()
-    response = api_client.post(api_routes.recipes_exports, json={"name": recipe_name}, headers=unique_user.token)
+    response = api_client.post(api_routes.recipes, json={"name": recipe_name}, headers=unique_user.token)
     assert response.status_code == 201
     slug = response.json()
 

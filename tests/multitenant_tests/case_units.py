@@ -3,7 +3,7 @@ from requests import Response
 from mealie.schema.recipe.recipe_ingredient import IngredientUnit, SaveIngredientUnit
 from tests import utils
 from tests.multitenant_tests.case_abc import ABCMultiTenantTestCase
-from tests.utils import routes
+from tests.utils import api_routes
 
 
 class UnitsTestCase(ABCMultiTenantTestCase):
@@ -43,7 +43,7 @@ class UnitsTestCase(ABCMultiTenantTestCase):
         return g1_item_ids, g2_item_ids
 
     def get_all(self, token: str) -> Response:
-        return self.client.get(routes.recipes.Units.base, headers=token)
+        return self.client.get(api_routes.units, headers=token)
 
     def cleanup(self) -> None:
         for item in self.items:

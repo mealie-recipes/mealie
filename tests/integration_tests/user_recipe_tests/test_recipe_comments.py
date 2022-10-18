@@ -15,7 +15,7 @@ def unique_recipe(api_client: TestClient, unique_user: TestUser):
     assert response.status_code == 201
 
     response_data = response.json()
-    recipe_response = api_client.get(api_routes.recipes_slug_comments(response_data), headers=unique_user.token)
+    recipe_response = api_client.get(api_routes.recipes_slug(response_data), headers=unique_user.token)
 
     return Recipe(**recipe_response.json())
 

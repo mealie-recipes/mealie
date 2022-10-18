@@ -4,7 +4,7 @@ from mealie.schema.recipe.recipe import RecipeTag
 from mealie.schema.recipe.recipe_category import TagSave
 from tests import utils
 from tests.multitenant_tests.case_abc import ABCMultiTenantTestCase
-from tests.utils import routes
+from tests.utils import api_routes
 
 
 class TagsTestCase(ABCMultiTenantTestCase):
@@ -44,7 +44,7 @@ class TagsTestCase(ABCMultiTenantTestCase):
         return g1_item_ids, g2_item_ids
 
     def get_all(self, token: str) -> Response:
-        return self.client.get(routes.organizers.Tags.base, headers=token)
+        return self.client.get(api_routes.organizers_tags, headers=token)
 
     def cleanup(self) -> None:
         for item in self.items:
