@@ -85,3 +85,10 @@ jobs:
           POSTGRES_SERVER: localhost
         run: |
           make backend-test
+
+      - name: Code Generation
+        run: |
+          make generate
+
+          # Check for git diffs
+          git diff --exit-code
