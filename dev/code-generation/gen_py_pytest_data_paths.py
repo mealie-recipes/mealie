@@ -25,9 +25,7 @@ class TestDataPath:
 
         # Remove any file extension
         var = var.split(".")[0]
-
         var = var.replace("'", "")
-
         var = slugify(var, separator="_")
 
         return cls(var, rel_path)

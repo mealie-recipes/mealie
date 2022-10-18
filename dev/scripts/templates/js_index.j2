@@ -1,7 +1,0 @@
-{% for api in files.files  %}
-import { {{ api.camel }}API } from "./interfaces/{{ api.slug }}" {% endfor %}
-
-export const api = {
-{% for api in files.files  %}
-    {{api.camel}}: {{api.camel}}API, {% endfor %}
-}

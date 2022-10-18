@@ -3,7 +3,7 @@ from enum import Enum
 from typing import Optional
 
 from humps import camelize
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Extra, Field
 from slugify import slugify
 
 
@@ -30,6 +30,7 @@ class RequestType(str, Enum):
 class ParameterIn(str, Enum):
     query = "query"
     path = "path"
+    header = "header"
 
 
 class RouterParameter(BaseModel):
@@ -37,9 +38,15 @@ class RouterParameter(BaseModel):
     name: str
     location: ParameterIn = Field(..., alias="in")
 
+    class Config:
+        extra = Extra.allow
+
 
 class RequestBody(BaseModel):
     required: bool = False
+
+    class Config:
+        extra = Extra.allow
 
 
 class HTTPRequest(BaseModel):
@@ -49,7 +56,10 @@ class HTTPRequest(BaseModel):
     requestBody: Optional[RequestBody]
 
     parameters: list[RouterParameter] = []
-    tags: list[str]
+    tags: list[str] | None = []
+
+    class Config:
+        extra = Extra.allow
 
     def list_as_js_object_string(self, parameters, braces=True):
         if len(parameters) == 0:

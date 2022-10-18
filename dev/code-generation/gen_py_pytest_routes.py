@@ -1,47 +1,83 @@
 import json
-from typing import Any
+from pathlib import Path
 
-from rich.console import Console
-from utils import CodeDest, CodeTemplates, OpenAPIParser, render_python_template
+from fastapi import FastAPI
+from jinja2 import Template
+from pydantic import BaseModel
+from utils import PROJECT_DIR, CodeTemplates, HTTPRequest, RouteObject
 
-"""
-This code is used for generating route objects for each route in the OpenAPI Specification.
-Currently, they are NOT automatically injected into the test suite. As such, you'll need to copy
-the relevant contents of the generated file into the test suite where applicable. I am slowly
-migrating the test suite to use this new generated file and this process will be "automated" in the
-future.
-"""
+CWD = Path(__file__).parent
 
-console = Console()
+OUTFILE = PROJECT_DIR / "tests" / "utils" / "app_routes.py"
 
 
-def write_dict_to_file(file_name: str, data: dict[str, Any]):
-    with open(file_name, "w") as f:
-        f.write(json.dumps(data, indent=4))
+class PathObject(BaseModel):
+    route_object: RouteObject
+    http_verbs: list[HTTPRequest]
+
+    class Config:
+        arbitrary_types_allowed = True
+
+
+def get_path_objects(app: FastAPI):
+    paths = []
+
+    for key, value in app.openapi().items():
+        if key == "paths":
+            for key, value in value.items():
+
+                paths.append(
+                    PathObject(
+                        route_object=RouteObject(key),
+                        http_verbs=[HTTPRequest(request_type=k, **v) for k, v in value.items()],
+                    )
+                )
+
+    return paths
+
+
+def dump_open_api(app: FastAPI):
+    """Writes the Open API as JSON to a json file"""
+    OPEN_API_FILE = CWD / "openapi.json"
+
+    with open(OPEN_API_FILE, "w") as f:
+        f.write(json.dumps(app.openapi()))
+
+
+def read_template(file: Path):
+    with open(file) as f:
+        return f.read()
+
+
+def generate_python_templates(static_paths: list[PathObject], function_paths: list[PathObject]):
+
+    template = Template(read_template(CodeTemplates.pytest_routes))
+    content = template.render(
+        paths={
+            "prefix": "/api",
+            "static_paths": static_paths,
+            "function_paths": function_paths,
+        }
+    )
+    with open(OUTFILE, "w") as f:
+        f.write(content)
+
+    return
 
 
 def main():
     from mealie.app import app
 
-    open_api = OpenAPIParser(app)
-    modules = open_api.get_by_module()
+    dump_open_api(app)
+    paths = get_path_objects(app)
 
-    mods = []
+    static_paths = [x.route_object for x in paths if not x.route_object.is_function]
+    function_paths = [x.route_object for x in paths if x.route_object.is_function]
 
-    for mod, value in modules.items():
+    static_paths.sort(key=lambda x: x.router_slug)
+    function_paths.sort(key=lambda x: x.router_slug)
 
-        routes = []
-        existings = set()
-        # Reduce routes by unique py_route attribute
-        for route in value:
-            if route.py_route not in existings:
-                existings.add(route.py_route)
-                routes.append(route)
-
-        module = {"name": mod, "routes": routes}
-        mods.append(module)
-
-    render_python_template(CodeTemplates.pytest_routes, CodeDest.pytest_routes, {"mods": mods})
+    generate_python_templates(static_paths, function_paths)
 
 
 if __name__ == "__main__":

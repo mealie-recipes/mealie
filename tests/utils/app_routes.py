@@ -1,123 +1,226 @@
+# This Content is Auto Generated for Pytest
+
+
 class AppRoutes:
     def __init__(self) -> None:
         self.prefix = "/api"
 
-        self.auth_token = "/api/auth/token"
-        self.auth_token_long = "/api/auth/token/long"
+        self.admin_about = "/api/admin/about"
+        self.admin_about_check = "/api/admin/about/check"
+        self.admin_about_docker_validate = "/api/admin/about/docker/validate"
+        self.admin_about_statistics = "/api/admin/about/statistics"
+        self.admin_analytics = "/api/admin/analytics"
+        self.admin_backups = "/api/admin/backups"
+        self.admin_backups_upload = "/api/admin/backups/upload"
+        self.admin_email = "/api/admin/email"
+        self.admin_groups = "/api/admin/groups"
+        self.admin_logs = "/api/admin/logs"
+        self.admin_maintenance = "/api/admin/maintenance"
+        self.admin_maintenance_clean_images = "/api/admin/maintenance/clean/images"
+        self.admin_maintenance_clean_logs = "/api/admin/maintenance/clean/logs"
+        self.admin_maintenance_clean_recipe_folders = "/api/admin/maintenance/clean/recipe-folders"
+        self.admin_maintenance_clean_temp = "/api/admin/maintenance/clean/temp"
+        self.admin_maintenance_logs = "/api/admin/maintenance/logs"
+        self.admin_maintenance_storage = "/api/admin/maintenance/storage"
+        self.admin_server_tasks = "/api/admin/server-tasks"
+        self.admin_users = "/api/admin/users"
+        self.admin_users_unlock = "/api/admin/users/unlock"
+        self.app_about = "/api/app/about"
         self.auth_refresh = "/api/auth/refresh"
-        self.users_sign_ups = "/api/users/sign-ups"
-        self.users = "/api/users"
-        self.users_self = "/api/users/self"
-        self.users_api_tokens = "/api/users/api-tokens"
-        self.groups = "/api/groups"
+        self.auth_token = "/api/auth/token"
+        self.comments = "/api/comments"
+        self.foods = "/api/foods"
+        self.foods_merge = "/api/foods/merge"
+        self.groups_categories = "/api/groups/categories"
+        self.groups_cookbooks = "/api/groups/cookbooks"
+        self.groups_events_notifications = "/api/groups/events/notifications"
+        self.groups_invitations = "/api/groups/invitations"
+        self.groups_invitations_email = "/api/groups/invitations/email"
+        self.groups_labels = "/api/groups/labels"
+        self.groups_mealplans = "/api/groups/mealplans"
+        self.groups_mealplans_random = "/api/groups/mealplans/random"
+        self.groups_mealplans_rules = "/api/groups/mealplans/rules"
+        self.groups_mealplans_today = "/api/groups/mealplans/today"
+        self.groups_members = "/api/groups/members"
+        self.groups_migrations = "/api/groups/migrations"
+        self.groups_permissions = "/api/groups/permissions"
+        self.groups_preferences = "/api/groups/preferences"
+        self.groups_reports = "/api/groups/reports"
+        self.groups_seeders_foods = "/api/groups/seeders/foods"
+        self.groups_seeders_labels = "/api/groups/seeders/labels"
+        self.groups_seeders_units = "/api/groups/seeders/units"
         self.groups_self = "/api/groups/self"
-        self.recipes_summary = "/api/recipes/summary"
-        self.recipes_summary_untagged = "/api/recipes/summary/untagged"
-        self.recipes_summary_uncategorized = "/api/recipes/summary/uncategorized"
-        self.recipes_category = "/api/recipes/category"
-        self.recipes_tag = "/api/recipes/tag"
-        self.recipes_create = "/api/recipes/create"
+        self.groups_shopping_items = "/api/groups/shopping/items"
+        self.groups_shopping_lists = "/api/groups/shopping/lists"
+        self.groups_statistics = "/api/groups/statistics"
+        self.groups_storage = "/api/groups/storage"
+        self.groups_webhooks = "/api/groups/webhooks"
+        self.groups_webhooks_rerun = "/api/groups/webhooks/rerun"
+        self.media_docker_validate_txt = "/api/media/docker/validate.txt"
+        self.ocr = "/api/ocr/"
+        self.ocr_asset_to_tsv = "/api/ocr/asset-to-tsv"
+        self.ocr_file_to_tsv = "/api/ocr/file-to-tsv"
+        self.organizers_categories = "/api/organizers/categories"
+        self.organizers_categories_empty = "/api/organizers/categories/empty"
+        self.organizers_tags = "/api/organizers/tags"
+        self.organizers_tags_empty = "/api/organizers/tags/empty"
+        self.organizers_tools = "/api/organizers/tools"
+        self.parser_ingredient = "/api/parser/ingredient"
+        self.parser_ingredients = "/api/parser/ingredients"
+        self.recipes = "/api/recipes"
+        self.recipes_bulk_actions_categorize = "/api/recipes/bulk-actions/categorize"
+        self.recipes_bulk_actions_delete = "/api/recipes/bulk-actions/delete"
+        self.recipes_bulk_actions_export = "/api/recipes/bulk-actions/export"
+        self.recipes_bulk_actions_export_download = "/api/recipes/bulk-actions/export/download"
+        self.recipes_bulk_actions_export_purge = "/api/recipes/bulk-actions/export/purge"
+        self.recipes_bulk_actions_settings = "/api/recipes/bulk-actions/settings"
+        self.recipes_bulk_actions_tag = "/api/recipes/bulk-actions/tag"
+        self.recipes_create_from_zip = "/api/recipes/create-from-zip"
+        self.recipes_create_ocr = "/api/recipes/create-ocr"
         self.recipes_create_url = "/api/recipes/create-url"
-        self.categories = "/api/categories"
-        self.categories_empty = "/api/categories/empty"
-        self.tags = "/api/tags"
-        self.tags_empty = "/api/tags/empty"
-        self.about_events = "/api/about/events"
-        self.meal_plans_all = "/api/meal-plans/all"
-        self.meal_plans_create = "/api/meal-plans/create"
-        self.meal_plans_this_week = "/api/meal-plans/this-week"
-        self.meal_plans_today = "/api/meal-plans/today"
-        self.meal_plans_today_image = "/api/meal-plans/today/image"
-        self.group_cookbook = "/api/groups/cookbooks"
-        self.site_settings = "/api/site-settings"
-        self.site_settings_webhooks_test = "/api/site-settings/webhooks/test"
-        self.themes = "/api/themes"
-        self.themes_create = "/api/themes/create"
-        self.backups_available = "/api/backups/available"
-        self.backups_export_database = "/api/backups/export/database"
-        self.backups_upload = "/api/backups/upload"
-        self.migrations = "/api/migrations"
-        self.debug = "/api/debug"
-        self.debug_statistics = "/api/debug/statistics"
-        self.debug_version = "/api/debug/version"
-        self.debug_last_recipe_json = "/api/debug/last-recipe-json"
-        self.debug_log = "/api/debug/log"
+        self.recipes_create_url_bulk = "/api/recipes/create-url/bulk"
+        self.recipes_exports = "/api/recipes/exports"
+        self.recipes_summary_uncategorized = "/api/recipes/summary/uncategorized"
+        self.recipes_summary_untagged = "/api/recipes/summary/untagged"
+        self.recipes_test_scrape_url = "/api/recipes/test-scrape-url"
+        self.shared_recipes = "/api/shared/recipes"
+        self.units = "/api/units"
+        self.units_merge = "/api/units/merge"
+        self.users = "/api/users"
+        self.users_api_tokens = "/api/users/api-tokens"
+        self.users_forgot_password = "/api/users/forgot-password"
+        self.users_password = "/api/users/password"
+        self.users_register = "/api/users/register"
+        self.users_reset_password = "/api/users/reset-password"
+        self.users_self = "/api/users/self"
         self.utils_download = "/api/utils/download"
+        self.validators_group = "/api/validators/group"
+        self.validators_recipe = "/api/validators/recipe"
+        self.validators_user_email = "/api/validators/user/email"
+        self.validators_user_name = "/api/validators/user/name"
 
-    def users_sign_ups_token(self, token):
-        return f"{self.prefix}/users/sign-ups/{token}"
+    def admin_backups_file_name(self, file_name):
+        return f"{self.prefix}/admin/backups/{file_name}"
 
-    def users_id(self, id):
-        return f"{self.prefix}/users/{id}"
+    def admin_backups_file_name_restore(self, file_name):
+        return f"{self.prefix}/admin/backups/{file_name}/restore"
 
-    def users_id_reset_password(self, id):
-        return f"{self.prefix}/users/{id}/reset-password"
+    def admin_groups_item_id(self, item_id):
+        return f"{self.prefix}/admin/groups/{item_id}"
 
-    def users_id_image(self, id):
-        return f"{self.prefix}/users/{id}/image"
+    def admin_logs_num(self, num):
+        return f"{self.prefix}/admin/logs/{num}"
 
-    def users_id_password(self, id):
-        return f"{self.prefix}/users/{id}/password"
+    def admin_users_item_id(self, item_id):
+        return f"{self.prefix}/admin/users/{item_id}"
+
+    def comments_item_id(self, item_id):
+        return f"{self.prefix}/comments/{item_id}"
+
+    def explore_recipes_group_id_recipe_slug(self, group_id, recipe_slug):
+        return f"{self.prefix}/explore/recipes/{group_id}/{recipe_slug}"
+
+    def foods_item_id(self, item_id):
+        return f"{self.prefix}/foods/{item_id}"
+
+    def groups_cookbooks_item_id(self, item_id):
+        return f"{self.prefix}/groups/cookbooks/{item_id}"
+
+    def groups_events_notifications_item_id(self, item_id):
+        return f"{self.prefix}/groups/events/notifications/{item_id}"
+
+    def groups_events_notifications_item_id_test(self, item_id):
+        return f"{self.prefix}/groups/events/notifications/{item_id}/test"
+
+    def groups_labels_item_id(self, item_id):
+        return f"{self.prefix}/groups/labels/{item_id}"
+
+    def groups_mealplans_item_id(self, item_id):
+        return f"{self.prefix}/groups/mealplans/{item_id}"
+
+    def groups_mealplans_rules_item_id(self, item_id):
+        return f"{self.prefix}/groups/mealplans/rules/{item_id}"
+
+    def groups_reports_item_id(self, item_id):
+        return f"{self.prefix}/groups/reports/{item_id}"
+
+    def groups_shopping_items_item_id(self, item_id):
+        return f"{self.prefix}/groups/shopping/items/{item_id}"
+
+    def groups_shopping_lists_item_id(self, item_id):
+        return f"{self.prefix}/groups/shopping/lists/{item_id}"
+
+    def groups_shopping_lists_item_id_recipe_recipe_id(self, item_id, recipe_id):
+        return f"{self.prefix}/groups/shopping/lists/{item_id}/recipe/{recipe_id}"
+
+    def groups_webhooks_item_id(self, item_id):
+        return f"{self.prefix}/groups/webhooks/{item_id}"
+
+    def media_recipes_recipe_id_assets_file_name(self, recipe_id, file_name):
+        return f"{self.prefix}/media/recipes/{recipe_id}/assets/{file_name}"
+
+    def media_recipes_recipe_id_images_file_name(self, recipe_id, file_name):
+        return f"{self.prefix}/media/recipes/{recipe_id}/images/{file_name}"
+
+    def media_users_user_id_file_name(self, user_id, file_name):
+        return f"{self.prefix}/media/users/{user_id}/{file_name}"
+
+    def organizers_categories_item_id(self, item_id):
+        return f"{self.prefix}/organizers/categories/{item_id}"
+
+    def organizers_categories_slug_category_slug(self, category_slug):
+        return f"{self.prefix}/organizers/categories/slug/{category_slug}"
+
+    def organizers_tags_item_id(self, item_id):
+        return f"{self.prefix}/organizers/tags/{item_id}"
+
+    def organizers_tags_slug_tag_slug(self, tag_slug):
+        return f"{self.prefix}/organizers/tags/slug/{tag_slug}"
+
+    def organizers_tools_item_id(self, item_id):
+        return f"{self.prefix}/organizers/tools/{item_id}"
+
+    def organizers_tools_slug_tool_slug(self, tool_slug):
+        return f"{self.prefix}/organizers/tools/slug/{tool_slug}"
+
+    def recipes_shared_token_id(self, token_id):
+        return f"{self.prefix}/recipes/shared/{token_id}"
+
+    def recipes_slug(self, slug):
+        return f"{self.prefix}/recipes/{slug}"
+
+    def recipes_slug_assets(self, slug):
+        return f"{self.prefix}/recipes/{slug}/assets"
+
+    def recipes_slug_comments(self, slug):
+        return f"{self.prefix}/recipes/{slug}/comments"
+
+    def recipes_slug_exports(self, slug):
+        return f"{self.prefix}/recipes/{slug}/exports"
+
+    def recipes_slug_exports_zip(self, slug):
+        return f"{self.prefix}/recipes/{slug}/exports/zip"
+
+    def recipes_slug_image(self, slug):
+        return f"{self.prefix}/recipes/{slug}/image"
+
+    def shared_recipes_item_id(self, item_id):
+        return f"{self.prefix}/shared/recipes/{item_id}"
+
+    def units_item_id(self, item_id):
+        return f"{self.prefix}/units/{item_id}"
 
     def users_api_tokens_token_id(self, token_id):
         return f"{self.prefix}/users/api-tokens/{token_id}"
 
-    def groups_id(self, id):
-        return f"{self.prefix}/groups/{id}"
+    def users_id_favorites(self, id):
+        return f"{self.prefix}/users/{id}/favorites"
 
-    def recipes_recipe_slug(self, recipe_slug):
-        return f"{self.prefix}/recipes/{recipe_slug}"
+    def users_id_favorites_slug(self, id, slug):
+        return f"{self.prefix}/users/{id}/favorites/{slug}"
 
-    def recipes_recipe_slug_image(self, recipe_slug):
-        return f"{self.prefix}/recipes/{recipe_slug}/image"
+    def users_id_image(self, id):
+        return f"{self.prefix}/users/{id}/image"
 
-    def recipes_recipe_slug_assets(self, recipe_slug):
-        return f"{self.prefix}/recipes/{recipe_slug}/assets"
-
-    def categories_category(self, category):
-        return f"{self.prefix}/categories/{category}"
-
-    def tags_tag(self, tag):
-        return f"{self.prefix}/tags/{tag}"
-
-    def media_recipes_recipe_slug_images_file_name(self, recipe_slug, file_name):
-        return f"{self.prefix}/media/recipes/{recipe_slug}/images/{file_name}"
-
-    def media_recipes_recipe_slug_assets_file_name(self, recipe_slug, file_name):
-        return f"{self.prefix}/media/recipes/{recipe_slug}/assets/{file_name}"
-
-    def about_events_id(self, id):
-        return f"{self.prefix}/about/events/{id}"
-
-    def meal_plans_plan_id(self, plan_id):
-        return f"{self.prefix}/meal-plans/{plan_id}"
-
-    def meal_plans_id_shopping_list(self, id):
-        return f"{self.prefix}/meal-plans/{id}/shopping-list"
-
-    def group_cookbook_id(self, id):
-        return f"{self.prefix}/groups/cookbooks/{id}"
-
-    def themes_id(self, id):
-        return f"{self.prefix}/themes/{id}"
-
-    def backups_file_name_download(self, file_name):
-        return f"{self.prefix}/backups/{file_name}/download"
-
-    def backups_file_name_import(self, file_name):
-        return f"{self.prefix}/backups/{file_name}/import"
-
-    def backups_file_name_delete(self, file_name):
-        return f"{self.prefix}/backups/{file_name}/delete"
-
-    def migrations_import_type_file_name_import(self, import_type, file_name):
-        return f"{self.prefix}/migrations/{import_type}/{file_name}/import"
-
-    def migrations_import_type_file_name_delete(self, import_type, file_name):
-        return f"{self.prefix}/migrations/{import_type}/{file_name}/delete"
-
-    def migrations_import_type_upload(self, import_type):
-        return f"{self.prefix}/migrations/{import_type}/upload"
-
-    def debug_log_num(self, num):
-        return f"{self.prefix}/debug/log/{num}"
+    def users_item_id(self, item_id):
+        return f"{self.prefix}/users/{item_id}"

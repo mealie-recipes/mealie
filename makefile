@@ -25,7 +25,7 @@ help:
 
 .PHONY: docs
 docs: ## 📄 Start Mkdocs Development Server
-	poetry run python dev/scripts/api_docs_gen.py && \
+	poetry run python dev/code-generation/gen_docs_api.py && \
 	cd docs && poetry run python -m mkdocs serve
 
 code-gen: ## 🤖 Run Code-Gen Scripts
