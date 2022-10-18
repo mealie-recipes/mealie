@@ -25,13 +25,7 @@ from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.recipe import Recipe, RecipeImageTypes, ScrapeRecipe
-from mealie.schema.recipe.recipe import (
-    CreateRecipe,
-    CreateRecipeByUrlBulk,
-    RecipePagination,
-    RecipePaginationQuery,
-    RecipeSummary,
-)
+from mealie.schema.recipe.recipe import CreateRecipe, CreateRecipeByUrlBulk, RecipePagination, RecipePaginationQuery
 from mealie.schema.recipe.recipe_asset import RecipeAsset
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_scraper import ScrapeRecipeTest
@@ -260,17 +254,6 @@ class RecipeController(BaseRecipeController):
             {k: v for k, v in query_params.items() if v is not None},
         )
 
-        new_items = []
-        for item in pagination_response.items:
-            # Pydantic/FastAPI can't seem to serialize the ingredient field on their own.
-            new_item = item.__dict__
-
-            if q.load_food:
-                new_item["recipe_ingredient"] = [x.__dict__ for x in item.recipe_ingredient]
-
-            new_items.append(new_item)
-
-        pagination_response.items = [RecipeSummary.construct(**x) for x in new_items]
         json_compatible_response = jsonable_encoder(pagination_response)
 
         # Response is returned directly, to avoid validation and improve performance
