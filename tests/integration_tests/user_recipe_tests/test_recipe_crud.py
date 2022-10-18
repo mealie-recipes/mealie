@@ -14,8 +14,7 @@ from mealie.schema.recipe.recipe import RecipeCategory
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.scraper.scraper_strategies import RecipeScraperOpenGraph
 from tests import data, utils
-from tests.utils import routes
-from tests.utils.app_routes import AppRoutes
+from tests.utils import api_routes, routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 from tests.utils.recipe_data import RecipeSiteTestCase, get_recipe_test_cases
@@ -58,7 +57,6 @@ def open_graph_override(html: str):
 @pytest.mark.parametrize("recipe_data", recipe_test_data)
 def test_create_by_url(
     api_client: TestClient,
-    api_routes: AppRoutes,
     recipe_data: RecipeSiteTestCase,
     unique_user: TestUser,
     monkeypatch: MonkeyPatch,
@@ -94,7 +92,6 @@ def test_create_by_url(
 
 def test_create_by_url_with_tags(
     api_client: TestClient,
-    api_routes: AppRoutes,
     unique_user: TestUser,
     monkeypatch: MonkeyPatch,
 ):
@@ -220,7 +217,7 @@ def test_delete(api_client: TestClient, recipe_data: RecipeSiteTestCase, unique_
     assert response.status_code == 200
 
 
-def test_recipe_crud_404(api_client: TestClient, api_routes: AppRoutes, unique_user: TestUser):
+def test_recipe_crud_404(api_client: TestClient, unique_user: TestUser):
     response = api_client.put(routes.recipes.Recipe.item("test"), json={"test": "stest"}, headers=unique_user.token)
     assert response.status_code == 404
 

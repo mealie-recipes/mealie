@@ -3,7 +3,6 @@ from fastapi.testclient import TestClient
 from mealie.core.config import get_app_settings
 from tests import utils
 from tests.utils import routes
-from tests.utils.app_routes import AppRoutes
 from tests.utils.factories import random_email, random_string
 from tests.utils.fixture_schemas import TestUser
 
@@ -39,13 +38,13 @@ def test_init_superuser(api_client: TestClient, admin_user: TestUser):
     assert admin_data["email"] == settings.DEFAULT_EMAIL
 
 
-def test_create_user(api_client: TestClient, api_routes: AppRoutes, admin_token):
+def test_create_user(api_client: TestClient, admin_token):
     create_data = generate_create_data()
     response = api_client.post(routes.admin.AdminUsers.base, json=create_data, headers=admin_token)
     assert response.status_code == 201
 
     form_data = {"username": create_data["email"], "password": create_data["password"]}
-    header = utils.login(form_data=form_data, api_client=api_client, api_routes=api_routes)
+    header = utils.login(form_data, api_client)
 
     response = api_client.get(routes.user.Users.self, headers=header)
     assert response.status_code == 200

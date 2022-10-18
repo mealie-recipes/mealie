@@ -5,11 +5,11 @@ from pytest import fixture
 from starlette.testclient import TestClient
 
 from tests import utils
+from tests.utils import api_routes
 from tests.utils.factories import random_string
 
 
 def build_unique_user(group: str, api_client: TestClient) -> utils.TestUser:
-    api_routes = utils.AppRoutes()
     group = group or random_string(12)
 
     registration = utils.user_registration_factory()
@@ -18,7 +18,7 @@ def build_unique_user(group: str, api_client: TestClient) -> utils.TestUser:
 
     form_data = {"username": registration.username, "password": registration.password}
 
-    token = utils.login(form_data, api_client, api_routes)
+    token = utils.login(form_data, api_client)
 
     user_data = api_client.get(api_routes.users_self, headers=token).json()
     assert token is not None
@@ -34,7 +34,7 @@ def build_unique_user(group: str, api_client: TestClient) -> utils.TestUser:
 
 
 @fixture(scope="module")
-def g2_user(admin_token, api_client: TestClient, api_routes: utils.AppRoutes):
+def g2_user(admin_token, api_client: TestClient):
     group = random_string(12)
     # Create the user
     create_data = {
@@ -55,7 +55,7 @@ def g2_user(admin_token, api_client: TestClient, api_routes: utils.AppRoutes):
     # Log in as this user
     form_data = {"username": create_data["email"], "password": "useruser"}
 
-    token = utils.login(form_data, api_client, api_routes)
+    token = utils.login(form_data, api_client)
 
     self_response = api_client.get(api_routes.users_self, headers=token)
 
@@ -79,14 +79,14 @@ def g2_user(admin_token, api_client: TestClient, api_routes: utils.AppRoutes):
 
 
 @fixture(scope="module")
-def unique_user(api_client: TestClient, api_routes: utils.AppRoutes):
+def unique_user(api_client: TestClient):
     registration = utils.user_registration_factory()
     response = api_client.post("/api/users/register", json=registration.dict(by_alias=True))
     assert response.status_code == 201
 
     form_data = {"username": registration.username, "password": registration.password}
 
-    token = utils.login(form_data, api_client, api_routes)
+    token = utils.login(form_data, api_client)
 
     user_data = api_client.get(api_routes.users_self, headers=token).json()
     assert token is not None
@@ -106,9 +106,7 @@ def unique_user(api_client: TestClient, api_routes: utils.AppRoutes):
 
 
 @fixture(scope="module")
-def user_tuple(
-    admin_token, api_client: TestClient, api_routes: utils.AppRoutes
-) -> Generator[list[utils.TestUser], None, None]:
+def user_tuple(admin_token, api_client: TestClient) -> Generator[list[utils.TestUser], None, None]:
     group_name = utils.random_string()
     # Create the user
     create_data_1 = {
@@ -141,7 +139,7 @@ def user_tuple(
 
         # Log in as this user
         form_data = {"username": usr["email"], "password": "useruser"}
-        token = utils.login(form_data, api_client, api_routes)
+        token = utils.login(form_data, api_client)
         response = api_client.get(api_routes.users_self, headers=token)
         assert response.status_code == 200
         user_data = json.loads(response.text)
@@ -164,7 +162,7 @@ def user_tuple(
 
 
 @fixture(scope="session")
-def user_token(admin_token, api_client: TestClient, api_routes: utils.AppRoutes):
+def user_token(admin_token, api_client: TestClient):
     # Create the user
     create_data = {
         "fullName": utils.random_string(),
@@ -182,4 +180,4 @@ def user_token(admin_token, api_client: TestClient, api_routes: utils.AppRoutes)
 
     # Log in as this user
     form_data = {"username": create_data["email"], "password": "useruser"}
-    return utils.login(form_data, api_client, api_routes)
+    return utils.login(form_data, api_client)

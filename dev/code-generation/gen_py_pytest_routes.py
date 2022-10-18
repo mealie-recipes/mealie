@@ -8,7 +8,7 @@ from utils import PROJECT_DIR, CodeTemplates, HTTPRequest, RouteObject
 
 CWD = Path(__file__).parent
 
-OUTFILE = PROJECT_DIR / "tests" / "utils" / "app_routes.py"
+OUTFILE = PROJECT_DIR / "tests" / "utils" / "api_routes" / "__init__.py"
 
 
 class PathObject(BaseModel):
