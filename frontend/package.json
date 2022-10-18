@@ -30,7 +30,6 @@
     "isomorphic-dompurify": "^0.23.0",
     "nuxt": "^2.15.8",
     "v-jsoneditor": "^1.4.5",
-    "vitest": "^0.24.3",
     "vuedraggable": "^2.24.3",
     "vuetify": "^2.6.12"
   },
@@ -53,6 +52,7 @@
     "lint-staged": "^13.0.3",
     "nuxt-vite": "0.2.3",
     "prettier": "^2.7.1",
+    "vitest": "^0.24.3",
     "vue2-script-setup-transform": "^0.3.5"
   }
 }
