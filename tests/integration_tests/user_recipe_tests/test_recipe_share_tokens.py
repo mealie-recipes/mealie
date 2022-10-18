@@ -1,27 +1,21 @@
+from typing import Generator
+
 import pytest
 import sqlalchemy
 from fastapi.testclient import TestClient
 
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe_share_token import RecipeShareTokenSave
+from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 
 
-class Routes:
-    base = "/api/shared/recipes"
-    create_recipes = "/api/recipes"
-
-    @staticmethod
-    def item(item_id: str):
-        return f"{Routes.base}/{item_id}"
-
-
 @pytest.fixture(scope="function")
-def slug(api_client: TestClient, unique_user: TestUser, database: AllRepositories) -> str:
+def slug(api_client: TestClient, unique_user: TestUser, database: AllRepositories) -> Generator[str, None, None]:
 
     payload = {"name": random_string(length=20)}
-    response = api_client.post(Routes.create_recipes, json=payload, headers=unique_user.token)
+    response = api_client.post(api_routes.recipes, json=payload, headers=unique_user.token)
     assert response.status_code == 201
 
     response_data = response.json()
@@ -50,7 +44,7 @@ def test_recipe_share_tokens_get_all(
         tokens.append(token)
 
     # Get All Tokens
-    response = api_client.get(Routes.base, headers=unique_user.token)
+    response = api_client.get(api_routes.shared_recipes, headers=unique_user.token)
     assert response.status_code == 200
 
     response_data = response.json()
@@ -72,7 +66,7 @@ def test_recipe_share_tokens_get_all_with_id(
         )
         tokens.append(token)
 
-    response = api_client.get(Routes.base + "?recipe_id=" + str(recipe.id), headers=unique_user.token)
+    response = api_client.get(api_routes.shared_recipes + "?recipe_id=" + str(recipe.id), headers=unique_user.token)
     assert response.status_code == 200
 
     response_data = response.json()
@@ -92,10 +86,12 @@ def test_recipe_share_tokens_create_and_get_one(
         "recipeId": str(recipe.id),
     }
 
-    response = api_client.post(Routes.base, json=payload, headers=unique_user.token)
+    response = api_client.post(api_routes.shared_recipes, json=payload, headers=unique_user.token)
     assert response.status_code == 201
 
-    response = api_client.get(Routes.item(response.json()["id"]), json=payload, headers=unique_user.token)
+    response = api_client.get(
+        api_routes.shared_recipes_item_id(response.json()["id"]), json=payload, headers=unique_user.token
+    )
     assert response.status_code == 200
 
     response_data = response.json()
@@ -116,7 +112,7 @@ def test_recipe_share_tokens_delete_one(
     )
 
     # Delete Token
-    response = api_client.delete(Routes.item(token.id), headers=unique_user.token)
+    response = api_client.delete(api_routes.shared_recipes_item_id(token.id), headers=unique_user.token)
     assert response.status_code == 200
 
     # Get Token
