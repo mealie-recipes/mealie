@@ -28,8 +28,5 @@
     ]
   },
   "include": ["**/*", ".eslintrc.js"],
-  "exclude": ["node_modules", ".nuxt", "dist"],
-  "vueCompilerOptions": {
-    "experimentalCompatMode": 2
-  }
+  "exclude": ["node_modules", ".nuxt", "dist"]
 }
