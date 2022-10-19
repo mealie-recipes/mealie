@@ -68,9 +68,9 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref, toRefs } from "@nuxtjs/composition-api";
-import { Parser } from "~/api/class-interfaces/recipes/recipe";
 import { IngredientConfidence } from "~/types/api-types/recipe";
 import { useUserApi } from "~/composables/api";
+import { Parser } from "~/lib/api/user/recipes/recipe";
 
 type ConfidenceAttribute = "average" | "comment" | "name" | "unit" | "quantity" | "food";
 
@@ -90,8 +90,7 @@ export default defineComponent({
 
     function getColor(attribute: ConfidenceAttribute) {
       const percentage = getConfidence(attribute);
-      if (percentage === undefined)
-        return;
+      if (percentage === undefined) return;
 
       const p_as_num = parseFloat(percentage.replace("%", ""));
 
@@ -142,8 +141,7 @@ export default defineComponent({
       if (data) {
         state.results = true;
 
-        if (data.confidence)
-          confidence.value = data.confidence;
+        if (data.confidence) confidence.value = data.confidence;
 
         // TODO: Remove ts-ignore
         // ts-ignore because data will likely change significantly once I figure out how to return results
@@ -153,7 +151,7 @@ export default defineComponent({
         properties.unit.value = data.ingredient?.unit?.name || "";
         properties.food.value = data.ingredient?.food?.name || "";
 
-        (["comment", "quantity", "unit", "food"] as ConfidenceAttribute[]).forEach(property => {
+        (["comment", "quantity", "unit", "food"] as ConfidenceAttribute[]).forEach((property) => {
           const color = getColor(property);
           const confidence = getConfidence(property);
           if (color) {
@@ -218,5 +216,4 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

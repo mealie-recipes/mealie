@@ -88,7 +88,6 @@
 <script lang="ts">
 import { defineComponent, ref, useRoute, useRouter } from "@nuxtjs/composition-api";
 import { invoke, until } from "@vueuse/core";
-import { Parser } from "~/api/class-interfaces/recipes/recipe";
 import {
   CreateIngredientFood,
   CreateIngredientUnit,
@@ -101,6 +100,7 @@ import { useUserApi } from "~/composables/api";
 import { useRecipe } from "~/composables/recipes";
 import { RecipeIngredient } from "~/types/api-types/admin";
 import { useFoodData, useFoodStore, useUnitStore } from "~/composables/store";
+import { Parser } from "~/lib/api/user/recipes/recipe";
 
 interface Error {
   ingredientIndex: number;

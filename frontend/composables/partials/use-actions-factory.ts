@@ -1,6 +1,6 @@
 import { Ref, useAsync } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "../use-utils";
-import { BaseCRUDAPI } from "~/api/_base";
+import { BaseCRUDAPI } from "~/lib/api/base/base-clients";
 
 type BoundT = {
   id?: string | number;
