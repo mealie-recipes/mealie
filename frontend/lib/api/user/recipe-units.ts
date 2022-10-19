@@ -1,5 +1,5 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import { CreateIngredientUnit, IngredientUnit } from "~/types/api-types/recipe";
+import { CreateIngredientUnit, IngredientUnit } from "~/lib/api/types/recipe";
 
 const prefix = "/api";
 

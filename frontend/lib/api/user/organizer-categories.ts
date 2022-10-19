@@ -1,6 +1,6 @@
 import { BaseCRUDAPI } from "../base/base-clients";
 import { config } from "../config";
-import { CategoryIn, RecipeCategoryResponse } from "~/types/api-types/recipe";
+import { CategoryIn, RecipeCategoryResponse } from "~/lib/api/types/recipe";
 
 const prefix = config.PREFIX + "/organizers";
 

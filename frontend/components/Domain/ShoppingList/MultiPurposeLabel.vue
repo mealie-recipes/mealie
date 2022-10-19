@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { computed, defineComponent } from "@nuxtjs/composition-api";
-import { MultiPurposeLabelSummary } from "~/types/api-types/recipe";
+import { MultiPurposeLabelSummary } from "~/lib/api/types/recipe";
 
 export default defineComponent({
   props: {

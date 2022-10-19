@@ -31,7 +31,7 @@
 <script lang="ts">
 import { defineComponent, useRoute, ref, onMounted } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
-import { ReportOut } from "~/types/api-types/reports";
+import { ReportOut } from "~/lib/api/types/reports";
 
 export default defineComponent({
   setup() {

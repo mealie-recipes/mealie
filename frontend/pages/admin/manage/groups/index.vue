@@ -73,7 +73,7 @@
 import { defineComponent, reactive, toRefs, useContext, useRouter } from "@nuxtjs/composition-api";
 import { fieldTypes } from "~/composables/forms";
 import { useGroups } from "~/composables/use-groups";
-import { GroupInDB } from "~/types/api-types/user";
+import { GroupInDB } from "~/lib/api/types/user";
 
 export default defineComponent({
   layout: "admin",

@@ -1,5 +1,5 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import { UnlockResults, UserIn, UserOut } from "~/types/api-types/user";
+import { UnlockResults, UserIn, UserOut } from "~/lib/api/types/user";
 
 const prefix = "/api";
 

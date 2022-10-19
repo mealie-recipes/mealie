@@ -1,7 +1,7 @@
 import { ref, reactive, Ref } from "@nuxtjs/composition-api";
 import { useStoreActions } from "../partials/use-actions-factory";
 import { useUserApi } from "~/composables/api";
-import { IngredientUnit } from "~/types/api-types/recipe";
+import { IngredientUnit } from "~/lib/api/types/recipe";
 
 let unitStore: Ref<IngredientUnit[] | null> | null = null;
 

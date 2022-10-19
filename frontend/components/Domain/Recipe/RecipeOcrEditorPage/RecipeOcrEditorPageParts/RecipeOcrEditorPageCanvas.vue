@@ -41,8 +41,8 @@
 <script lang="ts">
 import { defineComponent, reactive, useContext, ref, toRefs, watch } from "@nuxtjs/composition-api";
 import { onMounted } from "vue-demi";
-import { NoUndefinedField } from "~/types/api";
-import { OcrTsvResponse as NullableOcrTsvResponse } from "~/types/api-types/ocr";
+import { NoUndefinedField } from "~/lib/api/types/non-generated";
+import { OcrTsvResponse as NullableOcrTsvResponse } from "~/lib/api/types/ocr";
 import { CanvasModes, SelectedTextSplitModes, ImagePosition, Mouse, CanvasRect, ToolbarIcons } from "~/types/ocr-types";
 
 // Temporary Shim until we have a better solution

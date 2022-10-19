@@ -1,6 +1,6 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import { GroupBase, GroupInDB } from "~/types/api-types/user";
-import { GroupAdminUpdate } from "~/types/api-types/group";
+import { GroupBase, GroupInDB } from "~/lib/api/types/user";
+import { GroupAdminUpdate } from "~/lib/api/types/group";
 const prefix = "/api";
 
 const routes = {

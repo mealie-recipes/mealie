@@ -2,7 +2,7 @@ import { useAsync, ref, Ref, watch } from "@nuxtjs/composition-api";
 import { format } from "date-fns";
 import { useAsyncKey } from "./use-utils";
 import { useUserApi } from "~/composables/api";
-import { CreatePlanEntry, PlanEntryType, UpdatePlanEntry } from "~/types/api-types/meal-plan";
+import { CreatePlanEntry, PlanEntryType, UpdatePlanEntry } from "~/lib/api/types/meal-plan";
 
 export const planTypeOptions = [
   { text: "Breakfast", value: "breakfast" },

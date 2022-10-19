@@ -82,7 +82,7 @@ import { defineComponent, reactive, useContext } from "@nuxtjs/composition-api";
 import { useStaticRoutes, useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { detectServerBaseUrl } from "~/composables/use-utils";
-import { RecipeAsset } from "~/types/api-types/recipe";
+import { RecipeAsset } from "~/lib/api/types/recipe";
 
 export default defineComponent({
   props: {

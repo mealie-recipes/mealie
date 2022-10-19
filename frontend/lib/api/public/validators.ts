@@ -1,5 +1,5 @@
 import { BaseAPI } from "../base/base-clients";
-import { ValidationResponse } from "~/types/api-types/response";
+import { ValidationResponse } from "~/lib/api/types/response";
 
 const prefix = "/api";
 

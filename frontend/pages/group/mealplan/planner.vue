@@ -271,7 +271,7 @@ import { useRecipes, allRecipes } from "~/composables/recipes";
 import RecipeCardImage from "~/components/Domain/Recipe/RecipeCardImage.vue";
 import RecipeCard from "~/components/Domain/Recipe/RecipeCard.vue";
 import RecipeContextMenu from "~/components/Domain/Recipe/RecipeContextMenu.vue";
-import { PlanEntryType } from "~/types/api-types/meal-plan";
+import { PlanEntryType } from "~/lib/api/types/meal-plan";
 import { useUserApi } from "~/composables/api";
 
 export default defineComponent({

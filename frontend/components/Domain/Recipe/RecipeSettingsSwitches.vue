@@ -16,7 +16,7 @@
 
 <script lang="ts">
 import { defineComponent, useContext } from "@nuxtjs/composition-api";
-import { RecipeSettings } from "~/types/api-types/recipe";
+import { RecipeSettings } from "~/lib/api/types/recipe";
 
 export default defineComponent({
   props: {

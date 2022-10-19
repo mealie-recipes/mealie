@@ -44,8 +44,8 @@
 import { defineComponent } from "@nuxtjs/composition-api";
 import { usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import { validators } from "~/composables/use-validators";
-import { NoUndefinedField } from "~/types/api";
-import { Recipe } from "~/types/api-types/recipe";
+import { NoUndefinedField } from "~/lib/api/types/non-generated";
+import { Recipe } from "~/lib/api/types/recipe";
 import RecipeRating from "~/components/Domain/Recipe/RecipeRating.vue";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
 

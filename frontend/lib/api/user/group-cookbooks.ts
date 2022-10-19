@@ -1,5 +1,5 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import { CreateCookBook, RecipeCookBook, UpdateCookBook } from "~/types/api-types/cookbook";
+import { CreateCookBook, RecipeCookBook, UpdateCookBook } from "~/lib/api/types/cookbook";
 
 const prefix = "/api";
 

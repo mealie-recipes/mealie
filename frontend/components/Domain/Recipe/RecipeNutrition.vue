@@ -35,7 +35,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
-import { Nutrition } from "~/types/api-types/recipe";
+import { Nutrition } from "~/lib/api/types/recipe";
 
 export default defineComponent({
   props: {

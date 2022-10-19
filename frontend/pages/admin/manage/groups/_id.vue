@@ -28,7 +28,7 @@ import { defineComponent, useRoute, onMounted, ref } from "@nuxtjs/composition-a
 import GroupPreferencesEditor from "~/components/Domain/Group/GroupPreferencesEditor.vue";
 import { useAdminApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
-import { GroupInDB } from "~/types/api-types/user";
+import { GroupInDB } from "~/lib/api/types/user";
 import { VForm } from "~/types/vuetify";
 
 export default defineComponent({

@@ -162,9 +162,9 @@ import RecipeDataTable from "~/components/Domain/Recipe/RecipeDataTable.vue";
 import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
 import { useUserApi } from "~/composables/api";
 import { useRecipes, allRecipes } from "~/composables/recipes";
-import { Recipe, RecipeSettings } from "~/types/api-types/recipe";
+import { Recipe, RecipeSettings } from "~/lib/api/types/recipe";
 import GroupExportData from "~/components/Domain/Group/GroupExportData.vue";
-import { GroupDataExport } from "~/types/api-types/group";
+import { GroupDataExport } from "~/lib/api/types/group";
 import { MenuItem } from "~/components/global/BaseOverflowButton.vue";
 import RecipeSettingsSwitches from "~/components/Domain/Recipe/RecipeSettingsSwitches.vue";
 

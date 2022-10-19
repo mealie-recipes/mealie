@@ -5,7 +5,7 @@ import { AdminGroupsApi } from "./admin/admin-groups";
 import { AdminBackupsApi } from "./admin/admin-backups";
 import { AdminMaintenanceApi } from "./admin/admin-maintenance";
 import { AdminAnalyticsApi } from "./admin/admin-analytics";
-import { ApiRequestInstance } from "~/types/api";
+import { ApiRequestInstance } from "~/lib/api/types/non-generated";
 
 export class AdminAPI {
   public about: AdminAboutAPI;

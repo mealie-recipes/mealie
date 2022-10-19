@@ -1,6 +1,6 @@
 import { BaseAPI } from "../base/base-clients";
-import { SuccessResponse } from "~/types/api-types/response";
-import { MaintenanceLogs, MaintenanceStorageDetails, MaintenanceSummary } from "~/types/api-types/admin";
+import { SuccessResponse } from "~/lib/api/types/response";
+import { MaintenanceLogs, MaintenanceStorageDetails, MaintenanceSummary } from "~/lib/api/types/admin";
 
 const prefix = "/api";
 

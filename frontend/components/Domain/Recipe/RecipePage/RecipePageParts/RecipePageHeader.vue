@@ -61,8 +61,8 @@ import RecipeRating from "~/components/Domain/Recipe/RecipeRating.vue";
 import RecipeActionMenu from "~/components/Domain/Recipe/RecipeActionMenu.vue";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
 import { useStaticRoutes } from "~/composables/api";
-import { Recipe } from "~/types/api-types/recipe";
-import { NoUndefinedField } from "~/types/api";
+import { Recipe } from "~/lib/api/types/recipe";
+import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { usePageState, usePageUser, PageMode, EditorMode } from "~/composables/recipe-page/shared-state";
 export default defineComponent({
   components: {

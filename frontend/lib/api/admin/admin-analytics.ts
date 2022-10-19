@@ -1,5 +1,5 @@
 import { BaseAPI } from "../base/base-clients";
-import { MealieAnalytics } from "~/types/api-types/analytics";
+import { MealieAnalytics } from "~/lib/api/types/analytics";
 
 const prefix = "/api";
 

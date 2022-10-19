@@ -23,7 +23,7 @@
 <script lang="ts">
 import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
-import { UserOut } from "~/types/api-types/user";
+import { UserOut } from "~/lib/api/types/user";
 export default defineComponent({
   props: {
     slug: {

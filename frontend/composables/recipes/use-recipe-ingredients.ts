@@ -1,6 +1,6 @@
 import DOMPurify from "isomorphic-dompurify";
 import { useFraction } from "./use-fraction";
-import { RecipeIngredient } from "~/types/api-types/recipe";
+import { RecipeIngredient } from "~/lib/api/types/recipe";
 const { frac } = useFraction();
 
 function sanitizeIngredientHTML(rawHtml: string) {

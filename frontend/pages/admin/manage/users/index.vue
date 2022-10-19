@@ -69,7 +69,7 @@ import { defineComponent, reactive, ref, toRefs, useContext, useRouter } from "@
 import { useAdminApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { useUser, useAllUsers } from "~/composables/use-user";
-import { UserOut } from "~/types/api-types/user";
+import { UserOut } from "~/lib/api/types/user";
 
 export default defineComponent({
   layout: "admin",

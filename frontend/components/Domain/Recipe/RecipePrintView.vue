@@ -23,9 +23,12 @@
         class="print-section"
       >
         <h4 v-if="ingredientSection.ingredients[0].title" class="ingredient-title mt-2">
-            {{ ingredientSection.ingredients[0].title }}
+          {{ ingredientSection.ingredients[0].title }}
         </h4>
-        <div class="ingredient-grid" :style="{gridTemplateRows:`repeat(${Math.ceil(ingredientSection.ingredients.length / 2)}, min-content)`}">
+        <div
+          class="ingredient-grid"
+          :style="{ gridTemplateRows: `repeat(${Math.ceil(ingredientSection.ingredients.length / 2)}, min-content)` }"
+        >
           <template v-for="(ingredient, ingredientIndex) in ingredientSection.ingredients">
             <p :key="`ingredient-${ingredientIndex}`" class="ingredient-body" v-html="parseText(ingredient)" />
           </template>
@@ -70,7 +73,7 @@
 <script lang="ts">
 import { defineComponent, computed } from "@nuxtjs/composition-api";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
-import { Recipe, RecipeIngredient, RecipeStep } from "~/types/api-types/recipe";
+import { Recipe, RecipeIngredient, RecipeStep } from "~/lib/api/types/recipe";
 import { parseIngredientText } from "~/composables/recipes";
 
 type IngredientSection = {

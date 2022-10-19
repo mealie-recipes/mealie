@@ -1,6 +1,6 @@
 import { ref, Ref, useAsync, useContext } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "../use-utils";
-import { AppInfo } from "~/types/api-types/admin";
+import { AppInfo } from "~/lib/api/types/admin";
 
 export function useAppInfo(): Ref<AppInfo | null> {
   const appInfo = ref<null | AppInfo>(null);

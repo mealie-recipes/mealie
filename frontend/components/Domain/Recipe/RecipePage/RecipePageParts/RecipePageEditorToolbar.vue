@@ -13,8 +13,8 @@
 <script lang="ts">
 import { defineComponent, onUnmounted } from "@nuxtjs/composition-api";
 import { clearPageState, usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
-import { NoUndefinedField } from "~/types/api";
-import { Recipe } from "~/types/api-types/recipe";
+import { NoUndefinedField } from "~/lib/api/types/non-generated";
+import { Recipe } from "~/lib/api/types/recipe";
 import { useUserApi } from "~/composables/api";
 import RecipeImageUploadBtn from "~/components/Domain/Recipe/RecipeImageUploadBtn.vue";
 import RecipeSettingsMenu from "~/components/Domain/Recipe/RecipeSettingsMenu.vue";

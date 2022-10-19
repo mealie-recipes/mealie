@@ -1,5 +1,5 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import { ApiRequestInstance } from "~/types/api";
+import { ApiRequestInstance } from "~/lib/api/types/non-generated";
 import {
   ShoppingListCreate,
   ShoppingListItemCreate,
@@ -7,7 +7,7 @@ import {
   ShoppingListItemUpdate,
   ShoppingListOut,
   ShoppingListUpdate,
-} from "~/types/api-types/group";
+} from "~/lib/api/types/group";
 
 const prefix = "/api";
 

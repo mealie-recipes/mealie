@@ -1,6 +1,6 @@
 import { Ref } from "@nuxtjs/composition-api";
 import { useStaticRoutes } from "~/composables/api";
-import { Recipe } from "~/types/api-types/recipe";
+import { Recipe } from "~/lib/api/types/recipe";
 
 export interface RecipeMeta {
   title?: string;
@@ -53,6 +53,6 @@ export const useRecipeMeta = () => {
         },
       ],
     };
-  };
+  }
   return { recipeMeta };
 };

@@ -47,7 +47,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed } from "@nuxtjs/composition-api";
-import { RecipeTool } from "~/types/api-types/recipe";
+import { RecipeTool } from "~/lib/api/types/recipe";
 import { useTools } from "~/composables/recipes";
 
 export default defineComponent({

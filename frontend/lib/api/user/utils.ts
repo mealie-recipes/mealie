@@ -1,5 +1,5 @@
 import { BaseAPI } from "../base/base-clients";
-import { FileTokenResponse } from "~/types/api-types/response";
+import { FileTokenResponse } from "~/lib/api/types/response";
 
 const prefix = "/api";
 

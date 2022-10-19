@@ -1,5 +1,5 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import { CategoryBase, GroupBase, GroupInDB, UserOut } from "~/types/api-types/user";
+import { CategoryBase, GroupBase, GroupInDB, UserOut } from "~/lib/api/types/user";
 import {
   CreateInviteToken,
   GroupAdminUpdate,
@@ -9,7 +9,7 @@ import {
   ReadInviteToken,
   SetPermissions,
   UpdateGroupPreferences,
-} from "~/types/api-types/group";
+} from "~/lib/api/types/group";
 
 const prefix = "/api";
 

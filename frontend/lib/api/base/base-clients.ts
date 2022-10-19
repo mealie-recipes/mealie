@@ -1,4 +1,4 @@
-import { ApiRequestInstance, PaginationData } from "~/types/api";
+import { ApiRequestInstance, PaginationData } from "~/lib/api/types/non-generated";
 
 export interface CrudAPIInterface {
   requests: ApiRequestInstance;

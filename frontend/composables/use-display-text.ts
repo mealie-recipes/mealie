@@ -3,7 +3,7 @@
  * with the food, units, quantity, and notes.
  */
 
-import { IngredientFood, IngredientUnit } from "~/types/api-types/recipe";
+import { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
 
 export function getDisplayText(
   notes = "",

@@ -1,5 +1,5 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import { CreateWebhook, ReadWebhook } from "~/types/api-types/group";
+import { CreateWebhook, ReadWebhook } from "~/lib/api/types/group";
 
 const prefix = "/api";
 

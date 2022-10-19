@@ -1,6 +1,6 @@
 import { BaseAPI } from "../base/base-clients";
-import { AllBackups } from "~/types/api-types/admin";
-import { ErrorResponse, FileTokenResponse, SuccessResponse } from "~/types/api-types/response";
+import { AllBackups } from "~/lib/api/types/admin";
+import { ErrorResponse, FileTokenResponse, SuccessResponse } from "~/lib/api/types/response";
 
 const prefix = "/api";
 

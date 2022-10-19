@@ -230,7 +230,7 @@ import {
   useContext,
   computed,
 } from "@nuxtjs/composition-api";
-import { RecipeStep, IngredientReferences, RecipeIngredient, RecipeAsset } from "~/types/api-types/recipe";
+import { RecipeStep, IngredientReferences, RecipeIngredient, RecipeAsset } from "~/lib/api/types/recipe";
 import { parseIngredientText } from "~/composables/recipes";
 import { uuid4, detectServerBaseUrl } from "~/composables/use-utils";
 import { useUserApi, useStaticRoutes } from "~/composables/api";

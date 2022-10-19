@@ -488,7 +488,7 @@ import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientE
 import RecipePrintView from "~/components/Domain/Recipe/RecipePrintView.vue";
 import RecipeTools from "~/components/Domain/Recipe/RecipeTools.vue";
 import RecipeComments from "~/components/Domain/Recipe/RecipeComments.vue";
-import { Recipe } from "~/types/api-types/recipe";
+import { Recipe } from "~/lib/api/types/recipe";
 import { uuid4, deepCopy } from "~/composables/use-utils";
 import { useRouteQuery } from "~/composables/use-router";
 import { useToolStore } from "~/composables/store";

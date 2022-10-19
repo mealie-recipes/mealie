@@ -193,7 +193,7 @@ import { useCopyList } from "~/composables/use-copy";
 import { useUserApi } from "~/composables/api";
 import { useAsyncKey } from "~/composables/use-utils";
 import ShoppingListItem from "~/components/Domain/ShoppingList/ShoppingListItem.vue";
-import { ShoppingListItemCreate, ShoppingListItemOut } from "~/types/api-types/group";
+import { ShoppingListItemCreate, ShoppingListItemOut } from "~/lib/api/types/group";
 import RecipeList from "~/components/Domain/Recipe/RecipeList.vue";
 import ShoppingListItemEditor from "~/components/Domain/ShoppingList/ShoppingListItemEditor.vue";
 import { getDisplayText } from "~/composables/use-display-text";

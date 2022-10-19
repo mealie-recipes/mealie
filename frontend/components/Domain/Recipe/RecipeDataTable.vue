@@ -44,9 +44,9 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref, useContext } from "@nuxtjs/composition-api";
 import RecipeChip from "./RecipeChips.vue";
-import { Recipe } from "~/types/api-types/recipe";
+import { Recipe } from "~/lib/api/types/recipe";
 import { useUserApi } from "~/composables/api";
-import { UserOut } from "~/types/api-types/user";
+import { UserOut } from "~/lib/api/types/user";
 
 const INPUT_EVENT = "input";
 

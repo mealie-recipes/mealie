@@ -1,5 +1,5 @@
 import { BaseAPI } from "../base/base-clients";
-import { Recipe } from "~/types/api-types/recipe";
+import { Recipe } from "~/lib/api/types/recipe";
 
 const prefix = "/api";
 

@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
 import { useContext } from "@nuxtjs/composition-api";
 import type { NuxtAxiosInstance } from "@nuxtjs/axios";
-import { ApiRequestInstance, RequestResponse } from "~/types/api";
+import { ApiRequestInstance, RequestResponse } from "~/lib/api/types/non-generated";
 import { AdminAPI, PublicApi, UserApi } from "~/lib/api";
 
 const request = {

@@ -1,7 +1,7 @@
 import { ValidatorsApi } from "./public/validators";
 import { ExploreApi } from "./public/explore";
 import { SharedApi } from "./public/shared";
-import { ApiRequestInstance } from "~/types/api";
+import { ApiRequestInstance } from "~/lib/api/types/non-generated";
 
 export class PublicApi {
   public validators: ValidatorsApi;

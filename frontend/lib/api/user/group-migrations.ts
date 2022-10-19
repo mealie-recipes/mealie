@@ -1,6 +1,6 @@
 import { BaseAPI } from "../base/base-clients";
-import { ReportSummary } from "~/types/api-types/reports";
-import { SupportedMigrations } from "~/types/api-types/group";
+import { ReportSummary } from "~/lib/api/types/reports";
+import { SupportedMigrations } from "~/lib/api/types/group";
 
 const prefix = "/api";
 export interface MigrationPayload {

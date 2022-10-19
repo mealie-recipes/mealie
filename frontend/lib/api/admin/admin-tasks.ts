@@ -1,5 +1,5 @@
 import { BaseAPI } from "../base/base-clients";
-import { ServerTask } from "~/types/api-types/server";
+import { ServerTask } from "~/lib/api/types/server";
 
 const prefix = "/api";
 

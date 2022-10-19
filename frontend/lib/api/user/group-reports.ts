@@ -1,5 +1,5 @@
 import { BaseAPI } from "../base/base-clients";
-import { ReportCategory, ReportOut, ReportSummary } from "~/types/api-types/reports";
+import { ReportCategory, ReportOut, ReportSummary } from "~/lib/api/types/reports";
 
 const prefix = "/api";
 

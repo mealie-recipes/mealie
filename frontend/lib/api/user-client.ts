@@ -24,7 +24,7 @@ import { GroupEventNotifierApi } from "./user/group-event-notifier";
 import { MealPlanRulesApi } from "./user/group-mealplan-rules";
 import { GroupDataSeederApi } from "./user/group-seeder";
 import { OcrAPI } from "./user/ocr";
-import { ApiRequestInstance } from "~/types/api";
+import { ApiRequestInstance } from "~/lib/api/types/non-generated";
 
 export class UserApiClient {
   public recipes: RecipeAPI;

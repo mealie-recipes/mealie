@@ -129,7 +129,7 @@ import RecipeCard from "./RecipeCard.vue";
 import RecipeCardMobile from "./RecipeCardMobile.vue";
 import { useAsyncKey } from "~/composables/use-utils";
 import { useLazyRecipes } from "~/composables/recipes";
-import { Recipe } from "~/types/api-types/recipe";
+import { Recipe } from "~/lib/api/types/recipe";
 import { useUserSortPreferences } from "~/composables/use-users/preferences";
 
 const REPLACE_RECIPES_EVENT = "replaceRecipes";
@@ -230,13 +230,13 @@ export default defineComponent({
         page.value,
 
         // we double-up the first call to avoid a bug with large screens that render the entire first page without scrolling, preventing additional loading
-        perPage.value*2,
+        perPage.value * 2,
         preferences.value.orderBy,
         preferences.value.orderDirection,
         cookbook.value,
         category.value,
         tag.value,
-        tool.value,
+        tool.value
       );
 
       // since we doubled the first call, we also need to advance the page
@@ -263,7 +263,7 @@ export default defineComponent({
           cookbook.value,
           category.value,
           tag.value,
-          tool.value,
+          tool.value
         );
         if (!newRecipes.length) {
           hasMore.value = false;
@@ -325,7 +325,7 @@ export default defineComponent({
           cookbook.value,
           category.value,
           tag.value,
-          tool.value,
+          tool.value
         );
         context.emit(REPLACE_RECIPES_EVENT, newRecipes);
 

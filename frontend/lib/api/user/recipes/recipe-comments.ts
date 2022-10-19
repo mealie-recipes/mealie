@@ -1,5 +1,5 @@
 import { BaseCRUDAPI } from "../../base/base-clients";
-import { RecipeCommentCreate, RecipeCommentOut, RecipeCommentUpdate } from "~/types/api-types/recipe";
+import { RecipeCommentCreate, RecipeCommentOut, RecipeCommentUpdate } from "~/lib/api/types/recipe";
 
 const prefix = "/api";
 

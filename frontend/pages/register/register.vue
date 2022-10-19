@@ -262,7 +262,7 @@ import { useRouteQuery } from "~/composables/use-router";
 import { validators, useAsyncValidator } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
-import { CreateUserRegistration } from "~/types/api-types/user";
+import { CreateUserRegistration } from "~/lib/api/types/user";
 import { VForm } from "~/types/vuetify";
 import { usePasswordField } from "~/composables/use-passwords";
 import { usePublicApi } from "~/composables/api/api-client";

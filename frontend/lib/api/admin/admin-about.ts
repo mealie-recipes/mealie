@@ -1,5 +1,5 @@
 import { BaseAPI } from "../base/base-clients";
-import { AdminAboutInfo, DockerVolumeText, CheckAppConfig } from "~/types/api-types/admin";
+import { AdminAboutInfo, DockerVolumeText, CheckAppConfig } from "~/lib/api/types/admin";
 
 const prefix = "/api";
 

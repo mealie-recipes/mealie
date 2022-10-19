@@ -1,6 +1,6 @@
 import { computed, reactive, ref, Ref } from "@nuxtjs/composition-api";
 import Fuse from "fuse.js";
-import { Recipe } from "~/types/api-types/recipe";
+import { Recipe } from "~/lib/api/types/recipe";
 
 export const useRecipeSearch = (recipes: Ref<Recipe[] | null>) => {
   const localState = reactive({

@@ -10,8 +10,8 @@ import {
   ParsedIngredient,
   UpdateImageResponse,
   RecipeZipTokenResponse,
-} from "~/types/api-types/recipe";
-import { ApiRequestInstance } from "~/types/api";
+} from "~/lib/api/types/recipe";
+import { ApiRequestInstance } from "~/lib/api/types/non-generated";
 
 export type Parser = "nlp" | "brute";
 

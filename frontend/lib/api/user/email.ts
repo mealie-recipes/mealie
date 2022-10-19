@@ -1,7 +1,7 @@
 import { BaseAPI } from "../base/base-clients";
-import { EmailInitationResponse, EmailInvitation } from "~/types/api-types/group";
-import { ForgotPassword } from "~/types/api-types/user";
-import { EmailTest } from "~/types/api-types/admin";
+import { EmailInitationResponse, EmailInvitation } from "~/lib/api/types/group";
+import { ForgotPassword } from "~/lib/api/types/user";
+import { EmailTest } from "~/lib/api/types/admin";
 
 const routes = {
   base: "/api/admin/email",

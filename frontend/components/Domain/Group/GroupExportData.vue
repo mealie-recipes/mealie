@@ -20,7 +20,7 @@
 <script lang="ts">
 import { defineComponent, useContext } from "@nuxtjs/composition-api";
 import { parseISO, formatDistanceToNow } from "date-fns";
-import { GroupDataExport } from "~/types/api-types/group";
+import { GroupDataExport } from "~/lib/api/types/group";
 export default defineComponent({
   props: {
     exports: {

@@ -1,5 +1,5 @@
 import { BaseAPI } from "../base/base-clients";
-import { AllBackups, BackupOptions, CreateBackup } from "~/types/api-types/admin";
+import { AllBackups, BackupOptions, CreateBackup } from "~/lib/api/types/admin";
 
 const prefix = "/api";
 

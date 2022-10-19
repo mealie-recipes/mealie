@@ -1,7 +1,7 @@
 import { useAsync, ref } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "../use-utils";
 import { useUserApi } from "~/composables/api";
-import { Recipe } from "~/types/api-types/recipe";
+import { Recipe } from "~/lib/api/types/recipe";
 
 export const allRecipes = ref<Recipe[]>([]);
 export const recentRecipes = ref<Recipe[]>([]);
@@ -21,7 +21,14 @@ export const useLazyRecipes = function () {
     tag: string | null = null,
     tool: string | null = null
   ) {
-    const { data } = await api.recipes.getAll(page, perPage, { orderBy, orderDirection, cookbook, "categories": category, "tags": tag, "tools": tool });
+    const { data } = await api.recipes.getAll(page, perPage, {
+      orderBy,
+      orderDirection,
+      cookbook,
+      categories: category,
+      tags: tag,
+      tools: tool,
+    });
     return data ? data.items : [];
   }
 
@@ -54,7 +61,7 @@ export const useLazyRecipes = function () {
     appendRecipes,
     assignSorted,
     removeRecipe,
-    replaceRecipes
+    replaceRecipes,
   };
 };
 

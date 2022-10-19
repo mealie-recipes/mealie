@@ -1,5 +1,5 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import { PlanRulesCreate, PlanRulesOut } from "~/types/api-types/meal-plan";
+import { PlanRulesCreate, PlanRulesOut } from "~/lib/api/types/meal-plan";
 
 const prefix = "/api";
 

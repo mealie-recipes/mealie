@@ -9,7 +9,7 @@ import {
   UserFavorites,
   UserIn,
   UserOut,
-} from "~/types/api-types/user";
+} from "~/lib/api/types/user";
 
 const prefix = "/api";
 
