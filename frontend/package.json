@@ -30,7 +30,7 @@
     "nuxt": "^2.15.8",
     "v-jsoneditor": "^1.4.5",
     "vuedraggable": "^2.24.3",
-    "vuetify": "^2.6.11"
+    "vuetify": "^2.6.12"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.19.1",
