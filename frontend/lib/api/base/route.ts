@@ -17,18 +17,20 @@ export type QueryValue = string | string[] | number | number[] | boolean | null 
  *
  * The default host `http://localhost.com` is removed from the path if it is present. This allows us
  * to bootstrap the API with different hosts as needed (like for testing) but still allows us to use
- * relative URLs in pruduction because the API and client bundle are served from the same server/host.
+ * relative URLs in production because the API and client bundle are served from the same server/host.
  */
-export function route(rest: string, params: Record<string, QueryValue> = {}): string {
+export function route(rest: string, params: Record<string, QueryValue> | null = null): string {
   const url = new URL(parts.prefix + rest, parts.host);
 
-  for (const [key, value] of Object.entries(params)) {
-    if (Array.isArray(value)) {
-      for (const item of value) {
-        url.searchParams.append(key, String(item));
+  if (params) {
+    for (const [key, value] of Object.entries(params)) {
+      if (Array.isArray(value)) {
+        for (const item of value) {
+          url.searchParams.append(key, String(item));
+        }
+      } else {
+        url.searchParams.append(key, String(value));
       }
-    } else {
-      url.searchParams.append(key, String(value));
     }
   }
 
