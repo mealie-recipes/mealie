@@ -1,1 +1,1 @@
-export { route } from "./urls";
+export { route } from "./route";
