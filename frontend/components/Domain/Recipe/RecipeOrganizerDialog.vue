@@ -40,7 +40,7 @@
 import { computed, defineComponent, reactive, toRefs, useContext, watch } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 import { useCategoryStore, useTagStore, useToolStore } from "~/composables/store";
-import type { RecipeOrganizer, Organizer } from "~/lib/api/types/non-generated";
+import { RecipeOrganizer, Organizer } from "~/lib/api/types/non-generated";
 
 const CREATED_ITEM_EVENT = "created-item";
 
