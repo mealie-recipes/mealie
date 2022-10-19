@@ -1,4 +1,5 @@
 import { computed, Ref, ref, useContext } from "@nuxtjs/composition-api";
+import { scorePassword } from "~/lib/validators";
 
 export function usePasswordField() {
   const show = ref(false);
@@ -19,46 +20,6 @@ export function usePasswordField() {
     togglePasswordShow,
     passwordIcon,
   };
-}
-
-function scorePassword(pass: string): number {
-  let score = 0;
-  if (!pass) return score;
-
-  const flaggedWords = ["password", "mealie", "admin", "qwerty", "login"];
-
-  if (pass.length < 6) return score;
-
-  // Check for flagged words
-  for (const word of flaggedWords) {
-    if (pass.toLowerCase().includes(word)) {
-      score -= 100;
-    }
-  }
-
-  // award every unique letter until 5 repetitions
-  const letters: { [key: string]: number } = {};
-
-  for (let i = 0; i < pass.length; i++) {
-    letters[pass[i]] = (letters[pass[i]] || 0) + 1;
-    score += 5.0 / letters[pass[i]];
-  }
-
-  // bonus points for mixing it up
-  const variations: { [key: string]: boolean } = {
-    digits: /\d/.test(pass),
-    lower: /[a-z]/.test(pass),
-    upper: /[A-Z]/.test(pass),
-    nonWords: /\W/.test(pass),
-  };
-
-  let variationCount = 0;
-  for (const check in variations) {
-    variationCount += variations[check] === true ? 1 : 0;
-  }
-  score += (variationCount - 1) * 10;
-
-  return score;
 }
 
 export const usePasswordStrength = (password: Ref<string>) => {
