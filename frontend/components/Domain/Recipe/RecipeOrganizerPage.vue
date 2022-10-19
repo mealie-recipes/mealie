@@ -50,7 +50,7 @@
 import { defineComponent, computed, ref } from "@nuxtjs/composition-api";
 import { useContextPresets } from "~/composables/use-context-presents";
 import RecipeOrganizerDialog from "~/components/Domain/Recipe/RecipeOrganizerDialog.vue";
-import { RecipeOrganizer } from "~/types/recipe/organizers";
+import type { RecipeOrganizer } from "~/lib/api/types/non-generated";
 
 interface GenericItem {
   id?: string;
