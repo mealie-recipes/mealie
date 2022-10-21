@@ -81,11 +81,11 @@ def clean_string(text: str | list | int) -> str:
 def clean_image(image: str | list | dict | None = None) -> str:
     """
     image attempts to parse the image field from a recipe and return a string. Currenty
-    supported formats are:
 
-    - `["https://exmaple.com"]` - A list of strings
-    - `https://exmaple.com` - A string
-    - `{ "url": "https://exmaple.com"` - A dictionary with a `url` key
+    Supported Structures:
+        - `["https://exmaple.com"]` - A list of strings
+        - `https://exmaple.com` - A string
+        - `{ "url": "https://exmaple.com"` - A dictionary with a `url` key
 
     Raises:
         TypeError: If the image field is not a supported type a TypeError is raised.
@@ -251,7 +251,7 @@ def clean_yield(yld: str | list[str]) -> str:
     """
     yield_amount attemps to parse out the yield amount from a recipe.
 
-    Supported Formats:
+    Supported Structures:
         - `"4 servings"` - returns the string unmodified
         - `["4 servings", "4 Pies"]` - returns the last value
 
@@ -270,7 +270,7 @@ def clean_yield(yld: str | list[str]) -> str:
 def clean_time(time_entry: str | timedelta | None) -> None | str:
     """_summary_
 
-    Supported Formats:
+    Supported Structures:
         - `None` - returns None
         - `"PT1H"` - returns "1 hour"
         - `"PT1H30M"` - returns "1 hour 30 minutes"
@@ -398,9 +398,10 @@ def clean_tags(data: str | list[str]) -> list[str]:
     Gets keywords as a list or natural language list and returns
     them into a list of strings of individual tags
     """
+    if not data:
+        return []
+
     match data:
-        case None:
-            return []
         case [str(), *_]:
             return [tag.strip().title() for tag in data if tag.strip()]
         case str(data):
