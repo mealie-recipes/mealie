@@ -123,7 +123,7 @@ class RecipeScraperPackage(ABCScraperStrategy):
 
             self.logger.debug(f"Scraped Instructions: (Type: {type(instruction_as_text)}) \n {instruction_as_text}")
 
-            instruction_as_text = cleaner.instructions(instruction_as_text)
+            instruction_as_text = cleaner.clean_instructions(instruction_as_text)
 
             self.logger.debug(f"Cleaned Instructions: (Type: {type(instruction_as_text)}) \n {instruction_as_text}")
 
@@ -147,7 +147,9 @@ class RecipeScraperPackage(ABCScraperStrategy):
             description=try_get_default(None, "description", "", cleaner.clean_string),
             nutrition=try_get_default(None, "nutrition", None, cleaner.clean_nutrition),
             recipe_yield=try_get_default(scraped_data.yields, "recipeYield", "1", cleaner.clean_string),
-            recipe_ingredient=try_get_default(scraped_data.ingredients, "recipeIngredient", [""], cleaner.ingredient),
+            recipe_ingredient=try_get_default(
+                scraped_data.ingredients, "recipeIngredient", [""], cleaner.clean_ingredients
+            ),
             recipe_instructions=get_instructions(),
             total_time=try_get_default(None, "totalTime", None, cleaner.clean_time),
             prep_time=try_get_default(None, "prepTime", None, cleaner.clean_time),
