@@ -8,7 +8,7 @@ Mealie supports long-live api tokens in the user frontend. See [user settings pa
 ## Key Components
 
 ### Exploring Your Local API
-On your local installation you can access interactive API documentation that provides `curl` examples and expected results. This allows you to easily test and interact with your API to identify places to include your own functionality. You can visit the documentation at `http://mealie.yourdomain.com/docs` or see the example at the [Demo Site](https://mealie-demo.hay-kot.dev/docs)
+On your local installation you can access interactive API documentation that provides `curl` examples and expected results. This allows you to easily test and interact with your API to identify places to include your own functionality. You can visit the documentation at `http://mealie.yourdomain.com/docs` or see the example at the [Demo Site](https://demo.mealie.io/docs).
 
 ### Extras
 #### Recipe Extras
