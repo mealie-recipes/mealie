@@ -155,10 +155,28 @@ class RecipeService(BaseService):
         return recipe
 
     def _pre_update_check(self, slug: str, new_data: Recipe) -> Recipe:
+        """
+        gets the recipe from the database and performs a check to see if the user can update the recipe.
+        If the user can't update the recipe, an exception is raised.
+
+        Checks:
+            - That the recipe exists
+            - That the user can update the recipe (recipe is not locked or the user is the owner)
+            - _if_ the user is locking the recipe, that they can lock the recipe (user is the owner)
+
+        Args:
+            slug (str): recipe slug
+
+        Raises:
+            exceptions.PermissionDenied (403)
+        """
+
         recipe = self._get_recipe(slug)
         if not self.can_update(recipe):
             raise exceptions.PermissionDenied("You do not have permission to edit this recipe.")
-        if recipe.settings.locked != new_data.settings.locked and not self.can_lock_unlock(recipe):
+
+        setting_lock = new_data.settings is not None and recipe.settings.locked != new_data.settings.locked
+        if setting_lock and not self.can_lock_unlock(recipe):
             raise exceptions.PermissionDenied("You do not have permission to lock/unlock this recipe.")
 
         return recipe
@@ -181,7 +199,10 @@ class RecipeService(BaseService):
 
     def delete_one(self, slug) -> Recipe:
         recipe = self._get_recipe(slug)
-        self.can_update(recipe)
+
+        if not self.can_update(recipe):
+            raise exceptions.PermissionDenied("You do not have permission to delete this recipe.")
+
         data = self.repos.recipes.delete(recipe.id, "id")
         self.delete_assets(data)
         return data
