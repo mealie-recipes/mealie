@@ -59,6 +59,12 @@ class ABCEmailSender(ABC):
 
 
 class DefaultEmailSender(ABCEmailSender, BaseService):
+    """
+    DefaultEmailSender is the default email sender for Mealie. It uses the SMTP settings
+    from the config file to send emails via the python standard library. It supports
+    both TLS and SSL connections.
+    """
+
     def send(self, email_to: str, subject: str, html: str) -> bool:
         message = Message(
             subject=subject,
