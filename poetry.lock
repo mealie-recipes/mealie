@@ -1085,7 +1085,7 @@ testing = ["fields", "hunter", "process-tests", "pytest-xdist", "six", "virtuale
 name = "python-dateutil"
 version = "2.8.2"
 description = "Extensions to the standard Python datetime module"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
 
@@ -1605,7 +1605,7 @@ pgsql = ["psycopg2-binary"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "1d7f2c0315f317738d7976796e88f63468bc98068cf8db5772da8ca1b28fc0e4"
+content-hash = "9b8033d971c49138bf8eb949e57e104b82b795ad45551586c1624f494388b5ef"
 
 [metadata.files]
 aiofiles = [
