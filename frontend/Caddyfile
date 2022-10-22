@@ -36,7 +36,7 @@
 
 	handle @apidocs {
 		uri strip_suffix /
-		reverse_proxy http://mealie-api:9000
+		reverse_proxy {$API_URL}
 	}
 
 	handle {
