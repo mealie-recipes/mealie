@@ -25,77 +25,78 @@
         </v-col>
       </v-row>
 
-      <ToggleState>
-        <template #activator="{ state, toggle }">
-          <v-switch :value="state" color="info" class="ma-0 pa-0" label="Advanced" @input="toggle" @click="toggle">
-            Advanced
-          </v-switch>
-        </template>
-        <template #default="{ state }">
-          <v-expand-transition>
-            <v-row v-show="state" dense class="my-0 dense flex-row align-center justify-space-around">
-              <v-col cols="12" class="d-flex flex-wrap flex-md-nowrap justify-center" style="gap: 0.8rem">
-                <RecipeOrganizerSelector
-                  v-model="includeCategories"
-                  :input-attrs="{
-                    solo: true,
-                    hideDetails: true,
-                    dense: false,
-                  }"
-                  :show-add="false"
-                  :return-object="false"
-                  selector-type="categories"
-                />
-                <RecipeSearchFilterSelector class="mb-1" @update="updateCatParams" />
-              </v-col>
-              <v-col cols="12" class="d-flex flex-wrap flex-md-nowrap justify-center" style="gap: 0.8rem">
-                <RecipeOrganizerSelector
-                  v-model="includeTags"
-                  :input-attrs="{
-                    solo: true,
-                    hideDetails: true,
-                    dense: false,
-                  }"
-                  :show-add="false"
-                  :return-object="false"
-                  selector-type="tags"
-                />
-                <RecipeSearchFilterSelector class="mb-1" @update="updateTagParams" />
-              </v-col>
-              <v-col cols="12" class="d-flex flex-wrap flex-md-nowrap justify-center" style="gap: 0.8rem">
-                <v-autocomplete
-                  v-model="includeFoods"
-                  chips
-                  hide-details
-                  deletable-chips
-                  solo
-                  multiple
-                  :items="foods || []"
-                  item-text="name"
-                  :prepend-inner-icon="$globals.icons.foods"
-                  label="Foods"
-                >
-                  <template #selection="data">
-                    <v-chip
-                      :key="data.index"
-                      class="ma-1"
-                      :input-value="data.selected"
-                      close
-                      label
-                      color="accent"
-                      dark
-                      @click:close="includeFoods.splice(data.index, 1)"
-                    >
-                      {{ data.item.name || data.item }}
-                    </v-chip>
-                  </template>
-                </v-autocomplete>
-                <RecipeSearchFilterSelector class="mb-1" @update="updateFoodParams" />
-              </v-col>
-            </v-row>
-          </v-expand-transition>
-        </template>
-      </ToggleState>
+      <div>
+        <v-switch
+          v-model="advanced"
+          color="info"
+          class="ma-0 pa-0"
+          label="Advanced"
+          @input="advanced = !advanced"
+          @click="advanced = !advanced"
+        />
+        <v-expand-transition>
+          <v-row v-show="advanced" dense class="my-0 dense flex-row align-center justify-space-around">
+            <v-col cols="12" class="d-flex flex-wrap flex-md-nowrap justify-center" style="gap: 0.8rem">
+              <RecipeOrganizerSelector
+                v-model="includeCategories"
+                :input-attrs="{
+                  solo: true,
+                  hideDetails: true,
+                  dense: false,
+                }"
+                :show-add="false"
+                :return-object="false"
+                selector-type="categories"
+              />
+              <RecipeSearchFilterSelector class="mb-1" @update="updateCatParams" />
+            </v-col>
+            <v-col cols="12" class="d-flex flex-wrap flex-md-nowrap justify-center" style="gap: 0.8rem">
+              <RecipeOrganizerSelector
+                v-model="includeTags"
+                :input-attrs="{
+                  solo: true,
+                  hideDetails: true,
+                  dense: false,
+                }"
+                :show-add="false"
+                :return-object="false"
+                selector-type="tags"
+              />
+              <RecipeSearchFilterSelector class="mb-1" @update="updateTagParams" />
+            </v-col>
+            <v-col cols="12" class="d-flex flex-wrap flex-md-nowrap justify-center" style="gap: 0.8rem">
+              <v-autocomplete
+                v-model="includeFoods"
+                chips
+                hide-details
+                deletable-chips
+                solo
+                multiple
+                :items="foods || []"
+                item-text="name"
+                :prepend-inner-icon="$globals.icons.foods"
+                label="Foods"
+              >
+                <template #selection="data">
+                  <v-chip
+                    :key="data.index"
+                    class="ma-1"
+                    :input-value="data.selected"
+                    close
+                    label
+                    color="accent"
+                    dark
+                    @click:close="includeFoods.splice(data.index, 1)"
+                  >
+                    {{ data.item.name || data.item }}
+                  </v-chip>
+                </template>
+              </v-autocomplete>
+              <RecipeSearchFilterSelector class="mb-1" @update="updateFoodParams" />
+            </v-col>
+          </v-row>
+        </v-expand-transition>
+      </div>
     </v-container>
     <v-container class="px-0 mt-6">
       <RecipeCardSection
@@ -134,6 +135,17 @@ export default defineComponent({
   },
   setup() {
     const { assignSorted } = useRecipes(true);
+
+    // ================================================================
+    // Advanced Toggle
+
+    const advancedQp = useRouteQuery("advanced");
+    const advanced = computed({
+      get: () => advancedQp.value === "true",
+      set: (val) => {
+        advancedQp.value = val ? "true" : "false";
+      },
+    });
 
     // ================================================================
     // Global State
@@ -282,6 +294,7 @@ export default defineComponent({
       updateCatParams,
       updateFoodParams,
       updateTagParams,
+      advanced,
     };
   },
   head() {
