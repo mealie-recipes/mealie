@@ -171,7 +171,10 @@
 
               <!-- Content -->
               <DropZone @drop="(f) => handleImageDrop(index, f)">
-                <v-card-text v-if="isEditForm">
+                <v-card-text
+                v-if="isEditForm"
+                @click="$emit('click-instruction-field', `${index}.text`)"
+                >
                   <MarkdownEditor
                     v-model="value[index]['text']"
                     class="mb-2"

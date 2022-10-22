@@ -123,15 +123,14 @@
               <RecipeDialogBulkAdd class="ml-1 mr-1" :input-text-prop="canvasSelectedText" @bulk-data="addStep" />
               <BaseButton @click="addStep()"> {{ $t("general.new") }}</BaseButton>
             </div>
-            <RecipeInstructions
+            <RecipePageInstructions
               v-model="recipe.recipeInstructions"
               :ingredients="recipe.recipeIngredient"
               :disable-amount="recipe.settings.disableAmount"
               :edit="true"
-              :recipe-id="recipe.id"
-              :recipe-slug="recipe.slug"
+              :recipe="recipe"
               :assets.sync="recipe.assets"
-              @clickInstructionField="setSingleStep"
+              @click-instruction-field="setSingleStep"
             />
           </v-tab-item>
         </v-tabs-items>
@@ -145,6 +144,7 @@ import { defineComponent, ref, onMounted, reactive, toRefs, useRouter } from "@n
 import { until } from "@vueuse/core";
 import { invoke } from "@vueuse/shared";
 import draggable from "vuedraggable";
+import RecipePageInstructions from "~/components/Domain/Recipe/RecipePage/RecipePageParts/RecipePageInstructions.vue";
 import { useUserApi, useStaticRoutes } from "~/composables/api";
 import { OcrTsvResponse as NullableOcrTsvResponse } from "~/lib/api/types/ocr";
 import { validators } from "~/composables/use-validators";
@@ -152,7 +152,6 @@ import { Recipe, RecipeIngredient, RecipeStep } from "~/lib/api/types/recipe";
 import { Paths, Leaves, SelectedRecipeLeaves } from "~/types/ocr-types";
 import BannerExperimental from "~/components/global/BannerExperimental.vue";
 import RecipeDialogBulkAdd from "~/components/Domain/Recipe/RecipeDialogBulkAdd.vue";
-import RecipeInstructions from "~/components/Domain/Recipe/RecipeInstructions.vue";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
 import RecipeOcrEditorPageCanvas from "~/components/Domain/Recipe/RecipeOcrEditorPage/RecipeOcrEditorPageParts/RecipeOcrEditorPageCanvas.vue";
 import RecipeOcrEditorPageHelp from "~/components/Domain/Recipe/RecipeOcrEditorPage/RecipeOcrEditorPageParts/RecipeOcrEditorPageHelp.vue";
@@ -169,7 +168,7 @@ export default defineComponent({
     draggable,
     BannerExperimental,
     RecipeDialogBulkAdd,
-    RecipeInstructions,
+    RecipePageInstructions,
     RecipeOcrEditorPageCanvas,
     RecipeOcrEditorPageHelp,
   },
