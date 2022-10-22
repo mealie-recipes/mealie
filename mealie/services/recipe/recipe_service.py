@@ -154,24 +154,35 @@ class RecipeService(BaseService):
 
         return recipe
 
-    def _pre_update_check(self, slug: str, new_data: Recipe) -> Recipe:
+    def _pre_update_check(self, slug: str) -> Recipe:
+        """
+        gets the recipe from the database and performs a check to see if the user can update the recipe.
+        If the user can't update the recipe, an exception is raised.
+
+        Args:
+            slug (str): recipe slug
+
+        Raises:
+            exceptions.PermissionDenied
+        """
+
         recipe = self._get_recipe(slug)
         if not self.can_update(recipe):
             raise exceptions.PermissionDenied("You do not have permission to edit this recipe.")
-        if recipe.settings.locked != new_data.settings.locked and not self.can_lock_unlock(recipe):
+        if recipe.settings.locked != recipe.settings.locked and not self.can_lock_unlock(recipe):
             raise exceptions.PermissionDenied("You do not have permission to lock/unlock this recipe.")
 
         return recipe
 
     def update_one(self, slug: str, update_data: Recipe) -> Recipe:
-        recipe = self._pre_update_check(slug, update_data)
+        recipe = self._pre_update_check(slug)
 
         new_data = self.repos.recipes.update(slug, update_data)
         self.check_assets(new_data, recipe.slug)
         return new_data
 
     def patch_one(self, slug: str, patch_data: Recipe) -> Recipe:
-        recipe = self._pre_update_check(slug, patch_data)
+        recipe = self._pre_update_check(slug)
         recipe = self.repos.recipes.by_group(self.group.id).get_one(slug)
 
         new_data = self.repos.recipes.by_group(self.group.id).patch(recipe.slug, patch_data.dict(exclude_unset=True))
