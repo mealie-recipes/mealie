@@ -53,13 +53,12 @@ export default defineComponent({
 
     const api = useUserApi();
     function updateRating(val: number) {
-      if (props.emitOnly) {
-        context.emit("input", val);
-        return;
+      if (!props.emitOnly) {
+        api.recipes.patchOne(props.slug, {
+          rating: val,
+        });
       }
-      api.recipes.patchOne(props.slug, {
-        rating: val,
-      });
+      context.emit("input", val);
     }
 
     return { loggedIn, rating, updateRating };

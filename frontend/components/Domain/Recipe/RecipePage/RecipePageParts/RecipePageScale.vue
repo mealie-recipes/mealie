@@ -19,7 +19,7 @@
     <RecipeRating
       v-if="landscape && $vuetify.breakpoint.smAndUp"
       :key="recipe.slug"
-      :value="recipe.rating"
+      :v-model="recipe.rating"
       :name="recipe.name"
       :slug="recipe.slug"
     />
