@@ -14,7 +14,7 @@
         </div>
       </template>
     </v-checkbox>
-    <MultiPurposeLabel v-if="listItem.label" :label="listItem.label" class="ml-auto mt-2" small />
+    <MultiPurposeLabel v-if="label" :label="label" class="ml-auto mt-2" small />
     <div style="min-width: 72px">
       <v-menu offset-x left min-width="125px">
         <template #activator="{ on, attrs }">
@@ -59,6 +59,7 @@ import { ShoppingListItemCreate } from "~/lib/api/types/group";
 import { MultiPurposeLabelOut } from "~/lib/api/types/labels";
 import { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
 import { getDisplayText } from "~/composables/use-display-text";
+import { MultiPurposeLabelSummary } from "~/lib/api/types/user";
 
 interface actions {
   text: string;
@@ -137,6 +138,24 @@ export default defineComponent({
       getDisplayText(listItem.value.note, listItem.value.quantity, listItem.value.food, listItem.value.unit)
     );
 
+    /**
+     * Get's the label for the shopping list item. Either the label assign to the item
+     * or the label of the food applied.
+     */
+    const label = computed<MultiPurposeLabelSummary | undefined>(() => {
+      // @ts-ignore - it _might_ exists
+      if (listItem.value.label) {
+        // @ts-ignore - it _might_ exists
+        return listItem.value.label as MultiPurposeLabelSummary;
+      }
+
+      if (listItem.value.food?.label) {
+        return listItem.value.food.label;
+      }
+
+      return undefined;
+    });
+
     return {
       displayText,
       updatedLabels,
@@ -145,6 +164,7 @@ export default defineComponent({
       edit,
       contextMenu,
       listItem,
+      label,
     };
   },
 });
