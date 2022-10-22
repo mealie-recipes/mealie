@@ -243,6 +243,7 @@
                     delete: false,
                     edit: false,
                     download: true,
+                    duplicate: false,
                     mealplanner: false,
                     print: true,
                     share: false,
