@@ -15,7 +15,7 @@
         <RecipeRating
           v-if="$vuetify.breakpoint.smAndDown"
           :key="recipe.slug"
-          :value="recipe.rating"
+          v-model="recipe.rating"
           :name="recipe.name"
           :slug="recipe.slug"
         />
