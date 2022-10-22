@@ -199,7 +199,10 @@ class RecipeService(BaseService):
 
     def delete_one(self, slug) -> Recipe:
         recipe = self._get_recipe(slug)
-        self.can_update(recipe)
+
+        if not self.can_update(recipe):
+            raise exceptions.PermissionDenied("You do not have permission to delete this recipe.")
+
         data = self.repos.recipes.delete(recipe.id, "id")
         self.delete_assets(data)
         return data
