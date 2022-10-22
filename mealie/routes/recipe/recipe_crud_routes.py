@@ -1,6 +1,7 @@
 from functools import cached_property
-from shutil import copyfileobj
+from shutil import copyfileobj, copytree
 from typing import Optional
+from uuid import uuid4
 from zipfile import ZipFile
 
 import orjson
@@ -31,7 +32,7 @@ from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_scraper import ScrapeRecipeTest
 from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.recipe.recipe_step import RecipeStep
-from mealie.schema.recipe.request_helpers import RecipeZipTokenResponse, UpdateImageResponse
+from mealie.schema.recipe.request_helpers import RecipeDuplicate, RecipeZipTokenResponse, UpdateImageResponse
 from mealie.schema.response.responses import ErrorResponse
 from mealie.services import urls
 from mealie.services.event_bus_service.event_types import (
@@ -297,6 +298,62 @@ class RecipeController(BaseRecipeController):
             )
 
         return new_recipe.slug
+
+    @router.post("/{slug}/duplicate", status_code=201, response_model=Recipe)
+    def duplicate_one(self, slug: str, req: RecipeDuplicate) -> Recipe:
+        """Duplicates a recipe with a new custom name if given"""
+
+        old_recipe = self.mixins.get_one(slug)
+
+        new_recipe_data = old_recipe.copy(exclude={"id", "slug", "name", "image", "notes"})
+        new_recipe_data.name = req.name if req.name else old_recipe.name
+        new_recipe_data.id = uuid4()
+        new_recipe_data.slug = slugify(new_recipe_data.name)
+        new_recipe_data.image = cache.cache_key.new_key()
+
+        # Asset images in steps directly link to the original recipe, so we
+        # need to update them to references to the assets we copy below
+        def replace_recipe_step(step: RecipeStep) -> RecipeStep:
+            new_step = step.copy(exclude={"id", "text"})
+
+            new_step.id = uuid4()
+
+            new_step.text = step.text.replace(old_recipe.slug, new_recipe_data.slug)
+            new_step.text = new_step.text.replace(str(old_recipe.id), str(new_recipe_data.id))
+
+            return new_step
+
+        new_recipe_data.recipe_instructions = list(map(replace_recipe_step, old_recipe.recipe_instructions))
+
+        try:
+            new_recipe = self.service.create_one(new_recipe_data)
+        except Exception as e:
+            self.handle_exceptions(e)
+            return None
+
+        if new_recipe:
+            try:
+                new_service = RecipeDataService(new_recipe.id)
+                old_service = RecipeDataService(old_recipe.id)
+                copytree(
+                    old_service.dir_data,
+                    new_service.dir_data,
+                    dirs_exist_ok=True,
+                )
+            except Exception as e:
+                self.logger.error(f"Failed to copy assets from {old_recipe.slug} to {new_recipe.slug}: {e}")
+
+            self.publish_event(
+                event_type=EventTypes.recipe_created,
+                document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=new_recipe.slug),
+                message=self.t(
+                    "notifications.generic-duplicated",
+                    name=new_recipe.name,
+                    source=old_recipe.name,
+                ),
+            )
+
+        return new_recipe
 
     @router.put("/{slug}")
     def update_one(self, slug: str, data: Recipe):
