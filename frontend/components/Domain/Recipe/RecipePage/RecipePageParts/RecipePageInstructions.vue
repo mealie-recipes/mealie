@@ -170,27 +170,25 @@
               </v-card-title>
 
               <!-- Content -->
-              <v-card-text
-                v-if="isEditForm"
-                :class="{ blur: imageUploadMode }"
-                @drop.stop.prevent="handleImageDrop(index, $event)"
-              >
-                <MarkdownEditor
-                  v-model="value[index]['text']"
-                  class="mb-2"
-                  :preview.sync="previewStates[index]"
-                  :display-preview="false"
-                  :textarea="{
-                    hint: 'Attach images by dragging & dropping them into the editor',
-                    persistentHint: true,
-                  }"
-                />
-                <RecipeIngredientHtml
-                  v-for="ing in step.ingredientReferences"
-                  :key="ing.referenceId"
-                  :markup="getIngredientByRefId(ing.referenceId)"
-                />
-              </v-card-text>
+              <DropZone @drop="(f) => handleImageDrop(index, f)">
+                <v-card-text v-if="isEditForm">
+                  <MarkdownEditor
+                    v-model="value[index]['text']"
+                    class="mb-2"
+                    :preview.sync="previewStates[index]"
+                    :display-preview="false"
+                    :textarea="{
+                      hint: 'Attach images by dragging & dropping them into the editor',
+                      persistentHint: true,
+                    }"
+                  />
+                  <RecipeIngredientHtml
+                    v-for="ing in step.ingredientReferences"
+                    :key="ing.referenceId"
+                    :markup="getIngredientByRefId(ing.referenceId)"
+                  />
+                </v-card-text>
+              </DropZone>
               <v-expand-transition>
                 <div v-show="!isChecked(index) && !isEditForm" class="m-0 p-0">
                   <v-card-text class="markdown">
@@ -233,6 +231,7 @@ import { uuid4, detectServerBaseUrl } from "~/composables/use-utils";
 import { useUserApi, useStaticRoutes } from "~/composables/api";
 import { usePageState } from "~/composables/recipe-page/shared-state";
 import { NoUndefinedField } from "~/types/api";
+import DropZone from "~/components/global/DropZone.vue";
 
 interface MergerHistory {
   target: number;
@@ -245,6 +244,7 @@ export default defineComponent({
   components: {
     draggable,
     RecipeIngredientHtml,
+    DropZone,
   },
   props: {
     value: {
@@ -582,13 +582,13 @@ export default defineComponent({
       }
     });
 
-    async function handleImageDrop(index: number, e: DragEvent) {
-      if (!e.dataTransfer) {
+    async function handleImageDrop(index: number, files: File[]) {
+      if (!files) {
         return;
       }
 
       // Check if the file is an image
-      const file = e.dataTransfer.files[0];
+      const file = files[0];
       if (!file || !file.type.startsWith("image/")) {
         return;
       }
