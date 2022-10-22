@@ -1,0 +1,1 @@
+export { route } from "./route";

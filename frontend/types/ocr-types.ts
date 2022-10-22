@@ -1,5 +1,5 @@
-import { OcrTsvResponse } from "~/types/api-types/ocr";
-import { Recipe } from "~/types/api-types/recipe";
+import { OcrTsvResponse } from "~/lib/api/types/ocr";
+import { Recipe } from "~/lib/api/types/recipe";
 
 export type CanvasRect = {
   startX: number;

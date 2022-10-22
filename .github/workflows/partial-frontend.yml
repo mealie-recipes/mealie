@@ -38,6 +38,10 @@ jobs:
         run: yarn lint
         working-directory: "frontend"
 
+      - name: Run tests 🧪
+        run: yarn test:ci
+        working-directory: "frontend"
+
   build:
     runs-on: ubuntu-latest
 

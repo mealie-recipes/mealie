@@ -59,8 +59,8 @@
 <script lang="ts">
 import { defineComponent } from "@nuxtjs/composition-api";
 import { usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
-import { NoUndefinedField } from "~/types/api";
-import { Recipe } from "~/types/api-types/recipe";
+import { NoUndefinedField } from "~/lib/api/types/non-generated";
+import { Recipe } from "~/lib/api/types/recipe";
 import RecipeOrganizerSelector from "@/components/Domain/Recipe/RecipeOrganizerSelector.vue";
 import RecipeNutrition from "~/components/Domain/Recipe/RecipeNutrition.vue";
 import RecipeChips from "@/components/Domain/Recipe/RecipeChips.vue";

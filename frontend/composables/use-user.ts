@@ -1,6 +1,6 @@
 import { useAsync, ref } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
-import { UserIn, UserOut } from "~/types/api-types/user";
+import { UserIn, UserOut } from "~/lib/api/types/user";
 
 /*
 TODO: Potentially combine useAllUsers and useUser by delaying the get all users functionality

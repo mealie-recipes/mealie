@@ -42,11 +42,11 @@
 import { defineComponent, ref, useContext } from "@nuxtjs/composition-api";
 import { computed, onMounted } from "vue-demi";
 import RecipeOrganizerDialog from "./RecipeOrganizerDialog.vue";
-import { RecipeCategory, RecipeTag } from "~/types/api-types/user";
-import { RecipeTool } from "~/types/api-types/admin";
+import { RecipeCategory, RecipeTag } from "~/lib/api/types/user";
+import { RecipeTool } from "~/lib/api/types/admin";
 import { useTagStore } from "~/composables/store/use-tag-store";
 import { useCategoryStore, useToolStore } from "~/composables/store";
-import { Organizer, RecipeOrganizer } from "~/types/recipe/organizers";
+import { Organizer, RecipeOrganizer } from "~/lib/api/types/non-generated";
 
 export default defineComponent({
   components: {

@@ -1,7 +1,7 @@
 import { reactive, ref, Ref } from "@nuxtjs/composition-api";
 import { useStoreActions } from "../partials/use-actions-factory";
 import { useUserApi } from "~/composables/api";
-import { RecipeTag } from "~/types/api-types/admin";
+import { RecipeTag } from "~/lib/api/types/admin";
 
 const items: Ref<RecipeTag[]> = ref([]);
 

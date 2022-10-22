@@ -101,8 +101,8 @@ import RecipeDialogShare from "./RecipeDialogShare.vue";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { planTypeOptions } from "~/composables/use-group-mealplan";
-import { ShoppingListSummary } from "~/types/api-types/group";
-import { PlanEntryType } from "~/types/api-types/meal-plan";
+import { ShoppingListSummary } from "~/lib/api/types/group";
+import { PlanEntryType } from "~/lib/api/types/meal-plan";
 import { useAxiosDownloader } from "~/composables/api/use-axios-download";
 import { useCopy } from "~/composables/use-copy";
 

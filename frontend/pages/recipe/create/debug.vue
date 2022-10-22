@@ -55,7 +55,7 @@
 import { defineComponent, reactive, toRefs, ref, useRouter, computed, useRoute } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
-import { Recipe } from "~/types/api-types/recipe";
+import { Recipe } from "~/lib/api/types/recipe";
 
 export default defineComponent({
   setup() {

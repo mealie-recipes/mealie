@@ -116,7 +116,7 @@ import type { LocaleObject } from "@nuxtjs/i18n";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
 import MultiPurposeLabel from "~/components/Domain/ShoppingList/MultiPurposeLabel.vue";
-import { MultiPurposeLabelSummary } from "~/types/api-types/labels";
+import { MultiPurposeLabelSummary } from "~/lib/api/types/labels";
 import { useLocales } from "~/composables/use-locales";
 import { useLabelData, useLabelStore } from "~/composables/store";
 

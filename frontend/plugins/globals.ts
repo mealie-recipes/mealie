@@ -1,8 +1,8 @@
 import { Plugin } from "@nuxt/types";
 import { Auth } from "@nuxtjs/auth-next";
 import { Framework } from "vuetify";
-import { icons } from "~/utils/icons";
-import { Icon } from "~/utils/icons/icon-type";
+import { icons } from "~/lib/icons";
+import { Icon } from "~/lib/icons/icon-type";
 
 interface Globals {
   icons: Icon;

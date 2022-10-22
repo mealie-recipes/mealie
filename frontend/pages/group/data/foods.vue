@@ -159,7 +159,7 @@ import { computed } from "vue-demi";
 import type { LocaleObject } from "@nuxtjs/i18n";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
-import { CreateIngredientFood, IngredientFood } from "~/types/api-types/recipe";
+import { CreateIngredientFood, IngredientFood } from "~/lib/api/types/recipe";
 import MultiPurposeLabel from "~/components/Domain/ShoppingList/MultiPurposeLabel.vue";
 import { useLocales } from "~/composables/use-locales";
 import { useFoodStore, useLabelStore } from "~/composables/store";

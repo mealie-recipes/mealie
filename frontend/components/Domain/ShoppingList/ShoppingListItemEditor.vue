@@ -96,9 +96,9 @@
 
 <script lang="ts">
 import { defineComponent, computed } from "@nuxtjs/composition-api";
-import { ShoppingListItemCreate, ShoppingListItemOut } from "~/types/api-types/group";
-import { MultiPurposeLabelOut } from "~/types/api-types/labels";
-import { IngredientFood, IngredientUnit } from "~/types/api-types/recipe";
+import { ShoppingListItemCreate, ShoppingListItemOut } from "~/lib/api/types/group";
+import { MultiPurposeLabelOut } from "~/lib/api/types/labels";
+import { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
 
 export default defineComponent({
   props: {

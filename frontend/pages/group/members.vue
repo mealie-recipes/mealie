@@ -66,7 +66,7 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted, useContext } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
-import { UserOut } from "~/types/api-types/user";
+import { UserOut } from "~/lib/api/types/user";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 
 export default defineComponent({

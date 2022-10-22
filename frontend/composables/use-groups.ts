@@ -1,7 +1,7 @@
 import { useAsync, ref } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "./use-utils";
 import { useUserApi } from "~/composables/api";
-import { GroupBase } from "~/types/api-types/user";
+import { GroupBase } from "~/lib/api/types/user";
 
 export const useGroupSelf = function () {
   const api = useUserApi();

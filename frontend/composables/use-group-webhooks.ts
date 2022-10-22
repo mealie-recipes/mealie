@@ -1,7 +1,7 @@
 import { useAsync, ref } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "./use-utils";
 import { useUserApi } from "~/composables/api";
-import { ReadWebhook } from "~/types/api-types/group";
+import { ReadWebhook } from "~/lib/api/types/group";
 
 export const useGroupWebhooks = function () {
   const api = useUserApi();

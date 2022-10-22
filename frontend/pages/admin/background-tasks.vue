@@ -41,7 +41,7 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "@nuxtjs/composition-api";
-import { ServerTask } from "~/types/api-types/server";
+import { ServerTask } from "~/lib/api/types/server";
 import { useAdminApi } from "~/composables/api";
 
 export default defineComponent({

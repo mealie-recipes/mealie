@@ -32,8 +32,8 @@
  * using the .sync syntax `item-id.sync="item.labelId"`
  */
 import { defineComponent, computed } from "@nuxtjs/composition-api";
-import { MultiPurposeLabelSummary } from "~/types/api-types/labels";
-import { IngredientFood, IngredientUnit } from "~/types/api-types/recipe";
+import { MultiPurposeLabelSummary } from "~/lib/api/types/labels";
+import { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
 
 export default defineComponent({
   props: {

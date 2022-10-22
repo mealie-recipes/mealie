@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import { defineComponent } from "@nuxtjs/composition-api";
-import { RecipeCategory, RecipeTag, RecipeTool } from "~/types/api-types/user";
+import { RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/user";
 
 export type UrlPrefixParam = "tags" | "categories" | "tools";
 

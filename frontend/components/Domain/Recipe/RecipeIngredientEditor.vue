@@ -131,7 +131,7 @@
 import { computed, defineComponent, reactive, ref, toRefs, useContext } from "@nuxtjs/composition-api";
 import { useFoodStore, useFoodData, useUnitStore, useUnitData } from "~/composables/store";
 import { validators } from "~/composables/use-validators";
-import { RecipeIngredient } from "~/types/api-types/recipe";
+import { RecipeIngredient } from "~/lib/api/types/recipe";
 
 export default defineComponent({
   props: {

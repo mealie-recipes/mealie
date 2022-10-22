@@ -57,7 +57,7 @@
 import { defineComponent, toRefs, reactive, ref, watch, useRoute } from "@nuxtjs/composition-api";
 import RecipeCardMobile from "./RecipeCardMobile.vue";
 import { useRecipes, allRecipes, useRecipeSearch } from "~/composables/recipes";
-import { RecipeSummary } from "~/types/api-types/recipe";
+import { RecipeSummary } from "~/lib/api/types/recipe";
 const SELECTED_EVENT = "selected";
 export default defineComponent({
   components: {

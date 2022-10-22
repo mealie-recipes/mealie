@@ -159,7 +159,7 @@ import { computed, defineComponent, onMounted, ref } from "@nuxtjs/composition-a
 import type { LocaleObject } from "@nuxtjs/i18n";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
-import { CreateIngredientUnit, IngredientUnit } from "~/types/api-types/recipe";
+import { CreateIngredientUnit, IngredientUnit } from "~/lib/api/types/recipe";
 import { useLocales } from "~/composables/use-locales";
 import { useUnitStore } from "~/composables/store";
 import { VForm } from "~/types/vuetify";

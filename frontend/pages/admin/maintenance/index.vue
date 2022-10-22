@@ -75,7 +75,7 @@
 <script lang="ts">
 import { computed, ref, defineComponent, reactive } from "@nuxtjs/composition-api";
 import { useAdminApi } from "~/composables/api";
-import { MaintenanceStorageDetails, MaintenanceSummary } from "~/types/api-types/admin";
+import { MaintenanceStorageDetails, MaintenanceSummary } from "~/lib/api/types/admin";
 
 export default defineComponent({
   layout: "admin",

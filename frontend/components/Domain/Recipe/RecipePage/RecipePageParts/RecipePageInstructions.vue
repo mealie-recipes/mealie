@@ -225,12 +225,12 @@ import {
   computed,
 } from "@nuxtjs/composition-api";
 import RecipeIngredientHtml from "../../RecipeIngredientHtml.vue";
-import { RecipeStep, IngredientReferences, RecipeIngredient, RecipeAsset, Recipe } from "~/types/api-types/recipe";
+import { RecipeStep, IngredientReferences, RecipeIngredient, RecipeAsset, Recipe } from "~/lib/api/types/recipe";
 import { parseIngredientText } from "~/composables/recipes";
 import { uuid4, detectServerBaseUrl } from "~/composables/use-utils";
 import { useUserApi, useStaticRoutes } from "~/composables/api";
 import { usePageState } from "~/composables/recipe-page/shared-state";
-import { NoUndefinedField } from "~/types/api";
+import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import DropZone from "~/components/global/DropZone.vue";
 
 interface MergerHistory {

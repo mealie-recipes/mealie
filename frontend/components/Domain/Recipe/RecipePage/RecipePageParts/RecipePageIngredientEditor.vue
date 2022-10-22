@@ -55,8 +55,8 @@
 import draggable from "vuedraggable";
 import { computed, defineComponent, ref } from "@nuxtjs/composition-api";
 import { usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
-import { NoUndefinedField } from "~/types/api";
-import { Recipe } from "~/types/api-types/recipe";
+import { NoUndefinedField } from "~/lib/api/types/non-generated";
+import { Recipe } from "~/lib/api/types/recipe";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
 import RecipeDialogBulkAdd from "~/components/Domain/Recipe/RecipeDialogBulkAdd.vue";
 import { uuid4 } from "~/composables/use-utils";

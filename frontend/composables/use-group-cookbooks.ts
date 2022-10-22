@@ -1,7 +1,7 @@
 import { useAsync, ref, Ref } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "./use-utils";
 import { useUserApi } from "~/composables/api";
-import { ReadCookBook, UpdateCookBook } from "~/types/api-types/cookbook";
+import { ReadCookBook, UpdateCookBook } from "~/lib/api/types/cookbook";
 
 let cookbookStore: Ref<ReadCookBook[] | null> | null = null;
 

@@ -117,9 +117,9 @@ import RecipeSearchFilterSelector from "~/components/Domain/Recipe/RecipeSearchF
 import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
 import { useRecipes, allRecipes } from "~/composables/recipes";
-import { RecipeSummary } from "~/types/api-types/recipe";
+import { RecipeSummary } from "~/lib/api/types/recipe";
 import { useRouteQuery } from "~/composables/use-router";
-import { RecipeTag } from "~/types/api-types/user";
+import { RecipeTag } from "~/lib/api/types/user";
 import { useFoodStore } from "~/composables/store";
 
 interface GenericFilter {

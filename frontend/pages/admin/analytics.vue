@@ -43,7 +43,7 @@
 import { defineComponent, reactive, useAsync } from "@nuxtjs/composition-api";
 import { useAdminApi } from "~/composables/api";
 import { useAsyncKey } from "~/composables/use-utils";
-import { MealieAnalytics } from "~/types/api-types/analytics";
+import { MealieAnalytics } from "~/lib/api/types/analytics";
 
 type DisplayData = {
   text: string;

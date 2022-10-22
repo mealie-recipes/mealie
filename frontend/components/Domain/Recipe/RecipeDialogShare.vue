@@ -58,7 +58,7 @@
 <script lang="ts">
 import { defineComponent, computed, toRefs, reactive, useContext } from "@nuxtjs/composition-api";
 import { useClipboard, useShare, whenever } from "@vueuse/core";
-import { RecipeShareToken } from "~/types/api-types/recipe";
+import { RecipeShareToken } from "~/lib/api/types/recipe";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 

@@ -179,7 +179,7 @@ import {
 import { useAdminApi, useUserApi } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
 import { useAsyncKey } from "~/composables/use-utils";
-import { CheckAppConfig } from "~/types/api-types/admin";
+import { CheckAppConfig } from "~/lib/api/types/admin";
 
 enum DockerVolumeState {
   Unknown = "unknown",
@@ -259,7 +259,7 @@ export default defineComponent({
       const { data } = await adminApi.about.checkApp();
 
       if (data) {
-        appConfig.value = { ...data, isSiteSecure: false};
+        appConfig.value = { ...data, isSiteSecure: false };
       }
 
       appConfig.value.isSiteSecure = isLocalHostOrHttps();

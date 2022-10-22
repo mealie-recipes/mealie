@@ -27,9 +27,10 @@
       "@types/sortablejs"
     ]
   },
-  "include": ["**/*", ".eslintrc.js"],
-  "exclude": ["node_modules", ".nuxt", "dist"],
   "vueCompilerOptions": {
+    "target": 2,
     "experimentalCompatMode": 2
-  }
+  },
+  "include": ["**/*", ".eslintrc.js"],
+  "exclude": ["node_modules", ".nuxt", "dist"]
 }

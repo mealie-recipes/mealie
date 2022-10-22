@@ -1,6 +1,6 @@
 import { reactive, ref, Ref } from "@nuxtjs/composition-api";
 import { useStoreActions } from "../partials/use-actions-factory";
-import { MultiPurposeLabelOut } from "~/types/api-types/labels";
+import { MultiPurposeLabelOut } from "~/lib/api/types/labels";
 import { useUserApi } from "~/composables/api";
 
 let labelStore: Ref<MultiPurposeLabelOut[] | null> | null = null;

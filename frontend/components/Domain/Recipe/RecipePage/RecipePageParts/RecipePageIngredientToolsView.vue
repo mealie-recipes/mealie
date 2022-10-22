@@ -28,8 +28,8 @@
 import { defineComponent } from "@nuxtjs/composition-api";
 import { usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import { useToolStore } from "~/composables/store";
-import { NoUndefinedField } from "~/types/api";
-import { Recipe } from "~/types/api-types/recipe";
+import { NoUndefinedField } from "~/lib/api/types/non-generated";
+import { Recipe } from "~/lib/api/types/recipe";
 import RecipeIngredients from "~/components/Domain/Recipe/RecipeIngredients.vue";
 
 export default defineComponent({

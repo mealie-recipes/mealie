@@ -117,7 +117,7 @@
 import { defineComponent, reactive, ref, toRefs, useContext } from "@nuxtjs/composition-api";
 import { onMounted } from "vue-demi";
 import { useAdminApi } from "~/composables/api";
-import { AllBackups } from "~/types/api-types/admin";
+import { AllBackups } from "~/lib/api/types/admin";
 
 export default defineComponent({
   layout: "admin",

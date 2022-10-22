@@ -45,7 +45,7 @@ import { alert } from "~/composables/use-toast";
 import { useUserForm } from "~/composables/use-users";
 import { validators } from "~/composables/use-validators";
 import { VForm } from "~/types/vuetify";
-import { UserOut } from "~/types/api-types/user";
+import { UserOut } from "~/lib/api/types/user";
 
 export default defineComponent({
   layout: "admin",

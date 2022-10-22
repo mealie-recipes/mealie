@@ -146,9 +146,9 @@ import { until } from "@vueuse/core";
 import { invoke } from "@vueuse/shared";
 import draggable from "vuedraggable";
 import { useUserApi, useStaticRoutes } from "~/composables/api";
-import { OcrTsvResponse as NullableOcrTsvResponse } from "~/types/api-types/ocr";
+import { OcrTsvResponse as NullableOcrTsvResponse } from "~/lib/api/types/ocr";
 import { validators } from "~/composables/use-validators";
-import { Recipe, RecipeIngredient, RecipeStep } from "~/types/api-types/recipe";
+import { Recipe, RecipeIngredient, RecipeStep } from "~/lib/api/types/recipe";
 import { Paths, Leaves, SelectedRecipeLeaves } from "~/types/ocr-types";
 import BannerExperimental from "~/components/global/BannerExperimental.vue";
 import RecipeDialogBulkAdd from "~/components/Domain/Recipe/RecipeDialogBulkAdd.vue";
@@ -157,7 +157,7 @@ import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientE
 import RecipeOcrEditorPageCanvas from "~/components/Domain/Recipe/RecipeOcrEditorPage/RecipeOcrEditorPageParts/RecipeOcrEditorPageCanvas.vue";
 import RecipeOcrEditorPageHelp from "~/components/Domain/Recipe/RecipeOcrEditorPage/RecipeOcrEditorPageParts/RecipeOcrEditorPageHelp.vue";
 import { uuid4 } from "~/composables/use-utils";
-import { NoUndefinedField } from "~/types/api";
+import { NoUndefinedField } from "~/lib/api/types/non-generated";
 
 // Temporary Shim until we have a better solution
 // https://github.com/phillipdupuis/pydantic-to-typescript/issues/28

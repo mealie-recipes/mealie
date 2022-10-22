@@ -90,8 +90,8 @@ import RecipePageTitleContent from "./RecipePageParts/RecipePageTitleContent.vue
 import RecipePageComments from "./RecipePageParts/RecipePageComments.vue";
 import RecipePrintView from "~/components/Domain/Recipe/RecipePrintView.vue";
 import { EditorMode, PageMode, usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
-import { NoUndefinedField } from "~/types/api";
-import { Recipe } from "~/types/api-types/recipe";
+import { NoUndefinedField } from "~/lib/api/types/non-generated";
+import { Recipe } from "~/lib/api/types/recipe";
 import { useRecipeMeta } from "~/composables/recipes";
 import { useRouteQuery } from "~/composables/use-router";
 import { useUserApi } from "~/composables/api";

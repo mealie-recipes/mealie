@@ -66,10 +66,10 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs, useContext, computed, onMounted } from "@nuxtjs/composition-api";
-import { ReportSummary } from "~/types/api-types/reports";
+import { ReportSummary } from "~/lib/api/types/reports";
 import { MenuItem } from "~/components/global/BaseOverflowButton.vue";
 import { useUserApi } from "~/composables/api";
-import { SupportedMigrations } from "~/types/api-types/group";
+import { SupportedMigrations } from "~/lib/api/types/group";
 
 const MIGRATIONS = {
   nextcloud: "nextcloud",
@@ -302,5 +302,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

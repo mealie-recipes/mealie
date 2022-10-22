@@ -107,7 +107,7 @@ import { whenever } from "@vueuse/shared";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
-import { ReportSummary } from "~/types/api-types/reports";
+import { ReportSummary } from "~/lib/api/types/reports";
 import RecipeDialogBulkAdd from "~/components/Domain/Recipe/RecipeDialogBulkAdd.vue";
 
 export default defineComponent({

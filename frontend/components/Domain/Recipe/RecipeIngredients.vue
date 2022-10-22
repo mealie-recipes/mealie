@@ -23,7 +23,7 @@
 import { computed, defineComponent, reactive, toRefs } from "@nuxtjs/composition-api";
 // @ts-ignore vue-markdown has no types
 import { parseIngredientText } from "~/composables/recipes";
-import { RecipeIngredient } from "~/types/api-types/recipe";
+import { RecipeIngredient } from "~/lib/api/types/recipe";
 
 export default defineComponent({
   components: {},

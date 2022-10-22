@@ -1,5 +1,5 @@
 import { computed, ComputedRef, ref, Ref, useContext } from "@nuxtjs/composition-api";
-import { UserOut } from "~/types/api-types/user";
+import { UserOut } from "~/lib/api/types/user";
 
 export enum PageMode {
   EDIT = "EDIT",
