@@ -1,4 +1,5 @@
 import smtplib
+import typing
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from email import message
@@ -20,6 +21,7 @@ class EmailOptions:
 class SMTPResponse:
     success: bool
     message: str
+    errors: typing.Any
 
 
 @dataclass(slots=True)
@@ -38,16 +40,16 @@ class Message:
         if smtp.ssl:
             with smtplib.SMTP_SSL(smtp.host, smtp.port) as server:
                 server.login(smtp.username, smtp.password)
-                v = server.send_message(msg)
+                errors = server.send_message(msg)
         else:
             with smtplib.SMTP(smtp.host, smtp.port) as server:
                 if smtp.tls:
                     server.starttls()
                 if smtp.username and smtp.password:
                     server.login(smtp.username, smtp.password)
-                v = server.send_message(msg)
+                errors = server.send_message(msg)
 
-        return SMTPResponse(v == {}, "Message Sent")
+        return SMTPResponse(errors == {}, "Message Sent", errors=errors)
 
 
 class ABCEmailSender(ABC):
