@@ -15,7 +15,7 @@
             <ShoppingListItem
               v-model="listItems.unchecked[index]"
               class="my-2 my-sm-0"
-              :labels="allLabels"
+              :labels="allLabels || []"
               :units="allUnits || []"
               :foods="allFoods || []"
               @checked="saveListItem(item)"
@@ -40,7 +40,7 @@
           <v-lazy v-for="(item, index) in value" :key="item.id">
             <ShoppingListItem
               v-model="value[index]"
-              :labels="allLabels"
+              :labels="allLabels || []"
               :units="allUnits || []"
               :foods="allFoods || []"
               @checked="saveListItem(item)"
@@ -56,7 +56,7 @@
         <ShoppingListItemEditor
           v-model="createListItemData"
           class="my-4"
-          :labels="allLabels"
+          :labels="allLabels || []"
           :units="allUnits || []"
           :foods="allFoods || []"
           @delete="createEditorOpen = false"
@@ -439,9 +439,20 @@ export default defineComponent({
     // =====================================
     // List Item CRUD
 
+    /*
+     * saveListItem updates and update on the backend server. Additionally, if the item is
+     * checked it will also append that item to the end of the list so that the unchecked items
+     * are at the top of the list.
+     */
     async function saveListItem(item: ShoppingListItemOut) {
       if (!shoppingList.value) {
         return;
+      }
+
+      if (item.checked && shoppingList.value.listItems) {
+        const lst = shoppingList.value.listItems.filter((itm) => itm.id !== item.id);
+        lst.push(item);
+        updateIndex(lst);
       }
 
       const { data } = await userApi.shopping.items.updateOne(item.id, item);
