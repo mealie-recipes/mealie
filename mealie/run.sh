@@ -43,8 +43,8 @@ init() {
 
 # Migrations
 # TODO
-    # Migrations
-    # Set Port from ENV Variable
+# Migrations
+# Set Port from ENV Variable
 
 if [ "$ARG1" == "reload" ]; then
     echo "Hot Reload!"
@@ -60,7 +60,9 @@ else
 
     init
 
+    GUNICORN_PORT=${API_PORT:-9000}
+
     # Start API
     # uvicorn mealie.app:app --host 0.0.0.0 --port 9000
-    gunicorn mealie.app:app -b 0.0.0.0:9000 -k uvicorn.workers.UvicornWorker -c /app/gunicorn_conf.py --preload
+    gunicorn mealie.app:app -b 0.0.0.0:$GUNICORN_PORT -k uvicorn.workers.UvicornWorker -c /app/gunicorn_conf.py --preload
 fi
