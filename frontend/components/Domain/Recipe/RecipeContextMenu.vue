@@ -26,6 +26,7 @@
           dense
           :label="$t('recipe.recipe-name')"
           autofocus
+          @keyup.enter="duplicateRecipe()"
         ></v-text-field>
       </v-card-text>
     </BaseDialog>
@@ -356,13 +357,11 @@ export default defineComponent({
       }
     }
 
-    /* async */ function duplicateRecipe() {
-      // TODO: Implement recipe duplication
-      console.log("Duplicate Recipe, new name:", state.recipeName);
-      // const { data } = await api.recipes.duplicate(props.slug, state.recipeName);
-      // if (data) {
-      //   router.push(`/recipes/${data.slug}`);
-      // }
+    async function duplicateRecipe() {
+      const { data } = await api.recipes.duplicateOne(props.slug, state.recipeName);
+      if (data) {
+        router.push(`/recipe/${data.slug}`);
+      }
     }
 
     const { copyText } = useCopy();
