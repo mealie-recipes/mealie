@@ -239,7 +239,36 @@ export default defineComponent({
     }
 
     // constantly polls for changes
-    const pollTimer: ReturnType<typeof setInterval> = setInterval(() => { refresh() }, 5000);
+    async function pollForChanges() {
+      try {
+        await refresh();
+
+        if (shoppingList.value) {
+          attempts = 0;
+          return;
+        }
+
+        // if the refresh was unsuccessful, the shopping list will be null, so we increment the attempt counter
+        attempts ++;
+      }
+
+      catch (error) {
+        attempts ++;
+      }
+
+      // if we hit too many errors, stop polling
+      if (attempts >= maxAttempts) {
+        clearInterval(pollTimer);
+      }
+    }
+
+    // start polling
+    const pollFrequency = 5000;
+
+    let attempts = 0;
+    const maxAttempts = 3;
+
+    const pollTimer: ReturnType<typeof setInterval> = setInterval(() => { pollForChanges() }, pollFrequency);
     onUnmounted(() => {
       clearInterval(pollTimer);
     });
