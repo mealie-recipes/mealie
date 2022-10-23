@@ -188,7 +188,7 @@
 import draggable from "vuedraggable";
 
 import { defineComponent, useAsync, useRoute, computed, ref, watch, onUnmounted } from "@nuxtjs/composition-api";
-import { useToggle } from "@vueuse/core";
+import { useIdle, useToggle } from "@vueuse/core";
 import { useCopyList } from "~/composables/use-copy";
 import { useUserApi } from "~/composables/api";
 import { useAsyncKey } from "~/composables/use-utils";
@@ -214,6 +214,7 @@ export default defineComponent({
     ShoppingListItemEditor,
   },
   setup() {
+    const { idle } = useIdle(5 * 60 * 1000) // 5 minutes
     const userApi = useUserApi();
 
     const edit = ref(false);
@@ -240,6 +241,11 @@ export default defineComponent({
 
     // constantly polls for changes
     async function pollForChanges() {
+      // pause polling if the user isn't active
+      if (idle.value) {
+        return;
+      }
+
       try {
         await refresh();
 
