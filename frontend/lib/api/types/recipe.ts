@@ -8,6 +8,7 @@
 export type ExportTypes = "json";
 export type RegisteredParser = "nlp" | "brute";
 export type OrderDirection = "asc" | "desc";
+export type TimelineEventType = "system" | "info" | "comment";
 
 export interface AssignCategories {
   recipes: string[];
@@ -339,6 +340,40 @@ export interface RecipeTagResponse {
   id: string;
   slug: string;
   recipes?: RecipeSummary[];
+}
+export interface RecipeTimelineEventCreate {
+  userId: string;
+  subject: string;
+  eventType: TimelineEventType;
+  message?: string;
+  image?: string;
+  timestamp?: string;
+  recipeId: string;
+}
+export interface RecipeTimelineEventIn {
+  userId?: string;
+  subject: string;
+  eventType: TimelineEventType;
+  message?: string;
+  image?: string;
+  timestamp?: string;
+}
+export interface RecipeTimelineEventOut {
+  userId: string;
+  subject: string;
+  eventType: TimelineEventType;
+  message?: string;
+  image?: string;
+  timestamp?: string;
+  recipeId: string;
+  id: string;
+  createdAt: string;
+  updateAt: string;
+}
+export interface RecipeTimelineEventUpdate {
+  subject: string;
+  message?: string;
+  image?: string;
 }
 export interface RecipeToolCreate {
   name: string;
