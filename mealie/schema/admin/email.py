@@ -7,7 +7,7 @@ class EmailReady(MealieModel):
 
 class EmailSuccess(MealieModel):
     success: bool
-    error: str = None
+    error: str | None = None
 
 
 class EmailTest(MealieModel):

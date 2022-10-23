@@ -5,7 +5,7 @@ from pathlib import Path
 
 
 class BackupContents:
-    _tables: dict = None
+    _tables: dict | None = None
 
     def __init__(self, file: Path) -> None:
         self.base = file

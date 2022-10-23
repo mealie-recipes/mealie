@@ -62,11 +62,16 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
         conn.set_option(ldap.OPT_X_TLS_CACERTFILE, settings.LDAP_TLS_CACERTFILE)
         conn.set_option(ldap.OPT_X_TLS_NEWCTX, 0)
     user = db.users.get_one(username, "email", any_case=True)
+
+    if not settings.LDAP_BIND_TEMPLATE:
+        return False
+
     if not user:
         user_bind = settings.LDAP_BIND_TEMPLATE.format(username)
         user = db.users.get_one(username, "username", any_case=True)
     else:
         user_bind = settings.LDAP_BIND_TEMPLATE.format(user.username)
+
     try:
         conn.simple_bind_s(user_bind, password)
     except (ldap.INVALID_CREDENTIALS, ldap.NO_SUCH_OBJECT):
@@ -86,7 +91,7 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
     else:
         return False
 
-    if not user:
+    if user is None:
         user = db.users.create(
             {
                 "username": username,
@@ -96,6 +101,7 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
                 "admin": False,
             },
         )
+
     if settings.LDAP_ADMIN_FILTER:
         user.admin = len(conn.search_s(user_dn, ldap.SCOPE_BASE, settings.LDAP_ADMIN_FILTER, [])) > 0
         db.users.update(user.id, user)

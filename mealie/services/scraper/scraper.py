@@ -19,7 +19,7 @@ class ParserErrors(str, Enum):
     CONNECTION_ERROR = "CONNECTION_ERROR"
 
 
-def create_from_url(url: str) -> tuple[Recipe, ScrapedExtras]:
+def create_from_url(url: str) -> tuple[Recipe, ScrapedExtras | None]:
     """Main entry point for generating a recipe from a URL. Pass in a URL and
     a Recipe object will be returned if successful.
 
@@ -43,6 +43,10 @@ def create_from_url(url: str) -> tuple[Recipe, ScrapedExtras]:
 
     try:
         recipe_data_service.scrape_image(new_recipe.image)
+
+        if new_recipe.name is None:
+            new_recipe.name = "Untitled"
+
         new_recipe.slug = slugify(new_recipe.name)
         new_recipe.image = cache.new_key(4)
     except Exception as e:

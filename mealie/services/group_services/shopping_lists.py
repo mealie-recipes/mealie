@@ -1,5 +1,6 @@
 from pydantic import UUID4
 
+from mealie.core.exceptions import UnexpectedNone
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.group import ShoppingListItemCreate, ShoppingListOut
 from mealie.schema.group.group_shopping_list import (
@@ -120,8 +121,10 @@ class ShoppingListService:
             - deleted_shopping_list_items
         """
         recipe = self.repos.recipes.get_one(recipe_id, "id")
-        to_create = []
+        if not recipe:
+            raise UnexpectedNone("Recipe not found")
 
+        to_create = []
         for ingredient in recipe.recipe_ingredient:
             food_id = None
             try:
@@ -144,7 +147,7 @@ class ShoppingListService:
             to_create.append(
                 ShoppingListItemCreate(
                     shopping_list_id=list_id,
-                    is_food=not recipe.settings.disable_amount,
+                    is_food=not recipe.settings.disable_amount if recipe.settings else False,
                     food_id=food_id,
                     unit_id=unit_id,
                     quantity=ingredient.quantity,
@@ -163,6 +166,9 @@ class ShoppingListService:
         new_shopping_list_items = [self.repos.group_shopping_list_item.create(item) for item in to_create]
 
         updated_shopping_list = self.shopping_lists.get_one(list_id)
+        if not updated_shopping_list:
+            raise UnexpectedNone("Shopping List not found")
+
         updated_shopping_list_items, deleted_shopping_list_items = self.consolidate_and_save(updated_shopping_list.list_items)  # type: ignore
         updated_shopping_list.list_items = updated_shopping_list_items
 
@@ -219,13 +225,16 @@ class ShoppingListService:
         """
         shopping_list = self.shopping_lists.get_one(list_id)
 
+        if shopping_list is None:
+            raise UnexpectedNone("Shopping list not found, cannot remove recipe ingredients")
+
         updated_shopping_list_items = []
         deleted_shopping_list_items = []
         for item in shopping_list.list_items:
             found = False
 
             for ref in item.recipe_references:
-                remove_qty = 0.0
+                remove_qty: None | float = 0.0
 
                 if ref.recipe_id == recipe_id:
                     self.list_item_refs.delete(ref.id)  # type: ignore
@@ -236,7 +245,9 @@ class ShoppingListService:
 
             # If the item was found decrement the quantity by the remove_qty
             if found:
-                item.quantity = item.quantity - remove_qty
+
+                if remove_qty is not None:
+                    item.quantity = item.quantity - remove_qty
 
                 if item.quantity <= 0:
                     self.list_items.delete(item.id)
@@ -246,16 +257,16 @@ class ShoppingListService:
                     updated_shopping_list_items.append(item)
 
         # Decrement the list recipe reference count
-        for ref in shopping_list.recipe_references:  # type: ignore
-            if ref.recipe_id == recipe_id:
-                ref.recipe_quantity -= 1
+        for recipe_ref in shopping_list.recipe_references:
+            if recipe_ref.recipe_id == recipe_id and recipe_ref.recipe_quantity is not None:
+                recipe_ref.recipe_quantity -= 1.0
 
-                if ref.recipe_quantity <= 0:
-                    self.list_refs.delete(ref.id)  # type: ignore
+                if recipe_ref.recipe_quantity <= 0.0:
+                    self.list_refs.delete(recipe_ref.id)
 
                 else:
-                    self.list_refs.update(ref.id, ref)  # type: ignore
+                    self.list_refs.update(recipe_ref.id, ref)
                 break
 
         # Save Changes
-        return self.shopping_lists.get_one(shopping_list.id), updated_shopping_list_items, deleted_shopping_list_items
+        return self.shopping_lists.get_one(shopping_list.id), updated_shopping_list_items, deleted_shopping_list_items  # type: ignore
