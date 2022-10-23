@@ -11,8 +11,8 @@ from mealie.services._base_service import BaseService
 class EmailOptions:
     host: str
     port: int
-    username: str = None
-    password: str = None
+    username: str | None = None
+    password: str | None = None
     tls: bool = False
     ssl: bool = False
 
@@ -39,7 +39,9 @@ class Message:
 
         if smtp.ssl:
             with smtplib.SMTP_SSL(smtp.host, smtp.port) as server:
-                server.login(smtp.username, smtp.password)
+                if smtp.username and smtp.password:
+                    server.login(smtp.username, smtp.password)
+
                 errors = server.send_message(msg)
         else:
             with smtplib.SMTP(smtp.host, smtp.port) as server:
@@ -66,17 +68,24 @@ class DefaultEmailSender(ABCEmailSender, BaseService):
     """
 
     def send(self, email_to: str, subject: str, html: str) -> bool:
+
+        if self.settings.SMTP_FROM_EMAIL is None or self.settings.SMTP_FROM_NAME is None:
+            raise ValueError("SMTP_FROM_EMAIL and SMTP_FROM_NAME must be set in the config file.")
+
         message = Message(
             subject=subject,
             html=html,
             mail_from=(self.settings.SMTP_FROM_NAME, self.settings.SMTP_FROM_EMAIL),
         )
 
+        if self.settings.SMTP_HOST is None or self.settings.SMTP_PORT is None:
+            raise ValueError("SMTP_HOST, SMTP_PORT must be set in the config file.")
+
         smtp_options = EmailOptions(
             self.settings.SMTP_HOST,
             int(self.settings.SMTP_PORT),
-            tls=self.settings.SMTP_AUTH_STRATEGY.upper() == "TLS",
-            ssl=self.settings.SMTP_AUTH_STRATEGY.upper() == "SSL",
+            tls=self.settings.SMTP_AUTH_STRATEGY.upper() == "TLS" if self.settings.SMTP_AUTH_STRATEGY else False,
+            ssl=self.settings.SMTP_AUTH_STRATEGY.upper() == "SSL" if self.settings.SMTP_AUTH_STRATEGY else False,
         )
 
         if self.settings.SMTP_USER:

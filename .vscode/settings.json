@@ -1,10 +1,4 @@
 {
-  "conventionalCommits.scopes": [
-    "frontend",
-    "docs",
-    "backend",
-    "code-generation"
-  ],
   "cSpell.enableFiletypes": ["!javascript", "!python", "!yaml"],
   "cSpell.words": [
     "chowdown",
@@ -44,7 +38,7 @@
   "python.testing.unittestEnabled": false,
   "python.analysis.typeCheckingMode": "off",
   "python.linting.mypyEnabled": true,
-  "python.sortImports.path": "${workspaceFolder}/.venv/bin/isort",
+  "isort.path": ["${workspaceFolder}/.venv/bin/isort"],
   "search.mode": "reuseEditor",
   "python.testing.unittestArgs": ["-v", "-s", "./tests", "-p", "test_*.py"],
   "explorer.fileNesting.enabled": true,

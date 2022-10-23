@@ -1,5 +1,6 @@
 from pathlib import Path
 
+from mealie.core.exceptions import UnexpectedNone
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.group.group_exports import GroupDataExport
 from mealie.schema.recipe import CategoryBase
@@ -41,6 +42,9 @@ class RecipeBulkActionsService(BaseService):
 
         group = self.repos.groups.get_one(self.group.id)
 
+        if group is None:
+            raise UnexpectedNone("Failed to purge exports for group, no group found")
+
         for match in group.directory.glob("**/export/*zip"):
             if match.is_file():
                 match.unlink()
@@ -52,8 +56,8 @@ class RecipeBulkActionsService(BaseService):
         for slug in recipes:
             recipe = self.repos.recipes.get_one(slug)
 
-            if recipe is None:
-                self.logger.error(f"Failed to set settings for recipe {slug}, no recipe found")
+            if recipe is None or recipe.settings is None:
+                raise UnexpectedNone(f"Failed to set settings for recipe {slug}, no recipe found")
 
             settings.locked = recipe.settings.locked
             recipe.settings = settings
@@ -69,9 +73,12 @@ class RecipeBulkActionsService(BaseService):
             recipe = self.repos.recipes.get_one(slug)
 
             if recipe is None:
-                self.logger.error(f"Failed to tag recipe {slug}, no recipe found")
+                raise UnexpectedNone(f"Failed to tag recipe {slug}, no recipe found")
 
-            recipe.tags += tags
+            if recipe.tags is None:
+                recipe.tags = []
+
+            recipe.tags += tags  # type: ignore
 
             try:
                 self.repos.recipes.update(slug, recipe)
@@ -84,9 +91,12 @@ class RecipeBulkActionsService(BaseService):
             recipe = self.repos.recipes.get_one(slug)
 
             if recipe is None:
-                self.logger.error(f"Failed to categorize recipe {slug}, no recipe found")
+                raise UnexpectedNone(f"Failed to categorize recipe {slug}, no recipe found")
 
-            recipe.recipe_category += categories
+            if recipe.recipe_category is None:
+                recipe.recipe_category = []
+
+            recipe.recipe_category += categories  # type: ignore
 
             try:
                 self.repos.recipes.update(slug, recipe)

@@ -21,9 +21,9 @@ class AlchemyExporter(BaseService):
     look_for_time = {"scheduled_time"}
 
     class DateTimeParser(BaseModel):
-        date: datetime.date = None
-        dt: datetime.datetime = None
-        time: datetime.time = None
+        date: datetime.date | None = None
+        dt: datetime.datetime | None = None
+        time: datetime.time | None = None
 
     def __init__(self, connection_str: str) -> None:
         super().__init__()

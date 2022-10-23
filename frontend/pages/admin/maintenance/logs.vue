@@ -32,8 +32,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "@nuxtjs/composition-api";
-import { computed, onMounted, reactive } from "vue-demi";
+import { defineComponent, ref, computed, onMounted, reactive } from "@nuxtjs/composition-api";
 import { useAdminApi } from "~/composables/api";
 
 export default defineComponent({

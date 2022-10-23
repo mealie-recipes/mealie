@@ -17,15 +17,17 @@ class BackupV2(BaseService):
     def __init__(self, db_url: str = None) -> None:
         super().__init__()
 
-        self.db_url = db_url or self.settings.DB_URL
+        # type - one of these has to be a string
+        self.db_url: str = db_url or self.settings.DB_URL  # type: ignore
+
         self.db_exporter = AlchemyExporter(self.db_url)
 
     def _sqlite(self) -> None:
-        db_file = self.settings.DB_URL.removeprefix("sqlite:///")
+        db_file = self.settings.DB_URL.removeprefix("sqlite:///")  # type: ignore
 
         # Create a backup of the SQLite database
         timestamp = datetime.datetime.now().strftime("%Y.%m.%d")
-        shutil.copy(db_file, f"mealie_{timestamp}.bak.db")
+        shutil.copy(db_file, self.directories.DATA_DIR.joinpath(f"mealie_{timestamp}.bak.db"))
 
     def _postgres(self) -> None:
         pass

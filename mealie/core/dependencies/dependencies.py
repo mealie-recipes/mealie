@@ -117,35 +117,58 @@ def validate_long_live_token(session: Session, client_token: str, user_id: str) 
 
 
 def validate_file_token(token: Optional[str] = None) -> Path:
-    credentials_exception = HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="could not validate file token",
-    )
+    """
+    Args:
+        token (Optional[str], optional): _description_. Defaults to None.
+
+    Raises:
+        HTTPException: 400 Bad Request when no token or the file doesn't exist
+        HTTPException: 401 Unauthorized when the token is invalid
+    """
     if not token:
-        return None
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
     try:
         payload = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])
         file_path = Path(payload.get("file"))
     except JWTError as e:
-        raise credentials_exception from e
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="could not validate file token",
+        ) from e
+
+    if not file_path.exists():
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
     return file_path
 
 
 def validate_recipe_token(token: Optional[str] = None) -> str:
-    credentials_exception = HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="could not validate file token",
-    )
+    """
+    Args:
+        token (Optional[str], optional): _description_. Defaults to None.
+
+    Raises:
+        HTTPException: 400 Bad Request when no token or the recipe doesn't exist
+        HTTPException: 401 JWTError when token is invalid
+
+    Returns:
+        str: token data
+    """
     if not token:
-        return None
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
     try:
         payload = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])
-        slug = payload.get("slug")
+        slug: str | None = payload.get("slug")
     except JWTError as e:
-        raise credentials_exception from e
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="could not validate file token",
+        ) from e
+
+    if slug is None:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
     return slug
 

@@ -25,7 +25,7 @@ app_dirs = get_app_dirs()
 
 
 class RecipeTag(MealieModel):
-    id: UUID4 = None
+    id: UUID4 | None = None
     name: str
     slug: str
 
@@ -56,8 +56,8 @@ class RecipeToolPagination(PaginationBase):
 
 class CreateRecipeBulk(BaseModel):
     url: str
-    categories: list[RecipeCategory] = None
-    tags: list[RecipeTag] = None
+    categories: list[RecipeCategory] | None = None
+    tags: list[RecipeTag] | None = None
 
 
 class CreateRecipeByUrlBulk(BaseModel):

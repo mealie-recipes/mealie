@@ -39,8 +39,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useContext } from "@nuxtjs/composition-api";
-import { computed, onMounted } from "vue-demi";
+import { defineComponent, ref, useContext, computed, onMounted } from "@nuxtjs/composition-api";
 import RecipeOrganizerDialog from "./RecipeOrganizerDialog.vue";
 import { RecipeCategory, RecipeTag } from "~/lib/api/types/user";
 import { RecipeTool } from "~/lib/api/types/admin";

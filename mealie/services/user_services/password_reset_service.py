@@ -31,6 +31,9 @@ class PasswordResetService(BaseService):
     def send_reset_email(self, email: str):
         token_entry = self.generate_reset_token(email)
 
+        if token_entry is None:
+            return None
+
         # Send Email
         email_servive = EmailService()
         reset_url = f"{self.settings.BASE_URL}/reset-password?token={token_entry.token}"

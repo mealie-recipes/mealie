@@ -16,7 +16,7 @@ class TemplateType(str, enum.Enum):
 
 
 class TemplateService(BaseService):
-    def __init__(self, temp: Path = None) -> None:
+    def __init__(self, temp: Path | None = None) -> None:
         """Creates a template service that can be used for multiple template generations
         A temporary directory must be provided as a place holder for where to render all templates
         Args:
@@ -58,7 +58,7 @@ class TemplateService(BaseService):
 
         return TemplateType(t_type)
 
-    def render(self, recipe: Recipe, template: str = None) -> Path:
+    def render(self, recipe: Recipe, template: str) -> Path:
         """
         Renders a TemplateType in a temporary directory and returns the path to the file.
 
@@ -87,6 +87,9 @@ class TemplateService(BaseService):
         """
         self.__check_temp(self._render_json)
 
+        if self.temp is None:
+            raise ValueError("Temporary directory must be provided for method _render_json")
+
         save_path = self.temp.joinpath(f"{recipe.slug}.json")
         with open(save_path, "w") as f:
             f.write(recipe.json(indent=4, by_alias=True))
@@ -99,6 +102,9 @@ class TemplateService(BaseService):
         the path to the file.
         """
         self.__check_temp(self._render_jinja2)
+
+        if j2_template is None:
+            raise ValueError("Template must be provided for method _render_jinja2")
 
         j2_path: Path = self.directories.TEMPLATE_DIR / j2_template
 
@@ -113,6 +119,9 @@ class TemplateService(BaseService):
 
         save_name = f"{recipe.slug}{j2_path.suffix}"
 
+        if self.temp is None:
+            raise ValueError("Temporary directory must be provided for method _render_jinja2")
+
         save_path = self.temp.joinpath(save_name)
 
         with open(save_path, "w") as f:
@@ -124,6 +133,10 @@ class TemplateService(BaseService):
         self.__check_temp(self._render_jinja2)
 
         image_asset = recipe.image_dir.joinpath(RecipeImageTypes.original.value)
+
+        if self.temp is None:
+            raise ValueError("Temporary directory must be provided for method _render_zip")
+
         zip_temp = self.temp.joinpath(f"{recipe.slug}.zip")
 
         with ZipFile(zip_temp, "w") as myzip:
