@@ -8,8 +8,8 @@ from mealie.schema.response.pagination import PaginationBase
 
 
 class RecipeTimelineEventIn(MealieModel):
-    # can be inferred in some contexts, so it's not required
     user_id: UUID4 | None = None
+    """can be inferred in some contexts, so it's not required"""
 
     subject: str
     event_type: TimelineEventType
