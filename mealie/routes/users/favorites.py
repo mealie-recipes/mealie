@@ -19,6 +19,10 @@ class UserFavoritesController(BaseUserController):
     def add_favorite(self, id: UUID4, slug: str):
         """Adds a Recipe to the users favorites"""
         assert_user_change_allowed(id, self.user)
+
+        if not self.user.favorite_recipes:
+            self.user.favorite_recipes = []
+
         self.user.favorite_recipes.append(slug)
         self.repos.users.update(self.user.id, self.user)
 
@@ -26,6 +30,10 @@ class UserFavoritesController(BaseUserController):
     def remove_favorite(self, id: UUID4, slug: str):
         """Adds a Recipe to the users favorites"""
         assert_user_change_allowed(id, self.user)
+
+        if not self.user.favorite_recipes:
+            self.user.favorite_recipes = []
+
         self.user.favorite_recipes = [x for x in self.user.favorite_recipes if x != slug]
         self.repos.users.update(self.user.id, self.user)
         return

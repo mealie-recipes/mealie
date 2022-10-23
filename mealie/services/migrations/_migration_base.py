@@ -96,7 +96,12 @@ class BaseMigrator(BaseService):
         self._migrate()
         self._save_all_entries()
 
-        return self.db.group_reports.get_one(self.report_id)
+        result = self.db.group_reports.get_one(self.report_id)
+
+        if not result:
+            raise ValueError("Report not found")
+
+        return result
 
     def import_recipes_to_database(self, validated_recipes: list[Recipe]) -> list[tuple[str, UUID4, bool]]:
         """
@@ -111,9 +116,12 @@ class BaseMigrator(BaseService):
         if self.add_migration_tag:
             migration_tag = self.helpers.get_or_set_tags([self.name])[0]
 
-        return_vars = []
+        return_vars: list[tuple[str, UUID4, bool]] = []
 
         group = self.db.groups.get_one(self.group_id)
+
+        if not group or not group.preferences:
+            raise ValueError("Group preferences not found")
 
         default_settings = RecipeSettings(
             public=group.preferences.recipe_public,
@@ -132,6 +140,8 @@ class BaseMigrator(BaseService):
 
             if recipe.tags:
                 recipe.tags = self.helpers.get_or_set_tags(x.name for x in recipe.tags)
+            else:
+                recipe.tags = []
 
             if recipe.recipe_category:
                 recipe.recipe_category = self.helpers.get_or_set_category(x.name for x in recipe.recipe_category)
@@ -155,7 +165,7 @@ class BaseMigrator(BaseService):
             else:
                 message = f"Failed to import {recipe.name}"
 
-            return_vars.append((recipe.slug, recipe.id, status))
+            return_vars.append((recipe.slug, recipe.id, status))  # type: ignore
 
             self.report_entries.append(
                 ReportEntryCreate(

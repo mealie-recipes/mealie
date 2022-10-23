@@ -50,6 +50,8 @@ class RecipeService(BaseService):
         return recipe
 
     def can_update(self, recipe: Recipe) -> bool:
+        if recipe.settings is None:
+            raise exceptions.UnexpectedNone("Recipe Settings is None")
         return recipe.settings.locked is False or self.user.id == recipe.user_id
 
     def can_lock_unlock(self, recipe: Recipe) -> bool:
@@ -65,6 +67,9 @@ class RecipeService(BaseService):
                 self.logger.info(f"Renaming Recipe Directory: {original_slug} -> {recipe.slug}")
             except FileNotFoundError:
                 self.logger.error(f"Recipe Directory not Found: {original_slug}")
+
+        if recipe.assets is None:
+            recipe.assets = []
 
         all_asset_files = [x.file_name for x in recipe.assets]
 
@@ -92,7 +97,7 @@ class RecipeService(BaseService):
         additional_attrs["group_id"] = user.group_id
 
         if additional_attrs.get("tags"):
-            for i in range(len(additional_attrs.get("tags"))):
+            for i in range(len(additional_attrs.get("tags", []))):
                 additional_attrs["tags"][i]["group_id"] = user.group_id
 
         if not additional_attrs.get("recipe_ingredient"):
@@ -104,6 +109,9 @@ class RecipeService(BaseService):
         return Recipe(**additional_attrs)
 
     def create_one(self, create_data: Union[Recipe, CreateRecipe]) -> Recipe:
+
+        if create_data.name is None:
+            create_data.name = "New Recipe"
 
         data: Recipe = self._recipe_creation_factory(
             self.user,
@@ -134,8 +142,8 @@ class RecipeService(BaseService):
         with temp_path.open("wb") as buffer:
             shutil.copyfileobj(archive.file, buffer)
 
-        recipe_dict = None
-        recipe_image = None
+        recipe_dict: dict | None = None
+        recipe_image: bytes | None = None
 
         with ZipFile(temp_path) as myzip:
             for file in myzip.namelist():
@@ -146,10 +154,15 @@ class RecipeService(BaseService):
                     with myzip.open(file) as myfile:
                         recipe_image = myfile.read()
 
+        if recipe_dict is None:
+            raise exceptions.UnexpectedNone("No json data found in Zip")
+
         recipe = self.create_one(Recipe(**recipe_dict))
 
-        if recipe:
+        if recipe and recipe.id:
             data_service = RecipeDataService(recipe.id)
+
+        if recipe_image:
             data_service.write_image(recipe_image, "webp")
 
         return recipe
@@ -172,6 +185,10 @@ class RecipeService(BaseService):
         """
 
         recipe = self._get_recipe(slug)
+
+        if recipe is None or recipe.settings is None:
+            raise exceptions.NoEntryFound("Recipe not found.")
+
         if not self.can_update(recipe):
             raise exceptions.PermissionDenied("You do not have permission to edit this recipe.")
 
@@ -189,8 +206,11 @@ class RecipeService(BaseService):
         return new_data
 
     def patch_one(self, slug: str, patch_data: Recipe) -> Recipe:
-        recipe = self._pre_update_check(slug, patch_data)
+        recipe: Recipe | None = self._pre_update_check(slug, patch_data)
         recipe = self.repos.recipes.by_group(self.group.id).get_one(slug)
+
+        if recipe is None:
+            raise exceptions.NoEntryFound("Recipe not found.")
 
         new_data = self.repos.recipes.by_group(self.group.id).patch(recipe.slug, patch_data.dict(exclude_unset=True))
 
@@ -210,6 +230,6 @@ class RecipeService(BaseService):
     # =================================================================
     # Recipe Template Methods
 
-    def render_template(self, recipe: Recipe, temp_dir: Path, template: str = None) -> Path:
+    def render_template(self, recipe: Recipe, temp_dir: Path, template: str) -> Path:
         t_service = TemplateService(temp_dir)
         return t_service.render(recipe, template)

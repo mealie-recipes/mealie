@@ -35,7 +35,8 @@ class RegistrationService:
             can_organize=new_group,
         )
 
-        return self.repos.users.create(new_user)
+        # TODO: problem with repository type, not type here
+        return self.repos.users.create(new_user)  # type: ignore
 
     def _register_new_group(self) -> GroupInDB:
         group_data = GroupBase(name=self.registration.group)
@@ -74,7 +75,13 @@ class RegistrationService:
             token_entry = self.repos.group_invite_tokens.get_one(registration.group_token)
             if not token_entry:
                 raise HTTPException(status.HTTP_400_BAD_REQUEST, {"message": "Invalid group token"})
-            group = self.repos.groups.get_one(token_entry.group_id)
+
+            maybe_none_group = self.repos.groups.get_one(token_entry.group_id)
+
+            if maybe_none_group is None:
+                raise HTTPException(status.HTTP_400_BAD_REQUEST, {"message": "Invalid group token"})
+
+            group = maybe_none_group
         else:
             raise HTTPException(status.HTTP_400_BAD_REQUEST, {"message": "Missing group"})
 

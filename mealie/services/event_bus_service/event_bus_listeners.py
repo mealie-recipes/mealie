@@ -41,7 +41,7 @@ class EventListenerBase(ABC):
         ...
 
     @contextlib.contextmanager
-    def ensure_session(self) -> Generator[None, None, None]:
+    def ensure_session(self) -> Generator[Session, None, None]:
         """
         ensure_session ensures that a session is available for the caller by checking if a session
         was provided during construction, and if not, creating a new session with the `with_session`
@@ -54,10 +54,9 @@ class EventListenerBase(ABC):
         if self.session is None:
             with session_context() as session:
                 self.session = session
-                yield
-
+                yield self.session
         else:
-            yield
+            yield self.session
 
 
 class AppriseEventListener(EventListenerBase):
@@ -87,7 +86,7 @@ class AppriseEventListener(EventListenerBase):
             "integration_id": event.integration_id,
             "document_data": json.dumps(jsonable_encoder(event.document_data)),
             "event_id": str(event.event_id),
-            "timestamp": event.timestamp.isoformat(),
+            "timestamp": event.timestamp.isoformat() if event.timestamp else None,
         }
 
         return [
@@ -148,9 +147,9 @@ class WebhookEventListener(EventListenerBase):
 
     def get_scheduled_webhooks(self, start_dt: datetime, end_dt: datetime) -> list[ReadWebhook]:
         """Fetches all scheduled webhooks from the database"""
-        with self.ensure_session():
+        with self.ensure_session() as session:
             return (
-                self.session.query(GroupWebhooksModel)
+                session.query(GroupWebhooksModel)
                 .where(
                     GroupWebhooksModel.enabled == True,  # noqa: E712 - required for SQLAlchemy comparison
                     GroupWebhooksModel.scheduled_time > start_dt.astimezone(timezone.utc).time(),

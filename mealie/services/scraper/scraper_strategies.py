@@ -176,7 +176,7 @@ class RecipeScraperPackage(ABCScraperStrategy):
             ingredients = []
 
         try:
-            instruct = scraped_schema.instructions()
+            instruct: list | str = scraped_schema.instructions()
         except Exception:
             instruct = []
 
@@ -212,7 +212,7 @@ class RecipeScraperOpenGraph(ABCScraperStrategy):
         """
 
         def og_field(properties: dict, field_name: str) -> str:
-            return next((val for name, val in properties if name == field_name), None)
+            return next((val for name, val in properties if name == field_name), "")
 
         def og_fields(properties: list[tuple[str, str]], field_name: str) -> list[str]:
             return list({val for name, val in properties if name == field_name})

@@ -138,13 +138,19 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         **_,
     ) -> None:
         self.nutrition = Nutrition(**nutrition) if nutrition else Nutrition()
-        self.recipe_instructions = [RecipeInstruction(**step, session=session) for step in recipe_instructions]
-        self.recipe_ingredient = [RecipeIngredient(**ingr, session=session) for ingr in recipe_ingredient]
-        self.assets = [RecipeAsset(**a) for a in assets]
 
-        # Mealie Specific
+        if recipe_instructions:
+            self.recipe_instructions = [RecipeInstruction(**step, session=session) for step in recipe_instructions]
+
+        if recipe_ingredient:
+            self.recipe_ingredient = [RecipeIngredient(**ingr, session=session) for ingr in recipe_ingredient]
+
+        if assets:
+            self.assets = [RecipeAsset(**a) for a in assets]
+
         self.settings = RecipeSettings(**settings) if settings else RecipeSettings()
-        self.notes = [Note(**note) for note in notes]
 
-        # Time Stampes
+        if notes:
+            self.notes = [Note(**n) for n in notes]
+
         self.date_updated = datetime.datetime.now()

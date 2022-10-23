@@ -21,7 +21,7 @@ class PaginationQuery(MealieModel):
     per_page: int = 50
     order_by: str = "created_at"
     order_direction: OrderDirection = OrderDirection.desc
-    query_filter: str = None
+    query_filter: str | None = None
 
 
 class PaginationBase(GenericModel, Generic[DataT]):
@@ -52,15 +52,12 @@ class PaginationBase(GenericModel, Generic[DataT]):
         self.previous = PaginationBase.merge_query_parameters(route, query_params)
 
     def set_pagination_guides(self, route: str, query_params: dict[str, Any] | None) -> None:
-        if not query_params:
-            query_params = {}
-
-        query_params = camelize(query_params)
+        valid_dict: dict[str, Any] = camelize(query_params) if query_params else {}
 
         # sanitize user input
         self.page = max(self.page, 1)
-        self._set_next(route, query_params)
-        self._set_prev(route, query_params)
+        self._set_next(route, valid_dict)
+        self._set_prev(route, valid_dict)
 
     @staticmethod
     def merge_query_parameters(url: str, params: dict[str, Any]):

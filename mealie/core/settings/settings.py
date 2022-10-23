@@ -93,18 +93,18 @@ class AppSettings(BaseSettings):
 
     @staticmethod
     def validate_smtp(
-        host: str,
-        port: str,
-        from_name: str,
-        from_email: str,
-        strategy: str,
+        host: str | None,
+        port: str | None,
+        from_name: str | None,
+        from_email: str | None,
+        strategy: str | None,
         user: str | None = None,
         password: str | None = None,
     ) -> bool:
         """Validates all SMTP variables are set"""
         required = {host, port, from_name, from_email, strategy}
 
-        if strategy.upper() in {"TLS", "SSL"}:
+        if strategy and strategy.upper() in {"TLS", "SSL"}:
             required.add(user)
             required.add(password)
 

@@ -34,9 +34,9 @@ class ShoppingListItemCreate(MealieModel):
 
     note: str | None = ""
     quantity: float = 1
-    unit_id: UUID4 = None
+    unit_id: UUID4 | None = None
     unit: IngredientUnit | None
-    food_id: UUID4 = None
+    food_id: UUID4 | None = None
     food: IngredientFood | None
 
     label_id: UUID4 | None = None
@@ -67,7 +67,7 @@ class ShoppingListItemOut(ShoppingListItemUpdate):
 
 
 class ShoppingListCreate(MealieModel):
-    name: str = None
+    name: str | None = None
     extras: dict | None = {}
 
     created_at: datetime | None
