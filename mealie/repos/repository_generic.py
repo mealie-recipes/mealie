@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from math import ceil
-from typing import Any, Generic, TypeVar, Union
+from typing import Any, Generic, TypeVar
 
 from fastapi import HTTPException
 from pydantic import UUID4, BaseModel
@@ -24,8 +26,8 @@ class RepositoryGeneric(Generic[Schema, Model]):
         Generic ([Model]): Represents the SqlAlchemyModel Model
     """
 
-    user_id: UUID4 = None
-    group_id: UUID4 = None
+    user_id: UUID4 | None = None
+    group_id: UUID4 | None = None
 
     def __init__(self, session: Session, primary_key: str, sql_model: type[Model], schema: type[Schema]) -> None:
         self.session = session
@@ -35,11 +37,11 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
         self.logger = get_logger()
 
-    def by_user(self, user_id: UUID4) -> "RepositoryGeneric[Schema, Model]":
+    def by_user(self, user_id: UUID4) -> RepositoryGeneric[Schema, Model]:
         self.user_id = user_id
         return self
 
-    def by_group(self, group_id: UUID4) -> "RepositoryGeneric[Schema, Model]":
+    def by_group(self, group_id: UUID4) -> RepositoryGeneric[Schema, Model]:
         self.group_id = group_id
         return self
 
@@ -221,7 +223,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
         attr_match: str = None,
         count=True,
         override_schema=None,
-    ) -> Union[int, list[Schema]]:  # sourcery skip: assign-if-exp
+    ) -> int | list[Schema]:  # sourcery skip: assign-if-exp
         eff_schema = override_schema or self.schema
 
         q = self._query().filter(attribute_name == attr_match)
