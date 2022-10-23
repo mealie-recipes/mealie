@@ -41,11 +41,6 @@ init() {
     poetry run python /app/mealie/db/init_db.py
 }
 
-# Migrations
-# TODO
-# Migrations
-# Set Port from ENV Variable
-
 if [ "$ARG1" == "reload" ]; then
     echo "Hot Reload!"
 
@@ -63,6 +58,11 @@ else
     GUNICORN_PORT=${API_PORT:-9000}
 
     # Start API
-    # uvicorn mealie.app:app --host 0.0.0.0 --port 9000
-    gunicorn mealie.app:app -b 0.0.0.0:$GUNICORN_PORT -k uvicorn.workers.UvicornWorker -c /app/gunicorn_conf.py --preload
+
+    if [ $WEB_GUNICORN == 'true' ]; then
+        echo "Starting Gunicorn"
+        gunicorn mealie.app:app -b 0.0.0.0:$GUNICORN_PORT -k uvicorn.workers.UvicornWorker -c /app/gunicorn_conf.py --preload
+    else
+        uvicorn mealie.app:app --host 0.0.0.0 --port $GUNICORN_PORT
+    fi
 fi
