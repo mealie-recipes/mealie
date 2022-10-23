@@ -244,12 +244,12 @@
     "upload-individual-zip-file": "Last opp en individuell .zip-fil eksportert fra en annen Mealie-instans.",
     "url-form-hint": "Kopier og lim inn en lenke fra ditt favoritt-oppskriftsnettsted",
     "view-scraped-data": "Vis skrapte data",
-    "trim-whitespace-description": "Trim leading and trailing whitespace as well as blank lines",
+    "trim-whitespace-description": "Trim innledende og etterfølgende mellomrom i tillegg til tomme linjer",
     "trim-prefix-description": "Fjern første tegn fra hver linje",
     "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns",
     "import-by-url": "Importer en oppskrift via URL",
     "create-manually": "Lag en oppskrift manuelt",
-    "make-recipe-image": "Make this the recipe image"
+    "make-recipe-image": "Bruk dette som oppskriftsbilde"
   },
   "page": {
     "404-page-not-found": "404 Siden ble ikke funnet",
@@ -466,7 +466,7 @@
       "webhook-url": "Webhook-URL",
       "webhooks-caps": "WEBHOOKS",
       "webhooks": "Webhooks",
-      "webhook-name": "Webhook Name"
+      "webhook-name": "Webhook navn"
     }
   },
   "shopping-list": {
@@ -478,17 +478,17 @@
     "quantity": "Mengde: {0}",
     "shopping-list": "Handleliste",
     "shopping-lists": "Handlelister",
-    "food": "Food",
-    "note": "Note",
-    "label": "Label",
+    "food": "Mat",
+    "note": "Notat",
+    "label": "Etikett",
     "linked-item-warning": "This item is linked to one or more recipe. Adjusting the units or foods will yield unexpected results when adding or removing the recipe from this list.",
-    "toggle-food": "Toggle Food"
+    "toggle-food": "Vis/Skjul mat"
   },
   "sidebar": {
     "all-recipes": "Oppskrifter",
-    "backups": "Backups",
+    "backups": "Sikkerhetskopier",
     "categories": "Kategorier",
-    "cookbooks": "Cookbooks",
+    "cookbooks": "Kokebøker",
     "dashboard": "Kontrollpanel",
     "home-page": "Hovedside",
     "manage-users": "Brukere",
@@ -498,7 +498,7 @@
     "site-settings": "Innstillinger",
     "tags": "Etiketter",
     "toolbox": "Verktøy",
-    "language": "Language",
+    "language": "Språk",
     "maintenance": "Vedlikehold",
     "background-tasks": "Bakgrunnsoppgaver",
     "parser": "Parser",
@@ -642,49 +642,49 @@
   "recipe-share": {
     "expiration-date": "Utløpsdato",
     "share-recipe": "Del oppskrift",
-    "default-30-days": "Default 30 Days",
-    "expires-at": "Expires At",
-    "recipe-link-copied-message": "Recipe link copied to clipboard"
+    "default-30-days": "Standard 30 dager",
+    "expires-at": "Utløper den",
+    "recipe-link-copied-message": "Lenke kopiert til utklippstavle"
   },
   "banner-experimental": {
-    "title": "Experimental Feature",
+    "title": "Eksperimentelle Funksjoner",
     "description": "This page contains experimental or still-baking features. Please excuse the mess.",
     "issue-link-text": "Track our progress here"
   },
   "form": {
-    "quantity-label-abbreviated": "Qty"
+    "quantity-label-abbreviated": "Ant"
   },
   "markdown-editor": {
-    "preview-markdown-button-label": "Preview Markdown"
+    "preview-markdown-button-label": "Forhåndsvis Markdown"
   },
   "demo": {
-    "info_message_with_version": "This is a Demo for version: {version}",
-    "demo_username": "Username: {username}",
-    "demo_password": "Password: {password}"
+    "info_message_with_version": "Dette er en demo for versjon: {version}",
+    "demo_username": "Brukernavn: {username}",
+    "demo_password": "Passord: {password}"
   },
   "ocr-editor": {
     "ocr-editor": "Ocr editor",
     "selection-mode": "Selection mode",
     "pan-and-zoom-picture": "Pan and zoom picture",
-    "split-text": "Split text",
-    "preserve-line-breaks": "Preserve original line breaks",
+    "split-text": "Splitt tekst",
+    "preserve-line-breaks": "Behold opprinnelige linjeskift",
     "split-by-block": "Split by text block",
     "flatten": "Flatten regardless of original formating",
     "help": {
       "selection-mode": "Selection Mode (default)",
       "selection-mode-desc": "The selection mode is the main mode that can be used to enter data:",
       "selection-mode-steps": {
-        "draw": "Draw a rectangle on the text you want to select.",
+        "draw": "Tegn et rektangel på teksten du vil velge.",
         "click": "Click on any field on the right and then click back on the rectangle above the image.",
         "result": "The selected text will appear inside the previously selected field."
       },
-      "pan-and-zoom-mode": "Pan and Zoom Mode",
+      "pan-and-zoom-mode": "Panér og Zoom modus",
       "pan-and-zoom-desc": "Select pan and zoom by clicking the icon. This mode allows to zoom inside the image and move around to make using big images easier.",
-      "split-text-mode": "Split Text modes",
+      "split-text-mode": "Splitt tekstmodus",
       "split-modes": {
-        "line-mode": "Line mode (default)",
+        "line-mode": "Linjemodus (standard)",
         "line-mode-desc": "In line mode, the text will be propagated by keeping the original line breaks. This mode is useful when using bulk add on a list of ingredients where one ingredient is one line.",
-        "block-mode": "Block mode",
+        "block-mode": "Blokk modus",
         "block-mode-desc": "In block mode, the text will be split in blocks. This mode is useful when bulk adding instructions that are usually written in paragraphs.",
         "flat-mode": "Flat mode",
         "flat-mode-desc": "In flat mode, the text will be added to the selected recipe field with no line breaks."
