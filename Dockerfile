@@ -95,10 +95,9 @@ ENV TESTING=false
 ARG COMMIT
 ENV GIT_COMMIT_HASH=$COMMIT
 
-# curl for used by healthcheck
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
-    curl gosu \
+    gosu \
     tesseract-ocr-all \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
@@ -106,9 +105,6 @@ RUN apt-get update \
 # copying poetry and venv into image
 COPY --from=builder-base $POETRY_HOME $POETRY_HOME
 COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
-
-# copy CRF++ Binary from crfpp
-ENV CRF_MODEL_URL=https://github.com/mealie-recipes/nlp-model/releases/download/v1.0.0/model.crfmodel
 
 ENV LD_LIBRARY_PATH=/usr/local/lib
 COPY --from=crfpp /usr/local/lib/ /usr/local/lib
@@ -130,14 +126,14 @@ RUN . $VENV_PATH/bin/activate && poetry install -E pgsql --no-dev
 WORKDIR /
 
 # Grab CRF++ Model Release
-RUN curl -L0 $CRF_MODEL_URL --output $MEALIE_HOME/mealie/services/parser_services/crfpp/model.crfmodel
+RUN python $MEALIE_HOME/mealie/scripts/install_model.py
 
 VOLUME [ "$MEALIE_HOME/data/" ]
 ENV APP_PORT=9000
 
 EXPOSE ${APP_PORT}
 
-HEALTHCHECK CMD curl -f http://localhost:${APP_PORT}/docs || exit 1
+HEALTHCHECK CMD python $MEALIE_HOME/mealie/scripts/healthcheck.py || exit 1
 
 RUN chmod +x $MEALIE_HOME/mealie/run.sh
 ENTRYPOINT $MEALIE_HOME/mealie/run.sh

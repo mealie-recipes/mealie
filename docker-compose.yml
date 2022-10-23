@@ -3,6 +3,10 @@ services:
   mealie-frontend:
     container_name: mealie-frontend
     image: mealie-frontend:dev
+    deploy:
+      resources:
+        limits:
+          memory: 500M
     build:
       context: ./frontend
       dockerfile: Dockerfile
@@ -34,6 +38,10 @@ services:
       - THEME_DARK_ERROR=#EF5350
   mealie:
     container_name: mealie-api
+    deploy:
+      resources:
+        limits:
+          memory: 1000M
     build:
       context: ./
       target: production
@@ -57,6 +65,7 @@ services:
 
       # =====================================
       # Web Concurrency
+      WEB_GUNICORN: true
       WORKERS_PER_CORE: 0.5
       MAX_WORKERS: 1
       WEB_CONCURRENCY: 1

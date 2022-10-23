@@ -54,6 +54,7 @@ Changing the webworker settings may cause unforeseen memory leak issues with Mea
 
 | Variables        | Default | Description                                                                                                                       |
 | ---------------- | :-----: | --------------------------------------------------------------------------------------------------------------------------------- |
+| WEB_GUNICORN     |  false  | Enables Gunicorn to manage Uvicorn web for multiple works                                                                         |
 | WORKERS_PER_CORE |    1    | Set the number of workers to the number of CPU cores multiplied by this value (Value \* CPUs). More info [here][workers_per_core] |
 | MAX_WORKERS      |    1    | Set the maximum number of workers to use. Default is not set meaning unlimited. More info [here][max_workers]                     |
 | WEB_CONCURRENCY  |    1    | Override the automatic definition of number of workers. More info [here][web_concurrency]                                         |
@@ -68,5 +69,5 @@ Changing the webworker settings may cause unforeseen memory leak issues with Mea
 | LDAP_TLS_INSECURE   |  False  | Do not verify server certificate when using secure LDAP                                                            |
 | LDAP_TLS_CACERTFILE |  None   | File path to Certificate Authority used to verify server certificate (e.g. `/path/to/ca.crt`)                      |
 | LDAP_BIND_TEMPLATE  |  None   | Templated DN for users, `{}` will be replaced with the username (e.g. `cn={},dc=example,dc=com`, `{}@example.com`) |
-| LDAP_BASE_DN        |  None   | Starting point when searching for users authentication (e.g. `CN=Users,DC=xx,DC=yy,DC=de`)                         | 
+| LDAP_BASE_DN        |  None   | Starting point when searching for users authentication (e.g. `CN=Users,DC=xx,DC=yy,DC=de`)                         |
 | LDAP_ADMIN_FILTER   |  None   | Optional LDAP filter, which tells Mealie the LDAP user is an admin (e.g. `(memberOf=cn=admins,dc=example,dc=com)`) |

@@ -25,6 +25,10 @@ services:
   mealie-api:
     image: hkotel/mealie:api-v1.0.0beta-4
     container_name: mealie-api
+    deploy:
+      resources:
+        limits:
+          memory: 1000M # (4)
     volumes:
       - mealie-data:/app/data/
     environment:
@@ -49,3 +53,4 @@ volumes:
     <br/> <br/> **Note** that both containers must be on the same docker-network for this to work.
 2.  To access the mealie interface you only need to expose port 3000 on the mealie-frontend container. Here we expose port 9925 on the host, feel free to change this to any port you like.
 3.  Mounting the data directory to the frontend is now required to access the images/assets directory. This can be mounted read-only. Internally the frontend containers runs a Caddy proxy server that serves the assets requested to reduce load on the backend API.
+4.  Setting an explicit memory limit is recommended. Python can pre-allocate larger amounts of memory than is necessary if you have a machine with a lot of RAM. This can cause the container to idle at a high memory usage. Setting a memory limit will improve idle performance.
