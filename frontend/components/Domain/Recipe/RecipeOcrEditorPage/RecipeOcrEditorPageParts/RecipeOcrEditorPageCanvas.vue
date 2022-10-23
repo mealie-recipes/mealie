@@ -39,8 +39,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, useContext, ref, toRefs, watch } from "@nuxtjs/composition-api";
-import { onMounted } from "vue-demi";
+import { defineComponent, reactive, useContext, ref, toRefs, watch, onMounted } from "@nuxtjs/composition-api";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { OcrTsvResponse as NullableOcrTsvResponse } from "~/lib/api/types/ocr";
 import { CanvasModes, SelectedTextSplitModes, ImagePosition, Mouse, CanvasRect, ToolbarIcons } from "~/types/ocr-types";

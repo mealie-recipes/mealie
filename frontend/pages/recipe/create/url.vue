@@ -63,9 +63,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, ref, useRouter, computed, useRoute } from "@nuxtjs/composition-api";
+import {
+  defineComponent,
+  reactive,
+  toRefs,
+  ref,
+  useRouter,
+  computed,
+  useRoute,
+  onMounted,
+} from "@nuxtjs/composition-api";
 import { AxiosResponse } from "axios";
-import { onMounted } from "vue-demi";
 import { useUserApi } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
 import { VForm } from "~/types/vuetify";

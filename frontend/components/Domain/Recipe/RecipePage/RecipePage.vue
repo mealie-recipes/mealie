@@ -75,9 +75,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, useRouter, computed, ref, useMeta } from "@nuxtjs/composition-api";
+import {
+  defineComponent,
+  useContext,
+  useRouter,
+  computed,
+  ref,
+  useMeta,
+  onMounted,
+  onUnmounted,
+} from "@nuxtjs/composition-api";
 import { invoke, until, useWakeLock } from "@vueuse/core";
-import { onMounted, onUnmounted } from "vue-demi";
 import RecipePageEditorToolbar from "./RecipePageParts/RecipePageEditorToolbar.vue";
 import RecipePageFooter from "./RecipePageParts/RecipePageFooter.vue";
 import RecipePageHeader from "./RecipePageParts/RecipePageHeader.vue";
