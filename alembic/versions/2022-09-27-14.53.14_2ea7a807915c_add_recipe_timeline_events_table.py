@@ -28,7 +28,7 @@ def upgrade():
         sa.Column("user_id", mealie.db.migration_types.GUID(), nullable=False),
         sa.Column("subject", sa.String(), nullable=False),
         sa.Column("message", sa.String(), nullable=True),
-        sa.Column("event_type", sa.Enum("system", "info", "comment", name="timelineeventtype"), nullable=True),
+        sa.Column("event_type", sa.String(), nullable=True),
         sa.Column("image", sa.String(), nullable=True),
         sa.Column("timestamp", sa.DateTime(), nullable=True),
         sa.ForeignKeyConstraint(

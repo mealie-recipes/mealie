@@ -9,13 +9,12 @@ from zipfile import ZipFile
 from fastapi import UploadFile
 
 from mealie.core import exceptions
-from mealie.db.models.recipe.recipe_timeline import TimelineEventType
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import CreateRecipe, Recipe
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.recipe.recipe_step import RecipeStep
-from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventCreate
+from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventCreate, TimelineEventType
 from mealie.schema.user.user import GroupInDB, PrivateUser
 from mealie.services._base_service import BaseService
 from mealie.services.recipe.recipe_data_service import RecipeDataService

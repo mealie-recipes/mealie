@@ -1,10 +1,16 @@
 from datetime import datetime
+from enum import Enum
 
 from pydantic import UUID4
 
-from mealie.db.models.recipe.recipe_timeline import TimelineEventType
 from mealie.schema._mealie.mealie_model import MealieModel
 from mealie.schema.response.pagination import PaginationBase
+
+
+class TimelineEventType(Enum):
+    system = "system"
+    info = "info"
+    comment = "comment"
 
 
 class RecipeTimelineEventIn(MealieModel):
@@ -18,6 +24,9 @@ class RecipeTimelineEventIn(MealieModel):
     image: str | None = None
 
     timestamp: datetime = datetime.now()
+
+    class Config:
+        use_enum_values = True
 
 
 class RecipeTimelineEventCreate(RecipeTimelineEventIn):

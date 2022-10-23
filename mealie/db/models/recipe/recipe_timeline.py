@@ -1,18 +1,11 @@
-import enum
 from datetime import datetime
 
-from sqlalchemy import Column, DateTime, Enum, ForeignKey, String
+from sqlalchemy import Column, DateTime, ForeignKey, String
 from sqlalchemy.orm import relationship
 
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import auto_init
 from .._model_utils.guid import GUID
-
-
-class TimelineEventType(enum.Enum):
-    system = "system"
-    info = "info"
-    comment = "comment"
 
 
 class RecipeTimelineEvent(SqlAlchemyBase, BaseMixins):
@@ -30,7 +23,7 @@ class RecipeTimelineEvent(SqlAlchemyBase, BaseMixins):
     # General Properties
     subject = Column(String, nullable=False)
     message = Column(String)
-    event_type = Column(Enum(TimelineEventType))
+    event_type = Column(String)
     image = Column(String)
 
     # Timestamps
