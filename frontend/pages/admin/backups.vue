@@ -114,8 +114,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, toRefs, useContext } from "@nuxtjs/composition-api";
-import { onMounted } from "vue-demi";
+import { defineComponent, reactive, ref, toRefs, useContext, onMounted } from "@nuxtjs/composition-api";
 import { useAdminApi } from "~/composables/api";
 import { AllBackups } from "~/lib/api/types/admin";
 

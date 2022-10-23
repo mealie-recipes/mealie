@@ -154,8 +154,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from "@nuxtjs/composition-api";
-import { computed } from "vue-demi";
+import { defineComponent, onMounted, ref, computed } from "@nuxtjs/composition-api";
 import type { LocaleObject } from "@nuxtjs/i18n";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";

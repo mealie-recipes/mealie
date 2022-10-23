@@ -52,7 +52,10 @@ module.exports = {
         "ts-ignore": "allow-with-description",
       },
     ],
-    "no-restricted-imports": ["error", { paths: ["@vue/reactivity", "@vue/runtime-dom", "@vue/composition-api"] }],
+    "no-restricted-imports": [
+      "error",
+      { paths: ["@vue/reactivity", "@vue/runtime-dom", "@vue/composition-api", "vue-demi"] },
+    ],
 
     // TODO Gradually activate all rules
     "@typescript-eslint/no-unsafe-assignment": "off",
