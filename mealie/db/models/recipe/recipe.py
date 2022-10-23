@@ -122,6 +122,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
             "recipe_instructions",
             "settings",
             "comments",
+            "timeline_events",
         }
 
     @validates("name")
