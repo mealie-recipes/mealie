@@ -27,7 +27,7 @@ class BackupV2(BaseService):
 
         # Create a backup of the SQLite database
         timestamp = datetime.datetime.now().strftime("%Y.%m.%d")
-        shutil.copy(db_file, f"mealie_{timestamp}.bak.db")
+        shutil.copy(db_file, self.directories.DATA_DIR.joinpath(f"mealie_{timestamp}.bak.db"))
 
     def _postgres(self) -> None:
         pass
