@@ -187,8 +187,7 @@
 <script lang="ts">
 import draggable from "vuedraggable";
 
-import { defineComponent, useAsync, useRoute, computed, ref, watch } from "@nuxtjs/composition-api";
-import { onUnmounted } from "vue-demi";
+import { defineComponent, useAsync, useRoute, computed, ref, watch, onUnmounted } from "@nuxtjs/composition-api";
 import { useToggle } from "@vueuse/core";
 import { useCopyList } from "~/composables/use-copy";
 import { useUserApi } from "~/composables/api";
