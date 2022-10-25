@@ -249,7 +249,7 @@
     "split-by-numbered-line-description": "Pogingen om een alinea te splitsen door de '1)' of '1.' patronen te gebruiken",
     "import-by-url": "Importeer een recept van een website",
     "create-manually": "Maak handmatig een recept aan",
-    "make-recipe-image": "Make this the recipe image"
+    "make-recipe-image": "Maak dit de afbeelding voor dit recept"
   },
   "page": {
     "404-page-not-found": "404 Pagina niet gevonden",
@@ -355,7 +355,7 @@
     "decrease-scale-label": "Verlaag de schaal met 1",
     "increase-scale-label": "Verhoog de schaal met 1",
     "locked": "Vergrendeld",
-    "public-link": "Public Link"
+    "public-link": "Openbare Link"
   },
   "search": {
     "advanced-search": "Geavanceerd Zoeken",
@@ -621,11 +621,11 @@
     "user-registration": "Gebruikersregistratie",
     "join-a-group": "Deelnemen aan een groep",
     "create-a-new-group": "Maak een nieuwe groep aan",
-    "provide-registration-token-description": "Please provide the registration token associated with the group that you'd like to join. You'll need to obtain this from an existing group member.",
+    "provide-registration-token-description": "Geef het registratie token op dat is gekoppeld aan de groep waar je lid van wilt worden. Je moet dit token aanvragen bij een lid van de groep.",
     "group-details": "Groep details",
-    "group-details-description": "Before you create an account you'll need to create a group. Your group will only contain you, but you'll be able to invite others later. Members in your group can share meal plans, shopping lists, recipes, and more!",
+    "group-details-description": "Voordat je een account aanmaakt moet je eerst een groep aanmaken. Jij bent het enige lid van de groep, maar je kunt later anderen uitnodigen. Leden van je groep kunnen maaltijdplannen, boodschappenlijstjes, recepten en nog veel meer delen!",
     "use-seed-data": "Gebruik voorbeeldgegevens",
-    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes.",
+    "use-seed-data-description": "Mealie bevat een verzameling ingrediënten, eenheden en labels die gebruikt kunnen worden om je groep te vullen met handige gegevens voor het organiseren van je recepten.",
     "account-details": "Accountgegevens"
   },
   "validation": {
@@ -665,9 +665,9 @@
   "ocr-editor": {
     "ocr-editor": "Ocr editor",
     "selection-mode": "Selection mode",
-    "pan-and-zoom-picture": "Pan and zoom picture",
-    "split-text": "Split text",
-    "preserve-line-breaks": "Preserve original line breaks",
+    "pan-and-zoom-picture": "Pan en zoom afbeelding",
+    "split-text": "Tekst splitsen",
+    "preserve-line-breaks": "Behoud oorspronkelijke regeleinden",
     "split-by-block": "Split by text block",
     "flatten": "Flatten regardless of original formating",
     "help": {
