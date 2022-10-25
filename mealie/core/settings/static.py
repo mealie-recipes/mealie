@@ -1,6 +1,8 @@
 from pathlib import Path
 
-APP_VERSION = "v1.0.0beta-4"
+from mealie import __version__
+
+APP_VERSION = __version__
 
 CWD = Path(__file__).parent
 BASE_DIR = CWD.parent.parent.parent
