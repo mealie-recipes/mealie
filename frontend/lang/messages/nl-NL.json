@@ -249,7 +249,7 @@
     "split-by-numbered-line-description": "Pogingen om een alinea te splitsen door de '1)' of '1.' patronen te gebruiken",
     "import-by-url": "Importeer een recept van een website",
     "create-manually": "Maak handmatig een recept aan",
-    "make-recipe-image": "Make this the recipe image"
+    "make-recipe-image": "Maak dit de afbeelding voor dit recept"
   },
   "page": {
     "404-page-not-found": "404 Pagina niet gevonden",
@@ -355,7 +355,7 @@
     "decrease-scale-label": "Verlaag de schaal met 1",
     "increase-scale-label": "Verhoog de schaal met 1",
     "locked": "Vergrendeld",
-    "public-link": "Public Link"
+    "public-link": "Openbare Link"
   },
   "search": {
     "advanced-search": "Geavanceerd Zoeken",
