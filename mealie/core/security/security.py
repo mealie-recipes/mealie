@@ -86,7 +86,7 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
         f"(&(objectClass=user)(|(cn={username})(sAMAccountName={username})(mail={username})))",
         ["name", "mail"],
     )
-    if not user_entry:
+    if user_entry:
         user_dn, user_attr = user_entry[0]
     else:
         return False
@@ -96,8 +96,8 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
             {
                 "username": username,
                 "password": "LDAP",
-                "full_name": user_attr["name"][0],
-                "email": user_attr["mail"][0],
+                "full_name": user_attr["name"][0].decode("utf-8") ,
+                "email": user_attr["mail"][0].decode("utf-8") ,
                 "admin": False,
             },
         )
