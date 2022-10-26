@@ -6,7 +6,11 @@ export default {
       { hid: "og:type", property: "og:type", content: "website" },
       { hid: "og:title", property: "og:title", content: "Mealie" },
       { hid: "og:site_name", property: "og:site_name", content: "Mealie" },
-      { hid: "og:description", property: "og:description", content: "Mealie is a recipe management app for your kitchen." },
+      {
+        hid: "og:description",
+        property: "og:description",
+        content: "Mealie is a recipe management app for your kitchen.",
+      },
       {
         hid: "og:image",
         property: "og:image",
@@ -49,16 +53,25 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/typescript
-    "@nuxt/typescript-build",
-    // https://go.nuxtjs.dev/vuetify
+    [
+      "@nuxt/typescript-build",
+      // Fix slow builds
+      // https://github.com/nuxt/nuxt.js/issues/8310#issuecomment-734984360
+      {
+        typeCheck: {
+          typescript: {
+            enabled: true,
+            mode: "write-tsbuildinfo",
+          },
+        },
+      },
+    ],
     // https://go.nuxtjs.dev/vuetify
     "@nuxtjs/vuetify",
     // https://composition-api.nuxtjs.org/getting-started/setup
     "@nuxtjs/composition-api/module",
     // https://vite.nuxtjs.org/getting-started/installation
     "nuxt-vite",
-    // https://github.com/antfu/vue2-script-setup-transform
-    "vue2-script-setup-transform/nuxt",
     // https://google-fonts.nuxtjs.org/setup
     "@nuxtjs/google-fonts",
   ],
@@ -376,7 +389,7 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     // https://nuxtjs.org/docs/2.x/configuration-glossary/configuration-build
-    analyze: process.env.NODE_ENV !== "production",
+    analyze: false,
     babel: {
       plugins: [
         ["@babel/plugin-proposal-private-property-in-object", { loose: true }],
