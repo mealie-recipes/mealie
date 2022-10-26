@@ -114,7 +114,6 @@
 </template>
 
 <script lang="ts">
-import { resolve } from "path";
 import { defineComponent, reactive, toRefs, useContext, useRouter, ref } from "@nuxtjs/composition-api";
 import RecipeDialogShare from "./RecipeDialogShare.vue";
 import { useUserApi } from "~/composables/api";
@@ -359,7 +358,7 @@ export default defineComponent({
 
     async function duplicateRecipe() {
       const { data } = await api.recipes.duplicateOne(props.slug, state.recipeName);
-      if (data) {
+      if (data && data.slug) {
         router.push(`/recipe/${data.slug}`);
       }
     }
