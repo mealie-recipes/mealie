@@ -45,7 +45,7 @@
     "@nuxtjs/vuetify": "^1.12.1",
     "@types/sortablejs": "^1.15.0",
     "@vue/runtime-dom": "^3.2.41",
-    "eslint": "^8.25.0",
+    "eslint": "^8.26.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-nuxt": "^4.0.0",
     "eslint-plugin-prettier": "^4.2.1",
