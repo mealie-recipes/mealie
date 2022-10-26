@@ -96,8 +96,8 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
             {
                 "username": username,
                 "password": "LDAP",
-                "full_name": user_attr["name"][0].decode("utf-8") ,
-                "email": user_attr["mail"][0].decode("utf-8") ,
+                "full_name": user_attr["name"][0].decode("utf-8"),
+                "email": user_attr["mail"][0].decode("utf-8"),
                 "admin": False,
             },
         )
