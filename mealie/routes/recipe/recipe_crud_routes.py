@@ -329,7 +329,6 @@ class RecipeController(BaseRecipeController):
             new_recipe = self.service.create_one(new_recipe_data)
         except Exception as e:
             self.handle_exceptions(e)
-            return None
 
         if new_recipe:
             try:
