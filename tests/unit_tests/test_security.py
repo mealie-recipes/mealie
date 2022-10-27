@@ -51,4 +51,5 @@ def test_ldap_authentication_mocked(monkeypatch: MonkeyPatch):
     with session_context() as session:
         result = security.authenticate_user(session, user, password)
 
-    assert result is False
+    assert result is not False
+    assert result.username == user
