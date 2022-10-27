@@ -28,12 +28,13 @@ class SMTPResponse:
 class Message:
     subject: str
     html: str
-    mail_from: tuple[str, str]
+    mail_from_name: str
+    mail_from_address: str
 
     def send(self, to: str, smtp: EmailOptions) -> SMTPResponse:
         msg = message.EmailMessage()
         msg["Subject"] = self.subject
-        msg["From"] = self.mail_from
+        msg["From"] = f"{self.mail_from_name} <{self.mail_from_address}>"
         msg["To"] = to
         msg.add_alternative(self.html, subtype="html")
 
@@ -75,7 +76,8 @@ class DefaultEmailSender(ABCEmailSender, BaseService):
         message = Message(
             subject=subject,
             html=html,
-            mail_from=(self.settings.SMTP_FROM_NAME, self.settings.SMTP_FROM_EMAIL),
+            mail_from_name=self.settings.SMTP_FROM_NAME,
+            mail_from_address=self.settings.SMTP_FROM_EMAIL,
         )
 
         if self.settings.SMTP_HOST is None or self.settings.SMTP_PORT is None:
