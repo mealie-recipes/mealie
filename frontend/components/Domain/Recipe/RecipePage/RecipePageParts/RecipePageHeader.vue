@@ -4,7 +4,7 @@
       <v-card v-if="!landscape" width="50%" flat class="d-flex flex-column justify-center align-center">
         <v-card-text>
           <v-card-title class="headline pa-0 flex-column align-center">
-            {{ recipe.name }} {{ recipe.rating }}
+            {{ recipe.name }}
             <RecipeRating :key="recipe.slug" v-model="recipe.rating" :name="recipe.name" :slug="recipe.slug" />
           </v-card-title>
           <v-divider class="my-2"></v-divider>
