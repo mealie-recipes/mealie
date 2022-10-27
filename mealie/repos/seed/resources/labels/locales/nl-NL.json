@@ -21,10 +21,10 @@
         "name": "Dranken"
     },
     {
-        "name": "Gebakken goederen"
+        "name": "Gebakken producten"
     },
     {
-        "name": "Ingeblikte goederen"
+        "name": "Ingeblikt eten"
     },
     {
         "name": "Specerijen"
@@ -36,16 +36,16 @@
         "name": "Zuivelproducten"
     },
     {
-        "name": "Bevroren Voedsel"
+        "name": "Bevroren eten"
     },
     {
-        "name": "Gezond voedsel"
+        "name": "Gezond eten"
     },
     {
         "name": "Huishouden"
     },
     {
-        "name": "Vlees producten"
+        "name": "Vleesproducten"
     },
     {
         "name": "Snacks"
@@ -60,6 +60,6 @@
         "name": "Alcohol"
     },
     {
-        "name": "Andere"
+        "name": "Anders"
     }
 ]
