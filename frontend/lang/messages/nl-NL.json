@@ -329,7 +329,7 @@
     "locked-by-owner": "Vergrendeld door eigenaar",
     "join-the-conversation": "Deelnemen aan het gesprek",
     "add-recipe-to-mealplan": "Recept toevoegen aan maaltijdplan",
-    "entry-type": "Entry Type",
+    "entry-type": "Invoertype",
     "date-format-hint": "MM/DD/JJJJ formaat",
     "add-to-list": "Toevoegen aan lijst",
     "add-to-plan": "Toevoegen aan plan",
@@ -608,7 +608,7 @@
       "merge-dialog-text": "De combinatie van de geselecteerde voedingsmiddelen zal het bronvoedselmiddel samenvoegen tot één enkel voedingsmiddel. Het bronvoedingsmiddel zal worden verwijderd en alle verwijzingen naar het bronvoedingsmiddel zullen worden bijgewerkt om naar het nieuwe bronvoedingsmiddel.",
       "merge-food-example": "{food1} samenvoegen naar {food2}",
       "seed-dialog-text": "Vul de database met voedingsmiddelen in jouw taal. Dit maakt 200+ veelvoorkomende voedingsmiddelen aan die jij in jouw database gebruikt kan gebruiken. De vertalingen zijn verzorgd door een gemeenschap.",
-      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually."
+      "seed-dialog-warning": "Er bevinden zich al enkele artikelen in je database. Deze actie zal de duplicaten niet samenvoegen, dit moet handmatig worden beheerd."
     },
     "units": {
       "seed-dialog-text": "Seed the database with common units based on your local language."
