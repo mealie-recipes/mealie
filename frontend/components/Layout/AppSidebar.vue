@@ -176,13 +176,24 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-    // V-Model Support
-    const drawer = computed({
+       // V-Model Support
+      const stateMobileConfig = reactive({
+         hasItopenedBefore: false as boolean,
+      });
+
+      const drawer = computed({
       get: () => {
         return props.value;
       },
       set: (val) => {
-        context.emit("input", val);
+          if(window.innerWidth < 760 && stateMobileConfig.hasItopenedBefore === false){
+            stateMobileConfig.hasItopenedBefore = true;
+            val = false
+            context.emit("input", val);
+          }
+          else{
+            context.emit("input", val);
+          }
       },
     });
 
