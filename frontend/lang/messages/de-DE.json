@@ -529,11 +529,11 @@
     "tag-name": "Name des Schlagworts"
   },
   "tool": {
-    "tools": "Hilfsmittel",
+    "tools": "Utensilien",
     "on-hand": "Vorhanden",
-    "create-a-tool": "Ein Hilfsmittel erstellen",
-    "tool-name": "Name des Hilfsmittels",
-    "create-new-tool": "Neues Hilfsmittel erstellen",
+    "create-a-tool": "Ein Utensil erstellen",
+    "tool-name": "Name des Utensils",
+    "create-new-tool": "Neues Utensil erstellen",
     "on-hand-checkbox-label": "Als \"vorhanden\" anzeigen (markiert)"
   },
   "user": {

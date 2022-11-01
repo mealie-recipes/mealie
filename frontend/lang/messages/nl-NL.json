@@ -13,7 +13,7 @@
     "development": "Versies in ontwikkeling",
     "docs": "Documentatie",
     "download-log": "Logbestand downloaden",
-    "download-recipe-json": "Laatste Ingelezen JSON",
+    "download-recipe-json": "Laatste ingelezen JSON",
     "github": "Github",
     "log-lines": "Logboek regels",
     "not-demo": "Niet Demo",
@@ -28,7 +28,7 @@
     "code": "Code",
     "file": "Bestand",
     "image": "Afbeelding",
-    "new-asset": "Nieuwe Bijlage",
+    "new-asset": "Nieuwe bijlage",
     "pdf": "PDF",
     "recipe": "Recept",
     "show-assets": "Toon Bijlagen",
@@ -172,7 +172,7 @@
     "group-not-found": "Groep niet gevonden",
     "group-with-value": "Groep: {groupID}",
     "groups": "Groepen",
-    "manage-groups": "Groepen beheren",
+    "manage-groups": "Beheer Groepen",
     "user-group": "Gebruikersgroep",
     "user-group-created": "Gebruikersgroep aangemaakt",
     "user-group-creation-failed": "Aanmaken gebruikersgroep is mislukt",
@@ -329,7 +329,7 @@
     "locked-by-owner": "Vergrendeld door eigenaar",
     "join-the-conversation": "Deelnemen aan het gesprek",
     "add-recipe-to-mealplan": "Recept toevoegen aan maaltijdplan",
-    "entry-type": "Entry Type",
+    "entry-type": "Invoertype",
     "date-format-hint": "MM/DD/JJJJ formaat",
     "add-to-list": "Toevoegen aan lijst",
     "add-to-plan": "Toevoegen aan plan",
@@ -491,7 +491,7 @@
     "cookbooks": "Koekboeken",
     "dashboard": "Dashboard",
     "home-page": "Home Pagina",
-    "manage-users": "Gebruikers",
+    "manage-users": "Beheer Gebruikers",
     "migrations": "Migraties",
     "profile": "Profiel",
     "search": "Zoeken",
@@ -558,7 +558,7 @@
     "link-name": "Koppeling Naam",
     "login": "Inloggen",
     "logout": "Uitloggen",
-    "manage-users": "Beheer gebruikers",
+    "manage-users": "Beheer Gebruikers",
     "new-password": "Nieuw Wachtwoord",
     "new-user": "Nieuwe Gebruiker",
     "password-has-been-reset-to-the-default-password": "Wachtwoord is gereset naar het standaard wachtwoord",
@@ -608,13 +608,13 @@
       "merge-dialog-text": "De combinatie van de geselecteerde voedingsmiddelen zal het bronvoedselmiddel samenvoegen tot één enkel voedingsmiddel. Het bronvoedingsmiddel zal worden verwijderd en alle verwijzingen naar het bronvoedingsmiddel zullen worden bijgewerkt om naar het nieuwe bronvoedingsmiddel.",
       "merge-food-example": "{food1} samenvoegen naar {food2}",
       "seed-dialog-text": "Vul de database met voedingsmiddelen in jouw taal. Dit maakt 200+ veelvoorkomende voedingsmiddelen aan die jij in jouw database gebruikt kan gebruiken. De vertalingen zijn verzorgd door een gemeenschap.",
-      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually."
+      "seed-dialog-warning": "Er bevinden zich al enkele artikelen in je database. Deze actie zal de duplicaten niet samenvoegen, dit moet handmatig worden beheerd."
     },
     "units": {
-      "seed-dialog-text": "Seed the database with common units based on your local language."
+      "seed-dialog-text": "Vul de database aan met veelvoorkomende eenheden, gebaseerd op je lokale taal."
     },
     "labels": {
-      "seed-dialog-text": "Seed the database with common labels based on your local language."
+      "seed-dialog-text": "Vul de database aan met veelvoorkomende labels, gebaseerd op je lokale taal."
     }
   },
   "user-registration": {
@@ -664,27 +664,27 @@
   },
   "ocr-editor": {
     "ocr-editor": "Ocr editor",
-    "selection-mode": "Selection mode",
+    "selection-mode": "Selectiemodus",
     "pan-and-zoom-picture": "Pan en zoom afbeelding",
     "split-text": "Tekst splitsen",
     "preserve-line-breaks": "Behoud oorspronkelijke regeleinden",
-    "split-by-block": "Split by text block",
+    "split-by-block": "Splits per tekstblok",
     "flatten": "Flatten regardless of original formating",
     "help": {
-      "selection-mode": "Selection Mode (default)",
-      "selection-mode-desc": "The selection mode is the main mode that can be used to enter data:",
+      "selection-mode": "Selectiemodus (standaard)",
+      "selection-mode-desc": "De selectiemodus is de hoofdmodus die gebruikt kan worden om gegevens in te voeren:",
       "selection-mode-steps": {
-        "draw": "Draw a rectangle on the text you want to select.",
+        "draw": "Teken een rechthoek over de tekst die je wilt selecteren.",
         "click": "Click on any field on the right and then click back on the rectangle above the image.",
-        "result": "The selected text will appear inside the previously selected field."
+        "result": "De geselecteerde tekst verschijnt in het eerder geselecteerde veld."
       },
-      "pan-and-zoom-mode": "Pan and Zoom Mode",
-      "pan-and-zoom-desc": "Select pan and zoom by clicking the icon. This mode allows to zoom inside the image and move around to make using big images easier.",
-      "split-text-mode": "Split Text modes",
+      "pan-and-zoom-mode": "Pan en Zoom modus",
+      "pan-and-zoom-desc": "Selecteer Pan en Zoom door op het pictogram te klikken. Deze modus maakt het mogelijk om in te zoomen op de afbeelding en om rond te bewegen, wat het gebruik van grotere afbeeldingen vergemakkelijkt.",
+      "split-text-mode": "Splits Tekst modus",
       "split-modes": {
-        "line-mode": "Line mode (default)",
+        "line-mode": "Regelmodus (standaard)",
         "line-mode-desc": "In line mode, the text will be propagated by keeping the original line breaks. This mode is useful when using bulk add on a list of ingredients where one ingredient is one line.",
-        "block-mode": "Block mode",
+        "block-mode": "Blokmodus",
         "block-mode-desc": "In block mode, the text will be split in blocks. This mode is useful when bulk adding instructions that are usually written in paragraphs.",
         "flat-mode": "Flat mode",
         "flat-mode-desc": "In flat mode, the text will be added to the selected recipe field with no line breaks."
