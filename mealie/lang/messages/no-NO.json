@@ -1,22 +1,22 @@
 {
     "generic": {
-        "server-error": "An unexpected error occurred"
+        "server-error": "Det oppstod en uventet feil"
     },
     "recipe": {
-        "unique-name-error": "Recipe names must be unique"
+        "unique-name-error": "Oppskriftsnavn må være unike"
     },
     "exceptions": {
-        "permission_denied": "You do not have permission to perform this action",
-        "no-entry-found": "The requested resource was not found",
-        "integrity-error": "Database integrity error",
-        "username-conflict-error": "This username is already taken",
-        "email-conflict-error": "This email is already in use"
+        "permission_denied": "Du har ikke rettigheter til å utføre denne handlingen",
+        "no-entry-found": "Den forespurte ressursen ble ikke funnet",
+        "integrity-error": "Feil i databaseintegritet",
+        "username-conflict-error": "Dette brukernavnet er allerede i bruk",
+        "email-conflict-error": "Denne e-postadressen er allerede i bruk"
     },
     "notifications": {
-        "generic-created": "{name} was created",
-        "generic-updated": "{name} was updated",
-        "generic-created-with-url": "{name} has been created, {url}",
-        "generic-updated-with-url": "{name} has been updated, {url}",
-        "generic-deleted": "{name} has been deleted"
+        "generic-created": "{name} ble opprettet",
+        "generic-updated": "{name} ble oppdatert",
+        "generic-created-with-url": "{name} har blitt opprettet, {url}",
+        "generic-updated-with-url": "{name} har blitt oppdatert, {url}",
+        "generic-deleted": "{name} har blitt slettet"
     }
 }
