@@ -17,7 +17,6 @@
         <RecipeChips v-else :items="recipe.recipeCategory" />
       </v-card-text>
     </v-card>
-
     <!-- Recipe Tags -->
     <v-card v-if="recipe.tags.length > 0 || isEditForm" class="mt-2">
       <v-card-title class="py-2">
@@ -35,7 +34,6 @@
         <RecipeChips v-else :items="recipe.tags" url-prefix="tags" />
       </v-card-text>
     </v-card>
-
     <!-- Recipe Tools Edit -->
     <v-card v-if="isEditForm" class="mt-2">
       <v-card-title class="py-2"> Required Tools </v-card-title>

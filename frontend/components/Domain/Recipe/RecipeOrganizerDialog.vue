@@ -23,6 +23,12 @@
               :rules="[rules.required]"
               autofocus
             ></v-text-field>
+
+            <v-select
+              :items="items"
+              label="Select Category Color"
+            ></v-select>
+
             <v-checkbox v-if="itemType === Organizer.Tool" v-model="onHand" :label="$t('tool.on-hand')"></v-checkbox>
           </v-card-text>
           <v-card-actions>
@@ -147,7 +153,11 @@ export default defineComponent({
       rules,
       select,
     };
-  },
+    },
+  data: () => ({
+    items: ["Green", "Brown", "Pink", "Yellow", "Orange", "Blue"],
+  }),
+
 });
 </script>
 
