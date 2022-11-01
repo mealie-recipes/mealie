@@ -364,6 +364,16 @@ def recipes_slug_image(slug):
     return f"{prefix}/recipes/{slug}/image"
 
 
+def recipes_slug_timeline_events(slug):
+    """`/api/recipes/{slug}/timeline/events`"""
+    return f"{prefix}/recipes/{slug}/timeline/events"
+
+
+def recipes_slug_timeline_events_item_id(slug, item_id):
+    """`/api/recipes/{slug}/timeline/events/{item_id}`"""
+    return f"{prefix}/recipes/{slug}/timeline/events/{item_id}"
+
+
 def shared_recipes_item_id(item_id):
     """`/api/shared/recipes/{item_id}`"""
     return f"{prefix}/shared/recipes/{item_id}"

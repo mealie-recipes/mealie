@@ -1,7 +1,7 @@
 """Add is_ocr_recipe column to recipes
 
 Revision ID: 089bfa50d0ed
-Revises: f30cf048c228
+Revises: 188374910655
 Create Date: 2022-08-05 17:07:07.389271
 
 """

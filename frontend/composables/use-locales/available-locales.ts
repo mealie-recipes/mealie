@@ -73,7 +73,7 @@ export const LOCALES = [
   {
     name: "Norsk (Norwegian)",
     value: "no-NO",
-    progress: 80,
+    progress: 85,
   },
   {
     name: "Nederlands (Dutch)",
