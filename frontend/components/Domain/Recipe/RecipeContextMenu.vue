@@ -2,6 +2,8 @@
   <div class="text-center">
     <!-- Recipe Share Dialog -->
     <RecipeDialogShare v-model="shareDialog" :recipe-id="recipeId" :name="name" />
+    <!-- I Made This Dialog -->
+    <RecipeDialogMadeThis v-model="madeThisDialog" :recipe-slug="slug" />
     <BaseDialog
       v-model="recipeDeleteDialog"
       :title="$t('recipe.delete-recipe')"
@@ -40,6 +42,7 @@
               readonly
               v-on="on"
             ></v-text-field>
+
           </template>
           <v-date-picker v-model="newMealdate" no-title @input="pickerMenu = false"></v-date-picker>
         </v-menu>
@@ -98,6 +101,7 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs, useContext, useRouter, ref } from "@nuxtjs/composition-api";
 import RecipeDialogShare from "./RecipeDialogShare.vue";
+import RecipeDialogMadeThis from "./RecipeDialogMadeThis.vue";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { planTypeOptions } from "~/composables/use-group-mealplan";
@@ -109,6 +113,7 @@ import { useCopy } from "~/composables/use-copy";
 export interface ContextMenuIncludes {
   delete: boolean;
   edit: boolean;
+  madeThis: boolean;
   download: boolean;
   mealplanner: boolean;
   shoppingList: boolean;
@@ -127,6 +132,7 @@ export interface ContextMenuItem {
 export default defineComponent({
   components: {
     RecipeDialogShare,
+    RecipeDialogMadeThis,
   },
   props: {
     useItems: {
@@ -134,6 +140,7 @@ export default defineComponent({
       default: () => ({
         delete: true,
         edit: true,
+        madeThis: true,
         download: true,
         mealplanner: true,
         shoppingList: true,
@@ -195,6 +202,7 @@ export default defineComponent({
 
     const state = reactive({
       shareDialog: false,
+      madeThisDialog: false,
       recipeDeleteDialog: false,
       mealplannerDialog: false,
       shoppingListDialog: false,
@@ -222,6 +230,12 @@ export default defineComponent({
         icon: $globals.icons.delete,
         color: "error",
         event: "delete",
+      },
+      madeThis: {
+        title: "I Made This",
+        icon: $globals.icons.chefHat,
+        color: undefined,
+        event: "madeThis",
       },
       download: {
         title: i18n.tc("general.download"),
@@ -337,6 +351,9 @@ export default defineComponent({
         state.recipeDeleteDialog = true;
       },
       edit: () => router.push(`/recipe/${props.slug}` + "?edit=true"),
+      madeThis: () => {
+        state.madeThisDialog = true;
+      },
       download: handleDownloadEvent,
       mealplanner: () => {
         state.mealplannerDialog = true;
