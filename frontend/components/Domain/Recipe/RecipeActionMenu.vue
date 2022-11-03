@@ -53,7 +53,6 @@
         :use-items="{
           delete: false,
           edit: false,
-          madeThis: true,
           download: true,
           mealplanner: true,
           shoppingList: true,
