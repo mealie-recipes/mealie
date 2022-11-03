@@ -396,6 +396,7 @@ export interface RecipeSummary {
   dateUpdated?: string;
   createdAt?: string;
   updateAt?: string;
+  lastMade?: string;
 }
 export interface RecipeCategory {
   id?: string;

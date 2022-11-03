@@ -211,6 +211,7 @@ export interface Recipe {
   dateUpdated?: string;
   createdAt?: string;
   updateAt?: string;
+  lastMade?: string;
   recipeInstructions?: RecipeStep[];
   nutrition?: Nutrition;
   settings?: RecipeSettings;
@@ -286,6 +287,7 @@ export interface RecipeSummary {
   dateUpdated?: string;
   createdAt?: string;
   updateAt?: string;
+  lastMade?: string;
 }
 export interface RecipeCommentCreate {
   recipeId: string;

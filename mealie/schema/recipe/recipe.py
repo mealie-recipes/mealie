@@ -98,6 +98,7 @@ class RecipeSummary(MealieModel):
 
     created_at: datetime.datetime | None
     update_at: datetime.datetime | None
+    last_made: datetime.datetime | None
 
     class Config:
         orm_mode = True
