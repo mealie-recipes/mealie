@@ -88,7 +88,7 @@
         // @ts-expect-error - TS doesn't like the $auth global user attribute
         // eslint-disable-next-line
         subject: `${$auth.user.fullName} made this`,
-        eventType: "info",
+        eventType: "comment",
         eventMessage: "",
         timestamp: "",
       });
