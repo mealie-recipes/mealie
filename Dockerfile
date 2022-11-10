@@ -24,6 +24,11 @@ RUN useradd -u 911 -U -d $MEALIE_HOME -s /bin/bash abc \
     && usermod -G users abc \
     && mkdir $MEALIE_HOME
 
+RUN apt-get update && apt-get install -y \
+    # LDAP runtime dependencies
+    libldap-2.4-2 \
+    && rm -rf /var/lib/apt/lists/*
+
 ###############################################
 # Builder Image
 ###############################################
@@ -35,9 +40,10 @@ RUN apt-get update \
     libpq-dev \
     libwebp-dev \
     tesseract-ocr-all \
-    # LDAP Dependencies
+    # LDAP build dependencies
     libsasl2-dev libldap2-dev libssl-dev \
     gnupg gnupg2 gnupg1 \
+    && rm -rf /var/lib/apt/lists/* \
     && pip install -U --no-cache-dir pip
 
 # install poetry - respects $POETRY_VERSION & $POETRY_HOME
