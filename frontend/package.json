@@ -18,7 +18,7 @@
   "dependencies": {
     "@adapttive/vue-markdown": "^4.0.1",
     "@mdi/js": "^7.0.96",
-    "@nuxtjs/auth-next": "5.0.0-1624817847.21691f1",
+    "@nuxtjs/auth-next": "5.0.0-1667386184.dfbbb54",
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/i18n": "7.2.0",
     "@nuxtjs/proxy": "^2.1.0",
