@@ -182,8 +182,8 @@ export default defineComponent({
         return props.value;
       },
       set: (val) => {
-          if(window.innerWidth < 760 && state.hasItopenedBefore === false){
-            state.hasItopenedBefore = true;
+          if(window.innerWidth < 760 && state.hasOpenedBefore === false){
+            state.hasOpenedBefore = true;
             val = false
             context.emit("input", val);
           }
@@ -198,7 +198,7 @@ export default defineComponent({
       topSelected: null as string[] | null,
       secondarySelected: null as string[] | null,
       bottomSelected: null as string[] | null,
-      hasItopenedBefore: false as boolean,
+      hasOpenedBefore: false as boolean,
     });
 
     return {
