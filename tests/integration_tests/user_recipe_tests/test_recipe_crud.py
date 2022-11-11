@@ -128,20 +128,20 @@ def test_create_by_url_with_tags(
     response = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token)
     assert response.status_code == 200
 
-    # Verifiy the tags are present
+    # Verifiy the tags are present and title cased
     expected_tags = {
-        "sauté",
-        "pea",
-        "noodle",
-        "udon noodle",
-        "ramen noodle",
-        "dinner",
-        "main",
-        "vegetarian",
-        "easy",
-        "quick",
-        "weeknight meals",
-        "web",
+        "Sauté",
+        "Pea",
+        "Noodle",
+        "Udon Noodle",
+        "Ramen Noodle",
+        "Dinner",
+        "Main",
+        "Vegetarian",
+        "Easy",
+        "Quick",
+        "Weeknight Meals",
+        "Web",
     }
 
     recipe = json.loads(response.text)
