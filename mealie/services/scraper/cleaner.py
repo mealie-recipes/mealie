@@ -44,7 +44,6 @@ def clean(recipe_data: dict, url=None) -> dict:
     recipe_data["performTime"] = clean_time(recipe_data.get("performTime"))
     recipe_data["totalTime"] = clean_time(recipe_data.get("totalTime"))
     recipe_data["recipeCategory"] = clean_categories(recipe_data.get("recipeCategory", []))
-
     recipe_data["recipeYield"] = clean_yield(recipe_data.get("recipeYield"))
     recipe_data["recipeIngredient"] = clean_ingredients(recipe_data.get("recipeIngredient"))
     recipe_data["recipeInstructions"] = clean_instructions(recipe_data.get("recipeInstructions"))
@@ -78,7 +77,7 @@ def clean_string(text: str | list | int) -> str:
     return cleaned_text
 
 
-def clean_image(image: str | list | dict | None = None) -> str:
+def clean_image(image: str | list | dict | None = None, default="no image") -> str:
     """
     image attempts to parse the image field from a recipe and return a string. Currenty
 
@@ -94,7 +93,7 @@ def clean_image(image: str | list | dict | None = None) -> str:
         str: "no image" if any empty string is provided or the url of the image
     """
     if not image:
-        return "no image"
+        return default
 
     match image:
         case str(image):
@@ -107,7 +106,7 @@ def clean_image(image: str | list | dict | None = None) -> str:
             raise TypeError(f"Unexpected type for image: {type(image)}, {image}")
 
 
-def clean_instructions(steps_object: list | dict | str) -> list[dict]:
+def clean_instructions(steps_object: list | dict | str, default: list | None = None) -> list[dict]:
     """
     instructions attempts to parse the instructions field from a recipe and return a list of
     dictionaries. See match statement for supported types and structures
@@ -119,7 +118,7 @@ def clean_instructions(steps_object: list | dict | str) -> list[dict]:
         list[dict]: An ordered list of dictionaries with the keys `text`
     """
     if not steps_object:
-        return []
+        return default or []
 
     match steps_object:
         case [{"text": str()}]:  # Base Case
@@ -224,7 +223,7 @@ def _sanitize_instruction_text(line: str | dict) -> str:
     return clean_line
 
 
-def clean_ingredients(ingredients: list | str | None) -> list[str]:
+def clean_ingredients(ingredients: list | str | None, default: list = None) -> list[str]:
     """
     ingredient attempts to parse the ingredients field from a recipe and return a list of
 
@@ -238,7 +237,7 @@ def clean_ingredients(ingredients: list | str | None) -> list[str]:
     """
     match ingredients:
         case None:
-            return []
+            return default or []
         case list(ingredients):
             return [clean_string(ingredient) for ingredient in ingredients]
         case str(ingredients):
