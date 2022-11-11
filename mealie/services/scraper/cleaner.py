@@ -45,10 +45,10 @@ def clean(recipe_data: dict, url=None) -> dict:
     recipe_data["totalTime"] = clean_time(recipe_data.get("totalTime"))
     recipe_data["recipeCategory"] = clean_categories(recipe_data.get("recipeCategory", []))
     recipe_data["recipeYield"] = clean_yield(recipe_data.get("recipeYield"))
-    recipe_data["recipeIngredient"] = clean_ingredients(recipe_data.get("recipeIngredient"))
-    recipe_data["recipeInstructions"] = clean_instructions(recipe_data.get("recipeInstructions"))
+    recipe_data["recipeIngredient"] = clean_ingredients(recipe_data.get("recipeIngredient", []))
+    recipe_data["recipeInstructions"] = clean_instructions(recipe_data.get("recipeInstructions", []))
     recipe_data["image"] = clean_image(recipe_data.get("image"))
-    recipe_data["slug"] = slugify(recipe_data.get("name"))
+    recipe_data["slug"] = slugify(recipe_data.get("name", ""))
     recipe_data["orgURL"] = url
 
     return recipe_data
@@ -246,7 +246,7 @@ def clean_ingredients(ingredients: list | str | None, default: list = None) -> l
             raise TypeError(f"Unexpected type for ingredients: {type(ingredients)}, {ingredients}")
 
 
-def clean_yield(yld: str | list[str]) -> str:
+def clean_yield(yld: str | list[str] | None) -> str:
     """
     yield_amount attemps to parse out the yield amount from a recipe.
 
