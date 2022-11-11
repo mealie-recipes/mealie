@@ -22,7 +22,7 @@ class RecipeTimelineEvent(SqlAlchemyBase, BaseMixins):
 
     # General Properties
     subject = Column(String, nullable=False)
-    event_message = Column(String)
+    message = Column(String)
     event_type = Column(String)
     image = Column(String)
 
