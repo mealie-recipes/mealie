@@ -12,7 +12,7 @@ SQLite is a popular, open source, self-contained, zero-configuration database th
 version: "3.7"
 services:
   mealie-frontend:
-    image: hkotel/mealie:frontend-v1.0.0beta-4
+    image: hkotel/mealie:frontend-v1.0.0beta-5
     container_name: mealie-frontend
     environment:
     # Set Frontend ENV Variables Here
@@ -23,7 +23,7 @@ services:
     volumes:
       - mealie-data:/app/data/ # (3)
   mealie-api:
-    image: hkotel/mealie:api-v1.0.0beta-4
+    image: hkotel/mealie:api-v1.0.0beta-5
     container_name: mealie-api
     deploy:
       resources:
