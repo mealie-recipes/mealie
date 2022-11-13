@@ -22,7 +22,7 @@
     <v-spacer></v-spacer>
     <div v-if="!open" class="custom-btn-group ma-1">
       <RecipeFavoriteBadge v-if="loggedIn" class="mx-1" color="info" button-style :slug="recipe.slug" show-always />
-      <RecipeTimelineBadge button-style :slug="recipe.slug" />
+      <RecipeTimelineBadge button-style :slug="recipe.slug" :recipe-name="recipe.name"  />
       <v-tooltip v-if="!locked" bottom color="info">
         <template #activator="{ on, attrs }">
           <v-btn fab small class="mx-1" color="info" v-bind="attrs" v-on="on" @click="$emit('edit', true)">

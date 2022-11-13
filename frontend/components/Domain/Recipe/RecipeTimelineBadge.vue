@@ -14,9 +14,9 @@
             {{ $globals.icons.timelineText }}
           </v-icon>
         </v-btn>
-        <RecipeDialogTimeline v-model="showTimeline" :slug=slug />
+        <RecipeDialogTimeline v-model="showTimeline" :slug="slug" :recipe-name="recipeName" />
       </template>
-      <span>Open Event Timeline</span>
+      <span>Open Timeline</span>
     </v-tooltip>
   </template>
 
@@ -27,13 +27,17 @@
     components: { RecipeDialogTimeline },
 
     props: {
+      buttonStyle: {
+        type: Boolean,
+        default: false,
+      },
       slug: {
         type: String,
         default: "",
       },
-      buttonStyle: {
-        type: Boolean,
-        default: false,
+      recipeName: {
+        type: String,
+        default: "",
       },
     },
 
