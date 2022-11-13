@@ -1,7 +1,7 @@
 from datetime import datetime
 from enum import Enum
 
-from pydantic import UUID4
+from pydantic import UUID4, Field
 
 from mealie.schema._mealie.mealie_model import MealieModel
 from mealie.schema.response.pagination import PaginationBase
@@ -20,7 +20,7 @@ class RecipeTimelineEventIn(MealieModel):
     subject: str
     event_type: TimelineEventType
 
-    message: str | None = None
+    message: str | None = Field(alias="eventMessage")
     image: str | None = None
 
     timestamp: datetime = datetime.now()
@@ -36,7 +36,7 @@ class RecipeTimelineEventCreate(RecipeTimelineEventIn):
 
 class RecipeTimelineEventUpdate(MealieModel):
     subject: str
-    message: str | None = None
+    message: str | None = Field(alias="eventMessage")
     image: str | None = None
 
 

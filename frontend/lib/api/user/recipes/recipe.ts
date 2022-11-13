@@ -10,6 +10,7 @@ import {
   ParsedIngredient,
   UpdateImageResponse,
   RecipeZipTokenResponse,
+  RecipeTimelineEventIn,
 } from "~/lib/api/types/recipe";
 import { ApiRequestInstance } from "~/lib/api/types/non-generated";
 
@@ -44,6 +45,9 @@ const routes = {
 
   recipesSlugComments: (slug: string) => `${prefix}/recipes/${slug}/comments`,
   recipesSlugCommentsId: (slug: string, id: number) => `${prefix}/recipes/${slug}/comments/${id}`,
+
+  recipesSlugTimelineEvent: (slug: string) => `${prefix}/recipes/${slug}/timeline/events`,
+  recipesSlugTimelineEventId: (slug: string, id: number) => `${prefix}/recipes/${slug}/timeline/events/${id}`,
 };
 
 export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
@@ -125,5 +129,9 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
     formData.append("makefilerecipeimage", String(makeFileRecipeImage));
 
     return await this.requests.post(routes.recipesCreateFromOcr, formData);
+  }
+
+  async createTimelineEvent(recipeSlug: string, payload: RecipeTimelineEventIn) {
+    return await this.requests.post(routes.recipesSlugTimelineEvent(recipeSlug), payload);
   }
 }
