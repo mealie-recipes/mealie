@@ -1,65 +1,65 @@
 [
     {
-        "name": "Produce"
+        "name": "Ovoce a Zelenina"
     },
     {
-        "name": "Grains"
+        "name": "Zrna"
     },
     {
-        "name": "Fruits"
+        "name": "Ovoce"
     },
     {
-        "name": "Vegetables"
+        "name": "Zelenina"
     },
     {
-        "name": "Meat"
+        "name": "Maso"
     },
     {
-        "name": "Seafood"
+        "name": "Mořské plody"
     },
     {
-        "name": "Beverages"
+        "name": "Nápoje"
     },
     {
         "name": "Baked Goods"
     },
     {
-        "name": "Canned Goods"
+        "name": "Konzervované jídlo"
     },
     {
         "name": "Condiments"
     },
     {
-        "name": "Confectionary"
+        "name": "Cukrovinky"
     },
     {
-        "name": "Dairy Products"
+        "name": "Mléčné Výrobky"
     },
     {
-        "name": "Frozen Foods"
+        "name": "Mražené Potraviny"
     },
     {
-        "name": "Health Foods"
+        "name": "Zdravá Strava"
     },
     {
-        "name": "Household"
+        "name": "Domácí"
     },
     {
-        "name": "Meat Products"
+        "name": "Masné Výrobky"
     },
     {
-        "name": "Snacks"
+        "name": "Svačiny"
     },
     {
-        "name": "Spices"
+        "name": "Koření"
     },
     {
-        "name": "Sweets"
+        "name": "Sladkosti"
     },
     {
-        "name": "Alcohol"
+        "name": "Alkohol"
     },
     {
-        "name": "Other"
+        "name": "Jiné"
     }
 ]
