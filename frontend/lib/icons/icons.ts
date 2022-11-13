@@ -60,6 +60,7 @@ import {
   mdiAlert,
   mdiCheckboxMarkedCircle,
   mdiInformation,
+  mdiInformationVariant,
   mdiBellAlert,
   mdiRefreshCircle,
   mdiMenu,
@@ -122,6 +123,8 @@ import {
   mdiCursorMove,
   mdiText,
   mdiTextBoxOutline,
+  mdiTimelineText,
+  mdiMessageText,
 } from "@mdi/js";
 
 export const icons = {
@@ -190,10 +193,12 @@ export const icons = {
   home: mdiHome,
   import: mdiImport,
   information: mdiInformation,
+  informationVariant: mdiInformationVariant,
   link: mdiLink,
   lock: mdiLock,
   logout: mdiLogout,
   menu: mdiMenu,
+  messageText: mdiMessageText,
   newBox: mdiNewBox,
   notificationClearAll: mdiNotificationClearAll,
   openInNew: mdiOpenInNew,
@@ -216,6 +221,7 @@ export const icons = {
   sortClockDescending: mdiSortClockDescending,
   star: mdiStar,
   testTube: mdiTestTube,
+  timelineText: mdiTimelineText,
   tools: mdiTools,
   potSteam: mdiPotSteam,
   translate: mdiTranslate,
