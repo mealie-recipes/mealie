@@ -22,6 +22,7 @@
     <v-spacer></v-spacer>
     <div v-if="!open" class="custom-btn-group ma-1">
       <RecipeFavoriteBadge v-if="loggedIn" class="mx-1" color="info" button-style :slug="recipe.slug" show-always />
+      <RecipeTimelineBadge button-style :slug="recipe.slug" />
       <v-tooltip v-if="!locked" bottom color="info">
         <template #activator="{ on, attrs }">
           <v-btn fab small class="mx-1" color="info" v-bind="attrs" v-on="on" @click="$emit('edit', true)">
@@ -69,7 +70,6 @@
         :key="index"
         :fab="$vuetify.breakpoint.xs"
         :small="$vuetify.breakpoint.xs"
-        class="mx-1"
         :color="btn.color"
         @click="emitHandler(btn.event)"
       >
@@ -84,6 +84,7 @@
 import { defineComponent, ref, useContext } from "@nuxtjs/composition-api";
 import RecipeContextMenu from "./RecipeContextMenu.vue";
 import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
+import RecipeTimelineBadge from "./RecipeTimelineBadge.vue";
 import { Recipe } from "~/lib/api/types/recipe";
 
 const SAVE_EVENT = "save";
@@ -93,7 +94,7 @@ const JSON_EVENT = "json";
 const OCR_EVENT = "ocr";
 
 export default defineComponent({
-  components: { RecipeContextMenu, RecipeFavoriteBadge },
+  components: { RecipeContextMenu, RecipeFavoriteBadge, RecipeTimelineBadge },
   props: {
     recipe: {
       required: true,
