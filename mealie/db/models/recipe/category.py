@@ -58,10 +58,16 @@ class Category(SqlAlchemyBase, BaseMixins):
         assert name != ""
         return name
 
-    def __init__(self, name, group_id, **_) -> None:
+    @validates("color")
+    def validate_color(self, key, color):
+        assert color != ""
+        return color
+
+    def __init__(self, name, group_id, color, **_) -> None:
         self.group_id = group_id
         self.name = name.strip()
         self.slug = slugify(name)
+        self.color = color.strip()
 
     @classmethod  # TODO: Remove this
     def get_ref(cls, match_value: str, session=None):  # type: ignore

@@ -77,7 +77,7 @@ export function useStoreActions<T extends BoundT>(
 
     loading.value = true;
     const { data } = await api.updateOne(updateData.id, updateData);
-    if (data && allRef?.value) {
+    if (data && allRef?.value){
       refresh();
     }
     loading.value = false;

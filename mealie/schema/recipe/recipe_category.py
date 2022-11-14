@@ -6,6 +6,7 @@ from mealie.schema._mealie import MealieModel
 
 class CategoryIn(MealieModel):
     name: str
+    color: str
 
 
 class CategorySave(CategoryIn):
@@ -29,6 +30,7 @@ class CategoryBase(CategoryIn):
 class CategoryOut(CategoryBase):
     slug: str
     group_id: UUID4
+    color: str
 
     class Config:
         orm_mode = True

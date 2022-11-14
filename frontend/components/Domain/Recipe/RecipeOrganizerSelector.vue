@@ -20,11 +20,11 @@
         small
         close
         label
-        color="accent"
+        :color="data.item.color"
         dark
         @click:close="removeByIndex(data.index)"
       >
-        {{ data.item.name || data.item }}
+        {{data.item.name || data.item}}
       </v-chip>
     </template>
     <template v-if="showAdd" #append-outer>

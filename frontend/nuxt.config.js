@@ -264,6 +264,7 @@ export default {
         warning: process.env.THEME_DARK_WARNING || "#FF6D00",
         error: process.env.THEME_DARK_ERROR || "#EF5350",
         background: "#202021",
+        sticker: "#4c7766"
       },
       light: {
         primary: process.env.THEME_LIGHT_PRIMARY || "#E58325",
@@ -273,6 +274,7 @@ export default {
         info: process.env.THEME_LIGHT_INFO || "#1976d2",
         warning: process.env.THEME_LIGHT_WARNING || "#FF6D00",
         error: process.env.THEME_LIGHT_ERROR || "#EF5350",
+        sticker: "#4c7766"
       },
     },
   },

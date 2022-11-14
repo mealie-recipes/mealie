@@ -5,7 +5,7 @@
       :key="index"
       :small="$vuetify.breakpoint.smAndDown"
       label
-      color="accent custom-transparent"
+      :color="category.color"
       class="ma-1"
     >
       <v-icon left>

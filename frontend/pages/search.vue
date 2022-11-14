@@ -84,7 +84,7 @@
                     :input-value="data.selected"
                     close
                     label
-                    color="accent"
+                    :color="data.item.color"
                     dark
                     @click:close="includeFoods.splice(data.index, 1)"
                   >

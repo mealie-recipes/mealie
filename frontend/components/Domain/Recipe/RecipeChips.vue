@@ -6,7 +6,7 @@
       :key="category.name"
       label
       class="ma-1"
-      color="accent"
+      :color="category.color"
       :small="small"
       dark
       :to="`/recipes/${urlPrefix}/${category.slug}`"
