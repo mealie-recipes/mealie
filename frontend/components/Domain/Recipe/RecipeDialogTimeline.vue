@@ -58,7 +58,7 @@
         width="100%"
         style="overflow-y: auto;"
       >
-        <v-timeline align-top dense>
+        <v-timeline dense>
           <v-timeline-item
             v-for="event in timelineEvents"
             :key="event.id"
@@ -67,19 +67,19 @@
             small
             :icon="chooseEventIcon(event)"
           >
-            <v-row v-if="event.timestamp" class="mb-1">
-              <v-col align-self="center" sm="auto" cols="2" class="pa-0">
+            <v-row v-if="event.timestamp" no-gutters class="mb-1">
+              <v-col align-self="center" cols="auto">
                 <UserAvatar :user-id="event.userId" />
               </v-col>
-              <v-col align-self="center" class="ml-3 pa-0">
+              <v-col align-self="center" class="ml-3">
                 <v-chip label small>
                   <v-icon> {{ $globals.icons.calendar }} </v-icon>
                   {{ new Date(event.timestamp).toLocaleDateString($i18n.locale) }}
                 </v-chip>
               </v-col>
             </v-row>
-            <v-row class="mt-0">
-              <v-col class="pa-0">
+            <v-row no-gutters class="mt-0">
+              <v-col>
                 <strong>{{ event.subject }}</strong>
                 <div v-if="event.eventMessage" class="text-caption">
                   {{ event.eventMessage }}
