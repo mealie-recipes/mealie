@@ -31,8 +31,30 @@
             <v-card>
               <v-sheet>
                 <v-card-title>
-                  <div class="mr-3"><UserAvatar :user-id="event.userId" /></div>
-                  {{ event.subject }}
+                  <v-row>
+                    <v-col cols="auto">
+                      <div class="mr-1" style="display: inline;"><UserAvatar :user-id="event.userId" /></div>
+                      {{ event.subject }}
+                    </v-col>
+                    <v-spacer />
+                    <v-col cols="auto" class="pa-0">
+                      <RecipeTimelineContextMenu
+                        v-if="$auth.user && $auth.user.id == event.userId && event.eventType != 'system'"
+                        :menu-top="false"
+                        :slug="slug"
+                        :event-id="event.id"
+                        :menu-icon="$globals.icons.dotsVertical"
+                        fab
+                        color="transparent"
+                        :elevation="0"
+                        :card-menu="false"
+                        :use-items="{
+                          edit: true,
+                          delete: true,
+                        }"
+                      />
+                    </v-col>
+                  </v-row>
                 </v-card-title>
                 <v-card-text v-if="event.eventMessage">
                   {{ event.eventMessage }}
@@ -77,6 +99,24 @@
                   {{ new Date(event.timestamp).toLocaleDateString($i18n.locale) }}
                 </v-chip>
               </v-col>
+              <v-spacer />
+                <v-col cols="auto">
+                  <RecipeTimelineContextMenu
+                    v-if="$auth.user && $auth.user.id == event.userId && event.eventType != 'system'"
+                    :menu-top="false"
+                    :slug="slug"
+                    :event-id="event.id"
+                    :menu-icon="$globals.icons.dotsVertical"
+                    fab
+                    color="transparent"
+                    :elevation="0"
+                    :card-menu="false"
+                    :use-items="{
+                      edit: true,
+                      delete: true,
+                    }"
+                  />
+                </v-col>
             </v-row>
             <v-row no-gutters class="mt-0">
               <v-col>
@@ -102,12 +142,13 @@
 <script lang="ts">
 import { computed, defineComponent, ref, useContext, } from "@nuxtjs/composition-api";
 import { whenever } from "@vueuse/core";
+import RecipeTimelineContextMenu from "./RecipeTimelineContextMenu.vue";
 import { useUserApi } from "~/composables/api";
 import { RecipeTimelineEventOut } from "~/lib/api/types/recipe"
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 
 export default defineComponent({
-  components: { UserAvatar },
+  components: { RecipeTimelineContextMenu, UserAvatar },
 
   props: {
     value: {
