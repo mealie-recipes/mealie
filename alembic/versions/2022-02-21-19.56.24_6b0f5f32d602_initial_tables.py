@@ -1,7 +1,7 @@
 """Initial tables
 
 Revision ID: 6b0f5f32d602
-Revises: 
+Revises:
 Create Date: 2022-02-21 19:56:24.351115
 
 """
@@ -48,6 +48,7 @@ def upgrade():
         sa.Column("id", mealie.db.migration_types.GUID(), nullable=False),
         sa.Column("name", sa.String(), nullable=False),
         sa.Column("slug", sa.String(), nullable=False),
+        sa.Column("color", sa.String(), nullable=False),
         sa.ForeignKeyConstraint(
             ["group_id"],
             ["groups.id"],

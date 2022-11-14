@@ -51,17 +51,13 @@ class Category(SqlAlchemyBase, BaseMixins):
     id = sa.Column(GUID, primary_key=True, default=GUID.generate)
     name = sa.Column(sa.String, index=True, nullable=False)
     slug = sa.Column(sa.String, index=True, nullable=False)
+    color = sa.Column(sa.String, index=True, nullable=False)
     recipes = orm.relationship("RecipeModel", secondary=recipes_to_categories, back_populates="recipe_category")
 
     @validates("name")
     def validate_name(self, key, name):
         assert name != ""
         return name
-
-    @validates("color")
-    def validate_color(self, key, color):
-        assert color != ""
-        return color
 
     def __init__(self, name, group_id, color, **_) -> None:
         self.group_id = group_id
