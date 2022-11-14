@@ -11,8 +11,9 @@ import {
   UpdateImageResponse,
   RecipeZipTokenResponse,
   RecipeTimelineEventIn,
+  RecipeTimelineEventOut,
 } from "~/lib/api/types/recipe";
-import { ApiRequestInstance } from "~/lib/api/types/non-generated";
+import { ApiRequestInstance, PaginationData } from "~/lib/api/types/non-generated";
 
 export type Parser = "nlp" | "brute";
 
@@ -132,6 +133,12 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
   }
 
   async createTimelineEvent(recipeSlug: string, payload: RecipeTimelineEventIn) {
-    return await this.requests.post(routes.recipesSlugTimelineEvent(recipeSlug), payload);
+    return await this.requests.post<RecipeTimelineEventOut>(routes.recipesSlugTimelineEvent(recipeSlug), payload);
+  }
+
+  async getAllTimelineEvents(recipeSlug: string, page = 1, perPage = -1, params = {} as any) {
+    return await this.requests.get<PaginationData<RecipeTimelineEventOut>>(routes.recipesSlugTimelineEvent(recipeSlug), {
+      params: { page, perPage, ...params },
+    });
   }
 }
