@@ -3,40 +3,40 @@
         "name": "Produce"
     },
     {
-        "name": "Grains"
+        "name": "Hububat"
     },
     {
-        "name": "Fruits"
+        "name": "Meyveler"
     },
     {
-        "name": "Vegetables"
+        "name": "Sebzeler"
     },
     {
-        "name": "Meat"
+        "name": "Et"
     },
     {
-        "name": "Seafood"
+        "name": "Deniz Ürünleri"
     },
     {
-        "name": "Beverages"
+        "name": "İçecekler"
     },
     {
-        "name": "Baked Goods"
+        "name": "Unlu Mamüller"
     },
     {
-        "name": "Canned Goods"
+        "name": "Konserve Ürünleri"
     },
     {
-        "name": "Condiments"
+        "name": "Çeşniler"
     },
     {
-        "name": "Confectionary"
+        "name": "Şekerleme"
     },
     {
-        "name": "Dairy Products"
+        "name": "Süt Ürünleri"
     },
     {
-        "name": "Frozen Foods"
+        "name": "Donmuş Gıdalar"
     },
     {
         "name": "Health Foods"
@@ -45,21 +45,21 @@
         "name": "Household"
     },
     {
-        "name": "Meat Products"
+        "name": "Et Ürünleri"
     },
     {
-        "name": "Snacks"
+        "name": "Atıştırmalıklar"
     },
     {
-        "name": "Spices"
+        "name": "Baharatlar"
     },
     {
-        "name": "Sweets"
+        "name": "Tatlılar"
     },
     {
-        "name": "Alcohol"
+        "name": "Alkol"
     },
     {
-        "name": "Other"
+        "name": "Diğer"
     }
 ]
