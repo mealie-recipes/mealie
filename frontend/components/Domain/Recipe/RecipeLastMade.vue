@@ -42,21 +42,25 @@
         </BaseDialog>
       </div>
       <div>
-        <v-chip
-          label
-          color="accent custom-transparent"
-          class="ma-1"
-          style="height:100%;"
-        >
-          <v-icon left>
-            {{ $globals.icons.calendar }}
-          </v-icon>
-            Last Made {{ value ? new Date(value).toLocaleDateString($i18n.locale) : "Never" }}
-        </v-chip>
-        <BaseButton @click="madeThisDialog = true">
-          <template #icon> {{ $globals.icons.chefHat }} </template>
-          I Made This
-        </BaseButton>
+        <div class="d-flex justify-center flex-wrap">
+          <BaseButton :small="$vuetify.breakpoint.smAndDown" @click="madeThisDialog = true">
+            <template #icon> {{ $globals.icons.chefHat }} </template>
+            I Made This
+          </BaseButton>
+        </div>
+        <div class="d-flex justify-center flex-wrap">
+          <v-chip
+            label
+            :small="$vuetify.breakpoint.smAndDown"
+            color="accent custom-transparent"
+            class="ma-1 pa-3"
+          >
+            <v-icon left>
+              {{ $globals.icons.calendar }}
+            </v-icon>
+              Last Made {{ value ? new Date(value).toLocaleDateString($i18n.locale) : "Never" }}
+          </v-chip>
+        </div>
       </div>
     </div>
   </template>
