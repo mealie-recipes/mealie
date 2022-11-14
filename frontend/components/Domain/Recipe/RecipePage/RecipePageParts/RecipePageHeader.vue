@@ -10,6 +10,14 @@
           <v-divider class="my-2"></v-divider>
           <SafeMarkdown :source="recipe.description" />
           <v-divider></v-divider>
+          <div v-if="user.id" class="d-flex justify-center mt-5">
+            <RecipeLastMade
+              v-model="recipe.lastMade"
+              :recipe-slug="recipe.slug"
+              class="d-flex justify-center flex-wrap"
+              :class="true ? undefined : 'force-bottom'"
+            />
+          </div>
           <div class="d-flex justify-center mt-5">
             <RecipeTimeCard
               class="d-flex justify-center flex-wrap"
@@ -58,6 +66,7 @@
 <script lang="ts">
 import { defineComponent, useContext, computed, ref, watch, useRouter } from "@nuxtjs/composition-api";
 import RecipeRating from "~/components/Domain/Recipe/RecipeRating.vue";
+import RecipeLastMade from "~/components/Domain/Recipe/RecipeLastMade.vue";
 import RecipeActionMenu from "~/components/Domain/Recipe/RecipeActionMenu.vue";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
 import { useStaticRoutes } from "~/composables/api";
@@ -69,6 +78,7 @@ export default defineComponent({
     RecipeTimeCard,
     RecipeActionMenu,
     RecipeRating,
+    RecipeLastMade,
   },
   props: {
     recipe: {

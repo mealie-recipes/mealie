@@ -49,6 +49,12 @@
             </v-icon>
             <v-list-item-title>{{ $t("general.updated") }}</v-list-item-title>
           </v-list-item>
+          <v-list-item @click="sortRecipes(EVENTS.lastMade)">
+            <v-icon left>
+              {{ $globals.icons.chefHat }}
+            </v-icon>
+            <v-list-item-title>{{ "Last Made" }}</v-list-item-title>
+          </v-list-item>
         </v-list>
       </v-menu>
       <ContextMenu
@@ -186,6 +192,7 @@ export default defineComponent({
       rating: "rating",
       created: "created",
       updated: "updated",
+      lastMade: "lastMade",
       shuffle: "shuffle",
     };
 
@@ -302,6 +309,9 @@ export default defineComponent({
           break;
         case EVENTS.updated:
           setter("update_at", $globals.icons.sortClockAscending, $globals.icons.sortClockDescending);
+          break;
+        case EVENTS.lastMade:
+          setter("last_made", $globals.icons.sortCalendarAscending, $globals.icons.sortCalendarDescending);
           break;
         default:
           console.log("Unknown Event", sortType);

@@ -176,6 +176,52 @@ def test_delete_timeline_event(api_client: TestClient, unique_user: TestUser, re
     assert event_response.status_code == 404
 
 
+def test_timeline_event_message_alias(api_client: TestClient, unique_user: TestUser, recipes: list[Recipe]):
+    # create an event using aliases
+    recipe = recipes[0]
+    new_event_data = {
+        "userId": unique_user.user_id,
+        "subject": random_string(),
+        "eventType": "info",
+        "eventMessage": random_string(),  # eventMessage is the correct alias for the message
+    }
+
+    event_response = api_client.post(
+        api_routes.recipes_slug_timeline_events(recipe.slug),
+        json=new_event_data,
+        headers=unique_user.token,
+    )
+    new_event = RecipeTimelineEventOut.parse_obj(event_response.json())
+    assert str(new_event.user_id) == new_event_data["userId"]
+    assert str(new_event.event_type) == new_event_data["eventType"]
+    assert new_event.message == new_event_data["eventMessage"]
+
+    # fetch the new event
+    event_response = api_client.get(
+        api_routes.recipes_slug_timeline_events_item_id(recipe.slug, new_event.id), headers=unique_user.token
+    )
+    assert event_response.status_code == 200
+
+    event = RecipeTimelineEventOut.parse_obj(event_response.json())
+    assert event == new_event
+
+    # update the event message
+    new_subject = random_string()
+    new_message = random_string()
+    updated_event_data = {"subject": new_subject, "eventMessage": new_message}
+
+    event_response = api_client.put(
+        api_routes.recipes_slug_timeline_events_item_id(recipe.slug, new_event.id),
+        json=updated_event_data,
+        headers=unique_user.token,
+    )
+    assert event_response.status_code == 200
+
+    updated_event = RecipeTimelineEventOut.parse_obj(event_response.json())
+    assert updated_event.subject == new_subject
+    assert updated_event.message == new_message
+
+
 def test_create_recipe_with_timeline_event(api_client: TestClient, unique_user: TestUser, recipes: list[Recipe]):
     # make sure when the recipes fixture was created that all recipes have at least one event
     for recipe in recipes:

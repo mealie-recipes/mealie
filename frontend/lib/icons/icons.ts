@@ -126,6 +126,7 @@ import {
   mdiTextBoxOutline,
   mdiTimelineText,
   mdiMessageText,
+  mdiChefHat,
 } from "@mdi/js";
 
 export const icons = {
@@ -161,6 +162,7 @@ export const icons = {
   check: mdiCheck,
   checkboxBlankOutline: mdiCheckboxBlankOutline,
   checkboxMarkedCircle: mdiCheckboxMarkedCircle,
+  chefHat: mdiChefHat,
   clipboardCheck: mdiClipboardCheck,
   clockOutline: mdiClockTimeFourOutline,
   codeBraces: mdiCodeJson,
