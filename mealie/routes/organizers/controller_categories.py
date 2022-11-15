@@ -20,7 +20,7 @@ class CategorySummary(BaseModel):
     id: UUID4
     slug: str
     name: str
-    # color: str
+    color: str
 
     class Config:
         orm_mode = True
@@ -123,6 +123,6 @@ class RecipeCategoryController(BaseCrudController):
             id=category.id,
             slug=category.slug,
             name=category.name,
-            # color=category.color,
+            color=category.color,
             recipes=self.repos.recipes.by_group(self.group_id).get_by_categories([category]),
         )
