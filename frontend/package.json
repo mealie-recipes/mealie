@@ -44,7 +44,7 @@
     "@nuxtjs/google-fonts": "2.0.0",
     "@nuxtjs/vuetify": "^1.12.1",
     "@types/sortablejs": "^1.15.0",
-    "@vue/runtime-dom": "^3.2.41",
+    "@vue/runtime-dom": "^3.2.45",
     "eslint": "^8.27.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-nuxt": "^4.0.0",
