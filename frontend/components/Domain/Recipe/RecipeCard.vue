@@ -19,7 +19,7 @@
           <v-expand-transition v-if="description">
             <div v-if="hover" class="d-flex transition-fast-in-fast-out secondary v-card--reveal" style="height: 100%">
               <v-card-text class="v-card--text-show white--text">
-                {{ description }}
+                {{ description.length < 350 ? description : description.substring(0,350) + "..." }}
               </v-card-text>
             </div>
           </v-expand-transition>
