@@ -28,6 +28,7 @@ class RecipeTag(MealieModel):
     id: UUID4 | None = None
     name: str
     slug: str
+    color: str
 
     class Config:
         orm_mode = True
