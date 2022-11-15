@@ -30,7 +30,7 @@
         <v-col v-for="(item, index) in itms" :key="'cat' + index" cols="12" :sm="12" :md="6" :lg="4" :xl="3">
           <v-card class="left-border" hover :to="`/recipes/${itemType}/${item.slug}`">
             <v-card-actions>
-              <v-icon>
+              <v-icon :color="item.color">
                 {{ icon }}
               </v-icon>
               <v-card-title class="py-1">

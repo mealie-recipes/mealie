@@ -24,11 +24,7 @@
               autofocus
             ></v-text-field>
 
-            <v-select
-              v-model="stickerColor"
-              :items="items"
-              label="Select Category Color"
-            ></v-select>
+            <InputColor v-model="stickerColor" />
 
             <v-checkbox v-if="itemType === Organizer.Tool" v-model="onHand" :label="$t('tool.on-hand')"></v-checkbox>
           </v-card-text>
@@ -75,7 +71,7 @@ export default defineComponent({
 
     const state = reactive({
       name: "",
-      stickerColor: "",
+      stickerColor: "#007A99",
       onHand: false,
     });
 
@@ -136,18 +132,14 @@ export default defineComponent({
     };
 
     async function select() {
-      // console.log("state.name: ", state.name );
       if (store) {
         // @ts-ignore - only property really required is the name
         await store.actions.createOne({ name: state.name, color: state.stickerColor});
       }
 
       const newItem = store.items.value.find((item) => item.name === state.name);
-      // console.log("newItem: ", newItem, "stickerColor: ", state.stickerColor, "name: ", state.name);
-      // console.log("store.items: ", store.items.value);
 
       context.emit(CREATED_ITEM_EVENT, newItem);
-      // context.emit(CREATED_ITEM_EVENT, newItem2);
       dialog.value = false;
     }
 
@@ -160,9 +152,6 @@ export default defineComponent({
       select,
     };
     },
-  data: () => ({
-    items: ["green", "brown", "pink", "yellow", "orange", "blue", "white"],
-  }),
 
 });
 </script>
