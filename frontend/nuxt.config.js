@@ -286,11 +286,11 @@ export default {
         [`${process.env.SUB_PATH || ""}api`]: "/api", // rewrite path
       },
       changeOrigin: true,
-      target: process.env.API_URL || "http://0.0.0.0:9000",
+      target: process.env.API_URL || "http://localhost:9000",
     },
     "/api": {
       changeOrigin: true,
-      target: process.env.API_URL || "http://0.0.0.0:9000",
+      target: process.env.API_URL || "http://localhost:9000",
     },
   },
 
