@@ -42,6 +42,7 @@ class Tag(SqlAlchemyBase, BaseMixins):
 
     name = sa.Column(sa.String, index=True, nullable=False)
     slug = sa.Column(sa.String, index=True, nullable=False)
+    color = sa.Column(sa.String, index=True, nullable=False)
     recipes = orm.relationship("RecipeModel", secondary=recipes_to_tags, back_populates="tags")
 
     @validates("name")
@@ -49,10 +50,11 @@ class Tag(SqlAlchemyBase, BaseMixins):
         assert name != ""
         return name
 
-    def __init__(self, name, group_id, **_) -> None:
+    def __init__(self, name, group_id, color, **_) -> None:
         self.group_id = group_id
         self.name = name.strip()
         self.slug = slugify(self.name)
+        self.color = color.strip()
 
     @classmethod  # TODO: Remove this
     def get_ref(cls, match_value: str, session=None):  # type: ignore

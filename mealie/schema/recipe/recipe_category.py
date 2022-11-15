@@ -58,6 +58,7 @@ class TagBase(CategoryBase):
 class TagOut(TagSave):
     id: UUID4
     slug: str
+    color: str
 
     class Config:
         orm_mode = True
