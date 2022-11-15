@@ -5,16 +5,28 @@
         title="Edit Timeline Event"
         :icon="$globals.icons.edit"
         :submit-text="$tc('general.save')"
-        @submit="editTimelineEvent"
+        @submit="$emit('update')"
       >
-      <!-- TODO: edit form -->
+      <v-card-text>
+        <v-form ref="domMadeThisForm">
+          <v-text-field
+            v-model="event.subject"
+            label="Subject"
+          />
+          <v-textarea
+            v-model="event.eventMessage"
+            label="Message"
+            rows="4"
+          />
+        </v-form>
+      </v-card-text>
       </BaseDialog>
       <BaseDialog
         v-model="recipeEventDeleteDialog"
         title="Delete Timeline Event"
         color="error"
         :icon="$globals.icons.alertCircle"
-        @confirm="deleteTimelineEvent()"
+        @confirm="$emit('delete')"
       >
         <v-card-text>
           Are you sure you want to delete this event?
@@ -50,8 +62,9 @@
   </template>
 
   <script lang="ts">
-  import { defineComponent, reactive, toRefs, useContext } from "@nuxtjs/composition-api";
-  import { useUserApi } from "~/composables/api";
+  import { defineComponent, reactive, ref, toRefs, useContext } from "@nuxtjs/composition-api";
+  import { VForm } from "~/types/vuetify";
+  import { RecipeTimelineEventOut } from "~/lib/api/types/recipe";
 
   export interface TimelineContextMenuIncludes {
     edit: boolean;
@@ -104,8 +117,8 @@
         type: String,
         required: true,
       },
-      eventId: {
-        type: String,
+      event: {
+        type: Object as () => RecipeTimelineEventOut,
         required: true,
       },
       menuIcon: {
@@ -114,8 +127,7 @@
       },
     },
     setup(props, context) {
-      const api = useUserApi();
-
+      const domEditEventForm = ref<VForm>();
       const state = reactive({
         recipeEventEditDialog: false,
         recipeEventDeleteDialog: false,
@@ -161,16 +173,6 @@
       // ===========================================================================
       // Context Menu Event Handler
 
-      function editTimelineEvent() {
-        // TODO: implement
-        console.log("TODO");
-      }
-
-      function deleteTimelineEvent() {
-        // TODO: implement
-        console.log("TODO");
-      }
-
       const eventHandlers: { [key: string]: () => void | Promise<any> } = {
         edit: () => {
           state.recipeEventEditDialog = true;
@@ -196,8 +198,7 @@
       return {
         ...toRefs(state),
         contextMenuEventHandler,
-        deleteTimelineEvent,
-        editTimelineEvent,
+        domEditEventForm,
         icon,
       };
     },

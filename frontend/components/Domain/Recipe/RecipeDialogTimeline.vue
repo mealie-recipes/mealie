@@ -16,7 +16,7 @@
       >
         <v-timeline>
           <v-timeline-item
-            v-for="event in timelineEvents"
+            v-for="(event, index) in timelineEvents"
             :key="event.id"
             class="px-3"
             fill-dot
@@ -42,7 +42,7 @@
                         v-if="$auth.user && $auth.user.id == event.userId && event.eventType != 'system'"
                         :menu-top="false"
                         :slug="slug"
-                        :event-id="event.id"
+                        :event="event"
                         :menu-icon="$globals.icons.dotsVertical"
                         fab
                         color="transparent"
@@ -52,6 +52,8 @@
                           edit: true,
                           delete: true,
                         }"
+                        @update="updateTimelineEvent(index)"
+                        @delete="deleteTimelineEvent(index)"
                       />
                     </v-col>
                   </v-row>
@@ -82,7 +84,7 @@
       >
         <v-timeline dense>
           <v-timeline-item
-            v-for="event in timelineEvents"
+            v-for="(event, index) in timelineEvents"
             :key="event.id"
             class="pr-3 mb-9"
             fill-dot
@@ -105,7 +107,7 @@
                     v-if="$auth.user && $auth.user.id == event.userId && event.eventType != 'system'"
                     :menu-top="false"
                     :slug="slug"
-                    :event-id="event.id"
+                    :event="event"
                     :menu-icon="$globals.icons.dotsVertical"
                     fab
                     color="transparent"
@@ -115,6 +117,8 @@
                       edit: true,
                       delete: true,
                     }"
+                    @update="updateTimelineEvent(index)"
+                    @delete="deleteTimelineEvent(index)"
                   />
                 </v-col>
             </v-row>
@@ -140,11 +144,12 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, useContext, } from "@nuxtjs/composition-api";
+import { computed, defineComponent, ref, useAsync, useContext } from "@nuxtjs/composition-api";
 import { whenever } from "@vueuse/core";
 import RecipeTimelineContextMenu from "./RecipeTimelineContextMenu.vue";
+import { useAsyncKey } from "~/composables/use-utils";
 import { useUserApi } from "~/composables/api";
-import { RecipeTimelineEventOut } from "~/lib/api/types/recipe"
+import { RecipeTimelineEventOut, RecipeTimelineEventUpdate } from "~/lib/api/types/recipe"
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 
 export default defineComponent({
@@ -207,6 +212,39 @@ export default defineComponent({
       };
     };
 
+    function updateTimelineEvent(index: number) {
+      const event = timelineEvents.value[index]
+      const payload: RecipeTimelineEventUpdate = {
+        subject: event.subject,
+        eventMessage: event.eventMessage,
+        image: event.image,
+      };
+
+      useAsync(async () => {
+        const { data } = await api.recipes.updateTimelineEvent(props.slug, event.id, payload);
+        if (!data) {
+          // TODO: handle error
+          console.error("uh oh!");
+          return;
+        }
+
+        timelineEvents.value[index] = data;
+      }, useAsyncKey());
+    }
+
+    function deleteTimelineEvent(index: number) {
+      useAsync(async () => {
+        const { data } = await api.recipes.deleteTimelineEvent(props.slug, timelineEvents.value[index].id);
+        if (!data) {
+          // TODO: handle error
+          console.error("uh oh!");
+          return;
+        }
+
+        timelineEvents.value.splice(index, 1);
+      }, useAsyncKey());
+    }
+
     async function refreshTimelineEvents() {
       // TODO: implement infinite scroll and paginate instead of loading all events at once
       const page = 1;
@@ -214,7 +252,7 @@ export default defineComponent({
       const orderBy = "timestamp";
       const orderDirection = "asc";
 
-      const response = await api.recipes.getAllTimelineEvents(props.slug, page, perPage, { orderBy, orderDirection })
+      const response = await api.recipes.getAllTimelineEvents(props.slug, page, perPage, { orderBy, orderDirection });
       if (!response?.data) {
         return;
       }
@@ -227,8 +265,11 @@ export default defineComponent({
 
     return {
       chooseEventIcon,
+      deleteTimelineEvent,
       dialog,
+      refreshTimelineEvents,
       timelineEvents,
+      updateTimelineEvent,
       useMobileFormat,
     };
   },
