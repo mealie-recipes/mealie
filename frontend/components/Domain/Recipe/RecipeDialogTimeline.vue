@@ -25,7 +25,7 @@
             <template #opposite>
               <v-chip v-if="event.timestamp" label large>
                 <v-icon class="mr-1"> {{ $globals.icons.calendar }} </v-icon>
-                {{ new Date(event.timestamp).toLocaleDateString($i18n.locale) }}
+                {{ new Date(event.timestamp+"Z").toLocaleDateString($i18n.locale) }}
               </v-chip>
             </template>
             <v-card>
@@ -96,7 +96,7 @@
               <v-col align-self="center" class="ml-3">
                 <v-chip label small>
                   <v-icon> {{ $globals.icons.calendar }} </v-icon>
-                  {{ new Date(event.timestamp).toLocaleDateString($i18n.locale) }}
+                  {{ new Date(event.timestamp+"Z").toLocaleDateString($i18n.locale) }}
                 </v-chip>
               </v-col>
               <v-spacer />
