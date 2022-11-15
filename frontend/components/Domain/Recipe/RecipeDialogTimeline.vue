@@ -32,12 +32,14 @@
               <v-sheet>
                 <v-card-title>
                   <v-row>
-                    <v-col cols="auto">
-                      <div class="mr-1" style="display: inline;"><UserAvatar :user-id="event.userId" /></div>
+                    <v-col align-self="center" cols="2">
+                      <UserAvatar :user-id="event.userId" />
+                    </v-col>
+                    <v-col cols="9">
                       {{ event.subject }}
                     </v-col>
                     <v-spacer />
-                    <v-col cols="auto" class="pa-0">
+                    <v-col cols="1" class="pa-0">
                       <RecipeTimelineContextMenu
                         v-if="$auth.user && $auth.user.id == event.userId && event.eventType != 'system'"
                         :menu-top="false"
@@ -102,25 +104,25 @@
                 </v-chip>
               </v-col>
               <v-spacer />
-                <v-col cols="auto">
-                  <RecipeTimelineContextMenu
-                    v-if="$auth.user && $auth.user.id == event.userId && event.eventType != 'system'"
-                    :menu-top="false"
-                    :slug="slug"
-                    :event="event"
-                    :menu-icon="$globals.icons.dotsVertical"
-                    fab
-                    color="transparent"
-                    :elevation="0"
-                    :card-menu="false"
-                    :use-items="{
-                      edit: true,
-                      delete: true,
-                    }"
-                    @update="updateTimelineEvent(index)"
-                    @delete="deleteTimelineEvent(index)"
-                  />
-                </v-col>
+              <v-col cols="auto">
+                <RecipeTimelineContextMenu
+                  v-if="$auth.user && $auth.user.id == event.userId && event.eventType != 'system'"
+                  :menu-top="false"
+                  :slug="slug"
+                  :event="event"
+                  :menu-icon="$globals.icons.dotsVertical"
+                  fab
+                  color="transparent"
+                  :elevation="0"
+                  :card-menu="false"
+                  :use-items="{
+                    edit: true,
+                    delete: true,
+                  }"
+                  @update="updateTimelineEvent(index)"
+                  @delete="deleteTimelineEvent(index)"
+                />
+              </v-col>
             </v-row>
             <v-row no-gutters class="mt-0">
               <v-col>
