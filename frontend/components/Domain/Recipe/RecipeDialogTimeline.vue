@@ -149,6 +149,7 @@
 import { computed, defineComponent, ref, useAsync, useContext } from "@nuxtjs/composition-api";
 import { whenever } from "@vueuse/core";
 import RecipeTimelineContextMenu from "./RecipeTimelineContextMenu.vue";
+import { alert } from "~/composables/use-toast";
 import { useAsyncKey } from "~/composables/use-utils";
 import { useUserApi } from "~/composables/api";
 import { RecipeTimelineEventOut, RecipeTimelineEventUpdate } from "~/lib/api/types/recipe"
@@ -174,7 +175,7 @@ export default defineComponent({
 
   setup(props, context) {
     const api = useUserApi();
-    const { $globals, $vuetify } = useContext();
+    const { $globals, $vuetify, i18n } = useContext();
     const timelineEvents = ref([{}] as RecipeTimelineEventOut[])
 
     const useMobileFormat = computed(() => {
@@ -223,27 +224,26 @@ export default defineComponent({
       };
 
       useAsync(async () => {
-        const { data } = await api.recipes.updateTimelineEvent(props.slug, event.id, payload);
-        if (!data) {
-          // TODO: handle error
-          console.error("uh oh!");
+        const { response } = await api.recipes.updateTimelineEvent(props.slug, event.id, payload);
+        if (response?.status !== 200) {
+          alert.error(i18n.t("events.something-went-wrong") as string);
           return;
         }
 
-        timelineEvents.value[index] = data;
+        alert.success("Event Successfully Updated");
       }, useAsyncKey());
     }
 
     function deleteTimelineEvent(index: number) {
       useAsync(async () => {
-        const { data } = await api.recipes.deleteTimelineEvent(props.slug, timelineEvents.value[index].id);
-        if (!data) {
-          // TODO: handle error
-          console.error("uh oh!");
+        const { response } = await api.recipes.deleteTimelineEvent(props.slug, timelineEvents.value[index].id);
+        if (response?.status !== 200) {
+          alert.error(i18n.t("events.something-went-wrong") as string);
           return;
         }
 
         timelineEvents.value.splice(index, 1);
+        alert.success("Event Successfully Deleted");
       }, useAsyncKey());
     }
 
