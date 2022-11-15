@@ -28,7 +28,7 @@
     "core-js": "^3.26.0",
     "date-fns": "^2.29.3",
     "fuse.js": "^6.6.2",
-    "isomorphic-dompurify": "^0.23.0",
+    "isomorphic-dompurify": "^0.24.0",
     "nuxt": "^2.15.8",
     "v-jsoneditor": "^1.4.5",
     "vuedraggable": "^2.24.3",
