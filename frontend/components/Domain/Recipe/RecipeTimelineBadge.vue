@@ -16,7 +16,7 @@
         </v-btn>
         <RecipeDialogTimeline v-model="showTimeline" :slug="slug" :recipe-name="recipeName" />
       </template>
-      <span>Open Timeline</span>
+      <span>{{ $t('recipe.open-timeline') }}</span>
     </v-tooltip>
   </template>
 

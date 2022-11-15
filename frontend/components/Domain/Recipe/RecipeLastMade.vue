@@ -4,7 +4,7 @@
       <BaseDialog
         v-model="madeThisDialog"
         :icon="$globals.icons.chefHat"
-        title="I Made This"
+        :title="$tc('recipe.made-this')"
         :submit-text="$tc('general.save')"
         @submit="createTimelineEvent"
         >
@@ -13,8 +13,8 @@
             <v-textarea
               v-model="newTimelineEvent.eventMessage"
               autofocus
-              label="Comment"
-              hint="How did it turn out?"
+              :label="$tc('recipe.comment')"
+              :hint="$tc('recipe.how-did-it-turn-out')"
               persistent-hint
               rows="4"
             ></v-textarea>
@@ -63,7 +63,7 @@
           <v-icon left>
             {{ $globals.icons.calendar }}
           </v-icon>
-            Last Made {{ value ? new Date(value+"Z").toLocaleDateString($i18n.locale) : "Never" }}
+            Last Made {{ value ? new Date(value+"Z").toLocaleDateString($i18n.locale) : $t("general.never") }}
         </v-chip>
       </div>
     </div>
@@ -91,12 +91,12 @@ export default defineComponent({
   setup(props, context) {
     const madeThisDialog = ref(false);
     const userApi = useUserApi();
-    const { $auth } = useContext();
+    const { $auth, i18n } = useContext();
     const domMadeThisForm = ref<VForm>();
     const newTimelineEvent = ref<RecipeTimelineEventIn>({
       // @ts-expect-error - TS doesn't like the $auth global user attribute
       // eslint-disable-next-line
-      subject: `${$auth.user.fullName} made this`,
+      subject: i18n.t("recipe.user-made-this", { user: $auth.user.fullName } as string),
       eventType: "comment",
       eventMessage: "",
       timestamp: undefined,

@@ -1,7 +1,7 @@
 <template>
   <BaseDialog
     v-model="dialog"
-    :title="useMobileFormat ? 'Timeline' : `Timeline – ${recipeName}`"
+    :title="useMobileFormat ? $tc('recipe.timeline') : `${$tc('recipe.timeline')} – ${recipeName}`"
     :icon="$globals.icons.timelineText"
     width="70%"
   >
@@ -70,7 +70,7 @@
       </v-card>
       <v-card v-else>
         <v-card-title class="justify-center">
-          Nothing on the timeline yet. Try making this recipe!
+          {{ $t("recipe.timeline-is-empty") }}
         </v-card-title>
       </v-card>
     </div>
@@ -137,7 +137,7 @@
       </v-card>
       <v-card v-else>
         <v-card-text class="justify-center pa-1">
-          Nothing on the timeline yet. Try making this recipe!
+          {{ $t("recipe.timeline-is-empty") }}
         </v-card-text>
       </v-card>
     </div>
@@ -230,7 +230,7 @@ export default defineComponent({
           return;
         }
 
-        alert.success("Event Successfully Updated");
+        alert.success(i18n.t("events.event-updated") as string);
       }, useAsyncKey());
     }
 
@@ -243,7 +243,7 @@ export default defineComponent({
         }
 
         timelineEvents.value.splice(index, 1);
-        alert.success("Event Successfully Deleted");
+        alert.success(i18n.t("events.event-deleted") as string);
       }, useAsyncKey());
     }
 
