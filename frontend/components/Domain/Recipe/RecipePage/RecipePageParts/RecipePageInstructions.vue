@@ -427,50 +427,67 @@ export default defineComponent({
     }
 
     function autoSetReferences() {
-      // Ignore matching blacklisted words when auto-linking - This is kind of a cludgey implementation. We're blacklisting common words but
-      // other common phrases trigger false positives and I'm not sure how else to approach this. In the future I maybe look at looking directly
-      // at the food variable and seeing if the food is in the instructions, but I still need to support those who don't want to provide the value
-      // and only use the "notes" feature.
-      const blackListedText = [
-        "and",
-        "or",
-        "the",
-        "a",
-        "an",
-        "of",
-        "in",
-        "on",
-        "to",
-        "for",
-        "by",
-        "with",
-        "without",
-        "",
-        " ",
-      ];
-      const blackListedRegexMatch = /\d/gm; // Match Any Number
+      const availableIngredients = props.recipe.recipeIngredient
+        .filter((ingredient) => ingredient.referenceId !== undefined)
+        .filter((ingredient) => !activeRefs.value.includes(ingredient.referenceId));
 
-      // Check if any of the words in the active text match the ingredient text
-      const instructionsByWord = activeText.value.toLowerCase().split(" ");
+      const allMatchedIngredientIds = activeText.value
+        .toLowerCase()
+        .split(" ")
+        .map(normalize)
+        .filter((word) => !isBlackListedWord(word))
+        .flatMap((word) => availableIngredients.filter((ingredient) => ingredientMatchesWord(ingredient, word)))
+        .map((ingredient) => ingredient.referenceId);
+      //  deduplicate
+      new Set<string>(allMatchedIngredientIds).forEach((ingredient) => activeRefs.value.push(ingredient));
 
-      instructionsByWord.forEach((word) => {
-        if (blackListedText.includes(word) || word.match(blackListedRegexMatch)) {
-          return;
+      function normalize(word: string): string {
+        let normalizing = word;
+        normalizing = removeTrailingPunctuation(normalizing);
+        normalizing = removeStartingPunctuation(normalizing);
+        return normalizing;
+
+        function removeTrailingPunctuation(word: string): string {
+          const punctuationAtEnding = /\p{P}+$/u;
+          return word.replace(punctuationAtEnding, "");
         }
 
-        props.recipe.recipeIngredient.forEach((ingredient) => {
-          const searchText = parseIngredientText(ingredient, props.recipe.settings.disableAmount);
+        function removeStartingPunctuation(word: string): string {
+          const punctuationAtBeginning = /^\p{P}+/u;
+          return word.replace(punctuationAtBeginning, "");
+        }
+      }
 
-          if (ingredient.referenceId === undefined) {
-            return;
-          }
+      function isBlackListedWord(word: string) {
+        // Ignore matching blacklisted words when auto-linking - This is kind of a cludgey implementation. We're blacklisting common words but
+        // other common phrases trigger false positives and I'm not sure how else to approach this. In the future I maybe look at looking directly
+        // at the food variable and seeing if the food is in the instructions, but I still need to support those who don't want to provide the value
+        // and only use the "notes" feature.
+        const blackListedText: string[] = [
+          "and",
+          "or",
+          "the",
+          "a",
+          "an",
+          "of",
+          "in",
+          "on",
+          "to",
+          "for",
+          "by",
+          "with",
+          "without",
+          "",
+          " ",
+        ];
+        const blackListedRegexMatch = /\d/gm; // Match Any Number
+        return blackListedText.includes(word) || word.match(blackListedRegexMatch);
+      }
 
-          if (searchText.toLowerCase().includes(" " + word) && !activeRefs.value.includes(ingredient.referenceId)) {
-            console.info("Word Matched", `'${word}'`, ingredient.note);
-            activeRefs.value.push(ingredient.referenceId);
-          }
-        });
-      });
+      function ingredientMatchesWord(ingredient: RecipeIngredient, word: string) {
+        const searchText = parseIngredientText(ingredient, props.recipe.settings.disableAmount);
+        return searchText.toLowerCase().includes(" " + word);
+      }
     }
 
     const ingredientLookup = computed(() => {
