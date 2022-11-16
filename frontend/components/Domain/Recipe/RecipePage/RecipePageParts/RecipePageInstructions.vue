@@ -433,7 +433,7 @@ export default defineComponent({
 
       const allMatchedIngredientIds = activeText.value
         .toLowerCase()
-        .split(" ")
+        .split(/\s/)
         .map(normalize)
         .filter((word) => !isBlackListedWord(word))
         .flatMap((word) => availableIngredients.filter((ingredient) => ingredientMatchesWord(ingredient, word)))
