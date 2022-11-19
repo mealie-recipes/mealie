@@ -54,7 +54,7 @@ services:
     environment:
       ALLOW_SIGNUP: "false"
 
-      DB_ENGINE: sqlite # Optional: 'sqlite', 'postgres'
+      DB_ENGINE: postgres # Optional: 'sqlite', 'postgres'
       # =====================================
       # Postgres Config
       POSTGRES_USER: mealie
@@ -69,7 +69,6 @@ services:
       WORKERS_PER_CORE: 0.5
       MAX_WORKERS: 1
       WEB_CONCURRENCY: 1
-
       # =====================================
       # Email Configuration
       # SMTP_HOST=
@@ -87,7 +86,7 @@ services:
     environment:
       POSTGRES_PASSWORD: mealie
       POSTGRES_USER: mealie
-    
+
 volumes:
-   mealie-data:
-      driver: local
+  mealie-data:
+    driver: local
