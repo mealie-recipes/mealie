@@ -70,7 +70,7 @@
       :recipe="recipe"
       class="px-1 my-4 d-print-none"
     />
-    <RecipePrintView :recipe="recipe" />
+    <RecipePrintView :recipe="recipe" :scale="scale" />
   </v-container>
 </template>
 
