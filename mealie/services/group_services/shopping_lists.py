@@ -265,7 +265,8 @@ class ShoppingListService:
                     self.list_refs.delete(recipe_ref.id)
 
                 else:
-                    self.list_refs.update(recipe_ref.id, ref)
+                    self.list_refs.update(recipe_ref.id, recipe_ref)
+
                 break
 
         # Save Changes
