@@ -187,8 +187,8 @@
 <script lang="ts">
 import draggable from "vuedraggable";
 
-import { defineComponent, useAsync, useRoute, computed, ref, watch } from "@nuxtjs/composition-api";
-import { useToggle } from "@vueuse/core";
+import { defineComponent, useAsync, useRoute, computed, ref, watch, onUnmounted } from "@nuxtjs/composition-api";
+import { useIdle, useToggle } from "@vueuse/core";
 import { useCopyList } from "~/composables/use-copy";
 import { useUserApi } from "~/composables/api";
 import { useAsyncKey } from "~/composables/use-utils";
@@ -214,6 +214,7 @@ export default defineComponent({
     ShoppingListItemEditor,
   },
   setup() {
+    const { idle } = useIdle(5 * 60 * 1000) // 5 minutes
     const userApi = useUserApi();
 
     const edit = ref(false);
@@ -237,6 +238,46 @@ export default defineComponent({
     async function refresh() {
       shoppingList.value = await fetchShoppingList();
     }
+
+    // constantly polls for changes
+    async function pollForChanges() {
+      // pause polling if the user isn't active
+      if (idle.value) {
+        return;
+      }
+
+      try {
+        await refresh();
+
+        if (shoppingList.value) {
+          attempts = 0;
+          return;
+        }
+
+        // if the refresh was unsuccessful, the shopping list will be null, so we increment the attempt counter
+        attempts ++;
+      }
+
+      catch (error) {
+        attempts ++;
+      }
+
+      // if we hit too many errors, stop polling
+      if (attempts >= maxAttempts) {
+        clearInterval(pollTimer);
+      }
+    }
+
+    // start polling
+    const pollFrequency = 5000;
+
+    let attempts = 0;
+    const maxAttempts = 3;
+
+    const pollTimer: ReturnType<typeof setInterval> = setInterval(() => { pollForChanges() }, pollFrequency);
+    onUnmounted(() => {
+      clearInterval(pollTimer);
+    });
 
     // =====================================
     // List Item CRUD

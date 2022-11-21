@@ -70,6 +70,13 @@ from .recipe_scraper import ScrapeRecipe, ScrapeRecipeTest
 from .recipe_settings import RecipeSettings
 from .recipe_share_token import RecipeShareToken, RecipeShareTokenCreate, RecipeShareTokenSave, RecipeShareTokenSummary
 from .recipe_step import IngredientReferences, RecipeStep
+from .recipe_timeline_events import (
+    RecipeTimelineEventCreate,
+    RecipeTimelineEventIn,
+    RecipeTimelineEventOut,
+    RecipeTimelineEventPagination,
+    RecipeTimelineEventUpdate,
+)
 from .recipe_tool import RecipeToolCreate, RecipeToolOut, RecipeToolResponse, RecipeToolSave
 from .request_helpers import RecipeSlug, RecipeZipTokenResponse, SlugResponse, UpdateImageResponse
 
@@ -78,6 +85,11 @@ __all__ = [
     "RecipeToolOut",
     "RecipeToolResponse",
     "RecipeToolSave",
+    "RecipeTimelineEventCreate",
+    "RecipeTimelineEventIn",
+    "RecipeTimelineEventOut",
+    "RecipeTimelineEventPagination",
+    "RecipeTimelineEventUpdate",
     "RecipeAsset",
     "RecipeSettings",
     "RecipeShareToken",

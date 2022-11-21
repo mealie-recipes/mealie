@@ -21,6 +21,7 @@ from mealie.db.models.recipe.category import Category
 from mealie.db.models.recipe.comment import RecipeComment
 from mealie.db.models.recipe.ingredient import IngredientFoodModel, IngredientUnitModel
 from mealie.db.models.recipe.recipe import RecipeModel
+from mealie.db.models.recipe.recipe_timeline import RecipeTimelineEvent
 from mealie.db.models.recipe.shared import RecipeShareTokenModel
 from mealie.db.models.recipe.tag import Tag
 from mealie.db.models.recipe.tool import Tool
@@ -49,6 +50,7 @@ from mealie.schema.recipe import Recipe, RecipeCommentOut, RecipeToolOut
 from mealie.schema.recipe.recipe_category import CategoryOut, TagOut
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit
 from mealie.schema.recipe.recipe_share_token import RecipeShareToken
+from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventOut
 from mealie.schema.reports.reports import ReportEntryOut, ReportOut
 from mealie.schema.server import ServerTask
 from mealie.schema.user import GroupInDB, LongLiveTokenInDB, PrivateUser
@@ -122,6 +124,10 @@ class AllRepositories:
     @cached_property
     def recipe_share_tokens(self) -> RepositoryGeneric[RecipeShareToken, RecipeShareTokenModel]:
         return RepositoryGeneric(self.session, PK_ID, RecipeShareTokenModel, RecipeShareToken)
+
+    @cached_property
+    def recipe_timeline_events(self) -> RepositoryGeneric[RecipeTimelineEventOut, RecipeTimelineEvent]:
+        return RepositoryGeneric(self.session, PK_ID, RecipeTimelineEvent, RecipeTimelineEventOut)
 
     # ================================================================
     # User

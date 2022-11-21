@@ -64,6 +64,7 @@ class EventDocumentType(Enum):
     shopping_list_item = "shopping_list_item"
     recipe = "recipe"
     recipe_bulk_report = "recipe_bulk_report"
+    recipe_timeline_event = "recipe_timeline_event"
     tag = "tag"
 
 
@@ -121,6 +122,12 @@ class EventRecipeData(EventDocumentDataBase):
 class EventRecipeBulkReportData(EventDocumentDataBase):
     document_type = EventDocumentType.recipe_bulk_report
     report_id: UUID4
+
+
+class EventRecipeTimelineEventData(EventDocumentDataBase):
+    document_type = EventDocumentType.recipe_timeline_event
+    recipe_slug: str
+    recipe_timeline_event_id: UUID4
 
 
 class EventTagData(EventDocumentDataBase):

@@ -1,5 +1,6 @@
 import json
 import shutil
+from datetime import datetime
 from pathlib import Path
 from shutil import copytree, rmtree
 from typing import Union
@@ -13,6 +14,7 @@ from mealie.schema.recipe.recipe import CreateRecipe, Recipe
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.recipe.recipe_step import RecipeStep
+from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventCreate, TimelineEventType
 from mealie.schema.user.user import GroupInDB, PrivateUser
 from mealie.services._base_service import BaseService
 from mealie.services.recipe.recipe_data_service import RecipeDataService
@@ -132,7 +134,19 @@ class RecipeService(BaseService):
             else:
                 data.settings = RecipeSettings()
 
-        return self.repos.recipes.create(data)
+        new_recipe = self.repos.recipes.create(data)
+
+        # create first timeline entry
+        timeline_event_data = RecipeTimelineEventCreate(
+            user_id=new_recipe.user_id,
+            recipe_id=new_recipe.id,
+            subject="Recipe Created",
+            event_type=TimelineEventType.system,
+            timestamp=new_recipe.created_at or datetime.now(),
+        )
+
+        self.repos.recipe_timeline_events.create(timeline_event_data)
+        return new_recipe
 
     def create_from_zip(self, archive: UploadFile, temp_path: Path) -> Recipe:
         """

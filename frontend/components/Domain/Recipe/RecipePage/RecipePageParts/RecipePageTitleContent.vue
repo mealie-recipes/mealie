@@ -5,6 +5,14 @@
         {{ recipe.name }}
       </v-card-title>
       <SafeMarkdown :source="recipe.description" />
+      <div v-if="user.id" class="pb-2 d-flex justify-center flex-wrap">
+        <RecipeLastMade
+          v-model="recipe.lastMade"
+          :recipe-slug="recipe.slug"
+          class="d-flex justify-center flex-wrap"
+          :class="true ? undefined : 'force-bottom'"
+        />
+      </div>
       <div class="pb-2 d-flex justify-center flex-wrap">
         <RecipeTimeCard
           class="d-flex justify-center flex-wrap"
@@ -48,11 +56,13 @@ import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { Recipe } from "~/lib/api/types/recipe";
 import RecipeRating from "~/components/Domain/Recipe/RecipeRating.vue";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
+import RecipeLastMade from "~/components/Domain/Recipe/RecipeLastMade.vue";
 
 export default defineComponent({
   components: {
     RecipeRating,
     RecipeTimeCard,
+    RecipeLastMade,
   },
   props: {
     recipe: {

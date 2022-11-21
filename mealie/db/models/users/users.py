@@ -52,6 +52,7 @@ class User(SqlAlchemyBase, BaseMixins):
 
     tokens = orm.relationship(LongLiveToken, **sp_args)
     comments = orm.relationship("RecipeComment", **sp_args)
+    recipe_timeline_events = orm.relationship("RecipeTimelineEvent", **sp_args)
     password_reset_tokens = orm.relationship("PasswordResetModel", **sp_args)
 
     owned_recipes_id = Column(GUID, ForeignKey("recipes.id"))

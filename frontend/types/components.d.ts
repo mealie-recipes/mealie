@@ -18,6 +18,7 @@ import ButtonLink from "@/components/global/ButtonLink.vue";
 import ContextMenu from "@/components/global/ContextMenu.vue";
 import CrudTable from "@/components/global/CrudTable.vue";
 import DevDumpJson from "@/components/global/DevDumpJson.vue";
+import DropZone from "@/components/global/DropZone.vue";
 import HelpIcon from "@/components/global/HelpIcon.vue";
 import InputColor from "@/components/global/InputColor.vue";
 import InputLabelType from "@/components/global/InputLabelType.vue";
@@ -56,6 +57,7 @@ declare module "vue" {
     ContextMenu: typeof ContextMenu;
     CrudTable: typeof CrudTable;
     DevDumpJson: typeof DevDumpJson;
+    DropZone: typeof DropZone;
     HelpIcon: typeof HelpIcon;
     InputColor: typeof InputColor;
     InputLabelType: typeof InputLabelType;

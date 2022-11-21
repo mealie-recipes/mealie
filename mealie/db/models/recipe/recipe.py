@@ -18,6 +18,7 @@ from .ingredient import RecipeIngredient
 from .instruction import RecipeInstruction
 from .note import Note
 from .nutrition import Nutrition
+from .recipe_timeline import RecipeTimelineEvent
 from .settings import RecipeSettings
 from .shared import RecipeShareTokenModel
 from .tag import recipes_to_tags
@@ -82,6 +83,10 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         "RecipeComment", back_populates="recipe", cascade="all, delete, delete-orphan"
     )
 
+    timeline_events: list[RecipeTimelineEvent] = orm.relationship(
+        "RecipeTimelineEvent", back_populates="recipe", cascade="all, delete, delete-orphan"
+    )
+
     # Mealie Specific
     settings = orm.relationship("RecipeSettings", uselist=False, cascade="all, delete-orphan")
     tags = orm.relationship("Tag", secondary=recipes_to_tags, back_populates="recipes")
@@ -94,6 +99,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     # Time Stamp Properties
     date_added = sa.Column(sa.Date, default=datetime.date.today)
     date_updated = sa.Column(sa.DateTime)
+    last_made = sa.Column(sa.DateTime)
 
     # Shopping List Refs
     shopping_list_refs = orm.relationship(
@@ -117,6 +123,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
             "recipe_instructions",
             "settings",
             "comments",
+            "timeline_events",
         }
 
     @validates("name")

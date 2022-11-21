@@ -21,7 +21,7 @@
     "production": "Produkcyjna",
     "support": "Wsparcie",
     "version": "Wersja",
-    "unknown-version": "unknown"
+    "unknown-version": "nieznana"
   },
   "asset": {
     "assets": "Zasoby",
@@ -32,7 +32,7 @@
     "pdf": "PDF",
     "recipe": "Przepis",
     "show-assets": "Wyświetl zasoby",
-    "error-submitting-form": "Error Submitting Form"
+    "error-submitting-form": "Błąd przesyłania formularza"
   },
   "category": {
     "categories": "Kategorie",
@@ -44,9 +44,9 @@
     "category-update-failed": "Aktualizacja kategorii nie powiodła się",
     "category-updated": "Zaktualizowano kategorię",
     "uncategorized-count": "Nieskategoryzowane {count}",
-    "create-a-category": "Create a Category",
-    "category-name": "Category Name",
-    "category": "Category"
+    "create-a-category": "Stwórz kategorię",
+    "category-name": "Nazwa kategorii",
+    "category": "Kategoria"
   },
   "events": {
     "apprise-url": "URL Apprise",
@@ -67,7 +67,7 @@
     "close": "Zamknij",
     "confirm": "Potwierdź",
     "confirm-delete-generic": "Czy jesteś pewien, że chcesz usunąć ten element?",
-    "copied_message": "Copied!",
+    "copied_message": "Skopiowane!",
     "create": "Utwórz",
     "created": "Utworzono",
     "custom": "Niestandardowy",
@@ -140,22 +140,22 @@
     "units": "Jednostki",
     "back": "Cofnij",
     "next": "Następny",
-    "toggle-view": "Toggle View",
-    "date": "Date",
+    "toggle-view": "Przełącz widok",
+    "date": "Data",
     "id": "Id",
-    "owner": "Owner",
-    "date-added": "Date Added",
-    "none": "None",
-    "run": "Run",
+    "owner": "Właściciel",
+    "date-added": "Data Dodania",
+    "none": "Brak",
+    "run": "Uruchom",
     "menu": "Menu",
-    "a-name-is-required": "A Name is Required",
-    "delete-with-name": "Delete {name}",
-    "confirm-delete-generic-with-name": "Are you sure you want to delete this {name}?",
-    "organizer": "Organizer",
+    "a-name-is-required": "Nazwa jest wymagana",
+    "delete-with-name": "Usuń {name}",
+    "confirm-delete-generic-with-name": "Czy na pewno chcesz usunąć {name}?",
+    "organizer": "Organizator",
     "transfer": "Transfer",
-    "copy": "Copy",
-    "color": "Color",
-    "timestamp": "Timestamp"
+    "copy": "Kopiuj",
+    "color": "Kolor",
+    "timestamp": "Znacznik czasu"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Czy na pewno chcesz usunąć <b>{groupName}<b/>?",
@@ -209,12 +209,12 @@
     "sides": "Przystawki",
     "start-date": "Data rozpoczęcia",
     "rule-day": "Rule Day",
-    "meal-type": "Meal Type",
-    "breakfast": "Breakfast",
-    "lunch": "Lunch",
-    "dinner": "Dinner",
-    "type-any": "Any",
-    "day-any": "Any"
+    "meal-type": "Rodzaj posiłku",
+    "breakfast": "Śniadanie",
+    "lunch": "Obiad",
+    "dinner": "Kolacja",
+    "type-any": "Dowolny",
+    "day-any": "Dowolny"
   },
   "migration": {
     "chowdown": {
@@ -247,8 +247,8 @@
     "trim-whitespace-description": "Przytnij pustą przestrzeń przed i po zawartości oraz puste linie",
     "trim-prefix-description": "Przytnij pierwszy znak z każdej linii",
     "split-by-numbered-line-description": "Próbuj podzielić paragrafy poprzez dopasowanie po wzorcach '1)' i '1.'",
-    "import-by-url": "Import a recipe by URL",
-    "create-manually": "Create a recipe manually",
+    "import-by-url": "Importuj przepis przez URL",
+    "create-manually": "Stwórz przepis ręcznie",
     "make-recipe-image": "Make this the recipe image"
   },
   "page": {
@@ -263,8 +263,8 @@
     "page-updated": "Strona została zaktualizowana",
     "pages-update-failed": "Aktualizacja strony nie powiodła się",
     "pages-updated": "Strony zostały zaktualizowane",
-    "404-not-found": "404 Not Found",
-    "an-error-occurred": "An error occurred"
+    "404-not-found": "404 Nie znaleziono",
+    "an-error-occurred": "Wystąpił błąd"
   },
   "recipe": {
     "add-key": "Dodaj klucz",

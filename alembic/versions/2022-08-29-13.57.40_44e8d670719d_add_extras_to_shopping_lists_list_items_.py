@@ -1,7 +1,7 @@
 """add extras to shopping lists, list items, and ingredient foods
 
 Revision ID: 44e8d670719d
-Revises: 188374910655
+Revises: 089bfa50d0ed
 Create Date: 2022-08-29 13:57:40.452245
 
 """

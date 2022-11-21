@@ -246,7 +246,7 @@
     "view-scraped-data": "Vis skrapte data",
     "trim-whitespace-description": "Trim innledende og etterfølgende mellomrom i tillegg til tomme linjer",
     "trim-prefix-description": "Fjern første tegn fra hver linje",
-    "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns",
+    "split-by-numbered-line-description": "Forsøk å dele et avsnitt ved å matche mønsteret '1)' eller '1.'",
     "import-by-url": "Importer en oppskrift via URL",
     "create-manually": "Lag en oppskrift manuelt",
     "make-recipe-image": "Bruk dette som oppskriftsbilde"
@@ -481,7 +481,7 @@
     "food": "Mat",
     "note": "Notat",
     "label": "Etikett",
-    "linked-item-warning": "This item is linked to one or more recipe. Adjusting the units or foods will yield unexpected results when adding or removing the recipe from this list.",
+    "linked-item-warning": "Dette elementet er knyttet til en eller flere oppskrifter. Hvis du justerer enhetene, kan dette medføre uventede resultater når du legger til eller fjerner oppskrifter fra denne listen.",
     "toggle-food": "Vis/Skjul mat"
   },
   "sidebar": {
@@ -668,7 +668,7 @@
     "pan-and-zoom-picture": "Pan and zoom picture",
     "split-text": "Splitt tekst",
     "preserve-line-breaks": "Behold opprinnelige linjeskift",
-    "split-by-block": "Split by text block",
+    "split-by-block": "Del på tekstblokk",
     "flatten": "Flatten regardless of original formating",
     "help": {
       "selection-mode": "Selection Mode (default)",
