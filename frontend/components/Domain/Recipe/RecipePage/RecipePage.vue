@@ -1,7 +1,7 @@
 <template>
   <v-container :class="{ 'pa-0': $vuetify.breakpoint.smAndDown }">
     <v-card :flat="$vuetify.breakpoint.smAndDown" class="d-print-none">
-      <RecipePageHeader :recipe="recipe" :landscape="landscape" @save="saveRecipe" @delete="deleteRecipe" />
+      <RecipePageHeader :recipe="recipe" :recipe-scale="scale" :landscape="landscape" @save="saveRecipe" @delete="deleteRecipe" />
       <LazyRecipeJsonEditor v-if="isEditJSON" v-model="recipe" class="mt-10" :options="EDITOR_OPTIONS" />
       <v-card-text v-else>
         <!--

@@ -50,6 +50,7 @@
         color="info"
         :card-menu="false"
         :recipe-id="recipe.id"
+        :recipe-scale="recipeScale"
         :use-items="{
           delete: false,
           edit: false,
@@ -102,6 +103,10 @@ export default defineComponent({
     slug: {
       required: true,
       type: String,
+    },
+    recipeScale: {
+      type: Number,
+      default: 1,
     },
     open: {
       required: true,
