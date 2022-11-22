@@ -54,6 +54,7 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
 
     if settings.LDAP_TLS_INSECURE:
         ldap.set_option(ldap.OPT_X_TLS_REQUIRE_CERT, ldap.OPT_X_TLS_NEVER)
+
     ldap.set_option(ldap.OPT_REFERRALS, 0)
     ldap.set_option(ldap.OPT_PROTOCOL_VERSION, 3)
     conn = ldap.initialize(settings.LDAP_SERVER_URL)
@@ -61,19 +62,26 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
     if settings.LDAP_TLS_CACERTFILE:
         conn.set_option(ldap.OPT_X_TLS_CACERTFILE, settings.LDAP_TLS_CACERTFILE)
         conn.set_option(ldap.OPT_X_TLS_NEWCTX, 0)
+
     user = db.users.get_one(username, "email", any_case=True)
 
-    if not settings.LDAP_BIND_TEMPLATE:
-        return False
-
     if not user:
-        user_bind = settings.LDAP_BIND_TEMPLATE.format(username)
+        user_bind = "cn={}, {}".format(username, settings.LDAP_BASE_DN)
         user = db.users.get_one(username, "username", any_case=True)
     else:
-        user_bind = settings.LDAP_BIND_TEMPLATE.format(user.username)
+        user_bind = "cn={}, {}".format(user.username, settings.LDAP_BASE_DN)
 
+    # Check the credentials of the user
     try:
         conn.simple_bind_s(user_bind, password)
+    except (ldap.INVALID_CREDENTIALS, ldap.NO_SUCH_OBJECT):
+        return False
+
+    # Use query user for the search instead of the logged in user
+    # This prevents the need for every user to have query permissions in LDAP
+    conn.unbind_s()
+    try:
+        conn.simple_bind_s(settings.LDAP_QUERY_BIND, settings.LDAP_QUERY_PASSWORD)
     except (ldap.INVALID_CREDENTIALS, ldap.NO_SUCH_OBJECT):
         return False
 
@@ -83,22 +91,31 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
     user_entry = conn.search_s(
         settings.LDAP_BASE_DN,
         ldap.SCOPE_SUBTREE,
-        f"(&(objectClass=user)(|(cn={username})(sAMAccountName={username})(mail={username})))",
-        ["name", "mail"],
+        settings.LDAP_USER_FILTER.format(username),
+        [settings.LDAP_NAME_ATTRIBUTE, settings.LDAP_MAIL_ATTRIBUTE],
     )
 
     if not user_entry:
+        conn.unbind_s()
         return False
 
     user_dn, user_attr = user_entry[0]
-    
+
     if user is None:
+        try:
+            user_id = user_attr[settings.LDAP_ID_ATTRIBUTE][0].decode("utf-8")
+            full_name = user_attr[settings.LDAP_NAME_ATTRIBUTE][0].decode("utf-8")
+            email = user_attr[settings.LDAP_MAIL_ATTRIBUTE][0].decode("utf-8")
+        except KeyError:
+            conn.unbind_s()
+            return False
+
         user = db.users.create(
             {
-                "username": username,
+                "username": user_id,
                 "password": "LDAP",
-                "full_name": user_attr["name"][0].decode("utf-8"),
-                "email": user_attr["mail"][0].decode("utf-8"),
+                "full_name": full_name,
+                "email": email,
                 "admin": False,
             },
         )
@@ -106,6 +123,8 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
     if settings.LDAP_ADMIN_FILTER:
         user.admin = len(conn.search_s(user_dn, ldap.SCOPE_BASE, settings.LDAP_ADMIN_FILTER, [])) > 0
         db.users.update(user.id, user)
+
+    conn.unbind_s()
     return user
 
 
