@@ -6,7 +6,7 @@ from mealie.schema.group.group_shopping_list import ShoppingListOut
 from mealie.schema.recipe.recipe import Recipe
 from tests import utils
 from tests.utils import api_routes
-from tests.utils.factories import random_string
+from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser
 
 
@@ -119,6 +119,62 @@ def test_shopping_lists_add_recipe(
     assert refs[0]["recipeId"] == str(recipe.id)
 
 
+def test_shopping_list_add_recipe_scale(
+    api_client: TestClient,
+    unique_user: TestUser,
+    shopping_lists: list[ShoppingListOut],
+    recipe_ingredient_only: Recipe,
+):
+    sample_list = random.choice(shopping_lists)
+    recipe = recipe_ingredient_only
+
+    response = api_client.post(
+        api_routes.groups_shopping_lists_item_id_recipe_recipe_id(sample_list.id, recipe.id), headers=unique_user.token
+    )
+
+    response = api_client.get(api_routes.groups_shopping_lists_item_id(sample_list.id), headers=unique_user.token)
+    as_json = utils.assert_derserialize(response, 200)
+
+    assert len(as_json["recipeReferences"]) == 1
+    assert as_json["recipeReferences"][0]["recipeQuantity"] == 1
+
+    for item in as_json["listItems"]:
+        assert item["quantity"] == 1
+        refs = item["recipeReferences"]
+
+        # only one reference per item
+        assert len(refs) == 1
+
+        # base recipe quantity is 1
+        assert refs[0]["recipeQuantity"] == 1
+
+        # scale was unspecified, which defaults to 1
+        assert refs[0]["recipeScale"] == 1
+
+    recipe_scale = round(random.uniform(1, 10), 5)
+    payload = {"recipeIncrementQuantity": recipe_scale}
+
+    response = api_client.post(
+        api_routes.groups_shopping_lists_item_id_recipe_recipe_id(sample_list.id, recipe.id),
+        headers=unique_user.token,
+        json=payload,
+    )
+
+    response = api_client.get(api_routes.groups_shopping_lists_item_id(sample_list.id), headers=unique_user.token)
+    as_json = utils.assert_derserialize(response, 200)
+
+    assert len(as_json["recipeReferences"]) == 1
+    assert as_json["recipeReferences"][0]["recipeQuantity"] == 1 + recipe_scale
+
+    for item in as_json["listItems"]:
+        assert item["quantity"] == 1 + recipe_scale
+        refs = item["recipeReferences"]
+
+        assert len(refs) == 1
+        assert refs[0]["recipeQuantity"] == 1
+        assert refs[0]["recipeScale"] == 1 + recipe_scale
+
+
 def test_shopping_lists_remove_recipe(
     api_client: TestClient,
     unique_user: TestUser,
@@ -203,6 +259,129 @@ def test_shopping_lists_remove_recipe_multiple_quantity(
     refs = as_json["recipeReferences"]
     assert len(refs) == 1
     assert refs[0]["recipeId"] == str(recipe.id)
+
+
+def test_shopping_list_remove_recipe_scale(
+    api_client: TestClient,
+    unique_user: TestUser,
+    shopping_lists: list[ShoppingListOut],
+    recipe_ingredient_only: Recipe,
+):
+    sample_list = random.choice(shopping_lists)
+    recipe = recipe_ingredient_only
+
+    recipe_initital_scale = 100
+    payload = {"recipeIncrementQuantity": recipe_initital_scale}
+
+    # first add a bunch of quantity to the list
+    response = api_client.post(
+        api_routes.groups_shopping_lists_item_id_recipe_recipe_id(sample_list.id, recipe.id),
+        headers=unique_user.token,
+        json=payload,
+    )
+
+    response = api_client.get(api_routes.groups_shopping_lists_item_id(sample_list.id), headers=unique_user.token)
+    as_json = utils.assert_derserialize(response, 200)
+
+    assert len(as_json["recipeReferences"]) == 1
+    assert as_json["recipeReferences"][0]["recipeQuantity"] == recipe_initital_scale
+
+    for item in as_json["listItems"]:
+        assert item["quantity"] == recipe_initital_scale
+        refs = item["recipeReferences"]
+
+        assert len(refs) == 1
+        assert refs[0]["recipeQuantity"] == 1
+        assert refs[0]["recipeScale"] == recipe_initital_scale
+
+    recipe_decrement_scale = round(random.uniform(10, 90), 5)
+    payload = {"recipeDecrementQuantity": recipe_decrement_scale}
+    recipe_expected_scale = recipe_initital_scale - recipe_decrement_scale
+
+    # remove some of the recipes
+    response = api_client.delete(
+        api_routes.groups_shopping_lists_item_id_recipe_recipe_id(sample_list.id, recipe.id),
+        headers=unique_user.token,
+        json=payload,
+    )
+
+    response = api_client.get(api_routes.groups_shopping_lists_item_id(sample_list.id), headers=unique_user.token)
+    as_json = utils.assert_derserialize(response, 200)
+
+    assert len(as_json["recipeReferences"]) == 1
+    assert as_json["recipeReferences"][0]["recipeQuantity"] == recipe_expected_scale
+
+    for item in as_json["listItems"]:
+        assert item["quantity"] == recipe_expected_scale
+        refs = item["recipeReferences"]
+
+        assert len(refs) == 1
+        assert refs[0]["recipeQuantity"] == 1
+        assert refs[0]["recipeScale"] == recipe_expected_scale
+
+
+def test_recipe_decrement_max(
+    api_client: TestClient,
+    unique_user: TestUser,
+    shopping_lists: list[ShoppingListOut],
+    recipe_ingredient_only: Recipe,
+):
+    sample_list = random.choice(shopping_lists)
+    recipe = recipe_ingredient_only
+
+    recipe_scale = 10
+    payload = {"recipeIncrementQuantity": recipe_scale}
+
+    # first add a bunch of quantity to the list
+    response = api_client.post(
+        api_routes.groups_shopping_lists_item_id_recipe_recipe_id(sample_list.id, recipe.id),
+        headers=unique_user.token,
+        json=payload,
+    )
+
+    response = api_client.get(api_routes.groups_shopping_lists_item_id(sample_list.id), headers=unique_user.token)
+    as_json = utils.assert_derserialize(response, 200)
+
+    assert len(as_json["recipeReferences"]) == 1
+    assert as_json["recipeReferences"][0]["recipeQuantity"] == recipe_scale
+
+    for item in as_json["listItems"]:
+        assert item["quantity"] == recipe_scale
+        refs = item["recipeReferences"]
+
+        assert len(refs) == 1
+        assert refs[0]["recipeQuantity"] == 1
+        assert refs[0]["recipeScale"] == recipe_scale
+
+    # next add a little bit more of one item
+    item_additional_quantity = random_int(1, 10)
+    item_json = as_json["listItems"][0]
+    item_json["quantity"] += item_additional_quantity
+
+    response = api_client.put(
+        api_routes.groups_shopping_items_item_id(item["id"]), json=item_json, headers=unique_user.token
+    )
+    item_json = utils.assert_derserialize(response, 200)
+    assert item_json["quantity"] == recipe_scale + item_additional_quantity
+
+    # now remove way too many instances of the recipe
+    payload = {"recipeDecrementQuantity": recipe_scale * 100}
+    response = api_client.delete(
+        api_routes.groups_shopping_lists_item_id_recipe_recipe_id(sample_list.id, recipe.id),
+        headers=unique_user.token,
+        json=payload,
+    )
+
+    response = api_client.get(api_routes.groups_shopping_lists_item_id(sample_list.id), headers=unique_user.token)
+    as_json = utils.assert_derserialize(response, 200)
+
+    # check that only the original recipe quantity and its reference were removed, not the additional quantity
+    assert len(as_json["recipeReferences"]) == 0
+    assert len(as_json["listItems"]) == 1
+
+    item = as_json["listItems"][0]
+    assert item["quantity"] == item_additional_quantity
+    assert len(item["recipeReferences"]) == 0
 
 
 def test_shopping_list_extras(
