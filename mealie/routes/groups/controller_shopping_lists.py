@@ -7,12 +7,14 @@ from mealie.routes._base.base_controllers import BaseCrudController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.schema.group.group_shopping_list import (
+    ShoppingListAddRecipeParams,
     ShoppingListCreate,
     ShoppingListItemCreate,
     ShoppingListItemOut,
     ShoppingListItemUpdate,
     ShoppingListOut,
     ShoppingListPagination,
+    ShoppingListRemoveRecipeParams,
     ShoppingListSave,
     ShoppingListSummary,
     ShoppingListUpdate,
@@ -218,13 +220,17 @@ class ShoppingListController(BaseCrudController):
     # Other Operations
 
     @router.post("/{item_id}/recipe/{recipe_id}", response_model=ShoppingListOut)
-    def add_recipe_ingredients_to_list(self, item_id: UUID4, recipe_id: UUID4):
+    def add_recipe_ingredients_to_list(
+        self, item_id: UUID4, recipe_id: UUID4, data: ShoppingListAddRecipeParams | None = None
+    ):
         (
             shopping_list,
             new_shopping_list_items,
             updated_shopping_list_items,
             deleted_shopping_list_items,
-        ) = self.service.add_recipe_ingredients_to_list(item_id, recipe_id)
+        ) = self.service.add_recipe_ingredients_to_list(
+            item_id, recipe_id, data.recipe_increment_quantity if data else 1
+        )
 
         if new_shopping_list_items:
             self.publish_event(
@@ -263,12 +269,16 @@ class ShoppingListController(BaseCrudController):
         return shopping_list
 
     @router.delete("/{item_id}/recipe/{recipe_id}", response_model=ShoppingListOut)
-    def remove_recipe_ingredients_from_list(self, item_id: UUID4, recipe_id: UUID4):
+    def remove_recipe_ingredients_from_list(
+        self, item_id: UUID4, recipe_id: UUID4, data: ShoppingListRemoveRecipeParams | None = None
+    ):
         (
             shopping_list,
             updated_shopping_list_items,
             deleted_shopping_list_items,
-        ) = self.service.remove_recipe_ingredients_from_list(item_id, recipe_id)
+        ) = self.service.remove_recipe_ingredients_from_list(
+            item_id, recipe_id, data.recipe_decrement_quantity if data else 1
+        )
 
         if updated_shopping_list_items:
             self.publish_event(

@@ -15,6 +15,7 @@ from mealie.schema.response.pagination import PaginationBase
 class ShoppingListItemRecipeRef(MealieModel):
     recipe_id: UUID4
     recipe_quantity: NoneFloat = 0
+    recipe_scale: NoneFloat = 1
 
 
 class ShoppingListItemRecipeRefOut(ShoppingListItemRecipeRef):
@@ -116,6 +117,14 @@ class ShoppingListOut(ShoppingListUpdate):
 
     class Config:
         orm_mode = True
+
+
+class ShoppingListAddRecipeParams(MealieModel):
+    recipe_increment_quantity: float = 1
+
+
+class ShoppingListRemoveRecipeParams(MealieModel):
+    recipe_decrement_quantity: float = 1
 
 
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary  # noqa: E402
