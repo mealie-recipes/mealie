@@ -458,7 +458,7 @@ export default defineComponent({
     });
 
     async function addRecipeReferenceToList(recipeId: string) {
-      if (!shoppingList.value) {
+      if (!shoppingList.value || loading.value) {
         return;
       }
 
@@ -473,7 +473,7 @@ export default defineComponent({
     }
 
     async function removeRecipeReferenceToList(recipeId: string) {
-      if (!shoppingList.value) {
+      if (!shoppingList.value || loading.value) {
         return;
       }
 
