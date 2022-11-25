@@ -1,7 +1,7 @@
 from __future__ import annotations
 
+import datetime
 import re
-from datetime import datetime
 from enum import Enum
 from typing import Any, TypeVar, cast
 
@@ -93,7 +93,7 @@ class QueryFilter:
                 # in the meantime, this will work for the specific usecase of non-null dates/datetimes
                 if value in ["none", "null"] and component.relational_operator == RelationalOperator.NOTEQ:
                     component.relational_operator = RelationalOperator.GTE
-                    value = datetime(1900, 1, 1)
+                    value = datetime.datetime(datetime.MINYEAR, 1, 1)
 
                 else:
                     try:
