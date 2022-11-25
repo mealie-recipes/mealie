@@ -287,10 +287,10 @@ export default defineComponent({
         return;
       }
 
-      function setter(orderBy: string, ascIcon: string, descIcon: string) {
+      function setter(orderBy: string, ascIcon: string, descIcon: string, defaultOrderDirection = "asc") {
         if (preferences.value.orderBy !== orderBy) {
           preferences.value.orderBy = orderBy;
-          preferences.value.orderDirection = "asc";
+          preferences.value.orderDirection = defaultOrderDirection;
         } else {
           preferences.value.orderDirection = preferences.value.orderDirection === "asc" ? "desc" : "asc";
         }
@@ -299,19 +299,19 @@ export default defineComponent({
 
       switch (sortType) {
         case EVENTS.az:
-          setter("name", $globals.icons.sortAlphabeticalAscending, $globals.icons.sortAlphabeticalDescending);
+          setter("name", $globals.icons.sortAlphabeticalAscending, $globals.icons.sortAlphabeticalDescending, "asc");
           break;
         case EVENTS.rating:
-          setter("rating", $globals.icons.sortAscending, $globals.icons.sortDescending);
+          setter("rating", $globals.icons.sortAscending, $globals.icons.sortDescending, "desc");
           break;
         case EVENTS.created:
-          setter("created_at", $globals.icons.sortCalendarAscending, $globals.icons.sortCalendarDescending);
+          setter("created_at", $globals.icons.sortCalendarAscending, $globals.icons.sortCalendarDescending, "desc");
           break;
         case EVENTS.updated:
-          setter("update_at", $globals.icons.sortClockAscending, $globals.icons.sortClockDescending);
+          setter("update_at", $globals.icons.sortClockAscending, $globals.icons.sortClockDescending, "desc");
           break;
         case EVENTS.lastMade:
-          setter("last_made", $globals.icons.sortCalendarAscending, $globals.icons.sortCalendarDescending);
+          setter("last_made", $globals.icons.sortCalendarAscending, $globals.icons.sortCalendarDescending, "desc");
           break;
         default:
           console.log("Unknown Event", sortType);
