@@ -331,6 +331,7 @@
     "add-recipe-to-mealplan": "Add Recipe to Mealplan",
     "entry-type": "Entry Type",
     "date-format-hint": "MM/DD/YYYY format",
+    "date-format-hint-yyyy-mm-dd": "YYYY-MM-DD format",
     "add-to-list": "Add to List",
     "add-to-plan": "Add to Plan",
     "recipe-added-to-list": "Recipe added to list",

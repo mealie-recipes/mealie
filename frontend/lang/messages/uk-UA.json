@@ -331,6 +331,7 @@
     "add-recipe-to-mealplan": "Додати рецепт до плану харчування",
     "entry-type": "Тип",
     "date-format-hint": "Формат ММ/ДД/РРРР",
+    "date-format-hint-yyyy-mm-dd": "YYYY-MM-DD format",
     "add-to-list": "Додати до списку",
     "add-to-plan": "Додати до плану",
     "recipe-added-to-list": "Рецепт додано до списку",

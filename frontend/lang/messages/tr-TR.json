@@ -331,6 +331,7 @@
     "add-recipe-to-mealplan": "Yemek Planına Yemek Ekle",
     "entry-type": "Girdi Türü",
     "date-format-hint": "AA/GG/YYYY formatı",
+    "date-format-hint-yyyy-mm-dd": "YYYY-MM-DD format",
     "add-to-list": "Listeye Ekle",
     "add-to-plan": "Plana Ekle",
     "recipe-added-to-list": "Tarif listeye eklendi",

@@ -331,6 +331,7 @@
     "add-recipe-to-mealplan": "Tilføj opskrift til madplanen",
     "entry-type": "Posttype",
     "date-format-hint": "MM/DD/ÅÅÅÅ format",
+    "date-format-hint-yyyy-mm-dd": "YYYY-MM-DD format",
     "add-to-list": "Tilføj til liste",
     "add-to-plan": "Tilføj til madplan",
     "recipe-added-to-list": "Opskrift tilføjet til listen",
