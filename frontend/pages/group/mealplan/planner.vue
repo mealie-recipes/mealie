@@ -24,7 +24,7 @@
             <v-text-field
               v-model="newMeal.date"
               :label="$t('general.date')"
-              :hint="$t('recipe.date-format-hint')"
+              :hint="$t('recipe.date-format-hint-yyyy-mm-dd')"
               persistent-hint
               :prepend-icon="$globals.icons.calendar"
               v-bind="attrs"
