@@ -331,6 +331,7 @@
     "add-recipe-to-mealplan": "Afegiu la recepta al menú",
     "entry-type": "Tipus d'entrada",
     "date-format-hint": "Format MM/DD/YYYY",
+    "date-format-hint-yyyy-mm-dd": "YYYY-MM-DD format",
     "add-to-list": "Afegiu a la llista",
     "add-to-plan": "Afegiu al menú",
     "recipe-added-to-list": "Recepta afegida a la llista",
