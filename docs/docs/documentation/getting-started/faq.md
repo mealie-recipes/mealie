@@ -58,3 +58,13 @@ docker exec -it mealie-next bash
 
 python /app/mealie/scripts/reset_locked_users.py
 ```
+
+## How can I change my password
+
+You can change your password by going to the user profile page and clicking the "Change Password" button. Alternatively you can use the following script to change your password via the CLI if you are locked out of your account.
+
+```shell
+docker exec -it mealie-next bash
+
+python /app/mealie/scripts/change_password.py
+```
