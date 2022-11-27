@@ -52,7 +52,7 @@
     "eslint-plugin-vue": "9.7.0",
     "lint-staged": "^13.0.3",
     "nuxt-vite": "0.2.3",
-    "prettier": "^2.7.1",
+    "prettier": "^2.8.0",
     "vitest": "^0.25.3",
     "vue2-script-setup-transform": "^0.3.5"
   }
