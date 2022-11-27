@@ -3,7 +3,7 @@
     <!-- Create Meal Dialog -->
     <BaseDialog
       v-model="createMealDialog"
-      :title="$t('meal-plan.create-a-new-meal-plan')"
+      :title="$tc('meal-plan.create-a-new-meal-plan')"
       color="primary"
       :icon="$globals.icons.foods"
       @submit="
@@ -23,8 +23,8 @@
           <template #activator="{ on, attrs }">
             <v-text-field
               v-model="newMeal.date"
-              label="Date"
-              hint="MM/DD/YYYY format"
+              :label="$t('general.date')"
+              :hint="$t('recipe.date-format-hint-yyyy-mm-dd')"
               persistent-hint
               :prepend-icon="$globals.icons.calendar"
               v-bind="attrs"
@@ -32,7 +32,7 @@
               v-on="on"
             ></v-text-field>
           </template>
-          <v-date-picker v-model="newMeal.date" no-title @input="pickerMenu = false"></v-date-picker>
+          <v-date-picker v-model="newMeal.date" :first-day-of-week="firstDayOfWeek" no-title @input="pickerMenu = false"></v-date-picker>
         </v-menu>
         <v-card-text>
           <v-select v-model="newMeal.entryType" :return-object="false" :items="planTypeOptions" label="Entry Type">
@@ -178,13 +178,13 @@
                   event: 'random',
                   children: [
                     {
-                      icon: $globals.icons.dice,
+                      icon: $globals.icons.diceMultiple,
                       text: 'Breakfast',
                       event: 'randomBreakfast',
                     },
 
                     {
-                      icon: $globals.icons.dice,
+                      icon: $globals.icons.diceMultiple,
                       text: 'Lunch',
                       event: 'randomLunch',
                     },
@@ -202,7 +202,7 @@
                 },
                 {
                   icon: $globals.icons.createAlt,
-                  text: $t('general.new'),
+                  text: $tc('general.new'),
                   event: 'create',
                 },
               ]"
@@ -273,6 +273,7 @@ import RecipeCard from "~/components/Domain/Recipe/RecipeCard.vue";
 import RecipeContextMenu from "~/components/Domain/Recipe/RecipeContextMenu.vue";
 import { PlanEntryType } from "~/lib/api/types/meal-plan";
 import { useUserApi } from "~/composables/api";
+import { useGroupSelf } from "~/composables/use-groups";
 
 export default defineComponent({
   components: {
@@ -285,7 +286,7 @@ export default defineComponent({
     const state = reactive({
       createMealDialog: false,
       edit: false,
-      hover: {},
+      hover: {} as Record<string, boolean>,
       pickerMenu: null,
       today: new Date(),
     });
@@ -302,6 +303,18 @@ export default defineComponent({
     const { mealplans, actions, loading } = useMealplans(weekRange);
 
     useRecipes(true, true);
+
+    const { group } = useGroupSelf();
+
+    const firstDayOfWeek = computed(() => {
+      const pref = group.value?.preferences?.firstDayOfWeek;
+
+      if (pref) {
+        return pref;
+      }
+
+      return 0
+    });
 
     function filterMealByDate(date: Date) {
       if (!mealplans.value) return [];
@@ -425,6 +438,7 @@ export default defineComponent({
       randomMeal,
       resetDialog,
       weekRange,
+      firstDayOfWeek,
     };
   },
   head() {
