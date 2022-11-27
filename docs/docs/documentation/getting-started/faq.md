@@ -68,3 +68,32 @@ docker exec -it mealie-next bash
 
 python /app/mealie/scripts/change_password.py
 ```
+
+## How do private groups and recipes work?
+
+Managing private groups and recipes can be confusing. The following diagram and notes should help explain how they work to determine if a recipe can be shared publicly.
+
+- Private links that are generated using th`Share` button bypass all group and recipe permissions.
+- Private groups block all access to recipes, including those that are public. Expect as noted above.
+- Private recipes block all access to the recipe from public links. This does not affect Private Links.
+
+```mermaid
+stateDiagram-v2
+  r1: Request Access
+  p1: Using Private Link?
+  p2: Is Group Private?
+  p3: Is Recipe Private?
+  s1: Deny Access
+  n1: Allow Access
+
+
+  r1 --> p1
+  p1 --> p2: No
+  p1 --> n1: Yes
+
+  p2 --> s1: Yes
+  p2 --> p3: No
+
+  p3 --> s1: Yes
+  p3 --> n1: No
+```
