@@ -9,8 +9,8 @@
         text
         outlined
         color="deep-orange"
-        >⚠️ Please note that you are trying to delete your own admin account!
-          This action cannot be undone and will permanently delete your account.<br/>
+        >⚠️ {{ $t("general.confirm-delete-own-admin-account") }}
+        <br/>
         </v-alert>
         {{ $t("general.confirm-delete-generic") }}
       </v-card-text>
