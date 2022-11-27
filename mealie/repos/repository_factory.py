@@ -1,5 +1,6 @@
 from functools import cached_property
 
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from mealie.db.models.group import Group, GroupMealPlan, ReportEntryModel, ReportModel
@@ -47,11 +48,12 @@ from mealie.schema.labels import MultiPurposeLabelOut
 from mealie.schema.meal_plan.new_meal import ReadPlanEntry
 from mealie.schema.meal_plan.plan_rules import PlanRulesOut
 from mealie.schema.recipe import Recipe, RecipeCommentOut, RecipeToolOut
-from mealie.schema.recipe.recipe_category import CategoryOut, TagOut
+from mealie.schema.recipe.recipe_category import CategoryCount, CategoryOut, TagCount, TagOut
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit
 from mealie.schema.recipe.recipe_share_token import RecipeShareToken
 from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventOut
 from mealie.schema.reports.reports import ReportEntryOut, ReportOut
+from mealie.schema.response.pagination import PaginationBase, PaginationQuery
 from mealie.schema.server import ServerTask
 from mealie.schema.user import GroupInDB, LongLiveTokenInDB, PrivateUser
 from mealie.schema.user.user_passwords import PrivatePasswordResetToken
@@ -73,10 +75,56 @@ class RepositoryCategories(RepositoryGeneric[CategoryOut, Category]):
     def get_empty(self):
         return self.session.query(Category).filter(~Category.recipes.any()).all()
 
+    def get_all_count_recipes(self, pagination: PaginationQuery) -> PaginationBase[TagCount]:
+        q = self.session.query(Category, func.count(RecipeModel.id).filter(RecipeModel.recipe_category)).group_by(
+            Category.id
+        )
+
+        fltr = self._filter_builder()
+        q = q.filter_by(**fltr)
+        q, count, total_pages = self.add_pagination_to_query(q, pagination)
+
+        try:
+            data: list[tuple[Category, int]] = q.all()
+        except Exception as e:
+            self._log_exception(e)
+            self.session.rollback()
+            raise e
+
+        return PaginationBase(
+            page=pagination.page,
+            per_page=pagination.per_page,
+            total=count,
+            total_pages=total_pages,
+            items=[CategoryCount(**s[0].__dict__, count=s[1]) for s in data],
+        )
+
 
 class RepositoryTags(RepositoryGeneric[TagOut, Tag]):
     def get_empty(self):
         return self.session.query(Tag).filter(~Tag.recipes.any()).all()
+
+    def get_all_count_recipes(self, pagination: PaginationQuery) -> PaginationBase[TagCount]:
+        q = self.session.query(self.model, func.count(RecipeModel.id)).join(RecipeModel.tags).group_by(self.model)
+
+        fltr = self._filter_builder()
+        q = q.filter_by(**fltr)
+        q, count, total_pages = self.add_pagination_to_query(q, pagination)
+
+        try:
+            data: list[tuple[Tag, int]] = q.all()
+        except Exception as e:
+            self._log_exception(e)
+            self.session.rollback()
+            raise e
+
+        return PaginationBase(
+            page=pagination.page,
+            per_page=pagination.per_page,
+            total=count,
+            total_pages=total_pages,
+            items=[TagCount(**s[0].__dict__, count=s[1]) for s in data],
+        )
 
 
 class AllRepositories:

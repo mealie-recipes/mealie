@@ -24,24 +24,32 @@
       <v-spacer></v-spacer>
       <BaseButton create @click="dialog = true" />
     </v-app-bar>
-    <section v-for="(itms, key, idx) in itemsSorted" :key="'header' + idx" :class="idx === 1 ? null : 'my-4'">
-      <BaseCardSectionTitle :title="key"> </BaseCardSectionTitle>
-      <v-row>
-        <v-col v-for="(item, index) in itms" :key="'cat' + index" cols="12" :sm="12" :md="6" :lg="4" :xl="3">
-          <v-card class="left-border" hover :to="`/recipes/${itemType}/${item.slug}`">
-            <v-card-actions>
-              <v-icon>
-                {{ icon }}
-              </v-icon>
-              <v-card-title class="py-1">
-                {{ item.name }}
-              </v-card-title>
-              <v-spacer></v-spacer>
-              <ContextMenu :items="[presets.delete]" @delete="confirmDelete(item)" />
-            </v-card-actions>
-          </v-card>
-        </v-col>
-      </v-row>
+    <section v-for="(itms, key, idx) in itemsSorted" :key="`header-${idx}`" :class="idx === 1 ? null : 'my-4'">
+      <BaseCardSectionTitle :title="key" />
+      <div class="grid-cols-3">
+
+        <v-card
+        v-for="(item, index) in itms"
+          :key="`cat-${index}`"
+          class="left-border"
+          hover
+          :to="`/recipes/${itemType}/${item.slug}`"
+        >
+        <v-card-actions>
+          <v-chip v-if="item.count != undefined" small class="ml-auto accent">
+            {{ item.count }}
+          </v-chip>
+          <v-icon v-else>
+            {{ icon }}
+          </v-icon>
+          <v-card-title class="py-1 w-full">
+            {{ item.name }}
+          </v-card-title>
+          <v-spacer></v-spacer>
+          <ContextMenu :items="[presets.delete]" @delete="confirmDelete(item)" />
+        </v-card-actions>
+      </v-card>
+      </div>
     </section>
   </div>
 </template>
@@ -56,6 +64,7 @@ interface GenericItem {
   id?: string;
   name: string;
   slug: string;
+  count?: number;
 }
 
 export default defineComponent({
@@ -80,7 +89,7 @@ export default defineComponent({
     // =================================================================
     // Sorted Items
     const itemsSorted = computed(() => {
-      const byLetter: { [key: string]: Array<GenericItem> } = {};
+      const byLetter: Record<string, Array<GenericItem>> = {};
 
       if (!props.items) return byLetter;
 
@@ -133,3 +142,9 @@ export default defineComponent({
   head: {},
 });
 </script>
+
+<style lang="css">
+.w-full {
+  width: 100%;
+}
+</style>

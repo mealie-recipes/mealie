@@ -3,11 +3,12 @@ from functools import cached_property
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import UUID4
 
+from mealie.repos.repository_factory import RepositoryTags
 from mealie.routes._base import BaseCrudController, controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.schema import mapper
 from mealie.schema.recipe import RecipeTagResponse, TagIn
-from mealie.schema.recipe.recipe import RecipeTag, RecipeTagPagination
+from mealie.schema.recipe.recipe import RecipeTagPagination
 from mealie.schema.recipe.recipe_category import TagSave
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services import urls
@@ -19,7 +20,7 @@ router = APIRouter(prefix="/tags", tags=["Organizer: Tags"])
 @controller(router)
 class TagController(BaseCrudController):
     @cached_property
-    def repo(self):
+    def repo(self) -> RepositoryTags:
         return self.repos.tags.by_group(self.group_id)
 
     @cached_property
@@ -29,10 +30,7 @@ class TagController(BaseCrudController):
     @router.get("", response_model=RecipeTagPagination)
     async def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
         """Returns a list of available tags in the database"""
-        response = self.repo.page_all(
-            pagination=q,
-            override=RecipeTag,
-        )
+        response = self.repo.get_all_count_recipes(pagination=q)
 
         response.set_pagination_guides(router.url_path_for("get_all"), q.dict())
         return response

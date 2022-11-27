@@ -7,9 +7,9 @@ from mealie.routes._base import BaseCrudController, controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.schema import mapper
 from mealie.schema.recipe import CategoryIn, RecipeCategoryResponse
-from mealie.schema.recipe.recipe import RecipeCategory, RecipeCategoryPagination
-from mealie.schema.recipe.recipe_category import CategoryBase, CategorySave
-from mealie.schema.response.pagination import PaginationQuery
+from mealie.schema.recipe.recipe import RecipeCategory
+from mealie.schema.recipe.recipe_category import CategoryBase, CategoryCount, CategorySave
+from mealie.schema.response.pagination import PaginationBase, PaginationQuery
 from mealie.services import urls
 from mealie.services.event_bus_service.event_types import EventCategoryData, EventOperation, EventTypes
 
@@ -37,13 +37,10 @@ class RecipeCategoryController(BaseCrudController):
     def mixins(self):
         return HttpRepo(self.repo, self.logger)
 
-    @router.get("", response_model=RecipeCategoryPagination)
+    @router.get("", response_model=PaginationBase[CategoryCount])
     def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
         """Returns a list of available categories in the database"""
-        response = self.repo.page_all(
-            pagination=q,
-            override=RecipeCategory,
-        )
+        response = self.repo.get_all_count_recipes(pagination=q)
 
         response.set_pagination_guides(router.url_path_for("get_all"), q.dict())
         return response

@@ -53,12 +53,23 @@ class TagBase(CategoryBase):
     pass
 
 
-class TagOut(TagSave):
+class TagOut(TagIn):
     id: UUID4
     slug: str
 
     class Config:
         orm_mode = True
+
+
+class TagCount(TagOut):
+    count: int = 0
+
+    class Config:
+        orm_mode = True
+
+
+class CategoryCount(TagCount):
+    ...
 
 
 class RecipeTagResponse(RecipeCategoryResponse):

@@ -5,7 +5,6 @@ from .recipe import (
     CreateRecipeByUrlBulk,
     Recipe,
     RecipeCategory,
-    RecipeCategoryPagination,
     RecipePagination,
     RecipePaginationQuery,
     RecipeSummary,
