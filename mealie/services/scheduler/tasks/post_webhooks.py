@@ -1,5 +1,4 @@
 from datetime import datetime, timezone
-from typing import Optional
 
 from pydantic import UUID4
 
@@ -18,7 +17,7 @@ from mealie.services.event_bus_service.event_types import (
 last_ran = datetime.now(timezone.utc)
 
 
-def post_group_webhooks(start_dt: Optional[datetime] = None, group_id: Optional[UUID4] = None) -> None:
+def post_group_webhooks(start_dt: datetime | None = None, group_id: UUID4 | None = None) -> None:
     """Post webhook events to specified group, or all groups"""
 
     global last_ran

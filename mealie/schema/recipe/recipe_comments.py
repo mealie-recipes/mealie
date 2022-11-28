@@ -1,5 +1,4 @@
 from datetime import datetime
-from typing import Optional
 
 from pydantic import UUID4
 
@@ -9,7 +8,7 @@ from mealie.schema.response.pagination import PaginationBase
 
 class UserBase(MealieModel):
     id: UUID4
-    username: Optional[str]
+    username: str | None
     admin: bool
 
     class Config:

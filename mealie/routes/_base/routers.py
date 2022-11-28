@@ -3,7 +3,6 @@ import json
 from collections.abc import Callable
 from enum import Enum
 from json.decoder import JSONDecodeError
-from typing import Optional, Union
 
 from fastapi import APIRouter, Depends, Request, Response
 from fastapi.routing import APIRoute
@@ -14,14 +13,14 @@ from mealie.core.dependencies import get_admin_user, get_current_user
 class AdminAPIRouter(APIRouter):
     """Router for functions to be protected behind admin authentication"""
 
-    def __init__(self, tags: Optional[list[Union[str, Enum]]] = None, prefix: str = "", **kwargs):
+    def __init__(self, tags: list[str | Enum] | None = None, prefix: str = "", **kwargs):
         super().__init__(tags=tags, prefix=prefix, dependencies=[Depends(get_admin_user)], **kwargs)
 
 
 class UserAPIRouter(APIRouter):
     """Router for functions to be protected behind user authentication"""
 
-    def __init__(self, tags: Optional[list[Union[str, Enum]]] = None, prefix: str = "", **kwargs):
+    def __init__(self, tags: list[str | Enum] | None = None, prefix: str = "", **kwargs):
         super().__init__(tags=tags, prefix=prefix, dependencies=[Depends(get_current_user)], **kwargs)
 
 

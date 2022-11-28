@@ -114,7 +114,7 @@ select = [
   "B", # flake8-bugbear
   # "ANN", # flake8-annotations
   # "C", # McCabe complexity
-  "RUF", # Ruff specific
+  # "RUF", # Ruff specific
   "BLE", # blind-except
 ]
 

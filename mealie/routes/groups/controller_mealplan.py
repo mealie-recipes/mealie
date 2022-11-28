@@ -1,6 +1,5 @@
 from datetime import date
 from functools import cached_property
-from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException
 
@@ -91,8 +90,8 @@ class GroupMealplanController(BaseUserController):
     def get_all(
         self,
         q: PaginationQuery = Depends(PaginationQuery),
-        start_date: Optional[date] = None,
-        end_date: Optional[date] = None,
+        start_date: date | None = None,
+        end_date: date | None = None,
     ):
         # merge start and end dates into pagination query only if either is provided
         if start_date or end_date:

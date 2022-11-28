@@ -1,5 +1,4 @@
 from collections.abc import Callable
-from typing import Optional
 
 from pydantic import BaseModel
 
@@ -12,4 +11,4 @@ class MigrationAlias(BaseModel):
 
     key: str
     alias: str
-    func: Optional[Callable] = None
+    func: Callable | None = None

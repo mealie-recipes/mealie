@@ -1,6 +1,5 @@
 from datetime import date
 from enum import Enum
-from typing import Optional
 from uuid import UUID
 
 from pydantic import validator
@@ -27,7 +26,7 @@ class CreatePlanEntry(MealieModel):
     entry_type: PlanEntryType = PlanEntryType.breakfast
     title: str = ""
     text: str = ""
-    recipe_id: Optional[UUID]
+    recipe_id: UUID | None
 
     @validator("recipe_id", always=True)
     @classmethod
@@ -51,7 +50,7 @@ class SavePlanEntry(CreatePlanEntry):
 
 
 class ReadPlanEntry(UpdatePlanEntry):
-    recipe: Optional[RecipeSummary]
+    recipe: RecipeSummary | None
 
     class Config:
         orm_mode = True

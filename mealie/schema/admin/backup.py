@@ -1,5 +1,4 @@
 from datetime import datetime
-from typing import Optional
 
 from pydantic import BaseModel
 
@@ -20,9 +19,9 @@ class ImportJob(BackupOptions):
 
 
 class CreateBackup(BaseModel):
-    tag: Optional[str]
+    tag: str | None
     options: BackupOptions
-    templates: Optional[list[str]]
+    templates: list[str] | None
 
 
 class BackupFile(BaseModel):

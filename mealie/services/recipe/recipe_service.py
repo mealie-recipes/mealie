@@ -3,7 +3,6 @@ import shutil
 from datetime import datetime
 from pathlib import Path
 from shutil import copytree, rmtree
-from typing import Union
 from zipfile import ZipFile
 
 from fastapi import UploadFile
@@ -110,7 +109,7 @@ class RecipeService(BaseService):
 
         return Recipe(**additional_attrs)
 
-    def create_one(self, create_data: Union[Recipe, CreateRecipe]) -> Recipe:
+    def create_one(self, create_data: Recipe | CreateRecipe) -> Recipe:
 
         if create_data.name is None:
             create_data.name = "New Recipe"
