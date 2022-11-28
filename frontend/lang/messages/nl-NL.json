@@ -331,6 +331,7 @@
     "add-recipe-to-mealplan": "Recept toevoegen aan maaltijdplan",
     "entry-type": "Invoertype",
     "date-format-hint": "MM/DD/JJJJ formaat",
+    "date-format-hint-yyyy-mm-dd": "YYYY-MM-DD format",
     "add-to-list": "Toevoegen aan lijst",
     "add-to-plan": "Toevoegen aan plan",
     "recipe-added-to-list": "Recept toegevoegd aan de lijst",
