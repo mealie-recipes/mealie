@@ -331,6 +331,7 @@
     "add-recipe-to-mealplan": "Dodaj recept v načrtovanje obroka",
     "entry-type": "Tip vnosa",
     "date-format-hint": "MM/DD/YYYY format",
+    "date-format-hint-yyyy-mm-dd": "YYYY-MM-DD format",
     "add-to-list": "Dodaj na seznam",
     "add-to-plan": "Dodaj v načrt",
     "recipe-added-to-list": "Recept dodan na seznam",

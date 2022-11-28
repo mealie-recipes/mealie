@@ -331,6 +331,7 @@
     "add-recipe-to-mealplan": "Přidat recept do jídelníčku",
     "entry-type": "Typ položky",
     "date-format-hint": "Formát data MM/DD/YYYY",
+    "date-format-hint-yyyy-mm-dd": "YYYY-MM-DD format",
     "add-to-list": "Přidat na seznam",
     "add-to-plan": "Přidat do jídelníčku",
     "recipe-added-to-list": "Recept byl přidán na seznam",

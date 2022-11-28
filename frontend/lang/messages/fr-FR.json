@@ -331,6 +331,7 @@
     "add-recipe-to-mealplan": "Ajouter la recette à la planification du menu",
     "entry-type": "Type d'entrée",
     "date-format-hint": "Format MM/JJ/AAAA",
+    "date-format-hint-yyyy-mm-dd": "YYYY-MM-DD format",
     "add-to-list": "Ajouter à la liste",
     "add-to-plan": "Ajouter à la planification des repas",
     "recipe-added-to-list": "Recette ajoutée à la liste",

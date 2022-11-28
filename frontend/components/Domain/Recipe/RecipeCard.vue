@@ -19,7 +19,9 @@
           <v-expand-transition v-if="description">
             <div v-if="hover" class="d-flex transition-fast-in-fast-out secondary v-card--reveal" style="height: 100%">
               <v-card-text class="v-card--text-show white--text">
-                {{ description }}
+                <div class="descriptionWrapper">
+                  {{ description}}
+                </div>
               </v-card-text>
             </div>
           </v-expand-transition>
@@ -142,5 +144,11 @@ export default defineComponent({
   word-break: normal;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.descriptionWrapper{
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 8;
+  overflow: hidden;
 }
 </style>
