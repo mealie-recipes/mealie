@@ -50,7 +50,7 @@
     "eslint-plugin-nuxt": "^4.0.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "9.8.0",
-    "lint-staged": "^13.0.3",
+    "lint-staged": "^13.0.4",
     "nuxt-vite": "0.2.3",
     "prettier": "^2.8.0",
     "vitest": "^0.25.3",
