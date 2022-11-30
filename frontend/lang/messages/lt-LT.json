@@ -247,7 +247,7 @@
     "trim-whitespace-description": "Trim leading and trailing whitespace as well as blank lines",
     "trim-prefix-description": "Trim first character from each line",
     "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns",
-    "import-by-url": "Import a recipe by URL",
+    "import-by-url": "Importuokite receptą iš URL",
     "create-manually": "Sukurti receptą rankiniu būdu",
     "make-recipe-image": "Make this the recipe image"
   },
@@ -339,13 +339,13 @@
     "failed-to-add-recipe-to-mealplan": "Failed to add recipe to mealplan",
     "yield": "Yield",
     "quantity": "Kiekis",
-    "choose-unit": "Choose Unit",
+    "choose-unit": "Pasirinkite vienetą",
     "press-enter-to-create": "Paspauskite 'Enter', norėdami sukurti",
     "choose-food": "Choose Food",
     "notes": "Pastabos",
     "toggle-section": "Toggle Section",
-    "see-original-text": "See Original Text",
-    "original-text-with-value": "Original Text: {originalText}",
+    "see-original-text": "Rodyti originalų tekstą",
+    "original-text-with-value": "Originalus tekstas: {originalText}",
     "ingredient-linker": "Ingredient Linker",
     "linked-to-other-step": "Linked to other step",
     "auto": "Auto",
@@ -453,11 +453,11 @@
     "toolbox": {
       "assign-all": "Priskirti visus",
       "bulk-assign": "Masinis priskyrimas",
-      "new-name": "New Name",
+      "new-name": "Naujas pavadinimas",
       "no-unused-items": "No Unused Items",
       "recipes-affected": "No Recipes Affected|One Recipe Affected|{count} Recipes Affected",
       "remove-unused": "Pašalinti nenodojamus",
-      "title-case-all": "Title Case All",
+      "title-case-all": "Pavad. didžiosiomis",
       "toolbox": "Toolbox",
       "unorganized": "Unorganized"
     },
@@ -473,7 +473,7 @@
   "shopping-list": {
     "all-lists": "Visi sąrašai",
     "create-shopping-list": "Sukurti pirkinių sąrašą",
-    "from-recipe": "From Recipe",
+    "from-recipe": "Iš recepto",
     "list-name": "Sąrašo pavadinimas",
     "new-list": "Naujas sąrašas",
     "quantity": "Kiekis: {0}",
@@ -496,13 +496,13 @@
     "migrations": "Migracijos",
     "profile": "Profilis",
     "search": "Search",
-    "site-settings": "Site Settings",
+    "site-settings": "Nustatymai",
     "tags": "Žymos",
     "toolbox": "Toolbox",
     "language": "Kalba",
-    "maintenance": "Maintenance",
+    "maintenance": "Priežiūra",
     "background-tasks": "Fone veikiančios užduotys",
-    "parser": "Parser",
+    "parser": "Teksto analizatorius",
     "developer": "Developer",
     "cookbook": "Cookbook",
     "create-cookbook": "Create a new cookbook"
@@ -554,7 +554,7 @@
     "error-cannot-delete-super-user": "Klaida! Nepavyko ištrinti super vartotojo",
     "existing-password-does-not-match": "Existing password does not match",
     "full-name": "Vardas, pavardė",
-    "invite-only": "Invite Only",
+    "invite-only": "Tik su pakvietimu",
     "link-id": "Nuorodos ID",
     "link-name": "Nuorodos pavadinimas",
     "login": "Prisijungti",
@@ -615,7 +615,7 @@
       "seed-dialog-text": "Įdėkite į duomenų bazę bendrus vienetus pagal jūsų kalbą."
     },
     "labels": {
-      "seed-dialog-text": "Seed the database with common labels based on your local language."
+      "seed-dialog-text": "Įdėkite į duomenų bazę bendras žymas pagal jūsų kalbą."
     }
   },
   "user-registration": {
@@ -659,7 +659,7 @@
     "preview-markdown-button-label": "Preview Markdown"
   },
   "demo": {
-    "info_message_with_version": "This is a Demo for version: {version}",
+    "info_message_with_version": "Tai yra demonstracinė versija: {version}",
     "demo_username": "Vartotojas: {username}",
     "demo_password": "Slaptažodis: {password}"
   },
