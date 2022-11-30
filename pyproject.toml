@@ -54,12 +54,14 @@ pydantic-to-typescript = "^1.0.7"
 pylint = "^2.6.0"
 pytest = "^7.2.0"
 rich = "^10.7.0"
-ruff = "^0.0.141"
+ruff = "^0.0.149"
 types-PyYAML = "^6.0.4"
 types-python-dateutil = "^2.8.18"
 types-python-slugify = "^5.0.3"
 types-requests = "^2.27.12"
 types-urllib3 = "^1.26.11"
+
+[tool.poetry.group.dev.dependencies]
 
 [build-system]
 build-backend = "poetry.core.masonry.api"
@@ -102,6 +104,7 @@ strict_optional = true
 
 [tool.ruff]
 line-length = 120
+format = "grouped"
 
 # Enable Pyflakes `E` and `F` codes by default.
 ignore = ["F403", "I252","B008"]
