@@ -5,13 +5,13 @@ from pydantic import BaseModel, BaseSettings, PostgresDsn
 
 
 class AbstractDBProvider(ABC):
-    @abstractmethod
     @property
+    @abstractmethod
     def db_url(self) -> str:
         ...
 
-    @abstractmethod
     @property
+    @abstractmethod
     def db_url_public(self) -> str:
         ...
 
