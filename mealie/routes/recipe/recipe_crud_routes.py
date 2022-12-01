@@ -140,7 +140,7 @@ router = UserAPIRouter(prefix="/recipes", tags=["Recipe: CRUD"], route_class=Mea
 @controller(router)
 class RecipeController(BaseRecipeController):
     def handle_exceptions(self, ex: Exception) -> None:
-        match type(ex):
+        match type(ex):  # noqa match statement not supported
             case exceptions.PermissionDenied:
                 self.logger.error("Permission Denied on recipe controller action")
                 raise HTTPException(status_code=403, detail=ErrorResponse.respond(message="Permission Denied"))

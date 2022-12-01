@@ -17,14 +17,17 @@ async def largest_content_len(urls: list[str]) -> tuple[str, int]:
     largest_url = ""
     largest_len = 0
 
+    def do(session: requests.Session, url: str):
+        def _do() -> requests.Response:
+            return session.head(url, headers={"User-Agent": _FIREFOX_UA})
+
+        return _do
+
     with ThreadPoolExecutor(max_workers=10) as executor:
         with requests.Session() as session:
             loop = asyncio.get_event_loop()
 
-            tasks = [
-                loop.run_in_executor(executor, lambda: session.head(url, headers={"User-Agent": _FIREFOX_UA}))
-                for url in urls
-            ]
+            tasks = [loop.run_in_executor(executor, do(session, url)) for url in urls]
 
             response: requests.Response  # required for type hinting within the loop
             for response in await asyncio.gather(*tasks):

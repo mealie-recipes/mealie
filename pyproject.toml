@@ -104,7 +104,7 @@ strict_optional = true
 
 [tool.ruff]
 line-length = 120
-format = "grouped"
+format = "text"
 
 # Enable Pyflakes `E` and `F` codes by default.
 ignore = ["F403", "I252","B008"]
@@ -118,7 +118,7 @@ select = [
   # "ANN", # flake8-annotations
   # "C", # McCabe complexity
   # "RUF", # Ruff specific
-  "BLE", # blind-except
+  # "BLE", # blind-except
 ]
 
 # Exclude a variety of commonly ignored directories.

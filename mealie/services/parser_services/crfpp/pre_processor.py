@@ -52,7 +52,8 @@ def wrap_or_clause(string: str):
     Attempts to wrap or clauses in ()
 
     Examples:
-    '1 tsp. Diamond Crystal or ½ tsp. Morton kosher salt, plus more' -> '1 teaspoon diamond crystal (or 1/2 teaspoon morton kosher salt), plus more'
+    '1 tsp. Diamond Crystal or ½ tsp. Morton kosher salt, plus more'
+        -> '1 teaspoon diamond crystal (or 1/2 teaspoon morton kosher salt), plus more'
 
     """
     # TODO: Needs more adequite testing to be sure this doesn't have side effects.

@@ -41,5 +41,5 @@ async def get_recipe_asset(recipe_id: UUID4, file_name: str):
 
     try:
         return FileResponse(file)
-    except Exception:
-        raise HTTPException(status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        raise HTTPException(status.HTTP_404_NOT_FOUND) from e

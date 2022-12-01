@@ -83,8 +83,10 @@ class GroupMealplanController(BaseUserController):
             return self.mixins.create_one(
                 SavePlanEntry(date=data.date, entry_type=data.entry_type, recipe_id=recipe.id, group_id=self.group_id)
             )
-        except IndexError:
-            raise HTTPException(status_code=404, detail=ErrorResponse.respond(message="No recipes match your rules"))
+        except IndexError as e:
+            raise HTTPException(
+                status_code=404, detail=ErrorResponse.respond(message="No recipes match your rules")
+            ) from e
 
     @router.get("", response_model=PlanEntryPagination)
     def get_all(

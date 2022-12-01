@@ -95,7 +95,7 @@ def clean_image(image: str | list | dict | None = None, default="no image") -> s
     if not image:
         return default
 
-    match image:
+    match image:  # noqa - match statement not supported
         case str(image):
             return image
         case list(image):
@@ -189,7 +189,13 @@ def clean_instructions(steps_object: list | dict | str, default: list | None = N
             # }
             #
             steps_object = typing.cast(list[dict[str, str]], steps_object)
-            return clean_instructions(functools.reduce(operator.concat, [x["itemListElement"] for x in steps_object], []))  # type: ignore
+            return clean_instructions(
+                functools.reduce(
+                    operator.concat,  # type: ignore
+                    [x["itemListElement"] for x in steps_object],
+                    [],
+                )
+            )
         case _:
             raise TypeError(f"Unexpected type for instructions: {type(steps_object)}, {steps_object}")
 

@@ -45,7 +45,7 @@ class GroupMigrationController(BaseUserController):
 
         migrator: BaseMigrator
 
-        match migration_type:
+        match migration_type:  # noqa match not supported by ruff
             case SupportedMigrations.chowdown:
                 migrator = ChowdownMigrator(**args)
             case SupportedMigrations.mealie_alpha:

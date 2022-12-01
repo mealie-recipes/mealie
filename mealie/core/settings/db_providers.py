@@ -1,17 +1,19 @@
-from abc import ABC, abstractproperty
+from abc import ABC, abstractmethod
 from pathlib import Path
 
 from pydantic import BaseModel, BaseSettings, PostgresDsn
 
 
 class AbstractDBProvider(ABC):
-    @abstractproperty
+    @abstractmethod
+    @property
     def db_url(self) -> str:
-        pass
+        ...
 
+    @abstractmethod
     @property
     def db_url_public(self) -> str:
-        pass
+        ...
 
 
 class SQLiteProvider(AbstractDBProvider, BaseModel):

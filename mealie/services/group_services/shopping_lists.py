@@ -169,7 +169,9 @@ class ShoppingListService:
         if not updated_shopping_list:
             raise UnexpectedNone("Shopping List not found")
 
-        updated_shopping_list_items, deleted_shopping_list_items = self.consolidate_and_save(updated_shopping_list.list_items)  # type: ignore
+        updated_shopping_list_items, deleted_shopping_list_items = self.consolidate_and_save(
+            updated_shopping_list.list_items,  # type: ignore
+        )
         updated_shopping_list.list_items = updated_shopping_list_items
 
         not_found = True
@@ -268,5 +270,8 @@ class ShoppingListService:
                     self.list_refs.update(recipe_ref.id, ref)
                 break
 
-        # Save Changes
-        return self.shopping_lists.get_one(shopping_list.id), updated_shopping_list_items, deleted_shopping_list_items  # type: ignore
+        return (
+            self.shopping_lists.get_one(shopping_list.id),
+            updated_shopping_list_items,
+            deleted_shopping_list_items,
+        )  # type: ignore
