@@ -1,0 +1,31 @@
+name: Trivy Frontend Container Scanning
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    name: Build and Scan Frontend Container
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build Dockerfile
+        run: |
+          docker build -t mealie ./frontend/
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          ignore-unfixed: true
+          image-ref: "mealie"
+          format: "sarif"
+          output: "trivy-results.sarif"
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: "trivy-results.sarif"
