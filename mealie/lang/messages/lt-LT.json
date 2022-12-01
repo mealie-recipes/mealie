@@ -17,6 +17,7 @@
         "generic-updated": "{name} atnaujintas",
         "generic-created-with-url": "{name} sukurtas, {url}",
         "generic-updated-with-url": "{name} atnaujintas, {url}",
+        "generic-duplicated": "{name} has been duplicated",
         "generic-deleted": "{name} ištrintas"
     }
 }
