@@ -17,7 +17,7 @@
         "generic-updated": "{name} оновлено",
         "generic-created-with-url": "{name} створено, {url}",
         "generic-updated-with-url": "{name} оновлено, {url}",
-        "generic-duplicated": "{name} has been duplicated",
+        "generic-duplicated": "{name} дубльовано",
         "generic-deleted": "{name} видалено"
     }
 }
