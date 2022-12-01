@@ -152,7 +152,7 @@
     "a-name-is-required": "A Name is Required",
     "delete-with-name": "Delete {name}",
     "confirm-delete-generic-with-name": "Are you sure you want to delete this {name}?",
-    "confirm-delete-own-admin-account": "Please note that you are trying to delete your own admin account! This action cannot be undone and will permanently delete your account?",
+    "confirm-delete-own-admin-account": "Por favor, note que você está tentando excluir a sua própria conta de administrador! Esta ação não pode ser desfeita e irá excluir sua conta permanentemente?",
     "organizer": "Organizer",
     "transfer": "Transfer",
     "copy": "Copy",
