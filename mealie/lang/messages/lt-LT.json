@@ -1,22 +1,22 @@
 {
     "generic": {
-        "server-error": "An unexpected error occurred"
+        "server-error": "Įvyko nenumatyta klaida"
     },
     "recipe": {
-        "unique-name-error": "Recipe names must be unique"
+        "unique-name-error": "Receptų pavadinimai turi būti unikalūs"
     },
     "exceptions": {
-        "permission_denied": "You do not have permission to perform this action",
+        "permission_denied": "Neturite leidimo atlikti šį veiksmą",
         "no-entry-found": "The requested resource was not found",
         "integrity-error": "Database integrity error",
-        "username-conflict-error": "This username is already taken",
-        "email-conflict-error": "This email is already in use"
+        "username-conflict-error": "Toks vartotojas jau egzistuoja",
+        "email-conflict-error": "Šis el. paštas jau naudojamas"
     },
     "notifications": {
-        "generic-created": "{name} was created",
-        "generic-updated": "{name} was updated",
-        "generic-created-with-url": "{name} has been created, {url}",
-        "generic-updated-with-url": "{name} has been updated, {url}",
-        "generic-deleted": "{name} has been deleted"
+        "generic-created": "{name} sukurtas",
+        "generic-updated": "{name} atnaujintas",
+        "generic-created-with-url": "{name} sukurtas, {url}",
+        "generic-updated-with-url": "{name} atnaujintas, {url}",
+        "generic-deleted": "{name} ištrintas"
     }
 }

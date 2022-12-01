@@ -1,65 +1,65 @@
 [
     {
-        "name": "Produce"
+        "name": "Gaminti"
     },
     {
         "name": "Grains"
     },
     {
-        "name": "Fruits"
+        "name": "Vaisiai"
     },
     {
-        "name": "Vegetables"
+        "name": "Daržovės"
     },
     {
-        "name": "Meat"
+        "name": "Mėsa"
     },
     {
-        "name": "Seafood"
+        "name": "Jūros gėrybės"
     },
     {
-        "name": "Beverages"
+        "name": "Gėrimai"
     },
     {
-        "name": "Baked Goods"
+        "name": "Kepiniai"
     },
     {
-        "name": "Canned Goods"
+        "name": "Konservuoti produktai"
     },
     {
-        "name": "Condiments"
+        "name": "Prieskoniai"
     },
     {
-        "name": "Confectionary"
+        "name": "Konditerijos gaminiai"
     },
     {
-        "name": "Dairy Products"
+        "name": "Pieno produktai"
     },
     {
-        "name": "Frozen Foods"
+        "name": "Šaldyti produktai"
     },
     {
-        "name": "Health Foods"
+        "name": "Sveiki produktai"
     },
     {
-        "name": "Household"
+        "name": "Namų ūkio reikmenys"
     },
     {
-        "name": "Meat Products"
+        "name": "Mėsos produktai"
     },
     {
-        "name": "Snacks"
+        "name": "Užkandžiai"
     },
     {
-        "name": "Spices"
+        "name": "Prieskoniai"
     },
     {
-        "name": "Sweets"
+        "name": "Saldumynai"
     },
     {
-        "name": "Alcohol"
+        "name": "Alkoholis"
     },
     {
-        "name": "Other"
+        "name": "Kita"
     }
 ]
