@@ -66,10 +66,9 @@ jobs:
           poetry add "psycopg2-binary==2.8.6"
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true' || steps.cache-validate.outputs.cache-hit-success != 'true'
 
-      - name: Formatting (Black & isort)
+      - name: Formatting (Black)
         run: |
           poetry run black . --check
-          poetry run isort . --check-only
 
       - name: Lint (Flake8)
         run: |

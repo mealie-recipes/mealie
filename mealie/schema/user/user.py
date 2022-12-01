@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any
 from uuid import UUID
 
 from pydantic import UUID4, Field, validator
@@ -62,13 +62,13 @@ class GroupBase(MealieModel):
 
 
 class UserBase(MealieModel):
-    username: Optional[str]
-    full_name: Optional[str] = None
+    username: str | None
+    full_name: str | None = None
     email: constr(to_lower=True, strip_whitespace=True)  # type: ignore
     admin: bool = False
-    group: Optional[str]
+    group: str | None
     advanced: bool = False
-    favorite_recipes: Optional[list[str]] = []
+    favorite_recipes: list[str] | None = []
 
     can_invite: bool = False
     can_manage: bool = False
@@ -103,9 +103,9 @@ class UserOut(UserBase):
     id: UUID4
     group: str
     group_id: UUID4
-    tokens: Optional[list[LongLiveTokenOut]]
+    tokens: list[LongLiveTokenOut] | None
     cache_key: str
-    favorite_recipes: Optional[list[str]] = []
+    favorite_recipes: list[str] | None = []
 
     class Config:
         orm_mode = True
@@ -171,14 +171,14 @@ class PrivateUser(UserOut):
 class UpdateGroup(GroupBase):
     id: UUID4
     name: str
-    categories: Optional[list[CategoryBase]] = []
+    categories: list[CategoryBase] | None = []
 
     webhooks: list[Any] = []
 
 
 class GroupInDB(UpdateGroup):
-    users: Optional[list[UserOut]]
-    preferences: Optional[ReadGroupPreferences] = None
+    users: list[UserOut] | None
+    preferences: ReadGroupPreferences | None = None
 
     class Config:
         orm_mode = True

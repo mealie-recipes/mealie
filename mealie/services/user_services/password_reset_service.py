@@ -42,7 +42,7 @@ class PasswordResetService(BaseService):
             email_servive.send_forgot_password(email, reset_url)
         except Exception as e:
             self.logger.error(f"failed to send reset email: {e}")
-            raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, "Failed to send reset email")
+            raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, "Failed to send reset email") from e
 
     def reset_password(self, token: str, new_password: str):
         # Validate Token

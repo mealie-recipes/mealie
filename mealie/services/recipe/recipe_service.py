@@ -3,7 +3,6 @@ import shutil
 from datetime import datetime
 from pathlib import Path
 from shutil import copytree, rmtree
-from typing import Union
 from zipfile import ZipFile
 
 from fastapi import UploadFile
@@ -26,12 +25,6 @@ step_text = """Recipe steps as well as other fields in the recipe page support m
 **Add a link**
 
 [My Link](https://demo.mealie.io)
-
-**Embed an image**
-
-Use the `height="100"` or `width="100"` attributes to set the size of the image.
-
-<img height="100" src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=960&q=80"></img>
 
 """
 
@@ -110,7 +103,7 @@ class RecipeService(BaseService):
 
         return Recipe(**additional_attrs)
 
-    def create_one(self, create_data: Union[Recipe, CreateRecipe]) -> Recipe:
+    def create_one(self, create_data: Recipe | CreateRecipe) -> Recipe:
 
         if create_data.name is None:
             create_data.name = "New Recipe"

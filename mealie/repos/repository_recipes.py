@@ -1,5 +1,5 @@
 from random import randint
-from typing import Any, Optional
+from typing import Any
 from uuid import UUID
 
 from pydantic import UUID4
@@ -135,10 +135,10 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         pagination: PaginationQuery,
         override=None,
         load_food=False,
-        cookbook: Optional[ReadCookBook] = None,
-        categories: Optional[list[UUID4 | str]] = None,
-        tags: Optional[list[UUID4 | str]] = None,
-        tools: Optional[list[UUID4 | str]] = None,
+        cookbook: ReadCookBook | None = None,
+        categories: list[UUID4 | str] | None = None,
+        tags: list[UUID4 | str] | None = None,
+        tools: list[UUID4 | str] | None = None,
     ) -> RecipePagination:
         q = self.session.query(self.model)
 
@@ -307,7 +307,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             .limit(limit)
         ]
 
-    def get_by_slug(self, group_id: UUID4, slug: str, limit=1) -> Optional[Recipe]:
+    def get_by_slug(self, group_id: UUID4, slug: str, limit=1) -> Recipe | None:
         dbrecipe = (
             self.session.query(RecipeModel)
             .filter(RecipeModel.group_id == group_id, RecipeModel.slug == slug)

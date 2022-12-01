@@ -84,12 +84,11 @@ backend-typecheck:
 backend-test: ## 🧪 Run tests quickly with the default Python
 	poetry run pytest
 
-backend-format: ## 🧺 Format, Check and Flake8
-	poetry run isort .
+backend-format: ## 🧺 Format the codebase
 	poetry run black .
 
-backend-lint:
-	poetry run flake8 mealie tests
+backend-lint: ## 🧹 Lint the codebase (Ruff)
+	poetry run ruff mealie
 
 backend-all: backend-format backend-lint backend-typecheck backend-test ## 🧪 Runs all the backend checks and tests
 

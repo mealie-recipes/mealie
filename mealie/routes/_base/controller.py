@@ -5,7 +5,7 @@ See their repository for details -> https://github.com/dmontagu/fastapi-utils
 """
 import inspect
 from collections.abc import Callable
-from typing import Any, TypeVar, Union, cast, get_type_hints
+from typing import Any, TypeVar, cast, get_type_hints
 
 from fastapi import APIRouter, Depends
 from fastapi.routing import APIRoute
@@ -92,8 +92,8 @@ def _init_cbv(cls: type[Any], instance: Any = None) -> None:
         else:
             old_init(self, *args, **kwargs)
 
-    setattr(cls, "__signature__", new_signature)
-    setattr(cls, "__init__", new_init)
+    cls.__signature__ = new_signature
+    cls.__init__ = new_init
     setattr(cls, CBV_CLASS_KEY, True)
 
     for name in private_attributes:
@@ -122,7 +122,7 @@ def _register_endpoints(router: APIRouter, cls: type[Any], *urls: str) -> None:
     }
 
     prefix_length = len(router.prefix)
-    routes_to_append: list[tuple[int, Union[Route, WebSocketRoute]]] = []
+    routes_to_append: list[tuple[int, Route | WebSocketRoute]] = []
     for _, func in function_members:
         index_route = numbered_routes_by_endpoint.get(func)
 
@@ -177,7 +177,7 @@ def _allocate_routes_by_method_name(router: APIRouter, url: str, function_member
                 api_resource(func)
 
 
-def _update_cbv_route_endpoint_signature(cls: type[Any], route: Union[Route, WebSocketRoute]) -> None:
+def _update_cbv_route_endpoint_signature(cls: type[Any], route: Route | WebSocketRoute) -> None:
     """
     Fixes the endpoint signature for a cbv route to ensure FastAPI performs dependency injection properly.
     """
@@ -191,4 +191,4 @@ def _update_cbv_route_endpoint_signature(cls: type[Any], route: Union[Route, Web
     ]
 
     new_signature = old_signature.replace(parameters=new_parameters)
-    setattr(route.endpoint, "__signature__", new_signature)
+    route.endpoint.__signature__ = new_signature

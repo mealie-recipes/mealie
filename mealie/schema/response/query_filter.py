@@ -62,7 +62,14 @@ class QueryFilter:
         self.filter_components = QueryFilter._parse_base_components_into_filter_components(base_components)
 
     def __repr__(self) -> str:
-        return f'<<{" ".join([str(component.value if isinstance(component, LogicalOperator) else component) for component in self.filter_components])}>>'
+        joined = " ".join(
+            [
+                str(component.value if isinstance(component, LogicalOperator) else component)
+                for component in self.filter_components
+            ],
+        )
+
+        return f"<<{joined}>>"
 
     def filter_query(self, query: Query, model: type[Model]) -> Query:
         segments: list[str] = []
@@ -76,8 +83,9 @@ class QueryFilter:
                 segments.append(component.value)
                 continue
 
-            # for some reason typing doesn't like the lsep and rsep literals, so we explicitly mark this as a filter component instead
-            # cast doesn't actually do anything at runtime
+            # for some reason typing doesn't like the lsep and rsep literals, so
+            # we explicitly mark this as a filter component instead cast doesn't
+            # actually do anything at runtime
             component = cast(QueryFilterComponent, component)
 
             if not hasattr(model, component.attribute_name):

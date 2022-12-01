@@ -1,5 +1,3 @@
-from typing import Optional
-
 from pydantic import BaseModel
 
 from mealie.schema._mealie import MealieModel
@@ -8,10 +6,10 @@ from mealie.schema._mealie import MealieModel
 class ErrorResponse(BaseModel):
     message: str
     error: bool = True
-    exception: Optional[str] = None
+    exception: str | None = None
 
     @classmethod
-    def respond(cls, message: str, exception: Optional[str] = None) -> dict:
+    def respond(cls, message: str, exception: str | None = None) -> dict:
         """
         This method is an helper to create an object and convert to a dictionary
         in the same call, for use while providing details to a HTTPException
