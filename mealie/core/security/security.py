@@ -86,10 +86,12 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
         f"(&(objectClass=user)(|(cn={username})(sAMAccountName={username})(mail={username})))",
         ["name", "mail"],
     )
-    if not user_entry:
-        user_dn, user_attr = user_entry[0]
-    else:
+    if user_entry is None :
         return False
+    elif user_entry[0][0] is None:
+        return False
+    else:
+        user_dn, user_attr = user_entry[0]
 
     if user is None:
         user = db.users.create(
