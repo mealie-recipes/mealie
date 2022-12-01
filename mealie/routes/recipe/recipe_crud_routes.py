@@ -31,7 +31,7 @@ from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_scraper import ScrapeRecipeTest
 from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.recipe.recipe_step import RecipeStep
-from mealie.schema.recipe.request_helpers import RecipeZipTokenResponse, UpdateImageResponse
+from mealie.schema.recipe.request_helpers import RecipeDuplicate, RecipeZipTokenResponse, UpdateImageResponse
 from mealie.schema.response.responses import ErrorResponse
 from mealie.services import urls
 from mealie.services.event_bus_service.event_types import (
@@ -297,6 +297,26 @@ class RecipeController(BaseRecipeController):
             )
 
         return new_recipe.slug
+
+    @router.post("/{slug}/duplicate", status_code=201, response_model=Recipe)
+    def duplicate_one(self, slug: str, req: RecipeDuplicate) -> Recipe:
+        """Duplicates a recipe with a new custom name if given"""
+        try:
+            new_recipe = self.service.duplicate_one(slug, req)
+        except Exception as e:
+            self.handle_exceptions(e)
+
+        if new_recipe:
+            self.publish_event(
+                event_type=EventTypes.recipe_created,
+                document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=new_recipe.slug),
+                message=self.t(
+                    "notifications.generic-duplicated",
+                    name=new_recipe.name,
+                ),
+            )
+
+        return new_recipe
 
     @router.put("/{slug}")
     def update_one(self, slug: str, data: Recipe):

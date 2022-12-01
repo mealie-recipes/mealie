@@ -3,17 +3,21 @@ import shutil
 from datetime import datetime
 from pathlib import Path
 from shutil import copytree, rmtree
+from uuid import uuid4
 from zipfile import ZipFile
 
 from fastapi import UploadFile
+from slugify import slugify
 
 from mealie.core import exceptions
+from mealie.pkgs import cache
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import CreateRecipe, Recipe
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.recipe.recipe_step import RecipeStep
 from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventCreate, TimelineEventType
+from mealie.schema.recipe.request_helpers import RecipeDuplicate
 from mealie.schema.user.user import GroupInDB, PrivateUser
 from mealie.services._base_service import BaseService
 from mealie.services.recipe.recipe_data_service import RecipeDataService
@@ -173,6 +177,64 @@ class RecipeService(BaseService):
             data_service.write_image(recipe_image, "webp")
 
         return recipe
+
+    def duplicate_one(self, old_slug: str, dup_data: RecipeDuplicate) -> Recipe:
+        """Duplicates a recipe and returns the new recipe."""
+
+        old_recipe = self._get_recipe(old_slug)
+        new_recipe = old_recipe.copy(exclude={"id", "name", "slug", "image", "comments"})
+
+        # Asset images in steps directly link to the original recipe, so we
+        # need to update them to references to the assets we copy below
+        def replace_recipe_step(step: RecipeStep) -> RecipeStep:
+            new_step = step.copy(exclude={"id", "text"})
+            new_step.id = uuid4()
+            new_step.text = step.text.replace(str(old_recipe.id), str(new_recipe.id))
+            return new_step
+
+        # Copy ingredients to make them independent of the original
+        def copy_recipe_ingredient(ingredient: RecipeIngredient):
+            new_ingredient = ingredient.copy(exclude={"reference_id"})
+            new_ingredient.reference_id = uuid4()
+            return new_ingredient
+
+        new_name = dup_data.name if dup_data.name else old_recipe.name or ""
+        new_recipe.id = uuid4()
+        new_recipe.slug = slugify(new_name)
+        new_recipe.image = cache.cache_key.new_key() if old_recipe.image else None
+        new_recipe.recipe_instructions = (
+            None
+            if old_recipe.recipe_instructions is None
+            else list(map(replace_recipe_step, old_recipe.recipe_instructions))
+        )
+        new_recipe.recipe_ingredient = (
+            None
+            if old_recipe.recipe_ingredient is None
+            else list(map(copy_recipe_ingredient, old_recipe.recipe_ingredient))
+        )
+
+        new_recipe = self._recipe_creation_factory(
+            self.user,
+            new_name,
+            additional_attrs=new_recipe.dict(),
+        )
+
+        new_recipe = self.repos.recipes.create(new_recipe)
+
+        # Copy all assets (including images) to the new recipe directory
+        # This assures that replaced links in recipe steps continue to work when the old recipe is deleted
+        try:
+            new_service = RecipeDataService(new_recipe.id, group_id=old_recipe.group_id)
+            old_service = RecipeDataService(old_recipe.id, group_id=old_recipe.group_id)
+            copytree(
+                old_service.dir_data,
+                new_service.dir_data,
+                dirs_exist_ok=True,
+            )
+        except Exception as e:
+            self.logger.error(f"Failed to copy assets from {old_recipe.slug} to {new_recipe.slug}: {e}")
+
+        return new_recipe
 
     def _pre_update_check(self, slug: str, new_data: Recipe) -> Recipe:
         """

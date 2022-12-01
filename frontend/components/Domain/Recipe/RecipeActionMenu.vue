@@ -54,6 +54,7 @@
           delete: false,
           edit: false,
           download: true,
+          duplicate: true,
           mealplanner: true,
           shoppingList: true,
           print: true,

@@ -76,9 +76,10 @@ from .recipe_timeline_events import (
     RecipeTimelineEventOut,
     RecipeTimelineEventPagination,
     RecipeTimelineEventUpdate,
+    TimelineEventType,
 )
 from .recipe_tool import RecipeToolCreate, RecipeToolOut, RecipeToolResponse, RecipeToolSave
-from .request_helpers import RecipeSlug, RecipeZipTokenResponse, SlugResponse, UpdateImageResponse
+from .request_helpers import RecipeDuplicate, RecipeSlug, RecipeZipTokenResponse, SlugResponse, UpdateImageResponse
 
 __all__ = [
     "RecipeToolCreate",
@@ -90,12 +91,14 @@ __all__ = [
     "RecipeTimelineEventOut",
     "RecipeTimelineEventPagination",
     "RecipeTimelineEventUpdate",
+    "TimelineEventType",
     "RecipeAsset",
     "RecipeSettings",
     "RecipeShareToken",
     "RecipeShareTokenCreate",
     "RecipeShareTokenSave",
     "RecipeShareTokenSummary",
+    "RecipeDuplicate",
     "RecipeSlug",
     "RecipeZipTokenResponse",
     "SlugResponse",

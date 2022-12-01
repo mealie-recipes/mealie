@@ -302,6 +302,9 @@ export interface RecipeCommentUpdate {
   id: string;
   text: string;
 }
+export interface RecipeDuplicate {
+  name?: string;
+}
 export interface RecipePaginationQuery {
   page?: number;
   perPage?: number;
