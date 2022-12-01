@@ -17,6 +17,7 @@
         "generic-updated": "{name} is bijgewerkt",
         "generic-created-with-url": "{name} is aangemaakt, {url}",
         "generic-updated-with-url": "{name} is bijgewerkt, {url}",
+        "generic-duplicated": "{name} has been duplicated",
         "generic-deleted": "{name} is verwijderd"
     }
 }
