@@ -552,7 +552,7 @@
     "create-link": "Sukurti nuorodą",
     "create-user": "Sukurti vartotoją",
     "current-password": "Dabartinis slaptažodis",
-    "e-mail-must-be-valid": "E-mail must be valid",
+    "e-mail-must-be-valid": "Neteisingas el. paštas",
     "edit-user": "Redaguoti Vartotoją",
     "email": "El. paštas",
     "error-cannot-delete-super-user": "Klaida! Nepavyko ištrinti super vartotojo",
@@ -589,7 +589,7 @@
     "user-update-failed": "Vartotojo naujinimas nepavyko",
     "user-updated": "Vartotojas atnaujintas",
     "user": "Vartotojas",
-    "username": "Naudotojo vardas",
+    "username": "Vartotojo vardas",
     "users-header": "VARTOTOJAI",
     "users": "Vartotojai",
     "webhook-time": "Webhook Time",
@@ -603,8 +603,8 @@
   "language-dialog": {
     "translated": "translated",
     "choose-language": "Pasirinkite kalbą",
-    "select-description": "Pasirinkite „Mealie“ vartotojo sąsajos kalbą. Šis nustatymas taikomas tik jums ir kitiems vartotojams jis negalios.",
-    "how-to-contribute-description": "Ar kažkas dar neišverstas, neteisingai išverstas arba sąraše trūksta jūsų kalbos? Paskaitykite {read-the-docs-link} kaip prit to prisidėti!",
+    "select-description": "Pasirinkite „Mealie“ vartotojo sąsajos kalbą. Šis nustatymas taikomas tik jums ir nepakeis kalbos kitiems vartotojams.",
+    "how-to-contribute-description": "Ar kažkas dar neišversta, neteisingai išversta arba sąraše trūksta jūsų kalbos? Paskaitykite {read-the-docs-link} kaip prie to prisidėti!",
     "read-the-docs": "Read the docs"
   },
   "data-pages": {
