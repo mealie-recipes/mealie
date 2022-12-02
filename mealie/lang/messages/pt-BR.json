@@ -17,6 +17,7 @@
         "generic-updated": "{name} was updated",
         "generic-created-with-url": "{name} has been created, {url}",
         "generic-updated-with-url": "{name} has been updated, {url}",
+        "generic-duplicated": "{name} foi duplicada",
         "generic-deleted": "{name} has been deleted"
     }
 }
