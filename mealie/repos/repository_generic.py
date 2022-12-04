@@ -283,7 +283,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
             except ValueError as e:
                 self.logger.error(e)
-                raise HTTPException(status_code=400, detail=str(e))
+                raise HTTPException(status_code=400, detail=str(e)) from e
 
         count = query.count()
 

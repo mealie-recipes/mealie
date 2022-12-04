@@ -2,7 +2,6 @@ import shutil
 import tempfile
 from collections.abc import AsyncGenerator, Callable, Generator
 from pathlib import Path
-from typing import Optional
 from uuid import uuid4
 
 from fastapi import Depends, HTTPException, status
@@ -116,7 +115,7 @@ def validate_long_live_token(session: Session, client_token: str, user_id: str) 
         raise HTTPException(status.HTTP_401_UNAUTHORIZED) from e
 
 
-def validate_file_token(token: Optional[str] = None) -> Path:
+def validate_file_token(token: str | None = None) -> Path:
     """
     Args:
         token (Optional[str], optional): _description_. Defaults to None.
@@ -143,7 +142,7 @@ def validate_file_token(token: Optional[str] = None) -> Path:
     return file_path
 
 
-def validate_recipe_token(token: Optional[str] = None) -> str:
+def validate_recipe_token(token: str | None = None) -> str:
     """
     Args:
         token (Optional[str], optional): _description_. Defaults to None.

@@ -1,16 +1,14 @@
-from typing import Optional
-
 from pydantic.main import BaseModel
 
 
 class ImportBase(BaseModel):
     name: str
     status: bool
-    exception: Optional[str]
+    exception: str | None
 
 
 class RecipeImport(ImportBase):
-    slug: Optional[str]
+    slug: str | None
 
 
 class CommentImport(ImportBase):

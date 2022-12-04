@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import datetime
 import re
 from enum import Enum
 from typing import Any, TypeVar, cast
@@ -62,7 +63,14 @@ class QueryFilter:
         self.filter_components = QueryFilter._parse_base_components_into_filter_components(base_components)
 
     def __repr__(self) -> str:
-        return f'<<{" ".join([str(component.value if isinstance(component, LogicalOperator) else component) for component in self.filter_components])}>>'
+        joined = " ".join(
+            [
+                str(component.value if isinstance(component, LogicalOperator) else component)
+                for component in self.filter_components
+            ],
+        )
+
+        return f"<<{joined}>>"
 
     def filter_query(self, query: Query, model: type[Model]) -> Query:
         segments: list[str] = []
@@ -76,8 +84,9 @@ class QueryFilter:
                 segments.append(component.value)
                 continue
 
-            # for some reason typing doesn't like the lsep and rsep literals, so we explicitly mark this as a filter component instead
-            # cast doesn't actually do anything at runtime
+            # for some reason typing doesn't like the lsep and rsep literals, so
+            # we explicitly mark this as a filter component instead cast doesn't
+            # actually do anything at runtime
             component = cast(QueryFilterComponent, component)
 
             if not hasattr(model, component.attribute_name):
@@ -88,13 +97,20 @@ class QueryFilter:
             value: Any = component.value
 
             if isinstance(attr.type, (sqltypes.Date, sqltypes.DateTime)):
-                try:
-                    value = date_parser.parse(component.value)
+                # TODO: add support for IS NULL and IS NOT NULL
+                # in the meantime, this will work for the specific usecase of non-null dates/datetimes
+                if value in ["none", "null"] and component.relational_operator == RelationalOperator.NOTEQ:
+                    component.relational_operator = RelationalOperator.GTE
+                    value = datetime.datetime(datetime.MINYEAR, 1, 1)
 
-                except ParserError as e:
-                    raise ValueError(
-                        f"invalid query string: unknown date or datetime format '{component.value}'"
-                    ) from e
+                else:
+                    try:
+                        value = date_parser.parse(component.value)
+
+                    except ParserError as e:
+                        raise ValueError(
+                            f"invalid query string: unknown date or datetime format '{component.value}'"
+                        ) from e
 
             if isinstance(attr.type, sqltypes.Boolean):
                 try:

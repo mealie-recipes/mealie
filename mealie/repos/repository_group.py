@@ -1,5 +1,3 @@
-from typing import Union
-
 from pydantic import UUID4
 
 from mealie.db.models.group import Group
@@ -15,7 +13,7 @@ from .repository_generic import RepositoryGeneric
 
 
 class RepositoryGroup(RepositoryGeneric[GroupInDB, Group]):
-    def get_by_name(self, name: str, limit=1) -> Union[GroupInDB, Group, None]:
+    def get_by_name(self, name: str, limit=1) -> GroupInDB | Group | None:
         dbgroup = self.session.query(self.model).filter_by(**{"name": name}).one_or_none()
         if dbgroup is None:
             return None

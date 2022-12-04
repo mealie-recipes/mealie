@@ -11,7 +11,7 @@
 
 ## Backing Up Your Data
 
-[See Backups and Restore Section](../admin/backups-and-exports.md) for details on backing up your data
+[See Backups and Restore Section](../getting-started/usage/backups-and-restoring.md) for details on backing up your data
 
 ## Docker
 For all setups using Docker the updating process looks something like this

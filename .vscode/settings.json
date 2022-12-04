@@ -29,7 +29,7 @@
   "i18n-ally.sourceLanguage": "en-US",
   "python.formatting.provider": "black",
   "python.linting.enabled": true,
-  "python.linting.flake8Enabled": true,
+  "python.linting.flake8Enabled": false,
   "python.linting.pylintEnabled": false,
   "python.linting.pylintArgs": ["--rcfile=${workspaceFolder}/.pylintrc"],
   "python.testing.autoTestDiscoverOnSaveEnabled": false,
@@ -44,7 +44,7 @@
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {
     "package.json": "package-lock.json, yarn.lock, .eslintrc.js, tsconfig.json, .prettierrc, .editorconfig",
-    "pyproject.toml": "poetry.lock, alembic.ini, .pylintrc, .flake8",
+    "pyproject.toml": "poetry.lock, alembic.ini, .pylintrc",
     "netlify.toml": "runtime.txt",
     "docker-compose.yml": "Dockerfile, .dockerignore, docker-compose.dev.yml, docker-compose.yml",
     "README.md": "LICENSE, SECURITY.md"

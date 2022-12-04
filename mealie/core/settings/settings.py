@@ -1,6 +1,5 @@
 import secrets
 from pathlib import Path
-from typing import Optional
 
 from pydantic import BaseSettings, NoneStr
 
@@ -54,7 +53,7 @@ class AppSettings(BaseSettings):
     # Database Configuration
 
     DB_ENGINE: str = "sqlite"  # Options: 'sqlite', 'postgres'
-    DB_PROVIDER: Optional[AbstractDBProvider] = None
+    DB_PROVIDER: AbstractDBProvider | None = None
 
     @property
     def DB_URL(self) -> str | None:
@@ -71,13 +70,13 @@ class AppSettings(BaseSettings):
     # ===============================================
     # Email Configuration
 
-    SMTP_HOST: Optional[str]
-    SMTP_PORT: Optional[str] = "587"
-    SMTP_FROM_NAME: Optional[str] = "Mealie"
-    SMTP_FROM_EMAIL: Optional[str]
-    SMTP_USER: Optional[str]
-    SMTP_PASSWORD: Optional[str]
-    SMTP_AUTH_STRATEGY: Optional[str] = "TLS"  # Options: 'TLS', 'SSL', 'NONE'
+    SMTP_HOST: str | None
+    SMTP_PORT: str | None = "587"
+    SMTP_FROM_NAME: str | None = "Mealie"
+    SMTP_FROM_EMAIL: str | None
+    SMTP_USER: str | None
+    SMTP_PASSWORD: str | None
+    SMTP_AUTH_STRATEGY: str | None = "TLS"  # Options: 'TLS', 'SSL', 'NONE'
 
     @property
     def SMTP_ENABLE(self) -> bool:

@@ -1,5 +1,3 @@
-from typing import Optional
-
 from pydantic import UUID4, BaseModel
 from pydantic.types import constr
 
@@ -12,8 +10,8 @@ class Token(BaseModel):
 
 
 class TokenData(BaseModel):
-    user_id: Optional[UUID4]
-    username: Optional[constr(to_lower=True, strip_whitespace=True)] = None  # type: ignore
+    user_id: UUID4 | None
+    username: constr(to_lower=True, strip_whitespace=True) | None = None  # type: ignore
 
 
 class UnlockResults(MealieModel):

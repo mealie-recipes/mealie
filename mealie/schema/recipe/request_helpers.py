@@ -20,3 +20,7 @@ class UpdateImageResponse(BaseModel):
 
 class RecipeZipTokenResponse(BaseModel):
     token: str
+
+
+class RecipeDuplicate(BaseModel):
+    name: str | None

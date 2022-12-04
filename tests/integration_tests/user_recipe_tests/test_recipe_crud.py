@@ -193,6 +193,87 @@ def test_read_update(
 
 
 @pytest.mark.parametrize("recipe_data", recipe_test_data)
+def test_duplicate(api_client: TestClient, recipe_data: RecipeSiteTestCase, unique_user: TestUser):
+    # Initial get of the original recipe
+    original_recipe_url = api_routes.recipes_slug(recipe_data.expected_slug)
+    response = api_client.get(original_recipe_url, headers=unique_user.token)
+    assert response.status_code == 200
+    initial_recipe = json.loads(response.text)
+
+    # Duplicate the recipe
+    recipe_duplicate_url = api_routes.recipes_slug_duplicate(recipe_data.expected_slug)
+    response = api_client.post(
+        recipe_duplicate_url,
+        headers=unique_user.token,
+        json={
+            "name": "Test Duplicate",
+        },
+    )
+    assert response.status_code == 201
+
+    duplicate_recipe = json.loads(response.text)
+    assert duplicate_recipe["id"] != initial_recipe["id"]
+    assert duplicate_recipe["slug"].startswith("test-duplicate")
+    assert duplicate_recipe["name"].startswith("Test Duplicate")
+
+    # Image should be copied (if it exists)
+    assert (
+        duplicate_recipe["image"] is None
+        and initial_recipe["image"] is None
+        or duplicate_recipe["image"] != initial_recipe["image"]
+    )
+
+    # Number of steps should be the same, but the text may have changed (link replacements)
+    assert len(duplicate_recipe["recipeInstructions"]) == len(initial_recipe["recipeInstructions"])
+
+    # Ingredients should have the same texts, but different ids
+    assert duplicate_recipe["recipeIngredient"] != initial_recipe["recipeIngredient"]
+    assert list(map(lambda i: i["note"], duplicate_recipe["recipeIngredient"])) == list(
+        map(lambda i: i["note"], initial_recipe["recipeIngredient"])
+    )
+
+    previous_categories = initial_recipe["recipeCategory"]
+    assert duplicate_recipe["recipeCategory"] == previous_categories
+
+    # Edit the duplicated recipe to make sure it doesn't affect the original
+    dup_notes = duplicate_recipe["notes"] or []
+    dup_notes.append({"title": "Test", "text": "Test"})
+    duplicate_recipe["notes"] = dup_notes
+    duplicate_recipe["recipeIngredient"][0]["note"] = "Different Ingredient"
+    new_recipe_url = api_routes.recipes_slug(duplicate_recipe.get("slug"))
+    response = api_client.put(new_recipe_url, json=duplicate_recipe, headers=unique_user.token)
+    assert response.status_code == 200
+    edited_recipe = json.loads(response.text)
+
+    # reload original
+    response = api_client.get(original_recipe_url, headers=unique_user.token)
+    assert response.status_code == 200
+    original_recipe = json.loads(response.text)
+
+    assert edited_recipe["notes"] == dup_notes
+    assert original_recipe.get("notes") != edited_recipe.get("notes")
+    assert original_recipe.get("recipeCategory") == previous_categories
+
+    # Make sure ingredient edits don't affect the original
+    original_ingredients = original_recipe.get("recipeIngredient")
+    edited_ingredients = edited_recipe.get("recipeIngredient")
+
+    assert len(original_ingredients) == len(edited_ingredients)
+
+    assert original_ingredients[0]["note"] != edited_ingredients[0]["note"]
+    assert edited_ingredients[0]["note"] == "Different Ingredient"
+    assert original_ingredients[0]["referenceId"] != edited_ingredients[1]["referenceId"]
+
+    for i in range(1, len(original_ingredients)):
+        assert original_ingredients[i]["referenceId"] != edited_ingredients[i]["referenceId"]
+
+        def copy_info(ing):
+            return {k: v for k, v in ing.items() if k != "referenceId"}
+
+        assert copy_info(original_ingredients[i]) == copy_info(edited_ingredients[i])
+
+
+@pytest.mark.parametrize("recipe_data", recipe_test_data)
 def test_rename(api_client: TestClient, recipe_data: RecipeSiteTestCase, unique_user: TestUser):
     recipe_url = api_routes.recipes_slug(recipe_data.expected_slug)
     response = api_client.get(recipe_url, headers=unique_user.token)

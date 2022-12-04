@@ -17,6 +17,7 @@
         "generic-updated": "S'ha actualitzat: {name}",
         "generic-created-with-url": "{name} ha estat creat, {url}",
         "generic-updated-with-url": "{name} ha estat actualitzat, {url}",
+        "generic-duplicated": "{name} has been duplicated",
         "generic-deleted": "{name} ha estat eliminat"
     }
 }

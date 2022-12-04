@@ -3,7 +3,7 @@ from abc import abstractmethod, abstractproperty
 from collections.abc import Iterator
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Callable, Optional
+from typing import Callable
 from uuid import UUID
 
 from pydantic import BaseModel
@@ -28,7 +28,7 @@ class ExportedItem:
 
 
 class ABCExporter(BaseService):
-    write_dir_to_zip: Callable[[Path, str, Optional[set[str]]], None] | None
+    write_dir_to_zip: Callable[[Path, str, set[str] | None], None] | None
 
     def __init__(self, db: AllRepositories, group_id: UUID) -> None:
         self.logger = get_logger()

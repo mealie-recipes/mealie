@@ -1,5 +1,4 @@
 from datetime import date
-from typing import Optional
 
 from pydantic import validator
 
@@ -7,16 +6,16 @@ from mealie.schema._mealie import MealieModel
 
 
 class MealIn(MealieModel):
-    slug: Optional[str]
-    name: Optional[str]
-    description: Optional[str]
+    slug: str | None
+    name: str | None
+    description: str | None
 
     class Config:
         orm_mode = True
 
 
 class MealDayIn(MealieModel):
-    date: Optional[date]
+    date: date | None
     meals: list[MealIn]
 
     class Config:
@@ -48,7 +47,7 @@ class MealPlanIn(MealieModel):
 
 class MealPlanOut(MealPlanIn):
     id: int
-    shopping_list: Optional[int]
+    shopping_list: int | None
 
     class Config:
         orm_mode = True
