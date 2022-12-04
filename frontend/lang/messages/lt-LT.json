@@ -75,7 +75,7 @@
     "delete": "Ištrinti",
     "disabled": "Išjungta",
     "download": "Atsisiųsti",
-    "duplicate": "Duplicate",
+    "duplicate": "Sukurti kopiją",
     "edit": "Redaguoti",
     "enabled": "Įjungtas",
     "exception": "Išimtis",
@@ -98,7 +98,7 @@
     "link-copied": "Nuoroda nukopijuota",
     "loading-recipes": "Receptai kraunasi",
     "monday": "Pirmadienis",
-    "name": "Name",
+    "name": "Pavadinimas",
     "new": "Naujas",
     "no": "Ne",
     "no-recipe-found": "No Recipe Found",
@@ -283,8 +283,8 @@
     "description": "Aprašymas",
     "disable-amount": "Išjungti ingredientų kiekius",
     "disable-comments": "Išjungti komentarus",
-    "duplicate": "Duplicate recipe",
-    "duplicate-name": "Name of the new recipe",
+    "duplicate": "Sukurti recepto kopiją",
+    "duplicate-name": "Naujo recepto pavadinimas",
     "edit-scale": "Edit Scale",
     "fat-content": "Riebalai",
     "fiber-content": "Fiber",
@@ -292,7 +292,7 @@
     "ingredient": "Sudedamoji dalis",
     "ingredients": "Sudedamosios dalys",
     "insert-section": "Įdėti skiltį",
-    "instructions": "Instructions",
+    "instructions": "Paruošimo būdas",
     "key-name-required": "Rakto pavadinimas yra privalomas",
     "landscape-view-coming-soon": "Landscape View",
     "milligrams": "miligramų",
@@ -370,9 +370,9 @@
     "max-results": "Maks rezultat.",
     "or": "Arba",
     "results": "Rezultatai",
-    "search": "Paieška",
-    "search-mealie": "Search Mealie (press /)",
-    "search-placeholder": "Search...",
+    "search": "Ieškoti",
+    "search-mealie": "Pradėti ieškoti \"Mealie\" (spauskite /)",
+    "search-placeholder": "Paieška...",
     "tag-filter": "Žymos filtras",
     "search-hint": "Paspauskite '/'"
   },
@@ -499,7 +499,7 @@
     "manage-users": "Tvarkyti vartotojus",
     "migrations": "Migracijos",
     "profile": "Profilis",
-    "search": "Search",
+    "search": "Ieškoti",
     "site-settings": "Nustatymai",
     "tags": "Žymos",
     "toolbox": "Toolbox",
@@ -519,7 +519,7 @@
     "sign-up-links": "Prisijungimo nuorodos",
     "sign-up-token-deleted": "Prisijungimo prieigos raktas ištrintas",
     "sign-up-token-deletion-failed": "Nepavyko ištrinti prisijungimo prieeigos rakto",
-    "welcome-to-mealie": "Welcome to Mealie! To become a user of this instance you are required to have a valid invitation link. If you haven't recieved an invitation you are unable to sign-up. To recieve a link, contact the sites administrator."
+    "welcome-to-mealie": "Sveiki atvykę į Mealie! Norėdami tapti šios sistemos vartotojais privalote turėti galiojančią pakvietimo nuorodą. Jei negavote pakvietimo, negalėsite prisijungti. Norėdami gauti šią nuorodą, susisiekite su svetainės administratoriumi."
   },
   "tag": {
     "tag-created": "Žyma sukurta",
@@ -537,7 +537,7 @@
     "tools": "Tools",
     "on-hand": "On Hand",
     "create-a-tool": "Create a Tool",
-    "tool-name": "Tool Name",
+    "tool-name": "Įrankio pavadinimas",
     "create-new-tool": "Create New Tool",
     "on-hand-checkbox-label": "Show as On Hand (Checked)"
   },
@@ -552,7 +552,7 @@
     "create-link": "Sukurti nuorodą",
     "create-user": "Sukurti vartotoją",
     "current-password": "Dabartinis slaptažodis",
-    "e-mail-must-be-valid": "E-mail must be valid",
+    "e-mail-must-be-valid": "Neteisingas el. paštas",
     "edit-user": "Redaguoti Vartotoją",
     "email": "El. paštas",
     "error-cannot-delete-super-user": "Klaida! Nepavyko ištrinti super vartotojo",
@@ -589,7 +589,7 @@
     "user-update-failed": "Vartotojo naujinimas nepavyko",
     "user-updated": "Vartotojas atnaujintas",
     "user": "Vartotojas",
-    "username": "Naudotojo vardas",
+    "username": "Vartotojo vardas",
     "users-header": "VARTOTOJAI",
     "users": "Vartotojai",
     "webhook-time": "Webhook Time",
@@ -598,13 +598,13 @@
     "you-are-not-allowed-to-delete-this-user": "Jūs negalite ištrinti šio vartotojo",
     "enable-advanced-content": "Enable Advanced Content",
     "enable-advanced-content-description": "Enables advanced features like Recipe Scaling, API keys, Webhooks, and Data Management. Don't worry, you can always change this later",
-    "favorite-recipes": "Mėgstamiausi receptai"
+    "favorite-recipes": "Mėgstamiausi"
   },
   "language-dialog": {
     "translated": "translated",
     "choose-language": "Pasirinkite kalbą",
-    "select-description": "Pasirinkite „Mealie“ vartotojo sąsajos kalbą. Šis nustatymas taikomas tik jums ir kitiems vartotojams jis negalios.",
-    "how-to-contribute-description": "Ar kažkas dar neišverstas, neteisingai išverstas arba sąraše trūksta jūsų kalbos? Paskaitykite {read-the-docs-link} kaip prit to prisidėti!",
+    "select-description": "Pasirinkite „Mealie“ vartotojo sąsajos kalbą. Šis nustatymas taikomas tik jums ir nepakeis kalbos kitiems vartotojams.",
+    "how-to-contribute-description": "Ar kažkas dar neišversta, neteisingai išversta arba sąraše trūksta jūsų kalbos? Paskaitykite {read-the-docs-link} kaip prie to prisidėti!",
     "read-the-docs": "Read the docs"
   },
   "data-pages": {
@@ -654,7 +654,7 @@
   "banner-experimental": {
     "title": "Eksperimentinė funkcija",
     "description": "Šiame puslapyje yra eksperimentinių arba vis dar kuriamų funkcijų. Prašau nepykti už galimą netvarką.",
-    "issue-link-text": "Track our progress here"
+    "issue-link-text": "Stebėkite progresą čia"
   },
   "form": {
     "quantity-label-abbreviated": "Kiekis"
