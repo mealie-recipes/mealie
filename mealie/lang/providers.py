@@ -17,7 +17,7 @@ class Translator(Protocol):
         pass
 
 
-@lru_cache()
+@lru_cache
 def _load_factory() -> i18n.ProviderFactory:
     return i18n.ProviderFactory(
         directory=TRANSLATIONS,

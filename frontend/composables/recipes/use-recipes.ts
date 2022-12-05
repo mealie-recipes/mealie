@@ -19,7 +19,8 @@ export const useLazyRecipes = function () {
     cookbook: string | null = null,
     category: string | null = null,
     tag: string | null = null,
-    tool: string | null = null
+    tool: string | null = null,
+    queryFilter: string | null = null,
   ) {
     const { data } = await api.recipes.getAll(page, perPage, {
       orderBy,
@@ -28,6 +29,7 @@ export const useLazyRecipes = function () {
       categories: category,
       tags: tag,
       tools: tool,
+      queryFilter,
     });
     return data ? data.items : [];
   }

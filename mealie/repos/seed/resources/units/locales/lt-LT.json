@@ -1,13 +1,13 @@
 {
     "teaspoon": {
-        "name": "teaspoon",
+        "name": "arbatinis šaukštelis",
         "description": "",
-        "abbreviation": "tsp"
+        "abbreviation": "a.š."
     },
     "tablespoon": {
-        "name": "tablespoon",
+        "name": "valgomasis šaukštas",
         "description": "",
-        "abbreviation": "tbsp"
+        "abbreviation": "v.š."
     },
     "cup": {
         "name": "cup",
@@ -15,12 +15,12 @@
         "abbreviation": "cup"
     },
     "fluid-ounce": {
-        "name": "fluid ounce",
+        "name": "skysčio uncija",
         "description": "",
         "abbreviation": "fl oz"
     },
     "pint": {
-        "name": "pint",
+        "name": "pinta",
         "description": "",
         "abbreviation": "pt"
     },
@@ -30,47 +30,47 @@
         "abbreviation": "qt"
     },
     "gallon": {
-        "name": "gallon",
+        "name": "galonas",
         "description": "",
         "abbreviation": "gal"
     },
     "milliliter": {
-        "name": "milliliter",
+        "name": "mililitras",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
-        "name": "liter",
+        "name": "litras",
         "description": "",
         "abbreviation": "l"
     },
     "pound": {
-        "name": "pound",
+        "name": "svaras",
         "description": "",
         "abbreviation": "lb"
     },
     "ounce": {
-        "name": "ounce",
+        "name": "uncija",
         "description": "",
         "abbreviation": "oz"
     },
     "gram": {
-        "name": "gram",
+        "name": "gramas",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
-        "name": "kilogram",
+        "name": "kilogramas",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
-        "name": "milligram",
+        "name": "miligramas",
         "description": "",
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "splash",
+        "name": "šlakelis",
         "description": "",
         "abbreviation": ""
     },
@@ -80,22 +80,22 @@
         "abbreviation": ""
     },
     "serving": {
-        "name": "serving",
+        "name": "porcijos",
         "description": "",
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
+        "name": "galva",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
-        "name": "clove",
+        "name": "skiltelė",
         "description": "",
         "abbreviation": ""
     },
     "can": {
-        "name": "can",
+        "name": "skardinė",
         "description": "",
         "abbreviation": ""
     }

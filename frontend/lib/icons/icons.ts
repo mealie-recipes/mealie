@@ -127,6 +127,7 @@ import {
   mdiTimelineText,
   mdiMessageText,
   mdiChefHat,
+  mdiContentDuplicate,
 } from "@mdi/js";
 
 export const icons = {
@@ -178,6 +179,7 @@ export const icons = {
   dotsHorizontal: mdiDotsHorizontal,
   dotsVertical: mdiDotsVertical,
   download: mdiDownload,
+  duplicate: mdiContentDuplicate,
   email: mdiEmail,
   externalLink: mdiLinkVariant,
   eye: mdiEye,

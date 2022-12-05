@@ -2,8 +2,20 @@
   <v-container fluid>
     <BaseDialog v-model="deleteDialog" :title="$t('general.confirm')" color="error" @confirm="deleteUser(deleteTarget)">
       <template #activator> </template>
-      <v-card-text>
+
+      <v-card-text
+        v-if="isUserOwnAccount === true">
+        <v-alert
+        text
+        outlined
+        color="deep-orange"
+        >⚠️ {{ $t("general.confirm-delete-own-admin-account") }}
+        <br/>
+        </v-alert>
         {{ $t("general.confirm-delete-generic") }}
+      </v-card-text>
+      <v-card-text v-else>
+          {{ $t("general.confirm-delete-generic") }}
       </v-card-text>
     </BaseDialog>
 
@@ -51,7 +63,8 @@
             @click.stop="
               deleteDialog = true;
               deleteTarget = item.id;
-            "
+              isUserOwnAccount = item.id === user.id ? true : false;
+              "
           >
             <v-icon>
               {{ $globals.icons.delete }}
@@ -65,7 +78,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, toRefs, useContext, useRouter } from "@nuxtjs/composition-api";
+import { defineComponent, reactive, ref, toRefs, useContext, useRouter, computed } from "@nuxtjs/composition-api";
 import { useAdminApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { useUser, useAllUsers } from "~/composables/use-user";
@@ -76,6 +89,9 @@ export default defineComponent({
   setup() {
     const api = useAdminApi();
     const refUserDialog = ref();
+    const { $auth } = useContext();
+
+    const user = computed(() => $auth.user);
 
     const { i18n } = useContext();
 
@@ -84,6 +100,7 @@ export default defineComponent({
     const state = reactive({
       deleteDialog: false,
       deleteTarget: 0,
+      isUserOwnAccount: false,
       search: "",
     });
 
@@ -130,6 +147,7 @@ export default defineComponent({
       loading,
       refUserDialog,
       users,
+      user,
       handleRowClick,
     };
   },

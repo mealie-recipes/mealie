@@ -26,8 +26,8 @@ def parse_fraction(x):
             raise ValueError
         try:
             return int(frac_split[0]) / int(frac_split[1])
-        except ZeroDivisionError:
-            raise ValueError
+        except ZeroDivisionError as e:
+            raise ValueError from e
 
 
 def parse_amount(ing_str) -> tuple[float, str, str]:

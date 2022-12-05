@@ -1,3 +1,4 @@
+import { Recipe } from "../types/recipe";
 import { ApiRequestInstance, PaginationData } from "~/lib/api/types/non-generated";
 
 export interface CrudAPIInterface {
@@ -20,8 +21,7 @@ export abstract class BaseAPI {
 
 export abstract class BaseCRUDAPI<CreateType, ReadType, UpdateType = CreateType>
   extends BaseAPI
-  implements CrudAPIInterface
-{
+  implements CrudAPIInterface {
   abstract baseRoute: string;
   abstract itemRoute(itemId: string | number): string;
 
@@ -49,5 +49,11 @@ export abstract class BaseCRUDAPI<CreateType, ReadType, UpdateType = CreateType>
 
   async deleteOne(itemId: string | number) {
     return await this.requests.delete<ReadType>(this.itemRoute(itemId));
+  }
+
+  async duplicateOne(itemId: string | number, newName: string | undefined) {
+    return await this.requests.post<Recipe>(`${this.itemRoute(itemId)}/duplicate`, {
+      name: newName,
+    });
   }
 }

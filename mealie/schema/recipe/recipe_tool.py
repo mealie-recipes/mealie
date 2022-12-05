@@ -1,5 +1,3 @@
-import typing
-
 from pydantic import UUID4
 
 from mealie.schema._mealie import MealieModel
@@ -23,7 +21,7 @@ class RecipeToolOut(RecipeToolCreate):
 
 
 class RecipeToolResponse(RecipeToolOut):
-    recipes: typing.List["Recipe"] = []
+    recipes: list["Recipe"] = []
 
     class Config:
         orm_mode = True

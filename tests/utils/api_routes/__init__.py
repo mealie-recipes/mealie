@@ -349,6 +349,11 @@ def recipes_slug_comments(slug):
     return f"{prefix}/recipes/{slug}/comments"
 
 
+def recipes_slug_duplicate(slug):
+    """`/api/recipes/{slug}/duplicate`"""
+    return f"{prefix}/recipes/{slug}/duplicate"
+
+
 def recipes_slug_exports(slug):
     """`/api/recipes/{slug}/exports`"""
     return f"{prefix}/recipes/{slug}/exports"

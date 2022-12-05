@@ -65,7 +65,7 @@ class RecipeTagResponse(RecipeCategoryResponse):
     pass
 
 
-from mealie.schema.recipe.recipe import RecipeSummary
+from mealie.schema.recipe.recipe import RecipeSummary  # noqa: E402
 
 RecipeCategoryResponse.update_forward_refs()
 RecipeTagResponse.update_forward_refs()

@@ -17,6 +17,7 @@
         "generic-updated": "{name} uppdaterades",
         "generic-created-with-url": "{name} har skapats, {url}",
         "generic-updated-with-url": "{name} har uppdaterats, {url}",
+        "generic-duplicated": "{name} has been duplicated",
         "generic-deleted": "{name} har tagits bort"
     }
 }
