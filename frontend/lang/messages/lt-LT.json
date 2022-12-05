@@ -9,7 +9,7 @@
     "database-url": "Duomenų bazės nuoroda",
     "default-group": "Numatytoji grupė",
     "demo": "Demo",
-    "demo-status": "Demo Status",
+    "demo-status": "Demo ver. statusas",
     "development": "Development",
     "docs": "Dokumentacija",
     "download-log": "Atsisiųsti žurnalą",
@@ -32,7 +32,7 @@
     "pdf": "PDF",
     "recipe": "Receptas",
     "show-assets": "Show Assets",
-    "error-submitting-form": "Error Submitting Form"
+    "error-submitting-form": "Klaida pateikiant formą"
   },
   "category": {
     "categories": "Kategorijos",
@@ -49,7 +49,7 @@
     "category": "Kategorija"
   },
   "events": {
-    "apprise-url": "Apprise URL",
+    "apprise-url": "\"Apprise\" nuoroda",
     "database": "Duomenų bazė",
     "delete-event": "Ištrinti įvykį",
     "new-notification-form-description": "Mealie uses the Apprise library to generate notifications. They offer many options for services to use for notifications. Refer to their wiki for a comprehensive guide on how to create the URL for your service. If available, selecting the type of your notification may include extra features.",
