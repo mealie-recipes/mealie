@@ -146,11 +146,10 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, useAsync, useContext } from "@nuxtjs/composition-api";
+import { computed, defineComponent, ref, useContext } from "@nuxtjs/composition-api";
 import { whenever } from "@vueuse/core";
 import RecipeTimelineContextMenu from "./RecipeTimelineContextMenu.vue";
 import { alert } from "~/composables/use-toast";
-import { useAsyncKey } from "~/composables/use-utils";
 import { useUserApi } from "~/composables/api";
 import { RecipeTimelineEventOut, RecipeTimelineEventUpdate } from "~/lib/api/types/recipe"
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
@@ -215,7 +214,7 @@ export default defineComponent({
       };
     };
 
-    function updateTimelineEvent(index: number) {
+    async function updateTimelineEvent(index: number) {
       const event = timelineEvents.value[index]
       const payload: RecipeTimelineEventUpdate = {
         subject: event.subject,
@@ -223,7 +222,6 @@ export default defineComponent({
         image: event.image,
       };
 
-      useAsync(async () => {
         const { response } = await api.recipes.updateTimelineEvent(props.slug, event.id, payload);
         if (response?.status !== 200) {
           alert.error(i18n.t("events.something-went-wrong") as string);
@@ -231,21 +229,18 @@ export default defineComponent({
         }
 
         alert.success(i18n.t("events.event-updated") as string);
-      }, useAsyncKey());
-    }
+      };
 
-    function deleteTimelineEvent(index: number) {
-      useAsync(async () => {
-        const { response } = await api.recipes.deleteTimelineEvent(props.slug, timelineEvents.value[index].id);
-        if (response?.status !== 200) {
-          alert.error(i18n.t("events.something-went-wrong") as string);
-          return;
-        }
+    async function deleteTimelineEvent(index: number) {
+      const { response } = await api.recipes.deleteTimelineEvent(props.slug, timelineEvents.value[index].id);
+      if (response?.status !== 200) {
+        alert.error(i18n.t("events.something-went-wrong") as string);
+        return;
+      }
 
-        timelineEvents.value.splice(index, 1);
-        alert.success(i18n.t("events.event-deleted") as string);
-      }, useAsyncKey());
-    }
+      timelineEvents.value.splice(index, 1);
+      alert.success(i18n.t("events.event-deleted") as string);
+    };
 
     async function refreshTimelineEvents() {
       // TODO: implement infinite scroll and paginate instead of loading all events at once
