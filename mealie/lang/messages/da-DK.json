@@ -17,7 +17,7 @@
         "generic-updated": "{name} blev opdateret",
         "generic-created-with-url": "{name} er oprettet, {url}",
         "generic-updated-with-url": "{name} er blevet opdateret, {url}",
-        "generic-duplicated": "{name} has been duplicated",
+        "generic-duplicated": "{name} er blevet dublikeret",
         "generic-deleted": "{name} er blevet slettet"
     }
 }
