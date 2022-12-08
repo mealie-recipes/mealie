@@ -680,19 +680,19 @@
       "selection-mode-desc": "Način izbiranje je glavni način, ki se ga uporablja za vnos podatkov:",
       "selection-mode-steps": {
         "draw": "Nariši pravokotnik na tekstu, ki ga želiš izbrati.",
-        "click": "Klikni kamorkoli na desnem polju in potem klikni nazaj na pravokotnik nad sliko.",
+        "click": "Kliknite kamorkoli na desnem polju in potem kliknite nazaj na pravokotnik nad sliko.",
         "result": "Izbrani test bo prikazan znotraj prejšnjega izbranega polja."
       },
       "pan-and-zoom-mode": "Način premikanja in povečave",
-      "pan-and-zoom-desc": "Select pan and zoom by clicking the icon. This mode allows to zoom inside the image and move around to make using big images easier.",
-      "split-text-mode": "Split Text modes",
+      "pan-and-zoom-desc": "Izberite premikanje in povečavo s klikanjem na ikono. Ta način omogoča povečanje slike in premikanje naokrog, kar olajša delo z velikimi slikami.",
+      "split-text-mode": "Načini razdelitve teksta",
       "split-modes": {
-        "line-mode": "Line mode (default)",
-        "line-mode-desc": "In line mode, the text will be propagated by keeping the original line breaks. This mode is useful when using bulk add on a list of ingredients where one ingredient is one line.",
-        "block-mode": "Block mode",
-        "block-mode-desc": "In block mode, the text will be split in blocks. This mode is useful when bulk adding instructions that are usually written in paragraphs.",
-        "flat-mode": "Flat mode",
-        "flat-mode-desc": "In flat mode, the text will be added to the selected recipe field with no line breaks."
+        "line-mode": "Vrstični način (privzeto)",
+        "line-mode-desc": "V vrstičnem načinu bo tekst prilagojen z ohranitvijo prvotnih prelomov vrstic. Ta način je uporaben, ko uporabljaš masovno dodajanje na seznam sestavin, kjer je vsaka sestavina v svoji vrstici.",
+        "block-mode": "Blokovni način",
+        "block-mode-desc": "V blokovnem načinu bo tekst razdeljen na bloke. Ta način je uporaben ko masovno dodajate navodila, ki so običajno napisana v več paragrafih.",
+        "flat-mode": "Sploščeni način",
+        "flat-mode-desc": "V sploščenem načinu, bo tekst dodan na izbrano polje recepta, brez novih vrstic."
       }
     }
   }
