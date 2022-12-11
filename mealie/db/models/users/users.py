@@ -38,6 +38,7 @@ class User(SqlAlchemyBase, BaseMixins):
     cache_key = Column(String, default="1234")
     login_attemps = Column(Integer, default=0)
     locked_at = Column(DateTime, default=None)
+    no_password_login = Column(Boolean, default=False)
 
     # Group Permissions
     can_manage = Column(Boolean, default=False)
@@ -71,7 +72,7 @@ class User(SqlAlchemyBase, BaseMixins):
         }
 
     @auto_init()
-    def __init__(self, session, full_name, password, group: str = None, **kwargs) -> None:
+    def __init__(self, session, full_name, password, group: str = None, no_password_login = False, **kwargs) -> None:
         if group is None:
             settings = get_app_settings()
             group = settings.DEFAULT_GROUP
@@ -83,6 +84,7 @@ class User(SqlAlchemyBase, BaseMixins):
         self.favorite_recipes = []
 
         self.password = password
+        self.no_password_login = no_password_login
 
         if self.username is None:
             self.username = full_name

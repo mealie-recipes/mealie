@@ -129,7 +129,7 @@ export default defineComponent({
     const toggleDark = useToggleDarkMode();
     const isDark = useDark();
 
-    const { $auth } = useContext();
+    const { $auth, $config } = useContext();
 
     const form = reactive({
       email: "",
@@ -145,25 +145,15 @@ export default defineComponent({
 
     const allowSignup = computed(() => appInfo.value?.allowSignup || false);
 
-    // TODO
     const allowOidc = computed(() =>  appInfo.value?.enableOidc || false);
 
-    console.log("here2739");
-    console.log($auth.loggedIn);
-
-
     async function authenticate_oidc() {
-      console.log("bbbb");
       await $auth.loginWith("oidc");
-      $auth.setUser({
-        ...$auth.user,
-        id: "000"
-      });
-      console.log("aaaaa");
+    }
 
-      console.log($auth.user);
-      console.log("done logging in");
-      console.log("alkjsdflkaj");
+    // if configured, always skip the login screen
+    if ($config.oidcAlwaysRedirect) {
+      authenticate_oidc();
     }
 
     async function authenticate() {

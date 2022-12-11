@@ -118,7 +118,7 @@ def authenticate_user(session, email: str, password: str) -> PrivateUser | bool:
         user = db.users.get_one(email, "username", any_case=True)
     if settings.LDAP_AUTH_ENABLED and (not user or user.password == "LDAP"):
         return user_from_ldap(db, email, password)
-    if not user:
+    if not user or user.no_password_login:
         # To prevent user enumeration we perform the verify_password computation to ensure
         # server side time is relatively constant and not vulnerable to timing attacks.
         verify_password("abc123cba321", "$2b$12$JdHtJOlkPFwyxdjdygEzPOtYmdQF5/R5tHxw5Tq8pxjubyLqdIX5i")

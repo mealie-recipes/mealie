@@ -89,6 +89,7 @@ async def get_current_user(request: Request, token: str = Depends(oauth2_scheme)
                     "full_name": claims["name"],
                     "email": claims["email"],
                     "admin": is_admin, 
+                    "no_password_login": True
                 },
             )
 

@@ -121,6 +121,7 @@ export default {
       callback: "/login",
       home: "/",
     },
+    rewriteRedirects: false,
     // Options
     strategies: {
       local: {
@@ -259,6 +260,7 @@ export default {
     axios: {
       browserBaseURL: process.env.SUB_PATH || "",
     },
+    oidcAlwaysRedirect: process.env.OIDC_ALWAYS_REDIRECT,
     // ==============================================
     // Theme Runtime Config
     useDark: process.env.THEME_USE_DARK || false,
