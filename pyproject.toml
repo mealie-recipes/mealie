@@ -42,8 +42,6 @@ tzdata = "^2021.5"
 uvicorn = {extras = ["standard"], version = "^0.13.0"}
 pre-commit = "^2.20.0"
 authlib = "^1.2.0"
-httpx = "^0.23.1"
-itsdangerous = "^2.1.2"
 
 [tool.poetry.dev-dependencies]
 black = "^21.12b0"
@@ -63,8 +61,6 @@ types-python-dateutil = "^2.8.18"
 types-python-slugify = "^5.0.3"
 types-requests = "^2.27.12"
 types-urllib3 = "^1.26.11"
-
-[tool.poetry.group.dev.dependencies]
 
 [build-system]
 build-backend = "poetry.core.masonry.api"
