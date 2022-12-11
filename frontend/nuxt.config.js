@@ -145,6 +145,14 @@ export default {
           user: { url: "api/users/self", method: "get" },
         },
       },
+      oidc: {
+        scheme: "openIDConnect",
+        clientId: process.env.OIDC_CLIENT_ID,
+        endpoints: {
+          configuration: process.env.OIDC_CONFIGURATION_URL,
+        },
+        scope: ['openid', 'profile', 'email']
+      }
     },
   },
 

@@ -65,4 +65,8 @@ export class UserApi extends BaseCRUDAPI<UserIn, UserOut, UserBase> {
   async resetPassword(payload: ResetPassword) {
     return await this.requests.post(routes.passwordReset, payload);
   }
+
+  async getSelf() {
+    return await this.requests.get(routes.usersSelf);
+  }
 }

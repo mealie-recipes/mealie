@@ -309,6 +309,15 @@ export default defineComponent({
           color: appConfig.value.ldapReady ? goodColor : warningColor,
           icon: appConfig.value.ldapReady ? goodIcon : warningIcon,
         },
+        {
+          text: "OIDC Ready",
+          status: appConfig.value.oidcReady,
+          errorText:
+            "Not all OIDC Values are configured. This can be ignored if you are not using OIDC Authentication.",
+          successText: "Required OIDC variables are all set.",
+          color: appConfig.value.odicReady ? goodColor : warningColor,
+          icon: appConfig.value.oidcReady ? goodIcon : warningIcon,
+        },
       ];
 
       return data;

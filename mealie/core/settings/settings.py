@@ -132,6 +132,22 @@ class AppSettings(BaseSettings):
         not_none = None not in required
         return self.LDAP_AUTH_ENABLED and not_none
 
+    ENABLE_OIDC: bool = False
+    OIDC_JWKS_URL: NoneStr
+    ALLOW_OIDC_SIGNUP: bool = True
+    OIDC_ADMIN_GROUP: NoneStr
+    
+    @property
+    def OIDC_READY(self) -> bool:
+        """Validates LDAP settings are all set"""
+        required = {
+            self.OIDC_JWKS_URL,
+        }
+        not_none = None not in required
+
+        return self.ENABLE_OIDC and not_none
+
+
     # ===============================================
     # Testing Config
 

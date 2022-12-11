@@ -59,6 +59,13 @@
             </div>
           </v-card-actions>
         </v-form>
+        <v-card-actions v-if="allowOidc" class="justify-center pt-0">
+          <div class="max-button">
+            <v-btn @click.native="authenticate_oidc" color="primary" large rounded class="rounded-xl" block>
+              Login with OIDC
+            </v-btn>
+          </div>
+        </v-card-actions>
       </v-card-text>
       <v-card-actions>
         <v-btn v-if="allowSignup" text to="/register"> {{ $t("user.register") }} </v-btn>
@@ -138,6 +145,27 @@ export default defineComponent({
 
     const allowSignup = computed(() => appInfo.value?.allowSignup || false);
 
+    // TODO
+    const allowOidc = computed(() =>  appInfo.value?.enableOidc || false);
+
+    console.log("here2739");
+    console.log($auth.loggedIn);
+
+
+    async function authenticate_oidc() {
+      console.log("bbbb");
+      await $auth.loginWith("oidc");
+      $auth.setUser({
+        ...$auth.user,
+        id: "000"
+      });
+      console.log("aaaaa");
+
+      console.log($auth.user);
+      console.log("done logging in");
+      console.log("alkjsdflkaj");
+    }
+
     async function authenticate() {
       if (form.email.length === 0 || form.password.length === 0) {
         alert.error("Please enter your email and password");
@@ -175,7 +203,9 @@ export default defineComponent({
       form,
       loggingIn,
       allowSignup,
+      allowOidc,
       authenticate,
+      authenticate_oidc,
       toggleDark,
       passwordIcon,
       inputType,

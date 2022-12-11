@@ -10,7 +10,6 @@
 <script lang="ts">
 import { defineComponent, toRefs, reactive, useContext, computed } from "@nuxtjs/composition-api";
 import { UserOut } from "~/lib/api/types/user";
-
 export default defineComponent({
   props: {
     userId: {
@@ -27,19 +26,27 @@ export default defineComponent({
     },
   },
   setup(props) {
+    /*
+        const { fetch, fetchState } = useFetch(async () => {
+          const res = await api.users.getSelf();
+          const user = res.data;
+
+          console.log(user);
+          const key = user?.cacheKey ?? "";
+          asdf.value = `/api/media/users/${user.id}/profile.webp?cacheKey=${key}`;
+        });
+    */
+
     const state = reactive({
       error: false,
     });
-
     const { $auth } = useContext();
-
     const imageURL = computed(() => {
       // TODO Setup correct user type for $auth.user
       const user = $auth.user as unknown as UserOut | null;
       const key = user?.cacheKey ?? "";
       return `/api/media/users/${props.userId}/profile.webp?cacheKey=${key}`;
     });
-
     return {
       imageURL,
       ...toRefs(state),

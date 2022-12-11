@@ -3,8 +3,10 @@ import tempfile
 from collections.abc import AsyncGenerator, Callable, Generator
 from pathlib import Path
 from uuid import uuid4
+import requests
+from authlib.jose import jwt, JsonWebToken, JsonWebKey
 
-from fastapi import Depends, HTTPException, status
+from fastapi import Depends, HTTPException, status, Request
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from sqlalchemy.orm.session import Session
@@ -52,43 +54,78 @@ async def is_logged_in(token: str = Depends(oauth2_scheme_soft_fail), session=De
     except Exception:
         return False
 
+def get_jwks():
+    with requests.get(settings.OIDC_JWKS_URL) as response:
+        response.raise_for_status()
+        return JsonWebKey.import_key_set(response.json())
 
-async def get_current_user(token: str = Depends(oauth2_scheme), session=Depends(generate_session)) -> PrivateUser:
+
+async def get_current_user(request: Request, token: str = Depends(oauth2_scheme), session=Depends(generate_session), jwks = Depends(get_jwks)) -> PrivateUser:
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
-    try:
-        payload = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])
-        user_id: str = payload.get("sub")
-        long_token: str = payload.get("long_token")
+    if request.cookies["auth.strategy"] == "oidc":
+        claims = JsonWebToken(["RS256"]).decode(
+            s=request.cookies['auth._id_token.oidc'],
+            key=jwks,
+        )
 
-        if long_token is not None:
-            return validate_long_live_token(session, token, payload.get("id"))
 
-        if user_id is None:
+        repos = get_repositories(session)
+        user = repos.users.get_one(claims["email"], "email", any_case=True)
+
+        if settings.ALLOW_OIDC_SIGNUP and user is None:
+            is_admin = settings.OIDC_ADMIN_GROUP in claims["groups"]
+            print(is_admin)
+            print(settings.OIDC_ADMIN_GROUP)
+            print(claims["groups"])
+
+            user = repos.users.create(
+                {
+                    "username": claims["preferred_username"],
+                    "password": "ODIC",
+                    "full_name": claims["name"],
+                    "email": claims["email"],
+                    "admin": is_admin, 
+                },
+            )
+
+        return user
+    else:
+        try:
+            payload = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])
+            user_id: str = payload.get("sub")
+            long_token: str = payload.get("long_token")
+
+            if long_token is not None:
+                return validate_long_live_token(session, token, payload.get("id"))
+
+            if user_id is None:
+                raise credentials_exception
+
+            token_data = TokenData(user_id=user_id)
+        except JWTError as e:
+            raise credentials_exception from e
+
+        repos = get_repositories(session)
+
+        user = repos.users.get_one(token_data.user_id, "id", any_case=False)
+
+        if user is None:
             raise credentials_exception
-
-        token_data = TokenData(user_id=user_id)
-    except JWTError as e:
-        raise credentials_exception from e
-
-    repos = get_repositories(session)
-
-    user = repos.users.get_one(token_data.user_id, "id", any_case=False)
-
-    if user is None:
-        raise credentials_exception
-    return user
+        return user
 
 
-async def get_integration_id(token: str = Depends(oauth2_scheme)) -> str:
+async def get_integration_id(request: Request, token: str = Depends(oauth2_scheme)) -> str:
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
+    if request.cookies["auth.strategy"] == "oidc":
+        return DEFAULT_INTEGRATION_ID
 
     try:
         decoded_token = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])
