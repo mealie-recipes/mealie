@@ -3,10 +3,10 @@ import tempfile
 from collections.abc import AsyncGenerator, Callable, Generator
 from pathlib import Path
 from uuid import uuid4
-import requests
-from authlib.jose import jwt, JsonWebToken, JsonWebKey
 
-from fastapi import Depends, HTTPException, status, Request
+import requests
+from authlib.jose import JsonWebKey, JsonWebToken, jwt
+from fastapi import Depends, HTTPException, Request, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from sqlalchemy.orm.session import Session
@@ -54,13 +54,16 @@ async def is_logged_in(token: str = Depends(oauth2_scheme_soft_fail), session=De
     except Exception:
         return False
 
+
 def get_jwks():
     with requests.get(settings.OIDC_JWKS_URL) as response:
         response.raise_for_status()
         return JsonWebKey.import_key_set(response.json())
 
 
-async def get_current_user(request: Request, token: str = Depends(oauth2_scheme), session=Depends(generate_session), jwks = Depends(get_jwks)) -> PrivateUser:
+async def get_current_user(
+    request: Request, token: str = Depends(oauth2_scheme), session=Depends(generate_session), jwks=Depends(get_jwks)
+) -> PrivateUser:
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
@@ -68,19 +71,15 @@ async def get_current_user(request: Request, token: str = Depends(oauth2_scheme)
     )
     if request.cookies["auth.strategy"] == "oidc":
         claims = JsonWebToken(["RS256"]).decode(
-            s=request.cookies['auth._id_token.oidc'],
+            s=request.cookies["auth._id_token.oidc"],
             key=jwks,
         )
-
 
         repos = get_repositories(session)
         user = repos.users.get_one(claims["email"], "email", any_case=True)
 
         if settings.ALLOW_OIDC_SIGNUP and user is None:
             is_admin = settings.OIDC_ADMIN_GROUP in claims["groups"]
-            print(is_admin)
-            print(settings.OIDC_ADMIN_GROUP)
-            print(claims["groups"])
 
             user = repos.users.create(
                 {
@@ -88,8 +87,8 @@ async def get_current_user(request: Request, token: str = Depends(oauth2_scheme)
                     "password": "ODIC",
                     "full_name": claims["name"],
                     "email": claims["email"],
-                    "admin": is_admin, 
-                    "no_password_login": True
+                    "admin": is_admin,
+                    "no_password_login": True,
                 },
             )
 

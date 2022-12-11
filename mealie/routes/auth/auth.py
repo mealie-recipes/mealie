@@ -1,14 +1,10 @@
-from datetime import timedelta, datetime
+from datetime import timedelta
 
 from fastapi import APIRouter, Depends, Form, status
 from fastapi.exceptions import HTTPException
-from fastapi.security import OAuth2PasswordRequestForm, OpenIdConnect
+from fastapi.security import OAuth2PasswordRequestForm
 from pydantic import BaseModel
 from sqlalchemy.orm.session import Session
-from starlette.requests import Request
-
-from authlib.jose import jwt, JsonWebToken, JsonWebKey
-import requests
 
 from mealie.core import security
 from mealie.core.dependencies import get_current_user

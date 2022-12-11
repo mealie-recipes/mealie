@@ -39,6 +39,7 @@ export default defineComponent({
       const key = user?.cacheKey ?? "";
       return `/api/media/users/${props.userId}/profile.webp?cacheKey=${key}`;
     });
+
     return {
       imageURL,
       ...toRefs(state),

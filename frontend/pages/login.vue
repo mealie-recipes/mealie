@@ -61,7 +61,7 @@
         </v-form>
         <v-card-actions v-if="allowOidc" class="justify-center pt-0">
           <div class="max-button">
-            <v-btn @click.native="authenticate_oidc" color="primary" large rounded class="rounded-xl" block>
+            <v-btn color="primary" large rounded class="rounded-xl" block @click.native="authenticate_oidc">
               Login with OIDC
             </v-btn>
           </div>
