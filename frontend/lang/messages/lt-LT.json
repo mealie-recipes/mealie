@@ -52,7 +52,7 @@
     "apprise-url": "\"Apprise\" nuoroda",
     "database": "Duomenų bazė",
     "delete-event": "Ištrinti įvykį",
-    "event-delete-confirmation": "Ar tikrai norite ištrinti šį įvykį?",
+    "event-delete-confirmation": "Ar tikrai norite pašalinti šį įvykį?",
     "event-deleted": "Įvykis pašalintas",
     "event-updated": "Įvykis atnaujintas",
     "new-notification-form-description": "Pranešimams generuoti \"Mealie\" naudoja \"Apprise\" pranešimų biblioteką. Ji turi daugybę pasirinkimų, kurias galima naudoti pranešimams siųsti. Išsamų vadovą, kaip sukurti savo paslaugos prieigos URL, rasite jų wiki puslapyje. Jei prieinama, pasirinkus pranešimo tipą gali būti prieinamų papildomų funkcijų.",
@@ -283,7 +283,7 @@
     "carbohydrate-content": "Angliavandeniai",
     "categories": "Kategorijos",
     "comment-action": "Komentuoti",
-    "comment": "Comment",
+    "comment": "Komentaras",
     "comments": "Komentarai",
     "delete-confirmation": "Ar tikrai pašalinti šį receptą?",
     "delete-recipe": "Ištrinti receptą",
@@ -370,11 +370,11 @@
     "public-link": "Vieša nuoroda",
     "edit-timeline-event": "Redaguoti laiko juostos įvykį",
     "timeline": "Laiko juosta",
-    "timeline-is-empty": "Nothing on the timeline yet. Try making this recipe!",
+    "timeline-is-empty": "Laiko juosta tuščia. Pabandykit pagaminti šį receptą!",
     "open-timeline": "Atidaryti laiko juostą",
     "made-this": "Aš tai gaminau",
-    "how-did-it-turn-out": "How did it turn out?",
-    "user-made-this": "{user} made this"
+    "how-did-it-turn-out": "Kaip tai pavyko?",
+    "user-made-this": "{user} gamino šį patiekalą"
   },
   "search": {
     "advanced-search": "Išplėstinė paieška",
