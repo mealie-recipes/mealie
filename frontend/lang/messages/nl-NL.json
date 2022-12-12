@@ -371,10 +371,10 @@
     "edit-timeline-event": "Tijdlijn gebeurtenis bewerken",
     "timeline": "Tijdlijn",
     "timeline-is-empty": "Nog niets op de tijdlijn. Probeer dit recept te maken!",
-    "open-timeline": "Open tijdlijn",
-    "made-this": "Ik heb dit gemaakt",
-    "how-did-it-turn-out": "Hoe is het afgelopen?",
-    "user-made-this": "{user} heeft dit gemaakt"
+    "open-timeline": "Start tijdlijn",
+    "made-this": "Ik heb gekookt",
+    "how-did-it-turn-out": "Hoe was je gerecht?",
+    "user-made-this": "{user} heeft dit gekookt"
   },
   "search": {
     "advanced-search": "Geavanceerd Zoeken",
