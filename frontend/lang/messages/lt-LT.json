@@ -15,7 +15,7 @@
     "download-log": "Atsisiųsti žurnalą",
     "download-recipe-json": "Paskutinis nuskaitytas \"JSON\"",
     "github": "Github",
-    "log-lines": "Log Lines",
+    "log-lines": "Žurnalo eilutės",
     "not-demo": "Ne demonstracinė",
     "portfolio": "Portfolio",
     "production": "Production",
@@ -92,7 +92,7 @@
     "friday": "Penktadienis",
     "general": "General",
     "get": "Gauti",
-    "home": "Home",
+    "home": "Namai",
     "image": "Paveikslėlis",
     "image-upload-failed": "Paveikslėlio įkelti nepavyko",
     "import": "Importuoti",
@@ -313,12 +313,12 @@
     "perform-time": "Gaminimo laikas",
     "prep-time": "Pasiruošimo laikas",
     "protein-content": "Baltymai",
-    "public-recipe": "Public Recipe",
+    "public-recipe": "Viešai matomas receptas",
     "recipe-created": "Receptas sukurtas",
     "recipe-creation-failed": "Nepavyko sukurti recepto",
     "recipe-deleted": "Receptas ištrintas",
-    "recipe-image": "Recipe Image",
-    "recipe-image-updated": "Recipe image updated",
+    "recipe-image": "Recepto paveikslėlis",
+    "recipe-image-updated": "Recepto paveikslėlis atnaujintas",
     "recipe-name": "Recepto pavadinimas",
     "recipe-settings": "Recepto nustatymai",
     "recipe-update-failed": "Nepavyko atnaujinti recepto",
@@ -328,7 +328,7 @@
     "save-recipe-before-use": "Prieš naudodami išsaugokite receptą",
     "section-title": "Skilties pavadinimas",
     "servings": "Porcijos",
-    "share-recipe-message": "I wanted to share my {0} recipe with you.",
+    "share-recipe-message": "Noriu pasidalinti savo receptu {0} su jumis.",
     "show-nutrition-values": "Rodyti maistinę vertę",
     "sodium-content": "Natris",
     "step-index": "{step} žingsnis",
@@ -585,7 +585,7 @@
     "password-reset-failed": "Nepavyko atkurti slaptažodžio",
     "password-updated": "Slaptažodis atnaujintas",
     "password": "Slaptažodis",
-    "password-strength": "Password is {strength}",
+    "password-strength": "Slaptažodžio stiprumas {strength}",
     "register": "Registruotis",
     "reset-password": "Atkurti slaptažodį",
     "sign-in": "Prisijungti",
@@ -615,11 +615,11 @@
     "favorite-recipes": "Mėgstamiausi"
   },
   "language-dialog": {
-    "translated": "translated",
+    "translated": "išversta",
     "choose-language": "Pasirinkite kalbą",
     "select-description": "Pasirinkite „Mealie“ vartotojo sąsajos kalbą. Šis nustatymas taikomas tik jums ir nepakeis kalbos kitiems vartotojams.",
     "how-to-contribute-description": "Ar kažkas dar neišversta, neteisingai išversta arba sąraše trūksta jūsų kalbos? Paskaitykite {read-the-docs-link} kaip prie to prisidėti!",
-    "read-the-docs": "Read the docs"
+    "read-the-docs": "Skaityti dokumentus"
   },
   "data-pages": {
     "seed-data": "Seed Data",
@@ -656,7 +656,7 @@
     "export": "Eksportuoti",
     "file-name": "Failo pavadinimas",
     "size": "Dydis",
-    "link-expires": "Link Expires"
+    "link-expires": "Nuorodos galiojimas baigiasi"
   },
   "recipe-share": {
     "expiration-date": "Galiojimo pabaigos data",
