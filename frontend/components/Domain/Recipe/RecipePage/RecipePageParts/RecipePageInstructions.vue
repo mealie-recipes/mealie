@@ -233,6 +233,7 @@ import { parseIngredientText } from "~/composables/recipes";
 import { uuid4, detectServerBaseUrl } from "~/composables/use-utils";
 import { useUserApi, useStaticRoutes } from "~/composables/api";
 import { usePageState } from "~/composables/recipe-page/shared-state";
+import { useExtractIngredientReferences } from "~/composables/recipe-page/use-extract-ingredient-references";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import DropZone from "~/components/global/DropZone.vue";
 
@@ -427,67 +428,12 @@ export default defineComponent({
     }
 
     function autoSetReferences() {
-      const availableIngredients = props.recipe.recipeIngredient
-        .filter((ingredient) => ingredient.referenceId !== undefined)
-        .filter((ingredient) => !activeRefs.value.includes(ingredient.referenceId));
-
-      const allMatchedIngredientIds = activeText.value
-        .toLowerCase()
-        .split(/\s/)
-        .map(normalize)
-        .filter((word) => !isBlackListedWord(word))
-        .flatMap((word) => availableIngredients.filter((ingredient) => ingredientMatchesWord(ingredient, word)))
-        .map((ingredient) => ingredient.referenceId);
-      //  deduplicate
-      new Set<string>(allMatchedIngredientIds).forEach((ingredient) => activeRefs.value.push(ingredient));
-
-      function normalize(word: string): string {
-        let normalizing = word;
-        normalizing = removeTrailingPunctuation(normalizing);
-        normalizing = removeStartingPunctuation(normalizing);
-        return normalizing;
-
-        function removeTrailingPunctuation(word: string): string {
-          const punctuationAtEnding = /\p{P}+$/u;
-          return word.replace(punctuationAtEnding, "");
-        }
-
-        function removeStartingPunctuation(word: string): string {
-          const punctuationAtBeginning = /^\p{P}+/u;
-          return word.replace(punctuationAtBeginning, "");
-        }
-      }
-
-      function isBlackListedWord(word: string) {
-        // Ignore matching blacklisted words when auto-linking - This is kind of a cludgey implementation. We're blacklisting common words but
-        // other common phrases trigger false positives and I'm not sure how else to approach this. In the future I maybe look at looking directly
-        // at the food variable and seeing if the food is in the instructions, but I still need to support those who don't want to provide the value
-        // and only use the "notes" feature.
-        const blackListedText: string[] = [
-          "and",
-          "or",
-          "the",
-          "a",
-          "an",
-          "of",
-          "in",
-          "on",
-          "to",
-          "for",
-          "by",
-          "with",
-          "without",
-          "",
-          " ",
-        ];
-        const blackListedRegexMatch = /\d/gm; // Match Any Number
-        return blackListedText.includes(word) || word.match(blackListedRegexMatch);
-      }
-
-      function ingredientMatchesWord(ingredient: RecipeIngredient, word: string) {
-        const searchText = parseIngredientText(ingredient, props.recipe.settings.disableAmount);
-        return searchText.toLowerCase().includes(" " + word);
-      }
+      useExtractIngredientReferences(
+        props.recipe.recipeIngredient,
+        activeRefs.value,
+        activeText.value,
+        props.recipe.settings.disableAmount
+      ).forEach((ingredient: string) => activeRefs.value.push(ingredient));
     }
 
     const ingredientLookup = computed(() => {
