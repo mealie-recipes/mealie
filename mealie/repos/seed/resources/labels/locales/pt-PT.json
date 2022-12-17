@@ -1,65 +1,65 @@
 [
     {
-        "name": "Produce"
+        "name": "Produto"
     },
     {
-        "name": "Grains"
+        "name": "Grãos"
     },
     {
-        "name": "Fruits"
+        "name": "Frutas"
     },
     {
-        "name": "Vegetables"
+        "name": "Vegetais"
     },
     {
-        "name": "Meat"
+        "name": "Carne"
     },
     {
-        "name": "Seafood"
+        "name": "Marisco"
     },
     {
-        "name": "Beverages"
+        "name": "Bebidas"
     },
     {
-        "name": "Baked Goods"
+        "name": "Pães e Bolos"
     },
     {
-        "name": "Canned Goods"
+        "name": "Enlatados"
     },
     {
-        "name": "Condiments"
+        "name": "Condimentos"
     },
     {
-        "name": "Confectionary"
+        "name": "Doçaria"
     },
     {
-        "name": "Dairy Products"
+        "name": "Lacticínios"
     },
     {
-        "name": "Frozen Foods"
+        "name": "Congelados"
     },
     {
-        "name": "Health Foods"
+        "name": "Alimentos para Saúde"
     },
     {
-        "name": "Household"
+        "name": "Casa"
     },
     {
-        "name": "Meat Products"
+        "name": "Produtos à base de carne"
     },
     {
-        "name": "Snacks"
+        "name": "Petiscos"
     },
     {
-        "name": "Spices"
+        "name": "Especiarias"
     },
     {
-        "name": "Sweets"
+        "name": "Doces"
     },
     {
-        "name": "Alcohol"
+        "name": "Bebidas Alcoólicas"
     },
     {
-        "name": "Other"
+        "name": "Outros"
     }
 ]
