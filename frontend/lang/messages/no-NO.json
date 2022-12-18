@@ -52,6 +52,9 @@
     "apprise-url": "Bruk URL",
     "database": "Database",
     "delete-event": "Slett hendelse",
+    "event-delete-confirmation": "Er du sikker på at du ønsker å slette denne hendelsen?",
+    "event-deleted": "Hendelse slettet",
+    "event-updated": "Hendelse oppdatert",
     "new-notification-form-description": "Mealie bruker Apprise biblioteket til å generere varsler. De tilbyr mange alternativer for varsler. Se wikien for en omfattende guide om hvordan du oppretter URL-adressen for tjenesten din. Hvis tilgjengelig, kan valg av type varsel inkludere ekstra funksjoner.",
     "new-version": "Ny versjon tilgjengelig!",
     "notification": "Varslinger",
@@ -75,7 +78,7 @@
     "delete": "Slett",
     "disabled": "Deaktivert",
     "download": "Last ned",
-    "duplicate": "Duplicate",
+    "duplicate": "Duplikat",
     "edit": "Rediger",
     "enabled": "Aktivert",
     "exception": "Unntak",
@@ -97,9 +100,11 @@
     "keyword": "Nøkkelord",
     "link-copied": "Lenke kopiert",
     "loading-recipes": "Laster Oppskrifter",
+    "message": "Melding",
     "monday": "Mandag",
     "name": "Navn",
     "new": "Ny",
+    "never": "Aldri",
     "no": "Nei",
     "no-recipe-found": "Ingen oppskrift funnet",
     "ok": "OK",
@@ -120,6 +125,7 @@
     "sort": "Sorter",
     "sort-alphabetically": "Alfabetisk",
     "status": "Status",
+    "subject": "Emne",
     "submit": "Legg til",
     "success-count": "Vellykket: {count}",
     "sunday": "Søndag",
@@ -152,7 +158,7 @@
     "a-name-is-required": "Navn er påkrevd",
     "delete-with-name": "Slett {name}",
     "confirm-delete-generic-with-name": "Er du sikker på at du vil slette {name}?",
-    "confirm-delete-own-admin-account": "Please note that you are trying to delete your own admin account! This action cannot be undone and will permanently delete your account?",
+    "confirm-delete-own-admin-account": "Vær oppmerksom på at du holder på å slette din egen administrator-konto! Dette kan ikke angres, og vil slette kontoen din permantent!",
     "organizer": "Planlegger",
     "transfer": "Overfør",
     "copy": "Kopier",
@@ -277,14 +283,15 @@
     "carbohydrate-content": "Karbohydrater",
     "categories": "Kategorier",
     "comment-action": "Kommenter",
+    "comment": "Kommentar",
     "comments": "Kommentarer",
     "delete-confirmation": "Er du sikker på at du vil slette denne oppskriften?",
     "delete-recipe": "Slett oppskrift",
     "description": "Beskrivelse",
     "disable-amount": "Deaktiver Ingrediens-mengde",
     "disable-comments": "Deaktiver kommentarer",
-    "duplicate": "Duplicate recipe",
-    "duplicate-name": "Name of the new recipe",
+    "duplicate": "Duplikat-oppskrift",
+    "duplicate-name": "Navn på den nye oppskriften",
     "edit-scale": "Rediger Skala",
     "fat-content": "Fett",
     "fiber-content": "Kostfiber",
@@ -335,7 +342,7 @@
     "add-recipe-to-mealplan": "Legg til oppskrift til måltidsplan",
     "entry-type": "Enhetstype",
     "date-format-hint": "DD/MM/ÅÅÅÅ format",
-    "date-format-hint-yyyy-mm-dd": "YYYY-MM-DD format",
+    "date-format-hint-yyyy-mm-dd": "ÅÅÅÅ-MM-DD format",
     "add-to-list": "Legg til i liste",
     "add-to-plan": "Legg til i Plan",
     "recipe-added-to-list": "Oppskriften er lagt til i listen",
@@ -360,7 +367,14 @@
     "decrease-scale-label": "Reduser skalaen med 1",
     "increase-scale-label": "Reduser skalaen med 1",
     "locked": "Låst",
-    "public-link": "Offentlig lenke"
+    "public-link": "Offentlig lenke",
+    "edit-timeline-event": "Endre hendelsestidslinjen",
+    "timeline": "Tidslinje",
+    "timeline-is-empty": "Ingenting på tidslinjen ennå. Prøv å lage denne oppskriften!",
+    "open-timeline": "Åpne tidslinje",
+    "made-this": "Jeg har lagd dette",
+    "how-did-it-turn-out": "Hvordan ble det?",
+    "user-made-this": "{user} har lagd denne"
   },
   "search": {
     "advanced-search": "Avansert søk",
@@ -610,7 +624,7 @@
   "data-pages": {
     "seed-data": "Frødata",
     "foods": {
-      "merge-dialog-text": "Combining the selected foods will merge the source food and target food into a single food. The source food will be deleted and all of the references to the source food will be updated to point to the target food.",
+      "merge-dialog-text": "Ved å kombinere valgte matvarer, vil de bli slått sammen til en matvare. Første matvaren vil bli slettet, og alle referanser til denne, vil bli oppdatert til å peke til den nye matvaren.",
       "merge-food-example": "Slår sammen {food1} til {food2}",
       "seed-dialog-text": "Legg til databasen med mat basert på ditt lokale språk. Dette vil opprette 200+ felles matvarer som kan brukes til å organisere databasen. Næringsmidler oversettes via en samfunnsinnsats.",
       "seed-dialog-warning": "Du har allerede elementer i databasen. Denne handlingen vil ikke rekonfigurere duplikater, du må administrere dem manuelt."
@@ -653,8 +667,8 @@
   },
   "banner-experimental": {
     "title": "Eksperimentelle Funksjoner",
-    "description": "This page contains experimental or still-baking features. Please excuse the mess.",
-    "issue-link-text": "Track our progress here"
+    "description": "Denne siden inneholder eksperimentelle og uferdige funksjoner. Beklager rotet.",
+    "issue-link-text": "Følg fremgangen din her"
   },
   "form": {
     "quantity-label-abbreviated": "Ant"
@@ -668,31 +682,31 @@
     "demo_password": "Passord: {password}"
   },
   "ocr-editor": {
-    "ocr-editor": "Ocr editor",
-    "selection-mode": "Selection mode",
-    "pan-and-zoom-picture": "Pan and zoom picture",
+    "ocr-editor": "redigere OCR",
+    "selection-mode": "Velg modus",
+    "pan-and-zoom-picture": "Panorer og zoom bilde",
     "split-text": "Splitt tekst",
     "preserve-line-breaks": "Behold opprinnelige linjeskift",
     "split-by-block": "Del på tekstblokk",
-    "flatten": "Flatten regardless of original formating",
+    "flatten": "Flat ut, uavhengig av orginalformatering.",
     "help": {
-      "selection-mode": "Selection Mode (default)",
-      "selection-mode-desc": "The selection mode is the main mode that can be used to enter data:",
+      "selection-mode": "Valgmodus (standard)",
+      "selection-mode-desc": "Utvalgsmodus er hovedmodus som kan brukes til å legge inn data:",
       "selection-mode-steps": {
         "draw": "Tegn et rektangel på teksten du vil velge.",
-        "click": "Click on any field on the right and then click back on the rectangle above the image.",
-        "result": "The selected text will appear inside the previously selected field."
+        "click": "Klikk på valgfritt felt til høyre, deretter klikk tilbake på firkanten over bildet.",
+        "result": "Den markerte teksten vil bli lagt inn i det tidligere valgte feltet."
       },
       "pan-and-zoom-mode": "Panér og Zoom modus",
-      "pan-and-zoom-desc": "Select pan and zoom by clicking the icon. This mode allows to zoom inside the image and move around to make using big images easier.",
+      "pan-and-zoom-desc": "Velg pan og zoom ved å klikke ikonet. Denne modusen gjør det lettere å bruke store bilder, ved at du kan zoome og flytte rundt på bildet.",
       "split-text-mode": "Splitt tekstmodus",
       "split-modes": {
         "line-mode": "Linjemodus (standard)",
-        "line-mode-desc": "In line mode, the text will be propagated by keeping the original line breaks. This mode is useful when using bulk add on a list of ingredients where one ingredient is one line.",
+        "line-mode-desc": "I linjemodus, vil teksten bli oppdelt ut i fra de orginale linjeskiftene. Denne modusen er nytting når man legger til ingredienslister i bulk der hver ingrediens er på egen linje.",
         "block-mode": "Blokk modus",
-        "block-mode-desc": "In block mode, the text will be split in blocks. This mode is useful when bulk adding instructions that are usually written in paragraphs.",
-        "flat-mode": "Flat mode",
-        "flat-mode-desc": "In flat mode, the text will be added to the selected recipe field with no line breaks."
+        "block-mode-desc": "I blokkmodus vil teksten bli delt i blokker. Denne modusen er nyttig når man legger inn istruksjoner i bulk, som vanligvis er skrevet i avsnitt.",
+        "flat-mode": "Flat modus",
+        "flat-mode-desc": "I flat modus vil teksten bli lagt til i det valgte oppskriftsfeltet uten noen linjeskift."
       }
     }
   }

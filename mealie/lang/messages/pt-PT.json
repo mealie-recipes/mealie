@@ -1,23 +1,23 @@
 {
     "generic": {
-        "server-error": "An unexpected error occurred"
+        "server-error": "Ocorreu um erro inesperado"
     },
     "recipe": {
-        "unique-name-error": "Recipe names must be unique"
+        "unique-name-error": "Os nomes de receitas devem ser únicos"
     },
     "exceptions": {
-        "permission_denied": "You do not have permission to perform this action",
-        "no-entry-found": "The requested resource was not found",
-        "integrity-error": "Database integrity error",
-        "username-conflict-error": "This username is already taken",
-        "email-conflict-error": "This email is already in use"
+        "permission_denied": "Não tem permissões para efetuar esta ação",
+        "no-entry-found": "O recurso solicitado não foi encontrado",
+        "integrity-error": "Erro de integridade da base de dados",
+        "username-conflict-error": "Este nome de utilizador já está em uso",
+        "email-conflict-error": "Este e-mail já está a ser utilizado"
     },
     "notifications": {
-        "generic-created": "{name} was created",
-        "generic-updated": "{name} was updated",
-        "generic-created-with-url": "{name} has been created, {url}",
-        "generic-updated-with-url": "{name} has been updated, {url}",
-        "generic-duplicated": "{name} has been duplicated",
-        "generic-deleted": "{name} has been deleted"
+        "generic-created": "{name} criado",
+        "generic-updated": "{name} atualizado",
+        "generic-created-with-url": "{name} foi criado, {url}",
+        "generic-updated-with-url": "{name} foi atualizado, {url}",
+        "generic-duplicated": "{name} foi duplicado",
+        "generic-deleted": "{name} foi removido"
     }
 }
