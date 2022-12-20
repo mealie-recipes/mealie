@@ -29,7 +29,7 @@ class LongLiveTokenOut(MealieModel):
     token: str
     name: str
     id: int
-    created_at: datetime
+    created_at: datetime | None
 
     class Config:
         orm_mode = True
