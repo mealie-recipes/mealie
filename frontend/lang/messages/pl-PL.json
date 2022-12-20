@@ -660,15 +660,15 @@
   },
   "recipe-share": {
     "expiration-date": "Expiration Date",
-    "share-recipe": "Share Recipe",
-    "default-30-days": "Default 30 Days",
-    "expires-at": "Expires At",
-    "recipe-link-copied-message": "Recipe link copied to clipboard"
+    "share-recipe": "Udostępnij przepis",
+    "default-30-days": "Domyślnie 30 dni",
+    "expires-at": "Wygasa",
+    "recipe-link-copied-message": "Link z przepisem został skopiowany do schowka"
   },
   "banner-experimental": {
-    "title": "Experimental Feature",
+    "title": "Funkcje eksperymentalne",
     "description": "This page contains experimental or still-baking features. Please excuse the mess.",
-    "issue-link-text": "Track our progress here"
+    "issue-link-text": "Śledź nasze postępy tutaj"
   },
   "form": {
     "quantity-label-abbreviated": "Ilość"
