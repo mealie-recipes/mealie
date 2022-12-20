@@ -366,8 +366,8 @@
     "reset-scale": "Reset Scale",
     "decrease-scale-label": "Decrease Scale by 1",
     "increase-scale-label": "Increase Scale by 1",
-    "locked": "Locked",
-    "public-link": "Public Link",
+    "locked": "Zablokowany",
+    "public-link": "Link publiczny",
     "edit-timeline-event": "Edit Timeline Event",
     "timeline": "Timeline",
     "timeline-is-empty": "Nothing on the timeline yet. Try making this recipe!",
@@ -388,7 +388,7 @@
     "search-mealie": "Przeszukaj Mealie (naciśnij /)",
     "search-placeholder": "Szukaj...",
     "tag-filter": "Filtr tagów",
-    "search-hint": "Press '/'"
+    "search-hint": "Naciśnij '/'"
   },
   "settings": {
     "add-a-new-theme": "Dodaj nowy motyw",
@@ -457,8 +457,8 @@
       "theme-saved": "Motyw został zapisany",
       "theme-updated": "Motyw został zaktualizowany",
       "warning": "Ostrzeżenie",
-      "light-mode": "Light Mode",
-      "dark-mode": "Dark Mode"
+      "light-mode": "Tryb jasny",
+      "dark-mode": "Tryb ciemny"
     },
     "token": {
       "active-tokens": "AKTYWNE TOKENY",
@@ -485,7 +485,7 @@
       "webhook-url": "URL webhooka",
       "webhooks-caps": "WEBHOOKI",
       "webhooks": "Webhooki",
-      "webhook-name": "Webhook Name"
+      "webhook-name": "Nazwa Webhooka"
     }
   },
   "shopping-list": {
@@ -497,8 +497,8 @@
     "quantity": "Ilość: {0}",
     "shopping-list": "Lista zakupów",
     "shopping-lists": "Lista zakupów",
-    "food": "Food",
-    "note": "Note",
+    "food": "Jedzenie",
+    "note": "Notatka",
     "label": "Label",
     "linked-item-warning": "This item is linked to one or more recipe. Adjusting the units or foods will yield unexpected results when adding or removing the recipe from this list.",
     "toggle-food": "Toggle Food"
@@ -521,9 +521,9 @@
     "maintenance": "Maintenance",
     "background-tasks": "Background Tasks",
     "parser": "Parser",
-    "developer": "Developer",
-    "cookbook": "Cookbook",
-    "create-cookbook": "Create a new cookbook"
+    "developer": "Deweloper",
+    "cookbook": "Książka kucharska",
+    "create-cookbook": "Utwórz nową książkę kucharską"
   },
   "signup": {
     "error-signing-up": "W trakcie rejestracji wystąpił błąd",
@@ -544,15 +544,15 @@
     "tag-updated": "Etykieta została zakutalizowana",
     "tags": "Tagi",
     "untagged-count": "{count} bez etykiety",
-    "create-a-tag": "Create a Tag",
-    "tag-name": "Tag Name"
+    "create-a-tag": "Utwórz znacznik",
+    "tag-name": "Nazwa znacznika"
   },
   "tool": {
     "tools": "Narzędzia",
-    "on-hand": "On Hand",
-    "create-a-tool": "Create a Tool",
-    "tool-name": "Tool Name",
-    "create-new-tool": "Create New Tool",
+    "on-hand": "Na stanie",
+    "create-a-tool": "Utwórz narzędzie",
+    "tool-name": "Nazwa narzędzia",
+    "create-new-tool": "Utwórz nowe narzędzie",
     "on-hand-checkbox-label": "Show as On Hand (Checked)"
   },
   "user": {
@@ -671,15 +671,15 @@
     "issue-link-text": "Track our progress here"
   },
   "form": {
-    "quantity-label-abbreviated": "Qty"
+    "quantity-label-abbreviated": "Ilość"
   },
   "markdown-editor": {
-    "preview-markdown-button-label": "Preview Markdown"
+    "preview-markdown-button-label": "Podgląd Markdowna"
   },
   "demo": {
-    "info_message_with_version": "This is a Demo for version: {version}",
-    "demo_username": "Username: {username}",
-    "demo_password": "Password: {password}"
+    "info_message_with_version": "To jest demo dla wersji: {version}",
+    "demo_username": "Nazwa użytkownika: {username}",
+    "demo_password": "Hasło: {password}"
   },
   "ocr-editor": {
     "ocr-editor": "Ocr editor",
