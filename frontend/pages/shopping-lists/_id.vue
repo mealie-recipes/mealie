@@ -557,6 +557,9 @@ export default defineComponent({
       }
 
       loading.value = true;
+
+      // make sure it's inserted into the end of the list, which may have been updated
+      createListItemData.value.position = shoppingList.value?.listItems?.length || 1;
       const { data } = await userApi.shopping.items.createOne(createListItemData.value);
 
       if (data) {
