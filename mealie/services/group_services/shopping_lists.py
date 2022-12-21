@@ -24,6 +24,10 @@ class ShoppingListService:
         can_merge checks if the two items can be merged together.
         """
 
+        # Check if items are both checked or both unchecked
+        if item1.checked != item2.checked:
+            return False
+
         # Check if foods are equal
         foods_is_none = item1.food_id is None and item2.food_id is None
         foods_not_none = not foods_is_none
@@ -34,7 +38,7 @@ class ShoppingListService:
         units_not_none = not units_is_none
         units_equal = item1.unit_id == item2.unit_id
 
-        # Check if Notes are equal
+        # Check if notes are equal
         if foods_is_none and units_is_none:
             return item1.note == item2.note
 
@@ -48,7 +52,7 @@ class ShoppingListService:
 
     def consolidate_list_items(self, item_list: list[ShoppingListItemOut]) -> list[ShoppingListItemOut]:
         """
-        itterates through the shopping list provided and returns
+        iterates through the shopping list provided and returns
         a consolidated list where all items that are matched against multiple values are
         de-duplicated and only the first item is kept where the quantity is updated accordingly.
         """
