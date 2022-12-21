@@ -18,8 +18,8 @@
               :labels="allLabels || []"
               :units="allUnits || []"
               :foods="allFoods || []"
-              @checked="saveListItem(item)"
-              @save="saveListItem(item)"
+              @checked="saveListItem"
+              @save="saveListItem"
               @delete="deleteListItem(item)"
             />
           </v-lazy>
@@ -43,8 +43,8 @@
               :labels="allLabels || []"
               :units="allUnits || []"
               :foods="allFoods || []"
-              @checked="saveListItem(item)"
-              @save="saveListItem(item)"
+              @checked="saveListItem"
+              @save="saveListItem"
               @delete="deleteListItem(item)"
             />
           </v-lazy>
@@ -134,8 +134,8 @@
                 :labels="allLabels"
                 :units="allUnits || []"
                 :foods="allFoods || []"
-                @checked="saveListItem(item)"
-                @save="saveListItem(item)"
+                @checked="saveListItem"
+                @save="saveListItem"
                 @delete="deleteListItem(item)"
               />
             </div>
@@ -637,6 +637,7 @@ export default defineComponent({
       itemsByLabel,
       listItems,
       listRecipes,
+      loading,
       presentLabels,
       removeRecipeReferenceToList,
       saveListItem,

@@ -6,7 +6,7 @@
       hide-details
       dense
       :label="listItem.note"
-      @change="$emit('checked')"
+      @change="$emit('checked', listItem)"
     >
       <template #label>
         <div :class="listItem.checked ? 'strike-through' : ''">
@@ -30,7 +30,7 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      <v-btn small class="ml-2 mt-2 handle" icon @click="edit = true">
+      <v-btn small class="ml-2 mt-2 handle" icon @click="toggleEdit(true)">
         <v-icon>
           {{ $globals.icons.edit }}
         </v-icon>
@@ -39,14 +39,14 @@
   </div>
   <div v-else class="mb-1 mt-6">
     <ShoppingListItemEditor
-      v-model="listItem"
+      v-model="localListItem"
       :labels="labels"
       :units="units"
       :foods="foods"
       @save="save"
-      @cancel="edit = !edit"
+      @cancel="toggleEdit(false)"
       @delete="$emit('delete')"
-      @toggle-foods="listItem.isFood = !listItem.isFood"
+      @toggle-foods="localListItem.isFood = !localListItem.isFood"
     />
   </div>
 </template>
@@ -104,24 +104,37 @@ export default defineComponent({
       },
     ];
 
+    // copy prop value so a refresh doesn't interrupt the user
+    const localListItem = ref(Object.assign({}, props.value));
     const listItem = computed({
       get: () => {
         return props.value;
       },
       set: (val) => {
+        // keep local copy in sync
+        localListItem.value = val;
         context.emit("input", val);
       },
     });
     const edit = ref(false);
+    function toggleEdit(val = !edit.value) {
+      if (val) {
+        // update local copy of item with the current value
+        localListItem.value = props.value;
+      }
+
+      edit.value = val;
+    }
+
     function contextHandler(event: string) {
       if (event === "edit") {
-        edit.value = true;
+        toggleEdit(true);
       } else {
         context.emit(event);
       }
     }
     function save() {
-      context.emit("save");
+      context.emit("save", localListItem.value);
       edit.value = false;
     }
 
@@ -139,7 +152,7 @@ export default defineComponent({
     );
 
     /**
-     * Get's the label for the shopping list item. Either the label assign to the item
+     * Gets the label for the shopping list item. Either the label assign to the item
      * or the label of the food applied.
      */
     const label = computed<MultiPurposeLabelSummary | undefined>(() => {
@@ -164,7 +177,9 @@ export default defineComponent({
       edit,
       contextMenu,
       listItem,
+      localListItem,
       label,
+      toggleEdit,
     };
   },
 });
