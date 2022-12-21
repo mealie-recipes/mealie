@@ -237,7 +237,12 @@ export default defineComponent({
     }
 
     async function refresh() {
-      shoppingList.value = await fetchShoppingList();
+      const newListValue = await fetchShoppingList();
+
+      // only update the list with the new value if we're not loading, to prevent UI jitter
+      if (!loading.value) {
+        shoppingList.value = newListValue;
+      }
     }
 
     // constantly polls for changes
