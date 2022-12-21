@@ -10,7 +10,7 @@
     <!-- Viewer -->
     <section v-if="!edit" class="py-2">
       <div v-if="!byLabel">
-        <draggable :value="shoppingList.listItems" handle=".handle" @input="updateIndex">
+        <draggable :value="shoppingList.listItems" handle=".handle" @start="loading=true" @end="loading=false" @input="updateIndex">
           <v-lazy v-for="(item, index) in listItems.unchecked" :key="item.id">
             <ShoppingListItem
               v-model="listItems.unchecked[index]"
