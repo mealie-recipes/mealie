@@ -216,6 +216,7 @@ export default defineComponent({
   setup() {
     const { idle } = useIdle(5 * 60 * 1000) // 5 minutes
     const loadingCounter = ref(1);
+    const recipeReferenceLoading = ref(false);
     const userApi = useUserApi();
 
     const edit = ref(false);
@@ -465,12 +466,14 @@ export default defineComponent({
     });
 
     async function addRecipeReferenceToList(recipeId: string) {
-      if (!shoppingList.value || loadingCounter.value) {
+      if (!shoppingList.value || recipeReferenceLoading.value) {
         return;
       }
 
       loadingCounter.value += 1;
+      recipeReferenceLoading.value = true;
       const { data } = await userApi.shopping.lists.addRecipe(shoppingList.value.id, recipeId);
+      recipeReferenceLoading.value = false;
       loadingCounter.value -= 1;
 
       if (data) {
@@ -479,12 +482,14 @@ export default defineComponent({
     }
 
     async function removeRecipeReferenceToList(recipeId: string) {
-      if (!shoppingList.value || loadingCounter.value) {
+      if (!shoppingList.value || recipeReferenceLoading.value) {
         return;
       }
 
       loadingCounter.value += 1;
+      recipeReferenceLoading.value = true;
       const { data } = await userApi.shopping.lists.removeRecipe(shoppingList.value.id, recipeId);
+      recipeReferenceLoading.value = false;
       loadingCounter.value -= 1;
 
       if (data) {
