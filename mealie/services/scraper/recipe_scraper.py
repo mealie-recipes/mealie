@@ -21,14 +21,14 @@ class RecipeScraper:
 
         self.scrapers = scrapers
 
-    def scrape(self, url: str) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
+    async def scrape(self, url: str) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
         """
         Scrapes a recipe from the web.
         """
 
         for scraper_type in self.scrapers:
             scraper = scraper_type(url)
-            result = scraper.parse()
+            result = await scraper.parse()
 
             if result is not None:
                 return result
