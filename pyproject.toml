@@ -41,6 +41,7 @@ requests = "^2.25.1"
 tzdata = "^2021.5"
 uvicorn = {extras = ["standard"], version = "^0.13.0"}
 pre-commit = "^2.20.0"
+httpx = "^0.23.1"
 
 [tool.poetry.dev-dependencies]
 black = "^21.12b0"
