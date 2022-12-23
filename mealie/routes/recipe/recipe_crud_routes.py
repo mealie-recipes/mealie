@@ -381,12 +381,12 @@ class RecipeController(BaseRecipeController):
     # Image and Assets
 
     @router.post("/{slug}/image", tags=["Recipe: Images and Assets"])
-    def scrape_image_url(self, slug: str, url: ScrapeRecipe):
+    async def scrape_image_url(self, slug: str, url: ScrapeRecipe):
         recipe = self.mixins.get_one(slug)
         data_service = RecipeDataService(recipe.id)
 
         try:
-            data_service.scrape_image(url.url)
+            await data_service.scrape_image(url.url)
         except NotAnImageError as e:
             raise HTTPException(
                 status_code=400,
