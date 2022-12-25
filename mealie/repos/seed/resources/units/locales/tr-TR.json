@@ -1,18 +1,18 @@
 {
     "teaspoon": {
-        "name": "teaspoon",
+        "name": "çay kaşığı",
         "description": "",
         "abbreviation": "tsp"
     },
     "tablespoon": {
-        "name": "tablespoon",
+        "name": "yemek kaşığı",
         "description": "",
         "abbreviation": "tbsp"
     },
     "cup": {
-        "name": "cup",
+        "name": "fincan",
         "description": "",
-        "abbreviation": "cup"
+        "abbreviation": "fincan"
     },
     "fluid-ounce": {
         "name": "fluid ounce",
@@ -30,17 +30,17 @@
         "abbreviation": "qt"
     },
     "gallon": {
-        "name": "gallon",
+        "name": "galon",
         "description": "",
-        "abbreviation": "gal"
+        "abbreviation": "galon"
     },
     "milliliter": {
-        "name": "milliliter",
+        "name": "mililitre",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
-        "name": "liter",
+        "name": "litre",
         "description": "",
         "abbreviation": "l"
     },
@@ -50,14 +50,14 @@
         "abbreviation": "lb"
     },
     "ounce": {
-        "name": "ounce",
+        "name": "ons",
         "description": "",
         "abbreviation": "oz"
     },
     "gram": {
         "name": "gram",
         "description": "",
-        "abbreviation": "g"
+        "abbreviation": "gr"
     },
     "kilogram": {
         "name": "kilogram",
@@ -65,7 +65,7 @@
         "abbreviation": "kg"
     },
     "milligram": {
-        "name": "milligram",
+        "name": "miligram",
         "description": "",
         "abbreviation": "mg"
     },
