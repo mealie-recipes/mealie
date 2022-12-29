@@ -41,7 +41,7 @@ RUN apt-get update \
     && pip install -U --no-cache-dir pip
 
 # install poetry - respects $POETRY_VERSION & $POETRY_HOME
-ENV POETRY_VERSION=1.2.1
+ENV POETRY_VERSION=1.3.1
 RUN curl -sSL https://install.python-poetry.org | python3 -
 
 # copy project requirement files here to ensure they will be cached.
@@ -49,7 +49,7 @@ WORKDIR $PYSETUP_PATH
 COPY ./poetry.lock ./pyproject.toml ./
 
 # install runtime deps - uses $POETRY_VIRTUALENVS_IN_PROJECT internally
-RUN poetry install -E pgsql --no-dev
+RUN poetry install -E pgsql --only main
 
 ###############################################
 # Development Image
@@ -72,7 +72,7 @@ COPY ./alembic.ini $MEALIE_HOME/
 
 # venv already has runtime deps installed we get a quicker install
 WORKDIR $MEALIE_HOME
-RUN . $VENV_PATH/bin/activate && poetry install
+RUN . $VENV_PATH/bin/activate && poetry install --with main,dev
 WORKDIR /
 
 RUN chmod +x $MEALIE_HOME/mealie/run.sh
@@ -122,7 +122,7 @@ COPY ./alembic.ini $MEALIE_HOME/
 
 # venv already has runtime deps installed we get a quicker install
 WORKDIR $MEALIE_HOME
-RUN . $VENV_PATH/bin/activate && poetry install -E pgsql --no-dev
+RUN . $VENV_PATH/bin/activate && poetry install -E pgsql --only main
 WORKDIR /
 
 # Grab CRF++ Model Release
