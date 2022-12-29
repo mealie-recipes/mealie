@@ -6,7 +6,7 @@
     "api-port": "API Poort",
     "application-mode": "Applicatie modus",
     "database-type": "Databasetype",
-    "database-url": "Database URL",
+    "database-url": "Database-URL",
     "default-group": "Standaardgroep",
     "demo": "Voorbeeld",
     "demo-status": "Demo status",
@@ -198,7 +198,7 @@
     "end-date": "Einddatum",
     "group": "Groep (Beta)",
     "main": "Hoofdgerecht",
-    "meal-planner": "Maaltijd planner",
+    "meal-planner": "Maaltijdplanner",
     "meal-plans": "Maaltijd plannen",
     "mealplan-categories": "MAALTIJDPLAN CATEGORIEËN",
     "mealplan-created": "Maaltijdplan aangemaakt",
@@ -688,7 +688,7 @@
     "split-text": "Tekst splitsen",
     "preserve-line-breaks": "Behoud oorspronkelijke regeleinden",
     "split-by-block": "Splits per tekstblok",
-    "flatten": "Flatten regardless of original formating",
+    "flatten": "Samenvoegen ongeacht originele opmaak",
     "help": {
       "selection-mode": "Selectiemodus (standaard)",
       "selection-mode-desc": "De selectiemodus is de hoofdmodus die gebruikt kan worden om gegevens in te voeren:",
@@ -705,7 +705,7 @@
         "line-mode-desc": "In line mode, the text will be propagated by keeping the original line breaks. This mode is useful when using bulk add on a list of ingredients where one ingredient is one line.",
         "block-mode": "Blokmodus",
         "block-mode-desc": "In block mode, the text will be split in blocks. This mode is useful when bulk adding instructions that are usually written in paragraphs.",
-        "flat-mode": "Flat mode",
+        "flat-mode": "Platte modus",
         "flat-mode-desc": "In flat mode, the text will be added to the selected recipe field with no line breaks."
       }
     }
