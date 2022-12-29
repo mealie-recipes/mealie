@@ -709,5 +709,42 @@
         "flat-mode-desc": "In flat mode, the text will be added to the selected recipe field with no line breaks."
       }
     }
+  },
+  "admin": {
+    "maintenance": {
+      "storage-details": "Storage Details",
+      "page-title": "Site Maintenance",
+      "summary-title": "Summary",
+      "button-label-get-summary": "Get Summary",
+      "button-label-open-details": "Details",
+      "info-description-data-dir-size": "Data Directory Size",
+      "info-description-log-file-size": "Log File Size",
+      "info-description-cleanable-directories": "Cleanable Directories",
+      "info-description-cleanable-images": "Cleanable Images",
+      "storage": {
+        "title-temporary-directory": "Temporary Directory (.temp)",
+        "title-backups-directory": "Backups Directory (backups)",
+        "title-groups-directory": "Groups Directory (groups)",
+        "title-recipes-directory": "Recipes Directory (recipes)",
+        "title-user-directory": "User Directory (user)"
+      },
+      "action-delete-log-files-name": "Delete Log Files",
+      "action-delete-log-files-description": "Deletes all the log files",
+      "action-clean-directories-name": "Clean Directories",
+      "action-clean-directories-description": "Removes all the recipe folders that are not valid UUIDs",
+      "action-clean-temporary-files-name": "Clean Temporary Files",
+      "action-clean-temporary-files-description": "Removes all files and folders in the .temp directory",
+      "action-clean-images-name": "Clean Images",
+      "action-clean-images-description": "Removes all the images that don't end with .webp",
+      "actions-description": "Maintenance actions are {destructive_in_bold} and should be used with caution. Performing any of these actions is {irreversible_in_bold}.",
+      "actions-description-destructive": "destructive",
+      "actions-description-irreversible": "irreversible",
+      "logs-action-refresh": "Refresh Logs",
+      "logs-page-title": "Mealie Logs",
+      "logs-tail-lines-label": "Tail Lines"
+    },
+    "mainentance": {
+      "actions-title": "Actions"
+    }
   }
 }
