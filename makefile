@@ -36,7 +36,7 @@ code-gen: ## 🤖 Run Code-Gen Scripts
 
 .PHONY: setup
 setup: ## 🏗  Setup Development Instance
-	poetry install && \
+	poetry install --with main,dev && \
 	cd frontend && \
 	yarn install && \
 	cd ..
