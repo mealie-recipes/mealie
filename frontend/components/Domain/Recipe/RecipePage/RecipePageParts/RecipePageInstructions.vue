@@ -233,6 +233,7 @@ import { parseIngredientText } from "~/composables/recipes";
 import { uuid4, detectServerBaseUrl } from "~/composables/use-utils";
 import { useUserApi, useStaticRoutes } from "~/composables/api";
 import { usePageState } from "~/composables/recipe-page/shared-state";
+import { useExtractIngredientReferences } from "~/composables/recipe-page/use-extract-ingredient-references";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import DropZone from "~/components/global/DropZone.vue";
 
@@ -427,50 +428,12 @@ export default defineComponent({
     }
 
     function autoSetReferences() {
-      // Ignore matching blacklisted words when auto-linking - This is kind of a cludgey implementation. We're blacklisting common words but
-      // other common phrases trigger false positives and I'm not sure how else to approach this. In the future I maybe look at looking directly
-      // at the food variable and seeing if the food is in the instructions, but I still need to support those who don't want to provide the value
-      // and only use the "notes" feature.
-      const blackListedText = [
-        "and",
-        "or",
-        "the",
-        "a",
-        "an",
-        "of",
-        "in",
-        "on",
-        "to",
-        "for",
-        "by",
-        "with",
-        "without",
-        "",
-        " ",
-      ];
-      const blackListedRegexMatch = /\d/gm; // Match Any Number
-
-      // Check if any of the words in the active text match the ingredient text
-      const instructionsByWord = activeText.value.toLowerCase().split(" ");
-
-      instructionsByWord.forEach((word) => {
-        if (blackListedText.includes(word) || word.match(blackListedRegexMatch)) {
-          return;
-        }
-
-        props.recipe.recipeIngredient.forEach((ingredient) => {
-          const searchText = parseIngredientText(ingredient, props.recipe.settings.disableAmount);
-
-          if (ingredient.referenceId === undefined) {
-            return;
-          }
-
-          if (searchText.toLowerCase().includes(" " + word) && !activeRefs.value.includes(ingredient.referenceId)) {
-            console.info("Word Matched", `'${word}'`, ingredient.note);
-            activeRefs.value.push(ingredient.referenceId);
-          }
-        });
-      });
+      useExtractIngredientReferences(
+        props.recipe.recipeIngredient,
+        activeRefs.value,
+        activeText.value,
+        props.recipe.settings.disableAmount
+      ).forEach((ingredient: string) => activeRefs.value.push(ingredient));
     }
 
     const ingredientLookup = computed(() => {
