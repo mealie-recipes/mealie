@@ -40,7 +40,7 @@ class OcrService(BaseService):
                 continue
 
             line = OcrTsvResponse()
-            for key, value in zip(titles, lines[i].split("\t")):
+            for key, value in zip(titles, lines[i].split("\t"), strict=False):
                 if key == "text":
                     setattr(line, key, value.strip())
                 elif key == "conf":

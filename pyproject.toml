@@ -53,7 +53,7 @@ pydantic-to-typescript = "^1.0.7"
 pylint = "^2.6.0"
 pytest = "^7.2.0"
 rich = "^10.7.0"
-ruff = "^0.0.149"
+ruff = "^0.0.200"
 types-PyYAML = "^6.0.4"
 types-python-dateutil = "^2.8.18"
 types-python-slugify = "^5.0.3"
@@ -104,13 +104,13 @@ line-length = 120
 format = "text"
 
 # Enable Pyflakes `E` and `F` codes by default.
-ignore = ["F403", "I252","B008"]
+ignore = ["F403", "TID252","B008"]
 select = [
   "E", # pycodestyles
   "F", # pyflakes
   "I", # isort
   "T", # flake8-print
-  "U", # pyupgrade
+  "UP", # pyupgrade
   "B", # flake8-bugbear
   # "ANN", # flake8-annotations
   # "C", # McCabe complexity
