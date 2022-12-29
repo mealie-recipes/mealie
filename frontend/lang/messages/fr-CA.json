@@ -52,9 +52,9 @@
     "apprise-url": "URL apprise",
     "database": "Base de données",
     "delete-event": "Supprimer l’évènement",
-    "event-delete-confirmation": "Are you sure you want to delete this event?",
-    "event-deleted": "Event Deleted",
-    "event-updated": "Event Updated",
+    "event-delete-confirmation": "Êtes-vous sûr de vouloir supprimer cet évènement ?",
+    "event-deleted": "Événement supprimé",
+    "event-updated": "Événement mis à jour",
     "new-notification-form-description": "Mealie utilise la bibliothèque apprise pour générer des notifications. Elle propose de nombreux services à utiliser pour les notifications. Consultez leur wiki pour un guide complet sur la façon de créer l'URL de votre service. Si disponible, sélectionner le type de votre notification peut inclure des fonctionnalités supplémentaires.",
     "new-version": "Nouvelle version disponible!",
     "notification": "Notification",
@@ -104,7 +104,7 @@
     "monday": "Lundi",
     "name": "Nom",
     "new": "Nouveau",
-    "never": "Never",
+    "never": "Jamais",
     "no": "Non",
     "no-recipe-found": "Aucune recette trouvée",
     "ok": "OK",
@@ -125,7 +125,7 @@
     "sort": "Trier",
     "sort-alphabetically": "Alphabétique",
     "status": "Statut",
-    "subject": "Subject",
+    "subject": "Sujet",
     "submit": "Importer",
     "success-count": "Succès : {count}",
     "sunday": "Dimanche",
@@ -283,7 +283,7 @@
     "carbohydrate-content": "Glucides",
     "categories": "Catégories",
     "comment-action": "Commenter",
-    "comment": "Comment",
+    "comment": "Commentaire",
     "comments": "Commentaires",
     "delete-confirmation": "Êtes-vous sûr(e) de vouloir supprimer cette recette?",
     "delete-recipe": "Supprimer la recette",
@@ -368,13 +368,13 @@
     "increase-scale-label": "Augmenter l'échelle de 1",
     "locked": "Verrouillé",
     "public-link": "Lien public",
-    "edit-timeline-event": "Edit Timeline Event",
-    "timeline": "Timeline",
-    "timeline-is-empty": "Nothing on the timeline yet. Try making this recipe!",
-    "open-timeline": "Open Timeline",
-    "made-this": "I Made This",
+    "edit-timeline-event": "Modifier le calendrier de l'évènement",
+    "timeline": "Calendrier",
+    "timeline-is-empty": "Le calendrier est vide. Essayer de créer cette recette !",
+    "open-timeline": "Ouvrir le calendrier",
+    "made-this": "Faire cela",
     "how-did-it-turn-out": "How did it turn out?",
-    "user-made-this": "{user} made this"
+    "user-made-this": "{user} a créé ceci"
   },
   "search": {
     "advanced-search": "Recherche avancée",
@@ -708,6 +708,43 @@
         "flat-mode": "Mode à plat",
         "flat-mode-desc": "En mode à plat, le texte sera ajouté au champ de recette sélectionné sans saut de ligne."
       }
+    }
+  },
+  "admin": {
+    "maintenance": {
+      "storage-details": "Storage Details",
+      "page-title": "Site Maintenance",
+      "summary-title": "Summary",
+      "button-label-get-summary": "Get Summary",
+      "button-label-open-details": "Details",
+      "info-description-data-dir-size": "Data Directory Size",
+      "info-description-log-file-size": "Log File Size",
+      "info-description-cleanable-directories": "Cleanable Directories",
+      "info-description-cleanable-images": "Cleanable Images",
+      "storage": {
+        "title-temporary-directory": "Temporary Directory (.temp)",
+        "title-backups-directory": "Backups Directory (backups)",
+        "title-groups-directory": "Groups Directory (groups)",
+        "title-recipes-directory": "Recipes Directory (recipes)",
+        "title-user-directory": "User Directory (user)"
+      },
+      "action-delete-log-files-name": "Delete Log Files",
+      "action-delete-log-files-description": "Deletes all the log files",
+      "action-clean-directories-name": "Clean Directories",
+      "action-clean-directories-description": "Removes all the recipe folders that are not valid UUIDs",
+      "action-clean-temporary-files-name": "Clean Temporary Files",
+      "action-clean-temporary-files-description": "Removes all files and folders in the .temp directory",
+      "action-clean-images-name": "Clean Images",
+      "action-clean-images-description": "Removes all the images that don't end with .webp",
+      "actions-description": "Maintenance actions are {destructive_in_bold} and should be used with caution. Performing any of these actions is {irreversible_in_bold}.",
+      "actions-description-destructive": "destructive",
+      "actions-description-irreversible": "irreversible",
+      "logs-action-refresh": "Refresh Logs",
+      "logs-page-title": "Mealie Logs",
+      "logs-tail-lines-label": "Tail Lines"
+    },
+    "mainentance": {
+      "actions-title": "Actions"
     }
   }
 }
