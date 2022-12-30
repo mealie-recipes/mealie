@@ -13,7 +13,7 @@ def test_user_registration_new_group(api_client: TestClient):
     # Login
     form_data = {"username": registration.email, "password": registration.password}
 
-    response = api_client.post(api_routes.auth_token, form_data)
+    response = api_client.post(api_routes.auth_token, data=form_data)
     assert response.status_code == 200
     token = response.json().get("access_token")
 
@@ -29,7 +29,7 @@ def test_new_user_group_permissions(api_client: TestClient):
     # Login
     form_data = {"username": registration.email, "password": registration.password}
 
-    response = api_client.post(api_routes.auth_token, form_data)
+    response = api_client.post(api_routes.auth_token, data=form_data)
     assert response.status_code == 200
     token = response.json().get("access_token")
 

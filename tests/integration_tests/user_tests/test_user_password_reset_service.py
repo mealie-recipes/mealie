@@ -18,11 +18,11 @@ def test_password_reset(api_client: TestClient, unique_user: TestUser, casing: s
     elif casing == "upper":
         cased_email = unique_user.email.upper()
     else:
-        for i, l in enumerate(unique_user.email):
+        for i, letter in enumerate(unique_user.email):
             if i % 2 == 0:
-                cased_email += l.upper()
+                cased_email += letter.upper()
             else:
-                cased_email += l.lower()
+                cased_email += letter.lower()
         cased_email
 
     with session_context() as session:
@@ -45,7 +45,7 @@ def test_password_reset(api_client: TestClient, unique_user: TestUser, casing: s
 
     # Test Login
     form_data = {"username": unique_user.email, "password": new_password}
-    response = api_client.post(api_routes.auth_token, form_data)
+    response = api_client.post(api_routes.auth_token, data=form_data)
     assert response.status_code == 200
 
     # Test Token

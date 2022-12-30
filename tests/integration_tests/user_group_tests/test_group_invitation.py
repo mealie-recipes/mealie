@@ -47,7 +47,7 @@ def test_group_invitation_link(api_client: TestClient, unique_user: TestUser, in
     # Login as new User
     form_data = {"username": registration.email, "password": registration.password}
 
-    r = api_client.post(api_routes.auth_token, form_data)
+    r = api_client.post(api_routes.auth_token, data=form_data)
     assert r.status_code == 200
     token = r.json().get("access_token")
     assert token is not None
