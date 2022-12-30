@@ -1,3 +1,5 @@
+from typing import cast
+
 from pydantic import UUID4
 
 from mealie.core.exceptions import UnexpectedNone
@@ -6,8 +8,10 @@ from mealie.schema.group import ShoppingListItemCreate, ShoppingListOut
 from mealie.schema.group.group_shopping_list import (
     ShoppingListItemOut,
     ShoppingListItemRecipeRef,
+    ShoppingListItemRecipeRefOut,
     ShoppingListItemUpdate,
 )
+from mealie.schema.recipe import Recipe
 
 
 class ShoppingListService:
@@ -34,7 +38,7 @@ class ShoppingListService:
         units_not_none = not units_is_none
         units_equal = item1.unit_id == item2.unit_id
 
-        # Check if Notes are equal
+        # Check if notes are equal
         if foods_is_none and units_is_none:
             return item1.note == item2.note
 
@@ -48,7 +52,7 @@ class ShoppingListService:
 
     def consolidate_list_items(self, item_list: list[ShoppingListItemOut]) -> list[ShoppingListItemOut]:
         """
-        itterates through the shopping list provided and returns
+        iterates through the shopping list provided and returns
         a consolidated list where all items that are matched against multiple values are
         de-duplicated and only the first item is kept where the quantity is updated accordingly.
         """
@@ -64,17 +68,32 @@ class ShoppingListService:
             for inner_index, inner_item in enumerate(item_list):
                 if inner_index in checked_items:
                     continue
+
                 if ShoppingListService.can_merge(base_item, inner_item):
                     # Set Quantity
                     base_item.quantity += inner_item.quantity
 
                     # Set References
-                    new_refs = []
-                    for ref in inner_item.recipe_references:
-                        ref.shopping_list_item_id = base_item.id  # type: ignore
-                        new_refs.append(ref)
+                    refs = {ref.recipe_id: ref for ref in base_item.recipe_references}
+                    for inner_ref in inner_item.recipe_references:
+                        if inner_ref.recipe_id not in refs:
+                            refs[inner_ref.recipe_id] = inner_ref
 
-                    base_item.recipe_references.extend(new_refs)
+                        else:
+                            # merge recipe scales
+                            base_ref = refs[inner_ref.recipe_id]
+
+                            # if the scale is missing we assume it's 1 for backwards compatibility
+                            # if the scale is 0 we leave it alone
+                            if base_ref.recipe_scale is None:
+                                base_ref.recipe_scale = 1
+
+                            if inner_ref.recipe_scale is None:
+                                inner_ref.recipe_scale = 1
+
+                            base_ref.recipe_scale += inner_ref.recipe_scale
+
+                    base_item.recipe_references = list(refs.values())
                     checked_items.append(inner_index)
 
             consolidated_list.append(base_item)
@@ -111,7 +130,7 @@ class ShoppingListService:
     # Methods
 
     def add_recipe_ingredients_to_list(
-        self, list_id: UUID4, recipe_id: UUID4
+        self, list_id: UUID4, recipe_id: UUID4, recipe_increment: float = 1
     ) -> tuple[ShoppingListOut, list[ShoppingListItemOut], list[ShoppingListItemOut], list[ShoppingListItemOut]]:
         """
         returns:
@@ -120,7 +139,7 @@ class ShoppingListService:
             - updated_shopping_list_items
             - deleted_shopping_list_items
         """
-        recipe = self.repos.recipes.get_one(recipe_id, "id")
+        recipe: Recipe | None = self.repos.recipes.get_one(recipe_id, "id")
         if not recipe:
             raise UnexpectedNone("Recipe not found")
 
@@ -150,14 +169,13 @@ class ShoppingListService:
                     is_food=not recipe.settings.disable_amount if recipe.settings else False,
                     food_id=food_id,
                     unit_id=unit_id,
-                    quantity=ingredient.quantity,
+                    quantity=ingredient.quantity * recipe_increment if ingredient.quantity else 0,
                     note=ingredient.note,
                     label_id=label_id,
                     recipe_id=recipe_id,
                     recipe_references=[
                         ShoppingListItemRecipeRef(
-                            recipe_id=recipe_id,
-                            recipe_quantity=ingredient.quantity,
+                            recipe_id=recipe_id, recipe_quantity=ingredient.quantity, recipe_scale=recipe_increment
                         )
                     ],
                 )
@@ -176,13 +194,16 @@ class ShoppingListService:
 
         not_found = True
         for refs in updated_shopping_list.recipe_references:
-            if refs.recipe_id == recipe_id:
-                refs.recipe_quantity += 1
-                not_found = False
+            if refs.recipe_id != recipe_id:
+                continue
+
+            refs.recipe_quantity += recipe_increment
+            not_found = False
+            break
 
         if not_found:
             updated_shopping_list.recipe_references.append(
-                ShoppingListItemRecipeRef(recipe_id=recipe_id, recipe_quantity=1)  # type: ignore
+                ShoppingListItemRecipeRef(recipe_id=recipe_id, recipe_quantity=recipe_increment)  # type: ignore
             )
 
         updated_shopping_list = self.shopping_lists.update(updated_shopping_list.id, updated_shopping_list)
@@ -217,7 +238,7 @@ class ShoppingListService:
         return updated_shopping_list, new_shopping_list_items, updated_shopping_list_items, deleted_shopping_list_items
 
     def remove_recipe_ingredients_from_list(
-        self, list_id: UUID4, recipe_id: UUID4
+        self, list_id: UUID4, recipe_id: UUID4, recipe_decrement: float = 1
     ) -> tuple[ShoppingListOut, list[ShoppingListItemOut], list[ShoppingListItemOut]]:
         """
         returns:
@@ -225,8 +246,8 @@ class ShoppingListService:
             - updated_shopping_list_items
             - deleted_shopping_list_items
         """
-        shopping_list = self.shopping_lists.get_one(list_id)
 
+        shopping_list = self.shopping_lists.get_one(list_id)
         if shopping_list is None:
             raise UnexpectedNone("Shopping list not found, cannot remove recipe ingredients")
 
@@ -235,40 +256,63 @@ class ShoppingListService:
         for item in shopping_list.list_items:
             found = False
 
-            for ref in item.recipe_references:
-                remove_qty: None | float = 0.0
+            refs = cast(list[ShoppingListItemRecipeRefOut], item.recipe_references)
+            for ref in refs:
+                if ref.recipe_id != recipe_id:
+                    continue
 
-                if ref.recipe_id == recipe_id:
-                    self.list_item_refs.delete(ref.id)  # type: ignore
+                # if the scale is missing we assume it's 1 for backwards compatibility
+                # if the scale is 0 we leave it alone
+                if ref.recipe_scale is None:
+                    ref.recipe_scale = 1
+
+                # recipe quantity should never be None, but we check just in case
+                if ref.recipe_quantity is None:
+                    ref.recipe_quantity = 0
+
+                # Set Quantity
+                if ref.recipe_scale > recipe_decrement:
+                    # remove only part of the reference
+                    item.quantity -= recipe_decrement * ref.recipe_quantity
+
+                else:
+                    # remove everything that's left on the reference
+                    item.quantity -= ref.recipe_scale * ref.recipe_quantity
+
+                # Set Reference Scale
+                ref.recipe_scale -= recipe_decrement
+                if ref.recipe_scale <= 0:
+                    # delete the ref from the database and remove it from our list
+                    self.list_item_refs.delete(ref.id)
                     item.recipe_references.remove(ref)
-                    found = True
-                    remove_qty = ref.recipe_quantity
-                    break  # only remove one instance of the recipe for each item
 
-            # If the item was found decrement the quantity by the remove_qty
+                found = True
+                break
+
+            # If the item was found we need to check its new quantity
             if found:
-
-                if remove_qty is not None:
-                    item.quantity = item.quantity - remove_qty
-
                 if item.quantity <= 0:
                     self.list_items.delete(item.id)
                     deleted_shopping_list_items.append(item)
+
                 else:
                     self.list_items.update(item.id, item)
                     updated_shopping_list_items.append(item)
 
         # Decrement the list recipe reference count
         for recipe_ref in shopping_list.recipe_references:
-            if recipe_ref.recipe_id == recipe_id and recipe_ref.recipe_quantity is not None:
-                recipe_ref.recipe_quantity -= 1.0
+            if recipe_ref.recipe_id != recipe_id or recipe_ref.recipe_quantity is None:
+                continue
 
-                if recipe_ref.recipe_quantity <= 0.0:
-                    self.list_refs.delete(recipe_ref.id)
+            recipe_ref.recipe_quantity -= recipe_decrement
 
-                else:
-                    self.list_refs.update(recipe_ref.id, ref)
-                break
+            if recipe_ref.recipe_quantity <= 0.0:
+                self.list_refs.delete(recipe_ref.id)
+
+            else:
+                self.list_refs.update(recipe_ref.id, recipe_ref)
+
+            break
 
         return (
             self.shopping_lists.get_one(shopping_list.id),

@@ -24,8 +24,8 @@ export class ShoppingListsApi extends BaseCRUDAPI<ShoppingListCreate, ShoppingLi
   baseRoute = routes.shoppingLists;
   itemRoute = routes.shoppingListsId;
 
-  async addRecipe(itemId: string, recipeId: string) {
-    return await this.requests.post(routes.shoppingListIdAddRecipe(itemId, recipeId), {});
+  async addRecipe(itemId: string, recipeId: string, recipeIncrementQuantity = 1) {
+    return await this.requests.post(routes.shoppingListIdAddRecipe(itemId, recipeId), {recipeIncrementQuantity});
   }
 
   async removeRecipe(itemId: string, recipeId: string) {

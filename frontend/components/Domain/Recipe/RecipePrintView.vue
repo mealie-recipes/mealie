@@ -96,6 +96,10 @@ export default defineComponent({
       type: Object as () => Recipe,
       required: true,
     },
+    scale: {
+      type: Number,
+      default: 1,
+    },
   },
   setup(props) {
     // Group ingredients by section so we can style them independently
@@ -181,7 +185,7 @@ export default defineComponent({
     });
 
     function parseText(ingredient: RecipeIngredient) {
-      return parseIngredientText(ingredient, props.recipe.settings?.disableAmount || false);
+      return parseIngredientText(ingredient, props.recipe.settings?.disableAmount || false, props.scale);
     }
 
     return {
