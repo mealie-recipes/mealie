@@ -40,11 +40,11 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build Frontend Image
-        working-directory: "frontend"
+        working-directory: "docker"
         run: |
           docker build --push --no-cache \
             --tag hkotel/mealie:frontend-${{ inputs.tag }} \
-            --platform linux/amd64,linux/arm64 .
+            --platform linux/amd64,linux/arm64 ./frontend.Dockerfile
 
   build-backend:
     runs-on: ubuntu-latest
@@ -73,8 +73,9 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build Backend Image
+        working-directory: "docker"
         run: |
           docker build --push --no-cache \
             --tag hkotel/mealie:api-${{ inputs.tag }}  \
             --build-arg COMMIT=$(git rev-parse HEAD) \
-            --platform linux/amd64,linux/arm64 .
+            --platform linux/amd64,linux/arm64 ./api.Dockerfile
