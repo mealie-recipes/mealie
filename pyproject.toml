@@ -38,7 +38,7 @@ python-multipart = "^0.0.5"
 python-slugify = "^6.1.2"
 recipe-scrapers = "^14.24.0"
 requests = "^2.25.1"
-tzdata = "^2021.5"
+tzdata = "^2022.7"
 uvicorn = {extras = ["standard"], version = "^0.13.0"}
 
 [tool.poetry.group.dev.dependencies]
