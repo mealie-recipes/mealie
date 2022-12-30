@@ -713,9 +713,9 @@
   "admin": {
     "maintenance": {
       "storage-details": "Opslaggegevens",
-      "page-title": "Site Onderhoud",
+      "page-title": "Onderhoud website",
       "summary-title": "Samenvatting",
-      "button-label-get-summary": "Toon Samenvatting",
+      "button-label-get-summary": "Toon samenvatting",
       "button-label-open-details": "Details",
       "info-description-data-dir-size": "Grootte data map",
       "info-description-log-file-size": "Grootte logbestand",
