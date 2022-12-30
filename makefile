@@ -122,12 +122,9 @@ frontend-lint: ## 🧺 Run yarn lint
 # -----------------------------------------------------------------------------
 # Docker makefile
 
-docker-dev: ## 🐳 Build and Start Docker Development Stack
-	docker-compose -f docker-compose.dev.yml -p dev-mealie down && \
-	docker-compose -f docker-compose.dev.yml -p dev-mealie up --build
 
 docker-prod: ## 🐳 Build and Start Docker Production Stack
-	docker-compose -f docker-compose.yml -p mealie up --build
+	cd docker && docker-compose -f docker-compose.yml -p mealie up --build
 
 generate:
 	poetry run python dev/code-generation/main.py
