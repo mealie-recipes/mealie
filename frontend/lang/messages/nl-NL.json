@@ -712,39 +712,39 @@
   },
   "admin": {
     "maintenance": {
-      "storage-details": "Storage Details",
-      "page-title": "Site Maintenance",
-      "summary-title": "Summary",
-      "button-label-get-summary": "Get Summary",
+      "storage-details": "Opslaggegevens",
+      "page-title": "Site Onderhoud",
+      "summary-title": "Samenvatting",
+      "button-label-get-summary": "Toon Samenvatting",
       "button-label-open-details": "Details",
-      "info-description-data-dir-size": "Data Directory Size",
-      "info-description-log-file-size": "Log File Size",
-      "info-description-cleanable-directories": "Cleanable Directories",
-      "info-description-cleanable-images": "Cleanable Images",
+      "info-description-data-dir-size": "Grootte data map",
+      "info-description-log-file-size": "Grootte logbestand",
+      "info-description-cleanable-directories": "Opschoonbare mappen",
+      "info-description-cleanable-images": "Opschoonbare afbeeldingen",
       "storage": {
-        "title-temporary-directory": "Temporary Directory (.temp)",
-        "title-backups-directory": "Backups Directory (backups)",
-        "title-groups-directory": "Groups Directory (groups)",
-        "title-recipes-directory": "Recipes Directory (recipes)",
-        "title-user-directory": "User Directory (user)"
+        "title-temporary-directory": "Tijdelijke map (.temp)",
+        "title-backups-directory": "Back-up Map (backups)",
+        "title-groups-directory": "Groepen map (groups)",
+        "title-recipes-directory": "Recepten map (recipes)",
+        "title-user-directory": "Gebruikers map (user)"
       },
-      "action-delete-log-files-name": "Delete Log Files",
-      "action-delete-log-files-description": "Deletes all the log files",
-      "action-clean-directories-name": "Clean Directories",
-      "action-clean-directories-description": "Removes all the recipe folders that are not valid UUIDs",
-      "action-clean-temporary-files-name": "Clean Temporary Files",
-      "action-clean-temporary-files-description": "Removes all files and folders in the .temp directory",
-      "action-clean-images-name": "Clean Images",
-      "action-clean-images-description": "Removes all the images that don't end with .webp",
-      "actions-description": "Maintenance actions are {destructive_in_bold} and should be used with caution. Performing any of these actions is {irreversible_in_bold}.",
-      "actions-description-destructive": "destructive",
-      "actions-description-irreversible": "irreversible",
-      "logs-action-refresh": "Refresh Logs",
-      "logs-page-title": "Mealie Logs",
-      "logs-tail-lines-label": "Tail Lines"
+      "action-delete-log-files-name": "Logbestanden verwijderen",
+      "action-delete-log-files-description": "Verwijdert alle logbestanden",
+      "action-clean-directories-name": "Mappen opschonen",
+      "action-clean-directories-description": "Verwijdert alle recept mappen die geen geldige UUIDs zijn",
+      "action-clean-temporary-files-name": "Tijdelijke bestanden opschonen",
+      "action-clean-temporary-files-description": "Verwijdert alle bestanden en mappen in de .temp map",
+      "action-clean-images-name": "Afbeeldingen opschonen",
+      "action-clean-images-description": "Verwijdert alle afbeeldingen die niet eindigen met .webp",
+      "actions-description": "Onderhoudsacties zijn {destructive_in_bold} en moeten voorzichtig worden gebruikt. Het uitvoeren van een van deze acties is {irreversible_in_bold}.",
+      "actions-description-destructive": "destructief",
+      "actions-description-irreversible": "onomkeerbaar",
+      "logs-action-refresh": "Logbestanden vernieuwen",
+      "logs-page-title": "Mealie logs",
+      "logs-tail-lines-label": "Laatste lijnen"
     },
     "mainentance": {
-      "actions-title": "Actions"
+      "actions-title": "Acties"
     }
   }
 }
