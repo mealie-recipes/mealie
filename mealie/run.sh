@@ -59,7 +59,7 @@ else
 
     # Start API
 
-    if [ $WEB_GUNICORN == 'true' ]; then
+    if [ "$WEB_GUNICORN" == 'true' ]; then
         echo "Starting Gunicorn"
         gunicorn mealie.app:app -b 0.0.0.0:$GUNICORN_PORT -k uvicorn.workers.UvicornWorker -c /app/gunicorn_conf.py --preload
     else
