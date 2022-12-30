@@ -2073,18 +2073,17 @@ rsa = ["oauthlib[signedtoken] (>=3.0.0)"]
 
 [[package]]
 name = "rich"
-version = "10.16.2"
+version = "12.6.0"
 description = "Render rich text, tables, progress bars, syntax highlighting, markdown and more to the terminal"
 category = "dev"
 optional = false
-python-versions = ">=3.6.2,<4.0.0"
+python-versions = ">=3.6.3,<4.0.0"
 files = [
-    {file = "rich-10.16.2-py3-none-any.whl", hash = "sha256:c59d73bd804c90f747c8d7b1d023b88f2a9ac2454224a4aeaf959b21eeb42d03"},
-    {file = "rich-10.16.2.tar.gz", hash = "sha256:720974689960e06c2efdb54327f8bf0cdbdf4eae4ad73b6c94213cad405c371b"},
+    {file = "rich-12.6.0-py3-none-any.whl", hash = "sha256:a4eb26484f2c82589bd9a17c73d32a010b1e29d89f1604cd9bf3a2097b81bb5e"},
+    {file = "rich-12.6.0.tar.gz", hash = "sha256:ba3a3775974105c221d31141f2c116f4fd65c5ceb0698657a11e9f295ec93fd0"},
 ]
 
 [package.dependencies]
-colorama = ">=0.4.0,<0.5.0"
 commonmark = ">=0.9.0,<0.10.0"
 pygments = ">=2.6.0,<3.0.0"
 
@@ -2712,4 +2711,4 @@ pgsql = ["psycopg2-binary"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "f47ad52d3c1d9b32665193314d490136634a590ec2afd6d17aec704d762ebbd1"
+content-hash = "e806e99753a67177055baf260716db1d2ffbe22e736beea9ae659c4ed920c81f"
