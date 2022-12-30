@@ -15,6 +15,6 @@ repos:
     hooks:
       - id: black
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.0.200
+    rev: v0.0.202
     hooks:
       - id: ruff
