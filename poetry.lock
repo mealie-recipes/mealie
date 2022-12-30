@@ -2107,28 +2107,28 @@ pyasn1 = ">=0.1.3"
 
 [[package]]
 name = "ruff"
-version = "0.0.200"
+version = "0.0.202"
 description = "An extremely fast Python linter, written in Rust."
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "ruff-0.0.200-py3-none-macosx_10_7_x86_64.whl", hash = "sha256:dbf76453e5cd9a780d262d692e4324fd9af5792b4366fcf7cfd3604eb12d5bf6"},
-    {file = "ruff-0.0.200-py3-none-macosx_10_9_x86_64.macosx_11_0_arm64.macosx_10_9_universal2.whl", hash = "sha256:054d836a5acddced4899bc6961b9f3d2d15bb06059a6cfa03c8c201a081a6c3d"},
-    {file = "ruff-0.0.200-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:bf017ab6a7bff1296d4b7ecf434e7e5cce0f6c63bbf919c6a4d07797ce2c4502"},
-    {file = "ruff-0.0.200-py3-none-manylinux_2_17_armv7l.manylinux2014_armv7l.whl", hash = "sha256:722cc8a255160ac537f4023148470f7ed4d4f45caaf07cbc13de71e0bbf22657"},
-    {file = "ruff-0.0.200-py3-none-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:acac324e3b387fc88aaa038dbf7b9163c6054e681790505851a75d3a0afef4d5"},
-    {file = "ruff-0.0.200-py3-none-manylinux_2_17_ppc64.manylinux2014_ppc64.whl", hash = "sha256:27dc85a6c4706541ad62887eed440847c96909d772a8a3025d1b5bd20c2a4f0b"},
-    {file = "ruff-0.0.200-py3-none-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl", hash = "sha256:f16ef2b6e3b65aaf32ca9bc96040166341b216c70eb2446a37db795d630f1f21"},
-    {file = "ruff-0.0.200-py3-none-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:9ad015031559944cd0cdd6e7c65bdfac94c9ef9a29480e698a15e75ec12f95a2"},
-    {file = "ruff-0.0.200-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:7b207d6daed0ea08f2934f7ea14988e2e327ea013a487d8d8abd6398b459b131"},
-    {file = "ruff-0.0.200-py3-none-musllinux_1_2_aarch64.whl", hash = "sha256:542809ebed1ef0535088287871637be715da2801ce34063b536e2c08b683e264"},
-    {file = "ruff-0.0.200-py3-none-musllinux_1_2_armv7l.whl", hash = "sha256:31312c8eb073771ae247b8f54959d7a1cd94d99fa8f8ba12158260aa00160140"},
-    {file = "ruff-0.0.200-py3-none-musllinux_1_2_i686.whl", hash = "sha256:477966213369b0912c444982e9cfbc67e409b07c4f52086a662abfc28fab498d"},
-    {file = "ruff-0.0.200-py3-none-musllinux_1_2_x86_64.whl", hash = "sha256:5a7375028bb135c525e5974ae549843729fff3cca762af6efdefa44405e63719"},
-    {file = "ruff-0.0.200-py3-none-win32.whl", hash = "sha256:2fb165f2c18270352329574789a5cb79d5df2addfcdfd5798d63d027e0972839"},
-    {file = "ruff-0.0.200-py3-none-win_amd64.whl", hash = "sha256:b73de5e84d21036e3f2ca84ecb577dbb433903d198a53f8e72bd15a6e04d3be8"},
-    {file = "ruff-0.0.200.tar.gz", hash = "sha256:b209e6dd459c7de52a6e57a95770752f82ace49f4342945867412ba2c7cda3f3"},
+    {file = "ruff-0.0.202-py3-none-macosx_10_7_x86_64.whl", hash = "sha256:4b79d4ba3530aee5f1de3add3096df7bd483bb3a8c8933f61fe0b16d2dbbf3d2"},
+    {file = "ruff-0.0.202-py3-none-macosx_10_9_x86_64.macosx_11_0_arm64.macosx_10_9_universal2.whl", hash = "sha256:81502b86d0608549f0cd8e5f6fb66a29f365013cdf3dfdaa6521d9307c01e614"},
+    {file = "ruff-0.0.202-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:baa5b92ab3dcf5355545adec731d64598663e5c38a94710a1a971fafdbd8ccb1"},
+    {file = "ruff-0.0.202-py3-none-manylinux_2_17_armv7l.manylinux2014_armv7l.whl", hash = "sha256:91f38496b3194ce1335cc50f4a439e55a66fa12615d0b57c0867f9136249472c"},
+    {file = "ruff-0.0.202-py3-none-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:c6003f9ecc1cc10c5cad5f71072a4d98e10af6f73de148218323429996dd7c69"},
+    {file = "ruff-0.0.202-py3-none-manylinux_2_17_ppc64.manylinux2014_ppc64.whl", hash = "sha256:d34d9b8f495ad3f1333819a3cbfbcbf9c96c4637b132038cd0f0786bc48e354d"},
+    {file = "ruff-0.0.202-py3-none-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl", hash = "sha256:52fea12733b056b74ef7d0991d1f6bdf700fa0d4c15adec91dafba14a7718a3a"},
+    {file = "ruff-0.0.202-py3-none-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:0b54a64ece6e8c7113cfa26368fe55864ddf286ae18cbb02e7c5ed39e7a27c92"},
+    {file = "ruff-0.0.202-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:16d3708a2b758fa1b2ec2755e8850bc1e8327e1b4c15bdca7c19eb449077fdf5"},
+    {file = "ruff-0.0.202-py3-none-musllinux_1_2_aarch64.whl", hash = "sha256:d62322974cb8a37d5b352c0337936284002b681ab4ca164dcf97a5c5c173e0a7"},
+    {file = "ruff-0.0.202-py3-none-musllinux_1_2_armv7l.whl", hash = "sha256:eeb114e0b26ad92dcd31dc62610a66a76cbf151a7822f5624eb8faf0461fae1a"},
+    {file = "ruff-0.0.202-py3-none-musllinux_1_2_i686.whl", hash = "sha256:adcf5dc49eba84ae037c47809b6069d6d4606f14bab1bb64086843a9dcbf2c01"},
+    {file = "ruff-0.0.202-py3-none-musllinux_1_2_x86_64.whl", hash = "sha256:d7dd2d7850a88f482fd8144fdd9beeb179b2411c5203938979401a0f1ca53ea2"},
+    {file = "ruff-0.0.202-py3-none-win32.whl", hash = "sha256:76f4cff5f8d39b594e9384a947a9733e847373babbe4bcaba06caa6484ade6a4"},
+    {file = "ruff-0.0.202-py3-none-win_amd64.whl", hash = "sha256:68563fe0783265e694005adb81291b207fbf617635f35f34af5b481b713babfe"},
+    {file = "ruff-0.0.202.tar.gz", hash = "sha256:cf9efa3a2d1a5072bae9e9c2dd453373c3169a0433809af1a0834472ea6d2fa0"},
 ]
 
 [[package]]
@@ -2711,4 +2711,4 @@ pgsql = ["psycopg2-binary"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "b6e553ae39d2b6f6bc62c692fa94a73e1b40696cd305e1a1e9026958c5fd6229"
+content-hash = "21857f4cdae38a2e4ea54f1922434b54778773b6380036a31c712eb7925d1086"
