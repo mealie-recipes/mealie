@@ -52,33 +52,6 @@ COPY ./poetry.lock ./pyproject.toml ./
 RUN poetry install -E pgsql --only main
 
 ###############################################
-# Development Image
-###############################################
-FROM python-base as development
-ENV PRODUCTION=false
-ENV TESTING=false
-
-# copying poetry and venv into image
-COPY --from=builder-base $POETRY_HOME $POETRY_HOME
-COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
-
-# copy backend
-COPY ./mealie $MEALIE_HOME/mealie
-COPY ./poetry.lock ./pyproject.toml $MEALIE_HOME/
-
-# Alembic
-COPY ./alembic $MEALIE_HOME/alembic
-COPY ./alembic.ini $MEALIE_HOME/
-
-# venv already has runtime deps installed we get a quicker install
-WORKDIR $MEALIE_HOME
-RUN . $VENV_PATH/bin/activate && poetry install --with main,dev
-WORKDIR /
-
-RUN chmod +x $MEALIE_HOME/mealie/run.sh
-ENTRYPOINT $MEALIE_HOME/mealie/run.sh "reload"
-
-###############################################
 # CRFPP Image
 ###############################################
 FROM hkotel/crfpp as crfpp
@@ -135,5 +108,6 @@ EXPOSE ${APP_PORT}
 
 HEALTHCHECK CMD python $MEALIE_HOME/mealie/scripts/healthcheck.py || exit 1
 
+COPY ./docker/api.entry.sh $MEALIE_HOME/mealie/run.sh
 RUN chmod +x $MEALIE_HOME/mealie/run.sh
 ENTRYPOINT $MEALIE_HOME/mealie/run.sh

@@ -8,8 +8,8 @@ services:
         limits:
           memory: 500M
     build:
-      context: ../frontend
-      dockerfile: ../docker/frontend.Dockerfile
+      context: ../
+      dockerfile: ./docker/frontend.Dockerfile
     restart: always
     volumes:
       - mealie-data:/app/data/
