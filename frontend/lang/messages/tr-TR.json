@@ -712,39 +712,39 @@
   },
   "admin": {
     "maintenance": {
-      "storage-details": "Storage Details",
-      "page-title": "Site Maintenance",
-      "summary-title": "Summary",
-      "button-label-get-summary": "Get Summary",
-      "button-label-open-details": "Details",
-      "info-description-data-dir-size": "Data Directory Size",
-      "info-description-log-file-size": "Log File Size",
-      "info-description-cleanable-directories": "Cleanable Directories",
-      "info-description-cleanable-images": "Cleanable Images",
+      "storage-details": "Depolama Ayrıntıları",
+      "page-title": "Site Bakımı",
+      "summary-title": "Özet",
+      "button-label-get-summary": "Özet Al",
+      "button-label-open-details": "Ayrıntılar",
+      "info-description-data-dir-size": "Veri Dizini Boyutu",
+      "info-description-log-file-size": "Günlük Dosyası Boyutu",
+      "info-description-cleanable-directories": "Temizlenebilir Dizinler",
+      "info-description-cleanable-images": "Temizlenebilir Görüntüler",
       "storage": {
-        "title-temporary-directory": "Temporary Directory (.temp)",
-        "title-backups-directory": "Backups Directory (backups)",
-        "title-groups-directory": "Groups Directory (groups)",
-        "title-recipes-directory": "Recipes Directory (recipes)",
-        "title-user-directory": "User Directory (user)"
+        "title-temporary-directory": "Geçici Dizin (.temp)",
+        "title-backups-directory": "Yedekler Dizini (backups)",
+        "title-groups-directory": "Gruplar Dizini (groups)",
+        "title-recipes-directory": "Tarifler Dizini (recipes)",
+        "title-user-directory": "Kullanıcı Dizini (user)"
       },
-      "action-delete-log-files-name": "Delete Log Files",
-      "action-delete-log-files-description": "Deletes all the log files",
-      "action-clean-directories-name": "Clean Directories",
-      "action-clean-directories-description": "Removes all the recipe folders that are not valid UUIDs",
-      "action-clean-temporary-files-name": "Clean Temporary Files",
-      "action-clean-temporary-files-description": "Removes all files and folders in the .temp directory",
-      "action-clean-images-name": "Clean Images",
-      "action-clean-images-description": "Removes all the images that don't end with .webp",
-      "actions-description": "Maintenance actions are {destructive_in_bold} and should be used with caution. Performing any of these actions is {irreversible_in_bold}.",
-      "actions-description-destructive": "destructive",
-      "actions-description-irreversible": "irreversible",
-      "logs-action-refresh": "Refresh Logs",
-      "logs-page-title": "Mealie Logs",
-      "logs-tail-lines-label": "Tail Lines"
+      "action-delete-log-files-name": "Günlük Dosyalarını Sil",
+      "action-delete-log-files-description": "Tüm günlük dosyalarını sil",
+      "action-clean-directories-name": "Dizinleri Temizle",
+      "action-clean-directories-description": "Geçerli UUID'ler olmayan tüm tarif klasörlerini kaldırır",
+      "action-clean-temporary-files-name": "Geçici Dizinleri Temizle",
+      "action-clean-temporary-files-description": ".temp dizinindeki tüm dosya ve klasörleri kaldırır",
+      "action-clean-images-name": "Görüntüleri Temizle",
+      "action-clean-images-description": ".webp ile bitmeyen tüm resimleri kaldırır",
+      "actions-description": "Bakım işlemleri {destructive_in_bold} şeklindedir ve dikkatle kullanılmalıdır. Bu işlemlerden herhangi birini gerçekleştirmek {irreversible_in_bold} geri dönüşümsüzdür.",
+      "actions-description-destructive": "yıkıcı",
+      "actions-description-irreversible": "geri alınamaz",
+      "logs-action-refresh": "Günlükleri Yenile",
+      "logs-page-title": "Mealie Günlükleri",
+      "logs-tail-lines-label": "Kuyruk Çizgileri"
     },
     "mainentance": {
-      "actions-title": "Actions"
+      "actions-title": "Eylemler"
     }
   }
 }
