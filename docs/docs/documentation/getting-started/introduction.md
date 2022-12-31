@@ -53,11 +53,6 @@ As to why we need a database?
 * [FastAPI](https://fastapi.tiangolo.com/)
 * [Docker](https://www.docker.com/)
 
-<!-- ROADMAP -->
-## Road Map
-
-[See Roadmap](../../roadmap.md)
-
 
 <!-- CONTRIBUTING -->
 ## Contributing

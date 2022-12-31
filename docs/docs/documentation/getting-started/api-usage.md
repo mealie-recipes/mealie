@@ -2,8 +2,7 @@
 
 ## Getting a Token
 
-Mealie supports long-live api tokens in the user frontend. See [user settings page](../users-groups/user-settings.md)
-
+Mealie supports long-live api tokens in the user frontend. These can be created on the `/user/profile/api-tokens` page.
 
 ## Key Components
 

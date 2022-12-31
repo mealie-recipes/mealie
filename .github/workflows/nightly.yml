@@ -58,7 +58,7 @@ jobs:
           port: ${{ secrets.DEMO_SERVER_PORT }}
           script_stop: true
           script: |
-            cd ~/docker/mealie-next
+            cd ~/docker/mealie
             docker-compose pull
             docker-compose down -v
             docker-compose up -d

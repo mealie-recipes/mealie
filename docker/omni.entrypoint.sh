@@ -1,9 +1,9 @@
+# Start Backend API
 #!/bin/bash
 
-set -e
-
-# Get Reload Arg `run.sh reload` for dev server
-ARG1=${1:-production}
+# Strict Mode
+# set -e
+# IFS=$'\n\t'
 
 # Get PUID/PGID
 PUID=${PUID:-911}
@@ -22,7 +22,7 @@ change_user() {
 
         echo "Switching to dedicated user"
         exec gosu $PUID "$BASH_SOURCE" "$@"
-    elif [ "$(id -u)" = $PUID ]; then
+        elif [ "$(id -u)" = $PUID ]; then
         echo "
         User uid:    $PUID
         User gid:    $PGID
@@ -41,28 +41,19 @@ init() {
     poetry run python /app/mealie/db/init_db.py
 }
 
-if [ "$ARG1" == "reload" ]; then
-    echo "Hot Reload!"
+# change_user
+init
+GUNICORN_PORT=${API_PORT:-9000}
 
-    init
+# Start API
 
-    # Start API
-    python /app/mealie/app.py
+if [ "$WEB_GUNICORN" == 'true' ]; then
+    echo "Starting Gunicorn"
+    gunicorn mealie.app:app -b 0.0.0.0:$GUNICORN_PORT -k uvicorn.workers.UvicornWorker -c /app/gunicorn_conf.py --preload &
 else
-    echo "Production"
-
-    change_user
-
-    init
-
-    GUNICORN_PORT=${API_PORT:-9000}
-
-    # Start API
-
-    if [ "$WEB_GUNICORN" == 'true' ]; then
-        echo "Starting Gunicorn"
-        gunicorn mealie.app:app -b 0.0.0.0:$GUNICORN_PORT -k uvicorn.workers.UvicornWorker -c /app/gunicorn_conf.py --preload
-    else
-        uvicorn mealie.app:app --host 0.0.0.0 --port $GUNICORN_PORT
-    fi
+    uvicorn mealie.app:app --host 0.0.0.0 --port $GUNICORN_PORT &
 fi
+
+# ------------------------------
+# Start Frontend Nuxt Server
+cd /app/frontend && yarn start -p 3000

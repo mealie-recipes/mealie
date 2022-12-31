@@ -8,8 +8,8 @@ services:
         limits:
           memory: 500M
     build:
-      context: ./frontend
-      dockerfile: Dockerfile
+      context: ../
+      dockerfile: ./docker/frontend.Dockerfile
     restart: always
     volumes:
       - mealie-data:/app/data/
@@ -43,9 +43,9 @@ services:
         limits:
           memory: 1000M
     build:
-      context: ./
+      context: ../
       target: production
-      dockerfile: Dockerfile
+      dockerfile: ./docker/api.Dockerfile
     restart: always
     volumes:
       - mealie-data:/app/data/
