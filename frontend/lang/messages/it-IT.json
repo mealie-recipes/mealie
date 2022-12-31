@@ -653,25 +653,25 @@
     "email-is-taken": "Email già in uso"
   },
   "export": {
-    "export": "Export",
-    "file-name": "File Name",
-    "size": "Size",
+    "export": "Esporta",
+    "file-name": "Nome file",
+    "size": "Dimensione",
     "link-expires": "Link Expires"
   },
   "recipe-share": {
-    "expiration-date": "Expiration Date",
-    "share-recipe": "Share Recipe",
-    "default-30-days": "Default 30 Days",
-    "expires-at": "Expires At",
-    "recipe-link-copied-message": "Recipe link copied to clipboard"
+    "expiration-date": "Data di scadenza",
+    "share-recipe": "Condividi ricetta",
+    "default-30-days": "Predefinito 30 Giorni",
+    "expires-at": "Scade il",
+    "recipe-link-copied-message": "Link della ricetta copiato negli appunti"
   },
   "banner-experimental": {
-    "title": "Experimental Feature",
+    "title": "Funzionalità sperimentali",
     "description": "This page contains experimental or still-baking features. Please excuse the mess.",
-    "issue-link-text": "Track our progress here"
+    "issue-link-text": "Traccia i nostri progressi qui"
   },
   "form": {
-    "quantity-label-abbreviated": "Qty"
+    "quantity-label-abbreviated": "Quantità"
   },
   "markdown-editor": {
     "preview-markdown-button-label": "Preview Markdown"
@@ -728,9 +728,9 @@
         "title-recipes-directory": "Recipes Directory (recipes)",
         "title-user-directory": "User Directory (user)"
       },
-      "action-delete-log-files-name": "Delete Log Files",
-      "action-delete-log-files-description": "Deletes all the log files",
-      "action-clean-directories-name": "Clean Directories",
+      "action-delete-log-files-name": "Elimina file log",
+      "action-delete-log-files-description": "Elimina tutti i file di log",
+      "action-clean-directories-name": "Pulisci Directory",
       "action-clean-directories-description": "Removes all the recipe folders that are not valid UUIDs",
       "action-clean-temporary-files-name": "Elimina File Temporanei",
       "action-clean-temporary-files-description": "Removes all files and folders in the .temp directory",
@@ -739,12 +739,12 @@
       "actions-description": "Maintenance actions are {destructive_in_bold} and should be used with caution. Performing any of these actions is {irreversible_in_bold}.",
       "actions-description-destructive": "destructive",
       "actions-description-irreversible": "irreversibile",
-      "logs-action-refresh": "Refresh Logs",
-      "logs-page-title": "Mealie Logs",
+      "logs-action-refresh": "Aggiorna Log",
+      "logs-page-title": "Log di Mealie",
       "logs-tail-lines-label": "Tail Lines"
     },
     "mainentance": {
-      "actions-title": "Actions"
+      "actions-title": "Azioni"
     }
   }
 }
