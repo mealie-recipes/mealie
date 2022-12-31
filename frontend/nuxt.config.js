@@ -316,10 +316,6 @@ export default {
           text: "recipe_import_url",
         },
       },
-      workbox: {
-        /* workbox options */
-        skipWaiting: "true",
-      },
     },
     icons: [
       {
