@@ -15,6 +15,7 @@ const routes = {
   shoppingLists: `${prefix}/groups/shopping/lists`,
   shoppingListsId: (id: string) => `${prefix}/groups/shopping/lists/${id}`,
   shoppingListIdAddRecipe: (id: string, recipeId: string) => `${prefix}/groups/shopping/lists/${id}/recipe/${recipeId}`,
+  shoppingListIdRemoveRecipe: (id: string, recipeId: string) => `${prefix}/groups/shopping/lists/${id}/recipe/${recipeId}/delete`,
 
   shoppingListItems: `${prefix}/groups/shopping/items`,
   shoppingListItemsId: (id: string) => `${prefix}/groups/shopping/items/${id}`,
@@ -28,8 +29,8 @@ export class ShoppingListsApi extends BaseCRUDAPI<ShoppingListCreate, ShoppingLi
     return await this.requests.post(routes.shoppingListIdAddRecipe(itemId, recipeId), {recipeIncrementQuantity});
   }
 
-  async removeRecipe(itemId: string, recipeId: string) {
-    return await this.requests.delete(routes.shoppingListIdAddRecipe(itemId, recipeId));
+  async removeRecipe(itemId: string, recipeId: string, recipeDecrementQuantity = 1) {
+    return await this.requests.post(routes.shoppingListIdRemoveRecipe(itemId, recipeId), {recipeDecrementQuantity});
   }
 }
 

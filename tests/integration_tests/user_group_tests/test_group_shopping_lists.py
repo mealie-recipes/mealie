@@ -202,8 +202,9 @@ def test_shopping_lists_remove_recipe(
         assert item["note"] in known_ingredients
 
     # Remove Recipe
-    response = api_client.delete(
-        api_routes.groups_shopping_lists_item_id_recipe_recipe_id(sample_list.id, recipe.id), headers=unique_user.token
+    response = api_client.post(
+        api_routes.groups_shopping_lists_item_id_recipe_recipe_id_delete(sample_list.id, recipe.id),
+        headers=unique_user.token,
     )
 
     # Get List and Check for Ingredients
@@ -241,8 +242,9 @@ def test_shopping_lists_remove_recipe_multiple_quantity(
         assert item["note"] in known_ingredients
 
     # Remove Recipe
-    response = api_client.delete(
-        api_routes.groups_shopping_lists_item_id_recipe_recipe_id(sample_list.id, recipe.id), headers=unique_user.token
+    response = api_client.post(
+        api_routes.groups_shopping_lists_item_id_recipe_recipe_id_delete(sample_list.id, recipe.id),
+        headers=unique_user.token,
     )
 
     # Get List and Check for Ingredients
@@ -271,7 +273,7 @@ def test_shopping_list_remove_recipe_scale(
     recipe = recipe_ingredient_only
 
     recipe_initital_scale = 100
-    payload = {"recipeIncrementQuantity": recipe_initital_scale}
+    payload: dict = {"recipeIncrementQuantity": recipe_initital_scale}
 
     # first add a bunch of quantity to the list
     response = api_client.post(
@@ -299,8 +301,8 @@ def test_shopping_list_remove_recipe_scale(
     recipe_expected_scale = recipe_initital_scale - recipe_decrement_scale
 
     # remove some of the recipes
-    response = api_client.delete(
-        api_routes.groups_shopping_lists_item_id_recipe_recipe_id(sample_list.id, recipe.id),
+    response = api_client.post(
+        api_routes.groups_shopping_lists_item_id_recipe_recipe_id_delete(sample_list.id, recipe.id),
         headers=unique_user.token,
         json=payload,
     )
@@ -366,8 +368,8 @@ def test_recipe_decrement_max(
 
     # now remove way too many instances of the recipe
     payload = {"recipeDecrementQuantity": recipe_scale * 100}
-    response = api_client.delete(
-        api_routes.groups_shopping_lists_item_id_recipe_recipe_id(sample_list.id, recipe.id),
+    response = api_client.post(
+        api_routes.groups_shopping_lists_item_id_recipe_recipe_id_delete(sample_list.id, recipe.id),
         headers=unique_user.token,
         json=payload,
     )

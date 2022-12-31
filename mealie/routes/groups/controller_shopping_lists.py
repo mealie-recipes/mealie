@@ -268,7 +268,7 @@ class ShoppingListController(BaseCrudController):
 
         return shopping_list
 
-    @router.delete("/{item_id}/recipe/{recipe_id}", response_model=ShoppingListOut)
+    @router.post("/{item_id}/recipe/{recipe_id}/delete", response_model=ShoppingListOut)
     def remove_recipe_ingredients_from_list(
         self, item_id: UUID4, recipe_id: UUID4, data: ShoppingListRemoveRecipeParams | None = None
     ):

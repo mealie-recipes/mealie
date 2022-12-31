@@ -1,7 +1,7 @@
-from requests import Response
+from httpx import Response
 
 
-def assert_ignore_keys(dict1: dict, dict2: dict, ignore_keys: list = None) -> None:
+def assert_ignore_keys(dict1: dict, dict2: dict, ignore_keys: list | None = None) -> None:
     """
     Itterates through a list of keys and checks if they are in the the provided ignore_keys list,
     if they are not in the ignore_keys list, it checks the value of the key in the provided against
