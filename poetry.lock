@@ -433,14 +433,14 @@ test = ["pytest (>=6)"]
 
 [[package]]
 name = "extruct"
-version = "0.13.0"
+version = "0.14.0"
 description = "Extract embedded metadata from HTML markup"
 category = "main"
 optional = false
 python-versions = "*"
 files = [
-    {file = "extruct-0.13.0-py2.py3-none-any.whl", hash = "sha256:fe19b9aefdb4dfbf828c2b082b81a363a03a44c7591c2d6b62ca225cb8f8c0be"},
-    {file = "extruct-0.13.0.tar.gz", hash = "sha256:50a5b5bac4c5e19ecf682bf63a28fde0b1bb57433df7057371f60b58c94a2c64"},
+    {file = "extruct-0.14.0-py2.py3-none-any.whl", hash = "sha256:22739b23a7fd66239137838b8cde7b15ce838ad7a0e0721dba86058df206a2da"},
+    {file = "extruct-0.14.0.tar.gz", hash = "sha256:4c74a3f0c6829252fa40b3a1c7364c966265fd4c0f0dbcef019d1b839e3434bf"},
 ]
 
 [package.dependencies]
@@ -449,8 +449,7 @@ jstyleson = "*"
 lxml = "*"
 mf2py = "*"
 pyrdfa3 = "*"
-rdflib = "*"
-rdflib-jsonld = "*"
+rdflib = {version = ">=6.0.0", markers = "python_version >= \"3.7\""}
 six = "*"
 w3lib = "*"
 
@@ -2120,21 +2119,6 @@ html = ["html5lib"]
 tests = ["berkeleydb", "html5lib", "networkx", "pytest", "pytest-cov", "pytest-subtests"]
 
 [[package]]
-name = "rdflib-jsonld"
-version = "0.6.2"
-description = "rdflib extension adding JSON-LD parser and serializer"
-category = "main"
-optional = false
-python-versions = "*"
-files = [
-    {file = "rdflib-jsonld-0.6.2.tar.gz", hash = "sha256:107cd3019d41354c31687e64af5e3fd3c3e3fa5052ce635f5ce595fd31853a63"},
-    {file = "rdflib_jsonld-0.6.2-py2.py3-none-any.whl", hash = "sha256:011afe67672353ca9978ab9a4bee964dff91f14042f2d8a28c22a573779d2f8b"},
-]
-
-[package.dependencies]
-rdflib = ">=5.0.0"
-
-[[package]]
 name = "recipe-scrapers"
 version = "14.24.0"
 description = "Python package, scraping recipes from all over the internet"
@@ -2928,4 +2912,4 @@ pgsql = ["psycopg2-binary"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "90385570a9115bf1f5fb6cd77997838405995c19961f576a50b09575fda47f0b"
+content-hash = "70572e58d3c6e8d864b662fe46d1640c115c6863730c4bd13eff61021a1f96ab"
