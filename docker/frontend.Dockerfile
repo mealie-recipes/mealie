@@ -1,4 +1,4 @@
-FROM node:16 as builder
+FROM node:19 as builder
 
 WORKDIR /app
 
@@ -21,7 +21,7 @@ RUN rm -rf node_modules && \
   --non-interactive \
   --production=true
 
-FROM node:16-alpine
+FROM node:19-alpine
 
 RUN apk add caddy
 
