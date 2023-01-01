@@ -23,7 +23,7 @@ class BaseMixins:
         self.__init__(*args, **kwarg)
 
     @classmethod
-    def get_ref(cls, match_value: str, match_attr: str = None, session: Session = None):
+    def get_ref(cls, match_value: str, match_attr: str | None = None, session: Session | None = None):
         match_attr = match_attr or cls.Config.get_attr  # type: ignore
 
         if match_value is None or session is None:

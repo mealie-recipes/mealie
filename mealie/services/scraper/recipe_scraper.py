@@ -12,7 +12,7 @@ class RecipeScraper:
     # List of recipe scrapers. Note that order matters
     scrapers: list[type[ABCScraperStrategy]]
 
-    def __init__(self, scrapers: list[type[ABCScraperStrategy]] = None) -> None:
+    def __init__(self, scrapers: list[type[ABCScraperStrategy]] | None = None) -> None:
         if scrapers is None:
             scrapers = [
                 RecipeScraperPackage,

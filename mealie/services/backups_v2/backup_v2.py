@@ -14,7 +14,7 @@ class BackupSchemaMismatch(Exception):
 
 
 class BackupV2(BaseService):
-    def __init__(self, db_url: str = None) -> None:
+    def __init__(self, db_url: str | None = None) -> None:
         super().__init__()
 
         # type - one of these has to be a string
