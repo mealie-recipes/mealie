@@ -37,5 +37,5 @@ class UserImageController(BaseUserController):
 
         self.repos.users.patch(id, {"cache_key": cache.new_key()})
 
-        if not dest.is_file:
+        if not dest.is_file():
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)

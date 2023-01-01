@@ -18,7 +18,7 @@ class UserLockedOut(Exception):
     ...
 
 
-def create_access_token(data: dict, expires_delta: timedelta = None) -> str:
+def create_access_token(data: dict, expires_delta: timedelta | None = None) -> str:
     settings = get_app_settings()
 
     to_encode = data.copy()

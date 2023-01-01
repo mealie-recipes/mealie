@@ -33,7 +33,7 @@ class GroupReportsController(BaseUserController):
         )
 
     @router.get("", response_model=list[ReportSummary])
-    def get_all(self, report_type: ReportCategory = None):
+    def get_all(self, report_type: ReportCategory | None = None):
         return self.repo.multi_query({"group_id": self.group_id, "category": report_type}, limit=9999)
 
     @router.get("/{item_id}", response_model=ReportOut)

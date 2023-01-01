@@ -28,7 +28,7 @@ class EmailTemplate(BaseModel):
 
 
 class EmailService(BaseService):
-    def __init__(self, sender: ABCEmailSender = None) -> None:
+    def __init__(self, sender: ABCEmailSender | None = None) -> None:
         self.templates_dir = CWD / "templates"
         self.default_template = self.templates_dir / "default.html"
         self.sender: ABCEmailSender = sender or DefaultEmailSender()

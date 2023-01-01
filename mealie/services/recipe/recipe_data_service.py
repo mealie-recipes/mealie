@@ -51,7 +51,7 @@ class InvalidDomainError(Exception):
 class RecipeDataService(BaseService):
     minifier: img.ABCMinifier
 
-    def __init__(self, recipe_id: UUID4, group_id: UUID4 = None) -> None:
+    def __init__(self, recipe_id: UUID4, group_id: UUID4 | None = None) -> None:
         """
         RecipeDataService is a service that consolidates the reading/writing actions related
         to assets, and images for a recipe.

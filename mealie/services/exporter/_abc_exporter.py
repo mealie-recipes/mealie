@@ -79,7 +79,7 @@ class ABCExporter(BaseService):
             zip (zipfile.ZipFile):
         """
 
-        def func(source_dir: Path, dest_dir: str, ignore_ext: set[str] = None) -> None:
+        def func(source_dir: Path, dest_dir: str, ignore_ext: set[str] | None = None) -> None:
             ignore_ext = ignore_ext or set()
 
             for source_file in source_dir.iterdir():

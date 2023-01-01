@@ -64,7 +64,12 @@ class RepositoryGeneric(Generic[Schema, Model]):
         return {**dct, **kwargs}
 
     def get_all(
-        self, limit: int = None, order_by: str = None, order_descending: bool = True, start=0, override=None
+        self,
+        limit: int | None = None,
+        order_by: str | None = None,
+        order_descending: bool = True,
+        start=0,
+        override=None,
     ) -> list[Schema]:
         self.logger.warning('"get_all" method is deprecated; use "page_all" instead')
 
@@ -95,9 +100,9 @@ class RepositoryGeneric(Generic[Schema, Model]):
         self,
         query_by: dict[str, str | bool | int | UUID4],
         start=0,
-        limit: int = None,
+        limit: int | None = None,
         override_schema=None,
-        order_by: str = None,
+        order_by: str | None = None,
     ) -> list[Schema]:
         # sourcery skip: remove-unnecessary-cast
         eff_schema = override_schema or self.schema
@@ -112,7 +117,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
         return [eff_schema.from_orm(x) for x in q.offset(start).limit(limit).all()]
 
-    def _query_one(self, match_value: str | int | UUID4, match_key: str = None) -> Model:
+    def _query_one(self, match_value: str | int | UUID4, match_key: str | None = None) -> Model:
         """
         Query the sql database for one item an return the sql alchemy model
         object. If no match key is provided the primary_key attribute will be used.
@@ -123,7 +128,9 @@ class RepositoryGeneric(Generic[Schema, Model]):
         fltr = self._filter_builder(**{match_key: match_value})
         return self._query().filter_by(**fltr).one()
 
-    def get_one(self, value: str | int | UUID4, key: str = None, any_case=False, override_schema=None) -> Schema | None:
+    def get_one(
+        self, value: str | int | UUID4, key: str | None = None, any_case=False, override_schema=None
+    ) -> Schema | None:
         key = key or self.primary_key
 
         q = self.session.query(self.model)
@@ -220,7 +227,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
     def _count_attribute(
         self,
         attribute_name: str,
-        attr_match: str = None,
+        attr_match: str | None = None,
         count=True,
         override_schema=None,
     ) -> int | list[Schema]:  # sourcery skip: assign-if-exp

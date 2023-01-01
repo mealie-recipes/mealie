@@ -42,7 +42,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
     def by_group(self, group_id: UUID) -> "RepositoryRecipes":
         return super().by_group(group_id)  # type: ignore
 
-    def get_all_public(self, limit: int = None, order_by: str = None, start=0, override_schema=None):
+    def get_all_public(self, limit: int | None = None, order_by: str | None = None, start=0, override_schema=None):
         eff_schema = override_schema or self.schema
 
         if order_by:
@@ -69,7 +69,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             .all()
         ]
 
-    def update_image(self, slug: str, _: str = None) -> int:
+    def update_image(self, slug: str, _: str | None = None) -> int:
         entry: RecipeModel = self._query_one(match_value=slug)
         entry.image = randint(0, 255)
         self.session.commit()
