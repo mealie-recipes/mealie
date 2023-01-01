@@ -2424,14 +2424,14 @@ files = [
 
 [[package]]
 name = "types-python-slugify"
-version = "5.0.4"
+version = "6.1.0.1"
 description = "Typing stubs for python-slugify"
 category = "dev"
 optional = false
 python-versions = "*"
 files = [
-    {file = "types-python-slugify-5.0.4.tar.gz", hash = "sha256:a9d44edf034d5ceab8442ce602f976b7880ee935baeff7443964aed93f7e21d4"},
-    {file = "types_python_slugify-5.0.4-py3-none-any.whl", hash = "sha256:d0564feb7e21bd9ab646e692ae93eb9bf1b36e9b9bf7bf38d52eab43d29de2f6"},
+    {file = "types-python-slugify-6.1.0.1.tar.gz", hash = "sha256:21fd3af49842944acf96f07e320399fac51fdb9c857b7bf1cf2118526e252a22"},
+    {file = "types_python_slugify-6.1.0.1-py3-none-any.whl", hash = "sha256:260d08ab291d15fa7ab26b95bfb23eddb422aaeb9b9182d0da46decbf751349e"},
 ]
 
 [[package]]
@@ -2878,4 +2878,4 @@ pgsql = ["psycopg2-binary"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "7a760fa8b542aa55af31f9b47ed931f3fd9f9dc9e7d56f452fb69ee1231a08d8"
+content-hash = "2c8031919a1a3e4ef798468aae5fa6d52a46a3aa654c62bcee9a7a107cfb3f90"

@@ -57,7 +57,7 @@ rich = "^13.0.0"
 ruff = "^0.0.202"
 types-PyYAML = "^6.0.4"
 types-python-dateutil = "^2.8.18"
-types-python-slugify = "^5.0.3"
+types-python-slugify = "^6.0.0"
 types-requests = "^2.27.12"
 types-urllib3 = "^1.26.11"
 
