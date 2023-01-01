@@ -44,7 +44,7 @@ httpx = "^0.23.1"
 
 [tool.poetry.group.dev.dependencies]
 black = "^21.12b0"
-coverage = "^5.5"
+coverage = "^7.0"
 coveragepy-lcov = "^0.1.1"
 mkdocs-material = "^8.2.3"
 mypy = "^0.960"
