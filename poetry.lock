@@ -33,15 +33,18 @@ tz = ["python-dateutil"]
 
 [[package]]
 name = "aniso8601"
-version = "7.0.0"
+version = "9.0.1"
 description = "A library for parsing ISO 8601 strings."
 category = "main"
 optional = false
 python-versions = "*"
 files = [
-    {file = "aniso8601-7.0.0-py2.py3-none-any.whl", hash = "sha256:d10a4bf949f619f719b227ef5386e31f49a2b6d453004b21f02661ccc8670c7b"},
-    {file = "aniso8601-7.0.0.tar.gz", hash = "sha256:513d2b6637b7853806ae79ffaca6f3e8754bdd547048f5ccc1420aec4b714f1e"},
+    {file = "aniso8601-9.0.1-py2.py3-none-any.whl", hash = "sha256:1d2b7ef82963909e93c4f24ce48d4de9e66009a21bf1c1e1c85bdd0812fe412f"},
+    {file = "aniso8601-9.0.1.tar.gz", hash = "sha256:72e3117667eedf66951bb2d93f4296a56b94b078a8a95905a052611fb3f1b973"},
 ]
+
+[package.extras]
+dev = ["black", "coverage", "isort", "pre-commit", "pyenchant", "pylint"]
 
 [[package]]
 name = "anyio"
@@ -2918,4 +2921,4 @@ pgsql = ["psycopg2-binary"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "65474f08f59359f20a6c20a01326fd74fc87fe2f36f1686e3f1315354a967fa1"
+content-hash = "e142cf235c4e13498bf2ed119e7f534bdaf53b7fdbd51cd9dc86ecc55462c781"
