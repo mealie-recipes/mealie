@@ -1,9 +1,9 @@
 {
   "about": {
-    "about": "About",
-    "about-mealie": "About Mealie",
-    "api-docs": "API Docs",
-    "api-port": "API Port",
+    "about": "Относно",
+    "about-mealie": "Относно Mealie",
+    "api-docs": "API Документация",
+    "api-port": "API Порт",
     "application-mode": "Application Mode",
     "database-type": "Database Type",
     "database-url": "Database URL",
