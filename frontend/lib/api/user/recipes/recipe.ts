@@ -10,8 +10,11 @@ import {
   ParsedIngredient,
   UpdateImageResponse,
   RecipeZipTokenResponse,
+  RecipeTimelineEventIn,
+  RecipeTimelineEventOut,
+  RecipeTimelineEventUpdate,
 } from "~/lib/api/types/recipe";
-import { ApiRequestInstance } from "~/lib/api/types/non-generated";
+import { ApiRequestInstance, PaginationData } from "~/lib/api/types/non-generated";
 
 export type Parser = "nlp" | "brute";
 
@@ -44,6 +47,9 @@ const routes = {
 
   recipesSlugComments: (slug: string) => `${prefix}/recipes/${slug}/comments`,
   recipesSlugCommentsId: (slug: string, id: number) => `${prefix}/recipes/${slug}/comments/${id}`,
+
+  recipesSlugTimelineEvent: (slug: string) => `${prefix}/recipes/${slug}/timeline/events`,
+  recipesSlugTimelineEventId: (slug: string, id: string) => `${prefix}/recipes/${slug}/timeline/events/${id}`,
 };
 
 export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
@@ -125,5 +131,23 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
     formData.append("makefilerecipeimage", String(makeFileRecipeImage));
 
     return await this.requests.post(routes.recipesCreateFromOcr, formData);
+  }
+
+  async createTimelineEvent(recipeSlug: string, payload: RecipeTimelineEventIn) {
+    return await this.requests.post<RecipeTimelineEventOut>(routes.recipesSlugTimelineEvent(recipeSlug), payload);
+  }
+
+  async updateTimelineEvent(recipeSlug: string, eventId: string, payload: RecipeTimelineEventUpdate) {
+    return await this.requests.put<RecipeTimelineEventOut, RecipeTimelineEventUpdate>(routes.recipesSlugTimelineEventId(recipeSlug, eventId), payload);
+  }
+
+  async deleteTimelineEvent(recipeSlug: string, eventId: string) {
+    return await this.requests.delete<RecipeTimelineEventOut>(routes.recipesSlugTimelineEventId(recipeSlug, eventId));
+  }
+
+  async getAllTimelineEvents(recipeSlug: string, page = 1, perPage = -1, params = {} as any) {
+    return await this.requests.get<PaginationData<RecipeTimelineEventOut>>(routes.recipesSlugTimelineEvent(recipeSlug), {
+      params: { page, perPage, ...params },
+    });
   }
 }

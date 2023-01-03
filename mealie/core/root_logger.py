@@ -7,7 +7,7 @@ from mealie.core.config import determine_data_dir
 
 DATA_DIR = determine_data_dir()
 
-from .config import get_app_settings
+from .config import get_app_settings  # noqa E402
 
 LOGGER_FILE = DATA_DIR.joinpath("mealie.log")
 DATE_FORMAT = "%d-%b-%y %H:%M:%S"

@@ -18,16 +18,17 @@ ENV = BASE_DIR.joinpath(".env")
 dotenv.load_dotenv(ENV)
 PRODUCTION = os.getenv("PRODUCTION", "True").lower() in ["true", "1"]
 TESTING = os.getenv("TESTING", "False").lower() in ["true", "1"]
+DATA_DIR = os.getenv("DATA_DIR")
 
 
 def determine_data_dir() -> Path:
-    global PRODUCTION, TESTING, BASE_DIR
+    global PRODUCTION, TESTING, BASE_DIR, DATA_DIR
 
     if TESTING:
-        return BASE_DIR.joinpath("tests/.temp")
+        return BASE_DIR.joinpath(DATA_DIR if DATA_DIR else "tests/.temp")
 
     if PRODUCTION:
-        return Path("/app/data")
+        return Path(DATA_DIR if DATA_DIR else "/app/data")
 
     return BASE_DIR.joinpath("dev", "data")
 

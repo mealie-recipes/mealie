@@ -13,7 +13,7 @@ class AbstractSeeder(ABC):
     Abstract class for seeding data.
     """
 
-    def __init__(self, db: AllRepositories, logger: Logger = None, group_id: UUID4 = None):
+    def __init__(self, db: AllRepositories, logger: Logger | None = None, group_id: UUID4 | None = None):
         """
         Initialize the abstract seeder.
         :param db_conn: Database connection.

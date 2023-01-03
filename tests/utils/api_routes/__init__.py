@@ -279,6 +279,11 @@ def groups_shopping_lists_item_id_recipe_recipe_id(item_id, recipe_id):
     return f"{prefix}/groups/shopping/lists/{item_id}/recipe/{recipe_id}"
 
 
+def groups_shopping_lists_item_id_recipe_recipe_id_delete(item_id, recipe_id):
+    """`/api/groups/shopping/lists/{item_id}/recipe/{recipe_id}/delete`"""
+    return f"{prefix}/groups/shopping/lists/{item_id}/recipe/{recipe_id}/delete"
+
+
 def groups_webhooks_item_id(item_id):
     """`/api/groups/webhooks/{item_id}`"""
     return f"{prefix}/groups/webhooks/{item_id}"
@@ -347,6 +352,11 @@ def recipes_slug_assets(slug):
 def recipes_slug_comments(slug):
     """`/api/recipes/{slug}/comments`"""
     return f"{prefix}/recipes/{slug}/comments"
+
+
+def recipes_slug_duplicate(slug):
+    """`/api/recipes/{slug}/duplicate`"""
+    return f"{prefix}/recipes/{slug}/duplicate"
 
 
 def recipes_slug_exports(slug):

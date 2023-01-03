@@ -71,7 +71,7 @@ class User(SqlAlchemyBase, BaseMixins):
         }
 
     @auto_init()
-    def __init__(self, session, full_name, password, group: str = None, **kwargs) -> None:
+    def __init__(self, session, full_name, password, group: str | None = None, **kwargs) -> None:
         if group is None:
             settings = get_app_settings()
             group = settings.DEFAULT_GROUP

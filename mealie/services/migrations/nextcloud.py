@@ -2,7 +2,6 @@ import tempfile
 import zipfile
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional
 
 from slugify import slugify
 
@@ -15,7 +14,7 @@ from .utils.migration_helpers import MigrationReaders, glob_walker, import_image
 class NextcloudDir:
     name: str
     recipe: dict
-    image: Optional[Path]
+    image: Path | None
 
     @property
     def slug(self):

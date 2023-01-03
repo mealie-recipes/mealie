@@ -14,6 +14,23 @@
       </v-card-text>
     </BaseDialog>
     <BaseDialog
+      v-model="recipeDuplicateDialog"
+      :title="$t('recipe.duplicate')"
+      color="primary"
+      :icon="$globals.icons.duplicate"
+      @confirm="duplicateRecipe()"
+    >
+      <v-card-text>
+        <v-text-field
+          v-model="recipeName"
+          dense
+          :label="$t('recipe.recipe-name')"
+          autofocus
+          @keyup.enter="duplicateRecipe()"
+        ></v-text-field>
+      </v-card-text>
+    </BaseDialog>
+    <BaseDialog
       v-model="mealplannerDialog"
       :title="$t('recipe.add-recipe-to-mealplan')"
       color="primary"
@@ -40,6 +57,7 @@
               readonly
               v-on="on"
             ></v-text-field>
+
           </template>
           <v-date-picker v-model="newMealdate" no-title @input="pickerMenu = false"></v-date-picker>
         </v-menu>
@@ -135,6 +153,7 @@ export default defineComponent({
         delete: true,
         edit: true,
         download: true,
+        duplicate: false,
         mealplanner: true,
         shoppingList: true,
         print: true,
@@ -180,6 +199,10 @@ export default defineComponent({
       required: true,
       type: String,
     },
+    recipeScale: {
+      type: Number,
+      default: 1,
+    },
     /**
      * Optional group ID prop that is only _required_ when the
      * public URL is requested. If the public URL button is pressed
@@ -198,6 +221,8 @@ export default defineComponent({
       recipeDeleteDialog: false,
       mealplannerDialog: false,
       shoppingListDialog: false,
+      recipeDuplicateDialog: false,
+      recipeName: props.name,
       loading: false,
       menuItems: [] as ContextMenuItem[],
       newMealdate: "",
@@ -228,6 +253,12 @@ export default defineComponent({
         icon: $globals.icons.download,
         color: undefined,
         event: "download",
+      },
+      duplicate: {
+        title: i18n.tc("general.duplicate"),
+        icon: $globals.icons.duplicate,
+        color: undefined,
+        event: "duplicate",
       },
       mealplanner: {
         title: i18n.tc("recipe.add-to-plan"),
@@ -289,7 +320,7 @@ export default defineComponent({
     }
 
     async function addRecipeToList(listId: string) {
-      const { data } = await api.shopping.lists.addRecipe(listId, props.recipeId);
+      const { data } = await api.shopping.lists.addRecipe(listId, props.recipeId, props.recipeScale);
       if (data) {
         alert.success(i18n.t("recipe.recipe-added-to-list") as string);
         state.shoppingListDialog = false;
@@ -329,6 +360,13 @@ export default defineComponent({
       }
     }
 
+    async function duplicateRecipe() {
+      const { data } = await api.recipes.duplicateOne(props.slug, state.recipeName);
+      if (data && data.slug) {
+        router.push(`/recipe/${data.slug}`);
+      }
+    }
+
     const { copyText } = useCopy();
 
     // Note: Print is handled as an event in the parent component
@@ -338,6 +376,9 @@ export default defineComponent({
       },
       edit: () => router.push(`/recipe/${props.slug}` + "?edit=true"),
       download: handleDownloadEvent,
+      duplicate: () => {
+        state.recipeDuplicateDialog = true;
+      },
       mealplanner: () => {
         state.mealplannerDialog = true;
       },
@@ -375,6 +416,7 @@ export default defineComponent({
       ...toRefs(state),
       shoppingLists,
       addRecipeToList,
+      duplicateRecipe,
       contextMenuEventHandler,
       deleteRecipe,
       addRecipeToPlan,

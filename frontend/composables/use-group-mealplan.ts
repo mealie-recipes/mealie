@@ -4,7 +4,12 @@ import { useAsyncKey } from "./use-utils";
 import { useUserApi } from "~/composables/api";
 import { CreatePlanEntry, PlanEntryType, UpdatePlanEntry } from "~/lib/api/types/meal-plan";
 
-export const planTypeOptions = [
+type PlanOption = {
+  text: string;
+  value: PlanEntryType;
+};
+
+export const planTypeOptions: PlanOption[] = [
   { text: "Breakfast", value: "breakfast" },
   { text: "Lunch", value: "lunch" },
   { text: "Dinner", value: "dinner" },

@@ -36,7 +36,7 @@ code-gen: ## 🤖 Run Code-Gen Scripts
 
 .PHONY: setup
 setup: ## 🏗  Setup Development Instance
-	poetry install && \
+	poetry install --with main,dev && \
 	cd frontend && \
 	yarn install && \
 	cd ..
@@ -84,12 +84,11 @@ backend-typecheck:
 backend-test: ## 🧪 Run tests quickly with the default Python
 	poetry run pytest
 
-backend-format: ## 🧺 Format, Check and Flake8
-	poetry run isort .
+backend-format: ## 🧺 Format the codebase
 	poetry run black .
 
-backend-lint:
-	poetry run flake8 mealie tests
+backend-lint: ## 🧹 Lint the codebase (Ruff)
+	poetry run ruff mealie
 
 backend-all: backend-format backend-lint backend-typecheck backend-test ## 🧪 Runs all the backend checks and tests
 
@@ -123,12 +122,11 @@ frontend-lint: ## 🧺 Run yarn lint
 # -----------------------------------------------------------------------------
 # Docker makefile
 
-docker-dev: ## 🐳 Build and Start Docker Development Stack
-	docker-compose -f docker-compose.dev.yml -p dev-mealie down && \
-	docker-compose -f docker-compose.dev.yml -p dev-mealie up --build
+docker/omni: ## 🐳 Build and start the omni style container
+	cd docker && docker-compose -f omni.docker-compose.yml -p mealie-omni up --build
 
-docker-prod: ## 🐳 Build and Start Docker Production Stack
-	docker-compose -f docker-compose.yml -p mealie up --build
+docker/prod: ## 🐳 Build and Start Docker Production Stack
+	cd docker && docker-compose -f docker-compose.yml -p mealie up --build
 
 generate:
 	poetry run python dev/code-generation/main.py

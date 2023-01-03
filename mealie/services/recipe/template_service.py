@@ -96,7 +96,7 @@ class TemplateService(BaseService):
 
         return save_path
 
-    def _render_jinja2(self, recipe: Recipe, j2_template: str = None) -> Path:
+    def _render_jinja2(self, recipe: Recipe, j2_template: str | None = None) -> Path:
         """
         Renders a Jinja2 Template in a temporary directory and returns
         the path to the file.

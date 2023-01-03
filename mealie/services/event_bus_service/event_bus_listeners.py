@@ -130,7 +130,7 @@ class WebhookEventListener(EventListenerBase):
         return scheduled_webhooks
 
     def publish_to_subscribers(self, event: Event, subscribers: list[ReadWebhook]) -> None:
-        match event.document_data.document_type:
+        match event.document_data.document_type:  # noqa - match statement not supported by ruff
             case EventDocumentType.mealplan:
                 # TODO: limit mealplan data to a date range instead of returning all mealplans
                 meal_repo = self.repos.meals.by_group(self.group_id)

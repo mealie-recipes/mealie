@@ -1,0 +1,46 @@
+version: "3.4"
+services:
+  omni-mealie:
+    container_name: mealie
+    image: mealie-omni:dev
+    build:
+      context: ../
+      target: production
+      dockerfile: ./docker/omni.Dockerfile
+    restart: always
+    volumes:
+      - mealie-data:/app/data/
+    ports:
+      - 9091:3000
+    environment:
+      ALLOW_SIGNUP: "false"
+
+      DB_ENGINE: sqlite # Optional: 'sqlite', 'postgres'
+      # =====================================
+      # Postgres Config
+      POSTGRES_USER: mealie
+      POSTGRES_PASSWORD: mealie
+      POSTGRES_SERVER: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: mealie
+
+      # =====================================
+      # Web Concurrency
+      WEB_GUNICORN: true
+      WORKERS_PER_CORE: 0.5
+      MAX_WORKERS: 1
+      WEB_CONCURRENCY: 1
+
+      # =====================================
+      # Email Configuration
+      # SMTP_HOST=
+      # SMTP_PORT=587
+      # SMTP_FROM_NAME=Mealie
+      # SMTP_AUTH_STRATEGY=TLS # Options: 'TLS', 'SSL', 'NONE'
+      # SMTP_FROM_EMAIL=
+      # SMTP_USER=
+      # SMTP_PASSWORD=
+
+volumes:
+  mealie-data:
+    driver: local

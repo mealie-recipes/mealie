@@ -17,6 +17,7 @@ class ShoppingListItemRecipeReference(BaseMixins, SqlAlchemyBase):
     recipe_id = Column(GUID, ForeignKey("recipes.id"), index=True)
     recipe = orm.relationship("RecipeModel", back_populates="shopping_list_item_refs")
     recipe_quantity = Column(Float, nullable=False)
+    recipe_scale = Column(Float, nullable=False, default=1)
 
     @auto_init()
     def __init__(self, **_) -> None:

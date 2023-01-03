@@ -1,5 +1,3 @@
-from typing import Optional
-
 from pydantic.utils import GetterDict
 
 from mealie.db.models.group.shopping_list import ShoppingList
@@ -7,7 +5,7 @@ from mealie.schema._mealie import MealieModel
 
 
 class ListItem(MealieModel):
-    title: Optional[str]
+    title: str | None
     text: str = ""
     quantity: int = 1
     checked: bool = False
@@ -18,7 +16,7 @@ class ListItem(MealieModel):
 
 class ShoppingListIn(MealieModel):
     name: str
-    group: Optional[str]
+    group: str | None
     items: list[ListItem]
 
 

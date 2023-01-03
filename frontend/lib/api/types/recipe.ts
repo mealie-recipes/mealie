@@ -211,6 +211,7 @@ export interface Recipe {
   dateUpdated?: string;
   createdAt?: string;
   updateAt?: string;
+  lastMade?: string;
   recipeInstructions?: RecipeStep[];
   nutrition?: Nutrition;
   settings?: RecipeSettings;
@@ -286,6 +287,7 @@ export interface RecipeSummary {
   dateUpdated?: string;
   createdAt?: string;
   updateAt?: string;
+  lastMade?: string;
 }
 export interface RecipeCommentCreate {
   recipeId: string;
@@ -299,6 +301,9 @@ export interface RecipeCommentSave {
 export interface RecipeCommentUpdate {
   id: string;
   text: string;
+}
+export interface RecipeDuplicate {
+  name?: string;
 }
 export interface RecipePaginationQuery {
   page?: number;
@@ -345,7 +350,7 @@ export interface RecipeTimelineEventCreate {
   userId: string;
   subject: string;
   eventType: TimelineEventType;
-  message?: string;
+  eventMessage?: string;
   image?: string;
   timestamp?: string;
   recipeId: string;
@@ -354,7 +359,7 @@ export interface RecipeTimelineEventIn {
   userId?: string;
   subject: string;
   eventType: TimelineEventType;
-  message?: string;
+  eventMessage?: string;
   image?: string;
   timestamp?: string;
 }
@@ -362,7 +367,7 @@ export interface RecipeTimelineEventOut {
   userId: string;
   subject: string;
   eventType: TimelineEventType;
-  message?: string;
+  eventMessage?: string;
   image?: string;
   timestamp?: string;
   recipeId: string;
@@ -372,7 +377,7 @@ export interface RecipeTimelineEventOut {
 }
 export interface RecipeTimelineEventUpdate {
   subject: string;
-  message?: string;
+  eventMessage?: string;
   image?: string;
 }
 export interface RecipeToolCreate {

@@ -15,6 +15,10 @@ from mealie.schema.response.pagination import PaginationBase
 class ShoppingListItemRecipeRef(MealieModel):
     recipe_id: UUID4
     recipe_quantity: NoneFloat = 0
+    """the quantity of this item in a single recipe (scale == 1)"""
+
+    recipe_scale: NoneFloat = 1
+    """the number of times this recipe has been added"""
 
 
 class ShoppingListItemRecipeRefOut(ShoppingListItemRecipeRef):
@@ -79,6 +83,8 @@ class ShoppingListRecipeRefOut(MealieModel):
     shopping_list_id: UUID4
     recipe_id: UUID4
     recipe_quantity: float
+    """the number of times this recipe has been added"""
+
     recipe: RecipeSummary
 
     class Config:
@@ -116,6 +122,14 @@ class ShoppingListOut(ShoppingListUpdate):
 
     class Config:
         orm_mode = True
+
+
+class ShoppingListAddRecipeParams(MealieModel):
+    recipe_increment_quantity: float = 1
+
+
+class ShoppingListRemoveRecipeParams(MealieModel):
+    recipe_decrement_quantity: float = 1
 
 
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary  # noqa: E402

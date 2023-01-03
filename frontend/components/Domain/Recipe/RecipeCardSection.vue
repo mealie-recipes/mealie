@@ -49,6 +49,12 @@
             </v-icon>
             <v-list-item-title>{{ $t("general.updated") }}</v-list-item-title>
           </v-list-item>
+          <v-list-item @click="sortRecipes(EVENTS.lastMade)">
+            <v-icon left>
+              {{ $globals.icons.chefHat }}
+            </v-icon>
+            <v-list-item-title>{{ "Last Made" }}</v-list-item-title>
+          </v-list-item>
         </v-list>
       </v-menu>
       <ContextMenu
@@ -186,6 +192,7 @@ export default defineComponent({
       rating: "rating",
       created: "created",
       updated: "updated",
+      lastMade: "lastMade",
       shuffle: "shuffle",
     };
 
@@ -236,7 +243,10 @@ export default defineComponent({
         cookbook.value,
         category.value,
         tag.value,
-        tool.value
+        tool.value,
+
+        // filter out recipes that have a null value for the property we're sorting by
+        preferences.value.filterNull && preferences.value.orderBy ? `${preferences.value.orderBy} <> null` : null
       );
 
       // since we doubled the first call, we also need to advance the page
@@ -263,7 +273,10 @@ export default defineComponent({
           cookbook.value,
           category.value,
           tag.value,
-          tool.value
+          tool.value,
+
+          // filter out recipes that have a null value for the property we're sorting by
+          preferences.value.filterNull && preferences.value.orderBy ? `${preferences.value.orderBy} <> null` : null
         );
         if (!newRecipes.length) {
           hasMore.value = false;
@@ -280,10 +293,11 @@ export default defineComponent({
         return;
       }
 
-      function setter(orderBy: string, ascIcon: string, descIcon: string) {
+      function setter(orderBy: string, ascIcon: string, descIcon: string, defaultOrderDirection = "asc", filterNull = false) {
         if (preferences.value.orderBy !== orderBy) {
           preferences.value.orderBy = orderBy;
-          preferences.value.orderDirection = "asc";
+          preferences.value.orderDirection = defaultOrderDirection;
+          preferences.value.filterNull = filterNull;
         } else {
           preferences.value.orderDirection = preferences.value.orderDirection === "asc" ? "desc" : "asc";
         }
@@ -292,16 +306,19 @@ export default defineComponent({
 
       switch (sortType) {
         case EVENTS.az:
-          setter("name", $globals.icons.sortAlphabeticalAscending, $globals.icons.sortAlphabeticalDescending);
+          setter("name", $globals.icons.sortAlphabeticalAscending, $globals.icons.sortAlphabeticalDescending, "asc", false);
           break;
         case EVENTS.rating:
-          setter("rating", $globals.icons.sortAscending, $globals.icons.sortDescending);
+          setter("rating", $globals.icons.sortAscending, $globals.icons.sortDescending, "desc", true);
           break;
         case EVENTS.created:
-          setter("created_at", $globals.icons.sortCalendarAscending, $globals.icons.sortCalendarDescending);
+          setter("created_at", $globals.icons.sortCalendarAscending, $globals.icons.sortCalendarDescending, "desc", false);
           break;
         case EVENTS.updated:
-          setter("update_at", $globals.icons.sortClockAscending, $globals.icons.sortClockDescending);
+          setter("update_at", $globals.icons.sortClockAscending, $globals.icons.sortClockDescending, "desc", false);
+          break;
+        case EVENTS.lastMade:
+          setter("last_made", $globals.icons.sortCalendarAscending, $globals.icons.sortCalendarDescending, "desc", true);
           break;
         default:
           console.log("Unknown Event", sortType);
@@ -325,7 +342,10 @@ export default defineComponent({
           cookbook.value,
           category.value,
           tag.value,
-          tool.value
+          tool.value,
+
+          // filter out recipes that have a null value for the property we're sorting by
+          preferences.value.filterNull && preferences.value.orderBy ? `${preferences.value.orderBy} <> null` : null
         );
         context.emit(REPLACE_RECIPES_EVENT, newRecipes);
 

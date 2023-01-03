@@ -17,6 +17,7 @@
         "generic-updated": ":{name} güncellendi",
         "generic-created-with-url": "{name} oluşturuldu, {url}",
         "generic-updated-with-url": "{name} güncellendi, {url}",
+        "generic-duplicated": "{name} yinelendi",
         "generic-deleted": "{name} silindi"
     }
 }

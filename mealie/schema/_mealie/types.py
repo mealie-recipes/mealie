@@ -1,3 +1,1 @@
-from typing import Optional
-
-NoneFloat = Optional[float]
+NoneFloat = float | None

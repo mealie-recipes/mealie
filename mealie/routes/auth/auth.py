@@ -1,5 +1,4 @@
 from datetime import timedelta
-from typing import Optional
 
 from fastapi import APIRouter, Depends, Form, status
 from fastapi.exceptions import HTTPException
@@ -27,8 +26,8 @@ class CustomOAuth2Form(OAuth2PasswordRequestForm):
         password: str = Form(...),
         remember_me: bool = Form(False),
         scope: str = Form(""),
-        client_id: Optional[str] = Form(None),
-        client_secret: Optional[str] = Form(None),
+        client_id: str | None = Form(None),
+        client_secret: str | None = Form(None),
     ):
         self.grant_type = grant_type
         self.username = username

@@ -1,6 +1,10 @@
 <template>
   <v-container fluid class="narrow-container">
-    <BaseDialog v-model="state.storageDetails" title="Storage Details" :icon="$globals.icons.folderOutline">
+    <BaseDialog
+      v-model="state.storageDetails"
+      title="$t('admin.maintenance.storage-details')"
+      :icon="$globals.icons.folderOutline"
+    >
       <div class="py-2">
         <template v-for="(value, key, idx) in storageDetails">
           <v-list-item :key="`item-${key}`">
@@ -15,7 +19,7 @@
     </BaseDialog>
 
     <BasePageTitle divider>
-      <template #title> Site Maintenance </template>
+      <template #title> {{ $t("admin.maintenance.page-title") }} </template>
     </BasePageTitle>
 
     <div class="d-flex justify-end">
@@ -23,15 +27,16 @@
     </div>
 
     <section>
-      <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.wrench" title="Summary"> </BaseCardSectionTitle>
+      <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.wrench" title="$t('admin.maintenance.summary-title')">
+      </BaseCardSectionTitle>
       <div class="mb-6 ml-2 d-flex" style="gap: 0.3rem">
         <BaseButton color="info" @click="getSummary">
           <template #icon> {{ $globals.icons.tools }} </template>
-          Get Summary
+          {{ $t("admin.maintenance.button-label-get-summary") }}
         </BaseButton>
         <BaseButton color="info" @click="openDetails">
           <template #icon> {{ $globals.icons.folderOutline }} </template>
-          Details
+          {{ $t("admin.maintenance.button-label-open-details") }}
         </BaseButton>
       </div>
       <v-card class="ma-2" :loading="state.fetchingInfo">
@@ -47,9 +52,19 @@
       </v-card>
     </section>
     <section>
-      <BaseCardSectionTitle class="pb-0 mt-8" :icon="$globals.icons.wrench" title="Actions">
-        Maintenance actions are <b> destructive </b> and should be used with caution. Performing any of these actions is
-        <b> irreversible </b>.
+      <BaseCardSectionTitle
+        class="pb-0 mt-8"
+        :icon="$globals.icons.wrench"
+        title="$t('admin.mainentance.actions-title')"
+      >
+        <i18n path="admin.maintenance.actions-description">
+          <template #destructive-in-bold>
+            <b>{{ $t("admin.maintenance.actions-description-destructive") }}</b>
+          </template>
+          <template #irreversible-in-bold>
+            <b>{{ $t("admin.maintenance.actions-description-irreversible") }}</b>
+          </template>
+        </i18n>
       </BaseCardSectionTitle>
       <v-card class="ma-2" :loading="state.actionLoading">
         <template v-for="(action, idx) in actions">
@@ -62,7 +77,7 @@
             </v-list-item-title>
             <BaseButton color="info" @click="action.handler">
               <template #icon> {{ $globals.icons.robot }}</template>
-              Run
+              {{ $t("general.run") }}
             </BaseButton>
           </v-list-item>
           <v-divider :key="`divider-${idx}`" class="mx-2"></v-divider>
@@ -73,7 +88,7 @@
 </template>
 
 <script lang="ts">
-import { computed, ref, defineComponent, reactive } from "@nuxtjs/composition-api";
+import { computed, ref, defineComponent, reactive, useContext } from "@nuxtjs/composition-api";
 import { useAdminApi } from "~/composables/api";
 import { MaintenanceStorageDetails, MaintenanceSummary } from "~/lib/api/types/admin";
 
@@ -113,22 +128,24 @@ export default defineComponent({
       state.fetchingInfo = false;
     }
 
+    const { i18n } = useContext();
+
     const info = computed(() => {
       return [
         {
-          name: "Data Directory Size",
+          name: i18n.t("admin.maintenance.info-description-data-dir-size"),
           value: infoResults.value.dataDirSize,
         },
         {
-          name: "Log File Size",
+          name: i18n.t("admin.maintenance.info-description-log-file-size"),
           value: infoResults.value.logFileSize,
         },
         {
-          name: "Cleanable Directories",
+          name: i18n.t("admin.maintenance.info-description-cleanable-directories"),
           value: infoResults.value.cleanableDirs,
         },
         {
-          name: "Cleanable Images",
+          name: i18n.t("admin.maintenance.info-description-cleanable-images"),
           value: infoResults.value.cleanableImages,
         },
       ];
@@ -138,11 +155,11 @@ export default defineComponent({
     // Storage Details
 
     const storageTitles: { [key: string]: string } = {
-      tempDirSize: "Temporary Directory (.temp)",
-      backupsDirSize: "Backups Directory (backups)",
-      groupsDirSize: "Groups Directory (groups)",
-      recipesDirSize: "Recipes Directory (recipes)",
-      userDirSize: "User Directory (user)",
+      tempDirSize: i18n.t("admin.maintenance.storage.title-temporary-directory") as string,
+      backupsDirSize: i18n.t("admin.maintenance.storage.title-backups-directory") as string,
+      groupsDirSize: i18n.t("admin.maintenance.storage.title-groups-directory") as string,
+      recipesDirSize: i18n.t("admin.maintenance.storage.title-recipes-directory") as string,
+      userDirSize: i18n.t("admin.maintenance.storage.title-user-directory") as string,
     };
 
     function storageDetailsText(key: string) {
@@ -193,24 +210,24 @@ export default defineComponent({
 
     const actions = [
       {
-        name: "Delete Log Files",
+        name: i18n.t("admin.maintenance.action-delete-log-files-name"),
         handler: handleDeleteLogFile,
-        subtitle: "Deletes all the log files",
+        subtitle: i18n.t("admin.maintenance.action-delete-log-files-description"),
       },
       {
-        name: "Clean Directories",
+        name: i18n.t("admin.maintenance.action-clean-directories-name"),
         handler: handleCleanDirectories,
-        subtitle: "Removes all the recipe folders that are not valid UUIDs",
+        subtitle: i18n.t("admin.maintenance.action-clean-directories-description"),
       },
       {
-        name: "Clean Temporary Files",
+        name: i18n.t("admin.maintenance.action-clean-temporary-files-name"),
         handler: handleCleanTemp,
-        subtitle: "Removes all files and folders in the .temp directory",
+        subtitle: i18n.t("admin.maintenance.action-clean-temporary-files-description"),
       },
       {
-        name: "Clean Images",
+        name: i18n.t("admin.maintenance.action-clean-images-name"),
         handler: handleCleanImages,
-        subtitle: "Removes all the images that don't end with .webp",
+        subtitle: i18n.t("admin.maintenance.action-clean-images-description"),
       },
     ];
 

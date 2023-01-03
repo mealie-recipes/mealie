@@ -1,5 +1,3 @@
-from typing import Optional
-
 from fastapi import BackgroundTasks, Depends
 from pydantic import UUID4
 from sqlalchemy.orm.session import Session
@@ -45,7 +43,7 @@ class EventBusService:
     group_id: UUID4 | None
 
     def __init__(
-        self, bg: Optional[BackgroundTasks] = None, session: Optional[Session] = None, group_id: UUID4 | None = None
+        self, bg: BackgroundTasks | None = None, session: Session | None = None, group_id: UUID4 | None = None
     ) -> None:
         self.bg = bg
         self.session = session
@@ -61,7 +59,7 @@ class EventBusService:
         integration_id: str,
         group_id: UUID4,
         event_type: EventTypes,
-        document_data: Optional[EventDocumentDataBase],
+        document_data: EventDocumentDataBase | None,
         message: str = "",
     ) -> None:
         self.group_id = group_id

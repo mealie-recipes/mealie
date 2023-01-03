@@ -187,8 +187,8 @@
 <script lang="ts">
 import draggable from "vuedraggable";
 
-import { defineComponent, useAsync, useRoute, computed, ref, watch } from "@nuxtjs/composition-api";
-import { useToggle } from "@vueuse/core";
+import { defineComponent, useAsync, useRoute, computed, ref, watch, onUnmounted } from "@nuxtjs/composition-api";
+import { useIdle, useToggle } from "@vueuse/core";
 import { useCopyList } from "~/composables/use-copy";
 import { useUserApi } from "~/composables/api";
 import { useAsyncKey } from "~/composables/use-utils";
@@ -214,6 +214,8 @@ export default defineComponent({
     ShoppingListItemEditor,
   },
   setup() {
+    const { idle } = useIdle(5 * 60 * 1000) // 5 minutes
+    const loading = ref(true);
     const userApi = useUserApi();
 
     const edit = ref(false);
@@ -237,6 +239,47 @@ export default defineComponent({
     async function refresh() {
       shoppingList.value = await fetchShoppingList();
     }
+
+    // constantly polls for changes
+    async function pollForChanges() {
+      // pause polling if the user isn't active or we're busy
+      if (idle.value || loading.value) {
+        return;
+      }
+
+      try {
+        await refresh();
+
+        if (shoppingList.value) {
+          attempts = 0;
+          return;
+        }
+
+        // if the refresh was unsuccessful, the shopping list will be null, so we increment the attempt counter
+        attempts ++;
+      }
+
+      catch (error) {
+        attempts ++;
+      }
+
+      // if we hit too many errors, stop polling
+      if (attempts >= maxAttempts) {
+        clearInterval(pollTimer);
+      }
+    }
+
+    // start polling
+    loading.value = false;
+    const pollFrequency = 5000;
+
+    let attempts = 0;
+    const maxAttempts = 3;
+
+    const pollTimer: ReturnType<typeof setInterval> = setInterval(() => { pollForChanges() }, pollFrequency);
+    onUnmounted(() => {
+      clearInterval(pollTimer);
+    });
 
     // =====================================
     // List Item CRUD
@@ -297,9 +340,11 @@ export default defineComponent({
         return;
       }
 
+      loading.value = true;
       deleteListItems(checked);
 
       refresh();
+      loading.value = false;
     }
 
     // =====================================
@@ -413,27 +458,33 @@ export default defineComponent({
     });
 
     async function addRecipeReferenceToList(recipeId: string) {
-      if (!shoppingList.value) {
+      if (!shoppingList.value || loading.value) {
         return;
       }
 
+      loading.value = true;
       const { data } = await userApi.shopping.lists.addRecipe(shoppingList.value.id, recipeId);
 
       if (data) {
         refresh();
       }
+
+      loading.value = false;
     }
 
     async function removeRecipeReferenceToList(recipeId: string) {
-      if (!shoppingList.value) {
+      if (!shoppingList.value || loading.value) {
         return;
       }
 
+      loading.value = true;
       const { data } = await userApi.shopping.lists.removeRecipe(shoppingList.value.id, recipeId);
 
       if (data) {
         refresh();
       }
+
+      loading.value = false;
     }
 
     // =====================================
@@ -449,6 +500,7 @@ export default defineComponent({
         return;
       }
 
+      loading.value = true;
       if (item.checked && shoppingList.value.listItems) {
         const lst = shoppingList.value.listItems.filter((itm) => itm.id !== item.id);
         lst.push(item);
@@ -460,6 +512,8 @@ export default defineComponent({
       if (data) {
         refresh();
       }
+
+      loading.value = false;
     }
 
     async function deleteListItem(item: ShoppingListItemOut) {
@@ -467,11 +521,14 @@ export default defineComponent({
         return;
       }
 
+      loading.value = true;
       const { data } = await userApi.shopping.items.deleteOne(item.id);
 
       if (data) {
         refresh();
       }
+
+      loading.value = false;
     }
 
     // =====================================
@@ -499,6 +556,7 @@ export default defineComponent({
         return;
       }
 
+      loading.value = true;
       const { data } = await userApi.shopping.items.createOne(createListItemData.value);
 
       if (data) {
@@ -506,6 +564,8 @@ export default defineComponent({
         createEditorOpen.value = false;
         refresh();
       }
+
+      loading.value = false;
     }
 
     function updateIndex(data: ShoppingListItemOut[]) {
@@ -521,11 +581,14 @@ export default defineComponent({
         return;
       }
 
+      loading.value = true;
       const { data } = await userApi.shopping.items.deleteMany(items);
 
       if (data) {
         refresh();
       }
+
+      loading.value = false;
     }
 
     async function updateListItems() {
@@ -539,11 +602,14 @@ export default defineComponent({
         return itm;
       });
 
+      loading.value = true;
       const { data } = await userApi.shopping.items.updateMany(shoppingList.value.listItems);
 
       if (data) {
         refresh();
       }
+
+      loading.value = false;
     }
 
     return {

@@ -1,5 +1,3 @@
-from typing import Optional
-
 from pydantic import validator
 from slugify import slugify
 
@@ -10,7 +8,7 @@ from ..recipe.recipe_category import RecipeCategoryResponse
 
 class CustomPageBase(MealieModel):
     name: str
-    slug: Optional[str]
+    slug: str | None
     position: int
     categories: list[RecipeCategoryResponse] = []
 

@@ -42,8 +42,11 @@ markdown_extensions:
   - admonition
   - attr_list
   - pymdownx.tabbed
-  - pymdownx.superfences
-
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
 extra_css:
   - assets/stylesheets/custom.css
 extra_javascript:
@@ -67,6 +70,7 @@ nav:
           - Installation Checklist: "documentation/getting-started/installation/installation-checklist.md"
           - SQLite (Recommended): "documentation/getting-started/installation/sqlite.md"
           - PostgreSQL: "documentation/getting-started/installation/postgres.md"
+          - Single Container (Experimental): "documentation/getting-started/installation/single-container.md"
           - Frontend Configuration: "documentation/getting-started/installation/frontend-config.md"
           - Backend Configuration: "documentation/getting-started/installation/backend-config.md"
       - Usage:

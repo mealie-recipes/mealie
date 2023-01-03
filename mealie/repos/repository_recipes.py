@@ -1,5 +1,5 @@
 from random import randint
-from typing import Any, Optional
+from typing import Any
 from uuid import UUID
 
 from pydantic import UUID4
@@ -42,7 +42,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
     def by_group(self, group_id: UUID) -> "RepositoryRecipes":
         return super().by_group(group_id)  # type: ignore
 
-    def get_all_public(self, limit: int = None, order_by: str = None, start=0, override_schema=None):
+    def get_all_public(self, limit: int | None = None, order_by: str | None = None, start=0, override_schema=None):
         eff_schema = override_schema or self.schema
 
         if order_by:
@@ -69,7 +69,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             .all()
         ]
 
-    def update_image(self, slug: str, _: str = None) -> int:
+    def update_image(self, slug: str, _: str | None = None) -> int:
         entry: RecipeModel = self._query_one(match_value=slug)
         entry.image = randint(0, 255)
         self.session.commit()
@@ -135,10 +135,10 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         pagination: PaginationQuery,
         override=None,
         load_food=False,
-        cookbook: Optional[ReadCookBook] = None,
-        categories: Optional[list[UUID4 | str]] = None,
-        tags: Optional[list[UUID4 | str]] = None,
-        tools: Optional[list[UUID4 | str]] = None,
+        cookbook: ReadCookBook | None = None,
+        categories: list[UUID4 | str] | None = None,
+        tags: list[UUID4 | str] | None = None,
+        tools: list[UUID4 | str] | None = None,
     ) -> RecipePagination:
         q = self.session.query(self.model)
 
@@ -307,7 +307,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             .limit(limit)
         ]
 
-    def get_by_slug(self, group_id: UUID4, slug: str, limit=1) -> Optional[Recipe]:
+    def get_by_slug(self, group_id: UUID4, slug: str, limit=1) -> Recipe | None:
         dbrecipe = (
             self.session.query(RecipeModel)
             .filter(RecipeModel.group_id == group_id, RecipeModel.slug == slug)

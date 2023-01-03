@@ -4,6 +4,7 @@ import { useLocalStorage } from "@vueuse/core";
 export interface UserRecipePreferences {
   orderBy: string;
   orderDirection: string;
+  filterNull: boolean;
   sortIcon: string;
   useMobileCards: boolean;
 }
@@ -16,6 +17,7 @@ export function useUserSortPreferences(): Ref<UserRecipePreferences> {
     {
       orderBy: "name",
       orderDirection: "asc",
+      filterNull: false,
       sortIcon: $globals.icons.sortAlphabeticalAscending,
       useMobileCards: false,
     },

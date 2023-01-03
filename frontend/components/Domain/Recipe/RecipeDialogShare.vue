@@ -84,7 +84,6 @@ export default defineComponent({
         return props.value;
       },
       set: (val) => {
-        console.log(val);
         context.emit("input", val);
       },
     });

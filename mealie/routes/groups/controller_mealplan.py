@@ -1,6 +1,5 @@
 from datetime import date
 from functools import cached_property
-from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException
 
@@ -84,15 +83,17 @@ class GroupMealplanController(BaseUserController):
             return self.mixins.create_one(
                 SavePlanEntry(date=data.date, entry_type=data.entry_type, recipe_id=recipe.id, group_id=self.group_id)
             )
-        except IndexError:
-            raise HTTPException(status_code=404, detail=ErrorResponse.respond(message="No recipes match your rules"))
+        except IndexError as e:
+            raise HTTPException(
+                status_code=404, detail=ErrorResponse.respond(message="No recipes match your rules")
+            ) from e
 
     @router.get("", response_model=PlanEntryPagination)
     def get_all(
         self,
         q: PaginationQuery = Depends(PaginationQuery),
-        start_date: Optional[date] = None,
-        end_date: Optional[date] = None,
+        start_date: date | None = None,
+        end_date: date | None = None,
     ):
         # merge start and end dates into pagination query only if either is provided
         if start_date or end_date:
