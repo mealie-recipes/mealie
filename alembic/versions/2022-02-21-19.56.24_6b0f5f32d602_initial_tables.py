@@ -48,7 +48,6 @@ def upgrade():
         sa.Column("id", mealie.db.migration_types.GUID(), nullable=False),
         sa.Column("name", sa.String(), nullable=False),
         sa.Column("slug", sa.String(), nullable=False),
-        sa.Column("color", sa.String(), nullable=False),
         sa.ForeignKeyConstraint(
             ["group_id"],
             ["groups.id"],
@@ -279,7 +278,6 @@ def upgrade():
         sa.Column("group_id", mealie.db.migration_types.GUID(), nullable=False),
         sa.Column("name", sa.String(), nullable=False),
         sa.Column("slug", sa.String(), nullable=False),
-        sa.Column("color", sa.String(), nullable=False),
         sa.ForeignKeyConstraint(
             ["group_id"],
             ["groups.id"],
