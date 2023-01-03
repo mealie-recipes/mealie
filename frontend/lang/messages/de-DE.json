@@ -741,7 +741,7 @@
       "actions-description-irreversible": "irreversibel",
       "logs-action-refresh": "Logs aktualisieren",
       "logs-page-title": "Mealie-Logs",
-      "logs-tail-lines-label": "Tail Lines"
+      "logs-tail-lines-label": "Zeilen begrenzen"
     },
     "mainentance": {
       "actions-title": "Aktionen"
