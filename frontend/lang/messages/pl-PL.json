@@ -612,7 +612,7 @@
     "you-are-not-allowed-to-delete-this-user": "Nie masz uprawnień do usuwania użytkowników",
     "enable-advanced-content": "Włącz zaawansowane ustawienia",
     "enable-advanced-content-description": "Włącza funkcje zaawansowane takie jak skalowanie przepisów, klucze API, webhooki i zarządzanie danymi. Nie mart się, opcję tą można później zmienić",
-    "favorite-recipes": "Favorite Recipes"
+    "favorite-recipes": "Ulubione przepisy"
   },
   "language-dialog": {
     "translated": "przetłumaczone",
@@ -654,9 +654,9 @@
   },
   "export": {
     "export": "Export",
-    "file-name": "File Name",
-    "size": "Size",
-    "link-expires": "Link Expires"
+    "file-name": "Nazwa pliku",
+    "size": "Rozmiar",
+    "link-expires": "Link wygasa"
   },
   "recipe-share": {
     "expiration-date": "Expiration Date",
@@ -667,7 +667,7 @@
   },
   "banner-experimental": {
     "title": "Funkcje eksperymentalne",
-    "description": "This page contains experimental or still-baking features. Please excuse the mess.",
+    "description": "Ta strona zawiera funkcje eksperymentalne lub jeszcze pieczone. Przepraszamy za bałagan.",
     "issue-link-text": "Śledź nasze postępy tutaj"
   },
   "form": {
@@ -683,15 +683,15 @@
   },
   "ocr-editor": {
     "ocr-editor": "Ocr editor",
-    "selection-mode": "Selection mode",
+    "selection-mode": "Tryb wyboru",
     "pan-and-zoom-picture": "Pan and zoom picture",
-    "split-text": "Split text",
-    "preserve-line-breaks": "Preserve original line breaks",
+    "split-text": "Podziel tekst",
+    "preserve-line-breaks": "Zachowaj oryginalne podziały wierszy",
     "split-by-block": "Split by text block",
-    "flatten": "Flatten regardless of original formating",
+    "flatten": "Wyrównaj niezależnie od oryginalnego formatowania",
     "help": {
-      "selection-mode": "Selection Mode (default)",
-      "selection-mode-desc": "The selection mode is the main mode that can be used to enter data:",
+      "selection-mode": "Tryb wyboru (domyślny)",
+      "selection-mode-desc": "Tryb wyboru jest głównym trybem, który służy do wprowadzenia danych:",
       "selection-mode-steps": {
         "draw": "Draw a rectangle on the text you want to select.",
         "click": "Click on any field on the right and then click back on the rectangle above the image.",

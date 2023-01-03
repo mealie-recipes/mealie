@@ -1,65 +1,65 @@
 [
     {
-        "name": "Produce"
+        "name": "Продукция"
     },
     {
-        "name": "Grains"
+        "name": "Зърнени култури"
     },
     {
-        "name": "Fruits"
+        "name": "Плодове"
     },
     {
-        "name": "Vegetables"
+        "name": "Зеленчуци"
     },
     {
-        "name": "Meat"
+        "name": "Месо"
     },
     {
-        "name": "Seafood"
+        "name": "Морска храна"
     },
     {
-        "name": "Beverages"
+        "name": "Напитки"
     },
     {
-        "name": "Baked Goods"
+        "name": "Печива"
     },
     {
-        "name": "Canned Goods"
+        "name": "Продукти в консерва"
     },
     {
-        "name": "Condiments"
+        "name": "Допълнения"
     },
     {
-        "name": "Confectionary"
+        "name": "Сладкарски изделия"
     },
     {
-        "name": "Dairy Products"
+        "name": "Млечни продукти"
     },
     {
-        "name": "Frozen Foods"
+        "name": "Замразени храни"
     },
     {
-        "name": "Health Foods"
+        "name": "Здравословни храни"
     },
     {
-        "name": "Household"
+        "name": "Домакинство"
     },
     {
-        "name": "Meat Products"
+        "name": "Местни продукти"
     },
     {
-        "name": "Snacks"
+        "name": "Лека закуски"
     },
     {
-        "name": "Spices"
+        "name": "Подправки"
     },
     {
-        "name": "Sweets"
+        "name": "Сладко"
     },
     {
-        "name": "Alcohol"
+        "name": "Алкохол"
     },
     {
-        "name": "Other"
+        "name": "Други"
     }
 ]
