@@ -121,6 +121,13 @@ export default {
       callback: "/login",
       home: "/",
     },
+    cookie: {
+      prefix: "mealie.auth.",
+      options: {
+        expires: 7,
+        path: "/",
+      },
+    },
     // Options
     strategies: {
       local: {
