@@ -709,5 +709,42 @@
         "flat-mode-desc": "Im Fließtext-Modus wird der Text ohne Zeilenumbrüche in das ausgewählte Rezeptfeld übernommen."
       }
     }
+  },
+  "admin": {
+    "maintenance": {
+      "storage-details": "Speicherdetails",
+      "page-title": "System-Wartung",
+      "summary-title": "Zusammenfassung",
+      "button-label-get-summary": "Zusammenfassung laden",
+      "button-label-open-details": "Details",
+      "info-description-data-dir-size": "Datenverzeichnisgröße",
+      "info-description-log-file-size": "Log-Dateigröße",
+      "info-description-cleanable-directories": "Löschbare Verzeichnisse",
+      "info-description-cleanable-images": "Löschbare Bilder",
+      "storage": {
+        "title-temporary-directory": "Temporäres Verzeichnis (.temp)",
+        "title-backups-directory": "Sicherungsverzeichnis (backups)",
+        "title-groups-directory": "Gruppen-Verzeichnis (groups)",
+        "title-recipes-directory": "Rezept-Verzeichnis (recipes)",
+        "title-user-directory": "Benutzerverzeichnis (user)"
+      },
+      "action-delete-log-files-name": "Logs löschen",
+      "action-delete-log-files-description": "Löscht alle Logdateien",
+      "action-clean-directories-name": "Verzeichnisse bereinigen",
+      "action-clean-directories-description": "Entfernt alle Rezeptordner mit ungültigen UUIDs",
+      "action-clean-temporary-files-name": "Temporäre Daten bereinigen",
+      "action-clean-temporary-files-description": "Entfernt alle Dateien und Ordner im .temp-Verzeichnis",
+      "action-clean-images-name": "Bilder bereinigen",
+      "action-clean-images-description": "Entfernt alle Bilder, die nicht mit .webp enden",
+      "actions-description": "Wartungsaktionen sind {destructive_in_bold} und sollten mit Vorsicht verwendet werden. Jede dieser Aktionen ist {irreversible_in_bold}.",
+      "actions-description-destructive": "destruktiv",
+      "actions-description-irreversible": "irreversibel",
+      "logs-action-refresh": "Logs aktualisieren",
+      "logs-page-title": "Mealie-Logs",
+      "logs-tail-lines-label": "Zeilen begrenzen"
+    },
+    "mainentance": {
+      "actions-title": "Aktionen"
+    }
   }
 }

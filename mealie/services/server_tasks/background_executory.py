@@ -20,9 +20,6 @@ class BackgroundExecutor:
         self.repos = repos
         self.background_tasks = bg
 
-    def populate_item(self, _: int) -> ServerTask:
-        pass
-
     def dispatch(self, task_name: ServerTaskNames, func: Callable, *args: Any, **kwargs: Any) -> ServerTask:
         """The dispatch function is a wrapper around the BackgroundTasks class in Starlett. It directly calls
         the add_task function and your task will be run in the background. This function all passes the id required

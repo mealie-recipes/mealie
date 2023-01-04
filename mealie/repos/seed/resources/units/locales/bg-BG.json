@@ -1,13 +1,13 @@
 {
     "teaspoon": {
-        "name": "teaspoon",
+        "name": "чаена лъжичка",
         "description": "",
-        "abbreviation": "tsp"
+        "abbreviation": "ч.л."
     },
     "tablespoon": {
-        "name": "tablespoon",
+        "name": "супена лъжица",
         "description": "",
-        "abbreviation": "tbsp"
+        "abbreviation": "с.л."
     },
     "cup": {
         "name": "cup",
@@ -35,14 +35,14 @@
         "abbreviation": "gal"
     },
     "milliliter": {
-        "name": "milliliter",
+        "name": "милилитър",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
-        "name": "liter",
+        "name": "литър",
         "description": "",
-        "abbreviation": "l"
+        "abbreviation": "л"
     },
     "pound": {
         "name": "pound",
@@ -55,47 +55,47 @@
         "abbreviation": "oz"
     },
     "gram": {
-        "name": "gram",
+        "name": "грам",
         "description": "",
-        "abbreviation": "g"
+        "abbreviation": "гр"
     },
     "kilogram": {
-        "name": "kilogram",
+        "name": "килограм",
         "description": "",
-        "abbreviation": "kg"
+        "abbreviation": "кг"
     },
     "milligram": {
-        "name": "milligram",
+        "name": "милиграм",
         "description": "",
-        "abbreviation": "mg"
+        "abbreviation": "мг"
     },
     "splash": {
-        "name": "splash",
+        "name": "плисък",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
-        "name": "dash",
+        "name": "щипка",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
-        "name": "serving",
+        "name": "порция",
         "description": "",
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
+        "name": "глава",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
-        "name": "clove",
+        "name": "скилидка",
         "description": "",
         "abbreviation": ""
     },
     "can": {
-        "name": "can",
+        "name": "консерва",
         "description": "",
         "abbreviation": ""
     }

@@ -89,9 +89,7 @@ def test_recipe_share_tokens_create_and_get_one(
     response = api_client.post(api_routes.shared_recipes, json=payload, headers=unique_user.token)
     assert response.status_code == 201
 
-    response = api_client.get(
-        api_routes.shared_recipes_item_id(response.json()["id"]), json=payload, headers=unique_user.token
-    )
+    response = api_client.get(api_routes.shared_recipes_item_id(response.json()["id"]), headers=unique_user.token)
     assert response.status_code == 200
 
     response_data = response.json()

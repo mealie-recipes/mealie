@@ -709,5 +709,42 @@
         "flat-mode-desc": "Düz modda, metin, satır sonu olmadan seçilen tarif alanına eklenecektir."
       }
     }
+  },
+  "admin": {
+    "maintenance": {
+      "storage-details": "Depolama Ayrıntıları",
+      "page-title": "Site Bakımı",
+      "summary-title": "Özet",
+      "button-label-get-summary": "Özet Al",
+      "button-label-open-details": "Ayrıntılar",
+      "info-description-data-dir-size": "Veri Dizini Boyutu",
+      "info-description-log-file-size": "Günlük Dosyası Boyutu",
+      "info-description-cleanable-directories": "Temizlenebilir Dizinler",
+      "info-description-cleanable-images": "Temizlenebilir Görüntüler",
+      "storage": {
+        "title-temporary-directory": "Geçici Dizin (.temp)",
+        "title-backups-directory": "Yedekler Dizini (backups)",
+        "title-groups-directory": "Gruplar Dizini (groups)",
+        "title-recipes-directory": "Tarifler Dizini (recipes)",
+        "title-user-directory": "Kullanıcı Dizini (user)"
+      },
+      "action-delete-log-files-name": "Günlük Dosyalarını Sil",
+      "action-delete-log-files-description": "Tüm günlük dosyalarını sil",
+      "action-clean-directories-name": "Dizinleri Temizle",
+      "action-clean-directories-description": "Geçerli UUID'ler olmayan tüm tarif klasörlerini kaldırır",
+      "action-clean-temporary-files-name": "Geçici Dizinleri Temizle",
+      "action-clean-temporary-files-description": ".temp dizinindeki tüm dosya ve klasörleri kaldırır",
+      "action-clean-images-name": "Görüntüleri Temizle",
+      "action-clean-images-description": ".webp ile bitmeyen tüm resimleri kaldırır",
+      "actions-description": "Bakım işlemleri {destructive_in_bold} şeklindedir ve dikkatle kullanılmalıdır. Bu işlemlerden herhangi birini gerçekleştirmek {irreversible_in_bold} geri dönüşümsüzdür.",
+      "actions-description-destructive": "yıkıcı",
+      "actions-description-irreversible": "geri alınamaz",
+      "logs-action-refresh": "Günlükleri Yenile",
+      "logs-page-title": "Mealie Günlükleri",
+      "logs-tail-lines-label": "Kuyruk Çizgileri"
+    },
+    "mainentance": {
+      "actions-title": "Eylemler"
+    }
   }
 }

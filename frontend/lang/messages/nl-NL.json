@@ -6,7 +6,7 @@
     "api-port": "API Poort",
     "application-mode": "Applicatie modus",
     "database-type": "Databasetype",
-    "database-url": "Database URL",
+    "database-url": "Database-URL",
     "default-group": "Standaardgroep",
     "demo": "Voorbeeld",
     "demo-status": "Demo status",
@@ -198,7 +198,7 @@
     "end-date": "Einddatum",
     "group": "Groep (Beta)",
     "main": "Hoofdgerecht",
-    "meal-planner": "Maaltijd planner",
+    "meal-planner": "Maaltijdplanner",
     "meal-plans": "Maaltijd plannen",
     "mealplan-categories": "MAALTIJDPLAN CATEGORIEËN",
     "mealplan-created": "Maaltijdplan aangemaakt",
@@ -688,7 +688,7 @@
     "split-text": "Tekst splitsen",
     "preserve-line-breaks": "Behoud oorspronkelijke regeleinden",
     "split-by-block": "Splits per tekstblok",
-    "flatten": "Flatten regardless of original formating",
+    "flatten": "Samenvoegen ongeacht originele opmaak",
     "help": {
       "selection-mode": "Selectiemodus (standaard)",
       "selection-mode-desc": "De selectiemodus is de hoofdmodus die gebruikt kan worden om gegevens in te voeren:",
@@ -705,9 +705,46 @@
         "line-mode-desc": "In line mode, the text will be propagated by keeping the original line breaks. This mode is useful when using bulk add on a list of ingredients where one ingredient is one line.",
         "block-mode": "Blokmodus",
         "block-mode-desc": "In block mode, the text will be split in blocks. This mode is useful when bulk adding instructions that are usually written in paragraphs.",
-        "flat-mode": "Flat mode",
+        "flat-mode": "Platte modus",
         "flat-mode-desc": "In flat mode, the text will be added to the selected recipe field with no line breaks."
       }
+    }
+  },
+  "admin": {
+    "maintenance": {
+      "storage-details": "Opslaggegevens",
+      "page-title": "Onderhoud website",
+      "summary-title": "Samenvatting",
+      "button-label-get-summary": "Toon samenvatting",
+      "button-label-open-details": "Details",
+      "info-description-data-dir-size": "Grootte data map",
+      "info-description-log-file-size": "Grootte logbestand",
+      "info-description-cleanable-directories": "Opschoonbare mappen",
+      "info-description-cleanable-images": "Opschoonbare afbeeldingen",
+      "storage": {
+        "title-temporary-directory": "Tijdelijke map (.temp)",
+        "title-backups-directory": "Back-up Map (backups)",
+        "title-groups-directory": "Groepen map (groups)",
+        "title-recipes-directory": "Recepten map (recipes)",
+        "title-user-directory": "Gebruikers map (user)"
+      },
+      "action-delete-log-files-name": "Logbestanden verwijderen",
+      "action-delete-log-files-description": "Verwijdert alle logbestanden",
+      "action-clean-directories-name": "Mappen opschonen",
+      "action-clean-directories-description": "Verwijdert alle recept mappen die geen geldige UUIDs zijn",
+      "action-clean-temporary-files-name": "Tijdelijke bestanden opschonen",
+      "action-clean-temporary-files-description": "Verwijdert alle bestanden en mappen in de .temp map",
+      "action-clean-images-name": "Afbeeldingen opschonen",
+      "action-clean-images-description": "Verwijdert alle afbeeldingen die niet eindigen met .webp",
+      "actions-description": "Onderhoudsacties zijn {destructive_in_bold} en moeten voorzichtig worden gebruikt. Het uitvoeren van een van deze acties is {irreversible_in_bold}.",
+      "actions-description-destructive": "destructief",
+      "actions-description-irreversible": "onomkeerbaar",
+      "logs-action-refresh": "Logbestanden vernieuwen",
+      "logs-page-title": "Mealie logs",
+      "logs-tail-lines-label": "Laatste lijnen"
+    },
+    "mainentance": {
+      "actions-title": "Acties"
     }
   }
 }

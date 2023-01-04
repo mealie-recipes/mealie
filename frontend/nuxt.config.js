@@ -121,6 +121,13 @@ export default {
       callback: "/login",
       home: "/",
     },
+    cookie: {
+      prefix: "mealie.auth.",
+      options: {
+        expires: 7,
+        path: "/",
+      },
+    },
     // Options
     strategies: {
       local: {
@@ -243,6 +250,7 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     proxy: true,
+    credentials: true,
   },
 
   publicRuntimeConfig: {
@@ -307,6 +315,7 @@ export default {
       lang: "en",
       name: "Mealie",
       title: "Mealie",
+      start_url: "/",
       background_color: "#FFFFFF",
       share_target: {
         action: "/",
@@ -315,10 +324,6 @@ export default {
           title: "title",
           text: "recipe_import_url",
         },
-      },
-      workbox: {
-        /* workbox options */
-        skipWaiting: "true",
       },
     },
     icons: [

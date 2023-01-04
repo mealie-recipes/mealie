@@ -35,7 +35,7 @@ class MinifierOptions:
 
 
 class ABCMinifier(ABC):
-    def __init__(self, purge=False, opts: MinifierOptions = None, logger: Logger = None):
+    def __init__(self, purge=False, opts: MinifierOptions | None = None, logger: Logger | None = None):
         self._purge = purge
         self._opts = opts or MinifierOptions()
         self._logger = logger or Logger("Minifier")
@@ -60,7 +60,7 @@ class ABCMinifier(ABC):
 
 class PillowMinifier(ABCMinifier):
     @staticmethod
-    def to_webp(image_file: Path, dest: Path = None, quality: int = 100) -> Path:
+    def to_webp(image_file: Path, dest: Path | None = None, quality: int = 100) -> Path:
         """
         Converts an image to the webp format in-place. The original image is not
         removed By default, the quality is set to 100.

@@ -2,16 +2,16 @@ FROM node:16 as builder
 
 WORKDIR /app
 
-COPY . .
+COPY ./frontend .
 
 RUN yarn install \
   --prefer-offline \
   --frozen-lockfile \
   --non-interactive \
-  --production=false \ 
+  --production=false \
   # https://github.com/docker/build-push-action/issues/471
   --network-timeout 1000000
-  
+
 RUN yarn build
 
 RUN rm -rf node_modules && \
@@ -29,7 +29,8 @@ WORKDIR /app
 
 # copying caddy into image
 COPY --from=builder /app  .
-COPY ./Caddyfile /app/
+COPY ./docker/frontend.Caddyfile /app/Caddyfile
+COPY ./docker/frontend.entry.sh /app/run.sh
 
 ENV HOST 0.0.0.0
 EXPOSE 3000

@@ -199,6 +199,10 @@ export default defineComponent({
       required: true,
       type: String,
     },
+    recipeScale: {
+      type: Number,
+      default: 1,
+    },
     /**
      * Optional group ID prop that is only _required_ when the
      * public URL is requested. If the public URL button is pressed
@@ -316,7 +320,7 @@ export default defineComponent({
     }
 
     async function addRecipeToList(listId: string) {
-      const { data } = await api.shopping.lists.addRecipe(listId, props.recipeId);
+      const { data } = await api.shopping.lists.addRecipe(listId, props.recipeId, props.recipeScale);
       if (data) {
         alert.success(i18n.t("recipe.recipe-added-to-list") as string);
         state.shoppingListDialog = false;

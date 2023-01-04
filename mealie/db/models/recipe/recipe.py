@@ -136,12 +136,12 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     def __init__(
         self,
         session,
-        assets: list = None,
-        notes: list[dict] = None,
-        nutrition: dict = None,
-        recipe_ingredient: list[dict] = None,
-        recipe_instructions: list[dict] = None,
-        settings: dict = None,
+        assets: list | None = None,
+        notes: list[dict] | None = None,
+        nutrition: dict | None = None,
+        recipe_ingredient: list[dict] | None = None,
+        recipe_instructions: list[dict] | None = None,
+        settings: dict | None = None,
         **_,
     ) -> None:
         self.nutrition = Nutrition(**nutrition) if nutrition else Nutrition()

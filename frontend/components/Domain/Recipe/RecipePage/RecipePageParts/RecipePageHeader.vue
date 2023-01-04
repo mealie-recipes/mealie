@@ -45,6 +45,7 @@
       v-if="user.id"
       :recipe="recipe"
       :slug="recipe.slug"
+      :recipe-scale="recipeScale"
       :locked="user.id !== recipe.userId && recipe.settings.locked"
       :name="recipe.name"
       :logged-in="$auth.loggedIn"
@@ -84,6 +85,10 @@ export default defineComponent({
     recipe: {
       type: Object as () => NoUndefinedField<Recipe>,
       required: true,
+    },
+    recipeScale: {
+      type: Number,
+      default: 1,
     },
     landscape: {
       type: Boolean,

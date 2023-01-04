@@ -15,7 +15,7 @@ jobs:
 
       - name: Build Dockerfile
         run: |
-          docker build -t mealie ./frontend/
+          docker build -t mealie --file=./docker/frontend.Dockerfile .
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master

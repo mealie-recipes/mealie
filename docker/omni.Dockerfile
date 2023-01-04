@@ -1,5 +1,28 @@
+FROM node:16 as builder
+
+WORKDIR /app
+
+COPY ./frontend .
+
+RUN yarn install \
+    --prefer-offline \
+    --frozen-lockfile \
+    --non-interactive \
+    --production=false \
+    # https://github.com/docker/build-push-action/issues/471
+    --network-timeout 1000000
+
+RUN yarn build
+
+RUN rm -rf node_modules && \
+    NODE_ENV=production yarn install \
+    --prefer-offline \
+    --pure-lockfile \
+    --non-interactive \
+    --production=true
+
 ###############################################
-# Base Image
+# Base Image - Python
 ###############################################
 FROM python:3.10-slim as python-base
 
@@ -41,7 +64,7 @@ RUN apt-get update \
     && pip install -U --no-cache-dir pip
 
 # install poetry - respects $POETRY_VERSION & $POETRY_HOME
-ENV POETRY_VERSION=1.2.1
+ENV POETRY_VERSION=1.3.1
 RUN curl -sSL https://install.python-poetry.org | python3 -
 
 # copy project requirement files here to ensure they will be cached.
@@ -49,34 +72,7 @@ WORKDIR $PYSETUP_PATH
 COPY ./poetry.lock ./pyproject.toml ./
 
 # install runtime deps - uses $POETRY_VIRTUALENVS_IN_PROJECT internally
-RUN poetry install -E pgsql --no-dev
-
-###############################################
-# Development Image
-###############################################
-FROM python-base as development
-ENV PRODUCTION=false
-ENV TESTING=false
-
-# copying poetry and venv into image
-COPY --from=builder-base $POETRY_HOME $POETRY_HOME
-COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
-
-# copy backend
-COPY ./mealie $MEALIE_HOME/mealie
-COPY ./poetry.lock ./pyproject.toml $MEALIE_HOME/
-
-# Alembic
-COPY ./alembic $MEALIE_HOME/alembic
-COPY ./alembic.ini $MEALIE_HOME/
-
-# venv already has runtime deps installed we get a quicker install
-WORKDIR $MEALIE_HOME
-RUN . $VENV_PATH/bin/activate && poetry install
-WORKDIR /
-
-RUN chmod +x $MEALIE_HOME/mealie/run.sh
-ENTRYPOINT $MEALIE_HOME/mealie/run.sh "reload"
+RUN poetry install -E pgsql --only main
 
 ###############################################
 # CRFPP Image
@@ -99,8 +95,18 @@ RUN apt-get update \
     && apt-get install --no-install-recommends -y \
     gosu \
     tesseract-ocr-all \
+    curl \
+    gnupg \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
+
+RUN apt-get install -y curl \
+    && curl -sL https://deb.nodesource.com/setup_16.x | bash - \
+    && apt-get install -y nodejs \
+    && curl -L https://www.npmjs.com/install.sh | sh
+
+# Add Yarn
+RUN npm install -g yarn
 
 # copying poetry and venv into image
 COPY --from=builder-base $POETRY_HOME $POETRY_HOME
@@ -122,7 +128,7 @@ COPY ./alembic.ini $MEALIE_HOME/
 
 # venv already has runtime deps installed we get a quicker install
 WORKDIR $MEALIE_HOME
-RUN . $VENV_PATH/bin/activate && poetry install -E pgsql --no-dev
+RUN . $VENV_PATH/bin/activate && poetry install -E pgsql --only main
 WORKDIR /
 
 # Grab CRF++ Model Release
@@ -135,5 +141,16 @@ EXPOSE ${APP_PORT}
 
 HEALTHCHECK CMD python $MEALIE_HOME/mealie/scripts/healthcheck.py || exit 1
 
-RUN chmod +x $MEALIE_HOME/mealie/run.sh
-ENTRYPOINT $MEALIE_HOME/mealie/run.sh
+# ----------------------------------
+# Copy Frontend
+
+# copying caddy into image
+COPY --from=builder /app  $MEALIE_HOME/frontend/
+
+ENV HOST 0.0.0.0
+
+EXPOSE ${APP_PORT}
+COPY ./docker/omni.entry.sh $MEALIE_HOME/run.sh
+
+RUN chmod +x $MEALIE_HOME/run.sh
+ENTRYPOINT $MEALIE_HOME/run.sh

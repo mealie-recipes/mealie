@@ -709,5 +709,42 @@
         "flat-mode-desc": "В неструктурованому режимі текст буде додано до вибраного поля рецепта без жодного переносу рядка."
       }
     }
+  },
+  "admin": {
+    "maintenance": {
+      "storage-details": "Деталі сховища",
+      "page-title": "Обслуговування сайту",
+      "summary-title": "Загальна інформація",
+      "button-label-get-summary": "Отримати загальну інформацію",
+      "button-label-open-details": "Деталі",
+      "info-description-data-dir-size": "Розмір теки з даними",
+      "info-description-log-file-size": "Розмір файлу журналу",
+      "info-description-cleanable-directories": "Теки що можна видалити",
+      "info-description-cleanable-images": "Зображення що можна видалити",
+      "storage": {
+        "title-temporary-directory": "Тимчасова тека (.temp)",
+        "title-backups-directory": "Тека резервних копій (backups)",
+        "title-groups-directory": "Тека груп (groups)",
+        "title-recipes-directory": "Тека рецептів (recipes)",
+        "title-user-directory": "Тека користувачів (user)"
+      },
+      "action-delete-log-files-name": "Видалити файли журналу",
+      "action-delete-log-files-description": "Видалити всі файли журналу",
+      "action-clean-directories-name": "Очистити каталоги",
+      "action-clean-directories-description": "Видаляє всі папки рецептів, які не є дійсними UUID",
+      "action-clean-temporary-files-name": "Очистити тимчасові файли",
+      "action-clean-temporary-files-description": "Видаляє всі файли і теки в каталозі .temp",
+      "action-clean-images-name": "Видалити зображення",
+      "action-clean-images-description": "Видалити всі зображення, що не закінчуються на .webp",
+      "actions-description": "Операції технічного обслуговування – {destructive_in_bold} і їх слід використовувати з обережністю. Будь-яка з цих дій {irreversible_in_bold}.",
+      "actions-description-destructive": "руйнівні",
+      "actions-description-irreversible": "незворотня",
+      "logs-action-refresh": "Оновити журнали",
+      "logs-page-title": "Журнал Mealie",
+      "logs-tail-lines-label": "Tail Lines"
+    },
+    "mainentance": {
+      "actions-title": "Дії"
+    }
   }
 }

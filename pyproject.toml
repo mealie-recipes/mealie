@@ -13,57 +13,55 @@ Jinja2 = "^3.1.2"
 Pillow = "^9.2.0"
 PyYAML = "^5.3.1"
 SQLAlchemy = "^1.4.29"
-aiofiles = "0.5.0"
+aiofiles = "^22.1.0"
 alembic = "^1.7.5"
-aniso8601 = "7.0.0"
+aniso8601 = "9.0.1"
 appdirs = "1.4.4"
 apprise = "^1.2.0"
 bcrypt = "^4.0.1"
-extruct = "^0.13.0"
-fastapi = "^0.85.1"
+extruct = "^0.14.0"
+fastapi = "^0.88.0"
 gunicorn = "^20.1.0"
+httpx = "^0.23.1"
 lxml = "^4.7.1"
 orjson = "^3.8.0"
 passlib = "^1.7.4"
 psycopg2-binary = {version = "^2.9.1", optional = true}
-pydantic = "^1.10.2"
+pydantic = "^1.10.4"
 pyhumps = "^3.5.3"
 pytesseract = "^0.3.9"
 python = "^3.10"
 python-dateutil = "^2.8.2"
-python-dotenv = "^0.15.0"
+python-dotenv = "^0.21.0"
 python-jose = "^3.3.0"
 python-ldap = "^3.3.1"
 python-multipart = "^0.0.5"
-python-slugify = "^6.1.2"
-recipe-scrapers = "^14.24.0"
+python-slugify = "^7.0.0"
+recipe-scrapers = "^14.26.0"
 requests = "^2.25.1"
-tzdata = "^2021.5"
-uvicorn = {extras = ["standard"], version = "^0.13.0"}
-pre-commit = "^2.20.0"
-httpx = "^0.23.1"
+tzdata = "^2022.7"
+uvicorn = {extras = ["standard"], version = "^0.20.0"}
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 black = "^21.12b0"
-coverage = "^5.5"
+coverage = "^7.0"
 coveragepy-lcov = "^0.1.1"
 mkdocs-material = "^8.2.3"
-mypy = "^0.960"
-openapi-spec-validator = "^0.4.0"
+mypy = "^0.991"
+openapi-spec-validator = "^0.5.0"
 pre-commit = "^2.20.0"
 pydantic-to-typescript = "^1.0.7"
 pylint = "^2.6.0"
 pytest = "^7.2.0"
-rich = "^10.7.0"
-ruff = "^0.0.149"
+pytest-asyncio = "^0.20.3"
+rich = "^13.0.0"
+ruff = "^0.0.209"
 types-PyYAML = "^6.0.4"
 types-python-dateutil = "^2.8.18"
-types-python-slugify = "^5.0.3"
+types-python-slugify = "^6.0.0"
 types-requests = "^2.27.12"
 types-urllib3 = "^1.26.11"
 
-[tool.poetry.group.dev.dependencies]
-pytest-asyncio = "^0.20.3"
 
 [build-system]
 build-backend = "poetry.core.masonry.api"
@@ -109,13 +107,13 @@ line-length = 120
 format = "text"
 
 # Enable Pyflakes `E` and `F` codes by default.
-ignore = ["F403", "I252","B008"]
+ignore = ["F403", "TID252","B008"]
 select = [
   "E", # pycodestyles
   "F", # pyflakes
   "I", # isort
   "T", # flake8-print
-  "U", # pyupgrade
+  "UP", # pyupgrade
   "B", # flake8-bugbear
   # "ANN", # flake8-annotations
   # "C", # McCabe complexity

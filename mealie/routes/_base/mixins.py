@@ -34,8 +34,8 @@ class HttpRepo(Generic[C, R, U]):
         self,
         repo: RepositoryGeneric,
         logger: Logger,
-        exception_msgs: Callable[[type[Exception]], str] = None,
-        default_message: str = None,
+        exception_msgs: Callable[[type[Exception]], str] | None = None,
+        default_message: str | None = None,
     ) -> None:
 
         self.repo = repo
@@ -72,7 +72,7 @@ class HttpRepo(Generic[C, R, U]):
 
         return item
 
-    def get_one(self, item_id: int | str | UUID4, key: str = None) -> R:
+    def get_one(self, item_id: int | str | UUID4, key: str | None = None) -> R:
         item = self.repo.get_one(item_id, key)
 
         if not item:

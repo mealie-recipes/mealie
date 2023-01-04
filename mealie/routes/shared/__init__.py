@@ -22,7 +22,7 @@ class RecipeSharedController(BaseUserController):
         return HttpRepo[RecipeShareTokenSave, RecipeShareToken, RecipeShareTokenCreate](self.repo, self.logger)
 
     @router.get("", response_model=list[RecipeShareTokenSummary])
-    def get_all(self, recipe_id: UUID4 = None):
+    def get_all(self, recipe_id: UUID4 | None = None):
         if recipe_id:
             return self.repo.multi_query({"recipe_id": recipe_id}, override_schema=RecipeShareTokenSummary)
         else:
@@ -38,5 +38,5 @@ class RecipeSharedController(BaseUserController):
         return self.mixins.get_one(item_id)
 
     @router.delete("/{item_id}")
-    def delete_one(self, item_id: UUID4 = None) -> None:
+    def delete_one(self, item_id: UUID4 | None = None) -> None:
         return self.mixins.delete_one(item_id)

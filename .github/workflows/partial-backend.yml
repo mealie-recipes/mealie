@@ -30,10 +30,10 @@ jobs:
     # Steps
     steps:
       - name: Check out repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: "3.10"
 
@@ -70,7 +70,7 @@ jobs:
         run: |
           poetry run black . --check
 
-      - name: Lint (Flake8)
+      - name: Lint (Ruff)
         run: |
           make backend-lint
 

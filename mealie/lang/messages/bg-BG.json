@@ -1,23 +1,23 @@
 {
     "generic": {
-        "server-error": "An unexpected error occurred"
+        "server-error": "Възникна неочаквана грешка"
     },
     "recipe": {
-        "unique-name-error": "Recipe names must be unique"
+        "unique-name-error": "Името на рецептата трябва да е уникално"
     },
     "exceptions": {
-        "permission_denied": "You do not have permission to perform this action",
-        "no-entry-found": "The requested resource was not found",
-        "integrity-error": "Database integrity error",
-        "username-conflict-error": "This username is already taken",
-        "email-conflict-error": "This email is already in use"
+        "permission_denied": "Нямата права за това действие",
+        "no-entry-found": "Търсената страница не е намерена",
+        "integrity-error": "Проверка на интегритета на данните",
+        "username-conflict-error": "Потребителското име вече е заето",
+        "email-conflict-error": "Този имейл адрес вече се използва"
     },
     "notifications": {
-        "generic-created": "{name} was created",
-        "generic-updated": "{name} was updated",
-        "generic-created-with-url": "{name} has been created, {url}",
-        "generic-updated-with-url": "{name} has been updated, {url}",
-        "generic-duplicated": "{name} has been duplicated",
-        "generic-deleted": "{name} has been deleted"
+        "generic-created": "{name} беше създадено",
+        "generic-updated": "{name} беше актуализирано",
+        "generic-created-with-url": "{name} беше създадено, {url}",
+        "generic-updated-with-url": "{name} беше актуализирано, {url}",
+        "generic-duplicated": "{name} е дублицирано",
+        "generic-deleted": "{name} беше изтрито"
     }
 }

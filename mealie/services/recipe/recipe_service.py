@@ -84,7 +84,7 @@ class RecipeService(BaseService):
         self.logger.info(f"Recipe Directory Removed: {recipe.slug}")
 
     @staticmethod
-    def _recipe_creation_factory(user: PrivateUser, name: str, additional_attrs: dict = None) -> Recipe:
+    def _recipe_creation_factory(user: PrivateUser, name: str, additional_attrs: dict | None = None) -> Recipe:
         """
         The main creation point for recipes. The factor method returns an instance of the
         Recipe Schema class with the appropriate defaults set. Recipes should not be created

@@ -267,7 +267,6 @@ def test_recipe_slug_mismatch(api_client: TestClient, unique_user: TestUser, rec
     # try to perform operations on the event using the wrong recipe
     event_response = api_client.get(
         api_routes.recipes_slug_timeline_events_item_id(invalid_recipe.slug, event.id),
-        json=new_event_data,
         headers=unique_user.token,
     )
     assert event_response.status_code == 404
@@ -281,7 +280,6 @@ def test_recipe_slug_mismatch(api_client: TestClient, unique_user: TestUser, rec
 
     event_response = api_client.delete(
         api_routes.recipes_slug_timeline_events_item_id(invalid_recipe.slug, event.id),
-        json=new_event_data,
         headers=unique_user.token,
     )
     assert event_response.status_code == 404
@@ -289,7 +287,6 @@ def test_recipe_slug_mismatch(api_client: TestClient, unique_user: TestUser, rec
     # make sure the event still exists and is unmodified
     event_response = api_client.get(
         api_routes.recipes_slug_timeline_events_item_id(recipe.slug, event.id),
-        json=new_event_data,
         headers=unique_user.token,
     )
     assert event_response.status_code == 200

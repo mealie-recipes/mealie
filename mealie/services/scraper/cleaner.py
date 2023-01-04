@@ -229,7 +229,7 @@ def _sanitize_instruction_text(line: str | dict) -> str:
     return clean_line
 
 
-def clean_ingredients(ingredients: list | str | None, default: list = None) -> list[str]:
+def clean_ingredients(ingredients: list | str | None, default: list | None = None) -> list[str]:
     """
     ingredient attempts to parse the ingredients field from a recipe and return a list of
 
