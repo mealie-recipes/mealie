@@ -250,6 +250,7 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     proxy: true,
+    credentials: true,
   },
 
   publicRuntimeConfig: {
@@ -314,6 +315,7 @@ export default {
       lang: "en",
       name: "Mealie",
       title: "Mealie",
+      start_url: "/",
       background_color: "#FFFFFF",
       share_target: {
         action: "/",
