@@ -206,10 +206,10 @@ class RecipeController(BaseRecipeController):
         return {"reportId": report_id}
 
     @router.post("/test-scrape-url")
-    def test_parse_recipe_url(self, url: ScrapeRecipeTest):
+    async def test_parse_recipe_url(self, url: ScrapeRecipeTest):
         # Debugger should produce the same result as the scraper sees before cleaning
         try:
-            if scraped_data := RecipeScraperPackage(url.url).scrape_url():
+            if scraped_data := await RecipeScraperPackage(url.url).scrape_url():
                 return scraped_data.schema.data
         except ForceTimeoutException as e:
             raise HTTPException(

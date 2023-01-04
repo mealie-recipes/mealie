@@ -3,8 +3,8 @@ from abc import ABC, abstractmethod
 from typing import Any, Callable
 
 import extruct
-from httpx import AsyncClient
 from fastapi import HTTPException, status
+from httpx import AsyncClient
 from recipe_scrapers import NoSchemaFoundInWildMode, SchemaScraperFactory, scrape_html
 from slugify import slugify
 from w3lib.html import get_base_url

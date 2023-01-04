@@ -1,6 +1,5 @@
 import asyncio
 import shutil
-from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 from httpx import AsyncClient, Response
