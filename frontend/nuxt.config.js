@@ -315,7 +315,6 @@ export default {
       lang: "en",
       name: "Mealie",
       title: "Mealie",
-      start_url: "/",
       background_color: "#FFFFFF",
       share_target: {
         action: "/",
