@@ -109,8 +109,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useContext, computed, reactive } from "@nuxtjs/composition-api";
-import { useDark } from "@vueuse/core";
+import { defineComponent, ref, useContext, computed, reactive, useRouter } from "@nuxtjs/composition-api";
+import { useDark, whenever } from "@vueuse/core";
 import { useAppInfo } from "~/composables/api";
 import { usePasswordField } from "~/composables/use-passwords";
 import { alert } from "~/composables/use-toast";
@@ -122,7 +122,16 @@ export default defineComponent({
     const toggleDark = useToggleDarkMode();
     const isDark = useDark();
 
+    const router = useRouter();
     const { $auth } = useContext();
+
+    whenever(
+      () => $auth.loggedIn,
+      () => {
+        router.push("/");
+      },
+      { immediate: true },
+    );
 
     const form = reactive({
       email: "",
