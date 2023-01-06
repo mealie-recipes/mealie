@@ -22,7 +22,7 @@
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/i18n": "7.2.0",
     "@nuxtjs/proxy": "^2.1.0",
-    "@nuxtjs/pwa": "^3.3.5",
+    "@nuxtjs/pwa": "3.2.0",
     "@vue/composition-api": "^1.7.0",
     "@vueuse/core": "^9.9.0",
     "core-js": "^3.27.0",

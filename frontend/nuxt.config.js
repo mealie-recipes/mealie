@@ -312,7 +312,7 @@ export default {
       ogSiteName: "Mealie",
     },
     manifest: {
-      start_url: "",
+      start_url: "/",
       lang: "en",
       name: "Mealie",
       title: "Mealie",
