@@ -7,7 +7,7 @@ from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.group import ShoppingListItemCreate, ShoppingListOut
 from mealie.schema.group.group_shopping_list import (
     ShoppingListItemOut,
-    ShoppingListItemRecipeRef,
+    ShoppingListItemRecipeRefCreate,
     ShoppingListItemRecipeRefOut,
     ShoppingListItemUpdate,
 )
@@ -174,7 +174,7 @@ class ShoppingListService:
                     label_id=label_id,
                     recipe_id=recipe_id,
                     recipe_references=[
-                        ShoppingListItemRecipeRef(
+                        ShoppingListItemRecipeRefCreate(
                             recipe_id=recipe_id, recipe_quantity=ingredient.quantity, recipe_scale=recipe_increment
                         )
                     ],
@@ -203,7 +203,7 @@ class ShoppingListService:
 
         if not_found:
             updated_shopping_list.recipe_references.append(
-                ShoppingListItemRecipeRef(recipe_id=recipe_id, recipe_quantity=recipe_increment)  # type: ignore
+                ShoppingListItemRecipeRefCreate(recipe_id=recipe_id, recipe_quantity=recipe_increment)  # type: ignore
             )
 
         updated_shopping_list = self.shopping_lists.update(updated_shopping_list.id, updated_shopping_list)

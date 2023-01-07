@@ -11,7 +11,7 @@ from mealie.schema.group.group_shopping_list import (
     ShoppingListCreate,
     ShoppingListItemCreate,
     ShoppingListItemOut,
-    ShoppingListItemUpdate,
+    ShoppingListItemUpdateBulk,
     ShoppingListOut,
     ShoppingListPagination,
     ShoppingListRemoveRecipeParams,
@@ -52,7 +52,7 @@ class ShoppingListItemController(BaseCrudController):
         )
 
     @item_router.put("", response_model=list[ShoppingListItemOut])
-    def update_many(self, data: list[ShoppingListItemUpdate]):
+    def update_many(self, data: list[ShoppingListItemUpdateBulk]):
         # TODO: Convert to update many with single call
 
         all_updates = []
@@ -103,7 +103,7 @@ class ShoppingListItemController(BaseCrudController):
         return self.mixins.get_one(item_id)
 
     @item_router.put("/{item_id}", response_model=ShoppingListItemOut)
-    def update_one(self, item_id: UUID4, data: ShoppingListItemUpdate):
+    def update_one(self, item_id: UUID4, data: ShoppingListItemCreate):
         shopping_list_item = self.mixins.update_one(data, item_id)
 
         if shopping_list_item:

@@ -69,6 +69,7 @@ export interface LongLiveTokenOut {
   token: string;
   name: string;
   id: number;
+  createdAt?: string;
 }
 export interface ReadGroupPreferences {
   privateGroup?: boolean;
