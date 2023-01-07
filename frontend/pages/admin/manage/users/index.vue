@@ -1,21 +1,18 @@
 <template>
   <v-container fluid>
-    <BaseDialog v-model="deleteDialog" :title="$t('general.confirm')" color="error" @confirm="deleteUser(deleteTarget)">
+    <BaseDialog
+      v-model="deleteDialog"
+      :title="$tc('general.confirm')"
+      color="error"
+      @confirm="deleteUser(deleteTargetId)"
+    >
       <template #activator> </template>
 
-      <v-card-text
-        v-if="isUserOwnAccount === true">
-        <v-alert
-        text
-        outlined
-        color="deep-orange"
-        >⚠️ {{ $t("general.confirm-delete-own-admin-account") }}
-        <br/>
+      <v-card-text>
+        <v-alert v-if="isUserOwnAccount" type="warning" text outlined>
+          {{ $t("general.confirm-delete-own-admin-account") }}
         </v-alert>
         {{ $t("general.confirm-delete-generic") }}
-      </v-card-text>
-      <v-card-text v-else>
-          {{ $t("general.confirm-delete-generic") }}
       </v-card-text>
     </BaseDialog>
 
@@ -62,9 +59,8 @@
             color="error"
             @click.stop="
               deleteDialog = true;
-              deleteTarget = item.id;
-              isUserOwnAccount = item.id === user.id ? true : false;
-              "
+              deleteTargetId = item.id;
+            "
           >
             <v-icon>
               {{ $globals.icons.delete }}
@@ -91,21 +87,32 @@ export default defineComponent({
     const refUserDialog = ref();
     const { $auth } = useContext();
 
-    const user = computed(() => $auth.user);
+    const user = computed(() => $auth.user as UserOut | null);
 
     const { i18n } = useContext();
 
     const router = useRouter();
 
+    const isUserOwnAccount = computed(() => {
+      return state.deleteTargetId === user.value?.id;
+    });
+
     const state = reactive({
       deleteDialog: false,
-      deleteTarget: 0,
-      isUserOwnAccount: false,
+      deleteTargetId: "",
       search: "",
     });
 
     const { users, refreshAllUsers } = useAllUsers();
-    const { loading, deleteUser } = useUser(refreshAllUsers);
+    const { loading, deleteUser: deleteUserMixin } = useUser(refreshAllUsers);
+
+    function deleteUser(id: string) {
+      deleteUserMixin(id);
+
+      if (isUserOwnAccount.value) {
+        $auth.logout();
+      }
+    }
 
     function handleRowClick(item: UserOut) {
       router.push(`/admin/manage/users/${item.id}`);
@@ -140,6 +147,7 @@ export default defineComponent({
     }
 
     return {
+      isUserOwnAccount,
       unlockAllUsers,
       ...toRefs(state),
       headers,
