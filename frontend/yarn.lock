@@ -7187,10 +7187,10 @@ isobject@^3.0.0, isobject@^3.0.1:
   resolved "https://registry.yarnpkg.com/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
   integrity sha1-TkMekrEalzFjaqH5yNHMvP2reN8=
 
-isomorphic-dompurify@^0.24.0:
-  version "0.24.0"
-  resolved "https://registry.yarnpkg.com/isomorphic-dompurify/-/isomorphic-dompurify-0.24.0.tgz#d8f2b677fbef8b04b54ba7dae62c468cbc5fe781"
-  integrity sha512-YePhHHQAVsU1CYkL3gKQmga+fTAh66eWg+RVQOVFRNfzoLkd+gFhFY5S+g80f8b0v2JBMYg+npqdZI1vOxTOBQ==
+isomorphic-dompurify@^0.25.0:
+  version "0.25.0"
+  resolved "https://registry.yarnpkg.com/isomorphic-dompurify/-/isomorphic-dompurify-0.25.0.tgz#c2ae54fa3f5be325856dadfdf07a1ca8bc3fc685"
+  integrity sha512-72pABCLUasDebg+XOdgcRZbgpndsR/jB+2PPobO3aO3YitwcBM4x7avEENtzLO2Jvg/9mJCXcjVYW+etfEMBFA==
   dependencies:
     "@types/dompurify" "^2.3.4"
     dompurify "^2.4.1"
