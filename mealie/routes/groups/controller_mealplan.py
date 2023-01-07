@@ -5,7 +5,8 @@ from fastapi import APIRouter, Depends, HTTPException
 
 from mealie.core.exceptions import mealie_registered_exceptions
 from mealie.repos.repository_meals import RepositoryMeals
-from mealie.routes._base import BaseUserController, controller
+from mealie.routes._base import controller
+from mealie.routes._base.base_controllers import BaseCrudController
 from mealie.routes._base.mixins import HttpRepo
 from mealie.schema import mapper
 from mealie.schema.meal_plan import CreatePlanEntry, ReadPlanEntry, SavePlanEntry, UpdatePlanEntry
@@ -14,12 +15,13 @@ from mealie.schema.meal_plan.plan_rules import PlanRulesDay
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.response.responses import ErrorResponse
+from mealie.services.event_bus_service.event_types import EventMealplanCreatedData, EventTypes
 
 router = APIRouter(prefix="/groups/mealplans", tags=["Groups: Mealplans"])
 
 
 @controller(router)
-class GroupMealplanController(BaseUserController):
+class GroupMealplanController(BaseCrudController):
     @cached_property
     def repo(self) -> RepositoryMeals:
         return self.repos.meals.by_group(self.group_id)
@@ -117,7 +119,21 @@ class GroupMealplanController(BaseUserController):
     @router.post("", response_model=ReadPlanEntry, status_code=201)
     def create_one(self, data: CreatePlanEntry):
         data = mapper.cast(data, SavePlanEntry, group_id=self.group.id)
-        return self.mixins.create_one(data)
+        result = self.mixins.create_one(data)
+
+        self.publish_event(
+            event_type=EventTypes.mealplan_entry_created,
+            document_data=EventMealplanCreatedData(
+                mealplan_id=result.id,
+                recipe_id=data.recipe_id,
+                recipe_name=result.recipe.name if result.recipe else None,
+                recipe_slug=result.recipe.slug if result.recipe else None,
+                date=data.date,
+            ),
+            message=f"Mealplan entry created for {data.date} for {data.entry_type}",
+        )
+
+        return result
 
     @router.get("/{item_id}", response_model=ReadPlanEntry)
     def get_one(self, item_id: int):

@@ -1,5 +1,5 @@
 import uuid
-from datetime import datetime
+from datetime import date, datetime
 from enum import Enum, auto
 from typing import Any
 
@@ -82,6 +82,16 @@ class EventDocumentDataBase(MealieModel):
     document_type: EventDocumentType
     operation: EventOperation
     ...
+
+
+class EventMealplanCreatedData(EventDocumentDataBase):
+    document_type = EventDocumentType.mealplan
+    operation = EventOperation.create
+    mealplan_id: int
+    date: date
+    recipe_id: UUID4 | None
+    recipe_name: str | None
+    recipe_slug: str | None
 
 
 class EventUserSignupData(EventDocumentDataBase):
