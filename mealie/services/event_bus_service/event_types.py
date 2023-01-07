@@ -57,6 +57,8 @@ class EventTypes(Enum):
 class EventDocumentType(Enum):
     generic = "generic"
 
+    user = "user"
+
     category = "category"
     cookbook = "cookbook"
     mealplan = "mealplan"
@@ -80,6 +82,13 @@ class EventDocumentDataBase(MealieModel):
     document_type: EventDocumentType
     operation: EventOperation
     ...
+
+
+class EventUserSignupData(EventDocumentDataBase):
+    document_type = EventDocumentType.user
+    operation = EventOperation.create
+    username: str
+    email: str
 
 
 class EventCategoryData(EventDocumentDataBase):
