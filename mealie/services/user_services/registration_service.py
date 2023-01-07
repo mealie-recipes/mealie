@@ -70,7 +70,6 @@ class RegistrationService:
         if registration.group:
             new_group = True
             group = self._register_new_group()
-
         elif registration.group_token and registration.group_token != "":
             token_entry = self.repos.group_invite_tokens.get_one(registration.group_token)
             if not token_entry:
@@ -88,9 +87,7 @@ class RegistrationService:
         user = self._create_new_user(group, new_group)
 
         if new_group and registration.seed_data:
-
             seeder_service = SeederService(self.repos, user, group)
-
             seeder_service.seed_foods(registration.locale)
             seeder_service.seed_labels(registration.locale)
             seeder_service.seed_units(registration.locale)
