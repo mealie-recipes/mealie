@@ -391,6 +391,14 @@ export interface ShoppingListItemUpdateBulk {
   recipeReferences?: (ShoppingListItemRecipeRefCreate | ShoppingListItemRecipeRefUpdate)[];
   id: string;
 }
+/**
+ * Container for bulk shopping list item changes
+ */
+export interface ShoppingListItemsCollectionOut {
+  createdItems?: ShoppingListItemOut[];
+  updatedItems?: ShoppingListItemOut[];
+  deletedItems?: ShoppingListItemOut[];
+}
 export interface ShoppingListOut {
   name?: string;
   extras?: {

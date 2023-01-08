@@ -162,6 +162,14 @@ class ShoppingListItemOut(ShoppingListItemBase):
             }
 
 
+class ShoppingListItemsCollectionOut(MealieModel):
+    """Container for bulk shopping list item changes"""
+
+    created_items: list[ShoppingListItemOut] = []
+    updated_items: list[ShoppingListItemOut] = []
+    deleted_items: list[ShoppingListItemOut] = []
+
+
 class ShoppingListCreate(MealieModel):
     name: str | None = None
     extras: dict | None = {}

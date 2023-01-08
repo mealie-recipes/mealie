@@ -8,24 +8,15 @@ from pydantic import UUID4
 from mealie.schema.group.group_shopping_list import ShoppingListItemOut, ShoppingListOut
 from tests import utils
 from tests.utils import api_routes
-from tests.utils.factories import random_string
+from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser
 
 
 def create_item(list_id: UUID4) -> dict:
     return {
         "shopping_list_id": str(list_id),
-        "checked": False,
-        "position": 0,
-        "is_food": False,
         "note": random_string(10),
-        "quantity": 1,
-        "unit_id": None,
-        "unit": None,
-        "food_id": None,
-        "food": None,
-        "recipe_id": None,
-        "label_id": None,
+        "quantity": random_int(1, 10),
     }
 
 
@@ -49,9 +40,10 @@ def test_shopping_list_items_create_one(
 
     response = api_client.post(api_routes.groups_shopping_items, json=item, headers=unique_user.token)
     as_json = utils.assert_derserialize(response, 201)
+    assert len(as_json["createdItems"]) == 1
 
     # Test Item is Getable
-    created_item_id = as_json["id"]
+    created_item_id = as_json["createdItems"][0]["id"]
     response = api_client.get(api_routes.groups_shopping_items_item_id(created_item_id), headers=unique_user.token)
     as_json = utils.assert_derserialize(response, 200)
 
@@ -103,7 +95,9 @@ def test_shopping_list_items_update_one(
             api_routes.groups_shopping_items_item_id(item.id), json=update_data, headers=unique_user.token
         )
         item_json = utils.assert_derserialize(response, 200)
-        assert item_json["note"] == update_data["note"]
+
+        assert len(item_json["updatedItems"]) == 1
+        assert item_json["updatedItems"][0]["note"] == update_data["note"]
 
 
 def test_shopping_list_items_delete_one(
@@ -136,7 +130,7 @@ def test_shopping_list_items_update_many_reorder(
     # reorder list in random order
     random.shuffle(list_items)
 
-    # update List posiitons and serialize
+    # update item posiitons and serialize
     as_dict = []
     for i, item in enumerate(list_items):
         item.position = i
@@ -146,7 +140,7 @@ def test_shopping_list_items_update_many_reorder(
         as_dict.append(item_dict)
 
     # update list
-    # the default serializer fails on certain complex objects, so we use FastAPI's serliazer first
+    # the default serializer fails on certain complex objects, so we use FastAPI's serializer first
     as_dict = utils.jsonify(as_dict)
     response = api_client.put(api_routes.groups_shopping_items, json=as_dict, headers=unique_user.token)
     assert response.status_code == 200
@@ -213,7 +207,8 @@ def test_shopping_list_item_extras(
     new_item_data["extras"] = {key_str_1: val_str_1}
 
     response = api_client.post(api_routes.groups_shopping_items, json=new_item_data, headers=unique_user.token)
-    item_as_json = utils.assert_derserialize(response, 201)
+    collection = utils.assert_derserialize(response, 201)
+    item_as_json = collection["createdItems"][0]
 
     # make sure the extra persists
     extras = item_as_json["extras"]
@@ -226,7 +221,8 @@ def test_shopping_list_item_extras(
     response = api_client.put(
         api_routes.groups_shopping_items_item_id(item_as_json["id"]), json=item_as_json, headers=unique_user.token
     )
-    item_as_json = utils.assert_derserialize(response, 200)
+    collection = utils.assert_derserialize(response, 200)
+    item_as_json = collection["updatedItems"][0]
 
     # make sure both the new extra and original extra persist
     extras = item_as_json["extras"]

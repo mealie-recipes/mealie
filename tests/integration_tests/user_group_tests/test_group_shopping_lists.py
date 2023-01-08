@@ -363,7 +363,8 @@ def test_recipe_decrement_max(
     response = api_client.put(
         api_routes.groups_shopping_items_item_id(item["id"]), json=item_json, headers=unique_user.token
     )
-    item_json = utils.assert_derserialize(response, 200)
+    as_json = utils.assert_derserialize(response, 200)
+    item_json = as_json["updatedItems"][0]
     assert item_json["quantity"] == recipe_scale + item_additional_quantity
 
     # now remove way too many instances of the recipe
