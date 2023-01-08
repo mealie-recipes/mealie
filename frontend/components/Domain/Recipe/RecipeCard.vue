@@ -20,7 +20,7 @@
             <div v-if="hover" class="d-flex transition-fast-in-fast-out secondary v-card--reveal" style="height: 100%">
               <v-card-text class="v-card--text-show white--text">
                 <div class="descriptionWrapper">
-                  {{ description}}
+                  <SafeMarkdown :source="description" />
                 </div>
               </v-card-text>
             </div>
