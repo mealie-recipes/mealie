@@ -119,6 +119,70 @@ def test_shopping_lists_add_recipe(
     assert refs[0]["recipeId"] == str(recipe.id)
 
 
+def test_shopping_lists_add_recipe_with_merge(
+    api_client: TestClient,
+    unique_user: TestUser,
+    shopping_lists: list[ShoppingListOut],
+):
+    shopping_list = random.choice(shopping_lists)
+
+    # build a recipe that has some ingredients more than once
+    response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=unique_user.token)
+    recipe_slug = utils.assert_derserialize(response, 201)
+
+    response = api_client.get(f"{api_routes.recipes}/{recipe_slug}", headers=unique_user.token)
+    recipe_data = utils.assert_derserialize(response, 200)
+
+    ingredient_1 = {"quantity": random_int(1, 10), "note": random_string()}
+    ingredient_2 = {"quantity": random_int(1, 10), "note": random_string()}
+    ingredient_duplicate_1 = {"quantity": random_int(1, 10), "note": random_string()}
+    ingredient_duplicate_2 = {"quantity": random_int(1, 10), "note": ingredient_duplicate_1["note"]}
+
+    recipe_data["recipeIngredient"] = [ingredient_1, ingredient_2, ingredient_duplicate_1, ingredient_duplicate_2]
+    response = api_client.put(f"{api_routes.recipes}/{recipe_slug}", json=recipe_data, headers=unique_user.token)
+    utils.assert_derserialize(response, 200)
+
+    recipe = Recipe.parse_raw(api_client.get(f"{api_routes.recipes}/{recipe_slug}", headers=unique_user.token).content)
+    assert recipe.id
+    assert len(recipe.recipe_ingredient) == 4
+
+    # add the recipe to the list and make sure there are only three list items, and their quantities/refs are correct
+    response = api_client.post(
+        api_routes.groups_shopping_lists_item_id_recipe_recipe_id(shopping_list.id, recipe.id),
+        headers=unique_user.token,
+    )
+
+    response = api_client.get(api_routes.groups_shopping_lists_item_id(shopping_list.id), headers=unique_user.token)
+    shopping_list_out = ShoppingListOut.parse_obj(utils.assert_derserialize(response, 200))
+
+    assert len(shopping_list_out.list_items) == 3
+
+    found_item_1 = False
+    found_item_2 = False
+    found_duplicate_item = False
+    for list_item in shopping_list_out.list_items:
+        assert len(list_item.recipe_references) == 1
+
+        ref = list_item.recipe_references[0]
+        assert ref.recipe_scale == 1
+        assert ref.recipe_quantity == list_item.quantity
+
+        if list_item.note == ingredient_1["note"]:
+            assert list_item.quantity == ingredient_1["quantity"]
+            found_item_1 = True
+
+        elif list_item.note == ingredient_2["note"]:
+            assert list_item.quantity == ingredient_2["quantity"]
+            found_item_2 = True
+
+        elif list_item.note == ingredient_duplicate_1["note"]:
+            combined_quantity = ingredient_duplicate_1["quantity"] + ingredient_duplicate_2["quantity"]  # type: ignore
+            assert list_item.quantity == combined_quantity
+            found_duplicate_item = True
+
+    assert all([found_item_1, found_item_2, found_duplicate_item])
+
+
 def test_shopping_list_add_recipe_scale(
     api_client: TestClient,
     unique_user: TestUser,
@@ -221,7 +285,6 @@ def test_shopping_lists_remove_recipe_multiple_quantity(
     recipe_ingredient_only: Recipe,
 ):
     sample_list = random.choice(shopping_lists)
-
     recipe = recipe_ingredient_only
 
     for _ in range(3):
@@ -392,7 +455,7 @@ def test_recipe_manipulation_with_zero_quantities(
     unique_user: TestUser,
     shopping_lists: list[ShoppingListOut],
 ):
-    shopping_list = shopping_lists[0]
+    shopping_list = random.choice(shopping_lists)
 
     # create a recipe with one item that has a quantity of zero
     response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=unique_user.token)
