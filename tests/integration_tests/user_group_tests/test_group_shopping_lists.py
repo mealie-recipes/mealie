@@ -387,6 +387,105 @@ def test_recipe_decrement_max(
     assert len(item["recipeReferences"]) == 0
 
 
+def test_recipe_manipulation_with_zero_quantities(
+    api_client: TestClient,
+    unique_user: TestUser,
+    shopping_lists: list[ShoppingListOut],
+):
+    shopping_list = shopping_lists[0]
+
+    # create a recipe with one item that has a quantity of zero
+    response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=unique_user.token)
+    recipe_slug = utils.assert_derserialize(response, 201)
+
+    response = api_client.get(f"{api_routes.recipes}/{recipe_slug}", headers=unique_user.token)
+    recipe_data = utils.assert_derserialize(response, 200)
+
+    note_with_zero_quantity = random_string()
+    recipe_data["recipeIngredient"] = [
+        {"quantity": random_int(1, 10), "note": random_string()},
+        {"quantity": random_int(1, 10), "note": random_string()},
+        {"quantity": random_int(1, 10), "note": random_string()},
+        {"quantity": 0, "note": note_with_zero_quantity},
+    ]
+
+    response = api_client.put(f"{api_routes.recipes}/{recipe_slug}", json=recipe_data, headers=unique_user.token)
+    utils.assert_derserialize(response, 200)
+
+    recipe = Recipe.parse_raw(api_client.get(f"{api_routes.recipes}/{recipe_slug}", headers=unique_user.token).content)
+    assert recipe.id
+    assert len(recipe.recipe_ingredient) == 4
+
+    # add the recipe to the list twice and make sure the quantity is still zero
+    response = api_client.post(
+        api_routes.groups_shopping_lists_item_id_recipe_recipe_id(shopping_list.id, recipe.id),
+        headers=unique_user.token,
+    )
+    utils.assert_derserialize(response, 200)
+
+    response = api_client.post(
+        api_routes.groups_shopping_lists_item_id_recipe_recipe_id(shopping_list.id, recipe.id),
+        headers=unique_user.token,
+    )
+    utils.assert_derserialize(response, 200)
+
+    response = api_client.get(api_routes.groups_shopping_lists_item_id(shopping_list.id), headers=unique_user.token)
+    updated_list = ShoppingListOut.parse_raw(response.content)
+    assert len(updated_list.list_items) == 4
+
+    found = False
+    for item in updated_list.list_items:
+        if item.note != note_with_zero_quantity:
+            continue
+
+        assert item.quantity == 0
+
+        recipe_ref = item.recipe_references[0]
+        assert recipe_ref.recipe_scale == 2
+
+        found = True
+        break
+
+    if not found:
+        raise Exception("Did not find item with no quantity in shopping list")
+
+    # remove the recipe once and make sure the item is still on the list
+    api_client.post(
+        api_routes.groups_shopping_lists_item_id_recipe_recipe_id_delete(shopping_list.id, recipe.id),
+        headers=unique_user.token,
+    )
+
+    response = api_client.get(api_routes.groups_shopping_lists_item_id(shopping_list.id), headers=unique_user.token)
+    updated_list = ShoppingListOut.parse_raw(response.content)
+    assert len(updated_list.list_items) == 4
+
+    found = False
+    for item in updated_list.list_items:
+        if item.note != note_with_zero_quantity:
+            continue
+
+        assert item.quantity == 0
+
+        recipe_ref = item.recipe_references[0]
+        assert recipe_ref.recipe_scale == 1
+
+        found = True
+        break
+
+    if not found:
+        raise Exception("Did not find item with no quantity in shopping list")
+
+    # remove the recipe one more time and make sure the item is gone and the list is empty
+    api_client.post(
+        api_routes.groups_shopping_lists_item_id_recipe_recipe_id_delete(shopping_list.id, recipe.id),
+        headers=unique_user.token,
+    )
+
+    response = api_client.get(api_routes.groups_shopping_lists_item_id(shopping_list.id), headers=unique_user.token)
+    updated_list = ShoppingListOut.parse_raw(response.content)
+    assert len(updated_list.list_items) == 0
+
+
 def test_shopping_list_extras(
     api_client: TestClient,
     unique_user: TestUser,

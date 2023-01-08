@@ -376,9 +376,9 @@ class ShoppingListService:
                 found = True
                 break
 
-            # If the item was found we need to check its new quantity
             if found:
-                if item.quantity <= 0:
+                # only remove a 0 quantity item if we removed its last recipe reference
+                if item.quantity < 0 or (item.quantity == 0 and not item.recipe_references):
                     delete_items.append(item.id)
 
                 else:
