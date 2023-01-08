@@ -2,7 +2,7 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
+[![AGPL License][license-shield]][license-url]
 [![Docker Pulls][docker-pull]][docker-pull]
 [![CodeFactor](https://www.codefactor.io/repository/github/hay-kot/mealie/badge)](https://www.codefactor.io/repository/github/hay-kot/mealie)
 
@@ -59,7 +59,7 @@ If you are not a coder, you can still contribute financially. Financial contribu
 
 <!-- LICENSE -->
 ## License
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under the AGPL License. See `LICENSE` for more information.
 
 
 ## Sponsors
