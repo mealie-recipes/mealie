@@ -22,7 +22,9 @@
         </slot>
         <v-list-item-content>
           <v-list-item-title class="mb-1">{{ name }} </v-list-item-title>
-          <v-list-item-subtitle> {{ description }} </v-list-item-subtitle>
+          <v-list-item-subtitle>
+            <SafeMarkdown :source="description" />
+          </v-list-item-subtitle>
           <div class="d-flex justify-center align-center">
             <slot name="actions">
               <RecipeFavoriteBadge v-if="loggedIn" :slug="slug" show-always />
