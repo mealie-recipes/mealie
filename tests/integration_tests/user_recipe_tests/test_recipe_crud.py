@@ -273,6 +273,36 @@ def test_duplicate(api_client: TestClient, recipe_data: RecipeSiteTestCase, uniq
         assert copy_info(original_ingredients[i]) == copy_info(edited_ingredients[i])
 
 
+# This needs to happen after test_duplicate,
+# otherwise that one will run into problems with comparing the instruction/ingredient lists
+@pytest.mark.parametrize("recipe_data", recipe_test_data)
+def test_update_with_empty_relationship(
+    api_client: TestClient,
+    recipe_data: RecipeSiteTestCase,
+    unique_user: TestUser,
+):
+    recipe_url = api_routes.recipes_slug(recipe_data.expected_slug)
+    response = api_client.get(recipe_url, headers=unique_user.token)
+    assert response.status_code == 200
+
+    recipe = json.loads(response.text)
+
+    recipe["recipeInstructions"] = []
+    recipe["recipeIngredient"] = []
+
+    response = api_client.put(recipe_url, json=utils.jsonify(recipe), headers=unique_user.token)
+
+    assert response.status_code == 200
+    assert json.loads(response.text).get("slug") == recipe_data.expected_slug
+
+    response = api_client.get(recipe_url, headers=unique_user.token)
+    assert response.status_code == 200
+    recipe = json.loads(response.text)
+
+    assert recipe["recipeInstructions"] == []
+    assert recipe["recipeIngredient"] == []
+
+
 @pytest.mark.parametrize("recipe_data", recipe_test_data)
 def test_rename(api_client: TestClient, recipe_data: RecipeSiteTestCase, unique_user: TestUser):
     recipe_url = api_routes.recipes_slug(recipe_data.expected_slug)

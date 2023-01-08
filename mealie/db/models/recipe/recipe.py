@@ -146,10 +146,10 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     ) -> None:
         self.nutrition = Nutrition(**nutrition) if nutrition else Nutrition()
 
-        if recipe_instructions:
+        if recipe_instructions is not None:
             self.recipe_instructions = [RecipeInstruction(**step, session=session) for step in recipe_instructions]
 
-        if recipe_ingredient:
+        if recipe_ingredient is not None:
             self.recipe_ingredient = [RecipeIngredient(**ingr, session=session) for ingr in recipe_ingredient]
 
         if assets:
