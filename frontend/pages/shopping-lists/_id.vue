@@ -196,7 +196,6 @@ import ShoppingListItem from "~/components/Domain/ShoppingList/ShoppingListItem.
 import { ShoppingListItemCreate, ShoppingListItemOut } from "~/lib/api/types/group";
 import RecipeList from "~/components/Domain/Recipe/RecipeList.vue";
 import ShoppingListItemEditor from "~/components/Domain/ShoppingList/ShoppingListItemEditor.vue";
-import { getDisplayText } from "~/composables/use-display-text";
 import { useFoodStore, useLabelStore, useUnitStore } from "~/composables/store";
 
 type CopyTypes = "plain" | "markdown";
@@ -313,7 +312,7 @@ export default defineComponent({
         return;
       }
 
-      const text = items.map((itm) => getDisplayText(itm.note, itm.quantity, itm.food, itm.unit));
+      const text: string[] = items.map((itm) => itm.display || "");
 
       switch (copyType) {
         case "markdown":
