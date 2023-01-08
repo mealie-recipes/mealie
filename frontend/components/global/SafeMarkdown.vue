@@ -20,16 +20,18 @@ export default defineComponent({
   },
   setup() {
     function sanitizeMarkdown(rawHtml: string | null | undefined): string {
+      console.log(rawHtml)
       if (!rawHtml) {
         return "";
       }
 
       const sanitized = DOMPurify.sanitize(rawHtml, {
-        USE_PROFILES: { html: true },
         // TODO: some more thought could be put into what is allowed and what isn't
-        ALLOWED_TAGS: ["img", "div", "p"],
-        ADD_ATTR: ["src", "alt", "height", "width", "class"],
+        ALLOWED_TAGS: ["img", "div", "p", "iframe"],
+        ADD_ATTR: ["src", "alt", "height", "width", "class", "allow", "title", "allowfullscreen", "frameborder", "scrolling"],
       });
+
+      console.log(sanitized)
 
       return sanitized;
     }
