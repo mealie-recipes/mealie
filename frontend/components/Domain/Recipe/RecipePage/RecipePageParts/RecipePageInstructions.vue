@@ -58,6 +58,54 @@
       </v-card>
     </v-dialog>
 
+    <!-- Markdown Guide -->
+    <v-dialog v-model="markdownGuideDialog" width="600">
+      <v-card :ripple="false">
+        <v-app-bar dark color="primary" class="mt-n1 mb-3">
+          <v-icon large left>
+            {{ $globals.icons.information }}
+          </v-icon>
+          <v-toolbar-title class="headline"> {{ $t("new-recipe.formatting-guide") }} </v-toolbar-title>
+          <v-spacer></v-spacer>
+        </v-app-bar>
+
+        <v-card-text class="pt-4">
+          <p>
+            Recipe steps as well as other fields in the recipe page support markdown syntax.
+            Below are some examples of text formatting with markdown.
+          </p>
+
+          <h2>Styling</h2>
+          <ul>
+            <li><i>italic</i> - <code>*text*</code></li>
+            <li><b>bold</b> - <code>**text**</code></li>
+          </ul>
+          <br />
+
+          <h2>New Line</h2>
+          <p>There are a few different ways to insert a new line:</p>
+          <ul>
+            <li>Write two consecutive new line characters</li>
+            <li>Put two spaces at the end of a line</li>
+            <li>Write <code>&lt;br&gt;</code></li>
+          </ul>
+          <br />
+
+          <h2>Links</h2>
+          <p><code>[link text](https://demo.mealie.io)</code></p>
+
+          <h2>Images</h2>
+          <p><code>&lt;img height="100" src="https://url.to/image.png" /&gt;</code></p>
+          <p>Use the <code>height="100"</code> or <code>width="100"</code> attributes to set the size of the image.</p>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <BaseButton cancel @click="markdownGuideDialog = false">Close</BaseButton>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <div class="d-flex justify-space-between justify-start">
       <h2 class="mb-4 mt-1">{{ $t("recipe.instructions") }}</h2>
       <BaseButton v-if="!isEditForm && showCookMode" minor cancel color="primary" @click="toggleCookMode()">
@@ -157,9 +205,8 @@
                       @merge-above="mergeAbove(index - 1, index)"
                       @toggle-section="toggleShowTitle(step.id)"
                       @link-ingredients="openDialog(index, step.text, step.ingredientReferences)"
-                      @preview-step="togglePreviewState(index)"
-                      @delete="value.splice(index, 1)"
-                    />
+                      @info="markdownGuideDialog = true" @preview-step="togglePreviewState(index)"
+                      @delete="value.splice(index, 1)" />
                   </div>
                 </template>
                 <v-fade-transition>
@@ -278,6 +325,7 @@ export default defineComponent({
 
     const state = reactive({
       dialog: false,
+      markdownGuideDialog: false,
       disabledSteps: [] as number[],
       unusedIngredients: [] as RecipeIngredient[],
       usedIngredients: [] as RecipeIngredient[],

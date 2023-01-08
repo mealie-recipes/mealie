@@ -241,6 +241,7 @@
     "bulk-add": "Bulk Add",
     "error-details": "Only websites containing ld+json or microdata can be imported by Mealie. Most major recipe websites support this data structure. If your site cannot be imported but there is json data in the log, please submit a github issue with the URL and data.",
     "error-title": "Looks Like We Couldn't Find Anything",
+    "formatting-guide": "Formatting Guide",
     "from-url": "Import a Recipe",
     "github-issues": "GitHub Issues",
     "google-ld-json-info": "Google ld+json Info",
