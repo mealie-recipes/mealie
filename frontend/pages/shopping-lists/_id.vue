@@ -10,7 +10,7 @@
     <!-- Viewer -->
     <section v-if="!edit" class="py-2">
       <div v-if="!byLabel">
-        <draggable :value="shoppingList.listItems" handle=".handle" @input="updateIndex">
+        <draggable :value="shoppingList.listItems" handle=".handle" @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndex">
           <v-lazy v-for="(item, index) in listItems.unchecked" :key="item.id">
             <ShoppingListItem
               v-model="listItems.unchecked[index]"
@@ -18,8 +18,8 @@
               :labels="allLabels || []"
               :units="allUnits || []"
               :foods="allFoods || []"
-              @checked="saveListItem(item)"
-              @save="saveListItem(item)"
+              @checked="saveListItem"
+              @save="saveListItem"
               @delete="deleteListItem(item)"
             />
           </v-lazy>
@@ -43,8 +43,8 @@
               :labels="allLabels || []"
               :units="allUnits || []"
               :foods="allFoods || []"
-              @checked="saveListItem(item)"
-              @save="saveListItem(item)"
+              @checked="saveListItem"
+              @save="saveListItem"
               @delete="deleteListItem(item)"
             />
           </v-lazy>
@@ -134,8 +134,8 @@
                 :labels="allLabels"
                 :units="allUnits || []"
                 :foods="allFoods || []"
-                @checked="saveListItem(item)"
-                @save="saveListItem(item)"
+                @checked="saveListItem"
+                @save="saveListItem"
                 @delete="deleteListItem(item)"
               />
             </div>
@@ -215,7 +215,8 @@ export default defineComponent({
   },
   setup() {
     const { idle } = useIdle(5 * 60 * 1000) // 5 minutes
-    const loading = ref(true);
+    const loadingCounter = ref(1);
+    const recipeReferenceLoading = ref(false);
     const userApi = useUserApi();
 
     const edit = ref(false);
@@ -237,13 +238,20 @@ export default defineComponent({
     }
 
     async function refresh() {
-      shoppingList.value = await fetchShoppingList();
+      loadingCounter.value += 1;
+      const newListValue = await fetchShoppingList();
+      loadingCounter.value -= 1;
+
+      // only update the list with the new value if we're not loading, to prevent UI jitter
+      if (!loadingCounter.value) {
+        shoppingList.value = newListValue;
+      }
     }
 
     // constantly polls for changes
     async function pollForChanges() {
       // pause polling if the user isn't active or we're busy
-      if (idle.value || loading.value) {
+      if (idle.value || loadingCounter.value) {
         return;
       }
 
@@ -270,7 +278,7 @@ export default defineComponent({
     }
 
     // start polling
-    loading.value = false;
+    loadingCounter.value -= 1;
     const pollFrequency = 5000;
 
     let attempts = 0;
@@ -340,11 +348,11 @@ export default defineComponent({
         return;
       }
 
-      loading.value = true;
+      loadingCounter.value += 1;
       deleteListItems(checked);
 
+      loadingCounter.value -= 1;
       refresh();
-      loading.value = false;
     }
 
     // =====================================
@@ -458,33 +466,35 @@ export default defineComponent({
     });
 
     async function addRecipeReferenceToList(recipeId: string) {
-      if (!shoppingList.value || loading.value) {
+      if (!shoppingList.value || recipeReferenceLoading.value) {
         return;
       }
 
-      loading.value = true;
+      loadingCounter.value += 1;
+      recipeReferenceLoading.value = true;
       const { data } = await userApi.shopping.lists.addRecipe(shoppingList.value.id, recipeId);
+      recipeReferenceLoading.value = false;
+      loadingCounter.value -= 1;
 
       if (data) {
         refresh();
       }
-
-      loading.value = false;
     }
 
     async function removeRecipeReferenceToList(recipeId: string) {
-      if (!shoppingList.value || loading.value) {
+      if (!shoppingList.value || recipeReferenceLoading.value) {
         return;
       }
 
-      loading.value = true;
+      loadingCounter.value += 1;
+      recipeReferenceLoading.value = true;
       const { data } = await userApi.shopping.lists.removeRecipe(shoppingList.value.id, recipeId);
+      recipeReferenceLoading.value = false;
+      loadingCounter.value -= 1;
 
       if (data) {
         refresh();
       }
-
-      loading.value = false;
     }
 
     // =====================================
@@ -500,7 +510,7 @@ export default defineComponent({
         return;
       }
 
-      loading.value = true;
+      loadingCounter.value += 1;
       if (item.checked && shoppingList.value.listItems) {
         const lst = shoppingList.value.listItems.filter((itm) => itm.id !== item.id);
         lst.push(item);
@@ -508,12 +518,11 @@ export default defineComponent({
       }
 
       const { data } = await userApi.shopping.items.updateOne(item.id, item);
+      loadingCounter.value -= 1;
 
       if (data) {
         refresh();
       }
-
-      loading.value = false;
     }
 
     async function deleteListItem(item: ShoppingListItemOut) {
@@ -521,14 +530,13 @@ export default defineComponent({
         return;
       }
 
-      loading.value = true;
+      loadingCounter.value += 1;
       const { data } = await userApi.shopping.items.deleteOne(item.id);
+      loadingCounter.value -= 1;
 
       if (data) {
         refresh();
       }
-
-      loading.value = false;
     }
 
     // =====================================
@@ -556,16 +564,18 @@ export default defineComponent({
         return;
       }
 
-      loading.value = true;
+      loadingCounter.value += 1;
+
+      // make sure it's inserted into the end of the list, which may have been updated
+      createListItemData.value.position = shoppingList.value?.listItems?.length || 1;
       const { data } = await userApi.shopping.items.createOne(createListItemData.value);
+      loadingCounter.value -= 1;
 
       if (data) {
         createListItemData.value = ingredientResetFactory();
         createEditorOpen.value = false;
         refresh();
       }
-
-      loading.value = false;
     }
 
     function updateIndex(data: ShoppingListItemOut[]) {
@@ -581,14 +591,13 @@ export default defineComponent({
         return;
       }
 
-      loading.value = true;
+      loadingCounter.value += 1;
       const { data } = await userApi.shopping.items.deleteMany(items);
+      loadingCounter.value -= 1;
 
       if (data) {
         refresh();
       }
-
-      loading.value = false;
     }
 
     async function updateListItems() {
@@ -602,14 +611,13 @@ export default defineComponent({
         return itm;
       });
 
-      loading.value = true;
+      loadingCounter.value += 1;
       const { data } = await userApi.shopping.items.updateMany(shoppingList.value.listItems);
+      loadingCounter.value -= 1;
 
       if (data) {
         refresh();
       }
-
-      loading.value = false;
     }
 
     return {
@@ -629,6 +637,7 @@ export default defineComponent({
       itemsByLabel,
       listItems,
       listRecipes,
+      loadingCounter,
       presentLabels,
       removeRecipeReferenceToList,
       saveListItem,

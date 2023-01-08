@@ -3,7 +3,7 @@
     <BaseDialog
       v-model="deleteDialog"
       color="error"
-      :title="$t('general.confirm')"
+      :title="$tc('general.confirm')"
       :icon="$globals.icons.alertCircle"
       @confirm="deleteNotifier(deleteTargetId)"
     >
@@ -35,8 +35,6 @@
       </div>
     </BasePageTitle>
 
-    <BannerExperimental issue="https://github.com/hay-kot/mealie/issues/833" />
-
     <BaseButton create @click="createDialog = true" />
     <v-expansion-panels v-if="notifiers" class="mt-2">
       <v-expansion-panel v-for="(notifier, index) in notifiers" :key="index" class="my-2 left-border rounded">
@@ -59,36 +57,38 @@
 
           <v-divider></v-divider>
           <p class="pt-4">What events should this notifier subscribe to?</p>
-          <template v-for="(opt, idx) in optionsKeys">
-            <v-checkbox
-              v-if="!opt.divider"
-              :key="'option-' + idx"
-              v-model="notifiers[index].options[opt.key]"
-              hide-details
-              dense
-              :label="opt.text"
-            ></v-checkbox>
-            <div v-else :key="'divider-' + idx" class="mt-4">
-              {{ opt.text }}
-            </div>
-          </template>
+          <div class="notifier-options">
+            <section v-for="sec in optionsSections" :key="sec.id">
+              <h4>
+                {{ sec.text }}
+              </h4>
+              <v-checkbox
+                v-for="opt in sec.options"
+                :key="opt.key"
+                v-model="notifiers[index].options[opt.key]"
+                hide-details
+                dense
+                :label="opt.text"
+              />
+            </section>
+          </div>
           <v-card-actions class="py-0">
             <v-spacer></v-spacer>
             <BaseButtonGroup
               :buttons="[
                 {
                   icon: $globals.icons.delete,
-                  text: $t('general.delete'),
+                  text: $tc('general.delete'),
                   event: 'delete',
                 },
                 {
                   icon: $globals.icons.testTube,
-                  text: $t('general.test'),
+                  text: $tc('general.test'),
                   event: 'test',
                 },
                 {
                   icon: $globals.icons.save,
-                  text: $t('general.save'),
+                  text: $tc('general.save'),
                   event: 'save',
                 },
               ]"
@@ -110,12 +110,14 @@ import { GroupEventNotifierCreate, GroupEventNotifierOut } from "~/lib/api/types
 
 interface OptionKey {
   text: string;
-  key: string;
+  key: keyof GroupEventNotifierOut["options"];
 }
 
-interface OptionDivider {
-  divider: true;
+
+interface OptionSection {
+  id: number;
   text: string;
+  options: OptionKey[];
 }
 
 export default defineComponent({
@@ -173,127 +175,125 @@ export default defineComponent({
     // Options Definitions
     const { i18n } = useContext();
 
-    const optionsKeys: (OptionKey | OptionDivider)[] = [
+    const optionsSections: OptionSection[] = [
       {
-        divider: true,
+        id: 1,
         text: "Recipe Events",
+        options: [
+          {
+            text: i18n.t("general.create") as string,
+            key: "recipeCreated",
+          },
+          {
+            text: i18n.t("general.update") as string,
+            key: "recipeUpdated",
+          },
+          {
+            text: i18n.t("general.delete") as string,
+            key: "recipeDeleted",
+          },
+        ],
       },
       {
-        text: i18n.t("general.create") as string,
-        key: "recipeCreated",
-      },
-      {
-        text: i18n.t("general.update") as string,
-        key: "recipeUpdated",
-      },
-      {
-        text: i18n.t("general.delete") as string,
-        key: "recipeDeleted",
-      },
-      {
-        divider: true,
+        id: 2,
         text: "User Events",
+        options: [
+          {
+            text: "When a new user joins your group",
+            key: "userSignup",
+          },
+        ],
       },
       {
-        text: "When a new user joins your group",
-        key: "userSignup",
-      },
-      {
-        divider: true,
-        text: "Data Events",
-      },
-      {
-        text: "When a new data migration is completed",
-        key: "dataMigrations",
-      },
-      {
-        text: "When a data export is completed",
-        key: "dataExport",
-      },
-      {
-        text: "When a data import is completed",
-        key: "dataImport",
-      },
-      {
-        divider: true,
+        id: 3,
         text: "Mealplan Events",
+        options: [
+          {
+            text: "When a user in your group creates a new mealplan",
+            key: "mealplanEntryCreated",
+          },
+        ],
       },
       {
-        text: "When a user in your group creates a new mealplan",
-        key: "mealplanEntryCreated",
-      },
-      {
-        divider: true,
+        id: 4,
         text: "Shopping List Events",
+        options: [
+          {
+            text: i18n.t("general.create") as string,
+            key: "shoppingListCreated",
+          },
+          {
+            text: i18n.t("general.update") as string,
+            key: "shoppingListUpdated",
+          },
+          {
+            text: i18n.t("general.delete") as string,
+            key: "shoppingListDeleted",
+          },
+        ],
       },
       {
-        text: i18n.t("general.create") as string,
-        key: "shoppingListCreated",
-      },
-      {
-        text: i18n.t("general.update") as string,
-        key: "shoppingListUpdated",
-      },
-      {
-        text: i18n.t("general.delete") as string,
-        key: "shoppingListDeleted",
-      },
-      {
-        divider: true,
+        id: 5,
         text: "Cookbook Events",
+        options: [
+          {
+            text: i18n.t("general.create") as string,
+            key: "cookbookCreated",
+          },
+          {
+            text: i18n.t("general.update") as string,
+            key: "cookbookUpdated",
+          },
+          {
+            text: i18n.t("general.delete") as string,
+            key: "cookbookDeleted",
+          },
+        ],
       },
       {
-        text: i18n.t("general.create") as string,
-        key: "cookbookCreated",
-      },
-      {
-        text: i18n.t("general.update") as string,
-        key: "cookbookUpdated",
-      },
-      {
-        text: i18n.t("general.delete") as string,
-        key: "cookbookDeleted",
-      },
-      {
-        divider: true,
+        id: 6,
         text: "Tag Events",
+        options: [
+          {
+            text: i18n.t("general.create") as string,
+            key: "tagCreated",
+          },
+          {
+            text: i18n.t("general.update") as string,
+            key: "tagUpdated",
+          },
+          {
+            text: i18n.t("general.delete") as string,
+            key: "tagDeleted",
+          },
+        ],
       },
       {
-        text: i18n.t("general.create") as string,
-        key: "tagCreated",
-      },
-      {
-        text: i18n.t("general.update") as string,
-        key: "tagUpdated",
-      },
-      {
-        text: i18n.t("general.delete") as string,
-        key: "tagDeleted",
-      },
-      {
-        divider: true,
+        id: 7,
         text: "Category Events",
-      },
-      {
-        text: i18n.t("general.create") as string,
-        key: "categoryCreated",
-      },
-      {
-        text: i18n.t("general.update") as string,
-        key: "categoryUpdated",
-      },
-      {
-        text: i18n.t("general.delete") as string,
-        key: "categoryDeleted",
+        options: [
+          {
+            text: i18n.t("general.create") as string,
+            key: "categoryCreated",
+          },
+          {
+            text: i18n.t("general.update") as string,
+            key: "categoryUpdated",
+          },
+          {
+            text: i18n.t("general.delete") as string,
+            key: "categoryDeleted",
+          },
+        ],
       },
     ];
 
     return {
       ...toRefs(state),
       openDelete,
-      optionsKeys,
       notifiers,
       createNotifierData,
+      optionsSections,
       deleteNotifier,
       testNotifier,
       saveNotifier,
@@ -305,3 +305,11 @@ export default defineComponent({
   },
 });
 </script>
+
+<style>
+.notifier-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+</style>

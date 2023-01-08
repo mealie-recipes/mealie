@@ -28,6 +28,10 @@ class ShoppingListService:
         can_merge checks if the two items can be merged together.
         """
 
+        # Check if items are both checked or both unchecked
+        if item1.checked != item2.checked:
+            return False
+
         # Check if foods are equal
         foods_is_none = item1.food_id is None and item2.food_id is None
         foods_not_none = not foods_is_none
