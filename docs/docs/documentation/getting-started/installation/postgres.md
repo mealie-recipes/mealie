@@ -55,12 +55,16 @@ services:
     container_name: postgres
     image: postgres
     restart: always
+    volumes:
+      - mealie-pgdata:/var/lib/postgresql
     environment:
       POSTGRES_PASSWORD: mealie
       POSTGRES_USER: mealie
 
 volumes:
   mealie-data:
+    driver: local
+  mealie-pgdata:
     driver: local
 ```
 
