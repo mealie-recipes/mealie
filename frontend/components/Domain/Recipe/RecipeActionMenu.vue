@@ -9,7 +9,7 @@
   >
     <BaseDialog
       v-model="deleteDialog"
-      :title="$t('recipe.delete-recipe')"
+      :title="$tc('recipe.delete-recipe')"
       color="error"
       :icon="$globals.icons.alertCircle"
       @confirm="emitDelete()"
@@ -66,7 +66,7 @@
         @print="$emit('print')"
       />
     </div>
-    <div v-if="open" class="custom-btn-group mb-">
+    <div v-if="open" class="custom-btn-group gapped">
       <v-btn
         v-for="(btn, index) in editorButtons"
         :key="index"
@@ -209,6 +209,10 @@ export default defineComponent({
 .custom-btn-group {
   flex: 0, 1, auto;
   display: inline-flex;
+}
+
+.gapped {
+  gap: 0.25rem;
 }
 
 .vertical {
