@@ -38,8 +38,7 @@ def get_recipe_test_cases():
             html_file=test_data.html_sous_vide_smoked_beef_ribs,
             expected_slug="sous-vide-smoked-beef-ribs",
             num_ingredients=7,
-            # For some reason, parsing instructions from cookpad seems to be broken in recipe-parsers right now
-            num_steps=0,
+            num_steps=12,
         ),
         RecipeSiteTestCase(
             url="https://www.greatbritishchefs.com/recipes/jam-roly-poly-recipe",
@@ -55,7 +54,7 @@ def get_recipe_test_cases():
             html_file=test_data.html_sous_vide_shrimp,
             expected_slug="sous-vide-shrimp",
             num_ingredients=5,
-            num_steps=0,
+            num_steps=1,
         ),
         RecipeSiteTestCase(
             url="https://www.bonappetit.com/recipe/detroit-style-pepperoni-pizza",
