@@ -242,7 +242,11 @@ class RepositoryGeneric(Generic[Schema, Model]):
         results_as_model = [self.schema.from_orm(result) for result in results]
 
         try:
-            results.delete()
+            # we create a delete statement for each row
+            # we don't delete the whole query in one statement because postgres doesn't cascade correctly
+            for result in results:
+                self.session.delete(result)
+
             self.session.commit()
         except Exception as e:
             self.session.rollback()
