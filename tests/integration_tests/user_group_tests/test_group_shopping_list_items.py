@@ -394,6 +394,34 @@ def test_shopping_list_items_checked_off(
     assert reference_item_get.quantity == reference_item.quantity
     assert reference_item_get.checked == reference_item.checked
 
+    # rename an item to match another item and check both off, and make sure they are not merged
+    response = api_client.get(api_routes.groups_shopping_lists_item_id(list_with_items.id), headers=unique_user.token)
+    as_json = utils.assert_derserialize(response, 200)
+    updated_list = ShoppingListOut.parse_obj(as_json)
+
+    item_1, item_2 = random.sample(updated_list.list_items, 2)
+    item_1.checked = True
+    item_2.checked = True
+    item_2.note = item_1.note
+
+    response = api_client.put(
+        api_routes.groups_shopping_items,
+        json=utils.jsonify([item_1.dict(), item_2.dict()]),
+        headers=unique_user.token,
+    )
+
+    as_json = utils.assert_derserialize(response, 200)
+    assert len(as_json["createdItems"]) == 0
+    assert len(as_json["updatedItems"]) == 2
+    assert len(as_json["deletedItems"]) == 0
+
+    updated_items_map = {item["id"]: item for item in as_json["updatedItems"]}
+    for item in [item_1, item_2]:
+        updated_item_data = updated_items_map[str(item.id)]
+        assert item.note == updated_item_data["note"]
+        assert item.quantity == updated_item_data["quantity"]
+        assert updated_item_data["checked"]
+
 
 def test_shopping_list_items_with_zero_quantity(
     api_client: TestClient, unique_user: TestUser, shopping_list: ShoppingListOut

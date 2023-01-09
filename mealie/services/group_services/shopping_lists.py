@@ -32,9 +32,10 @@ class ShoppingListService:
 
         if any(
             [
+                item1.checked,
+                item2.checked,
                 item1.food_id != item2.food_id,
                 item1.unit_id != item2.unit_id,
-                item1.checked != item2.checked,
             ]
         ):
             return False
