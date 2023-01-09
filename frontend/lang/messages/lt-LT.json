@@ -712,7 +712,7 @@
   },
   "admin": {
     "maintenance": {
-      "storage-details": "Storage Details",
+      "storage-details": "Saugyklos informacija",
       "page-title": "Svetainės priežiūra",
       "summary-title": "Santrauka",
       "button-label-get-summary": "Gaukite santrauką",
@@ -731,17 +731,17 @@
       "action-delete-log-files-name": "Ištrinti žurnalo failus",
       "action-delete-log-files-description": "Ištrina visus žurnalo failus",
       "action-clean-directories-name": "Išvalyti katalogus",
-      "action-clean-directories-description": "Removes all the recipe folders that are not valid UUIDs",
-      "action-clean-temporary-files-name": "Clean Temporary Files",
-      "action-clean-temporary-files-description": "Removes all files and folders in the .temp directory",
-      "action-clean-images-name": "Clean Images",
+      "action-clean-directories-description": "Pašalina visus receptų aplankus, kurių UUID yra negaliojantys",
+      "action-clean-temporary-files-name": "Išvlyti laikinus failus",
+      "action-clean-temporary-files-description": "Pašalina visus failus ir aplankus .temp kataloge",
+      "action-clean-images-name": "Išvalyti paveikslėlius",
       "action-clean-images-description": "Pašalina visus vaizdus, kurie nesibaigia .webp",
       "actions-description": "Priežiūros veiksmai yra {destructive_in_bold} ir turėtų būti naudojami atsargiai. Bet kurio iš šių veiksmų atlikimas yra {irreversible_in_bold}.",
       "actions-description-destructive": "destruktyvus",
       "actions-description-irreversible": "negrįžtamas",
       "logs-action-refresh": "Atnaujinti žurnalą",
       "logs-page-title": "\"Mielie\" žurnalo įrašai",
-      "logs-tail-lines-label": "Tail Lines"
+      "logs-tail-lines-label": "Rodyti paskutines eilutes"
     },
     "mainentance": {
       "actions-title": "Veiksmai"
