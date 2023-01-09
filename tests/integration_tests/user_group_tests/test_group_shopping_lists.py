@@ -91,7 +91,6 @@ def test_shopping_lists_add_recipe(
     recipe_ingredient_only: Recipe,
 ):
     sample_list = random.choice(shopping_lists)
-
     recipe = recipe_ingredient_only
 
     response = api_client.post(
@@ -99,24 +98,44 @@ def test_shopping_lists_add_recipe(
     )
     assert response.status_code == 200
 
-    # Get List and Check for Ingredients
+    # get list and verify items against ingredients
+    response = api_client.get(api_routes.groups_shopping_lists_item_id(sample_list.id), headers=unique_user.token)
+    as_json = utils.assert_derserialize(response, 200)
+    assert len(as_json["listItems"]) == len(recipe.recipe_ingredient)
+
+    known_ingredients = {ingredient.note: ingredient for ingredient in recipe.recipe_ingredient}
+    for item in as_json["listItems"]:
+        assert item["note"] in known_ingredients
+
+        ingredient = known_ingredients[item["note"]]
+        assert item["quantity"] == (ingredient.quantity or 0)
+
+    # check recipe reference was added with quantity 1
+    refs = as_json["recipeReferences"]
+    assert len(refs) == 1
+    assert refs[0]["recipeId"] == str(recipe.id)
+    assert refs[0]["recipeQuantity"] == 1
+
+    # add the recipe again and check the resulting items
+    response = api_client.post(
+        api_routes.groups_shopping_lists_item_id_recipe_recipe_id(sample_list.id, recipe.id), headers=unique_user.token
+    )
+    assert response.status_code == 200
 
     response = api_client.get(api_routes.groups_shopping_lists_item_id(sample_list.id), headers=unique_user.token)
     as_json = utils.assert_derserialize(response, 200)
-
     assert len(as_json["listItems"]) == len(recipe.recipe_ingredient)
-
-    known_ingredients = [ingredient.note for ingredient in recipe.recipe_ingredient]
 
     for item in as_json["listItems"]:
         assert item["note"] in known_ingredients
 
-    # Check Recipe Reference was added with quantity 1
-    refs = item["recipeReferences"]
+        ingredient = known_ingredients[item["note"]]
+        assert item["quantity"] == (ingredient.quantity or 0) * 2
 
+    refs = as_json["recipeReferences"]
     assert len(refs) == 1
-
     assert refs[0]["recipeId"] == str(recipe.id)
+    assert refs[0]["recipeQuantity"] == 2
 
 
 def test_shopping_list_ref_removes_itself(
@@ -275,32 +294,49 @@ def test_shopping_lists_remove_recipe(
     recipe_ingredient_only: Recipe,
 ):
     sample_list = random.choice(shopping_lists)
-
     recipe = recipe_ingredient_only
 
+    # add two instances of the recipe
+    payload = {"recipeIncrementQuantity": 2}
     response = api_client.post(
-        api_routes.groups_shopping_lists_item_id_recipe_recipe_id(sample_list.id, recipe.id), headers=unique_user.token
+        api_routes.groups_shopping_lists_item_id_recipe_recipe_id(sample_list.id, recipe.id),
+        json=payload,
+        headers=unique_user.token,
     )
     assert response.status_code == 200
 
-    # Get List and Check for Ingredients
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(sample_list.id), headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 200)
-
-    assert len(as_json["listItems"]) == len(recipe.recipe_ingredient)
-
-    known_ingredients = [ingredient.note for ingredient in recipe.recipe_ingredient]
-
-    for item in as_json["listItems"]:
-        assert item["note"] in known_ingredients
-
-    # Remove Recipe
+    # remove one instance of the recipe
     response = api_client.post(
         api_routes.groups_shopping_lists_item_id_recipe_recipe_id_delete(sample_list.id, recipe.id),
         headers=unique_user.token,
     )
+    assert response.status_code == 200
 
-    # Get List and Check for Ingredients
+    # get list and verify items against ingredients
+    response = api_client.get(api_routes.groups_shopping_lists_item_id(sample_list.id), headers=unique_user.token)
+    as_json = utils.assert_derserialize(response, 200)
+    assert len(as_json["listItems"]) == len(recipe.recipe_ingredient)
+
+    known_ingredients = {ingredient.note: ingredient for ingredient in recipe.recipe_ingredient}
+    for item in as_json["listItems"]:
+        assert item["note"] in known_ingredients
+
+        ingredient = known_ingredients[item["note"]]
+        assert item["quantity"] == (ingredient.quantity or 0)
+
+    # check recipe reference was reduced to 1
+    refs = as_json["recipeReferences"]
+    assert len(refs) == 1
+    assert refs[0]["recipeId"] == str(recipe.id)
+    assert refs[0]["recipeQuantity"] == 1
+
+    # remove the recipe again and check if the list is empty
+    response = api_client.post(
+        api_routes.groups_shopping_lists_item_id_recipe_recipe_id_delete(sample_list.id, recipe.id),
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+
     response = api_client.get(api_routes.groups_shopping_lists_item_id(sample_list.id), headers=unique_user.token)
     as_json = utils.assert_derserialize(response, 200)
     assert len(as_json["listItems"]) == 0
@@ -449,11 +485,11 @@ def test_recipe_decrement_max(
 
     # next add a little bit more of one item
     item_additional_quantity = random_int(1, 10)
-    item_json = as_json["listItems"][0]
+    item_json = random.choice(as_json["listItems"])
     item_json["quantity"] += item_additional_quantity
 
     response = api_client.put(
-        api_routes.groups_shopping_items_item_id(item["id"]), json=item_json, headers=unique_user.token
+        api_routes.groups_shopping_items_item_id(item_json["id"]), json=item_json, headers=unique_user.token
     )
     as_json = utils.assert_derserialize(response, 200)
     item_json = as_json["updatedItems"][0]
