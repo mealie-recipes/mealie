@@ -125,20 +125,6 @@ class ShoppingListService:
             if merged:
                 continue
 
-            # merge into existing items
-            merged = False
-            for existing_item in existing_items_map[create_item.shopping_list_id]:
-                if (not self.can_merge(existing_item, create_item)) or (existing_item.id in delete_items):
-                    continue
-
-                update_item = self.merge_items(create_item, existing_item)
-                update_items.append(update_item.cast(ShoppingListItemUpdateBulk, id=existing_item.id))
-                merged = True
-                break
-
-            if merged:
-                continue
-
             # merge into update items
             for update_item in update_items:
                 if (
@@ -149,6 +135,20 @@ class ShoppingListService:
                     continue
 
                 update_item.merge(self.merge_items(create_item, update_item))
+                merged = True
+                break
+
+            if merged:
+                continue
+
+            # merge into existing items
+            merged = False
+            for existing_item in existing_items_map[create_item.shopping_list_id]:
+                if (not self.can_merge(existing_item, create_item)) or (existing_item.id in delete_items):
+                    continue
+
+                updated_existing_item = self.merge_items(create_item, existing_item)
+                update_items.append(updated_existing_item.cast(ShoppingListItemUpdateBulk, id=existing_item.id))
                 merged = True
                 break
 
@@ -202,8 +202,6 @@ class ShoppingListService:
             # if the item was not merged, add it to the filter map
             if not merged:
                 update_items_filtered_map[update_item.id] = update_item
-
-            update_items_filtered_map[update_item.id] = update_item
 
         # filter out items with negative quantities and delete those
         update_items = []
