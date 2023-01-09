@@ -11,6 +11,7 @@ from mealie.schema.group.group_shopping_list import (
     ShoppingListItemRecipeRefCreate,
     ShoppingListItemRecipeRefOut,
     ShoppingListItemsCollectionOut,
+    ShoppingListItemUpdate,
     ShoppingListItemUpdateBulk,
 )
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit
@@ -44,8 +45,8 @@ class ShoppingListService:
     @staticmethod
     def merge_items(
         from_item: ShoppingListItemCreate | ShoppingListItemUpdateBulk,
-        to_item: ShoppingListItemOut | ShoppingListItemUpdateBulk,
-    ) -> ShoppingListItemUpdateBulk:
+        to_item: ShoppingListItemCreate | ShoppingListItemUpdateBulk | ShoppingListItemOut,
+    ) -> ShoppingListItemUpdate:
         """
         Takes an item and merges it into an already-existing item, then returns a copy
 
@@ -78,7 +79,7 @@ class ShoppingListService:
 
             base_ref.recipe_scale += to_ref.recipe_scale
 
-        return to_item.cast(ShoppingListItemUpdateBulk, recipe_references=list(updated_refs.values()))
+        return to_item.cast(ShoppingListItemUpdate, recipe_references=list(updated_refs.values()))
 
     def bulk_handle_items(
         self,
@@ -110,13 +111,28 @@ class ShoppingListService:
                 items_data = self.list_items.page_all(query)
                 existing_items_map[create_item.shopping_list_id] = items_data.items
 
+            # merge into create items
+            merged = False
+            for create_item_filtered in create_items_filtered:
+                if not self.can_merge(create_item_filtered, create_item):
+                    continue
+
+                merged_item = self.merge_items(create_item, create_item_filtered)
+                create_item_filtered.merge(merged_item)
+                merged = True
+                break
+
+            if merged:
+                continue
+
             # merge into existing items
             merged = False
             for existing_item in existing_items_map[create_item.shopping_list_id]:
                 if (not self.can_merge(existing_item, create_item)) or (existing_item.id in delete_items):
                     continue
 
-                update_items.append(self.merge_items(create_item, existing_item))
+                update_item = self.merge_items(create_item, existing_item)
+                update_items.append(update_item.cast(ShoppingListItemUpdateBulk, id=existing_item.id))
                 merged = True
                 break
 
@@ -132,7 +148,7 @@ class ShoppingListService:
                 ):
                     continue
 
-                update_item = self.merge_items(create_item, update_item)
+                update_item.merge(self.merge_items(create_item, update_item))
                 merged = True
                 break
 
@@ -158,7 +174,9 @@ class ShoppingListService:
             if update_item.id in update_items_filtered_map:
                 # this item id appears more than once in our update list, so we merge them together
                 merged_item = self.merge_items(update_item, update_items_filtered_map[update_item.id])
-                update_items_filtered_map[merged_item.id] = merged_item
+                update_items_filtered_map[update_item.id] = merged_item.cast(
+                    ShoppingListItemUpdateBulk, id=update_item.id
+                )
                 continue
 
             if update_item.checked:
@@ -173,7 +191,10 @@ class ShoppingListService:
                 if not self.can_merge(filtered_update_item, update_item):
                     continue
 
-                update_items_filtered_map[filtered_update_item.id] = self.merge_items(update_item, filtered_update_item)
+                merged_item = self.merge_items(update_item, filtered_update_item)
+                update_items_filtered_map[filtered_update_item.id] = merged_item.cast(
+                    ShoppingListItemUpdateBulk, id=filtered_update_item.id
+                )
                 delete_items.append(update_item.id)
                 merged = True
                 break
