@@ -55,8 +55,10 @@ def default_user_init(db: AllRepositories):
     }
 
     logger.info("Generating Default User")
-    db.users.create(default_user)
+    new_user = db.users.create(default_user)
 
     if not settings.PRODUCTION:
         for user in dev_users():
             db.users.create(user)
+
+    return new_user

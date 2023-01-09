@@ -85,6 +85,7 @@ class RegistrationService:
             raise HTTPException(status.HTTP_400_BAD_REQUEST, {"message": "Missing group"})
 
         user = self._create_new_user(group, new_group)
+        GroupService.add_defaults(self.repos, group.id, user.id)
 
         if new_group and registration.seed_data:
             seeder_service = SeederService(self.repos, user, group)

@@ -42,7 +42,8 @@ def test_get_all_only_includes_group_recipes(api_client: TestClient, unique_user
 
     recipes = response.json()["items"]
 
-    assert len(recipes) == 5
+    # The 6th one is the default recipe
+    assert len(recipes) == 6
 
     for recipe in recipes:
         assert recipe["groupId"] == unique_user.group_id

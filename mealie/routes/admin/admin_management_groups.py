@@ -48,7 +48,10 @@ class AdminUserManagementRoutes(BaseAdminController):
 
     @router.post("", response_model=GroupInDB, status_code=status.HTTP_201_CREATED)
     def create_one(self, data: GroupBase):
-        return GroupService.create_group(self.repos, data)
+        new_group = GroupService.create_group(self.repos, GroupBase(name=data.name))
+        GroupService.add_defaults(self.repos, new_group.id, self.user.id)
+
+        return new_group
 
     @router.get("/{item_id}", response_model=GroupInDB)
     def get_one(self, item_id: UUID4):

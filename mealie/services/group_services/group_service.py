@@ -4,10 +4,20 @@ from mealie.pkgs.stats import fs_stats
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.group.group_preferences import CreateGroupPreferences
 from mealie.schema.group.group_statistics import GroupStatistics, GroupStorage
+from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
+from mealie.schema.recipe.recipe_step import RecipeStep
 from mealie.schema.user.user import GroupBase
 from mealie.services._base_service import BaseService
 
 ALLOWED_SIZE = 500 * fs_stats.megabyte
+
+STEP_TEXT = """Recipe steps as well as other fields in the recipe page support markdown syntax.
+**Add a link**
+[My Link](https://demo.mealie.io)
+"""
+
+INGREDIENT_NOTE = "1 Cup Flour"
 
 
 class GroupService(BaseService):
@@ -32,6 +42,19 @@ class GroupService(BaseService):
         repos.group_preferences.create(prefs)
 
         return new_group
+
+    @staticmethod
+    def add_defaults(repos: AllRepositories, group_id: UUID4, user_id: UUID4):
+        default_recipe = Recipe(
+            user_id=user_id,
+            group_id=group_id,
+            name="Example Recipe",
+            recipe_ingredient=[
+                RecipeIngredient(note=INGREDIENT_NOTE),
+            ],
+            recipe_instructions=[RecipeStep(text=STEP_TEXT)],
+        )
+        repos.recipes.create(default_recipe)
 
     def calculate_statistics(self, group_id: None | UUID4 = None) -> GroupStatistics:
         """

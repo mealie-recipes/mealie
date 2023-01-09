@@ -61,6 +61,10 @@ def test_admin_update_group(api_client: TestClient, admin_user: TestUser, unique
 
 
 def test_admin_delete_group(api_client: TestClient, admin_user: TestUser, unique_user: TestUser):
+    # Delete Default Recipe
+    response = api_client.delete(api_routes.recipes_slug("example-recipe"), headers=unique_user.token)
+    assert response.status_code == 200
+
     # Delete User
     response = api_client.delete(api_routes.admin_users_item_id(unique_user.user_id), headers=admin_user.token)
     assert response.status_code == 200

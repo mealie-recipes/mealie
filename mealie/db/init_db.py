@@ -23,8 +23,9 @@ logger = root_logger.get_logger("init_db")
 
 
 def init_db(db: AllRepositories) -> None:
-    default_group_init(db)
-    default_user_init(db)
+    group_id = default_group_init(db).id
+    user_id = default_user_init(db).id
+    GroupService.add_defaults(db, group_id, user_id)
 
 
 def default_group_init(db: AllRepositories):
@@ -32,7 +33,7 @@ def default_group_init(db: AllRepositories):
 
     logger.info("Generating Default Group")
 
-    GroupService.create_group(db, GroupBase(name=settings.DEFAULT_GROUP))
+    return GroupService.create_group(db, GroupBase(name=settings.DEFAULT_GROUP))
 
 
 # Adapted from https://alembic.sqlalchemy.org/en/latest/cookbook.html#test-current-database-revision-is-at-head-s
