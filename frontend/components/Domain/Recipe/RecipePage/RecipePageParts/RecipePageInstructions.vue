@@ -147,6 +147,10 @@
                               event: 'merge-above',
                             },
                             {
+                              text: 'Upload image',
+                              event: 'upload-image'
+                            },
+                            {
                               icon: previewStates[index] ? $globals.icons.edit : $globals.icons.eye,
                               text: previewStates[index] ? 'Edit Markdown' : 'Preview Markdown',
                               event: 'preview-step',
@@ -158,6 +162,7 @@
                       @toggle-section="toggleShowTitle(step.id)"
                       @link-ingredients="openDialog(index, step.text, step.ingredientReferences)"
                       @preview-step="togglePreviewState(index)"
+                      @upload-image="openImageUpload(index)"
                       @delete="value.splice(index, 1)"
                     />
                   </div>
@@ -576,11 +581,24 @@ export default defineComponent({
       props.value[index].text += text;
     }
 
+    function openImageUpload(index: number) {
+      const input = document.createElement("input");
+      input.type = "file";
+      input.accept = "image/*";
+      input.onchange = () => {
+        if (input.files) {
+          handleImageDrop(index, Array.from(input.files));
+        }
+      };
+      input.click();
+    }
+
     return {
       // Image Uploader
       toggleDragMode,
       handleImageDrop,
       imageUploadMode,
+      openImageUpload,
 
       // Rest
       drag,
