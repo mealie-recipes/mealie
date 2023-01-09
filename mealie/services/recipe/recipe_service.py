@@ -24,16 +24,6 @@ from mealie.services.recipe.recipe_data_service import RecipeDataService
 
 from .template_service import TemplateService
 
-step_text = """Recipe steps as well as other fields in the recipe page support markdown syntax.
-
-**Add a link**
-
-[My Link](https://demo.mealie.io)
-
-"""
-
-ingredient_note = "1 Cup Flour"
-
 
 class RecipeService(BaseService):
     def __init__(self, repos: AllRepositories, user: PrivateUser, group: GroupInDB):
@@ -98,12 +88,6 @@ class RecipeService(BaseService):
         if additional_attrs.get("tags"):
             for i in range(len(additional_attrs.get("tags", []))):
                 additional_attrs["tags"][i]["group_id"] = user.group_id
-
-        if not additional_attrs.get("recipe_ingredient"):
-            additional_attrs["recipe_ingredient"] = [RecipeIngredient(note=ingredient_note)]
-
-        if not additional_attrs.get("recipe_instructions"):
-            additional_attrs["recipe_instructions"] = [RecipeStep(text=step_text)]
 
         return Recipe(**additional_attrs)
 
