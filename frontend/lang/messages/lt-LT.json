@@ -713,14 +713,14 @@
   "admin": {
     "maintenance": {
       "storage-details": "Storage Details",
-      "page-title": "Site Maintenance",
-      "summary-title": "Summary",
-      "button-label-get-summary": "Get Summary",
-      "button-label-open-details": "Details",
-      "info-description-data-dir-size": "Data Directory Size",
-      "info-description-log-file-size": "Log File Size",
-      "info-description-cleanable-directories": "Cleanable Directories",
-      "info-description-cleanable-images": "Cleanable Images",
+      "page-title": "Svetainės priežiūra",
+      "summary-title": "Santrauka",
+      "button-label-get-summary": "Gaukite santrauką",
+      "button-label-open-details": "Išsamiau",
+      "info-description-data-dir-size": "Duomenų katalogo dydis",
+      "info-description-log-file-size": "Žurnalo failo dydis",
+      "info-description-cleanable-directories": "Išvalomi katalogai",
+      "info-description-cleanable-images": "Išvalomi paveikslėliai",
       "storage": {
         "title-temporary-directory": "Temporary Directory (.temp)",
         "title-backups-directory": "Backups Directory (backups)",
@@ -735,16 +735,16 @@
       "action-clean-temporary-files-name": "Clean Temporary Files",
       "action-clean-temporary-files-description": "Removes all files and folders in the .temp directory",
       "action-clean-images-name": "Clean Images",
-      "action-clean-images-description": "Removes all the images that don't end with .webp",
-      "actions-description": "Maintenance actions are {destructive_in_bold} and should be used with caution. Performing any of these actions is {irreversible_in_bold}.",
-      "actions-description-destructive": "destructive",
-      "actions-description-irreversible": "irreversible",
-      "logs-action-refresh": "Refresh Logs",
-      "logs-page-title": "Mealie Logs",
+      "action-clean-images-description": "Pašalina visus vaizdus, kurie nesibaigia .webp",
+      "actions-description": "Priežiūros veiksmai yra {destructive_in_bold} ir turėtų būti naudojami atsargiai. Bet kurio iš šių veiksmų atlikimas yra {irreversible_in_bold}.",
+      "actions-description-destructive": "destruktyvus",
+      "actions-description-irreversible": "negrįžtamas",
+      "logs-action-refresh": "Atnaujinti žurnalą",
+      "logs-page-title": "\"Mielie\" žurnalo įrašai",
       "logs-tail-lines-label": "Tail Lines"
     },
     "mainentance": {
-      "actions-title": "Actions"
+      "actions-title": "Veiksmai"
     }
   }
 }
