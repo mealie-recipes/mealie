@@ -104,13 +104,6 @@ class ShoppingListService:
         # compare new items to existing items and update items, and merge them if we can
         create_items_filtered: list[ShoppingListItemCreate] = []
         for create_item in create_items:
-            if create_item.shopping_list_id not in existing_items_map:
-                query = PaginationQuery(
-                    per_page=-1, query_filter=f"shopping_list_id={create_item.shopping_list_id} AND checked=false"
-                )
-                items_data = self.list_items.page_all(query)
-                existing_items_map[create_item.shopping_list_id] = items_data.items
-
             # merge into create items
             merged = False
             for create_item_filtered in create_items_filtered:
@@ -142,6 +135,13 @@ class ShoppingListService:
                 continue
 
             # merge into existing items
+            if create_item.shopping_list_id not in existing_items_map:
+                query = PaginationQuery(
+                    per_page=-1, query_filter=f"shopping_list_id={create_item.shopping_list_id} AND checked=false"
+                )
+                items_data = self.list_items.page_all(query)
+                existing_items_map[create_item.shopping_list_id] = items_data.items
+
             merged = False
             for existing_item in existing_items_map[create_item.shopping_list_id]:
                 if (not self.can_merge(existing_item, create_item)) or (existing_item.id in delete_items):
@@ -185,7 +185,7 @@ class ShoppingListService:
                 update_items_filtered_map[update_item.id] = update_item
                 continue
 
-            # check if there's an update_item that we can merge with
+            # merge into update_item
             merged = False
             for filtered_update_item in update_items_filtered_map.values():
                 if not self.can_merge(filtered_update_item, update_item):
@@ -199,9 +199,36 @@ class ShoppingListService:
                 merged = True
                 break
 
-            # if the item was not merged, add it to the filter map
-            if not merged:
-                update_items_filtered_map[update_item.id] = update_item
+            # merge into existing items
+            if update_item.shopping_list_id not in existing_items_map:
+                query = PaginationQuery(
+                    per_page=-1, query_filter=f"shopping_list_id={update_item.shopping_list_id} AND checked=false"
+                )
+                items_data = self.list_items.page_all(query)
+                existing_items_map[update_item.shopping_list_id] = items_data.items
+
+            merged = False
+            for existing_item in existing_items_map[update_item.shopping_list_id]:
+                if (
+                    (not self.can_merge(existing_item, update_item))
+                    or (existing_item.id in delete_items)
+                    or existing_item.id == update_item.id
+                ):
+                    continue
+
+                updated_existing_item = self.merge_items(update_item, existing_item)
+                update_items_filtered_map[existing_item.id] = updated_existing_item.cast(
+                    ShoppingListItemUpdateBulk, id=existing_item.id
+                )
+                delete_items.append(update_item.id)
+                merged = True
+                break
+
+            if merged:
+                continue
+
+            # update the item
+            update_items_filtered_map[update_item.id] = update_item
 
         # filter out items with negative quantities and delete those
         update_items = []
