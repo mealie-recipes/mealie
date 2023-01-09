@@ -103,7 +103,7 @@ class ShoppingListItemController(BaseCrudController):
 
     @item_router.post("/create-bulk", response_model=ShoppingListItemsCollectionOut, status_code=201)
     def create_many(self, data: list[ShoppingListItemCreate]):
-        items = self.service.bulk_handle_items(create_items=data)
+        items = self.service.bulk_create_items(data)
         publish_list_item_events(self.publish_event, items)
         return items
 
@@ -117,7 +117,7 @@ class ShoppingListItemController(BaseCrudController):
 
     @item_router.put("", response_model=ShoppingListItemsCollectionOut)
     def update_many(self, data: list[ShoppingListItemUpdateBulk]):
-        items = self.service.bulk_handle_items(update_items=data)
+        items = self.service.bulk_update_items(data)
         publish_list_item_events(self.publish_event, items)
         return items
 
@@ -127,7 +127,7 @@ class ShoppingListItemController(BaseCrudController):
 
     @item_router.delete("", response_model=SuccessResponse)
     def delete_many(self, ids: list[UUID4] = Query(None)):
-        items = self.service.bulk_handle_items(delete_items=ids)
+        items = self.service.bulk_delete_items(ids)
         publish_list_item_events(self.publish_event, items)
 
         message = (

@@ -81,60 +81,44 @@ class ShoppingListService:
 
         return to_item.cast(ShoppingListItemUpdate, recipe_references=list(updated_refs.values()))
 
-    def bulk_handle_items(
-        self,
-        *,
-        create_items: list[ShoppingListItemCreate] | None = None,
-        update_items: list[ShoppingListItemUpdateBulk] | None = None,
-        delete_items: list[UUID4] | None = None,
-    ) -> ShoppingListItemsCollectionOut:
-        """Perform CRUD operations on one or more shopping list items"""
+    def remove_unused_recipe_references(self, shopping_list_id: UUID4) -> None:
+        shopping_list = cast(ShoppingListOut, self.shopping_lists.get_one(shopping_list_id))
 
-        if create_items is None:
-            create_items = []
+        recipe_ids_to_keep: set[UUID4] = set()
+        for item in shopping_list.list_items:
+            recipe_ids_to_keep.update([ref.recipe_id for ref in item.recipe_references])
 
-        if update_items is None:
-            update_items = []
+        list_refs_to_delete: set[UUID4] = set()
+        for list_ref in shopping_list.recipe_references:
+            if list_ref.recipe_id not in recipe_ids_to_keep:
+                list_refs_to_delete.add(list_ref.id)
 
-        if delete_items is None:
-            delete_items = []
+        if list_refs_to_delete:
+            self.list_refs.delete_many(list_refs_to_delete)
 
-        existing_items_map: dict[UUID4, list[ShoppingListItemOut]] = {}
-
-        # compare new items to existing items and update items, and merge them if we can
-        create_items_filtered: list[ShoppingListItemCreate] = []
+    def bulk_create_items(self, create_items: list[ShoppingListItemCreate]) -> ShoppingListItemsCollectionOut:
+        # consolidate items to be created
+        consolidated_create_items: list[ShoppingListItemCreate] = []
         for create_item in create_items:
-            # merge into create items
             merged = False
-            for create_item_filtered in create_items_filtered:
-                if not self.can_merge(create_item_filtered, create_item):
+            for filtered_item in consolidated_create_items:
+                if not self.can_merge(create_item, filtered_item):
                     continue
 
-                merged_item = self.merge_items(create_item, create_item_filtered)
-                create_item_filtered.merge(merged_item)
+                filtered_item = self.merge_items(create_item, filtered_item).cast(ShoppingListItemCreate)
                 merged = True
                 break
 
-            if merged:
-                continue
+            if not merged:
+                consolidated_create_items.append(create_item)
 
-            # merge into update items
-            for update_item in update_items:
-                if (
-                    (not self.can_merge(create_item, update_item))
-                    or update_item.checked
-                    or update_item.id in delete_items
-                ):
-                    continue
+        create_items = consolidated_create_items
+        filtered_create_items: list[ShoppingListItemCreate] = []
 
-                update_item.merge(self.merge_items(create_item, update_item))
-                merged = True
-                break
-
-            if merged:
-                continue
-
-            # merge into existing items
+        # check to see if we can merge into any existing items
+        update_items: list[ShoppingListItemUpdateBulk] = []
+        existing_items_map: dict[UUID4, list[ShoppingListItemOut]] = {}
+        for create_item in create_items:
             if create_item.shopping_list_id not in existing_items_map:
                 query = PaginationQuery(
                     per_page=-1, query_filter=f"shopping_list_id={create_item.shopping_list_id} AND checked=false"
@@ -144,10 +128,12 @@ class ShoppingListService:
 
             merged = False
             for existing_item in existing_items_map[create_item.shopping_list_id]:
-                if (not self.can_merge(existing_item, create_item)) or (existing_item.id in delete_items):
+                if not self.can_merge(existing_item, create_item):
                     continue
 
-                updated_existing_item = self.merge_items(create_item, existing_item)
+                updated_existing_item = self.merge_items(create_item, existing_item).cast(
+                    ShoppingListItemUpdateBulk, id=existing_item.id
+                )
                 update_items.append(updated_existing_item.cast(ShoppingListItemUpdateBulk, id=existing_item.id))
                 merged = True
                 break
@@ -160,46 +146,58 @@ class ShoppingListService:
                 # checked items should not have recipe references
                 create_item.recipe_references = []
 
-            create_items_filtered.append(create_item)
+            filtered_create_items.append(create_item)
 
-        # create only the filtered subset of items
-        create_items = create_items_filtered
+        created_items = cast(
+            list[ShoppingListItemOut],
+            self.list_items.create_many(filtered_create_items) if filtered_create_items else [],  # type: ignore
+        )
 
-        # compare update items with each other and merge them if we can
-        update_items_filtered_map: dict[UUID4, ShoppingListItemUpdateBulk] = {}
+        updated_items = cast(
+            list[ShoppingListItemOut],
+            self.list_items.update_many(update_items) if update_items else [],  # type: ignore
+        )
+
+        for list_id in set(item.shopping_list_id for item in created_items + updated_items):
+            self.remove_unused_recipe_references(list_id)
+
+        return ShoppingListItemsCollectionOut(
+            created_items=created_items, updated_items=updated_items, deleted_items=[]
+        )
+
+    def bulk_update_items(self, update_items: list[ShoppingListItemUpdateBulk]) -> ShoppingListItemsCollectionOut:
+        # consolidate items to be created
+        consolidated_update_items: list[ShoppingListItemUpdateBulk] = []
+        delete_items: set[UUID4] = set()
+        seen_update_ids: set[UUID4] = set()
         for update_item in update_items:
-            if update_item.id in delete_items:
+            # if the same item appears multiple times in one request, ignore all but the first instance
+            if update_item.id in seen_update_ids:
                 continue
 
-            if update_item.id in update_items_filtered_map:
-                # this item id appears more than once in our update list, so we merge them together
-                merged_item = self.merge_items(update_item, update_items_filtered_map[update_item.id])
-                update_items_filtered_map[update_item.id] = merged_item.cast(
-                    ShoppingListItemUpdateBulk, id=update_item.id
-                )
-                continue
+            seen_update_ids.add(update_item.id)
 
-            if update_item.checked:
-                # remove recipe refs if we're checking off an item and don't worry about merging
-                update_item.recipe_references = []
-                update_items_filtered_map[update_item.id] = update_item
-                continue
-
-            # merge into update_item
             merged = False
-            for filtered_update_item in update_items_filtered_map.values():
-                if not self.can_merge(filtered_update_item, update_item):
+            for filtered_item in consolidated_update_items:
+                if not self.can_merge(update_item, filtered_item):
                     continue
 
-                merged_item = self.merge_items(update_item, filtered_update_item)
-                update_items_filtered_map[filtered_update_item.id] = merged_item.cast(
-                    ShoppingListItemUpdateBulk, id=filtered_update_item.id
+                filtered_item = self.merge_items(update_item, filtered_item).cast(
+                    ShoppingListItemUpdateBulk, id=filtered_item.id
                 )
-                delete_items.append(update_item.id)
+                delete_items.add(update_item.id)
                 merged = True
                 break
 
-            # merge into existing items
+            if not merged:
+                consolidated_update_items.append(update_item)
+
+        update_items = consolidated_update_items
+
+        # check to see if we can merge into any existing items
+        filtered_update_items: list[ShoppingListItemUpdateBulk] = []
+        existing_items_map: dict[UUID4, list[ShoppingListItemOut]] = {}
+        for update_item in update_items:
             if update_item.shopping_list_id not in existing_items_map:
                 query = PaginationQuery(
                     per_page=-1, query_filter=f"shopping_list_id={update_item.shopping_list_id} AND checked=false"
@@ -209,71 +207,61 @@ class ShoppingListService:
 
             merged = False
             for existing_item in existing_items_map[update_item.shopping_list_id]:
-                if (
-                    (not self.can_merge(existing_item, update_item))
-                    or (existing_item.id in delete_items)
-                    or existing_item.id == update_item.id
-                ):
+                if existing_item.id in delete_items or existing_item.id == update_item.id:
                     continue
 
-                updated_existing_item = self.merge_items(update_item, existing_item)
-                update_items_filtered_map[existing_item.id] = updated_existing_item.cast(
+                if not self.can_merge(update_item, existing_item):
+                    continue
+
+                updated_existing_item = self.merge_items(update_item, existing_item).cast(
                     ShoppingListItemUpdateBulk, id=existing_item.id
                 )
-                delete_items.append(update_item.id)
+                filtered_update_items.append(updated_existing_item)
+                delete_items.add(update_item.id)
                 merged = True
                 break
 
             if merged:
                 continue
 
-            # update the item
-            update_items_filtered_map[update_item.id] = update_item
-
-        # filter out items with negative quantities and delete those
-        update_items = []
-        for update_item in update_items_filtered_map.values():
+            # update or delete the item
             if update_item.quantity < 0:
-                delete_items.append(update_item.id)
+                delete_items.add(update_item.id)
+                continue
 
-            else:
-                update_items.append(update_item)
+            if update_item.checked:
+                # checked items should not have recipe references
+                update_item.recipe_references = []
 
-        created_items = cast(
-            list[ShoppingListItemOut],
-            self.list_items.create_many(create_items) if create_items else [],  # type: ignore
-        )
+            filtered_update_items.append(update_item)
 
         updated_items = cast(
             list[ShoppingListItemOut],
-            self.list_items.update_many(update_items) if update_items else [],  # type: ignore
+            self.list_items.update_many(filtered_update_items) if filtered_update_items else [],  # type: ignore
         )
 
+        deleted_items = cast(
+            list[ShoppingListItemOut],
+            self.list_items.delete_many(delete_items) if delete_items else [],  # type: ignore
+        )
+
+        for list_id in set(item.shopping_list_id for item in updated_items + deleted_items):
+            self.remove_unused_recipe_references(list_id)
+
+        return ShoppingListItemsCollectionOut(
+            created_items=[], updated_items=updated_items, deleted_items=deleted_items
+        )
+
+    def bulk_delete_items(self, delete_items: list[UUID4]) -> ShoppingListItemsCollectionOut:
         deleted_items = cast(
             list[ShoppingListItemOut],
             self.list_items.delete_many(set(delete_items)) if delete_items else [],  # type: ignore
         )
 
-        # remove recipe references from shopping list if all of its related items have been deleted
-        item_recipe_ids_by_list_id: dict[UUID4, set[UUID4]] = {}
-        for item in created_items + updated_items + deleted_items:
-            item_recipe_ids_by_list_id.setdefault(item.shopping_list_id, set()).update(
-                [ref.recipe_id for ref in item.recipe_references]
-            )
+        for list_id in set(item.shopping_list_id for item in deleted_items):
+            self.remove_unused_recipe_references(list_id)
 
-        list_refs_to_delete: set[UUID4] = set()
-        for shopping_list_id in item_recipe_ids_by_list_id:
-            shopping_list = cast(ShoppingListOut, self.shopping_lists.get_one(shopping_list_id))
-            for list_ref in shopping_list.recipe_references:
-                if list_ref.recipe_id not in item_recipe_ids_by_list_id[shopping_list_id]:
-                    list_refs_to_delete.add(list_ref.id)
-
-        if list_refs_to_delete:
-            self.list_refs.delete_many(list_refs_to_delete)
-
-        return ShoppingListItemsCollectionOut(
-            created_items=created_items, updated_items=updated_items, deleted_items=deleted_items
-        )
+        return ShoppingListItemsCollectionOut(created_items=[], updated_items=[], deleted_items=deleted_items)
 
     def get_shopping_list_items_from_recipe(
         self, list_id: UUID4, recipe_id: UUID4, scale: float = 1
@@ -353,7 +341,7 @@ class ShoppingListService:
         """
 
         items_to_create = self.get_shopping_list_items_from_recipe(list_id, recipe_id, recipe_increment)
-        item_changes = self.bulk_handle_items(create_items=items_to_create)
+        item_changes = self.bulk_create_items(items_to_create)
 
         updated_list = cast(ShoppingListOut, self.shopping_lists.get_one(list_id))
 
@@ -433,10 +421,20 @@ class ShoppingListService:
                 else:
                     update_items.append(item.cast(ShoppingListItemUpdateBulk))
 
-        changed_items = self.bulk_handle_items(update_items=update_items, delete_items=delete_items)
+        response_update = self.bulk_update_items(update_items)
+
+        deleted_item_ids = [item.id for item in response_update.deleted_items]
+        response_delete = self.bulk_delete_items([id for id in delete_items if id not in deleted_item_ids])
+
+        items = ShoppingListItemsCollectionOut(
+            created_items=response_update.created_items + response_delete.created_items,
+            updated_items=response_update.updated_items + response_delete.updated_items,
+            deleted_items=response_update.deleted_items + response_delete.deleted_items,
+        )
 
         # Decrement the list recipe reference count
-        for recipe_ref in shopping_list.recipe_references:
+        updated_list = self.shopping_lists.get_one(shopping_list.id)
+        for recipe_ref in updated_list.recipe_references:  # type: ignore
             if recipe_ref.recipe_id != recipe_id or recipe_ref.recipe_quantity is None:
                 continue
 
@@ -450,4 +448,4 @@ class ShoppingListService:
 
             break
 
-        return self.shopping_lists.get_one(shopping_list.id), changed_items  # type: ignore
+        return self.shopping_lists.get_one(shopping_list.id), items  # type: ignore
