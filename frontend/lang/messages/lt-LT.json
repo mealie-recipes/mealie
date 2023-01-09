@@ -722,15 +722,15 @@
       "info-description-cleanable-directories": "Išvalomi katalogai",
       "info-description-cleanable-images": "Išvalomi paveikslėliai",
       "storage": {
-        "title-temporary-directory": "Temporary Directory (.temp)",
-        "title-backups-directory": "Backups Directory (backups)",
-        "title-groups-directory": "Groups Directory (groups)",
-        "title-recipes-directory": "Recipes Directory (recipes)",
-        "title-user-directory": "User Directory (user)"
+        "title-temporary-directory": "Laikinas katalogas (.temp)",
+        "title-backups-directory": "Atsarginių kopijų katalogas (atsarginės kopijos)",
+        "title-groups-directory": "Grupių katalogas (grupės)",
+        "title-recipes-directory": "Receptų katalogas (receptai)",
+        "title-user-directory": "Vartotojų katalogas (vartotojas)"
       },
-      "action-delete-log-files-name": "Delete Log Files",
-      "action-delete-log-files-description": "Deletes all the log files",
-      "action-clean-directories-name": "Clean Directories",
+      "action-delete-log-files-name": "Ištrinti žurnalo failus",
+      "action-delete-log-files-description": "Ištrina visus žurnalo failus",
+      "action-clean-directories-name": "Išvalyti katalogus",
       "action-clean-directories-description": "Removes all the recipe folders that are not valid UUIDs",
       "action-clean-temporary-files-name": "Clean Temporary Files",
       "action-clean-temporary-files-description": "Removes all files and folders in the .temp directory",
