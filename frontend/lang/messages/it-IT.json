@@ -104,7 +104,7 @@
     "monday": "Lunedì",
     "name": "Nome",
     "new": "Nuovo",
-    "never": "Never",
+    "never": "Mai",
     "no": "No",
     "no-recipe-found": "Nessuna Ricetta Trovata",
     "ok": "OK",
@@ -352,29 +352,29 @@
     "quantity": "Quantità",
     "choose-unit": "Scegli Unità",
     "press-enter-to-create": "Premi invio per creare",
-    "choose-food": "Choose Food",
+    "choose-food": "Scegli Cibo",
     "notes": "Note",
     "toggle-section": "Attiva Sezione",
     "see-original-text": "Vedi Testo Originale",
     "original-text-with-value": "Testo originale: {originalText}",
     "ingredient-linker": "Ingredient Linker",
-    "linked-to-other-step": "Linked to other step",
+    "linked-to-other-step": "Collegato ad un altro passaggio",
     "auto": "Automatico",
-    "cook-mode": "Cook Mode",
+    "cook-mode": "Modalità di Cottura",
     "link-ingredients": "Link Ingredienti",
     "merge-above": "Unisci Sopra",
-    "reset-scale": "Reset Scale",
+    "reset-scale": "Ripristina la Scala",
     "decrease-scale-label": "Riduci la Scala di 1",
     "increase-scale-label": "Aumenta la scala di 1",
     "locked": "Bloccato",
     "public-link": "Link Pubblico",
-    "edit-timeline-event": "Edit Timeline Event",
+    "edit-timeline-event": "Modifica Evento Timeline",
     "timeline": "Timeline",
-    "timeline-is-empty": "Nothing on the timeline yet. Try making this recipe!",
-    "open-timeline": "Open Timeline",
-    "made-this": "I Made This",
-    "how-did-it-turn-out": "How did it turn out?",
-    "user-made-this": "{user} made this"
+    "timeline-is-empty": "Niente sulla timeline. Prova a fare questa ricetta!",
+    "open-timeline": "Apri la Timeline",
+    "made-this": "L'Ho Preparato",
+    "how-did-it-turn-out": "Come è venuto?",
+    "user-made-this": "{user} lo ha preparato"
   },
   "search": {
     "advanced-search": "Ricerca Avanzata",
@@ -388,7 +388,7 @@
     "search-mealie": "Cerca Mealie (premi /)",
     "search-placeholder": "Cerca...",
     "tag-filter": "Filtro Tag",
-    "search-hint": "Press '/'"
+    "search-hint": "Premi '/'"
   },
   "settings": {
     "add-a-new-theme": "Aggiungi un Nuovo Tema",
@@ -485,7 +485,7 @@
       "webhook-url": "URL Webhook",
       "webhooks-caps": "WEBHOOKS",
       "webhooks": "Webhooks",
-      "webhook-name": "Webhook Name"
+      "webhook-name": "Nome Webhook"
     }
   },
   "shopping-list": {
@@ -497,11 +497,11 @@
     "quantity": "Quantità: {0}",
     "shopping-list": "Lista della Spesa",
     "shopping-lists": "Liste della Spesa",
-    "food": "Food",
+    "food": "Alimenti",
     "note": "Nota",
     "label": "Etichetta",
-    "linked-item-warning": "This item is linked to one or more recipe. Adjusting the units or foods will yield unexpected results when adding or removing the recipe from this list.",
-    "toggle-food": "Toggle Food"
+    "linked-item-warning": "Questo elemento è collegato a una o più ricette. La modifica delle unità o degli alimenti potrebbe dare risultati inattesi quando si aggiunge o si rimuove la ricetta da questo elenco.",
+    "toggle-food": "Attiva/Disattiva Alimento"
   },
   "sidebar": {
     "all-recipes": "Ricette",
