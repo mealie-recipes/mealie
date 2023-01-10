@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import datetime
 from fractions import Fraction
 
-from pydantic import UUID4
+from pydantic import UUID4, validator
 from pydantic.utils import GetterDict
 
 from mealie.db.models.group.shopping_list import ShoppingList, ShoppingListItem
@@ -23,11 +23,15 @@ SUBSCRIPT = dict(zip("1234567890", "₁₂₃₄₅₆₇₈₉₀", strict=Fals
 
 class ShoppingListItemRecipeRefCreate(MealieModel):
     recipe_id: UUID4
-    recipe_quantity: NoneFloat = 0
+    recipe_quantity: float = 0
     """the quantity of this item in a single recipe (scale == 1)"""
 
     recipe_scale: NoneFloat = 1
     """the number of times this recipe has been added"""
+
+    @validator("recipe_quantity", pre=True)
+    def default_none_to_zero(cls, v):
+        return 0 if v is None else v
 
 
 class ShoppingListItemRecipeRefUpdate(ShoppingListItemRecipeRefCreate):

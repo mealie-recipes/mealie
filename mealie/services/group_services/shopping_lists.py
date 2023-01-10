@@ -393,10 +393,6 @@ class ShoppingListService:
                 if ref.recipe_scale is None:
                     ref.recipe_scale = 1
 
-                # recipe quantity should never be None, but we check just in case
-                if ref.recipe_quantity is None:
-                    ref.recipe_quantity = 0
-
                 # Set Quantity
                 if ref.recipe_scale > recipe_decrement:
                     # remove only part of the reference

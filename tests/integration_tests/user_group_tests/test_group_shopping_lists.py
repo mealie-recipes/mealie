@@ -138,6 +138,54 @@ def test_shopping_lists_add_recipe(
     assert refs[0]["recipeQuantity"] == 2
 
 
+def test_shopping_lists_add_one_with_zero_quantity(
+    api_client: TestClient,
+    unique_user: TestUser,
+    shopping_lists: list[ShoppingListOut],
+):
+    shopping_list = random.choice(shopping_lists)
+
+    # build a recipe that has some ingredients with a null quantity
+    response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=unique_user.token)
+    recipe_slug = utils.assert_derserialize(response, 201)
+
+    response = api_client.get(f"{api_routes.recipes}/{recipe_slug}", headers=unique_user.token)
+    recipe_data = utils.assert_derserialize(response, 200)
+
+    ingredient_1 = {"quantity": random_int(1, 10), "note": random_string()}
+    ingredient_2 = {"quantity": random_int(1, 10), "note": random_string()}
+    ingredient_3_null_qty = {"quantity": None, "note": random_string()}
+
+    recipe_data["recipeIngredient"] = [ingredient_1, ingredient_2, ingredient_3_null_qty]
+    response = api_client.put(f"{api_routes.recipes}/{recipe_slug}", json=recipe_data, headers=unique_user.token)
+    utils.assert_derserialize(response, 200)
+
+    recipe = Recipe.parse_raw(api_client.get(f"{api_routes.recipes}/{recipe_slug}", headers=unique_user.token).content)
+    assert recipe.id
+    assert len(recipe.recipe_ingredient) == 3
+
+    # add the recipe to the list and make sure there are three list items
+    response = api_client.post(
+        api_routes.groups_shopping_lists_item_id_recipe_recipe_id(shopping_list.id, recipe.id),
+        headers=unique_user.token,
+    )
+
+    response = api_client.get(api_routes.groups_shopping_lists_item_id(shopping_list.id), headers=unique_user.token)
+    shopping_list_out = ShoppingListOut.parse_obj(utils.assert_derserialize(response, 200))
+
+    assert len(shopping_list_out.list_items) == 3
+
+    found = False
+    for item in shopping_list_out.list_items:
+        if item.note != ingredient_3_null_qty["note"]:
+            continue
+
+        found = True
+        assert item.quantity == 0
+
+    assert found
+
+
 def test_shopping_list_ref_removes_itself(
     api_client: TestClient, unique_user: TestUser, shopping_list: ShoppingListOut, recipe_ingredient_only: Recipe
 ):
