@@ -697,51 +697,51 @@
         "click": "Fare clic su un qualsiasi campo a destra e poi fare nuovamente clic sul rettangolo sopra l'immagine.",
         "result": "Il testo selezionato apparirà all'interno del campo precedentemente selezionato."
       },
-      "pan-and-zoom-mode": "Pan and Zoom Mode",
-      "pan-and-zoom-desc": "Select pan and zoom by clicking the icon. This mode allows to zoom inside the image and move around to make using big images easier.",
-      "split-text-mode": "Split Text modes",
+      "pan-and-zoom-mode": "Modalità Sposta e Ingrandisci",
+      "pan-and-zoom-desc": "Seleziona Sposta e Ingrandisci facendo clic sull'icona. Questa modalità consente di zoomare all'interno dell'immagine e di spostarsi per facilitare l'utilizzo d'immagini di grandi dimensioni.",
+      "split-text-mode": "Modalità di Divisione del Testo",
       "split-modes": {
-        "line-mode": "Line mode (default)",
-        "line-mode-desc": "In line mode, the text will be propagated by keeping the original line breaks. This mode is useful when using bulk add on a list of ingredients where one ingredient is one line.",
-        "block-mode": "Block mode",
-        "block-mode-desc": "In block mode, the text will be split in blocks. This mode is useful when bulk adding instructions that are usually written in paragraphs.",
-        "flat-mode": "Flat mode",
-        "flat-mode-desc": "In flat mode, the text will be added to the selected recipe field with no line breaks."
+        "line-mode": "Modalità in Linea (predefinita)",
+        "line-mode-desc": "Nella modalità in linea, il testo verrà propagato mantenendo le interruzioni di riga originali. Questa modalità è utile quando si utilizza l'aggiunta in blocco su un elenco d'ingredienti in cui ogni ingrediente corrisponde a una riga.",
+        "block-mode": "Modalità in Blocco",
+        "block-mode-desc": "Nella modalità a blocchi, il testo viene suddiviso in blocchi. Questa modalità è utile quando si aggiungono in blocco istruzioni che di solito sono scritte in paragrafi.",
+        "flat-mode": "Modalità Flat",
+        "flat-mode-desc": "Nella modalità flat, il testo viene aggiunto al campo della ricetta selezionata senza interruzioni di riga."
       }
     }
   },
   "admin": {
     "maintenance": {
       "storage-details": "Dettagli Archiviazione",
-      "page-title": "Site Maintenance",
-      "summary-title": "Summary",
-      "button-label-get-summary": "Get Summary",
+      "page-title": "Manutenzione del sito",
+      "summary-title": "Riepilogo",
+      "button-label-get-summary": "Ottieni Riepilogo",
       "button-label-open-details": "Dettagli",
-      "info-description-data-dir-size": "Data Directory Size",
-      "info-description-log-file-size": "Log File Size",
-      "info-description-cleanable-directories": "Cleanable Directories",
-      "info-description-cleanable-images": "Cleanable Images",
+      "info-description-data-dir-size": "Dimensione della Directory dei Dati",
+      "info-description-log-file-size": "Dimensione del file di log",
+      "info-description-cleanable-directories": "Directory Eliminabili",
+      "info-description-cleanable-images": "Immagini Eliminabili",
       "storage": {
-        "title-temporary-directory": "Temporary Directory (.temp)",
+        "title-temporary-directory": "Directory Temporanea (.temp)",
         "title-backups-directory": "Directory di Backup (Backup)",
-        "title-groups-directory": "Groups Directory (groups)",
-        "title-recipes-directory": "Recipes Directory (recipes)",
-        "title-user-directory": "User Directory (user)"
+        "title-groups-directory": "Directory Gruppi (gruppi)",
+        "title-recipes-directory": "Directory Ricette (ricette)",
+        "title-user-directory": "Directory Utente (utente)"
       },
       "action-delete-log-files-name": "Elimina file log",
       "action-delete-log-files-description": "Elimina tutti i file di log",
       "action-clean-directories-name": "Pulisci Directory",
-      "action-clean-directories-description": "Removes all the recipe folders that are not valid UUIDs",
+      "action-clean-directories-description": "Rimuove tutte le cartelle di ricette che non hanno UUID validi",
       "action-clean-temporary-files-name": "Elimina File Temporanei",
-      "action-clean-temporary-files-description": "Removes all files and folders in the .temp directory",
+      "action-clean-temporary-files-description": "Rimuove tutti i file e le cartelle nella directory .temp",
       "action-clean-images-name": "Cancella Immagini",
       "action-clean-images-description": "Rimuove tutte le immagini che non finiscono con .webp",
-      "actions-description": "Maintenance actions are {destructive_in_bold} and should be used with caution. Performing any of these actions is {irreversible_in_bold}.",
-      "actions-description-destructive": "destructive",
+      "actions-description": "Le azioni di manutenzione sono {destructive_in_bold} e devono essere usate con cautela. L'esecuzione di una di queste azioni è {irreversible_in_bold}.",
+      "actions-description-destructive": "distruttive",
       "actions-description-irreversible": "irreversibile",
       "logs-action-refresh": "Aggiorna Log",
       "logs-page-title": "Log di Mealie",
-      "logs-tail-lines-label": "Tail Lines"
+      "logs-tail-lines-label": "Linee di Fine"
     },
     "mainentance": {
       "actions-title": "Azioni"
