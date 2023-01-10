@@ -4,7 +4,7 @@ from mealie.core.config import get_app_settings
 from mealie.services.backups_v2.alchemy_exporter import AlchemyExporter
 
 ALEMBIC_VERSIONS = [
-    {"version_num": "c2e7e37d45cb"},
+    {"version_num": "74281a49e6ae"},
 ]
 
 
