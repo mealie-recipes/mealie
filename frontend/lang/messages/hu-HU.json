@@ -21,7 +21,7 @@
     "production": "Stabil",
     "support": "Támogatás",
     "version": "Verzió",
-    "unknown-version": "unknown"
+    "unknown-version": "ismeretlen"
   },
   "asset": {
     "assets": "Eszközök",
@@ -32,7 +32,7 @@
     "pdf": "PDF",
     "recipe": "Recept",
     "show-assets": "Eszközök megjelenítése",
-    "error-submitting-form": "Error Submitting Form"
+    "error-submitting-form": "Hiba az űrlap beküldésében"
   },
   "category": {
     "categories": "Kategóriák",
@@ -44,9 +44,9 @@
     "category-update-failed": "Kategória elmentése sikertelen",
     "category-updated": "Kategória frissítve",
     "uncategorized-count": "Kategórizálatlan {count}",
-    "create-a-category": "Create a Category",
-    "category-name": "Category Name",
-    "category": "Category"
+    "create-a-category": "Kategória Létrehozása",
+    "category-name": "Kategória név",
+    "category": "Kategória"
   },
   "events": {
     "apprise-url": "Apprise URL",
