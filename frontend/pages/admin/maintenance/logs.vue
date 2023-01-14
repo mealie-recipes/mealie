@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.cog" title="$t('admin.maintenance.summary-title')">
+    <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.cog" :title="$t('admin.maintenance.summary-title')">
     </BaseCardSectionTitle>
     <div class="mb-6 ml-2 d-flex" style="gap: 0.8rem">
       <BaseButton color="info" :loading="state.loading" @click="refreshLogs">
@@ -12,7 +12,7 @@
         <v-text-field
           v-model="state.lines"
           type="number"
-          label="$t('admin.maintenance.logs-tail-lines-label')"
+          :label="$t('admin.maintenance.logs-tail-lines-label')"
           hide-details
           dense
           outlined

@@ -2,7 +2,7 @@
   <v-container fluid class="narrow-container">
     <BaseDialog
       v-model="state.storageDetails"
-      title="$t('admin.maintenance.storage-details')"
+      :title="$t('admin.maintenance.storage-details')"
       :icon="$globals.icons.folderOutline"
     >
       <div class="py-2">
@@ -27,7 +27,7 @@
     </div>
 
     <section>
-      <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.wrench" title="$t('admin.maintenance.summary-title')">
+      <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.wrench" :title="$t('admin.maintenance.summary-title')">
       </BaseCardSectionTitle>
       <div class="mb-6 ml-2 d-flex" style="gap: 0.3rem">
         <BaseButton color="info" @click="getSummary">
@@ -55,7 +55,7 @@
       <BaseCardSectionTitle
         class="pb-0 mt-8"
         :icon="$globals.icons.wrench"
-        title="$t('admin.mainentance.actions-title')"
+        :title="$t('admin.mainentance.actions-title')"
       >
         <i18n path="admin.maintenance.actions-description">
           <template #destructive-in-bold>
