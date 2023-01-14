@@ -104,7 +104,7 @@
     "monday": "Lunedì",
     "name": "Nome",
     "new": "Nuovo",
-    "never": "Never",
+    "never": "Mai",
     "no": "No",
     "no-recipe-found": "Nessuna Ricetta Trovata",
     "ok": "OK",
@@ -348,33 +348,33 @@
     "recipe-added-to-list": "Ricetta aggiunta alla lista",
     "recipe-added-to-mealplan": "Ricetta aggiunta al piano alimentare",
     "failed-to-add-recipe-to-mealplan": "Impossibile aggiungere la ricetta al piano alimentare",
-    "yield": "Yield",
+    "yield": "Porzioni",
     "quantity": "Quantità",
     "choose-unit": "Scegli Unità",
     "press-enter-to-create": "Premi invio per creare",
-    "choose-food": "Choose Food",
+    "choose-food": "Scegli Cibo",
     "notes": "Note",
     "toggle-section": "Attiva Sezione",
     "see-original-text": "Vedi Testo Originale",
     "original-text-with-value": "Testo originale: {originalText}",
-    "ingredient-linker": "Ingredient Linker",
-    "linked-to-other-step": "Linked to other step",
+    "ingredient-linker": "Linker degli Ingredienti",
+    "linked-to-other-step": "Collegato ad un altro passaggio",
     "auto": "Automatico",
-    "cook-mode": "Cook Mode",
+    "cook-mode": "Modalità di Cottura",
     "link-ingredients": "Link Ingredienti",
     "merge-above": "Unisci Sopra",
-    "reset-scale": "Reset Scale",
+    "reset-scale": "Ripristina la Scala",
     "decrease-scale-label": "Riduci la Scala di 1",
     "increase-scale-label": "Aumenta la scala di 1",
     "locked": "Bloccato",
     "public-link": "Link Pubblico",
-    "edit-timeline-event": "Edit Timeline Event",
+    "edit-timeline-event": "Modifica Evento Timeline",
     "timeline": "Timeline",
-    "timeline-is-empty": "Nothing on the timeline yet. Try making this recipe!",
-    "open-timeline": "Open Timeline",
-    "made-this": "I Made This",
-    "how-did-it-turn-out": "How did it turn out?",
-    "user-made-this": "{user} made this"
+    "timeline-is-empty": "Niente sulla timeline. Prova a fare questa ricetta!",
+    "open-timeline": "Apri la Timeline",
+    "made-this": "L'Ho Preparato",
+    "how-did-it-turn-out": "Come è venuto?",
+    "user-made-this": "{user} lo ha preparato"
   },
   "search": {
     "advanced-search": "Ricerca Avanzata",
@@ -388,7 +388,7 @@
     "search-mealie": "Cerca Mealie (premi /)",
     "search-placeholder": "Cerca...",
     "tag-filter": "Filtro Tag",
-    "search-hint": "Press '/'"
+    "search-hint": "Premi '/'"
   },
   "settings": {
     "add-a-new-theme": "Aggiungi un Nuovo Tema",
@@ -485,7 +485,7 @@
       "webhook-url": "URL Webhook",
       "webhooks-caps": "WEBHOOKS",
       "webhooks": "Webhooks",
-      "webhook-name": "Webhook Name"
+      "webhook-name": "Nome Webhook"
     }
   },
   "shopping-list": {
@@ -497,11 +497,11 @@
     "quantity": "Quantità: {0}",
     "shopping-list": "Lista della Spesa",
     "shopping-lists": "Liste della Spesa",
-    "food": "Food",
+    "food": "Alimenti",
     "note": "Nota",
     "label": "Etichetta",
-    "linked-item-warning": "This item is linked to one or more recipe. Adjusting the units or foods will yield unexpected results when adding or removing the recipe from this list.",
-    "toggle-food": "Toggle Food"
+    "linked-item-warning": "Questo elemento è collegato a una o più ricette. La modifica delle unità o degli alimenti potrebbe dare risultati inattesi quando si aggiunge o si rimuove la ricetta da questo elenco.",
+    "toggle-food": "Attiva/Disattiva Alimento"
   },
   "sidebar": {
     "all-recipes": "Ricette",
@@ -518,12 +518,12 @@
     "tags": "Tag",
     "toolbox": "Strumenti",
     "language": "Lingua",
-    "maintenance": "Maintenance",
-    "background-tasks": "Background Tasks",
+    "maintenance": "Manutenzione",
+    "background-tasks": "Attività in Background",
     "parser": "Parser",
     "developer": "Sviluppatore",
-    "cookbook": "Cookbook",
-    "create-cookbook": "Create a new cookbook"
+    "cookbook": "Libro di cucina",
+    "create-cookbook": "Crea un nuovo libro di cucina"
   },
   "signup": {
     "error-signing-up": "Errore Registrazione",
@@ -544,16 +544,16 @@
     "tag-updated": "Tag aggiornato",
     "tags": "Tag",
     "untagged-count": "Senza Tag {count}",
-    "create-a-tag": "Create a Tag",
-    "tag-name": "Tag Name"
+    "create-a-tag": "Crea un Tag",
+    "tag-name": "Nome del Tag"
   },
   "tool": {
     "tools": "Strumenti",
-    "on-hand": "On Hand",
-    "create-a-tool": "Create a Tool",
-    "tool-name": "Tool Name",
-    "create-new-tool": "Create New Tool",
-    "on-hand-checkbox-label": "Show as On Hand (Checked)"
+    "on-hand": "A Disposizione",
+    "create-a-tool": "Crea un Utensile",
+    "tool-name": "Nome dell'Utensile",
+    "create-new-tool": "Crea un Nuovo Utensile",
+    "on-hand-checkbox-label": "Mostra come Disponibile (Spuntato)"
   },
   "user": {
     "admin": "Amministratore",
@@ -612,7 +612,7 @@
     "you-are-not-allowed-to-delete-this-user": "Non sei autorizzato per la eliminazione di utenti",
     "enable-advanced-content": "Abilita Contenuto Avanzato",
     "enable-advanced-content-description": "Abilita funzionalità avanzate come Scraping Ricette, Chiavi API, Webhooks e Gestione dei Dati. Non ti preoccupare, puoi sempre cambiare questa configurazione in seguito",
-    "favorite-recipes": "Favorite Recipes"
+    "favorite-recipes": "Ricette Preferite"
   },
   "language-dialog": {
     "translated": "tradotto",
@@ -624,16 +624,16 @@
   "data-pages": {
     "seed-data": "Dati Predefiniti",
     "foods": {
-      "merge-dialog-text": "Combining the selected foods will merge the source food and target food into a single food. The source food will be deleted and all of the references to the source food will be updated to point to the target food.",
+      "merge-dialog-text": "Combinando gli alimenti selezionati, l'alimento di partenza e l'alimento di destinazione verranno uniti in un unico alimento. L'alimento di partenza verrà eliminato e tutti i riferimenti all'alimento di partenza verranno aggiornati per puntare all'alimento di destinazione.",
       "merge-food-example": "Unione di {food1} in {food2}",
       "seed-dialog-text": "Inizializza il database con alimenti in base alla tua lingua locale. Questo creerà oltre 200 alimenti comuni che possono essere utilizzati per organizzare il tuo database. Gli alimenti sono tradotti grazie al contributo della comunità di utenti.",
       "seed-dialog-warning": "Hai già alcuni elementi nel tuo database. Questa azione non riconcilierà i duplicati, dovrai gestirli manualmente."
     },
     "units": {
-      "seed-dialog-text": "Seed the database with common units based on your local language."
+      "seed-dialog-text": "Riempie il database con unità comuni basate sulla lingua."
     },
     "labels": {
-      "seed-dialog-text": "Seed the database with common labels based on your local language."
+      "seed-dialog-text": "Riempie il database con etichette comuni basate sulla lingua."
     }
   },
   "user-registration": {
@@ -642,8 +642,8 @@
     "create-a-new-group": "Crea un Nuovo Gruppo",
     "provide-registration-token-description": "Fornisci il token di registrazione associato al gruppo a cui desideri partecipare. Dovrai ottenerlo da un membro di gruppo esistente.",
     "group-details": "Dettagli del Guppo",
-    "group-details-description": "Before you create an account you'll need to create a group. Your group will only contain you, but you'll be able to invite others later. Members in your group can share meal plans, shopping lists, recipes, and more!",
-    "use-seed-data": "Use Seed Data",
+    "group-details-description": "Prima di creare un account, è necessario creare un gruppo. Il gruppo conterrà solo voi, ma potrete invitare altre persone in seguito. I membri del gruppo possono condividere piani alimentari, liste della spesa, ricette e molto altro!",
+    "use-seed-data": "Utilizzo Dati Generati",
     "use-seed-data-description": "Mealie viene fornito con una raccolta di alimenti, unità ed etichette che possono essere utilizzate per popolare il tuo gruppo con dati utili per organizzare le tue ricette.",
     "account-details": "Dettagli dell'Account"
   },
@@ -656,7 +656,7 @@
     "export": "Esporta",
     "file-name": "Nome file",
     "size": "Dimensione",
-    "link-expires": "Link Expires"
+    "link-expires": "Scadenza del Link"
   },
   "recipe-share": {
     "expiration-date": "Data di scadenza",
@@ -667,81 +667,81 @@
   },
   "banner-experimental": {
     "title": "Funzionalità sperimentali",
-    "description": "This page contains experimental or still-baking features. Please excuse the mess.",
+    "description": "Questa pagina contiene funzioni sperimentali o ancora in fase di sviluppo. Ci scusiamo per il disordine.",
     "issue-link-text": "Traccia i nostri progressi qui"
   },
   "form": {
     "quantity-label-abbreviated": "Quantità"
   },
   "markdown-editor": {
-    "preview-markdown-button-label": "Preview Markdown"
+    "preview-markdown-button-label": "Anteprima Markdown"
   },
   "demo": {
-    "info_message_with_version": "This is a Demo for version: {version}",
+    "info_message_with_version": "Questa è una Demo per la versione: {version}",
     "demo_username": "Nome utente: {username}",
     "demo_password": "Password: {password}"
   },
   "ocr-editor": {
     "ocr-editor": "Editor Ocr",
     "selection-mode": "Modalità di selezione",
-    "pan-and-zoom-picture": "Pan and zoom picture",
+    "pan-and-zoom-picture": "Sposta e Ingrandisci l'immagine",
     "split-text": "Dividi testo",
-    "preserve-line-breaks": "Preserve original line breaks",
-    "split-by-block": "Split by text block",
-    "flatten": "Flatten regardless of original formating",
+    "preserve-line-breaks": "Conserva le interruzioni di riga originali",
+    "split-by-block": "Dividi per blocco di testo",
+    "flatten": "Appiattire indipendentemente dalla formattazione originale",
     "help": {
-      "selection-mode": "Selection Mode (default)",
-      "selection-mode-desc": "The selection mode is the main mode that can be used to enter data:",
+      "selection-mode": "Modalità di Selezione (Predefinito)",
+      "selection-mode-desc": "La modalità di selezione è la modalità principale per inserire i dati:",
       "selection-mode-steps": {
-        "draw": "Draw a rectangle on the text you want to select.",
-        "click": "Click on any field on the right and then click back on the rectangle above the image.",
-        "result": "The selected text will appear inside the previously selected field."
+        "draw": "Disegna un rettangolo sul testo che vuoi selezionare.",
+        "click": "Fare clic su un qualsiasi campo a destra e poi fare nuovamente clic sul rettangolo sopra l'immagine.",
+        "result": "Il testo selezionato apparirà all'interno del campo precedentemente selezionato."
       },
-      "pan-and-zoom-mode": "Pan and Zoom Mode",
-      "pan-and-zoom-desc": "Select pan and zoom by clicking the icon. This mode allows to zoom inside the image and move around to make using big images easier.",
-      "split-text-mode": "Split Text modes",
+      "pan-and-zoom-mode": "Modalità Sposta e Ingrandisci",
+      "pan-and-zoom-desc": "Seleziona Sposta e Ingrandisci facendo clic sull'icona. Questa modalità consente di zoomare all'interno dell'immagine e di spostarsi per facilitare l'utilizzo d'immagini di grandi dimensioni.",
+      "split-text-mode": "Modalità di Divisione del Testo",
       "split-modes": {
-        "line-mode": "Line mode (default)",
-        "line-mode-desc": "In line mode, the text will be propagated by keeping the original line breaks. This mode is useful when using bulk add on a list of ingredients where one ingredient is one line.",
-        "block-mode": "Block mode",
-        "block-mode-desc": "In block mode, the text will be split in blocks. This mode is useful when bulk adding instructions that are usually written in paragraphs.",
-        "flat-mode": "Flat mode",
-        "flat-mode-desc": "In flat mode, the text will be added to the selected recipe field with no line breaks."
+        "line-mode": "Modalità in Linea (predefinita)",
+        "line-mode-desc": "Nella modalità in linea, il testo verrà propagato mantenendo le interruzioni di riga originali. Questa modalità è utile quando si utilizza l'aggiunta in blocco su un elenco d'ingredienti in cui ogni ingrediente corrisponde a una riga.",
+        "block-mode": "Modalità in Blocco",
+        "block-mode-desc": "Nella modalità a blocchi, il testo viene suddiviso in blocchi. Questa modalità è utile quando si aggiungono in blocco istruzioni che di solito sono scritte in paragrafi.",
+        "flat-mode": "Modalità Flat",
+        "flat-mode-desc": "Nella modalità flat, il testo viene aggiunto al campo della ricetta selezionata senza interruzioni di riga."
       }
     }
   },
   "admin": {
     "maintenance": {
       "storage-details": "Dettagli Archiviazione",
-      "page-title": "Site Maintenance",
-      "summary-title": "Summary",
-      "button-label-get-summary": "Get Summary",
+      "page-title": "Manutenzione del sito",
+      "summary-title": "Riepilogo",
+      "button-label-get-summary": "Ottieni Riepilogo",
       "button-label-open-details": "Dettagli",
-      "info-description-data-dir-size": "Data Directory Size",
-      "info-description-log-file-size": "Log File Size",
-      "info-description-cleanable-directories": "Cleanable Directories",
-      "info-description-cleanable-images": "Cleanable Images",
+      "info-description-data-dir-size": "Dimensione della Directory dei Dati",
+      "info-description-log-file-size": "Dimensione del file di log",
+      "info-description-cleanable-directories": "Directory Eliminabili",
+      "info-description-cleanable-images": "Immagini Eliminabili",
       "storage": {
-        "title-temporary-directory": "Temporary Directory (.temp)",
+        "title-temporary-directory": "Directory Temporanea (.temp)",
         "title-backups-directory": "Directory di Backup (Backup)",
-        "title-groups-directory": "Groups Directory (groups)",
-        "title-recipes-directory": "Recipes Directory (recipes)",
-        "title-user-directory": "User Directory (user)"
+        "title-groups-directory": "Directory Gruppi (gruppi)",
+        "title-recipes-directory": "Directory Ricette (ricette)",
+        "title-user-directory": "Directory Utente (utente)"
       },
       "action-delete-log-files-name": "Elimina file log",
       "action-delete-log-files-description": "Elimina tutti i file di log",
       "action-clean-directories-name": "Pulisci Directory",
-      "action-clean-directories-description": "Removes all the recipe folders that are not valid UUIDs",
+      "action-clean-directories-description": "Rimuove tutte le cartelle di ricette che non hanno UUID validi",
       "action-clean-temporary-files-name": "Elimina File Temporanei",
-      "action-clean-temporary-files-description": "Removes all files and folders in the .temp directory",
+      "action-clean-temporary-files-description": "Rimuove tutti i file e le cartelle nella directory .temp",
       "action-clean-images-name": "Cancella Immagini",
       "action-clean-images-description": "Rimuove tutte le immagini che non finiscono con .webp",
-      "actions-description": "Maintenance actions are {destructive_in_bold} and should be used with caution. Performing any of these actions is {irreversible_in_bold}.",
-      "actions-description-destructive": "destructive",
+      "actions-description": "Le azioni di manutenzione sono {destructive_in_bold} e devono essere usate con cautela. L'esecuzione di una di queste azioni è {irreversible_in_bold}.",
+      "actions-description-destructive": "distruttive",
       "actions-description-irreversible": "irreversibile",
       "logs-action-refresh": "Aggiorna Log",
       "logs-page-title": "Log di Mealie",
-      "logs-tail-lines-label": "Tail Lines"
+      "logs-tail-lines-label": "Linee di Fine"
     },
     "mainentance": {
       "actions-title": "Azioni"

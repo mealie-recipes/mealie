@@ -17,7 +17,7 @@
         "generic-updated": "{name} byl aktualizován",
         "generic-created-with-url": "{name} byl vytvořen, {url}",
         "generic-updated-with-url": "{name} byl aktualizován, {url}",
-        "generic-duplicated": "{name} has been duplicated",
+        "generic-duplicated": "{name} byl duplikován",
         "generic-deleted": "{name} byl odstraněn"
     }
 }
