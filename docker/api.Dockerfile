@@ -1,7 +1,7 @@
 ###############################################
 # Base Image
 ###############################################
-FROM python:3.10-slim as python-base
+FROM docker.io/python:3.10-slim as python-base
 
 ENV MEALIE_HOME="/app"
 
@@ -54,7 +54,7 @@ RUN poetry install -E pgsql --only main
 ###############################################
 # CRFPP Image
 ###############################################
-FROM hkotel/crfpp as crfpp
+FROM docker.io/hkotel/crfpp as crfpp
 
 RUN echo "crfpp-container"
 

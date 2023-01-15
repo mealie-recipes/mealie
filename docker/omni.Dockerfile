@@ -1,4 +1,4 @@
-FROM node:16 as builder
+FROM docker.io/node:16 as builder
 
 WORKDIR /app
 
@@ -24,7 +24,7 @@ RUN rm -rf node_modules && \
 ###############################################
 # Base Image - Python
 ###############################################
-FROM python:3.10-slim as python-base
+FROM docker.io/python:3.10-slim as python-base
 
 ENV MEALIE_HOME="/app"
 
@@ -77,7 +77,7 @@ RUN poetry install -E pgsql --only main
 ###############################################
 # CRFPP Image
 ###############################################
-FROM hkotel/crfpp as crfpp
+FROM docker.io/hkotel/crfpp as crfpp
 
 RUN echo "crfpp-container"
 
