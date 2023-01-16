@@ -41,6 +41,11 @@
 
 	handle {
 		uri strip_suffix /
-		reverse_proxy http://127.0.0.1:3001
+		reverse_proxy http://127.0.0.1:3001 {
+		    # these headers are to test SSO
+            header_up Remote-User "myuser"
+            header_up Remote-Name "My User"
+            header_up Remote-Email "myuser@example.org"
+        }
 	}
 }

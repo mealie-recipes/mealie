@@ -133,6 +133,19 @@ class AppSettings(BaseSettings):
         return self.LDAP_AUTH_ENABLED and not_none
 
     # ===============================================
+    # SSO Configuration
+
+    SSO_AUTH_ENABLED: bool = False
+    SSO_TRUSTED_HEADER_USER: str = 'Remote-User'
+    SSO_TRUSTED_HEADER_EMAIL: NoneStr = 'Remote-Email'
+    SSO_TRUSTED_HEADER_NAME: NoneStr = 'Remote-Name'
+
+    @property
+    def SSO_ENABLED(self) -> bool:
+        """Validates SSO settings are all set"""
+        return self.SSO_AUTH_ENABLED and bool(self.SSO_TRUSTED_HEADER_USER)
+
+    # ===============================================
     # Testing Config
 
     TESTING: bool = False

@@ -1,6 +1,7 @@
 import secrets
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from typing import Literal
 
 from jose import jwt
 
@@ -108,16 +109,34 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
     return user
 
 
-def authenticate_user(session, email: str, password: str) -> PrivateUser | bool:
+def authenticate_user_sso(session, username: str, email: str | None, name: str | None) -> PrivateUser:
+    db = get_repositories(session)
+    user = db.users.get_one(username, "username", any_case=True)
+    if not user:
+        user = db.users.create(
+            {
+                "username": username,
+                "password": "SSO",
+                # Fill the next two values with something unique and vaguely
+                # relevant
+                "full_name": name or username,
+                "email": email or username,
+                "admin": False,
+            },
+        )
+    return user
+
+
+def authenticate_user(session, user_identifier: str, password: str) -> PrivateUser | Literal[False]:
     settings = get_app_settings()
 
     db = get_repositories(session)
-    user = db.users.get_one(email, "email", any_case=True)
+    user = db.users.get_one(user_identifier, "email", any_case=True)
 
     if not user:
-        user = db.users.get_one(email, "username", any_case=True)
+        user = db.users.get_one(user_identifier, "username", any_case=True)
     if settings.LDAP_AUTH_ENABLED and (not user or user.password == "LDAP"):
-        return user_from_ldap(db, email, password)
+        return user_from_ldap(db, user_identifier, password)
     if not user:
         # To prevent user enumeration we perform the verify_password computation to ensure
         # server side time is relatively constant and not vulnerable to timing attacks.

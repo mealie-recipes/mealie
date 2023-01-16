@@ -131,6 +131,7 @@ export default {
     // Options
     strategies: {
       local: {
+        scheme: './schemes/auth',
         resetOnError: true,
         token: {
           property: "access_token",
@@ -256,6 +257,7 @@ export default {
   publicRuntimeConfig: {
     GLOBAL_MIDDLEWARE: process.env.GLOBAL_MIDDLEWARE || null,
     SUB_PATH: process.env.SUB_PATH || "",
+    SSO_LOGOUT_URL: process.env.SSO_LOGOUT_URL || null,
     axios: {
       browserBaseURL: process.env.SUB_PATH || "",
     },

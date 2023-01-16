@@ -14,6 +14,7 @@ class AppInfo(MealieModel):
     version: str
     demo_status: bool
     allow_signup: bool
+    sso_login_available: bool
 
 
 class AdminAboutInfo(AppInfo):

@@ -27,3 +27,10 @@ Setting the following environmental variables will change the theme of the front
 | THEME_DARK_INFO       | #1976D2 | Dark Theme Config Variable  |
 | THEME_DARK_WARNING    | #FF6D00 | Dark Theme Config Variable  |
 | THEME_DARK_ERROR      | #EF5350 | Dark Theme Config Variable  |
+
+
+### Single Sign On
+
+| Variables      | Default | Description                                                                             |
+|----------------|:-------:|-----------------------------------------------------------------------------------------|
+| SSO_LOGOUT_URL |  None   | Custom URL to redirect to after the frontend logs the user out (logout page of the IdP) |

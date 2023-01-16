@@ -61,7 +61,8 @@ class UserController(BaseUserController):
     @user_router.put("/password")
     def update_password(self, password_change: ChangePassword):
         """Resets the User Password"""
-        if not verify_password(password_change.current_password, self.user.password):
+        # when logged in via SSO, do not check old password
+        if self.user.password != 'SSO' and not verify_password(password_change.current_password, self.user.password):
             raise HTTPException(status.HTTP_400_BAD_REQUEST, ErrorResponse.respond("Invalid current password"))
 
         self.user.password = hash_password(password_change.new_password)

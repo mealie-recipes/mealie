@@ -143,20 +143,29 @@ export default defineComponent({
 
     const appInfo = useAppInfo();
 
+    whenever(
+      () => appInfo.value?.ssoLoginAvailable,
+      () => {
+        authenticate({sso: true});
+      },
+      {immediate: true},
+    );
+
     const { passwordIcon, inputType, togglePasswordShow } = usePasswordField();
 
     const allowSignup = computed(() => appInfo.value?.allowSignup || false);
 
-    async function authenticate() {
-      if (form.email.length === 0 || form.password.length === 0) {
-        alert.error("Please enter your email and password");
-        return;
-      }
+    async function authenticate({sso} = {sso: false}) {
+      if (!sso)
+        if (form.email.length === 0 || form.password.length === 0) {
+          alert.error("Please enter your email and password");
+          return;
+        }
 
       loggingIn.value = true;
       const formData = new FormData();
-      formData.append("username", form.email);
-      formData.append("password", form.password);
+      formData.append("username", sso ? 'SSO' : form.email);
+      formData.append("password", sso ? 'SSO' : form.password);
       formData.append("remember_me", String(form.remember));
 
       try {
