@@ -216,13 +216,13 @@
     "side": "Príloha",
     "sides": "Prílohy",
     "start-date": "Dátum od",
-    "rule-day": "Rule Day",
-    "meal-type": "Meal Type",
-    "breakfast": "Breakfast",
-    "lunch": "Lunch",
-    "dinner": "Dinner",
-    "type-any": "Any",
-    "day-any": "Any"
+    "rule-day": "Deň s pravidlom",
+    "meal-type": "Druh jedla",
+    "breakfast": "Raňajky",
+    "lunch": "Obed",
+    "dinner": "Večera",
+    "type-any": "Ľubovoľný",
+    "day-any": "Ľubovoľný"
   },
   "migration": {
     "chowdown": {
@@ -255,9 +255,9 @@
     "trim-whitespace-description": "Vymažte medzery a prázdne riadky na začiatku a na konci",
     "trim-prefix-description": "Vymažte prvé písmeno z každého riadku",
     "split-by-numbered-line-description": "Pokus rozdeliť odsek pomocou výrazu '1)' alebo '1.'",
-    "import-by-url": "Import a recipe by URL",
-    "create-manually": "Create a recipe manually",
-    "make-recipe-image": "Make this the recipe image"
+    "import-by-url": "Importovať recept z URL",
+    "create-manually": "Vytvoriť recept manuálne",
+    "make-recipe-image": "Nastaviť ako obrázok receptu"
   },
   "page": {
     "404-page-not-found": "Chyba 404 - Stránka nenájdená",
@@ -271,8 +271,8 @@
     "page-updated": "Stránka bola aktualizovaná",
     "pages-update-failed": "Aktualizácia stránok zlyhala",
     "pages-updated": "Stránky boli aktualizované",
-    "404-not-found": "404 Not Found",
-    "an-error-occurred": "An error occurred"
+    "404-not-found": "404 Nenájdená",
+    "an-error-occurred": "Vyskytla sa chyba"
   },
   "recipe": {
     "add-key": "Pridať kľúč",
@@ -283,15 +283,15 @@
     "carbohydrate-content": "Sacharidy",
     "categories": "Kategórie",
     "comment-action": "Komentovať",
-    "comment": "Comment",
+    "comment": "Komentár",
     "comments": "Komentáre",
     "delete-confirmation": "Naozaj chcete odstrániť zvolený recept?",
     "delete-recipe": "Odstrániť recept",
     "description": "Popis",
     "disable-amount": "Vypnúť množstvá surovín",
     "disable-comments": "Vypnúť komentáre",
-    "duplicate": "Duplicate recipe",
-    "duplicate-name": "Name of the new recipe",
+    "duplicate": "Duplikovať recept",
+    "duplicate-name": "Názov nového receptu",
     "edit-scale": "Upraviť mierku",
     "fat-content": "Tuky",
     "fiber-content": "Vlákniny",
@@ -337,44 +337,44 @@
     "total-time": "Celkový čas",
     "unable-to-delete-recipe": "Recept nie je možné odstrániť",
     "no-recipe": "Bez receptu",
-    "locked-by-owner": "Locked by Owner",
-    "join-the-conversation": "Join the Conversation",
-    "add-recipe-to-mealplan": "Add Recipe to Mealplan",
-    "entry-type": "Entry Type",
-    "date-format-hint": "MM/DD/YYYY format",
-    "date-format-hint-yyyy-mm-dd": "YYYY-MM-DD format",
-    "add-to-list": "Add to List",
-    "add-to-plan": "Add to Plan",
-    "recipe-added-to-list": "Recipe added to list",
-    "recipe-added-to-mealplan": "Recipe added to mealplan",
-    "failed-to-add-recipe-to-mealplan": "Failed to add recipe to mealplan",
-    "yield": "Yield",
-    "quantity": "Quantity",
-    "choose-unit": "Choose Unit",
-    "press-enter-to-create": "Press Enter to Create",
-    "choose-food": "Choose Food",
-    "notes": "Notes",
-    "toggle-section": "Toggle Section",
-    "see-original-text": "See Original Text",
-    "original-text-with-value": "Original Text: {originalText}",
-    "ingredient-linker": "Ingredient Linker",
-    "linked-to-other-step": "Linked to other step",
-    "auto": "Auto",
-    "cook-mode": "Cook Mode",
-    "link-ingredients": "Link Ingredients",
-    "merge-above": "Merge Above",
-    "reset-scale": "Reset Scale",
-    "decrease-scale-label": "Decrease Scale by 1",
-    "increase-scale-label": "Increase Scale by 1",
-    "locked": "Locked",
-    "public-link": "Public Link",
-    "edit-timeline-event": "Edit Timeline Event",
-    "timeline": "Timeline",
-    "timeline-is-empty": "Nothing on the timeline yet. Try making this recipe!",
-    "open-timeline": "Open Timeline",
-    "made-this": "I Made This",
-    "how-did-it-turn-out": "How did it turn out?",
-    "user-made-this": "{user} made this"
+    "locked-by-owner": "Uzamknuté vlastníkom",
+    "join-the-conversation": "Pripojiť sa ku konverzácii",
+    "add-recipe-to-mealplan": "Pridať recept do stravovacieho plánu",
+    "entry-type": "Typ položky",
+    "date-format-hint": "Formát MM/DD/YYYY",
+    "date-format-hint-yyyy-mm-dd": "Formát YYY-MM-DD",
+    "add-to-list": "Pridať do zoznamu",
+    "add-to-plan": "Pridať do plánu",
+    "recipe-added-to-list": "Recept bol pridaný do zoznamu",
+    "recipe-added-to-mealplan": "Recept bol pridaný do stravovacieho plánu",
+    "failed-to-add-recipe-to-mealplan": "Pridanie receptu do stravovacieho plánu zlyhalo",
+    "yield": "Počet porcií",
+    "quantity": "Množstvo",
+    "choose-unit": "Vyberte jednotku",
+    "press-enter-to-create": "Stlačte Enter pre vytvorenie",
+    "choose-food": "Vyberte jedlo",
+    "notes": "Poznámky",
+    "toggle-section": "Prepnúť sekciu",
+    "see-original-text": "Pozrieť pôvodný text",
+    "original-text-with-value": "Pôvodný text: {originalText}",
+    "ingredient-linker": "Prepojenie surovín",
+    "linked-to-other-step": "Prepojené s iným krokom",
+    "auto": "Automaticky",
+    "cook-mode": "Režim varenia",
+    "link-ingredients": "Prepojiť suroviny",
+    "merge-above": "Zlúčiť s predchádzajúcim",
+    "reset-scale": "Obnoviť škálovanie",
+    "decrease-scale-label": "Znížiť škálovanie o 1",
+    "increase-scale-label": "Zvýšiť škálovanie o 1",
+    "locked": "Zamknuté",
+    "public-link": "Verejný odkaz",
+    "edit-timeline-event": "Upraviť udalosť na časovej osi",
+    "timeline": "Časová os",
+    "timeline-is-empty": "Na časovej osi zatiaľ nič nie je. Skúste pripraviť tento recept!",
+    "open-timeline": "Otvoriť časovú os",
+    "made-this": "Toto som uvaril",
+    "how-did-it-turn-out": "Ako to dopadlo?",
+    "user-made-this": "{user} toto uvaril/-a"
   },
   "search": {
     "advanced-search": "Rozšírené vyhľadávanie",
@@ -388,7 +388,7 @@
     "search-mealie": "Prehľadať Mealie (stlač /)",
     "search-placeholder": "Hľadať...",
     "tag-filter": "Filter štítkov",
-    "search-hint": "Press '/'"
+    "search-hint": "Stlač '/'"
   },
   "settings": {
     "add-a-new-theme": "Pridať nový motív",
@@ -457,8 +457,8 @@
       "theme-saved": "Motív bol uložený",
       "theme-updated": "Motív bol aktualizovaný",
       "warning": "Upozornenie",
-      "light-mode": "Light Mode",
-      "dark-mode": "Dark Mode"
+      "light-mode": "Svetlá téma",
+      "dark-mode": "Tmavá téma"
     },
     "token": {
       "active-tokens": "Aktívne kľúče",
@@ -485,7 +485,7 @@
       "webhook-url": "URL adresa webhooku",
       "webhooks-caps": "WEBHOOKS",
       "webhooks": "Webhooky",
-      "webhook-name": "Webhook Name"
+      "webhook-name": "Názov webhooku"
     }
   },
   "shopping-list": {
@@ -497,11 +497,11 @@
     "quantity": "Množstvo: {0}",
     "shopping-list": "Nákupný zoznam",
     "shopping-lists": "Nákupné zoznamy",
-    "food": "Food",
-    "note": "Note",
-    "label": "Label",
-    "linked-item-warning": "This item is linked to one or more recipe. Adjusting the units or foods will yield unexpected results when adding or removing the recipe from this list.",
-    "toggle-food": "Toggle Food"
+    "food": "Jedlo",
+    "note": "Poznámka",
+    "label": "Štítok",
+    "linked-item-warning": "Táto položka je prepojená s jedným alebo viacerými receptami. Zmena jednotiek alebo jedál bude viesť k neželaným zmenám pri pridávaní alebo odoberaní receptov z tohto zoznamu.",
+    "toggle-food": "Prepnúť jedlo"
   },
   "sidebar": {
     "all-recipes": "Všetky recepty",
@@ -518,12 +518,12 @@
     "tags": "Štítky",
     "toolbox": "Nástroje",
     "language": "Jazyk",
-    "maintenance": "Maintenance",
-    "background-tasks": "Background Tasks",
+    "maintenance": "Údržba",
+    "background-tasks": "Úlohy na pozadí",
     "parser": "Parser",
-    "developer": "Developer",
-    "cookbook": "Cookbook",
-    "create-cookbook": "Create a new cookbook"
+    "developer": "Vývojár",
+    "cookbook": "Kuchárska kniha",
+    "create-cookbook": "Vytvoriť novú kuchársku knihu"
   },
   "signup": {
     "error-signing-up": "Nastala chyba pri registrácii",
@@ -544,16 +544,16 @@
     "tag-updated": "Štítok bol aktualizovaný",
     "tags": "Štítky",
     "untagged-count": "Neoznačené {count}",
-    "create-a-tag": "Create a Tag",
-    "tag-name": "Tag Name"
+    "create-a-tag": "Vytvoriť štítok",
+    "tag-name": "Názov štítku"
   },
   "tool": {
     "tools": "Nástroje",
-    "on-hand": "On Hand",
-    "create-a-tool": "Create a Tool",
-    "tool-name": "Tool Name",
-    "create-new-tool": "Create New Tool",
-    "on-hand-checkbox-label": "Show as On Hand (Checked)"
+    "on-hand": "K dispozícii",
+    "create-a-tool": "Vytvoriť náčinie",
+    "tool-name": "Názov náčinia",
+    "create-new-tool": "Vytvoriť nové náčinie",
+    "on-hand-checkbox-label": "Zobraz ako \"K dispozícii\" (Checked)"
   },
   "user": {
     "admin": "Administrátor",
@@ -612,7 +612,7 @@
     "you-are-not-allowed-to-delete-this-user": "Nie Ste oprávnený odstrániť tohto užívateľa",
     "enable-advanced-content": "Povoliť pokročilé funkcie",
     "enable-advanced-content-description": "Povoliť pokročilé funkcie, ako je škálovanie receptov, API kľúče, webhooky a správa údajov. Nebojte sa, neskôr to môžete kedykoľvek zmeniť",
-    "favorite-recipes": "Favorite Recipes"
+    "favorite-recipes": "Obľúbené recepty"
   },
   "language-dialog": {
     "translated": "preložené",
@@ -653,20 +653,20 @@
     "email-is-taken": "Email je už obsadený"
   },
   "export": {
-    "export": "Export",
-    "file-name": "File Name",
-    "size": "Size",
-    "link-expires": "Link Expires"
+    "export": "Exportovať",
+    "file-name": "Názov súboru",
+    "size": "Veľkosť",
+    "link-expires": "Vypršanie odkazu"
   },
   "recipe-share": {
-    "expiration-date": "Expiration Date",
-    "share-recipe": "Share Recipe",
-    "default-30-days": "Default 30 Days",
-    "expires-at": "Expires At",
-    "recipe-link-copied-message": "Recipe link copied to clipboard"
+    "expiration-date": "Vypršanie platnosti",
+    "share-recipe": "Zdieľať recept",
+    "default-30-days": "Predvolené 30 dní",
+    "expires-at": "Platnosť uplynie",
+    "recipe-link-copied-message": "Odkaz na recept bol skopírovaný do schránky"
   },
   "banner-experimental": {
-    "title": "Experimental Feature",
+    "title": "Experimentálna funkcia",
     "description": "This page contains experimental or still-baking features. Please excuse the mess.",
     "issue-link-text": "Track our progress here"
   },
