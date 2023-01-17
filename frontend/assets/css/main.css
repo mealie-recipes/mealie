@@ -47,3 +47,10 @@
 .v-card__title {
   word-break: normal !important;
 }
+
+@media (min-width: 768px) and (max-width: 992px) {
+  .col-sm-scroll {
+    overflow: scroll;
+    height: 80vh;
+  }
+}
