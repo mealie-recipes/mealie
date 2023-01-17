@@ -158,12 +158,12 @@
     "a-name-is-required": "Meno je povinné",
     "delete-with-name": "Vymazať {name}",
     "confirm-delete-generic-with-name": "Naozaj chcete odstrániť {name}?",
-    "confirm-delete-own-admin-account": "Please note that you are trying to delete your own admin account! This action cannot be undone and will permanently delete your account?",
-    "organizer": "Organizer",
-    "transfer": "Transfer",
-    "copy": "Copy",
-    "color": "Color",
-    "timestamp": "Timestamp"
+    "confirm-delete-own-admin-account": "Prosím spozornite, chystáte sa zmazať Váš administrátorský účet! Táto operácia nemôže byť spätne zrušená a Váš účet bude natrvalo vymazaný?",
+    "organizer": "Organizátor",
+    "transfer": "Presun",
+    "copy": "Kopírovať",
+    "color": "Farba",
+    "timestamp": "Časová značka"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Naozaj chcete odstrániť <b>{groupName}<b/>?",
