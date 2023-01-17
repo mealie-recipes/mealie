@@ -16,5 +16,5 @@ def get_app_info(request: Request):
         demo_status=settings.IS_DEMO,
         production=settings.PRODUCTION,
         allow_signup=settings.ALLOW_SIGNUP,
-        sso_login_available=settings.SSO_ENABLED and bool(request.headers.get(settings.SSO_TRUSTED_HEADER_USER, False))
+        sso_login_available=settings.SSO_ENABLED and bool(request.headers.get(settings.SSO_TRUSTED_HEADER_USER, False)),
     )

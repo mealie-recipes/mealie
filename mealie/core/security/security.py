@@ -41,7 +41,7 @@ def create_recipe_slug_token(file_path: str | Path) -> str:
     return create_access_token(token_data, expires_delta=timedelta(minutes=30))
 
 
-def user_from_ldap(db: AllRepositories, username: str, password: str) -> PrivateUser | bool:
+def user_from_ldap(db: AllRepositories, username: str, password: str) -> PrivateUser | Literal[False]:
     """Given a username and password, tries to authenticate by BINDing to an
     LDAP server
 

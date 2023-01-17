@@ -1,6 +1,6 @@
 from datetime import timedelta
 
-from fastapi import APIRouter, Depends, Form, status, Request
+from fastapi import APIRouter, Depends, Form, Request, status
 from fastapi.exceptions import HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
 from pydantic import BaseModel
@@ -53,10 +53,12 @@ def get_token(request: Request, data: CustomOAuth2Form = Depends(), session: Ses
     settings = get_app_settings()
 
     if settings.SSO_ENABLED and request.headers.get(settings.SSO_TRUSTED_HEADER_USER, False):
-        user = authenticate_user_sso(session,
-                                     username=request.headers.get(settings.SSO_TRUSTED_HEADER_USER),
-                                     email=request.headers.get(settings.SSO_TRUSTED_HEADER_EMAIL),
-                                     name=request.headers.get(settings.SSO_TRUSTED_HEADER_NAME), )
+        user = authenticate_user_sso(
+            session,
+            username=request.headers.get(settings.SSO_TRUSTED_HEADER_USER),
+            email=request.headers.get(settings.SSO_TRUSTED_HEADER_EMAIL),
+            name=request.headers.get(settings.SSO_TRUSTED_HEADER_NAME),
+        )
     else:
         user_identifier = data.username
         password = data.password

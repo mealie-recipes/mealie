@@ -164,8 +164,8 @@ export default defineComponent({
 
       loggingIn.value = true;
       const formData = new FormData();
-      formData.append("username", sso ? 'SSO' : form.email);
-      formData.append("password", sso ? 'SSO' : form.password);
+      formData.append("username", sso ? "SSO" : form.email);
+      formData.append("password", sso ? "SSO" : form.password);
       formData.append("remember_me", String(form.remember));
 
       try {

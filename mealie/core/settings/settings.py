@@ -136,9 +136,9 @@ class AppSettings(BaseSettings):
     # SSO Configuration
 
     SSO_AUTH_ENABLED: bool = False
-    SSO_TRUSTED_HEADER_USER: str = 'Remote-User'
-    SSO_TRUSTED_HEADER_EMAIL: NoneStr = 'Remote-Email'
-    SSO_TRUSTED_HEADER_NAME: NoneStr = 'Remote-Name'
+    SSO_TRUSTED_HEADER_USER: str = "Remote-User"
+    SSO_TRUSTED_HEADER_EMAIL: NoneStr = "Remote-Email"
+    SSO_TRUSTED_HEADER_NAME: NoneStr = "Remote-Name"
 
     @property
     def SSO_ENABLED(self) -> bool:

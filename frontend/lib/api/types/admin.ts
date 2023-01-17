@@ -33,6 +33,8 @@ export interface AppInfo {
   version: string;
   demoStatus: boolean;
   allowSignup: boolean;
+
+  ssoLoginAvailable: boolean;
 }
 export interface AppStatistics {
   totalRecipes: number;
