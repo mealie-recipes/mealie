@@ -3,7 +3,7 @@ import random
 import shutil
 import string
 
-from fastapi import APIRouter, BackgroundTasks
+from fastapi import APIRouter, BackgroundTasks, Request
 from recipe_scrapers import __version__ as recipe_scraper_version
 
 from mealie.core.release_checker import get_latest_version
@@ -17,7 +17,7 @@ router = APIRouter(prefix="/about")
 @controller(router)
 class AdminAboutController(BaseAdminController):
     @router.get("", response_model=AdminAboutInfo)
-    def get_app_info(self):
+    def get_app_info(self, request: Request):
         """Get general application information"""
 
         settings = self.settings
@@ -35,6 +35,8 @@ class AdminAboutController(BaseAdminController):
             allow_signup=settings.ALLOW_SIGNUP,
             build_id=settings.GIT_COMMIT_HASH,
             recipe_scraper_version=recipe_scraper_version.__version__,
+            sso_login_available=settings.SSO_ENABLED
+            and bool(request.headers.get(settings.SSO_TRUSTED_HEADER_USER, False)),
         )
 
     @router.get("/statistics", response_model=AppStatistics)
