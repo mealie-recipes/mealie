@@ -26,7 +26,7 @@
           <!--
             The left column is conditionally rendered based on cook mode.
            -->
-          <v-col v-if="!isCookMode || isEditForm" cols="12" sm="12" md="4" lg="4">
+          <v-col v-if="!isCookMode || isEditForm" cols="12" sm="6" md="6" lg="4">
             <RecipePageIngredientToolsView v-if="!isEditForm" :recipe="recipe" :scale="scale" />
             <RecipePageOrganizers v-if="$vuetify.breakpoint.mdAndUp" :recipe="recipe" />
           </v-col>
@@ -36,7 +36,7 @@
             the right column is always rendered, but it's layout width is determined by where the left column is
             rendered.
            -->
-          <v-col cols="12" sm="12" :md="8 + (isCookMode ? 1 : 0) * 4" :lg="8 + (isCookMode ? 1 : 0) * 4">
+          <v-col cols="12" sm="6" :md="6 + (isCookMode ? 1 : 0) * 6" :lg="8 + (isCookMode ? 1 : 0) * 4">
             <RecipePageInstructions
               v-model="recipe.recipeInstructions"
               :assets.sync="recipe.assets"
