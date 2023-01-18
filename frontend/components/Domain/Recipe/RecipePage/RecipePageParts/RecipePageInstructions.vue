@@ -135,20 +135,20 @@
                           event: 'open',
                           children: [
                             {
-                              text: 'Toggle Section',
+                              text: $tc('recipe.toggle-section'),
                               event: 'toggle-section',
                             },
                             {
-                              text: 'Link Ingredients',
+                              text: $tc('recipe.link-ingredients'),
                               event: 'link-ingredients',
                             },
                             {
-                              text: 'Merge Above',
+                              text: $tc('recipe.merge-above'),
                               event: 'merge-above',
                             },
                             {
                               icon: previewStates[index] ? $globals.icons.edit : $globals.icons.eye,
-                              text: previewStates[index] ? 'Edit Markdown' : 'Preview Markdown',
+                              text: previewStates[index] ? $tc('recipe.edit-markdown') : $tc('markdown-editor.preview-markdown-button-label'),
                               event: 'preview-step',
                             },
                           ],
@@ -181,7 +181,7 @@
                     :preview.sync="previewStates[index]"
                     :display-preview="false"
                     :textarea="{
-                      hint: 'Attach images by dragging & dropping them into the editor',
+                      hint: $t('recipe.attach-images-hint'),
                       persistentHint: true,
                     }"
                   />

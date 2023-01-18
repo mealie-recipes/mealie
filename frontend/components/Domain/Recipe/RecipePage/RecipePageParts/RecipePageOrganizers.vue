@@ -38,7 +38,7 @@
 
     <!-- Recipe Tools Edit -->
     <v-card v-if="isEditForm" class="mt-2">
-      <v-card-title class="py-2"> Required Tools </v-card-title>
+      <v-card-title class="py-2"> {{ $t('tool.required-tools') }} </v-card-title>
       <v-divider class="mx-2" />
       <v-card-text class="pt-0">
         <RecipeOrganizerSelector v-model="recipe.tools" selector-type="tools" />

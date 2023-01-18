@@ -39,7 +39,7 @@
               <template #icon>
                 {{ $globals.icons.foods }}
               </template>
-              Parse
+              {{ $t('recipe.parse') }}
             </BaseButton>
           </span>
         </template>
@@ -53,7 +53,7 @@
 
 <script lang="ts">
 import draggable from "vuedraggable";
-import { computed, defineComponent, ref } from "@nuxtjs/composition-api";
+import { computed, defineComponent, ref, useContext } from "@nuxtjs/composition-api";
 import { usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { Recipe } from "~/lib/api/types/recipe";
@@ -75,6 +75,7 @@ export default defineComponent({
   setup(props) {
     const { user } = usePageUser();
     const { imageKey } = usePageState(props.recipe.slug);
+    const { i18n } = useContext();
 
     const drag = ref(false);
 
@@ -95,11 +96,11 @@ export default defineComponent({
 
     const parserToolTip = computed(() => {
       if (props.recipe.settings.disableAmount) {
-        return "Enable ingredient amounts to use this feature";
+        return i18n.t("recipe.enable-ingredient-amounts-to-use-this-feature");
       } else if (hasFoodOrUnit.value) {
-        return "Recipes with units or foods defined cannot be parsed.";
+        return i18n.t("recipe.recipes-with-units-or-foods-defined-cannot-be-parsed");
       }
-      return "Parse ingredients";
+      return i18n.t("recipe.parse-ingredients");
     });
 
     function addIngredient(ingredients: Array<string> | null = null) {
