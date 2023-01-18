@@ -667,27 +667,27 @@
   },
   "banner-experimental": {
     "title": "Experimentálna funkcia",
-    "description": "This page contains experimental or still-baking features. Please excuse the mess.",
-    "issue-link-text": "Track our progress here"
+    "description": "Táto stránka obsahuje experimentálne alebo aktuálne vyvíjané funkcie. Ospravedlňte, prosím, neporiadok.",
+    "issue-link-text": "Sleduj náš postup tu"
   },
   "form": {
-    "quantity-label-abbreviated": "Qty"
+    "quantity-label-abbreviated": "Množstvo"
   },
   "markdown-editor": {
-    "preview-markdown-button-label": "Preview Markdown"
+    "preview-markdown-button-label": "Náhľad"
   },
   "demo": {
-    "info_message_with_version": "This is a Demo for version: {version}",
-    "demo_username": "Username: {username}",
-    "demo_password": "Password: {password}"
+    "info_message_with_version": "Toto je demo pre verziu: {version}",
+    "demo_username": "Užívateľské meno: {username}",
+    "demo_password": "Heslo: {password}"
   },
   "ocr-editor": {
-    "ocr-editor": "Ocr editor",
-    "selection-mode": "Selection mode",
-    "pan-and-zoom-picture": "Pan and zoom picture",
-    "split-text": "Split text",
-    "preserve-line-breaks": "Preserve original line breaks",
-    "split-by-block": "Split by text block",
+    "ocr-editor": "OCR editor",
+    "selection-mode": "Režim výberu",
+    "pan-and-zoom-picture": "Priblížiť a posunúť obrázok",
+    "split-text": "Rozdeliť text",
+    "preserve-line-breaks": "Zachovať pôvodné delenie riadkov",
+    "split-by-block": "Rozdeliť podľa blokov textu",
     "flatten": "Flatten regardless of original formating",
     "help": {
       "selection-mode": "Selection Mode (default)",
