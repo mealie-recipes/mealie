@@ -702,8 +702,8 @@
       "split-text-mode": "Režimy delenia textu",
       "split-modes": {
         "line-mode": "Riadkový režim (predvolený)",
-        "line-mode-desc": "In line mode, the text will be propagated by keeping the original line breaks. This mode is useful when using bulk add on a list of ingredients where one ingredient is one line.",
-        "block-mode": "Block mode",
+        "line-mode-desc": "V riadkovom režime je v prevzatom texte zachované pôvodné delenie riadkov. Tento režim je užitočný najmä pri hromadnom vkladaní do zoznamu surovín, kde sa každá zo surovín nachádza v samostatnom riadku.",
+        "block-mode": "Blokový režim",
         "block-mode-desc": "In block mode, the text will be split in blocks. This mode is useful when bulk adding instructions that are usually written in paragraphs.",
         "flat-mode": "Flat mode",
         "flat-mode-desc": "In flat mode, the text will be added to the selected recipe field with no line breaks."
