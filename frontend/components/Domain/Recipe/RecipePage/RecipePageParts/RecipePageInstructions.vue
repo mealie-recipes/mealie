@@ -174,6 +174,8 @@
                 </v-fade-transition>
               </v-card-title>
 
+              <v-progress-linear v-if="isEditForm && loadingStates[index]" :active="true" :indeterminate="true" />
+
               <!-- Content -->
               <DropZone @drop="(f) => handleImageDrop(index, f)">
                 <v-card-text
@@ -553,6 +555,8 @@ export default defineComponent({
       }
     });
 
+    const loadingStates = ref<{ [key: number]: boolean }>({});
+
     async function handleImageDrop(index: number, files: File[]) {
       if (!files) {
         return;
@@ -564,12 +568,16 @@ export default defineComponent({
         return;
       }
 
+      loadingStates.value[index] = true;
+
       const { data } = await api.recipes.createAsset(props.recipe.slug, {
         name: file.name,
         icon: "mdi-file-image",
         file,
         extension: file.name.split(".").pop() || "",
       });
+
+      loadingStates.value[index] = false;
 
       if (!data) {
         return; // TODO: Handle error
@@ -585,9 +593,10 @@ export default defineComponent({
       const input = document.createElement("input");
       input.type = "file";
       input.accept = "image/*";
-      input.onchange = () => {
+      input.onchange = async () => {
         if (input.files) {
-          handleImageDrop(index, Array.from(input.files));
+          await handleImageDrop(index, Array.from(input.files));
+          input.remove();
         }
       };
       input.click();
@@ -599,6 +608,7 @@ export default defineComponent({
       handleImageDrop,
       imageUploadMode,
       openImageUpload,
+      loadingStates,
 
       // Rest
       drag,
