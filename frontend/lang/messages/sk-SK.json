@@ -704,47 +704,47 @@
         "line-mode": "Riadkový režim (predvolený)",
         "line-mode-desc": "V riadkovom režime je v prevzatom texte zachované pôvodné delenie riadkov. Tento režim je užitočný najmä pri hromadnom vkladaní do zoznamu surovín, kde sa každá zo surovín nachádza v samostatnom riadku.",
         "block-mode": "Blokový režim",
-        "block-mode-desc": "In block mode, the text will be split in blocks. This mode is useful when bulk adding instructions that are usually written in paragraphs.",
-        "flat-mode": "Flat mode",
-        "flat-mode-desc": "In flat mode, the text will be added to the selected recipe field with no line breaks."
+        "block-mode-desc": "V blokovom režime je text rozdelený na svoje jednotlivé bloky. Tento režim je užitočný pri vkladaní inštrukcií, ktoré majú zvyčajne formu individuálnych odstavcov.",
+        "flat-mode": "Plochý režim",
+        "flat-mode-desc": "V plochom režime je text vkladaný do jednotlivých polí bez akýchkoľvek zalomení na koncoch riadkov, či odstavcov."
       }
     }
   },
   "admin": {
     "maintenance": {
-      "storage-details": "Storage Details",
-      "page-title": "Site Maintenance",
-      "summary-title": "Summary",
-      "button-label-get-summary": "Get Summary",
-      "button-label-open-details": "Details",
-      "info-description-data-dir-size": "Data Directory Size",
-      "info-description-log-file-size": "Log File Size",
-      "info-description-cleanable-directories": "Cleanable Directories",
-      "info-description-cleanable-images": "Cleanable Images",
+      "storage-details": "Detail úložiska",
+      "page-title": "Údržba stránky",
+      "summary-title": "Zhrnutie",
+      "button-label-get-summary": "Získať zhrnutie",
+      "button-label-open-details": "Detaily",
+      "info-description-data-dir-size": "Veľkosť dátového adresára",
+      "info-description-log-file-size": "Veľkosť súboru logovania",
+      "info-description-cleanable-directories": "Čistiteľné adresáre",
+      "info-description-cleanable-images": "Čistiteľné obrázky",
       "storage": {
-        "title-temporary-directory": "Temporary Directory (.temp)",
-        "title-backups-directory": "Backups Directory (backups)",
-        "title-groups-directory": "Groups Directory (groups)",
-        "title-recipes-directory": "Recipes Directory (recipes)",
-        "title-user-directory": "User Directory (user)"
+        "title-temporary-directory": "Adresár dočasných súborov (.temp)",
+        "title-backups-directory": "Adresár záloh (backups)",
+        "title-groups-directory": "Adresár skupín (groups)",
+        "title-recipes-directory": "Adresár receptov (recipes)",
+        "title-user-directory": "Adresár užívateľa (user)"
       },
-      "action-delete-log-files-name": "Delete Log Files",
-      "action-delete-log-files-description": "Deletes all the log files",
-      "action-clean-directories-name": "Clean Directories",
-      "action-clean-directories-description": "Removes all the recipe folders that are not valid UUIDs",
-      "action-clean-temporary-files-name": "Clean Temporary Files",
-      "action-clean-temporary-files-description": "Removes all files and folders in the .temp directory",
-      "action-clean-images-name": "Clean Images",
-      "action-clean-images-description": "Removes all the images that don't end with .webp",
-      "actions-description": "Maintenance actions are {destructive_in_bold} and should be used with caution. Performing any of these actions is {irreversible_in_bold}.",
-      "actions-description-destructive": "destructive",
-      "actions-description-irreversible": "irreversible",
-      "logs-action-refresh": "Refresh Logs",
-      "logs-page-title": "Mealie Logs",
-      "logs-tail-lines-label": "Tail Lines"
+      "action-delete-log-files-name": "Odstrániť súbory logovania",
+      "action-delete-log-files-description": "Odstrániť všetky súbory logovania",
+      "action-clean-directories-name": "Vyčistiť adresáre",
+      "action-clean-directories-description": "Odstráni všetky priečinky receptov, ktoré nie sú platné UUID",
+      "action-clean-temporary-files-name": "Vymazať dočasné súbory",
+      "action-clean-temporary-files-description": "Odstráni všetky priečinky a súbory v adresári .temp",
+      "action-clean-images-name": "Vymazať obrázky",
+      "action-clean-images-description": "Odstráni všetky obrázky bez prípony .webp",
+      "actions-description": "Akcie údržby sú {destructive_in_bold} a mali by byť používané len so zvýšenou opatrnosťou. Spustenie ktorejkoľvek z týchto akcií je {irreversible_in_bold}.",
+      "actions-description-destructive": "ničivý",
+      "actions-description-irreversible": "nezvratný",
+      "logs-action-refresh": "Obnoviť logy",
+      "logs-page-title": "Mealie logy",
+      "logs-tail-lines-label": "Koncové riadky"
     },
     "mainentance": {
-      "actions-title": "Actions"
+      "actions-title": "Akcie"
     }
   }
 }
