@@ -30,7 +30,7 @@
           v-model="advanced"
           color="info"
           class="ma-0 pa-0"
-          label="Advanced"
+          :label="$t('search.advanced')"
           @input="advanced = !advanced"
           @click="advanced = !advanced"
         />
@@ -75,7 +75,7 @@
                 :items="foods || []"
                 item-text="name"
                 :prepend-inner-icon="$globals.icons.foods"
-                label="Foods"
+                :label="$t('general.foods')"
               >
                 <template #selection="data">
                   <v-chip
@@ -102,7 +102,7 @@
       <RecipeCardSection
         class="mt-n5"
         :icon="$globals.icons.search"
-        title="Results"
+        :title="$tc('search.results')"
         :recipes="showRecipes.slice(0, maxResults)"
         @sort="assignFuzzy"
       />

@@ -4,13 +4,18 @@
       <template #header>
         <v-img max-height="125" max-width="125" :src="require('~/static/svgs/manage-members.svg')"></v-img>
       </template>
-      <template #title> Manage Members </template>
-      Manage the permissions of the members in your groups. <b> Manage </b> allows the user to access the
-      data-management page <b> Invite </b> allows the user to generate invitation links for other users. Group owners
-      cannot change their own permissions.
+      <template #title> {{ $t('group.manage-members') }} </template>
+        <i18n path="group.manage-members-description">
+          <template #manage>
+            <b>{{ $t('group.manage') }}</b>
+          </template>
+          <template #invite>
+            <b>{{ $t('group.invite') }}</b>
+          </template>
+        </i18n>
     </BasePageTitle>
     <v-container class="mt-4 d-flex justify-start">
-      <v-btn outlined rounded to="/user/profile/edit"> Looking to Update Your Profile? </v-btn>
+      <v-btn outlined rounded to="/user/profile/edit"> {{ $t('group.looking-to-update-your-profile') }} </v-btn>
     </v-container>
     <v-data-table
       :headers="headers"
@@ -24,7 +29,7 @@
         <UserAvatar :user-id="item.id" />
       </template>
       <template #item.admin="{ item }">
-        {{ item.admin ? "Admin" : "User" }}
+        {{ item.admin ? $t('user.admin') : $t('user.user') }}
       </template>
       <template #item.manage="{ item }">
         <div class="d-flex justify-center">
@@ -85,9 +90,9 @@ export default defineComponent({
       { text: i18n.t("user.username"), value: "username" },
       { text: i18n.t("user.full-name"), value: "fullName" },
       { text: i18n.t("user.admin"), value: "admin" },
-      { text: "Manage", value: "manage", sortable: false, align: "center" },
-      { text: "Organize", value: "organize", sortable: false, align: "center" },
-      { text: "Invite", value: "invite", sortable: false, align: "center" },
+      { text: i18n.t("group.manage"), value: "manage", sortable: false, align: "center" },
+      { text: i18n.t("settings.organize"), value: "organize", sortable: false, align: "center" },
+      { text: i18n.t("group.invite"), value: "invite", sortable: false, align: "center" },
     ];
 
     async function refreshMembers() {
@@ -116,7 +121,7 @@ export default defineComponent({
   },
   head() {
     return {
-      title: "Members",
+      title: this.$t("profile.members"),
     };
   },
 });

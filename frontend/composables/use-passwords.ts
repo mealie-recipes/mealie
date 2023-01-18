@@ -23,19 +23,22 @@ export function usePasswordField() {
 }
 
 export const usePasswordStrength = (password: Ref<string>) => {
+  const { i18n } = useContext();
+
   const score = computed(() => {
     return scorePassword(password.value);
   });
 
+
   const strength = computed(() => {
     if (score.value < 50) {
-      return "Weak";
+      return i18n.tc("user.password-strength-values.weak");
     } else if (score.value < 80) {
-      return "Good";
+      return i18n.tc("user.password-strength-values.good");
     } else if (score.value < 100) {
-      return "Strong";
+      return i18n.tc("user.password-strength-values.strong");
     } else {
-      return "Very Strong";
+      return i18n.tc("user.password-strength-values.very-strong");
     }
   });
 
