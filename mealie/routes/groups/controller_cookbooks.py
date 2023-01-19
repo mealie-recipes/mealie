@@ -31,7 +31,7 @@ class GroupCookbookController(BaseCrudController):
         registered = {
             **mealie_registered_exceptions(self.translator),
         }
-        return registered.get(ex, "An unexpected error occurred.")
+        return registered.get(ex, self.t("generic.server-error"))
 
     @cached_property
     def mixins(self):

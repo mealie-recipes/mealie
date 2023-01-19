@@ -1,9 +1,9 @@
 <template>
   <v-form>
     <div>
-      <v-card-title class="headline"> Import from Zip </v-card-title>
+      <v-card-title class="headline"> {{ $t('recipe.import-from-zip') }} </v-card-title>
       <v-card-text>
-        Import a single recipe that was exported from another Mealie instance.
+        {{ $t('recipe.import-from-zip-description') }}
         <v-file-input
           v-model="newRecipeZip"
           accept=".zip"
@@ -13,7 +13,7 @@
           class="rounded-lg mt-2"
           rounded
           truncate-length="100"
-          hint=".zip files must have been exported from Mealie"
+          :hint="$t('recipe.zip-files-must-have-been-exported-from-mealie')"
           persistent-hint
           prepend-icon=""
           :prepend-inner-icon="$globals.icons.zip"

@@ -22,7 +22,7 @@ class GroupReportsController(BaseUserController):
     def registered_exceptions(self, ex: type[Exception]) -> str:
         return {
             **mealie_registered_exceptions(self.translator),
-        }.get(ex, "An unexpected error occurred.")
+        }.get(ex, self.t("generic.server-error"))
 
     @cached_property
     def mixins(self):
@@ -44,6 +44,6 @@ class GroupReportsController(BaseUserController):
     def delete_one(self, item_id: UUID4):
         try:
             self.mixins.delete_one(item_id)  # type: ignore
-            return SuccessResponse.respond("Report deleted.")
+            return SuccessResponse.respond(self.t("report-deleted"))
         except Exception as ex:
             raise HTTPException(500, ErrorResponse.respond("Failed to delete report")) from ex

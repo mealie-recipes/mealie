@@ -2,10 +2,9 @@
   <div>
     <v-form ref="domUrlForm" @submit.prevent="createByUrl(recipeUrl, importKeywordsAsTags, stayInEditMode)">
       <div>
-        <v-card-title class="headline"> Scrape Recipe </v-card-title>
+        <v-card-title class="headline"> {{ $t('recipe.scrape-recipe') }} </v-card-title>
         <v-card-text>
-          Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the
-          recipe from that site and add it to your collection.
+          {{ $t('recipe.scrape-recipe-description') }}
           <v-text-field
             v-model="recipeUrl"
             :label="$t('new-recipe.recipe-url')"
@@ -20,8 +19,8 @@
             :hint="$t('new-recipe.url-form-hint')"
             persistent-hint
           ></v-text-field>
-          <v-checkbox v-model="importKeywordsAsTags" hide-details label="Import original keywords as tags" />
-          <v-checkbox v-model="stayInEditMode" hide-details label="Stay in Edit mode" />
+          <v-checkbox v-model="importKeywordsAsTags" hide-details :label="$t('recipe.import-original-keywords-as-tags')" />
+          <v-checkbox v-model="stayInEditMode" hide-details :label="$t('recipe.stay-in-edit-mode')" />
         </v-card-text>
         <v-card-actions class="justify-center">
           <div style="width: 250px">

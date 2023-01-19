@@ -1,8 +1,8 @@
 <template>
   <div>
-    <v-card-title class="headline"> Create Recipe from an Image </v-card-title>
+    <v-card-title class="headline"> {{ $t('recipe.create-recipe-from-an-image') }} </v-card-title>
     <v-card-text>
-      Create a recipe by uploading a scan.
+      {{ $t('recipe.create-a-recipe-by-uploading-a-scan') }}
       <v-form ref="domCreateByOcr"> </v-form>
     </v-card-text>
     <v-card-actions class="justify-center">
@@ -15,7 +15,7 @@
         class="rounded-lg mt-2"
         rounded
         truncate-length="100"
-        hint="Upload a png image from a recipe book"
+        :hint="$t('recipe.upload-a-png-image-from-a-recipe-book')"
         persistent-hint
         prepend-icon=""
         :prepend-inner-icon="$globals.icons.fileImage"
