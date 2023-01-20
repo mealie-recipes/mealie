@@ -301,7 +301,7 @@
     "insert-section": "Insérer une section",
     "instructions": "Instructions",
     "key-name-required": "Un nom de clé est requis",
-    "landscape-view-coming-soon": "Vue paysage (bientôt disponible)",
+    "landscape-view-coming-soon": "Vue paysage",
     "milligrams": "milligrammes",
     "new-key-name": "Nouveau nom de clé",
     "no-white-space-allowed": "Aucun espace blanc autorisé",
@@ -356,7 +356,7 @@
     "notes": "Notes",
     "toggle-section": "Activer/Désactiver la section",
     "see-original-text": "Afficher le texte original",
-    "original-text-with-value": "Texte original: {originalText}",
+    "original-text-with-value": "Texte original : {originalText}",
     "ingredient-linker": "Liaison d'ingrédients",
     "linked-to-other-step": "Déjà associé à une autre étape",
     "auto": "Auto",
@@ -677,12 +677,12 @@
     "preview-markdown-button-label": "Aperçu du Markdown"
   },
   "demo": {
-    "info_message_with_version": "Ceci est une démo de la version: {version}",
-    "demo_username": "Nom d'utilisateur: {username}",
-    "demo_password": "Mot de passe: {password}"
+    "info_message_with_version": "Ceci est une démo de la version : {version}",
+    "demo_username": "Nom d'utilisateur : {username}",
+    "demo_password": "Mot de passe : {password}"
   },
   "ocr-editor": {
-    "ocr-editor": "Éditeur d'Ocr",
+    "ocr-editor": "Éditeur OCR",
     "selection-mode": "Mode de sélection",
     "pan-and-zoom-picture": "Déplacer et zoomer dans l'image",
     "split-text": "Découper le texte",
