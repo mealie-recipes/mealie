@@ -1,23 +1,25 @@
 <template>
   <div>
     <!-- Merge Dialog -->
-    <BaseDialog v-model="mergeDialog" :icon="$globals.icons.units" title="Combine Unit" @confirm="mergeUnits">
+    <BaseDialog v-model="mergeDialog" :icon="$globals.icons.units" :title="$t('data-pages.units.combine-unit')" @confirm="mergeUnits">
       <v-card-text>
-        Combining the selected units will merge the Source Unit and Target Unit into a single unit. The
-        <strong> Source Unit will be deleted </strong> and all of the references to the Source Unit will be updated to
-        point to the Target Unit.
+      <i18n path="data-pages.units.combine-unit-description">
+        <template #source-unit-will-be-deleted>
+          <strong> {{ $t('data-pages.recipes.source-unit-will-be-deleted') }} </strong>
+        </template>
+      </i18n>
 
-        <v-autocomplete v-model="fromUnit" return-object :items="units" item-text="id" label="Source Unit">
+        <v-autocomplete v-model="fromUnit" return-object :items="units" item-text="id" :label="$t('data-pages.units.source-unit')">
           <template #selection="{ item }"> {{ item.name }}</template>
           <template #item="{ item }"> {{ item.name }} </template>
         </v-autocomplete>
-        <v-autocomplete v-model="toUnit" return-object :items="units" item-text="id" label="Target Unit">
+        <v-autocomplete v-model="toUnit" return-object :items="units" item-text="id" :label="$t('data-pages.units.target-unit')">
           <template #selection="{ item }"> {{ item.name }}</template>
           <template #item="{ item }"> {{ item.name }} </template>
         </v-autocomplete>
 
         <template v-if="canMerge && fromUnit && toUnit">
-          <div class="text-center">Merging {{ fromUnit.name }} into {{ toUnit.name }}</div>
+          <div class="text-center">{{ $t('data-pages.units.merging-unit-into-unit', [fromUnit.name, toUnit.name]) }}</div>
         </template>
       </v-card-text>
     </BaseDialog>
@@ -26,7 +28,7 @@
     <BaseDialog
       v-model="createDialog"
       :icon="$globals.icons.units"
-      title="Create Unit"
+      :title="$t('data-pages.units.create-unit')"
       :submit-text="$tc('general.save')"
       @submit="createUnit"
     >
@@ -35,13 +37,13 @@
           <v-text-field
             v-model="createTarget.name"
             autofocus
-            label="Name"
+            :label="$t('general.name')"
             :rules="[validators.required]"
           ></v-text-field>
-          <v-text-field v-model="createTarget.abbreviation" label="Abbreviation"></v-text-field>
-          <v-text-field v-model="createTarget.description" label="Description"></v-text-field>
-          <v-checkbox v-model="createTarget.fraction" hide-details label="Display as Fraction"></v-checkbox>
-          <v-checkbox v-model="createTarget.useAbbreviation" hide-details label="Use Abbreviation"></v-checkbox>
+          <v-text-field v-model="createTarget.abbreviation" :label="$t('data-pages.units.abbreviation')"></v-text-field>
+          <v-text-field v-model="createTarget.description" :label="$t('data-pages.units.description')"></v-text-field>
+          <v-checkbox v-model="createTarget.fraction" hide-details :label="$t('data-pages.units.display-as-fraction')"></v-checkbox>
+          <v-checkbox v-model="createTarget.useAbbreviation" hide-details :label="$t('data-pages.units.use-abbreviation')"></v-checkbox>
         </v-form>
       </v-card-text>
     </BaseDialog>
@@ -50,17 +52,17 @@
     <BaseDialog
       v-model="editDialog"
       :icon="$globals.icons.units"
-      title="Edit Unit"
+      :title="$t('data-pages.units.edit-unit')"
       :submit-text="$tc('general.save')"
       @submit="editSaveUnit"
     >
       <v-card-text v-if="editTarget">
         <v-form ref="domEditUnitForm">
-          <v-text-field v-model="editTarget.name" label="Name" :rules="[validators.required]"></v-text-field>
-          <v-text-field v-model="editTarget.abbreviation" label="Abbreviation"></v-text-field>
-          <v-text-field v-model="editTarget.description" label="Description"></v-text-field>
-          <v-checkbox v-model="editTarget.fraction" hide-details label="Display as Fraction"></v-checkbox>
-          <v-checkbox v-model="editTarget.useAbbreviation" hide-details label="Use Abbreviation"></v-checkbox>
+          <v-text-field v-model="editTarget.name" :label="$t('general.name')" :rules="[validators.required]"></v-text-field>
+          <v-text-field v-model="editTarget.abbreviation" :label="$t('data-pages.units.abbreviation')"></v-text-field>
+          <v-text-field v-model="editTarget.description" :label="$t('data-pages.units.description')"></v-text-field>
+          <v-checkbox v-model="editTarget.fraction" hide-details :label="$t('data-pages.units.display-as-fraction')"></v-checkbox>
+          <v-checkbox v-model="editTarget.useAbbreviation" hide-details :label="$t('data-pages.units.use-abbreviation')"></v-checkbox>
         </v-form>
       </v-card-text>
     </BaseDialog>
@@ -93,7 +95,7 @@
           v-model="locale"
           :items="locales"
           item-text="name"
-          label="Select Language"
+          :label="$t('data-pages.select-language')"
           class="my-3"
           hide-details
           outlined
@@ -116,7 +118,7 @@
     </BaseDialog>
 
     <!-- Recipe Data Table -->
-    <BaseCardSectionTitle :icon="$globals.icons.units" section title="Unit Data"> </BaseCardSectionTitle>
+    <BaseCardSectionTitle :icon="$globals.icons.units" section :title="$tc('data-pages.units.unit-data')"> </BaseCardSectionTitle>
     <CrudTable
       :table-config="tableConfig"
       :headers.sync="tableHeaders"
@@ -155,7 +157,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref } from "@nuxtjs/composition-api";
+import { computed, defineComponent, onMounted, ref, useContext } from "@nuxtjs/composition-api";
 import type { LocaleObject } from "@nuxtjs/i18n";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
@@ -167,38 +169,39 @@ import { VForm } from "~/types/vuetify";
 export default defineComponent({
   setup() {
     const userApi = useUserApi();
+    const { i18n } = useContext();
     const tableConfig = {
       hideColumns: true,
       canExport: true,
     };
     const tableHeaders = [
       {
-        text: "Id",
+        text: i18n.t("general.id"),
         value: "id",
         show: false,
       },
       {
-        text: "Name",
+        text: i18n.t("general.name"),
         value: "name",
         show: true,
       },
       {
-        text: "Abbreviation",
+        text: i18n.t("data-pages.units.abbreviation"),
         value: "abbreviation",
         show: true,
       },
       {
-        text: "Use Abbv.",
+        text: i18n.t("data-pages.units.use-abbv"),
         value: "useAbbreviation",
         show: true,
       },
       {
-        text: "Description",
+        text: i18n.t("data-pages.units.description"),
         value: "description",
         show: false,
       },
       {
-        text: "Fraction",
+        text: i18n.t("data-pages.units.fraction"),
         value: "fraction",
         show: true,
       },
@@ -304,7 +307,7 @@ export default defineComponent({
     const seedDialog = ref(false);
     const locale = ref("");
 
-    const { locales: LOCALES, locale: currentLocale, i18n } = useLocales();
+    const { locales: LOCALES, locale: currentLocale } = useLocales();
 
     onMounted(() => {
       locale.value = currentLocale.value;

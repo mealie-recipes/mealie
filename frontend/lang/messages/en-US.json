@@ -172,7 +172,9 @@
     "copied-to-clipboard": "Copied to clipboard",
     "your-browser-does-not-support-clipboard": "Your browser does not support clipboard\")",
     "copied-items-to-clipboard": "No item copied to clipboard|One item copied to clipboard|Copied {count} items to clipboard",
-    "actions": "Actions"
+    "actions": "Actions",
+    "selected-count": "Selected: {count}",
+    "export-all": "Export All"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Are you sure you want to delete <b>{groupName}<b/>?",
@@ -462,7 +464,8 @@
     "recipe-debugger": "Recipe Debugger",
     "recipe-debugger-description": "Grab the URL of the recipe you want to debug and paste it here. The URL will be scraped by the recipe scraper and the results will be displayed. If you don't see any data returned, the site you are trying to scrape is not supported by Mealie or its scraper library.",
     "debug": "Debug",
-    "tree-view": "Tree View"
+    "tree-view": "Tree View",
+    "recipe-yield": "Recipe Yield"
   },
   "search": {
     "advanced-search": "Advanced Search",
@@ -734,19 +737,70 @@
     "read-the-docs": "Read the docs"
   },
   "data-pages": {
-    "seed-data": "Seed Data",
     "foods": {
       "merge-dialog-text": "Combining the selected foods will merge the source food and target food into a single food. The source food will be deleted and all of the references to the source food will be updated to point to the target food.",
       "merge-food-example": "Merging {food1} into {food2}",
       "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
-      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually."
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
+      "combine-food": "Combine Food",
+      "source-food": "Source Food",
+      "target-food": "Target Food",
+      "create-food": "Create Food",
+      "food-label": "Food Label",
+      "edit-food": "Edit Food",
+      "food-data": "Food Data"
     },
     "units": {
-      "seed-dialog-text": "Seed the database with common units based on your local language."
+      "seed-dialog-text": "Seed the database with common units based on your local language.",
+      "combine-unit-description": "Combining the selected units will merge the Source Unit and Target Unit into a single unit. The {source-unit-will-be-deleted} and all of the references to the Source Unit will be updated to point to the Target Unit.",
+      "combine-unit": "Combine Unit",
+      "source-unit": "Source Unit",
+      "target-unit": "Target Unit",
+      "merging-unit-into-unit": "Merging {0} into {1}",
+      "create-unit": "Create Unit",
+      "abbreviation": "Abbreviation",
+      "description": "Description",
+      "display-as-fraction": "Display as Fraction",
+      "use-abbreviation": "Use Abbreviation",
+      "edit-unit": "Edit Unit",
+      "unit-data": "Unit Data",
+      "use-abbv": "Use Abbv.",
+      "fraction": "Fraction"
     },
     "labels": {
-      "seed-dialog-text": "Seed the database with common labels based on your local language."
-    }
+      "seed-dialog-text": "Seed the database with common labels based on your local language.",
+      "edit-label": "Edit Label",
+      "new-label": "New Label",
+      "labels": "Labels"
+    },
+    "recipes": {
+      "purge-exports": "Purge Exports",
+      "are-you-sure-you-want-to-delete-all-export-data": "Are you sure you want to delete all export data?",
+      "confirm-delete-recipes": "Are you sure you want to delete the following recipes? This action cannot be undone.",
+      "the-following-recipes-selected-length-will-be-exported": "The following recipes ({0}) will be exported.",
+      "settings-chosen-explanation": "Settings chosen here, excluding the locked option, will be applied to all selected recipes.",
+      "selected-length-recipe-s-settings-will-be-updated": "{0} recipe(s) settings will be updated.",
+      "recipe-data": "Recipe Data",
+      "recipe-data-description": "Use this section to manage the data associated with your recipes. You can perform several bulk actions on your recipes including exporting, deleting, tagging, and assigning categories.",
+      "recipe-columns": "Recipe Columns",
+      "data-exports-description": "This section provides links to available exports that are ready to download. These exports do expire, so be sure to grab them while they're still available.",
+      "data-exports": "Data Exports",
+      "tag": "Tag",
+      "categorize": "Categorize",
+      "update-settings": "Update Settings",
+      "tag-recipes": "Tag Recipes",
+      "categorize-recipes": "Categorize Recipes",
+      "export-recipes": "Export Recipes",
+      "delete-recipes": "Delete Recipes",
+      "source-unit-will-be-deleted": "Source Unit will be deleted"
+    },
+    "seed-data": "Seed Data",
+    "seed": "Seed",
+    "data-management": "Data Management",
+    "data-management-description": "Select which data set you want to make changes to.",
+    "select-data": "Select Data",
+    "select-language": "Select Language",
+    "columns": "Columns"
   },
   "user-registration": {
     "user-registration": "User Registration",
