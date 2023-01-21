@@ -20,7 +20,7 @@ class RecipeTimelineEventIn(MealieModel):
     subject: str
     event_type: TimelineEventType
 
-    message: str | None = Field(alias="eventMessage")
+    message: str | None = Field(None, alias="eventMessage")
     image: str | None = None
 
     timestamp: datetime = datetime.now()
