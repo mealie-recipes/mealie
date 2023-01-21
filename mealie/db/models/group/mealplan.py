@@ -34,6 +34,8 @@ class GroupMealPlan(SqlAlchemyBase, BaseMixins):
 
     group_id = Column(GUID, ForeignKey("groups.id"), index=True)
     group = orm.relationship("Group", back_populates="mealplans")
+    user_id = Column(GUID, ForeignKey("users.id"), index=True)
+    user = orm.relationship("User", back_populates="mealplans")
 
     recipe_id = Column(GUID, ForeignKey("recipes.id"), index=True)
     recipe = orm.relationship("RecipeModel", back_populates="meal_entries", uselist=False)

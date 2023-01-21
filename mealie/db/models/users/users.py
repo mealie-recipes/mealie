@@ -57,6 +57,7 @@ class User(SqlAlchemyBase, BaseMixins):
 
     owned_recipes_id = Column(GUID, ForeignKey("recipes.id"))
     owned_recipes = orm.relationship("RecipeModel", single_parent=True, foreign_keys=[owned_recipes_id])
+    mealplans = orm.relationship("GroupMealPlan", order_by="GroupMealPlan.date", **sp_args)
 
     favorite_recipes = orm.relationship("RecipeModel", secondary=users_to_favorites, back_populates="favorited_by")
 
