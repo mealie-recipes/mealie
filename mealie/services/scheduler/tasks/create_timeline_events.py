@@ -61,7 +61,8 @@ def create_mealplan_timeline_events(group_id: UUID4 | None = None):
                 query_end_time = query_start_time + timedelta(days=1)
                 query = PaginationQuery(
                     query_filter=(
-                        f'timestamp >= "{query_start_time.isoformat()}" '
+                        f'recipe_id = "{mealplan.recipe_id}" '
+                        f'AND timestamp >= "{query_start_time.isoformat()}" '
                         f'AND timestamp < "{query_end_time.isoformat()}" '
                         f'AND subject = "{event_subject}"'
                     )
