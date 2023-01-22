@@ -91,29 +91,29 @@ def create_mealplan_timeline_events(group_id: UUID4 | None = None):
 
                 recipe_id_to_slug_map[mealplan.recipe_id] = mealplan.recipe.slug
 
-            if not timeline_events_to_create:
-                return
+        if not timeline_events_to_create:
+            return
 
-            # TODO: use bulk operations
-            for event in timeline_events_to_create:
-                new_event = repos.recipe_timeline_events.create(event)
-                event_bus_service.dispatch(
-                    integration_id=DEFAULT_INTEGRATION_ID,
-                    group_id=group_id,  # type: ignore
-                    event_type=EventTypes.recipe_updated,
-                    document_data=EventRecipeTimelineEventData(
-                        operation=EventOperation.create,
-                        recipe_slug=recipe_id_to_slug_map[new_event.recipe_id],
-                        recipe_timeline_event_id=new_event.id,
-                    ),
-                )
+        # TODO: use bulk operations
+        for event in timeline_events_to_create:
+            new_event = repos.recipe_timeline_events.create(event)
+            event_bus_service.dispatch(
+                integration_id=DEFAULT_INTEGRATION_ID,
+                group_id=group_id,  # type: ignore
+                event_type=EventTypes.recipe_updated,
+                document_data=EventRecipeTimelineEventData(
+                    operation=EventOperation.create,
+                    recipe_slug=recipe_id_to_slug_map[new_event.recipe_id],
+                    recipe_timeline_event_id=new_event.id,
+                ),
+            )
 
-            for recipe in recipes_to_update.values():
-                recipe.last_made = event_time
-                repos.recipes.update(recipe.slug, recipe.cast(Recipe))
-                event_bus_service.dispatch(
-                    integration_id=DEFAULT_INTEGRATION_ID,
-                    group_id=group_id,  # type: ignore
-                    event_type=EventTypes.recipe_updated,
-                    document_data=EventRecipeData(operation=EventOperation.update, recipe_slug=recipe.slug),
-                )
+        for recipe in recipes_to_update.values():
+            recipe.last_made = event_time
+            repos.recipes.update(recipe.slug, recipe.cast(Recipe))
+            event_bus_service.dispatch(
+                integration_id=DEFAULT_INTEGRATION_ID,
+                group_id=group_id,  # type: ignore
+                event_type=EventTypes.recipe_updated,
+                document_data=EventRecipeData(operation=EventOperation.update, recipe_slug=recipe.slug),
+            )
