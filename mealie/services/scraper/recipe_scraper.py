@@ -3,6 +3,8 @@ from mealie.services.scraper.scraped_extras import ScrapedExtras
 
 from .scraper_strategies import ABCScraperStrategy, RecipeScraperOpenGraph, RecipeScraperPackage
 
+DEFAULT_SCRAPER_STRATEGIES: list[type[ABCScraperStrategy]] = [RecipeScraperPackage, RecipeScraperOpenGraph]
+
 
 class RecipeScraper:
     """
@@ -14,10 +16,7 @@ class RecipeScraper:
 
     def __init__(self, scrapers: list[type[ABCScraperStrategy]] | None = None) -> None:
         if scrapers is None:
-            scrapers = [
-                RecipeScraperPackage,
-                RecipeScraperOpenGraph,
-            ]
+            scrapers = DEFAULT_SCRAPER_STRATEGIES
 
         self.scrapers = scrapers
 
