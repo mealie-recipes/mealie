@@ -8,7 +8,7 @@
     </router-link>
 
     <div btn class="pl-2">
-      <v-toolbar-title style="cursor: pointer" @click="$router.push('/')"> Mealie </v-toolbar-title>
+      <v-toolbar-title style="cursor: pointer" @click="$router.push('/')"> {{ $auth.user.group }} </v-toolbar-title>
     </div>
     <RecipeDialogSearch ref="domSearchDialog" />
 
