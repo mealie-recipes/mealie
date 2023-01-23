@@ -3,43 +3,91 @@
     <v-container fluid class="pa-0">
       <v-row dense>
         <v-col>
-          <v-text-field v-model="searchString" outlined autofocus color="primary accent-3"
-            :placeholder="$t('search.search-placeholder')" :prepend-inner-icon="$globals.icons.search" clearable>
+          <v-text-field
+            v-model="searchString"
+            outlined
+            autofocus
+            color="primary accent-3"
+            :placeholder="$t('search.search-placeholder')"
+            :prepend-inner-icon="$globals.icons.search"
+            clearable
+          >
           </v-text-field>
         </v-col>
         <v-col cols="12" md="2" sm="12">
-          <v-text-field v-model="maxResults" class="mt-0 pt-0" :label="$t('search.max-results')" type="number"
-            outlined />
+          <v-text-field
+            v-model="maxResults"
+            class="mt-0 pt-0"
+            :label="$t('search.max-results')"
+            type="number"
+            outlined
+          />
         </v-col>
       </v-row>
 
       <div>
-        <v-switch v-model="advanced" color="info" class="ma-0 pa-0" label="Advanced" @input="advanced = !advanced"
-          @click="advanced = !advanced" />
+        <v-switch
+          v-model="advanced"
+          color="info"
+          class="ma-0 pa-0"
+          label="Advanced"
+          @input="advanced = !advanced"
+          @click="advanced = !advanced"
+        />
         <v-expand-transition>
           <v-row v-show="advanced" dense class="my-0 dense flex-row align-center justify-space-around">
             <v-col cols="12" class="d-flex flex-wrap flex-md-nowrap justify-center" style="gap: 0.8rem">
-              <RecipeOrganizerSelector v-model="includeCategories" :input-attrs="{
-                solo: true,
-                hideDetails: true,
-                dense: false,
-              }" :show-add="false" :return-object="false" selector-type="categories" />
+              <RecipeOrganizerSelector
+                v-model="includeCategories"
+                :input-attrs="{
+                  solo: true,
+                  hideDetails: true,
+                  dense: false,
+                }"
+                :show-add="false"
+                :return-object="false"
+                selector-type="categories"
+              />
               <RecipeSearchFilterSelector class="mb-1" @update="updateCatParams" />
             </v-col>
             <v-col cols="12" class="d-flex flex-wrap flex-md-nowrap justify-center" style="gap: 0.8rem">
-              <RecipeOrganizerSelector v-model="includeTags" :input-attrs="{
-                solo: true,
-                hideDetails: true,
-                dense: false,
-              }" :show-add="false" :return-object="false" selector-type="tags" />
+              <RecipeOrganizerSelector
+                v-model="includeTags"
+                :input-attrs="{
+                  solo: true,
+                  hideDetails: true,
+                  dense: false,
+                }"
+                :show-add="false"
+                :return-object="false"
+                selector-type="tags"
+              />
               <RecipeSearchFilterSelector class="mb-1" @update="updateTagParams" />
             </v-col>
             <v-col cols="12" class="d-flex flex-wrap flex-md-nowrap justify-center" style="gap: 0.8rem">
-              <v-autocomplete v-model="includeFoods" chips hide-details deletable-chips solo multiple
-                :items="foods || []" item-text="name" :prepend-inner-icon="$globals.icons.foods" label="Foods">
+              <v-autocomplete
+                v-model="includeFoods"
+                chips
+                hide-details
+                deletable-chips
+                solo
+                multiple
+                :items="foods || []"
+                item-text="name"
+                :prepend-inner-icon="$globals.icons.foods"
+                label="Foods"
+              >
                 <template #selection="data">
-                  <v-chip :key="data.index" class="ma-1" :input-value="data.selected" close label color="accent" dark
-                    @click:close="includeFoods.splice(data.index, 1)">
+                  <v-chip
+                    :key="data.index"
+                    class="ma-1"
+                    :input-value="data.selected"
+                    close
+                    label
+                    color="accent"
+                    dark
+                    @click:close="includeFoods.splice(data.index, 1)"
+                  >
                     {{ data.item.name || data.item }}
                   </v-chip>
                 </template>
@@ -51,8 +99,13 @@
       </div>
     </v-container>
     <v-container class="px-0 mt-6">
-      <RecipeCardSection class="mt-n5" :icon="$globals.icons.search" title="Results"
-        :recipes="showRecipes.slice(0, maxResults)" @sort="assignFuzzy" />
+      <RecipeCardSection
+        class="mt-n5"
+        :icon="$globals.icons.search"
+        title="Results"
+        :recipes="showRecipes.slice(0, maxResults)"
+        @sort="assignFuzzy"
+      />
     </v-container>
   </v-container>
 </template>
@@ -253,6 +306,4 @@ export default defineComponent({
 });
 </script>
 
-<style>
-
-</style>
+<style></style>
