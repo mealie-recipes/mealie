@@ -254,7 +254,7 @@
     "view-scraped-data": "Voir les données récupérées",
     "trim-whitespace-description": "Ajuster les espaces de début et de fin ainsi que les lignes vides",
     "trim-prefix-description": "Couper le premier caractère de chaque ligne",
-    "split-by-numbered-line-description": "Tente de découper un paragraphe par correspondance de motifs : ’1) ou ’1.’",
+    "split-by-numbered-line-description": "Tente de découper un paragraphe par correspondance de motifs : '1)' ou '1.'",
     "import-by-url": "Importer une recette par son URL",
     "create-manually": "Créer une recette manuellement",
     "make-recipe-image": "Faire de cette image l’image de recette"
