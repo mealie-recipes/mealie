@@ -38,7 +38,7 @@
     "@babel/eslint-parser": "^7.19.1",
     "@nuxt/types": "^2.15.7",
     "@nuxt/typescript-build": "^2.1.0",
-    "@nuxtjs/composition-api": "^0.32.0",
+    "@nuxtjs/composition-api": "^0.33.0",
     "@nuxtjs/eslint-config-typescript": "^12.0.0",
     "@nuxtjs/eslint-module": "3.1.0",
     "@nuxtjs/google-fonts": "2.0.0",
