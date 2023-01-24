@@ -40,6 +40,9 @@ def test_ldap_authentication_mocked(monkeypatch: MonkeyPatch):
             assert scope == ldap.SCOPE_SUBTREE
             return [()]
 
+        def set_option(*args, **kwargs):
+            pass
+
     def ldap_initialize_mock(url):
         assert url == ""
         return LdapConnMock()
