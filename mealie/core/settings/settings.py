@@ -30,6 +30,7 @@ class AppSettings(BaseSettings):
     API_DOCS: bool = True
     TOKEN_TIME: int = 48  # Time in Hours
     SECRET: str
+    LOG_LEVEL: str = "INFO"  # Corresponds to standard Python log levels.
 
     GIT_COMMIT_HASH: str = "unknown"
 
