@@ -37,7 +37,7 @@ async def create_from_url(url: str) -> tuple[Recipe, ScrapedExtras | None]:
 
     new_recipe.id = uuid4()
     logger = get_logger()
-    logger.info(f"Image {new_recipe.image}")
+    logger.debug(f"Image {new_recipe.image}")
 
     recipe_data_service = RecipeDataService(new_recipe.id)
 
