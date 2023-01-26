@@ -87,7 +87,7 @@ def main():
 
         alembic_cfg = Config(str(PROJECT_DIR / "alembic.ini"))
         if db_is_at_head(alembic_cfg):
-            logger.info("Migration not needed.")
+            logger.debug("Migration not needed.")
         else:
             logger.info("Migration needed. Performing migration...")
             command.upgrade(alembic_cfg, "head")
@@ -95,7 +95,7 @@ def main():
         db = get_repositories(session)
 
         if db.users.get_all():
-            logger.info("Database exists")
+            logger.debug("Database exists")
         else:
             logger.info("Database contains no users, initializing...")
             init_db(db)
