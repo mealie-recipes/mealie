@@ -25,13 +25,21 @@ from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.recipe import Recipe, RecipeImageTypes, ScrapeRecipe
-from mealie.schema.recipe.recipe import CreateRecipe, CreateRecipeByUrlBulk, RecipePagination, RecipePaginationQuery
+from mealie.schema.recipe.recipe import (
+    CreateRecipe,
+    CreateRecipeByUrlBulk,
+    RecipePagination,
+    RecipePaginationQuery,
+    RecipeSummary,
+    RecipeSummaryWithIngredients,
+)
 from mealie.schema.recipe.recipe_asset import RecipeAsset
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_scraper import ScrapeRecipeTest
 from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.recipe.recipe_step import RecipeStep
 from mealie.schema.recipe.request_helpers import RecipeDuplicate, RecipeZipTokenResponse, UpdateImageResponse
+from mealie.schema.response import PaginationBase
 from mealie.schema.response.responses import ErrorResponse
 from mealie.services import urls
 from mealie.services.event_bus_service.event_types import (
@@ -232,7 +240,7 @@ class RecipeController(BaseRecipeController):
     # ==================================================================================================================
     # CRUD Operations
 
-    @router.get("", response_model=RecipePagination)
+    @router.get("", response_model=PaginationBase[RecipeSummary | RecipeSummaryWithIngredients])
     def get_all(
         self,
         request: Request,

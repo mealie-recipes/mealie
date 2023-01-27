@@ -91,8 +91,6 @@ class RecipeSummary(MealieModel):
     rating: int | None
     org_url: str | None = Field(None, alias="orgURL")
 
-    recipe_ingredient: list[RecipeIngredient] | None = []
-
     date_added: datetime.date | None
     date_updated: datetime.datetime | None
 
@@ -213,4 +211,5 @@ class Recipe(RecipeSummary):
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient  # noqa: E402
 
 RecipeSummary.update_forward_refs()
+RecipeSummaryWithIngredients.update_forward_refs()
 Recipe.update_forward_refs()

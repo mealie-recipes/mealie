@@ -16,9 +16,15 @@ from mealie.db.models.recipe.tag import Tag
 from mealie.db.models.recipe.tool import Tool
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.recipe import Recipe
-from mealie.schema.recipe.recipe import RecipeCategory, RecipePagination, RecipeSummary, RecipeTag, RecipeTool
+from mealie.schema.recipe.recipe import (
+    RecipeCategory,
+    RecipeSummary,
+    RecipeSummaryWithIngredients,
+    RecipeTag,
+    RecipeTool,
+)
 from mealie.schema.recipe.recipe_category import CategoryBase, TagBase
-from mealie.schema.response.pagination import PaginationQuery
+from mealie.schema.response.pagination import PaginationBase, PaginationQuery
 
 from .repository_generic import RepositoryGeneric
 
@@ -139,7 +145,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         categories: list[UUID4 | str] | None = None,
         tags: list[UUID4 | str] | None = None,
         tools: list[UUID4 | str] | None = None,
-    ) -> RecipePagination:
+    ) -> PaginationBase[RecipeSummary]:
         q = self.session.query(self.model)
 
         args = [
@@ -150,6 +156,9 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
 
         if load_food:
             args.append(joinedload(RecipeModel.recipe_ingredient).options(joinedload(RecipeIngredient.food)))
+            item_class = RecipeSummaryWithIngredients
+        else:
+            item_class = RecipeSummary
 
         q = q.options(*args)
 
@@ -201,7 +210,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             self.session.rollback()
             raise e
 
-        return RecipePagination(
+        return PaginationBase[item_class](
             page=pagination.page,
             per_page=pagination.per_page,
             total=count,
