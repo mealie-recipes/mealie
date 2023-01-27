@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from sqlalchemy import Boolean, ForeignKey, String, orm
 from sqlalchemy.orm import Mapped, mapped_column
@@ -57,8 +57,10 @@ class GroupEventNotifierModel(SqlAlchemyBase, BaseMixins):
     enabled: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
     apprise_url: Mapped[str] = mapped_column(String, nullable=False)
 
-    group: Mapped["Group"] = orm.relationship("Group", back_populates="group_event_notifiers", single_parent=True)
-    group_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("groups.id"), index=True)
+    group: Mapped[Optional["Group"]] = orm.relationship(
+        "Group", back_populates="group_event_notifiers", single_parent=True
+    )
+    group_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("groups.id"), index=True)
 
     options: Mapped[GroupEventNotifierOptionsModel] = orm.relationship(
         GroupEventNotifierOptionsModel, uselist=False, cascade="all, delete-orphan"

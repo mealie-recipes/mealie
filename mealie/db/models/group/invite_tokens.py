@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from sqlalchemy import ForeignKey, Integer, String, orm
 from sqlalchemy.orm import Mapped, mapped_column
@@ -15,8 +15,8 @@ class GroupInviteToken(SqlAlchemyBase, BaseMixins):
     token: Mapped[str] = mapped_column(String, index=True, nullable=False, unique=True)
     uses_left: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
 
-    group_id: Mapped[guid.GUID] = mapped_column(guid.GUID, ForeignKey("groups.id"))
-    group: Mapped["Group"] = orm.relationship("Group", back_populates="invite_tokens")
+    group_id: Mapped[guid.GUID | None] = mapped_column(guid.GUID, ForeignKey("groups.id"))
+    group: Mapped[Optional["Group"]] = orm.relationship("Group", back_populates="invite_tokens")
 
     @auto_init()
     def __init__(self, **_):

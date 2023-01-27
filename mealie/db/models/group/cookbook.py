@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from sqlalchemy import Boolean, ForeignKey, Integer, String, orm
 from sqlalchemy.orm import Mapped, mapped_column
@@ -18,24 +18,24 @@ class CookBook(SqlAlchemyBase, BaseMixins):
     id: Mapped[guid.GUID] = mapped_column(guid.GUID, primary_key=True, default=guid.GUID.generate)
     position: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
 
-    group_id: Mapped[guid.GUID] = mapped_column(guid.GUID, ForeignKey("groups.id"))
-    group: Mapped["Group"] = orm.relationship("Group", back_populates="cookbooks")
+    group_id: Mapped[guid.GUID | None] = mapped_column(guid.GUID, ForeignKey("groups.id"))
+    group: Mapped[Optional["Group"]] = orm.relationship("Group", back_populates="cookbooks")
 
     name: Mapped[str] = mapped_column(String, nullable=False)
     slug: Mapped[str] = mapped_column(String, nullable=False)
-    description: Mapped[str] = mapped_column(String, default="")
-    public: Mapped[str] = mapped_column(Boolean, default=False)
+    description: Mapped[str | None] = mapped_column(String, default="")
+    public: Mapped[str | None] = mapped_column(Boolean, default=False)
 
     categories: Mapped[list[Category]] = orm.relationship(
         Category, secondary=cookbooks_to_categories, single_parent=True
     )
-    require_all_categories: Mapped[bool] = mapped_column(Boolean, default=True)
+    require_all_categories: Mapped[bool | None] = mapped_column(Boolean, default=True)
 
     tags: Mapped[list[Tag]] = orm.relationship(Tag, secondary=cookbooks_to_tags, single_parent=True)
-    require_all_tags: Mapped[bool] = mapped_column(Boolean, default=True)
+    require_all_tags: Mapped[bool | None] = mapped_column(Boolean, default=True)
 
     tools: Mapped[list[Tool]] = orm.relationship(Tool, secondary=cookbooks_to_tools, single_parent=True)
-    require_all_tools: Mapped[bool] = mapped_column(Boolean, default=True)
+    require_all_tools: Mapped[bool | None] = mapped_column(Boolean, default=True)
 
     @auto_init()
     def __init__(self, **_) -> None:

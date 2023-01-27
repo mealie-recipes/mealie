@@ -29,12 +29,12 @@ class RecipeTimelineEvent(SqlAlchemyBase, BaseMixins):
 
     # General Properties
     subject: Mapped[str] = mapped_column(String, nullable=False)
-    message: Mapped[str] = mapped_column(String)
-    event_type: Mapped[str] = mapped_column(String)
-    image: Mapped[str] = mapped_column(String)
+    message: Mapped[str | None] = mapped_column(String)
+    event_type: Mapped[str | None] = mapped_column(String)
+    image: Mapped[str | None] = mapped_column(String)
 
     # Timestamps
-    timestamp: Mapped[datetime] = mapped_column(DateTime)
+    timestamp: Mapped[datetime | None] = mapped_column(DateTime)
 
     @auto_init()
     def __init__(

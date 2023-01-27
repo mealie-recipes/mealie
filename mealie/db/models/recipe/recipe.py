@@ -1,4 +1,4 @@
-from datetime import datetime, date
+from datetime import date, datetime
 from typing import TYPE_CHECKING
 
 import sqlalchemy as sa
@@ -36,13 +36,13 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     __table_args__ = (sa.UniqueConstraint("slug", "group_id", name="recipe_slug_group_id_key"),)
 
     id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
-    slug: Mapped[str] = mapped_column(sa.String, index=True)
+    slug: Mapped[str | None] = mapped_column(sa.String, index=True)
 
     # ID Relationships
     group_id: Mapped[GUID] = mapped_column(GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)
     group: Mapped["Group"] = orm.relationship("Group", back_populates="recipes", foreign_keys=[group_id])
 
-    user_id: Mapped[GUID] = mapped_column(GUID, sa.ForeignKey("users.id", use_alter=True), index=True)
+    user_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("users.id", use_alter=True), index=True)
     user: Mapped["User"] = orm.relationship("User", uselist=False, foreign_keys=[user_id])
 
     meal_entries: Mapped["GroupMealPlan"] = orm.relationship(
@@ -55,17 +55,17 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
 
     # General Recipe Properties
     name: Mapped[str] = mapped_column(sa.String, nullable=False)
-    description: Mapped[str] = mapped_column(sa.String)
-    image: Mapped[str] = mapped_column(sa.String)
+    description: Mapped[str | None] = mapped_column(sa.String)
+    image: Mapped[str | None] = mapped_column(sa.String)
 
     # Time Related Properties
-    total_time: Mapped[str] = mapped_column(sa.String)
-    prep_time: Mapped[str] = mapped_column(sa.String)
-    perform_time: Mapped[str] = mapped_column(sa.String)
-    cook_time: Mapped[str] = mapped_column(sa.String)
+    total_time: Mapped[str | None] = mapped_column(sa.String)
+    prep_time: Mapped[str | None] = mapped_column(sa.String)
+    perform_time: Mapped[str | None] = mapped_column(sa.String)
+    cook_time: Mapped[str | None] = mapped_column(sa.String)
 
-    recipe_yield: Mapped[str] = mapped_column(sa.String)
-    recipeCuisine: Mapped[str] = mapped_column(sa.String)
+    recipe_yield: Mapped[str | None] = mapped_column(sa.String)
+    recipeCuisine: Mapped[str | None] = mapped_column(sa.String)
 
     assets: Mapped[RecipeAsset] = orm.relationship("RecipeAsset", cascade="all, delete-orphan")
     nutrition: Mapped[Nutrition] = orm.relationship("Nutrition", uselist=False, cascade="all, delete-orphan")
@@ -105,23 +105,23 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     )
     tags: Mapped[list["Tag"]] = orm.relationship("Tag", secondary=recipes_to_tags, back_populates="recipes")
     notes: Mapped[list[Note]] = orm.relationship("Note", cascade="all, delete-orphan")
-    rating: Mapped[int] = mapped_column(sa.Integer)
-    org_url: Mapped[str] = mapped_column(sa.String)
+    rating: Mapped[int | None] = mapped_column(sa.Integer)
+    org_url: Mapped[str | None] = mapped_column(sa.String)
     extras: Mapped[list[ApiExtras]] = orm.relationship("ApiExtras", cascade="all, delete-orphan")
-    is_ocr_recipe: Mapped[bool] = mapped_column(sa.Boolean, default=False)
+    is_ocr_recipe: Mapped[bool | None] = mapped_column(sa.Boolean, default=False)
 
     # Time Stamp Properties
-    date_added: Mapped[date] = mapped_column(sa.Date, default=date.today)
-    date_updated: Mapped[datetime] = mapped_column(sa.DateTime)
-    last_made: Mapped[datetime] = mapped_column(sa.DateTime)
+    date_added: Mapped[date | None] = mapped_column(sa.Date, default=date.today)
+    date_updated: Mapped[datetime | None] = mapped_column(sa.DateTime)
+    last_made: Mapped[datetime | None] = mapped_column(sa.DateTime)
 
     # Shopping List Refs
-    shopping_list_refs: Mapped["ShoppingListRecipeReference"] = orm.relationship(
+    shopping_list_refs: Mapped[list["ShoppingListRecipeReference"]] = orm.relationship(
         "ShoppingListRecipeReference",
         back_populates="recipe",
         cascade="all, delete-orphan",
     )
-    shopping_list_item_refs: Mapped["ShoppingListItemRecipeReference"] = orm.relationship(
+    shopping_list_item_refs: Mapped[list["ShoppingListItemRecipeReference"]] = orm.relationship(
         "ShoppingListItemRecipeReference",
         back_populates="recipe",
         cascade="all, delete-orphan",

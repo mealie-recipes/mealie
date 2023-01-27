@@ -1,5 +1,5 @@
 from datetime import date
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from sqlalchemy import Date, ForeignKey, String, orm
 from sqlalchemy.orm import Mapped, mapped_column
@@ -20,7 +20,7 @@ class GroupMealPlanRules(BaseMixins, SqlAlchemyBase):
     __tablename__ = "group_meal_plan_rules"
 
     id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
-    group_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False)
+    group_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False)
 
     day: Mapped[str] = mapped_column(
         String, nullable=False, default="unset"
@@ -45,11 +45,13 @@ class GroupMealPlan(SqlAlchemyBase, BaseMixins):
     title: Mapped[str] = mapped_column(String, index=True, nullable=False)
     text: Mapped[str] = mapped_column(String, nullable=False)
 
-    group_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("groups.id"), index=True)
-    group: Mapped["Group"] = orm.relationship("Group", back_populates="mealplans")
+    group_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("groups.id"), index=True)
+    group: Mapped[Optional["Group"]] = orm.relationship("Group", back_populates="mealplans")
 
-    recipe_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("recipes.id"), index=True)
-    recipe: Mapped["RecipeModel"] = orm.relationship("RecipeModel", back_populates="meal_entries", uselist=False)
+    recipe_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"), index=True)
+    recipe: Mapped[Optional["RecipeModel"]] = orm.relationship(
+        "RecipeModel", back_populates="meal_entries", uselist=False
+    )
 
     @auto_init()
     def __init__(self, **_) -> None:
