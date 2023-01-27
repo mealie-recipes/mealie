@@ -9,7 +9,7 @@ from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 from mealie.db.models._model_utils import GUID, auto_init
 
 if TYPE_CHECKING:
-    from .recipe import RecipeModel
+    from . import RecipeModel
 
 
 def defaut_expires_at_time() -> datetime:

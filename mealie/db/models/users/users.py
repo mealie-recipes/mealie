@@ -13,9 +13,7 @@ from .user_to_favorite import users_to_favorites
 
 if TYPE_CHECKING:
     from ..group import Group
-    from ..recipe.comment import RecipeComment
-    from ..recipe.recipe import RecipeModel
-    from ..recipe.recipe_timeline import RecipeTimelineEvent
+    from ..recipe import RecipeComment, RecipeModel, RecipeTimelineEvent
     from .password_reset import PasswordResetModel
 
 

@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime, date
 from typing import TYPE_CHECKING
 
 import sqlalchemy as sa
@@ -28,9 +28,7 @@ from .tool import recipes_to_tools
 if TYPE_CHECKING:
     from ..group import Group, GroupMealPlan, ShoppingListItemRecipeReference, ShoppingListRecipeReference
     from ..users import User
-    from .category import Category
-    from .tag import Tag
-    from .tool import Tool
+    from . import Category, Tag, Tool
 
 
 class RecipeModel(SqlAlchemyBase, BaseMixins):
@@ -113,9 +111,9 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     is_ocr_recipe: Mapped[bool] = mapped_column(sa.Boolean, default=False)
 
     # Time Stamp Properties
-    date_added: Mapped[datetime.date] = mapped_column(sa.Date, default=datetime.date.today)
-    date_updated: Mapped[datetime.datetime] = mapped_column(sa.DateTime)
-    last_made: Mapped[datetime.datetime] = mapped_column(sa.DateTime)
+    date_added: Mapped[date] = mapped_column(sa.Date, default=date.today)
+    date_updated: Mapped[datetime] = mapped_column(sa.DateTime)
+    last_made: Mapped[datetime] = mapped_column(sa.DateTime)
 
     # Shopping List Refs
     shopping_list_refs: Mapped["ShoppingListRecipeReference"] = orm.relationship(
@@ -176,4 +174,4 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         if notes:
             self.notes = [Note(**n) for n in notes]
 
-        self.date_updated = datetime.datetime.now()
+        self.date_updated = datetime.now()

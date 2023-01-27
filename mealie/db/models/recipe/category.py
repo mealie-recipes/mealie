@@ -12,7 +12,7 @@ from .._model_utils.guid import GUID
 
 if TYPE_CHECKING:
     from ..group import Group
-    from .recipe import RecipeModel
+    from . import RecipeModel
 logger = root_logger.get_logger()
 
 
