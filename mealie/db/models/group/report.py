@@ -18,7 +18,7 @@ class ReportEntryModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "report_entries"
     id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
 
-    success: Mapped[bool] = mapped_column(Boolean, default=False)
+    success: Mapped[bool | None] = mapped_column(Boolean, default=False)
     message: Mapped[str] = mapped_column(String, nullable=True)
     exception: Mapped[str] = mapped_column(String, nullable=True)
     timestamp: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=datetime.utcnow)

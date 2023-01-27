@@ -8,9 +8,9 @@ from mealie.db.models._model_utils.guid import GUID
 class Note(SqlAlchemyBase):
     __tablename__ = "notes"
     id: Mapped[int] = mapped_column(sa.Integer, primary_key=True)
-    recipe_id: Mapped[GUID] = mapped_column(GUID, sa.ForeignKey("recipes.id"))
-    title: Mapped[str] = mapped_column(sa.String)
-    text: Mapped[str] = mapped_column(sa.String)
+    recipe_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("recipes.id"))
+    title: Mapped[str | None] = mapped_column(sa.String)
+    text: Mapped[str | None] = mapped_column(sa.String)
 
     def __init__(self, title, text) -> None:
         self.title = title

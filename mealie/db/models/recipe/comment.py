@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 class RecipeComment(SqlAlchemyBase, BaseMixins):
     __tablename__ = "recipe_comments"
     id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
-    text: Mapped[str] = mapped_column(String)
+    text: Mapped[str | None] = mapped_column(String)
 
     # Recipe Link
     recipe_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("recipes.id"), nullable=False)

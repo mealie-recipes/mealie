@@ -8,14 +8,14 @@ from mealie.db.models._model_utils.guid import GUID
 class Nutrition(SqlAlchemyBase):
     __tablename__ = "recipe_nutrition"
     id: Mapped[int] = mapped_column(sa.Integer, primary_key=True)
-    recipe_id: Mapped[GUID] = mapped_column(GUID, sa.ForeignKey("recipes.id"))
-    calories: Mapped[str] = mapped_column(sa.String)
-    fat_content: Mapped[str] = mapped_column(sa.String)
-    fiber_content: Mapped[str] = mapped_column(sa.String)
-    protein_content: Mapped[str] = mapped_column(sa.String)
-    carbohydrate_content: Mapped[str] = mapped_column(sa.String)
-    sodium_content: Mapped[str] = mapped_column(sa.String)
-    sugar_content: Mapped[str] = mapped_column(sa.String)
+    recipe_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("recipes.id"))
+    calories: Mapped[str | None] = mapped_column(sa.String)
+    fat_content: Mapped[str | None] = mapped_column(sa.String)
+    fiber_content: Mapped[str | None] = mapped_column(sa.String)
+    protein_content: Mapped[str | None] = mapped_column(sa.String)
+    carbohydrate_content: Mapped[str | None] = mapped_column(sa.String)
+    sodium_content: Mapped[str | None] = mapped_column(sa.String)
+    sugar_content: Mapped[str | None] = mapped_column(sa.String)
 
     def __init__(
         self,

@@ -38,7 +38,7 @@ class Tool(SqlAlchemyBase, BaseMixins):
 
     name: Mapped[str] = mapped_column(String, index=True, unique=True, nullable=False)
     slug: Mapped[str] = mapped_column(String, index=True, unique=True, nullable=False)
-    on_hand: Mapped[bool] = mapped_column(Boolean, default=False)
+    on_hand: Mapped[bool | None] = mapped_column(Boolean, default=False)
     recipes: Mapped[list["RecipeModel"]] = orm.relationship(
         "RecipeModel", secondary=recipes_to_tools, back_populates="tools"
     )
