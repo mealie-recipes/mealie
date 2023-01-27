@@ -1,4 +1,8 @@
-from sqlalchemy import Boolean, Column, DateTime, ForeignKey, Integer, String, orm
+from datetime import datetime
+from typing import TYPE_CHECKING
+
+from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, String, orm
+from sqlalchemy.orm import Mapped, mapped_column
 
 from mealie.core.config import get_app_settings
 from mealie.db.models._model_utils.guid import GUID
@@ -7,14 +11,21 @@ from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import auto_init
 from .user_to_favorite import users_to_favorites
 
+if TYPE_CHECKING:
+    from ..group import Group
+    from ..recipe.comment import RecipeComment
+    from ..recipe.recipe import RecipeModel
+    from ..recipe.recipe_timeline import RecipeTimelineEvent
+    from .password_reset import PasswordResetModel
+
 
 class LongLiveToken(SqlAlchemyBase, BaseMixins):
     __tablename__ = "long_live_tokens"
-    name = Column(String, nullable=False)
-    token = Column(String, nullable=False)
+    name: Mapped[str] = mapped_column(String, nullable=False)
+    token: Mapped[str] = mapped_column(String, nullable=False)
 
-    user_id = Column(GUID, ForeignKey("users.id"))
-    user = orm.relationship("User")
+    user_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("users.id"))
+    user: Mapped["User"] = orm.relationship("User")
 
     def __init__(self, name, token, user_id, **_) -> None:
         self.name = name
@@ -24,25 +35,25 @@ class LongLiveToken(SqlAlchemyBase, BaseMixins):
 
 class User(SqlAlchemyBase, BaseMixins):
     __tablename__ = "users"
-    id = Column(GUID, primary_key=True, default=GUID.generate)
-    full_name = Column(String, index=True)
-    username = Column(String, index=True, unique=True)
-    email = Column(String, unique=True, index=True)
-    password = Column(String)
-    admin = Column(Boolean, default=False)
-    advanced = Column(Boolean, default=False)
+    id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
+    full_name: Mapped[str] = mapped_column(String, index=True)
+    username: Mapped[str] = mapped_column(String, index=True, unique=True)
+    email: Mapped[str] = mapped_column(String, unique=True, index=True)
+    password: Mapped[str] = mapped_column(String)
+    admin: Mapped[bool] = mapped_column(Boolean, default=False)
+    advanced: Mapped[bool] = mapped_column(Boolean, default=False)
 
-    group_id = Column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
-    group = orm.relationship("Group", back_populates="users")
+    group_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
+    group: Mapped["Group"] = orm.relationship("Group", back_populates="users")
 
-    cache_key = Column(String, default="1234")
-    login_attemps = Column(Integer, default=0)
-    locked_at = Column(DateTime, default=None)
+    cache_key: Mapped[str] = mapped_column(String, default="1234")
+    login_attemps: Mapped[int] = mapped_column(Integer, default=0)
+    locked_at: Mapped[datetime] = mapped_column(DateTime, default=None)
 
     # Group Permissions
-    can_manage = Column(Boolean, default=False)
-    can_invite = Column(Boolean, default=False)
-    can_organize = Column(Boolean, default=False)
+    can_manage: Mapped[bool] = mapped_column(Boolean, default=False)
+    can_invite: Mapped[bool] = mapped_column(Boolean, default=False)
+    can_organize: Mapped[bool] = mapped_column(Boolean, default=False)
 
     sp_args = {
         "back_populates": "user",
@@ -50,15 +61,19 @@ class User(SqlAlchemyBase, BaseMixins):
         "single_parent": True,
     }
 
-    tokens = orm.relationship(LongLiveToken, **sp_args)
-    comments = orm.relationship("RecipeComment", **sp_args)
-    recipe_timeline_events = orm.relationship("RecipeTimelineEvent", **sp_args)
-    password_reset_tokens = orm.relationship("PasswordResetModel", **sp_args)
+    tokens: Mapped[list[LongLiveToken]] = orm.relationship(LongLiveToken, **sp_args)
+    comments: Mapped[list["RecipeComment"]] = orm.relationship("RecipeComment", **sp_args)
+    recipe_timeline_events: Mapped[list["RecipeTimelineEvent"]] = orm.relationship("RecipeTimelineEvent", **sp_args)
+    password_reset_tokens: Mapped[list["PasswordResetModel"]] = orm.relationship("PasswordResetModel", **sp_args)
 
-    owned_recipes_id = Column(GUID, ForeignKey("recipes.id"))
-    owned_recipes = orm.relationship("RecipeModel", single_parent=True, foreign_keys=[owned_recipes_id])
+    owned_recipes_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("recipes.id"))
+    owned_recipes: Mapped["RecipeModel"] = orm.relationship(
+        "RecipeModel", single_parent=True, foreign_keys=[owned_recipes_id]
+    )
 
-    favorite_recipes = orm.relationship("RecipeModel", secondary=users_to_favorites, back_populates="favorited_by")
+    favorite_recipes: Mapped[list["RecipeModel"]] = orm.relationship(
+        "RecipeModel", secondary=users_to_favorites, back_populates="favorited_by"
+    )
 
     class Config:
         exclude = {
