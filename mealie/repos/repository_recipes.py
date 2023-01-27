@@ -1,5 +1,5 @@
 from random import randint
-from typing import Any, Type
+from typing import Any
 from uuid import UUID
 
 from pydantic import UUID4
