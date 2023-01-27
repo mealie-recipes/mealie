@@ -14,7 +14,7 @@ from ..recipe.ingredient import IngredientFoodModel, IngredientUnitModel
 if TYPE_CHECKING:
     from group import Group
 
-    from ..recipe.recipe import RecipeModel
+    from ..recipe import RecipeModel
 
 
 class ShoppingListItemRecipeReference(BaseMixins, SqlAlchemyBase):

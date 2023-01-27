@@ -13,7 +13,7 @@ from ..recipe.category import Category, plan_rules_to_categories
 if TYPE_CHECKING:
     from group import Group
 
-    from ..recipe.recipe import RecipeModel
+    from ..recipe import RecipeModel
 
 
 class GroupMealPlanRules(BaseMixins, SqlAlchemyBase):

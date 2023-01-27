@@ -10,7 +10,7 @@ from mealie.db.models._model_utils.guid import GUID
 
 if TYPE_CHECKING:
     from ..group import Group
-    from .recipe import RecipeModel
+    from . import RecipeModel
 
 recipes_to_tools = Table(
     "recipes_to_tools",

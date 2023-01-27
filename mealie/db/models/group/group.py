@@ -19,10 +19,7 @@ from .mealplan import GroupMealPlan
 from .preferences import GroupPreferencesModel
 
 if TYPE_CHECKING:
-    from ..recipe.ingredient import IngredientFoodModel, IngredientUnitModel
-    from ..recipe.recipe import RecipeModel
-    from ..recipe.tag import Tag
-    from ..recipe.tool import Tool
+    from ..recipe import IngredientFoodModel, IngredientUnitModel, RecipeModel, Tag, Tool
     from ..users import User
     from .events import GroupEventNotifierModel
     from .exports import GroupDataExportsModel
@@ -80,9 +77,6 @@ class Group(SqlAlchemyBase, BaseMixins):
     ingredient_foods: Mapped[list["IngredientFoodModel"]] = orm.relationship("IngredientFoodModel", **common_args)
     tools: Mapped[list["Tool"]] = orm.relationship("Tool", **common_args)
     tags: Mapped[list["Tag"]] = orm.relationship("Tag", **common_args)
-
-    # TODO: Why does this exist twice?
-    categories: Mapped[list["Category"]] = orm.relationship("Category", **common_args)
 
     class Config:
         exclude = {

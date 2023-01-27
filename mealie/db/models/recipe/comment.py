@@ -9,7 +9,7 @@ from mealie.db.models._model_utils.guid import GUID
 
 if TYPE_CHECKING:
     from ..users import User
-    from .recipe import RecipeModel
+    from . import RecipeModel
 
 
 class RecipeComment(SqlAlchemyBase, BaseMixins):

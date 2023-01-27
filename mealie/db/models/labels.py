@@ -10,7 +10,7 @@ from ._model_utils.guid import GUID
 
 if TYPE_CHECKING:
     from group import Group, ShoppingListItem
-    from recipe.ingredient import IngredientFoodModel
+    from recipe import IngredientFoodModel
 
 
 class MultiPurposeLabel(SqlAlchemyBase, BaseMixins):
