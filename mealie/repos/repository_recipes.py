@@ -1,5 +1,5 @@
 from random import randint
-from typing import Any
+from typing import Any, Type
 from uuid import UUID
 
 from pydantic import UUID4
@@ -211,12 +211,13 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             self.session.rollback()
             raise e
 
-        return PaginationBase[item_class](
+        items = [item_class.from_orm(item) for item in data]
+        return PaginationBase(
             page=pagination.page,
             per_page=pagination.per_page,
             total=count,
             total_pages=total_pages,
-            items=data,
+            items=items,
         )
 
     def get_by_categories(self, categories: list[RecipeCategory]) -> list[RecipeSummary]:
