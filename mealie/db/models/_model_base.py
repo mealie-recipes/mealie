@@ -1,13 +1,12 @@
 from datetime import datetime
 
 from sqlalchemy import Column, DateTime, Integer
-from sqlalchemy.ext.declarative import as_declarative
-from sqlalchemy.orm import declarative_base
+from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm.session import Session
 
 
-@as_declarative()
-class Base:
+class SqlAlchemyBase(DeclarativeBase):
+    __allow_unmapped__ = True
     id = Column(Integer, primary_key=True)
     created_at = Column(DateTime, default=datetime.now)
     update_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
@@ -32,6 +31,3 @@ class BaseMixins:
         eff_ref = getattr(cls, match_attr)
 
         return session.query(cls).filter(eff_ref == match_value).one_or_none()
-
-
-SqlAlchemyBase = declarative_base(cls=Base, constructor=None)

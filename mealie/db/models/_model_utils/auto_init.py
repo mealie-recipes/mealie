@@ -7,7 +7,6 @@ from sqlalchemy.orm.decl_api import DeclarativeMeta
 from sqlalchemy.orm.mapper import Mapper
 from sqlalchemy.orm.relationships import RelationshipProperty
 from sqlalchemy.sql.base import ColumnCollection
-from sqlalchemy.util._collections import ImmutableProperties
 
 from .helpers import safe_call
 
@@ -125,7 +124,7 @@ def auto_init():  # sourcery no-metrics
 
             alchemy_mapper: Mapper = self.__mapper__
             model_columns: ColumnCollection = alchemy_mapper.columns
-            relationships: ImmutableProperties = alchemy_mapper.relationships
+            relationships = alchemy_mapper.relationships
 
             session = kwargs.get("session", None)
 

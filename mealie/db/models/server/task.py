@@ -1,20 +1,27 @@
-from sqlalchemy import Column, DateTime, ForeignKey, String, orm
+from datetime import datetime
+from typing import TYPE_CHECKING
+
+from sqlalchemy import DateTime, ForeignKey, String, orm
+from sqlalchemy.orm import Mapped, mapped_column
 
 from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 from mealie.db.models._model_utils.guid import GUID
 
 from .._model_utils import auto_init
 
+if TYPE_CHECKING:
+    from ..group import Group
+
 
 class ServerTaskModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "server_tasks"
-    name = Column(String, nullable=False)
-    completed_date = Column(DateTime, nullable=True)
-    status = Column(String, nullable=False)
-    log = Column(String, nullable=True)
+    name: Mapped[str] = mapped_column(String, nullable=False)
+    completed_date: Mapped[datetime] = mapped_column(DateTime, nullable=True)
+    status: Mapped[str] = mapped_column(String, nullable=False)
+    log: Mapped[str] = mapped_column(String, nullable=True)
 
-    group_id = Column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
-    group = orm.relationship("Group", back_populates="server_tasks")
+    group_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
+    group: Mapped["Group"] = orm.relationship("Group", back_populates="server_tasks")
 
     @auto_init()
     def __init__(self, **_) -> None:
