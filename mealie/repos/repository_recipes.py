@@ -156,6 +156,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
 
         if load_food:
             args.append(joinedload(RecipeModel.recipe_ingredient).options(joinedload(RecipeIngredient.food)))
+            args.append(joinedload(RecipeModel.recipe_ingredient).options(joinedload(RecipeIngredient.unit)))
             item_class = RecipeSummaryWithIngredients
         else:
             item_class = RecipeSummary
