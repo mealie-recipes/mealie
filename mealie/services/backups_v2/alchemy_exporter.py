@@ -4,12 +4,11 @@ from pathlib import Path
 
 from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
-from sqlalchemy import MetaData, create_engine, insert
+from sqlalchemy import MetaData, create_engine, insert, text
 from sqlalchemy.engine import base
 from sqlalchemy.orm import sessionmaker
 
 from mealie.services._base_service import BaseService
-from sqlalchemy import text
 
 
 class AlchemyExporter(BaseService):

@@ -2,7 +2,6 @@ from datetime import datetime
 
 from sqlalchemy import Column, DateTime, Integer
 from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy.orm.session import Session
 
 
 class SqlAlchemyBase(DeclarativeBase):
