@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
@@ -95,7 +95,7 @@ class Group(SqlAlchemyBase, BaseMixins):
         pass
 
     @staticmethod  # TODO: Remove this
-    def get_ref(session: Session, name: str):  # type: ignore
+    def get_by_name(session: Session, name: str) -> Optional["Group"]:
         settings = get_app_settings()
 
         item = session.query(Group).filter(Group.name == name).one_or_none()
