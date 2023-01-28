@@ -6,8 +6,7 @@ from typing import Any, Generic, TypeVar
 
 from fastapi import HTTPException
 from pydantic import UUID4, BaseModel
-from sqlalchemy import Select, func, select, delete
-from sqlalchemy.orm import Query
+from sqlalchemy import Select, delete, func, select
 from sqlalchemy.orm.session import Session
 from sqlalchemy.sql import sqltypes
 

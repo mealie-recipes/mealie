@@ -2,6 +2,7 @@ from typing import TYPE_CHECKING, Optional
 
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
+from sqlalchemy import select
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.orm.session import Session
 
@@ -98,7 +99,7 @@ class Group(SqlAlchemyBase, BaseMixins):
     def get_by_name(session: Session, name: str) -> Optional["Group"]:
         settings = get_app_settings()
 
-        item = session.query(Group).filter(Group.name == name).one_or_none()
+        item = session.execute(select(Group).filter(Group.name == name)).scalars().one_or_none()
         if item is None:
-            item = session.query(Group).filter(Group.name == settings.DEFAULT_GROUP).one()
+            item = session.execute(select(Group).filter(Group.name == settings.DEFAULT_GROUP)).scalars().one_or_none()
         return item

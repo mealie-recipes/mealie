@@ -2,12 +2,13 @@ from functools import wraps
 from uuid import UUID
 
 from pydantic import BaseModel, Field, NoneStr
+from sqlalchemy import select
 from sqlalchemy.orm import MANYTOMANY, MANYTOONE, ONETOMANY, Session
-from sqlalchemy.orm.decl_api import DeclarativeMeta
 from sqlalchemy.orm.mapper import Mapper
 from sqlalchemy.orm.relationships import RelationshipProperty
 from sqlalchemy.sql.base import ColumnCollection
 
+from .._model_base import SqlAlchemyBase
 from .helpers import safe_call
 
 
@@ -25,7 +26,7 @@ class AutoInitConfig(BaseModel):
     # auto_create: bool = False
 
 
-def _get_config(relation_cls: DeclarativeMeta) -> AutoInitConfig:
+def _get_config(relation_cls: type[SqlAlchemyBase]) -> AutoInitConfig:
     """
     Returns the config for the given class.
     """
@@ -44,7 +45,7 @@ def _get_config(relation_cls: DeclarativeMeta) -> AutoInitConfig:
     return cfg
 
 
-def get_lookup_attr(relation_cls: DeclarativeMeta) -> str:
+def get_lookup_attr(relation_cls: type[SqlAlchemyBase]) -> str:
     """Returns the primary key attribute of the related class as a string.
 
     Args:
@@ -72,7 +73,9 @@ def handle_many_to_many(session, get_attr, relation_cls, all_elements: list[dict
     return handle_one_to_many_list(session, get_attr, relation_cls, all_elements)
 
 
-def handle_one_to_many_list(session: Session, get_attr, relation_cls, all_elements: list[dict] | list[str]):
+def handle_one_to_many_list(
+    session: Session, get_attr, relation_cls: type[SqlAlchemyBase], all_elements: list[dict] | list[str]
+):
     elems_to_create: list[dict] = []
     updated_elems: list[dict] = []
 
@@ -80,7 +83,8 @@ def handle_one_to_many_list(session: Session, get_attr, relation_cls, all_elemen
 
     for elem in all_elements:
         elem_id = elem.get(get_attr, None) if isinstance(elem, dict) else elem
-        existing_elem = session.query(relation_cls).filter_by(**{get_attr: elem_id}).one_or_none()
+        stmt = select(relation_cls).filter_by(**{get_attr: elem_id})
+        existing_elem = session.execute(stmt).scalars().one_or_none()
 
         is_dict = isinstance(elem, dict)
 
@@ -109,7 +113,7 @@ def auto_init():  # sourcery no-metrics
 
     def decorator(init):
         @wraps(init)
-        def wrapper(self: DeclarativeMeta, *args, **kwargs):  # sourcery no-metrics
+        def wrapper(self: SqlAlchemyBase, *args, **kwargs):  # sourcery no-metrics
             """
             Custom initializer that allows nested children initialization.
             Only keys that are present as instance's class attributes are allowed.
@@ -119,14 +123,14 @@ def auto_init():  # sourcery no-metrics
             Ref: https://github.com/tiangolo/fastapi/issues/2194
             """
             cls = self.__class__
-
-            exclude = _get_config(cls).exclude
+            config = _get_config(cls)
+            exclude = config.exclude
 
             alchemy_mapper: Mapper = self.__mapper__
             model_columns: ColumnCollection = alchemy_mapper.columns
             relationships = alchemy_mapper.relationships
 
-            session = kwargs.get("session", None)
+            session: Session = kwargs.get("session", None)
 
             if session is None:
                 raise ValueError("Session is required to initialize the model with `auto_init`")
@@ -150,7 +154,7 @@ def auto_init():  # sourcery no-metrics
                     relation_dir = prop.direction
 
                     # Identifies the parent class of the related object.
-                    relation_cls: DeclarativeMeta = prop.mapper.entity
+                    relation_cls: type[SqlAlchemyBase] = prop.mapper.entity
 
                     # Identifies if the relationship was declared with use_list=True
                     use_list: bool = prop.uselist
@@ -173,7 +177,8 @@ def auto_init():  # sourcery no-metrics
                                 raise ValueError(f"Expected 'id' to be provided for {key}")
 
                         if isinstance(val, (str, int, UUID)):
-                            instance = session.query(relation_cls).filter_by(**{get_attr: val}).one_or_none()
+                            stmt = select(relation_cls).filter_by(**{get_attr: val})
+                            instance = session.execute(stmt).scalars().one_or_none()
                             setattr(self, key, instance)
                         else:
                             # If the value is not of the type defined above we assume that it isn't a valid id
