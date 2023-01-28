@@ -158,3 +158,5 @@ dev/code-generation/generated/test_routes.py
 mealie/services/parser_services/crfpp/model.crfmodel
 lcov.info
 dev/code-generation/openapi.json
+
+.run/
