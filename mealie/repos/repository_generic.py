@@ -5,17 +5,18 @@ from typing import Any, Generic, TypeVar
 
 from fastapi import HTTPException
 from pydantic import UUID4, BaseModel
-from sqlalchemy import func
+from sqlalchemy import Select, func, select
 from sqlalchemy.orm import Query
 from sqlalchemy.orm.session import Session
 from sqlalchemy.sql import sqltypes
 
 from mealie.core.root_logger import get_logger
+from mealie.db.models._model_base import SqlAlchemyBase
 from mealie.schema.response.pagination import OrderDirection, PaginationBase, PaginationQuery
 from mealie.schema.response.query_filter import QueryFilter
 
 Schema = TypeVar("Schema", bound=BaseModel)
-Model = TypeVar("Model")
+Model = TypeVar("Model", bound=SqlAlchemyBase)
 
 
 class RepositoryGeneric(Generic[Schema, Model]):
@@ -28,6 +29,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
     user_id: UUID4 | None = None
     group_id: UUID4 | None = None
+    session: Session
 
     def __init__(self, session: Session, primary_key: str, sql_model: type[Model], schema: type[Schema]) -> None:
         self.session = session
@@ -273,7 +275,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
             items=[eff_schema.from_orm(s) for s in data],
         )
 
-    def add_pagination_to_query(self, query: Query, pagination: PaginationQuery) -> tuple[Query, int, int]:
+    def add_pagination_to_query(self, query: Select, pagination: PaginationQuery) -> tuple[Query, int, int]:
         """
         Adds pagination data to an existing query.
 
@@ -292,7 +294,8 @@ class RepositoryGeneric(Generic[Schema, Model]):
                 self.logger.error(e)
                 raise HTTPException(status_code=400, detail=str(e)) from e
 
-        count = query.count()
+        count_query = select(func.count()).select_from(query)
+        count = self.session.scalar(count_query)
 
         # interpret -1 as "get_all"
         if pagination.per_page == -1:
