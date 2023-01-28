@@ -29,4 +29,4 @@ class RepositoryUnit(RepositoryGeneric[IngredientUnit, IngredientUnitModel]):
         return self.get_one(to_unit)
 
     def by_group(self, group_id: UUID4) -> "RepositoryUnit":
-        return super().by_group(group_id)  # type: ignore
+        return super().by_group(group_id)

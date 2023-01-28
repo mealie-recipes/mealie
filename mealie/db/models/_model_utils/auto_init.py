@@ -86,14 +86,12 @@ def handle_one_to_many_list(
         stmt = select(relation_cls).filter_by(**{get_attr: elem_id})
         existing_elem = session.execute(stmt).scalars().one_or_none()
 
-        is_dict = isinstance(elem, dict)
-
-        if existing_elem is None and is_dict:
-            elems_to_create.append(elem)  # type: ignore
+        if existing_elem is None and isinstance(elem, dict):
+            elems_to_create.append(elem)
             continue
 
-        elif is_dict:
-            for key, value in elem.items():  # type: ignore
+        elif isinstance(elem, dict):
+            for key, value in elem.items():
                 if key not in cfg.exclude:
                     setattr(existing_elem, key, value)
 

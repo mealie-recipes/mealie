@@ -40,7 +40,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
                     raise
 
     def by_group(self, group_id: UUID) -> "RepositoryRecipes":
-        return super().by_group(group_id)  # type: ignore
+        return super().by_group(group_id)
 
     def get_all_public(self, limit: int | None = None, order_by: str | None = None, start=0, override_schema=None):
         eff_schema = override_schema or self.schema

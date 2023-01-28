@@ -10,7 +10,7 @@ from .repository_generic import RepositoryGeneric
 
 class RepositoryMealPlanRules(RepositoryGeneric[PlanRulesOut, GroupMealPlanRules]):
     def by_group(self, group_id: UUID) -> "RepositoryMealPlanRules":
-        return super().by_group(group_id)  # type: ignore
+        return super().by_group(group_id)
 
     def get_rules(self, day: PlanRulesDay, entry_type: PlanRulesType) -> list[PlanRulesOut]:
 

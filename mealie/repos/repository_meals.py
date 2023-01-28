@@ -11,7 +11,7 @@ from .repository_generic import RepositoryGeneric
 
 class RepositoryMeals(RepositoryGeneric[ReadPlanEntry, GroupMealPlan]):
     def by_group(self, group_id: UUID) -> "RepositoryMeals":
-        return super().by_group(group_id)  # type: ignore
+        return super().by_group(group_id)
 
     def get_today(self, group_id: UUID) -> list[ReadPlanEntry]:
         today = date.today()
