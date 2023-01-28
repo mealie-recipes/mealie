@@ -6,7 +6,7 @@ from typing import Any, Generic, TypeVar
 
 from fastapi import HTTPException
 from pydantic import UUID4, BaseModel
-from sqlalchemy import Select, func, select
+from sqlalchemy import Select, func, select, delete
 from sqlalchemy.orm import Query
 from sqlalchemy.orm.session import Session
 from sqlalchemy.sql import sqltypes
@@ -53,7 +53,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
         self.logger.error(e)
 
     def _query(self):
-        return self.session.query(self.model)
+        return select(self.model)
 
     def _filter_builder(self, **kwargs) -> dict[str, Any]:
         dct = {}
@@ -96,8 +96,8 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
             except AttributeError:
                 self.logger.info(f'Attempted to sort by unknown sort property "{order_by}"; ignoring')
-
-        return [eff_schema.from_orm(x) for x in q.offset(start).limit(limit).all()]
+        result = self.session.execute(q.offset(start).limit(limit)).scalars().all()
+        return [eff_schema.from_orm(x) for x in result]
 
     def multi_query(
         self,
@@ -118,7 +118,9 @@ class RepositoryGeneric(Generic[Schema, Model]):
                 order_attr = order_attr.desc()
                 q = q.order_by(order_attr)
 
-        return [eff_schema.from_orm(x) for x in q.offset(start).limit(limit).all()]
+        q = q.offset(start).limit(limit)
+        result = self.session.execute(q).scalars().all()
+        return [eff_schema.from_orm(x) for x in result]
 
     def _query_one(self, match_value: str | int | UUID4, match_key: str | None = None) -> Model:
         """
@@ -129,14 +131,14 @@ class RepositoryGeneric(Generic[Schema, Model]):
             match_key = self.primary_key
 
         fltr = self._filter_builder(**{match_key: match_value})
-        return self._query().filter_by(**fltr).one()
+        return self.session.execute(self._query().filter_by(**fltr)).scalars().one()
 
     def get_one(
         self, value: str | int | UUID4, key: str | None = None, any_case=False, override_schema=None
     ) -> Schema | None:
         key = key or self.primary_key
 
-        q = self.session.query(self.model)
+        q = self._query()
 
         if any_case:
             search_attr = getattr(self.model, key)
@@ -144,7 +146,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
         else:
             q = q.filter_by(**self._filter_builder(**{key: value}))
 
-        result = q.one_or_none()
+        result = self.session.execute(q).scalars().one_or_none()
 
         if not result:
             return None
@@ -224,7 +226,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
     def delete(self, value, match_key: str | None = None) -> Schema:
         match_key = match_key or self.primary_key
 
-        result = self._query().filter_by(**{match_key: value}).one()
+        result = self.session.execute(self._query().filter_by(**{match_key: value})).scalars().one()
         results_as_model = self.schema.from_orm(result)
 
         try:
@@ -254,14 +256,14 @@ class RepositoryGeneric(Generic[Schema, Model]):
         return results_as_model  # type: ignore
 
     def delete_all(self) -> None:
-        self._query().delete()
+        delete(self.model)
         self.session.commit()
 
     def count_all(self, match_key=None, match_value=None) -> int:
-        if None in [match_key, match_value]:
-            return self._query().count()
-        else:
-            return self._query().filter_by(**{match_key: match_value}).count()
+        q = select(func.count(self.model.id))
+        if None not in [match_key, match_value]:
+            q = q.filter_by(**{match_key: match_value})
+        return self.session.scalar(q)
 
     def _count_attribute(
         self,
@@ -272,12 +274,12 @@ class RepositoryGeneric(Generic[Schema, Model]):
     ) -> int | list[Schema]:  # sourcery skip: assign-if-exp
         eff_schema = override_schema or self.schema
 
-        q = self._query().filter(attribute_name == attr_match)
-
         if count:
-            return q.count()
+            q = select(func.count(self.model.id)).filter(attribute_name == attr_match)
+            return self.session.scalar(q)
         else:
-            return [eff_schema.from_orm(x) for x in q.all()]
+            q = self._query().filter(attribute_name == attr_match)
+            return [eff_schema.from_orm(x) for x in self.session.execute(q).scalars().all()]
 
     def page_all(self, pagination: PaginationQuery, override=None) -> PaginationBase[Schema]:
         """
@@ -291,14 +293,14 @@ class RepositoryGeneric(Generic[Schema, Model]):
         """
         eff_schema = override or self.schema
 
-        q = self.session.query(self.model)
+        q = self._query()
 
         fltr = self._filter_builder()
         q = q.filter_by(**fltr)
         q, count, total_pages = self.add_pagination_to_query(q, pagination)
 
         try:
-            data = q.all()
+            data = self.session.execute(q).scalars().all()
         except Exception as e:
             self._log_exception(e)
             self.session.rollback()
@@ -312,7 +314,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
             items=[eff_schema.from_orm(s) for s in data],
         )
 
-    def add_pagination_to_query(self, query: Select, pagination: PaginationQuery) -> tuple[Query, int, int]:
+    def add_pagination_to_query(self, query: Select, pagination: PaginationQuery) -> tuple[Select, int, int]:
         """
         Adds pagination data to an existing query.
 

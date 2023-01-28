@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from sqlalchemy import or_
+from sqlalchemy import or_, select
 
 from mealie.db.models.group.mealplan import GroupMealPlanRules
 from mealie.schema.meal_plan.plan_rules import PlanRulesDay, PlanRulesOut, PlanRulesType
@@ -13,7 +13,8 @@ class RepositoryMealPlanRules(RepositoryGeneric[PlanRulesOut, GroupMealPlanRules
         return super().by_group(group_id)  # type: ignore
 
     def get_rules(self, day: PlanRulesDay, entry_type: PlanRulesType) -> list[PlanRulesOut]:
-        qry = self.session.query(GroupMealPlanRules).filter(
+
+        stmt = select(GroupMealPlanRules).filter(
             or_(
                 GroupMealPlanRules.day == day,
                 GroupMealPlanRules.day.is_(None),
@@ -26,4 +27,6 @@ class RepositoryMealPlanRules(RepositoryGeneric[PlanRulesOut, GroupMealPlanRules
             ),
         )
 
-        return [self.schema.from_orm(x) for x in qry.all()]
+        rules = self.session.execute(stmt).scalars().all()
+
+        return [self.schema.from_orm(x) for x in rules]
