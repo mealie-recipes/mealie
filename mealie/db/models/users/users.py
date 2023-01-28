@@ -91,7 +91,7 @@ class User(SqlAlchemyBase, BaseMixins):
 
         from mealie.db.models.group import Group
 
-        self.group = Group.get_ref(session, group)
+        self.group = Group.get_by_name(session, group)
 
         self.favorite_recipes = []
 
@@ -110,7 +110,7 @@ class User(SqlAlchemyBase, BaseMixins):
 
         from mealie.db.models.group import Group
 
-        self.group = Group.get_ref(session, group)
+        self.group = Group.get_by_name(session, group)
 
         if self.username is None:
             self.username = full_name
@@ -139,7 +139,3 @@ class User(SqlAlchemyBase, BaseMixins):
             self.can_manage = can_manage
             self.can_invite = can_invite
             self.can_organize = can_organize
-
-    @staticmethod  # TODO: Remove This
-    def get_ref(session, id: str):  # type: ignore
-        return session.query(User).filter(User.id == id).one()
