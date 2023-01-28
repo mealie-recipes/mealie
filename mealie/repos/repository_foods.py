@@ -29,4 +29,4 @@ class RepositoryFood(RepositoryGeneric[IngredientFood, IngredientFoodModel]):
         return self.get_one(to_food)
 
     def by_group(self, group_id: UUID4) -> "RepositoryFood":
-        return super().by_group(group_id)  # type: ignore
+        return super().by_group(group_id)

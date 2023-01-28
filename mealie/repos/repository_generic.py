@@ -18,6 +18,8 @@ from mealie.schema.response.query_filter import QueryFilter
 Schema = TypeVar("Schema", bound=BaseModel)
 Model = TypeVar("Model", bound=SqlAlchemyBase)
 
+T = TypeVar("T", bound="RepositoryGeneric")
+
 
 class RepositoryGeneric(Generic[Schema, Model]):
     """A Generic BaseAccess Model method to perform common operations on the database
@@ -39,11 +41,11 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
         self.logger = get_logger()
 
-    def by_user(self, user_id: UUID4) -> RepositoryGeneric[Schema, Model]:
+    def by_user(self: T, user_id: UUID4) -> T:
         self.user_id = user_id
         return self
 
-    def by_group(self, group_id: UUID4) -> RepositoryGeneric[Schema, Model]:
+    def by_group(self: T, group_id: UUID4) -> T:
         self.group_id = group_id
         return self
 
@@ -155,7 +157,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
     def create(self, data: Schema | BaseModel | dict) -> Schema:
         data = data if isinstance(data, dict) else data.dict()
-        new_document = self.model(session=self.session, **data)  # type: ignore
+        new_document = self.model(session=self.session, **data)
         self.session.add(new_document)
         self.session.commit()
         self.session.refresh(new_document)
@@ -166,7 +168,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
         new_documents = []
         for document in data:
             document = document if isinstance(document, dict) else document.dict()
-            new_document = self.model(session=self.session, **document)  # type: ignore
+            new_document = self.model(session=self.session, **document)
             new_documents.append(new_document)
 
         self.session.add_all(new_documents)
@@ -190,7 +192,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
         new_data = new_data if isinstance(new_data, dict) else new_data.dict()
 
         entry = self._query_one(match_value=match_value)
-        entry.update(session=self.session, **new_data)  # type: ignore
+        entry.update(session=self.session, **new_data)
 
         self.session.commit()
         return self.schema.from_orm(entry)

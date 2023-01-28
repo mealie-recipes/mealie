@@ -36,7 +36,7 @@ class RepositoryUsers(RepositoryGeneric[PrivateUser, User]):
         entry = super().delete(value, match_key)
         # Delete the user's directory
         shutil.rmtree(PrivateUser.get_directory(value))
-        return entry  # type: ignore
+        return entry
 
     def get_by_username(self, username: str) -> PrivateUser | None:
         stmt = select(User).filter(User.username == username)
