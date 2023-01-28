@@ -1,6 +1,8 @@
 import datetime
 from pathlib import Path
 
+from sqlalchemy import select
+
 from mealie.core import root_logger
 from mealie.core.config import get_app_dirs
 from mealie.db.db_setup import session_context
@@ -17,7 +19,8 @@ def purge_group_data_exports(max_minutes_old=ONE_DAY_AS_MINUTES):
     limit = datetime.datetime.now() - datetime.timedelta(minutes=max_minutes_old)
 
     with session_context() as session:
-        results = session.query(GroupDataExportsModel).filter(GroupDataExportsModel.expires <= limit)
+        stmt = select(GroupDataExportsModel).filter(GroupDataExportsModel.expires <= limit)
+        results = session.execute(stmt).scalars().all()
 
         total_removed = 0
         for result in results:

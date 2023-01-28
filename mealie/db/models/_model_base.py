@@ -1,14 +1,14 @@
 from datetime import datetime
 
-from sqlalchemy import Column, DateTime, Integer
-from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy import DateTime, Integer
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 
 class SqlAlchemyBase(DeclarativeBase):
     __allow_unmapped__ = True
-    id = Column(Integer, primary_key=True)
-    created_at = Column(DateTime, default=datetime.now)
-    update_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    created_at: Mapped[datetime | None] = mapped_column(DateTime, default=datetime.now)
+    update_at: Mapped[datetime | None] = mapped_column(DateTime, default=datetime.now, onupdate=datetime.now)
 
 
 class BaseMixins:
