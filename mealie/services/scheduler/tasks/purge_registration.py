@@ -11,7 +11,7 @@ MAX_DAYS_OLD = 4
 
 def purge_group_registration():
     """Purges all events after x days"""
-    logger.info("purging expired registration tokens")
+    logger.debug("purging expired registration tokens")
     limit = datetime.datetime.now() - datetime.timedelta(days=MAX_DAYS_OLD)
 
     with session_context() as session:
