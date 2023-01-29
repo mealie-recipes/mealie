@@ -96,7 +96,7 @@ class DefaultEmailSender(ABCEmailSender, BaseService):
             smtp_options.password = self.settings.SMTP_PASSWORD
 
         response = message.send(to=email_to, smtp=smtp_options)
-        self.logger.info(f"send email result: {response}")
+        self.logger.debug(f"send email result: {response}")
 
         if not response.success:
             self.logger.error(f"send email error: {response}")

@@ -5,11 +5,22 @@
     "recipe": {
         "unique-name-error": "Les noms de recette doivent être uniques"
     },
+    "mealplan": {
+        "no-recipes-match-your-rules": "No recipes match your rules"
+    },
+    "user": {
+        "user-updated": "User updated",
+        "password-updated": "Password updated",
+        "invalid-current-password": "Invalid current password"
+    },
+    "group": {
+        "report-deleted": "Report deleted."
+    },
     "exceptions": {
-        "permission_denied": "Vous n'avez pas la permission d'effectuer cette action",
+        "permission_denied": "Vous n’avez pas la permission d’effectuer cette action",
         "no-entry-found": "La ressource demandée est introuvable",
-        "integrity-error": "Erreur d'intégrité de la base de données",
-        "username-conflict-error": "Ce nom d'utilisateur est déjà pris",
+        "integrity-error": "Erreur d’intégrité de la base de données",
+        "username-conflict-error": "Ce nom d’utilisateur est déjà pris",
         "email-conflict-error": "Cette adresse e-mail est déjà utilisée"
     },
     "notifications": {

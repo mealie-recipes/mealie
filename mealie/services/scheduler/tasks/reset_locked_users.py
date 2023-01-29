@@ -6,12 +6,12 @@ from mealie.services.user_services.user_service import UserService
 
 def locked_user_reset():
     logger = root_logger.get_logger()
-    logger.info("resetting locked users")
+    logger.debug("resetting locked users")
 
     with session_context() as session:
         repos = AllRepositories(session)
         user_service = UserService(repos)
 
         unlocked = user_service.reset_locked_users()
-        logger.info(f"scheduled task unlocked {unlocked} users in the database")
+        logger.debug(f"scheduled task unlocked {unlocked} users in the database")
         logger.info("locked users reset")

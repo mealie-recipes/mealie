@@ -2,11 +2,9 @@
   <div>
     <v-form ref="domUrlForm" @submit.prevent="debugUrl(recipeUrl)">
       <div>
-        <v-card-title class="headline"> Recipe Debugger </v-card-title>
+        <v-card-title class="headline"> {{ $t('recipe.recipe-debugger') }} </v-card-title>
         <v-card-text>
-          Grab the URL of the recipe you want to debug and paste it here. The URL will be scraped by the recipe scraper
-          and the results will be displayed. If you don't see any data returned, the site you are trying to scrape is
-          not supported by Mealie or its scraper library.
+          {{ $t('recipe.recipe-debugger-description') }}
           <v-text-field
             v-model="recipeUrl"
             :label="$t('new-recipe.recipe-url')"
@@ -28,14 +26,14 @@
               <template #icon>
                 {{ $globals.icons.robot }}
               </template>
-              Debug
+              {{ $t('recipe.debug') }}
             </BaseButton>
           </div>
         </v-card-actions>
       </div>
     </v-form>
     <section v-if="debugData">
-      <v-checkbox v-model="debugTreeView" label="Tree View"></v-checkbox>
+      <v-checkbox v-model="debugTreeView" :label="$t('recipe.tree-view')"></v-checkbox>
       <LazyRecipeJsonEditor
         v-model="debugData"
         class="primary"

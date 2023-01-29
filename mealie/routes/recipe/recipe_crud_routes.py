@@ -25,13 +25,21 @@ from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.recipe import Recipe, RecipeImageTypes, ScrapeRecipe
-from mealie.schema.recipe.recipe import CreateRecipe, CreateRecipeByUrlBulk, RecipePagination, RecipePaginationQuery
+from mealie.schema.recipe.recipe import (
+    CreateRecipe,
+    CreateRecipeByUrlBulk,
+    RecipePagination,
+    RecipePaginationQuery,
+    RecipeSummary,
+    RecipeSummaryWithIngredients,
+)
 from mealie.schema.recipe.recipe_asset import RecipeAsset
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_scraper import ScrapeRecipeTest
 from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.recipe.recipe_step import RecipeStep
 from mealie.schema.recipe.request_helpers import RecipeDuplicate, RecipeZipTokenResponse, UpdateImageResponse
+from mealie.schema.response import PaginationBase
 from mealie.schema.response.responses import ErrorResponse
 from mealie.services import urls
 from mealie.services.event_bus_service.event_types import (
@@ -162,10 +170,10 @@ class RecipeController(BaseRecipeController):
     # URL Scraping Operations
 
     @router.post("/create-url", status_code=201, response_model=str)
-    def parse_recipe_url(self, req: ScrapeRecipe):
+    async def parse_recipe_url(self, req: ScrapeRecipe):
         """Takes in a URL and attempts to scrape data and load it into the database"""
         try:
-            recipe, extras = create_from_url(req.url)
+            recipe, extras = await create_from_url(req.url)
         except ForceTimeoutException as e:
             raise HTTPException(
                 status_code=408, detail=ErrorResponse.respond(message="Recipe Scraping Timed Out")
@@ -206,10 +214,10 @@ class RecipeController(BaseRecipeController):
         return {"reportId": report_id}
 
     @router.post("/test-scrape-url")
-    def test_parse_recipe_url(self, url: ScrapeRecipeTest):
+    async def test_parse_recipe_url(self, url: ScrapeRecipeTest):
         # Debugger should produce the same result as the scraper sees before cleaning
         try:
-            if scraped_data := RecipeScraperPackage(url.url).scrape_url():
+            if scraped_data := await RecipeScraperPackage(url.url).scrape_url():
                 return scraped_data.schema.data
         except ForceTimeoutException as e:
             raise HTTPException(
@@ -232,7 +240,7 @@ class RecipeController(BaseRecipeController):
     # ==================================================================================================================
     # CRUD Operations
 
-    @router.get("", response_model=RecipePagination)
+    @router.get("", response_model=PaginationBase[RecipeSummary | RecipeSummaryWithIngredients])
     def get_all(
         self,
         request: Request,
@@ -381,12 +389,12 @@ class RecipeController(BaseRecipeController):
     # Image and Assets
 
     @router.post("/{slug}/image", tags=["Recipe: Images and Assets"])
-    def scrape_image_url(self, slug: str, url: ScrapeRecipe):
+    async def scrape_image_url(self, slug: str, url: ScrapeRecipe):
         recipe = self.mixins.get_one(slug)
         data_service = RecipeDataService(recipe.id)
 
         try:
-            data_service.scrape_image(url.url)
+            await data_service.scrape_image(url.url)
         except NotAnImageError as e:
             raise HTTPException(
                 status_code=400,

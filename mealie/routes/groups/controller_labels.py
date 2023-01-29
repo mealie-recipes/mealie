@@ -35,7 +35,7 @@ class MultiPurposeLabelsController(BaseUserController):
 
     @property
     def mixins(self) -> HttpRepo:
-        return HttpRepo(self.repo, self.logger, self.registered_exceptions, "An unexpected error occurred.")
+        return HttpRepo(self.repo, self.logger, self.registered_exceptions, self.t("generic.server-error"))
 
     @router.get("", response_model=MultiPurposeLabelPagination)
     def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):

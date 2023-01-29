@@ -1,13 +1,13 @@
 <template>
   <div>
     <!-- Merge Dialog -->
-    <BaseDialog v-model="mergeDialog" :icon="$globals.icons.foods" title="Combine Food" @confirm="mergeFoods">
+    <BaseDialog v-model="mergeDialog" :icon="$globals.icons.foods" :title="$t('data-pages.foods.combine-food')" @confirm="mergeFoods">
       <v-card-text>
         <div>
           {{ $t("data-pages.foods.merge-dialog-text") }}
         </div>
-        <v-autocomplete v-model="fromFood" return-object :items="foods" item-text="name" label="Source Food" />
-        <v-autocomplete v-model="toFood" return-object :items="foods" item-text="name" label="Target Food" />
+        <v-autocomplete v-model="fromFood" return-object :items="foods" item-text="name" :label="$t('data-pages.foods.source-food')" />
+        <v-autocomplete v-model="toFood" return-object :items="foods" item-text="name" :label="$t('data-pages.foods.target-food')" />
 
         <template v-if="canMerge && fromFood && toFood">
           <div class="text-center">
@@ -32,7 +32,7 @@
           v-model="locale"
           :items="locales"
           item-text="name"
-          label="Select Language"
+          :label="$t('data-pages.select-language')"
           class="my-3"
           hide-details
           outlined
@@ -58,7 +58,7 @@
     <BaseDialog
       v-model="createDialog"
       :icon="$globals.icons.foods"
-      title="Create Food"
+      :title="$t('data-pages.foods.create-food')"
       :submit-text="$tc('general.save')"
       @submit="createFood"
     >
@@ -67,17 +67,17 @@
           <v-text-field
             v-model="createTarget.name"
             autofocus
-            label="Name"
+            :label="$t('general.name')"
             :rules="[validators.required]"
           ></v-text-field>
-          <v-text-field v-model="createTarget.description" label="Description"></v-text-field>
+          <v-text-field v-model="createTarget.description" :label="$t('recipe.description')"></v-text-field>
           <v-autocomplete
             v-model="createTarget.labelId"
             clearable
             :items="allLabels"
             item-value="id"
             item-text="name"
-            label="Food Label"
+            :label="$t('data-pages.foods.food-label')"
           >
           </v-autocomplete>
         </v-form> </v-card-text
@@ -87,21 +87,21 @@
     <BaseDialog
       v-model="editDialog"
       :icon="$globals.icons.foods"
-      title="Edit Food"
+      :title="$t('data-pages.foods.edit-food')"
       :submit-text="$tc('general.save')"
       @submit="editSaveFood"
     >
       <v-card-text v-if="editTarget">
         <v-form ref="domEditFoodForm">
-          <v-text-field v-model="editTarget.name" label="Name" :rules="[validators.required]"></v-text-field>
-          <v-text-field v-model="editTarget.description" label="Description"></v-text-field>
+          <v-text-field v-model="editTarget.name" :label="$t('general.name')" :rules="[validators.required]"></v-text-field>
+          <v-text-field v-model="editTarget.description" :label="$t('recipe.description')"></v-text-field>
           <v-autocomplete
             v-model="editTarget.labelId"
             clearable
             :items="allLabels"
             item-value="id"
             item-text="name"
-            label="Food Label"
+            :label="$t('data-pages.foods.food-label')"
           >
           </v-autocomplete>
         </v-form> </v-card-text
@@ -121,7 +121,7 @@
     </BaseDialog>
 
     <!-- Recipe Data Table -->
-    <BaseCardSectionTitle :icon="$globals.icons.foods" section title="Food Data"> </BaseCardSectionTitle>
+    <BaseCardSectionTitle :icon="$globals.icons.foods" section :title="$tc('data-pages.foods.food-data')"> </BaseCardSectionTitle>
     <CrudTable
       :table-config="tableConfig"
       :headers.sync="tableHeaders"
@@ -154,7 +154,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, computed } from "@nuxtjs/composition-api";
+import { defineComponent, onMounted, ref, computed, useContext } from "@nuxtjs/composition-api";
 import type { LocaleObject } from "@nuxtjs/i18n";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
@@ -168,28 +168,29 @@ export default defineComponent({
   components: { MultiPurposeLabel },
   setup() {
     const userApi = useUserApi();
+    const { i18n } = useContext();
     const tableConfig = {
       hideColumns: true,
       canExport: true,
     };
     const tableHeaders = [
       {
-        text: "Id",
+        text: i18n.tc("general.id"),
         value: "id",
         show: false,
       },
       {
-        text: "Name",
+        text: i18n.tc("general.name"),
         value: "name",
         show: true,
       },
       {
-        text: "Description",
+        text: i18n.tc("recipe.description"),
         value: "description",
         show: true,
       },
       {
-        text: "Label",
+        text: i18n.tc("shopping-list.label"),
         value: "label",
         show: true,
       },
@@ -297,7 +298,7 @@ export default defineComponent({
     const seedDialog = ref(false);
     const locale = ref("");
 
-    const { locales: LOCALES, locale: currentLocale, i18n } = useLocales();
+    const { locales: LOCALES, locale: currentLocale } = useLocales();
 
     onMounted(() => {
       locale.value = currentLocale.value;

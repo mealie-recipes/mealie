@@ -63,7 +63,7 @@ class RecipeService(BaseService):
 
             try:
                 copytree(current_dir, recipe.directory, dirs_exist_ok=True)
-                self.logger.info(f"Renaming Recipe Directory: {original_slug} -> {recipe.slug}")
+                self.logger.debug(f"Renaming Recipe Directory: {original_slug} -> {recipe.slug}")
             except FileNotFoundError:
                 self.logger.error(f"Recipe Directory not Found: {original_slug}")
 

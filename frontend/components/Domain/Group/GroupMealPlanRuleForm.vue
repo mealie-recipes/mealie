@@ -8,9 +8,11 @@
     <RecipeOrganizerSelector v-model="inputCategories" selector-type="categories" />
     <RecipeOrganizerSelector v-model="inputTags" selector-type="tags" />
 
-    <!-- TODO Make this localizable -->
-    {{ inputDay === "unset" ? "This rule will apply to all days" : `This rule applies on ${inputDay}s` }}
-    {{ inputEntryType === "unset" ? "for all meal types" : ` and for ${inputEntryType} meal types` }}
+    <!-- TODO: proper pluralization of inputDay -->
+    {{ $t('meal-plan.this-rule-will-apply', {
+         dayCriteria: inputDay === "unset" ? $t('meal-plan.to-all-days') : $t('meal-plan.on-days', [inputDay]),
+         mealTypeCriteria: inputEntryType === "unset" ? $t('meal-plan.for-all-meal-types') : $t('meal-plan.for-type-meal-types', [inputEntryType])
+        }) }}
   </div>
 </template>
 

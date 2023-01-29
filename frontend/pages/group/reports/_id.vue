@@ -4,7 +4,7 @@
       <template #header>
         <v-img max-height="200" max-width="200" class="mb-2" :src="require('~/static/svgs/data-reports.svg')"></v-img>
       </template>
-      <template #title> Report </template>
+      <template #title> {{ $t('group.report') }} </template>
     </BasePageTitle>
     <v-container v-if="report">
       <BaseCardSectionTitle :title="report.name"> </BaseCardSectionTitle>

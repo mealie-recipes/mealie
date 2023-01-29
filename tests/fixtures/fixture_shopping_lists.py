@@ -17,9 +17,7 @@ def create_item(list_id: UUID4) -> dict:
         "note": random_string(10),
         "quantity": 1,
         "unit_id": None,
-        "unit": None,
         "food_id": None,
-        "food": None,
         "recipe_id": None,
         "label_id": None,
     }
@@ -75,7 +73,7 @@ def list_with_items(database: AllRepositories, unique_user: TestUser):
         )
 
     # refresh model
-    list_model = database.group_shopping_lists.get_one(list_model.id)
+    list_model = database.group_shopping_lists.get_one(list_model.id)  # type: ignore
 
     yield list_model
 

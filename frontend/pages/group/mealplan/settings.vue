@@ -4,20 +4,15 @@
       <template #header>
         <v-img max-height="100" max-width="100" :src="require('~/static/svgs/manage-cookbooks.svg')"></v-img>
       </template>
-      <template #title> Meal Plan Rules </template>
-      You can create rules for auto selecting recipes for you meal plans. These rules are used by the server to
-      determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same
-      day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create
-      duplicate rules, but it's possible to do so.
+      <template #title> {{ $t('meal-plan.meal-plan-rules') }} </template>
+      {{ $t('meal-plan.meal-plan-rules-description') }}
     </BasePageTitle>
 
     <v-card>
-      <v-card-title class="headline"> New Rule </v-card-title>
+      <v-card-title class="headline"> {{ $t('meal-plan.new-rule') }} </v-card-title>
       <v-divider class="mx-2"></v-divider>
       <v-card-text>
-        When creating a new rule for a meal plan you can restrict the rule to be applicable for a specific day of the
-        week and/or a specific type of meal. To apply a rule to all days or all meal types you can set the rule to "Any"
-        which will apply it to all the possible values for the day and/or meal type.
+        {{ $t('meal-plan.new-rule-description') }}
 
         <GroupMealPlanRuleForm
           class="mt-2"
@@ -33,13 +28,13 @@
     </v-card>
 
     <section>
-      <BaseCardSectionTitle class="mt-10" title="Recipe Rules" />
+      <BaseCardSectionTitle class="mt-10" :title="$tc('meal-plan.recipe-rules')" />
       <div>
         <div v-for="(rule, idx) in allRules" :key="rule.id">
           <v-card class="my-2 left-border">
             <v-card-title class="headline pb-1">
-              {{ rule.day === "unset" ? "Applies to all days" : `Applies on ${rule.day}s` }}
-              {{ rule.entryType === "unset" ? "for all meal types" : ` for ${rule.entryType} meal types` }}
+              {{ rule.day === "unset" ? $t('meal-plan.applies-to-all-days') : $t('meal-plan.applies-on-days', [rule.day]) }}
+              {{ rule.entryType === "unset" ? $t('meal-plan.for-all-meal-types') : $t('meal-plan.for-type-meal-types', [rule.entryType]) }}
               <span class="ml-auto">
                 <BaseButtonGroup
                   :buttons="[
@@ -91,7 +86,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useAsync } from "@nuxtjs/composition-api";
+import { defineComponent, ref, useAsync, useContext } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 import { PlanRulesCreate, PlanRulesOut } from "~/lib/api/types/meal-plan";
 import GroupMealPlanRuleForm from "~/components/Domain/Group/GroupMealPlanRuleForm.vue";
@@ -182,8 +177,10 @@ export default defineComponent({
       toggleEditState,
     };
   },
-  head: {
-    title: "Meal Plan Settings",
+  head() {
+    return {
+      title: this.$tc("meal-plan.meal-plan-settings"),
+    };
   },
 });
 </script>

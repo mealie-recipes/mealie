@@ -2,12 +2,12 @@
     "teaspoon": {
         "name": "čajová lyžička",
         "description": "",
-        "abbreviation": "tsp"
+        "abbreviation": "čl"
     },
     "tablespoon": {
         "name": "polievková lyžica",
         "description": "",
-        "abbreviation": "tbsp"
+        "abbreviation": "pl"
     },
     "cup": {
         "name": "šálka",
@@ -20,7 +20,7 @@
         "abbreviation": "fl oz"
     },
     "pint": {
-        "name": "pint",
+        "name": "pinta",
         "description": "",
         "abbreviation": "pt"
     },
@@ -35,7 +35,7 @@
         "abbreviation": "gal"
     },
     "milliliter": {
-        "name": "milliliter",
+        "name": "mililiter",
         "description": "",
         "abbreviation": "ml"
     },
@@ -70,12 +70,12 @@
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "splash",
+        "name": "kvapka",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
-        "name": "dash",
+        "name": "štipka",
         "description": "",
         "abbreviation": ""
     },
@@ -85,12 +85,12 @@
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
+        "name": "hlávka",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
-        "name": "clove",
+        "name": "strúčik",
         "description": "",
         "abbreviation": ""
     },

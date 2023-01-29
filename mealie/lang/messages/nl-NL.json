@@ -5,6 +5,17 @@
     "recipe": {
         "unique-name-error": "Receptnamen moeten uniek zijn"
     },
+    "mealplan": {
+        "no-recipes-match-your-rules": "No recipes match your rules"
+    },
+    "user": {
+        "user-updated": "User updated",
+        "password-updated": "Password updated",
+        "invalid-current-password": "Invalid current password"
+    },
+    "group": {
+        "report-deleted": "Report deleted."
+    },
     "exceptions": {
         "permission_denied": "Je hebt geen toestemming om deze actie uit te voeren",
         "no-entry-found": "Het opgevraagde is niet gevonden",

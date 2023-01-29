@@ -10,7 +10,7 @@
     >
       <template #label>
         <div :class="listItem.checked ? 'strike-through' : ''">
-          {{ displayText }}
+          {{ listItem.display }}
         </div>
       </template>
     </v-checkbox>
@@ -55,10 +55,9 @@
 import { defineComponent, computed, ref, useContext } from "@nuxtjs/composition-api";
 import ShoppingListItemEditor from "./ShoppingListItemEditor.vue";
 import MultiPurposeLabel from "./MultiPurposeLabel.vue";
-import { ShoppingListItemCreate } from "~/lib/api/types/group";
+import { ShoppingListItemOut } from "~/lib/api/types/group";
 import { MultiPurposeLabelOut } from "~/lib/api/types/labels";
 import { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
-import { getDisplayText } from "~/composables/use-display-text";
 import { MultiPurposeLabelSummary } from "~/lib/api/types/user";
 
 interface actions {
@@ -70,7 +69,7 @@ export default defineComponent({
   components: { ShoppingListItemEditor, MultiPurposeLabel },
   props: {
     value: {
-      type: Object as () => ShoppingListItemCreate,
+      type: Object as () => ShoppingListItemOut,
       required: true,
     },
     labels: {
@@ -147,10 +146,6 @@ export default defineComponent({
       });
     });
 
-    const displayText = computed(() =>
-      getDisplayText(listItem.value.note, listItem.value.quantity, listItem.value.food, listItem.value.unit)
-    );
-
     /**
      * Gets the label for the shopping list item. Either the label assign to the item
      * or the label of the food applied.
@@ -170,7 +165,6 @@ export default defineComponent({
     });
 
     return {
-      displayText,
       updatedLabels,
       save,
       contextHandler,

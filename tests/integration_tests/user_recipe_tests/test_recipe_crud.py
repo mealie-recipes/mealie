@@ -47,7 +47,7 @@ def get_init(html_path: Path):
 
 
 def open_graph_override(html: str):
-    def get_html(self, url: str) -> str:
+    async def get_html(self, url: str) -> str:
         return html
 
     return get_html
@@ -88,6 +88,16 @@ def test_create_by_url(
 
     assert response.status_code == 201
     assert json.loads(response.text) == recipe_data.expected_slug
+
+    recipe = api_client.get(api_routes.recipes_slug(recipe_data.expected_slug), headers=unique_user.token)
+
+    assert recipe.status_code == 200
+
+    recipe_dict: dict = json.loads(recipe.text)
+
+    assert recipe_dict["slug"] == recipe_data.expected_slug
+    assert len(recipe_dict["recipeInstructions"]) == recipe_data.num_steps
+    assert len(recipe_dict["recipeIngredient"]) == recipe_data.num_ingredients
 
 
 def test_create_by_url_with_tags(

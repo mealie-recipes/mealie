@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from math import ceil
-from typing import Any, Generic, TypeVar
+from typing import Any, Generic, Iterable, TypeVar
 
 from fastapi import HTTPException
 from pydantic import UUID4, BaseModel
@@ -11,7 +11,11 @@ from sqlalchemy.orm.session import Session
 from sqlalchemy.sql import sqltypes
 
 from mealie.core.root_logger import get_logger
-from mealie.schema.response.pagination import OrderDirection, PaginationBase, PaginationQuery
+from mealie.schema.response.pagination import (
+    OrderDirection,
+    PaginationBase,
+    PaginationQuery,
+)
 from mealie.schema.response.query_filter import QueryFilter
 
 Schema = TypeVar("Schema", bound=BaseModel)
@@ -158,7 +162,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
         return self.schema.from_orm(new_document)
 
-    def create_many(self, data: list[Schema | dict]) -> list[Schema]:
+    def create_many(self, data: Iterable[Schema | dict]) -> list[Schema]:
         new_documents = []
         for document in data:
             document = document if isinstance(document, dict) else document.dict()
@@ -167,7 +171,9 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
         self.session.add_all(new_documents)
         self.session.commit()
-        self.session.refresh(new_documents)
+
+        for created_document in new_documents:
+            self.session.refresh(created_document)
 
         return [self.schema.from_orm(x) for x in new_documents]
 
@@ -188,6 +194,23 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
         self.session.commit()
         return self.schema.from_orm(entry)
+
+    def update_many(self, data: Iterable[Schema | dict]) -> list[Schema]:
+        document_data_by_id: dict[str, dict] = {}
+        for document in data:
+            document_data = document if isinstance(document, dict) else document.dict()
+            document_data_by_id[document_data["id"]] = document_data
+
+        documents_to_update = self._query().filter(self.model.id.in_(list(document_data_by_id.keys())))  # type: ignore
+
+        updated_documents = []
+        for document_to_update in documents_to_update:
+            data = document_data_by_id[document_to_update.id]  # type: ignore
+            document_to_update.update(session=self.session, **data)  # type: ignore
+            updated_documents.append(document_to_update)
+
+        self.session.commit()
+        return [self.schema.from_orm(x) for x in updated_documents]
 
     def patch(self, match_value: str | int | UUID4, new_data: dict | BaseModel) -> Schema:
         new_data = new_data if isinstance(new_data, dict) else new_data.dict()
@@ -213,6 +236,23 @@ class RepositoryGeneric(Generic[Schema, Model]):
             raise e
 
         return results_as_model
+
+    def delete_many(self, values: Iterable) -> Schema:
+        results = self._query().filter(self.model.id.in_(values))  # type: ignore
+        results_as_model = [self.schema.from_orm(result) for result in results]
+
+        try:
+            # we create a delete statement for each row
+            # we don't delete the whole query in one statement because postgres doesn't cascade correctly
+            for result in results:
+                self.session.delete(result)
+
+            self.session.commit()
+        except Exception as e:
+            self.session.rollback()
+            raise e
+
+        return results_as_model  # type: ignore
 
     def delete_all(self) -> None:
         self._query().delete()

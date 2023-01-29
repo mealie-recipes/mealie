@@ -5,6 +5,17 @@
     "recipe": {
         "unique-name-error": "Ime recepta mora biti unikatno"
     },
+    "mealplan": {
+        "no-recipes-match-your-rules": "No recipes match your rules"
+    },
+    "user": {
+        "user-updated": "User updated",
+        "password-updated": "Password updated",
+        "invalid-current-password": "Invalid current password"
+    },
+    "group": {
+        "report-deleted": "Report deleted."
+    },
     "exceptions": {
         "permission_denied": "Nimate dovoljenja za izvedbo zahtevanega dejanja",
         "no-entry-found": "Zahtevanega vira ni moč najti",

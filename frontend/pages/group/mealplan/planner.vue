@@ -35,25 +35,25 @@
           <v-date-picker v-model="newMeal.date" :first-day-of-week="firstDayOfWeek" no-title @input="pickerMenu = false"></v-date-picker>
         </v-menu>
         <v-card-text>
-          <v-select v-model="newMeal.entryType" :return-object="false" :items="planTypeOptions" label="Entry Type">
+          <v-select v-model="newMeal.entryType" :return-object="false" :items="planTypeOptions" :label="$t('recipe.entry-type')">
           </v-select>
 
           <v-autocomplete
             v-if="!dialog.note"
             v-model="newMeal.recipeId"
-            label="Meal Recipe"
+            :label="$t('meal-plan.meal-recipe')"
             :items="allRecipes"
             item-text="name"
             item-value="id"
             :return-object="false"
           ></v-autocomplete>
           <template v-else>
-            <v-text-field v-model="newMeal.title" label="Meal Title"> </v-text-field>
-            <v-textarea v-model="newMeal.text" rows="2" label="Meal Note"> </v-textarea>
+            <v-text-field v-model="newMeal.title" :label="$t('meal-plan.meal-title')"> </v-text-field>
+            <v-textarea v-model="newMeal.text" rows="2" :label="$t('meal-plan.meal-note')"> </v-textarea>
           </template>
         </v-card-text>
         <v-card-actions class="my-0 py-0">
-          <v-switch v-model="dialog.note" class="mt-n3" label="Note Only"></v-switch>
+          <v-switch v-model="dialog.note" class="mt-n3" :label="$t('meal-plan.note-only')"></v-switch>
         </v-card-actions>
       </v-card-text>
     </BaseDialog>
@@ -71,8 +71,8 @@
       </div>
     </div>
     <div class="d-flex align-center justify-space-between">
-      <v-switch v-model="edit" label="Editor"></v-switch>
-      <ButtonLink :icon="$globals.icons.calendar" to="/group/mealplan/settings" text="Settings" />
+      <v-switch v-model="edit" :label="$t('meal-plan.editor')"></v-switch>
+      <ButtonLink :icon="$globals.icons.calendar" to="/group/mealplan/settings" :text="$tc('general.settings')" />
     </div>
     <v-row class="">
       <v-col
@@ -174,7 +174,7 @@
               :buttons="[
                 {
                   icon: $globals.icons.diceMultiple,
-                  text: 'Random Meal',
+                  text: $tc('meal-plan.random-meal'),
                   event: 'random',
                   children: [
                     {
@@ -185,19 +185,19 @@
 
                     {
                       icon: $globals.icons.diceMultiple,
-                      text: 'Lunch',
+                      text: $tc('meal-plan.lunch'),
                       event: 'randomLunch',
                     },
                   ],
                 },
                 {
                   icon: $globals.icons.potSteam,
-                  text: 'Random Dinner',
+                  text: $tc('meal-plan.random-dinner'),
                   event: 'randomDinner',
                 },
                 {
                   icon: $globals.icons.bowlMixOutline,
-                  text: 'Random Side',
+                  text: $tc('meal-plan.random-side'),
                   event: 'randomSide',
                 },
                 {

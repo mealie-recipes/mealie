@@ -7,7 +7,7 @@
       item-type="tools"
       @delete="actions.deleteOne"
     >
-      <template #title> Tools </template>
+      <template #title> {{ $t('tool.tools') }} </template>
     </RecipeOrganizerPage>
   </v-container>
 </template>
@@ -31,8 +31,10 @@ export default defineComponent({
       actions: toolStore.actions,
     };
   },
-  head: {
-    title: "Tools",
+  head() {
+    return {
+      title: this.$tc("tool.tools"),
+    };
   },
 });
 </script>

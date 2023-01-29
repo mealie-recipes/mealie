@@ -31,20 +31,20 @@ def _scheduled_task_wrapper(callable):
 
 @repeat_every(minutes=MINUTES_DAY, wait_first=True, logger=logger)
 def run_daily():
-    logger.info("Running daily callbacks")
+    logger.debug("Running daily callbacks")
     for func in SchedulerRegistry._daily:
         _scheduled_task_wrapper(func)
 
 
 @repeat_every(minutes=MINUTES_HOUR, wait_first=True, logger=logger)
 def run_hourly():
-    logger.info("Running hourly callbacks")
+    logger.debug("Running hourly callbacks")
     for func in SchedulerRegistry._hourly:
         _scheduled_task_wrapper(func)
 
 
 @repeat_every(minutes=MINUTES_5, wait_first=True, logger=logger)
 def run_minutely():
-    logger.info("Running minutely callbacks")
+    logger.debug("Running minutely callbacks")
     for func in SchedulerRegistry._minutely:
         _scheduled_task_wrapper(func)
