@@ -1,5 +1,9 @@
 {
-  "cSpell.enableFiletypes": ["!javascript", "!python", "!yaml"],
+  "cSpell.enableFiletypes": [
+    "!javascript",
+    "!python",
+    "!yaml"
+  ],
   "cSpell.words": [
     "chowdown",
     "compression",
@@ -14,7 +18,9 @@
     "source.organizeImports": false
   },
   "editor.formatOnSave": true,
-  "eslint.workingDirectories": ["./frontend"],
+  "eslint.workingDirectories": [
+    "./frontend"
+  ],
   "files.exclude": {
     "**/__pycache__": true,
     "**/.DS_Store": true,
@@ -23,24 +29,39 @@
     "**/.svn": true,
     "**/CVS": true
   },
-  "i18n-ally.enabledFrameworks": ["vue"],
+  "i18n-ally.enabledFrameworks": [
+    "vue"
+  ],
   "i18n-ally.keystyle": "nested",
   "i18n-ally.localesPaths": "frontend/lang/messages",
   "i18n-ally.sourceLanguage": "en-US",
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
   "python.formatting.provider": "black",
   "python.linting.enabled": true,
   "python.linting.flake8Enabled": false,
   "python.linting.pylintEnabled": false,
-  "python.linting.pylintArgs": ["--rcfile=${workspaceFolder}/.pylintrc"],
+  "python.linting.pylintArgs": [
+    "--rcfile=${workspaceFolder}/.pylintrc"
+  ],
   "python.testing.autoTestDiscoverOnSaveEnabled": false,
-  "python.testing.pytestArgs": ["tests"],
+  "python.testing.pytestArgs": [
+    "tests"
+  ],
   "python.testing.pytestEnabled": true,
   "python.testing.unittestEnabled": false,
   "python.analysis.typeCheckingMode": "off",
   "python.linting.mypyEnabled": true,
-  "isort.path": ["${workspaceFolder}/.venv/bin/isort"],
+  "isort.path": [
+    "${workspaceFolder}/.venv/bin/isort"
+  ],
   "search.mode": "reuseEditor",
-  "python.testing.unittestArgs": ["-v", "-s", "./tests", "-p", "test_*.py"],
+  "python.testing.unittestArgs": [
+    "-v",
+    "-s",
+    "./tests",
+    "-p",
+    "test_*.py"
+  ],
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {
     "package.json": "package-lock.json, yarn.lock, .eslintrc.js, tsconfig.json, .prettierrc, .editorconfig",
