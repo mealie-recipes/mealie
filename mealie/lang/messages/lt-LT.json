@@ -5,6 +5,17 @@
     "recipe": {
         "unique-name-error": "Receptų pavadinimai turi būti unikalūs"
     },
+    "mealplan": {
+        "no-recipes-match-your-rules": "No recipes match your rules"
+    },
+    "user": {
+        "user-updated": "User updated",
+        "password-updated": "Password updated",
+        "invalid-current-password": "Invalid current password"
+    },
+    "group": {
+        "report-deleted": "Report deleted."
+    },
     "exceptions": {
         "permission_denied": "Neturite leidimo atlikti šį veiksmą",
         "no-entry-found": "The requested resource was not found",
