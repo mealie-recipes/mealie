@@ -265,7 +265,7 @@
 <script lang="ts">
 import { computed, defineComponent, reactive, toRefs, watch } from "@nuxtjs/composition-api";
 import { isSameDay, addDays, subDays, parseISO, format } from "date-fns";
-import { SortableEvent } from "sortablejs"; // eslint-disable-line
+import { SortableEvent } from "sortablejs";
 import draggable from "vuedraggable";
 import { useMealplans, planTypeOptions } from "~/composables/use-group-mealplan";
 import { useRecipes, allRecipes } from "~/composables/recipes";

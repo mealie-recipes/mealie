@@ -455,10 +455,8 @@ export default defineComponent({
             correctedRect.startY - state.imagePosition.dy < element.top * state.imagePosition.scale &&
             correctedRect.startX - state.imagePosition.dx < element.left * state.imagePosition.scale &&
             correctedRect.startX + correctedRect.w >
-              // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
               (element.left + element.width) * state.imagePosition.scale + state.imagePosition.dx &&
             correctedRect.startY + correctedRect.h >
-              // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
               (element.top + element.height) * state.imagePosition.scale + state.imagePosition.dy
         )
         .map((element, index, array) => {
@@ -470,7 +468,6 @@ export default defineComponent({
           ) {
             separator = "\n";
           }
-          // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
           return element.text + separator;
         })
         .join("");

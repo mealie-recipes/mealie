@@ -1,9 +1,9 @@
 import { computed, Ref, ref, useContext } from "@nuxtjs/composition-api";
+import VueI18n from "vue-i18n";
 import { scorePassword } from "~/lib/validators";
 
 export function usePasswordField() {
   const show = ref(false);
-
   const { $globals } = useContext();
 
   const passwordIcon = computed(() => {
@@ -22,14 +22,8 @@ export function usePasswordField() {
   };
 }
 
-export const usePasswordStrength = (password: Ref<string>) => {
-  const { i18n } = useContext();
-
-  const score = computed(() => {
-    return scorePassword(password.value);
-  });
-
-
+export const usePasswordStrength = (password: Ref<string>, i18n: VueI18n) => {
+  const score = computed(() => scorePassword(password.value));
   const strength = computed(() => {
     if (score.value < 50) {
       return i18n.tc("user.password-strength-values.weak");
