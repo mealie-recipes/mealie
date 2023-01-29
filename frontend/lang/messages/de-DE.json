@@ -166,15 +166,15 @@
     "color": "Farbe",
     "timestamp": "Zeitstempel",
     "last-made": "Zuletzt gemacht",
-    "learn-more": "Learn More",
-    "this-feature-is-currently-inactive": "This feature is currently inactive",
-    "clipboard-not-supported": "Clipboard not supported",
-    "copied-to-clipboard": "Copied to clipboard",
+    "learn-more": "Mehr erfahren",
+    "this-feature-is-currently-inactive": "Dieses Feature ist im Moment deaktiviert",
+    "clipboard-not-supported": "Zwischenablage nicht unterstützt",
+    "copied-to-clipboard": "In die Zwischenablage kopiert",
     "your-browser-does-not-support-clipboard": "Your browser does not support clipboard\")",
     "copied-items-to-clipboard": "No item copied to clipboard|One item copied to clipboard|Copied {count} items to clipboard",
-    "actions": "Actions",
-    "selected-count": "Selected: {count}",
-    "export-all": "Export All"
+    "actions": "Aktionen",
+    "selected-count": "Ausgewählt: {count}",
+    "export-all": "Alle exportieren"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Bist du dir sicher, dass du die Gruppe <b>{groupName}<b/> löschen möchtest?",
@@ -199,7 +199,7 @@
       "keep-my-recipes-private": "Meine Rezepte privat halten",
       "keep-my-recipes-private-description": "Setzt Ihre Gruppe und alle Rezepte standardmäßig privat. Sie können dies später jederzeit ändern."
     },
-    "manage-members": "Manage Members",
+    "manage-members": "Mitglieder verwalten",
     "manage-members-description": "Manage the permissions of the members in your groups. {manage} allows the user to access the data-management page {invite} allows the user to generate invitation links for other users. Group owners cannot change their own permissions.",
     "manage": "Manage",
     "invite": "Invite",
