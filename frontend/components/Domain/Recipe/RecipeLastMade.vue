@@ -95,7 +95,6 @@ export default defineComponent({
     const domMadeThisForm = ref<VForm>();
     const newTimelineEvent = ref<RecipeTimelineEventIn>({
       // @ts-expect-error - TS doesn't like the $auth global user attribute
-      // eslint-disable-next-line
       subject: i18n.t("recipe.user-made-this", { user: $auth.user.fullName } as string),
       eventType: "comment",
       eventMessage: "",

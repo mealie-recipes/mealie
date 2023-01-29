@@ -86,7 +86,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useAsync, useContext } from "@nuxtjs/composition-api";
+import { defineComponent, ref, useAsync } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 import { PlanRulesCreate, PlanRulesOut } from "~/lib/api/types/meal-plan";
 import GroupMealPlanRuleForm from "~/components/Domain/Group/GroupMealPlanRuleForm.vue";
