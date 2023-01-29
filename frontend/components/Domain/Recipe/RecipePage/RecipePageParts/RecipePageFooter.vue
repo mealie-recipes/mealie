@@ -25,12 +25,10 @@
     </v-card-actions>
     <AdvancedOnly>
       <v-card v-if="isEditForm" flat class="ma-2 mb-2">
-        <v-card-title> API Extras </v-card-title>
+        <v-card-title> {{ $t('recipe.api-extras') }} </v-card-title>
         <v-divider class="mx-2"></v-divider>
         <v-card-text>
-          Recipes extras are a key feature of the Mealie API. They allow you to create custom json key/value pairs
-          within a recipe to reference from 3rd part applications. You can use these keys to contain information to
-          trigger automation or custom messages to relay to your desired device.
+          {{ $t('recipe.api-extras-description') }}
           <v-row v-for="(_, key) in recipe.extras" :key="key" class="mt-1">
             <v-col cols="8">
               <v-text-field v-model="recipe.extras[key]" dense :label="key">
@@ -45,7 +43,7 @@
         </v-card-text>
         <v-card-actions class="d-flex">
           <div style="max-width: 200px">
-            <v-text-field v-model="apiNewKey" label="Message Key"></v-text-field>
+            <v-text-field v-model="apiNewKey" :label="$t('recipe.message-key')"></v-text-field>
           </div>
           <BaseButton create small class="ml-5" @click="createApiExtra" />
         </v-card-actions>

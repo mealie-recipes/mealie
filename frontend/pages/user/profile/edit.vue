@@ -31,7 +31,7 @@
         <template #default="{ state }">
           <v-slide-x-transition leave-absolute hide-on-leave>
             <div v-if="!state" key="personal-info">
-              <BaseCardSectionTitle class="mt-10" title="Personal Information"> </BaseCardSectionTitle>
+              <BaseCardSectionTitle class="mt-10" :title="$tc('profile.personal-information')"> </BaseCardSectionTitle>
               <v-card tag="article" outlined>
                 <v-card-text class="pb-0">
                   <v-form ref="userUpdate">
@@ -101,11 +101,11 @@
       </ToggleState>
     </section>
     <section>
-      <BaseCardSectionTitle class="mt-10" title="Preferences"> </BaseCardSectionTitle>
+      <BaseCardSectionTitle class="mt-10" :title="$tc('profile.preferences')"> </BaseCardSectionTitle>
       <v-checkbox
         v-model="userCopy.advanced"
         class="mt-n4"
-        label="Show advanced features (API Keys, Webhooks, and Data Management)"
+        :label="$t('profile.show-advanced-description')"
         @change="updateUser"
       ></v-checkbox>
       <div class="d-flex flex-wrap justify-center mt-5">
@@ -113,9 +113,9 @@
           <v-icon left>
             {{ $globals.icons.backArrow }}
           </v-icon>
-          Back to Profile
+          {{ $t('profile.back-to-profile') }}
         </v-btn>
-        <v-btn outlined class="rounded-xl my-1 mx-1" to="/group"> Looking for Privacy Settings? </v-btn>
+        <v-btn outlined class="rounded-xl my-1 mx-1" to="/group"> {{ $t('profile.looking-for-privacy-settings') }} </v-btn>
       </div>
     </section>
   </v-container>

@@ -7,13 +7,13 @@
     </BaseDialog>
 
     <BaseDialog v-model="deleteDialog" :title="$tc('general.confirm')" color="error" @confirm="deleteOne">
-      <v-card-text> Are you sure you want to delete this item?</v-card-text>
+      <v-card-text>{{ $t('shopping-list.are-you-sure-you-want-to-delete-this-item') }}</v-card-text>
     </BaseDialog>
     <BasePageTitle divider>
       <template #header>
         <v-img max-height="100" max-width="100" :src="require('~/static/svgs/shopping-cart.svg')"></v-img>
       </template>
-      <template #title> Shopping Lists </template>
+      <template #title>{{ $t('shopping-list.shopping-lists') }}</template>
     </BasePageTitle>
     <BaseButton create @click="createDialog = true" />
 
@@ -33,7 +33,7 @@
       </v-card>
     </section>
     <div class="d-flex justify-end mt-10">
-      <ButtonLink to="/group/data/labels" text="Manage Labels" :icon="$globals.icons.tags" />
+      <ButtonLink to="/group/data/labels" :text="$tc('shopping-list.manage-labels')" :icon="$globals.icons.tags" />
     </div>
   </v-container>
 </template>

@@ -30,7 +30,7 @@ class GroupMealplanController(BaseCrudController):
         registered = {
             **mealie_registered_exceptions(self.translator),
         }
-        return registered.get(ex, "An unexpected error occurred.")
+        return registered.get(ex, self.t("generic.server-error"))
 
     @cached_property
     def mixins(self):
@@ -87,7 +87,7 @@ class GroupMealplanController(BaseCrudController):
             )
         except IndexError as e:
             raise HTTPException(
-                status_code=404, detail=ErrorResponse.respond(message="No recipes match your rules")
+                status_code=404, detail=ErrorResponse.respond(message=self.t("mealplan.no-recipes-match-your-rules"))
             ) from e
 
     @router.get("", response_model=PlanEntryPagination)

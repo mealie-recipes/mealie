@@ -5,8 +5,8 @@
         <template #header>
           <v-img max-height="175" max-width="175" :src="require('~/static/svgs/recipes-create.svg')"></v-img>
         </template>
-        <template #title> Recipe Creation </template>
-        Select one of the various ways to create a recipe
+        <template #title> {{ $t('recipe.recipe-creation') }} </template>
+        {{ $t('recipe.select-one-of-the-various-ways-to-create-a-recipe') }}
         <template #content>
           <div class="ml-auto">
             <BaseOverflowButton v-model="subpage" rounded :items="subpages"> </BaseOverflowButton>
@@ -20,7 +20,7 @@
 
     <AdvancedOnly>
       <v-container class="d-flex justify-end">
-        <v-btn outlined rounded to="/group/migrations"> Looking For Migrations? </v-btn>
+        <v-btn outlined rounded to="/group/migrations"> {{ $t('recipe.looking-for-migrations') }}</v-btn>
       </v-container>
     </AdvancedOnly>
   </div>
@@ -34,37 +34,37 @@ import AdvancedOnly from "~/components/global/AdvancedOnly.vue";
 export default defineComponent({
   components: { AdvancedOnly },
   setup() {
-    const { $globals } = useContext();
+    const { $globals, i18n } = useContext();
 
     const subpages: MenuItem[] = [
       {
         icon: $globals.icons.link,
-        text: "Import with URL",
+        text: i18n.tc("recipe.import-with-url"),
         value: "url",
       },
       {
         icon: $globals.icons.edit,
-        text: "Create Recipe",
+        text: i18n.tc("recipe.create-recipe"),
         value: "new",
       },
       {
         icon: $globals.icons.zip,
-        text: "Import with .zip",
+        text: i18n.tc("recipe.import-with-zip"),
         value: "zip",
       },
       {
         icon: $globals.icons.fileImage,
-        text: "Create recipe from an image",
+        text: i18n.tc("recipe.create-recipe-from-an-image"),
         value: "ocr",
       },
       {
         icon: $globals.icons.link,
-        text: "Bulk URL Import",
+        text: i18n.tc("recipe.bulk-url-import"),
         value: "bulk",
       },
       {
         icon: $globals.icons.robot,
-        text: "Debug Scraper",
+        text: i18n.tc("recipe.debug-scraper"),
         value: "debug",
       },
     ];

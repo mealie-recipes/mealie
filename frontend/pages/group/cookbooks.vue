@@ -4,10 +4,8 @@
       <template #header>
         <v-img max-height="100" max-width="100" :src="require('~/static/svgs/manage-cookbooks.svg')"></v-img>
       </template>
-      <template #title> Cookbooks </template>
-      Cookbooks are another way to organize recipes by creating cross sections of recipes and tags. Creating a cookbook
-      will add an entry to the side-bar and all the recipes with the tags and categories chosen will be displayed in the
-      cookbook.
+      <template #title> {{ $t('cookbook.cookbooks') }} </template>
+      {{ $t('cookbook.description') }}
     </BasePageTitle>
 
     <BaseButton create @click="actions.createOne()" />
@@ -34,35 +32,34 @@
           </v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-card-text v-if="cookbooks">
-              <v-text-field v-model="cookbooks[index].name" label="Cookbook Name"></v-text-field>
-              <v-textarea v-model="cookbooks[index].description" auto-grow :rows="2" label="Description"></v-textarea>
+              <v-text-field v-model="cookbooks[index].name" :label="$t('cookbook.cookbook-name')"></v-text-field>
+              <v-textarea v-model="cookbooks[index].description" auto-grow :rows="2" :label="$t('recipe.description')"></v-textarea>
               <RecipeOrganizerSelector v-model="cookbooks[index].categories" selector-type="categories" />
               <RecipeOrganizerSelector v-model="cookbooks[index].tags" selector-type="tags" />
               <RecipeOrganizerSelector v-model="cookbooks[index].tools" selector-type="tools" />
               <v-switch v-model="cookbooks[index].public" hide-details single-line>
                 <template #label>
-                  Public Cookbook
+                  {{ $t('cookbook.public-cookbook') }}
                   <HelpIcon small right class="ml-2">
-                    Public Cookbooks can be shared with non-mealie users and will be displayed on your groups page.
+                    {{ $t('cookbook.public-cookbook-description') }}
                   </HelpIcon>
                 </template>
               </v-switch>
               <div class="mt-4">
                 <h3 class="text-subtitle-1 d-flex align-center mb-0 pb-0">
-                  Filter Options
+                  {{ $t('cookbook.filter-options') }}
                   <HelpIcon right small class="ml-2">
-                    When require all is selected the cookbook will only include recipes that have all of the items
-                    selected. This applies to each subset of selectors and not a cross section of the selected items.
+                    {{ $t('cookbook.filter-options-description') }}
                   </HelpIcon>
                 </h3>
                 <v-switch v-model="cookbooks[index].requireAllCategories" class="mt-0" hide-details single-line>
-                  <template #label> Require All Categories </template>
+                  <template #label> {{ $t('cookbook.require-all-categories') }} </template>
                 </v-switch>
                 <v-switch v-model="cookbooks[index].requireAllTags" hide-details single-line>
-                  <template #label> Require All Tags </template>
+                  <template #label> {{ $t('cookbook.require-all-tags') }} </template>
                 </v-switch>
                 <v-switch v-model="cookbooks[index].requireAllTools" hide-details single-line>
-                  <template #label> Require All Tools </template>
+                  <template #label> {{ $t('cookbook.require-all-tools') }} </template>
                 </v-switch>
               </div>
             </v-card-text>

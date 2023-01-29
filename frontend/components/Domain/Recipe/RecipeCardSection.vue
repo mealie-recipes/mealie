@@ -53,7 +53,7 @@
             <v-icon left>
               {{ $globals.icons.chefHat }}
             </v-icon>
-            <v-list-item-title>{{ "Last Made" }}</v-list-item-title>
+            <v-list-item-title>{{ $t('general.last-made') }}</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>

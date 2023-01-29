@@ -3,12 +3,12 @@
     <!-- Export Purge Confirmation Dialog -->
     <BaseDialog
       v-model="purgeExportsDialog"
-      title="Purge Exports"
+      :title="$t('data-pages.recipes.purge-exports')"
       color="error"
       :icon="$globals.icons.alertCircle"
       @confirm="purgeExports()"
     >
-      <v-card-text> Are you sure you want to delete all export data? </v-card-text>
+      <v-card-text> {{ $t('data-pages.recipes.are-you-sure-you-want-to-delete-all-export-data') }} </v-card-text>
     </BaseDialog>
 
     <!-- Base Dialog Object -->
@@ -18,7 +18,7 @@
       width="650px"
       :icon="dialog.icon"
       :title="dialog.title"
-      submit-text="Submit"
+      :submit-text="$t('general.submit')"
       @submit="dialog.callback"
     >
       <v-card-text v-if="dialog.mode == MODES.tag">
@@ -28,7 +28,7 @@
         <RecipeOrganizerSelector v-model="toSetCategories" selector-type="categories" />
       </v-card-text>
       <v-card-text v-else-if="dialog.mode == MODES.delete">
-        <p class="h4">Are you sure you want to delete the following recipes? This action cannot be undone.</p>
+        <p class="h4">{{ $t('data-pages.recipes.confirm-delete-recipes') }}</p>
         <v-card outlined>
           <v-virtual-scroll height="400" item-height="25" :items="selected">
             <template #default="{ item }">
@@ -42,7 +42,7 @@
         </v-card>
       </v-card-text>
       <v-card-text v-else-if="dialog.mode == MODES.export">
-        <p class="h4">The following recipes ({{ selected.length }}) will be exported.</p>
+        <p class="h4">{{ $t('data-pages.recipes.the-following-recipes-selected-length-will-be-exported', [selected.length]) }}</p>
         <v-card outlined>
           <v-virtual-scroll height="400" item-height="25" :items="selected">
             <template #default="{ item }">
@@ -56,20 +56,19 @@
         </v-card>
       </v-card-text>
       <v-card-text v-else-if="dialog.mode == MODES.updateSettings" class="px-12">
-        <p>Settings chosen here, excluding the locked option, will be applied to all selected recipes.</p>
+        <p>{{ $t('data-pages.recipes.settings-chosen-explanation') }}</p>
         <div class="mx-auto">
           <RecipeSettingsSwitches v-model="recipeSettings" />
         </div>
         <p class="text-center mb-0">
-          <i>{{ selected.length }} recipe(s) settings will be updated.</i>
+          <i>{{ $t('data-pages.recipes.selected-length-recipe-s-settings-will-be-updated', [selected.length]) }}</i>
         </p>
       </v-card-text>
     </BaseDialog>
     <section>
       <!-- Recipe Data Table -->
-      <BaseCardSectionTitle :icon="$globals.icons.primary" title="Recipe Data">
-        Use this section to manage the data associated with your recipes. You can perform several bulk actions on your
-        recipes including exporting, deleting, tagging, and assigning categories.
+      <BaseCardSectionTitle :icon="$globals.icons.primary" :title="$tc('data-pages.recipes.recipe-data')">
+        {{ $t('data-pages.recipes.recipe-data-description') }}
       </BaseCardSectionTitle>
       <v-card-actions class="mt-n5 mb-1">
         <v-menu offset-y bottom nudge-bottom="6" :close-on-content-click="false">
@@ -78,12 +77,12 @@
               <v-icon left>
                 {{ $globals.icons.cog }}
               </v-icon>
-              Columns
+              {{ $t('data-pages.columns') }}
             </v-btn>
           </template>
           <v-card>
             <v-card-title class="py-2">
-              <div>Recipe Columns</div>
+              <div>{{ $t('data-pages.recipes.recipe-columns') }}</div>
             </v-card-title>
             <v-divider class="mx-2"></v-divider>
             <v-card-text class="mt-n5">
@@ -113,7 +112,7 @@
         >
         </BaseOverflowButton>
 
-        <p v-if="selected.length > 0" class="text-caption my-auto ml-5">Selected: {{ selected.length }}</p>
+        <p v-if="selected.length > 0" class="text-caption my-auto ml-5">{{ $tc('general.selected-count', selected.length) }}</p>
       </v-card-actions>
       <v-card>
         <RecipeDataTable v-model="selected" :loading="loading" :recipes="allRecipes" :show-headers="headers" />
@@ -134,7 +133,7 @@
             <template #icon>
               {{ $globals.icons.database }}
             </template>
-            Export All
+            {{ $t('general.export-all') }}
           </BaseButton>
         </v-card-actions>
       </v-card>
@@ -142,9 +141,8 @@
 
     <section class="mt-10">
       <!-- Downloads Data Table -->
-      <BaseCardSectionTitle :icon="$globals.icons.database" section title="Data Exports">
-        This section provides links to available exports that are ready to download. These exports do expire, so be sure
-        to grab them while they're still available.
+      <BaseCardSectionTitle :icon="$globals.icons.database" section :title="$tc('data-pages.recipes.data-exports')">
+        {{ $t('data-pages.recipes.data-exports-description') }}
       </BaseCardSectionTitle>
       <v-card-actions class="mt-n5 mb-1">
         <BaseButton delete @click="purgeExportsDialog = true"> </BaseButton>
@@ -182,7 +180,7 @@ export default defineComponent({
   setup() {
     const { getAllRecipes, refreshRecipes } = useRecipes(true, true);
 
-    const { $globals } = useContext();
+    const { $globals, i18n } = useContext();
 
     const selected = ref<Recipe[]>([]);
 
@@ -204,39 +202,39 @@ export default defineComponent({
     });
 
     const headerLabels = {
-      id: "Id",
-      owner: "Owner",
-      tags: "Tags",
-      categories: "Categories",
-      tools: "Tools",
-      recipeYield: "Recipe Yield",
-      dateAdded: "Date Added",
+      id: i18n.t("general.id"),
+      owner: i18n.t("general.owner"),
+      tags: i18n.t("tag.tags"),
+      categories: i18n.t("recipe.categories"),
+      tools: i18n.t("tool.tools"),
+      recipeYield: i18n.t("recipe.recipe-yield"),
+      dateAdded: i18n.t("general.date-added"),
     };
 
     const actions: MenuItem[] = [
       {
         icon: $globals.icons.database,
-        text: "Export",
+        text: i18n.tc("export.export"),
         event: "export-selected",
       },
       {
         icon: $globals.icons.tags,
-        text: "Tag",
+        text: i18n.tc("data-pages.recipes.tag"),
         event: "tag-selected",
       },
       {
         icon: $globals.icons.tags,
-        text: "Categorize",
+        text: i18n.tc("data-pages.recipes.categorize"),
         event: "categorize-selected",
       },
       {
         icon: $globals.icons.cog,
-        text: "Update Settings",
+        text: i18n.tc("data-pages.recipes.update-settings"),
         event: "update-settings",
       },
       {
         icon: $globals.icons.delete,
-        text: "Delete",
+        text: i18n.tc("general.delete"),
         event: "delete-selected",
       },
     ];
@@ -352,7 +350,7 @@ export default defineComponent({
 
     const dialog = reactive({
       state: false,
-      title: "Tag Recipes",
+      title: i18n.t("data-pages.recipes.tag-recipes"),
       mode: MODES.tag,
       tag: "",
       callback: () => {
@@ -364,11 +362,11 @@ export default defineComponent({
 
     function openDialog(mode: MODES) {
       const titles: Record<MODES, string> = {
-        [MODES.tag]: "Tag Recipes",
-        [MODES.category]: "Categorize Recipes",
-        [MODES.export]: "Export Recipes",
-        [MODES.delete]: "Delete Recipes",
-        [MODES.updateSettings]: "Update Settings",
+        [MODES.tag]: i18n.tc("data-pages.recipes.tag-recipes"),
+        [MODES.category]: i18n.tc("data-pages.recipes.categorize-recipes"),
+        [MODES.export]: i18n.tc("data-pages.recipes.export-recipes"),
+        [MODES.delete]: i18n.tc("data-pages.recipes.delete-recipes"),
+        [MODES.updateSettings]: i18n.tc("data-pages.recipes.update-settings"),
       };
 
       const callbacks: Record<MODES, () => Promise<void>> = {
@@ -420,7 +418,7 @@ export default defineComponent({
   },
   head() {
     return {
-      title: "Recipe Data",
+      title: this.$tc("data-pages.recipes.recipe-data"),
     };
   },
 });
