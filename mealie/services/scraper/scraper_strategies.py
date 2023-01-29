@@ -213,7 +213,7 @@ class RecipeScraperOpenGraph(ABCScraperStrategy):
     """
 
     async def get_html(self, url: str) -> str:
-        return await safe_scrape_html(self.url)
+        return await safe_scrape_html(url)
 
     def get_recipe_fields(self, html) -> dict | None:
         """
