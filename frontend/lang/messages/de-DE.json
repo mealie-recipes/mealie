@@ -22,7 +22,7 @@
     "support": "Unterstützen",
     "version": "Version",
     "unknown-version": "unbekannt",
-    "sponsor": "Sponsor"
+    "sponsor": "Unterstützen"
   },
   "asset": {
     "assets": "Anhänge",
@@ -212,10 +212,10 @@
     "show-nutrition-information": "Nährwerte anzeigen",
     "show-recipe-assets": "Rezept-Anhänge anzeigen",
     "default-to-landscape-view": "Querformat voreingestellt",
-    "disable-users-from-commenting-on-recipes": "Disable users from commenting on recipes",
-    "disable-organizing-recipe-ingredients-by-units-and-food": "Disable organizing recipe ingredients by units and food",
+    "disable-users-from-commenting-on-recipes": "Kommentieren von Rezepten deaktivieren",
+    "disable-organizing-recipe-ingredients-by-units-and-food": "Getrennte Eingabe von Menge und Einheiten in der Zutatenliste deaktivieren",
     "general-preferences": "Allgemeine Einstellungen",
-    "group-recipe-preferences": "Group Recipe Preferences",
+    "group-recipe-preferences": "Gruppen-Rezept-Einstellungen",
     "report": "Report"
   },
   "meal-plan": {
@@ -252,8 +252,8 @@
     "dinner": "Abendessen",
     "type-any": "Alle",
     "day-any": "Alle",
-    "editor": "Editor",
-    "meal-recipe": "Meal Recipe",
+    "editor": "Bearbeiten",
+    "meal-recipe": "Gericht",
     "meal-title": "Gericht",
     "meal-note": "Anmerkung zum Gericht",
     "note-only": "Nur Notiz",
@@ -429,8 +429,8 @@
     "api-extras-description": "Rezepte-Extras sind ein Hauptmerkmal der Mealie API. Sie ermöglichen es dir, benutzerdefinierte JSON Schlüssel/Wert-Paare zu einem Rezept zu erstellen, um Anwendungen von Drittanbietern zu steuern. Du kannst diese Schlüssel dazu verwenden, Automatisierungen auszulösen oder benutzerdefinierte Nachrichten an deine gewünschten Geräte zu senden.",
     "message-key": "Nachrichten-Schlüssel",
     "parse": "Parse",
-    "attach-images-hint": "Attach images by dragging & dropping them into the editor",
-    "enable-ingredient-amounts-to-use-this-feature": "Enable ingredient amounts to use this feature",
+    "attach-images-hint": "Bilder durch Ziehen & Ablegen in den Editor hinzufügen",
+    "enable-ingredient-amounts-to-use-this-feature": "Aktiviere Zutatenmengen, um diese Funktion zu nutzen",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Recipes with units or foods defined cannot be parsed.",
     "parse-ingredients": "Parse ingredients",
     "edit-markdown": "Markdown bearbeiten",
