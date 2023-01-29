@@ -147,6 +147,10 @@
                               event: 'merge-above',
                             },
                             {
+                              text: 'Upload image',
+                              event: 'upload-image'
+                            },
+                            {
                               icon: previewStates[index] ? $globals.icons.edit : $globals.icons.eye,
                               text: previewStates[index] ? 'Edit Markdown' : 'Preview Markdown',
                               event: 'preview-step',
@@ -158,6 +162,7 @@
                       @toggle-section="toggleShowTitle(step.id)"
                       @link-ingredients="openDialog(index, step.text, step.ingredientReferences)"
                       @preview-step="togglePreviewState(index)"
+                      @upload-image="openImageUpload(index)"
                       @delete="value.splice(index, 1)"
                     />
                   </div>
@@ -168,6 +173,8 @@
                   </v-icon>
                 </v-fade-transition>
               </v-card-title>
+
+              <v-progress-linear v-if="isEditForm && loadingStates[index]" :active="true" :indeterminate="true" />
 
               <!-- Content -->
               <DropZone @drop="(f) => handleImageDrop(index, f)">
@@ -548,6 +555,8 @@ export default defineComponent({
       }
     });
 
+    const loadingStates = ref<{ [key: number]: boolean }>({});
+
     async function handleImageDrop(index: number, files: File[]) {
       if (!files) {
         return;
@@ -559,12 +568,16 @@ export default defineComponent({
         return;
       }
 
+      loadingStates.value[index] = true;
+
       const { data } = await api.recipes.createAsset(props.recipe.slug, {
         name: file.name,
         icon: "mdi-file-image",
         file,
         extension: file.name.split(".").pop() || "",
       });
+
+      loadingStates.value[index] = false;
 
       if (!data) {
         return; // TODO: Handle error
@@ -576,11 +589,26 @@ export default defineComponent({
       props.value[index].text += text;
     }
 
+    function openImageUpload(index: number) {
+      const input = document.createElement("input");
+      input.type = "file";
+      input.accept = "image/*";
+      input.onchange = async () => {
+        if (input.files) {
+          await handleImageDrop(index, Array.from(input.files));
+          input.remove();
+        }
+      };
+      input.click();
+    }
+
     return {
       // Image Uploader
       toggleDragMode,
       handleImageDrop,
       imageUploadMode,
+      openImageUpload,
+      loadingStates,
 
       // Rest
       drag,
