@@ -5,6 +5,17 @@
     "recipe": {
         "unique-name-error": "Opskriftsnavnet er allerede i brug"
     },
+    "mealplan": {
+        "no-recipes-match-your-rules": "No recipes match your rules"
+    },
+    "user": {
+        "user-updated": "User updated",
+        "password-updated": "Password updated",
+        "invalid-current-password": "Invalid current password"
+    },
+    "group": {
+        "report-deleted": "Report deleted."
+    },
     "exceptions": {
         "permission_denied": "Du har ikke tilladelse til at udføre denne handling",
         "no-entry-found": "Siden kunne ikke findes",
