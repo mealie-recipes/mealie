@@ -53,7 +53,7 @@ def get_logger_config():
         format="%(levelname)s: %(asctime)s \t%(message)s",
         date_format="%d-%b-%y %H:%M:%S",
         logger_file=LOGGER_FILE,
-        log_level=log_level,
+        level=log_level,
     )
 
 
