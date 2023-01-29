@@ -1,7 +1,9 @@
+from asyncio import gather
+
 from pydantic import UUID4
 
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.recipe.recipe import CreateRecipeByUrlBulk
+from mealie.schema.recipe.recipe import CreateRecipeByUrlBulk, Recipe
 from mealie.schema.reports.reports import ReportCategory, ReportCreate, ReportEntryCreate, ReportSummaryStatus
 from mealie.schema.user.user import GroupInDB
 from mealie.services._base_service import BaseService
@@ -65,18 +67,24 @@ class RecipeBulkScraperService(BaseService):
 
         self.repos.group_reports.update(self.report.id, self.report)
 
-    def scrape(self, urls: CreateRecipeByUrlBulk) -> None:
-        if self.report is None:
-            self.get_report_id()
-
-        for b in urls.imports:
-
+    async def scrape(self, urls: CreateRecipeByUrlBulk) -> None:
+        async def _do(url: str) -> Recipe | None:
             try:
-                recipe, _ = create_from_url(b.url)
+                recipe, _ = await create_from_url(url)
+                return recipe
             except Exception as e:
                 self.service.logger.error(f"failed to scrape url during bulk url import {b.url}")
                 self.service.logger.exception(e)
-                self._add_error_entry(f"failed to scrape url {b.url}", str(e))
+                self._add_error_entry(f"failed to scrape url {url}", str(e))
+                return None
+
+        if self.report is None:
+            self.get_report_id()
+        tasks = [_do(b.url) for b in urls.imports]
+        results = await gather(*tasks)
+        for b, recipe in zip(urls.imports, results, strict=True):
+
+            if not recipe:
                 continue
 
             if b.tags:

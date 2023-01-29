@@ -16,8 +16,9 @@ and then use this test case by removing the `@pytest.mark.skip` and than testing
 
 @pytest.mark.skipif(True, reason="Long Running API Test - manually run when updating the parser")
 @pytest.mark.parametrize("recipe_test_data", test_cases)
-def test_recipe_parser(recipe_test_data: RecipeSiteTestCase):
-    recipe, _ = scraper.create_from_url(recipe_test_data.url)
+@pytest.mark.asyncio
+async def test_recipe_parser(recipe_test_data: RecipeSiteTestCase):
+    recipe, _ = await scraper.create_from_url(recipe_test_data.url)
 
     assert recipe.slug == recipe_test_data.expected_slug
     assert len(recipe.recipe_instructions) == recipe_test_data.num_steps

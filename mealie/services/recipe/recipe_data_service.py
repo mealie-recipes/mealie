@@ -1,9 +1,8 @@
 import asyncio
 import shutil
-from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
-import requests
+from httpx import AsyncClient, Response
 from pydantic import UUID4
 
 from mealie.pkgs import img
@@ -13,29 +12,32 @@ from mealie.services._base_service import BaseService
 _FIREFOX_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0"
 
 
+async def gather_with_concurrency(n, *coros):
+    semaphore = asyncio.Semaphore(n)
+
+    async def sem_coro(coro):
+        async with semaphore:
+            return await coro
+
+    return await asyncio.gather(*(sem_coro(c) for c in coros))
+
+
 async def largest_content_len(urls: list[str]) -> tuple[str, int]:
     largest_url = ""
     largest_len = 0
 
-    def do(session: requests.Session, url: str):
-        def _do() -> requests.Response:
-            return session.head(url, headers={"User-Agent": _FIREFOX_UA})
+    async def do(client: AsyncClient, url: str) -> Response:
+        return await client.head(url, headers={"User-Agent": _FIREFOX_UA})
 
-        return _do
+    async with AsyncClient() as client:
+        tasks = [do(client, url) for url in urls]
+        responses: list[Response] = await gather_with_concurrency(10, *tasks)
+        for response in responses:
 
-    with ThreadPoolExecutor(max_workers=10) as executor:
-        with requests.Session() as session:
-            loop = asyncio.get_event_loop()
-
-            tasks = [loop.run_in_executor(executor, do(session, url)) for url in urls]
-
-            response: requests.Response  # required for type hinting within the loop
-            for response in await asyncio.gather(*tasks):
-
-                len_int = int(response.headers.get("Content-Length", 0))
-                if len_int > largest_len:
-                    largest_url = response.url
-                    largest_len = len_int
+            len_int = int(response.headers.get("Content-Length", 0))
+            if len_int > largest_len:
+                largest_url = str(response.url)
+                largest_len = len_int
 
     return largest_url, largest_len
 
@@ -107,8 +109,8 @@ class RecipeDataService(BaseService):
 
         return True
 
-    def scrape_image(self, image_url) -> None:
-        self.logger.debug(f"Image URL: {image_url}")
+    async def scrape_image(self, image_url) -> None:
+        self.logger.info(f"Image URL: {image_url}")
 
         if not self._validate_image_url(image_url):
             self.logger.error(f"Invalid image URL: {image_url}")
@@ -121,15 +123,7 @@ class RecipeDataService(BaseService):
             # Multiple images have been defined in the schema - usually different resolutions
             # Typically would be in smallest->biggest order, but can't be certain so test each.
             # 'Google will pick the best image to display in Search results based on the aspect ratio and resolution.'
-
-            # TODO: We should refactor the scraper to use a async session provided by FastAPI using a sync
-            # route instead of bootstrapping async behavior this far down the chain. Will require some work
-            # so leaving this improvement here for now.
-            loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(loop)
-            future = asyncio.ensure_future(largest_content_len(image_url))
-            loop.run_until_complete(future)
-            image_url, _ = future.result()
+            image_url, _ = await largest_content_len(image_url)
 
         elif isinstance(image_url, dict):  # Handles Dictionary Types
             for key in image_url:
@@ -144,25 +138,25 @@ class RecipeDataService(BaseService):
         file_name = f"{str(self.recipe_id)}.{ext}"
         file_path = Recipe.directory_from_id(self.recipe_id).joinpath("images", file_name)
 
-        try:
-            r = requests.get(image_url, stream=True, headers={"User-Agent": _FIREFOX_UA})
-        except Exception:
-            self.logger.exception("Fatal Image Request Exception")
-            return None
+        async with AsyncClient() as client:
+            try:
+                r = await client.get(image_url, headers={"User-Agent": _FIREFOX_UA})
+            except Exception:
+                self.logger.exception("Fatal Image Request Exception")
+                return None
 
-        if r.status_code != 200:
-            # TODO: Probably should throw an exception in this case as well, but before these changes
-            # we were returning None if it failed anyways.
-            return None
+            if r.status_code != 200:
+                # TODO: Probably should throw an exception in this case as well, but before these changes
+                # we were returning None if it failed anyways.
+                return None
 
-        content_type = r.headers.get("content-type", "")
+            content_type = r.headers.get("content-type", "")
 
-        if "image" not in content_type:
-            self.logger.error(f"Content-Type: {content_type} is not an image")
-            raise NotAnImageError(f"Content-Type {content_type} is not an image")
+            if "image" not in content_type:
+                self.logger.error(f"Content-Type: {content_type} is not an image")
+                raise NotAnImageError(f"Content-Type {content_type} is not an image")
 
-        r.raw.decode_content = True
-        self.logger.info(f"File Name Suffix {file_path.suffix}")
-        self.write_image(r.raw, file_path.suffix)
+            self.logger.info(f"File Name Suffix {file_path.suffix}")
+            self.write_image(r.read(), file_path.suffix)
 
-        file_path.unlink(missing_ok=True)
+            file_path.unlink(missing_ok=True)

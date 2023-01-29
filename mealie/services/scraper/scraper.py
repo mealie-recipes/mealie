@@ -19,7 +19,7 @@ class ParserErrors(str, Enum):
     CONNECTION_ERROR = "CONNECTION_ERROR"
 
 
-def create_from_url(url: str) -> tuple[Recipe, ScrapedExtras | None]:
+async def create_from_url(url: str) -> tuple[Recipe, ScrapedExtras | None]:
     """Main entry point for generating a recipe from a URL. Pass in a URL and
     a Recipe object will be returned if successful.
 
@@ -30,7 +30,7 @@ def create_from_url(url: str) -> tuple[Recipe, ScrapedExtras | None]:
         Recipe: Recipe Object
     """
     scraper = RecipeScraper()
-    new_recipe, extras = scraper.scrape(url)
+    new_recipe, extras = await scraper.scrape(url)
 
     if not new_recipe:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, {"details": ParserErrors.BAD_RECIPE_DATA.value})
@@ -42,7 +42,7 @@ def create_from_url(url: str) -> tuple[Recipe, ScrapedExtras | None]:
     recipe_data_service = RecipeDataService(new_recipe.id)
 
     try:
-        recipe_data_service.scrape_image(new_recipe.image)
+        await recipe_data_service.scrape_image(new_recipe.image)
 
         if new_recipe.name is None:
             new_recipe.name = "Untitled"

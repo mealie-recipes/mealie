@@ -3,8 +3,8 @@ from abc import ABC, abstractmethod
 from typing import Any, Callable
 
 import extruct
-import requests
 from fastapi import HTTPException, status
+from httpx import AsyncClient
 from recipe_scrapers import NoSchemaFoundInWildMode, SchemaScraperFactory, scrape_html
 from slugify import slugify
 from w3lib.html import get_base_url
@@ -23,51 +23,51 @@ class ForceTimeoutException(Exception):
     pass
 
 
-def safe_scrape_html(url: str) -> str:
+async def safe_scrape_html(url: str) -> str:
     """
     Scrapes the html from a url but will cancel the request
     if the request takes longer than 15 seconds. This is used to mitigate
     DDOS attacks from users providing a url with arbitrary large content.
     """
-    resp = requests.get(url, timeout=SCRAPER_TIMEOUT, stream=True, headers={"User-Agent": _FIREFOX_UA})
+    async with AsyncClient() as client:
+        html_bytes = b""
+        async with client.stream("GET", url, timeout=SCRAPER_TIMEOUT, headers={"User-Agent": _FIREFOX_UA}) as resp:
 
-    html_bytes = b""
+            start_time = time.time()
 
-    start_time = time.time()
+            async for chunk in resp.aiter_bytes(chunk_size=1024):
+                html_bytes += chunk
 
-    for chunk in resp.iter_content(chunk_size=1024):
-        html_bytes += chunk
+                if time.time() - start_time > SCRAPER_TIMEOUT:
+                    raise ForceTimeoutException()
 
-        if time.time() - start_time > SCRAPER_TIMEOUT:
-            raise ForceTimeoutException()
+        # =====================================
+        # Copied from requests text property
 
-    # =====================================
-    # Copied from requests text property
+        # Try charset from content-type
+        content = None
+        encoding = resp.encoding
 
-    # Try charset from content-type
-    content = None
-    encoding = resp.encoding
+        if not html_bytes:
+            return ""
 
-    if not html_bytes:
-        return ""
+        # Fallback to auto-detected encoding.
+        if encoding is None:
+            encoding = resp.apparent_encoding
 
-    # Fallback to auto-detected encoding.
-    if encoding is None:
-        encoding = resp.apparent_encoding
+        # Decode unicode from given encoding.
+        try:
+            content = str(html_bytes, encoding, errors="replace")
+        except (LookupError, TypeError):
+            # A LookupError is raised if the encoding was not found which could
+            # indicate a misspelling or similar mistake.
+            #
+            # A TypeError can be raised if encoding is None
+            #
+            # So we try blindly encoding.
+            content = str(html_bytes, errors="replace")
 
-    # Decode unicode from given encoding.
-    try:
-        content = str(html_bytes, encoding, errors="replace")
-    except (LookupError, TypeError):
-        # A LookupError is raised if the encoding was not found which could
-        # indicate a misspelling or similar mistake.
-        #
-        # A TypeError can be raised if encoding is None
-        #
-        # So we try blindly encoding.
-        content = str(html_bytes, errors="replace")
-
-    return content
+        return content
 
 
 class ABCScraperStrategy(ABC):
@@ -82,7 +82,7 @@ class ABCScraperStrategy(ABC):
         self.url = url
 
     @abstractmethod
-    def parse(self) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
+    async def parse(self) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
         """Parse a recipe from a web URL.
 
         Args:
@@ -159,9 +159,8 @@ class RecipeScraperPackage(ABCScraperStrategy):
 
         return recipe, extras
 
-    def scrape_url(self) -> SchemaScraperFactory.SchemaScraper | Any | None:
-        recipe_html = safe_scrape_html(self.url)
-
+    async def scrape_url(self) -> SchemaScraperFactory.SchemaScraper | Any | None:
+        recipe_html = await safe_scrape_html(self.url)
         try:
             scraped_schema = scrape_html(recipe_html, org_url=self.url)
         except (NoSchemaFoundInWildMode, AttributeError):
@@ -188,11 +187,11 @@ class RecipeScraperPackage(ABCScraperStrategy):
         self.logger.debug(f"Recipe Scraper [Package] was unable to extract a recipe from {self.url}")
         return None
 
-    def parse(self):
+    async def parse(self):
         """
         Parse a recipe from a given url.
         """
-        scraped_data = self.scrape_url()
+        scraped_data = await self.scrape_url()
 
         if scraped_data is None:
             return None
@@ -205,8 +204,8 @@ class RecipeScraperOpenGraph(ABCScraperStrategy):
     Abstract class for all recipe parsers.
     """
 
-    def get_html(self) -> str:
-        return safe_scrape_html(self.url)
+    async def get_html(self) -> str:
+        return await safe_scrape_html(self.url)
 
     def get_recipe_fields(self, html) -> dict | None:
         """
@@ -242,11 +241,11 @@ class RecipeScraperOpenGraph(ABCScraperStrategy):
             "extras": [],
         }
 
-    def parse(self):
+    async def parse(self):
         """
         Parse a recipe from a given url.
         """
-        html = self.get_html()
+        html = await self.get_html()
 
         og_data = self.get_recipe_fields(html)
 
