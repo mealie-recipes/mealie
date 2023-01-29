@@ -78,6 +78,12 @@ def api_routers():
 
 api_routers()
 
+# fix routes that would get their tags duplicated by use of @controller,
+# leading to duplicate definitions in the openapi spec
+for route in app.routes:
+    if isinstance(route, APIRoute):
+        route.tags = list(set(route.tags))
+
 
 @app.on_event("startup")
 async def system_startup():
