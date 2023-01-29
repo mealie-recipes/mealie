@@ -114,3 +114,24 @@ docker-dev           🐳 Build and Start Docker Development Stack (currently no
 docker-prod          🐳 Build and Start Docker Production Stack
 
 ```
+## Internationalization
+### Frontend
+We use vue-i18n package for internationalization. Translations are stored in json format located in [frontend/lang/messages](https://github.com/hay-kot/mealie/tree/mealie-next/frontend/lang/messages).
+### Backend
+Translations are stored in json format located in [mealie/lang/messages](https://github.com/hay-kot/mealie/tree/mealie-next/mealie/lang/messages).
+
+### Quick frontend localization with VS Code
+[i18n Ally for VScode](https://marketplace.visualstudio.com/items?itemName=lokalise.i18n-ally) is helpful for generating new strings to translate using Code Actions. It also has a nice feature, which shows translations in-place when editing code.
+
+A few settings must be tweaked to make the most of its features. Some settings are stored on project level, but most of them have to be set manually in your workspace or user settings.\
+We've found that the following settings work best:
+
+```
+  "i18n-ally.enabledFrameworks": ["vue"],
+  "i18n-ally.extract.autoDetect": true,
+  "i18n-ally.dirStructure": "auto",
+  "i18n-ally.extract.targetPickingStrategy": "global-previous",
+  "i18n-ally.displayLanguage": "en-US",
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.sourceLanguage": "en-US",
+```
