@@ -106,7 +106,6 @@ export default defineComponent({
   },
   setup() {
     const api = useUserApi();
-    const { i18n } = useContext();
 
     // ======================================================
     // Manage All

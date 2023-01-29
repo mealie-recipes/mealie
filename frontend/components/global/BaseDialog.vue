@@ -118,6 +118,8 @@ export default defineComponent({
   setup(props, context) {
     const dialog = computed<boolean>({
       get() {
+        // @ts-expect-error - props inference doesn't work here for some reason
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return props.value;
       },
       set(val) {
