@@ -10,7 +10,7 @@
     <!-- Viewer -->
     <section v-if="!edit" class="py-2">
       <div v-if="!byLabel">
-        <draggable :value="shoppingList.listItems" handle=".handle" @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndex">
+        <draggable :value="listItems.unchecked" handle=".handle" @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndexUnchecked">
           <v-lazy v-for="(item, index) in listItems.unchecked" :key="item.id">
             <ShoppingListItem
               v-model="listItems.unchecked[index]"
@@ -131,7 +131,7 @@
               <ShoppingListItem
                 v-model="listItems.checked[idx]"
                 class="strike-through-note"
-                :labels="allLabels"
+                :labels="allLabels || []"
                 :units="allUnits || []"
                 :foods="allFoods || []"
                 @checked="saveListItem"
@@ -196,7 +196,6 @@ import ShoppingListItem from "~/components/Domain/ShoppingList/ShoppingListItem.
 import { ShoppingListItemCreate, ShoppingListItemOut } from "~/lib/api/types/group";
 import RecipeList from "~/components/Domain/Recipe/RecipeList.vue";
 import ShoppingListItemEditor from "~/components/Domain/ShoppingList/ShoppingListItemEditor.vue";
-import { getDisplayText } from "~/composables/use-display-text";
 import { useFoodStore, useLabelStore, useUnitStore } from "~/composables/store";
 
 type CopyTypes = "plain" | "markdown";
@@ -313,7 +312,7 @@ export default defineComponent({
         return;
       }
 
-      const text = items.map((itm) => getDisplayText(itm.note, itm.quantity, itm.food, itm.unit));
+      const text: string[] = items.map((itm) => itm.display || "");
 
       switch (copyType) {
         case "markdown":
@@ -514,7 +513,7 @@ export default defineComponent({
       if (item.checked && shoppingList.value.listItems) {
         const lst = shoppingList.value.listItems.filter((itm) => itm.id !== item.id);
         lst.push(item);
-        updateIndex(lst);
+        updateListItems();
       }
 
       const { data } = await userApi.shopping.items.updateOne(item.id, item);
@@ -553,9 +552,9 @@ export default defineComponent({
         isFood: false,
         quantity: 1,
         note: "",
-        unit: undefined,
-        food: undefined,
         labelId: undefined,
+        unitId: undefined,
+        foodId: undefined,
       };
     }
 
@@ -578,9 +577,10 @@ export default defineComponent({
       }
     }
 
-    function updateIndex(data: ShoppingListItemOut[]) {
+    function updateIndexUnchecked(uncheckedItems: ShoppingListItemOut[]) {
       if (shoppingList.value?.listItems) {
-        shoppingList.value.listItems = data;
+        // move the new unchecked items in front of the checked items
+        shoppingList.value.listItems = uncheckedItems.concat(listItems.value.checked);
       }
 
       updateListItems();
@@ -646,7 +646,7 @@ export default defineComponent({
       sortByLabels,
       toggleShowChecked,
       uncheckAll,
-      updateIndex,
+      updateIndexUnchecked,
       allUnits,
       allFoods,
     };

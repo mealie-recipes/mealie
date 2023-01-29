@@ -1,4 +1,5 @@
 from functools import cached_property
+from typing import Callable
 
 from fastapi import APIRouter, Depends, Query
 from pydantic import UUID4
@@ -11,7 +12,9 @@ from mealie.schema.group.group_shopping_list import (
     ShoppingListCreate,
     ShoppingListItemCreate,
     ShoppingListItemOut,
+    ShoppingListItemsCollectionOut,
     ShoppingListItemUpdate,
+    ShoppingListItemUpdateBulk,
     ShoppingListOut,
     ShoppingListPagination,
     ShoppingListRemoveRecipeParams,
@@ -26,12 +29,59 @@ from mealie.services.event_bus_service.event_types import (
     EventOperation,
     EventShoppingListData,
     EventShoppingListItemBulkData,
-    EventShoppingListItemData,
     EventTypes,
 )
 from mealie.services.group_services.shopping_lists import ShoppingListService
 
 item_router = APIRouter(prefix="/groups/shopping/items", tags=["Group: Shopping List Items"])
+
+
+def publish_list_item_events(publisher: Callable, items_collection: ShoppingListItemsCollectionOut) -> None:
+    items_by_list_id: dict[UUID4, list[ShoppingListItemOut]]
+    if items_collection.created_items:
+        items_by_list_id = {}
+        for item in items_collection.created_items:
+            items_by_list_id.setdefault(item.shopping_list_id, []).append(item)
+
+        for shopping_list_id, items in items_by_list_id.items():
+            publisher(
+                EventTypes.shopping_list_updated,
+                document_data=EventShoppingListItemBulkData(
+                    operation=EventOperation.create,
+                    shopping_list_id=shopping_list_id,
+                    shopping_list_item_ids=[item.id for item in items],
+                ),
+            )
+
+    if items_collection.updated_items:
+        items_by_list_id = {}
+        for item in items_collection.updated_items:
+            items_by_list_id.setdefault(item.shopping_list_id, []).append(item)
+
+        for shopping_list_id, items in items_by_list_id.items():
+            publisher(
+                EventTypes.shopping_list_updated,
+                document_data=EventShoppingListItemBulkData(
+                    operation=EventOperation.update,
+                    shopping_list_id=shopping_list_id,
+                    shopping_list_item_ids=[item.id for item in items],
+                ),
+            )
+
+    if items_collection.deleted_items:
+        items_by_list_id = {}
+        for item in items_collection.deleted_items:
+            items_by_list_id.setdefault(item.shopping_list_id, []).append(item)
+
+        for shopping_list_id, items in items_by_list_id.items():
+            publisher(
+                EventTypes.shopping_list_updated,
+                document_data=EventShoppingListItemBulkData(
+                    operation=EventOperation.delete,
+                    shopping_list_id=shopping_list_id,
+                    shopping_list_item_ids=[item.id for item in items],
+                ),
+            )
 
 
 @controller(item_router)
@@ -51,96 +101,43 @@ class ShoppingListItemController(BaseCrudController):
             self.logger,
         )
 
-    @item_router.put("", response_model=list[ShoppingListItemOut])
-    def update_many(self, data: list[ShoppingListItemUpdate]):
-        # TODO: Convert to update many with single call
+    @item_router.post("/create-bulk", response_model=ShoppingListItemsCollectionOut, status_code=201)
+    def create_many(self, data: list[ShoppingListItemCreate]):
+        items = self.service.bulk_create_items(data)
+        publish_list_item_events(self.publish_event, items)
+        return items
 
-        all_updates = []
-        keep_ids = []
-
-        for item in self.service.consolidate_list_items(data):
-            updated_data = self.mixins.update_one(item, item.id)
-            all_updates.append(updated_data)
-            keep_ids.append(updated_data.id)
-
-        for item in data:
-            if item.id not in keep_ids:
-                self.mixins.delete_one(item.id)
-
-        return all_updates
-
-    @item_router.delete("", response_model=SuccessResponse)
-    def delete_many(self, ids: list[UUID4] = Query(None)):
-        x = 0
-        for item_id in ids:
-            self.mixins.delete_one(item_id)
-            x += 1
-
-        return SuccessResponse.respond(message=f"Successfully deleted {x} items")
-
-    @item_router.post("", response_model=ShoppingListItemOut, status_code=201)
+    @item_router.post("", response_model=ShoppingListItemsCollectionOut, status_code=201)
     def create_one(self, data: ShoppingListItemCreate):
-        shopping_list_item = self.mixins.create_one(data)
-
-        if shopping_list_item:
-            self.publish_event(
-                event_type=EventTypes.shopping_list_updated,
-                document_data=EventShoppingListItemData(
-                    operation=EventOperation.create,
-                    shopping_list_id=shopping_list_item.shopping_list_id,
-                    shopping_list_item_id=shopping_list_item.id,
-                ),
-                message=self.t(
-                    "notifications.generic-created",
-                    name=f"An item on shopping list {shopping_list_item.shopping_list_id}",
-                ),
-            )
-
-        return shopping_list_item
+        return self.create_many([data])
 
     @item_router.get("/{item_id}", response_model=ShoppingListItemOut)
     def get_one(self, item_id: UUID4):
         return self.mixins.get_one(item_id)
 
-    @item_router.put("/{item_id}", response_model=ShoppingListItemOut)
+    @item_router.put("", response_model=ShoppingListItemsCollectionOut)
+    def update_many(self, data: list[ShoppingListItemUpdateBulk]):
+        items = self.service.bulk_update_items(data)
+        publish_list_item_events(self.publish_event, items)
+        return items
+
+    @item_router.put("/{item_id}", response_model=ShoppingListItemsCollectionOut)
     def update_one(self, item_id: UUID4, data: ShoppingListItemUpdate):
-        shopping_list_item = self.mixins.update_one(data, item_id)
+        return self.update_many([data.cast(ShoppingListItemUpdateBulk, id=item_id)])
 
-        if shopping_list_item:
-            self.publish_event(
-                event_type=EventTypes.shopping_list_updated,
-                document_data=EventShoppingListItemData(
-                    operation=EventOperation.update,
-                    shopping_list_id=shopping_list_item.shopping_list_id,
-                    shopping_list_item_id=shopping_list_item.id,
-                ),
-                message=self.t(
-                    "notifications.generic-updated",
-                    name=f"An item on shopping list {shopping_list_item.shopping_list_id}",
-                ),
-            )
+    @item_router.delete("", response_model=SuccessResponse)
+    def delete_many(self, ids: list[UUID4] = Query(None)):
+        items = self.service.bulk_delete_items(ids)
+        publish_list_item_events(self.publish_event, items)
 
-        return shopping_list_item
+        message = (
+            f"Successfully deleted {len(items.deleted_items)} {'item' if len(items.deleted_items) == 1 else 'items'}"
+        )
+        return SuccessResponse.respond(message=message)
 
-    @item_router.delete("/{item_id}", response_model=ShoppingListItemOut)
+    @item_router.delete("/{item_id}", response_model=SuccessResponse)
     def delete_one(self, item_id: UUID4):
-        shopping_list_item = self.mixins.delete_one(item_id)  # type: ignore
-
-        if shopping_list_item:
-            self.publish_event(
-                event_type=EventTypes.shopping_list_updated,
-                document_data=EventShoppingListItemData(
-                    operation=EventOperation.delete,
-                    shopping_list_id=shopping_list_item.shopping_list_id,
-                    shopping_list_item_id=shopping_list_item.id,
-                ),
-                message=self.t(
-                    "notifications.generic-deleted",
-                    name=f"An item on shopping list {shopping_list_item.shopping_list_id}",
-                ),
-            )
-
-        return shopping_list_item
+        return self.delete_many([item_id])
 
 
 router = APIRouter(prefix="/groups/shopping/lists", tags=["Group: Shopping Lists"])
@@ -223,85 +220,20 @@ class ShoppingListController(BaseCrudController):
     def add_recipe_ingredients_to_list(
         self, item_id: UUID4, recipe_id: UUID4, data: ShoppingListAddRecipeParams | None = None
     ):
-        (
-            shopping_list,
-            new_shopping_list_items,
-            updated_shopping_list_items,
-            deleted_shopping_list_items,
-        ) = self.service.add_recipe_ingredients_to_list(
+        shopping_list, items = self.service.add_recipe_ingredients_to_list(
             item_id, recipe_id, data.recipe_increment_quantity if data else 1
         )
 
-        if new_shopping_list_items:
-            self.publish_event(
-                event_type=EventTypes.shopping_list_updated,
-                document_data=EventShoppingListItemBulkData(
-                    operation=EventOperation.create,
-                    shopping_list_id=shopping_list.id,
-                    shopping_list_item_ids=[shopping_list_item.id for shopping_list_item in new_shopping_list_items],
-                ),
-            )
-
-        if updated_shopping_list_items:
-            self.publish_event(
-                event_type=EventTypes.shopping_list_updated,
-                document_data=EventShoppingListItemBulkData(
-                    operation=EventOperation.update,
-                    shopping_list_id=shopping_list.id,
-                    shopping_list_item_ids=[
-                        shopping_list_item.id for shopping_list_item in updated_shopping_list_items
-                    ],
-                ),
-            )
-
-        if deleted_shopping_list_items:
-            self.publish_event(
-                event_type=EventTypes.shopping_list_updated,
-                document_data=EventShoppingListItemBulkData(
-                    operation=EventOperation.delete,
-                    shopping_list_id=shopping_list.id,
-                    shopping_list_item_ids=[
-                        shopping_list_item.id for shopping_list_item in deleted_shopping_list_items
-                    ],
-                ),
-            )
-
+        publish_list_item_events(self.publish_event, items)
         return shopping_list
 
     @router.post("/{item_id}/recipe/{recipe_id}/delete", response_model=ShoppingListOut)
     def remove_recipe_ingredients_from_list(
         self, item_id: UUID4, recipe_id: UUID4, data: ShoppingListRemoveRecipeParams | None = None
     ):
-        (
-            shopping_list,
-            updated_shopping_list_items,
-            deleted_shopping_list_items,
-        ) = self.service.remove_recipe_ingredients_from_list(
+        shopping_list, items = self.service.remove_recipe_ingredients_from_list(
             item_id, recipe_id, data.recipe_decrement_quantity if data else 1
         )
 
-        if updated_shopping_list_items:
-            self.publish_event(
-                event_type=EventTypes.shopping_list_updated,
-                document_data=EventShoppingListItemBulkData(
-                    operation=EventOperation.update,
-                    shopping_list_id=shopping_list.id,
-                    shopping_list_item_ids=[
-                        shopping_list_item.id for shopping_list_item in updated_shopping_list_items
-                    ],
-                ),
-            )
-
-        if deleted_shopping_list_items:
-            self.publish_event(
-                event_type=EventTypes.shopping_list_updated,
-                document_data=EventShoppingListItemBulkData(
-                    operation=EventOperation.delete,
-                    shopping_list_id=shopping_list.id,
-                    shopping_list_item_ids=[
-                        shopping_list_item.id for shopping_list_item in deleted_shopping_list_items
-                    ],
-                ),
-            )
-
+        publish_list_item_events(self.publish_event, items)
         return shopping_list
