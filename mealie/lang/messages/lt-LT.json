@@ -9,12 +9,12 @@
         "no-recipes-match-your-rules": "No recipes match your rules"
     },
     "user": {
-        "user-updated": "User updated",
-        "password-updated": "Password updated",
-        "invalid-current-password": "Invalid current password"
+        "user-updated": "Vartotojas atnaujintas",
+        "password-updated": "Slaptažodis atnaujintas",
+        "invalid-current-password": "Blogas dabartinis slaptažodis"
     },
     "group": {
-        "report-deleted": "Report deleted."
+        "report-deleted": "Ataskaita ištrinta."
     },
     "exceptions": {
         "permission_denied": "Neturite leidimo atlikti šį veiksmą",
