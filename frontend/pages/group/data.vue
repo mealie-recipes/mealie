@@ -4,8 +4,8 @@
       <template #header>
         <v-img max-height="175" max-width="175" :src="require('~/static/svgs/manage-recipes.svg')"></v-img>
       </template>
-      <template #title> Data Management </template>
-      Select which data set you want to make changes to.
+      <template #title> {{ $t('data-pages.data-management') }} </template>
+      {{ $t('data-pages.data-management-description') }}
       <BannerExperimental class="mt-5"></BannerExperimental>
       <template #content>
         <div>
@@ -13,28 +13,7 @@
             :btn-text="buttonText"
             mode="link"
             rounded
-            :items="[
-              {
-                text: 'Recipes',
-                value: 'new',
-                to: '/group/data/recipes',
-              },
-              {
-                text: 'Foods',
-                value: 'url',
-                to: '/group/data/foods',
-              },
-              {
-                text: 'Units',
-                value: 'new',
-                to: '/group/data/units',
-              },
-              {
-                text: 'Labels',
-                value: 'new',
-                to: '/group/data/labels',
-              },
-            ]"
+            :items="DATA_TYPE_OPTIONS"
           >
           </BaseOverflowButton>
         </div>
@@ -49,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useRoute } from "@nuxtjs/composition-api";
+import { computed, defineComponent, useContext, useRoute } from "@nuxtjs/composition-api";
 
 export default defineComponent({
   props: {
@@ -59,12 +38,36 @@ export default defineComponent({
     },
   },
   setup() {
+    const { i18n } = useContext();
     const buttonLookup: { [key: string]: string } = {
-      recipes: "Recipes",
-      foods: "Foods",
-      units: "Units",
-      labels: "Labels",
+      recipes: i18n.tc("general.recipes"),
+      foods: i18n.tc("general.foods"),
+      units: i18n.tc("general.units"),
+      labels: i18n.tc("data-pages.labels.labels"),
     };
+
+    const DATA_TYPE_OPTIONS = [
+      {
+        text: i18n.t("general.recipes"),
+        value: "new",
+        to: "/group/data/recipes",
+      },
+      {
+        text: i18n.t("general.foods"),
+        value: "url",
+        to: "/group/data/foods",
+      },
+      {
+        text: i18n.t("general.units"),
+        value: "new",
+        to: "/group/data/units",
+      },
+      {
+        text: i18n.t("data-pages.labels.labels"),
+        value: "new",
+        to: "/group/data/labels",
+      },
+    ];
 
     const route = useRoute();
 
@@ -75,15 +78,18 @@ export default defineComponent({
         return buttonLookup[last];
       }
 
-      return "Select Data";
+      return i18n.tc("data-pages.select-data");
     });
 
     return {
       buttonText,
+      DATA_TYPE_OPTIONS
     };
   },
-  head: {
-    title: "Data Management",
+  head() {
+    return {
+      title: this.$tc("data-pages.data-management"),
+    };
   },
 });
 </script>

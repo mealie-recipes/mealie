@@ -106,8 +106,9 @@ export default defineComponent({
     },
     submitText: {
       type: String,
-      // TODO Figure out how to localize this default value
-      default: () => "Create",
+      default: function () {
+        return this.$t("general.create");
+      }
     },
     keepOpen: {
       default: false,
@@ -117,6 +118,8 @@ export default defineComponent({
   setup(props, context) {
     const dialog = computed<boolean>({
       get() {
+        // @ts-expect-error - props inference doesn't work here for some reason
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return props.value;
       },
       set(val) {

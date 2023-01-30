@@ -94,8 +94,9 @@ export default defineComponent({
     btnText: {
       type: String,
       required: false,
-      // TODO Figure out how to localize this default value
-      default: "Actions",
+      default: function () {
+        return this.$t("general.actions");
+      }
     },
   },
   setup(props, context) {

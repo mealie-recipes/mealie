@@ -17,7 +17,7 @@ class MultiPurposeLabelSeeder(AbstractSeeder):
     def load_data(self, locale: str | None = None) -> Generator[MultiPurposeLabelSave, None, None]:
         file = self.get_file(locale)
 
-        for label in json.loads(file.read_text()):
+        for label in json.loads(file.read_text(encoding="utf-8")):
             yield MultiPurposeLabelSave(
                 name=label["name"],
                 group_id=self.group_id,
@@ -40,7 +40,7 @@ class IngredientUnitsSeeder(AbstractSeeder):
     def load_data(self, locale: str | None = None) -> Generator[SaveIngredientUnit, None, None]:
         file = self.get_file(locale)
 
-        for unit in json.loads(file.read_text()).values():
+        for unit in json.loads(file.read_text(encoding="utf-8")).values():
             yield SaveIngredientUnit(
                 group_id=self.group_id,
                 name=unit["name"],
@@ -65,7 +65,7 @@ class IngredientFoodsSeeder(AbstractSeeder):
     def load_data(self, locale: str | None = None) -> Generator[SaveIngredientFood, None, None]:
         file = self.get_file(locale)
 
-        seed_foods: dict[str, str] = json.loads(file.read_text())
+        seed_foods: dict[str, str] = json.loads(file.read_text(encoding="utf-8"))
         for food in seed_foods.values():
             yield SaveIngredientFood(
                 group_id=self.group_id,

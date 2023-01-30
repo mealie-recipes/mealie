@@ -5,6 +5,17 @@
     "recipe": {
         "unique-name-error": "Názov receptu musí byť unikátny"
     },
+    "mealplan": {
+        "no-recipes-match-your-rules": "No recipes match your rules"
+    },
+    "user": {
+        "user-updated": "User updated",
+        "password-updated": "Password updated",
+        "invalid-current-password": "Invalid current password"
+    },
+    "group": {
+        "report-deleted": "Report deleted."
+    },
     "exceptions": {
         "permission_denied": "Nemáte povolenie na vykonanie tejto akcie",
         "no-entry-found": "404 - Požadovaná stránka nebola nájdená",
@@ -17,7 +28,7 @@
         "generic-updated": "{name} bol aktualizovaný",
         "generic-created-with-url": "{name} bol vytvorený, {url}",
         "generic-updated-with-url": "{name} bol aktualizovaný, {url}",
-        "generic-duplicated": "{name} has been duplicated",
+        "generic-duplicated": "{name} bol duplikovaný",
         "generic-deleted": "{name} bol vymazaný"
     }
 }

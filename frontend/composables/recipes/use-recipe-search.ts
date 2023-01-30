@@ -13,7 +13,8 @@ export const useRecipeSearch = (recipes: Ref<Recipe[] | null>) => {
       findAllMatches: true,
       maxPatternLength: 32,
       minMatchCharLength: 2,
-      keys: ["name", "description", "recipeIngredient.note", "recipeIngredient.food.name"],
+      ignoreFieldNorm: true,
+      keys: [{ name: "name", weight: 1.3 }, { name: "description", weight: 1.2 }, "recipeIngredient.note", "recipeIngredient.food.name"],
     },
   });
 

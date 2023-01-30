@@ -13,7 +13,7 @@ def purge_group_data_exports(max_minutes_old=ONE_DAY_AS_MINUTES):
     """Purges all group exports after x days"""
     logger = root_logger.get_logger()
 
-    logger.info("purging group data exports")
+    logger.debug("purging group data exports")
     limit = datetime.datetime.now() - datetime.timedelta(minutes=max_minutes_old)
 
     with session_context() as session:
@@ -41,6 +41,6 @@ def purge_excess_files() -> None:
         # TODO: fix comparison types
         if file.stat().st_mtime < limit:  # type: ignore
             file.unlink()
-            logger.info(f"excess group file removed '{file}'")
+            logger.debug(f"excess group file removed '{file}'")
 
     logger.info("finished purging excess files")

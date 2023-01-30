@@ -81,7 +81,7 @@ export default {
     // https://go.nuxtjs.dev/axios
     "@nuxtjs/axios",
     // https://go.nuxtjs.dev/pwa
-    "@nuxtjs/pwa",
+    ...(process.env.NODE_ENV === "production" ? ["@nuxtjs/pwa"] : []),
     // https://i18n.nuxtjs.org/setup
     "@nuxtjs/i18n",
     // https://auth.nuxtjs.org/guide/setup
@@ -390,6 +390,7 @@ export default {
         },
       },
     },
+    optionsPath: "./vuetify.options.js",
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

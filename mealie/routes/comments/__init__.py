@@ -30,7 +30,7 @@ class RecipeCommentRoutes(BaseUserController):
 
     @property
     def mixins(self) -> HttpRepo:
-        return HttpRepo(self.repo, self.logger, self.registered_exceptions, "An unexpected error occurred.")
+        return HttpRepo(self.repo, self.logger, self.registered_exceptions, self.t("generic.server-error"))
 
     def _check_comment_belongs_to_user(self, item_id: UUID4) -> None:
         comment = self.repo.get_one(item_id)

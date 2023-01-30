@@ -50,7 +50,7 @@
       <div class="d-flex justify-center flex-wrap">
         <BaseButton :small="$vuetify.breakpoint.smAndDown" @click="madeThisDialog = true">
           <template #icon> {{ $globals.icons.chefHat }} </template>
-          I Made This
+          {{ $t('recipe.made-this') }}
         </BaseButton>
       </div>
       <div class="d-flex justify-center flex-wrap">
@@ -63,7 +63,7 @@
           <v-icon left>
             {{ $globals.icons.calendar }}
           </v-icon>
-            Last Made {{ value ? new Date(value+"Z").toLocaleDateString($i18n.locale) : $t("general.never") }}
+            {{ $t('recipe.last-made-date', { date: value ? new Date(value+"Z").toLocaleDateString($i18n.locale) : $t("general.never") } ) }}
         </v-chip>
       </div>
     </div>
@@ -95,7 +95,6 @@ export default defineComponent({
     const domMadeThisForm = ref<VForm>();
     const newTimelineEvent = ref<RecipeTimelineEventIn>({
       // @ts-expect-error - TS doesn't like the $auth global user attribute
-      // eslint-disable-next-line
       subject: i18n.t("recipe.user-made-this", { user: $auth.user.fullName } as string),
       eventType: "comment",
       eventMessage: "",

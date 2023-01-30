@@ -21,7 +21,7 @@ def test_bulk_import(api_client: TestClient, unique_user: TestUser):
 
     response = api_client.post(api_routes.recipes_create_url_bulk, json=recipes, headers=unique_user.token)
 
-    assert response.status_code == 201
+    assert response.status_code == 202
 
     for slug in slugs:
         response = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token)

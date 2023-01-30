@@ -1,7 +1,7 @@
 <template>
   <div v-if="preferences">
-    <BaseCardSectionTitle title="General Preferences"></BaseCardSectionTitle>
-    <v-checkbox v-model="preferences.privateGroup" class="mt-n4" label="Private Group"></v-checkbox>
+    <BaseCardSectionTitle :title="$tc('group.general-preferences')"></BaseCardSectionTitle>
+    <v-checkbox v-model="preferences.privateGroup" class="mt-n4" :label="$t('group.private-group')"></v-checkbox>
     <v-select
       v-model="preferences.firstDayOfWeek"
       :prepend-icon="$globals.icons.calendarWeekBegin"
@@ -11,7 +11,7 @@
       :label="$t('settings.first-day-of-week')"
     />
 
-    <BaseCardSectionTitle class="mt-5" title="Group Recipe Preferences"></BaseCardSectionTitle>
+    <BaseCardSectionTitle class="mt-5" :title="$tc('group.group-recipe-preferences')"></BaseCardSectionTitle>
     <template v-for="(_, key) in preferences">
       <v-checkbox
         v-if="labels[key]"
@@ -38,12 +38,12 @@ export default defineComponent({
     const { i18n } = useContext();
 
     const labels = {
-      recipePublic: "Allow users outside of your group to see your recipes",
-      recipeShowNutrition: "Show nutrition information",
-      recipeShowAssets: "Show recipe assets",
-      recipeLandscapeView: "Default to landscape view",
-      recipeDisableComments: "Disable recipe comments from users in your group",
-      recipeDisableAmount: "Disable organizing recipe ingredients by units and food",
+      recipePublic: i18n.tc("group.allow-users-outside-of-your-group-to-see-your-recipes"),
+      recipeShowNutrition: i18n.tc("group.show-nutrition-information"),
+      recipeShowAssets: i18n.tc("group.show-recipe-assets"),
+      recipeLandscapeView: i18n.tc("group.default-to-landscape-view"),
+      recipeDisableComments: i18n.tc("group.disable-users-from-commenting-on-recipes"),
+      recipeDisableAmount: i18n.tc("group.disable-organizing-recipe-ingredients-by-units-and-food"),
     };
 
     const allDays = [

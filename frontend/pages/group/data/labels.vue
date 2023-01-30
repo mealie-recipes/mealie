@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Create New Dialog -->
-    <BaseDialog v-model="state.createDialog" title="New Label" :icon="$globals.icons.tags" @submit="createLabel">
+    <BaseDialog v-model="state.createDialog" :title="$t('data-pages.labels.new-label')" :icon="$globals.icons.tags" @submit="createLabel">
       <v-card-text>
         <MultiPurposeLabel :label="createLabelData" />
 
@@ -16,7 +16,7 @@
     <BaseDialog
       v-model="state.editDialog"
       :icon="$globals.icons.tags"
-      title="Edit Label"
+      :title="$t('data-pages.labels.edit-label')"
       :submit-text="$tc('general.save')"
       @submit="editSaveLabel"
     >
@@ -57,7 +57,7 @@
           v-model="locale"
           :items="locales"
           item-text="name"
-          label="Select Language"
+          :label="$t('data-pages.select-language')"
           class="my-3"
           hide-details
           outlined
@@ -80,7 +80,7 @@
     </BaseDialog>
 
     <!-- Recipe Data Table -->
-    <BaseCardSectionTitle :icon="$globals.icons.tags" section title="Labels"> </BaseCardSectionTitle>
+    <BaseCardSectionTitle :icon="$globals.icons.tags" section :title="$tc('data-pages.labels.labels')"> </BaseCardSectionTitle>
     <CrudTable
       :table-config="tableConfig"
       :headers.sync="tableHeaders"
@@ -103,7 +103,7 @@
       <template #button-bottom>
         <BaseButton @click="seedDialog = true">
           <template #icon> {{ $globals.icons.database }} </template>
-          Seed
+          {{ $t('data-pages.seed') }}
         </BaseButton>
       </template>
     </CrudTable>
@@ -111,7 +111,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, ref } from "@nuxtjs/composition-api";
+import { defineComponent, onMounted, reactive, ref, useContext } from "@nuxtjs/composition-api";
 import type { LocaleObject } from "@nuxtjs/i18n";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
@@ -124,18 +124,19 @@ export default defineComponent({
   components: { MultiPurposeLabel },
   setup() {
     const userApi = useUserApi();
+    const { i18n } = useContext();
     const tableConfig = {
       hideColumns: true,
       canExport: true,
     };
     const tableHeaders = [
       {
-        text: "Id",
+        text: i18n.t("general.id"),
         value: "id",
         show: false,
       },
       {
-        text: "Name",
+        text: i18n.t("general.name"),
         value: "name",
         show: true,
       },
@@ -205,7 +206,7 @@ export default defineComponent({
     const seedDialog = ref(false);
     const locale = ref("");
 
-    const { locales: LOCALES, locale: currentLocale, i18n } = useLocales();
+    const { locales: LOCALES, locale: currentLocale } = useLocales();
 
     onMounted(() => {
       locale.value = currentLocale.value;

@@ -86,6 +86,7 @@ coverage.xml
 *.cover
 .hypothesis/
 .pytest_cache/
+.ruff_cache/
 test.db
 
 # Translations

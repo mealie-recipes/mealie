@@ -4,7 +4,7 @@ import {
   ShoppingListCreate,
   ShoppingListItemCreate,
   ShoppingListItemOut,
-  ShoppingListItemUpdate,
+  ShoppingListItemUpdateBulk,
   ShoppingListOut,
   ShoppingListUpdate,
 } from "~/lib/api/types/group";
@@ -37,7 +37,7 @@ export class ShoppingListsApi extends BaseCRUDAPI<ShoppingListCreate, ShoppingLi
 export class ShoppingListItemsApi extends BaseCRUDAPI<
   ShoppingListItemCreate,
   ShoppingListItemOut,
-  ShoppingListItemUpdate
+  ShoppingListItemUpdateBulk
 > {
   baseRoute = routes.shoppingListItems;
   itemRoute = routes.shoppingListItemsId;

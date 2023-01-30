@@ -45,7 +45,7 @@ def get_recipe_test_cases():
             html="jam-roly-poly-with-custard.html",
             html_file=test_data.html_jam_roly_poly_with_custard,
             expected_slug="jam-roly-poly-with-custard",
-            num_ingredients=13,
+            num_ingredients=11,
             num_steps=9,
         ),
         RecipeSiteTestCase(
@@ -54,7 +54,7 @@ def get_recipe_test_cases():
             html_file=test_data.html_sous_vide_shrimp,
             expected_slug="sous-vide-shrimp",
             num_ingredients=5,
-            num_steps=0,
+            num_steps=1,
         ),
         RecipeSiteTestCase(
             url="https://www.bonappetit.com/recipe/detroit-style-pepperoni-pizza",
