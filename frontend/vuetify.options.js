@@ -1,8 +1,11 @@
-import * as locale from "vuetify/src/locale";
+import * as locale from "vuetify/lib/locale";
+
+// Ensure not null or undefined
+if (!locale || !locale.en) {
+  throw new Error("Vuetify locale not found");
+}
 
 export default {
-  breakpoint: {},
-  icons: {},
   lang: {
     locales: {
       "el-GR": locale.el,
