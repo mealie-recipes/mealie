@@ -65,7 +65,7 @@ export default defineComponent({
   },
 
   setup(_, context) {
-    const { refreshRecipes } = useRecipes(true, false);
+    const { refreshRecipes } = useRecipes(true, false, true);
 
     const state = reactive({
       loading: false,

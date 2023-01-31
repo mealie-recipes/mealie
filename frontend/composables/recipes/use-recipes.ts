@@ -67,7 +67,7 @@ export const useLazyRecipes = function () {
   };
 };
 
-export const useRecipes = (all = false, fetchRecipes = true) => {
+export const useRecipes = (all = false, fetchRecipes = true, loadFood = false) => {
   const api = useUserApi();
 
   // recipes is non-reactive!!
@@ -88,7 +88,7 @@ export const useRecipes = (all = false, fetchRecipes = true) => {
   })();
 
   async function refreshRecipes() {
-    const { data } = await api.recipes.getAll(page, perPage, { loadFood: true, orderBy: "created_at" });
+    const { data } = await api.recipes.getAll(page, perPage, { loadFood, orderBy: "created_at" });
     if (data) {
       recipes.value = data.items;
     }
