@@ -134,7 +134,7 @@ export default defineComponent({
     RecipeCardSection,
   },
   setup() {
-    const { assignSorted } = useRecipes(true);
+    const { assignSorted } = useRecipes(true, true, true);
 
     // ================================================================
     // Advanced Toggle
