@@ -721,9 +721,9 @@
     "please-enter-your-email-and-password": "Please enter your email and password",
     "invalid-credentials": "Invalid Credentials",
     "account-locked-please-try-again-later": "Account Locked. Please try again later",
-    "user-favorites": "User Favorites",
+    "user-favorites": "Уподобання користувача",
     "password-strength-values": {
-      "weak": "Weak",
+      "weak": "Простий",
       "good": "Good",
       "strong": "Strong",
       "very-strong": "Very Strong"
