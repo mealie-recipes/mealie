@@ -288,7 +288,7 @@
     "recipe-migration": "Rezepte übertragen"
   },
   "new-recipe": {
-    "bulk-add": "Massenimport",
+    "bulk-add": "Mehrere hinzufügen",
     "error-details": "Mealie kann Rezepte nur von Webseiten importieren, die Id+json oder Mikrodaten enthalten. Die meisten großen Rezeptwebseiten unterstützen diese Datenstruktur. Wenn das Rezept nicht importiert werden kann, aber JSON-Daten im Log vorhanden sind, melde es bitte mit der URL und diesen Daten auf GitHub.",
     "error-title": "Anscheinend konnten wir nichts finden",
     "from-url": "Von URL",
@@ -460,7 +460,7 @@
     "bulk-imports": "Massenimporte",
     "bulk-import-process-has-started": "Massenimport wurde gestartet",
     "bulk-import-process-has-failed": "Massenimport fehlgeschlagen",
-    "report-deletion-failed": "Report deletion failed",
+    "report-deletion-failed": "Bericht löschen fehlgeschlagen",
     "recipe-debugger": "Recipe Debugger",
     "recipe-debugger-description": "Nimm die URL des Rezepts, das du debuggen möchtest und füge es hier ein. Die URL wird eingelesen und die Ergebnisse werden angezeigt. Wenn du keine Ausgabedaten sehen solltest, wird das Einlesen dieser Webseite nicht von Mealie oder dessen Scraper-Bibliothek unterstützt.",
     "debug": "Debug",
