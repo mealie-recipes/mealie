@@ -1,8 +1,21 @@
-from sqlalchemy import Boolean, Column, Float, ForeignKey, Integer, String, orm
+from sqlalchemy import (
+    Boolean,
+    Column,
+    Float,
+    ForeignKey,
+    Integer,
+    String,
+    UniqueConstraint,
+    orm,
+)
 from sqlalchemy.ext.orderinglist import ordering_list
 
 from mealie.db.models.labels import MultiPurposeLabel
-from mealie.db.models.recipe.api_extras import ShoppingListExtras, ShoppingListItemExtras, api_extras
+from mealie.db.models.recipe.api_extras import (
+    ShoppingListExtras,
+    ShoppingListItemExtras,
+    api_extras,
+)
 
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import GUID, auto_init
@@ -83,6 +96,25 @@ class ShoppingListRecipeReference(BaseMixins, SqlAlchemyBase):
         pass
 
 
+class ShoppingListMultiPurposeLabel(SqlAlchemyBase, BaseMixins):
+    __tablename__ = "shopping_lists_multi_purpose_labels"
+    __table_args__ = (UniqueConstraint("shopping_list_id", "label_id"),)
+    id = Column(GUID, primary_key=True, default=GUID.generate)
+
+    shopping_list_id = Column(ForeignKey("shopping_lists.id"), primary_key=True)
+    label_id = Column(ForeignKey("multi_purpose_labels.id"), primary_key=True)
+
+    label = orm.relationship("MultiPurposeLabel", uselist=False, back_populates="shopping_lists_label_settings")
+    position = Column(Integer, nullable=False, default=0)
+
+    class Config:
+        exclude = {"label"}
+
+    @auto_init()
+    def __init__(self, **_) -> None:
+        pass
+
+
 class ShoppingList(SqlAlchemyBase, BaseMixins):
     __tablename__ = "shopping_lists"
     id = Column(GUID, primary_key=True, default=GUID.generate)
@@ -99,6 +131,7 @@ class ShoppingList(SqlAlchemyBase, BaseMixins):
     )
 
     recipe_references = orm.relationship(ShoppingListRecipeReference, cascade="all, delete, delete-orphan")
+    label_settings = orm.relationship(ShoppingListMultiPurposeLabel, cascade="all, delete, delete-orphan")
     extras: list[ShoppingListExtras] = orm.relationship("ShoppingListExtras", cascade="all, delete-orphan")
 
     class Config:

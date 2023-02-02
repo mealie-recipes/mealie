@@ -15,6 +15,7 @@ from mealie.schema.group.group_shopping_list import (
     ShoppingListItemsCollectionOut,
     ShoppingListItemUpdate,
     ShoppingListItemUpdateBulk,
+    ShoppingListMultiPurposeLabelCreate,
     ShoppingListOut,
     ShoppingListPagination,
     ShoppingListRemoveRecipeParams,
@@ -23,7 +24,7 @@ from mealie.schema.group.group_shopping_list import (
     ShoppingListUpdate,
 )
 from mealie.schema.mapper import cast
-from mealie.schema.response.pagination import PaginationQuery
+from mealie.schema.response.pagination import OrderDirection, PaginationQuery
 from mealie.schema.response.responses import SuccessResponse
 from mealie.services.event_bus_service.event_types import (
     EventOperation,
@@ -172,8 +173,22 @@ class ShoppingListController(BaseCrudController):
 
     @router.post("", response_model=ShoppingListOut, status_code=201)
     def create_one(self, data: ShoppingListCreate):
-        save_data = cast(data, ShoppingListSave, group_id=self.user.group_id)
-        shopping_list = self.mixins.create_one(save_data)
+        create_data = cast(data, ShoppingListSave, group_id=self.user.group_id)
+        shopping_list = self.repo.create(create_data)  # type: ignore
+
+        if not shopping_list:
+            return
+
+        labels = self.repos.group_multi_purpose_labels.by_group(self.group_id).page_all(
+            PaginationQuery(page=1, per_page=-1, order_by="name", order_direction=OrderDirection.asc)
+        )
+        label_settings = [
+            ShoppingListMultiPurposeLabelCreate(shopping_list_id=shopping_list.id, label_id=label.id, position=i)
+            for i, label in enumerate(labels.items)
+        ]
+
+        save_data = cast(shopping_list, ShoppingListUpdate, label_settings=label_settings)
+        shopping_list = self.mixins.update_one(save_data, shopping_list.id)  # type: ignore
 
         if shopping_list:
             self.publish_event(

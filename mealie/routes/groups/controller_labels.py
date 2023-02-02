@@ -7,6 +7,10 @@ from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import MealieCrudRoute
+from mealie.schema.group.group_shopping_list import (
+    ShoppingListMultiPurposeLabelCreate,
+    ShoppingListUpdate,
+)
 from mealie.schema.labels import (
     MultiPurposeLabelCreate,
     MultiPurposeLabelOut,
@@ -49,8 +53,28 @@ class MultiPurposeLabelsController(BaseUserController):
 
     @router.post("", response_model=MultiPurposeLabelOut)
     def create_one(self, data: MultiPurposeLabelCreate):
-        save_data = cast(data, MultiPurposeLabelSave, group_id=self.user.group_id)
-        return self.mixins.create_one(save_data)
+        create_data = cast(data, MultiPurposeLabelSave, group_id=self.user.group_id)
+        label: MultiPurposeLabelOut | None = self.mixins.create_one(create_data)  # type: ignore
+
+        if not label:
+            return
+
+        # add label ref to shopping lists
+        shopping_lists_repo = self.repos.group_shopping_lists.by_group(self.group_id)
+        shopping_lists = shopping_lists_repo.page_all(PaginationQuery(page=1, per_page=-1))
+
+        updated_lists: list[ShoppingListUpdate] = []
+        for shopping_list in shopping_lists.items:
+            updated_list = shopping_list.cast(ShoppingListUpdate)
+            updated_list.label_settings.append(
+                ShoppingListMultiPurposeLabelCreate(
+                    shopping_list_id=updated_list.id, label_id=label.id, position=len(updated_list.label_settings)
+                )
+            )
+            updated_lists.append(updated_list)
+
+        shopping_lists_repo.update_many(updated_lists)
+        return label
 
     @router.get("/{item_id}", response_model=MultiPurposeLabelOut)
     def get_one(self, item_id: UUID4):

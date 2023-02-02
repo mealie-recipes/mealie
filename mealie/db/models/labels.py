@@ -17,6 +17,9 @@ class MultiPurposeLabel(SqlAlchemyBase, BaseMixins):
 
     shopping_list_items = orm.relationship("ShoppingListItem", back_populates="label")
     foods = orm.relationship("IngredientFoodModel", back_populates="label")
+    shopping_lists_label_settings = orm.relationship(
+        "ShoppingListMultiPurposeLabel", back_populates="label", cascade="all, delete, delete-orphan"
+    )
 
     @auto_init()
     def __init__(self, **_) -> None:

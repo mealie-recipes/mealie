@@ -9,6 +9,8 @@ from pydantic.utils import GetterDict
 from mealie.db.models.group.shopping_list import ShoppingList, ShoppingListItem
 from mealie.schema._mealie import MealieModel
 from mealie.schema._mealie.types import NoneFloat
+from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary
+from mealie.schema.recipe.recipe import RecipeSummary
 from mealie.schema.recipe.recipe_ingredient import (
     INGREDIENT_QTY_PRECISION,
     MAX_INGREDIENT_DENOMINATOR,
@@ -177,6 +179,23 @@ class ShoppingListItemsCollectionOut(MealieModel):
     deleted_items: list[ShoppingListItemOut] = []
 
 
+class ShoppingListMultiPurposeLabelCreate(MealieModel):
+    shopping_list_id: UUID4
+    label_id: UUID4
+    position: int = 0
+
+
+class ShoppingListMultiPurposeLabelUpdate(ShoppingListMultiPurposeLabelCreate):
+    id: UUID4
+
+
+class ShoppingListMultiPurposeLabelOut(ShoppingListMultiPurposeLabelUpdate):
+    label: MultiPurposeLabelSummary
+
+    class Config:
+        orm_mode = True
+
+
 class ShoppingListCreate(MealieModel):
     name: str | None = None
     extras: dict | None = {}
@@ -204,6 +223,7 @@ class ShoppingListSave(ShoppingListCreate):
 
 class ShoppingListSummary(ShoppingListSave):
     id: UUID4
+    label_settings: list[ShoppingListMultiPurposeLabelOut]
 
     class Config:
         orm_mode = True
@@ -222,10 +242,12 @@ class ShoppingListPagination(PaginationBase):
 
 class ShoppingListUpdate(ShoppingListSummary):
     list_items: list[ShoppingListItemOut] = []
+    label_settings: list[ShoppingListMultiPurposeLabelCreate | ShoppingListMultiPurposeLabelUpdate]
 
 
 class ShoppingListOut(ShoppingListUpdate):
     recipe_references: list[ShoppingListRecipeRefOut]
+    label_settings: list[ShoppingListMultiPurposeLabelOut]
 
     class Config:
         orm_mode = True
@@ -237,10 +259,3 @@ class ShoppingListAddRecipeParams(MealieModel):
 
 class ShoppingListRemoveRecipeParams(MealieModel):
     recipe_decrement_quantity: float = 1
-
-
-from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary  # noqa: E402
-from mealie.schema.recipe.recipe import RecipeSummary  # noqa: E402
-
-ShoppingListRecipeRefOut.update_forward_refs()
-ShoppingListItemOut.update_forward_refs()
