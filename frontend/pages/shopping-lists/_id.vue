@@ -29,9 +29,9 @@
 
       <!-- View By Label -->
       <div v-else>
-        <div v-for="(value, key) in itemsByLabel" :key="key" class="mb-6">
+        <div v-for="(value, key, idx) in itemsByLabel" :key="key" class="mb-6">
           <div @click="toggleShowChecked()">
-            <span>
+            <span v-if="idx">
               <v-icon>
                 {{ $globals.icons.tags }}
               </v-icon>
@@ -78,6 +78,10 @@
         />
       </div>
       <div v-else class="mt-4 d-flex justify-end">
+        <BaseButton v-if="preferences.viewByLabel" color="info" class="mr-2" @click="reorderLabelsDialog = true">
+          <template #icon> {{ $globals.icons.tags }} </template>
+          {{ $t('shopping-list.reorder-labels') }}
+        </BaseButton>
         <BaseButton create @click="createEditorOpen = true" />
       </div>
 
@@ -113,11 +117,6 @@
               event: 'sort-by-labels',
             },
             {
-              icon: $globals.icons.tagArrowUp,
-              text: $tc('shopping-list.reorder-labels'),
-              event: 'toggle-reorder-labels-dialog',
-            },
-            {
               icon: $globals.icons.checkboxBlankOutline,
               text: $tc('shopping-list.uncheck-all-items'),
               event: 'uncheck',
@@ -127,7 +126,6 @@
           @delete="deleteChecked"
           @uncheck="uncheckAll"
           @sort-by-labels="sortByLabels"
-          @toggle-reorder-labels-dialog="toggleReorderLabelsDialog"
           @copy-plain="copyListItems('plain')"
           @copy-markdown="copyListItems('markdown')"
         />
