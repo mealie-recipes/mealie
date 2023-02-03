@@ -276,6 +276,11 @@ def groups_shopping_lists_item_id(item_id):
     return f"{prefix}/groups/shopping/lists/{item_id}"
 
 
+def groups_shopping_lists_item_id_label_settings(item_id):
+    """`/api/groups/shopping/lists/{item_id}/label-settings`"""
+    return f"{prefix}/groups/shopping/lists/{item_id}/label-settings"
+
+
 def groups_shopping_lists_item_id_recipe_recipe_id(item_id, recipe_id):
     """`/api/groups/shopping/lists/{item_id}/recipe/{recipe_id}`"""
     return f"{prefix}/groups/shopping/lists/{item_id}/recipe/{recipe_id}"
