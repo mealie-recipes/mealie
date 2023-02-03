@@ -121,7 +121,12 @@ class ShoppingList(SqlAlchemyBase, BaseMixins):
     )
 
     recipe_references = orm.relationship(ShoppingListRecipeReference, cascade="all, delete, delete-orphan")
-    label_settings = orm.relationship(ShoppingListMultiPurposeLabel, cascade="all, delete, delete-orphan")
+    label_settings = orm.relationship(
+        ShoppingListMultiPurposeLabel,
+        cascade="all, delete, delete-orphan",
+        order_by="ShoppingListMultiPurposeLabel.position",
+        collection_class=ordering_list("position"),
+    )
     extras: list[ShoppingListExtras] = orm.relationship("ShoppingListExtras", cascade="all, delete-orphan")
 
     class Config:
