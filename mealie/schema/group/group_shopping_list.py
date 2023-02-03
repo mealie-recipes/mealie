@@ -253,6 +253,13 @@ class ShoppingListOut(ShoppingListUpdate):
     class Config:
         orm_mode = True
 
+        @classmethod
+        def getter_dict(cls, name_orm: ShoppingList):
+            return {
+                **GetterDict(name_orm),
+                "extras": {x.key_name: x.value for x in name_orm.extras},
+            }
+
 
 class ShoppingListAddRecipeParams(MealieModel):
     recipe_increment_quantity: float = 1
