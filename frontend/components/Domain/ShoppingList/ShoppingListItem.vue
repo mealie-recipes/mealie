@@ -18,7 +18,7 @@
     <div style="min-width: 72px">
       <v-menu offset-x left min-width="125px">
         <template #activator="{ on, attrs }">
-          <v-btn small class="ml-2 mt-2 handle" icon v-bind="attrs" v-on="on">
+          <v-btn small class="ml-2 handle" icon v-bind="attrs" v-on="on">
             <v-icon>
               {{ $globals.icons.arrowUpDown }}
             </v-icon>

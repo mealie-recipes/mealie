@@ -51,6 +51,15 @@
         </div>
       </div>
 
+      <!-- Reorder Labels -->
+      <BaseDialog v-model="reorderLabelsDialog" :icon="$globals.icons.tagArrowUp" :title="$t('shopping-list.reorder-labels')">
+        <draggable :value="shoppingList.labelSettings" handle=".handle" class="my-2" @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateLabelOrder">
+          <div v-for="(labelSetting, index) in shoppingList.labelSettings" :key="labelSetting.id">
+            <MultiPurposeLabelSection v-model="shoppingList.labelSettings[index]" />
+          </div>
+        </draggable>
+      </BaseDialog>
+
       <!-- Create Item -->
       <div v-if="createEditorOpen">
         <ShoppingListItemEditor
@@ -100,6 +109,11 @@
               event: 'sort-by-labels',
             },
             {
+              icon: $globals.icons.tagArrowUp,
+              text: $tc('shopping-list.reorder-labels'),
+              event: 'toggle-reorder-labels-dialog',
+            },
+            {
               icon: $globals.icons.checkboxBlankOutline,
               text: $tc('shopping-list.uncheck-all-items'),
               event: 'uncheck',
@@ -109,6 +123,7 @@
           @delete="deleteChecked"
           @uncheck="uncheckAll"
           @sort-by-labels="sortByLabels"
+          @toggle-reorder-labels-dialog="toggleReorderLabelsDialog"
           @copy-plain="copyListItems('plain')"
           @copy-markdown="copyListItems('markdown')"
         />
@@ -192,8 +207,9 @@ import { useIdle, useToggle } from "@vueuse/core";
 import { useCopyList } from "~/composables/use-copy";
 import { useUserApi } from "~/composables/api";
 import { useAsyncKey } from "~/composables/use-utils";
+import MultiPurposeLabelSection from "~/components/Domain/ShoppingList/MultiPurposeLabelSection.vue"
 import ShoppingListItem from "~/components/Domain/ShoppingList/ShoppingListItem.vue";
-import { ShoppingListItemCreate, ShoppingListItemOut } from "~/lib/api/types/group";
+import { ShoppingListItemCreate, ShoppingListItemOut, ShoppingListMultiPurposeLabelOut } from "~/lib/api/types/group";
 import RecipeList from "~/components/Domain/Recipe/RecipeList.vue";
 import ShoppingListItemEditor from "~/components/Domain/ShoppingList/ShoppingListItemEditor.vue";
 import { useFoodStore, useLabelStore, useUnitStore } from "~/composables/store";
@@ -208,6 +224,7 @@ interface PresentLabel {
 export default defineComponent({
   components: {
     draggable,
+    MultiPurposeLabelSection,
     ShoppingListItem,
     RecipeList,
     ShoppingListItemEditor,
@@ -220,6 +237,7 @@ export default defineComponent({
 
     const edit = ref(false);
     const byLabel = ref(false);
+    const reorderLabelsDialog = ref(false);
 
     const route = useRoute();
     const id = route.value.params.id;
@@ -398,6 +416,32 @@ export default defineComponent({
       byLabel.value = !byLabel.value;
     }
 
+    function toggleReorderLabelsDialog() {
+      reorderLabelsDialog.value = !reorderLabelsDialog.value
+    }
+
+    async function updateLabelOrder(labelSettings: ShoppingListMultiPurposeLabelOut[]) {
+      if (!shoppingList.value) {
+        return;
+      }
+
+      labelSettings.forEach((labelSetting, index) => {
+        labelSetting.position = index;
+        return labelSetting;
+      });
+
+      // setting this doesn't have any effect on the data since it's refreshed automatically, but it makes the ux feel smoother
+      shoppingList.value.labelSettings = labelSettings;
+
+      loadingCounter.value += 1;
+      const { data } = await userApi.shopping.lists.updateLabelSettings(shoppingList.value.id, labelSettings);
+      loadingCounter.value -= 1;
+
+      if (data) {
+        refresh();
+      }
+    }
+
     const presentLabels = computed(() => {
       const labels: PresentLabel[] = [];
 
@@ -442,7 +486,25 @@ export default defineComponent({
         items[noLabelText] = noLabel;
       }
 
-      itemsByLabel.value = items;
+      // sort the map by label order
+      const orderedLabelNames = shoppingList.value?.labelSettings?.map((labelSetting) => { return labelSetting.label.name; })
+      if (!orderedLabelNames) {
+        itemsByLabel.value = items;
+        return;
+      }
+
+      const itemsSorted: { [prop: string]: ShoppingListItemOut[] } = {};
+      if (noLabelText in items) {
+        itemsSorted[noLabelText] = items[noLabelText];
+      }
+
+      orderedLabelNames.forEach(labelName => {
+        if (labelName in items) {
+          itemsSorted[labelName] = items[labelName];
+        }
+      });
+
+      itemsByLabel.value = itemsSorted;
     }
 
     watch(shoppingList, () => {
@@ -642,6 +704,9 @@ export default defineComponent({
       loadingCounter,
       presentLabels,
       removeRecipeReferenceToList,
+      reorderLabelsDialog,
+      toggleReorderLabelsDialog,
+      updateLabelOrder,
       saveListItem,
       shoppingList,
       showChecked,

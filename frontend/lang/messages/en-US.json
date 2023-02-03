@@ -600,6 +600,7 @@
     "copy-as-markdown": "Copy as Markdown",
     "delete-checked": "Delete Checked",
     "toggle-label-sort": "Toggle Label Sort",
+    "reorder-labels": "Reorder Labels",
     "uncheck-all-items": "Uncheck All Items",
     "linked-recipes-count": "No Linked Recipes|One Linked Recipe|{count} Linked Recipes",
     "items-checked-count": "No items checked|One item checked|{count} items checked",
