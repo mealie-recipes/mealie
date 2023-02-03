@@ -38,18 +38,20 @@
             </span>
             {{ key }}
           </div>
-          <v-lazy v-for="(item, index) in value" :key="item.id" class="ml-2 my-2">
-            <ShoppingListItem
-              v-model="value[index]"
-              :show-label=false
-              :labels="allLabels || []"
-              :units="allUnits || []"
-              :foods="allFoods || []"
-              @checked="saveListItem"
-              @save="saveListItem"
-              @delete="deleteListItem(item)"
-            />
-          </v-lazy>
+          <draggable :value="value" handle=".handle" @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndexUncheckedByLabel(key, $event)">
+            <v-lazy v-for="(item, index) in value" :key="item.id" class="ml-2 my-2">
+              <ShoppingListItem
+                v-model="value[index]"
+                :show-label=false
+                :labels="allLabels || []"
+                :units="allUnits || []"
+                :foods="allFoods || []"
+                @checked="saveListItem"
+                @save="saveListItem"
+                @delete="deleteListItem(item)"
+              />
+            </v-lazy>
+          </draggable>
         </div>
       </div>
 
@@ -654,6 +656,24 @@ export default defineComponent({
       updateListItems();
     }
 
+    function updateIndexUncheckedByLabel(labelName: string, labeledUncheckedItems: ShoppingListItemOut[]) {
+      if (!itemsByLabel.value[labelName]) {
+        return;
+      }
+
+      // update this label's item order
+      itemsByLabel.value[labelName] = labeledUncheckedItems;
+
+      // reset list order of all items
+      const allUncheckedItems: ShoppingListItemOut[] = [];
+      for (labelName in itemsByLabel.value) {
+        allUncheckedItems.push(...itemsByLabel.value[labelName]);
+      }
+
+      // save changes
+      return updateIndexUnchecked(allUncheckedItems);
+    }
+
     async function deleteListItems(items: ShoppingListItemOut[]) {
       if (!shoppingList.value) {
         return;
@@ -718,6 +738,7 @@ export default defineComponent({
       toggleShowChecked,
       uncheckAll,
       updateIndexUnchecked,
+      updateIndexUncheckedByLabel,
       allUnits,
       allFoods,
     };
