@@ -57,11 +57,13 @@
 
       <!-- Reorder Labels -->
       <BaseDialog v-model="reorderLabelsDialog" :icon="$globals.icons.tagArrowUp" :title="$t('shopping-list.reorder-labels')">
-        <draggable :value="shoppingList.labelSettings" handle=".handle" class="my-2" @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateLabelOrder">
-          <div v-for="(labelSetting, index) in shoppingList.labelSettings" :key="labelSetting.id">
-            <MultiPurposeLabelSection v-model="shoppingList.labelSettings[index]" />
-          </div>
-        </draggable>
+        <v-card height="fit-content" max-height="70vh" style="overflow-y: auto;">
+          <draggable :value="shoppingList.labelSettings" handle=".handle" class="my-2" @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateLabelOrder">
+            <div v-for="(labelSetting, index) in shoppingList.labelSettings" :key="labelSetting.id">
+              <MultiPurposeLabelSection v-model="shoppingList.labelSettings[index]" />
+            </div>
+          </draggable>
+        </v-card>
       </BaseDialog>
 
       <!-- Create Item -->

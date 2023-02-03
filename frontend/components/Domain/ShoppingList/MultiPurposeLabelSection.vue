@@ -1,6 +1,6 @@
 <template>
-  <div class="d-flex justify-space-between align-center mx-2 handle">
-    <div>
+  <div class="d-flex justify-space-between align-center mx-2">
+    <div class="handle">
       <span class="mr-2">
         <v-icon>
           {{ $globals.icons.tags }}
