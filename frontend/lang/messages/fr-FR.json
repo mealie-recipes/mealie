@@ -170,7 +170,7 @@
     "this-feature-is-currently-inactive": "Cette fonctionnalité est actuellement inactive",
     "clipboard-not-supported": "Presse-papiers non pris en charge",
     "copied-to-clipboard": "Copié vers le presse-papiers",
-    "your-browser-does-not-support-clipboard": "Your browser does not support clipboard\")",
+    "your-browser-does-not-support-clipboard": "Votre navigateur ne supporte pas le presse-papiers",
     "copied-items-to-clipboard": "Aucun élément copié dans le presse-papier|Un élément copié dans le presse-papier|{count} éléments copiés dans le presse-papiers",
     "actions": "Actions",
     "selected-count": "Sélectionné : {count}",
@@ -427,7 +427,7 @@
     "user-made-this": "{user} l’a cuisiné",
     "last-made-date": "Last Made {date}",
     "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom json key/value pairs within a recipe to reference from 3rd part applications. You can use these keys to contain information to trigger automation or custom messages to relay to your desired device.",
-    "message-key": "Message Key",
+    "message-key": "Clé de message",
     "parse": "Parse",
     "attach-images-hint": "Joindre des images en les glissant et les déposant dans l'éditeur",
     "enable-ingredient-amounts-to-use-this-feature": "Enable ingredient amounts to use this feature",
@@ -914,7 +914,7 @@
     }
   },
   "profile": {
-    "welcome-user": "👋 Welcome, {0}",
+    "welcome-user": "👋 Bienvenue, {0}",
     "description": "Gérez votre profil, les recettes et les paramètres de groupe.",
     "get-invite-link": "Obtenir un lien d'invitation",
     "account-summary": "Aperçu du compte",
