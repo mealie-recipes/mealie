@@ -7,17 +7,15 @@ from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import MealieCrudRoute
-from mealie.schema.group.group_shopping_list import ShoppingListMultiPurposeLabelCreate
 from mealie.schema.labels import (
     MultiPurposeLabelCreate,
     MultiPurposeLabelOut,
-    MultiPurposeLabelSave,
     MultiPurposeLabelSummary,
     MultiPurposeLabelUpdate,
 )
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelPagination
-from mealie.schema.mapper import cast
 from mealie.schema.response.pagination import PaginationQuery
+from mealie.services.group_services.labels_service import MultiPurposeLabelService
 
 router = APIRouter(prefix="/groups/labels", tags=["Group: Multi Purpose Labels"], route_class=MealieCrudRoute)
 
@@ -25,11 +23,15 @@ router = APIRouter(prefix="/groups/labels", tags=["Group: Multi Purpose Labels"]
 @controller(router)
 class MultiPurposeLabelsController(BaseUserController):
     @cached_property
+    def service(self):
+        return MultiPurposeLabelService(self.repos, self.group.id)
+
+    @cached_property
     def repo(self):
         if not self.user:
             raise Exception("No user is logged in.")
 
-        return self.repos.group_multi_purpose_labels.by_group(self.user.group_id)
+        return self.repos.group_multi_purpose_labels
 
     # =======================================================================
     # CRUD Operations
@@ -50,24 +52,7 @@ class MultiPurposeLabelsController(BaseUserController):
 
     @router.post("", response_model=MultiPurposeLabelOut)
     def create_one(self, data: MultiPurposeLabelCreate):
-        create_data = cast(data, MultiPurposeLabelSave, group_id=self.user.group_id)
-        label: MultiPurposeLabelOut | None = self.mixins.create_one(create_data)  # type: ignore
-
-        if not label:
-            return
-
-        # add label ref to shopping lists
-        shopping_lists_repo = self.repos.group_shopping_lists.by_group(self.group_id)
-        shopping_lists = shopping_lists_repo.page_all(PaginationQuery(page=1, per_page=-1))
-        new_shopping_list_labels = [
-            ShoppingListMultiPurposeLabelCreate(
-                shopping_list_id=shopping_list.id, label_id=label.id, position=len(shopping_list.label_settings)
-            )
-            for shopping_list in shopping_lists.items
-        ]
-
-        self.repos.shopping_list_multi_purpose_labels.create_many(new_shopping_list_labels)
-        return label
+        return self.service.create_one(data)
 
     @router.get("/{item_id}", response_model=MultiPurposeLabelOut)
     def get_one(self, item_id: UUID4):
