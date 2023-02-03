@@ -36,7 +36,6 @@ def upgrade():
             ["shopping_lists.id"],
         ),
         sa.PrimaryKeyConstraint("id", "shopping_list_id", "label_id"),
-        sa.UniqueConstraint("shopping_list_id", "label_id"),
     )
     # ### end Alembic commands ###
 

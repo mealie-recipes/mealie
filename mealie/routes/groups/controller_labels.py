@@ -7,10 +7,7 @@ from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import MealieCrudRoute
-from mealie.schema.group.group_shopping_list import (
-    ShoppingListMultiPurposeLabelCreate,
-    ShoppingListUpdate,
-)
+from mealie.schema.group.group_shopping_list import ShoppingListMultiPurposeLabelCreate
 from mealie.schema.labels import (
     MultiPurposeLabelCreate,
     MultiPurposeLabelOut,
@@ -62,18 +59,14 @@ class MultiPurposeLabelsController(BaseUserController):
         # add label ref to shopping lists
         shopping_lists_repo = self.repos.group_shopping_lists.by_group(self.group_id)
         shopping_lists = shopping_lists_repo.page_all(PaginationQuery(page=1, per_page=-1))
-
-        updated_lists: list[ShoppingListUpdate] = []
-        for shopping_list in shopping_lists.items:
-            updated_list = shopping_list.cast(ShoppingListUpdate)
-            updated_list.label_settings.append(
-                ShoppingListMultiPurposeLabelCreate(
-                    shopping_list_id=updated_list.id, label_id=label.id, position=len(updated_list.label_settings)
-                )
+        new_shopping_list_labels = [
+            ShoppingListMultiPurposeLabelCreate(
+                shopping_list_id=shopping_list.id, label_id=label.id, position=len(shopping_list.label_settings)
             )
-            updated_lists.append(updated_list)
+            for shopping_list in shopping_lists.items
+        ]
 
-        shopping_lists_repo.update_many(updated_lists)
+        self.repos.shopping_list_multi_purpose_labels.create_many(new_shopping_list_labels)
         return label
 
     @router.get("/{item_id}", response_model=MultiPurposeLabelOut)

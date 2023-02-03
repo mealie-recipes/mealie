@@ -223,6 +223,7 @@ class ShoppingListSave(ShoppingListCreate):
 
 class ShoppingListSummary(ShoppingListSave):
     id: UUID4
+    recipe_references: list[ShoppingListRecipeRefOut]
     label_settings: list[ShoppingListMultiPurposeLabelOut]
 
     class Config:
@@ -240,9 +241,9 @@ class ShoppingListPagination(PaginationBase):
     items: list[ShoppingListSummary]
 
 
-class ShoppingListUpdate(ShoppingListSummary):
+class ShoppingListUpdate(ShoppingListSave):
+    id: UUID4
     list_items: list[ShoppingListItemOut] = []
-    label_settings: list[ShoppingListMultiPurposeLabelCreate | ShoppingListMultiPurposeLabelUpdate]
 
 
 class ShoppingListOut(ShoppingListUpdate):

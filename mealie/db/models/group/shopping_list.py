@@ -1,13 +1,4 @@
-from sqlalchemy import (
-    Boolean,
-    Column,
-    Float,
-    ForeignKey,
-    Integer,
-    String,
-    UniqueConstraint,
-    orm,
-)
+from sqlalchemy import Boolean, Column, Float, ForeignKey, Integer, String, orm
 from sqlalchemy.ext.orderinglist import ordering_list
 
 from mealie.db.models.labels import MultiPurposeLabel
@@ -98,7 +89,6 @@ class ShoppingListRecipeReference(BaseMixins, SqlAlchemyBase):
 
 class ShoppingListMultiPurposeLabel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "shopping_lists_multi_purpose_labels"
-    __table_args__ = (UniqueConstraint("shopping_list_id", "label_id"),)
     id = Column(GUID, primary_key=True, default=GUID.generate)
 
     shopping_list_id = Column(ForeignKey("shopping_lists.id"), primary_key=True)
