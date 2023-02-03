@@ -9,7 +9,7 @@
 
     <!-- Viewer -->
     <section v-if="!edit" class="py-2">
-      <div v-if="!byLabel">
+      <div v-if="!preferences.viewByLabel">
         <draggable :value="listItems.unchecked" handle=".handle" @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndexUnchecked">
           <v-lazy v-for="(item, index) in listItems.unchecked" :key="item.id" class="my-2">
             <ShoppingListItem
@@ -215,6 +215,7 @@ import { ShoppingListItemCreate, ShoppingListItemOut, ShoppingListMultiPurposeLa
 import RecipeList from "~/components/Domain/Recipe/RecipeList.vue";
 import ShoppingListItemEditor from "~/components/Domain/ShoppingList/ShoppingListItemEditor.vue";
 import { useFoodStore, useLabelStore, useUnitStore } from "~/composables/store";
+import { useShoppingListPreferences } from "~/composables/use-users/preferences";
 
 type CopyTypes = "plain" | "markdown";
 
@@ -232,13 +233,14 @@ export default defineComponent({
     ShoppingListItemEditor,
   },
   setup() {
+    const preferences = useShoppingListPreferences();
+
     const { idle } = useIdle(5 * 60 * 1000) // 5 minutes
     const loadingCounter = ref(1);
     const recipeReferenceLoading = ref(false);
     const userApi = useUserApi();
 
     const edit = ref(false);
-    const byLabel = ref(false);
     const reorderLabelsDialog = ref(false);
 
     const route = useRoute();
@@ -415,7 +417,7 @@ export default defineComponent({
     const { foods: allFoods } = useFoodStore();
 
     function sortByLabels() {
-      byLabel.value = !byLabel.value;
+      preferences.value.viewByLabel = !preferences.value.viewByLabel;
     }
 
     function toggleReorderLabelsDialog() {
@@ -690,7 +692,6 @@ export default defineComponent({
       addRecipeReferenceToList,
       updateListItems,
       allLabels,
-      byLabel,
       contextMenu,
       contextMenuAction,
       copyListItems,
@@ -704,6 +705,7 @@ export default defineComponent({
       listItems,
       listRecipes,
       loadingCounter,
+      preferences,
       presentLabels,
       removeRecipeReferenceToList,
       reorderLabelsDialog,
