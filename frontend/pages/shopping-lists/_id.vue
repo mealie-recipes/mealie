@@ -11,10 +11,11 @@
     <section v-if="!edit" class="py-2">
       <div v-if="!byLabel">
         <draggable :value="listItems.unchecked" handle=".handle" @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndexUnchecked">
-          <v-lazy v-for="(item, index) in listItems.unchecked" :key="item.id">
+          <v-lazy v-for="(item, index) in listItems.unchecked" :key="item.id" class="my-2">
             <ShoppingListItem
               v-model="listItems.unchecked[index]"
               class="my-2 my-sm-0"
+              :show-label=true
               :labels="allLabels || []"
               :units="allUnits || []"
               :foods="allFoods || []"
@@ -37,9 +38,10 @@
             </span>
             {{ key }}
           </div>
-          <v-lazy v-for="(item, index) in value" :key="item.id">
+          <v-lazy v-for="(item, index) in value" :key="item.id" class="ml-2 my-2">
             <ShoppingListItem
               v-model="value[index]"
+              :show-label=false
               :labels="allLabels || []"
               :units="allUnits || []"
               :foods="allFoods || []"
