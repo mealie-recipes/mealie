@@ -31,7 +31,7 @@
       <div v-else>
         <div v-for="(value, key, idx) in itemsByLabel" :key="key" class="mb-6">
           <div @click="toggleShowChecked()">
-            <span v-if="idx">
+            <span v-if="idx || key !== $tc('shopping-list.no-label')">
               <v-icon>
                 {{ $globals.icons.tags }}
               </v-icon>
