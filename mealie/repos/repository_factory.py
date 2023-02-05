@@ -1,5 +1,5 @@
+from collections.abc import Sequence
 from functools import cached_property
-from typing import Sequence
 
 from sqlalchemy import select
 from sqlalchemy.orm import Session
