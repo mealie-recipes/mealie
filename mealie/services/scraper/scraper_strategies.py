@@ -1,6 +1,7 @@
 import time
 from abc import ABC, abstractmethod
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 
 import extruct
 from fastapi import HTTPException, status
@@ -32,7 +33,6 @@ async def safe_scrape_html(url: str) -> str:
     async with AsyncClient() as client:
         html_bytes = b""
         async with client.stream("GET", url, timeout=SCRAPER_TIMEOUT, headers={"User-Agent": _FIREFOX_UA}) as resp:
-
             start_time = time.time()
 
             async for chunk in resp.aiter_bytes(chunk_size=1024):

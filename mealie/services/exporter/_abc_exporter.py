@@ -1,9 +1,8 @@
 import zipfile
 from abc import abstractmethod, abstractproperty
-from collections.abc import Iterator
+from collections.abc import Callable, Iterator
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Callable
 from uuid import UUID
 
 from pydantic import BaseModel

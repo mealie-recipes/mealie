@@ -49,13 +49,13 @@ coveragepy-lcov = "^0.1.1"
 mkdocs-material = "^9.0.0"
 mypy = "^0.991"
 openapi-spec-validator = "^0.5.0"
-pre-commit = "^2.20.0"
+pre-commit = "^3.0.4"
 pydantic-to-typescript = "^1.0.7"
 pylint = "^2.6.0"
 pytest = "^7.2.0"
 pytest-asyncio = "^0.20.3"
 rich = "^13.0.0"
-ruff = "^0.0.237"
+ruff = "^0.0.241"
 types-PyYAML = "^6.0.4"
 types-python-dateutil = "^2.8.18"
 types-python-slugify = "^6.0.0"
@@ -142,6 +142,8 @@ exclude = [
   "dist",
   "node_modules",
   "venv",
+  # TODO: Remove when match statement is supported by Ruff
+  "mealie/services/scraper/cleaner.py"
 ]
 
 # Assume Python 3.10.
