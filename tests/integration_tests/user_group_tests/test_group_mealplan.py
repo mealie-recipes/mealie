@@ -85,7 +85,6 @@ def test_crud_mealplan(api_client: TestClient, unique_user: TestUser):
 
 
 def test_get_all_mealplans(api_client: TestClient, unique_user: TestUser):
-
     for _ in range(3):
         new_plan = CreatePlanEntry(
             date=date.today(),

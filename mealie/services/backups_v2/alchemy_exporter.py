@@ -86,7 +86,6 @@ class AlchemyExporter(BaseService):
         jsonable_encoder to ensure that the object can be converted to a json string.
         """
         with self.engine.connect() as connection:
-
             self.meta.reflect(bind=self.engine)
 
             all_tables = self.meta.tables.values()

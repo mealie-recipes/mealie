@@ -25,7 +25,6 @@ def get_path_objects(app: FastAPI):
     for key, value in app.openapi().items():
         if key == "paths":
             for key, value in value.items():
-
                 paths.append(
                     PathObject(
                         route_object=RouteObject(key),
@@ -50,7 +49,6 @@ def read_template(file: Path):
 
 
 def generate_python_templates(static_paths: list[PathObject], function_paths: list[PathObject]):
-
     template = Template(read_template(CodeTemplates.pytest_routes))
     content = template.render(
         paths={

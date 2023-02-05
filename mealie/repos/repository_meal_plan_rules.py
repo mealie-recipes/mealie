@@ -13,7 +13,6 @@ class RepositoryMealPlanRules(RepositoryGeneric[PlanRulesOut, GroupMealPlanRules
         return super().by_group(group_id)
 
     def get_rules(self, day: PlanRulesDay, entry_type: PlanRulesType) -> list[PlanRulesOut]:
-
         stmt = select(GroupMealPlanRules).filter(
             or_(
                 GroupMealPlanRules.day == day,

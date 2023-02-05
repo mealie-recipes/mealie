@@ -25,7 +25,6 @@ def test_camelize_variables():
 
 
 def test_cast_to():
-
     model = TestModel(long_name="Hello", long_int=1, long_float=1.1)
 
     model2 = model.cast(TestModel2, another_str="World")
@@ -37,7 +36,6 @@ def test_cast_to():
 
 
 def test_map_to():
-
     model = TestModel(long_name="Model1", long_int=100, long_float=1.5)
 
     model2 = TestModel2(long_name="Model2", long_int=1, long_float=1.1, another_str="World")

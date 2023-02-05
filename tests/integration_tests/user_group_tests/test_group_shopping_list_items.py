@@ -94,7 +94,6 @@ def test_shopping_list_items_get_one(
     unique_user: TestUser,
     list_with_items: ShoppingListOut,
 ) -> None:
-
     for _ in range(3):
         item = random.choice(list_with_items.list_items)
 

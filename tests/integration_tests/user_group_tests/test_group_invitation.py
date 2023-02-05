@@ -60,7 +60,6 @@ def test_group_invitation_link(api_client: TestClient, unique_user: TestUser, in
 
 
 def test_group_invitation_delete_after_uses(api_client: TestClient, invite: str) -> None:
-
     # Register First User
     _, r = register_user(api_client, invite)
     assert r.status_code == 201

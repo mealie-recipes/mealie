@@ -17,7 +17,6 @@ replace_abbreviations = {
 
 
 def replace_common_abbreviations(string: str) -> str:
-
     for k, v in replace_abbreviations.items():
         regex = rf"(?<=\d)\s?({k}\bs?)"
         string = re.sub(regex, v, string)

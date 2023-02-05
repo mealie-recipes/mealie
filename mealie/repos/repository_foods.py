@@ -13,7 +13,6 @@ class RepositoryFood(RepositoryGeneric[IngredientFood, IngredientFoodModel]):
         return self.session.execute(stmt).scalars().one()
 
     def merge(self, from_food: UUID4, to_food: UUID4) -> IngredientFood | None:
-
         from_model = self._get_food(from_food)
         to_model = self._get_food(to_food)
 

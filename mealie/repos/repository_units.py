@@ -13,7 +13,6 @@ class RepositoryUnit(RepositoryGeneric[IngredientUnit, IngredientUnitModel]):
         return self.session.execute(stmt).scalars().one()
 
     def merge(self, from_unit: UUID4, to_unit: UUID4) -> IngredientUnit | None:
-
         from_model = self._get_unit(from_unit)
         to_model = self._get_unit(to_unit)
 
