@@ -43,7 +43,7 @@ tzdata = "^2022.7"
 uvicorn = {extras = ["standard"], version = "^0.20.0"}
 
 [tool.poetry.group.dev.dependencies]
-black = "^21.12b0"
+black = "^23.1.0"
 coverage = "^7.0"
 coveragepy-lcov = "^0.1.1"
 mkdocs-material = "^9.0.0"
