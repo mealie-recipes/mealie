@@ -130,20 +130,15 @@ class WebhookEventListener(EventListenerBase):
         return scheduled_webhooks
 
     def publish_to_subscribers(self, event: Event, subscribers: list[ReadWebhook]) -> None:
-        match event.document_data.document_type:  # noqa - match statement not supported by ruff
-            case EventDocumentType.mealplan:
-                # TODO: limit mealplan data to a date range instead of returning all mealplans
-                meal_repo = self.repos.meals.by_group(self.group_id)
-                meal_pagination_data = meal_repo.page_all(pagination=PaginationQuery(page=1, per_page=-1))
-                meal_data = meal_pagination_data.items
-                if meal_data:
-                    webhook_data = cast(EventWebhookData, event.document_data)
-                    webhook_data.webhook_body = meal_data
-                    self.publisher.publish(event, [webhook.url for webhook in subscribers])
-
-            case _:
-                # if the document type is not supported, do nothing
-                pass
+        if event.document_data.document_type == EventDocumentType.mealplan:
+            # TODO: limit mealplan data to a date range instead of returning all mealplans
+            meal_repo = self.repos.meals.by_group(self.group_id)
+            meal_pagination_data = meal_repo.page_all(pagination=PaginationQuery(page=1, per_page=-1))
+            meal_data = meal_pagination_data.items
+            if meal_data:
+                webhook_data = cast(EventWebhookData, event.document_data)
+                webhook_data.webhook_body = meal_data
+                self.publisher.publish(event, [webhook.url for webhook in subscribers])
 
     def get_scheduled_webhooks(self, start_dt: datetime, end_dt: datetime) -> list[ReadWebhook]:
         """Fetches all scheduled webhooks from the database"""
