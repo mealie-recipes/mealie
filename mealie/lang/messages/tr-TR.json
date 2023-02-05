@@ -14,7 +14,7 @@
         "invalid-current-password": "Invalid current password"
     },
     "group": {
-        "report-deleted": "Report deleted."
+        "report-deleted": "Rapor silindi."
     },
     "exceptions": {
         "permission_denied": "Bu eylemi gerçekleştirme izniniz yok",

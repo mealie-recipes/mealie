@@ -9,12 +9,12 @@
         "no-recipes-match-your-rules": "No recipes match your rules"
     },
     "user": {
-        "user-updated": "User updated",
-        "password-updated": "Password updated",
-        "invalid-current-password": "Invalid current password"
+        "user-updated": "Користувача оновлено",
+        "password-updated": "Пароль оновлено",
+        "invalid-current-password": "Неправильний поточний пароль"
     },
     "group": {
-        "report-deleted": "Report deleted."
+        "report-deleted": "Звіт видалено."
     },
     "exceptions": {
         "permission_denied": "У вас немає дозволу на виконання цієї дії",
