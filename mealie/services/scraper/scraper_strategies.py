@@ -82,6 +82,10 @@ class ABCScraperStrategy(ABC):
         self.url = url
 
     @abstractmethod
+    async def get_html(self, url: str) -> str:
+        ...
+
+    @abstractmethod
     async def parse(self) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
         """Parse a recipe from a web URL.
 
@@ -95,6 +99,9 @@ class ABCScraperStrategy(ABC):
 
 
 class RecipeScraperPackage(ABCScraperStrategy):
+    async def get_html(self, url: str) -> str:
+        return await safe_scrape_html(url)
+
     def clean_scraper(self, scraped_data: SchemaScraperFactory.SchemaScraper, url: str) -> tuple[Recipe, ScrapedExtras]:
         def try_get_default(func_call: Callable | None, get_attr: str, default: Any, clean_func=None):
             value = default
@@ -160,7 +167,8 @@ class RecipeScraperPackage(ABCScraperStrategy):
         return recipe, extras
 
     async def scrape_url(self) -> SchemaScraperFactory.SchemaScraper | Any | None:
-        recipe_html = await safe_scrape_html(self.url)
+        recipe_html = await self.get_html(self.url)
+
         try:
             scraped_schema = scrape_html(recipe_html, org_url=self.url)
         except (NoSchemaFoundInWildMode, AttributeError):
@@ -204,8 +212,8 @@ class RecipeScraperOpenGraph(ABCScraperStrategy):
     Abstract class for all recipe parsers.
     """
 
-    async def get_html(self) -> str:
-        return await safe_scrape_html(self.url)
+    async def get_html(self, url: str) -> str:
+        return await safe_scrape_html(url)
 
     def get_recipe_fields(self, html) -> dict | None:
         """
@@ -245,7 +253,7 @@ class RecipeScraperOpenGraph(ABCScraperStrategy):
         """
         Parse a recipe from a given url.
         """
-        html = await self.get_html()
+        html = await self.get_html(self.url)
 
         og_data = self.get_recipe_fields(html)
 
