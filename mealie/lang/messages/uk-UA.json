@@ -6,7 +6,7 @@
         "unique-name-error": "Назва рецепту повинна бути унікальною"
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "No recipes match your rules"
+        "no-recipes-match-your-rules": "Немає рецептів, що відповідають вашим правилам"
     },
     "user": {
         "user-updated": "Користувача оновлено",
