@@ -4,7 +4,7 @@ from pathlib import Path
 
 from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
-from sqlalchemy import MetaData, create_engine
+from sqlalchemy import MetaData, create_engine, insert, text
 from sqlalchemy.engine import base
 from sqlalchemy.orm import sessionmaker
 
@@ -85,41 +85,48 @@ class AlchemyExporter(BaseService):
         Returns the schema of the SQLAlchemy database as a python dictionary. This dictionary is wrapped by
         jsonable_encoder to ensure that the object can be converted to a json string.
         """
-        self.meta.reflect(bind=self.engine)
+        with self.engine.connect() as connection:
+            self.meta.reflect(bind=self.engine)
 
-        all_tables = self.meta.tables.values()
+            all_tables = self.meta.tables.values()
 
-        results = {
-            **{table.name: [] for table in all_tables},
-            "alembic_version": [dict(row) for row in self.engine.execute("SELECT * FROM alembic_version").fetchall()],
-        }
+            results = {
+                **{table.name: [] for table in all_tables},
+                "alembic_version": [
+                    dict(row) for row in connection.execute(text("SELECT * FROM alembic_version")).mappings()
+                ],
+            }
 
-        return jsonable_encoder(results)
+            return jsonable_encoder(results)
 
     def dump(self) -> dict[str, list[dict]]:
         """
         Returns the entire SQLAlchemy database as a python dictionary. This dictionary is wrapped by
         jsonable_encoder to ensure that the object can be converted to a json string.
         """
-        self.meta.reflect(bind=self.engine)  # http://docs.sqlalchemy.org/en/rel_0_9/core/reflection.html
-        result = {
-            table.name: [dict(row) for row in self.engine.execute(table.select())] for table in self.meta.sorted_tables
-        }
+        with self.engine.connect() as connection:
+            self.meta.reflect(bind=self.engine)  #  http://docs.sqlalchemy.org/en/rel_0_9/core/reflection.html
+
+            result = {
+                table.name: [dict(row) for row in connection.execute(table.select()).mappings()]
+                for table in self.meta.sorted_tables
+            }
 
         return jsonable_encoder(result)
 
     def restore(self, db_dump: dict) -> None:
         """Restores all data from dictionary into the database"""
-        data = AlchemyExporter.convert_to_datetime(db_dump)
+        with self.engine.begin() as connection:
+            data = AlchemyExporter.convert_to_datetime(db_dump)
 
-        self.meta.reflect(bind=self.engine)
-        for table_name, rows in data.items():
-            if not rows:
-                continue
+            self.meta.reflect(bind=self.engine)
+            for table_name, rows in data.items():
+                if not rows:
+                    continue
 
-            table = self.meta.tables[table_name]
-            self.engine.execute(table.delete())
-            self.engine.execute(table.insert(), rows)
+                table = self.meta.tables[table_name]
+                connection.execute(table.delete())
+                connection.execute(insert(table), rows)
 
     def drop_all(self) -> None:
         """Drops all data from the database"""
@@ -129,11 +136,11 @@ class AlchemyExporter(BaseService):
 
             try:
                 if is_postgres:
-                    session.execute("SET session_replication_role = 'replica'")
+                    session.execute(text("SET session_replication_role = 'replica'"))
 
                 for table in self.meta.sorted_tables:
-                    session.execute(f"DELETE FROM {table.name}")
+                    session.execute(text(f"DELETE FROM {table.name}"))
             finally:
                 if is_postgres:
-                    session.execute("SET session_replication_role = 'origin'")
+                    session.execute(text("SET session_replication_role = 'origin'"))
                 session.commit()

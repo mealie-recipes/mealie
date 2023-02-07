@@ -18,7 +18,6 @@ class TestIngredient:
 
 
 def crf_exists() -> bool:
-
     return shutil.which("crf_test") is not None
 
 

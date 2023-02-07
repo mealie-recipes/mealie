@@ -11,7 +11,6 @@ SUBJECTS = {"Mealie Forgot Password", "Invitation to join Mealie", "Test Email"}
 
 class TestEmailSender(ABCEmailSender):
     def send(self, email_to: str, subject: str, html: str) -> bool:
-
         # check email_to:
         assert email_to == FAKE_ADDRESS
 

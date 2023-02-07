@@ -1,6 +1,5 @@
 import json
 from pathlib import Path
-from typing import Optional, Union
 
 import pytest
 from bs4 import BeautifulSoup
@@ -12,7 +11,7 @@ from slugify import slugify
 
 from mealie.schema.recipe.recipe import RecipeCategory
 from mealie.services.recipe.recipe_data_service import RecipeDataService
-from mealie.services.scraper.scraper_strategies import RecipeScraperOpenGraph
+from mealie.services.scraper.recipe_scraper import DEFAULT_SCRAPER_STRATEGIES
 from tests import data, utils
 from tests.utils import api_routes
 from tests.utils.factories import random_string
@@ -31,9 +30,9 @@ def get_init(html_path: Path):
     def init_override(
         self,
         url,
-        proxies: Optional[str] = None,
-        timeout: Optional[Union[float, tuple, None]] = None,
-        wild_mode: Optional[bool] = False,
+        proxies: str | None = None,
+        timeout: float | tuple | None = None,
+        wild_mode: bool | None = False,
         **_,
     ):
         page_data = html_path.read_bytes()
@@ -48,7 +47,7 @@ def get_init(html_path: Path):
 
 
 def open_graph_override(html: str):
-    def get_html(self) -> str:
+    async def get_html(self, url: str) -> str:
         return html
 
     return get_html
@@ -68,11 +67,12 @@ def test_create_by_url(
         get_init(recipe_data.html_file),
     )
     # Override the get_html method of the RecipeScraperOpenGraph to return the test html
-    monkeypatch.setattr(
-        RecipeScraperOpenGraph,
-        "get_html",
-        open_graph_override(recipe_data.html_file.read_text()),
-    )
+    for scraper_cls in DEFAULT_SCRAPER_STRATEGIES:
+        monkeypatch.setattr(
+            scraper_cls,
+            "get_html",
+            open_graph_override(recipe_data.html_file.read_text()),
+        )
     # Skip image downloader
     monkeypatch.setattr(
         RecipeDataService,
@@ -113,12 +113,13 @@ def test_create_by_url_with_tags(
         "__init__",
         get_init(html_file),
     )
-    # Override the get_html method of the RecipeScraperOpenGraph to return the test html
-    monkeypatch.setattr(
-        RecipeScraperOpenGraph,
-        "get_html",
-        open_graph_override(html_file.read_text()),
-    )
+    # Override the get_html method of all scraper strategies to return the test html
+    for scraper_cls in DEFAULT_SCRAPER_STRATEGIES:
+        monkeypatch.setattr(
+            scraper_cls,
+            "get_html",
+            open_graph_override(html_file.read_text()),
+        )
     # Skip image downloader
     monkeypatch.setattr(
         RecipeDataService,
@@ -198,7 +199,7 @@ def test_read_update(
     assert len(recipe["recipeCategory"]) == len(recipe_categories)
 
     test_name = [x.name for x in recipe_categories]
-    for cats in zip(recipe["recipeCategory"], recipe_categories):
+    for cats in zip(recipe["recipeCategory"], recipe_categories, strict=False):
         assert cats[0]["name"] in test_name
 
 

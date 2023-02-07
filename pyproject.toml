@@ -12,7 +12,7 @@ start = "mealie.app:main"
 Jinja2 = "^3.1.2"
 Pillow = "^9.2.0"
 PyYAML = "^5.3.1"
-SQLAlchemy = "^1.4.29"
+SQLAlchemy = "^2"
 aiofiles = "^22.1.0"
 alembic = "^1.7.5"
 aniso8601 = "9.0.1"
@@ -43,19 +43,18 @@ tzdata = "^2022.7"
 uvicorn = {extras = ["standard"], version = "^0.20.0"}
 
 [tool.poetry.group.dev.dependencies]
-black = "^21.12b0"
+black = "^23.1.0"
 coverage = "^7.0"
 coveragepy-lcov = "^0.1.1"
 mkdocs-material = "^9.0.0"
 mypy = "^0.991"
-openapi-spec-validator = "^0.5.0"
-pre-commit = "^2.20.0"
+pre-commit = "^3.0.4"
 pydantic-to-typescript = "^1.0.7"
 pylint = "^2.6.0"
 pytest = "^7.2.0"
 pytest-asyncio = "^0.20.3"
 rich = "^13.0.0"
-ruff = "^0.0.237"
+ruff = "^0.0.241"
 types-PyYAML = "^6.0.4"
 types-python-dateutil = "^2.8.18"
 types-python-slugify = "^6.0.0"
@@ -142,6 +141,8 @@ exclude = [
   "dist",
   "node_modules",
   "venv",
+  # TODO: Remove when match statement is supported by Ruff
+  "mealie/services/scraper/cleaner.py"
 ]
 
 # Assume Python 3.10.

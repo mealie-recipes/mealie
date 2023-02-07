@@ -1,6 +1,5 @@
 from functools import cached_property
 from shutil import copyfileobj
-from typing import Optional
 from zipfile import ZipFile
 
 import orjson
@@ -28,7 +27,6 @@ from mealie.schema.recipe import Recipe, RecipeImageTypes, ScrapeRecipe
 from mealie.schema.recipe.recipe import (
     CreateRecipe,
     CreateRecipeByUrlBulk,
-    RecipePagination,
     RecipePaginationQuery,
     RecipeSummary,
     RecipeSummaryWithIngredients,
@@ -148,23 +146,23 @@ router = UserAPIRouter(prefix="/recipes", tags=["Recipe: CRUD"], route_class=Mea
 @controller(router)
 class RecipeController(BaseRecipeController):
     def handle_exceptions(self, ex: Exception) -> None:
-        match type(ex):  # noqa match statement not supported
-            case exceptions.PermissionDenied:
-                self.logger.error("Permission Denied on recipe controller action")
-                raise HTTPException(status_code=403, detail=ErrorResponse.respond(message="Permission Denied"))
-            case exceptions.NoEntryFound:
-                self.logger.error("No Entry Found on recipe controller action")
-                raise HTTPException(status_code=404, detail=ErrorResponse.respond(message="No Entry Found"))
-            case sqlalchemy.exc.IntegrityError:
-                self.logger.error("SQL Integrity Error on recipe controller action")
-                raise HTTPException(status_code=400, detail=ErrorResponse.respond(message="Recipe already exists"))
+        thrownType = type(ex)
 
-            case _:
-                self.logger.error("Unknown Error on recipe controller action")
-                self.logger.exception(ex)
-                raise HTTPException(
-                    status_code=500, detail=ErrorResponse.respond(message="Unknown Error", exception=str(ex))
-                )
+        if thrownType == exceptions.PermissionDenied:
+            self.logger.error("Permission Denied on recipe controller action")
+            raise HTTPException(status_code=403, detail=ErrorResponse.respond(message="Permission Denied"))
+        elif thrownType == exceptions.NoEntryFound:
+            self.logger.error("No Entry Found on recipe controller action")
+            raise HTTPException(status_code=404, detail=ErrorResponse.respond(message="No Entry Found"))
+        elif thrownType == sqlalchemy.exc.IntegrityError:
+            self.logger.error("SQL Integrity Error on recipe controller action")
+            raise HTTPException(status_code=400, detail=ErrorResponse.respond(message="Recipe already exists"))
+        else:
+            self.logger.error("Unknown Error on recipe controller action")
+            self.logger.exception(ex)
+            raise HTTPException(
+                status_code=500, detail=ErrorResponse.respond(message="Unknown Error", exception=ex.__class__.__name__)
+            )
 
     # =======================================================================
     # URL Scraping Operations
@@ -245,12 +243,12 @@ class RecipeController(BaseRecipeController):
         self,
         request: Request,
         q: RecipePaginationQuery = Depends(),
-        cookbook: Optional[UUID4 | str] = Query(None),
-        categories: Optional[list[UUID4 | str]] = Query(None),
-        tags: Optional[list[UUID4 | str]] = Query(None),
-        tools: Optional[list[UUID4 | str]] = Query(None),
+        cookbook: UUID4 | str | None = Query(None),
+        categories: list[UUID4 | str] | None = Query(None),
+        tags: list[UUID4 | str] | None = Query(None),
+        tools: list[UUID4 | str] | None = Query(None),
     ):
-        cookbook_data: Optional[ReadCookBook] = None
+        cookbook_data: ReadCookBook | None = None
         if cookbook:
             cb_match_attr = "slug" if isinstance(cookbook, str) else "id"
             cookbook_data = self.cookbooks_repo.get_one(cookbook, cb_match_attr)

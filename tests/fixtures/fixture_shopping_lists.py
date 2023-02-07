@@ -25,7 +25,6 @@ def create_item(list_id: UUID4) -> dict:
 
 @pytest.fixture(scope="function")
 def shopping_lists(database: AllRepositories, unique_user: TestUser):
-
     models: list[ShoppingListOut] = []
 
     for _ in range(3):
@@ -46,7 +45,6 @@ def shopping_lists(database: AllRepositories, unique_user: TestUser):
 
 @pytest.fixture(scope="function")
 def shopping_list(database: AllRepositories, unique_user: TestUser):
-
     model = database.group_shopping_lists.create(
         ShoppingListSave(name=random_string(10), group_id=unique_user.group_id),
     )

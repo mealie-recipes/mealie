@@ -1,27 +1,27 @@
 {
     "generic": {
-        "server-error": "An unexpected error occurred"
+        "server-error": "Произошла непредвиденная ошибка"
     },
     "recipe": {
-        "unique-name-error": "Recipe names must be unique"
+        "unique-name-error": "Название рецепта должно быть уникальным"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "No recipes match your rules"
     },
     "user": {
         "user-updated": "User updated",
-        "password-updated": "Password updated",
+        "password-updated": "Пароль обновлен",
         "invalid-current-password": "Invalid current password"
     },
     "group": {
-        "report-deleted": "Report deleted."
+        "report-deleted": "Отчет удален."
     },
     "exceptions": {
-        "permission_denied": "You do not have permission to perform this action",
-        "no-entry-found": "The requested resource was not found",
-        "integrity-error": "Database integrity error",
-        "username-conflict-error": "This username is already taken",
-        "email-conflict-error": "This email is already in use"
+        "permission_denied": "У вас нет прав для выполнения этого действия",
+        "no-entry-found": "Запрашиваемый ресурс не найден",
+        "integrity-error": "Ошибка целостности базы данных",
+        "username-conflict-error": "Это имя пользователя уже занято",
+        "email-conflict-error": "Этот адрес эл. почты уже используется"
     },
     "notifications": {
         "generic-created": "{name} was created",

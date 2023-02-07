@@ -1,4 +1,5 @@
 import sqlalchemy as sa
+from sqlalchemy.orm import Mapped, mapped_column
 
 from mealie.db.models._model_base import SqlAlchemyBase
 from mealie.db.models._model_utils.guid import GUID
@@ -6,15 +7,15 @@ from mealie.db.models._model_utils.guid import GUID
 
 class Nutrition(SqlAlchemyBase):
     __tablename__ = "recipe_nutrition"
-    id = sa.Column(sa.Integer, primary_key=True)
-    recipe_id = sa.Column(GUID, sa.ForeignKey("recipes.id"))
-    calories = sa.Column(sa.String)
-    fat_content = sa.Column(sa.String)
-    fiber_content = sa.Column(sa.String)
-    protein_content = sa.Column(sa.String)
-    carbohydrate_content = sa.Column(sa.String)
-    sodium_content = sa.Column(sa.String)
-    sugar_content = sa.Column(sa.String)
+    id: Mapped[int] = mapped_column(sa.Integer, primary_key=True)
+    recipe_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("recipes.id"))
+    calories: Mapped[str | None] = mapped_column(sa.String)
+    fat_content: Mapped[str | None] = mapped_column(sa.String)
+    fiber_content: Mapped[str | None] = mapped_column(sa.String)
+    protein_content: Mapped[str | None] = mapped_column(sa.String)
+    carbohydrate_content: Mapped[str | None] = mapped_column(sa.String)
+    sodium_content: Mapped[str | None] = mapped_column(sa.String)
+    sugar_content: Mapped[str | None] = mapped_column(sa.String)
 
     def __init__(
         self,

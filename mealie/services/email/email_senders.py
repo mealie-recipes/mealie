@@ -69,7 +69,6 @@ class DefaultEmailSender(ABCEmailSender, BaseService):
     """
 
     def send(self, email_to: str, subject: str, html: str) -> bool:
-
         if self.settings.SMTP_FROM_EMAIL is None or self.settings.SMTP_FROM_NAME is None:
             raise ValueError("SMTP_FROM_EMAIL and SMTP_FROM_NAME must be set in the config file.")
 

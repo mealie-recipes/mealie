@@ -2,7 +2,7 @@ from collections.abc import Callable
 from pathlib import Path
 from time import sleep
 
-from sqlalchemy import engine, orm
+from sqlalchemy import engine, orm, text
 
 from alembic import command, config, script
 from alembic.config import Config
@@ -59,7 +59,7 @@ def safe_try(func: Callable):
 
 def connect(session: orm.Session) -> bool:
     try:
-        session.execute("SELECT 1")
+        session.execute(text("SELECT 1"))
         return True
     except Exception as e:
         logger.error(f"Error connecting to database: {e}")

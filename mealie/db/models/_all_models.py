@@ -1,5 +1,5 @@
 from .group import *
 from .labels import *
-from .recipe.recipe import *  # type: ignore
+from .recipe import *
 from .server import *
 from .users import *

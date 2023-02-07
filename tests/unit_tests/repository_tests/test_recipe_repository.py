@@ -113,7 +113,6 @@ def test_recipe_repo_get_by_categories_multi(database: AllRepositories, unique_u
     by_category = repo.get_by_categories(cast(list[RecipeCategory], created_categories))
 
     assert len(by_category) == 10
-
     for recipe_summary in by_category:
         for recipe_category in recipe_summary.recipe_category:
             assert recipe_category.id in known_category_ids

@@ -6,12 +6,12 @@
         "unique-name-error": "Rezeptnamen müssen einzigartig sein"
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "No recipes match your rules"
+        "no-recipes-match-your-rules": "Keine Rezepte entsprechen deinen Regeln"
     },
     "user": {
-        "user-updated": "User updated",
-        "password-updated": "Password updated",
-        "invalid-current-password": "Invalid current password"
+        "user-updated": "Benutzer aktualisiert",
+        "password-updated": "Passwort aktualisiert",
+        "invalid-current-password": "Aktuelles Passwort ungültig"
     },
     "group": {
         "report-deleted": "Report deleted."

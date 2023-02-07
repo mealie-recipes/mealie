@@ -1,4 +1,5 @@
 from pydantic import UUID4
+from sqlalchemy import func, select
 
 from mealie.db.models.group import Group
 from mealie.db.models.recipe.category import Category
@@ -9,21 +10,26 @@ from mealie.db.models.users.users import User
 from mealie.schema.group.group_statistics import GroupStatistics
 from mealie.schema.user.user import GroupInDB
 
+from ..db.models._model_base import SqlAlchemyBase
 from .repository_generic import RepositoryGeneric
 
 
 class RepositoryGroup(RepositoryGeneric[GroupInDB, Group]):
-    def get_by_name(self, name: str, limit=1) -> GroupInDB | Group | None:
-        dbgroup = self.session.query(self.model).filter_by(**{"name": name}).one_or_none()
+    def get_by_name(self, name: str) -> GroupInDB | None:
+        dbgroup = self.session.execute(select(self.model).filter_by(name=name)).scalars().one_or_none()
         if dbgroup is None:
             return None
         return self.schema.from_orm(dbgroup)
 
     def statistics(self, group_id: UUID4) -> GroupStatistics:
+        def model_count(model: type[SqlAlchemyBase]) -> int:
+            stmt = select(func.count(model.id)).filter_by(group_id=group_id)
+            return self.session.scalar(stmt)
+
         return GroupStatistics(
-            total_recipes=self.session.query(RecipeModel).filter_by(group_id=group_id).count(),
-            total_users=self.session.query(User).filter_by(group_id=group_id).count(),
-            total_categories=self.session.query(Category).filter_by(group_id=group_id).count(),
-            total_tags=self.session.query(Tag).filter_by(group_id=group_id).count(),
-            total_tools=self.session.query(Tool).filter_by(group_id=group_id).count(),
+            total_recipes=model_count(RecipeModel),
+            total_users=model_count(User),
+            total_categories=model_count(Category),
+            total_tags=model_count(Tag),
+            total_tools=model_count(Tool),
         )

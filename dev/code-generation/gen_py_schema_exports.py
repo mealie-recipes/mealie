@@ -79,14 +79,12 @@ def find_modules(root: pathlib.Path) -> list[Modules]:
     modules: list[Modules] = []
     for file in root.iterdir():
         if file.is_dir() and file.name not in SKIP:
-
             modules.append(Modules(directory=file))
 
     return modules
 
 
 def main():
-
     modules = find_modules(SCHEMA_PATH)
 
     for module in modules:

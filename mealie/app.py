@@ -1,6 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.gzip import GZipMiddleware
+from fastapi.routing import APIRoute
 
 from mealie.core.config import get_app_settings
 from mealie.core.root_logger import get_logger
@@ -77,6 +78,12 @@ def api_routers():
 
 
 api_routers()
+
+# fix routes that would get their tags duplicated by use of @controller,
+# leading to duplicate definitions in the openapi spec
+for route in app.routes:
+    if isinstance(route, APIRoute):
+        route.tags = list(set(route.tags))
 
 
 @app.on_event("startup")
