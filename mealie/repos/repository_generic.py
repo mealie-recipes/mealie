@@ -203,7 +203,8 @@ class RepositoryGeneric(Generic[Schema, Model]):
             document_data = document if isinstance(document, dict) else document.dict()
             document_data_by_id[document_data["id"]] = document_data
 
-        documents_to_update = self._query().filter(self.model.id.in_(list(document_data_by_id.keys())))  # type: ignore
+        documents_to_update_query = self._query().filter(self.model.id.in_(list(document_data_by_id.keys())))
+        documents_to_update = self.session.execute(documents_to_update_query).scalars().all()
 
         updated_documents = []
         for document_to_update in documents_to_update:
@@ -240,7 +241,8 @@ class RepositoryGeneric(Generic[Schema, Model]):
         return results_as_model
 
     def delete_many(self, values: Iterable) -> Schema:
-        results = self._query().filter(self.model.id.in_(values))  # type: ignore
+        query = self._query().filter(self.model.id.in_(values))  # type: ignore
+        results = self.session.execute(query).scalars().all()
         results_as_model = [self.schema.from_orm(result) for result in results]
 
         try:
