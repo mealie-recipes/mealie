@@ -924,7 +924,7 @@
     "storage-capacity": "Speicherplatz",
     "storage-capacity-description": "Dein Speicherplatz wird anhand der Bilder und Anhänge berechnet, die du hochgeladen hast.",
     "personal": "Persönlich",
-    "personal-description": "Dies sind deine persönlicen Einstellungen. Änderungen hier wirken sich nicht auf andere Benutzer aus",
+    "personal-description": "Das sind deine persönlichen Einstellungen. Änderungen hier wirken sich nicht auf andere Benutzer aus",
     "user-settings": "Benutzereinstellungen",
     "user-settings-description": "Verwalte deine Einstellungen, ändere dein Passwort und aktualisiere deine E-Mail-Adresse",
     "api-tokens-description": "Verwalte deine API Token für den Zugriff von externen Anwendungen",
