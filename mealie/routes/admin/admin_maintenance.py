@@ -85,7 +85,6 @@ class AdminMaintenanceController(BaseAdminController):
 
     @router.get("/logs", response_model=MaintenanceLogs)
     def get_logs(self, lines: int = 200):
-
         return MaintenanceLogs(logs=tail_log(LOGGER_FILE, lines))
 
     @router.get("/storage", response_model=MaintenanceStorageDetails)

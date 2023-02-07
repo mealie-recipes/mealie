@@ -180,7 +180,6 @@ def import_data(lines):
         # otherwise it's a token
         # e.g.: potato \t I2 \t L5 \t NoCAP \t B-NAME/0.978253
         else:
-
             columns = re.split("\t", line.strip())
             token = columns[0].strip()
 

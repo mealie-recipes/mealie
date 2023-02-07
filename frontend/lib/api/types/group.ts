@@ -245,6 +245,9 @@ export interface SetPermissions {
   canInvite?: boolean;
   canOrganize?: boolean;
 }
+export interface ShoppingListAddRecipeParams {
+  recipeIncrementQuantity?: number;
+}
 export interface ShoppingListCreate {
   name?: string;
   extras?: {
@@ -253,6 +256,20 @@ export interface ShoppingListCreate {
   createdAt?: string;
   updateAt?: string;
 }
+export interface ShoppingListItemBase {
+  shoppingListId: string;
+  checked?: boolean;
+  position?: number;
+  isFood?: boolean;
+  note?: string;
+  quantity?: number;
+  foodId?: string;
+  labelId?: string;
+  unitId?: string;
+  extras?: {
+    [k: string]: unknown;
+  };
+}
 export interface ShoppingListItemCreate {
   shoppingListId: string;
   checked?: boolean;
@@ -260,28 +277,38 @@ export interface ShoppingListItemCreate {
   isFood?: boolean;
   note?: string;
   quantity?: number;
-  unitId?: string;
-  unit?: IngredientUnit;
   foodId?: string;
-  food?: IngredientFood;
   labelId?: string;
-  recipeReferences?: ShoppingListItemRecipeRef[];
+  unitId?: string;
   extras?: {
     [k: string]: unknown;
   };
-  createdAt?: string;
-  updateAt?: string;
+  recipeReferences?: ShoppingListItemRecipeRefCreate[];
 }
-export interface IngredientUnit {
-  name: string;
-  description?: string;
+export interface ShoppingListItemRecipeRefCreate {
+  recipeId: string;
+  recipeQuantity?: number;
+  recipeScale?: number;
+}
+export interface ShoppingListItemOut {
+  shoppingListId: string;
+  checked?: boolean;
+  position?: number;
+  isFood?: boolean;
+  note?: string;
+  quantity?: number;
+  foodId?: string;
+  labelId?: string;
+  unitId?: string;
   extras?: {
     [k: string]: unknown;
   };
-  fraction?: boolean;
-  abbreviation?: string;
-  useAbbreviation?: boolean;
   id: string;
+  display?: string;
+  food?: IngredientFood;
+  label?: MultiPurposeLabelSummary;
+  unit?: IngredientUnit;
+  recipeReferences?: ShoppingListItemRecipeRefOut[];
   createdAt?: string;
   updateAt?: string;
 }
@@ -303,34 +330,30 @@ export interface MultiPurposeLabelSummary {
   groupId: string;
   id: string;
 }
-export interface ShoppingListItemRecipeRef {
-  recipeId: string;
-  recipeQuantity?: number;
-}
-export interface ShoppingListItemOut {
-  shoppingListId: string;
-  checked?: boolean;
-  position?: number;
-  isFood?: boolean;
-  note?: string;
-  quantity?: number;
-  unitId?: string;
-  unit?: IngredientUnit;
-  foodId?: string;
-  food?: IngredientFood;
-  labelId?: string;
-  recipeReferences?: (ShoppingListItemRecipeRef | ShoppingListItemRecipeRefOut)[];
+export interface IngredientUnit {
+  name: string;
+  description?: string;
   extras?: {
     [k: string]: unknown;
   };
+  fraction?: boolean;
+  abbreviation?: string;
+  useAbbreviation?: boolean;
+  id: string;
   createdAt?: string;
   updateAt?: string;
-  id: string;
-  label?: MultiPurposeLabelSummary;
 }
 export interface ShoppingListItemRecipeRefOut {
   recipeId: string;
   recipeQuantity?: number;
+  recipeScale?: number;
+  id: string;
+  shoppingListItemId: string;
+}
+export interface ShoppingListItemRecipeRefUpdate {
+  recipeId: string;
+  recipeQuantity?: number;
+  recipeScale?: number;
   id: string;
   shoppingListItemId: string;
 }
@@ -341,18 +364,40 @@ export interface ShoppingListItemUpdate {
   isFood?: boolean;
   note?: string;
   quantity?: number;
-  unitId?: string;
-  unit?: IngredientUnit;
   foodId?: string;
-  food?: IngredientFood;
   labelId?: string;
-  recipeReferences?: ShoppingListItemRecipeRef[];
+  unitId?: string;
   extras?: {
     [k: string]: unknown;
   };
-  createdAt?: string;
-  updateAt?: string;
+  recipeReferences?: (ShoppingListItemRecipeRefCreate | ShoppingListItemRecipeRefUpdate)[];
+}
+/**
+ * Only used for bulk update operations where the shopping list item id isn't already supplied
+ */
+export interface ShoppingListItemUpdateBulk {
+  shoppingListId: string;
+  checked?: boolean;
+  position?: number;
+  isFood?: boolean;
+  note?: string;
+  quantity?: number;
+  foodId?: string;
+  labelId?: string;
+  unitId?: string;
+  extras?: {
+    [k: string]: unknown;
+  };
+  recipeReferences?: (ShoppingListItemRecipeRefCreate | ShoppingListItemRecipeRefUpdate)[];
   id: string;
+}
+/**
+ * Container for bulk shopping list item changes
+ */
+export interface ShoppingListItemsCollectionOut {
+  createdItems?: ShoppingListItemOut[];
+  updatedItems?: ShoppingListItemOut[];
+  deletedItems?: ShoppingListItemOut[];
 }
 export interface ShoppingListOut {
   name?: string;
@@ -441,6 +486,9 @@ export interface CreateIngredientFood {
     [k: string]: unknown;
   };
   labelId?: string;
+}
+export interface ShoppingListRemoveRecipeParams {
+  recipeDecrementQuantity?: number;
 }
 export interface ShoppingListSave {
   name?: string;

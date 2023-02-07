@@ -1,16 +1,22 @@
-from sqlalchemy import Column, ForeignKey, Integer, String, orm
+from typing import TYPE_CHECKING, Optional
+
+from sqlalchemy import ForeignKey, Integer, String, orm
+from sqlalchemy.orm import Mapped, mapped_column
 
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import auto_init, guid
 
+if TYPE_CHECKING:
+    from group import Group
+
 
 class GroupInviteToken(SqlAlchemyBase, BaseMixins):
     __tablename__ = "invite_tokens"
-    token = Column(String, index=True, nullable=False, unique=True)
-    uses_left = Column(Integer, nullable=False, default=1)
+    token: Mapped[str] = mapped_column(String, index=True, nullable=False, unique=True)
+    uses_left: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
 
-    group_id = Column(guid.GUID, ForeignKey("groups.id"))
-    group = orm.relationship("Group", back_populates="invite_tokens")
+    group_id: Mapped[guid.GUID | None] = mapped_column(guid.GUID, ForeignKey("groups.id"))
+    group: Mapped[Optional["Group"]] = orm.relationship("Group", back_populates="invite_tokens")
 
     @auto_init()
     def __init__(self, **_):

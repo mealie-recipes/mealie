@@ -21,7 +21,8 @@
     "production": "Produktivumgebung",
     "support": "Unterstützen",
     "version": "Version",
-    "unknown-version": "unbekannt"
+    "unknown-version": "unbekannt",
+    "sponsor": "Unterstützen"
   },
   "asset": {
     "assets": "Anhänge",
@@ -126,7 +127,7 @@
     "sort-alphabetically": "Alphabetisch",
     "status": "Status",
     "subject": "Thema",
-    "submit": "Einfügen",
+    "submit": "Absenden",
     "success-count": "Erfolgreich: {count}",
     "sunday": "Sonntag",
     "templates": "Vorlagen:",
@@ -143,7 +144,7 @@
     "view": "Ansicht",
     "wednesday": "Mittwoch",
     "yes": "Ja",
-    "foods": "Speisen",
+    "foods": "Lebensmittel",
     "units": "Einheiten",
     "back": "Zurück",
     "next": "Weiter",
@@ -163,7 +164,17 @@
     "transfer": "Übertragen",
     "copy": "Kopieren",
     "color": "Farbe",
-    "timestamp": "Zeitstempel"
+    "timestamp": "Zeitstempel",
+    "last-made": "Zuletzt gemacht",
+    "learn-more": "Mehr erfahren",
+    "this-feature-is-currently-inactive": "Diese Funktion ist im Moment deaktiviert",
+    "clipboard-not-supported": "Zwischenablage nicht unterstützt",
+    "copied-to-clipboard": "In die Zwischenablage kopiert",
+    "your-browser-does-not-support-clipboard": "Dein Browser unterstützt die Zwischenablage nicht\")",
+    "copied-items-to-clipboard": "Kein Eintrag in die Zwischenablage kopiert|Ein Eintrag wurde in die Zwischenablage kopiert|{count} Einträge in die Zwischenablage kopiert",
+    "actions": "Aktionen",
+    "selected-count": "Ausgewählt: {count}",
+    "export-all": "Alle exportieren"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Bist du dir sicher, dass du die Gruppe <b>{groupName}<b/> löschen möchtest?",
@@ -187,7 +198,25 @@
     "settings": {
       "keep-my-recipes-private": "Meine Rezepte privat halten",
       "keep-my-recipes-private-description": "Setzt Ihre Gruppe und alle Rezepte standardmäßig privat. Sie können dies später jederzeit ändern."
-    }
+    },
+    "manage-members": "Mitglieder verwalten",
+    "manage-members-description": "Verwalte die Mitgliederberechtigungen in deinen Gruppen. {manage} erlaubt den Benutzern, auf die Datenverwaltungsseite zuzugreifen {invite} erlaubt Benutzern, Einladungslinks für andere Benutzer zu erstellen. Gruppenbesitzer können nicht ihre eigenen Berechtigungen ändern.",
+    "manage": "Verwalten",
+    "invite": "Einladen",
+    "looking-to-update-your-profile": "Möchtest du dein Profil aktualisieren?",
+    "default-recipe-preferences-description": "Das sind die Standardeinstellungen, wenn ein neues Rezept in deiner Gruppe erstellt wird. Diese können für einzelne Rezepte in den Rezept-Einstellungen geändert werden.",
+    "default-recipe-preferences": "Standard Rezept-Einstellungen",
+    "group-preferences": "Gruppeneinstellungen",
+    "private-group": "Private Gruppe",
+    "allow-users-outside-of-your-group-to-see-your-recipes": "Erlaube Benutzern außerhalb deiner Gruppe deine Rezepte zu sehen",
+    "show-nutrition-information": "Nährwerte anzeigen",
+    "show-recipe-assets": "Rezept-Anhänge anzeigen",
+    "default-to-landscape-view": "Querformat voreingestellt",
+    "disable-users-from-commenting-on-recipes": "Kommentieren von Rezepten deaktivieren",
+    "disable-organizing-recipe-ingredients-by-units-and-food": "Getrennte Eingabe von Menge und Einheiten in der Zutatenliste deaktivieren",
+    "general-preferences": "Allgemeine Einstellungen",
+    "group-recipe-preferences": "Gruppen-Rezept-Einstellungen",
+    "report": "Bericht"
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Neue Mahlzeit planen",
@@ -222,7 +251,28 @@
     "lunch": "Mittagessen",
     "dinner": "Abendessen",
     "type-any": "Alle",
-    "day-any": "Alle"
+    "day-any": "Alle",
+    "editor": "Bearbeiten",
+    "meal-recipe": "Gericht",
+    "meal-title": "Gericht",
+    "meal-note": "Anmerkung zum Gericht",
+    "note-only": "Nur Notiz",
+    "random-meal": "Zufälliges Gericht",
+    "random-dinner": "Zufälliges Abendessen",
+    "random-side": "Zufällige Beilage",
+    "this-rule-will-apply": "Diese Regel gilt {dayCriteria} {mealTypeCriteria}.",
+    "to-all-days": "an allen Tagen",
+    "on-days": "{0}s",
+    "for-all-meal-types": "für alle Mahlzeiten",
+    "for-type-meal-types": "für {0} Mahlzeit(en)",
+    "meal-plan-rules": "Essensplan Regeln",
+    "new-rule": "Neue Regel",
+    "meal-plan-rules-description": "Du kannst Regeln für die automatische Auswahl von Rezepten für deine Mahlzeiten erstellen. Anhand dieser Regeln wird das Programm zufällige Rezepte suchen, die bei der Erstellung von Essensplänen ausgewählt werden. Beachte, dass bei Regeln mit denselben Tag-/Mahlzeiten-Einschränkungen die Kategorien der Regeln zusammengeführt werden. In der Praxis ist es nicht notwendig, doppelte Regeln zu erstellen, aber es ist möglich.",
+    "new-rule-description": "Wenn du eine neue Regel für einen Essensplan erstellst, kannst du die Regel für einen bestimmten Wochentag und/oder eine bestimmte Mahlzeit einschränken. Um eine Regel auf alle Tage oder alle Mahlzeiten anzuwenden, kannst du die Regel auf \"Alle\" setzen, damit sämtliche Tage und/oder Mahlzeiten berücksichtigt werden.",
+    "recipe-rules": "Rezeptregeln",
+    "applies-to-all-days": "Gilt an allen Tagen",
+    "applies-on-days": "Gilt {0}s",
+    "meal-plan-settings": "Essensplan Einstellungen"
   },
   "migration": {
     "chowdown": {
@@ -238,7 +288,7 @@
     "recipe-migration": "Rezepte übertragen"
   },
   "new-recipe": {
-    "bulk-add": "Massenimport",
+    "bulk-add": "Mehrere hinzufügen",
     "error-details": "Mealie kann Rezepte nur von Webseiten importieren, die Id+json oder Mikrodaten enthalten. Die meisten großen Rezeptwebseiten unterstützen diese Datenstruktur. Wenn das Rezept nicht importiert werden kann, aber JSON-Daten im Log vorhanden sind, melde es bitte mit der URL und diesen Daten auf GitHub.",
     "error-title": "Anscheinend konnten wir nichts finden",
     "from-url": "Von URL",
@@ -301,7 +351,7 @@
     "insert-section": "Abschnitt einfügen",
     "instructions": "Zubereitung",
     "key-name-required": "Schlüsselname benötigt",
-    "landscape-view-coming-soon": "Landschaftsansicht (demnächst verfügbar)",
+    "landscape-view-coming-soon": "Querformat",
     "milligrams": "mg",
     "new-key-name": "Neuer Schlüsselname",
     "no-white-space-allowed": "Kein Leerzeichen erlaubt",
@@ -348,7 +398,7 @@
     "recipe-added-to-list": "Rezept wurde zur Einkaufsliste hinzugefügt",
     "recipe-added-to-mealplan": "Rezept zum Essensplan hinzugefügt",
     "failed-to-add-recipe-to-mealplan": "Fehler beim Hinzufügen des Rezepts zum Essensplan",
-    "yield": "Ergibt",
+    "yield": "Portionsangabe",
     "quantity": "Menge",
     "choose-unit": "Einheit wählen",
     "press-enter-to-create": "Zum Erstellen Eingabetaste drücken",
@@ -374,7 +424,48 @@
     "open-timeline": "Zeitstrahl öffnen",
     "made-this": "Ich hab's gemacht",
     "how-did-it-turn-out": "Wie ist es geworden?",
-    "user-made-this": "{user} hat's gemacht"
+    "user-made-this": "{user} hat's gemacht",
+    "last-made-date": "Zuletzt gemacht {date}",
+    "api-extras-description": "Rezepte-Extras sind ein Hauptmerkmal der Mealie API. Sie ermöglichen es dir, benutzerdefinierte JSON Schlüssel/Wert-Paare zu einem Rezept zu erstellen, um Anwendungen von Drittanbietern zu steuern. Du kannst diese Schlüssel dazu verwenden, Automatisierungen auszulösen oder benutzerdefinierte Nachrichten an deine gewünschten Geräte zu senden.",
+    "message-key": "Nachrichten-Schlüssel",
+    "parse": "Analysieren",
+    "attach-images-hint": "Bilder durch Ziehen & Ablegen in den Editor hinzufügen",
+    "enable-ingredient-amounts-to-use-this-feature": "Aktiviere Zutatenmengen, um diese Funktion zu nutzen",
+    "recipes-with-units-or-foods-defined-cannot-be-parsed": "Rezepte mit gesondert definierten Einheiten oder Lebensmitteln können nicht analysiert werden.",
+    "parse-ingredients": "Zutaten analysieren",
+    "edit-markdown": "Markdown bearbeiten",
+    "recipe-creation": "Rezept erstellen",
+    "select-one-of-the-various-ways-to-create-a-recipe": "Wähle eine der verschiedenen Möglichkeiten, um ein Rezept zu erstellen",
+    "looking-for-migrations": "Suchst du nach Migrationen?",
+    "import-with-url": "Von URL importieren",
+    "create-recipe": "Rezept erstellen",
+    "import-with-zip": "Von .zip importieren",
+    "create-recipe-from-an-image": "Rezept von Foto erstellen",
+    "bulk-url-import": "URL Massenimport",
+    "debug-scraper": "Debug Scraper",
+    "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Erstelle ein Rezept, indem du den Namen angibst. Alle Rezepte müssen eindeutige Namen haben.",
+    "new-recipe-names-must-be-unique": "Neue Rezeptnamen müssen eindeutig sein",
+    "scrape-recipe": "Rezept einlesen",
+    "scrape-recipe-description": "Importiere ein Rezept mit der URL. Gib die URL für die Seite an, die du importieren möchtest und Mealie wird versuchen, das Rezept von dieser Seite einzulesen und deiner Sammlung hinzuzufügen.",
+    "import-original-keywords-as-tags": "Importiere ursprüngliche Stichwörter als Schlagwörter",
+    "stay-in-edit-mode": "Im Bearbeitungsnodus bleiben",
+    "import-from-zip": "Von Zip importieren",
+    "import-from-zip-description": "Importiere ein einzelnes Rezept, das von einer anderen Mealie-Instanz exportiert wurde.",
+    "zip-files-must-have-been-exported-from-mealie": ".zip Dateien müssen aus Mealie exportiert worden sein",
+    "create-a-recipe-by-uploading-a-scan": "Erstelle ein Rezept durch Hochladen eines Scans.",
+    "upload-a-png-image-from-a-recipe-book": "Lade ein PNG-Bild aus einem Kochbuch hoch",
+    "recipe-bulk-importer": "Rezepte Massenimport",
+    "recipe-bulk-importer-description": "Mit dem Massenimport kannst du mehrere Rezepte auf einmal importieren, indem die Webseiten nacheinander im Hintergrund bearbeitet werden. Das kann sinnvoll sein, wenn du Mealie erstmalig einrichtest oder wenn du eine große Zahl von Rezepten importieren möchtest.",
+    "set-categories-and-tags": "Kategorien und Schlagwörter festlegen",
+    "bulk-imports": "Massenimporte",
+    "bulk-import-process-has-started": "Massenimport wurde gestartet",
+    "bulk-import-process-has-failed": "Massenimport fehlgeschlagen",
+    "report-deletion-failed": "Bericht löschen fehlgeschlagen",
+    "recipe-debugger": "Rezept Debugger",
+    "recipe-debugger-description": "Füge die URL des Rezepts, das du debuggen möchtest, hier ein. Die URL wird vom Scraper eingelesen und die Ergebnisse werden angezeigt. Wenn du keine Ausgabedaten sehen solltest, wird das Einlesen dieser Webseite nicht von Mealie oder dessen Scraper-Bibliothek unterstützt.",
+    "debug": "Debug",
+    "tree-view": "Strukturierte Ansicht",
+    "recipe-yield": "Portionsangabe"
   },
   "search": {
     "advanced-search": "Erweiterte Suche",
@@ -388,7 +479,8 @@
     "search-mealie": "Mealie durchsuchen (/ drücken)",
     "search-placeholder": "Suchen...",
     "tag-filter": "Schlagwortfilter",
-    "search-hint": "'/' drücken"
+    "search-hint": "'/' drücken",
+    "advanced": "Erweitert"
   },
   "settings": {
     "add-a-new-theme": "Neues Thema hinzufügen",
@@ -501,7 +593,17 @@
     "note": "Notiz",
     "label": "Etikett",
     "linked-item-warning": "Dieser Eintrag ist mit einem oder mehreren Rezepten verknüpft. Das Ändern der Einheiten oder Lebensmittel führt zu unerwarteten Ergebnissen, wenn das Rezept von dieser Einkaufsliste entfernt oder hinzugefügt wird.",
-    "toggle-food": "Lebensmittel-Eingabe ein/aus"
+    "toggle-food": "Lebensmittel-Eingabe umschalten",
+    "manage-labels": "Etiketten verwalten",
+    "are-you-sure-you-want-to-delete-this-item": "Möchtest du diesen Eintrag wirklich löschen?",
+    "copy-as-text": "Als Text kopieren",
+    "copy-as-markdown": "Als Markdown kopieren",
+    "delete-checked": "Erledigte löschen",
+    "toggle-label-sort": "Sortierung nach Etikett umschalten",
+    "uncheck-all-items": "Alle Einträge zurücksetzen",
+    "linked-recipes-count": "Kein verknüpftes Rezept|Ein verknüpftes Rezept|{count} verknüpfte Rezepte",
+    "items-checked-count": "Kein Eintrag erledigt|Ein Eintrag erledigt|{count} Einträge erledigt",
+    "no-label": "Kein Etikett"
   },
   "sidebar": {
     "all-recipes": "Alle Rezepte",
@@ -553,7 +655,8 @@
     "create-a-tool": "Ein Utensil erstellen",
     "tool-name": "Name des Utensils",
     "create-new-tool": "Neues Utensil erstellen",
-    "on-hand-checkbox-label": "Als \"vorhanden\" anzeigen (markiert)"
+    "on-hand-checkbox-label": "Als \"vorhanden\" anzeigen (markiert)",
+    "required-tools": "Benötigte Utensilien"
   },
   "user": {
     "admin": "Admin",
@@ -612,7 +715,19 @@
     "you-are-not-allowed-to-delete-this-user": "Sie sind nicht berechtigt, diesen Benutzer zu entfernen",
     "enable-advanced-content": "Erweiterten Inhalt aktivieren",
     "enable-advanced-content-description": "Aktiviert zusätzliche Funktionen wie Rezept-Skalierung, API-Schlüssel, Webhooks und Datenverwaltung. Keine Sorge, das kann später noch geändert werden.",
-    "favorite-recipes": "Favoriten"
+    "favorite-recipes": "Favoriten",
+    "email-or-username": "E-Mail oder Benutzername",
+    "remember-me": "Angemeldet bleiben",
+    "please-enter-your-email-and-password": "Bitte gib deine E-Mail-Adresse und dein Passwort ein",
+    "invalid-credentials": "Ungültige Zugangsdaten",
+    "account-locked-please-try-again-later": "Benutzerkonto gesperrt. Bitte versuche es später noch einmal",
+    "user-favorites": "Benutzer-Favoriten",
+    "password-strength-values": {
+      "weak": "Schwach",
+      "good": "Gut",
+      "strong": "Stark",
+      "very-strong": "Sehr stark"
+    }
   },
   "language-dialog": {
     "translated": "übersetzt",
@@ -622,19 +737,70 @@
     "read-the-docs": "Dokumentation lesen"
   },
   "data-pages": {
-    "seed-data": "Musterdaten",
     "foods": {
       "merge-dialog-text": "Zusammenführen der ausgewählten Lebensmittel führt diese zusammen in ein einzelnes Lebensmittel. Die Ausgangslebensmittel werden gelöscht und alle Verweise werden auf das zusammengeführte Lebensmittel angepasst.",
       "merge-food-example": "{food1} wird zu {food2} zusammengeführt",
       "seed-dialog-text": "Füllt die Datenbank mit Lebensmitteln basierend auf Ihrer Landessprache. Dadurch werden mehr als 200 gängige Lebensmittel eingetragen, die verwendet werden können, um die Datenbank zu organisieren. Die Speisen werden über einen Gemeinschaftsanstrengung übersetzt.",
-      "seed-dialog-warning": "Sie haben bereits einige Elemente in Ihrer Datenbank. Diese Aktion wird Duplikate nicht ausgleichen, Sie müssen sie manuell verwalten."
+      "seed-dialog-warning": "Sie haben bereits einige Elemente in Ihrer Datenbank. Diese Aktion wird Duplikate nicht ausgleichen, Sie müssen sie manuell verwalten.",
+      "combine-food": "Combine Food",
+      "source-food": "Ursprungs-Lebensmittel",
+      "target-food": "Target Food",
+      "create-food": "Lebensmittel erstellen",
+      "food-label": "Lebensmittel Etikett",
+      "edit-food": "Lebensmittel bearbeiten",
+      "food-data": "Lebensmitteldaten"
     },
     "units": {
-      "seed-dialog-text": "Füllt die Datenbank mit gängigen Maßeinheiten basierend auf Ihrer Sprache."
+      "seed-dialog-text": "Füllt die Datenbank mit gängigen Maßeinheiten basierend auf Ihrer Sprache.",
+      "combine-unit-description": "Combining the selected units will merge the Source Unit and Target Unit into a single unit. The {source-unit-will-be-deleted} and all of the references to the Source Unit will be updated to point to the Target Unit.",
+      "combine-unit": "Combine Unit",
+      "source-unit": "Ursprungs-Einheit",
+      "target-unit": "Target Unit",
+      "merging-unit-into-unit": "{0} wird in {1} zusammengeführt",
+      "create-unit": "Einheit erstellen",
+      "abbreviation": "Abkürzung",
+      "description": "Beschreibung",
+      "display-as-fraction": "Als Bruchzahl anzeigen",
+      "use-abbreviation": "Abkürzungen verwenden",
+      "edit-unit": "Einheit bearbeiten",
+      "unit-data": "Einheitendaten",
+      "use-abbv": "Verwende Abk.",
+      "fraction": "Bruchzahl"
     },
     "labels": {
-      "seed-dialog-text": "Füllt die Datenbank mit gängigen Etiketten basierend auf Ihrer Sprache."
-    }
+      "seed-dialog-text": "Füllt die Datenbank mit gängigen Etiketten basierend auf Ihrer Sprache.",
+      "edit-label": "Etikett bearbeiten",
+      "new-label": "Neues Etikett",
+      "labels": "Etiketten"
+    },
+    "recipes": {
+      "purge-exports": "Exporte bereinigen",
+      "are-you-sure-you-want-to-delete-all-export-data": "Bist du dir sicher, dass du alle exportierten Daten löschen möchtest?",
+      "confirm-delete-recipes": "Bist du dir sicher, dass du die folgenden Rezepte löschen möchtest? Diese Aktion kann nicht rückgängig gemacht werden.",
+      "the-following-recipes-selected-length-will-be-exported": "Die folgenden Rezepte ({0}) werden exportiert.",
+      "settings-chosen-explanation": "Die hier gewählten Einstellungen, außer der gesperrten Option, werden auf alle ausgewählten Rezepte angewendet.",
+      "selected-length-recipe-s-settings-will-be-updated": "{0} Rezepte-Einstellung(en) wird/werden aktualisiert.",
+      "recipe-data": "Rezeptdaten",
+      "recipe-data-description": "Verwende diesen Bereich, um die mit deinen Rezepten verbundenen Daten zu verwalten. Du kannst mehrere Massenaktionen für deine Rezepte ausführen, zum Beispiel Exportieren, Löschen und Zuweisen von Kategorien.",
+      "recipe-columns": "Rezept-Spalten",
+      "data-exports-description": "In diesem Bereich findest du die Links zu verfügbaren Exporten, die zum Herunterladen bereit sind. Diese Exporte verfallen nach einiger Zeit, deshalb lade sie herunter, solange sie noch verfügbar sind.",
+      "data-exports": "Daten Exporte",
+      "tag": "Verschlagworten",
+      "categorize": "Kategorisieren",
+      "update-settings": "Einstellungen aktualisieren",
+      "tag-recipes": "Rezepte verschlagworten",
+      "categorize-recipes": "Rezepte kategorisieren",
+      "export-recipes": "Rezept exportieren",
+      "delete-recipes": "Rezepte löschen",
+      "source-unit-will-be-deleted": "Ursprungs-Einheit wird gelöscht"
+    },
+    "seed-data": "Musterdaten",
+    "seed": "Musterdaten",
+    "data-management": "Datenverwaltung",
+    "data-management-description": "Wähle den Datensatz aus, an dem du Änderungen vornehmen möchtest.",
+    "select-data": "Daten auswählen",
+    "select-language": "Sprache wählen",
+    "columns": "Spalten"
   },
   "user-registration": {
     "user-registration": "Benutzerregistrierung",
@@ -746,5 +912,54 @@
     "mainentance": {
       "actions-title": "Aktionen"
     }
+  },
+  "profile": {
+    "welcome-user": "👋 Willkommen, {0}",
+    "description": "Verwalte dein Profil, Rezepte und Gruppeneinstellungen.",
+    "get-invite-link": "Einladungslink erzeugen",
+    "account-summary": "Kontoübersicht",
+    "account-summary-description": "Hier ist eine Übersicht der Informationen deiner Gruppe",
+    "group-statistics": "Gruppenstatistik",
+    "group-statistics-description": "Deine Gruppenstatistik gibt dir einen Einblick, wie du Mealie verwendest.",
+    "storage-capacity": "Speicherplatz",
+    "storage-capacity-description": "Dein Speicherplatz wird anhand der Bilder und Anhänge berechnet, die du hochgeladen hast.",
+    "personal": "Persönlich",
+    "personal-description": "Dies sind deine persönlicen Einstellungen. Änderungen hier wirken sich nicht auf andere Benutzer aus",
+    "user-settings": "Benutzereinstellungen",
+    "user-settings-description": "Verwalte deine Einstellungen, ändere dein Passwort und aktualisiere deine E-Mail-Adresse",
+    "api-tokens-description": "Verwalte deine API Token für den Zugriff von externen Anwendungen",
+    "group-description": "Diese Elemente werden innerhalb deiner Gruppe geteilt. Änderungen wirken sich auf die gesamte Gruppe aus!",
+    "group-settings": "Gruppen-Einstellungen",
+    "group-settings-description": "Verwalte deine allgemeinen Gruppeneinstellungen wie Essenspläne und Privatsphäre.",
+    "cookbooks-description": "Verwalte eine Sammlung mit Rezept-Kategorien und erstelle Seiten für sie.",
+    "members": "Mitglieder",
+    "members-description": "Sieh nach, wer in deiner Gruppe ist und verwalte deren Berechtigungen.",
+    "webhooks-description": "Richte Webhooks ein, die an Tagen mit geplanten Mahlzeiten ausgelöst werden.",
+    "notifiers": "Benachrichtigungen",
+    "notifiers-description": "Richte E-Mail und Push-Benachrichtigungen ein, die bei bestimmten Ereignissen ausgelöst werden.",
+    "manage-data": "Daten verwalten",
+    "manage-data-description": "Verwalte deine Rezepte, Lebensmittel, Einheiten und Etiketten (weitere Optionen kommen bald)",
+    "data-migrations": "Datenmigration",
+    "data-migrations-description": "Migriere deine vorhandenen Daten aus anderen Anwendungen wie Nextcloud-Rezepte und Chowdown",
+    "email-sent": "E-Mail gesendet",
+    "error-sending-email": "Fehler beim Senden der E-Mail",
+    "personal-information": "Persönliche Daten",
+    "preferences": "Einstellungen",
+    "show-advanced-description": "Erweiterte Funktionen anzeigen (API-Schlüssel, Webhooks und Datenverwaltung)",
+    "back-to-profile": "Zurück zum Profil",
+    "looking-for-privacy-settings": "Suchst du die Privatsphäre-Einstellungen?"
+  },
+  "cookbook": {
+    "cookbooks": "Kochbücher",
+    "description": "Kochbücher sind eine weitere Möglichkeit, die Rezeptsammlung anhand von Rezepten und Schlagwörtern zu organisieren. Ein neues Kochbuch wird in die Seitenleiste hinzugefügt und alle Rezepte mit den ausgewählten Tags und Kategorien werden im Kochbuch angezeigt.",
+    "public-cookbook": "Öffentliches Kochbuch",
+    "public-cookbook-description": "Öffentliche Kochbücher können mit Nicht-Mealie-Benutzern geteilt werden und werden auf deiner Gruppenseite angezeigt.",
+    "filter-options": "Filteroptionen",
+    "filter-options-description": "Wenn \"Alle...\" ausgewählt wurde, enthält das Kochbuch nur Rezepte, die sämtlichen ausgewählten Kriterien entsprechen.",
+    "require-all-categories": "Alle Kategorien erforderlich",
+    "require-all-tags": "Alle Schlagwörter erforderlich",
+    "require-all-tools": "Alle Utensilien erforderlich",
+    "cookbook-name": "Kochbuch Name",
+    "cookbook-with-name": "Kochbuch {0}"
   }
 }

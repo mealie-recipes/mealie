@@ -1,4 +1,4 @@
-import { useAsync, ref, Ref } from "@nuxtjs/composition-api";
+import { useAsync, ref, Ref, useContext } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "./use-utils";
 import { useUserApi } from "~/composables/api";
 import { ReadCookBook, UpdateCookBook } from "~/lib/api/types/cookbook";
@@ -24,6 +24,8 @@ export const useCookbook = function () {
 export const useCookbooks = function () {
   const api = useUserApi();
   const loading = ref(false);
+
+  const { i18n } = useContext();
 
   const actions = {
     getAll() {
@@ -54,7 +56,7 @@ export const useCookbooks = function () {
     async createOne() {
       loading.value = true;
       const { data } = await api.cookbooks.createOne({
-        name: "Cookbook " + String((cookbookStore?.value?.length ?? 0) + 1),
+        name: i18n.t("cookbook.cookbook-with-name", [String((cookbookStore?.value?.length ?? 0) + 1)]) as string,
       });
       if (data && cookbookStore?.value) {
         cookbookStore.value.push(data);

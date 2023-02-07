@@ -12,6 +12,9 @@ from mealie.schema._mealie import MealieModel
 from mealie.schema._mealie.types import NoneFloat
 from mealie.schema.response.pagination import PaginationBase
 
+INGREDIENT_QTY_PRECISION = 3
+MAX_INGREDIENT_DENOMINATOR = 32
+
 
 class UnitFoodBase(MealieModel):
     name: str
@@ -97,7 +100,7 @@ class RecipeIngredient(MealieModel):
         empty string.
         """
         if isinstance(value, float):
-            return round(value, 3)
+            return round(value, INGREDIENT_QTY_PRECISION)
         if value is None or value == "":
             return None
         return value
@@ -115,7 +118,7 @@ class IngredientConfidence(MealieModel):
     @classmethod
     def validate_quantity(cls, value, values) -> NoneFloat:
         if isinstance(value, float):
-            return round(value, 3)
+            return round(value, INGREDIENT_QTY_PRECISION)
         if value is None or value == "":
             return None
         return value

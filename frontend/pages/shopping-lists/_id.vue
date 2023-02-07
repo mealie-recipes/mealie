@@ -10,7 +10,7 @@
     <!-- Viewer -->
     <section v-if="!edit" class="py-2">
       <div v-if="!byLabel">
-        <draggable :value="shoppingList.listItems" handle=".handle" @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndex">
+        <draggable :value="listItems.unchecked" handle=".handle" @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndexUnchecked">
           <v-lazy v-for="(item, index) in listItems.unchecked" :key="item.id">
             <ShoppingListItem
               v-model="listItems.unchecked[index]"
@@ -79,29 +79,29 @@
               children: [
                 {
                   icon: $globals.icons.contentCopy,
-                  text: 'Copy as Text',
+                  text: $tc('shopping-list.copy-as-text'),
                   event: 'copy-plain',
                 },
                 {
                   icon: $globals.icons.contentCopy,
-                  text: 'Copy as Markdown',
+                  text: $tc('shopping-list.copy-as-markdown'),
                   event: 'copy-markdown',
                 },
               ],
             },
             {
               icon: $globals.icons.delete,
-              text: 'Delete Checked',
+              text: $tc('shopping-list.delete-checked'),
               event: 'delete',
             },
             {
               icon: $globals.icons.tags,
-              text: 'Toggle Label Sort',
+              text: $tc('shopping-list.toggle-label-sort'),
               event: 'sort-by-labels',
             },
             {
               icon: $globals.icons.checkboxBlankOutline,
-              text: 'Uncheck All Items',
+              text: $tc('shopping-list.uncheck-all-items'),
               event: 'uncheck',
             },
           ]"
@@ -122,7 +122,7 @@
               {{ showChecked ? $globals.icons.chevronDown : $globals.icons.chevronRight }}
             </v-icon>
           </span>
-          {{ listItems.checked ? listItems.checked.length : 0 }} items checked
+          {{ $tc('shopping-list.items-checked-count', listItems.checked ? listItems.checked.length : 0) }}
         </button>
         <v-divider class="my-4"></v-divider>
         <v-expand-transition>
@@ -131,7 +131,7 @@
               <ShoppingListItem
                 v-model="listItems.checked[idx]"
                 class="strike-through-note"
-                :labels="allLabels"
+                :labels="allLabels || []"
                 :units="allUnits || []"
                 :foods="allFoods || []"
                 @checked="saveListItem"
@@ -153,7 +153,7 @@
               {{ $globals.icons.primary }}
             </v-icon>
           </span>
-          {{ shoppingList.recipeReferences ? shoppingList.recipeReferences.length : 0 }} Linked Recipes
+          {{ $tc('shopping-list.linked-recipes-count', shoppingList.recipeReferences ? shoppingList.recipeReferences.length : 0) }}
         </div>
         <v-divider class="my-4"></v-divider>
         <RecipeList :recipes="listRecipes">
@@ -178,7 +178,7 @@
 
     <v-lazy>
       <div class="d-flex justify-end mt-10">
-        <ButtonLink to="/group/data/labels" text="Manage Labels" :icon="$globals.icons.tags" />
+        <ButtonLink to="/group/data/labels" :text="$tc('shopping-list.manage-labels')" :icon="$globals.icons.tags" />
       </div>
     </v-lazy>
   </v-container>
@@ -187,7 +187,7 @@
 <script lang="ts">
 import draggable from "vuedraggable";
 
-import { defineComponent, useAsync, useRoute, computed, ref, watch, onUnmounted } from "@nuxtjs/composition-api";
+import { defineComponent, useAsync, useRoute, computed, ref, watch, onUnmounted, useContext } from "@nuxtjs/composition-api";
 import { useIdle, useToggle } from "@vueuse/core";
 import { useCopyList } from "~/composables/use-copy";
 import { useUserApi } from "~/composables/api";
@@ -196,7 +196,6 @@ import ShoppingListItem from "~/components/Domain/ShoppingList/ShoppingListItem.
 import { ShoppingListItemCreate, ShoppingListItemOut } from "~/lib/api/types/group";
 import RecipeList from "~/components/Domain/Recipe/RecipeList.vue";
 import ShoppingListItemEditor from "~/components/Domain/ShoppingList/ShoppingListItemEditor.vue";
-import { getDisplayText } from "~/composables/use-display-text";
 import { useFoodStore, useLabelStore, useUnitStore } from "~/composables/store";
 
 type CopyTypes = "plain" | "markdown";
@@ -224,6 +223,8 @@ export default defineComponent({
 
     const route = useRoute();
     const id = route.value.params.id;
+
+    const { i18n } = useContext();
 
     // ===============================================================
     // Shopping List Actions
@@ -313,7 +314,7 @@ export default defineComponent({
         return;
       }
 
-      const text = items.map((itm) => getDisplayText(itm.note, itm.quantity, itm.food, itm.unit));
+      const text: string[] = items.map((itm) => itm.display || "");
 
       switch (copyType) {
         case "markdown":
@@ -417,9 +418,9 @@ export default defineComponent({
     function updateItemsByLabel() {
       const items: { [prop: string]: ShoppingListItemOut[] } = {};
 
-      const noLabel = {
-        "No Label": [] as ShoppingListItemOut[],
-      };
+      const noLabelText = i18n.tc("shopping-list.no-label");
+
+      const noLabel = [] as ShoppingListItemOut[];
 
       shoppingList.value?.listItems?.forEach((item) => {
         if (item.checked) {
@@ -433,12 +434,12 @@ export default defineComponent({
             items[item.label.name] = [item];
           }
         } else {
-          noLabel["No Label"].push(item);
+          noLabel.push(item);
         }
       });
 
-      if (noLabel["No Label"].length > 0) {
-        items["No Label"] = noLabel["No Label"];
+      if (noLabel.length > 0) {
+        items[noLabelText] = noLabel;
       }
 
       itemsByLabel.value = items;
@@ -514,7 +515,7 @@ export default defineComponent({
       if (item.checked && shoppingList.value.listItems) {
         const lst = shoppingList.value.listItems.filter((itm) => itm.id !== item.id);
         lst.push(item);
-        updateIndex(lst);
+        updateListItems();
       }
 
       const { data } = await userApi.shopping.items.updateOne(item.id, item);
@@ -553,9 +554,9 @@ export default defineComponent({
         isFood: false,
         quantity: 1,
         note: "",
-        unit: undefined,
-        food: undefined,
         labelId: undefined,
+        unitId: undefined,
+        foodId: undefined,
       };
     }
 
@@ -578,9 +579,10 @@ export default defineComponent({
       }
     }
 
-    function updateIndex(data: ShoppingListItemOut[]) {
+    function updateIndexUnchecked(uncheckedItems: ShoppingListItemOut[]) {
       if (shoppingList.value?.listItems) {
-        shoppingList.value.listItems = data;
+        // move the new unchecked items in front of the checked items
+        shoppingList.value.listItems = uncheckedItems.concat(listItems.value.checked);
       }
 
       updateListItems();
@@ -646,7 +648,7 @@ export default defineComponent({
       sortByLabels,
       toggleShowChecked,
       uncheckAll,
-      updateIndex,
+      updateIndexUnchecked,
       allUnits,
       allFoods,
     };

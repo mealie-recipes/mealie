@@ -9,7 +9,7 @@
       {{ toastAlert.text }}
 
       <template #action="{ attrs }">
-        <v-btn text v-bind="attrs" @click="toastAlert.open = false"> Close </v-btn>
+        <v-btn text v-bind="attrs" @click="toastAlert.open = false"> {{ $t('general.close') }} </v-btn>
       </template>
     </v-snackbar>
     <v-snackbar

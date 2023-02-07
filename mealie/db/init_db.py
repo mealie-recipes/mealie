@@ -2,7 +2,7 @@ from collections.abc import Callable
 from pathlib import Path
 from time import sleep
 
-from sqlalchemy import engine, orm
+from sqlalchemy import engine, orm, text
 
 from alembic import command, config, script
 from alembic.config import Config
@@ -59,7 +59,7 @@ def safe_try(func: Callable):
 
 def connect(session: orm.Session) -> bool:
     try:
-        session.execute("SELECT 1")
+        session.execute(text("SELECT 1"))
         return True
     except Exception as e:
         logger.error(f"Error connecting to database: {e}")
@@ -87,7 +87,7 @@ def main():
 
         alembic_cfg = Config(str(PROJECT_DIR / "alembic.ini"))
         if db_is_at_head(alembic_cfg):
-            logger.info("Migration not needed.")
+            logger.debug("Migration not needed.")
         else:
             logger.info("Migration needed. Performing migration...")
             command.upgrade(alembic_cfg, "head")
@@ -95,7 +95,7 @@ def main():
         db = get_repositories(session)
 
         if db.users.get_all():
-            logger.info("Database exists")
+            logger.debug("Database exists")
         else:
             logger.info("Database contains no users, initializing...")
             init_db(db)

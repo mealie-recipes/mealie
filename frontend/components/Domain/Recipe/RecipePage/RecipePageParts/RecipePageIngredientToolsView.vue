@@ -6,7 +6,7 @@
       :disable-amount="recipe.settings.disableAmount"
     />
     <div v-if="!isEditMode && recipe.tools && recipe.tools.length > 0">
-      <h2 class="mb-2 mt-4">Required Tools</h2>
+      <h2 class="mb-2 mt-4">{{ $t('tool.required-tools') }}</h2>
       <v-list-item v-for="(tool, index) in recipe.tools" :key="index" dense>
         <v-checkbox
           v-model="recipe.tools[index].onHand"

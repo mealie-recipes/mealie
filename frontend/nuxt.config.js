@@ -81,7 +81,7 @@ export default {
     // https://go.nuxtjs.dev/axios
     "@nuxtjs/axios",
     // https://go.nuxtjs.dev/pwa
-    "@nuxtjs/pwa",
+    ...(process.env.NODE_ENV === "production" ? ["@nuxtjs/pwa"] : []),
     // https://i18n.nuxtjs.org/setup
     "@nuxtjs/i18n",
     // https://auth.nuxtjs.org/guide/setup
@@ -357,39 +357,7 @@ export default {
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
-    customVariables: ["~/assets/variables.scss"],
-    icons: {
-      iconfont: "mdiSvg", // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4' || 'faSvg'
-    },
-    defaultAssets: false,
-    theme: {
-      options: {
-        customProperties: true,
-      },
-      dark: false,
-      // Theme Config set at runtime by /plugins/theme.ts
-      // This config doesn't do anything.
-      themes: {
-        dark: {
-          primary: "#E58325",
-          accent: "#007A99",
-          secondary: "#973542",
-          success: "#43A047",
-          info: "#1976d2",
-          warning: "#FF6D00",
-          error: "#EF5350",
-        },
-        light: {
-          primary: "#E58325",
-          accent: "#007A99",
-          secondary: "#973542",
-          success: "#43A047",
-          info: "#1976d2",
-          warning: "#FF6D00",
-          error: "#EF5350",
-        },
-      },
-    },
+    optionsPath: "./vuetify.options.js",
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

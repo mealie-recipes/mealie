@@ -9,7 +9,6 @@ class GunicornConfig:
     """Configuration to generate the properties for Gunicorn"""
 
     def __init__(self):
-
         # Env Variables
         self.host = os.getenv("HOST", "127.0.0.1")
         self.port = os.getenv("API_PORT", "9000")

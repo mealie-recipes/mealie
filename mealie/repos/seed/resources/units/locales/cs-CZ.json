@@ -25,9 +25,9 @@
         "abbreviation": "pt"
     },
     "quart": {
-        "name": "quart",
+        "name": "čtvrtka",
         "description": "",
-        "abbreviation": "qt"
+        "abbreviation": "čtvrtka"
     },
     "gallon": {
         "name": "galon",
@@ -70,7 +70,7 @@
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "splash",
+        "name": "kapka",
         "description": "",
         "abbreviation": ""
     },

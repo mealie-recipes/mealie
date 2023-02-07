@@ -53,7 +53,7 @@
             <v-icon left>
               {{ $globals.icons.chefHat }}
             </v-icon>
-            <v-list-item-title>{{ "Last Made" }}</v-list-item-title>
+            <v-list-item-title>{{ $t('general.last-made') }}</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -183,6 +183,10 @@ export default defineComponent({
       type: String,
       default: null,
     },
+    skipLoad: {
+      type: Boolean,
+      default: false
+    }
   },
   setup(props, context) {
     const preferences = useUserSortPreferences();
@@ -233,6 +237,9 @@ export default defineComponent({
     const { fetchMore } = useLazyRecipes();
 
     onMounted(async () => {
+      if (props.skipLoad) {
+        return;
+      }
       const newRecipes = await fetchMore(
         page.value,
 

@@ -90,7 +90,7 @@ class BaseUserController(_BaseController):
         registered = {
             **mealie_registered_exceptions(self.translator),
         }
-        return registered.get(ex, "An unexpected error occurred.")
+        return registered.get(ex, self.t("generic.server-error"))
 
     @property
     def group_id(self) -> UUID4:

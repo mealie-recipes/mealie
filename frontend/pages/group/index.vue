@@ -4,16 +4,16 @@
       <template #header>
         <v-img max-height="100" max-width="100" :src="require('~/static/svgs/manage-group-settings.svg')"></v-img>
       </template>
-      <template #title> Group Settings </template>
-      These items are shared within your group. Editing one of them will change it for the whole group!
+      <template #title> {{ $t('profile.group-settings') }} </template>
+      {{ $t('profile.group-description') }}
     </BasePageTitle>
 
     <section v-if="group">
-      <BaseCardSectionTitle class="mt-10" title="Group Preferences"></BaseCardSectionTitle>
+      <BaseCardSectionTitle class="mt-10" :title="$tc('group.group-preferences')"></BaseCardSectionTitle>
       <v-checkbox
         v-model="group.preferences.privateGroup"
         class="mt-n4"
-        label="Private Group"
+        :label="$t('group.private-group')"
         @change="groupActions.updatePreferences()"
       ></v-checkbox>
       <v-select
@@ -28,45 +28,44 @@
     </section>
 
     <section v-if="group">
-      <BaseCardSectionTitle class="mt-10" title="Default Recipe Preferences">
-        These are the default settings when a new recipe is created in your group. These can be changed for individual
-        recipes in the recipe settings menu.
+      <BaseCardSectionTitle class="mt-10" :title="$tc('group.default-recipe-preferences')">
+        {{ $t('group.default-recipe-preferences-description') }}
       </BaseCardSectionTitle>
 
       <v-checkbox
         v-model="group.preferences.recipePublic"
         class="mt-n4"
-        label="Allow users outside of your group to see your recipes"
+        :label="$t('group.allow-users-outside-of-your-group-to-see-your-recipes')"
         @change="groupActions.updatePreferences()"
       ></v-checkbox>
       <v-checkbox
         v-model="group.preferences.recipeShowNutrition"
         class="mt-n4"
-        label="Show nutrition information"
+        :label="$t('group.show-nutrition-information')"
         @change="groupActions.updatePreferences()"
       ></v-checkbox>
       <v-checkbox
         v-model="group.preferences.recipeShowAssets"
         class="mt-n4"
-        label="Show recipe assets"
+        :label="$t('group.show-recipe-assets')"
         @change="groupActions.updatePreferences()"
       ></v-checkbox>
       <v-checkbox
         v-model="group.preferences.recipeLandscapeView"
         class="mt-n4"
-        label="Default to landscape view"
+        :label="$t('group.default-to-landscape-view')"
         @change="groupActions.updatePreferences()"
       ></v-checkbox>
       <v-checkbox
         v-model="group.preferences.recipeDisableComments"
         class="mt-n4"
-        label="Disable users from commenting on recipes"
+        :label="$t('group.disable-users-from-commenting-on-recipes')"
         @change="groupActions.updatePreferences()"
       ></v-checkbox>
       <v-checkbox
         v-model="group.preferences.recipeDisableAmount"
         class="mt-n4"
-        label="Disable organizing recipe ingredients by units and food"
+        :label="$t('group.disable-organizing-recipe-ingredients-by-units-and-food')"
         @change="groupActions.updatePreferences()"
       ></v-checkbox>
     </section>

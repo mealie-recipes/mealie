@@ -62,7 +62,9 @@ class UserController(BaseUserController):
     def update_password(self, password_change: ChangePassword):
         """Resets the User Password"""
         if not verify_password(password_change.current_password, self.user.password):
-            raise HTTPException(status.HTTP_400_BAD_REQUEST, ErrorResponse.respond("Invalid current password"))
+            raise HTTPException(
+                status.HTTP_400_BAD_REQUEST, ErrorResponse.respond(self.t("user.invalid-current-password"))
+            )
 
         self.user.password = hash_password(password_change.new_password)
         try:
@@ -73,7 +75,7 @@ class UserController(BaseUserController):
                 ErrorResponse.respond("Failed to update password"),
             ) from e
 
-        return SuccessResponse.respond("Password updated")
+        return SuccessResponse.respond(self.t("user.password-updated"))
 
     @user_router.put("/{item_id}")
     def update_user(self, item_id: UUID4, new_data: UserBase):
@@ -99,4 +101,4 @@ class UserController(BaseUserController):
                 ErrorResponse.respond("Failed to update user"),
             ) from e
 
-        return SuccessResponse.respond("User updated")
+        return SuccessResponse.respond(self.t("user.user-updated"))

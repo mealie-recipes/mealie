@@ -1,4 +1,5 @@
 import sqlalchemy as sa
+from sqlalchemy.orm import Mapped, mapped_column
 
 from mealie.db.models._model_base import SqlAlchemyBase
 from mealie.db.models._model_utils.guid import GUID
@@ -6,10 +7,10 @@ from mealie.db.models._model_utils.guid import GUID
 
 class Note(SqlAlchemyBase):
     __tablename__ = "notes"
-    id = sa.Column(sa.Integer, primary_key=True)
-    recipe_id = sa.Column(GUID, sa.ForeignKey("recipes.id"))
-    title = sa.Column(sa.String)
-    text = sa.Column(sa.String)
+    id: Mapped[int] = mapped_column(sa.Integer, primary_key=True)
+    recipe_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("recipes.id"))
+    title: Mapped[str | None] = mapped_column(sa.String)
+    text: Mapped[str | None] = mapped_column(sa.String)
 
     def __init__(self, title, text) -> None:
         self.title = title

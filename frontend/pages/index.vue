@@ -4,6 +4,7 @@
       :icon="$globals.icons.primary"
       :title="$t('general.recent')"
       :recipes="recentRecipes"
+      :skip-load="true"
     ></RecipeCardSection>
   </v-container>
 </template>

@@ -49,7 +49,6 @@ class MealieAuthToken(BaseModel):
 
 @public_router.post("/token")
 def get_token(data: CustomOAuth2Form = Depends(), session: Session = Depends(generate_session)):
-
     email = data.username
     password = data.password
 

@@ -3,6 +3,8 @@ from mealie.services.scraper.scraped_extras import ScrapedExtras
 
 from .scraper_strategies import ABCScraperStrategy, RecipeScraperOpenGraph, RecipeScraperPackage
 
+DEFAULT_SCRAPER_STRATEGIES: list[type[ABCScraperStrategy]] = [RecipeScraperPackage, RecipeScraperOpenGraph]
+
 
 class RecipeScraper:
     """
@@ -14,21 +16,18 @@ class RecipeScraper:
 
     def __init__(self, scrapers: list[type[ABCScraperStrategy]] | None = None) -> None:
         if scrapers is None:
-            scrapers = [
-                RecipeScraperPackage,
-                RecipeScraperOpenGraph,
-            ]
+            scrapers = DEFAULT_SCRAPER_STRATEGIES
 
         self.scrapers = scrapers
 
-    def scrape(self, url: str) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
+    async def scrape(self, url: str) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
         """
         Scrapes a recipe from the web.
         """
 
         for scraper_type in self.scrapers:
             scraper = scraper_type(url)
-            result = scraper.parse()
+            result = await scraper.parse()
 
             if result is not None:
                 return result

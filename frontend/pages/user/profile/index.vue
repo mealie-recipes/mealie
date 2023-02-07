@@ -3,10 +3,10 @@
     <section class="d-flex flex-column align-center">
       <UserAvatar size="84" :user-id="$auth.user.id" />
 
-      <h2 class="headline">👋 Welcome, {{ user.fullName }}</h2>
+      <h2 class="headline">{{ $t('profile.welcome-user', [user.fullName]) }}</h2>
       <p class="subtitle-1 mb-0">
-        Manage your profile, recipes, and group settings.
-        <a href="https://hay-kot.github.io/mealie/" target="_blank"> Learn More </a>
+       {{ $t('profile.description') }}
+        <a href="https://hay-kot.github.io/mealie/" target="_blank"> {{ $t('general.learn-more') }} </a>
       </p>
       <v-card v-if="$auth.user.canInvite" flat color="background" width="100%" max-width="600px">
         <v-card-actions class="d-flex justify-center">
@@ -14,7 +14,7 @@
             <v-icon left>
               {{ $globals.icons.createAlt }}
             </v-icon>
-            Get Invite Link
+            {{ $t('profile.get-invite-link') }}
           </v-btn>
         </v-card-actions>
         <div v-show="generatedLink !== ''">
@@ -40,15 +40,15 @@
     </section>
     <section class="my-3">
       <div>
-        <h3 class="headline">Account Summary</h3>
-        <p>Here's a summary of your group's information</p>
+        <h3 class="headline">{{ $t('profile.account-summary') }}</h3>
+        <p>{{ $t('profile.account-summary-description') }}</p>
       </div>
       <v-row tag="section">
         <v-col cols="12" sm="12" md="6">
           <v-card outlined>
-            <v-card-title class="headline pb-0"> Group Statistics </v-card-title>
+            <v-card-title class="headline pb-0"> {{ $t('profile.group-statistics') }} </v-card-title>
             <v-card-text class="py-0">
-              Your Group Statistics provide some insight how you're using Mealie.
+              {{ $t('profile.group-statistics-description') }}
             </v-card-text>
             <v-card-text class="d-flex flex-wrap justify-center align-center" style="gap: 0.8rem">
               <StatsCards
@@ -66,10 +66,10 @@
         </v-col>
         <v-col cols="12" sm="12" md="6" class="d-flex align-strart">
           <v-card outlined>
-            <v-card-title class="headline pb-0"> Storage Capacity </v-card-title>
+            <v-card-title class="headline pb-0"> {{ $t('profile.storage-capacity') }} </v-card-title>
             <v-card-text class="py-0">
-              Your storage capacity is a calculation of the images and assets you have uploaded.
-              <strong> This feature is currently inactive</strong>
+              {{ $t('profile.storage-capacity-description') }}
+              <strong> {{ $t('general.this-feature-is-currently-inactive') }}</strong>
             </v-card-text>
             <v-card-text>
               <v-progress-linear :value="storageUsedPercentage" color="accent" class="rounded" height="30">
@@ -85,8 +85,8 @@
     <v-divider class="my-7"></v-divider>
     <section>
       <div>
-        <h3 class="headline">Personal</h3>
-        <p>These are settings that are personal to you. Changes here won't affect other users</p>
+        <h3 class="headline">{{ $t('profile.personal') }}</h3>
+        <p>{{ $t('profile.personal-description') }}</p>
       </div>
       <v-row tag="section">
         <v-col cols="12" sm="12" md="6">
@@ -94,8 +94,8 @@
             :link="{ text: 'Manage User Profile', to: '/user/profile/edit' }"
             :image="require('~/static/svgs/manage-profile.svg')"
           >
-            <template #title> User Settings </template>
-            Manage your preferences, change your password, and update your email
+            <template #title> {{ $t('profile.user-settings') }} </template>
+            {{ $t('profile.user-settings-description') }}
           </UserProfileLinkCard>
         </v-col>
         <AdvancedOnly>
@@ -104,8 +104,8 @@
               :link="{ text: 'Manage Your API Tokens', to: '/user/profile/api-tokens' }"
               :image="require('~/static/svgs/manage-api-tokens.svg')"
             >
-              <template #title> API Tokens </template>
-              Manage your API Tokens for access from external applications
+              <template #title> {{ $t('settings.token.api-tokens') }} </template>
+              {{ $t('profile.api-tokens-description') }}
             </UserProfileLinkCard>
           </v-col>
         </AdvancedOnly>
@@ -114,8 +114,8 @@
     <v-divider class="my-7"></v-divider>
     <section>
       <div>
-        <h3 class="headline">Group</h3>
-        <p>These items are shared within your group. Editing one of them will change it for the whole group!</p>
+        <h3 class="headline">{{ $t('group.group') }}</h3>
+        <p>{{ $t('profile.group-description') }}</p>
       </div>
       <v-row tag="section">
         <v-col cols="12" sm="12" md="6">
@@ -123,8 +123,8 @@
             :link="{ text: 'Group Settings', to: '/group' }"
             :image="require('~/static/svgs/manage-group-settings.svg')"
           >
-            <template #title> Group Settings </template>
-            Manage your common group settings like mealplan and privacy settings.
+            <template #title> {{ $t('profile.group-settings') }} </template>
+            {{ $t('profile.group-settings-description') }}
           </UserProfileLinkCard>
         </v-col>
         <v-col cols="12" sm="12" md="6">
@@ -132,8 +132,8 @@
             :link="{ text: 'Manage Cookbooks', to: '/group/cookbooks' }"
             :image="require('~/static/svgs/manage-cookbooks.svg')"
           >
-            <template #title> Cookbooks </template>
-            Manage a collection of recipe categories and generate pages for them.
+            <template #title> {{ $t('sidebar.cookbooks') }} </template>
+            {{ $t('profile.cookbooks-description') }}
           </UserProfileLinkCard>
         </v-col>
         <v-col v-if="user.canManage" cols="12" sm="12" md="6">
@@ -141,8 +141,8 @@
             :link="{ text: 'Manage Members', to: '/group/members' }"
             :image="require('~/static/svgs/manage-members.svg')"
           >
-            <template #title> Members </template>
-            See who's in your group and manage their permissions.
+            <template #title> {{ $t('profile.members') }} </template>
+            {{ $t('profile.members-description') }}
           </UserProfileLinkCard>
         </v-col>
         <AdvancedOnly>
@@ -151,8 +151,8 @@
               :link="{ text: 'Manage Webhooks', to: '/group/webhooks' }"
               :image="require('~/static/svgs/manage-webhooks.svg')"
             >
-              <template #title> Webhooks </template>
-              Setup webhooks that trigger on days that you have have mealplan scheduled.
+              <template #title> {{ $t('settings.webhooks.webhooks') }} </template>
+              {{ $t('profile.webhooks-description') }}
             </UserProfileLinkCard>
           </v-col>
         </AdvancedOnly>
@@ -162,8 +162,8 @@
               :link="{ text: 'Manage Notifiers', to: '/group/notifiers' }"
               :image="require('~/static/svgs/manage-notifiers.svg')"
             >
-              <template #title> Notifiers </template>
-              Setup email and push notifications that trigger on specific events.
+              <template #title> {{ $t('profile.notifiers') }} </template>
+              {{ $t('profile.notifiers-description') }}
             </UserProfileLinkCard>
           </v-col>
         </AdvancedOnly>
@@ -173,8 +173,8 @@
               :link="{ text: 'Manage Data', to: '/group/data/foods' }"
               :image="require('~/static/svgs/manage-recipes.svg')"
             >
-              <template #title> Manage Data </template>
-              Manage your Food and Units (more options coming soon)
+              <template #title> {{ $t('profile.manage-data') }} </template>
+              {{ $t('profile.manage-data-description') }}
             </UserProfileLinkCard>
           </v-col>
         </AdvancedOnly>
@@ -184,8 +184,8 @@
               :link="{ text: 'Manage Data Migrations', to: '/group/migrations' }"
               :image="require('~/static/svgs/manage-data-migrations.svg')"
             >
-              <template #title> Data Migrations </template>
-              Migrate your existing data from other applications like Nextcloud Recipes and Chowdown
+              <template #title>{{ $t('profile.data-migrations') }} </template>
+              {{ $t('profile.data-migrations-description') }}
             </UserProfileLinkCard>
           </v-col>
         </AdvancedOnly>
@@ -213,7 +213,7 @@ export default defineComponent({
   },
   scrollToTop: true,
   setup() {
-    const { $auth } = useContext();
+    const { $auth, i18n } = useContext();
 
     const user = computed(() => $auth.user);
 
@@ -247,9 +247,9 @@ export default defineComponent({
       });
 
       if (data && data.success) {
-        alert.success("Email Sent");
+        alert.success(i18n.tc("profile.email-sent"));
       } else {
-        alert.error("Error Sending Email");
+        alert.error(i18n.tc("profile.error-sending-email"));
       }
       state.loading = false;
     }
@@ -276,11 +276,11 @@ export default defineComponent({
     }, useAsyncKey());
 
     const statsText: { [key: string]: string } = {
-      totalRecipes: "Recipes",
-      totalUsers: "Users",
-      totalCategories: "Categories",
-      totalTags: "Tags",
-      totalTools: "Tools",
+      totalRecipes: i18n.tc("general.recipes"),
+      totalUsers: i18n.tc("user.users"),
+      totalCategories: i18n.tc("sidebar.categories"),
+      totalTags: i18n.tc("sidebar.tags"),
+      totalTools: i18n.tc("tool.tools"),
     };
 
     function getStatsTitle(key: string) {

@@ -25,12 +25,9 @@ def test_superuser_login(api_client: TestClient, admin_token):
     response = api_client.post(api_routes.auth_token, data=form_data)
 
     assert response.status_code == 200
-    new_token = json.loads(response.text).get("access_token")
 
     response = api_client.get(api_routes.users_self, headers=admin_token)
     assert response.status_code == 200
-
-    return {"Authorization": f"Bearer {new_token}"}
 
 
 def test_user_token_refresh(api_client: TestClient, admin_user: TestUser):

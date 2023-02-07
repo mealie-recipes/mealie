@@ -42,3 +42,13 @@ class MealieModel(BaseModel):
         for field in src.__fields__:
             if field in self.__fields__:
                 setattr(self, field, getattr(src, field))
+
+    def merge(self, src: T, replace_null=False):
+        """
+        Replace matching values from another instance to the current instance.
+        """
+
+        for field in src.__fields__:
+            val = getattr(src, field)
+            if field in self.__fields__ and (val is not None or replace_null):
+                setattr(self, field, val)

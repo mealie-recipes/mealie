@@ -17,9 +17,7 @@ def create_item(list_id: UUID4) -> dict:
         "note": random_string(10),
         "quantity": 1,
         "unit_id": None,
-        "unit": None,
         "food_id": None,
-        "food": None,
         "recipe_id": None,
         "label_id": None,
     }
@@ -27,7 +25,6 @@ def create_item(list_id: UUID4) -> dict:
 
 @pytest.fixture(scope="function")
 def shopping_lists(database: AllRepositories, unique_user: TestUser):
-
     models: list[ShoppingListOut] = []
 
     for _ in range(3):
@@ -48,7 +45,6 @@ def shopping_lists(database: AllRepositories, unique_user: TestUser):
 
 @pytest.fixture(scope="function")
 def shopping_list(database: AllRepositories, unique_user: TestUser):
-
     model = database.group_shopping_lists.create(
         ShoppingListSave(name=random_string(10), group_id=unique_user.group_id),
     )
@@ -75,7 +71,7 @@ def list_with_items(database: AllRepositories, unique_user: TestUser):
         )
 
     # refresh model
-    list_model = database.group_shopping_lists.get_one(list_model.id)
+    list_model = database.group_shopping_lists.get_one(list_model.id)  # type: ignore
 
     yield list_model
 

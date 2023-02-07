@@ -27,6 +27,8 @@ class LoggerConfig:
 def get_logger_config():
     settings = get_app_settings()
 
+    log_level = logging._nameToLevel[settings.LOG_LEVEL]
+
     if not settings.PRODUCTION:
         from rich.logging import RichHandler
 
@@ -35,6 +37,7 @@ def get_logger_config():
             format=None,
             date_format=None,
             logger_file=None,
+            level=log_level,
         )
 
     output_file_handler = logging.FileHandler(LOGGER_FILE)
@@ -50,6 +53,7 @@ def get_logger_config():
         format="%(levelname)s: %(asctime)s \t%(message)s",
         date_format="%d-%b-%y %H:%M:%S",
         logger_file=LOGGER_FILE,
+        level=log_level,
     )
 
 

@@ -67,7 +67,6 @@ class BaseMigrator(BaseService):
         self.report_id = self.report.id
 
     def _save_all_entries(self) -> None:
-
         is_success = True
         is_failure = True
 

@@ -19,7 +19,6 @@ from tests.utils.fixture_schemas import TestUser
 def ten_slugs(
     api_client: TestClient, unique_user: TestUser, database: AllRepositories
 ) -> Generator[list[str], None, None]:
-
     slugs: list[str] = []
 
     for _ in range(10):
@@ -98,7 +97,6 @@ def test_bulk_delete_recipes(
     database: AllRepositories,
     ten_slugs: list[str],
 ):
-
     payload = {"recipes": ten_slugs}
 
     response = api_client.post(api_routes.recipes_bulk_actions_delete, json=payload, headers=unique_user.token)
