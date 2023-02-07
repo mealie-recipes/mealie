@@ -39,7 +39,6 @@ class AdminAboutController(BaseAdminController):
 
     @router.get("/statistics", response_model=AppStatistics)
     def get_app_statistics(self):
-
         return AppStatistics(
             total_recipes=self.repos.recipes.count_all(),
             uncategorized_recipes=self.repos.recipes.count_uncategorized(),  # type: ignore

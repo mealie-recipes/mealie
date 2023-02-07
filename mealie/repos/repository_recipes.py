@@ -1,10 +1,10 @@
+from collections.abc import Sequence
 from random import randint
-from typing import Any
 from uuid import UUID
 
 from pydantic import UUID4
 from slugify import slugify
-from sqlalchemy import and_, func
+from sqlalchemy import and_, func, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import joinedload
 
@@ -18,13 +18,14 @@ from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.recipe import Recipe
 from mealie.schema.recipe.recipe import (
     RecipeCategory,
+    RecipePagination,
     RecipeSummary,
     RecipeSummaryWithIngredients,
     RecipeTag,
     RecipeTool,
 )
 from mealie.schema.recipe.recipe_category import CategoryBase, TagBase
-from mealie.schema.response.pagination import PaginationBase, PaginationQuery
+from mealie.schema.response.pagination import PaginationQuery
 
 from .repository_generic import RepositoryGeneric
 
@@ -46,34 +47,31 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
                     raise
 
     def by_group(self, group_id: UUID) -> "RepositoryRecipes":
-        return super().by_group(group_id)  # type: ignore
+        return super().by_group(group_id)
 
     def get_all_public(self, limit: int | None = None, order_by: str | None = None, start=0, override_schema=None):
         eff_schema = override_schema or self.schema
 
         if order_by:
             order_attr = getattr(self.model, str(order_by))
-
-            return [
-                eff_schema.from_orm(x)
-                for x in self.session.query(self.model)
+            stmt = (
+                select(self.model)
                 .join(RecipeSettings)
                 .filter(RecipeSettings.public == True)  # noqa: 711
                 .order_by(order_attr.desc())
                 .offset(start)
                 .limit(limit)
-                .all()
-            ]
+            )
+            return [eff_schema.from_orm(x) for x in self.session.execute(stmt).scalars().all()]
 
-        return [
-            eff_schema.from_orm(x)
-            for x in self.session.query(self.model)
+        stmt = (
+            select(self.model)
             .join(RecipeSettings)
             .filter(RecipeSettings.public == True)  # noqa: 711
             .offset(start)
             .limit(limit)
-            .all()
-        ]
+        )
+        return [eff_schema.from_orm(x) for x in self.session.execute(stmt).scalars().all()]
 
     def update_image(self, slug: str, _: str | None = None) -> int:
         entry: RecipeModel = self._query_one(match_value=slug)
@@ -100,7 +98,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
 
     def summary(
         self, group_id, start=0, limit=99999, load_foods=False, order_by="created_at", order_descending=True
-    ) -> Any:
+    ) -> Sequence[RecipeModel]:
         args = [
             joinedload(RecipeModel.recipe_category),
             joinedload(RecipeModel.tags),
@@ -126,15 +124,15 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         else:
             order_attr = order_attr.asc()
 
-        return (
-            self.session.query(RecipeModel)
+        stmt = (
+            select(RecipeModel)
             .options(*args)
             .filter(RecipeModel.group_id == group_id)
             .order_by(order_attr)
             .offset(start)
             .limit(limit)
-            .all()
         )
+        return self.session.execute(stmt).scalars().all()
 
     def page_all(
         self,
@@ -145,14 +143,16 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         categories: list[UUID4 | str] | None = None,
         tags: list[UUID4 | str] | None = None,
         tools: list[UUID4 | str] | None = None,
-    ) -> PaginationBase[RecipeSummary]:
-        q = self.session.query(self.model)
+    ) -> RecipePagination:
+        q = select(self.model)
 
         args = [
             joinedload(RecipeModel.recipe_category),
             joinedload(RecipeModel.tags),
             joinedload(RecipeModel.tools),
         ]
+
+        item_class: type[RecipeSummary | RecipeSummaryWithIngredients]
 
         if load_food:
             args.append(joinedload(RecipeModel.recipe_ingredient).options(joinedload(RecipeIngredient.food)))
@@ -205,14 +205,14 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         q, count, total_pages = self.add_pagination_to_query(q, pagination)
 
         try:
-            data = q.all()
+            data = self.session.execute(q).scalars().unique().all()
         except Exception as e:
             self._log_exception(e)
             self.session.rollback()
             raise e
 
         items = [item_class.from_orm(item) for item in data]
-        return PaginationBase(
+        return RecipePagination(
             page=pagination.page,
             per_page=pagination.per_page,
             total=count,
@@ -226,14 +226,12 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         """
 
         ids = [x.id for x in categories]
-
-        return [
-            RecipeSummary.from_orm(x)
-            for x in self.session.query(RecipeModel)
+        stmt = (
+            select(RecipeModel)
             .join(RecipeModel.recipe_category)
             .filter(RecipeModel.recipe_category.any(Category.id.in_(ids)))
-            .all()
-        ]
+        )
+        return [RecipeSummary.from_orm(x) for x in self.session.execute(stmt).unique().scalars().all()]
 
     def _category_tag_filters(
         self,
@@ -284,8 +282,8 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         fltr = self._category_tag_filters(
             categories, tags, tools, require_all_categories, require_all_tags, require_all_tools
         )
-
-        return [self.schema.from_orm(x) for x in self.session.query(RecipeModel).filter(*fltr).all()]
+        stmt = select(RecipeModel).filter(*fltr)
+        return [self.schema.from_orm(x) for x in self.session.execute(stmt).scalars().all()]
 
     def get_random_by_categories_and_tags(
         self, categories: list[RecipeCategory], tags: list[RecipeTag]
@@ -300,33 +298,27 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         # - https://stackoverflow.com/questions/60805/getting-random-row-through-sqlalchemy
 
         filters = self._category_tag_filters(categories, tags)  # type: ignore
-
-        return [
-            self.schema.from_orm(x)
-            for x in self.session.query(RecipeModel)
-            .filter(and_(*filters))
-            .order_by(func.random())  # Postgres and SQLite specific
-            .limit(1)
-        ]
+        stmt = (
+            select(RecipeModel).filter(and_(*filters)).order_by(func.random()).limit(1)  # Postgres and SQLite specific
+        )
+        return [self.schema.from_orm(x) for x in self.session.execute(stmt).scalars().all()]
 
     def get_random(self, limit=1) -> list[Recipe]:
-        return [
-            self.schema.from_orm(x)
-            for x in self.session.query(RecipeModel)
+        stmt = (
+            select(RecipeModel)
             .filter(RecipeModel.group_id == self.group_id)
             .order_by(func.random())  # Postgres and SQLite specific
             .limit(limit)
-        ]
+        )
+        return [self.schema.from_orm(x) for x in self.session.execute(stmt).scalars().all()]
 
     def get_by_slug(self, group_id: UUID4, slug: str, limit=1) -> Recipe | None:
-        dbrecipe = (
-            self.session.query(RecipeModel)
-            .filter(RecipeModel.group_id == group_id, RecipeModel.slug == slug)
-            .one_or_none()
-        )
+        stmt = select(RecipeModel).filter(RecipeModel.group_id == group_id, RecipeModel.slug == slug)
+        dbrecipe = self.session.execute(stmt).scalars().one_or_none()
         if dbrecipe is None:
             return None
         return self.schema.from_orm(dbrecipe)
 
-    def all_ids(self, group_id: UUID4) -> list[UUID4]:
-        return [tpl[0] for tpl in self.session.query(RecipeModel.id).filter(RecipeModel.group_id == group_id).all()]
+    def all_ids(self, group_id: UUID4) -> Sequence[UUID4]:
+        stmt = select(RecipeModel.id).filter(RecipeModel.group_id == group_id)
+        return self.session.execute(stmt).scalars().all()

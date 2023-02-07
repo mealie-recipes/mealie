@@ -1,33 +1,40 @@
 from datetime import datetime
+from typing import TYPE_CHECKING
 
-from sqlalchemy import Column, DateTime, ForeignKey, String
-from sqlalchemy.orm import relationship
+from sqlalchemy import DateTime, ForeignKey, String
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import auto_init
 from .._model_utils.guid import GUID
 
+if TYPE_CHECKING:
+    from ..users import User
+    from . import RecipeModel
+
 
 class RecipeTimelineEvent(SqlAlchemyBase, BaseMixins):
     __tablename__ = "recipe_timeline_events"
-    id = Column(GUID, primary_key=True, default=GUID.generate)
+    id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
 
     # Parent Recipe
-    recipe_id = Column(GUID, ForeignKey("recipes.id"), nullable=False)
-    recipe = relationship("RecipeModel", back_populates="timeline_events")
+    recipe_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("recipes.id"), nullable=False)
+    recipe: Mapped["RecipeModel"] = relationship("RecipeModel", back_populates="timeline_events")
 
     # Related User (Actor)
-    user_id = Column(GUID, ForeignKey("users.id"), nullable=False)
-    user = relationship("User", back_populates="recipe_timeline_events", single_parent=True, foreign_keys=[user_id])
+    user_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("users.id"), nullable=False)
+    user: Mapped["User"] = relationship(
+        "User", back_populates="recipe_timeline_events", single_parent=True, foreign_keys=[user_id]
+    )
 
     # General Properties
-    subject = Column(String, nullable=False)
-    message = Column(String)
-    event_type = Column(String)
-    image = Column(String)
+    subject: Mapped[str] = mapped_column(String, nullable=False)
+    message: Mapped[str | None] = mapped_column(String)
+    event_type: Mapped[str | None] = mapped_column(String)
+    image: Mapped[str | None] = mapped_column(String)
 
     # Timestamps
-    timestamp = Column(DateTime)
+    timestamp: Mapped[datetime | None] = mapped_column(DateTime)
 
     @auto_init()
     def __init__(

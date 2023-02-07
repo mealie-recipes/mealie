@@ -60,7 +60,6 @@ def test_get_scheduled_webhooks_filter_query(database: AllRepositories, unique_u
         assert result.enabled
 
         for expected_item in expected:
-
             if result.name == expected_item.name:  # Names are uniquely generated so we can use this to compare
                 assert result.enabled == expected_item.enabled
                 break

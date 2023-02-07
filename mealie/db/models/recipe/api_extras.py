@@ -1,4 +1,5 @@
 import sqlalchemy as sa
+from sqlalchemy.orm import Mapped, mapped_column
 
 from mealie.db.models._model_base import SqlAlchemyBase
 from mealie.db.models._model_utils.guid import GUID
@@ -27,9 +28,9 @@ class ExtrasGeneric:
     This class is not an actual table, so it does not inherit from SqlAlchemyBase
     """
 
-    id = sa.Column(sa.Integer, primary_key=True)
-    key_name = sa.Column(sa.String)
-    value = sa.Column(sa.String)
+    id: Mapped[int] = mapped_column(sa.Integer, primary_key=True)
+    key_name: Mapped[str | None] = mapped_column(sa.String)
+    value: Mapped[str | None] = mapped_column(sa.String)
 
     def __init__(self, key, value) -> None:
         self.key_name = key
@@ -39,19 +40,19 @@ class ExtrasGeneric:
 # used specifically for recipe extras
 class ApiExtras(ExtrasGeneric, SqlAlchemyBase):
     __tablename__ = "api_extras"
-    recipee_id = sa.Column(GUID, sa.ForeignKey("recipes.id"))
+    recipee_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("recipes.id"))
 
 
 class IngredientFoodExtras(ExtrasGeneric, SqlAlchemyBase):
     __tablename__ = "ingredient_food_extras"
-    ingredient_food_id = sa.Column(GUID, sa.ForeignKey("ingredient_foods.id"))
+    ingredient_food_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("ingredient_foods.id"))
 
 
 class ShoppingListExtras(ExtrasGeneric, SqlAlchemyBase):
     __tablename__ = "shopping_list_extras"
-    shopping_list_id = sa.Column(GUID, sa.ForeignKey("shopping_lists.id"))
+    shopping_list_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("shopping_lists.id"))
 
 
 class ShoppingListItemExtras(ExtrasGeneric, SqlAlchemyBase):
     __tablename__ = "shopping_list_item_extras"
-    shopping_list_item_id = sa.Column(GUID, sa.ForeignKey("shopping_list_items.id"))
+    shopping_list_item_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("shopping_list_items.id"))

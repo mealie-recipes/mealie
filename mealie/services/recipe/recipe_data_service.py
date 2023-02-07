@@ -33,7 +33,6 @@ async def largest_content_len(urls: list[str]) -> tuple[str, int]:
         tasks = [do(client, url) for url in urls]
         responses: list[Response] = await gather_with_concurrency(10, *tasks)
         for response in responses:
-
             len_int = int(response.headers.get("Content-Length", 0))
             if len_int > largest_len:
                 largest_url = str(response.url)

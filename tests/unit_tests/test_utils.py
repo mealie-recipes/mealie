@@ -9,9 +9,9 @@ from mealie.pkgs.stats.fs_stats import pretty_size
         (0, "0 bytes"),
         (1, "1 bytes"),
         (1024, "1.0 KB"),
-        (1024 ** 2, "1.0 MB"),
-        (1024 ** 2 * 1024, "1.0 GB"),
-        (1024 ** 2 * 1024 * 1024, "1.0 TB"),
+        (1024**2, "1.0 MB"),
+        (1024**2 * 1024, "1.0 GB"),
+        (1024**2 * 1024 * 1024, "1.0 TB"),
     ],
 )
 def test_pretty_size(size: int, expected: str) -> None:

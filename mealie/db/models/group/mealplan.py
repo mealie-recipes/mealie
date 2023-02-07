@@ -1,4 +1,8 @@
-from sqlalchemy import Column, Date, ForeignKey, String, orm
+from datetime import date
+from typing import TYPE_CHECKING, Optional
+
+from sqlalchemy import Date, ForeignKey, String, orm
+from sqlalchemy.orm import Mapped, mapped_column
 
 from mealie.db.models.recipe.tag import Tag, plan_rules_to_tags
 
@@ -6,18 +10,27 @@ from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import GUID, auto_init
 from ..recipe.category import Category, plan_rules_to_categories
 
+if TYPE_CHECKING:
+    from group import Group
+
+    from ..recipe import RecipeModel
+
 
 class GroupMealPlanRules(BaseMixins, SqlAlchemyBase):
     __tablename__ = "group_meal_plan_rules"
 
-    id = Column(GUID, primary_key=True, default=GUID.generate)
-    group_id = Column(GUID, ForeignKey("groups.id"), nullable=False)
+    id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
+    group_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False)
 
-    day = Column(String, nullable=False, default="unset")  # "MONDAY", "TUESDAY", "WEDNESDAY", etc...
-    entry_type = Column(String, nullable=False, default="")  # "breakfast", "lunch", "dinner", "side"
+    day: Mapped[str] = mapped_column(
+        String, nullable=False, default="unset"
+    )  # "MONDAY", "TUESDAY", "WEDNESDAY", etc...
+    entry_type: Mapped[str] = mapped_column(
+        String, nullable=False, default=""
+    )  # "breakfast", "lunch", "dinner", "side"
 
-    categories = orm.relationship(Category, secondary=plan_rules_to_categories, uselist=True)
-    tags = orm.relationship(Tag, secondary=plan_rules_to_tags, uselist=True)
+    categories: Mapped[Category] = orm.relationship(Category, secondary=plan_rules_to_categories, uselist=True)
+    tags: Mapped[list[Tag]] = orm.relationship(Tag, secondary=plan_rules_to_tags, uselist=True)
 
     @auto_init()
     def __init__(self, **_) -> None:
@@ -27,16 +40,18 @@ class GroupMealPlanRules(BaseMixins, SqlAlchemyBase):
 class GroupMealPlan(SqlAlchemyBase, BaseMixins):
     __tablename__ = "group_meal_plans"
 
-    date = Column(Date, index=True, nullable=False)
-    entry_type = Column(String, index=True, nullable=False)
-    title = Column(String, index=True, nullable=False)
-    text = Column(String, nullable=False)
+    date: Mapped[date] = mapped_column(Date, index=True, nullable=False)
+    entry_type: Mapped[str] = mapped_column(String, index=True, nullable=False)
+    title: Mapped[str] = mapped_column(String, index=True, nullable=False)
+    text: Mapped[str] = mapped_column(String, nullable=False)
 
-    group_id = Column(GUID, ForeignKey("groups.id"), index=True)
-    group = orm.relationship("Group", back_populates="mealplans")
+    group_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("groups.id"), index=True)
+    group: Mapped[Optional["Group"]] = orm.relationship("Group", back_populates="mealplans")
 
-    recipe_id = Column(GUID, ForeignKey("recipes.id"), index=True)
-    recipe = orm.relationship("RecipeModel", back_populates="meal_entries", uselist=False)
+    recipe_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"), index=True)
+    recipe: Mapped[Optional["RecipeModel"]] = orm.relationship(
+        "RecipeModel", back_populates="meal_entries", uselist=False
+    )
 
     @auto_init()
     def __init__(self, **_) -> None:

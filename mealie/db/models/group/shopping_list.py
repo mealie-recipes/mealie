@@ -1,5 +1,8 @@
-from sqlalchemy import Boolean, Column, Float, ForeignKey, Integer, String, orm
+from typing import TYPE_CHECKING, Optional
+
+from sqlalchemy import Boolean, Float, ForeignKey, Integer, String, orm
 from sqlalchemy.ext.orderinglist import ordering_list
+from sqlalchemy.orm import Mapped, mapped_column
 
 from mealie.db.models.labels import MultiPurposeLabel
 from mealie.db.models.recipe.api_extras import ShoppingListExtras, ShoppingListItemExtras, api_extras
@@ -8,16 +11,21 @@ from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import GUID, auto_init
 from ..recipe.ingredient import IngredientFoodModel, IngredientUnitModel
 
+if TYPE_CHECKING:
+    from group import Group
+
+    from ..recipe import RecipeModel
+
 
 class ShoppingListItemRecipeReference(BaseMixins, SqlAlchemyBase):
     __tablename__ = "shopping_list_item_recipe_reference"
-    id = Column(GUID, primary_key=True, default=GUID.generate)
+    id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
 
-    shopping_list_item_id = Column(GUID, ForeignKey("shopping_list_items.id"), primary_key=True)
-    recipe_id = Column(GUID, ForeignKey("recipes.id"), index=True)
-    recipe = orm.relationship("RecipeModel", back_populates="shopping_list_item_refs")
-    recipe_quantity = Column(Float, nullable=False)
-    recipe_scale = Column(Float, nullable=False, default=1)
+    shopping_list_item_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("shopping_list_items.id"), primary_key=True)
+    recipe_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"), index=True)
+    recipe: Mapped[Optional["RecipeModel"]] = orm.relationship("RecipeModel", back_populates="shopping_list_item_refs")
+    recipe_quantity: Mapped[float] = mapped_column(Float, nullable=False)
+    recipe_scale: Mapped[float | None] = mapped_column(Float, default=1)
 
     @auto_init()
     def __init__(self, **_) -> None:
@@ -28,32 +36,38 @@ class ShoppingListItem(SqlAlchemyBase, BaseMixins):
     __tablename__ = "shopping_list_items"
 
     # Id's
-    id = Column(GUID, primary_key=True, default=GUID.generate)
-    shopping_list_id = Column(GUID, ForeignKey("shopping_lists.id"))
+    id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
+    shopping_list_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("shopping_lists.id"))
 
     # Meta
-    is_ingredient = Column(Boolean, default=True)
-    position = Column(Integer, nullable=False, default=0)
-    checked = Column(Boolean, default=False)
+    is_ingredient: Mapped[bool | None] = mapped_column(Boolean, default=True)
+    position: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    checked: Mapped[bool | None] = mapped_column(Boolean, default=False)
 
-    quantity = Column(Float, default=1)
-    note = Column(String)
+    quantity: Mapped[float | None] = mapped_column(Float, default=1)
+    note: Mapped[str | None] = mapped_column(String)
 
-    is_food = Column(Boolean, default=False)
-    extras: list[ShoppingListItemExtras] = orm.relationship("ShoppingListItemExtras", cascade="all, delete-orphan")
+    is_food: Mapped[bool | None] = mapped_column(Boolean, default=False)
+    extras: Mapped[list[ShoppingListItemExtras]] = orm.relationship(
+        "ShoppingListItemExtras", cascade="all, delete-orphan"
+    )
 
     # Scaling Items
-    unit_id = Column(GUID, ForeignKey("ingredient_units.id"))
-    unit = orm.relationship(IngredientUnitModel, uselist=False)
+    unit_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("ingredient_units.id"))
+    unit: Mapped[IngredientUnitModel | None] = orm.relationship(IngredientUnitModel, uselist=False)
 
-    food_id = Column(GUID, ForeignKey("ingredient_foods.id"))
-    food = orm.relationship(IngredientFoodModel, uselist=False)
+    food_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("ingredient_foods.id"))
+    food: Mapped[IngredientFoodModel | None] = orm.relationship(IngredientFoodModel, uselist=False)
 
-    label_id = Column(GUID, ForeignKey("multi_purpose_labels.id"))
-    label = orm.relationship(MultiPurposeLabel, uselist=False, back_populates="shopping_list_items")
+    label_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("multi_purpose_labels.id"))
+    label: Mapped[MultiPurposeLabel | None] = orm.relationship(
+        MultiPurposeLabel, uselist=False, back_populates="shopping_list_items"
+    )
 
     # Recipe Reference
-    recipe_references = orm.relationship(ShoppingListItemRecipeReference, cascade="all, delete, delete-orphan")
+    recipe_references: Mapped[list[ShoppingListItemRecipeReference]] = orm.relationship(
+        ShoppingListItemRecipeReference, cascade="all, delete, delete-orphan"
+    )
 
     class Config:
         exclude = {"id", "label", "food", "unit"}
@@ -66,14 +80,16 @@ class ShoppingListItem(SqlAlchemyBase, BaseMixins):
 
 class ShoppingListRecipeReference(BaseMixins, SqlAlchemyBase):
     __tablename__ = "shopping_list_recipe_reference"
-    id = Column(GUID, primary_key=True, default=GUID.generate)
+    id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
 
-    shopping_list_id = Column(GUID, ForeignKey("shopping_lists.id"), primary_key=True)
+    shopping_list_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("shopping_lists.id"), primary_key=True)
 
-    recipe_id = Column(GUID, ForeignKey("recipes.id"), index=True)
-    recipe = orm.relationship("RecipeModel", uselist=False, back_populates="shopping_list_refs")
+    recipe_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"), index=True)
+    recipe: Mapped[Optional["RecipeModel"]] = orm.relationship(
+        "RecipeModel", uselist=False, back_populates="shopping_list_refs"
+    )
 
-    recipe_quantity = Column(Float, nullable=False)
+    recipe_quantity: Mapped[float] = mapped_column(Float, nullable=False)
 
     class Config:
         exclude = {"id", "recipe"}
@@ -85,21 +101,23 @@ class ShoppingListRecipeReference(BaseMixins, SqlAlchemyBase):
 
 class ShoppingList(SqlAlchemyBase, BaseMixins):
     __tablename__ = "shopping_lists"
-    id = Column(GUID, primary_key=True, default=GUID.generate)
+    id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
 
-    group_id = Column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
-    group = orm.relationship("Group", back_populates="shopping_lists")
+    group_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
+    group: Mapped["Group"] = orm.relationship("Group", back_populates="shopping_lists")
 
-    name = Column(String)
-    list_items = orm.relationship(
+    name: Mapped[str | None] = mapped_column(String)
+    list_items: Mapped[ShoppingListItem] = orm.relationship(
         ShoppingListItem,
         cascade="all, delete, delete-orphan",
         order_by="ShoppingListItem.position",
         collection_class=ordering_list("position"),
     )
 
-    recipe_references = orm.relationship(ShoppingListRecipeReference, cascade="all, delete, delete-orphan")
-    extras: list[ShoppingListExtras] = orm.relationship("ShoppingListExtras", cascade="all, delete-orphan")
+    recipe_references: Mapped[ShoppingListRecipeReference] = orm.relationship(
+        ShoppingListRecipeReference, cascade="all, delete, delete-orphan"
+    )
+    extras: Mapped[list[ShoppingListExtras]] = orm.relationship("ShoppingListExtras", cascade="all, delete-orphan")
 
     class Config:
         exclude = {"id", "list_items"}

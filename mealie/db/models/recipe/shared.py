@@ -1,10 +1,15 @@
 from datetime import datetime, timedelta
+from typing import TYPE_CHECKING
 from uuid import uuid4
 
 import sqlalchemy as sa
+from sqlalchemy.orm import Mapped, mapped_column
 
 from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 from mealie.db.models._model_utils import GUID, auto_init
+
+if TYPE_CHECKING:
+    from . import RecipeModel
 
 
 def defaut_expires_at_time() -> datetime:
@@ -13,14 +18,14 @@ def defaut_expires_at_time() -> datetime:
 
 class RecipeShareTokenModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "recipe_share_tokens"
-    id = sa.Column(GUID, primary_key=True, default=uuid4)
+    id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=uuid4)
 
-    group_id = sa.Column(GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)
+    group_id: Mapped[GUID] = mapped_column(GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)
 
-    recipe_id = sa.Column(GUID, sa.ForeignKey("recipes.id"), nullable=False)
-    recipe = sa.orm.relationship("RecipeModel", back_populates="share_tokens", uselist=False)
+    recipe_id: Mapped[GUID] = mapped_column(GUID, sa.ForeignKey("recipes.id"), nullable=False)
+    recipe: Mapped["RecipeModel"] = sa.orm.relationship("RecipeModel", back_populates="share_tokens", uselist=False)
 
-    expires_at = sa.Column(sa.DateTime, nullable=False)
+    expires_at: Mapped[datetime] = mapped_column(sa.DateTime, nullable=False)
 
     @auto_init()
     def __init__(self, **_) -> None:

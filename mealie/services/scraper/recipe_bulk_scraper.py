@@ -83,7 +83,6 @@ class RecipeBulkScraperService(BaseService):
         tasks = [_do(b.url) for b in urls.imports]
         results = await gather(*tasks)
         for b, recipe in zip(urls.imports, results, strict=True):
-
             if not recipe:
                 continue
 

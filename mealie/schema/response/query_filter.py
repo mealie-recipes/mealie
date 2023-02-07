@@ -8,8 +8,7 @@ from typing import Any, TypeVar, cast
 from dateutil import parser as date_parser
 from dateutil.parser import ParserError
 from humps import decamelize
-from sqlalchemy import bindparam, text
-from sqlalchemy.orm.query import Query
+from sqlalchemy import Select, bindparam, text
 from sqlalchemy.sql import sqltypes
 from sqlalchemy.sql.expression import BindParameter
 
@@ -72,7 +71,7 @@ class QueryFilter:
 
         return f"<<{joined}>>"
 
-    def filter_query(self, query: Query, model: type[Model]) -> Query:
+    def filter_query(self, query: Select, model: type[Model]) -> Select:
         segments: list[str] = []
         params: list[BindParameter] = []
         for i, component in enumerate(self.filter_components):

@@ -1,5 +1,7 @@
 import datetime
 
+from sqlalchemy import delete
+
 from mealie.core import root_logger
 from mealie.db.db_setup import session_context
 from mealie.db.models.users.password_reset import PasswordResetModel
@@ -15,7 +17,8 @@ def purge_password_reset_tokens():
     limit = datetime.datetime.now() - datetime.timedelta(days=MAX_DAYS_OLD)
 
     with session_context() as session:
-        session.query(PasswordResetModel).filter(PasswordResetModel.created_at <= limit).delete()
+        stmt = delete(PasswordResetModel).filter(PasswordResetModel.created_at <= limit)
+        session.execute(stmt)
         session.commit()
         session.close()
         logger.info("password reset tokens purged")

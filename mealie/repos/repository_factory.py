@@ -1,5 +1,7 @@
+from collections.abc import Sequence
 from functools import cached_property
 
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from mealie.db.models.group import Group, GroupMealPlan, ReportEntryModel, ReportModel
@@ -70,13 +72,16 @@ PK_GROUP_ID = "group_id"
 
 
 class RepositoryCategories(RepositoryGeneric[CategoryOut, Category]):
-    def get_empty(self):
-        return self.session.query(Category).filter(~Category.recipes.any()).all()
+    def get_empty(self) -> Sequence[Category]:
+        stmt = select(Category).filter(~Category.recipes.any())
+
+        return self.session.execute(stmt).scalars().all()
 
 
 class RepositoryTags(RepositoryGeneric[TagOut, Tag]):
-    def get_empty(self):
-        return self.session.query(Tag).filter(~Tag.recipes.any()).all()
+    def get_empty(self) -> Sequence[Tag]:
+        stmt = select(Tag).filter(~Tag.recipes.any())
+        return self.session.execute(stmt).scalars().all()
 
 
 class AllRepositories:

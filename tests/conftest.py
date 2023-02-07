@@ -30,7 +30,6 @@ def override_get_db():
 
 @fixture(scope="session")
 def api_client():
-
     app.dependency_overrides[generate_session] = override_get_db
 
     yield TestClient(app)

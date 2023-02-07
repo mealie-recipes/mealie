@@ -37,7 +37,6 @@ class HttpRepo(Generic[C, R, U]):
         exception_msgs: Callable[[type[Exception]], str] | None = None,
         default_message: str | None = None,
     ) -> None:
-
         self.repo = repo
         self.logger = logger
         self.exception_msgs = exception_msgs

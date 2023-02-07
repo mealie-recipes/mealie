@@ -8,6 +8,7 @@ from urllib.parse import parse_qs, urlencode, urlsplit, urlunsplit
 
 from fastapi.encoders import jsonable_encoder
 from pydantic import UUID4
+from sqlalchemy import select
 from sqlalchemy.orm.session import Session
 
 from mealie.db.db_setup import session_context
@@ -143,12 +144,9 @@ class WebhookEventListener(EventListenerBase):
     def get_scheduled_webhooks(self, start_dt: datetime, end_dt: datetime) -> list[ReadWebhook]:
         """Fetches all scheduled webhooks from the database"""
         with self.ensure_session() as session:
-            return (
-                session.query(GroupWebhooksModel)
-                .where(
-                    GroupWebhooksModel.enabled == True,  # noqa: E712 - required for SQLAlchemy comparison
-                    GroupWebhooksModel.scheduled_time > start_dt.astimezone(timezone.utc).time(),
-                    GroupWebhooksModel.scheduled_time <= end_dt.astimezone(timezone.utc).time(),
-                )
-                .all()
+            stmt = select(GroupWebhooksModel).where(
+                GroupWebhooksModel.enabled == True,  # noqa: E712 - required for SQLAlchemy comparison
+                GroupWebhooksModel.scheduled_time > start_dt.astimezone(timezone.utc).time(),
+                GroupWebhooksModel.scheduled_time <= end_dt.astimezone(timezone.utc).time(),
             )
+            return session.execute(stmt).scalars().all()
