@@ -21,7 +21,7 @@ class GroupMealPlanRules(BaseMixins, SqlAlchemyBase):
     __tablename__ = "group_meal_plan_rules"
 
     id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
-    group_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False)
+    group_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
 
     day: Mapped[str] = mapped_column(
         String, nullable=False, default="unset"

@@ -37,11 +37,11 @@ class ShoppingListItem(SqlAlchemyBase, BaseMixins):
 
     # Id's
     id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
-    shopping_list_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("shopping_lists.id"))
+    shopping_list_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("shopping_lists.id"), index=True)
 
     # Meta
     is_ingredient: Mapped[bool | None] = mapped_column(Boolean, default=True)
-    position: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    position: Mapped[int] = mapped_column(Integer, nullable=False, default=0, index=True)
     checked: Mapped[bool | None] = mapped_column(Boolean, default=False)
 
     quantity: Mapped[float | None] = mapped_column(Float, default=1)

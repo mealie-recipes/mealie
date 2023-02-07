@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 class PasswordResetModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "password_reset_tokens"
 
-    user_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("users.id"), nullable=False)
+    user_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("users.id"), nullable=False, index=True)
     user: Mapped["User"] = orm.relationship("User", back_populates="password_reset_tokens", uselist=False)
     token: Mapped[str] = mapped_column(String(64), unique=True, nullable=False)
 

@@ -21,9 +21,9 @@ if TYPE_CHECKING:
 class LongLiveToken(SqlAlchemyBase, BaseMixins):
     __tablename__ = "long_live_tokens"
     name: Mapped[str] = mapped_column(String, nullable=False)
-    token: Mapped[str] = mapped_column(String, nullable=False)
+    token: Mapped[str] = mapped_column(String, nullable=False, index=True)
 
-    user_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("users.id"))
+    user_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("users.id"), index=True)
     user: Mapped[Optional["User"]] = orm.relationship("User")
 
     def __init__(self, name, token, user_id, **_) -> None:

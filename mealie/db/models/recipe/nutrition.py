@@ -8,7 +8,7 @@ from mealie.db.models._model_utils.guid import GUID
 class Nutrition(SqlAlchemyBase):
     __tablename__ = "recipe_nutrition"
     id: Mapped[int] = mapped_column(sa.Integer, primary_key=True)
-    recipe_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("recipes.id"))
+    recipe_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("recipes.id"), index=True)
     calories: Mapped[str | None] = mapped_column(sa.String)
     fat_content: Mapped[str | None] = mapped_column(sa.String)
     fiber_content: Mapped[str | None] = mapped_column(sa.String)
