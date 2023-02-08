@@ -159,10 +159,14 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         categories: list[UUID4 | str] | None = None,
         tags: list[UUID4 | str] | None = None,
         tools: list[UUID4 | str] | None = None,
+        foods: list[UUID4 | str] | None = None,
         require_all_categories=True,
         require_all_tags=True,
         require_all_tools=True,
+        require_all_foods=True,
     ) -> RecipePagination:
+        # Copy this, because calling methods (e.g. tests) might rely on it not getting mutated
+        pagination_result = pagination.copy()
         q = select(self.model)
 
         args = [
@@ -187,12 +191,12 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
 
         if cookbook:
             cb_filters = self._build_recipe_filter(
-                extract_uuids(cookbook.categories),
-                extract_uuids(cookbook.tags),
-                extract_uuids(cookbook.tools),
-                cookbook.require_all_categories,
-                cookbook.require_all_tags,
-                cookbook.require_all_tools,
+                categories=extract_uuids(cookbook.categories),
+                tags=extract_uuids(cookbook.tags),
+                tools=extract_uuids(cookbook.tools),
+                require_all_categories=cookbook.require_all_categories,
+                require_all_tags=cookbook.require_all_tags,
+                require_all_tools=cookbook.require_all_tools,
             )
 
             q = q.filter(*cb_filters)
@@ -201,11 +205,17 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             tag_ids = self._uuids_for_items(tags, Tag)
             tool_ids = self._uuids_for_items(tools, Tool)
             filters = self._build_recipe_filter(
-                category_ids, tag_ids, tool_ids, require_all_categories, require_all_tags, require_all_tools
+                categories=category_ids,
+                tags=tag_ids,
+                tools=tool_ids,
+                foods=foods,
+                require_all_categories=require_all_categories,
+                require_all_tags=require_all_tags,
+                require_all_tools=require_all_tools,
+                require_all_foods=require_all_foods,
             )
             q = q.filter(*filters)
-
-        q, count, total_pages = self.add_pagination_to_query(q, pagination)
+        q, count, total_pages = self.add_pagination_to_query(q, pagination_result)
 
         try:
             data = self.session.execute(q).scalars().unique().all()
@@ -216,8 +226,8 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
 
         items = [item_class.from_orm(item) for item in data]
         return RecipePagination(
-            page=pagination.page,
-            per_page=pagination.per_page,
+            page=pagination_result.page,
+            per_page=pagination_result.per_page,
             total=count,
             total_pages=total_pages,
             items=items,
@@ -241,9 +251,11 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         categories: list[UUID4] | None = None,
         tags: list[UUID4] | None = None,
         tools: list[UUID4] | None = None,
+        foods: list[UUID4] | None = None,
         require_all_categories: bool = True,
         require_all_tags: bool = True,
         require_all_tools: bool = True,
+        require_all_foods: bool = True,
     ) -> list:
         if self.group_id:
             fltr = [
@@ -269,7 +281,11 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
                 fltr.extend(RecipeModel.tools.any(Tool.id == tool_id) for tool_id in tools)
             else:
                 fltr.append(RecipeModel.tools.any(Tool.id.in_(tools)))
-
+        if foods:
+            if require_all_foods:
+                fltr.extend(RecipeModel.recipe_ingredient.any(RecipeIngredient.food_id == food) for food in foods)
+            else:
+                fltr.append(RecipeModel.recipe_ingredient.any(RecipeIngredient.food_id.in_(foods)))
         return fltr
 
     def by_category_and_tags(
@@ -282,12 +298,12 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         require_all_tools: bool = True,
     ) -> list[Recipe]:
         fltr = self._build_recipe_filter(
-            extract_uuids(categories) if categories else None,
-            extract_uuids(tags) if tags else None,
-            extract_uuids(tools) if tools else None,
-            require_all_categories,
-            require_all_tags,
-            require_all_tools,
+            categories=extract_uuids(categories) if categories else None,
+            tags=extract_uuids(tags) if tags else None,
+            tools=extract_uuids(tools) if tools else None,
+            require_all_categories=require_all_categories,
+            require_all_tags=require_all_tags,
+            require_all_tools=require_all_tools,
         )
         stmt = select(RecipeModel).filter(*fltr)
         return [self.schema.from_orm(x) for x in self.session.execute(stmt).scalars().all()]

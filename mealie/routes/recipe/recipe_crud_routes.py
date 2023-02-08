@@ -247,6 +247,11 @@ class RecipeController(BaseRecipeController):
         categories: list[UUID4 | str] | None = Query(None),
         tags: list[UUID4 | str] | None = Query(None),
         tools: list[UUID4 | str] | None = Query(None),
+        foods: list[UUID4 | str] | None = Query(None),
+        require_all_categories: bool = Query(True),
+        require_all_tags: bool = Query(True),
+        require_all_tools: bool = Query(True),
+        require_all_foods: bool = Query(True),
     ):
         cookbook_data: ReadCookBook | None = None
         if cookbook:
@@ -263,6 +268,11 @@ class RecipeController(BaseRecipeController):
             categories=categories,
             tags=tags,
             tools=tools,
+            foods=foods,
+            require_all_categories=require_all_categories,
+            require_all_tags=require_all_tags,
+            require_all_tools=require_all_tools,
+            require_all_foods=require_all_foods,
         )
 
         # merge default pagination with the request's query params

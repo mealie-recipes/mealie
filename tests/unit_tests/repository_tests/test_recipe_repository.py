@@ -2,6 +2,7 @@ from typing import cast
 
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_recipes import RepositoryRecipes
+from mealie.schema.recipe import RecipeIngredient, SaveIngredientFood
 from mealie.schema.recipe.recipe import Recipe, RecipeCategory, RecipePaginationQuery, RecipeSummary
 from mealie.schema.recipe.recipe_category import CategoryOut, CategorySave, TagSave
 from mealie.schema.recipe.recipe_tool import RecipeToolSave
@@ -357,3 +358,73 @@ def test_recipe_repo_pagination_by_tools(database: AllRepositories, unique_user:
         tool_ids = [tool.id for tool in recipe_summary.tools]
         for tool in created_tools:
             assert tool.id in tool_ids
+
+
+def test_recipe_repo_pagination_by_foods(database: AllRepositories, unique_user: TestUser):
+    slug1, slug2 = (random_string(10) for _ in range(2))
+
+    foods = [
+        SaveIngredientFood(group_id=unique_user.group_id, name=slug1),
+        SaveIngredientFood(group_id=unique_user.group_id, name=slug2),
+    ]
+
+    created_foods = [database.ingredient_foods.create(food) for food in foods]
+
+    # Bootstrap the database with recipes
+    recipes = []
+
+    for i in range(10):
+        # None of the foods
+        recipes.append(
+            Recipe(
+                user_id=unique_user.user_id,
+                group_id=unique_user.group_id,
+                name=random_string(),
+            )
+        )
+
+        # Only one of the foods
+        recipes.append(
+            Recipe(
+                user_id=unique_user.user_id,
+                group_id=unique_user.group_id,
+                name=random_string(),
+                recipe_ingredient=[RecipeIngredient(food=created_foods[i % 2])],
+            ),
+        )
+
+        # Both of the foods
+        recipes.append(
+            Recipe(
+                user_id=unique_user.user_id,
+                group_id=unique_user.group_id,
+                name=random_string(),
+                recipe_ingredient=[RecipeIngredient(food=created_foods[0]), RecipeIngredient(food=created_foods[1])],
+            )
+        )
+
+    for recipe in recipes:
+        database.recipes.create(recipe)
+
+    pagination_query = RecipePaginationQuery(
+        page=1,
+        per_page=-1,
+    )
+
+    # Get all recipes with only one food by UUID
+    food_id = created_foods[0].id
+    recipes_with_one_food = database.recipes.page_all(pagination_query, foods=[food_id]).items
+    assert len(recipes_with_one_food) == 15
+
+    # Get all recipes with both foods
+    recipes_with_both_foods = database.recipes.page_all(
+        pagination_query, foods=[food.id for food in created_foods]
+    ).items
+    assert len(recipes_with_both_foods) == 10
+
+    # Get all recipes with either foods
+    recipes_with_either_food = database.recipes.page_all(
+        pagination_query, foods=[food.id for food in created_foods], require_all_foods=False
+    ).items
+
+    assert len(recipes_with_either_food) == 20
