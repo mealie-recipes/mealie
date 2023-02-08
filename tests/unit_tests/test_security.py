@@ -45,8 +45,16 @@ class LdapConnMock:
 
             return [(dn, {})]
 
-        assert attrlist == [self.app_settings.LDAP_NAME_ATTRIBUTE, self.app_settings.LDAP_MAIL_ATTRIBUTE]
-        assert filter == self.app_settings.LDAP_USER_FILTER.format(self.user)
+        assert attrlist == [
+            self.app_settings.LDAP_ID_ATTRIBUTE,
+            self.app_settings.LDAP_NAME_ATTRIBUTE,
+            self.app_settings.LDAP_MAIL_ATTRIBUTE,
+        ]
+        assert filter == self.app_settings.LDAP_USER_FILTER.format(
+            id_attribute=self.app_settings.LDAP_ID_ATTRIBUTE,
+            mail_attribute=self.app_settings.LDAP_MAIL_ATTRIBUTE,
+            input=self.user,
+        )
         assert dn == self.app_settings.LDAP_BASE_DN
         assert scope == ldap.SCOPE_SUBTREE
 
@@ -81,7 +89,7 @@ def setup_env(monkeypatch: MonkeyPatch):
     monkeypatch.setenv("LDAP_BASE_DN", base_dn)
     monkeypatch.setenv("LDAP_QUERY_BIND", query_bind)
     monkeypatch.setenv("LDAP_QUERY_PASSWORD", query_password)
-    monkeypatch.setenv("LDAP_USER_FILTER", "(&(objectClass=user)(|(cn={0})(sAMAccountName={0})(mail={0})))")
+    monkeypatch.setenv("LDAP_USER_FILTER", "(&(objectClass=user)(|({id_attribute}={input})({mail_attribute}={input})))")
 
     return user, mail, name, password, query_bind, query_password
 

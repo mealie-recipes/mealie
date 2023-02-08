@@ -90,8 +90,7 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
 
     # Check the credentials of the user
     try:
-        res = conn.simple_bind_s(user_dn, password)
-        print(res)
+        conn.simple_bind_s(user_dn, password)
     except (ldap.INVALID_CREDENTIALS, ldap.NO_SUCH_OBJECT):
         return False
 
