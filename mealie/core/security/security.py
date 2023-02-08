@@ -63,23 +63,8 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
         conn.set_option(ldap.OPT_X_TLS_CACERTFILE, settings.LDAP_TLS_CACERTFILE)
         conn.set_option(ldap.OPT_X_TLS_NEWCTX, 0)
 
-    user = db.users.get_one(username, "email", any_case=True)
-
-    if not user:
-        user_bind = "cn={}, {}".format(username, settings.LDAP_BASE_DN)
-        user = db.users.get_one(username, "username", any_case=True)
-    else:
-        user_bind = "cn={}, {}".format(user.username, settings.LDAP_BASE_DN)
-
-    # Check the credentials of the user
-    try:
-        conn.simple_bind_s(user_bind, password)
-    except (ldap.INVALID_CREDENTIALS, ldap.NO_SUCH_OBJECT):
-        return False
-
     # Use query user for the search instead of the logged in user
     # This prevents the need for every user to have query permissions in LDAP
-    conn.unbind_s()
     try:
         conn.simple_bind_s(settings.LDAP_QUERY_BIND, settings.LDAP_QUERY_PASSWORD)
     except (ldap.INVALID_CREDENTIALS, ldap.NO_SUCH_OBJECT):
@@ -91,8 +76,10 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
     user_entry = conn.search_s(
         settings.LDAP_BASE_DN,
         ldap.SCOPE_SUBTREE,
-        settings.LDAP_USER_FILTER.format(username),
-        [settings.LDAP_NAME_ATTRIBUTE, settings.LDAP_MAIL_ATTRIBUTE],
+        settings.LDAP_USER_FILTER.format(
+            id_attribute=settings.LDAP_ID_ATTRIBUTE, mail_attribute=settings.LDAP_MAIL_ATTRIBUTE, input=username
+        ),
+        [settings.LDAP_ID_ATTRIBUTE, settings.LDAP_NAME_ATTRIBUTE, settings.LDAP_MAIL_ATTRIBUTE],
     )
 
     if not user_entry:
@@ -100,6 +87,18 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
         return False
 
     user_dn, user_attr = user_entry[0]
+
+    # Check the credentials of the user
+    try:
+        res = conn.simple_bind_s(user_dn, password)
+        print(res)
+    except (ldap.INVALID_CREDENTIALS, ldap.NO_SUCH_OBJECT):
+        return False
+
+    # Check for existing user
+    user = db.users.get_one(username, "email", any_case=True)
+    if not user:
+        user = db.users.get_one(username, "username", any_case=True)
 
     if user is None:
         try:

@@ -122,9 +122,9 @@ class AppSettings(BaseSettings):
     LDAP_QUERY_PASSWORD: NoneStr = None
     LDAP_USER_FILTER: NoneStr = None
     LDAP_ADMIN_FILTER: NoneStr = None
-    LDAP_ID_ATTRIBUTE: Optional[str] = "uid"
-    LDAP_MAIL_ATTRIBUTE: Optional[str] = "mail"
-    LDAP_NAME_ATTRIBUTE: Optional[str] = "name"
+    LDAP_ID_ATTRIBUTE: str = "uid"
+    LDAP_MAIL_ATTRIBUTE: str = "mail"
+    LDAP_NAME_ATTRIBUTE: str = "name"
 
     @property
     def LDAP_ENABLED(self) -> bool:
