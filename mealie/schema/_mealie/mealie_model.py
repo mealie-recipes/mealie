@@ -1,9 +1,10 @@
 from __future__ import annotations
 
-from typing import TypeVar
+from collections.abc import Sequence
+from typing import Protocol, TypeVar
 
 from humps.main import camelize
-from pydantic import BaseModel
+from pydantic import UUID4, BaseModel
 
 T = TypeVar("T", bound=BaseModel)
 
@@ -52,3 +53,11 @@ class MealieModel(BaseModel):
             val = getattr(src, field)
             if field in self.__fields__ and (val is not None or replace_null):
                 setattr(self, field, val)
+
+
+class HasUUID(Protocol):
+    id: UUID4
+
+
+def extract_uuids(models: Sequence[HasUUID]) -> list[UUID4]:
+    return [x.id for x in models]

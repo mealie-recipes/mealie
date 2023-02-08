@@ -27,6 +27,8 @@ from mealie.schema.recipe.recipe import (
 from mealie.schema.recipe.recipe_category import CategoryBase, TagBase
 from mealie.schema.response.pagination import PaginationQuery
 
+from ..db.models._model_base import SqlAlchemyBase
+from ..schema._mealie.mealie_model import extract_uuids
 from .repository_generic import RepositoryGeneric
 
 
@@ -134,6 +136,20 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         )
         return self.session.execute(stmt).scalars().all()
 
+    def _uuids_for_items(self, items: list[UUID | str] | None, model: type[SqlAlchemyBase]) -> list[UUID] | None:
+        if not items:
+            return None
+        ids: list[UUID] = []
+        slugs: list[str] = []
+
+        for i in items:
+            if isinstance(i, UUID):
+                ids.append(i)
+            else:
+                slugs.append(i)
+        additional_ids = self.session.execute(select(model.id).filter(model.slug.in_(slugs))).scalars().all()
+        return ids + additional_ids
+
     def page_all(
         self,
         pagination: PaginationQuery,
@@ -143,6 +159,9 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         categories: list[UUID4 | str] | None = None,
         tags: list[UUID4 | str] | None = None,
         tools: list[UUID4 | str] | None = None,
+        require_all_categories=True,
+        require_all_tags=True,
+        require_all_tools=True,
     ) -> RecipePagination:
         q = select(self.model)
 
@@ -167,40 +186,24 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         q = q.filter_by(**fltr)
 
         if cookbook:
-            cb_filters = self._category_tag_filters(
-                cookbook.categories,
-                cookbook.tags,
-                cookbook.tools,
+            cb_filters = self._build_recipe_filter(
+                extract_uuids(cookbook.categories),
+                extract_uuids(cookbook.tags),
+                extract_uuids(cookbook.tools),
                 cookbook.require_all_categories,
                 cookbook.require_all_tags,
                 cookbook.require_all_tools,
             )
 
             q = q.filter(*cb_filters)
-
-        if categories:
-            for category in categories:
-                if isinstance(category, UUID):
-                    q = q.filter(RecipeModel.recipe_category.any(Category.id == category))
-
-                else:
-                    q = q.filter(RecipeModel.recipe_category.any(Category.slug == category))
-
-        if tags:
-            for tag in tags:
-                if isinstance(tag, UUID):
-                    q = q.filter(RecipeModel.tags.any(Tag.id == tag))
-
-                else:
-                    q = q.filter(RecipeModel.tags.any(Tag.slug == tag))
-
-        if tools:
-            for tool in tools:
-                if isinstance(tool, UUID):
-                    q = q.filter(RecipeModel.tools.any(Tool.id == tool))
-
-                else:
-                    q = q.filter(RecipeModel.tools.any(Tool.slug == tool))
+        else:
+            category_ids = self._uuids_for_items(categories, Category)
+            tag_ids = self._uuids_for_items(tags, Tag)
+            tool_ids = self._uuids_for_items(tools, Tool)
+            filters = self._build_recipe_filter(
+                category_ids, tag_ids, tool_ids, require_all_categories, require_all_tags, require_all_tools
+            )
+            q = q.filter(*filters)
 
         q, count, total_pages = self.add_pagination_to_query(q, pagination)
 
@@ -233,40 +236,39 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         )
         return [RecipeSummary.from_orm(x) for x in self.session.execute(stmt).unique().scalars().all()]
 
-    def _category_tag_filters(
+    def _build_recipe_filter(
         self,
-        categories: list[CategoryBase] | None = None,
-        tags: list[TagBase] | None = None,
-        tools: list[RecipeTool] | None = None,
+        categories: list[UUID4] | None = None,
+        tags: list[UUID4] | None = None,
+        tools: list[UUID4] | None = None,
         require_all_categories: bool = True,
         require_all_tags: bool = True,
         require_all_tools: bool = True,
     ) -> list:
-        fltr = [
-            RecipeModel.group_id == self.group_id,
-        ]
+        if self.group_id:
+            fltr = [
+                RecipeModel.group_id == self.group_id,
+            ]
+        else:
+            fltr = []
 
         if categories:
-            cat_ids = [x.id for x in categories]
             if require_all_categories:
-                fltr.extend(RecipeModel.recipe_category.any(Category.id == cat_id) for cat_id in cat_ids)
+                fltr.extend(RecipeModel.recipe_category.any(Category.id == cat_id) for cat_id in categories)
             else:
-                fltr.append(RecipeModel.recipe_category.any(Category.id.in_(cat_ids)))
+                fltr.append(RecipeModel.recipe_category.any(Category.id.in_(categories)))
 
         if tags:
-            tag_ids = [x.id for x in tags]
             if require_all_tags:
-                fltr.extend(RecipeModel.tags.any(Tag.id.is_(tag_id)) for tag_id in tag_ids)
+                fltr.extend(RecipeModel.tags.any(Tag.id.is_(tag_id)) for tag_id in tags)
             else:
-                fltr.append(RecipeModel.tags.any(Tag.id.in_(tag_ids)))
+                fltr.append(RecipeModel.tags.any(Tag.id.in_(tags)))
 
         if tools:
-            tool_ids = [x.id for x in tools]
-
             if require_all_tools:
-                fltr.extend(RecipeModel.tools.any(Tool.id == tool_id) for tool_id in tool_ids)
+                fltr.extend(RecipeModel.tools.any(Tool.id == tool_id) for tool_id in tools)
             else:
-                fltr.append(RecipeModel.tools.any(Tool.id.in_(tool_ids)))
+                fltr.append(RecipeModel.tools.any(Tool.id.in_(tools)))
 
         return fltr
 
@@ -279,8 +281,13 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         require_all_tags: bool = True,
         require_all_tools: bool = True,
     ) -> list[Recipe]:
-        fltr = self._category_tag_filters(
-            categories, tags, tools, require_all_categories, require_all_tags, require_all_tools
+        fltr = self._build_recipe_filter(
+            extract_uuids(categories) if categories else None,
+            extract_uuids(tags) if tags else None,
+            extract_uuids(tools) if tools else None,
+            require_all_categories,
+            require_all_tags,
+            require_all_tools,
         )
         stmt = select(RecipeModel).filter(*fltr)
         return [self.schema.from_orm(x) for x in self.session.execute(stmt).scalars().all()]
@@ -297,7 +304,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         # See Also:
         # - https://stackoverflow.com/questions/60805/getting-random-row-through-sqlalchemy
 
-        filters = self._category_tag_filters(categories, tags)  # type: ignore
+        filters = self._build_recipe_filter(extract_uuids(categories), extract_uuids(tags))  # type: ignore
         stmt = (
             select(RecipeModel).filter(and_(*filters)).order_by(func.random()).limit(1)  # Postgres and SQLite specific
         )
