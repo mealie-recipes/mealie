@@ -72,6 +72,7 @@ RUN apt-get update \
     && apt-get install --no-install-recommends -y \
     gosu \
     tesseract-ocr-all \
+    libldap-2.4-2 \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
 
