@@ -53,6 +53,7 @@ services:
       - 9092:9000
     environment:
       ALLOW_SIGNUP: "false"
+      BASE_URL: "http://localhost:8080" # changeme
 
       DB_ENGINE: sqlite # Optional: 'sqlite', 'postgres'
       # =====================================
