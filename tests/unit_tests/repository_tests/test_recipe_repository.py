@@ -497,11 +497,6 @@ def test_recipe_repo_search(database: AllRepositories, unique_user: TestUser):
     assert len(ingredient_result) == 1
     assert ingredient_result[0].name == "Poutine"
 
-    # Search by instruction
-    description_result = database.recipes.page_all(pagination_query, search="chop").items
-    assert len(description_result) == 1
-    assert description_result[0].name == "Tzatziki"
-
     # Make sure title matches are ordered in front
     ordered_result = database.recipes.page_all(pagination_query, search="garlic").items
     assert len(ordered_result) == 2

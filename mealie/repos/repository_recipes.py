@@ -163,18 +163,12 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             .scalars()
             .all()
         )
-        instruction_ids = (
-            self.session.execute(select(RecipeInstruction.id).filter(RecipeInstruction.text.ilike(f"%{search}%")))
-            .scalars()
-            .all()
-        )
 
         q = query.filter(
             or_(
                 RecipeModel.name.ilike(f"%{search}%"),
                 RecipeModel.description.ilike(f"%{search}%"),
                 RecipeModel.recipe_ingredient.any(RecipeIngredient.id.in_(ingredient_ids)),
-                RecipeModel.recipe_instructions.any(RecipeInstruction.id.in_(instruction_ids)),
             )
         ).order_by(desc(RecipeModel.name.ilike(f"%{search}%")))
         return q
