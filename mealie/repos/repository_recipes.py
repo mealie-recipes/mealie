@@ -4,7 +4,7 @@ from uuid import UUID
 
 from pydantic import UUID4
 from slugify import slugify
-from sqlalchemy import and_, func, select, Select, or_, text, desc
+from sqlalchemy import Select, and_, desc, func, or_, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import joinedload
 
@@ -20,7 +20,6 @@ from mealie.schema.recipe.recipe import (
     RecipeCategory,
     RecipePagination,
     RecipeSummary,
-    RecipeSummaryWithIngredients,
     RecipeTag,
     RecipeTool,
 )
@@ -28,7 +27,6 @@ from mealie.schema.recipe.recipe_category import CategoryBase, TagBase
 from mealie.schema.response.pagination import PaginationQuery
 
 from ..db.models._model_base import SqlAlchemyBase
-from ..db.models.recipe import RecipeInstruction
 from ..schema._mealie.mealie_model import extract_uuids
 from .repository_generic import RepositoryGeneric
 
@@ -177,7 +175,6 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         self,
         pagination: PaginationQuery,
         override=None,
-        load_food=False,
         cookbook: ReadCookBook | None = None,
         categories: list[UUID4 | str] | None = None,
         tags: list[UUID4 | str] | None = None,
@@ -198,15 +195,6 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             joinedload(RecipeModel.tags),
             joinedload(RecipeModel.tools),
         ]
-
-        item_class: type[RecipeSummary | RecipeSummaryWithIngredients]
-
-        if load_food:
-            args.append(joinedload(RecipeModel.recipe_ingredient).options(joinedload(RecipeIngredient.food)))
-            args.append(joinedload(RecipeModel.recipe_ingredient).options(joinedload(RecipeIngredient.unit)))
-            item_class = RecipeSummaryWithIngredients
-        else:
-            item_class = RecipeSummary
 
         q = q.options(*args)
 
@@ -251,7 +239,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             self.session.rollback()
             raise e
 
-        items = [item_class.from_orm(item) for item in data]
+        items = [RecipeSummary.from_orm(item) for item in data]
         return RecipePagination(
             page=pagination_result.page,
             per_page=pagination_result.per_page,

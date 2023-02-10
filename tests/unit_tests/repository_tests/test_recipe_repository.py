@@ -3,10 +3,10 @@ from typing import cast
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_recipes import RepositoryRecipes
 from mealie.schema.recipe import RecipeIngredient, SaveIngredientFood, RecipeStep
-from mealie.schema.recipe.recipe import Recipe, RecipeCategory, RecipePaginationQuery, RecipeSummary
+from mealie.schema.recipe.recipe import Recipe, RecipeCategory, RecipeSummary
 from mealie.schema.recipe.recipe_category import CategoryOut, CategorySave, TagSave
 from mealie.schema.recipe.recipe_tool import RecipeToolSave
-from mealie.schema.response import OrderDirection
+from mealie.schema.response import OrderDirection, PaginationQuery
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 
@@ -166,7 +166,7 @@ def test_recipe_repo_pagination_by_categories(database: AllRepositories, unique_
     for recipe in recipes:
         database.recipes.create(recipe)
 
-    pagination_query = RecipePaginationQuery(
+    pagination_query = PaginationQuery(
         page=1,
         per_page=-1,
     )
@@ -247,7 +247,7 @@ def test_recipe_repo_pagination_by_tags(database: AllRepositories, unique_user: 
     for recipe in recipes:
         database.recipes.create(recipe)
 
-    pagination_query = RecipePaginationQuery(
+    pagination_query = PaginationQuery(
         page=1,
         per_page=-1,
     )
@@ -326,7 +326,7 @@ def test_recipe_repo_pagination_by_tools(database: AllRepositories, unique_user:
     for recipe in recipes:
         database.recipes.create(recipe)
 
-    pagination_query = RecipePaginationQuery(
+    pagination_query = PaginationQuery(
         page=1,
         per_page=-1,
     )
@@ -407,7 +407,7 @@ def test_recipe_repo_pagination_by_foods(database: AllRepositories, unique_user:
     for recipe in recipes:
         database.recipes.create(recipe)
 
-    pagination_query = RecipePaginationQuery(
+    pagination_query = PaginationQuery(
         page=1,
         per_page=-1,
     )
@@ -474,9 +474,7 @@ def test_recipe_repo_search(database: AllRepositories, unique_user: TestUser):
     for recipe in recipes:
         database.recipes.create(recipe)
 
-    pagination_query = RecipePaginationQuery(
-        page=1, per_page=-1, order_by="created_at", order_direction=OrderDirection.asc
-    )
+    pagination_query = PaginationQuery(page=1, per_page=-1, order_by="created_at", order_direction=OrderDirection.asc)
 
     # No hits
     empty_result = database.recipes.page_all(pagination_query, search="mealie").items

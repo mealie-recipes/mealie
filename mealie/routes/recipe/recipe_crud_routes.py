@@ -27,9 +27,7 @@ from mealie.schema.recipe import Recipe, RecipeImageTypes, ScrapeRecipe
 from mealie.schema.recipe.recipe import (
     CreateRecipe,
     CreateRecipeByUrlBulk,
-    RecipePaginationQuery,
     RecipeSummary,
-    RecipeSummaryWithIngredients,
 )
 from mealie.schema.recipe.recipe_asset import RecipeAsset
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
@@ -37,7 +35,7 @@ from mealie.schema.recipe.recipe_scraper import ScrapeRecipeTest
 from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.recipe.recipe_step import RecipeStep
 from mealie.schema.recipe.request_helpers import RecipeDuplicate, RecipeZipTokenResponse, UpdateImageResponse
-from mealie.schema.response import PaginationBase
+from mealie.schema.response import PaginationBase, PaginationQuery
 from mealie.schema.response.responses import ErrorResponse
 from mealie.services import urls
 from mealie.services.event_bus_service.event_types import (
@@ -238,11 +236,11 @@ class RecipeController(BaseRecipeController):
     # ==================================================================================================================
     # CRUD Operations
 
-    @router.get("", response_model=PaginationBase[RecipeSummary | RecipeSummaryWithIngredients])
+    @router.get("", response_model=PaginationBase[RecipeSummary])
     def get_all(
         self,
         request: Request,
-        q: RecipePaginationQuery = Depends(),
+        q: PaginationQuery = Depends(),
         cookbook: UUID4 | str | None = Query(None),
         categories: list[UUID4 | str] | None = Query(None),
         tags: list[UUID4 | str] | None = Query(None),
@@ -264,7 +262,6 @@ class RecipeController(BaseRecipeController):
 
         pagination_response = self.repo.page_all(
             pagination=q,
-            load_food=q.load_food,
             cookbook=cookbook_data,
             categories=categories,
             tags=tags,
