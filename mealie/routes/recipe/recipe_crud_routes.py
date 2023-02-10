@@ -248,10 +248,11 @@ class RecipeController(BaseRecipeController):
         tags: list[UUID4 | str] | None = Query(None),
         tools: list[UUID4 | str] | None = Query(None),
         foods: list[UUID4 | str] | None = Query(None),
-        require_all_categories: bool = Query(True),
-        require_all_tags: bool = Query(True),
-        require_all_tools: bool = Query(True),
-        require_all_foods: bool = Query(True),
+        require_all_categories: bool | None = Query(True),
+        require_all_tags: bool | None = Query(True),
+        require_all_tools: bool | None = Query(True),
+        require_all_foods: bool | None = Query(True),
+        search: str | None = Query(None),
     ):
         cookbook_data: ReadCookBook | None = None
         if cookbook:
