@@ -55,7 +55,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
 
     # General Recipe Properties
     name: Mapped[str] = mapped_column(sa.String, nullable=False, index=True)
-    description: Mapped[str | None] = mapped_column(sa.String)
+    description: Mapped[str | None] = mapped_column(sa.String, index=True)
     image: Mapped[str | None] = mapped_column(sa.String)
 
     # Time Related Properties

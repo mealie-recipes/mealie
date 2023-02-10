@@ -4,7 +4,7 @@ from uuid import UUID
 
 from pydantic import UUID4
 from slugify import slugify
-from sqlalchemy import and_, func, select
+from sqlalchemy import and_, func, select, Select, or_
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import joinedload
 
@@ -28,6 +28,7 @@ from mealie.schema.recipe.recipe_category import CategoryBase, TagBase
 from mealie.schema.response.pagination import PaginationQuery
 
 from ..db.models._model_base import SqlAlchemyBase
+from ..db.models.recipe import RecipeInstruction
 from ..schema._mealie.mealie_model import extract_uuids
 from .repository_generic import RepositoryGeneric
 
@@ -150,6 +151,34 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         additional_ids = self.session.execute(select(model.id).filter(model.slug.in_(slugs))).scalars().all()
         return ids + additional_ids
 
+    def _add_search_to_query(self, query: Select, search: str) -> Select:
+        # I would prefer to just do this in the recipe_ingredient.any part of the main query, but it turns out
+        # that at least sqlite wont use indexes for that correctly anymore and takes a big hit, so prefiltering it is
+        ingredient_ids = (
+            self.session.execute(
+                select(RecipeIngredient.id).filter(
+                    or_(RecipeIngredient.note.ilike(f"%{search}%"), RecipeIngredient.original_text.ilike(f"%{search}%"))
+                )
+            )
+            .scalars()
+            .all()
+        )
+        instruction_ids = (
+            self.session.execute(select(RecipeInstruction.id).filter(RecipeInstruction.text.ilike(f"%{search}%")))
+            .scalars()
+            .all()
+        )
+
+        q = query.filter(
+            or_(
+                RecipeModel.name.ilike(f"%{search}%"),
+                RecipeModel.description.ilike(f"%{search}%"),
+                RecipeModel.recipe_ingredient.any(RecipeIngredient.id.in_(ingredient_ids)),
+                RecipeModel.recipe_instructions.any(RecipeInstruction.id.in_(instruction_ids)),
+            )
+        )
+        return q
+
     def page_all(
         self,
         pagination: PaginationQuery,
@@ -164,6 +193,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         require_all_tags=True,
         require_all_tools=True,
         require_all_foods=True,
+        search: str | None = None,
     ) -> RecipePagination:
         # Copy this, because calling methods (e.g. tests) might rely on it not getting mutated
         pagination_result = pagination.copy()
@@ -215,6 +245,10 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
                 require_all_foods=require_all_foods,
             )
             q = q.filter(*filters)
+        print(search)
+        if search:
+            q = self._add_search_to_query(q, search)
+        print(q)
         q, count, total_pages = self.add_pagination_to_query(q, pagination_result)
 
         try:

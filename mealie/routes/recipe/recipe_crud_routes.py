@@ -274,6 +274,7 @@ class RecipeController(BaseRecipeController):
             require_all_tags=require_all_tags,
             require_all_tools=require_all_tools,
             require_all_foods=require_all_foods,
+            search=search,
         )
 
         # merge default pagination with the request's query params

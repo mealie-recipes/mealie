@@ -63,7 +63,7 @@ class RecipeIngredient(SqlAlchemyBase, BaseMixins):
     recipe_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"))
 
     title: Mapped[str | None] = mapped_column(String)  # Section Header - Shows if Present
-    note: Mapped[str | None] = mapped_column(String)  # Force Show Text - Overrides Concat
+    note: Mapped[str | None] = mapped_column(String, index=True)  # Force Show Text - Overrides Concat
 
     # Scaling Items
     unit_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("ingredient_units.id"), index=True)
@@ -73,7 +73,7 @@ class RecipeIngredient(SqlAlchemyBase, BaseMixins):
     food: Mapped[IngredientFoodModel | None] = orm.relationship(IngredientFoodModel, uselist=False)
     quantity: Mapped[float | None] = mapped_column(Float)
 
-    original_text: Mapped[str | None] = mapped_column(String)
+    original_text: Mapped[str | None] = mapped_column(String, index=True)
 
     reference_id: Mapped[GUID | None] = mapped_column(GUID)  # Reference Links
 
