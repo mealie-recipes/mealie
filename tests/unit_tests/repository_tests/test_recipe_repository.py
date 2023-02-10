@@ -2,10 +2,11 @@ from typing import cast
 
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_recipes import RepositoryRecipes
-from mealie.schema.recipe import RecipeIngredient, SaveIngredientFood
+from mealie.schema.recipe import RecipeIngredient, SaveIngredientFood, RecipeStep
 from mealie.schema.recipe.recipe import Recipe, RecipeCategory, RecipePaginationQuery, RecipeSummary
 from mealie.schema.recipe.recipe_category import CategoryOut, CategorySave, TagSave
 from mealie.schema.recipe.recipe_tool import RecipeToolSave
+from mealie.schema.response import OrderDirection
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 
@@ -428,3 +429,81 @@ def test_recipe_repo_pagination_by_foods(database: AllRepositories, unique_user:
     ).items
 
     assert len(recipes_with_either_food) == 20
+
+
+def test_recipe_repo_search(database: AllRepositories, unique_user: TestUser):
+    recipes = [
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name="Tzatziki",
+            description="Just like grandma used to not make",
+            recipe_ingredient=[
+                RecipeIngredient(note="500g yogurt"),
+                RecipeIngredient(note="1/2 Cucumber"),
+                RecipeIngredient(note="2 cloves garlic"),
+                RecipeIngredient(note="Olive oil"),
+                RecipeIngredient(note="Salt"),
+                RecipeIngredient(note="Pepper"),
+            ],
+            recipe_instructions=[RecipeStep(text="IDK, just chop everything up and mix together")],
+        ),
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name="Poutine",
+            recipe_ingredient=[
+                RecipeIngredient(note="Fries"),
+                RecipeIngredient(note="Gravy"),
+                RecipeIngredient(note="Cheese Curds"),
+            ],
+        ),
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name="Garlic Stone Soup",
+            recipe_ingredient=[
+                RecipeIngredient(note="1 Stone"),
+                RecipeIngredient(note="10 Cloves Garlic"),
+                RecipeIngredient(note="2L Water"),
+            ],
+            recipe_instructions=[RecipeStep(text="Boil until stone is soft")],
+        ),
+    ]
+
+    for recipe in recipes:
+        database.recipes.create(recipe)
+
+    pagination_query = RecipePaginationQuery(
+        page=1, per_page=-1, order_by="created_at", order_direction=OrderDirection.asc
+    )
+
+    # No hits
+    empty_result = database.recipes.page_all(pagination_query, search="mealie").items
+    assert len(empty_result) == 0
+
+    # Search by title
+    title_result = database.recipes.page_all(pagination_query, search="poutine").items
+    assert len(title_result) == 1
+    assert title_result[0].name == "Poutine"
+
+    # Search by description
+    description_result = database.recipes.page_all(pagination_query, search="grandma").items
+    assert len(description_result) == 1
+    assert description_result[0].name == "Tzatziki"
+
+    # Search by ingredient
+    ingredient_result = database.recipes.page_all(pagination_query, search="fries").items
+    assert len(ingredient_result) == 1
+    assert ingredient_result[0].name == "Poutine"
+
+    # Search by instruction
+    description_result = database.recipes.page_all(pagination_query, search="chop").items
+    assert len(description_result) == 1
+    assert description_result[0].name == "Tzatziki"
+
+    # Make sure title matches are ordered in front
+    ordered_result = database.recipes.page_all(pagination_query, search="garlic").items
+    assert len(ordered_result) == 2
+    assert ordered_result[0].name == "Garlic Stone Soup"
+    assert ordered_result[1].name == "Tzatziki"

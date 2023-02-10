@@ -4,7 +4,7 @@ from uuid import UUID
 
 from pydantic import UUID4
 from slugify import slugify
-from sqlalchemy import and_, func, select, Select, or_
+from sqlalchemy import and_, func, select, Select, or_, text, desc
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import joinedload
 
@@ -176,7 +176,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
                 RecipeModel.recipe_ingredient.any(RecipeIngredient.id.in_(ingredient_ids)),
                 RecipeModel.recipe_instructions.any(RecipeInstruction.id.in_(instruction_ids)),
             )
-        )
+        ).order_by(desc(RecipeModel.name.ilike(f"%{search}%")))
         return q
 
     def page_all(
@@ -245,10 +245,9 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
                 require_all_foods=require_all_foods,
             )
             q = q.filter(*filters)
-        print(search)
         if search:
             q = self._add_search_to_query(q, search)
-        print(q)
+
         q, count, total_pages = self.add_pagination_to_query(q, pagination_result)
 
         try:
