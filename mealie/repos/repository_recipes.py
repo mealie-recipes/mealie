@@ -287,7 +287,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
 
         if tags:
             if require_all_tags:
-                fltr.extend(RecipeModel.tags.any(Tag.id.is_(tag_id)) for tag_id in tags)
+                fltr.extend(RecipeModel.tags.any(Tag.id == tag_id) for tag_id in tags)
             else:
                 fltr.append(RecipeModel.tags.any(Tag.id.in_(tags)))
 
