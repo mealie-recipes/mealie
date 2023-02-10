@@ -432,42 +432,36 @@ def test_recipe_repo_pagination_by_foods(database: AllRepositories, unique_user:
 
 
 def test_recipe_repo_search(database: AllRepositories, unique_user: TestUser):
+    ingredient_1 = random_string(10)
+    ingredient_2 = random_string(10)
+    name_part_1 = random_string(10)
+    name_1 = f"{name_part_1} soup"
+    name_part_2 = random_string(10)
+    name_2 = f"Rustic {name_part_2} stew"
+    name_3 = f"{ingredient_1} Soup"
+    description_part_1 = random_string(10)
     recipes = [
         Recipe(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
-            name="Tzatziki",
-            description="Just like grandma used to not make",
+            name=name_1,
+            description=f"My favorite {description_part_1}",
             recipe_ingredient=[
-                RecipeIngredient(note="500g yogurt"),
-                RecipeIngredient(note="1/2 Cucumber"),
-                RecipeIngredient(note="2 cloves garlic"),
-                RecipeIngredient(note="Olive oil"),
-                RecipeIngredient(note="Salt"),
-                RecipeIngredient(note="Pepper"),
-            ],
-            recipe_instructions=[RecipeStep(text="IDK, just chop everything up and mix together")],
-        ),
-        Recipe(
-            user_id=unique_user.user_id,
-            group_id=unique_user.group_id,
-            name="Poutine",
-            recipe_ingredient=[
-                RecipeIngredient(note="Fries"),
-                RecipeIngredient(note="Gravy"),
-                RecipeIngredient(note="Cheese Curds"),
+                RecipeIngredient(note=ingredient_1),
             ],
         ),
         Recipe(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
-            name="Garlic Stone Soup",
+            name=name_2,
             recipe_ingredient=[
-                RecipeIngredient(note="1 Stone"),
-                RecipeIngredient(note="10 Cloves Garlic"),
-                RecipeIngredient(note="2L Water"),
+                RecipeIngredient(note=ingredient_2),
             ],
-            recipe_instructions=[RecipeStep(text="Boil until stone is soft")],
+        ),
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=name_3,
         ),
     ]
 
@@ -477,26 +471,26 @@ def test_recipe_repo_search(database: AllRepositories, unique_user: TestUser):
     pagination_query = PaginationQuery(page=1, per_page=-1, order_by="created_at", order_direction=OrderDirection.asc)
 
     # No hits
-    empty_result = database.recipes.page_all(pagination_query, search="mealie").items
+    empty_result = database.recipes.page_all(pagination_query, search=random_string(10)).items
     assert len(empty_result) == 0
 
     # Search by title
-    title_result = database.recipes.page_all(pagination_query, search="poutine").items
+    title_result = database.recipes.page_all(pagination_query, search=name_part_2).items
     assert len(title_result) == 1
-    assert title_result[0].name == "Poutine"
+    assert title_result[0].name == name_2
 
     # Search by description
-    description_result = database.recipes.page_all(pagination_query, search="grandma").items
+    description_result = database.recipes.page_all(pagination_query, search=description_part_1).items
     assert len(description_result) == 1
-    assert description_result[0].name == "Tzatziki"
+    assert description_result[0].name == name_1
 
     # Search by ingredient
-    ingredient_result = database.recipes.page_all(pagination_query, search="fries").items
+    ingredient_result = database.recipes.page_all(pagination_query, search=ingredient_2).items
     assert len(ingredient_result) == 1
-    assert ingredient_result[0].name == "Poutine"
+    assert ingredient_result[0].name == name_2
 
     # Make sure title matches are ordered in front
-    ordered_result = database.recipes.page_all(pagination_query, search="garlic").items
+    ordered_result = database.recipes.page_all(pagination_query, search=ingredient_1).items
     assert len(ordered_result) == 2
-    assert ordered_result[0].name == "Garlic Stone Soup"
-    assert ordered_result[1].name == "Tzatziki"
+    assert ordered_result[0].name == name_3
+    assert ordered_result[1].name == name_1
