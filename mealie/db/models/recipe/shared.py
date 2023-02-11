@@ -22,7 +22,7 @@ class RecipeShareTokenModel(SqlAlchemyBase, BaseMixins):
 
     group_id: Mapped[GUID] = mapped_column(GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)
 
-    recipe_id: Mapped[GUID] = mapped_column(GUID, sa.ForeignKey("recipes.id"), nullable=False)
+    recipe_id: Mapped[GUID] = mapped_column(GUID, sa.ForeignKey("recipes.id"), nullable=False, index=True)
     recipe: Mapped["RecipeModel"] = sa.orm.relationship("RecipeModel", back_populates="share_tokens", uselist=False)
 
     expires_at: Mapped[datetime] = mapped_column(sa.DateTime, nullable=False)

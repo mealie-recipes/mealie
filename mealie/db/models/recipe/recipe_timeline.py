@@ -18,11 +18,11 @@ class RecipeTimelineEvent(SqlAlchemyBase, BaseMixins):
     id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
 
     # Parent Recipe
-    recipe_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("recipes.id"), nullable=False)
+    recipe_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("recipes.id"), nullable=False, index=True)
     recipe: Mapped["RecipeModel"] = relationship("RecipeModel", back_populates="timeline_events")
 
     # Related User (Actor)
-    user_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("users.id"), nullable=False)
+    user_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("users.id"), nullable=False, index=True)
     user: Mapped["User"] = relationship(
         "User", back_populates="recipe_timeline_events", single_parent=True, foreign_keys=[user_id]
     )
@@ -34,7 +34,7 @@ class RecipeTimelineEvent(SqlAlchemyBase, BaseMixins):
     image: Mapped[str | None] = mapped_column(String)
 
     # Timestamps
-    timestamp: Mapped[datetime | None] = mapped_column(DateTime)
+    timestamp: Mapped[datetime | None] = mapped_column(DateTime, index=True)
 
     @auto_init()
     def __init__(

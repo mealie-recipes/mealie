@@ -23,7 +23,7 @@ class ReportEntryModel(SqlAlchemyBase, BaseMixins):
     exception: Mapped[str] = mapped_column(String, nullable=True)
     timestamp: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=datetime.utcnow)
 
-    report_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("group_reports.id"), nullable=False)
+    report_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("group_reports.id"), nullable=False, index=True)
     report: Mapped["ReportModel"] = orm.relationship("ReportModel", back_populates="entries")
 
     @auto_init()

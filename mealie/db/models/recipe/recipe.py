@@ -54,7 +54,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     )
 
     # General Recipe Properties
-    name: Mapped[str] = mapped_column(sa.String, nullable=False)
+    name: Mapped[str] = mapped_column(sa.String, nullable=False, index=True)
     description: Mapped[str | None] = mapped_column(sa.String)
     image: Mapped[str | None] = mapped_column(sa.String)
 

@@ -40,19 +40,21 @@ class ExtrasGeneric:
 # used specifically for recipe extras
 class ApiExtras(ExtrasGeneric, SqlAlchemyBase):
     __tablename__ = "api_extras"
-    recipee_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("recipes.id"))
+    recipee_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("recipes.id"), index=True)
 
 
 class IngredientFoodExtras(ExtrasGeneric, SqlAlchemyBase):
     __tablename__ = "ingredient_food_extras"
-    ingredient_food_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("ingredient_foods.id"))
+    ingredient_food_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("ingredient_foods.id"), index=True)
 
 
 class ShoppingListExtras(ExtrasGeneric, SqlAlchemyBase):
     __tablename__ = "shopping_list_extras"
-    shopping_list_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("shopping_lists.id"))
+    shopping_list_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("shopping_lists.id"), index=True)
 
 
 class ShoppingListItemExtras(ExtrasGeneric, SqlAlchemyBase):
     __tablename__ = "shopping_list_item_extras"
-    shopping_list_item_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("shopping_list_items.id"))
+    shopping_list_item_id: Mapped[GUID | None] = mapped_column(
+        GUID, sa.ForeignKey("shopping_list_items.id"), index=True
+    )

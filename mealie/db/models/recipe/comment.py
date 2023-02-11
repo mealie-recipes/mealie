@@ -18,11 +18,11 @@ class RecipeComment(SqlAlchemyBase, BaseMixins):
     text: Mapped[str | None] = mapped_column(String)
 
     # Recipe Link
-    recipe_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("recipes.id"), nullable=False)
+    recipe_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("recipes.id"), nullable=False, index=True)
     recipe: Mapped["RecipeModel"] = orm.relationship("RecipeModel", back_populates="comments")
 
     # User Link
-    user_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("users.id"), nullable=False)
+    user_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("users.id"), nullable=False, index=True)
     user: Mapped["User"] = orm.relationship(
         "User", back_populates="comments", single_parent=True, foreign_keys=[user_id]
     )

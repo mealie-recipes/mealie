@@ -8,7 +8,7 @@ from mealie.db.models._model_utils.guid import GUID
 class RecipeSettings(SqlAlchemyBase):
     __tablename__ = "recipe_settings"
     id: Mapped[int] = mapped_column(sa.Integer, primary_key=True)
-    recipe_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("recipes.id"))
+    recipe_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("recipes.id"), index=True)
     public: Mapped[bool | None] = mapped_column(sa.Boolean)
     show_nutrition: Mapped[bool | None] = mapped_column(sa.Boolean)
     show_assets: Mapped[bool | None] = mapped_column(sa.Boolean)

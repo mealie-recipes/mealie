@@ -19,22 +19,22 @@ logger = root_logger.get_logger()
 recipes_to_tags = sa.Table(
     "recipes_to_tags",
     SqlAlchemyBase.metadata,
-    sa.Column("recipe_id", guid.GUID, sa.ForeignKey("recipes.id")),
-    sa.Column("tag_id", guid.GUID, sa.ForeignKey("tags.id")),
+    sa.Column("recipe_id", guid.GUID, sa.ForeignKey("recipes.id"), index=True),
+    sa.Column("tag_id", guid.GUID, sa.ForeignKey("tags.id"), index=True),
 )
 
 plan_rules_to_tags = sa.Table(
     "plan_rules_to_tags",
     SqlAlchemyBase.metadata,
-    sa.Column("plan_rule_id", guid.GUID, sa.ForeignKey("group_meal_plan_rules.id")),
-    sa.Column("tag_id", guid.GUID, sa.ForeignKey("tags.id")),
+    sa.Column("plan_rule_id", guid.GUID, sa.ForeignKey("group_meal_plan_rules.id"), index=True),
+    sa.Column("tag_id", guid.GUID, sa.ForeignKey("tags.id"), index=True),
 )
 
 cookbooks_to_tags = sa.Table(
     "cookbooks_to_tags",
     SqlAlchemyBase.metadata,
-    sa.Column("cookbook_id", guid.GUID, sa.ForeignKey("cookbooks.id")),
-    sa.Column("tag_id", guid.GUID, sa.ForeignKey("tags.id")),
+    sa.Column("cookbook_id", guid.GUID, sa.ForeignKey("cookbooks.id"), index=True),
+    sa.Column("tag_id", guid.GUID, sa.ForeignKey("tags.id"), index=True),
 )
 
 

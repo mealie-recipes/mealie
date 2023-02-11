@@ -8,8 +8,8 @@ from .._model_utils.guid import GUID
 
 class RecipeIngredientRefLink(SqlAlchemyBase, BaseMixins):
     __tablename__ = "recipe_ingredient_ref_link"
-    instruction_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("recipe_instructions.id"))
-    reference_id: Mapped[GUID | None] = mapped_column(GUID)
+    instruction_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("recipe_instructions.id"), index=True)
+    reference_id: Mapped[GUID | None] = mapped_column(GUID, index=True)
 
     @auto_init()
     def __init__(self, **_) -> None:
@@ -19,8 +19,8 @@ class RecipeIngredientRefLink(SqlAlchemyBase, BaseMixins):
 class RecipeInstruction(SqlAlchemyBase):
     __tablename__ = "recipe_instructions"
     id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
-    recipe_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"))
-    position: Mapped[int | None] = mapped_column(Integer)
+    recipe_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"), index=True)
+    position: Mapped[int | None] = mapped_column(Integer, index=True)
     type: Mapped[str | None] = mapped_column(String, default="")
     title: Mapped[str | None] = mapped_column(String)
     text: Mapped[str | None] = mapped_column(String)
