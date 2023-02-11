@@ -1,18 +1,16 @@
 """add missing foreign key and order indices
 
 Revision ID: ff5f73b01a7a
-Revises: 167eb69066ad
+Revises: 165d943c64ee
 Create Date: 2023-02-07 20:57:21.066927
 
 """
-import sqlalchemy as sa
 
-import mealie.db.migration_types
 from alembic import op
 
 # revision identifiers, used by Alembic.
 revision = "ff5f73b01a7a"
-down_revision = "167eb69066ad"
+down_revision = "165d943c64ee"
 branch_labels = None
 depends_on = None
 
