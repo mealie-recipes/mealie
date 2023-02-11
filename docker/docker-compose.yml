@@ -53,7 +53,6 @@ services:
       - 9092:9000
     environment:
       ALLOW_SIGNUP: "false"
-      
       DB_ENGINE: sqlite # Optional: 'sqlite', 'postgres'
       # =====================================
       # Postgres Config
