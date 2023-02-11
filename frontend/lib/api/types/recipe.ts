@@ -7,7 +7,6 @@
 
 export type ExportTypes = "json";
 export type RegisteredParser = "nlp" | "brute";
-export type OrderDirection = "asc" | "desc";
 export type TimelineEventType = "system" | "info" | "comment";
 
 export interface AssignCategories {
@@ -206,12 +205,12 @@ export interface Recipe {
   tools?: RecipeTool[];
   rating?: number;
   orgURL?: string;
-  recipeIngredient?: RecipeIngredient[];
   dateAdded?: string;
   dateUpdated?: string;
   createdAt?: string;
   updateAt?: string;
   lastMade?: string;
+  recipeIngredient?: RecipeIngredient[];
   recipeInstructions?: RecipeStep[];
   nutrition?: Nutrition;
   settings?: RecipeSettings;
@@ -282,7 +281,6 @@ export interface RecipeSummary {
   tools?: RecipeTool[];
   rating?: number;
   orgURL?: string;
-  recipeIngredient?: RecipeIngredient[];
   dateAdded?: string;
   dateUpdated?: string;
   createdAt?: string;
@@ -304,14 +302,6 @@ export interface RecipeCommentUpdate {
 }
 export interface RecipeDuplicate {
   name?: string;
-}
-export interface RecipePaginationQuery {
-  page?: number;
-  perPage?: number;
-  orderBy?: string;
-  orderDirection?: OrderDirection & string;
-  queryFilter?: string;
-  loadFood?: boolean;
 }
 export interface RecipeShareToken {
   recipeId: string;
@@ -455,11 +445,4 @@ export interface UnitFoodBase {
 }
 export interface UpdateImageResponse {
   image: string;
-}
-export interface PaginationQuery {
-  page?: number;
-  perPage?: number;
-  orderBy?: string;
-  orderDirection?: OrderDirection & string;
-  queryFilter?: string;
 }
