@@ -2,9 +2,11 @@ from typing import cast
 
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_recipes import RepositoryRecipes
-from mealie.schema.recipe.recipe import Recipe, RecipeCategory, RecipePaginationQuery, RecipeSummary
+from mealie.schema.recipe import RecipeIngredient, SaveIngredientFood, RecipeStep
+from mealie.schema.recipe.recipe import Recipe, RecipeCategory, RecipeSummary
 from mealie.schema.recipe.recipe_category import CategoryOut, CategorySave, TagSave
 from mealie.schema.recipe.recipe_tool import RecipeToolSave
+from mealie.schema.response import OrderDirection, PaginationQuery
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 
@@ -164,7 +166,7 @@ def test_recipe_repo_pagination_by_categories(database: AllRepositories, unique_
     for recipe in recipes:
         database.recipes.create(recipe)
 
-    pagination_query = RecipePaginationQuery(
+    pagination_query = PaginationQuery(
         page=1,
         per_page=-1,
     )
@@ -245,7 +247,7 @@ def test_recipe_repo_pagination_by_tags(database: AllRepositories, unique_user: 
     for recipe in recipes:
         database.recipes.create(recipe)
 
-    pagination_query = RecipePaginationQuery(
+    pagination_query = PaginationQuery(
         page=1,
         per_page=-1,
     )
@@ -324,7 +326,7 @@ def test_recipe_repo_pagination_by_tools(database: AllRepositories, unique_user:
     for recipe in recipes:
         database.recipes.create(recipe)
 
-    pagination_query = RecipePaginationQuery(
+    pagination_query = PaginationQuery(
         page=1,
         per_page=-1,
     )
@@ -357,3 +359,138 @@ def test_recipe_repo_pagination_by_tools(database: AllRepositories, unique_user:
         tool_ids = [tool.id for tool in recipe_summary.tools]
         for tool in created_tools:
             assert tool.id in tool_ids
+
+
+def test_recipe_repo_pagination_by_foods(database: AllRepositories, unique_user: TestUser):
+    slug1, slug2 = (random_string(10) for _ in range(2))
+
+    foods = [
+        SaveIngredientFood(group_id=unique_user.group_id, name=slug1),
+        SaveIngredientFood(group_id=unique_user.group_id, name=slug2),
+    ]
+
+    created_foods = [database.ingredient_foods.create(food) for food in foods]
+
+    # Bootstrap the database with recipes
+    recipes = []
+
+    for i in range(10):
+        # None of the foods
+        recipes.append(
+            Recipe(
+                user_id=unique_user.user_id,
+                group_id=unique_user.group_id,
+                name=random_string(),
+            )
+        )
+
+        # Only one of the foods
+        recipes.append(
+            Recipe(
+                user_id=unique_user.user_id,
+                group_id=unique_user.group_id,
+                name=random_string(),
+                recipe_ingredient=[RecipeIngredient(food=created_foods[i % 2])],
+            ),
+        )
+
+        # Both of the foods
+        recipes.append(
+            Recipe(
+                user_id=unique_user.user_id,
+                group_id=unique_user.group_id,
+                name=random_string(),
+                recipe_ingredient=[RecipeIngredient(food=created_foods[0]), RecipeIngredient(food=created_foods[1])],
+            )
+        )
+
+    for recipe in recipes:
+        database.recipes.create(recipe)
+
+    pagination_query = PaginationQuery(
+        page=1,
+        per_page=-1,
+    )
+
+    # Get all recipes with only one food by UUID
+    food_id = created_foods[0].id
+    recipes_with_one_food = database.recipes.page_all(pagination_query, foods=[food_id]).items
+    assert len(recipes_with_one_food) == 15
+
+    # Get all recipes with both foods
+    recipes_with_both_foods = database.recipes.page_all(
+        pagination_query, foods=[food.id for food in created_foods]
+    ).items
+    assert len(recipes_with_both_foods) == 10
+
+    # Get all recipes with either foods
+    recipes_with_either_food = database.recipes.page_all(
+        pagination_query, foods=[food.id for food in created_foods], require_all_foods=False
+    ).items
+
+    assert len(recipes_with_either_food) == 20
+
+
+def test_recipe_repo_search(database: AllRepositories, unique_user: TestUser):
+    ingredient_1 = random_string(10)
+    ingredient_2 = random_string(10)
+    name_part_1 = random_string(10)
+    name_1 = f"{name_part_1} soup"
+    name_part_2 = random_string(10)
+    name_2 = f"Rustic {name_part_2} stew"
+    name_3 = f"{ingredient_1} Soup"
+    description_part_1 = random_string(10)
+    recipes = [
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=name_1,
+            description=f"My favorite {description_part_1}",
+            recipe_ingredient=[
+                RecipeIngredient(note=ingredient_1),
+            ],
+        ),
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=name_2,
+            recipe_ingredient=[
+                RecipeIngredient(note=ingredient_2),
+            ],
+        ),
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=name_3,
+        ),
+    ]
+
+    for recipe in recipes:
+        database.recipes.create(recipe)
+
+    pagination_query = PaginationQuery(page=1, per_page=-1, order_by="created_at", order_direction=OrderDirection.asc)
+
+    # No hits
+    empty_result = database.recipes.page_all(pagination_query, search=random_string(10)).items
+    assert len(empty_result) == 0
+
+    # Search by title
+    title_result = database.recipes.page_all(pagination_query, search=name_part_2).items
+    assert len(title_result) == 1
+    assert title_result[0].name == name_2
+
+    # Search by description
+    description_result = database.recipes.page_all(pagination_query, search=description_part_1).items
+    assert len(description_result) == 1
+    assert description_result[0].name == name_1
+
+    # Search by ingredient
+    ingredient_result = database.recipes.page_all(pagination_query, search=ingredient_2).items
+    assert len(ingredient_result) == 1
+    assert ingredient_result[0].name == name_2
+
+    # Make sure title matches are ordered in front
+    ordered_result = database.recipes.page_all(pagination_query, search=ingredient_1).items
+    assert len(ordered_result) == 2
+    assert ordered_result[0].name == name_3
+    assert ordered_result[1].name == name_1
