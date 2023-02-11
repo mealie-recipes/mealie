@@ -117,18 +117,27 @@ class AppSettings(BaseSettings):
     LDAP_SERVER_URL: NoneStr = None
     LDAP_TLS_INSECURE: bool = False
     LDAP_TLS_CACERTFILE: NoneStr = None
-    LDAP_BIND_TEMPLATE: NoneStr = None
     LDAP_BASE_DN: NoneStr = None
+    LDAP_QUERY_BIND: NoneStr = None
+    LDAP_QUERY_PASSWORD: NoneStr = None
+    LDAP_USER_FILTER: NoneStr = None
     LDAP_ADMIN_FILTER: NoneStr = None
+    LDAP_ID_ATTRIBUTE: str = "uid"
+    LDAP_MAIL_ATTRIBUTE: str = "mail"
+    LDAP_NAME_ATTRIBUTE: str = "name"
 
     @property
     def LDAP_ENABLED(self) -> bool:
         """Validates LDAP settings are all set"""
         required = {
             self.LDAP_SERVER_URL,
-            self.LDAP_BIND_TEMPLATE,
             self.LDAP_BASE_DN,
-            self.LDAP_ADMIN_FILTER,
+            self.LDAP_USER_FILTER,
+            self.LDAP_QUERY_BIND,
+            self.LDAP_QUERY_PASSWORD,
+            self.LDAP_ID_ATTRIBUTE,
+            self.LDAP_MAIL_ATTRIBUTE,
+            self.LDAP_NAME_ATTRIBUTE,
         }
         not_none = None not in required
         return self.LDAP_AUTH_ENABLED and not_none
