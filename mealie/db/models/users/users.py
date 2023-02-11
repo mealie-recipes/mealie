@@ -13,6 +13,7 @@ from .user_to_favorite import users_to_favorites
 
 if TYPE_CHECKING:
     from ..group import Group
+    from ..group.mealplan import GroupMealPlan
     from ..recipe import RecipeComment, RecipeModel, RecipeTimelineEvent
     from .password_reset import PasswordResetModel
 
@@ -67,6 +68,9 @@ class User(SqlAlchemyBase, BaseMixins):
     owned_recipes_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"))
     owned_recipes: Mapped[Optional["RecipeModel"]] = orm.relationship(
         "RecipeModel", single_parent=True, foreign_keys=[owned_recipes_id]
+    )
+    mealplans: Mapped[Optional["GroupMealPlan"]] = orm.relationship(
+        "GroupMealPlan", order_by="GroupMealPlan.date", **sp_args
     )
 
     favorite_recipes: Mapped[list["RecipeModel"]] = orm.relationship(

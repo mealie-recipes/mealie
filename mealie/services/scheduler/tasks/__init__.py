@@ -1,3 +1,4 @@
+from .create_timeline_events import create_mealplan_timeline_events
 from .post_webhooks import post_group_webhooks
 from .purge_group_exports import purge_group_data_exports
 from .purge_password_reset import purge_password_reset_tokens
@@ -5,6 +6,7 @@ from .purge_registration import purge_group_registration
 from .reset_locked_users import locked_user_reset
 
 __all__ = [
+    "create_mealplan_timeline_events",
     "post_group_webhooks",
     "purge_password_reset_tokens",
     "purge_group_data_exports",
