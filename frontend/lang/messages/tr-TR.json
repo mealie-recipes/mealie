@@ -474,6 +474,8 @@
     "include": "Include",
     "max-results": "Max Results",
     "or": "Veya",
+    "has-any": "Has Any",
+    "has-all": "Has All",
     "results": "Sonuçlar",
     "search": "Ara",
     "search-mealie": "Search Mealie (press /)",
