@@ -9,10 +9,16 @@
         </v-badge>
       </template>
       <v-card width="400">
-        <v-card-text class="">
-          <div>
-            <v-text-field v-model="state.search" dense label="Search" clearable />
-          </div>
+        <v-card-text>
+          <v-text-field v-model="state.search" class="mb-2" hide-details dense label="Search" clearable />
+          <v-switch
+            v-if="requireAll != undefined"
+            v-model="requireAllValue"
+            dense
+            small
+            :label="`${requireAll ? $tc('search.has-all') : $tc('search.has-any')}`"
+          >
+          </v-switch>
           <v-card v-if="filtered.length > 0" flat outlined>
             <v-virtual-scroll :items="filtered" height="300" item-height="51">
               <template #default="{ item }">
@@ -55,11 +61,22 @@ export default defineComponent({
       type: Array as () => any[],
       required: true,
     },
+    requireAll: {
+      type: Boolean,
+      default: undefined,
+    },
   },
   setup(props, context) {
     const state = reactive({
       search: "",
       menu: false,
+    });
+
+    const requireAllValue = computed({
+      get: () => props.requireAll,
+      set: (value) => {
+        context.emit("update:requireAll", value);
+      },
     });
 
     const selected = computed({
@@ -78,6 +95,7 @@ export default defineComponent({
     });
 
     return {
+      requireAllValue,
       state,
       selected,
       filtered,

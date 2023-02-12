@@ -51,7 +51,12 @@
           </v-menu>
 
           <!-- Category Filter -->
-          <SearchFilter v-if="categories" v-model="selectedCategories" :items="categories">
+          <SearchFilter
+            v-if="categories"
+            v-model="selectedCategories"
+            :require-all.sync="state.requireAllCategories"
+            :items="categories"
+          >
             <v-icon left>
               {{ $globals.icons.tags }}
             </v-icon>
@@ -59,7 +64,7 @@
           </SearchFilter>
 
           <!-- Tag Filter -->
-          <SearchFilter v-if="tags" v-model="selectedTags" :items="tags">
+          <SearchFilter v-if="tags" v-model="selectedTags" :require-all.sync="state.requireAllTags" :items="tags">
             <v-icon left>
               {{ $globals.icons.tags }}
             </v-icon>
@@ -67,7 +72,7 @@
           </SearchFilter>
 
           <!-- Tool Filter -->
-          <SearchFilter v-if="tools" v-model="selectedTools" :items="tools">
+          <SearchFilter v-if="tools" v-model="selectedTools" :require-all.sync="state.requireAllTools" :items="tools">
             <v-icon left>
               {{ $globals.icons.tools }}
             </v-icon>
@@ -75,7 +80,7 @@
           </SearchFilter>
 
           <!-- Food Filter -->
-          <SearchFilter v-if="foods" v-model="selectedFoods" :items="foods">
+          <SearchFilter v-if="foods" v-model="selectedFoods" :require-all.sync="state.requireAllFoods" :items="foods">
             <v-icon left>
               {{ $globals.icons.foods }}
             </v-icon>
@@ -101,7 +106,9 @@
                   outlined
                   dense
                 />
-                <v-btn block color="primary" @click="reset"> Reset </v-btn>
+                <v-btn block color="primary" @click="reset">
+                  {{ $tc("general.reset") }}
+                </v-btn>
               </v-card-text>
             </v-card>
           </v-menu>
@@ -111,7 +118,7 @@
             <v-icon left>
               {{ $globals.icons.search }}
             </v-icon>
-            Search
+            {{ $tc("search.search") }}
           </v-btn>
         </div>
       </form>
@@ -147,10 +154,16 @@ export default defineComponent({
     const state = ref({
       loading: false,
       search: "",
-      orderBy: "createdAt",
+      orderBy: "created_at",
       orderDirection: "desc" as "asc" | "desc",
       maxResults: 21,
       results: [] as RecipeSummary[],
+
+      // and/or
+      requireAllCategories: false,
+      requireAllTags: false,
+      requireAllTools: false,
+      requireAllFoods: false,
     });
 
     const categories = useCategoryStore();
@@ -168,6 +181,12 @@ export default defineComponent({
     function reset() {
       state.value.search = "";
       state.value.maxResults = 21;
+      state.value.orderBy = "created_at";
+      state.value.orderDirection = "desc";
+      state.value.requireAllCategories = false;
+      state.value.requireAllTags = false;
+      state.value.requireAllTools = false;
+      state.value.requireAllFoods = false;
       selectedCategories.value = [];
       selectedFoods.value = [];
       selectedTags.value = [];
@@ -192,14 +211,22 @@ export default defineComponent({
       state.value.loading = true;
       await router.push({
         query: {
-          orderBy: state.value.orderBy,
-          orderDirection: state.value.orderDirection,
-          search: state.value.search,
-          maxResults: state.value.maxResults.toString(),
           categories: toIDArray(selectedCategories.value),
           foods: toIDArray(selectedFoods.value),
           tags: toIDArray(selectedTags.value),
           tools: toIDArray(selectedTools.value),
+
+          // Only add the query param if it's or not default
+          ...{
+            search: state.value.search === "" ? undefined : state.value.search,
+            maxResults: state.value.maxResults === 21 ? undefined : state.value.maxResults.toString(),
+            orderBy: state.value.orderBy === "createdAt" ? undefined : state.value.orderBy,
+            orderDirection: state.value.orderDirection === "desc" ? undefined : state.value.orderDirection,
+            requireAllCategories: state.value.requireAllCategories ? "true" : undefined,
+            requireAllTags: state.value.requireAllTags ? "true" : undefined,
+            requireAllTools: state.value.requireAllTools ? "true" : undefined,
+            requireAllFoods: state.value.requireAllFoods ? "true" : undefined,
+          },
         },
       });
 
@@ -213,6 +240,11 @@ export default defineComponent({
         foods: toIDArray(selectedFoods.value),
         tags: toIDArray(selectedTags.value),
         tools: toIDArray(selectedTools.value),
+
+        requireAllCategories: state.value.requireAllCategories,
+        requireAllTags: state.value.requireAllTags,
+        requireAllTools: state.value.requireAllTools,
+        requireAllFoods: state.value.requireAllFoods,
       });
 
       if (error) {
@@ -267,7 +299,7 @@ export default defineComponent({
       {
         icon: $globals.icons.newBox,
         name: i18n.tc("general.created"),
-        value: "createdAt",
+        value: "created_at",
       },
       {
         icon: $globals.icons.chefHat,
@@ -282,7 +314,7 @@ export default defineComponent({
       {
         icon: $globals.icons.update,
         name: i18n.tc("general.updated"),
-        value: "updatedAt",
+        value: "updated_at",
       },
     ];
 
