@@ -2,35 +2,32 @@
   <div>
     <v-menu v-model="state.menu" offset-y bottom nudge-bottom="3" :close-on-content-click="false">
       <template #activator="{ on, attrs }">
-        <v-btn small color="accent" dark v-bind="attrs" v-on="on">
-          <slot></slot>
-        </v-btn>
+        <v-badge :value="selected.length > 0" small overlap color="primary" :content="selected.length">
+          <v-btn small color="accent" dark v-bind="attrs" v-on="on">
+            <slot></slot>
+          </v-btn>
+        </v-badge>
       </template>
       <v-card width="400">
         <v-card-text class="">
           <div>
             <v-text-field v-model="state.search" dense label="Search" clearable />
           </div>
-          <div v-if="filtered.length > 0">
-            <v-list-item-group v-model="selected" multiple>
-              <v-virtual-scroll :items="filtered" height="300" item-height="50">
-                <template #default="{ item }">
-                  <v-list-item :key="item.id" dense :value="item">
-                    <template #default="{ active }">
-                      <v-list-item-action>
-                        <v-checkbox :input-value="active"></v-checkbox>
-                      </v-list-item-action>
-
-                      <v-list-item-content>
-                        <v-list-item-title> {{ item.name }}</v-list-item-title>
-                      </v-list-item-content>
-                    </template>
-                  </v-list-item>
-                  <v-divider></v-divider>
-                </template>
-              </v-virtual-scroll>
-            </v-list-item-group>
-          </div>
+          <v-card v-if="filtered.length > 0" flat outlined>
+            <v-virtual-scroll :items="filtered" height="300" item-height="51">
+              <template #default="{ item }">
+                <v-list-item :key="item.id" dense :value="item">
+                  <v-list-item-action>
+                    <v-checkbox v-model="selected" :value="item"></v-checkbox>
+                  </v-list-item-action>
+                  <v-list-item-content>
+                    <v-list-item-title> {{ item.name }}</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                <v-divider></v-divider>
+              </template>
+            </v-virtual-scroll>
+          </v-card>
           <div v-else>
             <v-alert type="info" text> No results found </v-alert>
           </div>
