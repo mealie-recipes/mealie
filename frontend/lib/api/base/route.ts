@@ -1,6 +1,6 @@
 const parts = {
   host: "http://localhost.com",
-  prefix: "/api",
+  prefix: "",
 };
 
 export function overrideParts(host: string, prefix: string) {

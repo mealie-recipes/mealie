@@ -23,7 +23,7 @@ class RecipeInstruction(SqlAlchemyBase):
     position: Mapped[int | None] = mapped_column(Integer, index=True)
     type: Mapped[str | None] = mapped_column(String, default="")
     title: Mapped[str | None] = mapped_column(String)
-    text: Mapped[str | None] = mapped_column(String)
+    text: Mapped[str | None] = mapped_column(String, index=True)
 
     ingredient_references: Mapped[list[RecipeIngredientRefLink]] = orm.relationship(
         RecipeIngredientRefLink, cascade="all, delete-orphan"

@@ -436,7 +436,6 @@ export interface RecipeSummary {
   tools?: RecipeTool[];
   rating?: number;
   orgURL?: string;
-  recipeIngredient?: RecipeIngredient[];
   dateAdded?: string;
   dateUpdated?: string;
   createdAt?: string;
@@ -458,34 +457,6 @@ export interface RecipeTool {
   name: string;
   slug: string;
   onHand?: boolean;
-}
-export interface RecipeIngredient {
-  title?: string;
-  note?: string;
-  unit?: IngredientUnit | CreateIngredientUnit;
-  food?: IngredientFood | CreateIngredientFood;
-  disableAmount?: boolean;
-  quantity?: number;
-  originalText?: string;
-  referenceId?: string;
-}
-export interface CreateIngredientUnit {
-  name: string;
-  description?: string;
-  extras?: {
-    [k: string]: unknown;
-  };
-  fraction?: boolean;
-  abbreviation?: string;
-  useAbbreviation?: boolean;
-}
-export interface CreateIngredientFood {
-  name: string;
-  description?: string;
-  extras?: {
-    [k: string]: unknown;
-  };
-  labelId?: string;
 }
 export interface ShoppingListRemoveRecipeParams {
   recipeDecrementQuantity?: number;

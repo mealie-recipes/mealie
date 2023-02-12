@@ -2,10 +2,7 @@ import json
 
 from mealie.core.config import get_app_settings
 from mealie.services.backups_v2.alchemy_exporter import AlchemyExporter
-
-ALEMBIC_VERSIONS = [
-    {"version_num": "ff5f73b01a7a"},
-]
+from tests.utils.alembic_reader import alembic_versions
 
 
 def test_alchemy_exporter():
@@ -13,16 +10,16 @@ def test_alchemy_exporter():
     exporter = AlchemyExporter(settings.DB_URL)
     data = exporter.dump()
 
-    assert data["alembic_version"] == ALEMBIC_VERSIONS
+    assert data["alembic_version"] == alembic_versions()
     assert json.dumps(data, indent=4)  # Make sure data is json-serializable
 
 
 def test_validate_schemas():
     schema = {
-        "alembic_version": ALEMBIC_VERSIONS,
+        "alembic_version": alembic_versions(),
     }
     match = {
-        "alembic_version": ALEMBIC_VERSIONS,
+        "alembic_version": alembic_versions(),
     }
 
     invalid_version = {
@@ -33,7 +30,7 @@ def test_validate_schemas():
     assert not AlchemyExporter.validate_schemas(schema, invalid_version)
 
     schema_with_tables = {
-        "alembic_version": ALEMBIC_VERSIONS,
+        "alembic_version": alembic_versions(),
         "recipes": [
             {
                 "id": 1,
@@ -41,7 +38,7 @@ def test_validate_schemas():
         ],
     }
     match_with_tables = {
-        "alembic_version": ALEMBIC_VERSIONS,
+        "alembic_version": alembic_versions(),
         "recipes": [
             {
                 "id": 2,
@@ -49,4 +46,6 @@ def test_validate_schemas():
         ],
     }
 
+    assert AlchemyExporter.validate_schemas(schema_with_tables, match_with_tables)
+    assert AlchemyExporter.validate_schemas(schema_with_tables, match_with_tables)
     assert AlchemyExporter.validate_schemas(schema_with_tables, match_with_tables)

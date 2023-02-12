@@ -94,11 +94,11 @@ import {
   IngredientFood,
   IngredientUnit,
   ParsedIngredient,
+  RecipeIngredient,
 } from "~/lib/api/types/recipe";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
 import { useUserApi } from "~/composables/api";
 import { useRecipe } from "~/composables/recipes";
-import { RecipeIngredient } from "~/lib/api/types/admin";
 import { useFoodData, useFoodStore, useUnitStore } from "~/composables/store";
 import { Parser } from "~/lib/api/user/recipes/recipe";
 

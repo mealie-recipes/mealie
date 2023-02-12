@@ -1,7 +1,7 @@
 import { BaseCRUDAPI } from "../../base/base-clients";
+import { route } from "../../base";
 import { CommentsApi } from "./recipe-comments";
 import { RecipeShareApi } from "./recipe-share";
-
 import {
   Recipe,
   CreateRecipe,
@@ -52,6 +52,33 @@ const routes = {
   recipesSlugTimelineEventId: (slug: string, id: string) => `${prefix}/recipes/${slug}/timeline/events/${id}`,
 };
 
+export type RecipeSearchQuery ={
+  search: string;
+  orderDirection? : "asc" | "desc";
+  groupId?: string;
+
+  queryFilter?: string;
+
+  cookbook?: string;
+
+  categories?: string[];
+  requireAllCategories?: boolean;
+
+  tags?: string[];
+  requireAllTags?: boolean;
+
+  tools?: string[];
+  requireAllTools?: boolean;
+
+  foods?: string[];
+  requireAllFoods?: boolean;
+
+  page: number;
+  perPage: number;
+  orderBy?: string;
+}
+
+
 export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
   baseRoute: string = routes.recipesBase;
   itemRoute = routes.recipesRecipeSlug;
@@ -64,6 +91,10 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
 
     this.comments = new CommentsApi(requests);
     this.share = new RecipeShareApi(requests);
+  }
+
+  async search(rsq : RecipeSearchQuery) {
+    return await this.requests.get<PaginationData<Recipe>>(route(routes.recipesBase, rsq));
   }
 
   async getAllByCategory(categories: string[]) {

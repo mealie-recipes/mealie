@@ -12,7 +12,7 @@ from slugify import slugify
 from mealie.core.config import get_app_dirs
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.schema._mealie import MealieModel
-from mealie.schema.response.pagination import PaginationBase, PaginationQuery
+from mealie.schema.response.pagination import PaginationBase
 
 from .recipe_asset import RecipeAsset
 from .recipe_comments import RecipeCommentOut
@@ -100,14 +100,6 @@ class RecipeSummary(MealieModel):
 
     class Config:
         orm_mode = True
-
-
-class RecipeSummaryWithIngredients(RecipeSummary):
-    recipe_ingredient: list[RecipeIngredient] | None = []
-
-
-class RecipePaginationQuery(PaginationQuery):
-    load_food: bool = False
 
 
 class RecipePagination(PaginationBase):
@@ -211,5 +203,4 @@ class Recipe(RecipeSummary):
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient  # noqa: E402
 
 RecipeSummary.update_forward_refs()
-RecipeSummaryWithIngredients.update_forward_refs()
 Recipe.update_forward_refs()

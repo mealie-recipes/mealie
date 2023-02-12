@@ -24,20 +24,15 @@ from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.recipe import Recipe, RecipeImageTypes, ScrapeRecipe
-from mealie.schema.recipe.recipe import (
-    CreateRecipe,
-    CreateRecipeByUrlBulk,
-    RecipePaginationQuery,
-    RecipeSummary,
-    RecipeSummaryWithIngredients,
-)
+from mealie.schema.recipe.recipe import CreateRecipe, CreateRecipeByUrlBulk, RecipeSummary
 from mealie.schema.recipe.recipe_asset import RecipeAsset
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_scraper import ScrapeRecipeTest
 from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.recipe.recipe_step import RecipeStep
 from mealie.schema.recipe.request_helpers import RecipeDuplicate, RecipeZipTokenResponse, UpdateImageResponse
-from mealie.schema.response import PaginationBase
+from mealie.schema.response import PaginationBase, PaginationQuery
+from mealie.schema.response.pagination import RecipeSearchQuery
 from mealie.schema.response.responses import ErrorResponse
 from mealie.services import urls
 from mealie.services.event_bus_service.event_types import (
@@ -238,31 +233,37 @@ class RecipeController(BaseRecipeController):
     # ==================================================================================================================
     # CRUD Operations
 
-    @router.get("", response_model=PaginationBase[RecipeSummary | RecipeSummaryWithIngredients])
+    @router.get("", response_model=PaginationBase[RecipeSummary])
     def get_all(
         self,
         request: Request,
-        q: RecipePaginationQuery = Depends(),
-        cookbook: UUID4 | str | None = Query(None),
+        q: PaginationQuery = Depends(),
+        search_query: RecipeSearchQuery = Depends(),
         categories: list[UUID4 | str] | None = Query(None),
         tags: list[UUID4 | str] | None = Query(None),
         tools: list[UUID4 | str] | None = Query(None),
+        foods: list[UUID4 | str] | None = Query(None),
     ):
         cookbook_data: ReadCookBook | None = None
-        if cookbook:
-            cb_match_attr = "slug" if isinstance(cookbook, str) else "id"
-            cookbook_data = self.cookbooks_repo.get_one(cookbook, cb_match_attr)
+        if search_query.cookbook:
+            cb_match_attr = "slug" if isinstance(search_query.cookbook, str) else "id"
+            cookbook_data = self.cookbooks_repo.get_one(search_query.cookbook, cb_match_attr)
 
-            if cookbook is None:
+            if search_query.cookbook is None:
                 raise HTTPException(status_code=404, detail="cookbook not found")
 
         pagination_response = self.repo.page_all(
             pagination=q,
-            load_food=q.load_food,
             cookbook=cookbook_data,
             categories=categories,
             tags=tags,
             tools=tools,
+            foods=foods,
+            require_all_categories=search_query.require_all_categories,
+            require_all_tags=search_query.require_all_tags,
+            require_all_tools=search_query.require_all_tools,
+            require_all_foods=search_query.require_all_foods,
+            search=search_query.search,
         )
 
         # merge default pagination with the request's query params
