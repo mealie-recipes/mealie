@@ -56,9 +56,8 @@ import { defineComponent, computed, ref, useContext } from "@nuxtjs/composition-
 import ShoppingListItemEditor from "./ShoppingListItemEditor.vue";
 import MultiPurposeLabel from "./MultiPurposeLabel.vue";
 import { ShoppingListItemOut } from "~/lib/api/types/group";
-import { MultiPurposeLabelOut } from "~/lib/api/types/labels";
+import { MultiPurposeLabelOut, MultiPurposeLabelSummary } from "~/lib/api/types/labels";
 import { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
-import { MultiPurposeLabelSummary } from "~/lib/api/types/user";
 
 interface actions {
   text: string;
