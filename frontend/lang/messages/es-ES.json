@@ -474,6 +474,8 @@
     "include": "Incluir",
     "max-results": "Resultados máximos",
     "or": "O",
+    "has-any": "Has Any",
+    "has-all": "Has All",
     "results": "Resultados",
     "search": "Buscar",
     "search-mealie": "Buscar Mealie (presione /)",
