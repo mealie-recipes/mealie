@@ -14,7 +14,7 @@
         "invalid-current-password": "Aktuelles Passwort ungültig"
     },
     "group": {
-        "report-deleted": "Report deleted."
+        "report-deleted": "Bericht gelöscht."
     },
     "exceptions": {
         "permission_denied": "Sie haben keine Berechtigung, um diese Aktion auszuführen",
