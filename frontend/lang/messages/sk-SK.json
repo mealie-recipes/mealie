@@ -474,6 +474,8 @@
     "include": "Zahrnúť",
     "max-results": "Max. počet výsledkov",
     "or": "Alebo",
+    "has-any": "Has Any",
+    "has-all": "Has All",
     "results": "Výsledky",
     "search": "Vyhľadať",
     "search-mealie": "Prehľadať Mealie (stlač /)",
