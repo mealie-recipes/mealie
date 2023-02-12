@@ -474,6 +474,8 @@
     "include": "Includi",
     "max-results": "Risultati Massimi",
     "or": "O",
+    "has-any": "Has Any",
+    "has-all": "Has All",
     "results": "Risultati",
     "search": "Cerca",
     "search-mealie": "Cerca Mealie (premi /)",
