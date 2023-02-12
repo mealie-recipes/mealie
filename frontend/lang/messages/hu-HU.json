@@ -474,6 +474,8 @@
     "include": "Tartalmaz",
     "max-results": "Max. találatok",
     "or": "Vagy",
+    "has-any": "Has Any",
+    "has-all": "Has All",
     "results": "Találatok",
     "search": "Keresés",
     "search-mealie": "Keresés a Mealie-ben (/ gombbal)",
