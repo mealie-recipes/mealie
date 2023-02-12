@@ -474,6 +474,8 @@
     "include": "包含",
     "max-results": "最多結果",
     "or": "或",
+    "has-any": "Has Any",
+    "has-all": "Has All",
     "results": "結果",
     "search": "搜尋",
     "search-mealie": "搜尋Mealie (按 /)",

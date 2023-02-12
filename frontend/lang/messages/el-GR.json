@@ -474,6 +474,8 @@
     "include": "Συμπερίληψη",
     "max-results": "Μέγιστα Αποτελέσματα",
     "or": "Ή",
+    "has-any": "Has Any",
+    "has-all": "Has All",
     "results": "Αποτελέσματα",
     "search": "Αναζήτηση",
     "search-mealie": "Αναζήτηση Mealie (πατήστε /)",

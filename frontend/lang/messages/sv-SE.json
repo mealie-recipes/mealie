@@ -474,6 +474,8 @@
     "include": "Inkludera",
     "max-results": "Max resultat",
     "or": "Eller",
+    "has-any": "Har någon",
+    "has-all": "Har alla",
     "results": "Resultat",
     "search": "Sök",
     "search-mealie": "Sök Mealie (tryck /)",

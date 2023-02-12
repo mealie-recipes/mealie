@@ -197,7 +197,7 @@
     "user-group-creation-failed": "Anlegen der Benutzergruppe fehlgeschlagen",
     "settings": {
       "keep-my-recipes-private": "Meine Rezepte privat halten",
-      "keep-my-recipes-private-description": "Setzt Ihre Gruppe und alle Rezepte standardmäßig privat. Sie können dies später jederzeit ändern."
+      "keep-my-recipes-private-description": "Setzt deine Gruppe und alle Rezepte standardmäßig privat. Du kannst dies später jederzeit ändern."
     },
     "manage-members": "Mitglieder verwalten",
     "manage-members-description": "Verwalte die Mitgliederberechtigungen in deinen Gruppen. {manage} erlaubt den Benutzern, auf die Datenverwaltungsseite zuzugreifen {invite} erlaubt Benutzern, Einladungslinks für andere Benutzer zu erstellen. Gruppenbesitzer können nicht ihre eigenen Berechtigungen ändern.",
@@ -474,6 +474,8 @@
     "include": "Einbeziehen",
     "max-results": "Max. Ergebnisse",
     "or": "Oder",
+    "has-any": "Irgendeines enthalten",
+    "has-all": "Alle enthalten",
     "results": "Ergebnisse",
     "search": "Suchen",
     "search-mealie": "Mealie durchsuchen (/ drücken)",
@@ -556,7 +558,7 @@
       "active-tokens": "AKTIVE TOKEN",
       "api-token": "API-Token",
       "api-tokens": "API-Tokens",
-      "copy-this-token-for-use-with-an-external-application-this-token-will-not-be-viewable-again": "Kopieren Sie dieses Token für die Verwendung mit einer externen Anwendung. Dieses Token wird nicht mehr sichtbar sein.",
+      "copy-this-token-for-use-with-an-external-application-this-token-will-not-be-viewable-again": "Kopiere dieses Token für die Verwendung mit einer externen Anwendung. Dieses Token wird nicht mehr sichtbar sein.",
       "create-an-api-token": "Erstelle ein API-Token",
       "token-name": "Token-Name"
     },
@@ -711,8 +713,8 @@
     "users": "Benutzer",
     "webhook-time": "Webhook Zeit",
     "webhooks-enabled": "Webhooks aktiviert",
-    "you-are-not-allowed-to-create-a-user": "Sie sind nicht berechtigt, einen Benutzer anzulegen",
-    "you-are-not-allowed-to-delete-this-user": "Sie sind nicht berechtigt, diesen Benutzer zu entfernen",
+    "you-are-not-allowed-to-create-a-user": "Du bist nicht berechtigt, einen Benutzer anzulegen",
+    "you-are-not-allowed-to-delete-this-user": "Du bist nicht berechtigt, diesen Benutzer zu entfernen",
     "enable-advanced-content": "Erweiterten Inhalt aktivieren",
     "enable-advanced-content-description": "Aktiviert zusätzliche Funktionen wie Rezept-Skalierung, API-Schlüssel, Webhooks und Datenverwaltung. Keine Sorge, das kann später noch geändert werden.",
     "favorite-recipes": "Favoriten",
@@ -740,11 +742,11 @@
     "foods": {
       "merge-dialog-text": "Zusammenführen der ausgewählten Lebensmittel führt diese zusammen in ein einzelnes Lebensmittel. Die Ausgangslebensmittel werden gelöscht und alle Verweise werden auf das zusammengeführte Lebensmittel angepasst.",
       "merge-food-example": "{food1} wird zu {food2} zusammengeführt",
-      "seed-dialog-text": "Füllt die Datenbank mit Lebensmitteln basierend auf Ihrer Landessprache. Dadurch werden mehr als 200 gängige Lebensmittel eingetragen, die verwendet werden können, um die Datenbank zu organisieren. Die Speisen werden über einen Gemeinschaftsanstrengung übersetzt.",
+      "seed-dialog-text": "Füllt die Datenbank mit Lebensmitteln basierend auf deiner Landessprache. Dadurch werden mehr als 200 gängige Lebensmittel eingetragen, die verwendet werden können, um die Datenbank zu organisieren. Die Speisen werden über eine Gemeinschaftsleistung übersetzt.",
       "seed-dialog-warning": "Du hast bereits einige Elemente in deiner Datenbank. Diese Aktion wird Duplikate nicht ausgleichen, du musst sie manuell verwalten.",
-      "combine-food": "Combine Food",
-      "source-food": "Ursprungs-Lebensmittel",
-      "target-food": "Target Food",
+      "combine-food": "Lebensmittel zusammenführen",
+      "source-food": "Quell-Lebensmittel",
+      "target-food": "Ziel-Lebensmittel",
       "create-food": "Lebensmittel erstellen",
       "food-label": "Lebensmittel Etikett",
       "edit-food": "Lebensmittel bearbeiten",
@@ -752,10 +754,10 @@
     },
     "units": {
       "seed-dialog-text": "Füllt die Datenbank mit gängigen Maßeinheiten basierend auf deiner Sprache.",
-      "combine-unit-description": "Combining the selected units will merge the Source Unit and Target Unit into a single unit. The {source-unit-will-be-deleted} and all of the references to the Source Unit will be updated to point to the Target Unit.",
-      "combine-unit": "Combine Unit",
-      "source-unit": "Ursprungs-Einheit",
-      "target-unit": "Target Unit",
+      "combine-unit-description": "Die Kombination der ausgewählten Einheiten führt die Quelleinheit und die Zieleinheit zu einer Einheit zusammen. Die {source-unit-will-be-deleted} und alle Verweise auf die Quelleinheit werden aktualisiert, um auf die Zieleinheit zu verweisen.",
+      "combine-unit": "Einheiten zusammenführen",
+      "source-unit": "Quell-Einheit",
+      "target-unit": "Ziel-Einheit",
       "merging-unit-into-unit": "{0} wird in {1} zusammengeführt",
       "create-unit": "Einheit erstellen",
       "abbreviation": "Abkürzung",
@@ -768,7 +770,7 @@
       "fraction": "Bruchzahl"
     },
     "labels": {
-      "seed-dialog-text": "Füllt die Datenbank mit gängigen Etiketten basierend auf Ihrer Sprache.",
+      "seed-dialog-text": "Füllt die Datenbank mit gängigen Etiketten basierend auf deiner Sprache.",
       "edit-label": "Etikett bearbeiten",
       "new-label": "Neues Etikett",
       "labels": "Etiketten"
@@ -792,7 +794,7 @@
       "categorize-recipes": "Rezepte kategorisieren",
       "export-recipes": "Rezept exportieren",
       "delete-recipes": "Rezepte löschen",
-      "source-unit-will-be-deleted": "Ursprungs-Einheit wird gelöscht"
+      "source-unit-will-be-deleted": "Quell-Einheit wird gelöscht"
     },
     "seed-data": "Musterdaten",
     "seed": "Musterdaten",
@@ -808,7 +810,7 @@
     "create-a-new-group": "Neue Gruppe erstellen",
     "provide-registration-token-description": "Bitte gib den Registrierungstoken für die Gruppe ein, der du beitreten möchtest. Du kannst ihn von einem bestehenden Gruppenmitglied erhalten.",
     "group-details": "Gruppendetails",
-    "group-details-description": "Bevor Sie ein Konto erstellen, müssen Sie eine Gruppe erstellen. Ihre Gruppe wird nur Sie enthalten, aber Sie können andere später einladen. Mitglieder in Ihrer Gruppe können Essenspläne, Einkaufslisten, Rezepte und vieles mehr teilen!",
+    "group-details-description": "Bevor du ein Konto erstellst, musst du eine Gruppe erstellen. Deine Gruppe wird nur dich enthalten, aber du kannst andere später einladen. Mitglieder in deiner Gruppe können Essenspläne, Einkaufslisten, Rezepte und vieles mehr teilen!",
     "use-seed-data": "Musterdaten",
     "use-seed-data-description": "Mealie enthält eine Sammlung von Lebensmitteln, Maßeinheiten und Etiketten, die verwendet werden können, um deine Gruppe mit hilfreichen Daten für die Organisation deiner Rezepte zu füllen.",
     "account-details": "Kontoinformationen"
@@ -933,7 +935,7 @@
     "group-settings-description": "Verwalte deine allgemeinen Gruppeneinstellungen wie Essenspläne und Privatsphäre.",
     "cookbooks-description": "Verwalte eine Sammlung mit Rezept-Kategorien und erstelle Seiten für sie.",
     "members": "Mitglieder",
-    "members-description": "Sieh nach, wer in deiner Gruppe ist und verwalte deren Berechtigungen.",
+    "members-description": "Erfahre, wer in deiner Gruppe ist und verwalte deren Berechtigungen.",
     "webhooks-description": "Richte Webhooks ein, die an Tagen mit geplanten Mahlzeiten ausgelöst werden.",
     "notifiers": "Benachrichtigungen",
     "notifiers-description": "Richte E-Mail und Push-Benachrichtigungen ein, die bei bestimmten Ereignissen ausgelöst werden.",

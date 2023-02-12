@@ -474,6 +474,8 @@
     "include": "Insluiten",
     "max-results": "Max. resultaten",
     "or": "Of",
+    "has-any": "Heeft een",
+    "has-all": "Has All",
     "results": "Resultaten",
     "search": "Zoek",
     "search-mealie": "Zoek in Mealie (druk /)",

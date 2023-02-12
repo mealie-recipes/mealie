@@ -474,6 +474,8 @@
     "include": "Inkluder",
     "max-results": "Maks resultater",
     "or": "Eller",
+    "has-any": "Has Any",
+    "has-all": "Has All",
     "results": "Resultater",
     "search": "Søk",
     "search-mealie": "Søke i Mealie (trykk /)",

@@ -474,6 +474,8 @@
     "include": "Include",
     "max-results": "Max Results",
     "or": "Veya",
+    "has-any": "Herhangi biri var",
+    "has-all": "Hepsi var",
     "results": "Sonuçlar",
     "search": "Ara",
     "search-mealie": "Search Mealie (press /)",

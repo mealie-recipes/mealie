@@ -474,6 +474,8 @@
     "include": "Включаючи",
     "max-results": "Максимальна кількість результатів",
     "or": "Або",
+    "has-any": "Has Any",
+    "has-all": "Has All",
     "results": "Результати",
     "search": "Пошук",
     "search-mealie": "Пошук по Mealie (натисніть /)",
