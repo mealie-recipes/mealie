@@ -474,6 +474,8 @@
     "include": "Inclou",
     "max-results": "No mostreu més de",
     "or": "O",
+    "has-any": "Has Any",
+    "has-all": "Has All",
     "results": "Resultats",
     "search": "Cerca",
     "search-mealie": "Cerca a Melie (prem /)",
