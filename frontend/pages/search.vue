@@ -15,34 +15,74 @@
           />
         </div>
         <div class="search-row">
+          <!-- Sort Options -->
+          <v-menu offset-y nudge-bottom="3">
+            <template #activator="{ on, attrs }">
+              <v-btn small color="accent" :icon="$vuetify.breakpoint.xsOnly" v-bind="attrs" v-on="on">
+                <v-icon :left="!$vuetify.breakpoint.xsOnly">
+                  {{ state.orderDirection === "asc" ? $globals.icons.sortAscending : $globals.icons.sortDescending }}
+                </v-icon>
+                {{ $vuetify.breakpoint.xsOnly ? null : $t("general.sort") }}
+              </v-btn>
+            </template>
+            <v-card>
+              <v-list>
+                <v-list-item @click="toggleOrderDirection()">
+                  <v-icon left>
+                    {{ $globals.icons.sort }}
+                  </v-icon>
+                  <v-list-item-title>
+                    {{ state.orderDirection === "asc" ? "Sort Descending" : "Sort Ascending" }}
+                  </v-list-item-title>
+                </v-list-item>
+                <v-list-item
+                  v-for="v in sortable"
+                  :key="v.name"
+                  :input-value="state.orderBy === v.value"
+                  @click="state.orderBy = v.value"
+                >
+                  <v-icon left>
+                    {{ v.icon }}
+                  </v-icon>
+                  <v-list-item-title>{{ v.name }}</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-card>
+          </v-menu>
+
+          <!-- Category Filter -->
           <SearchFilter v-if="categories" v-model="selectedCategories" :items="categories">
             <v-icon left>
               {{ $globals.icons.tags }}
             </v-icon>
             {{ $t("category.categories") }}
-            <template v-if="selectedCategories.length > 0">({{ selectedCategories.length }}) </template>
           </SearchFilter>
+
+          <!-- Tag Filter -->
           <SearchFilter v-if="tags" v-model="selectedTags" :items="tags">
             <v-icon left>
               {{ $globals.icons.tags }}
             </v-icon>
             {{ $t("tag.tags") }}
-            <template v-if="selectedTags.length > 0">({{ selectedTags.length }}) </template>
           </SearchFilter>
+
+          <!-- Tool Filter -->
           <SearchFilter v-if="tools" v-model="selectedTools" :items="tools">
             <v-icon left>
               {{ $globals.icons.tools }}
             </v-icon>
             {{ $t("tool.tools") }}
-            <template v-if="selectedTools.length > 0">({{ selectedTools.length }}) </template>
           </SearchFilter>
+
+          <!-- Food Filter -->
           <SearchFilter v-if="foods" v-model="selectedFoods" :items="foods">
             <v-icon left>
               {{ $globals.icons.foods }}
             </v-icon>
             {{ $t("general.foods") }}
-            <template v-if="selectedFoods.length > 0">({{ selectedFoods.length }}) </template>
           </SearchFilter>
+
+          <!-- Settings -->
           <v-menu offset-y bottom left nudge-bottom="3" :close-on-content-click="false">
             <template #activator="{ on, attrs }">
               <v-btn class="ml-auto" small color="accent" dark v-bind="attrs" v-on="on">
@@ -67,7 +107,7 @@
           </v-menu>
         </div>
         <div class="search-button-container">
-          <v-btn x-large color="primary" type="submit" block>
+          <v-btn :loading="state.loading" x-large color="primary" type="submit" block>
             <v-icon left>
               {{ $globals.icons.search }}
             </v-icon>
@@ -89,7 +129,7 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, useRouter, onMounted } from "@nuxtjs/composition-api";
+import { ref, defineComponent, useRouter, onMounted, useContext } from "@nuxtjs/composition-api";
 import SearchFilter from "~/components/Domain/SearchFilter.vue";
 import { useUserApi } from "~/composables/api";
 import { useCategoryStore, useFoodStore, useTagStore, useToolStore } from "~/composables/store";
@@ -102,9 +142,13 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const api = useUserApi();
+    const { $globals, i18n } = useContext();
 
     const state = ref({
+      loading: false,
       search: "",
+      orderBy: "createdAt",
+      orderDirection: "desc" as "asc" | "desc",
       maxResults: 21,
       results: [] as RecipeSummary[],
     });
@@ -136,13 +180,20 @@ export default defineComponent({
       search();
     }
 
+    function toggleOrderDirection() {
+      state.value.orderDirection = state.value.orderDirection === "asc" ? "desc" : "asc";
+    }
+
     function toIDArray(array: { id: string }[]) {
       return array.map((item) => item.id);
     }
 
     async function search() {
+      state.value.loading = true;
       await router.push({
         query: {
+          orderBy: state.value.orderBy,
+          orderDirection: state.value.orderDirection,
           search: state.value.search,
           maxResults: state.value.maxResults.toString(),
           categories: toIDArray(selectedCategories.value),
@@ -155,6 +206,8 @@ export default defineComponent({
       const { data, error } = await api.recipes.search({
         search: state.value.search,
         page: 1,
+        orderBy: state.value.orderBy,
+        orderDirection: state.value.orderDirection,
         perPage: state.value.maxResults,
         categories: toIDArray(selectedCategories.value),
         foods: toIDArray(selectedFoods.value),
@@ -164,6 +217,7 @@ export default defineComponent({
 
       if (error) {
         console.error(error);
+        state.value.loading = false;
         state.value.results = [];
         return;
       }
@@ -171,6 +225,8 @@ export default defineComponent({
       if (data) {
         state.value.results = data.items;
       }
+
+      state.value.loading = false;
     }
 
     function waitUntilAndExecute(
@@ -202,6 +258,34 @@ export default defineComponent({
       });
     }
 
+    const sortable = [
+      {
+        icon: $globals.icons.orderAlphabeticalAscending,
+        name: i18n.tc("general.sort-alphabetically"),
+        value: "name",
+      },
+      {
+        icon: $globals.icons.newBox,
+        name: i18n.tc("general.created"),
+        value: "createdAt",
+      },
+      {
+        icon: $globals.icons.chefHat,
+        name: i18n.tc("general.last-made"),
+        value: "time",
+      },
+      {
+        icon: $globals.icons.star,
+        name: i18n.tc("general.rating"),
+        value: "rating",
+      },
+      {
+        icon: $globals.icons.update,
+        name: i18n.tc("general.updated"),
+        value: "updatedAt",
+      },
+    ];
+
     onMounted(() => {
       // Hydrate Search
       // wait for stores to be hydrated
@@ -217,55 +301,73 @@ export default defineComponent({
         state.value.maxResults = parseInt(query.maxResults as string);
       }
 
-      const catProm = waitUntilAndExecute(
-        () => categories.items.value.length > 0,
-        () => {
-          if (query.categories) {
-            const result = categories.items.value.filter((item) =>
-              (query.categories as string[]).includes(item.id as string)
-            );
+      if (query.orderBy) {
+        state.value.orderBy = query.orderBy as string;
+      }
 
-            selectedCategories.value = result as NoUndefinedField<RecipeCategory>[];
-          }
-        }
-      );
+      if (query.orderDirection) {
+        state.value.orderDirection = query.orderDirection as "asc" | "desc";
+      }
 
-      const foodProm = waitUntilAndExecute(
-        () => {
-          if (foods.foods.value) {
-            return foods.foods.value.length > 0;
-          }
-          return false;
-        },
-        () => {
-          if (query.foods) {
-            const result = foods.foods.value?.filter((item) => (query.foods as string[]).includes(item.id));
-            selectedFoods.value = result ?? [];
-          }
-        }
-      );
+      const promises: Promise<void>[] = [];
 
-      const tagsProm = waitUntilAndExecute(
-        () => tags.items.value.length > 0,
-        () => {
-          if (query.tags) {
-            const results = tags.items.value.filter((item) => (query.tags as string[]).includes(item.id as string));
-            selectedTags.value = results as NoUndefinedField<RecipeTag>[];
-          }
-        }
-      );
+      if (query.categories) {
+        promises.push(
+          waitUntilAndExecute(
+            () => categories.items.value.length > 0,
+            () => {
+              const result = categories.items.value.filter((item) =>
+                (query.categories as string[]).includes(item.id as string)
+              );
 
-      const toolsProm = waitUntilAndExecute(
-        () => tools.items.value.length > 0,
-        () => {
-          if (query.tools) {
-            const result = tools.items.value.filter((item) => (query.tools as string[]).includes(item.id));
-            selectedTools.value = result as NoUndefinedField<RecipeTool>[];
-          }
-        }
-      );
+              selectedCategories.value = result as NoUndefinedField<RecipeCategory>[];
+            }
+          )
+        );
+      }
 
-      Promise.allSettled([catProm, foodProm, tagsProm, toolsProm]).then(() => {
+      if (query.foods) {
+        promises.push(
+          waitUntilAndExecute(
+            () => {
+              if (foods.foods.value) {
+                return foods.foods.value.length > 0;
+              }
+              return false;
+            },
+            () => {
+              const result = foods.foods.value?.filter((item) => (query.foods as string[]).includes(item.id));
+              selectedFoods.value = result ?? [];
+            }
+          )
+        );
+      }
+
+      if (query.tags) {
+        promises.push(
+          waitUntilAndExecute(
+            () => tags.items.value.length > 0,
+            () => {
+              const result = tags.items.value.filter((item) => (query.tags as string[]).includes(item.id as string));
+              selectedTags.value = result as NoUndefinedField<RecipeTag>[];
+            }
+          )
+        );
+      }
+
+      if (query.tools) {
+        promises.push(
+          waitUntilAndExecute(
+            () => tools.items.value.length > 0,
+            () => {
+              const result = tools.items.value.filter((item) => (query.tools as string[]).includes(item.id));
+              selectedTools.value = result as NoUndefinedField<RecipeTool>[];
+            }
+          )
+        );
+      }
+
+      Promise.allSettled(promises).then(() => {
         search();
       });
     });
@@ -278,6 +380,9 @@ export default defineComponent({
       tags: tags.items as unknown as NoUndefinedField<RecipeTag>[],
       foods: foods.foods,
       tools: tools.items as unknown as NoUndefinedField<RecipeTool>[],
+
+      sortable,
+      toggleOrderDirection,
 
       selectedCategories,
       selectedFoods,
@@ -292,7 +397,8 @@ export default defineComponent({
 .search-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.65rem;
+  margin-top: 1rem;
 }
 
 .search-container {
