@@ -17,7 +17,7 @@
         "report-deleted": "Bericht gelöscht."
     },
     "exceptions": {
-        "permission_denied": "Sie haben keine Berechtigung, um diese Aktion auszuführen",
+        "permission_denied": "Du hast keine Berechtigung, um diese Aktion auszuführen",
         "no-entry-found": "Die angeforderte Ressource wurde nicht gefunden",
         "integrity-error": "Datenbankintegritätsfehler",
         "username-conflict-error": "Dieser Benutzername ist bereits vergeben",
