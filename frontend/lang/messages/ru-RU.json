@@ -474,6 +474,8 @@
     "include": "Включить",
     "max-results": "Макс. результатов",
     "or": "Или",
+    "has-any": "Has Any",
+    "has-all": "Has All",
     "results": "Результаты",
     "search": "Поиск",
     "search-mealie": "Поиск Mealie (нажмите /)",
