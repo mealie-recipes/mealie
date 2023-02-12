@@ -35,7 +35,7 @@
         </v-card-actions>
 
         <RecipeCardMobile
-          v-for="(recipe, index) in results.slice(0, 10)"
+          v-for="(recipe, index) in searchResults"
           :key="index"
           :tabindex="index"
           class="ma-1 arrow-nav"
@@ -55,9 +55,10 @@
 
 <script lang="ts">
 import { defineComponent, toRefs, reactive, ref, watch, useRoute } from "@nuxtjs/composition-api";
+import {  watchDebounced } from "@vueuse/shared";
 import RecipeCardMobile from "./RecipeCardMobile.vue";
-import { useRecipes, allRecipes, useRecipeSearch } from "~/composables/recipes";
 import { RecipeSummary } from "~/lib/api/types/recipe";
+import { useUserApi } from "~/composables/api";
 const SELECTED_EVENT = "selected";
 export default defineComponent({
   components: {
@@ -65,12 +66,10 @@ export default defineComponent({
   },
 
   setup(_, context) {
-    const { refreshRecipes } = useRecipes(true, false, true);
-
     const state = reactive({
       loading: false,
       selectedIndex: -1,
-      searchResults: [],
+      searchResults: [] as RecipeSummary[],
     });
 
     // ===========================================================================
@@ -78,14 +77,11 @@ export default defineComponent({
     const dialog = ref(false);
 
     // Reset or Grab Recipes on Change
-    watch(dialog, async (val) => {
+    watch(dialog, (val) => {
       if (!val) {
         search.value = "";
         state.selectedIndex = -1;
-      } else if (allRecipes.value && allRecipes.value.length <= 0) {
-        state.loading = true;
-        await refreshRecipes();
-        state.loading = false;
+        state.searchResults = [];
       }
     });
 
@@ -140,13 +136,33 @@ export default defineComponent({
       dialog.value = true;
     }
     function close() {
+
       dialog.value = false;
     }
 
     // ===========================================================================
     // Basic Search
+    const api = useUserApi();
+    const search = ref("")
 
-    const { search, results } = useRecipeSearch(allRecipes);
+   watchDebounced(search, async (val) => {
+    console.log(val)
+      if (val) {
+        state.loading = true;
+        // @ts-expect-error - inferred type is wrong
+        const { data, error } = await api.recipes.search({ search: val as string, page: 1, perPage: 10 });
+
+        if (error || !data) {
+          console.error(error);
+          state.searchResults = [];
+        } else {
+          state.searchResults = data.items;
+        }
+
+        state.loading = false;
+      }
+    }, { debounce: 500, maxWait: 1000 });
+
     // ===========================================================================
     // Select Handler
 
@@ -155,7 +171,7 @@ export default defineComponent({
       context.emit(SELECTED_EVENT, recipe);
     }
 
-    return { allRecipes, refreshRecipes, ...toRefs(state), dialog, open, close, handleSelect, search, results };
+    return {  ...toRefs(state), dialog, open, close, handleSelect, search, };
   },
 });
 </script>

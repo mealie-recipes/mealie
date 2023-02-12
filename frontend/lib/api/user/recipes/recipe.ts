@@ -70,6 +70,9 @@ export type RecipeSearchQuery ={
   tools?: string[];
   requireAllTools?: boolean;
 
+  foods?: string[];
+  requireAllFoods?: boolean;
+
   page: number;
   perPage: number;
   orderBy?: string;
