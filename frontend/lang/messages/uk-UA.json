@@ -760,23 +760,23 @@
       "target-unit": "Target Unit",
       "merging-unit-into-unit": "Об'єднання {0} з {1}",
       "create-unit": "Create Unit",
-      "abbreviation": "Abbreviation",
-      "description": "Description",
-      "display-as-fraction": "Display as Fraction",
-      "use-abbreviation": "Use Abbreviation",
+      "abbreviation": "Скорочена назва",
+      "description": "Опис",
+      "display-as-fraction": "Відображати як частку",
+      "use-abbreviation": "Використовувати скорочення",
       "edit-unit": "Редагувати одиницю",
-      "unit-data": "Unit Data",
-      "use-abbv": "Use Abbv.",
-      "fraction": "Fraction"
+      "unit-data": "Одиниці виміру",
+      "use-abbv": "Використовувати скороч-ння.",
+      "fraction": "Частка"
     },
     "labels": {
       "seed-dialog-text": "Заповнити базу даних розповсюдженими категоріями що відповідають мові.",
-      "edit-label": "Edit Label",
-      "new-label": "New Label",
-      "labels": "Labels"
+      "edit-label": "Редагувати мітку",
+      "new-label": "Нова мітка",
+      "labels": "Мітки"
     },
     "recipes": {
-      "purge-exports": "Purge Exports",
+      "purge-exports": "Знищити експорт",
       "are-you-sure-you-want-to-delete-all-export-data": "Are you sure you want to delete all export data?",
       "confirm-delete-recipes": "Are you sure you want to delete the following recipes? This action cannot be undone.",
       "the-following-recipes-selected-length-will-be-exported": "Наступні рецепти ({0}) будуть експортовані.",
