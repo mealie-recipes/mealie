@@ -11,7 +11,7 @@ from mealie.services.backups_v2.backup_v2 import BackupV2
 def dict_sorter(d: dict) -> Any:
     possible_keys = {"created_at", "id"}
 
-    return next((d[key] for key in possible_keys if key in d), 1)
+    return next((d[key] for key in possible_keys if key in d and d[key]), 1)
 
 
 # For Future Use
