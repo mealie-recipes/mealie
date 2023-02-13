@@ -14,13 +14,14 @@ if TYPE_CHECKING:
     from group import Group
 
     from ..recipe import RecipeModel
+    from ..users import User
 
 
 class GroupMealPlanRules(BaseMixins, SqlAlchemyBase):
     __tablename__ = "group_meal_plan_rules"
 
     id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
-    group_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False)
+    group_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
 
     day: Mapped[str] = mapped_column(
         String, nullable=False, default="unset"
@@ -47,6 +48,8 @@ class GroupMealPlan(SqlAlchemyBase, BaseMixins):
 
     group_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("groups.id"), index=True)
     group: Mapped[Optional["Group"]] = orm.relationship("Group", back_populates="mealplans")
+    user_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("users.id"), index=True)
+    user: Mapped[Optional["User"]] = orm.relationship("User", back_populates="mealplans")
 
     recipe_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"), index=True)
     recipe: Mapped[Optional["RecipeModel"]] = orm.relationship(

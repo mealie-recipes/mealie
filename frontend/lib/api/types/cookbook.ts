@@ -83,7 +83,6 @@ export interface RecipeSummary {
   tools?: RecipeTool[];
   rating?: number;
   orgURL?: string;
-  recipeIngredient?: RecipeIngredient[];
   dateAdded?: string;
   dateUpdated?: string;
   createdAt?: string;
@@ -99,65 +98,6 @@ export interface RecipeTag {
   id?: string;
   name: string;
   slug: string;
-}
-export interface RecipeIngredient {
-  title?: string;
-  note?: string;
-  unit?: IngredientUnit | CreateIngredientUnit;
-  food?: IngredientFood | CreateIngredientFood;
-  disableAmount?: boolean;
-  quantity?: number;
-  originalText?: string;
-  referenceId?: string;
-}
-export interface IngredientUnit {
-  name: string;
-  description?: string;
-  extras?: {
-    [k: string]: unknown;
-  };
-  fraction?: boolean;
-  abbreviation?: string;
-  useAbbreviation?: boolean;
-  id: string;
-  createdAt?: string;
-  updateAt?: string;
-}
-export interface CreateIngredientUnit {
-  name: string;
-  description?: string;
-  extras?: {
-    [k: string]: unknown;
-  };
-  fraction?: boolean;
-  abbreviation?: string;
-  useAbbreviation?: boolean;
-}
-export interface IngredientFood {
-  name: string;
-  description?: string;
-  extras?: {
-    [k: string]: unknown;
-  };
-  labelId?: string;
-  id: string;
-  label?: MultiPurposeLabelSummary;
-  createdAt?: string;
-  updateAt?: string;
-}
-export interface MultiPurposeLabelSummary {
-  name: string;
-  color?: string;
-  groupId: string;
-  id: string;
-}
-export interface CreateIngredientFood {
-  name: string;
-  description?: string;
-  extras?: {
-    [k: string]: unknown;
-  };
-  labelId?: string;
 }
 export interface SaveCookBook {
   name: string;

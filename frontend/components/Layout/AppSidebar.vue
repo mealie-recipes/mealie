@@ -176,20 +176,19 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-       // V-Model Support
-      const drawer = computed({
+    // V-Model Support
+    const drawer = computed({
       get: () => {
         return props.value;
       },
       set: (val) => {
-          if(window.innerWidth < 760 && state.hasOpenedBefore === false){
-            state.hasOpenedBefore = true;
-            val = false
-            context.emit("input", val);
-          }
-          else{
-            context.emit("input", val);
-          }
+        if (window.innerWidth < 760 && state.hasOpenedBefore === false) {
+          state.hasOpenedBefore = true;
+          val = false;
+          context.emit("input", val);
+        } else {
+          context.emit("input", val);
+        }
       },
     });
 

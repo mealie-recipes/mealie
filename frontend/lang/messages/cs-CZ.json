@@ -474,6 +474,8 @@
     "include": "Obsahuje",
     "max-results": "Maximální počet výsledků",
     "or": "Nebo",
+    "has-any": "Has Any",
+    "has-all": "Has All",
     "results": "Výsledky",
     "search": "Hledat",
     "search-mealie": "Hledat v Mealie (stiskněte /)",

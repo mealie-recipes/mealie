@@ -15,7 +15,7 @@ class GroupInviteToken(SqlAlchemyBase, BaseMixins):
     token: Mapped[str] = mapped_column(String, index=True, nullable=False, unique=True)
     uses_left: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
 
-    group_id: Mapped[guid.GUID | None] = mapped_column(guid.GUID, ForeignKey("groups.id"))
+    group_id: Mapped[guid.GUID | None] = mapped_column(guid.GUID, ForeignKey("groups.id"), index=True)
     group: Mapped[Optional["Group"]] = orm.relationship("Group", back_populates="invite_tokens")
 
     @auto_init()

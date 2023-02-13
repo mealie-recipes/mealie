@@ -15,15 +15,15 @@ if TYPE_CHECKING:
 recipes_to_tools = Table(
     "recipes_to_tools",
     SqlAlchemyBase.metadata,
-    Column("recipe_id", GUID, ForeignKey("recipes.id")),
-    Column("tool_id", GUID, ForeignKey("tools.id")),
+    Column("recipe_id", GUID, ForeignKey("recipes.id"), index=True),
+    Column("tool_id", GUID, ForeignKey("tools.id"), index=True),
 )
 
 cookbooks_to_tools = Table(
     "cookbooks_to_tools",
     SqlAlchemyBase.metadata,
-    Column("cookbook_id", GUID, ForeignKey("cookbooks.id")),
-    Column("tool_id", GUID, ForeignKey("tools.id")),
+    Column("cookbook_id", GUID, ForeignKey("cookbooks.id"), index=True),
+    Column("tool_id", GUID, ForeignKey("tools.id"), index=True),
 )
 
 
@@ -33,7 +33,7 @@ class Tool(SqlAlchemyBase, BaseMixins):
     id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
 
     # ID Relationships
-    group_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False)
+    group_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
     group: Mapped["Group"] = orm.relationship("Group", back_populates="tools", foreign_keys=[group_id])
 
     name: Mapped[str] = mapped_column(String, index=True, unique=True, nullable=False)

@@ -3,7 +3,7 @@ from typing import Any, Generic, TypeVar
 from urllib.parse import parse_qs, urlencode, urlsplit, urlunsplit
 
 from humps import camelize
-from pydantic import BaseModel
+from pydantic import UUID4, BaseModel
 from pydantic.generics import GenericModel
 
 from mealie.schema._mealie import MealieModel
@@ -14,6 +14,15 @@ DataT = TypeVar("DataT", bound=BaseModel)
 class OrderDirection(str, enum.Enum):
     asc = "asc"
     desc = "desc"
+
+
+class RecipeSearchQuery(MealieModel):
+    cookbook: UUID4 | str | None
+    require_all_categories: bool = False
+    require_all_tags: bool = False
+    require_all_tools: bool = False
+    require_all_foods: bool = False
+    search: str | None
 
 
 class PaginationQuery(MealieModel):

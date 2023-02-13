@@ -56,6 +56,7 @@ async def start_scheduler():
         tasks.purge_group_registration,
         tasks.purge_password_reset_tokens,
         tasks.purge_group_data_exports,
+        tasks.create_mealplan_timeline_events,
     )
 
     SchedulerRegistry.register_minutely(

@@ -474,6 +474,8 @@
     "include": "Dołącz",
     "max-results": "Maksymalna liczba wyników",
     "or": "Lub",
+    "has-any": "Has Any",
+    "has-all": "Has All",
     "results": "Wyniki",
     "search": "Szukaj",
     "search-mealie": "Przeszukaj Mealie (naciśnij /)",
