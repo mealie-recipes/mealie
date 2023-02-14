@@ -463,6 +463,12 @@ def test_recipe_repo_search(database: AllRepositories, unique_user: TestUser):
             group_id=unique_user.group_id,
             name=name_3,
         ),
+        # Test diacritics
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name="Rátàtôuile",
+        ),
     ]
 
     for recipe in recipes:
@@ -494,3 +500,9 @@ def test_recipe_repo_search(database: AllRepositories, unique_user: TestUser):
     assert len(ordered_result) == 2
     assert ordered_result[0].name == name_3
     assert ordered_result[1].name == name_1
+
+    # Test string normalization
+    normalized_result = database.recipes.page_all(pagination_query, search="ratat").items
+    print([r.name for r in normalized_result])
+    assert len(normalized_result) == 1
+    assert normalized_result[0].name == "Rátàtôuile"
