@@ -6,25 +6,32 @@
     width="70%"
   >
     <div class="pa-6">
-      <div class="print-config mb-3">
-        <div class="d-flex align-left flex-column">
-          <div class="text-subtitle-2">{{ $tc('recipe.recipe-image') }}</div>
-          <v-btn-toggle v-model="preferences.imagePosition" mandatory style="width: fit-content;">
-            <v-btn :value="ImagePosition.left">
-              <v-icon>{{ $globals.icons.dockLeft }}</v-icon>
-            </v-btn>
-            <v-btn :value="ImagePosition.right">
-              <v-icon>{{ $globals.icons.dockRight }}</v-icon>
-            </v-btn>
-            <v-btn :value="ImagePosition.hidden">
-              <v-icon>{{ $globals.icons.windowClose }}</v-icon>
-            </v-btn>
-          </v-btn-toggle>
-
-          <v-switch v-model="preferences.showDescription" hide-details :label="$tc('recipe.description')"></v-switch>
-          <v-switch v-model="preferences.showNotes" hide-details :label="$tc('recipe.notes')"></v-switch>
-        </div>
-      </div>
+      <v-container class="print-config mb-3 pa-0">
+        <v-row>
+          <v-col cols="auto" align-self="center" class="text-center">
+            <div class="text-subtitle-2" style="text-align: center;">{{ $tc('recipe.recipe-image') }}</div>
+            <v-btn-toggle v-model="preferences.imagePosition" mandatory style="width: fit-content;">
+              <v-btn :value="ImagePosition.left">
+                <v-icon>{{ $globals.icons.dockLeft }}</v-icon>
+              </v-btn>
+              <v-btn :value="ImagePosition.right">
+                <v-icon>{{ $globals.icons.dockRight }}</v-icon>
+              </v-btn>
+              <v-btn :value="ImagePosition.hidden">
+                <v-icon>{{ $globals.icons.windowClose }}</v-icon>
+              </v-btn>
+            </v-btn-toggle>
+          </v-col>
+          <v-col cols="auto" align-self="start">
+            <v-row no-gutters>
+              <v-switch v-model="preferences.showDescription" hide-details :label="$tc('recipe.description')" />
+            </v-row>
+            <v-row no-gutters>
+              <v-switch v-model="preferences.showNotes" hide-details :label="$tc('recipe.notes')" />
+            </v-row>
+          </v-col>
+        </v-row>
+      </v-container>
       <v-card
         height="fit-content"
         max-height="40vh"
