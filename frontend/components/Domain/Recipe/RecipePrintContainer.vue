@@ -1,6 +1,6 @@
 <template>
 <div class="print-container">
-  <RecipePrintView :recipe="recipe" :scale="scale" />
+  <RecipePrintView :recipe="recipe" :scale="scale" dense />
 </div>
 </template>
 

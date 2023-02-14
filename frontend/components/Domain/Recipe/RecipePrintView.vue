@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
+  <div :class="dense ? 'wrapper' : 'wrapper pa-3'">
     <section>
-      <v-container>
+      <v-container class="ma-0 pa-0">
         <v-row>
           <v-col
             v-if="preferences.imagePosition && preferences.imagePosition != ImagePosition.hidden"
@@ -120,6 +120,10 @@ export default defineComponent({
       type: Number,
       default: 1,
     },
+    dense: {
+      type: Boolean,
+      default: false
+    }
   },
   setup(props) {
     const preferences = useUserPrintPreferences();
@@ -233,12 +237,12 @@ export default defineComponent({
 
 <style scoped>
 /* Makes all text solid black */
-.container {
+.wrapper {
   background-color: white;
 }
 
-.container,
-.container >>> * {
+.wrapper,
+.wrapper >>> * {
   opacity: 1 !important;
   color: black !important;
 }
