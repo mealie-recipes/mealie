@@ -4,6 +4,7 @@ from fastapi.testclient import TestClient
 
 from mealie.schema.group.group_shopping_list import ShoppingListOut
 from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from tests import utils
 from tests.utils import api_routes
 from tests.utils.factories import random_int, random_string
@@ -184,6 +185,52 @@ def test_shopping_lists_add_one_with_zero_quantity(
         assert item.quantity == 0
 
     assert found
+
+
+def test_shopping_lists_add_custom_recipe_items(
+    api_client: TestClient,
+    unique_user: TestUser,
+    shopping_lists: list[ShoppingListOut],
+    recipe_ingredient_only: Recipe,
+):
+    sample_list = random.choice(shopping_lists)
+    recipe = recipe_ingredient_only
+
+    response = api_client.post(
+        api_routes.groups_shopping_lists_item_id_recipe_recipe_id(sample_list.id, recipe.id), headers=unique_user.token
+    )
+    assert response.status_code == 200
+
+    custom_items = random.sample(recipe_ingredient_only.recipe_ingredient, k=3)
+    response = api_client.post(
+        api_routes.groups_shopping_lists_item_id_recipe_recipe_id(sample_list.id, recipe.id),
+        headers=unique_user.token,
+        json={"recipeIngredients": utils.jsonify(custom_items)},
+    )
+    assert response.status_code == 200
+
+    # get list and verify items against ingredients
+    response = api_client.get(api_routes.groups_shopping_lists_item_id(sample_list.id), headers=unique_user.token)
+    as_json = utils.assert_derserialize(response, 200)
+    assert len(as_json["listItems"]) == len(recipe.recipe_ingredient)
+
+    known_ingredients = {ingredient.note: ingredient for ingredient in recipe.recipe_ingredient}
+    custom_ingredients = [ingredient.note for ingredient in custom_items]
+    for item in as_json["listItems"]:
+        assert item["note"] in known_ingredients
+
+        ingredient = known_ingredients[item["note"]]
+        if item["note"] in custom_ingredients:
+            assert item["quantity"] == (ingredient.quantity * 2 if ingredient.quantity else 0)
+
+        else:
+            assert item["quantity"] == (ingredient.quantity or 0)
+
+    # check recipe reference was added with quantity 2
+    refs = as_json["recipeReferences"]
+    assert len(refs) == 1
+    assert refs[0]["recipeId"] == str(recipe.id)
+    assert refs[0]["recipeQuantity"] == 2
 
 
 def test_shopping_list_ref_removes_itself(
