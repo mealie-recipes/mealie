@@ -24,6 +24,9 @@ from mealie.services.recipe.recipe_data_service import RecipeDataService
 
 from .template_service import TemplateService
 
+ALLOWED_LOCKED_PROPERTIES = ["last_made"]
+"""If a recipe is locked, but a user request contains only these properties, then the request will be allowed"""
+
 step_text = """Recipe steps as well as other fields in the recipe page support markdown syntax.
 
 **Add a link**
@@ -48,10 +51,10 @@ class RecipeService(BaseService):
             raise exceptions.NoEntryFound("Recipe not found.")
         return recipe
 
-    def can_update(self, recipe: Recipe) -> bool:
+    def can_update(self, recipe: Recipe, bypass_lock: bool = False) -> bool:
         if recipe.settings is None:
             raise exceptions.UnexpectedNone("Recipe Settings is None")
-        return recipe.settings.locked is False or self.user.id == recipe.user_id
+        return bypass_lock or recipe.settings.locked is False or self.user.id == recipe.user_id
 
     def can_lock_unlock(self, recipe: Recipe) -> bool:
         return recipe.user_id == self.user.id
@@ -235,7 +238,7 @@ class RecipeService(BaseService):
 
         return new_recipe
 
-    def _pre_update_check(self, slug: str, new_data: Recipe) -> Recipe:
+    def _pre_update_check(self, slug: str, new_data: Recipe, bypass_lock: bool = False) -> Recipe:
         """
         gets the recipe from the database and performs a check to see if the user can update the recipe.
         If the user can't update the recipe, an exception is raised.
@@ -247,6 +250,8 @@ class RecipeService(BaseService):
 
         Args:
             slug (str): recipe slug
+            new_data (Recipe): the new recipe data
+            bypass_lock (bool): flag to ignore locked state
 
         Raises:
             exceptions.PermissionDenied (403)
@@ -257,7 +262,7 @@ class RecipeService(BaseService):
         if recipe is None or recipe.settings is None:
             raise exceptions.NoEntryFound("Recipe not found.")
 
-        if not self.can_update(recipe):
+        if not self.can_update(recipe, bypass_lock=bypass_lock):
             raise exceptions.PermissionDenied("You do not have permission to edit this recipe.")
 
         setting_lock = new_data.settings is not None and recipe.settings.locked != new_data.settings.locked
@@ -274,13 +279,16 @@ class RecipeService(BaseService):
         return new_data
 
     def patch_one(self, slug: str, patch_data: Recipe) -> Recipe:
-        recipe: Recipe | None = self._pre_update_check(slug, patch_data)
+        patch_data_raw = patch_data.dict(exclude_unset=True)
+        bypass_lock = all([field in ALLOWED_LOCKED_PROPERTIES for field in patch_data_raw])
+
+        recipe: Recipe | None = self._pre_update_check(slug, patch_data, bypass_lock=bypass_lock)
         recipe = self.repos.recipes.by_group(self.group.id).get_one(slug)
 
         if recipe is None:
             raise exceptions.NoEntryFound("Recipe not found.")
 
-        new_data = self.repos.recipes.by_group(self.group.id).patch(recipe.slug, patch_data.dict(exclude_unset=True))
+        new_data = self.repos.recipes.by_group(self.group.id).patch(recipe.slug, patch_data_raw)
 
         self.check_assets(new_data, recipe.slug)
         return new_data
