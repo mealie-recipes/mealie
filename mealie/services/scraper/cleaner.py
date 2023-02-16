@@ -82,9 +82,10 @@ def clean_image(image: str | list | dict | None = None, default="no image") -> s
     image attempts to parse the image field from a recipe and return a string. Currenty
 
     Supported Structures:
-        - `["https://exmaple.com"]` - A list of strings
         - `https://exmaple.com` - A string
-        - `{ "url": "https://exmaple.com"` - A dictionary with a `url` key
+        - `{ "url": "https://exmaple.com" }` - A dictionary with a `url` key
+        - `["https://exmaple.com"]` - A list of strings
+        - `[{ "url": "https://exmaple.com" }]` - A list of dictionaries with a `url` key
 
     Raises:
         TypeError: If the image field is not a supported type a TypeError is raised.
@@ -95,15 +96,20 @@ def clean_image(image: str | list | dict | None = None, default="no image") -> s
     if not image:
         return default
 
-    match image:  # noqa - match statement not supported
+    match image:
         case str(image):
             return image
+        case {"url": str(url)}:
+            return url
         case list(image):
-            return image[0]
-        case {"url": str(image)}:
-            return image
-        case _:
-            raise TypeError(f"Unexpected type for image: {type(image)}, {image}")
+            for image_data in image:
+                match image_data:
+                    case str(image_data):
+                        return image_data
+                    case {"url": str(url)}:
+                        return url
+
+    raise TypeError(f"Unexpected type for image: {type(image)}, {image}")
 
 
 def clean_instructions(steps_object: list | dict | str, default: list | None = None) -> list[dict]:
