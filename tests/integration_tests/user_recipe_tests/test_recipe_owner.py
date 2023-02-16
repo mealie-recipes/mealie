@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from fastapi.testclient import TestClient
 
 from tests.utils import api_routes
@@ -84,6 +86,38 @@ def test_user_locked_recipe(api_client: TestClient, user_tuple: list[TestUser]) 
     # Try To Update Recipe with User 2
     response = api_client.put(api_routes.recipes + f"/{recipe_name}", json=recipe, headers=usr_2.token)
     assert response.status_code == 403
+
+
+def test_user_bypass_locked_recipe(api_client: TestClient, user_tuple: list[TestUser]) -> None:
+    usr_1, usr_2 = user_tuple
+
+    # Setup Recipe
+    recipe_name = random_string()
+    response = api_client.post(api_routes.recipes, json={"name": recipe_name}, headers=usr_1.token)
+    assert response.status_code == 201
+
+    # Get Recipe
+    response = api_client.get(api_routes.recipes + f"/{recipe_name}", headers=usr_1.token)
+    assert response.status_code == 200
+    recipe = response.json()
+
+    # Lock Recipe
+    recipe["settings"]["locked"] = True
+    response = api_client.put(api_routes.recipes + f"/{recipe_name}", json=recipe, headers=usr_1.token)
+
+    # Try To Patch Recipe with User 2
+    locked_json = {"name": random_string()}
+    response = api_client.patch(api_routes.recipes + f"/{recipe_name}", json=locked_json, headers=usr_2.token)
+    assert response.status_code == 403
+
+    # "lastMade" is an unlocked field, but "name" isn't
+    locked_json = {"name": random_string(), "lastMade": datetime.now().isoformat()}
+    response = api_client.patch(api_routes.recipes + f"/{recipe_name}", json=locked_json, headers=usr_2.token)
+    assert response.status_code == 403
+
+    unlocked_json = {"lastMade": datetime.now().isoformat()}
+    response = api_client.patch(api_routes.recipes + f"/{recipe_name}", json=unlocked_json, headers=usr_2.token)
+    assert response.status_code == 200
 
 
 def test_other_user_cant_lock_recipe(api_client: TestClient, user_tuple: list[TestUser]) -> None:
