@@ -58,7 +58,6 @@
               readonly
               v-on="on"
             ></v-text-field>
-
           </template>
           <v-date-picker v-model="newMealdate" no-title @input="pickerMenu = false"></v-date-picker>
         </v-menu>
@@ -77,13 +76,66 @@
           :key="list.id"
           hover
           class="my-2 left-border"
-          @click="addRecipeToList(list.id)"
+          @click="openShoppingListIngredientDialog(list)"
         >
           <v-card-title class="py-2">
             {{ list.name }}
           </v-card-title>
         </v-card>
       </v-card-text>
+    </BaseDialog>
+    <BaseDialog
+      v-model="shoppingListIngredientDialog"
+      :title="selectedShoppingList ? selectedShoppingList.name : $t('recipe.add-to-list')"
+      :icon="$globals.icons.cartCheck"
+      width="70%"
+      :submit-text="$tc('recipe.add-to-list')"
+      @submit="addRecipeToList()"
+    >
+      <v-card
+        elevation="0"
+        height="fit-content"
+        max-height="60vh"
+        width="100%"
+        class="ingredient-grid"
+        :style="{ gridTemplateRows: `repeat(${Math.ceil(recipeIngredients.length / 2)}, min-content)` }"
+        style="overflow-y: auto"
+      >
+        <v-list-item
+          v-for="(ingredientData, i) in recipeIngredients"
+          :key="'ingredient' + i"
+          dense
+          @click="recipeIngredients[i].checked = !recipeIngredients[i].checked"
+        >
+          <v-checkbox
+            hide-details
+            :input-value="ingredientData.checked"
+            class="pt-0 my-auto py-auto"
+            color="secondary"
+          />
+          <v-list-item-content :key="ingredientData.ingredient.quantity">
+            <SafeMarkdown class="ma-0 pa-0 text-subtitle-1 dense-markdown" :source="ingredientData.display" />
+          </v-list-item-content>
+        </v-list-item>
+      </v-card>
+      <div class="d-flex justify-end mb-4 mt-2">
+        <BaseButtonGroup
+          :buttons="[
+            {
+              icon: $globals.icons.checkboxBlankOutline,
+              text: $tc('shopping-list.uncheck-all-items'),
+              event: 'uncheck',
+            },
+            {
+              icon: $globals.icons.checkboxOutline,
+              text: $tc('shopping-list.check-all-items'),
+              event: 'check',
+            },
+          ]"
+          @uncheck="bulkCheckIngredients(false)"
+          @check="bulkCheckIngredients(true)"
+        />
+      </div>
     </BaseDialog>
     <v-menu
       offset-y
@@ -121,7 +173,8 @@ import RecipeDialogShare from "./RecipeDialogShare.vue";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { planTypeOptions } from "~/composables/use-group-mealplan";
-import { Recipe } from "~/lib/api/types/recipe";
+import { Recipe, RecipeIngredient } from "~/lib/api/types/recipe";
+import { parseIngredientText } from "~/composables/recipes";
 import { ShoppingListSummary } from "~/lib/api/types/group";
 import { PlanEntryType } from "~/lib/api/types/meal-plan";
 import { useAxiosDownloader } from "~/composables/api/use-axios-download";
@@ -232,6 +285,7 @@ export default defineComponent({
       recipeDeleteDialog: false,
       mealplannerDialog: false,
       shoppingListDialog: false,
+      shoppingListIngredientDialog: false,
       recipeDuplicateDialog: false,
       recipeName: props.name,
       loading: false,
@@ -328,6 +382,9 @@ export default defineComponent({
     // Context Menu Event Handler
 
     const shoppingLists = ref<ShoppingListSummary[]>();
+    const selectedShoppingList = ref<ShoppingListSummary>();
+    const recipe = ref<Recipe>(props.recipe);
+    const recipeIngredients = ref<{ checked: boolean; ingredient: RecipeIngredient; display: string }[]>([]);
 
     async function getShoppingLists() {
       const { data } = await api.shopping.lists.getAll();
@@ -336,11 +393,65 @@ export default defineComponent({
       }
     }
 
-    async function addRecipeToList(listId: string) {
-      const { data } = await api.shopping.lists.addRecipe(listId, props.recipeId, props.recipeScale);
+    async function refreshRecipe() {
+      const { data } = await api.recipes.getOne(props.slug);
+      if (data) {
+        recipe.value = data;
+      }
+    }
+
+    async function openShoppingListIngredientDialog(list: ShoppingListSummary) {
+      selectedShoppingList.value = list;
+      if (!recipe.value) {
+        await refreshRecipe();
+      }
+
+      if (recipe.value?.recipeIngredient) {
+        recipeIngredients.value = recipe.value.recipeIngredient.map((ingredient) => {
+          return {
+            checked: true,
+            ingredient,
+            display: parseIngredientText(ingredient, recipe.value?.settings?.disableAmount || false, props.recipeScale),
+          };
+        });
+      }
+
+      state.shoppingListDialog = false;
+      state.shoppingListIngredientDialog = true;
+    }
+
+    function bulkCheckIngredients(value = true) {
+      recipeIngredients.value.forEach((data) => {
+        data.checked = value;
+      });
+    }
+
+    async function addRecipeToList() {
+      if (!selectedShoppingList.value) {
+        return;
+      }
+
+      const ingredients: RecipeIngredient[] = [];
+      recipeIngredients.value.forEach((data) => {
+        if (data.checked) {
+          ingredients.push(data.ingredient);
+        }
+      });
+
+      if (!ingredients.length) {
+        return;
+      }
+
+      const { data } = await api.shopping.lists.addRecipe(
+        selectedShoppingList.value.id,
+        props.recipeId,
+        props.recipeScale,
+        ingredients
+      );
       if (data) {
         alert.success(i18n.t("recipe.recipe-added-to-list") as string);
         state.shoppingListDialog = false;
+        state.shoppingListIngredientDialog = false;
       }
     }
 
@@ -404,7 +515,9 @@ export default defineComponent({
       },
       shoppingList: () => {
         getShoppingLists();
+
         state.shoppingListDialog = true;
+        state.shoppingListIngredientDialog = false;
       },
       share: () => {
         state.shareDialog = true;
@@ -435,14 +548,27 @@ export default defineComponent({
     return {
       ...toRefs(state),
       shoppingLists,
+      selectedShoppingList,
+      openShoppingListIngredientDialog,
       addRecipeToList,
+      bulkCheckIngredients,
       duplicateRecipe,
       contextMenuEventHandler,
       deleteRecipe,
       addRecipeToPlan,
       icon,
       planTypeOptions,
+      recipeIngredients,
     };
   },
 });
 </script>
+
+<style scoped lang="css">
+.ingredient-grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 0.5rem;
+}
+</style>
