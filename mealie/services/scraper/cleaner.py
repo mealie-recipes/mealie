@@ -47,7 +47,7 @@ def clean(recipe_data: dict, url=None) -> dict:
     recipe_data["recipeYield"] = clean_yield(recipe_data.get("recipeYield"))
     recipe_data["recipeIngredient"] = clean_ingredients(recipe_data.get("recipeIngredient", []))
     recipe_data["recipeInstructions"] = clean_instructions(recipe_data.get("recipeInstructions", []))
-    recipe_data["image"] = clean_image(recipe_data.get("image"))
+    recipe_data["image"] = clean_image(recipe_data.get("image"))[0]
     recipe_data["slug"] = slugify(recipe_data.get("name", ""))
     recipe_data["orgURL"] = url
 
@@ -77,7 +77,7 @@ def clean_string(text: str | list | int) -> str:
     return cleaned_text
 
 
-def clean_image(image: str | list | dict | None = None, default="no image") -> str:
+def clean_image(image: str | list | dict | None = None, default: str = "no image") -> list[str]:
     """
     image attempts to parse the image field from a recipe and return a string. Currenty
 
@@ -91,25 +91,22 @@ def clean_image(image: str | list | dict | None = None, default="no image") -> s
         TypeError: If the image field is not a supported type a TypeError is raised.
 
     Returns:
-        str: "no image" if any empty string is provided or the url of the image
+        list[str]: list of urls, or [default] if input is empty
     """
     if not image:
-        return default
+        return [default]
 
     match image:
         case str(image):
+            return [image]
+        case [str(_), *_]:
             return image
-        case {"url": str(url)}:
-            return url
-        case list(image):
-            for image_data in image:
-                match image_data:
-                    case str(image_data):
-                        return image_data
-                    case {"url": str(url)}:
-                        return url
-
-    raise TypeError(f"Unexpected type for image: {type(image)}, {image}")
+        case [{"url": str(_)}, *_]:
+            return [x["url"] for x in image]
+        case {"url": str(image)}:
+            return [image]
+        case _:
+            raise TypeError(f"Unexpected type for image: {type(image)}, {image}")
 
 
 def clean_instructions(steps_object: list | dict | str, default: list | None = None) -> list[dict]:
