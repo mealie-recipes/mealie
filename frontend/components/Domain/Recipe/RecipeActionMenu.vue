@@ -22,23 +22,25 @@
     <v-spacer></v-spacer>
     <div v-if="!open" class="custom-btn-group ma-1">
       <RecipeFavoriteBadge v-if="loggedIn" class="mx-1" color="info" button-style :slug="recipe.slug" show-always />
-      <RecipeTimelineBadge button-style :slug="recipe.slug" :recipe-name="recipe.name"  />
-      <v-tooltip v-if="!locked" bottom color="info">
-        <template #activator="{ on, attrs }">
-          <v-btn fab small class="mx-1" color="info" v-bind="attrs" v-on="on" @click="$emit('edit', true)">
-            <v-icon> {{ $globals.icons.edit }} </v-icon>
-          </v-btn>
-        </template>
-        <span>{{ $t("general.edit") }}</span>
-      </v-tooltip>
-      <v-tooltip v-else bottom color="info">
-        <template #activator="{ on, attrs }">
-          <v-btn fab small class="mx-1" color="info" v-bind="attrs" v-on="on">
-            <v-icon> {{ $globals.icons.lock }} </v-icon>
-          </v-btn>
-        </template>
-        <span> {{ $t("recipe.locked-by-owner") }} </span>
-      </v-tooltip>
+      <RecipeTimelineBadge v-if="loggedIn" button-style :slug="recipe.slug" :recipe-name="recipe.name" />
+      <div v-if="loggedIn">
+        <v-tooltip v-if="!locked" bottom color="info">
+          <template #activator="{ on, attrs }">
+            <v-btn fab small class="mx-1" color="info" v-bind="attrs" v-on="on" @click="$emit('edit', true)">
+              <v-icon> {{ $globals.icons.edit }} </v-icon>
+            </v-btn>
+          </template>
+          <span>{{ $t("general.edit") }}</span>
+        </v-tooltip>
+        <v-tooltip v-else bottom color="info">
+          <template #activator="{ on, attrs }">
+            <v-btn fab small class="mx-1" color="info" v-bind="attrs" v-on="on">
+              <v-icon> {{ $globals.icons.lock }} </v-icon>
+            </v-btn>
+          </template>
+          <span> {{ $t("recipe.locked-by-owner") }} </span>
+        </v-tooltip>
+      </div>
 
       <RecipeContextMenu
         show-print
@@ -56,14 +58,13 @@
         :use-items="{
           delete: false,
           edit: false,
-          download: true,
-          duplicate: true,
-          mealplanner: true,
-          shoppingList: true,
+          download: loggedIn,
+          duplicate: loggedIn,
+          mealplanner: loggedIn,
+          shoppingList: loggedIn,
           print: true,
-          printPreferences: true,
-          share: true,
-          publicUrl: recipe.settings ? recipe.settings.public : false,
+          share: loggedIn,
+          publicUrl: recipe.settings && loggedIn ? recipe.settings.public : false,
         }"
         @print="$emit('print')"
       />
