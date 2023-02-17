@@ -7,7 +7,9 @@ from mealie.core import security
 from mealie.core.config import get_app_settings
 from mealie.core.dependencies import validate_file_token
 from mealie.db.db_setup import session_context
-from tests.utils.factories import random_string
+from mealie.db.models.users.users import AuthMethod
+from mealie.schema.user.user import PrivateUser
+from tests.utils import random_string
 
 
 class LdapConnMock:
@@ -101,7 +103,7 @@ def test_create_file_token():
     assert file_path == validate_file_token(file_token)
 
 
-def test_ldap_authentication_mocked(monkeypatch: MonkeyPatch):
+def test_ldap_user_creation(monkeypatch: MonkeyPatch):
     user, mail, name, password, query_bind, query_password = setup_env(monkeypatch)
 
     def ldap_initialize_mock(url):
@@ -122,7 +124,7 @@ def test_ldap_authentication_mocked(monkeypatch: MonkeyPatch):
     assert result.admin is False
 
 
-def test_ldap_authentication_failed_mocked(monkeypatch: MonkeyPatch):
+def test_ldap_user_creation_fail(monkeypatch: MonkeyPatch):
     user, mail, name, password, query_bind, query_password = setup_env(monkeypatch)
 
     def ldap_initialize_mock(url):
@@ -139,7 +141,7 @@ def test_ldap_authentication_failed_mocked(monkeypatch: MonkeyPatch):
     assert result is False
 
 
-def test_ldap_authentication_non_admin_mocked(monkeypatch: MonkeyPatch):
+def test_ldap_user_creation_non_admin(monkeypatch: MonkeyPatch):
     user, mail, name, password, query_bind, query_password = setup_env(monkeypatch)
     monkeypatch.setenv("LDAP_ADMIN_FILTER", "(memberOf=cn=admins,dc=example,dc=com)")
 
@@ -161,7 +163,7 @@ def test_ldap_authentication_non_admin_mocked(monkeypatch: MonkeyPatch):
     assert result.admin is False
 
 
-def test_ldap_authentication_admin_mocked(monkeypatch: MonkeyPatch):
+def test_ldap_user_creation_admin(monkeypatch: MonkeyPatch):
     user, mail, name, password, query_bind, query_password = setup_env(monkeypatch)
     monkeypatch.setenv("LDAP_ADMIN_FILTER", "(memberOf=cn=admins,dc=example,dc=com)")
 
@@ -183,7 +185,7 @@ def test_ldap_authentication_admin_mocked(monkeypatch: MonkeyPatch):
     assert result.admin
 
 
-def test_ldap_authentication_disabled_mocked(monkeypatch: MonkeyPatch):
+def test_ldap_disabled(monkeypatch: MonkeyPatch):
     monkeypatch.setenv("LDAP_AUTH_ENABLED", "False")
 
     user = random_string(10)
@@ -212,3 +214,29 @@ def test_ldap_authentication_disabled_mocked(monkeypatch: MonkeyPatch):
 
     with session_context() as session:
         security.authenticate_user(session, user, password)
+
+
+def test_user_login_ldap_auth_method(monkeypatch: MonkeyPatch, ldap_user: PrivateUser):
+    """
+    Test login from a user who was originally created in Mealie, but has since been converted
+    to LDAP auth method
+    """
+    _, _, name, ldap_password, query_bind, query_password = setup_env(monkeypatch)
+
+    def ldap_initialize_mock(url):
+        assert url == ""
+        return LdapConnMock(ldap_user.username, ldap_password, False, query_bind, query_password, ldap_user.email, name)
+
+    monkeypatch.setattr(ldap, "initialize", ldap_initialize_mock)
+
+    get_app_settings.cache_clear()
+
+    with session_context() as session:
+        result = security.authenticate_user(session, ldap_user.username, ldap_password)
+
+    assert result
+    assert result.username == ldap_user.username
+    assert result.email == ldap_user.email
+    assert result.full_name == ldap_user.full_name
+    assert result.admin == ldap_user.admin
+    assert result.auth_method == AuthMethod.LDAP

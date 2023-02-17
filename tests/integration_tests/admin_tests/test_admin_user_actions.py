@@ -1,6 +1,7 @@
 from fastapi.testclient import TestClient
 
 from mealie.core.config import get_app_settings
+from mealie.db.models.users.users import AuthMethod
 from tests import utils
 from tests.utils import api_routes
 from tests.utils.factories import random_email, random_string
@@ -55,6 +56,7 @@ def test_create_user(api_client: TestClient, admin_token):
     assert user_data["email"] == create_data["email"]
     assert user_data["group"] == create_data["group"]
     assert user_data["admin"] == create_data["admin"]
+    assert user_data["authMethod"] == AuthMethod.MEALIE.value
 
 
 def test_create_user_as_non_admin(api_client: TestClient, user_token):
@@ -73,12 +75,18 @@ def test_update_user(api_client: TestClient, admin_user: TestUser):
     # Change data
     update_data["fullName"] = random_string()
     update_data["email"] = random_email()
+    update_data["authMethod"] = AuthMethod.LDAP.value
 
     response = api_client.put(
         api_routes.admin_users_item_id(update_data["id"]), headers=admin_user.token, json=update_data
     )
 
     assert response.status_code == 200
+
+    user_data = response.json()
+    assert user_data["fullName"] == update_data["fullName"]
+    assert user_data["email"] == update_data["email"]
+    assert user_data["authMethod"] == update_data["authMethod"]
 
 
 def test_update_other_user_as_not_admin(api_client: TestClient, unique_user: TestUser, g2_user: TestUser):
