@@ -75,6 +75,8 @@
           :name="inputField.varName"
           :items="inputField.options"
           :return-object="false"
+          :hint="inputField.hint"
+          persistent-hint
           lazy-validation
           @blur="emitBlur"
         >

@@ -131,6 +131,7 @@ export default defineComponent({
       { text: i18n.t("user.full-name"), value: "fullName" },
       { text: i18n.t("user.email"), value: "email" },
       { text: i18n.t("group.group"), value: "group" },
+      { text: i18n.t("user.auth-method"), value: "authMethod" },
       { text: i18n.t("user.admin"), value: "admin" },
       { text: i18n.t("general.delete"), value: "actions", sortable: false, align: "center" },
     ];
