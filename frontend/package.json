@@ -23,28 +23,26 @@
     "@nuxtjs/i18n": "7.2.0",
     "@nuxtjs/proxy": "^2.1.0",
     "@nuxtjs/pwa": "3.2.0",
-    "@vue/composition-api": "^1.7.0",
     "@vueuse/core": "^9.9.0",
     "core-js": "^3.27.0",
     "date-fns": "^2.29.3",
     "fuse.js": "^6.6.2",
     "isomorphic-dompurify": "^1.0.0",
-    "nuxt": "^2.15.8",
+    "nuxt": "^2.16.0",
     "v-jsoneditor": "^1.4.5",
     "vuedraggable": "^2.24.3",
     "vuetify": "^2.6.13"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.19.1",
-    "@nuxt/types": "^2.15.7",
+    "@nuxt/types": "^2.16.0",
     "@nuxt/typescript-build": "^2.1.0",
-    "@nuxtjs/composition-api": "^0.32.0",
+    "@nuxtjs/composition-api": "^0.33.1",
     "@nuxtjs/eslint-config-typescript": "^12.0.0",
     "@nuxtjs/eslint-module": "3.1.0",
     "@nuxtjs/google-fonts": "2.0.0",
     "@nuxtjs/vuetify": "^1.12.1",
     "@types/sortablejs": "^1.15.0",
-    "@vue/runtime-dom": "^3.2.45",
     "eslint": "^8.30.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-nuxt": "^4.0.0",
@@ -53,7 +51,11 @@
     "lint-staged": "^13.1.0",
     "nuxt-vite": "0.2.3",
     "prettier": "^2.8.1",
-    "vitest": "^0.28.0",
-    "vue2-script-setup-transform": "^0.3.5"
+    "vitest": "^0.28.0"
+  },
+  "resolutions": {
+    "vue-template-compiler": "2.7.14",
+    "vue-demi": "^0.13.11",
+    "typescript": "^4.9.5"
   }
 }
