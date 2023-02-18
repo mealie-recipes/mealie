@@ -12,6 +12,7 @@ from mealie.schema.group.group_shopping_list import (
     ShoppingListCreate,
     ShoppingListItemCreate,
     ShoppingListItemOut,
+    ShoppingListItemPagination,
     ShoppingListItemsCollectionOut,
     ShoppingListItemUpdate,
     ShoppingListItemUpdateBulk,
@@ -100,6 +101,12 @@ class ShoppingListItemController(BaseCrudController):
             self.repo,
             self.logger,
         )
+
+    @item_router.get("", response_model=ShoppingListItemPagination)
+    def get_all(self, q: PaginationQuery = Depends()):
+        response = self.repo.page_all(pagination=q, override=ShoppingListItemOut)
+        response.set_pagination_guides(router.url_path_for("get_all"), q.dict())
+        return response
 
     @item_router.post("/create-bulk", response_model=ShoppingListItemsCollectionOut, status_code=201)
     def create_many(self, data: list[ShoppingListItemCreate]):
