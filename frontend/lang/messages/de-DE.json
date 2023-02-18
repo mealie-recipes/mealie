@@ -557,7 +557,7 @@
     "token": {
       "active-tokens": "AKTIVE TOKEN",
       "api-token": "API-Token",
-      "api-tokens": "API-Tokens",
+      "api-tokens": "API-Token",
       "copy-this-token-for-use-with-an-external-application-this-token-will-not-be-viewable-again": "Kopiere dieses Token für die Verwendung mit einer externen Anwendung. Dieses Token wird nicht mehr sichtbar sein.",
       "create-an-api-token": "Erstelle ein API-Token",
       "token-name": "Token-Name"
