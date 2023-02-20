@@ -75,6 +75,7 @@ nav:
           - Backend Configuration: "documentation/getting-started/installation/backend-config.md"
       - Usage:
           - Backup and Restoring: "documentation/getting-started/usage/backups-and-restoring.md"
+          - LDAP Authentication: "documentation/getting-started/usage/ldap.md"
 
       - Community Guides:
           - iOS Shortcuts: "documentation/community-guide/ios.md"

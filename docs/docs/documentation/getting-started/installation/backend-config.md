@@ -17,7 +17,6 @@
 | TZ            |          UTC          | Must be set to get correct date/time on the server                                  |
 | ALLOW_SIGNUP  |         true          | Allow user sign-up without token (should match frontend env)                        |
 
-
 ### Security
 
 | Variables                   | Default | Description                                                                         |
@@ -36,7 +35,6 @@
 | POSTGRES_PORT     |   5432   | Postgres database port           |
 | POSTGRES_DB       |  mealie  | Postgres database name           |
 
-
 ### Email
 
 | Variables          | Default | Description                                       |
@@ -50,6 +48,7 @@
 | SMTP_PASSWORD      |  None   | Required if SMTP_AUTH_STRATEGY is 'TLS' or 'SSL'  |
 
 ### Webworker
+
 Changing the webworker settings may cause unforeseen memory leak issues with Mealie. It's best to leave these at the defaults unless you begin to experience issues with multiple users. Exercise caution when changing these settings
 
 | Variables        | Default | Description                                                                                                                       |
@@ -59,9 +58,9 @@ Changing the webworker settings may cause unforeseen memory leak issues with Mea
 | MAX_WORKERS      |    1    | Set the maximum number of workers to use. Default is not set meaning unlimited. More info [here][max_workers]                     |
 | WEB_CONCURRENCY  |    1    | Override the automatic definition of number of workers. More info [here][web_concurrency]                                         |
 
-
 ### LDAP
 
+<!-- prettier-ignore -->
 | Variables           | Default | Description                                                                                                        |
 | ------------------- | :-----: | ------------------------------------------------------------------------------------------------------------------ |
 | LDAP_AUTH_ENABLED   |  False  | Authenticate via an external LDAP server in addidion to built-in Mealie auth                                       |
@@ -71,7 +70,7 @@ Changing the webworker settings may cause unforeseen memory leak issues with Mea
 | LDAP_BASE_DN        |  None   | Starting point when searching for users authentication (e.g. `CN=Users,DC=xx,DC=yy,DC=de`)                         |
 | LDAP_QUERY_BIND     |  None   | A bind user for LDAP search queries (e.g. `cn=admin,cn=users,dc=example,dc=com`)                                   |
 | LDAP_QUERY_PASSWORD |  None   | The password for the bind user used in LDAP_QUERY_BIND                                                             |
-| LDAP_USER_FILTER    |  None   | The LDAP search filter to find users (e.g. `(&(                                                                    | ({id_attribute}={input})({mail_attribute}={input}))(objectClass=person))`).<br/> **Note** `id_attribute` and `mail_attribute` will be replaced with `LDAP_ID_ATTRIBUTE` and `LDAP_MAIL_ATTRIBUTE`, respectively. `input` will be replaced with either the username or email the user logs in with. |
+| LDAP_USER_FILTER    |  None   |  The LDAP search filter to find users (e.g. `(&(|({id_attribute}={input})({mail_attribute}={input}))(objectClass=person))`).<br/> **Note** `id_attribute` and `mail_attribute` will be replaced with `LDAP_ID_ATTRIBUTE` and `LDAP_MAIL_ATTRIBUTE`, respectively. `input` will be replaced with either the username or email the user logs in with.                                                                                                                  |
 | LDAP_ADMIN_FILTER   |  None   | Optional LDAP filter, which tells Mealie the LDAP user is an admin (e.g. `(memberOf=cn=admins,dc=example,dc=com)`) |
 | LDAP_ID_ATTRIBUTE   |   uid   | The LDAP attribute that maps to the user's id                                                                      |
 | LDAP_NAME_ATTRIBUTE |  name   | The LDAP attribute that maps to the user's name                                                                    |
