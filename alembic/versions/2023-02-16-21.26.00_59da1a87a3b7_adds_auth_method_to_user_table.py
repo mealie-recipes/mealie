@@ -1,7 +1,7 @@
 """adds auth_method to user table
 
 Revision ID: 59da1a87a3b7
-Revises: 16160bf731a0
+Revises: 5ab195a474eb
 Create Date: 2023-02-16 21:26:00.693018
 
 """
@@ -12,7 +12,7 @@ from alembic import op
 
 # revision identifiers, used by Alembic.
 revision = "59da1a87a3b7"
-down_revision = "16160bf731a0"
+down_revision = "5ab195a474eb"
 branch_labels = None
 depends_on = None
 
