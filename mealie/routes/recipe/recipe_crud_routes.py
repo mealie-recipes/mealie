@@ -24,7 +24,12 @@ from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.recipe import Recipe, RecipeImageTypes, ScrapeRecipe
-from mealie.schema.recipe.recipe import CreateRecipe, CreateRecipeByUrlBulk, RecipeSummary
+from mealie.schema.recipe.recipe import (
+    CreateRecipe,
+    CreateRecipeByUrlBulk,
+    RecipeLastMade,
+    RecipeSummary,
+)
 from mealie.schema.recipe.recipe_asset import RecipeAsset
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_scraper import ScrapeRecipeTest
@@ -351,6 +356,28 @@ class RecipeController(BaseRecipeController):
         """Updates a recipe by existing slug and data."""
         try:
             recipe = self.service.patch_one(slug, data)
+        except Exception as e:
+            self.handle_exceptions(e)
+
+        if recipe:
+            self.publish_event(
+                event_type=EventTypes.recipe_updated,
+                document_data=EventRecipeData(operation=EventOperation.update, recipe_slug=recipe.slug),
+                message=self.t(
+                    "notifications.generic-updated-with-url",
+                    name=recipe.name,
+                    url=urls.recipe_url(recipe.slug, self.settings.BASE_URL),
+                ),
+            )
+
+        return recipe
+
+    @router.patch("/{slug}/last-made")
+    def update_last_made(self, slug: str, data: RecipeLastMade):
+        """Update a recipe's last made timestamp"""
+
+        try:
+            recipe = self.service.update_last_made(slug, data.timestamp)
         except Exception as e:
             self.handle_exceptions(e)
 

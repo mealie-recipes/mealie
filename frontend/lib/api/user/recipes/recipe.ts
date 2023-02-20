@@ -48,6 +48,8 @@ const routes = {
   recipesSlugComments: (slug: string) => `${prefix}/recipes/${slug}/comments`,
   recipesSlugCommentsId: (slug: string, id: number) => `${prefix}/recipes/${slug}/comments/${id}`,
 
+  recipesSlugLastMade: (slug: string) => `${prefix}/recipes/${slug}/last-made`,
+
   recipesSlugTimelineEvent: (slug: string) => `${prefix}/recipes/${slug}/timeline/events`,
   recipesSlugTimelineEventId: (slug: string, id: string) => `${prefix}/recipes/${slug}/timeline/events/${id}`,
 };
@@ -162,6 +164,10 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
     formData.append("makefilerecipeimage", String(makeFileRecipeImage));
 
     return await this.requests.post(routes.recipesCreateFromOcr, formData);
+  }
+
+  async updateLastMade(recipeSlug: string, timestamp: string) {
+    return await this.requests.patch(routes.recipesSlugLastMade(recipeSlug), { timestamp })
   }
 
   async createTimelineEvent(recipeSlug: string, payload: RecipeTimelineEventIn) {

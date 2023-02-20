@@ -200,6 +200,10 @@ class Recipe(RecipeSummary):
         return user_id
 
 
+class RecipeLastMade(BaseModel):
+    timestamp: datetime.datetime
+
+
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient  # noqa: E402
 
 RecipeSummary.update_forward_refs()
