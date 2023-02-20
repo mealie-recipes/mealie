@@ -604,6 +604,7 @@
     "delete-checked": "Erledigte löschen",
     "toggle-label-sort": "Sortierung nach Etikett umschalten",
     "uncheck-all-items": "Alle Einträge zurücksetzen",
+    "check-all-items": "Check All Items",
     "linked-recipes-count": "Kein verknüpftes Rezept|Ein verknüpftes Rezept|{count} verknüpfte Rezepte",
     "items-checked-count": "Kein Eintrag erledigt|Ein Eintrag erledigt|{count} Einträge erledigt",
     "no-label": "Kein Etikett"

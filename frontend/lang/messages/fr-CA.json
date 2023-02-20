@@ -604,6 +604,7 @@
     "delete-checked": "Supprimer la sélection",
     "toggle-label-sort": "Activer le tri par étiquettes",
     "uncheck-all-items": "Décocher tous les éléments",
+    "check-all-items": "Check All Items",
     "linked-recipes-count": "Aucune recette liée|Une recette liée|{count} recettes liées",
     "items-checked-count": "Aucun élément coché|Un élément coché|{count} éléments cochés",
     "no-label": "Aucune étiquette"
