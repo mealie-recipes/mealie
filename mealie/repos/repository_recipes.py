@@ -7,6 +7,7 @@ from slugify import slugify
 from sqlalchemy import Select, and_, desc, func, or_, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import joinedload
+from text_unidecode import unidecode
 
 from mealie.db.models.recipe.category import Category
 from mealie.db.models.recipe.ingredient import RecipeIngredient
@@ -150,12 +151,16 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         return ids + additional_ids
 
     def _add_search_to_query(self, query: Select, search: str) -> Select:
+        normalized_search = unidecode(search).lower().strip()
         # I would prefer to just do this in the recipe_ingredient.any part of the main query, but it turns out
         # that at least sqlite wont use indexes for that correctly anymore and takes a big hit, so prefiltering it is
         ingredient_ids = (
             self.session.execute(
                 select(RecipeIngredient.id).filter(
-                    or_(RecipeIngredient.note.ilike(f"%{search}%"), RecipeIngredient.original_text.ilike(f"%{search}%"))
+                    or_(
+                        RecipeIngredient.note_normalized.like(f"%{normalized_search}%"),
+                        RecipeIngredient.original_text_normalized.like(f"%{normalized_search}%"),
+                    )
                 )
             )
             .scalars()
@@ -164,11 +169,11 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
 
         q = query.filter(
             or_(
-                RecipeModel.name.ilike(f"%{search}%"),
-                RecipeModel.description.ilike(f"%{search}%"),
+                RecipeModel.name_normalized.like(f"%{normalized_search}%"),
+                RecipeModel.description_normalized.like(f"%{normalized_search}%"),
                 RecipeModel.recipe_ingredient.any(RecipeIngredient.id.in_(ingredient_ids)),
             )
-        ).order_by(desc(RecipeModel.name.ilike(f"%{search}%")))
+        ).order_by(desc(RecipeModel.name_normalized.like(f"%{normalized_search}%")))
         return q
 
     def page_all(
