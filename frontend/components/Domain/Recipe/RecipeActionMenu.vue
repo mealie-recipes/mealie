@@ -50,6 +50,7 @@
         fab
         color="info"
         :card-menu="false"
+        :recipe="recipe"
         :recipe-id="recipe.id"
         :recipe-scale="recipeScale"
         :use-items="{
@@ -60,6 +61,7 @@
           mealplanner: true,
           shoppingList: true,
           print: true,
+          printPreferences: true,
           share: true,
           publicUrl: recipe.settings ? recipe.settings.public : false,
         }"

@@ -5,7 +5,7 @@
       :key="index"
       :small="$vuetify.breakpoint.smAndDown"
       label
-      color="accent custom-transparent"
+      :color="color"
       class="ma-1"
     >
       <v-icon left>
@@ -33,6 +33,10 @@ export default defineComponent({
     performTime: {
       type: String,
       default: null,
+    },
+    color: {
+      type: String,
+      default: "accent custom-transparent"
     },
   },
   setup(props) {

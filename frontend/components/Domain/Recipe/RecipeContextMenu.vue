@@ -2,6 +2,7 @@
   <div class="text-center">
     <!-- Recipe Share Dialog -->
     <RecipeDialogShare v-model="shareDialog" :recipe-id="recipeId" :name="name" />
+    <RecipeDialogPrintPreferences v-model="printPreferencesDialog" :recipe="recipe" />
     <BaseDialog
       v-model="recipeDeleteDialog"
       :title="$t('recipe.delete-recipe')"
@@ -115,10 +116,12 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs, useContext, useRouter, ref } from "@nuxtjs/composition-api";
+import RecipeDialogPrintPreferences from "./RecipeDialogPrintPreferences.vue";
 import RecipeDialogShare from "./RecipeDialogShare.vue";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { planTypeOptions } from "~/composables/use-group-mealplan";
+import { Recipe } from "~/lib/api/types/recipe";
 import { ShoppingListSummary } from "~/lib/api/types/group";
 import { PlanEntryType } from "~/lib/api/types/meal-plan";
 import { useAxiosDownloader } from "~/composables/api/use-axios-download";
@@ -131,6 +134,7 @@ export interface ContextMenuIncludes {
   mealplanner: boolean;
   shoppingList: boolean;
   print: boolean;
+  printPreferences: boolean;
   share: boolean;
   publicUrl: boolean;
 }
@@ -144,6 +148,7 @@ export interface ContextMenuItem {
 
 export default defineComponent({
   components: {
+    RecipeDialogPrintPreferences,
     RecipeDialogShare,
   },
   props: {
@@ -157,6 +162,7 @@ export default defineComponent({
         mealplanner: true,
         shoppingList: true,
         print: true,
+        printPreferences: true,
         share: true,
         publicUrl: false,
       }),
@@ -195,6 +201,10 @@ export default defineComponent({
       required: true,
       type: String,
     },
+    recipe: {
+      type: Object as () => Recipe,
+      default: undefined,
+    },
     recipeId: {
       required: true,
       type: String,
@@ -217,6 +227,7 @@ export default defineComponent({
     const api = useUserApi();
 
     const state = reactive({
+      printPreferencesDialog: false,
       shareDialog: false,
       recipeDeleteDialog: false,
       mealplannerDialog: false,
@@ -277,6 +288,12 @@ export default defineComponent({
         icon: $globals.icons.printer,
         color: undefined,
         event: "print",
+      },
+      printPreferences: {
+        title: i18n.tc("general.print-preferences"),
+        icon: $globals.icons.printerSettings,
+        color: undefined,
+        event: "printPreferences",
       },
       share: {
         title: i18n.tc("general.share"),
@@ -381,6 +398,9 @@ export default defineComponent({
       },
       mealplanner: () => {
         state.mealplannerDialog = true;
+      },
+      printPreferences: () => {
+        state.printPreferencesDialog = true;
       },
       shoppingList: () => {
         getShoppingLists();

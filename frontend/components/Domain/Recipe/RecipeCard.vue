@@ -51,6 +51,7 @@
                 mealplanner: true,
                 shoppingList: true,
                 print: false,
+                printPreferences: false,
                 share: true,
                 publicUrl: false,
               }"

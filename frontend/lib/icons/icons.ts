@@ -31,6 +31,7 @@ import {
   mdiAlertCircle,
   mdiDotsVertical,
   mdiPrinter,
+  mdiPrinterPosCog,
   mdiShareVariant,
   mdiChevronDown,
   mdiHeart,
@@ -128,6 +129,10 @@ import {
   mdiMessageText,
   mdiChefHat,
   mdiContentDuplicate,
+  mdiDockLeft,
+  mdiDockRight,
+  mdiDockTop,
+  mdiDockBottom,
 } from "@mdi/js";
 
 export const icons = {
@@ -176,6 +181,10 @@ export const icons = {
   desktopTowerMonitor: mdiDesktopTowerMonitor,
   devTo: mdiDevTo,
   diceMultiple: mdiDiceMultiple,
+  dockTop: mdiDockTop,
+  dockBottom: mdiDockBottom,
+  dockLeft: mdiDockLeft,
+  dockRight: mdiDockRight,
   dotsHorizontal: mdiDotsHorizontal,
   dotsVertical: mdiDotsVertical,
   download: mdiDownload,
@@ -211,6 +220,7 @@ export const icons = {
   orderAlphabeticalAscending: mdiOrderAlphabeticalAscending,
   pageLayoutBody: mdiPageLayoutBody,
   printer: mdiPrinter,
+  printerSettings: mdiPrinterPosCog,
   refreshCircle: mdiRefreshCircle,
   robot: mdiRobot,
   search: mdiMagnify,
