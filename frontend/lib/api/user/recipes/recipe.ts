@@ -10,6 +10,7 @@ import {
   ParsedIngredient,
   UpdateImageResponse,
   RecipeZipTokenResponse,
+  RecipeLastMade,
   RecipeTimelineEventIn,
   RecipeTimelineEventOut,
   RecipeTimelineEventUpdate,
@@ -167,7 +168,7 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
   }
 
   async updateLastMade(recipeSlug: string, timestamp: string) {
-    return await this.requests.patch(routes.recipesSlugLastMade(recipeSlug), { timestamp })
+    return await this.requests.patch<Recipe, RecipeLastMade>(routes.recipesSlugLastMade(recipeSlug), { timestamp })
   }
 
   async createTimelineEvent(recipeSlug: string, payload: RecipeTimelineEventIn) {
