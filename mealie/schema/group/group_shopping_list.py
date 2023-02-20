@@ -177,6 +177,10 @@ class ShoppingListItemsCollectionOut(MealieModel):
     deleted_items: list[ShoppingListItemOut] = []
 
 
+class ShoppingListItemPagination(PaginationBase):
+    items: list[ShoppingListItemOut]
+
+
 class ShoppingListCreate(MealieModel):
     name: str | None = None
     extras: dict | None = {}

@@ -101,6 +101,17 @@ def test_shopping_list_items_get_one(
         assert response.status_code == 200
 
 
+def test_shopping_list_items_get_all(
+    api_client: TestClient,
+    unique_user: TestUser,
+    list_with_items: ShoppingListOut,
+) -> None:
+    params = {"page": 1, "perPage": -1, "queryFilter": f"shopping_list_id={list_with_items.id}"}
+    response = api_client.get(api_routes.groups_shopping_items, params=params, headers=unique_user.token)
+    pagination_json = utils.assert_derserialize(response, 200)
+    assert len(pagination_json["items"]) == len(list_with_items.list_items)
+
+
 def test_shopping_list_items_get_one_404(api_client: TestClient, unique_user: TestUser) -> None:
     response = api_client.get(api_routes.groups_shopping_items_item_id(uuid4()), headers=unique_user.token)
     assert response.status_code == 404
