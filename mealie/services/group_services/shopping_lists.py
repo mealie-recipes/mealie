@@ -14,7 +14,11 @@ from mealie.schema.group.group_shopping_list import (
     ShoppingListItemUpdate,
     ShoppingListItemUpdateBulk,
 )
-from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit
+from mealie.schema.recipe.recipe_ingredient import (
+    IngredientFood,
+    IngredientUnit,
+    RecipeIngredient,
+)
 from mealie.schema.response.pagination import PaginationQuery
 
 
@@ -265,16 +269,23 @@ class ShoppingListService:
         return ShoppingListItemsCollectionOut(created_items=[], updated_items=[], deleted_items=deleted_items)
 
     def get_shopping_list_items_from_recipe(
-        self, list_id: UUID4, recipe_id: UUID4, scale: float = 1
+        self,
+        list_id: UUID4,
+        recipe_id: UUID4,
+        scale: float = 1,
+        recipe_ingredients: list[RecipeIngredient] | None = None,
     ) -> list[ShoppingListItemCreate]:
         """Generates a list of new list items based on a recipe"""
 
-        recipe = self.repos.recipes.get_one(recipe_id, "id")
-        if not recipe:
-            raise UnexpectedNone("Recipe not found")
+        if recipe_ingredients is None:
+            recipe = self.repos.recipes.get_one(recipe_id, "id")
+            if not recipe:
+                raise UnexpectedNone("Recipe not found")
+
+            recipe_ingredients = recipe.recipe_ingredient
 
         list_items: list[ShoppingListItemCreate] = []
-        for ingredient in recipe.recipe_ingredient:
+        for ingredient in recipe_ingredients:
             if isinstance(ingredient.food, IngredientFood):
                 is_food = True
                 food_id = ingredient.food.id
@@ -301,7 +312,7 @@ class ShoppingListService:
                 unit_id=unit_id,
                 recipe_references=[
                     ShoppingListItemRecipeRefCreate(
-                        recipe_id=recipe.id, recipe_quantity=ingredient.quantity, recipe_scale=scale
+                        recipe_id=recipe_id, recipe_quantity=ingredient.quantity, recipe_scale=scale
                     )
                 ],
             )
@@ -331,7 +342,11 @@ class ShoppingListService:
         return list_items
 
     def add_recipe_ingredients_to_list(
-        self, list_id: UUID4, recipe_id: UUID4, recipe_increment: float = 1
+        self,
+        list_id: UUID4,
+        recipe_id: UUID4,
+        recipe_increment: float = 1,
+        recipe_ingredients: list[RecipeIngredient] | None = None,
     ) -> tuple[ShoppingListOut, ShoppingListItemsCollectionOut]:
         """
         Adds a recipe's ingredients to a list
@@ -341,7 +356,9 @@ class ShoppingListService:
         - Impacted Shopping List Items
         """
 
-        items_to_create = self.get_shopping_list_items_from_recipe(list_id, recipe_id, recipe_increment)
+        items_to_create = self.get_shopping_list_items_from_recipe(
+            list_id, recipe_id, recipe_increment, recipe_ingredients
+        )
         item_changes = self.bulk_create_items(items_to_create)
 
         updated_list = cast(ShoppingListOut, self.shopping_lists.get_one(list_id))

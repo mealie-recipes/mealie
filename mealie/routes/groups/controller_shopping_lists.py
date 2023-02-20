@@ -228,7 +228,7 @@ class ShoppingListController(BaseCrudController):
         self, item_id: UUID4, recipe_id: UUID4, data: ShoppingListAddRecipeParams | None = None
     ):
         shopping_list, items = self.service.add_recipe_ingredients_to_list(
-            item_id, recipe_id, data.recipe_increment_quantity if data else 1
+            item_id, recipe_id, data.recipe_increment_quantity if data else 1, data.recipe_ingredients if data else None
         )
 
         publish_list_item_events(self.publish_event, items)

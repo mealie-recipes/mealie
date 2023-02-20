@@ -133,6 +133,7 @@ import {
   mdiDockRight,
   mdiDockTop,
   mdiDockBottom,
+  mdiCheckboxOutline,
 } from "@mdi/js";
 
 export const icons = {
@@ -167,6 +168,7 @@ export const icons = {
   cartCheck: mdiCartCheck,
   check: mdiCheck,
   checkboxBlankOutline: mdiCheckboxBlankOutline,
+  checkboxOutline: mdiCheckboxOutline,
   checkboxMarkedCircle: mdiCheckboxMarkedCircle,
   chefHat: mdiChefHat,
   clipboardCheck: mdiClipboardCheck,
