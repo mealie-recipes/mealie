@@ -111,7 +111,7 @@
     "ok": "Ok",
     "options": "Opties:",
     "print": "Afdrukken",
-    "print-preferences": "Print Preferences",
+    "print-preferences": "Voorkeuren afdrukken",
     "random": "Willekeurig",
     "rating": "Beoordeling",
     "recent": "Recent(e)",
@@ -604,7 +604,7 @@
     "delete-checked": "Selectie verwijderen",
     "toggle-label-sort": "Label sortering in-/uitschakelen",
     "uncheck-all-items": "Deselecteer alle Items",
-    "check-all-items": "Check All Items",
+    "check-all-items": "Alle items controleren",
     "linked-recipes-count": "Geen Gelinkte Recepten Eén Gekoppeld Recept{count} Gekoppelde Recepten",
     "items-checked-count": "Geen items aangevinkt, Eén item gecontroleerd{count} items gecontroleerd",
     "no-label": "Geen label"
