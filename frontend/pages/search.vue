@@ -1,7 +1,7 @@
 <template>
   <v-container fluid class="pa-0">
     <div class="search-container py-8">
-      <form class="search-box" @submit.prevent="search">
+      <form class="search-box pa-2" @submit.prevent="search">
         <div class="d-flex justify-center my-2">
           <v-text-field
             v-model="state.search"
@@ -15,41 +15,6 @@
           />
         </div>
         <div class="search-row">
-          <!-- Sort Options -->
-          <v-menu offset-y nudge-bottom="3">
-            <template #activator="{ on, attrs }">
-              <v-btn small color="accent" :icon="$vuetify.breakpoint.xsOnly" v-bind="attrs" v-on="on">
-                <v-icon :left="!$vuetify.breakpoint.xsOnly">
-                  {{ state.orderDirection === "asc" ? $globals.icons.sortAscending : $globals.icons.sortDescending }}
-                </v-icon>
-                {{ $vuetify.breakpoint.xsOnly ? null : $t("general.sort") }}
-              </v-btn>
-            </template>
-            <v-card>
-              <v-list>
-                <v-list-item @click="toggleOrderDirection()">
-                  <v-icon left>
-                    {{ $globals.icons.sort }}
-                  </v-icon>
-                  <v-list-item-title>
-                    {{ state.orderDirection === "asc" ? "Sort Descending" : "Sort Ascending" }}
-                  </v-list-item-title>
-                </v-list-item>
-                <v-list-item
-                  v-for="v in sortable"
-                  :key="v.name"
-                  :input-value="state.orderBy === v.value"
-                  @click="state.orderBy = v.value"
-                >
-                  <v-icon left>
-                    {{ v.icon }}
-                  </v-icon>
-                  <v-list-item-title>{{ v.name }}</v-list-item-title>
-                </v-list-item>
-              </v-list>
-            </v-card>
-          </v-menu>
-
           <!-- Category Filter -->
           <SearchFilter
             v-if="categories"
@@ -87,10 +52,45 @@
             {{ $t("general.foods") }}
           </SearchFilter>
 
+          <!-- Sort Options -->
+          <v-menu offset-y nudge-bottom="3">
+            <template #activator="{ on, attrs }">
+              <v-btn class="ml-auto" small color="accent" v-bind="attrs" v-on="on">
+                <v-icon :left="!$vuetify.breakpoint.xsOnly">
+                  {{ state.orderDirection === "asc" ? $globals.icons.sortAscending : $globals.icons.sortDescending }}
+                </v-icon>
+                {{ $vuetify.breakpoint.xsOnly ? null : sortText }}
+              </v-btn>
+            </template>
+            <v-card>
+              <v-list>
+                <v-list-item @click="toggleOrderDirection()">
+                  <v-icon left>
+                    {{ $globals.icons.sort }}
+                  </v-icon>
+                  <v-list-item-title>
+                    {{ state.orderDirection === "asc" ? "Sort Descending" : "Sort Ascending" }}
+                  </v-list-item-title>
+                </v-list-item>
+                <v-list-item
+                  v-for="v in sortable"
+                  :key="v.name"
+                  :input-value="state.orderBy === v.value"
+                  @click="state.orderBy = v.value"
+                >
+                  <v-icon left>
+                    {{ v.icon }}
+                  </v-icon>
+                  <v-list-item-title>{{ v.name }}</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-card>
+          </v-menu>
+
           <!-- Settings -->
           <v-menu offset-y bottom left nudge-bottom="3" :close-on-content-click="false">
             <template #activator="{ on, attrs }">
-              <v-btn class="ml-auto" small color="accent" dark v-bind="attrs" v-on="on">
+              <v-btn small color="accent" dark v-bind="attrs" v-on="on">
                 <v-icon small>
                   {{ $globals.icons.cog }}
                 </v-icon>
@@ -105,7 +105,9 @@
                   type="number"
                   outlined
                   dense
+                  hide-details
                 />
+                <v-switch v-model="state.auto" label="Auto Search" single-line></v-switch>
                 <v-btn block color="primary" @click="reset">
                   {{ $tc("general.reset") }}
                 </v-btn>
@@ -113,7 +115,7 @@
             </v-card>
           </v-menu>
         </div>
-        <div class="search-button-container">
+        <div v-if="!state.auto" class="search-button-container">
           <v-btn :loading="state.loading" x-large color="primary" type="submit" block>
             <v-icon left>
               {{ $globals.icons.search }}
@@ -136,7 +138,9 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, useRouter, onMounted, useContext } from "@nuxtjs/composition-api";
+import { ref, defineComponent, useRouter, onMounted, useContext, computed } from "@nuxtjs/composition-api";
+// eslint-disable-next-line import/namespace
+import { watchDebounced } from "@vueuse/shared";
 import SearchFilter from "~/components/Domain/SearchFilter.vue";
 import { useUserApi } from "~/composables/api";
 import { useCategoryStore, useFoodStore, useTagStore, useToolStore } from "~/composables/store";
@@ -152,6 +156,7 @@ export default defineComponent({
     const { $globals, i18n } = useContext();
 
     const state = ref({
+      auto: true,
       loading: false,
       search: "",
       orderBy: "created_at",
@@ -218,6 +223,7 @@ export default defineComponent({
 
           // Only add the query param if it's or not default
           ...{
+            auto: state.value.auto ? undefined : "false",
             search: state.value.search === "" ? undefined : state.value.search,
             maxResults: state.value.maxResults === 21 ? undefined : state.value.maxResults.toString(),
             orderBy: state.value.orderBy === "createdAt" ? undefined : state.value.orderBy,
@@ -290,6 +296,12 @@ export default defineComponent({
       });
     }
 
+    const sortText = computed(() => {
+      const sort = sortable.find((s) => s.value === state.value.orderBy);
+      if (!sort) return "";
+      return `${sort.name}`;
+    });
+
     const sortable = [
       {
         icon: $globals.icons.orderAlphabeticalAscending,
@@ -324,6 +336,10 @@ export default defineComponent({
 
       // read query params
       const query = router.currentRoute.query;
+
+      if (query.auto) {
+        state.value.auto = query.auto === "true";
+      }
 
       if (query.search) {
         state.value.search = query.search as string;
@@ -404,7 +420,33 @@ export default defineComponent({
       });
     });
 
+    watchDebounced(
+      [
+        () => state.value.search,
+        () => state.value.requireAllCategories,
+        () => state.value.requireAllTags,
+        () => state.value.requireAllTools,
+        () => state.value.requireAllFoods,
+        () => state.value.orderBy,
+        () => state.value.orderDirection,
+        () => state.value.maxResults,
+        selectedCategories,
+        selectedFoods,
+        selectedTags,
+        selectedTools,
+      ],
+      async () => {
+        if (state.value.auto) {
+          await search();
+        }
+      },
+      {
+        debounce: 500,
+      }
+    );
+
     return {
+      sortText,
       search,
       reset,
       state,
