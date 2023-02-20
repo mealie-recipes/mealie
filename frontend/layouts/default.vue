@@ -153,6 +153,11 @@ export default defineComponent({
 
     const topLinks = [
       {
+        icon: $globals.icons.search,
+        to: "/",
+        title: i18n.t("sidebar.search"),
+      },
+      {
         icon: $globals.icons.calendarMultiselect,
         title: i18n.t("meal-plan.meal-planner"),
         to: "/group/mealplan/planner",
@@ -168,11 +173,6 @@ export default defineComponent({
         icon: $globals.icons.viewModule,
         to: "/recipes/all",
         title: i18n.t("sidebar.all-recipes"),
-      },
-      {
-        icon: $globals.icons.search,
-        to: "/search",
-        title: i18n.t("sidebar.search"),
       },
       {
         icon: $globals.icons.tags,
