@@ -428,11 +428,11 @@
     "last-made-date": "Zuletzt gemacht {date}",
     "api-extras-description": "Rezepte-Extras sind ein Hauptmerkmal der Mealie API. Sie ermöglichen es dir, benutzerdefinierte JSON Schlüssel/Wert-Paare zu einem Rezept zu erstellen, um Anwendungen von Drittanbietern zu steuern. Du kannst diese Schlüssel dazu verwenden, Automatisierungen auszulösen oder benutzerdefinierte Nachrichten an deine gewünschten Geräte zu senden.",
     "message-key": "Nachrichten-Schlüssel",
-    "parse": "Analysieren",
+    "parse": "Parse",
     "attach-images-hint": "Bilder durch Ziehen & Ablegen in den Editor hinzufügen",
     "enable-ingredient-amounts-to-use-this-feature": "Aktiviere Zutatenmengen, um diese Funktion zu nutzen",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Rezepte mit gesondert definierten Einheiten oder Lebensmitteln können nicht analysiert werden.",
-    "parse-ingredients": "Zutaten analysieren",
+    "parse-ingredients": "Zutaten parsen",
     "edit-markdown": "Markdown bearbeiten",
     "recipe-creation": "Rezept erstellen",
     "select-one-of-the-various-ways-to-create-a-recipe": "Wähle eine der verschiedenen Möglichkeiten, um ein Rezept zu erstellen",
@@ -557,7 +557,7 @@
     "token": {
       "active-tokens": "AKTIVE TOKEN",
       "api-token": "API-Token",
-      "api-tokens": "API-Tokens",
+      "api-tokens": "API-Token",
       "copy-this-token-for-use-with-an-external-application-this-token-will-not-be-viewable-again": "Kopiere dieses Token für die Verwendung mit einer externen Anwendung. Dieses Token wird nicht mehr sichtbar sein.",
       "create-an-api-token": "Erstelle ein API-Token",
       "token-name": "Token-Name"
