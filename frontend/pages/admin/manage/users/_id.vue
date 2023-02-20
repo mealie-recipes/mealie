@@ -50,7 +50,7 @@ import { UserOut } from "~/lib/api/types/user";
 export default defineComponent({
   layout: "admin",
   setup() {
-    const { userForm } = useUserForm();
+    const { userForm } = useUserForm(true);
     const { groups } = useGroups();
     const route = useRoute();
 
