@@ -1,7 +1,7 @@
 import secrets
 from pathlib import Path
 
-from pydantic import BaseSettings, NoneStr
+from pydantic import BaseSettings, NoneStr, validator
 
 from .db_providers import AbstractDBProvider, db_provider_factory
 
@@ -25,12 +25,17 @@ def determine_secrets(data_dir: Path, production: bool) -> str:
 class AppSettings(BaseSettings):
     PRODUCTION: bool
     BASE_URL: str = "http://localhost:8080"
+    """trailing slashes are trimmed (ex. `http://localhost:8080/` becomes ``http://localhost:8080`)"""
+
     IS_DEMO: bool = False
     API_PORT: int = 9000
     API_DOCS: bool = True
-    TOKEN_TIME: int = 48  # Time in Hours
+    TOKEN_TIME: int = 48
+    """time in hours"""
+
     SECRET: str
-    LOG_LEVEL: str = "INFO"  # Corresponds to standard Python log levels.
+    LOG_LEVEL: str = "INFO"
+    """corresponds to standard Python log levels"""
 
     GIT_COMMIT_HASH: str = "unknown"
 
@@ -40,7 +45,15 @@ class AppSettings(BaseSettings):
     # Security Configuration
 
     SECURITY_MAX_LOGIN_ATTEMPTS: int = 5
-    SECURITY_USER_LOCKOUT_TIME: int = 24  # Time in Hours
+    SECURITY_USER_LOCKOUT_TIME: int = 24
+    "time in hours"
+
+    @validator("BASE_URL")
+    def remove_trailing_slash(cls, v: str) -> str:
+        if v and v[-1] == "/":
+            return v[:-1]
+
+        return v
 
     @property
     def DOCS_URL(self) -> str | None:
