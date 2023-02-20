@@ -604,6 +604,7 @@
     "delete-checked": "Elimina selezionati",
     "toggle-label-sort": "Toggle Label Sort",
     "uncheck-all-items": "Deseleziona tutti gli elementi",
+    "check-all-items": "Check All Items",
     "linked-recipes-count": "Nessuna ricetta collegata|Una ricetta collegata|{count} ricette collegate",
     "items-checked-count": "Nessun elemento selezionato|Un elemento selezionato|{count} elementi selezionati",
     "no-label": "Nessuna etichetta"
