@@ -22,6 +22,14 @@ SUPERSCRIPT = dict(zip("1234567890", "¹²³⁴⁵⁶⁷⁸⁹⁰", strict=False
 SUBSCRIPT = dict(zip("1234567890", "₁₂₃₄₅₆₇₈₉₀", strict=False))
 
 
+def display_fraction(fraction: Fraction):
+    return (
+        "".join([SUPERSCRIPT[c] for c in str(fraction.numerator)])
+        + "/"
+        + "".join([SUBSCRIPT[c] for c in str(fraction.denominator)])
+    )
+
+
 class ShoppingListItemRecipeRefCreate(MealieModel):
     recipe_id: UUID4
     recipe_quantity: float = 0
@@ -126,7 +134,7 @@ class ShoppingListItemOut(ShoppingListItemBase):
             return str(qty.numerator)
 
         if qty.numerator <= qty.denominator:
-            return f"{SUPERSCRIPT[str(qty.numerator)]}⁄{SUBSCRIPT[str(qty.denominator)]}"
+            return display_fraction(qty)
 
         # convert an improper fraction into a mixed fraction (e.g. 11/4 --> 2 3/4)
         whole_number = 0
@@ -134,7 +142,7 @@ class ShoppingListItemOut(ShoppingListItemBase):
             whole_number += 1
             qty -= 1
 
-        return f"{whole_number} {SUPERSCRIPT[str(qty.numerator)]}⁄{SUBSCRIPT[str(qty.denominator)]}"
+        return f"{whole_number} {display_fraction(qty)}"
 
     def _format_display(self) -> str:
         components = []
