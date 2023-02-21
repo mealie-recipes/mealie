@@ -63,6 +63,7 @@
           mealplanner: loggedIn,
           shoppingList: loggedIn,
           print: true,
+          printPreferences: true,
           share: loggedIn,
           publicUrl: recipe.settings && loggedIn ? recipe.settings.public : false,
         }"
