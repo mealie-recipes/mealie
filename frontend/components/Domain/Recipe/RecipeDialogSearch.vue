@@ -180,6 +180,6 @@ export default defineComponent({
 
 <style>
 .scroll {
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 </style>
