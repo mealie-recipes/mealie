@@ -31,7 +31,7 @@
           <div class="mr-auto">
             {{ $t("search.results") }}
           </div>
-          <router-link to="/search?advanced=true"> {{ $t("search.advanced-search") }} </router-link>
+          <router-link to="/"> {{ $t("search.advanced-search") }} </router-link>
         </v-card-actions>
 
         <RecipeCardMobile
@@ -180,6 +180,6 @@ export default defineComponent({
 
 <style>
 .scroll {
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 </style>

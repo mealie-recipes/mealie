@@ -51,7 +51,6 @@ export default defineComponent({
     const buttons = [
       { icon: $globals.icons.home, to: "/", text: i18n.t("general.home") },
       { icon: $globals.icons.primary, to: "/recipes/all", text: i18n.t("page.all-recipes") },
-      { icon: $globals.icons.search, to: "/search", text: i18n.t("search.search") },
     ];
 
     return {
