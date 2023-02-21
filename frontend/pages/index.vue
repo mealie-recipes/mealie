@@ -316,7 +316,7 @@ export default defineComponent({
       {
         icon: $globals.icons.chefHat,
         name: i18n.tc("general.last-made"),
-        value: "time",
+        value: "last_made",
       },
       {
         icon: $globals.icons.star,
