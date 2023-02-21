@@ -313,7 +313,6 @@ class RepositoryGeneric(Generic[Schema, Model]):
             self._log_exception(e)
             self.session.rollback()
             raise e
-
         return PaginationBase(
             page=pagination.page,
             per_page=pagination.per_page,

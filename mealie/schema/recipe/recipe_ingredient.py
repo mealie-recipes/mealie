@@ -39,12 +39,12 @@ class IngredientFood(CreateIngredientFood):
     class Config:
         class _FoodGetter(GetterDict):
             def get(self, key: Any, default: Any = None) -> Any:
-                # element attributes
+                # Transform extras into key-value dict
                 if key == "extras":
                     value = super().get(key, default)
                     return {x.key_name: x.value for x in value}
 
-                # element children
+                # Keep all other fields as they are
                 else:
                     return super().get(key, default)
 
