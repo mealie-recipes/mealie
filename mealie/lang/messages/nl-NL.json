@@ -6,15 +6,15 @@
         "unique-name-error": "Receptnamen moeten uniek zijn"
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "No recipes match your rules"
+        "no-recipes-match-your-rules": "Geen recepten die overeenkomen met je regels"
     },
     "user": {
-        "user-updated": "User updated",
-        "password-updated": "Password updated",
-        "invalid-current-password": "Invalid current password"
+        "user-updated": "Gebruiker bijgewerkt",
+        "password-updated": "Wachtwoord bijgewerkt",
+        "invalid-current-password": "Ongeldig huidig wachtwoord"
     },
     "group": {
-        "report-deleted": "Report deleted."
+        "report-deleted": "Rapport verwijderd."
     },
     "exceptions": {
         "permission_denied": "Je hebt geen toestemming om deze actie uit te voeren",

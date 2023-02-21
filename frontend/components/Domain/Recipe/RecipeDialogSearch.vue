@@ -55,7 +55,7 @@
 
 <script lang="ts">
 import { defineComponent, toRefs, reactive, ref, watch, useRoute } from "@nuxtjs/composition-api";
-import {  watchDebounced } from "@vueuse/shared";
+import { watchDebounced } from "@vueuse/shared";
 import RecipeCardMobile from "./RecipeCardMobile.vue";
 import { RecipeSummary } from "~/lib/api/types/recipe";
 import { useUserApi } from "~/composables/api";
@@ -136,32 +136,34 @@ export default defineComponent({
       dialog.value = true;
     }
     function close() {
-
       dialog.value = false;
     }
 
     // ===========================================================================
     // Basic Search
     const api = useUserApi();
-    const search = ref("")
+    const search = ref("");
 
-   watchDebounced(search, async (val) => {
-    console.log(val)
-      if (val) {
-        state.loading = true;
-        // @ts-expect-error - inferred type is wrong
-        const { data, error } = await api.recipes.search({ search: val as string, page: 1, perPage: 10 });
+    watchDebounced(
+      search,
+      async (val) => {
+        console.log(val);
+        if (val) {
+          state.loading = true;
+          const { data, error } = await api.recipes.search({ search: val, page: 1, perPage: 10 });
 
-        if (error || !data) {
-          console.error(error);
-          state.searchResults = [];
-        } else {
-          state.searchResults = data.items;
+          if (error || !data) {
+            console.error(error);
+            state.searchResults = [];
+          } else {
+            state.searchResults = data.items;
+          }
+
+          state.loading = false;
         }
-
-        state.loading = false;
-      }
-    }, { debounce: 500, maxWait: 1000 });
+      },
+      { debounce: 500, maxWait: 1000 }
+    );
 
     // ===========================================================================
     // Select Handler
@@ -171,7 +173,7 @@ export default defineComponent({
       context.emit(SELECTED_EVENT, recipe);
     }
 
-    return {  ...toRefs(state), dialog, open, close, handleSelect, search, };
+    return { ...toRefs(state), dialog, open, close, handleSelect, search };
   },
 });
 </script>

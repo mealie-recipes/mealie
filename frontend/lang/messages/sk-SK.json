@@ -111,6 +111,7 @@
     "ok": "OK",
     "options": "Možnosti:",
     "print": "Tlačiť",
+    "print-preferences": "Print Preferences",
     "random": "Náhodné",
     "rating": "Hodnotenie",
     "recent": "Posledné",
@@ -210,12 +211,12 @@
     "private-group": "Súkromná skupina",
     "allow-users-outside-of-your-group-to-see-your-recipes": "Povoliť užívateľom mimo vašej skupiny čítať vaše recepty",
     "show-nutrition-information": "Zobraziť informáciu o nutričných hodnotách",
-    "show-recipe-assets": "Show recipe assets",
+    "show-recipe-assets": "Zobraziť prílohy receptu",
     "default-to-landscape-view": "Predvoliť orientáciu na šírku",
     "disable-users-from-commenting-on-recipes": "Vypnúť užívateľom možnosť pridávania komentárov pod recepty",
-    "disable-organizing-recipe-ingredients-by-units-and-food": "Disable organizing recipe ingredients by units and food",
-    "general-preferences": "General Preferences",
-    "group-recipe-preferences": "Group Recipe Preferences",
+    "disable-organizing-recipe-ingredients-by-units-and-food": "Vypnúť zoradenie surovín podľa jednotiek a názvu",
+    "general-preferences": "Všeobecné nastavenia",
+    "group-recipe-preferences": "Nastavenia receptu v rámci skupiny",
     "report": "Report"
   },
   "meal-plan": {
@@ -603,6 +604,7 @@
     "delete-checked": "Delete Checked",
     "toggle-label-sort": "Toggle Label Sort",
     "uncheck-all-items": "Uncheck All Items",
+    "check-all-items": "Check All Items",
     "linked-recipes-count": "No Linked Recipes|One Linked Recipe|{count} Linked Recipes",
     "items-checked-count": "No items checked|One item checked|{count} items checked",
     "no-label": "No Label"

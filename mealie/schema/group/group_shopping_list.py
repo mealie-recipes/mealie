@@ -16,6 +16,7 @@ from mealie.schema.recipe.recipe_ingredient import (
     MAX_INGREDIENT_DENOMINATOR,
     IngredientFood,
     IngredientUnit,
+    RecipeIngredient,
 )
 from mealie.schema.response.pagination import PaginationBase
 
@@ -196,6 +197,10 @@ class ShoppingListMultiPurposeLabelOut(ShoppingListMultiPurposeLabelUpdate):
         orm_mode = True
 
 
+class ShoppingListItemPagination(PaginationBase):
+    items: list[ShoppingListItemOut]
+
+
 class ShoppingListCreate(MealieModel):
     name: str | None = None
     extras: dict | None = {}
@@ -263,6 +268,8 @@ class ShoppingListOut(ShoppingListUpdate):
 
 class ShoppingListAddRecipeParams(MealieModel):
     recipe_increment_quantity: float = 1
+    recipe_ingredients: list[RecipeIngredient] | None = None
+    """optionally override which ingredients are added from the recipe"""
 
 
 class ShoppingListRemoveRecipeParams(MealieModel):

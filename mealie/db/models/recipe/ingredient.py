@@ -1,7 +1,8 @@
 from typing import TYPE_CHECKING
 
-from sqlalchemy import Boolean, Float, ForeignKey, Integer, String, orm
+from sqlalchemy import Boolean, Float, ForeignKey, Integer, String, event, orm
 from sqlalchemy.orm import Mapped, mapped_column
+from text_unidecode import unidecode
 
 from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 from mealie.db.models.labels import MultiPurposeLabel
@@ -63,7 +64,7 @@ class RecipeIngredient(SqlAlchemyBase, BaseMixins):
     recipe_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"))
 
     title: Mapped[str | None] = mapped_column(String)  # Section Header - Shows if Present
-    note: Mapped[str | None] = mapped_column(String, index=True)  # Force Show Text - Overrides Concat
+    note: Mapped[str | None] = mapped_column(String)  # Force Show Text - Overrides Concat
 
     # Scaling Items
     unit_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("ingredient_units.id"), index=True)
@@ -73,10 +74,35 @@ class RecipeIngredient(SqlAlchemyBase, BaseMixins):
     food: Mapped[IngredientFoodModel | None] = orm.relationship(IngredientFoodModel, uselist=False)
     quantity: Mapped[float | None] = mapped_column(Float)
 
-    original_text: Mapped[str | None] = mapped_column(String, index=True)
+    original_text: Mapped[str | None] = mapped_column(String)
 
     reference_id: Mapped[GUID | None] = mapped_column(GUID)  # Reference Links
 
+    # Automatically updated by sqlalchemy event, do not write to this manually
+    note_normalized: Mapped[str | None] = mapped_column(String, index=True)
+    original_text_normalized: Mapped[str | None] = mapped_column(String, index=True)
+
     @auto_init()
-    def __init__(self, **_) -> None:
-        pass
+    def __init__(self, note: str | None = None, orginal_text: str | None = None, **_) -> None:
+        # SQLAlchemy events do not seem to register things that are set during auto_init
+        if note is not None:
+            self.note_normalized = unidecode(note).lower().strip()
+
+        if orginal_text is not None:
+            self.orginal_text = unidecode(orginal_text).lower().strip()
+
+
+@event.listens_for(RecipeIngredient.note, "set")
+def receive_note(target: RecipeIngredient, value: str, oldvalue, initiator):
+    if value is not None:
+        target.name_normalized = unidecode(value).lower().strip()
+    else:
+        target.name_normalized = None
+
+
+@event.listens_for(RecipeIngredient.original_text, "set")
+def receive_original_text(target: RecipeIngredient, value: str, oldvalue, initiator):
+    if value is not None:
+        target.original_text_normalized = unidecode(value).lower().strip()
+    else:
+        target.original_text_normalized = None

@@ -42,7 +42,6 @@
     </div>
     <v-divider></v-divider>
     <RecipeActionMenu
-      v-if="user.id"
       :recipe="recipe"
       :slug="recipe.slug"
       :recipe-scale="recipeScale"

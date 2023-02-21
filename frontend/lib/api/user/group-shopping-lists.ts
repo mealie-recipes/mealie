@@ -1,4 +1,5 @@
 import { BaseCRUDAPI } from "../base/base-clients";
+import { RecipeIngredient } from "../types/recipe";
 import { ApiRequestInstance } from "~/lib/api/types/non-generated";
 import {
   ShoppingListCreate,
@@ -27,8 +28,8 @@ export class ShoppingListsApi extends BaseCRUDAPI<ShoppingListCreate, ShoppingLi
   baseRoute = routes.shoppingLists;
   itemRoute = routes.shoppingListsId;
 
-  async addRecipe(itemId: string, recipeId: string, recipeIncrementQuantity = 1) {
-    return await this.requests.post(routes.shoppingListIdAddRecipe(itemId, recipeId), { recipeIncrementQuantity });
+  async addRecipe(itemId: string, recipeId: string, recipeIncrementQuantity = 1, recipeIngredients: RecipeIngredient[] | null = null) {
+    return await this.requests.post(routes.shoppingListIdAddRecipe(itemId, recipeId), { recipeIncrementQuantity, recipeIngredients });
   }
 
   async removeRecipe(itemId: string, recipeId: string, recipeDecrementQuantity = 1) {

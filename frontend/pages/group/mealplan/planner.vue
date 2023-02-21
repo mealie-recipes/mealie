@@ -246,6 +246,7 @@
                     duplicate: false,
                     mealplanner: false,
                     print: true,
+                    printPreferences: false,
                     share: false,
                     shoppingList: true,
                     publicUrl: false,

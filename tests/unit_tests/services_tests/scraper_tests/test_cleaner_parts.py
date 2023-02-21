@@ -73,22 +73,27 @@ image_cleaner_test_cases = (
     CleanerCase(
         test_id="empty_string",
         input="",
-        expected="no image",
+        expected=["no image"],
     ),
     CleanerCase(
         test_id="no_change",
         input="https://example.com/image.jpg",
-        expected="https://example.com/image.jpg",
+        expected=["https://example.com/image.jpg"],
     ),
     CleanerCase(
         test_id="dict with url key",
         input={"url": "https://example.com/image.jpg"},
-        expected="https://example.com/image.jpg",
+        expected=["https://example.com/image.jpg"],
     ),
     CleanerCase(
         test_id="list of strings",
         input=["https://example.com/image.jpg"],
-        expected="https://example.com/image.jpg",
+        expected=["https://example.com/image.jpg"],
+    ),
+    CleanerCase(
+        test_id="list of dicts with url key",
+        input=[{"url": "https://example.com/image.jpg"}],
+        expected=["https://example.com/image.jpg"],
     ),
 )
 

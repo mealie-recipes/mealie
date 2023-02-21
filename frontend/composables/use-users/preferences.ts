@@ -1,6 +1,18 @@
 import { Ref, useContext } from "@nuxtjs/composition-api";
 import { useLocalStorage } from "@vueuse/core";
 
+export interface UserPrintPreferences {
+  imagePosition: string;
+  showDescription: boolean;
+  showNotes: boolean;
+}
+
+export enum ImagePosition {
+  hidden = "hidden",
+  left = "left",
+  right = "right",
+}
+
 export interface UserRecipePreferences {
   orderBy: string;
   orderDirection: string;
@@ -11,6 +23,22 @@ export interface UserRecipePreferences {
 
 export interface UserShoppingListPreferences {
   viewByLabel: boolean;
+}
+
+export function useUserPrintPreferences(): Ref<UserPrintPreferences> {
+  const fromStorage = useLocalStorage(
+    "recipe-print-preferences",
+    {
+      imagePosition: "left",
+      showDescription: true,
+      showNotes: true,
+    },
+    { mergeDefaults: true }
+    // we cast to a Ref because by default it will return an optional type ref
+    // but since we pass defaults we know all properties are set.
+  ) as unknown as Ref<UserPrintPreferences>;
+
+  return fromStorage;
 }
 
 export function useUserSortPreferences(): Ref<UserRecipePreferences> {

@@ -70,7 +70,7 @@
       :recipe="recipe"
       class="px-1 my-4 d-print-none"
     />
-    <RecipePrintView :recipe="recipe" :scale="scale" />
+    <RecipePrintContainer :recipe="recipe" :scale="scale" />
   </v-container>
 </template>
 
@@ -96,7 +96,7 @@ import RecipePageOrganizers from "./RecipePageParts/RecipePageOrganizers.vue";
 import RecipePageScale from "./RecipePageParts/RecipePageScale.vue";
 import RecipePageTitleContent from "./RecipePageParts/RecipePageTitleContent.vue";
 import RecipePageComments from "./RecipePageParts/RecipePageComments.vue";
-import RecipePrintView from "~/components/Domain/Recipe/RecipePrintView.vue";
+import RecipePrintContainer from "~/components/Domain/Recipe/RecipePrintContainer.vue";
 import { EditorMode, PageMode, usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { Recipe } from "~/lib/api/types/recipe";
@@ -116,7 +116,7 @@ const EDITOR_OPTIONS = {
 export default defineComponent({
   components: {
     RecipePageHeader,
-    RecipePrintView,
+    RecipePrintContainer,
     RecipePageComments,
     RecipePageTitleContent,
     RecipePageEditorToolbar,

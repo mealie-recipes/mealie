@@ -1,8 +1,8 @@
 """added shopping list label settings
 
 Revision ID: b04a08da2108
-Revises: 16160bf731a0
-Create Date: 2023-12-02 22:03:19.837244
+Revises: 5ab195a474eb
+Create Date: 2023-21-02 22:03:19.837244
 
 """
 from uuid import uuid4
@@ -17,7 +17,7 @@ from mealie.db.models.labels import MultiPurposeLabel
 
 # revision identifiers, used by Alembic.
 revision = "b04a08da2108"
-down_revision = "16160bf731a0"
+down_revision = "5ab195a474eb"
 branch_labels = None
 depends_on = None
 

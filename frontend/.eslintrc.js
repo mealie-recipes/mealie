@@ -1,8 +1,5 @@
 module.exports = {
   root: true,
-  settings: {
-    "import/ignore": ["@vueuse*"],
-  },
   env: {
     browser: true,
     node: true,
@@ -58,6 +55,15 @@ module.exports = {
     ],
 
     // TODO Gradually activate all rules
+    // Allow Promise in onMounted
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      {
+        checksVoidReturn: {
+          arguments: false,
+        },
+      },
+    ],
     "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/no-unsafe-member-access": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",

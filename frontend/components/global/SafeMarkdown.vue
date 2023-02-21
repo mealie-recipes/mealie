@@ -20,7 +20,6 @@ export default defineComponent({
   },
   setup() {
     function sanitizeMarkdown(rawHtml: string | null | undefined): string {
-      console.log(rawHtml)
       if (!rawHtml) {
         return "";
       }

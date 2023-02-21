@@ -1,18 +1,31 @@
 <template>
-  <div class="print-container">
+  <div :class="dense ? 'wrapper' : 'wrapper pa-3'">
     <section>
-      <v-card-title class="headline pl-0">
-        <v-icon left color="primary">
-          {{ $globals.icons.primary }}
-        </v-icon>
-        {{ recipe.name }}
-      </v-card-title>
-      <RecipeTimeCard :prep-time="recipe.prepTime" :total-time="recipe.totalTime" :perform-time="recipe.performTime" />
+      <v-container class="ma-0 pa-0">
+        <v-row>
+          <v-col
+            v-if="preferences.imagePosition && preferences.imagePosition != ImagePosition.hidden"
+            :order="preferences.imagePosition == ImagePosition.left ? -1 : 1"
+            cols="4"
+            align-self="center"
+          >
+            <img :key="imageKey" :src="recipeImageUrl" style="min-height: 50; max-width: 100%;" />
+          </v-col>
+          <v-col order=0>
+            <v-card-title class="headline pl-0">
+              <v-icon left color="primary">
+                {{ $globals.icons.primary }}
+              </v-icon>
+              {{ recipe.name }}
+            </v-card-title>
+            <RecipeTimeCard :prep-time="recipe.prepTime" :total-time="recipe.totalTime" :perform-time="recipe.performTime" color="white" />
+            <v-card-text v-if="preferences.showDescription" class="px-0">
+              <SafeMarkdown :source="recipe.description" />
+            </v-card-text>
+          </v-col>
+        </v-row>
+      </v-container>
     </section>
-
-    <v-card-text class="px-0">
-      <SafeMarkdown :source="recipe.description" />
-    </v-card-text>
 
     <!-- Ingredients -->
     <section>
@@ -30,6 +43,7 @@
           :style="{ gridTemplateRows: `repeat(${Math.ceil(ingredientSection.ingredients.length / 2)}, min-content)` }"
         >
           <template v-for="(ingredient, ingredientIndex) in ingredientSection.ingredients">
+            <!-- eslint-disable-next-line vue/no-v-html -->
             <p :key="`ingredient-${ingredientIndex}`" class="ingredient-body" v-html="parseText(ingredient)" />
           </template>
         </div>
@@ -57,24 +71,30 @@
     </section>
 
     <!-- Notes -->
-    <v-divider v-if="hasNotes" class="grey my-4"></v-divider>
+    <div v-if="preferences.showNotes">
+      <v-divider v-if="hasNotes" class="grey my-4"></v-divider>
 
-    <section>
-      <div v-for="(note, index) in recipe.notes" :key="index + 'note'">
-        <div class="print-section">
-          <h4>{{ note.title }}</h4>
-          <SafeMarkdown :source="note.text" class="note-body" />
+      <section>
+        <div v-for="(note, index) in recipe.notes" :key="index + 'note'">
+          <div class="print-section">
+            <h4>{{ note.title }}</h4>
+            <SafeMarkdown :source="note.text" class="note-body" />
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed } from "@nuxtjs/composition-api";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
+import { useStaticRoutes } from "~/composables/api";
 import { Recipe, RecipeIngredient, RecipeStep } from "~/lib/api/types/recipe";
+import { NoUndefinedField } from "~/lib/api/types/non-generated";
+import { ImagePosition, useUserPrintPreferences } from "~/composables/use-users/preferences";
 import { parseIngredientText } from "~/composables/recipes";
+import { usePageState } from "~/composables/recipe-page/shared-state";
 
 type IngredientSection = {
   sectionName: string;
@@ -93,15 +113,27 @@ export default defineComponent({
   },
   props: {
     recipe: {
-      type: Object as () => Recipe,
+      type: Object as () => NoUndefinedField<Recipe>,
       required: true,
     },
     scale: {
       type: Number,
       default: 1,
     },
+    dense: {
+      type: Boolean,
+      default: false
+    }
   },
   setup(props) {
+    const preferences = useUserPrintPreferences();
+    const { recipeImage } = useStaticRoutes();
+    const { imageKey } = usePageState(props.recipe.slug);
+
+    const recipeImageUrl = computed(() => {
+      return recipeImage(props.recipe.id, props.recipe.image, imageKey.value);
+    });
+
     // Group ingredients by section so we can style them independently
     const ingredientSections = computed<IngredientSection[]>(() => {
       if (!props.recipe.recipeIngredient) {
@@ -190,8 +222,12 @@ export default defineComponent({
 
     return {
       hasNotes,
+      imageKey,
+      ImagePosition,
       parseText,
       parseIngredientText,
+      preferences,
+      recipeImageUrl,
       ingredientSections,
       instructionSections,
     };
@@ -199,38 +235,14 @@ export default defineComponent({
 });
 </script>
 
-<style>
-@media print {
-  body,
-  html {
-    margin-top: 0 !important;
-  }
-
-  .print-container {
-    display: block !important;
-  }
-
-  .v-main {
-    display: block;
-  }
-
-  .v-main__wrap {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-}
-</style>
-
 <style scoped>
 /* Makes all text solid black */
-.print-container {
-  display: none;
+.wrapper {
   background-color: white;
 }
 
-.print-container,
-.print-container >>> * {
+.wrapper,
+.wrapper >>> * {
   opacity: 1 !important;
   color: black !important;
 }

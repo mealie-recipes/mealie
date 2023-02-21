@@ -3,8 +3,10 @@ from typing import TYPE_CHECKING
 
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
+from sqlalchemy import event
 from sqlalchemy.ext.orderinglist import ordering_list
 from sqlalchemy.orm import Mapped, mapped_column, validates
+from text_unidecode import unidecode
 
 from mealie.db.models._model_utils.guid import GUID
 
@@ -54,8 +56,9 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     )
 
     # General Recipe Properties
-    name: Mapped[str] = mapped_column(sa.String, nullable=False, index=True)
-    description: Mapped[str | None] = mapped_column(sa.String, index=True)
+    name: Mapped[str] = mapped_column(sa.String, nullable=False)
+    description: Mapped[str | None] = mapped_column(sa.String)
+
     image: Mapped[str | None] = mapped_column(sa.String)
 
     # Time Related Properties
@@ -127,6 +130,10 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         cascade="all, delete-orphan",
     )
 
+    # Automatically updated by sqlalchemy event, do not write to this manually
+    name_normalized: Mapped[str] = mapped_column(sa.String, nullable=False, index=True)
+    description_normalized: Mapped[str | None] = mapped_column(sa.String, index=True)
+
     class Config:
         get_attr = "slug"
         exclude = {
@@ -150,6 +157,8 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     def __init__(
         self,
         session,
+        name: str | None = None,
+        description: str | None = None,
         assets: list | None = None,
         notes: list[dict] | None = None,
         nutrition: dict | None = None,
@@ -175,3 +184,23 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
             self.notes = [Note(**n) for n in notes]
 
         self.date_updated = datetime.now()
+
+        # SQLAlchemy events do not seem to register things that are set during auto_init
+        if name is not None:
+            self.name_normalized = unidecode(name).lower().strip()
+
+        if description is not None:
+            self.description_normalized = unidecode(description).lower().strip()
+
+
+@event.listens_for(RecipeModel.name, "set")
+def receive_name(target: RecipeModel, value: str, oldvalue, initiator):
+    target.name_normalized = unidecode(value).lower().strip()
+
+
+@event.listens_for(RecipeModel.description, "set")
+def receive_description(target: RecipeModel, value: str, oldvalue, initiator):
+    if value is not None:
+        target.description_normalized = unidecode(value).lower().strip()
+    else:
+        target.description_normalized = None
