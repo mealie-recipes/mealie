@@ -285,7 +285,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
             q = self._query().filter(attribute_name == attr_match)
             return [eff_schema.from_orm(x) for x in self.session.execute(q).scalars().all()]
 
-    def query_options(self) -> list[LoaderOption]:
+    def paging_query_options(self) -> list[LoaderOption]:
         # Override this in subclasses to specify joinedloads or similar for page_all
         return []
 
@@ -301,7 +301,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
         """
         eff_schema = override or self.schema
 
-        q = self._query()
+        q = self._query().options(*self.paging_query_options())
 
         fltr = self._filter_builder()
         q = q.filter_by(**fltr)

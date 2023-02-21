@@ -32,7 +32,7 @@ class RepositoryFood(RepositoryGeneric[IngredientFood, IngredientFoodModel]):
     def by_group(self, group_id: UUID4) -> "RepositoryFood":
         return super().by_group(group_id)
 
-    def query_options(self) -> list[LoaderOption]:
+    def paging_query_options(self) -> list[LoaderOption]:
         return [
             joinedload(IngredientFoodModel.extras),
             joinedload(IngredientFoodModel.label),
