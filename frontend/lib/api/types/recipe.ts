@@ -303,6 +303,9 @@ export interface RecipeCommentUpdate {
 export interface RecipeDuplicate {
   name?: string;
 }
+export interface RecipeLastMade {
+  timestamp: string;
+}
 export interface RecipeShareToken {
   recipeId: string;
   expiresAt?: string;

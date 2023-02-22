@@ -381,6 +381,11 @@ def recipes_slug_image(slug):
     return f"{prefix}/recipes/{slug}/image"
 
 
+def recipes_slug_last_made(slug):
+    """`/api/recipes/{slug}/last-made`"""
+    return f"{prefix}/recipes/{slug}/last-made"
+
+
 def recipes_slug_timeline_events(slug):
     """`/api/recipes/{slug}/timeline/events`"""
     return f"{prefix}/recipes/{slug}/timeline/events"

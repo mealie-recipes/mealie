@@ -126,8 +126,7 @@ export default defineComponent({
 
       // we also update the recipe's last made value
       if (!props.value || newTimelineEvent.value.timestamp > props.value) {
-        const payload = {lastMade: newTimelineEvent.value.timestamp};
-        actions.push(userApi.recipes.patchOne(props.recipeSlug, payload));
+        actions.push(userApi.recipes.updateLastMade(props.recipeSlug,  newTimelineEvent.value.timestamp));
 
         // update recipe in parent so the user can see it
         // we remove the trailing "Z" since this is how the API returns it

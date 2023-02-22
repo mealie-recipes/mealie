@@ -247,6 +247,7 @@ class RecipeService(BaseService):
 
         Args:
             slug (str): recipe slug
+            new_data (Recipe): the new recipe data
 
         Raises:
             exceptions.PermissionDenied (403)
@@ -275,7 +276,7 @@ class RecipeService(BaseService):
 
     def patch_one(self, slug: str, patch_data: Recipe) -> Recipe:
         recipe: Recipe | None = self._pre_update_check(slug, patch_data)
-        recipe = self.repos.recipes.by_group(self.group.id).get_one(slug)
+        recipe = self._get_recipe(slug)
 
         if recipe is None:
             raise exceptions.NoEntryFound("Recipe not found.")
@@ -284,6 +285,11 @@ class RecipeService(BaseService):
 
         self.check_assets(new_data, recipe.slug)
         return new_data
+
+    def update_last_made(self, slug: str, timestamp: datetime) -> Recipe:
+        # we bypass the pre update check since any user can update a recipe's last made date, even if it's locked
+        recipe = self._get_recipe(slug)
+        return self.repos.recipes.by_group(self.group.id).patch(recipe.slug, {"last_made": timestamp})
 
     def delete_one(self, slug) -> Recipe:
         recipe = self._get_recipe(slug)
