@@ -1,8 +1,8 @@
-"""adds auth_method to user table
+"""add auth_method to user table
 
-Revision ID: 59da1a87a3b7
-Revises: 5ab195a474eb
-Create Date: 2023-02-16 21:26:00.693018
+Revision ID: 38514b39a824
+Revises: b04a08da2108
+Create Date: 2023-02-22 21:45:52.900964
 
 """
 import sqlalchemy as sa
@@ -11,8 +11,8 @@ import mealie.db.migration_types
 from alembic import op
 
 # revision identifiers, used by Alembic.
-revision = "59da1a87a3b7"
-down_revision = "5ab195a474eb"
+revision = "38514b39a824"
+down_revision = "b04a08da2108"
 branch_labels = None
 depends_on = None
 
