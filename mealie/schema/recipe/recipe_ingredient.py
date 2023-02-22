@@ -2,12 +2,12 @@ from __future__ import annotations
 
 import datetime
 import enum
+from typing import Any
 from uuid import UUID, uuid4
 
 from pydantic import UUID4, Field, validator
 from pydantic.utils import GetterDict
 
-from mealie.db.models.recipe.ingredient import IngredientFoodModel
 from mealie.schema._mealie import MealieModel
 from mealie.schema._mealie.types import NoneFloat
 from mealie.schema.response.pagination import PaginationBase
@@ -37,14 +37,19 @@ class IngredientFood(CreateIngredientFood):
     update_at: datetime.datetime | None
 
     class Config:
-        orm_mode = True
+        class _FoodGetter(GetterDict):
+            def get(self, key: Any, default: Any = None) -> Any:
+                # Transform extras into key-value dict
+                if key == "extras":
+                    value = super().get(key, default)
+                    return {x.key_name: x.value for x in value}
 
-        @classmethod
-        def getter_dict(cls, name_orm: IngredientFoodModel):
-            return {
-                **GetterDict(name_orm),
-                "extras": {x.key_name: x.value for x in name_orm.extras},
-            }
+                # Keep all other fields as they are
+                else:
+                    return super().get(key, default)
+
+        orm_mode = True
+        getter_dict = _FoodGetter
 
 
 class IngredientFoodPagination(PaginationBase):

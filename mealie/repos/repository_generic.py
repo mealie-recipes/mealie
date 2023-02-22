@@ -7,6 +7,7 @@ from typing import Any, Generic, TypeVar
 from fastapi import HTTPException
 from pydantic import UUID4, BaseModel
 from sqlalchemy import Select, delete, func, select
+from sqlalchemy.orm.interfaces import LoaderOption
 from sqlalchemy.orm.session import Session
 from sqlalchemy.sql import sqltypes
 
@@ -284,6 +285,10 @@ class RepositoryGeneric(Generic[Schema, Model]):
             q = self._query().filter(attribute_name == attr_match)
             return [eff_schema.from_orm(x) for x in self.session.execute(q).scalars().all()]
 
+    def paging_query_options(self) -> list[LoaderOption]:
+        # Override this in subclasses to specify joinedloads or similar for page_all
+        return []
+
     def page_all(self, pagination: PaginationQuery, override=None) -> PaginationBase[Schema]:
         """
         pagination is a method to interact with the filtered database table and return a paginated result
@@ -296,19 +301,18 @@ class RepositoryGeneric(Generic[Schema, Model]):
         """
         eff_schema = override or self.schema
 
-        q = self._query()
+        q = self._query().options(*self.paging_query_options())
 
         fltr = self._filter_builder()
         q = q.filter_by(**fltr)
         q, count, total_pages = self.add_pagination_to_query(q, pagination)
 
         try:
-            data = self.session.execute(q).scalars().all()
+            data = self.session.execute(q).unique().scalars().all()
         except Exception as e:
             self._log_exception(e)
             self.session.rollback()
             raise e
-
         return PaginationBase(
             page=pagination.page,
             per_page=pagination.per_page,

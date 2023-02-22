@@ -1,5 +1,7 @@
 from pydantic import UUID4
 from sqlalchemy import select
+from sqlalchemy.orm import joinedload
+from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.db.models.recipe.ingredient import IngredientFoodModel
 from mealie.schema.recipe.recipe_ingredient import IngredientFood
@@ -29,3 +31,9 @@ class RepositoryFood(RepositoryGeneric[IngredientFood, IngredientFoodModel]):
 
     def by_group(self, group_id: UUID4) -> "RepositoryFood":
         return super().by_group(group_id)
+
+    def paging_query_options(self) -> list[LoaderOption]:
+        return [
+            joinedload(IngredientFoodModel.extras),
+            joinedload(IngredientFoodModel.label),
+        ]
