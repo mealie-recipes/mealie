@@ -2,7 +2,7 @@
   <div class="d-flex justify-space-between align-center mx-2">
     <div class="handle">
       <span class="mr-2">
-        <v-icon>
+        <v-icon :color="labelColor">
           {{ $globals.icons.tags }}
         </v-icon>
       </span>
@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext } from "@nuxtjs/composition-api";
+import { defineComponent, ref, useContext } from "@nuxtjs/composition-api";
 import { ShoppingListMultiPurposeLabelOut } from "~/lib/api/types/group";
 
 interface actions {
@@ -42,9 +42,15 @@ export default defineComponent({
       type: Object as () => ShoppingListMultiPurposeLabelOut,
       required: true,
     },
+    useColor: {
+      type: Boolean,
+      default: false,
+    }
   },
   setup(props, context) {
     const { i18n } = useContext();
+    const labelColor = ref<string | undefined>(props.useColor ? props.value.label.color : undefined);
+
     const contextMenu: actions[] = [
       {
         text: i18n.t("general.transfer") as string,
@@ -59,6 +65,7 @@ export default defineComponent({
     return {
       contextHandler,
       contextMenu,
+      labelColor,
     };
   },
 });

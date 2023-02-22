@@ -32,7 +32,7 @@
         <div v-for="(value, key, idx) in itemsByLabel" :key="key" class="mb-6">
           <div @click="toggleShowChecked()">
             <span v-if="idx || key !== $tc('shopping-list.no-label')">
-              <v-icon>
+              <v-icon :color="value[0].label.color">
                 {{ $globals.icons.tags }}
               </v-icon>
             </span>
@@ -60,7 +60,7 @@
         <v-card height="fit-content" max-height="70vh" style="overflow-y: auto;">
           <draggable :value="shoppingList.labelSettings" handle=".handle" class="my-2" @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateLabelOrder">
             <div v-for="(labelSetting, index) in shoppingList.labelSettings" :key="labelSetting.id">
-              <MultiPurposeLabelSection v-model="shoppingList.labelSettings[index]" />
+              <MultiPurposeLabelSection v-model="shoppingList.labelSettings[index]" use-color />
             </div>
           </draggable>
         </v-card>
