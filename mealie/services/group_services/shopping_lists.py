@@ -6,6 +6,7 @@ from mealie.core.exceptions import UnexpectedNone
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.group import ShoppingListItemCreate, ShoppingListOut
 from mealie.schema.group.group_shopping_list import (
+    ShoppingListCreate,
     ShoppingListItemBase,
     ShoppingListItemOut,
     ShoppingListItemRecipeRefCreate,
@@ -13,18 +14,23 @@ from mealie.schema.group.group_shopping_list import (
     ShoppingListItemsCollectionOut,
     ShoppingListItemUpdate,
     ShoppingListItemUpdateBulk,
+    ShoppingListMultiPurposeLabelCreate,
+    ShoppingListSave,
 )
 from mealie.schema.recipe.recipe_ingredient import (
     IngredientFood,
     IngredientUnit,
     RecipeIngredient,
 )
-from mealie.schema.response.pagination import PaginationQuery
+from mealie.schema.response.pagination import OrderDirection, PaginationQuery
+from mealie.schema.user.user import GroupInDB, PrivateUser
 
 
 class ShoppingListService:
-    def __init__(self, repos: AllRepositories):
+    def __init__(self, repos: AllRepositories, user: PrivateUser, group: GroupInDB):
         self.repos = repos
+        self.user = user
+        self.group = group
         self.shopping_lists = repos.group_shopping_lists
         self.list_items = repos.group_shopping_list_item
         self.list_item_refs = repos.group_shopping_list_item_references
@@ -463,3 +469,18 @@ class ShoppingListService:
             break
 
         return self.shopping_lists.get_one(shopping_list.id), items  # type: ignore
+
+    def create_one_list(self, data: ShoppingListCreate):
+        create_data = data.cast(ShoppingListSave, group_id=self.group.id)
+        new_list = self.shopping_lists.create(create_data)  # type: ignore
+
+        labels = self.repos.group_multi_purpose_labels.by_group(self.group.id).page_all(
+            PaginationQuery(page=1, per_page=-1, order_by="name", order_direction=OrderDirection.asc)
+        )
+        label_settings = [
+            ShoppingListMultiPurposeLabelCreate(shopping_list_id=new_list.id, label_id=label.id, position=i)
+            for i, label in enumerate(labels.items)
+        ]
+
+        self.repos.shopping_list_multi_purpose_labels.create_many(label_settings)
+        return self.shopping_lists.get_one(new_list.id)

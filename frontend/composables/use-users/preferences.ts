@@ -21,6 +21,10 @@ export interface UserRecipePreferences {
   useMobileCards: boolean;
 }
 
+export interface UserShoppingListPreferences {
+  viewByLabel: boolean;
+}
+
 export function useUserPrintPreferences(): Ref<UserPrintPreferences> {
   const fromStorage = useLocalStorage(
     "recipe-print-preferences",
@@ -53,6 +57,21 @@ export function useUserSortPreferences(): Ref<UserRecipePreferences> {
     // we cast to a Ref because by default it will return an optional type ref
     // but since we pass defaults we know all properties are set.
   ) as unknown as Ref<UserRecipePreferences>;
+
+  return fromStorage;
+}
+
+
+export function useShoppingListPreferences(): Ref<UserShoppingListPreferences> {
+  const fromStorage = useLocalStorage(
+    "shopping-list-preferences",
+    {
+      viewByLabel: false,
+    },
+    { mergeDefaults: true }
+    // we cast to a Ref because by default it will return an optional type ref
+    // but since we pass defaults we know all properties are set.
+  ) as unknown as Ref<UserShoppingListPreferences>;
 
   return fromStorage;
 }

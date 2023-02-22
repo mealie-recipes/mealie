@@ -2,6 +2,7 @@
   <div v-if="!edit" class="d-flex justify-space-between align-center">
     <v-checkbox
       v-model="listItem.checked"
+      class="mt-0"
       color="null"
       hide-details
       dense
@@ -14,11 +15,11 @@
         </div>
       </template>
     </v-checkbox>
-    <MultiPurposeLabel v-if="label" :label="label" class="ml-auto mt-2" small />
+    <MultiPurposeLabel v-if="label && showLabel" :label="label" class="ml-auto" small />
     <div style="min-width: 72px">
       <v-menu offset-x left min-width="125px">
         <template #activator="{ on, attrs }">
-          <v-btn small class="ml-2 mt-2 handle" icon v-bind="attrs" v-on="on">
+          <v-btn small class="ml-2 handle" icon v-bind="attrs" v-on="on">
             <v-icon>
               {{ $globals.icons.arrowUpDown }}
             </v-icon>
@@ -30,7 +31,7 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      <v-btn small class="ml-2 mt-2 handle" icon @click="toggleEdit(true)">
+      <v-btn small class="ml-2 handle" icon @click="toggleEdit(true)">
         <v-icon>
           {{ $globals.icons.edit }}
         </v-icon>
@@ -70,6 +71,10 @@ export default defineComponent({
     value: {
       type: Object as () => ShoppingListItemOut,
       required: true,
+    },
+    showLabel: {
+      type: Boolean,
+      default: false,
     },
     labels: {
       type: Array as () => MultiPurposeLabelOut[],

@@ -1,7 +1,7 @@
 from collections.abc import Callable
 from functools import cached_property
 
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from pydantic import UUID4
 
 from mealie.routes._base.base_controllers import BaseCrudController
@@ -16,6 +16,7 @@ from mealie.schema.group.group_shopping_list import (
     ShoppingListItemsCollectionOut,
     ShoppingListItemUpdate,
     ShoppingListItemUpdateBulk,
+    ShoppingListMultiPurposeLabelUpdate,
     ShoppingListOut,
     ShoppingListPagination,
     ShoppingListRemoveRecipeParams,
@@ -23,7 +24,6 @@ from mealie.schema.group.group_shopping_list import (
     ShoppingListSummary,
     ShoppingListUpdate,
 )
-from mealie.schema.mapper import cast
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.response.responses import SuccessResponse
 from mealie.services.event_bus_service.event_types import (
@@ -89,7 +89,7 @@ def publish_list_item_events(publisher: Callable, items_collection: ShoppingList
 class ShoppingListItemController(BaseCrudController):
     @cached_property
     def service(self):
-        return ShoppingListService(self.repos)
+        return ShoppingListService(self.repos, self.user, self.group)
 
     @cached_property
     def repo(self):
@@ -154,7 +154,7 @@ router = APIRouter(prefix="/groups/shopping/lists", tags=["Group: Shopping Lists
 class ShoppingListController(BaseCrudController):
     @cached_property
     def service(self):
-        return ShoppingListService(self.repos)
+        return ShoppingListService(self.repos, self.user, self.group)
 
     @cached_property
     def repo(self):
@@ -179,9 +179,7 @@ class ShoppingListController(BaseCrudController):
 
     @router.post("", response_model=ShoppingListOut, status_code=201)
     def create_one(self, data: ShoppingListCreate):
-        save_data = cast(data, ShoppingListSave, group_id=self.user.group_id)
-        shopping_list = self.mixins.create_one(save_data)
-
+        shopping_list = self.service.create_one_list(data)
         if shopping_list:
             self.publish_event(
                 event_type=EventTypes.shopping_list_created,
@@ -197,14 +195,12 @@ class ShoppingListController(BaseCrudController):
 
     @router.put("/{item_id}", response_model=ShoppingListOut)
     def update_one(self, item_id: UUID4, data: ShoppingListUpdate):
-        shopping_list = self.mixins.update_one(data, item_id)  # type: ignore
-
-        if shopping_list:
-            self.publish_event(
-                event_type=EventTypes.shopping_list_updated,
-                document_data=EventShoppingListData(operation=EventOperation.update, shopping_list_id=shopping_list.id),
-                message=self.t("notifications.generic-updated", name=shopping_list.name),
-            )
+        shopping_list = self.mixins.update_one(data, item_id)
+        self.publish_event(
+            event_type=EventTypes.shopping_list_updated,
+            document_data=EventShoppingListData(operation=EventOperation.update, shopping_list_id=shopping_list.id),
+            message=self.t("notifications.generic-updated", name=shopping_list.name),
+        )
 
         return shopping_list
 
@@ -244,3 +240,23 @@ class ShoppingListController(BaseCrudController):
 
         publish_list_item_events(self.publish_event, items)
         return shopping_list
+
+    @router.put("/{item_id}/label-settings", response_model=ShoppingListOut)
+    def update_label_settings(self, item_id: UUID4, data: list[ShoppingListMultiPurposeLabelUpdate]):
+        for setting in data:
+            if setting.shopping_list_id != item_id:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail=f"object {setting.id} has an invalid shopping list id",
+                )
+
+        self.repos.shopping_list_multi_purpose_labels.update_many(data)
+        updated_list = self.get_one(item_id)
+
+        self.publish_event(
+            event_type=EventTypes.shopping_list_updated,
+            document_data=EventShoppingListData(operation=EventOperation.update, shopping_list_id=updated_list.id),
+            message=self.t("notifications.generic-updated", name=updated_list.name),
+        )
+
+        return updated_list

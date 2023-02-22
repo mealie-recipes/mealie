@@ -1,15 +1,24 @@
 import json
 import pathlib
 from collections.abc import Generator
+from functools import cached_property
 
 from mealie.schema.labels import MultiPurposeLabelSave
-from mealie.schema.recipe.recipe_ingredient import SaveIngredientFood, SaveIngredientUnit
+from mealie.schema.recipe.recipe_ingredient import (
+    SaveIngredientFood,
+    SaveIngredientUnit,
+)
+from mealie.services.group_services.labels_service import MultiPurposeLabelService
 
 from ._abstract_seeder import AbstractSeeder
 from .resources import foods, labels, units
 
 
 class MultiPurposeLabelSeeder(AbstractSeeder):
+    @cached_property
+    def service(self):
+        return MultiPurposeLabelService(self.repos, self.group_id)
+
     def get_file(self, locale: str | None = None) -> pathlib.Path:
         locale_path = self.resources / "labels" / "locales" / f"{locale}.json"
         return locale_path if locale_path.exists() else labels.en_US
@@ -27,7 +36,7 @@ class MultiPurposeLabelSeeder(AbstractSeeder):
         self.logger.info("Seeding MultiPurposeLabel")
         for label in self.load_data(locale):
             try:
-                self.repos.group_multi_purpose_labels.create(label)
+                self.service.create_one(label)
             except Exception as e:
                 self.logger.error(e)
 

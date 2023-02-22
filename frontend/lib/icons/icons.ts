@@ -8,6 +8,7 @@ import {
   mdiContentSaveEdit,
   mdiSquareEditOutline,
   mdiClose,
+  mdiTagArrowUpOutline,
   mdiTagMultipleOutline,
   mdiBookOutline,
   mdiAccountCog,
@@ -268,6 +269,7 @@ export const icons = {
 
   // Organization
   tags: mdiTagMultipleOutline,
+  tagArrowUp: mdiTagArrowUpOutline,
   pages: mdiBookOutline,
 
   // Admin

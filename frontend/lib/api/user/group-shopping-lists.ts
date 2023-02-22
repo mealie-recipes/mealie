@@ -6,6 +6,7 @@ import {
   ShoppingListItemCreate,
   ShoppingListItemOut,
   ShoppingListItemUpdateBulk,
+  ShoppingListMultiPurposeLabelUpdate,
   ShoppingListOut,
   ShoppingListUpdate,
 } from "~/lib/api/types/group";
@@ -17,6 +18,7 @@ const routes = {
   shoppingListsId: (id: string) => `${prefix}/groups/shopping/lists/${id}`,
   shoppingListIdAddRecipe: (id: string, recipeId: string) => `${prefix}/groups/shopping/lists/${id}/recipe/${recipeId}`,
   shoppingListIdRemoveRecipe: (id: string, recipeId: string) => `${prefix}/groups/shopping/lists/${id}/recipe/${recipeId}/delete`,
+  shoppingListIdUpdateLabelSettings: (id: string) => `${prefix}/groups/shopping/lists/${id}/label-settings`,
 
   shoppingListItems: `${prefix}/groups/shopping/items`,
   shoppingListItemsId: (id: string) => `${prefix}/groups/shopping/items/${id}`,
@@ -32,6 +34,10 @@ export class ShoppingListsApi extends BaseCRUDAPI<ShoppingListCreate, ShoppingLi
 
   async removeRecipe(itemId: string, recipeId: string, recipeDecrementQuantity = 1) {
     return await this.requests.post(routes.shoppingListIdRemoveRecipe(itemId, recipeId), { recipeDecrementQuantity });
+  }
+
+  async updateLabelSettings(itemId: string, listSettings: ShoppingListMultiPurposeLabelUpdate[]) {
+    return await this.requests.put(routes.shoppingListIdUpdateLabelSettings(itemId), listSettings);
   }
 }
 

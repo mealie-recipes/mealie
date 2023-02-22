@@ -5,7 +5,11 @@ from sqlalchemy.ext.orderinglist import ordering_list
 from sqlalchemy.orm import Mapped, mapped_column
 
 from mealie.db.models.labels import MultiPurposeLabel
-from mealie.db.models.recipe.api_extras import ShoppingListExtras, ShoppingListItemExtras, api_extras
+from mealie.db.models.recipe.api_extras import (
+    ShoppingListExtras,
+    ShoppingListItemExtras,
+    api_extras,
+)
 
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import GUID, auto_init
@@ -99,6 +103,26 @@ class ShoppingListRecipeReference(BaseMixins, SqlAlchemyBase):
         pass
 
 
+class ShoppingListMultiPurposeLabel(SqlAlchemyBase, BaseMixins):
+    __tablename__ = "shopping_lists_multi_purpose_labels"
+    id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
+
+    shopping_list_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("shopping_lists.id"), primary_key=True)
+    shopping_list: Mapped["ShoppingList"] = orm.relationship("ShoppingList", back_populates="label_settings")
+    label_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("multi_purpose_labels.id"), primary_key=True)
+    label: Mapped["MultiPurposeLabel"] = orm.relationship(
+        "MultiPurposeLabel", back_populates="shopping_lists_label_settings"
+    )
+    position: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+
+    class Config:
+        exclude = {"label"}
+
+    @auto_init()
+    def __init__(self, **_) -> None:
+        pass
+
+
 class ShoppingList(SqlAlchemyBase, BaseMixins):
     __tablename__ = "shopping_lists"
     id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
@@ -116,6 +140,12 @@ class ShoppingList(SqlAlchemyBase, BaseMixins):
 
     recipe_references: Mapped[ShoppingListRecipeReference] = orm.relationship(
         ShoppingListRecipeReference, cascade="all, delete, delete-orphan"
+    )
+    label_settings: Mapped[list["ShoppingListMultiPurposeLabel"]] = orm.relationship(
+        ShoppingListMultiPurposeLabel,
+        cascade="all, delete, delete-orphan",
+        order_by="ShoppingListMultiPurposeLabel.position",
+        collection_class=ordering_list("position"),
     )
     extras: Mapped[list[ShoppingListExtras]] = orm.relationship("ShoppingListExtras", cascade="all, delete-orphan")
 

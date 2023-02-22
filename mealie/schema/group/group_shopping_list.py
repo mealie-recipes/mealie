@@ -9,6 +9,8 @@ from pydantic.utils import GetterDict
 from mealie.db.models.group.shopping_list import ShoppingList, ShoppingListItem
 from mealie.schema._mealie import MealieModel
 from mealie.schema._mealie.types import NoneFloat
+from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary
+from mealie.schema.recipe.recipe import RecipeSummary
 from mealie.schema.recipe.recipe_ingredient import (
     INGREDIENT_QTY_PRECISION,
     MAX_INGREDIENT_DENOMINATOR,
@@ -186,6 +188,23 @@ class ShoppingListItemsCollectionOut(MealieModel):
     deleted_items: list[ShoppingListItemOut] = []
 
 
+class ShoppingListMultiPurposeLabelCreate(MealieModel):
+    shopping_list_id: UUID4
+    label_id: UUID4
+    position: int = 0
+
+
+class ShoppingListMultiPurposeLabelUpdate(ShoppingListMultiPurposeLabelCreate):
+    id: UUID4
+
+
+class ShoppingListMultiPurposeLabelOut(ShoppingListMultiPurposeLabelUpdate):
+    label: MultiPurposeLabelSummary
+
+    class Config:
+        orm_mode = True
+
+
 class ShoppingListItemPagination(PaginationBase):
     items: list[ShoppingListItemOut]
 
@@ -217,6 +236,8 @@ class ShoppingListSave(ShoppingListCreate):
 
 class ShoppingListSummary(ShoppingListSave):
     id: UUID4
+    recipe_references: list[ShoppingListRecipeRefOut]
+    label_settings: list[ShoppingListMultiPurposeLabelOut]
 
     class Config:
         orm_mode = True
@@ -233,15 +254,24 @@ class ShoppingListPagination(PaginationBase):
     items: list[ShoppingListSummary]
 
 
-class ShoppingListUpdate(ShoppingListSummary):
+class ShoppingListUpdate(ShoppingListSave):
+    id: UUID4
     list_items: list[ShoppingListItemOut] = []
 
 
 class ShoppingListOut(ShoppingListUpdate):
     recipe_references: list[ShoppingListRecipeRefOut]
+    label_settings: list[ShoppingListMultiPurposeLabelOut]
 
     class Config:
         orm_mode = True
+
+        @classmethod
+        def getter_dict(cls, name_orm: ShoppingList):
+            return {
+                **GetterDict(name_orm),
+                "extras": {x.key_name: x.value for x in name_orm.extras},
+            }
 
 
 class ShoppingListAddRecipeParams(MealieModel):
@@ -252,10 +282,3 @@ class ShoppingListAddRecipeParams(MealieModel):
 
 class ShoppingListRemoveRecipeParams(MealieModel):
     recipe_decrement_quantity: float = 1
-
-
-from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary  # noqa: E402
-from mealie.schema.recipe.recipe import RecipeSummary  # noqa: E402
-
-ShoppingListRecipeRefOut.update_forward_refs()
-ShoppingListItemOut.update_forward_refs()

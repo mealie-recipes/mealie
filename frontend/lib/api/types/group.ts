@@ -399,6 +399,24 @@ export interface ShoppingListItemsCollectionOut {
   updatedItems?: ShoppingListItemOut[];
   deletedItems?: ShoppingListItemOut[];
 }
+export interface ShoppingListMultiPurposeLabelCreate {
+  shoppingListId: string;
+  labelId: string;
+  position?: number;
+}
+export interface ShoppingListMultiPurposeLabelOut {
+  shoppingListId: string;
+  labelId: string;
+  position?: number;
+  id: string;
+  label: MultiPurposeLabelSummary;
+}
+export interface ShoppingListMultiPurposeLabelUpdate {
+  shoppingListId: string;
+  labelId: string;
+  position?: number;
+  id: string;
+}
 export interface ShoppingListOut {
   name?: string;
   extras?: {
@@ -410,6 +428,7 @@ export interface ShoppingListOut {
   id: string;
   listItems?: ShoppingListItemOut[];
   recipeReferences: ShoppingListRecipeRefOut[];
+  labelSettings: ShoppingListMultiPurposeLabelOut[];
 }
 export interface ShoppingListRecipeRefOut {
   id: string;
@@ -479,6 +498,8 @@ export interface ShoppingListSummary {
   updateAt?: string;
   groupId: string;
   id: string;
+  recipeReferences: ShoppingListRecipeRefOut[];
+  labelSettings: ShoppingListMultiPurposeLabelOut[];
 }
 export interface ShoppingListUpdate {
   name?: string;

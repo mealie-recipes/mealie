@@ -9,7 +9,8 @@ from ._model_utils import auto_init
 from ._model_utils.guid import GUID
 
 if TYPE_CHECKING:
-    from group import Group, ShoppingListItem
+    from group import Group
+    from group.shopping_list import ShoppingListItem, ShoppingListMultiPurposeLabel
     from recipe import IngredientFoodModel
 
 
@@ -24,6 +25,9 @@ class MultiPurposeLabel(SqlAlchemyBase, BaseMixins):
 
     shopping_list_items: Mapped["ShoppingListItem"] = orm.relationship("ShoppingListItem", back_populates="label")
     foods: Mapped["IngredientFoodModel"] = orm.relationship("IngredientFoodModel", back_populates="label")
+    shopping_lists_label_settings: Mapped[list["ShoppingListMultiPurposeLabel"]] = orm.relationship(
+        "ShoppingListMultiPurposeLabel", back_populates="label", cascade="all, delete, delete-orphan"
+    )
 
     @auto_init()
     def __init__(self, **_) -> None:

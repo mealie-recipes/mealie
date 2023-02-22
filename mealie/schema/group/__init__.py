@@ -14,7 +14,11 @@ from .group_events import (
 from .group_exports import GroupDataExport
 from .group_migration import DataMigrationCreate, SupportedMigrations
 from .group_permissions import SetPermissions
-from .group_preferences import CreateGroupPreferences, ReadGroupPreferences, UpdateGroupPreferences
+from .group_preferences import (
+    CreateGroupPreferences,
+    ReadGroupPreferences,
+    UpdateGroupPreferences,
+)
 from .group_seeder import SeederConfig
 from .group_shopping_list import (
     ShoppingListAddRecipeParams,
@@ -28,6 +32,9 @@ from .group_shopping_list import (
     ShoppingListItemsCollectionOut,
     ShoppingListItemUpdate,
     ShoppingListItemUpdateBulk,
+    ShoppingListMultiPurposeLabelCreate,
+    ShoppingListMultiPurposeLabelOut,
+    ShoppingListMultiPurposeLabelUpdate,
     ShoppingListOut,
     ShoppingListPagination,
     ShoppingListRecipeRefOut,
@@ -37,8 +44,20 @@ from .group_shopping_list import (
     ShoppingListUpdate,
 )
 from .group_statistics import GroupStatistics, GroupStorage
-from .invite_token import CreateInviteToken, EmailInitationResponse, EmailInvitation, ReadInviteToken, SaveInviteToken
-from .webhook import CreateWebhook, ReadWebhook, SaveWebhook, WebhookPagination, WebhookType
+from .invite_token import (
+    CreateInviteToken,
+    EmailInitationResponse,
+    EmailInvitation,
+    ReadInviteToken,
+    SaveInviteToken,
+)
+from .webhook import (
+    CreateWebhook,
+    ReadWebhook,
+    SaveWebhook,
+    WebhookPagination,
+    WebhookType,
+)
 
 __all__ = [
     "CreateGroupPreferences",
@@ -73,6 +92,9 @@ __all__ = [
     "ShoppingListItemUpdate",
     "ShoppingListItemUpdateBulk",
     "ShoppingListItemsCollectionOut",
+    "ShoppingListMultiPurposeLabelCreate",
+    "ShoppingListMultiPurposeLabelOut",
+    "ShoppingListMultiPurposeLabelUpdate",
     "ShoppingListOut",
     "ShoppingListPagination",
     "ShoppingListRecipeRefOut",

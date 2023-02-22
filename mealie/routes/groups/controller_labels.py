@@ -10,13 +10,12 @@ from mealie.routes._base.routers import MealieCrudRoute
 from mealie.schema.labels import (
     MultiPurposeLabelCreate,
     MultiPurposeLabelOut,
-    MultiPurposeLabelSave,
     MultiPurposeLabelSummary,
     MultiPurposeLabelUpdate,
 )
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelPagination
-from mealie.schema.mapper import cast
 from mealie.schema.response.pagination import PaginationQuery
+from mealie.services.group_services.labels_service import MultiPurposeLabelService
 
 router = APIRouter(prefix="/groups/labels", tags=["Group: Multi Purpose Labels"], route_class=MealieCrudRoute)
 
@@ -24,11 +23,15 @@ router = APIRouter(prefix="/groups/labels", tags=["Group: Multi Purpose Labels"]
 @controller(router)
 class MultiPurposeLabelsController(BaseUserController):
     @cached_property
+    def service(self):
+        return MultiPurposeLabelService(self.repos, self.group.id)
+
+    @cached_property
     def repo(self):
         if not self.user:
             raise Exception("No user is logged in.")
 
-        return self.repos.group_multi_purpose_labels.by_group(self.user.group_id)
+        return self.repos.group_multi_purpose_labels
 
     # =======================================================================
     # CRUD Operations
@@ -49,8 +52,7 @@ class MultiPurposeLabelsController(BaseUserController):
 
     @router.post("", response_model=MultiPurposeLabelOut)
     def create_one(self, data: MultiPurposeLabelCreate):
-        save_data = cast(data, MultiPurposeLabelSave, group_id=self.user.group_id)
-        return self.mixins.create_one(save_data)
+        return self.service.create_one(data)
 
     @router.get("/{item_id}", response_model=MultiPurposeLabelOut)
     def get_one(self, item_id: UUID4):
