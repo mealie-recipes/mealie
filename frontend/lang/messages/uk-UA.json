@@ -603,6 +603,7 @@
     "copy-as-markdown": "Копіювати як Markdown",
     "delete-checked": "Delete Checked",
     "toggle-label-sort": "Toggle Label Sort",
+    "reorder-labels": "Reorder Labels",
     "uncheck-all-items": "Зняти вибір з усіх елементів",
     "check-all-items": "Вибрати всі елементи",
     "linked-recipes-count": "No Linked Recipes|One Linked Recipe|{count} Linked Recipes",
