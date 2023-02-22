@@ -603,6 +603,7 @@
     "copy-as-markdown": "Kopiëren als Markdown",
     "delete-checked": "Selectie verwijderen",
     "toggle-label-sort": "Label sortering in-/uitschakelen",
+    "reorder-labels": "Reorder Labels",
     "uncheck-all-items": "Deselecteer alle Items",
     "check-all-items": "Alle producten controleren",
     "linked-recipes-count": "Geen Gelinkte Recepten Eén Gekoppeld Recept{count} Gekoppelde Recepten",
