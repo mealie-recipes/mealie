@@ -603,6 +603,7 @@
     "copy-as-markdown": "Copia come Markdown",
     "delete-checked": "Elimina selezionati",
     "toggle-label-sort": "Toggle Label Sort",
+    "reorder-labels": "Reorder Labels",
     "uncheck-all-items": "Deseleziona tutti gli elementi",
     "check-all-items": "Check All Items",
     "linked-recipes-count": "Nessuna ricetta collegata|Una ricetta collegata|{count} ricette collegate",
