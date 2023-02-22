@@ -1,6 +1,8 @@
 <template>
   <v-chip v-bind="$attrs" label :color="label.color || undefined" :text-color="textColor">
-    {{ label.name }}
+    <span style="max-width: 100%; overflow: hidden; text-overflow: ellipsis;">
+      {{ label.name }}
+    </span>
   </v-chip>
 </template>
 

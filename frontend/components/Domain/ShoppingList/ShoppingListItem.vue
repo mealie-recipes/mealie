@@ -1,43 +1,59 @@
 <template>
-  <div v-if="!edit" class="d-flex justify-space-between align-center">
-    <v-checkbox
-      v-model="listItem.checked"
-      class="mt-0"
-      color="null"
-      hide-details
-      dense
-      :label="listItem.note"
-      @change="$emit('checked', listItem)"
-    >
-      <template #label>
-        <div :class="listItem.checked ? 'strike-through' : ''">
-          {{ listItem.display }}
-        </div>
-      </template>
-    </v-checkbox>
-    <MultiPurposeLabel v-if="label && showLabel" :label="label" class="ml-auto" small />
-    <div style="min-width: 72px">
-      <v-menu offset-x left min-width="125px">
-        <template #activator="{ on, attrs }">
-          <v-btn small class="ml-2 handle" icon v-bind="attrs" v-on="on">
+  <v-container v-if="!edit" class="pa-0">
+    <v-row no-gutters class="flex-nowrap align-center">
+      <v-col :cols="itemLabelCols">
+        <v-checkbox
+          v-model="listItem.checked"
+          class="mt-0"
+          color="null"
+          hide-details
+          dense
+          :label="listItem.note"
+          @change="$emit('checked', listItem)"
+        >
+          <template #label>
+            <div :class="listItem.checked ? 'strike-through' : ''">
+              {{ listItem.display }}
+            </div>
+          </template>
+        </v-checkbox>
+      </v-col>
+      <v-spacer />
+      <v-col v-if="label && showLabel" cols="3" class="text-right">
+        <MultiPurposeLabel :label="label" small />
+      </v-col>
+      <v-col cols="auto" class="text-right">
+        <div v-if="!listItem.checked" style="min-width: 72px">
+          <v-menu offset-x left min-width="125px">
+            <template #activator="{ on, attrs }">
+              <v-btn small class="ml-2 handle" icon v-bind="attrs" v-on="on">
+                <v-icon>
+                  {{ $globals.icons.arrowUpDown }}
+                </v-icon>
+              </v-btn>
+            </template>
+            <v-list dense>
+              <v-list-item v-for="action in contextMenu" :key="action.event" dense @click="contextHandler(action.event)">
+                <v-list-item-title>{{ action.text }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+          <v-btn small class="ml-2 handle" icon @click="toggleEdit(true)">
             <v-icon>
-              {{ $globals.icons.arrowUpDown }}
+              {{ $globals.icons.edit }}
             </v-icon>
           </v-btn>
-        </template>
-        <v-list dense>
-          <v-list-item v-for="action in contextMenu" :key="action.event" dense @click="contextHandler(action.event)">
-            <v-list-item-title>{{ action.text }}</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
-      <v-btn small class="ml-2 handle" icon @click="toggleEdit(true)">
-        <v-icon>
-          {{ $globals.icons.edit }}
-        </v-icon>
-      </v-btn>
-    </div>
-  </div>
+        </div>
+      </v-col>
+    </v-row>
+    <v-row v-if="listItem.checked" no-gutters class="mb-2">
+      <v-col cols="auto">
+        <div class="text-caption font-weight-light font-italic">
+          {{ $t("shopping-list.completed-on", {date: new Date(listItem.updateAt+"Z").toLocaleDateString($i18n.locale)}) }}
+        </div>
+      </v-col>
+    </v-row>
+  </v-container>
   <div v-else class="mb-1 mt-6">
     <ShoppingListItemEditor
       v-model="localListItem"
@@ -91,6 +107,7 @@ export default defineComponent({
   },
   setup(props, context) {
     const { i18n } = useContext();
+    const itemLabelCols = ref<string>(props.value.checked ? "auto" : props.showLabel ? "6" : "8");
 
     const contextMenu: actions[] = [
       {
@@ -174,6 +191,7 @@ export default defineComponent({
       contextHandler,
       edit,
       contextMenu,
+      itemLabelCols,
       listItem,
       localListItem,
       label,
