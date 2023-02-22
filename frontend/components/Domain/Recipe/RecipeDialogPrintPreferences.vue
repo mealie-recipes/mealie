@@ -48,7 +48,6 @@
 <script lang="ts">
 import { computed, defineComponent } from "@nuxtjs/composition-api";
 import { Recipe } from "~/lib/api/types/recipe";
-import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { ImagePosition, useUserPrintPreferences } from "~/composables/use-users/preferences";
 import RecipePrintView from "~/components/Domain/Recipe/RecipePrintView.vue";
 
@@ -62,8 +61,8 @@ export default defineComponent({
       default: false,
     },
     recipe: {
-      type: Object as () => NoUndefinedField<Recipe>,
-      required: true,
+      type: Object as () => Recipe,
+      default: undefined,
     },
   },
   setup(props, context) {

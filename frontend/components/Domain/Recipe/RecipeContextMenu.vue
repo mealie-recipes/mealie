@@ -2,7 +2,7 @@
   <div class="text-center">
     <!-- Recipe Share Dialog -->
     <RecipeDialogShare v-model="shareDialog" :recipe-id="recipeId" :name="name" />
-    <RecipeDialogPrintPreferences v-model="printPreferencesDialog" :recipe="recipe" />
+    <RecipeDialogPrintPreferences v-model="printPreferencesDialog" :recipe="recipeRef" />
     <BaseDialog
       v-model="recipeDeleteDialog"
       :title="$t('recipe.delete-recipe')"
@@ -383,7 +383,7 @@ export default defineComponent({
 
     const shoppingLists = ref<ShoppingListSummary[]>();
     const selectedShoppingList = ref<ShoppingListSummary>();
-    const recipe = ref<Recipe>(props.recipe);
+    const recipeRef = ref<Recipe>(props.recipe);
     const recipeIngredients = ref<{ checked: boolean; ingredient: RecipeIngredient; display: string }[]>([]);
 
     async function getShoppingLists() {
@@ -396,22 +396,22 @@ export default defineComponent({
     async function refreshRecipe() {
       const { data } = await api.recipes.getOne(props.slug);
       if (data) {
-        recipe.value = data;
+        recipeRef.value = data;
       }
     }
 
     async function openShoppingListIngredientDialog(list: ShoppingListSummary) {
       selectedShoppingList.value = list;
-      if (!recipe.value) {
+      if (!recipeRef.value) {
         await refreshRecipe();
       }
 
-      if (recipe.value?.recipeIngredient) {
-        recipeIngredients.value = recipe.value.recipeIngredient.map((ingredient) => {
+      if (recipeRef.value?.recipeIngredient) {
+        recipeIngredients.value = recipeRef.value.recipeIngredient.map((ingredient) => {
           return {
             checked: true,
             ingredient,
-            display: parseIngredientText(ingredient, recipe.value?.settings?.disableAmount || false, props.recipeScale),
+            display: parseIngredientText(ingredient, recipeRef.value?.settings?.disableAmount || false, props.recipeScale),
           };
         });
       }
@@ -510,7 +510,10 @@ export default defineComponent({
       mealplanner: () => {
         state.mealplannerDialog = true;
       },
-      printPreferences: () => {
+      printPreferences: async () => {
+        if (!recipeRef.value) {
+          await refreshRecipe();
+        }
         state.printPreferencesDialog = true;
       },
       shoppingList: () => {
@@ -547,6 +550,7 @@ export default defineComponent({
 
     return {
       ...toRefs(state),
+      recipeRef,
       shoppingLists,
       selectedShoppingList,
       openShoppingListIngredientDialog,

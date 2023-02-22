@@ -30,8 +30,6 @@ export default defineComponent({
         ADD_ATTR: ["src", "alt", "height", "width", "class", "allow", "title", "allowfullscreen", "frameborder", "scrolling"],
       });
 
-      console.log(sanitized)
-
       return sanitized;
     }
 
