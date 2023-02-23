@@ -470,9 +470,7 @@ export default defineComponent({
 
     function updateItemsByLabel() {
       const items: { [prop: string]: ShoppingListItemOut[] } = {};
-
       const noLabelText = i18n.tc("shopping-list.no-label");
-
       const noLabel = [] as ShoppingListItemOut[];
 
       shoppingList.value?.listItems?.forEach((item) => {
@@ -518,7 +516,7 @@ export default defineComponent({
 
     watch(shoppingList, () => {
       updateItemsByLabel();
-    });
+    }, {deep: true});
 
     async function refreshLabels() {
       const { data } = await userApi.multiPurposeLabels.getAll();
