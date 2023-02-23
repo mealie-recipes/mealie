@@ -25,7 +25,8 @@ def test_new_mealplan_event(api_client: TestClient, unique_user: TestUser):
     assert response.status_code == 201
 
     response = api_client.get(api_routes.recipes_slug(recipe_name), headers=unique_user.token)
-    recipe = RecipeSummary.parse_obj(response.json())
+    original_recipe_data: dict = response.json()
+    recipe = RecipeSummary.parse_obj(original_recipe_data)
     recipe_id = recipe.id
     assert recipe.last_made is None
 
@@ -57,8 +58,27 @@ def test_new_mealplan_event(api_client: TestClient, unique_user: TestUser):
 
     # make sure the recipe's last made date was updated
     response = api_client.get(api_routes.recipes_slug(recipe_name), headers=unique_user.token)
-    recipe = RecipeSummary.parse_obj(response.json())
+    new_recipe_data: dict = response.json()
+    recipe = RecipeSummary.parse_obj(new_recipe_data)
     assert recipe.last_made.date() == date.today()  # type: ignore
+
+    # make sure nothing else was updated
+    for data in [original_recipe_data, new_recipe_data]:
+        data.pop("dateUpdated")
+        data.pop("updateAt")
+        data.pop("lastMade")
+
+    # instructions ids are generated randomly and aren't consistent between get requests
+    old_instructions: list[dict] = original_recipe_data.pop("recipeInstructions")
+    new_instructions: list[dict] = new_recipe_data.pop("recipeInstructions")
+    assert len(old_instructions) == len(new_instructions)
+
+    for old, new in zip(old_instructions, new_instructions, strict=True):
+        old.pop("id")
+        new.pop("id")
+        assert old == new
+
+    assert original_recipe_data == new_recipe_data
 
 
 def test_new_mealplan_event_duplicates(api_client: TestClient, unique_user: TestUser):
