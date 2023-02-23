@@ -135,7 +135,7 @@ import RecipeCard from "./RecipeCard.vue";
 import RecipeCardMobile from "./RecipeCardMobile.vue";
 import { useAsyncKey } from "~/composables/use-utils";
 import { useLazyRecipes } from "~/composables/recipes";
-import { Recipe } from "~/lib/api/types/recipe";
+import { Recipe, RecipeQuery } from "~/lib/api/types/recipe";
 import { useUserSortPreferences } from "~/composables/use-users/preferences";
 
 const REPLACE_RECIPES_EVENT = "replaceRecipes";
@@ -167,25 +167,9 @@ export default defineComponent({
       type: Array as () => Recipe[],
       default: () => [],
     },
-    cookbookSlug: {
-      type: String,
+    query: {
+      type: Object as () => RecipeQuery,
       default: null,
-    },
-    categorySlug: {
-      type: String,
-      default: null,
-    },
-    tagSlug: {
-      type: String,
-      default: null,
-    },
-    toolSlug: {
-      type: String,
-      default: null,
-    },
-    skipLoad: {
-      type: Boolean,
-      default: false
     }
   },
   setup(props, context) {
@@ -224,43 +208,36 @@ export default defineComponent({
     }
 
     const page = ref(1);
-    const perPage = ref(32);
+    const perPage = 32;
     const hasMore = ref(true);
     const ready = ref(false);
     const loading = ref(false);
 
-    const cookbook = ref<string>(props.cookbookSlug);
-    const category = ref<string>(props.categorySlug);
-    const tag = ref<string>(props.tagSlug);
-    const tool = ref<string>(props.toolSlug);
-
     const { fetchMore } = useLazyRecipes();
 
+    async function fetchRecipes(pageCount = 1) {
+      return await fetchMore(
+          page.value,
+          // we double-up the first call to avoid a bug with large screens that render the entire first page without scrolling, preventing additional loading
+          perPage * pageCount,
+          preferences.value.orderBy,
+          preferences.value.orderDirection,
+          props.query,
+          // filter out recipes that have a null value for the property we're sorting by
+          preferences.value.filterNull && preferences.value.orderBy ? `${preferences.value.orderBy} <> null` : null
+        );
+    }
+
     onMounted(async () => {
-      if (props.skipLoad) {
-        return;
+      if (props.query) {
+        const newRecipes = await fetchRecipes(2)
+
+        // since we doubled the first call, we also need to advance the page
+        page.value = page.value + 1;
+
+        context.emit(REPLACE_RECIPES_EVENT, newRecipes);
+        ready.value = true;
       }
-      const newRecipes = await fetchMore(
-        page.value,
-
-        // we double-up the first call to avoid a bug with large screens that render the entire first page without scrolling, preventing additional loading
-        perPage.value * 2,
-        preferences.value.orderBy,
-        preferences.value.orderDirection,
-        cookbook.value,
-        category.value,
-        tag.value,
-        tool.value,
-
-        // filter out recipes that have a null value for the property we're sorting by
-        preferences.value.filterNull && preferences.value.orderBy ? `${preferences.value.orderBy} <> null` : null
-      );
-
-      // since we doubled the first call, we also need to advance the page
-      page.value = page.value + 1;
-
-      context.emit(REPLACE_RECIPES_EVENT, newRecipes);
-      ready.value = true;
     });
 
     const infiniteScroll = useThrottleFn(() => {
@@ -272,19 +249,7 @@ export default defineComponent({
         loading.value = true;
         page.value = page.value + 1;
 
-        const newRecipes = await fetchMore(
-          page.value,
-          perPage.value,
-          preferences.value.orderBy,
-          preferences.value.orderDirection,
-          cookbook.value,
-          category.value,
-          tag.value,
-          tool.value,
-
-          // filter out recipes that have a null value for the property we're sorting by
-          preferences.value.filterNull && preferences.value.orderBy ? `${preferences.value.orderBy} <> null` : null
-        );
+        const newRecipes = await fetchRecipes();
         if (!newRecipes.length) {
           hasMore.value = false;
         } else {
@@ -341,19 +306,7 @@ export default defineComponent({
         loading.value = true;
 
         // fetch new recipes
-        const newRecipes = await fetchMore(
-          page.value,
-          perPage.value,
-          preferences.value.orderBy,
-          preferences.value.orderDirection,
-          cookbook.value,
-          category.value,
-          tag.value,
-          tool.value,
-
-          // filter out recipes that have a null value for the property we're sorting by
-          preferences.value.filterNull && preferences.value.orderBy ? `${preferences.value.orderBy} <> null` : null
-        );
+        const newRecipes = await fetchRecipes();
         context.emit(REPLACE_RECIPES_EVENT, newRecipes);
 
         state.sortLoading = false;

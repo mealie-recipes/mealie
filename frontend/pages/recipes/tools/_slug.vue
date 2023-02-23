@@ -5,7 +5,7 @@
       :icon="$globals.icons.potSteam"
       :title="tool.name"
       :recipes="recipes"
-      :tool-slug="tool.slug"
+      :query="{ tools: [tool.slug] }"
       @sortRecipes="assignSorted"
       @replaceRecipes="replaceRecipes"
       @appendRecipes="appendRecipes"
