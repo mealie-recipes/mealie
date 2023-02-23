@@ -319,8 +319,11 @@ export default defineComponent({
 
     const listItems = computed(() => {
       return {
-        checked: shoppingList.value?.listItems?.filter((item) => item.checked) ?? [],
         unchecked: shoppingList.value?.listItems?.filter((item) => !item.checked) ?? [],
+        checked: shoppingList.value?.listItems
+          ?.filter((item) => item.checked)
+          .sort((a, b) => (a.updateAt < b.updateAt ? 1 : -1))
+          ?? [],
       };
     });
 
