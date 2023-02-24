@@ -301,7 +301,7 @@ export default defineComponent({
     }
 
     const statsTo: { [key: string]: string } = {
-      totalRecipes: "/recipes/all",
+      totalRecipes: "/",
       totalUsers: "/group/members",
       totalCategories: "/recipes/categories",
       totalTags: "/recipes/tags",

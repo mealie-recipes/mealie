@@ -170,11 +170,6 @@ export default defineComponent({
         restricted: true,
       },
       {
-        icon: $globals.icons.viewModule,
-        to: "/recipes/all",
-        title: i18n.t("sidebar.all-recipes"),
-      },
-      {
         icon: $globals.icons.tags,
         to: "/recipes/categories",
         title: i18n.t("sidebar.categories"),
