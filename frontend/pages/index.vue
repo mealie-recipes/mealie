@@ -98,15 +98,6 @@
             </template>
             <v-card>
               <v-card-text>
-                <v-text-field
-                  v-model="state.maxResults"
-                  class="mt-0 pt-0"
-                  :label="$tc('search.max-results')"
-                  type="number"
-                  outlined
-                  dense
-                  hide-details
-                />
                 <v-switch v-model="state.auto" label="Auto Search" single-line></v-switch>
                 <v-btn block color="primary" @click="reset">
                   {{ $tc("general.reset") }}
@@ -166,7 +157,6 @@ export default defineComponent({
       search: "",
       orderBy: "created_at",
       orderDirection: "desc" as "asc" | "desc",
-      maxResults: 21,
 
       // and/or
       requireAllCategories: false,
@@ -191,7 +181,6 @@ export default defineComponent({
 
     function reset() {
       state.value.search = "";
-      state.value.maxResults = 21;
       state.value.orderBy = "created_at";
       state.value.orderDirection = "desc";
       state.value.requireAllCategories = false;
@@ -231,7 +220,6 @@ export default defineComponent({
           ...{
             auto: state.value.auto ? undefined : "false",
             search: state.value.search === "" ? undefined : state.value.search,
-            maxResults: state.value.maxResults === 21 ? undefined : state.value.maxResults.toString(),
             orderBy: state.value.orderBy === "createdAt" ? undefined : state.value.orderBy,
             orderDirection: state.value.orderDirection === "desc" ? undefined : state.value.orderDirection,
             requireAllCategories: state.value.requireAllCategories ? "true" : undefined,
@@ -335,10 +323,6 @@ export default defineComponent({
         state.value.search = query.search as string;
       }
 
-      if (query.maxResults) {
-        state.value.maxResults = parseInt(query.maxResults as string);
-      }
-
       if (query.orderBy) {
         state.value.orderBy = query.orderBy as string;
       }
@@ -419,7 +403,6 @@ export default defineComponent({
         () => state.value.requireAllFoods,
         () => state.value.orderBy,
         () => state.value.orderDirection,
-        () => state.value.maxResults,
         selectedCategories,
         selectedFoods,
         selectedTags,
