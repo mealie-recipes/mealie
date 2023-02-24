@@ -446,21 +446,3 @@ export interface UnitFoodBase {
 export interface UpdateImageResponse {
   image: string;
 }
-
-export interface RecipeQuery {
-  search?: string;
-  cookbook?: string;
-  tags?: string[];
-  requireAllTags?: boolean;
-  categories?: string[]
-  requireAllCategories?: boolean;
-
-  tools?: string[]
-  requireAllTools?: boolean;
-
-  foods?: string[]
-  requireAllFoods?: boolean;
-  orderBy?: string;
-  orderDirection? : "asc" | "desc";
-
-}
