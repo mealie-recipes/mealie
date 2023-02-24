@@ -129,14 +129,16 @@ import {
   useAsync,
   useContext,
   useRouter,
+  watch,
 } from "@nuxtjs/composition-api";
 import { useThrottleFn } from "@vueuse/core";
 import RecipeCard from "./RecipeCard.vue";
 import RecipeCardMobile from "./RecipeCardMobile.vue";
 import { useAsyncKey } from "~/composables/use-utils";
 import { useLazyRecipes } from "~/composables/recipes";
-import { Recipe, RecipeQuery } from "~/lib/api/types/recipe";
+import { Recipe } from "~/lib/api/types/recipe";
 import { useUserSortPreferences } from "~/composables/use-users/preferences";
+import {RecipeSearchQuery} from "~/lib/api/user/recipes/recipe";
 
 const REPLACE_RECIPES_EVENT = "replaceRecipes";
 const APPEND_RECIPES_EVENT = "appendRecipes";
@@ -168,7 +170,7 @@ export default defineComponent({
       default: () => [],
     },
     query: {
-      type: Object as () => RecipeQuery,
+      type: Object as () => RecipeSearchQuery,
       default: null,
     }
   },
@@ -215,16 +217,21 @@ export default defineComponent({
 
     const { fetchMore } = useLazyRecipes();
 
+    const queryFilter = computed(() =>{
+      const orderBy = props.query?.orderBy || preferences.value.orderBy;
+      return preferences.value.filterNull && orderBy ? `${orderBy} <> null` : null
+    });
+
     async function fetchRecipes(pageCount = 1) {
       return await fetchMore(
           page.value,
           // we double-up the first call to avoid a bug with large screens that render the entire first page without scrolling, preventing additional loading
           perPage * pageCount,
-          preferences.value.orderBy,
-          preferences.value.orderDirection,
+          props.query?.orderBy || preferences.value.orderBy,
+          props.query?.orderDirection || preferences.value.orderDirection,
           props.query,
           // filter out recipes that have a null value for the property we're sorting by
-          preferences.value.filterNull && preferences.value.orderBy ? `${preferences.value.orderBy} <> null` : null
+          queryFilter.value
         );
     }
 
@@ -239,6 +246,19 @@ export default defineComponent({
         ready.value = true;
       }
     });
+
+    watch(() => props.query, async (newValue: RecipeSearchQuery | undefined) => {
+      if (newValue) {
+        page.value = 1
+        const newRecipes = await fetchRecipes(2)
+
+        // since we doubled the first call, we also need to advance the page
+        page.value = page.value + 1;
+
+        context.emit(REPLACE_RECIPES_EVENT, newRecipes);
+        ready.value = true;
+      }
+    })
 
     const infiniteScroll = useThrottleFn(() => {
       useAsync(async () => {
