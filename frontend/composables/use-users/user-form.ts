@@ -1,7 +1,7 @@
 import { fieldTypes } from "../forms";
 import { AutoFormItems } from "~/types/auto-forms";
 
-export const useUserForm = (updateMode = false) => {
+export const useUserForm = () => {
   const userForm: AutoFormItems = [
     {
       section: "User Details",
@@ -34,6 +34,7 @@ export const useUserForm = (updateMode = false) => {
       varName: "authMethod",
       type: fieldTypes.SELECT,
       hint: "This specifies how a user will authenticate with Mealie. If you're not sure, choose 'Mealie'",
+      disableCreate: true,
       options: [{ text: "Mealie" }, { text: "LDAP" }],
     },
     {
@@ -69,10 +70,7 @@ export const useUserForm = (updateMode = false) => {
     },
   ];
 
-  // fields that are hidden on creation, but shown on update
-  const hiddenOnCreate = ["authMethod"];
-
   return {
-    userForm: userForm.filter((field) => updateMode || !hiddenOnCreate.includes(field.varName)),
+    userForm,
   };
 };
