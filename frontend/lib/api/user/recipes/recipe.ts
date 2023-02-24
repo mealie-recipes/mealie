@@ -52,9 +52,9 @@ const routes = {
   recipesSlugTimelineEventId: (slug: string, id: string) => `${prefix}/recipes/${slug}/timeline/events/${id}`,
 };
 
-export type RecipeSearchQuery ={
+export type RecipeSearchQuery = {
   search: string;
-  orderDirection? : "asc" | "desc";
+  orderDirection?: "asc" | "desc";
   groupId?: string;
 
   queryFilter?: string;
@@ -73,11 +73,10 @@ export type RecipeSearchQuery ={
   foods?: string[];
   requireAllFoods?: boolean;
 
-  page: number;
-  perPage: number;
+  page?: number;
+  perPage?: number;
   orderBy?: string;
-}
-
+};
 
 export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
   baseRoute: string = routes.recipesBase;
@@ -93,7 +92,7 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
     this.share = new RecipeShareApi(requests);
   }
 
-  async search(rsq : RecipeSearchQuery) {
+  async search(rsq: RecipeSearchQuery) {
     return await this.requests.get<PaginationData<Recipe>>(route(routes.recipesBase, rsq));
   }
 
@@ -169,7 +168,10 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
   }
 
   async updateTimelineEvent(recipeSlug: string, eventId: string, payload: RecipeTimelineEventUpdate) {
-    return await this.requests.put<RecipeTimelineEventOut, RecipeTimelineEventUpdate>(routes.recipesSlugTimelineEventId(recipeSlug, eventId), payload);
+    return await this.requests.put<RecipeTimelineEventOut, RecipeTimelineEventUpdate>(
+      routes.recipesSlugTimelineEventId(recipeSlug, eventId),
+      payload
+    );
   }
 
   async deleteTimelineEvent(recipeSlug: string, eventId: string) {
@@ -177,8 +179,11 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
   }
 
   async getAllTimelineEvents(recipeSlug: string, page = 1, perPage = -1, params = {} as any) {
-    return await this.requests.get<PaginationData<RecipeTimelineEventOut>>(routes.recipesSlugTimelineEvent(recipeSlug), {
-      params: { page, perPage, ...params },
-    });
+    return await this.requests.get<PaginationData<RecipeTimelineEventOut>>(
+      routes.recipesSlugTimelineEvent(recipeSlug),
+      {
+        params: { page, perPage, ...params },
+      }
+    );
   }
 }

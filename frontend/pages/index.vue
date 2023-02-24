@@ -208,7 +208,6 @@ export default defineComponent({
     }
 
     async function search() {
-      state.value.loading = true;
       await router.push({
         query: {
           categories: toIDArray(selectedCategories.value),
