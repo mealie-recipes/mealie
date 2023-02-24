@@ -53,7 +53,7 @@
             <v-icon left>
               {{ $globals.icons.chefHat }}
             </v-icon>
-            <v-list-item-title>{{ $t('general.last-made') }}</v-list-item-title>
+            <v-list-item-title>{{ $t("general.last-made") }}</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -138,7 +138,7 @@ import { useAsyncKey } from "~/composables/use-utils";
 import { useLazyRecipes } from "~/composables/recipes";
 import { Recipe } from "~/lib/api/types/recipe";
 import { useUserSortPreferences } from "~/composables/use-users/preferences";
-import {RecipeSearchQuery} from "~/lib/api/user/recipes/recipe";
+import { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
 
 const REPLACE_RECIPES_EVENT = "replaceRecipes";
 const APPEND_RECIPES_EVENT = "appendRecipes";
@@ -172,7 +172,7 @@ export default defineComponent({
     query: {
       type: Object as () => RecipeSearchQuery,
       default: null,
-    }
+    },
   },
   setup(props, context) {
     const preferences = useUserSortPreferences();
@@ -217,27 +217,27 @@ export default defineComponent({
 
     const { fetchMore } = useLazyRecipes();
 
-    const queryFilter = computed(() =>{
+    const queryFilter = computed(() => {
       const orderBy = props.query?.orderBy || preferences.value.orderBy;
-      return preferences.value.filterNull && orderBy ? `${orderBy} <> null` : null
+      return preferences.value.filterNull && orderBy ? `${orderBy} <> null` : null;
     });
 
     async function fetchRecipes(pageCount = 1) {
       return await fetchMore(
-          page.value,
-          // we double-up the first call to avoid a bug with large screens that render the entire first page without scrolling, preventing additional loading
-          perPage * pageCount,
-          props.query?.orderBy || preferences.value.orderBy,
-          props.query?.orderDirection || preferences.value.orderDirection,
-          props.query,
-          // filter out recipes that have a null value for the property we're sorting by
-          queryFilter.value
-        );
+        page.value,
+        // we double-up the first call to avoid a bug with large screens that render the entire first page without scrolling, preventing additional loading
+        perPage * pageCount,
+        props.query?.orderBy || preferences.value.orderBy,
+        props.query?.orderDirection || preferences.value.orderDirection,
+        props.query,
+        // filter out recipes that have a null value for the property we're sorting by
+        queryFilter.value
+      );
     }
 
     onMounted(async () => {
       if (props.query) {
-        const newRecipes = await fetchRecipes(2)
+        const newRecipes = await fetchRecipes(2);
 
         // since we doubled the first call, we also need to advance the page
         page.value = page.value + 1;
@@ -247,18 +247,21 @@ export default defineComponent({
       }
     });
 
-    watch(() => props.query, async (newValue: RecipeSearchQuery | undefined) => {
-      if (newValue) {
-        page.value = 1
-        const newRecipes = await fetchRecipes(2)
+    watch(
+      () => props.query,
+      async (newValue: RecipeSearchQuery | undefined) => {
+        if (newValue) {
+          page.value = 1;
+          const newRecipes = await fetchRecipes(2);
 
-        // since we doubled the first call, we also need to advance the page
-        page.value = page.value + 1;
+          // since we doubled the first call, we also need to advance the page
+          page.value = page.value + 1;
 
-        context.emit(REPLACE_RECIPES_EVENT, newRecipes);
-        ready.value = true;
+          context.emit(REPLACE_RECIPES_EVENT, newRecipes);
+          ready.value = true;
+        }
       }
-    })
+    );
 
     const infiniteScroll = useThrottleFn(() => {
       useAsync(async () => {
@@ -285,7 +288,13 @@ export default defineComponent({
         return;
       }
 
-      function setter(orderBy: string, ascIcon: string, descIcon: string, defaultOrderDirection = "asc", filterNull = false) {
+      function setter(
+        orderBy: string,
+        ascIcon: string,
+        descIcon: string,
+        defaultOrderDirection = "asc",
+        filterNull = false
+      ) {
         if (preferences.value.orderBy !== orderBy) {
           preferences.value.orderBy = orderBy;
           preferences.value.orderDirection = defaultOrderDirection;
@@ -298,19 +307,37 @@ export default defineComponent({
 
       switch (sortType) {
         case EVENTS.az:
-          setter("name", $globals.icons.sortAlphabeticalAscending, $globals.icons.sortAlphabeticalDescending, "asc", false);
+          setter(
+            "name",
+            $globals.icons.sortAlphabeticalAscending,
+            $globals.icons.sortAlphabeticalDescending,
+            "asc",
+            false
+          );
           break;
         case EVENTS.rating:
           setter("rating", $globals.icons.sortAscending, $globals.icons.sortDescending, "desc", true);
           break;
         case EVENTS.created:
-          setter("created_at", $globals.icons.sortCalendarAscending, $globals.icons.sortCalendarDescending, "desc", false);
+          setter(
+            "created_at",
+            $globals.icons.sortCalendarAscending,
+            $globals.icons.sortCalendarDescending,
+            "desc",
+            false
+          );
           break;
         case EVENTS.updated:
           setter("update_at", $globals.icons.sortClockAscending, $globals.icons.sortClockDescending, "desc", false);
           break;
         case EVENTS.lastMade:
-          setter("last_made", $globals.icons.sortCalendarAscending, $globals.icons.sortCalendarDescending, "desc", true);
+          setter(
+            "last_made",
+            $globals.icons.sortCalendarAscending,
+            $globals.icons.sortCalendarDescending,
+            "desc",
+            true
+          );
           break;
         default:
           console.log("Unknown Event", sortType);

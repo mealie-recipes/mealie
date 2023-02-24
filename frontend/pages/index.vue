@@ -138,7 +138,6 @@
         @appendRecipes="appendRecipes"
         @delete="removeRecipe"
       ></RecipeCardSection>
-
     </v-container>
   </v-container>
 </template>
@@ -151,8 +150,8 @@ import { useCategoryStore, useFoodStore, useTagStore, useToolStore } from "~/com
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
 import { IngredientFood, RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
-import {useLazyRecipes} from "~/composables/recipes";
-import {RecipeSearchQuery} from "~/lib/api/user/recipes/recipe";
+import { useLazyRecipes } from "~/composables/recipes";
+import { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
 
 export default defineComponent({
   components: { SearchFilter, RecipeCardSection },
@@ -188,7 +187,7 @@ export default defineComponent({
     const tools = useToolStore();
     const selectedTools = ref<NoUndefinedField<RecipeTool>[]>([]);
 
-    const passedQuery = ref<RecipeSearchQuery | null>(null)
+    const passedQuery = ref<RecipeSearchQuery | null>(null);
 
     function reset() {
       state.value.search = "";
@@ -254,8 +253,8 @@ export default defineComponent({
         requireAllTools: state.value.requireAllTools,
         requireAllFoods: state.value.requireAllFoods,
         orderBy: state.value.orderBy,
-        orderDirection: state.value.orderDirection
-      }
+        orderDirection: state.value.orderDirection,
+      };
     }
 
     function waitUntilAndExecute(
@@ -458,7 +457,7 @@ export default defineComponent({
       recipes,
       removeRecipe,
       replaceRecipes,
-      passedQuery
+      passedQuery,
     };
   },
 });
