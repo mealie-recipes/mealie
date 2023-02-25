@@ -2963,35 +2963,35 @@
     regenerator-runtime "^0.13.9"
     systemjs "^6.12.1"
 
-"@vitest/expect@0.28.1":
-  version "0.28.1"
-  resolved "https://registry.yarnpkg.com/@vitest/expect/-/expect-0.28.1.tgz#75e81973c907fe7516b78bcfdc99c6f6c07bf714"
-  integrity sha512-BOvWjBoocKrrTTTC0opIvzOEa7WR/Ovx4++QYlbjYKjnQJfWRSEQkTpAIEfOURtZ/ICcaLk5jvsRshXvjarZew==
+"@vitest/expect@0.29.1":
+  version "0.29.1"
+  resolved "https://registry.yarnpkg.com/@vitest/expect/-/expect-0.29.1.tgz#befba6278167fc3d4d47a87557eaf41f3b06a7cf"
+  integrity sha512-VFt1u34D+/L4pqjLA8VGPdHbdF8dgjX9Nq573L9KG6/7MIAL9jmbEIKpXudmxjoTwcyczOXRyDuUWBQHZafjoA==
   dependencies:
-    "@vitest/spy" "0.28.1"
-    "@vitest/utils" "0.28.1"
+    "@vitest/spy" "0.29.1"
+    "@vitest/utils" "0.29.1"
     chai "^4.3.7"
 
-"@vitest/runner@0.28.1":
-  version "0.28.1"
-  resolved "https://registry.yarnpkg.com/@vitest/runner/-/runner-0.28.1.tgz#f3c72befec05ef9a3565de7de9974b19f2ff7275"
-  integrity sha512-kOdmgiNe+mAxZhvj2eUTqKnjfvzzknmrcS+SZXV7j6VgJuWPFAMCv3TWOe03nF9dkqDfVLCDRw/hwFuCzmzlQg==
+"@vitest/runner@0.29.1":
+  version "0.29.1"
+  resolved "https://registry.yarnpkg.com/@vitest/runner/-/runner-0.29.1.tgz#798184b710e6b4ebd81f7ae8efeab64ad1bc627a"
+  integrity sha512-VZ6D+kWpd/LVJjvxkt79OA29FUpyrI5L/EEwoBxH5m9KmKgs1QWNgobo/CGQtIWdifLQLvZdzYEK7Qj96w/ixQ==
   dependencies:
-    "@vitest/utils" "0.28.1"
+    "@vitest/utils" "0.29.1"
     p-limit "^4.0.0"
     pathe "^1.1.0"
 
-"@vitest/spy@0.28.1":
-  version "0.28.1"
-  resolved "https://registry.yarnpkg.com/@vitest/spy/-/spy-0.28.1.tgz#9efdce05273161cd9036f3f520d0e836602b926d"
-  integrity sha512-XGlD78cG3IxXNnGwEF121l0MfTNlHSdI25gS2ik0z6f/D9wWUOru849QkJbuNl4CMlZCtNkx3b5IS6MRwKGKuA==
+"@vitest/spy@0.29.1":
+  version "0.29.1"
+  resolved "https://registry.yarnpkg.com/@vitest/spy/-/spy-0.29.1.tgz#e84f4d96a268e555e8140aeddcda65d6fd4e1d7b"
+  integrity sha512-sRXXK44pPzaizpiZOIQP7YMhxIs80J/b6v1yR3SItpxG952c8tdA7n0O2j4OsVkjiO/ZDrjAYFrXL3gq6hLx6Q==
   dependencies:
     tinyspy "^1.0.2"
 
-"@vitest/utils@0.28.1":
-  version "0.28.1"
-  resolved "https://registry.yarnpkg.com/@vitest/utils/-/utils-0.28.1.tgz#01c347803dff8c02d7b097210f3749987e5b2ce6"
-  integrity sha512-a7cV1fs5MeU+W+8sn8gM9gV+q7V/wYz3/4y016w/icyJEKm9AMdSHnrzxTWaElJ07X40pwU6m5353Jlw6Rbd8w==
+"@vitest/utils@0.29.1":
+  version "0.29.1"
+  resolved "https://registry.yarnpkg.com/@vitest/utils/-/utils-0.29.1.tgz#b5de0f836becd18539a8bf9a68c1b06eee23307c"
+  integrity sha512-6npOEpmyE6zPS2wsWb7yX5oDpp6WY++cC5BX6/qaaMhGC3ZlPd8BbTz3RtGPi1PfPerPvfs4KqS/JDOIaB6J3w==
   dependencies:
     cli-truncate "^3.1.0"
     diff "^5.1.0"
@@ -11286,7 +11286,7 @@ source-map-resolve@^0.5.0:
     source-map-url "^0.4.0"
     urix "^0.1.0"
 
-source-map-support@^0.5.21, source-map-support@~0.5.12, source-map-support@~0.5.20:
+source-map-support@~0.5.12, source-map-support@~0.5.20:
   version "0.5.21"
   resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.5.21.tgz#04fe7c7f9e1ed2d662233c28cb2b35b9f63f6e4f"
   integrity sha512-uBHU3L3czsIyYXKX88fdrGovxdSCoTGDRZ6SYXtSRxLZUzHg5P/66Ht6uoUlHu9EZod+inXhKo3qQgwXUT/y1w==
@@ -11819,10 +11819,10 @@ tinybench@^2.3.1:
   resolved "https://registry.yarnpkg.com/tinybench/-/tinybench-2.3.1.tgz#14f64e6b77d7ef0b1f6ab850c7a808c6760b414d"
   integrity sha512-hGYWYBMPr7p4g5IarQE7XhlyWveh1EKhy4wUBS1LrHXCKYgvz+4/jCqgmJqZxxldesn05vccrtME2RLLZNW7iA==
 
-tinypool@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/tinypool/-/tinypool-0.3.0.tgz#c405d8b743509fc28ea4ca358433190be654f819"
-  integrity sha512-NX5KeqHOBZU6Bc0xj9Vr5Szbb1j8tUHIeD18s41aDJaPeC5QTdEhK0SpdpUrZlj2nv5cctNcSjaKNanXlfcVEQ==
+tinypool@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/tinypool/-/tinypool-0.3.1.tgz#a99c2e446aba9be05d3e1cb756d6aed7af4723b6"
+  integrity sha512-zLA1ZXlstbU2rlpA4CIeVaqvWq41MTWqLY3FfsAXgC8+f7Pk7zroaJQxDgxn1xNudKW6Kmj4808rPFShUlIRmQ==
 
 tinyspy@^1.0.2:
   version "1.0.2"
@@ -12301,18 +12301,16 @@ vary@^1.1.2, vary@~1.1.2:
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
-vite-node@0.28.1:
-  version "0.28.1"
-  resolved "https://registry.yarnpkg.com/vite-node/-/vite-node-0.28.1.tgz#e2af53e112e57455a474e9f7a6478b1cdf79a6ab"
-  integrity sha512-Mmab+cIeElkVn4noScCRjy8nnQdh5LDIR4QCH/pVWtY15zv5Z1J7u6/471B9JZ2r8CEIs42vTbngaamOVkhPLA==
+vite-node@0.29.1:
+  version "0.29.1"
+  resolved "https://registry.yarnpkg.com/vite-node/-/vite-node-0.29.1.tgz#cc1e5fea46ff52645e0cf03d4ee03bf706d60308"
+  integrity sha512-Ey9bTlQOQrCxQN0oJ7sTg+GrU4nTMLg44iKTFCKf31ry60csqQz4E+Q04hdWhwE4cTgpxUC+zEB1kHbf5jNkFA==
   dependencies:
     cac "^6.7.14"
     debug "^4.3.4"
     mlly "^1.1.0"
     pathe "^1.1.0"
     picocolors "^1.0.0"
-    source-map "^0.6.1"
-    source-map-support "^0.5.21"
     vite "^3.0.0 || ^4.0.0"
 
 vite-plugin-vue2@^1.8.2:
@@ -12365,18 +12363,18 @@ vite@^2.5.1:
   optionalDependencies:
     fsevents "~2.3.2"
 
-vitest@^0.28.0:
-  version "0.28.1"
-  resolved "https://registry.yarnpkg.com/vitest/-/vitest-0.28.1.tgz#a87656075e01436c887048efd83a5d32792ce890"
-  integrity sha512-F6wAO3K5+UqJCCGt0YAl3Ila2f+fpBrJhl9n7qWEhREwfzQeXlMkkCqGqGtzBxCSa8kv5QHrkshX8AaPTXYACQ==
+vitest@^0.29.0:
+  version "0.29.1"
+  resolved "https://registry.yarnpkg.com/vitest/-/vitest-0.29.1.tgz#1a5aa3494a8ff96556d7601a39d57f7c890022c4"
+  integrity sha512-iSy6d9VwsIn7pz5I8SjVwdTLDRGKNZCRJVzROwjt0O0cffoymKwazIZ2epyMpRGpeL5tsXAl1cjXiT7agTyVug==
   dependencies:
     "@types/chai" "^4.3.4"
     "@types/chai-subset" "^1.3.3"
     "@types/node" "*"
-    "@vitest/expect" "0.28.1"
-    "@vitest/runner" "0.28.1"
-    "@vitest/spy" "0.28.1"
-    "@vitest/utils" "0.28.1"
+    "@vitest/expect" "0.29.1"
+    "@vitest/runner" "0.29.1"
+    "@vitest/spy" "0.29.1"
+    "@vitest/utils" "0.29.1"
     acorn "^8.8.1"
     acorn-walk "^8.2.0"
     cac "^6.7.14"
@@ -12389,10 +12387,10 @@ vitest@^0.28.0:
     std-env "^3.3.1"
     strip-literal "^1.0.0"
     tinybench "^2.3.1"
-    tinypool "^0.3.0"
+    tinypool "^0.3.1"
     tinyspy "^1.0.2"
     vite "^3.0.0 || ^4.0.0"
-    vite-node "0.28.1"
+    vite-node "0.29.1"
     why-is-node-running "^2.2.2"
 
 vm-browserify@^1.0.1:

@@ -51,7 +51,7 @@
     "lint-staged": "^13.1.0",
     "nuxt-vite": "0.2.3",
     "prettier": "^2.8.1",
-    "vitest": "^0.28.0"
+    "vitest": "^0.29.0"
   },
   "resolutions": {
     "vue-template-compiler": "2.7.14",
