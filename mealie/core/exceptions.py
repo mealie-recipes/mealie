@@ -1,8 +1,3 @@
-from sqlite3 import IntegrityError
-
-from mealie.lang.providers import Translator
-
-
 class UnexpectedNone(Exception):
     """Exception raised when a value is None when it should not be."""
 
@@ -28,15 +23,3 @@ class NoEntryFound(Exception):
     """
 
     pass
-
-
-def mealie_registered_exceptions(t: Translator) -> dict:
-    """
-    This function returns a dictionary of all the globally registered exceptions in the Mealie application.
-    """
-
-    return {
-        PermissionDenied: t.t("exceptions.permission-denied"),
-        NoEntryFound: t.t("exceptions.no-entry-found"),
-        IntegrityError: t.t("exceptions.integrity-error"),
-    }

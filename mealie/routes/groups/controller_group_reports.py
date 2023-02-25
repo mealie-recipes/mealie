@@ -3,7 +3,6 @@ from functools import cached_property
 from fastapi import APIRouter, HTTPException
 from pydantic import UUID4
 
-from mealie.core.exceptions import mealie_registered_exceptions
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
@@ -19,18 +18,9 @@ class GroupReportsController(BaseUserController):
     def repo(self):
         return self.repos.group_reports.by_group(self.user.group_id)
 
-    def registered_exceptions(self, ex: type[Exception]) -> str:
-        return {
-            **mealie_registered_exceptions(self.translator),
-        }.get(ex, self.t("generic.server-error"))
-
     @cached_property
     def mixins(self):
-        return HttpRepo[ReportCreate, ReportOut, ReportCreate](
-            self.repo,
-            self.logger,
-            self.registered_exceptions,
-        )
+        return HttpRepo[ReportCreate, ReportOut, ReportCreate](self.repo, self.logger)
 
     @router.get("", response_model=list[ReportSummary])
     def get_all(self, report_type: ReportCategory | None = None):

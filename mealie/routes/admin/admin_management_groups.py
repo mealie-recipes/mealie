@@ -33,7 +33,6 @@ class AdminUserManagementRoutes(BaseAdminController):
         return HttpRepo[GroupBase, GroupInDB, GroupAdminUpdate](
             self.repo,
             self.logger,
-            self.registered_exceptions,
         )
 
     @router.get("", response_model=GroupPagination)

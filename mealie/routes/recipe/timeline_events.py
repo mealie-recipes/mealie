@@ -30,9 +30,7 @@ class RecipeTimelineEventsController(BaseCrudController):
     @cached_property
     def mixins(self):
         return HttpRepo[RecipeTimelineEventCreate, RecipeTimelineEventOut, RecipeTimelineEventUpdate](
-            self.repo,
-            self.logger,
-            self.registered_exceptions,
+            self.repo, self.logger
         )
 
     def get_recipe_from_slug(self, slug: str) -> Recipe:

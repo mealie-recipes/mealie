@@ -3,7 +3,6 @@ from shutil import copyfileobj
 from zipfile import ZipFile
 
 import orjson
-import sqlalchemy
 from fastapi import BackgroundTasks, Depends, File, Form, HTTPException, Query, Request, status
 from fastapi.datastructures import UploadFile
 from fastapi.responses import JSONResponse
@@ -11,7 +10,6 @@ from pydantic import UUID4, BaseModel, Field
 from slugify import slugify
 from starlette.responses import FileResponse
 
-from mealie.core import exceptions
 from mealie.core.dependencies import temporary_zip_path
 from mealie.core.dependencies.dependencies import temporary_dir, validate_recipe_token
 from mealie.core.security import create_recipe_slug_token
@@ -145,25 +143,6 @@ router = UserAPIRouter(prefix="/recipes", tags=["Recipe: CRUD"], route_class=Mea
 
 @controller(router)
 class RecipeController(BaseRecipeController):
-    def handle_exceptions(self, ex: Exception) -> None:
-        thrownType = type(ex)
-
-        if thrownType == exceptions.PermissionDenied:
-            self.logger.error("Permission Denied on recipe controller action")
-            raise HTTPException(status_code=403, detail=ErrorResponse.respond(message="Permission Denied"))
-        elif thrownType == exceptions.NoEntryFound:
-            self.logger.error("No Entry Found on recipe controller action")
-            raise HTTPException(status_code=404, detail=ErrorResponse.respond(message="No Entry Found"))
-        elif thrownType == sqlalchemy.exc.IntegrityError:
-            self.logger.error("SQL Integrity Error on recipe controller action")
-            raise HTTPException(status_code=400, detail=ErrorResponse.respond(message="Recipe already exists"))
-        else:
-            self.logger.error("Unknown Error on recipe controller action")
-            self.logger.exception(ex)
-            raise HTTPException(
-                status_code=500, detail=ErrorResponse.respond(message="Unknown Error", exception=ex.__class__.__name__)
-            )
-
     # =======================================================================
     # URL Scraping Operations
 
@@ -291,11 +270,7 @@ class RecipeController(BaseRecipeController):
     @router.post("", status_code=201, response_model=str)
     def create_one(self, data: CreateRecipe) -> str | None:
         """Takes in a JSON string and loads data into the database as a new entry"""
-        try:
-            new_recipe = self.service.create_one(data)
-        except Exception as e:
-            self.handle_exceptions(e)
-            return None
+        new_recipe = self.service.create_one(data)
 
         if new_recipe:
             self.publish_event(
@@ -313,10 +288,7 @@ class RecipeController(BaseRecipeController):
     @router.post("/{slug}/duplicate", status_code=201, response_model=Recipe)
     def duplicate_one(self, slug: str, req: RecipeDuplicate) -> Recipe:
         """Duplicates a recipe with a new custom name if given"""
-        try:
-            new_recipe = self.service.duplicate_one(slug, req)
-        except Exception as e:
-            self.handle_exceptions(e)
+        new_recipe = self.service.duplicate_one(slug, req)
 
         if new_recipe:
             self.publish_event(
@@ -333,10 +305,7 @@ class RecipeController(BaseRecipeController):
     @router.put("/{slug}")
     def update_one(self, slug: str, data: Recipe):
         """Updates a recipe by existing slug and data."""
-        try:
-            recipe = self.service.update_one(slug, data)
-        except Exception as e:
-            self.handle_exceptions(e)
+        recipe = self.service.update_one(slug, data)
 
         if recipe:
             self.publish_event(
@@ -354,10 +323,7 @@ class RecipeController(BaseRecipeController):
     @router.patch("/{slug}")
     def patch_one(self, slug: str, data: Recipe):
         """Updates a recipe by existing slug and data."""
-        try:
-            recipe = self.service.patch_one(slug, data)
-        except Exception as e:
-            self.handle_exceptions(e)
+        recipe = self.service.patch_one(slug, data)
 
         if recipe:
             self.publish_event(
@@ -375,11 +341,7 @@ class RecipeController(BaseRecipeController):
     @router.patch("/{slug}/last-made")
     def update_last_made(self, slug: str, data: RecipeLastMade):
         """Update a recipe's last made timestamp"""
-
-        try:
-            recipe = self.service.update_last_made(slug, data.timestamp)
-        except Exception as e:
-            self.handle_exceptions(e)
+        recipe = self.service.update_last_made(slug, data.timestamp)
 
         if recipe:
             self.publish_event(
@@ -397,10 +359,7 @@ class RecipeController(BaseRecipeController):
     @router.delete("/{slug}")
     def delete_one(self, slug: str):
         """Deletes a recipe by slug"""
-        try:
-            recipe = self.service.delete_one(slug)
-        except Exception as e:
-            self.handle_exceptions(e)
+        recipe = self.service.delete_one(slug)
 
         if recipe:
             self.publish_event(

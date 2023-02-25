@@ -34,33 +34,20 @@ class HttpRepo(Generic[C, R, U]):
         self,
         repo: RepositoryGeneric,
         logger: Logger,
-        exception_msgs: Callable[[type[Exception]], str] | None = None,
         default_message: str | None = None,
     ) -> None:
         self.repo = repo
         self.logger = logger
-        self.exception_msgs = exception_msgs
 
         if default_message:
             self.default_message = default_message
-
-    def get_exception_message(self, ext: Exception) -> str:
-        if self.exception_msgs:
-            return self.exception_msgs(type(ext))
-        return self.default_message
 
     def handle_exception(self, ex: Exception) -> None:
         # Cleanup
         self.logger.exception(ex)
         self.repo.session.rollback()
 
-        # Respond
-        msg = self.get_exception_message(ex)
-
-        raise HTTPException(
-            status.HTTP_400_BAD_REQUEST,
-            detail=ErrorResponse.respond(message=msg, exception=str(ex)),
-        )
+        raise ex
 
     def create_one(self, data: C) -> R | None:
         item: R | None = None

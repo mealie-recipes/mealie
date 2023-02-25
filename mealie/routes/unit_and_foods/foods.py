@@ -29,11 +29,7 @@ class IngredientFoodsController(BaseUserController):
 
     @cached_property
     def mixins(self):
-        return HttpRepo[SaveIngredientFood, IngredientFood, CreateIngredientFood](
-            self.repo,
-            self.logger,
-            self.registered_exceptions,
-        )
+        return HttpRepo[SaveIngredientFood, IngredientFood, CreateIngredientFood](self.repo, self.logger)
 
     @router.put("/merge", response_model=SuccessResponse)
     def merge_one(self, data: MergeFood):

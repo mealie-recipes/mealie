@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.routing import APIRoute
 
+from mealie import errors
 from mealie.core.config import get_app_settings
 from mealie.core.root_logger import get_logger
 from mealie.core.settings.static import APP_VERSION
@@ -76,6 +77,8 @@ def api_routers():
     app.include_router(router)
     app.include_router(media_router)
     app.include_router(utility_routes.router)
+
+    errors.mount_handlers(app, logger=get_logger())
 
 
 api_routers()

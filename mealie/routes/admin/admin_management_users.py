@@ -26,7 +26,7 @@ class AdminUserManagementRoutes(BaseAdminController):
 
     @property
     def mixins(self):
-        return HttpRepo[UserIn, UserOut, UserOut](self.repo, self.logger, self.registered_exceptions)
+        return HttpRepo[UserIn, UserOut, UserOut](self.repo, self.logger)
 
     @router.get("", response_model=UserPagination)
     def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):

@@ -3,7 +3,6 @@ from functools import cached_property
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import UUID4
 
-from mealie.core.exceptions import mealie_registered_exceptions
 from mealie.routes._base import BaseCrudController, controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import MealieCrudRoute
@@ -27,19 +26,9 @@ class GroupCookbookController(BaseCrudController):
     def repo(self):
         return self.repos.cookbooks.by_group(self.group_id)
 
-    def registered_exceptions(self, ex: type[Exception]) -> str:
-        registered = {
-            **mealie_registered_exceptions(self.translator),
-        }
-        return registered.get(ex, self.t("generic.server-error"))
-
     @cached_property
     def mixins(self):
-        return HttpRepo[CreateCookBook, ReadCookBook, UpdateCookBook](
-            self.repo,
-            self.logger,
-            self.registered_exceptions,
-        )
+        return HttpRepo[CreateCookBook, ReadCookBook, UpdateCookBook](self.repo, self.logger)
 
     @router.get("", response_model=CookBookPagination)
     def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):

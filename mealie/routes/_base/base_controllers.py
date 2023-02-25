@@ -7,7 +7,6 @@ from sqlalchemy.orm import Session
 
 from mealie.core.config import get_app_dirs, get_app_settings
 from mealie.core.dependencies.dependencies import get_admin_user, get_current_user, get_integration_id
-from mealie.core.exceptions import mealie_registered_exceptions
 from mealie.core.root_logger import get_logger
 from mealie.core.settings.directories import AppDirectories
 from mealie.core.settings.settings import AppSettings
@@ -85,12 +84,6 @@ class BaseUserController(_BaseController):
 
     # Manual Cache
     _checks: OperationChecks
-
-    def registered_exceptions(self, ex: type[Exception]) -> str:
-        registered = {
-            **mealie_registered_exceptions(self.translator),
-        }
-        return registered.get(ex, self.t("generic.server-error"))
 
     @property
     def group_id(self) -> UUID4:

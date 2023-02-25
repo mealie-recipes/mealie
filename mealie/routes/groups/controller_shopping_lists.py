@@ -165,7 +165,7 @@ class ShoppingListController(BaseCrudController):
 
     @cached_property
     def mixins(self) -> HttpRepo[ShoppingListCreate, ShoppingListOut, ShoppingListSave]:
-        return HttpRepo(self.repo, self.logger, self.registered_exceptions, self.t("generic.server-error"))
+        return HttpRepo(self.repo, self.logger, self.t("generic.server-error"))
 
     @router.get("", response_model=ShoppingListPagination)
     def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):

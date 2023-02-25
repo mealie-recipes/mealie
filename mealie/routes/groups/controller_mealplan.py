@@ -3,7 +3,6 @@ from functools import cached_property
 
 from fastapi import APIRouter, Depends, HTTPException
 
-from mealie.core.exceptions import mealie_registered_exceptions
 from mealie.repos.repository_meals import RepositoryMeals
 from mealie.routes._base import controller
 from mealie.routes._base.base_controllers import BaseCrudController
@@ -26,19 +25,9 @@ class GroupMealplanController(BaseCrudController):
     def repo(self) -> RepositoryMeals:
         return self.repos.meals.by_group(self.group_id)
 
-    def registered_exceptions(self, ex: type[Exception]) -> str:
-        registered = {
-            **mealie_registered_exceptions(self.translator),
-        }
-        return registered.get(ex, self.t("generic.server-error"))
-
     @cached_property
     def mixins(self):
-        return HttpRepo[CreatePlanEntry, ReadPlanEntry, UpdatePlanEntry](
-            self.repo,
-            self.logger,
-            self.registered_exceptions,
-        )
+        return HttpRepo[CreatePlanEntry, ReadPlanEntry, UpdatePlanEntry](self.repo, self.logger)
 
     @router.get("/today")
     def get_todays_meals(self):
