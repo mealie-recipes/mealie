@@ -100,5 +100,5 @@ class GroupEventsNotifierController(BaseUserController):
             document_data=EventDocumentDataBase(document_type=EventDocumentType.generic, operation=EventOperation.info),
         )
 
-        test_listener = AppriseEventListener(self.event_bus.session, self.group_id)
+        test_listener = AppriseEventListener(self.group_id)
         test_listener.publish_to_subscribers(test_event, [item.apprise_url])
