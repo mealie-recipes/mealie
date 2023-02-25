@@ -1,5 +1,6 @@
 import { BaseAPI } from "../base/base-clients";
 import { ServerTask } from "~/lib/api/types/server";
+import { PaginationData } from "~/lib/api/types/non-generated";
 
 const prefix = "/api";
 
@@ -13,6 +14,6 @@ export class AdminTaskAPI extends BaseAPI {
   }
 
   async getAll() {
-    return await this.requests.get<ServerTask[]>(routes.base);
+    return await this.requests.get<PaginationData<ServerTask>>(routes.base);
   }
 }
