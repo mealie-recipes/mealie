@@ -39,7 +39,6 @@
   "python.testing.unittestEnabled": false,
   "python.analysis.typeCheckingMode": "off",
   "python.linting.mypyEnabled": true,
-  "isort.path": ["${workspaceFolder}/.venv/bin/isort"],
   "search.mode": "reuseEditor",
   "python.testing.unittestArgs": ["-v", "-s", "./tests", "-p", "test_*.py"],
   "explorer.fileNesting.enabled": true,

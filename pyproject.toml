@@ -141,8 +141,6 @@ exclude = [
   "dist",
   "node_modules",
   "venv",
-  # TODO: Remove when match statement is supported by Ruff
-  "mealie/services/scraper/cleaner.py"
 ]
 
 # Assume Python 3.10.
