@@ -25,7 +25,7 @@
         content-class="text-caption"
       >
         <template #activator="{ on, attrs }">
-          <v-btn tile :large="large" icon v-bind="attrs" @click="$emit(btn.event)" v-on="on">
+          <v-btn tile :large="large" icon v-bind="attrs" @click="$emit(btn.event)" v-on="on" :disabled="btn.disabled">
             <v-icon> {{ btn.icon }} </v-icon>
           </v-btn>
         </template>
@@ -43,6 +43,7 @@ export interface ButtonOption {
   text: string;
   event: string;
   children?: ButtonOption[];
+  disabled?: boolean;
 }
 
 export default defineComponent({
