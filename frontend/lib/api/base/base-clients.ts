@@ -21,13 +21,14 @@ export abstract class BaseAPI {
 
 export abstract class BaseCRUDAPI<CreateType, ReadType, UpdateType = CreateType>
   extends BaseAPI
-  implements CrudAPIInterface {
+  implements CrudAPIInterface
+{
   abstract baseRoute: string;
   abstract itemRoute(itemId: string | number): string;
 
   async getAll(page = 1, perPage = -1, params = {} as any) {
     return await this.requests.get<PaginationData<ReadType>>(this.baseRoute, {
-      params: { page, perPage, ...params },
+      params: { page, perPage, orderBy: "position", orderDirection: "asc", ...params },
     });
   }
 
