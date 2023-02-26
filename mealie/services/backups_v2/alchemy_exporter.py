@@ -127,6 +127,29 @@ class AlchemyExporter(BaseService):
                 table = self.meta.tables[table_name]
                 connection.execute(table.delete())
                 connection.execute(insert(table), rows)
+            if self.engine.dialect.name == "postgresql":
+                # Restore postgres sequence numbers
+                connection.execute(
+                    text(
+                        """
+                SELECT SETVAL('api_extras_id_seq', (SELECT MAX(id) FROM api_extras));
+SELECT SETVAL('group_meal_plans_id_seq', (SELECT MAX(id) FROM group_meal_plans));
+SELECT SETVAL('ingredient_food_extras_id_seq', (SELECT MAX(id) FROM ingredient_food_extras));
+SELECT SETVAL('invite_tokens_id_seq', (SELECT MAX(id) FROM invite_tokens));
+SELECT SETVAL('long_live_tokens_id_seq', (SELECT MAX(id) FROM long_live_tokens));
+SELECT SETVAL('notes_id_seq', (SELECT MAX(id) FROM notes));
+SELECT SETVAL('password_reset_tokens_id_seq', (SELECT MAX(id) FROM password_reset_tokens));
+SELECT SETVAL('recipe_assets_id_seq', (SELECT MAX(id) FROM recipe_assets));
+SELECT SETVAL('recipe_ingredient_ref_link_id_seq', (SELECT MAX(id) FROM recipe_ingredient_ref_link));
+SELECT SETVAL('recipe_nutrition_id_seq', (SELECT MAX(id) FROM recipe_nutrition));
+SELECT SETVAL('recipe_settings_id_seq', (SELECT MAX(id) FROM recipe_settings));
+SELECT SETVAL('recipes_ingredients_id_seq', (SELECT MAX(id) FROM recipes_ingredients));
+SELECT SETVAL('server_tasks_id_seq', (SELECT MAX(id) FROM server_tasks));
+SELECT SETVAL('shopping_list_extras_id_seq', (SELECT MAX(id) FROM shopping_list_extras));
+SELECT SETVAL('shopping_list_item_extras_id_seq', (SELECT MAX(id) FROM shopping_list_item_extras));
+"""
+                    )
+                )
 
     def drop_all(self) -> None:
         """Drops all data from the database"""
