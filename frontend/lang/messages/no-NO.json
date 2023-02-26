@@ -603,11 +603,13 @@
     "copy-as-markdown": "Copy as Markdown",
     "delete-checked": "Delete Checked",
     "toggle-label-sort": "Toggle Label Sort",
+    "reorder-labels": "Reorder Labels",
     "uncheck-all-items": "Uncheck All Items",
     "check-all-items": "Check All Items",
     "linked-recipes-count": "No Linked Recipes|One Linked Recipe|{count} Linked Recipes",
     "items-checked-count": "No items checked|One item checked|{count} items checked",
-    "no-label": "No Label"
+    "no-label": "No Label",
+    "completed-on": "Completed on {date}"
   },
   "sidebar": {
     "all-recipes": "Oppskrifter",
@@ -666,6 +668,7 @@
     "admin": "Administrator",
     "are-you-sure-you-want-to-delete-the-link": "Er du sikker på at du vil slette <b>{link}<b/>?",
     "are-you-sure-you-want-to-delete-the-user": "Er du sikker på at du vil slette brukeren <b>{activeName} ID: {activeId}<b/>?",
+    "auth-method": "Auth Method",
     "confirm-link-deletion": "Bekreft sletting",
     "confirm-password": "Bekreft passord",
     "confirm-user-deletion": "Bekreft sletting av bruker",
