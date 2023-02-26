@@ -6,15 +6,16 @@
         "unique-name-error": "Opskriftsnavnet er allerede i brug"
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "No recipes match your rules"
+        "no-recipes-match-your-rules": "Ingen opskrifter matcher dine regler"
     },
     "user": {
-        "user-updated": "User updated",
-        "password-updated": "Password updated",
-        "invalid-current-password": "Invalid current password"
+        "user-updated": "Bruger opdateret",
+        "password-updated": "Adgangskoden blev opdateret",
+        "invalid-current-password": "Ugyldig nuværende adgangskode",
+        "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
     },
     "group": {
-        "report-deleted": "Report deleted."
+        "report-deleted": "Rapporten er slettet."
     },
     "exceptions": {
         "permission_denied": "Du har ikke tilladelse til at udføre denne handling",
