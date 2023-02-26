@@ -31,7 +31,7 @@ export const useCookbooks = function () {
     getAll() {
       loading.value = true;
       const units = useAsync(async () => {
-        const { data } = await api.cookbooks.getAll();
+        const { data } = await api.cookbooks.getAll(1, -1, { orderBy: "position", orderDirection: "asc" });
 
         if (data) {
           return data.items;
@@ -45,7 +45,7 @@ export const useCookbooks = function () {
     },
     async refreshAll() {
       loading.value = true;
-      const { data } = await api.cookbooks.getAll();
+      const { data } = await api.cookbooks.getAll(1, -1, { orderBy: "position", orderDirection: "asc" });
 
       if (data && data.items && cookbookStore) {
         cookbookStore.value = data.items;
