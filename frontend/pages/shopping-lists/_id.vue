@@ -32,7 +32,7 @@
         <div v-for="(value, key, idx) in itemsByLabel" :key="key" class="mb-6">
           <div @click="toggleShowChecked()">
             <span v-if="idx || key !== $tc('shopping-list.no-label')">
-              <v-icon>
+              <v-icon :color="value[0].label.color">
                 {{ $globals.icons.tags }}
               </v-icon>
             </span>
@@ -60,7 +60,7 @@
         <v-card height="fit-content" max-height="70vh" style="overflow-y: auto;">
           <draggable :value="shoppingList.labelSettings" handle=".handle" class="my-2" @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateLabelOrder">
             <div v-for="(labelSetting, index) in shoppingList.labelSettings" :key="labelSetting.id">
-              <MultiPurposeLabelSection v-model="shoppingList.labelSettings[index]" />
+              <MultiPurposeLabelSection v-model="shoppingList.labelSettings[index]" use-color />
             </div>
           </draggable>
         </v-card>
@@ -319,8 +319,11 @@ export default defineComponent({
 
     const listItems = computed(() => {
       return {
-        checked: shoppingList.value?.listItems?.filter((item) => item.checked) ?? [],
         unchecked: shoppingList.value?.listItems?.filter((item) => !item.checked) ?? [],
+        checked: shoppingList.value?.listItems
+          ?.filter((item) => item.checked)
+          .sort((a, b) => (a.updateAt < b.updateAt ? 1 : -1))
+          ?? [],
       };
     });
 
@@ -467,9 +470,7 @@ export default defineComponent({
 
     function updateItemsByLabel() {
       const items: { [prop: string]: ShoppingListItemOut[] } = {};
-
       const noLabelText = i18n.tc("shopping-list.no-label");
-
       const noLabel = [] as ShoppingListItemOut[];
 
       shoppingList.value?.listItems?.forEach((item) => {
@@ -515,7 +516,7 @@ export default defineComponent({
 
     watch(shoppingList, () => {
       updateItemsByLabel();
-    });
+    }, {deep: true});
 
     async function refreshLabels() {
       const { data } = await userApi.multiPurposeLabels.getAll();
@@ -579,19 +580,25 @@ export default defineComponent({
         return;
       }
 
-      loadingCounter.value += 1;
       if (item.checked && shoppingList.value.listItems) {
         const lst = shoppingList.value.listItems.filter((itm) => itm.id !== item.id);
         lst.push(item);
-        updateListItems();
+
+        // make sure the item is at the end of the list with the other checked items
+        item.position = shoppingList.value.listItems.length;
+
+        // set a temporary updatedAt timestamp so it appears at the top of the checked items in the UI
+        item.updateAt = new Date().toISOString();
+        item.updateAt = item.updateAt.substring(0, item.updateAt.length-1);
       }
 
+      loadingCounter.value += 1;
       const { data } = await userApi.shopping.items.updateOne(item.id, item);
       loadingCounter.value -= 1;
 
       if (data) {
         refresh();
-      }
+        }
     }
 
     async function deleteListItem(item: ShoppingListItemOut) {
@@ -694,7 +701,7 @@ export default defineComponent({
       }
 
       // Set Position
-      shoppingList.value.listItems = shoppingList.value.listItems.map((itm: ShoppingListItemOut, idx: number) => {
+      shoppingList.value.listItems = listItems.value.unchecked.concat(listItems.value.checked).map((itm: ShoppingListItemOut, idx: number) => {
         itm.position = idx;
         return itm;
       });
