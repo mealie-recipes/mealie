@@ -71,6 +71,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Override __init__.py
+        run: |
+          echo "__version__ = \"${{ inputs.tag }}\"" > ./mealie/__init__.py
+
       - name: Build Backend Image
         run: |
           docker build --push --no-cache \
@@ -103,6 +107,10 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Override __init__.py
+        run: |
+          echo "__version__ = \"${{ inputs.tag }}\"" > ./mealie/__init__.py
 
       - name: Build Omni-Image
         run: |
