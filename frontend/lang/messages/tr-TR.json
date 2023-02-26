@@ -111,7 +111,7 @@
     "ok": "Tamam",
     "options": "Seçenekler:",
     "print": "Yazdır",
-    "print-preferences": "Print Preferences",
+    "print-preferences": "Yazdırma Tercihleri",
     "random": "Rastgele",
     "rating": "Puan",
     "recent": "En Son",
@@ -603,11 +603,13 @@
     "copy-as-markdown": "Copy as Markdown",
     "delete-checked": "Delete Checked",
     "toggle-label-sort": "Toggle Label Sort",
+    "reorder-labels": "Etiketleri Yeniden Sırala",
     "uncheck-all-items": "Uncheck All Items",
-    "check-all-items": "Check All Items",
+    "check-all-items": "Tüm Öğeleri Kontrol Et",
     "linked-recipes-count": "No Linked Recipes|One Linked Recipe|{count} Linked Recipes",
     "items-checked-count": "No items checked|One item checked|{count} items checked",
-    "no-label": "Etiket Yok"
+    "no-label": "Etiket Yok",
+    "completed-on": "Completed on {date}"
   },
   "sidebar": {
     "all-recipes": "All Recipes",
@@ -666,6 +668,7 @@
     "admin": "Admin",
     "are-you-sure-you-want-to-delete-the-link": "Are you sure you want to delete the link <b>{link}<b/>?",
     "are-you-sure-you-want-to-delete-the-user": "Are you sure you want to delete the user <b>{activeName} ID: {activeId}<b/>?",
+    "auth-method": "Auth Method",
     "confirm-link-deletion": "Confirm Link Deletion",
     "confirm-password": "Confirm Password",
     "confirm-user-deletion": "Confirm User Deletion",
