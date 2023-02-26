@@ -53,7 +53,7 @@
             <v-icon left>
               {{ $globals.icons.chefHat }}
             </v-icon>
-            <v-list-item-title>{{ $t('general.last-made') }}</v-list-item-title>
+            <v-list-item-title>{{ $t("general.last-made") }}</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -129,6 +129,7 @@ import {
   useAsync,
   useContext,
   useRouter,
+  watch,
 } from "@nuxtjs/composition-api";
 import { useThrottleFn } from "@vueuse/core";
 import RecipeCard from "./RecipeCard.vue";
@@ -137,6 +138,7 @@ import { useAsyncKey } from "~/composables/use-utils";
 import { useLazyRecipes } from "~/composables/recipes";
 import { Recipe } from "~/lib/api/types/recipe";
 import { useUserSortPreferences } from "~/composables/use-users/preferences";
+import { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
 
 const REPLACE_RECIPES_EVENT = "replaceRecipes";
 const APPEND_RECIPES_EVENT = "appendRecipes";
@@ -167,26 +169,10 @@ export default defineComponent({
       type: Array as () => Recipe[],
       default: () => [],
     },
-    cookbookSlug: {
-      type: String,
+    query: {
+      type: Object as () => RecipeSearchQuery,
       default: null,
     },
-    categorySlug: {
-      type: String,
-      default: null,
-    },
-    tagSlug: {
-      type: String,
-      default: null,
-    },
-    toolSlug: {
-      type: String,
-      default: null,
-    },
-    skipLoad: {
-      type: Boolean,
-      default: false
-    }
   },
   setup(props, context) {
     const preferences = useUserSortPreferences();
@@ -224,44 +210,58 @@ export default defineComponent({
     }
 
     const page = ref(1);
-    const perPage = ref(32);
+    const perPage = 32;
     const hasMore = ref(true);
     const ready = ref(false);
     const loading = ref(false);
 
-    const cookbook = ref<string>(props.cookbookSlug);
-    const category = ref<string>(props.categorySlug);
-    const tag = ref<string>(props.tagSlug);
-    const tool = ref<string>(props.toolSlug);
-
     const { fetchMore } = useLazyRecipes();
 
-    onMounted(async () => {
-      if (props.skipLoad) {
-        return;
-      }
-      const newRecipes = await fetchMore(
-        page.value,
-
-        // we double-up the first call to avoid a bug with large screens that render the entire first page without scrolling, preventing additional loading
-        perPage.value * 2,
-        preferences.value.orderBy,
-        preferences.value.orderDirection,
-        cookbook.value,
-        category.value,
-        tag.value,
-        tool.value,
-
-        // filter out recipes that have a null value for the property we're sorting by
-        preferences.value.filterNull && preferences.value.orderBy ? `${preferences.value.orderBy} <> null` : null
-      );
-
-      // since we doubled the first call, we also need to advance the page
-      page.value = page.value + 1;
-
-      context.emit(REPLACE_RECIPES_EVENT, newRecipes);
-      ready.value = true;
+    const queryFilter = computed(() => {
+      const orderBy = props.query?.orderBy || preferences.value.orderBy;
+      return preferences.value.filterNull && orderBy ? `${orderBy} <> null` : null;
     });
+
+    async function fetchRecipes(pageCount = 1) {
+      return await fetchMore(
+        page.value,
+        // we double-up the first call to avoid a bug with large screens that render the entire first page without scrolling, preventing additional loading
+        perPage * pageCount,
+        props.query?.orderBy || preferences.value.orderBy,
+        props.query?.orderDirection || preferences.value.orderDirection,
+        props.query,
+        // filter out recipes that have a null value for the property we're sorting by
+        queryFilter.value
+      );
+    }
+
+    onMounted(async () => {
+      if (props.query) {
+        const newRecipes = await fetchRecipes(2);
+
+        // since we doubled the first call, we also need to advance the page
+        page.value = page.value + 1;
+
+        context.emit(REPLACE_RECIPES_EVENT, newRecipes);
+        ready.value = true;
+      }
+    });
+
+    watch(
+      () => props.query,
+      async (newValue: RecipeSearchQuery | undefined) => {
+        if (newValue) {
+          page.value = 1;
+          const newRecipes = await fetchRecipes(2);
+
+          // since we doubled the first call, we also need to advance the page
+          page.value = page.value + 1;
+
+          context.emit(REPLACE_RECIPES_EVENT, newRecipes);
+          ready.value = true;
+        }
+      }
+    );
 
     const infiniteScroll = useThrottleFn(() => {
       useAsync(async () => {
@@ -272,19 +272,7 @@ export default defineComponent({
         loading.value = true;
         page.value = page.value + 1;
 
-        const newRecipes = await fetchMore(
-          page.value,
-          perPage.value,
-          preferences.value.orderBy,
-          preferences.value.orderDirection,
-          cookbook.value,
-          category.value,
-          tag.value,
-          tool.value,
-
-          // filter out recipes that have a null value for the property we're sorting by
-          preferences.value.filterNull && preferences.value.orderBy ? `${preferences.value.orderBy} <> null` : null
-        );
+        const newRecipes = await fetchRecipes();
         if (!newRecipes.length) {
           hasMore.value = false;
         } else {
@@ -300,7 +288,13 @@ export default defineComponent({
         return;
       }
 
-      function setter(orderBy: string, ascIcon: string, descIcon: string, defaultOrderDirection = "asc", filterNull = false) {
+      function setter(
+        orderBy: string,
+        ascIcon: string,
+        descIcon: string,
+        defaultOrderDirection = "asc",
+        filterNull = false
+      ) {
         if (preferences.value.orderBy !== orderBy) {
           preferences.value.orderBy = orderBy;
           preferences.value.orderDirection = defaultOrderDirection;
@@ -313,19 +307,37 @@ export default defineComponent({
 
       switch (sortType) {
         case EVENTS.az:
-          setter("name", $globals.icons.sortAlphabeticalAscending, $globals.icons.sortAlphabeticalDescending, "asc", false);
+          setter(
+            "name",
+            $globals.icons.sortAlphabeticalAscending,
+            $globals.icons.sortAlphabeticalDescending,
+            "asc",
+            false
+          );
           break;
         case EVENTS.rating:
           setter("rating", $globals.icons.sortAscending, $globals.icons.sortDescending, "desc", true);
           break;
         case EVENTS.created:
-          setter("created_at", $globals.icons.sortCalendarAscending, $globals.icons.sortCalendarDescending, "desc", false);
+          setter(
+            "created_at",
+            $globals.icons.sortCalendarAscending,
+            $globals.icons.sortCalendarDescending,
+            "desc",
+            false
+          );
           break;
         case EVENTS.updated:
           setter("update_at", $globals.icons.sortClockAscending, $globals.icons.sortClockDescending, "desc", false);
           break;
         case EVENTS.lastMade:
-          setter("last_made", $globals.icons.sortCalendarAscending, $globals.icons.sortCalendarDescending, "desc", true);
+          setter(
+            "last_made",
+            $globals.icons.sortCalendarAscending,
+            $globals.icons.sortCalendarDescending,
+            "desc",
+            true
+          );
           break;
         default:
           console.log("Unknown Event", sortType);
@@ -341,19 +353,7 @@ export default defineComponent({
         loading.value = true;
 
         // fetch new recipes
-        const newRecipes = await fetchMore(
-          page.value,
-          perPage.value,
-          preferences.value.orderBy,
-          preferences.value.orderDirection,
-          cookbook.value,
-          category.value,
-          tag.value,
-          tool.value,
-
-          // filter out recipes that have a null value for the property we're sorting by
-          preferences.value.filterNull && preferences.value.orderBy ? `${preferences.value.orderBy} <> null` : null
-        );
+        const newRecipes = await fetchRecipes();
         context.emit(REPLACE_RECIPES_EVENT, newRecipes);
 
         state.sortLoading = false;

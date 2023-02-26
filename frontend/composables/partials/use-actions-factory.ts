@@ -1,6 +1,7 @@
 import { Ref, useAsync } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "../use-utils";
 import { BaseCRUDAPI } from "~/lib/api/base/base-clients";
+import { QueryValue } from "~/lib/api/base/route";
 
 type BoundT = {
   id?: string | number;
@@ -25,7 +26,7 @@ export function useStoreActions<T extends BoundT>(
   allRef: Ref<T[] | null> | null,
   loading: Ref<boolean>
 ): StoreActions<T> {
-  function getAll(page = 1, perPage = -1, params = {} as any) {
+  function getAll(page = 1, perPage = -1, params = {} as Record<string, QueryValue>) {
     params.orderBy ??= "name";
     params.orderDirection ??= "asc";
 

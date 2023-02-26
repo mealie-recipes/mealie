@@ -98,15 +98,6 @@
             </template>
             <v-card>
               <v-card-text>
-                <v-text-field
-                  v-model="state.maxResults"
-                  class="mt-0 pt-0"
-                  :label="$tc('search.max-results')"
-                  type="number"
-                  outlined
-                  dense
-                  hide-details
-                />
                 <v-switch v-model="state.auto" label="Auto Search" single-line></v-switch>
                 <v-btn block color="primary" @click="reset">
                   {{ $tc("general.reset") }}
@@ -116,7 +107,7 @@
           </v-menu>
         </div>
         <div v-if="!state.auto" class="search-button-container">
-          <v-btn :loading="state.loading" x-large color="primary" type="submit" block>
+          <v-btn x-large color="primary" type="submit" block>
             <v-icon left>
               {{ $globals.icons.search }}
             </v-icon>
@@ -131,38 +122,41 @@
         class="mt-n5"
         :icon="$globals.icons.search"
         :title="$tc('search.results')"
-        :recipes="state.results"
-      />
+        :recipes="recipes"
+        :query="passedQuery"
+        @sortRecipes="assignSorted"
+        @replaceRecipes="replaceRecipes"
+        @appendRecipes="appendRecipes"
+        @delete="removeRecipe"
+      ></RecipeCardSection>
     </v-container>
   </v-container>
 </template>
 
 <script lang="ts">
 import { ref, defineComponent, useRouter, onMounted, useContext, computed } from "@nuxtjs/composition-api";
-// eslint-disable-next-line import/namespace
 import { watchDebounced } from "@vueuse/shared";
 import SearchFilter from "~/components/Domain/SearchFilter.vue";
-import { useUserApi } from "~/composables/api";
 import { useCategoryStore, useFoodStore, useTagStore, useToolStore } from "~/composables/store";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
-import { IngredientFood, RecipeCategory, RecipeSummary, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
+import { IngredientFood, RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
+import { useLazyRecipes } from "~/composables/recipes";
+import { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
 
 export default defineComponent({
   components: { SearchFilter, RecipeCardSection },
   setup() {
+    const { recipes, appendRecipes, assignSorted, removeRecipe, replaceRecipes } = useLazyRecipes();
+
     const router = useRouter();
-    const api = useUserApi();
     const { $globals, i18n } = useContext();
 
     const state = ref({
       auto: true,
-      loading: false,
       search: "",
       orderBy: "created_at",
       orderDirection: "desc" as "asc" | "desc",
-      maxResults: 21,
-      results: [] as RecipeSummary[],
 
       // and/or
       requireAllCategories: false,
@@ -183,9 +177,10 @@ export default defineComponent({
     const tools = useToolStore();
     const selectedTools = ref<NoUndefinedField<RecipeTool>[]>([]);
 
+    const passedQuery = ref<RecipeSearchQuery | null>(null);
+
     function reset() {
       state.value.search = "";
-      state.value.maxResults = 21;
       state.value.orderBy = "created_at";
       state.value.orderDirection = "desc";
       state.value.requireAllCategories = false;
@@ -213,7 +208,6 @@ export default defineComponent({
     }
 
     async function search() {
-      state.value.loading = true;
       await router.push({
         query: {
           categories: toIDArray(selectedCategories.value),
@@ -225,7 +219,6 @@ export default defineComponent({
           ...{
             auto: state.value.auto ? undefined : "false",
             search: state.value.search === "" ? undefined : state.value.search,
-            maxResults: state.value.maxResults === 21 ? undefined : state.value.maxResults.toString(),
             orderBy: state.value.orderBy === "createdAt" ? undefined : state.value.orderBy,
             orderDirection: state.value.orderDirection === "desc" ? undefined : state.value.orderDirection,
             requireAllCategories: state.value.requireAllCategories ? "true" : undefined,
@@ -236,35 +229,19 @@ export default defineComponent({
         },
       });
 
-      const { data, error } = await api.recipes.search({
+      passedQuery.value = {
         search: state.value.search,
-        page: 1,
-        orderBy: state.value.orderBy,
-        orderDirection: state.value.orderDirection,
-        perPage: state.value.maxResults,
         categories: toIDArray(selectedCategories.value),
         foods: toIDArray(selectedFoods.value),
         tags: toIDArray(selectedTags.value),
         tools: toIDArray(selectedTools.value),
-
         requireAllCategories: state.value.requireAllCategories,
         requireAllTags: state.value.requireAllTags,
         requireAllTools: state.value.requireAllTools,
         requireAllFoods: state.value.requireAllFoods,
-      });
-
-      if (error) {
-        console.error(error);
-        state.value.loading = false;
-        state.value.results = [];
-        return;
-      }
-
-      if (data) {
-        state.value.results = data.items;
-      }
-
-      state.value.loading = false;
+        orderBy: state.value.orderBy,
+        orderDirection: state.value.orderDirection,
+      };
     }
 
     function waitUntilAndExecute(
@@ -343,10 +320,6 @@ export default defineComponent({
 
       if (query.search) {
         state.value.search = query.search as string;
-      }
-
-      if (query.maxResults) {
-        state.value.maxResults = parseInt(query.maxResults as string);
       }
 
       if (query.orderBy) {
@@ -429,7 +402,6 @@ export default defineComponent({
         () => state.value.requireAllFoods,
         () => state.value.orderBy,
         () => state.value.orderDirection,
-        () => state.value.maxResults,
         selectedCategories,
         selectedFoods,
         selectedTags,
@@ -462,6 +434,12 @@ export default defineComponent({
       selectedFoods,
       selectedTags,
       selectedTools,
+      appendRecipes,
+      assignSorted,
+      recipes,
+      removeRecipe,
+      replaceRecipes,
+      passedQuery,
     };
   },
 });

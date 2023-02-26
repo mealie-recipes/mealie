@@ -14,7 +14,7 @@
       <RecipeCardSection
         class="mb-5 mx-1"
         :recipes="recipes"
-        :cookbook-slug="slug"
+        :query="{ cookbook: slug }"
         @sortRecipes="assignSorted"
         @replaceRecipes="replaceRecipes"
         @appendRecipes="appendRecipes"
