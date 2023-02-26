@@ -30,6 +30,14 @@ export const useUserForm = () => {
       rules: ["required", "minLength:8"],
     },
     {
+      label: "Authentication Method",
+      varName: "authMethod",
+      type: fieldTypes.SELECT,
+      hint: "This specifies how a user will authenticate with Mealie. If you're not sure, choose 'Mealie'",
+      disableCreate: true,
+      options: [{ text: "Mealie" }, { text: "LDAP" }],
+    },
+    {
       section: "Permissions",
       label: "Administrator",
       varName: "admin",

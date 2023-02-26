@@ -1,7 +1,8 @@
+import enum
 from datetime import datetime
 from typing import TYPE_CHECKING, Optional
 
-from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, String, orm
+from sqlalchemy import Boolean, DateTime, Enum, ForeignKey, Integer, String, orm
 from sqlalchemy.orm import Mapped, mapped_column
 
 from mealie.core.config import get_app_settings
@@ -32,6 +33,11 @@ class LongLiveToken(SqlAlchemyBase, BaseMixins):
         self.user_id = user_id
 
 
+class AuthMethod(enum.Enum):
+    MEALIE = "Mealie"
+    LDAP = "LDAP"
+
+
 class User(SqlAlchemyBase, BaseMixins):
     __tablename__ = "users"
     id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
@@ -39,6 +45,7 @@ class User(SqlAlchemyBase, BaseMixins):
     username: Mapped[str | None] = mapped_column(String, index=True, unique=True)
     email: Mapped[str | None] = mapped_column(String, unique=True, index=True)
     password: Mapped[str | None] = mapped_column(String)
+    auth_method: Mapped[Enum(AuthMethod)] = mapped_column(Enum(AuthMethod), default=AuthMethod.MEALIE)
     admin: Mapped[bool | None] = mapped_column(Boolean, default=False)
     advanced: Mapped[bool | None] = mapped_column(Boolean, default=False)
 

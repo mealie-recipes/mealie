@@ -2,6 +2,7 @@ from fastapi import Depends, HTTPException, status
 from pydantic import UUID4
 
 from mealie.core.security import hash_password, verify_password
+from mealie.db.models.users.users import AuthMethod
 from mealie.routes._base import BaseAdminController, BaseUserController, controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import AdminAPIRouter, UserAPIRouter
@@ -61,6 +62,10 @@ class UserController(BaseUserController):
     @user_router.put("/password")
     def update_password(self, password_change: ChangePassword):
         """Resets the User Password"""
+        if self.user.password == "LDAP" or self.user.auth_method == AuthMethod.LDAP:
+            raise HTTPException(
+                status.HTTP_400_BAD_REQUEST, ErrorResponse.respond(self.t("user.ldap-update-password-unavailable"))
+            )
         if not verify_password(password_change.current_password, self.user.password):
             raise HTTPException(
                 status.HTTP_400_BAD_REQUEST, ErrorResponse.respond(self.t("user.invalid-current-password"))

@@ -18,7 +18,7 @@
           :label="inputField.label"
           :name="inputField.varName"
           :hint="inputField.hint || ''"
-          :disabled="updateMode && inputField.disableUpdate"
+          :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate)"
           @change="emitBlur"
         />
 
@@ -26,8 +26,8 @@
         <v-text-field
           v-else-if="inputField.type === fieldTypes.TEXT || inputField.type === fieldTypes.PASSWORD"
           v-model="value[inputField.varName]"
-          :readonly="inputField.disableUpdate && updateMode"
-          :disabled="inputField.disableUpdate && updateMode"
+          :readonly="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate)"
+          :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate)"
           filled
           :type="inputField.type === fieldTypes.PASSWORD ? 'password' : 'text'"
           rounded
@@ -46,8 +46,8 @@
         <v-textarea
           v-else-if="inputField.type === fieldTypes.TEXT_AREA"
           v-model="value[inputField.varName]"
-          :readonly="inputField.disableUpdate && updateMode"
-          :disabled="inputField.disableUpdate && updateMode"
+          :readonly="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate)"
+          :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate)"
           filled
           rounded
           class="rounded-lg"
@@ -66,7 +66,8 @@
         <v-select
           v-else-if="inputField.type === fieldTypes.SELECT"
           v-model="value[inputField.varName]"
-          :readonly="inputField.disableUpdate && updateMode"
+          :readonly="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate)"
+          :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate)"
           filled
           rounded
           class="rounded-lg"
@@ -75,6 +76,8 @@
           :name="inputField.varName"
           :items="inputField.options"
           :return-object="false"
+          :hint="inputField.hint"
+          persistent-hint
           lazy-validation
           @blur="emitBlur"
         >

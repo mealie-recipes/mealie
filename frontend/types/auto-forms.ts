@@ -1,5 +1,10 @@
 type FormFieldType = "text" | "textarea" | "list" | "select" | "object" | "boolean" | "color" | "password";
 
+export interface FormSelectOption {
+  text: string;
+  description?: string;
+}
+
 export interface FormField {
   section?: string;
   sectionDetails?: string;
@@ -9,6 +14,8 @@ export interface FormField {
   type: FormFieldType;
   rules?: string[];
   disableUpdate?: boolean;
+  disableCreate?: boolean;
+  options?: FormSelectOption[];
 }
 
 export type AutoFormItems = FormField[];

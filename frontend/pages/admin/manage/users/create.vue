@@ -67,6 +67,7 @@ export default defineComponent({
         canManage: false,
         canOrganize: false,
         password: "",
+        authMethod: "Mealie",
       },
     });
 
@@ -92,5 +93,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

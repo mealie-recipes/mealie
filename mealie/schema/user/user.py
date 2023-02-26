@@ -9,6 +9,7 @@ from pydantic.utils import GetterDict
 
 from mealie.core.config import get_app_dirs, get_app_settings
 from mealie.db.models.users import User
+from mealie.db.models.users.users import AuthMethod
 from mealie.schema._mealie import MealieModel
 from mealie.schema.group.group_preferences import ReadGroupPreferences
 from mealie.schema.recipe import RecipeSummary
@@ -66,6 +67,7 @@ class UserBase(MealieModel):
     username: str | None
     full_name: str | None = None
     email: constr(to_lower=True, strip_whitespace=True)  # type: ignore
+    auth_method: AuthMethod = AuthMethod.MEALIE
     admin: bool = False
     group: str | None
     advanced: bool = False

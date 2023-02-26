@@ -3,6 +3,9 @@ from typing import Generator
 
 from pytest import fixture
 from starlette.testclient import TestClient
+from mealie.db.db_setup import session_context
+from mealie.db.models.users.users import AuthMethod
+from mealie.repos.all_repositories import get_repositories
 
 from tests import utils
 from tests.utils import api_routes
@@ -181,3 +184,25 @@ def user_token(admin_token, api_client: TestClient):
     # Log in as this user
     form_data = {"username": create_data["email"], "password": "useruser"}
     return utils.login(form_data, api_client)
+
+
+@fixture(scope="module")
+def ldap_user():
+    # Create an LDAP user directly instead of using TestClient since we don't have
+    # a LDAP service set up
+    with session_context() as session:
+        db = get_repositories(session)
+        user = db.users.create(
+            {
+                "username": utils.random_string(10),
+                "password": "mealie_password_not_important",
+                "full_name": utils.random_string(10),
+                "email": utils.random_string(10),
+                "admin": False,
+                "auth_method": AuthMethod.LDAP,
+            }
+        )
+    yield user
+    with session_context() as session:
+        db = get_repositories(session)
+        db.users.delete(user.id)

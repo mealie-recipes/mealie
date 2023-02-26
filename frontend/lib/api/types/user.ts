@@ -5,6 +5,8 @@
 /* Do not modify it by hand - just update the pydantic models and then re-run the script
 */
 
+export type AuthMethod = "Mealie" | "LDAP";
+
 export interface ChangePassword {
   currentPassword: string;
   newPassword: string;
@@ -53,6 +55,7 @@ export interface UserOut {
   username?: string;
   fullName?: string;
   email: string;
+  authMethod?: AuthMethod & string;
   admin?: boolean;
   group: string;
   advanced?: boolean;
@@ -99,6 +102,7 @@ export interface PrivateUser {
   username?: string;
   fullName?: string;
   email: string;
+  authMethod?: AuthMethod & string;
   admin?: boolean;
   group: string;
   advanced?: boolean;
@@ -150,6 +154,7 @@ export interface UserBase {
   username?: string;
   fullName?: string;
   email: string;
+  authMethod?: AuthMethod & string;
   admin?: boolean;
   group?: string;
   advanced?: boolean;
@@ -162,6 +167,7 @@ export interface UserFavorites {
   username?: string;
   fullName?: string;
   email: string;
+  authMethod?: AuthMethod & string;
   admin?: boolean;
   group?: string;
   advanced?: boolean;
@@ -214,6 +220,7 @@ export interface UserIn {
   username?: string;
   fullName?: string;
   email: string;
+  authMethod?: AuthMethod & string;
   admin?: boolean;
   group?: string;
   advanced?: boolean;
