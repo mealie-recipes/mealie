@@ -603,11 +603,13 @@
     "copy-as-markdown": "Copia come Markdown",
     "delete-checked": "Elimina selezionati",
     "toggle-label-sort": "Toggle Label Sort",
+    "reorder-labels": "Reorder Labels",
     "uncheck-all-items": "Deseleziona tutti gli elementi",
     "check-all-items": "Check All Items",
     "linked-recipes-count": "Nessuna ricetta collegata|Una ricetta collegata|{count} ricette collegate",
     "items-checked-count": "Nessun elemento selezionato|Un elemento selezionato|{count} elementi selezionati",
-    "no-label": "Nessuna etichetta"
+    "no-label": "Nessuna etichetta",
+    "completed-on": "Completed on {date}"
   },
   "sidebar": {
     "all-recipes": "Ricette",
@@ -666,6 +668,7 @@
     "admin": "Amministratore",
     "are-you-sure-you-want-to-delete-the-link": "Sei sicuro di voler eliminare il link <b>{link}<b/>?",
     "are-you-sure-you-want-to-delete-the-user": "Sei dicuro di voler eliminare l'utente <b>{activeName} ID: {activeId}<b/>?",
+    "auth-method": "Auth Method",
     "confirm-link-deletion": "Conferma Eliminazione Link",
     "confirm-password": "Conferma Password",
     "confirm-user-deletion": "Conferma Eliminazione Utente",
