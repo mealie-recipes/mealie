@@ -32,17 +32,30 @@
               v-on="on"
             ></v-text-field>
           </template>
-          <v-date-picker v-model="newMeal.date" :first-day-of-week="firstDayOfWeek" no-title @input="pickerMenu = false"></v-date-picker>
+          <v-date-picker
+            v-model="newMeal.date"
+            :first-day-of-week="firstDayOfWeek"
+            no-title
+            @input="pickerMenu = false"
+          ></v-date-picker>
         </v-menu>
         <v-card-text>
-          <v-select v-model="newMeal.entryType" :return-object="false" :items="planTypeOptions" :label="$t('recipe.entry-type')">
+          <v-select
+            v-model="newMeal.entryType"
+            :return-object="false"
+            :items="planTypeOptions"
+            :label="$t('recipe.entry-type')"
+          >
           </v-select>
 
           <v-autocomplete
             v-if="!dialog.note"
             v-model="newMeal.recipeId"
             :label="$t('meal-plan.meal-recipe')"
-            :items="allRecipes"
+            :items="recipeResults"
+            :loading="loadingRecipes"
+            :search-input.sync="recipeSearchTerm"
+            cache-items
             item-text="name"
             item-value="id"
             :return-object="false"
@@ -264,18 +277,19 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, toRefs, watch } from "@nuxtjs/composition-api";
+import { computed, defineComponent, reactive, ref, toRefs, watch } from "@nuxtjs/composition-api";
 import { isSameDay, addDays, subDays, parseISO, format } from "date-fns";
 import { SortableEvent } from "sortablejs";
 import draggable from "vuedraggable";
+import { watchDebounced } from "@vueuse/core";
 import { useMealplans, planTypeOptions } from "~/composables/use-group-mealplan";
-import { useRecipes, allRecipes } from "~/composables/recipes";
 import RecipeCardImage from "~/components/Domain/Recipe/RecipeCardImage.vue";
 import RecipeCard from "~/components/Domain/Recipe/RecipeCard.vue";
 import RecipeContextMenu from "~/components/Domain/Recipe/RecipeContextMenu.vue";
 import { PlanEntryType } from "~/lib/api/types/meal-plan";
 import { useUserApi } from "~/composables/api";
 import { useGroupSelf } from "~/composables/use-groups";
+import { RecipeSummary } from "~/lib/api/types/recipe";
 
 export default defineComponent({
   components: {
@@ -291,7 +305,10 @@ export default defineComponent({
       hover: {} as Record<string, boolean>,
       pickerMenu: null,
       today: new Date(),
+      recipeResults: [] as RecipeSummary[],
+      loadingRecipes: false,
     });
+    const recipeSearchTerm = ref("");
 
     const weekRange = computed(() => {
       return {
@@ -304,7 +321,37 @@ export default defineComponent({
 
     const { mealplans, actions, loading } = useMealplans(weekRange);
 
-    useRecipes(true, true);
+    async function searchRecipes(term: string) {
+      state.loadingRecipes = true;
+      const { data, error } = await api.recipes.search({
+        search: term,
+        page: 1,
+        orderBy: "name",
+        orderDirection: "asc",
+        perPage: 20,
+      });
+
+      if (error) {
+        console.error(error);
+        state.loadingRecipes = false;
+        state.recipeResults = [];
+        return;
+      }
+
+      if (data) {
+        state.recipeResults = data.items;
+      }
+
+      state.loadingRecipes = false;
+    }
+
+    watchDebounced(
+      recipeSearchTerm,
+      async (term: string) => {
+        await searchRecipes(term);
+      },
+      { debounce: 500 }
+    );
 
     const { group } = useGroupSelf();
 
@@ -315,7 +362,7 @@ export default defineComponent({
         return pref;
       }
 
-      return 0
+      return 0;
     });
 
     function filterMealByDate(date: Date) {
@@ -425,7 +472,6 @@ export default defineComponent({
     return {
       ...toRefs(state),
       actions,
-      allRecipes,
       backOneWeek,
       days,
       dialog,
@@ -441,6 +487,7 @@ export default defineComponent({
       resetDialog,
       weekRange,
       firstDayOfWeek,
+      recipeSearchTerm,
     };
   },
   head() {
