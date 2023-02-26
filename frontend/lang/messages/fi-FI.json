@@ -603,11 +603,13 @@
     "copy-as-markdown": "Copy as Markdown",
     "delete-checked": "Delete Checked",
     "toggle-label-sort": "Toggle Label Sort",
+    "reorder-labels": "Reorder Labels",
     "uncheck-all-items": "Uncheck All Items",
     "check-all-items": "Check All Items",
     "linked-recipes-count": "No Linked Recipes|One Linked Recipe|{count} Linked Recipes",
     "items-checked-count": "No items checked|One item checked|{count} items checked",
-    "no-label": "No Label"
+    "no-label": "No Label",
+    "completed-on": "Completed on {date}"
   },
   "sidebar": {
     "all-recipes": "All Recipes",
@@ -666,6 +668,7 @@
     "admin": "Admin",
     "are-you-sure-you-want-to-delete-the-link": "Haluatko varmasti poistaa linkin <b>{link}<b/>?",
     "are-you-sure-you-want-to-delete-the-user": "Haluatko varmasti poistaa käyttäjän <b>{activeName} ID: {activeId}<b/>?",
+    "auth-method": "Auth Method",
     "confirm-link-deletion": "Varmista linkin poisto",
     "confirm-password": "Vahvista salasana",
     "confirm-user-deletion": "Vahvista käyttäjän poisto",

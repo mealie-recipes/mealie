@@ -11,7 +11,8 @@
     "user": {
         "user-updated": "Користувача оновлено",
         "password-updated": "Пароль оновлено",
-        "invalid-current-password": "Неправильний поточний пароль"
+        "invalid-current-password": "Неправильний поточний пароль",
+        "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
     },
     "group": {
         "report-deleted": "Звіт видалено."

@@ -111,7 +111,7 @@
     "ok": "Okay",
     "options": "Optionen:",
     "print": "Drucken",
-    "print-preferences": "Print Preferences",
+    "print-preferences": "Druckeinstellungen",
     "random": "Zufall",
     "rating": "Bewertung",
     "recent": "Neueste",
@@ -603,11 +603,13 @@
     "copy-as-markdown": "Als Markdown kopieren",
     "delete-checked": "Erledigte löschen",
     "toggle-label-sort": "Sortierung nach Etikett umschalten",
+    "reorder-labels": "Etiketten umsortieren",
     "uncheck-all-items": "Alle Einträge zurücksetzen",
-    "check-all-items": "Check All Items",
+    "check-all-items": "Alle Einträge auswählen",
     "linked-recipes-count": "Kein verknüpftes Rezept|Ein verknüpftes Rezept|{count} verknüpfte Rezepte",
     "items-checked-count": "Kein Eintrag erledigt|Ein Eintrag erledigt|{count} Einträge erledigt",
-    "no-label": "Kein Etikett"
+    "no-label": "Kein Etikett",
+    "completed-on": "Completed on {date}"
   },
   "sidebar": {
     "all-recipes": "Alle Rezepte",
@@ -666,6 +668,7 @@
     "admin": "Admin",
     "are-you-sure-you-want-to-delete-the-link": "Bist du dir sicher, dass du den Link <b>{link}<b/> löschen möchtest?",
     "are-you-sure-you-want-to-delete-the-user": "Bist du dir sicher, dass du den Benutzer <b>{activeName} ID: {activeId}<b/> löschen möchtest?",
+    "auth-method": "Auth Method",
     "confirm-link-deletion": "Bestätige das Löschen des Links",
     "confirm-password": "Passwort bestätigen",
     "confirm-user-deletion": "Bestätige das Löschen des Benutzers",

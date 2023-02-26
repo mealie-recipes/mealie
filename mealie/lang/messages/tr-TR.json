@@ -11,7 +11,8 @@
     "user": {
         "user-updated": "User updated",
         "password-updated": "Password updated",
-        "invalid-current-password": "Invalid current password"
+        "invalid-current-password": "Invalid current password",
+        "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
     },
     "group": {
         "report-deleted": "Rapor silindi."
