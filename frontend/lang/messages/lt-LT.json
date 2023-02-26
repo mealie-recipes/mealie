@@ -603,11 +603,13 @@
     "copy-as-markdown": "Copy as Markdown",
     "delete-checked": "Delete Checked",
     "toggle-label-sort": "Toggle Label Sort",
+    "reorder-labels": "Reorder Labels",
     "uncheck-all-items": "Uncheck All Items",
     "check-all-items": "Check All Items",
     "linked-recipes-count": "No Linked Recipes|One Linked Recipe|{count} Linked Recipes",
     "items-checked-count": "No items checked|One item checked|{count} items checked",
-    "no-label": "No Label"
+    "no-label": "No Label",
+    "completed-on": "Completed on {date}"
   },
   "sidebar": {
     "all-recipes": "Visi receptai",
@@ -666,6 +668,7 @@
     "admin": "Administratorius",
     "are-you-sure-you-want-to-delete-the-link": "Ar tikrai norite ištrinti <b>{link}<b/> nuorodą?",
     "are-you-sure-you-want-to-delete-the-user": "Ar tikrai norite ištrinti <b>{activeName}, ID: {activeId}<b/> vartotoją?",
+    "auth-method": "Auth Method",
     "confirm-link-deletion": "Patvirtinkine nuorodos ištrynimą",
     "confirm-password": "Patvirtinkite slaptažodį",
     "confirm-user-deletion": "Patvirtinkite vartotojo ištrynimą",
