@@ -151,7 +151,7 @@
                   </a>
                 </v-list-item-subtitle>
               </template>
-              <template v-if="property.slot === 'build'">
+              <template v-else-if="property.slot === 'build'">
                 <v-list-item-subtitle>
                   <a target="_blank" :href="`https://github.com/hay-kot/mealie/commit/${property.value}`">
                     {{ property.value }}
