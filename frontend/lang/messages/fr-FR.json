@@ -608,7 +608,8 @@
     "check-all-items": "Cocher tous les éléments",
     "linked-recipes-count": "Aucune recette liée|Une recette liée|{count} recettes liées",
     "items-checked-count": "Aucun élément coché|Un élément coché|{count} éléments cochés",
-    "no-label": "Aucune étiquette"
+    "no-label": "Aucune étiquette",
+    "completed-on": "Completed on {date}"
   },
   "sidebar": {
     "all-recipes": "Recettes",
@@ -667,6 +668,7 @@
     "admin": "Administrateur",
     "are-you-sure-you-want-to-delete-the-link": "Voulez-vous vraiment supprimer le lien <b>{link}<b/> ?",
     "are-you-sure-you-want-to-delete-the-user": "Voulez-vous vraiment supprimer l’utilisateur <b>{activeName} ID : {activeId}<b/> ?",
+    "auth-method": "Auth Method",
     "confirm-link-deletion": "Confirmer la suppression du lien",
     "confirm-password": "Confirmer mot de passe",
     "confirm-user-deletion": "Confirmer la suppression",
