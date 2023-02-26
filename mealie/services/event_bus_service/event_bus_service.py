@@ -50,8 +50,8 @@ class EventBusService:
         self.group_id = group_id
 
         self.listeners: list[EventListenerBase] = [
-            AppriseEventListener(self.session, self.group_id),
-            WebhookEventListener(self.session, self.group_id),
+            AppriseEventListener(self.group_id),
+            WebhookEventListener(self.group_id),
         ]
 
     def dispatch(

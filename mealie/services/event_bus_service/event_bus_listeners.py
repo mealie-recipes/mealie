@@ -13,7 +13,6 @@ from sqlalchemy.orm.session import Session
 
 from mealie.db.db_setup import session_context
 from mealie.db.models.group.webhooks import GroupWebhooksModel
-from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.group.group_events import GroupEventNotifierPrivate
 from mealie.schema.group.webhook import ReadWebhook
@@ -24,12 +23,14 @@ from .publisher import ApprisePublisher, PublisherLike, WebhookPublisher
 
 
 class EventListenerBase(ABC):
-    session: Session | None
+    _session: Session | None
+    _repos: AllRepositories | None
 
-    def __init__(self, session: Session, group_id: UUID4, publisher: PublisherLike) -> None:
-        self.session = session
+    def __init__(self, group_id: UUID4, publisher: PublisherLike) -> None:
         self.group_id = group_id
         self.publisher = publisher
+        self._session = None
+        self._repos = None
 
     @abstractmethod
     def get_subscribers(self, event: Event) -> list:
@@ -52,22 +53,29 @@ class EventListenerBase(ABC):
         may be constructed during a request where the session is provided by the request, but the when
         run as a scheduled task, the session is not provided and must be created.
         """
-        if self.session is None:
+        if self._session is None:
             with session_context() as session:
-                self.session = session
-                yield self.session
+                self._session = session
+                yield self._session
         else:
-            yield self.session
+            yield self._session
+
+    @contextlib.contextmanager
+    def ensure_repos(self) -> Generator[AllRepositories, None, None]:
+        if self._repos is None:
+            with self.ensure_session() as session:
+                self._repos = AllRepositories(session)
+                yield self._repos
+        else:
+            yield self._repos
 
 
 class AppriseEventListener(EventListenerBase):
-    def __init__(self, session: Session, group_id: UUID4) -> None:
-        super().__init__(session, group_id, ApprisePublisher())
+    def __init__(self, group_id: UUID4) -> None:
+        super().__init__(group_id, ApprisePublisher())
 
     def get_subscribers(self, event: Event) -> list[str]:
-        with self.ensure_session():
-            repos = AllRepositories(self.session)
-
+        with self.ensure_repos() as repos:
             notifiers: list[GroupEventNotifierPrivate] = repos.group_event_notifier.by_group(  # type: ignore
                 self.group_id
             ).multi_query({"enabled": True}, override_schema=GroupEventNotifierPrivate)
@@ -115,9 +123,8 @@ class AppriseEventListener(EventListenerBase):
 
 
 class WebhookEventListener(EventListenerBase):
-    def __init__(self, session: Session, group_id: UUID4) -> None:
-        super().__init__(session, group_id, WebhookPublisher())
-        self.repos = get_repositories(session)
+    def __init__(self, group_id: UUID4) -> None:
+        super().__init__(group_id, WebhookPublisher())
 
     def get_subscribers(self, event: Event) -> list[ReadWebhook]:
         # we only care about events that contain webhook information
@@ -127,19 +134,19 @@ class WebhookEventListener(EventListenerBase):
         scheduled_webhooks = self.get_scheduled_webhooks(
             event.document_data.webhook_start_dt, event.document_data.webhook_end_dt
         )
-
         return scheduled_webhooks
 
     def publish_to_subscribers(self, event: Event, subscribers: list[ReadWebhook]) -> None:
-        if event.document_data.document_type == EventDocumentType.mealplan:
-            # TODO: limit mealplan data to a date range instead of returning all mealplans
-            meal_repo = self.repos.meals.by_group(self.group_id)
-            meal_pagination_data = meal_repo.page_all(pagination=PaginationQuery(page=1, per_page=-1))
-            meal_data = meal_pagination_data.items
-            if meal_data:
-                webhook_data = cast(EventWebhookData, event.document_data)
-                webhook_data.webhook_body = meal_data
-                self.publisher.publish(event, [webhook.url for webhook in subscribers])
+        with self.ensure_repos() as repos:
+            if event.document_data.document_type == EventDocumentType.mealplan:
+                # TODO: limit mealplan data to a date range instead of returning all mealplans
+                meal_repo = repos.meals.by_group(self.group_id)
+                meal_pagination_data = meal_repo.page_all(pagination=PaginationQuery(page=1, per_page=-1))
+                meal_data = meal_pagination_data.items
+                if meal_data:
+                    webhook_data = cast(EventWebhookData, event.document_data)
+                    webhook_data.webhook_body = meal_data
+                    self.publisher.publish(event, [webhook.url for webhook in subscribers])
 
     def get_scheduled_webhooks(self, start_dt: datetime, end_dt: datetime) -> list[ReadWebhook]:
         """Fetches all scheduled webhooks from the database"""

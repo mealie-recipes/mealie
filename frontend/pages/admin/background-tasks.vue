@@ -57,7 +57,7 @@ export default defineComponent({
       const { data } = await api.serverTasks.getAll();
 
       if (data) {
-        tasks.value = data;
+        tasks.value = data.items;
       }
       loading.value = false;
     }
