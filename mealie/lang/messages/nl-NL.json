@@ -12,7 +12,7 @@
         "user-updated": "Gebruiker bijgewerkt",
         "password-updated": "Wachtwoord bijgewerkt",
         "invalid-current-password": "Ongeldig huidig wachtwoord",
-        "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
+        "ldap-update-password-unavailable": "Kan het wachtwoord niet bijwerken. De gebruiker wordt beheerd door LDAP."
     },
     "group": {
         "report-deleted": "Rapport verwijderd."

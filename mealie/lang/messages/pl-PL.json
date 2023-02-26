@@ -12,7 +12,7 @@
         "user-updated": "User updated",
         "password-updated": "Password updated",
         "invalid-current-password": "Invalid current password",
-        "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
+        "ldap-update-password-unavailable": "Nie można zaktualizować hasła, użytkownik jest kontrolowany przez LDAP"
     },
     "group": {
         "report-deleted": "Report deleted."

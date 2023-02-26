@@ -609,7 +609,7 @@
     "linked-recipes-count": "Geen Gelinkte Recepten Eén Gekoppeld Recept{count} Gekoppelde Recepten",
     "items-checked-count": "Geen items aangevinkt, Eén item gecontroleerd{count} items gecontroleerd",
     "no-label": "Geen label",
-    "completed-on": "Completed on {date}"
+    "completed-on": "Afgemaakt op {date}"
   },
   "sidebar": {
     "all-recipes": "Recepten",
@@ -668,7 +668,7 @@
     "admin": "Beheerder",
     "are-you-sure-you-want-to-delete-the-link": "Weet je zeker dat je <b>{link}<b/> wil verwijderen?",
     "are-you-sure-you-want-to-delete-the-user": "Weet je zeker dat je gebruiker <b>{activeName} ID: {activeId}<b/> wil verwijderen?",
-    "auth-method": "Auth Method",
+    "auth-method": "Authenticatie methode",
     "confirm-link-deletion": "Bevestig verwijderen koppeling",
     "confirm-password": "Bevestig wachtwoord",
     "confirm-user-deletion": "Bevestig verwijderen gebruiker",

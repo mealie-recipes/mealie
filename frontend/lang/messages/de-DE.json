@@ -609,7 +609,7 @@
     "linked-recipes-count": "Kein verknüpftes Rezept|Ein verknüpftes Rezept|{count} verknüpfte Rezepte",
     "items-checked-count": "Kein Eintrag erledigt|Ein Eintrag erledigt|{count} Einträge erledigt",
     "no-label": "Kein Etikett",
-    "completed-on": "Completed on {date}"
+    "completed-on": "Erledigt am {date}"
   },
   "sidebar": {
     "all-recipes": "Alle Rezepte",
@@ -668,7 +668,7 @@
     "admin": "Admin",
     "are-you-sure-you-want-to-delete-the-link": "Bist du dir sicher, dass du den Link <b>{link}<b/> löschen möchtest?",
     "are-you-sure-you-want-to-delete-the-user": "Bist du dir sicher, dass du den Benutzer <b>{activeName} ID: {activeId}<b/> löschen möchtest?",
-    "auth-method": "Auth Method",
+    "auth-method": "Authentifizierungsmethode",
     "confirm-link-deletion": "Bestätige das Löschen des Links",
     "confirm-password": "Passwort bestätigen",
     "confirm-user-deletion": "Bestätige das Löschen des Benutzers",

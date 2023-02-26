@@ -609,7 +609,7 @@
     "linked-recipes-count": "No Linked Recipes|One Linked Recipe|{count} Linked Recipes",
     "items-checked-count": "No items checked|One item checked|{count} items checked",
     "no-label": "Etiket Yok",
-    "completed-on": "Completed on {date}"
+    "completed-on": "{date} tarihinde tamamladı"
   },
   "sidebar": {
     "all-recipes": "All Recipes",
@@ -668,7 +668,7 @@
     "admin": "Admin",
     "are-you-sure-you-want-to-delete-the-link": "Are you sure you want to delete the link <b>{link}<b/>?",
     "are-you-sure-you-want-to-delete-the-user": "Are you sure you want to delete the user <b>{activeName} ID: {activeId}<b/>?",
-    "auth-method": "Auth Method",
+    "auth-method": "Kimlik Doğrulama Yöntemi",
     "confirm-link-deletion": "Confirm Link Deletion",
     "confirm-password": "Confirm Password",
     "confirm-user-deletion": "Confirm User Deletion",
