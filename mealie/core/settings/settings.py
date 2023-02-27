@@ -130,6 +130,7 @@ class AppSettings(BaseSettings):
     LDAP_SERVER_URL: NoneStr = None
     LDAP_TLS_INSECURE: bool = False
     LDAP_TLS_CACERTFILE: NoneStr = None
+    LDAP_ENABLE_STARTTLS: bool = False
     LDAP_BASE_DN: NoneStr = None
     LDAP_QUERY_BIND: NoneStr = None
     LDAP_QUERY_PASSWORD: NoneStr = None

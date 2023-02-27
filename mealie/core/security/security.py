@@ -64,6 +64,9 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
         conn.set_option(ldap.OPT_X_TLS_CACERTFILE, settings.LDAP_TLS_CACERTFILE)
         conn.set_option(ldap.OPT_X_TLS_NEWCTX, 0)
 
+    if settings.LDAP_ENABLE_STARTTLS:
+        conn.start_tls_s()
+
     # Use query user for the search instead of the logged in user
     # This prevents the need for every user to have query permissions in LDAP
     try:
