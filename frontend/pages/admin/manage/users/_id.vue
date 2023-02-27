@@ -29,7 +29,7 @@
           ></v-select>
           <div class="d-flex py-2 pr-2">
             <BaseButton type="button" :loading="generatingToken" create @click.prevent="handlePasswordReset">
-              Generate Password Reset Link
+              {{ $t("user.generate-password-reset-link") }}
             </BaseButton>
             <AppButtonCopy v-if="resetUrl" :copy-text="resetUrl"></AppButtonCopy>
           </div>
