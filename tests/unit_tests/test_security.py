@@ -77,6 +77,9 @@ class LdapConnMock:
     def unbind_s(self):
         pass
 
+    def start_tls_s(self):
+        pass
+
 
 def setup_env(monkeypatch: MonkeyPatch):
     user = random_string(10)
@@ -202,6 +205,9 @@ def test_ldap_disabled(monkeypatch: MonkeyPatch):
             pass
 
         def unbind_s(self):
+            pass
+
+        def start_tls_s(self):
             pass
 
     def ldap_initialize_mock(url):
