@@ -342,6 +342,8 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
         count_query = select(func.count()).select_from(query)
         count = self.session.scalar(count_query)
+        if not count:
+            count = 0
 
         # interpret -1 as "get_all"
         if pagination.per_page == -1:
@@ -349,7 +351,6 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
         try:
             total_pages = ceil(count / pagination.per_page)
-
         except ZeroDivisionError:
             total_pages = 0
 
