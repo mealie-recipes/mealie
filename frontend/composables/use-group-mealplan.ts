@@ -34,7 +34,6 @@ export const useMealplans = function (range: Ref<DateRange>) {
           start_date: format(range.value.start, "yyyy-MM-dd"),
           end_date: format(range.value.end, "yyyy-MM-dd"),
         };
-        // @ts-ignore TODO Modify typing to allow for string start+limit for mealplans
         const { data } = await api.mealplans.getAll(1, -1, { start_date: query.start_date, end_date: query.end_date });
 
         if (data) {
@@ -53,7 +52,6 @@ export const useMealplans = function (range: Ref<DateRange>) {
         start_date: format(range.value.start, "yyyy-MM-dd"),
         end_date: format(range.value.end, "yyyy-MM-dd"),
       };
-      // @ts-ignore TODO Modify typing to allow for string start+limit for mealplans
       const { data } = await api.mealplans.getAll(1, -1, { start_date: query.start_date, end_date: query.end_date });
 
       if (data && data.items) {
