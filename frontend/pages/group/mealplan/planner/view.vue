@@ -42,12 +42,10 @@
 import { computed, defineComponent } from "@nuxtjs/composition-api";
 import { MealsByDate } from "./types";
 import { ReadPlanEntry } from "~/lib/api/types/meal-plan";
-import RecipeCard from "~/components/Domain/Recipe/RecipeCard.vue";
 import RecipeCardMobile from "~/components/Domain/Recipe/RecipeCardMobile.vue";
 
 export default defineComponent({
   components: {
-    RecipeCard,
     RecipeCardMobile,
   },
   props: {
