@@ -22,30 +22,17 @@
             {{ section.title }}
           </p>
         </div>
-        <template v-if="$vuetify.breakpoint.mdAndUp">
-          <RecipeCard
-            v-for="mealplan in section.meals"
-            :key="mealplan.id"
-            :recipe-id="mealplan.recipe ? mealplan.recipe.id : ''"
-            class="mb-2"
-            :route="mealplan.recipe ? true : false"
-            :slug="mealplan.recipe ? mealplan.recipe.slug : mealplan.title"
-            :description="mealplan.recipe ? mealplan.recipe.description : mealplan.text"
-            :name="mealplan.recipe ? mealplan.recipe.name : mealplan.title"
-          />
-        </template>
-        <template v-else>
-          <RecipeCardMobile
-            v-for="mealplan in section.meals"
-            :key="mealplan.id"
-            :recipe-id="mealplan.recipe ? mealplan.recipe.id : ''"
-            class="mb-2"
-            :route="mealplan.recipe ? true : false"
-            :slug="mealplan.recipe ? mealplan.recipe.slug : mealplan.title"
-            :description="mealplan.recipe ? mealplan.recipe.description : mealplan.text"
-            :name="mealplan.recipe ? mealplan.recipe.name : mealplan.title"
-          />
-        </template>
+
+        <RecipeCardMobile
+          v-for="mealplan in section.meals"
+          :key="mealplan.id"
+          :recipe-id="mealplan.recipe ? mealplan.recipe.id : ''"
+          class="mb-2"
+          :route="mealplan.recipe ? true : false"
+          :slug="mealplan.recipe ? mealplan.recipe.slug : mealplan.title"
+          :description="mealplan.recipe ? mealplan.recipe.description : mealplan.text"
+          :name="mealplan.recipe ? mealplan.recipe.name : mealplan.title"
+        />
       </div>
     </v-col>
   </v-row>
