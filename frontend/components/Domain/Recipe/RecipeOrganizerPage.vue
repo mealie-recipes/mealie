@@ -14,28 +14,26 @@
     </BaseDialog>
 
     <v-row dense>
-        <v-col>
-          <v-text-field
-            v-model="searchString"
-            outlined
-            autofocus
-            color="primary accent-3"
-            :placeholder="$t('search.search-placeholder')"
-            :prepend-inner-icon="$globals.icons.search"
-            clearable
-          >
-          </v-text-field>
-        </v-col>
-      </v-row>
+      <v-col>
+        <v-text-field
+          v-model="searchString"
+          outlined
+          autofocus
+          color="primary accent-3"
+          :placeholder="$t('search.search-placeholder')"
+          :prepend-inner-icon="$globals.icons.search"
+          clearable
+        >
+        </v-text-field>
+      </v-col>
+    </v-row>
 
     <v-app-bar color="transparent" flat class="mt-n1 rounded align-center">
       <v-icon large left>
         {{ icon }}
       </v-icon>
       <v-toolbar-title class="headline">
-        <slot name="title">
-          {{ headline }}
-        </slot>
+        <slot name="title"> </slot>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <BaseButton create @click="dialog = true" />
@@ -44,7 +42,7 @@
       <BaseCardSectionTitle v-if="key.length === 1" :title="key"> </BaseCardSectionTitle>
       <v-row>
         <v-col v-for="(item, index) in itms" :key="'cat' + index" cols="12" :sm="12" :md="6" :lg="4" :xl="3">
-          <v-card class="left-border" hover :to="`/recipes/${itemType}/${item.slug}`">
+          <v-card class="left-border" hover :to="`/?${itemType}=${item.id}`">
             <v-card-actions>
               <v-icon>
                 {{ icon }}
