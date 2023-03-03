@@ -7,7 +7,13 @@ export interface ContextMenuItem {
   color?: string;
 }
 
-export function useContextPresets(): { [key: string]: ContextMenuItem } {
+export interface ContextMenuPresets {
+  delete: ContextMenuItem;
+  edit: ContextMenuItem;
+  save: ContextMenuItem;
+}
+
+export function useContextPresets(): ContextMenuPresets {
   const { $globals, i18n } = useContext();
 
   return {
