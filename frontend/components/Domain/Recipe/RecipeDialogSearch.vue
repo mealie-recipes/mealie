@@ -5,7 +5,7 @@
       <v-app-bar sticky dark color="primary lighten-1" :rounded="!$vuetify.breakpoint.xs">
         <v-text-field
           id="arrow-search"
-          v-model="search"
+          v-model="search.query.value"
           autofocus
           solo
           flat
@@ -55,10 +55,10 @@
 
 <script lang="ts">
 import { defineComponent, toRefs, reactive, ref, watch, useRoute } from "@nuxtjs/composition-api";
-import { watchDebounced } from "@vueuse/shared";
 import RecipeCardMobile from "./RecipeCardMobile.vue";
 import { RecipeSummary } from "~/lib/api/types/recipe";
 import { useUserApi } from "~/composables/api";
+import { useRecipeSearch } from "~/composables/recipes/use-recipe-search";
 const SELECTED_EVENT = "selected";
 export default defineComponent({
   components: {
@@ -79,7 +79,7 @@ export default defineComponent({
     // Reset or Grab Recipes on Change
     watch(dialog, (val) => {
       if (!val) {
-        search.value = "";
+        search.query.value = "";
         state.selectedIndex = -1;
         state.searchResults = [];
       }
@@ -142,30 +142,8 @@ export default defineComponent({
     // ===========================================================================
     // Basic Search
     const api = useUserApi();
-    const search = ref("");
+    const search = useRecipeSearch(api);
 
-    watchDebounced(
-      search,
-      async (val) => {
-        console.log(val);
-        if (val) {
-          state.loading = true;
-          const { data, error } = await api.recipes.search({ search: val, page: 1, perPage: 10 });
-
-          if (error || !data) {
-            console.error(error);
-            state.searchResults = [];
-          } else {
-            state.searchResults = data.items;
-          }
-
-          state.loading = false;
-        }
-      },
-      { debounce: 500, maxWait: 1000 }
-    );
-
-    // ===========================================================================
     // Select Handler
 
     function handleSelect(recipe: RecipeSummary) {
@@ -173,7 +151,14 @@ export default defineComponent({
       context.emit(SELECTED_EVENT, recipe);
     }
 
-    return { ...toRefs(state), dialog, open, close, handleSelect, search };
+    return {
+      ...toRefs(state),
+      dialog,
+      open,
+      close,
+      handleSelect,
+      search,
+    };
   },
 });
 </script>
