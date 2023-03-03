@@ -35,7 +35,7 @@
         </v-card-actions>
 
         <RecipeCardMobile
-          v-for="(recipe, index) in searchResults"
+          v-for="(recipe, index) in search.data.value"
           :key="index"
           :tabindex="index"
           class="ma-1 arrow-nav"
@@ -69,7 +69,6 @@ export default defineComponent({
     const state = reactive({
       loading: false,
       selectedIndex: -1,
-      searchResults: [] as RecipeSummary[],
     });
 
     // ===========================================================================
@@ -81,7 +80,7 @@ export default defineComponent({
       if (!val) {
         search.query.value = "";
         state.selectedIndex = -1;
-        state.searchResults = [];
+        search.data.value = [];
       }
     });
 
