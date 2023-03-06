@@ -20,6 +20,7 @@ test_cases = [
     MigrationTestData(typ=SupportedMigrations.nextcloud, archive=test_data.migrations_nextcloud),
     MigrationTestData(typ=SupportedMigrations.paprika, archive=test_data.migrations_paprika),
     MigrationTestData(typ=SupportedMigrations.chowdown, archive=test_data.migrations_chowdown),
+    MigrationTestData(typ=SupportedMigrations.copymethat, archive=test_data.migrations_copymethat),
     MigrationTestData(typ=SupportedMigrations.mealie_alpha, archive=test_data.migrations_mealie),
 ]
 
@@ -27,6 +28,7 @@ test_ids = [
     "nextcloud_archive",
     "paprika_archive",
     "chowdown_archive",
+    "copymethat_archive",
     "mealie_alpha_archive",
 ]
 

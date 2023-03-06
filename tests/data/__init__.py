@@ -8,6 +8,8 @@ migrations_paprika = CWD / "migrations/paprika.zip"
 
 migrations_chowdown = CWD / "migrations/chowdown.zip"
 
+migrations_copymethat = CWD / "migrations/copymethat.zip"
+
 migrations_mealie = CWD / "migrations/mealie.zip"
 
 migrations_nextcloud = CWD / "migrations/nextcloud.zip"
