@@ -91,7 +91,7 @@ class CopyMeThatMigrator(BaseMigrator):
             recipes_as_dicts: list[dict] = []
             for recipes_data_file in source_dir.glob("*.html"):
                 with open(recipes_data_file, encoding="utf-8") as f:
-                    soup = BeautifulSoup(f, "html.parser")
+                    soup = BeautifulSoup(f, "lxml")
                     for recipe_data in soup.find_all("div", class_="recipe"):
                         try:
                             recipes_as_dicts.append(self._process_recipe_document(source_dir, recipe_data))
