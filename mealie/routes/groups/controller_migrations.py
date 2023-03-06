@@ -12,6 +12,7 @@ from mealie.schema.reports.reports import ReportSummary
 from mealie.services.migrations import (
     BaseMigrator,
     ChowdownMigrator,
+    CopyMeThatMigrator,
     MealieAlphaMigrator,
     NextcloudMigrator,
     PaprikaMigrator,
@@ -45,6 +46,7 @@ class GroupMigrationController(BaseUserController):
 
         table: dict[SupportedMigrations, type[BaseMigrator]] = {
             SupportedMigrations.chowdown: ChowdownMigrator,
+            SupportedMigrations.copymethat: CopyMeThatMigrator,
             SupportedMigrations.mealie_alpha: MealieAlphaMigrator,
             SupportedMigrations.nextcloud: NextcloudMigrator,
             SupportedMigrations.paprika: PaprikaMigrator,

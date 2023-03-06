@@ -74,6 +74,7 @@ import { SupportedMigrations } from "~/lib/api/types/group";
 const MIGRATIONS = {
   nextcloud: "nextcloud",
   chowdown: "chowdown",
+  copymethat: "copymethat",
   paprika: "paprika",
   mealie: "mealie_alpha",
 };
@@ -101,6 +102,10 @@ export default defineComponent({
       {
         text: "Chowdown",
         value: MIGRATIONS.chowdown,
+      },
+      {
+        text: "CopyMeThat",
+        value: MIGRATIONS.copymethat,
       },
       {
         text: "Paprika",
@@ -176,6 +181,10 @@ export default defineComponent({
             ],
           },
         ],
+      },
+      [MIGRATIONS.copymethat]: {
+        text: "Mealie can import recipes from CopyMeThat. Export your recipes in HTML format, then upload the .zip below.",
+        tree: false,
       },
       [MIGRATIONS.paprika]: {
         text: "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
