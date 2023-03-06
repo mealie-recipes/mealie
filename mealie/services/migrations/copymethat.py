@@ -56,7 +56,7 @@ class CopyMeThatMigrator(BaseMigrator):
 
                 continue
 
-            # tags, internally named categories, are not in a list, and don't have ids, so they need to be specially handled
+            # tags (internally named categories) are not in a list, and don't have ids
             if tag.name == "span" and "recipeCategory" in tag.get("class", []):
                 recipe_tag = tag.get_text(strip=True)
                 if "Tags:" not in recipe_tag:
@@ -96,7 +96,7 @@ class CopyMeThatMigrator(BaseMigrator):
                         try:
                             recipes_as_dicts.append(self._process_recipe_document(source_dir, recipe_data))
 
-                        # since recipes are stored in one large file, we don't want to fail importing all recipes on error
+                        # since recipes are stored in one large file, we keep going on error
                         except Exception as e:
                             self.report_entries.append(
                                 ReportEntryCreate(
