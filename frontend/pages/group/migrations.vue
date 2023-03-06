@@ -184,7 +184,26 @@ export default defineComponent({
       },
       [MIGRATIONS.copymethat]: {
         text: "Mealie can import recipes from CopyMeThat. Export your recipes in HTML format, then upload the .zip below.",
-        tree: false,
+        tree: [
+          {
+            id: 1,
+            icon: $globals.icons.zip,
+            name: "Copy_Me_That_20230306.zip",
+            children: [
+              {
+                id: 2,
+                name: "images",
+                icon: $globals.icons.folderOutline,
+                children: [
+                  { id: 3, name: "pasta_fagioli_an5zy.jpg", icon: $globals.icons.fileImage },
+                  { id: 4, name: "chicken_teriyaki_pineapple_bowls_82el8.jpg", icon: $globals.icons.fileImage },
+                  { id: 5, name: "jajangmyeon_j75qg.jpg", icon: $globals.icons.fileImage },
+                ],
+              },
+              { id: 6, name: "recipes.html", icon: $globals.icons.codeJson }
+            ]
+          }
+        ],
       },
       [MIGRATIONS.paprika]: {
         text: "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
