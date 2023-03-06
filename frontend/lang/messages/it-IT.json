@@ -166,14 +166,14 @@
     "copy": "Copia",
     "color": "Colore",
     "timestamp": "Data e ora",
-    "last-made": "Last Made",
+    "last-made": "Ultima Preparazione",
     "learn-more": "Per saperne di più",
     "this-feature-is-currently-inactive": "Questa funzionalità è al momento disabilitata",
-    "clipboard-not-supported": "Clipboard not supported",
+    "clipboard-not-supported": "Appunti non supportati",
     "copied-to-clipboard": "Copiato negli appunti",
     "your-browser-does-not-support-clipboard": "Il tuo browser non supporta gli appunti\")",
     "copied-items-to-clipboard": "Nessun elemento copiato negli appunti|Un elemento copiato negli appunti|{count} elementi copiati negli appunti",
-    "actions": "Actions",
+    "actions": "Azioni",
     "selected-count": "Selezionati: {count}",
     "export-all": "Esporta tutto"
   },
@@ -847,7 +847,7 @@
   },
   "banner-experimental": {
     "title": "Funzionalità sperimentali",
-    "description": "Questa pagina contiene funzioni sperimentali o ancora in fase di sviluppo. Ci scusiamo per il disordine.",
+    "description": "Questa pagina contiene funzioni sperimentali o ancora in fase di sviluppo. Ci scusiamo per il disagio.",
     "issue-link-text": "Traccia i nostri progressi qui"
   },
   "form": {
