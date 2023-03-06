@@ -195,9 +195,9 @@ export default defineComponent({
                 name: "images",
                 icon: $globals.icons.folderOutline,
                 children: [
-                  { id: 3, name: "pasta_fagioli_an5zy.jpg", icon: $globals.icons.fileImage },
-                  { id: 4, name: "chicken_teriyaki_pineapple_bowls_82el8.jpg", icon: $globals.icons.fileImage },
-                  { id: 5, name: "jajangmyeon_j75qg.jpg", icon: $globals.icons.fileImage },
+                  { id: 3, name: "recipe_1_an5zy.jpg", icon: $globals.icons.fileImage },
+                  { id: 4, name: "recipe_2_82el8.jpg", icon: $globals.icons.fileImage },
+                  { id: 5, name: "recipe_3_j75qg.jpg", icon: $globals.icons.fileImage },
                 ],
               },
               { id: 6, name: "recipes.html", icon: $globals.icons.codeJson }
