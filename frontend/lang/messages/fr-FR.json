@@ -847,7 +847,7 @@
   },
   "banner-experimental": {
     "title": "Fonctionnalités expérimentales",
-    "description": "Cette page contient des fonctionnalités expérimentales ou des fonctionnalités en construction. Veuillez excuser le désordre.",
+    "description": "Cette page contient des fonctionnalités expérimentales ou des fonctionnalités en construction. Désolé du dérangement.",
     "issue-link-text": "Suivez notre progression ici"
   },
   "form": {
@@ -900,7 +900,7 @@
       "info-description-data-dir-size": "Taille du répertoire de données",
       "info-description-log-file-size": "Taille du fichier journal",
       "info-description-cleanable-directories": "Répertoires nettoyables",
-      "info-description-cleanable-images": "Images Nettoyables",
+      "info-description-cleanable-images": "Images nettoyables",
       "storage": {
         "title-temporary-directory": "Répertoire temporaire (.temp)",
         "title-backups-directory": "Répertoire des sauvegardes (backups)",
