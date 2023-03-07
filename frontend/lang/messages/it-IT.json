@@ -469,7 +469,7 @@
     "bulk-import-process-has-started": "Processo di importazione multipla iniziato",
     "bulk-import-process-has-failed": "Processo di importazione multipla non riuscito",
     "report-deletion-failed": "Eliminazione report fallita",
-    "recipe-debugger": "Recipe Debugger",
+    "recipe-debugger": "Debugger Ricetta",
     "recipe-debugger-description": "Prendi l'URL della ricetta che vuoi fare il debug e incollalo qui. L'URL verrà recuperato dallo scraper di ricette e i risultati verranno visualizzati. Se non si vede alcun dato restituito, il sito che si sta cercando di analizzare non è supportato da Mealie o la sua libreria di scraping.",
     "debug": "Debug",
     "tree-view": "Visualizzazione ad Albero",
