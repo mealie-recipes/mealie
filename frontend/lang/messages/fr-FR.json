@@ -675,7 +675,7 @@
     "admin": "Administrateur",
     "are-you-sure-you-want-to-delete-the-link": "Voulez-vous vraiment supprimer le lien <b>{link}<b/> ?",
     "are-you-sure-you-want-to-delete-the-user": "Voulez-vous vraiment supprimer l’utilisateur <b>{activeName} ID : {activeId}<b/> ?",
-    "auth-method": "Méthode d'authentification",
+    "auth-method": "Méthode d'auth.",
     "confirm-link-deletion": "Confirmer la suppression du lien",
     "confirm-password": "Confirmer mot de passe",
     "confirm-user-deletion": "Confirmer la suppression",
