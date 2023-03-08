@@ -9,14 +9,13 @@
           :src="require('~/static/svgs/manage-data-migrations.svg')"
         ></v-img>
       </template>
-      <template #title> Recipe Data Migrations</template>
-      Recipes can be migrated from another supported application to Mealie. This is a great way to get started with
-      Mealie.
+      <template #title> {{ $t('migration.recipe-data-migrations') }}</template>
+      {{ $t('migration.recipe-data-migrations-explanation') }}
     </BasePageTitle>
     <v-container>
       <BaseCardSectionTitle title="New Migration"> </BaseCardSectionTitle>
       <v-card outlined :loading="loading">
-        <v-card-title> Choose Migration Type </v-card-title>
+        <v-card-title> {{ $t('migration.choose-migration-type') }} </v-card-title>
         <v-card-text v-if="content" class="pb-0">
           <div class="mb-2">
             <BaseOverflowButton v-model="migrationType" mode="model" :items="items" />
@@ -29,7 +28,7 @@
           </v-treeview>
         </v-card-text>
 
-        <v-card-title class="mt-0"> Upload File </v-card-title>
+        <v-card-title class="mt-0"> {{ $t('general.upload-file') }} </v-card-title>
         <v-card-text>
           <AppButtonUpload
             accept=".zip"
@@ -39,13 +38,17 @@
             :text-btn="false"
             @uploaded="setFileObject"
           />
-          {{ fileObject.name || "No file selected" }}
+          {{ fileObject.name || $t('general.no-file-selected') }}
         </v-card-text>
 
         <v-card-text>
           <v-checkbox v-model="addMigrationTag">
             <template #label>
-              Tag all recipes with <b class="mx-1"> {{ migrationType }} </b> tag
+          <i18n path="migration.tag-all-recipes">
+            <template #tag-name>
+              <b class="mx-1"> {{ migrationType }} </b>
+            </template>
+          </i18n>
             </template>
           </v-checkbox>
         </v-card-text>
@@ -58,7 +61,7 @@
       </v-card>
     </v-container>
     <v-container>
-      <BaseCardSectionTitle title="Previous Migrations"> </BaseCardSectionTitle>
+      <BaseCardSectionTitle :title="$tc('migration.previous-migrations')"> </BaseCardSectionTitle>
       <ReportTable :items="reports" @delete="deleteReport" />
     </v-container>
   </v-container>
@@ -80,7 +83,7 @@ const MIGRATIONS = {
 
 export default defineComponent({
   setup() {
-    const { $globals } = useContext();
+    const { $globals, i18n } = useContext();
 
     const api = useUserApi();
 
@@ -114,7 +117,7 @@ export default defineComponent({
 
     const _content = {
       [MIGRATIONS.nextcloud]: {
-        text: "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
+        text: i18n.t("migration.nextcloud-text"),
         tree: [
           {
             id: 1,
@@ -123,7 +126,7 @@ export default defineComponent({
             children: [
               {
                 id: 2,
-                name: "Recipe 1",
+                name: i18n.t("migration.recipe-1"),
                 icon: $globals.icons.folderOutline,
                 children: [
                   { id: 3, name: "recipe.json", icon: $globals.icons.codeJson },
@@ -133,7 +136,7 @@ export default defineComponent({
               },
               {
                 id: 6,
-                name: "Recipe 2",
+                name: i18n.t("migration.recipe-2"),
                 icon: $globals.icons.folderOutline,
                 children: [
                   { id: 7, name: "recipe.json", icon: $globals.icons.codeJson },
@@ -146,7 +149,7 @@ export default defineComponent({
         ],
       },
       [MIGRATIONS.chowdown]: {
-        text: "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below",
+        text: i18n.t("migration.chowdown-text"),
         tree: [
           {
             id: 1,
@@ -155,7 +158,7 @@ export default defineComponent({
             children: [
               {
                 id: 2,
-                name: "Recipe 1",
+                name: i18n.t("migration.recipe-1"),
                 icon: $globals.icons.folderOutline,
                 children: [
                   { id: 3, name: "recipe.json", icon: $globals.icons.codeJson },
@@ -165,7 +168,7 @@ export default defineComponent({
               },
               {
                 id: 6,
-                name: "Recipe 2",
+                name: i18n.t("migration.recipe-2"),
                 icon: $globals.icons.folderOutline,
                 children: [
                   { id: 7, name: "recipe.json", icon: $globals.icons.codeJson },
@@ -178,11 +181,11 @@ export default defineComponent({
         ],
       },
       [MIGRATIONS.paprika]: {
-        text: "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
+        text: i18n.t("migration.paprika-text"),
         tree: false,
       },
       [MIGRATIONS.mealie]: {
-        text: "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
+        text: i18n.t("migration.mealie-text"),
         tree: [
           {
             id: 1,

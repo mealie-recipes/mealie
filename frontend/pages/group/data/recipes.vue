@@ -61,7 +61,7 @@
           <RecipeSettingsSwitches v-model="recipeSettings" />
         </div>
         <p class="text-center mb-0">
-          <i>{{ $t('data-pages.recipes.selected-length-recipe-s-settings-will-be-updated', [selected.length]) }}</i>
+          <i>{{ $tc('data-pages.recipes.selected-length-recipe-s-settings-will-be-updated', selected.length) }}</i>
         </p>
       </v-card-text>
     </BaseDialog>

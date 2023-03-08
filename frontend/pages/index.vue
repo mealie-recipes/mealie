@@ -98,7 +98,7 @@
             </template>
             <v-card>
               <v-card-text>
-                <v-switch v-model="state.auto" label="Auto Search" single-line></v-switch>
+                <v-switch v-model="state.auto" :label="$t('search.auto-search')" single-line></v-switch>
                 <v-btn block color="primary" @click="reset">
                   {{ $tc("general.reset") }}
                 </v-btn>

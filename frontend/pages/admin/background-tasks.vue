@@ -4,17 +4,17 @@
       <template #header>
         <v-img max-height="125" max-width="125" :src="require('~/static/svgs/manage-tasks.svg')"></v-img>
       </template>
-      <template #title> Background Tasks </template>
-      Here you can view all the running background tasks and their status
+      <template #title> {{ $t('admin.background-tasks') }} </template>
+      {{ $t('admin.background-tasks-description') }}
     </BasePageTitle>
     <v-card-actions>
       <BaseButton color="info" :loading="loading" @click="refreshTasks">
         <template #icon> {{ $globals.icons.refresh }} </template>
-        Refresh
+        {{ $t('general.refresh') }}
       </BaseButton>
       <BaseButton color="info" @click="testTask">
         <template #icon> {{ $globals.icons.testTube }} </template>
-        Test
+        {{ $t('general.test') }}
       </BaseButton>
     </v-card-actions>
     <v-expansion-panels class="mt-2">
@@ -32,7 +32,7 @@
           {{ $d(Date.parse(task.createdAt), "short") }}
         </v-expansion-panel-header>
         <v-expansion-panel-content style="white-space: pre-line">
-          {{ task.log === "" ? "No Logs Found" : task.log }}
+          {{ task.log === "" ? $t('admin.no-logs-found') : task.log }}
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
@@ -80,7 +80,7 @@ export default defineComponent({
   },
   head() {
     return {
-      title: "Tasks",
+      title: this.$t("admin.tasks"),
     };
   },
 });

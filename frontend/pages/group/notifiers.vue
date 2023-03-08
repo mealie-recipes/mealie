@@ -11,7 +11,7 @@
         {{ $t("general.confirm-delete-generic") }}
       </v-card-text>
     </BaseDialog>
-    <BaseDialog v-model="createDialog" title="New Notification" @submit="createNewNotifier">
+    <BaseDialog v-model="createDialog" :title="$t('events.new-notification')" @submit="createNewNotifier">
       <v-card-text>
         <v-text-field v-model="createNotifierData.name" :label="$t('general.name')"></v-text-field>
         <v-text-field v-model="createNotifierData.appriseUrl" :label="$t('events.apprise-url')"></v-text-field>
@@ -22,7 +22,7 @@
       <template #header>
         <v-img max-height="125" max-width="125" :src="require('~/static/svgs/manage-notifiers.svg')"></v-img>
       </template>
-      <template #title> Event Notifiers </template>
+      <template #title> {{ $t("events.event-notifiers") }} </template>
       {{ $t("events.new-notification-form-description") }}
 
       <div class="mt-3 d-flex justify-space-around">
@@ -51,12 +51,15 @@
           </template>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
-          <v-text-field v-model="notifiers[index].name" label="Name"></v-text-field>
-          <v-text-field v-model="notifiers[index].appriseUrl" label="Apprise URL (skipped if blank)"></v-text-field>
-          <v-checkbox v-model="notifiers[index].enabled" label="Enable Notifier" dense></v-checkbox>
+          <v-text-field v-model="notifiers[index].name" :label="$t('general.name')"></v-text-field>
+          <v-text-field
+            v-model="notifiers[index].appriseUrl"
+            :label="$t('events.apprise-url-skipped-if-blank')"
+          ></v-text-field>
+          <v-checkbox v-model="notifiers[index].enabled" :label="$t('events.enable-notifier')" dense></v-checkbox>
 
           <v-divider></v-divider>
-          <p class="pt-4">What events should this notifier subscribe to?</p>
+          <p class="pt-4">{{ $t("events.what-events") }}</p>
           <div class="notifier-options">
             <section v-for="sec in optionsSections" :key="sec.id">
               <h4>
@@ -196,27 +199,27 @@ export default defineComponent({
       },
       {
         id: 2,
-        text: "User Events",
+        text: i18n.tc("events.user-events"),
         options: [
           {
-            text: "When a new user joins your group",
+            text: i18n.tc("events.when-a-new-user-joins-your-group"),
             key: "userSignup",
           },
         ],
       },
       {
         id: 3,
-        text: "Mealplan Events",
+        text: i18n.tc("events.mealplan-events"),
         options: [
           {
-            text: "When a user in your group creates a new mealplan",
+            text: i18n.tc("events.when-a-user-in-your-group-creates-a-new-mealplan"),
             key: "mealplanEntryCreated",
           },
         ],
       },
       {
         id: 4,
-        text: "Shopping List Events",
+        text: i18n.tc("events.shopping-list-events"),
         options: [
           {
             text: i18n.t("general.create") as string,
@@ -234,7 +237,7 @@ export default defineComponent({
       },
       {
         id: 5,
-        text: "Cookbook Events",
+        text: i18n.tc("events.cookbook-events"),
         options: [
           {
             text: i18n.t("general.create") as string,
@@ -252,7 +255,7 @@ export default defineComponent({
       },
       {
         id: 6,
-        text: "Tag Events",
+        text: i18n.tc("events.tag-events"),
         options: [
           {
             text: i18n.t("general.create") as string,
@@ -270,7 +273,7 @@ export default defineComponent({
       },
       {
         id: 7,
-        text: "Category Events",
+        text: i18n.tc("events.category-events"),
         options: [
           {
             text: i18n.t("general.create") as string,
@@ -300,8 +303,10 @@ export default defineComponent({
       createNewNotifier,
     };
   },
-  head: {
-    title: "Notifiers",
+  head() {
+    return {
+      title: this.$t("profile.notifiers"),
+    };
   },
 });
 </script>
