@@ -40,7 +40,7 @@
             class="checkbox-top"
             color="error"
             hide-details
-            :label="$t('settings.backup.irreversible-acknowledgment')""
+            :label="$t('settings.backup.irreversible-acknowledgment')"
           ></v-checkbox>
         </v-card-text>
         <v-card-actions class="justify-center pt-0">
