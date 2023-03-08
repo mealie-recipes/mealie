@@ -194,6 +194,7 @@ enum DockerVolumeState {
 }
 
 interface SimpleCheck {
+  id: string;
   text: TranslateResult;
   status: boolean | undefined;
   successText: TranslateResult;
@@ -283,6 +284,7 @@ export default defineComponent({
 
       const data: SimpleCheck[] = [
         {
+          id: "application-version",
           text: i18n.t("settings.application-version"),
           status: appConfig.value.isUpToDate,
           errorText: i18n.t("settings.application-version-error-text", [rawAppInfo.value.version, rawAppInfo.value.versionLatest]),
@@ -291,6 +293,7 @@ export default defineComponent({
           icon: appConfig.value.isUpToDate ? goodIcon : warningIcon,
         },
         {
+          id: "secure-site",
           text: i18n.t("settings.secure-site"),
           status: appConfig.value.isSiteSecure,
           errorText: i18n.t("settings.secure-site-error-text"),
@@ -299,6 +302,7 @@ export default defineComponent({
           icon: appConfig.value.isSiteSecure ? goodIcon : badIcon,
         },
         {
+          id: "server-side-base-url",
           text: i18n.t("settings.server-side-base-url"),
           status: appConfig.value.baseUrlSet,
           errorText:
@@ -308,6 +312,7 @@ export default defineComponent({
           icon: appConfig.value.baseUrlSet ? goodIcon : badIcon,
         },
         {
+          id: "ldap-ready",
           text: i18n.t("settings.ldap-ready"),
           status: appConfig.value.ldapReady,
           errorText:
@@ -452,17 +457,17 @@ export default defineComponent({
       });
 
       const ignoreChecks: { [key: string]: boolean } = {
-        "Application Version": true,
+        "application-version": true,
       };
 
       text += "\n**Checks**\n";
 
       simpleChecks.value.forEach((item) => {
-        if (ignoreChecks[item.text]) {
+        if (ignoreChecks[item.id]) {
           return;
         }
         const status = item.status ? "Yes" : "No";
-        text += `${item.text}: ${status}\n`;
+        text += `${item.text.toString()}: ${status}\n`;
       });
 
       text += `Email Configured: ${appConfig.value.emailReady ? "Yes" : "No"}\n`;
