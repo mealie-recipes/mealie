@@ -115,6 +115,32 @@ def test_ldap_user_login_starttls(api_client: TestClient):
 
 
 @pytest.mark.skipif(not os.environ.get("GITHUB_ACTIONS", False), reason="requires ldap service in github actions")
+def test_ldap_user_login_anonymous_bind(api_client: TestClient):
+    settings = get_app_settings()
+    settings.LDAP_QUERY_BIND = None
+    settings.LDAP_QUERY_PASSWORD = None
+    get_app_settings.cache_clear()
+
+    form_data = {"username": "bender", "password": "bender"}
+    response = api_client.post(api_routes.auth_token, data=form_data)
+
+    assert response.status_code == 200
+
+    data = response.json()
+    assert data is not None
+    assert data.get("access_token") is not None
+
+    response = api_client.get(api_routes.users_self, headers={"Authorization": f"Bearer {data.get('access_token')}"})
+    assert response.status_code == 200
+
+    data = response.json()
+    assert data.get("username") == "bender"
+    assert data.get("fullName") == "Bender Bending Rodríguez"
+    assert data.get("email") == "bender@planetexpress.com"
+    assert data.get("admin") is False
+
+
+@pytest.mark.skipif(not os.environ.get("GITHUB_ACTIONS", False), reason="requires ldap service in github actions")
 def test_ldap_admin_login(api_client: TestClient):
     form_data = {"username": "professor", "password": "professor"}
     response = api_client.post(api_routes.auth_token, data=form_data)
