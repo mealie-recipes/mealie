@@ -86,7 +86,6 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
         user_filter = settings.LDAP_USER_FILTER.format(
             id_attribute=settings.LDAP_ID_ATTRIBUTE, mail_attribute=settings.LDAP_MAIL_ATTRIBUTE, input=username
         )
-    print(user_filter)
     # Don't assume the provided search filter has (|({id_attribute}={input})({mail_attribute}={input}))
     search_filter = "(&(|({id_attribute}={input})({mail_attribute}={input})){filter})".format(
         id_attribute=settings.LDAP_ID_ATTRIBUTE,
