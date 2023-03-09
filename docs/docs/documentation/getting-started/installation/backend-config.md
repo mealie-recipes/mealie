@@ -60,7 +60,6 @@ Changing the webworker settings may cause unforeseen memory leak issues with Mea
 
 ### LDAP
 
-<!-- prettier-ignore -->
 | Variables            | Default | Description                                                                                                                         |
 | -------------------- | :-----: | ----------------------------------------------------------------------------------------------------------------------------------- |
 | LDAP_AUTH_ENABLED    |  False  | Authenticate via an external LDAP server in addidion to built-in Mealie auth                                                        |
@@ -71,7 +70,7 @@ Changing the webworker settings may cause unforeseen memory leak issues with Mea
 | LDAP_BASE_DN         |  None   | Starting point when searching for users authentication (e.g. `CN=Users,DC=xx,DC=yy,DC=de`)                                          |
 | LDAP_QUERY_BIND      |  None   | Optional bind user for LDAP search queries (e.g. `cn=admin,cn=users,dc=example,dc=com`). If `None` then anonymous bind will be used |
 | LDAP_QUERY_PASSWORD  |  None   | Optional password for the bind user used in LDAP_QUERY_BIND                                                                         |
-| LDAP_USER_FILTER | None | The LDAP search filter to find users (e.g. `(&(|({id_attribute}={input})({mail_attribute}={input}))(objectClass=person))`).<br/> **Note** `id_attribute` and `mail_attribute` will be replaced with `LDAP_ID_ATTRIBUTE` and `LDAP_MAIL_ATTRIBUTE`, respectively. `input` will be replaced with either the username or email the user logs in with. |
+| LDAP_USER_FILTER     |  None   | Optional LDAP filter to narrow down eligible users (e.g. `(memberOf=cn=mealie_user,dc=example,dc=com)`)                             |
 | LDAP_ADMIN_FILTER    |  None   | Optional LDAP filter, which tells Mealie the LDAP user is an admin (e.g. `(memberOf=cn=admins,dc=example,dc=com)`)                  |
 | LDAP_ID_ATTRIBUTE    |   uid   | The LDAP attribute that maps to the user's id                                                                                       |
 | LDAP_NAME_ATTRIBUTE  |  name   | The LDAP attribute that maps to the user's name                                                                                     |

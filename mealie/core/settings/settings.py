@@ -146,7 +146,6 @@ class AppSettings(BaseSettings):
         required = {
             self.LDAP_SERVER_URL,
             self.LDAP_BASE_DN,
-            self.LDAP_USER_FILTER,
             self.LDAP_ID_ATTRIBUTE,
             self.LDAP_MAIL_ATTRIBUTE,
             self.LDAP_NAME_ATTRIBUTE,
