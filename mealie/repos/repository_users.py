@@ -9,8 +9,8 @@ from sqlalchemy.orm.interfaces import LoaderOption
 from mealie.assets import users as users_assets
 from mealie.schema.user.user import PrivateUser
 
-from .repository_generic import RepositoryGeneric
 from ..db.models.users import User
+from .repository_generic import RepositoryGeneric
 
 
 class RepositoryUsers(RepositoryGeneric[PrivateUser, User]):

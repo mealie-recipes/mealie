@@ -7,10 +7,11 @@ from slugify import slugify
 from sqlalchemy import Select, and_, desc, func, or_, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import joinedload
+from sqlalchemy.orm.interfaces import LoaderOption
 from text_unidecode import unidecode
 
 from mealie.db.models.recipe.category import Category
-from mealie.db.models.recipe.ingredient import RecipeIngredient
+from mealie.db.models.recipe.ingredient import IngredientFoodModel, RecipeIngredient
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.settings import RecipeSettings
 from mealie.db.models.recipe.tag import Tag
@@ -28,6 +29,7 @@ from mealie.schema.recipe.recipe_category import CategoryBase, TagBase
 from mealie.schema.response.pagination import PaginationQuery
 
 from ..db.models._model_base import SqlAlchemyBase
+from ..db.models.recipe import RecipeInstruction
 from ..schema._mealie.mealie_model import extract_uuids
 from .repository_generic import RepositoryGeneric
 
@@ -50,6 +52,27 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
 
     def by_group(self, group_id: UUID) -> "RepositoryRecipes":
         return super().by_group(group_id)
+
+    def single_query_options(self) -> list[LoaderOption]:
+        return [
+            joinedload(RecipeModel.assets),
+            joinedload(RecipeModel.comments),
+            joinedload(RecipeModel.extras),
+            joinedload(RecipeModel.recipe_category),
+            joinedload(RecipeModel.tags),
+            joinedload(RecipeModel.tools),
+            joinedload(RecipeModel.recipe_ingredient).joinedload(RecipeIngredient.unit),
+            joinedload(RecipeModel.recipe_ingredient)
+            .joinedload(RecipeIngredient.food)
+            .joinedload(IngredientFoodModel.extras),
+            joinedload(RecipeModel.recipe_ingredient)
+            .joinedload(RecipeIngredient.food)
+            .joinedload(IngredientFoodModel.label),
+            joinedload(RecipeModel.recipe_instructions).joinedload(RecipeInstruction.ingredient_references),
+            joinedload(RecipeModel.nutrition),
+            joinedload(RecipeModel.settings),
+            joinedload(RecipeModel.notes),
+        ]
 
     def get_all_public(self, limit: int | None = None, order_by: str | None = None, start=0, override_schema=None):
         eff_schema = override_schema or self.schema

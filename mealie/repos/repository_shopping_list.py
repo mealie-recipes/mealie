@@ -5,8 +5,8 @@ from sqlalchemy.orm.interfaces import LoaderOption
 from mealie.db.models.group.shopping_list import ShoppingList, ShoppingListRecipeReference
 from mealie.schema.group.group_shopping_list import ShoppingListOut, ShoppingListUpdate
 
-from .repository_generic import RepositoryGeneric
 from ..db.models.recipe import RecipeModel
+from .repository_generic import RepositoryGeneric
 
 
 class RepositoryShoppingList(RepositoryGeneric[ShoppingListOut, ShoppingList]):
