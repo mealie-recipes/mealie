@@ -5,16 +5,15 @@ from uuid import UUID
 
 from pydantic import UUID4, Field, validator
 from pydantic.types import constr
-from pydantic.utils import GetterDict
 
 from mealie.core.config import get_app_dirs, get_app_settings
-from mealie.db.models.users import User
 from mealie.db.models.users.users import AuthMethod
 from mealie.schema._mealie import MealieModel
 from mealie.schema.group.group_preferences import ReadGroupPreferences
 from mealie.schema.recipe import RecipeSummary
 from mealie.schema.response.pagination import PaginationBase
 
+from ..getter_dict import GroupGetterDict, UserGetterDict
 from ..recipe import CategoryBase
 
 DEFAULT_INTEGRATION_ID = "generic"
@@ -78,19 +77,8 @@ class UserBase(MealieModel):
     can_organize: bool = False
 
     class Config:
-        class _UserGetter(GetterDict):
-            def get(self, key: Any, default: Any = None) -> Any:
-                # Transform extras into key-value dict
-                if key == "group":
-                    value = super().get(key, default)
-                    return value.group.name
-
-                # Keep all other fields as they are
-                else:
-                    return super().get(key, default)
-
         orm_mode = True
-        getter_dict = _UserGetter
+        getter_dict = GroupGetterDict
 
         schema_extra = {
             "example": {
@@ -118,13 +106,7 @@ class UserOut(UserBase):
     class Config:
         orm_mode = True
 
-        @classmethod
-        def getter_dict(cls, ormModel: User):
-            return {
-                **GetterDict(ormModel),
-                "group": ormModel.group.name,
-                "favorite_recipes": [x.slug for x in ormModel.favorite_recipes],
-            }
+        getter_dict = UserGetterDict
 
 
 class UserPagination(PaginationBase):
@@ -136,13 +118,7 @@ class UserFavorites(UserBase):
 
     class Config:
         orm_mode = True
-
-        @classmethod
-        def getter_dict(cls, ormModel: User):
-            return {
-                **GetterDict(ormModel),
-                "group": ormModel.group.name,
-            }
+        getter_dict = GroupGetterDict
 
 
 class PrivateUser(UserOut):

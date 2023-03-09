@@ -4,11 +4,10 @@ from datetime import datetime
 from fractions import Fraction
 
 from pydantic import UUID4, validator
-from pydantic.utils import GetterDict
 
-from mealie.db.models.group.shopping_list import ShoppingList, ShoppingListItem
 from mealie.schema._mealie import MealieModel
 from mealie.schema._mealie.types import NoneFloat
+from mealie.schema.getter_dict import ExtrasGetterDict
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary
 from mealie.schema.recipe.recipe import RecipeSummary
 from mealie.schema.recipe.recipe_ingredient import (
@@ -171,13 +170,7 @@ class ShoppingListItemOut(ShoppingListItemBase):
 
     class Config:
         orm_mode = True
-
-        @classmethod
-        def getter_dict(cls, name_orm: ShoppingListItem):
-            return {
-                **GetterDict(name_orm),
-                "extras": {x.key_name: x.value for x in name_orm.extras},
-            }
+        getter_dict = ExtrasGetterDict
 
 
 class ShoppingListItemsCollectionOut(MealieModel):
@@ -241,13 +234,7 @@ class ShoppingListSummary(ShoppingListSave):
 
     class Config:
         orm_mode = True
-
-        @classmethod
-        def getter_dict(cls, name_orm: ShoppingList):
-            return {
-                **GetterDict(name_orm),
-                "extras": {x.key_name: x.value for x in name_orm.extras},
-            }
+        getter_dict = ExtrasGetterDict
 
 
 class ShoppingListPagination(PaginationBase):
@@ -265,13 +252,7 @@ class ShoppingListOut(ShoppingListUpdate):
 
     class Config:
         orm_mode = True
-
-        @classmethod
-        def getter_dict(cls, name_orm: ShoppingList):
-            return {
-                **GetterDict(name_orm),
-                "extras": {x.key_name: x.value for x in name_orm.extras},
-            }
+        getter_dict = ExtrasGetterDict
 
 
 class ShoppingListAddRecipeParams(MealieModel):

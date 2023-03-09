@@ -1,5 +1,4 @@
 from pydantic import UUID4
-from pydantic.utils import GetterDict
 
 from mealie.schema._mealie import MealieModel
 
@@ -18,12 +17,6 @@ class CategoryBase(CategoryIn):
 
     class Config:
         orm_mode = True
-
-        @classmethod
-        def getter_dict(_cls, name_orm):
-            return {
-                **GetterDict(name_orm),
-            }
 
 
 class CategoryOut(CategoryBase):
