@@ -7,6 +7,7 @@ from typing import Any, Generic, TypeVar
 from fastapi import HTTPException
 from pydantic import UUID4, BaseModel
 from sqlalchemy import Select, delete, func, select
+from sqlalchemy.orm import raiseload
 from sqlalchemy.orm.interfaces import LoaderOption
 from sqlalchemy.orm.session import Session
 from sqlalchemy.sql import sqltypes
@@ -55,7 +56,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
         self.logger.error(e)
 
     def _query(self):
-        return select(self.model)
+        return select(self.model).options(raiseload("*"))
 
     def _filter_builder(self, **kwargs) -> dict[str, Any]:
         dct = {}
@@ -135,12 +136,16 @@ class RepositoryGeneric(Generic[Schema, Model]):
         fltr = self._filter_builder(**{match_key: match_value})
         return self.session.execute(self._query().filter_by(**fltr)).scalars().one()
 
+    def single_query_options(self) -> list[LoaderOption]:
+        # Override this in subclasses to specify joinedloads or similar for get_one
+        return []
+
     def get_one(
         self, value: str | int | UUID4, key: str | None = None, any_case=False, override_schema=None
     ) -> Schema | None:
         key = key or self.primary_key
 
-        q = self._query()
+        q = self._query().options(*self.single_query_options())
 
         if any_case:
             search_attr = getattr(self.model, key)
@@ -148,7 +153,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
         else:
             q = q.filter_by(**self._filter_builder(**{key: value}))
 
-        result = self.session.execute(q).scalars().one_or_none()
+        result = self.session.execute(q).unique().scalars().one_or_none()
 
         if not result:
             return None
