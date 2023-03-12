@@ -233,3 +233,6 @@ export interface UserIn {
 export interface ValidateResetToken {
   token: string;
 }
+export interface PasswordResetToken {
+  token: string;
+}

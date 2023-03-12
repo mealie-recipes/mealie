@@ -27,6 +27,13 @@
             label="User Group"
             :rules="[validators.required]"
           ></v-select>
+          <div class="d-flex py-2 pr-2">
+            <BaseButton type="button" :loading="generatingToken" create @click.prevent="handlePasswordReset">
+              {{ $t("user.generate-password-reset-link") }}
+            </BaseButton>
+            <AppButtonCopy v-if="resetUrl" :copy-text="resetUrl"></AppButtonCopy>
+          </div>
+
           <AutoForm v-model="user" :items="userForm" update-mode />
         </v-card-text>
       </v-card>
@@ -67,6 +74,9 @@ export default defineComponent({
 
     const userError = ref(false);
 
+    const resetUrl = ref<string | null>(null);
+    const generatingToken = ref(false);
+
     onMounted(async () => {
       const { data, error } = await adminApi.users.getOne(userId);
 
@@ -90,6 +100,20 @@ export default defineComponent({
       }
     }
 
+    async function handlePasswordReset() {
+      if (user.value === null) return;
+      generatingToken.value = true;
+
+      const { response, data } = await adminApi.users.generatePasswordResetToken({ email: user.value.email });
+
+      if (response?.status === 201 && data) {
+        const token: string = data.token;
+        resetUrl.value = `${window.location.origin}/reset-password?token=${token}`;
+      }
+
+      generatingToken.value = false;
+    }
+
     return {
       user,
       userError,
@@ -98,6 +122,9 @@ export default defineComponent({
       handleSubmit,
       groups,
       validators,
+      handlePasswordReset,
+      resetUrl,
+      generatingToken,
     };
   },
 });
