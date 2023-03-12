@@ -89,10 +89,6 @@ class BackupV2(BaseService):
 
             database_json = contents.read_tables()
 
-            if not AlchemyExporter.validate_schemas(database_json, self.db_exporter.dump()):
-                self.logger.error("Invalid backup file. Database schemas do not match")
-                raise BackupSchemaMismatch("Invalid backup file. Database schemas do not match")
-
             # ================================
             # Purge Database
 

@@ -78,6 +78,9 @@ async def get_current_user(token: str = Depends(oauth2_scheme), session=Depends(
 
     user = repos.users.get_one(token_data.user_id, "id", any_case=False)
 
+    # If we don't commit here, lazy-loads from user relationships will leave some table lock in postgres
+    # which can cause quite a bit of pain further down the line
+    session.commit()
     if user is None:
         raise credentials_exception
     return user
