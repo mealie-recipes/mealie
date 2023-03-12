@@ -283,17 +283,34 @@
     "meal-plan-settings": "Meal Plan Settings"
   },
   "migration": {
+    "migration-data-removed": "Data z migrace byla smazána",
+    "new-migration": "New Migration",
+    "no-file-selected": "No File Selected",
+    "no-migration-data-available": "Nejsou k dispozici žádná data k přenesení",
+    "previous-migrations": "Previous Migrations",
+    "recipe-migration": "Přenést recept",
     "chowdown": {
       "description": "Migrovat data z aplikace Chowdown",
+      "description-long": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
       "title": "Chowdown"
     },
-    "migration-data-removed": "Data z migrace byla smazána",
     "nextcloud": {
       "description": "Migrovat data z instance Nextcloud Cookbook",
+      "description-long": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
       "title": "Nextcloud Cookbook"
     },
-    "no-migration-data-available": "Nejsou k dispozici žádná data k přenesení",
-    "recipe-migration": "Přenést recept"
+    "copymethat": {
+      "description-long": "Mealie can import recipes from Copy Me That. Export your recipes in HTML format, then upload the .zip below.",
+      "title": "Copy Me That Recipe Manager"
+    },
+    "paprika": {
+      "description-long": "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
+      "title": "Paprika Recipe Manager"
+    },
+    "mealie-pre-v1": {
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
+      "title": "Mealie Pre v1.0"
+    }
   },
   "new-recipe": {
     "bulk-add": "Hromadné přidání",
