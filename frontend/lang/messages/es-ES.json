@@ -22,7 +22,7 @@
     "support": "Soporte",
     "version": "Versión",
     "unknown-version": "desconocido",
-    "sponsor": "Sponsor"
+    "sponsor": "Patrocinador"
   },
   "asset": {
     "assets": "Recursos",
@@ -111,7 +111,7 @@
     "ok": "Aceptar",
     "options": "Opciones:",
     "print": "Imprimir",
-    "print-preferences": "Print Preferences",
+    "print-preferences": "Preferencias de impresión",
     "random": "Aleatorio",
     "rating": "Puntuación",
     "recent": "Reciente",
@@ -166,9 +166,9 @@
     "copy": "Copiar",
     "color": "Color",
     "timestamp": "Marca de Tiempo",
-    "last-made": "Last Made",
-    "learn-more": "Learn More",
-    "this-feature-is-currently-inactive": "This feature is currently inactive",
+    "last-made": "Última Hecha",
+    "learn-more": "Aprender más",
+    "this-feature-is-currently-inactive": "Esta función está actualmente inactiva",
     "clipboard-not-supported": "Clipboard not supported",
     "copied-to-clipboard": "Copied to clipboard",
     "your-browser-does-not-support-clipboard": "Your browser does not support clipboard\")",

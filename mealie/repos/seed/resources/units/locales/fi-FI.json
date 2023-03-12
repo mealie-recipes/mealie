@@ -1,18 +1,18 @@
 {
     "teaspoon": {
-        "name": "teaspoon",
+        "name": "teelusikka",
         "description": "",
-        "abbreviation": "tsp"
+        "abbreviation": "tl"
     },
     "tablespoon": {
-        "name": "tablespoon",
+        "name": "ruokalusikka",
         "description": "",
-        "abbreviation": "tbsp"
+        "abbreviation": "rkl"
     },
     "cup": {
-        "name": "cup",
+        "name": "kuppi",
         "description": "",
-        "abbreviation": "cup"
+        "abbreviation": "kuppi"
     },
     "fluid-ounce": {
         "name": "fluid ounce",
@@ -20,57 +20,57 @@
         "abbreviation": "fl oz"
     },
     "pint": {
-        "name": "pint",
+        "name": "tuoppi",
         "description": "",
         "abbreviation": "pt"
     },
     "quart": {
-        "name": "quart",
+        "name": "kvartti",
         "description": "",
         "abbreviation": "qt"
     },
     "gallon": {
-        "name": "gallon",
+        "name": "gallona",
         "description": "",
         "abbreviation": "gal"
     },
     "milliliter": {
-        "name": "milliliter",
+        "name": "millilitra",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
-        "name": "liter",
+        "name": "litra",
         "description": "",
         "abbreviation": "l"
     },
     "pound": {
-        "name": "pound",
+        "name": "pauna",
         "description": "",
         "abbreviation": "lb"
     },
     "ounce": {
-        "name": "ounce",
+        "name": "unssi",
         "description": "",
         "abbreviation": "oz"
     },
     "gram": {
-        "name": "gram",
+        "name": "gramma",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
-        "name": "kilogram",
+        "name": "kilogramma",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
-        "name": "milligram",
+        "name": "milligramma",
         "description": "",
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "splash",
+        "name": "tilkka",
         "description": "",
         "abbreviation": ""
     },
@@ -80,7 +80,7 @@
         "abbreviation": ""
     },
     "serving": {
-        "name": "serving",
+        "name": "annos",
         "description": "",
         "abbreviation": ""
     },
@@ -90,12 +90,12 @@
         "abbreviation": ""
     },
     "clove": {
-        "name": "clove",
+        "name": "kynsi",
         "description": "",
         "abbreviation": ""
     },
     "can": {
-        "name": "can",
+        "name": "tölkki",
         "description": "",
         "abbreviation": ""
     }

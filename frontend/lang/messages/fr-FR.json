@@ -209,19 +209,19 @@
     "default-recipe-preferences": "Préférences de recette par défaut",
     "group-preferences": "Préférences du groupe",
     "private-group": "Groupe privé",
-    "private-group-description": "Setting your group to private will default all public view options to default. This overrides an individual recipes public view settings.",
+    "private-group-description": "Rendre votre groupe privé va réinitialiser toutes les options de vue publique à leur valeur par défaut. Cela écrase les paramètres de vue publique d'une recette individuelle.",
     "allow-users-outside-of-your-group-to-see-your-recipes": "Autoriser les utilisateurs en dehors de votre groupe à voir vos recettes",
-    "allow-users-outside-of-your-group-to-see-your-recipes-description": "When enabled you can use a public share link to share specific recipes without authorizing the user. When disabled, you can only share recipes with users who are in your group or with a pre-generated private link",
+    "allow-users-outside-of-your-group-to-see-your-recipes-description": "Si activé, vous pouvez utiliser un lien de partage public pour partager des recettes spécifiques sans autoriser l'utilisateur. Lorsque cette option est désactivée, vous ne pouvez partager des recettes qu'avec les utilisateurs qui sont dans votre groupe ou avec un lien privé pré-généré",
     "show-nutrition-information": "Afficher les informations nutritionnelles",
-    "show-nutrition-information-description": "When enabled the nutrition information will be shown on the recipe if available. If there is no nutrition information available, the nutrition information will not be shown",
+    "show-nutrition-information-description": "Lorsque cette option est activée, l'information nutritionnelle sera affichée sur la recette si elle est disponible. S'il n'y a pas d'informations nutritionnelles disponibles, les informations nutritionnelles ne seront pas affichées",
     "show-recipe-assets": "Afficher les ressources des recettes",
-    "show-recipe-assets-description": "When enabled the recipe assets will be shown on the recipe if available",
+    "show-recipe-assets-description": "Lorsque cette option est activée, les ressources de recettes seront affichées sur la recette si disponible",
     "default-to-landscape-view": "Vue paysage par défaut",
-    "default-to-landscape-view-description": "When enabled the recipe header section will be shown in landscape view",
+    "default-to-landscape-view-description": "Lorsque cette option est activée, la section d'en-tête de recette sera affichée en mode paysage",
     "disable-users-from-commenting-on-recipes": "Désactiver les commentaires utilisateur sur les recettes",
-    "disable-users-from-commenting-on-recipes-description": "Hides the comment section on the recipe page and disables commenting",
+    "disable-users-from-commenting-on-recipes-description": "Masque la section commentaires sur la page de recette et désactive les commentaires",
     "disable-organizing-recipe-ingredients-by-units-and-food": "Désactiver l'organisation des ingrédients de recette par unité et aliment",
-    "disable-organizing-recipe-ingredients-by-units-and-food-description": "Hides the Food, Unit, and Amount fields for ingredients and treats ingredients as plain text fields.",
+    "disable-organizing-recipe-ingredients-by-units-and-food-description": "Masque les champs Aliment, Unité et Quantité pour les ingrédients et traite les ingrédients comme des champs de texte simple.",
     "general-preferences": "Préférences générales",
     "group-recipe-preferences": "Préférences de recette du groupe",
     "report": "Rapport"
@@ -437,7 +437,7 @@
     "api-extras-description": "Les extras de recette sont une caractéristique clé de l'API Mealie. Ils vous permettent de créer des paires clé/valeur json personnalisées dans une recette à référencer depuis des applications externes. Vous pouvez utiliser ces clés pour stocker des informations utiles à l'automatisation ou des messages personnalisés à relayer vers l'appareil souhaité.",
     "message-key": "Clé de message",
     "parse": "Analyser",
-    "attach-images-hint": "Joindre des images en les glissant et les déposant dans l'éditeur",
+    "attach-images-hint": "Ajouter des images en les glissant-déposant dans l'éditeur",
     "enable-ingredient-amounts-to-use-this-feature": "Activez les quantités d'ingrédients pour utiliser cette fonctionnalité",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Les recettes avec des unités ou des aliments définis ne peuvent pas être analysées.",
     "parse-ingredients": "Analyser les ingrédients",
@@ -616,7 +616,7 @@
     "linked-recipes-count": "Aucune recette liée|Une recette liée|{count} recettes liées",
     "items-checked-count": "Aucun élément coché|Un élément coché|{count} éléments cochés",
     "no-label": "Aucune étiquette",
-    "completed-on": "Completed on {date}"
+    "completed-on": "Terminé le {date}"
   },
   "sidebar": {
     "all-recipes": "Recettes",
@@ -675,7 +675,7 @@
     "admin": "Administrateur",
     "are-you-sure-you-want-to-delete-the-link": "Voulez-vous vraiment supprimer le lien <b>{link}<b/> ?",
     "are-you-sure-you-want-to-delete-the-user": "Voulez-vous vraiment supprimer l’utilisateur <b>{activeName} ID : {activeId}<b/> ?",
-    "auth-method": "Auth Method",
+    "auth-method": "Méthode d'auth.",
     "confirm-link-deletion": "Confirmer la suppression du lien",
     "confirm-password": "Confirmer mot de passe",
     "confirm-user-deletion": "Confirmer la suppression",
@@ -847,7 +847,7 @@
   },
   "banner-experimental": {
     "title": "Fonctionnalités expérimentales",
-    "description": "Cette page contient des fonctionnalités expérimentales ou des fonctionnalités en construction. Veuillez excuser le désordre.",
+    "description": "Cette page contient des fonctionnalités expérimentales ou des fonctionnalités en construction. Désolé du dérangement.",
     "issue-link-text": "Suivez notre progression ici"
   },
   "form": {
@@ -900,7 +900,7 @@
       "info-description-data-dir-size": "Taille du répertoire de données",
       "info-description-log-file-size": "Taille du fichier journal",
       "info-description-cleanable-directories": "Répertoires nettoyables",
-      "info-description-cleanable-images": "Images Nettoyables",
+      "info-description-cleanable-images": "Images nettoyables",
       "storage": {
         "title-temporary-directory": "Répertoire temporaire (.temp)",
         "title-backups-directory": "Répertoire des sauvegardes (backups)",
@@ -968,11 +968,11 @@
     "description": "Les livres de recettes sont un autre moyen d'organiser des recettes en sélectionnant un ensemble précis de recettes et de mots-clés. La création d'un livre de recettes ajoute une entrée à la barre latérale et toutes les recettes avec les étiquettes et les catégories choisies seront affichées dans le livre de recettes.",
     "public-cookbook": "Livre de recettes public",
     "public-cookbook-description": "Les livres de recettes publics peuvent être partagés avec des personnes qui n'ont pas Mealie et seront affichés sur la page de vos groupes.",
-    "filter-options": "Options de filtre",
-    "filter-options-description": "Si coché, le livre de recettes n'incluera que les recettes qui remplissent tous les critères. Cela s'applique à chaque section individuellement, et non à l'entièreté des sections.",
-    "require-all-categories": "Necessite toutes les catégories",
+    "filter-options": "Options de filtres",
+    "filter-options-description": "Si coché, le livre de recettes n'incluera que les recettes qui remplissent tous les critères sélectionnés. Cela s'applique à chaque rubrique individuellement.",
+    "require-all-categories": "Nécessite toutes les catégories",
     "require-all-tags": "Nécessite tous les mots-clés",
-    "require-all-tools": "Tous les ustensiles sont nécessaires",
+    "require-all-tools": "Nécessite tous les ustensiles",
     "cookbook-name": "Nom du livre de recettes",
     "cookbook-with-name": "Livre de recettes {0}"
   }
