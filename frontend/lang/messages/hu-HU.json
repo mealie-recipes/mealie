@@ -689,6 +689,7 @@
     "error-cannot-delete-super-user": "Hiba! Adminsztrátor felhasználó nem törölhető",
     "existing-password-does-not-match": "A jelszavak nem egyeznek",
     "full-name": "Teljes név",
+    "generate-password-reset-link": "Generate Password Reset Link",
     "invite-only": "Csak meghívóval",
     "link-id": "Hivatkozás ID",
     "link-name": "Hivatkozás neve",
