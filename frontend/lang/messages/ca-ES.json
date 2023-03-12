@@ -689,6 +689,7 @@
     "error-cannot-delete-super-user": "S'ha produït un error. El Super usuari no es pot suprimir!",
     "existing-password-does-not-match": "La contrasenya actual no coincideix",
     "full-name": "Nom sencer",
+    "generate-password-reset-link": "Generate Password Reset Link",
     "invite-only": "Només per invitació",
     "link-id": "Id de l'enllaç",
     "link-name": "Nom de l'enllaç",
