@@ -14,7 +14,7 @@
       Mealie.
     </BasePageTitle>
     <v-container>
-      <BaseCardSectionTitle title="New Migration"> </BaseCardSectionTitle>
+      <BaseCardSectionTitle :title="$i18n.tc('migration.new-migration')"> </BaseCardSectionTitle>
       <v-card outlined :loading="loading">
         <v-card-title> Choose Migration Type </v-card-title>
         <v-card-text v-if="content" class="pb-0">
@@ -39,7 +39,7 @@
             :text-btn="false"
             @uploaded="setFileObject"
           />
-          {{ fileObject.name || "No file selected" }}
+          {{ fileObject.name || $i18n.tc('migration.no-file-selected') }}
         </v-card-text>
 
         <v-card-text>
@@ -58,7 +58,7 @@
       </v-card>
     </v-container>
     <v-container>
-      <BaseCardSectionTitle title="Previous Migrations"> </BaseCardSectionTitle>
+      <BaseCardSectionTitle :title="$i18n.tc('migration.previous-migrations')"> </BaseCardSectionTitle>
       <ReportTable :items="reports" @delete="deleteReport" />
     </v-container>
   </v-container>
@@ -74,13 +74,14 @@ import { SupportedMigrations } from "~/lib/api/types/group";
 const MIGRATIONS = {
   nextcloud: "nextcloud",
   chowdown: "chowdown",
+  copymethat: "copymethat",
   paprika: "paprika",
   mealie: "mealie_alpha",
 };
 
 export default defineComponent({
   setup() {
-    const { $globals } = useContext();
+    const { $globals, i18n } = useContext();
 
     const api = useUserApi();
 
@@ -95,26 +96,30 @@ export default defineComponent({
 
     const items: MenuItem[] = [
       {
-        text: "Nextcloud",
+        text: i18n.tc("migration.nextcloud.title"),
         value: MIGRATIONS.nextcloud,
       },
       {
-        text: "Chowdown",
+        text: i18n.tc("migration.chowdown.title"),
         value: MIGRATIONS.chowdown,
       },
       {
-        text: "Paprika",
+        text: i18n.tc("migration.copymethat.title"),
+        value: MIGRATIONS.copymethat,
+      },
+      {
+        text: i18n.tc("migration.paprika.title"),
         value: MIGRATIONS.paprika,
       },
       {
-        text: "Mealie",
+        text: i18n.tc("migration.mealie-pre-v1.title"),
         value: MIGRATIONS.mealie,
       },
     ];
 
     const _content = {
       [MIGRATIONS.nextcloud]: {
-        text: "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
+        text: i18n.tc("migration.nextcloud.description-long"),
         tree: [
           {
             id: 1,
@@ -146,7 +151,7 @@ export default defineComponent({
         ],
       },
       [MIGRATIONS.chowdown]: {
-        text: "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below",
+        text: i18n.tc("migration.chowdown.description-long"),
         tree: [
           {
             id: 1,
@@ -177,12 +182,35 @@ export default defineComponent({
           },
         ],
       },
+      [MIGRATIONS.copymethat]: {
+        text: i18n.tc("migration.copymethat.description-long"),
+        tree: [
+          {
+            id: 1,
+            icon: $globals.icons.zip,
+            name: "Copy_Me_That_20230306.zip",
+            children: [
+              {
+                id: 2,
+                name: "images",
+                icon: $globals.icons.folderOutline,
+                children: [
+                  { id: 3, name: "recipe_1_an5zy.jpg", icon: $globals.icons.fileImage },
+                  { id: 4, name: "recipe_2_82el8.jpg", icon: $globals.icons.fileImage },
+                  { id: 5, name: "recipe_3_j75qg.jpg", icon: $globals.icons.fileImage },
+                ],
+              },
+              { id: 6, name: "recipes.html", icon: $globals.icons.codeJson }
+            ]
+          }
+        ],
+      },
       [MIGRATIONS.paprika]: {
-        text: "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
+        text: i18n.tc("migration.paprika.description-long"),
         tree: false,
       },
       [MIGRATIONS.mealie]: {
-        text: "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
+        text: i18n.tc("migration.mealie-pre-v1.description-long"),
         tree: [
           {
             id: 1,

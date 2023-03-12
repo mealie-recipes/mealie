@@ -41,6 +41,7 @@ recipe-scrapers = "^14.26.0"
 requests = "^2.25.1"
 tzdata = "^2022.7"
 uvicorn = {extras = ["standard"], version = "^0.20.0"}
+beautifulsoup4 = "^4.11.2"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.1.0"
