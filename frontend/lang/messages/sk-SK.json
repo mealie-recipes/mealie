@@ -689,6 +689,7 @@
     "error-cannot-delete-super-user": "Chyba! Superužívateľa nie je možné odstrániť",
     "existing-password-does-not-match": "Súčasné heslo sa nezhoduje",
     "full-name": "Celé meno",
+    "generate-password-reset-link": "Generate Password Reset Link",
     "invite-only": "Len na pozvanie",
     "link-id": "ID odkazu",
     "link-name": "Názov odkazu",
