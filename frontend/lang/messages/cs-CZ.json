@@ -689,6 +689,7 @@
     "error-cannot-delete-super-user": "Chyba! Nelze odstranit superuživatele",
     "existing-password-does-not-match": "Hesla se neshodují",
     "full-name": "Jméno a příjmení",
+    "generate-password-reset-link": "Generate Password Reset Link",
     "invite-only": "Jen na pozvání",
     "link-id": "ID odkazu",
     "link-name": "Název odkazu",

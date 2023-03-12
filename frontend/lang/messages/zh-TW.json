@@ -689,6 +689,7 @@
     "error-cannot-delete-super-user": "錯誤！無法刪除管理員帳戶",
     "existing-password-does-not-match": "舊密碼不正確",
     "full-name": "全名",
+    "generate-password-reset-link": "Generate Password Reset Link",
     "invite-only": "Invite Only",
     "link-id": "連結ID",
     "link-name": "連結名稱",

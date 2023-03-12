@@ -689,6 +689,7 @@
     "error-cannot-delete-super-user": "Fout! Kan supergebruiker niet verwijderen",
     "existing-password-does-not-match": "Bestaande wachtwoord komt niet overeen",
     "full-name": "Volledige naam",
+    "generate-password-reset-link": "Generate Password Reset Link",
     "invite-only": "Alleen op uitnodiging",
     "link-id": "Koppeling ID",
     "link-name": "Koppeling Naam",

@@ -689,6 +689,7 @@
     "error-cannot-delete-super-user": "Virhe! Pääkäyttäjän poisto ei ole mahdollista",
     "existing-password-does-not-match": "Salasana ei täsmää",
     "full-name": "Koko nimi",
+    "generate-password-reset-link": "Generate Password Reset Link",
     "invite-only": "Invite Only",
     "link-id": "Linkin ID",
     "link-name": "Linkin nimi",

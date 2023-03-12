@@ -689,6 +689,7 @@
     "error-cannot-delete-super-user": "Wystąpił błąd! Nie można usunąć super użytkownika",
     "existing-password-does-not-match": "Aktualne hasło jest niezgodne",
     "full-name": "Imię i nazwisko",
+    "generate-password-reset-link": "Generate Password Reset Link",
     "invite-only": "Tylko z zaproszeniem",
     "link-id": "ID linku",
     "link-name": "Nazwa linku",

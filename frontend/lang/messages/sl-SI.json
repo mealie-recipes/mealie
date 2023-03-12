@@ -689,6 +689,7 @@
     "error-cannot-delete-super-user": "Napaka! Ne morem izbrisati super uporabnika",
     "existing-password-does-not-match": "Ponovljeno geslo ne ustreza prvemu",
     "full-name": "Polno ime",
+    "generate-password-reset-link": "Generate Password Reset Link",
     "invite-only": "Samo na povabilo",
     "link-id": "ID povezave",
     "link-name": "Ime povezave",

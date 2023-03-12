@@ -689,6 +689,7 @@
     "error-cannot-delete-super-user": "错误！无法删除超级用户",
     "existing-password-does-not-match": "与现有的密码不匹配",
     "full-name": "全名",
+    "generate-password-reset-link": "Generate Password Reset Link",
     "invite-only": "Invite Only",
     "link-id": "链接ID",
     "link-name": "链接名",

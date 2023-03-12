@@ -689,6 +689,7 @@
     "error-cannot-delete-super-user": "Σφάλμα! Αδυναμία Διαγραφής Υπερχρήστη",
     "existing-password-does-not-match": "Ο υπάρχων κωδικός πρόσβασης δεν ταιριάζει",
     "full-name": "Πλήρες όνομα",
+    "generate-password-reset-link": "Generate Password Reset Link",
     "invite-only": "Μόνο με πρόσκληση",
     "link-id": "Σύνδεσμος ID",
     "link-name": "Όνομα συνδέσμου",

@@ -689,6 +689,7 @@
     "error-cannot-delete-super-user": "Errore! Impossibile Eliminare Super User",
     "existing-password-does-not-match": "La nuova password non corrisponde",
     "full-name": "Nome",
+    "generate-password-reset-link": "Generate Password Reset Link",
     "invite-only": "Solo su invito",
     "link-id": "Link ID",
     "link-name": "Link Nome",

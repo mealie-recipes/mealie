@@ -689,6 +689,7 @@
     "error-cannot-delete-super-user": "Fejl! Kan ikke slette super-brugeren",
     "existing-password-does-not-match": "Nuværende adgangskode matcher ikke",
     "full-name": "Fulde navn",
+    "generate-password-reset-link": "Generate Password Reset Link",
     "invite-only": "Kun inviterede",
     "link-id": "Link ID",
     "link-name": "Linknavn",
