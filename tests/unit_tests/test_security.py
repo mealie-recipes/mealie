@@ -52,11 +52,18 @@ class LdapConnMock:
             self.app_settings.LDAP_NAME_ATTRIBUTE,
             self.app_settings.LDAP_MAIL_ATTRIBUTE,
         ]
-        assert filter == self.app_settings.LDAP_USER_FILTER.format(
+        user_filter = self.app_settings.LDAP_USER_FILTER.format(
             id_attribute=self.app_settings.LDAP_ID_ATTRIBUTE,
             mail_attribute=self.app_settings.LDAP_MAIL_ATTRIBUTE,
             input=self.user,
         )
+        search_filter = "(&(|({id_attribute}={input})({mail_attribute}={input})){filter})".format(
+            id_attribute=self.app_settings.LDAP_ID_ATTRIBUTE,
+            mail_attribute=self.app_settings.LDAP_MAIL_ATTRIBUTE,
+            input=self.user,
+            filter=user_filter,
+        )
+        assert filter == search_filter
         assert dn == self.app_settings.LDAP_BASE_DN
         assert scope == ldap.SCOPE_SUBTREE
 
@@ -75,6 +82,9 @@ class LdapConnMock:
         pass
 
     def unbind_s(self):
+        pass
+
+    def start_tls_s(self):
         pass
 
 
@@ -202,6 +212,9 @@ def test_ldap_disabled(monkeypatch: MonkeyPatch):
             pass
 
         def unbind_s(self):
+            pass
+
+        def start_tls_s(self):
             pass
 
     def ldap_initialize_mock(url):

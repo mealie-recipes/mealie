@@ -4,6 +4,7 @@ from pathlib import Path
 
 from jose import jwt
 
+from mealie.core import root_logger
 from mealie.core.config import get_app_settings
 from mealie.core.security.hasher import get_hasher
 from mealie.db.models.users.users import AuthMethod
@@ -13,6 +14,8 @@ from mealie.schema.user import PrivateUser
 from mealie.services.user_services.user_service import UserService
 
 ALGORITHM = "HS256"
+
+logger = root_logger.get_logger("security")
 
 
 class UserLockedOut(Exception):
@@ -64,27 +67,52 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
         conn.set_option(ldap.OPT_X_TLS_CACERTFILE, settings.LDAP_TLS_CACERTFILE)
         conn.set_option(ldap.OPT_X_TLS_NEWCTX, 0)
 
+    if settings.LDAP_ENABLE_STARTTLS:
+        conn.start_tls_s()
+
     # Use query user for the search instead of the logged in user
     # This prevents the need for every user to have query permissions in LDAP
     try:
         conn.simple_bind_s(settings.LDAP_QUERY_BIND, settings.LDAP_QUERY_PASSWORD)
     except (ldap.INVALID_CREDENTIALS, ldap.NO_SUCH_OBJECT):
+        logger.error("[LDAP] Unable to bind to with provided user/password")
         return False
 
     # Search "username" against "cn" attribute for Linux, "sAMAccountName" attribute
     # for Windows and "mail" attribute for email addresses. The "mail" attribute is
     # required to obtain the user's DN for the LDAP_ADMIN_FILTER.
-    user_entry = conn.search_s(
-        settings.LDAP_BASE_DN,
-        ldap.SCOPE_SUBTREE,
-        settings.LDAP_USER_FILTER.format(
+    user_filter = ""
+    if settings.LDAP_USER_FILTER:
+        user_filter = settings.LDAP_USER_FILTER.format(
             id_attribute=settings.LDAP_ID_ATTRIBUTE, mail_attribute=settings.LDAP_MAIL_ATTRIBUTE, input=username
-        ),
-        [settings.LDAP_ID_ATTRIBUTE, settings.LDAP_NAME_ATTRIBUTE, settings.LDAP_MAIL_ATTRIBUTE],
+        )
+    # Don't assume the provided search filter has (|({id_attribute}={input})({mail_attribute}={input}))
+    search_filter = "(&(|({id_attribute}={input})({mail_attribute}={input})){filter})".format(
+        id_attribute=settings.LDAP_ID_ATTRIBUTE,
+        mail_attribute=settings.LDAP_MAIL_ATTRIBUTE,
+        input=username,
+        filter=user_filter,
     )
+
+    user_entry = None
+    try:
+        user_entry = conn.search_s(
+            settings.LDAP_BASE_DN,
+            ldap.SCOPE_SUBTREE,
+            search_filter,
+            [settings.LDAP_ID_ATTRIBUTE, settings.LDAP_NAME_ATTRIBUTE, settings.LDAP_MAIL_ATTRIBUTE],
+        )
+    except ldap.FILTER_ERROR:
+        logger.error("[LDAP] Bad user search filter")
 
     if not user_entry:
         conn.unbind_s()
+        logger.error("[LDAP] No user was found with the provided user filter")
+        return False
+
+    if len(user_entry) > 1:
+        conn.unbind_s()
+        logger.error("[LDAP] Multiple users found with the provided user filter")
         return False
 
     user_dn, user_attr = user_entry[0]
