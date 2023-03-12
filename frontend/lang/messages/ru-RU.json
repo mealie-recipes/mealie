@@ -689,6 +689,7 @@
     "error-cannot-delete-super-user": "Ошибка! Невозможно удалить суперпользователя",
     "existing-password-does-not-match": "Пароли не совпадают",
     "full-name": "Ф.И.О.",
+    "generate-password-reset-link": "Generate Password Reset Link",
     "invite-only": "Invite Only",
     "link-id": "ID ссылки",
     "link-name": "Название ссылки",
