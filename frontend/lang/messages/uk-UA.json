@@ -689,6 +689,7 @@
     "error-cannot-delete-super-user": "Помилка! Неможливо видалити суперкористувача",
     "existing-password-does-not-match": "Існуючий пароль не збігається",
     "full-name": "Повне Ім'я",
+    "generate-password-reset-link": "Generate Password Reset Link",
     "invite-only": "Лише за запрошенням",
     "link-id": "ID посилання",
     "link-name": "Назва посилання",
