@@ -61,7 +61,7 @@
         v-if="!$vuetify.breakpoint.xsOnly"
         :items="[
           {
-            title: $t('general.toggle-view'),
+            title: $tc('general.toggle-view'),
             icon: $globals.icons.eye,
             event: 'toggle-dense-view',
           },
@@ -81,7 +81,6 @@
               :image="recipe.image"
               :tags="recipe.tags"
               :recipe-id="recipe.id"
-              @delete="$emit('delete', recipe.slug)"
             />
           </v-lazy>
         </v-col>
@@ -105,7 +104,6 @@
               :image="recipe.image"
               :tags="recipe.tags"
               :recipe-id="recipe.id"
-              @delete="$emit('delete', recipe.slug)"
             />
           </v-lazy>
         </v-col>

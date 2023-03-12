@@ -6,8 +6,9 @@
       :items="tools"
       item-type="tools"
       @delete="actions.deleteOne"
+      @update="actions.updateOne"
     >
-      <template #title> {{ $t('tool.tools') }} </template>
+      <template #title> {{ $t("tool.tools") }} </template>
     </RecipeOrganizerPage>
   </v-container>
 </template>
