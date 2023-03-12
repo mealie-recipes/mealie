@@ -124,7 +124,6 @@ import {
   reactive,
   ref,
   toRefs,
-  useAsync,
   useContext,
   useRouter,
   watch,
@@ -132,7 +131,6 @@ import {
 import { useThrottleFn } from "@vueuse/core";
 import RecipeCard from "./RecipeCard.vue";
 import RecipeCardMobile from "./RecipeCardMobile.vue";
-import { useAsyncKey } from "~/composables/use-utils";
 import { useLazyRecipes } from "~/composables/recipes";
 import { Recipe } from "~/lib/api/types/recipe";
 import { useUserSortPreferences } from "~/composables/use-users/preferences";
@@ -198,6 +196,7 @@ export default defineComponent({
     });
 
     const router = useRouter();
+
     function navigateRandom() {
       if (props.recipes.length > 0) {
         const recipe = props.recipes[Math.floor(Math.random() * props.recipes.length)];
@@ -221,6 +220,7 @@ export default defineComponent({
     });
 
     async function fetchRecipes(pageCount = 1) {
+      console.log("fetching recipes", pageCount);
       return await fetchMore(
         page.value,
         // we double-up the first call to avoid a bug with large screens that render the entire first page without scrolling, preventing additional loading
@@ -261,27 +261,26 @@ export default defineComponent({
       }
     );
 
-    const infiniteScroll = useThrottleFn(() => {
-      useAsync(async () => {
-        if (!ready.value || !hasMore.value || loading.value) {
-          return;
-        }
+    const infiniteScroll = useThrottleFn(async () => {
+      console.log("infinite scroll");
+      if (!ready.value || !hasMore.value || loading.value) {
+        return;
+      }
 
-        loading.value = true;
-        page.value = page.value + 1;
+      loading.value = true;
+      page.value = page.value + 1;
 
-        const newRecipes = await fetchRecipes();
-        if (!newRecipes.length) {
-          hasMore.value = false;
-        } else {
-          context.emit(APPEND_RECIPES_EVENT, newRecipes);
-        }
+      const newRecipes = await fetchRecipes();
+      if (newRecipes.length <= 0) {
+        hasMore.value = false;
+      } else {
+        context.emit(APPEND_RECIPES_EVENT, newRecipes);
+      }
 
-        loading.value = false;
-      }, useAsyncKey());
+      loading.value = false;
     }, 500);
 
-    function sortRecipes(sortType: string) {
+    async function sortRecipes(sortType: string) {
       if (state.sortLoading || loading.value) {
         return;
       }
@@ -342,21 +341,19 @@ export default defineComponent({
           return;
       }
 
-      useAsync(async () => {
-        // reset pagination
-        page.value = 1;
-        hasMore.value = true;
+      // reset pagination
+      page.value = 1;
+      hasMore.value = true;
 
-        state.sortLoading = true;
-        loading.value = true;
+      state.sortLoading = true;
+      loading.value = true;
 
-        // fetch new recipes
-        const newRecipes = await fetchRecipes();
-        context.emit(REPLACE_RECIPES_EVENT, newRecipes);
+      // fetch new recipes
+      const newRecipes = await fetchRecipes();
+      context.emit(REPLACE_RECIPES_EVENT, newRecipes);
 
-        state.sortLoading = false;
-        loading.value = false;
-      }, useAsyncKey());
+      state.sortLoading = false;
+      loading.value = false;
     }
 
     function toggleMobileCards() {

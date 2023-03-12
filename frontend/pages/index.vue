@@ -118,14 +118,13 @@
     </div>
     <v-divider></v-divider>
     <v-container class="mt-6 px-md-6">
-      <RecipeCardSection
+      {{ recipes.length }}
+      <RecipeCardSectionv2
         class="mt-n5"
         :icon="$globals.icons.search"
         :title="$tc('search.results')"
         :recipes="recipes"
-        :query="passedQuery"
-        @replaceRecipes="replaceRecipes"
-        @appendRecipes="appendRecipes"
+        @intersect="onScroll"
       />
     </v-container>
   </v-container>
@@ -136,19 +135,21 @@ import { ref, defineComponent, useRouter, onMounted, useContext, computed } from
 import { watchDebounced } from "@vueuse/shared";
 import SearchFilter from "~/components/Domain/SearchFilter.vue";
 import { useCategoryStore, useFoodStore, useTagStore, useToolStore } from "~/composables/store";
-import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
 import { IngredientFood, RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
-import { useLazyRecipes } from "~/composables/recipes";
 import { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
+import RecipeCardSectionv2 from "~/components/Domain/Recipe/RecipeCardSectionv2.vue";
+import { useInfiniteScroll } from "~/composables/use-infinite-scroll";
+import { useUserApi } from "~/composables/api";
+import { RecipeSummary } from "~/lib/api/types/group";
 
 export default defineComponent({
-  components: { SearchFilter, RecipeCardSection },
+  components: { SearchFilter, RecipeCardSectionv2 },
   setup() {
-    const { recipes, appendRecipes, assignSorted, removeRecipe, replaceRecipes } = useLazyRecipes();
-
     const router = useRouter();
     const { $globals, i18n } = useContext();
+
+    const recipes = ref<RecipeSummary[]>([]);
 
     const state = ref({
       auto: true,
@@ -163,6 +164,22 @@ export default defineComponent({
       requireAllFoods: false,
     });
 
+    const activeQuery = ref<RecipeSearchQuery>({
+      search: "",
+      orderBy: "created_at",
+      orderDirection: "desc",
+      requireAllCategories: false,
+      requireAllTags: false,
+      requireAllTools: false,
+      requireAllFoods: false,
+      categories: [],
+      tags: [],
+      tools: [],
+      foods: [],
+    });
+
+    const pageLocked = ref(false);
+
     const categories = useCategoryStore();
     const selectedCategories = ref<NoUndefinedField<RecipeCategory>[]>([]);
 
@@ -174,8 +191,6 @@ export default defineComponent({
 
     const tools = useToolStore();
     const selectedTools = ref<NoUndefinedField<RecipeTool>[]>([]);
-
-    const passedQuery = ref<RecipeSearchQuery | null>(null);
 
     function reset() {
       state.value.search = "";
@@ -189,6 +204,8 @@ export default defineComponent({
       selectedFoods.value = [];
       selectedTags.value = [];
       selectedTools.value = [];
+
+      recipes.value = [];
 
       router.push({
         query: {},
@@ -205,42 +222,79 @@ export default defineComponent({
       return array.map((item) => item.id);
     }
 
+    const api = useUserApi();
+
+    const page = ref(0);
+    const perPage = ref(10);
+    const total = ref(-1);
+
     async function search() {
-      await router.push({
-        query: {
-          categories: toIDArray(selectedCategories.value),
-          foods: toIDArray(selectedFoods.value),
-          tags: toIDArray(selectedTags.value),
-          tools: toIDArray(selectedTools.value),
+      if (pageLocked.value) {
+        return;
+      }
 
-          // Only add the query param if it's or not default
-          ...{
-            auto: state.value.auto ? undefined : "false",
-            search: state.value.search === "" ? undefined : state.value.search,
-            orderBy: state.value.orderBy === "createdAt" ? undefined : state.value.orderBy,
-            orderDirection: state.value.orderDirection === "desc" ? undefined : state.value.orderDirection,
-            requireAllCategories: state.value.requireAllCategories ? "true" : undefined,
-            requireAllTags: state.value.requireAllTags ? "true" : undefined,
-            requireAllTools: state.value.requireAllTools ? "true" : undefined,
-            requireAllFoods: state.value.requireAllFoods ? "true" : undefined,
-          },
-        },
-      });
+      activeQuery.value = {
+        perPage: perPage.value,
+        page: page.value,
 
-      passedQuery.value = {
         search: state.value.search,
-        categories: toIDArray(selectedCategories.value),
-        foods: toIDArray(selectedFoods.value),
-        tags: toIDArray(selectedTags.value),
-        tools: toIDArray(selectedTools.value),
+        orderBy: state.value.orderBy,
+        orderDirection: state.value.orderDirection,
         requireAllCategories: state.value.requireAllCategories,
         requireAllTags: state.value.requireAllTags,
         requireAllTools: state.value.requireAllTools,
         requireAllFoods: state.value.requireAllFoods,
-        orderBy: state.value.orderBy,
-        orderDirection: state.value.orderDirection,
+        categories: toIDArray(selectedCategories.value),
+        tags: toIDArray(selectedTags.value),
+        tools: toIDArray(selectedTools.value),
+        foods: toIDArray(selectedFoods.value),
       };
+
+      await router.push({
+        query: {
+          categories: activeQuery.value.categories,
+          foods: activeQuery.value.foods,
+          tags: activeQuery.value.tags,
+          tools: activeQuery.value.tools,
+
+          // Only add the query param if it's or not default
+          ...{
+            auto: state.value.auto ? undefined : "false",
+            search: activeQuery.value.search === "" ? undefined : activeQuery.value.search,
+            orderBy: activeQuery.value.orderBy === "createdAt" ? undefined : activeQuery.value.orderBy,
+            orderDirection: activeQuery.value.orderDirection === "desc" ? undefined : activeQuery.value.orderDirection,
+            requireAllCategories: activeQuery.value.requireAllCategories ? "true" : undefined,
+            requireAllTags: activeQuery.value.requireAllTags ? "true" : undefined,
+            requireAllTools: activeQuery.value.requireAllTools ? "true" : undefined,
+            requireAllFoods: activeQuery.value.requireAllFoods ? "true" : undefined,
+          },
+        },
+      });
+
+      const result = await api.recipes.search(activeQuery.value);
+
+      if (result.error || result.data == null) {
+        return;
+      }
+
+      // append
+      if (page.value > 0) {
+        recipes.value = recipes.value.concat(result.data.items);
+      } else {
+        recipes.value = result.data.items;
+      }
+      total.value = result.data.total;
     }
+
+    const { onScroll } = useInfiniteScroll({
+      page,
+      total,
+      perPage,
+      data: recipes,
+      callback: async () => {
+        await search();
+      },
+    });
 
     function waitUntilAndExecute(
       condition: () => boolean,
@@ -387,7 +441,8 @@ export default defineComponent({
       }
 
       Promise.allSettled(promises).then(() => {
-        search();
+        pageLocked.value = false;
+        onScroll();
       });
     });
 
@@ -427,17 +482,13 @@ export default defineComponent({
 
       sortable,
       toggleOrderDirection,
+      onScroll,
 
       selectedCategories,
       selectedFoods,
       selectedTags,
       selectedTools,
-      appendRecipes,
-      assignSorted,
       recipes,
-      removeRecipe,
-      replaceRecipes,
-      passedQuery,
     };
   },
 });
