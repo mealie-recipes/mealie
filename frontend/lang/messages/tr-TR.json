@@ -284,31 +284,31 @@
   },
   "migration": {
     "migration-data-removed": "Migration data removed",
-    "new-migration": "New Migration",
-    "no-file-selected": "No File Selected",
+    "new-migration": "Yeni Yer Değiştirme",
+    "no-file-selected": "Dosya seçilmedi",
     "no-migration-data-available": "No Migration Data Available",
-    "previous-migrations": "Previous Migrations",
+    "previous-migrations": "Önceki Yer Değiştirme",
     "recipe-migration": "Recipe Migration",
     "chowdown": {
       "description": "Migrate data from Chowdown",
-      "description-long": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
+      "description-long": "Mealie yerel olarak chowdown veri havuzu biçimini destekler. Kod havuzunu bir .zip dosyası olarak indirin ve aşağıya yükleyin.",
       "title": "Chowdown"
     },
     "nextcloud": {
       "description": "Migrate data from a Nextcloud Cookbook instance",
-      "description-long": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
+      "description-long": "Nextcloud tarifleri, Nextcloud'da saklanan verileri içeren bir zip dosyasından içe aktarılabilir. Tariflerinizin içe aktarılabilmesini sağlamak için aşağıdaki örnek klasör yapısına bakın.",
       "title": "Nextcloud Cookbook"
     },
     "copymethat": {
-      "description-long": "Mealie can import recipes from Copy Me That. Export your recipes in HTML format, then upload the .zip below.",
-      "title": "Copy Me That Recipe Manager"
+      "description-long": "Mealie, Copy Me That'den tarifleri içe aktarabilir. Tariflerinizi HTML biçiminde dışa aktarın, ardından aşağıdaki .zip dosyasını yükleyin.",
+      "title": "Bana O Tarif Yöneticisini Kopyala"
     },
     "paprika": {
-      "description-long": "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
-      "title": "Paprika Recipe Manager"
+      "description-long": "Mealie, Paprika uygulamasından tarifleri içe aktarabilir. Tariflerinizi paprika'dan dışa aktarın, dışa aktarma uzantısını .zip olarak yeniden adlandırın ve aşağıda yükleyin.",
+      "title": "Paprika Tarif Yöneticisi"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
+      "description-long": "Mealie, v1.0 öncesi bir sürümden Mealie uygulamasından tarifleri içe aktarabilir. Tariflerinizi eski örneğinizden dışa aktarın ve aşağıdaki zip dosyasını yükleyin. Dışa aktarmadan yalnızca tariflerin içe aktarılabileceğini unutmayın.",
       "title": "Mealie Pre v1.0"
     }
   },
@@ -706,7 +706,7 @@
     "error-cannot-delete-super-user": "Error! Cannot Delete Super User",
     "existing-password-does-not-match": "Existing password does not match",
     "full-name": "Full Name",
-    "generate-password-reset-link": "Generate Password Reset Link",
+    "generate-password-reset-link": "Parola Sıfırlama Bağlantısı Oluştur",
     "invite-only": "Invite Only",
     "link-id": "Link ID",
     "link-name": "Link Name",
