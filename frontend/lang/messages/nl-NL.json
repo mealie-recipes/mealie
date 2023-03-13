@@ -284,32 +284,32 @@
   },
   "migration": {
     "migration-data-removed": "Migratiegegevens verwijderd",
-    "new-migration": "New Migration",
-    "no-file-selected": "No File Selected",
+    "new-migration": "Nieuwe migratie",
+    "no-file-selected": "Geen bestand gekozen",
     "no-migration-data-available": "Geen migratiegegevens beschikbaar",
-    "previous-migrations": "Previous Migrations",
+    "previous-migrations": "Vorige migraties",
     "recipe-migration": "Receptmigratie",
     "chowdown": {
       "description": "Migreer gegevens uit Chowdown",
-      "description-long": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
+      "description-long": "Mealie ondersteunt het formaat van de chowdown repository. Download de repository als een .zip-bestand en upload deze hieronder.",
       "title": "Chowdown"
     },
     "nextcloud": {
       "description": "Migreer gegevens uit een Nextcloud Kookboek instantie",
-      "description-long": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
+      "description-long": "Nextcloud recepten kunnen worden geïmporteerd uit een zip-bestand dat de gegevens bevat die zijn opgeslagen in Nextcloud. Zie de voorbeeldmapstructuur hieronder om ervoor te zorgen dat uw recepten kunnen worden geïmporteerd.",
       "title": "Nextcloud Kookboek"
     },
     "copymethat": {
-      "description-long": "Mealie can import recipes from Copy Me That. Export your recipes in HTML format, then upload the .zip below.",
-      "title": "Copy Me That Recipe Manager"
+      "description-long": "Mealie kan recepten importeren uit Copy Me That. Exporteer je recepten in HTML-formaat, upload daarna de .zip hieronder.",
+      "title": "Recepten beheerder Copy Me That"
     },
     "paprika": {
-      "description-long": "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
-      "title": "Paprika Recipe Manager"
+      "description-long": "Mealie kan recepten uit het programma Paprika importeren. Exporteer je recepten uit Paprika, hernoem de exportuitbreiding naar .zip en upload ze hieronder.",
+      "title": "Paprika recepten beheerder"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
-      "title": "Mealie Pre v1.0"
+      "description-long": "Mealie kan recepten importeren uit oude versies van Mealie (voor versie 1.0). Exporteer je recepten vanuit de oude versie, en upload het zip-bestand hieronder. Let op dat alleen recepten uit de export kunnen worden geïmporteerd.",
+      "title": "Oude versies Mealie (voor versie 1.0)"
     }
   },
   "new-recipe": {
