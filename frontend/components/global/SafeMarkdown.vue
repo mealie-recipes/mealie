@@ -34,7 +34,7 @@ export default defineComponent({
                       ],
         ADD_ATTR: [
                     "href", "src", "alt", "height", "width", "class", "allow", "title", "allowfullscreen", "frameborder",
-                    "scrolling", "style", "cite", "datetime", "name", "abbr", "target", "border",
+                    "scrolling", "cite", "datetime", "name", "abbr", "target", "border",
                   ],
       });
 
