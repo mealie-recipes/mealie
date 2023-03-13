@@ -246,7 +246,7 @@ export default defineComponent({
     }
 
     // =========================================================
-    // Save All Loginc
+    // Save All Logic
     async function saveAll() {
       let ingredients = parsedIng.value.map((ing) => {
         return {
@@ -272,6 +272,10 @@ export default defineComponent({
       }
 
       recipe.value.recipeIngredient = ingredients;
+      if (recipe.value.settings) {
+        recipe.value.settings.disableAmount = false;
+      }
+
       const { response } = await api.recipes.updateOne(recipe.value.slug, recipe.value);
 
       if (response?.status === 200) {
