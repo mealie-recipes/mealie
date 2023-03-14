@@ -285,7 +285,7 @@
   "migration": {
     "migration-data-removed": "Dati di migrazione rimossi",
     "new-migration": "New Migration",
-    "no-file-selected": "No File Selected",
+    "no-file-selected": "Nessun file selezionato",
     "no-migration-data-available": "Dati Migrazione Non Disponibili",
     "previous-migrations": "Previous Migrations",
     "recipe-migration": "Migrazione Ricetta",
@@ -706,7 +706,7 @@
     "error-cannot-delete-super-user": "Errore! Impossibile Eliminare Super User",
     "existing-password-does-not-match": "La nuova password non corrisponde",
     "full-name": "Nome",
-    "generate-password-reset-link": "Generate Password Reset Link",
+    "generate-password-reset-link": "Genera Link Di Reset Password",
     "invite-only": "Solo su invito",
     "link-id": "Link ID",
     "link-name": "Link Nome",
