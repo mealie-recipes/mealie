@@ -276,7 +276,10 @@ export default defineComponent({
     function deleteIngredient(index: number) {
       parsedIng.value.splice(index, 1);
       recipe.value?.recipeIngredient?.splice(index, 1);
-      errors.value.splice(index, 1);
+
+      errors.value = parsedIng.value.map((ing, index: number) => {
+        return processIngredientError(ing, index);
+      });
     }
 
     // =========================================================
