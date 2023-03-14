@@ -114,6 +114,7 @@
             ]"
             @toggle-section="toggleTitle"
             @toggle-original="toggleOriginalText"
+            @insert-ingredient="$emit('insert-ingredient')"
             @delete="$emit('delete')"
           />
         </div>
@@ -143,6 +144,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    allowInsertIngredient: {
+      type: Boolean,
+      default: false,
+    }
   },
   setup(props) {
     const { i18n } = useContext();
@@ -216,6 +221,13 @@ export default defineComponent({
           event: "toggle-section",
         },
       ];
+
+      if (props.allowInsertIngredient) {
+        options.push({
+          text: i18n.tc("recipe.insert-ingredient") ,
+          event: "insert-ingredient",
+        })
+      }
 
       // FUTURE: add option to parse a single ingredient
       // if (!value.food && !value.unit && value.note) {
