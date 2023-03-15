@@ -16,8 +16,9 @@ from tests.utils.fixture_schemas import TestUser
 
 def test_repository_pagination(database: AllRepositories, unique_user: TestUser):
     group = database.groups.get_one(unique_user.group_id)
+    assert group
 
-    seeder = SeederService(database, None, group)
+    seeder = SeederService(database, None, group)  # type: ignore
     seeder.seed_foods("en-US")
 
     foods_repo = database.ingredient_foods.by_group(unique_user.group_id)  # type: ignore
@@ -50,8 +51,9 @@ def test_repository_pagination(database: AllRepositories, unique_user: TestUser)
 
 def test_pagination_response_and_metadata(database: AllRepositories, unique_user: TestUser):
     group = database.groups.get_one(unique_user.group_id)
+    assert group
 
-    seeder = SeederService(database, None, group)
+    seeder = SeederService(database, None, group)  # type: ignore
     seeder.seed_foods("en-US")
 
     foods_repo = database.ingredient_foods.by_group(unique_user.group_id)  # type: ignore
@@ -78,8 +80,9 @@ def test_pagination_response_and_metadata(database: AllRepositories, unique_user
 
 def test_pagination_guides(database: AllRepositories, unique_user: TestUser):
     group = database.groups.get_one(unique_user.group_id)
+    assert group
 
-    seeder = SeederService(database, None, group)
+    seeder = SeederService(database, None, group)  # type: ignore
     seeder.seed_foods("en-US")
 
     foods_repo = database.ingredient_foods.by_group(unique_user.group_id)  # type: ignore
@@ -107,10 +110,10 @@ def test_pagination_guides(database: AllRepositories, unique_user: TestUser):
     random_page_of_results = foods_repo.page_all(query)
     random_page_of_results.set_pagination_guides(foods_route, query.dict())
 
-    next_params = dict(parse_qsl(urlsplit(random_page_of_results.next).query))
+    next_params: dict = dict(parse_qsl(urlsplit(random_page_of_results.next).query))  # type: ignore
     assert int(next_params["page"]) == random_page + 1
 
-    prev_params = dict(parse_qsl(urlsplit(random_page_of_results.previous).query))
+    prev_params: dict = dict(parse_qsl(urlsplit(random_page_of_results.previous).query))  # type: ignore
     assert int(prev_params["page"]) == random_page - 1
 
     source_params = camelize(query.dict())
@@ -173,7 +176,7 @@ def test_pagination_filter_datetimes(
     unit_1 = query_units[1]
     unit_2 = query_units[2]
 
-    dt = unit_2.created_at.isoformat()
+    dt = unit_2.created_at.isoformat()  # type: ignore
     query = PaginationQuery(page=1, per_page=-1, query_filter=f'createdAt>="{dt}"')
     unit_results = units_repo.page_all(query).items
     assert len(unit_results) == 2
@@ -194,7 +197,7 @@ def test_pagination_filter_advanced(query_units: tuple[RepositoryUnit, Ingredien
     units_repo = query_units[0]
     unit_3 = query_units[3]
 
-    dt = unit_3.created_at.isoformat()
+    dt = str(unit_3.created_at.isoformat())  # type: ignore
     qf = f'name="test unit 1" OR (useAbbreviation=f AND (name="test unit 2" OR createdAt > "{dt}"))'
     query = PaginationQuery(page=1, per_page=-1, query_filter=qf)
     unit_results = units_repo.page_all(query).items

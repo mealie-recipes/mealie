@@ -68,7 +68,7 @@ def test_get_all_timeline_events(api_client: TestClient, unique_user: TestUser, 
 
     events: list[RecipeTimelineEventOut] = []
     for event_data in events_data:
-        params = {"queryFilter": f"recipe_id={event_data['recipe_id']}"}
+        params: dict = {"queryFilter": f"recipe_id={event_data['recipe_id']}"}
         event_response = api_client.post(
             api_routes.recipes_timeline_events, params=params, json=event_data, headers=unique_user.token
         )
