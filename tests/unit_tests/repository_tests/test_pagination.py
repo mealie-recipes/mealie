@@ -1,4 +1,5 @@
 import time
+from collections import defaultdict
 from random import randint
 from urllib.parse import parse_qsl, urlsplit
 
@@ -11,6 +12,8 @@ from mealie.repos.repository_units import RepositoryUnit
 from mealie.schema.recipe.recipe_ingredient import IngredientUnit, SaveIngredientUnit
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.seeder.seeder_service import SeederService
+from tests.utils import api_routes
+from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser
 
 
@@ -211,6 +214,8 @@ def test_pagination_filter_advanced(query_units: tuple[RepositoryUnit, Ingredien
         pytest.param('(name="test name" AND useAbbreviation=f))', id="unbalanced parenthesis"),
         pytest.param('createdAt="this is not a valid datetime format"', id="invalid datetime format"),
         pytest.param('badAttribute="test value"', id="invalid attribute"),
+        pytest.param('group.badAttribute="test value"', id="bad nested attribute"),
+        pytest.param('group.preferences.badAttribute="test value"', id="bad double nested attribute"),
     ],
 )
 def test_malformed_query_filters(api_client: TestClient, unique_user: TestUser, qf: str):
@@ -219,3 +224,46 @@ def test_malformed_query_filters(api_client: TestClient, unique_user: TestUser, 
 
     response = api_client.get(route, params={"queryFilter": qf}, headers=unique_user.token)
     assert response.status_code == 400
+
+
+def test_pagination_filter_nested(api_client: TestClient, user_tuple: list[TestUser]):
+    # create a few recipes for each user
+    slugs: defaultdict[int, list[str]] = defaultdict(list)
+    for i, user in enumerate(user_tuple):
+        for _ in range(random_int(3, 5)):
+            slug: str = random_string()
+            response = api_client.post(api_routes.recipes, json={"name": slug}, headers=user.token)
+
+            assert response.status_code == 201
+            slugs[i].append(slug)
+
+    # query recipes with a nested user filter
+    recipe_ids: defaultdict[int, list[str]] = defaultdict(list)
+    for i, user in enumerate(user_tuple):
+        params = {"page": 1, "perPage": -1, "queryFilter": f'user.id="{user.user_id}"'}
+        response = api_client.get(api_routes.recipes, params=params, headers=user.token)
+
+        assert response.status_code == 200
+        recipes_data: list[dict] = response.json()["items"]
+        assert recipes_data
+
+        for recipe_data in recipes_data:
+            slug = recipe_data["slug"]
+            assert slug in slugs[i]
+            assert slug not in slugs[(i + 1) % len(user_tuple)]
+
+            recipe_ids[i].append(recipe_data["id"])
+
+    # query timeline events with a double nested recipe.user filter
+    for i, user in enumerate(user_tuple):
+        params = {"page": 1, "perPage": -1, "queryFilter": f'recipe.user.id="{user.user_id}"'}
+        response = api_client.get(api_routes.recipes_timeline_events, params=params, headers=user.token)
+
+        assert response.status_code == 200
+        events_data: list[dict] = response.json()["items"]
+        assert events_data
+
+        for event_data in events_data:
+            recipe_id = event_data["recipeId"]
+            assert recipe_id in recipe_ids[i]
+            assert recipe_id not in recipe_ids[(i + 1) % len(user_tuple)]
