@@ -85,7 +85,7 @@ export default defineComponent({
     },
     recipe: {
       type: Object as () => Recipe,
-      required: true,
+      default: null,
     },
   },
   setup(props, context) {
@@ -99,7 +99,7 @@ export default defineComponent({
       eventType: "comment",
       eventMessage: "",
       timestamp: undefined,
-      recipeId: props.recipe.id || "",
+      recipeId: props.recipe?.id || "",
     });
 
     whenever(
@@ -114,10 +114,11 @@ export default defineComponent({
 
     const state = reactive({datePickerMenu: false});
     async function createTimelineEvent() {
-      if (!(newTimelineEvent.value.timestamp && props.recipe.slug)) {
+      if (!(newTimelineEvent.value.timestamp && props.recipe?.id && props.recipe?.slug)) {
         return;
       }
 
+      newTimelineEvent.value.recipeId = props.recipe.id
       const actions: Promise<any>[] = [];
 
       // the user only selects the date, so we set the time to end of day local time
