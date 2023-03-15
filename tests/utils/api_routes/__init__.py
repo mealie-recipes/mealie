@@ -39,6 +39,8 @@ admin_server_tasks = "/api/admin/server-tasks"
 """`/api/admin/server-tasks`"""
 admin_users = "/api/admin/users"
 """`/api/admin/users`"""
+admin_users_password_reset_token = "/api/admin/users/password-reset-token"
+"""`/api/admin/users/password-reset-token`"""
 admin_users_unlock = "/api/admin/users/unlock"
 """`/api/admin/users/unlock`"""
 app_about = "/api/app/about"
@@ -159,6 +161,8 @@ recipes_summary_untagged = "/api/recipes/summary/untagged"
 """`/api/recipes/summary/untagged`"""
 recipes_test_scrape_url = "/api/recipes/test-scrape-url"
 """`/api/recipes/test-scrape-url`"""
+recipes_timeline_events = "/api/recipes/timeline/events"
+"""`/api/recipes/timeline/events`"""
 shared_recipes = "/api/shared/recipes"
 """`/api/shared/recipes`"""
 units = "/api/units"
@@ -386,14 +390,9 @@ def recipes_slug_last_made(slug):
     return f"{prefix}/recipes/{slug}/last-made"
 
 
-def recipes_slug_timeline_events(slug):
-    """`/api/recipes/{slug}/timeline/events`"""
-    return f"{prefix}/recipes/{slug}/timeline/events"
-
-
-def recipes_slug_timeline_events_item_id(slug, item_id):
-    """`/api/recipes/{slug}/timeline/events/{item_id}`"""
-    return f"{prefix}/recipes/{slug}/timeline/events/{item_id}"
+def recipes_timeline_events_item_id(item_id):
+    """`/api/recipes/timeline/events/{item_id}`"""
+    return f"{prefix}/recipes/timeline/events/{item_id}"
 
 
 def shared_recipes_item_id(item_id):
