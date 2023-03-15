@@ -1,16 +1,16 @@
 {
     "generic": {
-        "server-error": "An unexpected error occurred"
+        "server-error": "A apărut o eroare neașteptată"
     },
     "recipe": {
-        "unique-name-error": "Recipe names must be unique"
+        "unique-name-error": "Numele rețetei trebuie să fie unic"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "No recipes match your rules"
     },
     "user": {
-        "user-updated": "User updated",
-        "password-updated": "Password updated",
+        "user-updated": "Utilizator actualizat",
+        "password-updated": "Parola a fost schimbată",
         "invalid-current-password": "Invalid current password",
         "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
     },
