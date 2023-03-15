@@ -1,91 +1,84 @@
 <template>
-  <BaseDialog
-    v-model="dialog"
-    :title="attrs.title"
-    :icon="$globals.icons.timelineText"
-    width="70%"
+  <v-card
+    v-if="timelineEvents && timelineEvents.length"
+    height="fit-content"
+    max-height="70vh"
+    width="100%"
+    style="overflow-y: auto;"
   >
-    <v-card
-      v-if="timelineEvents && timelineEvents.length"
-      height="fit-content"
-      max-height="70vh"
-      width="100%"
-      style="overflow-y: auto;"
-    >
-      <v-timeline :dense="attrs.timeline.dense">
-        <v-timeline-item
-          v-for="(event, index) in timelineEvents"
-          :key="event.id"
-          :class="attrs.timeline.item.class"
-          fill-dot
-          :small="attrs.timeline.item.small"
-          :icon="chooseEventIcon(event)"
-        >
-          <template v-if="!useMobileFormat" #opposite>
-            <v-chip v-if="event.timestamp" label large>
-              <v-icon class="mr-1"> {{ $globals.icons.calendar }} </v-icon>
-              {{ new Date(event.timestamp+"Z").toLocaleDateString($i18n.locale) }}
-            </v-chip>
-          </template>
-          <v-card>
-            <v-sheet>
-              <v-card-title>
-                <v-row>
-                  <v-col align-self="center" :cols="useMobileFormat ? 'auto' : '2'">
-                    <UserAvatar :user-id="event.userId" />
-                  </v-col>
-                  <v-col v-if="useMobileFormat" align-self="center" class="ml-3">
-                    <v-chip label>
-                      <v-icon> {{ $globals.icons.calendar }} </v-icon>
-                      {{ new Date(event.timestamp+"Z").toLocaleDateString($i18n.locale) }}
-                    </v-chip>
-                  </v-col>
-                  <v-col v-else cols="9">
-                    {{ event.subject }}
-                  </v-col>
-                  <v-spacer />
-                  <v-col :cols="useMobileFormat ? 'auto' : '1'" :class="useMobileFormat ? '' : 'pa-0'">
-                    <RecipeTimelineContextMenu
-                      v-if="$auth.user && $auth.user.id == event.userId && event.eventType != 'system'"
-                      :menu-top="false"
-                      :slug="slug"
-                      :event="event"
-                      :menu-icon="$globals.icons.dotsVertical"
-                      fab
-                      color="transparent"
-                      :elevation="0"
-                      :card-menu="false"
-                      :use-items="{
-                        edit: true,
-                        delete: true,
-                      }"
-                      @update="updateTimelineEvent(index)"
-                      @delete="deleteTimelineEvent(index)"
-                    />
-                  </v-col>
-                </v-row>
-              </v-card-title>
-              <v-card-text>
-                <v-row>
-                  <v-col>
-                    <strong v-if="useMobileFormat">{{ event.subject }}</strong>
-                    <div v-if="event.eventMessage" :class="useMobileFormat ? 'text-caption' : ''">
-                      {{ event.eventMessage }}
-                    </div>
-                  </v-col>
-                </v-row>
-              </v-card-text>
-            </v-sheet>
-          </v-card>
-        </v-timeline-item>
-      </v-timeline>
-    </v-card>
-    <v-card v-else>
-      <v-card-title class="justify-center pa-9">
-        {{ $t("recipe.timeline-is-empty") }}
-      </v-card-title>
-    </v-card>
-  </BaseDialog>
+    <v-timeline :dense="attrs.timeline.dense">
+      <v-timeline-item
+        v-for="(event, index) in timelineEvents"
+        :key="event.id"
+        :class="attrs.timeline.item.class"
+        fill-dot
+        :small="attrs.timeline.item.small"
+        :icon="chooseEventIcon(event)"
+      >
+        <template v-if="!useMobileFormat" #opposite>
+          <v-chip v-if="event.timestamp" label large>
+            <v-icon class="mr-1"> {{ $globals.icons.calendar }} </v-icon>
+            {{ new Date(event.timestamp+"Z").toLocaleDateString($i18n.locale) }}
+          </v-chip>
+        </template>
+        <v-card>
+          <v-sheet>
+            <v-card-title>
+              <v-row>
+                <v-col align-self="center" :cols="useMobileFormat ? 'auto' : '2'">
+                  <UserAvatar :user-id="event.userId" />
+                </v-col>
+                <v-col v-if="useMobileFormat" align-self="center" class="ml-3">
+                  <v-chip label>
+                    <v-icon> {{ $globals.icons.calendar }} </v-icon>
+                    {{ new Date(event.timestamp+"Z").toLocaleDateString($i18n.locale) }}
+                  </v-chip>
+                </v-col>
+                <v-col v-else cols="9">
+                  {{ event.subject }}
+                </v-col>
+                <v-spacer />
+                <v-col :cols="useMobileFormat ? 'auto' : '1'" :class="useMobileFormat ? '' : 'pa-0'">
+                  <RecipeTimelineContextMenu
+                    v-if="$auth.user && $auth.user.id == event.userId && event.eventType != 'system'"
+                    :menu-top="false"
+                    :slug="slug"
+                    :event="event"
+                    :menu-icon="$globals.icons.dotsVertical"
+                    fab
+                    color="transparent"
+                    :elevation="0"
+                    :card-menu="false"
+                    :use-items="{
+                      edit: true,
+                      delete: true,
+                    }"
+                    @update="updateTimelineEvent(index)"
+                    @delete="deleteTimelineEvent(index)"
+                  />
+                </v-col>
+              </v-row>
+            </v-card-title>
+            <v-card-text>
+              <v-row>
+                <v-col>
+                  <strong v-if="useMobileFormat">{{ event.subject }}</strong>
+                  <div v-if="event.eventMessage" :class="useMobileFormat ? 'text-caption' : ''">
+                    {{ event.eventMessage }}
+                  </div>
+                </v-col>
+              </v-row>
+            </v-card-text>
+          </v-sheet>
+        </v-card>
+      </v-timeline-item>
+    </v-timeline>
+  </v-card>
+  <v-card v-else>
+    <v-card-title class="justify-center pa-9">
+      {{ $t("recipe.timeline-is-empty") }}
+    </v-card-title>
+  </v-card>
 </template>
 
 <script lang="ts">
@@ -104,6 +97,10 @@ export default defineComponent({
     value: {
       type: Boolean,
       default: false,
+    },
+    queryFilter: {
+      type: String,
+      required: true,
     },
     slug: {
       type: String,
@@ -127,7 +124,6 @@ export default defineComponent({
     const attrs = computed(() => {
       if (useMobileFormat.value) {
         return {
-          title: i18n.tc("recipe.timeline"),
           timeline: {
             dense: true,
             item: {
@@ -139,7 +135,6 @@ export default defineComponent({
       }
       else {
         return {
-          title: `${i18n.tc("recipe.timeline")} – ${props.recipeName}`,
           timeline: {
             dense: false,
             item: {
@@ -218,9 +213,8 @@ export default defineComponent({
       const perPage = -1;
       const orderBy = "timestamp";
       const orderDirection = "asc";
-      const queryFilter = `recipe.slug="${props.slug}"`
 
-      const response = await api.recipes.getAllTimelineEvents(page, perPage, { orderBy, orderDirection, queryFilter });
+      const response = await api.recipes.getAllTimelineEvents(page, perPage, { orderBy, orderDirection, queryFilter: props.queryFilter });
       if (!response?.data) {
         return;
       }
