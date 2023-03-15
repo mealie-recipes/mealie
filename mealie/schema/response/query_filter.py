@@ -96,16 +96,16 @@ class QueryFilter:
                 raise ValueError("invalid query string: attribute name cannot be empty")
 
             attr_model: Any = model
-            for i, attribute_link in enumerate(attribute_chain):
+            for j, attribute_link in enumerate(attribute_chain):
                 # last element
-                if i == len(attribute_chain) - 1:
+                if j == len(attribute_chain) - 1:
                     if not hasattr(attr_model, attribute_link):
                         raise ValueError(
                             f"invalid query string: '{component.attribute_name}' does not exist on this schema"
                         )
 
                     attr_value = attribute_link
-                    if i:
+                    if j:
                         # use the nested table name, rather than the dot notation
                         component.attribute_name = f"{attr_model.__table__.name}.{attr_value}"
 
@@ -130,7 +130,7 @@ class QueryFilter:
 
             if isinstance(attr.type, (GUID)):
                 try:
-                    value = UUID(component.value)
+                    UUID(component.value)
 
                 except ValueError as e:
                     raise ValueError(f"invalid query string: invalid UUID '{component.value}'") from e
