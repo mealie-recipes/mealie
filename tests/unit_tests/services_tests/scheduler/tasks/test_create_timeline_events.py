@@ -5,9 +5,7 @@ from pydantic import UUID4
 
 from mealie.schema.meal_plan.new_meal import CreatePlanEntry
 from mealie.schema.recipe.recipe import RecipeSummary
-from mealie.services.scheduler.tasks.create_timeline_events import (
-    create_mealplan_timeline_events,
-)
+from mealie.services.scheduler.tasks.create_timeline_events import create_mealplan_timeline_events
 from tests import utils
 from tests.utils import api_routes
 from tests.utils.factories import random_int, random_string
@@ -31,7 +29,8 @@ def test_new_mealplan_event(api_client: TestClient, unique_user: TestUser):
     assert recipe.last_made is None
 
     # store the number of events, so we can compare later
-    response = api_client.get(api_routes.recipes_slug_timeline_events(recipe_name), headers=unique_user.token)
+    params = {"queryFilter": f"recipe_id={recipe_id}"}
+    response = api_client.get(api_routes.recipes_timeline_events, params=params, headers=unique_user.token)
     response_json = response.json()
     initial_event_count = len(response_json["items"])
 
@@ -45,10 +44,14 @@ def test_new_mealplan_event(api_client: TestClient, unique_user: TestUser):
     # run the task and check to make sure a new event was created from the mealplan
     create_mealplan_timeline_events()
 
-    params = {"page": "1", "perPage": "-1", "orderBy": "created_at", "orderDirection": "desc"}
-    response = api_client.get(
-        api_routes.recipes_slug_timeline_events(recipe_name), headers=unique_user.token, params=params
-    )
+    params = {
+        "page": "1",
+        "perPage": "-1",
+        "orderBy": "created_at",
+        "orderDirection": "desc",
+        "queryFilter": f"recipe_id={recipe_id}",
+    }
+    response = api_client.get(api_routes.recipes_timeline_events, headers=unique_user.token, params=params)
     response_json = response.json()
     assert len(response_json["items"]) == initial_event_count + 1
 
@@ -91,7 +94,8 @@ def test_new_mealplan_event_duplicates(api_client: TestClient, unique_user: Test
     recipe_id = recipe.id
 
     # store the number of events, so we can compare later
-    response = api_client.get(api_routes.recipes_slug_timeline_events(recipe_name), headers=unique_user.token)
+    params = {"queryFilter": f"recipe_id={recipe_id}"}
+    response = api_client.get(api_routes.recipes_timeline_events, params=params, headers=unique_user.token)
     response_json = response.json()
     initial_event_count = len(response_json["items"])
 
@@ -106,10 +110,14 @@ def test_new_mealplan_event_duplicates(api_client: TestClient, unique_user: Test
     for _ in range(3):
         create_mealplan_timeline_events()
 
-    params = {"page": "1", "perPage": "-1", "orderBy": "created_at", "orderDirection": "desc"}
-    response = api_client.get(
-        api_routes.recipes_slug_timeline_events(recipe_name), headers=unique_user.token, params=params
-    )
+    params = {
+        "page": "1",
+        "perPage": "-1",
+        "orderBy": "created_at",
+        "orderDirection": "desc",
+        "queryFilter": f"recipe_id={recipe_id}",
+    }
+    response = api_client.get(api_routes.recipes_timeline_events, headers=unique_user.token, params=params)
     response_json = response.json()
     assert len(response_json["items"]) == initial_event_count + 1
 
@@ -125,7 +133,8 @@ def test_new_mealplan_events_with_multiple_recipes(api_client: TestClient, uniqu
         recipes.append(RecipeSummary.parse_obj(response.json()))
 
     # store the number of events, so we can compare later
-    response = api_client.get(api_routes.recipes_slug_timeline_events(str(recipes[0].slug)), headers=unique_user.token)
+    params = {"queryFilter": f"recipe_id={recipes[0].id}"}
+    response = api_client.get(api_routes.recipes_timeline_events, params=params, headers=unique_user.token)
     response_json = response.json()
     initial_event_count = len(response_json["items"])
 
@@ -149,10 +158,14 @@ def test_new_mealplan_events_with_multiple_recipes(api_client: TestClient, uniqu
 
     for recipe in recipes:
         target_count = initial_event_count + mealplan_count_by_recipe_id[recipe.id]  # type: ignore
-        params = {"page": "1", "perPage": "-1", "orderBy": "created_at", "orderDirection": "desc"}
-        response = api_client.get(
-            api_routes.recipes_slug_timeline_events(recipe.slug), headers=unique_user.token, params=params
-        )
+        params = {
+            "page": "1",
+            "perPage": "-1",
+            "orderBy": "created_at",
+            "orderDirection": "desc",
+            "queryFilter": f"recipe_id={recipe.id}",
+        }
+        response = api_client.get(api_routes.recipes_timeline_events, headers=unique_user.token, params=params)
         response_json = response.json()
         assert len(response_json["items"]) == target_count
 
@@ -167,10 +180,9 @@ def test_new_mealplan_events_with_multiple_recipes(api_client: TestClient, uniqu
             "perPage": "-1",
             "orderBy": "created_at",
             "orderDirection": "desc",
+            "queryFilter": f"recipe_id={recipe.id}",
         }
-        response = api_client.get(
-            api_routes.recipes_slug_timeline_events(recipe.slug), headers=unique_user.token, params=params
-        )
+        response = api_client.get(api_routes.recipes_timeline_events, headers=unique_user.token, params=params)
         response_json = response.json()
         assert len(response_json["items"]) == target_count
 
