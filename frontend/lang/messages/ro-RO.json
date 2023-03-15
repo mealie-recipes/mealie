@@ -1,9 +1,9 @@
 {
   "about": {
-    "about": "About",
-    "about-mealie": "About Mealie",
-    "api-docs": "API Docs",
-    "api-port": "API Port",
+    "about": "Despre",
+    "about-mealie": "Despre Mealie",
+    "api-docs": "Documentatie API",
+    "api-port": "Port API",
     "application-mode": "Application Mode",
     "database-type": "Database Type",
     "database-url": "Database URL",
