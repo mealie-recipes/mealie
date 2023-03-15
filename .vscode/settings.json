@@ -65,5 +65,8 @@
     "pyproject.toml": "poetry.lock, alembic.ini, .pylintrc",
     "netlify.toml": "runtime.txt",
     "README.md": "LICENSE, SECURITY.md"
-  }
+  },
+  "[vue]": {
+    "editor.formatOnSave": false
+  },
 }
