@@ -192,7 +192,7 @@ export default defineComponent({
         image: event.image,
       };
 
-        const { response } = await api.recipes.updateTimelineEvent(props.slug, event.id, payload);
+        const { response } = await api.recipes.updateTimelineEvent(event.id, payload);
         if (response?.status !== 200) {
           alert.error(i18n.t("events.something-went-wrong") as string);
           return;
@@ -202,7 +202,7 @@ export default defineComponent({
       };
 
     async function deleteTimelineEvent(index: number) {
-      const { response } = await api.recipes.deleteTimelineEvent(props.slug, timelineEvents.value[index].id);
+      const { response } = await api.recipes.deleteTimelineEvent(timelineEvents.value[index].id);
       if (response?.status !== 200) {
         alert.error(i18n.t("events.something-went-wrong") as string);
         return;
@@ -218,8 +218,9 @@ export default defineComponent({
       const perPage = -1;
       const orderBy = "timestamp";
       const orderDirection = "asc";
+      const queryFilter = `recipe.slug="${props.slug}"`
 
-      const response = await api.recipes.getAllTimelineEvents(props.slug, page, perPage, { orderBy, orderDirection });
+      const response = await api.recipes.getAllTimelineEvents(page, perPage, { orderBy, orderDirection, queryFilter });
       if (!response?.data) {
         return;
       }
