@@ -54,10 +54,13 @@ class RepositoryGeneric(Generic[Schema, Model]):
         self.logger.error(f"Error processing query for Repo model={self.model.__name__} schema={self.schema.__name__}")
         self.logger.error(e)
 
-    def _query(self, override_schema: type[MealieModel] | None = None):
+    def _query(self, override_schema: type[MealieModel] | None = None, with_options=True):
         q = select(self.model)
-        schema = override_schema or self.schema
-        return q.options(*schema.loader_options())
+        if with_options:
+            schema = override_schema or self.schema
+            return q.options(*schema.loader_options())
+        else:
+            return q
 
     def _filter_builder(self, **kwargs) -> dict[str, Any]:
         dct = {}
@@ -299,12 +302,14 @@ class RepositoryGeneric(Generic[Schema, Model]):
         """
         eff_schema = override or self.schema
 
-        q = self._query(override_schema=eff_schema)
+        q = self._query(override_schema=eff_schema, with_options=False)
 
         fltr = self._filter_builder()
         q = q.filter_by(**fltr)
         q, count, total_pages = self.add_pagination_to_query(q, pagination)
 
+        # Apply options late, so they do not get used for counting
+        q = q.options(*eff_schema.loader_options())
         try:
             data = self.session.execute(q).unique().scalars().all()
         except Exception as e:
