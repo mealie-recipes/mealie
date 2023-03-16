@@ -1,5 +1,8 @@
 from pydantic import UUID4
+from sqlalchemy.orm import joinedload
+from sqlalchemy.orm.interfaces import LoaderOption
 
+from mealie.db.models.recipe import RecipeModel, Tag
 from mealie.schema._mealie import MealieModel
 
 
@@ -55,7 +58,13 @@ class TagOut(TagSave):
 
 
 class RecipeTagResponse(RecipeCategoryResponse):
-    pass
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [
+            joinedload(Tag.recipes).joinedload(RecipeModel.recipe_category),
+            joinedload(Tag.recipes).joinedload(RecipeModel.tags),
+            joinedload(Tag.recipes).joinedload(RecipeModel.tools),
+        ]
 
 
 from mealie.schema.recipe.recipe import RecipeSummary  # noqa: E402

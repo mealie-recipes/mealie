@@ -3,7 +3,11 @@ from enum import Enum
 from uuid import UUID
 
 from pydantic import validator
+from sqlalchemy.orm import joinedload
+from sqlalchemy.orm.interfaces import LoaderOption
 
+from mealie.db.models.group import GroupMealPlan
+from mealie.db.models.recipe import RecipeModel
 from mealie.schema._mealie import MealieModel
 from mealie.schema.recipe.recipe import RecipeSummary
 from mealie.schema.response.pagination import PaginationBase
@@ -56,6 +60,14 @@ class ReadPlanEntry(UpdatePlanEntry):
 
     class Config:
         orm_mode = True
+
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [
+            joinedload(GroupMealPlan.recipe).joinedload(RecipeModel.recipe_category),
+            joinedload(GroupMealPlan.recipe).joinedload(RecipeModel.tags),
+            joinedload(GroupMealPlan.recipe).joinedload(RecipeModel.tools),
+        ]
 
 
 class PlanEntryPagination(PaginationBase):

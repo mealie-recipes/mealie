@@ -1,10 +1,13 @@
 from pydantic import UUID4, validator
 from slugify import slugify
+from sqlalchemy.orm import joinedload
+from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.schema._mealie import MealieModel
 from mealie.schema.recipe.recipe import RecipeSummary, RecipeTool
 from mealie.schema.response.pagination import PaginationBase
 
+from ...db.models.group import CookBook
 from ..recipe.recipe_category import CategoryBase, TagBase
 
 
@@ -50,6 +53,10 @@ class ReadCookBook(UpdateCookBook):
 
     class Config:
         orm_mode = True
+
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [joinedload(CookBook.categories), joinedload(CookBook.tags), joinedload(CookBook.tools)]
 
 
 class CookBookPagination(PaginationBase):

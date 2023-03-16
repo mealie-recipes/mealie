@@ -7,11 +7,20 @@ from uuid import uuid4
 
 from pydantic import UUID4, BaseModel, Field, validator
 from slugify import slugify
+from sqlalchemy.orm import joinedload
+from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.core.config import get_app_dirs
 from mealie.schema._mealie import MealieModel
 from mealie.schema.response.pagination import PaginationBase
 
+from ...db.models.recipe import (
+    IngredientFoodModel,
+    RecipeComment,
+    RecipeIngredientModel,
+    RecipeInstruction,
+    RecipeModel,
+)
 from ..getter_dict import ExtrasGetterDict
 from .recipe_asset import RecipeAsset
 from .recipe_comments import RecipeCommentOut
@@ -188,6 +197,28 @@ class Recipe(RecipeSummary):
         if isinstance(user_id, int):
             return uuid4()
         return user_id
+
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [
+            joinedload(RecipeModel.assets),
+            joinedload(RecipeModel.comments).joinedload(RecipeComment.user),
+            joinedload(RecipeModel.extras),
+            joinedload(RecipeModel.recipe_category),
+            joinedload(RecipeModel.tags),
+            joinedload(RecipeModel.tools),
+            joinedload(RecipeModel.recipe_ingredient).joinedload(RecipeIngredientModel.unit),
+            joinedload(RecipeModel.recipe_ingredient)
+            .joinedload(RecipeIngredientModel.food)
+            .joinedload(IngredientFoodModel.extras),
+            joinedload(RecipeModel.recipe_ingredient)
+            .joinedload(RecipeIngredientModel.food)
+            .joinedload(IngredientFoodModel.label),
+            joinedload(RecipeModel.recipe_instructions).joinedload(RecipeInstruction.ingredient_references),
+            joinedload(RecipeModel.nutrition),
+            joinedload(RecipeModel.settings),
+            joinedload(RecipeModel.notes),
+        ]
 
 
 class RecipeLastMade(BaseModel):

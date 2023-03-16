@@ -3,8 +3,6 @@ import shutil
 
 from pydantic import UUID4
 from sqlalchemy import select
-from sqlalchemy.orm import joinedload
-from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.assets import users as users_assets
 from mealie.schema.user.user import PrivateUser
@@ -50,6 +48,3 @@ class RepositoryUsers(RepositoryGeneric[PrivateUser, User]):
         stmt = select(User).filter(User.locked_at != None)  # noqa E711
         results = self.session.execute(stmt).scalars().all()
         return [self.schema.from_orm(x) for x in results]
-
-    def single_query_options(self) -> list[LoaderOption]:
-        return [joinedload(User.group), joinedload(User.favorite_recipes), joinedload(User.tokens)]

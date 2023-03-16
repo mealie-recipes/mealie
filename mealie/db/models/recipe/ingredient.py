@@ -28,7 +28,9 @@ class IngredientUnitModel(SqlAlchemyBase, BaseMixins):
     abbreviation: Mapped[str | None] = mapped_column(String)
     use_abbreviation: Mapped[bool | None] = mapped_column(Boolean, default=False)
     fraction: Mapped[bool | None] = mapped_column(Boolean, default=True)
-    ingredients: Mapped[list["RecipeIngredient"]] = orm.relationship("RecipeIngredient", back_populates="unit")
+    ingredients: Mapped[list["RecipeIngredientModel"]] = orm.relationship(
+        "RecipeIngredientModel", back_populates="unit"
+    )
 
     @auto_init()
     def __init__(self, **_) -> None:
@@ -45,7 +47,9 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
 
     name: Mapped[str | None] = mapped_column(String)
     description: Mapped[str | None] = mapped_column(String)
-    ingredients: Mapped[list["RecipeIngredient"]] = orm.relationship("RecipeIngredient", back_populates="food")
+    ingredients: Mapped[list["RecipeIngredientModel"]] = orm.relationship(
+        "RecipeIngredientModel", back_populates="food"
+    )
     extras: Mapped[list[IngredientFoodExtras]] = orm.relationship("IngredientFoodExtras", cascade="all, delete-orphan")
 
     label_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("multi_purpose_labels.id"), index=True)
@@ -57,7 +61,7 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
         pass
 
 
-class RecipeIngredient(SqlAlchemyBase, BaseMixins):
+class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "recipes_ingredients"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     position: Mapped[int | None] = mapped_column(Integer, index=True)
@@ -92,16 +96,16 @@ class RecipeIngredient(SqlAlchemyBase, BaseMixins):
             self.orginal_text = unidecode(orginal_text).lower().strip()
 
 
-@event.listens_for(RecipeIngredient.note, "set")
-def receive_note(target: RecipeIngredient, value: str, oldvalue, initiator):
+@event.listens_for(RecipeIngredientModel.note, "set")
+def receive_note(target: RecipeIngredientModel, value: str, oldvalue, initiator):
     if value is not None:
         target.name_normalized = unidecode(value).lower().strip()
     else:
         target.name_normalized = None
 
 
-@event.listens_for(RecipeIngredient.original_text, "set")
-def receive_original_text(target: RecipeIngredient, value: str, oldvalue, initiator):
+@event.listens_for(RecipeIngredientModel.original_text, "set")
+def receive_original_text(target: RecipeIngredientModel, value: str, oldvalue, initiator):
     if value is not None:
         target.original_text_normalized = unidecode(value).lower().strip()
     else:

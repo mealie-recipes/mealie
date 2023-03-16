@@ -3,7 +3,10 @@ import enum
 
 from pydantic import Field
 from pydantic.types import UUID4
+from sqlalchemy.orm import joinedload
+from sqlalchemy.orm.interfaces import LoaderOption
 
+from mealie.db.models.group import ReportModel
 from mealie.schema._mealie import MealieModel
 
 
@@ -53,3 +56,7 @@ class ReportOut(ReportSummary):
 
     class Config:
         orm_mode = True
+
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [joinedload(ReportModel.entries)]

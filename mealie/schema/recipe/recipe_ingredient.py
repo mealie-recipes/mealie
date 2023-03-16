@@ -5,7 +5,10 @@ import enum
 from uuid import UUID, uuid4
 
 from pydantic import UUID4, Field, validator
+from sqlalchemy.orm import joinedload
+from sqlalchemy.orm.interfaces import LoaderOption
 
+from mealie.db.models.recipe import IngredientFoodModel
 from mealie.schema._mealie import MealieModel
 from mealie.schema._mealie.types import NoneFloat
 from mealie.schema.getter_dict import ExtrasGetterDict
@@ -38,6 +41,10 @@ class IngredientFood(CreateIngredientFood):
     class Config:
         orm_mode = True
         getter_dict = ExtrasGetterDict
+
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [joinedload(IngredientFoodModel.extras), joinedload(IngredientFoodModel.label)]
 
 
 class IngredientFoodPagination(PaginationBase):

@@ -5,14 +5,18 @@ from uuid import UUID
 
 from pydantic import UUID4, Field, validator
 from pydantic.types import constr
+from sqlalchemy.orm import joinedload
+from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.core.config import get_app_dirs, get_app_settings
-from mealie.db.models.users.users import AuthMethod
+from mealie.db.models.users.users import AuthMethod, LongLiveToken, User
 from mealie.schema._mealie import MealieModel
 from mealie.schema.group.group_preferences import ReadGroupPreferences
 from mealie.schema.recipe import RecipeSummary
 from mealie.schema.response.pagination import PaginationBase
 
+from ...db.models.group import Group
+from ...db.models.recipe import RecipeModel
 from ..getter_dict import GroupGetterDict, UserGetterDict
 from ..recipe import CategoryBase
 
@@ -108,6 +112,10 @@ class UserOut(UserBase):
 
         getter_dict = UserGetterDict
 
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [joinedload(User.group), joinedload(User.favorite_recipes), joinedload(User.tokens)]
+
 
 class UserPagination(PaginationBase):
     items: list[UserOut]
@@ -119,6 +127,15 @@ class UserFavorites(UserBase):
     class Config:
         orm_mode = True
         getter_dict = GroupGetterDict
+
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [
+            joinedload(User.group),
+            joinedload(User.favorite_recipes).joinedload(RecipeModel.recipe_category),
+            joinedload(User.favorite_recipes).joinedload(RecipeModel.tags),
+            joinedload(User.favorite_recipes).joinedload(RecipeModel.tools),
+        ]
 
 
 class PrivateUser(UserOut):
@@ -150,6 +167,10 @@ class PrivateUser(UserOut):
 
     def directory(self) -> Path:
         return PrivateUser.get_directory(self.id)
+
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [joinedload(User.group), joinedload(User.favorite_recipes), joinedload(User.tokens)]
 
 
 class UpdateGroup(GroupBase):
@@ -187,6 +208,17 @@ class GroupInDB(UpdateGroup):
     def exports(self) -> Path:
         return GroupInDB.get_export_directory(self.id)
 
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [
+            joinedload(Group.categories),
+            joinedload(Group.webhooks),
+            joinedload(Group.preferences),
+            joinedload(Group.users).joinedload(User.group),
+            joinedload(Group.users).joinedload(User.favorite_recipes),
+            joinedload(Group.users).joinedload(User.tokens),
+        ]
+
 
 class GroupPagination(PaginationBase):
     items: list[GroupInDB]
@@ -198,3 +230,11 @@ class LongLiveTokenInDB(CreateToken):
 
     class Config:
         orm_mode = True
+
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [
+            joinedload(LongLiveToken.user).joinedload(User.group),
+            joinedload(LongLiveToken.user).joinedload(User.favorite_recipes),
+            joinedload(LongLiveToken.user).joinedload(User.tokens),
+        ]

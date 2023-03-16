@@ -1,7 +1,10 @@
 from pydantic import UUID4
+from sqlalchemy.orm import joinedload
+from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.schema._mealie import MealieModel
 
+from ...db.models.users import PasswordResetModel, User
 from .user import PrivateUser
 
 
@@ -29,3 +32,11 @@ class PrivatePasswordResetToken(SavePasswordResetToken):
 
     class Config:
         orm_mode = True
+
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [
+            joinedload(PasswordResetModel.user).joinedload(User.group),
+            joinedload(PasswordResetModel.user).joinedload(User.favorite_recipes),
+            joinedload(PasswordResetModel.user).joinedload(User.tokens),
+        ]
