@@ -15,7 +15,7 @@
         </v-icon>
       </v-btn>
       <BaseDialog v-model="showTimeline" :title="timelineAttrs.title" :icon="$globals.icons.timelineText" width="70%">
-        <RecipeTimeline v-model="showTimeline" :query-filter="timelineAttrs.queryFilter" :slug="slug" :recipe-name="recipeName" />
+        <RecipeTimeline v-model="showTimeline" :query-filter="timelineAttrs.queryFilter" />
       </BaseDialog>
 
     </template>

@@ -42,7 +42,6 @@
                   <RecipeTimelineContextMenu
                     v-if="$auth.user && $auth.user.id == event.userId && event.eventType != 'system'"
                     :menu-top="false"
-                    :slug="slug"
                     :event="event"
                     :menu-icon="$globals.icons.dotsVertical"
                     fab
@@ -101,14 +100,6 @@ export default defineComponent({
     queryFilter: {
       type: String,
       required: true,
-    },
-    slug: {
-      type: String,
-      default: "",
-    },
-    recipeName: {
-      type: String,
-      default: "",
     },
   },
 
