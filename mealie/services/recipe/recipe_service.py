@@ -3,7 +3,7 @@ import shutil
 from datetime import datetime
 from pathlib import Path
 from shutil import copytree, rmtree
-from uuid import uuid4
+from uuid import UUID, uuid4
 from zipfile import ZipFile
 
 from fastapi import UploadFile
@@ -106,6 +106,19 @@ class RecipeService(BaseService):
             additional_attrs["recipe_instructions"] = [RecipeStep(text=step_text)]
 
         return Recipe(**additional_attrs)
+
+    def get_one_by_slug_or_id(self, slug_or_id: str | UUID) -> Recipe | None:
+        if isinstance(slug_or_id, str):
+            try:
+                slug_or_id = UUID(slug_or_id)
+            except ValueError:
+                pass
+
+        if isinstance(slug_or_id, UUID):
+            return self.repos.recipes.get_one(slug_or_id, "id")
+
+        else:
+            return self.repos.recipes.get_one(slug_or_id, "slug")
 
     def create_one(self, create_data: Recipe | CreateRecipe) -> Recipe:
         if create_data.name is None:
