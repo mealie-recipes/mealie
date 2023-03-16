@@ -7,7 +7,7 @@ from uuid import uuid4
 
 from pydantic import UUID4, BaseModel, Field, validator
 from slugify import slugify
-from sqlalchemy.orm import joinedload
+from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.core.config import get_app_dirs
@@ -217,7 +217,8 @@ class Recipe(RecipeSummary):
             joinedload(RecipeModel.recipe_instructions).joinedload(RecipeInstruction.ingredient_references),
             joinedload(RecipeModel.nutrition),
             joinedload(RecipeModel.settings),
-            joinedload(RecipeModel.notes),
+            # for whatever reason, joinedload can mess up the order here, so use selectinload just this once
+            selectinload(RecipeModel.notes),
         ]
 
 
