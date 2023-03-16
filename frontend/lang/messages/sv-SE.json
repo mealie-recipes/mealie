@@ -689,6 +689,7 @@
     "error-cannot-delete-super-user": "Fel! Det går inte att ta bort superanvändare",
     "existing-password-does-not-match": "Befintligt lösenord matchar inte",
     "full-name": "Fullständigt namn",
+    "generate-password-reset-link": "Generate Password Reset Link",
     "invite-only": "Endast inbjudna",
     "link-id": "Länk ID",
     "link-name": "Länk namn",

@@ -689,6 +689,7 @@
     "error-cannot-delete-super-user": "Error! Cannot Delete Super User",
     "existing-password-does-not-match": "Existing password does not match",
     "full-name": "Full Name",
+    "generate-password-reset-link": "Generate Password Reset Link",
     "invite-only": "Invite Only",
     "link-id": "Link ID",
     "link-name": "Link Name",

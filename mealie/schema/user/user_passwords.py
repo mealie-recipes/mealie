@@ -12,6 +12,10 @@ class ForgotPassword(MealieModel):
     email: str
 
 
+class PasswordResetToken(MealieModel):
+    token: str
+
+
 class ValidateResetToken(MealieModel):
     token: str
 

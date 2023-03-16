@@ -81,10 +81,17 @@ def glob_walker(directory: Path, glob_str: str, return_parent=True) -> list[Path
     return matches
 
 
-def import_image(src: Path, recipe_id: UUID4):
+def import_image(src: str | Path, recipe_id: UUID4):
     """Read the successful migrations attribute and for each import the image
     appropriately into the image directory. Minification is done in mass
     after the migration occurs.
     """
+
+    if isinstance(src, str):
+        src = Path(src)
+
+    if not src.exists():
+        return
+
     data_service = RecipeDataService(recipe_id=recipe_id)
     data_service.write_image(src, src.suffix)

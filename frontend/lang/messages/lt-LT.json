@@ -689,6 +689,7 @@
     "error-cannot-delete-super-user": "Klaida! Nepavyko ištrinti super vartotojo",
     "existing-password-does-not-match": "Existing password does not match",
     "full-name": "Vardas, pavardė",
+    "generate-password-reset-link": "Generate Password Reset Link",
     "invite-only": "Tik su pakvietimu",
     "link-id": "Nuorodos ID",
     "link-name": "Nuorodos pavadinimas",

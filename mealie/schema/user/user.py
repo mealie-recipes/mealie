@@ -9,7 +9,8 @@ from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.core.config import get_app_dirs, get_app_settings
-from mealie.db.models.users.users import AuthMethod, LongLiveToken, User
+from mealie.db.models.users import User
+from mealie.db.models.users.users import AuthMethod
 from mealie.schema._mealie import MealieModel
 from mealie.schema.group.group_preferences import ReadGroupPreferences
 from mealie.schema.recipe import RecipeSummary
@@ -230,11 +231,3 @@ class LongLiveTokenInDB(CreateToken):
 
     class Config:
         orm_mode = True
-
-    @classmethod
-    def loader_options(cls) -> list[LoaderOption]:
-        return [
-            joinedload(LongLiveToken.user).joinedload(User.group),
-            joinedload(LongLiveToken.user).joinedload(User.favorite_recipes),
-            joinedload(LongLiveToken.user).joinedload(User.tokens),
-        ]

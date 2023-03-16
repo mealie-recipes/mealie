@@ -49,7 +49,9 @@ def clean(recipe_data: dict, url=None) -> dict:
     recipe_data["recipeInstructions"] = clean_instructions(recipe_data.get("recipeInstructions", []))
     recipe_data["image"] = clean_image(recipe_data.get("image"))[0]
     recipe_data["slug"] = slugify(recipe_data.get("name", ""))
-    recipe_data["orgURL"] = url
+    recipe_data["orgURL"] = url or recipe_data.get("orgURL")
+    recipe_data["notes"] = clean_notes(recipe_data.get("notes"))
+    recipe_data["rating"] = clean_int(recipe_data.get("rating"))
 
     return recipe_data
 
@@ -253,6 +255,48 @@ def clean_ingredients(ingredients: list | str | None, default: list | None = Non
             return [clean_string(ingredient) for ingredient in ingredients.splitlines()]
         case _:
             raise TypeError(f"Unexpected type for ingredients: {type(ingredients)}, {ingredients}")
+
+
+def clean_int(val: str | int | None, min: int | None = None, max: int | None = None):
+    if val is None or isinstance(val, int):
+        return val
+
+    filtered_val = "".join(c for c in val if c.isnumeric())
+    if not filtered_val:
+        return None
+
+    val = int(filtered_val)
+    if min is None or max is None:
+        return val
+
+    if not (min <= val <= max):
+        return None
+
+    return val
+
+
+def clean_notes(notes: typing.Any) -> list[dict] | None:
+    if not isinstance(notes, list):
+        return None
+
+    parsed_notes: list[dict] = []
+    for note in notes:
+        if not isinstance(note, (str, dict)):
+            continue
+
+        if isinstance(note, dict):
+            if "text" not in note:
+                continue
+
+            if "title" not in note:
+                note["title"] = ""
+
+            parsed_notes.append(note)
+            continue
+
+        parsed_notes.append({"title": "", "text": note})
+
+    return parsed_notes
 
 
 def clean_yield(yld: str | list[str] | None) -> str:

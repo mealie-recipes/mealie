@@ -60,18 +60,18 @@ Changing the webworker settings may cause unforeseen memory leak issues with Mea
 
 ### LDAP
 
-<!-- prettier-ignore -->
-| Variables           | Default | Description                                                                                                        |
-| ------------------- | :-----: | ------------------------------------------------------------------------------------------------------------------ |
-| LDAP_AUTH_ENABLED   |  False  | Authenticate via an external LDAP server in addidion to built-in Mealie auth                                       |
-| LDAP_SERVER_URL     |  None   | LDAP server URL (e.g. ldap://ldap.example.com)                                                                     |
-| LDAP_TLS_INSECURE   |  False  | Do not verify server certificate when using secure LDAP                                                            |
-| LDAP_TLS_CACERTFILE |  None   | File path to Certificate Authority used to verify server certificate (e.g. `/path/to/ca.crt`)                      |
-| LDAP_BASE_DN        |  None   | Starting point when searching for users authentication (e.g. `CN=Users,DC=xx,DC=yy,DC=de`)                         |
-| LDAP_QUERY_BIND     |  None   | A bind user for LDAP search queries (e.g. `cn=admin,cn=users,dc=example,dc=com`)                                   |
-| LDAP_QUERY_PASSWORD |  None   | The password for the bind user used in LDAP_QUERY_BIND                                                             |
-| LDAP_USER_FILTER    |  None   |  The LDAP search filter to find users (e.g. `(&(|({id_attribute}={input})({mail_attribute}={input}))(objectClass=person))`).<br/> **Note** `id_attribute` and `mail_attribute` will be replaced with `LDAP_ID_ATTRIBUTE` and `LDAP_MAIL_ATTRIBUTE`, respectively. `input` will be replaced with either the username or email the user logs in with.                                                                                                                  |
-| LDAP_ADMIN_FILTER   |  None   | Optional LDAP filter, which tells Mealie the LDAP user is an admin (e.g. `(memberOf=cn=admins,dc=example,dc=com)`) |
-| LDAP_ID_ATTRIBUTE   |   uid   | The LDAP attribute that maps to the user's id                                                                      |
-| LDAP_NAME_ATTRIBUTE |  name   | The LDAP attribute that maps to the user's name                                                                    |
-| LDAP_MAIL_ATTRIBUTE |  mail   | The LDAP attribute that maps to the user's email                                                                   |
+| Variables            | Default | Description                                                                                                                         |
+| -------------------- | :-----: | ----------------------------------------------------------------------------------------------------------------------------------- |
+| LDAP_AUTH_ENABLED    |  False  | Authenticate via an external LDAP server in addidion to built-in Mealie auth                                                        |
+| LDAP_SERVER_URL      |  None   | LDAP server URL (e.g. ldap://ldap.example.com)                                                                                      |
+| LDAP_TLS_INSECURE    |  False  | Do not verify server certificate when using secure LDAP                                                                             |
+| LDAP_TLS_CACERTFILE  |  None   | File path to Certificate Authority used to verify server certificate (e.g. `/path/to/ca.crt`)                                       |
+| LDAP_ENABLE_STARTTLS |  False  | Optional. Use STARTTLS to connect to the server                                                                                     |
+| LDAP_BASE_DN         |  None   | Starting point when searching for users authentication (e.g. `CN=Users,DC=xx,DC=yy,DC=de`)                                          |
+| LDAP_QUERY_BIND      |  None   | Optional bind user for LDAP search queries (e.g. `cn=admin,cn=users,dc=example,dc=com`). If `None` then anonymous bind will be used |
+| LDAP_QUERY_PASSWORD  |  None   | Optional password for the bind user used in LDAP_QUERY_BIND                                                                         |
+| LDAP_USER_FILTER     |  None   | Optional LDAP filter to narrow down eligible users (e.g. `(memberOf=cn=mealie_user,dc=example,dc=com)`)                             |
+| LDAP_ADMIN_FILTER    |  None   | Optional LDAP filter, which tells Mealie the LDAP user is an admin (e.g. `(memberOf=cn=admins,dc=example,dc=com)`)                  |
+| LDAP_ID_ATTRIBUTE    |   uid   | The LDAP attribute that maps to the user's id                                                                                       |
+| LDAP_NAME_ATTRIBUTE  |  name   | The LDAP attribute that maps to the user's name                                                                                     |
+| LDAP_MAIL_ATTRIBUTE  |  mail   | The LDAP attribute that maps to the user's email                                                                                    |

@@ -7,6 +7,7 @@ from fastapi.testclient import TestClient
 from mealie.schema.group.group_migration import SupportedMigrations
 from tests import data as test_data
 from tests.utils import api_routes
+from tests.utils.assertion_helpers import assert_derserialize
 from tests.utils.fixture_schemas import TestUser
 
 
@@ -20,6 +21,7 @@ test_cases = [
     MigrationTestData(typ=SupportedMigrations.nextcloud, archive=test_data.migrations_nextcloud),
     MigrationTestData(typ=SupportedMigrations.paprika, archive=test_data.migrations_paprika),
     MigrationTestData(typ=SupportedMigrations.chowdown, archive=test_data.migrations_chowdown),
+    MigrationTestData(typ=SupportedMigrations.copymethat, archive=test_data.migrations_copymethat),
     MigrationTestData(typ=SupportedMigrations.mealie_alpha, archive=test_data.migrations_mealie),
 ]
 
@@ -27,6 +29,7 @@ test_ids = [
     "nextcloud_archive",
     "paprika_archive",
     "chowdown_archive",
+    "copymethat_archive",
     "mealie_alpha_archive",
 ]
 
@@ -56,3 +59,15 @@ def test_recipe_migration(api_client: TestClient, unique_user: TestUser, mig: Mi
 
     for item in response.json()["entries"]:
         assert item["success"]
+
+    # Validate Create Event
+    params = {"orderBy": "created_at", "orderDirection": "desc"}
+    response = api_client.get(api_routes.recipes, params=params, headers=unique_user.token)
+    query_data = assert_derserialize(response)
+    assert len(query_data["items"])
+    slug = query_data["items"][0]["slug"]
+
+    response = api_client.get(api_routes.recipes_slug_timeline_events(slug), headers=unique_user.token)
+    query_data = assert_derserialize(response)
+    events = query_data["items"]
+    assert len(events)

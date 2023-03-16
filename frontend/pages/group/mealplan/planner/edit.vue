@@ -50,9 +50,9 @@
             v-if="!dialog.note"
             v-model="newMeal.recipeId"
             :label="$t('meal-plan.meal-recipe')"
-            :items="recipes.data"
-            :loading="recipes.loading"
-            :search-input.sync="recipes.search"
+            :items="search.data.value"
+            :loading="search.loading.value"
+            :search-input.sync="search.query.value"
             cache-items
             item-text="name"
             item-value="id"
@@ -218,6 +218,7 @@ import { PlanEntryType } from "~/lib/api/types/meal-plan";
 import { useUserApi } from "~/composables/api";
 import { useGroupSelf } from "~/composables/use-groups";
 import { RecipeSummary } from "~/lib/api/types/recipe";
+import { useRecipeSearch } from "~/composables/recipes/use-recipe-search";
 
 export default defineComponent({
   components: {
@@ -330,44 +331,7 @@ export default defineComponent({
     // =====================================================
     // Search
 
-    const recipes = ref({
-      search: "",
-      loading: false,
-      error: false,
-      data: [] as RecipeSummary[],
-    });
-
-    async function searchRecipes(term: string) {
-      recipes.value.loading = true;
-      const { data, error } = await api.recipes.search({
-        search: term,
-        page: 1,
-        orderBy: "name",
-        orderDirection: "asc",
-        perPage: 20,
-      });
-
-      if (error) {
-        console.error(error);
-        recipes.value.loading = false;
-        recipes.value.data = [];
-        return;
-      }
-
-      if (data) {
-        recipes.value.data = data.items;
-      }
-
-      recipes.value.loading = false;
-    }
-
-    watchDebounced(
-      () => recipes.value.search,
-      async (term: string) => {
-        await searchRecipes(term);
-      },
-      { debounce: 500 }
-    );
+    const search = useRecipeSearch(api);
 
     return {
       state,
@@ -382,7 +346,7 @@ export default defineComponent({
       randomMeal,
 
       // Search
-      recipes,
+      search,
       firstDayOfWeek,
     };
   },
