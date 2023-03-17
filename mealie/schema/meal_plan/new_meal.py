@@ -3,7 +3,7 @@ from enum import Enum
 from uuid import UUID
 
 from pydantic import validator
-from sqlalchemy.orm import joinedload, selectinload
+from sqlalchemy.orm import selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.db.models.group import GroupMealPlan

@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 
 from pydantic import UUID4, Field
-from sqlalchemy.orm import joinedload, selectinload
+from sqlalchemy.orm import selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.schema._mealie import MealieModel

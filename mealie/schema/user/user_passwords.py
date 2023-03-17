@@ -1,5 +1,5 @@
 from pydantic import UUID4
-from sqlalchemy.orm import joinedload, selectinload
+from sqlalchemy.orm import selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.schema._mealie import MealieModel
