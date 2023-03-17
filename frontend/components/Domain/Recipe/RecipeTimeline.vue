@@ -1,35 +1,41 @@
 <template>
-  <v-card
-    v-if="timelineEvents && timelineEvents.length"
-    height="fit-content"
-    :max-height="maxHeight"
-    width="100%"
-    class="px-1"
-    :style="maxHeight ? 'overflow-y: auto;' : ''"
-  >
-    <v-timeline :dense="$vuetify.breakpoint.smAndDown" class="timeline">
-      <RecipeTimelineItem
-        v-for="(event, index) in timelineEvents"
-        :key="event.id"
-        :event="event"
-        :recipe="recipes.get(event.recipeId)"
-        :show-recipe-cards="showRecipeCards"
-        @update="updateTimelineEvent(index)"
-        @delete="deleteTimelineEvent(index)"
-      />
-    </v-timeline>
-  </v-card>
-  <v-card v-else-if="!showRecipeCards">
-    <v-card-title class="justify-center pa-9">
-      {{ $t("recipe.timeline-is-empty") }}
-    </v-card-title>
-  </v-card>
+  <div>
+    <v-card
+      v-if="timelineEvents && timelineEvents.length"
+      height="fit-content"
+      :max-height="maxHeight"
+      width="100%"
+      class="px-1"
+      :style="maxHeight ? 'overflow-y: auto;' : ''"
+    >
+      <v-timeline :dense="$vuetify.breakpoint.smAndDown" class="timeline">
+        <RecipeTimelineItem
+          v-for="(event, index) in timelineEvents"
+          :key="event.id"
+          :event="event"
+          :recipe="recipes.get(event.recipeId)"
+          :show-recipe-cards="showRecipeCards"
+          @update="updateTimelineEvent(index)"
+          @delete="deleteTimelineEvent(index)"
+        />
+      </v-timeline>
+    </v-card>
+    <v-card v-else-if="!loading">
+      <v-card-title class="justify-center pa-9">
+        {{ $t("recipe.timeline-is-empty") }}
+      </v-card-title>
+    </v-card>
+    <v-fade-transition>
+      <AppLoader v-if="loading" :loading="loading" :waiting-text="$tc('general.loading-events')" />
+    </v-fade-transition>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useContext } from "@nuxtjs/composition-api";
-import { whenever } from "@vueuse/core";
+import { defineComponent, ref, useAsync, useContext } from "@nuxtjs/composition-api";
+import { useThrottleFn, whenever } from "@vueuse/core";
 import RecipeTimelineItem from "./RecipeTimelineItem.vue"
+import { useAsyncKey } from "~/composables/use-utils";
 import { alert } from "~/composables/use-toast";
 import { useUserApi } from "~/composables/api";
 import { Recipe, RecipeTimelineEventOut, RecipeTimelineEventUpdate } from "~/lib/api/types/recipe"
@@ -59,13 +65,27 @@ export default defineComponent({
   setup(props) {
     const api = useUserApi();
     const { i18n } = useContext();
+    const loading = ref(true);
+
+    const page = ref(1);
+    const perPage = 32;
+    const hasMore = ref(true);
+
     const timelineEvents = ref([] as RecipeTimelineEventOut[]);
     const recipes = new Map<string, Recipe>();
+
+    window.onscroll = () => {
+      // trigger when the user is getting close to the bottom
+      const bottomOfWindow = document.documentElement.scrollTop + window.innerHeight >= document.documentElement.offsetHeight - (window.innerHeight*4);
+      if (bottomOfWindow) {
+        infiniteScroll();
+      }
+    };
 
     whenever(
       () => props.value,
       () => {
-        refreshTimelineEvents();
+        initializeTimelineEvents();
       }
     );
 
@@ -123,15 +143,18 @@ export default defineComponent({
         })
     }
 
-    async function refreshTimelineEvents() {
-      // TODO: implement infinite scroll and paginate instead of loading all events and recipes at once
-      const page = 1;
-      const perPage = -1;
+    async function scrollTimelineEvents() {
       const orderBy = "timestamp";
       const orderDirection = "asc";
 
-      const response = await api.recipes.getAllTimelineEvents(page, perPage, { orderBy, orderDirection, queryFilter: props.queryFilter });
+      const response = await api.recipes.getAllTimelineEvents(page.value, perPage, { orderBy, orderDirection, queryFilter: props.queryFilter });
+      page.value += 1;
       if (!response?.data) {
+        return;
+      }
+
+      if (!response.data.items.length) {
+        hasMore.value = false;
         return;
       }
 
@@ -142,17 +165,41 @@ export default defineComponent({
         await updateRecipes(events);
       }
 
-      // this is set last so Vue know to re-render
-      timelineEvents.value = events;
+      // this is set last so Vue knows to re-render
+      timelineEvents.value.push(...events);
     };
 
+    async function initializeTimelineEvents() {
+      loading.value = true;
+
+      page.value = 1;
+      timelineEvents.value = [];
+      await scrollTimelineEvents();
+
+      loading.value = false;
+    }
+
+    const infiniteScroll = useThrottleFn(() => {
+      useAsync(async () => {
+        if (!hasMore.value || loading.value) {
+          return;
+        }
+
+        loading.value = true;
+        await scrollTimelineEvents();
+        loading.value = false;
+      }, useAsyncKey());
+    }, 500);
+
     // preload events
-    refreshTimelineEvents();
+    initializeTimelineEvents();
 
     return {
       deleteTimelineEvent,
+      infiniteScroll,
+      initializeTimelineEvents,
+      loading,
       recipes,
-      refreshTimelineEvents,
       timelineEvents,
       updateTimelineEvent,
     };
