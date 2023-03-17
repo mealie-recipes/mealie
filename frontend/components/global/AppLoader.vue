@@ -1,21 +1,23 @@
 <template>
-  <div class="mx-auto">
-    <v-progress-circular :width="size.width" :size="size.size" color="primary lighten-2" indeterminate>
-      <div class="text-center">
-        <v-icon :size="size.icon" color="primary lighten-2">
-          {{ $globals.icons.primary }}
-        </v-icon>
-        <div v-if="large" class="text-small">
-          <slot>
-            {{ small ? "" : waitingText }}
-          </slot>
+  <div class="mx-auto my-3 justify-center" style="display: flex;">
+    <div style="display: inline;">
+      <v-progress-circular :width="size.width" :size="size.size" color="primary lighten-2" indeterminate>
+        <div class="text-center">
+          <v-icon :size="size.icon" color="primary lighten-2">
+            {{ $globals.icons.primary }}
+          </v-icon>
+          <div v-if="large" class="text-small">
+            <slot>
+              {{ small ? "" : waitingText }}
+            </slot>
+          </div>
         </div>
+      </v-progress-circular>
+      <div v-if="!large" class="text-small">
+        <slot>
+          {{ small ? "" : waitingTextCalculated }}
+        </slot>
       </div>
-    </v-progress-circular>
-    <div v-if="!large" class="text-small">
-      <slot>
-        {{ small ? "" : waitingText }}
-      </slot>
     </div>
   </div>
 </template>
@@ -41,6 +43,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    waitingText: {
+      type: String,
+      default: undefined,
+    }
   },
   setup(props) {
     const size = computed(() => {
@@ -65,11 +71,11 @@ export default defineComponent({
     });
 
     const { i18n } = useContext();
-    const waitingText = i18n.t("general.loading-recipes");
+    const waitingTextCalculated = props.waitingText == null ? i18n.t("general.loading-recipes") : props.waitingText;
 
     return {
       size,
-      waitingText,
+      waitingTextCalculated,
     };
   },
 });
