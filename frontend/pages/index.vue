@@ -124,11 +124,9 @@
         :title="$tc('search.results')"
         :recipes="recipes"
         :query="passedQuery"
-        @sortRecipes="assignSorted"
         @replaceRecipes="replaceRecipes"
         @appendRecipes="appendRecipes"
-        @delete="removeRecipe"
-      ></RecipeCardSection>
+      />
     </v-container>
   </v-container>
 </template>

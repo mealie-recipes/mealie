@@ -5,6 +5,7 @@ from uuid import UUID
 from pydantic import UUID4
 
 from mealie.core import root_logger
+from mealie.core.exceptions import UnexpectedNone
 from mealie.repos.all_repositories import AllRepositories
 from mealie.schema.recipe import Recipe
 from mealie.schema.recipe.recipe_settings import RecipeSettings
@@ -16,6 +17,7 @@ from mealie.schema.reports.reports import (
     ReportSummary,
     ReportSummaryStatus,
 )
+from mealie.services.recipe.recipe_service import RecipeService
 from mealie.services.scraper import cleaner
 
 from .._base_service import BaseService
@@ -38,9 +40,18 @@ class BaseMigrator(BaseService):
         self.archive = archive
         self.db = db
         self.session = session
-        self.user_id = user_id
-        self.group_id = group_id
         self.add_migration_tag = add_migration_tag
+
+        user = db.users.get_one(user_id)
+        if not user:
+            raise UnexpectedNone(f"Cannot find user {user_id}")
+
+        group = db.groups.get_one(group_id)
+        if not group:
+            raise UnexpectedNone(f"Cannot find group {group_id}")
+
+        self.user = user
+        self.group = group
 
         self.name = "migration"
 
@@ -48,7 +59,8 @@ class BaseMigrator(BaseService):
 
         self.logger = root_logger.get_logger()
 
-        self.helpers = DatabaseMigrationHelpers(self.db, self.session, self.group_id, self.user_id)
+        self.helpers = DatabaseMigrationHelpers(self.db, self.session, self.group.id, self.user.id)
+        self.recipe_service = RecipeService(db, user, group)
 
         super().__init__()
 
@@ -60,7 +72,7 @@ class BaseMigrator(BaseService):
             name=report_name,
             category=ReportCategory.migration,
             status=ReportSummaryStatus.in_progress,
-            group_id=self.group_id,
+            group_id=self.group.id,
         )
 
         self.report = self.db.group_reports.create(report_to_save)
@@ -117,25 +129,23 @@ class BaseMigrator(BaseService):
 
         return_vars: list[tuple[str, UUID4, bool]] = []
 
-        group = self.db.groups.get_one(self.group_id)
-
-        if not group or not group.preferences:
+        if not self.group.preferences:
             raise ValueError("Group preferences not found")
 
         default_settings = RecipeSettings(
-            public=group.preferences.recipe_public,
-            show_nutrition=group.preferences.recipe_show_nutrition,
-            show_assets=group.preferences.recipe_show_assets,
-            landscape_view=group.preferences.recipe_landscape_view,
-            disable_comments=group.preferences.recipe_disable_comments,
-            disable_amount=group.preferences.recipe_disable_amount,
+            public=self.group.preferences.recipe_public,
+            show_nutrition=self.group.preferences.recipe_show_nutrition,
+            show_assets=self.group.preferences.recipe_show_assets,
+            landscape_view=self.group.preferences.recipe_landscape_view,
+            disable_comments=self.group.preferences.recipe_disable_comments,
+            disable_amount=self.group.preferences.recipe_disable_amount,
         )
 
         for recipe in validated_recipes:
             recipe.settings = default_settings
 
-            recipe.user_id = self.user_id
-            recipe.group_id = self.group_id
+            recipe.user_id = self.user.id
+            recipe.group_id = self.group.id
 
             if recipe.tags:
                 recipe.tags = self.helpers.get_or_set_tags(x.name for x in recipe.tags)
@@ -151,7 +161,7 @@ class BaseMigrator(BaseService):
             exception: str | Exception = ""
             status = False
             try:
-                recipe = self.db.recipes.create(recipe)
+                recipe = self.recipe_service.create_one(recipe)
                 status = True
 
             except Exception as inst:

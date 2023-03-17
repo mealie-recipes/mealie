@@ -78,14 +78,19 @@ class UserBase(MealieModel):
     can_organize: bool = False
 
     class Config:
-        orm_mode = True
+        class _UserGetter(GetterDict):
+            def get(self, key: Any, default: Any = None) -> Any:
+                # Transform extras into key-value dict
+                if key == "group":
+                    value = super().get(key, default)
+                    return value.group.name
 
-        @classmethod
-        def getter_dict(cls, name_orm: User):
-            return {
-                **GetterDict(name_orm),
-                "group": name_orm.group.name,
-            }
+                # Keep all other fields as they are
+                else:
+                    return super().get(key, default)
+
+        orm_mode = True
+        getter_dict = _UserGetter
 
         schema_extra = {
             "example": {

@@ -1,6 +1,7 @@
-import json
+import os
 
 from fastapi.testclient import TestClient
+import pytest
 
 from mealie.core.config import get_app_settings
 from mealie.repos.repository_factory import AllRepositories
@@ -57,3 +58,192 @@ def test_user_lockout_after_bad_attemps(api_client: TestClient, unique_user: Tes
     user_service = UserService(database)
     user = database.users.get_one(unique_user.user_id)
     user_service.unlock_user(user)
+
+
+@pytest.mark.skipif(not os.environ.get("GITHUB_ACTIONS", False), reason="requires ldap service in github actions")
+def test_ldap_user_login(api_client: TestClient):
+    form_data = {"username": "bender", "password": "bender"}
+    response = api_client.post(api_routes.auth_token, data=form_data)
+
+    assert response.status_code == 200
+
+    data = response.json()
+    assert data is not None
+    assert data.get("access_token") is not None
+
+    response = api_client.get(api_routes.users_self, headers={"Authorization": f"Bearer {data.get('access_token')}"})
+    assert response.status_code == 200
+
+    data = response.json()
+    assert data.get("username") == "bender"
+    assert data.get("fullName") == "Bender Bending Rodríguez"
+    assert data.get("email") == "bender@planetexpress.com"
+    assert data.get("admin") is False
+
+
+@pytest.mark.skipif(not os.environ.get("GITHUB_ACTIONS", False), reason="requires ldap service in github actions")
+def test_ldap_user_login_bad_password(api_client: TestClient):
+    form_data = {"username": "bender", "password": "BAD_PASS"}
+    response = api_client.post(api_routes.auth_token, data=form_data)
+
+    assert response.status_code == 401
+
+
+@pytest.mark.skipif(not os.environ.get("GITHUB_ACTIONS", False), reason="requires ldap service in github actions")
+def test_ldap_admin_login(api_client: TestClient):
+    form_data = {"username": "professor", "password": "professor"}
+    response = api_client.post(api_routes.auth_token, data=form_data)
+
+    assert response.status_code == 200
+
+    data = response.json()
+    assert data is not None
+    assert data.get("access_token") is not None
+
+    response = api_client.get(api_routes.users_self, headers={"Authorization": f"Bearer {data.get('access_token')}"})
+    assert response.status_code == 200
+
+    data = response.json()
+    assert data.get("username") == "professor"
+    assert data.get("fullName") == "Hubert J. Farnsworth"
+    assert data.get("email") in ["professor@planetexpress.com", "hubert@planetexpress.com"]
+    assert data.get("admin") is True
+
+
+@pytest.mark.skipif(not os.environ.get("GITHUB_ACTIONS", False), reason="requires ldap service in github actions")
+def test_ldap_user_not_in_filter(api_client: TestClient):
+    form_data = {"username": "amy", "password": "amy"}
+    response = api_client.post(api_routes.auth_token, data=form_data)
+
+    assert response.status_code == 401
+
+
+@pytest.mark.skipif(not os.environ.get("GITHUB_ACTIONS", False), reason="requires ldap service in github actions")
+def test_ldap_user_login_starttls(api_client: TestClient):
+    settings = get_app_settings()
+    settings.LDAP_ENABLE_STARTTLS = True
+
+    form_data = {"username": "bender", "password": "bender"}
+    response = api_client.post(api_routes.auth_token, data=form_data)
+
+    assert response.status_code == 200
+
+    data = response.json()
+    assert data is not None
+    assert data.get("access_token") is not None
+
+    response = api_client.get(api_routes.users_self, headers={"Authorization": f"Bearer {data.get('access_token')}"})
+    assert response.status_code == 200
+
+    data = response.json()
+    assert data.get("username") == "bender"
+    assert data.get("fullName") == "Bender Bending Rodríguez"
+    assert data.get("email") == "bender@planetexpress.com"
+    assert data.get("admin") is False
+
+    get_app_settings.cache_clear()
+
+
+@pytest.mark.skipif(not os.environ.get("GITHUB_ACTIONS", False), reason="requires ldap service in github actions")
+def test_ldap_user_login_anonymous_bind(api_client: TestClient):
+    settings = get_app_settings()
+    settings.LDAP_QUERY_BIND = None
+    settings.LDAP_QUERY_PASSWORD = None
+
+    form_data = {"username": "bender", "password": "bender"}
+    response = api_client.post(api_routes.auth_token, data=form_data)
+
+    assert response.status_code == 200
+
+    data = response.json()
+    assert data is not None
+    assert data.get("access_token") is not None
+
+    response = api_client.get(api_routes.users_self, headers={"Authorization": f"Bearer {data.get('access_token')}"})
+    assert response.status_code == 200
+
+    data = response.json()
+    assert data.get("username") == "bender"
+    assert data.get("fullName") == "Bender Bending Rodríguez"
+    assert data.get("email") == "bender@planetexpress.com"
+    assert data.get("admin") is False
+
+    get_app_settings.cache_clear()
+
+
+@pytest.mark.skipif(not os.environ.get("GITHUB_ACTIONS", False), reason="requires ldap service in github actions")
+def test_ldap_user_login_no_filter(api_client: TestClient):
+    settings = get_app_settings()
+    settings.LDAP_USER_FILTER = None
+
+    form_data = {"username": "amy", "password": "amy"}
+    response = api_client.post(api_routes.auth_token, data=form_data)
+
+    assert response.status_code == 200
+
+    data = response.json()
+    assert data is not None
+    assert data.get("access_token") is not None
+
+    response = api_client.get(api_routes.users_self, headers={"Authorization": f"Bearer {data.get('access_token')}"})
+    assert response.status_code == 200
+
+    data = response.json()
+    assert data.get("username") == "amy"
+    assert data.get("fullName") == "Amy Wong"
+    assert data.get("email") == "amy@planetexpress.com"
+    assert data.get("admin") is False
+
+    get_app_settings.cache_clear()
+
+
+@pytest.mark.skipif(not os.environ.get("GITHUB_ACTIONS", False), reason="requires ldap service in github actions")
+def test_ldap_user_login_simple_filter(api_client: TestClient):
+    settings = get_app_settings()
+    settings.LDAP_USER_FILTER = "(memberOf=cn=ship_crew,ou=people,dc=planetexpress,dc=com)"
+
+    form_data = {"username": "bender", "password": "bender"}
+    response = api_client.post(api_routes.auth_token, data=form_data)
+
+    assert response.status_code == 200
+
+    data = response.json()
+    assert data is not None
+    assert data.get("access_token") is not None
+
+    response = api_client.get(api_routes.users_self, headers={"Authorization": f"Bearer {data.get('access_token')}"})
+    assert response.status_code == 200
+
+    data = response.json()
+    assert data.get("username") == "bender"
+    assert data.get("fullName") == "Bender Bending Rodríguez"
+    assert data.get("email") == "bender@planetexpress.com"
+    assert data.get("admin") is False
+
+    get_app_settings.cache_clear()
+
+
+@pytest.mark.skipif(not os.environ.get("GITHUB_ACTIONS", False), reason="requires ldap service in github actions")
+def test_ldap_user_login_complex_filter(api_client: TestClient):
+    settings = get_app_settings()
+    settings.LDAP_USER_FILTER = "(&(objectClass=inetOrgPerson)(|(memberOf=cn=ship_crew,ou=people,dc=planetexpress,dc=com)(memberOf=cn=admin_staff,ou=people,dc=planetexpress,dc=com)))"
+
+    form_data = {"username": "professor", "password": "professor"}
+    response = api_client.post(api_routes.auth_token, data=form_data)
+
+    assert response.status_code == 200
+
+    data = response.json()
+    assert data is not None
+    assert data.get("access_token") is not None
+
+    response = api_client.get(api_routes.users_self, headers={"Authorization": f"Bearer {data.get('access_token')}"})
+    assert response.status_code == 200
+
+    data = response.json()
+    assert data.get("username") == "professor"
+    assert data.get("fullName") == "Hubert J. Farnsworth"
+    assert data.get("email") in ["professor@planetexpress.com", "hubert@planetexpress.com"]
+    assert data.get("admin") is True
+
+    get_app_settings.cache_clear()

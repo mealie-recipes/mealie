@@ -130,6 +130,7 @@ class AppSettings(BaseSettings):
     LDAP_SERVER_URL: NoneStr = None
     LDAP_TLS_INSECURE: bool = False
     LDAP_TLS_CACERTFILE: NoneStr = None
+    LDAP_ENABLE_STARTTLS: bool = False
     LDAP_BASE_DN: NoneStr = None
     LDAP_QUERY_BIND: NoneStr = None
     LDAP_QUERY_PASSWORD: NoneStr = None
@@ -145,9 +146,6 @@ class AppSettings(BaseSettings):
         required = {
             self.LDAP_SERVER_URL,
             self.LDAP_BASE_DN,
-            self.LDAP_USER_FILTER,
-            self.LDAP_QUERY_BIND,
-            self.LDAP_QUERY_PASSWORD,
             self.LDAP_ID_ATTRIBUTE,
             self.LDAP_MAIL_ATTRIBUTE,
             self.LDAP_NAME_ATTRIBUTE,

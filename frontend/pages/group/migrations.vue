@@ -13,7 +13,7 @@
       {{ $t('migration.recipe-data-migrations-explanation') }}
     </BasePageTitle>
     <v-container>
-      <BaseCardSectionTitle title="New Migration"> </BaseCardSectionTitle>
+      <BaseCardSectionTitle :title="$i18n.tc('migration.new-migration')"> </BaseCardSectionTitle>
       <v-card outlined :loading="loading">
         <v-card-title> {{ $t('migration.choose-migration-type') }} </v-card-title>
         <v-card-text v-if="content" class="pb-0">
@@ -38,7 +38,7 @@
             :text-btn="false"
             @uploaded="setFileObject"
           />
-          {{ fileObject.name || $t('general.no-file-selected') }}
+          {{ fileObject.name || $i18n.tc('migration.no-file-selected') }}
         </v-card-text>
 
         <v-card-text>
@@ -61,7 +61,7 @@
       </v-card>
     </v-container>
     <v-container>
-      <BaseCardSectionTitle :title="$tc('migration.previous-migrations')"> </BaseCardSectionTitle>
+      <BaseCardSectionTitle :title="$i18n.tc('migration.previous-migrations')"> </BaseCardSectionTitle>
       <ReportTable :items="reports" @delete="deleteReport" />
     </v-container>
   </v-container>
@@ -77,6 +77,7 @@ import { SupportedMigrations } from "~/lib/api/types/group";
 const MIGRATIONS = {
   nextcloud: "nextcloud",
   chowdown: "chowdown",
+  copymethat: "copymethat",
   paprika: "paprika",
   mealie: "mealie_alpha",
 };
@@ -98,26 +99,30 @@ export default defineComponent({
 
     const items: MenuItem[] = [
       {
-        text: "Nextcloud",
+        text: i18n.tc("migration.nextcloud.title"),
         value: MIGRATIONS.nextcloud,
       },
       {
-        text: "Chowdown",
+        text: i18n.tc("migration.chowdown.title"),
         value: MIGRATIONS.chowdown,
       },
       {
-        text: "Paprika",
+        text: i18n.tc("migration.copymethat.title"),
+        value: MIGRATIONS.copymethat,
+      },
+      {
+        text: i18n.tc("migration.paprika.title"),
         value: MIGRATIONS.paprika,
       },
       {
-        text: "Mealie",
+        text: i18n.tc("migration.mealie-pre-v1.title"),
         value: MIGRATIONS.mealie,
       },
     ];
 
     const _content = {
       [MIGRATIONS.nextcloud]: {
-        text: i18n.t("migration.nextcloud-text"),
+        text: i18n.tc("migration.nextcloud.description-long"),
         tree: [
           {
             id: 1,
@@ -149,7 +154,7 @@ export default defineComponent({
         ],
       },
       [MIGRATIONS.chowdown]: {
-        text: i18n.t("migration.chowdown-text"),
+        text: i18n.tc("migration.chowdown.description-long"),
         tree: [
           {
             id: 1,
@@ -180,12 +185,35 @@ export default defineComponent({
           },
         ],
       },
+      [MIGRATIONS.copymethat]: {
+        text: i18n.tc("migration.copymethat.description-long"),
+        tree: [
+          {
+            id: 1,
+            icon: $globals.icons.zip,
+            name: "Copy_Me_That_20230306.zip",
+            children: [
+              {
+                id: 2,
+                name: "images",
+                icon: $globals.icons.folderOutline,
+                children: [
+                  { id: 3, name: "recipe_1_an5zy.jpg", icon: $globals.icons.fileImage },
+                  { id: 4, name: "recipe_2_82el8.jpg", icon: $globals.icons.fileImage },
+                  { id: 5, name: "recipe_3_j75qg.jpg", icon: $globals.icons.fileImage },
+                ],
+              },
+              { id: 6, name: "recipes.html", icon: $globals.icons.codeJson }
+            ]
+          }
+        ],
+      },
       [MIGRATIONS.paprika]: {
-        text: i18n.t("migration.paprika-text"),
+        text: i18n.tc("migration.paprika.description-long"),
         tree: false,
       },
       [MIGRATIONS.mealie]: {
-        text: i18n.t("migration.mealie-text"),
+        text: i18n.tc("migration.mealie-pre-v1.description-long"),
         tree: [
           {
             id: 1,

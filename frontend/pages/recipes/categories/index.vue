@@ -6,6 +6,7 @@
       :icon="$globals.icons.tags"
       item-type="categories"
       @delete="actions.deleteOne"
+      @update="actions.updateOne"
     >
       <template #title> {{ $tc("category.categories") }} </template>
     </RecipeOrganizerPage>

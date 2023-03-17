@@ -55,7 +55,7 @@ class AdminAboutController(BaseAdminController):
             email_ready=settings.SMTP_ENABLE,
             ldap_ready=settings.LDAP_ENABLED,
             base_url_set=settings.BASE_URL != "http://localhost:8080",
-            is_up_to_date=get_latest_version() == APP_VERSION,
+            is_up_to_date=APP_VERSION == "develop" or APP_VERSION == "nightly" or get_latest_version() == APP_VERSION,
         )
 
     @router.get("/docker/validate", response_model=DockerVolumeText)
