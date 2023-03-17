@@ -4,7 +4,7 @@ from datetime import datetime
 from fractions import Fraction
 
 from pydantic import UUID4, validator
-from sqlalchemy.orm import joinedload
+from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.db.models.group import (
@@ -184,12 +184,12 @@ class ShoppingListItemOut(ShoppingListItemBase):
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
         return [
-            joinedload(ShoppingListItem.extras),
-            joinedload(ShoppingListItem.food).joinedload(IngredientFoodModel.extras),
-            joinedload(ShoppingListItem.food).joinedload(IngredientFoodModel.label),
+            selectinload(ShoppingListItem.extras),
+            selectinload(ShoppingListItem.food).joinedload(IngredientFoodModel.extras),
+            selectinload(ShoppingListItem.food).joinedload(IngredientFoodModel.label),
             joinedload(ShoppingListItem.label),
             joinedload(ShoppingListItem.unit),
-            joinedload(ShoppingListItem.recipe_references),
+            selectinload(ShoppingListItem.recipe_references),
         ]
 
 
@@ -249,9 +249,9 @@ class ShoppingListRecipeRefOut(MealieModel):
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
         return [
-            joinedload(ShoppingListRecipeReference.recipe).joinedload(RecipeModel.recipe_category),
-            joinedload(ShoppingListRecipeReference.recipe).joinedload(RecipeModel.tags),
-            joinedload(ShoppingListRecipeReference.recipe).joinedload(RecipeModel.tools),
+            selectinload(ShoppingListRecipeReference.recipe).joinedload(RecipeModel.recipe_category),
+            selectinload(ShoppingListRecipeReference.recipe).joinedload(RecipeModel.tags),
+            selectinload(ShoppingListRecipeReference.recipe).joinedload(RecipeModel.tools),
         ]
 
 
@@ -271,17 +271,17 @@ class ShoppingListSummary(ShoppingListSave):
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
         return [
-            joinedload(ShoppingList.extras),
-            joinedload(ShoppingList.recipe_references)
+            selectinload(ShoppingList.extras),
+            selectinload(ShoppingList.recipe_references)
             .joinedload(ShoppingListRecipeReference.recipe)
             .joinedload(RecipeModel.recipe_category),
-            joinedload(ShoppingList.recipe_references)
+            selectinload(ShoppingList.recipe_references)
             .joinedload(ShoppingListRecipeReference.recipe)
             .joinedload(RecipeModel.tags),
-            joinedload(ShoppingList.recipe_references)
+            selectinload(ShoppingList.recipe_references)
             .joinedload(ShoppingListRecipeReference.recipe)
             .joinedload(RecipeModel.tools),
-            joinedload(ShoppingList.label_settings).joinedload(ShoppingListMultiPurposeLabel.label),
+            selectinload(ShoppingList.label_settings).joinedload(ShoppingListMultiPurposeLabel.label),
         ]
 
 
@@ -305,25 +305,27 @@ class ShoppingListOut(ShoppingListUpdate):
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
         return [
-            joinedload(ShoppingList.extras),
-            joinedload(ShoppingList.list_items).joinedload(ShoppingListItem.extras),
-            joinedload(ShoppingList.list_items)
+            selectinload(ShoppingList.extras),
+            selectinload(ShoppingList.list_items).joinedload(ShoppingListItem.extras),
+            selectinload(ShoppingList.list_items)
             .joinedload(ShoppingListItem.food)
             .joinedload(IngredientFoodModel.extras),
-            joinedload(ShoppingList.list_items).joinedload(ShoppingListItem.food).joinedload(IngredientFoodModel.label),
-            joinedload(ShoppingList.list_items).joinedload(ShoppingListItem.label),
-            joinedload(ShoppingList.list_items).joinedload(ShoppingListItem.unit),
-            joinedload(ShoppingList.list_items).joinedload(ShoppingListItem.recipe_references),
-            joinedload(ShoppingList.recipe_references)
+            selectinload(ShoppingList.list_items)
+            .joinedload(ShoppingListItem.food)
+            .joinedload(IngredientFoodModel.label),
+            selectinload(ShoppingList.list_items).joinedload(ShoppingListItem.label),
+            selectinload(ShoppingList.list_items).joinedload(ShoppingListItem.unit),
+            selectinload(ShoppingList.list_items).joinedload(ShoppingListItem.recipe_references),
+            selectinload(ShoppingList.recipe_references)
             .joinedload(ShoppingListRecipeReference.recipe)
             .joinedload(RecipeModel.recipe_category),
-            joinedload(ShoppingList.recipe_references)
+            selectinload(ShoppingList.recipe_references)
             .joinedload(ShoppingListRecipeReference.recipe)
             .joinedload(RecipeModel.tags),
-            joinedload(ShoppingList.recipe_references)
+            selectinload(ShoppingList.recipe_references)
             .joinedload(ShoppingListRecipeReference.recipe)
             .joinedload(RecipeModel.tools),
-            joinedload(ShoppingList.label_settings).joinedload(ShoppingListMultiPurposeLabel.label),
+            selectinload(ShoppingList.label_settings).joinedload(ShoppingListMultiPurposeLabel.label),
         ]
 
 

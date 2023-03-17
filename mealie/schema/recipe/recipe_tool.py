@@ -1,5 +1,5 @@
 from pydantic import UUID4
-from sqlalchemy.orm import joinedload
+from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.schema._mealie import MealieModel
@@ -33,9 +33,9 @@ class RecipeToolResponse(RecipeToolOut):
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
         return [
-            joinedload(Tool.recipes).joinedload(RecipeModel.recipe_category),
-            joinedload(Tool.recipes).joinedload(RecipeModel.tags),
-            joinedload(Tool.recipes).joinedload(RecipeModel.tools),
+            selectinload(Tool.recipes).joinedload(RecipeModel.recipe_category),
+            selectinload(Tool.recipes).joinedload(RecipeModel.tags),
+            selectinload(Tool.recipes).joinedload(RecipeModel.tools),
         ]
 
 

@@ -3,7 +3,7 @@ from enum import Enum
 from uuid import UUID
 
 from pydantic import validator
-from sqlalchemy.orm import joinedload
+from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.db.models.group import GroupMealPlan
@@ -64,9 +64,9 @@ class ReadPlanEntry(UpdatePlanEntry):
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
         return [
-            joinedload(GroupMealPlan.recipe).joinedload(RecipeModel.recipe_category),
-            joinedload(GroupMealPlan.recipe).joinedload(RecipeModel.tags),
-            joinedload(GroupMealPlan.recipe).joinedload(RecipeModel.tools),
+            selectinload(GroupMealPlan.recipe).joinedload(RecipeModel.recipe_category),
+            selectinload(GroupMealPlan.recipe).joinedload(RecipeModel.tags),
+            selectinload(GroupMealPlan.recipe).joinedload(RecipeModel.tools),
         ]
 
 

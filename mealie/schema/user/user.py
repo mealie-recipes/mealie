@@ -5,7 +5,7 @@ from uuid import UUID
 
 from pydantic import UUID4, Field, validator
 from pydantic.types import constr
-from sqlalchemy.orm import joinedload
+from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.core.config import get_app_dirs, get_app_settings
@@ -133,9 +133,9 @@ class UserFavorites(UserBase):
     def loader_options(cls) -> list[LoaderOption]:
         return [
             joinedload(User.group),
-            joinedload(User.favorite_recipes).joinedload(RecipeModel.recipe_category),
-            joinedload(User.favorite_recipes).joinedload(RecipeModel.tags),
-            joinedload(User.favorite_recipes).joinedload(RecipeModel.tools),
+            selectinload(User.favorite_recipes).joinedload(RecipeModel.recipe_category),
+            selectinload(User.favorite_recipes).joinedload(RecipeModel.tags),
+            selectinload(User.favorite_recipes).joinedload(RecipeModel.tools),
         ]
 
 
@@ -171,7 +171,7 @@ class PrivateUser(UserOut):
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
-        return [joinedload(User.group), joinedload(User.favorite_recipes), joinedload(User.tokens)]
+        return [joinedload(User.group), selectinload(User.favorite_recipes), joinedload(User.tokens)]
 
 
 class UpdateGroup(GroupBase):
@@ -215,9 +215,9 @@ class GroupInDB(UpdateGroup):
             joinedload(Group.categories),
             joinedload(Group.webhooks),
             joinedload(Group.preferences),
-            joinedload(Group.users).joinedload(User.group),
-            joinedload(Group.users).joinedload(User.favorite_recipes),
-            joinedload(Group.users).joinedload(User.tokens),
+            selectinload(Group.users).joinedload(User.group),
+            selectinload(Group.users).joinedload(User.favorite_recipes),
+            selectinload(Group.users).joinedload(User.tokens),
         ]
 
 

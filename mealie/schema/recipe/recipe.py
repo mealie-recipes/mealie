@@ -201,20 +201,20 @@ class Recipe(RecipeSummary):
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
         return [
-            joinedload(RecipeModel.assets),
-            joinedload(RecipeModel.comments).joinedload(RecipeComment.user),
-            joinedload(RecipeModel.extras),
+            selectinload(RecipeModel.assets),
+            selectinload(RecipeModel.comments).joinedload(RecipeComment.user),
+            selectinload(RecipeModel.extras),
             joinedload(RecipeModel.recipe_category),
-            joinedload(RecipeModel.tags),
-            joinedload(RecipeModel.tools),
-            joinedload(RecipeModel.recipe_ingredient).joinedload(RecipeIngredientModel.unit),
-            joinedload(RecipeModel.recipe_ingredient)
+            selectinload(RecipeModel.tags),
+            selectinload(RecipeModel.tools),
+            selectinload(RecipeModel.recipe_ingredient).joinedload(RecipeIngredientModel.unit),
+            selectinload(RecipeModel.recipe_ingredient)
             .joinedload(RecipeIngredientModel.food)
             .joinedload(IngredientFoodModel.extras),
-            joinedload(RecipeModel.recipe_ingredient)
+            selectinload(RecipeModel.recipe_ingredient)
             .joinedload(RecipeIngredientModel.food)
             .joinedload(IngredientFoodModel.label),
-            joinedload(RecipeModel.recipe_instructions).joinedload(RecipeInstruction.ingredient_references),
+            selectinload(RecipeModel.recipe_instructions).joinedload(RecipeInstruction.ingredient_references),
             joinedload(RecipeModel.nutrition),
             joinedload(RecipeModel.settings),
             # for whatever reason, joinedload can mess up the order here, so use selectinload just this once
