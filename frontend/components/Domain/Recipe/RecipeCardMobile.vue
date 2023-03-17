@@ -7,8 +7,18 @@
       :to="$listeners.selected ? undefined : `/recipe/${slug}`"
       @click="$emit('selected')"
     >
+      <v-img v-if="vertical">
+        <RecipeCardImage
+          :icon-size="100"
+          :height="75"
+          :slug="slug"
+          :recipe-id="recipeId"
+          small
+          :image-version="image"
+        />
+      </v-img>
       <v-list-item three-line>
-        <slot name="avatar">
+        <slot v-if="!vertical" name="avatar">
           <v-list-item-avatar tile size="125" class="v-mobile-img rounded-sm my-0 ml-n4">
             <RecipeCardImage
               :icon-size="100"
@@ -17,7 +27,7 @@
               :recipe-id="recipeId"
               small
               :image-version="image"
-            ></RecipeCardImage>
+            />
           </v-list-item-avatar>
         </slot>
         <v-list-item-content>
@@ -25,7 +35,7 @@
           <v-list-item-subtitle>
             <SafeMarkdown :source="description" />
           </v-list-item-subtitle>
-          <div class="d-flex justify-center align-center">
+          <div class="d-flex flex-wrap justify-end align-center">
             <slot name="actions">
               <RecipeFavoriteBadge v-if="loggedIn" :slug="slug" show-always />
               <v-rating
@@ -107,6 +117,10 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    vertical: {
+      type: Boolean,
+      default: false,
+    }
   },
   setup() {
     const { $auth } = useContext();

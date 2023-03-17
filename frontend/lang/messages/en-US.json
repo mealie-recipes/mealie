@@ -446,6 +446,7 @@
     "edit-timeline-event": "Edit Timeline Event",
     "timeline": "Timeline",
     "timeline-is-empty": "Nothing on the timeline yet. Try making this recipe!",
+    "group-global-timeline": "{groupName} Global Timeline",
     "open-timeline": "Open Timeline",
     "made-this": "I Made This",
     "how-did-it-turn-out": "How did it turn out?",

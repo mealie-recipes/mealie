@@ -164,6 +164,12 @@ export default defineComponent({
         restricted: true,
       },
       {
+        icon: $globals.icons.timelineText,
+        title: i18n.t("recipe.timeline"),
+        to: "/group/timeline",
+        restricted: true,
+      },
+      {
         icon: $globals.icons.formatListCheck,
         title: i18n.t("shopping-list.shopping-lists"),
         to: "/shopping-lists",
