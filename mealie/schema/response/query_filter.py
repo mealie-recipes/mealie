@@ -119,10 +119,10 @@ class QueryFilter:
                     relationship = mapper.relationships[attribute_link]
                     attr_model = relationship.mapper.class_
 
-                except (AttributeError, KeyError):
+                except (AttributeError, KeyError) as e:
                     raise ValueError(
                         f"invalid query string: '{component.attribute_name}' does not exist on this schema"
-                    )
+                    ) from e
 
             # convert values to their proper types
             attr = getattr(attr_model, attr_value)
