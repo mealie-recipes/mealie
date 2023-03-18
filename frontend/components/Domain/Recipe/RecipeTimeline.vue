@@ -4,7 +4,7 @@
       <v-spacer />
       <v-col class="text-right">
         <v-btn fab small color="info" @click="reverseSort">
-          <v-icon> {{ sortDirection === "asc" ? $globals.icons.sortCalendarAscending : $globals.icons.sortCalendarDescending }} </v-icon>
+          <v-icon> {{ preferences.orderDirection === "asc" ? $globals.icons.sortCalendarAscending : $globals.icons.sortCalendarDescending }} </v-icon>
         </v-btn>
       </v-col>
     </v-row>
@@ -43,6 +43,7 @@
 import { defineComponent, ref, useAsync, useContext } from "@nuxtjs/composition-api";
 import { useThrottleFn, whenever } from "@vueuse/core";
 import RecipeTimelineItem from "./RecipeTimelineItem.vue"
+import { useTimelinePreferences } from "~/composables/use-users/preferences";
 import { useAsyncKey } from "~/composables/use-utils";
 import { alert } from "~/composables/use-toast";
 import { useUserApi } from "~/composables/api";
@@ -73,13 +74,13 @@ export default defineComponent({
   setup(props) {
     const api = useUserApi();
     const { i18n } = useContext();
+    const preferences = useTimelinePreferences();
     const loading = ref(true);
     const ready = ref(false);
 
     const page = ref(1);
     const perPage = 32;
     const hasMore = ref(true);
-    const sortDirection = ref("asc");
 
     const timelineEvents = ref([] as RecipeTimelineEventOut[]);
     const recipes = new Map<string, Recipe>();
@@ -137,7 +138,7 @@ export default defineComponent({
         return;
       }
 
-      sortDirection.value = sortDirection.value === "asc" ?  "desc" : "asc";
+      preferences.value.orderDirection = preferences.value.orderDirection === "asc" ?  "desc" : "asc";
       initializeTimelineEvents();
     }
 
@@ -197,7 +198,7 @@ export default defineComponent({
 
     async function scrollTimelineEvents() {
       const orderBy = "timestamp";
-      const orderDirection = sortDirection.value === "asc" ? "asc" : "desc";
+      const orderDirection = preferences.value.orderDirection === "asc" ? "asc" : "desc";
 
       const response = await api.recipes.getAllTimelineEvents(page.value, perPage, { orderBy, orderDirection, queryFilter: props.queryFilter });
       page.value += 1;
@@ -254,9 +255,9 @@ export default defineComponent({
       deleteTimelineEvent,
       loading,
       onScroll,
+      preferences,
       recipes,
       reverseSort,
-      sortDirection,
       timelineEvents,
       updateTimelineEvent,
     };
