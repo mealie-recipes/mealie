@@ -1,12 +1,20 @@
 <template>
-  <div>
+  <div :style="maxHeight ? `max-height: ${maxHeight}; overflow-y: auto;` : ''" @scroll="onScroll($event)">
+    <v-row class="my-0 mx-7">
+      <v-spacer />
+      <v-col class="text-right">
+        <v-btn fab small color="info" @click="reverseSort">
+          <v-icon> {{ sortDirection === "asc" ? $globals.icons.sortCalendarAscending : $globals.icons.sortCalendarDescending }} </v-icon>
+        </v-btn>
+      </v-col>
+    </v-row>
+    <v-divider v-if="timelineEvents.length" />
     <v-card
-      v-if="timelineEvents && timelineEvents.length"
+      v-if="timelineEvents.length"
+      id="timeline-container"
       height="fit-content"
-      :max-height="maxHeight"
       width="100%"
       class="px-1"
-      :style="maxHeight ? 'overflow-y: auto;' : ''"
     >
       <v-timeline :dense="$vuetify.breakpoint.smAndDown" class="timeline">
         <RecipeTimelineItem
@@ -25,9 +33,9 @@
         {{ $t("recipe.timeline-is-empty") }}
       </v-card-title>
     </v-card>
-    <v-fade-transition>
-      <AppLoader v-if="loading" :loading="loading" :waiting-text="$tc('general.loading-events')" />
-    </v-fade-transition>
+    <div v-if="loading" class="pb-3">
+      <AppLoader :loading="loading" :waiting-text="$tc('general.loading-events')" />
+    </div>
   </div>
 </template>
 
@@ -66,17 +74,49 @@ export default defineComponent({
     const api = useUserApi();
     const { i18n } = useContext();
     const loading = ref(true);
+    const ready = ref(false);
 
     const page = ref(1);
     const perPage = 32;
     const hasMore = ref(true);
+    const sortDirection = ref("asc");
 
     const timelineEvents = ref([] as RecipeTimelineEventOut[]);
     const recipes = new Map<string, Recipe>();
 
-    window.onscroll = () => {
+    interface ScrollEvent extends Event {
+        target: HTMLInputElement;
+    }
+
+    const screenBuffer = 4;
+    const onScroll = (event: ScrollEvent) => {
+      if (!event.target) {
+        return;
+      }
+
+      const { scrollTop, offsetHeight, scrollHeight } = event.target;
+
       // trigger when the user is getting close to the bottom
-      const bottomOfWindow = document.documentElement.scrollTop + window.innerHeight >= document.documentElement.offsetHeight - (window.innerHeight*4);
+      const bottomOfElement = scrollTop + offsetHeight >= scrollHeight - (offsetHeight*screenBuffer);
+      if (bottomOfElement) {
+        infiniteScroll();
+      }
+    };
+
+    document.onscroll = () => {
+      // if the inner element is scrollable, let its scroll event handle the infiniteScroll
+      const timelineContainerElement = document.getElementById("timeline-container");
+      if (timelineContainerElement) {
+        const { clientHeight, scrollHeight } = timelineContainerElement
+
+        // if scrollHeight == clientHeight, the element is not scrollable, so we need to look at the global position
+        // if scrollHeight > clientHeight, it is scrollable and we don't need to do anything here
+        if (scrollHeight > clientHeight) {
+          return;
+        }
+      }
+
+      const bottomOfWindow = document.documentElement.scrollTop + window.innerHeight >= document.documentElement.offsetHeight - (window.innerHeight*screenBuffer);
       if (bottomOfWindow) {
         infiniteScroll();
       }
@@ -85,9 +125,21 @@ export default defineComponent({
     whenever(
       () => props.value,
       () => {
-        initializeTimelineEvents();
+        if (!ready.value) {
+          initializeTimelineEvents();
+        }
       }
     );
+
+    // Sorting
+    function reverseSort() {
+      if (loading.value) {
+        return;
+      }
+
+      sortDirection.value = sortDirection.value === "asc" ?  "desc" : "asc";
+      initializeTimelineEvents();
+    }
 
     // Timeline Actions
     async function updateTimelineEvent(index: number) {
@@ -145,7 +197,7 @@ export default defineComponent({
 
     async function scrollTimelineEvents() {
       const orderBy = "timestamp";
-      const orderDirection = "asc";
+      const orderDirection = sortDirection.value === "asc" ? "asc" : "desc";
 
       const response = await api.recipes.getAllTimelineEvents(page.value, perPage, { orderBy, orderDirection, queryFilter: props.queryFilter });
       page.value += 1;
@@ -153,12 +205,13 @@ export default defineComponent({
         return;
       }
 
-      if (!response.data.items.length) {
-        hasMore.value = false;
-        return;
-      }
-
       const events = response.data.items;
+      if (events.length < perPage) {
+        hasMore.value = false;
+        if (!events.length) {
+          return;
+        }
+      }
 
       // fetch recipes
       if (props.showRecipeCards) {
@@ -171,11 +224,14 @@ export default defineComponent({
 
     async function initializeTimelineEvents() {
       loading.value = true;
+      ready.value = false;
 
       page.value = 1;
+      hasMore.value = true;
       timelineEvents.value = [];
       await scrollTimelineEvents();
 
+      ready.value = true;
       loading.value = false;
     }
 
@@ -196,10 +252,11 @@ export default defineComponent({
 
     return {
       deleteTimelineEvent,
-      infiniteScroll,
-      initializeTimelineEvents,
       loading,
+      onScroll,
       recipes,
+      reverseSort,
+      sortDirection,
       timelineEvents,
       updateTimelineEvent,
     };
