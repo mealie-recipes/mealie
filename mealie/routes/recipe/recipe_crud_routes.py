@@ -281,12 +281,11 @@ class RecipeController(BaseRecipeController):
     @router.get("/{slug}", response_model=Recipe)
     def get_one(self, slug: str = Path(..., description="A recipe's slug or id")):
         """Takes in a recipe's slug or id and returns all data for a recipe"""
-        recipe = self.service.get_one_by_slug_or_id(slug)
-        if not recipe:
-            raise HTTPException(
-                status.HTTP_404_NOT_FOUND,
-                detail=ErrorResponse.respond(message="Not found."),
-            )
+        try:
+            recipe = self.service.get_one_by_slug_or_id(slug)
+        except Exception as e:
+            self.handle_exceptions(e)
+            return None
 
         return recipe
 

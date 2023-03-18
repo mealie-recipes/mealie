@@ -42,8 +42,8 @@ class RecipeService(BaseService):
         self.group = group
         super().__init__()
 
-    def _get_recipe(self, slug: str) -> Recipe:
-        recipe = self.repos.recipes.by_group(self.group.id).get_one(slug)
+    def _get_recipe(self, data: str | UUID, key: str | None = None) -> Recipe:
+        recipe = self.repos.recipes.by_group(self.group.id).get_one(data, key)
         if recipe is None:
             raise exceptions.NoEntryFound("Recipe not found.")
         return recipe
@@ -115,10 +115,10 @@ class RecipeService(BaseService):
                 pass
 
         if isinstance(slug_or_id, UUID):
-            return self.repos.recipes.get_one(slug_or_id, "id")
+            return self._get_recipe(slug_or_id, "id")
 
         else:
-            return self.repos.recipes.get_one(slug_or_id, "slug")
+            return self._get_recipe(slug_or_id, "slug")
 
     def create_one(self, create_data: Recipe | CreateRecipe) -> Recipe:
         if create_data.name is None:
