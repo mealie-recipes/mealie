@@ -212,6 +212,7 @@ def test_pagination_filter_advanced(query_units: tuple[RepositoryUnit, Ingredien
     "qf",
     [
         pytest.param('(name="test name" AND useAbbreviation=f))', id="unbalanced parenthesis"),
+        pytest.param('id="this is not a valid UUID"', id="invalid UUID"),
         pytest.param('createdAt="this is not a valid datetime format"', id="invalid datetime format"),
         pytest.param('badAttribute="test value"', id="invalid attribute"),
         pytest.param('group.badAttribute="test value"', id="bad nested attribute"),

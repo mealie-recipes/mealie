@@ -130,7 +130,8 @@ class QueryFilter:
 
             if isinstance(attr.type, (GUID)):
                 try:
-                    UUID(component.value)
+                    # we don't set value since a UUID is functionally identical to a string here
+                    UUID(value)
 
                 except ValueError as e:
                     raise ValueError(f"invalid query string: invalid UUID '{component.value}'") from e
