@@ -1,35 +1,35 @@
 {
     "generic": {
-        "server-error": "An unexpected error occurred"
+        "server-error": "אירעה שגיאה בלתי צפויה"
     },
     "recipe": {
-        "unique-name-error": "Recipe names must be unique"
+        "unique-name-error": "שמות מתכונים חייבים להיות יחודיים"
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "No recipes match your rules"
+        "no-recipes-match-your-rules": "אין מתכון שמתאים לחוקים שלך"
     },
     "user": {
-        "user-updated": "User updated",
-        "password-updated": "Password updated",
-        "invalid-current-password": "Invalid current password",
-        "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
+        "user-updated": "המשתמש עודכן",
+        "password-updated": "הסיסמה עודכנה",
+        "invalid-current-password": "סיסמה נוכחית שגויה",
+        "ldap-update-password-unavailable": "כשלון בעדכון סיסמא, המשתמש נשלט ע״י LDAP"
     },
     "group": {
-        "report-deleted": "Report deleted."
+        "report-deleted": "דוח נמחק."
     },
     "exceptions": {
-        "permission_denied": "You do not have permission to perform this action",
-        "no-entry-found": "The requested resource was not found",
-        "integrity-error": "Database integrity error",
-        "username-conflict-error": "This username is already taken",
-        "email-conflict-error": "This email is already in use"
+        "permission_denied": "אין לך הרשאות לביצוע פעולה זו",
+        "no-entry-found": "המשאב המבוקש לא נמצא",
+        "integrity-error": "שגיאת שלמות מסד נתונים",
+        "username-conflict-error": "שם המשתמש הזה כבר נמצא בשימוש",
+        "email-conflict-error": "כתובת דואר אלקטרוני זאת כבר נמצאת בשימוש"
     },
     "notifications": {
-        "generic-created": "{name} was created",
-        "generic-updated": "{name} was updated",
-        "generic-created-with-url": "{name} has been created, {url}",
-        "generic-updated-with-url": "{name} has been updated, {url}",
-        "generic-duplicated": "{name} has been duplicated",
-        "generic-deleted": "{name} has been deleted"
+        "generic-created": "{name} נוצר",
+        "generic-updated": "{name} עודכן",
+        "generic-created-with-url": "{name} נוצר, {url}",
+        "generic-updated-with-url": "{name} עודכן, {url}",
+        "generic-duplicated": "{name} שוכפל",
+        "generic-deleted": "{name} נמחק"
     }
 }
