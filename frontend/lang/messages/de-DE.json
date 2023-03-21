@@ -190,7 +190,7 @@
     "selected-count": "Ausgewählt: {count}",
     "export-all": "Alle exportieren",
     "refresh": "Refresh",
-    "upload-file": "Upload File",
+    "upload-file": "Datei hochladen",
     "created-on-date": "Created on: {0}"
   },
   "group": {
@@ -217,7 +217,7 @@
       "keep-my-recipes-private-description": "Setzt deine Gruppe und alle Rezepte standardmäßig privat. Du kannst dies später jederzeit ändern."
     },
     "manage-members": "Mitglieder verwalten",
-    "manage-members-description": "Verwalte die Mitgliederberechtigungen in deinen Gruppen. {manage} erlaubt den Benutzern, auf die Datenverwaltungsseite zuzugreifen {invite} erlaubt Benutzern, Einladungslinks für andere Benutzer zu erstellen. Gruppenbesitzer können nicht ihre eigenen Berechtigungen ändern.",
+    "manage-members-description": "Verwalte die Mitgliederberechtigungen in deinen Gruppen. {manage} erlaubt den Benutzern, auf die Datenverwaltungsseite zuzugreifen. {invite} erlaubt Benutzern, Einladungslinks für andere Benutzer zu erstellen. Gruppenbesitzer können nicht ihre eigenen Berechtigungen ändern.",
     "manage": "Verwalten",
     "invite": "Einladen",
     "looking-to-update-your-profile": "Möchtest du dein Profil aktualisieren?",
@@ -241,10 +241,10 @@
     "general-preferences": "Allgemeine Einstellungen",
     "group-recipe-preferences": "Gruppen-Rezept-Einstellungen",
     "report": "Bericht",
-    "group-management": "Group Management",
-    "admin-group-management": "Admin Group Management",
-    "admin-group-management-text": "Changes to this group will be reflected immediately.",
-    "group-id-value": "Group Id: {0}"
+    "group-management": "Gruppenverwaltung",
+    "admin-group-management": "Admin: Gruppenverwaltung",
+    "admin-group-management-text": "Änderungen an dieser Gruppe sind sofort wirksam.",
+    "group-id-value": "Gruppen ID: {0}"
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Neue Mahlzeit planen",
@@ -445,7 +445,7 @@
     "locked-by-owner": "Vom Besitzer gesperrt",
     "join-the-conversation": "Beteilige dich an der Unterhaltung",
     "add-recipe-to-mealplan": "Rezept zum Essensplan hinzufügen",
-    "entry-type": "Eintragstyp",
+    "entry-type": "Mahlzeit",
     "date-format-hint": "Schreibweise MM/TT/JJJJ",
     "date-format-hint-yyyy-mm-dd": "JJJ-MM-TT Format",
     "add-to-list": "Zur Einkaufsliste hinzufügen",
@@ -938,7 +938,7 @@
     "group-name-is-taken": "Gruppenname ist schon vergeben",
     "username-is-taken": "Benutzername ist schon vergeben",
     "email-is-taken": "E-Mail-Adresse ist schon vergeben",
-    "this-field-is-required": "This Field is Required"
+    "this-field-is-required": "Dieses Feld ist erforderlich"
   },
   "export": {
     "export": "Exportieren",
@@ -1034,15 +1034,15 @@
     "mainentance": {
       "actions-title": "Aktionen"
     },
-    "ingredients-natural-language-processor": "Ingredients Natural Language Processor",
-    "ingredients-natural-language-processor-explanation": "Mealie uses Conditional Random Fields (CRFs) for parsing and processing ingredients. The model used for ingredients is based off a data set of over 100,000 ingredients from a dataset compiled by the New York Times. Note that as the model is trained in English only, you may have varied results when using the model in other languages. This page is a playground for testing the model.",
-    "ingredients-natural-language-processor-explanation-2": "It's not perfect, but it yields great results in general and is a good starting point for manually parsing ingredients into individual fields. Alternatively, you can also use the \"Brute\" processor that uses a pattern matching technique to identify ingredients.",
+    "ingredients-natural-language-processor": "Zutaten Natural Language Processor",
+    "ingredients-natural-language-processor-explanation": "Mealie verwendet Conditional Random Fields (CRFs), um Zutaten zu analysieren und zu verarbeiten. Das für Zutaten verwendete Modell basiert auf über 100.000 Zutaten aus einem von der New York Times zusammengestellten Datensatz. Beachte, dass das Modell nur in Englisch trainiert wurde, deshalb können die Ergebnisse bei der Verwendung anderer Sprachen abweichen. Diese Seite ist eine Spielwiese zum Testen des Modells.",
+    "ingredients-natural-language-processor-explanation-2": "Es ist nicht perfekt, aber es erzeugt meist sehr gute Ergebnisse und ist ein guter Anfang, um Zutaten manuell den einzelnen Feldern zuzuordnen. Alternativ kannst du auch den \"Brute\" Prozessor benutzen, der eine Musterabgleich-Technik verwendet, um Zutaten zu identifizieren.",
     "nlp": "NLP",
     "brute": "Brute",
-    "show-individual-confidence": "Show individual confidence",
-    "ingredient-text": "Ingredient Text",
-    "average-confident": "{0} Confident",
-    "try-an-example": "Try an example",
+    "show-individual-confidence": "Zeige individuelle Überzeugungswerte an",
+    "ingredient-text": "Zutaten-Angabe",
+    "average-confident": "{0} überzeugt",
+    "try-an-example": "Probier ein Beispiel aus",
     "parser": "Parser",
     "background-tasks": "Hintergrundaufgaben",
     "background-tasks-description": "Hier kannst du alle laufenden Hintergrundaufgaben und ihren Status beobachten",
