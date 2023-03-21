@@ -283,17 +283,34 @@
     "meal-plan-settings": "Meal Plan Settings"
   },
   "migration": {
+    "migration-data-removed": "Dane migracji usunięte",
+    "new-migration": "New Migration",
+    "no-file-selected": "No File Selected",
+    "no-migration-data-available": "Brak danych do migracji",
+    "previous-migrations": "Previous Migrations",
+    "recipe-migration": "Przenoszenie przepisów",
     "chowdown": {
       "description": "Przenieś dane z Chowdown",
+      "description-long": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
       "title": "Chowdown"
     },
-    "migration-data-removed": "Dane migracji usunięte",
     "nextcloud": {
       "description": "Przenieś dane z Nextcloud Cookbook",
+      "description-long": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
       "title": "Książka kucharska Nextcloud"
     },
-    "no-migration-data-available": "Brak danych do migracji",
-    "recipe-migration": "Przenoszenie przepisów"
+    "copymethat": {
+      "description-long": "Mealie can import recipes from Copy Me That. Export your recipes in HTML format, then upload the .zip below.",
+      "title": "Copy Me That Recipe Manager"
+    },
+    "paprika": {
+      "description-long": "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
+      "title": "Paprika Recipe Manager"
+    },
+    "mealie-pre-v1": {
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
+      "title": "Mealie Pre v1.0"
+    }
   },
   "new-recipe": {
     "bulk-add": "Dodanie zbiorcze",
@@ -689,7 +706,7 @@
     "error-cannot-delete-super-user": "Wystąpił błąd! Nie można usunąć super użytkownika",
     "existing-password-does-not-match": "Aktualne hasło jest niezgodne",
     "full-name": "Imię i nazwisko",
-    "generate-password-reset-link": "Generate Password Reset Link",
+    "generate-password-reset-link": "Wygeneruj link resetowania hasła",
     "invite-only": "Tylko z zaproszeniem",
     "link-id": "ID linku",
     "link-name": "Nazwa linku",

@@ -108,7 +108,7 @@
     "never": "Noch nie",
     "no": "Nein",
     "no-recipe-found": "Kein Rezept gefunden",
-    "ok": "Okay",
+    "ok": "OK",
     "options": "Optionen:",
     "print": "Drucken",
     "print-preferences": "Druckeinstellungen",
@@ -283,17 +283,34 @@
     "meal-plan-settings": "Essensplan Einstellungen"
   },
   "migration": {
+    "migration-data-removed": "Migrationsdaten entfernt",
+    "new-migration": "Neue Migration",
+    "no-file-selected": "Keine Datei ausgewählt",
+    "no-migration-data-available": "Keine Übertragungsdaten verfügbar",
+    "previous-migrations": "Vorherige Migrationen",
+    "recipe-migration": "Rezepte übertragen",
     "chowdown": {
       "description": "Übertrage Daten aus Chowdown",
+      "description-long": "Mealie unterstützt nativ das Chowdown Repository-Format. Lade das Code Repository als .zip Datei herunter und lade es unten hoch.",
       "title": "Chowdown"
     },
-    "migration-data-removed": "Migrationsdaten entfernt",
     "nextcloud": {
       "description": "Übertrage Daten aus einer Nextcloud Cookbook Instanz",
+      "description-long": "Nextcloud Rezepte können aus einer Zip-Datei importiert werden, die die in Nextcloud gespeicherten Daten enthält. Vergleiche die Beispiel-Ordnerstruktur unten um sicherzustellen, dass deine Rezepte importiert werden können.",
       "title": "Nextcloud Cookbook"
     },
-    "no-migration-data-available": "Keine Übertragungsdaten verfügbar",
-    "recipe-migration": "Rezepte übertragen"
+    "copymethat": {
+      "description-long": "Mealie kann Rezepte aus Copy Me That importieren. Exportiere deine Rezepte im HTML-Format und lade dann unten die .zip Datei hoch.",
+      "title": "Copy Me That Rezept-Manager"
+    },
+    "paprika": {
+      "description-long": "Mealie kann Rezepte aus der Paprika-App importieren. Exportiere deine Rezepte in Paprika, ändere die Endung der Export-Datei in .zip und lade sie unten hoch.",
+      "title": "Paprika Rezept-Manager"
+    },
+    "mealie-pre-v1": {
+      "description-long": "Mealie kann Rezepte aus der Mealie-App aus einer Version vor v1.0 importieren. Exportiere deine Rezepte aus deiner alten Instanz und lade die Zip-Datei unten hoch. Bitte beachte, dass nur Rezepte aus dem Export importiert werden können.",
+      "title": "Mealie Pre v1.0"
+    }
   },
   "new-recipe": {
     "bulk-add": "Mehrere hinzufügen",
@@ -689,7 +706,7 @@
     "error-cannot-delete-super-user": "Fehler! Super Benutzer kann nicht gelöscht werden",
     "existing-password-does-not-match": "Bestehendes Passwort stimmt nicht überein",
     "full-name": "Vollständiger Name",
-    "generate-password-reset-link": "Generate Password Reset Link",
+    "generate-password-reset-link": "Link zum Zurücksetzen des Passworts erstellen",
     "invite-only": "Nur auf Einladung",
     "link-id": "Linkkennung",
     "link-name": "Linkname",

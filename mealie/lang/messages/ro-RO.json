@@ -1,35 +1,35 @@
 {
     "generic": {
-        "server-error": "An unexpected error occurred"
+        "server-error": "A apărut o eroare neașteptată"
     },
     "recipe": {
-        "unique-name-error": "Recipe names must be unique"
+        "unique-name-error": "Numele rețetei trebuie să fie unic"
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "No recipes match your rules"
+        "no-recipes-match-your-rules": "Nicio rețetă nu corespunde criteriilor tale"
     },
     "user": {
-        "user-updated": "User updated",
-        "password-updated": "Password updated",
-        "invalid-current-password": "Invalid current password",
-        "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
+        "user-updated": "Date utilizator actualizate",
+        "password-updated": "Parola a fost schimbată",
+        "invalid-current-password": "Parola curentă este invalidă",
+        "ldap-update-password-unavailable": "Nu se poate actualiza parola, utilizatorul este controlat de LDAP"
     },
     "group": {
-        "report-deleted": "Report deleted."
+        "report-deleted": "Raportul a fost șters."
     },
     "exceptions": {
-        "permission_denied": "You do not have permission to perform this action",
-        "no-entry-found": "The requested resource was not found",
-        "integrity-error": "Database integrity error",
-        "username-conflict-error": "This username is already taken",
-        "email-conflict-error": "This email is already in use"
+        "permission_denied": "Nu aveți permisiunile necesare pentru a efectua această acțiune",
+        "no-entry-found": "Pagina solicitată nu a fost găsită",
+        "integrity-error": "Eroare la integritatea bazei de date",
+        "username-conflict-error": "Acest nume de utilizator deja există",
+        "email-conflict-error": "Această adresă de e-mail este deja folosită"
     },
     "notifications": {
-        "generic-created": "{name} was created",
-        "generic-updated": "{name} was updated",
-        "generic-created-with-url": "{name} has been created, {url}",
-        "generic-updated-with-url": "{name} has been updated, {url}",
-        "generic-duplicated": "{name} has been duplicated",
-        "generic-deleted": "{name} has been deleted"
+        "generic-created": "{name} a fost creat",
+        "generic-updated": "{name} a fost actualizat",
+        "generic-created-with-url": "{name} a fost creat, {url}",
+        "generic-updated-with-url": "{name} a fost actualizat, {url}",
+        "generic-duplicated": "{name} a fost duplicat",
+        "generic-deleted": "{name} a fost șters"
     }
 }

@@ -283,17 +283,34 @@
     "meal-plan-settings": "Maaltijdplan instellingen"
   },
   "migration": {
+    "migration-data-removed": "Migratiegegevens verwijderd",
+    "new-migration": "Nieuwe migratie",
+    "no-file-selected": "Geen bestand gekozen",
+    "no-migration-data-available": "Geen migratiegegevens beschikbaar",
+    "previous-migrations": "Vorige migraties",
+    "recipe-migration": "Receptmigratie",
     "chowdown": {
       "description": "Migreer gegevens uit Chowdown",
+      "description-long": "Mealie ondersteunt het formaat van de chowdown repository. Download de repository als een .zip-bestand en upload deze hieronder.",
       "title": "Chowdown"
     },
-    "migration-data-removed": "Migratiegegevens verwijderd",
     "nextcloud": {
       "description": "Migreer gegevens uit een Nextcloud Kookboek instantie",
+      "description-long": "Nextcloud recepten kunnen worden geïmporteerd uit een zip-bestand dat de gegevens bevat die zijn opgeslagen in Nextcloud. Zie de voorbeeldmapstructuur hieronder om ervoor te zorgen dat uw recepten kunnen worden geïmporteerd.",
       "title": "Nextcloud Kookboek"
     },
-    "no-migration-data-available": "Geen migratiegegevens beschikbaar",
-    "recipe-migration": "Receptmigratie"
+    "copymethat": {
+      "description-long": "Mealie kan recepten importeren uit Copy Me That. Exporteer je recepten in HTML-formaat, upload daarna de .zip hieronder.",
+      "title": "Recepten beheerder Copy Me That"
+    },
+    "paprika": {
+      "description-long": "Mealie kan recepten uit het programma Paprika importeren. Exporteer je recepten uit Paprika, hernoem de exportuitbreiding naar .zip en upload ze hieronder.",
+      "title": "Paprika recepten beheerder"
+    },
+    "mealie-pre-v1": {
+      "description-long": "Mealie kan recepten importeren uit oude versies van Mealie (voor versie 1.0). Exporteer je recepten vanuit de oude versie, en upload het zip-bestand hieronder. Let op dat alleen recepten uit de export kunnen worden geïmporteerd.",
+      "title": "Oude versies Mealie (voor versie 1.0)"
+    }
   },
   "new-recipe": {
     "bulk-add": "Bulk toevoegen",
@@ -689,7 +706,7 @@
     "error-cannot-delete-super-user": "Fout! Kan supergebruiker niet verwijderen",
     "existing-password-does-not-match": "Bestaande wachtwoord komt niet overeen",
     "full-name": "Volledige naam",
-    "generate-password-reset-link": "Generate Password Reset Link",
+    "generate-password-reset-link": "Stuur een link om het wachtwoord opnieuw in te stellen",
     "invite-only": "Alleen op uitnodiging",
     "link-id": "Koppeling ID",
     "link-name": "Koppeling Naam",

@@ -283,17 +283,34 @@
     "meal-plan-settings": "Impostazioni del piano alimentare"
   },
   "migration": {
+    "migration-data-removed": "Dati di migrazione rimossi",
+    "new-migration": "New Migration",
+    "no-file-selected": "Nessun file selezionato",
+    "no-migration-data-available": "Dati Migrazione Non Disponibili",
+    "previous-migrations": "Previous Migrations",
+    "recipe-migration": "Migrazione Ricetta",
     "chowdown": {
       "description": "Migra dati da Chowdown",
+      "description-long": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
       "title": "Chowdown"
     },
-    "migration-data-removed": "Dati di migrazione rimossi",
     "nextcloud": {
       "description": "Migra i dati da Nextcloud Cookbook",
+      "description-long": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
       "title": "Nextcloud Cookbook"
     },
-    "no-migration-data-available": "Dati Migrazione Non Disponibili",
-    "recipe-migration": "Migrazione Ricetta"
+    "copymethat": {
+      "description-long": "Mealie can import recipes from Copy Me That. Export your recipes in HTML format, then upload the .zip below.",
+      "title": "Copy Me That Recipe Manager"
+    },
+    "paprika": {
+      "description-long": "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
+      "title": "Paprika Recipe Manager"
+    },
+    "mealie-pre-v1": {
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
+      "title": "Mealie Pre v1.0"
+    }
   },
   "new-recipe": {
     "bulk-add": "Inserimento Multiplo",
@@ -689,7 +706,7 @@
     "error-cannot-delete-super-user": "Errore! Impossibile Eliminare Super User",
     "existing-password-does-not-match": "La nuova password non corrisponde",
     "full-name": "Nome",
-    "generate-password-reset-link": "Generate Password Reset Link",
+    "generate-password-reset-link": "Genera Link Di Reset Password",
     "invite-only": "Solo su invito",
     "link-id": "Link ID",
     "link-name": "Link Nome",

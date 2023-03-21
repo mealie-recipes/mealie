@@ -275,25 +275,42 @@
     "for-type-meal-types": "для {0} типів харчування",
     "meal-plan-rules": "Правила планів харчування",
     "new-rule": "Нове правило",
-    "meal-plan-rules-description": "You can create rules for auto selecting recipes for you meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
-    "new-rule-description": "When creating a new rule for a meal plan you can restrict the rule to be applicable for a specific day of the week and/or a specific type of meal. To apply a rule to all days or all meal types you can set the rule to \"Any\" which will apply it to all the possible values for the day and/or meal type.",
+    "meal-plan-rules-description": "Ви можете створити правила для автоматичного вибору рецептів для ваших планів харчування. Ці правила використовуються сервером для вибору рецептів при створенні плану харчування. Зверніть увагу, що якщо правила мають обмеження на день/тип, то їх категорії будуть об'єднані. Дублювати правила необов'язково, але можливо.",
+    "new-rule-description": "При створенні нового правила для плану харчування, ви можете обмежити правило на певний день тижня та/або певний тип їжі. Щоб застосувати правило до всіх днів або всіх типів їжі, ви можете встановити правило \"Будь-який\", що застосовуватиме його до всіх можливих значень для дня та/або типу їжі.",
     "recipe-rules": "Правила рецептів",
     "applies-to-all-days": "Застосовується до всіх днів",
     "applies-on-days": "Застосовується на {0}сек",
     "meal-plan-settings": "Налаштування плану харчування"
   },
   "migration": {
+    "migration-data-removed": "Дані міграції видалені",
+    "new-migration": "Нова міграція",
+    "no-file-selected": "Файл не обрано",
+    "no-migration-data-available": "Дані для міграції відсутні",
+    "previous-migrations": "Попередні міграції",
+    "recipe-migration": "Міграція рецептів",
     "chowdown": {
       "description": "Міграція даних з Chowdown",
+      "description-long": "Mealie підтримує формат chowdown репозиторію. Завантажте репозиторій коду як файл .zip і відвантажте його нижче.",
       "title": "Chowdown"
     },
-    "migration-data-removed": "Дані міграції видалені",
     "nextcloud": {
       "description": "Міграція даних з Nextcloud Cookbook",
+      "description-long": "Рецепти Nextcloud можна імпортувати з zip-архіву, який містить дані, що зберігаються в Nextcloud. Перегляньте приклади структури тек нижче, щоб пересвідчитися що ваші рецепти можна імпортувати.",
       "title": "Nextcloud Cookbook"
     },
-    "no-migration-data-available": "Дані для міграції відсутні",
-    "recipe-migration": "Міграція рецептів"
+    "copymethat": {
+      "description-long": "Mealie може імпортувати рецепти з Copy Me That. Експортуйте ваші рецепти в форматі HTML, а потім відвантажте .zip нижче.",
+      "title": "Copy Me That менеджер рецептів"
+    },
+    "paprika": {
+      "description-long": "Mealie може імпортувати рецепти з додатку Paprika. Експортуйте ваші рецепти з Paprika, перейменуйте розширення експорту в .zip та відвантажте його нижче.",
+      "title": "Paprika менеджер рецептів"
+    },
+    "mealie-pre-v1": {
+      "description-long": "Mealie може імпортувати рецепти з Mealie до версії 1.0. Експортуйте свої рецепти зі старої Mealie і відвантажте zip-файл нижче. Зверніть увагу, що тільки рецепти можуть бути імпортовані з експорту.",
+      "title": "Mealie до 1.0"
+    }
   },
   "new-recipe": {
     "bulk-add": "Масове додавання",
@@ -469,9 +486,9 @@
     "bulk-import-process-has-started": "Процес масового імпорту розпочато",
     "bulk-import-process-has-failed": "Помилка масового імпорту",
     "report-deletion-failed": "Не вдалося видалити звіт",
-    "recipe-debugger": "Recipe Debugger",
-    "recipe-debugger-description": "Grab the URL of the recipe you want to debug and paste it here. The URL will be scraped by the recipe scraper and the results will be displayed. If you don't see any data returned, the site you are trying to scrape is not supported by Mealie or its scraper library.",
-    "debug": "Debug",
+    "recipe-debugger": "Дебаггер рецептів",
+    "recipe-debugger-description": "Вставте URL-адресу рецепта, який ви хочете дебажити сюди. URL буде розпарсено парсером рецептів й результати будуть відображені. Якщо ви не бачите жодних даних - значить Mealie або парсер рецептів не підтримує сайт який ви намагаєтеся використати.",
+    "debug": "Дебажити",
     "tree-view": "У вигляді дерева",
     "recipe-yield": "Вихід рецепту"
   },
@@ -689,7 +706,7 @@
     "error-cannot-delete-super-user": "Помилка! Неможливо видалити суперкористувача",
     "existing-password-does-not-match": "Існуючий пароль не збігається",
     "full-name": "Повне Ім'я",
-    "generate-password-reset-link": "Generate Password Reset Link",
+    "generate-password-reset-link": "Створити посилання для скидання пароля",
     "invite-only": "Лише за запрошенням",
     "link-id": "ID посилання",
     "link-name": "Назва посилання",
