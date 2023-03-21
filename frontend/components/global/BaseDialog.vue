@@ -5,6 +5,7 @@
       v-model="dialog"
       absolute
       :width="width"
+      :max-width="maxWidth"
       :content-class="top ? 'top-dialog' : undefined"
       :fullscreen="$vuetify.breakpoint.xsOnly"
       @keydown.enter="
@@ -95,6 +96,10 @@ export default defineComponent({
     width: {
       type: [Number, String],
       default: "500",
+    },
+    maxWidth: {
+      type: [Number, String],
+      default: null,
     },
     loading: {
       type: Boolean,
