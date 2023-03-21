@@ -31,12 +31,12 @@
     "image": "תמונה",
     "new-asset": "נכס חדש",
     "pdf": "PDF",
-    "recipe": "Recipe",
+    "recipe": "מתכון",
     "show-assets": "Show Assets",
     "error-submitting-form": "Error Submitting Form"
   },
   "category": {
-    "categories": "Categories",
+    "categories": "קטגוריות",
     "category-created": "Category created",
     "category-creation-failed": "Category creation failed",
     "category-deleted": "Category Deleted",
