@@ -10,7 +10,7 @@
     <!-- Viewer -->
     <section v-if="!edit" class="py-2">
       <div v-if="!preferences.viewByLabel">
-        <draggable :value="listItems.unchecked" handle=".handle" @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndexUnchecked">
+        <draggable :value="listItems.unchecked" handle=".handle" delay="250" :delay-on-touch-only="true"  @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndexUnchecked">
           <v-lazy v-for="(item, index) in listItems.unchecked" :key="item.id" class="my-2">
             <ShoppingListItem
               v-model="listItems.unchecked[index]"
@@ -38,7 +38,7 @@
             </span>
             {{ key }}
           </div>
-          <draggable :value="value" handle=".handle" @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndexUncheckedByLabel(key, $event)">
+          <draggable :value="value" handle=".handle" delay="250" :delay-on-touch-only="true" @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndexUncheckedByLabel(key, $event)">
             <v-lazy v-for="(item, index) in value" :key="item.id" class="ml-2 my-2">
               <ShoppingListItem
                 v-model="value[index]"
