@@ -64,19 +64,19 @@
     "something-went-wrong": "Coś poszło nie tak!",
     "subscribed-events": "Zasubskrybowane wydarzenia",
     "test-message-sent": "Wiadomość została wysłana",
-    "new-notification": "New Notification",
-    "event-notifiers": "Event Notifiers",
-    "apprise-url-skipped-if-blank": "Apprise URL (skipped if blank)",
-    "enable-notifier": "Enable Notifier",
-    "what-events": "What events should this notifier subscribe to?",
-    "user-events": "User Events",
-    "mealplan-events": "Mealplan Events",
-    "when-a-user-in-your-group-creates-a-new-mealplan": "When a user in your group creates a new mealplan",
-    "shopping-list-events": "Shopping List Events",
-    "cookbook-events": "Cookbook Events",
-    "tag-events": "Tag Events",
-    "category-events": "Category Events",
-    "when-a-new-user-joins-your-group": "When a new user joins your group"
+    "new-notification": "Nowe powiadomienie",
+    "event-notifiers": "Powiadomienia o zdarzeniach",
+    "apprise-url-skipped-if-blank": "URL Apprise (pominięty, jeśli puste)",
+    "enable-notifier": "Włącz Powiadomienie",
+    "what-events": "Jakie zdarzenia powinien subskrybować ten powiadamiający?",
+    "user-events": "Zdarzenia użytkownika",
+    "mealplan-events": "Wydarzenia planu posiłków",
+    "when-a-user-in-your-group-creates-a-new-mealplan": "Kiedy użytkownik w Twojej grupie tworzy nowy plan posiłkowy",
+    "shopping-list-events": "Wydarzenia listy zakupów",
+    "cookbook-events": "Wydarzenia Książki Kucharskiej",
+    "tag-events": "Zdarzenia tagów",
+    "category-events": "Wydarzenia kategorii",
+    "when-a-new-user-joins-your-group": "Kiedy nowy użytkownik dołączy do Twojej grupy"
   },
   "general": {
     "cancel": "Anuluj",
@@ -184,14 +184,14 @@
     "this-feature-is-currently-inactive": "Ta funkcja jest obecnie nieaktywna",
     "clipboard-not-supported": "Schowek nieobsługiwany",
     "copied-to-clipboard": "Skopiowano do schowka",
-    "your-browser-does-not-support-clipboard": "Your browser does not support clipboard",
+    "your-browser-does-not-support-clipboard": "Twoja przeglądarka nie obsługuje schowka",
     "copied-items-to-clipboard": "Nie skopiowano elementu do schowka|Jeden element skopiowany do schowka|Skopiowano {count} elementów do schowka",
     "actions": "Działania",
     "selected-count": "Wybrano: {count}",
     "export-all": "Eksportuj wszystko",
-    "refresh": "Refresh",
-    "upload-file": "Upload File",
-    "created-on-date": "Created on: {0}"
+    "refresh": "Odśwież",
+    "upload-file": "Prześlij plik",
+    "created-on-date": "Utworzono dnia: {0}"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Czy na pewno chcesz usunąć <b>{groupName}<b/>?",
@@ -241,10 +241,10 @@
     "general-preferences": "Ustawienia ogólne",
     "group-recipe-preferences": "Ustawienia grupy przepisów",
     "report": "Zgłoś",
-    "group-management": "Group Management",
-    "admin-group-management": "Admin Group Management",
-    "admin-group-management-text": "Changes to this group will be reflected immediately.",
-    "group-id-value": "Group Id: {0}"
+    "group-management": "Zarządzanie grupą",
+    "admin-group-management": "Zarządzanie grupą administratorów",
+    "admin-group-management-text": "Zmiany w tej grupie zostaną natychmiast odzwierciedlone.",
+    "group-id-value": "Id grupy: {0}"
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Utwórz nowy plan posiłku",
@@ -331,15 +331,15 @@
       "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
       "title": "Mealie Pre v1.0"
     },
-    "recipe-data-migrations": "Recipe Data Migrations",
-    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie.",
-    "choose-migration-type": "Choose Migration Type",
-    "tag-all-recipes": "Tag all recipes with {tag-name} tag",
-    "nextcloud-text": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
-    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below",
-    "recipe-1": "Recipe 1",
-    "recipe-2": "Recipe 2",
-    "paprika-text": "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
+    "recipe-data-migrations": "Migracja danych przepisów",
+    "recipe-data-migrations-explanation": "Receptury mogą być przeniesione z innej wspieranej aplikacji na Mealie. To świetny sposób na rozpoczęcie z Mealie.",
+    "choose-migration-type": "Wybierz typ migracji",
+    "tag-all-recipes": "Oznacz wszystkie przepisy tagiem {tag-name}",
+    "nextcloud-text": "Przepisy Nextcloud mogą być zaimportowane z pliku zip, który zawiera dane przechowywane w Nextcloud. Zobacz przykładową strukturę folderu poniżej, aby upewnić się, że Twoje przepisy mogą być importowane.",
+    "chowdown-text": "Mealie natywnie obsługuje format repozytorium chowdown. Pobierz repozytorium kodu jako plik .zip i prześlij go poniżej",
+    "recipe-1": "Przepis 1",
+    "recipe-2": "Przepis 2",
+    "paprika-text": "Mealie może importować przepisy z aplikacji Paprika. Eksportuj swoje przepisy z papriki, zmień nazwę rozszerzenia eksportu na .zip i prześlij je poniżej.",
     "mealie-text": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export."
   },
   "new-recipe": {
@@ -521,8 +521,8 @@
     "debug": "Debug",
     "tree-view": "Tree View",
     "recipe-yield": "Recipe Yield",
-    "unit": "Unit",
-    "upload-image": "Upload image"
+    "unit": "Jednostka",
+    "upload-image": "Prześlij obraz"
   },
   "search": {
     "advanced-search": "Wyszukiwanie zaawansowane",
@@ -540,7 +540,7 @@
     "tag-filter": "Filtr tagów",
     "search-hint": "Naciśnij '/'",
     "advanced": "Advanced",
-    "auto-search": "Auto Search"
+    "auto-search": "Auto wyszukiwanie"
   },
   "settings": {
     "add-a-new-theme": "Dodaj nowy motyw",
