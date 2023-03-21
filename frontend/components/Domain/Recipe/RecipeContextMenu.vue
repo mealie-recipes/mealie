@@ -97,8 +97,8 @@
         height="fit-content"
         max-height="60vh"
         width="100%"
-        class="ingredient-grid"
-        :style="{ gridTemplateRows: `repeat(${Math.ceil(recipeIngredients.length / 2)}, min-content)` }"
+        :class="$vuetify.breakpoint.smAndDown ? '' : 'ingredient-grid'"
+        :style="$vuetify.breakpoint.smAndDown ? '' : { gridTemplateRows: `repeat(${Math.ceil(recipeIngredients.length / 2)}, min-content)` }"
         style="overflow-y: auto"
       >
         <v-list-item
