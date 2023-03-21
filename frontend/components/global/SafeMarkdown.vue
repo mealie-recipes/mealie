@@ -25,7 +25,8 @@ export default defineComponent({
       }
 
       const sanitized = DOMPurify.sanitize(rawHtml, {
-        // TODO: some more thought could be put into what is allowed and what isn't
+        // List based on
+        // https://support.zendesk.com/hc/en-us/articles/4408824584602-Allowing-unsafe-HTML-in-help-center-articles
         ALLOWED_TAGS: [
                         "strong", "em", "b", "i", "u", "p", "code", "pre", "samp", "kbd", "var", "sub", "sup", "dfn", "cite",
                         "small", "address", "hr", "br", "id", "div", "span", "h1", "h2", "h3", "h4", "h5", "h6",
