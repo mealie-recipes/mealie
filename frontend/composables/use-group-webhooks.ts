@@ -99,11 +99,16 @@ function pad(num: number, size: number) {
   return numStr;
 }
 
-export function timeUTCToLocal(time: string): string {
+export function timeUTC(time: string): Date {
   const [hours, minutes] = time.split(":");
   const dt = new Date();
   dt.setUTCMinutes(Number(minutes));
   dt.setUTCHours(Number(hours));
+  return dt;
+}
+
+export function timeUTCToLocal(time: string): string {
+  const dt = timeUTC(time);
   return `${pad(dt.getHours(), 2)}:${pad(dt.getMinutes(), 2)}`;
 }
 

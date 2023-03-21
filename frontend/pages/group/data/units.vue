@@ -133,7 +133,7 @@
 
         <BaseButton @click="mergeDialog = true">
           <template #icon> {{ $globals.icons.units }} </template>
-          Combine
+          {{ $t('data-pages.combine') }}
         </BaseButton>
       </template>
       <template #item.useAbbreviation="{ item }">
@@ -149,7 +149,7 @@
       <template #button-bottom>
         <BaseButton @click="seedDialog = true">
           <template #icon> {{ $globals.icons.database }} </template>
-          Seed
+          {{ $t('data-pages.seed') }}
         </BaseButton>
       </template>
     </CrudTable>

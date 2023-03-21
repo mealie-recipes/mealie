@@ -39,7 +39,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "@nuxtjs/composition-api";
+import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
 import { MealsByDate } from "./types";
 import { ReadPlanEntry } from "~/lib/api/types/meal-plan";
 import RecipeCardMobile from "~/components/Domain/Recipe/RecipeCardMobile.vue";
@@ -65,15 +65,17 @@ export default defineComponent({
       sections: DaySection[];
     };
 
+  const { i18n } = useContext();
+
     const plan = computed<Days[]>(() => {
       return props.mealplans.reduce((acc, day) => {
         const out: Days = {
           date: day.date,
           sections: [
-            { title: "Breakfast", meals: [] },
-            { title: "Lunch", meals: [] },
-            { title: "Dinner", meals: [] },
-            { title: "Side", meals: [] },
+            { title: i18n.tc("meal-plan.breakfast"), meals: [] },
+            { title: i18n.tc("meal-plan.lunch"), meals: [] },
+            { title: i18n.tc("meal-plan.dinner"), meals: [] },
+            { title: i18n.tc("meal-plan.side"), meals: [] },
           ],
         };
 

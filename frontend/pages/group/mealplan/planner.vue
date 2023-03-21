@@ -26,8 +26,8 @@
 
     <div class="d-flex align-center justify-space-between mb-2">
       <v-tabs>
-        <v-tab to="/group/mealplan/planner/view">Meal Planner</v-tab>
-        <v-tab to="/group/mealplan/planner/edit">Edit</v-tab>
+        <v-tab to="/group/mealplan/planner/view">{{ $t('meal-plan.meal-planner') }}</v-tab>
+        <v-tab to="/group/mealplan/planner/edit">{{ $t('general.edit') }}</v-tab>
       </v-tabs>
       <ButtonLink :icon="$globals.icons.calendar" to="/group/mealplan/settings" :text="$tc('general.settings')" />
     </div>

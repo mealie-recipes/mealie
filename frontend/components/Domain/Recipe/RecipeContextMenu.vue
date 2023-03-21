@@ -172,7 +172,7 @@ import RecipeDialogPrintPreferences from "./RecipeDialogPrintPreferences.vue";
 import RecipeDialogShare from "./RecipeDialogShare.vue";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
-import { planTypeOptions } from "~/composables/use-group-mealplan";
+import { usePlanTypeOptions } from "~/composables/use-group-mealplan";
 import { Recipe, RecipeIngredient } from "~/lib/api/types/recipe";
 import { parseIngredientText } from "~/composables/recipes";
 import { ShoppingListSummary } from "~/lib/api/types/group";
@@ -547,6 +547,8 @@ export default defineComponent({
       context.emit(eventKey);
       state.loading = false;
     }
+
+    const planTypeOptions = usePlanTypeOptions();
 
     return {
       ...toRefs(state),

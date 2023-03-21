@@ -16,33 +16,37 @@
       </BaseDialog>
 
       <!-- Import Dialog -->
-      <BaseDialog v-model="importDialog" color="error" title="Backup Restore" :icon="$globals.icons.database">
+      <BaseDialog v-model="importDialog" color="error" :title="$t('settings.backup.backup-restore')" :icon="$globals.icons.database">
         <v-divider></v-divider>
         <v-card-text>
-          Restoring this backup will overwrite all the current data in your database and in the data directory and
-          replace them with the contents of this backup. <b> This action cannot be undone - use with caution. </b> If
-          the restoration is successful, you will be logged out.
+          <i18n path="settings.backup.back-restore-description">
+            <template #cannot-be-undone>
+              <b> {{ $t('settings.backup.cannot-be-undone') }} </b>
+            </template>
+          </i18n>
 
           <p class="mt-3">
-            If you are using PostGreSQL, please review the
-            <a href="https://nightly.mealie.io/documentation/getting-started/usage/backups-and-restoring/"
-              >backup/restore process in the documentation</a
-            >
-            prior to restoring.
+            <i18n path="settings.backup.postgresql-note">
+              <template #backup-restore-process>
+                <a href="https://nightly.mealie.io/documentation/getting-started/usage/backups-and-restoring/" >{{ $t('settings.backup.backup-restore-process-in-the-documentation') }}</a >
+              </template>
+            </i18n>
+            {{ $t('') }}
           </p>
+
 
           <v-checkbox
             v-model="confirmImport"
             class="checkbox-top"
             color="error"
             hide-details
-            label="I understand that this action is irreversible, destructive and may cause data loss"
+            :label="$t('settings.backup.irreversible-acknowledgment')"
           ></v-checkbox>
         </v-card-text>
         <v-card-actions class="justify-center pt-0">
           <BaseButton delete :disabled="!confirmImport" @click="restoreBackup(selected)">
             <template #icon> {{ $globals.icons.database }} </template>
-            Restore Backup
+            {{ $t('settings.backup.restore-backup') }}
           </BaseButton>
         </v-card-actions>
         <p class="caption pb-0 mb-1 text-center">
@@ -51,16 +55,13 @@
       </BaseDialog>
 
       <section>
-        <BaseCardSectionTitle title="Backups">
+        <BaseCardSectionTitle :title="$tc('settings.backup-and-exports')">
           <v-card-text class="py-0 px-1">
-            Backups a total snapshots of the database and data directory of the site. This includes all data and cannot
-            be set to exclude subsets of data. You can think off this as a snapshot of Mealie at a specific time.
-            Currently,
-            <b>
-              this backup mechanism is not cross-version and therefore cannot be used to migrate data between versions
-            </b>
-            (data migrations are not done automatically). These serve as a database agnostic way to export and import
-            data or backup the site to an external location.
+          <i18n path="settings.backup.experimental-description">
+            <template #not-crossed-version>
+              <b> {{ $t('settings.backup.not-crossed-version') }} </b>
+            </template>
+          </i18n>
           </v-card-text>
         </BaseCardSectionTitle>
         <BaseButton @click="createBackup"> {{ $t("settings.backup.create-heading") }} </BaseButton>
@@ -108,7 +109,7 @@
       </section>
     </section>
     <v-container class="mt-4 d-flex justify-end">
-      <v-btn outlined rounded to="/group/migrations"> Looking For Migrations? </v-btn>
+      <v-btn outlined rounded to="/group/migrations"> {{ $t('recipe.looking-for-migrations') }} </v-btn>
     </v-container>
   </v-container>
 </template>
@@ -177,7 +178,7 @@ export default defineComponent({
       headers: [
         { text: i18n.t("general.name"), value: "name" },
         { text: i18n.t("general.created"), value: "date" },
-        { text: "Size", value: "size" },
+        { text: i18n.t("export.size"), value: "size" },
         { text: "", value: "actions", align: "right" },
       ],
     });

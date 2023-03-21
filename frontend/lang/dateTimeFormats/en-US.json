@@ -17,5 +17,10 @@
     "weekday": "long",
     "hour": "numeric",
     "minute": "numeric"
+  },
+  "time": {
+    "ampm": "short",
+    "hour": "numeric",
+    "minute": "numeric"
   }
 }
