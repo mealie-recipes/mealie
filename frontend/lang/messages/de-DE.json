@@ -334,11 +334,11 @@
     "recipe-data-migrations": "Recipe Data Migrations",
     "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie.",
     "choose-migration-type": "Choose Migration Type",
-    "tag-all-recipes": "Tag all recipes with {tag-name} tag",
+    "tag-all-recipes": "Alle Rezepte mit Schlagwort {tag-name} versehen",
     "nextcloud-text": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
     "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below",
-    "recipe-1": "Recipe 1",
-    "recipe-2": "Recipe 2",
+    "recipe-1": "Rezept 1",
+    "recipe-2": "Rezept 2",
     "paprika-text": "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
     "mealie-text": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export."
   },
@@ -629,7 +629,7 @@
       "create-an-api-token": "Erstelle ein API-Token",
       "token-name": "Token-Name",
       "generate": "Generate",
-      "you-have-token-count": "You have no active tokens.|You have one active token.|You have {count} active tokens."
+      "you-have-token-count": "Du hast keine aktiven Token.|Du hast einen aktiven Token.|Du hast {count} aktive Token."
     },
     "toolbox": {
       "assign-all": "Alle zuweisen",
@@ -649,18 +649,18 @@
       "webhooks-caps": "WEBHOOKS",
       "webhooks": "Webhooks",
       "webhook-name": "Webhook-Name",
-      "description": "The webhooks defined below will be executed when a meal is defined for the day. At the scheduled time the webhooks will be sent with the data from the recipe that is scheduled for the day. Note that webhook execution is not exact. The webhooks are executed on a 5 minutes interval so the webhooks will be executed within 5 +/- minutes of the scheduled."
+      "description": "Die unten definierten Webhooks werden ausgeführt, wenn eine Mahlzeit für den Tag eingetragen ist. Zum geplanten Zeitpunkt werden die Webhooks mit den Daten aus dem für diesen Tag geplanten Rezept gesendet. Beachte, dass die Auslösung der Webhooks nicht genau ist. Die Webhooks werden in einem 5-Minuten-Intervall ausgeführt, so dass sie innerhalb von +/- 5 Minuten der geplanten Uhrzeit gesendet werden."
     },
-    "bug-report": "Bug Report",
+    "bug-report": "Fehler melden",
     "bug-report-information": "Use this information to report a bug. Providing details of your instance to developers is the best way to get your issues resolved quickly.",
     "tracker": "Tracker",
     "configuration": "Konfiguration",
     "docker-volume": "Docker Volume",
     "docker-volume-help": "Mealie setzt voraus, dass sich der Frontend-Container und das Backend das gleiche Docker-Volume oder den gleichen Speicher teilen. Dadurch wird sichergestellt, dass der Frontend-Container auf die Bilder und Assets auf der Festplatte zugreifen kann.",
     "volumes-are-misconfigured": "Volumes sind falsch konfiguriert",
-    "volumes-are-configured-correctly": "Volumes are configured correctly.",
-    "status-unknown-try-running-a-validation": "Status Unknown. Try running a validation.",
-    "validate": "Validate",
+    "volumes-are-configured-correctly": "Volumes sind korrekt konfiguriert.",
+    "status-unknown-try-running-a-validation": "Status unbekannt. Führe eine Überprüfung aus.",
+    "validate": "Überprüfen",
     "email-configuration-status": "E-Mail Konfigurationsstatus",
     "ready": "Bereit",
     "not-ready": "Nicht bereit - bitte Konfiguration überprüfen",
