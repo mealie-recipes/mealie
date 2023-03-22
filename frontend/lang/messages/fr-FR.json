@@ -189,9 +189,9 @@
     "actions": "Actions",
     "selected-count": "Sélectionné : {count}",
     "export-all": "Exporter tout",
-    "refresh": "Refresh",
-    "upload-file": "Upload File",
-    "created-on-date": "Created on: {0}"
+    "refresh": "Actualiser",
+    "upload-file": "Transférer un fichier",
+    "created-on-date": "Créé le {0}"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Voulez-vous vraiment supprimer <b>{groupName}<b/> ?",
@@ -241,10 +241,10 @@
     "general-preferences": "Préférences générales",
     "group-recipe-preferences": "Préférences de recette du groupe",
     "report": "Rapport",
-    "group-management": "Group Management",
-    "admin-group-management": "Admin Group Management",
-    "admin-group-management-text": "Changes to this group will be reflected immediately.",
-    "group-id-value": "Group Id: {0}"
+    "group-management": "Gestion des groupes",
+    "admin-group-management": "Administration des groupes",
+    "admin-group-management-text": "Les modifications apportées à ce groupe seront immédiatement prises en compte.",
+    "group-id-value": "ID groupe : {0}"
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Créer un nouveau menu",
@@ -304,43 +304,43 @@
   },
   "migration": {
     "migration-data-removed": "Données de migration supprimées",
-    "new-migration": "New Migration",
-    "no-file-selected": "No File Selected",
+    "new-migration": "Nouvelle migration",
+    "no-file-selected": "Aucun fichier sélectionné",
     "no-migration-data-available": "Aucune donnée d’importation n’est disponible",
-    "previous-migrations": "Previous Migrations",
+    "previous-migrations": "Migrations précédentes",
     "recipe-migration": "Migrer les recettes",
     "chowdown": {
       "description": "Importer des recettes depuis Chowdown",
-      "description-long": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
+      "description-long": "Mealie supporte nativement le format du dépôt chowdown. Téléchargez le dépôt de code en tant que fichier .zip et téléchargez-le ci-dessous.",
       "title": "Chowdown"
     },
     "nextcloud": {
       "description": "Importer des recettes depuis Nextcloud Cookbook",
-      "description-long": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
+      "description-long": "Les recettes Nextcloud peuvent être importées depuis un fichier zip qui contient les données stockées dans Nextcloud. Consultez la structure de dossiers d'exemple ci-dessous pour vous assurer que vos recettes peuvent être importées.",
       "title": "Nextcloud Cookbook"
     },
     "copymethat": {
-      "description-long": "Mealie can import recipes from Copy Me That. Export your recipes in HTML format, then upload the .zip below.",
-      "title": "Copy Me That Recipe Manager"
+      "description-long": "Mealie peut importer des recettes à partir de Copy Me That. Exportez vos recettes au format HTML, puis téléchargez le .zip ci-dessous.",
+      "title": "Gestionnaire de recettes Copy Me That"
     },
     "paprika": {
-      "description-long": "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
-      "title": "Paprika Recipe Manager"
+      "description-long": "Mealie peut importer des recettes depuis l'application Paprika. Exportez vos recettes de paprika, renommez l'extension d'exportation en .zip et téléchargez-les ci-dessous.",
+      "title": "Gestionnaire de recettes Paprika"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
-      "title": "Mealie Pre v1.0"
+      "description-long": "Mealie peut importer des recettes depuis l'application Mealie depuis une version antérieure à 1.0. Exportez vos recettes depuis votre ancienne instance, et téléchargez le fichier zip ci-dessous. Notez que seules les recettes peuvent être importées à partir de l'exportation.",
+      "title": "Mealie Pré-1.0"
     },
-    "recipe-data-migrations": "Recipe Data Migrations",
-    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie.",
-    "choose-migration-type": "Choose Migration Type",
-    "tag-all-recipes": "Tag all recipes with {tag-name} tag",
-    "nextcloud-text": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
-    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below",
-    "recipe-1": "Recipe 1",
-    "recipe-2": "Recipe 2",
-    "paprika-text": "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
-    "mealie-text": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export."
+    "recipe-data-migrations": "Migration des données de recettes",
+    "recipe-data-migrations-explanation": "Les recettes peuvent être migrées depuis une autre application prise en charge vers Mealie. C'est une excellente façon de commencer avec Mealie.",
+    "choose-migration-type": "Choisissez le type de migration",
+    "tag-all-recipes": "Étiquetez toutes les recettes avec le mot-clé {tag-name}",
+    "nextcloud-text": "Les recettes Nextcloud peuvent être importées depuis un fichier zip qui contient les données stockées dans Nextcloud. Consultez la structure de dossiers d'exemple ci-dessous pour vous assurer que vos recettes peuvent être importées.",
+    "chowdown-text": "Mealie supporte nativement le format du dépôt chowdown. Téléchargez le dépôt de code en tant que fichier .zip et téléchargez-le ci-dessous",
+    "recipe-1": "Recette 1",
+    "recipe-2": "Recette 2",
+    "paprika-text": "Mealie peut importer des recettes depuis l'application Paprika. Exportez vos recettes de paprika, renommez l'extension d'exportation en .zip et téléchargez-les ci-dessous.",
+    "mealie-text": "Mealie peut importer des recettes depuis l'application Mealie depuis une version antérieure à 1.0. Exportez vos recettes depuis votre ancienne instance, et téléchargez le fichier zip ci-dessous. Notez que seules les recettes peuvent être importées à partir de l'exportation."
   },
   "new-recipe": {
     "bulk-add": "Ajouter en masse",
@@ -521,8 +521,8 @@
     "debug": "Déboguer",
     "tree-view": "Vue en arborescence",
     "recipe-yield": "Nombre de parts",
-    "unit": "Unit",
-    "upload-image": "Upload image"
+    "unit": "Unité",
+    "upload-image": "Envoyer une image"
   },
   "search": {
     "advanced-search": "Recherche avancée",
@@ -540,7 +540,7 @@
     "tag-filter": "Filtre par mots-clés",
     "search-hint": "Appuyez sur « /»",
     "advanced": "Avancé",
-    "auto-search": "Auto Search"
+    "auto-search": "Recherche automatique"
   },
   "settings": {
     "add-a-new-theme": "Ajouter un nouveau thème",
@@ -557,10 +557,10 @@
       "partial-backup": "Sauvegarde partielle",
       "unable-to-delete-backup": "Impossible de supprimer la sauvegarde.",
       "experimental-description": "Backups a total snapshots of the database and data directory of the site. This includes all data and cannot be set to exclude subsets of data. You can think off this as a snapshot of Mealie at a specific time. Currently, {not-crossed-version} (data migrations are not done automatically). These serve as a database agnostic way to export and import data or backup the site to an external location.",
-      "not-crossed-version": "this backup mechanism is not cross-version and therefore cannot be used to migrate data between versions",
-      "backup-restore": "Backup Restore",
-      "back-restore-description": "Restoring this backup will overwrite all the current data in your database and in the data directory and replace them with the contents of this backup. {cannot-be-undone} If the restoration is successful, you will be logged out.",
-      "cannot-be-undone": "This action cannot be undone - use with caution.",
+      "not-crossed-version": "ce mécanisme de sauvegarde dépend de -a version de Mealie et ne peut donc pas être utilisé pour migrer des données entre les versions",
+      "backup-restore": "Restaurer la sauvegarde",
+      "back-restore-description": "La restauration de cette sauvegarde écrasera toutes les données actuelles dans votre base de données et dans le répertoire de données et les remplacera par le contenu de cette sauvegarde. {cannot-be-undone} Si la restauration est réussie, vous serez déconnecté.",
+      "cannot-be-undone": "Cette action ne peut pas être annulée - à utiliser avec prudence.",
       "postgresql-note": "If you are using PostGreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "backup/restore process in the documentation",
       "irreversible-acknowledgment": "I understand that this action is irreversible, destructive and may cause data loss",
@@ -846,8 +846,8 @@
     "administrator": "Administrator",
     "user-can-invite-other-to-group": "User can invite other to group",
     "user-can-manage-group": "User can manage group",
-    "user-can-organize-group-data": "User can organize group data",
-    "enable-advanced-features": "Enable advanced features"
+    "user-can-organize-group-data": "L'utilisateur peut organiser des données de groupe",
+    "enable-advanced-features": "Activer les fonctions avancées"
   },
   "language-dialog": {
     "translated": "traduit",
@@ -899,7 +899,7 @@
       "confirm-delete-recipes": "Voulez-vous vraiment supprimer les recettes suivantes ? Cette action ne peut pas être annulée.",
       "the-following-recipes-selected-length-will-be-exported": "Les recettes suivantes ({0}) seront exportées.",
       "settings-chosen-explanation": "Les paramètres choisis ici, à l'exception de l'option de verrouillage, seront appliqués à toutes les recettes sélectionnées.",
-      "selected-length-recipe-s-settings-will-be-updated": "{count} recipe(s) settings will be updated.",
+      "selected-length-recipe-s-settings-will-be-updated": "Les paramètres de {count} recette(s) seront mis à jour.",
       "recipe-data": "Données de la recette",
       "recipe-data-description": "Utilisez cette section pour gérer les données associées à vos recettes. Vous pouvez effectuer plusieurs actions en masse sur vos recettes, y compris l'exportation, la suppression et l'assignation de mots-clés et de catégories.",
       "recipe-columns": "Colonnes de recettes",
@@ -921,7 +921,7 @@
     "select-data": "Sélectionner les données",
     "select-language": "Sélectionnez une langue",
     "columns": "Colonnes",
-    "combine": "Combine"
+    "combine": "Combiner"
   },
   "user-registration": {
     "user-registration": "Inscription d’utilisateur",
@@ -938,7 +938,7 @@
     "group-name-is-taken": "Le nom du groupe est déjà pris",
     "username-is-taken": "Nom d’utilisateur déjà utilisé",
     "email-is-taken": "Cet e-mail est déjà pris",
-    "this-field-is-required": "This Field is Required"
+    "this-field-is-required": "Ce champ est obligatoire"
   },
   "export": {
     "export": "Exporter",
