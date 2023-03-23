@@ -66,17 +66,17 @@
     "test-message-sent": "Testnachricht gesendet",
     "new-notification": "Neue Benachrichtigung",
     "event-notifiers": "Ereignis-Benachrichtigungen",
-    "apprise-url-skipped-if-blank": "Apprise URL (skipped if blank)",
+    "apprise-url-skipped-if-blank": "Apprise-URL (wird übersprungen, wenn leer)",
     "enable-notifier": "Benachrichtigen aktivieren",
-    "what-events": "What events should this notifier subscribe to?",
-    "user-events": "User Events",
-    "mealplan-events": "Mealplan Events",
-    "when-a-user-in-your-group-creates-a-new-mealplan": "When a user in your group creates a new mealplan",
-    "shopping-list-events": "Shopping List Events",
-    "cookbook-events": "Cookbook Events",
-    "tag-events": "Tag Events",
-    "category-events": "Category Events",
-    "when-a-new-user-joins-your-group": "When a new user joins your group"
+    "what-events": "Welche Ereignisse soll diese Benachrichtigung abonnieren?",
+    "user-events": "Benutzer-Ereignisse",
+    "mealplan-events": "Essensplan-Ereignisse",
+    "when-a-user-in-your-group-creates-a-new-mealplan": "Wenn ein Benutzer in deiner Gruppe einen neuen Eintrag im Essensplan erstellt",
+    "shopping-list-events": "Einkaufslisten-Ereignisse",
+    "cookbook-events": "Kochbuch-Ereignisse",
+    "tag-events": "Schlagwort-Ereignisse",
+    "category-events": "Kategorie-Ereignisse",
+    "when-a-new-user-joins-your-group": "Wenn ein neuer Benutzer deiner Gruppe beitritt"
   },
   "general": {
     "cancel": "Abbrechen",
@@ -184,14 +184,14 @@
     "this-feature-is-currently-inactive": "Diese Funktion ist im Moment deaktiviert",
     "clipboard-not-supported": "Zwischenablage nicht unterstützt",
     "copied-to-clipboard": "In die Zwischenablage kopiert",
-    "your-browser-does-not-support-clipboard": "Your browser does not support clipboard",
+    "your-browser-does-not-support-clipboard": "Dein Browser unterstützt die Zwischenablage nicht",
     "copied-items-to-clipboard": "Kein Eintrag in die Zwischenablage kopiert|Ein Eintrag wurde in die Zwischenablage kopiert|{count} Einträge in die Zwischenablage kopiert",
     "actions": "Aktionen",
     "selected-count": "Ausgewählt: {count}",
     "export-all": "Alle exportieren",
-    "refresh": "Refresh",
+    "refresh": "Aktualisieren",
     "upload-file": "Datei hochladen",
-    "created-on-date": "Created on: {0}"
+    "created-on-date": "Erstellt am: {0}"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Bist du dir sicher, dass du die Gruppe <b>{groupName}<b/> löschen möchtest?",
@@ -328,19 +328,19 @@
       "title": "Paprika Rezept-Manager"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie kann Rezepte aus der Mealie-App aus einer Version vor v1.0 importieren. Exportiere deine Rezepte aus deiner alten Instanz und lade die Zip-Datei unten hoch. Bitte beachte, dass nur Rezepte aus dem Export importiert werden können.",
+      "description-long": "Mealie kann Rezepte aus der Mealie-App in einer Version vor v1.0 importieren. Exportiere deine Rezepte aus deiner alten Instanz und lade die Zip-Datei unten hoch. Bitte beachte, dass nur Rezepte aus dem Export importiert werden können.",
       "title": "Mealie Pre v1.0"
     },
-    "recipe-data-migrations": "Recipe Data Migrations",
-    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie.",
-    "choose-migration-type": "Choose Migration Type",
+    "recipe-data-migrations": "Rezeptdatenmigration",
+    "recipe-data-migrations-explanation": "Rezepte können aus unterstützten Programmen nach Mealie migriert werden. Das ist eine gute Möglichkeit, um mit Mealie loszulegen.",
+    "choose-migration-type": "Migrationsart wählen",
     "tag-all-recipes": "Alle Rezepte mit Schlagwort {tag-name} versehen",
-    "nextcloud-text": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
-    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below",
+    "nextcloud-text": "Nextcloud Rezepte können aus einer Zip-Datei importiert werden, die die in Nextcloud gespeicherten Daten enthält. Vergleiche die Beispiel-Ordnerstruktur unten um sicherzustellen, dass deine Rezepte importiert werden können.",
+    "chowdown-text": "Mealie unterstützt nativ das Chowdown Repository-Format. Lade das Code Repository als .zip Datei herunter und lade es unten hoch.",
     "recipe-1": "Rezept 1",
     "recipe-2": "Rezept 2",
-    "paprika-text": "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
-    "mealie-text": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export."
+    "paprika-text": "Mealie kann Rezepte aus der Paprika-App importieren. Exportiere deine Rezepte in Paprika, ändere die Endung der Export-Datei in .zip und lade sie unten hoch.",
+    "mealie-text": "Mealie kann Rezepte aus der Mealie-App in einer Version vor v1.0 importieren. Exportiere deine Rezepte aus deiner alten Instanz und lade die Zip-Datei unten hoch. Bitte beachte, dass nur Rezepte aus dem Export importiert werden können."
   },
   "new-recipe": {
     "bulk-add": "Mehrere hinzufügen",
@@ -521,8 +521,8 @@
     "debug": "Debug",
     "tree-view": "Strukturierte Ansicht",
     "recipe-yield": "Portionsangabe",
-    "unit": "Unit",
-    "upload-image": "Upload image"
+    "unit": "Maßeinheit",
+    "upload-image": "Bild hochladen"
   },
   "search": {
     "advanced-search": "Erweiterte Suche",
@@ -540,7 +540,7 @@
     "tag-filter": "Schlagwortfilter",
     "search-hint": "'/' drücken",
     "advanced": "Erweitert",
-    "auto-search": "Auto Search"
+    "auto-search": "Automatische Suche"
   },
   "settings": {
     "add-a-new-theme": "Neues Thema hinzufügen",
