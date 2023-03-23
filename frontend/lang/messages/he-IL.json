@@ -227,9 +227,9 @@
     "private-group": "קבוצה פרטית",
     "private-group-description": "הגדרת הקבוצה כפרטית תחיל כברירת מחדל את כל התצוגות הפומביות. זה יחול על הגדרות תצוגה פומבית של מתכונים יחידים.",
     "allow-users-outside-of-your-group-to-see-your-recipes": "אפשר/י למשתמשים מחוץ לקבוצה שלך לצפות במתכונים",
-    "allow-users-outside-of-your-group-to-see-your-recipes-description": "When enabled you can use a public share link to share specific recipes without authorizing the user. When disabled, you can only share recipes with users who are in your group or with a pre-generated private link",
+    "allow-users-outside-of-your-group-to-see-your-recipes-description": "כאשר מאופשר, ניתן לבצע שיתוף ציבורי עבור מתכונים ספציפיים מבלי לאשר משתמשים.\nכאשר מבוטל, ניתן לשתף מתכונים רק עם משתמשים הנמצאים באותה הקבוצה או באמצעות יצירת קישור פרטי",
     "show-nutrition-information": "הצג ערכים תזונתיים",
-    "show-nutrition-information-description": "When enabled the nutrition information will be shown on the recipe if available. If there is no nutrition information available, the nutrition information will not be shown",
+    "show-nutrition-information-description": "כאשר מאופשר, האפשרות של מידע תזונתי תופיע במתכון במידה וקיים. במידה ולא קיים מידע תזונתי, האפשרות לא יוצג",
     "show-recipe-assets": "הצג קבצי מתכונים",
     "show-recipe-assets-description": "הצג/י קבצי מתכונים אם זמינים",
     "default-to-landscape-view": "תצוגה אנכית כברירת מחדל",
@@ -237,7 +237,7 @@
     "disable-users-from-commenting-on-recipes": "בטל תגובות משתמשים על מתכונים ",
     "disable-users-from-commenting-on-recipes-description": "הסתר את חלון התגובות וחסום תגובות על מתכונים",
     "disable-organizing-recipe-ingredients-by-units-and-food": "בטל/י מיון רכיבי מתכונים לפי כמות וסוג",
-    "disable-organizing-recipe-ingredients-by-units-and-food-description": "Hides the Food, Unit, and Amount fields for ingredients and treats ingredients as plain text fields.",
+    "disable-organizing-recipe-ingredients-by-units-and-food-description": "מסתיר את שדות האוכל, יחידות וכמות עבור רכיבים ומתייחס אליהם כאל שדות מלל רגיל.",
     "general-preferences": "העדפות כלליות",
     "group-recipe-preferences": "העדפות קבוצה",
     "report": "דיווח",
@@ -296,7 +296,7 @@
     "meal-plan-rules": "חוקי תכנון ארוחות",
     "new-rule": "חוק חדש",
     "meal-plan-rules-description": "אפשר ליצור חוקים להוספה אוטומטית למתכנן ארוחות. נעשה שימוש בחוקים האלה ע״י השרת כדי להחליט על קבוצה של מתכונים רנדומליים ליצירת תכנון ארוחות. יש לשים לב שאם החוקים מכילים את אותן הגדרות סוג או יום הקטגוריות של החוקים ימוזגו. בכללי, אין סיבה ליצור חוקים כפולים, אבל זה כן אפשרי.",
-    "new-rule-description": "When creating a new rule for a meal plan you can restrict the rule to be applicable for a specific day of the week and/or a specific type of meal. To apply a rule to all days or all meal types you can set the rule to \"Any\" which will apply it to all the possible values for the day and/or meal type.",
+    "new-rule-description": "ביצירת חוק חדש עבור תוכנית ארוחות ניתן להגביל את החוק עבור יום בשבוע או סוג של ארוחה. בכדי שהחוק יכסה את כל הימים והארוחות יש לבחור ב- \"הכל\", מה שיכלול את כל הימים והארוחות.",
     "recipe-rules": "חוקי מתכון",
     "applies-to-all-days": "החל על כל הימים",
     "applies-on-days": "חל על {0}",
@@ -315,24 +315,24 @@
       "title": "Chowdown"
     },
     "nextcloud": {
-      "description": "Migrate data from a Nextcloud Cookbook instance",
-      "description-long": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
+      "description": "ייבא מידע מספר המתכונים ב- Nextcould",
+      "description-long": "ייבוא מתכונים מ- Nextcould יכול להתבצע בקובץ zip שמכיל את המידע מ- Nextcloud. ראה את דוגמת מבנה התיקיות למטה כדי לוודא שניתן לייבא את המתכון.",
       "title": "ספר בישול של Nextcloud"
     },
     "copymethat": {
-      "description-long": "Mealie can import recipes from Copy Me That. Export your recipes in HTML format, then upload the .zip below.",
+      "description-long": "Mealie יכול לייבא מתכונים מ- Copy Me That. ייצא את המתכון בפורמט HTML ואז העלה את ה- .zip למטה.",
       "title": "מנהל מתכוני Copy Me That"
     },
     "paprika": {
-      "description-long": "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
+      "description-long": "Mealie יכול לייבא מתכונים מאפליקציית Paprika. ייצא את המתכונים מהאפליקציה, שנה את סיומת הקובץ ל- zip והעלה אותו למטה.",
       "title": "מנהל מתכוני Paprika"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
+      "description-long": "Mealie יכול לייבא מתכונים מגרסאות ישנות של Mealie מתחת ל- v1.0. ייצא את המתכונים מהסביבה הישנה והעלה את קובץ ה- zip למטה. ניתן לייבא רק מתכונים מתהליך הייצוא.",
       "title": "מילי לפני V1.0"
     },
     "recipe-data-migrations": "מגרציית מידע מתכונים",
-    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie.",
+    "recipe-data-migrations-explanation": "ניתן לייבא מתכונים מאפליקציות תומכות אחרות אל Mealie. זו דרך מעולה להתחיל ב- Mealie.",
     "choose-migration-type": "בחר סוג מיגרציה",
     "tag-all-recipes": "תייג את כל המתכונים עם תגית {tag-name}",
     "nextcloud-text": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
