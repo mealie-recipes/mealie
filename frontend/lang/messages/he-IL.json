@@ -56,7 +56,7 @@
     "event-delete-confirmation": "האם את/ה בטוח/ה שברצונך למחוק את האירוע?",
     "event-deleted": "אירוע נמחק",
     "event-updated": "האירוע עודכן",
-    "new-notification-form-description": "Mealie עושה שימוש בספריה בשם Apprise לשליחת התראות. Apprise מציעה אפשרויות רבות עבור התראות לבעלי שירותים. פנה לאתר הWiki של Apprise להסבר מלא על יצירת לינקים לשירות שלך.",
+    "new-notification-form-description": "מילי עושה שימוש בספריה בשם Apprise לשליחת התראות. Apprise מציעה אפשרויות רבות עבור התראות לבעלי שירותים. פנה לאתר הWiki של Apprise להסבר מלא על יצירת לינקים לשירות שלך.",
     "new-version": "גרסה חדשה זמינה!",
     "notification": "התראה",
     "refresh": "רענן",
@@ -320,11 +320,11 @@
       "title": "ספר בישול של Nextcloud"
     },
     "copymethat": {
-      "description-long": "Mealie יכול לייבא מתכונים מ- Copy Me That. ייצא את המתכון בפורמט HTML ואז העלה את ה- .zip למטה.",
+      "description-long": "מילי יכול לייבא מתכונים מ- Copy Me That. ייצא את המתכון בפורמט HTML ואז העלה את ה- .zip למטה.",
       "title": "מנהל מתכוני Copy Me That"
     },
     "paprika": {
-      "description-long": "Mealie יכול לייבא מתכונים מאפליקציית Paprika. ייצא את המתכונים מהאפליקציה, שנה את סיומת הקובץ ל- zip והעלה אותו למטה.",
+      "description-long": "מילי יכולה לייבא מתכונים מאפליקציית Paprika. ייצא את המתכונים מהאפליקציה, שנה את סיומת הקובץ ל- zip והעלה אותו למטה.",
       "title": "מנהל מתכוני Paprika"
     },
     "mealie-pre-v1": {
@@ -332,14 +332,14 @@
       "title": "מילי לפני V1.0"
     },
     "recipe-data-migrations": "מגרציית מידע מתכונים",
-    "recipe-data-migrations-explanation": "ניתן לייבא מתכונים מאפליקציות תומכות אחרות אל Mealie. זו דרך מעולה להתחיל ב- Mealie.",
+    "recipe-data-migrations-explanation": "ניתן לייבא מתכונים מאפליקציות תומכות אחרות אל Mealie. זו דרך מעולה להתחיל במילי.",
     "choose-migration-type": "בחר סוג מיגרציה",
     "tag-all-recipes": "תייג את כל המתכונים עם תגית {tag-name}",
     "nextcloud-text": "ייבוא מתכונים מ- Nextcould יכול להתבצע בקובץ zip שמכיל את המידע מ- Nextcloud. ראה את דוגמת מבנה התיקיות למטה כדי לוודא שניתן לייבא את המתכון.",
     "chowdown-text": "מילי תומכת באופן טבעי בפורמט Chowndown. הורד את הקוד של הריפוסיטורי כ-zip והעלה אותו",
     "recipe-1": "מתכון 1",
     "recipe-2": "מתכון 2",
-    "paprika-text": "Mealie יכול לייבא מתכונים מאפליקציית Paprika. ייצא את המתכונים מהאפליקציה, שנה את סיומת הקובץ ל- zip והעלה אותו למטה.",
+    "paprika-text": "מילי יכולה לייבא מתכונים מאפליקציית Paprika. ייצא את המתכונים מהאפליקציה, שנה את סיומת הקובץ ל- zip והעלה אותו למטה.",
     "mealie-text": "Mealie יכול לייבא מתכונים מגרסאות ישנות של Mealie מתחת ל- v1.0. ייצא את המתכונים מהסביבה הישנה והעלה את קובץ ה- zip למטה. ניתן לייבא רק מתכונים מתהליך הייצוא."
   },
   "new-recipe": {
@@ -517,7 +517,7 @@
     "bulk-import-process-has-failed": "יבוא קבוצתי נכשל",
     "report-deletion-failed": "מחיקת דוח נכשלה",
     "recipe-debugger": "דיבאגר למתכון",
-    "recipe-debugger-description": "הדבק פה את קישור המתקון שברצונך לבצע לו דיבוג. הקישור יפוענך ע\"י מפענך המתכונים והתוצאה תוצג. אם לא חוזרת תוצאה, האתר אותו אתה מנסה להוסיף אינו נתמך ע\"י Mealie או ספריית הפיענוך.",
+    "recipe-debugger-description": "הדבק פה את קישור המתקון שברצונך לבצע לו דיבוג. הקישור יפוענך ע\"י מפענך המתכונים והתוצאה תוצג. אם לא חוזרת תוצאה, האתר אותו אתה מנסה להוסיף אינו נתמך ע\"י מילי או ספריית הפיענוך.",
     "debug": "דיבאג",
     "tree-view": "תצוגת עץ",
     "recipe-yield": "תשואת מתכון",
@@ -556,7 +556,7 @@
       "import-summary": "ייבא תקציר",
       "partial-backup": "גיבוי חלקי",
       "unable-to-delete-backup": "לא ניתן למחוק גיבוי.",
-      "experimental-description": "גיבויים, סנאפשוט מלא של מלא של מאגר המידע והסיפריות באתר. הגיבוי מכיל את כל המידע ולא ניתן להסיר מידע מהגיבוי. ניתן להתייחס לגיבוי כסנאפשוט של Mealie בזמן ספציפי. כרגע {not-crossed-version} (מיגרציית נתונים לא מתבצעות אוטומטית). הם מאפשרים לייבא, לייצא ולגבות את האתר למקום חיצוני.",
+      "experimental-description": "גיבויים, סנאפשוט מלא של מלא של מאגר המידע והסיפריות באתר. הגיבוי מכיל את כל המידע ולא ניתן להסיר מידע מהגיבוי. ניתן להתייחס לגיבוי כסנאפשוט של מילי בזמן ספציפי. כרגע {not-crossed-version} (מיגרציית נתונים לא מתבצעות אוטומטית). הם מאפשרים לייבא, לייצא ולגבות את האתר למקום חיצוני.",
       "not-crossed-version": "מנגנון הגיבוי אינו חוצה גירסאות ולכן לא ניתן להשתמש בו להעברת המידע בין גירסאות שונות",
       "backup-restore": "גיבוי / שחזור",
       "back-restore-description": "שחזור מגיבוי זה ידרוס את המידע הקיים במאגר המידע ובספריות האתר ויחליף אותם בזה הקיים בגיבוי. {cannot-be-undone} אם השחזור יצליח, המשתמש ינותק מהמערכת.",
@@ -676,11 +676,11 @@
     "server-side-base-url": "Server Side Base URL",
     "server-side-base-url-error-text": "`BASE_URL` is still the default value on API Server. This will cause issues with notifications links generated on the server for emails, etc.",
     "server-side-base-url-success-text": "Server Side URL does not match the default",
-    "ldap-ready": "LDAP Ready",
-    "ldap-ready-error-text": "Not all LDAP Values are configured. This can be ignored if you are not using LDAP Authentication.",
-    "ldap-ready-success-text": "Required LDAP variables are all set.",
+    "ldap-ready": "LDAP מוכן",
+    "ldap-ready-error-text": "לא כל ערכי ה- LDAP מוגדרים. ניתן להתעלם אם אינך משתמשת באימות LDAP.",
+    "ldap-ready-success-text": "כל משתני ה- LDAP הנחוצים מוגדרים.",
     "build": "בניה",
-    "recipe-scraper-version": "Recipe Scraper Version"
+    "recipe-scraper-version": "גרסת מפענך המתכונים"
   },
   "shopping-list": {
     "all-lists": "כל הרשימות",
@@ -694,21 +694,21 @@
     "food": "אוכל",
     "note": "הערה",
     "label": "תווית",
-    "linked-item-warning": "This item is linked to one or more recipe. Adjusting the units or foods will yield unexpected results when adding or removing the recipe from this list.",
-    "toggle-food": "Toggle Food",
+    "linked-item-warning": "האובייקט הזה מקושר לאחד או יותר מתכונים. שינוי היחידות או האוכל יוביל לתוצאות בלתי צפויות בהוספה או הסרת מתכונים מהרשימה.",
+    "toggle-food": "הצג/הסתר אוכל",
     "manage-labels": "ניהול תויות",
-    "are-you-sure-you-want-to-delete-this-item": "Are you sure you want to delete this item?",
+    "are-you-sure-you-want-to-delete-this-item": "האם אתה בטוח שברצונך למחוק פריט זה?",
     "copy-as-text": "העתק כטקסט",
     "copy-as-markdown": "העתק כ-Markdown",
-    "delete-checked": "Delete Checked",
-    "toggle-label-sort": "Toggle Label Sort",
+    "delete-checked": "מחק מסומנים",
+    "toggle-label-sort": "הפעל/כבה מיון תגיות",
     "reorder-labels": "סידור תויות מחדש",
     "uncheck-all-items": "בטל סימון להכול",
     "check-all-items": "סמן הכול",
-    "linked-recipes-count": "No Linked Recipes|One Linked Recipe|{count} Linked Recipes",
+    "linked-recipes-count": "אין מתכונים מקושרים|מתכון אחד מקושר|{count} מתכונים מקושרים",
     "items-checked-count": "No items checked|One item checked|{count} items checked",
     "no-label": "ללא תווית",
-    "completed-on": "Completed on {date}"
+    "completed-on": "הושלם ב- {date}"
   },
   "sidebar": {
     "all-recipes": "כל המתכונים",
@@ -727,7 +727,7 @@
     "language": "שפה",
     "maintenance": "תחזוקה",
     "background-tasks": "משימות רקע",
-    "parser": "Parser",
+    "parser": "מפענך",
     "developer": "מפתח",
     "cookbook": "ספר בישול",
     "create-cookbook": "צור ספר בישול חדש"
@@ -820,9 +820,9 @@
     "webhooks-enabled": "הפעלת Webhooks",
     "you-are-not-allowed-to-create-a-user": "אין הרשאה ליצור משתמש",
     "you-are-not-allowed-to-delete-this-user": "אין הרשאה למחוק משתמש זה",
-    "enable-advanced-content": "Enable Advanced Content",
-    "enable-advanced-content-description": "Enables advanced features like Recipe Scaling, API keys, Webhooks, and Data Management. Don't worry, you can always change this later",
-    "favorite-recipes": "Favorite Recipes",
+    "enable-advanced-content": "אפשר תוכן מתקדם",
+    "enable-advanced-content-description": "מאפשר תכונות מתקדמות כמו הכפלת מתכון, מפתחות API, webhooks וניהול מידע. אל תדאג, תמיד ניתן לשנות זאת מאוחר יותר",
+    "favorite-recipes": "מתכונים מועדפים",
     "email-or-username": "דוא״ל או שם משתמש",
     "remember-me": "זכור אותי",
     "please-enter-your-email-and-password": "נא להזין דוא״ל וסיסמא",
@@ -852,7 +852,7 @@
   "language-dialog": {
     "translated": "תורגם",
     "choose-language": "בחר שפה",
-    "select-description": "Choose the language for the Mealie UI. The setting only applies to you, not other users.",
+    "select-description": "בחר את שפת הממשק של מילי. הגדרה זו היא עבורך בלבד ולא תחול על משתמשים אחרים.",
     "how-to-contribute-description": "Is something not translated yet, mistranslated, or your language missing from the list? {read-the-docs-link} on how to contribute!",
     "read-the-docs": "קרא את ההוראות"
   },
