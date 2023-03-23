@@ -63,7 +63,20 @@
     "scheduled": "Planlandı",
     "something-went-wrong": "Bir sorun oluştu!",
     "subscribed-events": "Abone Olunan Etkinlikler",
-    "test-message-sent": "Test Mesajı Gönderildi"
+    "test-message-sent": "Test Mesajı Gönderildi",
+    "new-notification": "Yeni bildirim",
+    "event-notifiers": "Event Notifiers",
+    "apprise-url-skipped-if-blank": "Apprise URL (skipped if blank)",
+    "enable-notifier": "Bildiriciyi Etkinleştir",
+    "what-events": "Bu bildirimci hangi olaylara abone olmalıdır?",
+    "user-events": "Kullanıcı Etkinlikleri",
+    "mealplan-events": "Mealplan Events",
+    "when-a-user-in-your-group-creates-a-new-mealplan": "When a user in your group creates a new mealplan",
+    "shopping-list-events": "Alışveriş Listesi Etkinlikleri",
+    "cookbook-events": "Cookbook Events",
+    "tag-events": "Tag Events",
+    "category-events": "Category Events",
+    "when-a-new-user-joins-your-group": "Grubunuza yeni bir kullanıcı katıldığında"
   },
   "general": {
     "cancel": "İptal",
@@ -171,11 +184,14 @@
     "this-feature-is-currently-inactive": "This feature is currently inactive",
     "clipboard-not-supported": "Clipboard not supported",
     "copied-to-clipboard": "Copied to clipboard",
-    "your-browser-does-not-support-clipboard": "Your browser does not support clipboard\")",
+    "your-browser-does-not-support-clipboard": "Tarayıcınız panoyu desteklemiyor",
     "copied-items-to-clipboard": "No item copied to clipboard|One item copied to clipboard|Copied {count} items to clipboard",
     "actions": "Eylemler",
     "selected-count": "Selected: {count}",
-    "export-all": "Export All"
+    "export-all": "Export All",
+    "refresh": "Yenile",
+    "upload-file": "Dosya Yükle",
+    "created-on-date": "{0} tarihinde oluşturuldu"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Are you sure you want to delete <b>{groupName}<b/>?",
@@ -224,7 +240,11 @@
     "disable-organizing-recipe-ingredients-by-units-and-food-description": "Malzemeler için Yiyecek, Birim ve Miktar alanlarını gizler ve malzemeleri düz metin alanları olarak ele alır.",
     "general-preferences": "Genel Tercihler",
     "group-recipe-preferences": "Group Recipe Preferences",
-    "report": "Report"
+    "report": "Report",
+    "group-management": "Grup Yönetimi",
+    "admin-group-management": "Yönetici Grup Yönetimi",
+    "admin-group-management-text": "Bu gruptaki değişiklikler hemen yansıtılacaktır.",
+    "group-id-value": "Grup Kimliği: {0}"
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Create a New Meal Plan",
@@ -310,7 +330,17 @@
     "mealie-pre-v1": {
       "description-long": "Mealie, v1.0 öncesi bir sürümden Mealie uygulamasından tarifleri içe aktarabilir. Tariflerinizi eski örneğinizden dışa aktarın ve aşağıdaki zip dosyasını yükleyin. Dışa aktarmadan yalnızca tariflerin içe aktarılabileceğini unutmayın.",
       "title": "Mealie Pre v1.0"
-    }
+    },
+    "recipe-data-migrations": "Recipe Data Migrations",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie.",
+    "choose-migration-type": "Choose Migration Type",
+    "tag-all-recipes": "Tag all recipes with {tag-name} tag",
+    "nextcloud-text": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
+    "chowdown-text": "Mealie yerel olarak chowdown veri havuzu biçimini destekler. Kod havuzunu bir .zip dosyası olarak indirin ve aşağıya yükleyin",
+    "recipe-1": "Tarif 1",
+    "recipe-2": "Tarif 2",
+    "paprika-text": "Mealie, Paprika uygulamasından tarifleri içe aktarabilir. Tariflerinizi paprika'dan dışa aktarın, dışa aktarma uzantısını .zip olarak yeniden adlandırın ve aşağıda yükleyin.",
+    "mealie-text": "Mealie, v1.0 öncesi bir sürümden Mealie uygulamasından tarifleri içe aktarabilir. Tariflerinizi eski örneğinizden dışa aktarın ve aşağıdaki zip dosyasını yükleyin. Dışa aktarmadan yalnızca tariflerin içe aktarılabileceğini unutmayın."
   },
   "new-recipe": {
     "bulk-add": "Toplu Ekle",
@@ -490,7 +520,9 @@
     "recipe-debugger-description": "Grab the URL of the recipe you want to debug and paste it here. The URL will be scraped by the recipe scraper and the results will be displayed. If you don't see any data returned, the site you are trying to scrape is not supported by Mealie or its scraper library.",
     "debug": "Hata ayıklama",
     "tree-view": "Ağaç Görünümü",
-    "recipe-yield": "Recipe Yield"
+    "recipe-yield": "Recipe Yield",
+    "unit": "Birim",
+    "upload-image": "Resim yükleyin"
   },
   "search": {
     "advanced-search": "Advanced Search",
@@ -507,7 +539,8 @@
     "search-placeholder": "Ara...",
     "tag-filter": "Tag Filter",
     "search-hint": "Press '/'",
-    "advanced": "Gelişmiş"
+    "advanced": "Gelişmiş",
+    "auto-search": "Otomatik Arama"
   },
   "settings": {
     "add-a-new-theme": "Add a New Theme",
@@ -522,7 +555,16 @@
       "full-backup": "Full Backup",
       "import-summary": "Import Summary",
       "partial-backup": "Partial Backup",
-      "unable-to-delete-backup": "Unable to Delete Backup."
+      "unable-to-delete-backup": "Unable to Delete Backup.",
+      "experimental-description": "Backups a total snapshots of the database and data directory of the site. This includes all data and cannot be set to exclude subsets of data. You can think off this as a snapshot of Mealie at a specific time. Currently, {not-crossed-version} (data migrations are not done automatically). These serve as a database agnostic way to export and import data or backup the site to an external location.",
+      "not-crossed-version": "this backup mechanism is not cross-version and therefore cannot be used to migrate data between versions",
+      "backup-restore": "Yedekleme Geri Yükleme",
+      "back-restore-description": "Restoring this backup will overwrite all the current data in your database and in the data directory and replace them with the contents of this backup. {cannot-be-undone} If the restoration is successful, you will be logged out.",
+      "cannot-be-undone": "This action cannot be undone - use with caution.",
+      "postgresql-note": "If you are using PostGreSQL, please review the {backup-restore-process} prior to restoring.",
+      "backup-restore-process-in-the-documentation": "backup/restore process in the documentation",
+      "irreversible-acknowledgment": "I understand that this action is irreversible, destructive and may cause data loss",
+      "restore-backup": "Yedeği Geri Yükle"
     },
     "backup-and-exports": "Backups",
     "change-password": "Change Password",
@@ -585,7 +627,9 @@
       "api-tokens": "API Tokens",
       "copy-this-token-for-use-with-an-external-application-this-token-will-not-be-viewable-again": "Copy this token for use with an external application. This token will not be viewable again.",
       "create-an-api-token": "Create an API Token",
-      "token-name": "Token Name"
+      "token-name": "Token Name",
+      "generate": "Oluştur",
+      "you-have-token-count": "You have no active tokens.|You have one active token.|You have {count} active tokens."
     },
     "toolbox": {
       "assign-all": "Assign All",
@@ -604,8 +648,39 @@
       "webhook-url": "Webhook URL",
       "webhooks-caps": "WEBHOOKS",
       "webhooks": "Webhooks",
-      "webhook-name": "Webhook Name"
-    }
+      "webhook-name": "Webhook Name",
+      "description": "The webhooks defined below will be executed when a meal is defined for the day. At the scheduled time the webhooks will be sent with the data from the recipe that is scheduled for the day. Note that webhook execution is not exact. The webhooks are executed on a 5 minutes interval so the webhooks will be executed within 5 +/- minutes of the scheduled."
+    },
+    "bug-report": "Hata Raporu",
+    "bug-report-information": "Bir hatayı bildirmek için bu bilgiyi kullanın. Sorunların ayrıntılarını geliştiricilerle paylaşmak, sorunlarınızın hızla çözülmesini sağlamanın en iyi yoludur.",
+    "tracker": "Takipçi",
+    "configuration": "Yapılandırma",
+    "docker-volume": "Docker Volume",
+    "docker-volume-help": "Mealie requires that the frontend container and the backend share the same docker volume or storage. This ensures that the frontend container can properly access the images and assets stored on disk.",
+    "volumes-are-misconfigured": "Volumes are misconfigured",
+    "volumes-are-configured-correctly": "Volumes are configured correctly.",
+    "status-unknown-try-running-a-validation": "Durum bilinmiyor. Bir doğrulama çalıştırmayı deneyin.",
+    "validate": "Doğrula",
+    "email-configuration-status": "E-posta Yapılandırma Durumu",
+    "ready": "Hazır",
+    "not-ready": "Hazır Değil - Çevresel Değişkenleri Kontrol Edin",
+    "succeeded": "Başarılı",
+    "failed": "Başarısız",
+    "general-about": "Genel Hakkında",
+    "application-version": "Uygulama Sürümü",
+    "application-version-error-text": "Geçerli sürümünüz ({0}) en son sürümle eşleşmiyor. En son sürüme ({1}) güncelleme düşünülüyor.",
+    "mealie-is-up-to-date": "Mealie güncel",
+    "secure-site": "Güvenli Site",
+    "secure-site-error-text": "Localhost aracılığıyla servis yapın veya https ile güvenli hale getirin. Pano ve ek tarayıcı API'leri çalışmayabilir.",
+    "secure-site-success-text": "Siteye localhost veya https ile erişilmektedir",
+    "server-side-base-url": "Sunucu Tarafı Temel URL'si",
+    "server-side-base-url-error-text": "\"BASE_URL\", API Sunucusunda hala varsayılan değerdir. Bu, e-postalar vb. için sunucuda oluşturulan bildirim bağlantılarında sorunlara neden olacaktır.",
+    "server-side-base-url-success-text": "Sunucu Tarafı URL'si varsayılanla eşleşmiyor",
+    "ldap-ready": "LDAP Hazır",
+    "ldap-ready-error-text": "Not all LDAP Values are configured. This can be ignored if you are not using LDAP Authentication.",
+    "ldap-ready-success-text": "Gerekli LDAP değişkenlerinin tümü ayarlanmıştır.",
+    "build": "Yapı",
+    "recipe-scraper-version": "Recipe Scraper Version"
   },
   "shopping-list": {
     "all-lists": "All Lists",
@@ -759,7 +834,20 @@
       "good": "Good",
       "strong": "Strong",
       "very-strong": "Very Strong"
-    }
+    },
+    "user-management": "Kullanıcı Yönetimi",
+    "reset-locked-users": "Kilitli Kullanıcıları Sıfırla",
+    "admin-user-creation": "Admin User Creation",
+    "user-details": "Kullanıcı Ayrıntıları",
+    "user-name": "Kullanıcı Adı",
+    "authentication-method": "Kimlik Doğrulama Metodu",
+    "authentication-method-hint": "Bu, bir kullanıcının Mealie ile nasıl kimlik doğrulaması yapacağını belirtir. Emin değilseniz, 'Mealie'yi seçin",
+    "permissions": "İzinler",
+    "administrator": "Yönetici",
+    "user-can-invite-other-to-group": "Kullanıcı başkalarını gruba davet edebilir",
+    "user-can-manage-group": "Kullanıcı grubu yönetebilir",
+    "user-can-organize-group-data": "Kullanıcı grup verilerini düzenleyebilir",
+    "enable-advanced-features": "Gelişmiş özellikleri etkinleştir"
   },
   "language-dialog": {
     "translated": "translated",
@@ -811,7 +899,7 @@
       "confirm-delete-recipes": "Are you sure you want to delete the following recipes? This action cannot be undone.",
       "the-following-recipes-selected-length-will-be-exported": "The following recipes ({0}) will be exported.",
       "settings-chosen-explanation": "Settings chosen here, excluding the locked option, will be applied to all selected recipes.",
-      "selected-length-recipe-s-settings-will-be-updated": "{0} recipe(s) settings will be updated.",
+      "selected-length-recipe-s-settings-will-be-updated": "{count} tarif(ler) in ayarları güncellenecek.",
       "recipe-data": "Recipe Data",
       "recipe-data-description": "Use this section to manage the data associated with your recipes. You can perform several bulk actions on your recipes including exporting, deleting, tagging, and assigning categories.",
       "recipe-columns": "Recipe Columns",
@@ -832,7 +920,8 @@
     "data-management-description": "Select which data set you want to make changes to.",
     "select-data": "Select Data",
     "select-language": "Select Language",
-    "columns": "Columns"
+    "columns": "Columns",
+    "combine": "Birleştir"
   },
   "user-registration": {
     "user-registration": "User Registration",
@@ -848,7 +937,8 @@
   "validation": {
     "group-name-is-taken": "Group name is taken",
     "username-is-taken": "Username is taken",
-    "email-is-taken": "Email is taken"
+    "email-is-taken": "Email is taken",
+    "this-field-is-required": "Bu alan gereklidir"
   },
   "export": {
     "export": "Export",
@@ -943,7 +1033,21 @@
     },
     "mainentance": {
       "actions-title": "Eylemler"
-    }
+    },
+    "ingredients-natural-language-processor": "İçindekiler Doğal Dil İşlemcisi",
+    "ingredients-natural-language-processor-explanation": "Mealie, bileşenleri ayrıştırmak ve işlemek için Koşullu Rastgele Alanlar (CRF'ler) kullanır. İçerikler için kullanılan model, New York Times tarafından derlenen bir veri setinden 100.000'den fazla içerikten oluşan bir veri setine dayanmaktadır. Model yalnızca İngilizce olarak oluşturulduğundan, modeli diğer dillerde kullanırken farklı sonuçlar elde edebileceğinizi unutmayın. Bu sayfa, modeli test etmek için bir oyun alanıdır.",
+    "ingredients-natural-language-processor-explanation-2": "Mükemmel değil, ancak genel olarak harika sonuçlar veriyor ve malzemeleri manuel olarak ayrı alanlara ayrıştırmak için iyi bir başlangıç noktası. Alternatif olarak, malzemeleri tanımlamak için bir model eşleştirme tekniği kullanan \"Brute\" işlemciyi de kullanabilirsiniz.",
+    "nlp": "NLP",
+    "brute": "Kaba",
+    "show-individual-confidence": "Show individual confidence",
+    "ingredient-text": "İçerik Metni",
+    "average-confident": "{0} Confident",
+    "try-an-example": "Bir örnek deneyin",
+    "parser": "Ayrıştırıcı",
+    "background-tasks": "Arkaplan Görevleri",
+    "background-tasks-description": "Burada çalışan tüm arka plan görevlerini ve durumlarını görüntüleyebilirsiniz",
+    "no-logs-found": "Hiçbir Kayıt Bulunamadı",
+    "tasks": "Görevler"
   },
   "profile": {
     "welcome-user": "👋 Hoşgeldiniz, {0}",
@@ -979,7 +1083,14 @@
     "preferences": "Tercihler",
     "show-advanced-description": "Show advanced features (API Keys, Webhooks, and Data Management)",
     "back-to-profile": "Back to Profile",
-    "looking-for-privacy-settings": "Looking for Privacy Settings?"
+    "looking-for-privacy-settings": "Looking for Privacy Settings?",
+    "manage-your-api-tokens": "API Belirteçlerinizi Yönetin",
+    "manage-user-profile": "Kullanıcı Profilini Yönet",
+    "manage-cookbooks": "Manage Cookbooks",
+    "manage-members": "Üyeleri Yönet",
+    "manage-webhooks": "Manage Webhooks",
+    "manage-notifiers": "Bildiricileri Yönet",
+    "manage-data-migrations": "Manage Data Migrations"
   },
   "cookbook": {
     "cookbooks": "Cookbooks",

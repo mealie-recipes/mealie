@@ -63,7 +63,20 @@
     "scheduled": "Geplant",
     "something-went-wrong": "Etwas ist schief gelaufen!",
     "subscribed-events": "Abonnierte Ereignisse",
-    "test-message-sent": "Testnachricht gesendet"
+    "test-message-sent": "Testnachricht gesendet",
+    "new-notification": "Neue Benachrichtigung",
+    "event-notifiers": "Ereignis-Benachrichtigungen",
+    "apprise-url-skipped-if-blank": "Apprise-URL (wird übersprungen, wenn leer)",
+    "enable-notifier": "Benachrichtigen aktivieren",
+    "what-events": "Welche Ereignisse soll diese Benachrichtigung abonnieren?",
+    "user-events": "Benutzer-Ereignisse",
+    "mealplan-events": "Essensplan-Ereignisse",
+    "when-a-user-in-your-group-creates-a-new-mealplan": "Wenn ein Benutzer in deiner Gruppe einen neuen Eintrag im Essensplan erstellt",
+    "shopping-list-events": "Einkaufslisten-Ereignisse",
+    "cookbook-events": "Kochbuch-Ereignisse",
+    "tag-events": "Schlagwort-Ereignisse",
+    "category-events": "Kategorie-Ereignisse",
+    "when-a-new-user-joins-your-group": "Wenn ein neuer Benutzer deiner Gruppe beitritt"
   },
   "general": {
     "cancel": "Abbrechen",
@@ -171,11 +184,14 @@
     "this-feature-is-currently-inactive": "Diese Funktion ist im Moment deaktiviert",
     "clipboard-not-supported": "Zwischenablage nicht unterstützt",
     "copied-to-clipboard": "In die Zwischenablage kopiert",
-    "your-browser-does-not-support-clipboard": "Dein Browser unterstützt die Zwischenablage nicht\")",
+    "your-browser-does-not-support-clipboard": "Dein Browser unterstützt die Zwischenablage nicht",
     "copied-items-to-clipboard": "Kein Eintrag in die Zwischenablage kopiert|Ein Eintrag wurde in die Zwischenablage kopiert|{count} Einträge in die Zwischenablage kopiert",
     "actions": "Aktionen",
     "selected-count": "Ausgewählt: {count}",
-    "export-all": "Alle exportieren"
+    "export-all": "Alle exportieren",
+    "refresh": "Aktualisieren",
+    "upload-file": "Datei hochladen",
+    "created-on-date": "Erstellt am: {0}"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Bist du dir sicher, dass du die Gruppe <b>{groupName}<b/> löschen möchtest?",
@@ -201,7 +217,7 @@
       "keep-my-recipes-private-description": "Setzt deine Gruppe und alle Rezepte standardmäßig privat. Du kannst dies später jederzeit ändern."
     },
     "manage-members": "Mitglieder verwalten",
-    "manage-members-description": "Verwalte die Mitgliederberechtigungen in deinen Gruppen. {manage} erlaubt den Benutzern, auf die Datenverwaltungsseite zuzugreifen {invite} erlaubt Benutzern, Einladungslinks für andere Benutzer zu erstellen. Gruppenbesitzer können nicht ihre eigenen Berechtigungen ändern.",
+    "manage-members-description": "Verwalte die Mitgliederberechtigungen in deinen Gruppen. {manage} erlaubt den Benutzern, auf die Datenverwaltungsseite zuzugreifen. {invite} erlaubt Benutzern, Einladungslinks für andere Benutzer zu erstellen. Gruppenbesitzer können nicht ihre eigenen Berechtigungen ändern.",
     "manage": "Verwalten",
     "invite": "Einladen",
     "looking-to-update-your-profile": "Möchtest du dein Profil aktualisieren?",
@@ -224,7 +240,11 @@
     "disable-organizing-recipe-ingredients-by-units-and-food-description": "Blendet die Lebensmittel-, Einheiten- und Mengenfelder für Zutaten aus und verwendet für Zutaten reine Textfelder.",
     "general-preferences": "Allgemeine Einstellungen",
     "group-recipe-preferences": "Gruppen-Rezept-Einstellungen",
-    "report": "Bericht"
+    "report": "Bericht",
+    "group-management": "Gruppenverwaltung",
+    "admin-group-management": "Admin: Gruppenverwaltung",
+    "admin-group-management-text": "Änderungen an dieser Gruppe sind sofort wirksam.",
+    "group-id-value": "Gruppen ID: {0}"
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Neue Mahlzeit planen",
@@ -308,9 +328,19 @@
       "title": "Paprika Rezept-Manager"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie kann Rezepte aus der Mealie-App aus einer Version vor v1.0 importieren. Exportiere deine Rezepte aus deiner alten Instanz und lade die Zip-Datei unten hoch. Bitte beachte, dass nur Rezepte aus dem Export importiert werden können.",
+      "description-long": "Mealie kann Rezepte aus der Mealie-App in einer Version vor v1.0 importieren. Exportiere deine Rezepte aus deiner alten Instanz und lade die Zip-Datei unten hoch. Bitte beachte, dass nur Rezepte aus dem Export importiert werden können.",
       "title": "Mealie Pre v1.0"
-    }
+    },
+    "recipe-data-migrations": "Rezeptdatenmigration",
+    "recipe-data-migrations-explanation": "Rezepte können aus unterstützten Programmen nach Mealie migriert werden. Das ist eine gute Möglichkeit, um mit Mealie loszulegen.",
+    "choose-migration-type": "Migrationsart wählen",
+    "tag-all-recipes": "Alle Rezepte mit Schlagwort {tag-name} versehen",
+    "nextcloud-text": "Nextcloud Rezepte können aus einer Zip-Datei importiert werden, die die in Nextcloud gespeicherten Daten enthält. Vergleiche die Beispiel-Ordnerstruktur unten um sicherzustellen, dass deine Rezepte importiert werden können.",
+    "chowdown-text": "Mealie unterstützt nativ das Chowdown Repository-Format. Lade das Code Repository als .zip Datei herunter und lade es unten hoch.",
+    "recipe-1": "Rezept 1",
+    "recipe-2": "Rezept 2",
+    "paprika-text": "Mealie kann Rezepte aus der Paprika-App importieren. Exportiere deine Rezepte in Paprika, ändere die Endung der Export-Datei in .zip und lade sie unten hoch.",
+    "mealie-text": "Mealie kann Rezepte aus der Mealie-App in einer Version vor v1.0 importieren. Exportiere deine Rezepte aus deiner alten Instanz und lade die Zip-Datei unten hoch. Bitte beachte, dass nur Rezepte aus dem Export importiert werden können."
   },
   "new-recipe": {
     "bulk-add": "Mehrere hinzufügen",
@@ -415,7 +445,7 @@
     "locked-by-owner": "Vom Besitzer gesperrt",
     "join-the-conversation": "Beteilige dich an der Unterhaltung",
     "add-recipe-to-mealplan": "Rezept zum Essensplan hinzufügen",
-    "entry-type": "Eintragstyp",
+    "entry-type": "Mahlzeit",
     "date-format-hint": "Schreibweise MM/TT/JJJJ",
     "date-format-hint-yyyy-mm-dd": "JJJ-MM-TT Format",
     "add-to-list": "Zur Einkaufsliste hinzufügen",
@@ -490,7 +520,9 @@
     "recipe-debugger-description": "Füge die URL des Rezepts, das du debuggen möchtest, hier ein. Die URL wird vom Scraper eingelesen und die Ergebnisse werden angezeigt. Wenn du keine Ausgabedaten sehen solltest, wird das Einlesen dieser Webseite nicht von Mealie oder dessen Scraper-Bibliothek unterstützt.",
     "debug": "Debug",
     "tree-view": "Strukturierte Ansicht",
-    "recipe-yield": "Portionsangabe"
+    "recipe-yield": "Portionsangabe",
+    "unit": "Maßeinheit",
+    "upload-image": "Bild hochladen"
   },
   "search": {
     "advanced-search": "Erweiterte Suche",
@@ -507,7 +539,8 @@
     "search-placeholder": "Suchen...",
     "tag-filter": "Schlagwortfilter",
     "search-hint": "'/' drücken",
-    "advanced": "Erweitert"
+    "advanced": "Erweitert",
+    "auto-search": "Automatische Suche"
   },
   "settings": {
     "add-a-new-theme": "Neues Thema hinzufügen",
@@ -522,7 +555,16 @@
       "full-backup": "Komplettsicherung",
       "import-summary": "Zusammenfassung des Imports",
       "partial-backup": "Teilsicherung",
-      "unable-to-delete-backup": "Sicherung kann nicht gelöscht werden."
+      "unable-to-delete-backup": "Sicherung kann nicht gelöscht werden.",
+      "experimental-description": "Backups a total snapshots of the database and data directory of the site. This includes all data and cannot be set to exclude subsets of data. You can think off this as a snapshot of Mealie at a specific time. Currently, {not-crossed-version} (data migrations are not done automatically). These serve as a database agnostic way to export and import data or backup the site to an external location.",
+      "not-crossed-version": "this backup mechanism is not cross-version and therefore cannot be used to migrate data between versions",
+      "backup-restore": "Wiederherstellen aus Sicherung",
+      "back-restore-description": "Restoring this backup will overwrite all the current data in your database and in the data directory and replace them with the contents of this backup. {cannot-be-undone} If the restoration is successful, you will be logged out.",
+      "cannot-be-undone": "This action cannot be undone - use with caution.",
+      "postgresql-note": "If you are using PostGreSQL, please review the {backup-restore-process} prior to restoring.",
+      "backup-restore-process-in-the-documentation": "backup/restore process in the documentation",
+      "irreversible-acknowledgment": "I understand that this action is irreversible, destructive and may cause data loss",
+      "restore-backup": "Sicherung wiederherstellen"
     },
     "backup-and-exports": "Sicherungen",
     "change-password": "Passwort ändern",
@@ -585,7 +627,9 @@
       "api-tokens": "API-Token",
       "copy-this-token-for-use-with-an-external-application-this-token-will-not-be-viewable-again": "Kopiere dieses Token für die Verwendung mit einer externen Anwendung. Dieses Token wird nicht mehr sichtbar sein.",
       "create-an-api-token": "Erstelle ein API-Token",
-      "token-name": "Token-Name"
+      "token-name": "Token-Name",
+      "generate": "Erzeugen",
+      "you-have-token-count": "Du hast keine aktiven Token.|Du hast einen aktiven Token.|Du hast {count} aktive Token."
     },
     "toolbox": {
       "assign-all": "Alle zuweisen",
@@ -604,8 +648,39 @@
       "webhook-url": "Webhook-URL",
       "webhooks-caps": "WEBHOOKS",
       "webhooks": "Webhooks",
-      "webhook-name": "Webhook-Name"
-    }
+      "webhook-name": "Webhook-Name",
+      "description": "Die unten definierten Webhooks werden ausgeführt, wenn eine Mahlzeit für den Tag eingetragen ist. Zum geplanten Zeitpunkt werden die Webhooks mit den Daten aus dem für diesen Tag geplanten Rezept gesendet. Beachte, dass die Auslösung der Webhooks nicht genau ist. Die Webhooks werden in einem 5-Minuten-Intervall ausgeführt, so dass sie innerhalb von +/- 5 Minuten der geplanten Uhrzeit gesendet werden."
+    },
+    "bug-report": "Fehler melden",
+    "bug-report-information": "Use this information to report a bug. Providing details of your instance to developers is the best way to get your issues resolved quickly.",
+    "tracker": "Tracker",
+    "configuration": "Konfiguration",
+    "docker-volume": "Docker Volume",
+    "docker-volume-help": "Mealie setzt voraus, dass sich der Frontend-Container und das Backend das gleiche Docker-Volume oder den gleichen Speicher teilen. Dadurch wird sichergestellt, dass der Frontend-Container auf die Bilder und Assets auf der Festplatte zugreifen kann.",
+    "volumes-are-misconfigured": "Volumes sind falsch konfiguriert",
+    "volumes-are-configured-correctly": "Volumes sind korrekt konfiguriert.",
+    "status-unknown-try-running-a-validation": "Status unbekannt. Führe eine Überprüfung aus.",
+    "validate": "Überprüfen",
+    "email-configuration-status": "E-Mail Konfigurationsstatus",
+    "ready": "Bereit",
+    "not-ready": "Nicht bereit - bitte Konfiguration überprüfen",
+    "succeeded": "Erfolgreich",
+    "failed": "Fehlgeschlagen",
+    "general-about": "General About",
+    "application-version": "Programmversion",
+    "application-version-error-text": "Deine derzeitige Version ({0}) stimmt nicht mit der neuesten Version überein. Prüfe, ob du auf die neueste Version ({1}) aktualisieren solltest.",
+    "mealie-is-up-to-date": "Mealie ist auf dem neuesten Stand",
+    "secure-site": "Sichere Website",
+    "secure-site-error-text": "Serve via localhost or secure with https. Clipboard and additional browser APIs may not work.",
+    "secure-site-success-text": "Der Zugriff auf die Webseite erfolgt über localhost oder https",
+    "server-side-base-url": "Serverseitige Basis-URL",
+    "server-side-base-url-error-text": "`BASE_URL` ist immer noch der Standardwert auf dem API-Server. Das verursacht Probleme mit Benachrichtigungslinks auf dem Server für E-Mails, etc.",
+    "server-side-base-url-success-text": "Serverseitige URL entspricht nicht der Standardeinstellung",
+    "ldap-ready": "LDAP bereit",
+    "ldap-ready-error-text": "Nicht alle LDAP-Werte sind konfiguriert. Das kann ignoriert werden, wenn du keine LDAP-Authentifizierung verwendest.",
+    "ldap-ready-success-text": "Alle erforderlichen LDAP-Variablen sind hinterlegt.",
+    "build": "Build",
+    "recipe-scraper-version": "Rezept Scraper Version"
   },
   "shopping-list": {
     "all-lists": "Alle Listen",
@@ -759,7 +834,20 @@
       "good": "Gut",
       "strong": "Stark",
       "very-strong": "Sehr stark"
-    }
+    },
+    "user-management": "Benutzerverwaltung",
+    "reset-locked-users": "Gesperrte Benutzer zurücksetzen",
+    "admin-user-creation": "Benutzer erstellen",
+    "user-details": "Benutzerdetails",
+    "user-name": "Benutzername",
+    "authentication-method": "Authentifizierungsmethode",
+    "authentication-method-hint": "Dies legt fest, wie sich ein Benutzer bei Mealie authentifiziert. Wenn du dir nicht sicher bist, wähle 'Mealie' aus",
+    "permissions": "Berechtigungen",
+    "administrator": "Administrator",
+    "user-can-invite-other-to-group": "Benutzer kann andere in Gruppe einladen",
+    "user-can-manage-group": "Benutzer kann Gruppe verwalten",
+    "user-can-organize-group-data": "Benutzer kann Gruppendaten verwalten",
+    "enable-advanced-features": "Erweiterte Funktionen aktivieren"
   },
   "language-dialog": {
     "translated": "übersetzt",
@@ -811,7 +899,7 @@
       "confirm-delete-recipes": "Bist du dir sicher, dass du die folgenden Rezepte löschen möchtest? Diese Aktion kann nicht rückgängig gemacht werden.",
       "the-following-recipes-selected-length-will-be-exported": "Die folgenden Rezepte ({0}) werden exportiert.",
       "settings-chosen-explanation": "Die hier gewählten Einstellungen, außer der gesperrten Option, werden auf alle ausgewählten Rezepte angewendet.",
-      "selected-length-recipe-s-settings-will-be-updated": "{0} Rezepte-Einstellung(en) wird/werden aktualisiert.",
+      "selected-length-recipe-s-settings-will-be-updated": "{count} Rezepte-Einstellung(en) wird/werden aktualisiert.",
       "recipe-data": "Rezeptdaten",
       "recipe-data-description": "Verwende diesen Bereich, um die mit deinen Rezepten verbundenen Daten zu verwalten. Du kannst mehrere Massenaktionen für deine Rezepte ausführen, zum Beispiel Exportieren, Löschen und Zuweisen von Kategorien.",
       "recipe-columns": "Rezept-Spalten",
@@ -832,7 +920,8 @@
     "data-management-description": "Wähle den Datensatz aus, an dem du Änderungen vornehmen möchtest.",
     "select-data": "Daten auswählen",
     "select-language": "Sprache wählen",
-    "columns": "Spalten"
+    "columns": "Spalten",
+    "combine": "Zusammenführen"
   },
   "user-registration": {
     "user-registration": "Benutzerregistrierung",
@@ -848,7 +937,8 @@
   "validation": {
     "group-name-is-taken": "Gruppenname ist schon vergeben",
     "username-is-taken": "Benutzername ist schon vergeben",
-    "email-is-taken": "E-Mail-Adresse ist schon vergeben"
+    "email-is-taken": "E-Mail-Adresse ist schon vergeben",
+    "this-field-is-required": "Dieses Feld ist erforderlich"
   },
   "export": {
     "export": "Exportieren",
@@ -943,7 +1033,21 @@
     },
     "mainentance": {
       "actions-title": "Aktionen"
-    }
+    },
+    "ingredients-natural-language-processor": "Zutaten Natural Language Processor",
+    "ingredients-natural-language-processor-explanation": "Mealie verwendet Conditional Random Fields (CRFs), um Zutaten zu analysieren und zu verarbeiten. Das für Zutaten verwendete Modell basiert auf über 100.000 Zutaten aus einem von der New York Times zusammengestellten Datensatz. Beachte, dass das Modell nur in Englisch trainiert wurde, deshalb können die Ergebnisse bei der Verwendung anderer Sprachen abweichen. Diese Seite ist eine Spielwiese zum Testen des Modells.",
+    "ingredients-natural-language-processor-explanation-2": "Es ist nicht perfekt, aber es erzeugt meist sehr gute Ergebnisse und ist ein guter Anfang, um Zutaten manuell den einzelnen Feldern zuzuordnen. Alternativ kannst du auch den \"Brute\" Prozessor benutzen, der eine Musterabgleich-Technik verwendet, um Zutaten zu identifizieren.",
+    "nlp": "NLP",
+    "brute": "Brute",
+    "show-individual-confidence": "Zeige individuelle Überzeugungswerte an",
+    "ingredient-text": "Zutaten-Angabe",
+    "average-confident": "{0} überzeugt",
+    "try-an-example": "Probier ein Beispiel aus",
+    "parser": "Parser",
+    "background-tasks": "Hintergrundaufgaben",
+    "background-tasks-description": "Hier kannst du alle laufenden Hintergrundaufgaben und ihren Status beobachten",
+    "no-logs-found": "Keine Protokolle gefunden",
+    "tasks": "Aufgaben"
   },
   "profile": {
     "welcome-user": "👋 Willkommen, {0}",
@@ -979,7 +1083,14 @@
     "preferences": "Einstellungen",
     "show-advanced-description": "Erweiterte Funktionen anzeigen (API-Schlüssel, Webhooks und Datenverwaltung)",
     "back-to-profile": "Zurück zum Profil",
-    "looking-for-privacy-settings": "Suchst du die Privatsphäre-Einstellungen?"
+    "looking-for-privacy-settings": "Suchst du die Privatsphäre-Einstellungen?",
+    "manage-your-api-tokens": "Verwalte Deine API-Token",
+    "manage-user-profile": "Benutzerprofile verwalten",
+    "manage-cookbooks": "Kochbücher verwalten",
+    "manage-members": "Mitglieder verwalten",
+    "manage-webhooks": "Webhooks verwalten",
+    "manage-notifiers": "Benachrichtigungen verwalten",
+    "manage-data-migrations": "Datenmigrationen verwalten"
   },
   "cookbook": {
     "cookbooks": "Kochbücher",

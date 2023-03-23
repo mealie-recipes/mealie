@@ -63,7 +63,20 @@
     "scheduled": "Gepland",
     "something-went-wrong": "Er is iets fout gegaan!",
     "subscribed-events": "Geabonneerde gebeurtenissen",
-    "test-message-sent": "Testbericht verzonden"
+    "test-message-sent": "Testbericht verzonden",
+    "new-notification": "Nieuwe melding",
+    "event-notifiers": "Meldingen van gebeurtenissen",
+    "apprise-url-skipped-if-blank": "URL van Apprise (overgeslagen als er geen is)",
+    "enable-notifier": "Schakel melding in",
+    "what-events": "Op welke gebeurtenissen moet deze notificatie zich abonneren?",
+    "user-events": "Gebeurtenissen van gebruiker",
+    "mealplan-events": "Mealplan gebeurtenissen",
+    "when-a-user-in-your-group-creates-a-new-mealplan": "Als een gebruiker in uw groep een nieuw maaltijdplan maakt",
+    "shopping-list-events": "Boodschappenlijst gebeurtenissen",
+    "cookbook-events": "Kookboek gebeurtenissen",
+    "tag-events": "Tag gebeurtenissen",
+    "category-events": "Categorie gebeurtenissen",
+    "when-a-new-user-joins-your-group": "Als een nieuwe gebruiker zich bij je groep aansluit"
   },
   "general": {
     "cancel": "Annuleren",
@@ -171,11 +184,14 @@
     "this-feature-is-currently-inactive": "Deze mogelijkheid is op dit moment uitgeschakeld",
     "clipboard-not-supported": "Knippen en plakken kan niet",
     "copied-to-clipboard": "Gekopieerd naar klembord",
-    "your-browser-does-not-support-clipboard": "Je browser heeft geen knippen en plakken",
+    "your-browser-does-not-support-clipboard": "Je browser ondersteunt het klembord niet",
     "copied-items-to-clipboard": "Geen item gekopieerd naar klembord|Één item gekopieerd naar klembord|{count} items naar klembord gekopieerd",
     "actions": "Acties",
     "selected-count": "Geselecteerd: {count}",
-    "export-all": "Exporteer alles"
+    "export-all": "Exporteer alles",
+    "refresh": "Verversen",
+    "upload-file": "Bestand uploaden",
+    "created-on-date": "Gemaakt op {0}"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Weet je zeker dat je <b>{groupName}<b/> wil verwijderen?",
@@ -224,7 +240,11 @@
     "disable-organizing-recipe-ingredients-by-units-and-food-description": "Als dit is ingeschakeld zie je de Voedsel, Eenheid en Hoeveelheid van dit recept als gewone tekst.",
     "general-preferences": "Algemene voorkeuren",
     "group-recipe-preferences": "Groepeer receptvoorkeuren",
-    "report": "Rapport"
+    "report": "Rapport",
+    "group-management": "Groepsbeheer",
+    "admin-group-management": "Beheerder groep beheer",
+    "admin-group-management-text": "Wijzigingen in deze groep zijn meteen zichtbaar.",
+    "group-id-value": "Groepsid: {0}"
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Maak een nieuw maaltijdplan",
@@ -310,7 +330,17 @@
     "mealie-pre-v1": {
       "description-long": "Mealie kan recepten importeren uit oude versies van Mealie (voor versie 1.0). Exporteer je recepten vanuit de oude versie, en upload het zip-bestand hieronder. Let op dat alleen recepten uit de export kunnen worden geïmporteerd.",
       "title": "Oude versies Mealie (voor versie 1.0)"
-    }
+    },
+    "recipe-data-migrations": "Receptmigratie",
+    "recipe-data-migrations-explanation": "Je kunt recepten van een ander programma importeren in Mealie. Zo kun je snel aan de slag.",
+    "choose-migration-type": "Kies het migratietype",
+    "tag-all-recipes": "Label alle recepten met {tag-name} tag",
+    "nextcloud-text": "Nextcloud recepten kunnen worden geïmporteerd uit een zip-bestand dat de gegevens bevat die zijn opgeslagen in Nextcloud. Zie de voorbeeldmapstructuur hieronder om ervoor te zorgen dat je recepten kunnen worden geïmporteerd.",
+    "chowdown-text": "Mealie kan importeren vanuit Chowdown. Download daar het .zip bestand. En upload het hier",
+    "recipe-1": "Eerste recept",
+    "recipe-2": "Tweede recept",
+    "paprika-text": "Mealie kan recepten uit het programma Paprika importeren. Exporteer je recepten uit Paprika, hernoem de exportuitbreiding naar .zip en upload ze hieronder.",
+    "mealie-text": "Mealie kan recepten importeren uit oude versies van Mealie (voor versie 1.0). Exporteer je recepten vanuit de oude versie, en upload het zip-bestand hieronder. Let op dat alleen recepten uit de export kunnen worden geïmporteerd."
   },
   "new-recipe": {
     "bulk-add": "Bulk toevoegen",
@@ -490,7 +520,9 @@
     "recipe-debugger-description": "Pak de URL van het recept dat u wilt debuggen en plak die hier. De URL zal door de receptenscraper worden gescrapt en de resultaten zullen worden weergegeven. Als u geen gegevens ziet, wordt de site die u probeert te scrapen niet ondersteund door Mealie of zijn scraperbibliotheek.",
     "debug": "Debug",
     "tree-view": "Boomstructuurweergave",
-    "recipe-yield": "Recept Opbrengst"
+    "recipe-yield": "Recept Opbrengst",
+    "unit": "Eenheid",
+    "upload-image": "Afbeelding uploaden"
   },
   "search": {
     "advanced-search": "Geavanceerd zoeken",
@@ -507,7 +539,8 @@
     "search-placeholder": "Zoeken...",
     "tag-filter": "Labelfilter",
     "search-hint": "Druk op '/'",
-    "advanced": "Geavanceerd"
+    "advanced": "Geavanceerd",
+    "auto-search": "Automatisch zoeken"
   },
   "settings": {
     "add-a-new-theme": "Voeg een nieuw thema toe",
@@ -522,7 +555,16 @@
       "full-backup": "Volledige back-up",
       "import-summary": "Samenvatting importeren",
       "partial-backup": "Gedeeltelijke back-up",
-      "unable-to-delete-backup": "Kan back-up niet verwijderen."
+      "unable-to-delete-backup": "Kan back-up niet verwijderen.",
+      "experimental-description": "Back-up maakt een totale snapshots van de database en data directory van de site. Dit omvat alle gegevens en kan niet worden ingesteld om subsets van gegevens uit te sluiten. Je kunt dit op een bepaald moment als een snapshot van Mealie opvatten. Op dit moment {not-crossed-version} (gegevensmigratie wordt niet automatisch afgerond). Deze dienen als een agnostische manier om gegevens te exporteren en importeren of een backup van de site naar een externe locatie te maken.",
+      "not-crossed-version": "dit back-upmechanisme is geen cross-version en kan daarom niet worden gebruikt om data tussen versies te migreren",
+      "backup-restore": "Back-up maken/terugzetten",
+      "back-restore-description": "Het terugzetten van deze back-up overschrijft alle huidige gegevens in uw database en in de gegevensmap. {cannot-be-undone} Als het terugzetten is gelukt wordt u afgemeld.",
+      "cannot-be-undone": "Deze actie kan niet ongedaan worden gemaakt - gebruik met voorzichtigheid.",
+      "postgresql-note": "Gebruik je PostGreSQL? Lees dan eerst de {backup-restore-process} voordat je dit herstelt.",
+      "backup-restore-process-in-the-documentation": "backup/herstel proces in de documentatie",
+      "irreversible-acknowledgment": "Ik begrijp dat deze actie onomkeerbaar en destructief is en gegevensverlies kan veroorzaken",
+      "restore-backup": "Back-up terugzetten"
     },
     "backup-and-exports": "Backups",
     "change-password": "Wachtwoord wijzigen",
@@ -585,7 +627,9 @@
       "api-tokens": "API-tokens",
       "copy-this-token-for-use-with-an-external-application-this-token-will-not-be-viewable-again": "Kopieer dit token voor gebruik met een externe toepassing. Dit token zal niet opnieuw zichtbaar zijn.",
       "create-an-api-token": "API-token aanmaken",
-      "token-name": "Tokennaam"
+      "token-name": "Tokennaam",
+      "generate": "Genereer",
+      "you-have-token-count": "U heeft geen actieve tokens.|U heeft één actieve token.|U heeft {count} actieve tokens."
     },
     "toolbox": {
       "assign-all": "Alles toewijzen",
@@ -604,8 +648,39 @@
       "webhook-url": "Webhook URL",
       "webhooks-caps": "WEBHOOKS",
       "webhooks": "Webhooks",
-      "webhook-name": "Webhooknaam"
-    }
+      "webhook-name": "Webhooknaam",
+      "description": "De onderstaande webhooks worden uitgevoerd wanneer een maaltijd is gedefinieerd voor de dag. Op het geplande tijdstip worden de webhooks verzonden met de data van het recept dat voor de dag is ingepland. Merk op dat de webhook niet precies is. De webhooks worden uitgevoerd met een interval van 5 minuten zodat de webhooks worden uitgevoerd binnen 5 +/- minuten van de geplande tijd."
+    },
+    "bug-report": "Foutrapportage",
+    "bug-report-information": "Gebruik deze informatie om een bug te rapporteren. Het delen van de details van uw instantie aan ontwikkelaars is de beste manier om uw problemen snel op te lossen.",
+    "tracker": "Tracker",
+    "configuration": "Configuratie",
+    "docker-volume": "Docker Volume",
+    "docker-volume-help": "Mealie vereist dat de frontend container en de backend hetzelfde docker volume of opslag delen. Dit zorgt ervoor dat de frontend container op een goede manier toegang heeft tot de afbeeldingen en bestanden op de schijf.",
+    "volumes-are-misconfigured": "Volumes zijn verkeerd geconfigureerd",
+    "volumes-are-configured-correctly": "Volumes zijn juist geconfigureerd.",
+    "status-unknown-try-running-a-validation": "Status onbekend. Probeer een validatie te doen.",
+    "validate": "Controleer",
+    "email-configuration-status": "Email configuratie",
+    "ready": "Klaar",
+    "not-ready": "Niet klaar - Controleer omgevingsvariabelen",
+    "succeeded": "Geslaagd",
+    "failed": "Mislukt",
+    "general-about": "Algemene informatie",
+    "application-version": "Applicatie versie",
+    "application-version-error-text": "De huidige versie ({0}) komt niet overeen met de nieuwste versie. Overweeg bijwerken naar de laatste versie ({1}).",
+    "mealie-is-up-to-date": "Laatste versie van Mealie",
+    "secure-site": "Beveiligde website",
+    "secure-site-error-text": "Benader via localhost of beveiligd met https. Clipboard en extra browser-API's werken mogelijk niet.",
+    "secure-site-success-text": "Site wordt geopend door localhost of https",
+    "server-side-base-url": "Server-side basis-URL",
+    "server-side-base-url-error-text": "`BASE_URL` is nog steeds de standaard waarde op de API Server. Dit geeft problemen met notificatielinks in e-mails etc.",
+    "server-side-base-url-success-text": "Server-side URL komt niet overeen met de standaard",
+    "ldap-ready": "LDAP klaar",
+    "ldap-ready-error-text": "Niet alle LDAP-waarden zijn geconfigureerd. Dit kan worden genegeerd als je geen LDAP-authenticatie gebruikt.",
+    "ldap-ready-success-text": "Vereiste LDAP variabelen zijn helemaal ingesteld.",
+    "build": "Bouw",
+    "recipe-scraper-version": "Versie van de receptenscraper"
   },
   "shopping-list": {
     "all-lists": "Alle lijsten",
@@ -759,7 +834,20 @@
       "good": "Goed",
       "strong": "Sterk",
       "very-strong": "Zeer Sterk"
-    }
+    },
+    "user-management": "Gebruikersbeheer",
+    "reset-locked-users": "Vergrendelde gebruikers resetten",
+    "admin-user-creation": "Admin (hoofd) gebruiker aanmaken",
+    "user-details": "Gebruikersdetails",
+    "user-name": "Gebruikersnaam",
+    "authentication-method": "Verificatiemethode",
+    "authentication-method-hint": "Dit bepaalt hoe een gebruiker zich aanmeldt bij Mealie. Als je het niet zeker weet, kies dan voor 'Mealie'",
+    "permissions": "Permissies",
+    "administrator": "Beheerder",
+    "user-can-invite-other-to-group": "Gebruiker kan iemand uitnodigen voor de groep",
+    "user-can-manage-group": "Gebruiker kan de groep beheren",
+    "user-can-organize-group-data": "Gebruiker kan groepsgegevens organiseren",
+    "enable-advanced-features": "Geavanceerde functies inschakelen"
   },
   "language-dialog": {
     "translated": "vertaald",
@@ -811,7 +899,7 @@
       "confirm-delete-recipes": "Weet je zeker dat je de volgende recepten wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt.",
       "the-following-recipes-selected-length-will-be-exported": "De volgende recepten ({0}) zullen worden geëxporteerd.",
       "settings-chosen-explanation": "Instellingen die hier gekozen zijn, exclusief de vergrendelde optie, zullen worden toegepast op alle geselecteerde recepten.",
-      "selected-length-recipe-s-settings-will-be-updated": "De instellingen van {0} recept(en) zullen bijgewerkt worden.",
+      "selected-length-recipe-s-settings-will-be-updated": "De instellingen van {count} recept(en) zullen bijgewerkt worden.",
       "recipe-data": "Receptgegevens",
       "recipe-data-description": "Gebruik deze sectie om de gegevens te beheren die zijn gekoppeld aan uw recepten. Je kunt verschillende groepsgewijze acties uitvoeren op je recepten, zoals het exporteren, verwijderen, taggen en toewijzen van categorieën.",
       "recipe-columns": "Receptkolommen",
@@ -827,12 +915,13 @@
       "source-unit-will-be-deleted": "Broneenheid zal worden verwijderd"
     },
     "seed-data": "Voorbeeldgegevens",
-    "seed": "Seed",
+    "seed": "Vul",
     "data-management": "Gegevensbeheer",
     "data-management-description": "Selecteer in welke gegevensset je wijzigingen wilt aanbrengen.",
     "select-data": "Selecteer gegevens",
     "select-language": "Selecteer taal",
-    "columns": "Kolommen"
+    "columns": "Kolommen",
+    "combine": "Samenvoegen"
   },
   "user-registration": {
     "user-registration": "Gebruikersregistratie",
@@ -848,7 +937,8 @@
   "validation": {
     "group-name-is-taken": "Groepsnaam is al gebruikt",
     "username-is-taken": "Gebruikersnaam is al in gebruik",
-    "email-is-taken": "E-mailadres is al in gebruik"
+    "email-is-taken": "E-mailadres is al in gebruik",
+    "this-field-is-required": "Dit is een verplicht veld"
   },
   "export": {
     "export": "Exporteer",
@@ -943,7 +1033,21 @@
     },
     "mainentance": {
       "actions-title": "Acties"
-    }
+    },
+    "ingredients-natural-language-processor": "Natuurlijke taalprocessor voor ingrediënten",
+    "ingredients-natural-language-processor-explanation": "Mealie gebruikt willekeurige Voorwaardelijke Velden voor het verwerken en verwerken van ingrediënten. Het model is gebaseerd op een gegevensset van meer dan 100.000 ingrediënten. Die komen uit een dataset die is samengesteld door de New York Times. Aangezien het model alleen in het Engels wordt getraind, kan het gebruik van het model in andere talen gevarieerd zijn. Deze pagina is een speeltuin om het model te testen.",
+    "ingredients-natural-language-processor-explanation-2": "Het is niet perfect, maar het levert uitstekende resultaten op in het algemeen en is een goed uitgangspunt voor het handmatig verwerken van ingrediënten in afzonderlijke velden. Je kunt ook de \"Brute\" processor gebruiken die een patroonovereenkomende techniek gebruikt om ingrediënten te identificeren.",
+    "nlp": "NLP",
+    "brute": "Brute",
+    "show-individual-confidence": "Individuele overtuiging tonen",
+    "ingredient-text": "Ingrediënt tekst",
+    "average-confident": "{0} overtuigd",
+    "try-an-example": "Probeer een voorbeeld",
+    "parser": "Parser",
+    "background-tasks": "Achtergrondtaken",
+    "background-tasks-description": "Hier kan je alle lopende achtergrondtaken en de status bekijken",
+    "no-logs-found": "Geen logs gevonden",
+    "tasks": "Taken"
   },
   "profile": {
     "welcome-user": "👋 Welkom, {0}",
@@ -970,7 +1074,7 @@
     "notifiers": "Notificeerders",
     "notifiers-description": "Stel e-mail en push-meldingen in die worden getriggerd bij specifieke gebeurtenissen.",
     "manage-data": "Gegevensbeheer",
-    "manage-data-description": "Manage your Food and Units (more options coming soon)",
+    "manage-data-description": "Beheer Voedsel en Eenheden (er komen binnenkort meer opties)",
     "data-migrations": "Datamigratie",
     "data-migrations-description": "Migreer je bestaande gegevens van andere applicaties, zoals Nextcloud recepten en Chowdown",
     "email-sent": "E-mail verzonden",
@@ -979,15 +1083,22 @@
     "preferences": "Voorkeuren",
     "show-advanced-description": "Toon geavanceerde functies (API-sleutels, webhooks en gegevensbeheer)",
     "back-to-profile": "Terug naar profiel",
-    "looking-for-privacy-settings": "Op zoek naar privacy-instellingen?"
+    "looking-for-privacy-settings": "Op zoek naar privacy-instellingen?",
+    "manage-your-api-tokens": "API-tokens beheren",
+    "manage-user-profile": "Gebruikersprofiel beheren",
+    "manage-cookbooks": "Beheer kookboeken",
+    "manage-members": "Leden beheren",
+    "manage-webhooks": "Webhooks beheren",
+    "manage-notifiers": "Notificaties beheren",
+    "manage-data-migrations": "Datamigraties beheren"
   },
   "cookbook": {
     "cookbooks": "Kookboeken",
-    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes and tags. Creating a cookbook will add an entry to the side-bar and all the recipes with the tags and categories chosen will be displayed in the cookbook.",
+    "description": "Een kookboek is een alternatief om recepten te organiseren door het combineren van recepten en labels. Het maken van een kookboek zal een item toevoegen aan de zijbalk en alle recepten met de tags en categorieën die gekozen zijn zullen worden weergegeven in het kookboek.",
     "public-cookbook": "Openbaar kookboek",
     "public-cookbook-description": "Openbare kookboeken kunnen worden gedeeld met niet-mealie-gebruikers en zullen worden weergegeven op jouw groepspagina.",
     "filter-options": "Filteropties",
-    "filter-options-description": "When require all is selected the cookbook will only include recipes that have all of the items selected. This applies to each subset of selectors and not a cross section of the selected items.",
+    "filter-options-description": "Wanneer \"Vereis alle\" geselecteerd is, zal het kookboek alleen recepten bevatten die alle items geselecteerd hebben. Dit geldt voor elke subset van selectors en niet voor een kruissectie van de geselecteerde items.",
     "require-all-categories": "Vereis alle categorieën",
     "require-all-tags": "Vereis alle tags",
     "require-all-tools": "Vereis al het kookgerei",

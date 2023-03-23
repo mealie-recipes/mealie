@@ -63,7 +63,20 @@
     "scheduled": "Planifié",
     "something-went-wrong": "Une erreur s’est produite !",
     "subscribed-events": "Évènements suivis",
-    "test-message-sent": "Message de test envoyé"
+    "test-message-sent": "Message de test envoyé",
+    "new-notification": "Nouvelle notification",
+    "event-notifiers": "Notifications d'événements",
+    "apprise-url-skipped-if-blank": "URL Apprise (ignoré si vide)",
+    "enable-notifier": "Activer la notification",
+    "what-events": "À quels événements cette notification doit-elle s'abonner ?",
+    "user-events": "Evénements utilisateur",
+    "mealplan-events": "Évènements du menu",
+    "when-a-user-in-your-group-creates-a-new-mealplan": "Lorsqu'un utilisateur de votre groupe crée un nouveau menu",
+    "shopping-list-events": "Événements de la liste de courses",
+    "cookbook-events": "Événements du livre de recettes",
+    "tag-events": "Événements des mots-clés",
+    "category-events": "Événements de catégories",
+    "when-a-new-user-joins-your-group": "Lorsqu'un nouvel utilisateur rejoint votre groupe"
   },
   "general": {
     "cancel": "Annuler",
@@ -175,7 +188,10 @@
     "copied-items-to-clipboard": "Aucun élément copié dans le presse-papier|Un élément copié dans le presse-papier|{count} éléments copiés dans le presse-papiers",
     "actions": "Actions",
     "selected-count": "Sélectionné : {count}",
-    "export-all": "Exporter tout"
+    "export-all": "Exporter tout",
+    "refresh": "Actualiser",
+    "upload-file": "Transférer un fichier",
+    "created-on-date": "Créé le {0}"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Voulez-vous vraiment supprimer <b>{groupName}<b/> ?",
@@ -224,7 +240,11 @@
     "disable-organizing-recipe-ingredients-by-units-and-food-description": "Masque les champs Aliment, Unité et Quantité pour les ingrédients et traite les ingrédients comme des champs de texte simple.",
     "general-preferences": "Préférences générales",
     "group-recipe-preferences": "Préférences de recette du groupe",
-    "report": "Rapport"
+    "report": "Rapport",
+    "group-management": "Gestion des groupes",
+    "admin-group-management": "Administration des groupes",
+    "admin-group-management-text": "Les modifications apportées à ce groupe seront immédiatement prises en compte.",
+    "group-id-value": "ID groupe : {0}"
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Créer un nouveau menu",
@@ -284,33 +304,43 @@
   },
   "migration": {
     "migration-data-removed": "Données de migration supprimées",
-    "new-migration": "New Migration",
-    "no-file-selected": "No File Selected",
+    "new-migration": "Nouvelle migration",
+    "no-file-selected": "Aucun fichier sélectionné",
     "no-migration-data-available": "Aucune donnée d’importation n’est disponible",
-    "previous-migrations": "Previous Migrations",
+    "previous-migrations": "Migrations précédentes",
     "recipe-migration": "Migrer les recettes",
     "chowdown": {
       "description": "Importer des recettes depuis Chowdown",
-      "description-long": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
+      "description-long": "Mealie supporte nativement le format du dépôt chowdown. Téléchargez le dépôt de code en tant que fichier .zip et téléchargez-le ci-dessous.",
       "title": "Chowdown"
     },
     "nextcloud": {
       "description": "Importer des recettes depuis Nextcloud Cookbook",
-      "description-long": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
+      "description-long": "Les recettes Nextcloud peuvent être importées depuis un fichier zip qui contient les données stockées dans Nextcloud. Consultez la structure de dossiers d'exemple ci-dessous pour vous assurer que vos recettes peuvent être importées.",
       "title": "Nextcloud Cookbook"
     },
     "copymethat": {
-      "description-long": "Mealie can import recipes from Copy Me That. Export your recipes in HTML format, then upload the .zip below.",
-      "title": "Copy Me That Recipe Manager"
+      "description-long": "Mealie peut importer des recettes à partir de Copy Me That. Exportez vos recettes au format HTML, puis téléchargez le .zip ci-dessous.",
+      "title": "Gestionnaire de recettes Copy Me That"
     },
     "paprika": {
-      "description-long": "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
-      "title": "Paprika Recipe Manager"
+      "description-long": "Mealie peut importer des recettes depuis l'application Paprika. Exportez vos recettes de paprika, renommez l'extension d'exportation en .zip et téléchargez-les ci-dessous.",
+      "title": "Gestionnaire de recettes Paprika"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
-      "title": "Mealie Pre v1.0"
-    }
+      "description-long": "Mealie peut importer des recettes depuis l'application Mealie depuis une version antérieure à 1.0. Exportez vos recettes depuis votre ancienne instance, et téléchargez le fichier zip ci-dessous. Notez que seules les recettes peuvent être importées à partir de l'exportation.",
+      "title": "Mealie Pré-1.0"
+    },
+    "recipe-data-migrations": "Migration des données de recettes",
+    "recipe-data-migrations-explanation": "Les recettes peuvent être migrées depuis une autre application prise en charge vers Mealie. C'est une excellente façon de commencer avec Mealie.",
+    "choose-migration-type": "Choisissez le type de migration",
+    "tag-all-recipes": "Étiquetez toutes les recettes avec le mot-clé {tag-name}",
+    "nextcloud-text": "Les recettes Nextcloud peuvent être importées depuis un fichier zip qui contient les données stockées dans Nextcloud. Consultez la structure de dossiers d'exemple ci-dessous pour vous assurer que vos recettes peuvent être importées.",
+    "chowdown-text": "Mealie supporte nativement le format du dépôt chowdown. Téléchargez le dépôt de code en tant que fichier .zip et téléchargez-le ci-dessous",
+    "recipe-1": "Recette 1",
+    "recipe-2": "Recette 2",
+    "paprika-text": "Mealie peut importer des recettes depuis l'application Paprika. Exportez vos recettes de paprika, renommez l'extension d'exportation en .zip et téléchargez-les ci-dessous.",
+    "mealie-text": "Mealie peut importer des recettes depuis l'application Mealie depuis une version antérieure à 1.0. Exportez vos recettes depuis votre ancienne instance, et téléchargez le fichier zip ci-dessous. Notez que seules les recettes peuvent être importées à partir de l'exportation."
   },
   "new-recipe": {
     "bulk-add": "Ajouter en masse",
@@ -490,7 +520,9 @@
     "recipe-debugger-description": "Récupérez l'URL de la recette que vous voulez déboguer et collez-la ici. La recette sera analysée et les résultats seront affichés. Si vous ne voyez aucune donnée retournée, le site que vous essayez de récupérer n'est pas pris en charge par Mealie.",
     "debug": "Déboguer",
     "tree-view": "Vue en arborescence",
-    "recipe-yield": "Nombre de parts"
+    "recipe-yield": "Nombre de parts",
+    "unit": "Unité",
+    "upload-image": "Envoyer une image"
   },
   "search": {
     "advanced-search": "Recherche avancée",
@@ -507,7 +539,8 @@
     "search-placeholder": "Rechercher...",
     "tag-filter": "Filtre par mots-clés",
     "search-hint": "Appuyez sur « /»",
-    "advanced": "Avancé"
+    "advanced": "Avancé",
+    "auto-search": "Recherche automatique"
   },
   "settings": {
     "add-a-new-theme": "Ajouter un nouveau thème",
@@ -522,7 +555,16 @@
       "full-backup": "Sauvegarde complète",
       "import-summary": "Résumé de l’importation",
       "partial-backup": "Sauvegarde partielle",
-      "unable-to-delete-backup": "Impossible de supprimer la sauvegarde."
+      "unable-to-delete-backup": "Impossible de supprimer la sauvegarde.",
+      "experimental-description": "Sauvegarde une photo complète de la base de données et du répertoire de données du site. Cela inclut toutes les données et ne peut pas être configuré pour exclure des sous-ensembles de données. C'est un peu comme une photo de Mealie à un instant précis. Actuellement, {not-crossed-version} (les migrations de données ne sont pas effectuées automatiquement). Il s'agit d'un moyen indépendant de la base de données pour exporter et importer des données ou de sauvegarder le site vers un emplacement externe.",
+      "not-crossed-version": "ce mécanisme de sauvegarde dépend de -a version de Mealie et ne peut donc pas être utilisé pour migrer des données entre les versions",
+      "backup-restore": "Restaurer la sauvegarde",
+      "back-restore-description": "La restauration de cette sauvegarde écrasera toutes les données actuelles dans votre base de données et dans le répertoire de données et les remplacera par le contenu de cette sauvegarde. {cannot-be-undone} Si la restauration est réussie, vous serez déconnecté.",
+      "cannot-be-undone": "Cette action ne peut pas être annulée - à utiliser avec prudence.",
+      "postgresql-note": "Si vous utilisez PostGreSQL, veuillez consulter le {backup-restore-process} avant de le restaurer.",
+      "backup-restore-process-in-the-documentation": "processus de sauvegarde/restauration dans la documentation",
+      "irreversible-acknowledgment": "Je comprends que cette action est irréversible, destructrice et peut entraîner une perte de données",
+      "restore-backup": "Restaurer une sauvegarde"
     },
     "backup-and-exports": "Sauvegardes",
     "change-password": "Modifier le mot de passe",
@@ -585,7 +627,9 @@
       "api-tokens": "Jetons de l’API",
       "copy-this-token-for-use-with-an-external-application-this-token-will-not-be-viewable-again": "Copiez ce jeton pour l’utiliser avec une application externe. Ce jeton ne sera plus consultable.",
       "create-an-api-token": "Créer un jeton API",
-      "token-name": "Nom du jeton"
+      "token-name": "Nom du jeton",
+      "generate": "Générer",
+      "you-have-token-count": "Vous n'avez aucun jeton actif.|Vous avez un jeton actif.|Vous avez {count} jetons actifs."
     },
     "toolbox": {
       "assign-all": "Assigner tout",
@@ -604,8 +648,39 @@
       "webhook-url": "Lien du webhook",
       "webhooks-caps": "WEBHOOKS",
       "webhooks": "Webhooks",
-      "webhook-name": "Nom du Webhook"
-    }
+      "webhook-name": "Nom du Webhook",
+      "description": "Les webhooks définis ci-dessous seront exécutés lorsqu'un repas est défini pour la journée. À l'heure prévue, les webhooks seront envoyés avec les données de la recette qui est prévue pour la journée. Notez que l'exécution du webhook n'est pas exacte. Les webhooks sont exécutés à un intervalle de 5 minutes."
+    },
+    "bug-report": "Signaler un bug",
+    "bug-report-information": "Utilisez ces informations pour signaler un bug. Fournir des détails sur votre instance aux développeurs est la meilleure façon de résoudre rapidement vos problèmes.",
+    "tracker": "Gestionnaire d'anomalie",
+    "configuration": "Paramètres",
+    "docker-volume": "Volume Docker",
+    "docker-volume-help": "Mealie exige que le conteneur frontend et le backend partagent le même volume docker ou le même stockage. Cela garantit que le conteneur frontend peut accéder correctement aux images et aux ressources stockées sur le disque.",
+    "volumes-are-misconfigured": "Les volumes sont mal configurés",
+    "volumes-are-configured-correctly": "Les volumes sont configurés correctement.",
+    "status-unknown-try-running-a-validation": "Statut inconnu. Essayez de lancer une validation.",
+    "validate": "Valider",
+    "email-configuration-status": "État de la configuration e-mail",
+    "ready": "Prêt",
+    "not-ready": "Pas prêt - Vérifier les variables d'environnement",
+    "succeeded": "Réussite",
+    "failed": "Échec",
+    "general-about": "À propos",
+    "application-version": "Version de l’application",
+    "application-version-error-text": "Votre version actuelle ({0}) ne correspond pas à la dernière version. Pensez à mettre à jour vers la dernière version ({1}).",
+    "mealie-is-up-to-date": "Mealie est à jour",
+    "secure-site": "Site sécurisé",
+    "secure-site-error-text": "Accéder via localhost ou sécurisez avec https. Le presse-papier et les API supplémentaires du navigateur peuvent ne pas fonctionner.",
+    "secure-site-success-text": "Le site est accédé par localhost ou https",
+    "server-side-base-url": "URL de base côté serveur",
+    "server-side-base-url-error-text": "`BASE_URL` est encore la valeur par défaut sur le serveur API. Cela causera des problèmes avec les liens générés par les notifications sur le serveur pour les e-mails, etc.",
+    "server-side-base-url-success-text": "L'URL du côté du serveur ne correspond pas à celle par défaut",
+    "ldap-ready": "Prêt pour LDAP",
+    "ldap-ready-error-text": "Toutes les valeurs LDAP ne sont pas configurées. Vous pouvez ignorer cet avertissement si vous n'utilisez pas l'authentification LDAP.",
+    "ldap-ready-success-text": "Les variables LDAP obligatoires sont toutes définies.",
+    "build": "Build",
+    "recipe-scraper-version": "Version du Scraper de recette"
   },
   "shopping-list": {
     "all-lists": "Toutes les listes",
@@ -706,7 +781,7 @@
     "error-cannot-delete-super-user": "Erreur ! Impossible de supprimer le super utilisateur",
     "existing-password-does-not-match": "Le mot de passe actuel ne correspond pas",
     "full-name": "Nom",
-    "generate-password-reset-link": "Generate Password Reset Link",
+    "generate-password-reset-link": "Générer un lien de réinitialisation de mot de passe",
     "invite-only": "Invités uniquement",
     "link-id": "ID du lien",
     "link-name": "Nom du lien",
@@ -759,7 +834,20 @@
       "good": "Satisfaisant",
       "strong": "Fort",
       "very-strong": "Très fort"
-    }
+    },
+    "user-management": "Gestion des utilisateurs",
+    "reset-locked-users": "Réinitialiser les utilisateurs verrouillés",
+    "admin-user-creation": "Création d'un utilisateur admin",
+    "user-details": "Détails de l'utilisateur",
+    "user-name": "Nom d'utilisateur",
+    "authentication-method": "Méthode d'authentification",
+    "authentication-method-hint": "Ceci infique comment un utilisateur va s'authentifier sur Mealie. Si vous n'êtes pas sûr, choisissez 'Mealie'",
+    "permissions": "Autorisations",
+    "administrator": "Administrateur",
+    "user-can-invite-other-to-group": "L'utilisateur peut inviter quelqu'un au groupe",
+    "user-can-manage-group": "L'utilisateur peut gérer le groupe",
+    "user-can-organize-group-data": "L'utilisateur peut organiser des données de groupe",
+    "enable-advanced-features": "Activer les fonctions avancées"
   },
   "language-dialog": {
     "translated": "traduit",
@@ -811,7 +899,7 @@
       "confirm-delete-recipes": "Voulez-vous vraiment supprimer les recettes suivantes ? Cette action ne peut pas être annulée.",
       "the-following-recipes-selected-length-will-be-exported": "Les recettes suivantes ({0}) seront exportées.",
       "settings-chosen-explanation": "Les paramètres choisis ici, à l'exception de l'option de verrouillage, seront appliqués à toutes les recettes sélectionnées.",
-      "selected-length-recipe-s-settings-will-be-updated": "Les paramètres de {0} recettes(s) seront mis à jour.",
+      "selected-length-recipe-s-settings-will-be-updated": "Les paramètres de {count} recette(s) seront mis à jour.",
       "recipe-data": "Données de la recette",
       "recipe-data-description": "Utilisez cette section pour gérer les données associées à vos recettes. Vous pouvez effectuer plusieurs actions en masse sur vos recettes, y compris l'exportation, la suppression et l'assignation de mots-clés et de catégories.",
       "recipe-columns": "Colonnes de recettes",
@@ -832,7 +920,8 @@
     "data-management-description": "Sélectionnez le type de données que vous souhaitez modifier.",
     "select-data": "Sélectionner les données",
     "select-language": "Sélectionnez une langue",
-    "columns": "Colonnes"
+    "columns": "Colonnes",
+    "combine": "Combiner"
   },
   "user-registration": {
     "user-registration": "Inscription d’utilisateur",
@@ -848,7 +937,8 @@
   "validation": {
     "group-name-is-taken": "Le nom du groupe est déjà pris",
     "username-is-taken": "Nom d’utilisateur déjà utilisé",
-    "email-is-taken": "Cet e-mail est déjà pris"
+    "email-is-taken": "Cet e-mail est déjà pris",
+    "this-field-is-required": "Ce champ est obligatoire"
   },
   "export": {
     "export": "Exporter",
@@ -943,7 +1033,21 @@
     },
     "mainentance": {
       "actions-title": "Actions"
-    }
+    },
+    "ingredients-natural-language-processor": "Traitement du Langage Naturel pour les ingrédients",
+    "ingredients-natural-language-processor-explanation": "Mealie utilise des champs aléatoires conditionnels (CRF) pour l'analyse et le traitement des ingrédients. Le modèle utilisé pour les ingrédients est basé sur un ensemble de données de plus de 100 000 ingrédients provenant d'un jeu de données compilé par le New York Times. Notez que le modèle étant formé en anglais uniquement, vous pouvez avoir des résultats différents lorsque vous utilisez le modèle dans d'autres langues. Cette page est un terrain de jeu pour tester le modèle.",
+    "ingredients-natural-language-processor-explanation-2": "Ce n'est pas parfait, mais cela donne de bons résultats en général et est un bon point de départ pour décomposer manuellement les ingrédients dans des champs individuels. Alternativement, vous pouvez également utiliser le processeur « Brut » qui utilise une technique de correspondance (patterns) pour identifier les ingrédients.",
+    "nlp": "NLP",
+    "brute": "Brut",
+    "show-individual-confidence": "Afficher la confiance individuelle",
+    "ingredient-text": "Texte de l'ingrédient",
+    "average-confident": "Confiant à {0}",
+    "try-an-example": "Essayez avec un exemple",
+    "parser": "Parser",
+    "background-tasks": "Tâches en arrière plan",
+    "background-tasks-description": "Ici vous pouvez voir toutes les tâches en arrière-plan en cours et leur statut",
+    "no-logs-found": "Pas de journaux trouvés",
+    "tasks": "Tâches"
   },
   "profile": {
     "welcome-user": "👋 Bienvenue, {0}",
@@ -979,7 +1083,14 @@
     "preferences": "Préférences",
     "show-advanced-description": "Afficher les fonctionnalités avancées (clés API, Webhooks, et gestion des données)",
     "back-to-profile": "Retour au profil",
-    "looking-for-privacy-settings": "Vous cherchez les paramètres de confidentialité ?"
+    "looking-for-privacy-settings": "Vous cherchez les paramètres de confidentialité ?",
+    "manage-your-api-tokens": "Gérer vos jetons API",
+    "manage-user-profile": "Gérer le profil utilisateur",
+    "manage-cookbooks": "Gérer les livres de recettes",
+    "manage-members": "Gérer les membres",
+    "manage-webhooks": "Gérer les webhooks",
+    "manage-notifiers": "Gérer les notifications",
+    "manage-data-migrations": "Gérer les migrations de données"
   },
   "cookbook": {
     "cookbooks": "Livres de recettes",
