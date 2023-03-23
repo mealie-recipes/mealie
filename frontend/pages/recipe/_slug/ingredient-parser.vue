@@ -219,7 +219,8 @@ export default defineComponent({
         return false;
       }
       if (units.value && unit?.name) {
-        return units.value.some((u) => u.name === unit.name);
+        const lower = unit.name.toLowerCase();
+        return units.value.some((u) => u.name.toLowerCase() === lower);
       }
       return false;
     }
@@ -229,7 +230,8 @@ export default defineComponent({
         return false;
       }
       if (foodStore.foods.value && food?.name) {
-        return foodStore.foods.value.some((f) => f.name === food.name);
+        const lower = food.name.toLowerCase();
+        return foodStore.foods.value.some((f) => f.name.toLowerCase() === lower);
       }
       return false;
     }
@@ -246,7 +248,7 @@ export default defineComponent({
     }
 
     // =========================================================
-    // Save All Loginc
+    // Save All Logic
     async function saveAll() {
       let ingredients = parsedIng.value.map((ing) => {
         return {
@@ -260,10 +262,12 @@ export default defineComponent({
           return ing;
         }
         // Get food from foods
-        ing.food = foodStore.foods.value.find((f) => f.name === ing.food?.name);
+        const lowerFood = ing.food?.name?.toLowerCase();
+        ing.food = foodStore.foods.value.find((f) => f.name.toLowerCase() === lowerFood);
 
         // Get unit from units
-        ing.unit = units.value.find((u) => u.name === ing.unit?.name);
+        const lowerUnit = ing.unit?.name?.toLowerCase();
+        ing.unit = units.value.find((u) => u.name.toLowerCase() === lowerUnit);
         return ing;
       });
 

@@ -147,7 +147,7 @@
                               event: 'merge-above',
                             },
                             {
-                              text: 'Upload image',
+                              text: $tc('recipe.upload-image'),
                               event: 'upload-image'
                             },
                             {

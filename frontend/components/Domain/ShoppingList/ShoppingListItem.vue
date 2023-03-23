@@ -38,7 +38,7 @@
               </v-list-item>
             </v-list>
           </v-menu>
-          <v-btn small class="ml-2 handle" icon @click="toggleEdit(true)">
+          <v-btn small class="ml-2" icon @click="toggleEdit(true)">
             <v-icon>
               {{ $globals.icons.edit }}
             </v-icon>
