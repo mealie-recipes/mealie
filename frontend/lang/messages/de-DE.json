@@ -558,13 +558,13 @@
       "unable-to-delete-backup": "Sicherung kann nicht gelöscht werden.",
       "experimental-description": "Backups a total snapshots of the database and data directory of the site. This includes all data and cannot be set to exclude subsets of data. You can think off this as a snapshot of Mealie at a specific time. Currently, {not-crossed-version} (data migrations are not done automatically). These serve as a database agnostic way to export and import data or backup the site to an external location.",
       "not-crossed-version": "this backup mechanism is not cross-version and therefore cannot be used to migrate data between versions",
-      "backup-restore": "Backup Restore",
+      "backup-restore": "Wiederherstellen aus Sicherung",
       "back-restore-description": "Restoring this backup will overwrite all the current data in your database and in the data directory and replace them with the contents of this backup. {cannot-be-undone} If the restoration is successful, you will be logged out.",
       "cannot-be-undone": "This action cannot be undone - use with caution.",
       "postgresql-note": "If you are using PostGreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "backup/restore process in the documentation",
       "irreversible-acknowledgment": "I understand that this action is irreversible, destructive and may cause data loss",
-      "restore-backup": "Restore Backup"
+      "restore-backup": "Sicherung wiederherstellen"
     },
     "backup-and-exports": "Sicherungen",
     "change-password": "Passwort ändern",
@@ -628,7 +628,7 @@
       "copy-this-token-for-use-with-an-external-application-this-token-will-not-be-viewable-again": "Kopiere dieses Token für die Verwendung mit einer externen Anwendung. Dieses Token wird nicht mehr sichtbar sein.",
       "create-an-api-token": "Erstelle ein API-Token",
       "token-name": "Token-Name",
-      "generate": "Generate",
+      "generate": "Erzeugen",
       "you-have-token-count": "Du hast keine aktiven Token.|Du hast einen aktiven Token.|Du hast {count} aktive Token."
     },
     "toolbox": {
