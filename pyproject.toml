@@ -71,6 +71,9 @@ requires = ["poetry-core>=1.0.0"]
 line-length = 120
 target-version = ["py310"]
 
+[tool.isort]
+line_length = 120
+
 [tool.vulture]
 exclude = ["**/models/**/*.py", "dir/"]
 ignore_decorators = ["@*router.*", "@app.on_event", "@validator", "@controller"]
