@@ -915,7 +915,7 @@
       "source-unit-will-be-deleted": "Broneenheid zal worden verwijderd"
     },
     "seed-data": "Voorbeeldgegevens",
-    "seed": "Seed",
+    "seed": "Vul",
     "data-management": "Gegevensbeheer",
     "data-management-description": "Selecteer in welke gegevensset je wijzigingen wilt aanbrengen.",
     "select-data": "Selecteer gegevens",
@@ -1098,7 +1098,7 @@
     "public-cookbook": "Openbaar kookboek",
     "public-cookbook-description": "Openbare kookboeken kunnen worden gedeeld met niet-mealie-gebruikers en zullen worden weergegeven op jouw groepspagina.",
     "filter-options": "Filteropties",
-    "filter-options-description": "When require all is selected the cookbook will only include recipes that have all of the items selected. This applies to each subset of selectors and not a cross section of the selected items.",
+    "filter-options-description": "Wanneer \"Vereis alle\" geselecteerd is, zal het kookboek alleen recepten bevatten die alle items geselecteerd hebben. Dit geldt voor elke subset van selectors en niet voor een kruissectie van de geselecteerde items.",
     "require-all-categories": "Vereis alle categorieën",
     "require-all-tags": "Vereis alle tags",
     "require-all-tools": "Vereis al het kookgerei",
