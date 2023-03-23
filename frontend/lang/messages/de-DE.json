@@ -56,7 +56,7 @@
     "event-delete-confirmation": "Bist du dir sicher, dass du dieses Ereignis löschen möchtest?",
     "event-deleted": "Ereignis gelöscht",
     "event-updated": "Ereignis aktualisiert",
-    "new-notification-form-description": "Mealie verwendet die Apprise-Bibliothek, um Benachrichtigungen zu erzeugen. Sie bietet viele Optionen für Dienste an, die für Benachrichtigungen genutzt werden können. Werfe einen Blick in ihr Wiki für eine umfassende Anleitung zum Erstellen der URL für Ihren Dienst. Falls verfügbar, kann die Auswahl des Benachrichtigungstyps zusätzliche Funktionen enthalten.",
+    "new-notification-form-description": "Mealie verwendet die Apprise-Bibliothek, um Benachrichtigungen zu erzeugen. Sie bietet viele Dienste, die für Benachrichtigungen genutzt werden können. Wirf einen Blick in deren Wiki für eine ausführliche Anleitung zum Erstellen einer URL für deinen Dienst. Einige Benachrichtigungstypen können zusätzliche Funktionen enthalten.",
     "new-version": "Neue Version verfügbar!",
     "notification": "Benachrichtigung",
     "refresh": "Aktualisieren",
@@ -846,7 +846,7 @@
     "administrator": "Administrator",
     "user-can-invite-other-to-group": "Benutzer kann andere in Gruppe einladen",
     "user-can-manage-group": "Benutzer kann Gruppe verwalten",
-    "user-can-organize-group-data": "Benutzer kann Gruppendaten verwalten",
+    "user-can-organize-group-data": "Benutzer kann Gruppendaten bearbeiten",
     "enable-advanced-features": "Erweiterte Funktionen aktivieren"
   },
   "language-dialog": {
