@@ -32,6 +32,7 @@
         <v-autocomplete
           v-model="value.unit"
           :search-input.sync="unitSearch"
+          auto-select-first
           hide-details
           dense
           solo
@@ -59,6 +60,7 @@
         <v-autocomplete
           v-model="value.food"
           :search-input.sync="foodSearch"
+          auto-select-first
           hide-details
           dense
           solo
@@ -99,19 +101,7 @@
             hover
             :large="false"
             class="my-auto"
-            :buttons="[
-              {
-                icon: $globals.icons.delete,
-                text: $tc('general.delete'),
-                event: 'delete',
-              },
-              {
-                icon: $globals.icons.dotsVertical,
-                text: $tc('general.menu'),
-                event: 'open',
-                children: contextMenuOptions,
-              },
-            ]"
+            :buttons="btns"
             @toggle-section="toggleTitle"
             @toggle-original="toggleOriginalText"
             @delete="$emit('delete')"
@@ -144,8 +134,56 @@ export default defineComponent({
       default: false,
     },
   },
-  setup(props) {
-    const { i18n } = useContext();
+  setup(props, { listeners }) {
+    const { i18n, $globals } = useContext();
+
+    const contextMenuOptions = computed(() => {
+      const options = [
+        {
+          text: i18n.tc("recipe.toggle-section"),
+          event: "toggle-section",
+        },
+      ];
+
+      // FUTURE: add option to parse a single ingredient
+      // if (!value.food && !value.unit && value.note) {
+      //   options.push({
+      //     text: "Parse Ingredient",
+      //     event: "parse-ingredient",
+      //   });
+      // }
+
+      if (props.value.originalText) {
+        options.push({
+          text: i18n.tc("recipe.see-original-text"),
+          event: "toggle-original",
+        });
+      }
+
+      return options;
+    });
+
+    const btns = computed(() => {
+      const out = [
+        {
+          icon: $globals.icons.dotsVertical,
+          text: i18n.tc("general.menu"),
+          event: "open",
+          children: contextMenuOptions.value,
+        },
+      ];
+
+      if (listeners && listeners.delete) {
+        // @ts-expect-error - TODO: fix this
+        out.unshift({
+          icon: $globals.icons.delete,
+          text: i18n.tc("general.delete"),
+          event: "delete",
+        });
+      }
+
+      return out;
+    });
 
     // ==================================================
     // Foods
@@ -209,32 +247,6 @@ export default defineComponent({
       }
     }
 
-    const contextMenuOptions = computed(() => {
-      const options = [
-        {
-          text: i18n.t("recipe.toggle-section") as string,
-          event: "toggle-section",
-        },
-      ];
-
-      // FUTURE: add option to parse a single ingredient
-      // if (!value.food && !value.unit && value.note) {
-      //   options.push({
-      //     text: "Parse Ingredient",
-      //     event: "parse-ingredient",
-      //   });
-      // }
-
-      if (props.value.originalText) {
-        options.push({
-          text: i18n.t("recipe.see-original-text") as string,
-          event: "toggle-original",
-        });
-      }
-
-      return options;
-    });
-
     function quantityFilter(e: KeyboardEvent) {
       // if digit is pressed, add to quantity
       if (e.key === "-" || e.key === "+" || e.key === "e") {
@@ -259,6 +271,7 @@ export default defineComponent({
       unitSearch,
       validators,
       workingUnitData: unitsData.data,
+      btns,
     };
   },
 });
