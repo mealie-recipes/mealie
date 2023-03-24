@@ -206,7 +206,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, reactive, ref, watch } from "@nuxtjs/composition-api";
+import { defineComponent, computed, reactive, ref, watch, onMounted } from "@nuxtjs/composition-api";
 import { format } from "date-fns";
 import { SortableEvent } from "sortablejs";
 import draggable from "vuedraggable";
@@ -332,8 +332,11 @@ export default defineComponent({
     // Search
 
     const search = useRecipeSearch(api);
-
     const planTypeOptions = usePlanTypeOptions();
+    
+    onMounted(async () => {
+      await search.trigger();
+    });
 
     return {
       state,

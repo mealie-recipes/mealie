@@ -8,6 +8,7 @@ export interface UseRecipeSearchReturn {
   error: Ref<string>;
   loading: Ref<boolean>;
   data: Ref<Recipe[]>;
+  trigger(): Promise<void>;
 }
 
 /**
@@ -40,7 +41,7 @@ export function useRecipeSearch(api: UserApi): UseRecipeSearchReturn {
     }
 
     if (data) {
-      recipes.value= data.items;
+      recipes.value = data.items;
     }
 
     loading.value = false;
@@ -54,11 +55,15 @@ export function useRecipeSearch(api: UserApi): UseRecipeSearchReturn {
     { debounce: 500 }
   );
 
+  async function trigger() {
+    await searchRecipes(query.value);
+  }
 
   return {
     query,
     error,
     loading,
     data: recipes,
-  }
+    trigger,
+  };
 }
