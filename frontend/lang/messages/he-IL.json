@@ -860,8 +860,8 @@
     "foods": {
       "merge-dialog-text": "צירוף של המאכלים שנבחרו יאחד את אוכל המקור ואוכל היעד לפריט אוכל אחד. אוכל המקור ימחק וכל ההפניות / הייחוסים אליו יעודכנו ויופנו לאוכל היעד.",
       "merge-food-example": "ממזג את {food1} לתוך {food2}",
-      "seed-dialog-text": "אכלס את מאגר המידע עם אוכל בהתבסס על השפה המקומית שלך. הפעולה תיצור +200 מאכלים נפוצים שיכולים לשמש לארגון מאגר המידע. מאכלים מתורגמים על ידי מאמצי הקהילה.",
-      "seed-dialog-warning": "מאגר המידע שלך כבר מכיל מספר פריטים. פעולה זו אינה מטפלת בכפילויות, יהיה צורך לפתור זאת באופן ידני.",
+      "seed-dialog-text": "אכלס את מסד הנתונים עם אוכל בהתבסס על השפה המקומית שלך. הפעולה תיצור +200 מאכלים נפוצים שיכולים לשמש לארגון מסד הנתונים. מאכלים מתורגמים על ידי מאמצי הקהילה.",
+      "seed-dialog-warning": "מסד הנתונים שלך כבר מכיל מספר פריטים. פעולה זו אינה מטפלת בכפילויות, יהיה צורך לפתור זאת באופן ידני.",
       "combine-food": "שילוב אוכל",
       "source-food": "אוכל מקור",
       "target-food": "אוכל יעד",
@@ -871,7 +871,7 @@
       "food-data": "נתוני אוכל"
     },
     "units": {
-      "seed-dialog-text": "אכלס את מאגר הנתונים עם יחידות מדידה בהתאם לשפה המקומית שלך.",
+      "seed-dialog-text": "אכלס את מסד הנתונים עם יחידות מדידה בהתאם לשפה המקומית שלך.",
       "combine-unit-description": "צירוף של המאכלים שנבחרו יאחד את אוכל המקור ואוכל היעד לפריט אוכל אחד. {source-unit-will-be-deleted} ימחק וכל ההפניות אליו יעודכנו ויופנו לאוכל היעד.",
       "combine-unit": "שילוב יחידות",
       "source-unit": "יחידת מקור",
@@ -888,7 +888,7 @@
       "fraction": "שבר"
     },
     "labels": {
-      "seed-dialog-text": "אכלס את מאגר הנתונים בתגיות נפוצות בהתאם לשפה המקומית שלך.",
+      "seed-dialog-text": "אכלס את מסד הנתונים בתגיות נפוצות בהתאם לשפה המקומית שלך.",
       "edit-label": "עריכת תווית",
       "new-label": "תוויות חדשה",
       "labels": "תויות"
@@ -990,11 +990,11 @@
       "split-text-mode": "פיצול טקסט",
       "split-modes": {
         "line-mode": "מצב קווי (ברירת מחדל)",
-        "line-mode-desc": "In line mode, the text will be propagated by keeping the original line breaks. This mode is useful when using bulk add on a list of ingredients where one ingredient is one line.",
+        "line-mode-desc": "מצב שורה, המלל ישמור על מבנה השורה המקורי. מצב זה שימושי כאשר מבצעים הוספה של רשימת מרכיבים בה כל מרכיב בשורה משל עצמו.",
         "block-mode": "מצב בלוקים",
-        "block-mode-desc": "In block mode, the text will be split in blocks. This mode is useful when bulk adding instructions that are usually written in paragraphs.",
+        "block-mode-desc": "במצב בלוק, המלל יחולק לפי בלוקים. מצב זה שימושי כאשר מוסיפים בבת אחת מספר שלבי הסבר למתכון אשר רשומים בפיסקאות.",
         "flat-mode": "מצב שטוח",
-        "flat-mode-desc": "In flat mode, the text will be added to the selected recipe field with no line breaks."
+        "flat-mode-desc": "במצב שטוח, המלל יצורף לשדה המתכון המבוקש ללא ירידת שורה."
       }
     }
   },
@@ -1024,7 +1024,7 @@
       "action-clean-temporary-files-description": "מחיקת כל הקבצים והתיקיות בתיקיה הזמנית",
       "action-clean-images-name": "נקה תמונות",
       "action-clean-images-description": "מחיקת כל התמונות שלא מסתיימות ב-.webp",
-      "actions-description": "Maintenance actions are {destructive_in_bold} and should be used with caution. Performing any of these actions is {irreversible_in_bold}.",
+      "actions-description": "פעולות תחזוקה הן {destructive_in_bold} ויש להשתמש בהן בזהירות יתרה. ביצוע אחד מהן הינו {irreversible_in_bold}.",
       "actions-description-destructive": "הרסני",
       "actions-description-irreversible": "בלתי הפיך",
       "logs-action-refresh": "רענן לוגים",
@@ -1034,8 +1034,8 @@
     "mainentance": {
       "actions-title": "פעולות"
     },
-    "ingredients-natural-language-processor": "Ingredients Natural Language Processor",
-    "ingredients-natural-language-processor-explanation": "Mealie uses Conditional Random Fields (CRFs) for parsing and processing ingredients. The model used for ingredients is based off a data set of over 100,000 ingredients from a dataset compiled by the New York Times. Note that as the model is trained in English only, you may have varied results when using the model in other languages. This page is a playground for testing the model.",
+    "ingredients-natural-language-processor": "מעבד שפה טבעי לרכיבים",
+    "ingredients-natural-language-processor-explanation": "מילי עושה שימוש בתנאי שדות רנדומליים (CRFs) עבור ניתוח ועיבוד מרכיבים. שימוש במודל זה עבור מרכיבים מסתמך על נתונים של מעל ל- 100 אלף מרכיבים מרשימה של ה- New York Times. מכיוון שמודל זה אומן בשפה האנגלית בלבד, ייתכן ותחווה תוצאות שונות בשפות אחרות. עמוד זה הוא סביבה לבדיקת המודל.",
     "ingredients-natural-language-processor-explanation-2": "It's not perfect, but it yields great results in general and is a good starting point for manually parsing ingredients into individual fields. Alternatively, you can also use the \"Brute\" processor that uses a pattern matching technique to identify ingredients.",
     "nlp": "NLP",
     "brute": "Brute",
