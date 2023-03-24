@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <RecipeCardSection v-if="user" :icon="$globals.icons.heart" title="User Favorites" :recipes="user.favoriteRecipes">
+    <RecipeCardSection v-if="user" :icon="$globals.icons.heart" :title="$tc('user.user-favorites')" :recipes="user.favoriteRecipes">
     </RecipeCardSection>
   </v-container>
 </template>

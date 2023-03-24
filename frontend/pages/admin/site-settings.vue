@@ -7,17 +7,16 @@
       <template #title> {{ $t("settings.site-settings") }} </template>
     </BasePageTitle>
 
-    <BaseDialog v-model="bugReportDialog" title="Bug Report" :width="800" :icon="$globals.icons.github">
+    <BaseDialog v-model="bugReportDialog" :title="$t('settings.bug-report')" :width="800" :icon="$globals.icons.github">
       <v-card-text>
         <div class="pb-4">
-          Use this information to report a bug. Providing details of your instance to developers is the best way to get
-          your issues resolved quickly.
+          {{ $t('settings.bug-report-information') }}
         </div>
         <v-textarea v-model="bugReportText" outlined rows="18" readonly> </v-textarea>
         <div class="d-flex justify-end" style="gap: 5px">
           <BaseButton color="gray" secondary target="_blank" href="https://github.com/hay-kot/mealie/issues/new/choose">
             <template #icon> {{ $globals.icons.github }}</template>
-            Tracker
+            {{ $t('settings.tracker') }}
           </BaseButton>
           <AppButtonCopy :copy-text="bugReportText" color="info" :icon="false" />
         </div>
@@ -33,12 +32,12 @@
         "
       >
         <template #icon> {{ $globals.icons.github }}</template>
-        Bug Report
+        {{ $t('settings.bug-report') }}
       </BaseButton>
     </div>
 
     <section>
-      <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.cog" title="Configuration"> </BaseCardSectionTitle>
+      <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.cog" :title="$t('settings.configuration')"> </BaseCardSectionTitle>
       <v-card class="mb-4">
         <template v-for="(check, idx) in simpleChecks">
           <v-list-item :key="`list-item-${idx}`">
@@ -62,7 +61,7 @@
     </section>
 
     <section>
-      <BaseCardSectionTitle class="pt-2" :icon="$globals.icons.docker" title="Docker Volume" />
+      <BaseCardSectionTitle class="pt-2" :icon="$globals.icons.docker" :title="$t('settings.docker-volume')" />
       <v-alert
         border="left"
         colored-border
@@ -72,36 +71,35 @@
         :loading="docker.loading"
       >
         <div class="d-flex align-center font-weight-medium">
-          Docker Volume
+          {{ $t('settings.docker-volume') }}
           <HelpIcon small class="my-n3">
-            Mealie requires that the frontend container and the backend share the same docker volume or storage. This
-            ensures that the frontend container can properly access the images and assets stored on disk.
+            {{ $t('settings.docker-volume-help') }}
           </HelpIcon>
         </div>
         <div>
-          <template v-if="docker.state === DockerVolumeState.Error"> Volumes are misconfigured. </template>
+          <template v-if="docker.state === DockerVolumeState.Error"> {{ $t('settings.volumes-are-misconfigured') }}. </template>
           <template v-else-if="docker.state === DockerVolumeState.Success">
-            Volumes are configured correctly.
+            {{ $t('settings.volumes-are-configured-correctly') }}
           </template>
           <template v-else-if="docker.state === DockerVolumeState.Unknown">
-            Status Unknown. Try running a validation.
+            {{ $t('settings.status-unknown-try-running-a-validation') }}
           </template>
         </div>
         <div class="mt-4">
           <BaseButton color="info" :loading="docker.loading" @click="dockerValidate">
             <template #icon> {{ $globals.icons.checkboxMarkedCircle }} </template>
-            Validate
+            {{ $t('settings.validate') }}
           </BaseButton>
         </div>
       </v-alert>
     </section>
 
     <section>
-      <BaseCardSectionTitle class="pt-2" :icon="$globals.icons.email" title="Email" />
+      <BaseCardSectionTitle class="pt-2" :icon="$globals.icons.email" :title="$tc('user.email')" />
       <v-alert border="left" colored-border :type="appConfig.emailReady ? 'success' : 'error'" elevation="2">
-        <div class="font-weight-medium">Email Configuration Status</div>
+        <div class="font-weight-medium">{{ $t('settings.email-configuration-status') }}</div>
         <div>
-          {{ appConfig.emailReady ? "Ready" : "Not Ready - Check Environmental Variables" }}
+          {{ appConfig.emailReady ? $t('settings.ready') : $t('settings.not-ready')  }}
         </div>
         <div>
           <v-text-field v-model="address" class="mr-4" :label="$t('user.email')" :rules="[validators.email]">
@@ -120,7 +118,7 @@
             <v-card-text class="px-0">
               <h4>Email Test Results</h4>
               <span class="pl-4">
-                {{ success ? "Succeeded" : "Failed" }}
+                {{ success ? $t('settings.succeeded') : $t('settings.failed') }}
               </span>
             </v-card-text>
           </template>
@@ -130,7 +128,7 @@
 
     <!-- General App Info -->
     <section class="mt-4">
-      <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.cog" title="General About"> </BaseCardSectionTitle>
+      <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.cog" :title="$t('settings.general-about')"> </BaseCardSectionTitle>
       <v-card class="mb-4">
         <template v-for="(property, idx) in appInfo">
           <v-list-item :key="property.name">
@@ -183,6 +181,7 @@ import {
   useAsync,
   useContext,
 } from "@nuxtjs/composition-api";
+import { TranslateResult } from "vue-i18n";
 import { useAdminApi, useUserApi } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
 import { useAsyncKey } from "~/composables/use-utils";
@@ -195,10 +194,11 @@ enum DockerVolumeState {
 }
 
 interface SimpleCheck {
-  text: string;
+  id: string;
+  text: TranslateResult;
   status: boolean | undefined;
-  successText: string;
-  errorText: string;
+  successText: TranslateResult;
+  errorText: TranslateResult;
   color: string;
   icon: string;
 }
@@ -281,38 +281,43 @@ export default defineComponent({
       const badColor = "error";
       const warningColor = "warning";
 
+
       const data: SimpleCheck[] = [
         {
-          text: "Application Version",
+          id: "application-version",
+          text: i18n.t("settings.application-version"),
           status: appConfig.value.isUpToDate,
-          errorText: `Your current version (${rawAppInfo.value.version}) does not match the latest release. Considering updating to the latest version (${rawAppInfo.value.versionLatest}).`,
-          successText: "Mealie is up to date",
+          errorText: i18n.t("settings.application-version-error-text", [rawAppInfo.value.version, rawAppInfo.value.versionLatest]),
+          successText: i18n.t("settings.mealie-is-up-to-date"),
           color: appConfig.value.isUpToDate ? goodColor : warningColor,
           icon: appConfig.value.isUpToDate ? goodIcon : warningIcon,
         },
         {
-          text: "Secure Site",
+          id: "secure-site",
+          text: i18n.t("settings.secure-site"),
           status: appConfig.value.isSiteSecure,
-          errorText: "Serve via localhost or secure with https. Clipboard and additional browser APIs may not work.",
-          successText: "Site is accessed by localhost or https",
+          errorText: i18n.t("settings.secure-site-error-text"),
+          successText: i18n.t("settings.secure-site-success-text"),
           color: appConfig.value.isSiteSecure ? goodColor : badColor,
           icon: appConfig.value.isSiteSecure ? goodIcon : badIcon,
         },
         {
-          text: "Server Side Base URL",
+          id: "server-side-base-url",
+          text: i18n.t("settings.server-side-base-url"),
           status: appConfig.value.baseUrlSet,
           errorText:
-            "`BASE_URL` is still the default value on API Server. This will cause issues with notifications links generated on the server for emails, etc.",
-          successText: "Server Side URL does not match the default",
+            i18n.t("settings.server-side-base-url-error-text"),
+          successText: i18n.t("settings.server-side-base-url-success-text"),
           color: appConfig.value.baseUrlSet ? goodColor : badColor,
           icon: appConfig.value.baseUrlSet ? goodIcon : badIcon,
         },
         {
-          text: "LDAP Ready",
+          id: "ldap-ready",
+          text: i18n.t("settings.ldap-ready"),
           status: appConfig.value.ldapReady,
           errorText:
-            "Not all LDAP Values are configured. This can be ignored if you are not using LDAP Authentication.",
-          successText: "Required LDAP variables are all set.",
+            i18n.t("settings.ldap-ready-error-text"),
+          successText: i18n.t("settings.ldap-ready-success-text"),
           color: appConfig.value.ldapReady ? goodColor : warningColor,
           icon: appConfig.value.ldapReady ? goodIcon : warningIcon,
         },
@@ -377,7 +382,7 @@ export default defineComponent({
             },
             {
               slot: "build",
-              name: "Build",
+              name: i18n.t("settings.build"),
               icon: $globals.icons.information,
               value: data.buildId,
             },
@@ -418,7 +423,7 @@ export default defineComponent({
             },
             {
               slot: "recipe-scraper",
-              name: "Recipe Scraper Version",
+              name: i18n.t("settings.recipe-scraper-version"),
               icon: $globals.icons.primary,
               value: data.recipeScraperVersion,
             },
@@ -452,17 +457,17 @@ export default defineComponent({
       });
 
       const ignoreChecks: { [key: string]: boolean } = {
-        "Application Version": true,
+        "application-version": true,
       };
 
       text += "\n**Checks**\n";
 
       simpleChecks.value.forEach((item) => {
-        if (ignoreChecks[item.text]) {
+        if (ignoreChecks[item.id]) {
           return;
         }
         const status = item.status ? "Yes" : "No";
-        text += `${item.text}: ${status}\n`;
+        text += `${item.text.toString()}: ${status}\n`;
       });
 
       text += `Email Configured: ${appConfig.value.emailReady ? "Yes" : "No"}\n`;

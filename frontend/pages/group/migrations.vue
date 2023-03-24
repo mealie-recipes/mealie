@@ -9,14 +9,13 @@
           :src="require('~/static/svgs/manage-data-migrations.svg')"
         ></v-img>
       </template>
-      <template #title> Recipe Data Migrations</template>
-      Recipes can be migrated from another supported application to Mealie. This is a great way to get started with
-      Mealie.
+      <template #title> {{ $t('migration.recipe-data-migrations') }}</template>
+      {{ $t('migration.recipe-data-migrations-explanation') }}
     </BasePageTitle>
     <v-container>
       <BaseCardSectionTitle :title="$i18n.tc('migration.new-migration')"> </BaseCardSectionTitle>
       <v-card outlined :loading="loading">
-        <v-card-title> Choose Migration Type </v-card-title>
+        <v-card-title> {{ $t('migration.choose-migration-type') }} </v-card-title>
         <v-card-text v-if="content" class="pb-0">
           <div class="mb-2">
             <BaseOverflowButton v-model="migrationType" mode="model" :items="items" />
@@ -29,7 +28,7 @@
           </v-treeview>
         </v-card-text>
 
-        <v-card-title class="mt-0"> Upload File </v-card-title>
+        <v-card-title class="mt-0"> {{ $t('general.upload-file') }} </v-card-title>
         <v-card-text>
           <AppButtonUpload
             accept=".zip"
@@ -45,7 +44,11 @@
         <v-card-text>
           <v-checkbox v-model="addMigrationTag">
             <template #label>
-              Tag all recipes with <b class="mx-1"> {{ migrationType }} </b> tag
+          <i18n path="migration.tag-all-recipes">
+            <template #tag-name>
+              <b class="mx-1"> {{ migrationType }} </b>
+            </template>
+          </i18n>
             </template>
           </v-checkbox>
         </v-card-text>
@@ -128,7 +131,7 @@ export default defineComponent({
             children: [
               {
                 id: 2,
-                name: "Recipe 1",
+                name: i18n.t("migration.recipe-1"),
                 icon: $globals.icons.folderOutline,
                 children: [
                   { id: 3, name: "recipe.json", icon: $globals.icons.codeJson },
@@ -138,7 +141,7 @@ export default defineComponent({
               },
               {
                 id: 6,
-                name: "Recipe 2",
+                name: i18n.t("migration.recipe-2"),
                 icon: $globals.icons.folderOutline,
                 children: [
                   { id: 7, name: "recipe.json", icon: $globals.icons.codeJson },
@@ -160,7 +163,7 @@ export default defineComponent({
             children: [
               {
                 id: 2,
-                name: "Recipe 1",
+                name: i18n.t("migration.recipe-1"),
                 icon: $globals.icons.folderOutline,
                 children: [
                   { id: 3, name: "recipe.json", icon: $globals.icons.codeJson },
@@ -170,7 +173,7 @@ export default defineComponent({
               },
               {
                 id: 6,
-                name: "Recipe 2",
+                name: i18n.t("migration.recipe-2"),
                 icon: $globals.icons.folderOutline,
                 children: [
                   { id: 7, name: "recipe.json", icon: $globals.icons.codeJson },

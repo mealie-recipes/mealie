@@ -4,15 +4,15 @@
       <template #header>
         <v-img max-height="125" max-width="125" :src="require('~/static/svgs/manage-group-settings.svg')"></v-img>
       </template>
-      <template #title> Admin Group Management </template>
-      Changes to this group will be reflected immediately.
+      <template #title> {{ $t('group.admin-group-management') }} </template>
+      {{ $t('group.admin-group-management-text') }}
     </BasePageTitle>
     <AppToolbar back> </AppToolbar>
-    <v-card-text> Group Id: {{ group.id }} </v-card-text>
+    <v-card-text> {{ $t('group.group-id-value', [group.id]) }} </v-card-text>
     <v-form v-if="!userError" ref="refGroupEditForm" @submit.prevent="handleSubmit">
       <v-card outlined>
         <v-card-text>
-          <v-text-field v-model="group.name" label="Group Name"> </v-text-field>
+          <v-text-field v-model="group.name" :label="$t('group.group-name')"> </v-text-field>
           <GroupPreferencesEditor v-if="group.preferences" v-model="group.preferences" />
         </v-card-text>
       </v-card>

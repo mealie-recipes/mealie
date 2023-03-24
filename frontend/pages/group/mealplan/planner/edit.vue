@@ -137,7 +137,7 @@
                     <v-icon left>
                       {{ $globals.icons.tags }}
                     </v-icon>
-                    {{ mealplan.entryType }}
+                    {{ getEntryTypeText(mealplan.entryType) }}
                   </v-chip>
                 </template>
                 <v-list>
@@ -167,7 +167,7 @@
                 children: [
                   {
                     icon: $globals.icons.diceMultiple,
-                    text: 'Breakfast',
+                    text: $tc('meal-plan.breakfast'),
                     event: 'randomBreakfast',
                   },
                   {
@@ -206,13 +206,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, reactive, ref, watch } from "@nuxtjs/composition-api";
+import { defineComponent, computed, reactive, ref, watch, onMounted } from "@nuxtjs/composition-api";
 import { format } from "date-fns";
 import { SortableEvent } from "sortablejs";
 import draggable from "vuedraggable";
 import { watchDebounced } from "@vueuse/core";
 import { MealsByDate } from "./types";
-import { useMealplans, planTypeOptions } from "~/composables/use-group-mealplan";
+import { useMealplans, usePlanTypeOptions, getEntryTypeText } from "~/composables/use-group-mealplan";
 import RecipeCardImage from "~/components/Domain/Recipe/RecipeCardImage.vue";
 import { PlanEntryType } from "~/lib/api/types/meal-plan";
 import { useUserApi } from "~/composables/api";
@@ -332,11 +332,17 @@ export default defineComponent({
     // Search
 
     const search = useRecipeSearch(api);
+    const planTypeOptions = usePlanTypeOptions();
+    
+    onMounted(async () => {
+      await search.trigger();
+    });
 
     return {
       state,
       onMoveCallback,
       planTypeOptions,
+      getEntryTypeText,
 
       // Dialog
       dialog,

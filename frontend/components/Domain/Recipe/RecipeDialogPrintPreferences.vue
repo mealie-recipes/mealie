@@ -4,6 +4,7 @@
     :icon="$globals.icons.printerSettings"
     :title="$tc('general.print-preferences')"
     width="70%"
+    max-width="816px"
   >
     <div class="pa-6">
       <v-container class="print-config mb-3 pa-0">

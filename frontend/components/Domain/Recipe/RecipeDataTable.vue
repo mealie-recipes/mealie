@@ -17,6 +17,9 @@
         <td colspan="4"></td>
       </tr>
     </template>
+    <template #item.name="{ item }">
+      <a :href="`/recipe/${item.slug}`" style="color: inherit; text-decoration: inherit; " @click="$emit('click')">{{ item.name }}</a>
+    </template>
     <template #item.tags="{ item }">
       <RecipeChip small :items="item.tags" :is-category="false" url-prefix="tags" />
     </template>
@@ -28,9 +31,7 @@
     </template>
     <template #item.userId="{ item }">
       <v-list-item class="justify-start">
-        <v-list-item-avatar>
-          <img src="https://i.pravatar.cc/300" alt="John" />
-        </v-list-item-avatar>
+        <UserAvatar :user-id="item.userId" size="40" />
         <v-list-item-content>
           <v-list-item-title>
             {{ getMember(item.userId) }}
@@ -43,6 +44,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref, useContext } from "@nuxtjs/composition-api";
+import UserAvatar from "../User/UserAvatar.vue";
 import RecipeChip from "./RecipeChips.vue";
 import { Recipe } from "~/lib/api/types/recipe";
 import { useUserApi } from "~/composables/api";
@@ -61,7 +63,7 @@ interface ShowHeaders {
 }
 
 export default defineComponent({
-  components: { RecipeChip },
+  components: { RecipeChip, UserAvatar },
   props: {
     value: {
       type: Array,

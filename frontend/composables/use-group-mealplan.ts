@@ -1,4 +1,4 @@
-import { useAsync, ref, Ref, watch } from "@nuxtjs/composition-api";
+import { useAsync, ref, Ref, watch, useContext } from "@nuxtjs/composition-api";
 import { format } from "date-fns";
 import { useAsyncKey } from "./use-utils";
 import { useUserApi } from "~/composables/api";
@@ -8,14 +8,21 @@ type PlanOption = {
   text: string;
   value: PlanEntryType;
 };
+export function usePlanTypeOptions() {
+  const { i18n } = useContext();
 
-export const planTypeOptions: PlanOption[] = [
-  { text: "Breakfast", value: "breakfast" },
-  { text: "Lunch", value: "lunch" },
-  { text: "Dinner", value: "dinner" },
-  { text: "Side", value: "side" },
-];
+  return [
+    { text: i18n.tc("meal-plan.breakfast"), value: "breakfast" },
+    { text: i18n.tc("meal-plan.lunch"), value: "lunch" },
+    { text: i18n.tc("meal-plan.dinner"), value: "dinner" },
+    { text: i18n.tc("meal-plan.side"), value: "side" },
+  ] as PlanOption[];
+}
 
+export function getEntryTypeText(value: PlanEntryType) {
+  const { i18n } = useContext();
+  return i18n.tc("meal-plan." + value);
+}
 export interface DateRange {
   start: Date;
   end: Date;

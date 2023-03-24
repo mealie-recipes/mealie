@@ -16,24 +16,14 @@
       </v-card-text>
     </BaseDialog>
 
-    <BaseCardSectionTitle title="User Management"> </BaseCardSectionTitle>
+    <BaseCardSectionTitle :title="$tc('user.user-management')"> </BaseCardSectionTitle>
     <section>
       <v-toolbar color="background" flat class="justify-between">
         <BaseButton to="/admin/manage/users/create" class="mr-2">
           {{ $t("general.create") }}
         </BaseButton>
 
-        <BaseOverflowButton
-          mode="event"
-          :items="[
-            {
-              text: 'Reset Locked Users',
-              icon: $globals.icons.lock,
-              event: 'unlock-all-users',
-            },
-          ]"
-          @unlock-all-users="unlockAllUsers"
-        >
+        <BaseOverflowButton mode="event" :items="ACTIONS_OPTIONS" @unlock-all-users="unlockAllUsers">
         </BaseOverflowButton>
       </v-toolbar>
       <v-data-table
@@ -89,13 +79,21 @@ export default defineComponent({
 
     const user = computed(() => $auth.user as UserOut | null);
 
-    const { i18n } = useContext();
+    const { $globals, i18n } = useContext();
 
     const router = useRouter();
 
     const isUserOwnAccount = computed(() => {
       return state.deleteTargetId === user.value?.id;
     });
+
+    const ACTIONS_OPTIONS = [
+      {
+        text: i18n.t("user.reset-locked-users"),
+        icon: $globals.icons.lock,
+        event: "unlock-all-users",
+      },
+    ];
 
     const state = reactive({
       deleteDialog: false,
@@ -158,6 +156,7 @@ export default defineComponent({
       users,
       user,
       handleRowClick,
+      ACTIONS_OPTIONS,
     };
   },
   head() {
