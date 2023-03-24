@@ -59,9 +59,9 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
     if settings.LDAP_TLS_INSECURE:
         ldap.set_option(ldap.OPT_X_TLS_REQUIRE_CERT, ldap.OPT_X_TLS_NEVER)
 
-    ldap.set_option(ldap.OPT_REFERRALS, 0)
     ldap.set_option(ldap.OPT_PROTOCOL_VERSION, 3)
     conn = ldap.initialize(settings.LDAP_SERVER_URL)
+    conn.set_option(ldap.OPT_REFERRALS, 0)
 
     if settings.LDAP_TLS_CACERTFILE:
         conn.set_option(ldap.OPT_X_TLS_CACERTFILE, settings.LDAP_TLS_CACERTFILE)
@@ -119,7 +119,7 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
 
     # Check the credentials of the user
     try:
-        logger.debug(f"[LDAP] Attempting to bind to {user_dn} with the provided password")
+        logger.debug(f"[LDAP] Attempting to bind to '{user_dn}' with the provided password")
         conn.simple_bind_s(user_dn, password)
     except (ldap.INVALID_CREDENTIALS, ldap.NO_SUCH_OBJECT):
         conn.unbind_s()
