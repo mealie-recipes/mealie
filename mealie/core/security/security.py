@@ -96,6 +96,7 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
 
     user_entry = None
     try:
+        logger.debug(f"[LDAP] Starting search with filter: {search_filter}")
         user_entry = conn.search_s(
             settings.LDAP_BASE_DN,
             ldap.SCOPE_SUBTREE,
@@ -111,16 +112,18 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
         return False
 
     if len(user_entry) > 1:
-        conn.unbind_s()
-        logger.error("[LDAP] Multiple users found with the provided user filter")
-        return False
+        logger.warning("[LDAP] Multiple users found with the provided user filter. Using the first one")
+        logger.debug(f"[LDAP] The following users were returned: {user_entry}")
 
     user_dn, user_attr = user_entry[0]
 
     # Check the credentials of the user
     try:
+        logger.debug(f"[LDAP] Attempting to bind to {user_dn} with the provided password")
         conn.simple_bind_s(user_dn, password)
     except (ldap.INVALID_CREDENTIALS, ldap.NO_SUCH_OBJECT):
+        conn.unbind_s()
+        logger.debug("[LDAP] Bind failed")
         return False
 
     # Check for existing user
@@ -129,6 +132,7 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
         user = db.users.get_one(username, "username", any_case=True)
 
     if user is None:
+        logger.debug("[LDAP] User is not in Mealie. Creating a new account")
         try:
             user_id = user_attr[settings.LDAP_ID_ATTRIBUTE][0].decode("utf-8")
             full_name = user_attr[settings.LDAP_NAME_ATTRIBUTE][0].decode("utf-8")
@@ -150,6 +154,7 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
 
     if settings.LDAP_ADMIN_FILTER:
         user.admin = len(conn.search_s(user_dn, ldap.SCOPE_BASE, settings.LDAP_ADMIN_FILTER, [])) > 0
+        logger.debug("[LDAP] Setting user as admin")
         db.users.update(user.id, user)
 
     conn.unbind_s()
