@@ -4,11 +4,19 @@ from datetime import datetime
 from fractions import Fraction
 
 from pydantic import UUID4, validator
-from pydantic.utils import GetterDict
+from sqlalchemy.orm import joinedload, selectinload
+from sqlalchemy.orm.interfaces import LoaderOption
 
-from mealie.db.models.group.shopping_list import ShoppingList, ShoppingListItem
+from mealie.db.models.group import (
+    ShoppingList,
+    ShoppingListItem,
+    ShoppingListMultiPurposeLabel,
+    ShoppingListRecipeReference,
+)
+from mealie.db.models.recipe import IngredientFoodModel, RecipeModel
 from mealie.schema._mealie import MealieModel
 from mealie.schema._mealie.types import NoneFloat
+from mealie.schema.getter_dict import ExtrasGetterDict
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary
 from mealie.schema.recipe.recipe import RecipeSummary
 from mealie.schema.recipe.recipe_ingredient import (
@@ -171,13 +179,18 @@ class ShoppingListItemOut(ShoppingListItemBase):
 
     class Config:
         orm_mode = True
+        getter_dict = ExtrasGetterDict
 
-        @classmethod
-        def getter_dict(cls, name_orm: ShoppingListItem):
-            return {
-                **GetterDict(name_orm),
-                "extras": {x.key_name: x.value for x in name_orm.extras},
-            }
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [
+            selectinload(ShoppingListItem.extras),
+            selectinload(ShoppingListItem.food).joinedload(IngredientFoodModel.extras),
+            selectinload(ShoppingListItem.food).joinedload(IngredientFoodModel.label),
+            joinedload(ShoppingListItem.label),
+            joinedload(ShoppingListItem.unit),
+            selectinload(ShoppingListItem.recipe_references),
+        ]
 
 
 class ShoppingListItemsCollectionOut(MealieModel):
@@ -204,6 +217,10 @@ class ShoppingListMultiPurposeLabelOut(ShoppingListMultiPurposeLabelUpdate):
     class Config:
         orm_mode = True
 
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [joinedload(ShoppingListMultiPurposeLabel.label)]
+
 
 class ShoppingListItemPagination(PaginationBase):
     items: list[ShoppingListItemOut]
@@ -229,6 +246,14 @@ class ShoppingListRecipeRefOut(MealieModel):
     class Config:
         orm_mode = True
 
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [
+            selectinload(ShoppingListRecipeReference.recipe).joinedload(RecipeModel.recipe_category),
+            selectinload(ShoppingListRecipeReference.recipe).joinedload(RecipeModel.tags),
+            selectinload(ShoppingListRecipeReference.recipe).joinedload(RecipeModel.tools),
+        ]
+
 
 class ShoppingListSave(ShoppingListCreate):
     group_id: UUID4
@@ -241,13 +266,23 @@ class ShoppingListSummary(ShoppingListSave):
 
     class Config:
         orm_mode = True
+        getter_dict = ExtrasGetterDict
 
-        @classmethod
-        def getter_dict(cls, name_orm: ShoppingList):
-            return {
-                **GetterDict(name_orm),
-                "extras": {x.key_name: x.value for x in name_orm.extras},
-            }
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [
+            selectinload(ShoppingList.extras),
+            selectinload(ShoppingList.recipe_references)
+            .joinedload(ShoppingListRecipeReference.recipe)
+            .joinedload(RecipeModel.recipe_category),
+            selectinload(ShoppingList.recipe_references)
+            .joinedload(ShoppingListRecipeReference.recipe)
+            .joinedload(RecipeModel.tags),
+            selectinload(ShoppingList.recipe_references)
+            .joinedload(ShoppingListRecipeReference.recipe)
+            .joinedload(RecipeModel.tools),
+            selectinload(ShoppingList.label_settings).joinedload(ShoppingListMultiPurposeLabel.label),
+        ]
 
 
 class ShoppingListPagination(PaginationBase):
@@ -265,13 +300,33 @@ class ShoppingListOut(ShoppingListUpdate):
 
     class Config:
         orm_mode = True
+        getter_dict = ExtrasGetterDict
 
-        @classmethod
-        def getter_dict(cls, name_orm: ShoppingList):
-            return {
-                **GetterDict(name_orm),
-                "extras": {x.key_name: x.value for x in name_orm.extras},
-            }
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [
+            selectinload(ShoppingList.extras),
+            selectinload(ShoppingList.list_items).joinedload(ShoppingListItem.extras),
+            selectinload(ShoppingList.list_items)
+            .joinedload(ShoppingListItem.food)
+            .joinedload(IngredientFoodModel.extras),
+            selectinload(ShoppingList.list_items)
+            .joinedload(ShoppingListItem.food)
+            .joinedload(IngredientFoodModel.label),
+            selectinload(ShoppingList.list_items).joinedload(ShoppingListItem.label),
+            selectinload(ShoppingList.list_items).joinedload(ShoppingListItem.unit),
+            selectinload(ShoppingList.list_items).joinedload(ShoppingListItem.recipe_references),
+            selectinload(ShoppingList.recipe_references)
+            .joinedload(ShoppingListRecipeReference.recipe)
+            .joinedload(RecipeModel.recipe_category),
+            selectinload(ShoppingList.recipe_references)
+            .joinedload(ShoppingListRecipeReference.recipe)
+            .joinedload(RecipeModel.tags),
+            selectinload(ShoppingList.recipe_references)
+            .joinedload(ShoppingListRecipeReference.recipe)
+            .joinedload(RecipeModel.tools),
+            selectinload(ShoppingList.label_settings).joinedload(ShoppingListMultiPurposeLabel.label),
+        ]
 
 
 class ShoppingListAddRecipeParams(MealieModel):

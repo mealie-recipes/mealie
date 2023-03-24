@@ -2,14 +2,16 @@ from __future__ import annotations
 
 import datetime
 import enum
-from typing import Any
 from uuid import UUID, uuid4
 
 from pydantic import UUID4, Field, validator
-from pydantic.utils import GetterDict
+from sqlalchemy.orm import joinedload
+from sqlalchemy.orm.interfaces import LoaderOption
 
+from mealie.db.models.recipe import IngredientFoodModel
 from mealie.schema._mealie import MealieModel
 from mealie.schema._mealie.types import NoneFloat
+from mealie.schema.getter_dict import ExtrasGetterDict
 from mealie.schema.response.pagination import PaginationBase
 
 INGREDIENT_QTY_PRECISION = 3
@@ -37,19 +39,12 @@ class IngredientFood(CreateIngredientFood):
     update_at: datetime.datetime | None
 
     class Config:
-        class _FoodGetter(GetterDict):
-            def get(self, key: Any, default: Any = None) -> Any:
-                # Transform extras into key-value dict
-                if key == "extras":
-                    value = super().get(key, default)
-                    return {x.key_name: x.value for x in value}
-
-                # Keep all other fields as they are
-                else:
-                    return super().get(key, default)
-
         orm_mode = True
-        getter_dict = _FoodGetter
+        getter_dict = ExtrasGetterDict
+
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [joinedload(IngredientFoodModel.extras), joinedload(IngredientFoodModel.label)]
 
 
 class IngredientFoodPagination(PaginationBase):

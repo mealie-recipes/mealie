@@ -1,6 +1,10 @@
 from pydantic import UUID4
+from sqlalchemy.orm import selectinload
+from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.schema._mealie import MealieModel
+
+from ...db.models.recipe import RecipeModel, Tool
 
 
 class RecipeToolCreate(MealieModel):
@@ -21,12 +25,20 @@ class RecipeToolOut(RecipeToolCreate):
 
 
 class RecipeToolResponse(RecipeToolOut):
-    recipes: list["Recipe"] = []
+    recipes: list["RecipeSummary"] = []
 
     class Config:
         orm_mode = True
 
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [
+            selectinload(Tool.recipes).joinedload(RecipeModel.recipe_category),
+            selectinload(Tool.recipes).joinedload(RecipeModel.tags),
+            selectinload(Tool.recipes).joinedload(RecipeModel.tools),
+        ]
 
-from .recipe import Recipe  # noqa: E402
+
+from .recipe import RecipeSummary  # noqa: E402
 
 RecipeToolResponse.update_forward_refs()

@@ -17,7 +17,7 @@ from .api_extras import ApiExtras, api_extras
 from .assets import RecipeAsset
 from .category import recipes_to_categories
 from .comment import RecipeComment
-from .ingredient import RecipeIngredient
+from .ingredient import RecipeIngredientModel
 from .instruction import RecipeInstruction
 from .note import Note
 from .nutrition import Nutrition
@@ -77,10 +77,10 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     )
     tools: Mapped[list["Tool"]] = orm.relationship("Tool", secondary=recipes_to_tools, back_populates="recipes")
 
-    recipe_ingredient: Mapped[list[RecipeIngredient]] = orm.relationship(
-        "RecipeIngredient",
+    recipe_ingredient: Mapped[list[RecipeIngredientModel]] = orm.relationship(
+        "RecipeIngredientModel",
         cascade="all, delete-orphan",
-        order_by="RecipeIngredient.position",
+        order_by="RecipeIngredientModel.position",
         collection_class=ordering_list("position"),
     )
     recipe_instructions: Mapped[list[RecipeInstruction]] = orm.relationship(
@@ -173,7 +173,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
             self.recipe_instructions = [RecipeInstruction(**step, session=session) for step in recipe_instructions]
 
         if recipe_ingredient is not None:
-            self.recipe_ingredient = [RecipeIngredient(**ingr, session=session) for ingr in recipe_ingredient]
+            self.recipe_ingredient = [RecipeIngredientModel(**ingr, session=session) for ingr in recipe_ingredient]
 
         if assets:
             self.assets = [RecipeAsset(**a) for a in assets]
