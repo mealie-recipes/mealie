@@ -979,13 +979,13 @@
     "flatten": "שטח בלי קשר למבנה המקורי",
     "help": {
       "selection-mode": "מצב בחירה (ברירת מחדל)",
-      "selection-mode-desc": "The selection mode is the main mode that can be used to enter data:",
+      "selection-mode-desc": "מצב בחירה זה הינו הראשי אשר ישמש להכנסת מידע:",
       "selection-mode-steps": {
-        "draw": "Draw a rectangle on the text you want to select.",
-        "click": "Click on any field on the right and then click back on the rectangle above the image.",
-        "result": "The selected text will appear inside the previously selected field."
+        "draw": "צייר מלבן על המלל אותו ברצונך לבחור.",
+        "click": "לחץ על שדה כלשהו מימין ולאחר מכן על המלבן מעל התמונה.",
+        "result": "המלל המסומן יופיע בתוך השדה שנבחר לפני."
       },
-      "pan-and-zoom-mode": "Pan and Zoom Mode",
+      "pan-and-zoom-mode": "מצב הגדלה וסיבוב",
       "pan-and-zoom-desc": "Select pan and zoom by clicking the icon. This mode allows to zoom inside the image and move around to make using big images easier.",
       "split-text-mode": "Split Text modes",
       "split-modes": {
