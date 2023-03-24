@@ -894,11 +894,11 @@
       "labels": "תויות"
     },
     "recipes": {
-      "purge-exports": "Purge Exports",
-      "are-you-sure-you-want-to-delete-all-export-data": "Are you sure you want to delete all export data?",
-      "confirm-delete-recipes": "Are you sure you want to delete the following recipes? This action cannot be undone.",
-      "the-following-recipes-selected-length-will-be-exported": "The following recipes ({0}) will be exported.",
-      "settings-chosen-explanation": "Settings chosen here, excluding the locked option, will be applied to all selected recipes.",
+      "purge-exports": "נקה ייצואים",
+      "are-you-sure-you-want-to-delete-all-export-data": "האם אתה בטוח שאתה רוצה למחוק נתוני הייצוא?",
+      "confirm-delete-recipes": "האם אתה בטוח שאתה רוצה למחוק את המתכונים הבאים? פעולה זו בלתי הפיכה.",
+      "the-following-recipes-selected-length-will-be-exported": "המתכונים הבאים ({0}) ייוצאו.",
+      "settings-chosen-explanation": "הגדרות שנבחרו מלבד האפשרויות הנעולות, יופעלו על כל המתכונים שנבחרו.",
       "selected-length-recipe-s-settings-will-be-updated": "{count} recipe(s) settings will be updated.",
       "recipe-data": "מידע המתכון",
       "recipe-data-description": "Use this section to manage the data associated with your recipes. You can perform several bulk actions on your recipes including exporting, deleting, tagging, and assigning categories.",
