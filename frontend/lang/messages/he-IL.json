@@ -656,8 +656,8 @@
     "tracker": "טראקר",
     "configuration": "הגדרות",
     "docker-volume": "Docker Volume",
-    "docker-volume-help": "Mealie requires that the frontend container and the backend share the same docker volume or storage. This ensures that the frontend container can properly access the images and assets stored on disk.",
-    "volumes-are-misconfigured": "Volumes are misconfigured",
+    "docker-volume-help": "מילי דורשת שקונטיינר הקצה הקדמי והקצה האחורי חולקים את באותו כונן / שטח אחסון בדוקר.\nכל זאת כל מנת לוודא שלקונטיינר תהיה גישה לתמונות הגיבוי או לנכסים בדיסק.",
+    "volumes-are-misconfigured": "כוננים אינם מוגדרים בצורה תקינה",
     "volumes-are-configured-correctly": "ה-Volumeים מוגדרים תקין.",
     "status-unknown-try-running-a-validation": "מצב לא ידוע. נסה להריץ אימות.",
     "validate": "אימות",
@@ -671,11 +671,11 @@
     "application-version-error-text": "הגרסא הנוכחית ({0}) לא מתאימה לגרסא האחרונה. יש לשקול שדרוג לגרסא האחרונה ({1}).",
     "mealie-is-up-to-date": "מילי מעודכנת לגרסא האחרונה",
     "secure-site": "אבטוח אתר",
-    "secure-site-error-text": "Serve via localhost or secure with https. Clipboard and additional browser APIs may not work.",
-    "secure-site-success-text": "Site is accessed by localhost or https",
-    "server-side-base-url": "Server Side Base URL",
-    "server-side-base-url-error-text": "`BASE_URL` is still the default value on API Server. This will cause issues with notifications links generated on the server for emails, etc.",
-    "server-side-base-url-success-text": "Server Side URL does not match the default",
+    "secure-site-error-text": "שלח באמצעות כתובת המערכת בלופבאק או בצורה מאובטחת בעזרת https. לוח ההעתקה ו- API נוספים בדפדפן עשויים לא לעבוד.",
+    "secure-site-success-text": "האתר נגיש דרך כתובת המערכת בלופבאק או בצורה מאובטחת בעזרת https",
+    "server-side-base-url": "כתובת בסיס צד שרת",
+    "server-side-base-url-error-text": "'כתובת בסיס' היא עדיין הערך ברירת המחדל בשרת ה- API. הדבר יגרום לבעיות עם קישורי התראות בשרת עבור אימייל וכו'.",
+    "server-side-base-url-success-text": "קישור צד שרת אינו תואם לברירת המחדל",
     "ldap-ready": "LDAP מוכן",
     "ldap-ready-error-text": "לא כל ערכי ה- LDAP מוגדרים. ניתן להתעלם אם אינך משתמשת באימות LDAP.",
     "ldap-ready-success-text": "כל משתני ה- LDAP הנחוצים מוגדרים.",
@@ -706,7 +706,7 @@
     "uncheck-all-items": "בטל סימון להכול",
     "check-all-items": "סמן הכול",
     "linked-recipes-count": "אין מתכונים מקושרים|מתכון אחד מקושר|{count} מתכונים מקושרים",
-    "items-checked-count": "No items checked|One item checked|{count} items checked",
+    "items-checked-count": "לא נבחרו פריטים|פריט אחד נבחר|{count} פריטים נבחרו",
     "no-label": "ללא תווית",
     "completed-on": "הושלם ב- {date}"
   },
@@ -853,15 +853,15 @@
     "translated": "תורגם",
     "choose-language": "בחר שפה",
     "select-description": "בחר את שפת הממשק של מילי. הגדרה זו היא עבורך בלבד ולא תחול על משתמשים אחרים.",
-    "how-to-contribute-description": "Is something not translated yet, mistranslated, or your language missing from the list? {read-the-docs-link} on how to contribute!",
+    "how-to-contribute-description": "האם משהו לא תורגם עדיין, תרגום שגוי או שהשפה שלך חסרה ברשימה? {read-the-docs-link} על איך לתרום!",
     "read-the-docs": "קרא את ההוראות"
   },
   "data-pages": {
     "foods": {
-      "merge-dialog-text": "Combining the selected foods will merge the source food and target food into a single food. The source food will be deleted and all of the references to the source food will be updated to point to the target food.",
+      "merge-dialog-text": "צירוף של המאכלים שנבחרו יאחד את אוכל המקור ואוכל היעד לפריט אוכל אחד. אוכל המקור ימחק וכל ההפניות / הייחוסים אליו יעודכנו ויופנו לאוכל היעד.",
       "merge-food-example": "ממזג את {food1} לתוך {food2}",
-      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
-      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
+      "seed-dialog-text": "אכלס את מאגר המידע עם אוכל בהתבסס על השפה המקומית שלך. הפעולה תיצור +200 מאכלים נפוצים שיכולים לשמש לארגון מאגר המידע. מאכלים מתורגמים על ידי מאמצי הקהילה.",
+      "seed-dialog-warning": "מאגר המידע שלך כבר מכיל מספר פריטים. פעולה זו אינה מטפלת בכפילויות, יהיה צורך לפתור זאת באופן ידני.",
       "combine-food": "שילוב אוכל",
       "source-food": "אוכל מקור",
       "target-food": "אוכל יעד",
@@ -871,7 +871,7 @@
       "food-data": "נתוני אוכל"
     },
     "units": {
-      "seed-dialog-text": "Seed the database with common units based on your local language.",
+      "seed-dialog-text": "אכלס את מאגר הנתונים עם יחידות מדידה בהתאם לשפה המקומית שלך.",
       "combine-unit-description": "Combining the selected units will merge the Source Unit and Target Unit into a single unit. The {source-unit-will-be-deleted} and all of the references to the Source Unit will be updated to point to the Target Unit.",
       "combine-unit": "שילוב יחידות",
       "source-unit": "יחידת מקור",
@@ -888,7 +888,7 @@
       "fraction": "שבר"
     },
     "labels": {
-      "seed-dialog-text": "Seed the database with common labels based on your local language.",
+      "seed-dialog-text": "אכלס את מאגר הנתונים בתגיות נפוצות בהתאם לשפה המקומית שלך.",
       "edit-label": "עריכת תווית",
       "new-label": "תוויות חדשה",
       "labels": "תויות"
@@ -901,9 +901,9 @@
       "settings-chosen-explanation": "הגדרות שנבחרו מלבד האפשרויות הנעולות, יופעלו על כל המתכונים שנבחרו.",
       "selected-length-recipe-s-settings-will-be-updated": "{count} recipe(s) settings will be updated.",
       "recipe-data": "מידע המתכון",
-      "recipe-data-description": "Use this section to manage the data associated with your recipes. You can perform several bulk actions on your recipes including exporting, deleting, tagging, and assigning categories.",
+      "recipe-data-description": "השתמשו באזור זה בכדי לנהל את המידע המקושר למתכונים. ניתן לבצע פעולות על כלל המתכונים כמו ייצוא, מחיקה, תיוג ושיוך לקטגוריות.",
       "recipe-columns": "עמודות מתכונים",
-      "data-exports-description": "This section provides links to available exports that are ready to download. These exports do expire, so be sure to grab them while they're still available.",
+      "data-exports-description": "אזור זה מספק קישור לייצואים הזמינים להורדה. ייצואים אלו הם בעלי תפוגה, ניתן להוריד אותם כל עוד הם זמינים.",
       "data-exports": "נתונים מיוצאים",
       "tag": "תגית",
       "categorize": "חלוקה לקטגוריות",
@@ -914,8 +914,8 @@
       "delete-recipes": "מחיקת מתכונים",
       "source-unit-will-be-deleted": "יחידת המקור תמחק"
     },
-    "seed-data": "Seed Data",
-    "seed": "Seed",
+    "seed-data": "אכלס נתונים",
+    "seed": "אכלס",
     "data-management": "ניהול מידע",
     "data-management-description": "בחר/י איזה פיסת מידע תרצה/י לשנות.",
     "select-data": "בחר נתונים",
@@ -927,15 +927,15 @@
     "user-registration": "רישום משתמשים",
     "join-a-group": "הצטרפות לקבוצה",
     "create-a-new-group": "יצירת קבוצה חדשה",
-    "provide-registration-token-description": "Please provide the registration token associated with the group that you'd like to join. You'll need to obtain this from an existing group member.",
+    "provide-registration-token-description": "ספק בבקשה את טוקן הרישום המשוייך לקבוצה אליה ברצונך להצטרף. בכדי לקבל אותו יהיה צורך להשיג אותו מאחד מחברה הקבוצה הקיימים.",
     "group-details": "פרטי הקבוצה",
     "group-details-description": "לפני יצירת חשבון יש צורך ליצור קבוצה. הקבוצה תכיל רק אותך אבל תוכל להזמין אחרים בשלב מאוחר יותר. חברים בקבוצה יכולים לשתף תוכנית ארוחות, רשימות קניות, מתכונים ועוד!",
-    "use-seed-data": "Use Seed Data",
-    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes.",
-    "account-details": "Account Details"
+    "use-seed-data": "השתמש בנתוני האכלוס",
+    "use-seed-data-description": "מילי מגיעה עם אוסף של מאכלים, יחידות מדידה ותגיות שניתן להשתמש לאכלוס הקבוצות עם מידע שימושי לארגון המתכונים.",
+    "account-details": "פרטי חשבון"
   },
   "validation": {
-    "group-name-is-taken": "Group name is taken",
+    "group-name-is-taken": "שם הקבוצה תפוס",
     "username-is-taken": "שם המשתמש תפוס",
     "email-is-taken": "דוא״ל תפוס",
     "this-field-is-required": "זהו שדה חובה"
@@ -951,34 +951,34 @@
     "share-recipe": "שתף מתכון",
     "default-30-days": "30 ימים ברירת מחדל",
     "expires-at": "יפוג ב",
-    "recipe-link-copied-message": "Recipe link copied to clipboard"
+    "recipe-link-copied-message": "קישור המתכון הועתק ללוח"
   },
   "banner-experimental": {
-    "title": "Experimental Feature",
-    "description": "This page contains experimental or still-baking features. Please excuse the mess.",
-    "issue-link-text": "Track our progress here"
+    "title": "פונקציות ניסיוניות",
+    "description": "עמוד זה מכיל פונקציות ניסיוניות או בשלבי פיתוח. סליחה על הבלאגן.",
+    "issue-link-text": "מעקב אחר ההתקדמות שלך"
   },
   "form": {
-    "quantity-label-abbreviated": "Qty"
+    "quantity-label-abbreviated": "כמות"
   },
   "markdown-editor": {
-    "preview-markdown-button-label": "Preview Markdown"
+    "preview-markdown-button-label": "צפה בתצוגה מקדימה"
   },
   "demo": {
-    "info_message_with_version": "This is a Demo for version: {version}",
+    "info_message_with_version": "זו גירסת דמו עבור גרסה: {version}",
     "demo_username": "שם משתמש: {username}",
     "demo_password": "סיסמה {password}"
   },
   "ocr-editor": {
-    "ocr-editor": "Ocr editor",
+    "ocr-editor": "עורך סריקת תווים",
     "selection-mode": "מצב בחירה",
-    "pan-and-zoom-picture": "Pan and zoom picture",
+    "pan-and-zoom-picture": "סובב והגדל תמונה",
     "split-text": "פיצול טקסט",
-    "preserve-line-breaks": "Preserve original line breaks",
-    "split-by-block": "Split by text block",
-    "flatten": "Flatten regardless of original formating",
+    "preserve-line-breaks": "שמור על מבנה השורות המקורי",
+    "split-by-block": "פצל לפי מבנה המלל",
+    "flatten": "שטח בלי קשר למבנה המקורי",
     "help": {
-      "selection-mode": "Selection Mode (default)",
+      "selection-mode": "מצב בחירה (ברירת מחדל)",
       "selection-mode-desc": "The selection mode is the main mode that can be used to enter data:",
       "selection-mode-steps": {
         "draw": "Draw a rectangle on the text you want to select.",
