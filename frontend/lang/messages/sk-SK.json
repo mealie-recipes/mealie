@@ -235,7 +235,7 @@
     "default-to-landscape-view": "Predvoliť orientáciu na šírku",
     "default-to-landscape-view-description": "When enabled the recipe header section will be shown in landscape view",
     "disable-users-from-commenting-on-recipes": "Vypnúť užívateľom možnosť pridávania komentárov pod recepty",
-    "disable-users-from-commenting-on-recipes-description": "Hides the comment section on the recipe page and disables commenting",
+    "disable-users-from-commenting-on-recipes-description": "Skryje komentáre na stránke receptu a deaktivuje možnosť komentovania",
     "disable-organizing-recipe-ingredients-by-units-and-food": "Vypnúť zoradenie surovín podľa jednotiek a názvu",
     "disable-organizing-recipe-ingredients-by-units-and-food-description": "Hides the Food, Unit, and Amount fields for ingredients and treats ingredients as plain text fields.",
     "general-preferences": "Všeobecné nastavenia",
