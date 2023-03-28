@@ -68,15 +68,15 @@
     "event-notifiers": "Upozornenia udalostí",
     "apprise-url-skipped-if-blank": "Informačná URL (preskočená, ak je prázdna)",
     "enable-notifier": "Zapnúť notifikátor",
-    "what-events": "What events should this notifier subscribe to?",
-    "user-events": "User Events",
-    "mealplan-events": "Mealplan Events",
-    "when-a-user-in-your-group-creates-a-new-mealplan": "When a user in your group creates a new mealplan",
-    "shopping-list-events": "Shopping List Events",
-    "cookbook-events": "Cookbook Events",
-    "tag-events": "Tag Events",
-    "category-events": "Category Events",
-    "when-a-new-user-joins-your-group": "When a new user joins your group"
+    "what-events": "Pre ktoré udalosti si želáte zapnúť notifikátor?",
+    "user-events": "Užívateľské udalosti",
+    "mealplan-events": "Udalosti jedálnička",
+    "when-a-user-in-your-group-creates-a-new-mealplan": "Keď užívateľ z vašej skupiny vytvorí nový jedálniček",
+    "shopping-list-events": "Udalosti nákupného zoznamu",
+    "cookbook-events": "Udalosti kuchárskej knihy",
+    "tag-events": "Udalosti štítkov",
+    "category-events": "Udalosti kategórií",
+    "when-a-new-user-joins-your-group": "Keď sa k vašej skupine pripojí nový užívateľ"
   },
   "general": {
     "cancel": "Zrušiť",
@@ -184,14 +184,14 @@
     "this-feature-is-currently-inactive": "Táto funkcia je momentálne vypnutá",
     "clipboard-not-supported": "Schránka nie je podporovaná",
     "copied-to-clipboard": "Skopírované do schránky",
-    "your-browser-does-not-support-clipboard": "Your browser does not support clipboard",
+    "your-browser-does-not-support-clipboard": "Váš prehliadač nepodporuje schránku",
     "copied-items-to-clipboard": "Žiadna položka nebola skopírovaná do schránky|Jedna položka skopírovaná do schránky| {count} položiek bolo skopírovaných do schránky",
     "actions": "Akcie",
     "selected-count": "Vybraných: {count}",
     "export-all": "Exportovať všetko",
-    "refresh": "Refresh",
-    "upload-file": "Upload File",
-    "created-on-date": "Created on: {0}"
+    "refresh": "Obnoviť",
+    "upload-file": "Nahrať súbor",
+    "created-on-date": "Vytvorené: {0}"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Naozaj chcete odstrániť <b>{groupName}<b/>?",
@@ -241,10 +241,10 @@
     "general-preferences": "Všeobecné nastavenia",
     "group-recipe-preferences": "Nastavenia receptu v rámci skupiny",
     "report": "Report",
-    "group-management": "Group Management",
-    "admin-group-management": "Admin Group Management",
-    "admin-group-management-text": "Changes to this group will be reflected immediately.",
-    "group-id-value": "Group Id: {0}"
+    "group-management": "Spravovanie skupiny",
+    "admin-group-management": "Spravovanie administrátorskej skupiny",
+    "admin-group-management-text": "Zmeny týkajúce sa tejto skupiny budú vykonané okamžite.",
+    "group-id-value": "Id skupiny: {0}"
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Vytvoriť nový jedálniček",
@@ -295,8 +295,8 @@
     "for-type-meal-types": "na {0} druhy jedál",
     "meal-plan-rules": "Pravidlá jedálnička",
     "new-rule": "Nové pravidlo",
-    "meal-plan-rules-description": "You can create rules for auto selecting recipes for you meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
-    "new-rule-description": "When creating a new rule for a meal plan you can restrict the rule to be applicable for a specific day of the week and/or a specific type of meal. To apply a rule to all days or all meal types you can set the rule to \"Any\" which will apply it to all the possible values for the day and/or meal type.",
+    "meal-plan-rules-description": "Môžete vytvoriť pravidlá pre automatizovaný výber receptov pre váš jedálniček. Tieto pravidlá používa server pre určenie skupiny receptov, z ktorých náhodne vyberá pri tvorbe jedálničkov. V prípade, ak majú pravidlá rovnaké obmedzenia na dni/typy jedál, sú príslušné kategórie pravidiel zlúčené. Bežne nie je nutné vytvárať duplicitné pravidlá, ale v prípade potreby je to možné.",
+    "new-rule-description": "Pri tvorbe nového pravidla pre jedálniček môžete účinnosť pravidla obmedziť len na špecifický deň v týždni a/alebo špecifický typ jedla. Pre uplatnenie pravidla na všetky dni v týždni alebo všetky typy jedál nastavte pravidlo pre \"Všetky\", čím uplatníte pravidlo na všetky dni a/alebo typy jedál.",
     "recipe-rules": "Pravidlá receptov",
     "applies-to-all-days": "Platí pre všetky dni",
     "applies-on-days": "Platí v {0}",
@@ -304,34 +304,34 @@
   },
   "migration": {
     "migration-data-removed": "Prenesené dáta odstránené",
-    "new-migration": "New Migration",
-    "no-file-selected": "No File Selected",
+    "new-migration": "Nová migrácia",
+    "no-file-selected": "Nebol vybratý žiadny súbor",
     "no-migration-data-available": "Dáta na prenos nie sú k dispozícii",
-    "previous-migrations": "Previous Migrations",
+    "previous-migrations": "Predchádzajúca migrácia",
     "recipe-migration": "Prenos receptu",
     "chowdown": {
       "description": "Preniesť dáta z Chowdown",
-      "description-long": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
+      "description-long": "Mealie prirodzene podporuje chowdown formát úložiska. Stiahnite úložisko kódu ako zip-súbor a nahrajte ho nižšie.",
       "title": "Chowdown"
     },
     "nextcloud": {
       "description": "Preniesť dáta z Nextcloud Cookbook",
-      "description-long": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
+      "description-long": "Recepty z Nextcloud-u je možné importovať priamo zo zip-súboru, ktorý obsahuje dáta uložené na Nextcloud-e. Pozrite sa nižšie na príklad adresárovej štruktúry, aby ste sa uistili, že je možné vaše recepty importovať.",
       "title": "Kuchárska kniha Nextcloud"
     },
     "copymethat": {
-      "description-long": "Mealie can import recipes from Copy Me That. Export your recipes in HTML format, then upload the .zip below.",
-      "title": "Copy Me That Recipe Manager"
+      "description-long": "Mealie dokáže importovať recepty z Copy Me That. Exportujte recepty vo formáte HTML a nižšie nahrajte zip-súbor.",
+      "title": "Správca receptov z Copy Me That"
     },
     "paprika": {
-      "description-long": "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
-      "title": "Paprika Recipe Manager"
+      "description-long": "Mealie dokáže importovať recepty z aplikácie Paprika. Exportujte vaše recepty z Papriky, premenujte príponu exportovaného súboru na .zip a nahrajte ho nižšie.",
+      "title": "Správca receptov z Papriky"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
+      "description-long": "Mealie dokáže importovať recepty z Mealie verzie pre v1.0. Exportujte vaše recepty z vašej starej inštalácie a nižšie nahrajte zip-súbor. Týmto spôsobom je možné importovať iba recepty.",
       "title": "Mealie Pre v1.0"
     },
-    "recipe-data-migrations": "Recipe Data Migrations",
+    "recipe-data-migrations": "Migrácie dát receptov",
     "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie.",
     "choose-migration-type": "Choose Migration Type",
     "tag-all-recipes": "Tag all recipes with {tag-name} tag",
