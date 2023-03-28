@@ -328,19 +328,19 @@
       "title": "Správca receptov z Papriky"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie dokáže importovať recepty z Mealie verzie pre v1.0. Exportujte vaše recepty z vašej starej inštalácie a nižšie nahrajte zip-súbor. Týmto spôsobom je možné importovať iba recepty.",
+      "description-long": "Mealie dokáže importovať recepty z Mealie verzie pre v1.0. Exportujte vaše recepty z vašej starej inštalácie a nižšie nahrajte zip-súbor. Týmto spôsobom je možné importovať z exportu iba recepty.",
       "title": "Mealie Pre v1.0"
     },
     "recipe-data-migrations": "Migrácie dát receptov",
-    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie.",
-    "choose-migration-type": "Choose Migration Type",
-    "tag-all-recipes": "Tag all recipes with {tag-name} tag",
-    "nextcloud-text": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
-    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below",
-    "recipe-1": "Recipe 1",
-    "recipe-2": "Recipe 2",
-    "paprika-text": "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
-    "mealie-text": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export."
+    "recipe-data-migrations-explanation": "Recepty je možné prenášať do Mealie z inej podporovanej aplikácie. Je to výborný spôsob ako začať s používaním Mealie.",
+    "choose-migration-type": "Vyberte spôsob migrácie",
+    "tag-all-recipes": "Označte všetky recepty štítkom {tag-name}",
+    "nextcloud-text": "Recepty z Nextcloud-u je možné importovať priamo zo zip-súboru, ktorý obsahuje dáta uložené na Nextcloud-e. Pozrite sa nižšie na príklad adresárovej štruktúry, aby ste sa uistili, že je možné vaše recepty importovať.",
+    "chowdown-text": "Mealie prirodzene podporuje chowdown formát úložiska. Stiahnite úložisko kódu ako zip-súbor a nahrajte ho nižšie",
+    "recipe-1": "Recept 1",
+    "recipe-2": "Recept 2",
+    "paprika-text": "Mealie dokáže importovať recepty z aplikácie Paprika. Exportujte vaše recepty z Papriky, premenujte príponu exportovaného súboru na .zip a nahrajte ho nižšie.",
+    "mealie-text": "Mealie dokáže importovať recepty z Mealie verzie pre v1.0. Exportujte vaše recepty z vašej starej inštalácie a nižšie nahrajte zip-súbor. Týmto spôsobom je možné z exportu importovať iba recepty."
   },
   "new-recipe": {
     "bulk-add": "Hromadné pridanie",
@@ -481,12 +481,12 @@
     "how-did-it-turn-out": "Ako to dopadlo?",
     "user-made-this": "{user} toto uvaril/-a",
     "last-made-date": "Posledne pripravené {date}",
-    "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom json key/value pairs within a recipe to reference from 3rd part applications. You can use these keys to contain information to trigger automation or custom messages to relay to your desired device.",
+    "api-extras-description": "Extras receptov sú kľúčovou funkcionalitou Mealie API. Umožňujú užívateľom vytvárať vlastné json páry kľúč/hodnota z receptu, aby ich bolo možné použiť v aplikáciách tretej strany. Údaje uložené pod jednotlivými kľúčmi je možné využiť ako spúšťač automatizovaných procesov, či zasielania vlastných správ do vami zvolených zariadení.",
     "message-key": "Kľúč správy",
     "parse": "Analyzovať",
-    "attach-images-hint": "Attach images by dragging & dropping them into the editor",
-    "enable-ingredient-amounts-to-use-this-feature": "Enable ingredient amounts to use this feature",
-    "recipes-with-units-or-foods-defined-cannot-be-parsed": "Recipes with units or foods defined cannot be parsed.",
+    "attach-images-hint": "Pridaj obrázky ich potiahnutím a pustením na editor",
+    "enable-ingredient-amounts-to-use-this-feature": "Povoľ množstvám prísad využívať túto vlastnosť",
+    "recipes-with-units-or-foods-defined-cannot-be-parsed": "Recepty so stanovenými jednotkami alebo jedlami nie je možné parsovať.",
     "parse-ingredients": "Analyzuj suroviny",
     "edit-markdown": "Edituj markdown",
     "recipe-creation": "Vytvorenie receptu",
@@ -677,10 +677,10 @@
     "server-side-base-url-error-text": "`BASE_URL` is still the default value on API Server. This will cause issues with notifications links generated on the server for emails, etc.",
     "server-side-base-url-success-text": "Server Side URL does not match the default",
     "ldap-ready": "LDAP Ready",
-    "ldap-ready-error-text": "Not all LDAP Values are configured. This can be ignored if you are not using LDAP Authentication.",
-    "ldap-ready-success-text": "Required LDAP variables are all set.",
-    "build": "Build",
-    "recipe-scraper-version": "Recipe Scraper Version"
+    "ldap-ready-error-text": "Niektoré z LDAP hodnôt nie sú nakonfigurované. Toto je možné ignorovať, ak nepoužívate LDAP autentifikáciu.",
+    "ldap-ready-success-text": "Všetky potrebné LDAP premenné sú nastavené.",
+    "build": "Vytvoriť",
+    "recipe-scraper-version": "Verzia scrapera receptov"
   },
   "shopping-list": {
     "all-lists": "Všetky zoznamy",
