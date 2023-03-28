@@ -1067,7 +1067,7 @@
     "group-description": "These items are shared within your group. Editing one of them will change it for the whole group!",
     "group-settings": "Group Settings",
     "group-settings-description": "Manage your common group settings like mealplan and privacy settings.",
-    "cookbooks-description": "Manage a collection of recipe categories and generate pages for them.",
+    "cookbooks-description": "Spravovať súbor kategórií receptov a generovať pre ne stránky.",
     "members": "Členovia",
     "members-description": "Pozrieť kto je v skupine a spravovať jej povolenia.",
     "webhooks-description": "Nastaviť webhook-y, ktoré sa spúšťajú v dňoch s naplánovaným jedálničkom.",
@@ -1097,12 +1097,12 @@
     "description": "Kuchárky sú ďalší spôsob, ako si organizovať recepty vytváraním prienikov skupín receptov a štítkov. Vytvorenie kuchárky pridá novú položku na bočnú lištu a všetky recepty so zvolenými štítkami a kategóriami sa zobrazia v danej kuchárke.",
     "public-cookbook": "Verejná kuchárka",
     "public-cookbook-description": "Verejné kuchárky je možné zdielať s užívateľmi mimo Mealie a budú zobrazené na stránke vašej skupiny.",
-    "filter-options": "Filter Options",
-    "filter-options-description": "When require all is selected the cookbook will only include recipes that have all of the items selected. This applies to each subset of selectors and not a cross section of the selected items.",
-    "require-all-categories": "Require All Categories",
-    "require-all-tags": "Require All Tags",
-    "require-all-tools": "Require All Tools",
-    "cookbook-name": "Cookbook Name",
-    "cookbook-with-name": "Cookbook {0}"
+    "filter-options": "Možnosti filtrovania",
+    "filter-options-description": "Ak je zvolená možnosť vyžadovať všetky, kuchárka bude obsahovať iba recepty, ktoré majú všetky zvolené položky. Toto pravidlo sa aplikuje pre každú podskupinu podmienok a nie na prienik vybraných položiek.",
+    "require-all-categories": "Vyžadovať všetky kategórie",
+    "require-all-tags": "Vyžadovať všetky štítky",
+    "require-all-tools": "Vyžadovať všetky nástroje",
+    "cookbook-name": "Názov kuchárky",
+    "cookbook-with-name": "Kuchárka {0}"
   }
 }
