@@ -25,7 +25,7 @@
     "sponsor": "Sponsor"
   },
   "asset": {
-    "assets": "Assets",
+    "assets": "Resurse",
     "code": "Cod",
     "file": "Fișier",
     "image": "Imagine",
@@ -176,8 +176,8 @@
     "confirm-delete-own-admin-account": "Please note that you are trying to delete your own admin account! This action cannot be undone and will permanently delete your account?",
     "organizer": "Organizer",
     "transfer": "Transfer",
-    "copy": "Copy",
-    "color": "Color",
+    "copy": "Copiază",
+    "color": "Culoare",
     "timestamp": "Timestamp",
     "last-made": "Last Made",
     "learn-more": "Learn More",
