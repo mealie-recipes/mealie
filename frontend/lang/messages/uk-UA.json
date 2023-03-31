@@ -331,16 +331,16 @@
       "description-long": "Mealie може імпортувати рецепти з Mealie до версії 1.0. Експортуйте свої рецепти зі старої Mealie і відвантажте zip-файл нижче. Зверніть увагу, що тільки рецепти можуть бути імпортовані з експорту.",
       "title": "Mealie до 1.0"
     },
-    "recipe-data-migrations": "Recipe Data Migrations",
-    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie.",
-    "choose-migration-type": "Choose Migration Type",
-    "tag-all-recipes": "Tag all recipes with {tag-name} tag",
-    "nextcloud-text": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
-    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below",
-    "recipe-1": "Recipe 1",
-    "recipe-2": "Recipe 2",
-    "paprika-text": "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
-    "mealie-text": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export."
+    "recipe-data-migrations": "Міграція рецептів",
+    "recipe-data-migrations-explanation": "Рецепти можна мігрувати з іншого застосунку до Mealie. Це чудовий спосіб розпочати роботу з Mealie.",
+    "choose-migration-type": "Оберіть тип міграції",
+    "tag-all-recipes": "Позначити усі рецепти тегом {tag-name}",
+    "nextcloud-text": "Рецепти Nextcloud можна імпортувати з zip-архіву, який містить дані, що зберігаються в Nextcloud. Перегляньте приклади структури тек нижче, щоб пересвідчитися що ваші рецепти можна імпортувати.",
+    "chowdown-text": "Mealie підтримує формат chowdown репозиторію. Завантажте репозиторій коду як файл .zip і відвантажте його нижче",
+    "recipe-1": "Рецепт 1",
+    "recipe-2": "Рецепт 2",
+    "paprika-text": "Mealie може імпортувати рецепти з додатку Paprika. Експортуйте ваші рецепти з Paprika, перейменуйте розширення експорту в .zip та відвантажте його нижче.",
+    "mealie-text": "Mealie може імпортувати рецепти з Mealie до версії 1.0. Експортуйте свої рецепти зі старої Mealie і відвантажте zip-файл нижче. Зверніть увагу, що тільки рецепти можуть бути імпортовані з експорту."
   },
   "new-recipe": {
     "bulk-add": "Масове додавання",
@@ -557,14 +557,14 @@
       "partial-backup": "Часткова резервна копія",
       "unable-to-delete-backup": "Не вдалося видалити резервну копію.",
       "experimental-description": "Backups a total snapshots of the database and data directory of the site. This includes all data and cannot be set to exclude subsets of data. You can think off this as a snapshot of Mealie at a specific time. Currently, {not-crossed-version} (data migrations are not done automatically). These serve as a database agnostic way to export and import data or backup the site to an external location.",
-      "not-crossed-version": "this backup mechanism is not cross-version and therefore cannot be used to migrate data between versions",
+      "not-crossed-version": "механізм резервного копіювання не підтримує різних версій і тому не може використовуватися для міграції даних між версіями",
       "backup-restore": "Backup Restore",
-      "back-restore-description": "Restoring this backup will overwrite all the current data in your database and in the data directory and replace them with the contents of this backup. {cannot-be-undone} If the restoration is successful, you will be logged out.",
-      "cannot-be-undone": "This action cannot be undone - use with caution.",
-      "postgresql-note": "If you are using PostGreSQL, please review the {backup-restore-process} prior to restoring.",
-      "backup-restore-process-in-the-documentation": "backup/restore process in the documentation",
-      "irreversible-acknowledgment": "I understand that this action is irreversible, destructive and may cause data loss",
-      "restore-backup": "Restore Backup"
+      "back-restore-description": "Відновлення резервної копії перезапише всі дані вашої бази даних і в каталозі даних і замінить їх вміст вмістом цієї резервної копії. {cannot-be-undone} Якщо відновлення успішне, вас вилогінить з системи.",
+      "cannot-be-undone": "Цю дію не можна скасувати - використовуйте з обережністю.",
+      "postgresql-note": "Якщо ви використовуєте PostGreSQL, перегляньте {backup-restore-process} перед відновленням.",
+      "backup-restore-process-in-the-documentation": "резервне копіювання/відновлення в документації",
+      "irreversible-acknowledgment": "Я розумію, що ця дія незворотна, руйнівна і може спричинити втрату даних",
+      "restore-backup": "Відновити з резервної копії"
     },
     "backup-and-exports": "Резервні копії",
     "change-password": "Змінити пароль",
@@ -629,7 +629,7 @@
       "create-an-api-token": "Створити новий ключ API",
       "token-name": "Назва ключа",
       "generate": "Згенерувати",
-      "you-have-token-count": "You have no active tokens.|You have one active token.|You have {count} active tokens."
+      "you-have-token-count": "У вас немає активних токенів.|У вас є один активний токен. | У вас є {count} активних токенів."
     },
     "toolbox": {
       "assign-all": "Призначити все",
@@ -649,7 +649,7 @@
       "webhooks-caps": "ВЕБХУКИ",
       "webhooks": "Вебхуки",
       "webhook-name": "Назва вебхука",
-      "description": "The webhooks defined below will be executed when a meal is defined for the day. At the scheduled time the webhooks will be sent with the data from the recipe that is scheduled for the day. Note that webhook execution is not exact. The webhooks are executed on a 5 minutes interval so the webhooks will be executed within 5 +/- minutes of the scheduled."
+      "description": "Веб хуки, визначені нижче, будуть виконані коли буде визначено план харчування на день. В запланований час веб хук отримає дані з рецепта, який заплановано на день. Зверніть увагу, що виконання веб хука не точне в часі. Веб хуки виконуються з інтервалом в 5 хвилин, тому вони будуть виконані протягом 5 +/- хвилин від запланованого."
     },
     "bug-report": "Повідомлення про помилку",
     "bug-report-information": "Використати цю інформацію, щоб повідомити про помилку. Надання даних з Mealie розробника найкращий спосіб пришвидшити розв'язання проблеми.",
@@ -671,14 +671,14 @@
     "application-version-error-text": "Ваша поточна версія ({0}) не відповідає останньому релізу. Подумайте про оновлення до останньої версії ({1}).",
     "mealie-is-up-to-date": "Оновлення не потрібне",
     "secure-site": "Безпечний сайт",
-    "secure-site-error-text": "Serve via localhost or secure with https. Clipboard and additional browser APIs may not work.",
-    "secure-site-success-text": "Site is accessed by localhost or https",
-    "server-side-base-url": "Server Side Base URL",
-    "server-side-base-url-error-text": "`BASE_URL` is still the default value on API Server. This will cause issues with notifications links generated on the server for emails, etc.",
-    "server-side-base-url-success-text": "Server Side URL does not match the default",
-    "ldap-ready": "LDAP Ready",
-    "ldap-ready-error-text": "Not all LDAP Values are configured. This can be ignored if you are not using LDAP Authentication.",
-    "ldap-ready-success-text": "Required LDAP variables are all set.",
+    "secure-site-error-text": "Працювати через localhost або убезпечити через https. Буфер обміну та додатковий API браузера можуть не працювати.",
+    "secure-site-success-text": "Сайт доступний через localhost або https",
+    "server-side-base-url": "URL-адреса сервера",
+    "server-side-base-url-error-text": "`BASE_URL` все ще встановлене в стандартне значення на сервері API. Це призведе до проблем з посиланнями, згенерованими на сервері для листів, і т. д.",
+    "server-side-base-url-success-text": "URL-адреса на стороні сервера не відповідає значенню за замовчуванням",
+    "ldap-ready": "LDAP готове",
+    "ldap-ready-error-text": "Не всі значення LDAP налаштовано. Це можна ігнорувати, якщо ви не використовуєте LDAP Authentication.",
+    "ldap-ready-success-text": "Всі необхідні змінні LDAP встановлені.",
     "build": "Збірка",
     "recipe-scraper-version": "Версія парсера рецептів"
   },
@@ -846,8 +846,8 @@
     "administrator": "Адміністратор",
     "user-can-invite-other-to-group": "Користувач може запрошувати інших в групу",
     "user-can-manage-group": "Користувач може керувати групою",
-    "user-can-organize-group-data": "User can organize group data",
-    "enable-advanced-features": "Enable advanced features"
+    "user-can-organize-group-data": "Користувач може впорядковувати дані групи",
+    "enable-advanced-features": "Увімкнути додаткові функції"
   },
   "language-dialog": {
     "translated": "перекладено",
@@ -899,7 +899,7 @@
       "confirm-delete-recipes": "Ви впевнені, що хочете видалити ці рецепти? Ця дія незворотна.",
       "the-following-recipes-selected-length-will-be-exported": "Наступні рецепти ({0}) будуть експортовані.",
       "settings-chosen-explanation": "Вибрані параметри, за винятком заблокованих варіантів, будуть застосовані до всіх вибраних рецептів.",
-      "selected-length-recipe-s-settings-will-be-updated": "{count} recipe(s) settings will be updated.",
+      "selected-length-recipe-s-settings-will-be-updated": "Налаштування {count} рецептів буде оновлено.",
       "recipe-data": "Дані рецептів",
       "recipe-data-description": "Використовуйте цей розділ для керування даними, пов'язаними з вашими рецептами. Ви можете виконати кілька масових дій для ваших рецептів, включаючи експорт, видалення, додавання мітки та присвоєння категорій.",
       "recipe-columns": "Стовпці рецептів",
@@ -921,7 +921,7 @@
     "select-data": "Вибір даних",
     "select-language": "Вибір мови",
     "columns": "Стовпці",
-    "combine": "Combine"
+    "combine": "Об'єднати"
   },
   "user-registration": {
     "user-registration": "Реєстрація користувачів",
@@ -938,7 +938,7 @@
     "group-name-is-taken": "Ім'я групи зайнято",
     "username-is-taken": "Логін зайнятий",
     "email-is-taken": "Електронна пошта зайнята",
-    "this-field-is-required": "This Field is Required"
+    "this-field-is-required": "Це поле обовʼязкове"
   },
   "export": {
     "export": "Експортувати",
@@ -1034,14 +1034,14 @@
     "mainentance": {
       "actions-title": "Дії"
     },
-    "ingredients-natural-language-processor": "Ingredients Natural Language Processor",
-    "ingredients-natural-language-processor-explanation": "Mealie uses Conditional Random Fields (CRFs) for parsing and processing ingredients. The model used for ingredients is based off a data set of over 100,000 ingredients from a dataset compiled by the New York Times. Note that as the model is trained in English only, you may have varied results when using the model in other languages. This page is a playground for testing the model.",
-    "ingredients-natural-language-processor-explanation-2": "It's not perfect, but it yields great results in general and is a good starting point for manually parsing ingredients into individual fields. Alternatively, you can also use the \"Brute\" processor that uses a pattern matching technique to identify ingredients.",
+    "ingredients-natural-language-processor": "Обробка природної мови для інгредієнтів",
+    "ingredients-natural-language-processor-explanation": "Mealie використовує умовні випадкові поля (УВП) для аналізу та обробки компонентів. Модель яка використовується для інгредієнтів, ґрунтується на наборі даних більш ніж 100 000 інгредієнтів з бази даних, зібраних Нью-Йорк Таймс. Зверніть увагу, що модель натренована на англійській мові, тож ви можете мати неточні результати при використанні моделі з іншими мовами. Ця сторінка є майданчиком для тестування моделі.",
+    "ingredients-natural-language-processor-explanation-2": "Модель не ідеальна, але дає непогані результати в загальному і є хорошим початковим пунктом для ручного парсингу інгредієнтів в окремі поля. Крім того, ви можете використовувати \"Brute\" процесор, який використовує метод підбору для визначення інгредієнтів.",
     "nlp": "ОПМ",
     "brute": "Брут",
-    "show-individual-confidence": "Show individual confidence",
-    "ingredient-text": "Ingredient Text",
-    "average-confident": "{0} Confident",
+    "show-individual-confidence": "Показати індивідуальну впевненість",
+    "ingredient-text": "Текст інгредієнта",
+    "average-confident": "Впевненість {0}",
     "try-an-example": "Спробувати приклад",
     "parser": "Парсер",
     "background-tasks": "Фонові задачі",
