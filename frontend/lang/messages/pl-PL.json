@@ -175,7 +175,7 @@
     "confirm-delete-generic-with-name": "Czy na pewno chcesz usunąć {name}?",
     "confirm-delete-own-admin-account": "Pamiętaj, że próbujesz usunąć własne konto administratora! Tej czynności nie można cofnąć i trwale usunie Twoje konto?",
     "organizer": "Organizator",
-    "transfer": "Transfer",
+    "transfer": "Przenieś",
     "copy": "Kopiuj",
     "color": "Kolor",
     "timestamp": "Znacznik czasu",
@@ -297,14 +297,14 @@
     "new-rule": "Nowa reguła",
     "meal-plan-rules-description": "Możesz tworzyć reguły automatycznego wyboru przepisów dla planów posiłkowych. Te reguły są używane przez serwer do określenia losowej puli przepisów do wyboru podczas tworzenia planów posiłków. Zauważ, że jeśli reguły mają ograniczenia tego samego dnia/typu, kategorie reguł zostaną połączone. W praktyce tworzenie duplikatów reguł jest zbędne, ale jest to możliwe.",
     "new-rule-description": "When creating a new rule for a meal plan you can restrict the rule to be applicable for a specific day of the week and/or a specific type of meal. To apply a rule to all days or all meal types you can set the rule to \"Any\" which will apply it to all the possible values for the day and/or meal type.",
-    "recipe-rules": "Recipe Rules",
+    "recipe-rules": "Reguły przepisów",
     "applies-to-all-days": "Applies to all days",
     "applies-on-days": "Applies on {0}s",
-    "meal-plan-settings": "Meal Plan Settings"
+    "meal-plan-settings": "Ustawienia planera posiłków"
   },
   "migration": {
     "migration-data-removed": "Dane migracji usunięte",
-    "new-migration": "New Migration",
+    "new-migration": "Nowa migracja",
     "no-file-selected": "No File Selected",
     "no-migration-data-available": "Brak danych do migracji",
     "previous-migrations": "Previous Migrations",
