@@ -559,7 +559,7 @@
       "experimental-description": "Sichert eine vollständige Momentaufnahme der Datenbank und des Datenverzeichnisses der Webseite. Dies schließt alle Daten ein, es können keine Daten ausgenommen werden. Es handelt sich also um eine Momentaufnahme von Mealie zu einem bestimmten Zeitpunkt. Zur Zeit {not-crossed-version} (es erfolgt keine automatische Datenmigration). Es ist eine Datenbank-unabhängige Möglichkeit, Daten zu exportieren und importieren oder um die Webseite an einem externen Ort zu sichern.",
       "not-crossed-version": "funktioniert diese Backup-Methode nicht versionsübergreifend und kann daher nicht verwendet werden, um Daten aus verschiedenen Versionen zu migrieren",
       "backup-restore": "Wiederherstellen aus Sicherung",
-      "back-restore-description": "Das Wiederherstellen dieser Sicherung wird alle vorhandenen Daten in Ihrer Datenbank und im Datenverzeichnis überschreiben und durch den Inhalt dieser Sicherung ersetzen. {cannot-be-undone} Wenn die Wiederherstellung erfolgreich war, wirst du abgemeldet.",
+      "back-restore-description": "Das Wiederherstellen dieser Sicherung wird alle vorhandenen Daten in deiner Datenbank und im Datenverzeichnis überschreiben und durch den Inhalt dieser Sicherung ersetzen. {cannot-be-undone} Wenn die Wiederherstellung erfolgreich war, wirst du abgemeldet.",
       "cannot-be-undone": "Diese Aktion kann nicht rückgängig gemacht werden - verwende sie mit Vorsicht.",
       "postgresql-note": "Wenn du PostGreSQL verwendest, überprüfe bitte den {backup-restore-process} vor der Wiederherstellung.",
       "backup-restore-process-in-the-documentation": "Sichern- und Wiederherstellen-Prozess in der Dokumentation",

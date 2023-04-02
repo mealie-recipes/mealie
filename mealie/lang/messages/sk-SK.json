@@ -6,16 +6,16 @@
         "unique-name-error": "Názov receptu musí byť unikátny"
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "No recipes match your rules"
+        "no-recipes-match-your-rules": "Vaše pravidlá nespĺňa žiadny recept"
     },
     "user": {
-        "user-updated": "User updated",
-        "password-updated": "Password updated",
-        "invalid-current-password": "Invalid current password",
-        "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
+        "user-updated": "Užívateľ bol aktualizovaný",
+        "password-updated": "Heslo bolo aktualizované",
+        "invalid-current-password": "Aktuálne heslo neplatné",
+        "ldap-update-password-unavailable": "Aktualizácia hesla nie je možná, užívateľ je spravovaný LDAP"
     },
     "group": {
-        "report-deleted": "Report deleted."
+        "report-deleted": "Report bol odstránený."
     },
     "exceptions": {
         "permission_denied": "Nemáte povolenie na vykonanie tejto akcie",
