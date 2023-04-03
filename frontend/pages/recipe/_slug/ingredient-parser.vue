@@ -65,7 +65,7 @@
             </template>
           </v-expansion-panel-header>
           <v-expansion-panel-content class="pb-0 mb-0">
-            <RecipeIngredientEditor v-model="parsedIng[index].ingredient" />
+            <RecipeIngredientEditor v-model="parsedIng[index].ingredient" allow-insert-ingredient @insert-ingredient="insertIngredient(index)"  @delete="deleteIngredient(index)" />
             {{ ing.input }}
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -101,6 +101,7 @@ import { useUserApi } from "~/composables/api";
 import { useRecipe } from "~/composables/recipes";
 import { useFoodData, useFoodStore, useUnitStore } from "~/composables/store";
 import { Parser } from "~/lib/api/user/recipes/recipe";
+import { uuid4 } from "~/composables/use-utils";
 
 interface Error {
   ingredientIndex: number;
@@ -137,6 +138,37 @@ export default defineComponent({
     const parser = ref<Parser>("nlp");
     const parsedIng = ref<ParsedIngredient[]>([]);
 
+    function processIngredientError(ing: ParsedIngredient, index: number): Error {
+      const unitError = !checkForUnit(ing.ingredient.unit);
+      const foodError = !checkForFood(ing.ingredient.food);
+
+      let unitErrorMessage = "";
+      let foodErrorMessage = "";
+
+      if (unitError || foodError) {
+        if (unitError) {
+          if (ing?.ingredient?.unit?.name) {
+            unitErrorMessage = `Create missing unit '${ing?.ingredient?.unit?.name || "No unit"}'`;
+          }
+        }
+
+        if (foodError) {
+          if (ing?.ingredient?.food?.name) {
+            foodErrorMessage = `Create missing food '${ing.ingredient.food.name || "No food"}'?`;
+          }
+        }
+      }
+      panels.value.push(index);
+
+      return {
+        ingredientIndex: index,
+        unitError,
+        unitErrorMessage,
+        foodError,
+        foodErrorMessage,
+      } as Error;
+    }
+
     async function fetchParsed() {
       if (!recipe.value || !recipe.value.recipeIngredient) {
         return;
@@ -158,34 +190,7 @@ export default defineComponent({
         parsedIng.value = data;
 
         errors.value = data.map((ing, index: number) => {
-          const unitError = !checkForUnit(ing.ingredient.unit);
-          const foodError = !checkForFood(ing.ingredient.food);
-
-          let unitErrorMessage = "";
-          let foodErrorMessage = "";
-
-          if (unitError || foodError) {
-            if (unitError) {
-              if (ing?.ingredient?.unit?.name) {
-                unitErrorMessage = `Create missing unit '${ing?.ingredient?.unit?.name || "No unit"}'`;
-              }
-            }
-
-            if (foodError) {
-              if (ing?.ingredient?.food?.name) {
-                foodErrorMessage = `Create missing food '${ing.ingredient.food.name || "No food"}'?`;
-              }
-            }
-          }
-          panels.value.push(index);
-
-          return {
-            ingredientIndex: index,
-            unitError,
-            unitErrorMessage,
-            foodError,
-            foodErrorMessage,
-          };
+          return processIngredientError(ing, index);
         });
       }
     }
@@ -247,6 +252,38 @@ export default defineComponent({
       foodData.reset();
     }
 
+    function insertIngredient(index: number) {
+      if (!recipe.value?.recipeIngredient) {
+        return;
+      }
+
+      const ing = {
+        input: "",
+        confidence: {},
+        ingredient: {
+          quantity: 1.0,
+          disableAmount: false,
+          referenceId: uuid4(),
+        }
+      } as ParsedIngredient;
+
+      parsedIng.value.splice(index, 0, ing);
+      recipe.value.recipeIngredient.splice(index, 0, ing.ingredient);
+
+      errors.value = parsedIng.value.map((ing, index: number) => {
+        return processIngredientError(ing, index);
+      });
+    }
+
+    function deleteIngredient(index: number) {
+      parsedIng.value.splice(index, 1);
+      recipe.value?.recipeIngredient?.splice(index, 1);
+
+      errors.value = parsedIng.value.map((ing, index: number) => {
+        return processIngredientError(ing, index);
+      });
+    }
+
     // =========================================================
     // Save All Logic
     async function saveAll() {
@@ -276,6 +313,10 @@ export default defineComponent({
       }
 
       recipe.value.recipeIngredient = ingredients;
+      if (recipe.value.settings) {
+        recipe.value.settings.disableAmount = false;
+      }
+
       const { response } = await api.recipes.updateOne(recipe.value.slug, recipe.value);
 
       if (response?.status === 200) {
@@ -287,6 +328,8 @@ export default defineComponent({
       parser,
       saveAll,
       createFood,
+      deleteIngredient,
+      insertIngredient,
       errors,
       actions: foodStore.actions,
       workingFoodData: foodData,
