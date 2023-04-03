@@ -403,6 +403,7 @@
     "grams": "grams",
     "ingredient": "Ingredient",
     "ingredients": "Ingredients",
+    "insert-ingredient": "Afegiu ingredient",
     "insert-section": "Insereix una secció",
     "instructions": "Instruccions",
     "key-name-required": "Es requereix un nom de clau",
