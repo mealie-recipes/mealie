@@ -21,20 +21,20 @@ This guide assumes that you already know how to [generate API tokens](https://ha
 First, click the [link](https://www.icloud.com/shortcuts/cc568d1615bc4f998789f85d1ef74846) and begin the setup of the shortcut.
 
 
-![screenshot](docs/docs/assets/img/sc1.jpg)
+![screenshot](/docs/docs/assets/img/sc1half.png)
+
 
 Next, you need to replace `url` and `port` with the information for your mealie instance.
 
 If you have a TLD that you use, put that here with no port. If you just run local, Then, you need to put in your mealie instance IP and the port of `9926`.
 
 
-![screenshot](docs/docs/assets/img/sc2.jpg)
+![screenshot](/docs/docs/assets/img/sc2half.png)
 
 
 Finally, you need to replace the word `keyhere` with your API token. Keep the word `Bearer`!!!
 
 
-![screenshot](docs/docs/assets/img/sc3.jpg)
-
+![screenshot](/docs/docs/assets/img/sc3half.png)
 
 You should now be able to share a website to the shortcut and have mealie grab all the necessary information!
