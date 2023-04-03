@@ -450,7 +450,7 @@
     "date-format-hint": "Format MM/JJ/AAAA",
     "date-format-hint-yyyy-mm-dd": "Format AAAA-MM-JJ",
     "add-to-list": "Ajouter à la liste",
-    "add-to-plan": "Ajouter à la planification des repas",
+    "add-to-plan": "Ajouter au menu",
     "recipe-added-to-list": "Recette ajoutée à la liste",
     "recipe-added-to-mealplan": "Recette ajoutée au menu",
     "failed-to-add-recipe-to-mealplan": "Échec de l’ajout de la recette au menu",
