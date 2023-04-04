@@ -183,15 +183,15 @@
     "learn-more": "Lær mer",
     "this-feature-is-currently-inactive": "This feature is currently inactive",
     "clipboard-not-supported": "Clipboard not supported",
-    "copied-to-clipboard": "Copied to clipboard",
+    "copied-to-clipboard": "Kopiert til utklippstavle",
     "your-browser-does-not-support-clipboard": "Your browser does not support clipboard",
     "copied-items-to-clipboard": "No item copied to clipboard|One item copied to clipboard|Copied {count} items to clipboard",
     "actions": "Actions",
     "selected-count": "Selected: {count}",
-    "export-all": "Export All",
+    "export-all": "Eksporter alle",
     "refresh": "Refresh",
-    "upload-file": "Upload File",
-    "created-on-date": "Created on: {0}"
+    "upload-file": "Last opp fil",
+    "created-on-date": "Opprettet: {0}"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Er du sikker på at du vil slette <b>{groupName}<b/>?",
