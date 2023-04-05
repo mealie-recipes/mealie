@@ -243,8 +243,8 @@
     "report": "Informe",
     "group-management": "Administración de grupos",
     "admin-group-management": "Gestión del grupo administrador",
-    "admin-group-management-text": "Changes to this group will be reflected immediately.",
-    "group-id-value": "Group Id: {0}"
+    "admin-group-management-text": "Los cambios en este grupo se reflejarán inmediatamente.",
+    "group-id-value": "Id del Grupo: {0}"
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Crear un nuevo menú",
