@@ -2,7 +2,7 @@
   <v-toolbar flat>
     <BaseButton color="null" rounded secondary @click="$router.go(-1)">
       <template #icon> {{ $globals.icons.arrowLeftBold }}</template>
-      Back
+      {{ $t('general.back') }}
     </BaseButton>
     <slot></slot>
   </v-toolbar>

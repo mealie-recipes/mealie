@@ -25,7 +25,7 @@
       </v-card-text>
     </BaseDialog>
 
-    <BaseCardSectionTitle title="Group Management"> </BaseCardSectionTitle>
+    <BaseCardSectionTitle :title="$tc('group.group-management')"> </BaseCardSectionTitle>
     <section>
       <v-toolbar flat color="background" class="justify-between">
         <BaseButton @click="openDialog"> {{ $t("general.create") }} </BaseButton>
@@ -102,7 +102,7 @@ export default defineComponent({
       createUserForm: {
         items: [
           {
-            label: "Group Name",
+            label: i18n.t("group.group-name"),
             varName: "name",
             type: fieldTypes.TEXT,
             rules: ["required"],

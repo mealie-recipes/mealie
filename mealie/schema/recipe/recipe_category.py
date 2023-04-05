@@ -1,6 +1,8 @@
 from pydantic import UUID4
-from pydantic.utils import GetterDict
+from sqlalchemy.orm import selectinload
+from sqlalchemy.orm.interfaces import LoaderOption
 
+from mealie.db.models.recipe import RecipeModel, Tag
 from mealie.schema._mealie import MealieModel
 
 
@@ -18,12 +20,6 @@ class CategoryBase(CategoryIn):
 
     class Config:
         orm_mode = True
-
-        @classmethod
-        def getter_dict(_cls, name_orm):
-            return {
-                **GetterDict(name_orm),
-            }
 
 
 class CategoryOut(CategoryBase):
@@ -62,7 +58,13 @@ class TagOut(TagSave):
 
 
 class RecipeTagResponse(RecipeCategoryResponse):
-    pass
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [
+            selectinload(Tag.recipes).joinedload(RecipeModel.recipe_category),
+            selectinload(Tag.recipes).joinedload(RecipeModel.tags),
+            selectinload(Tag.recipes).joinedload(RecipeModel.tools),
+        ]
 
 
 from mealie.schema.recipe.recipe import RecipeSummary  # noqa: E402

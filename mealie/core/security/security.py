@@ -59,9 +59,9 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
     if settings.LDAP_TLS_INSECURE:
         ldap.set_option(ldap.OPT_X_TLS_REQUIRE_CERT, ldap.OPT_X_TLS_NEVER)
 
-    ldap.set_option(ldap.OPT_REFERRALS, 0)
-    ldap.set_option(ldap.OPT_PROTOCOL_VERSION, 3)
     conn = ldap.initialize(settings.LDAP_SERVER_URL)
+    conn.set_option(ldap.OPT_PROTOCOL_VERSION, 3)
+    conn.set_option(ldap.OPT_REFERRALS, 0)
 
     if settings.LDAP_TLS_CACERTFILE:
         conn.set_option(ldap.OPT_X_TLS_CACERTFILE, settings.LDAP_TLS_CACERTFILE)
@@ -96,6 +96,7 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
 
     user_entry = None
     try:
+        logger.debug(f"[LDAP] Starting search with filter: {search_filter}")
         user_entry = conn.search_s(
             settings.LDAP_BASE_DN,
             ldap.SCOPE_SUBTREE,
@@ -110,17 +111,24 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
         logger.error("[LDAP] No user was found with the provided user filter")
         return False
 
+    # we only want the entries that have a dn
+    user_entry = [(dn, attr) for dn, attr in user_entry if dn]
+
     if len(user_entry) > 1:
+        logger.warning("[LDAP] Multiple users found with the provided user filter")
+        logger.debug(f"[LDAP] The following entries were returned: {user_entry}")
         conn.unbind_s()
-        logger.error("[LDAP] Multiple users found with the provided user filter")
         return False
 
     user_dn, user_attr = user_entry[0]
 
     # Check the credentials of the user
     try:
+        logger.debug(f"[LDAP] Attempting to bind with '{user_dn}' using the provided password")
         conn.simple_bind_s(user_dn, password)
     except (ldap.INVALID_CREDENTIALS, ldap.NO_SUCH_OBJECT):
+        conn.unbind_s()
+        logger.debug("[LDAP] Bind failed")
         return False
 
     # Check for existing user
@@ -129,6 +137,7 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
         user = db.users.get_one(username, "username", any_case=True)
 
     if user is None:
+        logger.debug("[LDAP] User is not in Mealie. Creating a new account")
         try:
             user_id = user_attr[settings.LDAP_ID_ATTRIBUTE][0].decode("utf-8")
             full_name = user_attr[settings.LDAP_NAME_ATTRIBUTE][0].decode("utf-8")
@@ -150,6 +159,7 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
 
     if settings.LDAP_ADMIN_FILTER:
         user.admin = len(conn.search_s(user_dn, ldap.SCOPE_BASE, settings.LDAP_ADMIN_FILTER, [])) > 0
+        logger.debug("[LDAP] Setting user as admin")
         db.users.update(user.id, user)
 
     conn.unbind_s()

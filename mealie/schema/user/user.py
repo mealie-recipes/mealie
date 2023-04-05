@@ -5,7 +5,8 @@ from uuid import UUID
 
 from pydantic import UUID4, Field, validator
 from pydantic.types import constr
-from pydantic.utils import GetterDict
+from sqlalchemy.orm import joinedload, selectinload
+from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.core.config import get_app_dirs, get_app_settings
 from mealie.db.models.users import User
@@ -15,6 +16,9 @@ from mealie.schema.group.group_preferences import ReadGroupPreferences
 from mealie.schema.recipe import RecipeSummary
 from mealie.schema.response.pagination import PaginationBase
 
+from ...db.models.group import Group
+from ...db.models.recipe import RecipeModel
+from ..getter_dict import GroupGetterDict, UserGetterDict
 from ..recipe import CategoryBase
 
 DEFAULT_INTEGRATION_ID = "generic"
@@ -78,19 +82,8 @@ class UserBase(MealieModel):
     can_organize: bool = False
 
     class Config:
-        class _UserGetter(GetterDict):
-            def get(self, key: Any, default: Any = None) -> Any:
-                # Transform extras into key-value dict
-                if key == "group":
-                    value = super().get(key, default)
-                    return value.group.name
-
-                # Keep all other fields as they are
-                else:
-                    return super().get(key, default)
-
         orm_mode = True
-        getter_dict = _UserGetter
+        getter_dict = GroupGetterDict
 
         schema_extra = {
             "example": {
@@ -118,13 +111,11 @@ class UserOut(UserBase):
     class Config:
         orm_mode = True
 
-        @classmethod
-        def getter_dict(cls, ormModel: User):
-            return {
-                **GetterDict(ormModel),
-                "group": ormModel.group.name,
-                "favorite_recipes": [x.slug for x in ormModel.favorite_recipes],
-            }
+        getter_dict = UserGetterDict
+
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [joinedload(User.group), joinedload(User.favorite_recipes), joinedload(User.tokens)]
 
 
 class UserPagination(PaginationBase):
@@ -136,13 +127,16 @@ class UserFavorites(UserBase):
 
     class Config:
         orm_mode = True
+        getter_dict = GroupGetterDict
 
-        @classmethod
-        def getter_dict(cls, ormModel: User):
-            return {
-                **GetterDict(ormModel),
-                "group": ormModel.group.name,
-            }
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [
+            joinedload(User.group),
+            selectinload(User.favorite_recipes).joinedload(RecipeModel.recipe_category),
+            selectinload(User.favorite_recipes).joinedload(RecipeModel.tags),
+            selectinload(User.favorite_recipes).joinedload(RecipeModel.tools),
+        ]
 
 
 class PrivateUser(UserOut):
@@ -174,6 +168,10 @@ class PrivateUser(UserOut):
 
     def directory(self) -> Path:
         return PrivateUser.get_directory(self.id)
+
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [joinedload(User.group), selectinload(User.favorite_recipes), joinedload(User.tokens)]
 
 
 class UpdateGroup(GroupBase):
@@ -210,6 +208,17 @@ class GroupInDB(UpdateGroup):
     @property
     def exports(self) -> Path:
         return GroupInDB.get_export_directory(self.id)
+
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [
+            joinedload(Group.categories),
+            joinedload(Group.webhooks),
+            joinedload(Group.preferences),
+            selectinload(Group.users).joinedload(User.group),
+            selectinload(Group.users).joinedload(User.favorite_recipes),
+            selectinload(Group.users).joinedload(User.tokens),
+        ]
 
 
 class GroupPagination(PaginationBase):

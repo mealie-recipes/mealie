@@ -1,65 +1,65 @@
 [
     {
-        "name": "Produce"
+        "name": "מוצר"
     },
     {
-        "name": "Grains"
+        "name": "דגנים"
     },
     {
-        "name": "Fruits"
+        "name": "פירות"
     },
     {
-        "name": "Vegetables"
+        "name": "ירקות"
     },
     {
-        "name": "Meat"
+        "name": "בשר"
     },
     {
-        "name": "Seafood"
+        "name": "מאכלי ים"
     },
     {
-        "name": "Beverages"
+        "name": "משקאות"
     },
     {
-        "name": "Baked Goods"
+        "name": "מאפים"
     },
     {
-        "name": "Canned Goods"
+        "name": "פחיות שימורים"
     },
     {
-        "name": "Condiments"
+        "name": "רטבים"
     },
     {
-        "name": "Confectionary"
+        "name": "מתוקים"
     },
     {
-        "name": "Dairy Products"
+        "name": "מוצרי חלב"
     },
     {
-        "name": "Frozen Foods"
+        "name": "אוכל קפוא"
     },
     {
-        "name": "Health Foods"
+        "name": "אוכל בריאותי"
     },
     {
-        "name": "Household"
+        "name": "משק בית"
     },
     {
-        "name": "Meat Products"
+        "name": "מוצרי בשר"
     },
     {
-        "name": "Snacks"
+        "name": "חטיפים"
     },
     {
-        "name": "Spices"
+        "name": "תבלינים"
     },
     {
-        "name": "Sweets"
+        "name": "ממתקים"
     },
     {
-        "name": "Alcohol"
+        "name": "אלכוהול"
     },
     {
-        "name": "Other"
+        "name": "אחר"
     }
 ]

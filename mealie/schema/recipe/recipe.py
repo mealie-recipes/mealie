@@ -6,14 +6,22 @@ from typing import Any
 from uuid import uuid4
 
 from pydantic import UUID4, BaseModel, Field, validator
-from pydantic.utils import GetterDict
 from slugify import slugify
+from sqlalchemy.orm import joinedload, selectinload
+from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.core.config import get_app_dirs
-from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.schema._mealie import MealieModel
 from mealie.schema.response.pagination import PaginationBase
 
+from ...db.models.recipe import (
+    IngredientFoodModel,
+    RecipeComment,
+    RecipeIngredientModel,
+    RecipeInstruction,
+    RecipeModel,
+)
+from ..getter_dict import ExtrasGetterDict
 from .recipe_asset import RecipeAsset
 from .recipe_comments import RecipeCommentOut
 from .recipe_notes import RecipeNote
@@ -147,16 +155,7 @@ class Recipe(RecipeSummary):
 
     class Config:
         orm_mode = True
-
-        @classmethod
-        def getter_dict(cls, name_orm: RecipeModel):
-            return {
-                **GetterDict(name_orm),
-                # "recipe_ingredient": [x.note for x in name_orm.recipe_ingredient],
-                # "recipe_category": [x.name for x in name_orm.recipe_category],
-                # "tags": [x.name for x in name_orm.tags],
-                "extras": {x.key_name: x.value for x in name_orm.extras},
-            }
+        getter_dict = ExtrasGetterDict
 
     @validator("slug", always=True, pre=True, allow_reuse=True)
     def validate_slug(slug: str, values):  # type: ignore
@@ -198,6 +197,29 @@ class Recipe(RecipeSummary):
         if isinstance(user_id, int):
             return uuid4()
         return user_id
+
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [
+            selectinload(RecipeModel.assets),
+            selectinload(RecipeModel.comments).joinedload(RecipeComment.user),
+            selectinload(RecipeModel.extras),
+            joinedload(RecipeModel.recipe_category),
+            selectinload(RecipeModel.tags),
+            selectinload(RecipeModel.tools),
+            selectinload(RecipeModel.recipe_ingredient).joinedload(RecipeIngredientModel.unit),
+            selectinload(RecipeModel.recipe_ingredient)
+            .joinedload(RecipeIngredientModel.food)
+            .joinedload(IngredientFoodModel.extras),
+            selectinload(RecipeModel.recipe_ingredient)
+            .joinedload(RecipeIngredientModel.food)
+            .joinedload(IngredientFoodModel.label),
+            selectinload(RecipeModel.recipe_instructions).joinedload(RecipeInstruction.ingredient_references),
+            joinedload(RecipeModel.nutrition),
+            joinedload(RecipeModel.settings),
+            # for whatever reason, joinedload can mess up the order here, so use selectinload just this once
+            selectinload(RecipeModel.notes),
+        ]
 
 
 class RecipeLastMade(BaseModel):

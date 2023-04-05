@@ -5,8 +5,9 @@ from pydantic import UUID4
 from sqlalchemy import select
 
 from mealie.assets import users as users_assets
-from mealie.schema.user.user import PrivateUser, User
+from mealie.schema.user.user import PrivateUser
 
+from ..db.models.users import User
 from .repository_generic import RepositoryGeneric
 
 

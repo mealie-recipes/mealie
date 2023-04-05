@@ -1,7 +1,5 @@
-from pydantic.utils import GetterDict
-
-from mealie.db.models.group.shopping_list import ShoppingList
 from mealie.schema._mealie import MealieModel
+from mealie.schema.getter_dict import GroupGetterDict
 
 
 class ListItem(MealieModel):
@@ -25,10 +23,4 @@ class ShoppingListOut(ShoppingListIn):
 
     class Config:
         orm_mode = True
-
-        @classmethod
-        def getter_dict(cls, ormModel: ShoppingList):
-            return {
-                **GetterDict(ormModel),
-                "group": ormModel.group.name,
-            }
+        getter_dict = GroupGetterDict

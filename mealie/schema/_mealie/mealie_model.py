@@ -5,6 +5,7 @@ from typing import Protocol, TypeVar
 
 from humps.main import camelize
 from pydantic import UUID4, BaseModel
+from sqlalchemy.orm.interfaces import LoaderOption
 
 T = TypeVar("T", bound=BaseModel)
 
@@ -53,6 +54,10 @@ class MealieModel(BaseModel):
             val = getattr(src, field)
             if field in self.__fields__ and (val is not None or replace_null):
                 setattr(self, field, val)
+
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return []
 
 
 class HasUUID(Protocol):

@@ -1,5 +1,8 @@
 from pydantic import UUID4, NoneStr
+from sqlalchemy.orm import joinedload
+from sqlalchemy.orm.interfaces import LoaderOption
 
+from mealie.db.models.group import GroupEventNotifierModel
 from mealie.schema._mealie import MealieModel
 from mealie.schema.response.pagination import PaginationBase
 
@@ -85,6 +88,10 @@ class GroupEventNotifierOut(MealieModel):
 
     class Config:
         orm_mode = True
+
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [joinedload(GroupEventNotifierModel.options)]
 
 
 class GroupEventPagination(PaginationBase):

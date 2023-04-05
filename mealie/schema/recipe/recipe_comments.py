@@ -1,7 +1,10 @@
 from datetime import datetime
 
 from pydantic import UUID4
+from sqlalchemy.orm import joinedload
+from sqlalchemy.orm.interfaces import LoaderOption
 
+from mealie.db.models.recipe import RecipeComment
 from mealie.schema._mealie import MealieModel
 from mealie.schema.response.pagination import PaginationBase
 
@@ -39,6 +42,10 @@ class RecipeCommentOut(RecipeCommentCreate):
 
     class Config:
         orm_mode = True
+
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [joinedload(RecipeComment.user)]
 
 
 class RecipeCommentPagination(PaginationBase):

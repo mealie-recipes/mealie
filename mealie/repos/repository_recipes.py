@@ -10,7 +10,7 @@ from sqlalchemy.orm import joinedload
 from text_unidecode import unidecode
 
 from mealie.db.models.recipe.category import Category
-from mealie.db.models.recipe.ingredient import RecipeIngredient
+from mealie.db.models.recipe.ingredient import RecipeIngredientModel
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.settings import RecipeSettings
 from mealie.db.models.recipe.tag import Tag
@@ -108,7 +108,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         ]
 
         if load_foods:
-            args.append(joinedload(RecipeModel.recipe_ingredient).options(joinedload(RecipeIngredient.food)))
+            args.append(joinedload(RecipeModel.recipe_ingredient).options(joinedload(RecipeIngredientModel.food)))
 
         try:
             if order_by:
@@ -156,10 +156,10 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         # that at least sqlite wont use indexes for that correctly anymore and takes a big hit, so prefiltering it is
         ingredient_ids = (
             self.session.execute(
-                select(RecipeIngredient.id).filter(
+                select(RecipeIngredientModel.id).filter(
                     or_(
-                        RecipeIngredient.note_normalized.like(f"%{normalized_search}%"),
-                        RecipeIngredient.original_text_normalized.like(f"%{normalized_search}%"),
+                        RecipeIngredientModel.note_normalized.like(f"%{normalized_search}%"),
+                        RecipeIngredientModel.original_text_normalized.like(f"%{normalized_search}%"),
                     )
                 )
             )
@@ -171,7 +171,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             or_(
                 RecipeModel.name_normalized.like(f"%{normalized_search}%"),
                 RecipeModel.description_normalized.like(f"%{normalized_search}%"),
-                RecipeModel.recipe_ingredient.any(RecipeIngredient.id.in_(ingredient_ids)),
+                RecipeModel.recipe_ingredient.any(RecipeIngredientModel.id.in_(ingredient_ids)),
             )
         ).order_by(desc(RecipeModel.name_normalized.like(f"%{normalized_search}%")))
         return q
@@ -303,9 +303,9 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
                 fltr.append(RecipeModel.tools.any(Tool.id.in_(tools)))
         if foods:
             if require_all_foods:
-                fltr.extend(RecipeModel.recipe_ingredient.any(RecipeIngredient.food_id == food) for food in foods)
+                fltr.extend(RecipeModel.recipe_ingredient.any(RecipeIngredientModel.food_id == food) for food in foods)
             else:
-                fltr.append(RecipeModel.recipe_ingredient.any(RecipeIngredient.food_id.in_(foods)))
+                fltr.append(RecipeModel.recipe_ingredient.any(RecipeIngredientModel.food_id.in_(foods)))
         return fltr
 
     def by_category_and_tags(

@@ -6,16 +6,16 @@
         "unique-name-error": "El nom de la recepta ha de ser únic"
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "No recipes match your rules"
+        "no-recipes-match-your-rules": "Cap recepta coincideix amb les teues regles"
     },
     "user": {
-        "user-updated": "User updated",
-        "password-updated": "Password updated",
-        "invalid-current-password": "Invalid current password",
-        "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
+        "user-updated": "S'ha actualitzat l'usuari",
+        "password-updated": "S'ha actualitzat la contrasenya",
+        "invalid-current-password": "La contrasenya actual no és vàlida",
+        "ldap-update-password-unavailable": "No s'ha pogut actualitzar la contrasenya, perquè l'usuari es gestiona per LDAP"
     },
     "group": {
-        "report-deleted": "Report deleted."
+        "report-deleted": "S'ha suprimit l'informe."
     },
     "exceptions": {
         "permission_denied": "No teniu autorització per executar aquesta acció",
@@ -29,7 +29,7 @@
         "generic-updated": "S'ha actualitzat: {name}",
         "generic-created-with-url": "{name} ha estat creat, {url}",
         "generic-updated-with-url": "{name} ha estat actualitzat, {url}",
-        "generic-duplicated": "{name} has been duplicated",
+        "generic-duplicated": "S'ha duplicat {name}",
         "generic-deleted": "{name} ha estat eliminat"
     }
 }

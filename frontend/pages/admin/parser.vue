@@ -1,31 +1,26 @@
 <template>
   <v-container class="pa-0">
     <v-container>
-      <BaseCardSectionTitle title="Ingredients Natural Language Processor">
-        Mealie uses Conditional Random Fields (CRFs) for parsing and processing ingredients. The model used for
-        ingredients is based off a data set of over 100,000 ingredients from a dataset compiled by the New York Times.
-        Note that as the model is trained in English only, you may have varied results when using the model in other
-        languages. This page is a playground for testing the model.
+      <BaseCardSectionTitle :title="$t('admin.ingredients-natural-language-processor')">
+        {{ $t('admin.ingredients-natural-language-processor-explanation') }}
 
         <p class="pt-3">
-          It's not perfect, but it yields great results in general and is a good starting point for manually parsing
-          ingredients into individual fields. Alternatively, you can also use the "Brute" processor that uses a pattern
-          matching technique to identify ingredients.
+          {{ $t('admin.ingredients-natural-language-processor-explanation-2') }}
         </p>
       </BaseCardSectionTitle>
 
       <div class="d-flex align-center justify-center justify-md-start flex-wrap">
         <v-btn-toggle v-model="parser" dense mandatory @change="processIngredient">
-          <v-btn value="nlp"> NLP </v-btn>
-          <v-btn value="brute"> Brute </v-btn>
+          <v-btn value="nlp"> {{ $t('admin.nlp') }} </v-btn>
+          <v-btn value="brute"> {{ $t('admin.brute') }} </v-btn>
         </v-btn-toggle>
 
-        <v-checkbox v-model="showConfidence" class="ml-5" label="Show individual confidence"></v-checkbox>
+        <v-checkbox v-model="showConfidence" class="ml-5" :label="$t('admin.show-individual-confidence')"></v-checkbox>
       </div>
 
       <v-card flat>
         <v-card-text>
-          <v-text-field v-model="ingredient" label="Ingredient Text"> </v-text-field>
+          <v-text-field v-model="ingredient" :label="$t('admin.ingredient-text')"> </v-text-field>
         </v-card-text>
         <v-card-actions>
           <BaseButton class="ml-auto" @click="processIngredient">
@@ -38,7 +33,7 @@
     <v-container v-if="results">
       <div v-if="parser !== 'brute' && getConfidence('average')" class="d-flex">
         <v-chip dark :color="getColor('average')" class="mx-auto mb-2">
-          {{ getConfidence("average") }} Confident
+          {{ $t('admin.average-confident', [getConfidence("average")]) }}
         </v-chip>
       </div>
       <div class="d-flex justify-center flex-wrap" style="gap: 1.5rem">
@@ -51,14 +46,14 @@
               </v-card-text>
             </v-card>
             <v-chip v-if="prop.confidence && showConfidence" dark :color="prop.color" class="mt-2">
-              {{ prop.confidence }} Confident
+              {{ $t('admin.average-confident', [prop.confidence]) }}
             </v-chip>
           </div>
         </template>
       </div>
     </v-container>
     <v-container class="narrow-container">
-      <v-card-title> Try an example </v-card-title>
+      <v-card-title> {{ $t('admin.try-an-example') }} </v-card-title>
       <v-card v-for="(text, idx) in tryText" :key="idx" class="my-2" hover @click="processTryText(text)">
         <v-card-text> {{ text }} </v-card-text>
       </v-card>
@@ -67,7 +62,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, toRefs } from "@nuxtjs/composition-api";
+import { defineComponent, reactive, ref, toRefs, useContext } from "@nuxtjs/composition-api";
 import { IngredientConfidence } from "~/lib/api/types/recipe";
 import { useUserApi } from "~/composables/api";
 import { Parser } from "~/lib/api/user/recipes/recipe";
@@ -85,6 +80,8 @@ export default defineComponent({
       results: false,
       parser: "nlp" as Parser,
     });
+
+    const { i18n } = useContext();
 
     const confidence = ref<IngredientConfidence>({});
 
@@ -169,25 +166,25 @@ export default defineComponent({
 
     const properties = reactive({
       quantity: {
-        subtitle: "Quantity",
+        subtitle: i18n.t("recipe.quantity"),
         value: "" as string | number,
         color: null,
         confidence: null,
       },
       unit: {
-        subtitle: "Unit",
+        subtitle: i18n.t("recipe.unit"),
         value: "",
         color: null,
         confidence: null,
       },
       food: {
-        subtitle: "Food",
+        subtitle: i18n.t("shopping-list.food"),
         value: "",
         color: null,
         confidence: null,
       },
       comment: {
-        subtitle: "Comment",
+        subtitle: i18n.t("recipe.comment"),
         value: "",
         color: null,
         confidence: null,
@@ -210,7 +207,7 @@ export default defineComponent({
   },
   head() {
     return {
-      title: "Parser",
+      title: this.$t("admin.parser"),
     };
   },
 });
