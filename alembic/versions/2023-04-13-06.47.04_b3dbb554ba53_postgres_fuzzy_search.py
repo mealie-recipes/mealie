@@ -23,6 +23,11 @@ def get_db_type():
     return "sqlite" if "sqlite" in self.settings.DB_URL else "postgres"
 
 
+# def setup_pg_tgrm():
+#    db.session.execute('SET pg_trgm.similarity_threshold = 0.7;')
+# CREATE EXTENSION pg_trgm;
+
+
 def upgrade():
     dbtype = get_db_type()
     if dbtype == "postgres":
