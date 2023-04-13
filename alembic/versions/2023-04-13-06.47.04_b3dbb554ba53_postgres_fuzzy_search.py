@@ -20,21 +20,83 @@ depends_on = None
 
 
 def get_db_type():
-    return "sqlite" if "sqlite" in self.settings.DB_URL else "postgres"
+    return op.get_context().dialect.name
 
 
-# def setup_pg_tgrm():
-#    db.session.execute('SET pg_trgm.similarity_threshold = 0.7;')
-# CREATE EXTENSION pg_trgm;
+def setup_postgres_trigrams():
+    op.execute("CREATE EXTENSION IF NOT EXISTS pg_trgm;")
+    op.execute("SET pg_trgm.word_similarity_threshold = 0.7;")
+    # text <% text
+    op.create_index(
+        "ix_recipe_name_gin",
+        table_name="recipe",
+        columns=["name"],
+        unique=False,
+        postgresql_using="gin",
+        postgresql_ops={
+            "name": "gin_trgm_ops",
+        },
+    )
+    op.create_index(
+        "ix_recipe_description_gin",
+        table_name="recipe",
+        columns=["description"],
+        unique=False,
+        postgresql_using="gin",
+        postgresql_ops={
+            "description": "gin_trgm_ops",
+        },
+    )
+    op.create_index(
+        "ix_recipe_ingredients_note_gin",
+        table_name="recipe_instructions",
+        columns=["note"],
+        unique=False,
+        postgresql_using="gin",
+        postgresql_ops={
+            "note": "gin_trgm_ops",
+        },
+    )
+    op.create_index(
+        "ix_recipe_ingredients_description_gin",
+        table_name="recipe_instructions",
+        columns=["original_text"],
+        unique=False,
+        postgresql_using="gin",
+        postgresql_ops={
+            "original_text": "gin_trgm_ops",
+        },
+    )
+
+
+def remove_postgres_trigrams():
+    op.drop_index("ix_recipe_name_gin", table_name="recipe")
+    op.drop_index("ix_recipe_description_gin", table_name="recipe")
+    op.drop_index("ix_recipe_ingredients_note_gin", table_name="recipe_instructions")
+    op.drop_index("ix_recipe_ingredients_description_gin", table_name="recipe_instructions")
+
+
+def setup_sqlite_trigrams():
+    pass
+
+
+def remove_sqlite_trigrams():
+    pass
 
 
 def upgrade():
-    dbtype = get_db_type()
-    if dbtype == "postgres":
-        pass
+    if get_db_type() == "postgres":
+        setup_postgres_trigrams()
+    elif get_db_type() == "sqlite":
+        setup_sqlite_trigrams()
     else:
         pass
 
 
 def downgrade():
-    pass
+    if get_db_type() == "postgres":
+        remove_postgres_trigrams()
+    elif get_db_type() == "sqlite":
+        remove_sqlite_trigrams()
+    else:
+        pass
