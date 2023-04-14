@@ -154,6 +154,8 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         normalized_search = unidecode(search).lower().strip()
         # I would prefer to just do this in the recipe_ingredient.any part of the main query, but it turns out
         # that at least sqlite wont use indexes for that correctly anymore and takes a big hit, so prefiltering it is
+        if self.session.get_bind().name == "postgres":
+            pass
         ingredient_ids = (
             self.session.execute(
                 select(RecipeIngredientModel.id).filter(

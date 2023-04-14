@@ -193,11 +193,11 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
             self.description_normalized = unidecode(description).lower().strip()
 
         if session.get_bind().name == "postgres":
-            __table_args__ = (
+            self.__table_args__ = (
                 sa.UniqueConstraint("slug", "group_id", name="recipe_slug_group_id_key"),
                 sa.Index(
-                    "ix_recipe_instructions_text",
-                    "recipe_instructions",
+                    "ix_recipes_name_normalized",
+                    "name_normalized",
                     unique=False,
                     postgresql_using="gin",
                     postgresql_ops={
@@ -205,8 +205,8 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
                     },
                 ),
                 sa.Index(
-                    "ix_recipes_name",
-                    "name",
+                    "ix_recipes_description_normalized",
+                    "description_normalized",
                     unique=False,
                     postgresql_using="gin",
                     postgresql_ops={
@@ -214,16 +214,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
                     },
                 ),
                 sa.Index(
-                    "ix_recipes_description",
-                    "description",
-                    unique=False,
-                    postgresql_using="gin",
-                    postgresql_ops={
-                        "name": "gin_trgm_ops",
-                    },
-                ),
-                sa.Index(
-                    "ix_recipes_ingredients_note",
+                    "ix_recipes_ingredients_note_normalized",
                     "recipe_ingredients",
                     unique=False,
                     postgresql_using="gin",
@@ -232,9 +223,8 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
                     },
                 ),
                 sa.Index(
-                    "ix_recipes_ingredients_original_text",
+                    "ix_recipes_ingredients_original_text_normalized",
                     "recipes_ingredients",
-                    ["original_text"],
                     unique=False,
                     postgresql_using="gin",
                     postgresql_ops={
@@ -242,8 +232,30 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
                     },
                 ),
             )
-        else:
-            __table_args__ = (sa.UniqueConstraint("slug", "group_id", name="recipe_slug_group_id_key"),)
+        else:  # sqlite case
+            self.__table_args__ = (
+                sa.UniqueConstraint("slug", "group_id", name="recipe_slug_group_id_key"),
+                sa.Index(
+                    "ix_recipes_name_normalized",
+                    "name_normalized",
+                    unique=False,
+                ),
+                sa.Index(
+                    "ix_recipes_description_normalized",
+                    "description_normalized",
+                    unique=False,
+                ),
+                sa.Index(
+                    "ix_recipes_ingredients_note_normalized",
+                    "recipe_ingredients",
+                    unique=False,
+                ),
+                sa.Index(
+                    "ix_recipes_ingredients_original_text_normalized",
+                    "recipes_ingredients",
+                    unique=False,
+                ),
+            )
 
 
 @event.listens_for(RecipeModel.name, "set")
