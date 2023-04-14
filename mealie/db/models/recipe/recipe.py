@@ -192,6 +192,59 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         if description is not None:
             self.description_normalized = unidecode(description).lower().strip()
 
+        if session.get_bind().name == "postgres":
+            __table_args__ = (
+                sa.UniqueConstraint("slug", "group_id", name="recipe_slug_group_id_key"),
+                sa.Index(
+                    "ix_recipe_instructions_text",
+                    "recipe_instructions",
+                    unique=False,
+                    postgresql_using="gin",
+                    postgresql_ops={
+                        "name": "gin_trgm_ops",
+                    },
+                ),
+                sa.Index(
+                    "ix_recipes_name",
+                    "name",
+                    unique=False,
+                    postgresql_using="gin",
+                    postgresql_ops={
+                        "name": "gin_trgm_ops",
+                    },
+                ),
+                sa.Index(
+                    "ix_recipes_description",
+                    "description",
+                    unique=False,
+                    postgresql_using="gin",
+                    postgresql_ops={
+                        "name": "gin_trgm_ops",
+                    },
+                ),
+                sa.Index(
+                    "ix_recipes_ingredients_note",
+                    "recipe_ingredients",
+                    unique=False,
+                    postgresql_using="gin",
+                    postgresql_ops={
+                        "name": "gin_trgm_ops",
+                    },
+                ),
+                sa.Index(
+                    "ix_recipes_ingredients_original_text",
+                    "recipes_ingredients",
+                    ["original_text"],
+                    unique=False,
+                    postgresql_using="gin",
+                    postgresql_ops={
+                        "name": "gin_trgm_ops",
+                    },
+                ),
+            )
+        else:
+            __table_args__ = (sa.UniqueConstraint("slug", "group_id", name="recipe_slug_group_id_key"),)
+
 
 @event.listens_for(RecipeModel.name, "set")
 def receive_name(target: RecipeModel, value: str, oldvalue, initiator):
