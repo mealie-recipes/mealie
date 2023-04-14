@@ -4,6 +4,7 @@ from contextlib import contextmanager
 import sqlalchemy as sa
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
+from sqlalchemy import event
 
 from mealie.core.config import get_app_settings
 
@@ -16,6 +17,12 @@ def sql_global_init(db_url: str):
         connect_args["check_same_thread"] = False
 
     engine = sa.create_engine(db_url, echo=False, connect_args=connect_args, pool_pre_ping=True, future=True)
+
+    @event.listens_for(engine, "connect")
+    def receive_connect(connection, _) -> None:
+        connection.enable_load_extension(True)
+        connection.execute("SELECT load_extension('fts5');")
+        connection.enable_load_extension(False)
 
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine, future=True)
 

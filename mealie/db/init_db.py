@@ -88,6 +88,14 @@ def main():
         alembic_cfg = Config(str(PROJECT_DIR / "alembic.ini"))
         if db_is_at_head(alembic_cfg):
             logger.debug("Migration not needed.")
+            # if session.get_bind().dialect.name == "sqlite":
+            # session.enable_load_extension(True)
+            # session.execute("SELECT load_extension('fts5');")
+            # session.enable_load_extension(False)
+
+            if session.get_bind().name == "sqlite":
+                session.execute("CREATE EXTENSION IF NOT EXISTS pg_trgm;")
+
         else:
             logger.info("Migration needed. Performing migration...")
             command.upgrade(alembic_cfg, "head")

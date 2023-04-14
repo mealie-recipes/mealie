@@ -156,6 +156,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         # that at least sqlite wont use indexes for that correctly anymore and takes a big hit, so prefiltering it is
         if self.session.get_bind().name == "postgres":
             pass
+        # Product.name.op('%>')(word)
         ingredient_ids = (
             self.session.execute(
                 select(RecipeIngredientModel.id).filter(
