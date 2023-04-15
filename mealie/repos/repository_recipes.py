@@ -160,10 +160,10 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
                 self.session.execute(
                     select(RecipeIngredientModel.id).filter(
                         or_(
-                            RecipeIngredientModel.note_normalized.op("%>")(normalized_search),
                             RecipeIngredientModel.note_normalized.match(normalized_search),
-                            RecipeIngredientModel.original_text_normalized.op("%>")(normalized_search),
                             RecipeIngredientModel.original_text_normalized.match(normalized_search),
+                            RecipeIngredientModel.note_normalized.op("%>")(normalized_search),
+                            RecipeIngredientModel.original_text_normalized.op("%>")(normalized_search),
                         )
                     )
                 )
@@ -190,11 +190,11 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         if self.session.get_bind().name == "postgresql":
             q = query.filter(
                 or_(
-                    RecipeModel.name_normalized.op("%>")(normalized_search),
                     RecipeModel.name_normalized.match(normalized_search),
-                    RecipeModel.description_normalized.op("%>")(normalized_search),
                     RecipeModel.description_normalized.match(normalized_search),
                     RecipeModel.recipe_ingredient.any(RecipeIngredientModel.id.in_(ingredient_ids)),
+                    RecipeModel.name_normalized.op("%>")(normalized_search),
+                    RecipeModel.description_normalized.op("%>")(normalized_search),
                 )
             ).order_by(func.levenshtein(RecipeModel.name_normalized, normalized_search))
         else:
