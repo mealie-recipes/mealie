@@ -88,14 +88,6 @@ def main():
         alembic_cfg = Config(str(PROJECT_DIR / "alembic.ini"))
         if db_is_at_head(alembic_cfg):
             logger.debug("Migration not needed.")
-            # if session.get_bind().dialect.name == "sqlite":
-            # session.enable_load_extension(True)
-            # session.execute("SELECT load_extension('fts5');")
-            # session.enable_load_extension(False)
-
-            if session.get_bind().name == "sqlite":
-                session.execute("CREATE EXTENSION IF NOT EXISTS pg_trgm;")
-
         else:
             logger.info("Migration needed. Performing migration...")
             command.upgrade(alembic_cfg, "head")
@@ -109,6 +101,9 @@ def main():
             init_db(db)
 
         safe_try(lambda: fix_slug_food_names(db))
+
+        if session.get_bind().name == "postgresql":  # needed for fuzzy search and fast GIN text indices
+            session.execute(text("CREATE EXTENSION IF NOT EXISTS pg_trgm;"))
 
 
 if __name__ == "__main__":

@@ -18,12 +18,6 @@ def sql_global_init(db_url: str):
 
     engine = sa.create_engine(db_url, echo=False, connect_args=connect_args, pool_pre_ping=True, future=True)
 
-    @event.listens_for(engine, "connect")
-    def receive_connect(connection, _) -> None:
-        connection.enable_load_extension(True)
-        connection.execute("SELECT load_extension('fts5');")
-        connection.enable_load_extension(False)
-
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine, future=True)
 
     return SessionLocal, engine
