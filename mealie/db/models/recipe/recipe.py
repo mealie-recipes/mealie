@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING
 
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
-from sqlalchemy import event
+from sqlalchemy import event, func
 from sqlalchemy.ext.orderinglist import ordering_list
 from sqlalchemy.orm import Mapped, mapped_column, validates
 from text_unidecode import unidecode
@@ -201,7 +201,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
                     unique=False,
                     postgresql_using="gin",
                     postgresql_ops={
-                        "name": "gin_trgm_ops",
+                        "name_normalized": "gin_trgm_ops",
                     },
                 ),
                 sa.Index(
@@ -210,26 +210,20 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
                     unique=False,
                     postgresql_using="gin",
                     postgresql_ops={
-                        "name": "gin_trgm_ops",
+                        "description_normalized": "gin_trgm_ops",
                     },
                 ),
                 sa.Index(
-                    "ix_recipes_ingredients_note_normalized",
-                    "recipe_ingredients",
+                    "ix_recipes_name_normalized_fulltext",
+                    func.to_tsvector("english", self.name_normalized),
                     unique=False,
                     postgresql_using="gin",
-                    postgresql_ops={
-                        "name": "gin_trgm_ops",
-                    },
                 ),
                 sa.Index(
-                    "ix_recipes_ingredients_original_text_normalized",
-                    "recipes_ingredients",
+                    "ix_recipes_description_normalized_fulltext",
+                    func.to_tsvector("english", self.description_normalized),
                     unique=False,
                     postgresql_using="gin",
-                    postgresql_ops={
-                        "name": "gin_trgm_ops",
-                    },
                 ),
             )
         else:  # sqlite case
@@ -243,16 +237,6 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
                 sa.Index(
                     "ix_recipes_description_normalized",
                     "description_normalized",
-                    unique=False,
-                ),
-                sa.Index(
-                    "ix_recipes_ingredients_note_normalized",
-                    "recipe_ingredients",
-                    unique=False,
-                ),
-                sa.Index(
-                    "ix_recipes_ingredients_original_text_normalized",
-                    "recipes_ingredients",
                     unique=False,
                 ),
             )

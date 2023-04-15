@@ -152,31 +152,60 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
 
     def _add_search_to_query(self, query: Select, search: str) -> Select:
         normalized_search = unidecode(search).lower().strip()
+        normalized_search_list = normalized_search.split()
         # I would prefer to just do this in the recipe_ingredient.any part of the main query, but it turns out
         # that at least sqlite wont use indexes for that correctly anymore and takes a big hit, so prefiltering it is
-        if self.session.get_bind().name == "postgres":
-            pass
-        # Product.name.op('%>')(word)
-        ingredient_ids = (
-            self.session.execute(
-                select(RecipeIngredientModel.id).filter(
-                    or_(
-                        RecipeIngredientModel.note_normalized.like(f"%{normalized_search}%"),
-                        RecipeIngredientModel.original_text_normalized.like(f"%{normalized_search}%"),
+        if self.session.get_bind().name == "postgresql":
+            ingredient_ids = (
+                self.session.execute(
+                    select(RecipeIngredientModel.id).filter(
+                        or_(
+                            RecipeIngredientModel.note_normalized.op("%>")(normalized_search),
+                            RecipeIngredientModel.note_normalized.match(normalized_search),
+                            RecipeIngredientModel.original_text_normalized.op("%>")(normalized_search),
+                            RecipeIngredientModel.original_text_normalized.match(normalized_search),
+                        )
                     )
                 )
+                .scalars()
+                .all()
             )
-            .scalars()
-            .all()
-        )
+        else:
+            ingredient_ids = (
+                self.session.execute(
+                    select(RecipeIngredientModel.id).filter(
+                        or_(
+                            *[RecipeIngredientModel.note_normalized.like(f"%{ns}%") for ns in normalized_search_list],
+                            *[
+                                RecipeIngredientModel.original_text_normalized.like(f"%{ns}%")
+                                for ns in normalized_search_list
+                            ],
+                        )
+                    )
+                )
+                .scalars()
+                .all()
+            )
 
-        q = query.filter(
-            or_(
-                RecipeModel.name_normalized.like(f"%{normalized_search}%"),
-                RecipeModel.description_normalized.like(f"%{normalized_search}%"),
-                RecipeModel.recipe_ingredient.any(RecipeIngredientModel.id.in_(ingredient_ids)),
-            )
-        ).order_by(desc(RecipeModel.name_normalized.like(f"%{normalized_search}%")))
+        if self.session.get_bind().name == "postgresql":
+            q = query.filter(
+                or_(
+                    RecipeModel.name_normalized.op("%>")(normalized_search),
+                    RecipeModel.name_normalized.match(normalized_search),
+                    RecipeModel.description_normalized.op("%>")(normalized_search),
+                    RecipeModel.description_normalized.match(normalized_search),
+                    RecipeModel.recipe_ingredient.any(RecipeIngredientModel.id.in_(ingredient_ids)),
+                )
+            ).order_by(func.levenshtein(RecipeModel.name_normalized, normalized_search))
+        else:
+            q = query.filter(
+                or_(
+                    *[RecipeModel.name_normalized.like(f"%{ns}%") for ns in normalized_search_list],
+                    *[RecipeModel.description_normalized.like(f"%{ns}%") for ns in normalized_search_list],
+                    RecipeModel.recipe_ingredient.any(RecipeIngredientModel.id.in_(ingredient_ids)),
+                )
+            ).order_by(desc(RecipeModel.name_normalized.like(f"%{normalized_search}%")))
+
         return q
 
     def page_all(

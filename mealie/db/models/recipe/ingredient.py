@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING
 
 import sqlalchemy as sa
-from sqlalchemy import Boolean, Float, ForeignKey, Integer, String, event, orm
+from sqlalchemy import Boolean, Float, ForeignKey, Integer, String, event, orm, func
 from sqlalchemy.orm import Mapped, mapped_column
 from text_unidecode import unidecode
 
@@ -100,33 +100,45 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
             self.__table_args__ = (
                 sa.Index(
                     "ix_recipes_ingredients_note_normalized",
-                    "recipe_ingredients",
+                    "note_normalized",
                     unique=False,
                     postgresql_using="gin",
                     postgresql_ops={
-                        "name": "gin_trgm_ops",
+                        "note_normalized": "gin_trgm_ops",
                     },
                 ),
                 sa.Index(
                     "ix_recipes_ingredients_original_text_normalized",
-                    "recipes_ingredients",
+                    "original_text",
                     unique=False,
                     postgresql_using="gin",
                     postgresql_ops={
-                        "name": "gin_trgm_ops",
+                        "original_text": "gin_trgm_ops",
                     },
+                ),
+                sa.Index(
+                    "ix_recipes_ingredients_note_normalized",
+                    func.to_tsvector("english", self.note_normalized),
+                    unique=False,
+                    postgresql_using="gin",
+                ),
+                sa.Index(
+                    "ix_recipes_ingredients_original_text_normalized_fulltext",
+                    func.to_tsvector("english", self.original_text),
+                    unique=False,
+                    postgresql_using="gin",
                 ),
             )
         else:  # sqlite case
             self.__table_args__ = (
                 sa.Index(
                     "ix_recipes_ingredients_note_normalized",
-                    "recipe_ingredients",
+                    "note_normalized",
                     unique=False,
                 ),
                 sa.Index(
                     "ix_recipes_ingredients_original_text_normalized",
-                    "recipes_ingredients",
+                    "original_text_normalized",
                     unique=False,
                 ),
             )
@@ -135,9 +147,9 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
 @event.listens_for(RecipeIngredientModel.note, "set")
 def receive_note(target: RecipeIngredientModel, value: str, oldvalue, initiator):
     if value is not None:
-        target.name_normalized = unidecode(value).lower().strip()
+        target.note_normalized = unidecode(value).lower().strip()
     else:
-        target.name_normalized = None
+        target.note_normalized = None
 
 
 @event.listens_for(RecipeIngredientModel.original_text, "set")
