@@ -192,7 +192,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         if description is not None:
             self.description_normalized = unidecode(description).lower().strip()
 
-        if session.get_bind().name == "postgres":
+        if session.get_bind().name == "postgresql":
             self.__table_args__ = (
                 sa.UniqueConstraint("slug", "group_id", name="recipe_slug_group_id_key"),
                 sa.Index(

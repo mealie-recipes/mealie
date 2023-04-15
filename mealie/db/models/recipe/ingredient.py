@@ -96,7 +96,7 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
         if orginal_text is not None:
             self.orginal_text = unidecode(orginal_text).lower().strip()
 
-        if session.get_bind().name == "postgres":
+        if session.get_bind().name == "postgresql":
             self.__table_args__ = (
                 sa.Index(
                     "ix_recipes_ingredients_note_normalized",
