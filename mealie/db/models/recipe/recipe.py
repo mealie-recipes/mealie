@@ -9,6 +9,7 @@ from sqlalchemy.orm import Mapped, mapped_column, validates
 from text_unidecode import unidecode
 
 from mealie.db.models._model_utils.guid import GUID
+from mealie.core.config import get_app_settings
 
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import auto_init
@@ -193,6 +194,8 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
             self.description_normalized = unidecode(description).lower().strip()
 
         if session.get_bind().name == "postgresql":
+            settings = get_app_settings()
+            language = settings.POSTGRES_LANGUAGE
             self.__table_args__ = (
                 sa.UniqueConstraint("slug", "group_id", name="recipe_slug_group_id_key"),
                 sa.Index(
@@ -215,13 +218,13 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
                 ),
                 sa.Index(
                     "ix_recipes_name_normalized_fulltext",
-                    func.to_tsvector("english", self.name_normalized),
+                    func.to_tsvector(language, self.name_normalized),
                     unique=False,
                     postgresql_using="gin",
                 ),
                 sa.Index(
                     "ix_recipes_description_normalized_fulltext",
-                    func.to_tsvector("english", self.description_normalized),
+                    func.to_tsvector(language, self.description_normalized),
                     unique=False,
                     postgresql_using="gin",
                 ),

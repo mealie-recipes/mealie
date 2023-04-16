@@ -8,6 +8,7 @@ from text_unidecode import unidecode
 from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 from mealie.db.models.labels import MultiPurposeLabel
 from mealie.db.models.recipe.api_extras import IngredientFoodExtras, api_extras
+from mealie.core.config import get_app_settings
 
 from .._model_utils import auto_init
 from .._model_utils.guid import GUID
@@ -97,6 +98,9 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
             self.orginal_text = unidecode(orginal_text).lower().strip()
 
         if session.get_bind().name == "postgresql":
+            settings = get_app_settings()
+            language = settings.POSTGRES_LANGUAGE
+
             self.__table_args__ = (
                 sa.Index(
                     "ix_recipes_ingredients_note_normalized",
@@ -118,13 +122,13 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
                 ),
                 sa.Index(
                     "ix_recipes_ingredients_note_normalized",
-                    func.to_tsvector("english", self.note_normalized),
+                    func.to_tsvector(language, self.note_normalized),
                     unique=False,
                     postgresql_using="gin",
                 ),
                 sa.Index(
                     "ix_recipes_ingredients_original_text_normalized_fulltext",
-                    func.to_tsvector("english", self.original_text),
+                    func.to_tsvector(language, self.original_text),
                     unique=False,
                     postgresql_using="gin",
                 ),

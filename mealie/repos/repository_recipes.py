@@ -27,6 +27,8 @@ from mealie.schema.recipe.recipe import (
 from mealie.schema.recipe.recipe_category import CategoryBase, TagBase
 from mealie.schema.response.pagination import PaginationQuery
 
+from mealie.core.config import get_app_settings
+
 from ..db.models._model_base import SqlAlchemyBase
 from ..schema._mealie.mealie_model import extract_uuids
 from .repository_generic import RepositoryGeneric
@@ -156,12 +158,19 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         # I would prefer to just do this in the recipe_ingredient.any part of the main query, but it turns out
         # that at least sqlite wont use indexes for that correctly anymore and takes a big hit, so prefiltering it is
         if self.session.get_bind().name == "postgresql":
+            settings = get_app_settings()
+            language = settings.POSTGRES_LANGUAGE
+
             ingredient_ids = (
                 self.session.execute(
                     select(RecipeIngredientModel.id).filter(
                         or_(
-                            RecipeIngredientModel.note_normalized.match(normalized_search),
-                            RecipeIngredientModel.original_text_normalized.match(normalized_search),
+                            RecipeIngredientModel.note_normalized.match(
+                                normalized_search, postgresql_regconfig=language
+                            ),
+                            RecipeIngredientModel.original_text_normalized.match(
+                                normalized_search, postgresql_regconfig=language
+                            ),
                             RecipeIngredientModel.note_normalized.op("%>")(normalized_search),
                             RecipeIngredientModel.original_text_normalized.op("%>")(normalized_search),
                         )
@@ -190,8 +199,8 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         if self.session.get_bind().name == "postgresql":
             q = query.filter(
                 or_(
-                    RecipeModel.name_normalized.match(normalized_search),
-                    RecipeModel.description_normalized.match(normalized_search),
+                    RecipeModel.name_normalized.match(normalized_search, postgresql_regconfig=language),
+                    RecipeModel.description_normalized.match(normalized_search, postgresql_regconfig=language),
                     RecipeModel.recipe_ingredient.any(RecipeIngredientModel.id.in_(ingredient_ids)),
                     RecipeModel.name_normalized.op("%>")(normalized_search),
                     RecipeModel.description_normalized.op("%>")(normalized_search),
