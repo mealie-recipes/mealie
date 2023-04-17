@@ -85,6 +85,9 @@ def main():
             if max_retry == 0:
                 raise ConnectionError("Database connection failed - exiting application.")
 
+        if session.get_bind().name == "postgresql":  # needed for fuzzy search and fast GIN text indices
+            session.execute(text("CREATE EXTENSION IF NOT EXISTS pg_trgm;"))
+
         alembic_cfg = Config(str(PROJECT_DIR / "alembic.ini"))
         if db_is_at_head(alembic_cfg):
             logger.debug("Migration not needed.")
@@ -101,9 +104,6 @@ def main():
             init_db(db)
 
         safe_try(lambda: fix_slug_food_names(db))
-
-        if session.get_bind().name == "postgresql":  # needed for fuzzy search and fast GIN text indices
-            session.execute(text("CREATE EXTENSION IF NOT EXISTS pg_trgm;"))
 
 
 if __name__ == "__main__":

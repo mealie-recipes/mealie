@@ -199,7 +199,6 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             ).order_by(
                 func.least(
                     RecipeModel.name_normalized.op("<->>")(normalized_search),
-                    RecipeModel.description_normalized.op("<->>")(normalized_search),
                 )
             )
         else:
