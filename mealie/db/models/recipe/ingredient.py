@@ -126,7 +126,7 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
                         unique=False,
                         postgresql_using="gin",
                         postgresql_ops={
-                            "original_text": "gin_trgm_ops",
+                            "original_text_normalized": "gin_trgm_ops",
                         },
                     ),
                 ]
