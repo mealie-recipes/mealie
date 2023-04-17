@@ -26,8 +26,8 @@ def get_db_type():
 def setup_postgres_trigrams():
     op.execute("CREATE EXTENSION IF NOT EXISTS pg_trgm;")
     op.create_index(
-        "ix_recipe_name_normalized_gin",
-        table_name="recipe",
+        "ix_recipes_name_normalized_gin",
+        table_name="recipes",
         columns=["name_normalized"],
         unique=False,
         postgresql_using="gin",
@@ -36,8 +36,8 @@ def setup_postgres_trigrams():
         },
     )
     op.create_index(
-        "ix_recipe_description_normalized_gin",
-        table_name="recipe",
+        "ix_recipes_description_normalized_gin",
+        table_name="recipes",
         columns=["description_normalized"],
         unique=False,
         postgresql_using="gin",
@@ -46,8 +46,8 @@ def setup_postgres_trigrams():
         },
     )
     op.create_index(
-        "ix_recipe_ingredients_note_normalized_gin",
-        table_name="recipe_instructions",
+        "ix_recipes_ingredients_note_normalized_gin",
+        table_name="recipes_ingredients",
         columns=["note_normalized"],
         unique=False,
         postgresql_using="gin",
@@ -56,8 +56,8 @@ def setup_postgres_trigrams():
         },
     )
     op.create_index(
-        "ix_recipe_ingredients_original_text_normalized_gin",
-        table_name="recipe_instructions",
+        "ix_recipes_ingredients_original_text_normalized_gin",
+        table_name="recipes_ingredients",
         columns=["original_text_normalized"],
         unique=False,
         postgresql_using="gin",
@@ -69,14 +69,16 @@ def setup_postgres_trigrams():
 
 def remove_postgres_trigrams():
     op.execute("DROP EXTENSION IF EXISTS pg_trgm;")
-    op.drop_index("ix_recipe_name_normalized_gin", table_name="recipe")
-    op.drop_index("ix_recipe_description_normalized_gin", table_name="recipe")
-    op.drop_index("ix_recipe_ingredients_note_normalized_gin", table_name="recipe_instructions")
-    op.drop_index("ix_recipe_ingredients_original_text_normalized_gin", table_name="recipe_instructions")
+    op.drop_index("ix_recipes_name_normalized_gin", table_name="recipe")
+    op.drop_index("ix_recipes_description_normalized_gin", table_name="recipe")
+    op.drop_index("ix_recipes_ingredients_note_normalized_gin", table_name="recipes_ingredients")
+    op.drop_index("ix_recipes_ingredients_original_text_normalized_gin", table_name="recipes_ingredients")
 
 
 def upgrade():
-    if get_db_type() == "postgres":
+    print(get_db_type())
+    if get_db_type() == "postgresql":
+        print("Using postgres")
         setup_postgres_trigrams()
     else:
         pass
