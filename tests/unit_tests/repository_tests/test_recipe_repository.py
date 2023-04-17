@@ -432,14 +432,16 @@ def test_recipe_repo_pagination_by_foods(database: AllRepositories, unique_user:
 
 
 def test_recipe_repo_search(database: AllRepositories, unique_user: TestUser):
-    ingredient_1 = random_string(10)
-    ingredient_2 = random_string(10)
-    name_part_1 = random_string(10)
+    ingredient_1 = "aubergine"
+    ingredient_2 = "kumquat"
+    name_part_1 = "Steinbock"
+    fuzzy_name_part_1 = "Steinbuck"
     name_1 = f"{name_part_1} soup"
-    name_part_2 = random_string(10)
+    name_part_2 = "fiddlehead"
     name_2 = f"Rustic {name_part_2} stew"
     name_3 = f"{ingredient_1} Soup"
-    description_part_1 = random_string(10)
+    description_part_1 = "string of roses"
+    misordered_token_description_part_1 = "roses string"
     recipes = [
         Recipe(
             user_id=unique_user.user_id,
@@ -506,3 +508,14 @@ def test_recipe_repo_search(database: AllRepositories, unique_user: TestUser):
     print([r.name for r in normalized_result])
     assert len(normalized_result) == 1
     assert normalized_result[0].name == "Rátàtôuile"
+
+    # Test token separation
+    token_result = database.recipes.page_all(pagination_query, search=misordered_token_description_part_1).items
+    assert len(token_result) == 1
+    assert token_result[0].name == name_1
+
+    # Test fuzzy search
+    if database.session.get_bind().name == "postgresql":
+        fuzzy_result = database.recipes.page_all(pagination_query, search=fuzzy_name_part_1).items
+        assert len(fuzzy_result) == 1
+        assert fuzzy_result[0].name == name_1
