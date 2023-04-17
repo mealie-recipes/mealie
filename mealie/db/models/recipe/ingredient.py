@@ -97,55 +97,43 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
         if orginal_text is not None:
             self.orginal_text = unidecode(orginal_text).lower().strip()
 
+        tableargs = [  # base set of indices
+            sa.Index(
+                "ix_recipes_ingredients_note_normalized",
+                "note_normalized",
+                unique=False,
+            ),
+            sa.Index(
+                "ix_recipes_ingredients_original_text_normalized",
+                "original_text_normalized",
+                unique=False,
+            ),
+        ]
         if session.get_bind().name == "postgresql":
-            settings = get_app_settings()
-            language = settings.POSTGRES_LANGUAGE
-
-            self.__table_args__ = (
-                sa.Index(
-                    "ix_recipes_ingredients_note_normalized",
-                    "note_normalized",
-                    unique=False,
-                    postgresql_using="gin",
-                    postgresql_ops={
-                        "note_normalized": "gin_trgm_ops",
-                    },
-                ),
-                sa.Index(
-                    "ix_recipes_ingredients_original_text_normalized",
-                    "original_text",
-                    unique=False,
-                    postgresql_using="gin",
-                    postgresql_ops={
-                        "original_text": "gin_trgm_ops",
-                    },
-                ),
-                sa.Index(
-                    "ix_recipes_ingredients_note_normalized",
-                    func.to_tsvector(language, self.note_normalized),
-                    unique=False,
-                    postgresql_using="gin",
-                ),
-                sa.Index(
-                    "ix_recipes_ingredients_original_text_normalized_fulltext",
-                    func.to_tsvector(language, self.original_text),
-                    unique=False,
-                    postgresql_using="gin",
-                ),
+            tableargs.extend(
+                [
+                    sa.Index(
+                        "ix_recipes_ingredients_note_normalized_gin",
+                        "note_normalized",
+                        unique=False,
+                        postgresql_using="gin",
+                        postgresql_ops={
+                            "note_normalized": "gin_trgm_ops",
+                        },
+                    ),
+                    sa.Index(
+                        "ix_recipes_ingredients_original_text_normalized_gin",
+                        "original_text",
+                        unique=False,
+                        postgresql_using="gin",
+                        postgresql_ops={
+                            "original_text": "gin_trgm_ops",
+                        },
+                    ),
+                ]
             )
-        else:  # sqlite case
-            self.__table_args__ = (
-                sa.Index(
-                    "ix_recipes_ingredients_note_normalized",
-                    "note_normalized",
-                    unique=False,
-                ),
-                sa.Index(
-                    "ix_recipes_ingredients_original_text_normalized",
-                    "original_text_normalized",
-                    unique=False,
-                ),
-            )
+        # add indices
+        self.__table_args__ = tuple(tableargs)
 
 
 @event.listens_for(RecipeIngredientModel.note, "set")

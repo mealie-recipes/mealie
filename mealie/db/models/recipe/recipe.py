@@ -193,56 +193,45 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         if description is not None:
             self.description_normalized = unidecode(description).lower().strip()
 
+        tableargs = [  # base set of indices
+            sa.UniqueConstraint("slug", "group_id", name="recipe_slug_group_id_key"),
+            sa.Index(
+                "ix_recipes_name_normalized",
+                "name_normalized",
+                unique=False,
+            ),
+            sa.Index(
+                "ix_recipes_description_normalized",
+                "description_normalized",
+                unique=False,
+            ),
+        ]
+
         if session.get_bind().name == "postgresql":
-            settings = get_app_settings()
-            language = settings.POSTGRES_LANGUAGE
-            self.__table_args__ = (
-                sa.UniqueConstraint("slug", "group_id", name="recipe_slug_group_id_key"),
-                sa.Index(
-                    "ix_recipes_name_normalized",
-                    "name_normalized",
-                    unique=False,
-                    postgresql_using="gin",
-                    postgresql_ops={
-                        "name_normalized": "gin_trgm_ops",
-                    },
-                ),
-                sa.Index(
-                    "ix_recipes_description_normalized",
-                    "description_normalized",
-                    unique=False,
-                    postgresql_using="gin",
-                    postgresql_ops={
-                        "description_normalized": "gin_trgm_ops",
-                    },
-                ),
-                sa.Index(
-                    "ix_recipes_name_normalized_fulltext",
-                    func.to_tsvector(language, self.name_normalized),
-                    unique=False,
-                    postgresql_using="gin",
-                ),
-                sa.Index(
-                    "ix_recipes_description_normalized_fulltext",
-                    func.to_tsvector(language, self.description_normalized),
-                    unique=False,
-                    postgresql_using="gin",
-                ),
+            tableargs.extend(
+                [
+                    sa.Index(
+                        "ix_recipes_name_normalized_gin",
+                        "name_normalized",
+                        unique=False,
+                        postgresql_using="gin",
+                        postgresql_ops={
+                            "name_normalized": "gin_trgm_ops",
+                        },
+                    ),
+                    sa.Index(
+                        "ix_recipes_description_normalized_gin",
+                        "description_normalized",
+                        unique=False,
+                        postgresql_using="gin",
+                        postgresql_ops={
+                            "description_normalized": "gin_trgm_ops",
+                        },
+                    ),
+                ]
             )
-        else:  # sqlite case
-            self.__table_args__ = (
-                sa.UniqueConstraint("slug", "group_id", name="recipe_slug_group_id_key"),
-                sa.Index(
-                    "ix_recipes_name_normalized",
-                    "name_normalized",
-                    unique=False,
-                ),
-                sa.Index(
-                    "ix_recipes_description_normalized",
-                    "description_normalized",
-                    unique=False,
-                ),
-            )
+        # add indices
+        self.__table_args__ = tuple(tableargs)
 
 
 @event.listens_for(RecipeModel.name, "set")

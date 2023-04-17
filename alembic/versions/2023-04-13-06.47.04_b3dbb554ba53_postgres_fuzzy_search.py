@@ -25,25 +25,59 @@ def get_db_type():
 
 def setup_postgres_trigrams():
     op.execute("CREATE EXTENSION IF NOT EXISTS pg_trgm;")
+    op.create_index(
+        "ix_recipe_name_normalized_gin",
+        table_name="recipe",
+        columns=["name_normalized"],
+        unique=False,
+        postgresql_using="gin",
+        postgresql_ops={
+            "name_normalized": "gin_trgm_ops",
+        },
+    )
+    op.create_index(
+        "ix_recipe_description_normalized_gin",
+        table_name="recipe",
+        columns=["description_normalized"],
+        unique=False,
+        postgresql_using="gin",
+        postgresql_ops={
+            "description_normalized": "gin_trgm_ops",
+        },
+    )
+    op.create_index(
+        "ix_recipe_ingredients_note_normalized_gin",
+        table_name="recipe_instructions",
+        columns=["note_normalized"],
+        unique=False,
+        postgresql_using="gin",
+        postgresql_ops={
+            "note_normalized": "gin_trgm_ops",
+        },
+    )
+    op.create_index(
+        "ix_recipe_ingredients_original_text_normalized_gin",
+        table_name="recipe_instructions",
+        columns=["original_text_normalized"],
+        unique=False,
+        postgresql_using="gin",
+        postgresql_ops={
+            "original_text_normalized": "gin_trgm_ops",
+        },
+    )
 
 
 def remove_postgres_trigrams():
     op.execute("DROP EXTENSION IF EXISTS pg_trgm;")
-
-
-def setup_sqlite_trigrams():
-    op.execute("CREATE VIRTUAL TABLE IF NOT EXISTS email USING fts5(sender, title, body);")
-
-
-def remove_sqlite_trigrams():
-    op.execute("DROP VIRTUAL TABLE IF EXISTS email USING fts5(sender, title, body);")
+    op.drop_index("ix_recipe_name_normalized_gin", table_name="recipe")
+    op.drop_index("ix_recipe_description_normalized_gin", table_name="recipe")
+    op.drop_index("ix_recipe_ingredients_note_normalized_gin", table_name="recipe_instructions")
+    op.drop_index("ix_recipe_ingredients_original_text_normalized_gin", table_name="recipe_instructions")
 
 
 def upgrade():
     if get_db_type() == "postgres":
         setup_postgres_trigrams()
-    elif get_db_type() == "sqlite":
-        setup_sqlite_trigrams()
     else:
         pass
 
@@ -51,7 +85,5 @@ def upgrade():
 def downgrade():
     if get_db_type() == "postgres":
         remove_postgres_trigrams()
-    elif get_db_type() == "sqlite":
-        remove_sqlite_trigrams()
     else:
         pass
