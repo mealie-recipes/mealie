@@ -189,7 +189,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
 
         if self.session.get_bind().name == "postgresql":
             print("fuzzy searching with postgres")
-            self.session.execute(text("set pg_trgm.word_similarity_threshold = 0.3;"))
+            self.session.execute(text("set pg_trgm.word_similarity_threshold = 0.5;"))
             q = query.filter(
                 or_(
                     RecipeModel.name_normalized.op("%>")(normalized_search),
@@ -202,7 +202,6 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
                     RecipeModel.description_normalized.op("<->>")(normalized_search),
                 )
             )
-            print(q)
         else:
             q = query.filter(
                 or_(
