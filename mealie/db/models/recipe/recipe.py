@@ -9,7 +9,6 @@ from sqlalchemy.orm import Mapped, mapped_column, validates
 from text_unidecode import unidecode
 
 from mealie.db.models._model_utils.guid import GUID
-from mealie.core.config import get_app_settings
 
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import auto_init

@@ -8,7 +8,6 @@ from text_unidecode import unidecode
 from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 from mealie.db.models.labels import MultiPurposeLabel
 from mealie.db.models.recipe.api_extras import IngredientFoodExtras, api_extras
-from mealie.core.config import get_app_settings
 
 from .._model_utils import auto_init
 from .._model_utils.guid import GUID
