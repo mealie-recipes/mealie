@@ -4,7 +4,7 @@ from uuid import UUID
 
 from pydantic import UUID4
 from slugify import slugify
-from sqlalchemy import Select, and_, desc, func, or_, select
+from sqlalchemy import Select, and_, desc, func, or_, select, text
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import joinedload
 from text_unidecode import unidecode
@@ -158,15 +158,12 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         # I would prefer to just do this in the recipe_ingredient.any part of the main query, but it turns out
         # that at least sqlite wont use indexes for that correctly anymore and takes a big hit, so prefiltering it is
         if self.session.get_bind().name == "postgresql":
-            settings = get_app_settings()
-            language = settings.POSTGRES_LANGUAGE
-
             ingredient_ids = (
                 self.session.execute(
                     select(RecipeIngredientModel.id).filter(
                         or_(
-                            RecipeIngredientModel.note_normalized.op("<%")(normalized_search),
-                            RecipeIngredientModel.original_text_normalized.op("<%")(normalized_search),
+                            RecipeIngredientModel.note_normalized.op("%>")(normalized_search),
+                            RecipeIngredientModel.original_text_normalized.op("%>")(normalized_search),
                         )
                     )
                 )
@@ -191,10 +188,12 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             )
 
         if self.session.get_bind().name == "postgresql":
+            print("fuzzy searching with postgres")
+            self.session.execute(text("set pg_trgm.word_similarity_threshold = 0.3;"))
             q = query.filter(
                 or_(
-                    RecipeModel.name_normalized.op("<%")(normalized_search),
-                    RecipeModel.description_normalized.op("<%")(normalized_search),
+                    RecipeModel.name_normalized.op("%>")(normalized_search),
+                    RecipeModel.description_normalized.op("%>")(normalized_search),
                     RecipeModel.recipe_ingredient.any(RecipeIngredientModel.id.in_(ingredient_ids)),
                 )
             ).order_by(
@@ -203,6 +202,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
                     RecipeModel.description_normalized.op("<->>")(normalized_search),
                 )
             )
+            print(q)
         else:
             q = query.filter(
                 or_(
