@@ -171,8 +171,8 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
                             RecipeIngredientModel.original_text_normalized.match(
                                 normalized_search, postgresql_regconfig=language
                             ),
-                            RecipeIngredientModel.note_normalized.op("%>")(normalized_search),
-                            RecipeIngredientModel.original_text_normalized.op("%>")(normalized_search),
+                            RecipeIngredientModel.note_normalized.op("<%")(normalized_search),
+                            RecipeIngredientModel.original_text_normalized.op("<%")(normalized_search),
                         )
                     )
                 )
@@ -202,8 +202,8 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
                     RecipeModel.name_normalized.match(normalized_search, postgresql_regconfig=language),
                     RecipeModel.description_normalized.match(normalized_search, postgresql_regconfig=language),
                     RecipeModel.recipe_ingredient.any(RecipeIngredientModel.id.in_(ingredient_ids)),
-                    RecipeModel.name_normalized.op("%>")(normalized_search),
-                    RecipeModel.description_normalized.op("%>")(normalized_search),
+                    RecipeModel.name_normalized.op("<%")(normalized_search),
+                    RecipeModel.description_normalized.op("<%")(normalized_search),
                 )
             ).order_by(func.levenshtein(RecipeModel.name_normalized, normalized_search))
         else:
