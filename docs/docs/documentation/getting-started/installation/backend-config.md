@@ -29,7 +29,6 @@
 | Variables         | Default  | Description                      |
 | ----------------- | :------: | -------------------------------- |
 | DB_ENGINE         |  sqlite  | Optional: 'sqlite', 'postgres'   |
-| POSTGRES_LANGUAGE |  english | Postgres language to use for full text search. Can be one of the following:  simple, arabic, armenian, basque, catalan, danish, dutch, english, finnish, french, german, greek, hindi, hungarian, indonesian, irish, italian, lithuanian, nepali, norwegian, portuguese, romanian, russian, spanish, swedish, tamil, turkish, yiddish |
 | POSTGRES_USER     |  mealie  | Postgres database user           |
 | POSTGRES_PASSWORD |  mealie  | Postgres database password       |
 | POSTGRES_SERVER   | postgres | Postgres database server address |

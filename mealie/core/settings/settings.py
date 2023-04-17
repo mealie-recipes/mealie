@@ -78,38 +78,6 @@ class AppSettings(BaseSettings):
     def DB_URL_PUBLIC(self) -> str | None:
         return self.DB_PROVIDER.db_url_public if self.DB_PROVIDER else None
 
-    POSTGRES_LANGUAGE: Literal[
-        "simple",
-        "arabic",
-        "armenian",
-        "basque",
-        "catalan",
-        "danish",
-        "dutch",
-        "english",
-        "finnish",
-        "french",
-        "german",
-        "greek",
-        "hindi",
-        "hungarian",
-        "indonesian",
-        "irish",
-        "italian",
-        "lithuanian",
-        "nepali",
-        "norwegian",
-        "portuguese",
-        "romanian",
-        "russian",
-        "serbian",
-        "spanish",
-        "swedish",
-        "tamil",
-        "turkish",
-        "yiddish",
-    ] = "english"
-
     DEFAULT_GROUP: str = "Home"
     DEFAULT_EMAIL: str = "changeme@email.com"
     DEFAULT_PASSWORD: str = "MyPassword"
