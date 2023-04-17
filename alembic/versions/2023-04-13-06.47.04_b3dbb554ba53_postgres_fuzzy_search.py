@@ -76,9 +76,7 @@ def remove_postgres_trigrams():
 
 
 def upgrade():
-    print(get_db_type())
     if get_db_type() == "postgresql":
-        print("Using postgres")
         setup_postgres_trigrams()
     else:
         pass
