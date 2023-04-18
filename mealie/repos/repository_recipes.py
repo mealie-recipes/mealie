@@ -154,26 +154,42 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         return ids + additional_ids
 
     def _add_search_to_query(self, query: Select, search: str) -> Select:
-        normalized_search = unidecode(search).lower().strip()
+        """
+        0. fuzzy search (postgres only) and tokenized search are performed separately (fuzzy search is inherently tokenized)
+        1. take search string and do a little pre-normalization
+        2. look for internal quoted strings and keep them together as literal parts of the search
+        3. if there are internal quotes, do token search to be sure literals are kept intact
+        4. token search looks for any individual exact hit in name, description, and ingredients
+        5. fuzzy search looks for trigram hits in name, description, and ingredients
+        6. Sort order is determined by closeness to the recipe name
+        Should tags be added?
+        """
 
+        normalized_search = unidecode(search).lower().strip()
+        punctuation = "!\#$%&()*+,-./:;<=>?@[\\]^_`{|}~"  # string.punctuation with ' & " removed
         # keep quoted phrases together as literal portions of the search string
-        literal_search = False
+        literal = False
         quoted_regex = re.compile(r"""(["'])(?:(?=(\\?))\2.)*?\1""")  # thank you stack exchange!
         if quoted_regex.search(normalized_search):
-            literal_search = True
-            temp_search = normalized_search
-            quoted_search_list = [match.group() for match in quoted_regex.finditer(temp_search)]  # all quoted strings
-            temp_search = quoted_regex.sub("", temp_search)
-            unquoted_search_list = temp_search.split()  # all other strings
+            literal = True
+            temp = normalized_search
+            quoted_search_list = [match.group() for match in quoted_regex.finditer(temp)]  # all quoted strings
+            temp = quoted_regex.sub("", temp)  # remove all quoted strings
+            temp = temp.translate(
+                str.maketrans(punctuation, " " * len(punctuation))
+            )  # punctuation->spaces for splitting, but only on unquoted strings
+            unquoted_search_list = temp.split()  # all other strings
             normalized_search_list = quoted_search_list + unquoted_search_list
-            normalized_search_list = [re.sub(r"""['"]""", "", x) for x in normalized_search_list]  # no more quotes
+            normalized_search_list = [re.sub(r"""['"]""", "", x) for x in normalized_search_list]  # remove quotes
         else:
+            #
+            normalized_search = normalized_search.translate(str.maketrans(punctuation, " " * len(punctuation)))
             normalized_search_list = normalized_search.split()
-        normalized_search_list = [x.strip() for x in normalized_search_list]  # user might have whitespace inside quotes
-        print(normalized_search_list)
+        normalized_search_list = [x.strip() for x in normalized_search_list]  # remove padding whitespace inside quotes
+
         # I would prefer to just do this in the recipe_ingredient.any part of the main query, but it turns out
         # that at least sqlite wont use indexes for that correctly anymore and takes a big hit, so prefiltering it is
-        if (self.session.get_bind().name == "postgresql") & (literal_search == False):  # fuzzy search
+        if (self.session.get_bind().name == "postgresql") & (literal == False):  # fuzzy search
             ingredient_ids = (
                 self.session.execute(
                     select(RecipeIngredientModel.id).filter(
@@ -203,7 +219,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
                 .all()
             )
 
-        if (self.session.get_bind().name == "postgresql") & (literal_search == False):  # fuzzy search
+        if (self.session.get_bind().name == "postgresql") & (literal == False):  # fuzzy search
             # default = 0.7 is too strict for effective fuzzing
             self.session.execute(text("set pg_trgm.word_similarity_threshold = 0.5;"))
             q = query.filter(
