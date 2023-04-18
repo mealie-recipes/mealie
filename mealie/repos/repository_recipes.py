@@ -157,8 +157,8 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         """
         0. fuzzy search (postgres only) and tokenized search are performed separately (fuzzy search is inherently tokenized)
         1. take search string and do a little pre-normalization
-        2. look for internal quoted strings and keep them together as literal parts of the search
-        3. if there are internal quotes, do token search to be sure literals are kept intact
+        2. look for internal quoted strings and keep them together as "literal" parts of the search
+        3. remove special characters from each non-literal search string
         4. token search looks for any individual exact hit in name, description, and ingredients
         5. fuzzy search looks for trigram hits in name, description, and ingredients
         6. Sort order is determined by closeness to the recipe name
@@ -174,19 +174,20 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             literal = True
             temp = normalized_search
             quoted_search_list = [match.group() for match in quoted_regex.finditer(temp)]  # all quoted strings
-            temp = quoted_regex.sub("", temp)  # remove all quoted strings
+            quoted_search_list = [
+                re.sub(r"""['"](.*)['"]""", "\\1", x) for x in quoted_search_list
+            ]  # remove outer quotes
+            temp = quoted_regex.sub("", temp)  # remove all quoted strings, leaving just non-quoted
             temp = temp.translate(
                 str.maketrans(punctuation, " " * len(punctuation))
             )  # punctuation->spaces for splitting, but only on unquoted strings
-            unquoted_search_list = temp.split()  # all other strings
+            unquoted_search_list = temp.split()  # all unquoted strings
             normalized_search_list = quoted_search_list + unquoted_search_list
-            normalized_search_list = [re.sub(r"""['"]""", "", x) for x in normalized_search_list]  # remove quotes
         else:
             #
             normalized_search = normalized_search.translate(str.maketrans(punctuation, " " * len(punctuation)))
             normalized_search_list = normalized_search.split()
         normalized_search_list = [x.strip() for x in normalized_search_list]  # remove padding whitespace inside quotes
-
         # I would prefer to just do this in the recipe_ingredient.any part of the main query, but it turns out
         # that at least sqlite wont use indexes for that correctly anymore and takes a big hit, so prefiltering it is
         if (self.session.get_bind().name == "postgresql") & (literal == False):  # fuzzy search
