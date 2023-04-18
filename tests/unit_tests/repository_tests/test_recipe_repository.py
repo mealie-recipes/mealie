@@ -447,7 +447,7 @@ def test_recipe_repo_search(database: AllRepositories, unique_user: TestUser):
             group_id=unique_user.group_id,
             name="Fiddlehead Fern Stir Fry",
             recipe_ingredient=[
-                RecipeIngredient(note="kumquats"),
+                RecipeIngredient(note="moss"),
             ],
         ),
         Recipe(
@@ -483,7 +483,7 @@ def test_recipe_repo_search(database: AllRepositories, unique_user: TestUser):
     assert description_result[0].name == "Steinbock Soup"
 
     # Search by ingredient
-    ingredient_result = database.recipes.page_all(pagination_query, search="kumquats").items
+    ingredient_result = database.recipes.page_all(pagination_query, search="moss").items
     assert len(ingredient_result) == 1
     assert ingredient_result[0].name == "Fiddlehead Fern Stir Fry"
 
