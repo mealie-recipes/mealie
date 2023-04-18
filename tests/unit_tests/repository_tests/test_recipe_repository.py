@@ -432,38 +432,28 @@ def test_recipe_repo_pagination_by_foods(database: AllRepositories, unique_user:
 
 
 def test_recipe_repo_search(database: AllRepositories, unique_user: TestUser):
-    ingredient_1 = "aubergine"
-    ingredient_2 = "kumquat"
-    name_part_1 = "Steinbock"
-    fuzzy_name_part_1 = "Steinbuck"
-    name_1 = f"{name_part_1} soup"
-    name_part_2 = "fiddlehead"
-    name_2 = f"Rustic {name_part_2} stew"
-    name_3 = f"{ingredient_1} Soup"
-    description_part_1 = "string of roses"
-    misordered_token_description_part_1 = "roses string"
     recipes = [
         Recipe(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
-            name=name_1,
-            description=f"My favorite {description_part_1}",
+            name="Steinbock Soup",
+            description=f"My favorite horns are delicious",
             recipe_ingredient=[
-                RecipeIngredient(note=ingredient_1),
+                RecipeIngredient(note="goat"),
             ],
         ),
         Recipe(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
-            name=name_2,
+            name="Fiddlehead Fern Stir Fry",
             recipe_ingredient=[
-                RecipeIngredient(note=ingredient_2),
+                RecipeIngredient(note="kumquats"),
             ],
         ),
         Recipe(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
-            name=name_3,
+            name="Goat Soup",
         ),
         # Test diacritics
         Recipe(
@@ -483,25 +473,25 @@ def test_recipe_repo_search(database: AllRepositories, unique_user: TestUser):
     assert len(empty_result) == 0
 
     # Search by title
-    title_result = database.recipes.page_all(pagination_query, search=name_part_2).items
+    title_result = database.recipes.page_all(pagination_query, search="Steinbock").items
     assert len(title_result) == 1
-    assert title_result[0].name == name_2
+    assert title_result[0].name == "Steinbock Soup"
 
     # Search by description
-    description_result = database.recipes.page_all(pagination_query, search=description_part_1).items
+    description_result = database.recipes.page_all(pagination_query, search="horns").items
     assert len(description_result) == 1
-    assert description_result[0].name == name_1
+    assert description_result[0].name == "Steinbock Soup"
 
     # Search by ingredient
-    ingredient_result = database.recipes.page_all(pagination_query, search=ingredient_2).items
+    ingredient_result = database.recipes.page_all(pagination_query, search="kumquats").items
     assert len(ingredient_result) == 1
-    assert ingredient_result[0].name == name_2
+    assert ingredient_result[0].name == "Fiddlehead Fern Stir Fry"
 
     # Make sure title matches are ordered in front
-    ordered_result = database.recipes.page_all(pagination_query, search=ingredient_1).items
+    ordered_result = database.recipes.page_all(pagination_query, search="goat").items
     assert len(ordered_result) == 2
-    assert ordered_result[0].name == name_3
-    assert ordered_result[1].name == name_1
+    assert ordered_result[0].name == "Goat Soup"
+    assert ordered_result[1].name == "Steinbock Soup"
 
     # Test string normalization
     normalized_result = database.recipes.page_all(pagination_query, search="ratat").items
@@ -510,12 +500,12 @@ def test_recipe_repo_search(database: AllRepositories, unique_user: TestUser):
     assert normalized_result[0].name == "Rátàtôuile"
 
     # Test token separation
-    token_result = database.recipes.page_all(pagination_query, search=misordered_token_description_part_1).items
+    token_result = database.recipes.page_all(pagination_query, search="delicious horns").items
     assert len(token_result) == 1
-    assert token_result[0].name == name_1
+    assert token_result[0].name == "Steinbock Soup"
 
     # Test fuzzy search
     if database.session.get_bind().name == "postgresql":
-        fuzzy_result = database.recipes.page_all(pagination_query, search=fuzzy_name_part_1).items
+        fuzzy_result = database.recipes.page_all(pagination_query, search="Steinbuck").items
         assert len(fuzzy_result) == 1
-        assert fuzzy_result[0].name == name_1
+        assert fuzzy_result[0].name == "Steinbock Soup"
