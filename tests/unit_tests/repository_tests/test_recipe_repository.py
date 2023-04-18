@@ -488,10 +488,21 @@ def test_recipe_repo_search(database: AllRepositories, unique_user: TestUser):
     assert ingredient_result[0].name == "Fiddlehead Fern Stir Fry"
 
     # Make sure title matches are ordered in front
-    ordered_result = database.recipes.page_all(pagination_query, search="goat").items
+    ordered_result = database.recipes.page_all(pagination_query, search="goat soup").items
     assert len(ordered_result) == 2
     assert ordered_result[0].name == "Goat Soup"
     assert ordered_result[1].name == "Steinbock Soup"
+
+    # Test literal search
+    literal_result = database.recipes.page_all(pagination_query, search='"goat soup"').items
+    assert len(literal_result) == 1
+    assert literal_result[0].name == "Goat Soup"
+
+    # Test special character removal from non-literal searches
+    character_result = database.recipes.page_all(pagination_query, search="goat-soup").items
+    assert len(character_result) == 2
+    assert character_result[0].name == "Goat Soup"
+    assert character_result[1].name == "Steinbock Soup"
 
     # Test string normalization
     normalized_result = database.recipes.page_all(pagination_query, search="ratat").items
