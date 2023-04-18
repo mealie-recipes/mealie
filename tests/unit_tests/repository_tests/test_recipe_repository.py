@@ -439,7 +439,7 @@ def test_recipe_repo_search(database: AllRepositories, unique_user: TestUser):
             name="Steinbock Soup",
             description=f"My favorite horns are delicious",
             recipe_ingredient=[
-                RecipeIngredient(note="goat"),
+                RecipeIngredient(note="alpine animal"),
             ],
         ),
         Recipe(
@@ -453,7 +453,7 @@ def test_recipe_repo_search(database: AllRepositories, unique_user: TestUser):
         Recipe(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
-            name="Goat Soup",
+            name="Animal Soup",
         ),
         # Test diacritics
         Recipe(
@@ -488,20 +488,20 @@ def test_recipe_repo_search(database: AllRepositories, unique_user: TestUser):
     assert ingredient_result[0].name == "Fiddlehead Fern Stir Fry"
 
     # Make sure title matches are ordered in front
-    ordered_result = database.recipes.page_all(pagination_query, search="goat soup").items
+    ordered_result = database.recipes.page_all(pagination_query, search="animal soup").items
     assert len(ordered_result) == 2
-    assert ordered_result[0].name == "Goat Soup"
+    assert ordered_result[0].name == "Animal Soup"
     assert ordered_result[1].name == "Steinbock Soup"
 
     # Test literal search
-    literal_result = database.recipes.page_all(pagination_query, search='"goat soup"').items
+    literal_result = database.recipes.page_all(pagination_query, search='"Animal soup"').items
     assert len(literal_result) == 1
-    assert literal_result[0].name == "Goat Soup"
+    assert literal_result[0].name == "Animal Soup"
 
     # Test special character removal from non-literal searches
-    character_result = database.recipes.page_all(pagination_query, search="goat-soup").items
+    character_result = database.recipes.page_all(pagination_query, search="animal-soup").items
     assert len(character_result) == 2
-    assert character_result[0].name == "Goat Soup"
+    assert character_result[0].name == "Animal Soup"
     assert character_result[1].name == "Steinbock Soup"
 
     # Test string normalization
