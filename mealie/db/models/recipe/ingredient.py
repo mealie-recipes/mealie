@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING
 
 import sqlalchemy as sa
-from sqlalchemy import Boolean, Float, ForeignKey, Integer, String, event, orm, func
+from sqlalchemy import Boolean, Float, ForeignKey, Integer, String, event, orm
 from sqlalchemy.orm import Mapped, mapped_column
 from text_unidecode import unidecode
 

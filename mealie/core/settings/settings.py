@@ -2,7 +2,6 @@ import secrets
 from pathlib import Path
 
 from pydantic import BaseSettings, NoneStr, validator
-from typing import Literal
 
 from .db_providers import AbstractDBProvider, db_provider_factory
 

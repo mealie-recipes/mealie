@@ -4,7 +4,6 @@ from contextlib import contextmanager
 import sqlalchemy as sa
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-from sqlalchemy import event
 
 from mealie.core.config import get_app_settings
 
