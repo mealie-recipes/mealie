@@ -85,15 +85,15 @@ def main():
             if max_retry == 0:
                 raise ConnectionError("Database connection failed - exiting application.")
 
-        if session.get_bind().name == "postgresql":  # needed for fuzzy search and fast GIN text indices
-            session.execute(text("CREATE EXTENSION IF NOT EXISTS pg_trgm;"))
-
         alembic_cfg = Config(str(PROJECT_DIR / "alembic.ini"))
         if db_is_at_head(alembic_cfg):
             logger.debug("Migration not needed.")
         else:
             logger.info("Migration needed. Performing migration...")
             command.upgrade(alembic_cfg, "head")
+
+        if session.get_bind().name == "postgresql":  # needed for fuzzy search and fast GIN text indices
+            session.execute(text("CREATE EXTENSION IF NOT EXISTS pg_trgm;"))
 
         db = get_repositories(session)
 
