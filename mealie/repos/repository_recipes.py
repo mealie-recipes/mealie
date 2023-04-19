@@ -1,7 +1,7 @@
+import re as re
 from collections.abc import Sequence
 from random import randint
 from uuid import UUID
-import re
 
 from pydantic import UUID4
 from slugify import slugify

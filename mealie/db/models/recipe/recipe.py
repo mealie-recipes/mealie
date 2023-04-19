@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING
 
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
-from sqlalchemy import event, func
+from sqlalchemy import event
 from sqlalchemy.ext.orderinglist import ordering_list
 from sqlalchemy.orm import Mapped, mapped_column, validates
 from text_unidecode import unidecode
@@ -35,7 +35,9 @@ if TYPE_CHECKING:
 
 class RecipeModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "recipes"
-    __table_args__ = (sa.UniqueConstraint("slug", "group_id", name="recipe_slug_group_id_key"),)
+    __table_args__: tuple[sa.UniqueConstraint, ...] = (
+        sa.UniqueConstraint("slug", "group_id", name="recipe_slug_group_id_key"),
+    )
 
     id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
     slug: Mapped[str | None] = mapped_column(sa.String, index=True)
@@ -192,6 +194,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         if description is not None:
             self.description_normalized = unidecode(description).lower().strip()
 
+        # list[sa.UniqueConstraint | sa.Index] = [
         tableargs = [  # base set of indices
             sa.UniqueConstraint("slug", "group_id", name="recipe_slug_group_id_key"),
             sa.Index(
