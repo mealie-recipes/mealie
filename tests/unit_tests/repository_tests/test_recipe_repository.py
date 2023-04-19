@@ -436,7 +436,7 @@ def test_recipe_repo_search(database: AllRepositories, unique_user: TestUser):
         Recipe(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
-            name="Steinbock Soup",
+            name="Steinbock Sloop",
             description=f"My favorite horns are delicious",
             recipe_ingredient=[
                 RecipeIngredient(note="alpine animal"),
@@ -453,7 +453,7 @@ def test_recipe_repo_search(database: AllRepositories, unique_user: TestUser):
         Recipe(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
-            name="Animal Soup",
+            name="Animal Sloop",
         ),
         # Test diacritics
         Recipe(
@@ -475,12 +475,12 @@ def test_recipe_repo_search(database: AllRepositories, unique_user: TestUser):
     # Search by title
     title_result = database.recipes.page_all(pagination_query, search="Steinbock").items
     assert len(title_result) == 1
-    assert title_result[0].name == "Steinbock Soup"
+    assert title_result[0].name == "Steinbock Sloop"
 
     # Search by description
     description_result = database.recipes.page_all(pagination_query, search="horns").items
     assert len(description_result) == 1
-    assert description_result[0].name == "Steinbock Soup"
+    assert description_result[0].name == "Steinbock Sloop"
 
     # Search by ingredient
     ingredient_result = database.recipes.page_all(pagination_query, search="moss").items
@@ -488,21 +488,21 @@ def test_recipe_repo_search(database: AllRepositories, unique_user: TestUser):
     assert ingredient_result[0].name == "Fiddlehead Fern Stir Fry"
 
     # Make sure title matches are ordered in front
-    ordered_result = database.recipes.page_all(pagination_query, search="animal soup").items
+    ordered_result = database.recipes.page_all(pagination_query, search="animal sloop").items
     assert len(ordered_result) == 2
-    assert ordered_result[0].name == "Animal Soup"
-    assert ordered_result[1].name == "Steinbock Soup"
+    assert ordered_result[0].name == "Animal Sloop"
+    assert ordered_result[1].name == "Steinbock Sloop"
 
     # Test literal search
-    literal_result = database.recipes.page_all(pagination_query, search='"Animal soup"').items
+    literal_result = database.recipes.page_all(pagination_query, search='"Animal Sloop"').items
     assert len(literal_result) == 1
-    assert literal_result[0].name == "Animal Soup"
+    assert literal_result[0].name == "Animal Sloop"
 
     # Test special character removal from non-literal searches
-    character_result = database.recipes.page_all(pagination_query, search="animal-soup").items
+    character_result = database.recipes.page_all(pagination_query, search="animal-sloop").items
     assert len(character_result) == 2
-    assert character_result[0].name == "Animal Soup"
-    assert character_result[1].name == "Steinbock Soup"
+    assert character_result[0].name == "Animal Sloop"
+    assert character_result[1].name == "Steinbock Sloop"
 
     # Test string normalization
     normalized_result = database.recipes.page_all(pagination_query, search="ratat").items
@@ -513,10 +513,10 @@ def test_recipe_repo_search(database: AllRepositories, unique_user: TestUser):
     # Test token separation
     token_result = database.recipes.page_all(pagination_query, search="delicious horns").items
     assert len(token_result) == 1
-    assert token_result[0].name == "Steinbock Soup"
+    assert token_result[0].name == "Steinbock Sloop"
 
     # Test fuzzy search
     if database.session.get_bind().name == "postgresql":
         fuzzy_result = database.recipes.page_all(pagination_query, search="Steinbuck").items
         assert len(fuzzy_result) == 1
-        assert fuzzy_result[0].name == "Steinbock Soup"
+        assert fuzzy_result[0].name == "Steinbock Sloop"
