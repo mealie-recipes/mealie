@@ -194,7 +194,6 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         if description is not None:
             self.description_normalized = unidecode(description).lower().strip()
 
-        # list[sa.UniqueConstraint | sa.Index] = [
         tableargs = [  # base set of indices
             sa.UniqueConstraint("slug", "group_id", name="recipe_slug_group_id_key"),
             sa.Index(
