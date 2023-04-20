@@ -15,7 +15,7 @@ Prerequisites
 
 First ensure that docker is running. Then when you clone the repo and open with VS Code you should see a popup asking you to reopen the project inside a development container. Click yes and it will build the development container and run the setup required to run both the backend API and the frontend webserver. This also pre-configures pre-commit hooks to ensure that the code is up to date before committing.
 
-Checkout the makefile for all of the available commands.
+[Checkout the makefile reference](#make-file-reference) for all of the available commands.
 
 !!! tip
     For slow terminal checkout the solution in this [GitHub Issue](https://github.com/microsoft/vscode/issues/133215)
@@ -62,9 +62,13 @@ Once the prerequisites are installed you can cd into the project base directory 
 
 Before you start the server you MUST copy the `template.env` and `frontend/template.env` files to their respective locations with the name `.env` and `frontend/.env` respectively. The application will-not run without these files.
 
-### Starting The Server
+## Postgres
+- Whether using a container or manual install, you need to set up your own postgres dev server. The database, username, password, etc should match the `POSTGRES_*` options located in the `.env` file.
+- Install psycog2 with `poetry install -E pgsql` (in the main `mealie` directory, *not* `frontend`)
 
-Once that is complete you're ready to start the servers. You'll need two shells open, One for the server and one for the frontend.
+## Starting The Server
+
+Now you're ready to start the servers. You'll need two shells open, One for the server and one for the frontend.
 
 === "Linux / macOS"
 
