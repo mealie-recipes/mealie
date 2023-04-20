@@ -14,8 +14,8 @@ Pull requests are the best way to propose changes to the codebase (we use [Githu
 4. Once you've got an idea of what changes you want to make, create a draft PR as soon as you can to let us know what you're working on and how we can help!
 5. If you've changed APIs, update the documentation.
 6. Run tests, including `make backend-all`. Note that the tests do not clean up after themselves and leave things in the database. So be sure to also run `make clean-data` and/or `make backend-clean` inbetween major testing rounds to be sure that you aren't testing on old data.
-6. Issue that pull request!
-7. If you make changes to the dev branch reflect those changes in the active changelog to keep track of changes. Don't forget to add your name/handle/identifier!
+6. Issue that pull request! First make a draft PR, make sure that the automated github tests all pass, then mark as ready for review.
+7. Be sure to add release notes to the pull request.
 
 ## Any contributions you make will be under the AGPL Software License
 In short, when you submit code changes, your submissions are understood to be under the same [AGPL License](https://choosealicense.com/licenses/agpl-3.0/) that covers the project. Feel free to contact the maintainers if that's a concern.
