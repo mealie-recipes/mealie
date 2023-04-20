@@ -1,5 +1,35 @@
 # Frequently Asked Questions
 
+## How do I enable "smart" ingredient handling?
+
+You might have noticed that scaling up a recipe doesn't or making a shopping list doesn't normally handle the ingredients in a way you might expect. Scaling up yields things like `2 1 cup broth` instead of `2 cup broth`. And making shopping lists from reciepes that have shared ingredients can yield multiple lines of the same ingredient. **But** mealie actually has a mechanism to fix this! How?
+### Set up your Foods and Units (doing this applies to your whole group, so be careful)
+1. Click on your name in the upper left corner to get to your settings
+2. In the bottom right, select `Manage Data`
+3. In the Management page, make sure that a little orange button says `Foods`
+4. If your Foods database is empty, click `Seed` and choose your language. You should end up with a list of foods. (Wait a bit for seeding to happen, and try not to seed more than once or you will have duplicates)
+5. Click the little orange `Foods` button and now choose `Units`.
+6. Click `Seed` and choose your language. You should end up with a list of units (e.g. `tablespoon`)
+
+### Set up each recipe to use units
+1. Go to a recipe
+2. Click the Edit button/icon
+3. Click the Recipe Settings gear and deselect `Disable Ingredient Amounts`
+4. Save
+5. The ingredients should now look a little weird (`1 1 cup broth` and so on)
+6. Click the Edit button/icon again
+7. Scroll to the ingredients and you should see new fields for Amount, Unit, Food, and Note. The Note in particular will contain the original text of the Recipe.
+8. Click `Parse` and you will be taken to the ingredient parsing page.
+9. Choose your parser. the `Natural Language Parser` works very well, but you can also use the `Brute Parser`.
+10. Click `Parse All` and your ingredients should be separated out into Units and Foods based on your seeding in Step 1 above.
+11. For ingredients where the Unit or Food were not found, you can click a button to accept an automatically suggested Food to add to the database. Or manually enter the Unit/Food and hit `Enter` (or click `Create`) to add it to the database
+12. When done, click `Save All` and you will be taken back to the recipe. Now the Unit and Food fields of the recipe should be filled out.
+
+Scaling up this recipe or adding it to a Shopping List will now smartly take care of ingredient amounts and duplicate combinations.
+
+Initial seeding of Units is pretty complete, but there are many Foods in the world. You'll probably find that you need to add Foods to the database during parsing for the first several recipes. Once you have a well-populated Food database, there is are API routes to parse ingredients automatically in bulk. But this is not a good idea without a very complete set of Foods.
+
+
 ## Is it Safe to Upgrade Mealie?
 
 Yes. If you are using the v1 branches (including beta), you can upgrade to the latest version of Mealie without performing a site Export/Restore. This process was required in previous versions of Mealie, however we've automated the database migration process to make it easier to upgrade. Not that if you were using the v0.5.x version, you CANNOT upgrade to the latest version automatically. You must follow the migration instructions in the documentation.
@@ -14,7 +44,7 @@ You can change the theme by settings the environment variables on the frontend c
 
 Links:
 
-- [Frontend Theme](./installation/frontend-config#themeing)
+- [Frontend Theme](../installation/frontend-config#themeing)
 
 ## How can I change the language?
 
@@ -22,14 +52,14 @@ Languages need to be set on the frontend and backend containers as ENV variables
 
 Links
 
-- [Frontend Config](./installation/frontend-config/)
-- [Backend Config](./installation/backend-config/)
+- [Frontend Config](../installation/frontend-config/)
+- [Backend Config](../installation/backend-config/)
 
 ## How can I change the Login Session Timeout?
 
 Login session can be configured by setting the `TOKEN_TIME` variable on the backend container.
 
-- [Backend Config](./installation/backend-config/)
+- [Backend Config](../installation/backend-config/)
 
 ## Can I serve Mealie on a subpath?
 
@@ -39,7 +69,7 @@ No. Due to limitations from the Javascript Framework, mealie doesn't support ser
 
 Yes, you can install Mealie on your local machine. HOWEVER, it is recommended that you don't. Managing non-system versions of python, node, and npm is a pain. Moreover updating and upgrading your system with this configuration is unsupported and will likely require manual interventions. If you insist on installing Mealie on your local machine, you can use the links below to help guide your path.
 
-- [Advanced Installation](./installation/advanced/)
+- [Advanced Installation](../installation/advanced/)
 
 ## How i can attach an image or video to a Recipe?
 
