@@ -224,7 +224,7 @@
     "default-recipe-preferences-description": "These are the default settings when a new recipe is created in your group. These can be changed for individual recipes in the recipe settings menu.",
     "default-recipe-preferences": "Default Recipe Preferences",
     "group-preferences": "Group Preferences",
-    "private-group": "Private Group",
+    "private-group": "Privat grupp",
     "private-group-description": "Setting your group to private will default all public view options to default. This overrides an individual recipes public view settings.",
     "allow-users-outside-of-your-group-to-see-your-recipes": "Allow users outside of your group to see your recipes",
     "allow-users-outside-of-your-group-to-see-your-recipes-description": "When enabled you can use a public share link to share specific recipes without authorizing the user. When disabled, you can only share recipes with users who are in your group or with a pre-generated private link",
