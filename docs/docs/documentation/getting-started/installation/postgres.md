@@ -1,5 +1,7 @@
 # Installing with PostgreSQL
 
+PostgreSQL might be considered if you need to support many concurrent users. In addition, some features are only enabled on PostgreSQL, such as fuzzy search.
+
 **For Environmental Variable Configuration See:**
 
 - [Frontend Configuration](./frontend-config.md)
