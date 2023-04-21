@@ -1,13 +1,13 @@
 {
     "teaspoon": {
-        "name": "teaspoon",
+        "name": "小さじ",
         "description": "",
-        "abbreviation": "tsp"
+        "abbreviation": "小さじ"
     },
     "tablespoon": {
-        "name": "tablespoon",
+        "name": "大さじ",
         "description": "",
-        "abbreviation": "tbsp"
+        "abbreviation": "大さじ"
     },
     "cup": {
         "name": "cup",
