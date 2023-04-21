@@ -5,7 +5,7 @@
 
 ![Image from apple site](https://help.apple.com/assets/5E8CEA35094622DF10489984/5E8CEA42094622DF1048998D/en_US/ed1f9c157cdefc13e0161e0f70015455.png)
 
-User [brasilikum](https://github.com/brasilikum) opened an issue on the main repo about how they had created an [iOS shortcut](https://github.com/hay-kot/mealie/issues/103) for interested users. 
+User [brasilikum](https://github.com/brasilikum) opened an issue on the main repo about how they had created an [iOS shortcut](https://github.com/hay-kot/mealie/issues/103) for interested users.
 This original method broke after the transition to version 1.X and an issue was raised on [Github](https://github.com/hay-kot/mealie/issues/2092) GitHub user [Zippyy](https://github.com/zippyy) has helped to create a working shortcut for version 1.X.
 
 This is a useful utility for iOS users who browse for recipes in their web browser from their devices.
@@ -21,20 +21,19 @@ This guide assumes that you already know how to [generate API tokens](https://ha
 First, click the [link](https://www.icloud.com/shortcuts/cc568d1615bc4f998789f85d1ef74846) and begin the setup of the shortcut.
 
 
-![screenshot](/docs/docs/assets/img/sc1half.png)
-
+![screenshot](../../assets/img/sc1half.png)
 
 Next, you need to replace `url` and `port` with the information for your mealie instance.
 
 If you have a TLD that you use, put that here with no port. If you just run local, Then, you need to put in your mealie instance IP and the port of `9926`.
 
 
-![screenshot](/docs/docs/assets/img/sc2half.png)
+![screenshot](../../assets/img/sc2half.png)
 
 
 Finally, you need to replace the word `keyhere` with your API token. Keep the word `Bearer`!!!
 
 
-![screenshot](/docs/docs/assets/img/sc3half.png)
+![screenshot](../../assets/img/sc3half.png)
 
 You should now be able to share a website to the shortcut and have mealie grab all the necessary information!
