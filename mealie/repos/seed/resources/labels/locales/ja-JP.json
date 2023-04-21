@@ -1,24 +1,24 @@
 [
     {
-        "name": "Produce"
+        "name": "農産物"
     },
     {
-        "name": "Grains"
+        "name": "穀物"
     },
     {
-        "name": "Fruits"
+        "name": "果物"
     },
     {
-        "name": "Vegetables"
+        "name": "野菜"
     },
     {
-        "name": "Meat"
+        "name": "肉"
     },
     {
-        "name": "Seafood"
+        "name": "魚介類"
     },
     {
-        "name": "Beverages"
+        "name": "飲料"
     },
     {
         "name": "Baked Goods"
