@@ -2,16 +2,22 @@
 
 ## How do I enable "smart" ingredient handling?
 
-You might have noticed that scaling up a recipe doesn't or making a shopping list doesn't normally handle the ingredients in a way you might expect. Scaling up yields things like `2 1 cup broth` instead of `2 cup broth`. And making shopping lists from reciepes that have shared ingredients can yield multiple lines of the same ingredient. **But** mealie actually has a mechanism to fix this! How?
-### Set up your Foods and Units (doing this applies to your whole group, so be careful)
+You might have noticed that scaling up a recipe or making a shopping list doesn't by default handle the ingredients in a way you might expect. Depending on your settings, scaling up might yield things like `2 1 cup broth` instead of `2 cup broth`. And making shopping lists from reciepes that have shared ingredients can yield multiple lines of the same ingredient. **But** mealie has a mechanism to intelligently handle ingredients and make your day better. How?
+### Set up your Foods and Units
+Do the following just **once**. Doing this applies to your whole group, so be careful.
+
 1. Click on your name in the upper left corner to get to your settings
 2. In the bottom right, select `Manage Data`
 3. In the Management page, make sure that a little orange button says `Foods`
-4. If your Foods database is empty, click `Seed` and choose your language. You should end up with a list of foods. (Wait a bit for seeding to happen, and try not to seed more than once or you will have duplicates)
+4. If your Foods database is empty, click `Seed` and choose your language. You should end up with a list of foods. (Wait  bit for seeding to happen, and try not to seed more than once or you will have duplicates)
 5. Click the little orange `Foods` button and now choose `Units`.
 6. Click `Seed` and choose your language. You should end up with a list of units (e.g. `tablespoon`)
 
-### Set up each recipe to use units
+Initial seeding of Units is pretty complete, but there are many Foods in the world. You'll probably find that you need to add Foods to the database during parsing for the first several recipes. Once you have a well-populated Food database, there is are API routes to parse ingredients automatically in bulk. But this is not a good idea without a very complete set of Foods.
+
+### Set up Recipes to use Foods and Units
+Do the following for each recipe you want to intelligently handle ingredients.
+
 1. Go to a recipe
 2. Click the Edit button/icon
 3. Click the Recipe Settings gear and deselect `Disable Ingredient Amounts`
@@ -27,14 +33,9 @@ You might have noticed that scaling up a recipe doesn't or making a shopping lis
 
 Scaling up this recipe or adding it to a Shopping List will now smartly take care of ingredient amounts and duplicate combinations.
 
-Initial seeding of Units is pretty complete, but there are many Foods in the world. You'll probably find that you need to add Foods to the database during parsing for the first several recipes. Once you have a well-populated Food database, there is are API routes to parse ingredients automatically in bulk. But this is not a good idea without a very complete set of Foods.
-
-
 ## Is it Safe to Upgrade Mealie?
 
 Yes. If you are using the v1 branches (including beta), you can upgrade to the latest version of Mealie without performing a site Export/Restore. This process was required in previous versions of Mealie, however we've automated the database migration process to make it easier to upgrade. Not that if you were using the v0.5.x version, you CANNOT upgrade to the latest version automatically. You must follow the migration instructions in the documentation.
-
-Links
 
 - [Migration From v0.5.x](./migrating-to-mealie-v1.md)
 
@@ -42,15 +43,11 @@ Links
 
 You can change the theme by settings the environment variables on the frontend container.
 
-Links:
-
 - [Frontend Theme](../installation/frontend-config#themeing)
 
 ## How can I change the language?
 
 Languages need to be set on the frontend and backend containers as ENV variables.
-
-Links
 
 - [Frontend Config](../installation/frontend-config/)
 - [Backend Config](../installation/backend-config/)
