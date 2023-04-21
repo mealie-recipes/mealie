@@ -1,6 +1,6 @@
 # Using the Omni Image
 
-Since [#1948](https://github.com/hay-kot/mealie/pull/1948) we've started publishing an experimental image that merges both the frontend and backend services into a single container image. This image is currently in an experimental state, and should be used with caution. Continued support for this image will be based on user feedback and demand, if you're using this image please let us know how it's working for you.
+Since [#1948](https://github.com/hay-kot/mealie/pull/1948) we've started publishing an experimental image that merges both the frontend and backend services into a single container image. This image is currently in an experimental state, and should be used with caution. Continued support for this image will be based on user feedback and demand, if you're using this image please let us know how it's working for you. The single container comes with SQLite, and can be used with PostgreSQL by adding a postgres container to the docker-compose file (see the [PostgreSQL install](./postgres.md) for a snippet).
 
 - [Feedback Discussion](https://github.com/hay-kot/mealie/discussions/1949)
 
