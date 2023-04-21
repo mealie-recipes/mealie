@@ -10,9 +10,9 @@
         "abbreviation": "大さじ"
     },
     "cup": {
-        "name": "cup",
+        "name": "カップ",
         "description": "",
-        "abbreviation": "cup"
+        "abbreviation": "カップ"
     },
     "fluid-ounce": {
         "name": "fluid ounce",
