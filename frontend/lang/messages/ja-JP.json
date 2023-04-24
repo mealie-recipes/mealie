@@ -36,18 +36,18 @@
     "error-submitting-form": "Error Submitting Form"
   },
   "category": {
-    "categories": "Categories",
-    "category-created": "Category created",
-    "category-creation-failed": "Category creation failed",
-    "category-deleted": "Category Deleted",
-    "category-deletion-failed": "Category deletion failed",
-    "category-filter": "Category Filter",
+    "categories": "カテゴリ",
+    "category-created": "カテゴリを作成しました。",
+    "category-creation-failed": "カテゴリの作成に失敗しました。",
+    "category-deleted": "カテゴリを削除しました。",
+    "category-deletion-failed": "カテゴリの削除に失敗しました。",
+    "category-filter": "カテゴリフィルタ",
     "category-update-failed": "Category update failed",
     "category-updated": "Category updated",
-    "uncategorized-count": "Uncategorized {count}",
-    "create-a-category": "Create a Category",
-    "category-name": "Category Name",
-    "category": "Category"
+    "uncategorized-count": "カテゴリなし {count}",
+    "create-a-category": "カテゴリを作成",
+    "category-name": "カテゴリ名",
+    "category": "カテゴリ"
   },
   "events": {
     "apprise-url": "Apprise URL",
@@ -75,7 +75,7 @@
     "shopping-list-events": "Shopping List Events",
     "cookbook-events": "Cookbook Events",
     "tag-events": "Tag Events",
-    "category-events": "Category Events",
+    "category-events": "カテゴリイベント",
     "when-a-new-user-joins-your-group": "When a new user joins your group"
   },
   "general": {
