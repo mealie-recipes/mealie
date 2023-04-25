@@ -303,6 +303,11 @@ export default defineComponent({
         name: i18n.tc("general.updated"),
         value: "update_at",
       },
+      {
+        icon: $globals.icons.diceMultiple,
+        name: i18n.tc("general.random"),
+        value: "random",
+      },
     ];
 
     onMounted(() => {
