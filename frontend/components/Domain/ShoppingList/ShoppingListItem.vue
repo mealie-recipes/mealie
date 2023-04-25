@@ -138,6 +138,10 @@ export default defineComponent({
     });
     const edit = ref(false);
     function toggleEdit(val = !edit.value) {
+      if (edit.value === val) {
+        return;
+      }
+
       if (val) {
         // update local copy of item with the current value
         localListItem.value = props.value;
