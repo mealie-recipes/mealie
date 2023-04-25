@@ -200,6 +200,13 @@ def test_recipe_repo_pagination_by_categories(database: AllRepositories, unique_
         for category in created_categories:
             assert category.id in category_ids
 
+    # Test random ordering with category filter
+    pagination_query = PaginationQuery(page=1, per_page=-1, order_by="random", order_direction=OrderDirection.asc)
+    random_ordered = []
+    for i in range(5):
+        random_ordered.append(database.recipes.page_all(pagination_query, categories=[category_slug]).items)
+    assert not all(i == random_ordered[0] for i in random_ordered)
+
 
 def test_recipe_repo_pagination_by_tags(database: AllRepositories, unique_user: TestUser):
     slug1, slug2 = (random_string(10) for _ in range(2))
@@ -278,6 +285,13 @@ def test_recipe_repo_pagination_by_tags(database: AllRepositories, unique_user: 
         tag_ids = [tag.id for tag in recipe_summary.tags]
         for tag in created_tags:
             assert tag.id in tag_ids
+
+    # Test random ordering with tag filter
+    pagination_query = PaginationQuery(page=1, per_page=-1, order_by="random", order_direction=OrderDirection.asc)
+    random_ordered = []
+    for i in range(5):
+        random_ordered.append(database.recipes.page_all(pagination_query, tags=[tag_slug]).items)
+    assert not all(i == random_ordered[0] for i in random_ordered)
 
 
 def test_recipe_repo_pagination_by_tools(database: AllRepositories, unique_user: TestUser):
@@ -359,6 +373,13 @@ def test_recipe_repo_pagination_by_tools(database: AllRepositories, unique_user:
         tool_ids = [tool.id for tool in recipe_summary.tools]
         for tool in created_tools:
             assert tool.id in tool_ids
+
+    # Test random ordering with tools filter
+    pagination_query = PaginationQuery(page=1, per_page=-1, order_by="random", order_direction=OrderDirection.asc)
+    random_ordered = []
+    for i in range(5):
+        random_ordered.append(database.recipes.page_all(pagination_query, tools=[tool_id]).items)
+    assert not all(i == random_ordered[0] for i in random_ordered)
 
 
 def test_recipe_repo_pagination_by_foods(database: AllRepositories, unique_user: TestUser):
@@ -506,3 +527,10 @@ def test_recipe_repo_search(database: AllRepositories, unique_user: TestUser):
     print([r.name for r in normalized_result])
     assert len(normalized_result) == 1
     assert normalized_result[0].name == "Rátàtôuile"
+
+    # Test random ordering with search
+    pagination_query = PaginationQuery(page=1, per_page=-1, order_by="random", order_direction=OrderDirection.asc)
+    random_ordered = []
+    for i in range(5):
+        random_ordered.append(database.recipes.page_all(pagination_query, search="soup").items)
+    assert not all(i == random_ordered[0] for i in random_ordered)
