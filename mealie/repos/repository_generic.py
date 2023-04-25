@@ -378,4 +378,8 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
                 query = query.order_by(order_attr)
 
+            elif pagination.order_by == "random":
+                order_attr = func.random()
+                query = query.order_by(order_attr)
+
         return query.limit(pagination.per_page).offset((pagination.page - 1) * pagination.per_page), count, total_pages
