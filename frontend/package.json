@@ -40,7 +40,7 @@
     "@nuxtjs/composition-api": "^0.33.1",
     "@nuxtjs/eslint-config-typescript": "^12.0.0",
     "@nuxtjs/eslint-module": "4.0.2",
-    "@nuxtjs/google-fonts": "2.0.0",
+    "@nuxtjs/google-fonts": "3.0.0",
     "@nuxtjs/vuetify": "^1.12.1",
     "@types/sortablejs": "^1.15.0",
     "eslint": "^8.30.0",
