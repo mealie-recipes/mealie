@@ -443,6 +443,7 @@ export default defineComponent({
 
       // setting this doesn't have any effect on the data since it's refreshed automatically, but it makes the ux feel smoother
       shoppingList.value.labelSettings = labelSettings;
+      updateItemsByLabel();
 
       loadingCounter.value += 1;
       const { data } = await userApi.shopping.lists.updateLabelSettings(shoppingList.value.id, labelSettings);
