@@ -291,6 +291,7 @@ def test_recipe_repo_pagination_by_tags(database: AllRepositories, unique_user: 
     random_ordered = []
     for i in range(5):
         random_ordered.append(database.recipes.page_all(pagination_query, tags=[tag_slug]).items)
+    assert len(random_ordered[0]) == 15
     assert not all(i == random_ordered[0] for i in random_ordered)
 
 
@@ -379,6 +380,7 @@ def test_recipe_repo_pagination_by_tools(database: AllRepositories, unique_user:
     random_ordered = []
     for i in range(5):
         random_ordered.append(database.recipes.page_all(pagination_query, tools=[tool_id]).items)
+    assert len(random_ordered[0]) == 15
     assert not all(i == random_ordered[0] for i in random_ordered)
 
 
