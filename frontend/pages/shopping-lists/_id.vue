@@ -590,7 +590,15 @@ export default defineComponent({
         item.updateAt = item.updateAt.substring(0, item.updateAt.length-1);
       }
 
-      // if an item was checked/unchecked, make sure it changes sections immediately
+      // make updates reflect immediately
+      if (shoppingList.value.listItems) {
+        shoppingList.value.listItems.forEach((oldListItem: ShoppingListItemOut, idx: number) => {
+          if (oldListItem.id === item.id && shoppingList.value?.listItems) {
+            shoppingList.value.listItems[idx] = item;
+          }
+        });
+      }
+
       updateItemsByLabel();
 
       loadingCounter.value += 1;
