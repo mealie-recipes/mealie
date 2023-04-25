@@ -355,6 +355,7 @@ export interface RecipeTimelineEventIn {
   eventMessage?: string;
   image?: string;
   timestamp?: string;
+  recipeId: string;
 }
 export interface RecipeTimelineEventOut {
   userId: string;

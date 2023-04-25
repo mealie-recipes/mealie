@@ -113,10 +113,6 @@ export default defineComponent({
       type: String,
       default: "primary",
     },
-    slug: {
-      type: String,
-      required: true,
-    },
     event: {
       type: Object as () => RecipeTimelineEventOut,
       required: true,

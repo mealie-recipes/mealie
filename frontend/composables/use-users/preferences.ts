@@ -25,6 +25,10 @@ export interface UserShoppingListPreferences {
   viewByLabel: boolean;
 }
 
+export interface UserTimelinePreferences {
+  orderDirection: string;
+}
+
 export function useUserPrintPreferences(): Ref<UserPrintPreferences> {
   const fromStorage = useLocalStorage(
     "recipe-print-preferences",
@@ -72,6 +76,20 @@ export function useShoppingListPreferences(): Ref<UserShoppingListPreferences> {
     // we cast to a Ref because by default it will return an optional type ref
     // but since we pass defaults we know all properties are set.
   ) as unknown as Ref<UserShoppingListPreferences>;
+
+  return fromStorage;
+}
+
+export function useTimelinePreferences(): Ref<UserTimelinePreferences> {
+  const fromStorage = useLocalStorage(
+    "timeline-preferences",
+    {
+      orderDirection: "asc",
+    },
+    { mergeDefaults: true }
+    // we cast to a Ref because by default it will return an optional type ref
+    // but since we pass defaults we know all properties are set.
+  ) as unknown as Ref<UserTimelinePreferences>;
 
   return fromStorage;
 }

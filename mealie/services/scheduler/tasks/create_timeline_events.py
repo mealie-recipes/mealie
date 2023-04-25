@@ -6,10 +6,7 @@ from mealie.db.db_setup import session_context
 from mealie.repos.all_repositories import get_repositories
 from mealie.schema.meal_plan.new_meal import PlanEntryType
 from mealie.schema.recipe.recipe import RecipeSummary
-from mealie.schema.recipe.recipe_timeline_events import (
-    RecipeTimelineEventCreate,
-    TimelineEventType,
-)
+from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventCreate, TimelineEventType
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.user.user import DEFAULT_INTEGRATION_ID
 from mealie.services.event_bus_service.event_bus_service import EventBusService

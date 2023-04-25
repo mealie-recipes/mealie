@@ -4,13 +4,17 @@ import datetime
 import re
 from enum import Enum
 from typing import Any, TypeVar, cast
+from uuid import UUID
 
 from dateutil import parser as date_parser
 from dateutil.parser import ParserError
 from humps import decamelize
-from sqlalchemy import Select, bindparam, text
+from sqlalchemy import Select, bindparam, inspect, text
+from sqlalchemy.orm import Mapper
 from sqlalchemy.sql import sqltypes
 from sqlalchemy.sql.expression import BindParameter
+
+from mealie.db.models._model_utils.guid import GUID
 
 Model = TypeVar("Model")
 
@@ -87,13 +91,50 @@ class QueryFilter:
             # we explicitly mark this as a filter component instead cast doesn't
             # actually do anything at runtime
             component = cast(QueryFilterComponent, component)
+            attribute_chain = component.attribute_name.split(".")
+            if not attribute_chain:
+                raise ValueError("invalid query string: attribute name cannot be empty")
 
-            if not hasattr(model, component.attribute_name):
-                raise ValueError(f"invalid query string: '{component.attribute_name}' does not exist on this schema")
+            attr_model: Any = model
+            for j, attribute_link in enumerate(attribute_chain):
+                # last element
+                if j == len(attribute_chain) - 1:
+                    if not hasattr(attr_model, attribute_link):
+                        raise ValueError(
+                            f"invalid query string: '{component.attribute_name}' does not exist on this schema"
+                        )
+
+                    attr_value = attribute_link
+                    if j:
+                        # use the nested table name, rather than the dot notation
+                        component.attribute_name = f"{attr_model.__table__.name}.{attr_value}"
+
+                    continue
+
+                # join on nested model
+                try:
+                    query = query.join(getattr(attr_model, attribute_link))
+
+                    mapper: Mapper = inspect(attr_model)
+                    relationship = mapper.relationships[attribute_link]
+                    attr_model = relationship.mapper.class_
+
+                except (AttributeError, KeyError) as e:
+                    raise ValueError(
+                        f"invalid query string: '{component.attribute_name}' does not exist on this schema"
+                    ) from e
 
             # convert values to their proper types
-            attr = getattr(model, component.attribute_name)
+            attr = getattr(attr_model, attr_value)
             value: Any = component.value
+
+            if isinstance(attr.type, (GUID)):
+                try:
+                    # we don't set value since a UUID is functionally identical to a string here
+                    UUID(value)
+
+                except ValueError as e:
+                    raise ValueError(f"invalid query string: invalid UUID '{component.value}'") from e
 
             if isinstance(attr.type, (sqltypes.Date, sqltypes.DateTime)):
                 # TODO: add support for IS NULL and IS NOT NULL

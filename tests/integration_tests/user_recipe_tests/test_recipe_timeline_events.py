@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 import pytest
 from fastapi.testclient import TestClient
 
@@ -31,6 +33,7 @@ def recipes(api_client: TestClient, unique_user: TestUser):
 def test_create_timeline_event(api_client: TestClient, unique_user: TestUser, recipes: list[Recipe]):
     recipe = recipes[0]
     new_event = {
+        "recipe_id": str(recipe.id),
         "user_id": unique_user.user_id,
         "subject": random_string(),
         "event_type": "info",
@@ -38,7 +41,7 @@ def test_create_timeline_event(api_client: TestClient, unique_user: TestUser, re
     }
 
     event_response = api_client.post(
-        api_routes.recipes_slug_timeline_events(recipe.slug),
+        api_routes.recipes_timeline_events,
         json=new_event,
         headers=unique_user.token,
     )
@@ -54,6 +57,7 @@ def test_get_all_timeline_events(api_client: TestClient, unique_user: TestUser, 
     recipe = recipes[0]
     events_data = [
         {
+            "recipe_id": str(recipe.id),
             "user_id": unique_user.user_id,
             "subject": random_string(),
             "event_type": "info",
@@ -64,17 +68,16 @@ def test_get_all_timeline_events(api_client: TestClient, unique_user: TestUser, 
 
     events: list[RecipeTimelineEventOut] = []
     for event_data in events_data:
+        params: dict = {"queryFilter": f"recipe_id={event_data['recipe_id']}"}
         event_response = api_client.post(
-            api_routes.recipes_slug_timeline_events(recipe.slug), json=event_data, headers=unique_user.token
+            api_routes.recipes_timeline_events, params=params, json=event_data, headers=unique_user.token
         )
         events.append(RecipeTimelineEventOut.parse_obj(event_response.json()))
 
     # check that we see them all
     params = {"page": 1, "perPage": -1}
 
-    events_response = api_client.get(
-        api_routes.recipes_slug_timeline_events(recipe.slug), params=params, headers=unique_user.token
-    )
+    events_response = api_client.get(api_routes.recipes_timeline_events, params=params, headers=unique_user.token)
     events_pagination = RecipeTimelineEventPagination.parse_obj(events_response.json())
 
     event_ids = [event.id for event in events]
@@ -89,6 +92,7 @@ def test_get_timeline_event(api_client: TestClient, unique_user: TestUser, recip
     # create an event
     recipe = recipes[0]
     new_event_data = {
+        "recipe_id": str(recipe.id),
         "user_id": unique_user.user_id,
         "subject": random_string(),
         "event_type": "info",
@@ -96,16 +100,14 @@ def test_get_timeline_event(api_client: TestClient, unique_user: TestUser, recip
     }
 
     event_response = api_client.post(
-        api_routes.recipes_slug_timeline_events(recipe.slug),
+        api_routes.recipes_timeline_events,
         json=new_event_data,
         headers=unique_user.token,
     )
     new_event = RecipeTimelineEventOut.parse_obj(event_response.json())
 
     # fetch the new event
-    event_response = api_client.get(
-        api_routes.recipes_slug_timeline_events_item_id(recipe.slug, new_event.id), headers=unique_user.token
-    )
+    event_response = api_client.get(api_routes.recipes_timeline_events_item_id(new_event.id), headers=unique_user.token)
     assert event_response.status_code == 200
 
     event = RecipeTimelineEventOut.parse_obj(event_response.json())
@@ -119,14 +121,13 @@ def test_update_timeline_event(api_client: TestClient, unique_user: TestUser, re
     # create an event
     recipe = recipes[0]
     new_event_data = {
+        "recipe_id": str(recipe.id),
         "user_id": unique_user.user_id,
         "subject": old_subject,
         "event_type": "info",
     }
 
-    event_response = api_client.post(
-        api_routes.recipes_slug_timeline_events(recipe.slug), json=new_event_data, headers=unique_user.token
-    )
+    event_response = api_client.post(api_routes.recipes_timeline_events, json=new_event_data, headers=unique_user.token)
     new_event = RecipeTimelineEventOut.parse_obj(event_response.json())
     assert new_event.subject == old_subject
 
@@ -134,7 +135,7 @@ def test_update_timeline_event(api_client: TestClient, unique_user: TestUser, re
     updated_event_data = {"subject": new_subject}
 
     event_response = api_client.put(
-        api_routes.recipes_slug_timeline_events_item_id(recipe.slug, new_event.id),
+        api_routes.recipes_timeline_events_item_id(new_event.id),
         json=updated_event_data,
         headers=unique_user.token,
     )
@@ -149,20 +150,19 @@ def test_delete_timeline_event(api_client: TestClient, unique_user: TestUser, re
     # create an event
     recipe = recipes[0]
     new_event_data = {
+        "recipe_id": str(recipe.id),
         "user_id": unique_user.user_id,
         "subject": random_string(),
         "event_type": "info",
         "message": random_string(),
     }
 
-    event_response = api_client.post(
-        api_routes.recipes_slug_timeline_events(recipe.slug), json=new_event_data, headers=unique_user.token
-    )
+    event_response = api_client.post(api_routes.recipes_timeline_events, json=new_event_data, headers=unique_user.token)
     new_event = RecipeTimelineEventOut.parse_obj(event_response.json())
 
     # delete the event
     event_response = api_client.delete(
-        api_routes.recipes_slug_timeline_events_item_id(recipe.slug, new_event.id), headers=unique_user.token
+        api_routes.recipes_timeline_events_item_id(new_event.id), headers=unique_user.token
     )
     assert event_response.status_code == 200
 
@@ -171,7 +171,7 @@ def test_delete_timeline_event(api_client: TestClient, unique_user: TestUser, re
 
     # try to get the event
     event_response = api_client.get(
-        api_routes.recipes_slug_timeline_events_item_id(recipe.slug, deleted_event.id), headers=unique_user.token
+        api_routes.recipes_timeline_events_item_id(deleted_event.id), headers=unique_user.token
     )
     assert event_response.status_code == 404
 
@@ -180,6 +180,7 @@ def test_timeline_event_message_alias(api_client: TestClient, unique_user: TestU
     # create an event using aliases
     recipe = recipes[0]
     new_event_data = {
+        "recipeId": str(recipe.id),
         "userId": unique_user.user_id,
         "subject": random_string(),
         "eventType": "info",
@@ -187,7 +188,7 @@ def test_timeline_event_message_alias(api_client: TestClient, unique_user: TestU
     }
 
     event_response = api_client.post(
-        api_routes.recipes_slug_timeline_events(recipe.slug),
+        api_routes.recipes_timeline_events,
         json=new_event_data,
         headers=unique_user.token,
     )
@@ -197,9 +198,7 @@ def test_timeline_event_message_alias(api_client: TestClient, unique_user: TestU
     assert new_event.message == new_event_data["eventMessage"]
 
     # fetch the new event
-    event_response = api_client.get(
-        api_routes.recipes_slug_timeline_events_item_id(recipe.slug, new_event.id), headers=unique_user.token
-    )
+    event_response = api_client.get(api_routes.recipes_timeline_events_item_id(new_event.id), headers=unique_user.token)
     assert event_response.status_code == 200
 
     event = RecipeTimelineEventOut.parse_obj(event_response.json())
@@ -211,7 +210,7 @@ def test_timeline_event_message_alias(api_client: TestClient, unique_user: TestU
     updated_event_data = {"subject": new_subject, "eventMessage": new_message}
 
     event_response = api_client.put(
-        api_routes.recipes_slug_timeline_events_item_id(recipe.slug, new_event.id),
+        api_routes.recipes_timeline_events_item_id(new_event.id),
         json=updated_event_data,
         headers=unique_user.token,
     )
@@ -225,71 +224,20 @@ def test_timeline_event_message_alias(api_client: TestClient, unique_user: TestU
 def test_create_recipe_with_timeline_event(api_client: TestClient, unique_user: TestUser, recipes: list[Recipe]):
     # make sure when the recipes fixture was created that all recipes have at least one event
     for recipe in recipes:
-        events_response = api_client.get(
-            api_routes.recipes_slug_timeline_events(recipe.slug), headers=unique_user.token
-        )
+        params = {"queryFilter": f"recipe_id={recipe.id}"}
+        events_response = api_client.get(api_routes.recipes_timeline_events, params=params, headers=unique_user.token)
         events_pagination = RecipeTimelineEventPagination.parse_obj(events_response.json())
         assert events_pagination.items
 
 
-def test_invalid_recipe_slug(api_client: TestClient, unique_user: TestUser):
+def test_invalid_recipe_id(api_client: TestClient, unique_user: TestUser):
     new_event_data = {
+        "recipe_id": str(uuid4()),
         "user_id": unique_user.user_id,
         "subject": random_string(),
         "event_type": "info",
         "message": random_string(),
     }
 
-    event_response = api_client.post(
-        api_routes.recipes_slug_timeline_events(random_string()), json=new_event_data, headers=unique_user.token
-    )
+    event_response = api_client.post(api_routes.recipes_timeline_events, json=new_event_data, headers=unique_user.token)
     assert event_response.status_code == 404
-
-
-def test_recipe_slug_mismatch(api_client: TestClient, unique_user: TestUser, recipes: list[Recipe]):
-    # get new recipes
-    recipe = recipes[0]
-    invalid_recipe = recipes[1]
-
-    # create a new event
-    new_event_data = {
-        "user_id": unique_user.user_id,
-        "subject": random_string(),
-        "event_type": "info",
-        "message": random_string(),
-    }
-
-    event_response = api_client.post(
-        api_routes.recipes_slug_timeline_events(recipe.slug), json=new_event_data, headers=unique_user.token
-    )
-    event = RecipeTimelineEventOut.parse_obj(event_response.json())
-
-    # try to perform operations on the event using the wrong recipe
-    event_response = api_client.get(
-        api_routes.recipes_slug_timeline_events_item_id(invalid_recipe.slug, event.id),
-        headers=unique_user.token,
-    )
-    assert event_response.status_code == 404
-
-    event_response = api_client.put(
-        api_routes.recipes_slug_timeline_events_item_id(invalid_recipe.slug, event.id),
-        json=new_event_data,
-        headers=unique_user.token,
-    )
-    assert event_response.status_code == 404
-
-    event_response = api_client.delete(
-        api_routes.recipes_slug_timeline_events_item_id(invalid_recipe.slug, event.id),
-        headers=unique_user.token,
-    )
-    assert event_response.status_code == 404
-
-    # make sure the event still exists and is unmodified
-    event_response = api_client.get(
-        api_routes.recipes_slug_timeline_events_item_id(recipe.slug, event.id),
-        headers=unique_user.token,
-    )
-    assert event_response.status_code == 200
-
-    existing_event = RecipeTimelineEventOut.parse_obj(event_response.json())
-    assert existing_event == event
