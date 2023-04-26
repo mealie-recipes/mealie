@@ -12,7 +12,7 @@ Mealie is a self hosted recipe manager and meal planner with a RestAPI backend a
 
 
 ## Key Features
-- 🔍 Smart search, with the ability to mix and match "quoted literal searches" with keyword search. Fuzzy search (robust to misspelling) is also available when using a Postgres database.
+- 🔍 Smart search, mix & match of "quoted literal searches" and keyword search. Fuzzy search ("is it brocolli or broccoli?") is also available when using a Postgres database.
 - 🏷️ Tag recipes with categories or tags for flexible sorting
 - 🕸 Import recipes from around the web by URL
 - 📱 Progressive Web App
