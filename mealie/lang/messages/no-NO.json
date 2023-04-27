@@ -6,16 +6,16 @@
         "unique-name-error": "Oppskriftsnavn må være unike"
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "No recipes match your rules"
+        "no-recipes-match-your-rules": "Ingen oppskrifter samsvarer med reglene dine"
     },
     "user": {
-        "user-updated": "User updated",
-        "password-updated": "Password updated",
-        "invalid-current-password": "Invalid current password",
-        "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
+        "user-updated": "Bruker oppdatert",
+        "password-updated": "Passord oppdatert",
+        "invalid-current-password": "Feil nåværende passord",
+        "ldap-update-password-unavailable": "Kan ikke oppdatere passordet, brukeren kontrolleres av LDAP"
     },
     "group": {
-        "report-deleted": "Report deleted."
+        "report-deleted": "Rapport slettet."
     },
     "exceptions": {
         "permission_denied": "Du har ikke rettigheter til å utføre denne handlingen",
