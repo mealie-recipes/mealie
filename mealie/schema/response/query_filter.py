@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import datetime
 import re
 from enum import Enum
 from typing import Any, TypeVar, cast
