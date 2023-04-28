@@ -56,11 +56,11 @@ def get_token(request: Request, data: CustomOAuth2Form = Depends(), session: Ses
     try:
         user = authenticate_user(session, email, password)  # type: ignore
     except UserLockedOut as e:
-        logger.error(f"User is locked out: {request.client.host}")
+        logger.error(f"User is locked out from {request.client.host}")
         raise HTTPException(status_code=status.HTTP_423_LOCKED, detail="User is locked out") from e
 
     if not user:
-        logger.error(f"Incorrect username or password: {request.client.host}")
+        logger.error(f"Incorrect username or password from {request.client.host}")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
         )
