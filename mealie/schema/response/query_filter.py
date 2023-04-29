@@ -23,6 +23,7 @@ class RelationalKeyword(Enum):
     IS_NOT = "IS NOT"
     IN = "IN"
     NOT_IN = "NOT IN"
+    CONTAINS_ALL = "CONTAINS ALL"
     LIKE = "LIKE"
     NOT_LIKE = "NOT LIKE"
 
@@ -124,7 +125,11 @@ class QueryFilterComponent:
             value = [self.strip_quotes_from_string(v) for v in value]
 
         # validate relationship/value pairs
-        if relationship in [RelationalKeyword.IN, RelationalKeyword.NOT_IN] and not isinstance(value, list):
+        if relationship in [
+            RelationalKeyword.IN,
+            RelationalKeyword.NOT_IN,
+            RelationalKeyword.CONTAINS_ALL,
+        ] and not isinstance(value, list):
             raise ValueError(
                 (
                     f"invalid query string: {relationship.value} must be given a list of values"
@@ -299,6 +304,11 @@ class QueryFilter:
                     element = model_attr.in_(component.validate(model_attr.type))
                 elif component.relationship is RelationalKeyword.NOT_IN:
                     element = model_attr.not_in(component.validate(model_attr.type))
+                elif component.relationship is RelationalKeyword.CONTAINS_ALL:
+                    primary_model_attr: InstrumentedAttribute = getattr(model, component.attribute_name.split(".")[0])
+                    element = and_()
+                    for v in component.validate(model_attr.type):
+                        element = and_(element, primary_model_attr.any(model_attr == v))
                 elif component.relationship is RelationalKeyword.LIKE:
                     element = model_attr.like(component.validate(model_attr.type))
                 elif component.relationship is RelationalKeyword.NOT_LIKE:
