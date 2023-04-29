@@ -384,9 +384,8 @@ class QueryFilter:
     @staticmethod
     def _break_components_into_base_components(components: list[str]) -> list[str | list[str]]:
         """Further break down components by splitting at relational and logical operators"""
-        logical_operators = re.compile(
-            f'({"|".join(operator.value for operator in LogicalOperator)})', flags=re.IGNORECASE
-        )
+        pattern = "|".join([f"\\b{operator.value}\\b" for operator in LogicalOperator])
+        logical_operators = re.compile(f"({pattern})", flags=re.IGNORECASE)
 
         in_list = False
         base_components: list[str | list] = []
