@@ -131,10 +131,8 @@ class QueryFilterComponent:
             RelationalKeyword.CONTAINS_ALL,
         ] and not isinstance(value, list):
             raise ValueError(
-                (
-                    f"invalid query string: {relationship.value} must be given a list of values"
-                    f"enclosed by {QueryFilter.l_list_sep} and {QueryFilter.r_list_sep}"
-                )
+                f"invalid query string: {relationship.value} must be given a list of values"
+                f"enclosed by {QueryFilter.l_list_sep} and {QueryFilter.r_list_sep}"
             )
 
         if relationship is RelationalKeyword.IS or relationship is RelationalKeyword.IS_NOT:
@@ -446,7 +444,8 @@ class QueryFilter:
                     base_component.strip() for base_component in logical_operators.split(subcomponent) if base_component
                 ]
 
-                # parse out relational keywords and operators; each base_subcomponent has exactly zero or one keyword or operator
+                # parse out relational keywords and operators
+                # each base_subcomponent has exactly zero or one keyword or operator
                 for component in new_components:
                     if not component:
                         continue
