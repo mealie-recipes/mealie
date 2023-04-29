@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import re
+from collections import deque
 from enum import Enum
 from typing import Any, TypeVar, cast
 from uuid import UUID
@@ -8,10 +9,9 @@ from uuid import UUID
 from dateutil import parser as date_parser
 from dateutil.parser import ParserError
 from humps import decamelize
-from sqlalchemy import Select, bindparam, inspect, text
-from sqlalchemy.orm import Mapper
+from sqlalchemy import ColumnElement, Select, and_, inspect, or_
+from sqlalchemy.orm import InstrumentedAttribute, Mapper
 from sqlalchemy.sql import sqltypes
-from sqlalchemy.sql.expression import BindParameter
 
 from mealie.db.models._model_utils.guid import GUID
 
@@ -123,6 +123,15 @@ class QueryFilterComponent:
         elif isinstance(value, list):
             value = [self.strip_quotes_from_string(v) for v in value]
 
+        # validate relationship/value pairs
+        if relationship in [RelationalKeyword.IN, RelationalKeyword.NOT_IN] and not isinstance(value, list):
+            raise ValueError(
+                (
+                    f"invalid query string: {relationship.value} must be given a list of values"
+                    f"enclosed by {QueryFilter.l_list_sep} and {QueryFilter.r_list_sep}"
+                )
+            )
+
         if relationship is RelationalKeyword.IS or relationship is RelationalKeyword.IS_NOT:
             if not isinstance(value, str) or value.lower() not in ["null", "none"]:
                 raise ValueError(
@@ -135,6 +144,47 @@ class QueryFilterComponent:
 
     def __repr__(self) -> str:
         return f"[{self.attribute_name} {self.relationship.value} {self.value}]"
+
+    def validate(self, model_attr_type: Any) -> Any:
+        """Validate value against an model attribute's type and return a validated value, or raise a ValueError"""
+
+        sanitized_values: list[Any]
+        if not isinstance(self.value, list):
+            sanitized_values = [self.value]
+        else:
+            sanitized_values = self.value
+
+        for i, v in enumerate(sanitized_values):
+            # always allow querying for null values
+            if v is None:
+                continue
+
+            if self.relationship is RelationalKeyword.LIKE or self.relationship is RelationalKeyword.NOT_LIKE:
+                if not isinstance(model_attr_type, sqltypes.String):
+                    raise ValueError(
+                        f'invalid query string: "{self.relationship.value}" can only be used with string columns'
+                    )
+
+            if isinstance(model_attr_type, (GUID)):
+                try:
+                    # we don't set value since a UUID is functionally identical to a string here
+                    UUID(v)
+                except ValueError as e:
+                    raise ValueError(f"invalid query string: invalid UUID '{v}'") from e
+
+            if isinstance(model_attr_type, (sqltypes.Date, sqltypes.DateTime)):
+                try:
+                    sanitized_values[i] = date_parser.parse(v)
+                except ParserError as e:
+                    raise ValueError(f"invalid query string: unknown date or datetime format '{v}'") from e
+
+            if isinstance(model_attr_type, sqltypes.Boolean):
+                try:
+                    sanitized_values[i] = v.lower()[0] in ["t", "y"] or v == "1"
+                except IndexError as e:
+                    raise ValueError("invalid query string") from e
+
+        return sanitized_values if isinstance(self.value, list) else sanitized_values[0]
 
 
 class QueryFilter:
@@ -166,112 +216,120 @@ class QueryFilter:
 
         return f"<<{joined}>>"
 
+    @classmethod
+    def _consolidate_group(cls, group: list[ColumnElement], logical_operators: deque[LogicalOperator]) -> ColumnElement:
+        consolidated_group_builder: ColumnElement | None = None
+        for i, element in enumerate(reversed(group)):
+            if not i:
+                consolidated_group_builder = element
+            else:
+                operator = logical_operators.pop()
+                if operator is LogicalOperator.AND:
+                    consolidated_group_builder = and_(consolidated_group_builder, element)
+                elif operator is LogicalOperator.OR:
+                    consolidated_group_builder = or_(consolidated_group_builder, element)
+                else:
+                    raise ValueError(f"invalid logical operator {operator}")
+
+            if i == len(group) - 1:
+                return consolidated_group_builder.self_group()
+
     def filter_query(self, query: Select, model: type[Model]) -> Select:
-        segments: list[str] = []
-        params: list[BindParameter] = []
+        # join tables and build model chain
+        attr_model_map: dict[int, Any] = {}
+        model_attr: InstrumentedAttribute
         for i, component in enumerate(self.filter_components):
-            if component in QueryFilter.group_seps:
-                segments.append(component)  # type: ignore
+            if not isinstance(component, QueryFilterComponent):
                 continue
 
-            if isinstance(component, LogicalOperator):
-                segments.append(component.value)
-                continue
-
-            # for some reason typing doesn't like the lsep and rsep literals, so
-            # we explicitly mark this as a filter component instead cast doesn't
-            # actually do anything at runtime
-            component = cast(QueryFilterComponent, component)
             attribute_chain = component.attribute_name.split(".")
             if not attribute_chain:
                 raise ValueError("invalid query string: attribute name cannot be empty")
 
-            attr_model: Any = model
+            current_model = model
             for j, attribute_link in enumerate(attribute_chain):
-                # last element
-                if j == len(attribute_chain) - 1:
-                    if not hasattr(attr_model, attribute_link):
-                        raise ValueError(
-                            f"invalid query string: '{component.attribute_name}' does not exist on this schema"
-                        )
-
-                    attr_value = attribute_link
-                    if j:
-                        # use the nested table name, rather than the dot notation
-                        component.attribute_name = f"{attr_model.__table__.name}.{attr_value}"
-
-                    continue
-
-                # join on nested model
                 try:
-                    query = query.join(getattr(attr_model, attribute_link))
+                    model_attr = getattr(current_model, attribute_link)
 
-                    mapper: Mapper = inspect(attr_model)
+                    # at the end of the chain there are no more relationships to inspect
+                    if j == len(attribute_chain) - 1:
+                        break
+
+                    query = query.join(model_attr)
+                    mapper: Mapper = inspect(current_model)
                     relationship = mapper.relationships[attribute_link]
-                    attr_model = relationship.mapper.class_
+                    current_model = relationship.mapper.class_
 
                 except (AttributeError, KeyError) as e:
                     raise ValueError(
                         f"invalid query string: '{component.attribute_name}' does not exist on this schema"
                     ) from e
+            attr_model_map[i] = current_model
 
-            # convert values to their proper types
-            attr = getattr(attr_model, attr_value)
-            values: list[Any]
-            if component.relationship in [RelationalKeyword.IN, RelationalKeyword.NOT_IN]:
-                if not isinstance(component.value, list):
-                    raise ValueError(
-                        (
-                            f"invalid query string: {component.relationship.value} must be given a list of values"
-                            f"enclosed by {QueryFilter.l_list_sep} and {QueryFilter.r_list_sep}"
-                        )
-                    )
-                values = component.value
+        # build query filter
+        partial_group: list[ColumnElement] = []
+        partial_group_stack: deque[list[ColumnElement]] = deque()
+        logical_operator_stack: deque[LogicalOperator] = deque()
+        for i, component in enumerate(self.filter_components):
+            if component == self.l_group_sep:
+                partial_group_stack.append(partial_group)
+                partial_group = []
+
+            elif component == self.r_group_sep:
+                if partial_group:
+                    complete_group = self._consolidate_group(partial_group, logical_operator_stack)
+                    partial_group = partial_group_stack.pop()
+                    partial_group.append(complete_group)
+                else:
+                    partial_group = partial_group_stack.pop()
+
+            elif isinstance(component, LogicalOperator):
+                logical_operator_stack.append(component)
+
             else:
-                values = [component.value]
+                component = cast(QueryFilterComponent, component)
+                model_attr = getattr(attr_model_map[i], component.attribute_name.split(".")[-1])
 
-            # validate values against model attr type bindings
-            for j, v in enumerate(values):
-                # always allow querying for null values
-                if v is None:
-                    continue
+                # Keywords
+                if component.relationship is RelationalKeyword.IS:
+                    element = model_attr.is_(component.validate(model_attr.type))
+                elif component.relationship is RelationalKeyword.IS_NOT:
+                    element = model_attr.is_not(component.validate(model_attr.type))
+                elif component.relationship is RelationalKeyword.IN:
+                    element = model_attr.in_(component.validate(model_attr.type))
+                elif component.relationship is RelationalKeyword.NOT_IN:
+                    element = model_attr.not_in(component.validate(model_attr.type))
+                elif component.relationship is RelationalKeyword.LIKE:
+                    element = model_attr.like(component.validate(model_attr.type))
+                elif component.relationship is RelationalKeyword.NOT_LIKE:
+                    element = model_attr.not_like(component.validate(model_attr.type))
 
-                if (
-                    component.relationship is RelationalKeyword.LIKE
-                    or component.relationship is RelationalKeyword.NOT_LIKE
-                ):
-                    if not isinstance(attr.type, sqltypes.String):
-                        raise ValueError(
-                            f'invalid query string: "{component.relationship.value}" can only be used with string columns'
-                        )
+                # Operators
+                elif component.relationship is RelationalOperator.EQ:
+                    element = model_attr == component.validate(model_attr.type)
+                elif component.relationship is RelationalOperator.NOTEQ:
+                    element = model_attr != component.validate(model_attr.type)
+                elif component.relationship is RelationalOperator.GT:
+                    element = model_attr > component.validate(model_attr.type)
+                elif component.relationship is RelationalOperator.LT:
+                    element = model_attr < component.validate(model_attr.type)
+                elif component.relationship is RelationalOperator.GTE:
+                    element = model_attr >= component.validate(model_attr.type)
+                elif component.relationship is RelationalOperator.LTE:
+                    element = model_attr <= component.validate(model_attr.type)
+                else:
+                    raise ValueError(f"invalid relationship {component.relationship}")
 
-                if isinstance(attr.type, (GUID)):
-                    try:
-                        # we don't set value since a UUID is functionally identical to a string here
-                        UUID(v)
-                    except ValueError as e:
-                        raise ValueError(f"invalid query string: invalid UUID '{v}'") from e
+                partial_group.append(element)
 
-                if isinstance(attr.type, (sqltypes.Date, sqltypes.DateTime)):
-                    try:
-                        values[j] = date_parser.parse(v)
-                    except ParserError as e:
-                        raise ValueError(f"invalid query string: unknown date or datetime format '{v}'") from e
-
-                if isinstance(attr.type, sqltypes.Boolean):
-                    try:
-                        values[j] = v.lower()[0] in ["t", "y"] or v == "1"
-                    except IndexError as e:
-                        raise ValueError("invalid query string") from e
-
-            paramkey = f"P{i+1}"
-            paramvalue = values if isinstance(component.value, list) else values[0]
-            segments.append(" ".join([component.attribute_name, component.relationship.value, f":{paramkey}"]))
-            params.append(bindparam(paramkey, paramvalue, attr.type, expanding=isinstance(component.value, list)))
-
-        qs = text(" ".join(segments)).bindparams(*params)
-        query = query.filter(qs)
-        return query
+        # combine the completed groups into one filter
+        while True:
+            consolidated_group = self._consolidate_group(partial_group, logical_operator_stack)
+            if not partial_group_stack:
+                return query.filter(consolidated_group)
+            else:
+                partial_group = partial_group_stack.pop()
+                partial_group.append(consolidated_group)
 
     @staticmethod
     def _break_filter_string_into_components(filter_string: str) -> list[str]:
