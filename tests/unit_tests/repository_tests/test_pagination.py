@@ -11,6 +11,7 @@ from humps import camelize
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_units import RepositoryUnit
 from mealie.schema.recipe import Recipe
+from mealie.schema.recipe.recipe_category import TagSave
 from mealie.schema.recipe.recipe_ingredient import IngredientUnit, SaveIngredientUnit
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.seeder.seeder_service import SeederService
@@ -255,6 +256,65 @@ def test_pagination_filter_in(query_units: tuple[RepositoryUnit, IngredientUnit,
     assert unit_3.id in result_ids
 
 
+def test_pagination_filter_in_advanced(database: AllRepositories, unique_user: TestUser):
+    slug1, slug2 = (random_string(10) for _ in range(2))
+
+    tags = [
+        TagSave(group_id=unique_user.group_id, name=slug1, slug=slug1),
+        TagSave(group_id=unique_user.group_id, name=slug2, slug=slug2),
+    ]
+
+    tag_1, tag_2 = [database.tags.create(tag) for tag in tags]
+
+    # Bootstrap the database with recipes
+    slug = random_string()
+    recipe_0 = database.recipes.create(
+        Recipe(user_id=unique_user.user_id, group_id=unique_user.group_id, name=slug, slug=slug, tags=[])
+    )
+
+    slug = random_string()
+    recipe_1 = database.recipes.create(
+        Recipe(user_id=unique_user.user_id, group_id=unique_user.group_id, name=slug, slug=slug, tags=[tag_1])
+    )
+
+    slug = random_string()
+    recipe_2 = database.recipes.create(
+        Recipe(user_id=unique_user.user_id, group_id=unique_user.group_id, name=slug, slug=slug, tags=[tag_2])
+    )
+
+    slug = random_string()
+    recipe_1_2 = database.recipes.create(
+        Recipe(user_id=unique_user.user_id, group_id=unique_user.group_id, name=slug, slug=slug, tags=[tag_1, tag_2])
+    )
+
+    query = PaginationQuery(page=1, per_page=-1, query_filter=f"tags.name IN [{tag_1.name}]")
+    recipe_results = database.recipes.page_all(query).items
+    assert len(recipe_results) == 2
+    recipe_ids = {recipe.id for recipe in recipe_results}
+    assert recipe_0.id not in recipe_ids
+    assert recipe_1.id in recipe_ids
+    assert recipe_2.id not in recipe_ids
+    assert recipe_1_2.id in recipe_ids
+
+    query = PaginationQuery(page=1, per_page=-1, query_filter=f"tags.name IN [{tag_1.name}, {tag_2.name}]")
+    recipe_results = database.recipes.page_all(query).items
+    assert len(recipe_results) == 3
+    recipe_ids = {recipe.id for recipe in recipe_results}
+    assert recipe_0.id not in recipe_ids
+    assert recipe_1.id in recipe_ids
+    assert recipe_2.id in recipe_ids
+    assert recipe_1_2.id in recipe_ids
+
+    query = PaginationQuery(page=1, per_page=-1, query_filter=f"tags.name CONTAINS ALL [{tag_1.name}, {tag_2.name}]")
+    recipe_results = database.recipes.page_all(query).items
+    assert len(recipe_results) == 1
+    recipe_ids = {recipe.id for recipe in recipe_results}
+    assert recipe_0.id not in recipe_ids
+    assert recipe_1.id not in recipe_ids
+    assert recipe_2.id not in recipe_ids
+    assert recipe_1_2.id in recipe_ids
+
+
 def test_pagination_filter_like(query_units: tuple[RepositoryUnit, IngredientUnit, IngredientUnit, IngredientUnit]):
     units_repo, unit_1, unit_2, unit_3 = query_units
 
@@ -379,6 +439,7 @@ def test_pagination_filter_advanced(query_units: tuple[RepositoryUnit, Ingredien
         pytest.param('name IS NOT "test name"', id="IS NOT can only be used with NULL or NONE"),
         pytest.param('name IN "test name"', id="IN must use a list of values"),
         pytest.param('name NOT IN "test name"', id="NOT IN must use a list of values"),
+        pytest.param('name CONTAINS ALL "test name"', id="CONTAINS ALL must use a list of values"),
         pytest.param('createdAt LIKE "2023-02-25"', id="LIKE is only valid for string columns"),
         pytest.param('createdAt NOT LIKE "2023-02-25"', id="NOT LIKE is only valid for string columns"),
         pytest.param('badAttribute="test value"', id="invalid attribute"),
