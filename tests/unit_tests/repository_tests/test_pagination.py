@@ -11,8 +11,9 @@ from humps import camelize
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_units import RepositoryUnit
 from mealie.schema.recipe import Recipe
-from mealie.schema.recipe.recipe_category import TagSave
+from mealie.schema.recipe.recipe_category import CategorySave, TagSave
 from mealie.schema.recipe.recipe_ingredient import IngredientUnit, SaveIngredientUnit
+from mealie.schema.recipe.recipe_tool import RecipeToolSave
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.seeder.seeder_service import SeederService
 from tests.utils import api_routes
@@ -346,7 +347,7 @@ def test_pagination_filter_like(query_units: tuple[RepositoryUnit, IngredientUni
     assert unit_3.id in result_ids
 
 
-def test_pagination_filter_namespace_conflict(database: AllRepositories, unique_user: TestUser):
+def test_pagination_filter_keyword_namespace_conflict(database: AllRepositories, unique_user: TestUser):
     recipe_rating_1 = database.recipes.create(
         Recipe(user_id=unique_user.user_id, group_id=unique_user.group_id, name=random_string(), rating=1)
     )
@@ -378,6 +379,51 @@ def test_pagination_filter_namespace_conflict(database: AllRepositories, unique_
     assert recipe_rating_1.id in result_ids
     assert recipe_rating_2.id not in result_ids
     assert recipe_rating_3.id in result_ids
+
+
+def test_pagination_filter_logical_namespace_conflict(database: AllRepositories, unique_user: TestUser):
+    categories = [
+        CategorySave(group_id=unique_user.group_id, name=random_string(10)),
+        CategorySave(group_id=unique_user.group_id, name=random_string(10)),
+    ]
+    category_1, category_2 = [database.categories.create(category) for category in categories]
+
+    # Bootstrap the database with recipes
+    slug = random_string()
+    recipe_category_0 = database.recipes.create(
+        Recipe(user_id=unique_user.user_id, group_id=unique_user.group_id, name=slug, slug=slug)
+    )
+
+    slug = random_string()
+    recipe_category_1 = database.recipes.create(
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=slug,
+            slug=slug,
+            recipe_category=[category_1],
+        )
+    )
+
+    slug = random_string()
+    recipe_category_2 = database.recipes.create(
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=slug,
+            slug=slug,
+            recipe_category=[category_2],
+        )
+    )
+
+    # "recipeCategory" has the substring "or" in it, which shouldn't break queries
+    query = PaginationQuery(page=1, per_page=-1, query_filter=f'recipeCategory.id = "{category_1.id}"')
+    recipe_results = database.recipes.by_group(unique_user.group_id).page_all(query).items  # type: ignore
+    assert len(recipe_results) == 1
+    recipe_ids = {recipe.id for recipe in recipe_results}
+    assert recipe_category_0.id not in recipe_ids
+    assert recipe_category_1.id in recipe_ids
+    assert recipe_category_2.id not in recipe_ids
 
 
 def test_pagination_filter_datetimes(
@@ -427,6 +473,161 @@ def test_pagination_filter_advanced(query_units: tuple[RepositoryUnit, Ingredien
     assert unit_1.id in result_ids
     assert unit_2.id in result_ids
     assert unit_3.id not in result_ids
+
+
+def test_pagination_filter_advanced_frontend_sort(database: AllRepositories, unique_user: TestUser):
+    categories = [
+        CategorySave(group_id=unique_user.group_id, name=random_string(10)),
+        CategorySave(group_id=unique_user.group_id, name=random_string(10)),
+    ]
+    category_1, category_2 = [database.categories.create(category) for category in categories]
+
+    slug1, slug2 = (random_string(10) for _ in range(2))
+    tags = [
+        TagSave(group_id=unique_user.group_id, name=slug1, slug=slug1),
+        TagSave(group_id=unique_user.group_id, name=slug2, slug=slug2),
+    ]
+    tag_1, tag_2 = [database.tags.create(tag) for tag in tags]
+
+    tools = [
+        RecipeToolSave(group_id=unique_user.group_id, name=random_string(10)),
+        RecipeToolSave(group_id=unique_user.group_id, name=random_string(10)),
+    ]
+    tool_1, tool_2 = [database.tools.create(tool) for tool in tools]
+
+    # Bootstrap the database with recipes
+    slug = random_string()
+    recipe_ct0_tg0_tl0 = database.recipes.create(
+        Recipe(user_id=unique_user.user_id, group_id=unique_user.group_id, name=slug, slug=slug)
+    )
+
+    slug = random_string()
+    recipe_ct1_tg0_tl0 = database.recipes.create(
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=slug,
+            slug=slug,
+            recipe_category=[category_1],
+        )
+    )
+
+    slug = random_string()
+    recipe_ct12_tg0_tl0 = database.recipes.create(
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=slug,
+            slug=slug,
+            recipe_category=[category_1, category_2],
+        )
+    )
+
+    slug = random_string()
+    recipe_ct1_tg1_tl0 = database.recipes.create(
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=slug,
+            slug=slug,
+            recipe_category=[category_1],
+            tags=[tag_1],
+        )
+    )
+
+    slug = random_string()
+    recipe_ct1_tg0_tl1 = database.recipes.create(
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=slug,
+            slug=slug,
+            recipe_category=[category_1],
+            tools=[tool_1],
+        )
+    )
+
+    slug = random_string()
+    recipe_ct0_tg2_tl2 = database.recipes.create(
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=slug,
+            slug=slug,
+            tags=[tag_2],
+            tools=[tool_2],
+        )
+    )
+
+    slug = random_string()
+    recipe_ct12_tg12_tl2 = database.recipes.create(
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=slug,
+            slug=slug,
+            recipe_category=[category_1, category_2],
+            tags=[tag_1, tag_2],
+            tools=[tool_2],
+        )
+    )
+
+    repo = database.recipes.by_group(unique_user.group_id)  # type: ignore
+
+    qf = f'recipeCategory.id IN ["{category_1.id}"] AND tools.id IN ["{tool_1.id}"]'
+    query = PaginationQuery(page=1, per_page=-1, query_filter=qf)
+    recipe_results = repo.page_all(query).items
+    assert len(recipe_results) == 1
+    recipe_ids = {recipe.id for recipe in recipe_results}
+    assert recipe_ct0_tg0_tl0.id not in recipe_ids
+    assert recipe_ct1_tg0_tl0.id not in recipe_ids
+    assert recipe_ct12_tg0_tl0.id not in recipe_ids
+    assert recipe_ct1_tg1_tl0.id not in recipe_ids
+    assert recipe_ct1_tg0_tl1.id in recipe_ids
+    assert recipe_ct0_tg2_tl2.id not in recipe_ids
+    assert recipe_ct12_tg12_tl2.id not in recipe_ids
+
+    qf = f'recipeCategory.id CONTAINS ALL ["{category_1.id}", "{category_2.id}"] AND tags.id IN ["{tag_1.id}"]'
+    query = PaginationQuery(page=1, per_page=-1, query_filter=qf)
+    recipe_results = repo.page_all(query).items
+    assert len(recipe_results) == 1
+    recipe_ids = {recipe.id for recipe in recipe_results}
+    assert recipe_ct0_tg0_tl0.id not in recipe_ids
+    assert recipe_ct1_tg0_tl0.id not in recipe_ids
+    assert recipe_ct12_tg0_tl0.id not in recipe_ids
+    assert recipe_ct1_tg1_tl0.id not in recipe_ids
+    assert recipe_ct1_tg0_tl1.id not in recipe_ids
+    assert recipe_ct0_tg2_tl2.id not in recipe_ids
+    assert recipe_ct12_tg12_tl2.id in recipe_ids
+
+    qf = f'tags.id IN ["{tag_1.id}", "{tag_2.id}"] AND tools.id IN ["{tool_2.id}"]'
+    query = PaginationQuery(page=1, per_page=-1, query_filter=qf)
+    recipe_results = repo.page_all(query).items
+    assert len(recipe_results) == 2
+    recipe_ids = {recipe.id for recipe in recipe_results}
+    assert recipe_ct0_tg0_tl0.id not in recipe_ids
+    assert recipe_ct1_tg0_tl0.id not in recipe_ids
+    assert recipe_ct12_tg0_tl0.id not in recipe_ids
+    assert recipe_ct1_tg1_tl0.id not in recipe_ids
+    assert recipe_ct1_tg0_tl1.id not in recipe_ids
+    assert recipe_ct0_tg2_tl2.id in recipe_ids
+    assert recipe_ct12_tg12_tl2.id in recipe_ids
+
+    qf = (
+        f'recipeCategory.id CONTAINS ALL ["{category_1.id}", "{category_2.id}"]'
+        f'AND tags.id IN ["{tag_1.id}", "{tag_2.id}"] AND tools.id IN ["{tool_1.id}", "{tool_2.id}"]'
+    )
+    query = PaginationQuery(page=1, per_page=-1, query_filter=qf)
+    recipe_results = repo.page_all(query).items
+    assert len(recipe_results) == 1
+    recipe_ids = {recipe.id for recipe in recipe_results}
+    assert recipe_ct0_tg0_tl0.id not in recipe_ids
+    assert recipe_ct1_tg0_tl0.id not in recipe_ids
+    assert recipe_ct12_tg0_tl0.id not in recipe_ids
+    assert recipe_ct1_tg1_tl0.id not in recipe_ids
+    assert recipe_ct1_tg0_tl1.id not in recipe_ids
+    assert recipe_ct0_tg2_tl2.id not in recipe_ids
+    assert recipe_ct12_tg12_tl2.id in recipe_ids
 
 
 @pytest.mark.parametrize(
