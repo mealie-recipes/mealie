@@ -69,8 +69,7 @@ import {
   ref,
   useRouter,
   computed,
-  useRoute,
-  onMounted,
+  useRoute
 } from "@nuxtjs/composition-api";
 import { AxiosResponse } from "axios";
 import { useUserApi } from "~/composables/api";
@@ -125,16 +124,6 @@ export default defineComponent({
       set(v: boolean) {
         router.replace({ query: { ...route.value.query, edit: v ? "1" : "0" } });
       },
-    });
-
-    onMounted(() => {
-      if (!recipeUrl.value) {
-        return;
-      }
-
-      if (recipeUrl.value.includes("https")) {
-        createByUrl(recipeUrl.value, importKeywordsAsTags.value, stayInEditMode.value);
-      }
     });
 
     const domUrlForm = ref<VForm | null>(null);
