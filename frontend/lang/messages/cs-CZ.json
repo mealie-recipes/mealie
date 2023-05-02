@@ -483,7 +483,7 @@
     "made-this": "Toto jsem uvařil",
     "how-did-it-turn-out": "Jak to dopadlo?",
     "user-made-this": "{user} udělal toto",
-    "last-made-date": "Last Made {date}",
+    "last-made-date": "Naposledy uvařeno {date}",
     "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom json key/value pairs within a recipe to reference from 3rd part applications. You can use these keys to contain information to trigger automation or custom messages to relay to your desired device.",
     "message-key": "Message Key",
     "parse": "Parse",
