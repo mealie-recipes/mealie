@@ -76,7 +76,7 @@
     "cookbook-events": "Cookbook Events",
     "tag-events": "Tag Events",
     "category-events": "Category Events",
-    "when-a-new-user-joins-your-group": "When a new user joins your group"
+    "when-a-new-user-joins-your-group": "Quando un nuovo utente entra nel tuo gruppo"
   },
   "general": {
     "cancel": "Cancella",
@@ -191,7 +191,7 @@
     "selected-count": "Selezionati: {count}",
     "export-all": "Esporta tutto",
     "refresh": "Refresh",
-    "upload-file": "Upload File",
+    "upload-file": "Carica file",
     "created-on-date": "Creato il: {0}"
   },
   "group": {
@@ -243,8 +243,8 @@
     "group-recipe-preferences": "Impostazioni per le ricette del gruppo",
     "report": "Report",
     "group-management": "Gestione Gruppo",
-    "admin-group-management": "Admin Group Management",
-    "admin-group-management-text": "Changes to this group will be reflected immediately.",
+    "admin-group-management": "Gestione Gruppo Amministratore",
+    "admin-group-management-text": "Le modifiche a questo gruppo si rifletteranno immediatamente.",
     "group-id-value": "Id Gruppo: {0}"
   },
   "meal-plan": {
@@ -317,7 +317,7 @@
     },
     "nextcloud": {
       "description": "Migra i dati da Nextcloud Cookbook",
-      "description-long": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
+      "description-long": "Le ricette di Nextcloud possono essere importate da un file zip che contiene i dati memorizzati in Nextcloud. Osserva la struttura della cartella di esempio qui sotto per assicurarti che le tue ricette siano in grado di essere importate.",
       "title": "Nextcloud Cookbook"
     },
     "copymethat": {
@@ -525,7 +525,7 @@
     "tree-view": "Visualizzazione ad Albero",
     "recipe-yield": "Resa Ricetta",
     "unit": "Unità",
-    "upload-image": "Upload image"
+    "upload-image": "Carica immagine"
   },
   "search": {
     "advanced-search": "Ricerca Avanzata",
@@ -543,7 +543,7 @@
     "tag-filter": "Filtro Tag",
     "search-hint": "Premi '/'",
     "advanced": "Ricerca Avanzata",
-    "auto-search": "Auto Search"
+    "auto-search": "Ricerca automatica"
   },
   "settings": {
     "add-a-new-theme": "Aggiungi un Nuovo Tema",
@@ -561,7 +561,7 @@
       "unable-to-delete-backup": "Impossibile rimuovere backup.",
       "experimental-description": "Backups a total snapshots of the database and data directory of the site. This includes all data and cannot be set to exclude subsets of data. You can think off this as a snapshot of Mealie at a specific time. Currently, {not-crossed-version} (data migrations are not done automatically). These serve as a database agnostic way to export and import data or backup the site to an external location.",
       "not-crossed-version": "this backup mechanism is not cross-version and therefore cannot be used to migrate data between versions",
-      "backup-restore": "Backup Restore",
+      "backup-restore": "Ripristina backup",
       "back-restore-description": "Restoring this backup will overwrite all the current data in your database and in the data directory and replace them with the contents of this backup. {cannot-be-undone} If the restoration is successful, you will be logged out.",
       "cannot-be-undone": "This action cannot be undone - use with caution.",
       "postgresql-note": "If you are using PostGreSQL, please review the {backup-restore-process} prior to restoring.",
@@ -631,7 +631,7 @@
       "copy-this-token-for-use-with-an-external-application-this-token-will-not-be-viewable-again": "Copia questo token in modo da utilizzarlo con una applicazione esterna. Questo token non sarà più visibile.",
       "create-an-api-token": "Crea Token API",
       "token-name": "Nome Token",
-      "generate": "Generate",
+      "generate": "Genera",
       "you-have-token-count": "You have no active tokens.|You have one active token.|You have {count} active tokens."
     },
     "toolbox": {
@@ -683,7 +683,7 @@
     "ldap-ready-error-text": "Not all LDAP Values are configured. This can be ignored if you are not using LDAP Authentication.",
     "ldap-ready-success-text": "Required LDAP variables are all set.",
     "build": "Build",
-    "recipe-scraper-version": "Recipe Scraper Version"
+    "recipe-scraper-version": "Versione Recipe Scraper"
   },
   "shopping-list": {
     "all-lists": "Tutte le Liste",
@@ -838,13 +838,13 @@
       "strong": "Forte",
       "very-strong": "Molto sicura"
     },
-    "user-management": "User Management",
+    "user-management": "Gestione Utenti",
     "reset-locked-users": "Reset Locked Users",
-    "admin-user-creation": "Admin User Creation",
+    "admin-user-creation": "Creazione Utente Amministratore",
     "user-details": "Dettagli Utente",
     "user-name": "Nome Utente",
     "authentication-method": "Metodo di autenticazione",
-    "authentication-method-hint": "This specifies how a user will authenticate with Mealie. If you're not sure, choose 'Mealie",
+    "authentication-method-hint": "Indica come un utente si autenticherà con Mealie. Se non sei sicuro, scegli 'Mealie",
     "permissions": "Permessi",
     "administrator": "Amministratore",
     "user-can-invite-other-to-group": "User can invite other to group",
