@@ -136,7 +136,7 @@ class QueryFilter:
                 except ValueError as e:
                     raise ValueError(f"invalid query string: invalid UUID '{component.value}'") from e
 
-            if isinstance(attr.type, (sqltypes.Date, sqltypes.DateTime)):
+            if isinstance(attr.type, sqltypes.Date | sqltypes.DateTime):
                 # TODO: add support for IS NULL and IS NOT NULL
                 # in the meantime, this will work for the specific usecase of non-null dates/datetimes
                 if value in ["none", "null"] and component.relational_operator == RelationalOperator.NOTEQ:
