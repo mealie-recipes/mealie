@@ -1,42 +1,42 @@
 [
     {
-        "name": "Produce"
+        "name": "農産物"
     },
     {
-        "name": "Grains"
+        "name": "穀物"
     },
     {
-        "name": "Fruits"
+        "name": "果物"
     },
     {
-        "name": "Vegetables"
+        "name": "野菜"
     },
     {
-        "name": "Meat"
+        "name": "肉"
     },
     {
-        "name": "Seafood"
+        "name": "魚介類"
     },
     {
-        "name": "Beverages"
+        "name": "飲料"
     },
     {
-        "name": "Baked Goods"
+        "name": "焼き物"
     },
     {
-        "name": "Canned Goods"
+        "name": "缶詰"
     },
     {
-        "name": "Condiments"
+        "name": "調味料"
     },
     {
-        "name": "Confectionary"
+        "name": "砂糖菓子"
     },
     {
-        "name": "Dairy Products"
+        "name": "乳製品"
     },
     {
-        "name": "Frozen Foods"
+        "name": "冷凍食品"
     },
     {
         "name": "Health Foods"
@@ -45,21 +45,21 @@
         "name": "Household"
     },
     {
-        "name": "Meat Products"
+        "name": "食肉製品"
     },
     {
-        "name": "Snacks"
+        "name": "おやつ"
     },
     {
-        "name": "Spices"
+        "name": "香辛料"
     },
     {
-        "name": "Sweets"
+        "name": "お菓子"
     },
     {
-        "name": "Alcohol"
+        "name": "お酒"
     },
     {
-        "name": "Other"
+        "name": "その他"
     }
 ]
