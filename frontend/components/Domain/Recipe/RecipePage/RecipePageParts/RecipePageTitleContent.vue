@@ -8,7 +8,7 @@
       <div v-if="user.id" class="pb-2 d-flex justify-center flex-wrap">
         <RecipeLastMade
           v-model="recipe.lastMade"
-          :recipe-slug="recipe.slug"
+          :recipe="recipe"
           class="d-flex justify-center flex-wrap"
           :class="true ? undefined : 'force-bottom'"
         />
