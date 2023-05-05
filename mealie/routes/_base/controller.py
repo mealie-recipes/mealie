@@ -116,9 +116,7 @@ def _register_endpoints(router: APIRouter, cls: type[Any], *urls: str) -> None:
         raise Exception("An identical route role has been implemented more then once")
 
     numbered_routes_by_endpoint = {
-        route.endpoint: (i, route)
-        for i, route in enumerate(router.routes)
-        if isinstance(route, (Route, WebSocketRoute))
+        route.endpoint: (i, route) for i, route in enumerate(router.routes) if isinstance(route, Route | WebSocketRoute)
     }
 
     prefix_length = len(router.prefix)

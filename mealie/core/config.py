@@ -7,9 +7,6 @@ import dotenv
 from mealie.core.settings import app_settings_constructor
 
 from .settings import AppDirectories, AppSettings
-from .settings.static import APP_VERSION
-
-APP_VERSION
 
 CWD = Path(__file__).parent
 BASE_DIR = CWD.parent.parent
