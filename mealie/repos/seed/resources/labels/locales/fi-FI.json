@@ -1,65 +1,65 @@
 [
     {
-        "name": "Produce"
+        "name": "Tuote"
     },
     {
-        "name": "Grains"
+        "name": "Vilja"
     },
     {
-        "name": "Fruits"
+        "name": "Hedelmät"
     },
     {
-        "name": "Vegetables"
+        "name": "Vihannekset"
     },
     {
-        "name": "Meat"
+        "name": "Liha"
     },
     {
-        "name": "Seafood"
+        "name": "Merenelävät"
     },
     {
-        "name": "Beverages"
+        "name": "Juomat"
     },
     {
-        "name": "Baked Goods"
+        "name": "Paistetut"
     },
     {
-        "name": "Canned Goods"
+        "name": "Tölkitetyt"
     },
     {
-        "name": "Condiments"
+        "name": "Mausteet"
     },
     {
-        "name": "Confectionary"
+        "name": "Makeiset"
     },
     {
-        "name": "Dairy Products"
+        "name": "Maitotuotteet"
     },
     {
-        "name": "Frozen Foods"
+        "name": "Pakasteet"
     },
     {
-        "name": "Health Foods"
+        "name": "Terveelliset"
     },
     {
-        "name": "Household"
+        "name": "Kotitaloudet"
     },
     {
-        "name": "Meat Products"
+        "name": "Lihatuotteet"
     },
     {
-        "name": "Snacks"
+        "name": "Pienpurtavat"
     },
     {
-        "name": "Spices"
+        "name": "Mausteet"
     },
     {
-        "name": "Sweets"
+        "name": "Makeiset"
     },
     {
-        "name": "Alcohol"
+        "name": "Alkoholi"
     },
     {
-        "name": "Other"
+        "name": "Muu"
     }
 ]

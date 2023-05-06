@@ -6,37 +6,34 @@
       </template>
       <template #title> {{ $t("recipe.group-global-timeline", { groupName }) }} </template>
     </BasePageTitle>
-    <RecipeTimeline v-model="ready" show-recipe-cards :query-filter="queryFilter" />
+    <RecipeTimeline v-if="queryFilter" v-model="ready" show-recipe-cards :query-filter="queryFilter" />
   </v-sheet>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useContext } from "@nuxtjs/composition-api";
+import { defineComponent, ref } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 import RecipeTimeline from "~/components/Domain/Recipe/RecipeTimeline.vue";
 
 export default defineComponent({
   components: { RecipeTimeline },
   setup() {
-    const { $auth } = useContext();
     const api = useUserApi();
     const ready = ref<boolean>(false);
 
-    // @ts-expect-error - TS doesn't like the $auth global user attribute
-    const groupId: string = $auth.user.groupId;
-    const queryFilter = `recipe.group_id="${groupId}"`
-
     const groupName = ref<string>("");
-    async function refreshGroupName() {
+    const queryFilter = ref<string>("");
+    async function fetchGroup() {
       const { data } = await api.groups.getCurrentUserGroup();
       if (data) {
+        queryFilter.value = `recipe.group_id="${data.id}"`;
         groupName.value = data.name;
       }
+
+      ready.value = true;
     }
 
-    refreshGroupName();
-    ready.value = true;
-
+    fetchGroup();
     return {
       groupName,
       queryFilter,
