@@ -175,7 +175,7 @@ class QueryFilterComponent:
                 except ValueError as e:
                     raise ValueError(f"invalid query string: invalid UUID '{v}'") from e
 
-            if isinstance(model_attr_type, (sqltypes.Date, sqltypes.DateTime)):
+            if isinstance(model_attr_type, sqltypes.Date | sqltypes.DateTime):
                 try:
                     sanitized_values[i] = date_parser.parse(v)
                 except ParserError as e:
