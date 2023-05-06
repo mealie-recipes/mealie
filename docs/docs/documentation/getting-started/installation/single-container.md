@@ -22,7 +22,7 @@ services:
       - "3000:3000"
       - "9000:9000"
     volumes:
-      - ./mealie-data:/app/data/
+      - mealie-data:/app/data/
     environment:
       - ALLOW_SIGNUP=true
       - PUID=1000
