@@ -40,7 +40,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useAsync, useContext } from "@nuxtjs/composition-api";
+import { defineComponent, onMounted, ref, useAsync, useContext } from "@nuxtjs/composition-api";
 import { useThrottleFn, whenever } from "@vueuse/core";
 import RecipeTimelineItem from "./RecipeTimelineItem.vue"
 import { useTimelinePreferences } from "~/composables/use-users/preferences";
@@ -100,25 +100,6 @@ export default defineComponent({
       // trigger when the user is getting close to the bottom
       const bottomOfElement = scrollTop + offsetHeight >= scrollHeight - (offsetHeight*screenBuffer);
       if (bottomOfElement) {
-        infiniteScroll();
-      }
-    };
-
-    document.onscroll = () => {
-      // if the inner element is scrollable, let its scroll event handle the infiniteScroll
-      const timelineContainerElement = document.getElementById("timeline-container");
-      if (timelineContainerElement) {
-        const { clientHeight, scrollHeight } = timelineContainerElement
-
-        // if scrollHeight == clientHeight, the element is not scrollable, so we need to look at the global position
-        // if scrollHeight > clientHeight, it is scrollable and we don't need to do anything here
-        if (scrollHeight > clientHeight) {
-          return;
-        }
-      }
-
-      const bottomOfWindow = document.documentElement.scrollTop + window.innerHeight >= document.documentElement.offsetHeight - (window.innerHeight*screenBuffer);
-      if (bottomOfWindow) {
         infiniteScroll();
       }
     };
@@ -250,6 +231,29 @@ export default defineComponent({
 
     // preload events
     initializeTimelineEvents();
+
+    onMounted(
+      () => {
+        document.onscroll = () => {
+          // if the inner element is scrollable, let its scroll event handle the infiniteScroll
+          const timelineContainerElement = document.getElementById("timeline-container");
+          if (timelineContainerElement) {
+            const { clientHeight, scrollHeight } = timelineContainerElement
+
+            // if scrollHeight == clientHeight, the element is not scrollable, so we need to look at the global position
+            // if scrollHeight > clientHeight, it is scrollable and we don't need to do anything here
+            if (scrollHeight > clientHeight) {
+              return;
+            }
+          }
+
+          const bottomOfWindow = document.documentElement.scrollTop + window.innerHeight >= document.documentElement.offsetHeight - (window.innerHeight*screenBuffer);
+          if (bottomOfWindow) {
+            infiniteScroll();
+          }
+        };
+      }
+    )
 
     return {
       deleteTimelineEvent,
