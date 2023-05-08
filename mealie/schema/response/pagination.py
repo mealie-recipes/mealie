@@ -1,3 +1,4 @@
+from datetime import datetime
 import enum
 from typing import Any, Generic, TypeVar
 from urllib.parse import parse_qs, urlencode, urlsplit, urlunsplit
@@ -23,6 +24,7 @@ class RecipeSearchQuery(MealieModel):
     require_all_tools: bool = False
     require_all_foods: bool = False
     search: str | None
+    timestamp: float = datetime.now().timestamp()  # never set by frontend. currently set for debug
 
 
 class PaginationQuery(MealieModel):
@@ -31,6 +33,7 @@ class PaginationQuery(MealieModel):
     order_by: str = "created_at"
     order_direction: OrderDirection = OrderDirection.desc
     query_filter: str | None = None
+    timestamp: float = datetime.now().timestamp()  # never set by frontend. currently set for debug
 
 
 class PaginationBase(GenericModel, Generic[DataT]):

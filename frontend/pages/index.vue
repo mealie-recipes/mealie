@@ -212,7 +212,7 @@ export default defineComponent({
           foods: toIDArray(selectedFoods.value),
           tags: toIDArray(selectedTags.value),
           tools: toIDArray(selectedTools.value),
-
+          timestamp: Date.now().toString(), // shows up in address bar, for debugging
           // Only add the query param if it's or not default
           ...{
             auto: state.value.auto ? undefined : "false",
@@ -239,6 +239,7 @@ export default defineComponent({
         requireAllFoods: state.value.requireAllFoods,
         orderBy: state.value.orderBy,
         orderDirection: state.value.orderDirection,
+        timestamp: Date.now(), // never arrives at backend!
       };
     }
 

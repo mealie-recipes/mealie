@@ -78,6 +78,8 @@ export type RecipeSearchQuery = {
   page?: number;
   perPage?: number;
   orderBy?: string;
+
+  timestamp: number; // obligatory for now
 };
 
 export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {

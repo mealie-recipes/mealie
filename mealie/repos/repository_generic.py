@@ -2,11 +2,12 @@ from __future__ import annotations
 
 from collections.abc import Iterable
 from math import ceil
+import random
 from typing import Any, Generic, TypeVar
 
 from fastapi import HTTPException
 from pydantic import UUID4, BaseModel
-from sqlalchemy import Select, delete, func, select
+from sqlalchemy import case, Select, delete, func, select
 from sqlalchemy.orm.session import Session
 from sqlalchemy.sql import sqltypes
 
@@ -379,7 +380,16 @@ class RepositoryGeneric(Generic[Schema, Model]):
                 query = query.order_by(order_attr)
 
             elif pagination.order_by == "random":
-                order_attr = func.random()
-                query = query.order_by(order_attr)
+                # randomize outside of database, since not all db's can set random seeds
+                # this solution is db-independent & stable to paging
+                temp_query = query.with_only_columns(self.model.id)
+                allids = self.session.execute(temp_query).scalars().all()  # fast because id is indexed
+                order = list(range(len(allids)))
+                self.logger.warning(f"seed {int(pagination.timestamp)}")
+                random.seed(int(pagination.timestamp))
+                random.shuffle(order)
+                random_dict = dict(zip(allids, order))
+                case_stmt = case(random_dict, value=self.model.id)
+                query = query.order_by(case_stmt)
 
         return query.limit(pagination.per_page).offset((pagination.page - 1) * pagination.per_page), count, total_pages
