@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import cast
 
 from mealie.repos.repository_factory import AllRepositories
@@ -204,6 +205,7 @@ def test_recipe_repo_pagination_by_categories(database: AllRepositories, unique_
     pagination_query = PaginationQuery(page=1, per_page=-1, order_by="random", order_direction=OrderDirection.asc)
     random_ordered = []
     for i in range(5):
+        pagination_query.timestamp = datetime.now().timestamp()
         random_ordered.append(database.recipes.page_all(pagination_query, categories=[category_slug]).items)
     assert not all(i == random_ordered[0] for i in random_ordered)
 
@@ -290,6 +292,7 @@ def test_recipe_repo_pagination_by_tags(database: AllRepositories, unique_user: 
     pagination_query = PaginationQuery(page=1, per_page=-1, order_by="random", order_direction=OrderDirection.asc)
     random_ordered = []
     for i in range(5):
+        pagination_query.timestamp = datetime.now().timestamp()
         random_ordered.append(database.recipes.page_all(pagination_query, tags=[tag_slug]).items)
     assert len(random_ordered[0]) == 15
     assert not all(i == random_ordered[0] for i in random_ordered)
@@ -379,6 +382,7 @@ def test_recipe_repo_pagination_by_tools(database: AllRepositories, unique_user:
     pagination_query = PaginationQuery(page=1, per_page=-1, order_by="random", order_direction=OrderDirection.asc)
     random_ordered = []
     for i in range(5):
+        pagination_query.timestamp = datetime.now().timestamp()
         random_ordered.append(database.recipes.page_all(pagination_query, tools=[tool_id]).items)
     assert len(random_ordered[0]) == 15
     assert not all(i == random_ordered[0] for i in random_ordered)
@@ -452,6 +456,14 @@ def test_recipe_repo_pagination_by_foods(database: AllRepositories, unique_user:
     ).items
 
     assert len(recipes_with_either_food) == 20
+
+    pagination_query = PaginationQuery(page=1, per_page=-1, order_by="random", order_direction=OrderDirection.asc)
+    random_ordered = []
+    for i in range(5):
+        pagination_query.timestamp = datetime.now().timestamp()
+        random_ordered.append(database.recipes.page_all(pagination_query, foods=[food_id]).items)
+    assert len(random_ordered[0]) == 15
+    assert not all(i == random_ordered[0] for i in random_ordered)
 
 
 def test_recipe_repo_search(database: AllRepositories, unique_user: TestUser):
@@ -534,5 +546,6 @@ def test_recipe_repo_search(database: AllRepositories, unique_user: TestUser):
     pagination_query = PaginationQuery(page=1, per_page=-1, order_by="random", order_direction=OrderDirection.asc)
     random_ordered = []
     for i in range(5):
+        pagination_query.timestamp = datetime.now().timestamp()
         random_ordered.append(database.recipes.page_all(pagination_query, search="soup").items)
     assert not all(i == random_ordered[0] for i in random_ordered)
