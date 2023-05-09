@@ -1,13 +1,13 @@
 from __future__ import annotations
 
+import random
 from collections.abc import Iterable
 from math import ceil
-import random
 from typing import Any, Generic, TypeVar
 
 from fastapi import HTTPException
 from pydantic import UUID4, BaseModel
-from sqlalchemy import case, Select, delete, func, select
+from sqlalchemy import Select, case, delete, func, select
 from sqlalchemy.orm.session import Session
 from sqlalchemy.sql import sqltypes
 
@@ -385,10 +385,10 @@ class RepositoryGeneric(Generic[Schema, Model]):
                 temp_query = query.with_only_columns(self.model.id)
                 allids = self.session.execute(temp_query).scalars().all()  # fast because id is indexed
                 order = list(range(len(allids)))
-                self.logger.warning(f"seed {int(pagination.timestamp)}")
-                random.seed(int(pagination.timestamp))
+                self.logger.warning(f"seed {pagination.timestamp}")
+                random.seed(pagination.timestamp)
                 random.shuffle(order)
-                random_dict = dict(zip(allids, order))
+                random_dict = dict(zip(allids, order, strict=True))
                 case_stmt = case(random_dict, value=self.model.id)
                 query = query.order_by(case_stmt)
 
