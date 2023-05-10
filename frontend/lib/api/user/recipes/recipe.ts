@@ -39,6 +39,7 @@ const routes = {
   recipesParseIngredient: `${prefix}/parser/ingredient`,
   recipesParseIngredients: `${prefix}/parser/ingredients`,
   recipesCreateFromOcr: `${prefix}/recipes/create-ocr`,
+  recipesTimelineEvent: `${prefix}/recipes/timeline/events`,
 
   recipesRecipeSlug: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}`,
   recipesRecipeSlugExport: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/exports`,
@@ -50,9 +51,7 @@ const routes = {
   recipesSlugCommentsId: (slug: string, id: number) => `${prefix}/recipes/${slug}/comments/${id}`,
 
   recipesSlugLastMade: (slug: string) => `${prefix}/recipes/${slug}/last-made`,
-
-  recipesSlugTimelineEvent: (slug: string) => `${prefix}/recipes/${slug}/timeline/events`,
-  recipesSlugTimelineEventId: (slug: string, id: string) => `${prefix}/recipes/${slug}/timeline/events/${id}`,
+  recipesTimelineEventId: (id: string) => `${prefix}/recipes/timeline/events/${id}`,
 };
 
 export type RecipeSearchQuery = {
@@ -170,24 +169,24 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
     return await this.requests.patch<Recipe, RecipeLastMade>(routes.recipesSlugLastMade(recipeSlug), { timestamp })
   }
 
-  async createTimelineEvent(recipeSlug: string, payload: RecipeTimelineEventIn) {
-    return await this.requests.post<RecipeTimelineEventOut>(routes.recipesSlugTimelineEvent(recipeSlug), payload);
+  async createTimelineEvent(payload: RecipeTimelineEventIn) {
+    return await this.requests.post<RecipeTimelineEventOut>(routes.recipesTimelineEvent, payload);
   }
 
-  async updateTimelineEvent(recipeSlug: string, eventId: string, payload: RecipeTimelineEventUpdate) {
+  async updateTimelineEvent(eventId: string, payload: RecipeTimelineEventUpdate) {
     return await this.requests.put<RecipeTimelineEventOut, RecipeTimelineEventUpdate>(
-      routes.recipesSlugTimelineEventId(recipeSlug, eventId),
+      routes.recipesTimelineEventId(eventId),
       payload
     );
   }
 
-  async deleteTimelineEvent(recipeSlug: string, eventId: string) {
-    return await this.requests.delete<RecipeTimelineEventOut>(routes.recipesSlugTimelineEventId(recipeSlug, eventId));
+  async deleteTimelineEvent(eventId: string) {
+    return await this.requests.delete<RecipeTimelineEventOut>(routes.recipesTimelineEventId(eventId));
   }
 
-  async getAllTimelineEvents(recipeSlug: string, page = 1, perPage = -1, params = {} as any) {
+  async getAllTimelineEvents(page = 1, perPage = -1, params = {} as any) {
     return await this.requests.get<PaginationData<RecipeTimelineEventOut>>(
-      routes.recipesSlugTimelineEvent(recipeSlug),
+      routes.recipesTimelineEvent,
       {
         params: { page, perPage, ...params },
       }

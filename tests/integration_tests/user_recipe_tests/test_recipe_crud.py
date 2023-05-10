@@ -397,3 +397,30 @@ def test_delete_recipe_same_name(api_client: TestClient, unique_user: utils.Test
     response = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token)
     response = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token)
     assert response.status_code == 404
+
+
+def test_get_recipe_by_slug_or_id(api_client: TestClient, unique_user: utils.TestUser):
+    slugs = [random_string(10) for _ in range(3)]
+
+    # Create recipes
+    for slug in slugs:
+        response = api_client.post(api_routes.recipes, json={"name": slug}, headers=unique_user.token)
+        assert response.status_code == 201
+        assert json.loads(response.text) == slug
+
+    # Get recipes by slug
+    recipe_ids = []
+    for slug in slugs:
+        response = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token)
+        assert response.status_code == 200
+        recipe_data = response.json()
+        assert recipe_data["slug"] == slug
+        recipe_ids.append(recipe_data["id"])
+
+    # Get recipes by id
+    for recipe_id, slug in zip(recipe_ids, slugs, strict=True):
+        response = api_client.get(api_routes.recipes_slug(recipe_id), headers=unique_user.token)
+        assert response.status_code == 200
+        recipe_data = response.json()
+        assert recipe_data["slug"] == slug
+        assert recipe_data["id"] == recipe_id

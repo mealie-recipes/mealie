@@ -65,9 +65,11 @@ def test_recipe_migration(api_client: TestClient, unique_user: TestUser, mig: Mi
     response = api_client.get(api_routes.recipes, params=params, headers=unique_user.token)
     query_data = assert_derserialize(response)
     assert len(query_data["items"])
-    slug = query_data["items"][0]["slug"]
 
-    response = api_client.get(api_routes.recipes_slug_timeline_events(slug), headers=unique_user.token)
+    recipe_id = query_data["items"][0]["id"]
+    params = {"queryFilter": f"recipe_id={recipe_id}"}
+
+    response = api_client.get(api_routes.recipes_timeline_events, params=params, headers=unique_user.token)
     query_data = assert_derserialize(response)
     events = query_data["items"]
     assert len(events)

@@ -32,7 +32,7 @@
         <div v-for="(value, key, idx) in itemsByLabel" :key="key" class="mb-6">
           <div @click="toggleShowChecked()">
             <span v-if="idx || key !== $tc('shopping-list.no-label')">
-              <v-icon :color="value[0].label.color">
+              <v-icon :color="getLabelColor(value[0])">
                 {{ $globals.icons.tags }}
               </v-icon>
             </span>
@@ -206,14 +206,13 @@
 <script lang="ts">
 import draggable from "vuedraggable";
 
-import { defineComponent, useAsync, useRoute, computed, ref, watch, onUnmounted, useContext } from "@nuxtjs/composition-api";
+import { defineComponent, useRoute, computed, ref, onUnmounted, useContext } from "@nuxtjs/composition-api";
 import { useIdle, useToggle } from "@vueuse/core";
 import { useCopyList } from "~/composables/use-copy";
 import { useUserApi } from "~/composables/api";
-import { useAsyncKey } from "~/composables/use-utils";
 import MultiPurposeLabelSection from "~/components/Domain/ShoppingList/MultiPurposeLabelSection.vue"
 import ShoppingListItem from "~/components/Domain/ShoppingList/ShoppingListItem.vue";
-import { ShoppingListItemCreate, ShoppingListItemOut, ShoppingListMultiPurposeLabelOut } from "~/lib/api/types/group";
+import { ShoppingListItemCreate, ShoppingListItemOut, ShoppingListMultiPurposeLabelOut, ShoppingListOut } from "~/lib/api/types/group";
 import RecipeList from "~/components/Domain/Recipe/RecipeList.vue";
 import ShoppingListItemEditor from "~/components/Domain/ShoppingList/ShoppingListItemEditor.vue";
 import { useFoodStore, useLabelStore, useUnitStore } from "~/composables/store";
@@ -253,10 +252,7 @@ export default defineComponent({
     // ===============================================================
     // Shopping List Actions
 
-    const shoppingList = useAsync(async () => {
-      return await fetchShoppingList();
-    }, useAsyncKey());
-
+    const shoppingList = ref<ShoppingListOut | null>(null);
     async function fetchShoppingList() {
       const { data } = await userApi.shopping.lists.getOne(id);
       return data;
@@ -270,6 +266,7 @@ export default defineComponent({
       // only update the list with the new value if we're not loading, to prevent UI jitter
       if (!loadingCounter.value) {
         shoppingList.value = newListValue;
+        updateItemsByLabel();
       }
     }
 
@@ -305,6 +302,7 @@ export default defineComponent({
     // start polling
     loadingCounter.value -= 1;
     const pollFrequency = 5000;
+    pollForChanges();  // populate initial list
 
     let attempts = 0;
     const maxAttempts = 3;
@@ -421,6 +419,10 @@ export default defineComponent({
     const { units: allUnits } = useUnitStore();
     const { foods: allFoods } = useFoodStore();
 
+    function getLabelColor(item: ShoppingListItemOut | null) {
+      return item?.label?.color;
+    }
+
     function sortByLabels() {
       preferences.value.viewByLabel = !preferences.value.viewByLabel;
     }
@@ -441,6 +443,7 @@ export default defineComponent({
 
       // setting this doesn't have any effect on the data since it's refreshed automatically, but it makes the ux feel smoother
       shoppingList.value.labelSettings = labelSettings;
+      updateItemsByLabel();
 
       loadingCounter.value += 1;
       const { data } = await userApi.shopping.lists.updateLabelSettings(shoppingList.value.id, labelSettings);
@@ -514,10 +517,6 @@ export default defineComponent({
       itemsByLabel.value = itemsSorted;
     }
 
-    watch(shoppingList, () => {
-      updateItemsByLabel();
-    }, {deep: true});
-
     async function refreshLabels() {
       const { data } = await userApi.multiPurposeLabels.getAll();
 
@@ -587,10 +586,21 @@ export default defineComponent({
         // make sure the item is at the end of the list with the other checked items
         item.position = shoppingList.value.listItems.length;
 
-        // set a temporary updatedAt timestamp so it appears at the top of the checked items in the UI
+        // set a temporary updatedAt timestamp prior to refresh so it appears at the top of the checked items
         item.updateAt = new Date().toISOString();
         item.updateAt = item.updateAt.substring(0, item.updateAt.length-1);
       }
+
+      // make updates reflect immediately
+      if (shoppingList.value.listItems) {
+        shoppingList.value.listItems.forEach((oldListItem: ShoppingListItemOut, idx: number) => {
+          if (oldListItem.id === item.id && shoppingList.value?.listItems) {
+            shoppingList.value.listItems[idx] = item;
+          }
+        });
+      }
+
+      updateItemsByLabel();
 
       loadingCounter.value += 1;
       const { data } = await userApi.shopping.items.updateOne(item.id, item);
@@ -598,7 +608,7 @@ export default defineComponent({
 
       if (data) {
         refresh();
-        }
+      }
     }
 
     async function deleteListItem(item: ShoppingListItemOut) {
@@ -728,6 +738,7 @@ export default defineComponent({
       deleteChecked,
       deleteListItem,
       edit,
+      getLabelColor,
       itemsByLabel,
       listItems,
       listRecipes,

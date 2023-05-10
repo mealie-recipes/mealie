@@ -4,7 +4,7 @@ from zipfile import ZipFile
 
 import orjson
 import sqlalchemy
-from fastapi import BackgroundTasks, Depends, File, Form, HTTPException, Query, Request, status
+from fastapi import BackgroundTasks, Depends, File, Form, HTTPException, Path, Query, Request, status
 from fastapi.datastructures import UploadFile
 from fastapi.responses import JSONResponse
 from pydantic import UUID4, BaseModel, Field
@@ -24,12 +24,7 @@ from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.recipe import Recipe, RecipeImageTypes, ScrapeRecipe
-from mealie.schema.recipe.recipe import (
-    CreateRecipe,
-    CreateRecipeByUrlBulk,
-    RecipeLastMade,
-    RecipeSummary,
-)
+from mealie.schema.recipe.recipe import CreateRecipe, CreateRecipeByUrlBulk, RecipeLastMade, RecipeSummary
 from mealie.schema.recipe.recipe_asset import RecipeAsset
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_scraper import ScrapeRecipeTest
@@ -284,9 +279,15 @@ class RecipeController(BaseRecipeController):
         return JSONBytes(content=json_compatible_response)
 
     @router.get("/{slug}", response_model=Recipe)
-    def get_one(self, slug: str):
-        """Takes in a recipe slug, returns all data for a recipe"""
-        return self.mixins.get_one(slug)
+    def get_one(self, slug: str = Path(..., description="A recipe's slug or id")):
+        """Takes in a recipe's slug or id and returns all data for a recipe"""
+        try:
+            recipe = self.service.get_one_by_slug_or_id(slug)
+        except Exception as e:
+            self.handle_exceptions(e)
+            return None
+
+        return recipe
 
     @router.post("", status_code=201, response_model=str)
     def create_one(self, data: CreateRecipe) -> str | None:

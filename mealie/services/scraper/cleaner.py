@@ -281,7 +281,7 @@ def clean_notes(notes: typing.Any) -> list[dict] | None:
 
     parsed_notes: list[dict] = []
     for note in notes:
-        if not isinstance(note, (str, dict)):
+        if not isinstance(note, str | dict):
             continue
 
         if isinstance(note, dict):

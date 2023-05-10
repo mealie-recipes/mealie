@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 
-from mealie.core.config import APP_VERSION, get_app_settings
+from mealie.core.config import get_app_settings
+from mealie.core.settings.static import APP_VERSION
 from mealie.schema.admin.about import AppInfo
 
 router = APIRouter(prefix="/about")

@@ -14,17 +14,20 @@
           {{ $globals.icons.timelineText }}
         </v-icon>
       </v-btn>
-      <RecipeDialogTimeline v-model="showTimeline" :slug="slug" :recipe-name="recipeName" />
+      <BaseDialog v-model="showTimeline" :title="timelineAttrs.title" :icon="$globals.icons.timelineText" width="70%">
+        <RecipeTimeline v-model="showTimeline" :query-filter="timelineAttrs.queryFilter" max-height="70vh" />
+      </BaseDialog>
+
     </template>
     <span>{{ $t('recipe.open-timeline') }}</span>
   </v-tooltip>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "@nuxtjs/composition-api";
-import RecipeDialogTimeline from "./RecipeDialogTimeline.vue";
+import { computed, defineComponent, ref, useContext } from "@nuxtjs/composition-api";
+import RecipeTimeline from "./RecipeTimeline.vue";
 export default defineComponent({
-  components: { RecipeDialogTimeline },
+  components: { RecipeTimeline },
 
   props: {
     buttonStyle: {
@@ -41,13 +44,26 @@ export default defineComponent({
     },
   },
 
-  setup() {
+  setup(props) {
+    const { $vuetify, i18n } = useContext();
     const showTimeline = ref(false);
     function toggleTimeline() {
       showTimeline.value = !showTimeline.value;
     }
 
-    return { showTimeline, toggleTimeline };
+    const timelineAttrs = computed(() => {
+      let title = i18n.tc("recipe.timeline")
+      if ($vuetify.breakpoint.smAndDown) {
+        title += ` – ${props.recipeName}`
+      }
+
+      return {
+        title,
+        queryFilter: `recipe.slug="${props.slug}"`,
+      }
+    })
+
+    return { showTimeline, timelineAttrs, toggleTimeline };
   },
 });
 </script>

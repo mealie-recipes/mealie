@@ -14,6 +14,7 @@ class TimelineEventType(Enum):
 
 
 class RecipeTimelineEventIn(MealieModel):
+    recipe_id: UUID4
     user_id: UUID4 | None = None
     """can be inferred in some contexts, so it's not required"""
 
@@ -30,7 +31,6 @@ class RecipeTimelineEventIn(MealieModel):
 
 
 class RecipeTimelineEventCreate(RecipeTimelineEventIn):
-    recipe_id: UUID4
     user_id: UUID4
 
 

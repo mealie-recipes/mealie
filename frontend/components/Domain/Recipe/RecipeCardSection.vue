@@ -217,7 +217,7 @@ export default defineComponent({
 
     const queryFilter = computed(() => {
       const orderBy = props.query?.orderBy || preferences.value.orderBy;
-      return preferences.value.filterNull && orderBy ? `${orderBy} <> null` : null;
+      return preferences.value.filterNull && orderBy ? `${orderBy} IS NOT NULL` : null;
     });
 
     async function fetchRecipes(pageCount = 1) {

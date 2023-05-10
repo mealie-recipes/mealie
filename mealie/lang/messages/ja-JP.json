@@ -9,8 +9,8 @@
         "no-recipes-match-your-rules": "No recipes match your rules"
     },
     "user": {
-        "user-updated": "User updated",
-        "password-updated": "Password updated",
+        "user-updated": "ユーザを更新しました。",
+        "password-updated": "パスワードを更新しました。",
         "invalid-current-password": "Invalid current password",
         "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
     },
@@ -21,8 +21,8 @@
         "permission_denied": "You do not have permission to perform this action",
         "no-entry-found": "The requested resource was not found",
         "integrity-error": "Database integrity error",
-        "username-conflict-error": "This username is already taken",
-        "email-conflict-error": "This email is already in use"
+        "username-conflict-error": "この ユーザー名はすでに使用されています。",
+        "email-conflict-error": "この Eメイルはすでに使用されています。"
     },
     "notifications": {
         "generic-created": "{name} was created",

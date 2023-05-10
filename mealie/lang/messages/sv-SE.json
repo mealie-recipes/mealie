@@ -6,16 +6,16 @@
         "unique-name-error": "Receptnamn måste vara unika"
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "No recipes match your rules"
+        "no-recipes-match-your-rules": "Inga recept matchar dina regler"
     },
     "user": {
-        "user-updated": "User updated",
-        "password-updated": "Password updated",
-        "invalid-current-password": "Invalid current password",
-        "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
+        "user-updated": "Användare uppdaterad",
+        "password-updated": "Lösenord uppdaterat",
+        "invalid-current-password": "Ogiltigt nuvarande lösenord",
+        "ldap-update-password-unavailable": "Det gick inte att uppdatera lösenordet, användaren styrs av LDAP"
     },
     "group": {
-        "report-deleted": "Report deleted."
+        "report-deleted": "Rapport borttagen."
     },
     "exceptions": {
         "permission_denied": "Du har inte behörighet att utföra denna åtgärd",
@@ -29,7 +29,7 @@
         "generic-updated": "{name} uppdaterades",
         "generic-created-with-url": "{name} har skapats, {url}",
         "generic-updated-with-url": "{name} har uppdaterats, {url}",
-        "generic-duplicated": "{name} has been duplicated",
+        "generic-duplicated": "{name} har duplicerats",
         "generic-deleted": "{name} har tagits bort"
     }
 }

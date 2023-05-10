@@ -174,7 +174,7 @@ def auto_init():  # sourcery no-metrics
                             if val is None:
                                 raise ValueError(f"Expected 'id' to be provided for {key}")
 
-                        if isinstance(val, (str, int, UUID)):
+                        if isinstance(val, str | int | UUID):
                             stmt = select(relation_cls).filter_by(**{get_attr: val})
                             instance = session.execute(stmt).scalars().one_or_none()
                             setattr(self, key, instance)

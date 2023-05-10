@@ -170,6 +170,12 @@ export default defineComponent({
         restricted: true,
       },
       {
+        icon: $globals.icons.timelineText,
+        title: i18n.t("recipe.timeline"),
+        to: "/group/timeline",
+        restricted: true,
+      },
+      {
         icon: $globals.icons.tags,
         to: "/recipes/categories",
         title: i18n.t("sidebar.categories"),

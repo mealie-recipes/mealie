@@ -72,6 +72,13 @@ This filter will find all recipes created on or after a particular date: <br>
 This filter will find all units that have `useAbbreviation` disabled: <br>
 `useAbbreviation = false`
 
+##### Nested Property filters
+When querying tables with relationships, you can filter properties on related tables. For instance, if you want to query all recipes owned by a particular user: <br>
+`user.username = "SousChef20220320"`
+
+This timeline event filter will return all timeline events for recipes that were created after a particular date: <br>
+`recipe.createdAt >= "2023-02-25"`
+
 ##### Compound Filters
 You can combine multiple filter statements using logical operators (`AND`, `OR`).
 

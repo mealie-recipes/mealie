@@ -75,7 +75,7 @@ import { defineComponent, reactive, ref, toRefs, useContext } from "@nuxtjs/comp
 import { whenever } from "@vueuse/core";
 import { VForm } from "~/types/vuetify";
 import { useUserApi } from "~/composables/api";
-import { RecipeTimelineEventIn } from "~/lib/api/types/recipe";
+import { Recipe, RecipeTimelineEventIn } from "~/lib/api/types/recipe";
 
 export default defineComponent({
   props: {
@@ -83,9 +83,9 @@ export default defineComponent({
       type: String,
       default: null,
     },
-    recipeSlug: {
-      type: String,
-      required: true,
+    recipe: {
+      type: Object as () => Recipe,
+      default: null,
     },
   },
   setup(props, context) {
@@ -99,6 +99,7 @@ export default defineComponent({
       eventType: "comment",
       eventMessage: "",
       timestamp: undefined,
+      recipeId: props.recipe?.id || "",
     });
 
     whenever(
@@ -113,20 +114,21 @@ export default defineComponent({
 
     const state = reactive({datePickerMenu: false});
     async function createTimelineEvent() {
-      if (!newTimelineEvent.value.timestamp) {
+      if (!(newTimelineEvent.value.timestamp && props.recipe?.id && props.recipe?.slug)) {
         return;
       }
 
+      newTimelineEvent.value.recipeId = props.recipe.id
       const actions: Promise<any>[] = [];
 
       // the user only selects the date, so we set the time to end of day local time
       // we choose the end of day so it always comes after "new recipe" events
       newTimelineEvent.value.timestamp = new Date(newTimelineEvent.value.timestamp + "T23:59:59").toISOString();
-      actions.push(userApi.recipes.createTimelineEvent(props.recipeSlug, newTimelineEvent.value));
+      actions.push(userApi.recipes.createTimelineEvent(newTimelineEvent.value));
 
       // we also update the recipe's last made value
       if (!props.value || newTimelineEvent.value.timestamp > props.value) {
-        actions.push(userApi.recipes.updateLastMade(props.recipeSlug,  newTimelineEvent.value.timestamp));
+        actions.push(userApi.recipes.updateLastMade(props.recipe.slug,  newTimelineEvent.value.timestamp));
 
         // update recipe in parent so the user can see it
         // we remove the trailing "Z" since this is how the API returns it
