@@ -1,3 +1,4 @@
+from datetime import datetime
 from functools import cached_property
 from shutil import copyfileobj
 from zipfile import ZipFile
@@ -252,7 +253,10 @@ class RecipeController(BaseRecipeController):
             if search_query.cookbook is None:
                 raise HTTPException(status_code=404, detail="cookbook not found")
 
+        if not search_query.timestamp:
+            search_query.timestamp = datetime.now().timestamp()
         q.timestamp = search_query.timestamp  # propagate time of search to enable stable randomization across pages
+
         pagination_response = self.repo.page_all(
             pagination=q,
             cookbook=cookbook_data,
