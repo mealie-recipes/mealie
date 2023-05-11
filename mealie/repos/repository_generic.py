@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import random
 from collections.abc import Iterable
-from datetime import datetime
 from math import ceil
 from typing import Any, Generic, TypeVar
 
@@ -386,9 +385,6 @@ class RepositoryGeneric(Generic[Schema, Model]):
                 temp_query = query.with_only_columns(self.model.id)
                 allids = self.session.execute(temp_query).scalars().all()  # fast because id is indexed
                 order = list(range(len(allids)))
-                if not pagination.timestamp:
-                    pagination.timestamp = datetime.now().timestamp()
-
                 random.seed(pagination.timestamp)
                 random.shuffle(order)
                 random_dict = dict(zip(allids, order, strict=True))
