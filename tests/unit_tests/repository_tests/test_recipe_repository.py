@@ -504,6 +504,37 @@ def test_recipe_repo_search(database: AllRepositories, unique_user: TestUser):
             group_id=unique_user.group_id,
             name="Rátàtôuile",
         ),
+        # Add a bunch of recipes for stable randomization
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=f"{random_string(10)} soup",
+        ),
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=f"{random_string(10)} soup",
+        ),
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=f"{random_string(10)} soup",
+        ),
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=f"{random_string(10)} soup",
+        ),
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=f"{random_string(10)} soup",
+        ),
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=f"{random_string(10)} soup",
+        ),
     ]
 
     for recipe in recipes:
