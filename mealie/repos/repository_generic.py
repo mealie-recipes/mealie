@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from datetime import datetime
 import random
 from collections.abc import Iterable
+from datetime import datetime
 from math import ceil
 from typing import Any, Generic, TypeVar
 
