@@ -177,7 +177,8 @@ class QueryFilterComponent:
 
             if isinstance(model_attr_type, sqltypes.Date | sqltypes.DateTime):
                 try:
-                    sanitized_values[i] = date_parser.parse(v)
+                    dt = date_parser.parse(v)
+                    sanitized_values[i] = dt.date() if isinstance(model_attr_type, sqltypes.Date) else dt
                 except ParserError as e:
                     raise ValueError(f"invalid query string: unknown date or datetime format '{v}'") from e
 
