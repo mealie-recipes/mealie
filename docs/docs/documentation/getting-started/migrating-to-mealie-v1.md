@@ -54,4 +54,4 @@ In most cases, it's faster to manually migrate the recipes that didn't take inst
 
 v1 Comes with a whole host of new features and improvements. Checkout the changelog to get a sense for what's new.
 
-- [v1 Changelog](../../changelog/v1.0.0.md)
+- [Github releases changelog](https://github.com/hay-kot/mealie/releases)

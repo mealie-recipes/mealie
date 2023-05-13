@@ -12,14 +12,14 @@ Mealie is a self hosted recipe manager and meal planner with a RestAPI backend a
 
 
 ## Key Features
-- 🔍 Fuzzy search
-- 🏷️ Tag recipes with categories or tags to flexible sorting
+- 🔍 Smart search, mix & match of "quoted literal searches" and keyword search. Fuzzy search ("is it brocolli or broccoli?") is also available when using a Postgres database.
+- 🏷️ Tag recipes with categories or tags for flexible sorting
 - 🕸 Import recipes from around the web by URL
 - 📱 Progressive Web App
 - 📆 Create Meal Plans
 - 🛒 Generate shopping lists
 - 🐳 Easy setup with Docker
-- 🎨 Customize your interface with color themes layouts
+- 🎨 Customize your interface with color themed layouts
 - 💾 Export all your data in any format with Jinja2 Templates, with easy data restoration from the user interface.
 - 🌍 localized in many languages
 - ➕ Plus tons more!
@@ -34,17 +34,8 @@ Mealie is a self hosted recipe manager and meal planner with a RestAPI backend a
     - Random meal plan generation
 
 ## FAQ
+See the [Frequently Asked Questions page](./faq.md)
 
-### Why An API?
-An API allows integration into applications like [Home Assistant](https://www.home-assistant.io/) that can act as notification engines to provide custom notifications based of Meal Plan data to remind you to defrost the chicken, marinade the steak, or start the CrockPot. Additionally, you can access nearly any backend service via the API giving you total control to extend the application. To explore the API spin up your server and navigate to http://yourserver.com/docs for interactive API documentation.
-
-### Why a Database?
-Some users of static-site generator applications like ChowDown have expressed concerns about their data being stuck in a database. Considering this is a new project it is a valid concern to be worried about your data. Mealie specifically addresses this concern by provided automatic daily backups that export your data in json, plain-text markdown files, and/or custom Jinja2 templates. **This puts you in controls of how your data is represented** when exported from Mealie, which means you can easily migrate to any other service provided Mealie doesn't work for you.
-
-As to why we need a database?
-
-- **Developer Experience:** Without a database a lot of the work to maintain your data is taken on by the developer instead of a battle tested platform for storing data.
-- **Multi User Support:** With a solid database as backend storage for your data Mealie can better support multi-user sites and avoid read/write access errors when multiple actions are taken at the same time.
 
 ## Built With
 

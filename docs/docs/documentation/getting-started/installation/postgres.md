@@ -1,5 +1,7 @@
 # Installing with PostgreSQL
 
+PostgreSQL might be considered if you need to support many concurrent users. In addition, some features are only enabled on PostgreSQL, such as fuzzy search.
+
 **For Environmental Variable Configuration See:**
 
 - [Frontend Configuration](./frontend-config.md)
@@ -10,7 +12,7 @@
 version: "3.7"
 services:
   mealie-frontend:
-    image: hkotel/mealie:frontend-v1.0.0beta-4
+    image: hkotel/mealie:frontend-v1.0.0beta-5
     container_name: mealie-frontend
     depends_on:
       - mealie-api
@@ -23,7 +25,7 @@ services:
     volumes:
       - mealie-data:/app/data/ # (3)
   mealie-api:
-    image: hkotel/mealie:api-v1.0.0beta-4
+    image: hkotel/mealie:api-v1.0.0beta-5
     container_name: mealie-api
     deploy:
       resources:
@@ -56,7 +58,7 @@ services:
     image: postgres
     restart: always
     volumes:
-      - mealie-pgdata:/var/lib/postgresql/data
+      - ./mealie-pgdata:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: mealie
       POSTGRES_USER: mealie

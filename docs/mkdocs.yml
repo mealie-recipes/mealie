@@ -65,6 +65,7 @@ nav:
       - FAQ: "documentation/getting-started/faq.md"
       - API: "documentation/getting-started/api-usage.md"
       - Road Map: "documentation/getting-started/roadmap.md"
+      - Advanced: "documentation/getting-started/installation/advanced.md"
 
       - Installation:
           - Installation Checklist: "documentation/getting-started/installation/installation-checklist.md"
@@ -95,6 +96,7 @@ nav:
           - Improving Ingredient Parser: "contributors/guides/ingredient-parser.md"
 
   - Change Log:
+      - v1.0.0beta-5: "changelog/v1.0.0beta-5.md"
       - v1.0.0beta-4: "changelog/v1.0.0beta-4.md"
       - v1.0.0beta-3: "changelog/v1.0.0beta-3.md"
       - v1.0.0beta-2: "changelog/v1.0.0beta-2.md"
