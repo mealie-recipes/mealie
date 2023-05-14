@@ -3,6 +3,7 @@ from typing import TYPE_CHECKING
 import sqlalchemy as sa
 from sqlalchemy import Boolean, Float, ForeignKey, Integer, String, event, orm
 from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm.session import Session
 from text_unidecode import unidecode
 
 from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
@@ -88,7 +89,7 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
     original_text_normalized: Mapped[str | None] = mapped_column(String, index=True)
 
     @auto_init()
-    def __init__(self, session, note: str | None = None, orginal_text: str | None = None, **_) -> None:
+    def __init__(self, session: Session, note: str | None = None, orginal_text: str | None = None, **_) -> None:
         # SQLAlchemy events do not seem to register things that are set during auto_init
         if note is not None:
             self.note_normalized = unidecode(note).lower().strip()

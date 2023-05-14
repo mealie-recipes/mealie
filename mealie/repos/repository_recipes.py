@@ -168,13 +168,12 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         # keep quoted phrases together as literal portions of the search string
         literal = False
         quoted_regex = re.compile(r"""(["'])(?:(?=(\\?))\2.)*?\1""")  # thank you stack exchange!
+        removequotes_regex = re.compile(r"""['"](.*)['"]""")
         if quoted_regex.search(normalized_search):
             literal = True
             temp = normalized_search
             quoted_search_list = [match.group() for match in quoted_regex.finditer(temp)]  # all quoted strings
-            quoted_search_list = [
-                re.sub(r"""['"](.*)['"]""", "\\1", x) for x in quoted_search_list
-            ]  # remove outer quotes
+            quoted_search_list = [removequotes_regex.sub("\\1", x) for x in quoted_search_list]  # remove outer quotes
             temp = quoted_regex.sub("", temp)  # remove all quoted strings, leaving just non-quoted
             temp = temp.translate(
                 str.maketrans(punctuation, " " * len(punctuation))

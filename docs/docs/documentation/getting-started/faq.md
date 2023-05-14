@@ -68,6 +68,13 @@ Yes, you can install Mealie on your local machine. HOWEVER, it is recommended th
 
 - [Advanced Installation](../installation/advanced/)
 
+## What is fuzzy search and how do I use it?
+Mealie can use fuzzy search, which is robust to minor typos. For example, searching for "brocolli" will still find your recipe for "broccoli soup". But fuzzy search is only functional on a Postgres database backend. To enable fuzzy search you will need to migrate to Postgres:
+
+1. Backup your database and download the .zip file (same as when [migrating](./migrating-to-mealie-v1.md))
+2. Set up a [Postgres](./installation/postgres.md) instance of Mealie
+3. Upload the backup .zip and click to apply it (as as migration)
+
 ## How i can attach an image or video to a Recipe?
 
 Yes. Mealie's Recipe Steps and other fields support the markdown syntax and therefor supports images and videos. To attach an image to the recipe, you can upload it as an asset and use the provided copy button to generate the html image tag required to render the image. For videos, Mealie provides no way to host videos. You'll need to host your videos with another provider and embed them in your recipe. Generally, the video provider will provide a link to the video and the html tag required to render the video. For example, youtube provides the following link that works inside a step. You can adjust the width and height attributes as necessary to ensure a fit.
