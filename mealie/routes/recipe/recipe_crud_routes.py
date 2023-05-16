@@ -22,6 +22,7 @@ from mealie.repos.repository_recipes import RepositoryRecipes
 from mealie.routes._base import BaseCrudController, controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
+from mealie.schema.make_dependable import make_dependable
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.recipe import Recipe, RecipeImageTypes, ScrapeRecipe
 from mealie.schema.recipe.recipe import CreateRecipe, CreateRecipeByUrlBulk, RecipeLastMade, RecipeSummary
@@ -237,8 +238,8 @@ class RecipeController(BaseRecipeController):
     def get_all(
         self,
         request: Request,
-        q: PaginationQuery = Depends(),
-        search_query: RecipeSearchQuery = Depends(),
+        q: PaginationQuery = Depends(make_dependable(PaginationQuery)),
+        search_query: RecipeSearchQuery = Depends(make_dependable(RecipeSearchQuery)),
         categories: list[UUID4 | str] | None = Query(None),
         tags: list[UUID4 | str] | None = Query(None),
         tools: list[UUID4 | str] | None = Query(None),
