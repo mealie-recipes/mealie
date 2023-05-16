@@ -434,18 +434,18 @@ def test_get_random_order(api_client: TestClient, unique_user: utils.TestUser):
         assert response.status_code == 201
         assert json.loads(response.text) == slug
 
-    goodparams = {"page": 1, "perPage": -1, "orderBy": "random", "paginationSeed": "abcdefg"}
+    goodparams: dict[str, int | str] = {"page": 1, "perPage": -1, "orderBy": "random", "paginationSeed": "abcdefg"}
     response = api_client.get(api_routes.recipes, params=goodparams, headers=unique_user.token)
     assert response.status_code == 200
 
-    seed1_params = {"page": 1, "perPage": -1, "orderBy": "random", "paginationSeed": "abcdefg"}
-    seed2_params = {"page": 1, "perPage": -1, "orderBy": "random", "paginationSeed": "gfedcba"}
+    seed1_params: dict[str, int | str] = {"page": 1, "perPage": -1, "orderBy": "random", "paginationSeed": "abcdefg"}
+    seed2_params: dict[str, int | str] = {"page": 1, "perPage": -1, "orderBy": "random", "paginationSeed": "gfedcba"}
     data1 = api_client.get(api_routes.recipes, params=seed1_params, headers=unique_user.token).json()
     data2 = api_client.get(api_routes.recipes, params=seed2_params, headers=unique_user.token).json()
     data1_new = api_client.get(api_routes.recipes, params=seed1_params, headers=unique_user.token).json()
     assert data1["items"][0]["slug"] != data2["items"][0]["slug"]  # new seed -> new order
     assert data1["items"][0]["slug"] == data1_new["items"][0]["slug"]  # same seed -> same order
 
-    badparams = {"page": 1, "perPage": -1, "orderBy": "random"}
+    badparams: dict[str, int | str] = {"page": 1, "perPage": -1, "orderBy": "random"}
     response = api_client.get(api_routes.recipes, params=badparams, headers=unique_user.token)
     assert response.status_code == 422
