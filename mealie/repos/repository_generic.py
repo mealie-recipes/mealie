@@ -385,7 +385,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
                 temp_query = query.with_only_columns(self.model.id)
                 allids = self.session.execute(temp_query).scalars().all()  # fast because id is indexed
                 order = list(range(len(allids)))
-                random.seed(pagination.timestamp)
+                random.seed(pagination.pagination_seed)
                 random.shuffle(order)
                 random_dict = dict(zip(allids, order, strict=True))
                 case_stmt = case(random_dict, value=self.model.id)

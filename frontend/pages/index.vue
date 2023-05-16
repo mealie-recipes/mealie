@@ -238,7 +238,7 @@ export default defineComponent({
         requireAllFoods: state.value.requireAllFoods,
         orderBy: state.value.orderBy,
         orderDirection: state.value.orderDirection,
-        timestamp: Date.now(), // never arrives at backend!
+        _searchSeed: Date.now().toString()
       };
     }
 

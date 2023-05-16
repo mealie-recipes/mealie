@@ -23,6 +23,8 @@ export const useLazyRecipes = function () {
     const { data } = await api.recipes.getAll(page, perPage, {
       orderBy,
       orderDirection,
+      paginationSeed: query?._searchSeed, // propagate searchSeed to stabilize random order pagination
+      searchSeed: query?._searchSeed, // unused, but pass it along for completeness of data
       search: query?.search,
       cookbook: query?.cookbook,
       categories: query?.categories,
@@ -33,7 +35,6 @@ export const useLazyRecipes = function () {
       requireAllTools: query?.requireAllTools,
       foods: query?.foods,
       requireAllFoods: query?.requireAllFoods,
-      timestamp: query?.timestamp,
       queryFilter,
     });
     return data ? data.items : [];
