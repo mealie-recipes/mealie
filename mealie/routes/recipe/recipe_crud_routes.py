@@ -252,13 +252,6 @@ class RecipeController(BaseRecipeController):
             if search_query.cookbook is None:
                 raise HTTPException(status_code=404, detail="cookbook not found")
 
-        if (
-            q.order_by == "random" and not q.pagination_seed
-        ):  # this should be already taken care of upstream, but just in case
-            q.pagination_seed = (
-                search_query._search_seed
-            )  # propagate time of search -> stable randomization across pages
-
         pagination_response = self.repo.page_all(
             pagination=q,
             cookbook=cookbook_data,
