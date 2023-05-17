@@ -37,7 +37,7 @@ class PaginationQuery(MealieModel):
     @validator("pagination_seed", always=True, pre=True)
     def validate_randseed(cls, pagination_seed, values):
         if values.get("order_by") == "random" and not pagination_seed:
-            raise ValueError("pagination_seed required for when orderBy is random")
+            raise ValueError("paginationSeed is required when orderBy is random")
         return pagination_seed
 
 
