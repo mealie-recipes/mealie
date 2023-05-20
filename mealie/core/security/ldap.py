@@ -10,7 +10,7 @@ from mealie.schema.user.user import PrivateUser
 logger = root_logger.get_logger("security.ldap")
 
 
-def search_user(conn: LDAPObject, username: str):
+def search_user(conn: LDAPObject, username: str) -> list[tuple[str, dict]] | False:
     """
     Searches for a user by LDAP_ID_ATTRIBUTE, LDAP_MAIL_ATTRIBUTE, and the provided LDAP_USER_FILTER.
     If none or multiple users are found, return False
@@ -31,7 +31,7 @@ def search_user(conn: LDAPObject, username: str):
         filter=user_filter,
     )
 
-    user_entry = None
+    user_entry: list[tuple[str, dict]] | None = None
     try:
         logger.debug(f"[LDAP] Starting search with filter: {search_filter}")
         user_entry = conn.search_s(
@@ -49,7 +49,7 @@ def search_user(conn: LDAPObject, username: str):
         return False
 
     # we only want the entries that have a dn
-    user_entry: list[tuple[str, dict]] = [(dn, attr) for dn, attr in user_entry if dn]
+    user_entry = [(dn, attr) for dn, attr in user_entry if dn]
 
     if len(user_entry) > 1:
         logger.warning("[LDAP] Multiple users found with the provided user filter")
@@ -92,46 +92,9 @@ def get_user(db: AllRepositories, username: str, password: str) -> PrivateUser |
         conn.unbind_s()
         return False
 
-    user_filter = ""
-    if settings.LDAP_USER_FILTER:
-        # fill in the template provided by the user to maintain backwards compatibility
-        user_filter = settings.LDAP_USER_FILTER.format(
-            id_attribute=settings.LDAP_ID_ATTRIBUTE, mail_attribute=settings.LDAP_MAIL_ATTRIBUTE, input=username
-        )
-    # Don't assume the provided search filter has (|({id_attribute}={input})({mail_attribute}={input}))
-    search_filter = "(&(|({id_attribute}={input})({mail_attribute}={input})){filter})".format(
-        id_attribute=settings.LDAP_ID_ATTRIBUTE,
-        mail_attribute=settings.LDAP_MAIL_ATTRIBUTE,
-        input=username,
-        filter=user_filter,
-    )
-
-    user_entry = None
-    try:
-        logger.debug(f"[LDAP] Starting search with filter: {search_filter}")
-        user_entry = conn.search_s(
-            settings.LDAP_BASE_DN,
-            ldap.SCOPE_SUBTREE,
-            search_filter,
-            [settings.LDAP_ID_ATTRIBUTE, settings.LDAP_NAME_ATTRIBUTE, settings.LDAP_MAIL_ATTRIBUTE],
-        )
-    except ldap.FILTER_ERROR:
-        logger.error("[LDAP] Bad user search filter")
-
+    user_entry = search_user(conn, username)
     if not user_entry:
-        conn.unbind_s()
-        logger.error("[LDAP] No user was found with the provided user filter")
         return False
-
-    # we only want the entries that have a dn
-    user_entry: list[tuple[str, dict]] = [(dn, attr) for dn, attr in user_entry if dn]
-
-    if len(user_entry) > 1:
-        logger.warning("[LDAP] Multiple users found with the provided user filter")
-        logger.debug(f"[LDAP] The following entries were returned: {user_entry}")
-        conn.unbind_s()
-        return False
-
     user_dn, user_attr = user_entry[0]
 
     # Check the credentials of the user
