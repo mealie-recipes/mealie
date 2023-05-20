@@ -44,7 +44,7 @@ def create_recipe_slug_token(file_path: str | Path) -> str:
     return create_access_token(token_data, expires_delta=timedelta(minutes=30))
 
 
-def user_from_ldap(db: AllRepositories, username: str, password: str) -> PrivateUser | bool:
+def get_user_from_ldap(db: AllRepositories, username: str, password: str) -> PrivateUser | bool:
     """Given a username and password, tries to authenticate by BINDing to an
     LDAP server
 
@@ -70,19 +70,16 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
     if settings.LDAP_ENABLE_STARTTLS:
         conn.start_tls_s()
 
-    # Use query user for the search instead of the logged in user
-    # This prevents the need for every user to have query permissions in LDAP
     try:
         conn.simple_bind_s(settings.LDAP_QUERY_BIND, settings.LDAP_QUERY_PASSWORD)
     except (ldap.INVALID_CREDENTIALS, ldap.NO_SUCH_OBJECT):
         logger.error("[LDAP] Unable to bind to with provided user/password")
+        conn.unbind_s()
         return False
 
-    # Search "username" against "cn" attribute for Linux, "sAMAccountName" attribute
-    # for Windows and "mail" attribute for email addresses. The "mail" attribute is
-    # required to obtain the user's DN for the LDAP_ADMIN_FILTER.
     user_filter = ""
     if settings.LDAP_USER_FILTER:
+        # fill in the template provided by the user to maintain backwards compatibility
         user_filter = settings.LDAP_USER_FILTER.format(
             id_attribute=settings.LDAP_ID_ATTRIBUTE, mail_attribute=settings.LDAP_MAIL_ATTRIBUTE, input=username
         )
@@ -112,7 +109,7 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
         return False
 
     # we only want the entries that have a dn
-    user_entry = [(dn, attr) for dn, attr in user_entry if dn]
+    user_entry: list[tuple[str, dict]] = [(dn, attr) for dn, attr in user_entry if dn]
 
     if len(user_entry) > 1:
         logger.warning("[LDAP] Multiple users found with the provided user filter")
@@ -127,8 +124,8 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
         logger.debug(f"[LDAP] Attempting to bind with '{user_dn}' using the provided password")
         conn.simple_bind_s(user_dn, password)
     except (ldap.INVALID_CREDENTIALS, ldap.NO_SUCH_OBJECT):
+        logger.error("[LDAP] Bind failed")
         conn.unbind_s()
-        logger.debug("[LDAP] Bind failed")
         return False
 
     # Check for existing user
@@ -138,20 +135,29 @@ def user_from_ldap(db: AllRepositories, username: str, password: str) -> Private
 
     if user is None:
         logger.debug("[LDAP] User is not in Mealie. Creating a new account")
-        try:
-            user_id = user_attr[settings.LDAP_ID_ATTRIBUTE][0].decode("utf-8")
-            full_name = user_attr[settings.LDAP_NAME_ATTRIBUTE][0].decode("utf-8")
-            email = user_attr[settings.LDAP_MAIL_ATTRIBUTE][0].decode("utf-8")
-        except KeyError:
-            conn.unbind_s()
-            return False
+
+        attribute_keys = {
+            settings.LDAP_ID_ATTRIBUTE: "username",
+            settings.LDAP_NAME_ATTRIBUTE: "name",
+            settings.LDAP_MAIL_ATTRIBUTE: "mail",
+        }
+        attributes = {}
+        for attribute_key, attribute_name in attribute_keys.items():
+            if attribute_key not in user_attr or len(user_attr[attribute_key]) == 0:
+                logger.error(
+                    f"[LDAP] Unable to create user due to missing '{attribute_name}' ('{attribute_key}') attribute"
+                )
+                logger.debug(f"[LDAP] User has the following attributes: {user_attr}")
+                conn.unbind_s()
+                return False
+            attributes[attribute_key] = user_attr.get(attribute_key)[0].decode("utf-8")
 
         user = db.users.create(
             {
-                "username": user_id,
+                "username": attributes[settings.LDAP_ID_ATTRIBUTE],
                 "password": "LDAP",
-                "full_name": full_name,
-                "email": email,
+                "full_name": attributes[settings.LDAP_NAME_ATTRIBUTE],
+                "email": attributes[settings.LDAP_MAIL_ATTRIBUTE],
                 "admin": False,
                 "auth_method": AuthMethod.LDAP,
             },
@@ -175,7 +181,7 @@ def authenticate_user(session, email: str, password: str) -> PrivateUser | bool:
     if not user:
         user = db.users.get_one(email, "username", any_case=True)
     if settings.LDAP_AUTH_ENABLED and (not user or user.password == "LDAP" or user.auth_method == AuthMethod.LDAP):
-        return user_from_ldap(db, email, password)
+        return get_user_from_ldap(db, email, password)
     if not user:
         # To prevent user enumeration we perform the verify_password computation to ensure
         # server side time is relatively constant and not vulnerable to timing attacks.
