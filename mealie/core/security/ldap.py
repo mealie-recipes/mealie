@@ -10,7 +10,7 @@ from mealie.schema.user.user import PrivateUser
 logger = root_logger.get_logger("security.ldap")
 
 
-def search_user(conn: LDAPObject, username: str) -> list[tuple[str, dict]] | False:
+def search_user(conn: LDAPObject, username: str) -> list[tuple[str, dict[str, list[bytes]]]] | None:
     """
     Searches for a user by LDAP_ID_ATTRIBUTE, LDAP_MAIL_ATTRIBUTE, and the provided LDAP_USER_FILTER.
     If none or multiple users are found, return False
@@ -31,7 +31,7 @@ def search_user(conn: LDAPObject, username: str) -> list[tuple[str, dict]] | Fal
         filter=user_filter,
     )
 
-    user_entry: list[tuple[str, dict]] | None = None
+    user_entry: list[tuple[str, dict[str, list[bytes]]]] | None = None
     try:
         logger.debug(f"[LDAP] Starting search with filter: {search_filter}")
         user_entry = conn.search_s(
@@ -46,7 +46,7 @@ def search_user(conn: LDAPObject, username: str) -> list[tuple[str, dict]] | Fal
     if not user_entry:
         conn.unbind_s()
         logger.error("[LDAP] No user was found with the provided user filter")
-        return False
+        return None
 
     # we only want the entries that have a dn
     user_entry = [(dn, attr) for dn, attr in user_entry if dn]
@@ -55,7 +55,7 @@ def search_user(conn: LDAPObject, username: str) -> list[tuple[str, dict]] | Fal
         logger.warning("[LDAP] Multiple users found with the provided user filter")
         logger.debug(f"[LDAP] The following entries were returned: {user_entry}")
         conn.unbind_s()
-        return False
+        return None
 
     return user_entry
 
@@ -128,7 +128,7 @@ def get_user(db: AllRepositories, username: str, password: str) -> PrivateUser |
                 logger.debug(f"[LDAP] User has the following attributes: {user_attr}")
                 conn.unbind_s()
                 return False
-            attributes[attribute_key] = user_attr.get(attribute_key)[0].decode("utf-8")
+            attributes[attribute_key] = user_attr[attribute_key][0].decode("utf-8")
 
         user = db.users.create(
             {
