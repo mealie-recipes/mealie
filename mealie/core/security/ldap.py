@@ -1,10 +1,9 @@
 import ldap
 from ldap.ldapobject import LDAPObject
+
 from mealie.core import root_logger
 from mealie.core.config import get_app_settings
-from mealie.core.settings.settings import AppSettings
 from mealie.db.models.users.users import AuthMethod
-
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.user.user import PrivateUser
 
