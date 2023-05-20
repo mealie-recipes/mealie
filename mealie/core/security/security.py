@@ -164,9 +164,11 @@ def get_user_from_ldap(db: AllRepositories, username: str, password: str) -> Pri
         )
 
     if settings.LDAP_ADMIN_FILTER:
-        user.admin = len(conn.search_s(user_dn, ldap.SCOPE_BASE, settings.LDAP_ADMIN_FILTER, [])) > 0
-        logger.debug("[LDAP] Setting user as admin")
-        db.users.update(user.id, user)
+        should_be_admin = len(conn.search_s(user_dn, ldap.SCOPE_BASE, settings.LDAP_ADMIN_FILTER, [])) > 0
+        if user.admin != should_be_admin:
+            logger.debug(f"[LDAP] {'Setting' if should_be_admin else 'Removing'} user as admin")
+            user.admin = should_be_admin
+            db.users.update(user.id, user)
 
     conn.unbind_s()
     return user
