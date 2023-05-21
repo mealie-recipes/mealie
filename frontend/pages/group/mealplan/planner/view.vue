@@ -1,7 +1,9 @@
 <template>
-  <v-row>
+  <div id="mealplan-container" ref="mealplan-container">
+    <button class="scroll-arrow scroll-prev" @click="scrollToNext(false)">&lt;&lt;&lt;</button>
     <v-col
       v-for="(day, index) in plan"
+      ref="days"
       :key="index"
       cols="12"
       sm="12"
@@ -36,8 +38,10 @@
         />
       </div>
     </v-col>
-  </v-row>
+    <button class="scroll-arrow scroll-next" @click="scrollToNext(true)">&gt;&gt;&gt;</button>
+  </div>
 </template>
+
 
 <script lang="ts">
 import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
@@ -105,5 +109,51 @@ export default defineComponent({
       plan,
     };
   },
+  methods: {
+    scrollToNext(forward: boolean) {
+      if(this.$refs.days && this.$refs["mealplan-container"]) {
+        const daysRefs = this.$refs.days as HTMLDivElement[];
+        const containerRef = this.$refs["mealplan-container"] as HTMLDivElement
+        const containerOffset = containerRef.offsetLeft;
+        let scrollLeft: number[] = daysRefs.map((day) => day.offsetLeft - containerRef.scrollLeft - containerOffset);
+        if(forward) {
+          scrollLeft = scrollLeft.filter(n => n > 0);
+        scrollLeft.sort((a,b) => a-b);
+        } else {
+          scrollLeft = scrollLeft.filter(n => n < 0);
+        scrollLeft.sort((a,b) => b-a);
+        }
+        containerRef.scrollTo({
+          left: scrollLeft[0] + containerRef.scrollLeft ,
+          behavior: "smooth"
+        });;
+      } else {
+        console.log("Unable to perform scrolling due to missing ref")
+      }
+    }
+  },
 });
 </script>
+
+<style>
+#mealplan-container {
+  display: flex;
+  flex-direction: row;
+  margin: -12px 12px -12px 12px;
+  overflow: auto;
+}
+
+.scroll-arrow {
+  position: absolute;
+  top: 200px;
+}
+
+.scroll-next {
+  right: 5px
+}
+
+.scroll-prev {
+  left: 0px
+}
+
+</style>
