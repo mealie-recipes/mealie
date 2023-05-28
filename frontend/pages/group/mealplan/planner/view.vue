@@ -1,47 +1,53 @@
 <template>
-  <div id="mealplan-container" ref="mealplan-container" :class="{ 'flex-column': useMobileFormat, 'flex-row': !useMobileFormat  }">
-    <button v-if="useMobileFormat" class="scroll-arrow scroll-up" @click="scrollVert(false)">Up</button>
-    <button v-else class="scroll-arrow scroll-left" @click="scrollHoriz(false)">&lt;&lt;&lt;</button>
-    <v-col
-    v-for="(day, index) in plan"
-    ref="days"
-    :key="index"
-    cols="12"
-    sm="12"
-    md="4"
-    lg="4"
-    xl="2"
-    class="col-borders my-1 d-flex flex-column"
-    >
-    <v-card class="mb-2 border-left-primary rounded-sm pa-2">
-      <p class="pl-2 mb-1">
-        {{ $d(day.date, "short") }}
-      </p>
-    </v-card>
-    <div v-for="section in day.sections" :key="section.title">
-      <div class="py-2 d-flex flex-column">
-        <div class="primary" style="width: 50px; height: 2.5px"></div>
-        <p class="text-overline my-0">
-          {{ section.title }}
+  <div class="d-flex" :class="{ 'flex-column': useMobileFormat, 'flex-row': !useMobileFormat  }">
+    <button v-if="useMobileFormat" class="scroll-arrow scroll-up hidden" @click="scrollVert(false)">Up</button>
+    <button v-else class="scroll-arrow scroll-left" @click="scrollHoriz(false)">
+      <v-icon> {{ $globals.icons.arrowLeftBold }} </v-icon>
+    </button>
+    <div id="mealplan-container" ref="mealplan-container" :class="{ 'flex-column': useMobileFormat, 'flex-row': !useMobileFormat  }">
+      <v-col
+      v-for="(day, index) in plan"
+      ref="days"
+      :key="index"
+      cols="12"
+      sm="12"
+      md="4"
+      lg="4"
+      xl="2"
+      class="col-borders my-1 d-flex flex-column"
+      >
+      <v-card class="mb-2 border-left-primary rounded-sm pa-2">
+        <p class="pl-2 mb-1">
+          {{ $d(day.date, "short") }}
         </p>
-      </div>
+      </v-card>
+      <div v-for="section in day.sections" :key="section.title">
+        <div class="py-2 d-flex flex-column">
+          <div class="primary" style="width: 50px; height: 2.5px"></div>
+          <p class="text-overline my-0">
+            {{ section.title }}
+          </p>
+        </div>
 
-      <RecipeCardMobile
-      v-for="mealplan in section.meals"
-      :key="mealplan.id"
-      :recipe-id="(mealplan.recipe && mealplan.recipe.id) ? mealplan.recipe.id : ''"
-      class="mb-2"
-      :route="mealplan.recipe ? true : false"
-      :rating="mealplan.recipe ? mealplan.recipe.rating : 0"
-      :slug="(mealplan.recipe ? mealplan.recipe.slug : mealplan.title) || 'Recipe'"
-      :description="(mealplan.recipe ? mealplan.recipe.description : mealplan.text) || 'No Description'"
-      :name="(mealplan.recipe ? mealplan.recipe.name : mealplan.title) || 'Recipe'"
-      />
+        <RecipeCardMobile
+        v-for="mealplan in section.meals"
+        :key="mealplan.id"
+        :recipe-id="(mealplan.recipe && mealplan.recipe.id) ? mealplan.recipe.id : ''"
+        class="mb-2"
+        :route="mealplan.recipe ? true : false"
+        :rating="mealplan.recipe ? mealplan.recipe.rating : 0"
+        :slug="(mealplan.recipe ? mealplan.recipe.slug : mealplan.title) || 'Recipe'"
+        :description="(mealplan.recipe ? mealplan.recipe.description : mealplan.text) || 'No Description'"
+        :name="(mealplan.recipe ? mealplan.recipe.name : mealplan.title) || 'Recipe'"
+        />
+      </div>
+      </v-col>
     </div>
-  </v-col>
-  <button v-if="useMobileFormat" class="scroll-arrow scroll-down" @click="scrollVert(true)">Down</button>
-  <button v-else class="scroll-arrow scroll-right" @click="scrollHoriz(true)">&gt;&gt;&gt;</button>
-</div>
+    <button v-if="useMobileFormat" class="scroll-arrow scroll-down hidden" @click="scrollVert(true)">Down</button>
+    <button v-else class="scroll-arrow scroll-right" @click="scrollHoriz(true)">
+        <v-icon> {{ $globals.icons.arrowRightBold }} </v-icon>
+    </button>
+  </div>
 </template>
 
 
@@ -179,19 +185,21 @@ export default defineComponent({
 #mealplan-container {
   display: flex;
   margin: -12px 12px -12px 12px;
-  overflow: auto;
+  overflow: scroll;
+  overflow-y: hidden;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
 }
 
-.scroll-right {
-  position: absolute;
-  top: 200px;
-  right: 5px;
+.container::-webkit-scrollbar { /* WebKit */
+    width: 0;
+    height: 0;
 }
 
-.scroll-left {
-  position: absolute;
-  top: 200px;
-  left: 0px;
+.scroll-right, .scroll-left {
+  position: relative;
+  top: 12px;
+  align-self: baseline;
 }
 
 .scroll-up {
