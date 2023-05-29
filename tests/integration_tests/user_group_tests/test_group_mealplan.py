@@ -6,6 +6,7 @@ from mealie.schema.meal_plan.new_meal import CreatePlanEntry
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
+import random
 
 
 def route_all_slice(page: int, perPage: int, start_date: str, end_date: str):
@@ -49,10 +50,7 @@ def test_create_mealplan_with_recipe(api_client: TestClient, unique_user: TestUs
 
 def test_crud_mealplan(api_client: TestClient, unique_user: TestUser):
     new_plan = CreatePlanEntry(
-        date=date.today(),
-        entry_type="breakfast",
-        title=random_string(),
-        text=random_string(),
+        date=date.today(), entry_type="breakfast", title=random_string(), text=random_string(), quantity=2.5
     ).dict()
 
     # Create
@@ -65,6 +63,7 @@ def test_crud_mealplan(api_client: TestClient, unique_user: TestUser):
     # Update
     response_json["title"] = random_string()
     response_json["text"] = random_string()
+    response_json["quantity"] = random.uniform(1.0, 5.0)
 
     response = api_client.put(
         api_routes.groups_mealplans_item_id(plan_id), headers=unique_user.token, json=response_json
@@ -74,6 +73,7 @@ def test_crud_mealplan(api_client: TestClient, unique_user: TestUser):
 
     assert response.json()["title"] == response_json["title"]
     assert response.json()["text"] == response_json["text"]
+    assert response.json()["quantity"] == response_json["quantity"]
 
     # Delete
     response = api_client.delete(api_routes.groups_mealplans_item_id(plan_id), headers=unique_user.token)
