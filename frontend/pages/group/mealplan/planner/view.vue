@@ -1,11 +1,8 @@
 <template>
-  <div class="d-flex" :class="{ 'flex-column': useMobileFormat, 'flex-row': !useMobileFormat  }">
-    <button v-if="useMobileFormat" class="scroll-arrow scroll-up hidden" @click="scrollVert(false)">Up</button>
-    <button v-else class="scroll-arrow scroll-left" @click="scrollHoriz(false)">
-      <v-icon> {{ $globals.icons.arrowLeftBold }} </v-icon>
-    </button>
-    <div id="mealplan-container" ref="mealplan-container" :class="{ 'flex-column': useMobileFormat, 'flex-row': !useMobileFormat  }">
-      <v-col
+  <Scroller
+    :get-days-refs="getDaysRefs"
+  >
+    <v-col
       v-for="(day, index) in plan"
       ref="days"
       :key="index"
@@ -15,7 +12,7 @@
       lg="4"
       xl="2"
       class="col-borders my-1 d-flex flex-column"
-      >
+    >
       <v-card class="mb-2 border-left-primary rounded-sm pa-2">
         <p class="pl-2 mb-1">
           {{ $d(day.date, "short") }}
@@ -41,18 +38,14 @@
         :name="(mealplan.recipe ? mealplan.recipe.name : mealplan.title) || 'Recipe'"
         />
       </div>
-      </v-col>
-    </div>
-    <button v-if="useMobileFormat" class="scroll-arrow scroll-down hidden" @click="scrollVert(true)">Down</button>
-    <button v-else class="scroll-arrow scroll-right" @click="scrollHoriz(true)">
-        <v-icon> {{ $globals.icons.arrowRightBold }} </v-icon>
-    </button>
-  </div>
+    </v-col>
+  </Scroller>
 </template>
 
 
 <script lang="ts">
 import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
+import Scroller from "./Scroller.vue"
 import { MealsByDate } from "./types";
 import { ReadPlanEntry } from "~/lib/api/types/meal-plan";
 import RecipeCardMobile from "~/components/Domain/Recipe/RecipeCardMobile.vue";
@@ -60,6 +53,7 @@ import RecipeCardMobile from "~/components/Domain/Recipe/RecipeCardMobile.vue";
 export default defineComponent({
   components: {
     RecipeCardMobile,
+    Scroller,
   },
   props: {
     mealplans: {
@@ -78,11 +72,7 @@ export default defineComponent({
       sections: DaySection[];
     };
 
-    const { $vuetify } = useContext();
     const { i18n } = useContext();
-    const useMobileFormat = computed(() => {
-      return $vuetify.breakpoint.smAndDown;
-    });
 
     const plan = computed<Days[]>(() => {
       return props.mealplans.reduce((acc, day) => {
@@ -117,67 +107,18 @@ export default defineComponent({
       }, [] as Days[]);
     });
 
+    let daysRefs: undefined | HTMLElement[];
 
     return {
       plan,
-      useMobileFormat,
+      daysRefs
     };
   },
   methods: {
-    scrollHoriz(forward?: boolean) {
-      if(this.$refs.days && this.$refs["mealplan-container"]) {
-        const daysRefs = this.$refs.days as HTMLDivElement[];
-        const containerRef = this.$refs["mealplan-container"] as HTMLDivElement
-
-        const getOffset = (el: HTMLDivElement) => el.offsetLeft;
-
-        const getScroll = (el: HTMLDivElement) => el.scrollLeft;
-
-        const containerOffset = getOffset(containerRef);
-        let scrollDist: number[] = daysRefs.map((day) => getOffset(day) - getScroll(containerRef) - containerOffset);
-
-        if(forward) {
-          scrollDist = scrollDist.filter(n => n > 0);
-          scrollDist.sort((a,b) => a-b);
-        } else {
-          scrollDist = scrollDist.filter(n => n < 0);
-          scrollDist.sort((a,b) => b-a);
-        }
-
-        containerRef.scrollTo({
-          left: scrollDist[0] + getScroll(containerRef) ,
-          behavior: "smooth"
-        });
-      } else {
-        console.log("Unable to perform scrolling due to missing ref")
-      }
-    },
-    scrollVert(forward?: boolean) {
-      if(this.$refs.days && this.$refs["mealplan-container"]) {
-        const daysRefs = this.$refs.days as HTMLDivElement[];
-        const containerRef = this.$refs["mealplan-container"] as HTMLDivElement
-
-        const getOffset = (el: HTMLDivElement) => el.offsetTop ;
-
-        let scrollDist: number[] = daysRefs.map((day) => getOffset(day) - window.scrollY);
-
-        if(forward) {
-          scrollDist = scrollDist.filter(n => n > 0);
-          scrollDist.sort((a,b) => a-b);
-        } else {
-          scrollDist = scrollDist.filter(n => n < 0);
-          scrollDist.sort((a,b) => b-a);
-        }
-
-        window.scrollTo({
-          top: scrollDist[0] + window.scrollY ,
-          behavior: "smooth"
-        });
-      } else {
-        console.log("Unable to perform scrolling due to missing ref")
-      }
+    getDaysRefs() {
+      return this.$refs.days;
     }
-  },
+  }
 });
 </script>
 
