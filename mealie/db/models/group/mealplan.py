@@ -1,7 +1,7 @@
 from datetime import date
 from typing import TYPE_CHECKING, Optional
 
-from sqlalchemy import Date, ForeignKey, String, orm
+from sqlalchemy import Date, ForeignKey, String, orm, Float
 from sqlalchemy.orm import Mapped, mapped_column
 
 from mealie.db.models.recipe.tag import Tag, plan_rules_to_tags
@@ -45,6 +45,7 @@ class GroupMealPlan(SqlAlchemyBase, BaseMixins):
     entry_type: Mapped[str] = mapped_column(String, index=True, nullable=False)
     title: Mapped[str] = mapped_column(String, index=True, nullable=False)
     text: Mapped[str] = mapped_column(String, nullable=False)
+    quantity: Mapped[int] = mapped_column(Float, nullable=False)
 
     group_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("groups.id"), index=True)
     group: Mapped[Optional["Group"]] = orm.relationship("Group", back_populates="mealplans")
