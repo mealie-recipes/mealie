@@ -610,7 +610,7 @@ def test_recipe_repo_search(database: AllRepositories, unique_user: TestUser):
         fuzzy_result = database.recipes.page_all(pagination_query, search="Steinbuck").items
         assert len(fuzzy_result) == 1
         assert fuzzy_result[0].name == "Steinbock Sloop"
-    
+
     # Test random ordering with search
     pagination_query = PaginationQuery(
         page=1,
