@@ -30,7 +30,7 @@ class CreatePlanEntry(MealieModel):
     entry_type: PlanEntryType = PlanEntryType.breakfast
     title: str = ""
     text: str = ""
-    quantity: float
+    quantity: float = 1.0
     recipe_id: UUID | None
 
     @validator("recipe_id", always=True)
