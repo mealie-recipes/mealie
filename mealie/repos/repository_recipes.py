@@ -1,10 +1,11 @@
+import re as re
 from collections.abc import Sequence
 from random import randint
 from uuid import UUID
 
 from pydantic import UUID4
 from slugify import slugify
-from sqlalchemy import Select, and_, desc, func, or_, select
+from sqlalchemy import Select, and_, desc, func, or_, select, text
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import joinedload
 from text_unidecode import unidecode
@@ -151,29 +152,94 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         return ids + additional_ids
 
     def _add_search_to_query(self, query: Select, search: str) -> Select:
+        """
+        0. fuzzy search (postgres only) and tokenized search are performed separately
+        1. take search string and do a little pre-normalization
+        2. look for internal quoted strings and keep them together as "literal" parts of the search
+        3. remove special characters from each non-literal search string
+        4. token search looks for any individual exact hit in name, description, and ingredients
+        5. fuzzy search looks for trigram hits in name, description, and ingredients
+        6. Sort order is determined by closeness to the recipe name
+        Should search also look at tags?
+        """
+
         normalized_search = unidecode(search).lower().strip()
+        punctuation = "!\#$%&()*+,-./:;<=>?@[\\]^_`{|}~"  # string.punctuation with ' & " removed
+        # keep quoted phrases together as literal portions of the search string
+        literal = False
+        quoted_regex = re.compile(r"""(["'])(?:(?=(\\?))\2.)*?\1""")  # thank you stack exchange!
+        removequotes_regex = re.compile(r"""['"](.*)['"]""")
+        if quoted_regex.search(normalized_search):
+            literal = True
+            temp = normalized_search
+            quoted_search_list = [match.group() for match in quoted_regex.finditer(temp)]  # all quoted strings
+            quoted_search_list = [removequotes_regex.sub("\\1", x) for x in quoted_search_list]  # remove outer quotes
+            temp = quoted_regex.sub("", temp)  # remove all quoted strings, leaving just non-quoted
+            temp = temp.translate(
+                str.maketrans(punctuation, " " * len(punctuation))
+            )  # punctuation->spaces for splitting, but only on unquoted strings
+            unquoted_search_list = temp.split()  # all unquoted strings
+            normalized_search_list = quoted_search_list + unquoted_search_list
+        else:
+            #
+            normalized_search = normalized_search.translate(str.maketrans(punctuation, " " * len(punctuation)))
+            normalized_search_list = normalized_search.split()
+        normalized_search_list = [x.strip() for x in normalized_search_list]  # remove padding whitespace inside quotes
         # I would prefer to just do this in the recipe_ingredient.any part of the main query, but it turns out
         # that at least sqlite wont use indexes for that correctly anymore and takes a big hit, so prefiltering it is
-        ingredient_ids = (
-            self.session.execute(
-                select(RecipeIngredientModel.id).filter(
-                    or_(
-                        RecipeIngredientModel.note_normalized.like(f"%{normalized_search}%"),
-                        RecipeIngredientModel.original_text_normalized.like(f"%{normalized_search}%"),
+        if (self.session.get_bind().name == "postgresql") & (literal is False):  # fuzzy search
+            ingredient_ids = (
+                self.session.execute(
+                    select(RecipeIngredientModel.id).filter(
+                        or_(
+                            RecipeIngredientModel.note_normalized.op("%>")(normalized_search),
+                            RecipeIngredientModel.original_text_normalized.op("%>")(normalized_search),
+                        )
                     )
                 )
+                .scalars()
+                .all()
             )
-            .scalars()
-            .all()
-        )
+        else:  # exact token search
+            ingredient_ids = (
+                self.session.execute(
+                    select(RecipeIngredientModel.id).filter(
+                        or_(
+                            *[RecipeIngredientModel.note_normalized.like(f"%{ns}%") for ns in normalized_search_list],
+                            *[
+                                RecipeIngredientModel.original_text_normalized.like(f"%{ns}%")
+                                for ns in normalized_search_list
+                            ],
+                        )
+                    )
+                )
+                .scalars()
+                .all()
+            )
 
-        q = query.filter(
-            or_(
-                RecipeModel.name_normalized.like(f"%{normalized_search}%"),
-                RecipeModel.description_normalized.like(f"%{normalized_search}%"),
-                RecipeModel.recipe_ingredient.any(RecipeIngredientModel.id.in_(ingredient_ids)),
+        if (self.session.get_bind().name == "postgresql") & (literal is False):  # fuzzy search
+            # default = 0.7 is too strict for effective fuzzing
+            self.session.execute(text("set pg_trgm.word_similarity_threshold = 0.5;"))
+            q = query.filter(
+                or_(
+                    RecipeModel.name_normalized.op("%>")(normalized_search),
+                    RecipeModel.description_normalized.op("%>")(normalized_search),
+                    RecipeModel.recipe_ingredient.any(RecipeIngredientModel.id.in_(ingredient_ids)),
+                )
+            ).order_by(  # trigram ordering could be too slow on million record db, but is fine with thousands.
+                func.least(
+                    RecipeModel.name_normalized.op("<->>")(normalized_search),
+                )
             )
-        ).order_by(desc(RecipeModel.name_normalized.like(f"%{normalized_search}%")))
+        else:  # exact token search
+            q = query.filter(
+                or_(
+                    *[RecipeModel.name_normalized.like(f"%{ns}%") for ns in normalized_search_list],
+                    *[RecipeModel.description_normalized.like(f"%{ns}%") for ns in normalized_search_list],
+                    RecipeModel.recipe_ingredient.any(RecipeIngredientModel.id.in_(ingredient_ids)),
+                )
+            ).order_by(desc(RecipeModel.name_normalized.like(f"%{normalized_search}%")))
+
         return q
 
     def page_all(

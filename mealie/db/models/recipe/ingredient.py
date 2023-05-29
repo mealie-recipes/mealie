@@ -1,7 +1,9 @@
 from typing import TYPE_CHECKING
 
+import sqlalchemy as sa
 from sqlalchemy import Boolean, Float, ForeignKey, Integer, String, event, orm
 from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm.session import Session
 from text_unidecode import unidecode
 
 from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
@@ -87,7 +89,7 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
     original_text_normalized: Mapped[str | None] = mapped_column(String, index=True)
 
     @auto_init()
-    def __init__(self, note: str | None = None, orginal_text: str | None = None, **_) -> None:
+    def __init__(self, session: Session, note: str | None = None, orginal_text: str | None = None, **_) -> None:
         # SQLAlchemy events do not seem to register things that are set during auto_init
         if note is not None:
             self.note_normalized = unidecode(note).lower().strip()
@@ -95,13 +97,51 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
         if orginal_text is not None:
             self.orginal_text = unidecode(orginal_text).lower().strip()
 
+        tableargs = [  # base set of indices
+            sa.Index(
+                "ix_recipes_ingredients_note_normalized",
+                "note_normalized",
+                unique=False,
+            ),
+            sa.Index(
+                "ix_recipes_ingredients_original_text_normalized",
+                "original_text_normalized",
+                unique=False,
+            ),
+        ]
+        if session.get_bind().name == "postgresql":
+            tableargs.extend(
+                [
+                    sa.Index(
+                        "ix_recipes_ingredients_note_normalized_gin",
+                        "note_normalized",
+                        unique=False,
+                        postgresql_using="gin",
+                        postgresql_ops={
+                            "note_normalized": "gin_trgm_ops",
+                        },
+                    ),
+                    sa.Index(
+                        "ix_recipes_ingredients_original_text_normalized_gin",
+                        "original_text",
+                        unique=False,
+                        postgresql_using="gin",
+                        postgresql_ops={
+                            "original_text_normalized": "gin_trgm_ops",
+                        },
+                    ),
+                ]
+            )
+        # add indices
+        self.__table_args__ = tuple(tableargs)
+
 
 @event.listens_for(RecipeIngredientModel.note, "set")
 def receive_note(target: RecipeIngredientModel, value: str, oldvalue, initiator):
     if value is not None:
-        target.name_normalized = unidecode(value).lower().strip()
+        target.note_normalized = unidecode(value).lower().strip()
     else:
-        target.name_normalized = None
+        target.note_normalized = None
 
 
 @event.listens_for(RecipeIngredientModel.original_text, "set")

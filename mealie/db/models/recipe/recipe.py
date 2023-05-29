@@ -35,7 +35,9 @@ if TYPE_CHECKING:
 
 class RecipeModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "recipes"
-    __table_args__ = (sa.UniqueConstraint("slug", "group_id", name="recipe_slug_group_id_key"),)
+    __table_args__: tuple[sa.UniqueConstraint, ...] = (
+        sa.UniqueConstraint("slug", "group_id", name="recipe_slug_group_id_key"),
+    )
 
     id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
     slug: Mapped[str | None] = mapped_column(sa.String, index=True)
@@ -191,6 +193,46 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
 
         if description is not None:
             self.description_normalized = unidecode(description).lower().strip()
+
+        tableargs = [  # base set of indices
+            sa.UniqueConstraint("slug", "group_id", name="recipe_slug_group_id_key"),
+            sa.Index(
+                "ix_recipes_name_normalized",
+                "name_normalized",
+                unique=False,
+            ),
+            sa.Index(
+                "ix_recipes_description_normalized",
+                "description_normalized",
+                unique=False,
+            ),
+        ]
+
+        if session.get_bind().name == "postgresql":
+            tableargs.extend(
+                [
+                    sa.Index(
+                        "ix_recipes_name_normalized_gin",
+                        "name_normalized",
+                        unique=False,
+                        postgresql_using="gin",
+                        postgresql_ops={
+                            "name_normalized": "gin_trgm_ops",
+                        },
+                    ),
+                    sa.Index(
+                        "ix_recipes_description_normalized_gin",
+                        "description_normalized",
+                        unique=False,
+                        postgresql_using="gin",
+                        postgresql_ops={
+                            "description_normalized": "gin_trgm_ops",
+                        },
+                    ),
+                ]
+            )
+        # add indices
+        self.__table_args__ = tuple(tableargs)
 
 
 @event.listens_for(RecipeModel.name, "set")
