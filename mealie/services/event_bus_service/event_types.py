@@ -92,6 +92,7 @@ class EventMealplanCreatedData(EventDocumentDataBase):
     recipe_id: UUID4 | None
     recipe_name: str | None
     recipe_slug: str | None
+    quantity: float
 
 
 class EventUserSignupData(EventDocumentDataBase):

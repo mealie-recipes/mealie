@@ -134,6 +134,7 @@ class GroupMealplanController(BaseCrudController):
                 recipe_id=data.recipe_id,
                 recipe_name=result.recipe.name if result.recipe else None,
                 recipe_slug=result.recipe.slug if result.recipe else None,
+                quantity=data.quantity if data.quantity else 1,
                 date=data.date,
             ),
             message=f"Mealplan entry created for {data.date} for {data.entry_type}",
