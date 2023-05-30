@@ -31,6 +31,7 @@ export function useRecipeSearch(api: UserApi): UseRecipeSearchReturn {
       orderBy: "name",
       orderDirection: "asc",
       perPage: 20,
+      _searchSeed: Date.now().toString(),
     });
 
     if (error) {
