@@ -31,7 +31,7 @@
           </v-list-item-avatar>
         </slot>
         <v-list-item-content>
-          <v-list-item-title class="mb-1">{{ name }} </v-list-item-title>
+          <v-list-item-title class="mb-1">{{ (quantity==1 ? "" : Number(quantity.toFixed(1)).toString() + "x ") + name }} </v-list-item-title>
           <v-list-item-subtitle>
             <SafeMarkdown :source="description" />
           </v-list-item-subtitle>
@@ -120,6 +120,10 @@ export default defineComponent({
     vertical: {
       type: Boolean,
       default: false,
+    },
+    quantity: {
+      type: Number,
+      default: 1,
     }
   },
   setup() {

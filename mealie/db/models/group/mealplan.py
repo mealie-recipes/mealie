@@ -1,7 +1,7 @@
 from datetime import date
 from typing import TYPE_CHECKING, Optional
 
-from sqlalchemy import Date, ForeignKey, String, orm, Float
+from sqlalchemy import Date, Float, ForeignKey, String, orm
 from sqlalchemy.orm import Mapped, mapped_column
 
 from mealie.db.models.recipe.tag import Tag, plan_rules_to_tags

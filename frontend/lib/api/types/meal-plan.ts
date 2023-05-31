@@ -92,6 +92,7 @@ export interface ReadPlanEntry {
   text?: string;
   recipeId?: string;
   id: number;
+  quantity: number;
   groupId: string;
   userId?: string;
   recipe?: RecipeSummary;

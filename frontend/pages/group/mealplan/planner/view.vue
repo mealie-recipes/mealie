@@ -36,6 +36,7 @@
         :slug="(mealplan.recipe ? mealplan.recipe.slug : mealplan.title) || 'Recipe'"
         :description="(mealplan.recipe ? mealplan.recipe.description : mealplan.text) || 'No Description'"
         :name="(mealplan.recipe ? mealplan.recipe.name : mealplan.title) || 'Recipe'"
+        :quantity="mealplan.quantity"
         />
       </div>
     </v-col>
