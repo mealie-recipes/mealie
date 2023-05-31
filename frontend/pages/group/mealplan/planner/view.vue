@@ -24,15 +24,16 @@
         </div>
 
         <RecipeCardMobile
-          v-for="mealplan in section.meals"
-          :key="mealplan.id"
-          :recipe-id="(mealplan.recipe && mealplan.recipe.id) ? mealplan.recipe.id : ''"
-          class="mb-2"
-          :route="mealplan.recipe ? true : false"
-          :rating="mealplan.recipe ? mealplan.recipe.rating : 0"
-          :slug="(mealplan.recipe ? mealplan.recipe.slug : mealplan.title) || 'Recipe'"
-          :description="(mealplan.recipe ? mealplan.recipe.description : mealplan.text) || 'No Description'"
-          :name="(mealplan.recipe ? mealplan.recipe.name : mealplan.title) || 'Recipe'"
+        v-for="mealplan in section.meals"
+        :key="mealplan.id"
+        :recipe-id="(mealplan.recipe && mealplan.recipe.id) ? mealplan.recipe.id : ''"
+        class="mb-2"
+        :route="mealplan.recipe ? true : false"
+        :rating="mealplan.recipe ? mealplan.recipe.rating : 0"
+        :slug="(mealplan.recipe ? mealplan.recipe.slug : mealplan.title) || 'Recipe'"
+        :description="(mealplan.recipe ? mealplan.recipe.description : mealplan.text) || 'No Description'"
+        :name="(mealplan.recipe ? mealplan.recipe.name : mealplan.title) || 'Recipe'"
+        :quantity="mealplan.quantity"
         />
       </div>
     </v-col>
