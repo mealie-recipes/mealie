@@ -65,7 +65,7 @@
     "subscribed-events": "Εγγεγραμμένα Γεγονότα",
     "test-message-sent": "Το δοκιμαστικό μήνυμα εστάλη",
     "new-notification": "Νέα ειδοποίηση",
-    "event-notifiers": "Event Notifiers",
+    "event-notifiers": "Ειδοποιητές Συμβάντος",
     "apprise-url-skipped-if-blank": "Apprise URL (skipped if blank)",
     "enable-notifier": "Enable Notifier",
     "what-events": "What events should this notifier subscribe to?",
