@@ -52,15 +52,19 @@ class MealieAuthToken(BaseModel):
 def get_token(request: Request, data: CustomOAuth2Form = Depends(), session: Session = Depends(generate_session)):
     email = data.username
     password = data.password
+    if "x-forwarded-for" in request.headers:
+        ip = request.headers["x-forwarded-for"]
+    else:
+        ip = request.client.host
 
     try:
         user = authenticate_user(session, email, password)  # type: ignore
     except UserLockedOut as e:
-        logger.error(f"User is locked out from {request.client.host}")
+        logger.error(f"User is locked out from {ip}")
         raise HTTPException(status_code=status.HTTP_423_LOCKED, detail="User is locked out") from e
 
     if not user:
-        logger.error(f"Incorrect username or password from {request.client.host}")
+        logger.error(f"Incorrect username or password from {ip}")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
         )
