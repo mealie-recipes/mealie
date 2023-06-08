@@ -132,6 +132,15 @@ stateDiagram-v2
   p3 --> n1: No
 ```
 
+## Can I use fail2ban with mealie?
+Yes, mealie is configured to properly forward external IP addresses into the `mealie.log` logfile. Note that, due to restrictions in docker, IP address forwarding only works on linux.
+
+Your fail2ban usage should look like the following:
+```
+Use      datepattern : %d-%b-%y %H:%M:%S : Day-MON-Year2 24hour:Minute:Second
+Use   failregex line : ^ERROR:\s+Incorrect username or password from <HOST>
+```
+
 ## Why An API?
 An API allows integration into applications like [Home Assistant](https://www.home-assistant.io/) that can act as notification engines to provide custom notifications based of Meal Plan data to remind you to defrost the chicken, marinade the steak, or start the CrockPot. Additionally, you can access nearly any backend service via the API giving you total control to extend the application. To explore the API spin up your server and navigate to http://yourserver.com/docs for interactive API documentation.
 
