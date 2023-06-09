@@ -54,6 +54,8 @@ def get_token(request: Request, data: CustomOAuth2Form = Depends(), session: Ses
     password = data.password
     if "x-forwarded-for" in request.headers:
         ip = request.headers["x-forwarded-for"]
+        if "," in ip:  # if there are multiple IPs, the first one is canonically the true client
+            ip = str(ip.split(",")[0])
     else:
         ip = request.client.host
 
