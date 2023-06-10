@@ -128,7 +128,7 @@
               </v-list-item-content>
             </v-list-item>
             <v-divider class="mx-2"></v-divider>
-            <div class="py-2 px-2 d-flex" style="align-items: center">
+            <div class="py-2 px-2 d-flex justify-space-around" style="align-items: center">
               <v-btn small icon :class="{ handle: !$vuetify.breakpoint.smAndUp }">
                 <v-icon>
                   {{ $globals.icons.arrowUpDown }}
@@ -153,6 +153,12 @@
                   </v-list-item>
                 </v-list>
               </v-menu>
+              <RecipeSimpleScaleEdit
+                v-if="mealplan.recipe"
+                :value="mealplan.quantity"
+                :edit-scale="true"
+                @input="(qty) => updateQuantityCallback(index, mealplan.id, qty)"
+              />
               <v-btn class="ml-auto" small icon @click="actions.deleteOne(mealplan.id)">
                 <v-icon>{{ $globals.icons.delete }}</v-icon>
               </v-btn>
@@ -217,6 +223,7 @@ import Scroller from "./Scroller.vue"
 import { MealsByDate } from "./types";
 import { useMealplans, usePlanTypeOptions, getEntryTypeText } from "~/composables/use-group-mealplan";
 import RecipeCardImage from "~/components/Domain/Recipe/RecipeCardImage.vue";
+import RecipeSimpleScaleEdit from "~/components/Domain/Recipe/RecipeSimpleScaleEdit.vue"
 import { PlanEntryType } from "~/lib/api/types/meal-plan";
 import { useUserApi } from "~/composables/api";
 import { useGroupSelf } from "~/composables/use-groups";
@@ -227,6 +234,7 @@ export default defineComponent({
     draggable,
     RecipeCardImage,
     Scroller,
+    RecipeSimpleScaleEdit
   },
   props: {
     mealplans: {
@@ -280,6 +288,13 @@ export default defineComponent({
           props.actions.updateOne(mealData);
         }
       }
+    }
+
+    function updateQuantityCallback(index: number, id: number, qty: number) {
+        const mealData = props.mealplans[index].meals.find((x) => x.id === id);
+        if(!mealData) throw new Error("Unable to update meal quantity");
+        mealData.quantity = qty;
+        props.actions.updateOne(mealData);
     }
 
     // =====================================================
@@ -344,6 +359,7 @@ export default defineComponent({
     return {
       state,
       onMoveCallback,
+      updateQuantityCallback,
       planTypeOptions,
       getEntryTypeText,
 
