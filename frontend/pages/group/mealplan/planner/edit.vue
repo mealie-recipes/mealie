@@ -62,6 +62,7 @@
             <v-text-field v-model="newMeal.title" :label="$t('meal-plan.meal-title')" />
             <v-textarea v-model="newMeal.text" rows="2" :label="$t('meal-plan.meal-note')" />
           </template>
+          <v-text-field v-model.number="newMeal.quantity" type="number" :min="0" :label="$t('recipe.edit-scale')" />
         </v-card-text>
         <v-card-actions class="my-0 py-0">
           <v-switch v-model="dialog.note" class="mt-n3" :label="$t('meal-plan.note-only')" />
@@ -313,6 +314,7 @@ export default defineComponent({
       date: "",
       title: "",
       text: "",
+      quantity: 1,
       recipeId: undefined as string | undefined,
       entryType: "dinner" as PlanEntryType,
     });
