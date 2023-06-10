@@ -67,6 +67,7 @@
           :items="planTypeOptions"
           :label="$t('recipe.entry-type')"
         ></v-select>
+        <v-text-field v-model.number="newMealScale" type="number" :min="0" :label="$t('recipe.edit-scale')" />
       </v-card-text>
     </BaseDialog>
     <BaseDialog v-model="shoppingListDialog" :title="$t('recipe.add-to-list')" :icon="$globals.icons.cartCheck">
@@ -291,6 +292,7 @@ export default defineComponent({
       loading: false,
       menuItems: [] as ContextMenuItem[],
       newMealdate: "",
+      newMealScale: 1,
       newMealType: "dinner" as PlanEntryType,
       pickerMenu: false,
     });
@@ -476,6 +478,7 @@ export default defineComponent({
       const { response } = await api.mealplans.createOne({
         date: state.newMealdate,
         entryType: state.newMealType,
+        quantity: state.newMealScale,
         title: "",
         text: "",
         recipeId: props.recipeId,

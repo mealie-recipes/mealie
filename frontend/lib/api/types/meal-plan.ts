@@ -18,6 +18,7 @@ export interface CreatePlanEntry {
   date: string;
   entryType?: PlanEntryType & string;
   title?: string;
+  quantity?: number;
   text?: string;
   recipeId?: string;
 }
