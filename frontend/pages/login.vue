@@ -2,7 +2,7 @@
   <v-container
     fill-height
     fluid
-    class="d-flex justify-center align-center"
+    class="d-flex justify-center align-center flex-column"
     :class="{
       'bg-off-white': !$vuetify.theme.dark && !isDark,
     }"
@@ -23,7 +23,7 @@
         </v-avatar>
       </div>
 
-      <v-card-title class="headline justify-center pb-1"> {{ $t('user.sign-in') }} </v-card-title>
+      <v-card-title class="headline justify-center pb-3"> {{ $t('user.sign-in') }} </v-card-title>
       <v-card-text>
         <v-form @submit.prevent="authenticate">
           <v-text-field
@@ -68,7 +68,7 @@
 
       <v-divider></v-divider>
 
-      <v-card-text class="d-flex justify-center">
+      <v-card-text class="d-flex justify-center flex-column flex-sm-row">
         <div
           v-for="link in [
             {
@@ -88,6 +88,7 @@
             },
           ]"
           :key="link.text"
+          class="text-center"
         >
           <v-btn text :href="link.href" target="_blank">
             <v-icon left>
@@ -99,7 +100,7 @@
       </v-card-text>
     </v-card>
 
-    <v-btn absolute bottom center @click="toggleDark">
+    <v-btn bottom center class="mt-5" @click="toggleDark">
       <v-icon left>
         {{ $vuetify.theme.dark ? $globals.icons.weatherSunny : $globals.icons.weatherNight }}
       </v-icon>
