@@ -11,29 +11,37 @@
         {{ new Date(event.timestamp+"Z").toLocaleDateString($i18n.locale) }}
         </v-chip>
     </template>
-    <v-card>
+    <v-card
+        hover
+        :to="$listeners.selected ? undefined : `/recipe/${recipe.slug}`"
+        @click="$emit('selected')">
         <v-sheet>
-        <v-card-title>
+        <v-card-title class="bg-primary">
             <v-row>
             <v-col align-self="center" :cols="useMobileFormat ? 'auto' : '2'" :class="attrs.avatar.class">
                 <UserAvatar :user-id="event.userId" :size="attrs.avatar.size" />
             </v-col>
-            <v-col v-if="useMobileFormat" align-self="center" class="pr-0">
-                <v-chip label>
-                <v-icon> {{ $globals.icons.calendar }} </v-icon>
-                {{ new Date(event.timestamp+"Z").toLocaleDateString($i18n.locale) }}
-                </v-chip>
-            </v-col>
-            <v-col v-else cols="9" style="margin: auto; text-align: center;">
+            <v-col v-if="!useMobileFormat" class="pr-0" align-self="center">
                 {{ event.subject }}
             </v-col>
-            <v-spacer />
-            <v-col :cols="useMobileFormat ? 'auto' : '1'" class="px-0">
+            <v-col v-else align-self="center">
+              <v-row>
+              <v-col>
+                              {{ event.subject }}
+                              </v-col>
+                                          <v-col class="text-right">
+
+                  <v-chip label>
+                  <v-icon> {{ $globals.icons.calendar }} </v-icon>
+                  {{ new Date(event.timestamp + "Z").toLocaleDateString($i18n.locale) }}
+                  </v-chip>    </v-col>     </v-row>   </v-col>
+            <v-col :cols="useMobileFormat ? 'auto' : '1'" class="px-0 mr-1">
                 <RecipeTimelineContextMenu
                 v-if="$auth.user && $auth.user.id == event.userId && event.eventType != 'system'"
                 :menu-top="false"
                 :event="event"
                 :menu-icon="$globals.icons.dotsVertical"
+                :use-mobile-format="useMobileFormat"
                 fab
                 color="transparent"
                 :elevation="0"
@@ -48,8 +56,8 @@
             </v-col>
             </v-row>
         </v-card-title>
-        <v-sheet v-if="showRecipeCards && recipe">
-            <v-row class="pt-3 pb-7 mx-3" style="max-width: 100%;">
+        <v-card-text v-if="showRecipeCards && recipe">
+            <v-row :class="useMobileFormat ? 'py-3 mx-0' : 'py-3 mx-0'" style="max-width: 100%;">
             <v-col align-self="center" class="pa-0">
               <RecipeCardMobile
                 :vertical="useMobileFormat"
@@ -59,22 +67,22 @@
                 :rating="recipe.rating"
                 :image="recipe.image"
                 :recipe-id="recipe.id"
+                :is-flat="true"
               />
             </v-col>
             </v-row>
+            </v-card-text>
         </v-sheet>
-        <v-divider v-if="showRecipeCards && recipe && (useMobileFormat || event.eventMessage)" />
-        <v-card-text>
+        <v-divider v-if="showRecipeCards && recipe && event.eventMessage" />
+        <v-card-text v-if="showRecipeCards && recipe && event.eventMessage">
             <v-row>
             <v-col>
-                <strong v-if="useMobileFormat">{{ event.subject }}</strong>
                 <div v-if="event.eventMessage" :class="useMobileFormat ? 'text-caption' : ''">
                 {{ event.eventMessage }}
                 </div>
             </v-col>
             </v-row>
         </v-card-text>
-        </v-sheet>
     </v-card>
   </v-timeline-item>
 </template>
@@ -160,3 +168,8 @@ export default defineComponent({
   },
 });
 </script>
+
+<style>
+.v-card::after {
+  display: none;
+}</style>
