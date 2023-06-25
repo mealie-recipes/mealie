@@ -94,6 +94,7 @@ ENV GIT_COMMIT_HASH=$COMMIT
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
     gosu \
+    iproute2 \
     tesseract-ocr-all \
     curl \
     gnupg \

@@ -64,11 +64,10 @@ services:
 
       # =====================================
       # Web Concurrency
-      WEB_GUNICORN: "true"
+      WEB_GUNICORN: "false"
       WORKERS_PER_CORE: 0.5
       MAX_WORKERS: 1
       WEB_CONCURRENCY: 1
-
       # =====================================
       # Email Configuration
       # SMTP_HOST=
@@ -79,13 +78,13 @@ services:
       # SMTP_USER=
       # SMTP_PASSWORD=
 
-  # postgres:
-  #   container_name: postgres
-  #   image: postgres
-  #   restart: always
-  #   environment:
-  #     POSTGRES_PASSWORD: mealie
-  #     POSTGRES_USER: mealie
+      # postgres:
+      #   container_name: postgres
+      #   image: postgres
+      #   restart: always
+      #   environment:
+      #     POSTGRES_PASSWORD: mealie
+      #     POSTGRES_USER: mealie
 
 volumes:
   mealie-data:

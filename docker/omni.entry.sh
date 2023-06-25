@@ -46,12 +46,12 @@ init
 GUNICORN_PORT=${API_PORT:-9000}
 
 # Start API
-
-if [ "$WEB_GUNICORN" == 'true' ]; then
+hostip=`/sbin/ip route|awk '/default/ { print $3 }'`
+if [ "$WEB_GUNICORN" = 'true' ]; then
     echo "Starting Gunicorn"
-    gunicorn mealie.app:app -b 0.0.0.0:$GUNICORN_PORT -k uvicorn.workers.UvicornWorker -c /app/gunicorn_conf.py --preload &
+    gunicorn mealie.app:app -b 0.0.0.0:$GUNICORN_PORT --forwarded-allow-ips=$hostip -k uvicorn.workers.UvicornWorker -c /app/gunicorn_conf.py --preload &
 else
-    uvicorn mealie.app:app --host 0.0.0.0 --port $GUNICORN_PORT &
+    uvicorn mealie.app:app --host 0.0.0.0 --forwarded-allow-ips=$hostip --port $GUNICORN_PORT &
 fi
 
 # ------------------------------
