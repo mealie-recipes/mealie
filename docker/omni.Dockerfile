@@ -98,7 +98,7 @@ RUN apt-get update \
     tesseract-ocr-all \
     curl \
     gnupg \
-    libldap-2.4-2 \
+    libldap-common \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
 
