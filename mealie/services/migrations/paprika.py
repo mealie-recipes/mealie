@@ -39,7 +39,7 @@ class PaprikaMigrator(BaseMigrator):
 
         self.key_aliases = [
             MigrationAlias(key="recipeIngredient", alias="ingredients", func=lambda x: x.split("\n")),
-            MigrationAlias(key="orgUrl", alias="source_url", func=None),
+            MigrationAlias(key="orgURL", alias="source_url", func=None),
             MigrationAlias(key="performTime", alias="cook_time", func=None),
             MigrationAlias(key="recipeYield", alias="servings", func=None),
             MigrationAlias(key="image", alias="image_url", func=None),
