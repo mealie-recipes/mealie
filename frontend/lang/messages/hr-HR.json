@@ -291,7 +291,7 @@
     "random-side": "Slučajni Prilog",
     "this-rule-will-apply": "Ovo pravilo će se primijeniti {dayCriteria} {mealTypeCriteria}.",
     "to-all-days": "na sve dane",
-    "on-days": "on {0}s",
+    "on-days": "na {0}",
     "for-all-meal-types": "za sve vrste obroka",
     "for-type-meal-types": "za {0} vrste obroka",
     "meal-plan-rules": "Pravila Plana Obroka",
@@ -808,7 +808,7 @@
     "use-8-characters-or-more-for-your-password": "Za lozinku koristite 8 ili više znakova",
     "user-created": "Korisnik je kreiran",
     "user-creation-failed": "Kreiranje korisnika nije uspjelo",
-    "user-deleted": "User deleted",
+    "user-deleted": "Korisnik je izbrisan",
     "user-id-with-value": "Korisnikov ID: {id}",
     "user-id": "ID Korisnika",
     "user-password": "Korisnička Lozinka",
@@ -923,7 +923,7 @@
     "data-management-description": "Odaberite koji skup podataka želite mijenjati.",
     "select-data": "Označite Podatke",
     "select-language": "Odaberite Jezik",
-    "columns": "Columns",
+    "columns": "Stupci",
     "combine": "Kombiniraj"
   },
   "user-registration": {
@@ -938,76 +938,76 @@
     "account-details": "Detalji Računa"
   },
   "validation": {
-    "group-name-is-taken": "Group name is taken",
-    "username-is-taken": "Username is taken",
-    "email-is-taken": "Email is taken",
-    "this-field-is-required": "This Field is Required"
+    "group-name-is-taken": "Naziv Grupe je zauzet",
+    "username-is-taken": "Korisničko ime zauzeto",
+    "email-is-taken": "Takav E-mail već postoji",
+    "this-field-is-required": "Ovo Polje je Obavezno"
   },
   "export": {
-    "export": "Export",
-    "file-name": "File Name",
-    "size": "Size",
-    "link-expires": "Link Expires"
+    "export": "Izvoz",
+    "file-name": "Naziv Datoteke",
+    "size": "Veličina",
+    "link-expires": "Poveznica Istječe"
   },
   "recipe-share": {
-    "expiration-date": "Expiration Date",
-    "share-recipe": "Share Recipe",
-    "default-30-days": "Default 30 Days",
-    "expires-at": "Expires At",
-    "recipe-link-copied-message": "Recipe link copied to clipboard"
+    "expiration-date": "Datum Isteka",
+    "share-recipe": "Podjeli Recept",
+    "default-30-days": "Zadani rok je 30 dana",
+    "expires-at": "Istječe na",
+    "recipe-link-copied-message": "Poveznica recepta je spremljena u međuspremnik"
   },
   "banner-experimental": {
-    "title": "Experimental Feature",
-    "description": "This page contains experimental or still-baking features. Please excuse the mess.",
-    "issue-link-text": "Track our progress here"
+    "title": "Eksperimentalne Značajke",
+    "description": "Ova stranica sadrži eksperimentalne ili još uvijek u razvoju nadolazeće značajke. Molimo vas da oprostite zbog nereda.",
+    "issue-link-text": "Pratite naš napredak ovdje"
   },
   "form": {
-    "quantity-label-abbreviated": "Qty"
+    "quantity-label-abbreviated": "Kol"
   },
   "markdown-editor": {
-    "preview-markdown-button-label": "Preview Markdown"
+    "preview-markdown-button-label": "Pregled Markdown-a"
   },
   "demo": {
-    "info_message_with_version": "This is a Demo for version: {version}",
-    "demo_username": "Username: {username}",
-    "demo_password": "Password: {password}"
+    "info_message_with_version": "Ovo je demo verzija: {version}",
+    "demo_username": "Korisničko ime: {username}",
+    "demo_password": "Zaporka: {password}"
   },
   "ocr-editor": {
-    "ocr-editor": "Ocr editor",
-    "selection-mode": "Selection mode",
-    "pan-and-zoom-picture": "Pan and zoom picture",
-    "split-text": "Split text",
-    "preserve-line-breaks": "Preserve original line breaks",
-    "split-by-block": "Split by text block",
-    "flatten": "Flatten regardless of original formating",
+    "ocr-editor": "Editor količina",
+    "selection-mode": "Odabrani način rada",
+    "pan-and-zoom-picture": "Pomakni i zumiraj sliku",
+    "split-text": "Razdvoji tekst",
+    "preserve-line-breaks": "Očuvaj izvorne prijelome redaka",
+    "split-by-block": "Razdvoji prema bloku teksta",
+    "flatten": "Izravnaj bez obzira na izvornu formatiranost",
     "help": {
-      "selection-mode": "Selection Mode (default)",
-      "selection-mode-desc": "The selection mode is the main mode that can be used to enter data:",
+      "selection-mode": "Način odabira (zadano)",
+      "selection-mode-desc": "Način odabira je glavni način koji se može koristiti za unos podataka:",
       "selection-mode-steps": {
-        "draw": "Draw a rectangle on the text you want to select.",
-        "click": "Click on any field on the right and then click back on the rectangle above the image.",
-        "result": "The selected text will appear inside the previously selected field."
+        "draw": "Nacrtajte pravokutnik na tekstu koji želite odabrati.",
+        "click": "Kliknite na bilo koje polje s desne strane, a zatim ponovno kliknite na pravokutnik iznad slike.",
+        "result": "Odabrani tekst će se pojaviti unutar prethodno odabranog polja."
       },
-      "pan-and-zoom-mode": "Pan and Zoom Mode",
-      "pan-and-zoom-desc": "Select pan and zoom by clicking the icon. This mode allows to zoom inside the image and move around to make using big images easier.",
-      "split-text-mode": "Split Text modes",
+      "pan-and-zoom-mode": "Način pomicanja i zumiranja (Pan and Zoom Mode)",
+      "pan-and-zoom-desc": "Odaberite način pomicanja i zumiranja (Pan and Zoom Mode) klikom na ikonu. Ovaj način omogućuje zumiranje unutar slike i kretanje po slici kako bi se olakšalo korištenje većih slika.",
+      "split-text-mode": "Razdvoji Tekstualni mod",
       "split-modes": {
-        "line-mode": "Line mode (default)",
-        "line-mode-desc": "In line mode, the text will be propagated by keeping the original line breaks. This mode is useful when using bulk add on a list of ingredients where one ingredient is one line.",
-        "block-mode": "Block mode",
-        "block-mode-desc": "In block mode, the text will be split in blocks. This mode is useful when bulk adding instructions that are usually written in paragraphs.",
+        "line-mode": "Način rada \"Line\" (zadano)",
+        "line-mode-desc": "U načinu rada \"Line\" tekst će se proširiti zadržavajući originalne prekide linija. Ovaj način rada je koristan kada koristite \"Bulk Add\" na popisu sastojaka gdje je jedan sastojak jedna linija.",
+        "block-mode": "\"Block\" mode",
+        "block-mode-desc": "U načinu rada \"Block\", tekst će se podijeliti u blokove. Ovaj način rada je koristan kada želite dodati upute koje su obično napisane u odlomcima.",
         "flat-mode": "Flat mode",
-        "flat-mode-desc": "In flat mode, the text will be added to the selected recipe field with no line breaks."
+        "flat-mode-desc": "U načinu rada \"Flat\", tekst će biti dodan u odabrano polje recepta bez preloma linija."
       }
     }
   },
   "admin": {
     "maintenance": {
-      "storage-details": "Storage Details",
-      "page-title": "Site Maintenance",
-      "summary-title": "Summary",
-      "button-label-get-summary": "Get Summary",
-      "button-label-open-details": "Details",
+      "storage-details": "Detalji o pohrani",
+      "page-title": "Održavanje web stranice",
+      "summary-title": "Sažetak",
+      "button-label-get-summary": "Dohvati sažetak",
+      "button-label-open-details": "Pojedinosti",
       "info-description-data-dir-size": "Veličina Direktorija Podataka",
       "info-description-log-file-size": "Veličina Log zapisa",
       "info-description-cleanable-directories": "Mogući direktoriji za čišćenje",
