@@ -65,7 +65,7 @@
         "abbreviation": "kg"
     },
     "milligram": {
-        "name": "milligram",
+        "name": "miligram",
         "description": "",
         "abbreviation": "mg"
     },
@@ -80,22 +80,22 @@
         "abbreviation": ""
     },
     "serving": {
-        "name": "serving",
+        "name": "porcija",
         "description": "",
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
+        "name": "glava",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
-        "name": "clove",
+        "name": "klinčić",
         "description": "",
         "abbreviation": ""
     },
     "can": {
-        "name": "can",
+        "name": "limenka",
         "description": "",
         "abbreviation": ""
     }
