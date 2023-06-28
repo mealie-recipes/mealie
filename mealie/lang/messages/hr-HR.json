@@ -1,24 +1,24 @@
 {
     "generic": {
-        "server-error": "An unexpected error occurred"
+        "server-error": "Došlo je do neočekivane pogreške"
     },
     "recipe": {
-        "unique-name-error": "Recipe names must be unique"
+        "unique-name-error": "Naziv recepta mora imati jedinstveno ime"
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "No recipes match your rules"
+        "no-recipes-match-your-rules": "Nema recepata koji odgovaraju vašim pravilima"
     },
     "user": {
-        "user-updated": "User updated",
-        "password-updated": "Password updated",
-        "invalid-current-password": "Invalid current password",
-        "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
+        "user-updated": "Korisnik je ažuriran",
+        "password-updated": "Zaporka je ažurirana",
+        "invalid-current-password": "Trenutna lozinka nije ispravna",
+        "ldap-update-password-unavailable": "Nije moguće ažurirati lozinku, korisnik je pod kontrolom LDAP sustava"
     },
     "group": {
-        "report-deleted": "Report deleted."
+        "report-deleted": "Izvješće je obrisano."
     },
     "exceptions": {
-        "permission_denied": "You do not have permission to perform this action",
+        "permission_denied": "Nemate dozvolu za izvođenje ove akcije",
         "no-entry-found": "The requested resource was not found",
         "integrity-error": "Database integrity error",
         "username-conflict-error": "This username is already taken",
