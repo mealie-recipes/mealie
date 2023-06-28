@@ -19,9 +19,9 @@
     },
     "exceptions": {
         "permission_denied": "Nemate dozvolu za izvođenje ove akcije",
-        "no-entry-found": "The requested resource was not found",
-        "integrity-error": "Database integrity error",
-        "username-conflict-error": "This username is already taken",
+        "no-entry-found": "Traženi izvor nije pronađen",
+        "integrity-error": "Greška integriteta baze podataka",
+        "username-conflict-error": "Ovo korisničko ime je već u upotrebi",
         "email-conflict-error": "Ova e-pošta se već koristi"
     },
     "notifications": {
