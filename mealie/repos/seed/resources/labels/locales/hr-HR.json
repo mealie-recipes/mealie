@@ -1,65 +1,65 @@
 [
     {
-        "name": "Produce"
+        "name": "Svježe namirnice"
     },
     {
-        "name": "Grains"
+        "name": "Žitarice"
     },
     {
-        "name": "Fruits"
+        "name": "Voće"
     },
     {
-        "name": "Vegetables"
+        "name": "Povrće"
     },
     {
-        "name": "Meat"
+        "name": "Meso"
     },
     {
-        "name": "Seafood"
+        "name": "Plodovi mora"
     },
     {
-        "name": "Beverages"
+        "name": "Piće"
     },
     {
-        "name": "Baked Goods"
+        "name": "Pečeni proizvodi"
     },
     {
-        "name": "Canned Goods"
+        "name": "Konzervirani proizvodi"
     },
     {
-        "name": "Condiments"
+        "name": "Začini"
     },
     {
-        "name": "Confectionary"
+        "name": "Konditorski proizvodi"
     },
     {
-        "name": "Dairy Products"
+        "name": "Mliječni proizvod"
     },
     {
-        "name": "Frozen Foods"
+        "name": "Smrznuta hrana"
     },
     {
-        "name": "Health Foods"
+        "name": "Zdrava Hrana"
     },
     {
-        "name": "Household"
+        "name": "Kućanstvo"
     },
     {
-        "name": "Meat Products"
+        "name": "Mesni proizvodi"
     },
     {
-        "name": "Snacks"
+        "name": "Grickalice"
     },
     {
-        "name": "Spices"
+        "name": "Začini"
     },
     {
-        "name": "Sweets"
+        "name": "Slatkiši"
     },
     {
-        "name": "Alcohol"
+        "name": "Alkohol"
     },
     {
-        "name": "Other"
+        "name": "Ostalo"
     }
 ]
