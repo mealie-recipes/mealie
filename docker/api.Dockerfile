@@ -73,7 +73,7 @@ RUN apt-get update \
     gosu \
     iproute2 \
     tesseract-ocr-all \
-    libldap-2.4-2 \
+    libldap-common \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
 
