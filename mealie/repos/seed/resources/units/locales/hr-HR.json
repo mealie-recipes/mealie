@@ -1,21 +1,21 @@
 {
     "teaspoon": {
-        "name": "teaspoon",
+        "name": "žličica",
         "description": "",
-        "abbreviation": "tsp"
+        "abbreviation": "žlič"
     },
     "tablespoon": {
-        "name": "tablespoon",
+        "name": "žlica",
         "description": "",
-        "abbreviation": "tbsp"
+        "abbreviation": "žlic"
     },
     "cup": {
-        "name": "cup",
+        "name": "šalica",
         "description": "",
-        "abbreviation": "cup"
+        "abbreviation": "šalica"
     },
     "fluid-ounce": {
-        "name": "fluid ounce",
+        "name": "tekuća unca",
         "description": "",
         "abbreviation": "fl oz"
     },
@@ -25,32 +25,32 @@
         "abbreviation": "pt"
     },
     "quart": {
-        "name": "quart",
+        "name": "kvart",
         "description": "",
         "abbreviation": "qt"
     },
     "gallon": {
-        "name": "gallon",
+        "name": "galon",
         "description": "",
         "abbreviation": "gal"
     },
     "milliliter": {
-        "name": "milliliter",
+        "name": "mililitar",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
-        "name": "liter",
+        "name": "litra",
         "description": "",
         "abbreviation": "l"
     },
     "pound": {
-        "name": "pound",
+        "name": "funta",
         "description": "",
         "abbreviation": "lb"
     },
     "ounce": {
-        "name": "ounce",
+        "name": "unca",
         "description": "",
         "abbreviation": "oz"
     },
