@@ -22,14 +22,14 @@
         "no-entry-found": "The requested resource was not found",
         "integrity-error": "Database integrity error",
         "username-conflict-error": "This username is already taken",
-        "email-conflict-error": "This email is already in use"
+        "email-conflict-error": "Ova e-pošta se već koristi"
     },
     "notifications": {
-        "generic-created": "{name} was created",
-        "generic-updated": "{name} was updated",
-        "generic-created-with-url": "{name} has been created, {url}",
-        "generic-updated-with-url": "{name} has been updated, {url}",
-        "generic-duplicated": "{name} has been duplicated",
-        "generic-deleted": "{name} has been deleted"
+        "generic-created": "{name} je kreiran",
+        "generic-updated": "{name} je ažuriran",
+        "generic-created-with-url": "{name} je kreiran, {url}",
+        "generic-updated-with-url": "{name} je ažuriran, {url}",
+        "generic-duplicated": "{name} je dupliciran",
+        "generic-deleted": "{name} je obrisan"
     }
 }
