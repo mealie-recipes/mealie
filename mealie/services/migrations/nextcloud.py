@@ -83,17 +83,14 @@ def parse_time(time: str) -> str:
     minutes = {"singular": "minute", "plural": "minutes", "exp": r"\d+(?=M)"}
     seconds = {"singular": "second", "plural": "seconds", "exp": r"\d+(?=S)"}
 
-    try:
-        return_strings: list[str] = []
-        for time_part in [hours, minutes, seconds]:
-            val_search = re.search(time_part["exp"], time)
-            if not val_search:
-                continue
-            val = val_search.group()
-            if val == "0":
-                continue
-            return_strings.append(f'{val} {time_part["singular"] if val == "1" else time_part["plural"]}')
+    return_strings: list[str] = []
+    for time_part in [hours, minutes, seconds]:
+        val_search = re.search(time_part["exp"], time)
+        if not val_search:
+            continue
+        val = val_search.group()
+        if val == "0":
+            continue
+        return_strings.append(f'{val} {time_part["singular"] if val == "1" else time_part["plural"]}')
 
-        return " ".join(return_strings)
-    except Exception:
-        return ""
+    return " ".join(return_strings) if return_strings else time
