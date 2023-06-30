@@ -21,19 +21,20 @@ def _build_ingredient_from_ingredient_data(ingredient_data: dict[str, Any], titl
 
     # TODO: quantity formatting is copied from the shopping list item schema, and probably shouldn't be
     amount = round(float(ingredient_data.get("amount", "1")), INGREDIENT_QTY_PRECISION)
-    quantity = Fraction(amount).limit_denominator(MAX_INGREDIENT_DENOMINATOR)
-    if quantity.denominator == 1:
-        ingredient_parts.append(str(quantity))
-    elif quantity.numerator <= quantity.denominator:
-        ingredient_parts.append(display_fraction(quantity))
-    else:
-        # convert an improper fraction into a mixed fraction (e.g. 11/4 --> 2 3/4)
-        whole_number = 0
-        while quantity.numerator > quantity.denominator:
-            whole_number += 1
-            quantity -= 1
+    if amount:
+        quantity = Fraction(amount).limit_denominator(MAX_INGREDIENT_DENOMINATOR)
+        if quantity.denominator == 1:
+            ingredient_parts.append(str(quantity))
+        elif quantity.numerator <= quantity.denominator:
+            ingredient_parts.append(display_fraction(quantity))
+        else:
+            # convert an improper fraction into a mixed fraction (e.g. 11/4 --> 2 3/4)
+            whole_number = 0
+            while quantity.numerator > quantity.denominator:
+                whole_number += 1
+                quantity -= 1
 
-        ingredient_parts.append(f"{whole_number} {display_fraction(quantity)}")
+            ingredient_parts.append(f"{whole_number} {display_fraction(quantity)}")
 
     if unit := ingredient_data.get("unit"):
         if unit_name := unit.get("name"):
