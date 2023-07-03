@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from datetime import datetime
-from fractions import Fraction
 
 from pydantic import UUID4, validator
 from sqlalchemy.orm import joinedload, selectinload
@@ -20,24 +19,12 @@ from mealie.schema.getter_dict import ExtrasGetterDict
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary
 from mealie.schema.recipe.recipe import RecipeSummary
 from mealie.schema.recipe.recipe_ingredient import (
-    INGREDIENT_QTY_PRECISION,
-    MAX_INGREDIENT_DENOMINATOR,
     IngredientFood,
     IngredientUnit,
     RecipeIngredient,
+    RecipeIngredientBase,
 )
 from mealie.schema.response.pagination import PaginationBase
-
-SUPERSCRIPT = dict(zip("1234567890", "¹²³⁴⁵⁶⁷⁸⁹⁰", strict=False))
-SUBSCRIPT = dict(zip("1234567890", "₁₂₃₄₅₆₇₈₉₀", strict=False))
-
-
-def display_fraction(fraction: Fraction):
-    return (
-        "".join([SUPERSCRIPT[c] for c in str(fraction.numerator)])
-        + "/"
-        + "".join([SUBSCRIPT[c] for c in str(fraction.denominator)])
-    )
 
 
 class ShoppingListItemRecipeRefCreate(MealieModel):
@@ -63,20 +50,18 @@ class ShoppingListItemRecipeRefOut(ShoppingListItemRecipeRefUpdate):
         orm_mode = True
 
 
-class ShoppingListItemBase(MealieModel):
+class ShoppingListItemBase(RecipeIngredientBase):
     shopping_list_id: UUID4
     checked: bool = False
     position: int = 0
 
-    is_food: bool = False
-
-    note: str | None = ""
     quantity: float = 1
 
     food_id: UUID4 | None = None
     label_id: UUID4 | None = None
     unit_id: UUID4 | None = None
 
+    is_food: bool = False
     extras: dict | None = {}
 
 
@@ -96,12 +81,6 @@ class ShoppingListItemUpdateBulk(ShoppingListItemUpdate):
 
 class ShoppingListItemOut(ShoppingListItemBase):
     id: UUID4
-    display: str = ""
-    """
-    How the ingredient should be displayed
-
-    Automatically calculated after the object is created
-    """
 
     food: IngredientFood | None
     label: MultiPurposeLabelSummary | None
@@ -119,63 +98,6 @@ class ShoppingListItemOut(ShoppingListItemBase):
         if (not self.label) and (self.food and self.food.label):
             self.label = self.food.label
             self.label_id = self.label.id
-
-        # format the display property
-        if not self.display:
-            self.display = self._format_display()
-
-    def _format_quantity_for_display(self) -> str:
-        """How the quantity should be displayed"""
-
-        qty: float | Fraction
-
-        # decimal
-        if not self.unit or not self.unit.fraction:
-            qty = round(self.quantity, INGREDIENT_QTY_PRECISION)
-            if qty.is_integer():
-                return str(int(qty))
-
-            else:
-                return str(qty)
-
-        # fraction
-        qty = Fraction(self.quantity).limit_denominator(MAX_INGREDIENT_DENOMINATOR)
-        if qty.denominator == 1:
-            return str(qty.numerator)
-
-        if qty.numerator <= qty.denominator:
-            return display_fraction(qty)
-
-        # convert an improper fraction into a mixed fraction (e.g. 11/4 --> 2 3/4)
-        whole_number = 0
-        while qty.numerator > qty.denominator:
-            whole_number += 1
-            qty -= 1
-
-        return f"{whole_number} {display_fraction(qty)}"
-
-    def _format_display(self) -> str:
-        components = []
-
-        # ingredients with no food come across with a qty of 1, which looks weird
-        # e.g. "1 2 tbsp of olive oil"
-        if self.quantity and (self.is_food or self.quantity != 1):
-            components.append(self._format_quantity_for_display())
-
-        if not self.is_food:
-            components.append(self.note or "")
-
-        else:
-            if self.quantity and self.unit:
-                components.append(self.unit.abbreviation if self.unit.use_abbreviation else self.unit.name)
-
-            if self.food:
-                components.append(self.food.name)
-
-            if self.note:
-                components.append(self.note)
-
-        return " ".join(components)
 
     class Config:
         orm_mode = True

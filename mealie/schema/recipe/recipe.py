@@ -157,6 +157,16 @@ class Recipe(RecipeSummary):
         orm_mode = True
         getter_dict = ExtrasGetterDict
 
+    def __init__(self, **kwargs) -> None:
+        super().__init__(**kwargs)
+        if self.settings:
+            # the ingredient disable_amount property is unreliable,
+            # so we set it here and recalculate the display property
+            for ingredient in self.recipe_ingredient:
+                ingredient.disable_amount = self.settings.disable_amount
+                ingredient.is_food = not ingredient.disable_amount
+                ingredient.display = ingredient._format_display()
+
     @validator("slug", always=True, pre=True, allow_reuse=True)
     def validate_slug(slug: str, values):  # type: ignore
         if not values.get("name"):

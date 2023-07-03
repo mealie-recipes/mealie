@@ -2,13 +2,10 @@ import json
 import os
 import tempfile
 import zipfile
-from datetime import timedelta
-from fractions import Fraction
 from pathlib import Path
 from typing import Any
 
-from mealie.schema.group.group_shopping_list import display_fraction
-from mealie.schema.recipe.recipe_ingredient import INGREDIENT_QTY_PRECISION, MAX_INGREDIENT_DENOMINATOR
+from mealie.schema.recipe.recipe_ingredient import RecipeIngredientBase
 from mealie.schema.reports.reports import ReportEntryCreate
 
 from ._migration_base import BaseMigrator
@@ -17,42 +14,16 @@ from .utils.migration_helpers import import_image
 
 
 def _build_ingredient_from_ingredient_data(ingredient_data: dict[str, Any], title: str | None = None) -> dict[str, Any]:
-    ingredient_parts: list[str] = []
+    quantity = ingredient_data.get("amount", "1")
+    unit = ingredient_data.get("unit", {}).get("plural_name")
+    if not unit:
+        unit = ingredient_data.get("unit", {}).get("name")
+    food = ingredient_data.get("food", {}).get("plural_name")
+    if not food:
+        food = ingredient_data.get("food", {}).get("name")
 
-    # TODO: quantity formatting is copied from the shopping list item schema, and probably shouldn't be
-    amount = round(float(ingredient_data.get("amount", "1")), INGREDIENT_QTY_PRECISION)
-    if amount:
-        quantity = Fraction(amount).limit_denominator(MAX_INGREDIENT_DENOMINATOR)
-        if quantity.denominator == 1:
-            ingredient_parts.append(str(quantity))
-        elif quantity.numerator <= quantity.denominator:
-            ingredient_parts.append(display_fraction(quantity))
-        else:
-            # convert an improper fraction into a mixed fraction (e.g. 11/4 --> 2 3/4)
-            whole_number = 0
-            while quantity.numerator > quantity.denominator:
-                whole_number += 1
-                quantity -= 1
-
-            ingredient_parts.append(f"{whole_number} {display_fraction(quantity)}")
-
-    if unit := ingredient_data.get("unit"):
-        if unit_name := unit.get("name"):
-            ingredient_parts.append(unit_name)
-        elif unit_plural_name := unit.get("plural_name"):
-            ingredient_parts.append(unit_plural_name)
-
-    if food := ingredient_data.get("food"):
-        if food_name := food.get("name"):
-            ingredient_parts.append(food_name)
-        elif food_plural_name := food.get("plural_name"):
-            ingredient_parts.append(food_plural_name)
-
-    if note := ingredient_data.get("note"):
-        ingredient_parts.append(note)
-
-    text = " ".join(ingredient_parts)
-    return {"title": title, "note": text}
+    base_ingredient = RecipeIngredientBase(quantity=quantity, unit=unit, food=food)
+    return {"title": title, "note": base_ingredient.display}
 
 
 def extract_instructions_and_ingredients(steps: list[dict[str, Any]]) -> tuple[list[str], list[dict[str, Any]]]:
