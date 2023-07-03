@@ -15,12 +15,15 @@ from .utils.migration_helpers import import_image
 
 def _build_ingredient_from_ingredient_data(ingredient_data: dict[str, Any], title: str | None = None) -> dict[str, Any]:
     quantity = ingredient_data.get("amount", "1")
-    unit = ingredient_data.get("unit", {}).get("plural_name")
-    if not unit:
-        unit = ingredient_data.get("unit", {}).get("name")
-    food = ingredient_data.get("food", {}).get("plural_name")
-    if not food:
-        food = ingredient_data.get("food", {}).get("name")
+    if unit_data := ingredient_data.get("unit"):
+        unit = unit_data.get("plural_name") or unit_data.get("name")
+    else:
+        unit = None
+
+    if food_data := ingredient_data.get("food"):
+        food = food_data.get("plural_name") or food_data.get("name")
+    else:
+        food = None
 
     base_ingredient = RecipeIngredientBase(quantity=quantity, unit=unit, food=food)
     return {"title": title, "note": base_ingredient.display}
