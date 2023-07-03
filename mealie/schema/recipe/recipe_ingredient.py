@@ -3,10 +3,9 @@ from __future__ import annotations
 import datetime
 import enum
 from fractions import Fraction
-from typing import Any
 from uuid import UUID, uuid4
 
-from pydantic import UUID4, BaseModel, Field, validator
+from pydantic import UUID4, Field, validator
 from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.interfaces import LoaderOption
 
