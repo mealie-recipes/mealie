@@ -45,8 +45,8 @@
     "category-update-failed": "更新类别失败",
     "category-updated": "类别已更新",
     "uncategorized-count": "未分类 {count}",
-    "create-a-category": "Create a Category",
-    "category-name": "Category Name",
+    "create-a-category": "创建分类",
+    "category-name": "类别名称",
     "category": "Category"
   },
   "events": {
