@@ -71,8 +71,9 @@ ENV GIT_COMMIT_HASH=$COMMIT
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
     gosu \
+    iproute2 \
     tesseract-ocr-all \
-    libldap-2.4-2 \
+    libldap-common \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
 

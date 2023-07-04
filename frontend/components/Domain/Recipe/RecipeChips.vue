@@ -9,7 +9,7 @@
       color="accent"
       :small="small"
       dark
-      :to="`/recipes/${urlPrefix}/${category.slug}`"
+      :to="`/?${urlPrefix}=${category.id}`"
     >
       {{ truncateText(category.name) }}
     </v-chip>

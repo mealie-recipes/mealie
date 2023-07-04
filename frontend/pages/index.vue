@@ -212,7 +212,6 @@ export default defineComponent({
           foods: toIDArray(selectedFoods.value),
           tags: toIDArray(selectedTags.value),
           tools: toIDArray(selectedTools.value),
-
           // Only add the query param if it's or not default
           ...{
             auto: state.value.auto ? undefined : "false",
@@ -239,6 +238,7 @@ export default defineComponent({
         requireAllFoods: state.value.requireAllFoods,
         orderBy: state.value.orderBy,
         orderDirection: state.value.orderDirection,
+        _searchSeed: Date.now().toString()
       };
     }
 
@@ -302,6 +302,11 @@ export default defineComponent({
         icon: $globals.icons.update,
         name: i18n.tc("general.updated"),
         value: "update_at",
+      },
+      {
+        icon: $globals.icons.diceMultiple,
+        name: i18n.tc("general.random"),
+        value: "random",
       },
     ];
 

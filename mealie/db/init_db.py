@@ -92,6 +92,9 @@ def main():
             logger.info("Migration needed. Performing migration...")
             command.upgrade(alembic_cfg, "head")
 
+        if session.get_bind().name == "postgresql":  # needed for fuzzy search and fast GIN text indices
+            session.execute(text("CREATE EXTENSION IF NOT EXISTS pg_trgm;"))
+
         db = get_repositories(session)
 
         if db.users.get_all():

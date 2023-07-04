@@ -1,8 +1,8 @@
 import { useAsync, ref } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "../use-utils";
 import { useUserApi } from "~/composables/api";
-import {Recipe} from "~/lib/api/types/recipe";
-import {RecipeSearchQuery} from "~/lib/api/user/recipes/recipe";
+import { Recipe } from "~/lib/api/types/recipe";
+import { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
 
 export const allRecipes = ref<Recipe[]>([]);
 export const recentRecipes = ref<Recipe[]>([]);
@@ -23,6 +23,8 @@ export const useLazyRecipes = function () {
     const { data } = await api.recipes.getAll(page, perPage, {
       orderBy,
       orderDirection,
+      paginationSeed: query?._searchSeed, // propagate searchSeed to stabilize random order pagination
+      searchSeed: query?._searchSeed, // unused, but pass it along for completeness of data
       search: query?.search,
       cookbook: query?.cookbook,
       categories: query?.categories,
