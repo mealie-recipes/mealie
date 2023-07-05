@@ -65,15 +65,15 @@
     "subscribed-events": "Eventi Sottoscritti",
     "test-message-sent": "Messaggio di prova inviato",
     "new-notification": "Nuova Notifica",
-    "event-notifiers": "Event Notifiers",
+    "event-notifiers": "Notifiche Evento",
     "apprise-url-skipped-if-blank": "Url di Apprise (ignorato se vuoto)",
     "enable-notifier": "Abilita Notificatore",
-    "what-events": "What events should this notifier subscribe to?",
+    "what-events": "Quali eventi dovrebbe sottoscrivere questo notificatore?",
     "user-events": "Eventi Utente",
-    "mealplan-events": "Mealplan Events",
+    "mealplan-events": "Eventi Pasto",
     "when-a-user-in-your-group-creates-a-new-mealplan": "Quando un utente del tuo gruppo crea un nuovo piano pasti",
     "shopping-list-events": "Eventi Lista Della spesa",
-    "cookbook-events": "Cookbook Events",
+    "cookbook-events": "Eventi Del Ricettario",
     "tag-events": "Tag Eventi",
     "category-events": "Categoria Eventi",
     "when-a-new-user-joins-your-group": "Quando un nuovo utente entra nel tuo gruppo"
@@ -185,7 +185,7 @@
     "this-feature-is-currently-inactive": "Questa funzionalità è al momento disabilitata",
     "clipboard-not-supported": "Appunti non supportati",
     "copied-to-clipboard": "Copiato negli appunti",
-    "your-browser-does-not-support-clipboard": "Your browser does not support clipboard",
+    "your-browser-does-not-support-clipboard": "Il tuo browser non supporta gli appunti",
     "copied-items-to-clipboard": "Nessun elemento copiato negli appunti|Un elemento copiato negli appunti|{count} elementi copiati negli appunti",
     "actions": "Azioni",
     "selected-count": "Selezionati: {count}",
@@ -312,7 +312,7 @@
     "recipe-migration": "Migrazione Ricetta",
     "chowdown": {
       "description": "Migra dati da Chowdown",
-      "description-long": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
+      "description-long": "Mealie supporta nativamente il formato del repository chowdown. Scarica il repository del codice come file .zip e caricalo qui sotto.",
       "title": "Chowdown"
     },
     "nextcloud": {
@@ -321,27 +321,27 @@
       "title": "Nextcloud Cookbook"
     },
     "copymethat": {
-      "description-long": "Mealie can import recipes from Copy Me That. Export your recipes in HTML format, then upload the .zip below.",
-      "title": "Copy Me That Recipe Manager"
+      "description-long": "Mealie può importare ricette da Copy Me That. Esporta le tue ricette in formato HTML, quindi carica il .zip qui sotto.",
+      "title": "Copy Me That Gestore Ricette"
     },
     "paprika": {
-      "description-long": "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
-      "title": "Paprika Recipe Manager"
+      "description-long": "Mealie può importare ricette dall'applicazione Paprika. Esporta le tue ricette da paprika, rinomina l'estensione di esportazione in .zip e caricala qui sotto.",
+      "title": "Paprika Ricette Manager"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
+      "description-long": "Mealie può importare ricette dall'applicazione Mealie da un versione pre v1.0. Esporta le tue ricette dalla tua vecchia istanza e carica il file zip qui sotto. Nota che solo le ricette possono essere importate dall'esportazione.",
       "title": "Mealie Pre v1.0"
     },
     "recipe-data-migrations": "Migrazione Dati Ricetta",
     "recipe-data-migrations-explanation": "Le ricette possono essere migrate da un'altra applicazione supportata da Mealie. Questo è un ottimo modo per iniziare con Mealie.",
-    "choose-migration-type": "Choose Migration Type",
+    "choose-migration-type": "Scegli Il Tipo Di Migrazione",
     "tag-all-recipes": "Etichetta tutte le ricette con {tag-name} etichetta",
-    "nextcloud-text": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
-    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below",
+    "nextcloud-text": "Le ricette di Nextcloud possono essere importate da un file zip che contiene i dati memorizzati in Nextcloud. Osserva la struttura della cartella di esempio qui sotto per assicurarti che le tue ricette siano in grado di essere importate.",
+    "chowdown-text": "Mealie supporta nativamente il formato del repository chowdown. Scarica il repository del codice come file .zip e caricalo qui sotto",
     "recipe-1": "Ricetta 1",
     "recipe-2": "Ricetta 2",
-    "paprika-text": "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
-    "mealie-text": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export."
+    "paprika-text": "Mealie può importare ricette dall'applicazione Paprika. Esporta le tue ricette da paprika, rinomina l'estensione di esportazione in .zip e caricala qui sotto.",
+    "mealie-text": "Mealie può importare ricette dall'applicazione Mealie da un versione pre v1.0. Esporta le tue ricette dalla tua vecchia istanza e carica il file zip qui sotto. Nota che solo le ricette possono essere importate dall'esportazione."
   },
   "new-recipe": {
     "bulk-add": "Inserimento Multiplo",
@@ -478,7 +478,7 @@
     "edit-timeline-event": "Modifica Evento Timeline",
     "timeline": "Timeline",
     "timeline-is-empty": "Niente sulla timeline. Prova a fare questa ricetta!",
-    "group-global-timeline": "{groupName} Global Timeline",
+    "group-global-timeline": "{groupName} Sequenza Temporale Globale",
     "open-timeline": "Apri la Timeline",
     "made-this": "L'Ho Preparato",
     "how-did-it-turn-out": "Come è venuto?",
