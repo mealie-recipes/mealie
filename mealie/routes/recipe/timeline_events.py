@@ -1,6 +1,6 @@
 from functools import cached_property
 
-from fastapi import Depends, HTTPException
+from fastapi import Depends, File, Form, HTTPException
 from pydantic import UUID4
 
 from mealie.routes._base import BaseCrudController, controller
@@ -12,10 +12,12 @@ from mealie.schema.recipe.recipe_timeline_events import (
     RecipeTimelineEventOut,
     RecipeTimelineEventPagination,
     RecipeTimelineEventUpdate,
+    TimelineEventImage,
 )
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services import urls
 from mealie.services.event_bus_service.event_types import EventOperation, EventRecipeTimelineEventData, EventTypes
+from mealie.services.recipe.recipe_data_service import RecipeDataService
 
 events_router = UserAPIRouter(route_class=MealieCrudRoute, prefix="/timeline/events")
 
@@ -113,5 +115,33 @@ class RecipeTimelineEventsController(BaseCrudController):
                     url=urls.recipe_url(recipe.slug, self.settings.BASE_URL),
                 ),
             )
+
+        return event
+
+    # ==================================================================================================================
+    # Image and Assets
+
+    @events_router.put("/{item_id}/image", response_model=RecipeTimelineEventOut)
+    def update_event_image(self, item_id: UUID4, image: bytes = File(...), extension: str = Form(...)):
+        event = self.mixins.get_one(item_id)
+        data_service = RecipeDataService(event.recipe_id)
+        data_service.write_image(image, extension, event.image_dir)
+
+        if event.image != TimelineEventImage.has_image.value:
+            event.image = TimelineEventImage.has_image
+            self.mixins.update_one(event.cast(RecipeTimelineEventUpdate), event.id)
+            recipe = self.recipes_repo.get_one(event.recipe_id, "id")
+            if recipe:
+                self.publish_event(
+                    event_type=EventTypes.recipe_updated,
+                    document_data=EventRecipeTimelineEventData(
+                        operation=EventOperation.update, recipe_slug=recipe.slug, recipe_timeline_event_id=event.id
+                    ),
+                    message=self.t(
+                        "notifications.generic-updated-with-url",
+                        name=recipe.name,
+                        url=urls.recipe_url(recipe.slug, self.settings.BASE_URL),
+                    ),
+                )
 
         return event

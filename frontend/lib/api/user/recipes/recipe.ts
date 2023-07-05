@@ -52,6 +52,7 @@ const routes = {
 
   recipesSlugLastMade: (slug: string) => `${prefix}/recipes/${slug}/last-made`,
   recipesTimelineEventId: (id: string) => `${prefix}/recipes/timeline/events/${id}`,
+  recipesTimelineEventIdImage: (id: string) => `${prefix}/recipes/timeline/events/${id}/image`,
 };
 
 export type RecipeSearchQuery = {
