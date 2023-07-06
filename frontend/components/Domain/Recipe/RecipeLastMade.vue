@@ -151,13 +151,6 @@ export default defineComponent({
 
       const eventResponse = await userApi.recipes.createTimelineEvent(newTimelineEvent.value);
       const newEvent = eventResponse.data;
-      if (newTimelineEventImage.value && newEvent) {
-        const imageResponse = await userApi.recipes.updateTimelineEventImage(newEvent.id, newTimelineEventImage.value);
-        if (imageResponse.data) {
-          // @ts-ignore the image response data will always match a value of TimelineEventImage
-          newEvent.image = imageResponse.data.image;
-        }
-      }
 
       // we also update the recipe's last made value
       if (!props.value || newTimelineEvent.value.timestamp > props.value) {
@@ -171,12 +164,23 @@ export default defineComponent({
         );
       }
 
+      // update the image, if provided
+      if (newTimelineEventImage.value && newEvent) {
+        const imageResponse = await userApi.recipes.updateTimelineEventImage(newEvent.id, newTimelineEventImage.value);
+        if (imageResponse.data) {
+          // @ts-ignore the image response data will always match a value of TimelineEventImage
+          newEvent.image = imageResponse.data.image;
+        }
+      }
+
       // reset form
       newTimelineEvent.value.eventMessage = "";
       newTimelineEvent.value.timestamp = undefined;
       newTimelineEventImage.value = undefined;
       madeThisDialog.value = false;
       domMadeThisForm.value?.reset();
+
+      context.emit("eventCreated", newEvent);
     }
 
     return {
