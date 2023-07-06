@@ -14,6 +14,7 @@ from mealie.schema.recipe.recipe_timeline_events import (
     RecipeTimelineEventUpdate,
     TimelineEventImage,
 )
+from mealie.schema.recipe.request_helpers import UpdateImageResponse
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services import urls
 from mealie.services.event_bus_service.event_types import EventOperation, EventRecipeTimelineEventData, EventTypes
@@ -82,7 +83,7 @@ class RecipeTimelineEventsController(BaseCrudController):
 
     @events_router.put("/{item_id}", response_model=RecipeTimelineEventOut)
     def update_one(self, item_id: UUID4, data: RecipeTimelineEventUpdate):
-        event = self.mixins.update_one(data, item_id)
+        event = self.mixins.patch_one(data, item_id)
         recipe = self.recipes_repo.get_one(event.recipe_id, "id")
         if recipe:
             self.publish_event(
@@ -121,7 +122,7 @@ class RecipeTimelineEventsController(BaseCrudController):
     # ==================================================================================================================
     # Image and Assets
 
-    @events_router.put("/{item_id}/image", response_model=RecipeTimelineEventOut)
+    @events_router.put("/{item_id}/image", response_model=UpdateImageResponse)
     def update_event_image(self, item_id: UUID4, image: bytes = File(...), extension: str = Form(...)):
         event = self.mixins.get_one(item_id)
         data_service = RecipeDataService(event.recipe_id)
@@ -129,7 +130,7 @@ class RecipeTimelineEventsController(BaseCrudController):
 
         if event.image != TimelineEventImage.has_image.value:
             event.image = TimelineEventImage.has_image
-            self.mixins.update_one(event.cast(RecipeTimelineEventUpdate), event.id)
+            event = self.mixins.patch_one(event.cast(RecipeTimelineEventUpdate), event.id)
             recipe = self.recipes_repo.get_one(event.recipe_id, "id")
             if recipe:
                 self.publish_event(
@@ -144,4 +145,4 @@ class RecipeTimelineEventsController(BaseCrudController):
                     ),
                 )
 
-        return event
+        return UpdateImageResponse(image=TimelineEventImage.has_image.value)
