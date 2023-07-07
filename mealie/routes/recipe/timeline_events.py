@@ -1,3 +1,4 @@
+import shutil
 from functools import cached_property
 
 from fastapi import Depends, File, Form, HTTPException
@@ -103,6 +104,12 @@ class RecipeTimelineEventsController(BaseCrudController):
     @events_router.delete("/{item_id}", response_model=RecipeTimelineEventOut)
     def delete_one(self, item_id: UUID4):
         event = self.mixins.delete_one(item_id)
+        if event.image_dir.exists():
+            try:
+                shutil.rmtree(event.image_dir)
+            except FileNotFoundError:
+                pass
+
         recipe = self.recipes_repo.get_one(event.recipe_id, "id")
         if recipe:
             self.publish_event(
