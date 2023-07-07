@@ -64,19 +64,20 @@
           </v-row>
         </v-sheet>
         <v-divider v-if="showRecipeCards && recipe && (useMobileFormat || event.eventMessage || (eventImageUrl && !hideImage))" />
-        <v-img
-          v-if="eventImageUrl"
-          :src="eventImageUrl"
-          min-height="50"
-          :height="hideImage ? undefined : attrs.imageHeight"
-          contain
-          class="my-3"
-          @error="hideImage = true"
-        />
         <v-card-text>
           <v-row>
             <v-col>
               <strong v-if="useMobileFormat">{{ event.subject }}</strong>
+              <v-img
+                v-if="eventImageUrl"
+                :src="eventImageUrl"
+                min-height="50"
+                :height="hideImage ? undefined : 'auto'"
+                :max-height="attrs.image.maxHeight"
+                contain
+                :class=attrs.image.class
+                @error="hideImage = true"
+              />
               <div v-if="event.eventMessage" :class="useMobileFormat ? 'text-caption' : ''">
                 {{ event.eventMessage }}
               </div>
@@ -128,10 +129,13 @@ export default defineComponent({
         return {
           class: "px-0",
           small: false,
-          imageHeight: "250",
           avatar: {
             size: "30px",
             class: "pr-0",
+          },
+          image: {
+            maxHeight: "250",
+            class: "my-3"
           },
         }
       }
@@ -139,10 +143,13 @@ export default defineComponent({
         return {
           class: "px-3",
           small: false,
-          imageHeight: "300",
           avatar: {
             size: "42px",
             class: "",
+          },
+          image: {
+            maxHeight: "300",
+            class: "mb-5"
           },
         }
       }
