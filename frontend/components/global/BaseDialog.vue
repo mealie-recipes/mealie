@@ -58,7 +58,7 @@
               </template>
               {{ $t("general.confirm") }}
             </BaseButton>
-            <BaseButton v-if="$listeners.submit" type="submit" @click="submitEvent">
+            <BaseButton v-if="$listeners.submit" :disabled="!allowSubmit" type="submit" @click="submitEvent">
               {{ submitText }}
             </BaseButton>
           </slot>
@@ -119,6 +119,10 @@ export default defineComponent({
       default: false,
       type: Boolean,
     },
+    allowSubmit: {
+      default: true,
+      type: Boolean
+    }
   },
   setup(props, context) {
     const dialog = computed<boolean>({
