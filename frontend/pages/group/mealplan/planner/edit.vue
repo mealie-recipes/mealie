@@ -6,6 +6,7 @@
       :title="$tc('meal-plan.create-a-new-meal-plan')"
       color="primary"
       :icon="$globals.icons.foods"
+      :allow-submit="!(dialog.note && !(newMeal.title))"
       @submit="
         actions.createOne(newMeal);
         resetDialog();
@@ -59,7 +60,7 @@
             :return-object="false"
           />
           <template v-else>
-            <v-text-field v-model="newMeal.title" :label="$t('meal-plan.meal-title')" />
+            <v-text-field v-model="newMeal.title" :rules="[requiredRule]" :label="$t('meal-plan.meal-title')" />
             <v-textarea v-model="newMeal.text" rows="2" :label="$t('meal-plan.meal-note')" />
           </template>
           <v-text-field v-model.number="newMeal.quantity" type="number" :min="0" :label="$t('recipe.edit-scale')" />
@@ -246,6 +247,8 @@ export default defineComponent({
     const api = useUserApi();
     const { group } = useGroupSelf();
 
+    const requiredRule = (value: any) => !!value || "Required."
+
     const state = ref({
       dialog: false,
       pickerMenu: null as null | boolean,
@@ -359,6 +362,7 @@ export default defineComponent({
       updateQuantityCallback,
       planTypeOptions,
       getEntryTypeText,
+      requiredRule,
 
       // Dialog
       dialog,
