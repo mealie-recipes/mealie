@@ -1,6 +1,6 @@
 [
     {
-        "name": "Produce"
+        "name": "Verdura"
     },
     {
         "name": "Grãos"
@@ -21,13 +21,13 @@
         "name": "Bebidas"
     },
     {
-        "name": "Baked Goods"
+        "name": "Produtos cozidos"
     },
     {
         "name": "Enlatados"
     },
     {
-        "name": "Condiments"
+        "name": "Condimentos"
     },
     {
         "name": "Confectionary"
@@ -42,10 +42,10 @@
         "name": "Health Foods"
     },
     {
-        "name": "Household"
+        "name": "Casa"
     },
     {
-        "name": "Meat Products"
+        "name": "Produtos de carne"
     },
     {
         "name": "Lanches"
@@ -60,6 +60,6 @@
         "name": "Álcool"
     },
     {
-        "name": "Other"
+        "name": "Outros"
     }
 ]
