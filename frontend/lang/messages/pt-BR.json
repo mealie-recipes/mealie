@@ -300,7 +300,7 @@
     "new-rule-description": "Ao criar uma nova regra para um Plano de Refeições, você pode restringir a regra a ser aplicada a um dia específico da semana e/ou a um tipo específico de refeição. Para aplicar uma regra a todos os dias ou a todos os tipos de refeições, você pode definir a regra para \"Qualquer\", que será aplicada a todos os valores possíveis para o dia e/ou o tipo de refeição.",
     "recipe-rules": "Regras das receitas",
     "applies-to-all-days": "Aplica-se diariamente",
-    "applies-on-days": "Applies on {0}s",
+    "applies-on-days": "Aplica-se em:",
     "meal-plan-settings": "Configurações de Plano de Refeições"
   },
   "migration": {
@@ -333,10 +333,10 @@
       "title": "Mealie Pré v1.0"
     },
     "recipe-data-migrations": "Migrações de Dados de Receita",
-    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie.",
+    "recipe-data-migrations-explanation": "Receitas podem ser migradas de outro aplicativo suportado para o Mealie. Esta é uma ótima maneira de começar com Mealie.",
     "choose-migration-type": "Escolher Tipo de Migração",
     "tag-all-recipes": "Marcar todas as receitas com o marcador {tag-name}",
-    "nextcloud-text": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
+    "nextcloud-text": "As receitas da Nextcloud podem ser importadas a partir de um arquivo .zip que contém os dados armazenados na Nextcloud. Veja abaixo o exemplo da estrutura da pasta para garantir que suas receitas possam ser importadas.",
     "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below",
     "recipe-1": "Receita 1",
     "recipe-2": "Receita 2",
