@@ -45,27 +45,27 @@
         "abbreviation": "l"
     },
     "pound": {
-        "name": "pound",
+        "name": "libra",
         "description": "",
         "abbreviation": "lb"
     },
     "ounce": {
-        "name": "ounce",
+        "name": "onça",
         "description": "",
         "abbreviation": "oz"
     },
     "gram": {
-        "name": "gram",
+        "name": "grama",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
-        "name": "kilogram",
+        "name": "kilograma",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
-        "name": "milligram",
+        "name": "miligrama",
         "description": "",
         "abbreviation": "mg"
     },
@@ -80,22 +80,22 @@
         "abbreviation": ""
     },
     "serving": {
-        "name": "serving",
+        "name": "porção",
         "description": "",
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
+        "name": "cabeça",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
-        "name": "clove",
+        "name": "cravo",
         "description": "",
         "abbreviation": ""
     },
     "can": {
-        "name": "can",
+        "name": "lata",
         "description": "",
         "abbreviation": ""
     }
