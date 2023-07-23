@@ -333,8 +333,8 @@
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
-      "description-long": "Mealie can import recipes from Tandoor. Export your data in the \"Default\" format, then upload the .zip below.",
-      "title": "Tandoor Recipes"
+      "description-long": "Mealie kann Rezepte von Tandoor importieren. Exportiere deine Daten im 'Default' Format und lade dann unten die .zip Datei hoch.",
+      "title": "Tandoor Rezepte"
     },
     "recipe-data-migrations": "Rezeptdatenmigration",
     "recipe-data-migrations-explanation": "Rezepte können aus unterstützten Programmen nach Mealie migriert werden. Das ist eine gute Möglichkeit, um mit Mealie loszulegen.",
