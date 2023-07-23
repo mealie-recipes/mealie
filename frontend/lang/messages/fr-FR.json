@@ -332,6 +332,10 @@
       "description-long": "Mealie peut importer des recettes depuis l'application Mealie depuis une version antérieure à 1.0. Exportez vos recettes depuis votre ancienne instance, et téléchargez le fichier zip ci-dessous. Notez que seules les recettes peuvent être importées à partir de l'exportation.",
       "title": "Mealie Pré-1.0"
     },
+    "tandoor": {
+      "description-long": "Mealie can import recipes from Tandoor. Export your data in the \"Default\" format, then upload the .zip below.",
+      "title": "Tandoor Recipes"
+    },
     "recipe-data-migrations": "Migration des données de recettes",
     "recipe-data-migrations-explanation": "Les recettes peuvent être migrées depuis une autre application prise en charge vers Mealie. C'est une excellente façon de commencer avec Mealie.",
     "choose-migration-type": "Choisissez le type de migration",
