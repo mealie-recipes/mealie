@@ -989,14 +989,14 @@
         "result": "Zaznaczony tekst pojawi się wewnątrz poprzednio wybranego pola."
       },
       "pan-and-zoom-mode": "Tryb Przesuwania i Powiększania",
-      "pan-and-zoom-desc": "Select pan and zoom by clicking the icon. This mode allows to zoom inside the image and move around to make using big images easier.",
+      "pan-and-zoom-desc": "Wybierz przesuwanie i powiększanie poprzez kliknięcie ikony. Ten tryb pozwala powiększyć obraz i poruszać się wokoło, aby ułatwić korzystanie z dużych obrazów.",
       "split-text-mode": "Tryby Podziału Tekstu",
       "split-modes": {
         "line-mode": "Tryb Linii (domyślny)",
-        "line-mode-desc": "In line mode, the text will be propagated by keeping the original line breaks. This mode is useful when using bulk add on a list of ingredients where one ingredient is one line.",
-        "block-mode": "Block mode",
+        "line-mode-desc": "W trybie linii tekst będzie propagowany przez pozostawienie oryginalnych punktów cięcia. Ten tryb jest przydatny podczas używania dodawania zbiorczego do listy składników, gdzie jeden składnik jest jednym wierszem.",
+        "block-mode": "Tryb Blokowy",
         "block-mode-desc": "In block mode, the text will be split in blocks. This mode is useful when bulk adding instructions that are usually written in paragraphs.",
-        "flat-mode": "Flat mode",
+        "flat-mode": "Tryb Płaski",
         "flat-mode-desc": "In flat mode, the text will be added to the selected recipe field with no line breaks."
       }
     }
@@ -1037,15 +1037,15 @@
     "mainentance": {
       "actions-title": "Działania"
     },
-    "ingredients-natural-language-processor": "Ingredients Natural Language Processor",
+    "ingredients-natural-language-processor": "Przetwarzacz języka naturalnego składników",
     "ingredients-natural-language-processor-explanation": "Mealie uses Conditional Random Fields (CRFs) for parsing and processing ingredients. The model used for ingredients is based off a data set of over 100,000 ingredients from a dataset compiled by the New York Times. Note that as the model is trained in English only, you may have varied results when using the model in other languages. This page is a playground for testing the model.",
     "ingredients-natural-language-processor-explanation-2": "It's not perfect, but it yields great results in general and is a good starting point for manually parsing ingredients into individual fields. Alternatively, you can also use the \"Brute\" processor that uses a pattern matching technique to identify ingredients.",
     "nlp": "NLP",
-    "brute": "Brute",
-    "show-individual-confidence": "Show individual confidence",
-    "ingredient-text": "Ingredient Text",
-    "average-confident": "{0} Confident",
-    "try-an-example": "Try an example",
+    "brute": "Brut",
+    "show-individual-confidence": "Pokaż pojedyncze pewności",
+    "ingredient-text": "Tekst składnika",
+    "average-confident": "Pewność {0}",
+    "try-an-example": "Wypróbuj przykład",
     "parser": "Parser",
     "background-tasks": "Zadania w tle",
     "background-tasks-description": "Tutaj możesz wyświetlić wszystkie bieżące zadania w tle i ich status",
