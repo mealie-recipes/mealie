@@ -333,7 +333,7 @@
       "title": "Mealie до 1.0"
     },
     "tandoor": {
-      "description-long": "Mealie can import recipes from Tandoor. Export your data in the \"Default\" format, then upload the .zip below.",
+      "description-long": "Mealie може імпортувати рецепти з Tandoor. Експортуйте свої дані в формат \"Default\", а потім завантажте .zip нижче.",
       "title": "Tandoor Recipes"
     },
     "recipe-data-migrations": "Міграція рецептів",
