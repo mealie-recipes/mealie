@@ -1,21 +1,21 @@
 {
     "teaspoon": {
-        "name": "teaspoon",
+        "name": "colher de chá",
         "description": "",
-        "abbreviation": "tsp"
+        "abbreviation": "col. de chá"
     },
     "tablespoon": {
-        "name": "tablespoon",
+        "name": "colher de sopa",
         "description": "",
-        "abbreviation": "tbsp"
+        "abbreviation": "col. de sopa"
     },
     "cup": {
-        "name": "cup",
+        "name": "xícara",
         "description": "",
-        "abbreviation": "cup"
+        "abbreviation": "xíc."
     },
     "fluid-ounce": {
-        "name": "fluid ounce",
+        "name": "onça fluida",
         "description": "",
         "abbreviation": "fl oz"
     },
@@ -30,72 +30,72 @@
         "abbreviation": "qt"
     },
     "gallon": {
-        "name": "gallon",
+        "name": "galão",
         "description": "",
         "abbreviation": "gal"
     },
     "milliliter": {
-        "name": "milliliter",
+        "name": "mililitro",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
-        "name": "liter",
+        "name": "litro",
         "description": "",
         "abbreviation": "l"
     },
     "pound": {
-        "name": "pound",
+        "name": "libra",
         "description": "",
         "abbreviation": "lb"
     },
     "ounce": {
-        "name": "ounce",
+        "name": "onça",
         "description": "",
         "abbreviation": "oz"
     },
     "gram": {
-        "name": "gram",
+        "name": "grama",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
-        "name": "kilogram",
+        "name": "kilograma",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
-        "name": "milligram",
+        "name": "miligrama",
         "description": "",
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "splash",
+        "name": "punhado",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
-        "name": "dash",
+        "name": "pitada",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
-        "name": "serving",
+        "name": "porção",
         "description": "",
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
+        "name": "cabeça",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
-        "name": "clove",
+        "name": "cravo",
         "description": "",
         "abbreviation": ""
     },
     "can": {
-        "name": "can",
+        "name": "lata",
         "description": "",
         "abbreviation": ""
     }

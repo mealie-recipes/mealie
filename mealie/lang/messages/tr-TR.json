@@ -6,12 +6,12 @@
         "unique-name-error": "Tarif adları benzersiz olmalıdır"
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "No recipes match your rules"
+        "no-recipes-match-your-rules": "Hiçbir tarif kurallarınıza uymamaktadır"
     },
     "user": {
-        "user-updated": "User updated",
-        "password-updated": "Password updated",
-        "invalid-current-password": "Invalid current password",
+        "user-updated": "Kullanıcı güncellendi",
+        "password-updated": "Şifre güncellendi",
+        "invalid-current-password": "Geçersiz mevcut şifre",
         "ldap-update-password-unavailable": "Parola güncellenemiyor, kullanıcı LDAP tarafından kontrol ediliyor"
     },
     "group": {

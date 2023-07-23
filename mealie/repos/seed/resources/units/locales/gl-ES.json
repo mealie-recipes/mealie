@@ -1,18 +1,18 @@
 {
     "teaspoon": {
-        "name": "小さじ",
+        "name": "teaspoon",
         "description": "",
-        "abbreviation": "小さじ"
+        "abbreviation": "tsp"
     },
     "tablespoon": {
-        "name": "大さじ",
+        "name": "tablespoon",
         "description": "",
-        "abbreviation": "大さじ"
+        "abbreviation": "tbsp"
     },
     "cup": {
-        "name": "カップ",
+        "name": "cup",
         "description": "",
-        "abbreviation": "カップ"
+        "abbreviation": "cup"
     },
     "fluid-ounce": {
         "name": "fluid ounce",
@@ -35,12 +35,12 @@
         "abbreviation": "gal"
     },
     "milliliter": {
-        "name": "ミリリットル",
+        "name": "milliliter",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
-        "name": "リットル",
+        "name": "liter",
         "description": "",
         "abbreviation": "l"
     },
@@ -55,7 +55,7 @@
         "abbreviation": "oz"
     },
     "gram": {
-        "name": "グラム",
+        "name": "gram",
         "description": "",
         "abbreviation": "g"
     },
@@ -65,7 +65,7 @@
         "abbreviation": "kg"
     },
     "milligram": {
-        "name": "ミリグラム",
+        "name": "milligram",
         "description": "",
         "abbreviation": "mg"
     },
@@ -95,7 +95,7 @@
         "abbreviation": ""
     },
     "can": {
-        "name": "缶",
+        "name": "can",
         "description": "",
         "abbreviation": ""
     }

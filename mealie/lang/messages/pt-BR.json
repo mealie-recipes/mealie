@@ -1,35 +1,35 @@
 {
     "generic": {
-        "server-error": "An unexpected error occurred"
+        "server-error": "Ocorreu um erro inesperado"
     },
     "recipe": {
-        "unique-name-error": "Recipe names must be unique"
+        "unique-name-error": "O nome das receitas precisar ser único"
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "No recipes match your rules"
+        "no-recipes-match-your-rules": "Nenhuma receita corresponde às suas regras"
     },
     "user": {
-        "user-updated": "User updated",
-        "password-updated": "Password updated",
-        "invalid-current-password": "Invalid current password",
-        "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
+        "user-updated": "Usuário atualizado",
+        "password-updated": "Senha atualizada",
+        "invalid-current-password": "Senha atual inválida",
+        "ldap-update-password-unavailable": "Não é possível atualizar a senha, o usuário é controlado pelo LDAP"
     },
     "group": {
-        "report-deleted": "Report deleted."
+        "report-deleted": "Relatório excluído"
     },
     "exceptions": {
-        "permission_denied": "You do not have permission to perform this action",
-        "no-entry-found": "The requested resource was not found",
-        "integrity-error": "Database integrity error",
-        "username-conflict-error": "This username is already taken",
-        "email-conflict-error": "This email is already in use"
+        "permission_denied": "Você não tem permissão para realizar esta ação",
+        "no-entry-found": "O recurso solicitado não foi encontrado",
+        "integrity-error": "Erro de integridade de banco de dados",
+        "username-conflict-error": "Este nome de usuário já está em uso",
+        "email-conflict-error": "Este email já está em uso"
     },
     "notifications": {
-        "generic-created": "{name} was created",
-        "generic-updated": "{name} was updated",
-        "generic-created-with-url": "{name} has been created, {url}",
-        "generic-updated-with-url": "{name} has been updated, {url}",
+        "generic-created": "{name} criado",
+        "generic-updated": "{name} atualizado",
+        "generic-created-with-url": "{name} foi criado, {url}",
+        "generic-updated-with-url": "{name} foi atualizado, {url}",
         "generic-duplicated": "{name} foi duplicada",
-        "generic-deleted": "{name} has been deleted"
+        "generic-deleted": "{name} foi excluído"
     }
 }

@@ -1,35 +1,35 @@
 {
     "generic": {
-        "server-error": "An unexpected error occurred"
+        "server-error": "Váratlan hiba történt"
     },
     "recipe": {
-        "unique-name-error": "Recipe names must be unique"
+        "unique-name-error": "A receptek nevének egyedinek kell lennie"
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "No recipes match your rules"
+        "no-recipes-match-your-rules": "Nem található recept a beállítottt szabályok alapján"
     },
     "user": {
-        "user-updated": "User updated",
-        "password-updated": "Password updated",
-        "invalid-current-password": "Invalid current password",
-        "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
+        "user-updated": "Felhasználó frissítve",
+        "password-updated": "Jelszó frissítve",
+        "invalid-current-password": "Érvénytelen jelenlegi jelszó",
+        "ldap-update-password-unavailable": "Nem sikerült jelszót váltani, a felhasználó LDAP-al lépett be"
     },
     "group": {
-        "report-deleted": "Report deleted."
+        "report-deleted": "A jelentés törlésre került."
     },
     "exceptions": {
-        "permission_denied": "You do not have permission to perform this action",
-        "no-entry-found": "The requested resource was not found",
+        "permission_denied": "Nincs engedélye a műveletet végrehajtásához",
+        "no-entry-found": "A kért erőforrás nem található",
         "integrity-error": "Adatbázis integritás hiba",
         "username-conflict-error": "A felhasználónév már foglalt",
         "email-conflict-error": "Ez az e-mail cím már használatban van"
     },
     "notifications": {
-        "generic-created": "{name} was created",
-        "generic-updated": "{name} was updated",
-        "generic-created-with-url": "{name} has been created, {url}",
-        "generic-updated-with-url": "{name} has been updated, {url}",
-        "generic-duplicated": "{name} has been duplicated",
-        "generic-deleted": "{name} has been deleted"
+        "generic-created": "{name} létrehozva",
+        "generic-updated": "{name} frissítve lett",
+        "generic-created-with-url": "{name} létrehozva, {url}",
+        "generic-updated-with-url": "{name} frissítve, {url}",
+        "generic-duplicated": "{name} duplikálva",
+        "generic-deleted": "{name} törölve lett"
     }
 }

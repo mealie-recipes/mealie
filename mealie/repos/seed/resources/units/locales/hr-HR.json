@@ -1,21 +1,21 @@
 {
     "teaspoon": {
-        "name": "小さじ",
+        "name": "žličica",
         "description": "",
-        "abbreviation": "小さじ"
+        "abbreviation": "žlič"
     },
     "tablespoon": {
-        "name": "大さじ",
+        "name": "žlica",
         "description": "",
-        "abbreviation": "大さじ"
+        "abbreviation": "žlic"
     },
     "cup": {
-        "name": "カップ",
+        "name": "šalica",
         "description": "",
-        "abbreviation": "カップ"
+        "abbreviation": "šalica"
     },
     "fluid-ounce": {
-        "name": "fluid ounce",
+        "name": "tekuća unca",
         "description": "",
         "abbreviation": "fl oz"
     },
@@ -25,37 +25,37 @@
         "abbreviation": "pt"
     },
     "quart": {
-        "name": "quart",
+        "name": "kvart",
         "description": "",
         "abbreviation": "qt"
     },
     "gallon": {
-        "name": "gallon",
+        "name": "galon",
         "description": "",
         "abbreviation": "gal"
     },
     "milliliter": {
-        "name": "ミリリットル",
+        "name": "mililitar",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
-        "name": "リットル",
+        "name": "litra",
         "description": "",
         "abbreviation": "l"
     },
     "pound": {
-        "name": "pound",
+        "name": "funta",
         "description": "",
         "abbreviation": "lb"
     },
     "ounce": {
-        "name": "ounce",
+        "name": "unca",
         "description": "",
         "abbreviation": "oz"
     },
     "gram": {
-        "name": "グラム",
+        "name": "gram",
         "description": "",
         "abbreviation": "g"
     },
@@ -65,7 +65,7 @@
         "abbreviation": "kg"
     },
     "milligram": {
-        "name": "ミリグラム",
+        "name": "miligram",
         "description": "",
         "abbreviation": "mg"
     },
@@ -80,22 +80,22 @@
         "abbreviation": ""
     },
     "serving": {
-        "name": "serving",
+        "name": "porcija",
         "description": "",
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
+        "name": "glava",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
-        "name": "clove",
+        "name": "klinčić",
         "description": "",
         "abbreviation": ""
     },
     "can": {
-        "name": "缶",
+        "name": "limenka",
         "description": "",
         "abbreviation": ""
     }
