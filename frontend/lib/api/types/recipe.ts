@@ -179,12 +179,14 @@ export interface ParsedIngredient {
   ingredient: RecipeIngredient;
 }
 export interface RecipeIngredient {
-  title?: string;
-  note?: string;
+  quantity?: number;
   unit?: IngredientUnit | CreateIngredientUnit;
   food?: IngredientFood | CreateIngredientFood;
+  note?: string;
+  isFood?: boolean;
   disableAmount?: boolean;
-  quantity?: number;
+  display?: string;
+  title?: string;
   originalText?: string;
   referenceId?: string;
 }
@@ -303,6 +305,15 @@ export interface RecipeCommentUpdate {
 }
 export interface RecipeDuplicate {
   name?: string;
+}
+export interface RecipeIngredientBase {
+  quantity?: number;
+  unit?: IngredientUnit | CreateIngredientUnit;
+  food?: IngredientFood | CreateIngredientFood;
+  note?: string;
+  isFood?: boolean;
+  disableAmount?: boolean;
+  display?: string;
 }
 export interface RecipeLastMade {
   timestamp: string;

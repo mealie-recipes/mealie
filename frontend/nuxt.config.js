@@ -302,6 +302,16 @@ export default {
       target: process.env.API_URL || "http://localhost:9000",
       xfwd: true,
     },
+    "/docs": {
+      changeOrigin: true,
+      target: process.env.API_URL || "http://localhost:9000",
+      xfwd: true,
+    },
+    "/openapi.json": {
+      changeOrigin: true,
+      target: process.env.API_URL || "http://localhost:9000",
+      xfwd: true,
+    },
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa

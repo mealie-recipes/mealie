@@ -6,7 +6,7 @@
 */
 
 export type WebhookType = "mealplan";
-export type SupportedMigrations = "nextcloud" | "chowdown" | "copymethat" | "paprika" | "mealie_alpha";
+export type SupportedMigrations = "nextcloud" | "chowdown" | "copymethat" | "paprika" | "mealie_alpha" | "tandoor";
 
 export interface CreateGroupPreferences {
   privateGroup?: boolean;
@@ -247,70 +247,42 @@ export interface SetPermissions {
 }
 export interface ShoppingListAddRecipeParams {
   recipeIncrementQuantity?: number;
+  recipeIngredients?: RecipeIngredient[];
 }
-export interface ShoppingListCreate {
-  name?: string;
-  extras?: {
-    [k: string]: unknown;
-  };
-  createdAt?: string;
-  updateAt?: string;
-}
-export interface ShoppingListItemBase {
-  shoppingListId: string;
-  checked?: boolean;
-  position?: number;
-  isFood?: boolean;
-  note?: string;
+export interface RecipeIngredient {
   quantity?: number;
-  foodId?: string;
-  labelId?: string;
-  unitId?: string;
-  extras?: {
-    [k: string]: unknown;
-  };
-}
-export interface ShoppingListItemCreate {
-  shoppingListId: string;
-  checked?: boolean;
-  position?: number;
-  isFood?: boolean;
+  unit?: IngredientUnit | CreateIngredientUnit;
+  food?: IngredientFood | CreateIngredientFood;
   note?: string;
-  quantity?: number;
-  foodId?: string;
-  labelId?: string;
-  unitId?: string;
-  extras?: {
-    [k: string]: unknown;
-  };
-  recipeReferences?: ShoppingListItemRecipeRefCreate[];
-}
-export interface ShoppingListItemRecipeRefCreate {
-  recipeId: string;
-  recipeQuantity?: number;
-  recipeScale?: number;
-}
-export interface ShoppingListItemOut {
-  shoppingListId: string;
-  checked?: boolean;
-  position?: number;
   isFood?: boolean;
-  note?: string;
-  quantity?: number;
-  foodId?: string;
-  labelId?: string;
-  unitId?: string;
-  extras?: {
-    [k: string]: unknown;
-  };
-  id: string;
+  disableAmount?: boolean;
   display?: string;
-  food?: IngredientFood;
-  label?: MultiPurposeLabelSummary;
-  unit?: IngredientUnit;
-  recipeReferences?: ShoppingListItemRecipeRefOut[];
+  title?: string;
+  originalText?: string;
+  referenceId?: string;
+}
+export interface IngredientUnit {
+  name: string;
+  description?: string;
+  extras?: {
+    [k: string]: unknown;
+  };
+  fraction?: boolean;
+  abbreviation?: string;
+  useAbbreviation?: boolean;
+  id: string;
   createdAt?: string;
   updateAt?: string;
+}
+export interface CreateIngredientUnit {
+  name: string;
+  description?: string;
+  extras?: {
+    [k: string]: unknown;
+  };
+  fraction?: boolean;
+  abbreviation?: string;
+  useAbbreviation?: boolean;
 }
 export interface IngredientFood {
   name: string;
@@ -330,16 +302,84 @@ export interface MultiPurposeLabelSummary {
   groupId: string;
   id: string;
 }
-export interface IngredientUnit {
+export interface CreateIngredientFood {
   name: string;
   description?: string;
   extras?: {
     [k: string]: unknown;
   };
-  fraction?: boolean;
-  abbreviation?: string;
-  useAbbreviation?: boolean;
+  labelId?: string;
+}
+export interface ShoppingListCreate {
+  name?: string;
+  extras?: {
+    [k: string]: unknown;
+  };
+  createdAt?: string;
+  updateAt?: string;
+}
+export interface ShoppingListItemBase {
+  quantity?: number;
+  unit?: IngredientUnit | CreateIngredientUnit;
+  food?: IngredientFood | CreateIngredientFood;
+  note?: string;
+  isFood?: boolean;
+  disableAmount?: boolean;
+  display?: string;
+  shoppingListId: string;
+  checked?: boolean;
+  position?: number;
+  foodId?: string;
+  labelId?: string;
+  unitId?: string;
+  extras?: {
+    [k: string]: unknown;
+  };
+}
+export interface ShoppingListItemCreate {
+  quantity?: number;
+  unit?: IngredientUnit | CreateIngredientUnit;
+  food?: IngredientFood | CreateIngredientFood;
+  note?: string;
+  isFood?: boolean;
+  disableAmount?: boolean;
+  display?: string;
+  shoppingListId: string;
+  checked?: boolean;
+  position?: number;
+  foodId?: string;
+  labelId?: string;
+  unitId?: string;
+  extras?: {
+    [k: string]: unknown;
+  };
+  recipeReferences?: ShoppingListItemRecipeRefCreate[];
+}
+export interface ShoppingListItemRecipeRefCreate {
+  recipeId: string;
+  recipeQuantity?: number;
+  recipeScale?: number;
+}
+export interface ShoppingListItemOut {
+  quantity?: number;
+  unit?: IngredientUnit;
+  food?: IngredientFood;
+  note?: string;
+  isFood?: boolean;
+  disableAmount?: boolean;
+  display?: string;
+  shoppingListId: string;
+  checked?: boolean;
+  position?: number;
+  foodId?: string;
+  labelId?: string;
+  unitId?: string;
+  extras?: {
+    [k: string]: unknown;
+  };
   id: string;
+  label?: MultiPurposeLabelSummary;
+  recipeReferences?: ShoppingListItemRecipeRefOut[];
   createdAt?: string;
   updateAt?: string;
 }
@@ -358,12 +398,16 @@ export interface ShoppingListItemRecipeRefUpdate {
   shoppingListItemId: string;
 }
 export interface ShoppingListItemUpdate {
+  quantity?: number;
+  unit?: IngredientUnit | CreateIngredientUnit;
+  food?: IngredientFood | CreateIngredientFood;
+  note?: string;
+  isFood?: boolean;
+  disableAmount?: boolean;
+  display?: string;
   shoppingListId: string;
   checked?: boolean;
   position?: number;
-  isFood?: boolean;
-  note?: string;
-  quantity?: number;
   foodId?: string;
   labelId?: string;
   unitId?: string;
@@ -376,12 +420,16 @@ export interface ShoppingListItemUpdate {
  * Only used for bulk update operations where the shopping list item id isn't already supplied
  */
 export interface ShoppingListItemUpdateBulk {
+  quantity?: number;
+  unit?: IngredientUnit | CreateIngredientUnit;
+  food?: IngredientFood | CreateIngredientFood;
+  note?: string;
+  isFood?: boolean;
+  disableAmount?: boolean;
+  display?: string;
   shoppingListId: string;
   checked?: boolean;
   position?: number;
-  isFood?: boolean;
-  note?: string;
-  quantity?: number;
   foodId?: string;
   labelId?: string;
   unitId?: string;
@@ -511,4 +559,13 @@ export interface ShoppingListUpdate {
   groupId: string;
   id: string;
   listItems?: ShoppingListItemOut[];
+}
+export interface RecipeIngredientBase {
+  quantity?: number;
+  unit?: IngredientUnit | CreateIngredientUnit;
+  food?: IngredientFood | CreateIngredientFood;
+  note?: string;
+  isFood?: boolean;
+  disableAmount?: boolean;
+  display?: string;
 }

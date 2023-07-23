@@ -1,35 +1,35 @@
 {
     "generic": {
-        "server-error": "An unexpected error occurred"
+        "server-error": "发生意外错误"
     },
     "recipe": {
-        "unique-name-error": "Recipe names must be unique"
+        "unique-name-error": "食谱名称必须唯一"
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "No recipes match your rules"
+        "no-recipes-match-your-rules": "没有符合条件的食谱"
     },
     "user": {
         "user-updated": "User updated",
-        "password-updated": "Password updated",
-        "invalid-current-password": "Invalid current password",
+        "password-updated": "密码已更新",
+        "invalid-current-password": "当前密码无效",
         "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
     },
     "group": {
         "report-deleted": "Report deleted."
     },
     "exceptions": {
-        "permission_denied": "You do not have permission to perform this action",
-        "no-entry-found": "The requested resource was not found",
+        "permission_denied": "您没有执行此操作的权限",
+        "no-entry-found": "您要找的网页不存在",
         "integrity-error": "Database integrity error",
-        "username-conflict-error": "This username is already taken",
-        "email-conflict-error": "This email is already in use"
+        "username-conflict-error": "该用户名已被使用",
+        "email-conflict-error": "该邮箱已经被使用"
     },
     "notifications": {
-        "generic-created": "{name} was created",
-        "generic-updated": "{name} was updated",
-        "generic-created-with-url": "{name} has been created, {url}",
-        "generic-updated-with-url": "{name} has been updated, {url}",
-        "generic-duplicated": "{name} has been duplicated",
-        "generic-deleted": "{name} has been deleted"
+        "generic-created": "{name} 已创建",
+        "generic-updated": "{name} 已更新",
+        "generic-created-with-url": "{name} 已创建， {url}",
+        "generic-updated-with-url": "{name} 已创建， {url}",
+        "generic-duplicated": "{name} 已复制",
+        "generic-deleted": "{name} 已删除"
     }
 }
