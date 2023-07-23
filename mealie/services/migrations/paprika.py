@@ -39,9 +39,14 @@ class PaprikaMigrator(BaseMigrator):
 
         self.key_aliases = [
             MigrationAlias(key="recipeIngredient", alias="ingredients", func=lambda x: x.split("\n")),
-            MigrationAlias(key="orgUrl", alias="source_url", func=None),
+            MigrationAlias(key="orgURL", alias="source_url", func=None),
+            MigrationAlias(key="totalTime", alias="total_time", func=None),
+            MigrationAlias(key="prepTime", alias="prep_time", func=None),
             MigrationAlias(key="performTime", alias="cook_time", func=None),
             MigrationAlias(key="recipeYield", alias="servings", func=None),
+            MigrationAlias(
+                key="tags", alias="categories", func=None
+            ),  # Paprika doesn't support tags, and instead puts tags in categories
             MigrationAlias(key="image", alias="image_url", func=None),
             MigrationAlias(key="dateAdded", alias="created", func=lambda x: x[: x.find(" ")]),
             MigrationAlias(

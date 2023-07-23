@@ -1,3 +1,4 @@
+import re
 import tempfile
 import zipfile
 from dataclasses import dataclass
@@ -43,7 +44,10 @@ class NextcloudMigrator(BaseMigrator):
 
         self.key_aliases = [
             MigrationAlias(key="tags", alias="keywords", func=split_by_comma),
-            MigrationAlias(key="org_url", alias="url", func=None),
+            MigrationAlias(key="orgURL", alias="url", func=None),
+            MigrationAlias(key="totalTime", alias="totalTime", func=parse_time),
+            MigrationAlias(key="prepTime", alias="prepTime", func=parse_time),
+            MigrationAlias(key="performTime", alias="cookTime", func=parse_time),
         ]
 
     def _migrate(self) -> None:
@@ -69,3 +73,24 @@ class NextcloudMigrator(BaseMigrator):
                     nc_dir = nextcloud_dirs[slug]
                     if nc_dir.image:
                         import_image(nc_dir.image, recipe_id)
+
+
+def parse_time(time: str) -> str:
+    """Parses a Nextcloud time string in the format 'PT{hours}H{minutes}M{seconds}S'"""
+
+    # TODO: make singular and plural translatable
+    hours = {"singular": "hour", "plural": "hours", "exp": r"\d+(?=H)"}
+    minutes = {"singular": "minute", "plural": "minutes", "exp": r"\d+(?=M)"}
+    seconds = {"singular": "second", "plural": "seconds", "exp": r"\d+(?=S)"}
+
+    return_strings: list[str] = []
+    for time_part in [hours, minutes, seconds]:
+        val_search = re.search(time_part["exp"], time)
+        if not val_search:
+            continue
+        val = val_search.group()
+        if val == "0":
+            continue
+        return_strings.append(f'{val} {time_part["singular"] if val == "1" else time_part["plural"]}')
+
+    return " ".join(return_strings) if return_strings else time
