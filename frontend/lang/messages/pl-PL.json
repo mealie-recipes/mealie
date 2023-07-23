@@ -995,9 +995,9 @@
         "line-mode": "Tryb Linii (domyślny)",
         "line-mode-desc": "W trybie linii tekst będzie propagowany przez pozostawienie oryginalnych punktów cięcia. Ten tryb jest przydatny podczas używania dodawania zbiorczego do listy składników, gdzie jeden składnik jest jednym wierszem.",
         "block-mode": "Tryb Blokowy",
-        "block-mode-desc": "In block mode, the text will be split in blocks. This mode is useful when bulk adding instructions that are usually written in paragraphs.",
+        "block-mode-desc": "W trybie blokowym tekst zostanie podzielony na bloki. Ten tryb jest przydatny przy dodawaniu zbiorczym kroków, które są zazwyczaj zapisane w akapitach.",
         "flat-mode": "Tryb Płaski",
-        "flat-mode-desc": "In flat mode, the text will be added to the selected recipe field with no line breaks."
+        "flat-mode-desc": "W trybie płaskim tekst zostanie dodany do wybranego pola przepisu bez przerw."
       }
     }
   },
@@ -1038,7 +1038,7 @@
       "actions-title": "Działania"
     },
     "ingredients-natural-language-processor": "Przetwarzacz języka naturalnego składników",
-    "ingredients-natural-language-processor-explanation": "Mealie uses Conditional Random Fields (CRFs) for parsing and processing ingredients. The model used for ingredients is based off a data set of over 100,000 ingredients from a dataset compiled by the New York Times. Note that as the model is trained in English only, you may have varied results when using the model in other languages. This page is a playground for testing the model.",
+    "ingredients-natural-language-processor-explanation": "Mealie korzysta z Warunkowych Pól Losowych (CRF) w celu przetwarzania i analizowania składników. Użyty model opiera się na danych z ponad 100.000 składników ze zbioru danych opracowanego przez redakcję New York Times. Warto zaznaczyć, że z uwagi na to, że model był szkolony wyjącznie w języku angielskim, mogą się pojawić różne wyniki podczas korzystania z modelu w innych językach. Ta strona jest platformą do testowania modelu.",
     "ingredients-natural-language-processor-explanation-2": "It's not perfect, but it yields great results in general and is a good starting point for manually parsing ingredients into individual fields. Alternatively, you can also use the \"Brute\" processor that uses a pattern matching technique to identify ingredients.",
     "nlp": "NLP",
     "brute": "Brut",
