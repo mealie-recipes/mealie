@@ -700,7 +700,7 @@
     "shopping-lists": "Inköpslistor",
     "food": "Mat",
     "note": "Anteckning",
-    "label": "Label",
+    "label": "Etikett",
     "linked-item-warning": "This item is linked to one or more recipe. Adjusting the units or foods will yield unexpected results when adding or removing the recipe from this list.",
     "toggle-food": "Växla mat",
     "manage-labels": "Manage Labels",
