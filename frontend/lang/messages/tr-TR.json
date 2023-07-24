@@ -333,7 +333,7 @@
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
-      "description-long": "Mealie can import recipes from Tandoor. Export your data in the \"Default\" format, then upload the .zip below.",
+      "description-long": "Mealie, Tandoor'dan tarifleri içe aktarabilir. Verilerinizi \"Varsayılan\" biçimde dışa aktarın, ardından aşağıdaki .zip dosyasını yükleyin.",
       "title": "Tandoor Recipes"
     },
     "recipe-data-migrations": "Recipe Data Migrations",
