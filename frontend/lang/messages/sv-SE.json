@@ -837,7 +837,7 @@
     "account-locked-please-try-again-later": "Account Locked. Please try again later",
     "user-favorites": "User Favorites",
     "password-strength-values": {
-      "weak": "Weak",
+      "weak": "Svagt",
       "good": "Good",
       "strong": "Strong",
       "very-strong": "Very Strong"
