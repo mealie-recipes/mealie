@@ -243,7 +243,7 @@ class Recipe(RecipeSummary):
 
     @classmethod
     def filter_search_query(
-        cls, query: Select, session: Session, search_type: SearchType, search: str, search_list: list[str]
+        cls, db_model, query: Select, session: Session, search_type: SearchType, search: str, search_list: list[str]
     ) -> Select:
         """
         1. token search looks for any individual exact hit in name, description, and ingredients
@@ -268,8 +268,7 @@ class Recipe(RecipeSummary):
                 .all()
             )
 
-            # default = 0.7 is too strict for effective fuzzing
-            session.execute(text("set pg_trgm.word_similarity_threshold = 0.5;"))
+            session.execute(text(f"set pg_trgm.word_similarity_threshold = {cls._fuzzy_similarity_threshold};"))
             return query.filter(
                 or_(
                     RecipeModel.name_normalized.op("%>")(search),

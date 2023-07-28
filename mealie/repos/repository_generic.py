@@ -399,4 +399,4 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
     def add_search_to_query(self, query: Select, search: str) -> Select:
         search_filter = SearchFilter(self.session, search)
-        return search_filter.filter_query_by_search(query, self.schema)
+        return search_filter.filter_query_by_search(query, self.schema, self.model)

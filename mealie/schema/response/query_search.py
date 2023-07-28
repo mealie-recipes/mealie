@@ -4,6 +4,7 @@ from sqlalchemy import Select
 from sqlalchemy.orm import Session
 from text_unidecode import unidecode
 
+from ...db.models._model_base import SqlAlchemyBase
 from .._mealie import MealieModel, SearchType
 
 
@@ -59,5 +60,5 @@ class SearchFilter:
         self.search = self._normalize_search(search, self.search_type)
         self.search_list = self._build_search_list(self.search)
 
-    def filter_query_by_search(self, query: Select, schema: type[MealieModel]) -> Select:
-        return schema.filter_search_query(query, self.session, self.search_type, self.search, self.search_list)
+    def filter_query_by_search(self, query: Select, schema: type[MealieModel], model: type[SqlAlchemyBase]) -> Select:
+        return schema.filter_search_query(model, query, self.session, self.search_type, self.search, self.search_list)
