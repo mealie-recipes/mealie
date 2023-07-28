@@ -16,6 +16,7 @@ from mealie.db.models._model_base import SqlAlchemyBase
 from mealie.schema._mealie import MealieModel
 from mealie.schema.response.pagination import OrderDirection, PaginationBase, PaginationQuery
 from mealie.schema.response.query_filter import QueryFilter
+from mealie.schema.response.query_search import SearchFilter
 
 Schema = TypeVar("Schema", bound=MealieModel)
 Model = TypeVar("Model", bound=SqlAlchemyBase)
@@ -291,7 +292,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
             q = self._query(override_schema=eff_schema).filter(attribute_name == attr_match)
             return [eff_schema.from_orm(x) for x in self.session.execute(q).scalars().all()]
 
-    def page_all(self, pagination: PaginationQuery, override=None) -> PaginationBase[Schema]:
+    def page_all(self, pagination: PaginationQuery, override=None, search: str | None = None) -> PaginationBase[Schema]:
         """
         pagination is a method to interact with the filtered database table and return a paginated result
         using the PaginationBase that provides several data points that are needed to manage pagination
@@ -307,6 +308,9 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
         fltr = self._filter_builder()
         q = q.filter_by(**fltr)
+        if search:
+            q = self.add_search_to_query(q, search)
+
         q, count, total_pages = self.add_pagination_to_query(q, pagination)
 
         # Apply options late, so they do not get used for counting
@@ -392,3 +396,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
                 query = query.order_by(case_stmt)
 
         return query.limit(pagination.per_page).offset((pagination.page - 1) * pagination.per_page), count, total_pages
+
+    def add_search_to_query(self, query: Select, search: str) -> Select:
+        search_filter = SearchFilter(self.session, search)
+        return search_filter.filter_query_by_search(query, self.schema)

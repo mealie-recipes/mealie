@@ -7,11 +7,12 @@ from uuid import uuid4
 
 from pydantic import UUID4, BaseModel, Field, validator
 from slugify import slugify
-from sqlalchemy.orm import joinedload, selectinload
+from sqlalchemy import Select, desc, func, or_, select, text
+from sqlalchemy.orm import Session, joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.core.config import get_app_dirs
-from mealie.schema._mealie import MealieModel
+from mealie.schema._mealie import MealieModel, SearchType
 from mealie.schema.response.pagination import PaginationBase
 
 from ...db.models.recipe import (
@@ -239,6 +240,69 @@ class Recipe(RecipeSummary):
             # for whatever reason, joinedload can mess up the order here, so use selectinload just this once
             selectinload(RecipeModel.notes),
         ]
+
+    @classmethod
+    def filter_search_query(
+        cls, query: Select, session: Session, search_type: SearchType, search: str, search_list: list[str]
+    ) -> Select:
+        """
+        1. token search looks for any individual exact hit in name, description, and ingredients
+        2. fuzzy search looks for trigram hits in name, description, and ingredients
+        3. Sort order is determined by closeness to the recipe name
+        Should search also look at tags?
+        """
+
+        if search_type is SearchType.fuzzy:
+            # I would prefer to just do this in the recipe_ingredient.any part of the main query, but it turns out
+            # that at least sqlite wont use indexes for that correctly anymore and takes a big hit, so prefiltering it is
+            ingredient_ids = (
+                session.execute(
+                    select(RecipeIngredientModel.id).filter(
+                        or_(
+                            RecipeIngredientModel.note_normalized.op("%>")(search),
+                            RecipeIngredientModel.original_text_normalized.op("%>")(search),
+                        )
+                    )
+                )
+                .scalars()
+                .all()
+            )
+
+            # default = 0.7 is too strict for effective fuzzing
+            session.execute(text("set pg_trgm.word_similarity_threshold = 0.5;"))
+            return query.filter(
+                or_(
+                    RecipeModel.name_normalized.op("%>")(search),
+                    RecipeModel.description_normalized.op("%>")(search),
+                    RecipeModel.recipe_ingredient.any(RecipeIngredientModel.id.in_(ingredient_ids)),
+                )
+            ).order_by(  # trigram ordering could be too slow on million record db, but is fine with thousands.
+                func.least(
+                    RecipeModel.name_normalized.op("<->>")(search),
+                )
+            )
+
+        else:
+            ingredient_ids = (
+                session.execute(
+                    select(RecipeIngredientModel.id).filter(
+                        or_(
+                            *[RecipeIngredientModel.note_normalized.like(f"%{ns}%") for ns in search_list],
+                            *[RecipeIngredientModel.original_text_normalized.like(f"%{ns}%") for ns in search_list],
+                        )
+                    )
+                )
+                .scalars()
+                .all()
+            )
+
+            return query.filter(
+                or_(
+                    *[RecipeModel.name_normalized.like(f"%{ns}%") for ns in search_list],
+                    *[RecipeModel.description_normalized.like(f"%{ns}%") for ns in search_list],
+                    RecipeModel.recipe_ingredient.any(RecipeIngredientModel.id.in_(ingredient_ids)),
+                )
+            ).order_by(desc(RecipeModel.name_normalized.like(f"%{search}%")))
 
 
 class RecipeLastMade(BaseModel):

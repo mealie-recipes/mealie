@@ -1,13 +1,21 @@
 from __future__ import annotations
 
 from collections.abc import Sequence
+from enum import Enum
 from typing import Protocol, TypeVar
 
 from humps.main import camelize
 from pydantic import UUID4, BaseModel
+from sqlalchemy import Select
+from sqlalchemy.orm import Session
 from sqlalchemy.orm.interfaces import LoaderOption
 
 T = TypeVar("T", bound=BaseModel)
+
+
+class SearchType(Enum):
+    fuzzy = "fuzzy"
+    tokenized = "tokenized"
 
 
 class MealieModel(BaseModel):
@@ -58,6 +66,18 @@ class MealieModel(BaseModel):
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
         return []
+
+    @classmethod
+    def filter_search_query(
+        cls, query: Select, session: Session, search_type: SearchType, search: str, search_list: list[str]
+    ) -> Select:
+        """
+        Filters a search query based on model attributes
+
+        Should be overridden by any classes supporting search
+        """
+
+        raise AttributeError("Not Implemented")
 
 
 class HasUUID(Protocol):
