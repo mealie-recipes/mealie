@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, ClassVar
 from uuid import uuid4
 
 from pydantic import UUID4, BaseModel, Field, validator
@@ -37,6 +37,8 @@ class RecipeTag(MealieModel):
     id: UUID4 | None = None
     name: str
     slug: str
+
+    _searchable_properties: ClassVar[list[str]] = ["name"]
 
     class Config:
         orm_mode = True

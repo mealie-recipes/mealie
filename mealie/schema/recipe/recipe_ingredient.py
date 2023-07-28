@@ -3,6 +3,7 @@ from __future__ import annotations
 import datetime
 import enum
 from fractions import Fraction
+from typing import ClassVar
 from uuid import UUID, uuid4
 
 from pydantic import UUID4, Field, validator
@@ -50,6 +51,8 @@ class IngredientFood(CreateIngredientFood):
     created_at: datetime.datetime | None
     update_at: datetime.datetime | None
 
+    _searchable_properties: ClassVar[list[str]] = ["name", "description"]
+
     class Config:
         orm_mode = True
         getter_dict = ExtrasGetterDict
@@ -77,6 +80,8 @@ class IngredientUnit(CreateIngredientUnit):
     id: UUID4
     created_at: datetime.datetime | None
     update_at: datetime.datetime | None
+
+    _searchable_properties: ClassVar[list[str]] = ["name", "abbreviation", "description"]
 
     class Config:
         orm_mode = True
