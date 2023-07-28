@@ -22,7 +22,7 @@ class MultiPurposeLabelUpdate(MultiPurposeLabelSave):
 
 
 class MultiPurposeLabelSummary(MultiPurposeLabelUpdate):
-    pass
+    _searchable_properties: ClassVar[list[str]] = ["name"]
 
     class Config:
         orm_mode = True
@@ -33,7 +33,5 @@ class MultiPurposeLabelPagination(PaginationBase):
 
 
 class MultiPurposeLabelOut(MultiPurposeLabelUpdate):
-    _searchable_properties: ClassVar[list[str]] = ["name"]
-
     class Config:
         orm_mode = True
