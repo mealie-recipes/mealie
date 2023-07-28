@@ -309,7 +309,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
         fltr = self._filter_builder()
         q = q.filter_by(**fltr)
         if search:
-            q = self.add_search_to_query(q, search)
+            q = self.add_search_to_query(q, eff_schema, search)
 
         q, count, total_pages = self.add_pagination_to_query(q, pagination)
 
@@ -397,6 +397,6 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
         return query.limit(pagination.per_page).offset((pagination.page - 1) * pagination.per_page), count, total_pages
 
-    def add_search_to_query(self, query: Select, search: str) -> Select:
+    def add_search_to_query(self, query: Select, schema: type[Schema], search: str) -> Select:
         search_filter = SearchFilter(self.session, search)
-        return search_filter.filter_query_by_search(query, self.schema, self.model)
+        return search_filter.filter_query_by_search(query, schema, self.model)

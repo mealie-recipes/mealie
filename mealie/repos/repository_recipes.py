@@ -201,7 +201,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             )
             q = q.filter(*filters)
         if search:
-            q = self.add_search_to_query(q, search)
+            q = self.add_search_to_query(q, self.schema, search)
 
         q, count, total_pages = self.add_pagination_to_query(q, pagination_result)
 
