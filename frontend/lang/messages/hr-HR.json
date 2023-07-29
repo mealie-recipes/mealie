@@ -332,6 +332,10 @@
       "description-long": "Mealie može uvesti recepte iz Mealie aplikacije iz verzije prije 1.0. Izvezite svoje recepte iz stare instance i prenesite zip datoteku u nastavku. Imajte na umu da se mogu uvesti samo recepti iz izvoza.",
       "title": "Mealie aplikacije iz verzije prije 1.0"
     },
+    "tandoor": {
+      "description-long": "Mealie can import recipes from Tandoor. Export your data in the \"Default\" format, then upload the .zip below.",
+      "title": "Tandoor Recipes"
+    },
     "recipe-data-migrations": "Migracije Podataka Recepata",
     "recipe-data-migrations-explanation": "Recepti se mogu prenijeti s druge podržane aplikacije na Mealie. To je sjajan način za započetak korištenja Mealieja.",
     "choose-migration-type": "Odaberi Vrstu Migracije",

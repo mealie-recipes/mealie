@@ -332,6 +332,10 @@
       "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
       "title": "Mealie Pre v1.0"
     },
+    "tandoor": {
+      "description-long": "Mealie can import recipes from Tandoor. Export your data in the \"Default\" format, then upload the .zip below.",
+      "title": "Tandoor Recipes"
+    },
     "recipe-data-migrations": "Recipe Data Migrations",
     "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie.",
     "choose-migration-type": "Choose Migration Type",
@@ -696,12 +700,12 @@
     "shopping-lists": "Inköpslistor",
     "food": "Mat",
     "note": "Anteckning",
-    "label": "Label",
+    "label": "Etikett",
     "linked-item-warning": "This item is linked to one or more recipe. Adjusting the units or foods will yield unexpected results when adding or removing the recipe from this list.",
     "toggle-food": "Växla mat",
-    "manage-labels": "Manage Labels",
+    "manage-labels": "Hantera etiketter",
     "are-you-sure-you-want-to-delete-this-item": "Are you sure you want to delete this item?",
-    "copy-as-text": "Copy as Text",
+    "copy-as-text": "Kopiera som text",
     "copy-as-markdown": "Copy as Markdown",
     "delete-checked": "Delete Checked",
     "toggle-label-sort": "Toggle Label Sort",
@@ -710,7 +714,7 @@
     "check-all-items": "Check All Items",
     "linked-recipes-count": "No Linked Recipes|One Linked Recipe|{count} Linked Recipes",
     "items-checked-count": "No items checked|One item checked|{count} items checked",
-    "no-label": "No Label",
+    "no-label": "Ingen etikett",
     "completed-on": "Completed on {date}"
   },
   "sidebar": {
@@ -826,14 +830,14 @@
     "enable-advanced-content": "Aktivera avancerade funktioner",
     "enable-advanced-content-description": "Aktiverar avancerade funktioner som receptskalning, API-nycklar, Webhooks och datahantering. Oroa dig inte, du kan alltid ändra detta senare",
     "favorite-recipes": "Favoritrecept",
-    "email-or-username": "Email or Username",
-    "remember-me": "Remember Me",
+    "email-or-username": "E-post eller användarnamn",
+    "remember-me": "Kom ihåg mig",
     "please-enter-your-email-and-password": "Please enter your email and password",
     "invalid-credentials": "Invalid Credentials",
     "account-locked-please-try-again-later": "Account Locked. Please try again later",
     "user-favorites": "User Favorites",
     "password-strength-values": {
-      "weak": "Weak",
+      "weak": "Svagt",
       "good": "Good",
       "strong": "Strong",
       "very-strong": "Very Strong"
@@ -882,7 +886,7 @@
       "merging-unit-into-unit": "Merging {0} into {1}",
       "create-unit": "Create Unit",
       "abbreviation": "Abbreviation",
-      "description": "Description",
+      "description": "Beskrivning",
       "display-as-fraction": "Display as Fraction",
       "use-abbreviation": "Use Abbreviation",
       "edit-unit": "Edit Unit",
@@ -892,9 +896,9 @@
     },
     "labels": {
       "seed-dialog-text": "Fyll databasen med vanliga etiketter baserade på ditt språk.",
-      "edit-label": "Edit Label",
-      "new-label": "New Label",
-      "labels": "Labels"
+      "edit-label": "Redigera etikett",
+      "new-label": "Ny etikett",
+      "labels": "Etiketter"
     },
     "recipes": {
       "purge-exports": "Purge Exports",
@@ -913,8 +917,8 @@
       "update-settings": "Update Settings",
       "tag-recipes": "Tag Recipes",
       "categorize-recipes": "Categorize Recipes",
-      "export-recipes": "Export Recipes",
-      "delete-recipes": "Delete Recipes",
+      "export-recipes": "Exportera recept",
+      "delete-recipes": "Radera recept",
       "source-unit-will-be-deleted": "Source Unit will be deleted"
     },
     "seed-data": "Exempeldata",
@@ -922,7 +926,7 @@
     "data-management": "Data Management",
     "data-management-description": "Select which data set you want to make changes to.",
     "select-data": "Select Data",
-    "select-language": "Select Language",
+    "select-language": "Välj språk",
     "columns": "Columns",
     "combine": "Combine"
   },
@@ -941,7 +945,7 @@
     "group-name-is-taken": "Gruppnamnet är upptaget",
     "username-is-taken": "Användarnamnet är upptaget",
     "email-is-taken": "E-postadressen är upptagen",
-    "this-field-is-required": "This Field is Required"
+    "this-field-is-required": "Detta fält är obligatoriskt"
   },
   "export": {
     "export": "Exportera",
@@ -1019,7 +1023,7 @@
         "title-recipes-directory": "Recipes Directory (recipes)",
         "title-user-directory": "User Directory (user)"
       },
-      "action-delete-log-files-name": "Delete Log Files",
+      "action-delete-log-files-name": "Radera loggfiler",
       "action-delete-log-files-description": "Deletes all the log files",
       "action-clean-directories-name": "Clean Directories",
       "action-clean-directories-description": "Removes all the recipe folders that are not valid UUIDs",
@@ -1049,7 +1053,7 @@
     "parser": "Parser",
     "background-tasks": "Background Tasks",
     "background-tasks-description": "Here you can view all the running background tasks and their status",
-    "no-logs-found": "No Logs Found",
+    "no-logs-found": "Inga loggar hittade",
     "tasks": "Tasks"
   },
   "profile": {
