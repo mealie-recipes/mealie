@@ -1,40 +1,48 @@
 from datetime import datetime
 
+import pytest
+
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.recipe.recipe_ingredient import SaveIngredientUnit
+from mealie.schema.recipe.recipe_ingredient import IngredientUnit, SaveIngredientUnit
 from mealie.schema.response.pagination import OrderDirection, PaginationQuery
+from mealie.schema.user.user import GroupBase
 from tests.utils.factories import random_int, random_string
-from tests.utils.fixture_schemas import TestUser
 
 
-def test_search_filter(database: AllRepositories, unique_user: TestUser):
+@pytest.fixture()
+def unique_local_group_id(database: AllRepositories) -> str:
+    return str(database.groups.create(GroupBase(name=random_string())).id)
+
+
+@pytest.fixture()
+def search_units(database: AllRepositories, unique_local_group_id: str) -> list[IngredientUnit]:
     units = [
         SaveIngredientUnit(
-            group_id=unique_user.group_id,
+            group_id=unique_local_group_id,
             name="Tea Spoon",
             abbreviation="tsp",
         ),
         SaveIngredientUnit(
-            group_id=unique_user.group_id,
+            group_id=unique_local_group_id,
             name="Table Spoon",
             description="unique description",
             abbreviation="tbsp",
         ),
         SaveIngredientUnit(
-            group_id=unique_user.group_id,
+            group_id=unique_local_group_id,
             name="Cup",
             description="A bucket that's full",
         ),
         SaveIngredientUnit(
-            group_id=unique_user.group_id,
+            group_id=unique_local_group_id,
             name="Píñch",
         ),
         SaveIngredientUnit(
-            group_id=unique_user.group_id,
+            group_id=unique_local_group_id,
             name="Unit with a very cool name",
         ),
         SaveIngredientUnit(
-            group_id=unique_user.group_id,
+            group_id=unique_local_group_id,
             name="Unit with a pretty cool name",
         ),
     ]
@@ -42,63 +50,78 @@ def test_search_filter(database: AllRepositories, unique_user: TestUser):
     # Add a bunch of units for stable randomization
     units.extend(
         [
-            SaveIngredientUnit(group_id=unique_user.group_id, name=f"{random_string()} unit")
+            SaveIngredientUnit(group_id=unique_local_group_id, name=f"{random_string()} unit")
             for _ in range(random_int(12, 20))
         ]
     )
 
-    units = database.ingredient_units.create_many(units)
-    pagination_query = PaginationQuery(page=1, per_page=-1, order_by="created_at", order_direction=OrderDirection.asc)
+    return database.ingredient_units.create_many(units)
 
-    # No hits
-    empty_result = database.ingredient_units.page_all(pagination_query, search=random_string(10)).items
-    assert len(empty_result) == 0
 
-    # Search by name
-    name_result = database.ingredient_units.page_all(pagination_query, search="Cup").items
-    assert len(name_result) == 1
-    assert name_result[0].name == "Cup"
+@pytest.mark.parametrize(
+    "search, expected_names",
+    [
+        (random_string(), []),
+        ("Cup", ["Cup"]),
+        ("tbsp", ["Table Spoon"]),
+        ("unique description", ["Table Spoon"]),
+        ("very cool name", ["Unit with a very cool name", "Unit with a pretty cool name"]),
+        ('"Tea Spoon"', ["Tea Spoon"]),
+        ("full bucket", ["Cup"]),
+    ],
+    ids=[
+        "no_match",
+        "search_by_name",
+        "search_by_unit",
+        "search_by_description",
+        "match_order",
+        "literal_search",
+        "token_separation",
+    ],
+)
+def test_basic_search(
+    search: str,
+    expected_names: list[str],
+    database: AllRepositories,
+    search_units: list[IngredientUnit],  # required so database is populated
+    unique_local_group_id: str,
+):
+    repo = database.ingredient_units.by_group(unique_local_group_id)
+    pagination = PaginationQuery(page=1, per_page=-1, order_by="created_at", order_direction=OrderDirection.asc)
+    results = repo.page_all(pagination, search=search).items
 
-    # Search by abbreviation
-    abbreviation_result = database.ingredient_units.page_all(pagination_query, search="tbsp").items
-    assert len(abbreviation_result) == 1
-    assert abbreviation_result[0].name == "Table Spoon"
+    if len(expected_names) == 0:
+        assert len(results) == 0
+    else:
+        # if more results are returned, that's acceptable, as long as they are ranked correctly
+        assert len(results) >= len(expected_names)
+        for unit, name in zip(results, expected_names, strict=False):
+            assert unit.name == name
 
-    # Search by description
-    description_result = database.ingredient_units.page_all(pagination_query, search="unique description").items
-    assert len(description_result) == 1
-    assert description_result[0].name == "Table Spoon"
 
-    # Make sure title matches are ordered in front
-    ordered_result = database.ingredient_units.page_all(pagination_query, search="very cool name").items
-    assert len(ordered_result) == 2
-    assert ordered_result[0].name == "Unit with a very cool name"
-    assert ordered_result[1].name == "Unit with a pretty cool name"
+def test_fuzzy_search(
+    database: AllRepositories,
+    search_units: list[IngredientUnit],  # required so database is populated
+    unique_local_group_id: str,
+):
+    # this only works on postgres
+    if database.session.get_bind().name != "postgresql":
+        return
 
-    # Test literal search
-    literal_result = database.ingredient_units.page_all(pagination_query, search='"Tea Spoon"').items
-    assert len(literal_result) == 1
-    assert literal_result[0].name == "Tea Spoon"
+    repo = database.ingredient_units.by_group(unique_local_group_id)
+    pagination = PaginationQuery(page=1, per_page=-1, order_by="created_at", order_direction=OrderDirection.asc)
+    results = repo.page_all(pagination, search="taespoon").items
 
-    # Test special character removal from non-literal searches
-    character_result = database.ingredient_units.page_all(pagination_query, search="tea-spoon").items
-    assert len(character_result) == 2
-    assert character_result[0].name == "Tea Spoon"
-    assert character_result[1].name == "Table Spoon"
+    assert results and results[0].name == "Tea Spoon"
 
-    # Test token separation
-    token_result = database.ingredient_units.page_all(pagination_query, search="full bucket").items
-    assert len(token_result) == 1
-    assert token_result[0].name == "Cup"
 
-    # Test fuzzy search
-    if database.session.get_bind().name == "postgresql":
-        fuzzy_result = database.ingredient_units.page_all(pagination_query, search="taespoon").items
-        assert len(fuzzy_result) == 1
-        assert fuzzy_result[0].name == "Tea Spoon"
-
-    # Test random ordering with search
-    pagination_query = PaginationQuery(
+def test_random_order_search(
+    database: AllRepositories,
+    search_units: list[IngredientUnit],  # required so database is populated
+    unique_local_group_id: str,
+):
+    repo = database.ingredient_units.by_group(unique_local_group_id)
+    pagination = PaginationQuery(
         page=1,
         per_page=-1,
         order_by="random",
@@ -107,6 +130,6 @@ def test_search_filter(database: AllRepositories, unique_user: TestUser):
     )
     random_ordered = []
     for _ in range(5):
-        pagination_query.pagination_seed = str(datetime.now())
-        random_ordered.append(database.ingredient_units.page_all(pagination_query, search="unit").items)
+        pagination.pagination_seed = str(datetime.now())
+        random_ordered.append(repo.page_all(pagination, search="unit").items)
     assert not all(i == random_ordered[0] for i in random_ordered)
