@@ -21,14 +21,13 @@ class SearchFilter:
     remove_quotes_regex = re.compile(r"""['"](.*)['"]""")
 
     @classmethod
-    def _normalize_search(cls, search: str, search_type: SearchType, normalize_characters: bool) -> str:
+    def _normalize_search(cls, search: str, normalize_characters: bool) -> str:
+        search = search.translate(str.maketrans(cls.punctuation, " " * len(cls.punctuation)))
+
         if normalize_characters:
             search = unidecode(search).lower().strip()
         else:
             search = search.strip()
-
-        if search_type is SearchType.tokenized:
-            search = search.translate(str.maketrans(cls.punctuation, " " * len(cls.punctuation)))
 
         return search
 
@@ -61,7 +60,7 @@ class SearchFilter:
             self.search_type = SearchType.fuzzy
 
         self.session = session
-        self.search = self._normalize_search(search, self.search_type, normalize_characters)
+        self.search = self._normalize_search(search, normalize_characters)
         self.search_list = self._build_search_list(self.search)
 
     def filter_query_by_search(self, query: Select, schema: type[MealieModel], model: type[SqlAlchemyBase]) -> Select:
