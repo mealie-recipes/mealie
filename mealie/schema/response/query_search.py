@@ -21,8 +21,12 @@ class SearchFilter:
     remove_quotes_regex = re.compile(r"""['"](.*)['"]""")
 
     @classmethod
-    def _normalize_search(cls, search: str, search_type: SearchType) -> str:
-        search = unidecode(search).lower().strip()
+    def _normalize_search(cls, search: str, search_type: SearchType, normalize_characters: bool) -> str:
+        if normalize_characters:
+            search = unidecode(search).lower().strip()
+        else:
+            search = search.strip()
+
         if search_type is SearchType.tokenized:
             search = search.translate(str.maketrans(cls.punctuation, " " * len(cls.punctuation)))
 
@@ -50,14 +54,14 @@ class SearchFilter:
         # remove padding whitespace inside quotes
         return [x.strip() for x in search_list]
 
-    def __init__(self, session: Session, search: str) -> None:
+    def __init__(self, session: Session, search: str, normalize_characters: bool = False) -> None:
         if session.get_bind().name != "postgresql" or self.quoted_regex.search(search.strip()):
             self.search_type = SearchType.tokenized
         else:
             self.search_type = SearchType.fuzzy
 
         self.session = session
-        self.search = self._normalize_search(search, self.search_type)
+        self.search = self._normalize_search(search, self.search_type, normalize_characters)
         self.search_list = self._build_search_list(self.search)
 
     def filter_query_by_search(self, query: Select, schema: type[MealieModel], model: type[SqlAlchemyBase]) -> Select:

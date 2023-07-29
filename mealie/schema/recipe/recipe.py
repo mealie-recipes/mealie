@@ -81,6 +81,7 @@ class CreateRecipe(MealieModel):
 
 class RecipeSummary(MealieModel):
     id: UUID4 | None
+    _normalize_search: ClassVar[bool] = True
 
     user_id: UUID4 = Field(default_factory=uuid4)
     group_id: UUID4 = Field(default_factory=uuid4)

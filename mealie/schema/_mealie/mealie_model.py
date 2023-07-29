@@ -22,6 +22,7 @@ class SearchType(Enum):
 
 class MealieModel(BaseModel):
     _fuzzy_similarity_threshold: ClassVar[float] = 0.5
+    _normalize_search: ClassVar[bool] = False
     _searchable_properties: ClassVar[list[str]] = []
     """
     Searchable properties for the search API.
