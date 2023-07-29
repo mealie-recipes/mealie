@@ -3,7 +3,7 @@ from typing import cast
 
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_recipes import RepositoryRecipes
-from mealie.schema.recipe import RecipeIngredient, SaveIngredientFood, RecipeStep
+from mealie.schema.recipe import RecipeIngredient, SaveIngredientFood
 from mealie.schema.recipe.recipe import Recipe, RecipeCategory, RecipeSummary
 from mealie.schema.recipe.recipe_category import CategoryOut, CategorySave, TagSave
 from mealie.schema.recipe.recipe_tool import RecipeToolSave
@@ -596,7 +596,6 @@ def test_recipe_repo_search(database: AllRepositories, unique_user: TestUser):
 
     # Test string normalization
     normalized_result = database.recipes.page_all(pagination_query, search="ratat").items
-    print([r.name for r in normalized_result])
     assert len(normalized_result) == 1
     assert normalized_result[0].name == "Rátàtôuile"
 

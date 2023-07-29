@@ -303,7 +303,8 @@ class RepositoryGeneric(Generic[Schema, Model]):
         as the override, as the type system is not able to infer the result of this method.
         """
         eff_schema = override or self.schema
-
+        # Copy this, because calling methods (e.g. tests) might rely on it not getting mutated
+        pagination_result = pagination.copy()
         q = self._query(override_schema=eff_schema, with_options=False)
 
         fltr = self._filter_builder()
@@ -311,7 +312,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
         if search:
             q = self.add_search_to_query(q, eff_schema, search)
 
-        q, count, total_pages = self.add_pagination_to_query(q, pagination)
+        q, count, total_pages = self.add_pagination_to_query(q, pagination_result)
 
         # Apply options late, so they do not get used for counting
         q = q.options(*eff_schema.loader_options())
@@ -322,8 +323,8 @@ class RepositoryGeneric(Generic[Schema, Model]):
             self.session.rollback()
             raise e
         return PaginationBase(
-            page=pagination.page,
-            per_page=pagination.per_page,
+            page=pagination_result.page,
+            per_page=pagination_result.per_page,
             total=count,
             total_pages=total_pages,
             items=[eff_schema.from_orm(s) for s in data],

@@ -89,7 +89,7 @@ class MealieModel(BaseModel):
         """
         Filters a search query based on model attributes
 
-        Should be overridden by any classes supporting search
+        Can be overridden to support a more advanced search
         """
 
         if not cls._searchable_properties:
