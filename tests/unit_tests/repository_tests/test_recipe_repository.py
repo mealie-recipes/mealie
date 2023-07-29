@@ -589,7 +589,7 @@ def test_recipe_repo_pagination_by_foods(database: AllRepositories, unique_user:
         ("horns", ["Steinbock Sloop"]),
         ("moss", ["Fiddlehead Fern Stir Fry"]),
         ('"Animal Sloop"', ["Animal Sloop"]),
-        ("animal-sloop", ["Animal Sloop", "Steinbock Sloop"]),
+        ("animal-sloop", ["Animal Sloop"]),
         ("ratat", ["Rátàtôuile"]),
         ("delicious horns", ["Steinbock Sloop"]),
     ],
