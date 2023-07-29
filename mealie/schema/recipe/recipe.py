@@ -256,8 +256,9 @@ class Recipe(RecipeSummary):
         """
 
         if search_type is SearchType.fuzzy:
-            # I would prefer to just do this in the recipe_ingredient.any part of the main query, but it turns out
-            # that at least sqlite wont use indexes for that correctly anymore and takes a big hit, so prefiltering it is
+            # I would prefer to just do this in the recipe_ingredient.any part of the main query,
+            # but it turns out that at least sqlite wont use indexes for that correctly anymore and
+            # takes a big hit, so prefiltering it is
             ingredient_ids = (
                 session.execute(
                     select(RecipeIngredientModel.id).filter(
