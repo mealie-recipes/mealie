@@ -110,9 +110,9 @@ def test_fuzzy_search(
 
     repo = database.ingredient_units.by_group(unique_local_group_id)
     pagination = PaginationQuery(page=1, per_page=-1, order_by="created_at", order_direction=OrderDirection.asc)
-    results = repo.page_all(pagination, search="taespoon").items
+    results = repo.page_all(pagination, search="uniuqe decsription").items
 
-    assert results and results[0].name == "Tea Spoon"
+    assert results and results[0].name == "Table Spoon"
 
 
 def test_random_order_search(
