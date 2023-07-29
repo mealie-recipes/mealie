@@ -5,15 +5,24 @@ from pydantic import UUID4
 from sqlalchemy import select
 
 from mealie.assets import users as users_assets
+from mealie.core.config import get_app_settings
 from mealie.schema.user.user import PrivateUser
 
 from ..db.models.users import User
 from .repository_generic import RepositoryGeneric
 
+settings = get_app_settings()
+
 
 class RepositoryUsers(RepositoryGeneric[PrivateUser, User]):
     def update_password(self, id, password: str):
         entry = self._query_one(match_value=id)
+        if settings.IS_DEMO:
+            user_to_update = self.schema.from_orm(entry)
+            if user_to_update.is_default_user:
+                # do not update the default user in demo mode
+                return user_to_update
+
         entry.update_password(password)
         self.session.commit()
 
@@ -33,7 +42,22 @@ class RepositoryUsers(RepositoryGeneric[PrivateUser, User]):
 
         return new_user
 
+    def update(self, match_value: str | int | UUID4, new_data: dict | PrivateUser) -> PrivateUser:
+        if settings.IS_DEMO:
+            user_to_update = self.get_one(match_value)
+            if user_to_update and user_to_update.is_default_user:
+                # do not update the default user in demo mode
+                return user_to_update
+
+        return super().update(match_value, new_data)
+
     def delete(self, value: str | UUID4, match_key: str | None = None) -> User:
+        if settings.IS_DEMO:
+            user_to_delete = self.get_one(value, match_key)
+            if user_to_delete and user_to_delete.is_default_user:
+                # do not update the default user in demo mode
+                return user_to_delete
+
         entry = super().delete(value, match_key)
         # Delete the user's directory
         shutil.rmtree(PrivateUser.get_directory(value))
