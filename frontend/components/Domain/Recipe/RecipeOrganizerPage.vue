@@ -19,7 +19,6 @@
       </v-card-text>
     </BaseDialog>
 
-    {{ dialogs.update }}
     <v-row dense>
       <v-col>
         <v-text-field
