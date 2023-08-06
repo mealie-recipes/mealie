@@ -177,6 +177,7 @@ class PrivateUser(UserOut):
 class UpdateGroup(GroupBase):
     id: UUID4
     name: str
+    slug: str
     categories: list[CategoryBase] | None = []
 
     webhooks: list[Any] = []
