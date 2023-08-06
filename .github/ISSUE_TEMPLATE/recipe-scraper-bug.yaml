@@ -1,0 +1,53 @@
+---
+name: Error Scraping Recipe
+description: "Submit a bug or issues related to scraping recipes"
+title: "[SCRAPER] - YOUR TITLE"
+labels: ["bug", "triage", "scraper"]
+body:
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: First Check
+      description: |
+        Please confirm and check all the following prior to submission. If you do not do this, your
+        issue may be closed.
+      options:
+        - label: I used the GitHub search to find a similar issue and didn't find it.
+          required: true
+        - label: |
+            I have verified that this issue _is not_ related to the underlying library
+            [hhyrsev/recipe-scrapers](https://github.com/hhursev/recipe-scrapers) by **1)** checking
+            the [debugger](https://demo.mealie.io/recipe/create/debug) and data is returned, **2)**
+            verifying that there _are_ errors in the log related to application level code, or
+            **3)** verified that the site provides recipe data, or is otherwise supported by
+            [hhyrsev/recipe-scrapers](https://github.com/hhursev/recipe-scrapers)
+          required: true
+        - label: This issue can be replicated on the demo site (https://demo.mealie.io/)
+          required: false
+  - type: textfield
+    id: urls
+    attributes:
+      label: Please provide 1-5 example URLs that are having errors
+    validations:
+      required: true
+  - type: textfield
+    id: logs
+    attributes:
+      label: |
+        Please provide your logs for the Mealie container `docker logs <container-id> > mealie.logs`
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Deployment
+      description: What Deployment system are you using?
+      multiple: true
+      options:
+        - Docker (Linux)
+        - Docker (Windows)
+        - Docker (Synology)
+        - Unraid
+        - Other
+    validations:
+      required: true
