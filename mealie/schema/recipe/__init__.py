@@ -77,6 +77,7 @@ from .recipe_timeline_events import (
     RecipeTimelineEventOut,
     RecipeTimelineEventPagination,
     RecipeTimelineEventUpdate,
+    TimelineEventImage,
     TimelineEventType,
 )
 from .recipe_tool import RecipeToolCreate, RecipeToolOut, RecipeToolResponse, RecipeToolSave
@@ -155,6 +156,7 @@ __all__ = [
     "RecipeTimelineEventOut",
     "RecipeTimelineEventPagination",
     "RecipeTimelineEventUpdate",
+    "TimelineEventImage",
     "TimelineEventType",
     "RecipeToolCreate",
     "RecipeToolOut",
