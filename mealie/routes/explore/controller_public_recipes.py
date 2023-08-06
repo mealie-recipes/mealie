@@ -1,5 +1,4 @@
 from fastapi import APIRouter, HTTPException
-from pydantic import UUID4
 
 from mealie.routes._base import controller
 from mealie.routes._base.base_controllers import BasePublicController
