@@ -1,0 +1,45 @@
+---
+name: Feature Request
+description: "Submit a Feature Request"
+title: "YOUR TITLE"
+body:
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: First Check
+      description: |
+        Please confirm and check all the following prior to submission. If you do not do this, your
+        issue may be closed.
+      options:
+        - label: I used the GitHub search to find a similar requests and didn't find it.
+          required: true
+        - label: Checked the [tasks taged](https://github.com/hay-kot/mealie/issues?q=is%3Aissue+is%3Aopen+label%3Atask+) issues and verified my feature is not covered
+          required: true
+        - label: Checked the [tasks taged](https://github.com/hay-kot/mealie/issues?q=is%3Aissue+is%3Aopen+label%3Atask+) issues and verified my feature is not covered
+          required: true
+  - type: textfield
+    id: problem
+    attributes:
+      label: Please provide a concise description of the problem that would be addressed by this feature.
+    validations:
+      required: true
+  - type: textfield
+    id: solution
+    attributes:
+      label: Please provide a concise description of the feature that would resolve your issue.
+    validations:
+      required: true
+  - type: textfield
+    id: considerations
+    attributes:
+      label: Please consider and list out some caveats or tradeoffs made in your design decision
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Additional Information
+      options:
+        - label: If this is accepted I'm willing to submit a PR to provide this feature
+        - label: If this is accepted I'm willing to help maintain this feature
+        - label: I'm willing to sponsor/pay a developer to do this work

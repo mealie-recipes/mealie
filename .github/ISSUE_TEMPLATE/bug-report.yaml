@@ -1,12 +1,16 @@
 ---
-name: "[v0.5.x] Bug Report"
-description: "submit a bug report for the current release"
+name: Bug Report
+description: "Submit a bug for the latest version of Mealie"
+title: "[BUG] - YOUR TITLE"
+labels: ["bug", "triage"]
 body:
   - type: checkboxes
     id: checks
     attributes:
       label: First Check
-      description: Please confirm and check all the following options.
+      description: |
+        Please confirm and check all the following prior to submission. If you do not do this, your
+        issue may be closed.
       options:
         - label: This is not a feature request
           required: true
@@ -18,8 +22,8 @@ body:
           required: true
         - label: I already read the docs and didn't find an answer.
           required: true
-        - label: I have checked for existing issues that have been resolved in v1-beta
-          required: true
+        - label: This issue can be replicated on the demo site (https://demo.mealie.io/)
+          required: false
   - type: textarea
     id: description
     attributes:
@@ -27,6 +31,23 @@ body:
       placeholder: A clear and concise description of what the bug is.
     validations:
       required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Steps to Reproduce
+      placeholder: 1) ... 2) ... 3) ...
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Please provide relevent logs
+    validations:
+      required: true
+  - type: textarea
+    id: version
+    attributes:
+      label: Mealie Version
   - type: dropdown
     id: os
     attributes:
@@ -42,13 +63,6 @@ body:
     validations:
       required: true
   - type: textarea
-    id: os-details
+    id: other
     attributes:
-      label: Deployment Details
-      description: You can add more details about your operating system here, in particular if you chose "Other". If you are experiencing issues with deployment, please provide your docker-compose or docker commands
-  - type: input
-    id: mealie-version
-    attributes:
-      label: Mealie Version
-    validations:
-      required: true
+      label: Additional Deployment Details
