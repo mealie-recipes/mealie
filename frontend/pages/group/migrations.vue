@@ -80,6 +80,7 @@ const MIGRATIONS = {
   copymethat: "copymethat",
   paprika: "paprika",
   mealie: "mealie_alpha",
+  tandoor: "tandoor",
 };
 
 export default defineComponent({
@@ -117,6 +118,10 @@ export default defineComponent({
       {
         text: i18n.tc("migration.mealie-pre-v1.title"),
         value: MIGRATIONS.mealie,
+      },
+      {
+        text: i18n.tc("migration.tandoor.title"),
+        value: MIGRATIONS.tandoor,
       },
     ];
 
@@ -265,6 +270,45 @@ export default defineComponent({
               },
             ],
           },
+        ],
+      },
+      [MIGRATIONS.tandoor]: {
+        text: i18n.tc("migration.tandoor.description-long"),
+        tree: [
+          {
+            id: 1,
+            icon: $globals.icons.zip,
+            name: "tandoor_default_export_full_2023-06-29.zip",
+            children: [
+              {
+                id: 2,
+                name: "1.zip",
+                icon: $globals.icons.zip,
+                children: [
+                  { id: 3, name: "image.jpeg", icon: $globals.icons.fileImage },
+                  { id: 4, name: "recipe.json", icon: $globals.icons.codeJson },
+                ]
+              },
+              {
+                id: 5,
+                name: "2.zip",
+                icon: $globals.icons.zip,
+                children: [
+                  { id: 6, name: "image.jpeg", icon: $globals.icons.fileImage },
+                  { id: 7, name: "recipe.json", icon: $globals.icons.codeJson },
+                ]
+              },
+              {
+                id: 8,
+                name: "3.zip",
+                icon: $globals.icons.zip,
+                children: [
+                  { id: 9, name: "image.jpeg", icon: $globals.icons.fileImage },
+                  { id: 10, name: "recipe.json", icon: $globals.icons.codeJson },
+                ]
+              }
+            ]
+          }
         ],
       },
     };

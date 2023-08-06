@@ -1,13 +1,14 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- /* This file was automatically generated from pydantic models by running pydantic2ts.
- /* Do not modify it by hand - just update the pydantic models and then re-run the script
- */
+/* This file was automatically generated from pydantic models by running pydantic2ts.
+/* Do not modify it by hand - just update the pydantic models and then re-run the script
+*/
 
 export type ExportTypes = "json";
 export type RegisteredParser = "nlp" | "brute";
 export type TimelineEventType = "system" | "info" | "comment";
+export type TimelineEventImage = "has image" | "does not have image";
 
 export interface AssignCategories {
   recipes: string[];
@@ -178,12 +179,14 @@ export interface ParsedIngredient {
   ingredient: RecipeIngredient;
 }
 export interface RecipeIngredient {
-  title?: string;
-  note?: string;
+  quantity?: number;
   unit?: IngredientUnit | CreateIngredientUnit;
   food?: IngredientFood | CreateIngredientFood;
+  note?: string;
+  isFood?: boolean;
   disableAmount?: boolean;
-  quantity?: number;
+  display?: string;
+  title?: string;
   originalText?: string;
   referenceId?: string;
 }
@@ -303,6 +306,15 @@ export interface RecipeCommentUpdate {
 export interface RecipeDuplicate {
   name?: string;
 }
+export interface RecipeIngredientBase {
+  quantity?: number;
+  unit?: IngredientUnit | CreateIngredientUnit;
+  food?: IngredientFood | CreateIngredientFood;
+  note?: string;
+  isFood?: boolean;
+  disableAmount?: boolean;
+  display?: string;
+}
 export interface RecipeLastMade {
   timestamp: string;
 }
@@ -340,31 +352,31 @@ export interface RecipeTagResponse {
   recipes?: RecipeSummary[];
 }
 export interface RecipeTimelineEventCreate {
+  recipeId: string;
   userId: string;
   subject: string;
   eventType: TimelineEventType;
   eventMessage?: string;
-  image?: string;
+  image?: TimelineEventImage;
   timestamp?: string;
-  recipeId: string;
 }
 export interface RecipeTimelineEventIn {
+  recipeId: string;
   userId?: string;
   subject: string;
   eventType: TimelineEventType;
   eventMessage?: string;
-  image?: string;
+  image?: TimelineEventImage;
   timestamp?: string;
-  recipeId: string;
 }
 export interface RecipeTimelineEventOut {
+  recipeId: string;
   userId: string;
   subject: string;
   eventType: TimelineEventType;
   eventMessage?: string;
-  image?: string;
+  image?: TimelineEventImage;
   timestamp?: string;
-  recipeId: string;
   id: string;
   createdAt: string;
   updateAt: string;
@@ -372,7 +384,7 @@ export interface RecipeTimelineEventOut {
 export interface RecipeTimelineEventUpdate {
   subject: string;
   eventMessage?: string;
-  image?: string;
+  image?: TimelineEventImage;
 }
 export interface RecipeToolCreate {
   name: string;
@@ -389,7 +401,7 @@ export interface RecipeToolResponse {
   onHand?: boolean;
   id: string;
   slug: string;
-  recipes?: Recipe[];
+  recipes?: RecipeSummary[];
 }
 export interface RecipeToolSave {
   name: string;

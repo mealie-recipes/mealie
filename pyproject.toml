@@ -11,7 +11,7 @@ start = "mealie.app:main"
 [tool.poetry.dependencies]
 Jinja2 = "^3.1.2"
 Pillow = "^9.2.0"
-PyYAML = "^5.3.1"
+PyYAML = "^6.0.1"
 SQLAlchemy = "^2"
 aiofiles = "^23.0.0"
 alembic = "^1.7.5"

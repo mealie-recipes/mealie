@@ -332,6 +332,10 @@
       "description-long": "Mealie יכול לייבא מתכונים מגרסאות ישנות של Mealie מתחת ל- v1.0. ייצא את המתכונים מהסביבה הישנה והעלה את קובץ ה- zip למטה. ניתן לייבא רק מתכונים מתהליך הייצוא.",
       "title": "מילי לפני V1.0"
     },
+    "tandoor": {
+      "description-long": "Mealie can import recipes from Tandoor. Export your data in the \"Default\" format, then upload the .zip below.",
+      "title": "Tandoor Recipes"
+    },
     "recipe-data-migrations": "מגרציית מידע מתכונים",
     "recipe-data-migrations-explanation": "ניתן לייבא מתכונים מאפליקציות תומכות אחרות אל Mealie. זו דרך מעולה להתחיל במילי.",
     "choose-migration-type": "בחר סוג מיגרציה",

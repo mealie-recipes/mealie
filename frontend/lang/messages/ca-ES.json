@@ -113,7 +113,7 @@
     "json": "JSON",
     "keyword": "Paraula clau",
     "link-copied": "S'ha copiat l'enllaç",
-    "loading-events": "Loading Events",
+    "loading-events": "Carregant esdeveniments",
     "loading-recipes": "Carregant les receptes",
     "message": "Missatge",
     "monday": "Dilluns",
@@ -231,9 +231,9 @@
     "allow-users-outside-of-your-group-to-see-your-recipes-description": "Si ho habiliteu, podreu compartir enllaços públics de receptes específiques sense autoritzar l'usuari. Si està deshabilitat, només podreu compartir amb usuaris del vostre grup o generant enllaços privats",
     "show-nutrition-information": "Mostra la informació nutricional",
     "show-nutrition-information-description": "Si ho habiliteu, mostrareu la informació nutricional disponible. Si no hi ha informació nutricional disponible, no es mostrarà res",
-    "show-recipe-assets": "Show recipe assets",
-    "show-recipe-assets-description": "When enabled the recipe assets will be shown on the recipe if available",
-    "default-to-landscape-view": "Default to landscape view",
+    "show-recipe-assets": "Mostreu els recursos de les receptes",
+    "show-recipe-assets-description": "Si està habilitat, es mostraran els recursos de les receptes si hi són disponibles",
+    "default-to-landscape-view": "Vista horitzontal per defecte",
     "default-to-landscape-view-description": "When enabled the recipe header section will be shown in landscape view",
     "disable-users-from-commenting-on-recipes": "Disable users from commenting on recipes",
     "disable-users-from-commenting-on-recipes-description": "Hides the comment section on the recipe page and disables commenting",
@@ -331,6 +331,10 @@
     "mealie-pre-v1": {
       "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
       "title": "Mealie Pre v1.0"
+    },
+    "tandoor": {
+      "description-long": "Mealie can import recipes from Tandoor. Export your data in the \"Default\" format, then upload the .zip below.",
+      "title": "Tandoor Recipes"
     },
     "recipe-data-migrations": "Recipe Data Migrations",
     "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie.",

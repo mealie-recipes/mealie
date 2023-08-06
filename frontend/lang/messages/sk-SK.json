@@ -332,6 +332,10 @@
       "description-long": "Mealie dokáže importovať recepty z Mealie verzie pre v1.0. Exportujte vaše recepty z vašej starej inštalácie a nižšie nahrajte zip-súbor. Týmto spôsobom je možné importovať z exportu iba recepty.",
       "title": "Mealie Pre v1.0"
     },
+    "tandoor": {
+      "description-long": "Mealie can import recipes from Tandoor. Export your data in the \"Default\" format, then upload the .zip below.",
+      "title": "Tandoor Recipes"
+    },
     "recipe-data-migrations": "Migrácie dát receptov",
     "recipe-data-migrations-explanation": "Recepty je možné prenášať do Mealie z inej podporovanej aplikácie. Je to výborný spôsob ako začať s používaním Mealie.",
     "choose-migration-type": "Vyberte spôsob migrácie",

@@ -129,33 +129,71 @@ class Recipe(RecipeSummary):
     comments: list[RecipeCommentOut] | None = []
 
     @staticmethod
-    def directory_from_id(recipe_id: UUID4 | str) -> Path:
-        return app_dirs.RECIPE_DATA_DIR.joinpath(str(recipe_id))
+    def _get_dir(dir: Path) -> Path:
+        """Gets a directory and creates it if it doesn't exist"""
+
+        dir.mkdir(exist_ok=True, parents=True)
+        return dir
+
+    @classmethod
+    def directory_from_id(cls, recipe_id: UUID4 | str) -> Path:
+        return cls._get_dir(app_dirs.RECIPE_DATA_DIR.joinpath(str(recipe_id)))
+
+    @classmethod
+    def asset_dir_from_id(cls, recipe_id: UUID4 | str) -> Path:
+        return cls._get_dir(cls.directory_from_id(recipe_id).joinpath("assets"))
+
+    @classmethod
+    def image_dir_from_id(cls, recipe_id: UUID4 | str) -> Path:
+        return cls._get_dir(cls.directory_from_id(recipe_id).joinpath("images"))
+
+    @classmethod
+    def timeline_image_dir_from_id(cls, recipe_id: UUID4 | str, timeline_event_id: UUID4 | str) -> Path:
+        return cls._get_dir(cls.image_dir_from_id(recipe_id).joinpath("timeline").joinpath(str(timeline_event_id)))
 
     @property
     def directory(self) -> Path:
         if not self.id:
             raise ValueError("Recipe has no ID")
 
-        folder = app_dirs.RECIPE_DATA_DIR.joinpath(str(self.id))
-        folder.mkdir(exist_ok=True, parents=True)
-        return folder
+        return self.directory_from_id(self.id)
 
     @property
     def asset_dir(self) -> Path:
-        folder = self.directory.joinpath("assets")
-        folder.mkdir(exist_ok=True, parents=True)
-        return folder
+        if not self.id:
+            raise ValueError("Recipe has no ID")
+
+        return self.asset_dir_from_id(self.id)
 
     @property
     def image_dir(self) -> Path:
-        folder = self.directory.joinpath("images")
-        folder.mkdir(exist_ok=True, parents=True)
-        return folder
+        if not self.id:
+            raise ValueError("Recipe has no ID")
+
+        return self.image_dir_from_id(self.id)
 
     class Config:
         orm_mode = True
         getter_dict = ExtrasGetterDict
+
+    @classmethod
+    def from_orm(cls, obj):
+        recipe = super().from_orm(obj)
+        recipe.__post_init__()
+        return recipe
+
+    def __init__(self, **kwargs) -> None:
+        super().__init__(**kwargs)
+        self.__post_init__()
+
+    def __post_init__(self) -> None:
+        # the ingredient disable_amount property is unreliable,
+        # so we set it here and recalculate the display property
+        disable_amount = self.settings.disable_amount if self.settings else True
+        for ingredient in self.recipe_ingredient:
+            ingredient.disable_amount = disable_amount
+            ingredient.is_food = not ingredient.disable_amount
+            ingredient.display = ingredient._format_display()
 
     @validator("slug", always=True, pre=True, allow_reuse=True)
     def validate_slug(slug: str, values):  # type: ignore
