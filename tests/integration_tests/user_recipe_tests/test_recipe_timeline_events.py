@@ -4,7 +4,12 @@ import pytest
 from fastapi.testclient import TestClient
 
 from mealie.schema.recipe.recipe import Recipe
-from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventOut, RecipeTimelineEventPagination
+from mealie.schema.recipe.recipe_timeline_events import (
+    RecipeTimelineEventOut,
+    RecipeTimelineEventPagination,
+    TimelineEventImage,
+)
+from mealie.schema.recipe.request_helpers import UpdateImageResponse
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
@@ -142,8 +147,9 @@ def test_update_timeline_event(api_client: TestClient, unique_user: TestUser, re
     assert event_response.status_code == 200
 
     updated_event = RecipeTimelineEventOut.parse_obj(event_response.json())
-    assert new_event.id == updated_event.id
+    assert updated_event.id == new_event.id
     assert updated_event.subject == new_subject
+    assert updated_event.timestamp == new_event.timestamp
 
 
 def test_delete_timeline_event(api_client: TestClient, unique_user: TestUser, recipes: list[Recipe]):
@@ -219,6 +225,48 @@ def test_timeline_event_message_alias(api_client: TestClient, unique_user: TestU
     updated_event = RecipeTimelineEventOut.parse_obj(event_response.json())
     assert updated_event.subject == new_subject
     assert updated_event.message == new_message
+
+
+def test_timeline_event_update_image(
+    api_client: TestClient, unique_user: TestUser, recipes: list[Recipe], test_image_jpg: str
+):
+    # create an event
+    recipe = recipes[0]
+    new_event_data = {
+        "recipe_id": str(recipe.id),
+        "user_id": unique_user.user_id,
+        "subject": random_string(),
+        "message": random_string(),
+        "event_type": "info",
+    }
+
+    event_response = api_client.post(api_routes.recipes_timeline_events, json=new_event_data, headers=unique_user.token)
+    new_event = RecipeTimelineEventOut.parse_obj(event_response.json())
+    assert new_event.image == TimelineEventImage.does_not_have_image.value
+
+    with open(test_image_jpg, "rb") as f:
+        r = api_client.put(
+            api_routes.recipes_timeline_events_item_id_image(new_event.id),
+            files={"image": ("test_image_jpg.jpg", f, "image/jpeg")},
+            data={"extension": "jpg"},
+            headers=unique_user.token,
+        )
+    r.raise_for_status()
+
+    update_image_response = UpdateImageResponse.parse_obj(r.json())
+    assert update_image_response.image == TimelineEventImage.has_image.value
+
+    event_response = api_client.get(
+        api_routes.recipes_timeline_events_item_id(new_event.id),
+        headers=unique_user.token,
+    )
+    assert event_response.status_code == 200
+
+    updated_event = RecipeTimelineEventOut.parse_obj(event_response.json())
+    assert updated_event.subject == new_event.subject
+    assert updated_event.message == new_event.message
+    assert updated_event.timestamp == new_event.timestamp
+    assert updated_event.image == TimelineEventImage.has_image.value
 
 
 def test_create_recipe_with_timeline_event(api_client: TestClient, unique_user: TestUser, recipes: list[Recipe]):

@@ -332,6 +332,10 @@
       "description-long": "Mealie, v1.0 öncesi bir sürümden Mealie uygulamasından tarifleri içe aktarabilir. Tariflerinizi eski örneğinizden dışa aktarın ve aşağıdaki zip dosyasını yükleyin. Dışa aktarmadan yalnızca tariflerin içe aktarılabileceğini unutmayın.",
       "title": "Mealie Pre v1.0"
     },
+    "tandoor": {
+      "description-long": "Mealie, Tandoor'dan tarifleri içe aktarabilir. Verilerinizi \"Varsayılan\" biçimde dışa aktarın, ardından aşağıdaki .zip dosyasını yükleyin.",
+      "title": "Tandoor Recipes"
+    },
     "recipe-data-migrations": "Recipe Data Migrations",
     "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie.",
     "choose-migration-type": "Choose Migration Type",

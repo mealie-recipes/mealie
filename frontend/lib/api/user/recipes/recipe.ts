@@ -52,6 +52,7 @@ const routes = {
 
   recipesSlugLastMade: (slug: string) => `${prefix}/recipes/${slug}/last-made`,
   recipesTimelineEventId: (id: string) => `${prefix}/recipes/timeline/events/${id}`,
+  recipesTimelineEventIdImage: (id: string) => `${prefix}/recipes/timeline/events/${id}/image`,
 };
 
 export type RecipeSearchQuery = {
@@ -193,5 +194,13 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
         params: { page, perPage, ...params },
       }
     );
+  }
+
+  async updateTimelineEventImage(eventId: string, fileObject: File) {
+    const formData = new FormData();
+    formData.append("image", fileObject);
+    formData.append("extension", fileObject.name.split(".").pop() ?? "");
+
+    return await this.requests.put<UpdateImageResponse, FormData>(routes.recipesTimelineEventIdImage(eventId), formData);
   }
 }

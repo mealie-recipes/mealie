@@ -113,6 +113,10 @@ class UserOut(UserBase):
 
         getter_dict = UserGetterDict
 
+    @property
+    def is_default_user(self) -> bool:
+        return self.email == settings.DEFAULT_EMAIL.strip().lower()
+
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
         return [joinedload(User.group), joinedload(User.favorite_recipes), joinedload(User.tokens)]
