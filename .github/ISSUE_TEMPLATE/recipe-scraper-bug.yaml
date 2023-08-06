@@ -24,13 +24,13 @@ body:
           required: true
         - label: This issue can be replicated on the demo site (https://demo.mealie.io/)
           required: false
-  - type: textfield
+  - type: textarea
     id: urls
     attributes:
       label: Please provide 1-5 example URLs that are having errors
     validations:
       required: true
-  - type: textfield
+  - type: textarea
     id: logs
     attributes:
       label: |

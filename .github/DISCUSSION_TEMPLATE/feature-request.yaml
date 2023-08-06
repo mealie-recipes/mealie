@@ -1,6 +1,4 @@
 ---
-name: Feature Request
-description: "Submit a Feature Request"
 title: "YOUR TITLE"
 body:
   - type: checkboxes
@@ -17,26 +15,26 @@ body:
           required: true
         - label: Checked the [tasks taged](https://github.com/hay-kot/mealie/issues?q=is%3Aissue+is%3Aopen+label%3Atask+) issues and verified my feature is not covered
           required: true
-  - type: textfield
+  - type: textarea
     id: problem
     attributes:
       label: Please provide a concise description of the problem that would be addressed by this feature.
     validations:
       required: true
-  - type: textfield
+  - type: textarea
     id: solution
     attributes:
       label: Please provide a concise description of the feature that would resolve your issue.
     validations:
       required: true
-  - type: textfield
+  - type: textarea
     id: considerations
     attributes:
       label: Please consider and list out some caveats or tradeoffs made in your design decision
     validations:
       required: true
   - type: checkboxes
-    id: checks
+    id: additional-information
     attributes:
       label: Additional Information
       options:
