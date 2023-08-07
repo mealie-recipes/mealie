@@ -75,8 +75,13 @@ class NextcloudMigrator(BaseMigrator):
                         import_image(nc_dir.image, recipe_id)
 
 
-def parse_time(time: str) -> str:
+def parse_time(time: str | None) -> str:
     """Parses a Nextcloud time string in the format 'PT{hours}H{minutes}M{seconds}S'"""
+
+    if not time:
+        return ""
+    if time[:2] != "PT":
+        return time
 
     # TODO: make singular and plural translatable
     hours = {"singular": "hour", "plural": "hours", "exp": r"\d+(?=H)"}
