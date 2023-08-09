@@ -1,4 +1,3 @@
-import re
 import tempfile
 import zipfile
 from dataclasses import dataclass
