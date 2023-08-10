@@ -1,9 +1,12 @@
-import re
 import tempfile
 import zipfile
 from dataclasses import dataclass
+from datetime import timedelta
 from pathlib import Path
+from typing import cast
 
+import isodate
+from isodate.isoerror import ISO8601Error
 from slugify import slugify
 
 from ._migration_base import BaseMigrator
@@ -75,22 +78,43 @@ class NextcloudMigrator(BaseMigrator):
                         import_image(nc_dir.image, recipe_id)
 
 
-def parse_time(time: str) -> str:
-    """Parses a Nextcloud time string in the format 'PT{hours}H{minutes}M{seconds}S'"""
+def parse_time(time: str | None) -> str:
+    """
+    Parses an ISO8601 duration string
+
+    https://en.wikipedia.org/wiki/ISO_8601#Durations
+    """
+
+    if not time:
+        return ""
+    if time[0] == "P":
+        try:
+            delta = isodate.parse_duration(time)
+            if not isinstance(delta, timedelta):
+                return time
+        except ISO8601Error:
+            return time
 
     # TODO: make singular and plural translatable
-    hours = {"singular": "hour", "plural": "hours", "exp": r"\d+(?=H)"}
-    minutes = {"singular": "minute", "plural": "minutes", "exp": r"\d+(?=M)"}
-    seconds = {"singular": "second", "plural": "seconds", "exp": r"\d+(?=S)"}
+    time_part_map = {
+        "days": {"singular": "day", "plural": "days"},
+        "hours": {"singular": "hour", "plural": "hours"},
+        "minutes": {"singular": "minute", "plural": "minutes"},
+        "seconds": {"singular": "second", "plural": "seconds"},
+    }
+
+    delta = cast(timedelta, delta)
+    time_part_map["days"]["value"] = delta.days
+    time_part_map["hours"]["value"] = delta.seconds // 3600
+    time_part_map["minutes"]["value"] = (delta.seconds // 60) % 60
+    time_part_map["seconds"]["value"] = delta.seconds % 60
 
     return_strings: list[str] = []
-    for time_part in [hours, minutes, seconds]:
-        val_search = re.search(time_part["exp"], time)
-        if not val_search:
+    for value_map in time_part_map.values():
+        if not (value := value_map["value"]):
             continue
-        val = val_search.group()
-        if val == "0":
-            continue
-        return_strings.append(f'{val} {time_part["singular"] if val == "1" else time_part["plural"]}')
+
+        unit_key = "singular" if value == 1 else "plural"
+        return_strings.append(f"{value} {value_map[unit_key]}")
 
     return " ".join(return_strings) if return_strings else time
