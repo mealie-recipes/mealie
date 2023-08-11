@@ -34,8 +34,8 @@
 <script lang="ts">
 import { defineComponent, ref, useContext } from "@nuxtjs/composition-api";
 
-import { Cropper } from 'vue-advanced-cropper';
-import 'vue-advanced-cropper/dist/style.css'
+import { Cropper } from "vue-advanced-cropper";
+import "vue-advanced-cropper/dist/style.css";
 
 export default defineComponent({
 	components: { Cropper },
@@ -58,8 +58,8 @@ export default defineComponent({
         const { $globals, $vuetify } = useContext();
 
         interface Control {
-            color: String;
-            icon: String;
+            color: string;
+            icon: string;
             callback: CallableFunction;
         }
 
@@ -140,22 +140,12 @@ export default defineComponent({
     },
 
 	methods: {
-        // https://advanced-cropper.github.io/vue-advanced-cropper/guides/advanced-recipes.html
-
-        // @ts-expect-error
+        // @ts-expect-error https://advanced-cropper.github.io/vue-advanced-cropper/guides/advanced-recipes.html
         defaultSize({ imageSize, visibleArea }) {
             return {
                 width: (visibleArea || imageSize).width,
                 height: (visibleArea || imageSize).height,
             };
-        },
-        flip(x: number, y: number) {
-            // @ts-expect-error
-            this.$refs.cropper.flip(x,y);
-        },
-        rotate(angle: number) {
-            // @ts-expect-error
-            this.$refs.cropper.rotate(angle);
         },
     },
 });
