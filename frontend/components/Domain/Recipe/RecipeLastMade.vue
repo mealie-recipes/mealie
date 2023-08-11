@@ -5,7 +5,7 @@
         v-model="madeThisDialog"
         :icon="$globals.icons.chefHat"
         :title="$tc('recipe.made-this')"
-        :submit-text="$tc('general.save')"
+        :submit-text="$tc('recipe.add-to-timeline')"
         @submit="createTimelineEvent"
         >
         <v-card-text>
