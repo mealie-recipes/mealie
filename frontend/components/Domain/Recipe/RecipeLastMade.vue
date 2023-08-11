@@ -20,7 +20,7 @@
             ></v-textarea>
             <v-container>
               <v-row>
-                <v-col cols="auto">
+                <v-col cols="6">
                   <v-menu
                     v-model="datePickerMenu"
                     :close-on-content-click="false"
@@ -47,7 +47,7 @@
                   </v-menu>
                 </v-col>
                 <v-spacer />
-                <v-col cols="auto" align-self="center">
+                <v-col cols="6" align-self="center">
                   <AppButtonUpload
                     v-if="!newTimelineEventImage"
                     class="ml-auto"
@@ -70,14 +70,12 @@
                 </v-col>
               </v-row>
               <v-row v-if="newTimelineEventImage && newTimelineEventImagePreviewUrl">
-                <v-col cols="auto" align-self="center">
-                  <v-img
-                    :src="newTimelineEventImagePreviewUrl"
-                    class="ma-auto"
-                    min-height="50"
-                    max-height="200"
-                    max-width="80%"
-                    contain
+                <v-col cols="12" align-self="center">
+                  <ImageCropper
+                    :img="newTimelineEventImagePreviewUrl"
+                    height="20vh"
+                    width="100%"
+                    @save="updateUploadedImage"
                   />
                 </v-col>
               </v-row>
@@ -141,7 +139,8 @@ export default defineComponent({
       timestamp: undefined,
       recipeId: props.recipe?.id || "",
     });
-    const newTimelineEventImage = ref<File>();
+    const newTimelineEventImage = ref<Blob | File>();
+    const newTimelineEventImageName = ref<string>("");
     const newTimelineEventImagePreviewUrl = ref<string>();
     const newTimelineEventTimestamp = ref<string>();
 
@@ -157,10 +156,17 @@ export default defineComponent({
 
     function clearImage() {
       newTimelineEventImage.value = undefined;
+      newTimelineEventImageName.value = "";
       newTimelineEventImagePreviewUrl.value = undefined;
     }
 
     function uploadImage(fileObject: File) {
+      newTimelineEventImage.value = fileObject;
+      newTimelineEventImageName.value = fileObject.name;
+      newTimelineEventImagePreviewUrl.value = URL.createObjectURL(fileObject);
+    }
+
+    function updateUploadedImage(fileObject: Blob) {
       newTimelineEventImage.value = fileObject;
       newTimelineEventImagePreviewUrl.value = URL.createObjectURL(fileObject);
     }
@@ -194,7 +200,11 @@ export default defineComponent({
 
       // update the image, if provided
       if (newTimelineEventImage.value && newEvent) {
-        const imageResponse = await userApi.recipes.updateTimelineEventImage(newEvent.id, newTimelineEventImage.value);
+        const imageResponse = await userApi.recipes.updateTimelineEventImage(
+          newEvent.id,
+          newTimelineEventImage.value,
+          newTimelineEventImageName.value,
+        );
         if (imageResponse.data) {
           // @ts-ignore the image response data will always match a value of TimelineEventImage
           newEvent.image = imageResponse.data.image;
@@ -204,7 +214,7 @@ export default defineComponent({
       // reset form
       newTimelineEvent.value.eventMessage = "";
       newTimelineEvent.value.timestamp = undefined;
-      newTimelineEventImage.value = undefined;
+      clearImage();
       madeThisDialog.value = false;
       domMadeThisForm.value?.reset();
 
@@ -222,6 +232,7 @@ export default defineComponent({
       createTimelineEvent,
       clearImage,
       uploadImage,
+      updateUploadedImage,
     };
   },
 });

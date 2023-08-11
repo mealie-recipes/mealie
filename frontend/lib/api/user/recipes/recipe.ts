@@ -196,10 +196,10 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
     );
   }
 
-  async updateTimelineEventImage(eventId: string, fileObject: File) {
+  async updateTimelineEventImage(eventId: string, fileObject: Blob | File, fileName: string) {
     const formData = new FormData();
     formData.append("image", fileObject);
-    formData.append("extension", fileObject.name.split(".").pop() ?? "");
+    formData.append("extension", fileName.split(".").pop() ?? "");
 
     return await this.requests.put<UpdateImageResponse, FormData>(routes.recipesTimelineEventIdImage(eventId), formData);
   }
