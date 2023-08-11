@@ -24,7 +24,7 @@
                     class="cropper"
                     :src="img"
                     :default-size="defaultSize"
-                    :style="`height: ${height}; width: ${width};`"
+                    :style="`height: ${cropperHeight}; width: ${cropperWidth};`"
                 />
             </v-col>
         </v-row>
@@ -44,11 +44,11 @@ export default defineComponent({
             type: String,
             required: true,
         },
-        height: {
+        cropperHeight: {
             type: String,
             default: undefined,
         },
-        width: {
+        cropperWidth: {
             type: String,
             default: undefined,
         }
