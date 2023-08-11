@@ -49,6 +49,7 @@
                 <v-spacer />
                 <v-col cols="auto" align-self="center">
                   <AppButtonUpload
+                    v-if="!newTimelineEventImage"
                     class="ml-auto"
                     url="none"
                     file-name="image"
@@ -57,6 +58,26 @@
                     :text-btn="false"
                     :post="false"
                     @uploaded="uploadImage"
+                  />
+                  <v-btn
+                    v-if="!!newTimelineEventImage"
+                    color="error"
+                    @click="clearImage"
+                  >
+                    <v-icon left>{{ $globals.icons.close }}</v-icon>
+                    {{ $i18n.tc('recipe.remove-image') }}
+                  </v-btn>
+                </v-col>
+              </v-row>
+              <v-row v-if="newTimelineEventImage && newTimelineEventImagePreviewUrl">
+                <v-col cols="auto" align-self="center">
+                  <v-img
+                    :src="newTimelineEventImagePreviewUrl"
+                    class="ma-auto"
+                    min-height="50"
+                    max-height="200"
+                    max-width="80%"
+                    contain
                   />
                 </v-col>
               </v-row>
@@ -121,6 +142,7 @@ export default defineComponent({
       recipeId: props.recipe?.id || "",
     });
     const newTimelineEventImage = ref<File>();
+    const newTimelineEventImagePreviewUrl = ref<string>();
     const newTimelineEventTimestamp = ref<string>();
 
     whenever(
@@ -133,8 +155,14 @@ export default defineComponent({
       }
     );
 
+    function clearImage() {
+      newTimelineEventImage.value = undefined;
+      newTimelineEventImagePreviewUrl.value = undefined;
+    }
+
     function uploadImage(fileObject: File) {
       newTimelineEventImage.value = fileObject;
+      newTimelineEventImagePreviewUrl.value = URL.createObjectURL(fileObject);
     }
 
     const state = reactive({datePickerMenu: false});
@@ -189,8 +217,10 @@ export default defineComponent({
       madeThisDialog,
       newTimelineEvent,
       newTimelineEventImage,
+      newTimelineEventImagePreviewUrl,
       newTimelineEventTimestamp,
       createTimelineEvent,
+      clearImage,
       uploadImage,
     };
   },
