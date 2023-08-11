@@ -20,7 +20,7 @@
             ></v-textarea>
             <v-container>
               <v-row>
-                <v-col cols="6">
+                <v-col cols="auto">
                   <v-menu
                     v-model="datePickerMenu"
                     :close-on-content-click="false"
@@ -47,7 +47,7 @@
                   </v-menu>
                 </v-col>
                 <v-spacer />
-                <v-col cols="6" align-self="center">
+                <v-col cols="auto" align-self="center">
                   <AppButtonUpload
                     v-if="!newTimelineEventImage"
                     class="ml-auto"
