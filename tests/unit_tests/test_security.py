@@ -8,6 +8,7 @@ from mealie.core.config import get_app_settings
 from mealie.core.dependencies import validate_file_token
 from mealie.db.db_setup import session_context
 from mealie.db.models.users.users import AuthMethod
+from mealie.repos.all_repositories import get_repositories
 from mealie.schema.user.user import PrivateUser
 from tests.utils import random_string
 
@@ -253,3 +254,142 @@ def test_user_login_ldap_auth_method(monkeypatch: MonkeyPatch, ldap_user: Privat
     assert result.full_name == ldap_user.full_name
     assert result.admin == ldap_user.admin
     assert result.auth_method == AuthMethod.LDAP
+
+
+# ===============================================
+# JWT AUTHENTICATION
+
+
+def test_jwt_auth_disabled(monkeypatch: MonkeyPatch):
+    # JWT is disabled so the jwt auth flow is not executed
+    monkeypatch.setenv("JWT_AUTH_ENABLED", "False")
+    monkeypatch.setenv("LDAP_AUTH_ENABLED", "False")
+    get_app_settings.cache_clear()
+
+    user = random_string(10)
+    password = random_string(10)
+
+    with session_context() as session:
+        user = security.authenticate_user(session, user, password)
+        assert user is False
+
+
+def test_jwt_auth_enabled_no_jwt_assertion(monkeypatch: MonkeyPatch):
+    # JWT is enabled but since there is no jwt header the jwt auth flow is not executed
+    monkeypatch.setenv("JWT_AUTH_ENABLED", "True")
+    monkeypatch.setenv("LDAP_AUTH_ENABLED", "False")
+    get_app_settings.cache_clear()
+
+    user = random_string(10)
+    password = random_string(10)
+
+    with session_context() as session:
+        user = security.authenticate_user(session, user, password)
+        assert user is False
+
+
+def test_jwt_auth_enabled_non_existing_user_no_auto_signup(monkeypatch: MonkeyPatch):
+    # JWT is enabled auto sign up is disabled, as the user does not exist no user is returned
+    monkeypatch.setenv("JWT_AUTH_ENABLED", "True")
+
+    user = random_string(10)
+    password = random_string(10)
+    jwt_assertion = "Some JWT Assertion"
+
+    def get_claims_from_jwt_assertion_mock(jwt_assertion):
+        assert jwt_assertion == "Some JWT Assertion"
+        return {"email": "user@email.com"}
+
+    monkeypatch.setattr(
+        "mealie.core.security.security.get_claims_from_jwt_assertion", get_claims_from_jwt_assertion_mock
+    )
+
+    get_app_settings.cache_clear()
+
+    with session_context() as session:
+        user = security.authenticate_user(session, user, password, jwt_assertion)
+        assert user is None
+
+
+def test_jwt_auth_enabled_existing_user_no_auto_signup(monkeypatch: MonkeyPatch):
+    # JWT is enabled auto sign up is disabled, as the user exists it is returned
+    monkeypatch.setenv("JWT_AUTH_ENABLED", "True")
+    jwt_assertion = "Some JWT Assertion"
+    user_email = "user@email.com"
+
+    def get_claims_from_jwt_assertion_mock(jwt_assertion):
+        assert jwt_assertion == "Some JWT Assertion"
+        return {"email": user_email}
+
+    monkeypatch.setattr(
+        "mealie.core.security.security.get_claims_from_jwt_assertion", get_claims_from_jwt_assertion_mock
+    )
+
+    get_app_settings.cache_clear()
+
+    with session_context() as session:
+        db = get_repositories(session)
+        user = db.users.create(
+            {
+                "username": "username",
+                "password": "mealie_password_not_important",
+                "full_name": "User full name",
+                "email": user_email,
+                "admin": False,
+            }
+        )
+        user = security.authenticate_user(session, user.username, user.password, jwt_assertion)
+        assert user is user
+
+
+def test_jwt_auth_enabled_failed_verification(monkeypatch: MonkeyPatch):
+    # JWT is enabled, the jwt validation fails so the user is not authenticated
+    monkeypatch.setenv("JWT_AUTH_ENABLED", "True")
+
+    user = random_string(10)
+    password = random_string(10)
+    jwt_assertion = "Some JWT Assertion"
+
+    def get_claims_from_jwt_assertion_mock(jwt_assertion):
+        assert jwt_assertion == "Some JWT Assertion"
+        raise Exception("Failed to verify JWT Assertion")
+
+    monkeypatch.setattr(
+        "mealie.core.security.security.get_claims_from_jwt_assertion", get_claims_from_jwt_assertion_mock
+    )
+
+    get_app_settings.cache_clear()
+
+    with session_context() as session:
+        user = security.authenticate_user(session, user, password, jwt_assertion)
+        assert user is False
+
+
+def test_jwt_auth_enabled_non_existing_user_auto_signup(monkeypatch: MonkeyPatch):
+    # JWT is enabled, auto sign up is enabled, user does not exist so it gets created
+    monkeypatch.setenv("JWT_AUTH_ENABLED", "True")
+    monkeypatch.setenv("JWT_AUTH_AUTO_SIGN_UP", "True")
+
+    user = random_string(10)
+    password = random_string(10)
+    jwt_assertion = "Some JWT Assertion"
+
+    def get_claims_from_jwt_assertion_mock(jwt_assertion):
+        assert jwt_assertion == "Some JWT Assertion"
+        return {
+            "email": "another_user@email.com",
+            "user": "someusername",
+            "name": "Some User Name",
+        }
+
+    monkeypatch.setattr(
+        "mealie.core.security.security.get_claims_from_jwt_assertion", get_claims_from_jwt_assertion_mock
+    )
+
+    get_app_settings.cache_clear()
+
+    with session_context() as session:
+        user = security.authenticate_user(session, user, password, jwt_assertion)
+        assert user.full_name == "Some User Name"
+        assert user.username == "someusername"
+        assert user.email == "another_user@email.com"

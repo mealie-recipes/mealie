@@ -14,6 +14,7 @@ class AppInfo(MealieModel):
     version: str
     demo_status: bool
     allow_signup: bool
+    jwt_auth_enabled: bool
 
 
 class AdminAboutInfo(AppInfo):

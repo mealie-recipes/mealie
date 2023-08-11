@@ -33,6 +33,7 @@ class AdminAboutController(BaseAdminController):
             db_url=settings.DB_URL_PUBLIC,
             default_group=settings.DEFAULT_GROUP,
             allow_signup=settings.ALLOW_SIGNUP,
+            jwt_auth_enabled=settings.JWT_AUTH_ENABLED,
             build_id=settings.GIT_COMMIT_HASH,
             recipe_scraper_version=recipe_scraper_version.__version__,
         )

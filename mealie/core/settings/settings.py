@@ -124,6 +124,17 @@ class AppSettings(BaseSettings):
         return "" not in required and None not in required
 
     # ===============================================
+    # JWT AUTH Configuration
+
+    JWT_AUTH_ENABLED: bool = False
+    JWT_AUTH_HEADER_NAME: str = "X-JWT-Assertion"
+    JWT_AUTH_EMAIL_CLAIM: str = "email"
+    JWT_AUTH_NAME_CLAIM: str = "name"
+    JWT_AUTH_USERNAME_CLAIM: str = "user"
+    JWT_AUTH_AUTO_SIGN_UP: bool = False
+    JWT_AUTH_JWK_SET_URL: str = "https://your-auth-provider.example.com/.well-known/jwks.json"
+
+    # ===============================================
     # LDAP Configuration
 
     LDAP_AUTH_ENABLED: bool = False

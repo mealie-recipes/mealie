@@ -18,6 +18,7 @@ def test_admin_about_get_app_info(api_client: TestClient, admin_user: TestUser):
     assert as_dict["apiPort"] == settings.API_PORT
     assert as_dict["apiDocs"] == settings.API_DOCS
     assert as_dict["dbType"] == settings.DB_ENGINE
+    assert as_dict["jwtAuthEnabled"] == settings.JWT_AUTH_ENABLED
     # assert as_dict["dbUrl"] == settings.DB_URL_PUBLIC
     assert as_dict["defaultGroup"] == settings.DEFAULT_GROUP
 

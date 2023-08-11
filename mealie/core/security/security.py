@@ -8,8 +8,10 @@ from mealie.core import root_logger
 from mealie.core.config import get_app_settings
 from mealie.core.security import ldap
 from mealie.core.security.hasher import get_hasher
+from mealie.core.security.jwt_validation import get_claims_from_jwt_assertion
 from mealie.db.models.users.users import AuthMethod
 from mealie.repos.all_repositories import get_repositories
+from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.user import PrivateUser
 from mealie.services.user_services.user_service import UserService
 
@@ -44,10 +46,36 @@ def create_recipe_slug_token(file_path: str | Path) -> str:
     return create_access_token(token_data, expires_delta=timedelta(minutes=30))
 
 
-def authenticate_user(session, email: str, password: str) -> PrivateUser | bool:
+def _create_new_jwt_user(db: AllRepositories, claims: dict) -> PrivateUser:
+    settings = get_app_settings()
+    return db.users.create(
+        {
+            "full_name": claims[settings.JWT_AUTH_NAME_CLAIM],
+            "username": claims[settings.JWT_AUTH_USERNAME_CLAIM],
+            "email": claims[settings.JWT_AUTH_EMAIL_CLAIM],
+            "password": hash_password(secrets.token_urlsafe(13)),  # 13 char long random password
+            "group": settings.DEFAULT_GROUP,
+            "admin": False,
+        }
+    )
+
+
+def authenticate_user(session, email: str, password: str, jwt_assertion: str | None = None) -> PrivateUser | bool:
     settings = get_app_settings()
 
     db = get_repositories(session)
+
+    if settings.JWT_AUTH_ENABLED and jwt_assertion is not None:
+        try:
+            jwt_claims = get_claims_from_jwt_assertion(jwt_assertion)
+        except Exception:
+            logger.error("[JWT] Unable to decode JWT assertion")
+            return False
+        user = db.users.get_one(jwt_claims[settings.JWT_AUTH_EMAIL_CLAIM], "email", any_case=True)
+        if user is None and settings.JWT_AUTH_AUTO_SIGN_UP:
+            user = _create_new_jwt_user(db, jwt_claims)
+        return user
+
     user = db.users.get_one(email, "email", any_case=True)
 
     if not user:

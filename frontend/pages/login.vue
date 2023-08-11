@@ -145,18 +145,28 @@ export default defineComponent({
 
     const { passwordIcon, inputType, togglePasswordShow } = usePasswordField();
 
+    whenever(
+      () => appInfo.value?.jwtAuthEnabled as boolean,
+      () => {
+        authenticate({sso: true});
+      },
+      {immediate: true},
+    );
+
     const allowSignup = computed(() => appInfo.value?.allowSignup || false);
 
-    async function authenticate() {
-      if (form.email.length === 0 || form.password.length === 0) {
-        alert.error(i18n.t("user.please-enter-your-email-and-password") as string);
-        return;
+    async function authenticate({sso} = {sso: false}) {
+      if (!sso) {
+        if (form.email.length === 0 || form.password.length === 0) {
+          alert.error(i18n.t("user.please-enter-your-email-and-password") as string);
+          return;
+        }
       }
 
       loggingIn.value = true;
       const formData = new FormData();
-      formData.append("username", form.email);
-      formData.append("password", form.password);
+      formData.append("username", sso ? "SSO" : form.email);
+      formData.append("password", sso ? "SSO" : form.password);
       formData.append("remember_me", String(form.remember));
 
       try {

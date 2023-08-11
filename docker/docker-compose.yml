@@ -78,13 +78,23 @@ services:
       # SMTP_USER=
       # SMTP_PASSWORD=
 
-      # postgres:
-      #   container_name: postgres
-      #   image: postgres
-      #   restart: always
-      #   environment:
-      #     POSTGRES_PASSWORD: mealie
-      #     POSTGRES_USER: mealie
+      # =====================================
+      # JWT Auth Configuration
+      # JWT_AUTH_ENABLED: "true"
+      # JWT_AUTH_HEADER_NAME: "X-Jwt-Assertion"
+      # JWT_AUTH_EMAIL_CLAIM: "your-email-claim"
+      # JWT_AUTH_NAME_CLAIM: "your-name-claim"
+      # JWT_AUTH_USERNAME_CLAIM: "your-username-claim"
+      # JWT_AUTH_AUTO_SIGN_UP: "true"
+      # JWT_AUTH_JWK_SET_URL: "https://your-authentication.endpoint.com/.well-known/jwks.json"
+
+  # postgres:
+  #   container_name: postgres
+  #   image: postgres
+  #   restart: always
+  #   environment:
+  #     POSTGRES_PASSWORD: mealie
+  #     POSTGRES_USER: mealie
 
 volumes:
   mealie-data:
