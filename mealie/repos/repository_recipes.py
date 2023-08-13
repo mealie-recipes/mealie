@@ -60,7 +60,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             stmt = (
                 select(self.model)
                 .join(RecipeSettings)
-                .filter(RecipeSettings.public == True)  # noqa: 711
+                .filter(RecipeSettings.public is True)  # noqa: 711
                 .order_by(order_attr.desc())
                 .offset(start)
                 .limit(limit)
@@ -70,7 +70,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         stmt = (
             select(self.model)
             .join(RecipeSettings)
-            .filter(RecipeSettings.public == True)  # noqa: 711
+            .filter(RecipeSettings.public is True)  # noqa: 711
             .offset(start)
             .limit(limit)
         )

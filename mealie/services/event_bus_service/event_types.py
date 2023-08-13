@@ -177,8 +177,8 @@ class Event(MealieModel):
     document_data: EventDocumentDataBase
 
     # set at instantiation
-    event_id: UUID4 | None
-    timestamp: datetime | None
+    event_id: UUID4 | None = None
+    timestamp: datetime | None = None
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)

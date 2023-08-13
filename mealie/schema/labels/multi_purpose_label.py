@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from pydantic import UUID4
+from pydantic import UUID4, ConfigDict
 
 from mealie.schema._mealie import MealieModel
 from mealie.schema.response.pagination import PaginationBase
@@ -21,9 +21,7 @@ class MultiPurposeLabelUpdate(MultiPurposeLabelSave):
 
 class MultiPurposeLabelSummary(MultiPurposeLabelUpdate):
     pass
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class MultiPurposeLabelPagination(PaginationBase):
@@ -31,11 +29,7 @@ class MultiPurposeLabelPagination(PaginationBase):
 
 
 class MultiPurposeLabelOut(MultiPurposeLabelUpdate):
-    # shopping_list_items: list[ShoppingListItemOut] = []
-    # foods: list[IngredientFood] = []
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 # from mealie.schema.recipe.recipe_ingredient import IngredientFood

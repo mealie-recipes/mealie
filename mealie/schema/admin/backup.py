@@ -19,9 +19,9 @@ class ImportJob(BackupOptions):
 
 
 class CreateBackup(BaseModel):
-    tag: str | None
+    tag: str | None = None
     options: BackupOptions
-    templates: list[str] | None
+    templates: list[str] | None = None
 
 
 class BackupFile(BaseModel):

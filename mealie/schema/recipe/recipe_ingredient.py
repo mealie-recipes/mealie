@@ -5,7 +5,7 @@ import enum
 from fractions import Fraction
 from uuid import UUID, uuid4
 
-from pydantic import UUID4, Field, validator
+from pydantic import UUID4, ConfigDict, Field, field_validator, validator
 from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -49,10 +49,9 @@ class IngredientFood(CreateIngredientFood):
     label: MultiPurposeLabelSummary | None = None
     created_at: datetime.datetime | None
     update_at: datetime.datetime | None
-
-    class Config:
-        orm_mode = True
-        getter_dict = ExtrasGetterDict
+    # TODO[pydantic]: The following keys were removed: `getter_dict`.
+    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-config for more information.
+    model_config = ConfigDict(from_attributes=True, getter_dict=ExtrasGetterDict)
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
@@ -77,9 +76,7 @@ class IngredientUnit(CreateIngredientUnit):
     id: UUID4
     created_at: datetime.datetime | None
     update_at: datetime.datetime | None
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class RecipeIngredientBase(MealieModel):
@@ -114,14 +111,16 @@ class RecipeIngredientBase(MealieModel):
         if not self.display:
             self.display = self._format_display()
 
-    @validator("unit", pre=True)
+    @field_validator("unit", mode="before")
+    @classmethod
     def validate_unit(cls, v):
         if isinstance(v, str):
             return CreateIngredientUnit(name=v)
         else:
             return v
 
-    @validator("food", pre=True)
+    @field_validator("food", mode="before")
+    @classmethod
     def validate_food(cls, v):
         if isinstance(v, str):
             return CreateIngredientFood(name=v)
@@ -200,11 +199,10 @@ class RecipeIngredient(RecipeIngredientBase):
     # It is required for the reorder and section titles to function properly because of how
     # Vue handles reactivity. ref may serve another purpose in the future.
     reference_id: UUID = Field(default_factory=uuid4)
+    model_config = ConfigDict(from_attributes=True)
 
-    class Config:
-        orm_mode = True
-
-    @validator("quantity", pre=True)
+    @field_validator("quantity", mode="before")
+    @classmethod
     def validate_quantity(cls, value) -> NoneFloat:
         """
         Sometimes the frontend UI will provide an empty string as a "null" value because of the default
@@ -226,6 +224,8 @@ class IngredientConfidence(MealieModel):
     quantity: NoneFloat = None
     food: NoneFloat = None
 
+    # TODO[pydantic]: We couldn't refactor the `validator`, please replace it by `field_validator` manually.
+    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-validators for more information.
     @validator("quantity", pre=True)
     @classmethod
     def validate_quantity(cls, value, values) -> NoneFloat:

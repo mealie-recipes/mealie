@@ -1,7 +1,7 @@
 import datetime
 from enum import Enum
 
-from pydantic import UUID4
+from pydantic import UUID4, ConfigDict
 from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -14,14 +14,11 @@ class Category(MealieModel):
     id: UUID4
     name: str
     slug: str
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class Tag(Category):
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class PlanRulesDay(str, Enum):
@@ -64,9 +61,7 @@ class PlanRulesSave(PlanRulesCreate):
 
 class PlanRulesOut(PlanRulesSave):
     id: UUID4
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:

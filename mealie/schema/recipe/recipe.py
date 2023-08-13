@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Any
 from uuid import uuid4
 
-from pydantic import UUID4, BaseModel, Field, validator
+from pydantic import UUID4, BaseModel, ConfigDict, Field, validator
 from slugify import slugify
 from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
@@ -36,9 +36,7 @@ class RecipeTag(MealieModel):
     id: UUID4 | None = None
     name: str
     slug: str
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class RecipeTagPagination(PaginationBase):
@@ -105,9 +103,7 @@ class RecipeSummary(MealieModel):
     created_at: datetime.datetime | None
     update_at: datetime.datetime | None
     last_made: datetime.datetime | None
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class RecipePagination(PaginationBase):
@@ -171,10 +167,9 @@ class Recipe(RecipeSummary):
             raise ValueError("Recipe has no ID")
 
         return self.image_dir_from_id(self.id)
-
-    class Config:
-        orm_mode = True
-        getter_dict = ExtrasGetterDict
+    # TODO[pydantic]: The following keys were removed: `getter_dict`.
+    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-config for more information.
+    model_config = ConfigDict(from_attributes=True, getter_dict=ExtrasGetterDict)
 
     @classmethod
     def from_orm(cls, obj):
@@ -195,6 +190,8 @@ class Recipe(RecipeSummary):
             ingredient.is_food = not ingredient.disable_amount
             ingredient.display = ingredient._format_display()
 
+    # TODO[pydantic]: We couldn't refactor the `validator`, please replace it by `field_validator` manually.
+    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-validators for more information.
     @validator("slug", always=True, pre=True, allow_reuse=True)
     def validate_slug(slug: str, values):  # type: ignore
         if not values.get("name"):
@@ -202,6 +199,8 @@ class Recipe(RecipeSummary):
 
         return slugify(values["name"])
 
+    # TODO[pydantic]: We couldn't refactor the `validator`, please replace it by `field_validator` manually.
+    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-validators for more information.
     @validator("recipe_ingredient", always=True, pre=True, allow_reuse=True)
     def validate_ingredients(recipe_ingredient, values):
         if not recipe_ingredient or not isinstance(recipe_ingredient, list):
@@ -212,24 +211,32 @@ class Recipe(RecipeSummary):
 
         return recipe_ingredient
 
+    # TODO[pydantic]: We couldn't refactor the `validator`, please replace it by `field_validator` manually.
+    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-validators for more information.
     @validator("tags", always=True, pre=True, allow_reuse=True)
     def validate_tags(cats: list[Any]):  # type: ignore
         if isinstance(cats, list) and cats and isinstance(cats[0], str):
             return [RecipeTag(id=uuid4(), name=c, slug=slugify(c)) for c in cats]
         return cats
 
+    # TODO[pydantic]: We couldn't refactor the `validator`, please replace it by `field_validator` manually.
+    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-validators for more information.
     @validator("recipe_category", always=True, pre=True, allow_reuse=True)
     def validate_categories(cats: list[Any]):  # type: ignore
         if isinstance(cats, list) and cats and isinstance(cats[0], str):
             return [RecipeCategory(id=uuid4(), name=c, slug=slugify(c)) for c in cats]
         return cats
 
+    # TODO[pydantic]: We couldn't refactor the `validator`, please replace it by `field_validator` manually.
+    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-validators for more information.
     @validator("group_id", always=True, pre=True, allow_reuse=True)
     def validate_group_id(group_id: Any):
         if isinstance(group_id, int):
             return uuid4()
         return group_id
 
+    # TODO[pydantic]: We couldn't refactor the `validator`, please replace it by `field_validator` manually.
+    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-validators for more information.
     @validator("user_id", always=True, pre=True, allow_reuse=True)
     def validate_user_id(user_id: Any):
         if isinstance(user_id, int):

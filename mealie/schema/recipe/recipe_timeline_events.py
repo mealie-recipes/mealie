@@ -2,7 +2,7 @@ from datetime import datetime
 from enum import Enum
 from pathlib import Path
 
-from pydantic import UUID4, Field
+from pydantic import UUID4, ConfigDict, Field
 
 from mealie.core.config import get_app_dirs
 from mealie.schema._mealie.mealie_model import MealieModel
@@ -35,9 +35,7 @@ class RecipeTimelineEventIn(MealieModel):
     image: TimelineEventImage | None = TimelineEventImage.does_not_have_image
 
     timestamp: datetime = datetime.now()
-
-    class Config:
-        use_enum_values = True
+    model_config = ConfigDict(use_enum_values=True)
 
 
 class RecipeTimelineEventCreate(RecipeTimelineEventIn):
@@ -48,18 +46,14 @@ class RecipeTimelineEventUpdate(MealieModel):
     subject: str
     message: str | None = Field(alias="eventMessage")
     image: TimelineEventImage | None = None
-
-    class Config:
-        use_enum_values = True
+    model_config = ConfigDict(use_enum_values=True)
 
 
 class RecipeTimelineEventOut(RecipeTimelineEventCreate):
     id: UUID4
     created_at: datetime
     update_at: datetime
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
     @classmethod
     def image_dir_from_id(cls, recipe_id: UUID4 | str, timeline_event_id: UUID4 | str) -> Path:

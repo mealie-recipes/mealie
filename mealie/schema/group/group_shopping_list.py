@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime
 
-from pydantic import UUID4, validator
+from pydantic import UUID4, ConfigDict, field_validator
 from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -35,7 +35,8 @@ class ShoppingListItemRecipeRefCreate(MealieModel):
     recipe_scale: NoneFloat = 1
     """the number of times this recipe has been added"""
 
-    @validator("recipe_quantity", pre=True)
+    @field_validator("recipe_quantity", mode="before")
+    @classmethod
     def default_none_to_zero(cls, v):
         return 0 if v is None else v
 
@@ -46,8 +47,7 @@ class ShoppingListItemRecipeRefUpdate(ShoppingListItemRecipeRefCreate):
 
 
 class ShoppingListItemRecipeRefOut(ShoppingListItemRecipeRefUpdate):
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class ShoppingListItemBase(RecipeIngredientBase):
@@ -98,10 +98,9 @@ class ShoppingListItemOut(ShoppingListItemBase):
         if (not self.label) and (self.food and self.food.label):
             self.label = self.food.label
             self.label_id = self.label.id
-
-    class Config:
-        orm_mode = True
-        getter_dict = ExtrasGetterDict
+    # TODO[pydantic]: The following keys were removed: `getter_dict`.
+    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-config for more information.
+    model_config = ConfigDict(from_attributes=True, getter_dict=ExtrasGetterDict)
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
@@ -135,9 +134,7 @@ class ShoppingListMultiPurposeLabelUpdate(ShoppingListMultiPurposeLabelCreate):
 
 class ShoppingListMultiPurposeLabelOut(ShoppingListMultiPurposeLabelUpdate):
     label: MultiPurposeLabelSummary
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
@@ -164,9 +161,7 @@ class ShoppingListRecipeRefOut(MealieModel):
     """the number of times this recipe has been added"""
 
     recipe: RecipeSummary
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
@@ -185,10 +180,9 @@ class ShoppingListSummary(ShoppingListSave):
     id: UUID4
     recipe_references: list[ShoppingListRecipeRefOut]
     label_settings: list[ShoppingListMultiPurposeLabelOut]
-
-    class Config:
-        orm_mode = True
-        getter_dict = ExtrasGetterDict
+    # TODO[pydantic]: The following keys were removed: `getter_dict`.
+    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-config for more information.
+    model_config = ConfigDict(from_attributes=True, getter_dict=ExtrasGetterDict)
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
@@ -219,10 +213,9 @@ class ShoppingListUpdate(ShoppingListSave):
 class ShoppingListOut(ShoppingListUpdate):
     recipe_references: list[ShoppingListRecipeRefOut]
     label_settings: list[ShoppingListMultiPurposeLabelOut]
-
-    class Config:
-        orm_mode = True
-        getter_dict = ExtrasGetterDict
+    # TODO[pydantic]: The following keys were removed: `getter_dict`.
+    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-config for more information.
+    model_config = ConfigDict(from_attributes=True, getter_dict=ExtrasGetterDict)
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:

@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from pydantic import UUID4
+from pydantic import UUID4, ConfigDict
 
 from mealie.schema._mealie import MealieModel
 
@@ -24,6 +24,4 @@ class CreateGroupPreferences(UpdateGroupPreferences):
 
 class ReadGroupPreferences(CreateGroupPreferences):
     id: UUID4
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)

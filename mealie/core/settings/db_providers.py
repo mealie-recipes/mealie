@@ -1,7 +1,8 @@
 from abc import ABC, abstractmethod
 from pathlib import Path
 
-from pydantic import BaseModel, BaseSettings, PostgresDsn
+from pydantic import BaseModel, PostgresDsn
+from pydantic_settings import BaseSettings
 
 
 class AbstractDBProvider(ABC):

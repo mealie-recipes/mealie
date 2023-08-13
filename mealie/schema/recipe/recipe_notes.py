@@ -1,9 +1,7 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class RecipeNote(BaseModel):
     title: str
     text: str
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)

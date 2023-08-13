@@ -1,7 +1,7 @@
 import string
 import unicodedata
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 from .._helpers import check_char, move_parens_to_end
 
@@ -11,9 +11,7 @@ class BruteParsedIngredient(BaseModel):
     note: str = ""
     amount: float = 1.0
     unit: str = ""
-
-    class Config:
-        anystr_strip_whitespace = True
+    model_config = ConfigDict(str_strip_whitespace=True)
 
 
 def parse_fraction(x):

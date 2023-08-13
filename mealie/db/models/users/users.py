@@ -2,6 +2,7 @@ import enum
 from datetime import datetime
 from typing import TYPE_CHECKING, Optional
 
+from pydantic import ConfigDict
 from sqlalchemy import Boolean, DateTime, Enum, ForeignKey, Integer, String, orm
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -83,16 +84,14 @@ class User(SqlAlchemyBase, BaseMixins):
     favorite_recipes: Mapped[list["RecipeModel"]] = orm.relationship(
         "RecipeModel", secondary=users_to_favorites, back_populates="favorited_by"
     )
-
-    class Config:
-        exclude = {
-            "password",
-            "admin",
-            "can_manage",
-            "can_invite",
-            "can_organize",
-            "group",
-        }
+    model_config = ConfigDict(exclude={
+        "password",
+        "admin",
+        "can_manage",
+        "can_invite",
+        "can_organize",
+        "group",
+    })
 
     @auto_init()
     def __init__(self, session, full_name, password, group: str | None = None, **kwargs) -> None:

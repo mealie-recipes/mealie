@@ -4,16 +4,14 @@ from collections.abc import Sequence
 from typing import Protocol, TypeVar
 
 from humps.main import camelize
-from pydantic import UUID4, BaseModel
+from pydantic import UUID4, BaseModel, ConfigDict
 from sqlalchemy.orm.interfaces import LoaderOption
 
 T = TypeVar("T", bound=BaseModel)
 
 
 class MealieModel(BaseModel):
-    class Config:
-        alias_generator = camelize
-        allow_population_by_field_name = True
+    model_config = ConfigDict(alias_generator=camelize, populate_by_name=True)
 
     def cast(self, cls: type[T], **kwargs) -> T:
         """

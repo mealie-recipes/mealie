@@ -1,7 +1,7 @@
 import datetime
 import enum
 
-from pydantic import Field
+from pydantic import ConfigDict, Field
 from pydantic.types import UUID4
 from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.interfaces import LoaderOption
@@ -34,9 +34,7 @@ class ReportEntryCreate(MealieModel):
 
 class ReportEntryOut(ReportEntryCreate):
     id: UUID4
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class ReportCreate(MealieModel):
@@ -53,9 +51,7 @@ class ReportSummary(ReportCreate):
 
 class ReportOut(ReportSummary):
     entries: list[ReportEntryOut] = []
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
