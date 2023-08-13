@@ -2,6 +2,7 @@ from collections.abc import Generator
 from contextlib import contextmanager
 
 import sqlalchemy as sa
+from pydantic_core import MultiHostUrl
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 
@@ -10,12 +11,17 @@ from mealie.core.config import get_app_settings
 settings = get_app_settings()
 
 
-def sql_global_init(db_url: str):
+def sql_global_init(db_url: MultiHostUrl | str):
     connect_args = {}
-    if "sqlite" in db_url:
+
+    con_url = ""
+    if type(db_url) is MultiHostUrl:
+        con_url = db_url.unicode_string()
+    else:  # Sqlite
+        con_url = db_url
         connect_args["check_same_thread"] = False
 
-    engine = sa.create_engine(db_url, echo=False, connect_args=connect_args, pool_pre_ping=True, future=True)
+    engine = sa.create_engine(con_url, echo=False, connect_args=connect_args, pool_pre_ping=True, future=True)
 
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine, future=True)
 

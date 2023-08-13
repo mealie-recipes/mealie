@@ -1,15 +1,14 @@
 from typing import Annotated
 
 from pydantic import StringConstraints, validator
-from pydantic.types import NoneStr
 
 from mealie.schema._mealie import MealieModel
 from mealie.schema._mealie.validators import validate_locale
 
 
 class CreateUserRegistration(MealieModel):
-    group: NoneStr = None
-    group_token: NoneStr = None
+    group: str | None = None
+    group_token: str | None = None
     email: Annotated[str, StringConstraints(to_lower=True, strip_whitespace=True)]  # type: ignore
     username: Annotated[str, StringConstraints(to_lower=True, strip_whitespace=True)]  # type: ignore
     password: str

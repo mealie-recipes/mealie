@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from pathlib import Path
 
 from pydantic import BaseModel, PostgresDsn
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class AbstractDBProvider(ABC):
@@ -35,6 +35,8 @@ class SQLiteProvider(AbstractDBProvider, BaseModel):
 
 
 class PostgresProvider(AbstractDBProvider, BaseSettings):
+    model_config = SettingsConfigDict(strict=False, arbitrary_types_allowed=True, extra="ignore")
+
     POSTGRES_USER: str = "mealie"
     POSTGRES_PASSWORD: str = "mealie"
     POSTGRES_SERVER: str = "postgres"
@@ -46,7 +48,7 @@ class PostgresProvider(AbstractDBProvider, BaseSettings):
         host = f"{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}"
         return PostgresDsn.build(
             scheme="postgresql",
-            user=self.POSTGRES_USER,
+            username=self.POSTGRES_USER,
             password=self.POSTGRES_PASSWORD,
             host=host,
             path=f"/{self.POSTGRES_DB or ''}",

@@ -87,7 +87,7 @@ class AppSettings(BaseSettings):
     # Email Configuration
 
     SMTP_HOST: str | None
-    SMTP_PORT: str | None = "587"
+    SMTP_PORT: str = "587"
     SMTP_FROM_NAME: str | None = "Mealie"
     SMTP_FROM_EMAIL: str | None
     SMTP_USER: str | None
@@ -159,7 +159,7 @@ class AppSettings(BaseSettings):
     # Testing Config
 
     TESTING: bool = False
-    model_config = SettingsConfigDict(arbitrary_types_allowed=True)
+    model_config = SettingsConfigDict(strict=False, arbitrary_types_allowed=True, extra="ignore")
 
 
 def app_settings_constructor(data_dir: Path, production: bool, env_file: Path, env_encoding="utf-8") -> AppSettings:

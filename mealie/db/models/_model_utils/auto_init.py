@@ -1,7 +1,7 @@
 from functools import wraps
 from uuid import UUID
 
-from pydantic import BaseModel, Field, NoneStr
+from pydantic import BaseModel, Field
 from sqlalchemy import select
 from sqlalchemy.orm import MANYTOMANY, MANYTOONE, ONETOMANY, Session
 from sqlalchemy.orm.mapper import Mapper
@@ -21,7 +21,7 @@ class AutoInitConfig(BaseModel):
     Config class for `auto_init` decorator.
     """
 
-    get_attr: NoneStr = None
+    get_attr: str | None = None
     exclude: set = Field(default_factory=_default_exclusion)
     # auto_create: bool = False
 

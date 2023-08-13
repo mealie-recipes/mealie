@@ -1,4 +1,4 @@
-from pydantic import UUID4, ConfigDict, NoneStr
+from pydantic import UUID4, ConfigDict
 from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -74,7 +74,7 @@ class GroupEventNotifierSave(GroupEventNotifierCreate):
 
 class GroupEventNotifierUpdate(GroupEventNotifierSave):
     id: UUID4
-    apprise_url: NoneStr = None
+    apprise_url: str | None = None
 
 
 class GroupEventNotifierOut(MealieModel):
