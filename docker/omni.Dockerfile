@@ -33,7 +33,8 @@ ENV PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=off \
     PIP_DISABLE_PIP_VERSION_CHECK=on \
     PIP_DEFAULT_TIMEOUT=100 \
-    POETRY_HOME="/opt/poetry" \
+    # POETRY_HOME="/opt/poetry" \
+    POETRY_HOME="/opt/pysetup" \
     POETRY_VIRTUALENVS_IN_PROJECT=true \
     POETRY_NO_INTERACTION=1 \
     PYSETUP_PATH="/opt/pysetup" \
@@ -51,6 +52,10 @@ RUN useradd -u 911 -U -d $MEALIE_HOME -s /bin/bash abc \
 # Builder Image
 ###############################################
 FROM python-base as builder-base
+
+# to get bcrypt to build  https://github.com/rust-lang/cargo/issues/8719
+# RUN --security=insecure mkdir -p /root/.cargo && chmod 777 /root/.cargo && mount -t tmpfs none /root/.cargo
+
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
     curl \
@@ -61,22 +66,39 @@ RUN apt-get update \
     # LDAP Dependencies
     libsasl2-dev libldap2-dev libssl-dev \
     gnupg gnupg2 gnupg1 \
-    && pip install -U --no-cache-dir pip
+    # lxml dependencies
+    libxml2-dev libxslt-dev python3-dev \
+    # not strictly sure these runtime ones are needed at this stage or only later
+    libxml2 libxslt1.1 \
+    # need this for cryptography, bcrypt, and maybe Pillow
+    cargo rustc \
+    # needt his for Pillow apparently
+    libjpeg-dev zlib1g-dev \
+    # get bcrypt this way instead of via pip
+    python3-bcrypt \
+    # for pip install
+    python3-virtualenv \
+    # && pip install -U --no-cache-dir pip
+    && pip install --upgrade --no-cache-dir pip setuptools wheel
 
 # install poetry - respects $POETRY_VERSION & $POETRY_HOME
-ENV POETRY_VERSION=1.3.1
-RUN curl -sSL https://install.python-poetry.org | python3 -
+# ENV POETRY_VERSION=1.3.1
+# RUN curl -sSL https://install.python-poetry.org | python3 -
 
 # copy project requirement files here to ensure they will be cached.
 WORKDIR $PYSETUP_PATH
-COPY ./poetry.lock ./pyproject.toml ./
+COPY ./poetry.lock ./pyproject.toml ./requirements.txt ./
 
 # install runtime deps - uses $POETRY_VIRTUALENVS_IN_PROJECT internally
-RUN poetry install -E pgsql --only main
+# RUN poetry install -E pgsql --only main
+# RUN pip install -r requirements.txt --only-binary=cryptography
+RUN python3 -m venv .venv
+RUN . $VENV_PATH/bin/activate && pip install -r requirements.txt --only-binary=cryptography
 
 ###############################################
 # CRFPP Image
 ###############################################
+# FROM --platform=linux/arm/v7 hkotel/crfpp as crfpp
 FROM hkotel/crfpp as crfpp
 
 RUN echo "crfpp-container"
@@ -98,7 +120,12 @@ RUN apt-get update \
     tesseract-ocr-all \
     curl \
     gnupg \
+    python3-bcrypt \
     libldap-common \
+    # for webp / Pillow image upload to work
+    libwebpdemux2 \
+    # for libxml to work as shared lib
+    libxml2 libxslt1.1 \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
 
@@ -124,7 +151,7 @@ COPY --from=crfpp /usr/local/bin/crf_test /usr/local/bin/crf_test
 
 # copy backend
 COPY ./mealie $MEALIE_HOME/mealie
-COPY ./poetry.lock ./pyproject.toml $MEALIE_HOME/
+COPY ./poetry.lock ./pyproject.toml ./requirements.txt $MEALIE_HOME/
 COPY ./gunicorn_conf.py $MEALIE_HOME
 
 # Alembic
@@ -133,18 +160,20 @@ COPY ./alembic.ini $MEALIE_HOME/
 
 # venv already has runtime deps installed we get a quicker install
 WORKDIR $MEALIE_HOME
-RUN . $VENV_PATH/bin/activate && poetry install -E pgsql --only main
+RUN . $VENV_PATH/bin/activate && pip install -r requirements.txt --only-binary=cryptography && pip install -e .
 WORKDIR /
 
 # Grab CRF++ Model Release
-RUN python $MEALIE_HOME/mealie/scripts/install_model.py
+# RUN python $MEALIE_HOME/mealie/scripts/install_model.py
+RUN . $VENV_PATH/bin/activate && python3 $MEALIE_HOME/mealie/scripts/install_model.py
 
 VOLUME [ "$MEALIE_HOME/data/" ]
 ENV APP_PORT=9000
 
 EXPOSE ${APP_PORT}
 
-HEALTHCHECK CMD python $MEALIE_HOME/mealie/scripts/healthcheck.py || exit 1
+HEALTHCHECK CMD . $VENV_PATH/bin/activate && python3 $MEALIE_HOME/mealie/scripts/healthcheck.py || exit 1
+# HEALTHCHECK CMD python $MEALIE_HOME/mealie/scripts/healthcheck.py || exit 1
 
 # ----------------------------------
 # Copy Frontend

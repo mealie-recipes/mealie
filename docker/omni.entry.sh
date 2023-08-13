@@ -38,7 +38,8 @@ init() {
     . /opt/pysetup/.venv/bin/activate
 
     # Initialize Database Prerun
-    poetry run python /app/mealie/db/init_db.py
+    # poetry run python /app/mealie/db/init_db.py
+    python3 /app/mealie/db/init_db.py
 }
 
 # change_user
