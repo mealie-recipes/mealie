@@ -129,6 +129,10 @@ export default defineComponent({
             listItemDescription += ` ${unitDisplay}`
           }
 
+          if (itemRef.recipeNote) {
+            listItemDescription += `, ${itemRef.recipeNote}`
+          }
+
           listItemDescriptions.push(sanitizeHTML(listItemDescription));
       }
 
