@@ -6,7 +6,7 @@
           <v-icon :class="attrs.class.icon" dark :small="small"> {{ $globals.icons.primary }} </v-icon>
         </v-list-item-avatar>
         <v-list-item-content :class="attrs.class.text">
-          <v-list-item-title class="small" :style="attrs.style.text.title">
+          <v-list-item-title :class="listItem && listItemDescriptions[index] ? '' : 'pr-4'" :style="attrs.style.text.title">
             {{ recipe.name }}
           </v-list-item-title>
           <v-list-item-subtitle v-if="showDescription">{{ recipe.description }}</v-list-item-subtitle>
@@ -100,7 +100,6 @@ export default defineComponent({
 
       const listItemDescriptions: string[] = [];
       for (let i = 0; i < props.recipes.length; i++) {
-        const recipe = props.recipes[i];
         const itemRef = props.listItem?.recipeReferences[i];
         const quantity = (itemRef.recipeQuantity || 1) * (itemRef.recipeScale || 1);
 
