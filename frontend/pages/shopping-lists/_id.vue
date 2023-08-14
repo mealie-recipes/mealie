@@ -177,7 +177,7 @@
           {{ $tc('shopping-list.linked-recipes-count', shoppingList.recipeReferences ? shoppingList.recipeReferences.length : 0) }}
         </div>
         <v-divider class="my-4"></v-divider>
-        <RecipeList :recipes="Array.from(recipeMap.values())" showDescription>
+        <RecipeList :recipes="Array.from(recipeMap.values())" show-description>
           <template v-for="(recipe, index) in recipeMap.values()" #[`actions-${recipe.id}`]>
             <v-list-item-action :key="'item-actions-decrease' + recipe.id">
               <v-btn icon @click.prevent="removeRecipeReferenceToList(recipe.id)">

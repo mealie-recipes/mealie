@@ -34,8 +34,8 @@
                 right
                 content-class="text-caption"
               >
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn v-bind="attrs" v-on="on" small class="ml-2" icon @click="displayRecipeRefs = !displayRecipeRefs">
+                <template #activator="{ on: onBtn, attrs: attrsBtn }">
+                  <v-btn small class="ml-2" icon @click="displayRecipeRefs = !displayRecipeRefs" v-bind="attrsBtn" v-on="onBtn">
                     <v-icon>
                       {{ $globals.icons.potSteam }}
                     </v-icon>
@@ -222,7 +222,7 @@ export default defineComponent({
     });
 
     const recipeList = computed<RecipeSummary[]>(() => {
-      let recipeList: RecipeSummary[] = [];
+      const recipeList: RecipeSummary[] = [];
       if (!listItem.value.recipeReferences) {
         return recipeList;
       }

@@ -10,7 +10,7 @@
             {{ recipe.name }}
           </v-list-item-title>
           <v-list-item-subtitle v-if="showDescription">{{ recipe.description }}</v-list-item-subtitle>
-          <v-list-item-subtitle v-if="listItem && listItemDescriptions[index]" v-html="listItemDescriptions[index]" :style="attrs.style.text.subTitle"/>
+          <v-list-item-subtitle v-if="listItem && listItemDescriptions[index]" :style="attrs.style.text.subTitle" v-html="listItemDescriptions[index]"/>
         </v-list-item-content>
         <slot :name="'actions-' + recipe.id" :v-bind="{ item: recipe }"> </slot>
       </v-list-item>
@@ -32,7 +32,8 @@ export default defineComponent({
       required: true,
     },
     listItem: {
-      type: Object as () => ShoppingListItemOut,
+      type: Object as () => ShoppingListItemOut | undefined,
+      default: undefined,
     },
     small: {
       type: Boolean,
