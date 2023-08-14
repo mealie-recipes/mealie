@@ -17,11 +17,7 @@ from mealie.schema.group.group_shopping_list import (
     ShoppingListMultiPurposeLabelCreate,
     ShoppingListSave,
 )
-from mealie.schema.recipe.recipe_ingredient import (
-    IngredientFood,
-    IngredientUnit,
-    RecipeIngredient,
-)
+from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit, RecipeIngredient
 from mealie.schema.response.pagination import OrderDirection, PaginationQuery
 from mealie.schema.user.user import GroupInDB, PrivateUser
 
@@ -318,7 +314,10 @@ class ShoppingListService:
                 unit_id=unit_id,
                 recipe_references=[
                     ShoppingListItemRecipeRefCreate(
-                        recipe_id=recipe_id, recipe_quantity=ingredient.quantity, recipe_scale=scale
+                        recipe_id=recipe_id,
+                        recipe_quantity=ingredient.quantity,
+                        recipe_scale=scale,
+                        recipe_note=ingredient.note or None,
                     )
                 ],
             )

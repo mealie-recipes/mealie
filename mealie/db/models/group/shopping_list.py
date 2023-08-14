@@ -5,11 +5,7 @@ from sqlalchemy.ext.orderinglist import ordering_list
 from sqlalchemy.orm import Mapped, mapped_column
 
 from mealie.db.models.labels import MultiPurposeLabel
-from mealie.db.models.recipe.api_extras import (
-    ShoppingListExtras,
-    ShoppingListItemExtras,
-    api_extras,
-)
+from mealie.db.models.recipe.api_extras import ShoppingListExtras, ShoppingListItemExtras, api_extras
 
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import GUID, auto_init
@@ -30,6 +26,7 @@ class ShoppingListItemRecipeReference(BaseMixins, SqlAlchemyBase):
     recipe: Mapped[Optional["RecipeModel"]] = orm.relationship("RecipeModel", back_populates="shopping_list_item_refs")
     recipe_quantity: Mapped[float] = mapped_column(Float, nullable=False)
     recipe_scale: Mapped[float | None] = mapped_column(Float, default=1)
+    recipe_note: Mapped[str | None] = mapped_column(String)
 
     @auto_init()
     def __init__(self, **_) -> None:
