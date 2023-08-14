@@ -26,9 +26,35 @@
         <div v-if="!listItem.checked" style="min-width: 72px">
           <v-menu offset-x left min-width="125px">
             <template #activator="{ on, attrs }">
+              <v-tooltip
+                v-if="recipeList && recipeList.length"
+                open-delay="200"
+                transition="slide-x-reverse-transition"
+                dense
+                right
+                content-class="text-caption"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn v-bind="attrs" v-on="on" small class="ml-2" icon @click="displayRecipeRefs = !displayRecipeRefs">
+                    <v-icon>
+                      {{ $globals.icons.potSteam }}
+                    </v-icon>
+                  </v-btn>
+                </template>
+                <span>Toggle Recipes</span>
+              </v-tooltip>
+              <!-- Dummy button so the spacing is consistent when labels are enabled -->
+              <v-btn v-else small class="ml-2" icon disabled>
+              </v-btn>
+
               <v-btn small class="ml-2 handle" icon v-bind="attrs" v-on="on">
                 <v-icon>
                   {{ $globals.icons.arrowUpDown }}
+                </v-icon>
+              </v-btn>
+              <v-btn small class="ml-2" icon @click="toggleEdit(true)">
+                <v-icon>
+                  {{ $globals.icons.edit }}
                 </v-icon>
               </v-btn>
             </template>
@@ -38,12 +64,12 @@
               </v-list-item>
             </v-list>
           </v-menu>
-          <v-btn small class="ml-2" icon @click="toggleEdit(true)">
-            <v-icon>
-              {{ $globals.icons.edit }}
-            </v-icon>
-          </v-btn>
         </div>
+      </v-col>
+    </v-row>
+    <v-row v-if="!listItem.checked && recipeList && recipeList.length && displayRecipeRefs" no-gutters class="mb-2">
+      <v-col cols="auto" style="width: 100%;">
+        <RecipeList :recipes="recipeList" :list-item="listItem" small tile />
       </v-col>
     </v-row>
     <v-row v-if="listItem.checked" no-gutters class="mb-2">
@@ -74,7 +100,8 @@ import ShoppingListItemEditor from "./ShoppingListItemEditor.vue";
 import MultiPurposeLabel from "./MultiPurposeLabel.vue";
 import { ShoppingListItemOut } from "~/lib/api/types/group";
 import { MultiPurposeLabelOut, MultiPurposeLabelSummary } from "~/lib/api/types/labels";
-import { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
+import { IngredientFood, IngredientUnit, RecipeSummary } from "~/lib/api/types/recipe";
+import RecipeList from "~/components/Domain/Recipe/RecipeList.vue";
 
 interface actions {
   text: string;
@@ -82,7 +109,7 @@ interface actions {
 }
 
 export default defineComponent({
-  components: { ShoppingListItemEditor, MultiPurposeLabel },
+  components: { ShoppingListItemEditor, MultiPurposeLabel, RecipeList },
   props: {
     value: {
       type: Object as () => ShoppingListItemOut,
@@ -104,10 +131,15 @@ export default defineComponent({
       type: Array as () => IngredientFood[],
       required: true,
     },
+    recipes: {
+      type: Map<string, RecipeSummary>,
+      default: undefined,
+    }
   },
   setup(props, context) {
     const { i18n } = useContext();
-    const itemLabelCols = ref<string>(props.value.checked ? "auto" : props.showLabel ? "6" : "8");
+    const displayRecipeRefs = ref(false);
+    const itemLabelCols = ref<string>(props.value.checked ? "auto" : props.showLabel ? "4" : "6");
 
     const contextMenu: actions[] = [
       {
@@ -189,16 +221,34 @@ export default defineComponent({
       return undefined;
     });
 
+    const recipeList = computed<RecipeSummary[]>(() => {
+      let recipeList: RecipeSummary[] = [];
+      if (!listItem.value.recipeReferences) {
+        return recipeList;
+      }
+
+      listItem.value.recipeReferences.forEach((ref) => {
+        const recipe = props.recipes.get(ref.recipeId)
+        if (recipe) {
+          recipeList.push(recipe);
+        }
+      });
+
+      return recipeList;
+    });
+
     return {
       updatedLabels,
       save,
       contextHandler,
+      displayRecipeRefs,
       edit,
       contextMenu,
       itemLabelCols,
       listItem,
       localListItem,
       label,
+      recipeList,
       toggleEdit,
     };
   },
