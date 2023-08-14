@@ -64,6 +64,11 @@ class ShoppingListService:
         if to_item.note != from_item.note:
             to_item.note = " | ".join([note for note in [to_item.note, from_item.note] if note])
 
+        if from_item.note and to_item.note != from_item.note:
+            notes: set[str] = set(to_item.note.split(" | ")) if to_item.note else set()
+            notes.add(from_item.note)
+            to_item.note = " | ".join([note for note in notes if note])
+
         if to_item.extras and from_item.extras:
             to_item.extras.update(from_item.extras)
 
@@ -335,8 +340,10 @@ class ShoppingListService:
                     existing_item.recipe_references[0].recipe_quantity += ingredient.quantity  # type: ignore
 
                 # merge notes
-                if existing_item.note != new_item.note:
-                    existing_item.note = " | ".join([note for note in [existing_item.note, new_item.note] if note])
+                if new_item.note and existing_item.note != new_item.note:
+                    notes: set[str] = set(existing_item.note.split(" | ")) if existing_item.note else set()
+                    notes.add(new_item.note)
+                    existing_item.note = " | ".join([note for note in notes if note])
 
                 merged = True
                 break
