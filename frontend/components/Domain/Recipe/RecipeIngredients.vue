@@ -82,4 +82,8 @@ export default defineComponent({
 .dense-markdown p {
   margin: auto !important;
 }
+
+.note {
+  opacity: 0.7;
+}
 </style>

@@ -43,6 +43,8 @@ export function parseIngredientText(ingredient: RecipeIngredient, disableAmount:
     }
   }
 
-  const text = `${returnQty} ${unitDisplay || " "}  ${food?.name || " "} ${note || " "}`.replace(/ {2,}/g, " ");
+  const noteDisplay = note ? `<span class="note">${note}</span>` : " ";
+
+  const text = `${returnQty} ${unitDisplay || " "}  ${food?.name || " "} ${noteDisplay}`.replace(/ {2,}/g, " ");
   return sanitizeIngredientHTML(text);
 }
