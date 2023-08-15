@@ -11,8 +11,9 @@ function sanitizeIngredientHTML(rawHtml: string) {
 }
 
 export function parseIngredientText(ingredient: RecipeIngredient, disableAmount: boolean, scale = 1): string {
-  // TODO: the backend now supplies a "display" property which does this for us, so we don't need this function
-
+  if (ingredient.display) {
+    return ingredient.display;
+  }
   if (disableAmount) {
     return ingredient.note || "";
   }

@@ -182,7 +182,7 @@ class RecipeIngredientBase(MealieModel):
                 components.append(self.food.name)
 
             if self.note:
-                components.append(self.note)
+                components.append('<span class="note">' + self.note + "</span>")
 
         return " ".join(components)
 
