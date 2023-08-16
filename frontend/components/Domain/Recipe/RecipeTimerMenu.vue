@@ -9,6 +9,7 @@
       close-delay="125"
       :close-on-content-click="false"
       content-class="d-print-none"
+      :z-index="2"
     >
       <template #activator="{ on, attrs }">
         <v-badge :value="timerEnded" overlap color="red" content="!">
