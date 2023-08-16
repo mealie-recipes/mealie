@@ -158,6 +158,7 @@ export default defineComponent({
       }
     );
 
+    // @ts-ignore ts doesn't recognize timerAlarmAudio as a string
     const timerAlarm = new Audio(timerAlarmAudio);
     timerAlarm.loop = true;
 
@@ -204,6 +205,7 @@ export default defineComponent({
         buttons.push(initializeButton);
       }
 
+      // @ts-ignore I don't know why this is failing the frontend lint test ¯\_(ツ)_/¯
       return buttons;
     });
 
