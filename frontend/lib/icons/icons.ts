@@ -135,6 +135,11 @@ import {
   mdiDockTop,
   mdiDockBottom,
   mdiCheckboxOutline,
+  mdiTimer,
+  mdiTimerPlus,
+  mdiPause,
+  mdiStop,
+  mdiPlay,
 } from "@mdi/js";
 
 export const icons = {
@@ -222,6 +227,8 @@ export const icons = {
   openInNew: mdiOpenInNew,
   orderAlphabeticalAscending: mdiOrderAlphabeticalAscending,
   pageLayoutBody: mdiPageLayoutBody,
+  pause: mdiPause,
+  play: mdiPlay,
   printer: mdiPrinter,
   printerSettings: mdiPrinterPosCog,
   refreshCircle: mdiRefreshCircle,
@@ -239,8 +246,11 @@ export const icons = {
   sortClockAscending: mdiSortClockAscending,
   sortClockDescending: mdiSortClockDescending,
   star: mdiStar,
+  stop: mdiStop,
   testTube: mdiTestTube,
   timelineText: mdiTimelineText,
+  timer: mdiTimer,
+  timerPlus: mdiTimerPlus,
   tools: mdiTools,
   potSteam: mdiPotSteam,
   translate: mdiTranslate,
