@@ -155,6 +155,10 @@ export default defineComponent({
               valStringBuilder += ` ${fraction[1]}/${fraction[2]}`;
             }
 
+            if (!valStringBuilder) {
+              return yieldString;  // this only happens with very weird or small fractions
+            }
+
             // @ts-ignore this gets converted to a string anyway
             val = valStringBuilder;
           } else {
