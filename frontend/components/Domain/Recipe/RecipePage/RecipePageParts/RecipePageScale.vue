@@ -142,31 +142,32 @@ export default defineComponent({
 
       if (match && servings) {
         let val = servings * scale;
+        let valString = ""
+
         if (!Number.isInteger(val)) {
           if (isFraction) {
-            let valStringBuilder = "";
             const fraction = frac(val, 10, true);
 
             if (fraction[0] !== undefined && fraction[0] > 0) {
-              valStringBuilder += fraction[0];
+              valString += fraction[0];
             }
 
             if (fraction[1] > 0) {
-              valStringBuilder += ` ${fraction[1]}/${fraction[2]}`;
+              valString += ` ${fraction[1]}/${fraction[2]}`;
             }
 
-            if (!valStringBuilder) {
+            if (!valString) {
               return yieldString;  // this only happens with very weird or small fractions
             }
 
-            // @ts-ignore this gets converted to a string anyway
-            val = valStringBuilder;
           } else {
-            val = Math.round(val * 1000) / 1000;
+            valString = (Math.round(val * 1000) / 1000).toString();
           }
+        } else {
+          valString = val.toString();
         }
 
-        return yieldString.replace(match, val.toString());
+        return yieldString.replace(match, valString);
       } else {
         return yieldString;
       }
