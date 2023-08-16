@@ -39,7 +39,14 @@
             :size="128"
             :width="24"
           >
-          <v-icon x-large v-if="timerInitialized && !timerRunning">{{ $globals.icons.pause }}</v-icon>
+          <v-icon
+            v-if="timerInitialized && !timerRunning"
+            x-large
+            :color="timerEnded ? 'red' : 'primary'"
+            @click="() => timerEnded ? resetTimer() : resumeTimer()"
+          >
+            {{ timerEnded ? $globals.icons.stop : $globals.icons.pause }}
+          </v-icon>
           </v-progress-circular>
         </div>
         <v-container width="100%" fluid class="ma-0 px-auto py-2">
