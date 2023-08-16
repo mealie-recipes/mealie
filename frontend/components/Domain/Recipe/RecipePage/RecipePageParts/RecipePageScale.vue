@@ -141,7 +141,7 @@ export default defineComponent({
       }
 
       if (match && servings) {
-        let val = servings * scale;
+        const val = servings * scale;
         let valString = ""
 
         if (!Number.isInteger(val)) {
