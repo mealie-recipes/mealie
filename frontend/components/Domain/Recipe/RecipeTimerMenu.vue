@@ -165,43 +165,46 @@ export default defineComponent({
     const timerMinutes = ref<string | number>("00");
     const timerSeconds = ref<string | number>("00");
 
+    const initializeButton: ButtonOption = {
+      icon: $globals.icons.timerPlus,
+      text: i18n.tc("recipe.timer.start-timer"),
+      event: "initialize-timer",
+    }
+
+    const pauseButton: ButtonOption = {
+      icon: $globals.icons.pause,
+      text: i18n.tc("recipe.timer.pause-timer"),
+      event: "pause-timer",
+    };
+
+    const resumeButton: ButtonOption = {
+      icon: $globals.icons.play,
+      text: i18n.tc("recipe.timer.resume-timer"),
+      event: "resume-timer",
+    };
+
+    const stopButton: ButtonOption = {
+      icon: $globals.icons.stop,
+      text: i18n.tc("recipe.timer.stop-timer"),
+      event: "stop-timer",
+      color: "red",
+    };
+
     const timerButtons = computed<ButtonOption[]>(() => {
-      const initializeButton: ButtonOption = {
-        icon: $globals.icons.timerPlus,
-        text: i18n.tc("recipe.timer.start-timer"),
-        event: "initialize-timer",
-      }
-
-      const pauseButton: ButtonOption = {
-        icon: $globals.icons.pause,
-        text: i18n.tc("recipe.timer.pause-timer"),
-        event: "pause-timer",
-      };
-
-      const resumeButton: ButtonOption = {
-        icon: $globals.icons.play,
-        text: i18n.tc("recipe.timer.resume-timer"),
-        event: "resume-timer",
-      };
-
-      const stopButton: ButtonOption = {
-        icon: $globals.icons.stop,
-        text: i18n.tc("recipe.timer.stop-timer"),
-        event: "stop-timer",
-        color: "red",
-      };
-
+      const buttons: ButtonOption[] = [];
       if (state.timerInitialized) {
         if (state.timerEnded) {
-          return [stopButton];
+          buttons.push(stopButton);
         } else if (state.timerRunning) {
-          return [pauseButton, stopButton];
+          buttons.push(pauseButton, stopButton);
         } else {
-          return [resumeButton, stopButton];
+          buttons.push(resumeButton, stopButton);
         }
       } else {
-        return [initializeButton];
+        buttons.push(initializeButton);
       }
+
+      return buttons;
     });
 
     const timerProgress = computed(() => {
@@ -212,7 +215,7 @@ export default defineComponent({
       }
     });
 
-    let timerInterval: NodeJS.Timer | null = null;
+    let timerInterval: number | null = null;
     function decrementTimer() {
       if (state.timerValue > 0) {
         state.timerValue -= 1;
@@ -248,7 +251,7 @@ export default defineComponent({
       state.timerInitialValue = (hours * 3600) + (minutes * 60) + seconds;
       state.timerValue = state.timerInitialValue;
 
-      timerInterval = setInterval(decrementTimer, 1000);
+      timerInterval = setInterval(decrementTimer, 1000) as unknown as number;
 
       timerHours.value = Math.floor(state.timerValue / 3600).toString().padStart(2, "0");
       timerMinutes.value = Math.floor(state.timerValue % 3600 / 60).toString().padStart(2, "0");
@@ -265,7 +268,7 @@ export default defineComponent({
 
     function resumeTimer() {
       state.timerRunning = true;
-      timerInterval = setInterval(decrementTimer, 1000);
+      timerInterval = setInterval(decrementTimer, 1000) as unknown as number;
     };
 
     function resetTimer() {
