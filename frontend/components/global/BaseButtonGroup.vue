@@ -1,7 +1,7 @@
 <template>
   <v-item-group>
     <template v-for="btn in buttons">
-      <v-menu v-if="btn.children" :key="'menu-' + btn.event" active-class="pa-0" offset-y top left>
+      <v-menu v-if="btn.children" :key="'menu-' + btn.event" active-class="pa-0" offset-y top left :style="stretch ? 'width: 100%;' : ''">
         <template #activator="{ on, attrs }">
           <v-btn tile :large="large" icon v-bind="attrs" v-on="on">
             <v-icon>
@@ -25,7 +25,17 @@
         content-class="text-caption"
       >
         <template #activator="{ on, attrs }">
-          <v-btn tile :large="large" icon v-bind="attrs" @click="$emit(btn.event)" v-on="on" :disabled="btn.disabled">
+          <v-btn
+            tile
+            icon
+            :color="btn.color"
+            :large="large"
+            :disabled="btn.disabled"
+            :style="stretch ? `width: ${maxButtonWidth};` : ''"
+            v-bind="attrs"
+            v-on="on"
+            @click="$emit(btn.event)"
+          >
             <v-icon> {{ btn.icon }} </v-icon>
           </v-btn>
         </template>
@@ -36,10 +46,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
+import { computed, defineComponent } from "@nuxtjs/composition-api";
 
 export interface ButtonOption {
   icon?: string;
+  color?: string;
   text: string;
   event: string;
   children?: ButtonOption[];
@@ -56,6 +67,16 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
+    stretch: {
+      type: Boolean,
+      default: false,
+    }
   },
+  setup(props) {
+    const maxButtonWidth = computed(() => `${100 / props.buttons.length}%`);
+    return {
+      maxButtonWidth,
+    };
+  }
 });
 </script>
