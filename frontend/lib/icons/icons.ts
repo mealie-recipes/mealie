@@ -140,6 +140,7 @@ import {
   mdiPause,
   mdiStop,
   mdiPlay,
+  mdiTimerPause,
 } from "@mdi/js";
 
 export const icons = {
@@ -250,6 +251,7 @@ export const icons = {
   testTube: mdiTestTube,
   timelineText: mdiTimelineText,
   timer: mdiTimer,
+  timerPause: mdiTimerPause,
   timerPlus: mdiTimerPlus,
   tools: mdiTools,
   potSteam: mdiPotSteam,
