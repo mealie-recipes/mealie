@@ -33,6 +33,8 @@ import RecipeRating from "~/components/Domain/Recipe/RecipeRating.vue";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { Recipe } from "~/lib/api/types/recipe";
 import { usePageState } from "~/composables/recipe-page/shared-state";
+import { useFraction } from "~/composables/recipes";
+
 export default defineComponent({
   components: {
     RecipeScaleEditButton,
@@ -54,6 +56,7 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const { isEditMode } = usePageState(props.recipe.slug);
+    const { frac } = useFraction();
 
     const scaleValue = computed<number>({
       get() {
@@ -64,30 +67,113 @@ export default defineComponent({
       },
     });
 
-    const scaledYield = computed(() => {
-      const regMatchNum = /\d+/;
-      const yieldString = props.recipe.recipeYield;
-      const num = yieldString?.match(regMatchNum);
+    const matchMixedFraction = /(?:[1-9]\s[1-9]\d*|0)\/[1-9]\d*/;
+    const matchFraction = /(?:[1-9]\d*|0)\/[1-9]\d*/;
+    const matchDecimal = /(\d+.\d+)|(.\d+)/;
+    const matchInt = /\d+/;
 
-      if (num && num?.length > 0) {
-        const yieldAsInt = parseInt(num[0]);
-        return yieldString?.replace(num[0], String(yieldAsInt * scaleValue.value));
+    function parseYieldString(yieldString: string | null, scale: number) {
+      if (!yieldString) {
+        return "";
       }
 
-      return props.recipe.recipeYield;
+      // attempt to parse the yield into a mixed fraction, regular fraction, decimal, or integer
+      let match: string | null = null;
+      let servings: number | null = null;
+      let isFraction = false;
+
+      if (!(match && servings)) {
+        const mixedFractionMatch = yieldString?.match(matchMixedFraction);
+        if (mixedFractionMatch?.length) {
+          isFraction = true;
+          match = mixedFractionMatch[0];
+
+          const mixedSplit = match.split(/\s/);
+          const wholeNumber = parseInt(mixedSplit[0]);
+          const fraction = mixedSplit[1];
+
+          const fractionSplit = fraction.split("/");
+          const numerator = parseInt(fractionSplit[0]);
+          const denominator = parseInt(fractionSplit[1]);
+
+          if (denominator === 0) {
+            return yieldString;  // if the denominator is zero, just give up
+          }
+          else {
+            servings = wholeNumber + (numerator / denominator);
+          }
+        }
+      }
+
+      if (!(match && servings)) {
+        const fractionMatch = yieldString?.match(matchFraction);
+        if (fractionMatch?.length) {
+          isFraction = true;
+          match = fractionMatch[0];
+
+          const fractionSplit = match.split("/");
+          const numerator = parseInt(fractionSplit[0]);
+          const denominator = parseInt(fractionSplit[1]);
+
+          if (denominator === 0) {
+            return yieldString;  // if the denominator is zero, just give up
+          }
+          else {
+            servings = numerator / denominator;
+          }
+        }
+      }
+
+      if (!(match && servings)) {
+        const decimalMatch = yieldString?.match(matchDecimal);
+        if (decimalMatch?.length) {
+          match = decimalMatch[0];
+          servings = parseFloat(match);
+        }
+      }
+
+      if (!(match && servings)) {
+        const intMatch = yieldString?.match(matchInt);
+        if (intMatch?.length) {
+          match = intMatch[0];
+          servings = parseInt(intMatch[0]);
+        }
+      }
+
+      if (match && servings) {
+        let val = servings * scale;
+        if (!Number.isInteger(val)) {
+          if (isFraction) {
+            let valStringBuilder = "";
+            const fraction = frac(val, 10, true);
+
+            if (fraction[0] !== undefined && fraction[0] > 0) {
+              valStringBuilder += fraction[0];
+            }
+
+            if (fraction[1] > 0) {
+              valStringBuilder += ` ${fraction[1]}/${fraction[2]}`;
+            }
+
+            // @ts-ignore this gets converted to a string anyway
+            val = valStringBuilder;
+          } else {
+            val = Math.round(val * 1000) / 1000;
+          }
+        }
+
+        return yieldString.replace(match, val.toString());
+      } else {
+        return yieldString;
+      }
+    }
+
+    const scaledYield = computed(() => {
+      return parseYieldString(props.recipe.recipeYield, scaleValue.value);
     });
 
     const basicYield = computed(() => {
-      const regMatchNum = /\d+/;
-      const yieldString = props.recipe.recipeYield;
-      const num = yieldString?.match(regMatchNum);
-
-      if (num && num?.length > 0) {
-        const yieldAsInt = parseInt(num[0]);
-        return yieldString?.replace(num[0], String(yieldAsInt));
-      }
-
-      return props.recipe.recipeYield;
+      return parseYieldString(props.recipe.recipeYield, 1);
     });
 
     return {
