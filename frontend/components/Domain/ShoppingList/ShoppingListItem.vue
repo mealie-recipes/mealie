@@ -13,7 +13,7 @@
         >
           <template #label>
             <div :class="listItem.checked ? 'strike-through' : ''">
-              {{ listItem.display }}
+              <SafeMarkdown class="ma-0 pa-0 text-subtitle-1 dense-markdown" :source="listItem.display" />
             </div>
           </template>
         </v-checkbox>
