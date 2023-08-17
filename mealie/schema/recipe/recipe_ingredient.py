@@ -170,7 +170,7 @@ class RecipeIngredientBase(MealieModel):
         # ingredients with no food come across with a qty of 1, which looks weird
         # e.g. "1 2 tbsp of olive oil"
         if self.quantity and (use_food or self.quantity != 1):
-            components.append(self._format_quantity_for_display())
+            components.append('<span class="quantity">' + self._format_quantity_for_display() + "</span>")
 
         if not use_food:
             components.append(self.note or "")
@@ -182,7 +182,7 @@ class RecipeIngredientBase(MealieModel):
                 components.append(self.food.name)
 
             if self.note:
-                components.append('<span class="note">' + self.note + "</span>")
+                components.append('<div class="note">' + self.note + "</div>")
 
         return " ".join(components)
 

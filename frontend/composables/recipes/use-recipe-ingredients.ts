@@ -39,12 +39,14 @@ export function parseIngredientText(ingredient: RecipeIngredient, disableAmount:
       returnQty = (quantity * scale).toString();
     }
 
+    returnQty = `<span class="quantity">${returnQty}</span>`;
+
     if (unit?.useAbbreviation && unit.abbreviation) {
       unitDisplay = unit.abbreviation;
     }
   }
 
-  const noteDisplay = note ? `<span class="note">${note}</span>` : " ";
+  const noteDisplay = note ? `<div class="note">${note}</div>` : " ";
 
   const text = `${returnQty} ${unitDisplay || " "}  ${food?.name || " "} ${noteDisplay}`.replace(/ {2,}/g, " ");
   return sanitizeIngredientHTML(text);

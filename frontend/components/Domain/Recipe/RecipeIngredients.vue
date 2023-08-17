@@ -83,7 +83,19 @@ export default defineComponent({
   margin: auto !important;
 }
 
+.quantity {
+  color: var(--v-accent-darken1);
+}
+
+.dark {
+  .quantity {
+    color: var(--v-accent-lighten3);
+  }
+}
+
 .note {
+  line-height: 0.8em;
+  font-size: 0.8em;
   opacity: 0.7;
 }
 </style>
