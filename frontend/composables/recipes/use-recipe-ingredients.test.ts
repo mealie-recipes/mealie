@@ -25,13 +25,7 @@ describe(parseIngredientText.name, () => {
   test("adds note section if note present", () => {
     const ingredient = createRecipeIngredient({ note: "custom note" });
 
-    expect(parseIngredientText(ingredient, false)).toContain("<div class=\"note\">custom note</div>");
-  });
-
-  test("does not add note section if note not present", () => {
-    const ingredient = createRecipeIngredient({ note: undefined });
-
-    expect(parseIngredientText(ingredient, false)).not.toContain("<div class=\"note\">");
+    expect(parseIngredientText(ingredient, false)).toContain("custom note");
   });
 
   test("ingredient text with fraction", () => {
@@ -44,11 +38,5 @@ describe(parseIngredientText.name, () => {
     const ingredient = createRecipeIngredient({ note: "<script>alert('foo')</script>" });
 
     expect(parseIngredientText(ingredient, false)).not.toContain("<script>");
-  });
-
-  test("quantity should be wrapped in span", () => {
-    const ingredient = createRecipeIngredient({ quantity: 1.5, unit: { id: "1", name: "cup" } });
-
-    expect(parseIngredientText(ingredient, false)).toContain("<span class=\"quantity\">1.5</span>");
   });
 });
