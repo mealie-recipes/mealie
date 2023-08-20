@@ -32,7 +32,7 @@ body:
     validations:
       required: true
   - type: textarea
-    id: description
+    id: reproduction
     attributes:
       label: Steps to Reproduce
       placeholder: 1) ... 2) ... 3) ...
