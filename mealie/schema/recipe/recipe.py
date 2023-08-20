@@ -129,29 +129,48 @@ class Recipe(RecipeSummary):
     comments: list[RecipeCommentOut] | None = []
 
     @staticmethod
-    def directory_from_id(recipe_id: UUID4 | str) -> Path:
-        return app_dirs.RECIPE_DATA_DIR.joinpath(str(recipe_id))
+    def _get_dir(dir: Path) -> Path:
+        """Gets a directory and creates it if it doesn't exist"""
+
+        dir.mkdir(exist_ok=True, parents=True)
+        return dir
+
+    @classmethod
+    def directory_from_id(cls, recipe_id: UUID4 | str) -> Path:
+        return cls._get_dir(app_dirs.RECIPE_DATA_DIR.joinpath(str(recipe_id)))
+
+    @classmethod
+    def asset_dir_from_id(cls, recipe_id: UUID4 | str) -> Path:
+        return cls._get_dir(cls.directory_from_id(recipe_id).joinpath("assets"))
+
+    @classmethod
+    def image_dir_from_id(cls, recipe_id: UUID4 | str) -> Path:
+        return cls._get_dir(cls.directory_from_id(recipe_id).joinpath("images"))
+
+    @classmethod
+    def timeline_image_dir_from_id(cls, recipe_id: UUID4 | str, timeline_event_id: UUID4 | str) -> Path:
+        return cls._get_dir(cls.image_dir_from_id(recipe_id).joinpath("timeline").joinpath(str(timeline_event_id)))
 
     @property
     def directory(self) -> Path:
         if not self.id:
             raise ValueError("Recipe has no ID")
 
-        folder = app_dirs.RECIPE_DATA_DIR.joinpath(str(self.id))
-        folder.mkdir(exist_ok=True, parents=True)
-        return folder
+        return self.directory_from_id(self.id)
 
     @property
     def asset_dir(self) -> Path:
-        folder = self.directory.joinpath("assets")
-        folder.mkdir(exist_ok=True, parents=True)
-        return folder
+        if not self.id:
+            raise ValueError("Recipe has no ID")
+
+        return self.asset_dir_from_id(self.id)
 
     @property
     def image_dir(self) -> Path:
-        folder = self.directory.joinpath("images")
-        folder.mkdir(exist_ok=True, parents=True)
-        return folder
+        if not self.id:
+            raise ValueError("Recipe has no ID")
+
+        return self.image_dir_from_id(self.id)
 
     class Config:
         orm_mode = True

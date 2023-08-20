@@ -310,6 +310,11 @@ def media_recipes_recipe_id_images_file_name(recipe_id, file_name):
     return f"{prefix}/media/recipes/{recipe_id}/images/{file_name}"
 
 
+def media_recipes_recipe_id_images_timeline_timeline_event_id_file_name(recipe_id, timeline_event_id, file_name):
+    """`/api/media/recipes/{recipe_id}/images/timeline/{timeline_event_id}/{file_name}`"""
+    return f"{prefix}/media/recipes/{recipe_id}/images/timeline/{timeline_event_id}/{file_name}"
+
+
 def media_users_user_id_file_name(user_id, file_name):
     """`/api/media/users/{user_id}/{file_name}`"""
     return f"{prefix}/media/users/{user_id}/{file_name}"
@@ -393,6 +398,11 @@ def recipes_slug_last_made(slug):
 def recipes_timeline_events_item_id(item_id):
     """`/api/recipes/timeline/events/{item_id}`"""
     return f"{prefix}/recipes/timeline/events/{item_id}"
+
+
+def recipes_timeline_events_item_id_image(item_id):
+    """`/api/recipes/timeline/events/{item_id}/image`"""
+    return f"{prefix}/recipes/timeline/events/{item_id}/image"
 
 
 def shared_recipes_item_id(item_id):

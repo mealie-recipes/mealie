@@ -13,7 +13,7 @@ Do the following just **once**. Doing this applies to your whole group, so be ca
 5. Click the little orange `Foods` button and now choose `Units`.
 6. Click `Seed` and choose your language. You should end up with a list of units (e.g. `tablespoon`)
 
-Initial seeding of Units is pretty complete, but there are many Foods in the world. You'll probably find that you need to add Foods to the database during parsing for the first several recipes. Once you have a well-populated Food database, there is are API routes to parse ingredients automatically in bulk. But this is not a good idea without a very complete set of Foods.
+Initial seeding of Units is pretty complete, but there are many Foods in the world. You'll probably find that you need to add Foods to the database during parsing for the first several recipes. Once you have a well-populated Food database, there are API routes to parse ingredients automatically in bulk. But this is not a good idea without a very complete set of Foods.
 
 ### Set up Recipes to use Foods and Units
 Do the following for each recipe you want to intelligently handle ingredients.
