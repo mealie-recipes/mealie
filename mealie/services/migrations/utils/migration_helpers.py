@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 
 import yaml
+from PIL import UnidentifiedImageError
 from pydantic import UUID4
 
 from mealie.services.recipe.recipe_data_service import RecipeDataService
@@ -94,4 +95,8 @@ def import_image(src: str | Path, recipe_id: UUID4):
         return
 
     data_service = RecipeDataService(recipe_id=recipe_id)
-    data_service.write_image(src, src.suffix)
+
+    try:
+        data_service.write_image(src, src.suffix)
+    except UnidentifiedImageError:
+        return
