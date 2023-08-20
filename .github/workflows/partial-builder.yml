@@ -84,7 +84,7 @@ jobs:
 
   build-omni:
     runs-on: ubuntu-latest
-    name: Build Backend
+    name: Build Omni
     steps:
       - name: Checkout
         uses: actions/checkout@v2

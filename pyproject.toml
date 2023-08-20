@@ -42,6 +42,7 @@ requests = "^2.25.1"
 tzdata = "^2022.7"
 uvicorn = {extras = ["standard"], version = "^0.21.0"}
 beautifulsoup4 = "^4.11.2"
+isodate = "^0.6.1"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.1.0"
