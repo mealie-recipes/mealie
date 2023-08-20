@@ -1,12 +1,10 @@
 <template>
   <div class="ma-0 pa-0 text-subtitle-1 dense-markdown ingredient-item">
-    <span class="quantity">
-      <SafeMarkdown v-if="quantity" class="d-inline" :source="quantity" />
-      <template v-if="unit">{{ unit }} </template>
-    </span>
-    <SafeMarkdown v-if="note && !name" class="d-inline" :source="note" />
+    <SafeMarkdown v-if="quantity" class="d-inline" :source="quantity" />
+    <template v-if="unit">{{ unit }} </template>
+    <SafeMarkdown v-if="note && !name" class="text-bold d-inline" :source="note" />
     <template v-else>
-      <SafeMarkdown v-if="name" class="d-inline" :source="name" />
+      <SafeMarkdown v-if="name" class="text-bold d-inline" :source="name" />
       <SafeMarkdown v-if="note" class="note" :source="note" />
     </template>
   </div>
@@ -40,21 +38,15 @@ export default defineComponent({
 });
 </script>
 <style>
-.quantity {
-  color: var(--v-accent-darken1);
-}
-
 .ingredient-item {
   .d-inline {
     & > p {
       display: inline;
     }
   }
-}
 
-.dark {
-  .quantity {
-    color: var(--v-accent-lighten3);
+  .text-bold {
+    font-weight: bold;
   }
 }
 
