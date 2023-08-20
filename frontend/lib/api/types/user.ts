@@ -41,6 +41,7 @@ export interface GroupBase {
 export interface GroupInDB {
   name: string;
   id: string;
+  slug: string;
   categories?: CategoryBase[];
   webhooks?: unknown[];
   users?: UserOut[];
