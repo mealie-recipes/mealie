@@ -13,7 +13,11 @@ Prerequisites
 - Docker
 - Visual Studio Code
 
+### Linux and MacOS
 First ensure that docker is running. Then when you clone the repo and open with VS Code you should see a popup asking you to reopen the project inside a development container. Click yes and it will build the development container and run the setup required to run both the backend API and the frontend webserver. This also pre-configures pre-commit hooks to ensure that the code is up to date before committing.
+
+### Windows
+Make sure the VSCode Dev Containers extension is installed, then select "Dev Containers: Clone Repository in Container Volume..." in the command pallete (F1). Select your forked repo and choose the `mealie-next` branch, which contains the latest changes. This mounts your repository directly in WSL2, which [greatly improves the performance of the container](https://code.visualstudio.com/docs/devcontainers/containers#_quick-start-open-a-git-repository-or-github-pr-in-an-isolated-container-volume), and enables hot-reloading for the frontend. Running the container on a mounted volume may not work correctly on Windows due to WSL permission mapping issues.
 
 [Checkout the makefile reference](#make-file-reference) for all of the available commands.
 

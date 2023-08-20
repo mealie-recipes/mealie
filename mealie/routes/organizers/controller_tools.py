@@ -25,10 +25,11 @@ class RecipeToolController(BaseUserController):
         return HttpRepo[RecipeToolCreate, RecipeTool, RecipeToolCreate](self.repo, self.logger)
 
     @router.get("", response_model=RecipeToolPagination)
-    def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
+    def get_all(self, q: PaginationQuery = Depends(PaginationQuery), search: str | None = None):
         response = self.repo.page_all(
             pagination=q,
             override=RecipeTool,
+            search=search,
         )
 
         response.set_pagination_guides(router.url_path_for("get_all"), q.dict())
