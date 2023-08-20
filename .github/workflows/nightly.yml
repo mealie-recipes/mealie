@@ -41,7 +41,7 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_NIGHTLY_WEBHOOK }}
         uses: Ilshidur/action-discord@0.3.2
         with:
-          args: "🚀  A New build of mealie:api-nightly and mealie:frontend-nightly is available"
+          args: "🚀  New builds of mealie:api-nightly, mealie:frontend-nightly, and mealie:omni-nightly are available"
 
   deploy-demo:
     runs-on: ubuntu-latest

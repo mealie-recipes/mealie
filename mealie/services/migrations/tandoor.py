@@ -97,7 +97,11 @@ class TandoorMigrator(BaseMigrator):
         if serving_size and serving_text:
             recipe_data["recipeYield"] = f"{serving_size} {serving_text}"
 
-        recipe_data["image"] = str(source_dir.joinpath("image.jpeg"))
+        try:
+            recipe_image_path = next(source_dir.glob("image.*"))
+            recipe_data["image"] = str(recipe_image_path)
+        except StopIteration:
+            pass
         return recipe_data
 
     def _migrate(self) -> None:
@@ -117,7 +121,11 @@ class TandoorMigrator(BaseMigrator):
                         recipe_zip.extractall(recipe_dir)
 
                     recipe_source_dir = Path(recipe_dir)
-                    recipe_json_path = recipe_source_dir.joinpath("recipe.json")
+                    try:
+                        recipe_json_path = next(recipe_source_dir.glob("*.json"))
+                    except StopIteration as e:
+                        raise Exception("recipe.json not found") from e
+
                     with open(recipe_json_path) as f:
                         recipes_as_dicts.append(self._process_recipe_document(recipe_source_dir, json.load(f)))
 

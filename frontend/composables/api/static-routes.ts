@@ -30,6 +30,18 @@ export const useStaticRoutes = () => {
     )}`;
   }
 
+  function recipeTimelineEventImage(recipeId: string, timelineEventId: string) {
+    return `${fullBase}/media/recipes/${recipeId}/images/timeline/${timelineEventId}/original.webp`;
+  }
+
+  function recipeTimelineEventSmallImage(recipeId: string, timelineEventId: string) {
+    return `${fullBase}/media/recipes/${recipeId}/images/timeline/${timelineEventId}/min-original.webp`;
+  }
+
+  function recipeTimelineEventTinyImage(recipeId: string, timelineEventId: string) {
+    return `${fullBase}/media/recipes/${recipeId}/images/timeline/${timelineEventId}/tiny-original.webp`;
+  }
+
   function recipeAssetPath(recipeId: string, assetName: string) {
     return `${fullBase}/media/recipes/${recipeId}/assets/${assetName}`;
   }
@@ -38,6 +50,9 @@ export const useStaticRoutes = () => {
     recipeImage,
     recipeSmallImage,
     recipeTinyImage,
+    recipeTimelineEventImage,
+    recipeTimelineEventSmallImage,
+    recipeTimelineEventTinyImage,
     recipeAssetPath,
   };
 };
