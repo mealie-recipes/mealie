@@ -21,6 +21,7 @@ from .user import (
 )
 from .user_passwords import (
     ForgotPassword,
+    PasswordResetToken,
     PrivatePasswordResetToken,
     ResetPassword,
     SavePasswordResetToken,
@@ -49,6 +50,7 @@ __all__ = [
     "UserOut",
     "UserPagination",
     "ForgotPassword",
+    "PasswordResetToken",
     "PrivatePasswordResetToken",
     "ResetPassword",
     "SavePasswordResetToken",
