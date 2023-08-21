@@ -5,7 +5,7 @@
         v-model="madeThisDialog"
         :icon="$globals.icons.chefHat"
         :title="$tc('recipe.made-this')"
-        :submit-text="$tc('general.save')"
+        :submit-text="$tc('recipe.add-to-timeline')"
         @submit="createTimelineEvent"
         >
         <v-card-text>
@@ -49,6 +49,7 @@
                 <v-spacer />
                 <v-col cols="auto" align-self="center">
                   <AppButtonUpload
+                    v-if="!newTimelineEventImage"
                     class="ml-auto"
                     url="none"
                     file-name="image"
@@ -57,6 +58,24 @@
                     :text-btn="false"
                     :post="false"
                     @uploaded="uploadImage"
+                  />
+                  <v-btn
+                    v-if="!!newTimelineEventImage"
+                    color="error"
+                    @click="clearImage"
+                  >
+                    <v-icon left>{{ $globals.icons.close }}</v-icon>
+                    {{ $i18n.tc('recipe.remove-image') }}
+                  </v-btn>
+                </v-col>
+              </v-row>
+              <v-row v-if="newTimelineEventImage && newTimelineEventImagePreviewUrl">
+                <v-col cols="12" align-self="center">
+                  <ImageCropper
+                    :img="newTimelineEventImagePreviewUrl"
+                    cropper-height="20vh"
+                    cropper-width="100%"
+                    @save="updateUploadedImage"
                   />
                 </v-col>
               </v-row>
@@ -120,7 +139,9 @@ export default defineComponent({
       timestamp: undefined,
       recipeId: props.recipe?.id || "",
     });
-    const newTimelineEventImage = ref<File>();
+    const newTimelineEventImage = ref<Blob | File>();
+    const newTimelineEventImageName = ref<string>("");
+    const newTimelineEventImagePreviewUrl = ref<string>();
     const newTimelineEventTimestamp = ref<string>();
 
     whenever(
@@ -133,8 +154,21 @@ export default defineComponent({
       }
     );
 
+    function clearImage() {
+      newTimelineEventImage.value = undefined;
+      newTimelineEventImageName.value = "";
+      newTimelineEventImagePreviewUrl.value = undefined;
+    }
+
     function uploadImage(fileObject: File) {
       newTimelineEventImage.value = fileObject;
+      newTimelineEventImageName.value = fileObject.name;
+      newTimelineEventImagePreviewUrl.value = URL.createObjectURL(fileObject);
+    }
+
+    function updateUploadedImage(fileObject: Blob) {
+      newTimelineEventImage.value = fileObject;
+      newTimelineEventImagePreviewUrl.value = URL.createObjectURL(fileObject);
     }
 
     const state = reactive({datePickerMenu: false});
@@ -166,7 +200,11 @@ export default defineComponent({
 
       // update the image, if provided
       if (newTimelineEventImage.value && newEvent) {
-        const imageResponse = await userApi.recipes.updateTimelineEventImage(newEvent.id, newTimelineEventImage.value);
+        const imageResponse = await userApi.recipes.updateTimelineEventImage(
+          newEvent.id,
+          newTimelineEventImage.value,
+          newTimelineEventImageName.value,
+        );
         if (imageResponse.data) {
           // @ts-ignore the image response data will always match a value of TimelineEventImage
           newEvent.image = imageResponse.data.image;
@@ -176,7 +214,7 @@ export default defineComponent({
       // reset form
       newTimelineEvent.value.eventMessage = "";
       newTimelineEvent.value.timestamp = undefined;
-      newTimelineEventImage.value = undefined;
+      clearImage();
       madeThisDialog.value = false;
       domMadeThisForm.value?.reset();
 
@@ -189,9 +227,12 @@ export default defineComponent({
       madeThisDialog,
       newTimelineEvent,
       newTimelineEventImage,
+      newTimelineEventImagePreviewUrl,
       newTimelineEventTimestamp,
       createTimelineEvent,
+      clearImage,
       uploadImage,
+      updateUploadedImage,
     };
   },
 });

@@ -21,6 +21,7 @@ import DevDumpJson from "@/components/global/DevDumpJson.vue";
 import DocLink from "@/components/global/DocLink.vue";
 import DropZone from "@/components/global/DropZone.vue";
 import HelpIcon from "@/components/global/HelpIcon.vue";
+import ImageCropper from "@/components/global/ImageCropper.vue";
 import InputColor from "@/components/global/InputColor.vue";
 import InputLabelType from "@/components/global/InputLabelType.vue";
 import InputQuantity from "@/components/global/InputQuantity.vue";
@@ -61,6 +62,7 @@ declare module "vue" {
     DocLink: typeof DocLink;
     DropZone: typeof DropZone;
     HelpIcon: typeof HelpIcon;
+    ImageCropper: typeof ImageCropper;
     InputColor: typeof InputColor;
     InputLabelType: typeof InputLabelType;
     InputQuantity: typeof InputQuantity;
