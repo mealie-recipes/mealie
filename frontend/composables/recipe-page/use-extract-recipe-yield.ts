@@ -17,7 +17,7 @@ function extractServingsFromMixedFraction(fractionString: string): number | unde
     const denominator = parseInt(fractionSplit[1]);
 
     if (denominator === 0) {
-        return;  // if the denominator is zero, just give up
+        return undefined;  // if the denominator is zero, just give up
     }
     else {
         return wholeNumber + (numerator / denominator);
