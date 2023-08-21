@@ -65,10 +65,11 @@ class RecipeDataService(BaseService):
 
         self.dir_data = Recipe.directory_from_id(self.recipe_id)
         self.dir_image = self.dir_data.joinpath("images")
+        self.dir_image_timeline = self.dir_image.joinpath("timeline")
         self.dir_assets = self.dir_data.joinpath("assets")
 
-        self.dir_image.mkdir(parents=True, exist_ok=True)
-        self.dir_assets.mkdir(parents=True, exist_ok=True)
+        for dir in [self.dir_image, self.dir_image_timeline, self.dir_assets]:
+            dir.mkdir(parents=True, exist_ok=True)
 
     def delete_all_data(self) -> None:
         try:
@@ -76,9 +77,12 @@ class RecipeDataService(BaseService):
         except Exception as e:
             self.logger.exception(f"Failed to delete recipe data: {e}")
 
-    def write_image(self, file_data: bytes | Path, extension: str) -> Path:
+    def write_image(self, file_data: bytes | Path, extension: str, image_dir: Path | None = None) -> Path:
+        if not image_dir:
+            image_dir = self.dir_image
+
         extension = extension.replace(".", "")
-        image_path = self.dir_image.joinpath(f"original.{extension}")
+        image_path = image_dir.joinpath(f"original.{extension}")
         image_path.unlink(missing_ok=True)
 
         if isinstance(file_data, Path):

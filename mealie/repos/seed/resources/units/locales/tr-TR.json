@@ -15,9 +15,9 @@
         "abbreviation": "fincan"
     },
     "fluid-ounce": {
-        "name": "fluid ounce",
+        "name": "sıvı ons",
         "description": "",
-        "abbreviation": "fl oz"
+        "abbreviation": "sıvı ons"
     },
     "pint": {
         "name": "pint",
@@ -25,9 +25,9 @@
         "abbreviation": "pt"
     },
     "quart": {
-        "name": "quart",
+        "name": "1/4 galon",
         "description": "",
-        "abbreviation": "qt"
+        "abbreviation": "1/4 galon"
     },
     "gallon": {
         "name": "galon",
@@ -70,32 +70,32 @@
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "splash",
+        "name": "serpme",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
-        "name": "dash",
+        "name": "tutam",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
-        "name": "serving",
+        "name": "porsiyon",
         "description": "",
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
+        "name": "baş",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
-        "name": "clove",
+        "name": "diş",
         "description": "",
         "abbreviation": ""
     },
     "can": {
-        "name": "can",
+        "name": "teneke kutu",
         "description": "",
         "abbreviation": ""
     }

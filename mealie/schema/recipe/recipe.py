@@ -2,16 +2,17 @@ from __future__ import annotations
 
 import datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, ClassVar
 from uuid import uuid4
 
 from pydantic import UUID4, BaseModel, Field, validator
 from slugify import slugify
-from sqlalchemy.orm import joinedload, selectinload
+from sqlalchemy import Select, desc, func, or_, select, text
+from sqlalchemy.orm import Session, joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.core.config import get_app_dirs
-from mealie.schema._mealie import MealieModel
+from mealie.schema._mealie import MealieModel, SearchType
 from mealie.schema.response.pagination import PaginationBase
 
 from ...db.models.recipe import (
@@ -36,6 +37,8 @@ class RecipeTag(MealieModel):
     id: UUID4 | None = None
     name: str
     slug: str
+
+    _searchable_properties: ClassVar[list[str]] = ["name"]
 
     class Config:
         orm_mode = True
@@ -78,6 +81,7 @@ class CreateRecipe(MealieModel):
 
 class RecipeSummary(MealieModel):
     id: UUID4 | None
+    _normalize_search: ClassVar[bool] = True
 
     user_id: UUID4 = Field(default_factory=uuid4)
     group_id: UUID4 = Field(default_factory=uuid4)
@@ -129,33 +133,71 @@ class Recipe(RecipeSummary):
     comments: list[RecipeCommentOut] | None = []
 
     @staticmethod
-    def directory_from_id(recipe_id: UUID4 | str) -> Path:
-        return app_dirs.RECIPE_DATA_DIR.joinpath(str(recipe_id))
+    def _get_dir(dir: Path) -> Path:
+        """Gets a directory and creates it if it doesn't exist"""
+
+        dir.mkdir(exist_ok=True, parents=True)
+        return dir
+
+    @classmethod
+    def directory_from_id(cls, recipe_id: UUID4 | str) -> Path:
+        return cls._get_dir(app_dirs.RECIPE_DATA_DIR.joinpath(str(recipe_id)))
+
+    @classmethod
+    def asset_dir_from_id(cls, recipe_id: UUID4 | str) -> Path:
+        return cls._get_dir(cls.directory_from_id(recipe_id).joinpath("assets"))
+
+    @classmethod
+    def image_dir_from_id(cls, recipe_id: UUID4 | str) -> Path:
+        return cls._get_dir(cls.directory_from_id(recipe_id).joinpath("images"))
+
+    @classmethod
+    def timeline_image_dir_from_id(cls, recipe_id: UUID4 | str, timeline_event_id: UUID4 | str) -> Path:
+        return cls._get_dir(cls.image_dir_from_id(recipe_id).joinpath("timeline").joinpath(str(timeline_event_id)))
 
     @property
     def directory(self) -> Path:
         if not self.id:
             raise ValueError("Recipe has no ID")
 
-        folder = app_dirs.RECIPE_DATA_DIR.joinpath(str(self.id))
-        folder.mkdir(exist_ok=True, parents=True)
-        return folder
+        return self.directory_from_id(self.id)
 
     @property
     def asset_dir(self) -> Path:
-        folder = self.directory.joinpath("assets")
-        folder.mkdir(exist_ok=True, parents=True)
-        return folder
+        if not self.id:
+            raise ValueError("Recipe has no ID")
+
+        return self.asset_dir_from_id(self.id)
 
     @property
     def image_dir(self) -> Path:
-        folder = self.directory.joinpath("images")
-        folder.mkdir(exist_ok=True, parents=True)
-        return folder
+        if not self.id:
+            raise ValueError("Recipe has no ID")
+
+        return self.image_dir_from_id(self.id)
 
     class Config:
         orm_mode = True
         getter_dict = ExtrasGetterDict
+
+    @classmethod
+    def from_orm(cls, obj):
+        recipe = super().from_orm(obj)
+        recipe.__post_init__()
+        return recipe
+
+    def __init__(self, **kwargs) -> None:
+        super().__init__(**kwargs)
+        self.__post_init__()
+
+    def __post_init__(self) -> None:
+        # the ingredient disable_amount property is unreliable,
+        # so we set it here and recalculate the display property
+        disable_amount = self.settings.disable_amount if self.settings else True
+        for ingredient in self.recipe_ingredient:
+            ingredient.disable_amount = disable_amount
+            ingredient.is_food = not ingredient.disable_amount
+            ingredient.display = ingredient._format_display()
 
     @validator("slug", always=True, pre=True, allow_reuse=True)
     def validate_slug(slug: str, values):  # type: ignore
@@ -220,6 +262,69 @@ class Recipe(RecipeSummary):
             # for whatever reason, joinedload can mess up the order here, so use selectinload just this once
             selectinload(RecipeModel.notes),
         ]
+
+    @classmethod
+    def filter_search_query(
+        cls, db_model, query: Select, session: Session, search_type: SearchType, search: str, search_list: list[str]
+    ) -> Select:
+        """
+        1. token search looks for any individual exact hit in name, description, and ingredients
+        2. fuzzy search looks for trigram hits in name, description, and ingredients
+        3. Sort order is determined by closeness to the recipe name
+        Should search also look at tags?
+        """
+
+        if search_type is SearchType.fuzzy:
+            # I would prefer to just do this in the recipe_ingredient.any part of the main query,
+            # but it turns out that at least sqlite wont use indexes for that correctly anymore and
+            # takes a big hit, so prefiltering it is
+            ingredient_ids = (
+                session.execute(
+                    select(RecipeIngredientModel.id).filter(
+                        or_(
+                            RecipeIngredientModel.note_normalized.op("%>")(search),
+                            RecipeIngredientModel.original_text_normalized.op("%>")(search),
+                        )
+                    )
+                )
+                .scalars()
+                .all()
+            )
+
+            session.execute(text(f"set pg_trgm.word_similarity_threshold = {cls._fuzzy_similarity_threshold};"))
+            return query.filter(
+                or_(
+                    RecipeModel.name_normalized.op("%>")(search),
+                    RecipeModel.description_normalized.op("%>")(search),
+                    RecipeModel.recipe_ingredient.any(RecipeIngredientModel.id.in_(ingredient_ids)),
+                )
+            ).order_by(  # trigram ordering could be too slow on million record db, but is fine with thousands.
+                func.least(
+                    RecipeModel.name_normalized.op("<->>")(search),
+                )
+            )
+
+        else:
+            ingredient_ids = (
+                session.execute(
+                    select(RecipeIngredientModel.id).filter(
+                        or_(
+                            *[RecipeIngredientModel.note_normalized.like(f"%{ns}%") for ns in search_list],
+                            *[RecipeIngredientModel.original_text_normalized.like(f"%{ns}%") for ns in search_list],
+                        )
+                    )
+                )
+                .scalars()
+                .all()
+            )
+
+            return query.filter(
+                or_(
+                    *[RecipeModel.name_normalized.like(f"%{ns}%") for ns in search_list],
+                    *[RecipeModel.description_normalized.like(f"%{ns}%") for ns in search_list],
+                    RecipeModel.recipe_ingredient.any(RecipeIngredientModel.id.in_(ingredient_ids)),
+                )
+            ).order_by(desc(RecipeModel.name_normalized.like(f"%{search}%")))
 
 
 class RecipeLastMade(BaseModel):

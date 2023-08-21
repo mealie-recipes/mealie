@@ -113,7 +113,7 @@
     "json": "JSON",
     "keyword": "Mot-clé",
     "link-copied": "Lien copié",
-    "loading-events": "Loading Events",
+    "loading-events": "Chargement des événements",
     "loading-recipes": "Chargement des recettes",
     "message": "Message",
     "monday": "Lundi",
@@ -332,6 +332,10 @@
       "description-long": "Mealie peut importer des recettes depuis l'application Mealie depuis une version antérieure à 1.0. Exportez vos recettes depuis votre ancienne instance, et téléchargez le fichier zip ci-dessous. Notez que seules les recettes peuvent être importées à partir de l'exportation.",
       "title": "Mealie Pré-1.0"
     },
+    "tandoor": {
+      "description-long": "Mealie can import recipes from Tandoor. Export your data in the \"Default\" format, then upload the .zip below.",
+      "title": "Tandoor Recipes"
+    },
     "recipe-data-migrations": "Migration des données de recettes",
     "recipe-data-migrations-explanation": "Les recettes peuvent être migrées depuis une autre application prise en charge vers Mealie. C'est une excellente façon de commencer avec Mealie.",
     "choose-migration-type": "Choisissez le type de migration",
@@ -478,7 +482,7 @@
     "edit-timeline-event": "Modifier l’événement dans l’historique",
     "timeline": "Historique",
     "timeline-is-empty": "Pas encore d’historique. Essayez de cuisiner cette recette !",
-    "group-global-timeline": "{groupName} Global Timeline",
+    "group-global-timeline": "Chronologie globale de {groupName}",
     "open-timeline": "Ouvrir l’historique",
     "made-this": "Je l’ai cuisiné",
     "how-did-it-turn-out": "C’était bon ?",

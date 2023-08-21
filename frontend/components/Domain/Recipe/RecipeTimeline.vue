@@ -106,9 +106,7 @@ export default defineComponent({
     whenever(
       () => props.value,
       () => {
-        if (!ready.value) {
-          initializeTimelineEvents();
-        }
+        initializeTimelineEvents();
       }
     );
 

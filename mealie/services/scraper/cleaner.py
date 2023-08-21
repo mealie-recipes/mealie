@@ -234,7 +234,7 @@ def _sanitize_instruction_text(line: str | dict) -> str:
     return clean_line
 
 
-def clean_ingredients(ingredients: list | str | None, default: list | None = None) -> list[str]:
+def clean_ingredients(ingredients: list | str | None, default: list | None = None) -> list[str | dict]:
     """
     ingredient attempts to parse the ingredients field from a recipe and return a list of
 
@@ -250,6 +250,14 @@ def clean_ingredients(ingredients: list | str | None, default: list | None = Non
         case None:
             return default or []
         case list(ingredients):
+            cleaned_ingredients: list[str | dict] = []
+            for ing in ingredients:
+                if isinstance(ing, dict):
+                    cleaned_ingredients.append({clean_string(k): clean_string(v) for k, v in ing.items()})
+                else:
+                    cleaned_ingredients.append(clean_string(ing))
+            return cleaned_ingredients
+        case [str()]:
             return [clean_string(ingredient) for ingredient in ingredients]
         case str(ingredients):
             return [clean_string(ingredient) for ingredient in ingredients.splitlines()]

@@ -35,12 +35,12 @@
         "abbreviation": "gal"
     },
     "milliliter": {
-        "name": "milliliter",
+        "name": "ミリリットル",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
-        "name": "liter",
+        "name": "リットル",
         "description": "",
         "abbreviation": "l"
     },
@@ -55,7 +55,7 @@
         "abbreviation": "oz"
     },
     "gram": {
-        "name": "gram",
+        "name": "グラム",
         "description": "",
         "abbreviation": "g"
     },
@@ -65,7 +65,7 @@
         "abbreviation": "kg"
     },
     "milligram": {
-        "name": "milligram",
+        "name": "ミリグラム",
         "description": "",
         "abbreviation": "mg"
     },
@@ -95,7 +95,7 @@
         "abbreviation": ""
     },
     "can": {
-        "name": "can",
+        "name": "缶",
         "description": "",
         "abbreviation": ""
     }

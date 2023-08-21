@@ -113,7 +113,7 @@
     "json": "JSON",
     "keyword": "Kľučové slovo",
     "link-copied": "Odkaz bol skopírovaný",
-    "loading-events": "Loading Events",
+    "loading-events": "Načítanie udalostí",
     "loading-recipes": "Nahrávanie receptu",
     "message": "Správa",
     "monday": "Pondelok",
@@ -332,6 +332,10 @@
       "description-long": "Mealie dokáže importovať recepty z Mealie verzie pre v1.0. Exportujte vaše recepty z vašej starej inštalácie a nižšie nahrajte zip-súbor. Týmto spôsobom je možné importovať z exportu iba recepty.",
       "title": "Mealie Pre v1.0"
     },
+    "tandoor": {
+      "description-long": "Mealie can import recipes from Tandoor. Export your data in the \"Default\" format, then upload the .zip below.",
+      "title": "Tandoor Recipes"
+    },
     "recipe-data-migrations": "Migrácie dát receptov",
     "recipe-data-migrations-explanation": "Recepty je možné prenášať do Mealie z inej podporovanej aplikácie. Je to výborný spôsob ako začať s používaním Mealie.",
     "choose-migration-type": "Vyberte spôsob migrácie",
@@ -478,7 +482,7 @@
     "edit-timeline-event": "Upraviť udalosť na časovej osi",
     "timeline": "Časová os",
     "timeline-is-empty": "Na časovej osi zatiaľ nič nie je. Skúste pripraviť tento recept!",
-    "group-global-timeline": "{groupName} Global Timeline",
+    "group-global-timeline": "{groupName} Globálna časová os",
     "open-timeline": "Otvoriť časovú os",
     "made-this": "Toto som uvaril",
     "how-did-it-turn-out": "Ako to dopadlo?",

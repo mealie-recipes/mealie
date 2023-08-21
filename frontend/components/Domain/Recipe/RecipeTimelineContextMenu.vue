@@ -45,7 +45,7 @@
       content-class="d-print-none"
     >
       <template #activator="{ on, attrs }">
-        <v-btn :fab="fab" :small="fab" :elevation="elevation" :color="color" :icon="!fab" v-bind="attrs" v-on="on" @click.prevent>
+        <v-btn :fab="fab" :x-small="fab" :elevation="elevation" :color="color" :icon="!fab" v-bind="attrs" v-on="on" @click.prevent>
           <v-icon>{{ icon }}</v-icon>
         </v-btn>
       </template>

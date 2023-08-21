@@ -9,6 +9,7 @@ class SupportedMigrations(str, enum.Enum):
     copymethat = "copymethat"
     paprika = "paprika"
     mealie_alpha = "mealie_alpha"
+    tandoor = "tandoor"
 
 
 class DataMigrationCreate(MealieModel):

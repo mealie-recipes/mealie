@@ -30,6 +30,7 @@
     "isomorphic-dompurify": "^1.0.0",
     "nuxt": "^2.16.0",
     "v-jsoneditor": "^1.4.5",
+    "vue-advanced-cropper": "^1.11.6",
     "vuedraggable": "^2.24.3",
     "vuetify": "^2.6.13"
   },

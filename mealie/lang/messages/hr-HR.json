@@ -1,0 +1,35 @@
+{
+    "generic": {
+        "server-error": "Došlo je do neočekivane pogreške"
+    },
+    "recipe": {
+        "unique-name-error": "Naziv recepta mora imati jedinstveno ime"
+    },
+    "mealplan": {
+        "no-recipes-match-your-rules": "Nema recepata koji odgovaraju vašim pravilima"
+    },
+    "user": {
+        "user-updated": "Korisnik je ažuriran",
+        "password-updated": "Zaporka je ažurirana",
+        "invalid-current-password": "Trenutna lozinka nije ispravna",
+        "ldap-update-password-unavailable": "Nije moguće ažurirati lozinku, korisnik je pod kontrolom LDAP sustava"
+    },
+    "group": {
+        "report-deleted": "Izvješće je obrisano."
+    },
+    "exceptions": {
+        "permission_denied": "Nemate dozvolu za izvođenje ove akcije",
+        "no-entry-found": "Traženi izvor nije pronađen",
+        "integrity-error": "Greška integriteta baze podataka",
+        "username-conflict-error": "Ovo korisničko ime je već u upotrebi",
+        "email-conflict-error": "Ova e-pošta se već koristi"
+    },
+    "notifications": {
+        "generic-created": "{name} je kreiran",
+        "generic-updated": "{name} je ažuriran",
+        "generic-created-with-url": "{name} je kreiran, {url}",
+        "generic-updated-with-url": "{name} je ažuriran, {url}",
+        "generic-duplicated": "{name} je dupliciran",
+        "generic-deleted": "{name} je obrisan"
+    }
+}

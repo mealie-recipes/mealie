@@ -1,0 +1,102 @@
+{
+    "teaspoon": {
+        "name": "žličica",
+        "description": "",
+        "abbreviation": "žlič"
+    },
+    "tablespoon": {
+        "name": "žlica",
+        "description": "",
+        "abbreviation": "žlic"
+    },
+    "cup": {
+        "name": "šalica",
+        "description": "",
+        "abbreviation": "šalica"
+    },
+    "fluid-ounce": {
+        "name": "tekuća unca",
+        "description": "",
+        "abbreviation": "fl oz"
+    },
+    "pint": {
+        "name": "pint",
+        "description": "",
+        "abbreviation": "pt"
+    },
+    "quart": {
+        "name": "kvart",
+        "description": "",
+        "abbreviation": "qt"
+    },
+    "gallon": {
+        "name": "galon",
+        "description": "",
+        "abbreviation": "gal"
+    },
+    "milliliter": {
+        "name": "mililitar",
+        "description": "",
+        "abbreviation": "ml"
+    },
+    "liter": {
+        "name": "litra",
+        "description": "",
+        "abbreviation": "l"
+    },
+    "pound": {
+        "name": "funta",
+        "description": "",
+        "abbreviation": "lb"
+    },
+    "ounce": {
+        "name": "unca",
+        "description": "",
+        "abbreviation": "oz"
+    },
+    "gram": {
+        "name": "gram",
+        "description": "",
+        "abbreviation": "g"
+    },
+    "kilogram": {
+        "name": "kilogram",
+        "description": "",
+        "abbreviation": "kg"
+    },
+    "milligram": {
+        "name": "miligram",
+        "description": "",
+        "abbreviation": "mg"
+    },
+    "splash": {
+        "name": "splash",
+        "description": "",
+        "abbreviation": ""
+    },
+    "dash": {
+        "name": "dash",
+        "description": "",
+        "abbreviation": ""
+    },
+    "serving": {
+        "name": "porcija",
+        "description": "",
+        "abbreviation": ""
+    },
+    "head": {
+        "name": "glava",
+        "description": "",
+        "abbreviation": ""
+    },
+    "clove": {
+        "name": "klinčić",
+        "description": "",
+        "abbreviation": ""
+    },
+    "can": {
+        "name": "limenka",
+        "description": "",
+        "abbreviation": ""
+    }
+}

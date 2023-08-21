@@ -10,9 +10,14 @@ function sanitizeIngredientHTML(rawHtml: string) {
   });
 }
 
-export function parseIngredientText(ingredient: RecipeIngredient, disableAmount: boolean, scale = 1): string {
+export function useParsedIngredientText(ingredient: RecipeIngredient, disableAmount: boolean, scale = 1) {
   if (disableAmount) {
-    return ingredient.note || "";
+    return {
+      name: ingredient.note ? sanitizeIngredientHTML(ingredient.note) : undefined,
+      quantity: undefined,
+      unit: undefined,
+      note: undefined,
+    };
   }
 
   const { quantity, food, unit, note } = ingredient;
@@ -41,6 +46,17 @@ export function parseIngredientText(ingredient: RecipeIngredient, disableAmount:
     }
   }
 
-  const text = `${returnQty} ${unitDisplay || " "}  ${food?.name || " "} ${note || " "}`.replace(/ {2,}/g, " ");
+  return {
+    quantity: returnQty ? sanitizeIngredientHTML(returnQty) : undefined,
+    unit: unitDisplay ? sanitizeIngredientHTML(unitDisplay) : undefined,
+    name: food?.name ? sanitizeIngredientHTML(food.name) : undefined,
+    note: note ? sanitizeIngredientHTML(note) : undefined,
+  };
+}
+
+export function parseIngredientText(ingredient: RecipeIngredient, disableAmount: boolean, scale = 1): string {
+  const { quantity, unit, name, note } = useParsedIngredientText(ingredient, disableAmount, scale);
+
+  const text = `${quantity || ""} ${unit || ""} ${name || ""} ${note || ""}`.replace(/ {2,}/g, " ").trim();
   return sanitizeIngredientHTML(text);
 }

@@ -23,6 +23,7 @@ test_cases = [
     MigrationTestData(typ=SupportedMigrations.chowdown, archive=test_data.migrations_chowdown),
     MigrationTestData(typ=SupportedMigrations.copymethat, archive=test_data.migrations_copymethat),
     MigrationTestData(typ=SupportedMigrations.mealie_alpha, archive=test_data.migrations_mealie),
+    MigrationTestData(typ=SupportedMigrations.tandoor, archive=test_data.migrations_tandoor),
 ]
 
 test_ids = [
@@ -31,6 +32,7 @@ test_ids = [
     "chowdown_archive",
     "copymethat_archive",
     "mealie_alpha_archive",
+    "tandoor_archive",
 ]
 
 

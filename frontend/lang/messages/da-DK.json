@@ -332,6 +332,10 @@
       "description-long": "Mealie kan importere opskrifter fra Mealie applikationen fra en pre v1.0 udgivelse. Eksporter dine opskrifter fra din gamle installation, og upload zip-filen nedenfor. Bemærk, at kun opskrifter kan importeres fra eksport.",
       "title": "Mealie Pre v1.0"
     },
+    "tandoor": {
+      "description-long": "Mealie can import recipes from Tandoor. Export your data in the \"Default\" format, then upload the .zip below.",
+      "title": "Tandoor Recipes"
+    },
     "recipe-data-migrations": "Migrering af opskrifter",
     "recipe-data-migrations-explanation": "Opskrifter kan migreres fra et andet understøttet program til Mealie. Dette er en fantastisk måde at komme i gang med Mealie.",
     "choose-migration-type": "Vælg Migreringstype",
