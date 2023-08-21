@@ -10,17 +10,18 @@ class ABCMultiTenantTestCase(ABC):
     def __init__(self, database: AllRepositories, client: TestClient) -> None:
         self.database = database
         self.client = client
-        self.items = []
+        self.items: list = []
 
     @abstractmethod
-    def seed_action(repos: AllRepositories, group_id: str) -> set[int] | set[str]:
+    def seed_action(self, group_id: str) -> set[int] | set[str]:
         ...
 
-    def seed_multi(self, group1_id: str, group2_id: str) -> tuple[set[int], set[int]]:
-        pass
+    @abstractmethod
+    def seed_multi(self, group1_id: str, group2_id: str) -> tuple[set[str], set[str]]:
+        ...
 
     @abstractmethod
-    def get_all(token: str) -> Response:
+    def get_all(self, token: str) -> Response:
         ...
 
     @abstractmethod

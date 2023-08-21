@@ -2,24 +2,24 @@
   <v-expand-transition>
     <v-card
       :ripple="false"
-      class="mx-auto"
+      :class="isFlat ? 'mx-auto flat' : 'mx-auto'"
       hover
       :to="$listeners.selected ? undefined : `/recipe/${slug}`"
       @click="$emit('selected')"
     >
-      <v-img v-if="vertical">
+      <v-img v-if="vertical" class="rounded-sm">
         <RecipeCardImage
           :icon-size="100"
-          :height="75"
+          :height="150"
           :slug="slug"
           :recipe-id="recipeId"
           small
           :image-version="image"
         />
       </v-img>
-      <v-list-item three-line>
+      <v-list-item three-line class="px-0">
         <slot v-if="!vertical" name="avatar">
-          <v-list-item-avatar tile size="125" class="v-mobile-img rounded-sm my-0 ml-n4">
+          <v-list-item-avatar tile size="125" class="v-mobile-img rounded-sm my-0">
             <RecipeCardImage
               :icon-size="100"
               :height="125"
@@ -30,8 +30,8 @@
             />
           </v-list-item-avatar>
         </slot>
-        <v-list-item-content>
-          <v-list-item-title class="mb-1">{{ name }} </v-list-item-title>
+        <v-list-item-content class="py-0">
+          <v-list-item-title class="mt-3 mb-1">{{ name }} </v-list-item-title>
           <v-list-item-subtitle>
             <SafeMarkdown :source="description" />
           </v-list-item-subtitle>
@@ -120,7 +120,11 @@ export default defineComponent({
     vertical: {
       type: Boolean,
       default: false,
-    }
+    },
+    isFlat: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup() {
     const { $auth } = useContext();
@@ -161,5 +165,10 @@ export default defineComponent({
 
 .text-top {
   align-self: start !important;
+}
+
+.flat {
+  box-shadow: none!important;
+  background-color: transparent;
 }
 </style>

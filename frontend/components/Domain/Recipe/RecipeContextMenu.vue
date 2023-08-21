@@ -114,7 +114,10 @@
             color="secondary"
           />
           <v-list-item-content :key="ingredientData.ingredient.quantity">
-            <SafeMarkdown class="ma-0 pa-0 text-subtitle-1 dense-markdown" :source="ingredientData.display" />
+            <RecipeIngredientListItem
+              :ingredient="ingredientData.ingredient"
+              :disable-amount="ingredientData.disableAmount"
+              :scale="recipeScale" />
           </v-list-item-content>
         </v-list-item>
       </v-card>
@@ -146,7 +149,7 @@
       :nudge-top="menuTop ? '5' : '0'"
       allow-overflow
       close-delay="125"
-      open-on-hover
+      :open-on-hover="$vuetify.breakpoint.mdAndUp"
       content-class="d-print-none"
     >
       <template #activator="{ on, attrs }">
@@ -168,13 +171,13 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs, useContext, useRouter, ref } from "@nuxtjs/composition-api";
+import RecipeIngredientListItem from "./RecipeIngredientListItem.vue";
 import RecipeDialogPrintPreferences from "./RecipeDialogPrintPreferences.vue";
 import RecipeDialogShare from "./RecipeDialogShare.vue";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { usePlanTypeOptions } from "~/composables/use-group-mealplan";
 import { Recipe, RecipeIngredient } from "~/lib/api/types/recipe";
-import { parseIngredientText } from "~/composables/recipes";
 import { ShoppingListSummary } from "~/lib/api/types/group";
 import { PlanEntryType } from "~/lib/api/types/meal-plan";
 import { useAxiosDownloader } from "~/composables/api/use-axios-download";
@@ -203,7 +206,8 @@ export default defineComponent({
   components: {
     RecipeDialogPrintPreferences,
     RecipeDialogShare,
-  },
+    RecipeIngredientListItem
+},
   props: {
     useItems: {
       type: Object as () => ContextMenuIncludes,
@@ -384,7 +388,7 @@ export default defineComponent({
     const shoppingLists = ref<ShoppingListSummary[]>();
     const selectedShoppingList = ref<ShoppingListSummary>();
     const recipeRef = ref<Recipe>(props.recipe);
-    const recipeIngredients = ref<{ checked: boolean; ingredient: RecipeIngredient; display: string }[]>([]);
+    const recipeIngredients = ref<{ checked: boolean; ingredient: RecipeIngredient, disableAmount: boolean }[]>([]);
 
     async function getShoppingLists() {
       const { data } = await api.shopping.lists.getAll();
@@ -411,7 +415,7 @@ export default defineComponent({
           return {
             checked: true,
             ingredient,
-            display: parseIngredientText(ingredient, recipeRef.value?.settings?.disableAmount || false, props.recipeScale),
+            disableAmount: recipeRef.value.settings?.disableAmount || false
           };
         });
       }
@@ -496,6 +500,22 @@ export default defineComponent({
     }
 
     const { copyText } = useCopy();
+    const groupSlug = ref<string>("");
+
+    async function setGroupSlug() {
+      if (!props.groupId) {
+        groupSlug.value = props.groupId;
+        return;
+      }
+
+      const {data} = await api.groups.getOne(props.groupId);
+      if (!data) {
+        groupSlug.value = props.groupId;
+        return;
+      }
+
+      groupSlug.value = data.slug;
+    }
 
     // Note: Print is handled as an event in the parent component
     const eventHandlers: { [key: string]: () => void | Promise<any> } = {
@@ -525,13 +545,18 @@ export default defineComponent({
       share: () => {
         state.shareDialog = true;
       },
-      publicUrl: () => {
+      publicUrl: async () => {
         if (!props.groupId) {
           alert.error("Unknown group ID");
           console.error("prop `groupId` is required when requesting a public URL");
           return;
         }
-        copyText(`${window.location.origin}/explore/recipes/${props.groupId}/${props.slug}`);
+
+        if (!groupSlug.value) {
+          await setGroupSlug();
+        }
+
+        copyText(`${window.location.origin}/explore/recipes/${groupSlug.value}/${props.slug}`);
       },
     };
 

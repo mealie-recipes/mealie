@@ -141,6 +141,10 @@ import {
   mdiStop,
   mdiPlay,
   mdiTimerPause,
+  mdiFlipHorizontal,
+  mdiFlipVertical,
+  mdiRotateLeft,
+  mdiRotateRight,
 } from "@mdi/js";
 
 export const icons = {
@@ -206,6 +210,8 @@ export const icons = {
   fileImage: mdiFileImage,
   filePDF: mdiFilePdfBox,
   filter: mdiFilter,
+  flipHorizontal: mdiFlipHorizontal,
+  flipVertical: mdiFlipVertical,
   folderOutline: mdiFolderOutline,
   food: mdiFood,
   formatColorFill: mdiFormatColorFill,
@@ -234,6 +240,8 @@ export const icons = {
   printerSettings: mdiPrinterPosCog,
   refreshCircle: mdiRefreshCircle,
   robot: mdiRobot,
+  rotateLeft: mdiRotateLeft,
+  rotateRight: mdiRotateRight,
   search: mdiMagnify,
   shareVariant: mdiShareVariant,
   shuffleVariant: mdiShuffleVariant,

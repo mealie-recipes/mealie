@@ -11,7 +11,7 @@
         <v-list-item dense @click="toggleChecked(index)">
           <v-checkbox hide-details :value="checked[index]" class="pt-0 my-auto py-auto" color="secondary" />
           <v-list-item-content :key="ingredient.quantity">
-            <SafeMarkdown class="ma-0 pa-0 text-subtitle-1 dense-markdown" :source="ingredientDisplay[index]" />
+            <RecipeIngredientListItem :ingredient="ingredient" :disable-amount="disableAmount" :scale="scale" />
           </v-list-item-content>
         </v-list-item>
       </div>
@@ -21,12 +21,12 @@
 
 <script lang="ts">
 import { computed, defineComponent, reactive, toRefs } from "@nuxtjs/composition-api";
-// @ts-ignore vue-markdown has no types
+import RecipeIngredientListItem from "./RecipeIngredientListItem.vue";
 import { parseIngredientText } from "~/composables/recipes";
 import { RecipeIngredient } from "~/lib/api/types/recipe";
 
 export default defineComponent({
-  components: {},
+  components: { RecipeIngredientListItem },
   props: {
     value: {
       type: Array as () => RecipeIngredient[],
@@ -52,7 +52,11 @@ export default defineComponent({
     });
 
     const ingredientCopyText = computed(() => {
-      return ingredientDisplay.value.join("\n");
+      return props.value
+        .map((ingredient) => {
+          return `${parseIngredientText(ingredient, props.disableAmount, props.scale)}`;
+        })
+        .join("\n");
     });
 
     function toggleChecked(index: number) {
@@ -61,16 +65,8 @@ export default defineComponent({
       state.checked.splice(index, 1, !state.checked[index]);
     }
 
-    const ingredientDisplay = computed(() => {
-      return props.value.map((ingredient) => {
-        return `${parseIngredientText(ingredient, props.disableAmount, props.scale)}`;
-      });
-    });
-
     return {
-      ingredientDisplay,
       ...toRefs(state),
-      parseIngredientText,
       ingredientCopyText,
       toggleChecked,
     };

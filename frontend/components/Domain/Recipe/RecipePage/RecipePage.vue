@@ -62,7 +62,7 @@
       class="d-print-none d-flex px-2"
       :class="$vuetify.breakpoint.smAndDown ? 'justify-center' : 'justify-end'"
     >
-      <v-switch v-model="wakeLock" small label="Keep Screen Awake" />
+      <v-switch v-model="wakeLock" small :label="$t('recipe.screen-awake')" />
     </div>
 
     <RecipePageComments

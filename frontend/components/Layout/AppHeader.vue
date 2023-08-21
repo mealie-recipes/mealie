@@ -26,7 +26,7 @@
           dense
           flat
           :prepend-inner-icon="$globals.icons.search"
-          background-color="primary lighten-1"
+          background-color="primary darken-1"
           color="white"
           :placeholder="$t('search.search-hint')"
         >
@@ -35,7 +35,7 @@
       <v-btn v-else icon @click="activateSearch">
         <v-icon> {{ $globals.icons.search }}</v-icon>
       </v-btn>
-      <v-btn v-if="$auth.loggedIn" text @click="$auth.logout()">
+      <v-btn v-if="$auth.loggedIn" :text="$vuetify.breakpoint.smAndUp" :icon="$vuetify.breakpoint.xs" @click="$auth.logout()">
         <v-icon :left="$vuetify.breakpoint.smAndUp">{{ $globals.icons.logout }}</v-icon>
         {{ $vuetify.breakpoint.smAndUp ? $t("user.logout") : "" }}
       </v-btn>

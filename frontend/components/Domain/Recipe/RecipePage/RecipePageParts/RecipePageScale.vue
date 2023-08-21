@@ -33,6 +33,8 @@ import RecipeRating from "~/components/Domain/Recipe/RecipeRating.vue";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { Recipe } from "~/lib/api/types/recipe";
 import { usePageState } from "~/composables/recipe-page/shared-state";
+import { useExtractRecipeYield } from "~/composables/recipe-page/use-extract-recipe-yield";
+
 export default defineComponent({
   components: {
     RecipeScaleEditButton,
@@ -65,29 +67,11 @@ export default defineComponent({
     });
 
     const scaledYield = computed(() => {
-      const regMatchNum = /\d+/;
-      const yieldString = props.recipe.recipeYield;
-      const num = yieldString?.match(regMatchNum);
-
-      if (num && num?.length > 0) {
-        const yieldAsInt = parseInt(num[0]);
-        return yieldString?.replace(num[0], String(yieldAsInt * scaleValue.value));
-      }
-
-      return props.recipe.recipeYield;
+      return useExtractRecipeYield(props.recipe.recipeYield, scaleValue.value);
     });
 
     const basicYield = computed(() => {
-      const regMatchNum = /\d+/;
-      const yieldString = props.recipe.recipeYield;
-      const num = yieldString?.match(regMatchNum);
-
-      if (num && num?.length > 0) {
-        const yieldAsInt = parseInt(num[0]);
-        return yieldString?.replace(num[0], String(yieldAsInt));
-      }
-
-      return props.recipe.recipeYield;
+      return useExtractRecipeYield(props.recipe.recipeYield, 1);
     });
 
     return {
