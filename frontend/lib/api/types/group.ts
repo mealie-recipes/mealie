@@ -359,6 +359,7 @@ export interface ShoppingListItemRecipeRefCreate {
   recipeId: string;
   recipeQuantity?: number;
   recipeScale?: number;
+  recipeNote?: string;
 }
 export interface ShoppingListItemOut {
   quantity?: number;
@@ -387,6 +388,7 @@ export interface ShoppingListItemRecipeRefOut {
   recipeId: string;
   recipeQuantity?: number;
   recipeScale?: number;
+  recipeNote?: string;
   id: string;
   shoppingListItemId: string;
 }
@@ -394,6 +396,7 @@ export interface ShoppingListItemRecipeRefUpdate {
   recipeId: string;
   recipeQuantity?: number;
   recipeScale?: number;
+  recipeNote?: string;
   id: string;
   shoppingListItemId: string;
 }

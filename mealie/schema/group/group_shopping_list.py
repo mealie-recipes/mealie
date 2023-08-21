@@ -35,6 +35,9 @@ class ShoppingListItemRecipeRefCreate(MealieModel):
     recipe_scale: NoneFloat = 1
     """the number of times this recipe has been added"""
 
+    recipe_note: str | None = None
+    """the original note from the recipe"""
+
     @validator("recipe_quantity", pre=True)
     def default_none_to_zero(cls, v):
         return 0 if v is None else v
