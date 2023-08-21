@@ -7,7 +7,7 @@
       :to="$listeners.selected ? undefined : `/recipe/${slug}`"
       @click="$emit('selected')"
     >
-      <v-img v-if="vertical">
+      <v-img v-if="vertical" class="rounded-sm">
         <RecipeCardImage
           :icon-size="100"
           :height="150"
@@ -17,9 +17,9 @@
           :image-version="image"
         />
       </v-img>
-      <v-list-item three-line>
+      <v-list-item three-line class="px-0">
         <slot v-if="!vertical" name="avatar">
-          <v-list-item-avatar tile size="125" class="v-mobile-img rounded-sm my-0 ml-n4">
+          <v-list-item-avatar tile size="125" class="v-mobile-img rounded-sm my-0">
             <RecipeCardImage
               :icon-size="100"
               :height="125"
@@ -169,5 +169,6 @@ export default defineComponent({
 
 .flat {
   box-shadow: none!important;
+  background-color: transparent;
 }
 </style>
