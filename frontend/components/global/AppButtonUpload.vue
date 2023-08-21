@@ -2,7 +2,7 @@
   <v-form ref="file">
     <input ref="uploader" class="d-none" type="file" :accept="accept" @change="onFileChanged" />
     <slot v-bind="{ isSelecting, onButtonClick }">
-      <v-btn :loading="isSelecting" :small="small" color="info" :text="textBtn" @click="onButtonClick">
+      <v-btn :loading="isSelecting" :small="small" :color="color" :text="textBtn" :disabled="disabled" @click="onButtonClick">
         <v-icon left> {{ effIcon }}</v-icon>
         {{ text ? text : defaultText }}
       </v-btn>
@@ -50,6 +50,14 @@ export default defineComponent({
       type: String,
       default: "",
     },
+    color: {
+      type: String,
+      default: "info",
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    }
   },
   setup(props, context) {
     const file = ref<File | null>(null);

@@ -114,7 +114,10 @@
             color="secondary"
           />
           <v-list-item-content :key="ingredientData.ingredient.quantity">
-            <SafeMarkdown class="ma-0 pa-0 text-subtitle-1 dense-markdown" :source="ingredientData.display" />
+            <RecipeIngredientListItem
+              :ingredient="ingredientData.ingredient"
+              :disable-amount="ingredientData.disableAmount"
+              :scale="recipeScale" />
           </v-list-item-content>
         </v-list-item>
       </v-card>
@@ -168,13 +171,13 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs, useContext, useRouter, ref } from "@nuxtjs/composition-api";
+import RecipeIngredientListItem from "./RecipeIngredientListItem.vue";
 import RecipeDialogPrintPreferences from "./RecipeDialogPrintPreferences.vue";
 import RecipeDialogShare from "./RecipeDialogShare.vue";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { usePlanTypeOptions } from "~/composables/use-group-mealplan";
 import { Recipe, RecipeIngredient } from "~/lib/api/types/recipe";
-import { parseIngredientText } from "~/composables/recipes";
 import { ShoppingListSummary } from "~/lib/api/types/group";
 import { PlanEntryType } from "~/lib/api/types/meal-plan";
 import { useAxiosDownloader } from "~/composables/api/use-axios-download";
@@ -203,7 +206,8 @@ export default defineComponent({
   components: {
     RecipeDialogPrintPreferences,
     RecipeDialogShare,
-  },
+    RecipeIngredientListItem
+},
   props: {
     useItems: {
       type: Object as () => ContextMenuIncludes,
@@ -384,7 +388,7 @@ export default defineComponent({
     const shoppingLists = ref<ShoppingListSummary[]>();
     const selectedShoppingList = ref<ShoppingListSummary>();
     const recipeRef = ref<Recipe>(props.recipe);
-    const recipeIngredients = ref<{ checked: boolean; ingredient: RecipeIngredient; display: string }[]>([]);
+    const recipeIngredients = ref<{ checked: boolean; ingredient: RecipeIngredient, disableAmount: boolean }[]>([]);
 
     async function getShoppingLists() {
       const { data } = await api.shopping.lists.getAll();
@@ -411,7 +415,7 @@ export default defineComponent({
           return {
             checked: true,
             ingredient,
-            display: parseIngredientText(ingredient, recipeRef.value?.settings?.disableAmount || false, props.recipeScale),
+            disableAmount: recipeRef.value.settings?.disableAmount || false
           };
         });
       }
