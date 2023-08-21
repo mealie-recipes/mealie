@@ -29,9 +29,9 @@ class ToolsTestCase(ABCMultiTenantTestCase):
         g1_item_ids: set[str] = set()
         g2_item_ids: set[str] = set()
 
-        for group_id, item_ids in [(group1_id, g1_item_ids), (group2_id, g2_item_ids)]:
-            for _ in range(10):
-                name = utils.random_string(10)
+        for _ in range(10):
+            name = utils.random_string(10)
+            for group_id, item_ids in [(group1_id, g1_item_ids), (group2_id, g2_item_ids)]:
                 tool = self.database.tools.create(
                     RecipeToolSave(
                         group_id=group_id,

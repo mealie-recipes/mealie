@@ -36,8 +36,8 @@ class Tool(SqlAlchemyBase, BaseMixins):
     group_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
     group: Mapped["Group"] = orm.relationship("Group", back_populates="tools", foreign_keys=[group_id])
 
-    name: Mapped[str] = mapped_column(String, index=True, unique=True, nullable=False)
-    slug: Mapped[str] = mapped_column(String, index=True, unique=True, nullable=False)
+    name: Mapped[str] = mapped_column(String, index=True, nullable=False)
+    slug: Mapped[str] = mapped_column(String, index=True, nullable=False)
     on_hand: Mapped[bool | None] = mapped_column(Boolean, default=False)
     recipes: Mapped[list["RecipeModel"]] = orm.relationship(
         "RecipeModel", secondary=recipes_to_tools, back_populates="tools"
