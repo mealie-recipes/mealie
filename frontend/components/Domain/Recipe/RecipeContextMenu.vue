@@ -149,7 +149,7 @@
       :nudge-top="menuTop ? '5' : '0'"
       allow-overflow
       close-delay="125"
-      open-on-hover
+      :open-on-hover="$vuetify.breakpoint.mdAndUp"
       content-class="d-print-none"
     >
       <template #activator="{ on, attrs }">
