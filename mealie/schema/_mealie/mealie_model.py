@@ -1,16 +1,34 @@
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import Protocol, TypeVar
+from enum import Enum
+from typing import ClassVar, Protocol, TypeVar
 
 from humps.main import camelize
 from pydantic import UUID4, BaseModel
+from sqlalchemy import Select, desc, func, or_, text
+from sqlalchemy.orm import InstrumentedAttribute, Session
 from sqlalchemy.orm.interfaces import LoaderOption
+
+from mealie.db.models._model_base import SqlAlchemyBase
 
 T = TypeVar("T", bound=BaseModel)
 
 
+class SearchType(Enum):
+    fuzzy = "fuzzy"
+    tokenized = "tokenized"
+
+
 class MealieModel(BaseModel):
+    _fuzzy_similarity_threshold: ClassVar[float] = 0.5
+    _normalize_search: ClassVar[bool] = False
+    _searchable_properties: ClassVar[list[str]] = []
+    """
+    Searchable properties for the search API.
+    The first property will be used for sorting (order_by)
+    """
+
     class Config:
         alias_generator = camelize
         allow_population_by_field_name = True
@@ -58,6 +76,40 @@ class MealieModel(BaseModel):
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
         return []
+
+    @classmethod
+    def filter_search_query(
+        cls,
+        db_model: type[SqlAlchemyBase],
+        query: Select,
+        session: Session,
+        search_type: SearchType,
+        search: str,
+        search_list: list[str],
+    ) -> Select:
+        """
+        Filters a search query based on model attributes
+
+        Can be overridden to support a more advanced search
+        """
+
+        if not cls._searchable_properties:
+            raise AttributeError("Not Implemented")
+
+        model_properties: list[InstrumentedAttribute] = [getattr(db_model, prop) for prop in cls._searchable_properties]
+        if search_type is SearchType.fuzzy:
+            session.execute(text(f"set pg_trgm.word_similarity_threshold = {cls._fuzzy_similarity_threshold};"))
+            filters = [prop.op("%>")(search) for prop in model_properties]
+
+            # trigram ordering by the first searchable property
+            return query.filter(or_(*filters)).order_by(func.least(model_properties[0].op("<->>")(search)))
+        else:
+            filters = []
+            for prop in model_properties:
+                filters.extend([prop.like(f"%{s}%") for s in search_list])
+
+            # order by how close the result is to the first searchable property
+            return query.filter(or_(*filters)).order_by(desc(model_properties[0].like(f"%{search}%")))
 
 
 class HasUUID(Protocol):

@@ -16,6 +16,7 @@ from mealie.db.models._model_base import SqlAlchemyBase
 from mealie.schema._mealie import MealieModel
 from mealie.schema.response.pagination import OrderDirection, PaginationBase, PaginationQuery
 from mealie.schema.response.query_filter import QueryFilter
+from mealie.schema.response.query_search import SearchFilter
 
 Schema = TypeVar("Schema", bound=MealieModel)
 Model = TypeVar("Model", bound=SqlAlchemyBase)
@@ -291,7 +292,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
             q = self._query(override_schema=eff_schema).filter(attribute_name == attr_match)
             return [eff_schema.from_orm(x) for x in self.session.execute(q).scalars().all()]
 
-    def page_all(self, pagination: PaginationQuery, override=None) -> PaginationBase[Schema]:
+    def page_all(self, pagination: PaginationQuery, override=None, search: str | None = None) -> PaginationBase[Schema]:
         """
         pagination is a method to interact with the filtered database table and return a paginated result
         using the PaginationBase that provides several data points that are needed to manage pagination
@@ -302,12 +303,16 @@ class RepositoryGeneric(Generic[Schema, Model]):
         as the override, as the type system is not able to infer the result of this method.
         """
         eff_schema = override or self.schema
-
+        # Copy this, because calling methods (e.g. tests) might rely on it not getting mutated
+        pagination_result = pagination.copy()
         q = self._query(override_schema=eff_schema, with_options=False)
 
         fltr = self._filter_builder()
         q = q.filter_by(**fltr)
-        q, count, total_pages = self.add_pagination_to_query(q, pagination)
+        if search:
+            q = self.add_search_to_query(q, eff_schema, search)
+
+        q, count, total_pages = self.add_pagination_to_query(q, pagination_result)
 
         # Apply options late, so they do not get used for counting
         q = q.options(*eff_schema.loader_options())
@@ -318,8 +323,8 @@ class RepositoryGeneric(Generic[Schema, Model]):
             self.session.rollback()
             raise e
         return PaginationBase(
-            page=pagination.page,
-            per_page=pagination.per_page,
+            page=pagination_result.page,
+            per_page=pagination_result.per_page,
             total=count,
             total_pages=total_pages,
             items=[eff_schema.from_orm(s) for s in data],
@@ -392,3 +397,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
                 query = query.order_by(case_stmt)
 
         return query.limit(pagination.per_page).offset((pagination.page - 1) * pagination.per_page), count, total_pages
+
+    def add_search_to_query(self, query: Select, schema: type[Schema], search: str) -> Select:
+        search_filter = SearchFilter(self.session, search, schema._normalize_search)
+        return search_filter.filter_query_by_search(query, schema, self.model)

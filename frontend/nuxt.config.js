@@ -158,6 +158,7 @@ export default {
   i18n: {
     locales: [
       // CODE_GEN_ID: MESSAGE_LOCALES
+      { code: "lv-LV", file: "lv-LV.json" },
       { code: "el-GR", file: "el-GR.json" },
       { code: "it-IT", file: "it-IT.json" },
       { code: "ko-KR", file: "ko-KR.json" },
@@ -177,12 +178,14 @@ export default {
       { code: "lt-LT", file: "lt-LT.json" },
       { code: "fr-CA", file: "fr-CA.json" },
       { code: "pl-PL", file: "pl-PL.json" },
+      { code: "hr-HR", file: "hr-HR.json" },
       { code: "da-DK", file: "da-DK.json" },
       { code: "pt-BR", file: "pt-BR.json" },
       { code: "de-DE", file: "de-DE.json" },
       { code: "ca-ES", file: "ca-ES.json" },
       { code: "sr-SP", file: "sr-SP.json" },
       { code: "cs-CZ", file: "cs-CZ.json" },
+      { code: "gl-ES", file: "gl-ES.json" },
       { code: "fr-FR", file: "fr-FR.json" },
       { code: "zh-TW", file: "zh-TW.json" },
       { code: "af-ZA", file: "af-ZA.json" },

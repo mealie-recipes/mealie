@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import ClassVar
+
 from pydantic import UUID4
 
 from mealie.schema._mealie import MealieModel
@@ -20,7 +22,7 @@ class MultiPurposeLabelUpdate(MultiPurposeLabelSave):
 
 
 class MultiPurposeLabelSummary(MultiPurposeLabelUpdate):
-    pass
+    _searchable_properties: ClassVar[list[str]] = ["name"]
 
     class Config:
         orm_mode = True
@@ -31,14 +33,5 @@ class MultiPurposeLabelPagination(PaginationBase):
 
 
 class MultiPurposeLabelOut(MultiPurposeLabelUpdate):
-    # shopping_list_items: list[ShoppingListItemOut] = []
-    # foods: list[IngredientFood] = []
-
     class Config:
         orm_mode = True
-
-
-# from mealie.schema.recipe.recipe_ingredient import IngredientFood
-# from mealie.schema.group.group_shopping_list import ShoppingListItemOut
-
-# MultiPurposeLabelOut.update_forward_refs()

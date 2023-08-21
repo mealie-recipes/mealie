@@ -4,11 +4,11 @@ import { Recipe } from "~/lib/api/types/recipe";
 const prefix = "/api";
 
 const routes = {
-  recipe: (groupId: string, recipeSlug: string) => `${prefix}/explore/recipes/${groupId}/${recipeSlug}`,
+  recipe: (groupSlug: string, recipeSlug: string) => `${prefix}/explore/recipes/${groupSlug}/${recipeSlug}`,
 };
 
 export class ExploreApi extends BaseAPI {
-  async recipe(groupId: string, recipeSlug: string) {
-    return await this.requests.get<Recipe>(routes.recipe(groupId, recipeSlug));
+  async recipe(groupSlug: string, recipeSlug: string) {
+    return await this.requests.get<Recipe>(routes.recipe(groupSlug, recipeSlug));
   }
 }
