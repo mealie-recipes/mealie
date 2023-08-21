@@ -13,7 +13,7 @@
         >
           <template #label>
             <div :class="listItem.checked ? 'strike-through' : ''">
-              {{ listItem.display }}
+              <RecipeIngredientListItem :ingredient="listItem" :disable-amount="!(listItem.quantity && (listItem.isFood || listItem.quantity !== 1))" />
             </div>
           </template>
         </v-checkbox>
@@ -70,6 +70,7 @@
 
 <script lang="ts">
 import { defineComponent, computed, ref, useContext } from "@nuxtjs/composition-api";
+import RecipeIngredientListItem from "../Recipe/RecipeIngredientListItem.vue";
 import ShoppingListItemEditor from "./ShoppingListItemEditor.vue";
 import MultiPurposeLabel from "./MultiPurposeLabel.vue";
 import { ShoppingListItemOut } from "~/lib/api/types/group";
@@ -82,7 +83,7 @@ interface actions {
 }
 
 export default defineComponent({
-  components: { ShoppingListItemEditor, MultiPurposeLabel },
+  components: { ShoppingListItemEditor, MultiPurposeLabel, RecipeIngredientListItem },
   props: {
     value: {
       type: Object as () => ShoppingListItemOut,
