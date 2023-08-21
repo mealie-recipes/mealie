@@ -41,6 +41,7 @@ export interface GroupBase {
 export interface GroupInDB {
   name: string;
   id: string;
+  slug: string;
   categories?: CategoryBase[];
   webhooks?: unknown[];
   users?: UserOut[];
@@ -118,6 +119,9 @@ export interface PrivateUser {
   loginAttemps?: number;
   lockedAt?: string;
 }
+export interface PasswordResetToken {
+  token: string;
+}
 export interface PrivatePasswordResetToken {
   userId: string;
   token: string;
@@ -147,6 +151,7 @@ export interface UnlockResults {
 export interface UpdateGroup {
   name: string;
   id: string;
+  slug: string;
   categories?: CategoryBase[];
   webhooks?: unknown[];
 }
@@ -231,8 +236,5 @@ export interface UserIn {
   password: string;
 }
 export interface ValidateResetToken {
-  token: string;
-}
-export interface PasswordResetToken {
   token: string;
 }

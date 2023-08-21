@@ -41,10 +41,11 @@ class MultiPurposeLabelsController(BaseUserController):
         return HttpRepo(self.repo, self.logger, self.registered_exceptions, self.t("generic.server-error"))
 
     @router.get("", response_model=MultiPurposeLabelPagination)
-    def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
+    def get_all(self, q: PaginationQuery = Depends(PaginationQuery), search: str | None = None):
         response = self.repo.page_all(
             pagination=q,
             override=MultiPurposeLabelSummary,
+            search=search,
         )
 
         response.set_pagination_guides(router.url_path_for("get_all"), q.dict())
