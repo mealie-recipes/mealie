@@ -45,10 +45,11 @@ class IngredientUnitsController(BaseUserController):
             raise HTTPException(500, "Failed to merge units") from e
 
     @router.get("", response_model=IngredientUnitPagination)
-    def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
+    def get_all(self, q: PaginationQuery = Depends(PaginationQuery), search: str | None = None):
         response = self.repo.page_all(
             pagination=q,
             override=IngredientUnit,
+            search=search,
         )
 
         response.set_pagination_guides(router.url_path_for("get_all"), q.dict())

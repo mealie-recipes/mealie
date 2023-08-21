@@ -225,9 +225,9 @@ def comments_item_id(item_id):
     return f"{prefix}/comments/{item_id}"
 
 
-def explore_recipes_group_id_recipe_slug(group_id, recipe_slug):
-    """`/api/explore/recipes/{group_id}/{recipe_slug}`"""
-    return f"{prefix}/explore/recipes/{group_id}/{recipe_slug}"
+def explore_recipes_group_slug_recipe_slug(group_slug, recipe_slug):
+    """`/api/explore/recipes/{group_slug}/{recipe_slug}`"""
+    return f"{prefix}/explore/recipes/{group_slug}/{recipe_slug}"
 
 
 def foods_item_id(item_id):

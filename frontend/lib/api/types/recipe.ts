@@ -357,7 +357,7 @@ export interface RecipeTimelineEventCreate {
   subject: string;
   eventType: TimelineEventType;
   eventMessage?: string;
-  image?: TimelineEventImage;
+  image?: TimelineEventImage & string;
   timestamp?: string;
 }
 export interface RecipeTimelineEventIn {
@@ -366,7 +366,7 @@ export interface RecipeTimelineEventIn {
   subject: string;
   eventType: TimelineEventType;
   eventMessage?: string;
-  image?: TimelineEventImage;
+  image?: TimelineEventImage & string;
   timestamp?: string;
 }
 export interface RecipeTimelineEventOut {
@@ -375,7 +375,7 @@ export interface RecipeTimelineEventOut {
   subject: string;
   eventType: TimelineEventType;
   eventMessage?: string;
-  image?: TimelineEventImage;
+  image?: TimelineEventImage & string;
   timestamp?: string;
   id: string;
   createdAt: string;

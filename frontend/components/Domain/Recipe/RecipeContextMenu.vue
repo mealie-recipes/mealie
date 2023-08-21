@@ -496,6 +496,22 @@ export default defineComponent({
     }
 
     const { copyText } = useCopy();
+    const groupSlug = ref<string>("");
+
+    async function setGroupSlug() {
+      if (!props.groupId) {
+        groupSlug.value = props.groupId;
+        return;
+      }
+
+      const {data} = await api.groups.getOne(props.groupId);
+      if (!data) {
+        groupSlug.value = props.groupId;
+        return;
+      }
+
+      groupSlug.value = data.slug;
+    }
 
     // Note: Print is handled as an event in the parent component
     const eventHandlers: { [key: string]: () => void | Promise<any> } = {
@@ -525,13 +541,18 @@ export default defineComponent({
       share: () => {
         state.shareDialog = true;
       },
-      publicUrl: () => {
+      publicUrl: async () => {
         if (!props.groupId) {
           alert.error("Unknown group ID");
           console.error("prop `groupId` is required when requesting a public URL");
           return;
         }
-        copyText(`${window.location.origin}/explore/recipes/${props.groupId}/${props.slug}`);
+
+        if (!groupSlug.value) {
+          await setGroupSlug();
+        }
+
+        copyText(`${window.location.origin}/explore/recipes/${groupSlug.value}/${props.slug}`);
       },
     };
 

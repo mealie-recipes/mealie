@@ -38,11 +38,12 @@ class RecipeCategoryController(BaseCrudController):
         return HttpRepo(self.repo, self.logger)
 
     @router.get("", response_model=RecipeCategoryPagination)
-    def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
+    def get_all(self, q: PaginationQuery = Depends(PaginationQuery), search: str | None = None):
         """Returns a list of available categories in the database"""
         response = self.repo.page_all(
             pagination=q,
             override=RecipeCategory,
+            search=search,
         )
 
         response.set_pagination_guides(router.url_path_for("get_all"), q.dict())

@@ -21,6 +21,15 @@ export interface PaginationQuery {
   orderBy?: string;
   orderDirection?: OrderDirection & string;
   queryFilter?: string;
+  paginationSeed?: string;
+}
+export interface RecipeSearchQuery {
+  cookbook?: string;
+  requireAllCategories?: boolean;
+  requireAllTags?: boolean;
+  requireAllTools?: boolean;
+  requireAllFoods?: boolean;
+  search?: string;
 }
 export interface SuccessResponse {
   message: string;
