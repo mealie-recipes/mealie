@@ -34,6 +34,8 @@ def test_public_recipe_success(
     test_case: PublicRecipeTestCase,
 ):
     group = database.groups.get_one(unique_user.group_id)
+    assert group
+
     group.preferences.private_group = test_case.private_group
     database.group_preferences.update(group.id, group.preferences)
 
@@ -42,9 +44,10 @@ def test_public_recipe_success(
     database.recipes.update(random_recipe.slug, random_recipe)
 
     # Try to access recipe
+    recipe_group = database.groups.get_by_slug_or_id(random_recipe.group_id)
     response = api_client.get(
-        api_routes.explore_recipes_group_id_recipe_slug(
-            random_recipe.group_id,
+        api_routes.explore_recipes_group_slug_recipe_slug(
+            recipe_group.slug,
             random_recipe.slug,
         )
     )

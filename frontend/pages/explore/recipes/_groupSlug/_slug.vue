@@ -18,7 +18,7 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     const router = useRouter();
-    const groupId = route.value.params.groupId;
+    const groupSlug = route.value.params.groupSlug;
     const slug = route.value.params.slug;
     const api = usePublicApi();
 
@@ -26,7 +26,7 @@ export default defineComponent({
     const { recipeMeta } = useRecipeMeta();
 
     const recipe = useAsync(async () => {
-      const { data, error } = await api.explore.recipe(groupId, slug);
+      const { data, error } = await api.explore.recipe(groupSlug, slug);
 
       if (error) {
         console.error("error loading recipe -> ", error);
