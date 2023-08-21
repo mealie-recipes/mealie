@@ -41,7 +41,7 @@
       :nudge-top="menuTop ? '5' : '0'"
       allow-overflow
       close-delay="125"
-      open-on-hover
+      :open-on-hover="!useMobileFormat"
       content-class="d-print-none"
     >
       <template #activator="{ on, attrs }">
@@ -121,6 +121,10 @@ export default defineComponent({
       type: String,
       default: null,
     },
+    useMobileFormat: {
+      type: Boolean,
+      default: true,
+    }
   },
   setup(props, context) {
     const domEditEventForm = ref<VForm>();

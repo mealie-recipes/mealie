@@ -4,14 +4,15 @@
       <form class="search-box pa-2" @submit.prevent="search">
         <div class="d-flex justify-center my-2">
           <v-text-field
+            ref="input"
             v-model="state.search"
             outlined
-            autofocus
             hide-details
             clearable
             color="primary"
             :placeholder="$tc('search.search-placeholder')"
             :prepend-inner-icon="$globals.icons.search"
+            @keyup.enter="hideKeyboard"
           />
         </div>
         <div class="search-row">
@@ -132,7 +133,7 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, useRouter, onMounted, useContext, computed } from "@nuxtjs/composition-api";
+import { ref, defineComponent, useRouter, onMounted, useContext, computed, Ref } from "@nuxtjs/composition-api";
 import { watchDebounced } from "@vueuse/shared";
 import SearchFilter from "~/components/Domain/SearchFilter.vue";
 import { useCategoryStore, useFoodStore, useTagStore, useToolStore } from "~/composables/store";
@@ -204,6 +205,12 @@ export default defineComponent({
     function toIDArray(array: { id: string }[]) {
       return array.map((item) => item.id);
     }
+
+    function hideKeyboard() {
+      input.value.blur()
+    }
+
+    const input: Ref<any> = ref(null);
 
     async function search() {
       await router.push({
@@ -432,6 +439,8 @@ export default defineComponent({
 
       sortable,
       toggleOrderDirection,
+      hideKeyboard,
+      input,
 
       selectedCategories,
       selectedFoods,

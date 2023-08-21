@@ -11,29 +11,33 @@
         {{ new Date(event.timestamp+"Z").toLocaleDateString($i18n.locale) }}
       </v-chip>
     </template>
-    <v-card>
-      <v-sheet>
-        <v-card-title>
-          <v-row>
+      <v-card
+        hover
+        :to="$listeners.selected ? undefined : `/recipe/${recipe.slug}`"
+        @click="$emit('selected')">
+        <v-sheet>
+        <v-card-title class="bg-primary">
+            <v-row>
             <v-col align-self="center" :cols="useMobileFormat ? 'auto' : '2'" :class="attrs.avatar.class">
-              <UserAvatar :user-id="event.userId" :size="attrs.avatar.size" />
+                <UserAvatar :user-id="event.userId" :size="attrs.avatar.size" />
             </v-col>
             <v-col v-if="useMobileFormat" align-self="center" class="pr-0">
-              <v-chip label>
+                <v-chip label>
                 <v-icon> {{ $globals.icons.calendar }} </v-icon>
                 {{ new Date(event.timestamp+"Z").toLocaleDateString($i18n.locale) }}
-              </v-chip>
+                </v-chip>
             </v-col>
             <v-col v-else cols="9" style="margin: auto; text-align: center;">
-              {{ event.subject }}
+                {{ event.subject }}
             </v-col>
             <v-spacer />
             <v-col :cols="useMobileFormat ? 'auto' : '1'" class="px-0 pt-0">
-              <RecipeTimelineContextMenu
+                <RecipeTimelineContextMenu
                 v-if="$auth.user && $auth.user.id == event.userId && event.eventType != 'system'"
                 :menu-top="false"
                 :event="event"
                 :menu-icon="$globals.icons.dotsVertical"
+                :use-mobile-format="useMobileFormat"
                 fab
                 color="transparent"
                 :elevation="0"
@@ -44,13 +48,13 @@
                 }"
                 @update="$emit('update')"
                 @delete="$emit('delete')"
-              />
+                />
             </v-col>
-          </v-row>
+            </v-row>
         </v-card-title>
-        <v-sheet v-if="showRecipeCards && recipe">
-          <v-row class="pt-3 pb-7 mx-3" style="max-width: 100%;">
-            <v-col align-self="center" class="pa-0">
+        <v-card-text v-if="showRecipeCards && recipe">
+            <v-row :class="useMobileFormat ? 'py-3 mx-0' : 'py-3 mx-0'" style="max-width: 100%;">
+              <v-col align-self="center" class="pa-0">
               <RecipeCardMobile
                 :vertical="useMobileFormat"
                 :name="recipe.name"
@@ -59,32 +63,33 @@
                 :rating="recipe.rating"
                 :image="recipe.image"
                 :recipe-id="recipe.id"
+                :is-flat="true"
               />
             </v-col>
-          </v-row>
-        </v-sheet>
-        <v-divider v-if="showRecipeCards && recipe && (useMobileFormat || event.eventMessage || (eventImageUrl && !hideImage))" />
-        <v-card-text>
-          <v-row>
-            <v-col>
-              <strong v-if="useMobileFormat">{{ event.subject }}</strong>
-              <v-img
-                v-if="eventImageUrl"
-                :src="eventImageUrl"
-                min-height="50"
-                :height="hideImage ? undefined : 'auto'"
-                :max-height="attrs.image.maxHeight"
-                contain
-                :class=attrs.image.class
-                @error="hideImage = true"
-              />
-              <div v-if="event.eventMessage" :class="useMobileFormat ? 'text-caption' : ''">
-                {{ event.eventMessage }}
-              </div>
-            </v-col>
-          </v-row>
+            </v-row>
         </v-card-text>
-      </v-sheet>
+        </v-sheet>
+        <v-divider v-if="showRecipeCards && recipe && (useMobileFormat || event.eventMessage)" />
+        <v-card-text v-if="showRecipeCards && recipe && (useMobileFormat || event.eventMessage)">
+            <v-row>
+            <v-col>
+                <strong v-if="useMobileFormat">{{ event.subject }}</strong>
+                <v-img
+                  v-if="eventImageUrl"
+                  :src="eventImageUrl"
+                  min-height="50"
+                  :height="hideImage ? undefined : 'auto'"
+                  :max-height="attrs.image.maxHeight"
+                  contain
+                  :class=attrs.image.class
+                  @error="hideImage = true"
+                />
+                <div v-if="event.eventMessage" :class="useMobileFormat ? 'text-caption' : ''">
+                {{ event.eventMessage }}
+                </div>
+            </v-col>
+            </v-row>
+        </v-card-text>
     </v-card>
   </v-timeline-item>
 </template>
@@ -191,3 +196,9 @@ export default defineComponent({
   },
 });
 </script>
+
+<style>
+.v-card::after {
+  display: none;
+}
+</style>
