@@ -1,7 +1,7 @@
 """added recipe note to shopping list recipe ref
 
 Revision ID: 1825b5225403
-Revises: b3dbb554ba53
+Revises: 04ac51cbe9a4
 Create Date: 2023-08-14 19:30:49.103185
 
 """
@@ -11,7 +11,7 @@ from alembic import op
 
 # revision identifiers, used by Alembic.
 revision = "1825b5225403"
-down_revision = "b3dbb554ba53"
+down_revision = "04ac51cbe9a4"
 branch_labels = None
 depends_on = None
 
