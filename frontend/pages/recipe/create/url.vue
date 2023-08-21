@@ -74,6 +74,7 @@ import {
 } from "@nuxtjs/composition-api";
 import { AxiosResponse } from "axios";
 import { useUserApi } from "~/composables/api";
+import { useTagStore } from "~/composables/store/use-tag-store";
 import { validators } from "~/composables/use-validators";
 import { VForm } from "~/types/vuetify";
 
@@ -87,12 +88,16 @@ export default defineComponent({
     const api = useUserApi();
     const route = useRoute();
     const router = useRouter();
+    const tags = useTagStore();
 
-    function handleResponse(response: AxiosResponse<string> | null, edit = false) {
+    function handleResponse(response: AxiosResponse<string> | null, edit = false, refreshTags = false) {
       if (response?.status !== 201) {
         state.error = true;
         state.loading = false;
         return;
+      }
+      if (refreshTags) {
+        tags.actions.refresh();
       }
       router.push(`/recipe/${response.data}?edit=${edit.toString()}`);
     }
@@ -150,7 +155,7 @@ export default defineComponent({
       }
       state.loading = true;
       const { response } = await api.recipes.createOneByUrl(url, importKeywordsAsTags);
-      handleResponse(response, stayInEditMode);
+      handleResponse(response, stayInEditMode, importKeywordsAsTags);
     }
 
     return {

@@ -19,6 +19,7 @@
               :labels="allLabels || []"
               :units="allUnits || []"
               :foods="allFoods || []"
+              :recipes="recipeMap"
               @checked="saveListItem"
               @save="saveListItem"
               @delete="deleteListItem(item)"
@@ -46,6 +47,7 @@
                 :labels="allLabels || []"
                 :units="allUnits || []"
                 :foods="allFoods || []"
+                :recipes="recipeMap"
                 @checked="saveListItem"
                 @save="saveListItem"
                 @delete="deleteListItem(item)"
@@ -175,8 +177,8 @@
           {{ $tc('shopping-list.linked-recipes-count', shoppingList.recipeReferences ? shoppingList.recipeReferences.length : 0) }}
         </div>
         <v-divider class="my-4"></v-divider>
-        <RecipeList :recipes="listRecipes">
-          <template v-for="(recipe, index) in listRecipes" #[`actions-${recipe.id}`]>
+        <RecipeList :recipes="Array.from(recipeMap.values())" show-description>
+          <template v-for="(recipe, index) in recipeMap.values()" #[`actions-${recipe.id}`]>
             <v-list-item-action :key="'item-actions-decrease' + recipe.id">
               <v-btn icon @click.prevent="removeRecipeReferenceToList(recipe.id)">
                 <v-icon color="grey lighten-1">{{ $globals.icons.minus }}</v-icon>
@@ -530,9 +532,10 @@ export default defineComponent({
     // =====================================
     // Add/Remove Recipe References
 
-    const listRecipes = computed<Array<any>>(() => {
-      return shoppingList.value?.recipeReferences?.map((ref) => ref.recipe) ?? [];
-    });
+    const recipeMap = computed(() => new Map(
+      (shoppingList.value?.recipeReferences?.map((ref) => ref.recipe) ?? [])
+        .map((recipe) => [recipe.id || "", recipe]))
+    );
 
     async function addRecipeReferenceToList(recipeId: string) {
       if (!shoppingList.value || recipeReferenceLoading.value) {
@@ -741,10 +744,10 @@ export default defineComponent({
       getLabelColor,
       itemsByLabel,
       listItems,
-      listRecipes,
       loadingCounter,
       preferences,
       presentLabels,
+      recipeMap,
       removeRecipeReferenceToList,
       reorderLabelsDialog,
       toggleReorderLabelsDialog,
