@@ -1,7 +1,7 @@
 import { useFraction } from "~/composables/recipes";
 
-const matchMixedFraction = /(?:[1-9]\s[1-9]\d*|0)\/[1-9]\d*/;
-const matchFraction = /(?:[1-9]\d*|0)\/[1-9]\d*/;
+const matchMixedFraction = /(?:\d*\s\d*\d*|0)\/\d*\d*/;
+const matchFraction = /(?:\d*\d*|0)\/\d*\d*/;
 const matchDecimal = /(\d+.\d+)|(.\d+)/;
 const matchInt = /\d+/;
 
@@ -51,7 +51,7 @@ function findMatch(yieldString: string): [matchString: string, servings: number,
 
         // if the denominator is zero, return no match
         if (servings === undefined) {
-            return null
+            return null;
         } else {
             return [match, servings, true];
         }
@@ -64,7 +64,7 @@ function findMatch(yieldString: string): [matchString: string, servings: number,
 
         // if the denominator is zero, return no match
         if (servings === undefined) {
-            return null
+            return null;
         } else {
             return [match, servings, true];
         }
@@ -72,13 +72,13 @@ function findMatch(yieldString: string): [matchString: string, servings: number,
 
     const decimalMatch = yieldString.match(matchDecimal);
     if (decimalMatch?.length) {
-        const match = decimalMatch[0]
+        const match = decimalMatch[0];
         return [match, parseFloat(match), false];
     }
 
     const intMatch = yieldString.match(matchInt);
     if (intMatch?.length) {
-        const match = intMatch[0]
+        const match = intMatch[0];
         return [match, parseInt(match), false];
     }
 
@@ -107,7 +107,7 @@ function formatServings(servings: number, scale: number, isFraction: boolean): s
         valString += ` ${fraction[1]}/${fraction[2]}`;
     }
 
-    return valString;
+    return valString.trim();
 }
 
 
