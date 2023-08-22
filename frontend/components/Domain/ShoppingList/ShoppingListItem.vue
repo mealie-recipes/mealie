@@ -110,7 +110,7 @@ interface actions {
 }
 
 export default defineComponent({
-  components: { ShoppingListItemEditor, MultiPurposeLabel, RecipeIngredientListItem },
+  components: { ShoppingListItemEditor, MultiPurposeLabel, RecipeList, RecipeIngredientListItem },
   props: {
     value: {
       type: Object as () => ShoppingListItemOut,
