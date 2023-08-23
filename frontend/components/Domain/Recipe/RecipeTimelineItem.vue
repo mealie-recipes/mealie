@@ -17,9 +17,8 @@
         @click="$emit('selected')"
         class="elevation-12"
       >
-        <v-sheet class="background">
         <v-card-title class="background">
-            <v-row>
+          <v-row>
             <v-col align-self="center" :cols="useMobileFormat ? 'auto' : '2'" :class="attrs.avatar.class">
                 <UserAvatar :user-id="event.userId" :size="attrs.avatar.size" />
             </v-col>
@@ -35,24 +34,24 @@
             <v-spacer />
             <v-col :cols="useMobileFormat ? 'auto' : '1'" class="px-0 pt-0">
                 <RecipeTimelineContextMenu
-                v-if="$auth.user && $auth.user.id == event.userId && event.eventType != 'system'"
-                :menu-top="false"
-                :event="event"
-                :menu-icon="$globals.icons.dotsVertical"
-                :use-mobile-format="useMobileFormat"
-                fab
-                color="transparent"
-                :elevation="0"
-                :card-menu="false"
-                :use-items="{
-                    edit: true,
-                    delete: true,
-                }"
-                @update="$emit('update')"
-                @delete="$emit('delete')"
+                  v-if="$auth.user && $auth.user.id == event.userId && event.eventType != 'system'"
+                  :menu-top="false"
+                  :event="event"
+                  :menu-icon="$globals.icons.dotsVertical"
+                  :use-mobile-format="useMobileFormat"
+                  fab
+                  color="transparent"
+                  :elevation="0"
+                  :card-menu="false"
+                  :use-items="{
+                      edit: true,
+                      delete: true,
+                  }"
+                  @update="$emit('update')"
+                  @delete="$emit('delete')"
                 />
             </v-col>
-            </v-row>
+          </v-row>
         </v-card-title>
         <v-card-text v-if="showRecipeCards && recipe" class="background">
             <v-row :class="useMobileFormat ? 'py-3 mx-0' : 'py-3 mx-0'" style="max-width: 100%;">
@@ -70,9 +69,8 @@
             </v-col>
             </v-row>
         </v-card-text>
-        </v-sheet>
         <v-divider v-if="showRecipeCards && recipe && (useMobileFormat || event.eventMessage)" />
-        <v-card-text v-if="showRecipeCards && recipe && (useMobileFormat || event.eventMessage)" class="background">
+        <v-card-text class="background">
             <v-row>
             <v-col>
                 <strong v-if="useMobileFormat">{{ event.subject }}</strong>
