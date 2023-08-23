@@ -13,7 +13,7 @@
     </template>
       <v-card
         hover
-        :to="$listeners.selected ? undefined : `/recipe/${recipe.slug}`"
+        :to="$listeners.selected || !recipe ? undefined : `/recipe/${recipe.slug}`"
         @click="$emit('selected')">
         <v-sheet>
         <v-card-title class="bg-primary">
