@@ -13,7 +13,7 @@
         >
           <template #label>
             <div :class="listItem.checked ? 'strike-through' : ''">
-              <RecipeIngredientListItem :ingredient="listItem" :disable-amount="!(listItem.quantity && (listItem.isFood || listItem.quantity !== 1))" />
+              <RecipeIngredientListItem :ingredient="listItem" :disable-amount="!(listItem.isFood || listItem.quantity !== 1)" />
             </div>
           </template>
         </v-checkbox>
@@ -110,7 +110,7 @@ interface actions {
 }
 
 export default defineComponent({
-  components: { ShoppingListItemEditor, MultiPurposeLabel, RecipeIngredientListItem },
+  components: { ShoppingListItemEditor, MultiPurposeLabel, RecipeList, RecipeIngredientListItem },
   props: {
     value: {
       type: Object as () => ShoppingListItemOut,
