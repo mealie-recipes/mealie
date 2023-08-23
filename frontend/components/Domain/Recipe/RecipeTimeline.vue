@@ -1,5 +1,5 @@
 <template>
-  <div :style="maxHeight ? `max-height: ${maxHeight}; overflow-y: auto;` : ''" @scroll="onScroll($event)">
+  <div style="height: 100%;">
     <v-row class="my-0 mx-7">
       <v-spacer />
       <v-col class="text-right">
@@ -8,12 +8,14 @@
         </v-btn>
       </v-col>
     </v-row>
+    <v-divider class="mx-2" />
     <div
       v-if="timelineEvents.length"
       id="timeline-container"
       height="fit-content"
       width="100%"
       class="px-1"
+      :style="maxHeight ? `max-height: ${maxHeight}; overflow-y: auto;` : ''"
     >
       <v-timeline :dense="$vuetify.breakpoint.smAndDown" class="timeline">
         <RecipeTimelineItem
