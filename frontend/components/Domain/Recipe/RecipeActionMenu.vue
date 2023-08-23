@@ -42,6 +42,12 @@
         </v-tooltip>
       </div>
 
+      <RecipeTimerMenu
+        fab
+        color="info"
+        class="mr-1"
+      />
+
       <RecipeContextMenu
         show-print
         :menu-top="false"
@@ -90,6 +96,7 @@
 import { defineComponent, ref, useContext } from "@nuxtjs/composition-api";
 import RecipeContextMenu from "./RecipeContextMenu.vue";
 import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
+import RecipeTimerMenu from "./RecipeTimerMenu.vue";
 import RecipeTimelineBadge from "./RecipeTimelineBadge.vue";
 import { Recipe } from "~/lib/api/types/recipe";
 
@@ -100,7 +107,7 @@ const JSON_EVENT = "json";
 const OCR_EVENT = "ocr";
 
 export default defineComponent({
-  components: { RecipeContextMenu, RecipeFavoriteBadge, RecipeTimelineBadge },
+  components: { RecipeContextMenu, RecipeFavoriteBadge, RecipeTimerMenu, RecipeTimelineBadge },
   props: {
     recipe: {
       required: true,
