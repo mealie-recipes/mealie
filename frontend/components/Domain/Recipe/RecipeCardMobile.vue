@@ -17,7 +17,7 @@
           :image-version="image"
         />
       </v-img>
-      <v-list-item three-line class="px-0">
+      <v-list-item three-line :class="vertical ? 'px-2' : 'px-0'">
         <slot v-if="!vertical" name="avatar">
           <v-list-item-avatar tile size="125" class="v-mobile-img rounded-sm my-0">
             <RecipeCardImage

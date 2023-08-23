@@ -14,9 +14,11 @@
       <v-card
         hover
         :to="$listeners.selected || !recipe ? undefined : `/recipe/${recipe.slug}`"
-        @click="$emit('selected')">
-        <v-sheet>
-        <v-card-title class="bg-primary">
+        @click="$emit('selected')"
+        class="elevation-12"
+      >
+        <v-sheet class="background">
+        <v-card-title class="background">
             <v-row>
             <v-col align-self="center" :cols="useMobileFormat ? 'auto' : '2'" :class="attrs.avatar.class">
                 <UserAvatar :user-id="event.userId" :size="attrs.avatar.size" />
@@ -52,7 +54,7 @@
             </v-col>
             </v-row>
         </v-card-title>
-        <v-card-text v-if="showRecipeCards && recipe">
+        <v-card-text v-if="showRecipeCards && recipe" class="background">
             <v-row :class="useMobileFormat ? 'py-3 mx-0' : 'py-3 mx-0'" style="max-width: 100%;">
               <v-col align-self="center" class="pa-0">
               <RecipeCardMobile
@@ -70,7 +72,7 @@
         </v-card-text>
         </v-sheet>
         <v-divider v-if="showRecipeCards && recipe && (useMobileFormat || event.eventMessage)" />
-        <v-card-text v-if="showRecipeCards && recipe && (useMobileFormat || event.eventMessage)">
+        <v-card-text v-if="showRecipeCards && recipe && (useMobileFormat || event.eventMessage)" class="background">
             <v-row>
             <v-col>
                 <strong v-if="useMobileFormat">{{ event.subject }}</strong>
