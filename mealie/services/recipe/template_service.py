@@ -4,6 +4,7 @@ from zipfile import ZipFile
 
 from jinja2 import Template
 
+from mealie.core.exceptions import InvalidQuery
 from mealie.schema.recipe import Recipe
 from mealie.schema.recipe.recipe_image_types import RecipeImageTypes
 from mealie.services._base_service import BaseService
@@ -54,7 +55,7 @@ class TemplateService(BaseService):
                 break
 
         if t_type is None:
-            raise ValueError(f"Template '{template}' not found.")
+            raise InvalidQuery(f"Template '{template}' not found.")
 
         return TemplateType(t_type)
 
@@ -78,7 +79,7 @@ class TemplateService(BaseService):
         if t_type == TemplateType.zip:
             return self._render_zip(recipe)
 
-        raise ValueError(f"Template Type '{t_type}' not found.")
+        raise InvalidQuery(f"Template Type '{t_type}' not found.")
 
     def _render_json(self, recipe: Recipe) -> Path:
         """

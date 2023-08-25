@@ -114,8 +114,16 @@ class RecipeExportController(BaseRecipeController):
 
         """
         recipe = self.mixins.get_one(slug)
-        file = self.service.render_template(recipe, temp_dir, template_name)
-        return FileResponse(file)
+        try:
+            file = self.service.render_template(recipe, temp_dir, template_name)
+            return FileResponse(file)
+        except exceptions.InvalidQuery as ex:
+            self.logger.exception(ex)
+            raise HTTPException(status_code=422, detail=ErrorResponse.respond(message=", ".join(ex.args)))
+        except Exception as ex:
+            self.logger.error("Unknown error while rendering recipe template")
+            self.logger.exception(ex)
+            raise HTTPException(status_code=500, detail=ErrorResponse.respond(message="Unknown Error"))
 
     @router_exports.get("/{slug}/exports/zip")
     def get_recipe_as_zip(self, slug: str, token: str, temp_path=Depends(temporary_zip_path)):

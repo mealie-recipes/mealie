@@ -21,6 +21,7 @@
         "permission_denied": "You do not have permission to perform this action",
         "no-entry-found": "The requested resource was not found",
         "integrity-error": "Database integrity error",
+        "invalid-query": "Requested query is either incorrect or incomplete",
         "username-conflict-error": "This username is already taken",
         "email-conflict-error": "This email is already in use"
     },

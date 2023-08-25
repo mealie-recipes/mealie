@@ -29,6 +29,12 @@ class NoEntryFound(Exception):
 
     pass
 
+class InvalidQuery(ValueError):
+    """
+    This exception is raised when a user tries to access a resource with incorrect or incomplete query. Unlike ValueError, the arguments are directly passed from a user-facing interface.
+    """
+
+    pass
 
 def mealie_registered_exceptions(t: Translator) -> dict:
     """
@@ -39,4 +45,5 @@ def mealie_registered_exceptions(t: Translator) -> dict:
         PermissionDenied: t.t("exceptions.permission-denied"),
         NoEntryFound: t.t("exceptions.no-entry-found"),
         IntegrityError: t.t("exceptions.integrity-error"),
+        InvalidQuery: t.t("exceptions.invalid-query"),
     }
