@@ -40,7 +40,7 @@ export default defineComponent({
   },
 });
 </script>
-<style>
+<style lang="scss">
 .ingredient-item {
   .d-inline {
     & > p {
