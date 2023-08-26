@@ -20,11 +20,10 @@ export abstract class BaseAPI {
   }
 }
 
-export abstract class BaseCRUDAPI<CreateType, ReadType, UpdateType = CreateType>
+export abstract class BaseCRUDAPIReadOnly<ReadType>
   extends BaseAPI
-  implements CrudAPIInterface
-{
-  abstract baseRoute: string;
+  implements CrudAPIInterface {
+  abstract baseRoute: (string);
   abstract itemRoute(itemId: string | number): string;
 
   async getAll(page = 1, perPage = -1, params = {} as Record<string, QueryValue>) {
@@ -32,12 +31,16 @@ export abstract class BaseCRUDAPI<CreateType, ReadType, UpdateType = CreateType>
     return await this.requests.get<PaginationData<ReadType>>(route(this.baseRoute, { page, perPage, ...params }));
   }
 
-  async createOne(payload: CreateType) {
-    return await this.requests.post<ReadType>(this.baseRoute, payload);
-  }
-
   async getOne(itemId: string | number) {
     return await this.requests.get<ReadType>(this.itemRoute(itemId));
+  }
+}
+
+export abstract class BaseCRUDAPI<CreateType, ReadType, UpdateType = CreateType>
+  extends BaseCRUDAPIReadOnly<ReadType>
+  implements CrudAPIInterface {
+  async createOne(payload: CreateType) {
+    return await this.requests.post<ReadType>(this.baseRoute, payload);
   }
 
   async updateOne(itemId: string | number, payload: UpdateType) {

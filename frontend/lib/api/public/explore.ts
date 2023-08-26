@@ -1,14 +1,12 @@
 import { BaseAPI } from "../base/base-clients";
-import { Recipe } from "~/lib/api/types/recipe";
-
-const prefix = "/api";
-
-const routes = {
-  recipe: (groupSlug: string, recipeSlug: string) => `${prefix}/explore/recipes/${groupSlug}/${recipeSlug}`,
-};
+import { ApiRequestInstance } from "~/lib/api/types/non-generated";
+import { PublicRecipeApi } from "./explore/recipes";
 
 export class ExploreApi extends BaseAPI {
-  async recipe(groupSlug: string, recipeSlug: string) {
-    return await this.requests.get<Recipe>(routes.recipe(groupSlug, recipeSlug));
+  public recipes: PublicRecipeApi;
+
+  constructor(requests: ApiRequestInstance, groupSlug: string) {
+    super(requests);
+    this.recipes = new PublicRecipeApi(requests, groupSlug);
   }
 }
