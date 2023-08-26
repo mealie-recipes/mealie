@@ -123,6 +123,7 @@
         class="mt-n5"
         :icon="$globals.icons.search"
         :title="$tc('search.results')"
+        :group-slug="groupSlug"
         :recipes="recipes"
         :query="passedQuery"
         @replaceRecipes="replaceRecipes"
@@ -155,8 +156,8 @@ export default defineComponent({
     const router = useRouter();
     const { $auth, $globals, i18n } = useContext();
 
-    const usePublic = computed(() => {
-      return !$auth.user;
+    const loggedIn = computed(() => {
+      return $auth.loggedIn;
     });
     const state = ref({
       auto: true,
@@ -171,7 +172,7 @@ export default defineComponent({
       requireAllFoods: false,
     });
 
-    const { recipes, appendRecipes, assignSorted, removeRecipe, replaceRecipes } = useLazyRecipes(usePublic.value ? props.groupSlug : null);
+    const { recipes, appendRecipes, assignSorted, removeRecipe, replaceRecipes } = useLazyRecipes(loggedIn.value ? null : props.groupSlug);
     const categories = useCategoryStore();
     const selectedCategories = ref<NoUndefinedField<RecipeCategory>[]>([]);
 

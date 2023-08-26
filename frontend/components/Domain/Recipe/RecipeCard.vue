@@ -4,7 +4,7 @@
       <v-card
         :class="{ 'on-hover': hover }"
         :elevation="hover ? 12 : 2"
-        :to="route ? `/recipe/${slug}` : ''"
+        :to="route ? recipeRoute : ''"
         :min-height="imageHeight + 75"
         @click="$emit('click')"
       >
@@ -80,6 +80,10 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    groupSlug: {
+      type: String,
+      default: null,
+    },
     slug: {
       type: String,
       required: true,
@@ -115,14 +119,19 @@ export default defineComponent({
       default: 200,
     },
   },
-  setup() {
+  setup(props) {
     const { $auth } = useContext();
     const loggedIn = computed(() => {
       return $auth.loggedIn;
     });
 
+    const recipeRoute = computed<string>(() => {
+      return loggedIn.value ? `/recipe/${props.slug}` : `/explore/recipes/${props.groupSlug}/${props.slug}`;
+    });
+
     return {
       loggedIn,
+      recipeRoute,
     };
   },
 });

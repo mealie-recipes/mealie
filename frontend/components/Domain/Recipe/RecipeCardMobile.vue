@@ -4,7 +4,7 @@
       :ripple="false"
       :class="isFlat ? 'mx-auto flat' : 'mx-auto'"
       hover
-      :to="$listeners.selected ? undefined : `/recipe/${slug}`"
+      :to="$listeners.selected ? undefined : recipeRoute"
       @click="$emit('selected')"
     >
       <v-img v-if="vertical" class="rounded-sm">
@@ -92,6 +92,10 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    groupSlug: {
+      type: String,
+      default: null,
+    },
     slug: {
       type: String,
       required: true,
@@ -126,14 +130,19 @@ export default defineComponent({
       default: false,
     },
   },
-  setup() {
+  setup(props) {
     const { $auth } = useContext();
     const loggedIn = computed(() => {
       return $auth.loggedIn;
     });
 
+    const recipeRoute = computed<string>(() => {
+      return loggedIn.value ? `/recipe/${props.slug}` : `/explore/recipes/${props.groupSlug}/${props.slug}`;
+    });
+
     return {
       loggedIn,
+      recipeRoute,
     };
   },
 });
