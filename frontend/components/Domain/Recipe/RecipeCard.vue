@@ -39,7 +39,10 @@
             <RecipeRating class="pb-1" :value="rating" :name="name" :slug="slug" :small="true" />
             <v-spacer></v-spacer>
             <RecipeChips :truncate="true" :items="tags" :title="false" :limit="2" :small="true" url-prefix="tags" />
+
+            <!-- If we're not logged-in, no items display, so we hide this menu -->
             <RecipeContextMenu
+              v-if="loggedIn"
               color="grey darken-2"
               :slug="slug"
               :name="name"

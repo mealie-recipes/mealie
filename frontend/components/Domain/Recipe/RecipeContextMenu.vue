@@ -328,7 +328,7 @@ export default defineComponent({
         icon: $globals.icons.download,
         color: undefined,
         event: "download",
-        isPublic: true,
+        isPublic: false,
       },
       duplicate: {
         title: i18n.tc("general.duplicate"),

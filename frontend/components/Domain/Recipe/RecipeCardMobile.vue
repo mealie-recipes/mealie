@@ -40,7 +40,7 @@
               <RecipeFavoriteBadge v-if="loggedIn" :slug="slug" show-always />
               <v-rating
                 color="secondary"
-                class="ml-auto"
+                :class="loggedIn ? 'ml-auto' : 'ml-auto pb-2'"
                 background-color="secondary lighten-3"
                 dense
                 length="5"
@@ -48,7 +48,11 @@
                 :value="rating"
               ></v-rating>
               <v-spacer></v-spacer>
+
+              <!-- If we're not logged-in, no items display, so we hide this menu -->
+              <!-- We also add padding to the v-rating above to compensate -->
               <RecipeContextMenu
+                v-if="loggedIn"
                 :slug="slug"
                 :menu-icon="$globals.icons.dotsHorizontal"
                 :name="name"
