@@ -211,7 +211,7 @@ export default defineComponent({
       if (props.recipes.length > 0) {
         const recipe = props.recipes[Math.floor(Math.random() * props.recipes.length)];
         if (recipe.slug !== undefined) {
-          router.push(`/recipe/${recipe.slug}`);
+          router.push(loggedIn.value ? `/recipe/${recipe.slug}` : `/explore/recipes/${props.groupSlug}/${recipe.slug}`);
         }
       }
     }
