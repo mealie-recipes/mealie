@@ -1,5 +1,6 @@
 import orjson
-from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi import APIRouter, Depends, HTTPException, Query, Request
+from pydantic import UUID4
 
 from mealie.routes._base import controller
 from mealie.routes._base.base_controllers import BasePublicExploreController
@@ -29,6 +30,10 @@ class PublicRecipesController(BasePublicExploreController):
         request: Request,
         q: PaginationQuery = Depends(make_dependable(PaginationQuery)),
         search_query: RecipeSearchQuery = Depends(make_dependable(RecipeSearchQuery)),
+        categories: list[UUID4 | str] | None = Query(None),
+        tags: list[UUID4 | str] | None = Query(None),
+        tools: list[UUID4 | str] | None = Query(None),
+        foods: list[UUID4 | str] | None = Query(None),
     ) -> PaginationBase[RecipeSummary]:
         cookbook_data: ReadCookBook | None = None
         if search_query.cookbook:
@@ -47,6 +52,10 @@ class PublicRecipesController(BasePublicExploreController):
         pagination_response = self.recipes.page_all(
             pagination=q,
             cookbook=cookbook_data,
+            categories=categories,
+            tags=tags,
+            tools=tools,
+            foods=foods,
             require_all_categories=search_query.require_all_categories,
             require_all_tags=search_query.require_all_tags,
             require_all_tools=search_query.require_all_tools,
