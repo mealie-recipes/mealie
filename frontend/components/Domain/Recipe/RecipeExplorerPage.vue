@@ -143,6 +143,10 @@ import { IngredientFood, RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { useLazyRecipes } from "~/composables/recipes";
 import { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
+import { usePublicCategoryStore } from "~/composables/store/use-category-store";
+import { usePublicFoodStore } from "~/composables/store/use-food-store";
+import { usePublicTagStore } from "~/composables/store/use-tag-store";
+import { usePublicToolStore } from "~/composables/store/use-tool-store";
 
 export default defineComponent({
   components: { SearchFilter, RecipeCardSection },
@@ -173,16 +177,16 @@ export default defineComponent({
     });
 
     const { recipes, appendRecipes, assignSorted, removeRecipe, replaceRecipes } = useLazyRecipes(loggedIn.value ? null : props.groupSlug);
-    const categories = useCategoryStore();
+    const categories = loggedIn.value ? useCategoryStore() : usePublicCategoryStore(props.groupSlug);
     const selectedCategories = ref<NoUndefinedField<RecipeCategory>[]>([]);
 
-    const foods = useFoodStore();
+    const foods = loggedIn.value ? useFoodStore() : usePublicFoodStore(props.groupSlug);
     const selectedFoods = ref<IngredientFood[]>([]);
 
-    const tags = useTagStore();
+    const tags = loggedIn.value ? useTagStore() : usePublicTagStore(props.groupSlug);
     const selectedTags = ref<NoUndefinedField<RecipeTag>[]>([]);
 
-    const tools = useToolStore();
+    const tools = loggedIn.value ? useToolStore() : usePublicToolStore(props.groupSlug);
     const selectedTools = ref<NoUndefinedField<RecipeTool>[]>([]);
 
     const passedQuery = ref<RecipeSearchQuery | null>(null);
