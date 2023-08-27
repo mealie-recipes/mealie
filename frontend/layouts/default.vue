@@ -4,8 +4,8 @@
 </template>
 
 <script lang="ts">
-import DefaultLayout from "@/components/Layout/DefaultLayout.vue";
 import { defineComponent } from "@nuxtjs/composition-api";
+import DefaultLayout from "@/components/Layout/DefaultLayout.vue";
 
 export default defineComponent({
   components: { DefaultLayout },

@@ -1,8 +1,8 @@
 import { useAsync, ref, Ref, useContext } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "./use-utils";
+import { usePublicExploreApi } from "./api/api-client";
 import { useUserApi } from "~/composables/api";
 import { ReadCookBook, UpdateCookBook } from "~/lib/api/types/cookbook";
-import { usePublicExploreApi } from "./api/api-client";
 
 let cookbookStore: Ref<ReadCookBook[] | null> | null = null;
 
