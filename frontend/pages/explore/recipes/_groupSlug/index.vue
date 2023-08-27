@@ -18,7 +18,7 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     const router = useRouter();
-    let groupSlug = route.value.params.groupSlug;
+    const groupSlug = route.value.params.groupSlug;
     const api = usePublicExploreApi(groupSlug);
 
     invoke(async () => {
