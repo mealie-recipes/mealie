@@ -7,7 +7,7 @@
         absolute
         :top-link="topLinks"
         :secondary-header="$t('sidebar.cookbooks')"
-        secondary-header-link="/group/cookbooks"
+        :secondary-header-link="loggedIn ? '/group/cookbooks' : undefined"
         :secondary-links="cookbookLinks || []"
         :bottom-links="isAdmin ? bottomLink : []"
       >
@@ -78,23 +78,26 @@
   </template>
 
   <script lang="ts">
-  import { computed, defineComponent, onMounted, ref, useContext } from "@nuxtjs/composition-api";
+  import { computed, defineComponent, onMounted, ref, useContext, useRoute } from "@nuxtjs/composition-api";
   import AppHeader from "@/components/Layout/LayoutParts/AppHeader.vue";
   import AppSidebar from "@/components/Layout/LayoutParts/AppSidebar.vue";
   import { SidebarLinks } from "~/types/application-types";
   import LanguageDialog from "~/components/global/LanguageDialog.vue";
   import TheSnackbar from "@/components/Layout/LayoutParts/TheSnackbar.vue";
-  import { useCookbooks } from "~/composables/use-group-cookbooks";
+  import { useCookbooks, usePublicCookbooks } from "~/composables/use-group-cookbooks";
   import { useToggleDarkMode } from "~/composables/use-utils";
 
   export default defineComponent({
     components: { AppHeader, AppSidebar, LanguageDialog, TheSnackbar },
     setup() {
-      const { cookbooks } = useCookbooks();
       const { $globals, $auth, $vuetify, i18n } = useContext();
 
       const isAdmin = computed(() => $auth.user?.admin);
       const loggedIn = computed(() => $auth.loggedIn);
+
+      const route = useRoute();
+      const groupSlug = route.value.params.groupSlug;
+      const { cookbooks } = loggedIn.value ? useCookbooks() : usePublicCookbooks(groupSlug);
 
       const toggleDark = useToggleDarkMode();
 
@@ -112,7 +115,7 @@
           return {
             icon: $globals.icons.pages,
             title: cookbook.name,
-            to: `/cookbooks/${cookbook.slug as string}`,
+            to: loggedIn.value ? `/cookbooks/${cookbook.slug as string}` : `/explore/cookbooks/${groupSlug}/${cookbook.slug as string}`,
           };
         });
       });
