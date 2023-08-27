@@ -225,6 +225,16 @@ def comments_item_id(item_id):
     return f"{prefix}/comments/{item_id}"
 
 
+def explore_cookbooks_group_slug(group_slug):
+    """`/api/explore/cookbooks/{group_slug}`"""
+    return f"{prefix}/explore/cookbooks/{group_slug}"
+
+
+def explore_cookbooks_group_slug_item_id(group_slug, item_id):
+    """`/api/explore/cookbooks/{group_slug}/{item_id}`"""
+    return f"{prefix}/explore/cookbooks/{group_slug}/{item_id}"
+
+
 def explore_foods_group_slug(group_slug):
     """`/api/explore/foods/{group_slug}`"""
     return f"{prefix}/explore/foods/{group_slug}"
