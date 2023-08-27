@@ -13,7 +13,7 @@
       >
         <v-menu offset-y nudge-bottom="5" close-delay="50" nudge-right="15">
           <template #activator="{ on, attrs }">
-            <v-btn rounded large class="ml-2 mt-3" v-bind="attrs" v-on="on">
+            <v-btn v-if="loggedIn" rounded large class="ml-2 mt-3" v-bind="attrs" v-on="on">
               <v-icon left large color="primary">
                 {{ $globals.icons.createAlt }}
               </v-icon>
@@ -167,7 +167,7 @@
           icon: $globals.icons.search,
           to: "/",
           title: i18n.tc("sidebar.search"),
-          restricted: false,
+          restricted: true,
         },
         {
           icon: $globals.icons.calendarMultiselect,
@@ -191,19 +191,19 @@
           icon: $globals.icons.tags,
           to: "/recipes/categories",
           title: i18n.tc("sidebar.categories"),
-          restricted: false,
+          restricted: true,
         },
         {
           icon: $globals.icons.tags,
           to: "/recipes/tags",
           title: i18n.tc("sidebar.tags"),
-          restricted: false,
+          restricted: true,
         },
         {
           icon: $globals.icons.potSteam,
           to: "/recipes/tools",
           title: i18n.tc("tool.tools"),
-          restricted: false,
+          restricted: true,
         },
       ];
 
