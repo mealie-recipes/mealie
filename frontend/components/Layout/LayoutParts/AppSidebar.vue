@@ -25,7 +25,7 @@
     <!-- Primary Links -->
     <template v-if="topLink">
       <v-list nav dense>
-        <template v-for="nav in topLink">
+        <template v-for="nav in topLink" :key="nav.title">
           <div v-if="!nav.restricted || loggedIn">
             <!-- Multi Items -->
             <v-list-group
@@ -74,7 +74,7 @@
       </v-subheader>
       <v-divider></v-divider>
       <v-list nav dense exact>
-        <template v-for="nav in secondaryLinks">
+        <template v-for="nav in secondaryLinks" :key="nav.title">
           <div v-if="!nav.restricted || loggedIn">
             <!-- Multi Items -->
             <v-list-group
@@ -115,10 +115,9 @@
     <template v-if="bottomLinks" #append>
       <v-list nav dense>
         <v-list-item-group v-model="bottomSelected" color="primary">
-          <template v-for="nav in bottomLinks">
+          <template v-for="nav in bottomLinks" :key="nav.title">
             <div v-if="!nav.restricted || loggedIn">
               <v-list-item
-                :key="nav.title"
                 exact
                 link
                 :to="nav.to || null"
