@@ -32,10 +32,10 @@ import ReportTable from "@/components/global/ReportTable.vue";
 import SafeMarkdown from "@/components/global/SafeMarkdown.vue";
 import StatsCards from "@/components/global/StatsCards.vue";
 import ToggleState from "@/components/global/ToggleState.vue";
-import AppFooter from "@/components/layout/AppFooter.vue";
-import AppHeader from "@/components/layout/AppHeader.vue";
-import AppSidebar from "@/components/layout/AppSidebar.vue";
-import TheSnackbar from "@/components/layout/TheSnackbar.vue";
+import AppFooter from "@/components/layout/LayoutParts/AppFooter.vue";
+import AppHeader from "@/components/layout/LayoutParts/AppHeader.vue";
+import AppSidebar from "@/components/layout/LayoutParts/AppSidebar.vue";
+import TheSnackbar from "@/components/layout/LayoutParts/TheSnackbar.vue";
 
 declare module "vue" {
   export interface GlobalComponents {
@@ -81,4 +81,4 @@ declare module "vue" {
   }
 }
 
-export {};
+export { };

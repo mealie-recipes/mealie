@@ -14,7 +14,7 @@ import { usePublicExploreApi } from "~/composables/api/api-client";
 
 export default defineComponent({
   components: { RecipeExplorerPage },
-  layout: "basic",
+  layout: "explore",
   setup() {
     const route = useRoute();
     const router = useRouter();

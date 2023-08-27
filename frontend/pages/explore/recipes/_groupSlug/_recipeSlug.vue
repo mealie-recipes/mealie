@@ -14,7 +14,7 @@ import { useRecipeMeta } from "~/composables/recipes";
 
 export default defineComponent({
   components: { RecipePage },
-  layout: "basic",
+  layout: "default",
   setup() {
     const route = useRoute();
     const router = useRouter();

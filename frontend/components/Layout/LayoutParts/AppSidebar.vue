@@ -26,41 +26,43 @@
     <template v-if="topLink">
       <v-list nav dense>
         <template v-for="nav in topLink">
-          <!-- Multi Items -->
-          <v-list-group
-            v-if="nav.children && ($auth.loggedIn || !nav.restricted)"
-            :key="nav.title + 'multi-item'"
-            v-model="dropDowns[nav.title]"
-            color="primary"
-            :prepend-icon="nav.icon"
-          >
-            <template #activator>
-              <v-list-item-title>{{ nav.title }}</v-list-item-title>
-            </template>
+          <div v-if="!nav.restricted || loggedIn">
+            <!-- Multi Items -->
+            <v-list-group
+              v-if="nav.children"
+              :key="nav.title + 'multi-item'"
+              v-model="dropDowns[nav.title]"
+              color="primary"
+              :prepend-icon="nav.icon"
+            >
+              <template #activator>
+                <v-list-item-title>{{ nav.title }}</v-list-item-title>
+              </template>
 
-            <v-list-item v-for="child in nav.children" :key="child.title" exact :to="child.to">
-              <v-list-item-icon>
-                <v-icon>{{ child.icon }}</v-icon>
-              </v-list-item-icon>
-              <v-list-item-title>{{ child.title }}</v-list-item-title>
-            </v-list-item>
-            <v-divider class="mb-4"></v-divider>
-          </v-list-group>
+              <v-list-item v-for="child in nav.children" :key="child.title" exact :to="child.to">
+                <v-list-item-icon>
+                  <v-icon>{{ child.icon }}</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>{{ child.title }}</v-list-item-title>
+              </v-list-item>
+              <v-divider class="mb-4"></v-divider>
+            </v-list-group>
 
-          <!-- Single Item -->
-          <v-list-item-group
-            v-else-if="$auth.loggedIn || !nav.restricted"
-            :key="nav.title + 'single-item'"
-            v-model="secondarySelected"
-            color="primary"
-          >
-            <v-list-item exact link :to="nav.to">
-              <v-list-item-icon>
-                <v-icon>{{ nav.icon }}</v-icon>
-              </v-list-item-icon>
-              <v-list-item-title>{{ nav.title }}</v-list-item-title>
-            </v-list-item>
-          </v-list-item-group>
+            <!-- Single Item -->
+            <v-list-item-group
+              v-else
+              :key="nav.title + 'single-item'"
+              v-model="secondarySelected"
+              color="primary"
+            >
+              <v-list-item exact link :to="nav.to">
+                <v-list-item-icon>
+                  <v-icon>{{ nav.icon }}</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>{{ nav.title }}</v-list-item-title>
+              </v-list-item>
+            </v-list-item-group>
+          </div>
         </template>
       </v-list>
     </template>
@@ -73,36 +75,38 @@
       <v-divider></v-divider>
       <v-list nav dense exact>
         <template v-for="nav in secondaryLinks">
-          <!-- Multi Items -->
-          <v-list-group
-            v-if="nav.children"
-            :key="nav.title + 'multi-item'"
-            v-model="dropDowns[nav.title]"
-            color="primary"
-            :prepend-icon="nav.icon"
-          >
-            <template #activator>
-              <v-list-item-title>{{ nav.title }}</v-list-item-title>
-            </template>
+          <div v-if="!nav.restricted || loggedIn">
+            <!-- Multi Items -->
+            <v-list-group
+              v-if="nav.children"
+              :key="nav.title + 'multi-item'"
+              v-model="dropDowns[nav.title]"
+              color="primary"
+              :prepend-icon="nav.icon"
+            >
+              <template #activator>
+                <v-list-item-title>{{ nav.title }}</v-list-item-title>
+              </template>
 
-            <v-list-item v-for="child in nav.children" :key="child.title" exact :to="child.to">
-              <v-list-item-icon>
-                <v-icon>{{ child.icon }}</v-icon>
-              </v-list-item-icon>
-              <v-list-item-title>{{ child.title }}</v-list-item-title>
-            </v-list-item>
-            <v-divider class="mb-4"></v-divider>
-          </v-list-group>
+              <v-list-item v-for="child in nav.children" :key="child.title" exact :to="child.to">
+                <v-list-item-icon>
+                  <v-icon>{{ child.icon }}</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>{{ child.title }}</v-list-item-title>
+              </v-list-item>
+              <v-divider class="mb-4"></v-divider>
+            </v-list-group>
 
-          <!-- Single Item -->
-          <v-list-item-group v-else :key="nav.title + 'single-item'" v-model="secondarySelected" color="primary">
-            <v-list-item exact link :to="nav.to">
-              <v-list-item-icon>
-                <v-icon>{{ nav.icon }}</v-icon>
-              </v-list-item-icon>
-              <v-list-item-title>{{ nav.title }}</v-list-item-title>
-            </v-list-item>
-          </v-list-item-group>
+            <!-- Single Item -->
+            <v-list-item-group v-else :key="nav.title + 'single-item'" v-model="secondarySelected" color="primary">
+              <v-list-item exact link :to="nav.to">
+                <v-list-item-icon>
+                  <v-icon>{{ nav.icon }}</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>{{ nav.title }}</v-list-item-title>
+              </v-list-item>
+            </v-list-item-group>
+          </div>
         </template>
       </v-list>
     </template>
@@ -112,20 +116,21 @@
       <v-list nav dense>
         <v-list-item-group v-model="bottomSelected" color="primary">
           <template v-for="nav in bottomLinks">
-            <v-list-item
-              v-if="!nav.restricted || $auth.loggedIn"
-              :key="nav.title"
-              exact
-              link
-              :to="nav.to || null"
-              :href="nav.href || null"
-              :target="nav.href ? '_blank' : null"
-            >
-              <v-list-item-icon>
-                <v-icon>{{ nav.icon }}</v-icon>
-              </v-list-item-icon>
-              <v-list-item-title>{{ nav.title }}</v-list-item-title>
-            </v-list-item>
+            <div v-if="!nav.restricted || loggedIn">
+              <v-list-item
+                :key="nav.title"
+                exact
+                link
+                :to="nav.to || null"
+                :href="nav.href || null"
+                :target="nav.href ? '_blank' : null"
+              >
+                <v-list-item-icon>
+                  <v-icon>{{ nav.icon }}</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>{{ nav.title }}</v-list-item-title>
+              </v-list-item>
+            </div>
           </template>
         </v-list-item-group>
         <slot name="bottom"></slot>
@@ -135,7 +140,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, toRefs } from "@nuxtjs/composition-api";
+import { computed, defineComponent, reactive, toRefs, useContext } from "@nuxtjs/composition-api";
 import { SidebarLinks } from "~/types/application-types";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 
@@ -192,6 +197,9 @@ export default defineComponent({
       },
     });
 
+    const { $auth } = useContext();
+    const loggedIn = computed(() => $auth.loggedIn);
+
     const state = reactive({
       dropDowns: {},
       topSelected: null as string[] | null,
@@ -203,6 +211,7 @@ export default defineComponent({
     return {
       ...toRefs(state),
       drawer,
+      loggedIn,
     };
   },
 });
