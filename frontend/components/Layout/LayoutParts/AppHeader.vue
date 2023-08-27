@@ -68,7 +68,7 @@ export default defineComponent({
     });
 
     const groupSlug = route.value.params.groupSlug;
-    const routerLink = loggedIn.value && groupSlug ? "/" : `/explore/recipes/${groupSlug}`
+    const routerLink = !loggedIn.value && groupSlug ? `/explore/recipes/${groupSlug}` : "/"
     const domSearchDialog = ref<InstanceType<typeof RecipeDialogSearch> | null>(null);
 
     function activateSearch() {
