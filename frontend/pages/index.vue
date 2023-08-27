@@ -6,9 +6,9 @@
 
 <script lang="ts">
 import { defineComponent, ref, useContext } from "@nuxtjs/composition-api";
+import { invoke } from "@vueuse/core";
 import { useUserApi } from "~/composables/api/api-client";
 import RecipeExplorerPage from "~/components/Domain/Recipe/RecipeExplorerPage.vue";
-import { invoke } from "@vueuse/core";
 
 export default defineComponent({
   components: { RecipeExplorerPage },
@@ -16,7 +16,7 @@ export default defineComponent({
     const { $auth } = useContext();
     const api = useUserApi();
 
-    // @ts-ignore
+    // @ts-ignore $auth.user is typed as unknown, even though it's a user
     const groupId: string | undefined = $auth.user?.groupId;
     const groupSlug = ref<string>();
 

@@ -1,8 +1,8 @@
 import { reactive, ref, Ref } from "@nuxtjs/composition-api";
+import { usePublicExploreApi } from "../api/api-client";
 import { usePublicStoreActions, useStoreActions } from "../partials/use-actions-factory";
 import { useUserApi } from "~/composables/api";
 import { RecipeTool } from "~/lib/api/types/recipe";
-import { usePublicExploreApi } from "../api/api-client";
 
 const toolStore: Ref<RecipeTool[]> = ref([]);
 

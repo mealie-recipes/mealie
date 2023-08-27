@@ -219,6 +219,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, useContext, ref, toRefs, reactive, useAsync } from "@nuxtjs/composition-api";
+import { invoke, until } from "@vueuse/core";
 import UserProfileLinkCard from "@/components/Domain/User/UserProfileLinkCard.vue";
 import { useUserApi } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
@@ -227,7 +228,6 @@ import UserAvatar from "@/components/Domain/User/UserAvatar.vue";
 import { useAsyncKey } from "~/composables/use-utils";
 import StatsCards from "~/components/global/StatsCards.vue";
 import { GroupInDB, UserOut } from "~/lib/api/types/user";
-import { invoke, until } from "@vueuse/core";
 
 export default defineComponent({
   name: "UserProfile",
@@ -261,7 +261,7 @@ export default defineComponent({
       group.value = data;
     });
 
-    async function getPublicLink() {
+    function getPublicLink() {
       if (group.value) {
         publicLink.value = `${window.location.origin}/explore/recipes/${group.value.slug}`
         showPublicLink.value = true;
