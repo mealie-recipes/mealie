@@ -4,7 +4,7 @@ from fastapi.testclient import TestClient
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe_ingredient import SaveIngredientFood
 from tests.utils import api_routes
-from tests.utils.factories import random_string
+from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser
 
 
@@ -22,12 +22,12 @@ def test_get_all_foods(
     group.preferences.private_group = is_private_group
     database.group_preferences.update(group.id, group.preferences)
 
-    ## Set Up Food
+    ## Set Up Foods
     foods = database.ingredient_foods.create_many(
-        [SaveIngredientFood(name=random_string(), group_id=unique_user.group_id)]
+        [SaveIngredientFood(name=random_string(), group_id=unique_user.group_id) for _ in range(random_int(15, 20))]
     )
 
-    ## Test Organizers
+    ## Test Foods
     response = api_client.get(api_routes.explore_foods_group_slug(unique_user.group_id))
     if is_private_group:
         assert response.status_code == 404
@@ -42,7 +42,7 @@ def test_get_all_foods(
 
 
 @pytest.mark.parametrize("is_private_group", [True, False], ids=["group_is_private", "group_is_public"])
-def test_get_one_organizer(
+def test_get_one_food(
     api_client: TestClient,
     unique_user: TestUser,
     database: AllRepositories,
