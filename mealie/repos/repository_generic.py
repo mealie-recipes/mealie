@@ -372,31 +372,57 @@ class RepositoryGeneric(Generic[Schema, Model]):
             pagination.page = 1
 
         if pagination.order_by:
-            if order_attr := getattr(self.model, pagination.order_by, None):
-                # queries handle uppercase and lowercase differently, which is undesirable
-                if isinstance(order_attr.type, sqltypes.String):
-                    order_attr = func.lower(order_attr)
-
-                if pagination.order_direction == OrderDirection.asc:
-                    order_attr = order_attr.asc()
-                elif pagination.order_direction == OrderDirection.desc:
-                    order_attr = order_attr.desc()
-
-                query = query.order_by(order_attr)
-
-            elif pagination.order_by == "random":
-                # randomize outside of database, since not all db's can set random seeds
-                # this solution is db-independent & stable to paging
-                temp_query = query.with_only_columns(self.model.id)
-                allids = self.session.execute(temp_query).scalars().all()  # fast because id is indexed
-                order = list(range(len(allids)))
-                random.seed(pagination.pagination_seed)
-                random.shuffle(order)
-                random_dict = dict(zip(allids, order, strict=True))
-                case_stmt = case(random_dict, value=self.model.id)
-                query = query.order_by(case_stmt)
+            query = self.add_order_by_to_query(query, pagination)
 
         return query.limit(pagination.per_page).offset((pagination.page - 1) * pagination.per_page), count, total_pages
+
+    def add_order_by_to_query(self, query: Select, pagination: PaginationQuery) -> Select:
+        if not pagination.order_by:
+            return query
+
+        if pagination.order_by == "random":
+            # randomize outside of database, since not all db's can set random seeds
+            # this solution is db-independent & stable to paging
+            temp_query = query.with_only_columns(self.model.id)
+            allids = self.session.execute(temp_query).scalars().all()  # fast because id is indexed
+            order = list(range(len(allids)))
+            random.seed(pagination.pagination_seed)
+            random.shuffle(order)
+            random_dict = dict(zip(allids, order, strict=True))
+            case_stmt = case(random_dict, value=self.model.id)
+            return query.order_by(case_stmt)
+
+        else:
+            for order_by_val in pagination.order_by.split(","):
+                try:
+                    order_by_val = order_by_val.strip()
+                    if ":" in order_by_val:
+                        order_by, order_dir_val = order_by_val.split(":")
+                        order_dir = OrderDirection(order_dir_val)
+                    else:
+                        order_by = order_by_val
+                        order_dir = pagination.order_direction
+
+                    order_attr = getattr(self.model, order_by)
+
+                    if order_dir is OrderDirection.asc:
+                        order_attr = order_attr.asc()
+                    elif order_dir is OrderDirection.desc:
+                        order_attr = order_attr.desc()
+
+                    # queries handle uppercase and lowercase differently, which is undesirable
+                    if isinstance(order_attr.type, sqltypes.String):
+                        order_attr = func.lower(order_attr)
+
+                    query = query.order_by(order_attr)
+
+                except Exception as e:
+                    raise HTTPException(
+                        status_code=400,
+                        detail=f'Invalid order_by statement "{pagination.order_by}": "{order_by_val}" is invalid',
+                    ) from e
+
+            return query
 
     def add_search_to_query(self, query: Select, schema: type[Schema], search: str) -> Select:
         search_filter = SearchFilter(self.session, search, schema._normalize_search)
