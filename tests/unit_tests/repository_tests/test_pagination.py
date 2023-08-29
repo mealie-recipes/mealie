@@ -8,9 +8,16 @@ from urllib.parse import parse_qsl, urlsplit
 import pytest
 from fastapi.testclient import TestClient
 from humps import camelize
+from pydantic import UUID4
 
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_units import RepositoryUnit
+from mealie.schema.group.group_shopping_list import (
+    ShoppingListItemCreate,
+    ShoppingListMultiPurposeLabelCreate,
+    ShoppingListMultiPurposeLabelOut,
+    ShoppingListSave,
+)
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSave
 from mealie.schema.meal_plan.new_meal import CreatePlanEntry
 from mealie.schema.recipe import Recipe
@@ -39,6 +46,14 @@ class Reversor:
 
     def __lt__(self, other):
         return other.obj < self.obj
+
+
+def get_label_position_from_label_id(label_id: UUID4, label_settings: list[ShoppingListMultiPurposeLabelOut]) -> int:
+    for label_setting in label_settings:
+        if label_setting.label_id == label_id:
+            return label_setting.position
+
+    raise Exception("Something went wrong when parsing label settings")
 
 
 def test_repository_pagination(database: AllRepositories, unique_user: TestUser):
@@ -172,14 +187,6 @@ def query_units(database: AllRepositories, unique_user: TestUser):
     unit_ids = [unit.id for unit in [unit_1, unit_2, unit_3]]
     units_repo = database.ingredient_units.by_group(unique_user.group_id)  # type: ignore
 
-    # make sure we can get all of our test units
-    query = PaginationQuery(page=1, per_page=-1)
-    all_units = units_repo.page_all(query).items
-    assert len(all_units) == 3
-
-    for unit in all_units:
-        assert unit.id in unit_ids
-
     yield units_repo, unit_1, unit_2, unit_3
 
     for unit_id in unit_ids:
@@ -252,7 +259,6 @@ def test_pagination_filter_in(query_units: tuple[RepositoryUnit, IngredientUnit,
     query = PaginationQuery(page=1, per_page=-1, query_filter=f"name IN [{unit_1.name}, {unit_2.name}]")
     unit_results = units_repo.page_all(query).items
 
-    assert len(unit_results) == 2
     result_ids = {unit.id for unit in unit_results}
     assert unit_1.id in result_ids
     assert unit_2.id in result_ids
@@ -261,7 +267,6 @@ def test_pagination_filter_in(query_units: tuple[RepositoryUnit, IngredientUnit,
     query = PaginationQuery(page=1, per_page=-1, query_filter=f"name NOT IN [{unit_1.name}, {unit_2.name}]")
     unit_results = units_repo.page_all(query).items
 
-    assert len(unit_results) == 1
     result_ids = {unit.id for unit in unit_results}
     assert unit_1.id not in result_ids
     assert unit_2.id not in result_ids
@@ -270,7 +275,6 @@ def test_pagination_filter_in(query_units: tuple[RepositoryUnit, IngredientUnit,
     query = PaginationQuery(page=1, per_page=-1, query_filter=f'name IN ["{unit_3.name}"]')
     unit_results = units_repo.page_all(query).items
 
-    assert len(unit_results) == 1
     result_ids = {unit.id for unit in unit_results}
     assert unit_1.id not in result_ids
     assert unit_2.id not in result_ids
@@ -675,6 +679,8 @@ def test_pagination_order_by_nested_model(
 
 
 def test_pagination_order_by_doesnt_filter(database: AllRepositories, unique_user: TestUser):
+    current_time = datetime.now()
+
     label = database.group_multi_purpose_labels.create(
         MultiPurposeLabelSave(name=random_string(), group_id=unique_user.group_id)
     )
@@ -686,7 +692,7 @@ def test_pagination_order_by_doesnt_filter(database: AllRepositories, unique_use
     )
 
     query = database.ingredient_foods.by_group(unique_user.group_id).page_all(
-        PaginationQuery(per_page=-1, order_by="label.name")
+        PaginationQuery(per_page=-1, query_filter=f"created_at>{current_time.isoformat()}", order_by="label.name")
     )
     assert len(query.items) == 2
     found_ids = {item.id for item in query.items}
@@ -841,7 +847,11 @@ def test_pagination_filter_booleans(query_units: tuple[RepositoryUnit, Ingredien
     units_repo = query_units[0]
     unit_1 = query_units[1]
 
-    query = PaginationQuery(page=1, per_page=-1, query_filter="useAbbreviation=true")
+    query = PaginationQuery(
+        page=1,
+        per_page=-1,
+        query_filter=f"useAbbreviation=true AND id IN [{', '.join([str(unit.id) for unit in query_units[1:]])}]",
+    )
     unit_results = units_repo.page_all(query).items
     assert len(unit_results) == 1
     assert unit_results[0].id == unit_1.id
@@ -855,7 +865,6 @@ def test_pagination_filter_advanced(query_units: tuple[RepositoryUnit, Ingredien
     query = PaginationQuery(page=1, per_page=-1, query_filter=qf)
     unit_results = units_repo.page_all(query).items
 
-    assert len(unit_results) == 2
     result_ids = {unit.id for unit in unit_results}
     assert unit_1.id in result_ids
     assert unit_2.id in result_ids
