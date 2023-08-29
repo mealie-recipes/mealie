@@ -270,7 +270,9 @@ class QueryFilter:
                     break
 
                 if query is not None:
-                    query = query.join(model_attr)
+                    query = query.join(
+                        model_attr, isouter=True
+                    )  # we use outer joins to not unintentionally filter out values
 
                 mapper: Mapper = inspect(current_model)
                 relationship = mapper.relationships[attribute_link]

@@ -7,14 +7,14 @@ from typing import Any, Generic, TypeVar
 
 from fastapi import HTTPException
 from pydantic import UUID4, BaseModel
-from sqlalchemy import Select, case, delete, func, select
+from sqlalchemy import Select, case, delete, func, nulls_first, nulls_last, select
 from sqlalchemy.orm.session import Session
 from sqlalchemy.sql import sqltypes
 
 from mealie.core.root_logger import get_logger
 from mealie.db.models._model_base import SqlAlchemyBase
 from mealie.schema._mealie import MealieModel
-from mealie.schema.response.pagination import OrderDirection, PaginationBase, PaginationQuery
+from mealie.schema.response.pagination import OrderByNullPosition, OrderDirection, PaginationBase, PaginationQuery
 from mealie.schema.response.query_filter import QueryFilter
 from mealie.schema.response.query_search import SearchFilter
 
@@ -415,6 +415,11 @@ class RepositoryGeneric(Generic[Schema, Model]):
                     # queries handle uppercase and lowercase differently, which is undesirable
                     if isinstance(order_attr.type, sqltypes.String):
                         order_attr = func.lower(order_attr)
+
+                    if pagination.order_by_null_position is OrderByNullPosition.first:
+                        order_attr = nulls_first(order_attr)
+                    elif pagination.order_by_null_position is OrderByNullPosition.last:
+                        order_attr = nulls_last(order_attr)
 
                     query = query.order_by(order_attr)
 

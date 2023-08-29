@@ -17,7 +17,7 @@ from mealie.schema.recipe import Recipe
 from mealie.schema.recipe.recipe_category import CategorySave, TagSave
 from mealie.schema.recipe.recipe_ingredient import IngredientUnit, SaveIngredientFood, SaveIngredientUnit
 from mealie.schema.recipe.recipe_tool import RecipeToolSave
-from mealie.schema.response.pagination import OrderDirection, PaginationQuery
+from mealie.schema.response.pagination import OrderByNullPosition, OrderDirection, PaginationQuery
 from mealie.services.seeder.seeder_service import SeederService
 from tests.utils import api_routes
 from tests.utils.factories import random_int, random_string
@@ -672,6 +672,78 @@ def test_pagination_order_by_nested_model(
     )
 
     assert query.items == sorted_foods
+
+
+def test_pagination_order_by_doesnt_filter(database: AllRepositories, unique_user: TestUser):
+    label = database.group_multi_purpose_labels.create(
+        MultiPurposeLabelSave(name=random_string(), group_id=unique_user.group_id)
+    )
+    food_with_label = database.ingredient_foods.create(
+        SaveIngredientFood(name=random_string(), label_id=label.id, group_id=unique_user.group_id)
+    )
+    food_without_label = database.ingredient_foods.create(
+        SaveIngredientFood(name=random_string(), group_id=unique_user.group_id)
+    )
+
+    query = database.ingredient_foods.by_group(unique_user.group_id).page_all(
+        PaginationQuery(per_page=-1, order_by="label.name")
+    )
+    assert len(query.items) == 2
+    found_ids = {item.id for item in query.items}
+    assert food_with_label.id in found_ids
+    assert food_without_label.id in found_ids
+
+
+@pytest.mark.parametrize(
+    "null_position, order_direction",
+    [
+        (OrderByNullPosition.first, OrderDirection.asc),
+        (OrderByNullPosition.last, OrderDirection.asc),
+        (OrderByNullPosition.first, OrderDirection.asc),
+        (OrderByNullPosition.last, OrderDirection.asc),
+    ],
+    ids=[
+        "order_by_nulls_first_order_direction_asc",
+        "order_by_nulls_last_order_direction_asc",
+        "order_by_nulls_first_order_direction_desc",
+        "order_by_nulls_last_order_direction_desc",
+    ],
+)
+def test_pagination_order_by_nulls(
+    database: AllRepositories,
+    unique_user: TestUser,
+    null_position: OrderByNullPosition,
+    order_direction: OrderDirection,
+):
+    current_time = datetime.now()
+
+    label = database.group_multi_purpose_labels.create(
+        MultiPurposeLabelSave(name=random_string(), group_id=unique_user.group_id)
+    )
+    food_with_label = database.ingredient_foods.create(
+        SaveIngredientFood(name=random_string(), label_id=label.id, group_id=unique_user.group_id)
+    )
+    food_without_label = database.ingredient_foods.create(
+        SaveIngredientFood(name=random_string(), group_id=unique_user.group_id)
+    )
+
+    query = database.ingredient_foods.page_all(
+        PaginationQuery(
+            per_page=-1,
+            query_filter=f"created_at >= {current_time.isoformat()}",
+            order_by="label.name",
+            order_by_null_position=null_position,
+            order_direction=order_direction,
+        )
+    )
+    assert len(query.items) == 2
+
+    if null_position is OrderByNullPosition.first:
+        assert query.items[0] == food_without_label
+        assert query.items[1] == food_with_label
+    else:
+        assert query.items[0] == food_with_label
+        assert query.items[1] == food_without_label
 
 
 def test_pagination_filter_dates(api_client: TestClient, unique_user: TestUser):
