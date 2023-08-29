@@ -245,7 +245,7 @@ class QueryFilter:
     ) -> tuple[SqlAlchemyBase, InstrumentedAttribute, Select | None]:
         """
         Take an attribute string and traverse a database model and its relationships to get the desired
-        model and model attribute. Optional provide a query to apply the necessary table joins.
+        model and model attribute. Optionally provide a query to apply the necessary table joins.
 
         If the attribute string is invalid, raises a `ValueError`.
 
@@ -269,7 +269,7 @@ class QueryFilter:
                 if i == len(attribute_chain) - 1:
                     break
 
-                if query:
+                if query is not None:
                     query = query.join(model_attr)
 
                 mapper: Mapper = inspect(current_model)

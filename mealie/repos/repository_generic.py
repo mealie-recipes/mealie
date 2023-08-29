@@ -403,7 +403,9 @@ class RepositoryGeneric(Generic[Schema, Model]):
                         order_by = order_by_val
                         order_dir = pagination.order_direction
 
-                    order_attr = getattr(self.model, order_by)
+                    _, order_attr, query = QueryFilter.get_model_and_model_attr_from_attr_string(
+                        order_by, self.model, query=query
+                    )
 
                     if order_dir is OrderDirection.asc:
                         order_attr = order_attr.asc()
@@ -416,7 +418,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
                     query = query.order_by(order_attr)
 
-                except Exception as e:
+                except ValueError as e:
                     raise HTTPException(
                         status_code=400,
                         detail=f'Invalid order_by statement "{pagination.order_by}": "{order_by_val}" is invalid',
