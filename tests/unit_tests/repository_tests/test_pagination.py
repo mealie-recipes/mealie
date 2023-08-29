@@ -1,3 +1,4 @@
+import random
 import time
 from collections import defaultdict
 from datetime import date, datetime, timedelta
@@ -10,16 +11,34 @@ from humps import camelize
 
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_units import RepositoryUnit
+from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSave
 from mealie.schema.meal_plan.new_meal import CreatePlanEntry
 from mealie.schema.recipe import Recipe
 from mealie.schema.recipe.recipe_category import CategorySave, TagSave
-from mealie.schema.recipe.recipe_ingredient import IngredientUnit, SaveIngredientUnit
+from mealie.schema.recipe.recipe_ingredient import IngredientUnit, SaveIngredientFood, SaveIngredientUnit
 from mealie.schema.recipe.recipe_tool import RecipeToolSave
-from mealie.schema.response.pagination import PaginationQuery
+from mealie.schema.response.pagination import OrderDirection, PaginationQuery
 from mealie.services.seeder.seeder_service import SeederService
 from tests.utils import api_routes
 from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser
+
+
+class Reversor:
+    """
+    Enables reversed sorting
+
+    https://stackoverflow.com/a/56842689
+    """
+
+    def __init__(self, obj):
+        self.obj = obj
+
+    def __eq__(self, other):
+        return other.obj == self.obj
+
+    def __lt__(self, other):
+        return other.obj < self.obj
 
 
 def test_repository_pagination(database: AllRepositories, unique_user: TestUser):
@@ -519,6 +538,140 @@ def test_pagination_filter_datetimes(
     unit_results = units_repo.page_all(query).items
     unit_ids = set(unit.id for unit in unit_results)
     assert len(unit_ids) == 0
+
+
+@pytest.mark.parametrize("order_direction", [OrderDirection.asc, OrderDirection.desc], ids=["ascending", "descending"])
+def test_pagination_order_by_multiple(
+    database: AllRepositories, unique_user: TestUser, order_direction: OrderDirection
+):
+    current_time = datetime.now()
+
+    alphabet = ["a", "b", "c", "d", "e"]
+    abbreviations = alphabet.copy()
+    descriptions = alphabet.copy()
+
+    random.shuffle(abbreviations)
+    random.shuffle(descriptions)
+    assert abbreviations != descriptions
+
+    units_to_create: list[SaveIngredientUnit] = []
+    for abbreviation in abbreviations:
+        for description in descriptions:
+            units_to_create.append(
+                SaveIngredientUnit(
+                    group_id=unique_user.group_id,
+                    name=random_string(),
+                    abbreviation=abbreviation,
+                    description=description,
+                )
+            )
+
+    sorted_units = database.ingredient_units.create_many(units_to_create)
+    sorted_units.sort(key=lambda x: (x.abbreviation, x.description), reverse=order_direction is OrderDirection.desc)
+
+    query = database.ingredient_units.page_all(
+        PaginationQuery(
+            page=1,
+            per_page=-1,
+            order_by="abbreviation, description",
+            order_direction=order_direction,
+            query_filter=f'created_at >= "{current_time.isoformat()}"',
+        )
+    )
+
+    assert query.items == sorted_units
+
+
+@pytest.mark.parametrize(
+    "order_by_str, order_direction",
+    [
+        ("abbreviation:asc, description:desc", OrderDirection.asc),
+        ("abbreviation:asc, description:desc", OrderDirection.desc),
+        ("abbreviation, description:desc", OrderDirection.asc),
+        ("abbreviation:asc, description", OrderDirection.desc),
+    ],
+    ids=[
+        "order_by_asc_explicit_order_bys",
+        "order_by_desc_explicit_order_bys",
+        "order_by_asc_inferred_order_by",
+        "order_by_desc_inferred_order_by",
+    ],
+)
+def test_pagination_order_by_multiple_directions(
+    database: AllRepositories, unique_user: TestUser, order_by_str: str, order_direction: OrderDirection
+):
+    current_time = datetime.now()
+
+    alphabet = ["a", "b", "c", "d", "e"]
+    abbreviations = alphabet.copy()
+    descriptions = alphabet.copy()
+
+    random.shuffle(abbreviations)
+    random.shuffle(descriptions)
+    assert abbreviations != descriptions
+
+    units_to_create: list[SaveIngredientUnit] = []
+    for abbreviation in abbreviations:
+        for description in descriptions:
+            units_to_create.append(
+                SaveIngredientUnit(
+                    group_id=unique_user.group_id,
+                    name=random_string(),
+                    abbreviation=abbreviation,
+                    description=description,
+                )
+            )
+
+    sorted_units = database.ingredient_units.create_many(units_to_create)
+
+    # sort by abbreviation ascending, description descending
+    sorted_units.sort(key=lambda x: (x.abbreviation, Reversor(x.description)))
+
+    query = database.ingredient_units.page_all(
+        PaginationQuery(
+            page=1,
+            per_page=-1,
+            order_by=order_by_str,
+            order_direction=order_direction,
+            query_filter=f'created_at >= "{current_time.isoformat()}"',
+        )
+    )
+
+    assert query.items == sorted_units
+
+
+@pytest.mark.parametrize(
+    "order_direction",
+    [OrderDirection.asc, OrderDirection.desc],
+    ids=["order_ascending", "order_descending"],
+)
+def test_pagination_order_by_nested_model(
+    database: AllRepositories, unique_user: TestUser, order_direction: OrderDirection
+):
+    current_time = datetime.now()
+
+    alphabet = ["a", "b", "c", "d", "e"]
+    labels = database.group_multi_purpose_labels.create_many(
+        [MultiPurposeLabelSave(group_id=unique_user.group_id, name=letter) for letter in alphabet]
+    )
+    random.shuffle(labels)
+
+    sorted_foods = database.ingredient_foods.create_many(
+        [SaveIngredientFood(group_id=unique_user.group_id, name=random_string(), label_id=label.id) for label in labels]
+    )
+
+    sorted_foods.sort(key=lambda x: x.label.name, reverse=order_direction is OrderDirection.desc)  # type: ignore
+    query = database.ingredient_foods.page_all(
+        PaginationQuery(
+            page=1,
+            per_page=-1,
+            order_by="label.name",
+            order_direction=order_direction,
+            query_filter=f'created_at >= "{current_time.isoformat()}"',
+        )
+    )
+
+    assert query.items == sorted_foods
 
 
 def test_pagination_filter_dates(api_client: TestClient, unique_user: TestUser):
