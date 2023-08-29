@@ -36,7 +36,7 @@ def build_unique_user(group: str, api_client: TestClient) -> utils.TestUser:
     )
 
 
-@fixture(scope="function")
+@fixture(scope="module")
 def g2_user(admin_token, api_client: TestClient):
     group = random_string(12)
     # Create the user
@@ -81,7 +81,7 @@ def g2_user(admin_token, api_client: TestClient):
         pass
 
 
-@fixture(scope="function")
+@fixture(scope="module")
 def unique_user(api_client: TestClient):
     registration = utils.user_registration_factory()
     response = api_client.post("/api/users/register", json=registration.dict(by_alias=True))
@@ -108,7 +108,7 @@ def unique_user(api_client: TestClient):
         pass
 
 
-@fixture(scope="function")
+@fixture(scope="module")
 def user_tuple(admin_token, api_client: TestClient) -> Generator[list[utils.TestUser], None, None]:
     group_name = utils.random_string()
     # Create the user
