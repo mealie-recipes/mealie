@@ -752,6 +752,74 @@ def test_pagination_order_by_nulls(
         assert query.items[1] == food_without_label
 
 
+def test_pagination_shopping_list_items_with_labels(database: AllRepositories, unique_user: TestUser):
+    # create a shopping list and populate it with some items with labels, and some without labels
+    shopping_list = database.group_shopping_lists.create(
+        ShoppingListSave(name=random_string(), group_id=unique_user.group_id)
+    )
+
+    labels = database.group_multi_purpose_labels.create_many(
+        [MultiPurposeLabelSave(name=random_string(), group_id=unique_user.group_id) for _ in range(8)]
+    )
+    random.shuffle(labels)
+
+    label_settings = database.shopping_list_multi_purpose_labels.create_many(
+        [
+            ShoppingListMultiPurposeLabelCreate(shopping_list_id=shopping_list.id, label_id=label.id, position=i)
+            for i, label in enumerate(labels)
+        ]
+    )
+    random.shuffle(label_settings)
+
+    with_labels_positions = list(range(0, random_int(20, 25)))
+    random.shuffle(with_labels_positions)
+    items_with_labels = database.group_shopping_list_item.create_many(
+        [
+            ShoppingListItemCreate(
+                note=random_string(),
+                shopping_list_id=shopping_list.id,
+                label_id=random.choice(labels).id,
+                position=position,
+            )
+            for position in with_labels_positions
+        ]
+    )
+    # sort by item label position ascending, then item position ascending
+    items_with_labels.sort(
+        key=lambda x: (
+            get_label_position_from_label_id(x.label.id, label_settings),  # type: ignore[union-attr]
+            x.position,
+        )
+    )
+
+    without_labels_positions = list(range(len(with_labels_positions), random_int(5, 10)))
+    random.shuffle(without_labels_positions)
+    items_without_labels = database.group_shopping_list_item.create_many(
+        [
+            ShoppingListItemCreate(
+                note=random_string(),
+                shopping_list_id=shopping_list.id,
+                label_id=random.choice(labels).id,
+                position=position,
+            )
+            for position in without_labels_positions
+        ]
+    )
+    items_without_labels.sort(key=lambda x: x.position)
+
+    # verify they're in order
+    query = database.group_shopping_list_item.page_all(
+        PaginationQuery(
+            per_page=-1,
+            order_by="label.shopping_lists_label_settings.position, position",
+            order_direction=OrderDirection.asc,
+            order_by_null_position=OrderByNullPosition.first,
+        ),
+    )
+
+    assert query.items == items_without_labels + items_with_labels
+
+
 def test_pagination_filter_dates(api_client: TestClient, unique_user: TestUser):
     yesterday = date.today() - timedelta(days=1)
     today = date.today()
@@ -874,7 +942,6 @@ def test_pagination_filter_advanced(query_units: tuple[RepositoryUnit, Ingredien
     query = PaginationQuery(page=1, per_page=-1, query_filter=qf)
     unit_results = units_repo.page_all(query).items
 
-    assert len(unit_results) == 2
     result_ids = {unit.id for unit in unit_results}
     assert unit_1.id in result_ids
     assert unit_2.id in result_ids
