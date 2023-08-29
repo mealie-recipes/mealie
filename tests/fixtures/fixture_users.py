@@ -3,10 +3,10 @@ from typing import Generator
 
 from pytest import fixture
 from starlette.testclient import TestClient
+
 from mealie.db.db_setup import session_context
 from mealie.db.models.users.users import AuthMethod
 from mealie.repos.all_repositories import get_repositories
-
 from tests import utils
 from tests.utils import api_routes
 from tests.utils.factories import random_string
@@ -36,7 +36,7 @@ def build_unique_user(group: str, api_client: TestClient) -> utils.TestUser:
     )
 
 
-@fixture(scope="module")
+@fixture(scope="function")
 def g2_user(admin_token, api_client: TestClient):
     group = random_string(12)
     # Create the user
@@ -81,7 +81,7 @@ def g2_user(admin_token, api_client: TestClient):
         pass
 
 
-@fixture(scope="module")
+@fixture(scope="function")
 def unique_user(api_client: TestClient):
     registration = utils.user_registration_factory()
     response = api_client.post("/api/users/register", json=registration.dict(by_alias=True))
@@ -108,7 +108,7 @@ def unique_user(api_client: TestClient):
         pass
 
 
-@fixture(scope="module")
+@fixture(scope="function")
 def user_tuple(admin_token, api_client: TestClient) -> Generator[list[utils.TestUser], None, None]:
     group_name = utils.random_string()
     # Create the user
