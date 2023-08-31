@@ -54,7 +54,7 @@ export default defineComponent({
     const ingredientCopyText = computed(() => {
       return props.value
         .map((ingredient) => {
-          return `${parseIngredientText(ingredient, props.disableAmount, props.scale)}`;
+          return `${parseIngredientText(ingredient, props.disableAmount, props.scale, false)}`;
         })
         .join("\n");
     });

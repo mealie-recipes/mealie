@@ -10,7 +10,7 @@ function sanitizeIngredientHTML(rawHtml: string) {
   });
 }
 
-export function useParsedIngredientText(ingredient: RecipeIngredient, disableAmount: boolean, scale = 1) {
+export function useParsedIngredientText(ingredient: RecipeIngredient, disableAmount: boolean, scale = 1, includeFormating = true) {
   if (disableAmount) {
     return {
       name: ingredient.note ? sanitizeIngredientHTML(ingredient.note) : undefined,
@@ -35,7 +35,9 @@ export function useParsedIngredientText(ingredient: RecipeIngredient, disableAmo
       }
 
       if (fraction[1] > 0) {
-        returnQty += ` <sup>${fraction[1]}</sup>&frasl;<sub>${fraction[2]}</sub>`;
+        returnQty += includeFormating ?
+          ` <sup>${fraction[1]}</sup>&frasl;<sub>${fraction[2]}</sub>` :
+          ` ${fraction[1]}/${fraction[2]}`;
       }
     } else {
       returnQty = (quantity * scale).toString();
@@ -54,8 +56,8 @@ export function useParsedIngredientText(ingredient: RecipeIngredient, disableAmo
   };
 }
 
-export function parseIngredientText(ingredient: RecipeIngredient, disableAmount: boolean, scale = 1): string {
-  const { quantity, unit, name, note } = useParsedIngredientText(ingredient, disableAmount, scale);
+export function parseIngredientText(ingredient: RecipeIngredient, disableAmount: boolean, scale = 1, includeFormating = true): string {
+  const { quantity, unit, name, note } = useParsedIngredientText(ingredient, disableAmount, scale, includeFormating);
 
   const text = `${quantity || ""} ${unit || ""} ${name || ""} ${note || ""}`.replace(/ {2,}/g, " ").trim();
   return sanitizeIngredientHTML(text);
