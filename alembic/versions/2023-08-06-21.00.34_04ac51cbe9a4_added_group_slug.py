@@ -14,7 +14,7 @@ from mealie.db.models.group.group import Group
 
 # revision identifiers, used by Alembic.
 revision = "04ac51cbe9a4"
-down_revision = "b3dbb554ba53"
+down_revision = "bf3c18cd3d48"
 branch_labels = None
 depends_on = None
 
