@@ -312,7 +312,9 @@ class RepositoryGeneric(Generic[Schema, Model]):
         if search:
             q = self.add_search_to_query(q, eff_schema, search)
 
-        q, count, total_pages = self.add_pagination_to_query(q, pagination_result)
+        # if we're searching, we don't apply ordering, since the search handles that
+        apply_ordering = not search
+        q, count, total_pages = self.add_pagination_to_query(q, pagination_result, apply_ordering=apply_ordering)
 
         # Apply options late, so they do not get used for counting
         q = q.options(*eff_schema.loader_options())
@@ -330,7 +332,9 @@ class RepositoryGeneric(Generic[Schema, Model]):
             items=[eff_schema.from_orm(s) for s in data],
         )
 
-    def add_pagination_to_query(self, query: Select, pagination: PaginationQuery) -> tuple[Select, int, int]:
+    def add_pagination_to_query(
+        self, query: Select, pagination: PaginationQuery, apply_ordering=True
+    ) -> tuple[Select, int, int]:
         """
         Adds pagination data to an existing query.
 
@@ -371,7 +375,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
         if pagination.page < 1:
             pagination.page = 1
 
-        if pagination.order_by:
+        if pagination.order_by and apply_ordering:
             if order_attr := getattr(self.model, pagination.order_by, None):
                 # queries handle uppercase and lowercase differently, which is undesirable
                 if isinstance(order_attr.type, sqltypes.String):

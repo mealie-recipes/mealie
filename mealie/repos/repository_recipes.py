@@ -203,7 +203,9 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         if search:
             q = self.add_search_to_query(q, self.schema, search)
 
-        q, count, total_pages = self.add_pagination_to_query(q, pagination_result)
+        # if we're searching, we don't apply ordering, since the search handles that
+        apply_ordering = not search
+        q, count, total_pages = self.add_pagination_to_query(q, pagination_result, apply_ordering=apply_ordering)
 
         try:
             data = self.session.execute(q).scalars().unique().all()
