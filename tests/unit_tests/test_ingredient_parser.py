@@ -4,8 +4,10 @@ from fractions import Fraction
 
 import pytest
 
+from mealie.db.db_setup import session_context
 from mealie.services.parser_services import RegisteredParser, get_parser
 from mealie.services.parser_services.crfpp.processor import CRFIngredient, convert_list_to_crf_model
+from tests.utils.fixture_schemas import TestUser
 
 
 @dataclass
@@ -47,7 +49,7 @@ def test_nlp_parser():
         assert model.unit == test_ingredient.unit
 
 
-def test_brute_parser():
+def test_brute_parser(unique_user: TestUser):
     # input: (quantity, unit, food, comments)
     expectations = {
         # Dutch
@@ -67,12 +69,14 @@ def test_brute_parser():
             "fresh or frozen",
         ),
     }
-    parser = get_parser(RegisteredParser.brute)
 
-    for key, val in expectations.items():
-        parsed = parser.parse_one(key)
+    with session_context() as session:
+        parser = get_parser(RegisteredParser.brute, unique_user.group_id, session)
 
-        assert parsed.ingredient.quantity == val[0]
-        assert parsed.ingredient.unit.name == val[1]
-        assert parsed.ingredient.food.name == val[2]
-        assert parsed.ingredient.note in {val[3], None}
+        for key, val in expectations.items():
+            parsed = parser.parse_one(key)
+
+            assert parsed.ingredient.quantity == val[0]
+            assert parsed.ingredient.unit.name == val[1]
+            assert parsed.ingredient.food.name == val[2]
+            assert parsed.ingredient.note in {val[3], None}

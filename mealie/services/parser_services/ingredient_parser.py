@@ -1,16 +1,24 @@
 from abc import ABC, abstractmethod
 from fractions import Fraction
 
+from pydantic import UUID4
+from sqlalchemy.orm import Session
+
 from mealie.core.root_logger import get_logger
+from mealie.repos.all_repositories import get_repositories
+from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe import RecipeIngredient
 from mealie.schema.recipe.recipe_ingredient import (
     MAX_INGREDIENT_DENOMINATOR,
     CreateIngredientFood,
     CreateIngredientUnit,
     IngredientConfidence,
+    IngredientFood,
+    IngredientUnit,
     ParsedIngredient,
     RegisteredParser,
 )
+from mealie.schema.response.pagination import PaginationQuery
 
 from . import brute, crfpp
 
@@ -22,6 +30,22 @@ class ABCIngredientParser(ABC):
     Abstract class for ingredient parsers.
     """
 
+    @property
+    def _repos(self) -> AllRepositories:
+        return get_repositories(self.session)
+
+    @property
+    def foods(self):
+        return self._repos.ingredient_foods.by_group(self.group_id)
+
+    @property
+    def units(self):
+        return self._repos.ingredient_units.by_group(self.group_id)
+
+    def __init__(self, group_id: UUID4, session: Session) -> None:
+        self.group_id = group_id
+        self.session = session
+
     @abstractmethod
     def parse_one(self, ingredient_string: str) -> ParsedIngredient:
         ...
@@ -30,19 +54,47 @@ class ABCIngredientParser(ABC):
     def parse(self, ingredients: list[str]) -> list[ParsedIngredient]:
         ...
 
+    def find_food_match(self, food: IngredientFood | CreateIngredientFood) -> IngredientFood | None:
+        if isinstance(food, IngredientFood):
+            return food
+
+        query = PaginationQuery(page=1, per_page=1)
+        response = self.foods.page_all(query, search=food.name)
+        if response.items:
+            return response.items[0]
+        else:
+            return None
+
+    def find_unit_match(self, unit: IngredientUnit | CreateIngredientUnit) -> IngredientUnit | None:
+        if isinstance(unit, IngredientUnit):
+            return unit
+
+        query = PaginationQuery(page=1, per_page=1)
+        response = self.units.page_all(query, search=unit.name)
+        if response.items:
+            return response.items[0]
+        else:
+            return None
+
+    def find_ingredient_match(self, ingredient: ParsedIngredient) -> ParsedIngredient:
+        if ingredient.ingredient.food and (food_match := self.find_food_match(ingredient.ingredient.food)):
+            ingredient.ingredient.food = food_match
+
+        if ingredient.ingredient.unit and (unit_match := self.find_unit_match(ingredient.ingredient.unit)):
+            ingredient.ingredient.unit = unit_match
+
+        return ingredient
+
 
 class BruteForceParser(ABCIngredientParser):
     """
     Brute force ingredient parser.
     """
 
-    def __init__(self) -> None:
-        pass
-
     def parse_one(self, ingredient: str) -> ParsedIngredient:
         bfi = brute.parse(ingredient)
 
-        return ParsedIngredient(
+        parsed_ingredient = ParsedIngredient(
             input=ingredient,
             ingredient=RecipeIngredient(
                 unit=CreateIngredientUnit(name=bfi.unit),
@@ -53,6 +105,8 @@ class BruteForceParser(ABCIngredientParser):
             ),
         )
 
+        return self.find_ingredient_match(parsed_ingredient)
+
     def parse(self, ingredients: list[str]) -> list[ParsedIngredient]:
         return [self.parse_one(ingredient) for ingredient in ingredients]
 
@@ -61,9 +115,6 @@ class NLPParser(ABCIngredientParser):
     """
     Class for CRFPP ingredient parsers.
     """
-
-    def __init__(self) -> None:
-        pass
 
     def _crf_to_ingredient(self, crf_model: crfpp.CRFIngredient) -> ParsedIngredient:
         ingredient = None
@@ -87,7 +138,7 @@ class NLPParser(ABCIngredientParser):
                 note=crf_model.input,
             )
 
-        return ParsedIngredient(
+        parsed_ingredient = ParsedIngredient(
             input=crf_model.input,
             ingredient=ingredient,
             confidence=IngredientConfidence(
@@ -96,6 +147,8 @@ class NLPParser(ABCIngredientParser):
                 **crf_model.confidence.dict(),
             ),
         )
+
+        return self.find_ingredient_match(parsed_ingredient)
 
     def parse(self, ingredients: list[str]) -> list[ParsedIngredient]:
         crf_models = crfpp.convert_list_to_crf_model(ingredients)
@@ -112,9 +165,9 @@ __registrar = {
 }
 
 
-def get_parser(parser: RegisteredParser) -> ABCIngredientParser:
+def get_parser(parser: RegisteredParser, group_id: UUID4, session: Session) -> ABCIngredientParser:
     """
     get_parser returns an ingrdeint parser based on the string enum value
     passed in.
     """
-    return __registrar.get(parser, NLPParser)()
+    return __registrar.get(parser, NLPParser)(group_id, session)
