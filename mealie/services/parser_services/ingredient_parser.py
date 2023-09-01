@@ -76,11 +76,7 @@ class ABCIngredientParser(ABC):
         if not response.items:
             return None
 
-        # postgres uses trigram ordering, which is very reliable
-        if self.session.get_bind().name == "postgresql":
-            return response.items[0]
-
-        # if not using postgres, further refine match using fuzzy matching
+        # further refine match using fuzzy matching
         best_match: IngredientFood | None = None
         best_match_score: int = 0
 
@@ -103,11 +99,7 @@ class ABCIngredientParser(ABC):
         if not response.items:
             return None
 
-        # postgres uses trigram ordering, which is very reliable
-        if self.session.get_bind().name == "postgresql":
-            return response.items[0]
-
-        # if not using postgres, further refine match using fuzzy matching
+        # further refine match using fuzzy matching
         best_match: IngredientUnit | None = None
         best_match_score: int = 0
 
