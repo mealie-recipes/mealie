@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from fractions import Fraction
 
+from fuzzywuzzy import fuzz
 from pydantic import UUID4
 from sqlalchemy.orm import Session
 
@@ -42,6 +43,18 @@ class ABCIngredientParser(ABC):
     def units(self):
         return self._repos.ingredient_units.by_group(self.group_id)
 
+    @property
+    def food_fuzzy_match_threshold(self) -> int:
+        """Minimum threshold to fuzzy match against a database food search"""
+
+        return 60
+
+    @property
+    def unit_fuzzy_match_threshold(self) -> int:
+        """Minimum threshold to fuzzy match against a database unit search"""
+
+        return 50
+
     def __init__(self, group_id: UUID4, session: Session) -> None:
         self.group_id = group_id
         self.session = session
@@ -58,23 +71,55 @@ class ABCIngredientParser(ABC):
         if isinstance(food, IngredientFood):
             return food
 
-        query = PaginationQuery(page=1, per_page=1)
+        query = PaginationQuery(page=1, per_page=10)
         response = self.foods.page_all(query, search=food.name)
-        if response.items:
-            return response.items[0]
-        else:
+        if not response.items:
             return None
+
+        # postgres uses trigram ordering, which is very reliable
+        if self.session.get_bind().name == "postgresql":
+            return response.items[0]
+
+        # if not using postgres, further refine match using fuzzy matching
+        best_match: IngredientFood | None = None
+        best_match_score: int = 0
+
+        for item in response.items:
+            score = fuzz.ratio(food.name, item.name)
+            if score == 100:
+                return item
+            elif score > best_match_score and score >= self.food_fuzzy_match_threshold:
+                best_match = item
+                best_match_score = score
+
+        return best_match
 
     def find_unit_match(self, unit: IngredientUnit | CreateIngredientUnit) -> IngredientUnit | None:
         if isinstance(unit, IngredientUnit):
             return unit
 
-        query = PaginationQuery(page=1, per_page=1)
+        query = PaginationQuery(page=1, per_page=10)
         response = self.units.page_all(query, search=unit.name)
-        if response.items:
-            return response.items[0]
-        else:
+        if not response.items:
             return None
+
+        # postgres uses trigram ordering, which is very reliable
+        if self.session.get_bind().name == "postgresql":
+            return response.items[0]
+
+        # if not using postgres, further refine match using fuzzy matching
+        best_match: IngredientUnit | None = None
+        best_match_score: int = 0
+
+        for item in response.items:
+            score = fuzz.ratio(unit.name, item.name)
+            if score == 100:
+                return item
+            elif score > best_match_score and score >= self.unit_fuzzy_match_threshold:
+                best_match = item
+                best_match_score = score
+
+        return best_match
 
     def find_ingredient_match(self, ingredient: ParsedIngredient) -> ParsedIngredient:
         if ingredient.ingredient.food and (food_match := self.find_food_match(ingredient.ingredient.food)):
