@@ -88,9 +88,6 @@ class TemplateService(BaseService):
         """
         self.__check_temp(self._render_json)
 
-        if self.temp is None:
-            raise ValueError("Temporary directory must be provided for method _render_json")
-
         save_path = self.temp.joinpath(f"{recipe.slug}.json")
         with open(save_path, "w") as f:
             f.write(recipe.json(indent=4, by_alias=True))
@@ -120,9 +117,6 @@ class TemplateService(BaseService):
 
         save_name = f"{recipe.slug}{j2_path.suffix}"
 
-        if self.temp is None:
-            raise ValueError("Temporary directory must be provided for method _render_jinja2")
-
         save_path = self.temp.joinpath(save_name)
 
         with open(save_path, "w") as f:
@@ -134,9 +128,6 @@ class TemplateService(BaseService):
         self.__check_temp(self._render_jinja2)
 
         image_asset = recipe.image_dir.joinpath(RecipeImageTypes.original.value)
-
-        if self.temp is None:
-            raise ValueError("Temporary directory must be provided for method _render_zip")
 
         zip_temp = self.temp.joinpath(f"{recipe.slug}.zip")
 
