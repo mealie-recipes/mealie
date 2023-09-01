@@ -29,7 +29,7 @@ class RecipeSearchQuery(MealieModel):
 class PaginationQuery(MealieModel):
     page: int = 1
     per_page: int = 50
-    order_by: str = "created_at"
+    order_by: str | None = None
     order_direction: OrderDirection = OrderDirection.desc
     query_filter: str | None = None
     pagination_seed: str | None = None
