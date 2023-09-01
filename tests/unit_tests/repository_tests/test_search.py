@@ -67,7 +67,7 @@ def search_units(database: AllRepositories, unique_local_group_id: str) -> list[
         ("Cup", ["Cup"]),
         ("tbsp", ["Table Spoon"]),
         ("very cool name", ["Unit with a very cool name", "Unit with a pretty cool name"]),
-        ('"Tea Spoon"', ["Tea Spoon"]),
+        ('"Table Spoon"', ["Table Spoon"]),
         ("correct staple", ["Unit with a correct horse battery staple"]),
     ],
     ids=[
