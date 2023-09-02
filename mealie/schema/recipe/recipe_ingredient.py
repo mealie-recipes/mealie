@@ -83,6 +83,7 @@ class IngredientUnit(CreateIngredientUnit):
     update_at: datetime.datetime | None
 
     _searchable_properties: ClassVar[list[str]] = ["name_normalized", "abbreviation_normalized"]
+    _normalize_search: ClassVar[bool] = True
 
     class Config:
         orm_mode = True
