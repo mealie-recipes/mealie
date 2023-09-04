@@ -47,7 +47,7 @@ class ABCIngredientParser(ABC):
     def food_fuzzy_match_threshold(self) -> int:
         """Minimum threshold to fuzzy match against a database food search"""
 
-        return 60
+        return 85
 
     @property
     def unit_fuzzy_match_threshold(self) -> int:
