@@ -108,8 +108,8 @@
         </div>
       </section>
     </section>
-    <v-container class="mt-4 d-flex justify-end">
-      <v-btn outlined rounded to="/group/migrations"> {{ $t('recipe.looking-for-migrations') }} </v-btn>
+    <v-container class="mt-4 d-flex justify-center text-center">
+      <a to="/group/migrations"> {{ $t('recipe.looking-for-migrations') }} </a>
     </v-container>
   </v-container>
 </template>

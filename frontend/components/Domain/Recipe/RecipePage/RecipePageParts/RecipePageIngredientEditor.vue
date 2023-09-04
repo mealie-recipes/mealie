@@ -26,11 +26,12 @@
       </TransitionGroup>
     </draggable>
     <v-skeleton-loader v-else boilerplate elevation="2" type="list-item"> </v-skeleton-loader>
-    <div class="d-flex justify-end mt-2">
+    <div class="d-flex flex-wrap justify-center justify-sm-end mt-2">
       <v-tooltip top color="accent">
         <template #activator="{ on, attrs }">
           <span v-on="on">
             <BaseButton
+              class="mb-1"
               :disabled="recipe.settings.disableAmount || hasFoodOrUnit"
               color="accent"
               :to="`${recipe.slug}/ingredient-parser`"
@@ -45,8 +46,8 @@
         </template>
         <span>{{ parserToolTip }}</span>
       </v-tooltip>
-      <RecipeDialogBulkAdd class="ml-1 mr-1" @bulk-data="addIngredient" />
-      <BaseButton @click="addIngredient"> {{ $t("general.new") }} </BaseButton>
+      <RecipeDialogBulkAdd class="mx-1 mb-1" @bulk-data="addIngredient" />
+      <BaseButton class="mb-1" @click="addIngredient" > {{ $t("general.new") }} </BaseButton>
     </div>
   </div>
 </template>

@@ -167,8 +167,8 @@ export default defineComponent({
   align-self: start !important;
 }
 
-.flat {
+.flat, .theme--dark .flat {
   box-shadow: none!important;
-  background-color: transparent;
+  background-color: transparent!important;
 }
 </style>

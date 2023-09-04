@@ -19,8 +19,8 @@
     </v-container>
 
     <AdvancedOnly>
-      <v-container class="d-flex justify-end">
-        <v-btn outlined rounded to="/group/migrations"> {{ $t('recipe.looking-for-migrations') }}</v-btn>
+      <v-container class="d-flex justify-center align-center my-4">
+        <a to="/group/migrations"> {{ $t('recipe.looking-for-migrations') }}</a>
       </v-container>
     </AdvancedOnly>
   </div>

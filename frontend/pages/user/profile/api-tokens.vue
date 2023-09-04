@@ -43,9 +43,9 @@
       </v-card>
     </section>
     <BaseCardSectionTitle class="mt-10" title="Active Tokens"> </BaseCardSectionTitle>
-    <section class="d-flex flex-column align-center justify-center">
-      <div v-for="(token, index) in $auth.user.tokens" :key="index" class="d-flex my-2">
-        <v-card outlined width="500px">
+    <section class="d-flex flex-column">
+      <div v-for="(token, index) in $auth.user.tokens" :key="index">
+        <v-card outlined class="mb-2">
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title>

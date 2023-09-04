@@ -60,13 +60,11 @@
           </v-card-actions>
         </v-form>
       </v-card-text>
-      <v-card-actions>
+      <v-card-actions class="d-flex justify-center flex-column flex-sm-row">
         <v-btn v-if="allowSignup" text to="/register"> {{ $t("user.register") }} </v-btn>
         <v-btn v-else text disabled> {{ $t("user.invite-only") }} </v-btn>
         <v-btn class="mr-auto" text to="/forgot-password"> {{ $t("user.reset-password") }} </v-btn>
       </v-card-actions>
-
-      <v-divider></v-divider>
 
       <v-card-text class="d-flex justify-center flex-column flex-sm-row">
         <div
@@ -99,13 +97,6 @@
         </div>
       </v-card-text>
     </v-card>
-
-    <v-btn bottom center class="mt-5" @click="toggleDark">
-      <v-icon left>
-        {{ $vuetify.theme.dark ? $globals.icons.weatherSunny : $globals.icons.weatherNight }}
-      </v-icon>
-      {{ $vuetify.theme.dark ? $t('settings.theme.light-mode') : $t('settings.theme.dark-mode') }}
-    </v-btn>
   </v-container>
 </template>
 
@@ -115,12 +106,11 @@ import { useDark, whenever } from "@vueuse/core";
 import { useAppInfo } from "~/composables/api";
 import { usePasswordField } from "~/composables/use-passwords";
 import { alert } from "~/composables/use-toast";
-import { useToggleDarkMode } from "~/composables/use-utils";
+
 export default defineComponent({
   layout: "blank",
 
   setup() {
-    const toggleDark = useToggleDarkMode();
     const isDark = useDark();
 
     const router = useRouter();
@@ -186,7 +176,6 @@ export default defineComponent({
       loggingIn,
       allowSignup,
       authenticate,
-      toggleDark,
       passwordIcon,
       inputType,
       togglePasswordShow,

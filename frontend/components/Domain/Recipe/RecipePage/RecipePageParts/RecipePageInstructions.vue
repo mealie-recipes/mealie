@@ -108,7 +108,7 @@
           </v-app-bar>
           <v-hover v-slot="{ hover }">
             <v-card
-              class="ma-1"
+              class="my-3"
               :class="[{ 'on-hover': hover }, isChecked(index)]"
               :elevation="hover ? 12 : 2"
               :ripple="false"

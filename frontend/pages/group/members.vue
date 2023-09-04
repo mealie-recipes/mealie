@@ -13,10 +13,10 @@
             <b>{{ $t('group.invite') }}</b>
           </template>
         </i18n>
-    </BasePageTitle>
-    <v-container class="mt-4 d-flex justify-start">
-      <v-btn outlined rounded to="/user/profile/edit"> {{ $t('group.looking-to-update-your-profile') }} </v-btn>
-    </v-container>
+        <v-container class="mt-1 px-0">
+        <a class="text-center" to="/user/profile/edit"> {{ $t('group.looking-to-update-your-profile') }} </a>
+      </v-container>
+      </BasePageTitle>
     <v-data-table
       :headers="headers"
       :items="members || []"
