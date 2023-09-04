@@ -529,7 +529,17 @@
     "tree-view": "Boomstructuurweergave",
     "recipe-yield": "Recept Opbrengst",
     "unit": "Eenheid",
-    "upload-image": "Afbeelding uploaden"
+    "upload-image": "Afbeelding uploaden",
+    "add-to-timeline": "",
+    "remove-image": "",
+    "screen-awake": "",
+    "timer": {
+      "kitchen-timer": "",
+      "pause-timer": "",
+      "resume-timer": "",
+      "start-timer": "",
+      "stop-timer": ""
+    }
   },
   "search": {
     "advanced-search": "Geavanceerd zoeken",

@@ -529,7 +529,17 @@
     "tree-view": "Stromový pohľad",
     "recipe-yield": "Počet porcií",
     "unit": "Jednotka",
-    "upload-image": "Nahrať obrázok"
+    "upload-image": "Nahrať obrázok",
+    "add-to-timeline": "",
+    "remove-image": "",
+    "screen-awake": "",
+    "timer": {
+      "kitchen-timer": "",
+      "pause-timer": "",
+      "resume-timer": "",
+      "start-timer": "",
+      "stop-timer": ""
+    }
   },
   "search": {
     "advanced-search": "Rozšírené vyhľadávanie",

@@ -529,7 +529,17 @@
     "tree-view": "Widok drzewa",
     "recipe-yield": "Wydajność przepisu",
     "unit": "Jednostka",
-    "upload-image": "Prześlij obraz"
+    "upload-image": "Prześlij obraz",
+    "add-to-timeline": "",
+    "remove-image": "",
+    "screen-awake": "",
+    "timer": {
+      "kitchen-timer": "",
+      "pause-timer": "",
+      "resume-timer": "",
+      "start-timer": "",
+      "stop-timer": ""
+    }
   },
   "search": {
     "advanced-search": "Wyszukiwanie zaawansowane",

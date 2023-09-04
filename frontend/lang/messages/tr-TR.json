@@ -529,7 +529,17 @@
     "tree-view": "Ağaç Görünümü",
     "recipe-yield": "Recipe Yield",
     "unit": "Birim",
-    "upload-image": "Resim yükleyin"
+    "upload-image": "Resim yükleyin",
+    "add-to-timeline": "",
+    "remove-image": "",
+    "screen-awake": "",
+    "timer": {
+      "kitchen-timer": "",
+      "pause-timer": "",
+      "resume-timer": "",
+      "start-timer": "",
+      "stop-timer": ""
+    }
   },
   "search": {
     "advanced-search": "Advanced Search",

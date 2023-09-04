@@ -529,7 +529,17 @@
     "tree-view": "Vue en arborescence",
     "recipe-yield": "Nombre de parts",
     "unit": "Unité",
-    "upload-image": "Envoyer une image"
+    "upload-image": "Envoyer une image",
+    "add-to-timeline": "Ajouter à l'historique",
+    "remove-image": "Supprimer l'image",
+    "screen-awake": "Maintenir l'écran actif",
+    "timer": {
+      "kitchen-timer": "Minuteur",
+      "pause-timer": "Pause",
+      "resume-timer": "Reprendre",
+      "start-timer": "Démarrer",
+      "stop-timer": "Stopper"
+    }
   },
   "search": {
     "advanced-search": "Recherche avancée",

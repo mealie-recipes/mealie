@@ -529,7 +529,17 @@
     "tree-view": "У вигляді дерева",
     "recipe-yield": "Вихід рецепту",
     "unit": "Одиниця виміру",
-    "upload-image": "Вивантажити зображення"
+    "upload-image": "Вивантажити зображення",
+    "add-to-timeline": "",
+    "remove-image": "",
+    "screen-awake": "",
+    "timer": {
+      "kitchen-timer": "",
+      "pause-timer": "",
+      "resume-timer": "",
+      "start-timer": "",
+      "stop-timer": ""
+    }
   },
   "search": {
     "advanced-search": "Розширений пошук",

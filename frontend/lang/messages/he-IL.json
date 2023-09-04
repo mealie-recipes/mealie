@@ -529,7 +529,17 @@
     "tree-view": "תצוגת עץ",
     "recipe-yield": "תשואת מתכון",
     "unit": "יחידה",
-    "upload-image": "העלה תמונה"
+    "upload-image": "העלה תמונה",
+    "add-to-timeline": "",
+    "remove-image": "",
+    "screen-awake": "",
+    "timer": {
+      "kitchen-timer": "",
+      "pause-timer": "",
+      "resume-timer": "",
+      "start-timer": "",
+      "stop-timer": ""
+    }
   },
   "search": {
     "advanced-search": "חיפוש מתקדם",

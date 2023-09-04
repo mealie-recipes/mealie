@@ -529,7 +529,17 @@
     "tree-view": "Strukturierte Ansicht",
     "recipe-yield": "Portionsangabe",
     "unit": "Maßeinheit",
-    "upload-image": "Bild hochladen"
+    "upload-image": "Bild hochladen",
+    "add-to-timeline": "",
+    "remove-image": "",
+    "screen-awake": "",
+    "timer": {
+      "kitchen-timer": "",
+      "pause-timer": "",
+      "resume-timer": "",
+      "start-timer": "",
+      "stop-timer": ""
+    }
   },
   "search": {
     "advanced-search": "Erweiterte Suche",

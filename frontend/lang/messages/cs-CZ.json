@@ -529,7 +529,17 @@
     "tree-view": "Stromové zobrazení",
     "recipe-yield": "Recipe Yield",
     "unit": "Jednotka",
-    "upload-image": "Nahrát obrázek"
+    "upload-image": "Nahrát obrázek",
+    "add-to-timeline": "",
+    "remove-image": "",
+    "screen-awake": "",
+    "timer": {
+      "kitchen-timer": "",
+      "pause-timer": "",
+      "resume-timer": "",
+      "start-timer": "",
+      "stop-timer": ""
+    }
   },
   "search": {
     "advanced-search": "Pokročilé vyhledávání",
