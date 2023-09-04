@@ -10,9 +10,9 @@ type BoundT = {
 interface StoreActions<T extends BoundT> {
   getAll(page?: number, perPage?: number, params?: any): Ref<T[] | null>;
   refresh(): Promise<void>;
-  createOne(createData: T): Promise<void>;
-  updateOne(updateData: T): Promise<void>;
-  deleteOne(id: string | number): Promise<void>;
+  createOne(createData: T): Promise<T | null>;
+  updateOne(updateData: T): Promise<T | null>;
+  deleteOne(id: string | number): Promise<T | null>;
 }
 
 /**
@@ -66,31 +66,34 @@ export function useStoreActions<T extends BoundT>(
     if (data && allRef?.value) {
       allRef.value.push(data);
     } else {
-      refresh();
+      await refresh();
     }
     loading.value = false;
+    return data;
   }
 
   async function updateOne(updateData: T) {
     if (!updateData.id) {
-      return;
+      return null;
     }
 
     loading.value = true;
     const { data } = await api.updateOne(updateData.id, updateData);
     if (data && allRef?.value) {
-      refresh();
+      await refresh();
     }
     loading.value = false;
+    return data;
   }
 
   async function deleteOne(id: string | number) {
     loading.value = true;
     const { response } = await api.deleteOne(id);
     if (response && allRef?.value) {
-      refresh();
+      await refresh();
     }
     loading.value = false;
+    return response?.data || null;
   }
 
   return {
