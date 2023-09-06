@@ -112,6 +112,29 @@ class RecipeDataService(BaseService):
 
         return True
 
+    async def flatten_image_structure(self, image_struct) -> str:
+        if isinstance(image_struct, str):  # Handles String Types
+            image_url = image_struct
+
+        elif isinstance(image_struct, list):  # Handles List Types
+            # Multiple images have been defined in the schema - usually different resolutions
+            # Typically would be in smallest->biggest order, but can't be certain so test each.
+            # 'Google will pick the best image to display in Search results based on the aspect ratio and resolution.'
+
+            tasks = [self.flatten_image_structure(substruct) for substruct in image_struct]
+            option_urls = await asyncio.gather(*tasks)
+            if len(option_urls) > 1:
+                image_url, _ = await largest_content_len(option_urls)
+            else:
+                image_url = option_urls[0]
+
+        elif isinstance(image_struct, dict):  # Handles Dictionary Types
+            for key in image_struct:
+                if key == "url":
+                    image_url = image_struct.get("url")
+
+        return image_url
+
     async def scrape_image(self, image_url) -> None:
         self.logger.info(f"Image URL: {image_url}")
 
@@ -119,19 +142,7 @@ class RecipeDataService(BaseService):
             self.logger.error(f"Invalid image URL: {image_url}")
             raise InvalidDomainError(f"Invalid domain: {image_url}")
 
-        if isinstance(image_url, str):  # Handles String Types
-            pass
-
-        elif isinstance(image_url, list):  # Handles List Types
-            # Multiple images have been defined in the schema - usually different resolutions
-            # Typically would be in smallest->biggest order, but can't be certain so test each.
-            # 'Google will pick the best image to display in Search results based on the aspect ratio and resolution.'
-            image_url, _ = await largest_content_len(image_url)
-
-        elif isinstance(image_url, dict):  # Handles Dictionary Types
-            for key in image_url:
-                if key == "url":
-                    image_url = image_url.get("url")
+        image_url = await self.flatten_image_structure(image_url)
 
         ext = image_url.split(".")[-1]
 
