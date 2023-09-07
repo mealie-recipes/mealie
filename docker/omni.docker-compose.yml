@@ -11,7 +11,7 @@ services:
     volumes:
       - mealie-data:/app/data/
     ports:
-      - 9091:3000
+      - 9091:9000
     environment:
       ALLOW_SIGNUP: "false"
 

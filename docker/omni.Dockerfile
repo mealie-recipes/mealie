@@ -12,14 +12,7 @@ RUN yarn install \
     # https://github.com/docker/build-push-action/issues/471
     --network-timeout 1000000
 
-RUN yarn build
-
-RUN rm -rf node_modules && \
-    NODE_ENV=production yarn install \
-    --prefer-offline \
-    --pure-lockfile \
-    --non-interactive \
-    --production=true
+RUN yarn generate
 
 ###############################################
 # Base Image - Python
@@ -150,7 +143,8 @@ HEALTHCHECK CMD python $MEALIE_HOME/mealie/scripts/healthcheck.py || exit 1
 # Copy Frontend
 
 # copying caddy into image
-COPY --from=builder /app  $MEALIE_HOME/frontend/
+ENV STATIC_FILES=/spa/static
+COPY --from=builder /app/dist  ${STATIC_FILES}
 
 ENV HOST 0.0.0.0
 
