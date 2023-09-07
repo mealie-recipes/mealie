@@ -51,20 +51,20 @@ jobs:
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
           images: |
-            hkotel/mealie
-            ghcr.io/${{ github.repository }}
+              hkotel/mealie
+              ghcr.io/${{ github.repository }}
 
       - name: Build and push Frontend images
-          uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
-          with:
-            file: docker/frontend.Dockerfile
-            context: .
-            push: true
-            tags: frontend-${{ steps.meta.outputs.tags }}
-            labels: ${{ steps.meta.outputs.labels }}
-            platforms:
-              - linux/amd64
-              - linux/arm64
+        uses: docker/build-push-action@v4
+        with:
+          file: docker/frontend.Dockerfile
+          context: .
+          push: true
+          tags: frontend-${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          platforms:
+            - linux/amd64
+            - linux/arm64
 
   build-backend:
     runs-on: ubuntu-latest
@@ -112,16 +112,16 @@ jobs:
             ghcr.io/${{ github.repository }}
 
       - name: Build and push API images
-          uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
-          with:
-            file: docker/api.Dockerfile
-            context: .
-            push: true
-            tags: api-${{ steps.meta.outputs.tags }}
-            labels: ${{ steps.meta.outputs.labels }}
-            platforms:
-              - linux/amd64
-              - linux/arm64
+        uses: docker/build-push-action@v4
+        with:
+          file: docker/api.Dockerfile
+          context: .
+          push: true
+          tags: api-${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          platforms:
+            - linux/amd64
+            - linux/arm64
 
   build-omni:
     runs-on: ubuntu-latest
@@ -169,13 +169,13 @@ jobs:
             ghcr.io/${{ github.repository }}
 
       - name: Build and push API images
-          uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
-          with:
-            file: docker/omni.Dockerfile
-            context: .
-            push: true
-            tags: omni-${{ steps.meta.outputs.tags }}
-            labels: ${{ steps.meta.outputs.labels }}
-            platforms:
-              - linux/amd64
-              - linux/arm64
+        uses: docker/build-push-action@v4
+        with:
+          file: docker/omni.Dockerfile
+          context: .
+          push: true
+          tags: omni-${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          platforms:
+            - linux/amd64
+            - linux/arm64
