@@ -39,11 +39,32 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build Frontend Image
-        run: |
-          docker build --push --no-cache \
-            --tag hkotel/mealie:frontend-${{ inputs.tag }} \
-            --platform linux/amd64,linux/arm64 --file=./docker/frontend.Dockerfile .
+      - name: Log in to the Container registry
+        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+        with:
+          images: |
+              hkotel/mealie
+              ghcr.io/${{ github.repository }}
+
+      - name: Build and push Frontend images
+        uses: docker/build-push-action@v4
+        with:
+          file: docker/frontend.Dockerfile
+          context: .
+          push: true
+          tags: frontend-${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          platforms:
+            - linux/amd64
+            - linux/arm64
 
   build-backend:
     runs-on: ubuntu-latest
@@ -75,12 +96,32 @@ jobs:
         run: |
           echo "__version__ = \"${{ inputs.tag }}\"" > ./mealie/__init__.py
 
-      - name: Build Backend Image
-        run: |
-          docker build --push --no-cache \
-            --tag hkotel/mealie:api-${{ inputs.tag }}  \
-            --build-arg COMMIT=$(git rev-parse HEAD) \
-            --platform linux/amd64,linux/arm64 --file=./docker/api.Dockerfile .
+      - name: Log in to the Container registry
+        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+        with:
+          images: |
+            hkotel/mealie
+            ghcr.io/${{ github.repository }}
+
+      - name: Build and push API images
+        uses: docker/build-push-action@v4
+        with:
+          file: docker/api.Dockerfile
+          context: .
+          push: true
+          tags: api-${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          platforms:
+            - linux/amd64
+            - linux/arm64
 
   build-omni:
     runs-on: ubuntu-latest
@@ -112,9 +153,29 @@ jobs:
         run: |
           echo "__version__ = \"${{ inputs.tag }}\"" > ./mealie/__init__.py
 
-      - name: Build Omni-Image
-        run: |
-          docker build --push --no-cache \
-            --tag hkotel/mealie:omni-${{ inputs.tag }}  \
-            --build-arg COMMIT=$(git rev-parse HEAD) \
-            --platform linux/amd64,linux/arm64 --file=./docker/omni.Dockerfile .
+      - name: Log in to the Container registry
+        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+        with:
+          images: |
+            hkotel/mealie
+            ghcr.io/${{ github.repository }}
+
+      - name: Build and push API images
+        uses: docker/build-push-action@v4
+        with:
+          file: docker/omni.Dockerfile
+          context: .
+          push: true
+          tags: omni-${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          platforms:
+            - linux/amd64
+            - linux/arm64
