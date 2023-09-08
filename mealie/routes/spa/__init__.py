@@ -1,4 +1,3 @@
-import contextlib
 import json
 import pathlib
 
@@ -31,11 +30,7 @@ class SPAStaticFiles(StaticFiles):
 
 
 __app_settings = get_app_settings()
-
 __contents = ""
-
-with contextlib.suppress(FileNotFoundError):
-    __contents = pathlib.Path(__app_settings.STATIC_FILES).joinpath("index.html").read_text()
 
 
 def content_with_meta(recipe: Recipe) -> str:
@@ -44,7 +39,7 @@ def content_with_meta(recipe: Recipe) -> str:
     image_url = f"{__app_settings.BASE_URL}/api/media/recipes/{recipe.id}/images/original.webp?version={recipe.image}"
 
     ingredients: list[str] = []
-    if recipe.settings.disable_amount:
+    if recipe.settings.disable_amount:  # type: ignore
         ingredients = [i.note for i in recipe.recipe_ingredient if i.note]
 
     else:
@@ -120,18 +115,17 @@ def serve_recipe_with_meta_public(
         repos = AllRepositories(session)
         group = repos.groups.get_by_slug_or_id(group_slug)
 
-        if not group or group.preferences.private_group:
+        if not group or group.preferences.private_group:  # type: ignore
             return response_404()
 
         recipe = repos.recipes.by_group(group.id).get_one(recipe_slug)
 
-        if not recipe or not recipe.settings.public:
+        if not recipe or not recipe.settings.public:  # type: ignore
             return response_404()
 
         # Inject meta tags
         return Response(content_with_meta(recipe), media_type="text/html")
-    except Exception as ex:
-        print(ex)
+    except Exception:
         return response_404()
 
 
@@ -156,6 +150,9 @@ async def serve_recipe_with_meta(
 def mount_spa(app: FastAPI):
     if not os.path.exists(__app_settings.STATIC_FILES):
         return
+
+    global __contents
+    __contents = pathlib.Path(__app_settings.STATIC_FILES).joinpath("index.html").read_text()
 
     app.get("/recipe/{slug}")(serve_recipe_with_meta)
     app.get("/explore/recipes/{group_slug}/{recipe_slug}")(serve_recipe_with_meta_public)
