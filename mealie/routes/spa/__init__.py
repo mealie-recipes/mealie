@@ -1,3 +1,4 @@
+import contextlib
 import json
 import pathlib
 
@@ -15,8 +16,6 @@ from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.user.user import PrivateUser
 
-__app_settings = get_app_settings()
-
 
 class SPAStaticFiles(StaticFiles):
     async def get_response(self, path: str, scope):
@@ -31,7 +30,12 @@ class SPAStaticFiles(StaticFiles):
             raise e
 
 
-__contents = pathlib.Path(__app_settings.STATIC_FILES).joinpath("index.html").read_text()
+__app_settings = get_app_settings()
+
+__contents = ""
+
+with contextlib.suppress(FileNotFoundError):
+    __contents = pathlib.Path(__app_settings.STATIC_FILES).joinpath("index.html").read_text()
 
 
 def content_with_meta(recipe: Recipe) -> str:

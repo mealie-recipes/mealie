@@ -76,7 +76,9 @@ def api_routers():
     app.include_router(router)
     app.include_router(media_router)
     app.include_router(utility_routes.router)
-    spa.mount_spa(app)
+
+    if settings.PRODUCTION and not settings.TESTING:
+        spa.mount_spa(app)
 
 
 api_routers()
