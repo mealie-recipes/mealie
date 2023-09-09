@@ -39,12 +39,6 @@ jobs:
         run: |
           echo "__version__ = \"${{ inputs.tag }}\"" > ./mealie/__init__.py
 
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
