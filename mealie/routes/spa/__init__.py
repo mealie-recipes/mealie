@@ -9,7 +9,7 @@ from starlette.exceptions import HTTPException
 from text_unidecode import os
 
 from mealie.core.config import get_app_settings
-from mealie.core.dependencies.dependencies import get_current_user
+from mealie.core.dependencies.dependencies import get_current_user, try_get_current_user
 from mealie.db.db_setup import generate_session
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import Recipe
@@ -129,9 +129,12 @@ def serve_recipe_with_meta_public(
 
 async def serve_recipe_with_meta(
     slug: str,
-    user: PrivateUser = Depends(get_current_user),
+    user: PrivateUser = Depends(try_get_current_user),
     session: Session = Depends(generate_session),
 ):
+    if not user:
+        return Response(__contents, media_type="text/html", status_code=401)
+
     try:
         repos = AllRepositories(session)
 

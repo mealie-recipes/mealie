@@ -64,6 +64,17 @@ async def get_public_group(group_slug: str = fastapi.Path(...), session=Depends(
         return group
 
 
+async def try_get_current_user(
+    request: Request,
+    token: str = Depends(oauth2_scheme_soft_fail),
+    session=Depends(generate_session),
+) -> PrivateUser | None:
+    try:
+        return await get_current_user(request, token, session)
+    except Exception:
+        return None
+
+
 async def get_current_user(
     request: Request, token: str = Depends(oauth2_scheme_soft_fail), session=Depends(generate_session)
 ) -> PrivateUser:
