@@ -3,4 +3,3 @@ export { useRecipe } from "./use-recipe";
 export { useRecipes, recentRecipes, allRecipes, useLazyRecipes } from "./use-recipes";
 export { parseIngredientText, useParsedIngredientText } from "./use-recipe-ingredients";
 export { useTools } from "./use-recipe-tools";
-export { useRecipeMeta } from "./use-recipe-meta";

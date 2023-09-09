@@ -1,7 +1,13 @@
 <template>
   <v-container :class="{ 'pa-0': $vuetify.breakpoint.smAndDown }">
     <v-card :flat="$vuetify.breakpoint.smAndDown" class="d-print-none">
-      <RecipePageHeader :recipe="recipe" :recipe-scale="scale" :landscape="landscape" @save="saveRecipe" @delete="deleteRecipe" />
+      <RecipePageHeader
+        :recipe="recipe"
+        :recipe-scale="scale"
+        :landscape="landscape"
+        @save="saveRecipe"
+        @delete="deleteRecipe"
+      />
       <LazyRecipeJsonEditor v-if="isEditJSON" v-model="recipe" class="mt-10" :options="EDITOR_OPTIONS" />
       <v-card-text v-else>
         <!--
@@ -100,7 +106,6 @@ import RecipePrintContainer from "~/components/Domain/Recipe/RecipePrintContaine
 import { EditorMode, PageMode, usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { Recipe } from "~/lib/api/types/recipe";
-import { useRecipeMeta } from "~/composables/recipes";
 import { useRouteQuery } from "~/composables/use-router";
 import { useUserApi } from "~/composables/api";
 import { uuid4, deepCopy } from "~/composables/use-utils";
@@ -275,9 +280,6 @@ export default defineComponent({
     /** =============================================================
      * Meta Tags
      */
-    const { recipeMeta } = useRecipeMeta();
-    useMeta(recipeMeta(ref(props.recipe)));
-
     const { user } = usePageUser();
 
     return {
