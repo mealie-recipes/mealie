@@ -149,7 +149,7 @@ COPY --from=builder /app/dist  ${STATIC_FILES}
 ENV HOST 0.0.0.0
 
 EXPOSE ${APP_PORT}
-COPY ./docker/omni.entry.sh $MEALIE_HOME/run.sh
+COPY ./docker/entry.sh $MEALIE_HOME/run.sh
 
 RUN chmod +x $MEALIE_HOME/run.sh
 ENTRYPOINT $MEALIE_HOME/run.sh
