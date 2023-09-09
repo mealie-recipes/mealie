@@ -19,7 +19,8 @@ from mealie.services.event_bus_service.event_types import (
 
 
 def create_mealplan_timeline_events(group_id: UUID4 | None = None):
-    event_time = datetime.now(timezone.utc)
+    # Move it back by 1 minute to ensure that midnight processing logs it to the prev day
+    event_time = datetime.now(timezone.utc) - timedelta(minutes=1)
 
     with session_context() as session:
         repos = get_repositories(session)
@@ -38,7 +39,7 @@ def create_mealplan_timeline_events(group_id: UUID4 | None = None):
             recipes_to_update: dict[UUID4, RecipeSummary] = {}
             recipe_id_to_slug_map: dict[UUID4, str] = {}
 
-            mealplans = repos.meals.get_today(group_id)
+            mealplans = repos.meals.get_for_day(group_id, -1)
             for mealplan in mealplans:
                 if not (mealplan.recipe and mealplan.user_id):
                     continue
@@ -54,8 +55,8 @@ def create_mealplan_timeline_events(group_id: UUID4 | None = None):
                 else:
                     event_subject = f"{user.full_name} made this for {mealplan.entry_type.value}"
 
-                query_start_time = datetime.combine(datetime.now(timezone.utc).date(), time.min)
-                query_end_time = query_start_time + timedelta(days=1)
+                query_end_time = datetime.now() - timedelta()
+                query_start_time = query_end_time - timedelta(days=1, minutes=1, seconds=5)
                 query = PaginationQuery(
                     query_filter=(
                         f'recipe_id = "{mealplan.recipe_id}" '

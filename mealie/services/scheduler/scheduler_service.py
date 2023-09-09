@@ -1,3 +1,6 @@
+import asyncio
+from datetime import datetime, timedelta
+
 from pathlib import Path
 
 from mealie.core import root_logger
@@ -18,8 +21,26 @@ class SchedulerService:
     @staticmethod
     async def start():
         await run_minutely()
-        await run_daily()
         await run_hourly()
+
+        # Wait to trigger our daily run until our given "daily time", so having asyncio handle it.
+        asyncio.create_task(schedule_daily())
+
+
+async def schedule_daily():
+    target_time = time_at_hour(0)
+    logger.debug("Daily tasks scheduled for " + str(target_time))
+    wait_seconds = (target_time - datetime.now()).total_seconds()
+    await asyncio.sleep(wait_seconds)
+    await run_daily()
+
+
+def time_at_hour(hour=0):
+    """Return a time for the next occurence of the given hour for the local time zone."""
+    now = datetime.now()
+    hours_until = ((hour - now.hour) % 24) or 24
+    dt = timedelta(hours=hours_until)
+    return (now + dt).replace(microsecond=0, second=0, minute=0)
 
 
 def _scheduled_task_wrapper(callable):
@@ -29,7 +50,7 @@ def _scheduled_task_wrapper(callable):
         logger.error(f"Error in scheduled task func='{callable.__name__}': exception='{e}'")
 
 
-@repeat_every(minutes=MINUTES_DAY, wait_first=True, logger=logger)
+@repeat_every(minutes=MINUTES_DAY, wait_first=False, logger=logger)
 def run_daily():
     logger.debug("Running daily callbacks")
     for func in SchedulerRegistry._daily:
