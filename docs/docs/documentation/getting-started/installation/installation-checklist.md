@@ -86,7 +86,7 @@ These backups are just plain .zip files that you can download from the UI or acc
 
 ### Docker Tags
 
-`ghrc.io/mealie-recipes/mealie:nightly`
+`ghcr.io/mealie-recipes/mealie:nightly`
 
 The nightly build are the latest and greatest builds that are built directly off of every commit to the `mealie-next` branch and as such may contain bugs. These are great to help the community catch bugs before they hit the stable release or if you like living on the edge.
 

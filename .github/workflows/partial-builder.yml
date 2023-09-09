@@ -46,4 +46,4 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ghrc.io/${{ github.repository }}:${{ inputs.tag }}
+          tags: ghcr.io/${{ github.repository }}:${{ inputs.tag }}
