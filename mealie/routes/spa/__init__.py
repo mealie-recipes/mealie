@@ -9,7 +9,7 @@ from starlette.exceptions import HTTPException
 from text_unidecode import os
 
 from mealie.core.config import get_app_settings
-from mealie.core.dependencies.dependencies import get_current_user, try_get_current_user
+from mealie.core.dependencies.dependencies import try_get_current_user
 from mealie.db.db_setup import generate_session
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import Recipe
