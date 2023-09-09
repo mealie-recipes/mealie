@@ -10,6 +10,7 @@
       :size="small ? 15 : undefined"
       hover
       :value="value"
+      clearable
       @input="updateRating"
       @click="updateRating"
     ></v-rating>
