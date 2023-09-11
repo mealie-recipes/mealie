@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from fractions import Fraction
 
 from pydantic import UUID4
-from rapidfuzz import fuzz
+from rapidfuzz import fuzz, process
 from sqlalchemy.orm import Session
 
 from mealie.core.root_logger import get_logger
@@ -77,18 +77,16 @@ class ABCIngredientParser(ABC):
             return None
 
         # further refine match using fuzzy matching
-        best_match: IngredientFood | None = None
-        best_match_score: float = 0
+        choices_by_name = {item.name: item for item in response.items}
+        fuzz_result = process.extractOne(food.name, choices_by_name.keys(), scorer=fuzz.ratio)
+        if fuzz_result is None:
+            return None
 
-        for item in response.items:
-            score = fuzz.ratio(food.name, item.name)
-            if score == 100:
-                return item
-            elif score > best_match_score and score >= self.food_fuzzy_match_threshold:
-                best_match = item
-                best_match_score = score
-
-        return best_match
+        choice_name, score, _ = fuzz_result
+        if score < self.food_fuzzy_match_threshold:
+            return None
+        else:
+            return choices_by_name[choice_name]
 
     def find_unit_match(self, unit: IngredientUnit | CreateIngredientUnit) -> IngredientUnit | None:
         if isinstance(unit, IngredientUnit):
@@ -100,18 +98,16 @@ class ABCIngredientParser(ABC):
             return None
 
         # further refine match using fuzzy matching
-        best_match: IngredientUnit | None = None
-        best_match_score: float = 0
+        choices_by_name = {item.name: item for item in response.items}
+        fuzz_result = process.extractOne(unit.name, choices_by_name.keys(), scorer=fuzz.ratio)
+        if fuzz_result is None:
+            return None
 
-        for item in response.items:
-            score = fuzz.ratio(unit.name, item.name)
-            if score == 100:
-                return item
-            elif score > best_match_score and score >= self.unit_fuzzy_match_threshold:
-                best_match = item
-                best_match_score = score
-
-        return best_match
+        choice_name, score, _ = fuzz_result
+        if score < self.unit_fuzzy_match_threshold:
+            return None
+        else:
+            return choices_by_name[choice_name]
 
     def find_ingredient_match(self, ingredient: ParsedIngredient) -> ParsedIngredient:
         if ingredient.ingredient.food and (food_match := self.find_food_match(ingredient.ingredient.food)):
