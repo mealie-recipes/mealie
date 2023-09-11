@@ -84,6 +84,7 @@ def parsed_ingredient_data(
             SaveIngredientUnit(name="Tablespoon", group_id=unique_local_group_id),
             SaveIngredientUnit(name="Teaspoon", group_id=unique_local_group_id),
             SaveIngredientUnit(name="Stalk", group_id=unique_local_group_id),
+            SaveIngredientUnit(name="My Very Long Unit Name", abbreviation="mvlun", group_id=unique_local_group_id),
         ]
     )
 
@@ -248,6 +249,14 @@ def test_brute_parser(unique_user: TestUser):
             False,
             False,
             id="no input",
+        ),
+        pytest.param(
+            build_parsed_ing(unit="mvlun", food="potatoes"),
+            "My Very Long Unit Name",
+            "potatoes",
+            True,
+            True,
+            id="unit abbreviation",
         ),
     ),
 )

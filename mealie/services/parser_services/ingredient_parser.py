@@ -98,8 +98,11 @@ class ABCIngredientParser(ABC):
             return None
 
         # further refine match using fuzzy matching
-        choices_by_name = {item.name: item for item in response.items}
-        fuzz_result = process.extractOne(unit.name, choices_by_name.keys(), scorer=fuzz.ratio)
+        choices_by_name_or_abbreviation = {item.name: item for item in response.items} | {
+            item.abbreviation: item for item in response.items if item.abbreviation
+        }
+
+        fuzz_result = process.extractOne(unit.name, choices_by_name_or_abbreviation.keys(), scorer=fuzz.ratio)
         if fuzz_result is None:
             return None
 
@@ -107,7 +110,7 @@ class ABCIngredientParser(ABC):
         if score < self.unit_fuzzy_match_threshold:
             return None
         else:
-            return choices_by_name[choice_name]
+            return choices_by_name_or_abbreviation[choice_name]
 
     def find_ingredient_match(self, ingredient: ParsedIngredient) -> ParsedIngredient:
         if ingredient.ingredient.food and (food_match := self.find_food_match(ingredient.ingredient.food)):
