@@ -66,6 +66,7 @@ def parsed_ingredient_data(
             SaveIngredientFood(name="red pepper flakes", group_id=unique_local_group_id),
             SaveIngredientFood(name="fresh ginger", group_id=unique_local_group_id),
             SaveIngredientFood(name="ground ginger", group_id=unique_local_group_id),
+            SaveIngredientFood(name="ñör̃m̈ãl̈ĩz̈ẽm̈ẽ", group_id=unique_local_group_id),
         ]
     )
 
@@ -257,6 +258,14 @@ def test_brute_parser(unique_user: TestUser):
             True,
             True,
             id="unit abbreviation",
+        ),
+        pytest.param(
+            build_parsed_ing(unit=None, food="n̅ōr̅m̄a̅l̄i̅z̄e̅m̄e̅"),
+            None,
+            "ñör̃m̈ãl̈ĩz̈ẽm̈ẽ",
+            False,
+            True,
+            id="normalization",
         ),
     ),
 )

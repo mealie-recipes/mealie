@@ -6,6 +6,7 @@ from rapidfuzz import fuzz, process
 from sqlalchemy.orm import Session
 
 from mealie.core.root_logger import get_logger
+from mealie.db.models.recipe.ingredient import IngredientFoodModel, IngredientUnitModel
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe import RecipeIngredient
@@ -43,26 +44,26 @@ class ABCIngredientParser(ABC):
         return get_repositories(self.session)
 
     @property
-    def foods_by_name(self) -> dict[str, IngredientFood]:
+    def foods_by_normalized_name(self) -> dict[str, IngredientFood]:
         if self._foods_by_name is None:
             foods_repo = self._repos.ingredient_foods.by_group(self.group_id)
 
             query = PaginationQuery(page=1, per_page=-1)
             all_foods = foods_repo.page_all(query).items
-            self._foods_by_name = {food.name: food for food in all_foods if food.name}
+            self._foods_by_name = {IngredientFoodModel.normalize(food.name): food for food in all_foods if food.name}
 
         return self._foods_by_name
 
     @property
-    def units_by_name_or_abbreviation(self) -> dict[str, IngredientUnit]:
+    def units_by_normalized_name_or_abbreviation(self) -> dict[str, IngredientUnit]:
         if self._units_by_name is None:
             units_repo = self._repos.ingredient_units.by_group(self.group_id)
 
             query = PaginationQuery(page=1, per_page=-1)
             all_units = units_repo.page_all(query).items
-            self._units_by_name = {unit.name: unit for unit in all_units if unit.name} | {
-                unit.abbreviation: unit for unit in all_units if unit.abbreviation
-            }
+            self._units_by_name = {
+                IngredientUnitModel.normalize(unit.name): unit for unit in all_units if unit.name
+            } | {IngredientUnitModel.normalize(unit.abbreviation): unit for unit in all_units if unit.abbreviation}
 
         return self._units_by_name
 
@@ -90,12 +91,14 @@ class ABCIngredientParser(ABC):
         if isinstance(food, IngredientFood):
             return food
 
+        match_name = IngredientFoodModel.normalize(food.name)
+
         # check for literal matches
-        if food.name in self.foods_by_name:
-            return self.foods_by_name[food.name]
+        if match_name in self.foods_by_normalized_name:
+            return self.foods_by_normalized_name[match_name]
 
         # further refine match using fuzzy matching
-        fuzz_result = process.extractOne(food.name, self.foods_by_name.keys(), scorer=fuzz.ratio)
+        fuzz_result = process.extractOne(match_name, self.foods_by_normalized_name.keys(), scorer=fuzz.ratio)
         if fuzz_result is None:
             return None
 
@@ -103,18 +106,22 @@ class ABCIngredientParser(ABC):
         if score < self.food_fuzzy_match_threshold:
             return None
         else:
-            return self.foods_by_name[choice_name]
+            return self.foods_by_normalized_name[choice_name]
 
     def find_unit_match(self, unit: IngredientUnit | CreateIngredientUnit) -> IngredientUnit | None:
         if isinstance(unit, IngredientUnit):
             return unit
 
+        match_name = IngredientUnitModel.normalize(unit.name)
+
         # check for literal matches
-        if unit.name in self.units_by_name_or_abbreviation:
-            return self.units_by_name_or_abbreviation[unit.name]
+        if match_name in self.units_by_normalized_name_or_abbreviation:
+            return self.units_by_normalized_name_or_abbreviation[match_name]
 
         # further refine match using fuzzy matching
-        fuzz_result = process.extractOne(unit.name, self.units_by_name_or_abbreviation.keys(), scorer=fuzz.ratio)
+        fuzz_result = process.extractOne(
+            match_name, self.units_by_normalized_name_or_abbreviation.keys(), scorer=fuzz.ratio
+        )
         if fuzz_result is None:
             return None
 
@@ -122,7 +129,7 @@ class ABCIngredientParser(ABC):
         if score < self.unit_fuzzy_match_threshold:
             return None
         else:
-            return self.units_by_name_or_abbreviation[choice_name]
+            return self.units_by_normalized_name_or_abbreviation[choice_name]
 
     def find_ingredient_match(self, ingredient: ParsedIngredient) -> ParsedIngredient:
         if ingredient.ingredient.food and (food_match := self.find_food_match(ingredient.ingredient.food)):
