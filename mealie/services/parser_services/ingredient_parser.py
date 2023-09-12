@@ -77,7 +77,7 @@ class ABCIngredientParser(ABC):
     def unit_fuzzy_match_threshold(self) -> int:
         """Minimum threshold to fuzzy match against a database unit search"""
 
-        return 50
+        return 70
 
     @abstractmethod
     def parse_one(self, ingredient_string: str) -> ParsedIngredient:

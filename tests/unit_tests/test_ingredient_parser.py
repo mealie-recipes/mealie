@@ -81,7 +81,7 @@ def parsed_ingredient_data(
 
     units = database.ingredient_units.create_many(
         [
-            SaveIngredientUnit(name="Cup", group_id=unique_local_group_id),
+            SaveIngredientUnit(name="Cups", group_id=unique_local_group_id),
             SaveIngredientUnit(name="Tablespoon", group_id=unique_local_group_id),
             SaveIngredientUnit(name="Teaspoon", group_id=unique_local_group_id),
             SaveIngredientUnit(name="Stalk", group_id=unique_local_group_id),
@@ -165,7 +165,7 @@ def test_brute_parser(unique_user: TestUser):
     (
         pytest.param(
             build_parsed_ing(unit="cup", food="potatoes"),
-            "Cup",
+            "Cups",
             "potatoes",
             True,
             True,
@@ -173,7 +173,7 @@ def test_brute_parser(unique_user: TestUser):
         ),
         pytest.param(  # this should work in sqlite since "potato" is contained within "potatoes"
             build_parsed_ing(unit="cup", food="potato"),
-            "Cup",
+            "Cups",
             "potatoes",
             True,
             True,
@@ -197,7 +197,7 @@ def test_brute_parser(unique_user: TestUser):
         ),
         pytest.param(
             build_parsed_ing(unit="cup", food="gren onion"),
-            "Cup",
+            "Cups",
             "green onion",
             True,
             True,
@@ -213,7 +213,7 @@ def test_brute_parser(unique_user: TestUser):
         ),
         pytest.param(
             build_parsed_ing(unit="cup", food=None),
-            "Cup",
+            "Cups",
             None,
             True,
             False,
