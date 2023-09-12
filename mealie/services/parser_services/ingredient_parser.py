@@ -76,8 +76,12 @@ class ABCIngredientParser(ABC):
         if not response.items:
             return None
 
-        # further refine match using fuzzy matching
+        # check for literal matches
         choices_by_name = {item.name: item for item in response.items}
+        if food.name in choices_by_name:
+            return choices_by_name[food.name]
+
+        # further refine match using fuzzy matching
         fuzz_result = process.extractOne(food.name, choices_by_name.keys(), scorer=fuzz.ratio)
         if fuzz_result is None:
             return None
@@ -97,11 +101,17 @@ class ABCIngredientParser(ABC):
         if not response.items:
             return None
 
-        # further refine match using fuzzy matching
-        choices_by_name_or_abbreviation = {item.name: item for item in response.items} | {
-            item.abbreviation: item for item in response.items if item.abbreviation
-        }
+        # check for literal matches
+        choices_by_name = {item.name: item for item in response.items}
+        if unit.name in choices_by_name:
+            return choices_by_name[unit.name]
 
+        choices_by_abbreviation = {item.abbreviation: item for item in response.items if item.abbreviation}
+        if unit.name in choices_by_abbreviation:
+            return choices_by_abbreviation[unit.name]
+
+        # further refine match using fuzzy matching
+        choices_by_name_or_abbreviation = choices_by_name | choices_by_abbreviation
         fuzz_result = process.extractOne(unit.name, choices_by_name_or_abbreviation.keys(), scorer=fuzz.ratio)
         if fuzz_result is None:
             return None
