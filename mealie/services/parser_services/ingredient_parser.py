@@ -1,7 +1,8 @@
 from abc import ABC, abstractmethod
 from fractions import Fraction
+from typing import TypeVar
 
-from pydantic import UUID4
+from pydantic import UUID4, BaseModel
 from rapidfuzz import fuzz, process
 from sqlalchemy.orm import Session
 
@@ -25,6 +26,7 @@ from mealie.schema.response.pagination import PaginationQuery
 from . import brute, crfpp
 
 logger = get_logger(__name__)
+T = TypeVar("T", bound=BaseModel)
 
 
 class ABCIngredientParser(ABC):
@@ -87,49 +89,44 @@ class ABCIngredientParser(ABC):
     def parse(self, ingredients: list[str]) -> list[ParsedIngredient]:
         ...
 
+    @classmethod
+    def find_match(self, match_value: str, *, store_map: dict[str, T], fuzzy_match_threshold: int = 0) -> T | None:
+        # check for literal matches
+        if match_value in store_map:
+            return store_map[match_value]
+
+        # fuzzy match against food store
+        fuzz_result = process.extractOne(match_value, store_map.keys(), scorer=fuzz.ratio)
+        if fuzz_result is None:
+            return None
+
+        choice, score, _ = fuzz_result
+        if score < fuzzy_match_threshold:
+            return None
+        else:
+            return store_map[choice]
+
     def find_food_match(self, food: IngredientFood | CreateIngredientFood) -> IngredientFood | None:
         if isinstance(food, IngredientFood):
             return food
 
         match_value = IngredientFoodModel.normalize(food.name)
-
-        # check for literal matches
-        if match_value in self.foods_by_normalized_name:
-            return self.foods_by_normalized_name[match_value]
-
-        # fuzzy match against food store
-        fuzz_result = process.extractOne(match_value, self.foods_by_normalized_name.keys(), scorer=fuzz.ratio)
-        if fuzz_result is None:
-            return None
-
-        choice, score, _ = fuzz_result
-        if score < self.food_fuzzy_match_threshold:
-            return None
-        else:
-            return self.foods_by_normalized_name[choice]
+        return self.find_match(
+            match_value,
+            store_map=self.foods_by_normalized_name,
+            fuzzy_match_threshold=self.food_fuzzy_match_threshold,
+        )
 
     def find_unit_match(self, unit: IngredientUnit | CreateIngredientUnit) -> IngredientUnit | None:
         if isinstance(unit, IngredientUnit):
             return unit
 
         match_value = IngredientUnitModel.normalize(unit.name)
-
-        # check for literal matches
-        if match_value in self.units_by_normalized_name_or_abbreviation:
-            return self.units_by_normalized_name_or_abbreviation[match_value]
-
-        # fuzzy match against unit store
-        fuzz_result = process.extractOne(
-            match_value, self.units_by_normalized_name_or_abbreviation.keys(), scorer=fuzz.ratio
+        return self.find_match(
+            match_value,
+            store_map=self.units_by_normalized_name_or_abbreviation,
+            fuzzy_match_threshold=self.unit_fuzzy_match_threshold,
         )
-        if fuzz_result is None:
-            return None
-
-        choice, score, _ = fuzz_result
-        if score < self.unit_fuzzy_match_threshold:
-            return None
-        else:
-            return self.units_by_normalized_name_or_abbreviation[choice]
 
     def find_ingredient_match(self, ingredient: ParsedIngredient) -> ParsedIngredient:
         if ingredient.ingredient.food and (food_match := self.find_food_match(ingredient.ingredient.food)):
