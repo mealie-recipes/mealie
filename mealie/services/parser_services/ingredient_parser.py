@@ -91,45 +91,45 @@ class ABCIngredientParser(ABC):
         if isinstance(food, IngredientFood):
             return food
 
-        match_name = IngredientFoodModel.normalize(food.name)
+        match_value = IngredientFoodModel.normalize(food.name)
 
         # check for literal matches
-        if match_name in self.foods_by_normalized_name:
-            return self.foods_by_normalized_name[match_name]
+        if match_value in self.foods_by_normalized_name:
+            return self.foods_by_normalized_name[match_value]
 
-        # further refine match using fuzzy matching
-        fuzz_result = process.extractOne(match_name, self.foods_by_normalized_name.keys(), scorer=fuzz.ratio)
+        # fuzzy match against food store
+        fuzz_result = process.extractOne(match_value, self.foods_by_normalized_name.keys(), scorer=fuzz.ratio)
         if fuzz_result is None:
             return None
 
-        choice_name, score, _ = fuzz_result
+        choice, score, _ = fuzz_result
         if score < self.food_fuzzy_match_threshold:
             return None
         else:
-            return self.foods_by_normalized_name[choice_name]
+            return self.foods_by_normalized_name[choice]
 
     def find_unit_match(self, unit: IngredientUnit | CreateIngredientUnit) -> IngredientUnit | None:
         if isinstance(unit, IngredientUnit):
             return unit
 
-        match_name = IngredientUnitModel.normalize(unit.name)
+        match_value = IngredientUnitModel.normalize(unit.name)
 
         # check for literal matches
-        if match_name in self.units_by_normalized_name_or_abbreviation:
-            return self.units_by_normalized_name_or_abbreviation[match_name]
+        if match_value in self.units_by_normalized_name_or_abbreviation:
+            return self.units_by_normalized_name_or_abbreviation[match_value]
 
-        # further refine match using fuzzy matching
+        # fuzzy match against unit store
         fuzz_result = process.extractOne(
-            match_name, self.units_by_normalized_name_or_abbreviation.keys(), scorer=fuzz.ratio
+            match_value, self.units_by_normalized_name_or_abbreviation.keys(), scorer=fuzz.ratio
         )
         if fuzz_result is None:
             return None
 
-        choice_name, score, _ = fuzz_result
+        choice, score, _ = fuzz_result
         if score < self.unit_fuzzy_match_threshold:
             return None
         else:
-            return self.units_by_normalized_name_or_abbreviation[choice_name]
+            return self.units_by_normalized_name_or_abbreviation[choice]
 
     def find_ingredient_match(self, ingredient: ParsedIngredient) -> ParsedIngredient:
         if ingredient.ingredient.food and (food_match := self.find_food_match(ingredient.ingredient.food)):
