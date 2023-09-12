@@ -31,17 +31,40 @@ class ABCIngredientParser(ABC):
     Abstract class for ingredient parsers.
     """
 
+    def __init__(self, group_id: UUID4, session: Session) -> None:
+        self.group_id = group_id
+        self.session = session
+
+        self._foods_by_name: dict[str, IngredientFood] | None = None
+        self._units_by_name: dict[str, IngredientUnit] | None = None
+
     @property
     def _repos(self) -> AllRepositories:
         return get_repositories(self.session)
 
     @property
-    def foods(self):
-        return self._repos.ingredient_foods.by_group(self.group_id)
+    def foods_by_name(self) -> dict[str, IngredientFood]:
+        if self._foods_by_name is None:
+            foods_repo = self._repos.ingredient_foods.by_group(self.group_id)
+
+            query = PaginationQuery(page=1, per_page=-1)
+            all_foods = foods_repo.page_all(query).items
+            self._foods_by_name = {food.name: food for food in all_foods if food.name}
+
+        return self._foods_by_name
 
     @property
-    def units(self):
-        return self._repos.ingredient_units.by_group(self.group_id)
+    def units_by_name_or_abbreviation(self) -> dict[str, IngredientUnit]:
+        if self._units_by_name is None:
+            units_repo = self._repos.ingredient_units.by_group(self.group_id)
+
+            query = PaginationQuery(page=1, per_page=-1)
+            all_units = units_repo.page_all(query).items
+            self._units_by_name = {unit.name: unit for unit in all_units if unit.name} | {
+                unit.abbreviation: unit for unit in all_units if unit.abbreviation
+            }
+
+        return self._units_by_name
 
     @property
     def food_fuzzy_match_threshold(self) -> int:
@@ -55,10 +78,6 @@ class ABCIngredientParser(ABC):
 
         return 50
 
-    def __init__(self, group_id: UUID4, session: Session) -> None:
-        self.group_id = group_id
-        self.session = session
-
     @abstractmethod
     def parse_one(self, ingredient_string: str) -> ParsedIngredient:
         ...
@@ -71,18 +90,12 @@ class ABCIngredientParser(ABC):
         if isinstance(food, IngredientFood):
             return food
 
-        query = PaginationQuery(page=1, per_page=10)
-        response = self.foods.page_all(query, search=food.name)
-        if not response.items:
-            return None
-
         # check for literal matches
-        choices_by_name = {item.name: item for item in response.items}
-        if food.name in choices_by_name:
-            return choices_by_name[food.name]
+        if food.name in self.foods_by_name:
+            return self.foods_by_name[food.name]
 
         # further refine match using fuzzy matching
-        fuzz_result = process.extractOne(food.name, choices_by_name.keys(), scorer=fuzz.ratio)
+        fuzz_result = process.extractOne(food.name, self.foods_by_name.keys(), scorer=fuzz.ratio)
         if fuzz_result is None:
             return None
 
@@ -90,29 +103,18 @@ class ABCIngredientParser(ABC):
         if score < self.food_fuzzy_match_threshold:
             return None
         else:
-            return choices_by_name[choice_name]
+            return self.foods_by_name[choice_name]
 
     def find_unit_match(self, unit: IngredientUnit | CreateIngredientUnit) -> IngredientUnit | None:
         if isinstance(unit, IngredientUnit):
             return unit
 
-        query = PaginationQuery(page=1, per_page=10)
-        response = self.units.page_all(query, search=unit.name)
-        if not response.items:
-            return None
-
         # check for literal matches
-        choices_by_name = {item.name: item for item in response.items}
-        if unit.name in choices_by_name:
-            return choices_by_name[unit.name]
-
-        choices_by_abbreviation = {item.abbreviation: item for item in response.items if item.abbreviation}
-        if unit.name in choices_by_abbreviation:
-            return choices_by_abbreviation[unit.name]
+        if unit.name in self.units_by_name_or_abbreviation:
+            return self.units_by_name_or_abbreviation[unit.name]
 
         # further refine match using fuzzy matching
-        choices_by_name_or_abbreviation = choices_by_name | choices_by_abbreviation
-        fuzz_result = process.extractOne(unit.name, choices_by_name_or_abbreviation.keys(), scorer=fuzz.ratio)
+        fuzz_result = process.extractOne(unit.name, self.units_by_name_or_abbreviation.keys(), scorer=fuzz.ratio)
         if fuzz_result is None:
             return None
 
@@ -120,7 +122,7 @@ class ABCIngredientParser(ABC):
         if score < self.unit_fuzzy_match_threshold:
             return None
         else:
-            return choices_by_name_or_abbreviation[choice_name]
+            return self.units_by_name_or_abbreviation[choice_name]
 
     def find_ingredient_match(self, ingredient: ParsedIngredient) -> ParsedIngredient:
         if ingredient.ingredient.food and (food_match := self.find_food_match(ingredient.ingredient.food)):
