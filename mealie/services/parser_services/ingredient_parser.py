@@ -90,7 +90,7 @@ class ABCIngredientParser(ABC):
         ...
 
     @classmethod
-    def find_match(self, match_value: str, *, store_map: dict[str, T], fuzzy_match_threshold: int = 0) -> T | None:
+    def find_match(cls, match_value: str, *, store_map: dict[str, T], fuzzy_match_threshold: int = 0) -> T | None:
         # check for literal matches
         if match_value in store_map:
             return store_map[match_value]
