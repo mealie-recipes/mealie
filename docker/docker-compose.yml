@@ -1,58 +1,20 @@
 version: "3.4"
 services:
-  mealie-frontend:
-    container_name: mealie-frontend
-    image: mealie-frontend:dev
-    deploy:
-      resources:
-        limits:
-          memory: 500M
-    build:
-      context: ../
-      dockerfile: ./docker/frontend.Dockerfile
-    restart: always
-    volumes:
-      - mealie-data:/app/data/
-    ports:
-      - 9091:3000
-    environment:
-      - API_URL=http://mealie-api:9000
-
-      # =====================================
-      # Light Mode Config
-      - THEME_LIGHT_PRIMARY=#E58325
-      - THEME_LIGHT_ACCENT=#007A99
-      - THEME_LIGHT_SECONDARY=#973542
-      - THEME_LIGHT_SUCCESS=#43A047
-      - THEME_LIGHT_INFO=#1976D2
-      - THEME_LIGHT_WARNING=#FF6D00
-      - THEME_LIGHT_ERROR=#EF5350
-      # =====================================
-      # Dark Mode Config
-      - THEME_DARK_PRIMARY=#E58325
-      - THEME_DARK_ACCENT=#007A99
-      - THEME_DARK_SECONDARY=#973542
-      - THEME_DARK_SUCCESS=#43A047
-      - THEME_DARK_INFO=#1976D2
-      - THEME_DARK_WARNING=#FF6D00
-      - THEME_DARK_ERROR=#EF5350
   mealie:
-    container_name: mealie-api
-    deploy:
-      resources:
-        limits:
-          memory: 1000M
+    container_name: mealie
+    image: mealie:dev
     build:
       context: ../
       target: production
-      dockerfile: ./docker/api.Dockerfile
+      dockerfile: ./docker/Dockerfile
     restart: always
     volumes:
       - mealie-data:/app/data/
     ports:
-      - 9092:9000
+      - 9091:9000
     environment:
       ALLOW_SIGNUP: "false"
+
       DB_ENGINE: sqlite # Optional: 'sqlite', 'postgres'
       # =====================================
       # Postgres Config
@@ -77,14 +39,6 @@ services:
       # SMTP_FROM_EMAIL=
       # SMTP_USER=
       # SMTP_PASSWORD=
-
-      # postgres:
-      #   container_name: postgres
-      #   image: postgres
-      #   restart: always
-      #   environment:
-      #     POSTGRES_PASSWORD: mealie
-      #     POSTGRES_USER: mealie
 
 volumes:
   mealie-data:
