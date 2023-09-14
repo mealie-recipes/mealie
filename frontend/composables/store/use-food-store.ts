@@ -1,5 +1,6 @@
 import { ref, reactive, Ref } from "@nuxtjs/composition-api";
-import { useStoreActions } from "../partials/use-actions-factory";
+import { usePublicStoreActions, useStoreActions } from "../partials/use-actions-factory";
+import { usePublicExploreApi } from "../api/api-client";
 import { useUserApi } from "~/composables/api";
 import { IngredientFood } from "~/lib/api/types/recipe";
 
@@ -29,6 +30,24 @@ export const useFoodData = function () {
     data,
     reset,
   };
+};
+
+export const usePublicFoodStore = function (groupSlug: string) {
+  const api = usePublicExploreApi(groupSlug).explore;
+  const loading = ref(false);
+
+  const actions = {
+    ...usePublicStoreActions(api.foods, foodStore, loading),
+    flushStore() {
+      foodStore = null;
+    },
+  };
+
+  if (!foodStore) {
+    foodStore = actions.getAll();
+  }
+
+  return { foods: foodStore, actions };
 };
 
 export const useFoodStore = function () {

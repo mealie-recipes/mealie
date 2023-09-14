@@ -1,5 +1,6 @@
 import { reactive, ref, Ref } from "@nuxtjs/composition-api";
-import { useStoreActions } from "../partials/use-actions-factory";
+import { usePublicExploreApi } from "../api/api-client";
+import { usePublicStoreActions, useStoreActions } from "../partials/use-actions-factory";
 import { useUserApi } from "~/composables/api";
 import { RecipeTool } from "~/lib/api/types/recipe";
 
@@ -23,6 +24,28 @@ export function useToolData() {
   return {
     data,
     reset,
+  };
+}
+
+export function usePublicToolStore(groupSlug: string) {
+  const api = usePublicExploreApi(groupSlug).explore;
+  const loading = ref(false);
+
+  const actions = {
+    ...usePublicStoreActions<RecipeTool>(api.tools, toolStore, loading),
+    flushStore() {
+      toolStore.value = [];
+    },
+  };
+
+  if (!toolStore.value || toolStore.value?.length === 0) {
+    actions.getAll();
+  }
+
+  return {
+    items: toolStore,
+    actions,
+    loading,
   };
 }
 
