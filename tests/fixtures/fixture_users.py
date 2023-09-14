@@ -3,10 +3,10 @@ from typing import Generator
 
 from pytest import fixture
 from starlette.testclient import TestClient
+
 from mealie.db.db_setup import session_context
 from mealie.db.models.users.users import AuthMethod
 from mealie.repos.all_repositories import get_repositories
-
 from tests import utils
 from tests.utils import api_routes
 from tests.utils.factories import random_string

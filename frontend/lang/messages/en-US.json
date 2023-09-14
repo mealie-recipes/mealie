@@ -1070,6 +1070,7 @@
     "welcome-user": "👋 Welcome, {0}",
     "description": "Manage your profile, recipes, and group settings.",
     "get-invite-link": "Get Invite Link",
+    "get-public-link": "Get Public Link",
     "account-summary": "Account Summary",
     "account-summary-description": "Here's a summary of your group's information",
     "group-statistics": "Group Statistics",

@@ -4,6 +4,7 @@ from collections.abc import AsyncGenerator, Callable, Generator
 from pathlib import Path
 from uuid import uuid4
 
+import fastapi
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
@@ -13,7 +14,7 @@ from mealie.core.config import get_app_dirs, get_app_settings
 from mealie.db.db_setup import generate_session
 from mealie.repos.all_repositories import get_repositories
 from mealie.schema.user import PrivateUser, TokenData
-from mealie.schema.user.user import DEFAULT_INTEGRATION_ID
+from mealie.schema.user.user import DEFAULT_INTEGRATION_ID, GroupInDB
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/token")
 oauth2_scheme_soft_fail = OAuth2PasswordBearer(tokenUrl="/api/auth/token", auto_error=False)
@@ -51,6 +52,16 @@ async def is_logged_in(token: str = Depends(oauth2_scheme_soft_fail), session=De
 
     except Exception:
         return False
+
+
+async def get_public_group(group_slug: str = fastapi.Path(...), session=Depends(generate_session)) -> GroupInDB:
+    repos = get_repositories(session)
+    group = repos.groups.get_by_slug_or_id(group_slug)
+
+    if not group or group.preferences.private_group:
+        raise HTTPException(404, "group not found")
+    else:
+        return group
 
 
 async def get_current_user(token: str = Depends(oauth2_scheme), session=Depends(generate_session)) -> PrivateUser:

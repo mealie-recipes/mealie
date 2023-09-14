@@ -250,7 +250,7 @@ class RecipeController(BaseRecipeController):
             cb_match_attr = "slug" if isinstance(search_query.cookbook, str) else "id"
             cookbook_data = self.cookbooks_repo.get_one(search_query.cookbook, cb_match_attr)
 
-            if search_query.cookbook is None:
+            if cookbook_data is None:
                 raise HTTPException(status_code=404, detail="cookbook not found")
 
         pagination_response = self.repo.page_all(

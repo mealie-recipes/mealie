@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div v-if="recipe">
     <client-only>
-      <RecipePage v-if="recipe" :recipe="recipe" />
+      <RecipePage :recipe="recipe" />
     </client-only>
   </div>
 </template>
@@ -9,24 +9,24 @@
 <script lang="ts">
 import { defineComponent, ref, useAsync, useMeta, useRoute, useRouter } from "@nuxtjs/composition-api";
 import RecipePage from "~/components/Domain/Recipe/RecipePage/RecipePage.vue";
-import { usePublicApi } from "~/composables/api/api-client";
+import { usePublicExploreApi } from "~/composables/api/api-client";
 import { useRecipeMeta } from "~/composables/recipes";
 
 export default defineComponent({
   components: { RecipePage },
-  layout: "basic",
+  layout: "explore",
   setup() {
     const route = useRoute();
     const router = useRouter();
     const groupSlug = route.value.params.groupSlug;
-    const slug = route.value.params.slug;
-    const api = usePublicApi();
+    const recipeSlug = route.value.params.recipeSlug;
+    const api = usePublicExploreApi(groupSlug);
 
     const { meta, title } = useMeta();
     const { recipeMeta } = useRecipeMeta();
 
     const recipe = useAsync(async () => {
-      const { data, error } = await api.explore.recipe(groupSlug, slug);
+      const { data, error } = await api.explore.recipes.getOne(recipeSlug);
 
       if (error) {
         console.error("error loading recipe -> ", error);

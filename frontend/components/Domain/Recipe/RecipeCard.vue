@@ -4,7 +4,7 @@
       <v-card
         :class="{ 'on-hover': hover }"
         :elevation="hover ? 12 : 2"
-        :to="route ? `/recipe/${slug}` : ''"
+        :to="route ? recipeRoute : ''"
         :min-height="imageHeight + 75"
         @click="$emit('click')"
       >
@@ -39,7 +39,10 @@
             <RecipeRating class="pb-1" :value="rating" :name="name" :slug="slug" :small="true" />
             <v-spacer></v-spacer>
             <RecipeChips :truncate="true" :items="tags" :title="false" :limit="2" :small="true" url-prefix="tags" />
+
+            <!-- If we're not logged-in, no items display, so we hide this menu -->
             <RecipeContextMenu
+              v-if="loggedIn"
               color="grey darken-2"
               :slug="slug"
               :name="name"
@@ -80,6 +83,10 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    groupSlug: {
+      type: String,
+      default: null,
+    },
     slug: {
       type: String,
       required: true,
@@ -115,14 +122,19 @@ export default defineComponent({
       default: 200,
     },
   },
-  setup() {
+  setup(props) {
     const { $auth } = useContext();
     const loggedIn = computed(() => {
       return $auth.loggedIn;
     });
 
+    const recipeRoute = computed<string>(() => {
+      return loggedIn.value ? `/recipe/${props.slug}` : `/explore/recipes/${props.groupSlug}/${props.slug}`;
+    });
+
     return {
       loggedIn,
+      recipeRoute,
     };
   },
 });
