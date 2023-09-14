@@ -9,7 +9,7 @@
 | PUID          |          911          | UserID permissions between host OS and container                                    |
 | PGID          |          911          | GroupID permissions between host OS and container                                   |
 | DEFAULT_GROUP |         Home          | The default group for users                                                         |
-| DEFAULT_EMAIL |  changeme@email.com   | The default username for the superuser                                              |
+| DEFAULT_EMAIL |  changeme@example.com   | The default username for the superuser                                              |
 | BASE_URL      | http://localhost:8080 | Used for Notifications                                                              |
 | TOKEN_TIME    |          48           | The time in hours that a login/auth token is valid                                  |
 | API_PORT      |         9000          | The port exposed by backend API. **Do not change this if you're running in Docker** |

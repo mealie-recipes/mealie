@@ -69,7 +69,7 @@ You should see the containers start up without error. You should now be able to 
 
 !!! tip "Default Credentials"
 
-    **Username:** changeme@email.com
+    **Username:** changeme@example.com
 
     **Password:** MyPassword
 
