@@ -312,16 +312,11 @@ class RepositoryGeneric(Generic[Schema, Model]):
         if search:
             q = self.add_search_to_query(q, eff_schema, search)
 
-        # if we're searching and order_by isn't set, we don't apply ordering, since the search handles that
-        if search and pagination_result.order_by is None:
-            apply_ordering = False
-        else:
-            apply_ordering = True
-            if not pagination_result.order_by:
-                # default ordering if not specified
-                pagination_result.order_by = "created_at"
+        if not pagination_result.order_by and not search:
+            # default ordering if not searching
+            pagination_result.order_by = "created_at"
 
-        q, count, total_pages = self.add_pagination_to_query(q, pagination_result, apply_ordering=apply_ordering)
+        q, count, total_pages = self.add_pagination_to_query(q, pagination_result)
 
         # Apply options late, so they do not get used for counting
         q = q.options(*eff_schema.loader_options())
@@ -339,9 +334,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
             items=[eff_schema.from_orm(s) for s in data],
         )
 
-    def add_pagination_to_query(
-        self, query: Select, pagination: PaginationQuery, apply_ordering=True
-    ) -> tuple[Select, int, int]:
+    def add_pagination_to_query(self, query: Select, pagination: PaginationQuery) -> tuple[Select, int, int]:
         """
         Adds pagination data to an existing query.
 
@@ -382,13 +375,14 @@ class RepositoryGeneric(Generic[Schema, Model]):
         if pagination.page < 1:
             pagination.page = 1
 
-        if pagination.order_by:
-            query = self.add_order_by_to_query(query, pagination)
-
+        query = self.add_order_by_to_query(query, pagination)
         return query.limit(pagination.per_page).offset((pagination.page - 1) * pagination.per_page), count, total_pages
 
     def add_order_by_to_query(self, query: Select, pagination: PaginationQuery) -> Select:
-        if pagination.order_by == "random":
+        if not pagination.order_by:
+            return query
+
+        elif pagination.order_by == "random":
             # randomize outside of database, since not all db's can set random seeds
             # this solution is db-independent & stable to paging
             temp_query = query.with_only_columns(self.model.id)
@@ -399,9 +393,6 @@ class RepositoryGeneric(Generic[Schema, Model]):
             random_dict = dict(zip(allids, order, strict=True))
             case_stmt = case(random_dict, value=self.model.id)
             return query.order_by(case_stmt)
-
-        elif not pagination.order_by:
-            return query
 
         else:
             for order_by_val in pagination.order_by.split(","):
