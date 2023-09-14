@@ -5,7 +5,7 @@ from pathlib import Path
 from uuid import uuid4
 
 import fastapi
-from fastapi import Depends, HTTPException, status
+from fastapi import Depends, HTTPException, Request, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from sqlalchemy.orm.session import Session
@@ -64,12 +64,29 @@ async def get_public_group(group_slug: str = fastapi.Path(...), session=Depends(
         return group
 
 
-async def get_current_user(token: str = Depends(oauth2_scheme), session=Depends(generate_session)) -> PrivateUser:
+async def try_get_current_user(
+    request: Request,
+    token: str = Depends(oauth2_scheme_soft_fail),
+    session=Depends(generate_session),
+) -> PrivateUser | None:
+    try:
+        return await get_current_user(request, token, session)
+    except Exception:
+        return None
+
+
+async def get_current_user(
+    request: Request, token: str = Depends(oauth2_scheme_soft_fail), session=Depends(generate_session)
+) -> PrivateUser:
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
+    if token is None and "mealie.access_token" in request.cookies:
+        # Try extract from cookie
+        token = request.cookies.get("mealie.access_token", "")
+
     try:
         payload = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])
         user_id: str = payload.get("sub")

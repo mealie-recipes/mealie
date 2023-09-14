@@ -6,7 +6,7 @@ from fastapi.routing import APIRoute
 from mealie.core.config import get_app_settings
 from mealie.core.root_logger import get_logger
 from mealie.core.settings.static import APP_VERSION
-from mealie.routes import router, utility_routes
+from mealie.routes import router, spa, utility_routes
 from mealie.routes.handlers import register_debug_handler
 from mealie.routes.media import media_router
 from mealie.services.scheduler import SchedulerRegistry, SchedulerService, tasks
@@ -76,6 +76,9 @@ def api_routers():
     app.include_router(router)
     app.include_router(media_router)
     app.include_router(utility_routes.router)
+
+    if settings.PRODUCTION and not settings.TESTING:
+        spa.mount_spa(app)
 
 
 api_routers()

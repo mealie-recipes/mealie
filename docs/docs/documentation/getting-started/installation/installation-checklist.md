@@ -55,10 +55,8 @@ After you've decided setup the files it's important to set a few ENV variables t
 
 - [x] You've configured the relevant ENV variables for your database selection in the `docker-compose.yaml` files.
 - [x] You've configured the [SMTP server settings](./backend-config.md#email) (used for invitations, password resets, etc). You can setup a [google app password](https://support.google.com/accounts/answer/185833?hl=en) if you want to send email via gmail.
-- [x] Verified the port mapped on the `mealie-frontend` container is an open port on your server (Default: 9925)
 - [x] You've set the [`BASE_URL`](./backend-config.md#general) variable.
 - [x] You've set the `DEFAULT_EMAIL` and `DEFAULT_GROUP` variable.
-- [x] Make any theme changes on the frontend container. [See Frontend Config](./frontend-config.md#themeing)
 
 ## Step 3: Startup
 After you've configured your database, and updated the `docker-compose.yaml` files, you can start Mealie by running the following command in the directory where you've added your `docker-compose.yaml`.
@@ -79,9 +77,6 @@ You should see the containers start up without error. You should now be able to 
 
 After the startup is complete you should see a login screen. Use the default credentials above to login and navigate to `/admin/site-settings`. Here you'll find a summary of your configuration details and their respective status. Before proceeding you should validate that the configuration is correct. For any warnings or errors the page will display an error and notify you of what you need to verify.
 
-!!! tip "Docker Volume"
-    Mealie uses a shared data-volume between the Backend and Frontend containers for images and assets. Ensure that this is configured correctly by using the "Docker Volume Test" section in the settings page. Running this validation will ensure that you have configured your volumes correctly. Mealie will not work correctly without this configured correctly.
-
 ## Step 5: Backup
 While v1.0.0 is a great step to data-stability and security, it's not a backup. Mealie provides a full site data backup mechanism through the UI.
 
@@ -91,6 +86,14 @@ These backups are just plain .zip files that you can download from the UI or acc
 
 ### Docker Tags
 
+`ghcr.io/mealie-recipes/mealie:nightly`
+
+The nightly build are the latest and greatest builds that are built directly off of every commit to the `mealie-next` branch and as such may contain bugs. These are great to help the community catch bugs before they hit the stable release or if you like living on the edge.
+
+---
+
+**These tags no are long updated**
+
 `mealie:frontend-v1.0.0beta-x` **and** `mealie:api-v1.0.0beta-x`
 
 These are the tags for the latest beta release of the frontend docker-container. These are currently considered the latest and most stable releases and the recommended way of using Mealie.
@@ -98,16 +101,3 @@ These are the tags for the latest beta release of the frontend docker-container.
 `mealie:frontend-nightly`**and** `mealie:api-nightly`
 
 The nightly build are the latest and greatest builds that are built directly off of every commit to the `mealie-next` branch and as such may contain bugs. These are great to help the community catch bugs before they hit the stable release or if you like living on the edge.
-
-
-### Docker Diagram
-
-While the docker-compose file should work without modification, some users want to tailor it to their installation. This diagram shows network and volume architecture for the default setup. You can use this to help you customize your configuration.
-
-![Docker Diagram](../../../assets/img/docker-diagram.drawio.svg)
-
-In the diagram above there's a few crucial things to note.
-
-1. Port 9925 is the host port, this can be anything you want. The important part is that it's mapped to the mealie-frontend container at port 3000.
-2. The mealie-frontend container communicated with the mealie-api container through the INTERNAL docker network. This requires that the two containers are on the same network and that the network supports name resolution (anything but the default bridge network). The resolution URL can be specified in the docker-compose as the `API_URL` environment variable. The API_URL must match the network name of the mealie-backend container, which should be the same as the container name (e.g. a container renamed to `my-api` should have an `API_URL` set to `http://my-api:<backend port, default 9000`)
-3. The mealie-data volume is mounted to BOTH the mealie-frontend and mealie-api containers. This is REQUIRED to ensure that images and assets are served up correctly. While the default configuration is a docker-volume, that same can be accomplished by using a local directory mounted to the containers.

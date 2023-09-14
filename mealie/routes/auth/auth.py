@@ -1,6 +1,6 @@
 from datetime import timedelta
 
-from fastapi import APIRouter, Depends, Form, Request, status
+from fastapi import APIRouter, Depends, Form, Request, Response, status
 from fastapi.exceptions import HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
 from pydantic import BaseModel
@@ -49,7 +49,12 @@ class MealieAuthToken(BaseModel):
 
 
 @public_router.post("/token")
-def get_token(request: Request, data: CustomOAuth2Form = Depends(), session: Session = Depends(generate_session)):
+def get_token(
+    request: Request,
+    response: Response,
+    data: CustomOAuth2Form = Depends(),
+    session: Session = Depends(generate_session),
+):
     email = data.username
     password = data.password
     if "x-forwarded-for" in request.headers:
@@ -73,6 +78,14 @@ def get_token(request: Request, data: CustomOAuth2Form = Depends(), session: Ses
 
     duration = timedelta(days=14) if data.remember_me else None
     access_token = security.create_access_token(dict(sub=str(user.id)), duration)  # type: ignore
+
+    response.set_cookie(
+        key="mealie.access_token",
+        value=access_token,
+        httponly=True,
+        max_age=duration.seconds if duration else None,
+    )
+
     return MealieAuthToken.respond(access_token)
 
 

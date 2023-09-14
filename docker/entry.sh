@@ -1,9 +1,9 @@
+# Start Backend API
 #!/bin/bash
 
-set -e
-
-# Get Reload Arg `run.sh reload` for dev server
-ARG1=${1:-production}
+# Strict Mode
+# set -e
+# IFS=$'\n\t'
 
 # Get PUID/PGID
 PUID=${PUID:-911}
@@ -41,12 +41,8 @@ init() {
     poetry run python /app/mealie/db/init_db.py
 }
 
-echo "Production"
-
-change_user
-
+# change_user
 init
-
 GUNICORN_PORT=${API_PORT:-9000}
 
 # Start API
