@@ -13,9 +13,10 @@ from sqlalchemy import ColumnElement, Select, and_, inspect, or_
 from sqlalchemy.orm import InstrumentedAttribute, Mapper
 from sqlalchemy.sql import sqltypes
 
+from mealie.db.models._model_base import SqlAlchemyBase
 from mealie.db.models._model_utils.guid import GUID
 
-Model = TypeVar("Model")
+Model = TypeVar("Model", bound=SqlAlchemyBase)
 
 
 class RelationalKeyword(Enum):
@@ -238,6 +239,53 @@ class QueryFilter:
             if i == len(group) - 1:
                 return consolidated_group_builder.self_group()
 
+    @classmethod
+    def get_model_and_model_attr_from_attr_string(
+        cls, attr_string: str, model: type[Model], *, query: Select | None = None
+    ) -> tuple[SqlAlchemyBase, InstrumentedAttribute, Select | None]:
+        """
+        Take an attribute string and traverse a database model and its relationships to get the desired
+        model and model attribute. Optionally provide a query to apply the necessary table joins.
+
+        If the attribute string is invalid, raises a `ValueError`.
+
+        For instance, the attribute string "user.name" on `RecipeModel`
+        will return the `User` model's `name` attribute.
+
+        Works with shallow attributes (e.g. "slug" from `RecipeModel`)
+        and arbitrarily deep ones (e.g. "recipe.group.preferences" on `RecipeTimelineEvent`).
+        """
+        model_attr: InstrumentedAttribute | None = None
+        attribute_chain = attr_string.split(".")
+        if not attribute_chain:
+            raise ValueError("invalid query string: attribute name cannot be empty")
+
+        current_model: SqlAlchemyBase = model  # type: ignore
+        for i, attribute_link in enumerate(attribute_chain):
+            try:
+                model_attr = getattr(current_model, attribute_link)
+
+                # at the end of the chain there are no more relationships to inspect
+                if i == len(attribute_chain) - 1:
+                    break
+
+                if query is not None:
+                    query = query.join(
+                        model_attr, isouter=True
+                    )  # we use outer joins to not unintentionally filter out values
+
+                mapper: Mapper = inspect(current_model)
+                relationship = mapper.relationships[attribute_link]
+                current_model = relationship.mapper.class_
+
+            except (AttributeError, KeyError) as e:
+                raise ValueError(f"invalid attribute string: '{attr_string}' does not exist on this schema") from e
+
+        if model_attr is None:
+            raise ValueError(f"invalid attribute string: '{attr_string}'")
+
+        return current_model, model_attr, query
+
     def filter_query(self, query: Select, model: type[Model]) -> Select:
         # join tables and build model chain
         attr_model_map: dict[int, Any] = {}
@@ -246,29 +294,10 @@ class QueryFilter:
             if not isinstance(component, QueryFilterComponent):
                 continue
 
-            attribute_chain = component.attribute_name.split(".")
-            if not attribute_chain:
-                raise ValueError("invalid query string: attribute name cannot be empty")
-
-            current_model = model
-            for j, attribute_link in enumerate(attribute_chain):
-                try:
-                    model_attr = getattr(current_model, attribute_link)
-
-                    # at the end of the chain there are no more relationships to inspect
-                    if j == len(attribute_chain) - 1:
-                        break
-
-                    query = query.join(model_attr)
-                    mapper: Mapper = inspect(current_model)
-                    relationship = mapper.relationships[attribute_link]
-                    current_model = relationship.mapper.class_
-
-                except (AttributeError, KeyError) as e:
-                    raise ValueError(
-                        f"invalid query string: '{component.attribute_name}' does not exist on this schema"
-                    ) from e
-            attr_model_map[i] = current_model
+            nested_model, model_attr, query = self.get_model_and_model_attr_from_attr_string(
+                component.attribute_name, model, query=query
+            )
+            attr_model_map[i] = nested_model
 
         # build query filter
         partial_group: list[ColumnElement] = []
