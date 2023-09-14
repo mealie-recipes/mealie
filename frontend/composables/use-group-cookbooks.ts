@@ -1,13 +1,15 @@
 import { useAsync, ref, Ref, useContext } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "./use-utils";
+import { usePublicExploreApi } from "./api/api-client";
 import { useUserApi } from "~/composables/api";
 import { ReadCookBook, UpdateCookBook } from "~/lib/api/types/cookbook";
 
 let cookbookStore: Ref<ReadCookBook[] | null> | null = null;
 
-export const useCookbook = function () {
+export const useCookbook = function (publicGroupSlug: string | null = null) {
   function getOne(id: string | number) {
-    const api = useUserApi();
+    // passing the group slug switches to using the public API
+    const api = publicGroupSlug ? usePublicExploreApi(publicGroupSlug).explore : useUserApi();
 
     const units = useAsync(async () => {
       const { data } = await api.cookbooks.getOne(id);
@@ -20,6 +22,48 @@ export const useCookbook = function () {
 
   return { getOne };
 };
+
+export const usePublicCookbooks = function (groupSlug: string) {
+  const api = usePublicExploreApi(groupSlug).explore;
+  const loading = ref(false);
+
+  const actions = {
+    getAll() {
+      loading.value = true;
+      const units = useAsync(async () => {
+        const { data } = await api.cookbooks.getAll(1, -1, { orderBy: "position", orderDirection: "asc" });
+
+        if (data) {
+          return data.items;
+        } else {
+          return null;
+        }
+      }, useAsyncKey());
+
+      loading.value = false;
+      return units;
+    },
+    async refreshAll() {
+      loading.value = true;
+      const { data } = await api.cookbooks.getAll(1, -1, { orderBy: "position", orderDirection: "asc" });
+
+      if (data && data.items && cookbookStore) {
+        cookbookStore.value = data.items;
+      }
+
+      loading.value = false;
+    },
+    flushStore() {
+      cookbookStore = null;
+    },
+  };
+
+  if (!cookbookStore) {
+    cookbookStore = actions.getAll();
+  }
+
+  return { cookbooks: cookbookStore, actions };
+}
 
 export const useCookbooks = function () {
   const api = useUserApi();

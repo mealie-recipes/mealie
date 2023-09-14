@@ -3,6 +3,7 @@ import { useContext } from "@nuxtjs/composition-api";
 import type { NuxtAxiosInstance } from "@nuxtjs/axios";
 import { ApiRequestInstance, RequestResponse } from "~/lib/api/types/non-generated";
 import { AdminAPI, PublicApi, UserApi } from "~/lib/api";
+import { PublicExploreApi } from "~/lib/api/client-public";
 
 const request = {
   async safe<T, U>(
@@ -80,3 +81,11 @@ export const usePublicApi = function (): PublicApi {
   const requests = getRequests($axios);
   return new PublicApi(requests);
 };
+
+export const usePublicExploreApi = function (groupSlug: string): PublicExploreApi {
+  const { $axios, i18n } = useContext();
+  $axios.setHeader("Accept-Language", i18n.locale);
+
+  const requests = getRequests($axios);
+  return new PublicExploreApi(requests, groupSlug);
+}

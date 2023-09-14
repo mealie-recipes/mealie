@@ -170,7 +170,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, useContext, useRouter, ref } from "@nuxtjs/composition-api";
+import { computed, defineComponent, reactive, toRefs, useContext, useRouter, ref } from "@nuxtjs/composition-api";
 import RecipeIngredientListItem from "./RecipeIngredientListItem.vue";
 import RecipeDialogPrintPreferences from "./RecipeDialogPrintPreferences.vue";
 import RecipeDialogShare from "./RecipeDialogShare.vue";
@@ -200,6 +200,7 @@ export interface ContextMenuItem {
   icon: string;
   color: string | undefined;
   event: string;
+  isPublic: boolean;
 }
 
 export default defineComponent({
@@ -299,7 +300,10 @@ export default defineComponent({
       pickerMenu: false,
     });
 
-    const { i18n, $globals } = useContext();
+    const { $auth, i18n, $globals } = useContext();
+    const loggedIn = computed(() => {
+      return $auth.loggedIn;
+    });
 
     // ===========================================================================
     // Context Menu Setup
@@ -310,60 +314,70 @@ export default defineComponent({
         icon: $globals.icons.edit,
         color: undefined,
         event: "edit",
+        isPublic: false,
       },
       delete: {
         title: i18n.tc("general.delete"),
         icon: $globals.icons.delete,
         color: "error",
         event: "delete",
+        isPublic: false,
       },
       download: {
         title: i18n.tc("general.download"),
         icon: $globals.icons.download,
         color: undefined,
         event: "download",
+        isPublic: false,
       },
       duplicate: {
         title: i18n.tc("general.duplicate"),
         icon: $globals.icons.duplicate,
         color: undefined,
         event: "duplicate",
+        isPublic: false,
       },
       mealplanner: {
         title: i18n.tc("recipe.add-to-plan"),
         icon: $globals.icons.calendar,
         color: undefined,
         event: "mealplanner",
+        isPublic: false,
       },
       shoppingList: {
         title: i18n.tc("recipe.add-to-list"),
         icon: $globals.icons.cartCheck,
         color: undefined,
         event: "shoppingList",
+        isPublic: false,
       },
       print: {
         title: i18n.tc("general.print"),
         icon: $globals.icons.printer,
         color: undefined,
         event: "print",
+        isPublic: true,
       },
       printPreferences: {
         title: i18n.tc("general.print-preferences"),
         icon: $globals.icons.printerSettings,
         color: undefined,
         event: "printPreferences",
+        isPublic: true,
       },
       share: {
         title: i18n.tc("general.share"),
         icon: $globals.icons.shareVariant,
         color: undefined,
         event: "share",
+        isPublic: false,
       },
       publicUrl: {
         title: i18n.tc("recipe.public-link"),
         icon: $globals.icons.contentCopy,
         color: undefined,
         event: "publicUrl",
+        isPublic: true,
       },
     };
 
@@ -371,7 +385,7 @@ export default defineComponent({
     for (const [key, value] of Object.entries(props.useItems)) {
       if (value) {
         const item = defaultItems[key];
-        if (item) {
+        if (item && (item.isPublic || loggedIn.value)) {
           state.menuItems.push(item);
         }
       }

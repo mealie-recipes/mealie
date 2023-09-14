@@ -1,14 +1,14 @@
 <template>
   <v-app-bar clipped-left dense app color="primary" dark class="d-print-none">
     <slot />
-    <router-link to="/">
+    <router-link :to="routerLink">
       <v-btn icon>
         <v-icon size="40"> {{ $globals.icons.primary }} </v-icon>
       </v-btn>
     </router-link>
 
     <div btn class="pl-2">
-      <v-toolbar-title style="cursor: pointer" @click="$router.push('/')"> Mealie </v-toolbar-title>
+      <v-toolbar-title style="cursor: pointer" @click="$router.push(routerLink)"> Mealie </v-toolbar-title>
     </div>
     <RecipeDialogSearch ref="domSearchDialog" />
 
@@ -48,7 +48,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeUnmount, onMounted, ref } from "@nuxtjs/composition-api";
+import { computed, defineComponent, onBeforeUnmount, onMounted, ref, useContext, useRoute } from "@nuxtjs/composition-api";
 import RecipeDialogSearch from "~/components/Domain/Recipe/RecipeDialogSearch.vue";
 
 export default defineComponent({
@@ -60,6 +60,15 @@ export default defineComponent({
     },
   },
   setup() {
+    const { $auth } = useContext();
+    const route = useRoute();
+
+    const loggedIn = computed(() => {
+      return $auth.loggedIn;
+    });
+
+    const groupSlug = route.value.params.groupSlug;
+    const routerLink = !loggedIn.value && groupSlug ? `/explore/recipes/${groupSlug}` : "/"
     const domSearchDialog = ref<InstanceType<typeof RecipeDialogSearch> | null>(null);
 
     function activateSearch() {
@@ -85,6 +94,7 @@ export default defineComponent({
     return {
       activateSearch,
       domSearchDialog,
+      routerLink,
     };
   },
 });
