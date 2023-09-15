@@ -19,6 +19,9 @@ jobs:
     uses: ./.github/workflows/partial-frontend.yml
 
   build-release:
+    permissions:
+      contents: read
+      packages: write
     name: Build Tagged Release
     uses: ./.github/workflows/partial-builder.yml
     needs:
