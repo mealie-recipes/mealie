@@ -53,7 +53,10 @@ export default defineComponent({
     const rating = ref(props.value);
 
     const api = useUserApi();
-    function updateRating(val: number) {
+    function updateRating(val: number | null) {
+      if (val === 0) {
+        val = null;
+      }
       if (!props.emitOnly) {
         api.recipes.patchOne(props.slug, {
           rating: val,
