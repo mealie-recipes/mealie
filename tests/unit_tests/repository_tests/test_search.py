@@ -25,13 +25,11 @@ def search_units(database: AllRepositories, unique_local_group_id: str) -> list[
         SaveIngredientUnit(
             group_id=unique_local_group_id,
             name="Table Spoon",
-            description="unique description",
             abbreviation="tbsp",
         ),
         SaveIngredientUnit(
             group_id=unique_local_group_id,
             name="Cup",
-            description="A bucket that's full",
         ),
         SaveIngredientUnit(
             group_id=unique_local_group_id,
@@ -44,6 +42,10 @@ def search_units(database: AllRepositories, unique_local_group_id: str) -> list[
         SaveIngredientUnit(
             group_id=unique_local_group_id,
             name="Unit with a pretty cool name",
+        ),
+        SaveIngredientUnit(
+            group_id=unique_local_group_id,
+            name="Unit with a correct horse battery staple",
         ),
     ]
 
@@ -64,16 +66,14 @@ def search_units(database: AllRepositories, unique_local_group_id: str) -> list[
         (random_string(), []),
         ("Cup", ["Cup"]),
         ("tbsp", ["Table Spoon"]),
-        ("unique description", ["Table Spoon"]),
         ("very cool name", ["Unit with a very cool name", "Unit with a pretty cool name"]),
         ('"Tea Spoon"', ["Tea Spoon"]),
-        ("full bucket", ["Cup"]),
+        ("correct staple", ["Unit with a correct horse battery staple"]),
     ],
     ids=[
         "no_match",
         "search_by_name",
         "search_by_unit",
-        "search_by_description",
         "match_order",
         "literal_search",
         "token_separation",
@@ -110,7 +110,7 @@ def test_fuzzy_search(
 
     repo = database.ingredient_units.by_group(unique_local_group_id)
     pagination = PaginationQuery(page=1, per_page=-1, order_by="created_at", order_direction=OrderDirection.asc)
-    results = repo.page_all(pagination, search="unique decsription").items
+    results = repo.page_all(pagination, search="tabel spoone").items
 
     assert results and results[0].name == "Table Spoon"
 
