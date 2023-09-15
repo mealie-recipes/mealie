@@ -16,24 +16,47 @@
             </v-icon>
             {{ $t('profile.get-invite-link') }}
           </v-btn>
+          <v-btn
+            v-if="group && group.preferences && !group.preferences.privateGroup"
+            outlined
+            rounded
+            @click="getPublicLink()"
+          >
+            <v-icon left>
+              {{ $globals.icons.shareVariant }}
+            </v-icon>
+            {{ $t('profile.get-public-link') }}
+          </v-btn>
         </v-card-actions>
-        <div v-show="generatedLink !== ''">
+        <div v-show="generatedSignupLink !== ''">
           <v-card-text>
             <p class="text-center pb-0">
-              {{ generatedLink }}
+              {{ generatedSignupLink }}
             </p>
             <v-text-field v-model="sendTo" :label="$t('user.email')" :rules="[validators.email]"> </v-text-field>
           </v-card-text>
           <v-card-actions class="py-0 align-center" style="gap: 4px">
-            <BaseButton cancel @click="generatedLink = ''"> {{ $t("general.close") }} </BaseButton>
+            <BaseButton cancel @click="generatedSignupLink = ''"> {{ $t("general.close") }} </BaseButton>
             <v-spacer></v-spacer>
-            <AppButtonCopy :icon="false" color="info" :copy-text="generatedLink" />
+            <AppButtonCopy :icon="false" color="info" :copy-text="generatedSignupLink" />
             <BaseButton color="info" :disabled="!validEmail" :loading="loading" @click="sendInvite">
               <template #icon>
                 {{ $globals.icons.email }}
               </template>
               {{ $t("user.email") }}
             </BaseButton>
+          </v-card-actions>
+        </div>
+        <div v-show="showPublicLink">
+          <v-card-text>
+            <p class="text-center pb-0">
+              {{ publicLink }}
+            </p>
+          </v-card-text>
+          <v-card-actions class="py-0 align-center" style="gap: 4px">
+            <BaseButton cancel @click="showPublicLink = false"> {{ $t("general.close") }} </BaseButton>
+            <v-spacer></v-spacer>
+            <AppButtonCopy :icon="false" color="info" :copy-text="publicLink" />
           </v-card-actions>
         </div>
       </v-card>
@@ -196,6 +219,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, useContext, ref, toRefs, reactive, useAsync } from "@nuxtjs/composition-api";
+import { invoke, until } from "@vueuse/core";
 import UserProfileLinkCard from "@/components/Domain/User/UserProfileLinkCard.vue";
 import { useUserApi } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
@@ -203,6 +227,7 @@ import { alert } from "~/composables/use-toast";
 import UserAvatar from "@/components/Domain/User/UserAvatar.vue";
 import { useAsyncKey } from "~/composables/use-utils";
 import StatsCards from "~/components/global/StatsCards.vue";
+import { GroupInDB, UserOut } from "~/lib/api/types/user";
 
 export default defineComponent({
   name: "UserProfile",
@@ -215,16 +240,41 @@ export default defineComponent({
   setup() {
     const { $auth, i18n } = useContext();
 
-    const user = computed(() => $auth.user);
+    // @ts-ignore $auth.user is typed as unknown, but it's a user
+    const user = computed<UserOut | null>(() => $auth.user);
+    const group = ref<GroupInDB | null>(null);
 
-    const generatedLink = ref("");
+    const showPublicLink = ref(false);
+    const publicLink = ref("");
+
+    const generatedSignupLink = ref("");
     const token = ref("");
     const api = useUserApi();
+
+    invoke(async () => {
+      await until(user.value).not.toBeNull();
+      if (!user.value) {
+        return;
+      }
+
+      const { data } = await api.groups.getOne(user.value.groupId);
+      group.value = data;
+    });
+
+    function getPublicLink() {
+      if (group.value) {
+        publicLink.value = `${window.location.origin}/explore/recipes/${group.value.slug}`
+        showPublicLink.value = true;
+        generatedSignupLink.value = "";
+      }
+    }
+
     async function getSignupLink() {
       const { data } = await api.groups.createInvitation({ uses: 1 });
       if (data) {
         token.value = data.token;
-        generatedLink.value = constructLink(data.token);
+        generatedSignupLink.value = constructLink(data.token);
+        showPublicLink.value = false;
       }
     }
 
@@ -341,11 +391,15 @@ export default defineComponent({
       getStatsTitle,
       getStatsIcon,
       getStatsTo,
+      group,
       stats,
       user,
       constructLink,
-      generatedLink,
+      generatedSignupLink,
+      showPublicLink,
+      publicLink,
       getSignupLink,
+      getPublicLink,
       sendInvite,
       validators,
       validEmail,

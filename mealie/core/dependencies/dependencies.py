@@ -4,7 +4,8 @@ from collections.abc import AsyncGenerator, Callable, Generator
 from pathlib import Path
 from uuid import uuid4
 
-from fastapi import Depends, HTTPException, status
+import fastapi
+from fastapi import Depends, HTTPException, Request, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from sqlalchemy.orm.session import Session
@@ -13,7 +14,7 @@ from mealie.core.config import get_app_dirs, get_app_settings
 from mealie.db.db_setup import generate_session
 from mealie.repos.all_repositories import get_repositories
 from mealie.schema.user import PrivateUser, TokenData
-from mealie.schema.user.user import DEFAULT_INTEGRATION_ID
+from mealie.schema.user.user import DEFAULT_INTEGRATION_ID, GroupInDB
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/token")
 oauth2_scheme_soft_fail = OAuth2PasswordBearer(tokenUrl="/api/auth/token", auto_error=False)
@@ -53,12 +54,39 @@ async def is_logged_in(token: str = Depends(oauth2_scheme_soft_fail), session=De
         return False
 
 
-async def get_current_user(token: str = Depends(oauth2_scheme), session=Depends(generate_session)) -> PrivateUser:
+async def get_public_group(group_slug: str = fastapi.Path(...), session=Depends(generate_session)) -> GroupInDB:
+    repos = get_repositories(session)
+    group = repos.groups.get_by_slug_or_id(group_slug)
+
+    if not group or group.preferences.private_group:
+        raise HTTPException(404, "group not found")
+    else:
+        return group
+
+
+async def try_get_current_user(
+    request: Request,
+    token: str = Depends(oauth2_scheme_soft_fail),
+    session=Depends(generate_session),
+) -> PrivateUser | None:
+    try:
+        return await get_current_user(request, token, session)
+    except Exception:
+        return None
+
+
+async def get_current_user(
+    request: Request, token: str = Depends(oauth2_scheme_soft_fail), session=Depends(generate_session)
+) -> PrivateUser:
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
+    if token is None and "mealie.access_token" in request.cookies:
+        # Try extract from cookie
+        token = request.cookies.get("mealie.access_token", "")
+
     try:
         payload = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])
         user_id: str = payload.get("sub")

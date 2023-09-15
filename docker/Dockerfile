@@ -1,5 +1,21 @@
+FROM node:16 as builder
+
+WORKDIR /app
+
+COPY ./frontend .
+
+RUN yarn install \
+    --prefer-offline \
+    --frozen-lockfile \
+    --non-interactive \
+    --production=false \
+    # https://github.com/docker/build-push-action/issues/471
+    --network-timeout 1000000
+
+RUN yarn generate
+
 ###############################################
-# Base Image
+# Base Image - Python
 ###############################################
 FROM python:3.10-slim as python-base
 
@@ -73,9 +89,22 @@ RUN apt-get update \
     gosu \
     iproute2 \
     tesseract-ocr-all \
+    curl \
+    gnupg \
     libldap-common \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
+
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
+    && apt-get install -y nodejs
+
+# Add Yarn
+RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | tee /usr/share/keyrings/yarnkey.gpg >/dev/null \
+    && echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | tee /etc/apt/sources.list.d/yarn.list \
+    && apt-get update && apt-get install yarn
+
+# Clean apt
+RUN apt-get autoremove && rm -rf /var/lib/apt/lists/*
 
 # copying poetry and venv into image
 COPY --from=builder-base $POETRY_HOME $POETRY_HOME
@@ -110,6 +139,17 @@ EXPOSE ${APP_PORT}
 
 HEALTHCHECK CMD python $MEALIE_HOME/mealie/scripts/healthcheck.py || exit 1
 
-COPY ./docker/api.entry.sh $MEALIE_HOME/mealie/run.sh
-RUN chmod +x $MEALIE_HOME/mealie/run.sh
-ENTRYPOINT $MEALIE_HOME/mealie/run.sh
+# ----------------------------------
+# Copy Frontend
+
+# copying caddy into image
+ENV STATIC_FILES=/spa/static
+COPY --from=builder /app/dist  ${STATIC_FILES}
+
+ENV HOST 0.0.0.0
+
+EXPOSE ${APP_PORT}
+COPY ./docker/entry.sh $MEALIE_HOME/run.sh
+
+RUN chmod +x $MEALIE_HOME/run.sh
+ENTRYPOINT $MEALIE_HOME/run.sh

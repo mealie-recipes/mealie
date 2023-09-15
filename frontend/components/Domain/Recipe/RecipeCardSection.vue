@@ -76,6 +76,7 @@
             <RecipeCard
               :name="recipe.name"
               :description="recipe.description"
+              :group-slug="groupSlug"
               :slug="recipe.slug"
               :rating="recipe.rating"
               :image="recipe.image"
@@ -99,6 +100,7 @@
             <RecipeCardMobile
               :name="recipe.name"
               :description="recipe.description"
+              :group-slug="groupSlug"
               :slug="recipe.slug"
               :rating="recipe.rating"
               :image="recipe.image"
@@ -163,6 +165,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    groupSlug: {
+      type: String,
+      default: null,
+    },
     recipes: {
       type: Array as () => Recipe[],
       default: () => [],
@@ -184,7 +190,10 @@ export default defineComponent({
       shuffle: "shuffle",
     };
 
-    const { $globals, $vuetify } = useContext();
+    const { $auth, $globals, $vuetify } = useContext();
+    const loggedIn = computed(() => {
+      return $auth.loggedIn;
+    });
     const useMobileCards = computed(() => {
       return $vuetify.breakpoint.smAndDown || preferences.value.useMobileCards;
     });
@@ -202,7 +211,7 @@ export default defineComponent({
       if (props.recipes.length > 0) {
         const recipe = props.recipes[Math.floor(Math.random() * props.recipes.length)];
         if (recipe.slug !== undefined) {
-          router.push(`/recipe/${recipe.slug}`);
+          router.push(loggedIn.value ? `/recipe/${recipe.slug}` : `/explore/recipes/${props.groupSlug}/${recipe.slug}`);
         }
       }
     }
@@ -213,7 +222,7 @@ export default defineComponent({
     const ready = ref(false);
     const loading = ref(false);
 
-    const { fetchMore } = useLazyRecipes();
+    const { fetchMore } = useLazyRecipes(loggedIn.value ? null : props.groupSlug);
 
     const queryFilter = computed(() => {
       const orderBy = props.query?.orderBy || preferences.value.orderBy;

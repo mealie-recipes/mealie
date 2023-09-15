@@ -1,5 +1,6 @@
 import { useAsync, ref } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "../use-utils";
+import { usePublicExploreApi } from "~/composables/api/api-client";
 import { useUserApi } from "~/composables/api";
 import { Recipe } from "~/lib/api/types/recipe";
 import { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
@@ -7,8 +8,9 @@ import { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
 export const allRecipes = ref<Recipe[]>([]);
 export const recentRecipes = ref<Recipe[]>([]);
 
-export const useLazyRecipes = function () {
-  const api = useUserApi();
+export const useLazyRecipes = function (publicGroupSlug: string | null = null) {
+  // passing the group slug switches to using the public API
+  const api = publicGroupSlug ? usePublicExploreApi(publicGroupSlug).explore : useUserApi();
 
   const recipes = ref<Recipe[]>([]);
 
@@ -20,6 +22,7 @@ export const useLazyRecipes = function () {
     query: RecipeSearchQuery | null = null,
     queryFilter: string | null = null,
   ) {
+
     const { data } = await api.recipes.getAll(page, perPage, {
       orderBy,
       orderDirection,
@@ -73,8 +76,12 @@ export const useLazyRecipes = function () {
   };
 };
 
-export const useRecipes = (all = false, fetchRecipes = true, loadFood = false) => {
-  const api = useUserApi();
+export const useRecipes = (
+  all = false, fetchRecipes = true,
+  loadFood = false,
+  publicGroupSlug: string | null = null
+) => {
+  const api = publicGroupSlug ? usePublicExploreApi(publicGroupSlug).explore : useUserApi();
 
   // recipes is non-reactive!!
   const { recipes, page, perPage } = (() => {

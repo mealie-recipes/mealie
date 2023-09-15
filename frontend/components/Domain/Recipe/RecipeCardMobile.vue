@@ -4,7 +4,7 @@
       :ripple="false"
       :class="isFlat ? 'mx-auto flat' : 'mx-auto'"
       hover
-      :to="$listeners.selected ? undefined : `/recipe/${slug}`"
+      :to="$listeners.selected ? undefined : recipeRoute"
       @click="$emit('selected')"
     >
       <v-img v-if="vertical" class="rounded-sm">
@@ -40,7 +40,7 @@
               <RecipeFavoriteBadge v-if="loggedIn" :slug="slug" show-always />
               <v-rating
                 color="secondary"
-                class="ml-auto"
+                :class="loggedIn ? 'ml-auto' : 'ml-auto pb-2'"
                 background-color="secondary lighten-3"
                 dense
                 length="5"
@@ -48,7 +48,11 @@
                 :value="rating"
               ></v-rating>
               <v-spacer></v-spacer>
+
+              <!-- If we're not logged-in, no items display, so we hide this menu -->
+              <!-- We also add padding to the v-rating above to compensate -->
               <RecipeContextMenu
+                v-if="loggedIn"
                 :slug="slug"
                 :menu-icon="$globals.icons.dotsHorizontal"
                 :name="name"
@@ -92,6 +96,10 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    groupSlug: {
+      type: String,
+      default: null,
+    },
     slug: {
       type: String,
       required: true,
@@ -126,14 +134,19 @@ export default defineComponent({
       default: false,
     },
   },
-  setup() {
+  setup(props) {
     const { $auth } = useContext();
     const loggedIn = computed(() => {
       return $auth.loggedIn;
     });
 
+    const recipeRoute = computed<string>(() => {
+      return loggedIn.value ? `/recipe/${props.slug}` : `/explore/recipes/${props.groupSlug}/${props.slug}`;
+    });
+
     return {
       loggedIn,
+      recipeRoute,
     };
   },
 });

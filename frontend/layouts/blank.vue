@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
-import TheSnackbar from "~/components/Layout/TheSnackbar.vue";
+import TheSnackbar from "~/components/Layout/LayoutParts/TheSnackbar.vue";
 import { useAppInfo } from "~/composables/api";
 export default defineComponent({
   components: { TheSnackbar },

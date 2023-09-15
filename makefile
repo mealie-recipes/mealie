@@ -122,9 +122,6 @@ frontend-lint: ## 🧺 Run yarn lint
 # -----------------------------------------------------------------------------
 # Docker makefile
 
-docker/omni: ## 🐳 Build and start the omni style container
-	cd docker && docker-compose -f omni.docker-compose.yml -p mealie-omni up --build
-
 docker/prod: ## 🐳 Build and Start Docker Production Stack
 	cd docker && docker-compose -f docker-compose.yml -p mealie up --build
 

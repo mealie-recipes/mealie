@@ -225,6 +225,61 @@ def comments_item_id(item_id):
     return f"{prefix}/comments/{item_id}"
 
 
+def explore_cookbooks_group_slug(group_slug):
+    """`/api/explore/cookbooks/{group_slug}`"""
+    return f"{prefix}/explore/cookbooks/{group_slug}"
+
+
+def explore_cookbooks_group_slug_item_id(group_slug, item_id):
+    """`/api/explore/cookbooks/{group_slug}/{item_id}`"""
+    return f"{prefix}/explore/cookbooks/{group_slug}/{item_id}"
+
+
+def explore_foods_group_slug(group_slug):
+    """`/api/explore/foods/{group_slug}`"""
+    return f"{prefix}/explore/foods/{group_slug}"
+
+
+def explore_foods_group_slug_item_id(group_slug, item_id):
+    """`/api/explore/foods/{group_slug}/{item_id}`"""
+    return f"{prefix}/explore/foods/{group_slug}/{item_id}"
+
+
+def explore_organizers_group_slug_categories(group_slug):
+    """`/api/explore/organizers/{group_slug}/categories`"""
+    return f"{prefix}/explore/organizers/{group_slug}/categories"
+
+
+def explore_organizers_group_slug_categories_item_id(group_slug, item_id):
+    """`/api/explore/organizers/{group_slug}/categories/{item_id}`"""
+    return f"{prefix}/explore/organizers/{group_slug}/categories/{item_id}"
+
+
+def explore_organizers_group_slug_tags(group_slug):
+    """`/api/explore/organizers/{group_slug}/tags`"""
+    return f"{prefix}/explore/organizers/{group_slug}/tags"
+
+
+def explore_organizers_group_slug_tags_item_id(group_slug, item_id):
+    """`/api/explore/organizers/{group_slug}/tags/{item_id}`"""
+    return f"{prefix}/explore/organizers/{group_slug}/tags/{item_id}"
+
+
+def explore_organizers_group_slug_tools(group_slug):
+    """`/api/explore/organizers/{group_slug}/tools`"""
+    return f"{prefix}/explore/organizers/{group_slug}/tools"
+
+
+def explore_organizers_group_slug_tools_item_id(group_slug, item_id):
+    """`/api/explore/organizers/{group_slug}/tools/{item_id}`"""
+    return f"{prefix}/explore/organizers/{group_slug}/tools/{item_id}"
+
+
+def explore_recipes_group_slug(group_slug):
+    """`/api/explore/recipes/{group_slug}`"""
+    return f"{prefix}/explore/recipes/{group_slug}"
+
+
 def explore_recipes_group_slug_recipe_slug(group_slug, recipe_slug):
     """`/api/explore/recipes/{group_slug}/{recipe_slug}`"""
     return f"{prefix}/explore/recipes/{group_slug}/{recipe_slug}"

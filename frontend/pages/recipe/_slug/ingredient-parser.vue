@@ -68,7 +68,15 @@
             <RecipeIngredientEditor v-model="parsedIng[index].ingredient" allow-insert-ingredient @insert-ingredient="insertIngredient(index)"  @delete="deleteIngredient(index)" />
             {{ ing.input }}
             <v-card-actions>
-              <v-spacer></v-spacer>
+              <v-spacer />
+              <BaseButton
+                v-if="errors[index].unitError && errors[index].unitErrorMessage !== ''"
+                color="warning"
+                small
+                @click="createUnit(ing.ingredient.unit, index)"
+              >
+                {{ errors[index].unitErrorMessage }}
+              </BaseButton>
               <BaseButton
                 v-if="errors[index].foodError && errors[index].foodErrorMessage !== ''"
                 color="warning"
@@ -99,7 +107,7 @@ import {
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
 import { useUserApi } from "~/composables/api";
 import { useRecipe } from "~/composables/recipes";
-import { useFoodData, useFoodStore, useUnitStore } from "~/composables/store";
+import { useFoodData, useFoodStore, useUnitStore, useUnitData } from "~/composables/store";
 import { Parser } from "~/lib/api/user/recipes/recipe";
 import { uuid4 } from "~/composables/use-utils";
 
@@ -215,30 +223,19 @@ export default defineComponent({
 
     const foodStore = useFoodStore();
     const foodData = useFoodData();
-    const { units } = useUnitStore();
+    const unitStore = useUnitStore();
+    const unitData = useUnitData();
 
     const errors = ref<Error[]>([]);
 
     function checkForUnit(unit?: IngredientUnit | CreateIngredientUnit) {
-      if (!unit) {
-        return false;
-      }
-      if (units.value && unit?.name) {
-        const lower = unit.name.toLowerCase();
-        return units.value.some((u) => u.name.toLowerCase() === lower);
-      }
-      return false;
+      // @ts-expect-error; we're just checking if there's an id on this unit and returning a boolean
+      return !!unit?.id;
     }
 
     function checkForFood(food?: IngredientFood | CreateIngredientFood) {
-      if (!food) {
-        return false;
-      }
-      if (foodStore.foods.value && food?.name) {
-        const lower = food.name.toLowerCase();
-        return foodStore.foods.value.some((f) => f.name.toLowerCase() === lower);
-      }
-      return false;
+      // @ts-expect-error; we're just checking if there's an id on this food and returning a boolean
+      return !!food?.id;
     }
 
     async function createFood(food: CreateIngredientFood | undefined, index: number) {
@@ -247,9 +244,22 @@ export default defineComponent({
       }
 
       foodData.data.name = food.name;
-      await foodStore.actions.createOne(foodData.data);
+      parsedIng.value[index].ingredient.food = await foodStore.actions.createOne(foodData.data) || undefined;
       errors.value[index].foodError = false;
+
       foodData.reset();
+    }
+
+    async function createUnit(unit: CreateIngredientUnit | undefined, index: number) {
+      if (!unit) {
+        return;
+      }
+
+      unitData.data.name = unit.name;
+      parsedIng.value[index].ingredient.unit = await unitStore.actions.createOne(unitData.data) || undefined;
+      errors.value[index].unitError = false;
+
+      unitData.reset();
     }
 
     function insertIngredient(index: number) {
@@ -287,25 +297,19 @@ export default defineComponent({
     // =========================================================
     // Save All Logic
     async function saveAll() {
-      let ingredients = parsedIng.value.map((ing) => {
+      const ingredients = parsedIng.value.map((ing) => {
+        if (!checkForFood(ing.ingredient.food)) {
+          ing.ingredient.food = undefined;
+        }
+
+        if (!checkForUnit(ing.ingredient.unit)) {
+          ing.ingredient.unit = undefined;
+        }
+
         return {
           ...ing.ingredient,
           originalText: ing.input,
         } as RecipeIngredient;
-      });
-
-      ingredients = ingredients.map((ing) => {
-        if (!foodStore.foods.value || !units.value) {
-          return ing;
-        }
-        // Get food from foods
-        const lowerFood = ing.food?.name?.toLowerCase();
-        ing.food = foodStore.foods.value.find((f) => f.name.toLowerCase() === lowerFood);
-
-        // Get unit from units
-        const lowerUnit = ing.unit?.name?.toLowerCase();
-        ing.unit = units.value.find((u) => u.name.toLowerCase() === lowerUnit);
-        return ing;
       });
 
       if (!recipe.value || !recipe.value.slug) {
@@ -328,6 +332,7 @@ export default defineComponent({
       parser,
       saveAll,
       createFood,
+      createUnit,
       deleteIngredient,
       insertIngredient,
       errors,
