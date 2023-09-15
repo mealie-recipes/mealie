@@ -16,6 +16,11 @@ class OrderDirection(str, enum.Enum):
     desc = "desc"
 
 
+class OrderByNullPosition(str, enum.Enum):
+    first = "first"
+    last = "last"
+
+
 class RecipeSearchQuery(MealieModel):
     cookbook: UUID4 | str | None
     require_all_categories: bool = False
@@ -30,6 +35,7 @@ class PaginationQuery(MealieModel):
     page: int = 1
     per_page: int = 50
     order_by: str = "created_at"
+    order_by_null_position: OrderByNullPosition | None = None
     order_direction: OrderDirection = OrderDirection.desc
     query_filter: str | None = None
     pagination_seed: str | None = None

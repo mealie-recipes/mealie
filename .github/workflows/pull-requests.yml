@@ -14,10 +14,6 @@ jobs:
     name: "Frontend and End-to-End Tests"
     uses: ./.github/workflows/partial-frontend.yml
 
-  backend-container-scanning:
-    name: "Trivy Backend Container Scanning"
-    uses: ./.github/workflows/partial-trivy-backend-container-scanning.yml
-
-  frontend-container-scanning:
-    name: "Trivy Frontend Container Scanning"
-    uses: ./.github/workflows/partial-trivy-frontend-container-scanning.yml
+  container-scanning:
+    name: "Trivy Container Scanning"
+    uses: ./.github/workflows/partial-trivy-container-scanning.yml

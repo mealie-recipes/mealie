@@ -27,6 +27,9 @@ class AppSettings(BaseSettings):
     BASE_URL: str = "http://localhost:8080"
     """trailing slashes are trimmed (ex. `http://localhost:8080/` becomes ``http://localhost:8080`)"""
 
+    STATIC_FILES: str = ""
+    """path to static files directory (ex. `mealie/dist`)"""
+
     IS_DEMO: bool = False
     API_PORT: int = 9000
     API_DOCS: bool = True

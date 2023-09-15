@@ -31,7 +31,16 @@ describe(parseIngredientText.name, () => {
   test("ingredient text with fraction", () => {
     const ingredient = createRecipeIngredient({ quantity: 1.5, unit: { fraction: true, id: "1", name: "cup" } });
 
-    expect(parseIngredientText(ingredient, false)).contain("1 <sup>1</sup>").and.to.contain("<sub>2</sub>");
+    expect(parseIngredientText(ingredient, false, 1, true)).contain("1 <sup>1</sup>").and.to.contain("<sub>2</sub>");
+  });
+
+  test("ingredient text with fraction no formatting", () => {
+    const ingredient = createRecipeIngredient({ quantity: 1.5, unit: { fraction: true, id: "1", name: "cup" } });
+    const result = parseIngredientText(ingredient, false, 1, false);
+
+    expect(result).not.contain("<");
+    expect(result).not.contain(">");
+    expect(result).contain("1 1/2");
   });
 
   test("sanitizes html", () => {
