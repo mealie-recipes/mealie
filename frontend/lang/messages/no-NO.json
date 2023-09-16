@@ -529,17 +529,7 @@
     "tree-view": "Trevisning",
     "recipe-yield": "Oppskrift uttak",
     "unit": "Enhet",
-    "upload-image": "Last opp bilde",
-    "add-to-timeline": "",
-    "remove-image": "",
-    "screen-awake": "",
-    "timer": {
-      "kitchen-timer": "",
-      "pause-timer": "",
-      "resume-timer": "",
-      "start-timer": "",
-      "stop-timer": ""
-    }
+    "upload-image": "Last opp bilde"
   },
   "search": {
     "advanced-search": "Avansert søk",

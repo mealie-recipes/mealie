@@ -78,7 +78,7 @@
         <v-spacer></v-spacer>
         <BaseButton class="mr-1 mb-1" color="info" @click="bulkUrls.push({ url: '', categories: [], tags: [] })">
           <template #icon> {{ $globals.icons.createAlt }} </template>
-          {{ $t('general.new') }}
+          New
         </BaseButton>
         <RecipeDialogBulkAdd v-model="bulkDialog" class="mr-1 mr-sm-0 mb-1" @bulk-data="assignUrls" />
       </v-card-actions>

@@ -13,7 +13,7 @@
           />
         </div>
       </template>
-      <template #title> {{ $t("profile.user-settings") }} </template>
+      <template #title> Your Profile Settings </template>
     </BasePageTitle>
 
     <section class="mt-5">

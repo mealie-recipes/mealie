@@ -529,17 +529,7 @@
     "tree-view": "Vue en arborescence",
     "recipe-yield": "Nombre de parts",
     "unit": "Unité",
-    "upload-image": "Envoyer une image",
-    "add-to-timeline": "",
-    "remove-image": "",
-    "screen-awake": "",
-    "timer": {
-      "kitchen-timer": "",
-      "pause-timer": "",
-      "resume-timer": "",
-      "start-timer": "",
-      "stop-timer": ""
-    }
+    "upload-image": "Envoyer une image"
   },
   "search": {
     "advanced-search": "Recherche avancée",

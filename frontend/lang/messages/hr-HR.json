@@ -529,17 +529,7 @@
     "tree-view": "Prikaz Stabla",
     "recipe-yield": "Konačna Količina Recepta",
     "unit": "Jedinica",
-    "upload-image": "Učitavanje Slike",
-    "add-to-timeline": "",
-    "remove-image": "",
-    "screen-awake": "",
-    "timer": {
-      "kitchen-timer": "",
-      "pause-timer": "",
-      "resume-timer": "",
-      "start-timer": "",
-      "stop-timer": ""
-    }
+    "upload-image": "Učitavanje Slike"
   },
   "search": {
     "advanced-search": "Napredno Pretraživanje",

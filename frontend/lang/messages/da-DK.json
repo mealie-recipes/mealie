@@ -529,17 +529,7 @@
     "tree-view": "Træ visning",
     "recipe-yield": "Udbytte af opskrift",
     "unit": "Enhed",
-    "upload-image": "Upload billede",
-    "add-to-timeline": "",
-    "remove-image": "",
-    "screen-awake": "",
-    "timer": {
-      "kitchen-timer": "",
-      "pause-timer": "",
-      "resume-timer": "",
-      "start-timer": "",
-      "stop-timer": ""
-    }
+    "upload-image": "Upload billede"
   },
   "search": {
     "advanced-search": "Avanceret søgning",
