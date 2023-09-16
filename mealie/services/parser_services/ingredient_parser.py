@@ -96,15 +96,13 @@ class ABCIngredientParser(ABC):
             return store_map[match_value]
 
         # fuzzy match against food store
-        fuzz_result = process.extractOne(match_value, store_map.keys(), scorer=fuzz.ratio)
+        fuzz_result = process.extractOne(
+            match_value, store_map.keys(), scorer=fuzz.ratio, score_cutoff=fuzzy_match_threshold
+        )
         if fuzz_result is None:
             return None
 
-        choice, score, _ = fuzz_result
-        if score < fuzzy_match_threshold:
-            return None
-        else:
-            return store_map[choice]
+        return store_map[fuzz_result[0]]
 
     def find_food_match(self, food: IngredientFood | CreateIngredientFood) -> IngredientFood | None:
         if isinstance(food, IngredientFood):
