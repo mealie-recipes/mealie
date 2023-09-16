@@ -109,7 +109,7 @@
       </section>
     </section>
     <v-container class="mt-4 d-flex justify-center text-center">
-      <a to="/group/migrations"> {{ $t('recipe.looking-for-migrations') }} </a>
+      <nuxt-link to="/group/migrations"> {{ $t('recipe.looking-for-migrations') }} </nuxt-link>
     </v-container>
   </v-container>
 </template>
