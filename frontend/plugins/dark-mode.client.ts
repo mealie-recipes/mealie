@@ -8,7 +8,6 @@ const darkModePlugin: Plugin = ({ $vuetify }, _) => {
   // Adding a 100 millisecond delay fixes this problem
   // https://stackoverflow.com/questions/69399797/vuetify-darkmode-colors-wrong-after-page-reload
   setTimeout(() => { $vuetify.theme.dark = isDark.value; }, 100);
-  console.log("timeout set!");
 };
 
 export default darkModePlugin;
