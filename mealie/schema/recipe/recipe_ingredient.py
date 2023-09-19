@@ -51,7 +51,8 @@ class IngredientFood(CreateIngredientFood):
     created_at: datetime.datetime | None
     update_at: datetime.datetime | None
 
-    _searchable_properties: ClassVar[list[str]] = ["name", "description"]
+    _searchable_properties: ClassVar[list[str]] = ["name_normalized"]
+    _normalize_search: ClassVar[bool] = True
 
     class Config:
         orm_mode = True
@@ -81,7 +82,8 @@ class IngredientUnit(CreateIngredientUnit):
     created_at: datetime.datetime | None
     update_at: datetime.datetime | None
 
-    _searchable_properties: ClassVar[list[str]] = ["name", "abbreviation", "description"]
+    _searchable_properties: ClassVar[list[str]] = ["name_normalized", "abbreviation_normalized"]
+    _normalize_search: ClassVar[bool] = True
 
     class Config:
         orm_mode = True

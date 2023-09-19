@@ -203,6 +203,10 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         if search:
             q = self.add_search_to_query(q, self.schema, search)
 
+        if not pagination_result.order_by and not search:
+            # default ordering if not searching
+            pagination_result.order_by = "created_at"
+
         q, count, total_pages = self.add_pagination_to_query(q, pagination_result)
 
         try:
