@@ -1,4 +1,5 @@
 import { BaseCRUDAPI } from "../base/base-clients";
+import { RequestResponse } from "../types/non-generated";
 import {
   ChangePassword,
   DeleteTokenResponse,
@@ -11,7 +12,6 @@ import {
   UserIn,
   UserOut,
 } from "~/lib/api/types/user";
-import { RequestResponse } from "../types/non-generated";
 
 const prefix = "/api";
 
