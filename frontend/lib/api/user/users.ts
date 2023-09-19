@@ -1,7 +1,9 @@
 import { BaseCRUDAPI } from "../base/base-clients";
+import { RequestResponse } from "../types/non-generated";
 import {
   ChangePassword,
   DeleteTokenResponse,
+  GroupInDB,
   LongLiveTokenIn,
   LongLiveTokenOut,
   ResetPassword,
@@ -15,6 +17,7 @@ const prefix = "/api";
 
 const routes = {
   usersSelf: `${prefix}/users/self`,
+  groupsSelf: `${prefix}/users/self/group`,
   passwordReset: `${prefix}/users/reset-password`,
   passwordChange: `${prefix}/users/password`,
   users: `${prefix}/users`,
@@ -32,6 +35,10 @@ const routes = {
 export class UserApi extends BaseCRUDAPI<UserIn, UserOut, UserBase> {
   baseRoute: string = routes.users;
   itemRoute = (itemid: string) => routes.usersId(itemid);
+
+  async getSelfGroup(): Promise<RequestResponse<GroupInDB>> {
+    return await this.requests.get(routes.groupsSelf, {});
+  }
 
   async addFavorite(id: string, slug: string) {
     return await this.requests.post(routes.usersIdFavoritesSlug(id, slug), {});

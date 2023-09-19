@@ -52,7 +52,6 @@
         show-print
         :menu-top="false"
         :name="recipe.name"
-        :group-id="recipe.groupId"
         :slug="recipe.slug"
         :menu-icon="$globals.icons.dotsVertical"
         fab
