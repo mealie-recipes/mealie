@@ -271,15 +271,6 @@ export default defineComponent({
       type: Number,
       default: 1,
     },
-    /**
-     * Optional group ID prop that is only _required_ when the
-     * public URL is requested. If the public URL button is pressed
-     * and the groupId is not set, an error will be thrown.
-     */
-    groupId: {
-      type: String,
-      default: "",
-    },
   },
   setup(props, context) {
     const api = useUserApi();
@@ -517,18 +508,17 @@ export default defineComponent({
     const groupSlug = ref<string>("");
 
     async function setGroupSlug() {
-      if (!props.groupId) {
-        groupSlug.value = props.groupId;
+      if (groupSlug.value) {
         return;
       }
 
-      const {data} = await api.groups.getOne(props.groupId);
-      if (!data) {
-        groupSlug.value = props.groupId;
-        return;
+      const { data } = await api.users.getSelfGroup();
+      if (data) {
+        groupSlug.value = data.slug;
+      } else {
+        // @ts-ignore this will either be a string or undefined
+        groupSlug.value = $auth.user?.groupId
       }
-
-      groupSlug.value = data.slug;
     }
 
     // Note: Print is handled as an event in the parent component
@@ -560,14 +550,9 @@ export default defineComponent({
         state.shareDialog = true;
       },
       publicUrl: async () => {
-        if (!props.groupId) {
-          alert.error("Unknown group ID");
-          console.error("prop `groupId` is required when requesting a public URL");
-          return;
-        }
-
+        await setGroupSlug();
         if (!groupSlug.value) {
-          await setGroupSlug();
+          return;
         }
 
         copyText(`${window.location.origin}/explore/recipes/${groupSlug.value}/${props.slug}`);

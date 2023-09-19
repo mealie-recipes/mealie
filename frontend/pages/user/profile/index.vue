@@ -257,7 +257,7 @@ export default defineComponent({
         return;
       }
 
-      const { data } = await api.groups.getOne(user.value.groupId);
+      const { data } = await api.users.getSelfGroup();
       group.value = data;
     });
 
