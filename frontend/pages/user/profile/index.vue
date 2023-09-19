@@ -8,9 +8,9 @@
        {{ $t('profile.description') }}
         <a href="https://hay-kot.github.io/mealie/" target="_blank"> {{ $t('general.learn-more') }} </a>
       </p>
-      <v-card v-if="$auth.user.canInvite" flat color="background" width="100%" max-width="600px">
+      <v-card flat color="background" width="100%" max-width="600px">
         <v-card-actions class="d-flex justify-center">
-          <v-btn outlined rounded @click="getSignupLink()">
+          <v-btn v-if="$auth.user.canInvite"  outlined rounded @click="getSignupLink()">
             <v-icon left>
               {{ $globals.icons.createAlt }}
             </v-icon>
