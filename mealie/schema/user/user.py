@@ -89,7 +89,7 @@ class UserBase(MealieModel):
             "example": {
                 "username": "ChangeMe",
                 "fullName": "Change Me",
-                "email": "changeme@email.com",
+                "email": "changeme@example.com",
                 "group": settings.DEFAULT_GROUP,
                 "admin": "false",
             }
