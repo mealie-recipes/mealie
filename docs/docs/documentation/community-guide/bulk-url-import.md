@@ -33,7 +33,7 @@ function import_from_file () {
 }
 
 input="list"
-mail="changeme@email.com"
+mail="changeme@example.com"
 password="MyPassword"
 mealie_url=http://localhost:9000
 
@@ -85,7 +85,7 @@ def import_from_file(input_file, token, mealie_url):
       print(response.text)
 
 input_file="list"
-mail="changeme@email.com"
+mail="changeme@example.com"
 password="MyPassword"
 mealie_url="http://localhost:9000"
 

@@ -7,7 +7,7 @@ def test_create_user_registration() -> None:
     CreateUserRegistration(
         group="Home",
         group_token=None,
-        email="SomeValidEmail@email.com",
+        email="SomeValidEmail@example.com",
         username="SomeValidUsername",
         password="SomeValidPassword",
         password_confirm="SomeValidPassword",
@@ -18,7 +18,7 @@ def test_create_user_registration() -> None:
     CreateUserRegistration(
         group=None,
         group_token="asdfadsfasdfasdfasdf",
-        email="SomeValidEmail@email.com",
+        email="SomeValidEmail@example.com",
         username="SomeValidUsername",
         password="SomeValidPassword",
         password_confirm="SomeValidPassword",
@@ -33,7 +33,7 @@ def test_group_or_token_validator(group, group_token) -> None:
         CreateUserRegistration(
             group=group,
             group_token=group_token,
-            email="SomeValidEmail@email.com",
+            email="SomeValidEmail@example.com",
             username="SomeValidUsername",
             password="SomeValidPassword",
             password_confirm="SomeValidPassword",
@@ -45,7 +45,7 @@ def test_group_or_token_validator(group, group_token) -> None:
 def test_group_no_args_passed() -> None:
     with pytest.raises(ValueError):
         CreateUserRegistration(
-            email="SomeValidEmail@email.com",
+            email="SomeValidEmail@example.com",
             username="SomeValidUsername",
             password="SomeValidPassword",
             password_confirm="SomeValidPassword",
@@ -59,7 +59,7 @@ def test_password_validator() -> None:
         CreateUserRegistration(
             group=None,
             group_token="asdfadsfasdfasdfasdf",
-            email="SomeValidEmail@email.com",
+            email="SomeValidEmail@example.com",
             username="SomeValidUsername",
             password="SomeValidPassword",
             password_confirm="PasswordDefNotMatch",
