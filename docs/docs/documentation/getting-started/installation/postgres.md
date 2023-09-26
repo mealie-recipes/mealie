@@ -43,7 +43,7 @@ services:
     restart: always
   postgres:
     container_name: postgres
-    image: postgres
+    image: postgres:15
     restart: always
     volumes:
       - ./mealie-pgdata:/var/lib/postgresql/data
