@@ -249,12 +249,13 @@ export default defineComponent({
       }
     });
 
-    let lastQuery: RecipeSearchQuery | undefined = undefined;
+    let lastQuery: string | undefined = undefined;
     watch(
       () => props.query,
       async (newValue: RecipeSearchQuery | undefined) => {
-        if (newValue && (!ready.value || JSON.stringify(lastQuery) !== JSON.stringify(newValue))) {
-          lastQuery = newValue;
+        const newValueString = JSON.stringify(newValue)
+        if (newValue && (!ready.value || lastQuery !== newValueString)) {
+          lastQuery = newValueString;
           await initRecipes();
           ready.value = true;
         }
