@@ -249,7 +249,7 @@ export default defineComponent({
       }
     });
 
-    let lastQuery: string | undefined = undefined;
+    let lastQuery: string | undefined;
     watch(
       () => props.query,
       async (newValue: RecipeSearchQuery | undefined) => {
