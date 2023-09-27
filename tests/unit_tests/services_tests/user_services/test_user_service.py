@@ -61,3 +61,34 @@ def test_lock_unlocker_user(database: AllRepositories, unique_user: TestUser) ->
     # Sanity check that the is_locked property is working
     user.locked_at = datetime.now() - timedelta(days=2)
     assert not user.is_locked
+
+
+def test_reset_locked_users(database: AllRepositories, unique_user: TestUser) -> None:
+    user_service = UserService(database)
+
+    # Test that the user is unlocked
+    user = database.users.get_one(unique_user.user_id)
+    assert not user.is_locked
+    assert not user.locked_at
+
+    # Test that the user is locked
+    user.login_attemps = 5
+    user = user_service.lock_user(user)
+    assert user.is_locked
+    assert user.login_attemps == 5
+
+    # Test that the locked user is not unlocked by reset
+    unlocked = user_service.reset_locked_users()
+    user = database.users.get_one(unique_user.user_id)
+    assert unlocked == 0
+    assert user.is_locked
+    assert user.login_attemps == 5
+
+    # Test that the locked user is unlocked by reset
+    user.locked_at = datetime.now() - timedelta(days=2)
+    database.users.update(user.id, user)
+    unlocked = user_service.reset_locked_users()
+    user = database.users.get_one(unique_user.user_id)
+    assert unlocked == 1
+    assert not user.is_locked
+    assert user.login_attemps == 0
