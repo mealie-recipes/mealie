@@ -60,5 +60,5 @@ volumes:
 
 <!-- Updating This? Be Sure to also update the SQLite Annotations -->
 
-1.  To access the mealie interface you only need to expose port 9000 on the mealie-frontend container. Here we expose port 9925 on the host, feel free to change this to any port you like.
+1.  To access the mealie interface you only need to expose port 9000 on the mealie container. Here we expose port 9925 on the host, but feel free to change this to any port you like.
 2.  Setting an explicit memory limit is recommended. Python can pre-allocate larger amounts of memory than is necessary if you have a machine with a lot of RAM. This can cause the container to idle at a high memory usage. Setting a memory limit will improve idle performance.
