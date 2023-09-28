@@ -195,7 +195,7 @@ class RecipeService(BaseService):
         elif not isinstance(data, dict):
             return data
 
-        # force group_id to match the group id of the recipe
+        # force group_id to match the group id of the current user
         data["group_id"] = str(self.group.id)
 
         # make sure categories and tags are valid
@@ -206,10 +206,7 @@ class RecipeService(BaseService):
 
         # recursively process other objects
         for k, v in data.items():
-            if isinstance(v, dict):
-                data[k] = self._process_recipe_data(k, v)
-            elif isinstance(v, list):
-                data[k] = [self._process_recipe_data(k, item) for item in v]
+            data[k] = self._process_recipe_data(k, v)
 
         return data
 
