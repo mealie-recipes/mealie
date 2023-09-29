@@ -19,7 +19,7 @@ from mealie.schema.group.group_shopping_list import (
 )
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit, RecipeIngredient
 from mealie.schema.response.pagination import OrderDirection, PaginationQuery
-from mealie.schema.user.user import GroupInDB, PrivateUser
+from mealie.schema.user.user import GroupInDB
 
 
 class ShoppingListService:
