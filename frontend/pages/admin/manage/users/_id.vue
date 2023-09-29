@@ -34,7 +34,7 @@
             <AppButtonCopy v-if="resetUrl" :copy-text="resetUrl"></AppButtonCopy>
           </div>
 
-          <AutoForm v-model="user" :items="userForm" update-mode />
+          <AutoForm v-model="user" :items="userForm" update-mode :disabled-fields="disabledFields" />
         </v-card-text>
       </v-card>
       <div class="d-flex pa-2">
@@ -45,7 +45,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useRoute, onMounted, ref } from "@nuxtjs/composition-api";
+import { computed, defineComponent, useRoute, onMounted, ref } from "@nuxtjs/composition-api";
 import { useAdminApi } from "~/composables/api";
 import { useGroups } from "~/composables/use-groups";
 import { alert } from "~/composables/use-toast";
@@ -71,6 +71,9 @@ export default defineComponent({
     const adminApi = useAdminApi();
 
     const user = ref<UserOut | null>(null);
+    const disabledFields = computed(() => {
+      return user.value?.authMethod === "LDAP" ? ["admin"] : [];
+    })
 
     const userError = ref(false);
 
@@ -116,6 +119,7 @@ export default defineComponent({
 
     return {
       user,
+      disabledFields,
       userError,
       userForm,
       refNewUserForm,
