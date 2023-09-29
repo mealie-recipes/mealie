@@ -54,7 +54,7 @@ export default defineComponent({
 }
 
 .note {
-  line-height: 0.8em;
+  line-height: 1.25em;
   font-size: 0.8em;
   opacity: 0.7;
 }
