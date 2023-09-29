@@ -11,7 +11,7 @@ body:
       options:
         - label: I used the GitHub search to find a similar requests and didn't find it.
           required: true
-        - label: Checked the [tasks taged](https://github.com/hay-kot/mealie/issues?q=is%3Aissue+is%3Aopen+label%3Atask+) issues and verified my feature is not covered
+        - label: Checked the [tasks tagged](https://github.com/hay-kot/mealie/issues?q=is%3Aissue+is%3Aopen+label%3Atask+) issues and verified my feature is not covered
           required: true
   - type: textarea
     id: problem
