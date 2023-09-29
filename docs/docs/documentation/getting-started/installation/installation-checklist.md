@@ -28,14 +28,14 @@ To deploy mealie on your local network it is highly recommended to use docker to
 
 ## Migrating From over V1 Versions
 
-We've gone through a few versions of Mealie v1 deployment targets. We have settled on a single container deployment and we've begun publishing the nightly container on github containers. If you're looking to move from the old nighlty, to the new nightly there are a few things you need to do.
+We've gone through a few versions of Mealie v1 deployment targets. We have settled on a single container deployment and we've begun publishing the nightly container on github containers. If you're looking to move from the old nightly (split containers *or* the omni image) to the new nightly, there are a few things you need to do:
 
-1. Take a backup just incase!
+1. Take a backup just in case!
 2. Replace the image for the API container with `ghcr.io/mealie-recipes/mealie:nightly`
 3. Take the external port from the frontend container and set that as the port mapped to port `9000` on the new container. The frontend is now served on port 9000 from the new container, so it will need to be mapped for you to have access.
 4. Restart the container
 
-The container swap should be seemless, atleast that's our hope!
+For an example of what these changes look like, see the new [SQLite](./sqlite.md) or [PostgreSQL](./postgres.md) docker-compose examples. The container swap should be seemless, at least that's our hope!
 
 ## Step 1: Deployment Type
 SQLite is a popular, open source, self-contained, zero-configuration database that is the ideal choice for Mealie when you have 1-20 Users and your concurrent write operations will be some-what limited.
@@ -46,7 +46,6 @@ You can find the relevant ready to use docker-compose files for supported instal
 
 - [SQLite](./sqlite.md)
 - [PostgreSQL](./postgres.md)
-- [Single container](./single-container.md)
 
 ## Step 2: Setting up your files.
 
@@ -76,6 +75,10 @@ $ docker-compose up -d
 ```
 
 You should see the containers start up without error. You should now be able to access the Mealie frontend at [http://localhost:9925](http://localhost:9925).
+
+!!! warning "Default Username"
+
+    Note that the default username (below) has been changed from previous versions
 
 !!! tip "Default Credentials"
 
