@@ -268,6 +268,7 @@ export default defineComponent({
       // only update the list with the new value if we're not loading, to prevent UI jitter
       if (!loadingCounter.value) {
         shoppingList.value = newListValue;
+        sortListItems();
         updateItemsByLabel();
       }
     }
@@ -473,6 +474,15 @@ export default defineComponent({
 
     const itemsByLabel = ref<{ [key: string]: ShoppingListItemOut[] }>({});
 
+    function sortListItems() {
+      if (!shoppingList.value?.listItems?.length) {
+        return;
+      }
+
+      // sort by position ascending, then createdAt descending
+      shoppingList.value.listItems.sort((a, b) => (a.position > b.position || a.createdAt < b.createdAt ? 1 : -1))
+    }
+
     function updateItemsByLabel() {
       const items: { [prop: string]: ShoppingListItemOut[] } = {};
       const noLabelText = i18n.tc("shopping-list.no-label");
@@ -603,6 +613,7 @@ export default defineComponent({
         });
       }
 
+      sortListItems();
       updateItemsByLabel();
 
       loadingCounter.value += 1;
