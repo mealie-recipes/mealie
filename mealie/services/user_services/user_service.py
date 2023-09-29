@@ -23,7 +23,7 @@ class UserService(BaseService):
         unlocked = 0
 
         for user in locked_users:
-            if force or user.is_locked and user.locked_at is not None:
+            if force or not user.is_locked and user.locked_at is not None:
                 self.unlock_user(user)
                 unlocked += 1
 
