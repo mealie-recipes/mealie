@@ -14,6 +14,19 @@ from mealie.services.group_services.shopping_lists import ShoppingListService
 MAX_CHECKED_ITEMS = 100
 
 
+def _create_publish_event(event_bus_service: EventBusService, group_id: UUID4):
+    def publish_event(event_type: EventTypes, document_data: EventDocumentDataBase, message: str = ""):
+        event_bus_service.dispatch(
+            integration_id=DEFAULT_INTEGRATION_ID,
+            group_id=group_id,
+            event_type=event_type,
+            document_data=document_data,
+            message=message,
+        )
+
+    return publish_event
+
+
 def _trim_list_items(shopping_list_service: ShoppingListService, shopping_list_id: UUID4, event_publisher: Callable):
     pagination = PaginationQuery(
         page=1,
@@ -47,19 +60,11 @@ def delete_old_checked_list_items(group_id: UUID4 | None = None):
 
         for group in groups:
             event_bus_service = EventBusService(session=session, group_id=group.id)
-
-            def publish_event(event_type: EventTypes, document_data: EventDocumentDataBase, message: str = ""):
-                event_bus_service.dispatch(
-                    integration_id=DEFAULT_INTEGRATION_ID,
-                    group_id=group.id,
-                    event_type=event_type,
-                    document_data=document_data,
-                    message=message,
-                )
-
             shopping_list_service = ShoppingListService(repos, group)
             shopping_list_data = repos.group_shopping_lists.by_group(group.id).page_all(
                 PaginationQuery(page=1, per_page=-1)
             )
             for shopping_list in shopping_list_data.items:
-                _trim_list_items(shopping_list_service, shopping_list.id, publish_event)
+                _trim_list_items(
+                    shopping_list_service, shopping_list.id, _create_publish_event(event_bus_service, group.id)
+                )
