@@ -244,31 +244,36 @@ export default defineComponent({
 
     onMounted(async () => {
       if (props.query) {
-        const newRecipes = await fetchRecipes(2);
-
-        // since we doubled the first call, we also need to advance the page
-        page.value = page.value + 1;
-
-        context.emit(REPLACE_RECIPES_EVENT, newRecipes);
+        await initRecipes();
         ready.value = true;
       }
     });
 
+    let lastQuery: string | undefined;
     watch(
       () => props.query,
       async (newValue: RecipeSearchQuery | undefined) => {
-        if (newValue) {
-          page.value = 1;
-          const newRecipes = await fetchRecipes(2);
-
-          // since we doubled the first call, we also need to advance the page
-          page.value = page.value + 1;
-
-          context.emit(REPLACE_RECIPES_EVENT, newRecipes);
+        const newValueString = JSON.stringify(newValue)
+        if (newValue && (!ready.value || lastQuery !== newValueString)) {
+          lastQuery = newValueString;
+          await initRecipes();
           ready.value = true;
         }
       }
     );
+
+    async function initRecipes() {
+      page.value = 1;
+      const newRecipes = await fetchRecipes(2);
+      if (!newRecipes.length) {
+        hasMore.value = false;
+      }
+
+      // since we doubled the first call, we also need to advance the page
+      page.value = page.value + 1;
+
+      context.emit(REPLACE_RECIPES_EVENT, newRecipes);
+    }
 
     const infiniteScroll = useThrottleFn(() => {
       useAsync(async () => {

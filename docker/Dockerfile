@@ -54,6 +54,7 @@ RUN apt-get update \
     # LDAP Dependencies
     libsasl2-dev libldap2-dev libssl-dev \
     gnupg gnupg2 gnupg1 \
+    && rm -rf /var/lib/apt/lists/* \
     && pip install -U --no-cache-dir pip
 
 # install poetry - respects $POETRY_VERSION & $POETRY_HOME
@@ -90,11 +91,7 @@ RUN apt-get update \
     iproute2 \
     tesseract-ocr-all \
     libldap-common \
-    && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
-
-# Clean apt
-RUN apt-get autoremove && rm -rf /var/lib/apt/lists/*
 
 # copying poetry and venv into image
 COPY --from=builder-base $POETRY_HOME $POETRY_HOME
