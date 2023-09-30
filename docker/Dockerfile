@@ -54,6 +54,7 @@ RUN apt-get update \
     # LDAP Dependencies
     libsasl2-dev libldap2-dev libssl-dev \
     gnupg gnupg2 gnupg1 \
+    && rm -rf /var/lib/apt/lists/* \
     && pip install -U --no-cache-dir pip
 
 # install poetry - respects $POETRY_VERSION & $POETRY_HOME
@@ -92,19 +93,18 @@ RUN apt-get update \
     curl \
     gnupg \
     libldap-common \
-    && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
 
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
-    && apt-get install -y nodejs
+    && apt-get install -y nodejs \
+    && rm -rf /var/lib/apt/lists/*
 
 # Add Yarn
 RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | tee /usr/share/keyrings/yarnkey.gpg >/dev/null \
     && echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | tee /etc/apt/sources.list.d/yarn.list \
-    && apt-get update && apt-get install yarn
-
-# Clean apt
-RUN apt-get autoremove && rm -rf /var/lib/apt/lists/*
+    && apt-get update \
+    && apt-get install yarn \
+    && rm -rf /var/lib/apt/lists/*
 
 # copying poetry and venv into image
 COPY --from=builder-base $POETRY_HOME $POETRY_HOME
