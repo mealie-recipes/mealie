@@ -6,7 +6,6 @@ import sqlalchemy.orm as orm
 from sqlalchemy import event
 from sqlalchemy.ext.orderinglist import ordering_list
 from sqlalchemy.orm import Mapped, mapped_column, validates
-from text_unidecode import unidecode
 
 from mealie.db.models._model_utils.guid import GUID
 
@@ -189,10 +188,10 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
 
         # SQLAlchemy events do not seem to register things that are set during auto_init
         if name is not None:
-            self.name_normalized = unidecode(name).lower().strip()
+            self.name_normalized = self.normalize(name)
 
         if description is not None:
-            self.description_normalized = unidecode(description).lower().strip()
+            self.description_normalized = self.normalize(description)
 
         tableargs = [  # base set of indices
             sa.UniqueConstraint("slug", "group_id", name="recipe_slug_group_id_key"),
@@ -237,12 +236,12 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
 
 @event.listens_for(RecipeModel.name, "set")
 def receive_name(target: RecipeModel, value: str, oldvalue, initiator):
-    target.name_normalized = unidecode(value).lower().strip()
+    target.name_normalized = RecipeModel.normalize(value)
 
 
 @event.listens_for(RecipeModel.description, "set")
 def receive_description(target: RecipeModel, value: str, oldvalue, initiator):
     if value is not None:
-        target.description_normalized = unidecode(value).lower().strip()
+        target.description_normalized = RecipeModel.normalize(value)
     else:
         target.description_normalized = None

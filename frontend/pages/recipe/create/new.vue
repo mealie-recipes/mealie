@@ -3,7 +3,7 @@
     <v-card-title class="headline"> {{ $t('recipe.create-recipe') }} </v-card-title>
     <v-card-text>
       {{ $t('recipe.create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names') }}
-      <v-form ref="domCreateByName">
+      <v-form ref="domCreateByName" @submit.prevent>
         <v-text-field
           v-model="newRecipeName"
           :label="$t('recipe.recipe-name')"
@@ -17,6 +17,7 @@
           :rules="[validators.required]"
           :hint="$t('recipe.new-recipe-names-must-be-unique')"
           persistent-hint
+          v-on:keyup.enter="createByName(newRecipeName)"
         ></v-text-field>
       </v-form>
     </v-card-text>

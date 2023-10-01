@@ -12,7 +12,7 @@ def dev_users() -> list[dict]:
         {
             "full_name": "Jason",
             "username": "jason",
-            "email": "jason@email.com",
+            "email": "jason@example.com",
             "password": hash_password(settings.DEFAULT_PASSWORD),
             "group": settings.DEFAULT_GROUP,
             "admin": False,
@@ -20,7 +20,7 @@ def dev_users() -> list[dict]:
         {
             "full_name": "Bob",
             "username": "bob",
-            "email": "bob@email.com",
+            "email": "bob@example.com",
             "password": hash_password(settings.DEFAULT_PASSWORD),
             "group": settings.DEFAULT_GROUP,
             "admin": False,
@@ -28,7 +28,7 @@ def dev_users() -> list[dict]:
         {
             "full_name": "Sarah",
             "username": "sarah",
-            "email": "sarah@email.com",
+            "email": "sarah@example.com",
             "password": hash_password(settings.DEFAULT_PASSWORD),
             "group": settings.DEFAULT_GROUP,
             "admin": False,
@@ -36,7 +36,7 @@ def dev_users() -> list[dict]:
         {
             "full_name": "Sammy",
             "username": "sammy",
-            "email": "sammy@email.com",
+            "email": "sammy@example.com",
             "password": hash_password(settings.DEFAULT_PASSWORD),
             "group": settings.DEFAULT_GROUP,
             "admin": False,

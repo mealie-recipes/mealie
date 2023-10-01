@@ -206,7 +206,7 @@ export interface Recipe {
   recipeCategory?: RecipeCategory[];
   tags?: RecipeTag[];
   tools?: RecipeTool[];
-  rating?: number;
+  rating?: number | null;
   orgURL?: string;
   dateAdded?: string;
   dateUpdated?: string;

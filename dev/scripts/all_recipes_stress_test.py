@@ -231,7 +231,7 @@ def recipe_data(name: str, slug: str, id: str, userId: str, groupId: str) -> dic
     }
 
 
-def login(username="changeme@email.com", password="MyPassword"):
+def login(username="changeme@example.com", password="MyPassword"):
     payload = {"username": username, "password": password}
     r = requests.post("http://localhost:9000/api/auth/token", payload)
 

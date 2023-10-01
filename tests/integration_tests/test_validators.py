@@ -31,7 +31,7 @@ def test_validators_username(api_client: TestClient, unique_user: TestUser):
 def test_validators_email(api_client: TestClient, unique_user: TestUser):
     emails = [
         SimpleCase(value=unique_user.email, is_valid=False),
-        SimpleCase(value=f"{random_string()}@email.com", is_valid=True),
+        SimpleCase(value=f"{random_string()}@example.com", is_valid=True),
     ]
 
     for user in emails:

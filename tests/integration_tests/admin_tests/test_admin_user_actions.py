@@ -124,7 +124,7 @@ def test_self_promote_admin(api_client: TestClient, unique_user: TestUser):
     update_data = {
         "id": unique_user.user_id,
         "fullName": "Updated Name",
-        "email": "user@email.com",
+        "email": "user@example.com",
         "group": "Home",
         "admin": True,
     }
