@@ -175,7 +175,7 @@
         {
           icon: $globals.icons.calendarMultiselect,
           title: i18n.tc("meal-plan.meal-planner"),
-          to: "/group/mealplan/planner",
+          to: "/group/mealplan/planner/view",
           restricted: true,
         },
         {
