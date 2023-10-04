@@ -25,7 +25,7 @@ class ShoppingListItemRecipeReference(BaseMixins, SqlAlchemyBase):
     recipe_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"), index=True)
     recipe: Mapped[Optional["RecipeModel"]] = orm.relationship("RecipeModel", back_populates="shopping_list_item_refs")
     recipe_quantity: Mapped[float] = mapped_column(Float, nullable=False)
-    recipe_scale: Mapped[float | None] = mapped_column(Float, default=1)
+    recipe_scale: Mapped[float] = mapped_column(Float, default=1)
     recipe_note: Mapped[str | None] = mapped_column(String)
 
     @auto_init()
