@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING, Optional
 
-from sqlalchemy import Boolean, Float, ForeignKey, Integer, String, orm
+from sqlalchemy import Boolean, Float, ForeignKey, Integer, String, UniqueConstraint, orm
 from sqlalchemy.ext.orderinglist import ordering_list
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -102,6 +102,7 @@ class ShoppingListRecipeReference(BaseMixins, SqlAlchemyBase):
 
 class ShoppingListMultiPurposeLabel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "shopping_lists_multi_purpose_labels"
+    __table_args__ = (UniqueConstraint("shopping_list_id", "label_id", name="shopping_list_id_label_id_key"),)
     id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
 
     shopping_list_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("shopping_lists.id"), primary_key=True)

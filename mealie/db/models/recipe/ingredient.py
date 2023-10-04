@@ -46,6 +46,7 @@ class IngredientUnitModel(SqlAlchemyBase, BaseMixins):
             self.abbreviation = self.normalize(abbreviation)
 
         tableargs = [
+            sa.UniqueConstraint("name", "group_id", name="ingredient_units_name_group_id_key"),
             sa.Index(
                 "ix_ingredient_units_name_normalized",
                 "name_normalized",
@@ -113,6 +114,7 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
             self.name_normalized = self.normalize(name)
 
         tableargs = [
+            sa.UniqueConstraint("name", "group_id", name="ingredient_foods_name_group_id_key"),
             sa.Index(
                 "ix_ingredient_foods_name_normalized",
                 "name_normalized",
