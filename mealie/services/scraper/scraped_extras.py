@@ -33,8 +33,13 @@ class ScrapedExtras:
         repo = ctx.repos.tags.by_group(ctx.group_id)
 
         tags = []
+        seen_tag_slugs: set[str] = set()
         for tag in self._tags:
             slugify_tag = slugify(tag)
+            if slugify_tag in seen_tag_slugs:
+                continue
+
+            seen_tag_slugs.add(slugify_tag)
 
             # Check if tag exists
             if db_tag := repo.get_one(slugify_tag, "slug"):
