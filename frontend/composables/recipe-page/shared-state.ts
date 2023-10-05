@@ -51,13 +51,20 @@ interface PageState {
   toggleCookMode: () => void;
 }
 
-const memo: Record<string, PageState> = {};
+type PageRefs = ReturnType<typeof pageRefs>;
 
-function pageStateConstructor(slug: string): PageState {
-  const slugRef = ref(slug);
-  const pageModeRef = ref(PageMode.VIEW);
-  const editModeRef = ref(EditorMode.FORM);
+const memo: Record<string, PageRefs> = {};
 
+function pageRefs(slug: string) {
+  return {
+    slugRef: ref(slug),
+    pageModeRef: ref(PageMode.VIEW),
+    editModeRef: ref(EditorMode.FORM),
+    imageKey: ref(1),
+  };
+}
+
+function pageState({ slugRef, pageModeRef, editModeRef, imageKey }: PageRefs): PageState {
   const toggleEditMode = () => {
     if (editModeRef.value === EditorMode.FORM) {
       editModeRef.value = EditorMode.JSON;
@@ -92,7 +99,7 @@ function pageStateConstructor(slug: string): PageState {
     slug: slugRef,
     pageMode: computed(() => pageModeRef.value),
     editMode: computed(() => editModeRef.value),
-    imageKey: ref(1),
+    imageKey,
 
     toggleEditMode,
     setMode,
@@ -120,10 +127,10 @@ function pageStateConstructor(slug: string): PageState {
  */
 export function usePageState(slug: string): PageState {
   if (!memo[slug]) {
-    memo[slug] = pageStateConstructor(slug);
+    memo[slug] = pageRefs(slug);
   }
 
-  return memo[slug];
+  return pageState(memo[slug]);
 }
 
 export function clearPageState(slug: string) {
