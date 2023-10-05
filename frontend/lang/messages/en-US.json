@@ -858,7 +858,7 @@
     "user-details": "User Details",
     "user-name": "User Name",
     "authentication-method": "Authentication Method",
-    "authentication-method-hint": "This specifies how a user will authenticate with Mealie. If you're not sure, choose 'Mealie",
+    "authentication-method-hint": "This specifies how a user will authenticate with Mealie. If you're not sure, choose 'Mealie'",
     "permissions": "Permissions",
     "administrator": "Administrator",
     "user-can-invite-other-to-group": "User can invite other to group",

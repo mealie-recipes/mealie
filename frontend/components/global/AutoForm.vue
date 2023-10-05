@@ -18,7 +18,7 @@
           :label="inputField.label"
           :name="inputField.varName"
           :hint="inputField.hint || ''"
-          :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate)"
+          :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (disabledFields && disabledFields.includes(inputField.varName))"
           @change="emitBlur"
         />
 
@@ -26,8 +26,8 @@
         <v-text-field
           v-else-if="inputField.type === fieldTypes.TEXT || inputField.type === fieldTypes.PASSWORD"
           v-model="value[inputField.varName]"
-          :readonly="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate)"
-          :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate)"
+          :readonly="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (readonlyFields && readonlyFields.includes(inputField.varName))"
+          :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (disabledFields && disabledFields.includes(inputField.varName))"
           filled
           :type="inputField.type === fieldTypes.PASSWORD ? 'password' : 'text'"
           rounded
@@ -46,8 +46,8 @@
         <v-textarea
           v-else-if="inputField.type === fieldTypes.TEXT_AREA"
           v-model="value[inputField.varName]"
-          :readonly="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate)"
-          :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate)"
+          :readonly="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (readonlyFields && readonlyFields.includes(inputField.varName))"
+          :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (disabledFields && disabledFields.includes(inputField.varName))"
           filled
           rounded
           class="rounded-lg"
@@ -66,8 +66,8 @@
         <v-select
           v-else-if="inputField.type === fieldTypes.SELECT"
           v-model="value[inputField.varName]"
-          :readonly="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate)"
-          :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate)"
+          :readonly="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (readonlyFields && readonlyFields.includes(inputField.varName))"
+          :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (disabledFields && disabledFields.includes(inputField.varName))"
           filled
           rounded
           class="rounded-lg"
@@ -182,6 +182,14 @@ export default defineComponent({
     dark: {
       default: false,
       type: Boolean,
+    },
+    disabledFields: {
+      default: null,
+      type: Array as () => string[],
+    },
+    readonlyFields: {
+      default: null,
+      type: Array as () => string[],
     },
   },
   setup(props, context) {
