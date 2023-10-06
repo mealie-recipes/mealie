@@ -6,12 +6,14 @@
           <v-icon :class="attrs.class.icon" dark :small="small"> {{ $globals.icons.primary }} </v-icon>
         </v-list-item-avatar>
         <v-list-item-content :class="attrs.class.text">
-          <!-- eslint-disable-next-line vue/no-v-html -->
           <v-list-item-title :class="listItem && listItemDescriptions[index] ? '' : 'pr-4'" :style="attrs.style.text.title">
             {{ recipe.name }}
           </v-list-item-title>
           <v-list-item-subtitle v-if="showDescription">{{ recipe.description }}</v-list-item-subtitle>
-          <v-list-item-subtitle v-if="listItem && listItemDescriptions[index]" :style="attrs.style.text.subTitle" v-html="listItemDescriptions[index]"/>
+          <v-list-item-subtitle v-if="listItem && listItemDescriptions[index]" :style="attrs.style.text.subTitle">
+            <!-- eslint-disable-next-line vue/no-v-html -->
+            <div v-html="listItemDescriptions[index]"></div>
+          </v-list-item-subtitle>
         </v-list-item-content>
         <slot :name="'actions-' + recipe.id" :v-bind="{ item: recipe }"> </slot>
       </v-list-item>
