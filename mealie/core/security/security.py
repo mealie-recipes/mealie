@@ -99,7 +99,6 @@ def authenticate_user(session, email: str, password: str) -> PrivateUser | bool:
             user_service.lock_user(user)
 
         return False
-
     user.login_attemps = 0
     return db.users.update(user.id, user)
 
