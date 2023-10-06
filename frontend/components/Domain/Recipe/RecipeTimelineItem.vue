@@ -14,8 +14,8 @@
     <v-card
       hover
       :to="$listeners.selected || !recipe ? undefined : `/recipe/${recipe.slug}`"
-      @click="$emit('selected')"
       class="elevation-12"
+      @click="$emit('selected')"
     >
       <v-card-title class="background">
         <v-row>
