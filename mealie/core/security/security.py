@@ -11,7 +11,8 @@ from mealie.core.security.hasher import get_hasher
 from mealie.db.models.users.users import AuthMethod
 from mealie.repos.all_repositories import get_repositories
 from mealie.schema.user import PrivateUser
-from mealie.services.user_services.user_service import UserService
+from mealie.schema.user.registration import CreateUserRegistration
+from mealie.services.user_services.user_service import UserService, RegistrationService
 
 ALGORITHM = "HS256"
 
@@ -19,6 +20,12 @@ logger = root_logger.get_logger("security")
 
 
 class UserLockedOut(Exception):
+    ...
+	
+class RemoteUserAttempt(Exception):
+    ...
+	
+class UserRegistrationDisabled(Exception):
     ...
 
 
@@ -43,6 +50,26 @@ def create_recipe_slug_token(file_path: str | Path) -> str:
     token_data = {"slug": str(file_path)}
     return create_access_token(token_data, expires_delta=timedelta(minutes=30))
 
+def authenticate_remote_user(session, username: str, email: str) -> PrivateUser | bool:
+    settings = get_app_settings()
+
+	if settings.REMOTE_USER_ENABLED:
+		db = get_repositories(session)
+		
+		user = db.users.get_one(email, "username", any_case=True)
+		if not user:
+			if settings.ALLOW_SIGNUP:
+				registration = CreateUserRegistration()
+				registration.user = username
+				registration.email = email
+				registration.group = settings.DEFAULT_GROUP
+				RegistrationService.register_user(registration)
+			else:
+				raise UserRegistrationDisabled()
+				
+		return user
+	else:
+		raise RemoteUserAttempt()
 
 def authenticate_user(session, email: str, password: str) -> PrivateUser | bool:
     settings = get_app_settings()
@@ -59,7 +86,7 @@ def authenticate_user(session, email: str, password: str) -> PrivateUser | bool:
         # server side time is relatively constant and not vulnerable to timing attacks.
         verify_password("abc123cba321", "$2b$12$JdHtJOlkPFwyxdjdygEzPOtYmdQF5/R5tHxw5Tq8pxjubyLqdIX5i")
         return False
-
+		
     if user.login_attemps >= settings.SECURITY_MAX_LOGIN_ATTEMPTS or user.is_locked:
         raise UserLockedOut()
 

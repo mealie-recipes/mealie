@@ -8,8 +8,8 @@ from sqlalchemy.orm.session import Session
 
 from mealie.core import root_logger, security
 from mealie.core.dependencies import get_current_user
-from mealie.core.security import authenticate_user
-from mealie.core.security.security import UserLockedOut
+from mealie.core.security import authenticate_user, authenticate_remote_user
+from mealie.core.security.security import UserLockedOut, RemoteUserAttempt, UserRegistrationDisabled
 from mealie.db.db_setup import generate_session
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.user import PrivateUser
@@ -65,10 +65,22 @@ def get_token(
         ip = request.client.host
 
     try:
-        user = authenticate_user(session, email, password)  # type: ignore
+		if "Remote-User" in request.headers:
+			username = request.headers["Remote-User"]
+			if "Remote-Email" in request.headers:
+				email = request.headers["Remote-Email"]
+			user = authenticate_remote_user(session, username, email)  # type: ignore
+		else:
+			user = authenticate_user(session, email, password)  # type: ignore
     except UserLockedOut as e:
         logger.error(f"User is locked out from {ip}")
         raise HTTPException(status_code=status.HTTP_423_LOCKED, detail="User is locked out") from e
+	except RemoteUserAttempt as e:
+        logger.error(f"Remote-User login attempt from {ip}, but not activated")
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Remote-User login attempt") from e
+	except UserRegistrationDisabled as e:
+        logger.error(f"Remote-User login attempt from {ip}, but user does not exist")
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="User registration is disabled") from e
 
     if not user:
         logger.error(f"Incorrect username or password from {ip}")

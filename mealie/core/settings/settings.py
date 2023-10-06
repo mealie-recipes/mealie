@@ -47,6 +47,7 @@ class AppSettings(BaseSettings):
     # ===============================================
     # Security Configuration
 
+	SECURITY_REMOTE_USER_ENABLE: bool = false
     SECURITY_MAX_LOGIN_ATTEMPTS: int = 5
     SECURITY_USER_LOCKOUT_TIME: int = 24
     "time in hours"
