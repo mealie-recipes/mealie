@@ -456,7 +456,7 @@
     "date-format-hint-yyyy-mm-dd": "JJJ-MM-TT Format",
     "add-to-list": "Zur Einkaufsliste hinzufügen",
     "add-to-plan": "Zum Essensplan hinzufügen",
-    "add-to-timeline": "Add to Timeline",
+    "add-to-timeline": "Zum Zeitstrahl hinzufügen",
     "recipe-added-to-list": "Rezept wurde zur Einkaufsliste hinzugefügt",
     "recipe-added-to-mealplan": "Rezept zum Essensplan hinzugefügt",
     "failed-to-add-recipe-to-mealplan": "Fehler beim Hinzufügen des Rezepts zum Essensplan",
@@ -481,11 +481,11 @@
     "locked": "Gesperrt",
     "public-link": "Öffentlicher Link",
     "timer": {
-      "kitchen-timer": "Kitchen Timer",
-      "start-timer": "Start Timer",
-      "pause-timer": "Pause Timer",
-      "resume-timer": "Resume Timer",
-      "stop-timer": "Stop Timer"
+      "kitchen-timer": "Küchenwecker",
+      "start-timer": "Wecker starten",
+      "pause-timer": "Wecker pausieren",
+      "resume-timer": "Wecker fortsetzen",
+      "stop-timer": "Wecker stoppen"
     },
     "edit-timeline-event": "Zeitstrahl-Ereignis bearbeiten",
     "timeline": "Zeitstrahl",
@@ -539,7 +539,7 @@
     "unit": "Maßeinheit",
     "upload-image": "Bild hochladen",
     "screen-awake": "Keep Screen Awake",
-    "remove-image": "Remove image"
+    "remove-image": "Bild entfernen"
   },
   "search": {
     "advanced-search": "Erweiterte Suche",
