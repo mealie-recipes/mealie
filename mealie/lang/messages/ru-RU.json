@@ -6,13 +6,13 @@
         "unique-name-error": "Название рецепта должно быть уникальным"
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "No recipes match your rules"
+        "no-recipes-match-your-rules": "Нет рецептов, соответствующих вашим правилам"
     },
     "user": {
-        "user-updated": "User updated",
+        "user-updated": "Пользователь обновлен",
         "password-updated": "Пароль обновлен",
-        "invalid-current-password": "Invalid current password",
-        "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
+        "invalid-current-password": "Неправильно введён текущий пароль",
+        "ldap-update-password-unavailable": "Не удается обновить пароль, пользователь контролируется LDAP"
     },
     "group": {
         "report-deleted": "Отчет удален."
@@ -25,11 +25,11 @@
         "email-conflict-error": "Этот адрес эл. почты уже используется"
     },
     "notifications": {
-        "generic-created": "{name} was created",
-        "generic-updated": "{name} was updated",
-        "generic-created-with-url": "{name} has been created, {url}",
-        "generic-updated-with-url": "{name} has been updated, {url}",
-        "generic-duplicated": "{name} has been duplicated",
-        "generic-deleted": "{name} has been deleted"
+        "generic-created": "{name} был создан",
+        "generic-updated": "{name} был обновлён",
+        "generic-created-with-url": "{name} был создан, {url}",
+        "generic-updated-with-url": "{name} был обновлен, {url}",
+        "generic-duplicated": "Копия {name} была создана",
+        "generic-deleted": "{name} был удален"
     }
 }
