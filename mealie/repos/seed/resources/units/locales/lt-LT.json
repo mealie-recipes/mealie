@@ -2,17 +2,17 @@
     "teaspoon": {
         "name": "arbatinis šaukštelis",
         "description": "",
-        "abbreviation": "a.š."
+        "abbreviation": "a. š."
     },
     "tablespoon": {
         "name": "valgomasis šaukštas",
         "description": "",
-        "abbreviation": "v.š."
+        "abbreviation": "valg. š."
     },
     "cup": {
-        "name": "cup",
+        "name": "puodelis",
         "description": "",
-        "abbreviation": "cup"
+        "abbreviation": "puodelis"
     },
     "fluid-ounce": {
         "name": "skysčio uncija",
@@ -25,7 +25,7 @@
         "abbreviation": "pt"
     },
     "quart": {
-        "name": "quart",
+        "name": "qt",
         "description": "",
         "abbreviation": "qt"
     },
@@ -75,7 +75,7 @@
         "abbreviation": ""
     },
     "dash": {
-        "name": "dash",
+        "name": "žiupsnelis",
         "description": "",
         "abbreviation": ""
     },
