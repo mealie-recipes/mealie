@@ -668,7 +668,8 @@ export default defineComponent({
 
       // make sure it's inserted into the end of the list, which may have been updated
       createListItemData.value.position = shoppingList.value?.listItems?.length
-        ? Math.max(...shoppingList.value.listItems.map(item => item.position || 0)) + 1 : 0;
+        ? (shoppingList.value.listItems.reduce((a, b) => (a.position || 0) > (b.position || 0) ? a : b).position || 0) + 1
+        : 0;
       const { data } = await userApi.shopping.items.createOne(createListItemData.value);
       loadingCounter.value -= 1;
 
