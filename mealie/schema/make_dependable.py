@@ -1,6 +1,6 @@
 from inspect import signature
 
-from fastapi.exceptions import HTTPException, ValidationError
+from fastapi.exceptions import HTTPException, RequestValidationError
 
 
 def make_dependable(cls):
@@ -25,7 +25,7 @@ def make_dependable(cls):
         try:
             signature(init_cls_and_handle_errors).bind(*args, **kwargs)
             return cls(*args, **kwargs)
-        except ValidationError as e:
+        except RequestValidationError as e:
             for error in e.errors():
                 error["loc"] = ["query"] + list(error["loc"])
             raise HTTPException(422, detail=e.errors()) from None
