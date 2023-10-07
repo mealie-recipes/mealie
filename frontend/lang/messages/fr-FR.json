@@ -456,6 +456,7 @@
     "date-format-hint-yyyy-mm-dd": "Format AAAA-MM-JJ",
     "add-to-list": "Ajouter à la liste",
     "add-to-plan": "Ajouter au menu",
+    "add-to-timeline": "Add to Timeline",
     "recipe-added-to-list": "Recette ajoutée à la liste",
     "recipe-added-to-mealplan": "Recette ajoutée au menu",
     "failed-to-add-recipe-to-mealplan": "Échec de l’ajout de la recette au menu",
@@ -479,6 +480,13 @@
     "increase-scale-label": "Augmenter l’échelle de 1",
     "locked": "Verrouillé",
     "public-link": "Lien public",
+    "timer": {
+      "kitchen-timer": "Kitchen Timer",
+      "start-timer": "Start Timer",
+      "pause-timer": "Pause Timer",
+      "resume-timer": "Resume Timer",
+      "stop-timer": "Stop Timer"
+    },
     "edit-timeline-event": "Modifier l’événement dans l’historique",
     "timeline": "Historique",
     "timeline-is-empty": "Pas encore d’historique. Essayez de cuisiner cette recette !",
@@ -529,7 +537,9 @@
     "tree-view": "Vue en arborescence",
     "recipe-yield": "Nombre de parts",
     "unit": "Unité",
-    "upload-image": "Envoyer une image"
+    "upload-image": "Envoyer une image",
+    "screen-awake": "Keep Screen Awake",
+    "remove-image": "Remove image"
   },
   "search": {
     "advanced-search": "Recherche avancée",
@@ -564,7 +574,6 @@
       "partial-backup": "Sauvegarde partielle",
       "unable-to-delete-backup": "Impossible de supprimer la sauvegarde.",
       "experimental-description": "Sauvegarde une photo complète de la base de données et du répertoire de données du site. Cela inclut toutes les données et ne peut pas être configuré pour exclure des sous-ensembles de données. C'est un peu comme une photo de Mealie à un instant précis. Actuellement, {not-crossed-version} (les migrations de données ne sont pas effectuées automatiquement). Il s'agit d'un moyen indépendant de la base de données pour exporter et importer des données ou de sauvegarder le site vers un emplacement externe.",
-      "not-crossed-version": "ce mécanisme de sauvegarde dépend de -a version de Mealie et ne peut donc pas être utilisé pour migrer des données entre les versions",
       "backup-restore": "Restaurer la sauvegarde",
       "back-restore-description": "La restauration de cette sauvegarde écrasera toutes les données actuelles dans votre base de données et dans le répertoire de données et les remplacera par le contenu de cette sauvegarde. {cannot-be-undone} Si la restauration est réussie, vous serez déconnecté.",
       "cannot-be-undone": "Cette action ne peut pas être annulée - à utiliser avec prudence.",
@@ -1060,6 +1069,7 @@
     "welcome-user": "👋 Bienvenue, {0}",
     "description": "Gérez votre profil, les recettes et les paramètres de groupe.",
     "get-invite-link": "Obtenir un lien d'invitation",
+    "get-public-link": "Get Public Link",
     "account-summary": "Aperçu du compte",
     "account-summary-description": "Voici un résumé des informations de votre groupe",
     "group-statistics": "Statistiques du groupe",
