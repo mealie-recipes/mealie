@@ -3,63 +3,63 @@
         "name": "Produce"
     },
     {
-        "name": "Grains"
+        "name": "谷物"
     },
     {
-        "name": "Fruits"
+        "name": "水果"
     },
     {
-        "name": "Vegetables"
+        "name": "蔬菜"
     },
     {
-        "name": "Meat"
+        "name": "肉类"
     },
     {
-        "name": "Seafood"
+        "name": "海鲜"
     },
     {
-        "name": "Beverages"
+        "name": "饮料"
     },
     {
-        "name": "Baked Goods"
+        "name": "烘焙食品"
     },
     {
-        "name": "Canned Goods"
+        "name": "罐头食品"
     },
     {
-        "name": "Condiments"
+        "name": "调味品"
     },
     {
         "name": "Confectionary"
     },
     {
-        "name": "Dairy Products"
+        "name": "乳制品"
     },
     {
-        "name": "Frozen Foods"
+        "name": "冷冻食品"
     },
     {
-        "name": "Health Foods"
+        "name": "健康食品"
     },
     {
-        "name": "Household"
+        "name": "家庭"
     },
     {
-        "name": "Meat Products"
+        "name": "肉制品"
     },
     {
-        "name": "Snacks"
+        "name": "零食"
     },
     {
-        "name": "Spices"
+        "name": "调味品"
     },
     {
-        "name": "Sweets"
+        "name": "甜味剂"
     },
     {
-        "name": "Alcohol"
+        "name": "酒类"
     },
     {
-        "name": "Other"
+        "name": "其它"
     }
 ]
