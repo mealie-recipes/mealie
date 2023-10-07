@@ -187,7 +187,7 @@ def import_data(lines):
             token = unclump(token)
 
             # turn B-NAME/123 back into "name"
-            tag, confidence = re.split(r"/", columns[-1], 1)
+            tag, confidence = re.split(r"/", columns[-1], maxsplit=1)
             tag = re.sub(r"^[BI]\-", "", tag).lower()  # noqa: W605 - invalid dscape sequence
 
             # ====================
