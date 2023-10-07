@@ -7,6 +7,7 @@ from pydantic import BaseModel
 from sqlalchemy.orm.session import Session
 
 from mealie.core import root_logger, security
+from mealie.core.config import get_app_settings
 from mealie.core.dependencies import get_current_user
 from mealie.core.security import authenticate_user
 from mealie.core.security.security import UserLockedOut
@@ -17,6 +18,8 @@ from mealie.schema.user import PrivateUser
 public_router = APIRouter(tags=["Users: Authentication"])
 user_router = UserAPIRouter(tags=["Users: Authentication"])
 logger = root_logger.get_logger("auth")
+
+remember_me_duration = timedelta(days=14)
 
 
 class CustomOAuth2Form(OAuth2PasswordRequestForm):
@@ -55,6 +58,8 @@ def get_token(
     data: CustomOAuth2Form = Depends(),
     session: Session = Depends(generate_session),
 ):
+    settings = get_app_settings()
+
     email = data.username
     password = data.password
     if "x-forwarded-for" in request.headers:
@@ -76,7 +81,10 @@ def get_token(
             status_code=status.HTTP_401_UNAUTHORIZED,
         )
 
-    duration = timedelta(days=14) if data.remember_me else None
+    duration = timedelta(hours=settings.TOKEN_TIME)
+    if data.remember_me and remember_me_duration > duration:
+        duration = remember_me_duration
+
     access_token = security.create_access_token(dict(sub=str(user.id)), duration)  # type: ignore
 
     response.set_cookie(
