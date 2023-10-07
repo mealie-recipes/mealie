@@ -3,6 +3,7 @@ import shutil
 from datetime import datetime
 from pathlib import Path
 from shutil import copytree, rmtree
+from typing import Any
 from uuid import UUID, uuid4
 from zipfile import ZipFile
 
@@ -12,6 +13,7 @@ from slugify import slugify
 from mealie.core import exceptions
 from mealie.pkgs import cache
 from mealie.repos.repository_factory import AllRepositories
+from mealie.repos.repository_generic import RepositoryGeneric
 from mealie.schema.recipe.recipe import CreateRecipe, Recipe
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_settings import RecipeSettings
@@ -157,6 +159,60 @@ class RecipeService(BaseService):
         self.repos.recipe_timeline_events.create(timeline_event_data)
         return new_recipe
 
+    def _transform_user_id(self, user_id: str) -> str:
+        query = self.repos.users.by_group(self.group.id).get_one(user_id)
+        if query:
+            return user_id
+        else:
+            # default to the current user
+            return str(self.user.id)
+
+    def _transform_category_or_tag(self, data: dict, repo: RepositoryGeneric) -> dict:
+        slug = data.get("slug")
+        if not slug:
+            return data
+
+        # if the item exists, return the actual data
+        query = repo.get_one(slug, "slug")
+        if query:
+            return query.dict()
+
+        # otherwise, create the item
+        new_item = repo.create(data)
+        return new_item.dict()
+
+    def _process_recipe_data(self, key: str, data: list | dict | Any):
+        if isinstance(data, list):
+            return [self._process_recipe_data(key, item) for item in data]
+
+        elif isinstance(data, str):
+            # make sure the user is valid
+            if key == "user_id":
+                return self._transform_user_id(str(data))
+
+            return data
+
+        elif not isinstance(data, dict):
+            return data
+
+        # force group_id to match the group id of the current user
+        data["group_id"] = str(self.group.id)
+
+        # make sure categories and tags are valid
+        if key == "recipe_category":
+            return self._transform_category_or_tag(data, self.repos.categories.by_group(self.group.id))
+        elif key == "tags":
+            return self._transform_category_or_tag(data, self.repos.tags.by_group(self.group.id))
+
+        # recursively process other objects
+        for k, v in data.items():
+            data[k] = self._process_recipe_data(k, v)
+
+        return data
+
+    def clean_recipe_dict(self, recipe: dict[str, Any]) -> dict[str, Any]:
+        return self._process_recipe_data("recipe", recipe)
+
     def create_from_zip(self, archive: UploadFile, temp_path: Path) -> Recipe:
         """
         `create_from_zip` creates a recipe in the database from a zip file exported from Mealie. This is NOT
@@ -180,7 +236,7 @@ class RecipeService(BaseService):
         if recipe_dict is None:
             raise exceptions.UnexpectedNone("No json data found in Zip")
 
-        recipe = self.create_one(Recipe(**recipe_dict))
+        recipe = self.create_one(Recipe(**self.clean_recipe_dict(recipe_dict)))
 
         if recipe and recipe.id:
             data_service = RecipeDataService(recipe.id)
