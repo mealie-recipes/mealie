@@ -15,7 +15,7 @@
         "abbreviation": "kuppi"
     },
     "fluid-ounce": {
-        "name": "fluid ounce",
+        "name": "nesteunssi",
         "description": "",
         "abbreviation": "fl oz"
     },
@@ -75,7 +75,7 @@
         "abbreviation": ""
     },
     "dash": {
-        "name": "dash",
+        "name": "ripaus",
         "description": "",
         "abbreviation": ""
     },
@@ -85,7 +85,7 @@
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
+        "name": "pää",
         "description": "",
         "abbreviation": ""
     },
