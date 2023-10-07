@@ -456,6 +456,7 @@
     "date-format-hint-yyyy-mm-dd": "Formát YYY-MM-DD",
     "add-to-list": "Pridať do zoznamu",
     "add-to-plan": "Pridať do plánu",
+    "add-to-timeline": "Add to Timeline",
     "recipe-added-to-list": "Recept bol pridaný do zoznamu",
     "recipe-added-to-mealplan": "Recept bol pridaný do stravovacieho plánu",
     "failed-to-add-recipe-to-mealplan": "Pridanie receptu do stravovacieho plánu zlyhalo",
@@ -479,6 +480,13 @@
     "increase-scale-label": "Zvýšiť škálovanie o 1",
     "locked": "Zamknuté",
     "public-link": "Verejný odkaz",
+    "timer": {
+      "kitchen-timer": "Kitchen Timer",
+      "start-timer": "Start Timer",
+      "pause-timer": "Pause Timer",
+      "resume-timer": "Resume Timer",
+      "stop-timer": "Stop Timer"
+    },
     "edit-timeline-event": "Upraviť udalosť na časovej osi",
     "timeline": "Časová os",
     "timeline-is-empty": "Na časovej osi zatiaľ nič nie je. Skúste pripraviť tento recept!",
@@ -529,7 +537,9 @@
     "tree-view": "Stromový pohľad",
     "recipe-yield": "Počet porcií",
     "unit": "Jednotka",
-    "upload-image": "Nahrať obrázok"
+    "upload-image": "Nahrať obrázok",
+    "screen-awake": "Keep Screen Awake",
+    "remove-image": "Remove image"
   },
   "search": {
     "advanced-search": "Rozšírené vyhľadávanie",
@@ -564,7 +574,6 @@
       "partial-backup": "Čiastočná záloha",
       "unable-to-delete-backup": "Zálohu nebolo možné odstrániť.",
       "experimental-description": "Zálohuje kompletný aktuálny obsah databázy a adresára s dátami inštalácie Mealie. Toto zahŕňa všetky dáta, pričom nie je možné zo zálohy vylúčiť akúkoľvek podskupinu dát. Takúto zálohu možno považovať za obraz dátového obsahu Mealie v danom čase. Aktuálne, {not-crossed-version} (dátové migrácie nie sú vykonávané automaticky). Táto funkcionalita slúži ako databázovo agnostický spôsob exportovania a importovania dát alebo ako záloha inštalácie na externú lokáciu.",
-      "not-crossed-version": "tento mechanizmus zálohovania nie je verziovo nezávislý a preto nemôže byť použití pri dátovej migrácii medzi rôznymi verziami",
       "backup-restore": "Uložiť zálohu",
       "back-restore-description": "Obnovenie tejto zálohy prepíše všetky aktuálne údaje vo vašej databáze a dáta v dátovom adresári a nahradí ich obsahom tejto zálohy. {cannot-be-undone} Po úspešnom obnovení budete odhlásený.",
       "cannot-be-undone": "Túto akciu nie je možné vrátiť späť - používajte s rozvahou.",
@@ -1060,6 +1069,7 @@
     "welcome-user": "👋 Vitajte, {0}",
     "description": "Spravujte svoj profil, recepty a nastavenia skupín.",
     "get-invite-link": "Odkaz s pozvánkou",
+    "get-public-link": "Get Public Link",
     "account-summary": "Zhrnutie účtu",
     "account-summary-description": "Tu je zhrnutie informácií o vašej skupine",
     "group-statistics": "Štatistiky skupiny",
