@@ -57,11 +57,7 @@
       <section>
         <BaseCardSectionTitle :title="$tc('settings.backup-and-exports')">
           <v-card-text class="py-0 px-1">
-          <i18n path="settings.backup.experimental-description">
-            <template #not-crossed-version>
-              <b> {{ $t('settings.backup.not-crossed-version') }} </b>
-            </template>
-          </i18n>
+          <i18n path="settings.backup.experimental-description" />
           </v-card-text>
         </BaseCardSectionTitle>
         <BaseButton @click="createBackup"> {{ $t("settings.backup.create-heading") }} </BaseButton>
@@ -108,8 +104,8 @@
         </div>
       </section>
     </section>
-    <v-container class="mt-4 d-flex justify-end">
-      <v-btn outlined rounded to="/group/migrations"> {{ $t('recipe.looking-for-migrations') }} </v-btn>
+    <v-container class="mt-4 d-flex justify-center text-center">
+      <nuxt-link to="/group/migrations"> {{ $t('recipe.looking-for-migrations') }} </nuxt-link>
     </v-container>
   </v-container>
 </template>

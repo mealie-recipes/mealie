@@ -17,6 +17,7 @@ recipes_to_tools = Table(
     SqlAlchemyBase.metadata,
     Column("recipe_id", GUID, ForeignKey("recipes.id"), index=True),
     Column("tool_id", GUID, ForeignKey("tools.id"), index=True),
+    UniqueConstraint("recipe_id", "tool_id", name="recipe_id_tool_id_key"),
 )
 
 cookbooks_to_tools = Table(
@@ -24,6 +25,7 @@ cookbooks_to_tools = Table(
     SqlAlchemyBase.metadata,
     Column("cookbook_id", GUID, ForeignKey("cookbooks.id"), index=True),
     Column("tool_id", GUID, ForeignKey("tools.id"), index=True),
+    UniqueConstraint("cookbook_id", "tool_id", name="cookbook_id_tool_id_key"),
 )
 
 

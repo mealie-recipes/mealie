@@ -17,7 +17,7 @@
           :rules="[validators.required]"
           :hint="$t('recipe.new-recipe-names-must-be-unique')"
           persistent-hint
-          v-on:keyup.enter="createByName(newRecipeName)"
+          @keyup.enter="createByName(newRecipeName)"
         ></v-text-field>
       </v-form>
     </v-card-text>

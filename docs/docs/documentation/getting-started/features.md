@@ -69,7 +69,7 @@ Mealie uses a calendar like view to help you plan your meals. It shows you the p
 !!! tip
     You can also add a "Note" type entry to your meal-plan when you want to include something that might not have a specific recipes. This is great for leftovers, or for ordering out.
 
-[Mealplanner Demo](https://demo.mealie.io/group/mealplan/planner){ .md-button .md-button--primary }
+[Mealplanner Demo](https://demo.mealie.io/group/mealplan/planner/view){ .md-button .md-button--primary }
 
 ### Planner Rules
 

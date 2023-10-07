@@ -87,7 +87,6 @@ import {
   useRouter,
   computed,
   ref,
-  useMeta,
   onMounted,
   onUnmounted,
 } from "@nuxtjs/composition-api";

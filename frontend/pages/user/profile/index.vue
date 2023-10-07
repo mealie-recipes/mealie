@@ -1,15 +1,15 @@
 <template>
   <v-container v-if="user">
-    <section class="d-flex flex-column align-center">
-      <UserAvatar size="84" :user-id="$auth.user.id" />
+    <section class="d-flex flex-column align-center mt-4">
+      <UserAvatar size="96" :user-id="$auth.user.id" />
 
       <h2 class="headline">{{ $t('profile.welcome-user', [user.fullName]) }}</h2>
-      <p class="subtitle-1 mb-0">
+      <p class="subtitle-1 mb-0 text-center">
        {{ $t('profile.description') }}
         <a href="https://hay-kot.github.io/mealie/" target="_blank"> {{ $t('general.learn-more') }} </a>
       </p>
       <v-card flat color="background" width="100%" max-width="600px">
-        <v-card-actions class="d-flex justify-center">
+        <v-card-actions class="d-flex justify-center my-4">
           <v-btn v-if="$auth.user.canInvite"  outlined rounded @click="getSignupLink()">
             <v-icon left>
               {{ $globals.icons.createAlt }}

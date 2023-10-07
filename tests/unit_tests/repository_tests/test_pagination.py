@@ -656,7 +656,10 @@ def test_pagination_order_by_nested_model(
 
     alphabet = ["a", "b", "c", "d", "e"]
     labels = database.group_multi_purpose_labels.create_many(
-        [MultiPurposeLabelSave(group_id=unique_user.group_id, name=letter) for letter in alphabet]
+        [
+            MultiPurposeLabelSave(group_id=unique_user.group_id, name=letter + f"_{random_string()}")
+            for letter in alphabet
+        ]
     )
     random.shuffle(labels)
 

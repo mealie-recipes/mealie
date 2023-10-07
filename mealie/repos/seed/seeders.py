@@ -4,10 +4,7 @@ from collections.abc import Generator
 from functools import cached_property
 
 from mealie.schema.labels import MultiPurposeLabelSave
-from mealie.schema.recipe.recipe_ingredient import (
-    SaveIngredientFood,
-    SaveIngredientUnit,
-)
+from mealie.schema.recipe.recipe_ingredient import SaveIngredientFood, SaveIngredientUnit
 from mealie.services.group_services.labels_service import MultiPurposeLabelService
 
 from ._abstract_seeder import AbstractSeeder
@@ -26,7 +23,12 @@ class MultiPurposeLabelSeeder(AbstractSeeder):
     def load_data(self, locale: str | None = None) -> Generator[MultiPurposeLabelSave, None, None]:
         file = self.get_file(locale)
 
+        seen_label_names = set()
         for label in json.loads(file.read_text(encoding="utf-8")):
+            if label["name"] in seen_label_names:
+                continue
+
+            seen_label_names.add(label["name"])
             yield MultiPurposeLabelSave(
                 name=label["name"],
                 group_id=self.group_id,
@@ -49,7 +51,12 @@ class IngredientUnitsSeeder(AbstractSeeder):
     def load_data(self, locale: str | None = None) -> Generator[SaveIngredientUnit, None, None]:
         file = self.get_file(locale)
 
+        seen_unit_names = set()
         for unit in json.loads(file.read_text(encoding="utf-8")).values():
+            if unit["name"] in seen_unit_names:
+                continue
+
+            seen_unit_names.add(unit["name"])
             yield SaveIngredientUnit(
                 group_id=self.group_id,
                 name=unit["name"],
@@ -75,7 +82,7 @@ class IngredientFoodsSeeder(AbstractSeeder):
         file = self.get_file(locale)
 
         seed_foods: dict[str, str] = json.loads(file.read_text(encoding="utf-8"))
-        for food in seed_foods.values():
+        for food in set(seed_foods.values()):
             yield SaveIngredientFood(
                 group_id=self.group_id,
                 name=food,
