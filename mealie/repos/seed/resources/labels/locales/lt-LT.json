@@ -1,6 +1,6 @@
 [
     {
-        "name": "Gaminti"
+        "name": "Produktai"
     },
     {
         "name": "Grūdai"
@@ -27,7 +27,7 @@
         "name": "Konservuoti produktai"
     },
     {
-        "name": "Prieskoniai"
+        "name": "Padažai"
     },
     {
         "name": "Konditerijos gaminiai"
@@ -39,10 +39,10 @@
         "name": "Šaldyti produktai"
     },
     {
-        "name": "Sveiki produktai"
+        "name": "Sveikas maistas"
     },
     {
-        "name": "Namų ūkio reikmenys"
+        "name": "Buitinės prekės"
     },
     {
         "name": "Mėsos produktai"
@@ -57,7 +57,7 @@
         "name": "Saldumynai"
     },
     {
-        "name": "Alkoholis"
+        "name": "Alkoholiniai gėrimai"
     },
     {
         "name": "Kita"
