@@ -1,8 +1,8 @@
-"""add quantities to meal plans
+"""add quantities to meal mealplans
 
-Revision ID: bf3c18cd3d48
-Revises: 38514b39a824
-Create Date: 2023-05-29 21:52:22.575823
+Revision ID: 11ae173e276e
+Revises: dded3119c1fe
+Create Date: 2023-10-07 16:16:54.486076
 
 """
 import sqlalchemy as sa
@@ -11,14 +11,10 @@ import mealie.db.migration_types
 from alembic import op
 
 # revision identifiers, used by Alembic.
-revision = "bf3c18cd3d48"
-down_revision = "b3dbb554ba53"
+revision = "11ae173e276e"
+down_revision = "dded3119c1fe"
 branch_labels = None
 depends_on = None
-
-
-def is_postgres():
-    return op.get_context().dialect.name == "postgresql"
 
 
 def upgrade():
