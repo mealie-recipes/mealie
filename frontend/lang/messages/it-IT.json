@@ -333,8 +333,8 @@
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
-      "description-long": "Mealie can import recipes from Tandoor. Export your data in the \"Default\" format, then upload the .zip below.",
-      "title": "Tandoor Recipes"
+      "description-long": "Mealie può importare ricette da Tandoor. Esporta i tuoi dati nel formato \"Predefinito\", quindi carica il file .zip sottostante.",
+      "title": "Ricette Del Tandoore"
     },
     "recipe-data-migrations": "Migrazione Dati Ricetta",
     "recipe-data-migrations-explanation": "Le ricette possono essere migrate da un'altra applicazione supportata da Mealie. Questo è un ottimo modo per iniziare con Mealie.",
@@ -456,6 +456,7 @@
     "date-format-hint-yyyy-mm-dd": "Formato YYYY-MM-DD",
     "add-to-list": "Aggiungi alla lista",
     "add-to-plan": "Aggiungi al piano giornaliero",
+    "add-to-timeline": "Add to Timeline",
     "recipe-added-to-list": "Ricetta aggiunta alla lista",
     "recipe-added-to-mealplan": "Ricetta aggiunta al piano alimentare",
     "failed-to-add-recipe-to-mealplan": "Impossibile aggiungere la ricetta al piano alimentare",
@@ -479,6 +480,13 @@
     "increase-scale-label": "Aumenta la scala di 1",
     "locked": "Bloccato",
     "public-link": "Link Pubblico",
+    "timer": {
+      "kitchen-timer": "Kitchen Timer",
+      "start-timer": "Start Timer",
+      "pause-timer": "Pause Timer",
+      "resume-timer": "Resume Timer",
+      "stop-timer": "Stop Timer"
+    },
     "edit-timeline-event": "Modifica Evento Timeline",
     "timeline": "Timeline",
     "timeline-is-empty": "Niente sulla timeline. Prova a fare questa ricetta!",
@@ -529,7 +537,9 @@
     "tree-view": "Visualizzazione ad Albero",
     "recipe-yield": "Resa Ricetta",
     "unit": "Unità",
-    "upload-image": "Carica immagine"
+    "upload-image": "Carica immagine",
+    "screen-awake": "Keep Screen Awake",
+    "remove-image": "Remove image"
   },
   "search": {
     "advanced-search": "Ricerca Avanzata",
@@ -564,7 +574,6 @@
       "partial-backup": "Backup Parziale",
       "unable-to-delete-backup": "Impossibile rimuovere backup.",
       "experimental-description": "Esegue il backup di un'istantanea totale del database e della directory dati del sito. Questo include tutti i dati e non può essere impostato per escludere sottoinsiemi di dati. Si può pensare a questo come un'istantanea di Mealie in un momento specifico. Attualmente, {not-crossed-version} (le migrazioni dei dati non sono effettuate automaticamente). Questi servono come modo indipendente dal database per esportare e importare i dati o il backup del sito in una posizione esterna.",
-      "not-crossed-version": "questo meccanismo di backup non è funziona su diverse versioni e quindi non può essere utilizzato per migrare i dati tra le versioni",
       "backup-restore": "Ripristina backup",
       "back-restore-description": "Il ripristino di questo backup sovrascriverà tutti i dati correnti nel database e nella directory dei dati e li sostituirà con il contenuto di questo backup. {cannot-be-undone} Se il ripristino avrà successo, sarai disconnesso.",
       "cannot-be-undone": "Questa azione non può essere annullata - usa con cautela.",
@@ -928,7 +937,7 @@
     "select-data": "Seleziona Dati",
     "select-language": "Seleziona Lingua",
     "columns": "Colonne",
-    "combine": "Combine"
+    "combine": "Unisci"
   },
   "user-registration": {
     "user-registration": "Registrazione Utente",
@@ -945,7 +954,7 @@
     "group-name-is-taken": "Il nome del gruppo non è disponibile",
     "username-is-taken": "Username non disponibile",
     "email-is-taken": "Email già in uso",
-    "this-field-is-required": "This Field is Required"
+    "this-field-is-required": "Questo campo è obbligatorio"
   },
   "export": {
     "export": "Esporta",
@@ -1042,7 +1051,7 @@
       "actions-title": "Azioni"
     },
     "ingredients-natural-language-processor": "Ingredients Natural Language Processor",
-    "ingredients-natural-language-processor-explanation": "Mealie uses Conditional Random Fields (CRFs) for parsing and processing ingredients. The model used for ingredients is based off a data set of over 100,000 ingredients from a dataset compiled by the New York Times. Note that as the model is trained in English only, you may have varied results when using the model in other languages. This page is a playground for testing the model.",
+    "ingredients-natural-language-processor-explanation": "Mealie utilizza campi casuali condizionali (CRFs) per l'analisi e la lavorazione di ingredienti. Il modello utilizzato per gli ingredienti è basato su una serie di dati di oltre 100.000 ingredienti da un set di dati compilato dal New York Times. Si noti che poiché il modello è addestrato solo in inglese, si possono avere risultati vari quando si utilizza il modello in altre lingue. Questa pagina è un campo di gioco per testare il modello.",
     "ingredients-natural-language-processor-explanation-2": "It's not perfect, but it yields great results in general and is a good starting point for manually parsing ingredients into individual fields. Alternatively, you can also use the \"Brute\" processor that uses a pattern matching technique to identify ingredients.",
     "nlp": "NLP",
     "brute": "Brute",
@@ -1051,15 +1060,16 @@
     "average-confident": "{0} Confident",
     "try-an-example": "Try an example",
     "parser": "Parser",
-    "background-tasks": "Background Tasks",
-    "background-tasks-description": "Here you can view all the running background tasks and their status",
-    "no-logs-found": "No Logs Found",
+    "background-tasks": "Attività in Background",
+    "background-tasks-description": "Qui puoi visualizzare tutte le attività in background in esecuzione e il loro stato",
+    "no-logs-found": "Nessun Log Trovato",
     "tasks": "Tasks"
   },
   "profile": {
     "welcome-user": "👋 Benvenuto, {0}",
     "description": "Gestisci il tuo profilo, le ricette e le impostazioni di gruppo.",
     "get-invite-link": "Ottieni Link Di Invito",
+    "get-public-link": "Get Public Link",
     "account-summary": "Riepilogo Account",
     "account-summary-description": "Ecco un riepilogo delle informazioni del tuo gruppo",
     "group-statistics": "Statistiche Gruppo",
