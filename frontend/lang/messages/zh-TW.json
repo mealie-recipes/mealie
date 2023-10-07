@@ -456,6 +456,7 @@
     "date-format-hint-yyyy-mm-dd": "YYYY-MM-DD format",
     "add-to-list": "Add to List",
     "add-to-plan": "Add to Plan",
+    "add-to-timeline": "Add to Timeline",
     "recipe-added-to-list": "Recipe added to list",
     "recipe-added-to-mealplan": "Recipe added to mealplan",
     "failed-to-add-recipe-to-mealplan": "Failed to add recipe to mealplan",
@@ -479,6 +480,13 @@
     "increase-scale-label": "Increase Scale by 1",
     "locked": "Locked",
     "public-link": "Public Link",
+    "timer": {
+      "kitchen-timer": "Kitchen Timer",
+      "start-timer": "Start Timer",
+      "pause-timer": "Pause Timer",
+      "resume-timer": "Resume Timer",
+      "stop-timer": "Stop Timer"
+    },
     "edit-timeline-event": "Edit Timeline Event",
     "timeline": "Timeline",
     "timeline-is-empty": "Nothing on the timeline yet. Try making this recipe!",
@@ -529,7 +537,9 @@
     "tree-view": "Tree View",
     "recipe-yield": "Recipe Yield",
     "unit": "Unit",
-    "upload-image": "Upload image"
+    "upload-image": "Upload image",
+    "screen-awake": "Keep Screen Awake",
+    "remove-image": "Remove image"
   },
   "search": {
     "advanced-search": "進階搜尋",
@@ -564,7 +574,6 @@
       "partial-backup": "部分備份",
       "unable-to-delete-backup": "無法刪除備份",
       "experimental-description": "Backups a total snapshots of the database and data directory of the site. This includes all data and cannot be set to exclude subsets of data. You can think off this as a snapshot of Mealie at a specific time. Currently, {not-crossed-version} (data migrations are not done automatically). These serve as a database agnostic way to export and import data or backup the site to an external location.",
-      "not-crossed-version": "this backup mechanism is not cross-version and therefore cannot be used to migrate data between versions",
       "backup-restore": "Backup Restore",
       "back-restore-description": "Restoring this backup will overwrite all the current data in your database and in the data directory and replace them with the contents of this backup. {cannot-be-undone} If the restoration is successful, you will be logged out.",
       "cannot-be-undone": "This action cannot be undone - use with caution.",
@@ -1060,6 +1069,7 @@
     "welcome-user": "👋 Welcome, {0}",
     "description": "Manage your profile, recipes, and group settings.",
     "get-invite-link": "Get Invite Link",
+    "get-public-link": "Get Public Link",
     "account-summary": "Account Summary",
     "account-summary-description": "Here's a summary of your group's information",
     "group-statistics": "Group Statistics",
