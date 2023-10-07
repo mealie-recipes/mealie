@@ -1,101 +1,101 @@
 {
     "teaspoon": {
-        "name": "teaspoon",
+        "name": "ملعقة صغيرة",
         "description": "",
-        "abbreviation": "tsp"
+        "abbreviation": "ملعقة صغيرة"
     },
     "tablespoon": {
-        "name": "tablespoon",
+        "name": "ملعقة كبيرة",
         "description": "",
-        "abbreviation": "tbsp"
+        "abbreviation": "ملعقة كبيرة"
     },
     "cup": {
-        "name": "cup",
+        "name": "كوب",
         "description": "",
-        "abbreviation": "cup"
+        "abbreviation": "كوب"
     },
     "fluid-ounce": {
-        "name": "fluid ounce",
+        "name": "أوقية 200gm",
         "description": "",
-        "abbreviation": "fl oz"
+        "abbreviation": "أوقية 200gm"
     },
     "pint": {
-        "name": "pint",
+        "name": "نصف لتر",
         "description": "",
-        "abbreviation": "pt"
+        "abbreviation": "نصف لتر"
     },
     "quart": {
-        "name": "quart",
+        "name": "الربع",
         "description": "",
-        "abbreviation": "qt"
+        "abbreviation": "الربع"
     },
     "gallon": {
-        "name": "gallon",
+        "name": "جالون",
         "description": "",
-        "abbreviation": "gal"
+        "abbreviation": "جالون"
     },
     "milliliter": {
-        "name": "milliliter",
+        "name": "ميليلتر",
         "description": "",
-        "abbreviation": "ml"
+        "abbreviation": "مل"
     },
     "liter": {
-        "name": "liter",
+        "name": "لتر",
         "description": "",
-        "abbreviation": "l"
+        "abbreviation": "لتر"
     },
     "pound": {
-        "name": "pound",
+        "name": "رطل",
         "description": "",
-        "abbreviation": "lb"
+        "abbreviation": "رطل"
     },
     "ounce": {
-        "name": "ounce",
+        "name": "أوقية / ألأونضه",
         "description": "",
-        "abbreviation": "oz"
+        "abbreviation": "أونصة"
     },
     "gram": {
-        "name": "gram",
+        "name": "جرام",
         "description": "",
-        "abbreviation": "g"
+        "abbreviation": "غرام"
     },
     "kilogram": {
-        "name": "kilogram",
+        "name": "كيلوغرام",
         "description": "",
-        "abbreviation": "kg"
+        "abbreviation": "كيلوغرام"
     },
     "milligram": {
-        "name": "milligram",
+        "name": "مليغرام",
         "description": "",
-        "abbreviation": "mg"
+        "abbreviation": "مليغرام"
     },
     "splash": {
-        "name": "splash",
+        "name": "دفقة",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
-        "name": "dash",
+        "name": "اندفاع",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
-        "name": "serving",
+        "name": "حصة الطعام",
         "description": "",
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
+        "name": "رأس",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
-        "name": "clove",
+        "name": "القرنفل",
         "description": "",
         "abbreviation": ""
     },
     "can": {
-        "name": "can",
+        "name": "يمكن",
         "description": "",
         "abbreviation": ""
     }
