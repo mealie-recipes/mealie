@@ -70,22 +70,22 @@
         "abbreviation": "мг"
     },
     "splash": {
-        "name": "splash",
+        "name": "капелька",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
-        "name": "dash",
+        "name": "щепотка",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
-        "name": "serving",
+        "name": "порция",
         "description": "",
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
+        "name": "головка",
         "description": "",
         "abbreviation": ""
     },
