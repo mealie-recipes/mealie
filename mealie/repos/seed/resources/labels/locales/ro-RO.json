@@ -1,65 +1,65 @@
 [
     {
-        "name": "Produce"
+        "name": "Produs"
     },
     {
-        "name": "Grains"
+        "name": "Cereale"
     },
     {
-        "name": "Fruits"
+        "name": "Fructe"
     },
     {
-        "name": "Vegetables"
+        "name": "Legume"
     },
     {
-        "name": "Meat"
+        "name": "Carne"
     },
     {
-        "name": "Seafood"
+        "name": "Fructe de Mare"
     },
     {
-        "name": "Beverages"
+        "name": "Băuturi"
     },
     {
-        "name": "Baked Goods"
+        "name": "Produse coapte"
     },
     {
-        "name": "Canned Goods"
+        "name": "Produse conservate"
     },
     {
-        "name": "Condiments"
+        "name": "Condimente"
     },
     {
         "name": "Confectionary"
     },
     {
-        "name": "Dairy Products"
+        "name": "Produse lactate"
     },
     {
-        "name": "Frozen Foods"
+        "name": "Alimente înghețate"
     },
     {
-        "name": "Health Foods"
+        "name": "Mâncare Sănătoasă"
     },
     {
-        "name": "Household"
+        "name": "Gospodărie"
     },
     {
-        "name": "Meat Products"
+        "name": "Produse din carne"
     },
     {
-        "name": "Snacks"
+        "name": "Gustări"
     },
     {
-        "name": "Spices"
+        "name": "Condimente"
     },
     {
-        "name": "Sweets"
+        "name": "Dulciuri"
     },
     {
-        "name": "Alcohol"
+        "name": "Alcool"
     },
     {
-        "name": "Other"
+        "name": "Altele"
     }
 ]
