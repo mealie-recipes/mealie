@@ -6,16 +6,16 @@
         "unique-name-error": "Os nomes de receitas devem ser únicos"
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "No recipes match your rules"
+        "no-recipes-match-your-rules": "Nenhuma receita coincide com as suas regras"
     },
     "user": {
-        "user-updated": "User updated",
-        "password-updated": "Password updated",
-        "invalid-current-password": "Invalid current password",
-        "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
+        "user-updated": "Utilizador atualizado",
+        "password-updated": "Palavra-passe atualizada",
+        "invalid-current-password": "Palavra-passe atual inválida",
+        "ldap-update-password-unavailable": "Não é possível atualizar a senha, o utilizador é controlado pelo LDAP"
     },
     "group": {
-        "report-deleted": "Report deleted."
+        "report-deleted": "Relatório eliminado."
     },
     "exceptions": {
         "permission_denied": "Não tem permissões para efetuar esta ação",
