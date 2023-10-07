@@ -456,6 +456,7 @@
     "date-format-hint-yyyy-mm-dd": "Format RRRR-MM-DD",
     "add-to-list": "Dodaj do listy",
     "add-to-plan": "Dodaj do planu",
+    "add-to-timeline": "Add to Timeline",
     "recipe-added-to-list": "Przepis dodany do listy",
     "recipe-added-to-mealplan": "Przepis dodany do planu posiłków",
     "failed-to-add-recipe-to-mealplan": "Nie udało się dodać przepisu do planu posiłków",
@@ -479,6 +480,13 @@
     "increase-scale-label": "Zwiększ Skalę o 1",
     "locked": "Zablokowany",
     "public-link": "Link publiczny",
+    "timer": {
+      "kitchen-timer": "Kitchen Timer",
+      "start-timer": "Start Timer",
+      "pause-timer": "Pause Timer",
+      "resume-timer": "Resume Timer",
+      "stop-timer": "Stop Timer"
+    },
     "edit-timeline-event": "Edytuj zdarzenie osi czasu",
     "timeline": "Oś czasu",
     "timeline-is-empty": "Nie ma jeszcze nic na osi czasu. Spróbuj przygotować ten przepis!",
@@ -529,7 +537,9 @@
     "tree-view": "Widok drzewa",
     "recipe-yield": "Wydajność przepisu",
     "unit": "Jednostka",
-    "upload-image": "Prześlij obraz"
+    "upload-image": "Prześlij obraz",
+    "screen-awake": "Keep Screen Awake",
+    "remove-image": "Remove image"
   },
   "search": {
     "advanced-search": "Wyszukiwanie zaawansowane",
@@ -564,7 +574,6 @@
       "partial-backup": "Częściowa kopia zapasowa",
       "unable-to-delete-backup": "Nie można usunąć kopii zapasowej.",
       "experimental-description": "Kopia zapasowa wszystkich migawek bazy danych i katalogu danych witryny. Obejmuje to wszystkie dane i nie można ich ustawić, aby wykluczyć podzbiory danych. Możesz to pomyśleć o tym jako zrzut Mączki w określonym czasie. Obecnie {not-crossed-version} (migracje danych nie są wykonywane automatycznie). Służą one jako agnostyczny sposób eksportowania i importu danych lub tworzenia kopii zapasowej witryny do zewnętrznej lokalizacji.",
-      "not-crossed-version": "ten mechanizm tworzenia kopii zapasowej nie jest międzywersyjny i dlatego nie może być używany do migracji danych pomiędzy wersjami",
       "backup-restore": "Przywróć kopie",
       "back-restore-description": "Przywracanie tej kopii zapasowej nadpisze wszystkie aktualne dane w bazie danych i w katalogu danych i zastąpi je zawartością tej kopii zapasowej. {cannot-be-undone} Jeśli przywrócenie zakończy się pomyślnie, zostaniesz wylogowany.",
       "cannot-be-undone": "Tej czynności nie można cofnąć - należy zachować ostrożność.",
@@ -1060,6 +1069,7 @@
     "welcome-user": "👋 Witaj, {0}",
     "description": "Zarządzaj swoim profilem, przepisami i ustawieniami grupy.",
     "get-invite-link": "Uzyskaj link z zaproszeniem",
+    "get-public-link": "Get Public Link",
     "account-summary": "Podsumowanie konta",
     "account-summary-description": "Oto podsumowanie informacji o Twojej grupie",
     "group-statistics": "Statystyki Grupy",
