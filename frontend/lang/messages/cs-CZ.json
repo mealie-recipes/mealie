@@ -70,13 +70,13 @@
     "enable-notifier": "Povolit notifikaci",
     "what-events": "What events should this notifier subscribe to?",
     "user-events": "Uživatelské události",
-    "mealplan-events": "Mealplan Events",
-    "when-a-user-in-your-group-creates-a-new-mealplan": "When a user in your group creates a new mealplan",
-    "shopping-list-events": "Shopping List Events",
-    "cookbook-events": "Cookbook Events",
-    "tag-events": "Tag Events",
-    "category-events": "Category Events",
-    "when-a-new-user-joins-your-group": "When a new user joins your group"
+    "mealplan-events": "Události jídelníčku",
+    "when-a-user-in-your-group-creates-a-new-mealplan": "Když uživatel z vaší skupiny vytvoří nový jídelníček",
+    "shopping-list-events": "Události nákupního seznamu",
+    "cookbook-events": "Události kuchařky",
+    "tag-events": "Události tagu",
+    "category-events": "Události kategorie",
+    "when-a-new-user-joins-your-group": "Když se nový uživatel připojí do vaší skupiny"
   },
   "general": {
     "cancel": "Zrušit",
@@ -192,7 +192,7 @@
     "export-all": "Exportovat vše",
     "refresh": "Obnovit",
     "upload-file": "Nahrát soubor",
-    "created-on-date": "Created on: {0}"
+    "created-on-date": "Vytvořeno dne: {0}"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Jste si jisti, že chcete smazat <b>{groupName}<b/>?",
@@ -222,9 +222,9 @@
     "manage": "Spravovat",
     "invite": "Pozvat",
     "looking-to-update-your-profile": "Chcete aktualizovat váš profil?",
-    "default-recipe-preferences-description": "These are the default settings when a new recipe is created in your group. These can be changed for individual recipes in the recipe settings menu.",
-    "default-recipe-preferences": "Default Recipe Preferences",
-    "group-preferences": "Group Preferences",
+    "default-recipe-preferences-description": "Tyto výchozí možnosti se použijí pro nové recepty ve vaší skupině. Mohou být změněny u jednotlivých receptů v nabídce nastavení receptu.",
+    "default-recipe-preferences": "Výchozí nastavení pro recepty",
+    "group-preferences": "Nastavení skupiny",
     "private-group": "Soukromá skupina",
     "private-group-description": "Setting your group to private will default all public view options to default. This overrides an individual recipes public view settings.",
     "allow-users-outside-of-your-group-to-see-your-recipes": "Allow users outside of your group to see your recipes",
@@ -330,22 +330,22 @@
     },
     "mealie-pre-v1": {
       "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
-      "title": "Mealie Pre v1.0"
+      "title": "Mealie před verzí 1.0"
     },
     "tandoor": {
-      "description-long": "Mealie can import recipes from Tandoor. Export your data in the \"Default\" format, then upload the .zip below.",
+      "description-long": "Mealie může importovat recepty z Tandoor. Exportujte data ve výchozím formátu, poté nahrajte soubor ve formátu .zip.",
       "title": "Tandoor Recipes"
     },
     "recipe-data-migrations": "Recipe Data Migrations",
-    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie.",
-    "choose-migration-type": "Choose Migration Type",
+    "recipe-data-migrations-explanation": "Recepty mohou být migrovány z jiné podporované aplikace na Mealie. To je skvělý způsob, jak začít s Mealie.",
+    "choose-migration-type": "Zvolte si typ migrace",
     "tag-all-recipes": "Tag all recipes with {tag-name} tag",
-    "nextcloud-text": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
-    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below",
-    "recipe-1": "Recipe 1",
-    "recipe-2": "Recipe 2",
-    "paprika-text": "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
-    "mealie-text": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export."
+    "nextcloud-text": "Nextcloud recepty lze importovat ze souboru zip, který obsahuje data uložená v Nextcloudu. Podívejte se na příklad struktury složek níže, abyste se ujistili, že vaše recepty lze importovat.",
+    "chowdown-text": "Mealie nativně podporuje formát chowdown. Stáhněte si z repozitáře kód jako .zip soubor a nahrajte ho níže",
+    "recipe-1": "Recept 1",
+    "recipe-2": "Recept 2",
+    "paprika-text": "Mealie může importovat recepty z aplikace Paprika. Exportujte své recepty z papriky, přejmenujte příponu exportovaného souboru na .zip a nahrajte jej níže.",
+    "mealie-text": "V Mealie může importovat recepty z aplikace Mealie z v1.0 a starší. Exportujte své recepty ze staré verze a nahrajte zip soubor níže. Všimněte si, že lze importovat pouze recepty."
   },
   "new-recipe": {
     "bulk-add": "Hromadné přidání",
@@ -408,7 +408,7 @@
     "grams": "gramy",
     "ingredient": "Ingredience",
     "ingredients": "Ingredience",
-    "insert-ingredient": "Insert Ingredient",
+    "insert-ingredient": "Vložte ingredience",
     "insert-section": "Vložit sekci",
     "instructions": "Postup",
     "key-name-required": "Je vyžadován název klíče",
@@ -456,6 +456,7 @@
     "date-format-hint-yyyy-mm-dd": "Formát RRRR-MM-DD",
     "add-to-list": "Přidat na seznam",
     "add-to-plan": "Přidat do jídelníčku",
+    "add-to-timeline": "Add to Timeline",
     "recipe-added-to-list": "Recept byl přidán na seznam",
     "recipe-added-to-mealplan": "Recept byl přidán do jídelníčku",
     "failed-to-add-recipe-to-mealplan": "Přidání receptu do jídelníčku selhalo",
@@ -479,6 +480,13 @@
     "increase-scale-label": "Zvýšit násobení o 1",
     "locked": "Uzamčeno",
     "public-link": "Veřejný odkaz",
+    "timer": {
+      "kitchen-timer": "Kitchen Timer",
+      "start-timer": "Start Timer",
+      "pause-timer": "Pause Timer",
+      "resume-timer": "Resume Timer",
+      "stop-timer": "Stop Timer"
+    },
     "edit-timeline-event": "Upravit událost časové osy",
     "timeline": "Časová osa",
     "timeline-is-empty": "Zatím nic na časové ose není. Zkuste vytvořit tento recept!",
@@ -529,7 +537,9 @@
     "tree-view": "Stromové zobrazení",
     "recipe-yield": "Recipe Yield",
     "unit": "Jednotka",
-    "upload-image": "Nahrát obrázek"
+    "upload-image": "Nahrát obrázek",
+    "screen-awake": "Keep Screen Awake",
+    "remove-image": "Remove image"
   },
   "search": {
     "advanced-search": "Pokročilé vyhledávání",
@@ -564,7 +574,6 @@
       "partial-backup": "Částečná záloha",
       "unable-to-delete-backup": "Zálohu nelze odstranit.",
       "experimental-description": "Backups a total snapshots of the database and data directory of the site. This includes all data and cannot be set to exclude subsets of data. You can think off this as a snapshot of Mealie at a specific time. Currently, {not-crossed-version} (data migrations are not done automatically). These serve as a database agnostic way to export and import data or backup the site to an external location.",
-      "not-crossed-version": "this backup mechanism is not cross-version and therefore cannot be used to migrate data between versions",
       "backup-restore": "Backup Restore",
       "back-restore-description": "Restoring this backup will overwrite all the current data in your database and in the data directory and replace them with the contents of this backup. {cannot-be-undone} If the restoration is successful, you will be logged out.",
       "cannot-be-undone": "This action cannot be undone - use with caution.",
@@ -1060,6 +1069,7 @@
     "welcome-user": "👋 Vítejte, {0}",
     "description": "Manage your profile, recipes, and group settings.",
     "get-invite-link": "Get Invite Link",
+    "get-public-link": "Get Public Link",
     "account-summary": "Přehled účtu",
     "account-summary-description": "Here's a summary of your group's information",
     "group-statistics": "Statistiky skupiny",
