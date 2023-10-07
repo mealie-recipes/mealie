@@ -9,18 +9,18 @@
         "no-recipes-match-your-rules": "没有符合条件的食谱"
     },
     "user": {
-        "user-updated": "User updated",
+        "user-updated": "用户已更新",
         "password-updated": "密码已更新",
         "invalid-current-password": "当前密码无效",
-        "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
+        "ldap-update-password-unavailable": "无法更改密码, 用户被LDAP控制"
     },
     "group": {
-        "report-deleted": "Report deleted."
+        "report-deleted": "报告已删除"
     },
     "exceptions": {
         "permission_denied": "您没有执行此操作的权限",
         "no-entry-found": "您要找的网页不存在",
-        "integrity-error": "Database integrity error",
+        "integrity-error": "数据库完整性错误",
         "username-conflict-error": "该用户名已被使用",
         "email-conflict-error": "该邮箱已经被使用"
     },
