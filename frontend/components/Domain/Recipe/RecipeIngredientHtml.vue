@@ -1,9 +1,11 @@
 <template>
-  <div v-html="markup"></div>
+  <!-- eslint-disable-next-line vue/no-v-html -->
+  <div v-html="safeMarkup"></div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
+import { computed, defineComponent } from "@nuxtjs/composition-api";
+import { sanitizeIngredientHTML } from "~/composables/recipes/use-recipe-ingredients";
 export default defineComponent({
   props: {
     markup: {
@@ -11,5 +13,11 @@ export default defineComponent({
       required: true,
     },
   },
+  setup(props) {
+    const safeMarkup = computed(() => sanitizeIngredientHTML(props.markup));
+    return {
+      safeMarkup,
+    }
+  }
 });
 </script>

@@ -35,7 +35,7 @@
                 content-class="text-caption"
               >
                 <template #activator="{ on: onBtn, attrs: attrsBtn }">
-                  <v-btn small class="ml-2" icon @click="displayRecipeRefs = !displayRecipeRefs" v-bind="attrsBtn" v-on="onBtn">
+                  <v-btn small class="ml-2" icon v-bind="attrsBtn" v-on="onBtn" @click="displayRecipeRefs = !displayRecipeRefs">
                     <v-icon>
                       {{ $globals.icons.potSteam }}
                     </v-icon>

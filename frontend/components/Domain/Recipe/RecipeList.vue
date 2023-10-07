@@ -10,7 +10,10 @@
             {{ recipe.name }}
           </v-list-item-title>
           <v-list-item-subtitle v-if="showDescription">{{ recipe.description }}</v-list-item-subtitle>
-          <v-list-item-subtitle v-if="listItem && listItemDescriptions[index]" :style="attrs.style.text.subTitle" v-html="listItemDescriptions[index]"/>
+          <v-list-item-subtitle v-if="listItem && listItemDescriptions[index]" :style="attrs.style.text.subTitle">
+            <!-- eslint-disable-next-line vue/no-v-html -->
+            <div v-html="listItemDescriptions[index]"></div>
+          </v-list-item-subtitle>
         </v-list-item-content>
         <slot :name="'actions-' + recipe.id" :v-bind="{ item: recipe }"> </slot>
       </v-list-item>
