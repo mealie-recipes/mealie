@@ -1,4 +1,4 @@
-"""empty message
+"""added normalized unit and food names
 
 Revision ID: 0341b154f79a
 Revises: bcfdad6b7355

@@ -164,10 +164,15 @@ class RepositoryGeneric(Generic[Schema, Model]):
         return eff_schema.from_orm(result)
 
     def create(self, data: Schema | BaseModel | dict) -> Schema:
-        data = data if isinstance(data, dict) else data.dict()
-        new_document = self.model(session=self.session, **data)
-        self.session.add(new_document)
-        self.session.commit()
+        try:
+            data = data if isinstance(data, dict) else data.dict()
+            new_document = self.model(session=self.session, **data)
+            self.session.add(new_document)
+            self.session.commit()
+        except Exception:
+            self.session.rollback()
+            raise
+
         self.session.refresh(new_document)
 
         return self.schema.from_orm(new_document)

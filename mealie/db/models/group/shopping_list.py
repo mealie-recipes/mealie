@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING, Optional
 
-from sqlalchemy import Boolean, Float, ForeignKey, Integer, String, orm
+from sqlalchemy import Boolean, Float, ForeignKey, Integer, String, UniqueConstraint, orm
 from sqlalchemy.ext.orderinglist import ordering_list
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -25,7 +25,7 @@ class ShoppingListItemRecipeReference(BaseMixins, SqlAlchemyBase):
     recipe_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"), index=True)
     recipe: Mapped[Optional["RecipeModel"]] = orm.relationship("RecipeModel", back_populates="shopping_list_item_refs")
     recipe_quantity: Mapped[float] = mapped_column(Float, nullable=False)
-    recipe_scale: Mapped[float | None] = mapped_column(Float, default=1)
+    recipe_scale: Mapped[float] = mapped_column(Float, default=1)
     recipe_note: Mapped[str | None] = mapped_column(String)
 
     @auto_init()
@@ -102,6 +102,7 @@ class ShoppingListRecipeReference(BaseMixins, SqlAlchemyBase):
 
 class ShoppingListMultiPurposeLabel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "shopping_lists_multi_purpose_labels"
+    __table_args__ = (UniqueConstraint("shopping_list_id", "label_id", name="shopping_list_id_label_id_key"),)
     id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
 
     shopping_list_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("shopping_lists.id"), primary_key=True)
