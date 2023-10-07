@@ -26,7 +26,12 @@ export default {
         content: "Mealie is a recipe management app for your kitchen.",
       },
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+    link: [
+      { hid: "favicon", rel: "icon", type: "image/x-icon", href: "/favicon.ico", "data-n-head": "ssr" },
+      { hid: "shortcut icon", rel: "shortcut icon", type: "image/png", href: "/icons/icon-x64.png", "data-n-head": "ssr" },
+      { hid: "apple-touch-icon", rel: "apple-touch-icon", type: "image/png", href: "/icons/apple-touch-icon.png", "data-n-head": "ssr" },
+      { hid: "mask-icon", rel: "mask-icon", href: "/icons/safari-pinned-tab.svg", "data-n-head": "ssr" }
+    ],
   },
 
   env: {
@@ -324,7 +329,7 @@ export default {
       /* meta options */
       name: "Mealie",
       description: "Mealie is a recipe management and meal planning app",
-      theme_color: "#E58325",
+      theme_color: process.env.THEME_LIGHT_PRIMARY || "#E58325",
       ogSiteName: "Mealie",
     },
     manifest: {
@@ -332,43 +337,46 @@ export default {
       lang: "en",
       name: "Mealie",
       short_name: "Mealie",
-      title: "Mealie",
+      description: "Mealie is a recipe management and meal planning app",
+      theme_color: process.env.THEME_LIGHT_PRIMARY || "#E58325",
       background_color: "#FFFFFF",
+      display: "standalone",
       share_target: {
-        action: "/",
+        action: "/recipe/create/url",
         method: "GET",
+        enctype: "application/x-www-form-urlencoded",
         params: {
-          title: "title",
-          text: "recipe_import_url",
+          url: "recipe_import_url",
         },
       },
+      icons: [
+        {
+          src: "/icons/android-chrome-192x192.png",
+          sizes: "192x192",
+          type: "image/png",
+          purpose: "any",
+        },
+        {
+          src: "/icons/android-chrome-512x512.png",
+          sizes: "512x512",
+          type: "image/png",
+          purpose: "any",
+        },
+        {
+          src: "/icons/android-chrome-maskable-192x192.png",
+          sizes: "192x192",
+          type: "image/png",
+          purpose: "maskable",
+        },
+        {
+          src: "/icons/android-chrome-maskable-512x512.png",
+          sizes: "512x512",
+          type: "image/png",
+          purpose: "maskable",
+        },
+      ],
     },
-    icons: [
-      {
-        src: "[srcDir]/[staticDir]/icons/android-chrome-192x192.png",
-        sizes: "192x192",
-        type: "image/png",
-        purpose: "any",
-      },
-      {
-        src: "[srcDir]/[staticDir]/icons/android-chrome-512x512.png",
-        sizes: "512x512",
-        type: "image/png",
-        purpose: "any",
-      },
-      {
-        src: "[srcDir]/[staticDir]/icons/android-chrome-maskable-192x192.png",
-        sizes: "192x192",
-        type: "image/png",
-        purpose: "maskable",
-      },
-      {
-        src: "[srcDir]/[staticDir]/icons/android-chrome-maskable-512x512.png",
-        sizes: "512x512",
-        type: "image/png",
-        purpose: "maskable",
-      },
-    ],
+    icon: false, // disables the icon module
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

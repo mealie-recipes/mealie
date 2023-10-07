@@ -210,14 +210,12 @@ import { defineComponent, computed, reactive, ref, watch, onMounted } from "@nux
 import { format } from "date-fns";
 import { SortableEvent } from "sortablejs";
 import draggable from "vuedraggable";
-import { watchDebounced } from "@vueuse/core";
 import { MealsByDate } from "./types";
 import { useMealplans, usePlanTypeOptions, getEntryTypeText } from "~/composables/use-group-mealplan";
 import RecipeCardImage from "~/components/Domain/Recipe/RecipeCardImage.vue";
 import { PlanEntryType } from "~/lib/api/types/meal-plan";
 import { useUserApi } from "~/composables/api";
 import { useGroupSelf } from "~/composables/use-groups";
-import { RecipeSummary } from "~/lib/api/types/recipe";
 import { useRecipeSearch } from "~/composables/recipes/use-recipe-search";
 
 export default defineComponent({
@@ -333,7 +331,7 @@ export default defineComponent({
 
     const search = useRecipeSearch(api);
     const planTypeOptions = usePlanTypeOptions();
-    
+
     onMounted(async () => {
       await search.trigger();
     });

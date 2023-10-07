@@ -21,6 +21,7 @@ group_to_categories = sa.Table(
     SqlAlchemyBase.metadata,
     sa.Column("group_id", GUID, sa.ForeignKey("groups.id"), index=True),
     sa.Column("category_id", GUID, sa.ForeignKey("categories.id"), index=True),
+    sa.UniqueConstraint("group_id", "category_id", name="group_id_category_id_key"),
 )
 
 plan_rules_to_categories = sa.Table(
@@ -28,6 +29,7 @@ plan_rules_to_categories = sa.Table(
     SqlAlchemyBase.metadata,
     sa.Column("group_plan_rule_id", GUID, sa.ForeignKey("group_meal_plan_rules.id"), index=True),
     sa.Column("category_id", GUID, sa.ForeignKey("categories.id"), index=True),
+    sa.UniqueConstraint("group_plan_rule_id", "category_id", name="group_plan_rule_id_category_id_key"),
 )
 
 recipes_to_categories = sa.Table(
@@ -35,6 +37,7 @@ recipes_to_categories = sa.Table(
     SqlAlchemyBase.metadata,
     sa.Column("recipe_id", GUID, sa.ForeignKey("recipes.id"), index=True),
     sa.Column("category_id", GUID, sa.ForeignKey("categories.id"), index=True),
+    sa.UniqueConstraint("recipe_id", "category_id", name="recipe_id_category_id_key"),
 )
 
 cookbooks_to_categories = sa.Table(
@@ -42,6 +45,7 @@ cookbooks_to_categories = sa.Table(
     SqlAlchemyBase.metadata,
     sa.Column("cookbook_id", GUID, sa.ForeignKey("cookbooks.id"), index=True),
     sa.Column("category_id", GUID, sa.ForeignKey("categories.id"), index=True),
+    sa.UniqueConstraint("cookbook_id", "category_id", name="cookbook_id_category_id_key"),
 )
 
 

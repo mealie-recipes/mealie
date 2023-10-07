@@ -3,7 +3,7 @@ import { useFraction } from "./use-fraction";
 import { RecipeIngredient } from "~/lib/api/types/recipe";
 const { frac } = useFraction();
 
-function sanitizeIngredientHTML(rawHtml: string) {
+export function sanitizeIngredientHTML(rawHtml: string) {
   return DOMPurify.sanitize(rawHtml, {
     USE_PROFILES: { html: true },
     ALLOWED_TAGS: ["b", "q", "i", "strong", "sup"],

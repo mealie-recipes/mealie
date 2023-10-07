@@ -25,13 +25,13 @@
       <template #title> {{ $t("events.event-notifiers") }} </template>
       {{ $t("events.new-notification-form-description") }}
 
-      <div class="mt-3 d-flex justify-space-around">
-        <a href="https://github.com/caronc/apprise/wiki" target="_blanks"> Apprise </a>
-        <a href="https://github.com/caronc/apprise/wiki/Notify_gotify" target="_blanks"> Gotify </a>
-        <a href="https://github.com/caronc/apprise/wiki/Notify_discord" target="_blanks"> Discord </a>
-        <a href="https://github.com/caronc/apprise/wiki/Notify_homeassistant" target="_blanks"> Home Assistant </a>
-        <a href="https://github.com/caronc/apprise/wiki/Notify_matrix" target="_blanks"> Matrix </a>
-        <a href="https://github.com/caronc/apprise/wiki/Notify_pushover" target="_blanks"> Pushover </a>
+      <div class="mt-3 d-flex flex-wrap justify-space-between mx-n2">
+        <a href="https://github.com/caronc/apprise/wiki" target="_blanks" class="mx-2"> Apprise </a>
+        <a href="https://github.com/caronc/apprise/wiki/Notify_gotify" target="_blanks" class="mx-2"> Gotify </a>
+        <a href="https://github.com/caronc/apprise/wiki/Notify_discord" target="_blanks" class="mx-2"> Discord </a>
+        <a href="https://github.com/caronc/apprise/wiki/Notify_homeassistant" target="_blanks" class="mx-2"> Home Assistant </a>
+        <a href="https://github.com/caronc/apprise/wiki/Notify_matrix" target="_blanks" class="mx-2"> Matrix </a>
+        <a href="https://github.com/caronc/apprise/wiki/Notify_pushover" target="_blanks" class="mx-2"> Pushover </a>
       </div>
     </BasePageTitle>
 

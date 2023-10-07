@@ -18,7 +18,7 @@
         :href="recipe.orgURL"
         color="secondary darken-1"
         target="_blank"
-        class="rounded-sm mr-4"
+        class="rounded-sm mr-n2"
       >
         {{ $t("recipe.original-url") }}
       </v-btn>

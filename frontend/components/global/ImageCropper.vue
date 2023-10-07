@@ -53,9 +53,9 @@ export default defineComponent({
             default: undefined,
         }
     },
-    setup(props, context) {
+    setup(_, context) {
         const cropper = ref<Cropper>();
-        const { $globals, $vuetify } = useContext();
+        const { $globals } = useContext();
 
         interface Control {
             color: string;
