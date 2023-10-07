@@ -1,73 +1,73 @@
 {
     "teaspoon": {
-        "name": "teaspoon",
+        "name": "茶匙",
         "description": "",
-        "abbreviation": "tsp"
+        "abbreviation": "茶匙"
     },
     "tablespoon": {
-        "name": "tablespoon",
+        "name": "汤匙",
         "description": "",
-        "abbreviation": "tbsp"
+        "abbreviation": "汤匙"
     },
     "cup": {
-        "name": "cup",
+        "name": "杯",
         "description": "",
-        "abbreviation": "cup"
+        "abbreviation": "杯"
     },
     "fluid-ounce": {
-        "name": "fluid ounce",
+        "name": "流体盎司",
         "description": "",
-        "abbreviation": "fl oz"
+        "abbreviation": "液量盎司"
     },
     "pint": {
-        "name": "pint",
+        "name": "品脱",
         "description": "",
-        "abbreviation": "pt"
+        "abbreviation": "品脱"
     },
     "quart": {
-        "name": "quart",
+        "name": "夸脱",
         "description": "",
-        "abbreviation": "qt"
+        "abbreviation": "夸脱"
     },
     "gallon": {
-        "name": "gallon",
+        "name": "加仑",
         "description": "",
-        "abbreviation": "gal"
+        "abbreviation": "加仑"
     },
     "milliliter": {
-        "name": "milliliter",
+        "name": "毫升",
         "description": "",
-        "abbreviation": "ml"
+        "abbreviation": "毫升"
     },
     "liter": {
-        "name": "liter",
+        "name": "升",
         "description": "",
-        "abbreviation": "l"
+        "abbreviation": "升"
     },
     "pound": {
-        "name": "pound",
+        "name": "磅",
         "description": "",
-        "abbreviation": "lb"
+        "abbreviation": "磅"
     },
     "ounce": {
-        "name": "ounce",
+        "name": "盎司",
         "description": "",
-        "abbreviation": "oz"
+        "abbreviation": "盎司"
     },
     "gram": {
-        "name": "gram",
+        "name": "克",
         "description": "",
-        "abbreviation": "g"
+        "abbreviation": "克"
     },
     "kilogram": {
-        "name": "kilogram",
+        "name": "千克",
         "description": "",
-        "abbreviation": "kg"
+        "abbreviation": "千克"
     },
     "milligram": {
-        "name": "milligram",
+        "name": "毫克",
         "description": "",
-        "abbreviation": "mg"
+        "abbreviation": "毫克"
     },
     "splash": {
         "name": "splash",
@@ -80,22 +80,22 @@
         "abbreviation": ""
     },
     "serving": {
-        "name": "serving",
+        "name": "份",
         "description": "",
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
+        "name": "头",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
-        "name": "clove",
+        "name": "瓣",
         "description": "",
         "abbreviation": ""
     },
     "can": {
-        "name": "can",
+        "name": "罐",
         "description": "",
         "abbreviation": ""
     }
