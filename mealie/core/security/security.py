@@ -22,11 +22,10 @@ class UserLockedOut(Exception):
     ...
 
 
-def create_access_token(data: dict, expires_delta: timedelta | None = None) -> str:
+def create_access_token(data: dict, expires_delta: timedelta) -> str:
     settings = get_app_settings()
 
     to_encode = data.copy()
-    expires_delta = expires_delta or timedelta(hours=settings.TOKEN_TIME)
 
     expire = datetime.now(timezone.utc) + expires_delta
 
