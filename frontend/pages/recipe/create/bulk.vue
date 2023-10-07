@@ -65,7 +65,7 @@
           </v-col>
         </template>
       </v-row>
-      <v-card-actions class="justify-end">
+      <v-card-actions class="justify-end flex-wrap mb-1">
         <BaseButton
           delete
           @click="
@@ -76,11 +76,11 @@
           Clear
         </BaseButton>
         <v-spacer></v-spacer>
-        <BaseButton class="mr-1" color="info" @click="bulkUrls.push({ url: '', categories: [], tags: [] })">
+        <BaseButton class="mr-1 mb-1" color="info" @click="bulkUrls.push({ url: '', categories: [], tags: [] })">
           <template #icon> {{ $globals.icons.createAlt }} </template>
-          New
+          {{ $t('general.new') }}
         </BaseButton>
-        <RecipeDialogBulkAdd v-model="bulkDialog" @bulk-data="assignUrls" />
+        <RecipeDialogBulkAdd v-model="bulkDialog" class="mr-1 mr-sm-0 mb-1" @bulk-data="assignUrls" />
       </v-card-actions>
       <div class="px-1">
         <v-checkbox v-model="showCatTags" hide-details :label="$t('recipe.set-categories-and-tags')" />
