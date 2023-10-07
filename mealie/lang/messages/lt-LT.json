@@ -6,21 +6,21 @@
         "unique-name-error": "Receptų pavadinimai turi būti unikalūs"
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "No recipes match your rules"
+        "no-recipes-match-your-rules": "Nėra receptų, atitinkančių taisykles"
     },
     "user": {
         "user-updated": "Vartotojas atnaujintas",
         "password-updated": "Slaptažodis atnaujintas",
         "invalid-current-password": "Blogas dabartinis slaptažodis",
-        "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
+        "ldap-update-password-unavailable": "Nepavyko atnaujinti slaptažodžio, naudotojas valdomas per LDAP"
     },
     "group": {
         "report-deleted": "Ataskaita ištrinta."
     },
     "exceptions": {
         "permission_denied": "Neturite leidimo atlikti šį veiksmą",
-        "no-entry-found": "The requested resource was not found",
-        "integrity-error": "Database integrity error",
+        "no-entry-found": "Ieškomo resurso nerasta",
+        "integrity-error": "Duomenų bazės vientisumo klaida",
         "username-conflict-error": "Toks vartotojas jau egzistuoja",
         "email-conflict-error": "Šis el. paštas jau naudojamas"
     },

@@ -456,6 +456,7 @@
     "date-format-hint-yyyy-mm-dd": "פורמט YYYY-MM-DD",
     "add-to-list": "הוסף לרשימה",
     "add-to-plan": "הוספה לתכנית",
+    "add-to-timeline": "Add to Timeline",
     "recipe-added-to-list": "מתכון נוסף לרשימה",
     "recipe-added-to-mealplan": "מתכון נוסף לתכנון ארוחות",
     "failed-to-add-recipe-to-mealplan": "הוספת מתכון לתכנון ארוחות נכשלה",
@@ -479,6 +480,13 @@
     "increase-scale-label": "העלה קנה מידה ב-1",
     "locked": "נעול",
     "public-link": "כתובת פומבית",
+    "timer": {
+      "kitchen-timer": "Kitchen Timer",
+      "start-timer": "Start Timer",
+      "pause-timer": "Pause Timer",
+      "resume-timer": "Resume Timer",
+      "stop-timer": "Stop Timer"
+    },
     "edit-timeline-event": "עריכת אירוע ציר זמן",
     "timeline": "ציר זמן",
     "timeline-is-empty": "אין כלום בציר הזמן. נסה לעשות את המתכון הזה!",
@@ -529,7 +537,9 @@
     "tree-view": "תצוגת עץ",
     "recipe-yield": "תשואת מתכון",
     "unit": "יחידה",
-    "upload-image": "העלה תמונה"
+    "upload-image": "העלה תמונה",
+    "screen-awake": "Keep Screen Awake",
+    "remove-image": "Remove image"
   },
   "search": {
     "advanced-search": "חיפוש מתקדם",
@@ -564,7 +574,6 @@
       "partial-backup": "גיבוי חלקי",
       "unable-to-delete-backup": "לא ניתן למחוק גיבוי.",
       "experimental-description": "גיבויים, סנאפשוט מלא של מלא של מסד הנתונים והסיפריות באתר. הגיבוי מכיל את כל המידע ולא ניתן להסיר מידע מהגיבוי. ניתן להתייחס לגיבוי כסנאפשוט של מילי בזמן ספציפי. כרגע {not-crossed-version} (מיגרציית נתונים לא מתבצעות אוטומטית). הם מאפשרים לייבא, לייצא ולגבות את האתר למקום חיצוני.",
-      "not-crossed-version": "מנגנון הגיבוי אינו חוצה גירסאות ולכן לא ניתן להשתמש בו להעברת המידע בין גירסאות שונות",
       "backup-restore": "גיבוי / שחזור",
       "back-restore-description": "שחזור מגיבוי זה ידרוס את המידע הקיים במסד הנתונים ובספריות האתר ויחליף אותם בזה הקיים בגיבוי. {cannot-be-undone} אם השחזור יצליח, המשתמש ינותק מהמערכת.",
       "cannot-be-undone": "פעולה זו לא בלתי הפיכה - השתמש בזהירות.",
@@ -1060,6 +1069,7 @@
     "welcome-user": "👋 שלום, {0}",
     "description": "ניהול פרופיל, מתכונים והגדרות קבוצה.",
     "get-invite-link": "קבלת קישור להזמנה",
+    "get-public-link": "Get Public Link",
     "account-summary": "פירוט משתמש",
     "account-summary-description": "סיכום המידע של הקבוצות שלך",
     "group-statistics": "נתונים סטטיסטיים של קבוצה",

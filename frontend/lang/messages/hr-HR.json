@@ -456,6 +456,7 @@
     "date-format-hint-yyyy-mm-dd": "YYYY-MM-DD format",
     "add-to-list": "Dodaj na Popis",
     "add-to-plan": "Dodaj u Plan",
+    "add-to-timeline": "Add to Timeline",
     "recipe-added-to-list": "Recept je dodan na popis",
     "recipe-added-to-mealplan": "Recept je dodan u Plan",
     "failed-to-add-recipe-to-mealplan": "Nije uspjelo dodavanje recepta u plan obroka",
@@ -479,6 +480,13 @@
     "increase-scale-label": "Povećaj skaliranje za 1",
     "locked": "Zaključano",
     "public-link": "Javni Link",
+    "timer": {
+      "kitchen-timer": "Kitchen Timer",
+      "start-timer": "Start Timer",
+      "pause-timer": "Pause Timer",
+      "resume-timer": "Resume Timer",
+      "stop-timer": "Stop Timer"
+    },
     "edit-timeline-event": "Uredi Događaj Vremenske Crte",
     "timeline": "Vremenska Crta",
     "timeline-is-empty": "Još nema ništa na vremenskoj crti. Pokušajte napraviti ovaj recept!",
@@ -529,7 +537,9 @@
     "tree-view": "Prikaz Stabla",
     "recipe-yield": "Konačna Količina Recepta",
     "unit": "Jedinica",
-    "upload-image": "Učitavanje Slike"
+    "upload-image": "Učitavanje Slike",
+    "screen-awake": "Keep Screen Awake",
+    "remove-image": "Remove image"
   },
   "search": {
     "advanced-search": "Napredno Pretraživanje",
@@ -564,7 +574,6 @@
       "partial-backup": "Djelomična sigurnosna kopija",
       "unable-to-delete-backup": "Ne Mogu Obrisati Sigurnosnu Kopiju.",
       "experimental-description": "Sigurnosna kopija predstavlja snimak baze podataka i direktorija podataka web stranice. To uključuje sve podatke i ne može se postaviti da isključuje podskupove podataka. Možete zamisliti sigurnosnu kopiju kao snimak Mealieja u određenom trenutku. Trenutno, verzije {not-crossed-version} (migracija podataka se ne izvode automatski). Sigurnosne kopije služe kao način izvoza i uvoza podataka ili za sigurnosno kopiranje web mjesta na vanjsku lokaciju.",
-      "not-crossed-version": "ovaj mehanizam sigurnosne kopije nije kompatibilan između verzija i stoga se ne može koristiti za migraciju podataka između verzija",
       "backup-restore": "Sigurnosno kopiranje/vraćanje",
       "back-restore-description": "Vraćanje ove sigurnosne kopije će prepisati sve trenutne podatke u vašoj bazi podataka i direktoriju podataka i zamijeniti ih sadržajem ove sigurnosne kopije. Ova radnja je {ne-može-se-povratiti}. Ako se vraćanje uspješno izvrši, bit ćete odjavljeni iz sustava.",
       "cannot-be-undone": "Ova radnja ne može se poništiti - koristite je oprezno.",
@@ -1060,6 +1069,7 @@
     "welcome-user": "👋 Dobrodošli, {0}",
     "description": "Upravljajte svojim profilom, receptima i postavkama grupa.",
     "get-invite-link": "Zatražite Poveznicu Pozivnice",
+    "get-public-link": "Get Public Link",
     "account-summary": "Zbirni Prikaz Računa",
     "account-summary-description": "Evo sažetka informacija o vašoj grupi",
     "group-statistics": "Statistika Grupe",

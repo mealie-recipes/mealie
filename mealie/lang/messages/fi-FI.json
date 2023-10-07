@@ -1,35 +1,35 @@
 {
     "generic": {
-        "server-error": "An unexpected error occurred"
+        "server-error": "Tapahtui odottamaton virhe"
     },
     "recipe": {
-        "unique-name-error": "Recipe names must be unique"
+        "unique-name-error": "Reseptien nimien täytyy olla yksilöllisiä"
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "No recipes match your rules"
+        "no-recipes-match-your-rules": "Määritysten mukaisia reseptejä ei löytynyt"
     },
     "user": {
-        "user-updated": "User updated",
-        "password-updated": "Password updated",
-        "invalid-current-password": "Invalid current password",
-        "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
+        "user-updated": "Käyttäjä päivitetty",
+        "password-updated": "Salasana päivitetty",
+        "invalid-current-password": "Nykyinen salasana ei kelpaa",
+        "ldap-update-password-unavailable": "Salasanaa ei voitu päivittää. Käyttäjä hallinnoi LDAP:ia."
     },
     "group": {
-        "report-deleted": "Report deleted."
+        "report-deleted": "Raportti poistettu."
     },
     "exceptions": {
-        "permission_denied": "You do not have permission to perform this action",
-        "no-entry-found": "The requested resource was not found",
-        "integrity-error": "Database integrity error",
-        "username-conflict-error": "This username is already taken",
-        "email-conflict-error": "This email is already in use"
+        "permission_denied": "Sinulla ei ole oikeutta tämän toiminnon suorittamiseen",
+        "no-entry-found": "Pyydettyä resurssia ei löytynyt",
+        "integrity-error": "Tietokannan eheysvirhe",
+        "username-conflict-error": "Tämä käyttäjätunnus on jo käytössä",
+        "email-conflict-error": "Tämä sähköpostiosoite on jo käytössä"
     },
     "notifications": {
-        "generic-created": "{name} was created",
-        "generic-updated": "{name} was updated",
-        "generic-created-with-url": "{name} has been created, {url}",
-        "generic-updated-with-url": "{name} has been updated, {url}",
-        "generic-duplicated": "{name} has been duplicated",
-        "generic-deleted": "{name} has been deleted"
+        "generic-created": "{name} luotiin",
+        "generic-updated": "{name} päivitettiin",
+        "generic-created-with-url": "{name} on luotu, {url}",
+        "generic-updated-with-url": "{name} on päivitetty, {url}",
+        "generic-duplicated": "{name} on kahdennettu",
+        "generic-deleted": "{name} on poistettu"
     }
 }

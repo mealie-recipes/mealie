@@ -25,7 +25,7 @@
         "abbreviation": "pt"
     },
     "quart": {
-        "name": "quart",
+        "name": "quarto",
         "description": "",
         "abbreviation": "qt"
     },
@@ -75,12 +75,12 @@
         "abbreviation": ""
     },
     "dash": {
-        "name": "traço",
+        "name": "pitada",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
-        "name": "porção",
+        "name": "dose",
         "description": "",
         "abbreviation": ""
     },

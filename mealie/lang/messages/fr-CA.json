@@ -22,7 +22,7 @@
         "no-entry-found": "La ressource demandée n'a pas été trouvée",
         "integrity-error": "Erreur d'intégrité de la base de données",
         "username-conflict-error": "Ce nom d'utilisateur est déjà pris",
-        "email-conflict-error": "Cette adresse e-mail est déjà utilisée"
+        "email-conflict-error": "Cette adresse courriel est déjà utilisée"
     },
     "notifications": {
         "generic-created": "{name} a été créé",

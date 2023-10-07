@@ -456,6 +456,7 @@
     "date-format-hint-yyyy-mm-dd": "JJJJ-MM-DD formaat",
     "add-to-list": "Toevoegen aan lijst",
     "add-to-plan": "Toevoegen aan plan",
+    "add-to-timeline": "Add to Timeline",
     "recipe-added-to-list": "Recept toegevoegd aan de lijst",
     "recipe-added-to-mealplan": "Recept toegevoegd aan het maaltijdplan",
     "failed-to-add-recipe-to-mealplan": "Recept aan maaltijdplan toevoegen mislukt",
@@ -479,6 +480,13 @@
     "increase-scale-label": "Verhoog de schaal met 1",
     "locked": "Vergrendeld",
     "public-link": "Openbare link",
+    "timer": {
+      "kitchen-timer": "Kitchen Timer",
+      "start-timer": "Start Timer",
+      "pause-timer": "Pause Timer",
+      "resume-timer": "Resume Timer",
+      "stop-timer": "Stop Timer"
+    },
     "edit-timeline-event": "Bewerk tijdlijn gebeurtenis",
     "timeline": "Tijdlijn",
     "timeline-is-empty": "Nog niets op de tijdlijn. Probeer dit recept te maken!",
@@ -529,7 +537,9 @@
     "tree-view": "Boomstructuurweergave",
     "recipe-yield": "Recept Opbrengst",
     "unit": "Eenheid",
-    "upload-image": "Afbeelding uploaden"
+    "upload-image": "Afbeelding uploaden",
+    "screen-awake": "Keep Screen Awake",
+    "remove-image": "Remove image"
   },
   "search": {
     "advanced-search": "Geavanceerd zoeken",
@@ -564,7 +574,6 @@
       "partial-backup": "Gedeeltelijke back-up",
       "unable-to-delete-backup": "Kan back-up niet verwijderen.",
       "experimental-description": "Back-up maakt een totale snapshots van de database en data directory van de site. Dit omvat alle gegevens en kan niet worden ingesteld om subsets van gegevens uit te sluiten. Je kunt dit op een bepaald moment als een snapshot van Mealie opvatten. Op dit moment {not-crossed-version} (gegevensmigratie wordt niet automatisch afgerond). Deze dienen als een agnostische manier om gegevens te exporteren en importeren of een backup van de site naar een externe locatie te maken.",
-      "not-crossed-version": "dit back-upmechanisme is geen cross-version en kan daarom niet worden gebruikt om data tussen versies te migreren",
       "backup-restore": "Back-up maken/terugzetten",
       "back-restore-description": "Het terugzetten van deze back-up overschrijft alle huidige gegevens in uw database en in de gegevensmap. {cannot-be-undone} Als het terugzetten is gelukt wordt u afgemeld.",
       "cannot-be-undone": "Deze actie kan niet ongedaan worden gemaakt - gebruik met voorzichtigheid.",
@@ -1060,6 +1069,7 @@
     "welcome-user": "👋 Welkom, {0}",
     "description": "Beheer je profiel, recepten en groepsinstellingen.",
     "get-invite-link": "Krijg uitnodigingslink",
+    "get-public-link": "Get Public Link",
     "account-summary": "Accountoverzicht",
     "account-summary-description": "Hier is een samenvatting van de informatie van jouw groep",
     "group-statistics": "Groepsstatistieken",

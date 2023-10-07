@@ -456,6 +456,7 @@
     "date-format-hint-yyyy-mm-dd": "JJJ-MM-TT Format",
     "add-to-list": "Zur Einkaufsliste hinzufügen",
     "add-to-plan": "Zum Essensplan hinzufügen",
+    "add-to-timeline": "Zum Zeitstrahl hinzufügen",
     "recipe-added-to-list": "Rezept wurde zur Einkaufsliste hinzugefügt",
     "recipe-added-to-mealplan": "Rezept zum Essensplan hinzugefügt",
     "failed-to-add-recipe-to-mealplan": "Fehler beim Hinzufügen des Rezepts zum Essensplan",
@@ -479,6 +480,13 @@
     "increase-scale-label": "Maßstab um 1 erhöhen",
     "locked": "Gesperrt",
     "public-link": "Öffentlicher Link",
+    "timer": {
+      "kitchen-timer": "Küchenwecker",
+      "start-timer": "Wecker starten",
+      "pause-timer": "Wecker pausieren",
+      "resume-timer": "Wecker fortsetzen",
+      "stop-timer": "Wecker stoppen"
+    },
     "edit-timeline-event": "Zeitstrahl-Ereignis bearbeiten",
     "timeline": "Zeitstrahl",
     "timeline-is-empty": "Noch nichts auf dem Zeitstrahl. Probier dieses Rezept aus!",
@@ -529,7 +537,9 @@
     "tree-view": "Strukturierte Ansicht",
     "recipe-yield": "Portionsangabe",
     "unit": "Maßeinheit",
-    "upload-image": "Bild hochladen"
+    "upload-image": "Bild hochladen",
+    "screen-awake": "Keep Screen Awake",
+    "remove-image": "Bild entfernen"
   },
   "search": {
     "advanced-search": "Erweiterte Suche",
@@ -564,7 +574,6 @@
       "partial-backup": "Teilsicherung",
       "unable-to-delete-backup": "Sicherung kann nicht gelöscht werden.",
       "experimental-description": "Sichert eine vollständige Momentaufnahme der Datenbank und des Datenverzeichnisses der Webseite. Dies schließt alle Daten ein, es können keine Daten ausgenommen werden. Es handelt sich also um eine Momentaufnahme von Mealie zu einem bestimmten Zeitpunkt. Zur Zeit {not-crossed-version} (es erfolgt keine automatische Datenmigration). Es ist eine Datenbank-unabhängige Möglichkeit, Daten zu exportieren und importieren oder um die Webseite an einem externen Ort zu sichern.",
-      "not-crossed-version": "funktioniert diese Backup-Methode nicht versionsübergreifend und kann daher nicht verwendet werden, um Daten aus verschiedenen Versionen zu migrieren",
       "backup-restore": "Wiederherstellen aus Sicherung",
       "back-restore-description": "Das Wiederherstellen dieser Sicherung wird alle vorhandenen Daten in deiner Datenbank und im Datenverzeichnis überschreiben und durch den Inhalt dieser Sicherung ersetzen. {cannot-be-undone} Wenn die Wiederherstellung erfolgreich war, wirst du abgemeldet.",
       "cannot-be-undone": "Diese Aktion kann nicht rückgängig gemacht werden - verwende sie mit Vorsicht.",
@@ -1060,6 +1069,7 @@
     "welcome-user": "👋 Willkommen, {0}",
     "description": "Verwalte dein Profil, Rezepte und Gruppeneinstellungen.",
     "get-invite-link": "Einladungslink erzeugen",
+    "get-public-link": "Get Public Link",
     "account-summary": "Kontoübersicht",
     "account-summary-description": "Hier ist eine Übersicht der Informationen deiner Gruppe",
     "group-statistics": "Gruppenstatistik",

@@ -456,6 +456,7 @@
     "date-format-hint-yyyy-mm-dd": "YYYY-MM-DD format",
     "add-to-list": "Listeye Ekle",
     "add-to-plan": "Plana Ekle",
+    "add-to-timeline": "Add to Timeline",
     "recipe-added-to-list": "Tarif listeye eklendi",
     "recipe-added-to-mealplan": "Tarif yemek planına eklendi",
     "failed-to-add-recipe-to-mealplan": "Tarif yemek planına eklerken hata oluştu",
@@ -479,6 +480,13 @@
     "increase-scale-label": "Increase Scale by 1",
     "locked": "Kilitli",
     "public-link": "Public Link",
+    "timer": {
+      "kitchen-timer": "Kitchen Timer",
+      "start-timer": "Start Timer",
+      "pause-timer": "Pause Timer",
+      "resume-timer": "Resume Timer",
+      "stop-timer": "Stop Timer"
+    },
     "edit-timeline-event": "Zaman Çizelgesi Etkinliğini Düzenle",
     "timeline": "Zaman çizelgesi",
     "timeline-is-empty": "Zaman çizelgesinde henüz bir şey yok. Bu tarifi yapmayı deneyin!",
@@ -529,7 +537,9 @@
     "tree-view": "Ağaç Görünümü",
     "recipe-yield": "Recipe Yield",
     "unit": "Birim",
-    "upload-image": "Resim yükleyin"
+    "upload-image": "Resim yükleyin",
+    "screen-awake": "Keep Screen Awake",
+    "remove-image": "Remove image"
   },
   "search": {
     "advanced-search": "Advanced Search",
@@ -564,7 +574,6 @@
       "partial-backup": "Partial Backup",
       "unable-to-delete-backup": "Unable to Delete Backup.",
       "experimental-description": "Backups a total snapshots of the database and data directory of the site. This includes all data and cannot be set to exclude subsets of data. You can think off this as a snapshot of Mealie at a specific time. Currently, {not-crossed-version} (data migrations are not done automatically). These serve as a database agnostic way to export and import data or backup the site to an external location.",
-      "not-crossed-version": "this backup mechanism is not cross-version and therefore cannot be used to migrate data between versions",
       "backup-restore": "Yedekleme Geri Yükleme",
       "back-restore-description": "Restoring this backup will overwrite all the current data in your database and in the data directory and replace them with the contents of this backup. {cannot-be-undone} If the restoration is successful, you will be logged out.",
       "cannot-be-undone": "This action cannot be undone - use with caution.",
@@ -1060,6 +1069,7 @@
     "welcome-user": "👋 Hoşgeldiniz, {0}",
     "description": "Manage your profile, recipes, and group settings.",
     "get-invite-link": "Get Invite Link",
+    "get-public-link": "Get Public Link",
     "account-summary": "Hesap Özeti",
     "account-summary-description": "Here's a summary of your group's information",
     "group-statistics": "Grup İstatistikleri",

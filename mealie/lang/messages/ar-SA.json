@@ -1,35 +1,35 @@
 {
     "generic": {
-        "server-error": "An unexpected error occurred"
+        "server-error": "حدث خطأ غير متوقع"
     },
     "recipe": {
-        "unique-name-error": "Recipe names must be unique"
+        "unique-name-error": "يجب أن تكون أسماء الوصفات فريدة"
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "No recipes match your rules"
+        "no-recipes-match-your-rules": "لا توجد وصفات تتطابق مع المرشحات الخاصة بك"
     },
     "user": {
-        "user-updated": "User updated",
-        "password-updated": "Password updated",
-        "invalid-current-password": "Invalid current password",
-        "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
+        "user-updated": "تم تحديث المستخدم",
+        "password-updated": "تحديث كلمة المرور",
+        "invalid-current-password": "كلمة المرور الحالية غير صالحة",
+        "ldap-update-password-unavailable": "غير قادر على تحديث كلمة المرور، المستخدم يتم التحكم به بواسطة LDAP"
     },
     "group": {
-        "report-deleted": "Report deleted."
+        "report-deleted": "تم حذف التقرير"
     },
     "exceptions": {
-        "permission_denied": "You do not have permission to perform this action",
-        "no-entry-found": "The requested resource was not found",
-        "integrity-error": "Database integrity error",
-        "username-conflict-error": "This username is already taken",
-        "email-conflict-error": "This email is already in use"
+        "permission_denied": "لا يوجد لديك صلاحيات كافية لتفيذ هذا الإجراء",
+        "no-entry-found": "لم يتم العثور على الصفحة المطلوبة",
+        "integrity-error": "خطأ في سلامة قاعدة البيانات",
+        "username-conflict-error": "اسم المستخدم هذا مستخدم بالفعل",
+        "email-conflict-error": "هذا البريد مستخدم مسبقاً"
     },
     "notifications": {
-        "generic-created": "{name} was created",
-        "generic-updated": "{name} was updated",
-        "generic-created-with-url": "{name} has been created, {url}",
-        "generic-updated-with-url": "{name} has been updated, {url}",
-        "generic-duplicated": "{name} has been duplicated",
-        "generic-deleted": "{name} has been deleted"
+        "generic-created": "تم إنشاء {name}",
+        "generic-updated": "تم تحديث {name}",
+        "generic-created-with-url": "تم إنشاء {name} ، {url}",
+        "generic-updated-with-url": "{name} تم تحديثه، {url}",
+        "generic-duplicated": "تم تكرار {name}",
+        "generic-deleted": "تم حذف {name}"
     }
 }
