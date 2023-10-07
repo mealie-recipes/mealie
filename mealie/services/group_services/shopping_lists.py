@@ -19,13 +19,12 @@ from mealie.schema.group.group_shopping_list import (
 )
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit, RecipeIngredient
 from mealie.schema.response.pagination import OrderDirection, PaginationQuery
-from mealie.schema.user.user import GroupInDB, PrivateUser
+from mealie.schema.user.user import GroupInDB
 
 
 class ShoppingListService:
-    def __init__(self, repos: AllRepositories, user: PrivateUser, group: GroupInDB):
+    def __init__(self, repos: AllRepositories, group: GroupInDB):
         self.repos = repos
-        self.user = user
         self.group = group
         self.shopping_lists = repos.group_shopping_lists
         self.list_items = repos.group_shopping_list_item

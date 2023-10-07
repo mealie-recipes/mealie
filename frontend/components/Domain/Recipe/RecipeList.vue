@@ -1,6 +1,12 @@
 <template>
   <v-list :class="tile ? 'd-flex flex-wrap background' : 'background'">
-    <v-sheet v-for="recipe, index in recipes" :key="recipe.id" :class="attrs.class.sheet" :style="tile ? 'width: fit-content;' : 'width: 100%;'">
+    <v-sheet
+      v-for="recipe, index in recipes"
+      :key="recipe.id"
+      :elevation="2"
+      :class="attrs.class.sheet"
+      :style="tile ? 'max-width: 100%; width: fit-content;' : 'width: 100%;'"
+    >
       <v-list-item :to="'/recipe/' + recipe.slug" :class="attrs.class.listItem">
         <v-list-item-avatar :class="attrs.class.avatar">
           <v-icon :class="attrs.class.icon" dark :small="small"> {{ $globals.icons.primary }} </v-icon>
