@@ -538,7 +538,7 @@
     "recipe-yield": "Portionsangabe",
     "unit": "Maßeinheit",
     "upload-image": "Bild hochladen",
-    "screen-awake": "Keep Screen Awake",
+    "screen-awake": "Bildschirm nicht abschalten",
     "remove-image": "Bild entfernen"
   },
   "search": {
