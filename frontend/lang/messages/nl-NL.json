@@ -296,7 +296,7 @@
     "for-type-meal-types": "voor {0} maaltijdsoorten",
     "meal-plan-rules": "Maaltijdplanregels",
     "new-rule": "Nieuwe regel",
-    "meal-plan-rules-description": "Je kunt regels maken voor het automatisch selecteren van recepten voor je maaltijdplannen. Deze regels worden gebruikt door de server om de willekeurige reeks recepten te bepalen waaruit je kunt selecteren bij het maken van maaltijdplannen. Merk op dat als regels dezelfde dag/type beperkingen hebben, de categorieën van de regels worden samengevoegd. In de praktijk is het niet nodig om dubbele regels te maken, maar het is wel mogelijk om dit te doen.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "Bij het opstellen van een nieuwe regel voor een maaltijdplan kunt u de regel beperken tot een specifieke dag van de week en/of een specifiek type maaltijd. Om een regel toe te passen op alle dagen of alle maaltijden kunt u de regel op \"Ieder\" instellen die deze toepast op alle mogelijke waarden voor het type dag en/of maaltijd.",
     "recipe-rules": "Recept Regels",
     "applies-to-all-days": "Van toepassing op alle dagen",
