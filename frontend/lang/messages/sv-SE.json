@@ -296,7 +296,7 @@
     "for-type-meal-types": "för {0} måltidstyper",
     "meal-plan-rules": "Regler för måltidsplan",
     "new-rule": "Ny Regel",
-    "meal-plan-rules-description": "Du kan skapa regler för automatiskt välja recept för dina måltidplaner. Dessa regler används av servern för att bestämma den slumpmässiga poolen av recept att välja mellan när du skapar måltidsplaner. Observera att om reglerna har samma dag/typbegränsningar så kommer kategorierna av reglerna att slås samman. I praktiken är det onödigt att skapa dubbla regler, men det är möjligt att göra det.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "När du skapar en ny regel för en måltidsplan kan du begränsa regeln för en viss veckodag och/eller en viss typ av måltid. För att tillämpa en regel på alla dagar eller alla måltidstyper kan du ställa in regeln till \"Any\" som kommer att tillämpa den på alla möjliga värden för dagen och/eller måltidstypen.",
     "recipe-rules": "Recept regler",
     "applies-to-all-days": "Gäller för alla dagar",
