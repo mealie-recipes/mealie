@@ -296,7 +296,7 @@
     "for-type-meal-types": "{0} étkezés fajtához",
     "meal-plan-rules": "Étkezési terv szabályok",
     "new-rule": "Új szabály",
-    "meal-plan-rules-description": "Létrehozhat szabályokat az étkezési tervekhez szükséges receptek automatikus kiválasztásához. Ezeket a szabályokat a kiszolgáló arra használja, hogy meghatározza a receptek véletlenszerű választékát, amelyből az étkezési tervek létrehozásakor választani fog. Vegye figyelembe, hogy ha a szabályoknak azonos nap/típusú megkötései vannak, akkor a szabályok kategóriái összevonásra kerülnek. A gyakorlatban nem szükséges duplikált szabályokat létrehozni, de lehetséges.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "Amikor új szabályt hoz létre egy étkezési tervhez, korlátozhatja a szabályt, hogy a hét egy adott napjára és/vagy egy adott típusú étkezésre vonatkozzon. Ha egy szabályt minden napra vagy étkezési típusra alkalmazni szeretne, akkor a szabályt \"Bármely\" értékre állíthatja be, amely azt az adott nap és/vagy étkezési típus összes lehetséges értékére alkalmazza.",
     "recipe-rules": "Recept szabályok",
     "applies-to-all-days": "Minden napra vonatkozóan",
@@ -579,8 +579,8 @@
       "cannot-be-undone": "This action cannot be undone - use with caution.",
       "postgresql-note": "If you are using PostGreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "backup/restore process in the documentation",
-      "irreversible-acknowledgment": "I understand that this action is irreversible, destructive and may cause data loss",
-      "restore-backup": "Restore Backup"
+      "irreversible-acknowledgment": "Tudomásul veszem, hogy ez a művelet visszafordíthatatlan, helyrehozhatatlan, és adatvesztéssel járhat",
+      "restore-backup": "Biztonsági mentés visszaállítása"
     },
     "backup-and-exports": "Biztonsági mentések",
     "change-password": "Jelszó megváltoztatása",
@@ -644,8 +644,8 @@
       "copy-this-token-for-use-with-an-external-application-this-token-will-not-be-viewable-again": "Másold ezt a tokent hogy a külső alkalmazásban használhasd. Ez a token többet nem jelenik meg.",
       "create-an-api-token": "API token létrehozása",
       "token-name": "Token neve",
-      "generate": "Generate",
-      "you-have-token-count": "You have no active tokens.|You have one active token.|You have {count} active tokens."
+      "generate": "Létrehozás",
+      "you-have-token-count": "Nincsenek aktív tokenjei.|Egy aktív tokenje van.| {count} aktív tokenje van."
     },
     "toolbox": {
       "assign-all": "Mindet hozzárendel",
@@ -665,10 +665,10 @@
       "webhooks-caps": "WEBHOOKOK",
       "webhooks": "Webhook-ok",
       "webhook-name": "Webhook neve",
-      "description": "The webhooks defined below will be executed when a meal is defined for the day. At the scheduled time the webhooks will be sent with the data from the recipe that is scheduled for the day. Note that webhook execution is not exact. The webhooks are executed on a 5 minutes interval so the webhooks will be executed within 5 +/- minutes of the scheduled."
+      "description": "Az alábbiakban meghatározott webhookok akkor kerülnek végrehajtásra, amikor az adott napra étkezés kerül beállításra. A tervezett időpontban a webhookok elküldésre kerülnek az adott napra tervezett recept adataival. Vegye figyelembe, hogy a webhookok végrehajtása nem pontos. A webhookok 5 perces időközönként kerülnek végrehajtásra, így a webhookok a tervezett időponthoz képest 5 +/- percen belül fognak végrehajtásra kerülni."
     },
     "bug-report": "Hibajelentés",
-    "bug-report-information": "Use this information to report a bug. Providing details of your instance to developers is the best way to get your issues resolved quickly.",
+    "bug-report-information": "Ezt az információt hiba bejelentéséhez használhatja. A fejlesztők számára az Ön példányára vonatkozó adatok megadása a legjobb módja annak, hogy problémái gyorsan megoldódjanak.",
     "tracker": "Tracker",
     "configuration": "Beállítás",
     "docker-volume": "Docker Kötet",
@@ -718,13 +718,13 @@
     "copy-as-markdown": "Másolás Markdown szövegként",
     "delete-checked": "Kijelöltek törlése",
     "toggle-label-sort": "Címke rendezés váltása",
-    "reorder-labels": "Reorder Labels",
-    "uncheck-all-items": "Uncheck All Items",
-    "check-all-items": "Check All Items",
-    "linked-recipes-count": "No Linked Recipes|One Linked Recipe|{count} Linked Recipes",
-    "items-checked-count": "No items checked|One item checked|{count} items checked",
+    "reorder-labels": "Címkék újrarendezése",
+    "uncheck-all-items": "Kijelölés megszüntetése",
+    "check-all-items": "Minden tétel kijelölése",
+    "linked-recipes-count": "Nincs összekapcsolt recept|Egy összekapcsolt recept|{count} összekapcsolt recept",
+    "items-checked-count": "Nincs ellenőrzött tétel|Egy ellenőrzött tétel|{count} ellenőrzött tétel",
     "no-label": "Nincs címke",
-    "completed-on": "Completed on {date}"
+    "completed-on": "Teljesítve {date}"
   },
   "sidebar": {
     "all-recipes": "Minden recept",
@@ -922,10 +922,10 @@
       "data-exports-description": "Ez a szakasz a letölthető, rendelkezésre álló exportok linkjeit tartalmazza. Ezek az exportok érvényessége le fog járni, ezért mindenképpen szerezze be őket, amíg még elérhetők.",
       "data-exports": "Adatok exportálása",
       "tag": "Címke",
-      "categorize": "Categorize",
+      "categorize": "Kategorizálás",
       "update-settings": "Beállítások frissítése",
-      "tag-recipes": "Tag Recipes",
-      "categorize-recipes": "Categorize Recipes",
+      "tag-recipes": "Receptek címkézése",
+      "categorize-recipes": "Receptek kategorizálása",
       "export-recipes": "Receptek exportálása",
       "delete-recipes": "Receptek törlése",
       "source-unit-will-be-deleted": "A forrás mértékegység törlésre kerül"
@@ -937,7 +937,7 @@
     "select-data": "Válassza ki az adatot",
     "select-language": "Nyelv kiválasztása",
     "columns": "Oszlopok",
-    "combine": "Combine"
+    "combine": "Összevonás"
   },
   "user-registration": {
     "user-registration": "Felhasználó regisztráció",
@@ -1098,20 +1098,20 @@
     "error-sending-email": "Hiba történt az e-Mail küldésénél",
     "personal-information": "Személyes adatok",
     "preferences": "Beállítások",
-    "show-advanced-description": "Show advanced features (API Keys, Webhooks, and Data Management)",
+    "show-advanced-description": "Haladó funkciók megjelenítése (API-kulcsok, Webhookok és adatkezelés)",
     "back-to-profile": "Vissza a profilhoz",
-    "looking-for-privacy-settings": "Looking for Privacy Settings?",
+    "looking-for-privacy-settings": "Az adatvédelmi beállításokat keresi?",
     "manage-your-api-tokens": "API tokenjeinek kezelése",
     "manage-user-profile": "Felhasználói profil kezelése",
     "manage-cookbooks": "Szakácskönyvek kezelése",
     "manage-members": "Tagok Kezelése",
     "manage-webhooks": "Webhookok kezelése",
-    "manage-notifiers": "Manage Notifiers",
+    "manage-notifiers": "Értesítések kezelése",
     "manage-data-migrations": "Adatok migrációjának kezelése"
   },
   "cookbook": {
     "cookbooks": "Szakácskönyvek",
-    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes and tags. Creating a cookbook will add an entry to the side-bar and all the recipes with the tags and categories chosen will be displayed in the cookbook.",
+    "description": "A szakácskönyvek egy másik módja a receptek rendszerezésének a receptek és címkék metszeteinek összeállításával. Egy szakácskönyv létrehozása egy bejegyzést ad az oldalsávhoz, és a kiválasztott címkékkel és kategóriákkal rendelkező összes recept megjelenik a szakácskönyvben.",
     "public-cookbook": "Nyilvános szakácskönyv",
     "public-cookbook-description": "A nyilvános szakácskönyvek megoszthatók a nem mealie felhasználókkal, és megjelennek a csoportod oldalán.",
     "filter-options": "Szűrési beállítások",
