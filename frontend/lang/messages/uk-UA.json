@@ -296,7 +296,7 @@
     "for-type-meal-types": "для {0} типів харчування",
     "meal-plan-rules": "Правила планів харчування",
     "new-rule": "Нове правило",
-    "meal-plan-rules-description": "Ви можете створити правила для автоматичного вибору рецептів для ваших планів харчування. Ці правила використовуються сервером для вибору рецептів при створенні плану харчування. Зверніть увагу, що якщо правила мають обмеження на день/тип, то їх категорії будуть об'єднані. Дублювати правила необов'язково, але можливо.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "При створенні нового правила для плану харчування, ви можете обмежити правило на певний день тижня та/або певний тип їжі. Щоб застосувати правило до всіх днів або всіх типів їжі, ви можете встановити правило \"Будь-який\", що застосовуватиме його до всіх можливих значень для дня та/або типу їжі.",
     "recipe-rules": "Правила рецептів",
     "applies-to-all-days": "Застосовується до всіх днів",
