@@ -296,7 +296,7 @@
     "for-type-meal-types": "per {0} tipi di pasto",
     "meal-plan-rules": "Regole del piano alimentare",
     "new-rule": "Nuova regola",
-    "meal-plan-rules-description": "È possibile creare regole per la selezione automatica delle ricette per il piano alimentare. Queste regole sono usate dal server per determinare l'insieme casuale delle ricette fra le quali selezionare quando si creano dei piani alimentari. Si noti che se le regole hanno gli stessi vincoli di giorno/tipo, le categorie delle regole saranno unite. In pratica, non è necessario creare regole duplicate, ma è possibile farlo.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "Quando si crea una nuova regola per un piano alimentare è possibile limitare la sua applicazione ad un giorno specifico della settimana e/o un tipo specifico di pasto. Per applicare una regola a tutti i giorni o a tutti i tipi di pasto, è possibile impostare la regola a \"Qualsiasi\", applicandola a tutti i possibili valori per il tipo di giorno e/o di pasto.",
     "recipe-rules": "Regole per le ricette",
     "applies-to-all-days": "Si applica a ogni giorno",
