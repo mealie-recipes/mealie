@@ -2,13 +2,13 @@
   <v-navigation-drawer v-model="drawer" class="d-flex flex-column d-print-none" clipped app width="240px">
     <!-- User Profile -->
     <template v-if="$auth.user">
-      <v-list-item two-line to="/user/profile" exact>
+      <v-list-item two-line :to="`/${groupSlug}/user/profile`" exact>
         <UserAvatar list :user-id="$auth.user.id" />
 
         <v-list-item-content>
           <v-list-item-title class="pr-2"> {{ $auth.user.fullName }}</v-list-item-title>
           <v-list-item-subtitle>
-            <v-btn class="px-2 pa-0" text :to="`/user/${$auth.user.id}/favorites`" small>
+            <v-btn class="px-2 pa-0" text :to="`/${groupSlug}/user/${$auth.user.id}/favorites`" small>
               <v-icon left small>
                 {{ $globals.icons.heart }}
               </v-icon>
@@ -140,7 +140,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, toRefs, useContext } from "@nuxtjs/composition-api";
+import { computed, defineComponent, reactive, toRefs, useContext, useRoute } from "@nuxtjs/composition-api";
 import { SidebarLinks } from "~/types/application-types";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 
@@ -200,6 +200,9 @@ export default defineComponent({
     const { $auth } = useContext();
     const loggedIn = computed(() => $auth.loggedIn);
 
+    const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug);
+
     const state = reactive({
       dropDowns: {},
       topSelected: null as string[] | null,
@@ -210,6 +213,7 @@ export default defineComponent({
 
     return {
       ...toRefs(state),
+      groupSlug,
       drawer,
       loggedIn,
     };

@@ -7,7 +7,7 @@
       :class="attrs.class.sheet"
       :style="tile ? 'max-width: 100%; width: fit-content;' : 'width: 100%;'"
     >
-      <v-list-item :to="'/recipe/' + recipe.slug" :class="attrs.class.listItem">
+      <v-list-item :to="'/' + groupSlug + '/recipe/' + recipe.slug" :class="attrs.class.listItem">
         <v-list-item-avatar :class="attrs.class.avatar">
           <v-icon :class="attrs.class.icon" dark :small="small"> {{ $globals.icons.primary }} </v-icon>
         </v-list-item-avatar>
@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "@nuxtjs/composition-api";
+import { computed, defineComponent, useRoute } from "@nuxtjs/composition-api";
 import DOMPurify from "dompurify";
 import { useFraction } from "~/composables/recipes/use-fraction";
 import { ShoppingListItemOut } from "~/lib/api/types/group";
@@ -59,6 +59,8 @@ export default defineComponent({
   },
   setup(props) {
     const { frac } = useFraction();
+    const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug);
 
     const attrs = computed(() => {
       return props.small ? {
@@ -150,6 +152,7 @@ export default defineComponent({
 
     return {
       attrs,
+      groupSlug,
       listItemDescriptions,
     };
   },

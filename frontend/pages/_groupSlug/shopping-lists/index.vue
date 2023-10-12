@@ -18,7 +18,7 @@
     <BaseButton create @click="createDialog = true" />
 
     <section>
-      <v-card v-for="list in shoppingLists" :key="list.id" class="my-2 left-border" :to="`/shopping-lists/${list.id}`">
+      <v-card v-for="list in shoppingLists" :key="list.id" class="my-2 left-border" :to="`/${groupSlug}/shopping-lists/${list.id}`">
         <v-card-title>
           <v-icon left>
             {{ $globals.icons.cartCheck }}
@@ -33,19 +33,21 @@
       </v-card>
     </section>
     <div class="d-flex justify-end mt-10">
-      <ButtonLink to="/group/data/labels" :text="$tc('shopping-list.manage-labels')" :icon="$globals.icons.tags" />
+      <ButtonLink :to="`/${groupSlug}/group/data/labels`" :text="$tc('shopping-list.manage-labels')" :icon="$globals.icons.tags" />
     </div>
   </v-container>
 </template>
 
 <script lang="ts">
-import { defineComponent, useAsync, reactive, toRefs } from "@nuxtjs/composition-api";
+import { computed, defineComponent, useAsync, reactive, toRefs, useRoute } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 import { useAsyncKey } from "~/composables/use-utils";
 
 export default defineComponent({
   setup() {
     const userApi = useUserApi();
+    const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug);
 
     const state = reactive({
       createName: "",
@@ -95,6 +97,7 @@ export default defineComponent({
 
     return {
       ...toRefs(state),
+      groupSlug,
       shoppingLists,
       createOne,
       deleteOne,

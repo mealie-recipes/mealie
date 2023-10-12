@@ -9,7 +9,7 @@
       color="accent"
       :small="small"
       dark
-      :to=" loggedIn ? `/?${urlPrefix}=${category.id}` : undefined"
+      :to=" loggedIn ? `${baseRecipeRoute}?${urlPrefix}=${category.id}` : undefined"
     >
       {{ truncateText(category.name) }}
     </v-chip>
@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
+import { computed, defineComponent, useContext, useRoute } from "@nuxtjs/composition-api";
 import { RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/user";
 
 export type UrlPrefixParam = "tags" | "categories" | "tools";
@@ -59,6 +59,11 @@ export default defineComponent({
       return $auth.loggedIn
     })
 
+    const route = useRoute();
+    const baseRecipeRoute = computed<string>(() => {
+      return `/${route.value.params.groupSlug}`
+    });
+
     function truncateText(text: string, length = 20, clamp = "...") {
       if (!props.truncate) return text;
       const node = document.createElement("div");
@@ -68,6 +73,7 @@ export default defineComponent({
     }
 
     return {
+      baseRecipeRoute,
       loggedIn,
       truncateText,
     };

@@ -46,30 +46,31 @@ export default defineComponent({
       labels: i18n.tc("data-pages.labels.labels"),
     };
 
+    const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug);
+
     const DATA_TYPE_OPTIONS = [
       {
         text: i18n.t("general.recipes"),
         value: "new",
-        to: "/group/data/recipes",
+        to: `/${groupSlug}/group/data/recipes`,
       },
       {
         text: i18n.t("general.foods"),
         value: "url",
-        to: "/group/data/foods",
+        to: `/${groupSlug}/group/data/foods`,
       },
       {
         text: i18n.t("general.units"),
         value: "new",
-        to: "/group/data/units",
+        to: `/${groupSlug}/group/data/units`,
       },
       {
         text: i18n.t("data-pages.labels.labels"),
         value: "new",
-        to: "/group/data/labels",
+        to: `/${groupSlug}/group/data/labels`,
       },
     ];
-
-    const route = useRoute();
 
     const buttonText = computed(() => {
       const last = route.value.path.split("/").pop();

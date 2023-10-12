@@ -20,7 +20,7 @@
 
     <AdvancedOnly>
       <v-container class="d-flex justify-center align-center my-4">
-        <a to="/group/migrations"> {{ $t('recipe.looking-for-migrations') }}</a>
+        <a :to="`/${groupSlug}/group/migrations`"> {{ $t('recipe.looking-for-migrations') }}</a>
       </v-container>
     </AdvancedOnly>
   </div>
@@ -71,6 +71,7 @@ export default defineComponent({
 
     const route = useRoute();
     const router = useRouter();
+    const groupSlug = computed(() => route.value.params.groupSlug);
 
     const subpage = computed({
       set(subpage: string) {
@@ -82,6 +83,7 @@ export default defineComponent({
     });
 
     return {
+      groupSlug,
       subpages,
       subpage,
     };

@@ -26,10 +26,10 @@
 
     <div class="d-flex align-center justify-space-between mb-2">
       <v-tabs>
-        <v-tab to="/group/mealplan/planner/view">{{ $t('meal-plan.meal-planner') }}</v-tab>
-        <v-tab to="/group/mealplan/planner/edit">{{ $t('general.edit') }}</v-tab>
+        <v-tab :to="`/${groupSlug}/group/mealplan/planner/view`">{{ $t('meal-plan.meal-planner') }}</v-tab>
+        <v-tab :to="`/${groupSlug}/group/mealplan/planner/edit`">{{ $t('general.edit') }}</v-tab>
       </v-tabs>
-      <ButtonLink :icon="$globals.icons.calendar" to="/group/mealplan/settings" :text="$tc('general.settings')" />
+      <ButtonLink :icon="$globals.icons.calendar" :to="`/${groupSlug}/group/mealplan/settings`" :text="$tc('general.settings')" />
     </div>
 
     <div>
@@ -49,6 +49,7 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     const router = useRouter();
+    const groupSlug = computed(() => route.value.params.groupSlug);
 
     // Force to /view if current route is /planner
     if (route.value.path === "/group/mealplan/planner") {
@@ -120,6 +121,7 @@ export default defineComponent({
     });
 
     return {
+      groupSlug,
       state,
       actions,
       mealsByDate,

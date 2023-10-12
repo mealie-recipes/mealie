@@ -31,7 +31,7 @@
           <div class="mr-auto">
             {{ $t("search.results") }}
           </div>
-          <router-link to="/"> {{ $t("search.advanced-search") }} </router-link>
+          <router-link :to="advancedSearchUrl"> {{ $t("search.advanced-search") }} </router-link>
         </v-card-actions>
 
         <RecipeCardMobile
@@ -54,7 +54,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs, reactive, ref, watch, useRoute } from "@nuxtjs/composition-api";
+import { computed, defineComponent, toRefs, reactive, ref, watch, useRoute } from "@nuxtjs/composition-api";
 import RecipeCardMobile from "./RecipeCardMobile.vue";
 import { RecipeSummary } from "~/lib/api/types/recipe";
 import { useUserApi } from "~/composables/api";
@@ -129,6 +129,7 @@ export default defineComponent({
     });
 
     const route = useRoute();
+    const advancedSearchUrl = computed(() => `/${route.value.params.groupSlug}`)
     watch(route, close);
 
     function open() {
@@ -152,6 +153,7 @@ export default defineComponent({
 
     return {
       ...toRefs(state),
+      advancedSearchUrl,
       dialog,
       open,
       close,

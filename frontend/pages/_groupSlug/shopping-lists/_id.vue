@@ -199,7 +199,7 @@
 
     <v-lazy>
       <div class="d-flex justify-end mt-10">
-        <ButtonLink to="/group/data/labels" :text="$tc('shopping-list.manage-labels')" :icon="$globals.icons.tags" />
+        <ButtonLink :to="`/${groupSlug}/group/data/labels`" :text="$tc('shopping-list.manage-labels')" :icon="$globals.icons.tags" />
       </div>
     </v-lazy>
   </v-container>
@@ -247,6 +247,7 @@ export default defineComponent({
     const reorderLabelsDialog = ref(false);
 
     const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug);
     const id = route.value.params.id;
 
     const { i18n } = useContext();
@@ -755,6 +756,7 @@ export default defineComponent({
       deleteListItem,
       edit,
       getLabelColor,
+      groupSlug,
       itemsByLabel,
       listItems,
       loadingCounter,

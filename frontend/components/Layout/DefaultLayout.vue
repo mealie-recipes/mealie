@@ -115,7 +115,7 @@
           return {
             icon: $globals.icons.pages,
             title: cookbook.name,
-            to: loggedIn.value ? `/cookbooks/${cookbook.slug as string}` : `/explore/cookbooks/${groupSlug}/${cookbook.slug as string}`,
+            to: loggedIn.value ? `/${groupSlug}/cookbooks/${cookbook.slug as string}` : `/explore/cookbooks/${groupSlug}/${cookbook.slug as string}`,
           };
         });
       });
@@ -135,7 +135,7 @@
           icon: $globals.icons.link,
           title: i18n.tc("general.import"),
           subtitle: i18n.tc("new-recipe.import-by-url"),
-          to: "/recipe/create/url",
+          to: `/${groupSlug}/recipe/create/url`,
           restricted: true,
         },
         {
@@ -143,7 +143,7 @@
           icon: $globals.icons.edit,
           title: i18n.tc("general.create"),
           subtitle: i18n.tc("new-recipe.create-manually"),
-          to: "/recipe/create/new",
+          to: `/${groupSlug}/recipe/create/new`,
           restricted: true,
         },
         {
@@ -151,7 +151,7 @@
           icon: $globals.icons.pages,
           title: i18n.tc("sidebar.cookbook"),
           subtitle: i18n.tc("sidebar.create-cookbook"),
-          to: "/group/cookbooks",
+          to: `/${groupSlug}/group/cookbooks`,
           restricted: true,
         },
       ];
@@ -175,36 +175,36 @@
         {
           icon: $globals.icons.calendarMultiselect,
           title: i18n.tc("meal-plan.meal-planner"),
-          to: "/group/mealplan/planner/view",
+          to: `/${groupSlug}/group/mealplan/planner/view`,
           restricted: true,
         },
         {
           icon: $globals.icons.formatListCheck,
           title: i18n.tc("shopping-list.shopping-lists"),
-          to: "/shopping-lists",
+          to: `/${groupSlug}/shopping-lists`,
           restricted: true,
         },
         {
           icon: $globals.icons.timelineText,
           title: i18n.tc("recipe.timeline"),
-          to: "/group/timeline",
+          to: `/${groupSlug}/group/timeline`,
           restricted: true,
         },
         {
           icon: $globals.icons.tags,
-          to: "/recipes/categories",
+          to: `/${groupSlug}/recipes/categories`,
           title: i18n.tc("sidebar.categories"),
           restricted: true,
         },
         {
           icon: $globals.icons.tags,
-          to: "/recipes/tags",
+          to: `/${groupSlug}/recipes/tags`,
           title: i18n.tc("sidebar.tags"),
           restricted: true,
         },
         {
           icon: $globals.icons.potSteam,
-          to: "/recipes/tools",
+          to: `/${groupSlug}/recipes/tools`,
           title: i18n.tc("tool.tools"),
           restricted: true,
         },
