@@ -174,6 +174,7 @@ export default defineComponent({
           alert.error(i18n.t("events.something-went-wrong") as string);
         }
       }
+      groupSlug.value = await getGroupSlug();
       loggingIn.value = false;
     }
 

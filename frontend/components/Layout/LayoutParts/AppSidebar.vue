@@ -202,8 +202,8 @@ export default defineComponent({
 
     const route = useRoute();
     const groupSlug = computed(() => route.value.params.groupSlug);
-    const userFavoritesLink = computed(() => groupSlug.value && $auth.user?.id ? `/${groupSlug}/user/${$auth.user.id}/favorites` : undefined);
-    const userProfileLink = computed(() => groupSlug.value ? `/${groupSlug}/user/profile` : undefined);
+    const userFavoritesLink = computed(() => groupSlug.value && $auth.user?.id ? `/${groupSlug.value}/user/${$auth.user.id}/favorites` : undefined);
+    const userProfileLink = computed(() => groupSlug.value ? `/${groupSlug.value}/user/profile` : undefined);
 
     const state = reactive({
       dropDowns: {},
