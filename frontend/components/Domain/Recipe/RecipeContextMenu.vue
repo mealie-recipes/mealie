@@ -192,7 +192,6 @@ export interface ContextMenuIncludes {
   print: boolean;
   printPreferences: boolean;
   share: boolean;
-  publicUrl: boolean;
 }
 
 export interface ContextMenuItem {
@@ -222,7 +221,6 @@ export default defineComponent({
         print: true,
         printPreferences: true,
         share: true,
-        publicUrl: false,
       }),
     },
     // Append items are added at the end of the useItems list
@@ -365,13 +363,6 @@ export default defineComponent({
         color: undefined,
         event: "share",
         isPublic: false,
-      },
-      publicUrl: {
-        title: i18n.tc("recipe.public-link"),
-        icon: $globals.icons.contentCopy,
-        color: undefined,
-        event: "publicUrl",
-        isPublic: true,
       },
     };
 
@@ -536,13 +527,6 @@ export default defineComponent({
       },
       share: () => {
         state.shareDialog = true;
-      },
-      publicUrl: async () => {
-        if (!groupSlug.value) {
-          return;
-        }
-
-        copyText(`${window.location.origin}/explore/recipes/${groupSlug.value}/${props.slug}`);
       },
     };
 

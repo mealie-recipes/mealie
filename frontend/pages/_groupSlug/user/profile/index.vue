@@ -16,17 +16,6 @@
             </v-icon>
             {{ $t('profile.get-invite-link') }}
           </v-btn>
-          <v-btn
-            v-if="group && group.preferences && !group.preferences.privateGroup"
-            outlined
-            rounded
-            @click="getPublicLink()"
-          >
-            <v-icon left>
-              {{ $globals.icons.shareVariant }}
-            </v-icon>
-            {{ $t('profile.get-public-link') }}
-          </v-btn>
         </v-card-actions>
         <div v-show="generatedSignupLink !== ''">
           <v-card-text>
@@ -263,14 +252,6 @@ export default defineComponent({
       group.value = data;
     });
 
-    function getPublicLink() {
-      if (group.value) {
-        publicLink.value = `${window.location.origin}/explore/recipes/${group.value.slug}`
-        showPublicLink.value = true;
-        generatedSignupLink.value = "";
-      }
-    }
-
     async function getSignupLink() {
       const { data } = await api.groups.createInvitation({ uses: 1 });
       if (data) {
@@ -402,7 +383,6 @@ export default defineComponent({
       showPublicLink,
       publicLink,
       getSignupLink,
-      getPublicLink,
       sendInvite,
       validators,
       validEmail,

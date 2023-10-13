@@ -66,7 +66,6 @@
                   print: false,
                   printPreferences: false,
                   share: true,
-                  publicUrl: false,
                 }"
                 @deleted="$emit('delete', slug)"
               />
@@ -142,7 +141,7 @@ export default defineComponent({
 
     const route = useRoute();
     const recipeRoute = computed<string>(() => {
-      return loggedIn.value ? `/${route.value.params.groupSlug}/recipe/${props.slug}` : `/explore/recipes/${props.groupSlug}/${props.slug}`;
+      return `/${route.value.params.groupSlug}/recipe/${props.slug}`;
     });
 
     return {
