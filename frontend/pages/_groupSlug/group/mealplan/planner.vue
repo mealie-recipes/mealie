@@ -53,7 +53,7 @@ export default defineComponent({
 
     // Force to /view if current route is /planner
     if (route.value.path === "/group/mealplan/planner") {
-      router.push("/group/mealplan/planner/view");
+      router.push(`/${groupSlug.value}/group/mealplan/planner/view`);
     }
 
     function fmtYYYYMMDD(date: Date) {

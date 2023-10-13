@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, useRouter } from "@nuxtjs/composition-api";
+import { computed, defineComponent, useContext, useRoute, useRouter } from "@nuxtjs/composition-api";
 import { ReportSummary } from "~/lib/api/types/reports";
 
 export default defineComponent({
@@ -37,6 +37,9 @@ export default defineComponent({
   },
 
   setup(_, context) {
+    const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug);
+
     const router = useRouter();
     const { i18n } = useContext();
 
@@ -49,7 +52,7 @@ export default defineComponent({
     ];
 
     function handleRowClick(item: ReportSummary) {
-      router.push("/group/reports/" + item.id);
+      router.push(`/${groupSlug.value}/group/reports/${item.id}`);
     }
 
     function capitalize(str: string) {

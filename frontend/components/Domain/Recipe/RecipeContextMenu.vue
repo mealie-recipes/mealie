@@ -494,7 +494,7 @@ export default defineComponent({
     async function duplicateRecipe() {
       const { data } = await api.recipes.duplicateOne(props.slug, state.recipeName);
       if (data && data.slug) {
-        router.push(`/recipe/${data.slug}`);
+        router.push(`${groupSlug.value}/recipe/${data.slug}`);
       }
     }
 

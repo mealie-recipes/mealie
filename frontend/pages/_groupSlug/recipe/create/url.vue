@@ -87,6 +87,8 @@ export default defineComponent({
 
     const api = useUserApi();
     const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug);
+
     const router = useRouter();
     const tags = useTagStore();
 
@@ -99,7 +101,7 @@ export default defineComponent({
       if (refreshTags) {
         tags.actions.refresh();
       }
-      router.push(`/recipe/${response.data}?edit=${edit.toString()}`);
+      router.push(`/${groupSlug.value}/recipe/${response.data}?edit=${edit.toString()}`);
     }
 
     const recipeUrl = computed({

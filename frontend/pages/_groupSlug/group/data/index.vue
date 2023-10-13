@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, useRouter } from "@nuxtjs/composition-api";
+import { computed, defineComponent, onMounted, useRoute, useRouter } from "@nuxtjs/composition-api";
 
 export default defineComponent({
   props: {
@@ -13,10 +13,13 @@ export default defineComponent({
     },
   },
   setup() {
+    const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug);
+
     const router = useRouter();
     onMounted(() => {
       // Force redirect to first valid page
-      router.push("/group/data/foods");
+      router.push(`/${groupSlug.value}/group/data/foods`);
     });
     return {};
   },

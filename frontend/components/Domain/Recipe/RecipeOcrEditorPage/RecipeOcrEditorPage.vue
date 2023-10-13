@@ -140,7 +140,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, reactive, toRefs, useRouter } from "@nuxtjs/composition-api";
+import { defineComponent, ref, onMounted, reactive, toRefs, useRouter, computed, useRoute } from "@nuxtjs/composition-api";
 import { until } from "@vueuse/core";
 import { invoke } from "@vueuse/shared";
 import draggable from "vuedraggable";
@@ -179,6 +179,9 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug);
+
     const router = useRouter();
     const api = useUserApi();
 
@@ -328,12 +331,12 @@ export default defineComponent({
     async function updateRecipe() {
       const { data } = await api.recipes.updateOne(props.recipe.slug, props.recipe);
       if (data?.slug) {
-        router.push("/recipe/" + data.slug);
+        router.push(`/${groupSlug.value}/recipe/${data.slug}`);
       }
     }
 
     function closeEditor() {
-      router.push("/recipe/" + props.recipe.slug);
+      router.push(`/${groupSlug.value}/recipe/${props.recipe.slug}`);
     }
 
     const canvasSetText = function () {

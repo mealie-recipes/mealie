@@ -89,6 +89,7 @@ import {
   ref,
   onMounted,
   onUnmounted,
+useRoute,
 } from "@nuxtjs/composition-api";
 import { invoke, until, useWakeLock } from "@vueuse/core";
 import RecipePageEditorToolbar from "./RecipePageParts/RecipePageEditorToolbar.vue";
@@ -140,6 +141,9 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug);
+
     const router = useRouter();
     const api = useUserApi();
     const { pageMode, editMode, setMode, isEditForm, isEditJSON, isCookMode, isEditMode, toggleCookMode } =
@@ -226,14 +230,14 @@ export default defineComponent({
       const { data } = await api.recipes.updateOne(props.recipe.slug, props.recipe);
       setMode(PageMode.VIEW);
       if (data?.slug) {
-        router.push("/recipe/" + data.slug);
+        router.push(`/${groupSlug.value}/recipe/` + data.slug);
       }
     }
 
     async function deleteRecipe() {
       const { data } = await api.recipes.deleteOne(props.recipe.slug);
       if (data?.slug) {
-        router.push("/");
+        router.push(`/${groupSlug.value}`);
       }
     }
 

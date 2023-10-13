@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useAsync, useMeta, useRoute, useRouter } from "@nuxtjs/composition-api";
+import { computed, defineComponent, useAsync, useMeta, useRoute, useRouter } from "@nuxtjs/composition-api";
 import RecipePage from "~/components/Domain/Recipe/RecipePage/RecipePage.vue";
 import { usePublicApi } from "~/composables/api/api-client";
 
@@ -16,6 +16,8 @@ export default defineComponent({
   layout: "basic",
   setup() {
     const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug);
+
     const router = useRouter();
     const recipeId = route.value.params.id;
     const api = usePublicApi();
@@ -27,7 +29,7 @@ export default defineComponent({
 
       if (error) {
         console.error("error loading recipe -> ", error);
-        router.push("/");
+        router.push(`/${groupSlug.value}`);
       }
 
       if (data) {

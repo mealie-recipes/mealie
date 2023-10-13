@@ -64,7 +64,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, computed, ref, watch, useRouter } from "@nuxtjs/composition-api";
+import { defineComponent, useContext, computed, ref, watch, useRouter, useRoute } from "@nuxtjs/composition-api";
 import RecipeRating from "~/components/Domain/Recipe/RecipeRating.vue";
 import RecipeLastMade from "~/components/Domain/Recipe/RecipeLastMade.vue";
 import RecipeActionMenu from "~/components/Domain/Recipe/RecipeActionMenu.vue";
@@ -98,6 +98,9 @@ export default defineComponent({
     const { recipeImage } = useStaticRoutes();
     const { imageKey, pageMode, editMode, setMode, toggleEditMode, isEditMode } = usePageState(props.recipe.slug);
     const { user } = usePageUser();
+
+    const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug);
     const router = useRouter();
 
     function printRecipe() {
@@ -116,7 +119,7 @@ export default defineComponent({
     });
 
     function goToOcrEditor() {
-      router.push("/recipe/" + props.recipe.slug + "/ocr-editor");
+      router.push(`/${groupSlug.value}/recipe/${props.recipe.slug}/ocr-editor`);
     }
 
     watch(
