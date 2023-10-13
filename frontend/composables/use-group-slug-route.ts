@@ -7,17 +7,15 @@ export const useGroupSlugRoute = function () {
   const api = useUserApi();
 
   async function getGroupSlug() {
-    if (route.value.params.groupSlug) {
+    if (!$auth.loggedIn) {
       return route.value.params.groupSlug;
-    } else if (!$auth.loggedIn) {
-      return null;
     }
 
     const { data: group } = await api.groups.getCurrentUserGroup();
     return group ? group.slug.toLowerCase() : null;
   }
 
-  const asyncKey = String(Date.now());
+  const asyncKey = $auth.user?.id ? String($auth.user.groupId) : String(Date.now());
   const groupSlug = useAsync(async () => await getGroupSlug(), asyncKey);
   return { groupSlug, getGroupSlug }
 };
