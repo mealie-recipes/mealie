@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
+import { defineComponent, useContext } from "@nuxtjs/composition-api";
 import { usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import { useToolStore } from "~/composables/store";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
@@ -47,12 +47,14 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const toolStore = useToolStore();
+    const  { $auth } = useContext();
+
+    const toolStore = $auth.loggedIn ? useToolStore() : null;
     const { user } = usePageUser();
     const { isEditMode } = usePageState(props.recipe.slug);
 
     function updateTool(index: number) {
-      if (user.id) {
+      if (user.id && toolStore) {
         toolStore.actions.updateOne(props.recipe.tools[index]);
       } else {
         console.log("no user, skipping server update");
