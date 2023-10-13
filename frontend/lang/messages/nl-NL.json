@@ -296,7 +296,7 @@
     "for-type-meal-types": "voor {0} maaltijdsoorten",
     "meal-plan-rules": "Maaltijdplanregels",
     "new-rule": "Nieuwe regel",
-    "meal-plan-rules-description": "Je kunt regels maken voor het automatisch selecteren van recepten voor je maaltijdplannen. Deze regels worden gebruikt door de server om de willekeurige reeks recepten te bepalen waaruit je kunt selecteren bij het maken van maaltijdplannen. Merk op dat als regels dezelfde dag/type beperkingen hebben, de categorieën van de regels worden samengevoegd. In de praktijk is het niet nodig om dubbele regels te maken, maar het is wel mogelijk om dit te doen.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "Bij het opstellen van een nieuwe regel voor een maaltijdplan kunt u de regel beperken tot een specifieke dag van de week en/of een specifiek type maaltijd. Om een regel toe te passen op alle dagen of alle maaltijden kunt u de regel op \"Ieder\" instellen die deze toepast op alle mogelijke waarden voor het type dag en/of maaltijd.",
     "recipe-rules": "Recept Regels",
     "applies-to-all-days": "Van toepassing op alle dagen",
@@ -456,7 +456,7 @@
     "date-format-hint-yyyy-mm-dd": "JJJJ-MM-DD formaat",
     "add-to-list": "Toevoegen aan lijst",
     "add-to-plan": "Toevoegen aan plan",
-    "add-to-timeline": "Add to Timeline",
+    "add-to-timeline": "Aan tijdlijn toevoegen",
     "recipe-added-to-list": "Recept toegevoegd aan de lijst",
     "recipe-added-to-mealplan": "Recept toegevoegd aan het maaltijdplan",
     "failed-to-add-recipe-to-mealplan": "Recept aan maaltijdplan toevoegen mislukt",
@@ -481,11 +481,11 @@
     "locked": "Vergrendeld",
     "public-link": "Openbare link",
     "timer": {
-      "kitchen-timer": "Kitchen Timer",
-      "start-timer": "Start Timer",
-      "pause-timer": "Pause Timer",
-      "resume-timer": "Resume Timer",
-      "stop-timer": "Stop Timer"
+      "kitchen-timer": "Kookwekker",
+      "start-timer": "Kookwekker starten",
+      "pause-timer": "Kookwekker pauzeren",
+      "resume-timer": "Kookwekker hervatten",
+      "stop-timer": "Kookwekker stoppen"
     },
     "edit-timeline-event": "Bewerk tijdlijn gebeurtenis",
     "timeline": "Tijdlijn",
@@ -538,8 +538,8 @@
     "recipe-yield": "Recept Opbrengst",
     "unit": "Eenheid",
     "upload-image": "Afbeelding uploaden",
-    "screen-awake": "Keep Screen Awake",
-    "remove-image": "Remove image"
+    "screen-awake": "Scherm laten aan staan",
+    "remove-image": "Afbeelding verwijderen"
   },
   "search": {
     "advanced-search": "Geavanceerd zoeken",
@@ -573,7 +573,7 @@
       "import-summary": "Samenvatting importeren",
       "partial-backup": "Gedeeltelijke back-up",
       "unable-to-delete-backup": "Kan back-up niet verwijderen.",
-      "experimental-description": "Back-up maakt een totale snapshots van de database en data directory van de site. Dit omvat alle gegevens en kan niet worden ingesteld om subsets van gegevens uit te sluiten. Je kunt dit op een bepaald moment als een snapshot van Mealie opvatten. Op dit moment {not-crossed-version} (gegevensmigratie wordt niet automatisch afgerond). Deze dienen als een agnostische manier om gegevens te exporteren en importeren of een backup van de site naar een externe locatie te maken.",
+      "experimental-description": "Back-up maakt een momentopname van de database en data directory van de site. Dit omvat alle gegevens en kan niet worden ingesteld om subsets van gegevens uit te sluiten. Je kunt dit opvatten als een momentopname van Mealie. Deze dienen als een agnostische manier om gegevens te exporteren en importeren, of een backup van de site naar een externe locatie te maken.",
       "backup-restore": "Back-up maken/terugzetten",
       "back-restore-description": "Het terugzetten van deze back-up overschrijft alle huidige gegevens in uw database en in de gegevensmap. {cannot-be-undone} Als het terugzetten is gelukt wordt u afgemeld.",
       "cannot-be-undone": "Deze actie kan niet ongedaan worden gemaakt - gebruik met voorzichtigheid.",
@@ -1069,7 +1069,7 @@
     "welcome-user": "👋 Welkom, {0}",
     "description": "Beheer je profiel, recepten en groepsinstellingen.",
     "get-invite-link": "Krijg uitnodigingslink",
-    "get-public-link": "Get Public Link",
+    "get-public-link": "Openbare link krijgen",
     "account-summary": "Accountoverzicht",
     "account-summary-description": "Hier is een samenvatting van de informatie van jouw groep",
     "group-statistics": "Groepsstatistieken",

@@ -296,7 +296,7 @@
     "for-type-meal-types": "{0} patiekalų tipams",
     "meal-plan-rules": "Valgių planavimo taisyklės",
     "new-rule": "Nauja taisyklė",
-    "meal-plan-rules-description": "Galite sukurti taisykles, pagal kurias automatiškai parenkami receptai jūsų valgių planui. Šių taisyklių sistema paisys atsitiktinai parinkdama receptus valgių planų kūrimui. Jei taisyklės turės tuos pačius dienos ar tipo apribojimus, tokiu atveju abiejų taisyklių kategorijos bus apjungtos. Praktikoje tai nėra reikalinga, bet sukurti vienodas taisykles yra įmanoma.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "Kurdami naują taisyklę valgių planui galite įvesti apribojimą konkrečiai savaitės dienai ar valgio tipui. Jei norite pritaikyti taisyklę visoms dienoms ar visiems valgių tipams, pasirinkite \"Bet kuri (-is)\".",
     "recipe-rules": "Recepto taisyklės",
     "applies-to-all-days": "Galioja visoms dienoms",

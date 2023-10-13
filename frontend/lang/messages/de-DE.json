@@ -296,7 +296,7 @@
     "for-type-meal-types": "für {0}",
     "meal-plan-rules": "Essensplan Regeln",
     "new-rule": "Neue Regel",
-    "meal-plan-rules-description": "Du kannst Regeln für die automatische Auswahl von Rezepten für deine Mahlzeiten erstellen. Anhand dieser Regeln wird das Programm zufällige Rezepte suchen, die bei der Erstellung von Essensplänen ausgewählt werden. Beachte, dass bei Regeln mit denselben Tag-/Mahlzeiten-Einschränkungen die Kategorien der Regeln zusammengeführt werden. In der Praxis ist es nicht notwendig, doppelte Regeln zu erstellen, aber es ist möglich.",
+    "meal-plan-rules-description": "Du kannst Regeln für die automatische Auswahl von Rezepten für deine Mahlzeiten erstellen. Anhand dieser Regeln wird das Programm passende Rezepte suchen, die nach dem Zufallsprinzip bei der Erstellung von Essensplänen ausgewählt werden. Beachte, dass bei Regeln mit denselben Tag-/Mahlzeiten-Einschränkungen die Kategorien der Regeln zusammengeführt werden. In der Praxis ist es nicht notwendig, doppelte Regeln zu erstellen, aber es ist möglich.",
     "new-rule-description": "Wenn du eine neue Regel für einen Essensplan erstellst, kannst du die Regel für einen bestimmten Wochentag und/oder eine bestimmte Mahlzeit einschränken. Um eine Regel auf alle Tage oder alle Mahlzeiten anzuwenden, kannst du die Regel auf \"Alle\" setzen, damit sämtliche Tage und/oder Mahlzeiten berücksichtigt werden.",
     "recipe-rules": "Rezeptregeln",
     "applies-to-all-days": "Gilt an allen Tagen",
@@ -538,7 +538,7 @@
     "recipe-yield": "Portionsangabe",
     "unit": "Maßeinheit",
     "upload-image": "Bild hochladen",
-    "screen-awake": "Keep Screen Awake",
+    "screen-awake": "Bildschirm nicht abschalten",
     "remove-image": "Bild entfernen"
   },
   "search": {
@@ -1069,7 +1069,7 @@
     "welcome-user": "👋 Willkommen, {0}",
     "description": "Verwalte dein Profil, Rezepte und Gruppeneinstellungen.",
     "get-invite-link": "Einladungslink erzeugen",
-    "get-public-link": "Get Public Link",
+    "get-public-link": "Öffentlichen Link abrufen",
     "account-summary": "Kontoübersicht",
     "account-summary-description": "Hier ist eine Übersicht der Informationen deiner Gruppe",
     "group-statistics": "Gruppenstatistik",

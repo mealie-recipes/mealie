@@ -296,7 +296,7 @@
     "for-type-meal-types": "לכל סוגי הארוחות {0}",
     "meal-plan-rules": "חוקי תכנון ארוחות",
     "new-rule": "חוק חדש",
-    "meal-plan-rules-description": "אפשר ליצור חוקים להוספה אוטומטית למתכנן ארוחות. נעשה שימוש בחוקים האלה ע״י השרת כדי להחליט על קבוצה של מתכונים רנדומליים ליצירת תכנון ארוחות. יש לשים לב שאם החוקים מכילים את אותן הגדרות סוג או יום הקטגוריות של החוקים ימוזגו. בכללי, אין סיבה ליצור חוקים כפולים, אבל זה כן אפשרי.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "ביצירת חוק חדש עבור תוכנית ארוחות ניתן להגביל את החוק עבור יום בשבוע או סוג של ארוחה. בכדי שהחוק יכסה את כל הימים והארוחות יש לבחור ב- \"הכל\", מה שיכלול את כל הימים והארוחות.",
     "recipe-rules": "חוקי מתכון",
     "applies-to-all-days": "החל על כל הימים",

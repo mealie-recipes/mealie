@@ -296,7 +296,7 @@
     "for-type-meal-types": "para {0} tipos de refeições",
     "meal-plan-rules": "Regras do Plano de Refeições",
     "new-rule": "Nova regra",
-    "meal-plan-rules-description": "Pode criar regras para auto selecionar receitas para os seus planos de refeições. Estas regras são usadas pelo servidor para determinar o rol de receitas de onde selecionar quando cria planos de refeições. Note que se as regras tiverem as mesmas restrições dia/tipo as categorias das regras serão agregadas. Na prática, não é necessário criar regras duplicadas, mas é possível fazê-lo.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "Ao criar uma regra para um plano de refeições, pode restringir a regra para ser aplicada a um dia da semana específico e/ou a um tipo de refeição específico. Para aplicar a regra a todos os dias oua todos os tipos de refeição, pode definir a regra para \"Qualquer um\" o que a aplicará a todos os valores possíveis para o dia e/ou tipo de refeição.",
     "recipe-rules": "Regras das receitas",
     "applies-to-all-days": "Aplica-se a todos os dias",
