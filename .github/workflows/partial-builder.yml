@@ -45,4 +45,4 @@ jobs:
           push: true
           tags: ghcr.io/${{ github.repository }}:${{ inputs.tag }}
           build-args: |
-            COMMIT=${{ GITHUB_SHA }}
+            COMMIT=${{ github.sha }}
