@@ -96,8 +96,8 @@
       const loggedIn = computed(() => $auth.loggedIn);
 
       const route = useRoute();
-      const groupSlug = route.value.params.groupSlug;
-      const { cookbooks } = loggedIn.value ? useCookbooks() : usePublicCookbooks(groupSlug);
+      const groupSlug = computed(() => route.value.params.groupSlug);
+      const { cookbooks } = loggedIn.value ? useCookbooks() : usePublicCookbooks(groupSlug.value || "");
 
       const toggleDark = useToggleDarkMode();
 
@@ -115,7 +115,7 @@
           return {
             icon: $globals.icons.pages,
             title: cookbook.name,
-            to: loggedIn.value ? `/${groupSlug}/cookbooks/${cookbook.slug as string}` : `/explore/cookbooks/${groupSlug}/${cookbook.slug as string}`,
+            to: loggedIn.value ? `/${groupSlug.value}/cookbooks/${cookbook.slug as string}` : `/explore/cookbooks/${groupSlug.value}/${cookbook.slug as string}`,
           };
         });
       });
@@ -129,13 +129,13 @@
         restricted: boolean;
       }
 
-      const createLinks: Link[] = [
+      const createLinks = computed<Link[]>(() => [
         {
           insertDivider: false,
           icon: $globals.icons.link,
           title: i18n.tc("general.import"),
           subtitle: i18n.tc("new-recipe.import-by-url"),
-          to: `/${groupSlug}/recipe/create/url`,
+          to: `/${groupSlug.value}/recipe/create/url`,
           restricted: true,
         },
         {
@@ -143,7 +143,7 @@
           icon: $globals.icons.edit,
           title: i18n.tc("general.create"),
           subtitle: i18n.tc("new-recipe.create-manually"),
-          to: `/${groupSlug}/recipe/create/new`,
+          to: `/${groupSlug.value}/recipe/create/new`,
           restricted: true,
         },
         {
@@ -151,64 +151,64 @@
           icon: $globals.icons.pages,
           title: i18n.tc("sidebar.cookbook"),
           subtitle: i18n.tc("sidebar.create-cookbook"),
-          to: `/${groupSlug}/group/cookbooks`,
+          to: `/${groupSlug.value}/group/cookbooks`,
           restricted: true,
         },
-      ];
+      ]);
 
-      const bottomLinks: SidebarLinks = [
+      const bottomLinks = computed<SidebarLinks>(() => [
         {
           icon: $globals.icons.cog,
           title: i18n.tc("general.settings"),
           to: "/admin/site-settings",
           restricted: true,
         },
-      ];
+      ]);
 
-      const topLinks: SidebarLinks = [
+      const topLinks = computed<SidebarLinks>(() => [
         {
           icon: $globals.icons.search,
-          to: "/",
+          to: `/${groupSlug.value}`,
           title: i18n.tc("sidebar.search"),
           restricted: true,
         },
         {
           icon: $globals.icons.calendarMultiselect,
           title: i18n.tc("meal-plan.meal-planner"),
-          to: `/${groupSlug}/group/mealplan/planner/view`,
+          to: `/${groupSlug.value}/group/mealplan/planner/view`,
           restricted: true,
         },
         {
           icon: $globals.icons.formatListCheck,
           title: i18n.tc("shopping-list.shopping-lists"),
-          to: `/${groupSlug}/shopping-lists`,
+          to: `/${groupSlug.value}/shopping-lists`,
           restricted: true,
         },
         {
           icon: $globals.icons.timelineText,
           title: i18n.tc("recipe.timeline"),
-          to: `/${groupSlug}/group/timeline`,
+          to: `/${groupSlug.value}/group/timeline`,
           restricted: true,
         },
         {
           icon: $globals.icons.tags,
-          to: `/${groupSlug}/recipes/categories`,
+          to: `/${groupSlug.value}/recipes/categories`,
           title: i18n.tc("sidebar.categories"),
           restricted: true,
         },
         {
           icon: $globals.icons.tags,
-          to: `/${groupSlug}/recipes/tags`,
+          to: `/${groupSlug.value}/recipes/tags`,
           title: i18n.tc("sidebar.tags"),
           restricted: true,
         },
         {
           icon: $globals.icons.potSteam,
-          to: `/${groupSlug}/recipes/tools`,
+          to: `/${groupSlug.value}/recipes/tools`,
           title: i18n.tc("tool.tools"),
           restricted: true,
         },
-      ];
+      ]);
 
       return { cookbookLinks, createLinks, bottomLink: bottomLinks, topLinks, isAdmin, loggedIn, languageDialog, toggleDark, sidebar };
     },

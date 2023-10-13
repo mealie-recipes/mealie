@@ -240,7 +240,7 @@ export default defineComponent({
   setup() {
     const { $auth, i18n } = useContext();
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug)
+    const groupSlug = computed(() => route.value.params.groupSlug);
 
     // @ts-ignore $auth.user is typed as unknown, but it's a user
     const user = computed<UserOut | null>(() => $auth.user);
@@ -352,16 +352,16 @@ export default defineComponent({
       return iconText[key] ?? $globals.icons.primary;
     }
 
-    const statsTo: { [key: string]: string } = {
-      totalRecipes: `/${groupSlug}/`,
-      totalUsers: `/${groupSlug}/group/members`,
-      totalCategories: `/${groupSlug}/recipes/categories`,
-      totalTags: `/${groupSlug}/recipes/tags`,
-      totalTools: `/${groupSlug}/recipes/tools`,
-    };
+    const statsTo = computed<{ [key: string]: string }>(() => { return {
+      totalRecipes: `/${groupSlug.value}/`,
+      totalUsers: `/${groupSlug.value}/group/members`,
+      totalCategories: `/${groupSlug.value}/recipes/categories`,
+      totalTags: `/${groupSlug.value}/recipes/tags`,
+      totalTools: `/${groupSlug.value}/recipes/tools`,
+    }});
 
     function getStatsTo(key: string) {
-      return statsTo[key] ?? "unknown";
+      return statsTo.value[key] ?? "unknown";
     }
 
     const storage = useAsync(async () => {

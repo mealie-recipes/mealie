@@ -2,13 +2,13 @@
   <v-navigation-drawer v-model="drawer" class="d-flex flex-column d-print-none" clipped app width="240px">
     <!-- User Profile -->
     <template v-if="$auth.user">
-      <v-list-item two-line :to="`/${groupSlug}/user/profile`" exact>
+      <v-list-item two-line :to="userProfileLink" exact>
         <UserAvatar list :user-id="$auth.user.id" />
 
         <v-list-item-content>
           <v-list-item-title class="pr-2"> {{ $auth.user.fullName }}</v-list-item-title>
           <v-list-item-subtitle>
-            <v-btn class="px-2 pa-0" text :to="`/${groupSlug}/user/${$auth.user.id}/favorites`" small>
+            <v-btn class="px-2 pa-0" text :to="userFavoritesLink" small>
               <v-icon left small>
                 {{ $globals.icons.heart }}
               </v-icon>
@@ -202,6 +202,8 @@ export default defineComponent({
 
     const route = useRoute();
     const groupSlug = computed(() => route.value.params.groupSlug);
+    const userFavoritesLink = computed(() => groupSlug.value && $auth.user?.id ? `/${groupSlug}/user/${$auth.user.id}/favorites` : undefined);
+    const userProfileLink = computed(() => groupSlug.value ? `/${groupSlug}/user/profile` : undefined);
 
     const state = reactive({
       dropDowns: {},
@@ -213,7 +215,8 @@ export default defineComponent({
 
     return {
       ...toRefs(state),
-      groupSlug,
+      userFavoritesLink,
+      userProfileLink,
       drawer,
       loggedIn,
     };

@@ -170,7 +170,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, toRefs, useContext, useRouter, ref } from "@nuxtjs/composition-api";
+import { computed, defineComponent, reactive, toRefs, useContext, useRoute, useRouter, ref } from "@nuxtjs/composition-api";
 import RecipeIngredientListItem from "./RecipeIngredientListItem.vue";
 import RecipeDialogPrintPreferences from "./RecipeDialogPrintPreferences.vue";
 import RecipeDialogShare from "./RecipeDialogShare.vue";
@@ -295,6 +295,9 @@ export default defineComponent({
     const loggedIn = computed(() => {
       return $auth.loggedIn;
     });
+
+    const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug);
 
     // ===========================================================================
     // Context Menu Setup
@@ -505,21 +508,6 @@ export default defineComponent({
     }
 
     const { copyText } = useCopy();
-    const groupSlug = ref<string>("");
-
-    async function setGroupSlug() {
-      if (groupSlug.value) {
-        return;
-      }
-
-      const { data } = await api.users.getSelfGroup();
-      if (data) {
-        groupSlug.value = data.slug;
-      } else {
-        // @ts-ignore this will either be a string or undefined
-        groupSlug.value = $auth.user?.groupId
-      }
-    }
 
     // Note: Print is handled as an event in the parent component
     const eventHandlers: { [key: string]: () => void | Promise<any> } = {
@@ -550,7 +538,6 @@ export default defineComponent({
         state.shareDialog = true;
       },
       publicUrl: async () => {
-        await setGroupSlug();
         if (!groupSlug.value) {
           return;
         }

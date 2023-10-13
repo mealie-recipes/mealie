@@ -5,21 +5,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "@nuxtjs/composition-api";
-import { invoke } from "@vueuse/core";
-import { useUserApi } from "~/composables/api/api-client";
+import { computed, defineComponent, useRoute } from "@nuxtjs/composition-api";
 import RecipeExplorerPage from "~/components/Domain/Recipe/RecipeExplorerPage.vue";
 
 export default defineComponent({
   components: { RecipeExplorerPage },
   setup() {
-    const api = useUserApi();
-    const groupSlug = ref<string>();
-
-    invoke(async () => {
-      const { data } = await api.users.getSelfGroup();
-      groupSlug.value = data?.slug;
-    });
+    const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug);
 
     return {
       groupSlug,

@@ -48,7 +48,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onBeforeUnmount, onMounted, ref, useContext, useRoute } from "@nuxtjs/composition-api";
+import { computed, defineComponent, onBeforeUnmount, onMounted, ref, useRoute } from "@nuxtjs/composition-api";
 import RecipeDialogSearch from "~/components/Domain/Recipe/RecipeDialogSearch.vue";
 
 export default defineComponent({
@@ -60,15 +60,10 @@ export default defineComponent({
     },
   },
   setup() {
-    const { $auth } = useContext();
     const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug);
 
-    const loggedIn = computed(() => {
-      return $auth.loggedIn;
-    });
-
-    const groupSlug = route.value.params.groupSlug;
-    const routerLink = !loggedIn.value ? `/explore/recipes/${groupSlug}` : `/${groupSlug}`
+    const routerLink = computed(() => groupSlug.value ? `/${groupSlug.value}` : undefined);
     const domSearchDialog = ref<InstanceType<typeof RecipeDialogSearch> | null>(null);
 
     function activateSearch() {
