@@ -64,7 +64,7 @@
         </template>
       </AppSidebar>
 
-      <AppHeader :menu="loggedIn">
+      <AppHeader>
         <v-btn icon @click.stop="sidebar = !sidebar">
           <v-icon> {{ $globals.icons.menu }}</v-icon>
         </v-btn>

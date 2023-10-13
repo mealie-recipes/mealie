@@ -1,6 +1,8 @@
 import { BaseCRUDAPIReadOnly } from "~/lib/api/base/base-clients";
+import { route } from "../../base";
 import { Recipe } from "~/lib/api/types/recipe";
-import { ApiRequestInstance } from "~/lib/api/types/non-generated";
+import { ApiRequestInstance, PaginationData } from "~/lib/api/types/non-generated";
+import { RecipeSearchQuery } from "../../user/recipes/recipe";
 
 const prefix = "/api";
 
@@ -15,5 +17,9 @@ export class PublicRecipeApi extends BaseCRUDAPIReadOnly<Recipe> {
 
   constructor(requests: ApiRequestInstance, private readonly groupSlug: string) {
     super(requests);
+  }
+
+  async search(rsq: RecipeSearchQuery) {
+    return await this.requests.get<PaginationData<Recipe>>(route(routes.recipesGroupSlug(this.groupSlug), rsq));
   }
 }

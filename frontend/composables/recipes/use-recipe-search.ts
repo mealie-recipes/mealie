@@ -1,6 +1,7 @@
 import { Ref, ref } from "@nuxtjs/composition-api";
 import { watchDebounced } from "@vueuse/core";
 import { UserApi } from "~/lib/api";
+import { ExploreApi } from "~/lib/api/public/explore";
 import { Recipe } from "~/lib/api/types/recipe";
 
 export interface UseRecipeSearchReturn {
@@ -17,7 +18,7 @@ export interface UseRecipeSearchReturn {
  * on the query. Useful for searchable list views. For advanced
  * search, use the `useRecipeQuery` composable.
  */
-export function useRecipeSearch(api: UserApi): UseRecipeSearchReturn {
+export function useRecipeSearch(api: UserApi | ExploreApi): UseRecipeSearchReturn {
   const query = ref("");
   const error = ref("");
   const loading = ref(false);

@@ -54,11 +54,12 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRefs, reactive, ref, watch, useRoute } from "@nuxtjs/composition-api";
+import { computed, defineComponent, toRefs, reactive, ref, watch, useContext, useRoute } from "@nuxtjs/composition-api";
 import RecipeCardMobile from "./RecipeCardMobile.vue";
 import { RecipeSummary } from "~/lib/api/types/recipe";
 import { useUserApi } from "~/composables/api";
 import { useRecipeSearch } from "~/composables/recipes/use-recipe-search";
+import { usePublicExploreApi } from "~/composables/api/api-client";
 const SELECTED_EVENT = "selected";
 export default defineComponent({
   components: {
@@ -70,6 +71,8 @@ export default defineComponent({
       loading: false,
       selectedIndex: -1,
     });
+
+    const { $auth } = useContext();
 
     // ===========================================================================
     // Dialog State Management
@@ -141,7 +144,8 @@ export default defineComponent({
 
     // ===========================================================================
     // Basic Search
-    const api = useUserApi();
+    const groupSlug = computed(() => route.value.params.groupSlug);
+    const api = $auth.loggedIn ? useUserApi() : usePublicExploreApi(groupSlug.value).explore;
     const search = useRecipeSearch(api);
 
     // Select Handler
