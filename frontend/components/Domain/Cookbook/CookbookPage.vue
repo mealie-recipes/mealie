@@ -15,7 +15,6 @@
           class="mb-5 mx-1"
           :recipes="recipes"
           :query="{ cookbook: slug }"
-          :group-slug="groupSlug"
           @sortRecipes="assignSorted"
           @replaceRecipes="replaceRecipes"
           @appendRecipes="appendRecipes"
@@ -33,21 +32,16 @@
 
   export default defineComponent({
     components: { RecipeCardSection },
-    props: {
-      groupSlug: {
-        type: String,
-        default: undefined,
-      }
-    },
-    setup(props) {
+    setup() {
       const { $auth } = useContext();
       const loggedIn = computed(() => $auth.loggedIn);
 
-      const { recipes, appendRecipes, assignSorted, removeRecipe, replaceRecipes } = useLazyRecipes(loggedIn.value ? null : props.groupSlug);
-
       const route = useRoute();
+      const groupSlug = computed(() => route.value.params.groupSlug);
+
+      const { recipes, appendRecipes, assignSorted, removeRecipe, replaceRecipes } = useLazyRecipes(loggedIn.value ? null : groupSlug.value);
       const slug = route.value.params.slug;
-      const { getOne } = useCookbook(loggedIn.value ? null : props.groupSlug);
+      const { getOne } = useCookbook(loggedIn.value ? null : groupSlug.value);
 
       const tab = ref(null);
       const book = getOne(slug);

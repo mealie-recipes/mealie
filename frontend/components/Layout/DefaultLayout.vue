@@ -115,7 +115,7 @@
           return {
             icon: $globals.icons.pages,
             title: cookbook.name,
-            to: loggedIn.value ? `/${groupSlug.value}/cookbooks/${cookbook.slug as string}` : `/explore/cookbooks/${groupSlug.value}/${cookbook.slug as string}`,
+            to: `/${groupSlug.value}/cookbooks/${cookbook.slug as string}`,
           };
         });
       });

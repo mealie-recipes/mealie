@@ -76,7 +76,6 @@
             <RecipeCard
               :name="recipe.name"
               :description="recipe.description"
-              :group-slug="groupSlug"
               :slug="recipe.slug"
               :rating="recipe.rating"
               :image="recipe.image"
@@ -100,7 +99,6 @@
             <RecipeCardMobile
               :name="recipe.name"
               :description="recipe.description"
-              :group-slug="groupSlug"
               :slug="recipe.slug"
               :rating="recipe.rating"
               :image="recipe.image"
@@ -128,6 +126,7 @@ import {
   toRefs,
   useAsync,
   useContext,
+  useRoute,
   useRouter,
   watch,
 } from "@nuxtjs/composition-api";
@@ -164,10 +163,6 @@ export default defineComponent({
     singleColumn: {
       type: Boolean,
       default: false,
-    },
-    groupSlug: {
-      type: String,
-      default: null,
     },
     recipes: {
       type: Array as () => Recipe[],
@@ -206,12 +201,15 @@ export default defineComponent({
       sortLoading: false,
     });
 
+    const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug);
+
     const router = useRouter();
     function navigateRandom() {
       if (props.recipes.length > 0) {
         const recipe = props.recipes[Math.floor(Math.random() * props.recipes.length)];
         if (recipe.slug !== undefined) {
-          router.push(loggedIn.value ? `/recipe/${recipe.slug}` : `/explore/recipes/${props.groupSlug}/${recipe.slug}`);
+          router.push(`/${groupSlug.value}/recipe/${recipe.slug}`);
         }
       }
     }
@@ -222,7 +220,7 @@ export default defineComponent({
     const ready = ref(false);
     const loading = ref(false);
 
-    const { fetchMore } = useLazyRecipes(loggedIn.value ? null : props.groupSlug);
+    const { fetchMore } = useLazyRecipes(loggedIn.value ? null : groupSlug.value);
 
     const queryFilter = computed(() => {
       const orderBy = props.query?.orderBy || preferences.value.orderBy;

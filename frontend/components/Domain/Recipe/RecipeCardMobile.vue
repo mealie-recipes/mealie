@@ -95,10 +95,6 @@ export default defineComponent({
       type: String,
       required: true,
     },
-    groupSlug: {
-      type: String,
-      default: null,
-    },
     slug: {
       type: String,
       required: true,
