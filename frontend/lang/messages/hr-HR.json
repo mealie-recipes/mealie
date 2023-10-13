@@ -296,7 +296,7 @@
     "for-type-meal-types": "za {0} vrste obroka",
     "meal-plan-rules": "Pravila Plana Obroka",
     "new-rule": "Novo Pravilo",
-    "meal-plan-rules-description": "Možete kreirati pravila za automatski odabir recepata za vaš plan obroka. Ta pravila koristi server kako bi odredio slučajni skup recepata za odabir prilikom kreiranja plana obroka. Napomena: Ako pravila imaju ista ograničenja za dane/vrste, kategorije pravila će biti spojene. U praksi, nije potrebno stvarati duplicirana pravila, iako je to moguće.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "Prilikom stvaranja novog pravila za plan obroka možete ograničiti primjenu pravila na određeni dan u tjednu i/ili određenu vrstu obroka. Da biste primijenili pravilo na sve dane ili sve vrste obroka, možete postaviti pravilo na \"Bilo koji\" (\"Any\"), što će ga primijeniti na sve moguće vrijednosti za dan i/ili vrstu obroka.",
     "recipe-rules": "Pravila Recepata",
     "applies-to-all-days": "Primjeni na sve dane",

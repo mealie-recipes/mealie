@@ -296,7 +296,7 @@
     "for-type-meal-types": "na {0} druhy jedál",
     "meal-plan-rules": "Pravidlá jedálnička",
     "new-rule": "Nové pravidlo",
-    "meal-plan-rules-description": "Môžete vytvoriť pravidlá pre automatizovaný výber receptov pre váš jedálniček. Tieto pravidlá používa server pre určenie skupiny receptov, z ktorých náhodne vyberá pri tvorbe jedálničkov. V prípade, ak majú pravidlá rovnaké obmedzenia na dni/typy jedál, sú príslušné kategórie pravidiel zlúčené. Bežne nie je nutné vytvárať duplicitné pravidlá, ale v prípade potreby je to možné.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "Pri tvorbe nového pravidla pre jedálniček môžete účinnosť pravidla obmedziť len na špecifický deň v týždni a/alebo špecifický typ jedla. Pre uplatnenie pravidla na všetky dni v týždni alebo všetky typy jedál nastavte pravidlo pre \"Všetky\", čím uplatníte pravidlo na všetky dni a/alebo typy jedál.",
     "recipe-rules": "Pravidlá receptov",
     "applies-to-all-days": "Platí pre všetky dni",
