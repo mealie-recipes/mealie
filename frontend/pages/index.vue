@@ -6,7 +6,7 @@ import { defineComponent, useContext, useRouter } from "@nuxtjs/composition-api"
 import { whenever } from "@vueuse/core";
 import { useGroupSlugRoute } from "~/composables/use-group-slug-route";
 export default defineComponent({
-  layout: "basic",
+  layout: "blank",
   setup() {
     const { $auth } = useContext();
     const { groupSlug } = useGroupSlugRoute();
