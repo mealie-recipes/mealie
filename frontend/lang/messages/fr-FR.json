@@ -456,7 +456,7 @@
     "date-format-hint-yyyy-mm-dd": "Format AAAA-MM-JJ",
     "add-to-list": "Ajouter à la liste",
     "add-to-plan": "Ajouter au menu",
-    "add-to-timeline": "Add to Timeline",
+    "add-to-timeline": "Ajouter à l’historique",
     "recipe-added-to-list": "Recette ajoutée à la liste",
     "recipe-added-to-mealplan": "Recette ajoutée au menu",
     "failed-to-add-recipe-to-mealplan": "Échec de l’ajout de la recette au menu",
@@ -481,11 +481,11 @@
     "locked": "Verrouillé",
     "public-link": "Lien public",
     "timer": {
-      "kitchen-timer": "Kitchen Timer",
-      "start-timer": "Start Timer",
-      "pause-timer": "Pause Timer",
-      "resume-timer": "Resume Timer",
-      "stop-timer": "Stop Timer"
+      "kitchen-timer": "Minuteur",
+      "start-timer": "Démarrer le minuteur",
+      "pause-timer": "Mettre en pause le minuteur",
+      "resume-timer": "Reprendre le minuteur",
+      "stop-timer": "Arrêter le minuteur"
     },
     "edit-timeline-event": "Modifier l’événement dans l’historique",
     "timeline": "Historique",
@@ -538,8 +538,8 @@
     "recipe-yield": "Nombre de parts",
     "unit": "Unité",
     "upload-image": "Envoyer une image",
-    "screen-awake": "Keep Screen Awake",
-    "remove-image": "Remove image"
+    "screen-awake": "Garder l’écran allumé",
+    "remove-image": "Supprimer l’image"
   },
   "search": {
     "advanced-search": "Recherche avancée",
@@ -1069,7 +1069,7 @@
     "welcome-user": "👋 Bienvenue, {0}",
     "description": "Gérez votre profil, les recettes et les paramètres de groupe.",
     "get-invite-link": "Obtenir un lien d'invitation",
-    "get-public-link": "Get Public Link",
+    "get-public-link": "Voir le lien public",
     "account-summary": "Aperçu du compte",
     "account-summary-description": "Voici un résumé des informations de votre groupe",
     "group-statistics": "Statistiques du groupe",

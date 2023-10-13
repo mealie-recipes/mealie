@@ -296,7 +296,7 @@
     "for-type-meal-types": "para {0} tipos de comida",
     "meal-plan-rules": "Reglas del Plan de Comida",
     "new-rule": "Nueva Regla",
-    "meal-plan-rules-description": "Puede crear reglas para la selección automática de recetas para sus planes de comidas. Estas reglas son utilizadas por el servidor para determinar el conjunto aleatorio de recetas para seleccionar al crear planes de comidas. Tenga en cuenta que si las reglas tienen las mismas restricciones de día/tipo, las categorías de las reglas se fusionarán. En la práctica, no es necesario crear reglas duplicadas, pero es posible hacerlo.",
+    "meal-plan-rules-description": "Puedes crear reglas para la selección automática de recetas para tus planes de comida. Estas reglas son usadas por el servidor para determinar el conjunto aleatorio de recetas para crear planes de comidas. Ten en cuenta que si las reglas tienen las mismas restricciones diarias/tipos, las categorías de las reglas se fusionaran. En la práctica, no es necesario crear reglas duplicadas, pero es posible.",
     "new-rule-description": "Al crear una nueva regla para un plan de comidas, puede restringir la regla para que se aplique a un día específico de la semana y/o un tipo específico de comida. Para aplicar una regla a todos los días o a todos los tipos de comida, puede establecer la regla en \"Cualquiera\", lo que la aplicará a todos los valores posibles para el día y/o el tipo de comida.",
     "recipe-rules": "Reglas de Recetas",
     "applies-to-all-days": "Aplica para todos los días",
@@ -322,30 +322,30 @@
     },
     "copymethat": {
       "description-long": "Mealie puede importar recetas desde Copie Me That. Exporta tus recetas en formato HTML, luego sube el archivo .zip.",
-      "title": "Copy Me That Recipe Manager"
+      "title": "Copiar ese gestor de receta"
     },
     "paprika": {
       "description-long": "Mealie puede importar recetas de la aplicación Paprika. Exporta tus recetas de paprika, renombra la extensión del fichero a .zip y súbala a continuación.",
-      "title": "Paprika Recipe Manager"
+      "title": "Gestor de recetas de Paprika"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
+      "description-long": "Mealie puede importar recetas de la aplicación Mealie desde una versión anterior a v1.0. Exporta tus recetas de tu antigua instancia y sube el archivo zip a continuación. Ten en cuenta que solo se pueden importar recetas de la exportación.",
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
-      "description-long": "Mealie can import recipes from Tandoor. Export your data in the \"Default\" format, then upload the .zip below.",
+      "description-long": "Mealie puede importar recetas de Tandoor. Exporta tus datos en el formato \"Por defecto\" y luego sube el archivo .zip.",
       "title": "Recetas de Tandoor"
     },
     "recipe-data-migrations": "Migración de recetas",
-    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie.",
+    "recipe-data-migrations-explanation": "Las recetas pueden migrarse desde otra aplicación soportada a Mealie. Esta es una excelente manera de empezar con Mealie.",
     "choose-migration-type": "Elegir tipo de migración",
     "tag-all-recipes": "Etiqueta todas las recetas con la etiqueta {tag-name}",
-    "nextcloud-text": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
-    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below",
+    "nextcloud-text": "Las recetas Nextcloud se pueden importar desde un archivo zip que contiene los datos almacenados en Nextcloud. Consulte la estructura de carpetas de ejemplo a continuación para asegurarse de que sus recetas pueden ser importadas.",
+    "chowdown-text": "Mealie soporta nativamente el formato de repositorio chowdown. Descarga el código del repositorio como un archivo .zip y súbelo a continuación",
     "recipe-1": "Receta 1",
     "recipe-2": "Receta 2",
-    "paprika-text": "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
-    "mealie-text": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export."
+    "paprika-text": "Mealie puede importar recetas de la aplicación Paprika. Exporta tus recetas de paprika, renombra la extensión del fichero a .zip y súbelo a continuación.",
+    "mealie-text": "Mealie puede importar recetas de la aplicación Mealie desde una versión anterior a v1.0. Exporta tus recetas de tu antigua instancia y sube el archivo zip a continuación. Ten en cuenta que solo se pueden importar recetas de la exportación."
   },
   "new-recipe": {
     "bulk-add": "Añadir en masa",
@@ -456,7 +456,7 @@
     "date-format-hint-yyyy-mm-dd": "Formato AAA-MM-DD",
     "add-to-list": "Agregar a la lista",
     "add-to-plan": "Agregar al menú",
-    "add-to-timeline": "Add to Timeline",
+    "add-to-timeline": "Añadir al cronograma",
     "recipe-added-to-list": "Receta añadida a la lista",
     "recipe-added-to-mealplan": "Receta añadida al menú",
     "failed-to-add-recipe-to-mealplan": "Error al añadir receta al menú",
@@ -481,11 +481,11 @@
     "locked": "Bloqueada",
     "public-link": "Enlace público",
     "timer": {
-      "kitchen-timer": "Kitchen Timer",
-      "start-timer": "Start Timer",
-      "pause-timer": "Pause Timer",
-      "resume-timer": "Resume Timer",
-      "stop-timer": "Stop Timer"
+      "kitchen-timer": "Temporizador de cocina",
+      "start-timer": "Iniciar Temporizador",
+      "pause-timer": "Pausar Temporizador",
+      "resume-timer": "Reanudar Temporizador",
+      "stop-timer": "Detener temporizador"
     },
     "edit-timeline-event": "Editar evento en la cronología",
     "timeline": "Cronología",

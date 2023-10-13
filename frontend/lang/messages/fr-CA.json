@@ -296,7 +296,7 @@
     "for-type-meal-types": "pour les types de repas {0}",
     "meal-plan-rules": "Règles du menu",
     "new-rule": "Nouvelle règle",
-    "meal-plan-rules-description": "Vous pouvez créer des règles pour ajouter automatiquement des recettes à votre menu. Ces règles sont utilisées par le serveur pour déterminer les recettes aléatoires à sélectionner lors de la création de menus. Notez que si les règles ont les mêmes contraintes jour/type, alors les catégories des règles seront fusionnées. Dans la pratique, il est inutile de créer des règles en double, mais il est possible de le faire.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "Lorsque vous créez une nouvelle règle pour un menu, vous pouvez restreindre la règle à un jour précis de la semaine et/ou un type de repas particulier. Pour appliquer une règle à tous les jours ou à tous les types de repas, vous pouvez définir la règle à \"Tous\".",
     "recipe-rules": "Règles de recette",
     "applies-to-all-days": "S'applique à tous les jours",
@@ -456,7 +456,7 @@
     "date-format-hint-yyyy-mm-dd": "Format AAAA-MM-JJ",
     "add-to-list": "Ajouter à la liste",
     "add-to-plan": "Ajouter à la planification des repas",
-    "add-to-timeline": "Add to Timeline",
+    "add-to-timeline": "Ajouter à l’historique",
     "recipe-added-to-list": "Recette ajoutée à la liste",
     "recipe-added-to-mealplan": "Recette ajoutée à la planification des repas",
     "failed-to-add-recipe-to-mealplan": "Échec de l'ajout de la recette à la planification des repas",
@@ -481,11 +481,11 @@
     "locked": "Verrouillé",
     "public-link": "Lien public",
     "timer": {
-      "kitchen-timer": "Kitchen Timer",
-      "start-timer": "Start Timer",
-      "pause-timer": "Pause Timer",
-      "resume-timer": "Resume Timer",
-      "stop-timer": "Stop Timer"
+      "kitchen-timer": "Minuteur",
+      "start-timer": "Démarrer le minuteur",
+      "pause-timer": "Mettre en pause le minuteur",
+      "resume-timer": "Reprendre le minuteur",
+      "stop-timer": "Arrêter le minuteur"
     },
     "edit-timeline-event": "Modifier l’événement dans l’historique",
     "timeline": "Historique",
@@ -538,8 +538,8 @@
     "recipe-yield": "Nombre de parts",
     "unit": "Unité",
     "upload-image": "Envoyer une image",
-    "screen-awake": "Keep Screen Awake",
-    "remove-image": "Remove image"
+    "screen-awake": "Garder l’écran allumé",
+    "remove-image": "Supprimer l’image"
   },
   "search": {
     "advanced-search": "Recherche avancée",
@@ -1069,7 +1069,7 @@
     "welcome-user": "👋 Bienvenue, {0}",
     "description": "Gérez votre profil, les recettes et les paramètres de groupe.",
     "get-invite-link": "Obtenir un lien d'invitation",
-    "get-public-link": "Get Public Link",
+    "get-public-link": "Voir le lien public",
     "account-summary": "Aperçu du compte",
     "account-summary-description": "Voici un résumé des informations de votre groupe",
     "group-statistics": "Statistiques du groupe",
