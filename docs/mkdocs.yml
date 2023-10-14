@@ -65,7 +65,6 @@ nav:
       - FAQ: "documentation/getting-started/faq.md"
       - API: "documentation/getting-started/api-usage.md"
       - Road Map: "documentation/getting-started/roadmap.md"
-      - Advanced: "documentation/getting-started/installation/advanced.md"
 
       - Installation:
           - Installation Checklist: "documentation/getting-started/installation/installation-checklist.md"
