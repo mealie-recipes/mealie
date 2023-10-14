@@ -296,7 +296,7 @@
     "for-type-meal-types": "för {0} måltidstyper",
     "meal-plan-rules": "Regler för måltidsplan",
     "new-rule": "Ny Regel",
-    "meal-plan-rules-description": "Du kan skapa regler för automatiskt välja recept för dina måltidplaner. Dessa regler används av servern för att bestämma den slumpmässiga poolen av recept att välja mellan när du skapar måltidsplaner. Observera att om reglerna har samma dag/typbegränsningar så kommer kategorierna av reglerna att slås samman. I praktiken är det onödigt att skapa dubbla regler, men det är möjligt att göra det.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "När du skapar en ny regel för en måltidsplan kan du begränsa regeln för en viss veckodag och/eller en viss typ av måltid. För att tillämpa en regel på alla dagar eller alla måltidstyper kan du ställa in regeln till \"Any\" som kommer att tillämpa den på alla möjliga värden för dagen och/eller måltidstypen.",
     "recipe-rules": "Recept regler",
     "applies-to-all-days": "Gäller för alla dagar",
@@ -336,7 +336,7 @@
       "description-long": "Mealie can import recipes from Tandoor. Export your data in the \"Default\" format, then upload the .zip below.",
       "title": "Tandoor Recipes"
     },
-    "recipe-data-migrations": "Recipe Data Migrations",
+    "recipe-data-migrations": "Migrering av receptdata",
     "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie.",
     "choose-migration-type": "Välj migrationstyp",
     "tag-all-recipes": "Tagga alla recept med {tag-name} tagg",
@@ -456,7 +456,7 @@
     "date-format-hint-yyyy-mm-dd": "ÅÅÅÅ-MM-DD format",
     "add-to-list": "Lägg till i lista",
     "add-to-plan": "Lägg till i plan",
-    "add-to-timeline": "Add to Timeline",
+    "add-to-timeline": "Lägg till i tidslinje",
     "recipe-added-to-list": "Recept tillagt i listan",
     "recipe-added-to-mealplan": "Recept tillagt i måltidsplanen",
     "failed-to-add-recipe-to-mealplan": "Det gick inte att lägga till recept i måltidsplanen",
@@ -481,11 +481,11 @@
     "locked": "Låst",
     "public-link": "Publik länk",
     "timer": {
-      "kitchen-timer": "Kitchen Timer",
-      "start-timer": "Start Timer",
-      "pause-timer": "Pause Timer",
-      "resume-timer": "Resume Timer",
-      "stop-timer": "Stop Timer"
+      "kitchen-timer": "Kökstimer",
+      "start-timer": "Starta Timer",
+      "pause-timer": "Pausa Timer",
+      "resume-timer": "Återuppta Timer",
+      "stop-timer": "Stoppa Timer"
     },
     "edit-timeline-event": "Redigera tidslinjehändelse",
     "timeline": "Tidslinje",
@@ -497,7 +497,7 @@
     "user-made-this": "{user} lagade detta",
     "last-made-date": "Senast lagad {date}",
     "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom json key/value pairs within a recipe to reference from 3rd part applications. You can use these keys to contain information to trigger automation or custom messages to relay to your desired device.",
-    "message-key": "Message Key",
+    "message-key": "Meddelandenyckel",
     "parse": "Läs in",
     "attach-images-hint": "Bifoga bilder genom att dra och släppa dem i redigeraren",
     "enable-ingredient-amounts-to-use-this-feature": "Aktivera ingrediensmängd för att använda denna funktion",
@@ -514,8 +514,8 @@
     "bulk-url-import": "Massimport från URL",
     "debug-scraper": "Felsökningsskrapa",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Skapa ett recept genom att ange namnet. Alla recept måste ha unika namn.",
-    "new-recipe-names-must-be-unique": "New recipe names must be unique",
-    "scrape-recipe": "Scrape Recipe",
+    "new-recipe-names-must-be-unique": "Nya receptnamn måste vara unika",
+    "scrape-recipe": "Skrapa Recept",
     "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
     "import-original-keywords-as-tags": "Import original keywords as tags",
     "stay-in-edit-mode": "Stanna kvar i redigeringsläge",
@@ -539,7 +539,7 @@
     "unit": "Måttenhet",
     "upload-image": "Ladda upp bild",
     "screen-awake": "Keep Screen Awake",
-    "remove-image": "Remove image"
+    "remove-image": "Ta bort bild"
   },
   "search": {
     "advanced-search": "Avancerad sökning",

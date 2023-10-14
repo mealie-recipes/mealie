@@ -296,7 +296,7 @@
     "for-type-meal-types": "for {0} måltidstyper",
     "meal-plan-rules": "Regler for madplanlægning",
     "new-rule": "Ny Regel",
-    "meal-plan-rules-description": "Du kan oprette regler for automatisk valg af opskrifter for dine madplaner. Regler bruges til at bestemme hvike opskrifter, der kan vælges imellem, når du opretter madplanrr. Bemærk, at hvis reglerne har samme begrænsninger på dag eller type, så vil kategorierne af reglerne blive sammenflettet. I praksis er det unødvendigt at oprette flere regler, men det er muligt at gøre det.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "Når du opretter en ny regel for en madplan, kan du begrænse reglen til at være gældende for en bestemt dag i ugen og/eller en bestemt måltidstype. For at anvende en regel for alle dage eller alle måltider typer kan du indstille reglen til \"Any\", som vil anvende den til alle mulige værdier for dag og/eller måltid.",
     "recipe-rules": "Opskriftsregler",
     "applies-to-all-days": "Gælder for alle dage",
