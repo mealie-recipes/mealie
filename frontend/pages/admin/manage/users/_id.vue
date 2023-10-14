@@ -111,7 +111,7 @@ export default defineComponent({
 
       if (response?.status === 201 && data) {
         const token: string = data.token;
-        resetUrl.value = `${window.location.origin}/reset-password?token=${token}`;
+        resetUrl.value = `${window.location.origin}/reset-password/?token=${token}`;
       }
 
       generatingToken.value = false;

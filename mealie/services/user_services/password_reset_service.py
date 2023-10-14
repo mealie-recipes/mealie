@@ -40,7 +40,7 @@ class PasswordResetService(BaseService):
 
         # Send Email
         email_servive = EmailService()
-        reset_url = f"{self.settings.BASE_URL}/reset-password?token={token_entry.token}"
+        reset_url = f"{self.settings.BASE_URL}/reset-password/?token={token_entry.token}"
 
         try:
             email_servive.send_forgot_password(email, reset_url)
