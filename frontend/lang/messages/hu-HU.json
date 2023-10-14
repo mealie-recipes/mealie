@@ -469,7 +469,7 @@
     "toggle-section": "Szakaszcím megjelenítése/kikapcsolása",
     "see-original-text": "Eredeti szöveg megjelenítése",
     "original-text-with-value": "Eredeti szöveg: {originalText}",
-    "ingredient-linker": "Hozzávaló összekapcsoló",
+    "ingredient-linker": "Hozzávaló összekötő",
     "linked-to-other-step": "Egy másik lépéssel összekapcsolva",
     "auto": "Automatikus",
     "cook-mode": "Főzési mód",
@@ -1008,7 +1008,7 @@
         "line-mode": "Line mode (default)",
         "line-mode-desc": "Sor módban a szöveg az eredeti sortörések megtartásával kerül továbbításra. Ez az mód akkor hasznos, ha a hozzávalók listájának tömeges felvitelét használja, ahol egy hozzávaló egy sort jelent.",
         "block-mode": "Block mode",
-        "block-mode-desc": "Blokk módban a szöveg blokkokra tagolódik. Ez az üzemmód akkor hasznos, ha tömegesen adunk hozzá utasításokat, amelyeket általában bekezdésekbe írunk.",
+        "block-mode-desc": "Blokk módban a szöveg blokkokra tagolódik. Ez az üzemmód akkor hasznos, ha tömegesen adunk hozzá elkészítési leírásokat, amelyeket általában bekezdésekbe írunk.",
         "flat-mode": "Flat mode",
         "flat-mode-desc": "Folyamatos szöveg módban a szöveg sortörés nélkül kerül át a kiválasztott receptmezőbe."
       }
