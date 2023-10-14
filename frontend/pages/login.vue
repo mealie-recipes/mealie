@@ -121,12 +121,12 @@ export default defineComponent({
 
     const { getGroupSlug } = useGroupSlugRoute();
     const groupSlug = ref<string | null>(null);
-    invoke(async () => groupSlug.value = await getGroupSlug()).then(() => ready.value = true);
+    invoke(async () => { groupSlug.value = await getGroupSlug() }).then(() => { ready.value = true });
 
     whenever(
       () => $auth.loggedIn && groupSlug.value,
       () => {
-        router.push(`/${groupSlug.value}`);
+        router.push(`/${groupSlug.value || ""}`);
       },
       { immediate: true },
     );

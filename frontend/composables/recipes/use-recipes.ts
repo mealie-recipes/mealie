@@ -44,7 +44,7 @@ export const useLazyRecipes = function (publicGroupSlug: string | null = null) {
     });
 
     if (error?.response?.status === 404) {
-      router.push('/login');
+      router.push("/login");
     }
 
     return data ? data.items : [];

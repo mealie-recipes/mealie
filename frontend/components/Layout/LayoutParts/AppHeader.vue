@@ -72,7 +72,7 @@ export default defineComponent({
       fetchGroupSlugVal();
     }
 
-    const routerLink = computed(() => groupSlug.value ? `/${groupSlug.value}` : '/');
+    const routerLink = computed(() => groupSlug.value ? `/${groupSlug.value}` : "/");
     const domSearchDialog = ref<InstanceType<typeof RecipeDialogSearch> | null>(null);
 
     function activateSearch() {

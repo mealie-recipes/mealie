@@ -1,4 +1,5 @@
 <template>
+  <div></div>
 </template>
 
 <script lang="ts">
@@ -18,7 +19,7 @@ export default defineComponent({
 
     whenever(
       () => groupSlug.value,
-      () => router.push(`/${groupSlug.value}`)
+      () => router.push(`/${groupSlug.value || ""}`)
     );
   }
 });

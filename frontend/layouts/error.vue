@@ -71,7 +71,7 @@ export default defineComponent({
 
     if (props.error.statusCode === 404) {
       // see if adding the groupSlug fixes the error
-      insertGroupSlugIntoRoute().then(() => ready.value = true);
+      insertGroupSlugIntoRoute().then(() => { ready.value = true });
     } else {
       ready.value = true;
     }

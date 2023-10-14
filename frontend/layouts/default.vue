@@ -26,7 +26,7 @@ export default defineComponent({
       }
     }
 
-    const redirectPath = '/login';
+    const redirectPath = "/login";
     if (!route.value.params.groupSlug && route.value.fullPath !== redirectPath) {
       // the URL is invalid, so redirect to the login screen
       router.push({ path: redirectPath, replace: true });

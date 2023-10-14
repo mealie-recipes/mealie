@@ -181,7 +181,6 @@ import { Recipe, RecipeIngredient } from "~/lib/api/types/recipe";
 import { ShoppingListSummary } from "~/lib/api/types/group";
 import { PlanEntryType } from "~/lib/api/types/meal-plan";
 import { useAxiosDownloader } from "~/composables/api/use-axios-download";
-import { useCopy } from "~/composables/use-copy";
 
 export interface ContextMenuIncludes {
   delete: boolean;
@@ -497,8 +496,6 @@ export default defineComponent({
         router.push(`${groupSlug.value}/recipe/${data.slug}`);
       }
     }
-
-    const { copyText } = useCopy();
 
     // Note: Print is handled as an event in the parent component
     const eventHandlers: { [key: string]: () => void | Promise<any> } = {
