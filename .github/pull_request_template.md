@@ -2,6 +2,15 @@
   This template provides some ideas of things to include in your PR description.
   To start, try providing a short summary of your changes in the Title above.
   If a section of the PR template does not apply to this PR, then delete that section.
+
+  PLEASE READ:
+  -------------------------
+  Mealie is moving to a regular, automatic release schedule. This means that all PRs should be in a
+  stable state, ready for release. This includes:
+
+  - Ensuring new tests have been added to cover new features, or to prevent regressions.
+  - Work is fully complete and usable
+
  -->
 
 ## What type of PR is this?
@@ -56,17 +65,3 @@ _(fill-in or delete this section)_
 <!--
   Describe how you tested this change.
 -->
-
-## Release Notes
-
-_(REQUIRED)_
-<!--
-  If this PR makes user facing changes, please describe them here. This
-  description will be copied into the release notes/changelog, whenever the
-  next version is released. Keep this section short, and focus on high level
-  changes.
-  Put your text between the block. To omit notes, use NONE within the block.
--->
-
-```release-note
-```
