@@ -140,9 +140,10 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, toRefs, useContext, useRoute } from "@nuxtjs/composition-api";
+import { computed, defineComponent, reactive, ref, toRefs, useContext, useRoute } from "@nuxtjs/composition-api";
 import { SidebarLinks } from "~/types/application-types";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
+import { useGroupSlugRoute } from "~/composables/use-group-slug-route";
 
 export default defineComponent({
   components: {
@@ -201,7 +202,16 @@ export default defineComponent({
     const loggedIn = computed(() => $auth.loggedIn);
 
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug);
+    const groupSlug = ref(route.value.params.groupSlug);
+    const { getGroupSlug } = useGroupSlugRoute();
+
+    async function fetchGroupSlugVal() {
+      groupSlug.value = await getGroupSlug() || "";
+    }
+    if (!groupSlug.value) {
+      fetchGroupSlugVal();
+    }
+
     const userFavoritesLink = computed(() => groupSlug.value && $auth.user?.id ? `/${groupSlug.value}/user/${$auth.user.id}/favorites` : undefined);
     const userProfileLink = computed(() => groupSlug.value ? `/${groupSlug.value}/user/profile` : undefined);
 
