@@ -102,7 +102,7 @@ These backups are just plain .zip files that you can download from the UI or acc
 
 ### Docker Tags
 
-See all available tags on [GitHub](https://github.com/mealie-recipes/mealie/pkgs/container/mealie)
+See all available tags on [GitHub](https://github.com/mealie-recipes/mealie/pkgs/container/mealie). We do not currently publish new images to Dockerhub.
 
 `ghcr.io/mealie-recipes/mealie:nightly`
 
