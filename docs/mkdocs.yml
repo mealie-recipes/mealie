@@ -90,6 +90,7 @@ nav:
       - Developers Guide:
           - Code Contributions: "contributors/developers-guide/code-contributions.md"
           - Dev Getting Started: "contributors/developers-guide/starting-dev-server.md"
+          - Maintainers Guide: "contributors/developers-guide/maintainers.md"
       - Guides:
           - Improving Ingredient Parser: "contributors/guides/ingredient-parser.md"
 
