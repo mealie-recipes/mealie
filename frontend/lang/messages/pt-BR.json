@@ -345,7 +345,11 @@
     "recipe-1": "Receita 1",
     "recipe-2": "Receita 2",
     "paprika-text": "Mealie pode importar receitas do aplicativo Paprika. Exporte suas receitas do Paprika, renomeie a extensão do arquivo para .zip e carregue-o abaixo.",
-    "mealie-text": "Mealie pode importar receitas do aplicativo Mealie a partir de uma versão pré-v1.0. Exporte suas receitas de sua instância antiga e carregue o arquivo zip abaixo. Note que apenas as receitas podem ser importadas da exportação."
+    "mealie-text": "Mealie pode importar receitas do aplicativo Mealie a partir de uma versão pré-v1.0. Exporte suas receitas de sua instância antiga e carregue o arquivo zip abaixo. Note que apenas as receitas podem ser importadas da exportação.",
+    "plantoeat": {
+      "title": "Plan to Eat",
+      "description-long": "Mealie can import recipies from Plan to Eat."
+    }
   },
   "new-recipe": {
     "bulk-add": "Adicionar em Massa",
