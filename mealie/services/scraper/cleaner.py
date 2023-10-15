@@ -260,7 +260,7 @@ def clean_ingredients(ingredients: list | str | None, default: list | None = Non
         case [str()]:
             return [clean_string(ingredient) for ingredient in ingredients]
         case str(ingredients):
-            return [clean_string(ingredient) for ingredient in ingredients.splitlines()]
+            return [clean_string(ingredient) for ingredient in ingredients.splitlines() if ingredient.strip()]
         case _:
             raise TypeError(f"Unexpected type for ingredients: {type(ingredients)}, {ingredients}")
 
