@@ -62,7 +62,7 @@ class RegistrationService:
             raise HTTPException(status.HTTP_409_CONFLICT, {"message": self.t("exceptions.username-conflict-error")})
         elif self.repos.users.get_one(registration.email, "email"):
             raise HTTPException(status.HTTP_409_CONFLICT, {"message": self.t("exceptions.email-conflict-error")})
-        
+
         token_entry = None
         new_group = False
 
@@ -82,7 +82,7 @@ class RegistrationService:
             group = self._register_new_group()
         else:
             raise HTTPException(status.HTTP_400_BAD_REQUEST, {"message": "Missing group"})
-        
+
         self.logger.info(f"Registering user {registration.username}")
         user = self._create_new_user(group, new_group)
 
