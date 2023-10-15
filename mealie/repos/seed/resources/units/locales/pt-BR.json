@@ -25,9 +25,9 @@
         "abbreviation": "pt"
     },
     "quart": {
-        "name": "quart",
+        "name": "litro",
         "description": "",
-        "abbreviation": "qt"
+        "abbreviation": "l"
     },
     "gallon": {
         "name": "galão",

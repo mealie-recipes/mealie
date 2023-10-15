@@ -102,7 +102,7 @@ def clean_image(image: str | list | dict | None = None, default: str = "no image
         case str(image):
             return [image]
         case [str(_), *_]:
-            return image
+            return [x for x in image if x]  # Only return non-null strings in list
         case [{"url": str(_)}, *_]:
             return [x["url"] for x in image]
         case {"url": str(image)}:
@@ -260,7 +260,7 @@ def clean_ingredients(ingredients: list | str | None, default: list | None = Non
         case [str()]:
             return [clean_string(ingredient) for ingredient in ingredients]
         case str(ingredients):
-            return [clean_string(ingredient) for ingredient in ingredients.splitlines()]
+            return [clean_string(ingredient) for ingredient in ingredients.splitlines() if ingredient.strip()]
         case _:
             raise TypeError(f"Unexpected type for ingredients: {type(ingredients)}, {ingredients}")
 
