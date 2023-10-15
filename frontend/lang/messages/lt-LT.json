@@ -345,7 +345,11 @@
     "recipe-1": "Receptas 1",
     "recipe-2": "Receptas 2",
     "paprika-text": "Į Mealie galima importuoti receptus iš \"Paprika\" sistemos. Eksportuokite duomenis iš \"Paprika\", pervadinkite failo plėtinį į .ZIP ir įkelkite žemiau.",
-    "mealie-text": "Į Mealie galima importuoti receptus iš senesnių už v1.0 Mealie versijų. Eksportuokite receptus iš senosios sistemos ir įkelkite .ZIP failą žemiau. Svarbu: perkeliami tik receptų duomenys."
+    "mealie-text": "Į Mealie galima importuoti receptus iš senesnių už v1.0 Mealie versijų. Eksportuokite receptus iš senosios sistemos ir įkelkite .ZIP failą žemiau. Svarbu: perkeliami tik receptų duomenys.",
+    "plantoeat": {
+      "title": "Plan to Eat",
+      "description-long": "Mealie can import recipies from Plan to Eat."
+    }
   },
   "new-recipe": {
     "bulk-add": "Pridėti urmu",
