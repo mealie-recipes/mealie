@@ -345,7 +345,11 @@
     "recipe-1": "Resepti 1",
     "recipe-2": "Resepti 2",
     "paprika-text": "Mealie voi tuoda reseptejä Paprika-sovelluksesta. Vie reseptisi ohjelmasta ulos, nimeä tiedoston pääte uudelleen .zip ja lataa se alla.",
-    "mealie-text": "Mealie voi tuoda reseptejä Mealie sovelluksesta ennen v1.0 julkaisua. Vie reseptisi vanhasta asennuksesta ja lataa zip-tiedosto. Huomaa, että viennistä voidaan tuoda vain reseptejä."
+    "mealie-text": "Mealie voi tuoda reseptejä Mealie sovelluksesta ennen v1.0 julkaisua. Vie reseptisi vanhasta asennuksesta ja lataa zip-tiedosto. Huomaa, että viennistä voidaan tuoda vain reseptejä.",
+    "plantoeat": {
+      "title": "Plan to Eat",
+      "description-long": "Mealie can import recipies from Plan to Eat."
+    }
   },
   "new-recipe": {
     "bulk-add": "Lisää useita kerralla",
