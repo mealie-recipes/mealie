@@ -345,7 +345,11 @@
     "recipe-1": "食谱 1",
     "recipe-2": "食谱 2",
     "paprika-text": "Mealie 可以从 Paprika 导入食谱。请从paprika 导出食谱，重命名导出文件并压缩成.zip格式后，在下方上传",
-    "mealie-text": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export."
+    "mealie-text": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
+    "plantoeat": {
+      "title": "Plan to Eat",
+      "description-long": "Mealie can import recipies from Plan to Eat."
+    }
   },
   "new-recipe": {
     "bulk-add": "批量添加",
