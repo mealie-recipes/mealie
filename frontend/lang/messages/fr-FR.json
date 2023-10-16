@@ -348,7 +348,7 @@
     "mealie-text": "Mealie peut importer des recettes depuis l'application Mealie depuis une version antérieure à 1.0. Exportez vos recettes depuis votre ancienne instance, et téléchargez le fichier zip ci-dessous. Notez que seules les recettes peuvent être importées à partir de l'exportation.",
     "plantoeat": {
       "title": "Plan to Eat",
-      "description-long": "Mealie can import recipies from Plan to Eat."
+      "description-long": "Mealie peut importer des recettes depuis Plan to Eat."
     }
   },
   "new-recipe": {
