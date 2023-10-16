@@ -14,6 +14,7 @@
         <p class="pl-2 mb-1">
           {{ $d(day.date, "short") }}
         </p>
+        <GroupMealPlanDayContextMenu v-if="day.recipes.length" :recipes="day.recipes" />
       </v-card>
       <div v-for="section in day.sections" :key="section.title">
         <div class="py-2 d-flex flex-column">
@@ -42,10 +43,13 @@
 import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
 import { MealsByDate } from "./types";
 import { ReadPlanEntry } from "~/lib/api/types/meal-plan";
+import GroupMealPlanDayContextMenu from "~/components/Domain/Group/GroupMealPlanDayContextMenu.vue";
 import RecipeCardMobile from "~/components/Domain/Recipe/RecipeCardMobile.vue";
+import { RecipeSummary } from "~/lib/api/types/recipe";
 
 export default defineComponent({
   components: {
+    GroupMealPlanDayContextMenu,
     RecipeCardMobile,
   },
   props: {
@@ -63,6 +67,7 @@ export default defineComponent({
     type Days = {
       date: Date;
       sections: DaySection[];
+      recipes: RecipeSummary[];
     };
 
   const { i18n } = useContext();
@@ -77,6 +82,7 @@ export default defineComponent({
             { title: i18n.tc("meal-plan.dinner"), meals: [] },
             { title: i18n.tc("meal-plan.side"), meals: [] },
           ],
+          recipes: [],
         };
 
         for (const meal of day.meals) {
@@ -88,6 +94,10 @@ export default defineComponent({
             out.sections[2].meals.push(meal);
           } else if (meal.entryType === "side") {
             out.sections[3].meals.push(meal);
+          }
+
+          if (meal.recipe) {
+            out.recipes.push(meal.recipe);
           }
         }
 

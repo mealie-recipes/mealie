@@ -24,37 +24,47 @@
       :submit-text="$tc('recipe.add-to-list')"
       @submit="addRecipesToList()"
     >
-      <v-card
-        v-for="(section, sectionIndex) in recipeIngredientSections" :key="section.recipeId + sectionIndex"
-        elevation="0"
-        height="fit-content"
-        max-height="60vh"
-        width="100%"
-        :class="$vuetify.breakpoint.smAndDown ? '' : 'ingredient-grid'"
-        :style="$vuetify.breakpoint.smAndDown ? '' : { gridTemplateRows: `repeat(${Math.ceil(section.ingredients.length / 2)}, min-content)` }"
-        style="overflow-y: auto"
-      >
-        <v-card-title v-if="recipeIngredientSections.length > 1">{{ section.recipeName }}</v-card-title>
-        <v-list-item
-          v-for="(ingredientData, i) in section.ingredients"
-          :key="'ingredient' + i"
-          dense
-          @click="recipeIngredientSections[sectionIndex].ingredients[i].checked = !recipeIngredientSections[sectionIndex].ingredients[i].checked"
+      <div style="max-height: 70vh;  overflow-y: auto">
+        <v-card
+          v-for="(section, sectionIndex) in recipeIngredientSections" :key="section.recipeId + sectionIndex"
+          elevation="0"
+          height="fit-content"
+          width="100%"
         >
-          <v-checkbox
-            hide-details
-            :input-value="ingredientData.checked"
-            class="pt-0 my-auto py-auto"
-            color="secondary"
-          />
-          <v-list-item-content :key="ingredientData.ingredient.quantity">
-            <RecipeIngredientListItem
-              :ingredient="ingredientData.ingredient"
-              :disable-amount="ingredientData.disableAmount"
-              :scale="recipeScales[sectionIndex]" />
-          </v-list-item-content>
-        </v-list-item>
-      </v-card>
+          <v-divider v-if="sectionIndex > 0" class="mt-3" />
+          <v-card-title
+            v-if="recipeIngredientSections.length > 1"
+            class="justify-center"
+            width="100%"
+          >
+            {{ section.recipeName }}
+          </v-card-title>
+          <div
+            :class="$vuetify.breakpoint.smAndDown ? '' : 'ingredient-grid'"
+            :style="$vuetify.breakpoint.smAndDown ? '' : { gridTemplateRows: `repeat(${Math.ceil(section.ingredients.length / 2)}, min-content)` }"
+          >
+            <v-list-item
+              v-for="(ingredientData, i) in section.ingredients"
+              :key="'ingredient' + i"
+              dense
+              @click="recipeIngredientSections[sectionIndex].ingredients[i].checked = !recipeIngredientSections[sectionIndex].ingredients[i].checked"
+            >
+              <v-checkbox
+                hide-details
+                :input-value="ingredientData.checked"
+                class="pt-0 my-auto py-auto"
+                color="secondary"
+              />
+              <v-list-item-content :key="ingredientData.ingredient.quantity">
+                <RecipeIngredientListItem
+                  :ingredient="ingredientData.ingredient"
+                  :disable-amount="ingredientData.disableAmount"
+                  :scale="recipeScalesRef[sectionIndex]" />
+              </v-list-item-content>
+            </v-list-item>
+          </div>
+        </v-card>
+      </div>
       <div class="d-flex justify-end mb-4 mt-2">
         <BaseButtonGroup
           :buttons="[
@@ -78,7 +88,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, ref, watch } from '@nuxtjs/composition-api';
+import { computed, defineComponent, reactive, ref } from '@nuxtjs/composition-api';
 import { toRefs } from '@vueuse/core';
 import RecipeIngredientListItem from "./RecipeIngredientListItem.vue";
 import { useUserApi } from '~/composables/api';
@@ -150,10 +160,6 @@ export default defineComponent({
       recipesRef.value = undefined;
     }
 
-    if (recipeScalesRef.value?.length !== props.recipeSlugs.length) {
-      recipeScalesRef.value = props.recipeSlugs.map(() => 1);
-    }
-
     const recipeIngredientSections = ref<ShoppingListRecipeIngredientSection[]>([]);
     const selectedShoppingList = ref<ShoppingListSummary | null>(null);
 
@@ -170,16 +176,18 @@ export default defineComponent({
       selectedShoppingList.value = list;
       if (!recipesRef.value) {
         recipesRef.value = [];
-        props.recipeSlugs.forEach(async (slug) => {
+        for (const slug of props.recipeSlugs) {
           const { data } = await api.recipes.getOne(slug);
           if (data) {
             // @ts-ignore we define this above
             recipesRef.value.push(data);
           }
-        });
+        }
       }
 
-      if (!recipesRef.value) {}
+      if (recipeScalesRef.value?.length !== props.recipeSlugs.length) {
+        recipeScalesRef.value = props.recipeSlugs.map(() => 1);
+      }
 
       recipesRef.value.forEach((recipe, i) => {
         if (!recipe.recipeIngredient?.length) {
@@ -242,6 +250,7 @@ export default defineComponent({
 
       state.shoppingListDialog = false;
       state.shoppingListIngredientDialog = false;
+      dialog.value = false;
     }
 
     return {
@@ -251,6 +260,7 @@ export default defineComponent({
       bulkCheckIngredients,
       openShoppingListIngredientDialog,
       recipesRef,
+      recipeScalesRef,
       recipeIngredientSections,
       selectedShoppingList,
     }

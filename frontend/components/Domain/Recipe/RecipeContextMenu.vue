@@ -69,7 +69,7 @@
         ></v-select>
       </v-card-text>
     </BaseDialog>
-    <RecipeDialogAddToShoppingListVue
+    <RecipeDialogAddToShoppingList
       v-if="shoppingLists"
       v-model="shoppingListDialog"
       :recipe-slugs="[slug]"
@@ -109,7 +109,7 @@
 <script lang="ts">
 import { computed, defineComponent, reactive, toRefs, useContext, useRouter, ref } from "@nuxtjs/composition-api";
 import RecipeIngredientListItem from "./RecipeIngredientListItem.vue";
-import RecipeDialogAddToShoppingListVue from "./RecipeDialogAddToShoppingList.vue";
+import RecipeDialogAddToShoppingList from "./RecipeDialogAddToShoppingList.vue";
 import RecipeDialogPrintPreferences from "./RecipeDialogPrintPreferences.vue";
 import RecipeDialogShare from "./RecipeDialogShare.vue";
 import { useUserApi } from "~/composables/api";
@@ -143,7 +143,7 @@ export interface ContextMenuItem {
 
 export default defineComponent({
   components: {
-    RecipeDialogAddToShoppingListVue,
+    RecipeDialogAddToShoppingList,
     RecipeDialogPrintPreferences,
     RecipeDialogShare,
     RecipeIngredientListItem
@@ -320,7 +320,7 @@ export default defineComponent({
       }
     }
 
-    // Add leading and Apppending Items
+    // Add leading and Appending Items
     state.menuItems = [...state.menuItems, ...props.leadingItems, ...props.appendItems];
 
     const icon = props.menuIcon || $globals.icons.dotsVertical;
