@@ -348,7 +348,7 @@
     "mealie-text": "Mealie képes a v1.0 előtti kiadású Mealie alkalmazásból származó receptek importálására. Exportálja a receptjeit a régi példányából, és töltse fel a zip fájlt alább. Vegye figyelembe, hogy az exportból csak receptek importálhatók.",
     "plantoeat": {
       "title": "Plan to Eat",
-      "description-long": "Mealie can import recipies from Plan to Eat."
+      "description-long": "Mealie képes recepteket importálni a Plan to Eat alkalmazásból."
     }
   },
   "new-recipe": {
