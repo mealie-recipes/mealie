@@ -296,7 +296,7 @@
     "for-type-meal-types": "pour les types de repas {0}",
     "meal-plan-rules": "Règles du menu",
     "new-rule": "Nouvelle règle",
-    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
+    "meal-plan-rules-description": "Vous pouvez créer des règles pour ajouter automatiquement des recettes à votre menu. Ces règles sont utilisées par le serveur pour déterminer les recettes aléatoires à sélectionner lors de la création de menus. Notez que si les règles ont les mêmes contraintes jour/type, alors les catégories des règles seront fusionnées. Dans la pratique, il est inutile de créer des règles en double, mais il est possible de le faire.",
     "new-rule-description": "Lorsque vous créez une nouvelle règle pour un menu, vous pouvez restreindre la règle à un jour précis de la semaine et/ou un type de repas particulier. Pour appliquer une règle à tous les jours ou à tous les types de repas, vous pouvez définir la règle à \"Tous\".",
     "recipe-rules": "Règles de recette",
     "applies-to-all-days": "S'applique à tous les jours",
@@ -348,7 +348,7 @@
     "mealie-text": "Mealie peut importer des recettes depuis l'application Mealie depuis une version antérieure à 1.0. Exportez vos recettes depuis votre ancienne instance, et téléchargez le fichier zip ci-dessous. Notez que seules les recettes peuvent être importées à partir de l'exportation.",
     "plantoeat": {
       "title": "Plan to Eat",
-      "description-long": "Mealie can import recipies from Plan to Eat."
+      "description-long": "Mealie peut importer des recettes depuis Plan to Eat."
     }
   },
   "new-recipe": {
