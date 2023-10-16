@@ -1,12 +1,13 @@
 import os
 
-from fastapi.testclient import TestClient
 import pytest
+from fastapi.testclient import TestClient
 
 from mealie.core.config import get_app_settings
 from mealie.repos.repository_factory import AllRepositories
 from mealie.services.user_services.user_service import UserService
 from tests.utils import api_routes
+from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 
 
@@ -35,6 +36,13 @@ def test_user_token_refresh(api_client: TestClient, admin_user: TestUser):
     response = api_client.post(api_routes.auth_refresh, headers=admin_user.token)
     response = api_client.get(api_routes.users_self, headers=admin_user.token)
     assert response.status_code == 200
+
+
+@pytest.mark.parametrize("use_token", [True, False], ids=["with token", "without token"])
+def test_get_logged_in_user_invalid_token(api_client: TestClient, use_token: bool):
+    headers = {"Authorization": f"Bearer {random_string()}"} if use_token else {}
+    response = api_client.get(api_routes.users_self, headers=headers)
+    assert response.status_code == 401
 
 
 def test_user_lockout_after_bad_attemps(api_client: TestClient, unique_user: TestUser, database: AllRepositories):
