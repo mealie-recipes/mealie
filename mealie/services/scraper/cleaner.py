@@ -102,7 +102,7 @@ def clean_image(image: str | list | dict | None = None, default: str = "no image
         case str(image):
             return [image]
         case [str(_), *_]:
-            return image
+            return [x for x in image if x]  # Only return non-null strings in list
         case [{"url": str(_)}, *_]:
             return [x["url"] for x in image]
         case {"url": str(image)}:
