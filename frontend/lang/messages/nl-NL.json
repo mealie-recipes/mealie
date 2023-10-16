@@ -347,8 +347,8 @@
     "paprika-text": "Mealie kan recepten uit het programma Paprika importeren. Exporteer je recepten uit Paprika, hernoem de exportuitbreiding naar .zip en upload ze hieronder.",
     "mealie-text": "Mealie kan recepten importeren uit oude versies van Mealie (voor versie 1.0). Exporteer je recepten vanuit de oude versie, en upload het zip-bestand hieronder. Let op dat alleen recepten uit de export kunnen worden geïmporteerd.",
     "plantoeat": {
-      "title": "Plan to Eat",
-      "description-long": "Mealie can import recipies from Plan to Eat."
+      "title": "Plan naar Eat",
+      "description-long": "Mealie kan recepten importeren van Plan naar Eet."
     }
   },
   "new-recipe": {
