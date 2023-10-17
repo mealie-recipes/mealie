@@ -108,7 +108,7 @@ export default defineComponent({
       }
     }
 
-    async function calculateRecipesAndScales() {
+    function calculateRecipesAndScales() {
       const scaleMap = new Map<string, number>();
       props.recipes.forEach((recipe) => {
         if (!recipe.slug) {
@@ -117,6 +117,7 @@ export default defineComponent({
 
         if (scaleMap.has(recipe.slug)) {
           // @ts-ignore cannot be undefined
+          // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
           scaleMap.set(recipe.slug, scaleMap.get(recipe.slug) + 1);
         } else {
           scaleMap.set(recipe.slug, 1);

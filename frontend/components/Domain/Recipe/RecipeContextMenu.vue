@@ -108,7 +108,6 @@
 
 <script lang="ts">
 import { computed, defineComponent, reactive, toRefs, useContext, useRouter, ref } from "@nuxtjs/composition-api";
-import RecipeIngredientListItem from "./RecipeIngredientListItem.vue";
 import RecipeDialogAddToShoppingList from "./RecipeDialogAddToShoppingList.vue";
 import RecipeDialogPrintPreferences from "./RecipeDialogPrintPreferences.vue";
 import RecipeDialogShare from "./RecipeDialogShare.vue";
@@ -146,7 +145,6 @@ export default defineComponent({
     RecipeDialogAddToShoppingList,
     RecipeDialogPrintPreferences,
     RecipeDialogShare,
-    RecipeIngredientListItem
 },
   props: {
     useItems: {
