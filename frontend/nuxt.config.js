@@ -280,7 +280,7 @@ export default {
         info: process.env.THEME_DARK_INFO || "#1976d2",
         warning: process.env.THEME_DARK_WARNING || "#FF6D00",
         error: process.env.THEME_DARK_ERROR || "#EF5350",
-        background: "#202021",
+        background: "#1E1E1E",
       },
       light: {
         primary: process.env.THEME_LIGHT_PRIMARY || "#E58325",
