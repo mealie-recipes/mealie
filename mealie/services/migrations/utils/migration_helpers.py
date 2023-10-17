@@ -100,3 +100,20 @@ def import_image(src: str | Path, recipe_id: UUID4):
         data_service.write_image(src, src.suffix)
     except UnidentifiedImageError:
         return
+
+
+async def scrape_image(image_url: str, recipe_id: UUID4):
+    """Read the successful migrations attribute and for each scrape the image
+    appropriately into the image directory. Minification is done in mass
+    after the migration occurs.
+    """
+
+    if not isinstance(image_url, str):
+        return
+
+    data_service = RecipeDataService(recipe_id=recipe_id)
+
+    try:
+        await data_service.scrape_image(image_url)
+    except UnidentifiedImageError:
+        return

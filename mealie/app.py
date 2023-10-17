@@ -108,8 +108,7 @@ async def system_startup():
                 "SFTP_PASSWORD",
                 "SFTP_USERNAME",
                 "DB_URL",  # replace by DB_URL_PUBLIC for logs
-                "POSTGRES_USER",
-                "POSTGRES_PASSWORD",
+                "DB_PROVIDER",
                 "SMTP_USER",
                 "SMTP_PASSWORD",
             },

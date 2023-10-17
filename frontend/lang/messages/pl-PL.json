@@ -296,7 +296,7 @@
     "for-type-meal-types": "dla {0} rodzajów posiłków",
     "meal-plan-rules": "Zasady planu posiłków",
     "new-rule": "Nowa reguła",
-    "meal-plan-rules-description": "Możesz tworzyć reguły automatycznego wyboru przepisów dla planów posiłkowych. Te reguły są używane przez serwer do określenia losowej puli przepisów do wyboru podczas tworzenia planów posiłków. Zauważ, że jeśli reguły mają ograniczenia tego samego dnia/typu, kategorie reguł zostaną połączone. W praktyce tworzenie duplikatów reguł jest zbędne, ale jest to możliwe.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "Przy tworzeniu nowej reguły dotyczącej planu posiłków można ograniczyć regułę, tak aby miała zastosowanie do określonego dnia tygodnia i/lub określonego rodzaju posiłku. Aby zastosować regułę do wszystkich dni lub wszystkich rodzajów posiłków można ustawić regułę na \"Dowolny\", co będzie miało zastosowanie do wszystkich możliwych wartości dla dnia i/lub typu posiłku.",
     "recipe-rules": "Reguły przepisów",
     "applies-to-all-days": "Dotyczy wszystkich dni",
@@ -345,7 +345,11 @@
     "recipe-1": "Przepis 1",
     "recipe-2": "Przepis 2",
     "paprika-text": "Mealie może importować przepisy z aplikacji Paprika. Eksportuj swoje przepisy z papriki, zmień nazwę rozszerzenia eksportu na .zip i prześlij je poniżej.",
-    "mealie-text": "Mealie może importować receptury z aplikacji Mealie z wersji przed v1.0. Wyeksportuj swoje przepisy ze starej instancji i prześlij plik zip poniżej. Pamiętaj, że tylko receptury mogą być zaimportowane z eksportu."
+    "mealie-text": "Mealie może importować receptury z aplikacji Mealie z wersji przed v1.0. Wyeksportuj swoje przepisy ze starej instancji i prześlij plik zip poniżej. Pamiętaj, że tylko receptury mogą być zaimportowane z eksportu.",
+    "plantoeat": {
+      "title": "Plan to Eat",
+      "description-long": "Mealie can import recipies from Plan to Eat."
+    }
   },
   "new-recipe": {
     "bulk-add": "Dodanie zbiorcze",

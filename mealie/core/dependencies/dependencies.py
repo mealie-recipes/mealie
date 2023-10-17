@@ -76,7 +76,7 @@ async def try_get_current_user(
 
 
 async def get_current_user(
-    request: Request, token: str = Depends(oauth2_scheme_soft_fail), session=Depends(generate_session)
+    request: Request, token: str | None = Depends(oauth2_scheme_soft_fail), session=Depends(generate_session)
 ) -> PrivateUser:
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
@@ -86,6 +86,8 @@ async def get_current_user(
     if token is None and "mealie.access_token" in request.cookies:
         # Try extract from cookie
         token = request.cookies.get("mealie.access_token", "")
+    else:
+        token = token or ""
 
     try:
         payload = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])

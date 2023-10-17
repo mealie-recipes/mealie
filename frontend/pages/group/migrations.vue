@@ -81,6 +81,7 @@ const MIGRATIONS = {
   paprika: "paprika",
   mealie: "mealie_alpha",
   tandoor: "tandoor",
+  plantoeat: "plantoeat",
 };
 
 export default defineComponent({
@@ -122,6 +123,10 @@ export default defineComponent({
       {
         text: i18n.tc("migration.tandoor.title"),
         value: MIGRATIONS.tandoor,
+      },
+      {
+        text: i18n.tc("migration.plantoeat.title"),
+        value: MIGRATIONS.plantoeat,
       },
     ];
 
@@ -308,6 +313,19 @@ export default defineComponent({
                 ]
               }
             ]
+          }
+        ],
+      },
+      [MIGRATIONS.plantoeat]: {
+        text: i18n.tc("migration.plantoeat.description-long"),
+        tree: [
+          {
+            id: 1,
+            icon: $globals.icons.zip,
+            name: "plantoeat-recipes-508318_10-13-2023.zip",
+            children: [
+                  { id: 9, name: "plantoeat-recipes-508318_10-13-2023.csv", icon: $globals.icons.codeJson },
+            ],
           }
         ],
       },
