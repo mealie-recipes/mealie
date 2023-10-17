@@ -26,7 +26,7 @@ To deploy mealie on your local network it is highly recommended to use docker to
 !!! warning "32bit Support"
     Due to a build dependency limitation, Mealie is not supported on 32bit ARM systems. If you're running into this limitation on a newer Raspberry Pi, please consider upgrading to a 64bit operating system on the Raspberry Pi.
 
-## Migrating From over V1 Versions
+## Migrating From Other V1 Versions
 
 We've gone through a few versions of Mealie v1 deployment targets. We have settled on a single container deployment and we've begun publishing the nightly container on github containers. If you're looking to move from the old nightly (split containers *or* the omni image) to the new nightly, there are a few things you need to do:
 
