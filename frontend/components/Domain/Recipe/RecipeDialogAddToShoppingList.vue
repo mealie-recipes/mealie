@@ -88,12 +88,14 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, ref } from '@nuxtjs/composition-api';
-import { toRefs } from '@vueuse/core';
+import { computed, defineComponent, reactive, ref, useContext } from "@nuxtjs/composition-api";
+import { toRefs } from "@vueuse/core";
 import RecipeIngredientListItem from "./RecipeIngredientListItem.vue";
-import { useUserApi } from '~/composables/api';
-import { ShoppingListSummary } from '~/lib/api/types/group';
-import { Recipe, RecipeIngredient } from '~/lib/api/types/recipe';
+import { useUserApi } from "~/composables/api";
+import { alert } from "~/composables/use-toast";
+import { ShoppingListSummary } from "~/lib/api/types/group";
+import { Recipe, RecipeIngredient } from "~/lib/api/types/recipe";
+import { Awaitable } from "vitest";
 
 export interface ShoppingListRecipeIngredient {
   checked: boolean;
@@ -131,10 +133,11 @@ export default defineComponent({
     },
     shoppingLists: {
       type: Array as () => ShoppingListSummary[],
-      default: [],
+      default: () => [],
     },
   },
   setup(props, context) {
+    const { i18n } = useContext();
     const api = useUserApi();
 
     // v-model support
@@ -224,13 +227,14 @@ export default defineComponent({
     }
 
     async function addRecipesToList() {
+      const promises: Awaitable<any>[] = [];
       recipeIngredientSections.value.forEach(async (section) => {
         if (!selectedShoppingList.value) {
           return;
         }
 
         const ingredients: RecipeIngredient[] = [];
-        section.ingredients.forEach(async (ing) => {
+        section.ingredients.forEach((ing) => {
           if (ing.checked) {
             ingredients.push(ing.ingredient);
           }
@@ -240,13 +244,24 @@ export default defineComponent({
           return;
         }
 
-        await api.shopping.lists.addRecipe(
+        promises.push(api.shopping.lists.addRecipe(
           selectedShoppingList.value.id,
           section.recipeId,
           section.recipeScale,
           ingredients,
-        );
+        ));
       });
+
+      let success = true;
+      const results = await Promise.allSettled(promises);
+      results.forEach((result) => {
+        if (result.status === "rejected") {
+          success = false;
+        }
+      })
+
+      success ? alert.success(i18n.t("recipe.recipes-added-to-list") as string)
+      : alert.error(i18n.t("failed-to-add-recipes-to-list") as string)
 
       state.shoppingListDialog = false;
       state.shoppingListIngredientDialog = false;
