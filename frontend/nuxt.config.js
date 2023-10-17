@@ -344,9 +344,12 @@ export default {
       share_target: {
         action: "/recipe/create/url",
         method: "GET",
-        enctype: "application/x-www-form-urlencoded",
         params: {
-          url: "recipe_import_url",
+          /* title and url are not currently used in Mealie. If there are issues
+             with sharing, uncommenting those lines might help solve the puzzle. */
+          // "title": "title",
+          "text": "recipe_import_url",
+          // "url": "url",
         },
       },
       icons: [
