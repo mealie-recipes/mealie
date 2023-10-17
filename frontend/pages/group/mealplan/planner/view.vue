@@ -1,42 +1,52 @@
 <template>
-  <v-row>
-    <v-col
-      v-for="(day, index) in plan"
-      :key="index"
-      cols="12"
-      sm="12"
-      md="4"
-      lg="4"
-      xl="2"
-      class="col-borders my-1 d-flex flex-column"
-    >
-      <v-card class="mb-2 border-left-primary rounded-sm pa-2">
-        <p class="pl-2 mb-1">
-          {{ $d(day.date, "short") }}
-        </p>
-        <GroupMealPlanDayContextMenu v-if="day.recipes.length" :recipes="day.recipes" />
-      </v-card>
-      <div v-for="section in day.sections" :key="section.title">
-        <div class="py-2 d-flex flex-column">
-          <div class="primary" style="width: 50px; height: 2.5px"></div>
-          <p class="text-overline my-0">
-            {{ section.title }}
-          </p>
-        </div>
+  <v-container class="mx-0 my-3 pa">
+    <v-row>
+      <v-col
+        v-for="(day, index) in plan"
+        :key="index"
+        cols="12"
+        sm="12"
+        md="4"
+        lg="4"
+        xl="2"
+        class="col-borders my-1 d-flex flex-column"
+      >
+        <v-card class="mb-2 border-left-primary rounded-sm px-2">
+          <v-container class="px-0">
+            <v-row no-gutters style="width: 100%;">
+              <v-col cols="10">
+                <p class="pl-2 my-1">
+                  {{ $d(day.date, "short") }}
+                </p>
+              </v-col>
+              <v-col class="d-flex justify-top" cols="2">
+                <GroupMealPlanDayContextMenu v-if="day.recipes.length" :recipes="day.recipes" />
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card>
+        <div v-for="section in day.sections" :key="section.title">
+          <div class="py-2 d-flex flex-column">
+            <div class="primary" style="width: 50px; height: 2.5px"></div>
+            <p class="text-overline my-0">
+              {{ section.title }}
+            </p>
+          </div>
 
-        <RecipeCardMobile
-          v-for="mealplan in section.meals"
-          :key="mealplan.id"
-          :recipe-id="mealplan.recipe ? mealplan.recipe.id : ''"
-          class="mb-2"
-          :route="mealplan.recipe ? true : false"
-          :slug="mealplan.recipe ? mealplan.recipe.slug : mealplan.title"
-          :description="mealplan.recipe ? mealplan.recipe.description : mealplan.text"
-          :name="mealplan.recipe ? mealplan.recipe.name : mealplan.title"
-        />
-      </div>
-    </v-col>
-  </v-row>
+          <RecipeCardMobile
+            v-for="mealplan in section.meals"
+            :key="mealplan.id"
+            :recipe-id="mealplan.recipe ? mealplan.recipe.id : ''"
+            class="mb-2"
+            :route="mealplan.recipe ? true : false"
+            :slug="mealplan.recipe ? mealplan.recipe.slug : mealplan.title"
+            :description="mealplan.recipe ? mealplan.recipe.description : mealplan.text"
+            :name="mealplan.recipe ? mealplan.recipe.name : mealplan.title"
+          />
+        </div>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script lang="ts">
