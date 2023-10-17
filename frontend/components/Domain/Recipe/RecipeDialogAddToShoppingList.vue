@@ -95,7 +95,6 @@ import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { ShoppingListSummary } from "~/lib/api/types/group";
 import { Recipe, RecipeIngredient } from "~/lib/api/types/recipe";
-import { Awaitable } from "vitest";
 
 export interface ShoppingListRecipeIngredient {
   checked: boolean;
@@ -227,8 +226,8 @@ export default defineComponent({
     }
 
     async function addRecipesToList() {
-      const promises: Awaitable<any>[] = [];
-      recipeIngredientSections.value.forEach(async (section) => {
+      const promises: Promise<any>[] = [];
+      recipeIngredientSections.value.forEach((section) => {
         if (!selectedShoppingList.value) {
           return;
         }
