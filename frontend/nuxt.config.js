@@ -280,7 +280,7 @@ export default {
         info: process.env.THEME_DARK_INFO || "#1976d2",
         warning: process.env.THEME_DARK_WARNING || "#FF6D00",
         error: process.env.THEME_DARK_ERROR || "#EF5350",
-        background: "#202021",
+        background: "#1E1E1E",
       },
       light: {
         primary: process.env.THEME_LIGHT_PRIMARY || "#E58325",
@@ -344,9 +344,12 @@ export default {
       share_target: {
         action: "/recipe/create/url",
         method: "GET",
-        enctype: "application/x-www-form-urlencoded",
         params: {
-          url: "recipe_import_url",
+          /* title and url are not currently used in Mealie. If there are issues
+             with sharing, uncommenting those lines might help solve the puzzle. */
+          // "title": "title",
+          "text": "recipe_import_url",
+          // "url": "url",
         },
       },
       icons: [
