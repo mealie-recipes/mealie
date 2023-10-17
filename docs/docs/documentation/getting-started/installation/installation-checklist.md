@@ -3,6 +3,7 @@
 To install Mealie on your server there are a few steps for proper configuration. Let's go through them.
 
 !!! tip TLDR
+
     Don't need step by step? Checkout the
 
     - [SQLite docker-compose](./sqlite.md)
@@ -22,22 +23,23 @@ To deploy mealie on your local network it is highly recommended to use docker to
 - linux/amd64
 - linux/arm64
 
-
 !!! warning "32bit Support"
+
     Due to a build dependency limitation, Mealie is not supported on 32bit ARM systems. If you're running into this limitation on a newer Raspberry Pi, please consider upgrading to a 64bit operating system on the Raspberry Pi.
 
 ## Migrating From Other V1 Versions
 
-We've gone through a few versions of Mealie v1 deployment targets. We have settled on a single container deployment and we've begun publishing the nightly container on github containers. If you're looking to move from the old nightly (split containers *or* the omni image) to the new nightly, there are a few things you need to do:
+We've gone through a few versions of Mealie v1 deployment targets. We have settled on a single container deployment and we've begun publishing the nightly container on github containers. If you're looking to move from the old nightly (split containers _or_ the omni image) to the new nightly, there are a few things you need to do:
 
 1. Take a backup just in case!
-2. Replace the image for the API container with `ghcr.io/mealie-recipes/mealie:nightly`
+2. Replace the image for the API container with `ghcr.io/mealie-recipes/mealie:v1.0.0-RC1.1`
 3. Take the external port from the frontend container and set that as the port mapped to port `9000` on the new container. The frontend is now served on port 9000 from the new container, so it will need to be mapped for you to have access.
 4. Restart the container
 
 For an example of what these changes look like, see the new [SQLite](./sqlite.md) or [PostgreSQL](./postgres.md) docker-compose examples. The container swap should be seemless, at least that's our hope!
 
 ## Step 1: Deployment Type
+
 SQLite is a popular, open source, self-contained, zero-configuration database that is the ideal choice for Mealie when you have 1-20 Users and your concurrent write operations will be some-what limited.
 
 PostgreSQL might be considered if you need to support many concurrent users. In addition, some features are only enabled on PostgreSQL, such as fuzzy search.
@@ -51,15 +53,14 @@ You can find the relevant ready to use docker-compose files for supported instal
 
 The following steps were tested on a Ubuntu 20.04 server, but should work for most other Linux distributions. These steps are not required, but is how I generally will setup services on my server.
 
-
 1. SSH into your server and navigate to the home directory of the user you want to run Mealie as. If that is your current user, you can use `cd ~` to ensure you're in the right directory.
 2. Create a directory called `docker` and navigate into it: `mkdir docker && cd docker` (this is optional, if you organizer your docker installs separate from everything else)
 3. Do the same for mealie: `mkdir mealie && cd mealie`
 4. Create a docker-compose.yaml file in the mealie directory: `touch docker-compose.yaml`
 5. Use the text editor or your choice to edit the file and copy the contents of the docker-compose template for the deployment type you want to use: `nano docker-compose.yaml` or `vi docker-compose.yaml`
 
-
 ## Step 2: Customizing The `docker-compose.yaml` files.
+
 After you've decided setup the files it's important to set a few ENV variables to ensure that you can use all the features of Mealie. I recommend that you verify and check that:
 
 - [x] You've configured the relevant ENV variables for your database selection in the `docker-compose.yaml` files.
@@ -68,6 +69,7 @@ After you've decided setup the files it's important to set a few ENV variables t
 - [x] You've set the `DEFAULT_EMAIL` and `DEFAULT_GROUP` variable.
 
 ## Step 3: Startup
+
 After you've configured your database, and updated the `docker-compose.yaml` files, you can start Mealie by running the following command in the directory where you've added your `docker-compose.yaml`.
 
 ```bash
@@ -91,6 +93,7 @@ You should see the containers start up without error. You should now be able to 
 After the startup is complete you should see a login screen. Use the default credentials above to login and navigate to `/admin/site-settings`. Here you'll find a summary of your configuration details and their respective status. Before proceeding you should validate that the configuration is correct. For any warnings or errors the page will display an error and notify you of what you need to verify.
 
 ## Step 5: Backup
+
 While v1.0.0 is a great step to data-stability and security, it's not a backup. Mealie provides a full site data backup mechanism through the UI.
 
 These backups are just plain .zip files that you can download from the UI or access via the mounted volume on your system. For complete data protection you MUST store these backups somewhere safe, and outside of the server where they are deployed.
@@ -99,9 +102,21 @@ These backups are just plain .zip files that you can download from the UI or acc
 
 ### Docker Tags
 
+See all available tags on [GitHub](https://github.com/mealie-recipes/mealie/pkgs/container/mealie). We do not currently publish new images to Dockerhub.
+
 `ghcr.io/mealie-recipes/mealie:nightly`
 
 The nightly build are the latest and greatest builds that are built directly off of every commit to the `mealie-next` branch and as such may contain bugs. These are great to help the community catch bugs before they hit the stable release or if you like living on the edge.
+
+`ghrc.io/mealie-recipes/mealie:<version>`
+
+We also provide versioned containers that allow to pin to a specific release. Each time a new release is built a new tag will be pushed with the version. These are great to pin to a specific version and allows you to have absolute control on when you upgrade your container.
+
+`ghrc.io/mealie-recipes/mealie:latest`
+
+_Note: This tag is not yet available, it will be available with the v1 stable release_
+
+The latest tag provides the latest released image of Mealie.
 
 ---
 
