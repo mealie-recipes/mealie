@@ -37,7 +37,7 @@ python-jose = "^3.3.0"
 python-ldap = "^3.3.1"
 python-multipart = "^0.0.6"
 python-slugify = "^8.0.0"
-recipe-scrapers = "^14.42.0"
+recipe-scrapers = "14.51.0"
 requests = "^2.31.0"
 tzdata = "^2022.7"
 uvicorn = { extras = ["standard"], version = "^0.21.0" }
