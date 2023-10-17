@@ -4,6 +4,7 @@
       v-if="shoppingLists"
       v-model="shoppingListDialog"
       :recipe-slugs="recipeSlugs"
+      :recipe-scales="recipeScales"
       :shopping-lists="shoppingLists"
     />
     <v-menu
@@ -36,7 +37,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, ref, toRefs, useContext } from "@nuxtjs/composition-api";
+import { defineComponent, reactive, ref, toRefs, useContext } from "@nuxtjs/composition-api";
 import { Recipe } from "~/lib/api/types/recipe";
 import RecipeDialogAddToShoppingList from "~/components/Domain/Recipe/RecipeDialogAddToShoppingList.vue";
 import { ShoppingListSummary } from "~/lib/api/types/group";
@@ -96,10 +97,9 @@ export default defineComponent({
 
     const icon = props.menuIcon || $globals.icons.dotsVertical;
 
-    // TODO: fetch recipes so each meal plan doesn't send individual API calls
-    // TODO: if a recipe is on a meal plan more than once, we should consolidate and set the scale
     const shoppingLists = ref<ShoppingListSummary[]>();
-    const recipeSlugs = computed(() => props.recipes.map((recipe) => recipe.slug || ""));
+    const recipeSlugs = ref<string[]>([]);
+    const recipeScales = ref<number[]>([]);
 
     async function getShoppingLists() {
       const { data } = await api.shopping.lists.getAll();
@@ -108,9 +108,29 @@ export default defineComponent({
       }
     }
 
+    async function calculateRecipesAndScales() {
+      const scaleMap = new Map<string, number>();
+      props.recipes.forEach((recipe) => {
+        if (!recipe.slug) {
+          return;
+        }
+
+        if (scaleMap.has(recipe.slug)) {
+          // @ts-ignore cannot be undefined
+          scaleMap.set(recipe.slug, scaleMap.get(recipe.slug) + 1);
+        } else {
+          scaleMap.set(recipe.slug, 1);
+        };
+      });
+
+      recipeSlugs.value = Array.from(scaleMap.keys());
+      recipeScales.value = Array.from(scaleMap.values());
+    }
+
     const eventHandlers: { [key: string]: () => void | Promise<any> } = {
       shoppingList: () => {
         getShoppingLists();
+        calculateRecipesAndScales();
         state.shoppingListDialog = true;
       },
     };
@@ -134,6 +154,7 @@ export default defineComponent({
       icon,
       shoppingLists,
       recipeSlugs,
+      recipeScales,
     }
   },
 })
