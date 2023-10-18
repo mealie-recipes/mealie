@@ -1049,9 +1049,7 @@
       "actions-description-irreversible": "nieodwracalne",
       "logs-action-refresh": "Odśwież dziennik",
       "logs-page-title": "Dziennik Mealie",
-      "logs-tail-lines-label": "Ostatnich linii"
-    },
-    "mainentance": {
+      "logs-tail-lines-label": "Ostatnich linii",
       "actions-title": "Działania"
     },
     "ingredients-natural-language-processor": "Przetwarzacz języka naturalnego składników",

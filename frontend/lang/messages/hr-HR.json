@@ -1049,9 +1049,7 @@
       "actions-description-irreversible": "nepovratno",
       "logs-action-refresh": "Osvježi Log zapise",
       "logs-page-title": "Mealie Log Zapisi",
-      "logs-tail-lines-label": "Zadnje linije"
-    },
-    "mainentance": {
+      "logs-tail-lines-label": "Zadnje linije",
       "actions-title": "Radnje"
     },
     "ingredients-natural-language-processor": "Procesor prirodnog jezika za sastojke",

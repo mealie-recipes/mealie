@@ -1049,9 +1049,7 @@
       "actions-description-irreversible": "בלתי הפיך",
       "logs-action-refresh": "רענן לוגים",
       "logs-page-title": "לוגים של מילי",
-      "logs-tail-lines-label": "קווים סופיים"
-    },
-    "mainentance": {
+      "logs-tail-lines-label": "קווים סופיים",
       "actions-title": "פעולות"
     },
     "ingredients-natural-language-processor": "מעבד שפה טבעי לרכיבים",

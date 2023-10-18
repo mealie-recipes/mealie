@@ -1049,9 +1049,7 @@
       "actions-description-irreversible": "irreversibel",
       "logs-action-refresh": "Logs aktualisieren",
       "logs-page-title": "Mealie-Logs",
-      "logs-tail-lines-label": "Zeilen begrenzen"
-    },
-    "mainentance": {
+      "logs-tail-lines-label": "Zeilen begrenzen",
       "actions-title": "Aktionen"
     },
     "ingredients-natural-language-processor": "Zutaten Natural Language Processor",

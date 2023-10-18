@@ -1049,9 +1049,7 @@
       "actions-description-irreversible": "irreversible",
       "logs-action-refresh": "Uppdatera loggar",
       "logs-page-title": "Mealie loggar",
-      "logs-tail-lines-label": "Tail Lines"
-    },
-    "mainentance": {
+      "logs-tail-lines-label": "Tail Lines",
       "actions-title": "Åtgärder"
     },
     "ingredients-natural-language-processor": "Ingredients Natural Language Processor",

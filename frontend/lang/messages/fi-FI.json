@@ -1049,9 +1049,7 @@
       "actions-description-irreversible": "peruuttamaton",
       "logs-action-refresh": "Päivitä lokit",
       "logs-page-title": "Mealie- Lokit",
-      "logs-tail-lines-label": "Tail Lines"
-    },
-    "mainentance": {
+      "logs-tail-lines-label": "Tail Lines",
       "actions-title": "Toiminnot"
     },
     "ingredients-natural-language-processor": "Ingredients Natural Language Processor",

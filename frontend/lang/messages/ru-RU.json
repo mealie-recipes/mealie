@@ -1049,9 +1049,7 @@
       "actions-description-irreversible": "необратимы",
       "logs-action-refresh": "Обновить логи",
       "logs-page-title": "Логи Mealie",
-      "logs-tail-lines-label": "Последние строки"
-    },
-    "mainentance": {
+      "logs-tail-lines-label": "Последние строки",
       "actions-title": "Действия"
     },
     "ingredients-natural-language-processor": "NLP обработчик ингредиентов",

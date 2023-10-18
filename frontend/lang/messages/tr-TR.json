@@ -1049,9 +1049,7 @@
       "actions-description-irreversible": "geri alınamaz",
       "logs-action-refresh": "Günlükleri Yenile",
       "logs-page-title": "Mealie Günlükleri",
-      "logs-tail-lines-label": "Kuyruk Çizgileri"
-    },
-    "mainentance": {
+      "logs-tail-lines-label": "Kuyruk Çizgileri",
       "actions-title": "Eylemler"
     },
     "ingredients-natural-language-processor": "İçindekiler Doğal Dil İşlemcisi",

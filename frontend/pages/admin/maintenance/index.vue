@@ -55,7 +55,7 @@
       <BaseCardSectionTitle
         class="pb-0 mt-8"
         :icon="$globals.icons.wrench"
-        :title="$t('admin.mainentance.actions-title')"
+        :title="$t('admin.maintenance.actions-title')"
       >
         <i18n path="admin.maintenance.actions-description">
           <template #destructive-in-bold>
@@ -243,7 +243,7 @@ export default defineComponent({
   },
   head() {
     return {
-      title: this.$t("settings.site-settings") as string,
+      title: this.$t("admin.maintenance.page-title") as string,
     };
   },
 });

@@ -1049,9 +1049,7 @@
       "actions-description-irreversible": "visszafordíthatatlan",
       "logs-action-refresh": "Logok frissítése",
       "logs-page-title": "Mealie logok",
-      "logs-tail-lines-label": "Határvonalak"
-    },
-    "mainentance": {
+      "logs-tail-lines-label": "Határvonalak",
       "actions-title": "Műveletek"
     },
     "ingredients-natural-language-processor": "Ingredients Natural Language Processor",

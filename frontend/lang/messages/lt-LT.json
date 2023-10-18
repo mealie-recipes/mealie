@@ -1049,9 +1049,7 @@
       "actions-description-irreversible": "negrįžtamas",
       "logs-action-refresh": "Atnaujinti žurnalą",
       "logs-page-title": "\"Mielie\" žurnalo įrašai",
-      "logs-tail-lines-label": "Rodyti paskutines eilutes"
-    },
-    "mainentance": {
+      "logs-tail-lines-label": "Rodyti paskutines eilutes",
       "actions-title": "Veiksmai"
     },
     "ingredients-natural-language-processor": "Ingredientų natūralios kalbos procesorius (NLP)",

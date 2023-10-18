@@ -1049,9 +1049,7 @@
       "actions-description-irreversible": "незворотня",
       "logs-action-refresh": "Оновити журнали",
       "logs-page-title": "Журнал Mealie",
-      "logs-tail-lines-label": "Оновлювати дані"
-    },
-    "mainentance": {
+      "logs-tail-lines-label": "Оновлювати дані",
       "actions-title": "Дії"
     },
     "ingredients-natural-language-processor": "Обробка природної мови для інгредієнтів",

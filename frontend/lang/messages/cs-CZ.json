@@ -1049,9 +1049,7 @@
       "actions-description-irreversible": "nevratné",
       "logs-action-refresh": "Aktualizovat logy",
       "logs-page-title": "Mealie logy",
-      "logs-tail-lines-label": "Ocasní linie"
-    },
-    "mainentance": {
+      "logs-tail-lines-label": "Ocasní linie",
       "actions-title": "Akce"
     },
     "ingredients-natural-language-processor": "Zpracování přirozeného jazyka přísad",

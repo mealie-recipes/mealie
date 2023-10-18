@@ -1049,9 +1049,7 @@
       "actions-description-irreversible": "nezvratný",
       "logs-action-refresh": "Obnoviť logy",
       "logs-page-title": "Mealie logy",
-      "logs-tail-lines-label": "Koncové riadky"
-    },
-    "mainentance": {
+      "logs-tail-lines-label": "Koncové riadky",
       "actions-title": "Akcie"
     },
     "ingredients-natural-language-processor": "Textový procesor (NLP) textu prísad",
