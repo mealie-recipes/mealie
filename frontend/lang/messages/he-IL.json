@@ -12,7 +12,7 @@
     "demo-status": "מצב הדגמה",
     "development": "פיתוח",
     "docs": "תיעוד",
-    "download-log": "הורדת יומן",
+    "download-log": "הורדת לוגים",
     "download-recipe-json": "הJSON האחרון שנקרא",
     "github": "גיטהאב",
     "log-lines": "שורות לוג",
@@ -113,7 +113,7 @@
     "json": "JSON",
     "keyword": "מילת מפתח",
     "link-copied": "קישור הועתק",
-    "loading-events": "Loading Events",
+    "loading-events": "טוען",
     "loading-recipes": "מתכונים בטעינה",
     "message": "הודעה",
     "monday": "שני",
@@ -296,7 +296,7 @@
     "for-type-meal-types": "לכל סוגי הארוחות {0}",
     "meal-plan-rules": "חוקי תכנון ארוחות",
     "new-rule": "חוק חדש",
-    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
+    "meal-plan-rules-description": "אתה יכול ליצור כללים לבחירה אוטומטית של מתכונים עבור תוכניות הארוחות שלך. כללים אלה משמשים את השרת כדי לקבוע את מאגר המתכונים האקראי לבחירה בעת יצירת תוכניות ארוחות. שימו לב שאם לכללים יש אילוצי יום/סוג זהים אז הקטגוריות של הכללים ימוזגו. בפועל, מיותר ליצור חוקים כפולים, אבל אפשר לעשות זאת.",
     "new-rule-description": "ביצירת חוק חדש עבור תוכנית ארוחות ניתן להגביל את החוק עבור יום בשבוע או סוג של ארוחה. בכדי שהחוק יכסה את כל הימים והארוחות יש לבחור ב- \"הכל\", מה שיכלול את כל הימים והארוחות.",
     "recipe-rules": "חוקי מתכון",
     "applies-to-all-days": "החל על כל הימים",
@@ -333,8 +333,8 @@
       "title": "מילי לפני V1.0"
     },
     "tandoor": {
-      "description-long": "Mealie can import recipes from Tandoor. Export your data in the \"Default\" format, then upload the .zip below.",
-      "title": "Tandoor Recipes"
+      "description-long": "Mealie יכול לייבא מתכונים מ-Tandoor, תייצא את המתכון בפורמט הדיפולטיבי ולאחר מכן העלאה אותם בחזרה בפורמט zip.",
+      "title": "מתכוני Tandoor"
     },
     "recipe-data-migrations": "מגרציית מידע מתכונים",
     "recipe-data-migrations-explanation": "ניתן לייבא מתכונים מאפליקציות תומכות אחרות אל Mealie. זו דרך מעולה להתחיל במילי.",
@@ -348,7 +348,7 @@
     "mealie-text": "Mealie יכול לייבא מתכונים מגרסאות ישנות של Mealie מתחת ל- v1.0. ייצא את המתכונים מהסביבה הישנה והעלה את קובץ ה- zip למטה. ניתן לייבא רק מתכונים מתהליך הייצוא.",
     "plantoeat": {
       "title": "Plan to Eat",
-      "description-long": "Mealie can import recipies from Plan to Eat."
+      "description-long": "Mealie יכולה לייבא מתכונים מהאתר- Plan to Eat."
     }
   },
   "new-recipe": {
@@ -412,7 +412,7 @@
     "grams": "גרם",
     "ingredient": "מרכיב",
     "ingredients": "מרכיבים",
-    "insert-ingredient": "Insert Ingredient",
+    "insert-ingredient": "הוסף מרכיב",
     "insert-section": "הוסף מקטע",
     "instructions": "הוראות",
     "key-name-required": "שם מפתח נדרש",
@@ -460,7 +460,7 @@
     "date-format-hint-yyyy-mm-dd": "פורמט YYYY-MM-DD",
     "add-to-list": "הוסף לרשימה",
     "add-to-plan": "הוספה לתכנית",
-    "add-to-timeline": "Add to Timeline",
+    "add-to-timeline": "הוסף לציר הזמן",
     "recipe-added-to-list": "מתכון נוסף לרשימה",
     "recipe-added-to-mealplan": "מתכון נוסף לתכנון ארוחות",
     "failed-to-add-recipe-to-mealplan": "הוספת מתכון לתכנון ארוחות נכשלה",
@@ -485,16 +485,16 @@
     "locked": "נעול",
     "public-link": "כתובת פומבית",
     "timer": {
-      "kitchen-timer": "Kitchen Timer",
-      "start-timer": "Start Timer",
-      "pause-timer": "Pause Timer",
-      "resume-timer": "Resume Timer",
-      "stop-timer": "Stop Timer"
+      "kitchen-timer": "טיימר למטבח",
+      "start-timer": "התחל את הטיימר",
+      "pause-timer": "השהה את הטיימר",
+      "resume-timer": "המשך את הטיימר",
+      "stop-timer": "עצור את הטיימר"
     },
     "edit-timeline-event": "עריכת אירוע ציר זמן",
     "timeline": "ציר זמן",
     "timeline-is-empty": "אין כלום בציר הזמן. נסה לעשות את המתכון הזה!",
-    "group-global-timeline": "{groupName} Global Timeline",
+    "group-global-timeline": "{groupName} ציר זמן גלובלי",
     "open-timeline": "פתח ציר זמן",
     "made-this": "הכנתי את זה",
     "how-did-it-turn-out": "איך יצא?",
@@ -542,8 +542,8 @@
     "recipe-yield": "תשואת מתכון",
     "unit": "יחידה",
     "upload-image": "העלה תמונה",
-    "screen-awake": "Keep Screen Awake",
-    "remove-image": "Remove image"
+    "screen-awake": "השאר את המסך פעיל",
+    "remove-image": "האם למחוק את התמונה?"
   },
   "search": {
     "advanced-search": "חיפוש מתקדם",
@@ -1073,7 +1073,7 @@
     "welcome-user": "👋 שלום, {0}",
     "description": "ניהול פרופיל, מתכונים והגדרות קבוצה.",
     "get-invite-link": "קבלת קישור להזמנה",
-    "get-public-link": "Get Public Link",
+    "get-public-link": "כתובת פומבית",
     "account-summary": "פירוט משתמש",
     "account-summary-description": "סיכום המידע של הקבוצות שלך",
     "group-statistics": "נתונים סטטיסטיים של קבוצה",
