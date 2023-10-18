@@ -28,7 +28,7 @@
     ·
     <a href="https://github.com/hay-kot/mealie/issues">Report Bug</a>
     ·
-    <a href="https://github.com/mealie-recipes/mealie/pkgs/container/mealie">Github Container Repo</a>
+    <a href="https://github.com/mealie-recipes/mealie/pkgs/container/mealie">GitHub Container Registry</a>
 </p>
 
 
