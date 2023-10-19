@@ -348,7 +348,7 @@
     "mealie-text": "Mealie, v1.0 öncesi bir sürümden Mealie uygulamasından tarifleri içe aktarabilir. Tariflerinizi eski örneğinizden dışa aktarın ve aşağıdaki zip dosyasını yükleyin. Dışa aktarmadan yalnızca tariflerin içe aktarılabileceğini unutmayın.",
     "plantoeat": {
       "title": "Plan to Eat",
-      "description-long": "Mealie can import recipies from Plan to Eat."
+      "description-long": "Mealie, Plan to Eat'ten tarifleri içe aktarabilir."
     }
   },
   "new-recipe": {

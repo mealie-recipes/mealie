@@ -45,6 +45,12 @@ export default defineComponent({
       recipe,
     };
   },
-  head: {},
+  head() {
+    if (this.recipe) {
+      return {
+        title: this.recipe.name
+      }
+    }
+  }
 });
 </script>

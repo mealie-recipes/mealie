@@ -348,7 +348,7 @@
     "mealie-text": "Mealie може імпортувати рецепти з Mealie до версії 1.0. Експортуйте свої рецепти зі старої Mealie і відвантажте zip-файл нижче. Зверніть увагу, що тільки рецепти можуть бути імпортовані з експорту.",
     "plantoeat": {
       "title": "Plan to Eat",
-      "description-long": "Mealie can import recipies from Plan to Eat."
+      "description-long": "Mealie може імпортувати рецепти з Plan to Eat."
     }
   },
   "new-recipe": {
