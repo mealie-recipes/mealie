@@ -146,7 +146,6 @@ import {
   mdiFlipVertical,
   mdiRotateLeft,
   mdiRotateRight,
-  mdiPotSteamOutline,
 } from "@mdi/js";
 
 export const icons = {
