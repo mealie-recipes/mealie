@@ -33,12 +33,26 @@ def display_fraction(fraction: Fraction):
 
 class UnitFoodBase(MealieModel):
     name: str
+    plural_name: str | None = None
     description: str = ""
     extras: dict | None = {}
 
 
+class CreateIngredientFoodAlias(MealieModel):
+    name: str
+    food_id: UUID4
+
+
+class IngredientFoodAlias(CreateIngredientFoodAlias):
+    food: IngredientFood
+
+    class Config:
+        orm_mode = True
+
+
 class CreateIngredientFood(UnitFoodBase):
     label_id: UUID4 | None = None
+    aliases: list[CreateIngredientFoodAlias] | None = None
 
 
 class SaveIngredientFood(CreateIngredientFood):
@@ -48,6 +62,8 @@ class SaveIngredientFood(CreateIngredientFood):
 class IngredientFood(CreateIngredientFood):
     id: UUID4
     label: MultiPurposeLabelSummary | None = None
+    aliases: list[IngredientFoodAlias] | None = None
+
     created_at: datetime.datetime | None
     update_at: datetime.datetime | None
 
@@ -67,10 +83,23 @@ class IngredientFoodPagination(PaginationBase):
     items: list[IngredientFood]
 
 
+class CreateIngredientUnitAlias(MealieModel):
+    name: str
+    unit_id: UUID4
+
+
+class IngredientUnitAlias(CreateIngredientUnitAlias):
+    unit: IngredientUnit
+
+    class Config:
+        orm_mode = True
+
+
 class CreateIngredientUnit(UnitFoodBase):
     fraction: bool = True
     abbreviation: str = ""
     use_abbreviation: bool = False
+    aliases: list[CreateIngredientUnitAlias] | None = None
 
 
 class SaveIngredientUnit(CreateIngredientUnit):
@@ -79,6 +108,8 @@ class SaveIngredientUnit(CreateIngredientUnit):
 
 class IngredientUnit(CreateIngredientUnit):
     id: UUID4
+    aliases: list[IngredientUnitAlias] | None = None
+
     created_at: datetime.datetime | None
     update_at: datetime.datetime | None
 
