@@ -486,10 +486,10 @@
     "public-link": "Enllaç públic",
     "timer": {
       "kitchen-timer": "Kitchen Timer",
-      "start-timer": "Start Timer",
-      "pause-timer": "Pause Timer",
-      "resume-timer": "Resume Timer",
-      "stop-timer": "Stop Timer"
+      "start-timer": "Iniciar temporitzador",
+      "pause-timer": "Pausa el temporitzador",
+      "resume-timer": "Reprèn el temporitzador",
+      "stop-timer": "Atura el temporitzador"
     },
     "edit-timeline-event": "Edita l'esdeveniment de la cronologia",
     "timeline": "Cronologia",
@@ -542,8 +542,8 @@
     "recipe-yield": "Recipe Yield",
     "unit": "Unit",
     "upload-image": "Upload image",
-    "screen-awake": "Keep Screen Awake",
-    "remove-image": "Remove image"
+    "screen-awake": "Mantenir la pantalla encesa",
+    "remove-image": "Esborrar la imatge"
   },
   "search": {
     "advanced-search": "Cerca avançada",
@@ -1073,7 +1073,7 @@
     "welcome-user": "👋 Benvingut, {0}",
     "description": "Manage your profile, recipes, and group settings.",
     "get-invite-link": "Get Invite Link",
-    "get-public-link": "Get Public Link",
+    "get-public-link": "Enllaç públic",
     "account-summary": "Account Summary",
     "account-summary-description": "Here's a summary of your group's information",
     "group-statistics": "Group Statistics",

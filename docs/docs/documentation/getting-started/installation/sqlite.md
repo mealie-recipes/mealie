@@ -11,7 +11,7 @@ SQLite is a popular, open source, self-contained, zero-configuration database th
 version: "3.7"
 services:
   mealie:
-    image: ghcr.io/mealie-recipes/mealie:nightly
+    image: ghcr.io/mealie-recipes/mealie:v1.0.0-RC1.1
     container_name: mealie
     ports:
         - "9925:9000" # (1)

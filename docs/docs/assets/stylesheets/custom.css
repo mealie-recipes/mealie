@@ -55,3 +55,20 @@ th {
 .md-button {
   padding: 0.2rem 0.75rem !important;
 }
+
+.announce-left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.announce-left > a {
+  color: #e0e0e0;
+  font-weight: bold;
+}
+
+.announce-left > a:hover {
+  color: var(--md-primary-fg-color);
+  text-decoration: underline;
+}
