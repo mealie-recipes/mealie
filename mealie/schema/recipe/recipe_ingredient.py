@@ -40,12 +40,9 @@ class UnitFoodBase(MealieModel):
 
 class CreateIngredientFoodAlias(MealieModel):
     name: str
-    food_id: UUID4
 
 
 class IngredientFoodAlias(CreateIngredientFoodAlias):
-    food: IngredientFood
-
     class Config:
         orm_mode = True
 
@@ -85,12 +82,9 @@ class IngredientFoodPagination(PaginationBase):
 
 class CreateIngredientUnitAlias(MealieModel):
     name: str
-    unit_id: UUID4
 
 
 class IngredientUnitAlias(CreateIngredientUnitAlias):
-    unit: IngredientUnit
-
     class Config:
         orm_mode = True
 
