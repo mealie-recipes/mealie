@@ -22,7 +22,15 @@ def populate_normalized_fields():
     bind = op.get_bind()
     session = orm.Session(bind=bind)
 
-    units = session.execute(select(IngredientUnitModel)).scalars().all()
+    units = (
+        session.execute(
+            select(IngredientUnitModel).options(
+                orm.load_only(IngredientUnitModel.name, IngredientUnitModel.abbreviation)
+            )
+        )
+        .scalars()
+        .all()
+    )
     for unit in units:
         if unit.name is not None:
             unit.name_normalized = IngredientUnitModel.normalize(unit.name)
@@ -32,7 +40,9 @@ def populate_normalized_fields():
 
         session.add(unit)
 
-    foods = session.execute(select(IngredientFoodModel)).scalars().all()
+    foods = (
+        session.execute(select(IngredientFoodModel).options(orm.load_only(IngredientFoodModel.name))).scalars().all()
+    )
     for food in foods:
         if food.name is not None:
             food.name_normalized = IngredientFoodModel.normalize(food.name)
