@@ -82,6 +82,8 @@ class ABCIngredientParser(ABC):
                     units_by_alias[IngredientUnitModel.normalize(unit.plural_name)] = unit
                 if unit.abbreviation:
                     units_by_alias[IngredientUnitModel.normalize(unit.abbreviation)] = unit
+                if unit.plural_abbreviation:
+                    units_by_alias[IngredientUnitModel.normalize(unit.plural_abbreviation)] = unit
 
                 for alias in unit.aliases or []:
                     if alias.name:

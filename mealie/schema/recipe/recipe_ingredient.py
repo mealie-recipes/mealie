@@ -64,7 +64,7 @@ class IngredientFood(CreateIngredientFood):
     created_at: datetime.datetime | None
     update_at: datetime.datetime | None
 
-    _searchable_properties: ClassVar[list[str]] = ["name_normalized"]
+    _searchable_properties: ClassVar[list[str]] = ["name_normalized", "plural_name_normalized"]
     _normalize_search: ClassVar[bool] = True
 
     class Config:
@@ -92,6 +92,7 @@ class IngredientUnitAlias(CreateIngredientUnitAlias):
 class CreateIngredientUnit(UnitFoodBase):
     fraction: bool = True
     abbreviation: str = ""
+    plural_abbreviation: str = ""
     use_abbreviation: bool = False
     aliases: list[CreateIngredientUnitAlias] | None = None
 
@@ -107,7 +108,12 @@ class IngredientUnit(CreateIngredientUnit):
     created_at: datetime.datetime | None
     update_at: datetime.datetime | None
 
-    _searchable_properties: ClassVar[list[str]] = ["name_normalized", "abbreviation_normalized"]
+    _searchable_properties: ClassVar[list[str]] = [
+        "name_normalized",
+        "plural_name_normalized",
+        "abbreviation_normalized",
+        "plural_abbreviation_normalized",
+    ]
     _normalize_search: ClassVar[bool] = True
 
     class Config:
@@ -204,14 +210,29 @@ class RecipeIngredientBase(MealieModel):
         if self.quantity and (use_food or self.quantity != 1):
             components.append(self._format_quantity_for_display())
 
+        is_plural_quantity = self.quantity and self.quantity > 1
+        use_plural_unit = self.unit and is_plural_quantity
+        use_plural_food = use_plural_unit or is_plural_quantity
+
         if not use_food:
             components.append(self.note or "")
         else:
             if self.quantity and self.unit:
-                components.append(self.unit.abbreviation if self.unit.use_abbreviation else self.unit.name)
+                if self.unit.use_abbreviation:
+                    if use_plural_unit:
+                        unit_component = self.unit.plural_abbreviation or self.unit.abbreviation
+                    else:
+                        unit_component = self.unit.plural_name or self.unit.name
+
+                components.append(unit_component)
 
             if self.food:
-                components.append(self.food.name)
+                if use_plural_food:
+                    food_component = self.food.plural_name or self.food.name
+                else:
+                    food_component = self.food.name
+
+                components.append(food_component)
 
             if self.note:
                 components.append(self.note)
