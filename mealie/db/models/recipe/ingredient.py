@@ -28,6 +28,7 @@ class IngredientUnitModel(SqlAlchemyBase, BaseMixins):
     plural_name: Mapped[str | None] = mapped_column(String)
     description: Mapped[str | None] = mapped_column(String)
     abbreviation: Mapped[str | None] = mapped_column(String)
+    plural_abbreviation: Mapped[str | None] = mapped_column(String)
     use_abbreviation: Mapped[bool | None] = mapped_column(Boolean, default=False)
     fraction: Mapped[bool | None] = mapped_column(Boolean, default=True)
 
@@ -42,6 +43,7 @@ class IngredientUnitModel(SqlAlchemyBase, BaseMixins):
     name_normalized: Mapped[str | None] = mapped_column(sa.String, index=True)
     plural_name_normalized: Mapped[str | None] = mapped_column(sa.String, index=True)
     abbreviation_normalized: Mapped[str | None] = mapped_column(String, index=True)
+    plural_abbreviation_normalized: Mapped[str | None] = mapped_column(String, index=True)
 
     @auto_init()
     def __init__(
@@ -50,6 +52,7 @@ class IngredientUnitModel(SqlAlchemyBase, BaseMixins):
         name: str | None = None,
         plural_name: str | None = None,
         abbreviation: str | None = None,
+        plural_abbreviation: str | None = None,
         **_,
     ) -> None:
         if name is not None:
@@ -57,7 +60,9 @@ class IngredientUnitModel(SqlAlchemyBase, BaseMixins):
         if plural_name is not None:
             self.plural_name_normalized = self.normalize(plural_name)
         if abbreviation is not None:
-            self.abbreviation = self.normalize(abbreviation)
+            self.abbreviation_normalized = self.normalize(abbreviation)
+        if plural_abbreviation is not None:
+            self.plural_abbreviation_normalized = self.normalize(plural_abbreviation)
 
         tableargs = [
             sa.UniqueConstraint("name", "group_id", name="ingredient_units_name_group_id_key"),
@@ -74,6 +79,11 @@ class IngredientUnitModel(SqlAlchemyBase, BaseMixins):
             sa.Index(
                 "ix_ingredient_units_abbreviation_normalized",
                 "abbreviation_normalized",
+                unique=False,
+            ),
+            sa.Index(
+                "ix_ingredient_units_plural_abbreviation_normalized",
+                "plural_abbreviation_normalized",
                 unique=False,
             ),
         ]
@@ -106,6 +116,15 @@ class IngredientUnitModel(SqlAlchemyBase, BaseMixins):
                         postgresql_using="gin",
                         postgresql_ops={
                             "abbreviation_normalized": "gin_trgm_ops",
+                        },
+                    ),
+                    sa.Index(
+                        "ix_ingredient_units_plural_abbreviation_normalized_gin",
+                        "plural_abbreviation_normalized",
+                        unique=False,
+                        postgresql_using="gin",
+                        postgresql_ops={
+                            "plural_abbreviation_normalized": "gin_trgm_ops",
                         },
                     ),
                 ]
@@ -369,6 +388,14 @@ def receive_unit_abbreviation(target: IngredientUnitModel, value: str | None, ol
         target.abbreviation_normalized = IngredientUnitModel.normalize(value)
     else:
         target.abbreviation_normalized = None
+
+
+@event.listens_for(IngredientUnitModel.plural_abbreviation, "set")
+def receive_unit_plural_abbreviation(target: IngredientUnitModel, value: str | None, oldvalue, initiator):
+    if value is not None:
+        target.plural_abbreviation_normalized = IngredientUnitModel.normalize(value)
+    else:
+        target.plural_abbreviation_normalized = None
 
 
 @event.listens_for(IngredientFoodModel.name, "set")
