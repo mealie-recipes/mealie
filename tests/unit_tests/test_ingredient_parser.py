@@ -67,6 +67,7 @@ def parsed_ingredient_data(
             SaveIngredientFood(name="fresh ginger", group_id=unique_local_group_id),
             SaveIngredientFood(name="ground ginger", group_id=unique_local_group_id),
             SaveIngredientFood(name="ñör̃m̈ãl̈ĩz̈ẽm̈ẽ", group_id=unique_local_group_id),
+            SaveIngredientFood(name="PluralFoodTest", plural_name="myfoodisplural", group_id=unique_local_group_id),
         ]
     )
 
@@ -86,6 +87,13 @@ def parsed_ingredient_data(
             SaveIngredientUnit(name="Teaspoon", group_id=unique_local_group_id),
             SaveIngredientUnit(name="Stalk", group_id=unique_local_group_id),
             SaveIngredientUnit(name="My Very Long Unit Name", abbreviation="mvlun", group_id=unique_local_group_id),
+            SaveIngredientUnit(
+                name="PluralUnitName",
+                plural_name="abc123",
+                abbreviation="doremiabc",
+                plural_abbreviation="doremi123",
+                group_id=unique_local_group_id,
+            ),
         ]
     )
 
@@ -266,6 +274,30 @@ def test_brute_parser(unique_user: TestUser):
             False,
             True,
             id="normalization",
+        ),
+        pytest.param(
+            build_parsed_ing(unit=None, food="myfoodisplural"),
+            None,
+            "PluralFoodTest",
+            False,
+            True,
+            id="plural food name",
+        ),
+        pytest.param(
+            build_parsed_ing(unit="abc123", food=None),
+            "PluralUnitName",
+            None,
+            True,
+            False,
+            id="plural unit name",
+        ),
+        pytest.param(
+            build_parsed_ing(unit="doremi123", food=None),
+            "PluralUnitName",
+            None,
+            True,
+            False,
+            id="plural unit abbreviation",
         ),
     ),
 )

@@ -49,7 +49,7 @@ class IngredientFoodAlias(CreateIngredientFoodAlias):
 
 class CreateIngredientFood(UnitFoodBase):
     label_id: UUID4 | None = None
-    aliases: list[CreateIngredientFoodAlias] | None = None
+    aliases: list[CreateIngredientFoodAlias] = []
 
 
 class SaveIngredientFood(CreateIngredientFood):
@@ -59,7 +59,7 @@ class SaveIngredientFood(CreateIngredientFood):
 class IngredientFood(CreateIngredientFood):
     id: UUID4
     label: MultiPurposeLabelSummary | None = None
-    aliases: list[IngredientFoodAlias] | None = None
+    aliases: list[IngredientFoodAlias] = []
 
     created_at: datetime.datetime | None
     update_at: datetime.datetime | None
@@ -94,7 +94,7 @@ class CreateIngredientUnit(UnitFoodBase):
     abbreviation: str = ""
     plural_abbreviation: str | None = ""
     use_abbreviation: bool = False
-    aliases: list[CreateIngredientUnitAlias] | None = None
+    aliases: list[CreateIngredientUnitAlias] = []
 
 
 class SaveIngredientUnit(CreateIngredientUnit):
@@ -103,7 +103,7 @@ class SaveIngredientUnit(CreateIngredientUnit):
 
 class IngredientUnit(CreateIngredientUnit):
     id: UUID4
-    aliases: list[IngredientUnitAlias] | None = None
+    aliases: list[IngredientUnitAlias] = []
 
     created_at: datetime.datetime | None
     update_at: datetime.datetime | None
