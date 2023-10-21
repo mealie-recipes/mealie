@@ -252,8 +252,7 @@ class RecipeIngredientBase(MealieModel):
             if self.note:
                 components.append(self.note)
 
-        print(" ".join(components))
-        return " ".join(components)
+        return " ".join(components).strip()
 
 
 class IngredientUnitPagination(PaginationBase):
