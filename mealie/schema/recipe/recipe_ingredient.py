@@ -92,7 +92,7 @@ class IngredientUnitAlias(CreateIngredientUnitAlias):
 class CreateIngredientUnit(UnitFoodBase):
     fraction: bool = True
     abbreviation: str = ""
-    plural_abbreviation: str = ""
+    plural_abbreviation: str | None = ""
     use_abbreviation: bool = False
     aliases: list[CreateIngredientUnitAlias] | None = None
 
@@ -196,6 +196,36 @@ class RecipeIngredientBase(MealieModel):
 
         return f"{whole_number} {display_fraction(qty)}"
 
+    def _format_unit_for_display(self) -> str:
+        if not self.unit:
+            return ""
+
+        use_plural = self.quantity and self.quantity > 1
+        unit_val = ""
+        if self.unit.use_abbreviation:
+            if use_plural:
+                unit_val = self.unit.plural_abbreviation or self.unit.abbreviation
+            else:
+                unit_val = self.unit.abbreviation
+
+        if not unit_val:
+            if use_plural:
+                unit_val = self.unit.plural_name or self.unit.name
+            else:
+                unit_val = self.unit.name
+
+        return unit_val
+
+    def _format_food_for_display(self) -> str:
+        if not self.food:
+            return ""
+
+        use_plural = (not self.quantity) or self.quantity > 1
+        if use_plural:
+            return self.food.plural_name or self.food.name
+        else:
+            return self.food.name
+
     def _format_display(self) -> str:
         components = []
 
@@ -210,33 +240,19 @@ class RecipeIngredientBase(MealieModel):
         if self.quantity and (use_food or self.quantity != 1):
             components.append(self._format_quantity_for_display())
 
-        is_plural_quantity = self.quantity and self.quantity > 1
-        use_plural_unit = self.unit and is_plural_quantity
-        use_plural_food = use_plural_unit or is_plural_quantity
-
         if not use_food:
             components.append(self.note or "")
         else:
             if self.quantity and self.unit:
-                if self.unit.use_abbreviation:
-                    if use_plural_unit:
-                        unit_component = self.unit.plural_abbreviation or self.unit.abbreviation
-                    else:
-                        unit_component = self.unit.plural_name or self.unit.name
-
-                components.append(unit_component)
+                components.append(self._format_unit_for_display())
 
             if self.food:
-                if use_plural_food:
-                    food_component = self.food.plural_name or self.food.name
-                else:
-                    food_component = self.food.name
-
-                components.append(food_component)
+                components.append(self._format_food_for_display())
 
             if self.note:
                 components.append(self.note)
 
+        print(" ".join(components))
         return " ".join(components)
 
 

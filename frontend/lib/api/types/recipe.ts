@@ -56,21 +56,32 @@ export interface CategorySave {
 }
 export interface CreateIngredientFood {
   name: string;
+  pluralName?: string;
   description?: string;
   extras?: {
     [k: string]: unknown;
   };
   labelId?: string;
+  aliases?: CreateIngredientFoodAlias[];
+}
+export interface CreateIngredientFoodAlias {
+  name: string;
 }
 export interface CreateIngredientUnit {
   name: string;
+  pluralName?: string;
   description?: string;
   extras?: {
     [k: string]: unknown;
   };
   fraction?: boolean;
   abbreviation?: string;
+  pluralAbbreviation?: string;
   useAbbreviation?: boolean;
+  aliases?: CreateIngredientUnitAlias[];
+}
+export interface CreateIngredientUnitAlias {
+  name: string;
 }
 export interface CreateRecipe {
   name: string;
@@ -113,15 +124,20 @@ export interface IngredientConfidence {
 }
 export interface IngredientFood {
   name: string;
+  pluralName?: string;
   description?: string;
   extras?: {
     [k: string]: unknown;
   };
   labelId?: string;
+  aliases?: IngredientFoodAlias[];
   id: string;
   label?: MultiPurposeLabelSummary;
   createdAt?: string;
   updateAt?: string;
+}
+export interface IngredientFoodAlias {
+  name: string;
 }
 export interface MultiPurposeLabelSummary {
   name: string;
@@ -141,16 +157,22 @@ export interface IngredientRequest {
 }
 export interface IngredientUnit {
   name: string;
+  pluralName?: string;
   description?: string;
   extras?: {
     [k: string]: unknown;
   };
   fraction?: boolean;
   abbreviation?: string;
+  pluralAbbreviation?: string;
   useAbbreviation?: boolean;
+  aliases?: IngredientUnitAlias[];
   id: string;
   createdAt?: string;
   updateAt?: string;
+}
+export interface IngredientUnitAlias {
+  name: string;
 }
 export interface IngredientsRequest {
   parser?: RegisteredParser & string;
@@ -206,7 +228,7 @@ export interface Recipe {
   recipeCategory?: RecipeCategory[];
   tags?: RecipeTag[];
   tools?: RecipeTool[];
-  rating?: number | null;
+  rating?: number;
   orgURL?: string;
   dateAdded?: string;
   dateUpdated?: string;
@@ -413,22 +435,27 @@ export interface RecipeZipTokenResponse {
 }
 export interface SaveIngredientFood {
   name: string;
+  pluralName?: string;
   description?: string;
   extras?: {
     [k: string]: unknown;
   };
   labelId?: string;
+  aliases?: CreateIngredientFoodAlias[];
   groupId: string;
 }
 export interface SaveIngredientUnit {
   name: string;
+  pluralName?: string;
   description?: string;
   extras?: {
     [k: string]: unknown;
   };
   fraction?: boolean;
   abbreviation?: string;
+  pluralAbbreviation?: string;
   useAbbreviation?: boolean;
+  aliases?: CreateIngredientUnitAlias[];
   groupId: string;
 }
 export interface ScrapeRecipe {
@@ -438,7 +465,7 @@ export interface ScrapeRecipe {
 export interface ScrapeRecipeTest {
   url: string;
 }
-export interface SlugResponse {}
+export interface SlugResponse { }
 export interface TagIn {
   name: string;
 }
@@ -454,6 +481,7 @@ export interface TagSave {
 }
 export interface UnitFoodBase {
   name: string;
+  pluralName?: string;
   description?: string;
   extras?: {
     [k: string]: unknown;
