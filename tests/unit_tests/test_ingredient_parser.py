@@ -9,7 +9,9 @@ from mealie.db.db_setup import session_context
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe_ingredient import (
     CreateIngredientFood,
+    CreateIngredientFoodAlias,
     CreateIngredientUnit,
+    CreateIngredientUnitAlias,
     IngredientFood,
     IngredientUnit,
     ParsedIngredient,
@@ -68,6 +70,11 @@ def parsed_ingredient_data(
             SaveIngredientFood(name="ground ginger", group_id=unique_local_group_id),
             SaveIngredientFood(name="ñör̃m̈ãl̈ĩz̈ẽm̈ẽ", group_id=unique_local_group_id),
             SaveIngredientFood(name="PluralFoodTest", plural_name="myfoodisplural", group_id=unique_local_group_id),
+            SaveIngredientFood(
+                name="IHaveAnAlias",
+                group_id=unique_local_group_id,
+                aliases=[CreateIngredientFoodAlias(name="thisismyalias")],
+            ),
         ]
     )
 
@@ -93,6 +100,11 @@ def parsed_ingredient_data(
                 abbreviation="doremiabc",
                 plural_abbreviation="doremi123",
                 group_id=unique_local_group_id,
+            ),
+            SaveIngredientUnit(
+                name="IHaveAnAliasToo",
+                group_id=unique_local_group_id,
+                aliases=[CreateIngredientUnitAlias(name="thisismyalias")],
             ),
         ]
     )
@@ -298,6 +310,22 @@ def test_brute_parser(unique_user: TestUser):
             True,
             False,
             id="plural unit abbreviation",
+        ),
+        pytest.param(
+            build_parsed_ing(unit=None, food="thisismyalias"),
+            None,
+            "IHaveAnAlias",
+            False,
+            True,
+            id="food alias",
+        ),
+        pytest.param(
+            build_parsed_ing(unit="thisismyalias", food=None),
+            "IHaveAnAliasToo",
+            None,
+            True,
+            False,
+            id="unit alias",
         ),
     ),
 )
