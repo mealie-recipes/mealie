@@ -6,19 +6,19 @@
         "unique-name-error": "Името на рецептата трябва да е уникално"
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "No recipes match your rules"
+        "no-recipes-match-your-rules": "Няма рецепти отговарящи на Вашите условия"
     },
     "user": {
-        "user-updated": "User updated",
-        "password-updated": "Password updated",
-        "invalid-current-password": "Invalid current password",
-        "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
+        "user-updated": "Потребителят е обновен",
+        "password-updated": "Паролата е актуализирана",
+        "invalid-current-password": "Невалидна текуща парола",
+        "ldap-update-password-unavailable": "Паролата на потребителя не може да бъде обновена, потребителят е контролиран от LDAP"
     },
     "group": {
-        "report-deleted": "Report deleted."
+        "report-deleted": "Докладът е изтрит."
     },
     "exceptions": {
-        "permission_denied": "Нямата права за това действие",
+        "permission_denied": "Нямате разрешение да изпълните това действие",
         "no-entry-found": "Търсената страница не е намерена",
         "integrity-error": "Проверка на интегритета на данните",
         "username-conflict-error": "Потребителското име вече е заето",
