@@ -69,9 +69,16 @@
 
     <!-- Secondary Links -->
     <template v-if="secondaryLinks">
-      <v-subheader v-if="secondaryHeader" :to="secondaryHeaderLink" class="pb-0">
-        {{ secondaryHeader }}
-      </v-subheader>
+      <router-link v-if="secondaryHeader && secondaryHeaderLink" :to="secondaryHeaderLink" style="text-decoration: none;">
+        <v-subheader :to="secondaryHeaderLink" class="pb-0">
+          {{ secondaryHeader }}
+        </v-subheader>
+      </router-link>
+      <div v-else-if="secondaryHeader">
+        <v-subheader :to="secondaryHeaderLink" class="pb-0">
+          {{ secondaryHeader }}
+        </v-subheader>
+      </div>
       <v-divider></v-divider>
       <v-list nav dense exact>
         <template v-for="nav in secondaryLinks">

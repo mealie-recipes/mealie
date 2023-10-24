@@ -6,10 +6,10 @@
         v-model="sidebar"
         absolute
         :top-link="topLinks"
-        :secondary-header="$t('sidebar.cookbooks')"
-        :secondary-header-link="loggedIn ? '/group/cookbooks' : undefined"
+        :secondary-header="cookbookLinks.length ? $tc('sidebar.cookbooks') : undefined"
+        :secondary-header-link="loggedIn && cookbookLinks.length ? `/${groupSlug}/group/cookbooks` : undefined"
         :secondary-links="cookbookLinks || []"
-        :bottom-links="isAdmin ? bottomLink : []"
+        :bottom-links="isAdmin ? bottomLinks : []"
       >
         <v-menu offset-y nudge-bottom="5" close-delay="50" nudge-right="15">
           <template #activator="{ on, attrs }">
@@ -210,7 +210,18 @@
         },
       ]);
 
-      return { cookbookLinks, createLinks, bottomLink: bottomLinks, topLinks, isAdmin, loggedIn, languageDialog, toggleDark, sidebar };
+      return {
+        groupSlug,
+        cookbookLinks,
+        createLinks,
+        bottomLinks,
+        topLinks,
+        isAdmin,
+        loggedIn,
+        languageDialog,
+        toggleDark,
+        sidebar,
+      };
     },
   });
   </script>
