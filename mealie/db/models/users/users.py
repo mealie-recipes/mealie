@@ -3,6 +3,7 @@ from datetime import datetime
 from typing import TYPE_CHECKING, Optional
 
 from sqlalchemy import Boolean, DateTime, Enum, ForeignKey, Integer, String, orm
+from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import Mapped, mapped_column
 
 from mealie.core.config import get_app_settings
@@ -93,6 +94,10 @@ class User(SqlAlchemyBase, BaseMixins):
             "can_organize",
             "group",
         }
+
+    @hybrid_property
+    def group_slug(self) -> str:
+        return self.group.slug
 
     @auto_init()
     def __init__(self, session, full_name, password, group: str | None = None, **kwargs) -> None:
