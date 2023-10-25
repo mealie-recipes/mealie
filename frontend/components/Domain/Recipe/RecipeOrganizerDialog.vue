@@ -4,7 +4,9 @@
       <v-card>
         <v-app-bar dense dark color="primary mb-2">
           <v-icon large left class="mt-1">
-            {{ itemType === Organizer.Tool ? $globals.icons.potSteam : $globals.icons.tags }}
+            {{ itemType === Organizer.Tool ? $globals.icons.potSteam :
+              itemType === Organizer.Category ? $globals.icons.categories :
+              $globals.icons.tags }}
           </v-icon>
 
           <v-toolbar-title class="headline">
