@@ -8,7 +8,6 @@ To install Mealie on your server there are a few steps for proper configuration.
 
     - [SQLite docker-compose](./sqlite.md)
     - [Postgres docker-compose](./postgres.md)
-    - [Single container docker-compose](./single-container.md)
 
 ## Pre-work
 
