@@ -10,13 +10,14 @@ import {
   mdiClose,
   mdiTagArrowUpOutline,
   mdiTagMultipleOutline,
+  mdiShapeOutline,
   mdiBookOutline,
   mdiAccountCog,
   mdiAccountGroup,
   mdiSlotMachine,
   mdiHome,
   mdiMagnify,
-  mdiPotSteam,
+  mdiPotSteamOutline,
   mdiTranslate,
   mdiClockTimeFourOutline,
   mdiImport,
@@ -262,7 +263,7 @@ export const icons = {
   timerPause: mdiTimerPause,
   timerPlus: mdiTimerPlus,
   tools: mdiTools,
-  potSteam: mdiPotSteam,
+  potSteam: mdiPotSteamOutline,
   translate: mdiTranslate,
   upload: mdiCloudUpload,
   viewDashboard: mdiViewDashboard,
@@ -290,6 +291,7 @@ export const icons = {
   // Organization
   tags: mdiTagMultipleOutline,
   tagArrowUp: mdiTagArrowUpOutline,
+  categories: mdiShapeOutline,
   pages: mdiBookOutline,
 
   // Admin
