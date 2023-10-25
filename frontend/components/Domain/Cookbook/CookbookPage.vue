@@ -29,7 +29,7 @@
   import { useLazyRecipes } from "~/composables/recipes";
   import RecipeCardSection from "@/components/Domain/Recipe/RecipeCardSection.vue";
   import { useCookbook } from "~/composables/use-group-cookbooks";
-import { useLoggedInState } from "~/composables/use-logged-in-state";
+  import { useLoggedInState } from "~/composables/use-logged-in-state";
 
   export default defineComponent({
     components: { RecipeCardSection },

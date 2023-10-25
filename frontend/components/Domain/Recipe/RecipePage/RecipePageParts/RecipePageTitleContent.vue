@@ -5,7 +5,7 @@
         {{ recipe.name }}
       </v-card-title>
       <SafeMarkdown :source="recipe.description" />
-      <div v-if="user.id" class="pb-2 d-flex justify-center flex-wrap">
+      <div v-if="isOwnGroup" class="pb-2 d-flex justify-center flex-wrap">
         <RecipeLastMade
           v-model="recipe.lastMade"
           :recipe="recipe"
@@ -50,6 +50,7 @@
 
 <script lang="ts">
 import { defineComponent } from "@nuxtjs/composition-api";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import { validators } from "~/composables/use-validators";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
@@ -77,12 +78,14 @@ export default defineComponent({
   setup(props) {
     const { user } = usePageUser();
     const { imageKey, isEditMode } = usePageState(props.recipe.slug);
+    const { isOwnGroup } = useLoggedInState();
 
     return {
       user,
       imageKey,
       validators,
       isEditMode,
+      isOwnGroup,
     };
   },
 });

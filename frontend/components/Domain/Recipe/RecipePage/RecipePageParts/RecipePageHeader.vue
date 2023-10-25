@@ -10,7 +10,7 @@
           <v-divider class="my-2"></v-divider>
           <SafeMarkdown :source="recipe.description" />
           <v-divider></v-divider>
-          <div v-if="user.id" class="d-flex justify-center mt-5">
+          <div v-if="isOwnGroup" class="d-flex justify-center mt-5">
             <RecipeLastMade
               v-model="recipe.lastMade"
               :recipe="recipe"
@@ -45,7 +45,7 @@
       :recipe="recipe"
       :slug="recipe.slug"
       :recipe-scale="recipeScale"
-      :locked="user.id !== recipe.userId && recipe.settings.locked"
+      :locked="isOwnGroup && user.id !== recipe.userId && recipe.settings.locked"
       :name="recipe.name"
       :logged-in="isOwnGroup"
       :open="isEditMode"

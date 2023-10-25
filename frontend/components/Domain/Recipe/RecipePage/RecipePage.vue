@@ -72,7 +72,7 @@
     </div>
 
     <RecipePageComments
-      v-if="user.id && !recipe.settings.disableComments && !isEditForm && !isCookMode"
+      v-if="isOwnGroup && !recipe.settings.disableComments && !isEditForm && !isCookMode"
       :recipe="recipe"
       class="px-1 my-4 d-print-none"
     />
@@ -92,6 +92,7 @@ import {
 useRoute,
 } from "@nuxtjs/composition-api";
 import { invoke, until, useWakeLock } from "@vueuse/core";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipePageEditorToolbar from "./RecipePageParts/RecipePageEditorToolbar.vue";
 import RecipePageFooter from "./RecipePageParts/RecipePageFooter.vue";
 import RecipePageHeader from "./RecipePageParts/RecipePageHeader.vue";
@@ -143,6 +144,7 @@ export default defineComponent({
   setup(props) {
     const route = useRoute();
     const groupSlug = computed(() => route.value.params.groupSlug);
+    const { isOwnGroup } = useLoggedInState();
 
     const router = useRouter();
     const api = useUserApi();
@@ -287,6 +289,7 @@ export default defineComponent({
 
     return {
       user,
+      isOwnGroup,
       api,
       scale: ref(1),
       EDITOR_OPTIONS,
