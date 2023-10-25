@@ -191,7 +191,7 @@
           restricted: true,
         },
         {
-          icon: $globals.icons.tags,
+          icon: $globals.icons.categories,
           to: `/${groupSlug.value}/recipes/categories`,
           title: i18n.tc("sidebar.categories"),
           restricted: true,

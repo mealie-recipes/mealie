@@ -24,7 +24,7 @@
             :items="categories"
           >
             <v-icon left>
-              {{ $globals.icons.tags }}
+              {{ $globals.icons.categories }}
             </v-icon>
             {{ $t("category.categories") }}
           </SearchFilter>
@@ -40,7 +40,7 @@
           <!-- Tool Filter -->
           <SearchFilter v-if="tools" v-model="selectedTools" :require-all.sync="state.requireAllTools" :items="tools">
             <v-icon left>
-              {{ $globals.icons.tools }}
+              {{ $globals.icons.potSteam }}
             </v-icon>
             {{ $t("tool.tools") }}
           </SearchFilter>
