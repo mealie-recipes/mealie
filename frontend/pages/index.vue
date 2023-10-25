@@ -3,24 +3,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, useRouter } from "@nuxtjs/composition-api";
-import { whenever } from "@vueuse/core";
-import { useGroupSlugRoute } from "~/composables/use-group-slug-route";
+import { computed, defineComponent, useContext, useRouter } from "@nuxtjs/composition-api";
 export default defineComponent({
   layout: "blank",
   setup() {
     const { $auth } = useContext();
-    const { groupSlug } = useGroupSlugRoute();
     const router = useRouter();
+    const groupSlug = computed(() => $auth.user?.groupSlug);
 
-    if (!$auth.loggedIn) {
+    if (groupSlug.value) {
+      router.push(`/${groupSlug.value}`);
+    } else {
       router.push("/login");
     }
-
-    whenever(
-      () => groupSlug.value,
-      () => router.push(`/${groupSlug.value || ""}`)
-    );
   }
 });
 </script>

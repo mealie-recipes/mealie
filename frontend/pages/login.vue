@@ -1,6 +1,5 @@
 <template>
   <v-container
-    v-if="ready"
     fill-height
     fluid
     class="d-flex justify-center align-center flex-column"
@@ -103,9 +102,8 @@
 
 <script lang="ts">
 import { defineComponent, ref, useContext, computed, reactive, useRouter } from "@nuxtjs/composition-api";
-import { invoke, useDark, whenever } from "@vueuse/core";
+import { useDark, whenever } from "@vueuse/core";
 import { useAppInfo } from "~/composables/api";
-import { useGroupSlugRoute } from "~/composables/use-group-slug-route";
 import { usePasswordField } from "~/composables/use-passwords";
 import { alert } from "~/composables/use-toast";
 
@@ -113,15 +111,11 @@ export default defineComponent({
   layout: "blank",
 
   setup() {
-    const ready = ref(false);
     const isDark = useDark();
 
     const router = useRouter();
     const { $auth, i18n } = useContext();
-
-    const { getGroupSlug } = useGroupSlugRoute();
-    const groupSlug = ref<string | null>(null);
-    invoke(async () => { groupSlug.value = await getGroupSlug() }).then(() => { ready.value = true });
+    const groupSlug = ref<string | undefined>($auth.user?.groupSlug);
 
     whenever(
       () => $auth.loggedIn && groupSlug.value,
@@ -174,12 +168,10 @@ export default defineComponent({
           alert.error(i18n.t("events.something-went-wrong") as string);
         }
       }
-      groupSlug.value = await getGroupSlug();
       loggingIn.value = false;
     }
 
     return {
-      ready,
       isDark,
       form,
       loggingIn,

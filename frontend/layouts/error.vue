@@ -29,7 +29,6 @@
 
 <script lang="ts">
 import { defineComponent, ref, useContext, useMeta, useRoute, useRouter } from "@nuxtjs/composition-api";
-import { useGroupSlugRoute } from "~/composables/use-group-slug-route";
 
 export default defineComponent({
   layout: "basic",
@@ -45,16 +44,10 @@ export default defineComponent({
 
     const route = useRoute();
     const router = useRouter();
-    const { getGroupSlug } = useGroupSlugRoute();
 
     async function insertGroupSlugIntoRoute() {
-      const groupSlug = ref<string | null>(route.value.params.groupSlug);
-      if (groupSlug.value || !$auth.loggedIn) {
-        return;
-      }
-
-      groupSlug.value = await getGroupSlug();
-      if (!groupSlug.value) {
+      const groupSlug = ref<string | null | undefined>(route.value.params.groupSlug || $auth.user?.groupSlug);
+      if (!(groupSlug.value || $auth.loggedIn)) {
         return;
       }
 

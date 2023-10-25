@@ -48,9 +48,8 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onBeforeUnmount, onMounted, ref, useRoute } from "@nuxtjs/composition-api";
+import { computed, defineComponent, onBeforeUnmount, onMounted, ref, useContext, useRoute } from "@nuxtjs/composition-api";
 import RecipeDialogSearch from "~/components/Domain/Recipe/RecipeDialogSearch.vue";
-import { useGroupSlugRoute } from "~/composables/use-group-slug-route";
 
 export default defineComponent({
   components: { RecipeDialogSearch },
@@ -61,16 +60,9 @@ export default defineComponent({
     },
   },
   setup() {
+    const { $auth } = useContext();
     const route = useRoute();
-    const groupSlug = ref(route.value.params.groupSlug);
-    const { getGroupSlug } = useGroupSlugRoute();
-
-    async function fetchGroupSlugVal() {
-      groupSlug.value = await getGroupSlug() || "";
-    }
-    if (!groupSlug.value) {
-      fetchGroupSlugVal();
-    }
+    const groupSlug = ref(route.value.params.groupSlug || $auth.user?.groupSlug);
 
     const routerLink = computed(() => groupSlug.value ? `/${groupSlug.value}` : "/");
     const domSearchDialog = ref<InstanceType<typeof RecipeDialogSearch> | null>(null);

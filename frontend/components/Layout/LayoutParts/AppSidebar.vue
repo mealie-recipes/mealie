@@ -150,7 +150,6 @@
 import { computed, defineComponent, reactive, ref, toRefs, useContext, useRoute } from "@nuxtjs/composition-api";
 import { SidebarLinks } from "~/types/application-types";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
-import { useGroupSlugRoute } from "~/composables/use-group-slug-route";
 
 export default defineComponent({
   components: {
@@ -206,18 +205,9 @@ export default defineComponent({
     });
 
     const { $auth } = useContext();
-    const loggedIn = computed(() => $auth.loggedIn);
-
     const route = useRoute();
-    const groupSlug = ref(route.value.params.groupSlug);
-    const { getGroupSlug } = useGroupSlugRoute();
-
-    async function fetchGroupSlugVal() {
-      groupSlug.value = await getGroupSlug() || "";
-    }
-    if (!groupSlug.value) {
-      fetchGroupSlugVal();
-    }
+    const groupSlug = ref(route.value.params.groupSlug || $auth.user?.groupSlug);
+    const loggedIn = computed(() => $auth.loggedIn);
 
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     const userFavoritesLink = computed(() => groupSlug.value && $auth.user?.id ? `/${groupSlug.value}/user/${$auth.user.id}/favorites` : undefined);
