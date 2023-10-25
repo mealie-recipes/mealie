@@ -34,7 +34,7 @@
 
         <slot name="actions">
           <v-card-actions class="px-1">
-            <RecipeFavoriteBadge v-if="loggedIn" class="absolute" :slug="slug" show-always />
+            <RecipeFavoriteBadge v-if="isOwnGroup" class="absolute" :slug="slug" show-always />
 
             <RecipeRating class="pb-1" :value="rating" :name="name" :slug="slug" :small="true" />
             <v-spacer></v-spacer>
@@ -42,7 +42,7 @@
 
             <!-- If we're not logged-in, no items display, so we hide this menu -->
             <RecipeContextMenu
-              v-if="loggedIn"
+              v-if="isOwnGroup"
               color="grey darken-2"
               :slug="slug"
               :name="name"
@@ -68,7 +68,8 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext, useRoute } from "@nuxtjs/composition-api";
+import { computed, defineComponent, useRoute } from "@nuxtjs/composition-api";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
 import RecipeChips from "./RecipeChips.vue";
 import RecipeContextMenu from "./RecipeContextMenu.vue";
@@ -118,10 +119,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { $auth } = useContext();
-    const loggedIn = computed(() => {
-      return $auth.loggedIn;
-    });
+    const { isOwnGroup } = useLoggedInState();
 
     const route = useRoute();
     const recipeRoute = computed<string>(() => {
@@ -129,7 +127,7 @@ export default defineComponent({
     });
 
     return {
-      loggedIn,
+      isOwnGroup,
       recipeRoute,
     };
   },

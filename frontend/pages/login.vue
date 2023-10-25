@@ -102,6 +102,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, useContext, computed, reactive, useRouter } from "@nuxtjs/composition-api";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useDark, whenever } from "@vueuse/core";
 import { useAppInfo } from "~/composables/api";
 import { usePasswordField } from "~/composables/use-passwords";
@@ -115,10 +116,11 @@ export default defineComponent({
 
     const router = useRouter();
     const { $auth, i18n } = useContext();
-    const groupSlug = ref<string | undefined>($auth.user?.groupSlug);
+    const { loggedIn } = useLoggedInState();
+    const groupSlug = computed(() => $auth.user?.groupSlug);
 
     whenever(
-      () => $auth.loggedIn && groupSlug.value,
+      () => loggedIn.value && groupSlug.value,
       () => {
         router.push(`/${groupSlug.value || ""}`);
       },

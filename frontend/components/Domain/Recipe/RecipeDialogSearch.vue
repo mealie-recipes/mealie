@@ -55,6 +55,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, toRefs, reactive, ref, watch, useContext, useRoute } from "@nuxtjs/composition-api";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipeCardMobile from "./RecipeCardMobile.vue";
 import { RecipeSummary } from "~/lib/api/types/recipe";
 import { useUserApi } from "~/composables/api";
@@ -145,7 +146,8 @@ export default defineComponent({
     // ===========================================================================
     // Basic Search
     const groupSlug = computed(() => route.value.params.groupSlug);
-    const api = $auth.loggedIn ? useUserApi() : usePublicExploreApi(groupSlug.value).explore;
+    const { isOwnGroup } = useLoggedInState();
+    const api = isOwnGroup.value ? useUserApi() : usePublicExploreApi(groupSlug.value).explore;
     const search = useRecipeSearch(api);
 
     // Select Handler

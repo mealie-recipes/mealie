@@ -131,6 +131,7 @@ import {
   watch,
 } from "@nuxtjs/composition-api";
 import { useThrottleFn } from "@vueuse/core";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipeCard from "./RecipeCard.vue";
 import RecipeCardMobile from "./RecipeCardMobile.vue";
 import { useAsyncKey } from "~/composables/use-utils";
@@ -185,10 +186,8 @@ export default defineComponent({
       shuffle: "shuffle",
     };
 
-    const { $auth, $globals, $vuetify } = useContext();
-    const loggedIn = computed(() => {
-      return $auth.loggedIn;
-    });
+    const { $globals, $vuetify } = useContext();
+    const { isOwnGroup } = useLoggedInState();
     const useMobileCards = computed(() => {
       return $vuetify.breakpoint.smAndDown || preferences.value.useMobileCards;
     });
@@ -220,7 +219,7 @@ export default defineComponent({
     const ready = ref(false);
     const loading = ref(false);
 
-    const { fetchMore } = useLazyRecipes(loggedIn.value ? null : groupSlug.value);
+    const { fetchMore } = useLazyRecipes(isOwnGroup.value ? null : groupSlug.value);
 
     const queryFilter = computed(() => {
       const orderBy = props.query?.orderBy || preferences.value.orderBy;

@@ -26,6 +26,7 @@
 
 <script lang="ts">
 import { defineComponent, useContext } from "@nuxtjs/composition-api";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import { useToolStore } from "~/composables/store";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
@@ -47,9 +48,9 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const  { $auth } = useContext();
+    const { isOwnGroup } = useLoggedInState();
 
-    const toolStore = $auth.loggedIn ? useToolStore() : null;
+    const toolStore = isOwnGroup.value ? useToolStore() : null;
     const { user } = usePageUser();
     const { isEditMode } = usePageState(props.recipe.slug);
 

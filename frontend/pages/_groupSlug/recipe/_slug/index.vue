@@ -5,7 +5,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useAsync, useContext, useMeta, useRoute, useRouter } from "@nuxtjs/composition-api";
+import { defineComponent, ref, useAsync, useMeta, useRoute, useRouter } from "@nuxtjs/composition-api";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipePage from "~/components/Domain/Recipe/RecipePage/RecipePage.vue";
 import { usePublicExploreApi } from "~/composables/api/api-client";
 import { useRecipe } from "~/composables/recipes";
@@ -14,7 +15,7 @@ import { Recipe } from "~/lib/api/types/recipe";
 export default defineComponent({
   components: { RecipePage },
   setup() {
-    const { $auth } = useContext();
+    const { isOwnGroup } = useLoggedInState();
     const route = useRoute();
     const router = useRouter();
     const slug = route.value.params.slug;
@@ -22,7 +23,7 @@ export default defineComponent({
     const { title } = useMeta();
 
     let recipe = ref<Recipe | null>(null);
-    if ($auth.loggedIn) {
+    if (isOwnGroup.value) {
       const { recipe: data } = useRecipe(slug);
       recipe = data;
     } else {

@@ -9,7 +9,7 @@
       color="accent"
       :small="small"
       dark
-      :to=" loggedIn ? `${baseRecipeRoute}?${urlPrefix}=${category.id}` : undefined"
+      :to="isOwnGroup ? `${baseRecipeRoute}?${urlPrefix}=${category.id}` : undefined"
     >
       {{ truncateText(category.name) }}
     </v-chip>
@@ -17,7 +17,8 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext, useRoute } from "@nuxtjs/composition-api";
+import { computed, defineComponent, useRoute } from "@nuxtjs/composition-api";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/user";
 
 export type UrlPrefixParam = "tags" | "categories" | "tools";
@@ -54,10 +55,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { $auth } = useContext();
-    const loggedIn = computed(() => {
-      return $auth.loggedIn
-    })
+    const { isOwnGroup } = useLoggedInState();
 
     const route = useRoute();
     const baseRecipeRoute = computed<string>(() => {
@@ -74,7 +72,7 @@ export default defineComponent({
 
     return {
       baseRecipeRoute,
-      loggedIn,
+      isOwnGroup,
       truncateText,
     };
   },

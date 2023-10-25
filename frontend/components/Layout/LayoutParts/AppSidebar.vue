@@ -1,14 +1,14 @@
 <template>
   <v-navigation-drawer v-model="drawer" class="d-flex flex-column d-print-none" clipped app width="240px">
     <!-- User Profile -->
-    <template v-if="$auth.user">
+    <template v-if="loggedIn">
       <v-list-item two-line :to="userProfileLink" exact>
         <UserAvatar list :user-id="$auth.user.id" />
 
         <v-list-item-content>
           <v-list-item-title class="pr-2"> {{ $auth.user.fullName }}</v-list-item-title>
           <v-list-item-subtitle>
-            <v-btn class="px-2 pa-0" text :to="userFavoritesLink" small>
+            <v-btn class="px-2 pa-0" text v-if="isOwnGroup" :to="userFavoritesLink" small>
               <v-icon left small>
                 {{ $globals.icons.heart }}
               </v-icon>
@@ -26,7 +26,7 @@
     <template v-if="topLink">
       <v-list nav dense>
         <template v-for="nav in topLink">
-          <div v-if="!nav.restricted || loggedIn" :key="nav.title">
+          <div v-if="!nav.restricted || isOwnGroup" :key="nav.title">
             <!-- Multi Items -->
             <v-list-group
               v-if="nav.children"
@@ -79,10 +79,10 @@
           {{ secondaryHeader }}
         </v-subheader>
       </div>
-      <v-divider></v-divider>
+      <v-divider v-if="secondaryHeader"></v-divider>
       <v-list nav dense exact>
         <template v-for="nav in secondaryLinks">
-          <div v-if="!nav.restricted || loggedIn" :key="nav.title">
+          <div v-if="!nav.restricted || isOwnGroup" :key="nav.title">
             <!-- Multi Items -->
             <v-list-group
               v-if="nav.children"
@@ -123,7 +123,7 @@
       <v-list nav dense>
         <v-list-item-group v-model="bottomSelected" color="primary">
           <template v-for="nav in bottomLinks">
-            <div v-if="!nav.restricted || loggedIn" :key="nav.title">
+            <div v-if="!nav.restricted || isOwnGroup" :key="nav.title">
               <v-list-item
                 :key="nav.title"
                 exact
@@ -147,7 +147,8 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, ref, toRefs, useContext, useRoute } from "@nuxtjs/composition-api";
+import { computed, defineComponent, reactive, toRefs, useContext } from "@nuxtjs/composition-api";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { SidebarLinks } from "~/types/application-types";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 
@@ -205,13 +206,11 @@ export default defineComponent({
     });
 
     const { $auth } = useContext();
-    const route = useRoute();
-    const groupSlug = ref(route.value.params.groupSlug || $auth.user?.groupSlug);
-    const loggedIn = computed(() => $auth.loggedIn);
+    const { loggedIn, isOwnGroup } = useLoggedInState();
 
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-    const userFavoritesLink = computed(() => groupSlug.value && $auth.user?.id ? `/${groupSlug.value}/user/${$auth.user.id}/favorites` : undefined);
-    const userProfileLink = computed(() => groupSlug.value ? `/${groupSlug.value}/user/profile` : undefined);
+    const userFavoritesLink = computed(() => $auth.user ? `/${$auth.user.groupSlug}/user/${$auth.user.id}/favorites` : undefined);
+    const userProfileLink = computed(() => $auth.user ? `/${$auth.user.groupSlug}/user/profile` : undefined);
 
     const state = reactive({
       dropDowns: {},
@@ -227,6 +226,7 @@ export default defineComponent({
       userProfileLink,
       drawer,
       loggedIn,
+      isOwnGroup,
     };
   },
 });

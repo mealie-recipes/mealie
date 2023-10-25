@@ -47,7 +47,7 @@
       :recipe-scale="recipeScale"
       :locked="user.id !== recipe.userId && recipe.settings.locked"
       :name="recipe.name"
-      :logged-in="$auth.loggedIn"
+      :logged-in="isOwnGroup"
       :open="isEditMode"
       :recipe-id="recipe.id"
       :show-ocr-button="recipe.isOcrRecipe"
@@ -65,6 +65,7 @@
 
 <script lang="ts">
 import { defineComponent, useContext, computed, ref, watch, useRouter, useRoute } from "@nuxtjs/composition-api";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipeRating from "~/components/Domain/Recipe/RecipeRating.vue";
 import RecipeLastMade from "~/components/Domain/Recipe/RecipeLastMade.vue";
 import RecipeActionMenu from "~/components/Domain/Recipe/RecipeActionMenu.vue";
@@ -98,6 +99,7 @@ export default defineComponent({
     const { recipeImage } = useStaticRoutes();
     const { imageKey, pageMode, editMode, setMode, toggleEditMode, isEditMode } = usePageState(props.recipe.slug);
     const { user } = usePageUser();
+    const { isOwnGroup } = useLoggedInState();
 
     const route = useRoute();
     const groupSlug = computed(() => route.value.params.groupSlug);
@@ -130,6 +132,7 @@ export default defineComponent({
     );
 
     return {
+      isOwnGroup,
       setMode,
       toggleEditMode,
       recipeImage,

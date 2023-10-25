@@ -7,13 +7,13 @@
         absolute
         :top-link="topLinks"
         :secondary-header="cookbookLinks.length ? $tc('sidebar.cookbooks') : undefined"
-        :secondary-header-link="loggedIn && cookbookLinks.length ? `/${groupSlug}/group/cookbooks` : undefined"
+        :secondary-header-link="isOwnGroup && cookbookLinks.length ? `/${groupSlug}/group/cookbooks` : undefined"
         :secondary-links="cookbookLinks || []"
         :bottom-links="isAdmin ? bottomLinks : []"
       >
         <v-menu offset-y nudge-bottom="5" close-delay="50" nudge-right="15">
           <template #activator="{ on, attrs }">
-            <v-btn v-if="loggedIn" rounded large class="ml-2 mt-3" v-bind="attrs" v-on="on">
+            <v-btn v-if="isOwnGroup" rounded large class="ml-2 mt-3" v-bind="attrs" v-on="on">
               <v-icon left large color="primary">
                 {{ $globals.icons.createAlt }}
               </v-icon>
@@ -23,7 +23,7 @@
           <v-list dense class="my-0 py-0">
             <template v-for="(item, index) in createLinks">
               <v-divider v-if="item.insertDivider" :key="index" class="mx-2"></v-divider>
-              <v-list-item v-if="!item.restricted || loggedIn" :key="item.title" :to="item.to" exact>
+              <v-list-item v-if="!item.restricted || isOwnGroup" :key="item.title" :to="item.to" exact>
                 <v-list-item-avatar>
                   <v-icon>
                     {{ item.icon }}
@@ -79,6 +79,7 @@
 
   <script lang="ts">
   import { computed, defineComponent, onMounted, ref, useContext, useRoute } from "@nuxtjs/composition-api";
+  import { useLoggedInState } from "~/composables/use-logged-in-state";
   import AppHeader from "@/components/Layout/LayoutParts/AppHeader.vue";
   import AppSidebar from "@/components/Layout/LayoutParts/AppSidebar.vue";
   import { SidebarLinks } from "~/types/application-types";
@@ -91,13 +92,12 @@
     components: { AppHeader, AppSidebar, LanguageDialog, TheSnackbar },
     setup() {
       const { $globals, $auth, $vuetify, i18n } = useContext();
+      const { isOwnGroup } = useLoggedInState();
 
       const isAdmin = computed(() => $auth.user?.admin);
-      const loggedIn = computed(() => $auth.loggedIn);
-
       const route = useRoute();
       const groupSlug = computed(() => route.value.params.groupSlug);
-      const { cookbooks } = loggedIn.value ? useCookbooks() : usePublicCookbooks(groupSlug.value || "");
+      const { cookbooks } = isOwnGroup.value ? useCookbooks() : usePublicCookbooks(groupSlug.value || "");
 
       const toggleDark = useToggleDarkMode();
 
@@ -217,7 +217,7 @@
         bottomLinks,
         topLinks,
         isAdmin,
-        loggedIn,
+        isOwnGroup,
         languageDialog,
         toggleDark,
         sidebar,

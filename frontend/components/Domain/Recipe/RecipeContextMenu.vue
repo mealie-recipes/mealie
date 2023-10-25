@@ -171,6 +171,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, reactive, toRefs, useContext, useRoute, useRouter, ref } from "@nuxtjs/composition-api";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipeIngredientListItem from "./RecipeIngredientListItem.vue";
 import RecipeDialogPrintPreferences from "./RecipeDialogPrintPreferences.vue";
 import RecipeDialogShare from "./RecipeDialogShare.vue";
@@ -288,10 +289,8 @@ export default defineComponent({
       pickerMenu: false,
     });
 
-    const { $auth, i18n, $globals } = useContext();
-    const loggedIn = computed(() => {
-      return $auth.loggedIn;
-    });
+    const { i18n, $globals } = useContext();
+    const { isOwnGroup } = useLoggedInState();
 
     const route = useRoute();
     const groupSlug = computed(() => route.value.params.groupSlug);
@@ -369,7 +368,7 @@ export default defineComponent({
     for (const [key, value] of Object.entries(props.useItems)) {
       if (value) {
         const item = defaultItems[key];
-        if (item && (item.isPublic || loggedIn.value)) {
+        if (item && (item.isPublic || isOwnGroup.value)) {
           state.menuItems.push(item);
         }
       }
