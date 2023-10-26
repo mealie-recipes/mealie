@@ -121,7 +121,7 @@
             <template #icon>
               {{ $globals.icons.database }}
             </template>
-            Import
+            {{ $t('general.import') }}}
           </BaseButton>
           <BaseButton
             color="info"
