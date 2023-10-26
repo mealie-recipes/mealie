@@ -15,7 +15,7 @@
 
     <BaseDialog v-if="updateTarget" v-model="dialogs.update" :title="$t('general.update')" @confirm="updateOne()">
       <v-card-text>
-        <v-text-field v-model="updateTarget.name" label="Name"> </v-text-field>
+        <v-text-field v-model="updateTarget.name" label="$t('general.name')"> </v-text-field>
       </v-card-text>
     </BaseDialog>
 

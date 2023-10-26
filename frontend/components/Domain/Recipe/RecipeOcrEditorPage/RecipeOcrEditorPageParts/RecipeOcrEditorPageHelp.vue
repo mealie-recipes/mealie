@@ -4,11 +4,11 @@
       <v-icon large left>
         {{ $globals.icons.help }}
       </v-icon>
-      <v-toolbar-title class="headline"> Help </v-toolbar-title>
+      <v-toolbar-title class="headline"> {{ $t("ocr-editor.help.help") }} </v-toolbar-title>
       <v-spacer></v-spacer>
     </v-app-bar>
     <v-card-text>
-      <h1>Mouse modes</h1>
+      <h1> {{ $t("ocr-editor.help.mouse-modes") }}</h1>
       <v-divider class="mb-2 mt-1" />
       <h2 class="my-2">
         <v-icon> {{ $globals.icons.selectMode }} </v-icon>{{ $t("ocr-editor.help.selection-mode") }}

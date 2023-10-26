@@ -27,7 +27,7 @@
     </div>
 
     <section>
-      <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.wrench" :title="$t('admin.maintenance.summary-title')">
+      <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.wrench" :title="$tc('admin.maintenance.summary-title')">
       </BaseCardSectionTitle>
       <div class="mb-6 ml-2 d-flex" style="gap: 0.3rem">
         <BaseButton color="info" @click="getSummary">
@@ -55,7 +55,7 @@
       <BaseCardSectionTitle
         class="pb-0 mt-8"
         :icon="$globals.icons.wrench"
-        :title="$t('admin.mainentance.actions-title')"
+        :title="$tc('admin.mainentance.actions-title')"
       >
         <i18n path="admin.maintenance.actions-description">
           <template #destructive-in-bold>
@@ -103,13 +103,14 @@ export default defineComponent({
     });
 
     const adminApi = useAdminApi();
+    const { i18n } = useContext();
 
     // ==========================================================================
     // General Info
 
     const infoResults = ref<MaintenanceSummary>({
-      dataDirSize: "unknown",
-      logFileSize: "unknown",
+      dataDirSize: i18n.tc("about.unknown-version"),
+      logFileSize: i18n.tc("about.unknown-version"),
       cleanableDirs: 0,
       cleanableImages: 0,
     });
@@ -119,8 +120,8 @@ export default defineComponent({
       const { data } = await adminApi.maintenance.getInfo();
 
       infoResults.value = data ?? {
-        dataDirSize: "unknown",
-        logFileSize: "unknown",
+        dataDirSize: i18n.tc("about.unknown-version"),
+        logFileSize: i18n.tc("about.unknown-version"),
         cleanableDirs: 0,
         cleanableImages: 0,
       };
@@ -128,7 +129,6 @@ export default defineComponent({
       state.fetchingInfo = false;
     }
 
-    const { i18n } = useContext();
 
     const info = computed(() => {
       return [
@@ -163,7 +163,7 @@ export default defineComponent({
     };
 
     function storageDetailsText(key: string) {
-      return storageTitles[key] ?? "unknown";
+      return storageTitles[key] ?? i18n.tc("about.unknown-version");
     }
 
     const storageDetails = ref<MaintenanceStorageDetails | null>(null);
