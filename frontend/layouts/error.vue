@@ -29,7 +29,6 @@
 
 <script lang="ts">
 import { defineComponent, ref, useContext, useMeta, useRoute, useRouter } from "@nuxtjs/composition-api";
-import { useLoggedInState } from "~/composables/use-logged-in-state";
 
 export default defineComponent({
   layout: "basic",
@@ -41,15 +40,14 @@ export default defineComponent({
   },
   setup(props) {
     const { $auth, $globals, i18n } = useContext();
-    const { isOwnGroup } = useLoggedInState();
     const ready = ref(false);
 
     const route = useRoute();
     const router = useRouter();
 
     async function insertGroupSlugIntoRoute() {
-      const groupSlug = ref(route.value.params.groupSlug || $auth.user?.groupSlug);
-      if (!(groupSlug.value || isOwnGroup.value)) {
+      const groupSlug = ref($auth.user?.groupSlug);
+      if (!groupSlug.value) {
         return;
       }
 
