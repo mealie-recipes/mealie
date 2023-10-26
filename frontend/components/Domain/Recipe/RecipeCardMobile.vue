@@ -80,10 +80,10 @@
 
 <script lang="ts">
 import { computed, defineComponent, useRoute } from "@nuxtjs/composition-api";
-import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
 import RecipeContextMenu from "./RecipeContextMenu.vue";
 import RecipeCardImage from "./RecipeCardImage.vue";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 
 export default defineComponent({
   components: {

@@ -8,7 +8,7 @@
         <v-list-item-content>
           <v-list-item-title class="pr-2"> {{ $auth.user.fullName }}</v-list-item-title>
           <v-list-item-subtitle>
-            <v-btn class="px-2 pa-0" text v-if="isOwnGroup" :to="userFavoritesLink" small>
+            <v-btn class="px-2 pa-0" v-if="isOwnGroup" text :to="userFavoritesLink" small>
               <v-icon left small>
                 {{ $globals.icons.heart }}
               </v-icon>

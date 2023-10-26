@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext } from "@nuxtjs/composition-api";
+import { defineComponent } from "@nuxtjs/composition-api";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import { useToolStore } from "~/composables/store";

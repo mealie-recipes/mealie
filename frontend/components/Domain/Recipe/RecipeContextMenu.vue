@@ -171,10 +171,10 @@
 
 <script lang="ts">
 import { computed, defineComponent, reactive, toRefs, useContext, useRoute, useRouter, ref } from "@nuxtjs/composition-api";
-import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipeIngredientListItem from "./RecipeIngredientListItem.vue";
 import RecipeDialogPrintPreferences from "./RecipeDialogPrintPreferences.vue";
 import RecipeDialogShare from "./RecipeDialogShare.vue";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { usePlanTypeOptions } from "~/composables/use-group-mealplan";

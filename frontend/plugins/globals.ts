@@ -16,7 +16,7 @@ declare module "vue/types/vue" {
 }
 
 declare module "@nuxt/types" {
-  // @ts-ignore
+  // @ts-ignore https://github.com/nuxt-community/auth-module/issues/1097#issuecomment-840249428
   interface Auth extends NuxtAuth {
     user: UserOut | null;
   }

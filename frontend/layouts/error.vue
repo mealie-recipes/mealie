@@ -48,7 +48,7 @@ export default defineComponent({
     const router = useRouter();
 
     async function insertGroupSlugIntoRoute() {
-      const groupSlug = ref<string | null | undefined>(route.value.params.groupSlug || $auth.user?.groupSlug);
+      const groupSlug = ref(route.value.params.groupSlug || $auth.user?.groupSlug);
       if (!(groupSlug.value || isOwnGroup.value)) {
         return;
       }

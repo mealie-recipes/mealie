@@ -54,9 +54,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRefs, reactive, ref, watch, useContext, useRoute } from "@nuxtjs/composition-api";
-import { useLoggedInState } from "~/composables/use-logged-in-state";
+import { computed, defineComponent, toRefs, reactive, ref, watch, useRoute } from "@nuxtjs/composition-api";
 import RecipeCardMobile from "./RecipeCardMobile.vue";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { RecipeSummary } from "~/lib/api/types/recipe";
 import { useUserApi } from "~/composables/api";
 import { useRecipeSearch } from "~/composables/recipes/use-recipe-search";
@@ -72,8 +72,6 @@ export default defineComponent({
       loading: false,
       selectedIndex: -1,
     });
-
-    const { $auth } = useContext();
 
     // ===========================================================================
     // Dialog State Management

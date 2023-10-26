@@ -102,8 +102,8 @@
 
 <script lang="ts">
 import { defineComponent, ref, useContext, computed, reactive, useRouter } from "@nuxtjs/composition-api";
-import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useDark, whenever } from "@vueuse/core";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useAppInfo } from "~/composables/api";
 import { usePasswordField } from "~/composables/use-passwords";
 import { alert } from "~/composables/use-toast";

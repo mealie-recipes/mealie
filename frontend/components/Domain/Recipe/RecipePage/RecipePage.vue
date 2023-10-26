@@ -92,7 +92,6 @@ import {
 useRoute,
 } from "@nuxtjs/composition-api";
 import { invoke, until, useWakeLock } from "@vueuse/core";
-import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipePageEditorToolbar from "./RecipePageParts/RecipePageEditorToolbar.vue";
 import RecipePageFooter from "./RecipePageParts/RecipePageFooter.vue";
 import RecipePageHeader from "./RecipePageParts/RecipePageHeader.vue";
@@ -103,6 +102,7 @@ import RecipePageOrganizers from "./RecipePageParts/RecipePageOrganizers.vue";
 import RecipePageScale from "./RecipePageParts/RecipePageScale.vue";
 import RecipePageTitleContent from "./RecipePageParts/RecipePageTitleContent.vue";
 import RecipePageComments from "./RecipePageParts/RecipePageComments.vue";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipePrintContainer from "~/components/Domain/Recipe/RecipePrintContainer.vue";
 import { EditorMode, PageMode, usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";

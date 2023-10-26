@@ -131,9 +131,9 @@ import {
   watch,
 } from "@nuxtjs/composition-api";
 import { useThrottleFn } from "@vueuse/core";
-import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipeCard from "./RecipeCard.vue";
 import RecipeCardMobile from "./RecipeCardMobile.vue";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useAsyncKey } from "~/composables/use-utils";
 import { useLazyRecipes } from "~/composables/recipes";
 import { Recipe } from "~/lib/api/types/recipe";
