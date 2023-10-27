@@ -13,6 +13,8 @@ You can use a [bookmarklet generator site](https://caiorss.github.io/bookmarklet
 ```js
 var url = document.URL;
 var mealie = "http://localhost:8080";
-var dest = mealie + "/recipe/create/url?recipe_import_url=" + url;
+var use_keywords= "&use_keywords=1" // Optional - use keywords from recipe - update to "" if you don't want that
+var edity = "&edit=1" // Optional - keep in edit mode - update to "" if you don't want that
+var dest = mealie + "/recipe/create/url?recipe_import_url=" + url + use_keywords + edity;
 window.open(dest, "_blank");
 ```

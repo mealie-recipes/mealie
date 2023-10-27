@@ -223,7 +223,7 @@ export default defineComponent({
         event: "tag-selected",
       },
       {
-        icon: $globals.icons.tags,
+        icon: $globals.icons.categories,
         text: i18n.tc("data-pages.recipes.categorize"),
         event: "categorize-selected",
       },
@@ -379,7 +379,7 @@ export default defineComponent({
 
       const icons: Record<MODES, string> = {
         [MODES.tag]: $globals.icons.tags,
-        [MODES.category]: $globals.icons.tags,
+        [MODES.category]: $globals.icons.categories,
         [MODES.export]: $globals.icons.database,
         [MODES.delete]: $globals.icons.delete,
         [MODES.updateSettings]: $globals.icons.cog,
