@@ -48,7 +48,7 @@ export default defineComponent({
     const { $auth } = useContext();
     const userApi = useUserApi();
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug);
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
 
     const state = reactive({
       createName: "",

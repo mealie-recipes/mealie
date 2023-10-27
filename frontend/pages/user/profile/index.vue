@@ -229,7 +229,7 @@ export default defineComponent({
   setup() {
     const { $auth, i18n } = useContext();
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug);
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
 
     // @ts-ignore $auth.user is typed as unknown, but it's a user
     const user = computed<UserOut | null>(() => $auth.user);

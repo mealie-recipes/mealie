@@ -71,7 +71,7 @@ export default defineComponent({
 
     const route = useRoute();
     const router = useRouter();
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug);
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
 
     const subpage = computed({
       set(subpage: string) {

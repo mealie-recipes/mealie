@@ -60,7 +60,7 @@ export default defineComponent({
 
     const route = useRoute();
     const baseRecipeRoute = computed<string>(() => {
-      return `/${route.value.params.groupSlug || $auth.user?.groupSlug}`
+      return `/${route.value.params.groupSlug || $auth.user?.groupSlug || ""}`
     });
 
     function truncateText(text: string, length = 20, clamp = "...") {

@@ -248,7 +248,7 @@ export default defineComponent({
     const reorderLabelsDialog = ref(false);
 
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug);
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
     const id = route.value.params.id;
 
     // ===============================================================

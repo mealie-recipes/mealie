@@ -124,7 +124,7 @@ export default defineComponent({
 
     const route = useRoute();
     const recipeRoute = computed<string>(() => {
-      return `/${route.value.params.groupSlug || $auth.user?.groupSlug}/recipe/${props.slug}`;
+      return `/${route.value.params.groupSlug || $auth.user?.groupSlug || ""}/recipe/${props.slug}`;
     });
 
     return {

@@ -89,7 +89,7 @@ export default defineComponent({
     const { $auth } = useContext();
     const api = useUserApi();
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug);
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
 
     const router = useRouter();
     const tags = useTagStore();

@@ -64,7 +64,7 @@ export default defineComponent({
     const { $auth } = useContext();
     const { loggedIn } = useLoggedInState();
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug);
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
 
     const routerLink = computed(() => groupSlug.value ? `/${groupSlug.value}` : "/");
     const domSearchDialog = ref<InstanceType<typeof RecipeDialogSearch> | null>(null);

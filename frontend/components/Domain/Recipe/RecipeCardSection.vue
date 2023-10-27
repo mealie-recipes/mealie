@@ -201,7 +201,7 @@ export default defineComponent({
     });
 
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug);
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
 
     const router = useRouter();
     function navigateRandom() {

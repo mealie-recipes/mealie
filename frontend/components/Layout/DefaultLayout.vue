@@ -96,7 +96,7 @@
 
       const isAdmin = computed(() => $auth.user?.admin);
       const route = useRoute();
-      const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug);
+      const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
       const { cookbooks } = isOwnGroup.value ? useCookbooks() : usePublicCookbooks(groupSlug.value || "");
 
       const toggleDark = useToggleDarkMode();

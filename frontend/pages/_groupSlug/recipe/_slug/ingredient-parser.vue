@@ -128,7 +128,7 @@ export default defineComponent({
     const panels = ref<number[]>([]);
 
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug);
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
 
     const router = useRouter();
     const slug = route.value.params.slug;

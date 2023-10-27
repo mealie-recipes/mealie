@@ -38,7 +38,7 @@
       const { isOwnGroup } = useLoggedInState();
 
       const route = useRoute();
-      const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug);
+      const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
       console.log(groupSlug.value);
 
       const { recipes, appendRecipes, assignSorted, removeRecipe, replaceRecipes } = useLazyRecipes(isOwnGroup.value ? null : groupSlug.value);
