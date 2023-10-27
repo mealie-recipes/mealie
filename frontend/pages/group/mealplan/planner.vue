@@ -79,7 +79,6 @@ export default defineComponent({
       });
 
       if (sorted.length === 2) {
-        console.log(parseYYYYMMDD(sorted[0]));
         return {
           start: parseYYYYMMDD(sorted[0]),
           end: parseYYYYMMDD(sorted[1]),
@@ -105,11 +104,15 @@ export default defineComponent({
       const numDays =
         Math.floor((weekRange.value.end.getTime() - weekRange.value.start.getTime()) / (1000 * 60 * 60 * 24)) + 1;
 
-      // Calculate aboslute value
+      // Calculate absolute value
       if (numDays < 0) return [];
 
       return Array.from(Array(numDays).keys()).map(
-        (i) => new Date(weekRange.value.start.getTime() + i * 24 * 60 * 60 * 1000)
+        (i) => {
+          const date = new Date(weekRange.value.start.getTime());
+          date.setDate(date.getDate() + i);
+          return date;
+        }
       );
     });
 
