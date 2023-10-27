@@ -1,6 +1,7 @@
 .git
 .github
 .dockerignore
+.gitattributes
 .gitignore
 .idea
 .vscode
@@ -12,6 +13,7 @@ __pycache__/
 htmlcov/
 .coverage
 .coverage.*
+.pylintrc
 .pytest_cache/
 .venv
 venv
@@ -28,3 +30,5 @@ venv
 */mealie/.temp
 
 model.crfmodel
+
+crowdin.yml
