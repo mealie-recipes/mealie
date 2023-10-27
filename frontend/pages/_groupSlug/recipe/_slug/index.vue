@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useAsync, useMeta, useRoute, useRouter } from "@nuxtjs/composition-api";
+import { computed, defineComponent, ref, useAsync, useContext, useMeta, useRoute, useRouter } from "@nuxtjs/composition-api";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipePage from "~/components/Domain/Recipe/RecipePage/RecipePage.vue";
 import { usePublicExploreApi } from "~/composables/api/api-client";
@@ -15,6 +15,7 @@ import { Recipe } from "~/lib/api/types/recipe";
 export default defineComponent({
   components: { RecipePage },
   setup() {
+    const  { $auth } = useContext();
     const { isOwnGroup } = useLoggedInState();
     const route = useRoute();
     const router = useRouter();
@@ -27,13 +28,14 @@ export default defineComponent({
       const { recipe: data } = useRecipe(slug);
       recipe = data;
     } else {
-      const api = usePublicExploreApi(route.value.params.groupSlug);
+      const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "")
+      const api = usePublicExploreApi(groupSlug.value);
       recipe = useAsync(async () => {
         const { data, error } = await api.explore.recipes.getOne(slug);
 
         if (error) {
           console.error("error loading recipe -> ", error);
-          router.push(`/${route.value.params.groupSlug}`);
+          router.push(`/${groupSlug.value}`);
         }
 
         return data;

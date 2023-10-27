@@ -25,7 +25,7 @@
   </template>
 
   <script lang="ts">
-  import { computed, defineComponent, useRoute, ref, useMeta } from "@nuxtjs/composition-api";
+  import { computed, defineComponent, useRoute, ref, useContext, useMeta } from "@nuxtjs/composition-api";
   import { useLazyRecipes } from "~/composables/recipes";
   import RecipeCardSection from "@/components/Domain/Recipe/RecipeCardSection.vue";
   import { useCookbook } from "~/composables/use-group-cookbooks";
@@ -34,14 +34,16 @@
   export default defineComponent({
     components: { RecipeCardSection },
     setup() {
+      const { $auth } = useContext();
       const { isOwnGroup } = useLoggedInState();
 
       const route = useRoute();
-      const groupSlug = computed(() => route.value.params.groupSlug);
+      const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug);
+      console.log(groupSlug.value);
 
       const { recipes, appendRecipes, assignSorted, removeRecipe, replaceRecipes } = useLazyRecipes(isOwnGroup.value ? null : groupSlug.value);
       const slug = route.value.params.slug;
-      const { getOne } = useCookbook(isOwnGroup ? null : groupSlug.value);
+      const { getOne } = useCookbook(isOwnGroup.value ? null : groupSlug.value);
 
       const tab = ref(null);
       const book = getOne(slug);

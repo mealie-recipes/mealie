@@ -76,12 +76,12 @@ export default defineComponent({
   setup(props) {
     const { user } = usePageUser();
     const { imageKey } = usePageState(props.recipe.slug);
-    const { i18n } = useContext();
+    const { $auth, i18n } = useContext();
 
     const drag = ref(false);
 
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug);
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug);
 
     const hasFoodOrUnit = computed(() => {
       if (!props.recipe) {

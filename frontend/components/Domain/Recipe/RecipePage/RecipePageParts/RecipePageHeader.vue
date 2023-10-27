@@ -96,20 +96,19 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const { $auth, $vuetify } = useContext();
     const { recipeImage } = useStaticRoutes();
     const { imageKey, pageMode, editMode, setMode, toggleEditMode, isEditMode } = usePageState(props.recipe.slug);
     const { user } = usePageUser();
     const { isOwnGroup } = useLoggedInState();
 
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug);
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug);
     const router = useRouter();
 
     function printRecipe() {
       window.print();
     }
-
-    const { $vuetify } = useContext();
 
     const hideImage = ref(false);
     const imageHeight = computed(() => {

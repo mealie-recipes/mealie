@@ -209,8 +209,8 @@ export default defineComponent({
     const { loggedIn, isOwnGroup } = useLoggedInState();
 
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-    const userFavoritesLink = computed(() => $auth.user ? `/${$auth.user.groupSlug}/user/${$auth.user.id}/favorites` : undefined);
-    const userProfileLink = computed(() => $auth.user ? `/${$auth.user.groupSlug}/user/profile` : undefined);
+    const userFavoritesLink = computed(() => $auth.user ? `/user/${$auth.user.id}/favorites` : undefined);
+    const userProfileLink = computed(() => $auth.user ? `/user/profile` : undefined);
 
     const state = reactive({
       dropDowns: {},

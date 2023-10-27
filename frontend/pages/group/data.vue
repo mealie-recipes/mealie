@@ -47,28 +47,27 @@ export default defineComponent({
     };
 
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug);
 
     const DATA_TYPE_OPTIONS = computed(() => [
       {
         text: i18n.t("general.recipes"),
         value: "new",
-        to: `/${groupSlug.value}/group/data/recipes`,
+        to: `/group/data/recipes`,
       },
       {
         text: i18n.t("general.foods"),
         value: "url",
-        to: `/${groupSlug.value}/group/data/foods`,
+        to: `/group/data/foods`,
       },
       {
         text: i18n.t("general.units"),
         value: "new",
-        to: `/${groupSlug.value}/group/data/units`,
+        to: `/group/data/units`,
       },
       {
         text: i18n.t("data-pages.labels.labels"),
         value: "new",
-        to: `/${groupSlug.value}/group/data/labels`,
+        to: `/group/data/labels`,
       },
     ]);
 

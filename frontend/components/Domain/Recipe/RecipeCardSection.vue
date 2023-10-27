@@ -186,7 +186,7 @@ export default defineComponent({
       shuffle: "shuffle",
     };
 
-    const { $globals, $vuetify } = useContext();
+    const { $auth, $globals, $vuetify } = useContext();
     const { isOwnGroup } = useLoggedInState();
     const useMobileCards = computed(() => {
       return $vuetify.breakpoint.smAndDown || preferences.value.useMobileCards;
@@ -201,7 +201,7 @@ export default defineComponent({
     });
 
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug);
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug);
 
     const router = useRouter();
     function navigateRandom() {

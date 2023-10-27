@@ -72,7 +72,7 @@
 
 <script lang="ts">
 import Fuse from "fuse.js";
-import { defineComponent, computed, ref, reactive, useRoute } from "@nuxtjs/composition-api";
+import { defineComponent, computed, ref, reactive, useContext, useRoute } from "@nuxtjs/composition-api";
 import { useContextPresets } from "~/composables/use-context-presents";
 import RecipeOrganizerDialog from "~/components/Domain/Recipe/RecipeOrganizerDialog.vue";
 import { RecipeOrganizer } from "~/lib/api/types/non-generated";
@@ -119,8 +119,9 @@ export default defineComponent({
       },
     });
 
+    const { $auth } = useContext();
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug);
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug);
 
     // =================================================================
     // Context Menu

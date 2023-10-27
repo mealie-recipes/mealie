@@ -142,8 +142,9 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const { $auth, $vuetify } = useContext();
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug);
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug);
     const { isOwnGroup } = useLoggedInState();
 
     const router = useRouter();
@@ -246,7 +247,6 @@ export default defineComponent({
     /** =============================================================
      * View Preferences
      */
-    const { $vuetify } = useContext();
 
     const landscape = computed(() => {
       const preferLandscape = props.recipe.settings.landscapeView;

@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useAsync, useMeta, useRoute, useRouter } from "@nuxtjs/composition-api";
+import { computed, defineComponent, useAsync, useContext, useMeta, useRoute, useRouter } from "@nuxtjs/composition-api";
 import RecipePage from "~/components/Domain/Recipe/RecipePage/RecipePage.vue";
 import { usePublicApi } from "~/composables/api/api-client";
 
@@ -15,8 +15,9 @@ export default defineComponent({
   components: { RecipePage },
   layout: "basic",
   setup() {
+    const { $auth } = useContext();
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug);
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug);
 
     const router = useRouter();
     const recipeId = route.value.params.id;

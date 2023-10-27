@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useRoute } from "@nuxtjs/composition-api";
+import { computed, defineComponent, useContext, useRoute } from "@nuxtjs/composition-api";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/user";
 
@@ -55,11 +55,12 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const { $auth } = useContext();
     const { isOwnGroup } = useLoggedInState();
 
     const route = useRoute();
     const baseRecipeRoute = computed<string>(() => {
-      return `/${route.value.params.groupSlug}`
+      return `/${route.value.params.groupSlug || $auth.user?.groupSlug}`
     });
 
     function truncateText(text: string, length = 20, clamp = "...") {

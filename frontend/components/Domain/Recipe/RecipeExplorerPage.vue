@@ -152,7 +152,7 @@ export default defineComponent({
   components: { SearchFilter, RecipeCardSection },
   setup() {
     const router = useRouter();
-    const { $globals, i18n } = useContext();
+    const { $auth, $globals, i18n } = useContext();
 
     const { isOwnGroup } = useLoggedInState();
     const state = ref({
@@ -169,7 +169,7 @@ export default defineComponent({
     });
 
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug);
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
 
     const { recipes, appendRecipes, assignSorted, removeRecipe, replaceRecipes } = useLazyRecipes(isOwnGroup.value ? null : groupSlug.value);
     const categories = isOwnGroup.value ? useCategoryStore() : usePublicCategoryStore(groupSlug.value);

@@ -289,11 +289,11 @@ export default defineComponent({
       pickerMenu: false,
     });
 
-    const { i18n, $globals } = useContext();
+    const { i18n, $auth, $globals } = useContext();
     const { isOwnGroup } = useLoggedInState();
 
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug);
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug);
 
     // ===========================================================================
     // Context Menu Setup
@@ -492,7 +492,7 @@ export default defineComponent({
     async function duplicateRecipe() {
       const { data } = await api.recipes.duplicateOne(props.slug, state.recipeName);
       if (data && data.slug) {
-        router.push(`${groupSlug.value}/recipe/${data.slug}`);
+        router.push(`/${groupSlug.value}/recipe/${data.slug}`);
       }
     }
 
@@ -501,7 +501,7 @@ export default defineComponent({
       delete: () => {
         state.recipeDeleteDialog = true;
       },
-      edit: () => router.push(`/recipe/${props.slug}` + "?edit=true"),
+      edit: () => router.push(`/${groupSlug.value}/recipe/${props.slug}` + "?edit=true"),
       download: handleDownloadEvent,
       duplicate: () => {
         state.recipeDuplicateDialog = true;

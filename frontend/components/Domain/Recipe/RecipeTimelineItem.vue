@@ -121,12 +121,12 @@ export default defineComponent({
   },
 
   setup(props) {
-    const { $globals, $vuetify } = useContext();
+    const { $auth, $globals, $vuetify } = useContext();
     const { recipeTimelineEventImage } = useStaticRoutes();
     const timelineEvents = ref([] as RecipeTimelineEventOut[]);
 
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug);
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug);
 
     const useMobileFormat = computed(() => {
       return $vuetify.breakpoint.smAndDown;

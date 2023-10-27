@@ -68,7 +68,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useRoute } from "@nuxtjs/composition-api";
+import { computed, defineComponent, useContext, useRoute } from "@nuxtjs/composition-api";
 import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
 import RecipeChips from "./RecipeChips.vue";
 import RecipeContextMenu from "./RecipeContextMenu.vue";
@@ -119,11 +119,12 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const { $auth } = useContext();
     const { isOwnGroup } = useLoggedInState();
 
     const route = useRoute();
     const recipeRoute = computed<string>(() => {
-      return `/${route.value.params.groupSlug}/recipe/${props.slug}`;
+      return `/${route.value.params.groupSlug || $auth.user?.groupSlug}/recipe/${props.slug}`;
     });
 
     return {

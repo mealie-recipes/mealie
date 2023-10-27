@@ -105,7 +105,7 @@
       </section>
     </section>
     <v-container class="mt-4 d-flex justify-center text-center">
-      <nuxt-link :to="`/${groupSlug}/group/migrations`"> {{ $t('recipe.looking-for-migrations') }} </nuxt-link>
+      <nuxt-link :to="`/group/migrations`"> {{ $t('recipe.looking-for-migrations') }} </nuxt-link>
     </v-container>
   </v-container>
 </template>
@@ -120,7 +120,7 @@ export default defineComponent({
   setup() {
     const { i18n, $auth } = useContext();
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug);
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug);
 
     const adminApi = useAdminApi();
     const selected = ref("");

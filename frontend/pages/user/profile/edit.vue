@@ -108,9 +108,9 @@
         :label="$t('profile.show-advanced-description')"
         @change="updateUser"
       ></v-checkbox>
-      <nuxt-link class="mt-5 d-flex flex-column justify-center text-center" :to="`/${groupSlug}/group`"> {{ $t('profile.looking-for-privacy-settings') }} </nuxt-link>
+      <nuxt-link class="mt-5 d-flex flex-column justify-center text-center" :to="`/group`"> {{ $t('profile.looking-for-privacy-settings') }} </nuxt-link>
       <div class="d-flex flex-wrap justify-center mt-5">
-        <v-btn outlined class="rounded-xl my-1 mx-1" :to="`/${groupSlug}/user/profile`" nuxt exact>
+        <v-btn outlined class="rounded-xl my-1 mx-1" :to="`/user/profile`" nuxt exact>
           <v-icon left>
             {{ $globals.icons.backArrow }}
           </v-icon>
@@ -122,7 +122,7 @@
 </template>
 
 <script lang="ts">
-import { ref, reactive, defineComponent, computed, useContext, watch, toRefs, useRoute } from "@nuxtjs/composition-api";
+import { ref, reactive, defineComponent, computed, useContext, watch, toRefs } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 import { VForm } from "~/types/vuetify";
@@ -138,8 +138,6 @@ export default defineComponent({
   setup() {
     const { $auth } = useContext();
     const user = computed(() => $auth.user as unknown as UserOut);
-    const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug);
 
     watch(user, () => {
       userCopy.value = { ...user.value };
@@ -188,7 +186,6 @@ export default defineComponent({
 
     return {
       ...toRefs(state),
-      groupSlug,
       updateUser,
       updatePassword,
       userCopy,

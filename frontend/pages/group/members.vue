@@ -14,7 +14,7 @@
           </template>
         </i18n>
         <v-container class="mt-1 px-0">
-        <nuxt-link class="text-center" :to="`/${groupSlug}/user/profile/edit`"> {{ $t('group.looking-to-update-your-profile') }} </nuxt-link>
+        <nuxt-link class="text-center" :to="`/user/profile/edit`"> {{ $t('group.looking-to-update-your-profile') }} </nuxt-link>
       </v-container>
       </BasePageTitle>
     <v-data-table
@@ -69,7 +69,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, onMounted, useContext, useRoute } from "@nuxtjs/composition-api";
+import { defineComponent, ref, onMounted, useContext, useRoute } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 import { UserOut } from "~/lib/api/types/user";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
@@ -81,7 +81,6 @@ export default defineComponent({
   setup() {
     const api = useUserApi();
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug);
 
     const { i18n } = useContext();
 
@@ -119,7 +118,7 @@ export default defineComponent({
       await refreshMembers();
     });
 
-    return { groupSlug, members, headers, setPermissions };
+    return { members, headers, setPermissions };
   },
   head() {
     return {

@@ -94,7 +94,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, useRoute, useRouter } from "@nuxtjs/composition-api";
+import { computed, defineComponent, ref, useContext, useRoute, useRouter } from "@nuxtjs/composition-api";
 import { invoke, until } from "@vueuse/core";
 import {
   CreateIngredientFood,
@@ -124,10 +124,11 @@ export default defineComponent({
     RecipeIngredientEditor,
   },
   setup() {
+    const { $auth } = useContext();
     const panels = ref<number[]>([]);
 
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug);
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug);
 
     const router = useRouter();
     const slug = route.value.params.slug;

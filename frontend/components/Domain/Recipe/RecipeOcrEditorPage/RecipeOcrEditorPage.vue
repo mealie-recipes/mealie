@@ -140,7 +140,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, reactive, toRefs, useRouter, computed, useRoute } from "@nuxtjs/composition-api";
+import { defineComponent, ref, onMounted, reactive, toRefs, useContext, useRouter, computed, useRoute } from "@nuxtjs/composition-api";
 import { until } from "@vueuse/core";
 import { invoke } from "@vueuse/shared";
 import draggable from "vuedraggable";
@@ -179,8 +179,9 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const { $auth } = useContext();
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug);
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug);
 
     const router = useRouter();
     const api = useUserApi();

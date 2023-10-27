@@ -69,6 +69,7 @@ import {
   ref,
   useRouter,
   computed,
+  useContext,
   useRoute,
   onMounted,
 } from "@nuxtjs/composition-api";
@@ -85,9 +86,10 @@ export default defineComponent({
       loading: false,
     });
 
+    const { $auth } = useContext();
     const api = useUserApi();
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug);
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug);
 
     const router = useRouter();
     const tags = useTagStore();

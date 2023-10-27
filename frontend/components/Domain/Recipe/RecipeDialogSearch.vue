@@ -54,7 +54,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRefs, reactive, ref, watch, useRoute } from "@nuxtjs/composition-api";
+import { computed, defineComponent, toRefs, reactive, ref, watch, useContext, useRoute } from "@nuxtjs/composition-api";
 import RecipeCardMobile from "./RecipeCardMobile.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { RecipeSummary } from "~/lib/api/types/recipe";
@@ -68,6 +68,7 @@ export default defineComponent({
   },
 
   setup(_, context) {
+    const { $auth } = useContext();
     const state = reactive({
       loading: false,
       selectedIndex: -1,
@@ -130,8 +131,9 @@ export default defineComponent({
       }
     });
 
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
     const route = useRoute();
-    const advancedSearchUrl = computed(() => `/${route.value.params.groupSlug}`)
+    const advancedSearchUrl = computed(() => `/${groupSlug.value}`)
     watch(route, close);
 
     function open() {
@@ -143,7 +145,6 @@ export default defineComponent({
 
     // ===========================================================================
     // Basic Search
-    const groupSlug = computed(() => route.value.params.groupSlug);
     const { isOwnGroup } = useLoggedInState();
     const api = isOwnGroup.value ? useUserApi() : usePublicExploreApi(groupSlug.value).explore;
     const search = useRecipeSearch(api);

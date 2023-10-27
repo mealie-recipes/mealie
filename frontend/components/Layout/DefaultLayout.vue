@@ -7,7 +7,7 @@
         absolute
         :top-link="topLinks"
         :secondary-header="cookbookLinks.length ? $tc('sidebar.cookbooks') : undefined"
-        :secondary-header-link="isOwnGroup && cookbookLinks.length ? `/${groupSlug}/group/cookbooks` : undefined"
+        :secondary-header-link="isOwnGroup && cookbookLinks.length ? `/${groupSlug}/cookbooks` : undefined"
         :secondary-links="cookbookLinks || []"
         :bottom-links="isAdmin ? bottomLinks : []"
       >
@@ -96,7 +96,7 @@
 
       const isAdmin = computed(() => $auth.user?.admin);
       const route = useRoute();
-      const groupSlug = computed(() => route.value.params.groupSlug);
+      const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug);
       const { cookbooks } = isOwnGroup.value ? useCookbooks() : usePublicCookbooks(groupSlug.value || "");
 
       const toggleDark = useToggleDarkMode();
@@ -151,7 +151,7 @@
           icon: $globals.icons.pages,
           title: i18n.tc("sidebar.cookbook"),
           subtitle: i18n.tc("sidebar.create-cookbook"),
-          to: `/${groupSlug.value}/group/cookbooks`,
+          to: `/${groupSlug.value}/cookbooks`,
           restricted: true,
         },
       ]);
@@ -175,7 +175,7 @@
         {
           icon: $globals.icons.calendarMultiselect,
           title: i18n.tc("meal-plan.meal-planner"),
-          to: `/${groupSlug.value}/group/mealplan/planner/view`,
+          to: `/group/mealplan/planner/view`,
           restricted: true,
         },
         {
@@ -187,7 +187,7 @@
         {
           icon: $globals.icons.timelineText,
           title: i18n.tc("recipe.timeline"),
-          to: `/${groupSlug.value}/group/timeline`,
+          to: `/${groupSlug.value}/recipes/timeline`,
           restricted: true,
         },
         {

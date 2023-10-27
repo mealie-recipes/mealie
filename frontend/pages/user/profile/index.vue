@@ -103,7 +103,7 @@
       <v-row tag="section">
         <v-col cols="12" sm="12" md="6">
           <UserProfileLinkCard
-            :link="{ text: $tc('profile.manage-user-profile'), to: `/${groupSlug}/user/profile/edit` }"
+            :link="{ text: $tc('profile.manage-user-profile'), to: `/user/profile/edit` }"
             :image="require('~/static/svgs/manage-profile.svg')"
           >
             <template #title> {{ $t('profile.user-settings') }} </template>
@@ -113,7 +113,7 @@
         <AdvancedOnly>
           <v-col cols="12" sm="12" md="6">
             <UserProfileLinkCard
-              :link="{ text: $tc('profile.manage-your-api-tokens'), to: `/${groupSlug}/user/profile/api-tokens` }"
+              :link="{ text: $tc('profile.manage-your-api-tokens'), to: `/user/profile/api-tokens` }"
               :image="require('~/static/svgs/manage-api-tokens.svg')"
             >
               <template #title> {{ $t('settings.token.api-tokens') }} </template>
@@ -132,7 +132,7 @@
       <v-row tag="section">
         <v-col cols="12" sm="12" md="6">
           <UserProfileLinkCard
-            :link="{ text: $tc('profile.group-settings'), to: `/${groupSlug}/group` }"
+            :link="{ text: $tc('profile.group-settings'), to: `/group` }"
             :image="require('~/static/svgs/manage-group-settings.svg')"
           >
             <template #title> {{ $t('profile.group-settings') }} </template>
@@ -141,7 +141,7 @@
         </v-col>
         <v-col cols="12" sm="12" md="6">
           <UserProfileLinkCard
-            :link="{ text: $tc('profile.manage-cookbooks'), to: `/${groupSlug}/group/cookbooks` }"
+            :link="{ text: $tc('profile.manage-cookbooks'), to: `/${groupSlug}/cookbooks` }"
             :image="require('~/static/svgs/manage-cookbooks.svg')"
           >
             <template #title> {{ $t('sidebar.cookbooks') }} </template>
@@ -150,7 +150,7 @@
         </v-col>
         <v-col v-if="user.canManage" cols="12" sm="12" md="6">
           <UserProfileLinkCard
-            :link="{ text: $tc('profile.manage-members'), to: `/${groupSlug}/group/members` }"
+            :link="{ text: $tc('profile.manage-members'), to: `/group/members` }"
             :image="require('~/static/svgs/manage-members.svg')"
           >
             <template #title> {{ $t('profile.members') }} </template>
@@ -160,7 +160,7 @@
         <AdvancedOnly>
           <v-col v-if="user.advanced" cols="12" sm="12" md="6">
             <UserProfileLinkCard
-              :link="{ text: $tc('profile.manage-webhooks'), to: `/${groupSlug}/group/webhooks` }"
+              :link="{ text: $tc('profile.manage-webhooks'), to: `/group/webhooks` }"
               :image="require('~/static/svgs/manage-webhooks.svg')"
             >
               <template #title> {{ $t('settings.webhooks.webhooks') }} </template>
@@ -171,7 +171,7 @@
         <AdvancedOnly>
           <v-col cols="12" sm="12" md="6">
             <UserProfileLinkCard
-              :link="{ text: $tc('profile.manage-notifiers'), to: `/${groupSlug}/group/notifiers` }"
+              :link="{ text: $tc('profile.manage-notifiers'), to: `/group/notifiers` }"
               :image="require('~/static/svgs/manage-notifiers.svg')"
             >
               <template #title> {{ $t('profile.notifiers') }} </template>
@@ -182,7 +182,7 @@
         <AdvancedOnly>
           <v-col cols="12" sm="12" md="6">
             <UserProfileLinkCard
-              :link="{ text: $tc('profile.manage-data'), to: `/${groupSlug}/group/data/foods` }"
+              :link="{ text: $tc('profile.manage-data'), to: `/group/data/foods` }"
               :image="require('~/static/svgs/manage-recipes.svg')"
             >
               <template #title> {{ $t('profile.manage-data') }} </template>
@@ -193,7 +193,7 @@
         <AdvancedOnly>
           <v-col cols="12" sm="12" md="6">
             <UserProfileLinkCard
-              :link="{ text: $tc('profile.manage-data-migrations'), to: `/${groupSlug}/group/migrations` }"
+              :link="{ text: $tc('profile.manage-data-migrations'), to: `/group/migrations` }"
               :image="require('~/static/svgs/manage-data-migrations.svg')"
             >
               <template #title>{{ $t('profile.data-migrations') }} </template>
@@ -229,7 +229,7 @@ export default defineComponent({
   setup() {
     const { $auth, i18n } = useContext();
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug);
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug);
 
     // @ts-ignore $auth.user is typed as unknown, but it's a user
     const user = computed<UserOut | null>(() => $auth.user);
@@ -335,7 +335,7 @@ export default defineComponent({
 
     const statsTo = computed<{ [key: string]: string }>(() => { return {
       totalRecipes: `/${groupSlug.value}/`,
-      totalUsers: `/${groupSlug.value}/group/members`,
+      totalUsers: `/group/members`,
       totalCategories: `/${groupSlug.value}/recipes/categories`,
       totalTags: `/${groupSlug.value}/recipes/tags`,
       totalTools: `/${groupSlug.value}/recipes/tools`,
