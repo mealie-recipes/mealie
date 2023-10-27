@@ -3,6 +3,8 @@ from pathlib import Path
 
 from pydantic import BaseSettings, NoneStr, validator
 
+from mealie.core.settings.themes import Theme
+
 from .db_providers import AbstractDBProvider, db_provider_factory
 
 
@@ -23,6 +25,8 @@ def determine_secrets(data_dir: Path, production: bool) -> str:
 
 
 class AppSettings(BaseSettings):
+    theme: Theme = Theme()
+
     PRODUCTION: bool
     BASE_URL: str = "http://localhost:8080"
     """trailing slashes are trimmed (ex. `http://localhost:8080/` becomes ``http://localhost:8080`)"""
