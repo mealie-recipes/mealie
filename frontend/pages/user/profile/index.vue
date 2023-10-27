@@ -341,7 +341,7 @@ export default defineComponent({
 
     const iconText: { [key: string]: string } = {
       totalUsers: $globals.icons.user,
-      totalCategories: $globals.icons.tags,
+      totalCategories: $globals.icons.categories,
       totalTags: $globals.icons.tags,
       totalTools: $globals.icons.potSteam,
     };
