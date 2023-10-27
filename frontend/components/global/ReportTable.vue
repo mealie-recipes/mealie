@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext, useRoute, useRouter } from "@nuxtjs/composition-api";
+import { computed, defineComponent, useContext, useRouter } from "@nuxtjs/composition-api";
 import { ReportSummary } from "~/lib/api/types/reports";
 
 export default defineComponent({
@@ -37,9 +37,7 @@ export default defineComponent({
   },
 
   setup(_, context) {
-    const { $auth, i18n } = useContext();
-    const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+    const { i18n } = useContext();
     const router = useRouter();
 
     const headers = [

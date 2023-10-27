@@ -69,7 +69,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, useContext, useRoute } from "@nuxtjs/composition-api";
+import { defineComponent, ref, onMounted, useContext } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 import { UserOut } from "~/lib/api/types/user";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
@@ -80,7 +80,6 @@ export default defineComponent({
   },
   setup() {
     const api = useUserApi();
-    const route = useRoute();
 
     const { i18n } = useContext();
 

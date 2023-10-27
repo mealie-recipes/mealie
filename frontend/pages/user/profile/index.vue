@@ -335,7 +335,7 @@ export default defineComponent({
 
     const statsTo = computed<{ [key: string]: string }>(() => { return {
       totalRecipes: `/${groupSlug.value}/`,
-      totalUsers: `/group/members`,
+      totalUsers: "/group/members",
       totalCategories: `/${groupSlug.value}/recipes/categories`,
       totalTags: `/${groupSlug.value}/recipes/tags`,
       totalTools: `/${groupSlug.value}/recipes/tools`,

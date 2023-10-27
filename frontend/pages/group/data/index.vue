@@ -16,7 +16,7 @@ export default defineComponent({
     const router = useRouter();
     onMounted(() => {
       // Force redirect to first valid page
-      router.push(`/group/data/foods`);
+      router.push("/group/data/foods");
     });
     return {};
   },
