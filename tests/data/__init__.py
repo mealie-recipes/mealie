@@ -16,6 +16,8 @@ migrations_nextcloud = CWD / "migrations/nextcloud.zip"
 
 migrations_tandoor = CWD / "migrations/tandoor.zip"
 
+migrations_plantoeat = CWD / "migrations/plantoeat.zip"
+
 images_test_image_1 = CWD / "images/test-image-1.jpg"
 
 images_test_image_2 = CWD / "images/test-image-2.png"

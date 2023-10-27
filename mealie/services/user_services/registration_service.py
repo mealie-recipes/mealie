@@ -63,14 +63,10 @@ class RegistrationService:
         elif self.repos.users.get_one(registration.email, "email"):
             raise HTTPException(status.HTTP_409_CONFLICT, {"message": self.t("exceptions.email-conflict-error")})
 
-        self.logger.info(f"Registering user {registration.username}")
         token_entry = None
         new_group = False
 
-        if registration.group:
-            new_group = True
-            group = self._register_new_group()
-        elif registration.group_token and registration.group_token != "":
+        if registration.group_token and registration.group_token != "":
             token_entry = self.repos.group_invite_tokens.get_one(registration.group_token)
             if not token_entry:
                 raise HTTPException(status.HTTP_400_BAD_REQUEST, {"message": "Invalid group token"})
@@ -81,9 +77,13 @@ class RegistrationService:
                 raise HTTPException(status.HTTP_400_BAD_REQUEST, {"message": "Invalid group token"})
 
             group = maybe_none_group
+        elif registration.group:
+            new_group = True
+            group = self._register_new_group()
         else:
             raise HTTPException(status.HTTP_400_BAD_REQUEST, {"message": "Missing group"})
 
+        self.logger.info(f"Registering user {registration.username}")
         user = self._create_new_user(group, new_group)
 
         if new_group and registration.seed_data:
