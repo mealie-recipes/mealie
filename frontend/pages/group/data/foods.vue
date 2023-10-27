@@ -68,7 +68,13 @@
             v-model="createTarget.name"
             autofocus
             :label="$t('general.name')"
+            :hint="$t('data-pages.foods.example-food-singular')"
             :rules="[validators.required]"
+          ></v-text-field>
+          <v-text-field
+            v-model="createTarget.pluralName"
+            :label="$t('general.plural-name')"
+            :hint="$t('data-pages.foods.example-food-plural')"
           ></v-text-field>
           <v-text-field v-model="createTarget.description" :label="$t('recipe.description')"></v-text-field>
           <v-autocomplete
@@ -93,8 +99,21 @@
     >
       <v-card-text v-if="editTarget">
         <v-form ref="domEditFoodForm">
-          <v-text-field v-model="editTarget.name" :label="$t('general.name')" :rules="[validators.required]"></v-text-field>
-          <v-text-field v-model="editTarget.description" :label="$t('recipe.description')"></v-text-field>
+          <v-text-field
+            v-model="editTarget.name"
+            :label="$t('general.name')"
+            :hint="$t('data-pages.foods.example-food-singular')"
+            :rules="[validators.required]"
+          ></v-text-field>
+          <v-text-field
+            v-model="editTarget.pluralName"
+            :label="$t('general.plural-name')"
+            :hint="$t('data-pages.foods.example-food-plural')"
+          ></v-text-field>
+          <v-text-field
+            v-model="editTarget.description"
+            :label="$t('recipe.description')"
+          ></v-text-field>
           <v-autocomplete
             v-model="editTarget.labelId"
             clearable
@@ -182,6 +201,11 @@ export default defineComponent({
       {
         text: i18n.tc("general.name"),
         value: "name",
+        show: true,
+      },
+      {
+        text: i18n.tc("general.plural-name"),
+        value: "pluralName",
         show: true,
       },
       {

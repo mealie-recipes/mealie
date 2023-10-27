@@ -38,9 +38,24 @@
             v-model="createTarget.name"
             autofocus
             :label="$t('general.name')"
+            :hint="$t('data-pages.units.example-unit-singular')"
             :rules="[validators.required]"
           ></v-text-field>
-          <v-text-field v-model="createTarget.abbreviation" :label="$t('data-pages.units.abbreviation')"></v-text-field>
+          <v-text-field
+            v-model="createTarget.pluralName"
+            :label="$t('general.plural-name')"
+            :hint="$t('data-pages.units.example-unit-plural')"
+          ></v-text-field>
+          <v-text-field
+            v-model="createTarget.abbreviation"
+            :label="$t('data-pages.units.abbreviation')"
+            :hint="$t('data-pages.units.example-unit-abbreviation-singular')"
+          ></v-text-field>
+          <v-text-field
+            v-model="createTarget.pluralAbbreviation"
+            :label="$t('data-pages.units.plural-abbreviation')"
+            :hint="$t('data-pages.units.example-unit-abbreviation-plural')"
+          ></v-text-field>
           <v-text-field v-model="createTarget.description" :label="$t('data-pages.units.description')"></v-text-field>
           <v-checkbox v-model="createTarget.fraction" hide-details :label="$t('data-pages.units.display-as-fraction')"></v-checkbox>
           <v-checkbox v-model="createTarget.useAbbreviation" hide-details :label="$t('data-pages.units.use-abbreviation')"></v-checkbox>
@@ -58,8 +73,27 @@
     >
       <v-card-text v-if="editTarget">
         <v-form ref="domEditUnitForm">
-          <v-text-field v-model="editTarget.name" :label="$t('general.name')" :rules="[validators.required]"></v-text-field>
-          <v-text-field v-model="editTarget.abbreviation" :label="$t('data-pages.units.abbreviation')"></v-text-field>
+          <v-text-field
+            v-model="editTarget.name"
+            :label="$t('general.name')"
+            :hint="$t('data-pages.units.example-unit-singular')"
+            :rules="[validators.required]"
+          ></v-text-field>
+          <v-text-field
+            v-model="editTarget.pluralName"
+            :label="$t('general.plural-name')"
+            :hint="$t('data-pages.units.example-unit-plural')"
+          ></v-text-field>
+          <v-text-field
+            v-model="editTarget.abbreviation"
+            :label="$t('data-pages.units.abbreviation')"
+            :hint="$t('data-pages.units.example-unit-abbreviation-singular')"
+          ></v-text-field>
+          <v-text-field
+            v-model="editTarget.pluralAbbreviation"
+            :label="$t('data-pages.units.plural-abbreviation')"
+            :hint="$t('data-pages.units.example-unit-abbreviation-plural')"
+          ></v-text-field>
           <v-text-field v-model="editTarget.description" :label="$t('data-pages.units.description')"></v-text-field>
           <v-checkbox v-model="editTarget.fraction" hide-details :label="$t('data-pages.units.display-as-fraction')"></v-checkbox>
           <v-checkbox v-model="editTarget.useAbbreviation" hide-details :label="$t('data-pages.units.use-abbreviation')"></v-checkbox>
@@ -186,8 +220,18 @@ export default defineComponent({
         show: true,
       },
       {
+        text: i18n.t("general.plural-name"),
+        value: "pluralName",
+        show: true,
+      },
+      {
         text: i18n.t("data-pages.units.abbreviation"),
         value: "abbreviation",
+        show: true,
+      },
+      {
+        text: i18n.t("data-pages.units.plural-abbreviation"),
+        value: "pluralAbbreviation",
         show: true,
       },
       {
