@@ -29,6 +29,7 @@
       v-model="createDialog"
       :icon="$globals.icons.units"
       :title="$t('data-pages.units.create-unit')"
+      :submit-icon="$globals.icons.save"
       :submit-text="$tc('general.save')"
       @submit="createUnit"
     >
@@ -63,11 +64,21 @@
       </v-card-text>
     </BaseDialog>
 
+    <!-- Alias Sub-Dialog -->
+    <RecipeDataAliasManagerDialog
+      v-if="editTarget"
+      :value="aliasManagerDialog"
+      :data="editTarget"
+      @submit="updateUnitAlias"
+      @cancel="aliasManagerDialog = false"
+    />
+
     <!-- Edit Dialog -->
     <BaseDialog
       v-model="editDialog"
       :icon="$globals.icons.units"
       :title="$t('data-pages.units.edit-unit')"
+      :submit-icon="$globals.icons.save"
       :submit-text="$tc('general.save')"
       @submit="editSaveUnit"
     >
@@ -99,6 +110,9 @@
           <v-checkbox v-model="editTarget.useAbbreviation" hide-details :label="$t('data-pages.units.use-abbreviation')"></v-checkbox>
         </v-form>
       </v-card-text>
+      <template v-slot:custom-card-action>
+        <BaseButton edit @click="aliasManagerEventHandler">{{ $t('data-pages.manage-aliases') }}</BaseButton>
+      </template>
     </BaseDialog>
 
     <!-- Delete Dialog -->
@@ -193,14 +207,16 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref, useContext } from "@nuxtjs/composition-api";
 import type { LocaleObject } from "@nuxtjs/i18n";
+import RecipeDataAliasManagerDialog from "~/components/Domain/Recipe/RecipeDataAliasManagerDialog.vue";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
-import { CreateIngredientUnit, IngredientUnit } from "~/lib/api/types/recipe";
+import { CreateIngredientUnit, IngredientUnit, IngredientUnitAlias } from "~/lib/api/types/recipe";
 import { useLocales } from "~/composables/use-locales";
 import { useUnitStore } from "~/composables/store";
 import { VForm } from "~/types/vuetify";
 
 export default defineComponent({
+  components: { RecipeDataAliasManagerDialog },
   setup() {
     const userApi = useUserApi();
     const { i18n } = useContext();
@@ -323,6 +339,22 @@ export default defineComponent({
     }
 
     // ============================================================
+    // Alias Manager
+
+    const aliasManagerDialog = ref(false);
+    function aliasManagerEventHandler() {
+      aliasManagerDialog.value = true;
+    }
+
+    async function updateUnitAlias(newAliases: IngredientUnitAlias[]) {
+      if (!editTarget.value) {
+        return;
+      }
+      editTarget.value.aliases = newAliases;
+      aliasManagerDialog.value = false;
+    }
+
+    // ============================================================
     // Merge Units
 
     const mergeDialog = ref(false);
@@ -389,13 +421,16 @@ export default defineComponent({
       deleteEventHandler,
       deleteDialog,
       deleteUnit,
+      // Alias Manager
+      aliasManagerDialog,
+      aliasManagerEventHandler,
+      updateUnitAlias,
       // Merge
       canMerge,
       mergeUnits,
       mergeDialog,
       fromUnit,
       toUnit,
-
       // Seed
       seedDatabase,
       locales,

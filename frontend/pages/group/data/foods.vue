@@ -59,6 +59,7 @@
       v-model="createDialog"
       :icon="$globals.icons.foods"
       :title="$t('data-pages.foods.create-food')"
+      :submit-icon="$globals.icons.save"
       :submit-text="$tc('general.save')"
       @submit="createFood"
     >
@@ -89,11 +90,21 @@
         </v-form> </v-card-text
     ></BaseDialog>
 
+    <!-- Alias Sub-Dialog -->
+    <RecipeDataAliasManagerDialog
+      v-if="editTarget"
+      :value="aliasManagerDialog"
+      :data="editTarget"
+      @submit="updateFoodAlias"
+      @cancel="aliasManagerDialog = false"
+    />
+
     <!-- Edit Dialog -->
     <BaseDialog
       v-model="editDialog"
       :icon="$globals.icons.foods"
       :title="$t('data-pages.foods.edit-food')"
+      :submit-icon="$globals.icons.save"
       :submit-text="$tc('general.save')"
       @submit="editSaveFood"
     >
@@ -123,8 +134,12 @@
             :label="$t('data-pages.foods.food-label')"
           >
           </v-autocomplete>
-        </v-form> </v-card-text
-    ></BaseDialog>
+        </v-form>
+      </v-card-text>
+      <template v-slot:custom-card-action>
+        <BaseButton edit @click="aliasManagerEventHandler">{{ $t('data-pages.manage-aliases') }}</BaseButton>
+      </template>
+    </BaseDialog>
 
     <!-- Delete Dialog -->
     <BaseDialog
@@ -175,16 +190,18 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref, computed, useContext } from "@nuxtjs/composition-api";
 import type { LocaleObject } from "@nuxtjs/i18n";
+import RecipeDataAliasManagerDialog from "~/components/Domain/Recipe/RecipeDataAliasManagerDialog.vue";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
-import { CreateIngredientFood, IngredientFood } from "~/lib/api/types/recipe";
+import { CreateIngredientFood, IngredientFood, IngredientFoodAlias } from "~/lib/api/types/recipe";
 import MultiPurposeLabel from "~/components/Domain/ShoppingList/MultiPurposeLabel.vue";
 import { useLocales } from "~/composables/use-locales";
 import { useFoodStore, useLabelStore } from "~/composables/store";
 import { VForm } from "~/types/vuetify";
 
 export default defineComponent({
-  components: { MultiPurposeLabel },
+
+  components: { MultiPurposeLabel, RecipeDataAliasManagerDialog },
   setup() {
     const userApi = useUserApi();
     const { i18n } = useContext();
@@ -289,6 +306,22 @@ export default defineComponent({
     }
 
     // ============================================================
+    // Alias Manager
+
+    const aliasManagerDialog = ref(false);
+    function aliasManagerEventHandler() {
+      aliasManagerDialog.value = true;
+    }
+
+    async function updateFoodAlias(newAliases: IngredientFoodAlias[]) {
+      if (!editTarget.value) {
+        return;
+      }
+      editTarget.value.aliases = newAliases;
+      aliasManagerDialog.value = false;
+    }
+
+    // ============================================================
     // Merge Foods
 
     const mergeDialog = ref(false);
@@ -361,6 +394,10 @@ export default defineComponent({
       deleteEventHandler,
       deleteDialog,
       deleteFood,
+      // Alias Manager
+      aliasManagerDialog,
+      aliasManagerEventHandler,
+      updateFoodAlias,
       // Merge
       canMerge,
       mergeFoods,

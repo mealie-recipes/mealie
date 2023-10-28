@@ -942,6 +942,8 @@
       "delete-recipes": "Delete Recipes",
       "source-unit-will-be-deleted": "Source Unit will be deleted"
     },
+    "create-alias": "Create Alias",
+    "manage-aliases": "Manage Aliases",
     "seed-data": "Seed Data",
     "seed": "Seed",
     "data-management": "Data Management",
