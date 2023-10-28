@@ -313,7 +313,7 @@ export default defineComponent({
       aliasManagerDialog.value = true;
     }
 
-    async function updateFoodAlias(newAliases: IngredientFoodAlias[]) {
+    function updateFoodAlias(newAliases: IngredientFoodAlias[]) {
       if (!editTarget.value) {
         return;
       }

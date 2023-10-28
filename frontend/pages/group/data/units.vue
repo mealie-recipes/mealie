@@ -346,7 +346,7 @@ export default defineComponent({
       aliasManagerDialog.value = true;
     }
 
-    async function updateUnitAlias(newAliases: IngredientUnitAlias[]) {
+    function updateUnitAlias(newAliases: IngredientUnitAlias[]) {
       if (!editTarget.value) {
         return;
       }
