@@ -32,7 +32,6 @@ def upgrade():
             ["ingredient_units.id"],
         ),
         sa.PrimaryKeyConstraint("id", "unit_id"),
-        sa.UniqueConstraint("unit_id", "name"),
     )
     op.create_index(
         op.f("ix_ingredient_units_aliases_created_at"), "ingredient_units_aliases", ["created_at"], unique=False
@@ -56,7 +55,6 @@ def upgrade():
             ["ingredient_foods.id"],
         ),
         sa.PrimaryKeyConstraint("id", "food_id"),
-        sa.UniqueConstraint("food_id", "name"),
     )
     op.create_index(
         op.f("ix_ingredient_foods_aliases_created_at"), "ingredient_foods_aliases", ["created_at"], unique=False

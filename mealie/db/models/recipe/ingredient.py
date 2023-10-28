@@ -225,7 +225,6 @@ class IngredientUnitAliasModel(SqlAlchemyBase, BaseMixins):
     def __init__(self, session: Session, name: str, **_) -> None:
         self.name_normalized = self.normalize(name)
         tableargs = [
-            sa.UniqueConstraint("unit_id", "name", name="unit_id_name_key"),
             sa.Index(
                 "ix_ingredient_units_aliases_name_normalized",
                 "name_normalized",
@@ -267,7 +266,6 @@ class IngredientFoodAliasModel(SqlAlchemyBase, BaseMixins):
     def __init__(self, session: Session, name: str, **_) -> None:
         self.name_normalized = self.normalize(name)
         tableargs = [
-            sa.UniqueConstraint("food_id", "name", name="food_id_name_key"),
             sa.Index(
                 "ix_ingredient_foods_aliases_name_normalized",
                 "name_normalized",
