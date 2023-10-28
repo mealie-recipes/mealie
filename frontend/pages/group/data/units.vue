@@ -110,7 +110,7 @@
           <v-checkbox v-model="editTarget.useAbbreviation" hide-details :label="$t('data-pages.units.use-abbreviation')"></v-checkbox>
         </v-form>
       </v-card-text>
-      <template v-slot:custom-card-action>
+      <template #custom-card-action>
         <BaseButton edit @click="aliasManagerEventHandler">{{ $t('data-pages.manage-aliases') }}</BaseButton>
       </template>
     </BaseDialog>

@@ -34,7 +34,7 @@
           </v-row>
         </v-container>
       </v-card-text>
-      <template v-slot:custom-card-action>
+      <template #custom-card-action>
         <BaseButton edit @click="createAlias">{{ $t('data-pages.create-alias') }}
           <template #icon>
             {{ $globals.icons.create }}
