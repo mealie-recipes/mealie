@@ -4,18 +4,19 @@
 
 ### General
 
-| Variables     |        Default        | Description                                                                         |
-| ------------- | :-------------------: | ----------------------------------------------------------------------------------- |
-| PUID          |          911          | UserID permissions between host OS and container                                    |
-| PGID          |          911          | GroupID permissions between host OS and container                                   |
-| DEFAULT_GROUP |         Home          | The default group for users                                                         |
-| DEFAULT_EMAIL |  changeme@example.com   | The default username for the superuser                                              |
-| BASE_URL      | http://localhost:8080 | Used for Notifications                                                              |
-| TOKEN_TIME    |          48           | The time in hours that a login/auth token is valid                                  |
-| API_PORT      |         9000          | The port exposed by backend API. **Do not change this if you're running in Docker** |
-| API_DOCS      |         True          | Turns on/off access to the API documentation locally.                               |
-| TZ            |          UTC          | Must be set to get correct date/time on the server                                  |
-| ALLOW_SIGNUP  |         true          | Allow user sign-up without token (should match frontend env)                        |
+| Variables        |        Default        | Description                                                                         |
+| ---------------- | :-------------------: | ----------------------------------------------------------------------------------- |
+| PUID             |          911          | UserID permissions between host OS and container                                    |
+| PGID             |          911          | GroupID permissions between host OS and container                                   |
+| DEFAULT_GROUP    |         Home          | The default group for users                                                         |
+| DEFAULT_EMAIL    | changeme@example.com  | The default username for the superuser                                              |
+| DEFAULT_PASSWORD |       MyPassword      | The default password for the superuser                                              |
+| BASE_URL         | http://localhost:8080 | Used for Notifications                                                              |
+| TOKEN_TIME       |          48           | The time in hours that a login/auth token is valid                                  |
+| API_PORT         |         9000          | The port exposed by backend API. **Do not change this if you're running in Docker** |
+| API_DOCS         |         True          | Turns on/off access to the API documentation locally.                               |
+| TZ               |          UTC          | Must be set to get correct date/time on the server                                  |
+| ALLOW_SIGNUP     |         true          | Allow user sign-up without token                                                    |
 
 ### Security
 
@@ -75,3 +76,24 @@ Changing the webworker settings may cause unforeseen memory leak issues with Mea
 | LDAP_ID_ATTRIBUTE    |   uid   | The LDAP attribute that maps to the user's id                                                                                       |
 | LDAP_NAME_ATTRIBUTE  |  name   | The LDAP attribute that maps to the user's name                                                                                     |
 | LDAP_MAIL_ATTRIBUTE  |  mail   | The LDAP attribute that maps to the user's email                                                                                    |
+
+### Themeing
+
+Setting the following environmental variables will change the theme of the frontend. Note that the themes are the same for all users. This is a break-change when migration from v0.x.x -> 1.x.x.
+
+| Variables             | Default | Description                 |
+| --------------------- | :-----: | --------------------------- |
+| THEME_LIGHT_PRIMARY   | #E58325 | Light Theme Config Variable |
+| THEME_LIGHT_ACCENT    | #007A99 | Light Theme Config Variable |
+| THEME_LIGHT_SECONDARY | #973542 | Light Theme Config Variable |
+| THEME_LIGHT_SUCCESS   | #43A047 | Light Theme Config Variable |
+| THEME_LIGHT_INFO      | #1976D2 | Light Theme Config Variable |
+| THEME_LIGHT_WARNING   | #FF6D00 | Light Theme Config Variable |
+| THEME_LIGHT_ERROR     | #EF5350 | Light Theme Config Variable |
+| THEME_DARK_PRIMARY    | #E58325 | Dark Theme Config Variable  |
+| THEME_DARK_ACCENT     | #007A99 | Dark Theme Config Variable  |
+| THEME_DARK_SECONDARY  | #973542 | Dark Theme Config Variable  |
+| THEME_DARK_SUCCESS    | #43A047 | Dark Theme Config Variable  |
+| THEME_DARK_INFO       | #1976D2 | Dark Theme Config Variable  |
+| THEME_DARK_WARNING    | #FF6D00 | Dark Theme Config Variable  |
+| THEME_DARK_ERROR      | #EF5350 | Dark Theme Config Variable  |

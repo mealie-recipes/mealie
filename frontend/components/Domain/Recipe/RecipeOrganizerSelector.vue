@@ -8,7 +8,9 @@
     deletable-chips
     item-text="name"
     multiple
-    :prepend-inner-icon="selectorType === Organizer.Tool ? $globals.icons.potSteam : $globals.icons.tags"
+    :prepend-inner-icon="selectorType === Organizer.Tool ? $globals.icons.potSteam :
+      selectorType === Organizer.Category ? $globals.icons.categories :
+      $globals.icons.tags"
     return-object
     v-bind="inputAttrs"
   >

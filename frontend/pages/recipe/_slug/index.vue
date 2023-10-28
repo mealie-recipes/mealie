@@ -22,5 +22,12 @@ export default defineComponent({
       loading,
     };
   },
+  head() {
+    if (this.recipe) {
+      return {
+        title: this.recipe.name
+      }
+    }
+  }
 });
 </script>
