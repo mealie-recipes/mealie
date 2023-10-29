@@ -72,7 +72,7 @@ class RecipeTimelineEventsController(BaseCrudController):
             message=self.t(
                 "notifications.generic-updated-with-url",
                 name=recipe.name,
-                url=urls.recipe_url(recipe.slug, self.settings.BASE_URL),
+                url=urls.recipe_url(self.group.slug, recipe.slug, self.settings.BASE_URL),
             ),
         )
 
@@ -95,7 +95,7 @@ class RecipeTimelineEventsController(BaseCrudController):
                 message=self.t(
                     "notifications.generic-updated-with-url",
                     name=recipe.name,
-                    url=urls.recipe_url(recipe.slug, self.settings.BASE_URL),
+                    url=urls.recipe_url(self.group.slug, recipe.slug, self.settings.BASE_URL),
                 ),
             )
 
@@ -120,7 +120,7 @@ class RecipeTimelineEventsController(BaseCrudController):
                 message=self.t(
                     "notifications.generic-updated-with-url",
                     name=recipe.name,
-                    url=urls.recipe_url(recipe.slug, self.settings.BASE_URL),
+                    url=urls.recipe_url(self.group.slug, recipe.slug, self.settings.BASE_URL),
                 ),
             )
 
@@ -148,7 +148,7 @@ class RecipeTimelineEventsController(BaseCrudController):
                     message=self.t(
                         "notifications.generic-updated-with-url",
                         name=recipe.name,
-                        url=urls.recipe_url(recipe.slug, self.settings.BASE_URL),
+                        url=urls.recipe_url(self.group.slug, recipe.slug, self.settings.BASE_URL),
                     ),
                 )
 

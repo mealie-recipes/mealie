@@ -187,7 +187,7 @@ class RecipeController(BaseRecipeController):
                 message=self.t(
                     "notifications.generic-created-with-url",
                     name=new_recipe.name,
-                    url=urls.recipe_url(new_recipe.slug, self.settings.BASE_URL),
+                    url=urls.recipe_url(self.group.slug, new_recipe.slug, self.settings.BASE_URL),
                 ),
             )
 
@@ -306,7 +306,7 @@ class RecipeController(BaseRecipeController):
                 message=self.t(
                     "notifications.generic-created-with-url",
                     name=new_recipe.name,
-                    url=urls.recipe_url(new_recipe.slug, self.settings.BASE_URL),
+                    url=urls.recipe_url(self.group.slug, new_recipe.slug, self.settings.BASE_URL),
                 ),
             )
 
@@ -347,7 +347,7 @@ class RecipeController(BaseRecipeController):
                 message=self.t(
                     "notifications.generic-updated-with-url",
                     name=recipe.name,
-                    url=urls.recipe_url(recipe.slug, self.settings.BASE_URL),
+                    url=urls.recipe_url(self.group.slug, recipe.slug, self.settings.BASE_URL),
                 ),
             )
 
@@ -368,7 +368,7 @@ class RecipeController(BaseRecipeController):
                 message=self.t(
                     "notifications.generic-updated-with-url",
                     name=recipe.name,
-                    url=urls.recipe_url(recipe.slug, self.settings.BASE_URL),
+                    url=urls.recipe_url(self.group.slug, recipe.slug, self.settings.BASE_URL),
                 ),
             )
 
@@ -390,7 +390,7 @@ class RecipeController(BaseRecipeController):
                 message=self.t(
                     "notifications.generic-updated-with-url",
                     name=recipe.name,
-                    url=urls.recipe_url(recipe.slug, self.settings.BASE_URL),
+                    url=urls.recipe_url(self.group.slug, recipe.slug, self.settings.BASE_URL),
                 ),
             )
 
