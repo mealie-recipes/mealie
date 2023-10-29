@@ -181,7 +181,7 @@
         {
           icon: $globals.icons.formatListCheck,
           title: i18n.tc("shopping-list.shopping-lists"),
-          to: `/g/${groupSlug.value}/shopping-lists`,
+          to: "/shopping-lists",
           restricted: true,
         },
         {
