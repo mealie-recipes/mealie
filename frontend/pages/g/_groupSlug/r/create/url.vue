@@ -103,7 +103,7 @@ export default defineComponent({
       if (refreshTags) {
         tags.actions.refresh();
       }
-      router.push(`/g/${groupSlug.value}/recipe/${response.data}?edit=${edit.toString()}`);
+      router.push(`/g/${groupSlug.value}/r/${response.data}?edit=${edit.toString()}`);
     }
 
     const recipeUrl = computed({

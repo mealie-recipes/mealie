@@ -135,7 +135,7 @@
           icon: $globals.icons.link,
           title: i18n.tc("general.import"),
           subtitle: i18n.tc("new-recipe.import-by-url"),
-          to: `/g/${groupSlug.value}/recipe/create/url`,
+          to: `/g/${groupSlug.value}/r/create/url`,
           restricted: true,
         },
         {
@@ -143,7 +143,7 @@
           icon: $globals.icons.edit,
           title: i18n.tc("general.create"),
           subtitle: i18n.tc("new-recipe.create-manually"),
-          to: `/g/${groupSlug.value}/recipe/create/new`,
+          to: `/g/${groupSlug.value}/r/create/new`,
           restricted: true,
         },
         {

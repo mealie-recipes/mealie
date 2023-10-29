@@ -233,7 +233,7 @@ export default defineComponent({
       const { data } = await api.recipes.updateOne(props.recipe.slug, props.recipe);
       setMode(PageMode.VIEW);
       if (data?.slug) {
-        router.push(`/g/${groupSlug.value}/recipe/` + data.slug);
+        router.push(`/g/${groupSlug.value}/r/` + data.slug);
       }
     }
 

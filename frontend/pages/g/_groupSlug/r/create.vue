@@ -75,7 +75,7 @@ export default defineComponent({
 
     const subpage = computed({
       set(subpage: string) {
-        router.push({ path: `/g/${groupSlug.value}/recipe/create/${subpage}`, query: route.value.query });
+        router.push({ path: `/g/${groupSlug.value}/r/create/${subpage}`, query: route.value.query });
       },
       get() {
         return route.value.path.split("/").pop() ?? "url";

@@ -51,14 +51,27 @@ export default defineComponent({
         return;
       }
 
+      let replaceRoute = false;
       let routeVal = route.value.fullPath || "/";
       if (routeVal[0] !== "/") {
         routeVal = `/${routeVal}`;
       }
 
-      const routeComponents = route.value.fullPath.split("/");
+      // replace "recipe" in URL with "r"
+      if (routeVal.includes("/recipe/")) {
+        replaceRoute = true;
+        routeVal = routeVal.replace("/recipe/", "/r/");
+      }
+
+      // insert groupSlug into URL
+      const routeComponents = routeVal.split("/");
       if (routeComponents.length < 2 || routeComponents[1].toLowerCase() !== `g`) {
-        await router.push(`/g/${groupSlug.value}${routeVal}`);
+        replaceRoute = true;
+        routeVal = `/g/${groupSlug.value}${routeVal}`;
+      }
+
+      if (replaceRoute) {
+        router.replace(routeVal);
       }
     }
 

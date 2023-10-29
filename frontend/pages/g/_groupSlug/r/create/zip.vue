@@ -54,7 +54,7 @@ export default defineComponent({
         state.loading = false;
         return;
       }
-      router.push(`/g/${groupSlug.value}/recipe/${response.data}?edit=${edit.toString()}`);
+      router.push(`/g/${groupSlug.value}/r/${response.data}?edit=${edit.toString()}`);
     }
 
     const newRecipeZip = ref<File | null>(null);
