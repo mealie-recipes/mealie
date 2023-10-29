@@ -1,21 +1,21 @@
 {
     "teaspoon": {
-        "name": "teaspoon",
+        "name": "teelepel",
         "description": "",
-        "abbreviation": "tsp"
+        "abbreviation": "tl"
     },
     "tablespoon": {
-        "name": "tablespoon",
+        "name": "eetlepel",
         "description": "",
-        "abbreviation": "tbsp"
+        "abbreviation": "el"
     },
     "cup": {
-        "name": "cup",
+        "name": "koppie",
         "description": "",
-        "abbreviation": "cup"
+        "abbreviation": "koppie"
     },
     "fluid-ounce": {
-        "name": "fluid ounce",
+        "name": "vloeistofons",
         "description": "",
         "abbreviation": "fl oz"
     },
@@ -25,7 +25,7 @@
         "abbreviation": "pt"
     },
     "quart": {
-        "name": "quart",
+        "name": "kwart",
         "description": "",
         "abbreviation": "qt"
     },
@@ -45,12 +45,12 @@
         "abbreviation": "l"
     },
     "pound": {
-        "name": "pound",
+        "name": "pond",
         "description": "",
         "abbreviation": "lb"
     },
     "ounce": {
-        "name": "ounce",
+        "name": "ons",
         "description": "",
         "abbreviation": "oz"
     },
@@ -70,12 +70,12 @@
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "splash",
+        "name": "skeut",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
-        "name": "dash",
+        "name": "knippie",
         "description": "",
         "abbreviation": ""
     },

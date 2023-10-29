@@ -44,7 +44,7 @@
     "category-filter": "Kategoriefilter",
     "category-update-failed": "Aktualisieren der Kategorie fehlgeschlagen",
     "category-updated": "Kategorie aktualisiert",
-    "uncategorized-count": "{count} nicht kategorisierte",
+    "uncategorized-count": "Nicht kategorisiert {count}",
     "create-a-category": "Eine Kategorie erstellen",
     "category-name": "Name der Kategorie",
     "category": "Kategorie"
@@ -348,7 +348,7 @@
     "mealie-text": "Mealie kann Rezepte aus der Mealie-App in einer Version vor v1.0 importieren. Exportiere deine Rezepte aus deiner alten Instanz und lade die Zip-Datei unten hoch. Bitte beachte, dass nur Rezepte aus dem Export importiert werden können.",
     "plantoeat": {
       "title": "Plan to Eat",
-      "description-long": "Mealie can import recipies from Plan to Eat."
+      "description-long": "Mealie kann Rezepte von Plan to Eat importieren."
     }
   },
   "new-recipe": {

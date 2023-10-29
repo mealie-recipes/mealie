@@ -1,35 +1,35 @@
 {
     "generic": {
-        "server-error": "An unexpected error occurred"
+        "server-error": "Iets het skeefgeloop"
     },
     "recipe": {
-        "unique-name-error": "Recipe names must be unique"
+        "unique-name-error": "Nuwe resepname moet uniek wees"
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "No recipes match your rules"
+        "no-recipes-match-your-rules": "Geen resepte voldoen aan jou reëls nie"
     },
     "user": {
-        "user-updated": "User updated",
-        "password-updated": "Password updated",
-        "invalid-current-password": "Invalid current password",
-        "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
+        "user-updated": "Gebruiker opgedateer",
+        "password-updated": "Wagwoord opgedateer",
+        "invalid-current-password": "Huidige wagwoord ongeldig",
+        "ldap-update-password-unavailable": "Kan nie wagwoord opdateer nie, gebruiker word deur LDAP beheer"
     },
     "group": {
-        "report-deleted": "Report deleted."
+        "report-deleted": "Resep verwyder."
     },
     "exceptions": {
-        "permission_denied": "You do not have permission to perform this action",
-        "no-entry-found": "The requested resource was not found",
-        "integrity-error": "Database integrity error",
-        "username-conflict-error": "This username is already taken",
-        "email-conflict-error": "This email is already in use"
+        "permission_denied": "Jy het nie toestemming om hierdie aksie uit te voer nie",
+        "no-entry-found": "Die gevraagde item is nie gevind nie",
+        "integrity-error": "Databasis integriteit fout",
+        "username-conflict-error": "Gebruikersnaam is reeds in gebruik",
+        "email-conflict-error": "E-posadres is reeds in gebruik"
     },
     "notifications": {
-        "generic-created": "{name} was created",
-        "generic-updated": "{name} was updated",
-        "generic-created-with-url": "{name} has been created, {url}",
-        "generic-updated-with-url": "{name} has been updated, {url}",
-        "generic-duplicated": "{name} has been duplicated",
-        "generic-deleted": "{name} has been deleted"
+        "generic-created": "{name} is geskep",
+        "generic-updated": "{name} is opgedateer",
+        "generic-created-with-url": "{name} is geskep, {url}",
+        "generic-updated-with-url": "{name} is opgedateer, {url}",
+        "generic-duplicated": "{name} is gekopieer",
+        "generic-deleted": "{name} is verwyder"
     }
 }
