@@ -65,13 +65,13 @@ export default defineComponent({
 
       // insert groupSlug into URL
       const routeComponents = routeVal.split("/");
-      if (routeComponents.length < 2 || routeComponents[1].toLowerCase() !== `g`) {
+      if (routeComponents.length < 2 || routeComponents[1].toLowerCase() !== "g") {
         replaceRoute = true;
         routeVal = `/g/${groupSlug.value}${routeVal}`;
       }
 
       if (replaceRoute) {
-        router.replace(routeVal);
+        await router.replace(routeVal);
       }
     }
 
