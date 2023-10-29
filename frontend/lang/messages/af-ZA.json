@@ -458,10 +458,10 @@
     "entry-type": "Invoer tipe",
     "date-format-hint": "MM/DD/JJJJ formaat",
     "date-format-hint-yyyy-mm-dd": "JJJJ-MM-DD formaat",
-    "add-to-list": "Voeg by lys",
+    "add-to-list": "Voeg by inkopielys",
     "add-to-plan": "Voeg by plan",
     "add-to-timeline": "Voeg by tydlyn",
-    "recipe-added-to-list": "Resep is by die lys gevoeg",
+    "recipe-added-to-list": "Resep by lys gevoeg",
     "recipe-added-to-mealplan": "Resep is by die maaltydplan gevoeg",
     "failed-to-add-recipe-to-mealplan": "Kon nie resep by maaltydplan voeg nie",
     "yield": "Resultaat",
@@ -775,7 +775,7 @@
     "tag-name": "Merker naam"
   },
   "tool": {
-    "tools": "Nutsprogramme",
+    "tools": "Kookgerei",
     "on-hand": "In besit",
     "create-a-tool": "Skep kookgerei",
     "tool-name": "Naam van die kookgerei",
