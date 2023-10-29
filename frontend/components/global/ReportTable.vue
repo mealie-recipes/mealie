@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext, useRouter } from "@nuxtjs/composition-api";
+import { defineComponent, useContext, useRouter } from "@nuxtjs/composition-api";
 import { ReportSummary } from "~/lib/api/types/reports";
 
 export default defineComponent({
