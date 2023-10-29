@@ -7,7 +7,7 @@
         absolute
         :top-link="topLinks"
         :secondary-header="cookbookLinks.length ? $tc('sidebar.cookbooks') : undefined"
-        :secondary-header-link="isOwnGroup && cookbookLinks.length ? `/${groupSlug}/cookbooks` : undefined"
+        :secondary-header-link="isOwnGroup && cookbookLinks.length ? `/g/${groupSlug}/cookbooks` : undefined"
         :secondary-links="cookbookLinks || []"
         :bottom-links="isAdmin ? bottomLinks : []"
       >
@@ -115,7 +115,7 @@
           return {
             icon: $globals.icons.pages,
             title: cookbook.name,
-            to: `/${groupSlug.value}/cookbooks/${cookbook.slug as string}`,
+            to: `/g/${groupSlug.value}/cookbooks/${cookbook.slug as string}`,
           };
         });
       });
@@ -135,7 +135,7 @@
           icon: $globals.icons.link,
           title: i18n.tc("general.import"),
           subtitle: i18n.tc("new-recipe.import-by-url"),
-          to: `/${groupSlug.value}/recipe/create/url`,
+          to: `/g/${groupSlug.value}/recipe/create/url`,
           restricted: true,
         },
         {
@@ -143,7 +143,7 @@
           icon: $globals.icons.edit,
           title: i18n.tc("general.create"),
           subtitle: i18n.tc("new-recipe.create-manually"),
-          to: `/${groupSlug.value}/recipe/create/new`,
+          to: `/g/${groupSlug.value}/recipe/create/new`,
           restricted: true,
         },
         {
@@ -151,7 +151,7 @@
           icon: $globals.icons.pages,
           title: i18n.tc("sidebar.cookbook"),
           subtitle: i18n.tc("sidebar.create-cookbook"),
-          to: `/${groupSlug.value}/cookbooks`,
+          to: `/g/${groupSlug.value}/cookbooks`,
           restricted: true,
         },
       ]);
@@ -168,7 +168,7 @@
       const topLinks = computed<SidebarLinks>(() => [
         {
           icon: $globals.icons.search,
-          to: `/${groupSlug.value}`,
+          to: `/g/${groupSlug.value}`,
           title: i18n.tc("sidebar.search"),
           restricted: true,
         },
@@ -181,30 +181,30 @@
         {
           icon: $globals.icons.formatListCheck,
           title: i18n.tc("shopping-list.shopping-lists"),
-          to: `/${groupSlug.value}/shopping-lists`,
+          to: `/g/${groupSlug.value}/shopping-lists`,
           restricted: true,
         },
         {
           icon: $globals.icons.timelineText,
           title: i18n.tc("recipe.timeline"),
-          to: `/${groupSlug.value}/recipes/timeline`,
+          to: `/g/${groupSlug.value}/recipes/timeline`,
           restricted: true,
         },
         {
           icon: $globals.icons.categories,
-          to: `/${groupSlug.value}/recipes/categories`,
+          to: `/g/${groupSlug.value}/recipes/categories`,
           title: i18n.tc("sidebar.categories"),
           restricted: true,
         },
         {
           icon: $globals.icons.tags,
-          to: `/${groupSlug.value}/recipes/tags`,
+          to: `/g/${groupSlug.value}/recipes/tags`,
           title: i18n.tc("sidebar.tags"),
           restricted: true,
         },
         {
           icon: $globals.icons.potSteam,
-          to: `/${groupSlug.value}/recipes/tools`,
+          to: `/g/${groupSlug.value}/recipes/tools`,
           title: i18n.tc("tool.tools"),
           restricted: true,
         },

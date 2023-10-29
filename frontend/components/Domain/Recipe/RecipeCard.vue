@@ -123,8 +123,9 @@ export default defineComponent({
     const { isOwnGroup } = useLoggedInState();
 
     const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "")
     const recipeRoute = computed<string>(() => {
-      return `/${route.value.params.groupSlug || $auth.user?.groupSlug || ""}/recipe/${props.slug}`;
+      return `/g/${groupSlug.value}/recipe/${props.slug}`;
     });
 
     return {

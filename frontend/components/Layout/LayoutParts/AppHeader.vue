@@ -66,7 +66,7 @@ export default defineComponent({
     const route = useRoute();
     const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
 
-    const routerLink = computed(() => groupSlug.value ? `/${groupSlug.value}` : "/");
+    const routerLink = computed(() => groupSlug.value ? `/g/${groupSlug.value}` : "/");
     const domSearchDialog = ref<InstanceType<typeof RecipeDialogSearch> | null>(null);
 
     function activateSearch() {

@@ -12,7 +12,7 @@ export default defineComponent({
     const groupSlug = computed(() => $auth.user?.groupSlug);
 
     if (groupSlug.value) {
-      router.push(`/${groupSlug.value}`);
+      router.push(`/g/${groupSlug.value}`);
     } else {
       router.push("/login");
     }

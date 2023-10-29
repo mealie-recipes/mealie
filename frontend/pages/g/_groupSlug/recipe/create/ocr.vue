@@ -60,7 +60,7 @@ export default defineComponent({
         state.loading = false;
         return;
       }
-      router.push(`/${groupSlug.value}/recipe/${response.data}/ocr-editor`);
+      router.push(`/g/${groupSlug.value}/recipe/${response.data}/ocr-editor`);
     }
 
     const domCreateByOcr = ref<VForm | null>(null);

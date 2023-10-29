@@ -48,7 +48,7 @@
       <BaseCardSectionTitle v-if="isTitle(key)" :title="key" />
       <v-row>
         <v-col v-for="(item, index) in itms" :key="'cat' + index" cols="12" :sm="12" :md="6" :lg="4" :xl="3">
-          <v-card v-if="item" class="left-border" hover :to="`/${groupSlug}?${itemType}=${item.id}`">
+          <v-card v-if="item" class="left-border" hover :to="`/g/${groupSlug}?${itemType}=${item.id}`">
             <v-card-actions>
               <v-icon>
                 {{ icon }}

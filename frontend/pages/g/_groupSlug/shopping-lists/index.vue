@@ -18,7 +18,7 @@
     <BaseButton create @click="createDialog = true" />
 
     <section>
-      <v-card v-for="list in shoppingLists" :key="list.id" class="my-2 left-border" :to="`/${groupSlug}/shopping-lists/${list.id}`">
+      <v-card v-for="list in shoppingLists" :key="list.id" class="my-2 left-border" :to="`/g/${groupSlug}/shopping-lists/${list.id}`">
         <v-card-title>
           <v-icon left>
             {{ $globals.icons.cartCheck }}

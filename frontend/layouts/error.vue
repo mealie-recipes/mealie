@@ -57,8 +57,8 @@ export default defineComponent({
       }
 
       const routeComponents = route.value.fullPath.split("/");
-      if (routeComponents.length < 2 || routeComponents[1].toLowerCase() !== groupSlug.value) {
-        await router.push(`/${groupSlug.value}${routeVal}`);
+      if (routeComponents.length < 2 || routeComponents[1].toLowerCase() !== `g`) {
+        await router.push(`/g/${groupSlug.value}${routeVal}`);
       }
     }
 

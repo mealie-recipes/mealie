@@ -120,7 +120,7 @@ export default defineComponent({
     });
 
     function goToOcrEditor() {
-      router.push(`/${groupSlug.value}/recipe/${props.recipe.slug}/ocr-editor`);
+      router.push(`/g/${groupSlug.value}/recipe/${props.recipe.slug}/ocr-editor`);
     }
 
     watch(

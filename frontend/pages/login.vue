@@ -122,7 +122,7 @@ export default defineComponent({
     whenever(
       () => loggedIn.value && groupSlug.value,
       () => {
-        router.push(`/${groupSlug.value || ""}`);
+        router.push(`/g/${groupSlug.value || ""}`);
       },
       { immediate: true },
     );

@@ -492,7 +492,7 @@ export default defineComponent({
     async function duplicateRecipe() {
       const { data } = await api.recipes.duplicateOne(props.slug, state.recipeName);
       if (data && data.slug) {
-        router.push(`/${groupSlug.value}/recipe/${data.slug}`);
+        router.push(`/g/${groupSlug.value}/recipe/${data.slug}`);
       }
     }
 
@@ -501,7 +501,7 @@ export default defineComponent({
       delete: () => {
         state.recipeDeleteDialog = true;
       },
-      edit: () => router.push(`/${groupSlug.value}/recipe/${props.slug}` + "?edit=true"),
+      edit: () => router.push(`/g/${groupSlug.value}/recipe/${props.slug}` + "?edit=true"),
       download: handleDownloadEvent,
       duplicate: () => {
         state.recipeDuplicateDialog = true;

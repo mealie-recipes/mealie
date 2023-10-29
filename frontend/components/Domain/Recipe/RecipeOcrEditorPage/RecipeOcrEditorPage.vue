@@ -332,12 +332,12 @@ export default defineComponent({
     async function updateRecipe() {
       const { data } = await api.recipes.updateOne(props.recipe.slug, props.recipe);
       if (data?.slug) {
-        router.push(`/${groupSlug.value}/recipe/${data.slug}`);
+        router.push(`/g/${groupSlug.value}/recipe/${data.slug}`);
       }
     }
 
     function closeEditor() {
-      router.push(`/${groupSlug.value}/recipe/${props.recipe.slug}`);
+      router.push(`/g/${groupSlug.value}/recipe/${props.recipe.slug}`);
     }
 
     const canvasSetText = function () {

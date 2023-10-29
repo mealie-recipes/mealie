@@ -233,14 +233,14 @@ export default defineComponent({
       const { data } = await api.recipes.updateOne(props.recipe.slug, props.recipe);
       setMode(PageMode.VIEW);
       if (data?.slug) {
-        router.push(`/${groupSlug.value}/recipe/` + data.slug);
+        router.push(`/g/${groupSlug.value}/recipe/` + data.slug);
       }
     }
 
     async function deleteRecipe() {
       const { data } = await api.recipes.deleteOne(props.recipe.slug);
       if (data?.slug) {
-        router.push(`/${groupSlug.value}`);
+        router.push(`/g/${groupSlug.value}`);
       }
     }
 

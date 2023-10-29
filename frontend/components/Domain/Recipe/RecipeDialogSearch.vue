@@ -133,7 +133,7 @@ export default defineComponent({
 
     const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
     const route = useRoute();
-    const advancedSearchUrl = computed(() => `/${groupSlug.value}`)
+    const advancedSearchUrl = computed(() => `/g/${groupSlug.value}`)
     watch(route, close);
 
     function open() {

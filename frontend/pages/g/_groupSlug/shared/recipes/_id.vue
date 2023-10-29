@@ -30,7 +30,7 @@ export default defineComponent({
 
       if (error) {
         console.error("error loading recipe -> ", error);
-        router.push(`/${groupSlug.value}`);
+        router.push(`/g/${groupSlug.value}`);
       }
 
       if (data) {

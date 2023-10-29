@@ -141,7 +141,7 @@
         </v-col>
         <v-col cols="12" sm="12" md="6">
           <UserProfileLinkCard
-            :link="{ text: $tc('profile.manage-cookbooks'), to: `/${groupSlug}/cookbooks` }"
+            :link="{ text: $tc('profile.manage-cookbooks'), to: `/g/${groupSlug}/cookbooks` }"
             :image="require('~/static/svgs/manage-cookbooks.svg')"
           >
             <template #title> {{ $t('sidebar.cookbooks') }} </template>
@@ -334,11 +334,11 @@ export default defineComponent({
     }
 
     const statsTo = computed<{ [key: string]: string }>(() => { return {
-      totalRecipes: `/${groupSlug.value}/`,
+      totalRecipes: `/g/${groupSlug.value}/`,
       totalUsers: "/group/members",
-      totalCategories: `/${groupSlug.value}/recipes/categories`,
-      totalTags: `/${groupSlug.value}/recipes/tags`,
-      totalTools: `/${groupSlug.value}/recipes/tools`,
+      totalCategories: `/g/${groupSlug.value}/recipes/categories`,
+      totalTags: `/g/${groupSlug.value}/recipes/tags`,
+      totalTools: `/g/${groupSlug.value}/recipes/tools`,
     }});
 
     function getStatsTo(key: string) {

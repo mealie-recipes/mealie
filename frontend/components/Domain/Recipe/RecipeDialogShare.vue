@@ -150,7 +150,7 @@ export default defineComponent({
     }
 
     function getTokenLink(token: string) {
-      return `${window.location.origin}/${groupSlug.value}/shared/recipes/${token}`;
+      return `${window.location.origin}/g/${groupSlug.value}/shared/recipes/${token}`;
     }
 
     async function copyTokenLink(token: string) {

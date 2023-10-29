@@ -59,8 +59,9 @@ export default defineComponent({
     const { isOwnGroup } = useLoggedInState();
 
     const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "")
     const baseRecipeRoute = computed<string>(() => {
-      return `/${route.value.params.groupSlug || $auth.user?.groupSlug || ""}`
+      return `/g/${groupSlug.value}`
     });
 
     function truncateText(text: string, length = 20, clamp = "...") {

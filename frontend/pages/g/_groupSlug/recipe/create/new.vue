@@ -60,7 +60,7 @@ export default defineComponent({
         state.loading = false;
         return;
       }
-      router.push(`/${groupSlug.value}/recipe/${response.data}?edit=${edit.toString()}`);
+      router.push(`/g/${groupSlug.value}/recipe/${response.data}?edit=${edit.toString()}`);
     }
 
     const newRecipeName = ref("");

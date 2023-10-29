@@ -13,7 +13,7 @@
     </template>
     <v-card
       hover
-      :to="$listeners.selected || !recipe ? undefined : `/${groupSlug}/recipe/${recipe.slug}`"
+      :to="$listeners.selected || !recipe ? undefined : `/g/${groupSlug}/recipe/${recipe.slug}`"
       class="elevation-12"
       @click="$emit('selected')"
     >
