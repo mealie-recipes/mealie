@@ -32,6 +32,7 @@ def test_get_all_public_recipes(
     assert group and group.preferences
 
     group.preferences.private_group = is_private_group
+    group.preferences.recipe_public = not is_private_group
     database.group_preferences.update(group.id, group.preferences)
 
     default_recipes = database.recipes.create_many(
@@ -106,6 +107,7 @@ def test_get_all_public_recipes_filtered(
     assert group and group.preferences
 
     group.preferences.private_group = False
+    group.preferences.recipe_public = True
     database.group_preferences.update(group.id, group.preferences)
 
     assert random_recipe.settings
@@ -140,6 +142,7 @@ def test_public_recipe_success(
     assert group and group.preferences
 
     group.preferences.private_group = test_case.private_group
+    group.preferences.recipe_public = not test_case.private_group
     database.group_preferences.update(group.id, group.preferences)
 
     # Set Recipe `settings.public` attribute
