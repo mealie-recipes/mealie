@@ -1047,10 +1047,10 @@
       "actions-description": "Maintenance actions are {destructive_in_bold} and should be used with caution. Performing any of these actions is {irreversible_in_bold}.",
       "actions-description-destructive": "destructive",
       "actions-description-irreversible": "irreversible",
-      "actions-title": "Acciones"
+      "actions-title": "Acciones",
       "logs-action-refresh": "Refresh Logs",
       "logs-page-title": "Mealie Logs",
-      "logs-tail-lines-label": "Tail Lines",
+      "logs-tail-lines-label": "Tail Lines"
     },
     "ingredients-natural-language-processor": "Ingredients Natural Language Processor",
     "ingredients-natural-language-processor-explanation": "Mealie uses Conditional Random Fields (CRFs) for parsing and processing ingredients. The model used for ingredients is based off a data set of over 100,000 ingredients from a dataset compiled by the New York Times. Note that as the model is trained in English only, you may have varied results when using the model in other languages. This page is a playground for testing the model.",

@@ -1047,7 +1047,7 @@
       "actions-description": "Действията по поддръжката са {destructive_in_bold} и трябва да се използват с повишено внимание. Извършването на някое от тези действия е {irreversible_in_bold}.",
       "actions-description-destructive": "разрушителни",
       "actions-description-irreversible": "необратимо",
-      "actions-title": "Действия"
+      "actions-title": "Действия",
       "logs-action-refresh": "Опресняване на логовете",
       "logs-page-title": "Mealie логове",
       "logs-tail-lines-label": "Следвай новите редове"

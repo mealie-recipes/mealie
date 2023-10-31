@@ -1047,10 +1047,10 @@
       "actions-description": "Maintenance actions are {destructive_in_bold} and should be used with caution. Performing any of these actions is {irreversible_in_bold}.",
       "actions-description-destructive": "destructive",
       "actions-description-irreversible": "irreversible",
-      "actions-title": "Aksies"
+      "actions-title": "Aksies",
       "logs-action-refresh": "Refresh Logs",
       "logs-page-title": "Mealie Logs",
-      "logs-tail-lines-label": "Tail Lines",
+      "logs-tail-lines-label": "Tail Lines"
     },
     "ingredients-natural-language-processor": "Natuurlike taalverwerker vir bestanddele",
     "ingredients-natural-language-processor-explanation": "Mealie gebruik willekeurige voorwaardelike velde vir die ontleed en verwerking van bestanddele. Die model is gebaseer op 'n datastel van meer as 100 000 bestanddele. Dit kom uit 'n datastel wat deur die New York Times saamgestel is. Aangesien die model slegs in Engels opgelei is, kan die gebruik van die model in ander tale verskil. Hierdie bladsy is 'n speelgrond om die model te toets.",
