@@ -129,7 +129,7 @@ export default defineComponent({
     }
 
     const eventHandlers: { [key: string]: () => void | Promise<any> } = {
-      shoppingList: () => {
+      shoppingList: async () => {
         getShoppingLists();
         calculateRecipesAndScales();
         state.shoppingListDialog = true;

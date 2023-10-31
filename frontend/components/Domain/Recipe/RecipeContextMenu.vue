@@ -70,7 +70,7 @@
       </v-card-text>
     </BaseDialog>
     <RecipeDialogAddToShoppingList
-      v-if="shoppingLists"
+      v-if="shoppingLists && recipeRef"
       v-model="shoppingListDialog"
       :recipe-slugs="[slug]"
       :recipes="[recipeRef]"
@@ -420,8 +420,12 @@ export default defineComponent({
         state.printPreferencesDialog = true;
       },
       shoppingList: () => {
-        getShoppingLists();
-        state.shoppingListDialog = true;
+        const promises: Promise<void>[] = [getShoppingLists()];
+        if (!recipeRef.value) {
+          promises.push(refreshRecipe());
+        }
+
+        Promise.allSettled(promises).then(() => state.shoppingListDialog = true);
       },
       share: () => {
         state.shareDialog = true;
