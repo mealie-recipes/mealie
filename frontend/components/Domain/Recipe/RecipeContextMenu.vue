@@ -425,7 +425,7 @@ export default defineComponent({
           promises.push(refreshRecipe());
         }
 
-        Promise.allSettled(promises).then(() => state.shoppingListDialog = true);
+        Promise.allSettled(promises).then(() => { state.shoppingListDialog = true });
       },
       share: () => {
         state.shareDialog = true;

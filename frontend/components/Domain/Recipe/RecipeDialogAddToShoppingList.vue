@@ -1,6 +1,6 @@
 <template>
   <div v-if="dialog">
-    <BaseDialog v-model="dialog" v-if="shoppingListDialog" :title="$t('recipe.add-to-list')" :icon="$globals.icons.cartCheck">
+    <BaseDialog v-if="shoppingListDialog" v-model="dialog" :title="$t('recipe.add-to-list')" :icon="$globals.icons.cartCheck">
       <v-card-text>
         <v-card
           v-for="list in shoppingLists"
@@ -16,8 +16,8 @@
       </v-card-text>
     </BaseDialog>
     <BaseDialog
-      v-model="dialog"
       v-if="shoppingListIngredientDialog"
+      v-model="dialog"
       :title="selectedShoppingList ? selectedShoppingList.name : $t('recipe.add-to-list')"
       :icon="$globals.icons.cartCheck"
       width="70%"
