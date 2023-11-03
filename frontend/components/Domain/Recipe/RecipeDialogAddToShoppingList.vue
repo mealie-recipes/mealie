@@ -37,7 +37,19 @@
             class="justify-center"
             width="100%"
           >
-            {{ section.recipeName }}
+            <v-container style="width: 100%;">
+              <v-row no-gutters class="ma-0 pa-0">
+                <v-col cols="12" align-self="center" class="text-center">
+                  {{ section.recipeName }}
+                </v-col>
+              </v-row>
+              <v-row v-if="section.recipeScale > 1" no-gutters class="ma-0 pa-0">
+                <!-- TODO: make this editable in the dialog and visible on single-recipe lists -->
+                <v-col cols="12" align-self="center" class="text-center">
+                  ({{ $tc("recipe.quantity") }}: {{ section.recipeScale }})
+                </v-col>
+              </v-row>
+            </v-container>
           </v-card-title>
           <div
             :class="$vuetify.breakpoint.smAndDown ? '' : 'ingredient-grid'"
@@ -59,7 +71,7 @@
                 <RecipeIngredientListItem
                   :ingredient="ingredientData.ingredient"
                   :disable-amount="ingredientData.disableAmount"
-                  :scale="recipeScalesRef[sectionIndex]" />
+                  :scale="section.recipeScale" />
               </v-list-item-content>
             </v-list-item>
           </div>
@@ -96,6 +108,10 @@ import { alert } from "~/composables/use-toast";
 import { ShoppingListSummary } from "~/lib/api/types/group";
 import { Recipe, RecipeIngredient } from "~/lib/api/types/recipe";
 
+export interface RecipeWithScale extends Recipe {
+  scale: number;
+}
+
 export interface ShoppingListRecipeIngredient {
   checked: boolean;
   ingredient: RecipeIngredient;
@@ -118,16 +134,8 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    recipeSlugs: {
-      type: Array as () => string[],
-      required: true,
-    },
     recipes: {
-      type: Array as () => Recipe[] | undefined,
-      default: undefined,
-    },
-    recipeScales: {
-      type: Array as () => number[] | undefined,
+      type: Array as () => RecipeWithScale[],
       default: undefined,
     },
     shoppingLists: {
@@ -155,15 +163,52 @@ export default defineComponent({
       shoppingListIngredientDialog: false,
     });
 
-    const recipesRef = ref(props.recipes);
-    const recipeScalesRef = ref(props.recipeScales);
-
-    if (recipesRef.value?.length !== props.recipeSlugs.length) {
-      recipesRef.value = undefined;
-    }
-
     const recipeIngredientSections = ref<ShoppingListRecipeIngredientSection[]>([]);
     const selectedShoppingList = ref<ShoppingListSummary | null>(null);
+
+    async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
+      const recipeSectionMap = new Map<string, ShoppingListRecipeIngredientSection>();
+      for (const recipe of recipes) {
+        if (!recipe.slug) {
+          continue;
+        }
+
+        if (recipeSectionMap.has(recipe.slug)) {
+          // @ts-ignore not undefined, see above
+          recipeSectionMap.get(recipe.slug).recipeScale += recipe.scale;
+          continue;
+        }
+
+        if (!(recipe.id && recipe.name && recipe.recipeIngredient)) {
+          const { data } = await api.recipes.getOne(recipe.slug);
+          if (!data?.recipeIngredient?.length) {
+            continue;
+          }
+          recipe.id = data.id || "";
+          recipe.name = data.name || "";
+          recipe.recipeIngredient = data.recipeIngredient;
+        } else if (!recipe.recipeIngredient.length) {
+          continue;
+        }
+
+        const shoppingListIngredients: ShoppingListRecipeIngredient[] = recipe.recipeIngredient.map((ing) => {
+          return {
+            checked: true,
+            ingredient: ing,
+            disableAmount: recipe.settings?.disableAmount || false,
+          }
+        });
+
+        recipeSectionMap.set(recipe.slug, {
+          recipeId: recipe.id,
+          recipeName: recipe.name,
+          recipeScale: recipe.scale,
+          ingredients: shoppingListIngredients,
+        })
+      }
+
+      recipeIngredientSections.value = Array.from(recipeSectionMap.values());
+    }
 
     function initState() {
       state.shoppingListDialog = true;
@@ -175,44 +220,12 @@ export default defineComponent({
     initState();
 
     async function openShoppingListIngredientDialog(list: ShoppingListSummary) {
+      if (!props.recipes?.length) {
+        return;
+      }
+
       selectedShoppingList.value = list;
-      if (!recipesRef.value) {
-        recipesRef.value = [];
-        for (const slug of props.recipeSlugs) {
-          const { data } = await api.recipes.getOne(slug);
-          if (data) {
-            // @ts-ignore we define this above
-            recipesRef.value.push(data);
-          }
-        }
-      }
-
-      if (recipeScalesRef.value?.length !== props.recipeSlugs.length) {
-        recipeScalesRef.value = props.recipeSlugs.map(() => 1);
-      }
-
-      recipesRef.value.forEach((recipe, i) => {
-        if (!recipe.recipeIngredient?.length) {
-          return;
-        }
-
-        const listItems: ShoppingListRecipeIngredient[] = [];
-        recipe.recipeIngredient.forEach(ing => {
-          listItems.push({
-            checked: true,
-            ingredient: ing,
-            disableAmount: recipe.settings?.disableAmount || false,
-          })
-        });
-
-        recipeIngredientSections.value.push({
-          recipeId: recipe.id || "",
-          recipeName: recipe.name || "",
-          recipeScale: props.recipeScales ? props.recipeScales[i] : 1,
-          ingredients: listItems,
-        });
-      });
-
+      await consolidateRecipesIntoSections(props.recipes);
       state.shoppingListDialog = false;
       state.shoppingListIngredientDialog = true;
     }
@@ -273,8 +286,6 @@ export default defineComponent({
       addRecipesToList,
       bulkCheckIngredients,
       openShoppingListIngredientDialog,
-      recipesRef,
-      recipeScalesRef,
       recipeIngredientSections,
       selectedShoppingList,
     }

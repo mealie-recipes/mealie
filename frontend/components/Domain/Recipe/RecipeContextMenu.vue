@@ -70,11 +70,9 @@
       </v-card-text>
     </BaseDialog>
     <RecipeDialogAddToShoppingList
-      v-if="shoppingLists && recipeRef"
+      v-if="shoppingLists && recipeRefWithScale"
       v-model="shoppingListDialog"
-      :recipe-slugs="[slug]"
-      :recipes="[recipeRef]"
-      :recipe-scales="[recipeScale]"
+      :recipes="[recipeRefWithScale]"
       :shopping-lists="shoppingLists"
     />
     <v-menu
@@ -328,6 +326,7 @@ export default defineComponent({
 
     const shoppingLists = ref<ShoppingListSummary[]>();
     const recipeRef = ref<Recipe>(props.recipe);
+    const recipeRefWithScale = computed(() => recipeRef.value ? { scale: props.recipeScale, ...recipeRef.value } : undefined);
 
     async function getShoppingLists() {
       const { data } = await api.shopping.lists.getAll();
@@ -458,6 +457,7 @@ export default defineComponent({
     return {
       ...toRefs(state),
       recipeRef,
+      recipeRefWithScale,
       shoppingLists,
       duplicateRecipe,
       contextMenuEventHandler,
