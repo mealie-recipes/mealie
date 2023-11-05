@@ -872,7 +872,7 @@
   "language-dialog": {
     "translated": "已翻译",
     "choose-language": "Choose Language",
-    "select-description": "Choose the language for the Mealie UI. The setting only applies to you, not other users.",
+    "select-description": "选择Mealie UI的语言。该设置仅对你生效，不会影响其他用户。",
     "how-to-contribute-description": "Is something not translated yet, mistranslated, or your language missing from the list? {read-the-docs-link} on how to contribute!",
     "read-the-docs": "Read the docs"
   },
@@ -1048,7 +1048,7 @@
       "actions-description-destructive": "destructive",
       "actions-description-irreversible": "irreversible",
       "logs-action-refresh": "Refresh Logs",
-      "logs-page-title": "Mealie Logs",
+      "logs-page-title": "Mealie日志",
       "logs-tail-lines-label": "Tail Lines"
     },
     "mainentance": {
