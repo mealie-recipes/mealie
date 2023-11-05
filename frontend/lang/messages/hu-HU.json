@@ -406,7 +406,7 @@
     "disable-comments": "Megjegyzések letiltása",
     "duplicate": "Recept duplikálása",
     "duplicate-name": "Az új recept neve",
-    "edit-scale": "Edit Scale",
+    "edit-scale": "Méretezés módosítása",
     "fat-content": "Zsír",
     "fiber-content": "Rostok",
     "grams": "gramm",
@@ -882,13 +882,13 @@
       "merge-food-example": "{food1} összevonása {food2}-ba/be",
       "seed-dialog-text": "Töltse be az adatbázist a helyi nyelvű alapanyagokkal. Ezáltal több mint 200 közös alapanyagot hoz létre, amelyek segítségével rendszerezheti az adatbázisát. Az alapanyagok fordítása közösségi összefogással történik.",
       "seed-dialog-warning": "Már van néhány elem az adatbázisban. Ez a művelet nem egyezteti a másodpéldányokat, ezeket manuálisan kell kezelnie.",
-      "combine-food": "Combine Food",
-      "source-food": "Source Food",
-      "target-food": "Target Food",
-      "create-food": "Create Food",
-      "food-label": "Food Label",
-      "edit-food": "Edit Food",
-      "food-data": "Food Data"
+      "combine-food": "Ételek egyesítése",
+      "source-food": "Kiinduló étel",
+      "target-food": "Cél étel",
+      "create-food": "Étel készítése",
+      "food-label": "Étel címke",
+      "edit-food": "Étel szerkesztése",
+      "food-data": "Étel adatai"
     },
     "units": {
       "seed-dialog-text": "Töltse be az Ön nyelve szerinti közös mennyiségi egységet tartalmazó adatbázist.",
@@ -934,8 +934,8 @@
       "delete-recipes": "Receptek törlése",
       "source-unit-will-be-deleted": "A forrás mennyiségi egység törlésre kerül"
     },
-    "seed-data": "Seed Data",
-    "seed": "Seed",
+    "seed-data": "Kezdőérték adat",
+    "seed": "Kezdőérték",
     "data-management": "Adatmenedzsment",
     "data-management-description": "Válassza ki, hogy melyik adatkészletet szeretné módosítani.",
     "select-data": "Válassza ki az adatot",
@@ -998,7 +998,7 @@
     "split-by-block": "Szövegblokkok szerinti bontás",
     "flatten": "Eredeti formázás elvetése",
     "help": {
-      "selection-mode": "Selection Mode (default)",
+      "selection-mode": "Kiválasztási mód (alapértelmezett)",
       "selection-mode-desc": "A kiválasztási mód a fő mód, amely az adatok megadására használható:",
       "selection-mode-steps": {
         "draw": "Rajzoljon téglalapot a kijelölendő szövegre.",
@@ -1009,11 +1009,11 @@
       "pan-and-zoom-desc": "Select pan and zoom by clicking the icon. This mode allows to zoom inside the image and move around to make using big images easier.",
       "split-text-mode": "Szöveg felosztási módok",
       "split-modes": {
-        "line-mode": "Line mode (default)",
+        "line-mode": "Vonal mód (alapértelmezett)",
         "line-mode-desc": "Sor módban a szöveg az eredeti sortörések megtartásával kerül továbbításra. Ez az mód akkor hasznos, ha a hozzávalók listájának tömeges felvitelét használja, ahol egy hozzávaló egy sort jelent.",
-        "block-mode": "Block mode",
+        "block-mode": "Doboz mód",
         "block-mode-desc": "Blokk módban a szöveg blokkokra tagolódik. Ez az üzemmód akkor hasznos, ha tömegesen adunk hozzá elkészítési leírásokat, amelyeket általában bekezdésekbe írunk.",
-        "flat-mode": "Flat mode",
+        "flat-mode": "Lapos mód",
         "flat-mode-desc": "Folyamatos szöveg módban a szöveg sortörés nélkül kerül át a kiválasztott receptmezőbe."
       }
     }
@@ -1062,7 +1062,7 @@
     "show-individual-confidence": "",
     "ingredient-text": "Hozzávaló szöveg",
     "average-confident": "{0} Confident",
-    "try-an-example": "Try an example",
+    "try-an-example": "Próbáld ki",
     "parser": "Szintaxis elemző",
     "background-tasks": "Háttér folyamatok",
     "background-tasks-description": "Itt megtekintheti az összes futó háttérfeladatot és azok állapotát",
