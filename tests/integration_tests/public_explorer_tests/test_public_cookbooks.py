@@ -24,6 +24,7 @@ def test_get_all_cookbooks(
     assert group and group.preferences
 
     group.preferences.private_group = is_private_group
+    group.preferences.recipe_public = not is_private_group
     database.group_preferences.update(group.id, group.preferences)
 
     ## Set Up Cookbooks
@@ -88,6 +89,7 @@ def test_get_one_cookbook(
     assert group and group.preferences
 
     group.preferences.private_group = is_private_group
+    group.preferences.recipe_public = not is_private_group
     database.group_preferences.update(group.id, group.preferences)
 
     ## Set Up Cookbook
@@ -116,6 +118,7 @@ def test_get_cookbooks_with_recipes(api_client: TestClient, unique_user: TestUse
     assert group and group.preferences
 
     group.preferences.private_group = False
+    group.preferences.recipe_public = True
     database.group_preferences.update(group.id, group.preferences)
 
     tag = database.tags.create(TagSave(name=random_string(), group_id=unique_user.group_id))

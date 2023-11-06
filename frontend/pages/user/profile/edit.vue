@@ -108,9 +108,9 @@
         :label="$t('profile.show-advanced-description')"
         @change="updateUser"
       ></v-checkbox>
-      <nuxt-link class="mt-5 d-flex flex-column justify-center text-center" to="/group"> {{ $t('profile.looking-for-privacy-settings') }} </nuxt-link>
+      <nuxt-link class="mt-5 d-flex flex-column justify-center text-center" :to="`/group`"> {{ $t('profile.looking-for-privacy-settings') }} </nuxt-link>
       <div class="d-flex flex-wrap justify-center mt-5">
-        <v-btn outlined class="rounded-xl my-1 mx-1" to="/user/profile" nuxt exact>
+        <v-btn outlined class="rounded-xl my-1 mx-1" :to="`/user/profile`" nuxt exact>
           <v-icon left>
             {{ $globals.icons.backArrow }}
           </v-icon>

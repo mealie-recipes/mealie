@@ -170,10 +170,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, toRefs, useContext, useRouter, ref } from "@nuxtjs/composition-api";
+import { computed, defineComponent, reactive, toRefs, useContext, useRoute, useRouter, ref } from "@nuxtjs/composition-api";
 import RecipeIngredientListItem from "./RecipeIngredientListItem.vue";
 import RecipeDialogPrintPreferences from "./RecipeDialogPrintPreferences.vue";
 import RecipeDialogShare from "./RecipeDialogShare.vue";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { usePlanTypeOptions } from "~/composables/use-group-mealplan";
@@ -181,7 +182,6 @@ import { Recipe, RecipeIngredient } from "~/lib/api/types/recipe";
 import { ShoppingListSummary } from "~/lib/api/types/group";
 import { PlanEntryType } from "~/lib/api/types/meal-plan";
 import { useAxiosDownloader } from "~/composables/api/use-axios-download";
-import { useCopy } from "~/composables/use-copy";
 
 export interface ContextMenuIncludes {
   delete: boolean;
@@ -192,7 +192,6 @@ export interface ContextMenuIncludes {
   print: boolean;
   printPreferences: boolean;
   share: boolean;
-  publicUrl: boolean;
 }
 
 export interface ContextMenuItem {
@@ -222,7 +221,6 @@ export default defineComponent({
         print: true,
         printPreferences: true,
         share: true,
-        publicUrl: false,
       }),
     },
     // Append items are added at the end of the useItems list
@@ -291,10 +289,11 @@ export default defineComponent({
       pickerMenu: false,
     });
 
-    const { $auth, i18n, $globals } = useContext();
-    const loggedIn = computed(() => {
-      return $auth.loggedIn;
-    });
+    const { i18n, $auth, $globals } = useContext();
+    const { isOwnGroup } = useLoggedInState();
+
+    const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
 
     // ===========================================================================
     // Context Menu Setup
@@ -363,20 +362,13 @@ export default defineComponent({
         event: "share",
         isPublic: false,
       },
-      publicUrl: {
-        title: i18n.tc("recipe.public-link"),
-        icon: $globals.icons.contentCopy,
-        color: undefined,
-        event: "publicUrl",
-        isPublic: true,
-      },
     };
 
     // Get Default Menu Items Specified in Props
     for (const [key, value] of Object.entries(props.useItems)) {
       if (value) {
         const item = defaultItems[key];
-        if (item && (item.isPublic || loggedIn.value)) {
+        if (item && (item.isPublic || isOwnGroup.value)) {
           state.menuItems.push(item);
         }
       }
@@ -500,24 +492,7 @@ export default defineComponent({
     async function duplicateRecipe() {
       const { data } = await api.recipes.duplicateOne(props.slug, state.recipeName);
       if (data && data.slug) {
-        router.push(`/recipe/${data.slug}`);
-      }
-    }
-
-    const { copyText } = useCopy();
-    const groupSlug = ref<string>("");
-
-    async function setGroupSlug() {
-      if (groupSlug.value) {
-        return;
-      }
-
-      const { data } = await api.users.getSelfGroup();
-      if (data) {
-        groupSlug.value = data.slug;
-      } else {
-        // @ts-ignore this will either be a string or undefined
-        groupSlug.value = $auth.user?.groupId
+        router.push(`/g/${groupSlug.value}/r/${data.slug}`);
       }
     }
 
@@ -526,7 +501,7 @@ export default defineComponent({
       delete: () => {
         state.recipeDeleteDialog = true;
       },
-      edit: () => router.push(`/recipe/${props.slug}` + "?edit=true"),
+      edit: () => router.push(`/g/${groupSlug.value}/r/${props.slug}` + "?edit=true"),
       download: handleDownloadEvent,
       duplicate: () => {
         state.recipeDuplicateDialog = true;
@@ -548,14 +523,6 @@ export default defineComponent({
       },
       share: () => {
         state.shareDialog = true;
-      },
-      publicUrl: async () => {
-        await setGroupSlug();
-        if (!groupSlug.value) {
-          return;
-        }
-
-        copyText(`${window.location.origin}/explore/recipes/${groupSlug.value}/${props.slug}`);
       },
     };
 

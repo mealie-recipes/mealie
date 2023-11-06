@@ -348,7 +348,7 @@
     "mealie-text": "Mealie puede importar recetas de la aplicación Mealie desde una versión anterior a v1.0. Exporta tus recetas de tu antigua instancia y sube el archivo zip a continuación. Ten en cuenta que solo se pueden importar recetas de la exportación.",
     "plantoeat": {
       "title": "Plan to Eat",
-      "description-long": "Mealie can import recipies from Plan to Eat."
+      "description-long": "Mealie puede importar recetas de Plan a Comer."
     }
   },
   "new-recipe": {
@@ -542,7 +542,7 @@
     "recipe-yield": "Porciones",
     "unit": "Unidades",
     "upload-image": "Subir imagen",
-    "screen-awake": "Keep Screen Awake",
+    "screen-awake": "Mantener la pantalla encendida",
     "remove-image": "Remove image"
   },
   "search": {
@@ -553,7 +553,7 @@
     "max-results": "Resultados máximos",
     "or": "O",
     "has-any": "Has Any",
-    "has-all": "Has All",
+    "has-all": "Tiene todo",
     "results": "Resultados",
     "search": "Buscar",
     "search-mealie": "Buscar Mealie (presione /)",
@@ -899,7 +899,7 @@
       "merging-unit-into-unit": "Merging {0} into {1}",
       "create-unit": "Create Unit",
       "abbreviation": "Abbreviation",
-      "description": "Description",
+      "description": "Descripción",
       "display-as-fraction": "Display as Fraction",
       "use-abbreviation": "Use Abbreviation",
       "edit-unit": "Edit Unit",
@@ -925,13 +925,13 @@
       "recipe-columns": "Recipe Columns",
       "data-exports-description": "This section provides links to available exports that are ready to download. These exports do expire, so be sure to grab them while they're still available.",
       "data-exports": "Data Exports",
-      "tag": "Tag",
+      "tag": "Etiqueta",
       "categorize": "Categorize",
       "update-settings": "Update Settings",
       "tag-recipes": "Tag Recipes",
       "categorize-recipes": "Categorize Recipes",
       "export-recipes": "Export Recipes",
-      "delete-recipes": "Delete Recipes",
+      "delete-recipes": "Borrar Recetas",
       "source-unit-will-be-deleted": "Source Unit will be deleted"
     },
     "seed-data": "Datos de ejemplo",
@@ -940,8 +940,8 @@
     "data-management-description": "Select which data set you want to make changes to.",
     "select-data": "Select Data",
     "select-language": "Select Language",
-    "columns": "Columns",
-    "combine": "Combine"
+    "columns": "Columnas",
+    "combine": "Combinar"
   },
   "user-registration": {
     "user-registration": "Registro de usuario",
@@ -1024,13 +1024,13 @@
       "page-title": "Site Maintenance",
       "summary-title": "Summary",
       "button-label-get-summary": "Get Summary",
-      "button-label-open-details": "Details",
+      "button-label-open-details": "Detalles",
       "info-description-data-dir-size": "Data Directory Size",
       "info-description-log-file-size": "Log File Size",
       "info-description-cleanable-directories": "Cleanable Directories",
       "info-description-cleanable-images": "Cleanable Images",
       "storage": {
-        "title-temporary-directory": "Temporary Directory (.temp)",
+        "title-temporary-directory": "Directorio temporal (.temp)",
         "title-backups-directory": "Backups Directory (backups)",
         "title-groups-directory": "Groups Directory (groups)",
         "title-recipes-directory": "Recipes Directory (recipes)",
@@ -1043,7 +1043,7 @@
       "action-clean-temporary-files-name": "Clean Temporary Files",
       "action-clean-temporary-files-description": "Removes all files and folders in the .temp directory",
       "action-clean-images-name": "Clean Images",
-      "action-clean-images-description": "Removes all the images that don't end with .webp",
+      "action-clean-images-description": "Elimina todas las imágenes que no terminan con .webp",
       "actions-description": "Maintenance actions are {destructive_in_bold} and should be used with caution. Performing any of these actions is {irreversible_in_bold}.",
       "actions-description-destructive": "destructive",
       "actions-description-irreversible": "irreversible",
@@ -1052,7 +1052,7 @@
       "logs-tail-lines-label": "Tail Lines"
     },
     "mainentance": {
-      "actions-title": "Actions"
+      "actions-title": "Acciones"
     },
     "ingredients-natural-language-processor": "Ingredients Natural Language Processor",
     "ingredients-natural-language-processor-explanation": "Mealie uses Conditional Random Fields (CRFs) for parsing and processing ingredients. The model used for ingredients is based off a data set of over 100,000 ingredients from a dataset compiled by the New York Times. Note that as the model is trained in English only, you may have varied results when using the model in other languages. This page is a playground for testing the model.",
@@ -1108,7 +1108,7 @@
     "manage-your-api-tokens": "Manage Your API Tokens",
     "manage-user-profile": "Manage User Profile",
     "manage-cookbooks": "Manage Cookbooks",
-    "manage-members": "Manage Members",
+    "manage-members": "Gestionar miembros",
     "manage-webhooks": "Manage Webhooks",
     "manage-notifiers": "Manage Notifiers",
     "manage-data-migrations": "Manage Data Migrations"
@@ -1118,7 +1118,7 @@
     "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes and tags. Creating a cookbook will add an entry to the side-bar and all the recipes with the tags and categories chosen will be displayed in the cookbook.",
     "public-cookbook": "Public Cookbook",
     "public-cookbook-description": "Public Cookbooks can be shared with non-mealie users and will be displayed on your groups page.",
-    "filter-options": "Filter Options",
+    "filter-options": "Opciones de filtro",
     "filter-options-description": "When require all is selected the cookbook will only include recipes that have all of the items selected. This applies to each subset of selectors and not a cross section of the selected items.",
     "require-all-categories": "Require All Categories",
     "require-all-tags": "Require All Tags",

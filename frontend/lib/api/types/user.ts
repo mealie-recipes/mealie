@@ -66,6 +66,7 @@ export interface UserOut {
   canOrganize?: boolean;
   id: string;
   groupId: string;
+  groupSlug: string;
   tokens?: LongLiveTokenOut[];
   cacheKey: string;
 }
@@ -113,6 +114,7 @@ export interface PrivateUser {
   canOrganize?: boolean;
   id: string;
   groupId: string;
+  groupSlug: string;
   tokens?: LongLiveTokenOut[];
   cacheKey: string;
   password: string;

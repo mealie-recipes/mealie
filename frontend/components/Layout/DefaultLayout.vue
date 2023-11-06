@@ -6,14 +6,14 @@
         v-model="sidebar"
         absolute
         :top-link="topLinks"
-        :secondary-header="$t('sidebar.cookbooks')"
-        :secondary-header-link="loggedIn ? '/group/cookbooks' : undefined"
+        :secondary-header="cookbookLinks.length ? $tc('sidebar.cookbooks') : undefined"
+        :secondary-header-link="isOwnGroup && cookbookLinks.length ? `/g/${groupSlug}/cookbooks` : undefined"
         :secondary-links="cookbookLinks || []"
-        :bottom-links="isAdmin ? bottomLink : []"
+        :bottom-links="isAdmin ? bottomLinks : []"
       >
         <v-menu offset-y nudge-bottom="5" close-delay="50" nudge-right="15">
           <template #activator="{ on, attrs }">
-            <v-btn v-if="loggedIn" rounded large class="ml-2 mt-3" v-bind="attrs" v-on="on">
+            <v-btn v-if="isOwnGroup" rounded large class="ml-2 mt-3" v-bind="attrs" v-on="on">
               <v-icon left large color="primary">
                 {{ $globals.icons.createAlt }}
               </v-icon>
@@ -23,7 +23,7 @@
           <v-list dense class="my-0 py-0">
             <template v-for="(item, index) in createLinks">
               <v-divider v-if="item.insertDivider" :key="index" class="mx-2"></v-divider>
-              <v-list-item v-if="!item.restricted || loggedIn" :key="item.title" :to="item.to" exact>
+              <v-list-item v-if="!item.restricted || isOwnGroup" :key="item.title" :to="item.to" exact>
                 <v-list-item-avatar>
                   <v-icon>
                     {{ item.icon }}
@@ -64,7 +64,7 @@
         </template>
       </AppSidebar>
 
-      <AppHeader :menu="loggedIn">
+      <AppHeader>
         <v-btn icon @click.stop="sidebar = !sidebar">
           <v-icon> {{ $globals.icons.menu }}</v-icon>
         </v-btn>
@@ -79,6 +79,7 @@
 
   <script lang="ts">
   import { computed, defineComponent, onMounted, ref, useContext, useRoute } from "@nuxtjs/composition-api";
+  import { useLoggedInState } from "~/composables/use-logged-in-state";
   import AppHeader from "@/components/Layout/LayoutParts/AppHeader.vue";
   import AppSidebar from "@/components/Layout/LayoutParts/AppSidebar.vue";
   import { SidebarLinks } from "~/types/application-types";
@@ -91,13 +92,12 @@
     components: { AppHeader, AppSidebar, LanguageDialog, TheSnackbar },
     setup() {
       const { $globals, $auth, $vuetify, i18n } = useContext();
+      const { isOwnGroup } = useLoggedInState();
 
       const isAdmin = computed(() => $auth.user?.admin);
-      const loggedIn = computed(() => $auth.loggedIn);
-
       const route = useRoute();
-      const groupSlug = route.value.params.groupSlug;
-      const { cookbooks } = loggedIn.value ? useCookbooks() : usePublicCookbooks(groupSlug);
+      const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+      const { cookbooks } = isOwnGroup.value ? useCookbooks() : usePublicCookbooks(groupSlug.value || "");
 
       const toggleDark = useToggleDarkMode();
 
@@ -115,7 +115,7 @@
           return {
             icon: $globals.icons.pages,
             title: cookbook.name,
-            to: loggedIn.value ? `/cookbooks/${cookbook.slug as string}` : `/explore/cookbooks/${groupSlug}/${cookbook.slug as string}`,
+            to: `/g/${groupSlug.value}/cookbooks/${cookbook.slug as string}`,
           };
         });
       });
@@ -129,13 +129,13 @@
         restricted: boolean;
       }
 
-      const createLinks: Link[] = [
+      const createLinks = computed<Link[]>(() => [
         {
           insertDivider: false,
           icon: $globals.icons.link,
           title: i18n.tc("general.import"),
           subtitle: i18n.tc("new-recipe.import-by-url"),
-          to: "/recipe/create/url",
+          to: `/g/${groupSlug.value}/r/create/url`,
           restricted: true,
         },
         {
@@ -143,7 +143,7 @@
           icon: $globals.icons.edit,
           title: i18n.tc("general.create"),
           subtitle: i18n.tc("new-recipe.create-manually"),
-          to: "/recipe/create/new",
+          to: `/g/${groupSlug.value}/r/create/new`,
           restricted: true,
         },
         {
@@ -151,24 +151,24 @@
           icon: $globals.icons.pages,
           title: i18n.tc("sidebar.cookbook"),
           subtitle: i18n.tc("sidebar.create-cookbook"),
-          to: "/group/cookbooks",
+          to: `/g/${groupSlug.value}/cookbooks`,
           restricted: true,
         },
-      ];
+      ]);
 
-      const bottomLinks: SidebarLinks = [
+      const bottomLinks = computed<SidebarLinks>(() => [
         {
           icon: $globals.icons.cog,
           title: i18n.tc("general.settings"),
           to: "/admin/site-settings",
           restricted: true,
         },
-      ];
+      ]);
 
-      const topLinks: SidebarLinks = [
+      const topLinks = computed<SidebarLinks>(() => [
         {
           icon: $globals.icons.search,
-          to: "/",
+          to: `/g/${groupSlug.value}`,
           title: i18n.tc("sidebar.search"),
           restricted: true,
         },
@@ -187,30 +187,41 @@
         {
           icon: $globals.icons.timelineText,
           title: i18n.tc("recipe.timeline"),
-          to: "/group/timeline",
+          to: `/g/${groupSlug.value}/recipes/timeline`,
           restricted: true,
         },
         {
           icon: $globals.icons.categories,
-          to: "/recipes/categories",
+          to: `/g/${groupSlug.value}/recipes/categories`,
           title: i18n.tc("sidebar.categories"),
           restricted: true,
         },
         {
           icon: $globals.icons.tags,
-          to: "/recipes/tags",
+          to: `/g/${groupSlug.value}/recipes/tags`,
           title: i18n.tc("sidebar.tags"),
           restricted: true,
         },
         {
           icon: $globals.icons.potSteam,
-          to: "/recipes/tools",
+          to: `/g/${groupSlug.value}/recipes/tools`,
           title: i18n.tc("tool.tools"),
           restricted: true,
         },
-      ];
+      ]);
 
-      return { cookbookLinks, createLinks, bottomLink: bottomLinks, topLinks, isAdmin, loggedIn, languageDialog, toggleDark, sidebar };
+      return {
+        groupSlug,
+        cookbookLinks,
+        createLinks,
+        bottomLinks,
+        topLinks,
+        isAdmin,
+        isOwnGroup,
+        languageDialog,
+        toggleDark,
+        sidebar,
+      };
     },
   });
   </script>

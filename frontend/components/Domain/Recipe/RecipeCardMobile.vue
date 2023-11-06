@@ -37,10 +37,10 @@
           </v-list-item-subtitle>
           <div class="d-flex flex-wrap justify-end align-center">
             <slot name="actions">
-              <RecipeFavoriteBadge v-if="loggedIn" :slug="slug" show-always />
+              <RecipeFavoriteBadge v-if="isOwnGroup" :slug="slug" show-always />
               <v-rating
                 color="secondary"
-                :class="loggedIn ? 'ml-auto' : 'ml-auto pb-2'"
+                :class="isOwnGroup ? 'ml-auto' : 'ml-auto pb-2'"
                 background-color="secondary lighten-3"
                 dense
                 length="5"
@@ -52,7 +52,7 @@
               <!-- If we're not logged-in, no items display, so we hide this menu -->
               <!-- We also add padding to the v-rating above to compensate -->
               <RecipeContextMenu
-                v-if="loggedIn"
+                v-if="isOwnGroup"
                 :slug="slug"
                 :menu-icon="$globals.icons.dotsHorizontal"
                 :name="name"
@@ -66,7 +66,6 @@
                   print: false,
                   printPreferences: false,
                   share: true,
-                  publicUrl: false,
                 }"
                 @deleted="$emit('delete', slug)"
               />
@@ -80,10 +79,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
+import { computed, defineComponent, useContext, useRoute } from "@nuxtjs/composition-api";
 import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
 import RecipeContextMenu from "./RecipeContextMenu.vue";
 import RecipeCardImage from "./RecipeCardImage.vue";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 
 export default defineComponent({
   components: {
@@ -95,10 +95,6 @@ export default defineComponent({
     name: {
       type: String,
       required: true,
-    },
-    groupSlug: {
-      type: String,
-      default: null,
     },
     slug: {
       type: String,
@@ -136,16 +132,16 @@ export default defineComponent({
   },
   setup(props) {
     const { $auth } = useContext();
-    const loggedIn = computed(() => {
-      return $auth.loggedIn;
-    });
+    const { isOwnGroup } = useLoggedInState();
 
+    const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "")
     const recipeRoute = computed<string>(() => {
-      return loggedIn.value ? `/recipe/${props.slug}` : `/explore/recipes/${props.groupSlug}/${props.slug}`;
+      return `/g/${groupSlug.value}/r/${props.slug}`;
     });
 
     return {
-      loggedIn,
+      isOwnGroup,
       recipeRoute,
     };
   },

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="ready">
     <v-card-title>
       <slot>
         <h1 class="mx-auto">{{ $t("page.404-page-not-found") }}</h1>
@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, useMeta } from "@nuxtjs/composition-api";
+import { defineComponent, ref, useContext, useMeta, useRoute, useRouter } from "@nuxtjs/composition-api";
 
 export default defineComponent({
   layout: "basic",
@@ -39,7 +39,48 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { $globals, i18n } = useContext();
+    const { $auth, $globals, i18n } = useContext();
+    const ready = ref(false);
+
+    const route = useRoute();
+    const router = useRouter();
+
+    async function insertGroupSlugIntoRoute() {
+      const groupSlug = ref($auth.user?.groupSlug);
+      if (!groupSlug.value) {
+        return;
+      }
+
+      let replaceRoute = false;
+      let routeVal = route.value.fullPath || "/";
+      if (routeVal[0] !== "/") {
+        routeVal = `/${routeVal}`;
+      }
+
+      // replace "recipe" in URL with "r"
+      if (routeVal.includes("/recipe/")) {
+        replaceRoute = true;
+        routeVal = routeVal.replace("/recipe/", "/r/");
+      }
+
+      // insert groupSlug into URL
+      const routeComponents = routeVal.split("/");
+      if (routeComponents.length < 2 || routeComponents[1].toLowerCase() !== "g") {
+        replaceRoute = true;
+        routeVal = `/g/${groupSlug.value}${routeVal}`;
+      }
+
+      if (replaceRoute) {
+        await router.replace(routeVal);
+      }
+    }
+
+    if (props.error.statusCode === 404) {
+      // see if adding the groupSlug fixes the error
+      insertGroupSlugIntoRoute().then(() => { ready.value = true });
+    } else {
+      ready.value = true;
+    }
 
     useMeta({
       title:
@@ -54,6 +95,7 @@ export default defineComponent({
 
     return {
       buttons,
+      ready,
     };
   },
   // Needed for useMeta

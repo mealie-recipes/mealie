@@ -9,6 +9,5 @@ import DefaultLayout from "@/components/Layout/DefaultLayout.vue";
 
 export default defineComponent({
   components: { DefaultLayout },
-  middleware: "auth",
 });
 </script>

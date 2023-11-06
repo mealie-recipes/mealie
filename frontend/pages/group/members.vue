@@ -14,7 +14,7 @@
           </template>
         </i18n>
         <v-container class="mt-1 px-0">
-        <nuxt-link class="text-center" to="/user/profile/edit"> {{ $t('group.looking-to-update-your-profile') }} </nuxt-link>
+        <nuxt-link class="text-center" :to="`/user/profile/edit`"> {{ $t('group.looking-to-update-your-profile') }} </nuxt-link>
       </v-container>
       </BasePageTitle>
     <v-data-table

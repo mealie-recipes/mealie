@@ -34,7 +34,7 @@
               class="mb-1"
               :disabled="recipe.settings.disableAmount || hasFoodOrUnit"
               color="accent"
-              :to="`${recipe.slug}/ingredient-parser`"
+              :to="`/g/${groupSlug}/${recipe.slug}/ingredient-parser`"
               v-bind="attrs"
             >
               <template #icon>
@@ -54,7 +54,7 @@
 
 <script lang="ts">
 import draggable from "vuedraggable";
-import { computed, defineComponent, ref, useContext } from "@nuxtjs/composition-api";
+import { computed, defineComponent, ref, useContext, useRoute } from "@nuxtjs/composition-api";
 import { usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { Recipe } from "~/lib/api/types/recipe";
@@ -76,9 +76,12 @@ export default defineComponent({
   setup(props) {
     const { user } = usePageUser();
     const { imageKey } = usePageState(props.recipe.slug);
-    const { i18n } = useContext();
+    const { $auth, i18n } = useContext();
 
     const drag = ref(false);
+
+    const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
 
     const hasFoodOrUnit = computed(() => {
       if (!props.recipe) {
@@ -139,6 +142,7 @@ export default defineComponent({
 
     return {
       user,
+      groupSlug,
       addIngredient,
       parserToolTip,
       hasFoodOrUnit,

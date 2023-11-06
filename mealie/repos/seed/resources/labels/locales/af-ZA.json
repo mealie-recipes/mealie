@@ -1,65 +1,65 @@
 [
     {
-        "name": "Produce"
+        "name": "Produkte"
     },
     {
-        "name": "Grains"
+        "name": "Graankosse"
     },
     {
-        "name": "Fruits"
+        "name": "Vrugte"
     },
     {
-        "name": "Vegetables"
+        "name": "Groente"
     },
     {
-        "name": "Meat"
+        "name": "Vleis"
     },
     {
-        "name": "Seafood"
+        "name": "Seekos"
     },
     {
-        "name": "Beverages"
+        "name": "Drinkgoed"
     },
     {
-        "name": "Baked Goods"
+        "name": "Gebakte goedere"
     },
     {
-        "name": "Canned Goods"
+        "name": "Geblikte goedere"
     },
     {
-        "name": "Condiments"
+        "name": "Geurmiddels"
     },
     {
-        "name": "Confectionary"
+        "name": "Soetgoed"
     },
     {
-        "name": "Dairy Products"
+        "name": "Suiwelprodukte"
     },
     {
-        "name": "Frozen Foods"
+        "name": "Bevrore kosse"
     },
     {
-        "name": "Health Foods"
+        "name": "Gesondheidskos"
     },
     {
-        "name": "Household"
+        "name": "Huishouding"
     },
     {
-        "name": "Meat Products"
+        "name": "Vleis produkte"
     },
     {
-        "name": "Snacks"
+        "name": "Peuselhappies"
     },
     {
-        "name": "Spices"
+        "name": "Speserye"
     },
     {
-        "name": "Sweets"
+        "name": "Lekkers"
     },
     {
-        "name": "Alcohol"
+        "name": "Drank"
     },
     {
-        "name": "Other"
+        "name": "Ander"
     }
 ]

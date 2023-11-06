@@ -48,7 +48,7 @@
       <BaseCardSectionTitle v-if="isTitle(key)" :title="key" />
       <v-row>
         <v-col v-for="(item, index) in itms" :key="'cat' + index" cols="12" :sm="12" :md="6" :lg="4" :xl="3">
-          <v-card v-if="item" class="left-border" hover :to="`/?${itemType}=${item.id}`">
+          <v-card v-if="item" class="left-border" hover :to="`/g/${groupSlug}?${itemType}=${item.id}`">
             <v-card-actions>
               <v-icon>
                 {{ icon }}
@@ -72,7 +72,7 @@
 
 <script lang="ts">
 import Fuse from "fuse.js";
-import { defineComponent, computed, ref, reactive } from "@nuxtjs/composition-api";
+import { defineComponent, computed, ref, reactive, useContext, useRoute } from "@nuxtjs/composition-api";
 import { useContextPresets } from "~/composables/use-context-presents";
 import RecipeOrganizerDialog from "~/components/Domain/Recipe/RecipeOrganizerDialog.vue";
 import { RecipeOrganizer } from "~/lib/api/types/non-generated";
@@ -118,6 +118,10 @@ export default defineComponent({
         keys: ["name"],
       },
     });
+
+    const { $auth } = useContext();
+    const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
 
     // =================================================================
     // Context Menu
@@ -204,6 +208,7 @@ export default defineComponent({
     }
 
     return {
+      groupSlug,
       isTitle,
       dialogs,
       confirmDelete,

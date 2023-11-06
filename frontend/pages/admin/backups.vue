@@ -105,13 +105,13 @@
       </section>
     </section>
     <v-container class="mt-4 d-flex justify-center text-center">
-      <nuxt-link to="/group/migrations"> {{ $t('recipe.looking-for-migrations') }} </nuxt-link>
+      <nuxt-link :to="`/group/migrations`"> {{ $t('recipe.looking-for-migrations') }} </nuxt-link>
     </v-container>
   </v-container>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, toRefs, useContext, onMounted } from "@nuxtjs/composition-api";
+import { computed, defineComponent, reactive, ref, toRefs, useContext, onMounted, useRoute } from "@nuxtjs/composition-api";
 import { useAdminApi } from "~/composables/api";
 import { AllBackups } from "~/lib/api/types/admin";
 
@@ -119,6 +119,8 @@ export default defineComponent({
   layout: "admin",
   setup() {
     const { i18n, $auth } = useContext();
+    const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
 
     const adminApi = useAdminApi();
     const selected = ref("");
@@ -192,6 +194,7 @@ export default defineComponent({
     onMounted(refreshBackups);
 
     return {
+      groupSlug,
       restoreBackup,
       selected,
       ...toRefs(state),

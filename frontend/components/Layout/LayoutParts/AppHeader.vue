@@ -35,7 +35,7 @@
       <v-btn v-else icon @click="activateSearch">
         <v-icon> {{ $globals.icons.search }}</v-icon>
       </v-btn>
-      <v-btn v-if="$auth.loggedIn" :text="$vuetify.breakpoint.smAndUp" :icon="$vuetify.breakpoint.xs" @click="$auth.logout()">
+      <v-btn v-if="loggedIn" :text="$vuetify.breakpoint.smAndUp" :icon="$vuetify.breakpoint.xs" @click="$auth.logout()">
         <v-icon :left="$vuetify.breakpoint.smAndUp">{{ $globals.icons.logout }}</v-icon>
         {{ $vuetify.breakpoint.smAndUp ? $t("user.logout") : "" }}
       </v-btn>
@@ -49,6 +49,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, onBeforeUnmount, onMounted, ref, useContext, useRoute } from "@nuxtjs/composition-api";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipeDialogSearch from "~/components/Domain/Recipe/RecipeDialogSearch.vue";
 
 export default defineComponent({
@@ -61,14 +62,11 @@ export default defineComponent({
   },
   setup() {
     const { $auth } = useContext();
+    const { loggedIn } = useLoggedInState();
     const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
 
-    const loggedIn = computed(() => {
-      return $auth.loggedIn;
-    });
-
-    const groupSlug = route.value.params.groupSlug;
-    const routerLink = !loggedIn.value && groupSlug ? `/explore/recipes/${groupSlug}` : "/"
+    const routerLink = computed(() => groupSlug.value ? `/g/${groupSlug.value}` : "/");
     const domSearchDialog = ref<InstanceType<typeof RecipeDialogSearch> | null>(null);
 
     function activateSearch() {
@@ -95,6 +93,7 @@ export default defineComponent({
       activateSearch,
       domSearchDialog,
       routerLink,
+      loggedIn,
     };
   },
 });

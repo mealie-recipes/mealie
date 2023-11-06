@@ -56,7 +56,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, toRefs, reactive, useContext } from "@nuxtjs/composition-api";
+import { defineComponent, computed, toRefs, reactive, useContext, useRoute } from "@nuxtjs/composition-api";
 import { useClipboard, useShare, whenever } from "@vueuse/core";
 import { RecipeShareToken } from "~/lib/api/types/recipe";
 import { useUserApi } from "~/composables/api";
@@ -105,6 +105,10 @@ export default defineComponent({
       }
     );
 
+    const { $auth, i18n } = useContext();
+    const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+
     // ============================================================
     // Token Actions
 
@@ -138,7 +142,6 @@ export default defineComponent({
       }
     }
 
-    const { i18n } = useContext();
     const { share, isSupported: shareIsSupported } = useShare();
     const { copy } = useClipboard();
 
@@ -147,7 +150,7 @@ export default defineComponent({
     }
 
     function getTokenLink(token: string) {
-      return `${window.location.origin}/shared/recipes/${token}`;
+      return `${window.location.origin}/g/${groupSlug.value}/shared/r/${token}`;
     }
 
     async function copyTokenLink(token: string) {

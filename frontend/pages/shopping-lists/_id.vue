@@ -199,7 +199,7 @@
 
     <v-lazy>
       <div class="d-flex justify-end mt-10">
-        <ButtonLink to="/group/data/labels" :text="$tc('shopping-list.manage-labels')" :icon="$globals.icons.tags" />
+        <ButtonLink :to="`/group/data/labels`" :text="$tc('shopping-list.manage-labels')" :icon="$globals.icons.tags" />
       </div>
     </v-lazy>
   </v-container>
@@ -236,6 +236,7 @@ export default defineComponent({
     ShoppingListItemEditor,
   },
   setup() {
+    const { $auth, i18n } = useContext();
     const preferences = useShoppingListPreferences();
 
     const { idle } = useIdle(5 * 60 * 1000) // 5 minutes
@@ -247,9 +248,8 @@ export default defineComponent({
     const reorderLabelsDialog = ref(false);
 
     const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
     const id = route.value.params.id;
-
-    const { i18n } = useContext();
 
     // ===============================================================
     // Shopping List Actions
@@ -755,6 +755,7 @@ export default defineComponent({
       deleteListItem,
       edit,
       getLabelColor,
+      groupSlug,
       itemsByLabel,
       listItems,
       loadingCounter,

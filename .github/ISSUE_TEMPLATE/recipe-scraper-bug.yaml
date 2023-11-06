@@ -17,7 +17,7 @@ body:
         - label: |
             I have verified that this issue _is not_ related to the underlying library
             [hhyrsev/recipe-scrapers](https://github.com/hhursev/recipe-scrapers) by **1)** checking
-            the [debugger](https://demo.mealie.io/recipe/create/debug) and data is returned, **2)**
+            the [debugger](https://demo.mealie.io/g/home/r/create/debug) and data is returned, **2)**
             verifying that there _are_ errors in the log related to application level code, or
             **3)** verified that the site provides recipe data, or is otherwise supported by
             [hhyrsev/recipe-scrapers](https://github.com/hhursev/recipe-scrapers)

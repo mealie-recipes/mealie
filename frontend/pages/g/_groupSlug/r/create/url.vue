@@ -69,6 +69,7 @@ import {
   ref,
   useRouter,
   computed,
+  useContext,
   useRoute,
   onMounted,
 } from "@nuxtjs/composition-api";
@@ -85,8 +86,11 @@ export default defineComponent({
       loading: false,
     });
 
+    const { $auth } = useContext();
     const api = useUserApi();
     const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+
     const router = useRouter();
     const tags = useTagStore();
 
@@ -99,7 +103,7 @@ export default defineComponent({
       if (refreshTags) {
         tags.actions.refresh();
       }
-      router.push(`/recipe/${response.data}?edit=${edit.toString()}`);
+      router.push(`/g/${groupSlug.value}/r/${response.data}?edit=${edit.toString()}`);
     }
 
     const recipeUrl = computed({

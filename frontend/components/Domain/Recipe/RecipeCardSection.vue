@@ -76,7 +76,6 @@
             <RecipeCard
               :name="recipe.name"
               :description="recipe.description"
-              :group-slug="groupSlug"
               :slug="recipe.slug"
               :rating="recipe.rating"
               :image="recipe.image"
@@ -100,7 +99,6 @@
             <RecipeCardMobile
               :name="recipe.name"
               :description="recipe.description"
-              :group-slug="groupSlug"
               :slug="recipe.slug"
               :rating="recipe.rating"
               :image="recipe.image"
@@ -128,12 +126,14 @@ import {
   toRefs,
   useAsync,
   useContext,
+  useRoute,
   useRouter,
   watch,
 } from "@nuxtjs/composition-api";
 import { useThrottleFn } from "@vueuse/core";
 import RecipeCard from "./RecipeCard.vue";
 import RecipeCardMobile from "./RecipeCardMobile.vue";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useAsyncKey } from "~/composables/use-utils";
 import { useLazyRecipes } from "~/composables/recipes";
 import { Recipe } from "~/lib/api/types/recipe";
@@ -165,10 +165,6 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    groupSlug: {
-      type: String,
-      default: null,
-    },
     recipes: {
       type: Array as () => Recipe[],
       default: () => [],
@@ -191,9 +187,7 @@ export default defineComponent({
     };
 
     const { $auth, $globals, $vuetify } = useContext();
-    const loggedIn = computed(() => {
-      return $auth.loggedIn;
-    });
+    const { isOwnGroup } = useLoggedInState();
     const useMobileCards = computed(() => {
       return $vuetify.breakpoint.smAndDown || preferences.value.useMobileCards;
     });
@@ -206,12 +200,15 @@ export default defineComponent({
       sortLoading: false,
     });
 
+    const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+
     const router = useRouter();
     function navigateRandom() {
       if (props.recipes.length > 0) {
         const recipe = props.recipes[Math.floor(Math.random() * props.recipes.length)];
         if (recipe.slug !== undefined) {
-          router.push(loggedIn.value ? `/recipe/${recipe.slug}` : `/explore/recipes/${props.groupSlug}/${recipe.slug}`);
+          router.push(`/g/${groupSlug.value}/r/${recipe.slug}`);
         }
       }
     }
@@ -222,7 +219,7 @@ export default defineComponent({
     const ready = ref(false);
     const loading = ref(false);
 
-    const { fetchMore } = useLazyRecipes(loggedIn.value ? null : props.groupSlug);
+    const { fetchMore } = useLazyRecipes(isOwnGroup.value ? null : groupSlug.value);
 
     const queryFilter = computed(() => {
       const orderBy = props.query?.orderBy || preferences.value.orderBy;
