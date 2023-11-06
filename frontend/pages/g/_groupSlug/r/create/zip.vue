@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, ref, useRouter } from "@nuxtjs/composition-api";
+import { computed, defineComponent, reactive, toRefs, ref, useContext, useRoute, useRouter } from "@nuxtjs/composition-api";
 import { AxiosResponse } from "axios";
 import { useUserApi } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
@@ -41,6 +41,10 @@ export default defineComponent({
       error: false,
       loading: false,
     });
+    const { $auth } = useContext();
+    const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+
     const api = useUserApi();
     const router = useRouter();
 
@@ -50,7 +54,7 @@ export default defineComponent({
         state.loading = false;
         return;
       }
-      router.push(`/recipe/${response.data}?edit=${edit.toString()}`);
+      router.push(`/g/${groupSlug.value}/r/${response.data}?edit=${edit.toString()}`);
     }
 
     const newRecipeZip = ref<File | null>(null);

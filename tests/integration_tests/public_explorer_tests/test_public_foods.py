@@ -20,6 +20,7 @@ def test_get_all_foods(
     assert group and group.preferences
 
     group.preferences.private_group = is_private_group
+    group.preferences.recipe_public = not is_private_group
     database.group_preferences.update(group.id, group.preferences)
 
     ## Set Up Foods
@@ -53,6 +54,7 @@ def test_get_one_food(
     assert group and group.preferences
 
     group.preferences.private_group = is_private_group
+    group.preferences.recipe_public = not is_private_group
     database.group_preferences.update(group.id, group.preferences)
 
     ## Set Up Food

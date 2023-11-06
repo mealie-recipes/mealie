@@ -37,8 +37,8 @@ export default defineComponent({
   },
 
   setup(_, context) {
-    const router = useRouter();
     const { i18n } = useContext();
+    const router = useRouter();
 
     const headers = [
       { text: i18n.t("category.category"), value: "category" },
@@ -49,7 +49,7 @@ export default defineComponent({
     ];
 
     function handleRowClick(item: ReportSummary) {
-      router.push("/group/reports/" + item.id);
+      router.push(`/group/reports/${item.id}`);
     }
 
     function capitalize(str: string) {

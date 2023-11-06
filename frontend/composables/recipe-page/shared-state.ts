@@ -151,12 +151,12 @@ export function usePageUser(): { user: UserOut } {
         id: "",
         group: "",
         groupId: "",
+        groupSlug: "",
         cacheKey: "",
         email: "",
       },
     };
   }
 
-  // @ts-expect-error - We know that the API always returns a UserOut, but I'm unsure how to type the $auth to know what type user is
-  return { user: $auth.user as UserOut };
+  return { user: $auth.user };
 }

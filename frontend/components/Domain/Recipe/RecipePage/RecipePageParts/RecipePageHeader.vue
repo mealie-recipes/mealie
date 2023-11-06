@@ -10,7 +10,7 @@
           <v-divider class="my-2"></v-divider>
           <SafeMarkdown :source="recipe.description" />
           <v-divider></v-divider>
-          <div v-if="user.id" class="d-flex justify-center mt-5">
+          <div v-if="isOwnGroup" class="d-flex justify-center mt-5">
             <RecipeLastMade
               v-model="recipe.lastMade"
               :recipe="recipe"
@@ -45,9 +45,9 @@
       :recipe="recipe"
       :slug="recipe.slug"
       :recipe-scale="recipeScale"
-      :locked="user.id !== recipe.userId && recipe.settings.locked"
+      :locked="isOwnGroup && user.id !== recipe.userId && recipe.settings.locked"
       :name="recipe.name"
-      :logged-in="$auth.loggedIn"
+      :logged-in="isOwnGroup"
       :open="isEditMode"
       :recipe-id="recipe.id"
       :show-ocr-button="recipe.isOcrRecipe"
@@ -64,7 +64,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, computed, ref, watch, useRouter } from "@nuxtjs/composition-api";
+import { defineComponent, useContext, computed, ref, watch, useRouter, useRoute } from "@nuxtjs/composition-api";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipeRating from "~/components/Domain/Recipe/RecipeRating.vue";
 import RecipeLastMade from "~/components/Domain/Recipe/RecipeLastMade.vue";
 import RecipeActionMenu from "~/components/Domain/Recipe/RecipeActionMenu.vue";
@@ -95,16 +96,19 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const { $auth, $vuetify } = useContext();
     const { recipeImage } = useStaticRoutes();
     const { imageKey, pageMode, editMode, setMode, toggleEditMode, isEditMode } = usePageState(props.recipe.slug);
     const { user } = usePageUser();
+    const { isOwnGroup } = useLoggedInState();
+
+    const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
     const router = useRouter();
 
     function printRecipe() {
       window.print();
     }
-
-    const { $vuetify } = useContext();
 
     const hideImage = ref(false);
     const imageHeight = computed(() => {
@@ -116,7 +120,7 @@ export default defineComponent({
     });
 
     function goToOcrEditor() {
-      router.push("/recipe/" + props.recipe.slug + "/ocr-editor");
+      router.push(`/g/${groupSlug.value}/r/${props.recipe.slug}/ocr-editor`);
     }
 
     watch(
@@ -127,6 +131,7 @@ export default defineComponent({
     );
 
     return {
+      isOwnGroup,
       setMode,
       toggleEditMode,
       recipeImage,

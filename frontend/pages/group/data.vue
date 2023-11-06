@@ -46,7 +46,9 @@ export default defineComponent({
       labels: i18n.tc("data-pages.labels.labels"),
     };
 
-    const DATA_TYPE_OPTIONS = [
+    const route = useRoute();
+
+    const DATA_TYPE_OPTIONS = computed(() => [
       {
         text: i18n.t("general.recipes"),
         value: "new",
@@ -67,9 +69,7 @@ export default defineComponent({
         value: "new",
         to: "/group/data/labels",
       },
-    ];
-
-    const route = useRoute();
+    ]);
 
     const buttonText = computed(() => {
       const last = route.value.path.split("/").pop();

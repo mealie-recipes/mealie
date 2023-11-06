@@ -104,6 +104,7 @@ class UserOut(UserBase):
     id: UUID4
     group: str
     group_id: UUID4
+    group_slug: str
     tokens: list[LongLiveTokenOut] | None
     cache_key: str
     favorite_recipes: list[str] | None = []

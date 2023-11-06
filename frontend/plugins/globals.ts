@@ -1,6 +1,7 @@
 import { Plugin } from "@nuxt/types";
-import { Auth } from "@nuxtjs/auth-next";
+import { Auth as NuxtAuth } from "@nuxtjs/auth-next";
 import { Framework } from "vuetify";
+import { UserOut } from "~/lib/api/types/user";
 import { icons } from "~/lib/icons";
 import { Icon } from "~/lib/icons/icon-type";
 
@@ -15,6 +16,11 @@ declare module "vue/types/vue" {
 }
 
 declare module "@nuxt/types" {
+  // @ts-ignore https://github.com/nuxt-community/auth-module/issues/1097#issuecomment-840249428
+  interface Auth extends NuxtAuth {
+    user: UserOut | null;
+  }
+
   interface Context {
     $globals: Globals;
     $vuetify: Framework;

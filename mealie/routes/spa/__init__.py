@@ -33,9 +33,9 @@ __app_settings = get_app_settings()
 __contents = ""
 
 
-def content_with_meta(recipe: Recipe) -> str:
+def content_with_meta(group_slug: str, recipe: Recipe) -> str:
     # Inject meta tags
-    recipe_url = f"{__app_settings.BASE_URL}/recipe/{recipe.slug}"
+    recipe_url = f"{__app_settings.BASE_URL}/g/{group_slug}/r/{recipe.slug}"
     image_url = f"{__app_settings.BASE_URL}/api/media/recipes/{recipe.id}/images/original.webp?version={recipe.image}"
 
     ingredients: list[str] = []
@@ -122,28 +122,29 @@ def serve_recipe_with_meta_public(
             return response_404()
 
         # Inject meta tags
-        return Response(content_with_meta(recipe), media_type="text/html")
+        return Response(content_with_meta(group_slug, recipe), media_type="text/html")
     except Exception:
         return response_404()
 
 
 async def serve_recipe_with_meta(
-    slug: str,
-    user: PrivateUser = Depends(try_get_current_user),
+    group_slug: str,
+    recipe_slug: str,
+    user: PrivateUser | None = Depends(try_get_current_user),
     session: Session = Depends(generate_session),
 ):
     if not user:
-        return Response(__contents, media_type="text/html", status_code=401)
+        return serve_recipe_with_meta_public(group_slug, recipe_slug, session)
 
     try:
         repos = AllRepositories(session)
 
-        recipe = repos.recipes.by_group(user.group_id).get_one(slug, "slug")
+        recipe = repos.recipes.by_group(user.group_id).get_one(recipe_slug, "slug")
         if recipe is None:
             return response_404()
 
         # Serve contents as HTML
-        return Response(content_with_meta(recipe), media_type="text/html")
+        return Response(content_with_meta(group_slug, recipe), media_type="text/html")
     except Exception:
         return response_404()
 
@@ -155,6 +156,5 @@ def mount_spa(app: FastAPI):
     global __contents
     __contents = pathlib.Path(__app_settings.STATIC_FILES).joinpath("index.html").read_text()
 
-    app.get("/recipe/{slug}")(serve_recipe_with_meta)
-    app.get("/explore/recipes/{group_slug}/{recipe_slug}")(serve_recipe_with_meta_public)
+    app.get("/g/{group_slug}/r/{recipe_slug}")(serve_recipe_with_meta)
     app.mount("/", SPAStaticFiles(directory=__app_settings.STATIC_FILES, html=True), name="spa")

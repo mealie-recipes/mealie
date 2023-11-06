@@ -1,34 +1,36 @@
 <template>
-  <div v-if="recipe">
+  <div>
     <client-only>
-      <RecipePage :recipe="recipe" />
+      <RecipePage v-if="recipe" :recipe="recipe" />
     </client-only>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, useAsync, useMeta, useRoute, useRouter } from "@nuxtjs/composition-api";
+import { computed, defineComponent, useAsync, useContext, useMeta, useRoute, useRouter } from "@nuxtjs/composition-api";
 import RecipePage from "~/components/Domain/Recipe/RecipePage/RecipePage.vue";
-import { usePublicExploreApi } from "~/composables/api/api-client";
+import { usePublicApi } from "~/composables/api/api-client";
 
 export default defineComponent({
   components: { RecipePage },
-  layout: "explore",
+  layout: "basic",
   setup() {
+    const { $auth } = useContext();
     const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+
     const router = useRouter();
-    const groupSlug = route.value.params.groupSlug;
-    const recipeSlug = route.value.params.recipeSlug;
-    const api = usePublicExploreApi(groupSlug);
+    const recipeId = route.value.params.id;
+    const api = usePublicApi();
 
     const { title } = useMeta();
 
     const recipe = useAsync(async () => {
-      const { data, error } = await api.explore.recipes.getOne(recipeSlug);
+      const { data, error } = await api.shared.getShared(recipeId);
 
       if (error) {
         console.error("error loading recipe -> ", error);
-        router.push("/");
+        router.push(`/g/${groupSlug.value}`);
       }
 
       if (data) {

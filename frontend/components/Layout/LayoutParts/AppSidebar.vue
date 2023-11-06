@@ -1,14 +1,14 @@
 <template>
   <v-navigation-drawer v-model="drawer" class="d-flex flex-column d-print-none" clipped app width="240px">
     <!-- User Profile -->
-    <template v-if="$auth.user">
-      <v-list-item two-line to="/user/profile" exact>
+    <template v-if="loggedIn">
+      <v-list-item two-line :to="userProfileLink" exact>
         <UserAvatar list :user-id="$auth.user.id" />
 
         <v-list-item-content>
           <v-list-item-title class="pr-2"> {{ $auth.user.fullName }}</v-list-item-title>
           <v-list-item-subtitle>
-            <v-btn class="px-2 pa-0" text :to="`/user/${$auth.user.id}/favorites`" small>
+            <v-btn v-if="isOwnGroup" class="px-2 pa-0" text :to="userFavoritesLink" small>
               <v-icon left small>
                 {{ $globals.icons.heart }}
               </v-icon>
@@ -26,7 +26,7 @@
     <template v-if="topLink">
       <v-list nav dense>
         <template v-for="nav in topLink">
-          <div v-if="!nav.restricted || loggedIn" :key="nav.title">
+          <div v-if="!nav.restricted || isOwnGroup" :key="nav.title">
             <!-- Multi Items -->
             <v-list-group
               v-if="nav.children"
@@ -69,13 +69,20 @@
 
     <!-- Secondary Links -->
     <template v-if="secondaryLinks">
-      <v-subheader v-if="secondaryHeader" :to="secondaryHeaderLink" class="pb-0">
-        {{ secondaryHeader }}
-      </v-subheader>
-      <v-divider></v-divider>
+      <router-link v-if="secondaryHeader && secondaryHeaderLink" :to="secondaryHeaderLink" style="text-decoration: none;">
+        <v-subheader :to="secondaryHeaderLink" class="pb-0">
+          {{ secondaryHeader }}
+        </v-subheader>
+      </router-link>
+      <div v-else-if="secondaryHeader">
+        <v-subheader :to="secondaryHeaderLink" class="pb-0">
+          {{ secondaryHeader }}
+        </v-subheader>
+      </div>
+      <v-divider v-if="secondaryHeader"></v-divider>
       <v-list nav dense exact>
         <template v-for="nav in secondaryLinks">
-          <div v-if="!nav.restricted || loggedIn" :key="nav.title">
+          <div v-if="!nav.restricted || isOwnGroup" :key="nav.title">
             <!-- Multi Items -->
             <v-list-group
               v-if="nav.children"
@@ -116,7 +123,7 @@
       <v-list nav dense>
         <v-list-item-group v-model="bottomSelected" color="primary">
           <template v-for="nav in bottomLinks">
-            <div v-if="!nav.restricted || loggedIn" :key="nav.title">
+            <div v-if="!nav.restricted || isOwnGroup" :key="nav.title">
               <v-list-item
                 :key="nav.title"
                 exact
@@ -141,6 +148,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, reactive, toRefs, useContext } from "@nuxtjs/composition-api";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { SidebarLinks } from "~/types/application-types";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 
@@ -198,7 +206,10 @@ export default defineComponent({
     });
 
     const { $auth } = useContext();
-    const loggedIn = computed(() => $auth.loggedIn);
+    const { loggedIn, isOwnGroup } = useLoggedInState();
+
+    const userFavoritesLink = computed(() => $auth.user ? `/user/${$auth.user.id}/favorites` : undefined);
+    const userProfileLink = computed(() => $auth.user ? "/user/profile" : undefined);
 
     const state = reactive({
       dropDowns: {},
@@ -210,8 +221,11 @@ export default defineComponent({
 
     return {
       ...toRefs(state),
+      userFavoritesLink,
+      userProfileLink,
       drawer,
       loggedIn,
+      isOwnGroup,
     };
   },
 });

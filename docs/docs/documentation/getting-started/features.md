@@ -8,7 +8,7 @@
 
 Mealie offers two main ways to create recipes. You can use the integrated recipe-scraper to create recipes from hundreds of websites, or you can create recipes manually using the recipe editor.
 
-[Creation Demo](https://demo.mealie.io/recipe/create/url){ .md-button .md-button--primary .align-right }
+[Creation Demo](https://demo.mealie.io/g/home/r/create/url){ .md-button .md-button--primary .align-right }
 
 ### Importing Recipes
 
@@ -34,13 +34,13 @@ Mealie has a robust and flexible recipe organization system with a few different
 
 Categories are the overarching organizer for recipes. You can assign as many categories as you'd like to a recipe, but we recommend that you try to limit the categories you assign to a recipe to one or two. This helps keep categories as focused as possible while still allowing you to find recipes that are related to each other. For example, you might assign a recipe to the category **Breakfast**, **Lunch**, **Dinner**, or **Side**.
 
-[Categories Demo](https://demo.mealie.io/recipes/categories){ .md-button .md-button--primary }
+[Categories Demo](https://demo.mealie.io/g/home/recipes/categories){ .md-button .md-button--primary }
 
 #### Tags
 
 Tags, are nearly identical to categories in function but play a secondary role in some cases. As such, we recommend that you use tags freely to help you organize your recipes by more specific topics. For example, if a recipe can be frozen or is a great left-over meal, you could assign the tags **frozen** and **left-over** and easily filter for those at a later time.
 
-[Tags Demo](https://demo.mealie.io/recipes/tags){ .md-button .md-button--primary }
+[Tags Demo](https://demo.mealie.io/g/home/recipes/tags){ .md-button .md-button--primary }
 
 #### Tools
 
@@ -48,7 +48,7 @@ Tools, are another way that some users like to organize their recipes. If a reci
 
 Each of the above organizers can be filtered in searches, and have their own pages where you can view all the recipes that are associated with those organizers.
 
-[Tools Demo](https://demo.mealie.io/recipes/tools){ .md-button .md-button--primary }
+[Tools Demo](https://demo.mealie.io/g/home/recipes/tools){ .md-button .md-button--primary }
 
 #### Cookbooks
 
@@ -60,7 +60,7 @@ Mealie also has the concept of cookbooks. These can be created inside of a group
 - Pasta Sides: Recipes that have both the **Side** category and the **Pasta** tag
 - Dessert Breads: Recipes that have both the **Bread** category and the **Dessert** tag
 
-[Cookbooks Demo](https://demo.mealie.io/group/cookbooks){ .md-button .md-button--primary }
+[Cookbooks Demo](https://demo.mealie.io/g/home/cookbooks){ .md-button .md-button--primary }
 
 ## Meal Planning
 
