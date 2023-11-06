@@ -48,6 +48,7 @@ def test_get_all_organizers(
     assert group and group.preferences
 
     group.preferences.private_group = is_private_group
+    group.preferences.recipe_public = not is_private_group
     database.group_preferences.update(group.id, group.preferences)
 
     ## Set Up Organizers
@@ -113,6 +114,7 @@ def test_get_one_organizer(
     assert group and group.preferences
 
     group.preferences.private_group = is_private_group
+    group.preferences.recipe_public = not is_private_group
     database.group_preferences.update(group.id, group.preferences)
 
     ## Set Up Organizer

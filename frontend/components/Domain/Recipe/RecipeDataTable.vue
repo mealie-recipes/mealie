@@ -18,7 +18,7 @@
       </tr>
     </template>
     <template #item.name="{ item }">
-      <a :href="`/recipe/${item.slug}`" style="color: inherit; text-decoration: inherit; " @click="$emit('click')">{{ item.name }}</a>
+      <a :href="`/r/${item.slug}`" style="color: inherit; text-decoration: inherit; " @click="$emit('click')">{{ item.name }}</a>
     </template>
     <template #item.tags="{ item }">
       <RecipeChip small :items="item.tags" :is-category="false" url-prefix="tags" />

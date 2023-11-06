@@ -72,7 +72,7 @@
     </div>
 
     <RecipePageComments
-      v-if="user.id && !recipe.settings.disableComments && !isEditForm && !isCookMode"
+      v-if="isOwnGroup && !recipe.settings.disableComments && !isEditForm && !isCookMode"
       :recipe="recipe"
       class="px-1 my-4 d-print-none"
     />
@@ -89,6 +89,7 @@ import {
   ref,
   onMounted,
   onUnmounted,
+useRoute,
 } from "@nuxtjs/composition-api";
 import { invoke, until, useWakeLock } from "@vueuse/core";
 import RecipePageEditorToolbar from "./RecipePageParts/RecipePageEditorToolbar.vue";
@@ -101,6 +102,7 @@ import RecipePageOrganizers from "./RecipePageParts/RecipePageOrganizers.vue";
 import RecipePageScale from "./RecipePageParts/RecipePageScale.vue";
 import RecipePageTitleContent from "./RecipePageParts/RecipePageTitleContent.vue";
 import RecipePageComments from "./RecipePageParts/RecipePageComments.vue";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipePrintContainer from "~/components/Domain/Recipe/RecipePrintContainer.vue";
 import { EditorMode, PageMode, usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
@@ -140,6 +142,11 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const { $auth, $vuetify } = useContext();
+    const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+    const { isOwnGroup } = useLoggedInState();
+
     const router = useRouter();
     const api = useUserApi();
     const { pageMode, editMode, setMode, isEditForm, isEditJSON, isCookMode, isEditMode, toggleCookMode } =
@@ -226,21 +233,20 @@ export default defineComponent({
       const { data } = await api.recipes.updateOne(props.recipe.slug, props.recipe);
       setMode(PageMode.VIEW);
       if (data?.slug) {
-        router.push("/recipe/" + data.slug);
+        router.push(`/g/${groupSlug.value}/r/` + data.slug);
       }
     }
 
     async function deleteRecipe() {
       const { data } = await api.recipes.deleteOne(props.recipe.slug);
       if (data?.slug) {
-        router.push("/");
+        router.push(`/g/${groupSlug.value}`);
       }
     }
 
     /** =============================================================
      * View Preferences
      */
-    const { $vuetify } = useContext();
 
     const landscape = computed(() => {
       const preferLandscape = props.recipe.settings.landscapeView;
@@ -283,6 +289,7 @@ export default defineComponent({
 
     return {
       user,
+      isOwnGroup,
       api,
       scale: ref(1),
       EDITOR_OPTIONS,

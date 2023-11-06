@@ -1,4 +1,4 @@
-import { useAsync, ref } from "@nuxtjs/composition-api";
+import { useAsync, useRouter, ref } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "../use-utils";
 import { usePublicExploreApi } from "~/composables/api/api-client";
 import { useUserApi } from "~/composables/api";
@@ -9,6 +9,8 @@ export const allRecipes = ref<Recipe[]>([]);
 export const recentRecipes = ref<Recipe[]>([]);
 
 export const useLazyRecipes = function (publicGroupSlug: string | null = null) {
+  const router = useRouter();
+
   // passing the group slug switches to using the public API
   const api = publicGroupSlug ? usePublicExploreApi(publicGroupSlug).explore : useUserApi();
 
@@ -23,7 +25,7 @@ export const useLazyRecipes = function (publicGroupSlug: string | null = null) {
     queryFilter: string | null = null,
   ) {
 
-    const { data } = await api.recipes.getAll(page, perPage, {
+    const { data, error } = await api.recipes.getAll(page, perPage, {
       orderBy,
       orderDirection,
       paginationSeed: query?._searchSeed, // propagate searchSeed to stabilize random order pagination
@@ -40,6 +42,11 @@ export const useLazyRecipes = function (publicGroupSlug: string | null = null) {
       requireAllFoods: query?.requireAllFoods,
       queryFilter,
     });
+
+    if (error?.response?.status === 404) {
+      router.push("/login");
+    }
+
     return data ? data.items : [];
   }
 

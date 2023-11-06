@@ -1,29 +1,21 @@
 <template>
-  <div v-if="groupSlug">
-    <RecipeExplorerPage :group-slug="groupSlug" />
-  </div>
+  <div></div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "@nuxtjs/composition-api";
-import { invoke } from "@vueuse/core";
-import { useUserApi } from "~/composables/api/api-client";
-import RecipeExplorerPage from "~/components/Domain/Recipe/RecipeExplorerPage.vue";
-
+import { computed, defineComponent, useContext, useRouter } from "@nuxtjs/composition-api";
 export default defineComponent({
-  components: { RecipeExplorerPage },
+  layout: "blank",
   setup() {
-    const api = useUserApi();
-    const groupSlug = ref<string>();
+    const { $auth } = useContext();
+    const router = useRouter();
+    const groupSlug = computed(() => $auth.user?.groupSlug);
 
-    invoke(async () => {
-      const { data } = await api.users.getSelfGroup();
-      groupSlug.value = data?.slug;
-    });
-
-    return {
-      groupSlug,
-    };
-  },
+    if (groupSlug.value) {
+      router.push(`/g/${groupSlug.value}`);
+    } else {
+      router.push("/login");
+    }
+  }
 });
 </script>

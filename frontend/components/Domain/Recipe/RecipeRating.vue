@@ -2,7 +2,7 @@
   <div @click.prevent>
     <v-rating
       v-model="rating"
-      :readonly="!loggedIn"
+      :readonly="!isOwnGroup"
       color="secondary"
       background-color="secondary lighten-3"
       length="5"
@@ -18,7 +18,8 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, useContext } from "@nuxtjs/composition-api";
+import { defineComponent, ref } from "@nuxtjs/composition-api";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useUserApi } from "~/composables/api";
 export default defineComponent({
   props: {
@@ -45,10 +46,7 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-    const { $auth } = useContext();
-    const loggedIn = computed(() => {
-      return $auth.loggedIn;
-    });
+    const { isOwnGroup } = useLoggedInState();
 
     const rating = ref(props.value);
 
@@ -65,7 +63,7 @@ export default defineComponent({
       context.emit("input", val);
     }
 
-    return { loggedIn, rating, updateRating };
+    return { isOwnGroup, rating, updateRating };
   },
 });
 </script>

@@ -123,7 +123,6 @@
         class="mt-n5"
         :icon="$globals.icons.search"
         :title="$tc('search.results')"
-        :group-slug="groupSlug"
         :recipes="recipes"
         :query="passedQuery"
         @replaceRecipes="replaceRecipes"
@@ -134,9 +133,10 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, useRouter, onMounted, useContext, computed, Ref } from "@nuxtjs/composition-api";
+import { ref, defineComponent, useRouter, onMounted, useContext, computed, Ref, useRoute } from "@nuxtjs/composition-api";
 import { watchDebounced } from "@vueuse/shared";
 import SearchFilter from "~/components/Domain/SearchFilter.vue";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useCategoryStore, useFoodStore, useTagStore, useToolStore } from "~/composables/store";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
 import { IngredientFood, RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
@@ -150,19 +150,11 @@ import { usePublicToolStore } from "~/composables/store/use-tool-store";
 
 export default defineComponent({
   components: { SearchFilter, RecipeCardSection },
-  props: {
-      groupSlug: {
-          type: String,
-          required: true,
-      },
-  },
-  setup(props) {
+  setup() {
     const router = useRouter();
     const { $auth, $globals, i18n } = useContext();
 
-    const loggedIn = computed(() => {
-      return $auth.loggedIn;
-    });
+    const { isOwnGroup } = useLoggedInState();
     const state = ref({
       auto: true,
       search: "",
@@ -176,17 +168,20 @@ export default defineComponent({
       requireAllFoods: false,
     });
 
-    const { recipes, appendRecipes, assignSorted, removeRecipe, replaceRecipes } = useLazyRecipes(loggedIn.value ? null : props.groupSlug);
-    const categories = loggedIn.value ? useCategoryStore() : usePublicCategoryStore(props.groupSlug);
+    const route = useRoute();
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+
+    const { recipes, appendRecipes, assignSorted, removeRecipe, replaceRecipes } = useLazyRecipes(isOwnGroup.value ? null : groupSlug.value);
+    const categories = isOwnGroup.value ? useCategoryStore() : usePublicCategoryStore(groupSlug.value);
     const selectedCategories = ref<NoUndefinedField<RecipeCategory>[]>([]);
 
-    const foods = loggedIn.value ? useFoodStore() : usePublicFoodStore(props.groupSlug);
+    const foods = isOwnGroup.value ? useFoodStore() : usePublicFoodStore(groupSlug.value);
     const selectedFoods = ref<IngredientFood[]>([]);
 
-    const tags = loggedIn.value ? useTagStore() : usePublicTagStore(props.groupSlug);
+    const tags = isOwnGroup.value ? useTagStore() : usePublicTagStore(groupSlug.value);
     const selectedTags = ref<NoUndefinedField<RecipeTag>[]>([]);
 
-    const tools = loggedIn.value ? useToolStore() : usePublicToolStore(props.groupSlug);
+    const tools = isOwnGroup.value ? useToolStore() : usePublicToolStore(groupSlug.value);
     const selectedTools = ref<NoUndefinedField<RecipeTool>[]>([]);
 
     const passedQuery = ref<RecipeSearchQuery | null>(null);

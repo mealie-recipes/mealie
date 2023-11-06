@@ -77,7 +77,7 @@ export default defineComponent({
     const refUserDialog = ref();
     const { $auth } = useContext();
 
-    const user = computed(() => $auth.user as UserOut | null);
+    const user = computed(() => $auth.user);
 
     const { $globals, i18n } = useContext();
 

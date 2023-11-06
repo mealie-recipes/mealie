@@ -342,7 +342,7 @@ export default {
       background_color: "#FFFFFF",
       display: "standalone",
       share_target: {
-        action: "/recipe/create/url",
+        action: "/r/create/url",
         method: "GET",
         params: {
           /* title and url are not currently used in Mealie. If there are issues

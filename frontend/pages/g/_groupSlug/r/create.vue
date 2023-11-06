@@ -20,7 +20,7 @@
 
     <AdvancedOnly>
       <v-container class="d-flex justify-center align-center my-4">
-        <a to="/group/migrations"> {{ $t('recipe.looking-for-migrations') }}</a>
+        <a :to="`/group/migrations`"> {{ $t('recipe.looking-for-migrations') }}</a>
       </v-container>
     </AdvancedOnly>
   </div>
@@ -34,7 +34,7 @@ import AdvancedOnly from "~/components/global/AdvancedOnly.vue";
 export default defineComponent({
   components: { AdvancedOnly },
   setup() {
-    const { $globals, i18n } = useContext();
+    const { $auth, $globals, i18n } = useContext();
 
     const subpages: MenuItem[] = [
       {
@@ -71,10 +71,11 @@ export default defineComponent({
 
     const route = useRoute();
     const router = useRouter();
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
 
     const subpage = computed({
       set(subpage: string) {
-        router.push({ path: `/recipe/create/${subpage}`, query: route.value.query });
+        router.push({ path: `/g/${groupSlug.value}/r/create/${subpage}`, query: route.value.query });
       },
       get() {
         return route.value.path.split("/").pop() ?? "url";
@@ -82,6 +83,7 @@ export default defineComponent({
     });
 
     return {
+      groupSlug,
       subpages,
       subpage,
     };
