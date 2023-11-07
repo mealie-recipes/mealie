@@ -34,7 +34,7 @@
               class="mb-1"
               :disabled="recipe.settings.disableAmount || hasFoodOrUnit"
               color="accent"
-              :to="`/g/${groupSlug}/${recipe.slug}/ingredient-parser`"
+              :to="`/g/${groupSlug}/r/${recipe.slug}/ingredient-parser`"
               v-bind="attrs"
             >
               <template #icon>
