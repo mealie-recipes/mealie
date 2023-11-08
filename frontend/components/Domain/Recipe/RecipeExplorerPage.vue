@@ -323,6 +323,11 @@ export default defineComponent({
         name: i18n.tc("general.random"),
         value: "random",
       },
+      {
+        icon: $globals.icons.timer,
+        name: i18n.tc("recipe.total-time"),
+        value: "total_time",
+      },
     ];
 
     onMounted(() => {
