@@ -35,6 +35,9 @@
           <v-list-item-subtitle>
             <SafeMarkdown :source="description" />
           </v-list-item-subtitle>
+          <v-card-text v-if="totalTime && displayTotalTimes" class="px-0 py-0 mb-0">
+            <RecipeTimeCard :total-time="totalTime"/>
+          </v-card-text>
           <div class="d-flex flex-wrap justify-end align-center">
             <slot name="actions">
               <RecipeFavoriteBadge v-if="isOwnGroup" :slug="slug" show-always />
@@ -83,6 +86,7 @@ import { computed, defineComponent, useContext, useRoute } from "@nuxtjs/composi
 import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
 import RecipeContextMenu from "./RecipeContextMenu.vue";
 import RecipeCardImage from "./RecipeCardImage.vue";
+import RecipeTimeCard from "./RecipeTimeCard.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 
 export default defineComponent({
@@ -90,6 +94,7 @@ export default defineComponent({
     RecipeFavoriteBadge,
     RecipeContextMenu,
     RecipeCardImage,
+    RecipeTimeCard,
   },
   props: {
     name: {
@@ -129,6 +134,14 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    totalTime: {
+      type: Number,
+      default: 0,
+    },
+    displayTotalTimes: {
+      type: Boolean,
+      default: false
+    }
   },
   setup(props) {
     const { $auth } = useContext();

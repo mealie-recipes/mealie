@@ -31,7 +31,9 @@
             {{ name }}
           </div>
         </v-card-title>
-
+        <v-card-text v-if="totalTime && displayTotalTimes" class="px-1 pt-1 pb-0">
+          <RecipeTimeCard :total-time="totalTime"/>
+        </v-card-text>
         <slot name="actions">
           <v-card-actions class="px-1">
             <RecipeFavoriteBadge v-if="isOwnGroup" class="absolute" :slug="slug" show-always />
@@ -74,10 +76,11 @@ import RecipeChips from "./RecipeChips.vue";
 import RecipeContextMenu from "./RecipeContextMenu.vue";
 import RecipeCardImage from "./RecipeCardImage.vue";
 import RecipeRating from "./RecipeRating.vue";
+import RecipeTimeCard from "./RecipeTimeCard.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 
 export default defineComponent({
-  components: { RecipeFavoriteBadge, RecipeChips, RecipeContextMenu, RecipeRating, RecipeCardImage },
+  components: { RecipeFavoriteBadge, RecipeChips, RecipeContextMenu, RecipeRating, RecipeCardImage, RecipeTimeCard },
   props: {
     name: {
       type: String,
@@ -117,6 +120,14 @@ export default defineComponent({
       type: Number,
       default: 200,
     },
+    totalTime: {
+      type: Number,
+      default: 0
+    },
+    displayTotalTimes: {
+      type: Boolean,
+      default: false
+    }
   },
   setup(props) {
     const { $auth } = useContext();

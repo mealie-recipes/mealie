@@ -100,6 +100,7 @@
             <v-card>
               <v-card-text>
                 <v-switch v-model="state.auto" :label="$t('search.auto-search')" single-line></v-switch>
+                <v-switch v-model="state.displayTotalTimes" :label="$t('search.display-total-times')" single-line></v-switch>
                 <v-btn block color="primary" @click="reset">
                   {{ $tc("general.reset") }}
                 </v-btn>
@@ -125,6 +126,7 @@
         :title="$tc('search.results')"
         :recipes="recipes"
         :query="passedQuery"
+        :display-total-times="state.displayTotalTimes"
         @replaceRecipes="replaceRecipes"
         @appendRecipes="appendRecipes"
       />
@@ -157,6 +159,7 @@ export default defineComponent({
     const { isOwnGroup } = useLoggedInState();
     const state = ref({
       auto: true,
+      displayTotalTimes: true,
       search: "",
       orderBy: "created_at",
       orderDirection: "desc" as "asc" | "desc",
@@ -230,6 +233,7 @@ export default defineComponent({
           // Only add the query param if it's or not default
           ...{
             auto: state.value.auto ? undefined : "false",
+            displayTotalTimes: state.value.displayTotalTimes ? undefined : "false",
             search: state.value.search === "" ? undefined : state.value.search,
             orderBy: state.value.orderBy === "createdAt" ? undefined : state.value.orderBy,
             orderDirection: state.value.orderDirection === "desc" ? undefined : state.value.orderDirection,
@@ -334,6 +338,10 @@ export default defineComponent({
 
       if (query.auto) {
         state.value.auto = query.auto === "true";
+      }
+
+      if (query.auto) {
+        state.value.displayTotalTimes = query.displayTotalTimes === "true";
       }
 
       if (query.search) {

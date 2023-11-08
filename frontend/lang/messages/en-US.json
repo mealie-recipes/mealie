@@ -561,7 +561,8 @@
     "tag-filter": "Tag Filter",
     "search-hint": "Press '/'",
     "advanced": "Advanced",
-    "auto-search": "Auto Search"
+    "auto-search": "Auto Search",
+    "display-total-times": "Display Total Times"
   },
   "settings": {
     "add-a-new-theme": "Add a New Theme",

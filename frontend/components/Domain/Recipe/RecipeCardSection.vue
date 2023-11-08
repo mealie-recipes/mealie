@@ -81,6 +81,8 @@
               :image="recipe.image"
               :tags="recipe.tags"
               :recipe-id="recipe.id"
+              :total-time="recipe.totalTime"
+              :display-total-times="displayTotalTimes"
             />
           </v-lazy>
         </v-col>
@@ -104,6 +106,8 @@
               :image="recipe.image"
               :tags="recipe.tags"
               :recipe-id="recipe.id"
+              :total-time="recipe.totalTime"
+              :display-total-times="displayTotalTimes"
             />
           </v-lazy>
         </v-col>
@@ -173,6 +177,10 @@ export default defineComponent({
       type: Object as () => RecipeSearchQuery,
       default: null,
     },
+    displayTotalTimes: {
+      type: Boolean,
+      default: false
+    }
   },
   setup(props, context) {
     const preferences = useUserSortPreferences();
