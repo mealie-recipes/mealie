@@ -348,7 +348,7 @@
     "mealie-text": "Mealie voi tuoda reseptejä Mealie sovelluksesta ennen v1.0 julkaisua. Vie reseptisi vanhasta asennuksesta ja lataa zip-tiedosto. Huomaa, että viennistä voidaan tuoda vain reseptejä.",
     "plantoeat": {
       "title": "Plan to Eat",
-      "description-long": "Mealie can import recipies from Plan to Eat."
+      "description-long": "Mealieen voi tuoda reseptejä Plan to Eat -sovelluksesta."
     }
   },
   "new-recipe": {
