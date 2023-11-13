@@ -170,6 +170,7 @@ export default defineComponent({
     close() {
       this.dialog = false;
       this.logDeprecatedProp("close");
+      this.$emit("closed");
     },
     logDeprecatedProp(val: string) {
       console.warn(
