@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ state.dialog }}
     <!-- Create Meal Dialog -->
     <BaseDialog
       v-model="state.dialog"
