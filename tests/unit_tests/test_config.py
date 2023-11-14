@@ -17,7 +17,7 @@ def test_non_default_settings(monkeypatch):
     app_settings = get_app_settings()
 
     assert app_settings.DEFAULT_GROUP == "Test Group"
-    assert app_settings.DEFAULT_PASSWORD == "Test Password"
+    assert app_settings._DEFAULT_PASSWORD == "Test Password"
     assert app_settings.API_PORT == 8000
     assert app_settings.API_DOCS is False
 
