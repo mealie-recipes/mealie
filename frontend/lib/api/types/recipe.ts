@@ -465,7 +465,7 @@ export interface ScrapeRecipe {
 export interface ScrapeRecipeTest {
   url: string;
 }
-export interface SlugResponse { }
+export interface SlugResponse {}
 export interface TagIn {
   name: string;
 }
