@@ -56,7 +56,7 @@
     "event-delete-confirmation": "Tem a certeza que pretende eliminar este evento?",
     "event-deleted": "Evento eliminado",
     "event-updated": "Evento atualizado",
-    "new-notification-form-description": "O Mealie usa a biblioteca Apprise para gerar notificações. Eles oferecem muitas opções de serviços para notificações. Consulte a sua wiki para um guia abrangente sobre como criar o URL para o seu serviço. Se disponível, selecionar o tipo de notificação pode incluir recursos extras.",
+    "new-notification-form-description": "O Mealie usa a biblioteca Apprise para gerar notificações. Eles oferecem muitas opções de serviços para notificações. Consulte a wiki para um guia abrangente sobre como criar o URL para o seu serviço. Se disponível, selecionar o tipo de notificação pode incluir recursos extras.",
     "new-version": "Nova versão disponível!",
     "notification": "Notificação",
     "refresh": "Atualizar",

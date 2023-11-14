@@ -296,7 +296,7 @@
     "for-type-meal-types": "kaikille {0} ateriatyypeille",
     "meal-plan-rules": "Ateriasuunnitelman määritykset",
     "new-rule": "Uusi sääntö",
-    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
+    "meal-plan-rules-description": "Voit luoda sääntöjä reseptien automaattiseen valitsemiseen ateriasuunnitelmia varten. Palvelin käyttää näitä sääntöjä määrittääkseen satunnaisen valikoiman reseptejä, joista valita luodessaan ateriasuunnitelmia. Huomaa, että jos säännöillä on samat päivä-/tyyppirajoitukset, sääntöjen luokat yhdistetään. Käytännössä ei ole tarpeen luoda päällekkäisiä sääntöjä, mutta se on mahdollista.",
     "new-rule-description": "Kun luot uuden säännön ateriasuunnitelmalle, voit rajoittaa säännön koskemaan tiettyä viikonpäivää ja/tai tietyntyyppistä ateriaa. Jos haluat soveltaa sääntöä kaikkiin päiviin tai kaikkiin ateriatyyppeihin, voit asettaa säännön asetukseksi \"Mikä tahansa\", jolloin sitä sovelletaan kaikkiin mahdollisiin päivän ja/tai ateriatyypin arvoihin.",
     "recipe-rules": "Reseptimääritykset",
     "applies-to-all-days": "Sovelletaan kaikkiin päiviin",
@@ -348,7 +348,7 @@
     "mealie-text": "Mealie voi tuoda reseptejä Mealie sovelluksesta ennen v1.0 julkaisua. Vie reseptisi vanhasta asennuksesta ja lataa zip-tiedosto. Huomaa, että viennistä voidaan tuoda vain reseptejä.",
     "plantoeat": {
       "title": "Plan to Eat",
-      "description-long": "Mealie can import recipies from Plan to Eat."
+      "description-long": "Mealieen voi tuoda reseptejä Plan to Eat -sovelluksesta."
     }
   },
   "new-recipe": {
