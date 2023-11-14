@@ -29,6 +29,7 @@
       v-model="createDialog"
       :icon="$globals.icons.units"
       :title="$t('data-pages.units.create-unit')"
+      :submit-icon="$globals.icons.save"
       :submit-text="$tc('general.save')"
       @submit="createUnit"
     >
@@ -38,9 +39,24 @@
             v-model="createTarget.name"
             autofocus
             :label="$t('general.name')"
+            :hint="$t('data-pages.units.example-unit-singular')"
             :rules="[validators.required]"
           ></v-text-field>
-          <v-text-field v-model="createTarget.abbreviation" :label="$t('data-pages.units.abbreviation')"></v-text-field>
+          <v-text-field
+            v-model="createTarget.pluralName"
+            :label="$t('general.plural-name')"
+            :hint="$t('data-pages.units.example-unit-plural')"
+          ></v-text-field>
+          <v-text-field
+            v-model="createTarget.abbreviation"
+            :label="$t('data-pages.units.abbreviation')"
+            :hint="$t('data-pages.units.example-unit-abbreviation-singular')"
+          ></v-text-field>
+          <v-text-field
+            v-model="createTarget.pluralAbbreviation"
+            :label="$t('data-pages.units.plural-abbreviation')"
+            :hint="$t('data-pages.units.example-unit-abbreviation-plural')"
+          ></v-text-field>
           <v-text-field v-model="createTarget.description" :label="$t('data-pages.units.description')"></v-text-field>
           <v-checkbox v-model="createTarget.fraction" hide-details :label="$t('data-pages.units.display-as-fraction')"></v-checkbox>
           <v-checkbox v-model="createTarget.useAbbreviation" hide-details :label="$t('data-pages.units.use-abbreviation')"></v-checkbox>
@@ -48,23 +64,55 @@
       </v-card-text>
     </BaseDialog>
 
+    <!-- Alias Sub-Dialog -->
+    <RecipeDataAliasManagerDialog
+      v-if="editTarget"
+      :value="aliasManagerDialog"
+      :data="editTarget"
+      @submit="updateUnitAlias"
+      @cancel="aliasManagerDialog = false"
+    />
+
     <!-- Edit Dialog -->
     <BaseDialog
       v-model="editDialog"
       :icon="$globals.icons.units"
       :title="$t('data-pages.units.edit-unit')"
+      :submit-icon="$globals.icons.save"
       :submit-text="$tc('general.save')"
       @submit="editSaveUnit"
     >
       <v-card-text v-if="editTarget">
         <v-form ref="domEditUnitForm">
-          <v-text-field v-model="editTarget.name" :label="$t('general.name')" :rules="[validators.required]"></v-text-field>
-          <v-text-field v-model="editTarget.abbreviation" :label="$t('data-pages.units.abbreviation')"></v-text-field>
+          <v-text-field
+            v-model="editTarget.name"
+            :label="$t('general.name')"
+            :hint="$t('data-pages.units.example-unit-singular')"
+            :rules="[validators.required]"
+          ></v-text-field>
+          <v-text-field
+            v-model="editTarget.pluralName"
+            :label="$t('general.plural-name')"
+            :hint="$t('data-pages.units.example-unit-plural')"
+          ></v-text-field>
+          <v-text-field
+            v-model="editTarget.abbreviation"
+            :label="$t('data-pages.units.abbreviation')"
+            :hint="$t('data-pages.units.example-unit-abbreviation-singular')"
+          ></v-text-field>
+          <v-text-field
+            v-model="editTarget.pluralAbbreviation"
+            :label="$t('data-pages.units.plural-abbreviation')"
+            :hint="$t('data-pages.units.example-unit-abbreviation-plural')"
+          ></v-text-field>
           <v-text-field v-model="editTarget.description" :label="$t('data-pages.units.description')"></v-text-field>
           <v-checkbox v-model="editTarget.fraction" hide-details :label="$t('data-pages.units.display-as-fraction')"></v-checkbox>
           <v-checkbox v-model="editTarget.useAbbreviation" hide-details :label="$t('data-pages.units.use-abbreviation')"></v-checkbox>
         </v-form>
       </v-card-text>
+      <template #custom-card-action>
+        <BaseButton edit @click="aliasManagerEventHandler">{{ $t('data-pages.manage-aliases') }}</BaseButton>
+      </template>
     </BaseDialog>
 
     <!-- Delete Dialog -->
@@ -159,14 +207,16 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref, useContext } from "@nuxtjs/composition-api";
 import type { LocaleObject } from "@nuxtjs/i18n";
+import RecipeDataAliasManagerDialog from "~/components/Domain/Recipe/RecipeDataAliasManagerDialog.vue";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
-import { CreateIngredientUnit, IngredientUnit } from "~/lib/api/types/recipe";
+import { CreateIngredientUnit, IngredientUnit, IngredientUnitAlias } from "~/lib/api/types/recipe";
 import { useLocales } from "~/composables/use-locales";
 import { useUnitStore } from "~/composables/store";
 import { VForm } from "~/types/vuetify";
 
 export default defineComponent({
+  components: { RecipeDataAliasManagerDialog },
   setup() {
     const userApi = useUserApi();
     const { i18n } = useContext();
@@ -186,8 +236,18 @@ export default defineComponent({
         show: true,
       },
       {
+        text: i18n.t("general.plural-name"),
+        value: "pluralName",
+        show: true,
+      },
+      {
         text: i18n.t("data-pages.units.abbreviation"),
         value: "abbreviation",
+        show: true,
+      },
+      {
+        text: i18n.t("data-pages.units.plural-abbreviation"),
+        value: "pluralAbbreviation",
         show: true,
       },
       {
@@ -279,6 +339,22 @@ export default defineComponent({
     }
 
     // ============================================================
+    // Alias Manager
+
+    const aliasManagerDialog = ref(false);
+    function aliasManagerEventHandler() {
+      aliasManagerDialog.value = true;
+    }
+
+    function updateUnitAlias(newAliases: IngredientUnitAlias[]) {
+      if (!editTarget.value) {
+        return;
+      }
+      editTarget.value.aliases = newAliases;
+      aliasManagerDialog.value = false;
+    }
+
+    // ============================================================
     // Merge Units
 
     const mergeDialog = ref(false);
@@ -345,13 +421,16 @@ export default defineComponent({
       deleteEventHandler,
       deleteDialog,
       deleteUnit,
+      // Alias Manager
+      aliasManagerDialog,
+      aliasManagerEventHandler,
+      updateUnitAlias,
       // Merge
       canMerge,
       mergeUnits,
       mergeDialog,
       fromUnit,
       toUnit,
-
       // Seed
       seedDatabase,
       locales,
