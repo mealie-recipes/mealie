@@ -9,7 +9,6 @@ from mealie.core.settings.settings import AppSettings
 
 def test_non_default_settings(monkeypatch):
     monkeypatch.setenv("DEFAULT_GROUP", "Test Group")
-    monkeypatch.setenv("DEFAULT_PASSWORD", "Test Password")
     monkeypatch.setenv("API_PORT", "8000")
     monkeypatch.setenv("API_DOCS", "False")
 
@@ -17,7 +16,6 @@ def test_non_default_settings(monkeypatch):
     app_settings = get_app_settings()
 
     assert app_settings.DEFAULT_GROUP == "Test Group"
-    assert app_settings.DEFAULT_PASSWORD == "Test Password"
     assert app_settings.API_PORT == 8000
     assert app_settings.API_DOCS is False
 

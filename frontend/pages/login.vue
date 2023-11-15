@@ -7,6 +7,18 @@
       'bg-off-white': !$vuetify.theme.dark && !isDark,
     }"
   >
+    <v-alert v-if="isFirstLogin" class="my-4" type="info" icon="mdi-information">
+      <div>
+        <p class="mb-3">
+          {{ $tc('user.it-looks-like-this-is-your-first-time-logging-in')}}
+        </p>
+        <p class="mb-1"><strong>{{ $tc('user.username') }}:</strong> changeme@example.com</p>
+        <p class="mb-3"><strong>{{  $tc('user.password') }}:</strong> MyPassword</p>
+        <p>
+          {{  $tc('user.dont-want-to-see-this-anymore-be-sure-to-change-your-email') }}
+        </p>
+      </div>
+    </v-alert>
     <v-card tag="section" class="d-flex flex-column align-center" width="600px">
       <v-toolbar width="100%" color="primary" class="d-flex justify-center mb-4" dark>
         <v-toolbar-title class="headline text-h4"> Mealie </v-toolbar-title>
@@ -101,12 +113,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useContext, computed, reactive, useRouter } from "@nuxtjs/composition-api";
+import { defineComponent, ref, useContext, computed, reactive, useRouter, useAsync } from "@nuxtjs/composition-api";
 import { useDark, whenever } from "@vueuse/core";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useAppInfo } from "~/composables/api";
 import { usePasswordField } from "~/composables/use-passwords";
 import { alert } from "~/composables/use-toast";
+import { useAsyncKey } from "~/composables/use-utils";
+import { AppStartupInfo } from "~/lib/api/types/admin";
 
 export default defineComponent({
   layout: "blank",
@@ -115,7 +129,7 @@ export default defineComponent({
     const isDark = useDark();
 
     const router = useRouter();
-    const { $auth, i18n } = useContext();
+    const { $auth, i18n, $axios } = useContext();
     const { loggedIn } = useLoggedInState();
     const groupSlug = computed(() => $auth.user?.groupSlug);
 
@@ -132,6 +146,13 @@ export default defineComponent({
       password: "",
       remember: false,
     });
+
+    const isFirstLogin = ref(false)
+
+    useAsync(async () => {
+      const data = await $axios.get<AppStartupInfo>("/api/app/about/startup-info");
+      isFirstLogin.value = data.data.isFirstLogin;
+  }, useAsyncKey());
 
     const loggingIn = ref(false);
 
@@ -182,6 +203,7 @@ export default defineComponent({
       passwordIcon,
       inputType,
       togglePasswordShow,
+      isFirstLogin
     };
   },
 

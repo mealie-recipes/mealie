@@ -4,19 +4,17 @@
 
 ### General
 
-| Variables        |        Default        | Description                                                                         |
-| ---------------- | :-------------------: | ----------------------------------------------------------------------------------- |
-| PUID             |          911          | UserID permissions between host OS and container                                    |
-| PGID             |          911          | GroupID permissions between host OS and container                                   |
-| DEFAULT_GROUP    |         Home          | The default group for users                                                         |
-| DEFAULT_EMAIL    | changeme@example.com  | The default username for the superuser                                              |
-| DEFAULT_PASSWORD |       MyPassword      | The default password for the superuser                                              |
-| BASE_URL         | http://localhost:8080 | Used for Notifications                                                              |
-| TOKEN_TIME       |          48           | The time in hours that a login/auth token is valid                                  |
-| API_PORT         |         9000          | The port exposed by backend API. **Do not change this if you're running in Docker** |
-| API_DOCS         |         True          | Turns on/off access to the API documentation locally.                               |
-| TZ               |          UTC          | Must be set to get correct date/time on the server                                  |
-| ALLOW_SIGNUP     |         true          | Allow user sign-up without token                                                    |
+| Variables     |        Default        | Description                                                                         |
+| ------------- | :-------------------: | ----------------------------------------------------------------------------------- |
+| PUID          |          911          | UserID permissions between host OS and container                                    |
+| PGID          |          911          | GroupID permissions between host OS and container                                   |
+| DEFAULT_GROUP |         Home          | The default group for users                                                         |
+| BASE_URL      | http://localhost:8080 | Used for Notifications                                                              |
+| TOKEN_TIME    |          48           | The time in hours that a login/auth token is valid                                  |
+| API_PORT      |         9000          | The port exposed by backend API. **Do not change this if you're running in Docker** |
+| API_DOCS      |         True          | Turns on/off access to the API documentation locally.                               |
+| TZ            |          UTC          | Must be set to get correct date/time on the server                                  |
+| ALLOW_SIGNUP  |         true          | Allow user sign-up without token                                                    |
 
 ### Security
 

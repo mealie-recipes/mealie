@@ -34,12 +34,31 @@ export interface AppInfo {
   demoStatus: boolean;
   allowSignup: boolean;
 }
+export interface AppStartupInfo {
+  isFirstLogin: boolean;
+}
 export interface AppStatistics {
   totalRecipes: number;
   totalUsers: number;
   totalGroups: number;
   uncategorizedRecipes: number;
   untaggedRecipes: number;
+}
+export interface AppTheme {
+  lightPrimary?: string;
+  lightAccent?: string;
+  lightSecondary?: string;
+  lightSuccess?: string;
+  lightInfo?: string;
+  lightWarning?: string;
+  lightError?: string;
+  darkPrimary?: string;
+  darkAccent?: string;
+  darkSecondary?: string;
+  darkSuccess?: string;
+  darkInfo?: string;
+  darkWarning?: string;
+  darkError?: string;
 }
 export interface BackupOptions {
   recipes?: boolean;
