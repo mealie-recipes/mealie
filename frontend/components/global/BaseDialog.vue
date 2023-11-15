@@ -58,8 +58,12 @@
               </template>
               {{ $t("general.confirm") }}
             </BaseButton>
+            <slot name="custom-card-action"></slot>
             <BaseButton v-if="$listeners.submit" type="submit" @click="submitEvent">
               {{ submitText }}
+              <template v-if="submitIcon" #icon>
+                {{ submitIcon }}
+              </template>
             </BaseButton>
           </slot>
         </v-card-actions>
@@ -108,6 +112,10 @@ export default defineComponent({
     top: {
       default: null,
       type: Boolean,
+    },
+    submitIcon: {
+      type: String,
+      default: null,
     },
     submitText: {
       type: String,

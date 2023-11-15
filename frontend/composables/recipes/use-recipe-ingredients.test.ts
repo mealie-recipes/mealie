@@ -48,4 +48,74 @@ describe(parseIngredientText.name, () => {
 
     expect(parseIngredientText(ingredient, false)).not.toContain("<script>");
   });
+
+  test("plural test : plural qty : use abbreviation", () => {
+    const ingredient = createRecipeIngredient({
+      quantity: 2,
+      unit: { id: "1", name: "tablespoon", pluralName: "tablespoons", abbreviation: "tbsp", pluralAbbreviation: "tbsps", useAbbreviation: true },
+      food: { id: "1", name: "diced onion", pluralName: "diced onions" }
+    });
+
+    expect(parseIngredientText(ingredient, false)).toEqual("2 tbsps diced onions");
+  });
+
+  test("plural test : plural qty : not abbreviation", () => {
+    const ingredient = createRecipeIngredient({
+      quantity: 2,
+      unit: { id: "1", name: "tablespoon", pluralName: "tablespoons", abbreviation: "tbsp", pluralAbbreviation: "tbsps", useAbbreviation: false },
+      food: { id: "1", name: "diced onion", pluralName: "diced onions" }
+    });
+
+    expect(parseIngredientText(ingredient, false)).toEqual("2 tablespoons diced onions");
+  });
+
+  test("plural test : single qty : use abbreviation", () => {
+    const ingredient = createRecipeIngredient({
+      quantity: 1,
+      unit: { id: "1", name: "tablespoon", pluralName: "tablespoons", abbreviation: "tbsp", pluralAbbreviation: "tbsps", useAbbreviation: true },
+      food: { id: "1", name: "diced onion", pluralName: "diced onions" }
+    });
+
+    expect(parseIngredientText(ingredient, false)).toEqual("1 tbsp diced onion");
+  });
+
+  test("plural test : single qty : not abbreviation", () => {
+    const ingredient = createRecipeIngredient({
+      quantity: 1,
+      unit: { id: "1", name: "tablespoon", pluralName: "tablespoons", abbreviation: "tbsp", pluralAbbreviation: "tbsps", useAbbreviation: false },
+      food: { id: "1", name: "diced onion", pluralName: "diced onions" }
+    });
+
+    expect(parseIngredientText(ingredient, false)).toEqual("1 tablespoon diced onion");
+  });
+
+  test("plural test : small qty : use abbreviation", () => {
+    const ingredient = createRecipeIngredient({
+      quantity: 0.5,
+      unit: { id: "1", name: "tablespoon", pluralName: "tablespoons", abbreviation: "tbsp", pluralAbbreviation: "tbsps", useAbbreviation: true },
+      food: { id: "1", name: "diced onion", pluralName: "diced onions" }
+    });
+
+    expect(parseIngredientText(ingredient, false)).toEqual("0.5 tbsp diced onion");
+  });
+
+  test("plural test : small qty : not abbreviation", () => {
+    const ingredient = createRecipeIngredient({
+      quantity: 0.5,
+      unit: { id: "1", name: "tablespoon", pluralName: "tablespoons", abbreviation: "tbsp", pluralAbbreviation: "tbsps", useAbbreviation: false },
+      food: { id: "1", name: "diced onion", pluralName: "diced onions" }
+    });
+
+    expect(parseIngredientText(ingredient, false)).toEqual("0.5 tablespoon diced onion");
+  });
+
+  test("plural test : zero qty", () => {
+    const ingredient = createRecipeIngredient({
+      quantity: 0,
+      unit: { id: "1", name: "tablespoon", pluralName: "tablespoons", abbreviation: "tbsp", pluralAbbreviation: "tbsps", useAbbreviation: false },
+      food: { id: "1", name: "diced onion", pluralName: "diced onions" }
+    });
+
+    expect(parseIngredientText(ingredient, false)).toEqual("diced onions");
+  });
 });

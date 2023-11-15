@@ -33,12 +33,23 @@ def display_fraction(fraction: Fraction):
 
 class UnitFoodBase(MealieModel):
     name: str
+    plural_name: str | None = None
     description: str = ""
     extras: dict | None = {}
 
 
+class CreateIngredientFoodAlias(MealieModel):
+    name: str
+
+
+class IngredientFoodAlias(CreateIngredientFoodAlias):
+    class Config:
+        orm_mode = True
+
+
 class CreateIngredientFood(UnitFoodBase):
     label_id: UUID4 | None = None
+    aliases: list[CreateIngredientFoodAlias] = []
 
 
 class SaveIngredientFood(CreateIngredientFood):
@@ -48,10 +59,12 @@ class SaveIngredientFood(CreateIngredientFood):
 class IngredientFood(CreateIngredientFood):
     id: UUID4
     label: MultiPurposeLabelSummary | None = None
+    aliases: list[IngredientFoodAlias] = []
+
     created_at: datetime.datetime | None
     update_at: datetime.datetime | None
 
-    _searchable_properties: ClassVar[list[str]] = ["name_normalized"]
+    _searchable_properties: ClassVar[list[str]] = ["name_normalized", "plural_name_normalized"]
     _normalize_search: ClassVar[bool] = True
 
     class Config:
@@ -67,10 +80,21 @@ class IngredientFoodPagination(PaginationBase):
     items: list[IngredientFood]
 
 
+class CreateIngredientUnitAlias(MealieModel):
+    name: str
+
+
+class IngredientUnitAlias(CreateIngredientUnitAlias):
+    class Config:
+        orm_mode = True
+
+
 class CreateIngredientUnit(UnitFoodBase):
     fraction: bool = True
     abbreviation: str = ""
+    plural_abbreviation: str | None = ""
     use_abbreviation: bool = False
+    aliases: list[CreateIngredientUnitAlias] = []
 
 
 class SaveIngredientUnit(CreateIngredientUnit):
@@ -79,10 +103,17 @@ class SaveIngredientUnit(CreateIngredientUnit):
 
 class IngredientUnit(CreateIngredientUnit):
     id: UUID4
+    aliases: list[IngredientUnitAlias] = []
+
     created_at: datetime.datetime | None
     update_at: datetime.datetime | None
 
-    _searchable_properties: ClassVar[list[str]] = ["name_normalized", "abbreviation_normalized"]
+    _searchable_properties: ClassVar[list[str]] = [
+        "name_normalized",
+        "plural_name_normalized",
+        "abbreviation_normalized",
+        "plural_abbreviation_normalized",
+    ]
     _normalize_search: ClassVar[bool] = True
 
     class Config:
@@ -165,6 +196,36 @@ class RecipeIngredientBase(MealieModel):
 
         return f"{whole_number} {display_fraction(qty)}"
 
+    def _format_unit_for_display(self) -> str:
+        if not self.unit:
+            return ""
+
+        use_plural = self.quantity and self.quantity > 1
+        unit_val = ""
+        if self.unit.use_abbreviation:
+            if use_plural:
+                unit_val = self.unit.plural_abbreviation or self.unit.abbreviation
+            else:
+                unit_val = self.unit.abbreviation
+
+        if not unit_val:
+            if use_plural:
+                unit_val = self.unit.plural_name or self.unit.name
+            else:
+                unit_val = self.unit.name
+
+        return unit_val
+
+    def _format_food_for_display(self) -> str:
+        if not self.food:
+            return ""
+
+        use_plural = (not self.quantity) or self.quantity > 1
+        if use_plural:
+            return self.food.plural_name or self.food.name
+        else:
+            return self.food.name
+
     def _format_display(self) -> str:
         components = []
 
@@ -183,15 +244,15 @@ class RecipeIngredientBase(MealieModel):
             components.append(self.note or "")
         else:
             if self.quantity and self.unit:
-                components.append(self.unit.abbreviation if self.unit.use_abbreviation else self.unit.name)
+                components.append(self._format_unit_for_display())
 
             if self.food:
-                components.append(self.food.name)
+                components.append(self._format_food_for_display())
 
             if self.note:
                 components.append(self.note)
 
-        return " ".join(components)
+        return " ".join(components).strip()
 
 
 class IngredientUnitPagination(PaginationBase):

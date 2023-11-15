@@ -10,7 +10,7 @@ from dataclasses import dataclass
 from typing import Any
 
 import sqlalchemy as sa
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, load_only
 
 import mealie.db.migration_types
 from alembic import op
@@ -44,7 +44,7 @@ def _is_postgres():
 
 def _get_duplicates(session: Session, model: SqlAlchemyBase) -> defaultdict[str, list[str]]:
     duplicate_map: defaultdict[str, list[str]] = defaultdict(list)
-    for obj in session.query(model).all():
+    for obj in session.query(model).options(load_only(model.id, model.group_id, model.name)).all():
         key = f"{obj.group_id}$${obj.name}"
         duplicate_map[key].append(str(obj.id))
 
@@ -117,9 +117,9 @@ def _resolve_duplivate_foods_units_labels():
                 continue
 
             keep_id = ids[0]
-            keep_obj = session.query(model).filter_by(id=keep_id).first()
+            keep_obj = session.query(model).options(load_only(model.id)).filter_by(id=keep_id).first()
             for dupe_id in ids[1:]:
-                dupe_obj = session.query(model).filter_by(id=dupe_id).first()
+                dupe_obj = session.query(model).options(load_only(model.id)).filter_by(id=dupe_id).first()
                 resolve_func(session, keep_obj, dupe_obj)
 
 

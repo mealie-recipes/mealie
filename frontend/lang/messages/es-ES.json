@@ -543,7 +543,7 @@
     "unit": "Unidades",
     "upload-image": "Subir imagen",
     "screen-awake": "Mantener la pantalla encendida",
-    "remove-image": "Remove image"
+    "remove-image": "Eliminar imagen"
   },
   "search": {
     "advanced-search": "Búsqueda avanzada",
@@ -552,7 +552,7 @@
     "include": "Incluir",
     "max-results": "Resultados máximos",
     "or": "O",
-    "has-any": "Has Any",
+    "has-any": "Tiene alguna",
     "has-all": "Tiene todo",
     "results": "Resultados",
     "search": "Buscar",
@@ -898,19 +898,19 @@
       "target-unit": "Target Unit",
       "merging-unit-into-unit": "Merging {0} into {1}",
       "create-unit": "Create Unit",
-      "abbreviation": "Abbreviation",
+      "abbreviation": "Abreviatura",
       "description": "Descripción",
       "display-as-fraction": "Display as Fraction",
-      "use-abbreviation": "Use Abbreviation",
-      "edit-unit": "Edit Unit",
+      "use-abbreviation": "Usar Abreviaturas",
+      "edit-unit": "Editar unidad",
       "unit-data": "Unit Data",
       "use-abbv": "Use Abbv.",
       "fraction": "Fraction"
     },
     "labels": {
       "seed-dialog-text": "Añade a la base de datos etiquetas comunes basadas en su idioma local.",
-      "edit-label": "Edit Label",
-      "new-label": "New Label",
+      "edit-label": "Editar etiqueta",
+      "new-label": "Nueva etiqueta",
       "labels": "Labels"
     },
     "recipes": {
@@ -920,17 +920,17 @@
       "the-following-recipes-selected-length-will-be-exported": "The following recipes ({0}) will be exported.",
       "settings-chosen-explanation": "Settings chosen here, excluding the locked option, will be applied to all selected recipes.",
       "selected-length-recipe-s-settings-will-be-updated": "{count} recipe(s) settings will be updated.",
-      "recipe-data": "Recipe Data",
+      "recipe-data": "Datos de la receta",
       "recipe-data-description": "Use this section to manage the data associated with your recipes. You can perform several bulk actions on your recipes including exporting, deleting, tagging, and assigning categories.",
       "recipe-columns": "Recipe Columns",
       "data-exports-description": "This section provides links to available exports that are ready to download. These exports do expire, so be sure to grab them while they're still available.",
-      "data-exports": "Data Exports",
+      "data-exports": "Exportación de datos",
       "tag": "Etiqueta",
-      "categorize": "Categorize",
-      "update-settings": "Update Settings",
+      "categorize": "Clasificar",
+      "update-settings": "Actualizar configuración",
       "tag-recipes": "Tag Recipes",
-      "categorize-recipes": "Categorize Recipes",
-      "export-recipes": "Export Recipes",
+      "categorize-recipes": "Categorizar recetas",
+      "export-recipes": "Exportar recetas",
       "delete-recipes": "Borrar Recetas",
       "source-unit-will-be-deleted": "Source Unit will be deleted"
     },
@@ -938,8 +938,8 @@
     "seed": "Seed",
     "data-management": "Data Management",
     "data-management-description": "Select which data set you want to make changes to.",
-    "select-data": "Select Data",
-    "select-language": "Select Language",
+    "select-data": "Seleccionar datos",
+    "select-language": "Seleccionar idioma",
     "columns": "Columnas",
     "combine": "Combinar"
   },
@@ -958,7 +958,7 @@
     "group-name-is-taken": "El nombre de grupo ya está en uso",
     "username-is-taken": "El nombre de usuario ya está en uso",
     "email-is-taken": "Este correo ya está en uso",
-    "this-field-is-required": "This Field is Required"
+    "this-field-is-required": "Este campo es obligatorio"
   },
   "export": {
     "export": "Exportar",
@@ -991,7 +991,7 @@
   },
   "ocr-editor": {
     "ocr-editor": "Editor de OCR",
-    "selection-mode": "Selection mode",
+    "selection-mode": "Modo de selección",
     "pan-and-zoom-picture": "Pan and zoom picture",
     "split-text": "Split text",
     "preserve-line-breaks": "Preserve original line breaks",

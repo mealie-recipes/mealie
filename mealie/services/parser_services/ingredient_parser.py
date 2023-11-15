@@ -38,36 +38,60 @@ class ABCIngredientParser(ABC):
         self.group_id = group_id
         self.session = session
 
-        self._foods_by_name: dict[str, IngredientFood] | None = None
-        self._units_by_name: dict[str, IngredientUnit] | None = None
+        self._foods_by_alias: dict[str, IngredientFood] | None = None
+        self._units_by_alias: dict[str, IngredientUnit] | None = None
 
     @property
     def _repos(self) -> AllRepositories:
         return get_repositories(self.session)
 
     @property
-    def foods_by_normalized_name(self) -> dict[str, IngredientFood]:
-        if self._foods_by_name is None:
+    def foods_by_alias(self) -> dict[str, IngredientFood]:
+        if self._foods_by_alias is None:
             foods_repo = self._repos.ingredient_foods.by_group(self.group_id)
-
             query = PaginationQuery(page=1, per_page=-1)
             all_foods = foods_repo.page_all(query).items
-            self._foods_by_name = {IngredientFoodModel.normalize(food.name): food for food in all_foods if food.name}
 
-        return self._foods_by_name
+            foods_by_alias: dict[str, IngredientFood] = {}
+            for food in all_foods:
+                if food.name:
+                    foods_by_alias[IngredientFoodModel.normalize(food.name)] = food
+                if food.plural_name:
+                    foods_by_alias[IngredientFoodModel.normalize(food.plural_name)] = food
+
+                for alias in food.aliases or []:
+                    if alias.name:
+                        foods_by_alias[IngredientFoodModel.normalize(alias.name)] = food
+
+            self._foods_by_alias = foods_by_alias
+
+        return self._foods_by_alias
 
     @property
-    def units_by_normalized_name_or_abbreviation(self) -> dict[str, IngredientUnit]:
-        if self._units_by_name is None:
+    def units_by_alias(self) -> dict[str, IngredientUnit]:
+        if self._units_by_alias is None:
             units_repo = self._repos.ingredient_units.by_group(self.group_id)
-
             query = PaginationQuery(page=1, per_page=-1)
             all_units = units_repo.page_all(query).items
-            self._units_by_name = {
-                IngredientUnitModel.normalize(unit.name): unit for unit in all_units if unit.name
-            } | {IngredientUnitModel.normalize(unit.abbreviation): unit for unit in all_units if unit.abbreviation}
 
-        return self._units_by_name
+            units_by_alias: dict[str, IngredientUnit] = {}
+            for unit in all_units:
+                if unit.name:
+                    units_by_alias[IngredientUnitModel.normalize(unit.name)] = unit
+                if unit.plural_name:
+                    units_by_alias[IngredientUnitModel.normalize(unit.plural_name)] = unit
+                if unit.abbreviation:
+                    units_by_alias[IngredientUnitModel.normalize(unit.abbreviation)] = unit
+                if unit.plural_abbreviation:
+                    units_by_alias[IngredientUnitModel.normalize(unit.plural_abbreviation)] = unit
+
+                for alias in unit.aliases or []:
+                    if alias.name:
+                        units_by_alias[IngredientUnitModel.normalize(alias.name)] = unit
+
+            self._units_by_alias = units_by_alias
+
+        return self._units_by_alias
 
     @property
     def food_fuzzy_match_threshold(self) -> int:
@@ -111,7 +135,7 @@ class ABCIngredientParser(ABC):
         match_value = IngredientFoodModel.normalize(food.name)
         return self.find_match(
             match_value,
-            store_map=self.foods_by_normalized_name,
+            store_map=self.foods_by_alias,
             fuzzy_match_threshold=self.food_fuzzy_match_threshold,
         )
 
@@ -122,7 +146,7 @@ class ABCIngredientParser(ABC):
         match_value = IngredientUnitModel.normalize(unit.name)
         return self.find_match(
             match_value,
-            store_map=self.units_by_normalized_name_or_abbreviation,
+            store_map=self.units_by_alias,
             fuzzy_match_threshold=self.unit_fuzzy_match_threshold,
         )
 

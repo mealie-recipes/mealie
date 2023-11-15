@@ -73,7 +73,7 @@
     "mealplan-events": "用餐计划事件",
     "when-a-user-in-your-group-creates-a-new-mealplan": "当你群组中的用户创建新用餐计划时",
     "shopping-list-events": "购物清单事件",
-    "cookbook-events": "食谱活动",
+    "cookbook-events": "食谱合集事件",
     "tag-events": "标签事件",
     "category-events": "目录事件",
     "when-a-new-user-joins-your-group": "当新用户加入您的群组时"
@@ -318,7 +318,7 @@
     "nextcloud": {
       "description": "从Nextcloud Cookbook迁移数据",
       "description-long": "Nextcloud食谱可以从存储在Nextcloud云端的含有食谱数据的zip文件导入。请参阅下方的文件夹结构示例确保您的食谱可以被正确导入。",
-      "title": "Nextcloud 食谱"
+      "title": "Nextcloud Cookbook"
     },
     "copymethat": {
       "description-long": "Mealie 可以从 Copy Mee That导入食谱。将您的食谱以HTML 格式导出，然后在下面上传 .zip压缩包",
@@ -345,7 +345,7 @@
     "recipe-1": "食谱 1",
     "recipe-2": "食谱 2",
     "paprika-text": "Mealie 可以从 Paprika 导入食谱。请从paprika 导出食谱，重命名导出文件并压缩成.zip格式后，在下方上传",
-    "mealie-text": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
+    "mealie-text": "Mealie支持从其（1.0版本之前的）早期版本中导入食谱。你需要在老版本服务器上导出食谱，并在下方上传zip文件。注意，只有食谱数据能被导入。",
     "plantoeat": {
       "title": "Plan to Eat",
       "description-long": "Mealie支持从 Plan to Eat 中导入食谱。"
@@ -716,8 +716,8 @@
     "label": "标签",
     "linked-item-warning": "This item is linked to one or more recipe. Adjusting the units or foods will yield unexpected results when adding or removing the recipe from this list.",
     "toggle-food": "Toggle Food",
-    "manage-labels": "Manage Labels",
-    "are-you-sure-you-want-to-delete-this-item": "Are you sure you want to delete this item?",
+    "manage-labels": "管理标签",
+    "are-you-sure-you-want-to-delete-this-item": "你确定要删除该条目吗？",
     "copy-as-text": "复制文本",
     "copy-as-markdown": "以Markdown格式复制",
     "delete-checked": "删除选中",
@@ -734,7 +734,7 @@
     "all-recipes": "全部食谱",
     "backups": "备份",
     "categories": "分类",
-    "cookbooks": "食谱",
+    "cookbooks": "食谱合集",
     "dashboard": "仪表盘",
     "home-page": "首页",
     "manage-users": "管理用户",
@@ -749,8 +749,8 @@
     "background-tasks": "后台任务",
     "parser": "Parser",
     "developer": "开发人员",
-    "cookbook": "食谱",
-    "create-cookbook": "Create a new cookbook"
+    "cookbook": "食谱合集",
+    "create-cookbook": "新建一个食谱合集"
   },
   "signup": {
     "error-signing-up": "注册时出错",
@@ -872,7 +872,7 @@
   "language-dialog": {
     "translated": "已翻译",
     "choose-language": "Choose Language",
-    "select-description": "Choose the language for the Mealie UI. The setting only applies to you, not other users.",
+    "select-description": "选择Mealie UI的语言。该设置仅对你生效，不会影响其他用户。",
     "how-to-contribute-description": "Is something not translated yet, mistranslated, or your language missing from the list? {read-the-docs-link} on how to contribute!",
     "read-the-docs": "Read the docs"
   },
@@ -1048,7 +1048,7 @@
       "actions-description-destructive": "destructive",
       "actions-description-irreversible": "irreversible",
       "logs-action-refresh": "Refresh Logs",
-      "logs-page-title": "Mealie Logs",
+      "logs-page-title": "Mealie日志",
       "logs-tail-lines-label": "Tail Lines"
     },
     "mainentance": {
@@ -1107,7 +1107,7 @@
     "looking-for-privacy-settings": "Looking for Privacy Settings?",
     "manage-your-api-tokens": "Manage Your API Tokens",
     "manage-user-profile": "Manage User Profile",
-    "manage-cookbooks": "Manage Cookbooks",
+    "manage-cookbooks": "管理食谱合集",
     "manage-members": "管理成员",
     "manage-webhooks": "管理 Webhooks",
     "manage-notifiers": "Manage Notifiers",
@@ -1116,8 +1116,8 @@
   "cookbook": {
     "cookbooks": "食谱合集",
     "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes and tags. Creating a cookbook will add an entry to the side-bar and all the recipes with the tags and categories chosen will be displayed in the cookbook.",
-    "public-cookbook": "Public Cookbook",
-    "public-cookbook-description": "Public Cookbooks can be shared with non-mealie users and will be displayed on your groups page.",
+    "public-cookbook": "公开食谱合集",
+    "public-cookbook-description": "公开食谱合集可以分享和非Mealie用户，同时也会显示在你的群组页面上。",
     "filter-options": "Filter Options",
     "filter-options-description": "When require all is selected the cookbook will only include recipes that have all of the items selected. This applies to each subset of selectors and not a cross section of the selected items.",
     "require-all-categories": "Require All Categories",
