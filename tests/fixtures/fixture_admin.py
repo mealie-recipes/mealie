@@ -10,7 +10,7 @@ from tests.utils import api_routes
 def admin_token(api_client: TestClient):
     settings = get_app_settings()
 
-    form_data = {"username": settings.DEFAULT_EMAIL, "password": settings.DEFAULT_PASSWORD}
+    form_data = {"username": settings._DEFAULT_EMAIL, "password": settings._DEFAULT_PASSWORD}
     return utils.login(form_data, api_client)
 
 
@@ -18,7 +18,7 @@ def admin_token(api_client: TestClient):
 def admin_user(api_client: TestClient):
     settings = get_app_settings()
 
-    form_data = {"username": settings.DEFAULT_EMAIL, "password": settings.DEFAULT_PASSWORD}
+    form_data = {"username": settings._DEFAULT_EMAIL, "password": settings._DEFAULT_PASSWORD}
 
     token = utils.login(form_data, api_client)
 
@@ -33,7 +33,7 @@ def admin_user(api_client: TestClient):
         yield utils.TestUser(
             _group_id=user_data.get("groupId"),
             user_id=user_data.get("id"),
-            password=settings.DEFAULT_PASSWORD,
+            password=settings._DEFAULT_PASSWORD,
             username=user_data.get("username"),
             email=user_data.get("email"),
             token=token,

@@ -14,7 +14,7 @@ from tests.utils.fixture_schemas import TestUser
 def test_failed_login(api_client: TestClient):
     settings = get_app_settings()
 
-    form_data = {"username": settings.DEFAULT_EMAIL, "password": "WRONG_PASSWORD"}
+    form_data = {"username": settings._DEFAULT_EMAIL, "password": "WRONG_PASSWORD"}
     response = api_client.post(api_routes.auth_token, data=form_data)
 
     assert response.status_code == 401
@@ -23,7 +23,7 @@ def test_failed_login(api_client: TestClient):
 def test_superuser_login(api_client: TestClient, admin_token):
     settings = get_app_settings()
 
-    form_data = {"username": settings.DEFAULT_EMAIL, "password": settings.DEFAULT_PASSWORD}
+    form_data = {"username": settings._DEFAULT_EMAIL, "password": settings._DEFAULT_PASSWORD}
     response = api_client.post(api_routes.auth_token, data=form_data)
 
     assert response.status_code == 200

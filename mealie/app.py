@@ -104,7 +104,6 @@ async def system_startup():
             indent=4,
             exclude={
                 "SECRET",
-                "DEFAULT_PASSWORD",
                 "SFTP_PASSWORD",
                 "SFTP_USERNAME",
                 "DB_URL",  # replace by DB_URL_PUBLIC for logs
