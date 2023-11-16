@@ -124,6 +124,7 @@
     "no-recipe-found": "Aucune recette trouvée",
     "ok": "OK",
     "options": "Options :",
+    "plural-name": "Nom au pluriel",
     "print": "Imprimer",
     "print-preferences": "Préférences d'impression",
     "random": "Aléatoire",
@@ -867,7 +868,9 @@
     "user-can-invite-other-to-group": "L'utilisateur peut inviter quelqu'un au groupe",
     "user-can-manage-group": "L'utilisateur peut gérer le groupe",
     "user-can-organize-group-data": "L'utilisateur peut organiser des données de groupe",
-    "enable-advanced-features": "Activer les fonctions avancées"
+    "enable-advanced-features": "Activer les fonctions avancées",
+    "it-looks-like-this-is-your-first-time-logging-in": "Il semble que ce soit votre première connexion.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Vous ne voulez plus voir cela ? Assurez-vous de changer votre adresse e-mail dans vos paramètres d'utilisateur !"
   },
   "language-dialog": {
     "translated": "traduit",
@@ -888,7 +891,9 @@
       "create-food": "Créer un aliment",
       "food-label": "Étiquette de l'aliment",
       "edit-food": "Modifier Aliment",
-      "food-data": "Données de l'aliment"
+      "food-data": "Données de l'aliment",
+      "example-food-singular": "ex : Oignon",
+      "example-food-plural": "ex : Oignons"
     },
     "units": {
       "seed-dialog-text": "Initialisez la base de données avec des unités communes basées sur votre langue locale.",
@@ -899,13 +904,18 @@
       "merging-unit-into-unit": "Fusion de {0} dans {1}",
       "create-unit": "Créer une unité",
       "abbreviation": "Abréviation",
+      "plural-abbreviation": "Abréviation au pluriel",
       "description": "Description",
       "display-as-fraction": "Afficher sous forme de fraction",
       "use-abbreviation": "Utiliser l'abréviation",
       "edit-unit": "Modifier l'unité",
       "unit-data": "Données de l'unité",
       "use-abbv": "Utiliser abr.",
-      "fraction": "Fraction"
+      "fraction": "Fraction",
+      "example-unit-singular": "ex : Cuillère à soupe",
+      "example-unit-plural": "ex : Cuillères à soupe",
+      "example-unit-abbreviation-singular": "ex : CàS",
+      "example-unit-abbreviation-plural": "ex : CàS"
     },
     "labels": {
       "seed-dialog-text": "Initialisez la base de données avec des étiquettes communes basées sur votre langue locale.",
@@ -934,6 +944,8 @@
       "delete-recipes": "Supprimer les recettes",
       "source-unit-will-be-deleted": "L'unité source sera supprimée"
     },
+    "create-alias": "Créer un alias",
+    "manage-aliases": "Gérer les alias",
     "seed-data": "Initialiser les données",
     "seed": "Initialiser",
     "data-management": "Gestion des données",
