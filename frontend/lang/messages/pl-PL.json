@@ -124,6 +124,7 @@
     "no-recipe-found": "Nie znaleziono przepisu",
     "ok": "OK",
     "options": "Opcje:",
+    "plural-name": "Plural Name",
     "print": "Drukuj",
     "print-preferences": "Właściwości drukowania",
     "random": "Losowa",
@@ -867,7 +868,9 @@
     "user-can-invite-other-to-group": "Użytkownik może zaprosić innych do grupy",
     "user-can-manage-group": "Użytkownik może zarządzać grupą",
     "user-can-organize-group-data": "Użytkownik może organizować dane grupy",
-    "enable-advanced-features": "Włącz zaawansowane funkcje"
+    "enable-advanced-features": "Włącz zaawansowane funkcje",
+    "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!"
   },
   "language-dialog": {
     "translated": "przetłumaczone",
@@ -888,7 +891,9 @@
       "create-food": "Utwórz Żywność",
       "food-label": "Etykieta Żywności",
       "edit-food": "Edytuj Żywność",
-      "food-data": "Dane Żywności"
+      "food-data": "Dane Żywności",
+      "example-food-singular": "ex: Onion",
+      "example-food-plural": "ex: Onions"
     },
     "units": {
       "seed-dialog-text": "Wypełnij bazę zwyczajowymi jednostkami dla wybranego języka.",
@@ -899,13 +904,18 @@
       "merging-unit-into-unit": "Scalanie {0} do {1}",
       "create-unit": "Utwórz Jednostkę",
       "abbreviation": "Skrócona nazwa",
+      "plural-abbreviation": "Plural Abbreviation",
       "description": "Opis",
       "display-as-fraction": "Wyświetlaj jako ułamek",
       "use-abbreviation": "Używaj skróconej nazwy",
       "edit-unit": "Edytuj jednostkę",
       "unit-data": "Dane Jednostki",
       "use-abbv": "Użyj Skr.",
-      "fraction": "Ułamki"
+      "fraction": "Ułamki",
+      "example-unit-singular": "ex: Tablespoon",
+      "example-unit-plural": "ex: Tablespoons",
+      "example-unit-abbreviation-singular": "ex: Tbsp",
+      "example-unit-abbreviation-plural": "ex: Tbsps"
     },
     "labels": {
       "seed-dialog-text": "Wypełnij bazę zwyczajowymi etykietami dla wybranego języka.",
@@ -934,6 +944,8 @@
       "delete-recipes": "Usuń Przepisy",
       "source-unit-will-be-deleted": "Jednostka źródłowa zostanie usunięta"
     },
+    "create-alias": "Create Alias",
+    "manage-aliases": "Manage Aliases",
     "seed-data": "Dane przykładowe",
     "seed": "Seed",
     "data-management": "Zarządzanie Danymi",
