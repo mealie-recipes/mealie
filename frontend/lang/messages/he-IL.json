@@ -124,6 +124,7 @@
     "no-recipe-found": "לא נמצא מתכון",
     "ok": "אישור",
     "options": "אפשרויות:",
+    "plural-name": "Plural Name",
     "print": "הדפסה",
     "print-preferences": "העדפות הדפסה",
     "random": "אקראי",
@@ -867,7 +868,9 @@
     "user-can-invite-other-to-group": "משתמש יכול להזמין אחרים לקבוצה",
     "user-can-manage-group": "משתמש יכול לנהל קבוצה",
     "user-can-organize-group-data": "משתמש יכול לשנות מידע של קבוצה",
-    "enable-advanced-features": "אפשר אפשרויות מתקדמות"
+    "enable-advanced-features": "אפשר אפשרויות מתקדמות",
+    "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!"
   },
   "language-dialog": {
     "translated": "תורגם",
@@ -888,7 +891,9 @@
       "create-food": "צור אוכל",
       "food-label": "תוית אוכל",
       "edit-food": "עריכת מזון",
-      "food-data": "נתוני אוכל"
+      "food-data": "נתוני אוכל",
+      "example-food-singular": "ex: Onion",
+      "example-food-plural": "ex: Onions"
     },
     "units": {
       "seed-dialog-text": "אכלס את מסד הנתונים עם יחידות מדידה בהתאם לשפה המקומית שלך.",
@@ -899,13 +904,18 @@
       "merging-unit-into-unit": "ממזג את {0} לתוך {1}",
       "create-unit": "יצירת יחידה",
       "abbreviation": "קיצור",
+      "plural-abbreviation": "Plural Abbreviation",
       "description": "תיאור",
       "display-as-fraction": "הצגה כשבר",
       "use-abbreviation": "השתמש בקיצור",
       "edit-unit": "עריכת יחידה",
       "unit-data": "נתוני יחידה",
       "use-abbv": "השתמש בקיצור",
-      "fraction": "שבר"
+      "fraction": "שבר",
+      "example-unit-singular": "ex: Tablespoon",
+      "example-unit-plural": "ex: Tablespoons",
+      "example-unit-abbreviation-singular": "ex: Tbsp",
+      "example-unit-abbreviation-plural": "ex: Tbsps"
     },
     "labels": {
       "seed-dialog-text": "אכלס את מסד הנתונים בתגיות נפוצות בהתאם לשפה המקומית שלך.",
@@ -934,6 +944,8 @@
       "delete-recipes": "מחיקת מתכונים",
       "source-unit-will-be-deleted": "יחידת המקור תמחק"
     },
+    "create-alias": "Create Alias",
+    "manage-aliases": "Manage Aliases",
     "seed-data": "אכלס נתונים",
     "seed": "אכלס",
     "data-management": "ניהול מידע",
