@@ -953,7 +953,13 @@
     "select-data": "Select Data",
     "select-language": "Select Language",
     "columns": "Columns",
-    "combine": "Combine"
+    "combine": "Combine",
+    "categories": {
+      "edit-category": "Edit Category",
+      "new-category": "New Category",
+      "category-data": "Category Data",
+      "categories": "Categories"
+    }
   },
   "user-registration": {
     "user-registration": "User Registration",

@@ -44,6 +44,7 @@ export default defineComponent({
       foods: i18n.tc("general.foods"),
       units: i18n.tc("general.units"),
       labels: i18n.tc("data-pages.labels.labels"),
+      categories: i18n.tc("data-pages.categories.categories"),
     };
 
     const route = useRoute();
@@ -69,6 +70,11 @@ export default defineComponent({
         value: "new",
         to: "/group/data/labels",
       },
+      {
+        text: i18n.t("data-pages.categories.categories"),
+        value: "new",
+        to: "/group/data/categories",
+      }
     ]);
 
     const buttonText = computed(() => {
