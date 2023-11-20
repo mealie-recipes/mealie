@@ -124,6 +124,7 @@
     "no-recipe-found": "Receta no encontrada",
     "ok": "Aceptar",
     "options": "Opciones:",
+    "plural-name": "Nombre en plural",
     "print": "Imprimir",
     "print-preferences": "Preferencias de impresión",
     "random": "Aleatorio",
@@ -867,7 +868,9 @@
     "user-can-invite-other-to-group": "El usuario puede invitar a otros al grupo",
     "user-can-manage-group": "El usuario puede administrar el grupo",
     "user-can-organize-group-data": "El usuario puede organizar los datos del grupo",
-    "enable-advanced-features": "Habilitar Características Avanzadas"
+    "enable-advanced-features": "Habilitar Características Avanzadas",
+    "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!"
   },
   "language-dialog": {
     "translated": "traducido",
@@ -888,7 +891,9 @@
       "create-food": "Crear Alimento",
       "food-label": "Etiqueta de Alimento",
       "edit-food": "Editar Alimento",
-      "food-data": "Datos de Alimento"
+      "food-data": "Datos de Alimento",
+      "example-food-singular": "ej: Cebolla",
+      "example-food-plural": "ej: Cebollas"
     },
     "units": {
       "seed-dialog-text": "Añade a la base de datos unidades comunes basadas en su idioma local.",
@@ -899,13 +904,18 @@
       "merging-unit-into-unit": "Merging {0} into {1}",
       "create-unit": "Create Unit",
       "abbreviation": "Abreviatura",
+      "plural-abbreviation": "Abreviatura en plural",
       "description": "Descripción",
       "display-as-fraction": "Display as Fraction",
       "use-abbreviation": "Usar Abreviaturas",
       "edit-unit": "Editar unidad",
       "unit-data": "Unit Data",
       "use-abbv": "Use Abbv.",
-      "fraction": "Fraction"
+      "fraction": "Fraction",
+      "example-unit-singular": "ej: Cucharada",
+      "example-unit-plural": "ej: Cucharadas",
+      "example-unit-abbreviation-singular": "ej: Cda",
+      "example-unit-abbreviation-plural": "ej: Cdas"
     },
     "labels": {
       "seed-dialog-text": "Añade a la base de datos etiquetas comunes basadas en su idioma local.",
@@ -934,6 +944,8 @@
       "delete-recipes": "Borrar Recetas",
       "source-unit-will-be-deleted": "Source Unit will be deleted"
     },
+    "create-alias": "Crear un Alias",
+    "manage-aliases": "Administrar Alias",
     "seed-data": "Datos de ejemplo",
     "seed": "Seed",
     "data-management": "Data Management",
