@@ -44,8 +44,8 @@ export default defineComponent({
       foods: i18n.tc("general.foods"),
       units: i18n.tc("general.units"),
       labels: i18n.tc("data-pages.labels.labels"),
-      categories: i18n.tc("data-pages.categories.categories"),
-      tags: i18n.tc("data-pages.tags.tags"),
+      categories: i18n.tc("category.categories"),
+      tags: i18n.tc("tag.tags"),
     };
 
     const route = useRoute();
@@ -72,12 +72,12 @@ export default defineComponent({
         to: "/group/data/labels",
       },
       {
-        text: i18n.t("data-pages.categories.categories"),
+        text: i18n.t("category.categories"),
         value: "new",
         to: "/group/data/categories",
       },
       {
-        text: i18n.t("data-pages.tags.tags"),
+        text: i18n.t("tag.tags"),
         value: "new",
         to: "/group/data/tags",
       }

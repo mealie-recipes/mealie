@@ -957,11 +957,9 @@
     "categories": {
       "edit-category": "Edit Category",
       "new-category": "New Category",
-      "category-data": "Category Data",
-      "categories": "Categories"
+      "category-data": "Category Data"
     },
     "tags": {
-      "tags": "Tags",
       "new-tag": "New Tag",
       "edit-tag": "Edit Tag",
       "tag-data": "Tag Data"
