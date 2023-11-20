@@ -46,6 +46,7 @@ export default defineComponent({
       labels: i18n.tc("data-pages.labels.labels"),
       categories: i18n.tc("category.categories"),
       tags: i18n.tc("tag.tags"),
+      tools: i18n.tc("tool.tools"),
     };
 
     const route = useRoute();
@@ -80,6 +81,11 @@ export default defineComponent({
         text: i18n.t("tag.tags"),
         value: "new",
         to: "/group/data/tags",
+      },
+      {
+        text: i18n.t("tool.tools"),
+        value: "new",
+        to: "/group/data/tools",
       }
     ]);
 

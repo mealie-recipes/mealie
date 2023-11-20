@@ -963,6 +963,11 @@
       "new-tag": "New Tag",
       "edit-tag": "Edit Tag",
       "tag-data": "Tag Data"
+    },
+    "tools": {
+      "new-tool": "New Tool",
+      "edit-tool": "Edit Tool",
+      "tool-data": "Tool Data"
     }
   },
   "user-registration": {
