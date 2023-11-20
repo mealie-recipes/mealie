@@ -120,10 +120,8 @@ export default defineComponent({
     const editTarget = ref<RecipeCategory | null>(null);
 
     function editEventHandler(item: RecipeCategory) {
-      console.log("editEventHandler", item, typeof item)
       state.editDialog = true;
       editTarget.value = item;
-      console.log("editEventHandler", editTarget, typeof editTarget)
     }
 
     async function editSaveCategory() {
