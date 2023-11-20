@@ -92,11 +92,6 @@ export default defineComponent({
         value: "name",
         show: true,
       },
-      {
-        text: i18n.t("tool.on-hand"),
-        value: "onHand",
-        show: true,
-      }
     ];
 
     const state = reactive({
