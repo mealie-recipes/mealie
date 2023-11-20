@@ -124,6 +124,7 @@
     "no-recipe-found": "Kein Rezept gefunden",
     "ok": "OK",
     "options": "Optionen:",
+    "plural-name": "Mehrzahl",
     "print": "Drucken",
     "print-preferences": "Druckeinstellungen",
     "random": "Zufall",
@@ -867,7 +868,9 @@
     "user-can-invite-other-to-group": "Benutzer kann andere in Gruppe einladen",
     "user-can-manage-group": "Benutzer kann Gruppe verwalten",
     "user-can-organize-group-data": "Benutzer kann Gruppendaten bearbeiten",
-    "enable-advanced-features": "Erweiterte Funktionen aktivieren"
+    "enable-advanced-features": "Erweiterte Funktionen aktivieren",
+    "it-looks-like-this-is-your-first-time-logging-in": "Es sieht so aus, als ob du dich zum ersten Mal anmeldest.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Möchtest du das hier nicht mehr sehen? Bitte ändere deine E-Mail in den Benutzereinstellungen!"
   },
   "language-dialog": {
     "translated": "übersetzt",
@@ -888,7 +891,9 @@
       "create-food": "Lebensmittel erstellen",
       "food-label": "Lebensmittel Etikett",
       "edit-food": "Lebensmittel bearbeiten",
-      "food-data": "Lebensmitteldaten"
+      "food-data": "Lebensmitteldaten",
+      "example-food-singular": "z.B. Zwiebel",
+      "example-food-plural": "z.B. Zwiebeln"
     },
     "units": {
       "seed-dialog-text": "Füllt die Datenbank mit gängigen Maßeinheiten basierend auf deiner Sprache.",
@@ -899,13 +904,18 @@
       "merging-unit-into-unit": "{0} wird in {1} zusammengeführt",
       "create-unit": "Einheit erstellen",
       "abbreviation": "Abkürzung",
+      "plural-abbreviation": "Mehrzahl Abkürzung",
       "description": "Beschreibung",
       "display-as-fraction": "Als Bruchzahl anzeigen",
       "use-abbreviation": "Abkürzungen verwenden",
       "edit-unit": "Einheit bearbeiten",
       "unit-data": "Einheitendaten",
       "use-abbv": "Verwende Abk.",
-      "fraction": "Bruchzahl"
+      "fraction": "Bruchzahl",
+      "example-unit-singular": "z.B. gehäufter Teelöffel",
+      "example-unit-plural": "z.B. gehäufte Teelöffel",
+      "example-unit-abbreviation-singular": "z.B. geh. TL",
+      "example-unit-abbreviation-plural": "z.B. geh. TL"
     },
     "labels": {
       "seed-dialog-text": "Füllt die Datenbank mit gängigen Etiketten basierend auf deiner Sprache.",
@@ -934,6 +944,8 @@
       "delete-recipes": "Rezepte löschen",
       "source-unit-will-be-deleted": "Quell-Einheit wird gelöscht"
     },
+    "create-alias": "Alias erstellen",
+    "manage-aliases": "Aliasse verwalten",
     "seed-data": "Musterdaten",
     "seed": "Musterdaten",
     "data-management": "Datenverwaltung",
