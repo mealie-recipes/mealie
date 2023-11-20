@@ -124,6 +124,7 @@
     "no-recipe-found": "Nerasta receptų",
     "ok": "Gerai",
     "options": "Pasirinkimai:",
+    "plural-name": "Plural Name",
     "print": "Spausdinti",
     "print-preferences": "Spausdinimo nustatymai",
     "random": "Atsitiktinis",
@@ -867,7 +868,9 @@
     "user-can-invite-other-to-group": "Naudotojas gali kviesti kitus į grupę",
     "user-can-manage-group": "Naudotojas gali valdyti grupę",
     "user-can-organize-group-data": "Naudotojas gali tvarkyti grupės duomenis",
-    "enable-advanced-features": "Įjungti pažangias funkcijas"
+    "enable-advanced-features": "Įjungti pažangias funkcijas",
+    "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!"
   },
   "language-dialog": {
     "translated": "išversta",
@@ -888,7 +891,9 @@
       "create-food": "Pridėti produktą",
       "food-label": "Produkto etiketė",
       "edit-food": "Keisti produktą",
-      "food-data": "Produktų duomenys"
+      "food-data": "Produktų duomenys",
+      "example-food-singular": "ex: Onion",
+      "example-food-plural": "ex: Onions"
     },
     "units": {
       "seed-dialog-text": "Įdėkite į duomenų bazę bendrus vienetus pagal jūsų kalbą.",
@@ -899,13 +904,18 @@
       "merging-unit-into-unit": "Sujungiama {0} su {1}",
       "create-unit": "Sukurti vienetą",
       "abbreviation": "Santrumpa",
+      "plural-abbreviation": "Plural Abbreviation",
       "description": "Aprašymas",
       "display-as-fraction": "Rodyti kaip trupmeną",
       "use-abbreviation": "Naudoti santrumpą",
       "edit-unit": "Keisti vienetą",
       "unit-data": "Vienetų duomenys",
       "use-abbv": "Naudoti santr.",
-      "fraction": "Trupmena"
+      "fraction": "Trupmena",
+      "example-unit-singular": "ex: Tablespoon",
+      "example-unit-plural": "ex: Tablespoons",
+      "example-unit-abbreviation-singular": "ex: Tbsp",
+      "example-unit-abbreviation-plural": "ex: Tbsps"
     },
     "labels": {
       "seed-dialog-text": "Įdėkite į duomenų bazę bendras žymas pagal jūsų kalbą.",
@@ -934,6 +944,8 @@
       "delete-recipes": "Ištrinti receptus",
       "source-unit-will-be-deleted": "Pirminis vienetas bus ištrintas"
     },
+    "create-alias": "Create Alias",
+    "manage-aliases": "Manage Aliases",
     "seed-data": "Pradiniai duomenys",
     "seed": "Užpildyti",
     "data-management": "Duomenų valdymas",
