@@ -959,6 +959,12 @@
       "new-category": "New Category",
       "category-data": "Category Data",
       "categories": "Categories"
+    },
+    "tags": {
+      "tags": "Tags",
+      "new-tag": "New Tag",
+      "edit-tag": "Edit Tag",
+      "tag-data": "Tag Data"
     }
   },
   "user-registration": {

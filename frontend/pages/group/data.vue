@@ -45,6 +45,7 @@ export default defineComponent({
       units: i18n.tc("general.units"),
       labels: i18n.tc("data-pages.labels.labels"),
       categories: i18n.tc("data-pages.categories.categories"),
+      tags: i18n.tc("data-pages.tags.tags"),
     };
 
     const route = useRoute();
@@ -74,6 +75,11 @@ export default defineComponent({
         text: i18n.t("data-pages.categories.categories"),
         value: "new",
         to: "/group/data/categories",
+      },
+      {
+        text: i18n.t("data-pages.tags.tags"),
+        value: "new",
+        to: "/group/data/tags",
       }
     ]);
 
