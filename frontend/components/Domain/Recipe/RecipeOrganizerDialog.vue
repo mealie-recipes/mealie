@@ -129,10 +129,15 @@ export default defineComponent({
       required: (val: string) => !!val || (i18n.t("general.a-name-is-required") as string),
     };
 
-    async function select() {
+    function select() {
       if (store) {
-        // @ts-ignore - only property really required is the name
-        await store.actions.createOne({ name: state.name });
+        if (props.itemType === Organizer.Tool) {
+          // @ts-ignore - only property really required is the name and onHand
+          store.actions.createOne({ name: state.name, onHand: state.onHand });
+        } else {
+          // @ts-ignore - only property really required is the name
+          store.actions.createOne({ name: state.name });
+        }
       }
 
       const newItem = store.items.value.find((item) => item.name === state.name);
