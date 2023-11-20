@@ -108,8 +108,8 @@ export default defineComponent({
     // Create Tag
 
     async function createTool() {
-      // @ts-ignore - only property really required is the name (RecipeOrganizerPage)
-      await toolStore.actions.createOne({ name: toolData.data.name });
+      // @ts-ignore - only property really required is the name and onHand (RecipeOrganizerPage)
+      await toolStore.actions.createOne({ name: toolData.data.name, onHand: toolData.data.onHand });
       toolData.reset();
       state.createDialog = false;
     }
