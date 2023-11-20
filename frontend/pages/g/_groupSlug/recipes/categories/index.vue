@@ -30,8 +30,10 @@ export default defineComponent({
       actions,
     };
   },
-  head: {
-    title: "Categories",
+  head() {
+    return {
+      title: this.$tc("category.categories"),
+    };
   },
 });
 </script>

@@ -243,7 +243,7 @@ export default defineComponent({
   },
   head() {
     return {
-      title: this.$t("settings.site-settings") as string,
+      title: this.$t("admin.maintenance.page-title") as string,
     };
   },
 });
