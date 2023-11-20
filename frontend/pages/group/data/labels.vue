@@ -38,7 +38,10 @@
       @confirm="deleteLabel"
     >
       <v-card-text>
-        {{ $t("general.confirm-delete-generic") }}
+        <div class="mb-4">
+          {{ $t("general.confirm-delete-generic") }}
+        </div>
+        <MultiPurposeLabel v-if="deleteTarget" class="ml-4" :label="deleteTarget" />
       </v-card-text>
     </BaseDialog>
 
@@ -231,13 +234,19 @@ export default defineComponent({
       labels: labelStore.labels,
       validators,
 
-      deleteEventHandler,
-      deleteLabel,
+      // create
+      createLabel,
+      createLabelData: labelData.data,
+
+      // edit
       editLabel,
       editEventHandler,
       editSaveLabel,
-      createLabel,
-      createLabelData: labelData.data,
+
+      // delete
+      deleteEventHandler,
+      deleteLabel,
+      deleteTarget,
 
       // Seed
       seedDatabase,
