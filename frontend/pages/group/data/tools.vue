@@ -15,9 +15,10 @@
             :label="$t('general.name')"
             :rules="[validators.required]"
           ></v-text-field>
+          <v-checkbox v-model="createTarget.onHand" :label="$t('tool.on-hand')">
+          </v-checkbox>
         </v-form>
       </v-card-text>
-
     </BaseDialog>
 
     <!-- Edit Dialog -->
@@ -31,6 +32,7 @@
       <v-card-text v-if="editTarget">
         <div class="mt-4">
           <v-text-field v-model="editTarget.name" :label="$t('general.name')"> </v-text-field>
+          <v-checkbox v-model="editTarget.onHand" :label="$t('tool.on-hand')"> </v-checkbox>
         </div>
       </v-card-text>
     </BaseDialog>
@@ -48,7 +50,7 @@
       </v-card-text>
     </BaseDialog>
 
-    <!-- Recipe Data Table -->
+    <!-- Tool Data Table -->
     <BaseCardSectionTitle :icon="$globals.icons.potSteam" section :title="$tc('data-pages.tools.tool-data')"> </BaseCardSectionTitle>
     <CrudTable
       :table-config="tableConfig"
@@ -63,6 +65,11 @@
           <template #icon> {{ $globals.icons.potSteam }} </template>
           {{ $t("general.create") }}
         </BaseButton>
+      </template>
+      <template #item.onHand="{ item }">
+        <v-icon :color="item.onHand ? 'success' : undefined">
+          {{ item.onHand ? $globals.icons.check : $globals.icons.close }}
+        </v-icon>
       </template>
     </CrudTable>
   </div>
@@ -90,6 +97,11 @@ export default defineComponent({
       {
         text: i18n.t("general.name"),
         value: "name",
+        show: true,
+      },
+      {
+        text: i18n.t("tool.on-hand"),
+        value: "onHand",
         show: true,
       },
     ];
@@ -123,7 +135,6 @@ export default defineComponent({
     function editEventHandler(item: RecipeTool) {
       state.editDialog = true;
       editTarget.value = item;
-      console.log(editTarget.value)
     }
 
     async function editSaveTool() {
