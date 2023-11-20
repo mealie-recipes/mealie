@@ -124,6 +124,7 @@
     "no-recipe-found": "Рецепти не знайдені",
     "ok": "OK",
     "options": "Опції:",
+    "plural-name": "Назва у множині",
     "print": "Друк",
     "print-preferences": "Налаштування друку",
     "random": "Випадково",
@@ -867,7 +868,9 @@
     "user-can-invite-other-to-group": "Користувач може запрошувати інших в групу",
     "user-can-manage-group": "Користувач може керувати групою",
     "user-can-organize-group-data": "Користувач може впорядковувати дані групи",
-    "enable-advanced-features": "Увімкнути додаткові функції"
+    "enable-advanced-features": "Увімкнути додаткові функції",
+    "it-looks-like-this-is-your-first-time-logging-in": "Схоже, ви заходите вперше.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Більше не хочете це бачити? Обов'язково змініть адресу електронної пошти в налаштуваннях користувача!"
   },
   "language-dialog": {
     "translated": "перекладено",
@@ -888,7 +891,9 @@
       "create-food": "Створити продукт",
       "food-label": "Етикетка продукту",
       "edit-food": "Редагувати продукт",
-      "food-data": "Дані про продукти"
+      "food-data": "Дані про продукти",
+      "example-food-singular": "приклад: Цибулина",
+      "example-food-plural": "приклад: Цибуля"
     },
     "units": {
       "seed-dialog-text": "Заповнити базу даних розповсюдженими одиницями виміру що відповідають мові.",
@@ -899,13 +904,18 @@
       "merging-unit-into-unit": "Об'єднання {0} з {1}",
       "create-unit": "Створити одиницю вимірювання",
       "abbreviation": "Скорочена назва",
+      "plural-abbreviation": "Скорочення в множині",
       "description": "Опис",
       "display-as-fraction": "Відображати як частку",
       "use-abbreviation": "Використовувати скорочення",
       "edit-unit": "Редагувати одиницю",
       "unit-data": "Одиниці виміру",
       "use-abbv": "Використовувати скороч-ння.",
-      "fraction": "Частка"
+      "fraction": "Частка",
+      "example-unit-singular": "приклад: Столова ложка",
+      "example-unit-plural": "приклад: Столові ложки",
+      "example-unit-abbreviation-singular": "приклад: ст. л",
+      "example-unit-abbreviation-plural": "приклад: ст. л"
     },
     "labels": {
       "seed-dialog-text": "Заповнити базу даних розповсюдженими категоріями що відповідають мові.",
@@ -934,6 +944,8 @@
       "delete-recipes": "Видалити рецепти",
       "source-unit-will-be-deleted": "Початкову одиницю вимірювання буде видалено"
     },
+    "create-alias": "Створити псевдонім",
+    "manage-aliases": "Керувати псевдонімами",
     "seed-data": "Підготовлені дані",
     "seed": "Згенерувати",
     "data-management": "Керування даними",

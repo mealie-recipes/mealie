@@ -124,6 +124,7 @@
     "no-recipe-found": "Nici o rețetă găsită",
     "ok": "OK",
     "options": "Opțiuni:",
+    "plural-name": "Plural Name",
     "print": "Imprimare",
     "print-preferences": "Preferințe de imprimare",
     "random": "Aleatoriu",
@@ -867,7 +868,9 @@
     "user-can-invite-other-to-group": "User can invite other to group",
     "user-can-manage-group": "User can manage group",
     "user-can-organize-group-data": "User can organize group data",
-    "enable-advanced-features": "Enable advanced features"
+    "enable-advanced-features": "Enable advanced features",
+    "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!"
   },
   "language-dialog": {
     "translated": "translated",
@@ -888,7 +891,9 @@
       "create-food": "Create Food",
       "food-label": "Food Label",
       "edit-food": "Edit Food",
-      "food-data": "Food Data"
+      "food-data": "Food Data",
+      "example-food-singular": "ex: Onion",
+      "example-food-plural": "ex: Onions"
     },
     "units": {
       "seed-dialog-text": "Seed the database with common units based on your local language.",
@@ -899,13 +904,18 @@
       "merging-unit-into-unit": "Merging {0} into {1}",
       "create-unit": "Create Unit",
       "abbreviation": "Abbreviation",
+      "plural-abbreviation": "Plural Abbreviation",
       "description": "Description",
       "display-as-fraction": "Display as Fraction",
       "use-abbreviation": "Use Abbreviation",
       "edit-unit": "Edit Unit",
       "unit-data": "Unit Data",
       "use-abbv": "Use Abbv.",
-      "fraction": "Fraction"
+      "fraction": "Fraction",
+      "example-unit-singular": "ex: Tablespoon",
+      "example-unit-plural": "ex: Tablespoons",
+      "example-unit-abbreviation-singular": "ex: Tbsp",
+      "example-unit-abbreviation-plural": "ex: Tbsps"
     },
     "labels": {
       "seed-dialog-text": "Seed the database with common labels based on your local language.",
@@ -934,6 +944,8 @@
       "delete-recipes": "Delete Recipes",
       "source-unit-will-be-deleted": "Source Unit will be deleted"
     },
+    "create-alias": "Create Alias",
+    "manage-aliases": "Manage Aliases",
     "seed-data": "Seed Data",
     "seed": "Seed",
     "data-management": "Data Management",
