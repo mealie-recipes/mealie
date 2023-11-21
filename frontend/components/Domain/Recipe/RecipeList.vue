@@ -7,7 +7,7 @@
       :class="attrs.class.sheet"
       :style="tile ? 'max-width: 100%; width: fit-content;' : 'width: 100%;'"
     >
-      <v-list-item :to="'/' + groupSlug + '/r/' + recipe.slug" :class="attrs.class.listItem">
+      <v-list-item :to="'/g/' + groupSlug + '/r/' + recipe.slug" :class="attrs.class.listItem">
         <v-list-item-avatar :class="attrs.class.avatar">
           <v-icon :class="attrs.class.icon" dark :small="small"> {{ $globals.icons.primary }} </v-icon>
         </v-list-item-avatar>
