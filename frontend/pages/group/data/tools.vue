@@ -46,10 +46,8 @@
       @confirm="deleteTool"
     >
       <v-card-text>
-        <div class="mb-4">
-          {{ $t("general.confirm-delete-generic") }}
-        </div>
-        <p v-if="deleteTarget" class="ml-4">{{ deleteTarget.name }}</p>
+        {{ $t("general.confirm-delete-generic") }}
+        <p v-if="deleteTarget" class="mt-4 ml-4">{{ deleteTarget.name }}</p>
       </v-card-text>
     </BaseDialog>
 
