@@ -168,7 +168,7 @@
       </v-card-text>
     </BaseDialog>
 
-    <!-- Recipe Data Table -->
+    <!-- Data Table -->
     <BaseCardSectionTitle :icon="$globals.icons.units" section :title="$tc('data-pages.units.unit-data')"> </BaseCardSectionTitle>
     <CrudTable
       :table-config="tableConfig"

@@ -48,7 +48,7 @@
       </v-card-text>
     </BaseDialog>
 
-    <!-- Recipe Data Table -->
+    <!-- Data Table -->
     <BaseCardSectionTitle :icon="$globals.icons.tags" section :title="$tc('data-pages.tags.tag-data')"> </BaseCardSectionTitle>
     <CrudTable
       :table-config="tableConfig"

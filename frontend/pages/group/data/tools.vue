@@ -50,7 +50,7 @@
       </v-card-text>
     </BaseDialog>
 
-    <!-- Tool Data Table -->
+    <!-- Data Table -->
     <BaseCardSectionTitle :icon="$globals.icons.potSteam" section :title="$tc('data-pages.tools.tool-data')"> </BaseCardSectionTitle>
     <CrudTable
       :table-config="tableConfig"
