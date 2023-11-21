@@ -56,6 +56,7 @@ export default defineComponent({
         text: i18n.t("general.recipes"),
         value: "new",
         to: "/group/data/recipes",
+        divider: true,
       },
       {
         text: i18n.t("general.foods"),
@@ -71,6 +72,7 @@ export default defineComponent({
         text: i18n.t("data-pages.labels.labels"),
         value: "new",
         to: "/group/data/labels",
+        divider: true,
       },
       {
         text: i18n.t("category.categories"),
