@@ -1,4 +1,4 @@
 contact_links:
   - name: Feature Requests
-    url: https://github.com/hay-kot/mealie/discussions/new?category=feature-request
-    about: Please add any Feature Requests as a Github Discussion using the for in this issue.
+    url: https://github.com/mealie-recipes/mealie/discussions/new?category=feature-request
+    about: Please add any Feature Requests as a Github Discussion using the form in this issue.
