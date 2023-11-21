@@ -85,8 +85,17 @@ class AppSettings(BaseSettings):
         return self.DB_PROVIDER.db_url_public if self.DB_PROVIDER else None
 
     DEFAULT_GROUP: str = "Home"
-    DEFAULT_EMAIL: str = "changeme@example.com"
-    DEFAULT_PASSWORD: str = "MyPassword"
+
+    _DEFAULT_EMAIL: str = "changeme@example.com"
+    """
+    This is the default email used for the first user created in the database. This is only used if no users
+    exist in the database. it should no longer be set by end users.
+    """
+    _DEFAULT_PASSWORD: str = "MyPassword"
+    """
+    This is the default password used for the first user created in the database. This is only used if no users
+    exist in the database. it should no longer be set by end users.
+    """
 
     # ===============================================
     # Email Configuration

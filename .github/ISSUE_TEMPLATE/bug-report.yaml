@@ -12,7 +12,7 @@ body:
         Please confirm and check all the following prior to submission. If you do not do this, your
         issue may be closed.
       options:
-        - label: This is not a feature request
+        - label: This is not a feature request.
           required: true
         - label: I added a very descriptive title to this issue.
           required: true
@@ -22,7 +22,7 @@ body:
           required: true
         - label: I already read the docs and didn't find an answer.
           required: true
-        - label: This issue can be replicated on the demo site (https://demo.mealie.io/)
+        - label: This issue can be replicated on the demo site (https://demo.mealie.io/).
           required: false
   - type: textarea
     id: description
@@ -41,13 +41,15 @@ body:
   - type: textarea
     id: logs
     attributes:
-      label: Please provide relevent logs
+      label: Please provide relevant logs
+      placeholder: For example from `docker-compose logs` or other system logs.
     validations:
       required: true
   - type: textarea
     id: version
     attributes:
       label: Mealie Version
+      placeholder: Docker image, as well as 'Build' tag from https://yourmealieurl/admin/site-settings, if UI is working
   - type: dropdown
     id: os
     attributes:

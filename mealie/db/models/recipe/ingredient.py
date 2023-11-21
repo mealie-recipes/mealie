@@ -25,25 +25,44 @@ class IngredientUnitModel(SqlAlchemyBase, BaseMixins):
     group: Mapped["Group"] = orm.relationship("Group", back_populates="ingredient_units", foreign_keys=[group_id])
 
     name: Mapped[str | None] = mapped_column(String)
+    plural_name: Mapped[str | None] = mapped_column(String)
     description: Mapped[str | None] = mapped_column(String)
     abbreviation: Mapped[str | None] = mapped_column(String)
+    plural_abbreviation: Mapped[str | None] = mapped_column(String)
     use_abbreviation: Mapped[bool | None] = mapped_column(Boolean, default=False)
     fraction: Mapped[bool | None] = mapped_column(Boolean, default=True)
+
     ingredients: Mapped[list["RecipeIngredientModel"]] = orm.relationship(
         "RecipeIngredientModel", back_populates="unit"
+    )
+    aliases: Mapped[list["IngredientUnitAliasModel"]] = orm.relationship(
+        "IngredientUnitAliasModel", back_populates="unit", cascade="all, delete, delete-orphan"
     )
 
     # Automatically updated by sqlalchemy event, do not write to this manually
     name_normalized: Mapped[str | None] = mapped_column(sa.String, index=True)
+    plural_name_normalized: Mapped[str | None] = mapped_column(sa.String, index=True)
     abbreviation_normalized: Mapped[str | None] = mapped_column(String, index=True)
+    plural_abbreviation_normalized: Mapped[str | None] = mapped_column(String, index=True)
 
     @auto_init()
-    def __init__(self, session: Session, name: str | None = None, abbreviation: str | None = None, **_) -> None:
+    def __init__(
+        self,
+        session: Session,
+        name: str | None = None,
+        plural_name: str | None = None,
+        abbreviation: str | None = None,
+        plural_abbreviation: str | None = None,
+        **_,
+    ) -> None:
         if name is not None:
             self.name_normalized = self.normalize(name)
-
+        if plural_name is not None:
+            self.plural_name_normalized = self.normalize(plural_name)
         if abbreviation is not None:
-            self.abbreviation = self.normalize(abbreviation)
+            self.abbreviation_normalized = self.normalize(abbreviation)
+        if plural_abbreviation is not None:
+            self.plural_abbreviation_normalized = self.normalize(plural_abbreviation)
 
         tableargs = [
             sa.UniqueConstraint("name", "group_id", name="ingredient_units_name_group_id_key"),
@@ -53,8 +72,18 @@ class IngredientUnitModel(SqlAlchemyBase, BaseMixins):
                 unique=False,
             ),
             sa.Index(
+                "ix_ingredient_units_plural_name_normalized",
+                "plural_name_normalized",
+                unique=False,
+            ),
+            sa.Index(
                 "ix_ingredient_units_abbreviation_normalized",
                 "abbreviation_normalized",
+                unique=False,
+            ),
+            sa.Index(
+                "ix_ingredient_units_plural_abbreviation_normalized",
+                "plural_abbreviation_normalized",
                 unique=False,
             ),
         ]
@@ -72,12 +101,30 @@ class IngredientUnitModel(SqlAlchemyBase, BaseMixins):
                         },
                     ),
                     sa.Index(
+                        "ix_ingredient_units_plural_name_normalized_gin",
+                        "name_normalized",
+                        unique=False,
+                        postgresql_using="gin",
+                        postgresql_ops={
+                            "plural_name_normalized": "gin_trgm_ops",
+                        },
+                    ),
+                    sa.Index(
                         "ix_ingredient_units_abbreviation_normalized_gin",
                         "abbreviation_normalized",
                         unique=False,
                         postgresql_using="gin",
                         postgresql_ops={
                             "abbreviation_normalized": "gin_trgm_ops",
+                        },
+                    ),
+                    sa.Index(
+                        "ix_ingredient_units_plural_abbreviation_normalized_gin",
+                        "plural_abbreviation_normalized",
+                        unique=False,
+                        postgresql_using="gin",
+                        postgresql_ops={
+                            "plural_abbreviation_normalized": "gin_trgm_ops",
                         },
                     ),
                 ]
@@ -95,9 +142,14 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
     group: Mapped["Group"] = orm.relationship("Group", back_populates="ingredient_foods", foreign_keys=[group_id])
 
     name: Mapped[str | None] = mapped_column(String)
+    plural_name: Mapped[str | None] = mapped_column(String)
     description: Mapped[str | None] = mapped_column(String)
+
     ingredients: Mapped[list["RecipeIngredientModel"]] = orm.relationship(
         "RecipeIngredientModel", back_populates="food"
+    )
+    aliases: Mapped[list["IngredientFoodAliasModel"]] = orm.relationship(
+        "IngredientFoodAliasModel", back_populates="food", cascade="all, delete, delete-orphan"
     )
     extras: Mapped[list[IngredientFoodExtras]] = orm.relationship("IngredientFoodExtras", cascade="all, delete-orphan")
 
@@ -106,18 +158,26 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
 
     # Automatically updated by sqlalchemy event, do not write to this manually
     name_normalized: Mapped[str | None] = mapped_column(sa.String, index=True)
+    plural_name_normalized: Mapped[str | None] = mapped_column(sa.String, index=True)
 
     @api_extras
     @auto_init()
-    def __init__(self, session: Session, name: str | None = None, **_) -> None:
+    def __init__(self, session: Session, name: str | None = None, plural_name: str | None = None, **_) -> None:
         if name is not None:
             self.name_normalized = self.normalize(name)
+        if plural_name is not None:
+            self.plural_name_normalized = self.normalize(plural_name)
 
         tableargs = [
             sa.UniqueConstraint("name", "group_id", name="ingredient_foods_name_group_id_key"),
             sa.Index(
                 "ix_ingredient_foods_name_normalized",
                 "name_normalized",
+                unique=False,
+            ),
+            sa.Index(
+                "ix_ingredient_foods_plural_name_normalized",
+                "plural_name_normalized",
                 unique=False,
             ),
         ]
@@ -133,11 +193,102 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
                         postgresql_ops={
                             "name_normalized": "gin_trgm_ops",
                         },
-                    )
+                    ),
+                    sa.Index(
+                        "ix_ingredient_foods_plural_name_normalized_gin",
+                        "plural_name_normalized",
+                        unique=False,
+                        postgresql_using="gin",
+                        postgresql_ops={
+                            "plural_name_normalized": "gin_trgm_ops",
+                        },
+                    ),
                 ]
             )
 
         self.__table_args__ = tuple(tableargs)
+
+
+class IngredientUnitAliasModel(SqlAlchemyBase, BaseMixins):
+    __tablename__ = "ingredient_units_aliases"
+    id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
+
+    unit_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("ingredient_units.id"), primary_key=True)
+    unit: Mapped["IngredientUnitModel"] = orm.relationship("IngredientUnitModel", back_populates="aliases")
+
+    name: Mapped[str] = mapped_column(String)
+
+    # Automatically updated by sqlalchemy event, do not write to this manually
+    name_normalized: Mapped[str | None] = mapped_column(sa.String, index=True)
+
+    @auto_init()
+    def __init__(self, session: Session, name: str, **_) -> None:
+        self.name_normalized = self.normalize(name)
+        tableargs = [
+            sa.Index(
+                "ix_ingredient_units_aliases_name_normalized",
+                "name_normalized",
+                unique=False,
+            ),
+        ]
+
+        if session.get_bind().name == "postgresql":
+            tableargs.extend(
+                [
+                    sa.Index(
+                        "ix_ingredient_units_aliases_name_normalized_gin",
+                        "name_normalized",
+                        unique=False,
+                        postgresql_using="gin",
+                        postgresql_ops={
+                            "name_normalized": "gin_trgm_ops",
+                        },
+                    ),
+                ]
+            )
+
+        self.__table_args__ = tableargs
+
+
+class IngredientFoodAliasModel(SqlAlchemyBase, BaseMixins):
+    __tablename__ = "ingredient_foods_aliases"
+    id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
+
+    food_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("ingredient_foods.id"), primary_key=True)
+    food: Mapped["IngredientFoodModel"] = orm.relationship("IngredientFoodModel", back_populates="aliases")
+
+    name: Mapped[str] = mapped_column(String)
+
+    # Automatically updated by sqlalchemy event, do not write to this manually
+    name_normalized: Mapped[str | None] = mapped_column(sa.String, index=True)
+
+    @auto_init()
+    def __init__(self, session: Session, name: str, **_) -> None:
+        self.name_normalized = self.normalize(name)
+        tableargs = [
+            sa.Index(
+                "ix_ingredient_foods_aliases_name_normalized",
+                "name_normalized",
+                unique=False,
+            ),
+        ]
+
+        if session.get_bind().name == "postgresql":
+            tableargs.extend(
+                [
+                    sa.Index(
+                        "ix_ingredient_foods_aliases_name_normalized_gin",
+                        "name_normalized",
+                        unique=False,
+                        postgresql_using="gin",
+                        postgresql_ops={
+                            "name_normalized": "gin_trgm_ops",
+                        },
+                    ),
+                ]
+            )
+
+        self.__table_args__ = tableargs
 
 
 class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
@@ -221,6 +372,14 @@ def receive_unit_name(target: IngredientUnitModel, value: str | None, oldvalue, 
         target.name_normalized = None
 
 
+@event.listens_for(IngredientUnitModel.plural_name, "set")
+def receive_plural_unit_name(target: IngredientUnitModel, value: str | None, oldvalue, initiator):
+    if value is not None:
+        target.plural_name_normalized = IngredientUnitModel.normalize(value)
+    else:
+        target.plural_name_normalized = None
+
+
 @event.listens_for(IngredientUnitModel.abbreviation, "set")
 def receive_unit_abbreviation(target: IngredientUnitModel, value: str | None, oldvalue, initiator):
     if value is not None:
@@ -229,12 +388,38 @@ def receive_unit_abbreviation(target: IngredientUnitModel, value: str | None, ol
         target.abbreviation_normalized = None
 
 
+@event.listens_for(IngredientUnitModel.plural_abbreviation, "set")
+def receive_unit_plural_abbreviation(target: IngredientUnitModel, value: str | None, oldvalue, initiator):
+    if value is not None:
+        target.plural_abbreviation_normalized = IngredientUnitModel.normalize(value)
+    else:
+        target.plural_abbreviation_normalized = None
+
+
 @event.listens_for(IngredientFoodModel.name, "set")
 def receive_food_name(target: IngredientFoodModel, value: str | None, oldvalue, initiator):
     if value is not None:
         target.name_normalized = IngredientFoodModel.normalize(value)
     else:
         target.name_normalized = None
+
+
+@event.listens_for(IngredientFoodModel.plural_name, "set")
+def receive_food_plural_name(target: IngredientFoodModel, value: str | None, oldvalue, initiator):
+    if value is not None:
+        target.plural_name_normalized = IngredientFoodModel.normalize(value)
+    else:
+        target.plural_name_normalized = None
+
+
+@event.listens_for(IngredientUnitAliasModel.name, "set")
+def receive_unit_alias_name(target: IngredientUnitAliasModel, value: str, oldvalue, initiator):
+    target.name_normalized = IngredientUnitAliasModel.normalize(value)
+
+
+@event.listens_for(IngredientFoodAliasModel.name, "set")
+def receive_food_alias_name(target: IngredientFoodAliasModel, value: str, oldvalue, initiator):
+    target.name_normalized = IngredientFoodAliasModel.normalize(value)
 
 
 @event.listens_for(RecipeIngredientModel.note, "set")

@@ -36,7 +36,7 @@ def test_init_superuser(api_client: TestClient, admin_user: TestUser):
     assert admin_data["groupId"] == admin_user.group_id
 
     assert admin_data["fullName"] == "Change Me"
-    assert admin_data["email"] == settings.DEFAULT_EMAIL
+    assert admin_data["email"] == settings._DEFAULT_EMAIL
 
 
 def test_create_user(api_client: TestClient, admin_token):
@@ -95,7 +95,7 @@ def test_update_other_user_as_not_admin(api_client: TestClient, unique_user: Tes
     update_data = {
         "id": unique_user.user_id,
         "fullName": "Updated Name",
-        "email": settings.DEFAULT_EMAIL,
+        "email": settings._DEFAULT_EMAIL,
         "group": "Home",
         "admin": True,
     }
