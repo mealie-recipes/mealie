@@ -953,7 +953,22 @@
     "select-data": "Označite Podatke",
     "select-language": "Odaberite Jezik",
     "columns": "Stupci",
-    "combine": "Kombiniraj"
+    "combine": "Kombiniraj",
+    "categories": {
+      "edit-category": "Edit Category",
+      "new-category": "New Category",
+      "category-data": "Category Data"
+    },
+    "tags": {
+      "new-tag": "New Tag",
+      "edit-tag": "Edit Tag",
+      "tag-data": "Tag Data"
+    },
+    "tools": {
+      "new-tool": "New Tool",
+      "edit-tool": "Edit Tool",
+      "tool-data": "Tool Data"
+    }
   },
   "user-registration": {
     "user-registration": "Registracija Korisnika",

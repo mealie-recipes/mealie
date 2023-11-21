@@ -1,35 +1,35 @@
 {
     "generic": {
-        "server-error": "An unexpected error occurred"
+        "server-error": "Догодила се неочекивана грешка"
     },
     "recipe": {
-        "unique-name-error": "Recipe names must be unique"
+        "unique-name-error": "Назив рецепта мора бити јединствен"
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "No recipes match your rules"
+        "no-recipes-match-your-rules": "Нема рецепата који одговарају вашим правилима"
     },
     "user": {
-        "user-updated": "User updated",
-        "password-updated": "Password updated",
-        "invalid-current-password": "Invalid current password",
-        "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
+        "user-updated": "Корисник је ажуриран",
+        "password-updated": "Лозинка је ажурирана",
+        "invalid-current-password": "Тренутна лозинка је неисправна",
+        "ldap-update-password-unavailable": "Лозинку није могуће ажурирати, корисник је контролисан од стране LDAP-а"
     },
     "group": {
-        "report-deleted": "Report deleted."
+        "report-deleted": "Рецепт је избрисан."
     },
     "exceptions": {
-        "permission_denied": "You do not have permission to perform this action",
-        "no-entry-found": "The requested resource was not found",
-        "integrity-error": "Database integrity error",
-        "username-conflict-error": "This username is already taken",
-        "email-conflict-error": "This email is already in use"
+        "permission_denied": "Немате дозволу за извршење ове радње",
+        "no-entry-found": "Захтевани ресурс није пронађен",
+        "integrity-error": "Грешка у интегритету базе података",
+        "username-conflict-error": "Корисничко име је већ заузето",
+        "email-conflict-error": "Овај е-мејл је већ у употреби"
     },
     "notifications": {
-        "generic-created": "{name} was created",
-        "generic-updated": "{name} was updated",
-        "generic-created-with-url": "{name} has been created, {url}",
-        "generic-updated-with-url": "{name} has been updated, {url}",
-        "generic-duplicated": "{name} has been duplicated",
-        "generic-deleted": "{name} has been deleted"
+        "generic-created": "{name} је крериран",
+        "generic-updated": "{name} је ажуриран",
+        "generic-created-with-url": "{name} је направљено, {url}",
+        "generic-updated-with-url": "{name} је ажурирано, {url}",
+        "generic-duplicated": "{name} је дуплиран",
+        "generic-deleted": "{name} је обрисан"
     }
 }

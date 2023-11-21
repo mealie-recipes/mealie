@@ -953,7 +953,22 @@
     "select-data": "Vybrat data",
     "select-language": "Select Language",
     "columns": "Sloupce",
-    "combine": "Kombinovat"
+    "combine": "Kombinovat",
+    "categories": {
+      "edit-category": "Edit Category",
+      "new-category": "New Category",
+      "category-data": "Category Data"
+    },
+    "tags": {
+      "new-tag": "New Tag",
+      "edit-tag": "Edit Tag",
+      "tag-data": "Tag Data"
+    },
+    "tools": {
+      "new-tool": "New Tool",
+      "edit-tool": "Edit Tool",
+      "tool-data": "Tool Data"
+    }
   },
   "user-registration": {
     "user-registration": "Registrace uživatele",

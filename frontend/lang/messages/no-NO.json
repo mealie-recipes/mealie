@@ -886,36 +886,36 @@
       "seed-dialog-text": "Legg til databasen med mat basert på ditt lokale språk. Dette vil opprette 200+ felles matvarer som kan brukes til å organisere databasen. Næringsmidler oversettes via en samfunnsinnsats.",
       "seed-dialog-warning": "Du har allerede elementer i databasen. Denne handlingen vil ikke rekonfigurere duplikater, du må administrere dem manuelt.",
       "combine-food": "Kombiner mat",
-      "source-food": "Source Food",
-      "target-food": "Target Food",
+      "source-food": "Kilde mat",
+      "target-food": "Mål Mat",
       "create-food": "Lag mat",
       "food-label": "Mat etikett",
       "edit-food": "Rediger mat",
       "food-data": "Mat data",
-      "example-food-singular": "ex: Onion",
-      "example-food-plural": "ex: Onions"
+      "example-food-singular": "Feks: Tomat",
+      "example-food-plural": "Feks: Tomater"
     },
     "units": {
       "seed-dialog-text": "Lag en database med vanlige enheter basert på ditt lokale språk.",
-      "combine-unit-description": "Combining the selected units will merge the Source Unit and Target Unit into a single unit. The {source-unit-will-be-deleted} and all of the references to the Source Unit will be updated to point to the Target Unit.",
+      "combine-unit-description": "Ved å kombinere de valgte enhetene vil kildeenheten og målenheten slås sammen i en enkelt enhet. {source-unit-will-be-deleted} og alle referansene til kildeenheten vil bli oppdatert til å peke til målenheten.",
       "combine-unit": "Kombiner enhet",
-      "source-unit": "Source Unit",
-      "target-unit": "Target Unit",
-      "merging-unit-into-unit": "Merging {0} into {1}",
+      "source-unit": "Kildeenhet",
+      "target-unit": "Målenhet",
+      "merging-unit-into-unit": "Slår sammen {0} til {1}",
       "create-unit": "Opprett enhet",
       "abbreviation": "Forkortelse",
-      "plural-abbreviation": "Plural Abbreviation",
+      "plural-abbreviation": "Flertallsforkortelse",
       "description": "Beskrivelse",
       "display-as-fraction": "Vis som brøkdel",
       "use-abbreviation": "Bruk forkortelse",
       "edit-unit": "Rediger enhet",
-      "unit-data": "Unit Data",
-      "use-abbv": "Use Abbv.",
+      "unit-data": "Enhetsdata",
+      "use-abbv": "Bruk forkortelse.",
       "fraction": "Brøk",
-      "example-unit-singular": "ex: Tablespoon",
-      "example-unit-plural": "ex: Tablespoons",
-      "example-unit-abbreviation-singular": "ex: Tbsp",
-      "example-unit-abbreviation-plural": "ex: Tbsps"
+      "example-unit-singular": "Feks: Spiseskje",
+      "example-unit-plural": "Feks: Spiseskjeer",
+      "example-unit-abbreviation-singular": "Feks: SS",
+      "example-unit-abbreviation-plural": "Feks: SS"
     },
     "labels": {
       "seed-dialog-text": "Lag en database med vanlige enheter basert på ditt lokale språk.",
@@ -927,9 +927,9 @@
       "purge-exports": "Fjern eksporter",
       "are-you-sure-you-want-to-delete-all-export-data": "Er du sikker på at du vil slette all historikk?",
       "confirm-delete-recipes": "Er du sikker på at du vil slette denne oppskriften? Denne handlingen kan ikke angres.",
-      "the-following-recipes-selected-length-will-be-exported": "The following recipes ({0}) will be exported.",
-      "settings-chosen-explanation": "Settings chosen here, excluding the locked option, will be applied to all selected recipes.",
-      "selected-length-recipe-s-settings-will-be-updated": "{count} recipe(s) settings will be updated.",
+      "the-following-recipes-selected-length-will-be-exported": "Følgende oppskrifter ({0}) vil bli eksportert.",
+      "settings-chosen-explanation": "Innstillinger valgt her, bortsett fra det låste alternativet, vil bli brukt på alle valgte oppskrifter.",
+      "selected-length-recipe-s-settings-will-be-updated": "Innstillingene til {count} oppskrift(er) vil bli oppdatert.",
       "recipe-data": "Oppskriftsdata",
       "recipe-data-description": "Use this section to manage the data associated with your recipes. You can perform several bulk actions on your recipes including exporting, deleting, tagging, and assigning categories.",
       "recipe-columns": "Recipe Columns",
@@ -953,7 +953,22 @@
     "select-data": "Velg data",
     "select-language": "Velg språk",
     "columns": "Kolonner",
-    "combine": "Kombiner"
+    "combine": "Kombiner",
+    "categories": {
+      "edit-category": "Edit Category",
+      "new-category": "New Category",
+      "category-data": "Category Data"
+    },
+    "tags": {
+      "new-tag": "New Tag",
+      "edit-tag": "Edit Tag",
+      "tag-data": "Tag Data"
+    },
+    "tools": {
+      "new-tool": "New Tool",
+      "edit-tool": "Edit Tool",
+      "tool-data": "Tool Data"
+    }
   },
   "user-registration": {
     "user-registration": "Brukerregistrering",

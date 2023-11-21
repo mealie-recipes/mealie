@@ -953,7 +953,22 @@
     "select-data": "Válassza ki az adatot",
     "select-language": "Nyelv kiválasztása",
     "columns": "Oszlopok",
-    "combine": "Összevonás"
+    "combine": "Összevonás",
+    "categories": {
+      "edit-category": "Kategória szerkesztése",
+      "new-category": "Új kategória",
+      "category-data": "Kategória adatai"
+    },
+    "tags": {
+      "new-tag": "Új címke",
+      "edit-tag": "Címke szerkesztése",
+      "tag-data": "Címke adatok"
+    },
+    "tools": {
+      "new-tool": "Új eszköz",
+      "edit-tool": "Eszköz szerkesztése",
+      "tool-data": "Eszköz adatai"
+    }
   },
   "user-registration": {
     "user-registration": "Felhasználó regisztráció",
