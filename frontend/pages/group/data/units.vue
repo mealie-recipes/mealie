@@ -183,7 +183,7 @@
         <BaseButton create @click="createDialog = true" />
 
         <BaseButton @click="mergeDialog = true">
-          <template #icon> {{ $globals.icons.units }} </template>
+          <template #icon> {{ $globals.icons.externalLink }} </template>
           {{ $t('data-pages.combine') }}
         </BaseButton>
       </template>

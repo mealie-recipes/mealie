@@ -131,8 +131,8 @@ export default defineComponent({
 
     async function select() {
       if (store) {
-        // @ts-ignore - only property really required is the name
-        await store.actions.createOne({ name: state.name });
+        // @ts-expect-error the same state is used for different organizer types, which have different requirements
+        await store.actions.createOne({ ...state });
       }
 
       const newItem = store.items.value.find((item) => item.name === state.name);

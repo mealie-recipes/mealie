@@ -16,6 +16,7 @@
     <BaseDialog v-if="updateTarget" v-model="dialogs.update" :title="$t('general.update')" @confirm="updateOne()">
       <v-card-text>
         <v-text-field v-model="updateTarget.name" label="Name"> </v-text-field>
+        <v-checkbox v-if="itemType === Organizer.Tool" v-model="updateTarget.onHand" :label="$t('tool.on-hand')"></v-checkbox>
       </v-card-text>
     </BaseDialog>
 
@@ -75,7 +76,7 @@ import Fuse from "fuse.js";
 import { defineComponent, computed, ref, reactive, useContext, useRoute } from "@nuxtjs/composition-api";
 import { useContextPresets } from "~/composables/use-context-presents";
 import RecipeOrganizerDialog from "~/components/Domain/Recipe/RecipeOrganizerDialog.vue";
-import { RecipeOrganizer } from "~/lib/api/types/non-generated";
+import { Organizer, RecipeOrganizer } from "~/lib/api/types/non-generated";
 import { useRouteQuery } from "~/composables/use-router";
 import { deepCopy } from "~/composables/use-utils";
 
@@ -83,6 +84,7 @@ interface GenericItem {
   id: string;
   name: string;
   slug: string;
+  onHand: boolean;
 }
 
 export default defineComponent({
@@ -217,6 +219,7 @@ export default defineComponent({
       updateTarget,
       deleteOne,
       deleteTarget,
+      Organizer,
       presets,
       itemsSorted,
       searchString,

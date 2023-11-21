@@ -93,10 +93,7 @@
       @edit-one="editEventHandler"
     >
       <template #button-row>
-        <BaseButton create @click="state.createDialog = true">
-          <template #icon> {{ $globals.icons.tags }} </template>
-          {{ $t("general.create") }}
-        </BaseButton>
+        <BaseButton create @click="state.createDialog = true">{{ $t("general.create") }}</BaseButton>
       </template>
       <template #item.name="{ item }">
         <MultiPurposeLabel v-if="item" :label="item">
