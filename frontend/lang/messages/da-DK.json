@@ -953,7 +953,22 @@
     "select-data": "vælg data",
     "select-language": "Vælg sprog",
     "columns": "Kolonner",
-    "combine": "Kombinér"
+    "combine": "Kombinér",
+    "categories": {
+      "edit-category": "Rediger kategori",
+      "new-category": "Ny kategori",
+      "category-data": "Kategoridata"
+    },
+    "tags": {
+      "new-tag": "Nyt mærke",
+      "edit-tag": "Rediger Mærke",
+      "tag-data": "Mærke data"
+    },
+    "tools": {
+      "new-tool": "Nyt Værktøj",
+      "edit-tool": "Redigér værktøjer",
+      "tool-data": "Værktøjs Data"
+    }
   },
   "user-registration": {
     "user-registration": "Brugerregistrering",

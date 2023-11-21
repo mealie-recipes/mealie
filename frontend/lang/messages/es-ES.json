@@ -953,7 +953,22 @@
     "select-data": "Seleccionar datos",
     "select-language": "Seleccionar idioma",
     "columns": "Columnas",
-    "combine": "Combinar"
+    "combine": "Combinar",
+    "categories": {
+      "edit-category": "Edit Category",
+      "new-category": "New Category",
+      "category-data": "Category Data"
+    },
+    "tags": {
+      "new-tag": "New Tag",
+      "edit-tag": "Edit Tag",
+      "tag-data": "Tag Data"
+    },
+    "tools": {
+      "new-tool": "New Tool",
+      "edit-tool": "Edit Tool",
+      "tool-data": "Tool Data"
+    }
   },
   "user-registration": {
     "user-registration": "Registro de usuario",
