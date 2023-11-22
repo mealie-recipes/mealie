@@ -463,7 +463,9 @@
     "add-to-plan": "Plana Ekle",
     "add-to-timeline": "Zaman Tüneline Ekle",
     "recipe-added-to-list": "Tarif listeye eklendi",
+    "recipes-added-to-list": "Tarifler listeye eklendi",
     "recipe-added-to-mealplan": "Tarif yemek planına eklendi",
+    "failed-to-add-recipes-to-list": "Tarif listeye eklenemedi",
     "failed-to-add-recipe-to-mealplan": "Tarif yemek planına eklerken hata oluştu",
     "yield": "Yield",
     "quantity": "Miktar",
@@ -955,19 +957,19 @@
     "columns": "Columns",
     "combine": "Birleştir",
     "categories": {
-      "edit-category": "Edit Category",
-      "new-category": "New Category",
-      "category-data": "Category Data"
+      "edit-category": "Kategori Düzenle",
+      "new-category": "Yeni Kategori",
+      "category-data": "Kategori Verisi"
     },
     "tags": {
-      "new-tag": "New Tag",
-      "edit-tag": "Edit Tag",
-      "tag-data": "Tag Data"
+      "new-tag": "Yeni Etiket",
+      "edit-tag": "Etiketi Düzenle",
+      "tag-data": "Etiket Verisi"
     },
     "tools": {
-      "new-tool": "New Tool",
-      "edit-tool": "Edit Tool",
-      "tool-data": "Tool Data"
+      "new-tool": "Yeni Araç",
+      "edit-tool": "Araçları Düzenle",
+      "tool-data": "Araç Verisi"
     }
   },
   "user-registration": {
