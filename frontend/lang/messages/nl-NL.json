@@ -297,7 +297,7 @@
     "for-type-meal-types": "voor {0} maaltijdsoorten",
     "meal-plan-rules": "Maaltijdplanregels",
     "new-rule": "Nieuwe regel",
-    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
+    "meal-plan-rules-description": "Je kunt regels maken voor het automatisch selecteren van recepten voor je maaltijdplanning. Deze regels worden gebruikt door de server om de recepten te selecteren bij het maken van een maaltijdplanning. Houdt er rekening mee dat als regels dezelfde dag en type restricties hebben de categorieën van de regels worden samengevoegd. In de praktijk is het dus niet nodig om dubbele regels te maken, maar het is wel mogelijk.",
     "new-rule-description": "Bij het opstellen van een nieuwe regel voor een maaltijdplan kunt u de regel beperken tot een specifieke dag van de week en/of een specifiek type maaltijd. Om een regel toe te passen op alle dagen of alle maaltijden kunt u de regel op \"Ieder\" instellen die deze toepast op alle mogelijke waarden voor het type dag en/of maaltijd.",
     "recipe-rules": "Recept Regels",
     "applies-to-all-days": "Van toepassing op alle dagen",
@@ -463,7 +463,9 @@
     "add-to-plan": "Toevoegen aan plan",
     "add-to-timeline": "Aan tijdlijn toevoegen",
     "recipe-added-to-list": "Recept toegevoegd aan de lijst",
+    "recipes-added-to-list": "Recept toegevoegd aan de lijst",
     "recipe-added-to-mealplan": "Recept toegevoegd aan het maaltijdplan",
+    "failed-to-add-recipes-to-list": "Kon recept niet aan de lijst toevoegen ",
     "failed-to-add-recipe-to-mealplan": "Recept aan maaltijdplan toevoegen mislukt",
     "yield": "Resultaat",
     "quantity": "Hoeveelheid",
@@ -738,7 +740,7 @@
     "cookbooks": "Kookboeken",
     "dashboard": "Dashboard",
     "home-page": "Homepagina",
-    "manage-users": "Beheer gebruikers",
+    "manage-users": "Beheer Gebruikers",
     "migrations": "Migraties",
     "profile": "Profiel",
     "search": "Zoeken",
@@ -955,19 +957,19 @@
     "columns": "Kolommen",
     "combine": "Samenvoegen",
     "categories": {
-      "edit-category": "Edit Category",
-      "new-category": "New Category",
-      "category-data": "Category Data"
+      "edit-category": "Categorie Bewerken",
+      "new-category": "Categorie Toevoegen",
+      "category-data": "Categorie Overzicht"
     },
     "tags": {
-      "new-tag": "New Tag",
-      "edit-tag": "Edit Tag",
-      "tag-data": "Tag Data"
+      "new-tag": "Label Toevoegen",
+      "edit-tag": "Label Bewerken",
+      "tag-data": "Label Overzicht"
     },
     "tools": {
-      "new-tool": "New Tool",
-      "edit-tool": "Edit Tool",
-      "tool-data": "Tool Data"
+      "new-tool": "Keukengerei Toevoegen",
+      "edit-tool": "Keukengerei Bewerken",
+      "tool-data": "Keukengerei Overzicht"
     }
   },
   "user-registration": {
