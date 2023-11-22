@@ -463,7 +463,9 @@
     "add-to-plan": "Zum Essensplan hinzufügen",
     "add-to-timeline": "Zum Zeitstrahl hinzufügen",
     "recipe-added-to-list": "Rezept wurde zur Einkaufsliste hinzugefügt",
+    "recipes-added-to-list": "Rezepte wurden zur Einkaufsliste hinzugefügt",
     "recipe-added-to-mealplan": "Rezept zum Essensplan hinzugefügt",
+    "failed-to-add-recipes-to-list": "Fehler beim Hinzufügen des Rezepts zur Einkaufsliste",
     "failed-to-add-recipe-to-mealplan": "Fehler beim Hinzufügen des Rezepts zum Essensplan",
     "yield": "Portionsangabe",
     "quantity": "Menge",
@@ -957,17 +959,17 @@
     "categories": {
       "edit-category": "Kategorie bearbeiten",
       "new-category": "Neue Kategorie",
-      "category-data": "Kategorie-Daten"
+      "category-data": "Kategorien-Daten"
     },
     "tags": {
       "new-tag": "Neues Schlagwort",
       "edit-tag": "Schlagwort bearbeiten",
-      "tag-data": "Schlagwort-Daten"
+      "tag-data": "Schlagworte-Daten"
     },
     "tools": {
       "new-tool": "Neues Utensil",
       "edit-tool": "Utensil bearbeiten",
-      "tool-data": "Utensil-Daten"
+      "tool-data": "Utensilien-Daten"
     }
   },
   "user-registration": {
