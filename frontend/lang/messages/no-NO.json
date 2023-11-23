@@ -124,6 +124,7 @@
     "no-recipe-found": "Ingen oppskrift funnet",
     "ok": "OK",
     "options": "Alternativer:",
+    "plural-name": "Flertalls navn",
     "print": "Skriv ut",
     "print-preferences": "Skriv ut innstillinger",
     "random": "Tilfeldig",
@@ -462,7 +463,9 @@
     "add-to-plan": "Legg til i Plan",
     "add-to-timeline": "Legg til på tidslinjen",
     "recipe-added-to-list": "Oppskriften er lagt til i listen",
+    "recipes-added-to-list": "Recipes added to list",
     "recipe-added-to-mealplan": "Oppskriften er lagt til i listen",
+    "failed-to-add-recipes-to-list": "Failed to add recipe to list",
     "failed-to-add-recipe-to-mealplan": "Klarte ikke å legge til oppskrift på måltidsplan",
     "yield": "Utbytte",
     "quantity": "Antall",
@@ -669,14 +672,14 @@
       "webhooks-caps": "WEBHOOKS",
       "webhooks": "Webhooks",
       "webhook-name": "Webhook navn",
-      "description": "The webhooks defined below will be executed when a meal is defined for the day. At the scheduled time the webhooks will be sent with the data from the recipe that is scheduled for the day. Note that webhook execution is not exact. The webhooks are executed on a 5 minutes interval so the webhooks will be executed within 5 +/- minutes of the scheduled."
+      "description": "Webhooks definert nedenfor vil utføres når et måltid defineres for dagen. På det planlagte tidspunktet blir webhook sendt med data fra oppskriften som er planlagt for dagen. Merke at av tidspunktet ikke er nøyaktig, webhooks utføres med et intervall på 5 minutter, dette betyr at webhooks utføres innen +/- 5 minutter etter planlagt tidspunkt."
     },
     "bug-report": "Feilrapport",
     "bug-report-information": "Bruk denne informasjonen til å rapportere en feil. Gi detaljer om feilen din til utviklere er den beste måten å få problemer på en rask løsning.",
     "tracker": "Sporingsagent",
     "configuration": "Konfigurasjon",
     "docker-volume": "Docker volum",
-    "docker-volume-help": "Mealie requires that the frontend container and the backend share the same docker volume or storage. This ensures that the frontend container can properly access the images and assets stored on disk.",
+    "docker-volume-help": "Mealie krever at frontend og backend konteinerene deler samme docker volum/lagring. Dette sikrer at frontend får tilgang til bilder og ressurser lagret på harddisken.",
     "volumes-are-misconfigured": "Volumene er feilkonfigurert",
     "volumes-are-configured-correctly": "Volumene er riktig konfigurert.",
     "status-unknown-try-running-a-validation": "Statusen er ukjent. Prøv å validere.",
@@ -688,19 +691,19 @@
     "failed": "Mislyktes",
     "general-about": "Generelt om",
     "application-version": "Programversjon",
-    "application-version-error-text": "Your current version ({0}) does not match the latest release. Considering updating to the latest version ({1}).",
+    "application-version-error-text": "Din nåværende versjon ({0}) samsvarer ikke med den nyeste utgivelsen. Vurder å oppdatere til siste versjon ({1}).",
     "mealie-is-up-to-date": "Mealie er oppdatert",
     "secure-site": "Sikkert nettsted",
-    "secure-site-error-text": "Serve via localhost or secure with https. Clipboard and additional browser APIs may not work.",
-    "secure-site-success-text": "Site is accessed by localhost or https",
+    "secure-site-error-text": "Host via localhost eller sikre med https. Utklippstavle og nettleser-APIer virker kanskje ikke.",
+    "secure-site-success-text": "Tjenesten er tilgjengelig på localhost eller https",
     "server-side-base-url": "Serverens sidebase URL",
-    "server-side-base-url-error-text": "`BASE_URL` is still the default value on API Server. This will cause issues with notifications links generated on the server for emails, etc.",
-    "server-side-base-url-success-text": "Server Side URL does not match the default",
+    "server-side-base-url-error-text": "`BASE_URL` er fortsatt satt til standardverdien på API Serveren. Dette kan føre til problemer med varslingslenker generert på serveren for e-post, osv.",
+    "server-side-base-url-success-text": "Serverside-URL samsvarer ikke med standard",
     "ldap-ready": "LDAP klar",
-    "ldap-ready-error-text": "Not all LDAP Values are configured. This can be ignored if you are not using LDAP Authentication.",
-    "ldap-ready-success-text": "Required LDAP variables are all set.",
+    "ldap-ready-error-text": "Ikke alle LDAP-verdier er konfigurert. Dette kan ignoreres hvis du ikke bruker LDAP til Autentisering.",
+    "ldap-ready-success-text": "Alle de nødvendige LDAP-variablene er satt.",
     "build": "Bygg",
-    "recipe-scraper-version": "Recipe Scraper Version"
+    "recipe-scraper-version": "OppskriftsScraper versjon"
   },
   "shopping-list": {
     "all-lists": "Alle lister",
@@ -725,8 +728,8 @@
     "reorder-labels": "Omorganiser etiketter",
     "uncheck-all-items": "Fjern merking av alle elementer",
     "check-all-items": "Velg alle elementer",
-    "linked-recipes-count": "No Linked Recipes|One Linked Recipe|{count} Linked Recipes",
-    "items-checked-count": "No items checked|One item checked|{count} items checked",
+    "linked-recipes-count": "Ingen lenkede oppskrifter|En lenket oppskrift|{count} Lenkede oppskrifter",
+    "items-checked-count": "Ingen elementer krysset av|Ett element krysset av|{count} elementer krysset av",
     "no-label": "Ingen etikett",
     "completed-on": "Fullført på {date}"
   },
@@ -867,7 +870,9 @@
     "user-can-invite-other-to-group": "Brukeren kan invitere andre til gruppe",
     "user-can-manage-group": "Brukeren kan administrere gruppe",
     "user-can-organize-group-data": "Brukeren kan organisere gruppedata",
-    "enable-advanced-features": "Aktiver avanserte funksjoner"
+    "enable-advanced-features": "Aktiver avanserte funksjoner",
+    "it-looks-like-this-is-your-first-time-logging-in": "Det ser ut som dette er første gang du logger på.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Ønsker du ikke å se dette lenger? Sørg for å endre e-posten din i brukerinnstillingene dine!"
   },
   "language-dialog": {
     "translated": "oversatt",
@@ -883,29 +888,36 @@
       "seed-dialog-text": "Legg til databasen med mat basert på ditt lokale språk. Dette vil opprette 200+ felles matvarer som kan brukes til å organisere databasen. Næringsmidler oversettes via en samfunnsinnsats.",
       "seed-dialog-warning": "Du har allerede elementer i databasen. Denne handlingen vil ikke rekonfigurere duplikater, du må administrere dem manuelt.",
       "combine-food": "Kombiner mat",
-      "source-food": "Source Food",
-      "target-food": "Target Food",
+      "source-food": "Kilde mat",
+      "target-food": "Mål Mat",
       "create-food": "Lag mat",
       "food-label": "Mat etikett",
       "edit-food": "Rediger mat",
-      "food-data": "Mat data"
+      "food-data": "Mat data",
+      "example-food-singular": "Feks: Tomat",
+      "example-food-plural": "Feks: Tomater"
     },
     "units": {
       "seed-dialog-text": "Lag en database med vanlige enheter basert på ditt lokale språk.",
-      "combine-unit-description": "Combining the selected units will merge the Source Unit and Target Unit into a single unit. The {source-unit-will-be-deleted} and all of the references to the Source Unit will be updated to point to the Target Unit.",
+      "combine-unit-description": "Ved å kombinere de valgte enhetene vil kildeenheten og målenheten slås sammen i en enkelt enhet. {source-unit-will-be-deleted} og alle referansene til kildeenheten vil bli oppdatert til å peke til målenheten.",
       "combine-unit": "Kombiner enhet",
-      "source-unit": "Source Unit",
-      "target-unit": "Target Unit",
-      "merging-unit-into-unit": "Merging {0} into {1}",
+      "source-unit": "Kildeenhet",
+      "target-unit": "Målenhet",
+      "merging-unit-into-unit": "Slår sammen {0} til {1}",
       "create-unit": "Opprett enhet",
       "abbreviation": "Forkortelse",
+      "plural-abbreviation": "Flertallsforkortelse",
       "description": "Beskrivelse",
       "display-as-fraction": "Vis som brøkdel",
       "use-abbreviation": "Bruk forkortelse",
       "edit-unit": "Rediger enhet",
-      "unit-data": "Unit Data",
-      "use-abbv": "Use Abbv.",
-      "fraction": "Brøk"
+      "unit-data": "Enhetsdata",
+      "use-abbv": "Bruk forkortelse.",
+      "fraction": "Brøk",
+      "example-unit-singular": "Feks: Spiseskje",
+      "example-unit-plural": "Feks: Spiseskjeer",
+      "example-unit-abbreviation-singular": "Feks: SS",
+      "example-unit-abbreviation-plural": "Feks: SS"
     },
     "labels": {
       "seed-dialog-text": "Lag en database med vanlige enheter basert på ditt lokale språk.",
@@ -917,9 +929,9 @@
       "purge-exports": "Fjern eksporter",
       "are-you-sure-you-want-to-delete-all-export-data": "Er du sikker på at du vil slette all historikk?",
       "confirm-delete-recipes": "Er du sikker på at du vil slette denne oppskriften? Denne handlingen kan ikke angres.",
-      "the-following-recipes-selected-length-will-be-exported": "The following recipes ({0}) will be exported.",
-      "settings-chosen-explanation": "Settings chosen here, excluding the locked option, will be applied to all selected recipes.",
-      "selected-length-recipe-s-settings-will-be-updated": "{count} recipe(s) settings will be updated.",
+      "the-following-recipes-selected-length-will-be-exported": "Følgende oppskrifter ({0}) vil bli eksportert.",
+      "settings-chosen-explanation": "Innstillinger valgt her, bortsett fra det låste alternativet, vil bli brukt på alle valgte oppskrifter.",
+      "selected-length-recipe-s-settings-will-be-updated": "Innstillingene til {count} oppskrift(er) vil bli oppdatert.",
       "recipe-data": "Oppskriftsdata",
       "recipe-data-description": "Use this section to manage the data associated with your recipes. You can perform several bulk actions on your recipes including exporting, deleting, tagging, and assigning categories.",
       "recipe-columns": "Recipe Columns",
@@ -934,6 +946,8 @@
       "delete-recipes": "Slett oppskrifter",
       "source-unit-will-be-deleted": "Kildeenheten vil bli slettet"
     },
+    "create-alias": "Create Alias",
+    "manage-aliases": "Manage Aliases",
     "seed-data": "Frødata",
     "seed": "Seed",
     "data-management": "Databehandling",
@@ -941,7 +955,22 @@
     "select-data": "Velg data",
     "select-language": "Velg språk",
     "columns": "Kolonner",
-    "combine": "Kombiner"
+    "combine": "Kombiner",
+    "categories": {
+      "edit-category": "Edit Category",
+      "new-category": "New Category",
+      "category-data": "Category Data"
+    },
+    "tags": {
+      "new-tag": "New Tag",
+      "edit-tag": "Edit Tag",
+      "tag-data": "Tag Data"
+    },
+    "tools": {
+      "new-tool": "New Tool",
+      "edit-tool": "Edit Tool",
+      "tool-data": "Tool Data"
+    }
   },
   "user-registration": {
     "user-registration": "Brukerregistrering",

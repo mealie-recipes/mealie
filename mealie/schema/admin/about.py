@@ -34,6 +34,15 @@ class AppTheme(MealieModel):
     dark_error: str = "#EF5350"
 
 
+class AppStartupInfo(MealieModel):
+    is_first_login: bool
+    """
+    The applications best guess that a user hasn't logged in. Currently, it really
+    on indicates that the 'changeme@example.com' user is still in the database. Once
+    it is removed, this will always return False.
+    """
+
+
 class AdminAboutInfo(AppInfo):
     versionLatest: str
     api_port: int

@@ -464,7 +464,9 @@
     "add-to-plan": "Add to Plan",
     "add-to-timeline": "Add to Timeline",
     "recipe-added-to-list": "Recipe added to list",
+    "recipes-added-to-list": "Recipes added to list",
     "recipe-added-to-mealplan": "Recipe added to mealplan",
+    "failed-to-add-recipes-to-list": "Failed to add recipe to list",
     "failed-to-add-recipe-to-mealplan": "Failed to add recipe to mealplan",
     "yield": "Yield",
     "quantity": "Quantity",
@@ -869,7 +871,9 @@
     "user-can-invite-other-to-group": "User can invite other to group",
     "user-can-manage-group": "User can manage group",
     "user-can-organize-group-data": "User can organize group data",
-    "enable-advanced-features": "Enable advanced features"
+    "enable-advanced-features": "Enable advanced features",
+    "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!"
   },
   "language-dialog": {
     "translated": "translated",
@@ -952,7 +956,22 @@
     "select-data": "Select Data",
     "select-language": "Select Language",
     "columns": "Columns",
-    "combine": "Combine"
+    "combine": "Combine",
+    "categories": {
+      "edit-category": "Edit Category",
+      "new-category": "New Category",
+      "category-data": "Category Data"
+    },
+    "tags": {
+      "new-tag": "New Tag",
+      "edit-tag": "Edit Tag",
+      "tag-data": "Tag Data"
+    },
+    "tools": {
+      "new-tool": "New Tool",
+      "edit-tool": "Edit Tool",
+      "tool-data": "Tool Data"
+    }
   },
   "user-registration": {
     "user-registration": "User Registration",

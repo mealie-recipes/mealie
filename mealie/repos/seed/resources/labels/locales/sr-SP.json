@@ -1,65 +1,65 @@
 [
     {
-        "name": "Produce"
+        "name": "Домаћи производи"
     },
     {
-        "name": "Grains"
+        "name": "Житарице"
     },
     {
-        "name": "Fruits"
+        "name": "Воће"
     },
     {
-        "name": "Vegetables"
+        "name": "Поврће"
     },
     {
-        "name": "Meat"
+        "name": "Месо"
     },
     {
-        "name": "Seafood"
+        "name": "Морски плодови"
     },
     {
-        "name": "Beverages"
+        "name": "Пића"
     },
     {
-        "name": "Baked Goods"
+        "name": "Пецива"
     },
     {
-        "name": "Canned Goods"
+        "name": "Конзервирана храна"
     },
     {
-        "name": "Condiments"
+        "name": "Зачини"
     },
     {
-        "name": "Confectionary"
+        "name": "Кондиторски производи"
     },
     {
-        "name": "Dairy Products"
+        "name": "Млечни производи"
     },
     {
-        "name": "Frozen Foods"
+        "name": "Смрзнута храна"
     },
     {
-        "name": "Health Foods"
+        "name": "Здрава храна"
     },
     {
-        "name": "Household"
+        "name": "Домаћинство"
     },
     {
-        "name": "Meat Products"
+        "name": "Месни производи"
     },
     {
-        "name": "Snacks"
+        "name": "Грицкалице"
     },
     {
-        "name": "Spices"
+        "name": "Зачини"
     },
     {
-        "name": "Sweets"
+        "name": "Слаткиши"
     },
     {
-        "name": "Alcohol"
+        "name": "Алкохол"
     },
     {
-        "name": "Other"
+        "name": "Остало"
     }
 ]

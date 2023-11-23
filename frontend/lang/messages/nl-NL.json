@@ -124,6 +124,7 @@
     "no-recipe-found": "Geen recept gevonden",
     "ok": "Ok",
     "options": "Opties:",
+    "plural-name": "Naam voor meervoud",
     "print": "Afdrukken",
     "print-preferences": "Voorkeuren afdrukken",
     "random": "Willekeurig",
@@ -296,7 +297,7 @@
     "for-type-meal-types": "voor {0} maaltijdsoorten",
     "meal-plan-rules": "Maaltijdplanregels",
     "new-rule": "Nieuwe regel",
-    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
+    "meal-plan-rules-description": "Je kunt regels maken voor het automatisch selecteren van recepten voor je maaltijdplanning. Deze regels worden gebruikt door de server om de recepten te selecteren bij het maken van een maaltijdplanning. Houdt er rekening mee dat als regels dezelfde dag en type restricties hebben de categorieën van de regels worden samengevoegd. In de praktijk is het dus niet nodig om dubbele regels te maken, maar het is wel mogelijk.",
     "new-rule-description": "Bij het opstellen van een nieuwe regel voor een maaltijdplan kunt u de regel beperken tot een specifieke dag van de week en/of een specifiek type maaltijd. Om een regel toe te passen op alle dagen of alle maaltijden kunt u de regel op \"Ieder\" instellen die deze toepast op alle mogelijke waarden voor het type dag en/of maaltijd.",
     "recipe-rules": "Recept Regels",
     "applies-to-all-days": "Van toepassing op alle dagen",
@@ -462,7 +463,9 @@
     "add-to-plan": "Toevoegen aan plan",
     "add-to-timeline": "Aan tijdlijn toevoegen",
     "recipe-added-to-list": "Recept toegevoegd aan de lijst",
+    "recipes-added-to-list": "Recept toegevoegd aan de lijst",
     "recipe-added-to-mealplan": "Recept toegevoegd aan het maaltijdplan",
+    "failed-to-add-recipes-to-list": "Kon recept niet aan de lijst toevoegen ",
     "failed-to-add-recipe-to-mealplan": "Recept aan maaltijdplan toevoegen mislukt",
     "yield": "Resultaat",
     "quantity": "Hoeveelheid",
@@ -737,7 +740,7 @@
     "cookbooks": "Kookboeken",
     "dashboard": "Dashboard",
     "home-page": "Homepagina",
-    "manage-users": "Beheer gebruikers",
+    "manage-users": "Beheer Gebruikers",
     "migrations": "Migraties",
     "profile": "Profiel",
     "search": "Zoeken",
@@ -867,7 +870,9 @@
     "user-can-invite-other-to-group": "Gebruiker kan iemand uitnodigen voor de groep",
     "user-can-manage-group": "Gebruiker kan de groep beheren",
     "user-can-organize-group-data": "Gebruiker kan groepsgegevens organiseren",
-    "enable-advanced-features": "Geavanceerde functies inschakelen"
+    "enable-advanced-features": "Geavanceerde functies inschakelen",
+    "it-looks-like-this-is-your-first-time-logging-in": "Het lijkt erop dat je voor het eerst inlogt.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Wil je dit niet meer zien? Verander dan je e-mailadres in je gebruikersinstellingen!"
   },
   "language-dialog": {
     "translated": "vertaald",
@@ -888,7 +893,9 @@
       "create-food": "Maak Voedsel",
       "food-label": "Voedsel Label",
       "edit-food": "Bewerk voedsel",
-      "food-data": "Voedsel gegevens"
+      "food-data": "Voedsel gegevens",
+      "example-food-singular": "bv: Ui",
+      "example-food-plural": "bv: Uien"
     },
     "units": {
       "seed-dialog-text": "Vul de database aan met veelvoorkomende eenheden, gebaseerd op je lokale taal.",
@@ -899,13 +906,18 @@
       "merging-unit-into-unit": "{0} samenvoegen met {1}",
       "create-unit": "Eenheid aanmaken",
       "abbreviation": "Afkorting",
+      "plural-abbreviation": "Afkorting voor meervoud",
       "description": "Beschrijving",
       "display-as-fraction": "Gedeelte weergeven",
       "use-abbreviation": "Gebruik afkorting",
       "edit-unit": "Eenheid wijzigen",
       "unit-data": "Eenheid gegevens",
       "use-abbv": "Gebruik afk.",
-      "fraction": "Breuk"
+      "fraction": "Breuk",
+      "example-unit-singular": "Bv: eetlepel ",
+      "example-unit-plural": "Bv: eetlepels ",
+      "example-unit-abbreviation-singular": "Bv: el",
+      "example-unit-abbreviation-plural": "bv: els"
     },
     "labels": {
       "seed-dialog-text": "Vul de database aan met veelvoorkomende labels, gebaseerd op je lokale taal.",
@@ -934,6 +946,8 @@
       "delete-recipes": "Verwijder recepten",
       "source-unit-will-be-deleted": "Broneenheid zal worden verwijderd"
     },
+    "create-alias": "Maak alias",
+    "manage-aliases": "Beheer aliassen ",
     "seed-data": "Voorbeeldgegevens",
     "seed": "Vul",
     "data-management": "Gegevensbeheer",
@@ -941,7 +955,22 @@
     "select-data": "Selecteer gegevens",
     "select-language": "Selecteer taal",
     "columns": "Kolommen",
-    "combine": "Samenvoegen"
+    "combine": "Samenvoegen",
+    "categories": {
+      "edit-category": "Categorie Bewerken",
+      "new-category": "Categorie Toevoegen",
+      "category-data": "Categorie Overzicht"
+    },
+    "tags": {
+      "new-tag": "Label Toevoegen",
+      "edit-tag": "Label Bewerken",
+      "tag-data": "Label Overzicht"
+    },
+    "tools": {
+      "new-tool": "Keukengerei Toevoegen",
+      "edit-tool": "Keukengerei Bewerken",
+      "tool-data": "Keukengerei Overzicht"
+    }
   },
   "user-registration": {
     "user-registration": "Gebruikersregistratie",

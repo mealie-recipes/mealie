@@ -124,6 +124,7 @@
     "no-recipe-found": "Няма намерени рецепти",
     "ok": "Добре",
     "options": "Опции:",
+    "plural-name": "Plural Name",
     "print": "Принтирай",
     "print-preferences": "Настройки на принтиране",
     "random": "Произволно",
@@ -462,7 +463,9 @@
     "add-to-plan": "Добави към план",
     "add-to-timeline": "Добави към времевата линия",
     "recipe-added-to-list": "Рецептата е добавена към списъка",
+    "recipes-added-to-list": "Recipes added to list",
     "recipe-added-to-mealplan": "Рецептата е добавена към хранителния план",
+    "failed-to-add-recipes-to-list": "Failed to add recipe to list",
     "failed-to-add-recipe-to-mealplan": "Рецептата не беше добавена към хранителния план",
     "yield": "Добив",
     "quantity": "Количество",
@@ -867,7 +870,9 @@
     "user-can-invite-other-to-group": "Потребителя може да добавя други в групата",
     "user-can-manage-group": "Потребителя може да управлява групата",
     "user-can-organize-group-data": "Потребителя може да организира данните на групата",
-    "enable-advanced-features": "Включване на разширени функции"
+    "enable-advanced-features": "Включване на разширени функции",
+    "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!"
   },
   "language-dialog": {
     "translated": "преведено",
@@ -888,7 +893,9 @@
       "create-food": "Създай храна",
       "food-label": "Заглавие на храната",
       "edit-food": "Редактирай храна",
-      "food-data": "Данни за храните"
+      "food-data": "Данни за храните",
+      "example-food-singular": "ex: Onion",
+      "example-food-plural": "ex: Onions"
     },
     "units": {
       "seed-dialog-text": "Заредете базата данни с общи единици въз основа на Вашия местен език.",
@@ -899,13 +906,18 @@
       "merging-unit-into-unit": "Обединяване на {0} с {1}",
       "create-unit": "Създаване на мерна единица",
       "abbreviation": "Абревиатура",
+      "plural-abbreviation": "Plural Abbreviation",
       "description": "Описание",
       "display-as-fraction": "Показване като фракция",
       "use-abbreviation": "Използвай съкращение",
       "edit-unit": "Редактирай мерна единица",
       "unit-data": "Данни на мерната единица",
       "use-abbv": "Използвай съкращение",
-      "fraction": "Фракция"
+      "fraction": "Фракция",
+      "example-unit-singular": "ex: Tablespoon",
+      "example-unit-plural": "ex: Tablespoons",
+      "example-unit-abbreviation-singular": "ex: Tbsp",
+      "example-unit-abbreviation-plural": "ex: Tbsps"
     },
     "labels": {
       "seed-dialog-text": "Заредете базата данни с общи етикети въз основа на Вашия местен език.",
@@ -934,6 +946,8 @@
       "delete-recipes": "Изтрий рецепти",
       "source-unit-will-be-deleted": "Изходната мерна единица ще бъде изтрита"
     },
+    "create-alias": "Create Alias",
+    "manage-aliases": "Manage Aliases",
     "seed-data": "Сийд на данни",
     "seed": "Сийд",
     "data-management": "Управление на данни",
@@ -941,7 +955,22 @@
     "select-data": "Изберете данни",
     "select-language": "Изберете език",
     "columns": "Колони",
-    "combine": "Обедини"
+    "combine": "Обедини",
+    "categories": {
+      "edit-category": "Edit Category",
+      "new-category": "New Category",
+      "category-data": "Category Data"
+    },
+    "tags": {
+      "new-tag": "New Tag",
+      "edit-tag": "Edit Tag",
+      "tag-data": "Tag Data"
+    },
+    "tools": {
+      "new-tool": "New Tool",
+      "edit-tool": "Edit Tool",
+      "tool-data": "Tool Data"
+    }
   },
   "user-registration": {
     "user-registration": "Регистрации на потребител",

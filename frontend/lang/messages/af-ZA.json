@@ -124,6 +124,7 @@
     "no-recipe-found": "Geen resep gevind nie",
     "ok": "OK",
     "options": "Opsies:",
+    "plural-name": "Plural Name",
     "print": "Druk",
     "print-preferences": "Drukvoorkeure",
     "random": "Willekeurig",
@@ -462,7 +463,9 @@
     "add-to-plan": "Voeg by plan",
     "add-to-timeline": "Voeg by tydlyn",
     "recipe-added-to-list": "Resep by lys gevoeg",
+    "recipes-added-to-list": "Recipes added to list",
     "recipe-added-to-mealplan": "Resep is by die maaltydplan gevoeg",
+    "failed-to-add-recipes-to-list": "Failed to add recipe to list",
     "failed-to-add-recipe-to-mealplan": "Kon nie resep by maaltydplan voeg nie",
     "yield": "Resultaat",
     "quantity": "Hoeveelheid",
@@ -867,7 +870,9 @@
     "user-can-invite-other-to-group": "Gebruiker kan ander na groep nooi",
     "user-can-manage-group": "Gebruiker kan groep bestuur",
     "user-can-organize-group-data": "Gebruiker kan groepdata organiseer",
-    "enable-advanced-features": "Aktiveer gevorderde funksies"
+    "enable-advanced-features": "Aktiveer gevorderde funksies",
+    "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!"
   },
   "language-dialog": {
     "translated": "vertaal",
@@ -888,7 +893,9 @@
       "create-food": "Skep kos",
       "food-label": "Kos etiket",
       "edit-food": "Wysig kos",
-      "food-data": "Voedseldata"
+      "food-data": "Voedseldata",
+      "example-food-singular": "ex: Onion",
+      "example-food-plural": "ex: Onions"
     },
     "units": {
       "seed-dialog-text": "Saai die databasis met algemene eenhede gebaseer op jou plaaslike taal.",
@@ -899,13 +906,18 @@
       "merging-unit-into-unit": "Voeg {0} saam met {1}",
       "create-unit": "Skep eenheid",
       "abbreviation": "Afkorting",
+      "plural-abbreviation": "Plural Abbreviation",
       "description": "Beskrywing",
       "display-as-fraction": "Wys as breuk",
       "use-abbreviation": "Gebruik afkorting",
       "edit-unit": "Wysig eenheid",
       "unit-data": "Eenheiddata",
       "use-abbv": "Gebruik afkorting",
-      "fraction": "Breuk"
+      "fraction": "Breuk",
+      "example-unit-singular": "ex: Tablespoon",
+      "example-unit-plural": "ex: Tablespoons",
+      "example-unit-abbreviation-singular": "ex: Tbsp",
+      "example-unit-abbreviation-plural": "ex: Tbsps"
     },
     "labels": {
       "seed-dialog-text": "Vul die databasis met algemene etikette gebaseer op jou plaaslike taal.",
@@ -934,6 +946,8 @@
       "delete-recipes": "Verwyder resepte",
       "source-unit-will-be-deleted": "Bron-eenheid sal verwyder word"
     },
+    "create-alias": "Create Alias",
+    "manage-aliases": "Manage Aliases",
     "seed-data": "Voorbeeld data",
     "seed": "Vul",
     "data-management": "Databestuur",
@@ -941,7 +955,22 @@
     "select-data": "Kies data",
     "select-language": "Kies taal",
     "columns": "Kolomme",
-    "combine": "Kombineer"
+    "combine": "Kombineer",
+    "categories": {
+      "edit-category": "Edit Category",
+      "new-category": "New Category",
+      "category-data": "Category Data"
+    },
+    "tags": {
+      "new-tag": "New Tag",
+      "edit-tag": "Edit Tag",
+      "tag-data": "Tag Data"
+    },
+    "tools": {
+      "new-tool": "New Tool",
+      "edit-tool": "Edit Tool",
+      "tool-data": "Tool Data"
+    }
   },
   "user-registration": {
     "user-registration": "Gebruiker registrasie",

@@ -116,7 +116,7 @@ class UserOut(UserBase):
 
     @property
     def is_default_user(self) -> bool:
-        return self.email == settings.DEFAULT_EMAIL.strip().lower()
+        return self.email == settings._DEFAULT_EMAIL.strip().lower()
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:

@@ -124,6 +124,7 @@
     "no-recipe-found": "No s'han trobat receptes",
     "ok": "D'acord",
     "options": "Opcions:",
+    "plural-name": "Plural Name",
     "print": "Imprimiu",
     "print-preferences": "Imprimiu les preferències",
     "random": "Aleatori",
@@ -462,7 +463,9 @@
     "add-to-plan": "Afegiu al menú",
     "add-to-timeline": "Afegir a la cronologia",
     "recipe-added-to-list": "Recepta afegida a la llista",
+    "recipes-added-to-list": "Recipes added to list",
     "recipe-added-to-mealplan": "Recepta afegida al menú",
+    "failed-to-add-recipes-to-list": "Failed to add recipe to list",
     "failed-to-add-recipe-to-mealplan": "S'ha produït un error afegint la recepta al menú",
     "yield": "Racions",
     "quantity": "Quantitat",
@@ -867,7 +870,9 @@
     "user-can-invite-other-to-group": "User can invite other to group",
     "user-can-manage-group": "User can manage group",
     "user-can-organize-group-data": "User can organize group data",
-    "enable-advanced-features": "Enable advanced features"
+    "enable-advanced-features": "Enable advanced features",
+    "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!"
   },
   "language-dialog": {
     "translated": "traduït",
@@ -888,7 +893,9 @@
       "create-food": "Create Food",
       "food-label": "Food Label",
       "edit-food": "Edit Food",
-      "food-data": "Food Data"
+      "food-data": "Food Data",
+      "example-food-singular": "ex: Onion",
+      "example-food-plural": "ex: Onions"
     },
     "units": {
       "seed-dialog-text": "Afegeix a la base de dades les unitats més comunes en el vostre idioma.",
@@ -899,13 +906,18 @@
       "merging-unit-into-unit": "Merging {0} into {1}",
       "create-unit": "Crea la unitat",
       "abbreviation": "Abbreviation",
+      "plural-abbreviation": "Plural Abbreviation",
       "description": "Description",
       "display-as-fraction": "Display as Fraction",
       "use-abbreviation": "Use Abbreviation",
       "edit-unit": "Edit Unit",
       "unit-data": "Unit Data",
       "use-abbv": "Use Abbv.",
-      "fraction": "Fraction"
+      "fraction": "Fraction",
+      "example-unit-singular": "ex: Tablespoon",
+      "example-unit-plural": "ex: Tablespoons",
+      "example-unit-abbreviation-singular": "ex: Tbsp",
+      "example-unit-abbreviation-plural": "ex: Tbsps"
     },
     "labels": {
       "seed-dialog-text": "Afegeix a la base de dades etiquetes comunes en el vostre idioma.",
@@ -934,6 +946,8 @@
       "delete-recipes": "Delete Recipes",
       "source-unit-will-be-deleted": "Source Unit will be deleted"
     },
+    "create-alias": "Create Alias",
+    "manage-aliases": "Manage Aliases",
     "seed-data": "Dades d'exemple",
     "seed": "Seed",
     "data-management": "Data Management",
@@ -941,7 +955,22 @@
     "select-data": "Select Data",
     "select-language": "Select Language",
     "columns": "Columns",
-    "combine": "Combine"
+    "combine": "Combine",
+    "categories": {
+      "edit-category": "Edit Category",
+      "new-category": "New Category",
+      "category-data": "Category Data"
+    },
+    "tags": {
+      "new-tag": "New Tag",
+      "edit-tag": "Edit Tag",
+      "tag-data": "Tag Data"
+    },
+    "tools": {
+      "new-tool": "New Tool",
+      "edit-tool": "Edit Tool",
+      "tool-data": "Tool Data"
+    }
   },
   "user-registration": {
     "user-registration": "Registre d'usuari",

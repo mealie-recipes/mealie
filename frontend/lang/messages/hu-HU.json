@@ -124,6 +124,7 @@
     "no-recipe-found": "Nem található recept",
     "ok": "OK",
     "options": "Opciók:",
+    "plural-name": "Név többes számban",
     "print": "Nyomtatás",
     "print-preferences": "Nyomtatási beállítások",
     "random": "Véletlenszerű",
@@ -462,7 +463,9 @@
     "add-to-plan": "Hozzáadás az étkezési tervhez",
     "add-to-timeline": "Hozzáadás idővonalhoz",
     "recipe-added-to-list": "Recept hozzáadva listához",
+    "recipes-added-to-list": "Recipes added to list",
     "recipe-added-to-mealplan": "Recept hozzáadva menütervhez",
+    "failed-to-add-recipes-to-list": "Failed to add recipe to list",
     "failed-to-add-recipe-to-mealplan": "Nem sikerült hozzáadni a receptet a menütervhez",
     "yield": "Adag",
     "quantity": "Mennyiség",
@@ -867,7 +870,9 @@
     "user-can-invite-other-to-group": "A felhasználó meghívhat másokat a csoportba",
     "user-can-manage-group": "A felhasználó csoportot kezelhet",
     "user-can-organize-group-data": "Felhasználó szerkesztheti a csoport adatait",
-    "enable-advanced-features": "Haladó funkciók engedélyezése"
+    "enable-advanced-features": "Haladó funkciók engedélyezése",
+    "it-looks-like-this-is-your-first-time-logging-in": "Úgy tűnik, most jelentkezik be először.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Nem akarja ezt többé látni? Mindenképpen változtassa meg az e-mail címét a felhasználói beállítások között!"
   },
   "language-dialog": {
     "translated": "lefordítva",
@@ -888,7 +893,9 @@
       "create-food": "Étel készítése",
       "food-label": "Étel címke",
       "edit-food": "Étel szerkesztése",
-      "food-data": "Étel adatai"
+      "food-data": "Étel adatai",
+      "example-food-singular": "pl. Hagyma",
+      "example-food-plural": "pl. Hagymák"
     },
     "units": {
       "seed-dialog-text": "Töltse be az Ön nyelve szerinti közös mennyiségi egységet tartalmazó adatbázist.",
@@ -899,13 +906,18 @@
       "merging-unit-into-unit": "{0} összevonása {1}-zel/zal",
       "create-unit": "Mennyiségi egység létrehozása",
       "abbreviation": "Rövidítés",
+      "plural-abbreviation": "Többes szám rövidítése",
       "description": "Megnevezés",
       "display-as-fraction": "Törtként való megjelenítés",
       "use-abbreviation": "Rövidítés használata",
       "edit-unit": "Mennyiségi egység szerkesztése",
       "unit-data": "Mennyiségi egység adatok",
       "use-abbv": "Rövidítés haszn.",
-      "fraction": "Tört"
+      "fraction": "Tört",
+      "example-unit-singular": "pl. Evőkanál",
+      "example-unit-plural": "pl. Evőkanalak",
+      "example-unit-abbreviation-singular": "pl. ek",
+      "example-unit-abbreviation-plural": "pl. ek"
     },
     "labels": {
       "seed-dialog-text": "Töltse be az Ön nyelve szerinti közös címkélet tartalmazó adatbázist.",
@@ -934,6 +946,8 @@
       "delete-recipes": "Receptek törlése",
       "source-unit-will-be-deleted": "A forrás mennyiségi egység törlésre kerül"
     },
+    "create-alias": "Alias készítése",
+    "manage-aliases": "Alias kezelése",
     "seed-data": "Kezdőérték adat",
     "seed": "Kezdőérték",
     "data-management": "Adatmenedzsment",
@@ -941,7 +955,22 @@
     "select-data": "Válassza ki az adatot",
     "select-language": "Nyelv kiválasztása",
     "columns": "Oszlopok",
-    "combine": "Összevonás"
+    "combine": "Összevonás",
+    "categories": {
+      "edit-category": "Kategória szerkesztése",
+      "new-category": "Új kategória",
+      "category-data": "Kategória adatai"
+    },
+    "tags": {
+      "new-tag": "Új címke",
+      "edit-tag": "Címke szerkesztése",
+      "tag-data": "Címke adatok"
+    },
+    "tools": {
+      "new-tool": "Új eszköz",
+      "edit-tool": "Eszköz szerkesztése",
+      "tool-data": "Eszköz adatai"
+    }
   },
   "user-registration": {
     "user-registration": "Felhasználó regisztráció",

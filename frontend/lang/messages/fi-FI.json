@@ -124,6 +124,7 @@
     "no-recipe-found": "Reseptiä ei löytynyt",
     "ok": "OK",
     "options": "Valinnat:",
+    "plural-name": "Plural Name",
     "print": "Tulosta",
     "print-preferences": "Tulosta asetukset",
     "random": "Satunnainen",
@@ -462,7 +463,9 @@
     "add-to-plan": "Lisää suunnitelmaan",
     "add-to-timeline": "Lisää aikajanalle",
     "recipe-added-to-list": "Resepti lisätty listalle",
+    "recipes-added-to-list": "Recipes added to list",
     "recipe-added-to-mealplan": "Resepti lisätty ateriasuunnitelmaan",
+    "failed-to-add-recipes-to-list": "Failed to add recipe to list",
     "failed-to-add-recipe-to-mealplan": "Reseptiä ei voitu lisätä ateriasuunnitelmaan",
     "yield": "Sato",
     "quantity": "Määrä",
@@ -867,7 +870,9 @@
     "user-can-invite-other-to-group": "Käyttäjä voi kutsua muita ryhmään",
     "user-can-manage-group": "Käyttäjä voi hallita ryhmää",
     "user-can-organize-group-data": "Käyttäjä voi järjestellä ryhmän tietoja",
-    "enable-advanced-features": "Salli edistyneemmät ominaisuudet"
+    "enable-advanced-features": "Salli edistyneemmät ominaisuudet",
+    "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!"
   },
   "language-dialog": {
     "translated": "käännetty",
@@ -888,7 +893,9 @@
       "create-food": "Luo elintarvike",
       "food-label": "Elintarvikkeiden nimike",
       "edit-food": "Muokkaa elintarviketta",
-      "food-data": "Elintarvikkeiden tiedot"
+      "food-data": "Elintarvikkeiden tiedot",
+      "example-food-singular": "ex: Onion",
+      "example-food-plural": "ex: Onions"
     },
     "units": {
       "seed-dialog-text": "Lisää tietokantaan yksiköt paikallisen kielen perusteella.",
@@ -899,13 +906,18 @@
       "merging-unit-into-unit": "Yhdistä {0} ja {1} yhdeksi",
       "create-unit": "Luo yksikkö",
       "abbreviation": "Lyhenne",
+      "plural-abbreviation": "Plural Abbreviation",
       "description": "Kuvaus",
       "display-as-fraction": "Näytä murtolukuna",
       "use-abbreviation": "Käytä Lyhennettä",
       "edit-unit": "Muokkaa yksiköitä",
       "unit-data": "Yksikkötiedot",
       "use-abbv": "Käytä lyhennettä.",
-      "fraction": "Murtoluku"
+      "fraction": "Murtoluku",
+      "example-unit-singular": "ex: Tablespoon",
+      "example-unit-plural": "ex: Tablespoons",
+      "example-unit-abbreviation-singular": "ex: Tbsp",
+      "example-unit-abbreviation-plural": "ex: Tbsps"
     },
     "labels": {
       "seed-dialog-text": "Lisää tietokantaan yleiset tunnisteet paikallisen kielen perusteella.",
@@ -934,6 +946,8 @@
       "delete-recipes": "Poista Reseptit",
       "source-unit-will-be-deleted": "Lähdeyksikkö poistetaan"
     },
+    "create-alias": "Create Alias",
+    "manage-aliases": "Manage Aliases",
     "seed-data": "Tietokannan pohjadata",
     "seed": "Lisää pohjadata",
     "data-management": "Tietojen hallinta",
@@ -941,7 +955,22 @@
     "select-data": "Valitse Tiedot",
     "select-language": "Valitse kieli",
     "columns": "Sarakkeet",
-    "combine": "Yhdistä"
+    "combine": "Yhdistä",
+    "categories": {
+      "edit-category": "Edit Category",
+      "new-category": "New Category",
+      "category-data": "Category Data"
+    },
+    "tags": {
+      "new-tag": "New Tag",
+      "edit-tag": "Edit Tag",
+      "tag-data": "Tag Data"
+    },
+    "tools": {
+      "new-tool": "New Tool",
+      "edit-tool": "Edit Tool",
+      "tool-data": "Tool Data"
+    }
   },
   "user-registration": {
     "user-registration": "Käyttäjien rekisteröinti",

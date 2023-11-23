@@ -124,6 +124,7 @@
     "no-recipe-found": "Žiadny recept nenájdený",
     "ok": "OK",
     "options": "Možnosti:",
+    "plural-name": "Plural Name",
     "print": "Tlačiť",
     "print-preferences": "Nastavenia tlače",
     "random": "Náhodné",
@@ -462,7 +463,9 @@
     "add-to-plan": "Pridať do plánu",
     "add-to-timeline": "Add to Timeline",
     "recipe-added-to-list": "Recept bol pridaný do zoznamu",
+    "recipes-added-to-list": "Recipes added to list",
     "recipe-added-to-mealplan": "Recept bol pridaný do stravovacieho plánu",
+    "failed-to-add-recipes-to-list": "Failed to add recipe to list",
     "failed-to-add-recipe-to-mealplan": "Pridanie receptu do stravovacieho plánu zlyhalo",
     "yield": "Počet porcií",
     "quantity": "Množstvo",
@@ -867,7 +870,9 @@
     "user-can-invite-other-to-group": "Užívateľ môže do skupiny pozvať ďalších",
     "user-can-manage-group": "Užívateľ môže spravovať skupinu",
     "user-can-organize-group-data": "Užívateľ môže spravovať údaje skupiny",
-    "enable-advanced-features": "Povoliť pokročilé funkcie"
+    "enable-advanced-features": "Povoliť pokročilé funkcie",
+    "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!"
   },
   "language-dialog": {
     "translated": "preložené",
@@ -888,7 +893,9 @@
       "create-food": "Vytvoriť jedlo",
       "food-label": "Značka jedla",
       "edit-food": "Upraviť jedlo",
-      "food-data": "Údaje o jedle"
+      "food-data": "Údaje o jedle",
+      "example-food-singular": "ex: Onion",
+      "example-food-plural": "ex: Onions"
     },
     "units": {
       "seed-dialog-text": "Naplniť databázu z bežnými štítkami podla vášho lokálneho jazyka.",
@@ -899,13 +906,18 @@
       "merging-unit-into-unit": "Zlúčiť {0} do {1}",
       "create-unit": "Vytvoriť jednotku",
       "abbreviation": "Skratky",
+      "plural-abbreviation": "Plural Abbreviation",
       "description": "Popis",
       "display-as-fraction": "Zobraziť ako zlomok",
       "use-abbreviation": "Použiť skratky",
       "edit-unit": "Upraviť jednotku",
       "unit-data": "Údaje o jednotke",
       "use-abbv": "Použiť skrt.",
-      "fraction": "Zlomok"
+      "fraction": "Zlomok",
+      "example-unit-singular": "ex: Tablespoon",
+      "example-unit-plural": "ex: Tablespoons",
+      "example-unit-abbreviation-singular": "ex: Tbsp",
+      "example-unit-abbreviation-plural": "ex: Tbsps"
     },
     "labels": {
       "seed-dialog-text": "Naplniť databázu z bežnými štítkami podla vášho lokálneho jazyka.",
@@ -934,6 +946,8 @@
       "delete-recipes": "Odstrániť recepty",
       "source-unit-will-be-deleted": "Zdroj bude vymazaný"
     },
+    "create-alias": "Create Alias",
+    "manage-aliases": "Manage Aliases",
     "seed-data": "Naplniť dáta",
     "seed": "Zdroj",
     "data-management": "Správa dát",
@@ -941,7 +955,22 @@
     "select-data": "Vyberte dáta",
     "select-language": "Vyberte jazyk",
     "columns": "Stĺpce",
-    "combine": "Kombinovať"
+    "combine": "Kombinovať",
+    "categories": {
+      "edit-category": "Edit Category",
+      "new-category": "New Category",
+      "category-data": "Category Data"
+    },
+    "tags": {
+      "new-tag": "New Tag",
+      "edit-tag": "Edit Tag",
+      "tag-data": "Tag Data"
+    },
+    "tools": {
+      "new-tool": "New Tool",
+      "edit-tool": "Edit Tool",
+      "tool-data": "Tool Data"
+    }
   },
   "user-registration": {
     "user-registration": "Registrácia",

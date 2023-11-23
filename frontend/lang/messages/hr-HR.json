@@ -124,6 +124,7 @@
     "no-recipe-found": "Nije Pronađen Recept",
     "ok": "OK",
     "options": "Opcije:",
+    "plural-name": "Plural Name",
     "print": "Ispiši",
     "print-preferences": "Postavke ispisa",
     "random": "Nasumično",
@@ -462,7 +463,9 @@
     "add-to-plan": "Dodaj u Plan",
     "add-to-timeline": "Add to Timeline",
     "recipe-added-to-list": "Recept je dodan na popis",
+    "recipes-added-to-list": "Recipes added to list",
     "recipe-added-to-mealplan": "Recept je dodan u Plan",
+    "failed-to-add-recipes-to-list": "Failed to add recipe to list",
     "failed-to-add-recipe-to-mealplan": "Nije uspjelo dodavanje recepta u plan obroka",
     "yield": "Konačna Količina",
     "quantity": "Količina",
@@ -867,7 +870,9 @@
     "user-can-invite-other-to-group": "Korisnik može pozvati druge u grupu",
     "user-can-manage-group": "Korisnik može upravljati grupom",
     "user-can-organize-group-data": "Korisnik može organizirati podatke grupe",
-    "enable-advanced-features": "Omogućite napredne značajke"
+    "enable-advanced-features": "Omogućite napredne značajke",
+    "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!"
   },
   "language-dialog": {
     "translated": "prevedeno",
@@ -888,7 +893,9 @@
       "create-food": "Kreiraj Namirnicu",
       "food-label": "Prehrambena oznaka",
       "edit-food": "Uredi Namirnicu",
-      "food-data": "Podaci o Namirnici"
+      "food-data": "Podaci o Namirnici",
+      "example-food-singular": "ex: Onion",
+      "example-food-plural": "ex: Onions"
     },
     "units": {
       "seed-dialog-text": "Popunite bazu podataka uobičajenim jedinicama na temelju vašeg lokalnog jezika.",
@@ -899,13 +906,18 @@
       "merging-unit-into-unit": "Spajanje {0} u {1}",
       "create-unit": "Kreiraj Jedinicu",
       "abbreviation": "Oznaka Jedinice",
+      "plural-abbreviation": "Plural Abbreviation",
       "description": "Opis",
       "display-as-fraction": "Prikaži kao razlomak",
       "use-abbreviation": "Koristi oznaku Jedinice",
       "edit-unit": "Uredi Jedinicu",
       "unit-data": "Podaci Jedinice",
       "use-abbv": "Koristi Skraćenu oznaku.",
-      "fraction": "Razlomak"
+      "fraction": "Razlomak",
+      "example-unit-singular": "ex: Tablespoon",
+      "example-unit-plural": "ex: Tablespoons",
+      "example-unit-abbreviation-singular": "ex: Tbsp",
+      "example-unit-abbreviation-plural": "ex: Tbsps"
     },
     "labels": {
       "seed-dialog-text": "Popunite bazu podataka uobičajenim oznakama na temelju vašeg lokalnog jezika.",
@@ -934,6 +946,8 @@
       "delete-recipes": "Obriši Recepte",
       "source-unit-will-be-deleted": "Izvorna jedinica će biti izbrisana"
     },
+    "create-alias": "Create Alias",
+    "manage-aliases": "Manage Aliases",
     "seed-data": "Unesi Podatke",
     "seed": "Seed",
     "data-management": "Upravljanje Podacima",
@@ -941,7 +955,22 @@
     "select-data": "Označite Podatke",
     "select-language": "Odaberite Jezik",
     "columns": "Stupci",
-    "combine": "Kombiniraj"
+    "combine": "Kombiniraj",
+    "categories": {
+      "edit-category": "Edit Category",
+      "new-category": "New Category",
+      "category-data": "Category Data"
+    },
+    "tags": {
+      "new-tag": "New Tag",
+      "edit-tag": "Edit Tag",
+      "tag-data": "Tag Data"
+    },
+    "tools": {
+      "new-tool": "New Tool",
+      "edit-tool": "Edit Tool",
+      "tool-data": "Tool Data"
+    }
   },
   "user-registration": {
     "user-registration": "Registracija Korisnika",

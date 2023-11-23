@@ -124,6 +124,7 @@
     "no-recipe-found": "レシピが見つかりません。",
     "ok": "OK",
     "options": "Options:",
+    "plural-name": "Plural Name",
     "print": "印刷",
     "print-preferences": "印刷設定",
     "random": "ランダム",
@@ -463,7 +464,9 @@
     "add-to-plan": "Add to Plan",
     "add-to-timeline": "Add to Timeline",
     "recipe-added-to-list": "Recipe added to list",
+    "recipes-added-to-list": "Recipes added to list",
     "recipe-added-to-mealplan": "レシピを献立に追加しました。",
+    "failed-to-add-recipes-to-list": "Failed to add recipe to list",
     "failed-to-add-recipe-to-mealplan": "レシピを献立に追加する事に失敗しました。",
     "yield": "Yield",
     "quantity": "Quantity",
@@ -868,7 +871,9 @@
     "user-can-invite-other-to-group": "User can invite other to group",
     "user-can-manage-group": "User can manage group",
     "user-can-organize-group-data": "User can organize group data",
-    "enable-advanced-features": "Enable advanced features"
+    "enable-advanced-features": "Enable advanced features",
+    "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!"
   },
   "language-dialog": {
     "translated": "translated",
@@ -889,7 +894,9 @@
       "create-food": "Create Food",
       "food-label": "Food Label",
       "edit-food": "Edit Food",
-      "food-data": "Food Data"
+      "food-data": "Food Data",
+      "example-food-singular": "ex: Onion",
+      "example-food-plural": "ex: Onions"
     },
     "units": {
       "seed-dialog-text": "Seed the database with common units based on your local language.",
@@ -900,13 +907,18 @@
       "merging-unit-into-unit": "Merging {0} into {1}",
       "create-unit": "Create Unit",
       "abbreviation": "Abbreviation",
+      "plural-abbreviation": "Plural Abbreviation",
       "description": "Description",
       "display-as-fraction": "Display as Fraction",
       "use-abbreviation": "Use Abbreviation",
       "edit-unit": "Edit Unit",
       "unit-data": "Unit Data",
       "use-abbv": "Use Abbv.",
-      "fraction": "Fraction"
+      "fraction": "Fraction",
+      "example-unit-singular": "ex: Tablespoon",
+      "example-unit-plural": "ex: Tablespoons",
+      "example-unit-abbreviation-singular": "ex: Tbsp",
+      "example-unit-abbreviation-plural": "ex: Tbsps"
     },
     "labels": {
       "seed-dialog-text": "Seed the database with common labels based on your local language.",
@@ -935,6 +947,8 @@
       "delete-recipes": "Delete Recipes",
       "source-unit-will-be-deleted": "Source Unit will be deleted"
     },
+    "create-alias": "Create Alias",
+    "manage-aliases": "Manage Aliases",
     "seed-data": "Seed Data",
     "seed": "Seed",
     "data-management": "Data Management",
@@ -942,7 +956,22 @@
     "select-data": "Select Data",
     "select-language": "Select Language",
     "columns": "Columns",
-    "combine": "Combine"
+    "combine": "Combine",
+    "categories": {
+      "edit-category": "Edit Category",
+      "new-category": "New Category",
+      "category-data": "Category Data"
+    },
+    "tags": {
+      "new-tag": "New Tag",
+      "edit-tag": "Edit Tag",
+      "tag-data": "Tag Data"
+    },
+    "tools": {
+      "new-tool": "New Tool",
+      "edit-tool": "Edit Tool",
+      "tool-data": "Tool Data"
+    }
   },
   "user-registration": {
     "user-registration": "User Registration",

@@ -6,7 +6,14 @@
 */
 
 export type WebhookType = "mealplan";
-export type SupportedMigrations = "nextcloud" | "chowdown" | "copymethat" | "paprika" | "mealie_alpha" | "tandoor" | "plantoeat";
+export type SupportedMigrations =
+  | "nextcloud"
+  | "chowdown"
+  | "copymethat"
+  | "paprika"
+  | "mealie_alpha"
+  | "tandoor"
+  | "plantoeat";
 
 export interface CreateGroupPreferences {
   privateGroup?: boolean;
@@ -263,38 +270,55 @@ export interface RecipeIngredient {
 }
 export interface IngredientUnit {
   name: string;
+  pluralName?: string;
   description?: string;
   extras?: {
     [k: string]: unknown;
   };
   fraction?: boolean;
   abbreviation?: string;
+  pluralAbbreviation?: string;
   useAbbreviation?: boolean;
+  aliases?: IngredientUnitAlias[];
   id: string;
   createdAt?: string;
   updateAt?: string;
 }
+export interface IngredientUnitAlias {
+  name: string;
+}
 export interface CreateIngredientUnit {
   name: string;
+  pluralName?: string;
   description?: string;
   extras?: {
     [k: string]: unknown;
   };
   fraction?: boolean;
   abbreviation?: string;
+  pluralAbbreviation?: string;
   useAbbreviation?: boolean;
+  aliases?: CreateIngredientUnitAlias[];
+}
+export interface CreateIngredientUnitAlias {
+  name: string;
 }
 export interface IngredientFood {
   name: string;
+  pluralName?: string;
   description?: string;
   extras?: {
     [k: string]: unknown;
   };
   labelId?: string;
+  aliases?: IngredientFoodAlias[];
   id: string;
   label?: MultiPurposeLabelSummary;
   createdAt?: string;
   updateAt?: string;
+}
+export interface IngredientFoodAlias {
+  name: string;
 }
 export interface MultiPurposeLabelSummary {
   name: string;
@@ -304,11 +328,16 @@ export interface MultiPurposeLabelSummary {
 }
 export interface CreateIngredientFood {
   name: string;
+  pluralName?: string;
   description?: string;
   extras?: {
     [k: string]: unknown;
   };
   labelId?: string;
+  aliases?: CreateIngredientFoodAlias[];
+}
+export interface CreateIngredientFoodAlias {
+  name: string;
 }
 export interface ShoppingListCreate {
   name?: string;

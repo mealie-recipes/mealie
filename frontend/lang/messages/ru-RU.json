@@ -124,6 +124,7 @@
     "no-recipe-found": "Рецепт не найден",
     "ok": "Ок",
     "options": "Параметры:",
+    "plural-name": "Название в мн. ч",
     "print": "Печать",
     "print-preferences": "Настройки печати",
     "random": "Случайный",
@@ -462,7 +463,9 @@
     "add-to-plan": "Добавить к плану",
     "add-to-timeline": "Добавить в историю",
     "recipe-added-to-list": "Рецепт добавлен в список",
+    "recipes-added-to-list": "Recipes added to list",
     "recipe-added-to-mealplan": "Рецепт добавлен в план питания",
+    "failed-to-add-recipes-to-list": "Failed to add recipe to list",
     "failed-to-add-recipe-to-mealplan": "Не удалось добавить рецепт в план питания",
     "yield": "Выход",
     "quantity": "Количество",
@@ -867,7 +870,9 @@
     "user-can-invite-other-to-group": "Пользователь может пригласить других в группу",
     "user-can-manage-group": "Пользователь может управлять группой",
     "user-can-organize-group-data": "Пользователь может менять групповые данные",
-    "enable-advanced-features": "Включить доп. функции"
+    "enable-advanced-features": "Включить доп. функции",
+    "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!"
   },
   "language-dialog": {
     "translated": "переведено",
@@ -888,7 +893,9 @@
       "create-food": "Добавить продукт",
       "food-label": "Метка продукта",
       "edit-food": "Изменить продукт",
-      "food-data": "Данные о продуктах"
+      "food-data": "Данные о продуктах",
+      "example-food-singular": "пр. Луковица",
+      "example-food-plural": "пр. Луковиц"
     },
     "units": {
       "seed-dialog-text": "Заполняет базу данных рядовыми единицами измерений на основе выбранного языка.",
@@ -899,13 +906,18 @@
       "merging-unit-into-unit": "Объединение {0} в {1}",
       "create-unit": "Добавить единицу измерения",
       "abbreviation": "Аббревиатура",
+      "plural-abbreviation": "Сокращение во мн. ч.",
       "description": "Описание",
       "display-as-fraction": "Отображать как дробь",
       "use-abbreviation": "Использовать аббревиатуру",
       "edit-unit": "Изменить единицу измерения",
       "unit-data": "Данные единицы измерения",
       "use-abbv": "Использовать аббревиатуру",
-      "fraction": "Дробь"
+      "fraction": "Дробь",
+      "example-unit-singular": "пр. Столовая ложка",
+      "example-unit-plural": "пр. Столовых ложек",
+      "example-unit-abbreviation-singular": "ex: Tbsp",
+      "example-unit-abbreviation-plural": "ex: Tbsps"
     },
     "labels": {
       "seed-dialog-text": "Дополнить базу данных типичными единицами измерений на основе выбранного языка.",
@@ -934,6 +946,8 @@
       "delete-recipes": "Удалить рецепты",
       "source-unit-will-be-deleted": "Первая единица измерения будет удалена"
     },
+    "create-alias": "Создать псевдоним",
+    "manage-aliases": "Управление псевдонимами",
     "seed-data": "Заполнить данные",
     "seed": "Заполнить",
     "data-management": "Управление хранилищем данных",
@@ -941,7 +955,22 @@
     "select-data": "Выберите данные",
     "select-language": "Выберите язык",
     "columns": "Столбцы",
-    "combine": "Объединить"
+    "combine": "Объединить",
+    "categories": {
+      "edit-category": "Edit Category",
+      "new-category": "New Category",
+      "category-data": "Category Data"
+    },
+    "tags": {
+      "new-tag": "New Tag",
+      "edit-tag": "Edit Tag",
+      "tag-data": "Tag Data"
+    },
+    "tools": {
+      "new-tool": "New Tool",
+      "edit-tool": "Edit Tool",
+      "tool-data": "Tool Data"
+    }
   },
   "user-registration": {
     "user-registration": "Регистрация",

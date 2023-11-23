@@ -5,6 +5,7 @@
 /* Do not modify it by hand - just update the pydantic models and then re-run the script
 */
 
+export type OrderByNullPosition = "first" | "last";
 export type OrderDirection = "asc" | "desc";
 
 export interface ErrorResponse {
@@ -19,6 +20,7 @@ export interface PaginationQuery {
   page?: number;
   perPage?: number;
   orderBy?: string;
+  orderByNullPosition?: OrderByNullPosition;
   orderDirection?: OrderDirection & string;
   queryFilter?: string;
   paginationSeed?: string;

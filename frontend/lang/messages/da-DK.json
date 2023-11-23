@@ -124,6 +124,7 @@
     "no-recipe-found": "Ingen opskrift fundet",
     "ok": "Ok",
     "options": "Valgmuligheder:",
+    "plural-name": "Navn i flertal",
     "print": "Udskriv",
     "print-preferences": "Print indstillinger",
     "random": "Tilfældig",
@@ -462,7 +463,9 @@
     "add-to-plan": "Tilføj til madplan",
     "add-to-timeline": "Tilføj til tidslinje",
     "recipe-added-to-list": "Opskrift tilføjet til listen",
+    "recipes-added-to-list": "Opskrifter tilføjet til listen",
     "recipe-added-to-mealplan": "Opskrift tilføjet til madplanen",
+    "failed-to-add-recipes-to-list": "Kunne ikke tilføje opskrift til listen",
     "failed-to-add-recipe-to-mealplan": "Kunne ikke tilføje opskrift til madplanen",
     "yield": "Portioner",
     "quantity": "Antal",
@@ -867,7 +870,9 @@
     "user-can-invite-other-to-group": "Bruger kan invitere andre til gruppen",
     "user-can-manage-group": "Bruger kan administrere gruppen",
     "user-can-organize-group-data": "Bruger kan organisere gruppedata",
-    "enable-advanced-features": "Aktiver avancerede funktioner"
+    "enable-advanced-features": "Aktiver avancerede funktioner",
+    "it-looks-like-this-is-your-first-time-logging-in": "Det ser ud til, at det er første gang, at du logger ind.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Vil du ikke længere se dette? Sørg for at ændre din e-mail i dine brugerindstillinger!"
   },
   "language-dialog": {
     "translated": "oversat",
@@ -888,7 +893,9 @@
       "create-food": "Opret fødevare",
       "food-label": "Etiket på fødevare",
       "edit-food": "Redigér fødevare",
-      "food-data": "Oplysninger om fødevare"
+      "food-data": "Oplysninger om fødevare",
+      "example-food-singular": "fx.: grøntsag",
+      "example-food-plural": "fx.: grøntsager"
     },
     "units": {
       "seed-dialog-text": "Opret standard enheder i dit sprog.",
@@ -899,13 +906,18 @@
       "merging-unit-into-unit": "Samler {0} med {1}",
       "create-unit": "Opret enhed",
       "abbreviation": "Forkortelse",
+      "plural-abbreviation": "Forkortelse af flertal",
       "description": "Beskriveslse",
       "display-as-fraction": "Vis som brøk",
       "use-abbreviation": "Anvend forkortelse",
       "edit-unit": "Rediger enhed",
       "unit-data": "Enhedsoplysninger",
       "use-abbv": "Anvend forkortelse",
-      "fraction": "Brøkdel"
+      "fraction": "Brøkdel",
+      "example-unit-singular": "fx.: teske",
+      "example-unit-plural": "fx.: teskeer",
+      "example-unit-abbreviation-singular": "fx.: tsk",
+      "example-unit-abbreviation-plural": "fx.: tsk"
     },
     "labels": {
       "seed-dialog-text": "Opret standard etiketter på dit sprog.",
@@ -934,6 +946,8 @@
       "delete-recipes": "Slet Opskrifter",
       "source-unit-will-be-deleted": "Kildeenhed vil blive slettet"
     },
+    "create-alias": "Opret alias",
+    "manage-aliases": "Administrer Aliaser",
     "seed-data": "Opret standard data",
     "seed": "Frø",
     "data-management": "Datastyring",
@@ -941,7 +955,22 @@
     "select-data": "vælg data",
     "select-language": "Vælg sprog",
     "columns": "Kolonner",
-    "combine": "Kombinér"
+    "combine": "Kombinér",
+    "categories": {
+      "edit-category": "Rediger kategori",
+      "new-category": "Ny kategori",
+      "category-data": "Kategoridata"
+    },
+    "tags": {
+      "new-tag": "Nyt mærke",
+      "edit-tag": "Rediger Mærke",
+      "tag-data": "Mærke data"
+    },
+    "tools": {
+      "new-tool": "Nyt Værktøj",
+      "edit-tool": "Redigér værktøjer",
+      "tool-data": "Værktøjs Data"
+    }
   },
   "user-registration": {
     "user-registration": "Brugerregistrering",

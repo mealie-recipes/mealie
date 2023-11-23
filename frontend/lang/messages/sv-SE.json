@@ -124,6 +124,7 @@
     "no-recipe-found": "Inga recept hittades",
     "ok": "Ok",
     "options": "Alternativ:",
+    "plural-name": "Plural Name",
     "print": "Skriv ut",
     "print-preferences": "Utskriftsinställningar",
     "random": "Slumpa",
@@ -462,7 +463,9 @@
     "add-to-plan": "Lägg till i plan",
     "add-to-timeline": "Lägg till i tidslinje",
     "recipe-added-to-list": "Recept tillagt i listan",
+    "recipes-added-to-list": "Recipes added to list",
     "recipe-added-to-mealplan": "Recept tillagt i måltidsplanen",
+    "failed-to-add-recipes-to-list": "Failed to add recipe to list",
     "failed-to-add-recipe-to-mealplan": "Det gick inte att lägga till recept i måltidsplanen",
     "yield": "Ger",
     "quantity": "Antal",
@@ -867,7 +870,9 @@
     "user-can-invite-other-to-group": "Användaren kan bjuda in andra till gruppen",
     "user-can-manage-group": "Användare kan hantera grupp",
     "user-can-organize-group-data": "Användaren kan organisera gruppdata",
-    "enable-advanced-features": "Aktivera avancerade funktioner"
+    "enable-advanced-features": "Aktivera avancerade funktioner",
+    "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!"
   },
   "language-dialog": {
     "translated": "översatt",
@@ -888,7 +893,9 @@
       "create-food": "Skapa mat",
       "food-label": "Mat etikett",
       "edit-food": "Redigera mat",
-      "food-data": "Mat data"
+      "food-data": "Mat data",
+      "example-food-singular": "ex: Onion",
+      "example-food-plural": "ex: Onions"
     },
     "units": {
       "seed-dialog-text": "Fyll databasen med vanliga enheter baserade på ditt språk.",
@@ -899,13 +906,18 @@
       "merging-unit-into-unit": "Slå samman {0} till {1}",
       "create-unit": "Skapa enhet",
       "abbreviation": "Abbreviation",
+      "plural-abbreviation": "Plural Abbreviation",
       "description": "Beskrivning",
       "display-as-fraction": "Display as Fraction",
       "use-abbreviation": "Use Abbreviation",
       "edit-unit": "Redigera enhet",
       "unit-data": "Enhetsdata",
       "use-abbv": "Use Abbv.",
-      "fraction": "Fraction"
+      "fraction": "Fraction",
+      "example-unit-singular": "ex: Tablespoon",
+      "example-unit-plural": "ex: Tablespoons",
+      "example-unit-abbreviation-singular": "ex: Tbsp",
+      "example-unit-abbreviation-plural": "ex: Tbsps"
     },
     "labels": {
       "seed-dialog-text": "Fyll databasen med vanliga etiketter baserade på ditt språk.",
@@ -934,6 +946,8 @@
       "delete-recipes": "Radera recept",
       "source-unit-will-be-deleted": "Source Unit will be deleted"
     },
+    "create-alias": "Create Alias",
+    "manage-aliases": "Manage Aliases",
     "seed-data": "Exempeldata",
     "seed": "Seed",
     "data-management": "Datahantering",
@@ -941,7 +955,22 @@
     "select-data": "Välj data",
     "select-language": "Välj språk",
     "columns": "Kolumner",
-    "combine": "Kombinera"
+    "combine": "Kombinera",
+    "categories": {
+      "edit-category": "Edit Category",
+      "new-category": "New Category",
+      "category-data": "Category Data"
+    },
+    "tags": {
+      "new-tag": "New Tag",
+      "edit-tag": "Edit Tag",
+      "tag-data": "Tag Data"
+    },
+    "tools": {
+      "new-tool": "New Tool",
+      "edit-tool": "Edit Tool",
+      "tool-data": "Tool Data"
+    }
   },
   "user-registration": {
     "user-registration": "Användarregistrering",

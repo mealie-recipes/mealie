@@ -124,6 +124,7 @@
     "no-recipe-found": "Nenhuma Receita Encontrada",
     "ok": "OK",
     "options": "Opções:",
+    "plural-name": "Plural Name",
     "print": "Imprimir",
     "print-preferences": "Preferências de impressão",
     "random": "Aleatório",
@@ -462,7 +463,9 @@
     "add-to-plan": "Adicionar ao Plano",
     "add-to-timeline": "Adicionar à linha do tempo",
     "recipe-added-to-list": "Receita adicionada à lista",
+    "recipes-added-to-list": "Recipes added to list",
     "recipe-added-to-mealplan": "Receita adicionada ao plano de refeições",
+    "failed-to-add-recipes-to-list": "Failed to add recipe to list",
     "failed-to-add-recipe-to-mealplan": "Falha ao adicionar a receita ao plano de refeições",
     "yield": "Rendimento",
     "quantity": "Quantidade",
@@ -867,7 +870,9 @@
     "user-can-invite-other-to-group": "O usuário pode convidar outro para o grupo",
     "user-can-manage-group": "Usuário pode gerenciar o grupo",
     "user-can-organize-group-data": "Usuário pode organizar dados do grupo",
-    "enable-advanced-features": "Ativar recursos avançados"
+    "enable-advanced-features": "Ativar recursos avançados",
+    "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!"
   },
   "language-dialog": {
     "translated": "traduzido",
@@ -888,7 +893,9 @@
       "create-food": "Criar Comida",
       "food-label": "Rótulo da Comida",
       "edit-food": "Editar Comida",
-      "food-data": "Dados da Comida"
+      "food-data": "Dados da Comida",
+      "example-food-singular": "ex: Onion",
+      "example-food-plural": "ex: Onions"
     },
     "units": {
       "seed-dialog-text": "Adicione a base de dados unidades comuns baseadas em seu idioma.",
@@ -899,13 +906,18 @@
       "merging-unit-into-unit": "Mesclando {0} em {1}",
       "create-unit": "Criar unidade",
       "abbreviation": "Abreviação",
+      "plural-abbreviation": "Plural Abbreviation",
       "description": "Descrição",
       "display-as-fraction": "Exibir como fração",
       "use-abbreviation": "Usar abreviação",
       "edit-unit": "Editar Unidade",
       "unit-data": "Dados da Unidade",
       "use-abbv": "Usar abreviação",
-      "fraction": "Fração"
+      "fraction": "Fração",
+      "example-unit-singular": "ex: Tablespoon",
+      "example-unit-plural": "ex: Tablespoons",
+      "example-unit-abbreviation-singular": "ex: Tbsp",
+      "example-unit-abbreviation-plural": "ex: Tbsps"
     },
     "labels": {
       "seed-dialog-text": "Semente o banco de dados com rótulos comuns baseados no seu idioma local.",
@@ -934,6 +946,8 @@
       "delete-recipes": "Excluir Receitas",
       "source-unit-will-be-deleted": "Unidade de origem será excluída"
     },
+    "create-alias": "Create Alias",
+    "manage-aliases": "Manage Aliases",
     "seed-data": "Semear dados",
     "seed": "Semear",
     "data-management": "Gerenciamento de dados",
@@ -941,7 +955,22 @@
     "select-data": "Selecionar dados",
     "select-language": "Selecionar idioma",
     "columns": "Colunas",
-    "combine": "Combinar"
+    "combine": "Combinar",
+    "categories": {
+      "edit-category": "Edit Category",
+      "new-category": "New Category",
+      "category-data": "Category Data"
+    },
+    "tags": {
+      "new-tag": "New Tag",
+      "edit-tag": "Edit Tag",
+      "tag-data": "Tag Data"
+    },
+    "tools": {
+      "new-tool": "New Tool",
+      "edit-tool": "Edit Tool",
+      "tool-data": "Tool Data"
+    }
   },
   "user-registration": {
     "user-registration": "Cadastro de usuário",
