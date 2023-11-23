@@ -655,14 +655,14 @@
       "you-have-token-count": "Usted no tiene tokens activos.|Usted tiene un token activo.|Usted tiene {count} tokens activos."
     },
     "toolbox": {
-      "assign-all": "Asignar todos los",
+      "assign-all": "Asignar todos",
       "bulk-assign": "Asignar en masa",
-      "new-name": "Nombre Nuevo",
+      "new-name": "Nuevo Nombre",
       "no-unused-items": "No hay elementos sin usar",
-      "recipes-affected": "Ninguna receta afectada | Una receta afectada |{count} recetas afectadas",
-      "remove-unused": "Eliminar los no usados",
+      "recipes-affected": "Ninguna receta afectada|Una receta afectada|{count} recetas afectadas",
+      "remove-unused": "Eliminar los no utilizados",
       "title-case-all": "Primera letra en mayúscula",
-      "toolbox": "Herramientas",
+      "toolbox": "Utensilios",
       "unorganized": "Sin organizar"
     },
     "webhooks": {
@@ -746,7 +746,7 @@
     "search": "Buscar",
     "site-settings": "Ajustes",
     "tags": "Etiquetas",
-    "toolbox": "Herramientas",
+    "toolbox": "Utensilios",
     "language": "Idioma",
     "maintenance": "Mantenimiento",
     "background-tasks": "Tareas en Segundo Plano",
@@ -784,7 +784,7 @@
     "tool-name": "Nombre del utensilio",
     "create-new-tool": "Crear nuevo utensilio",
     "on-hand-checkbox-label": "Mostrar como disponible (marcado)",
-    "required-tools": "Herramientas necesarias"
+    "required-tools": "Utensilios necesarios"
   },
   "user": {
     "admin": "Administrador/a",
@@ -967,9 +967,9 @@
       "tag-data": "Etiquetar Datos"
     },
     "tools": {
-      "new-tool": "Nueva Herramienta",
-      "edit-tool": "Editar Herramienta",
-      "tool-data": "Datos Herramienta"
+      "new-tool": "Nuevo Utensilio",
+      "edit-tool": "Editar Utensilio",
+      "tool-data": "Datos Utensilio"
     }
   },
   "user-registration": {
@@ -1151,7 +1151,7 @@
     "filter-options-description": "Cuando \"Requerir todo\" esté seleccionado, el recetario solo incluirá recetas que tengan todos los elementos seleccionados. Esto se aplica a cada subconjunto de selectores y no a una sección de los elementos seleccionados.",
     "require-all-categories": "Requerir todas las categorías",
     "require-all-tags": "Requerir todas las etiquetas",
-    "require-all-tools": "Requiere todas las herramientas",
+    "require-all-tools": "Requiere todos los utensilios",
     "cookbook-name": "Nombre del recetario",
     "cookbook-with-name": "Recetario {0}"
   }
