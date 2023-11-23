@@ -249,8 +249,7 @@
     "group-id-value": "Group Id: {0}"
   },
   "meal-plan": {
-    "create-a-new-meal-plan": "Create a New Meal Plan",
-    "update-this-meal-plan": "Update this Meal Plan",
+    "create-a-new-meal-plan": "Направи нови јеловник",
     "dinner-this-week": "Dinner This Week",
     "dinner-today": "Dinner Today",
     "dinner-tonight": "DINNER TONIGHT",
