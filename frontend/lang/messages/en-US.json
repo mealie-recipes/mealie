@@ -687,7 +687,7 @@
     "configuration": "Configuration",
     "docker-volume": "Docker Volume",
     "docker-volume-help": "Mealie requires that the frontend container and the backend share the same docker volume or storage. This ensures that the frontend container can properly access the images and assets stored on disk.",
-    "volumes-are-misconfigured": "Volumes are misconfigured",
+    "volumes-are-misconfigured": "Volumes are misconfigured.",
     "volumes-are-configured-correctly": "Volumes are configured correctly.",
     "status-unknown-try-running-a-validation": "Status Unknown. Try running a validation.",
     "validate": "Validate",
