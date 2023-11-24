@@ -140,7 +140,7 @@
     </section>
 
     <section class="mt-10">
-      <!-- Downloads Data Table -->
+      <!-- Data Table -->
       <BaseCardSectionTitle :icon="$globals.icons.database" section :title="$tc('data-pages.recipes.data-exports')">
         {{ $t('data-pages.recipes.data-exports-description') }}
       </BaseCardSectionTitle>
