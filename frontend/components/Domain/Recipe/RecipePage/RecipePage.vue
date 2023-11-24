@@ -142,7 +142,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { $auth, $vuetify } = useContext();
+    const { $auth } = useContext();
     const route = useRoute();
     const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
     const { isOwnGroup } = useLoggedInState();
