@@ -463,7 +463,9 @@
     "add-to-plan": "Ajouter à la planification des repas",
     "add-to-timeline": "Ajouter à l’historique",
     "recipe-added-to-list": "Recette ajoutée à la liste",
+    "recipes-added-to-list": "Recettes ajoutées à la liste",
     "recipe-added-to-mealplan": "Recette ajoutée à la planification des repas",
+    "failed-to-add-recipes-to-list": "Impossible d’ajouter la recette à la liste",
     "failed-to-add-recipe-to-mealplan": "Échec de l'ajout de la recette à la planification des repas",
     "yield": "Rendement",
     "quantity": "Quantité",
@@ -955,19 +957,19 @@
     "columns": "Colonnes",
     "combine": "Combiner",
     "categories": {
-      "edit-category": "Edit Category",
-      "new-category": "New Category",
-      "category-data": "Category Data"
+      "edit-category": "Modifier la catégorie",
+      "new-category": "Nouvelle catégorie",
+      "category-data": "Données de catégorie"
     },
     "tags": {
-      "new-tag": "New Tag",
-      "edit-tag": "Edit Tag",
-      "tag-data": "Tag Data"
+      "new-tag": "Nouvelle étiquette",
+      "edit-tag": "Modifier l'étiquette",
+      "tag-data": "Données de l'étiquette"
     },
     "tools": {
-      "new-tool": "New Tool",
-      "edit-tool": "Edit Tool",
-      "tool-data": "Tool Data"
+      "new-tool": "Nouvel outil",
+      "edit-tool": "Modifier l'outil",
+      "tool-data": "Données de l'outil"
     }
   },
   "user-registration": {
