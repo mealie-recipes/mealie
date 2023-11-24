@@ -18,7 +18,6 @@
           solo
           hide-details
           dense
-          class="mx-1"
           type="number"
           :placeholder="$t('recipe.quantity')"
           @keypress="quantityFilter"
@@ -89,7 +88,6 @@
             hide-details
             dense
             solo
-            class="mx-1"
             :placeholder="$t('recipe.notes')"
             @click="$emit('clickIngredientField', 'note')"
           >
@@ -100,7 +98,7 @@
           <BaseButtonGroup
             hover
             :large="false"
-            class="my-auto"
+            class="my-auto d-flex"
             :buttons="btns"
             @toggle-section="toggleTitle"
             @toggle-original="toggleOriginalText"

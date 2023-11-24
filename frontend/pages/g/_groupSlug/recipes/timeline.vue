@@ -1,6 +1,6 @@
 <template>
   <v-sheet :class="$vuetify.breakpoint.smAndDown ? 'pa-0' : 'px-3 py-0'">
-    <BasePageTitle v-if="groupName" divider>
+    <BasePageTitle v-if="groupName">
       <template #header>
         <v-img max-height="200" max-width="150" :src="require('~/static/svgs/manage-members.svg')" />
       </template>
