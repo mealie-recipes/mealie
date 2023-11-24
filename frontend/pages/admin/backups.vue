@@ -1,6 +1,5 @@
 <template>
   <v-container fluid>
-    <BannerExperimental issue="https://github.com/hay-kot/mealie/issues/871"></BannerExperimental>
     <section>
       <!-- Delete Dialog -->
       <BaseDialog
@@ -44,7 +43,7 @@
           ></v-checkbox>
         </v-card-text>
         <v-card-actions class="justify-center pt-0">
-          <BaseButton delete :disabled="!confirmImport" @click="restoreBackup(selected)">
+          <BaseButton delete :disabled="!confirmImport || runningRestore" @click="restoreBackup(selected)">
             <template #icon> {{ $globals.icons.database }} </template>
             {{ $t('settings.backup.restore-backup') }}
           </BaseButton>
@@ -52,6 +51,7 @@
         <p class="caption pb-0 mb-1 text-center">
           {{ selected }}
         </p>
+        <v-progress-linear v-if="runningRestore" indeterminate></v-progress-linear>
       </BaseDialog>
 
       <section>
@@ -60,7 +60,16 @@
           <i18n path="settings.backup.experimental-description" />
           </v-card-text>
         </BaseCardSectionTitle>
-        <BaseButton @click="createBackup"> {{ $t("settings.backup.create-heading") }} </BaseButton>
+        <v-toolbar color="background" flat class="justify-between">
+        <BaseButton class="mr-2" @click="createBackup"> {{ $t("settings.backup.create-heading") }} </BaseButton>
+        <AppButtonUpload
+                :text-btn="false"
+                url="/api/admin/backups/upload"
+                accept=".zip"
+                color="info"
+                @uploaded="refreshBackups()"
+              />
+        </v-toolbar>
 
         <v-data-table
           :headers="headers"
@@ -86,20 +95,17 @@
             >
               <v-icon> {{ $globals.icons.delete }} </v-icon>
             </v-btn>
-            <BaseButton small download :download-url="backupsFileNameDownload(item.name)" @click.stop="() => {}" />
+            <BaseButton small download :download-url="backupsFileNameDownload(item.name)" class="mx-1" @click.stop="() => {}"/>
+            <BaseButton small @click.stop="setSelected(item); importDialog = true">
+              <template #icon> {{ $globals.icons.backupRestore }}</template>
+              {{ $t("settings.backup.backup-restore") }}
+          </BaseButton>
           </template>
         </v-data-table>
         <v-divider></v-divider>
         <div class="d-flex justify-end mt-6">
           <div>
-            <AppButtonUpload
-              :text-btn="false"
-              class="mr-4"
-              url="/api/admin/backups/upload"
-              accept=".zip"
-              color="info"
-              @uploaded="refreshBackups()"
-            />
+
           </div>
         </div>
       </section>
@@ -114,6 +120,7 @@
 import { computed, defineComponent, reactive, ref, toRefs, useContext, onMounted, useRoute } from "@nuxtjs/composition-api";
 import { useAdminApi } from "~/composables/api";
 import { AllBackups } from "~/lib/api/types/admin";
+import { alert } from "~/composables/use-toast";
 
 export default defineComponent({
   layout: "admin",
@@ -142,19 +149,23 @@ export default defineComponent({
 
       if (!data?.error) {
         refreshBackups();
+        alert.success(i18n.tc("settings.backup.backup-created"));
+      } else {
+        alert.error(i18n.tc("settings.backup.error-creating-backup-see-log-file"));
       }
     }
 
     async function restoreBackup(fileName: string) {
+      state.runningRestore = true;
       const { error } = await adminApi.backups.restore(fileName);
 
       if (error) {
         console.log(error);
         state.importDialog = false;
-        return;
+      } else {
+        alert.success(i18n.tc("settings.backup.restore-success"));
+        $auth.logout();
       }
-
-      $auth.logout();
     }
 
     const deleteTarget = ref("");
@@ -163,6 +174,7 @@ export default defineComponent({
       const { data } = await adminApi.backups.delete(deleteTarget.value);
 
       if (!data?.error) {
+        alert.success(i18n.tc("settings.backup.backup-deleted"));
         refreshBackups();
       }
     }
@@ -172,6 +184,7 @@ export default defineComponent({
       deleteDialog: false,
       createDialog: false,
       importDialog: false,
+      runningRestore: false,
       search: "",
       headers: [
         { text: i18n.t("general.name"), value: "name" },
@@ -186,7 +199,6 @@ export default defineComponent({
         return;
       }
       selected.value = data.name;
-      state.importDialog = true;
     }
 
     const backupsFileNameDownload = (fileName: string) => `api/admin/backups/${fileName}`;
