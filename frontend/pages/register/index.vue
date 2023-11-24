@@ -63,7 +63,7 @@
             <v-card-text>
               {{ $t("user-registration.provide-registration-token-description") }}
               <v-form ref="domTokenForm" class="mt-4" @submit.prevent>
-                <v-text-field v-model="token" v-bind="inputAttrs" label="Group Token" :rules="[validators.required]" />
+                <v-text-field v-model="token" v-bind="inputAttrs" :label="$t('group.group-token')" :rules="[validators.required]" />
               </v-form>
             </v-card-text>
             <v-divider />
@@ -244,7 +244,7 @@
       </div>
 
       <v-card-actions class="justify-center flex-column py-8">
-        <v-btn text class="mb-2" to="/login"> Login </v-btn>
+        <v-btn text class="mb-2" to="/login"> {{ $t("user.login") }} </v-btn>
         <BaseButton large color="primary" @click="langDialog = true">
           <template #icon> {{ $globals.icons.translate }}</template>
           {{ $t("language-dialog.choose-language") }}
@@ -472,7 +472,7 @@ export default defineComponent({
       }
       const { response } = await api.register.register(payload);
       if (response?.status === 201) {
-        alert.success("Registration Success");
+        alert.success(i18n.tc("user-registration.registration-success"));
         router.push("/login");
       }
     }
