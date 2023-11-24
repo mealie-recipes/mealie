@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Recipe Categories -->
-    <v-card v-if="recipe.recipeCategory.length > 0 || isEditForm" class="mt-10">
+    <v-card v-if="recipe.recipeCategory.length > 0 || isEditForm" :class="{'mt-10': !isEditForm}">
       <v-card-title class="py-2">
         {{ $t("recipe.categories") }}
       </v-card-title>
