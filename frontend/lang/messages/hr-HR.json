@@ -463,7 +463,9 @@
     "add-to-plan": "Dodaj u Plan",
     "add-to-timeline": "Add to Timeline",
     "recipe-added-to-list": "Recept je dodan na popis",
+    "recipes-added-to-list": "Recipes added to list",
     "recipe-added-to-mealplan": "Recept je dodan u Plan",
+    "failed-to-add-recipes-to-list": "Failed to add recipe to list",
     "failed-to-add-recipe-to-mealplan": "Nije uspjelo dodavanje recepta u plan obroka",
     "yield": "Konačna Količina",
     "quantity": "Količina",
@@ -953,7 +955,22 @@
     "select-data": "Označite Podatke",
     "select-language": "Odaberite Jezik",
     "columns": "Stupci",
-    "combine": "Kombiniraj"
+    "combine": "Kombiniraj",
+    "categories": {
+      "edit-category": "Edit Category",
+      "new-category": "New Category",
+      "category-data": "Category Data"
+    },
+    "tags": {
+      "new-tag": "New Tag",
+      "edit-tag": "Edit Tag",
+      "tag-data": "Tag Data"
+    },
+    "tools": {
+      "new-tool": "New Tool",
+      "edit-tool": "Edit Tool",
+      "tool-data": "Tool Data"
+    }
   },
   "user-registration": {
     "user-registration": "Registracija Korisnika",

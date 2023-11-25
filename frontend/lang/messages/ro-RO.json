@@ -463,7 +463,9 @@
     "add-to-plan": "Adaugă la Plan",
     "add-to-timeline": "Adaugă la Cronologie",
     "recipe-added-to-list": "Rețeta a fost adăugată la listă",
+    "recipes-added-to-list": "Recipes added to list",
     "recipe-added-to-mealplan": "Rețeta a fist adăugată la planul de mese",
+    "failed-to-add-recipes-to-list": "Failed to add recipe to list",
     "failed-to-add-recipe-to-mealplan": "Adăugarea rețetei la planul de mese a eșuat",
     "yield": "Yield",
     "quantity": "Quantity",
@@ -953,7 +955,22 @@
     "select-data": "Select Data",
     "select-language": "Select Language",
     "columns": "Columns",
-    "combine": "Combine"
+    "combine": "Combine",
+    "categories": {
+      "edit-category": "Edit Category",
+      "new-category": "New Category",
+      "category-data": "Category Data"
+    },
+    "tags": {
+      "new-tag": "New Tag",
+      "edit-tag": "Edit Tag",
+      "tag-data": "Tag Data"
+    },
+    "tools": {
+      "new-tool": "New Tool",
+      "edit-tool": "Edit Tool",
+      "tool-data": "Tool Data"
+    }
   },
   "user-registration": {
     "user-registration": "User Registration",

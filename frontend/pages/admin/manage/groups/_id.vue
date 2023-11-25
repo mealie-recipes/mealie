@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useRoute, onMounted, ref } from "@nuxtjs/composition-api";
+import { defineComponent, useRoute, onMounted, ref, useContext } from "@nuxtjs/composition-api";
 import GroupPreferencesEditor from "~/components/Domain/Group/GroupPreferencesEditor.vue";
 import { useAdminApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
@@ -38,6 +38,8 @@ export default defineComponent({
   layout: "admin",
   setup() {
     const route = useRoute();
+
+    const { i18n } = useContext();
 
     const groupId = route.value.params.id;
 
@@ -56,7 +58,7 @@ export default defineComponent({
       const { data, error } = await adminApi.groups.getOne(groupId);
 
       if (error?.response?.status === 404) {
-        alert.error("User Not Found");
+        alert.error(i18n.tc("user.user-not-found"));
         userError.value = true;
       }
 

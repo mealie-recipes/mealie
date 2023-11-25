@@ -463,7 +463,9 @@
     "add-to-plan": "Aggiungi al piano giornaliero",
     "add-to-timeline": "Add to Timeline",
     "recipe-added-to-list": "Ricetta aggiunta alla lista",
+    "recipes-added-to-list": "Recipes added to list",
     "recipe-added-to-mealplan": "Ricetta aggiunta al piano alimentare",
+    "failed-to-add-recipes-to-list": "Failed to add recipe to list",
     "failed-to-add-recipe-to-mealplan": "Impossibile aggiungere la ricetta al piano alimentare",
     "yield": "Porzioni",
     "quantity": "Quantità",
@@ -953,7 +955,22 @@
     "select-data": "Seleziona Dati",
     "select-language": "Seleziona Lingua",
     "columns": "Colonne",
-    "combine": "Unisci"
+    "combine": "Unisci",
+    "categories": {
+      "edit-category": "Edit Category",
+      "new-category": "New Category",
+      "category-data": "Category Data"
+    },
+    "tags": {
+      "new-tag": "New Tag",
+      "edit-tag": "Edit Tag",
+      "tag-data": "Tag Data"
+    },
+    "tools": {
+      "new-tool": "New Tool",
+      "edit-tool": "Edit Tool",
+      "tool-data": "Tool Data"
+    }
   },
   "user-registration": {
     "user-registration": "Registrazione Utente",

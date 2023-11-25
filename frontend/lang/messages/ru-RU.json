@@ -463,7 +463,9 @@
     "add-to-plan": "Добавить к плану",
     "add-to-timeline": "Добавить в историю",
     "recipe-added-to-list": "Рецепт добавлен в список",
+    "recipes-added-to-list": "Recipes added to list",
     "recipe-added-to-mealplan": "Рецепт добавлен в план питания",
+    "failed-to-add-recipes-to-list": "Failed to add recipe to list",
     "failed-to-add-recipe-to-mealplan": "Не удалось добавить рецепт в план питания",
     "yield": "Выход",
     "quantity": "Количество",
@@ -953,7 +955,22 @@
     "select-data": "Выберите данные",
     "select-language": "Выберите язык",
     "columns": "Столбцы",
-    "combine": "Объединить"
+    "combine": "Объединить",
+    "categories": {
+      "edit-category": "Edit Category",
+      "new-category": "New Category",
+      "category-data": "Category Data"
+    },
+    "tags": {
+      "new-tag": "New Tag",
+      "edit-tag": "Edit Tag",
+      "tag-data": "Tag Data"
+    },
+    "tools": {
+      "new-tool": "New Tool",
+      "edit-tool": "Edit Tool",
+      "tool-data": "Tool Data"
+    }
   },
   "user-registration": {
     "user-registration": "Регистрация",

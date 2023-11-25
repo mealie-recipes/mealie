@@ -39,6 +39,7 @@
     >
       <v-card-text>
         {{ $t("general.confirm-delete-generic") }}
+        <MultiPurposeLabel v-if="deleteTarget" class="mt-4 ml-4" :label="deleteTarget" />
       </v-card-text>
     </BaseDialog>
 
@@ -79,7 +80,7 @@
       </v-card-text>
     </BaseDialog>
 
-    <!-- Recipe Data Table -->
+    <!-- Data Table -->
     <BaseCardSectionTitle :icon="$globals.icons.tags" section :title="$tc('data-pages.labels.labels')"> </BaseCardSectionTitle>
     <CrudTable
       :table-config="tableConfig"
@@ -228,13 +229,19 @@ export default defineComponent({
       labels: labelStore.labels,
       validators,
 
-      deleteEventHandler,
-      deleteLabel,
+      // create
+      createLabel,
+      createLabelData: labelData.data,
+
+      // edit
       editLabel,
       editEventHandler,
       editSaveLabel,
-      createLabel,
-      createLabelData: labelData.data,
+
+      // delete
+      deleteEventHandler,
+      deleteLabel,
+      deleteTarget,
 
       // Seed
       seedDatabase,
