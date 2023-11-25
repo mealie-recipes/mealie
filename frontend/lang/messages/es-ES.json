@@ -76,7 +76,8 @@
     "cookbook-events": "Eventos del recetario",
     "tag-events": "Eventos de etiqueta",
     "category-events": "Eventos de Categoría",
-    "when-a-new-user-joins-your-group": "Cuando un nuevo usuario se une a tu grupo"
+    "when-a-new-user-joins-your-group": "Cuando un nuevo usuario se une a tu grupo",
+    "recipe-events": "Recipe Events"
   },
   "general": {
     "cancel": "Cancelar",
@@ -114,6 +115,8 @@
     "keyword": "Etiqueta",
     "link-copied": "Enlace copiado",
     "loading-events": "Cargando Eventos",
+    "loading-recipe": "Loading recipe...",
+    "loading-ocr-data": "Loading OCR data...",
     "loading-recipes": "Cargando recetas",
     "message": "Mensaje",
     "monday": "Lunes",
@@ -193,7 +196,8 @@
     "export-all": "Exportar todo",
     "refresh": "Actualizar",
     "upload-file": "Subir Archivo",
-    "created-on-date": "Creado el {0}"
+    "created-on-date": "Creado el {0}",
+    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Por favor, confirma que deseas eliminar <b>{groupName}<b/>",
@@ -208,6 +212,7 @@
     "group-id-with-value": "ID del Grupo: {groupID}",
     "group-name": "Nombre del Grupo",
     "group-not-found": "Grupo no encontrado",
+    "group-token": "Group Token",
     "group-with-value": "Grupo: {groupID}",
     "groups": "Grupos",
     "manage-groups": "Administrar grupos",
@@ -243,6 +248,7 @@
     "general-preferences": "Opciones generales",
     "group-recipe-preferences": "Preferencias de grupo de las recetas",
     "report": "Informe",
+    "report-with-id": "Report ID: {id}",
     "group-management": "Administración de grupos",
     "admin-group-management": "Gestión del grupo administrador",
     "admin-group-management-text": "Los cambios en este grupo se reflejarán inmediatamente.",
@@ -507,6 +513,7 @@
     "message-key": "Clave de mensaje",
     "parse": "Analizar",
     "attach-images-hint": "Adjuntar imágenes arrastrando y soltando en el editor",
+    "drop-image": "Drop image",
     "enable-ingredient-amounts-to-use-this-feature": "Habilitar la cantidad de ingredientes para usar esta característica",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Las recetas con unidades o alimentos definidos no pueden ser analizadas.",
     "parse-ingredients": "Analizar ingredientes",
@@ -564,14 +571,17 @@
     "tag-filter": "Filtro de Etiquetas",
     "search-hint": "Presione '/'",
     "advanced": "Avanzado",
-    "auto-search": "Búsqueda automática"
+    "auto-search": "Búsqueda automática",
+    "no-results": "No results found"
   },
   "settings": {
     "add-a-new-theme": "Añadir un nuevo tema",
     "admin-settings": "Opciones del adminstrador",
     "backup": {
+      "backup-created": "Backup created successfully",
       "backup-created-at-response-export_path": "Copia de seguridad creada en {path}",
       "backup-deleted": "Copia de seguridad eliminada",
+      "restore-success": "Restore successful",
       "backup-tag": "Etiqueta de la copia de seguridad",
       "create-heading": "Crear una copia de seguridad",
       "delete-backup": "Eliminar copia de seguridad",
@@ -680,11 +690,13 @@
     "configuration": "Configuración",
     "docker-volume": "Volumen de Docker",
     "docker-volume-help": "Mealie requiere que los contenedores de frontend y backend compartan el mismo volumen o almacenamiento en docker. Esto asegura que el contenedor del frontend pueda acceder adecuadamente a las imágenes y los activos almacenados en el disco.",
-    "volumes-are-misconfigured": "Los volúmenes están mal configurados",
+    "volumes-are-misconfigured": "Volumes are misconfigured.",
     "volumes-are-configured-correctly": "Los volúmenes se configuran correctamente.",
     "status-unknown-try-running-a-validation": "Estado desconocido. Intente ejecutar una validación.",
     "validate": "Validar",
     "email-configuration-status": "Estado de la Configuración del Correo Electrónico",
+    "email-configured": "Email Configured",
+    "email-test-results": "Email Test Results",
     "ready": "Listo",
     "not-ready": "No Listo - Comprobar variables de ambiente",
     "succeeded": "Logrado",
@@ -819,6 +831,7 @@
     "password-updated": "Contraseña actualizada",
     "password": "Contraseña",
     "password-strength": "Fortaleza de la contraseña: {strength}",
+    "please-enter-password": "Please enter your new password.",
     "register": "Registrarse",
     "reset-password": "Restablecer contraseña",
     "sign-in": "Iniciar sesión",
@@ -839,6 +852,7 @@
     "username": "Usuario",
     "users-header": "USUARIOS",
     "users": "Usuarios",
+    "user-not-found": "User not found",
     "webhook-time": "Tiempo de Webhook",
     "webhooks-enabled": "Webhooks habilitados",
     "you-are-not-allowed-to-create-a-user": "No tiene permisos para crear usuarios",
@@ -861,6 +875,7 @@
     "user-management": "Gestión de Usuarios",
     "reset-locked-users": "Restablecer usuarios bloqueados",
     "admin-user-creation": "Creación de Usuario Administrador",
+    "admin-user-management": "Admin User Management",
     "user-details": "Detalles de usuario",
     "user-name": "Nombre de usuario",
     "authentication-method": "Método de autenticación",
@@ -872,7 +887,10 @@
     "user-can-organize-group-data": "El usuario puede organizar los datos del grupo",
     "enable-advanced-features": "Habilitar Características Avanzadas",
     "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
-    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!"
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
+    "forgot-password": "Forgot Password",
+    "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
+    "changes-reflected-immediately": "Changes to this user will be reflected immediately."
   },
   "language-dialog": {
     "translated": "traducido",
@@ -974,6 +992,7 @@
   },
   "user-registration": {
     "user-registration": "Registro de usuario",
+    "registration-success": "Registration Success",
     "join-a-group": "Unirse a un grupo",
     "create-a-new-group": "Crear un grupo nuevo",
     "provide-registration-token-description": "Por favor, proporcione el token de registro asociado con el grupo al que desea unirse. Necesitará obtenerlo de un miembro del grupo.",
@@ -1020,6 +1039,7 @@
   },
   "ocr-editor": {
     "ocr-editor": "Editor de OCR",
+    "toolbar": "Toolbar",
     "selection-mode": "Modo de selección",
     "pan-and-zoom-picture": "Desplazar y hacer zoom en la imagen",
     "split-text": "Split text",
@@ -1027,6 +1047,8 @@
     "split-by-block": "Split by text block",
     "flatten": "Flatten regardless of original formating",
     "help": {
+      "help": "Help",
+      "mouse-modes": "Mouse modes",
       "selection-mode": "Selection Mode (default)",
       "selection-mode-desc": "The selection mode is the main mode that can be used to enter data:",
       "selection-mode-steps": {
