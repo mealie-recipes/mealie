@@ -76,7 +76,8 @@
     "cookbook-events": "Kokebok hendelser",
     "tag-events": "Tagg hendelser",
     "category-events": "Kategori hendelser",
-    "when-a-new-user-joins-your-group": "Når en ny bruker blir med i gruppen din"
+    "when-a-new-user-joins-your-group": "Når en ny bruker blir med i gruppen din",
+    "recipe-events": "Recipe Events"
   },
   "general": {
     "cancel": "Avbryt",
@@ -114,6 +115,8 @@
     "keyword": "Nøkkelord",
     "link-copied": "Lenke kopiert",
     "loading-events": "Laster hendelser",
+    "loading-recipe": "Loading recipe...",
+    "loading-ocr-data": "Loading OCR data...",
     "loading-recipes": "Laster Oppskrifter",
     "message": "Melding",
     "monday": "Mandag",
@@ -193,7 +196,8 @@
     "export-all": "Eksporter alle",
     "refresh": "Oppdater",
     "upload-file": "Last opp fil",
-    "created-on-date": "Opprettet: {0}"
+    "created-on-date": "Opprettet: {0}",
+    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Er du sikker på at du vil slette <b>{groupName}<b/>?",
@@ -208,6 +212,7 @@
     "group-id-with-value": "Gruppe ID: {groupID}",
     "group-name": "Gruppenavn",
     "group-not-found": "Gruppe ikke funnet",
+    "group-token": "Group Token",
     "group-with-value": "Gruppe ID: {groupID}",
     "groups": "Grupper",
     "manage-groups": "Administrer grupper",
@@ -243,6 +248,7 @@
     "general-preferences": "Generelle innstillinger",
     "group-recipe-preferences": "Innstillinger for gruppe-oppskrift",
     "report": "Rapport",
+    "report-with-id": "Report ID: {id}",
     "group-management": "Gruppeadministrasjon",
     "admin-group-management": "Admin gruppe-administrasjon",
     "admin-group-management-text": "Endringer i denne gruppen vil umiddelbart bli reflektert.",
@@ -507,6 +513,7 @@
     "message-key": "Meldings nøkkel",
     "parse": "Del opp",
     "attach-images-hint": "Legg til bilder ved å dra og slippe dem i editoren",
+    "drop-image": "Drop image",
     "enable-ingredient-amounts-to-use-this-feature": "Aktiver ingrediensmengder for å bruke denne funksjonen",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Oppskrifter med enheter eller matvarer som er definert, kan ikke leses.",
     "parse-ingredients": "Analyser ingredienser",
@@ -564,14 +571,17 @@
     "tag-filter": "Etikett filter",
     "search-hint": "Trykk på '/'",
     "advanced": "Avansert",
-    "auto-search": "Autosøk"
+    "auto-search": "Autosøk",
+    "no-results": "No results found"
   },
   "settings": {
     "add-a-new-theme": "Legg til nytt tema",
     "admin-settings": "Administrator innstillinger",
     "backup": {
+      "backup-created": "Backup created successfully",
       "backup-created-at-response-export_path": "Sikkerhetskopi opprettet på {path}",
       "backup-deleted": "Sikkerhetskopi slettet",
+      "restore-success": "Restore successful",
       "backup-tag": "Sikkerhetskopi-merke",
       "create-heading": "Opprett sikkerhetskopi",
       "delete-backup": "Slett Sikkerhetskopi",
@@ -680,11 +690,13 @@
     "configuration": "Konfigurasjon",
     "docker-volume": "Docker volum",
     "docker-volume-help": "Mealie krever at frontend og backend konteinerene deler samme docker volum/lagring. Dette sikrer at frontend får tilgang til bilder og ressurser lagret på harddisken.",
-    "volumes-are-misconfigured": "Volumene er feilkonfigurert",
+    "volumes-are-misconfigured": "Volumes are misconfigured.",
     "volumes-are-configured-correctly": "Volumene er riktig konfigurert.",
     "status-unknown-try-running-a-validation": "Statusen er ukjent. Prøv å validere.",
     "validate": "Valider",
     "email-configuration-status": "Epost konfigurasjons status",
+    "email-configured": "Email Configured",
+    "email-test-results": "Email Test Results",
     "ready": "Klar",
     "not-ready": "Ikke klar - sjekk miljøvariabler",
     "succeeded": "Lyktes",
@@ -819,6 +831,7 @@
     "password-updated": "Passord oppdatert",
     "password": "Passord",
     "password-strength": "Passordet er {strength}",
+    "please-enter-password": "Please enter your new password.",
     "register": "Registrér",
     "reset-password": "Tilbakestill passord",
     "sign-in": "Logg inn",
@@ -839,6 +852,7 @@
     "username": "Brukernavn",
     "users-header": "BRUKERE",
     "users": "Brukere",
+    "user-not-found": "User not found",
     "webhook-time": "Webhooks Tidsbruk",
     "webhooks-enabled": "Webhooks aktivert",
     "you-are-not-allowed-to-create-a-user": "Du har ikke rettigheter til å opprette en bruker",
@@ -861,6 +875,7 @@
     "user-management": "Brukeradministrasjon",
     "reset-locked-users": "Tilbakestille låste brukere",
     "admin-user-creation": "Admin bruker oppretting",
+    "admin-user-management": "Admin User Management",
     "user-details": "Bruker detaljer",
     "user-name": "Brukernavn",
     "authentication-method": "Autentiseringsmetode",
@@ -872,7 +887,10 @@
     "user-can-organize-group-data": "Brukeren kan organisere gruppedata",
     "enable-advanced-features": "Aktiver avanserte funksjoner",
     "it-looks-like-this-is-your-first-time-logging-in": "Det ser ut som dette er første gang du logger på.",
-    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Ønsker du ikke å se dette lenger? Sørg for å endre e-posten din i brukerinnstillingene dine!"
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Ønsker du ikke å se dette lenger? Sørg for å endre e-posten din i brukerinnstillingene dine!",
+    "forgot-password": "Forgot Password",
+    "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
+    "changes-reflected-immediately": "Changes to this user will be reflected immediately."
   },
   "language-dialog": {
     "translated": "oversatt",
@@ -974,6 +992,7 @@
   },
   "user-registration": {
     "user-registration": "Brukerregistrering",
+    "registration-success": "Registration Success",
     "join-a-group": "Bli med i en gruppe",
     "create-a-new-group": "Opprett en ny gruppe",
     "provide-registration-token-description": "Vennligst oppgi registreringstoken knyttet til gruppen du ønsker å bli med. Du må skaffe dette fra et eksisterende gruppemedlem.",
@@ -1020,6 +1039,7 @@
   },
   "ocr-editor": {
     "ocr-editor": "redigere OCR",
+    "toolbar": "Toolbar",
     "selection-mode": "Velg modus",
     "pan-and-zoom-picture": "Panorer og zoom bilde",
     "split-text": "Splitt tekst",
@@ -1027,6 +1047,8 @@
     "split-by-block": "Del på tekstblokk",
     "flatten": "Flat ut, uavhengig av orginalformatering.",
     "help": {
+      "help": "Help",
+      "mouse-modes": "Mouse modes",
       "selection-mode": "Valgmodus (standard)",
       "selection-mode-desc": "Utvalgsmodus er hovedmodus som kan brukes til å legge inn data:",
       "selection-mode-steps": {
