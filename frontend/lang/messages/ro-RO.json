@@ -76,7 +76,8 @@
     "cookbook-events": "Evenimente carte de bucate",
     "tag-events": "Etichetele de Evenimente",
     "category-events": "Categorie de Evenimente",
-    "when-a-new-user-joins-your-group": "Când un utilizator nou se alătură grupului tău"
+    "when-a-new-user-joins-your-group": "Când un utilizator nou se alătură grupului tău",
+    "recipe-events": "Recipe Events"
   },
   "general": {
     "cancel": "Anulează",
@@ -114,6 +115,8 @@
     "keyword": "Cuvânt cheie",
     "link-copied": "Link copiat",
     "loading-events": "Se încarcă evenimentele",
+    "loading-recipe": "Loading recipe...",
+    "loading-ocr-data": "Loading OCR data...",
     "loading-recipes": "Se încarcă rețetele",
     "message": "Mesaj",
     "monday": "Luni",
@@ -193,7 +196,8 @@
     "export-all": "Exportă toate",
     "refresh": "Reîncarcă",
     "upload-file": "Încărcă fișier",
-    "created-on-date": "Creat pe {0}"
+    "created-on-date": "Creat pe {0}",
+    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Sunteți sigur că doriți să ștergeți <b>{groupName}<b/>?",
@@ -208,6 +212,7 @@
     "group-id-with-value": "ID-ul grupului: {groupID}",
     "group-name": "Numele Grupului",
     "group-not-found": "Grupul nu a fost găsit",
+    "group-token": "Group Token",
     "group-with-value": "Grup: {groupID}",
     "groups": "Grupuri",
     "manage-groups": "Gestionare grupuri",
@@ -243,6 +248,7 @@
     "general-preferences": "Preferințe generale",
     "group-recipe-preferences": "Preferințe Rețetă de grup",
     "report": "Raportează",
+    "report-with-id": "Report ID: {id}",
     "group-management": "Management grup",
     "admin-group-management": "Gestionare grup administratori",
     "admin-group-management-text": "Modificările la acest grup se vor reflecta imediat.",
@@ -507,6 +513,7 @@
     "message-key": "Message Key",
     "parse": "Parse",
     "attach-images-hint": "Attach images by dragging & dropping them into the editor",
+    "drop-image": "Drop image",
     "enable-ingredient-amounts-to-use-this-feature": "Enable ingredient amounts to use this feature",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Recipes with units or foods defined cannot be parsed.",
     "parse-ingredients": "Parse ingredients",
@@ -564,14 +571,17 @@
     "tag-filter": "Filtrare după Tag-uri",
     "search-hint": "Apasă „/”",
     "advanced": "Avansat",
-    "auto-search": "Căutare automată"
+    "auto-search": "Căutare automată",
+    "no-results": "No results found"
   },
   "settings": {
     "add-a-new-theme": "Adaugă o nouă temă",
     "admin-settings": "Setări administrator",
     "backup": {
+      "backup-created": "Backup created successfully",
       "backup-created-at-response-export_path": "Backup creat la {path}",
       "backup-deleted": "Backup şters",
+      "restore-success": "Restore successful",
       "backup-tag": "Backup la Tag-uri",
       "create-heading": "Create a Backup",
       "delete-backup": "Șterge Backup",
@@ -680,11 +690,13 @@
     "configuration": "Configuration",
     "docker-volume": "Docker Volume",
     "docker-volume-help": "Mealie requires that the frontend container and the backend share the same docker volume or storage. This ensures that the frontend container can properly access the images and assets stored on disk.",
-    "volumes-are-misconfigured": "Volumes are misconfigured",
+    "volumes-are-misconfigured": "Volumes are misconfigured.",
     "volumes-are-configured-correctly": "Volumes are configured correctly.",
     "status-unknown-try-running-a-validation": "Status Unknown. Try running a validation.",
     "validate": "Validate",
     "email-configuration-status": "Email Configuration Status",
+    "email-configured": "Email Configured",
+    "email-test-results": "Email Test Results",
     "ready": "Ready",
     "not-ready": "Not Ready - Check Environmental Variables",
     "succeeded": "Succeeded",
@@ -819,6 +831,7 @@
     "password-updated": "Password updated",
     "password": "Password",
     "password-strength": "Password is {strength}",
+    "please-enter-password": "Please enter your new password.",
     "register": "Register",
     "reset-password": "Reset Password",
     "sign-in": "Sign in",
@@ -839,6 +852,7 @@
     "username": "Username",
     "users-header": "USERS",
     "users": "Users",
+    "user-not-found": "User not found",
     "webhook-time": "Webhook Time",
     "webhooks-enabled": "Webhooks Enabled",
     "you-are-not-allowed-to-create-a-user": "You are not allowed to create a user",
@@ -861,6 +875,7 @@
     "user-management": "User Management",
     "reset-locked-users": "Reset Locked Users",
     "admin-user-creation": "Admin User Creation",
+    "admin-user-management": "Admin User Management",
     "user-details": "User Details",
     "user-name": "User Name",
     "authentication-method": "Authentication Method",
@@ -872,7 +887,10 @@
     "user-can-organize-group-data": "User can organize group data",
     "enable-advanced-features": "Enable advanced features",
     "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
-    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!"
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
+    "forgot-password": "Forgot Password",
+    "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
+    "changes-reflected-immediately": "Changes to this user will be reflected immediately."
   },
   "language-dialog": {
     "translated": "translated",
@@ -974,6 +992,7 @@
   },
   "user-registration": {
     "user-registration": "User Registration",
+    "registration-success": "Registration Success",
     "join-a-group": "Join a Group",
     "create-a-new-group": "Create a New Group",
     "provide-registration-token-description": "Please provide the registration token associated with the group that you'd like to join. You'll need to obtain this from an existing group member.",
@@ -1020,6 +1039,7 @@
   },
   "ocr-editor": {
     "ocr-editor": "Ocr editor",
+    "toolbar": "Toolbar",
     "selection-mode": "Selection mode",
     "pan-and-zoom-picture": "Pan and zoom picture",
     "split-text": "Split text",
@@ -1027,6 +1047,8 @@
     "split-by-block": "Split by text block",
     "flatten": "Flatten regardless of original formating",
     "help": {
+      "help": "Help",
+      "mouse-modes": "Mouse modes",
       "selection-mode": "Selection Mode (default)",
       "selection-mode-desc": "The selection mode is the main mode that can be used to enter data:",
       "selection-mode-steps": {
