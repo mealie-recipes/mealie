@@ -76,7 +76,8 @@
     "cookbook-events": "Keittokirjatapahtumat",
     "tag-events": "Valitse tapahtumat",
     "category-events": "Luokkatapahtumat",
-    "when-a-new-user-joins-your-group": "Kun ryhmääsi liittyy uusi jäsen"
+    "when-a-new-user-joins-your-group": "Kun ryhmääsi liittyy uusi jäsen",
+    "recipe-events": "Recipe Events"
   },
   "general": {
     "cancel": "Peruuta",
@@ -114,6 +115,8 @@
     "keyword": "Hakusana",
     "link-copied": "Linkki kopioitu",
     "loading-events": "Ladataan tapahtumia",
+    "loading-recipe": "Loading recipe...",
+    "loading-ocr-data": "Loading OCR data...",
     "loading-recipes": "Ladataan reseptejä",
     "message": "Viesti",
     "monday": "Maanantai",
@@ -193,7 +196,8 @@
     "export-all": "Vie kaikki",
     "refresh": "Päivitä",
     "upload-file": "Tuo tiedosto",
-    "created-on-date": "Luotu {0}"
+    "created-on-date": "Luotu {0}",
+    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Haluatko varmasti poistaa ryhmän <b>{groupName}<b/>?",
@@ -208,6 +212,7 @@
     "group-id-with-value": "Ryhmän ID: {groupID}",
     "group-name": "Ryhmän nimi",
     "group-not-found": "Ryhmää ei löytynyt",
+    "group-token": "Group Token",
     "group-with-value": "Ryhmä: {groupID}",
     "groups": "Ryhmät",
     "manage-groups": "Hallitse ryhmiä",
@@ -243,6 +248,7 @@
     "general-preferences": "Yleiset Asetukset",
     "group-recipe-preferences": "Ryhmän reseptiasetukset",
     "report": "Raportti",
+    "report-with-id": "Report ID: {id}",
     "group-management": "Ryhmien hallinta",
     "admin-group-management": "Ylläpitoryhmien hallinta",
     "admin-group-management-text": "Muutokset tähän ryhmään tulevat näkymään välittömästi.",
@@ -507,6 +513,7 @@
     "message-key": "Viestiavain",
     "parse": "Jäsennä",
     "attach-images-hint": "Liitä kuvia vetämällä ja pudottamalla ne editoriin",
+    "drop-image": "Drop image",
     "enable-ingredient-amounts-to-use-this-feature": "Käytä ainesosan määriä käyttääksesi tätä ominaisuutta",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Reseptejä, joissa on yksiköitä tai elintarvikkeita, ei voida jäsentää.",
     "parse-ingredients": "Jäsennä ainekset",
@@ -564,14 +571,17 @@
     "tag-filter": "Tunnisteen mukaan suodatus",
     "search-hint": "Paina '/'",
     "advanced": "Lisäasetukset",
-    "auto-search": "Automaattinen Haku"
+    "auto-search": "Automaattinen Haku",
+    "no-results": "No results found"
   },
   "settings": {
     "add-a-new-theme": "Lisää uusi teema",
     "admin-settings": "Ylläpitäjän asetukset",
     "backup": {
+      "backup-created": "Backup created successfully",
       "backup-created-at-response-export_path": "Varmuuskopio luotu sijaintiin {path}",
       "backup-deleted": "Varmuuskopio poistettu",
+      "restore-success": "Restore successful",
       "backup-tag": "Varmuuskopion tunniste",
       "create-heading": "Create a Backup",
       "delete-backup": "Poista varmuuskopio",
@@ -680,11 +690,13 @@
     "configuration": "Konfigurointi",
     "docker-volume": "Docker-kontin tiedostojärjestelmä",
     "docker-volume-help": "Mealie vaatii, että frontend-kontti ja backend jakaa saman dockerin tiedostojärjestelmän tai varaston. Näin varmistetaan, että frontend-kontti pääsee kunnolla käsiksi levylle tallennettuihin kuviin ja resursseihin.",
-    "volumes-are-misconfigured": "Tiedostojärjestelmän on väärin konfiguroitu",
+    "volumes-are-misconfigured": "Volumes are misconfigured.",
     "volumes-are-configured-correctly": "Tiedostojärjestelmät ovat oikein konfiguroitu.",
     "status-unknown-try-running-a-validation": "Tila tuntematon. Yritä suorittaa validointi.",
     "validate": "Vahvista",
     "email-configuration-status": "Sähköpostin varmistuksen tila",
+    "email-configured": "Email Configured",
+    "email-test-results": "Email Test Results",
     "ready": "Valmis",
     "not-ready": "Ei Valmis - Tarkista Ympäristömuuttujat",
     "succeeded": "Onnistui",
@@ -819,6 +831,7 @@
     "password-updated": "Salasana päivitetty",
     "password": "Salasana",
     "password-strength": "Salasana on {strength}",
+    "please-enter-password": "Please enter your new password.",
     "register": "Rekisteröidy",
     "reset-password": "Palauta salasana",
     "sign-in": "Kirjaudu",
@@ -839,6 +852,7 @@
     "username": "Käyttäjänimi",
     "users-header": "KÄYTTÄJÄT",
     "users": "Käyttäjät",
+    "user-not-found": "User not found",
     "webhook-time": "Webhook-aika",
     "webhooks-enabled": "Webhookit käytössä",
     "you-are-not-allowed-to-create-a-user": "Sinulla ei ole oikeutta luoda käyttäjää",
@@ -861,6 +875,7 @@
     "user-management": "Käyttäjien Hallinta",
     "reset-locked-users": "Nollaa Lukitut Käyttäjät",
     "admin-user-creation": "Ylläpitokäyttäjän Luonti",
+    "admin-user-management": "Admin User Management",
     "user-details": "Käyttäjän tiedot",
     "user-name": "Käyttäjänimi",
     "authentication-method": "Todentamistapa",
@@ -872,7 +887,10 @@
     "user-can-organize-group-data": "Käyttäjä voi järjestellä ryhmän tietoja",
     "enable-advanced-features": "Salli edistyneemmät ominaisuudet",
     "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
-    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!"
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
+    "forgot-password": "Forgot Password",
+    "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
+    "changes-reflected-immediately": "Changes to this user will be reflected immediately."
   },
   "language-dialog": {
     "translated": "käännetty",
@@ -974,6 +992,7 @@
   },
   "user-registration": {
     "user-registration": "Käyttäjien rekisteröinti",
+    "registration-success": "Registration Success",
     "join-a-group": "Liity ryhmään",
     "create-a-new-group": "Luo uusi ryhmä",
     "provide-registration-token-description": "Ole hyvä ja anna rekisteröintitunnus liittyäksesi ryhmään, johon haluat liittyä. Sinun täytyy saada tämä olemassa olevalta ryhmän jäseneltä.",
@@ -1020,6 +1039,7 @@
   },
   "ocr-editor": {
     "ocr-editor": "Ocr- editori",
+    "toolbar": "Toolbar",
     "selection-mode": "Valintatila",
     "pan-and-zoom-picture": "Käännä ja zoomaus kuva",
     "split-text": "Jaa teksti",
@@ -1027,6 +1047,8 @@
     "split-by-block": "Jaa tekstilohkon mukaan",
     "flatten": "Tasaa alkuperäisestä muotoilusta riippumatta",
     "help": {
+      "help": "Help",
+      "mouse-modes": "Mouse modes",
       "selection-mode": "Valintatila (oletus)",
       "selection-mode-desc": "Valintatila on päätila, jota voidaan käyttää tietojen syöttämiseen:",
       "selection-mode-steps": {
