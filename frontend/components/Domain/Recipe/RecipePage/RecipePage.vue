@@ -142,7 +142,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { $auth, $vuetify } = useContext();
+    const { $auth } = useContext();
     const route = useRoute();
     const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
     const { isOwnGroup } = useLoggedInState();
@@ -168,8 +168,8 @@ export default defineComponent({
       const isSame = JSON.stringify(props.recipe) === JSON.stringify(originalRecipe.value);
       if (isEditMode.value && !isSame && props.recipe?.slug !== undefined) {
         const save = window.confirm(
-          "You have unsaved changes. Do you want to save before leaving?\n\nOkay to save, Cancel to discard changes."
-        );
+          i18n.tc("general.unsaved-changes"),
+          );
 
         if (save) {
           await api.recipes.updateOne(props.recipe.slug, props.recipe);
@@ -247,6 +247,7 @@ export default defineComponent({
     /** =============================================================
      * View Preferences
      */
+    const { $vuetify, i18n } = useContext();
 
     const landscape = computed(() => {
       const preferLandscape = props.recipe.settings.landscapeView;

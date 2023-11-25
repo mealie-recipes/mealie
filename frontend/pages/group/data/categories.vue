@@ -45,10 +45,11 @@
     >
       <v-card-text>
         {{ $t("general.confirm-delete-generic") }}
+        <p v-if="deleteTarget" class="mt-4 ml-4">{{ deleteTarget.name }}</p>
       </v-card-text>
     </BaseDialog>
 
-    <!-- Recipe Data Table -->
+    <!-- Data Table -->
     <BaseCardSectionTitle :icon="$globals.icons.categories" section :title="$tc('data-pages.categories.category-data')"> </BaseCardSectionTitle>
     <CrudTable
       :table-config="tableConfig"

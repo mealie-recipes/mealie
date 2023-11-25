@@ -1,7 +1,7 @@
 <template>
   <v-container fill-height fluid class="d-flex justify-center align-center">
     <v-card color="background d-flex flex-column align-center" flat width="600px">
-      <v-card-title class="headline justify-center"> Forgot Password </v-card-title>
+      <v-card-title class="headline justify-center"> {{ $t('user.forgot-password') }} </v-card-title>
       <BaseDivider />
       <v-card-text>
         <v-form @submit.prevent="requestLink()">
@@ -15,7 +15,7 @@
             :label="$t('user.email')"
             type="text"
           />
-          <p class="text-center">Please enter your email address and we will send you a link to reset your password.</p>
+          <p class="text-center">{{ $t('user.forgot-password-text') }}</p>
           <v-card-actions class="justify-center">
             <div class="max-button">
               <v-btn :loading="loading" color="primary" type="submit" large rounded class="rounded-xl" block>
@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs, reactive } from "@nuxtjs/composition-api";
+import { defineComponent, toRefs, reactive, useContext } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 export default defineComponent({
@@ -47,6 +47,7 @@ export default defineComponent({
       error: false,
     });
 
+    const { i18n } = useContext();
     const api = useUserApi();
 
     async function requestLink() {
@@ -57,11 +58,11 @@ export default defineComponent({
       if (response?.status === 200) {
         state.loading = false;
         state.error = false;
-        alert.success("Link successfully sent");
+        alert.success(i18n.tc("profile.email-sent"));
       } else {
         state.loading = false;
         state.error = true;
-        alert.error("Email failure");
+        alert.error(i18n.tc("profile.error-sending-email"));
       }
     }
 
@@ -73,7 +74,7 @@ export default defineComponent({
 
   head() {
     return {
-      title: this.$t("user.login") as string,
+      title: this.$tc("user.login"),
     };
   },
 });
