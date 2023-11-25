@@ -76,7 +76,8 @@
     "cookbook-events": "Wydarzenia Książki Kucharskiej",
     "tag-events": "Zdarzenia tagów",
     "category-events": "Wydarzenia kategorii",
-    "when-a-new-user-joins-your-group": "Kiedy nowy użytkownik dołączy do Twojej grupy"
+    "when-a-new-user-joins-your-group": "Kiedy nowy użytkownik dołączy do Twojej grupy",
+    "recipe-events": "Recipe Events"
   },
   "general": {
     "cancel": "Anuluj",
@@ -114,6 +115,8 @@
     "keyword": "Słowo kluczowe",
     "link-copied": "Odnośnik skopiowany",
     "loading-events": "Ładowanie wydarzeń",
+    "loading-recipe": "Loading recipe...",
+    "loading-ocr-data": "Loading OCR data...",
     "loading-recipes": "Ładowanie przepisów",
     "message": "Wiadomość",
     "monday": "Poniedziałek",
@@ -193,7 +196,8 @@
     "export-all": "Eksportuj wszystko",
     "refresh": "Odśwież",
     "upload-file": "Prześlij plik",
-    "created-on-date": "Utworzono dnia: {0}"
+    "created-on-date": "Utworzono dnia: {0}",
+    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Czy na pewno chcesz usunąć <b>{groupName}<b/>?",
@@ -208,6 +212,7 @@
     "group-id-with-value": "ID grupy: {groupID}",
     "group-name": "Nazwa grupy",
     "group-not-found": "Nie znaleziono grupy",
+    "group-token": "Group Token",
     "group-with-value": "Grupa: {groupID}",
     "groups": "Grupy",
     "manage-groups": "Zarządzaj grupami",
@@ -243,6 +248,7 @@
     "general-preferences": "Ustawienia ogólne",
     "group-recipe-preferences": "Ustawienia grupy przepisów",
     "report": "Zgłoś",
+    "report-with-id": "Report ID: {id}",
     "group-management": "Zarządzanie grupą",
     "admin-group-management": "Administracja Zarządzanie Grupami",
     "admin-group-management-text": "Zmiany w tej grupie zostaną natychmiast odzwierciedlone.",
@@ -507,6 +513,7 @@
     "message-key": "Klucz Wiadomości",
     "parse": "Analizuj",
     "attach-images-hint": "Dołącz obrazy przeciągając i upuszczając je do edytora",
+    "drop-image": "Drop image",
     "enable-ingredient-amounts-to-use-this-feature": "Włącz ilości składników, aby użyć tej funkcji",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Nie można przeanalizować przepisów z już zdefiniowanymi jednostkami lub żywnością.",
     "parse-ingredients": "Analizuj tekst składników",
@@ -564,14 +571,17 @@
     "tag-filter": "Filtr tagów",
     "search-hint": "Naciśnij '/'",
     "advanced": "Zaawansowane",
-    "auto-search": "Auto wyszukiwanie"
+    "auto-search": "Auto wyszukiwanie",
+    "no-results": "No results found"
   },
   "settings": {
     "add-a-new-theme": "Dodaj nowy motyw",
     "admin-settings": "Ustawienia administratora",
     "backup": {
+      "backup-created": "Backup created successfully",
       "backup-created-at-response-export_path": "Kopia zapasowa została utworzona w {path}",
       "backup-deleted": "Kopia zapasowa została usunięta",
+      "restore-success": "Restore successful",
       "backup-tag": "Etykieta kopii zapasowej",
       "create-heading": "Utwórz kopię zapasową",
       "delete-backup": "Usuń kopię zapasową",
@@ -680,11 +690,13 @@
     "configuration": "Konfiguracja",
     "docker-volume": "Docker Volume",
     "docker-volume-help": "Mealie wymaga, aby kontener frontendu i backendu współdzieliły ten sam wolumen docker lub pamięć. Zapewnia to prawidłowy dostęp do zdjęć i zasobów przechowywanych na dysku.",
-    "volumes-are-misconfigured": "Wolumeny są skonfigurowane nieprawidłowo",
+    "volumes-are-misconfigured": "Volumes are misconfigured.",
     "volumes-are-configured-correctly": "Wolumeny są skonfigurowane poprawnie.",
     "status-unknown-try-running-a-validation": "Status nieznany. Spróbuj wykonać walidację.",
     "validate": "Sprawdź",
     "email-configuration-status": "Status konfiguracji Email",
+    "email-configured": "Email Configured",
+    "email-test-results": "Email Test Results",
     "ready": "Gotowe",
     "not-ready": "Niegotowy - Sprawdź zmienne środowiskowe",
     "succeeded": "Powiodło się",
@@ -819,6 +831,7 @@
     "password-updated": "Hasło zostało zaktualizowane",
     "password": "Hasło",
     "password-strength": "Hasło jest {strength}",
+    "please-enter-password": "Please enter your new password.",
     "register": "Zarejestruj się",
     "reset-password": "Zresetuj hasło",
     "sign-in": "Zaloguj się",
@@ -839,6 +852,7 @@
     "username": "Nazwa użytkownika",
     "users-header": "UŻYTKOWNICY",
     "users": "Użytkownicy",
+    "user-not-found": "User not found",
     "webhook-time": "Czas webhooka",
     "webhooks-enabled": "Webhooki włączone",
     "you-are-not-allowed-to-create-a-user": "Nie masz uprawnień do tworzenia użytkowników",
@@ -861,6 +875,7 @@
     "user-management": "Zarządzanie użytkownikami",
     "reset-locked-users": "Zresetuj zablokowanych użytkowników",
     "admin-user-creation": "Administracja Tworzenie Użytkownika",
+    "admin-user-management": "Admin User Management",
     "user-details": "Dane użytkownika",
     "user-name": "Nazwa użytkownika",
     "authentication-method": "Sposób uwierzytelniania",
@@ -872,7 +887,10 @@
     "user-can-organize-group-data": "Użytkownik może organizować dane grupy",
     "enable-advanced-features": "Włącz zaawansowane funkcje",
     "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
-    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!"
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
+    "forgot-password": "Forgot Password",
+    "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
+    "changes-reflected-immediately": "Changes to this user will be reflected immediately."
   },
   "language-dialog": {
     "translated": "przetłumaczone",
@@ -974,6 +992,7 @@
   },
   "user-registration": {
     "user-registration": "Rejestracja użytkownika",
+    "registration-success": "Registration Success",
     "join-a-group": "Dołącz do grupy",
     "create-a-new-group": "Stwórz nową grupę",
     "provide-registration-token-description": "Podaj kod rejestracyjny powiązany z grupą do której chcesz dołączyć. Taki kod uzyskać możesz od użytkownika który przynależy już do owej grupy.",
@@ -1020,6 +1039,7 @@
   },
   "ocr-editor": {
     "ocr-editor": "Edytor OCR",
+    "toolbar": "Toolbar",
     "selection-mode": "Tryb wyboru",
     "pan-and-zoom-picture": "Przesuwanie i powiększanie obrazu",
     "split-text": "Podziel tekst",
@@ -1027,6 +1047,8 @@
     "split-by-block": "Podziel według bloku tekstowego",
     "flatten": "Wyrównaj niezależnie od oryginalnego formatowania",
     "help": {
+      "help": "Help",
+      "mouse-modes": "Mouse modes",
       "selection-mode": "Tryb wyboru (domyślny)",
       "selection-mode-desc": "Tryb wyboru jest głównym trybem, który służy do wprowadzenia danych:",
       "selection-mode-steps": {
