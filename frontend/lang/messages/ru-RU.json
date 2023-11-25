@@ -76,7 +76,8 @@
     "cookbook-events": "События в книге рецептов",
     "tag-events": "События тегов",
     "category-events": "События категорий",
-    "when-a-new-user-joins-your-group": "Когда новый пользователь присоединяется к вашей группе"
+    "when-a-new-user-joins-your-group": "Когда новый пользователь присоединяется к вашей группе",
+    "recipe-events": "События Рецепта"
   },
   "general": {
     "cancel": "Отмена",
@@ -114,6 +115,8 @@
     "keyword": "Ключевое слово",
     "link-copied": "Ссылка скопирована",
     "loading-events": "Загрузка событий",
+    "loading-recipe": "Загрузка рецепта...",
+    "loading-ocr-data": "Загрузка данных OCR...",
     "loading-recipes": "Загрузка рецептов",
     "message": "Сообщение",
     "monday": "Понедельник",
@@ -193,7 +196,8 @@
     "export-all": "Экспортировать Всё",
     "refresh": "Обновить",
     "upload-file": "Загрузить файл",
-    "created-on-date": "Создано: {0}"
+    "created-on-date": "Создано: {0}",
+    "unsaved-changes": "У вас есть несохраненные изменения. Вы хотите сохранить их перед выходом?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Вы действительно хотите удалить <b>{groupName}<b/>?",
@@ -208,6 +212,7 @@
     "group-id-with-value": "ID группы: {groupID}",
     "group-name": "Название группы",
     "group-not-found": "Группа не найдена",
+    "group-token": "Токен группы",
     "group-with-value": "Группа: {groupID}",
     "groups": "Группы",
     "manage-groups": "Настройки групп",
@@ -243,6 +248,7 @@
     "general-preferences": "Общие настройки",
     "group-recipe-preferences": "Настройки для рецептов в группе",
     "report": "Отчет",
+    "report-with-id": "ID отчёта: {id}",
     "group-management": "Управление группой",
     "admin-group-management": "Управление группой администраторов",
     "admin-group-management-text": "Изменения в этой группе будут отражены немедленно.",
@@ -463,9 +469,9 @@
     "add-to-plan": "Добавить к плану",
     "add-to-timeline": "Добавить в историю",
     "recipe-added-to-list": "Рецепт добавлен в список",
-    "recipes-added-to-list": "Recipes added to list",
+    "recipes-added-to-list": "Рецепты добавлены в список",
     "recipe-added-to-mealplan": "Рецепт добавлен в план питания",
-    "failed-to-add-recipes-to-list": "Failed to add recipe to list",
+    "failed-to-add-recipes-to-list": "Не удалось добавить рецепт в список",
     "failed-to-add-recipe-to-mealplan": "Не удалось добавить рецепт в план питания",
     "yield": "Выход",
     "quantity": "Количество",
@@ -507,6 +513,7 @@
     "message-key": "Ключ сообщения",
     "parse": "Обработать",
     "attach-images-hint": "Прикрепляйте изображения, перетаскивая их в редактор",
+    "drop-image": "Перетащите изображение",
     "enable-ingredient-amounts-to-use-this-feature": "Включите количество ингредиентов для использования этой функции",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Невозможно разобрать рецепты с определенными единицами измерений или продуктами.",
     "parse-ingredients": "Анализ ингредиентов",
@@ -564,14 +571,17 @@
     "tag-filter": "Фильтр тегов",
     "search-hint": "Нажмите '/'",
     "advanced": "Дополнительно",
-    "auto-search": "Авто поиск"
+    "auto-search": "Авто поиск",
+    "no-results": "Ничего не найдено"
   },
   "settings": {
     "add-a-new-theme": "Добавить новую тему",
     "admin-settings": "Настройки администратора",
     "backup": {
+      "backup-created": "Резервная копия успешно создана",
       "backup-created-at-response-export_path": "Резервная копия создана в {path}",
       "backup-deleted": "Резервная копия удалена",
+      "restore-success": "Восстановление прошло успешно",
       "backup-tag": "Тег резервной копии",
       "create-heading": "Создать резервную копию",
       "delete-backup": "Удалить резервную копию",
@@ -680,11 +690,13 @@
     "configuration": "Настройки",
     "docker-volume": "Хранилище данных в Docker",
     "docker-volume-help": "Mealie требует, чтобы фронтенд контейнер и бэкенд имели общее хранилище. Это обеспечивает правильный доступ к изображениям и приложениям рецептов, хранящимся на диске.",
-    "volumes-are-misconfigured": "Хранилище данных настроено неправильно",
+    "volumes-are-misconfigured": "Хранилища данных настроены неправильно.",
     "volumes-are-configured-correctly": "Хранилище данных настроено правильно.",
     "status-unknown-try-running-a-validation": "Статус неизвестен. Попробуйте запустить проверку.",
     "validate": "Проверить",
     "email-configuration-status": "Статус проверки почты",
+    "email-configured": "Email настроен",
+    "email-test-results": "Результаты теста Email",
     "ready": "Готово",
     "not-ready": "Не готово - Проверьте переменные окружающей среды",
     "succeeded": "Выполнено успешно",
@@ -819,6 +831,7 @@
     "password-updated": "Пароль обновлен",
     "password": "Пароль",
     "password-strength": "{strength} пароль",
+    "please-enter-password": "Пожалуйста, введите ваш новый пароль.",
     "register": "Зарегистрироваться",
     "reset-password": "Сброс пароля",
     "sign-in": "Авторизация",
@@ -839,6 +852,7 @@
     "username": "Имя пользователя",
     "users-header": "ПОЛЬЗОВАТЕЛИ",
     "users": "Пользователи",
+    "user-not-found": "Пользователь не найден",
     "webhook-time": "Время запуска webhook'а",
     "webhooks-enabled": "Webhook'и включены",
     "you-are-not-allowed-to-create-a-user": "Вы не можете создавать пользователей",
@@ -861,6 +875,7 @@
     "user-management": "Управление пользователями",
     "reset-locked-users": "Сброс заблокированных пользователей",
     "admin-user-creation": "Создание администратора",
+    "admin-user-management": "Управление Администратором",
     "user-details": "Данные пользователя",
     "user-name": "Имя пользователя",
     "authentication-method": "Метод аутентификации",
@@ -871,8 +886,11 @@
     "user-can-manage-group": "Пользователь может управлять группой",
     "user-can-organize-group-data": "Пользователь может менять групповые данные",
     "enable-advanced-features": "Включить доп. функции",
-    "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
-    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!"
+    "it-looks-like-this-is-your-first-time-logging-in": "Похоже, это ваш первый вход в систему.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Больше не хотите видеть это сообщение? Не забудьте изменить адрес электронной почты в настройках пользователя!",
+    "forgot-password": "Забыли Пароль",
+    "forgot-password-text": "Введите адрес вашей почты, и мы отправим на неё ссылку для сброса пароля.",
+    "changes-reflected-immediately": "Изменения в этом пользователе будут отражены немедленно."
   },
   "language-dialog": {
     "translated": "переведено",
@@ -957,23 +975,24 @@
     "columns": "Столбцы",
     "combine": "Объединить",
     "categories": {
-      "edit-category": "Edit Category",
-      "new-category": "New Category",
-      "category-data": "Category Data"
+      "edit-category": "Изменить категорию",
+      "new-category": "Новая Категория",
+      "category-data": "Данные категории"
     },
     "tags": {
-      "new-tag": "New Tag",
-      "edit-tag": "Edit Tag",
-      "tag-data": "Tag Data"
+      "new-tag": "Новый тег",
+      "edit-tag": "Изменить тег",
+      "tag-data": "Данные тега"
     },
     "tools": {
-      "new-tool": "New Tool",
-      "edit-tool": "Edit Tool",
-      "tool-data": "Tool Data"
+      "new-tool": "Добавить инструмент",
+      "edit-tool": "Изменить инструмент",
+      "tool-data": "Данные инструмента"
     }
   },
   "user-registration": {
     "user-registration": "Регистрация",
+    "registration-success": "Вы успешно зарегистрировались",
     "join-a-group": "Присоединиться к группе",
     "create-a-new-group": "Создать группу",
     "provide-registration-token-description": "Пожалуйста, укажите регистрационный токен, связанный с группой, к которой вы хотите присоединиться. Вам нужно будет получить его от существующего члена группы.",
@@ -1020,6 +1039,7 @@
   },
   "ocr-editor": {
     "ocr-editor": "OCR редактор",
+    "toolbar": "Панель инструментов",
     "selection-mode": "Режим выбора",
     "pan-and-zoom-picture": "Повернуть и отмасштабировать изображение",
     "split-text": "Разделить текст",
@@ -1027,6 +1047,8 @@
     "split-by-block": "Разделить по блокам текста",
     "flatten": "Выровнять независимо от первоначального формирования",
     "help": {
+      "help": "Справка",
+      "mouse-modes": "Режимы мышки",
       "selection-mode": "Режим выбора (по умолчанию)",
       "selection-mode-desc": "Режим выделения - основной режим, который может быть использован для ввода данных:",
       "selection-mode-steps": {
