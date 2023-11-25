@@ -379,7 +379,7 @@ export default defineComponent({
 
     const toolbarIcons = ref<ToolbarIcons<CanvasModes | SelectedTextSplitModes>>([
       {
-        sectionTitle: "Toolbar",
+        sectionTitle: i18n.tc("ocr-editor.toolbar"),
         eventHandler: switchCanvasMode,
         highlight: state.canvasMode,
         icons: [

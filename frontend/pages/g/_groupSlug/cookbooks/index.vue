@@ -115,7 +115,7 @@ export default defineComponent({
   },
   head() {
     return {
-      title: this.$t("settings.pages") as string,
+      title: this.$t("cookbook.cookbooks") as string,
     };
   },
 });

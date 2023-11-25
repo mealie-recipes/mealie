@@ -4,15 +4,15 @@
       <template #header>
         <v-img max-height="125" max-width="125" :src="require('~/static/svgs/manage-profile.svg')"></v-img>
       </template>
-      <template #title> Admin User Management </template>
-      Changes to this user will be reflected immediately.
+      <template #title> {{ $t("user.admin-user-management") }} </template>
+      {{ $t("user.changes-reflected-immediately") }}
     </BasePageTitle>
     <AppToolbar back> </AppToolbar>
     <v-form v-if="!userError" ref="refNewUserForm" @submit.prevent="handleSubmit">
       <v-card outlined>
         <v-card-text>
           <div class="d-flex">
-            <p>User Id: {{ user.id }}</p>
+            <p> {{ $t("user.user-id-with-value", {id: user.id} ) }}</p>
           </div>
           <v-select
             v-if="groups"
@@ -24,7 +24,7 @@
             item-value="name"
             :return-object="false"
             filled
-            label="User Group"
+            :label="$tc('group.user-group')"
             :rules="[validators.required]"
           ></v-select>
           <div class="d-flex py-2 pr-2">
@@ -45,7 +45,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useRoute, onMounted, ref } from "@nuxtjs/composition-api";
+import { computed, defineComponent, useRoute, onMounted, ref, useContext } from "@nuxtjs/composition-api";
 import { useAdminApi } from "~/composables/api";
 import { useGroups } from "~/composables/use-groups";
 import { alert } from "~/composables/use-toast";
@@ -59,6 +59,7 @@ export default defineComponent({
   setup() {
     const { userForm } = useUserForm();
     const { groups } = useGroups();
+    const { i18n } = useContext();
     const route = useRoute();
 
     const userId = route.value.params.id;
@@ -84,7 +85,7 @@ export default defineComponent({
       const { data, error } = await adminApi.users.getOne(userId);
 
       if (error?.response?.status === 404) {
-        alert.error("User Not Found");
+        alert.error(i18n.tc("user.user-not-found"));
         userError.value = true;
       }
 

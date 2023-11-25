@@ -125,6 +125,7 @@
     >
       <v-card-text>
         {{ $t("general.confirm-delete-generic") }}
+        <p v-if="deleteTarget" class="mt-4 ml-4">{{ deleteTarget.name }}</p>
       </v-card-text>
     </BaseDialog>
 
@@ -165,7 +166,7 @@
       </v-card-text>
     </BaseDialog>
 
-    <!-- Recipe Data Table -->
+    <!-- Data Table -->
     <BaseCardSectionTitle :icon="$globals.icons.units" section :title="$tc('data-pages.units.unit-data')"> </BaseCardSectionTitle>
     <CrudTable
       :table-config="tableConfig"
@@ -421,6 +422,7 @@ export default defineComponent({
       deleteEventHandler,
       deleteDialog,
       deleteUnit,
+      deleteTarget,
       // Alias Manager
       aliasManagerDialog,
       aliasManagerEventHandler,
