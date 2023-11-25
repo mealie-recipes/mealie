@@ -76,7 +76,8 @@
     "cookbook-events": "Receptų knygų įvykiai",
     "tag-events": "Žymų įvykiai",
     "category-events": "Kategorijų įvykiai",
-    "when-a-new-user-joins-your-group": "Kai prie jūsų grupės prisijungia naujas naudotojas"
+    "when-a-new-user-joins-your-group": "Kai prie jūsų grupės prisijungia naujas naudotojas",
+    "recipe-events": "Recipe Events"
   },
   "general": {
     "cancel": "Atšaukti",
@@ -114,6 +115,8 @@
     "keyword": "Raktažodis",
     "link-copied": "Nuoroda nukopijuota",
     "loading-events": "Užkrovimo įvykiai",
+    "loading-recipe": "Loading recipe...",
+    "loading-ocr-data": "Loading OCR data...",
     "loading-recipes": "Receptai kraunasi",
     "message": "Pranešimas",
     "monday": "Pirmadienis",
@@ -193,7 +196,8 @@
     "export-all": "Eksportuoti visus",
     "refresh": "Atnaujinti",
     "upload-file": "Įkelti failą",
-    "created-on-date": "Sukurta: {0}"
+    "created-on-date": "Sukurta: {0}",
+    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Ar tikrai norite ištrinti <b>{groupName}<b/>?",
@@ -208,6 +212,7 @@
     "group-id-with-value": "Grupės ID {groupID}",
     "group-name": "Grupės pavadinimas",
     "group-not-found": "Grupė nerasta",
+    "group-token": "Group Token",
     "group-with-value": "Grupė: {groupID}",
     "groups": "Grupės",
     "manage-groups": "Tvarkyti grupes",
@@ -243,6 +248,7 @@
     "general-preferences": "Bendrosios nuostatos",
     "group-recipe-preferences": "Grupės receptų nustatymai",
     "report": "Pranešti",
+    "report-with-id": "Report ID: {id}",
     "group-management": "Grupių valdymas",
     "admin-group-management": "Administravimo grupės valdymas",
     "admin-group-management-text": "Pakeitimai šiai grupei pritaikomi iš karto.",
@@ -507,6 +513,7 @@
     "message-key": "Žinutės raktas",
     "parse": "Nuskaityti",
     "attach-images-hint": "Pridėkite vaizdus vilkdami ir numesdami juos į redaktorių",
+    "drop-image": "Drop image",
     "enable-ingredient-amounts-to-use-this-feature": "Įjunkite ingredientų kiekius, kad galėtumėte naudoti šią funkciją",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Receptai su ingredientų matavimo vienetais ar produktais negali būti nuskaitomi.",
     "parse-ingredients": "Nuskaityti ingredientus",
@@ -564,14 +571,17 @@
     "tag-filter": "Žymos filtras",
     "search-hint": "Paspauskite '/'",
     "advanced": "Išplėstinė paieška",
-    "auto-search": "Automatinė paieška"
+    "auto-search": "Automatinė paieška",
+    "no-results": "No results found"
   },
   "settings": {
     "add-a-new-theme": "Pridėti naują temą",
     "admin-settings": "Administratoriaus nustatymai",
     "backup": {
+      "backup-created": "Backup created successfully",
       "backup-created-at-response-export_path": "Atsarginė kopija sukurta {path}",
       "backup-deleted": "Atsarginė kopija ištrinta",
+      "restore-success": "Restore successful",
       "backup-tag": "Atsarginės kopijos žyma",
       "create-heading": "Sukurti atsarginę kopiją",
       "delete-backup": "Ištrinti atsarginę kopiją",
@@ -680,11 +690,13 @@
     "configuration": "Konfigūracija",
     "docker-volume": "Docker Volume",
     "docker-volume-help": "\"Mealie\" reikalinga, kad sistemos frontend ir backend konteineriai būtų tame pačiame docker volume ar talpykloje. Tai užtikrina, kad frontend konteineris turės tinkamą prieigą prie nuotraukų ir turinio, saugomo diske.",
-    "volumes-are-misconfigured": "Volumes konfigūracija netinkama",
+    "volumes-are-misconfigured": "Volumes are misconfigured.",
     "volumes-are-configured-correctly": "Volumes yra sukonfigūruoti teisingai.",
     "status-unknown-try-running-a-validation": "Būsena nežinoma. Pabandykite paleisti patikrinimą.",
     "validate": "Patikrinti",
     "email-configuration-status": "Email Configuration Status",
+    "email-configured": "Email Configured",
+    "email-test-results": "Email Test Results",
     "ready": "Parengta",
     "not-ready": "Neparuošta - patikrinti Environmental Variables",
     "succeeded": "Sėkminga",
@@ -819,6 +831,7 @@
     "password-updated": "Slaptažodis atnaujintas",
     "password": "Slaptažodis",
     "password-strength": "Slaptažodžio stiprumas {strength}",
+    "please-enter-password": "Please enter your new password.",
     "register": "Registruotis",
     "reset-password": "Atkurti slaptažodį",
     "sign-in": "Prisijungti",
@@ -839,6 +852,7 @@
     "username": "Vartotojo vardas",
     "users-header": "VARTOTOJAI",
     "users": "Vartotojai",
+    "user-not-found": "User not found",
     "webhook-time": "Webhook laikas",
     "webhooks-enabled": "Webhooks įjungti",
     "you-are-not-allowed-to-create-a-user": "Jūms neleidžiama kurti vartotojus",
@@ -861,6 +875,7 @@
     "user-management": "Naudotojo valdymas",
     "reset-locked-users": "Atkurti užrakintus naudotojus",
     "admin-user-creation": "Pridėti administratorių",
+    "admin-user-management": "Admin User Management",
     "user-details": "Naudotojo duomenys",
     "user-name": "Naudotojo vardas",
     "authentication-method": "Prisijungimo metodas",
@@ -872,7 +887,10 @@
     "user-can-organize-group-data": "Naudotojas gali tvarkyti grupės duomenis",
     "enable-advanced-features": "Įjungti pažangias funkcijas",
     "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
-    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!"
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
+    "forgot-password": "Forgot Password",
+    "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
+    "changes-reflected-immediately": "Changes to this user will be reflected immediately."
   },
   "language-dialog": {
     "translated": "išversta",
@@ -974,6 +992,7 @@
   },
   "user-registration": {
     "user-registration": "Vartotojo registracija",
+    "registration-success": "Registration Success",
     "join-a-group": "Prisijungti prie grupės",
     "create-a-new-group": "Sukurti naują grupę",
     "provide-registration-token-description": "Pateikite registracijos prieigos raktą, susietą su grupe, prie kurios norite prisijungti. Šį raktą galite gauti iš esamo grupės nario.",
@@ -1020,6 +1039,7 @@
   },
   "ocr-editor": {
     "ocr-editor": "OCR tvarkyklė",
+    "toolbar": "Toolbar",
     "selection-mode": "Žymėjimo režimas",
     "pan-and-zoom-picture": "Slinkti ir priartinti nuotrauką",
     "split-text": "Perskirti tekstą",
@@ -1027,6 +1047,8 @@
     "split-by-block": "Suskirtyti pagal teksto pastraipas",
     "flatten": "Išlyginti nepaisant originalaus formatavimo",
     "help": {
+      "help": "Help",
+      "mouse-modes": "Mouse modes",
       "selection-mode": "Žymėjimo režimas (numatytasis)",
       "selection-mode-desc": "Žymėjimo režimas yra pagrindinis režimas, naudojamas duomenų įvedimui:",
       "selection-mode-steps": {
