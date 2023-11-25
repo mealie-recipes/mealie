@@ -76,7 +76,8 @@
     "cookbook-events": "אירועי ספרי בישול",
     "tag-events": "אירועי תגיות",
     "category-events": "אירועי קטגוריות",
-    "when-a-new-user-joins-your-group": "כאשר משתמש חדש מצטרף לקבוצה"
+    "when-a-new-user-joins-your-group": "כאשר משתמש חדש מצטרף לקבוצה",
+    "recipe-events": "Recipe Events"
   },
   "general": {
     "cancel": "ביטול",
@@ -114,6 +115,8 @@
     "keyword": "מילת מפתח",
     "link-copied": "קישור הועתק",
     "loading-events": "טוען",
+    "loading-recipe": "Loading recipe...",
+    "loading-ocr-data": "Loading OCR data...",
     "loading-recipes": "מתכונים בטעינה",
     "message": "הודעה",
     "monday": "שני",
@@ -193,7 +196,8 @@
     "export-all": "ייצא הכל",
     "refresh": "רענן",
     "upload-file": "העלאת קבצים",
-    "created-on-date": "נוצר ב-{0}"
+    "created-on-date": "נוצר ב-{0}",
+    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "האם את/ה בטוח/ה שברצונך למחוק את <b>{groupName}<b/>?",
@@ -208,6 +212,7 @@
     "group-id-with-value": "מזהה קבוצה: {groupID}",
     "group-name": "שם קבוצה",
     "group-not-found": "קבוצה לא נמצאה",
+    "group-token": "Group Token",
     "group-with-value": "קבוצה: {groupID}",
     "groups": "קבוצות",
     "manage-groups": "ניהול קבוצות",
@@ -243,6 +248,7 @@
     "general-preferences": "העדפות כלליות",
     "group-recipe-preferences": "העדפות קבוצה",
     "report": "דיווח",
+    "report-with-id": "Report ID: {id}",
     "group-management": "ניהול קבוצה",
     "admin-group-management": "ניהול קבוצת מנהל",
     "admin-group-management-text": "השינויים לקבוצה זו יתבצעו מיידית.",
@@ -507,6 +513,7 @@
     "message-key": "מפתח הודעה",
     "parse": "ניתוח",
     "attach-images-hint": "הוסף תמונות ע\"י גרירה ושחרור אל תוך העורך",
+    "drop-image": "Drop image",
     "enable-ingredient-amounts-to-use-this-feature": "אפשר לכמות המרכיבים להשתמש בפונקציה",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "לא ניתן לפענך מתכונים בהם יחידות או אוכל מוגדרים.",
     "parse-ingredients": "חילוץ רכיבים",
@@ -564,14 +571,17 @@
     "tag-filter": "סינון תגית",
     "search-hint": "לחץ '/'",
     "advanced": "מתקדם",
-    "auto-search": "חיפוש אוטומטי"
+    "auto-search": "חיפוש אוטומטי",
+    "no-results": "No results found"
   },
   "settings": {
     "add-a-new-theme": "הוסף ערכת נושא חדשה",
     "admin-settings": "הגדרות מנהל",
     "backup": {
+      "backup-created": "Backup created successfully",
       "backup-created-at-response-export_path": "גיבוי נוצר ב {path}",
       "backup-deleted": "גיבוי נמחק",
+      "restore-success": "Restore successful",
       "backup-tag": "תגית גיבוי",
       "create-heading": "Create a Backup",
       "delete-backup": "מחיקת גיבוי",
@@ -680,11 +690,13 @@
     "configuration": "הגדרות",
     "docker-volume": "Docker Volume",
     "docker-volume-help": "מילי דורשת שקונטיינר הקצה הקדמי והקצה האחורי חולקים את באותו כונן / שטח אחסון בדוקר.\nכל זאת כל מנת לוודא שלקונטיינר תהיה גישה לתמונות הגיבוי או לנכסים בדיסק.",
-    "volumes-are-misconfigured": "כוננים אינם מוגדרים בצורה תקינה",
+    "volumes-are-misconfigured": "Volumes are misconfigured.",
     "volumes-are-configured-correctly": "ה-Volumeים מוגדרים תקין.",
     "status-unknown-try-running-a-validation": "מצב לא ידוע. נסה להריץ אימות.",
     "validate": "אימות",
     "email-configuration-status": "מצב הגדרות דוא״ל",
+    "email-configured": "Email Configured",
+    "email-test-results": "Email Test Results",
     "ready": "מוכן",
     "not-ready": "לא מוכן - בדוק משתני סביבה",
     "succeeded": "הצליח",
@@ -819,6 +831,7 @@
     "password-updated": "הסיסמה עודכנה",
     "password": "סיסמה",
     "password-strength": "חוזק הסיסמה {strength}",
+    "please-enter-password": "Please enter your new password.",
     "register": "הרשמה",
     "reset-password": "איפוס סיסמה",
     "sign-in": "התחברות",
@@ -839,6 +852,7 @@
     "username": "שם משתמש",
     "users-header": "משתמשים",
     "users": "משתמשים",
+    "user-not-found": "User not found",
     "webhook-time": "זמן Webhook",
     "webhooks-enabled": "הפעלת Webhooks",
     "you-are-not-allowed-to-create-a-user": "אין הרשאה ליצור משתמש",
@@ -861,6 +875,7 @@
     "user-management": "ניהול משתמשים",
     "reset-locked-users": "אתחל משתמשים נעולים",
     "admin-user-creation": "יצירת משתמש אדמין",
+    "admin-user-management": "Admin User Management",
     "user-details": "פרטי משתמש",
     "user-name": "שם משתמש",
     "authentication-method": "שיטת אימות",
@@ -872,7 +887,10 @@
     "user-can-organize-group-data": "משתמש יכול לשנות מידע של קבוצה",
     "enable-advanced-features": "אפשר אפשרויות מתקדמות",
     "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
-    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!"
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
+    "forgot-password": "Forgot Password",
+    "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
+    "changes-reflected-immediately": "Changes to this user will be reflected immediately."
   },
   "language-dialog": {
     "translated": "תורגם",
@@ -974,6 +992,7 @@
   },
   "user-registration": {
     "user-registration": "רישום משתמשים",
+    "registration-success": "Registration Success",
     "join-a-group": "הצטרפות לקבוצה",
     "create-a-new-group": "יצירת קבוצה חדשה",
     "provide-registration-token-description": "ספק בבקשה את טוקן הרישום המשוייך לקבוצה אליה ברצונך להצטרף. בכדי לקבל אותו יהיה צורך להשיג אותו מאחד מחברה הקבוצה הקיימים.",
@@ -1020,6 +1039,7 @@
   },
   "ocr-editor": {
     "ocr-editor": "עורך סריקת תווים",
+    "toolbar": "Toolbar",
     "selection-mode": "מצב בחירה",
     "pan-and-zoom-picture": "סובב והגדל תמונה",
     "split-text": "פיצול טקסט",
@@ -1027,6 +1047,8 @@
     "split-by-block": "פצל לפי מבנה המלל",
     "flatten": "שטח בלי קשר למבנה המקורי",
     "help": {
+      "help": "Help",
+      "mouse-modes": "Mouse modes",
       "selection-mode": "מצב בחירה (ברירת מחדל)",
       "selection-mode-desc": "מצב בחירה זה הינו הראשי אשר ישמש להכנסת מידע:",
       "selection-mode-steps": {
