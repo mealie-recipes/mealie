@@ -35,7 +35,7 @@
       <v-card outlined class="flex-grow-1">
         <v-card-text class="pa-3 pb-0">
           <p class="">{{ comment.user.username }} • {{ $d(Date.parse(comment.createdAt), "medium") }}</p>
-          {{ comment.text }}
+          <SafeMarkdown :source="comment.text" />
         </v-card-text>
         <v-card-actions class="justify-end mt-0 pt-0">
           <v-btn
@@ -60,11 +60,13 @@ import { Recipe, RecipeCommentOut } from "~/lib/api/types/recipe";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { usePageUser } from "~/composables/recipe-page/shared-state";
+import SafeMarkdown from "~/components/global/SafeMarkdown.vue";
 
 export default defineComponent({
   components: {
     UserAvatar,
-  },
+    SafeMarkdown
+},
   props: {
     recipe: {
       type: Object as () => NoUndefinedField<Recipe>,

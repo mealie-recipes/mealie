@@ -8,7 +8,7 @@
         </v-btn>
       </v-col>
     </v-row>
-    <v-divider class="mx-2" />
+    <v-divider class="mx-2"/>
     <div
       v-if="timelineEvents.length"
       id="timeline-container"
@@ -34,7 +34,7 @@
         {{ $t("recipe.timeline-is-empty") }}
       </v-card-title>
     </v-card>
-    <div v-if="loading" class="mb-3">
+    <div v-if="loading" class="mb-3 text-center">
       <AppLoader :loading="loading" :waiting-text="$tc('general.loading-events')" />
     </div>
   </div>

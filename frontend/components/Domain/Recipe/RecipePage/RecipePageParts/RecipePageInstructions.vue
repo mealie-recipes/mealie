@@ -49,11 +49,13 @@
         <v-card-actions>
           <BaseButton cancel @click="dialog = false"> </BaseButton>
           <v-spacer></v-spacer>
-          <BaseButton color="info" @click="autoSetReferences">
-            <template #icon> {{ $globals.icons.robot }}</template>
-            {{ $t("recipe.auto") }}
-          </BaseButton>
-          <BaseButton save @click="setIngredientIds"> </BaseButton>
+          <div class="d-flex flex-wrap justify-end">
+            <BaseButton color="info" @click="autoSetReferences">
+              <template #icon> {{ $globals.icons.robot }}</template>
+              {{ $t("recipe.auto") }}
+            </BaseButton>
+            <BaseButton class="ml-2" save @click="setIngredientIds"> </BaseButton>
+          </div>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -84,7 +86,7 @@
         <div v-for="(step, index) in value" :key="step.id" class="list-group-item">
           <v-app-bar
             v-if="step.id && showTitleEditor[step.id]"
-            class="primary mx-1 mt-6"
+            class="primary mt-6"
             style="cursor: pointer"
             dark
             dense
@@ -219,6 +221,7 @@
         </div>
       </TransitionGroup>
     </draggable>
+    <v-divider class="mt-10 d-flex d-md-none"/>
   </section>
 </template>
 

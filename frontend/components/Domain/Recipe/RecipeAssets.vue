@@ -1,6 +1,6 @@
 <template>
   <div v-if="value.length > 0 || edit">
-    <v-card class="mt-2">
+    <v-card class="mt-4">
       <v-card-title class="py-2">
         {{ $t("asset.assets") }}
       </v-card-title>

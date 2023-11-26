@@ -24,13 +24,13 @@
       </v-btn>
     </v-card-actions>
     <AdvancedOnly>
-      <v-card v-if="isEditForm" flat class="ma-2 mb-2">
+      <v-card v-if="isEditForm" flat class="mb-2 mx-n2">
         <v-card-title> {{ $t('recipe.api-extras') }} </v-card-title>
-        <v-divider class="mx-2"></v-divider>
+        <v-divider class="ml-4"></v-divider>
         <v-card-text>
           {{ $t('recipe.api-extras-description') }}
           <v-row v-for="(_, key) in recipe.extras" :key="key" class="mt-1">
-            <v-col cols="8">
+            <v-col style="max-width: 400px;">
               <v-text-field v-model="recipe.extras[key]" dense :label="key">
                 <template #prepend>
                   <v-btn color="error" icon class="mt-n4" @click="removeApiExtra(key)">
@@ -41,8 +41,8 @@
             </v-col>
           </v-row>
         </v-card-text>
-        <v-card-actions class="d-flex">
-          <div style="max-width: 200px">
+        <v-card-actions class="d-flex ml-2 mt-n3">
+          <div>
             <v-text-field v-model="apiNewKey" :label="$t('recipe.message-key')"></v-text-field>
           </div>
           <BaseButton create small class="ml-5" @click="createApiExtra" />
