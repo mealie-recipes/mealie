@@ -18,31 +18,26 @@
     "source=mealie-devcontainer-workspace,target=/workspaces/mealie/frontend/node_modules,type=volume",
     "source=mealie-bashhistory,target=/home/vscode/commandhistory,type=volume"
   ],
-  // Set *default* container specific settings.json values on container create.
-  "settings": {
-    "python.defaultInterpreterPath": "/usr/local/bin/python",
-    "python.linting.enabled": true,
-    "python.linting.pylintEnabled": true,
-    "python.formatting.autopep8Path": "/usr/local/py-utils/bin/autopep8",
-    "python.formatting.blackPath": "/usr/local/py-utils/bin/black",
-    "python.formatting.yapfPath": "/usr/local/py-utils/bin/yapf",
-    "python.linting.banditPath": "/usr/local/py-utils/bin/bandit",
-    "python.linting.flake8Path": "/usr/local/py-utils/bin/flake8",
-    "python.linting.mypyPath": "/usr/local/py-utils/bin/mypy",
-    "python.linting.pycodestylePath": "/usr/local/py-utils/bin/pycodestyle",
-    "python.linting.pydocstylePath": "/usr/local/py-utils/bin/pydocstyle",
-    "python.linting.pylintPath": "/usr/local/py-utils/bin/pylint"
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.formatting.autopep8Path": "/usr/local/py-utils/bin/autopep8",
+        "python.formatting.blackPath": "/usr/local/py-utils/bin/black",
+        "python.formatting.yapfPath": "/usr/local/py-utils/bin/yapf",
+      },
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "matangover.mypy",
+        "ms-python.black-formatter",
+        "ms-python.isort",
+        "ms-python.pylint",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "Vue.volar"
+      ]
+    }
   },
-  // Add the IDs of extensions you want installed when the container is created.
-  "extensions": [
-    "dbaeumer.vscode-eslint",
-    "matangover.mypy",
-    "ms-python.black-formatter",
-    "ms-python.isort",
-    "ms-python.python",
-    "ms-python.vscode-pylance",
-    "Vue.volar"
-  ],
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   "forwardPorts": [
     3000,

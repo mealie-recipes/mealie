@@ -9,7 +9,7 @@
     <v-container v-if="report">
       <BaseCardSectionTitle :title="report.name"> </BaseCardSectionTitle>
 
-      <v-card-text> Report Id: {{ id }} </v-card-text>
+      <v-card-text> {{ $t('group.report-with-id', { id:id }) }} </v-card-text>
 
       <v-data-table :headers="itemHeaders" :items="report.entries" :items-per-page="50" show-expand>
         <template #item.success="{ item }">

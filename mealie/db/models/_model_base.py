@@ -20,5 +20,11 @@ class BaseMixins:
     `self.update` method which directly passing arguments to the `__init__`
     """
 
-    def update(self, *args, **kwarg):
-        self.__init__(*args, **kwarg)
+    def update(self, *args, **kwargs):
+        self.__init__(*args, **kwargs)
+
+        # sqlalchemy doesn't like this method to remove all instances of a 1:many relationship,
+        # so we explicitly check for that here
+        for k, v in kwargs.items():
+            if hasattr(self, k) and v == []:
+                setattr(self, k, v)

@@ -392,6 +392,11 @@ export default defineComponent({
       getMigrationReports,
     };
   },
+  head() {
+    return {
+      title: this.$tc("settings.migrations"),
+    };
+  },
 });
 </script>
 

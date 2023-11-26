@@ -2,7 +2,7 @@
   <div ref="el" :class="isOverDropZone ? 'over' : ''">
     <div v-if="isOverDropZone" class="overlay"></div>
     <div v-if="isOverDropZone" class="absolute text-container">
-      <p class="text-center drop-text">Drop Image</p>
+      <p class="text-center drop-text"> {{ $t("recipe.drop-image") }} </p>
     </div>
     <slot></slot>
   </div>
