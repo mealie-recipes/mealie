@@ -76,7 +76,8 @@
     "cookbook-events": "Eventos do Livro de Receitas",
     "tag-events": "Eventos de Etiqueta",
     "category-events": "Eventos de Categoria",
-    "when-a-new-user-joins-your-group": "Quando um novo usuário entrar no seu grupo"
+    "when-a-new-user-joins-your-group": "Quando um novo usuário entrar no seu grupo",
+    "recipe-events": "Recipe Events"
   },
   "general": {
     "cancel": "Cancelar",
@@ -114,6 +115,8 @@
     "keyword": "Palavra chave",
     "link-copied": "Link Copiado",
     "loading-events": "Carregando eventos",
+    "loading-recipe": "Loading recipe...",
+    "loading-ocr-data": "Loading OCR data...",
     "loading-recipes": "Carregando Receitas",
     "message": "Mensagem",
     "monday": "Segunda-feira",
@@ -193,7 +196,8 @@
     "export-all": "Exportar todos",
     "refresh": "Recarregar",
     "upload-file": "Enviar arquivo",
-    "created-on-date": "Criado em {0}"
+    "created-on-date": "Criado em {0}",
+    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Tem certeza que deseja excluir o grupo <b>{groupName}<b/>?",
@@ -208,6 +212,7 @@
     "group-id-with-value": "ID do grupo: {groupID}",
     "group-name": "Nome do Grupo",
     "group-not-found": "Grupo não encontrado",
+    "group-token": "Group Token",
     "group-with-value": "Grupo: {groupID}",
     "groups": "Grupos",
     "manage-groups": "Gerenciar Grupos",
@@ -243,6 +248,7 @@
     "general-preferences": "Preferências Gerais",
     "group-recipe-preferences": "Preferências de Grupo de Receitas",
     "report": "Denunciar",
+    "report-with-id": "Report ID: {id}",
     "group-management": "Gerenciamento de grupos",
     "admin-group-management": "Gerenciamento de Grupos Administrativos",
     "admin-group-management-text": "As alterações a este grupo serão refletidas imediatamente.",
@@ -507,6 +513,7 @@
     "message-key": "Chave de mensagem",
     "parse": "Analisar",
     "attach-images-hint": "Anexe imagens arrastando e soltando-as no editor",
+    "drop-image": "Drop image",
     "enable-ingredient-amounts-to-use-this-feature": "Ative quantidades de ingredientes para usar esta funcionalidade",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Receitas com unidades ou alimentos definidos não podem ser analisadas.",
     "parse-ingredients": "Analisar ingredientes",
@@ -564,14 +571,17 @@
     "tag-filter": "Filtro de Marcadores",
     "search-hint": "Pressione '/'",
     "advanced": "Avançado",
-    "auto-search": "Pesquisa automática"
+    "auto-search": "Pesquisa automática",
+    "no-results": "No results found"
   },
   "settings": {
     "add-a-new-theme": "Adicionar um novo tema",
     "admin-settings": "Configurações de Administrador",
     "backup": {
+      "backup-created": "Backup created successfully",
       "backup-created-at-response-export_path": "Backup criado em {path}",
       "backup-deleted": "Backup excluído",
+      "restore-success": "Restore successful",
       "backup-tag": "Etiqueta de Backup",
       "create-heading": "Criar um Backup",
       "delete-backup": "Excluir Backup",
@@ -680,11 +690,13 @@
     "configuration": "Configuração",
     "docker-volume": "Volume do Docker",
     "docker-volume-help": "Mealie requer que o contêiner frontend e o backend compartilhem o mesmo volume ou armazenamento do docker. Isto garante que o contêiner de frontend possa acessar corretamente as imagens e arquivos armazenados no disco.",
-    "volumes-are-misconfigured": "Volumes estão mal configurados",
+    "volumes-are-misconfigured": "Volumes are misconfigured.",
     "volumes-are-configured-correctly": "Volumes estão configurados corretamente.",
     "status-unknown-try-running-a-validation": "Status desconhecido. Tente executar uma validação.",
     "validate": "Validar",
     "email-configuration-status": "Status da configuração do e-mail",
+    "email-configured": "Email Configured",
+    "email-test-results": "Email Test Results",
     "ready": "Pronto",
     "not-ready": "Não está Pronto - Verificar variáveis ambientais",
     "succeeded": "Sucesso",
@@ -819,6 +831,7 @@
     "password-updated": "Senha modificada",
     "password": "Senha",
     "password-strength": "Senha é {strength}",
+    "please-enter-password": "Please enter your new password.",
     "register": "Registre-se",
     "reset-password": "Alterar senha",
     "sign-in": "Iniciar sessão",
@@ -839,6 +852,7 @@
     "username": "Nome de usuário",
     "users-header": "USUÁRIOS",
     "users": "Usuários",
+    "user-not-found": "User not found",
     "webhook-time": "Hora do Webhook",
     "webhooks-enabled": "Webhooks ativados",
     "you-are-not-allowed-to-create-a-user": "Você não tem permissão para criar um usuário",
@@ -861,6 +875,7 @@
     "user-management": "Gerenciamento de usuários",
     "reset-locked-users": "Redefinir Usuários Bloqueados",
     "admin-user-creation": "Criação de Usuário Administrativo",
+    "admin-user-management": "Admin User Management",
     "user-details": "Detalhes do Usuário",
     "user-name": "Nome do usuário",
     "authentication-method": "Método de autenticação",
@@ -872,7 +887,10 @@
     "user-can-organize-group-data": "Usuário pode organizar dados do grupo",
     "enable-advanced-features": "Ativar recursos avançados",
     "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
-    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!"
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
+    "forgot-password": "Forgot Password",
+    "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
+    "changes-reflected-immediately": "Changes to this user will be reflected immediately."
   },
   "language-dialog": {
     "translated": "traduzido",
@@ -974,6 +992,7 @@
   },
   "user-registration": {
     "user-registration": "Cadastro de usuário",
+    "registration-success": "Registration Success",
     "join-a-group": "Junte-se a um grupo",
     "create-a-new-group": "Criar Grupo",
     "provide-registration-token-description": "Forneça o token de registro associado ao grupo que deseja aderir. Você precisará obter isso de um membro de grupo existente.",
@@ -1020,6 +1039,7 @@
   },
   "ocr-editor": {
     "ocr-editor": "Editor OCR",
+    "toolbar": "Toolbar",
     "selection-mode": "Modo de seleção",
     "pan-and-zoom-picture": "Imagem pan e zoom",
     "split-text": "Dividir texto",
@@ -1027,6 +1047,8 @@
     "split-by-block": "Dividir por bloco de texto",
     "flatten": "Achatar independentemente da formatação original",
     "help": {
+      "help": "Help",
+      "mouse-modes": "Mouse modes",
       "selection-mode": "Modo de Seleção (Padrão)",
       "selection-mode-desc": "O modo de seleção é o modo principal que pode ser usado para inserir dados:",
       "selection-mode-steps": {

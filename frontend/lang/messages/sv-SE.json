@@ -76,7 +76,8 @@
     "cookbook-events": "Kokbokshändelser",
     "tag-events": "Tagga händelser",
     "category-events": "Kategorihändelser",
-    "when-a-new-user-joins-your-group": "När en ny användare går med i din grupp"
+    "when-a-new-user-joins-your-group": "När en ny användare går med i din grupp",
+    "recipe-events": "Recipe Events"
   },
   "general": {
     "cancel": "Avbryt",
@@ -114,6 +115,8 @@
     "keyword": "Nyckelord",
     "link-copied": "Länk kopierad",
     "loading-events": "Laddar händelser",
+    "loading-recipe": "Loading recipe...",
+    "loading-ocr-data": "Loading OCR data...",
     "loading-recipes": "Laddar Recept",
     "message": "Meddelande",
     "monday": "Måndag",
@@ -193,7 +196,8 @@
     "export-all": "Exportera allt",
     "refresh": "Uppdatera",
     "upload-file": "Ladda upp fil",
-    "created-on-date": "Skapad {0}"
+    "created-on-date": "Skapad {0}",
+    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Är du säker på att du vill radera <b>{groupName}<b/>?",
@@ -208,6 +212,7 @@
     "group-id-with-value": "Grupp ID: {groupID}",
     "group-name": "Gruppnamn",
     "group-not-found": "Grupp ej funnen",
+    "group-token": "Group Token",
     "group-with-value": "Grupp: {groupID}",
     "groups": "Grupper",
     "manage-groups": "Hantera grupper",
@@ -243,6 +248,7 @@
     "general-preferences": "Generella inställningar",
     "group-recipe-preferences": "Inställningar för receptgrupper",
     "report": "Rapport",
+    "report-with-id": "Report ID: {id}",
     "group-management": "Grupphantering",
     "admin-group-management": "Hantering av administratörsgrupp",
     "admin-group-management-text": "Ändringar i denna grupp kommer att återspeglas omedelbart.",
@@ -297,7 +303,7 @@
     "for-type-meal-types": "för {0} måltidstyper",
     "meal-plan-rules": "Regler för måltidsplan",
     "new-rule": "Ny Regel",
-    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
+    "meal-plan-rules-description": "Du kan skapa regler för att automatisk väja av recept för din måltidsplanerare. Dessa regler används av servern för att bestämma den slumpmässiga poolen av recept att välja från när du skapar måltidsplaner. Observera att om reglerna har samma dag/typ-begränsningar så kommer kategorierna av reglerna att slås samman. I praktiken är det onödigt att skapa dubbla regler, men det går att göra det.",
     "new-rule-description": "När du skapar en ny regel för en måltidsplan kan du begränsa regeln för en viss veckodag och/eller en viss typ av måltid. För att tillämpa en regel på alla dagar eller alla måltidstyper kan du ställa in regeln till \"Any\" som kommer att tillämpa den på alla möjliga värden för dagen och/eller måltidstypen.",
     "recipe-rules": "Recept regler",
     "applies-to-all-days": "Gäller för alla dagar",
@@ -326,22 +332,22 @@
       "title": "Copy Me That Recipe Manager"
     },
     "paprika": {
-      "description-long": "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
+      "description-long": "Mealie kan importera recept från Paprika-applikationen. Exportera dina recept från paprika, byt namn på exporttillägget till .zip och ladda upp det nedan.",
       "title": "Paprika Recipe Manager"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
+      "description-long": "Mealie kan importera recept från Mealieapplikationen från en pre v1.0 release. Exportera dina recept från din gamla instans, och ladda upp zip-filen nedan. Observera att endast recept kan importeras från exporten.",
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
-      "description-long": "Mealie can import recipes from Tandoor. Export your data in the \"Default\" format, then upload the .zip below.",
-      "title": "Tandoor Recipes"
+      "description-long": "Mealie kan importera recept från Tandoor. Exportera dina data i \"Standard\"-format, ladda sedan upp .zip nedan.",
+      "title": "Tandoor-recept"
     },
     "recipe-data-migrations": "Migrering av receptdata",
-    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie.",
+    "recipe-data-migrations-explanation": "Recept kan migreras från en annan applikation som stöds till Mealie. Detta är ett bra sätt att komma igång med Mealie.",
     "choose-migration-type": "Välj migrationstyp",
     "tag-all-recipes": "Tagga alla recept med {tag-name} tagg",
-    "nextcloud-text": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
+    "nextcloud-text": "Nextcloud-recept kan importeras från en zip-fil som innehåller data som lagras i Nextcloud. Se exempelmappens struktur nedan för att säkerställa att dina recept kan importeras.",
     "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below",
     "recipe-1": "Recept 1",
     "recipe-2": "Recept 2",
@@ -349,7 +355,7 @@
     "mealie-text": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
     "plantoeat": {
       "title": "Plan to Eat",
-      "description-long": "Mealie can import recipies from Plan to Eat."
+      "description-long": "Mealie kan importera recept från Plan to Eat."
     }
   },
   "new-recipe": {
@@ -372,7 +378,7 @@
     "split-by-numbered-line-description": "Försök att dela ett stycke genom att matcha mönstret '1)' eller '1.'",
     "import-by-url": "Importera recept via URL",
     "create-manually": "Skapa recept manuellt",
-    "make-recipe-image": "Make this the recipe image"
+    "make-recipe-image": "Gör detta till receptbild"
   },
   "page": {
     "404-page-not-found": "404 sidan hittades inte",
@@ -463,9 +469,9 @@
     "add-to-plan": "Lägg till i plan",
     "add-to-timeline": "Lägg till i tidslinje",
     "recipe-added-to-list": "Recept tillagt i listan",
-    "recipes-added-to-list": "Recipes added to list",
+    "recipes-added-to-list": "Recept tillagt i listan",
     "recipe-added-to-mealplan": "Recept tillagt i måltidsplanen",
-    "failed-to-add-recipes-to-list": "Failed to add recipe to list",
+    "failed-to-add-recipes-to-list": "Det gick inte att lägga till recept till listan",
     "failed-to-add-recipe-to-mealplan": "Det gick inte att lägga till recept i måltidsplanen",
     "yield": "Ger",
     "quantity": "Antal",
@@ -507,6 +513,7 @@
     "message-key": "Meddelandenyckel",
     "parse": "Läs in",
     "attach-images-hint": "Bifoga bilder genom att dra och släppa dem i redigeraren",
+    "drop-image": "Drop image",
     "enable-ingredient-amounts-to-use-this-feature": "Aktivera ingrediensmängd för att använda denna funktion",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Recept med enheter eller definierade livsmedel kan inte tolkas.",
     "parse-ingredients": "Tolka ingredienser",
@@ -564,14 +571,17 @@
     "tag-filter": "Taggfilter",
     "search-hint": "Tryck '/'",
     "advanced": "Avancerat",
-    "auto-search": "Autosök"
+    "auto-search": "Autosök",
+    "no-results": "No results found"
   },
   "settings": {
     "add-a-new-theme": "Lägg till ett nytt tema",
     "admin-settings": "Administratörsinställningar",
     "backup": {
+      "backup-created": "Backup created successfully",
       "backup-created-at-response-export_path": "Backup skapad {path}",
       "backup-deleted": "Backup raderad",
+      "restore-success": "Restore successful",
       "backup-tag": "Backup tagg",
       "create-heading": "Skapa en säkerhetskopia",
       "delete-backup": "Ta bort säkerhetskopian",
@@ -680,11 +690,13 @@
     "configuration": "Konfiguration",
     "docker-volume": "Docker volym",
     "docker-volume-help": "Mealie requires that the frontend container and the backend share the same docker volume or storage. This ensures that the frontend container can properly access the images and assets stored on disk.",
-    "volumes-are-misconfigured": "Volumes are misconfigured",
+    "volumes-are-misconfigured": "Volumes are misconfigured.",
     "volumes-are-configured-correctly": "Volumes are configured correctly.",
     "status-unknown-try-running-a-validation": "Status Unknown. Try running a validation.",
     "validate": "Validera",
     "email-configuration-status": "Email Configuration Status",
+    "email-configured": "Email Configured",
+    "email-test-results": "Email Test Results",
     "ready": "Redo",
     "not-ready": "Inte redo - Kontrollera miljövariabler",
     "succeeded": "Lyckades",
@@ -819,6 +831,7 @@
     "password-updated": "Lösenord uppdaterat",
     "password": "Lösenord",
     "password-strength": "Lösenordsstyrka {strength}",
+    "please-enter-password": "Please enter your new password.",
     "register": "Registrering",
     "reset-password": "Ändra lösenord",
     "sign-in": "Logga in",
@@ -839,6 +852,7 @@
     "username": "Användarnamn",
     "users-header": "ANVÄNDARE",
     "users": "Användare",
+    "user-not-found": "User not found",
     "webhook-time": "Webbhook tid",
     "webhooks-enabled": "Webhooks aktiverat",
     "you-are-not-allowed-to-create-a-user": "Du har inte behörighet att skapa en användare",
@@ -861,6 +875,7 @@
     "user-management": "Användarhantering",
     "reset-locked-users": "Återställ låsta användare",
     "admin-user-creation": "Skapande av adminanvändare",
+    "admin-user-management": "Admin User Management",
     "user-details": "Användarinformation",
     "user-name": "Användarnamn",
     "authentication-method": "Autentiseringsmetod",
@@ -871,8 +886,11 @@
     "user-can-manage-group": "Användare kan hantera grupp",
     "user-can-organize-group-data": "Användaren kan organisera gruppdata",
     "enable-advanced-features": "Aktivera avancerade funktioner",
-    "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
-    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!"
+    "it-looks-like-this-is-your-first-time-logging-in": "Det ser ut som om detta är första gången du loggar in.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Vill du inte se detta längre? Se till att ändra din e-post i dina användarinställningar!",
+    "forgot-password": "Forgot Password",
+    "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
+    "changes-reflected-immediately": "Changes to this user will be reflected immediately."
   },
   "language-dialog": {
     "translated": "översatt",
@@ -894,8 +912,8 @@
       "food-label": "Mat etikett",
       "edit-food": "Redigera mat",
       "food-data": "Mat data",
-      "example-food-singular": "ex: Onion",
-      "example-food-plural": "ex: Onions"
+      "example-food-singular": "ex: Lök",
+      "example-food-plural": "ex: Lökar"
     },
     "units": {
       "seed-dialog-text": "Fyll databasen med vanliga enheter baserade på ditt språk.",
@@ -909,15 +927,15 @@
       "plural-abbreviation": "Plural Abbreviation",
       "description": "Beskrivning",
       "display-as-fraction": "Display as Fraction",
-      "use-abbreviation": "Use Abbreviation",
+      "use-abbreviation": "Använd förkortning",
       "edit-unit": "Redigera enhet",
       "unit-data": "Enhetsdata",
       "use-abbv": "Use Abbv.",
       "fraction": "Fraction",
-      "example-unit-singular": "ex: Tablespoon",
-      "example-unit-plural": "ex: Tablespoons",
-      "example-unit-abbreviation-singular": "ex: Tbsp",
-      "example-unit-abbreviation-plural": "ex: Tbsps"
+      "example-unit-singular": "ex: Matsked",
+      "example-unit-plural": "ex: Matskedar",
+      "example-unit-abbreviation-singular": "ex: msk",
+      "example-unit-abbreviation-plural": "ex: msk"
     },
     "labels": {
       "seed-dialog-text": "Fyll databasen med vanliga etiketter baserade på ditt språk.",
@@ -934,9 +952,9 @@
       "selected-length-recipe-s-settings-will-be-updated": "{count} recipe(s) settings will be updated.",
       "recipe-data": "Recept data",
       "recipe-data-description": "Use this section to manage the data associated with your recipes. You can perform several bulk actions on your recipes including exporting, deleting, tagging, and assigning categories.",
-      "recipe-columns": "Recipe Columns",
+      "recipe-columns": "Receptkolumner",
       "data-exports-description": "This section provides links to available exports that are ready to download. These exports do expire, so be sure to grab them while they're still available.",
-      "data-exports": "Data Exports",
+      "data-exports": "Dataexport",
       "tag": "Tagg",
       "categorize": "Kategorisera",
       "update-settings": "Uppdatera inställningar",
@@ -946,7 +964,7 @@
       "delete-recipes": "Radera recept",
       "source-unit-will-be-deleted": "Source Unit will be deleted"
     },
-    "create-alias": "Create Alias",
+    "create-alias": "Skapa alias",
     "manage-aliases": "Manage Aliases",
     "seed-data": "Exempeldata",
     "seed": "Seed",
@@ -957,23 +975,24 @@
     "columns": "Kolumner",
     "combine": "Kombinera",
     "categories": {
-      "edit-category": "Edit Category",
-      "new-category": "New Category",
+      "edit-category": "Redigera kategori",
+      "new-category": "Ny kategori",
       "category-data": "Category Data"
     },
     "tags": {
-      "new-tag": "New Tag",
-      "edit-tag": "Edit Tag",
-      "tag-data": "Tag Data"
+      "new-tag": "Ny Tag",
+      "edit-tag": "Redigera Tagg",
+      "tag-data": "Tagga data"
     },
     "tools": {
-      "new-tool": "New Tool",
-      "edit-tool": "Edit Tool",
+      "new-tool": "Nytt verktyg",
+      "edit-tool": "Lägg till/ta bort verktyg",
       "tool-data": "Tool Data"
     }
   },
   "user-registration": {
     "user-registration": "Användarregistrering",
+    "registration-success": "Registration Success",
     "join-a-group": "Gå med i en grupp",
     "create-a-new-group": "Skapa en ny grupp",
     "provide-registration-token-description": "Ange registreringstoken som är kopplad till den grupp som du vill gå med. Du måste få detta från en befintlig gruppmedlem.",
@@ -1020,14 +1039,17 @@
   },
   "ocr-editor": {
     "ocr-editor": "Ocr editor",
-    "selection-mode": "Selection mode",
+    "toolbar": "Toolbar",
+    "selection-mode": "Markeringsläge",
     "pan-and-zoom-picture": "Pan and zoom picture",
     "split-text": "Dela text",
     "preserve-line-breaks": "Preserve original line breaks",
     "split-by-block": "Split by text block",
     "flatten": "Flatten regardless of original formating",
     "help": {
-      "selection-mode": "Selection Mode (default)",
+      "help": "Help",
+      "mouse-modes": "Mouse modes",
+      "selection-mode": "Markeringsläge (standard)",
       "selection-mode-desc": "The selection mode is the main mode that can be used to enter data:",
       "selection-mode-steps": {
         "draw": "Draw a rectangle on the text you want to select.",
