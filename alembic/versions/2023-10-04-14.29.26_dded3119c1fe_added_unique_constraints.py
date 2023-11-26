@@ -123,7 +123,7 @@ def _resolve_duplicate_label(
     session.commit()
 
 
-def _resolve_duplivate_foods_units_labels():
+def _resolve_duplicate_foods_units_labels():
     bind = op.get_bind()
     session = Session(bind=bind)
 
@@ -175,7 +175,7 @@ def _remove_duplicates_from_m2m_tables(table_metas: list[TableMeta]):
 
 
 def upgrade():
-    _resolve_duplivate_foods_units_labels()
+    _resolve_duplicate_foods_units_labels()
     _remove_duplicates_from_m2m_tables(
         [
             TableMeta("cookbooks_to_categories", "cookbook_id", "category_id"),
