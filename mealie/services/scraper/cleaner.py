@@ -6,6 +6,9 @@ import operator
 import re
 import typing
 from datetime import datetime, timedelta
+from mealie.core.root_logger import get_logger
+
+logger = get_logger("recipe-scraper")
 
 from slugify import slugify
 
@@ -368,7 +371,8 @@ def clean_time(time_entry: str | timedelta | None) -> None | str:
             # TODO: Not sure what to do here
             return str(time_entry)
         case _:
-            TypeError(f"Unexpected type for time: {type(time_entry)}, {time_entry}")
+            logger.warning("[SCRAPER] Unexpected type or Structure for time_entrys")
+            return None
 
 
 def parse_duration(iso_duration: str) -> timedelta:
