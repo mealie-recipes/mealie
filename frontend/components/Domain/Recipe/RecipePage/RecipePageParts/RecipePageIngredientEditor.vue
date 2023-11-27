@@ -26,7 +26,7 @@
       </TransitionGroup>
     </draggable>
     <v-skeleton-loader v-else boilerplate elevation="2" type="list-item"> </v-skeleton-loader>
-    <div class="d-flex flex-wrap justify-center justify-sm-end mt-2">
+    <div class="d-flex flex-wrap justify-center justify-sm-end mt-3">
       <v-tooltip top color="accent">
         <template #activator="{ on, attrs }">
           <span v-on="on">

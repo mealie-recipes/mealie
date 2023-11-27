@@ -76,7 +76,8 @@
     "cookbook-events": "Події кулінарної книги",
     "tag-events": "Події міток",
     "category-events": "Події категорій",
-    "when-a-new-user-joins-your-group": "Коли новий користувач приєднується до групи"
+    "when-a-new-user-joins-your-group": "Коли новий користувач приєднується до групи",
+    "recipe-events": "Події рецепту"
   },
   "general": {
     "cancel": "Скасувати",
@@ -114,6 +115,8 @@
     "keyword": "Ключове слово",
     "link-copied": "Посилання скопійовано",
     "loading-events": "Завантаження подій",
+    "loading-recipe": "Завантаження рецепта...",
+    "loading-ocr-data": "Завантаження даних OCR...",
     "loading-recipes": "Завантаження рецептів",
     "message": "Повідомлення",
     "monday": "Понеділок",
@@ -193,7 +196,8 @@
     "export-all": "Експортувати Всі",
     "refresh": "Оновити",
     "upload-file": "Вивантажити файл",
-    "created-on-date": "Створено: {0}"
+    "created-on-date": "Створено: {0}",
+    "unsaved-changes": "У вас є незбережені зміни. Ви хочете зберегти їх перед виходом? Гаразд, щоб зберегти, Скасувати, щоб скасувати."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Ви дійсно бажаєте видалити <b>{groupName}<b/>?",
@@ -208,6 +212,7 @@
     "group-id-with-value": "ID групи: {groupID}",
     "group-name": "Назва групи",
     "group-not-found": "Групу не знайдено",
+    "group-token": "Ключ групи",
     "group-with-value": "Група: {groupID}",
     "groups": "Групи",
     "manage-groups": "Керування Групами",
@@ -243,6 +248,7 @@
     "general-preferences": "Загальні налаштування",
     "group-recipe-preferences": "Групові налаштування рецептів",
     "report": "Звіт",
+    "report-with-id": "Ідентифікатор звіту: {id}",
     "group-management": "Керування групами",
     "admin-group-management": "Керування Групами Адміністратора",
     "admin-group-management-text": "Зміни до цієї групи будуть відображені негайно.",
@@ -463,9 +469,9 @@
     "add-to-plan": "Додати до плану",
     "add-to-timeline": "Додати до хроніки",
     "recipe-added-to-list": "Рецепт додано до списку",
-    "recipes-added-to-list": "Recipes added to list",
+    "recipes-added-to-list": "Рецепти додані до списку",
     "recipe-added-to-mealplan": "Рецепт додано до плану харчування",
-    "failed-to-add-recipes-to-list": "Failed to add recipe to list",
+    "failed-to-add-recipes-to-list": "Не вдалося додати рецепт до списку",
     "failed-to-add-recipe-to-mealplan": "Не вдалося додати рецепт до плану харчування",
     "yield": "Вихід",
     "quantity": "Кількість",
@@ -507,6 +513,7 @@
     "message-key": "Ключ повідомлення",
     "parse": "Проаналізувати",
     "attach-images-hint": "Прикріпіть зображення, перетягнувши їх у редактор",
+    "drop-image": "Перетягніть зображення",
     "enable-ingredient-amounts-to-use-this-feature": "Увімкніть кількість інгредієнтів, щоб використовувати цю функцію",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Рецепти з визначеними одиницями або продуктами не можна проаналізувати.",
     "parse-ingredients": "Проаналізувати інгредієнти",
@@ -564,14 +571,17 @@
     "tag-filter": "Фільтр міток",
     "search-hint": "Натисніть '/'",
     "advanced": "Розширений",
-    "auto-search": "Автопошук"
+    "auto-search": "Автопошук",
+    "no-results": "Нічого не знайдено"
   },
   "settings": {
     "add-a-new-theme": "Додати нову тему",
     "admin-settings": "Адміністративні налаштування",
     "backup": {
+      "backup-created": "Резервну копію створено успішно",
       "backup-created-at-response-export_path": "Резервна копія створена {path}",
       "backup-deleted": "Резервна копія видалена",
+      "restore-success": "Відновлення успішне",
       "backup-tag": "Мітка резервної копії",
       "create-heading": "Створити резервну копію",
       "delete-backup": "Видалити резервну копію",
@@ -680,11 +690,13 @@
     "configuration": "Конфігурація",
     "docker-volume": "Docker том",
     "docker-volume-help": "Mealie треба, щоб фронтенд і бекенд контейнери мали доступ то однакового docker тому або пам'яті. Це гарантує, що фронтенд контейнер може належним чином отримати доступ до зображень і даних, що зберігаються на диску.",
-    "volumes-are-misconfigured": "Томи налаштовано неправильно",
+    "volumes-are-misconfigured": "Томи налаштовано неправильно.",
     "volumes-are-configured-correctly": "Томи налаштовані правильно.",
     "status-unknown-try-running-a-validation": "Статус невідомий. Спробуйте виконати перевірку.",
     "validate": "Перевірити",
     "email-configuration-status": "Статус налаштування електронної пошти",
+    "email-configured": "Електронну пошту налаштовано",
+    "email-test-results": "Результати тестування електронної пошти",
     "ready": "Готово",
     "not-ready": "Не готово - перевірте змінні середовища",
     "succeeded": "Успішно",
@@ -819,6 +831,7 @@
     "password-updated": "Пароль оновлено",
     "password": "Пароль",
     "password-strength": "Надійність пароля {strength}",
+    "please-enter-password": "Будь ласка, введіть новий пароль.",
     "register": "Зареєструватися",
     "reset-password": "Скинути пароль",
     "sign-in": "Увійти",
@@ -839,6 +852,7 @@
     "username": "Ім'я користувача",
     "users-header": "КОРИСТУВАЧІ",
     "users": "Користувачі",
+    "user-not-found": "Користувача не знайдено",
     "webhook-time": "Час вебхука",
     "webhooks-enabled": "Веб-хуки увімкнено",
     "you-are-not-allowed-to-create-a-user": "Вам не дозволено створювати користувача",
@@ -861,6 +875,7 @@
     "user-management": "Керування користувачами",
     "reset-locked-users": "Скинути заблокованих користувачів",
     "admin-user-creation": "Створення Адміністратора",
+    "admin-user-management": "Управління адміністраторами",
     "user-details": "Інформація про користувача",
     "user-name": "Ім'я користувача",
     "authentication-method": "Метод аутентифікації",
@@ -872,7 +887,10 @@
     "user-can-organize-group-data": "Користувач може впорядковувати дані групи",
     "enable-advanced-features": "Увімкнути додаткові функції",
     "it-looks-like-this-is-your-first-time-logging-in": "Схоже, ви заходите вперше.",
-    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Більше не хочете це бачити? Обов'язково змініть адресу електронної пошти в налаштуваннях користувача!"
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Більше не хочете це бачити? Обов'язково змініть адресу електронної пошти в налаштуваннях користувача!",
+    "forgot-password": "Нагадати пароль",
+    "forgot-password-text": "Будь ласка, введіть адресу вашої електронної пошти й вам надійде повідомлення, щоб відновити пароль.",
+    "changes-reflected-immediately": "Зміни для цього користувача будуть негайно відображені."
   },
   "language-dialog": {
     "translated": "перекладено",
@@ -957,23 +975,24 @@
     "columns": "Стовпці",
     "combine": "Об'єднати",
     "categories": {
-      "edit-category": "Edit Category",
-      "new-category": "New Category",
-      "category-data": "Category Data"
+      "edit-category": "Редагувати категорію",
+      "new-category": "Створити категорію",
+      "category-data": "Дані категорії"
     },
     "tags": {
-      "new-tag": "New Tag",
-      "edit-tag": "Edit Tag",
-      "tag-data": "Tag Data"
+      "new-tag": "Створити мітку",
+      "edit-tag": "Редагувати мітку",
+      "tag-data": "Помітити дані"
     },
     "tools": {
-      "new-tool": "New Tool",
-      "edit-tool": "Edit Tool",
-      "tool-data": "Tool Data"
+      "new-tool": "Новий інструмент",
+      "edit-tool": "Редагувати інструмент",
+      "tool-data": "Дані інструмента"
     }
   },
   "user-registration": {
     "user-registration": "Реєстрація користувачів",
+    "registration-success": "Реєстрація успішна",
     "join-a-group": "Долучитись до групи",
     "create-a-new-group": "Створити нову групу",
     "provide-registration-token-description": "Будь ласка, вкажіть реєстраційний ключ, пов'язаний з групою, до якої ви хочете приєднатися. Цей токен потрібно буде отримати від існуючого члена групи.",
@@ -1020,6 +1039,7 @@
   },
   "ocr-editor": {
     "ocr-editor": "Редактор Ocr",
+    "toolbar": "Панель інструментів",
     "selection-mode": "Режим вибору",
     "pan-and-zoom-picture": "Панорамування та маштаб зображення",
     "split-text": "Розділити текст",
@@ -1027,6 +1047,8 @@
     "split-by-block": "Розділити текст по-блочно",
     "flatten": "Вирівняти незважаючи на початкове форматування",
     "help": {
+      "help": "Довідка",
+      "mouse-modes": "Режими миші",
       "selection-mode": "Режим вибору (за замовчуванням)",
       "selection-mode-desc": "Режим вибору - основний режим, який може використовуватися для введення даних:",
       "selection-mode-steps": {

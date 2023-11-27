@@ -76,7 +76,8 @@
     "cookbook-events": "Cookbook Events",
     "tag-events": "Tag Events",
     "category-events": "Category Events",
-    "when-a-new-user-joins-your-group": "When a new user joins your group"
+    "when-a-new-user-joins-your-group": "When a new user joins your group",
+    "recipe-events": "Recipe Events"
   },
   "general": {
     "cancel": "Prekliči",
@@ -114,6 +115,8 @@
     "keyword": "Ključna beseda",
     "link-copied": "Povezava kopirana",
     "loading-events": "Loading Events",
+    "loading-recipe": "Loading recipe...",
+    "loading-ocr-data": "Loading OCR data...",
     "loading-recipes": "Nalagam recepte",
     "message": "Message",
     "monday": "Ponedeljek",
@@ -193,7 +196,8 @@
     "export-all": "Export All",
     "refresh": "Refresh",
     "upload-file": "Upload File",
-    "created-on-date": "Created on: {0}"
+    "created-on-date": "Created on: {0}",
+    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Ste prepričani, da želite izbrisati <b>{groupName}<b/>?",
@@ -208,6 +212,7 @@
     "group-id-with-value": "ID skupine: {groupID}",
     "group-name": "Ime skupine",
     "group-not-found": "Ne najdem skupine",
+    "group-token": "Group Token",
     "group-with-value": "Skupina: {groupID}",
     "groups": "Skupine",
     "manage-groups": "Upravljanje skupin",
@@ -243,6 +248,7 @@
     "general-preferences": "General Preferences",
     "group-recipe-preferences": "Group Recipe Preferences",
     "report": "Report",
+    "report-with-id": "Report ID: {id}",
     "group-management": "Group Management",
     "admin-group-management": "Admin Group Management",
     "admin-group-management-text": "Changes to this group will be reflected immediately.",
@@ -507,6 +513,7 @@
     "message-key": "Message Key",
     "parse": "Parse",
     "attach-images-hint": "Attach images by dragging & dropping them into the editor",
+    "drop-image": "Drop image",
     "enable-ingredient-amounts-to-use-this-feature": "Enable ingredient amounts to use this feature",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Recipes with units or foods defined cannot be parsed.",
     "parse-ingredients": "Parse ingredients",
@@ -564,14 +571,17 @@
     "tag-filter": "Filter oznak",
     "search-hint": "Pritisni '/'",
     "advanced": "Advanced",
-    "auto-search": "Auto Search"
+    "auto-search": "Auto Search",
+    "no-results": "No results found"
   },
   "settings": {
     "add-a-new-theme": "Dodaj novo temo",
     "admin-settings": "Administratorske nastavitve",
     "backup": {
+      "backup-created": "Backup created successfully",
       "backup-created-at-response-export_path": "Varnostna kopija ustvarjena v {path}",
       "backup-deleted": "Varnostna kopija je izbrisana",
+      "restore-success": "Restore successful",
       "backup-tag": "Oznaka varnostne kopije",
       "create-heading": "Izdelaj varnostno kopijo",
       "delete-backup": "Izbriši varnostno kopijo",
@@ -680,11 +690,13 @@
     "configuration": "Configuration",
     "docker-volume": "Docker Volume",
     "docker-volume-help": "Mealie requires that the frontend container and the backend share the same docker volume or storage. This ensures that the frontend container can properly access the images and assets stored on disk.",
-    "volumes-are-misconfigured": "Volumes are misconfigured",
+    "volumes-are-misconfigured": "Volumes are misconfigured.",
     "volumes-are-configured-correctly": "Volumes are configured correctly.",
     "status-unknown-try-running-a-validation": "Status Unknown. Try running a validation.",
     "validate": "Validate",
     "email-configuration-status": "Email Configuration Status",
+    "email-configured": "Email Configured",
+    "email-test-results": "Email Test Results",
     "ready": "Ready",
     "not-ready": "Not Ready - Check Environmental Variables",
     "succeeded": "Succeeded",
@@ -819,6 +831,7 @@
     "password-updated": "Geslo posodobljeno",
     "password": "Geslo",
     "password-strength": "Moč gesla {strength}",
+    "please-enter-password": "Please enter your new password.",
     "register": "Registriraj se",
     "reset-password": "Ponastavi geslo",
     "sign-in": "Vpis",
@@ -839,6 +852,7 @@
     "username": "Uporabniško ime",
     "users-header": "UPORABNIKI",
     "users": "Uporabniki",
+    "user-not-found": "User not found",
     "webhook-time": "Webhook čas",
     "webhooks-enabled": "Webhook-i omogočeni",
     "you-are-not-allowed-to-create-a-user": "Nimate pravic za ustvarjanje uporabnika",
@@ -861,6 +875,7 @@
     "user-management": "User Management",
     "reset-locked-users": "Reset Locked Users",
     "admin-user-creation": "Admin User Creation",
+    "admin-user-management": "Admin User Management",
     "user-details": "User Details",
     "user-name": "User Name",
     "authentication-method": "Authentication Method",
@@ -872,7 +887,10 @@
     "user-can-organize-group-data": "User can organize group data",
     "enable-advanced-features": "Enable advanced features",
     "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
-    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!"
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
+    "forgot-password": "Forgot Password",
+    "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
+    "changes-reflected-immediately": "Changes to this user will be reflected immediately."
   },
   "language-dialog": {
     "translated": "prevedeno",
@@ -974,6 +992,7 @@
   },
   "user-registration": {
     "user-registration": "Registracija uporabnika",
+    "registration-success": "Registration Success",
     "join-a-group": "Pridruži se skupini",
     "create-a-new-group": "Ustvarite novo skupino",
     "provide-registration-token-description": "Prosim pridobite registracijski žeton povezan s skupino, ki se ji želite pridružiti. Pridobiti ga boste morali od obstoječega člana skupine.",
@@ -1020,6 +1039,7 @@
   },
   "ocr-editor": {
     "ocr-editor": "Ocr urejevalnik",
+    "toolbar": "Toolbar",
     "selection-mode": "Način izbiranja",
     "pan-and-zoom-picture": "Premikanje in povečava slike",
     "split-text": "Razdeli tekst",
@@ -1027,6 +1047,8 @@
     "split-by-block": "Razdeli razdelke teksta",
     "flatten": "Združi ne glede na prvotno oblikovanje",
     "help": {
+      "help": "Help",
+      "mouse-modes": "Mouse modes",
       "selection-mode": "Način izbiranje (privzeto)",
       "selection-mode-desc": "Način izbiranje je glavni način, ki se ga uporablja za vnos podatkov:",
       "selection-mode-steps": {

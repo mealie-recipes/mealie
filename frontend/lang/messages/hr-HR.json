@@ -76,7 +76,8 @@
     "cookbook-events": "Događaji Zbirke recepata",
     "tag-events": "Događaji Oznaka",
     "category-events": "Događaji Kategorija",
-    "when-a-new-user-joins-your-group": "Kada se novi korisnik pridruži vašoj grupi"
+    "when-a-new-user-joins-your-group": "Kada se novi korisnik pridruži vašoj grupi",
+    "recipe-events": "Recipe Events"
   },
   "general": {
     "cancel": "Odustani",
@@ -114,6 +115,8 @@
     "keyword": "Ključna riječ",
     "link-copied": "Poveznica kopirana",
     "loading-events": "Učitavanje događaja",
+    "loading-recipe": "Loading recipe...",
+    "loading-ocr-data": "Loading OCR data...",
     "loading-recipes": "Učitavanje Recepata",
     "message": "Poruka",
     "monday": "Ponedjeljak",
@@ -193,7 +196,8 @@
     "export-all": "Izvezi Sve",
     "refresh": "Osvježi",
     "upload-file": "Prenesi Datoteku",
-    "created-on-date": "Kreirano dana: {0}"
+    "created-on-date": "Kreirano dana: {0}",
+    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Jeste li sigurni da želite izbrisati <b>{groupName}<b/>?",
@@ -208,6 +212,7 @@
     "group-id-with-value": "ID grupe: {groupID}",
     "group-name": "Naziv Grupe",
     "group-not-found": "Grupa nije pronađena",
+    "group-token": "Group Token",
     "group-with-value": "Grupa: {groupID}",
     "groups": "Grupe",
     "manage-groups": "Upravljaj Grupama",
@@ -243,6 +248,7 @@
     "general-preferences": "Opće postavke",
     "group-recipe-preferences": "Postavke Recepata Grupe",
     "report": "Izvješće",
+    "report-with-id": "Report ID: {id}",
     "group-management": "Upravljanje Grupom",
     "admin-group-management": "Upravljanje Grupom od strane Administratora",
     "admin-group-management-text": "Promjene u ovoj grupi će se odmah odraziti.",
@@ -507,6 +513,7 @@
     "message-key": "Ključ poruke",
     "parse": "Razluči (parsiraj)",
     "attach-images-hint": "Priložite slike povlačenjem i ispuštanjem u uređivaču",
+    "drop-image": "Drop image",
     "enable-ingredient-amounts-to-use-this-feature": "Omogući korištenje količina sastojaka za ovu značajku",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Recepti s definiranim jedinicama ili namirnicama ne mogu se razlučiti (parsirati).",
     "parse-ingredients": "Razluči (parsiraj) sastojke",
@@ -564,14 +571,17 @@
     "tag-filter": "Filter Oznaka",
     "search-hint": "Pritisni '/'",
     "advanced": "Napredno",
-    "auto-search": "Auto Pretraga"
+    "auto-search": "Auto Pretraga",
+    "no-results": "No results found"
   },
   "settings": {
     "add-a-new-theme": "Dodaj Novu Temu",
     "admin-settings": "Admin Postavke",
     "backup": {
+      "backup-created": "Backup created successfully",
       "backup-created-at-response-export_path": "Sigurnosna Kopija Kreirana na lokaciji {path}",
       "backup-deleted": "Sigurnosna kopija izbrisana",
+      "restore-success": "Restore successful",
       "backup-tag": "Sigurnosna kopija Oznake",
       "create-heading": "Kreiraj sigurnosnu kopiju",
       "delete-backup": "Izbriši sigurnosnu kopiju",
@@ -680,11 +690,13 @@
     "configuration": "Konfiguracija",
     "docker-volume": "Docker Volumen",
     "docker-volume-help": "Mealie zahtijeva da frontend kontejner i backend dijele isti Docker volumen ili pohranu. To osigurava da frontend kontejner pravilno pristupa slikama i resursima pohranjenim na disku.",
-    "volumes-are-misconfigured": "Volumeni su neispravno konfigurirani",
+    "volumes-are-misconfigured": "Volumes are misconfigured.",
     "volumes-are-configured-correctly": "Volumeni su ispravno konfigurirani.",
     "status-unknown-try-running-a-validation": "Status nepoznat. Pokušajte pokrenuti provjeru valjanosti.",
     "validate": "Valjanost",
     "email-configuration-status": "Status E-mail Konfiguracije",
+    "email-configured": "Email Configured",
+    "email-test-results": "Email Test Results",
     "ready": "Spremno",
     "not-ready": "Nije spremno - Provjerite Okolišne Varijable ili eng.: \"Environmental Variables\"",
     "succeeded": "Uspijelo je",
@@ -819,6 +831,7 @@
     "password-updated": "Zaporka je ažurirana",
     "password": "Zaporka",
     "password-strength": "Snaga zaporke je {strength}",
+    "please-enter-password": "Please enter your new password.",
     "register": "Registracija",
     "reset-password": "Resetiraj Zaporku",
     "sign-in": "Prijava",
@@ -839,6 +852,7 @@
     "username": "Korisničko ime",
     "users-header": "KORISNICI",
     "users": "Korisnici",
+    "user-not-found": "User not found",
     "webhook-time": "Vrijeme Web-dojavnika",
     "webhooks-enabled": "Web-dojavnik Omogućen",
     "you-are-not-allowed-to-create-a-user": "Nije Vam dopušteno kreiranje novog korisnika",
@@ -861,6 +875,7 @@
     "user-management": "Upravljanje Korisnicima",
     "reset-locked-users": "Poništi Zaključane Korisnike",
     "admin-user-creation": "Kreiranje Administratorskog Korisnika",
+    "admin-user-management": "Admin User Management",
     "user-details": "Podaci o Korisniku",
     "user-name": "Korisničko Ime",
     "authentication-method": "Metoda provjere Autentičnosti",
@@ -872,7 +887,10 @@
     "user-can-organize-group-data": "Korisnik može organizirati podatke grupe",
     "enable-advanced-features": "Omogućite napredne značajke",
     "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
-    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!"
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
+    "forgot-password": "Forgot Password",
+    "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
+    "changes-reflected-immediately": "Changes to this user will be reflected immediately."
   },
   "language-dialog": {
     "translated": "prevedeno",
@@ -974,6 +992,7 @@
   },
   "user-registration": {
     "user-registration": "Registracija Korisnika",
+    "registration-success": "Registration Success",
     "join-a-group": "Pridružite se Grupi",
     "create-a-new-group": "Kreiraj Novu Grupu",
     "provide-registration-token-description": "Molim vas da pružite registracijski token povezan s grupom kojoj želite pristupiti. Registracijski token možete dobiti od postojećeg člana grupe.",
@@ -1020,6 +1039,7 @@
   },
   "ocr-editor": {
     "ocr-editor": "Editor količina",
+    "toolbar": "Toolbar",
     "selection-mode": "Odabrani način rada",
     "pan-and-zoom-picture": "Pomakni i zumiraj sliku",
     "split-text": "Razdvoji tekst",
@@ -1027,6 +1047,8 @@
     "split-by-block": "Razdvoji prema bloku teksta",
     "flatten": "Izravnaj bez obzira na izvornu formatiranost",
     "help": {
+      "help": "Help",
+      "mouse-modes": "Mouse modes",
       "selection-mode": "Način odabira (zadano)",
       "selection-mode-desc": "Način odabira je glavni način koji se može koristiti za unos podataka:",
       "selection-mode-steps": {

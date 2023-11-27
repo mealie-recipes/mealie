@@ -76,7 +76,8 @@
     "cookbook-events": "Události kuchařky",
     "tag-events": "Události tagu",
     "category-events": "Události kategorie",
-    "when-a-new-user-joins-your-group": "Když se nový uživatel připojí do vaší skupiny"
+    "when-a-new-user-joins-your-group": "Když se nový uživatel připojí do vaší skupiny",
+    "recipe-events": "Recipe Events"
   },
   "general": {
     "cancel": "Zrušit",
@@ -114,6 +115,8 @@
     "keyword": "Klíčové slovo",
     "link-copied": "Odkaz zkopírován",
     "loading-events": "Načítání událostí",
+    "loading-recipe": "Loading recipe...",
+    "loading-ocr-data": "Loading OCR data...",
     "loading-recipes": "Načítám recepty",
     "message": "Zpráva",
     "monday": "Pondělí",
@@ -193,7 +196,8 @@
     "export-all": "Exportovat vše",
     "refresh": "Obnovit",
     "upload-file": "Nahrát soubor",
-    "created-on-date": "Vytvořeno dne: {0}"
+    "created-on-date": "Vytvořeno dne: {0}",
+    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Jste si jisti, že chcete smazat <b>{groupName}<b/>?",
@@ -208,6 +212,7 @@
     "group-id-with-value": "ID skupiny: {groupID}",
     "group-name": "Název skupiny",
     "group-not-found": "Skupina nenalezena",
+    "group-token": "Group Token",
     "group-with-value": "Skupina: {groupID}",
     "groups": "Skupiny",
     "manage-groups": "Spravovat skupiny",
@@ -243,6 +248,7 @@
     "general-preferences": "General Preferences",
     "group-recipe-preferences": "Group Recipe Preferences",
     "report": "Report",
+    "report-with-id": "Report ID: {id}",
     "group-management": "Správa skupin",
     "admin-group-management": "Admin Group Management",
     "admin-group-management-text": "Změny v této skupině budou okamžitě zohledněny.",
@@ -507,6 +513,7 @@
     "message-key": "Message Key",
     "parse": "Parse",
     "attach-images-hint": "Attach images by dragging & dropping them into the editor",
+    "drop-image": "Drop image",
     "enable-ingredient-amounts-to-use-this-feature": "Enable ingredient amounts to use this feature",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Recipes with units or foods defined cannot be parsed.",
     "parse-ingredients": "Parse ingredients",
@@ -564,14 +571,17 @@
     "tag-filter": "Filtr štítků",
     "search-hint": "Stiskněte '/'",
     "advanced": "Pokročilé",
-    "auto-search": "Auto Search"
+    "auto-search": "Auto Search",
+    "no-results": "No results found"
   },
   "settings": {
     "add-a-new-theme": "Přidat nový motiv",
     "admin-settings": "Nastavení Správce",
     "backup": {
+      "backup-created": "Backup created successfully",
       "backup-created-at-response-export_path": "Záloha vytvořena v {path}",
       "backup-deleted": "Záloha smazána",
+      "restore-success": "Restore successful",
       "backup-tag": "Štítek zálohy",
       "create-heading": "Create a Backup",
       "delete-backup": "Smazat zálohu",
@@ -680,11 +690,13 @@
     "configuration": "Konfigurace",
     "docker-volume": "Volume dockeru",
     "docker-volume-help": "Mealie requires that the frontend container and the backend share the same docker volume or storage. This ensures that the frontend container can properly access the images and assets stored on disk.",
-    "volumes-are-misconfigured": "Volumy jsou špatně nakonfigurovány",
+    "volumes-are-misconfigured": "Volumes are misconfigured.",
     "volumes-are-configured-correctly": "Volumy jsou nastaveny správně.",
     "status-unknown-try-running-a-validation": "Neznámý stav. Zkuste provést validaci.",
     "validate": "Validovat",
     "email-configuration-status": "Email Configuration Status",
+    "email-configured": "Email Configured",
+    "email-test-results": "Email Test Results",
     "ready": "Ready",
     "not-ready": "Not Ready - Check Environmental Variables",
     "succeeded": "Proběhlo úspěšně",
@@ -819,6 +831,7 @@
     "password-updated": "Heslo bylo změněno",
     "password": "Heslo",
     "password-strength": "Síla hesla: {strength}",
+    "please-enter-password": "Please enter your new password.",
     "register": "Registrovat",
     "reset-password": "Obnovit heslo",
     "sign-in": "Přihlásit se",
@@ -839,6 +852,7 @@
     "username": "Uživatelské jméno",
     "users-header": "UŽIVATELÉ",
     "users": "Uživatelé",
+    "user-not-found": "User not found",
     "webhook-time": "Čas Webhooku",
     "webhooks-enabled": "Povolené webhooky",
     "you-are-not-allowed-to-create-a-user": "Nemáte oprávnění k vytvoření uživatele",
@@ -861,6 +875,7 @@
     "user-management": "Správa uživatelů",
     "reset-locked-users": "Reset Locked Users",
     "admin-user-creation": "Admin User Creation",
+    "admin-user-management": "Admin User Management",
     "user-details": "User Details",
     "user-name": "Uživatelské jméno",
     "authentication-method": "Authentication Method",
@@ -872,7 +887,10 @@
     "user-can-organize-group-data": "User can organize group data",
     "enable-advanced-features": "Enable advanced features",
     "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
-    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!"
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
+    "forgot-password": "Forgot Password",
+    "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
+    "changes-reflected-immediately": "Changes to this user will be reflected immediately."
   },
   "language-dialog": {
     "translated": "přeloženo",
@@ -974,6 +992,7 @@
   },
   "user-registration": {
     "user-registration": "Registrace uživatele",
+    "registration-success": "Registration Success",
     "join-a-group": "Připojit se ke skupině",
     "create-a-new-group": "Vytvořit novou skupinu",
     "provide-registration-token-description": "Prosím zadejte registrační token pro skupinu, ke které se chcete připojit. Tento token musíte získat od existujícího člena skupiny.",
@@ -1020,6 +1039,7 @@
   },
   "ocr-editor": {
     "ocr-editor": "OCR editor",
+    "toolbar": "Toolbar",
     "selection-mode": "Režim výběru",
     "pan-and-zoom-picture": "Přiblížit a posunout obrázek",
     "split-text": "Rozdělit text",
@@ -1027,6 +1047,8 @@
     "split-by-block": "Rozdělit podle textového bloku",
     "flatten": "Zarovnat bez ohledu na původní formátování",
     "help": {
+      "help": "Help",
+      "mouse-modes": "Mouse modes",
       "selection-mode": "Režim výběru (výchozí)",
       "selection-mode-desc": "Režim výběru je hlavním režimem, který lze použít pro zadávání dat:",
       "selection-mode-steps": {
