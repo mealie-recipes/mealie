@@ -118,4 +118,14 @@ describe(parseIngredientText.name, () => {
 
     expect(parseIngredientText(ingredient, false)).toEqual("diced onions");
   });
+
+  test("plural test : single qty, scaled", () => {
+    const ingredient = createRecipeIngredient({
+      quantity: 1,
+      unit: { id: "1", name: "tablespoon", pluralName: "tablespoons", abbreviation: "tbsp", pluralAbbreviation: "tbsps", useAbbreviation: false },
+      food: { id: "1", name: "diced onion", pluralName: "diced onions" }
+    });
+
+    expect(parseIngredientText(ingredient, false, 2)).toEqual("2 tablespoons diced onions");
+  });
 });

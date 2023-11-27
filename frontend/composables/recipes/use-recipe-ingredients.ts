@@ -46,8 +46,8 @@ export function useParsedIngredientText(ingredient: RecipeIngredient, disableAmo
   }
 
   const { quantity, food, unit, note } = ingredient;
-  const usePluralUnit = quantity !== undefined && quantity > 1;
-  const usePluralFood = (!quantity) || quantity > 1
+  const usePluralUnit = quantity !== undefined && (quantity * scale > 1 || quantity * scale === 0);
+  const usePluralFood = (!quantity) || quantity * scale > 1
 
   let returnQty = "";
 
