@@ -343,9 +343,6 @@ def clean_time(time_entry: str | timedelta | None) -> None | str:
     Returns:
         None | str: None if the time_entry is None, otherwise a string representing the time
     """
-    print("Time Entry:", time_entry)
-    print("Type of Time Entry:", type(time_entry))
-    print("Is Timedelta:", isinstance(time_entry, timedelta))
     if not time_entry:
         return None
 
