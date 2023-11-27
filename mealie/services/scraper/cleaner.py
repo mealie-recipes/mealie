@@ -6,11 +6,13 @@ import operator
 import re
 import typing
 from datetime import datetime, timedelta
+
+from slugify import slugify
+
 from mealie.core.root_logger import get_logger
 
 logger = get_logger("recipe-scraper")
 
-from slugify import slugify
 
 MATCH_DIGITS = re.compile(r"\d+([.,]\d+)?")
 """ Allow for commas as decimals (common in Europe) """
