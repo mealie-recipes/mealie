@@ -85,6 +85,7 @@ def content_with_meta(group_slug: str, recipe: Recipe) -> str:
     }
 
     tags = [
+        f"<title>{recipe.name}</title>",
         f'<meta property="og:title" content="{recipe.name}" />',
         f'<meta property="og:description" content="{recipe.description}" />',
         f'<meta property="og:image" content="{image_url}" />',
