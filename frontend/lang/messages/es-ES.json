@@ -76,7 +76,8 @@
     "cookbook-events": "Eventos del recetario",
     "tag-events": "Eventos de etiqueta",
     "category-events": "Eventos de Categoría",
-    "when-a-new-user-joins-your-group": "Cuando un nuevo usuario se une a tu grupo"
+    "when-a-new-user-joins-your-group": "Cuando un nuevo usuario se une a tu grupo",
+    "recipe-events": "Recipe Events"
   },
   "general": {
     "cancel": "Cancelar",
@@ -114,6 +115,8 @@
     "keyword": "Etiqueta",
     "link-copied": "Enlace copiado",
     "loading-events": "Cargando Eventos",
+    "loading-recipe": "Loading recipe...",
+    "loading-ocr-data": "Loading OCR data...",
     "loading-recipes": "Cargando recetas",
     "message": "Mensaje",
     "monday": "Lunes",
@@ -193,7 +196,8 @@
     "export-all": "Exportar todo",
     "refresh": "Actualizar",
     "upload-file": "Subir Archivo",
-    "created-on-date": "Creado el {0}"
+    "created-on-date": "Creado el {0}",
+    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Por favor, confirma que deseas eliminar <b>{groupName}<b/>",
@@ -208,6 +212,7 @@
     "group-id-with-value": "ID del Grupo: {groupID}",
     "group-name": "Nombre del Grupo",
     "group-not-found": "Grupo no encontrado",
+    "group-token": "Group Token",
     "group-with-value": "Grupo: {groupID}",
     "groups": "Grupos",
     "manage-groups": "Administrar grupos",
@@ -243,6 +248,7 @@
     "general-preferences": "Opciones generales",
     "group-recipe-preferences": "Preferencias de grupo de las recetas",
     "report": "Informe",
+    "report-with-id": "Report ID: {id}",
     "group-management": "Administración de grupos",
     "admin-group-management": "Gestión del grupo administrador",
     "admin-group-management-text": "Los cambios en este grupo se reflejarán inmediatamente.",
@@ -370,7 +376,7 @@
     "trim-whitespace-description": "Eliminar espacios en blanco iniciales y finales así como líneas en blanco",
     "trim-prefix-description": "Eliminar el primer carácter de cada línea",
     "split-by-numbered-line-description": "Intenta dividir un párrafo utilizando los patrones '1)' o '1.'",
-    "import-by-url": "Importar una receta por URL",
+    "import-by-url": "Importar una receta desde URL",
     "create-manually": "Crear receta manualmente",
     "make-recipe-image": "Haz de esta la imagen de la receta"
   },
@@ -463,7 +469,9 @@
     "add-to-plan": "Agregar al menú",
     "add-to-timeline": "Añadir al cronograma",
     "recipe-added-to-list": "Receta añadida a la lista",
+    "recipes-added-to-list": "Recetas añadidas a la lista",
     "recipe-added-to-mealplan": "Receta añadida al menú",
+    "failed-to-add-recipes-to-list": "Error al añadir las recetas a la lista",
     "failed-to-add-recipe-to-mealplan": "Error al añadir receta al menú",
     "yield": "Raciones",
     "quantity": "Cantidad",
@@ -501,10 +509,11 @@
     "how-did-it-turn-out": "¿Cómo resultó esto?",
     "user-made-this": "{user} hizo esto",
     "last-made-date": "Cocinado por última vez el {date}",
-    "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom json key/value pairs within a recipe to reference from 3rd part applications. You can use these keys to contain information to trigger automation or custom messages to relay to your desired device.",
+    "api-extras-description": "Los extras de las recetas son una característica clave de la API de Mealie. Permiten crear pares json clave/valor personalizados dentro de una receta para acceder desde aplicaciones de terceros. Puede utilizar estas claves para almacenar información, para activar la automatización o mensajes personalizados para transmitir al dispositivo deseado.",
     "message-key": "Clave de mensaje",
     "parse": "Analizar",
     "attach-images-hint": "Adjuntar imágenes arrastrando y soltando en el editor",
+    "drop-image": "Drop image",
     "enable-ingredient-amounts-to-use-this-feature": "Habilitar la cantidad de ingredientes para usar esta característica",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Las recetas con unidades o alimentos definidos no pueden ser analizadas.",
     "parse-ingredients": "Analizar ingredientes",
@@ -521,7 +530,7 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Crear una receta proporcionando el nombre. Todas las recetas deben tener nombres únicos.",
     "new-recipe-names-must-be-unique": "El nombre de la receta debe ser único",
     "scrape-recipe": "Analiza receta",
-    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description": "Importa una receta por URL. Proporcione la URL para el sitio que desea importar, y Mealie intentará importar la receta de ese sitio y añadirla a su colección.",
     "import-original-keywords-as-tags": "Importar palabras clave originales como etiquetas",
     "stay-in-edit-mode": "Permanecer en modo edición",
     "import-from-zip": "Importar desde zip",
@@ -562,14 +571,17 @@
     "tag-filter": "Filtro de Etiquetas",
     "search-hint": "Presione '/'",
     "advanced": "Avanzado",
-    "auto-search": "Búsqueda automática"
+    "auto-search": "Búsqueda automática",
+    "no-results": "No results found"
   },
   "settings": {
     "add-a-new-theme": "Añadir un nuevo tema",
     "admin-settings": "Opciones del adminstrador",
     "backup": {
+      "backup-created": "Backup created successfully",
       "backup-created-at-response-export_path": "Copia de seguridad creada en {path}",
       "backup-deleted": "Copia de seguridad eliminada",
+      "restore-success": "Restore successful",
       "backup-tag": "Etiqueta de la copia de seguridad",
       "create-heading": "Crear una copia de seguridad",
       "delete-backup": "Eliminar copia de seguridad",
@@ -653,14 +665,14 @@
       "you-have-token-count": "Usted no tiene tokens activos.|Usted tiene un token activo.|Usted tiene {count} tokens activos."
     },
     "toolbox": {
-      "assign-all": "Asignar todos los",
+      "assign-all": "Asignar todos",
       "bulk-assign": "Asignar en masa",
-      "new-name": "Nombre Nuevo",
+      "new-name": "Nuevo Nombre",
       "no-unused-items": "No hay elementos sin usar",
-      "recipes-affected": "Ninguna receta afectada | Una receta afectada |{count} recetas afectadas",
-      "remove-unused": "Eliminar los no usados",
+      "recipes-affected": "Ninguna receta afectada|Una receta afectada|{count} recetas afectadas",
+      "remove-unused": "Eliminar los no utilizados",
       "title-case-all": "Primera letra en mayúscula",
-      "toolbox": "Herramientas",
+      "toolbox": "Utensilios",
       "unorganized": "Sin organizar"
     },
     "webhooks": {
@@ -678,11 +690,13 @@
     "configuration": "Configuración",
     "docker-volume": "Volumen de Docker",
     "docker-volume-help": "Mealie requiere que los contenedores de frontend y backend compartan el mismo volumen o almacenamiento en docker. Esto asegura que el contenedor del frontend pueda acceder adecuadamente a las imágenes y los activos almacenados en el disco.",
-    "volumes-are-misconfigured": "Los volúmenes están mal configurados",
+    "volumes-are-misconfigured": "Volumes are misconfigured.",
     "volumes-are-configured-correctly": "Los volúmenes se configuran correctamente.",
     "status-unknown-try-running-a-validation": "Estado desconocido. Intente ejecutar una validación.",
     "validate": "Validar",
     "email-configuration-status": "Estado de la Configuración del Correo Electrónico",
+    "email-configured": "Email Configured",
+    "email-test-results": "Email Test Results",
     "ready": "Listo",
     "not-ready": "No Listo - Comprobar variables de ambiente",
     "succeeded": "Logrado",
@@ -744,7 +758,7 @@
     "search": "Buscar",
     "site-settings": "Ajustes",
     "tags": "Etiquetas",
-    "toolbox": "Herramientas",
+    "toolbox": "Utensilios",
     "language": "Idioma",
     "maintenance": "Mantenimiento",
     "background-tasks": "Tareas en Segundo Plano",
@@ -782,7 +796,7 @@
     "tool-name": "Nombre del utensilio",
     "create-new-tool": "Crear nuevo utensilio",
     "on-hand-checkbox-label": "Mostrar como disponible (marcado)",
-    "required-tools": "Herramientas necesarias"
+    "required-tools": "Utensilios necesarios"
   },
   "user": {
     "admin": "Administrador/a",
@@ -817,6 +831,7 @@
     "password-updated": "Contraseña actualizada",
     "password": "Contraseña",
     "password-strength": "Fortaleza de la contraseña: {strength}",
+    "please-enter-password": "Please enter your new password.",
     "register": "Registrarse",
     "reset-password": "Restablecer contraseña",
     "sign-in": "Iniciar sesión",
@@ -837,6 +852,7 @@
     "username": "Usuario",
     "users-header": "USUARIOS",
     "users": "Usuarios",
+    "user-not-found": "User not found",
     "webhook-time": "Tiempo de Webhook",
     "webhooks-enabled": "Webhooks habilitados",
     "you-are-not-allowed-to-create-a-user": "No tiene permisos para crear usuarios",
@@ -859,6 +875,7 @@
     "user-management": "Gestión de Usuarios",
     "reset-locked-users": "Restablecer usuarios bloqueados",
     "admin-user-creation": "Creación de Usuario Administrador",
+    "admin-user-management": "Admin User Management",
     "user-details": "Detalles de usuario",
     "user-name": "Nombre de usuario",
     "authentication-method": "Método de autenticación",
@@ -870,7 +887,10 @@
     "user-can-organize-group-data": "El usuario puede organizar los datos del grupo",
     "enable-advanced-features": "Habilitar Características Avanzadas",
     "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
-    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!"
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
+    "forgot-password": "Forgot Password",
+    "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
+    "changes-reflected-immediately": "Changes to this user will be reflected immediately."
   },
   "language-dialog": {
     "translated": "traducido",
@@ -910,8 +930,8 @@
       "use-abbreviation": "Usar Abreviaturas",
       "edit-unit": "Editar unidad",
       "unit-data": "Unit Data",
-      "use-abbv": "Use Abbv.",
-      "fraction": "Fraction",
+      "use-abbv": "Usar Abr.",
+      "fraction": "Fracción",
       "example-unit-singular": "ej: Cucharada",
       "example-unit-plural": "ej: Cucharadas",
       "example-unit-abbreviation-singular": "ej: Cda",
@@ -921,11 +941,11 @@
       "seed-dialog-text": "Añade a la base de datos etiquetas comunes basadas en su idioma local.",
       "edit-label": "Editar etiqueta",
       "new-label": "Nueva etiqueta",
-      "labels": "Labels"
+      "labels": "Etiquetas"
     },
     "recipes": {
-      "purge-exports": "Purge Exports",
-      "are-you-sure-you-want-to-delete-all-export-data": "Are you sure you want to delete all export data?",
+      "purge-exports": "Limpiar exportaciones",
+      "are-you-sure-you-want-to-delete-all-export-data": "¿Está seguro de que desea eliminar todos sus datos de exportación?",
       "confirm-delete-recipes": "Are you sure you want to delete the following recipes? This action cannot be undone.",
       "the-following-recipes-selected-length-will-be-exported": "The following recipes ({0}) will be exported.",
       "settings-chosen-explanation": "Settings chosen here, excluding the locked option, will be applied to all selected recipes.",
@@ -938,7 +958,7 @@
       "tag": "Etiqueta",
       "categorize": "Clasificar",
       "update-settings": "Actualizar configuración",
-      "tag-recipes": "Tag Recipes",
+      "tag-recipes": "Etiquetar Recetas",
       "categorize-recipes": "Categorizar recetas",
       "export-recipes": "Exportar recetas",
       "delete-recipes": "Borrar Recetas",
@@ -947,16 +967,32 @@
     "create-alias": "Crear un Alias",
     "manage-aliases": "Administrar Alias",
     "seed-data": "Datos de ejemplo",
-    "seed": "Seed",
+    "seed": "Semilla",
     "data-management": "Data Management",
     "data-management-description": "Select which data set you want to make changes to.",
     "select-data": "Seleccionar datos",
     "select-language": "Seleccionar idioma",
     "columns": "Columnas",
-    "combine": "Combinar"
+    "combine": "Combinar",
+    "categories": {
+      "edit-category": "Editar Categoría",
+      "new-category": "Nueva Categoría",
+      "category-data": "Datos de la categoría"
+    },
+    "tags": {
+      "new-tag": "Nueva Etiqueta",
+      "edit-tag": "Editar Etiqueta",
+      "tag-data": "Etiquetar Datos"
+    },
+    "tools": {
+      "new-tool": "Nuevo Utensilio",
+      "edit-tool": "Editar Utensilio",
+      "tool-data": "Datos Utensilio"
+    }
   },
   "user-registration": {
     "user-registration": "Registro de usuario",
+    "registration-success": "Registration Success",
     "join-a-group": "Unirse a un grupo",
     "create-a-new-group": "Crear un grupo nuevo",
     "provide-registration-token-description": "Por favor, proporcione el token de registro asociado con el grupo al que desea unirse. Necesitará obtenerlo de un miembro del grupo.",
@@ -1003,13 +1039,16 @@
   },
   "ocr-editor": {
     "ocr-editor": "Editor de OCR",
+    "toolbar": "Toolbar",
     "selection-mode": "Modo de selección",
-    "pan-and-zoom-picture": "Pan and zoom picture",
+    "pan-and-zoom-picture": "Desplazar y hacer zoom en la imagen",
     "split-text": "Split text",
     "preserve-line-breaks": "Preserve original line breaks",
     "split-by-block": "Split by text block",
     "flatten": "Flatten regardless of original formating",
     "help": {
+      "help": "Help",
+      "mouse-modes": "Mouse modes",
       "selection-mode": "Selection Mode (default)",
       "selection-mode-desc": "The selection mode is the main mode that can be used to enter data:",
       "selection-mode-steps": {
@@ -1052,16 +1091,16 @@
       "action-delete-log-files-description": "Deletes all the log files",
       "action-clean-directories-name": "Clean Directories",
       "action-clean-directories-description": "Removes all the recipe folders that are not valid UUIDs",
-      "action-clean-temporary-files-name": "Clean Temporary Files",
-      "action-clean-temporary-files-description": "Removes all files and folders in the .temp directory",
-      "action-clean-images-name": "Clean Images",
+      "action-clean-temporary-files-name": "Eliminar archivos temporales",
+      "action-clean-temporary-files-description": "Eliminar todos los archivos y carpetas del directorio .temp",
+      "action-clean-images-name": "Limpiar imágenes",
       "action-clean-images-description": "Elimina todas las imágenes que no terminan con .webp",
-      "actions-description": "Maintenance actions are {destructive_in_bold} and should be used with caution. Performing any of these actions is {irreversible_in_bold}.",
-      "actions-description-destructive": "destructive",
+      "actions-description": "Las acciones de mantenimiento son {destructive_in_bold} y deben utilizarse con precaución. Realizar cualquiera de estas acciones es {irreversible_in_bold}.",
+      "actions-description-destructive": "destructivas",
       "actions-description-irreversible": "irreversible",
-      "logs-action-refresh": "Refresh Logs",
-      "logs-page-title": "Mealie Logs",
-      "logs-tail-lines-label": "Tail Lines"
+      "logs-action-refresh": "Actualizar Logs",
+      "logs-page-title": "Logs de Mealie",
+      "logs-tail-lines-label": "Últimas Líneas"
     },
     "mainentance": {
       "actions-title": "Acciones"
@@ -1075,28 +1114,28 @@
     "ingredient-text": "Ingredient Text",
     "average-confident": "{0} Confident",
     "try-an-example": "Try an example",
-    "parser": "Parser",
-    "background-tasks": "Background Tasks",
+    "parser": "Procesador",
+    "background-tasks": "Tareas en Segundo Plano",
     "background-tasks-description": "Here you can view all the running background tasks and their status",
     "no-logs-found": "No Logs Found",
-    "tasks": "Tasks"
+    "tasks": "Tareas"
   },
   "profile": {
-    "welcome-user": "👋 Welcome, {0}",
-    "description": "Manage your profile, recipes, and group settings.",
-    "get-invite-link": "Get Invite Link",
-    "get-public-link": "Get Public Link",
-    "account-summary": "Account Summary",
-    "account-summary-description": "Here's a summary of your group's information",
+    "welcome-user": "👋 Hola, {0}",
+    "description": "Administra tu perfil, recetas y ajustes de grupo.",
+    "get-invite-link": "Obtener enlace de invitación",
+    "get-public-link": "Obtener enlace público",
+    "account-summary": "Información de la cuenta",
+    "account-summary-description": "Este es un resumen de la información de tu grupo",
     "group-statistics": "Group Statistics",
     "group-statistics-description": "Your Group Statistics provide some insight how you're using Mealie.",
-    "storage-capacity": "Storage Capacity",
+    "storage-capacity": "Capacidad de almacenamiento",
     "storage-capacity-description": "Your storage capacity is a calculation of the images and assets you have uploaded.",
     "personal": "Personal",
     "personal-description": "These are settings that are personal to you. Changes here won't affect other users",
-    "user-settings": "User Settings",
-    "user-settings-description": "Manage your preferences, change your password, and update your email",
-    "api-tokens-description": "Manage your API Tokens for access from external applications",
+    "user-settings": "Ajustes de usuario",
+    "user-settings-description": "Administrar preferencias, cambiar contraseña y actualizar correo electrónico",
+    "api-tokens-description": "Administra tus API Tokens para acceder desde aplicaciones externas",
     "group-description": "These items are shared within your group. Editing one of them will change it for the whole group!",
     "group-settings": "Group Settings",
     "group-settings-description": "Manage your common group settings like mealplan and privacy settings.",
@@ -1123,19 +1162,19 @@
     "manage-members": "Gestionar miembros",
     "manage-webhooks": "Manage Webhooks",
     "manage-notifiers": "Manage Notifiers",
-    "manage-data-migrations": "Manage Data Migrations"
+    "manage-data-migrations": "Administrar Migraciones de Datos"
   },
   "cookbook": {
-    "cookbooks": "Cookbooks",
-    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes and tags. Creating a cookbook will add an entry to the side-bar and all the recipes with the tags and categories chosen will be displayed in the cookbook.",
-    "public-cookbook": "Public Cookbook",
-    "public-cookbook-description": "Public Cookbooks can be shared with non-mealie users and will be displayed on your groups page.",
+    "cookbooks": "Recetarios",
+    "description": "Los recetarios son otra forma de organizar recetas creando secciones cruzadas de recetas y etiquetas. Crear un recetario añadirá una entrada a la barra lateral y todas las recetas con las etiquetas y categorías elegidas se mostrarán en el recetario.",
+    "public-cookbook": "Recetario público",
+    "public-cookbook-description": "Los recetarios públicos se pueden compartir con usuarios externos y se mostrarán en su página de grupos.",
     "filter-options": "Opciones de filtro",
-    "filter-options-description": "When require all is selected the cookbook will only include recipes that have all of the items selected. This applies to each subset of selectors and not a cross section of the selected items.",
-    "require-all-categories": "Require All Categories",
-    "require-all-tags": "Require All Tags",
-    "require-all-tools": "Require All Tools",
-    "cookbook-name": "Cookbook Name",
-    "cookbook-with-name": "Cookbook {0}"
+    "filter-options-description": "Cuando \"Requerir todo\" esté seleccionado, el recetario solo incluirá recetas que tengan todos los elementos seleccionados. Esto se aplica a cada subconjunto de selectores y no a una sección de los elementos seleccionados.",
+    "require-all-categories": "Requerir todas las categorías",
+    "require-all-tags": "Requerir todas las etiquetas",
+    "require-all-tools": "Requiere todos los utensilios",
+    "cookbook-name": "Nombre del recetario",
+    "cookbook-with-name": "Recetario {0}"
   }
 }

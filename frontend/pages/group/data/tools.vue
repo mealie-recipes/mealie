@@ -47,10 +47,11 @@
     >
       <v-card-text>
         {{ $t("general.confirm-delete-generic") }}
+        <p v-if="deleteTarget" class="mt-4 ml-4">{{ deleteTarget.name }}</p>
       </v-card-text>
     </BaseDialog>
 
-    <!-- Tool Data Table -->
+    <!-- Data Table -->
     <BaseCardSectionTitle :icon="$globals.icons.potSteam" section :title="$tc('data-pages.tools.tool-data')"> </BaseCardSectionTitle>
     <CrudTable
       :table-config="tableConfig"

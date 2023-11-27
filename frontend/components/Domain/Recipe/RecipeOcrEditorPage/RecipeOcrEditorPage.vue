@@ -190,6 +190,8 @@ export default defineComponent({
 
     const drag = ref(false);
 
+    const { i18n } = useContext();
+
     const { recipeAssetPath } = useStaticRoutes();
 
     function assetURL(assetName: string) {
@@ -198,7 +200,7 @@ export default defineComponent({
 
     const state = reactive({
       loading: true,
-      loadingText: "Loading recipe...",
+      loadingText: i18n.tc("general.loading-recipe"),
       tab: null,
       selectedRecipeField: "" as SelectedRecipeLeaves | "",
       canvasSelectedText: "",
@@ -260,7 +262,7 @@ export default defineComponent({
     onMounted(() => {
       invoke(async () => {
         await until(props.recipe).not.toBeNull();
-        state.loadingText = "Loading OCR data...";
+        state.loadingText = i18n.tc("general.loading-ocr-data");
 
         const assetName = props.recipe.assets[0].fileName;
         const imagesrc = assetURL(assetName);

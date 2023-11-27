@@ -10,7 +10,7 @@
       </template>
       <v-card width="400">
         <v-card-text>
-          <v-text-field v-model="state.search" class="mb-2" hide-details dense label="Search" clearable />
+          <v-text-field v-model="state.search" class="mb-2" hide-details dense :label="$tc('search.search')" clearable />
           <v-switch
             v-if="requireAll != undefined"
             v-model="requireAllValue"
@@ -35,7 +35,7 @@
             </v-virtual-scroll>
           </v-card>
           <div v-else>
-            <v-alert type="info" text> No results found </v-alert>
+            <v-alert type="info" text> {{ $tc('search.no-results') }} </v-alert>
           </div>
         </v-card-text>
       </v-card>

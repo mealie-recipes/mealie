@@ -36,13 +36,6 @@
   "i18n-ally.localesPaths": "frontend/lang/messages",
   "i18n-ally.sourceLanguage": "en-US",
   "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
-  "python.formatting.provider": "black",
-  "python.linting.enabled": true,
-  "python.linting.flake8Enabled": false,
-  "python.linting.pylintEnabled": false,
-  "python.linting.pylintArgs": [
-    "--rcfile=${workspaceFolder}/.pylintrc"
-  ],
   "python.testing.autoTestDiscoverOnSaveEnabled": false,
   "python.testing.pytestArgs": [
     "tests"
@@ -50,7 +43,6 @@
   "python.testing.pytestEnabled": true,
   "python.testing.unittestEnabled": false,
   "python.analysis.typeCheckingMode": "off",
-  "python.linting.mypyEnabled": true,
   "search.mode": "reuseEditor",
   "python.testing.unittestArgs": [
     "-v",
@@ -68,5 +60,8 @@
   },
   "[vue]": {
     "editor.formatOnSave": false
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter",
   },
 }

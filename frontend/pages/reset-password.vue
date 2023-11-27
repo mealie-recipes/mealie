@@ -1,7 +1,7 @@
 <template>
   <v-container fill-height fluid class="d-flex justify-center align-center">
     <v-card color="background d-flex flex-column align-center" flat width="600px">
-      <v-card-title class="headline justify-center"> Reset Password </v-card-title>
+      <v-card-title class="headline justify-center"> {{ $t("user.reset-password") }} </v-card-title>
       <BaseDivider />
       <v-card-text>
         <v-form @submit.prevent="requestLink()">
@@ -23,7 +23,7 @@
             class="rounded-lg"
             :prepend-icon="$globals.icons.lock"
             name="password"
-            label="Password"
+            :label="$t('user.password')"
             type="password"
             :rules="[validators.required]"
           />
@@ -35,11 +35,11 @@
             class="rounded-lg"
             :prepend-icon="$globals.icons.lock"
             name="password"
-            label="Confirm Password"
+            :label="$t('user.confirm-password')"
             type="password"
             :rules="[validators.required, passwordMatch]"
           />
-          <p class="text-center">Please enter your new password.</p>
+          <p class="text-center">{{ $t("user.please-enter-password") }}</p>
           <v-card-actions class="justify-center">
             <div class="max-button">
               <v-btn
@@ -67,7 +67,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs, reactive } from "@nuxtjs/composition-api";
+import { defineComponent, toRefs, reactive, useContext } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { validators } from "@/composables/use-validators";
@@ -84,7 +84,8 @@ export default defineComponent({
       error: false,
     });
 
-    const passwordMatch = () => state.password === state.passwordConfirm || "Passwords do not match";
+    const { i18n } = useContext();
+    const passwordMatch = () => state.password === state.passwordConfirm || i18n.tc("user.password-must-match");
 
     // ===================
     // Token Getter
@@ -108,11 +109,11 @@ export default defineComponent({
       if (response?.status === 200) {
         state.loading = false;
         state.error = false;
-        alert.success("Password Reset Successful");
+        alert.success(i18n.tc("user.password-updated"));
       } else {
         state.loading = false;
         state.error = true;
-        alert.error("Something Went Wrong");
+        alert.error(i18n.tc("events.something-went-wrong"));
       }
     }
 

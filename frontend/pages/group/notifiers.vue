@@ -181,7 +181,7 @@ export default defineComponent({
     const optionsSections: OptionSection[] = [
       {
         id: 1,
-        text: "Recipe Events",
+        text: i18n.tc("events.recipe-events"),
         options: [
           {
             text: i18n.t("general.create") as string,

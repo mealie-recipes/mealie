@@ -393,8 +393,8 @@ export default defineComponent({
     };
 
     const contextMenu = [
-      { title: "Delete", action: contextActions.delete },
-      { title: "Ingredient", action: contextActions.setIngredient },
+      { title: i18n.tc("general.delete"), action: contextActions.delete },
+      { title: i18n.tc("recipe.ingredient"), action: contextActions.setIngredient },
     ];
 
     function contextMenuAction(action: string, item: ShoppingListItemOut, idx: number) {

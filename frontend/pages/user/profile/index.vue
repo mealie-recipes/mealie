@@ -6,7 +6,6 @@
       <h2 class="headline">{{ $t('profile.welcome-user', [user.fullName]) }}</h2>
       <p class="subtitle-1 mb-0 text-center">
        {{ $t('profile.description') }}
-        <a href="https://hay-kot.github.io/mealie/" target="_blank"> {{ $t('general.learn-more') }} </a>
       </p>
       <v-card flat color="background" width="100%" max-width="600px">
         <v-card-actions class="d-flex justify-center my-4">

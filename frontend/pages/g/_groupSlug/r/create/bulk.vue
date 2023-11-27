@@ -73,7 +73,7 @@
             lockBulkImport = false;
           "
         >
-          Clear
+          {{ $t('general.clear') }}
         </BaseButton>
         <v-spacer></v-spacer>
         <BaseButton class="mr-1 mb-1" color="info" @click="bulkUrls.push({ url: '', categories: [], tags: [] })">

@@ -37,7 +37,7 @@
     </div>
 
     <section>
-      <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.cog" :title="$t('settings.configuration')"> </BaseCardSectionTitle>
+      <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.cog" :title="$tc('settings.configuration')"> </BaseCardSectionTitle>
       <v-card class="mb-4">
         <template v-for="(check, idx) in simpleChecks">
           <v-list-item :key="`list-item-${idx}`">
@@ -61,7 +61,7 @@
     </section>
 
     <section>
-      <BaseCardSectionTitle class="pt-2" :icon="$globals.icons.docker" :title="$t('settings.docker-volume')" />
+      <BaseCardSectionTitle class="pt-2" :icon="$globals.icons.docker" :title="$tc('settings.docker-volume')" />
       <v-alert
         border="left"
         colored-border
@@ -77,7 +77,7 @@
           </HelpIcon>
         </div>
         <div>
-          <template v-if="docker.state === DockerVolumeState.Error"> {{ $t('settings.volumes-are-misconfigured') }}. </template>
+          <template v-if="docker.state === DockerVolumeState.Error"> {{ $t('settings.volumes-are-misconfigured') }} </template>
           <template v-else-if="docker.state === DockerVolumeState.Success">
             {{ $t('settings.volumes-are-configured-correctly') }}
           </template>
@@ -116,7 +116,7 @@
           <template v-if="tested">
             <v-divider class="my-x mt-6"></v-divider>
             <v-card-text class="px-0">
-              <h4>Email Test Results</h4>
+              <h4> {{ $tc("settings.email-test-results") }}</h4>
               <span class="pl-4">
                 {{ success ? $t('settings.succeeded') : $t('settings.failed') }}
               </span>
@@ -128,7 +128,7 @@
 
     <!-- General App Info -->
     <section class="mt-4">
-      <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.cog" :title="$t('settings.general-about')"> </BaseCardSectionTitle>
+      <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.cog" :title="$tc('settings.general-about')"> </BaseCardSectionTitle>
       <v-card class="mb-4">
         <template v-for="(property, idx) in appInfo">
           <v-list-item :key="property.name">
@@ -466,12 +466,12 @@ export default defineComponent({
         if (ignoreChecks[item.id]) {
           return;
         }
-        const status = item.status ? "Yes" : "No";
+        const status = item.status ? i18n.tc("general.yes") : i18n.tc("general.no");
         text += `${item.text.toString()}: ${status}\n`;
       });
 
-      text += `Email Configured: ${appConfig.value.emailReady ? "Yes" : "No"}\n`;
-      text += `Docker Volumes: ${docker.state}`;
+      text += `${i18n.tc("settings.email-configured")}: ${appConfig.value.emailReady ? i18n.tc("general.yes") : i18n.tc("general.no")}\n`;
+      text += `${i18n.tc("settings.docker-volume")}: ${docker.state}`;
 
       return text;
     });
