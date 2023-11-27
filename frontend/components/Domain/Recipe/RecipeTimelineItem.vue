@@ -85,7 +85,7 @@
                 @error="hideImage = true"
               />
               <div v-if="event.eventMessage" :class="useMobileFormat ? 'text-caption' : ''">
-              {{ event.eventMessage }}
+                <SafeMarkdown :source="event.eventMessage" />
               </div>
           </v-col>
         </v-row>
@@ -101,9 +101,10 @@ import RecipeTimelineContextMenu from "./RecipeTimelineContextMenu.vue";
 import { useStaticRoutes } from "~/composables/api";
 import { Recipe, RecipeTimelineEventOut } from "~/lib/api/types/recipe"
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
+import SafeMarkdown from "~/components/global/SafeMarkdown.vue";
 
 export default defineComponent({
-  components: { RecipeCardMobile, RecipeTimelineContextMenu, UserAvatar },
+  components: { RecipeCardMobile, RecipeTimelineContextMenu, UserAvatar, SafeMarkdown },
 
   props: {
     event: {

@@ -76,7 +76,8 @@
     "cookbook-events": "Tarif Kitabı Etkinlikleri",
     "tag-events": "Etiket Etkinlikleri",
     "category-events": "Kategori Etkinlikleri",
-    "when-a-new-user-joins-your-group": "Grubunuza yeni bir kullanıcı katıldığında"
+    "when-a-new-user-joins-your-group": "Grubunuza yeni bir kullanıcı katıldığında",
+    "recipe-events": "Recipe Events"
   },
   "general": {
     "cancel": "İptal",
@@ -114,6 +115,8 @@
     "keyword": "Anahtar Kelime",
     "link-copied": "Bağlantı Kopyalandı",
     "loading-events": "Etkinlikler yükleniyor",
+    "loading-recipe": "Loading recipe...",
+    "loading-ocr-data": "OCR verileri yükleniyor...",
     "loading-recipes": "Tarifler Yükleniyor",
     "message": "İleti",
     "monday": "Pazartesi",
@@ -193,7 +196,8 @@
     "export-all": "Hepsini Dışa Aktar",
     "refresh": "Yenile",
     "upload-file": "Dosya Yükle",
-    "created-on-date": "{0} tarihinde oluşturuldu"
+    "created-on-date": "{0} tarihinde oluşturuldu",
+    "unsaved-changes": "Kaydedilmemiş değişiklikleriniz mevcut. Ayrılmadan önce kaydetmek ister misiniz? Kaydetmek için Tamam'ı, değişiklikleri iptal etmek için İptal'i seçin."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "<b>{groupName}<b/>'i silmek istediğine emin misin?",
@@ -208,6 +212,7 @@
     "group-id-with-value": "Grup ID: {groupID}",
     "group-name": "Grup Adı",
     "group-not-found": "Grup bulunamadı",
+    "group-token": "Grup Belirteci",
     "group-with-value": "Grup: {groupID}",
     "groups": "Gruplar",
     "manage-groups": "Grupları Yönet",
@@ -243,6 +248,7 @@
     "general-preferences": "Genel Tercihler",
     "group-recipe-preferences": "Grup Tarif Tercihleri",
     "report": "Rapor Et",
+    "report-with-id": "Report ID: {id}",
     "group-management": "Grup Yönetimi",
     "admin-group-management": "Yönetici Grup Yönetimi",
     "admin-group-management-text": "Bu gruptaki değişiklikler hemen yansıtılacaktır.",
@@ -507,6 +513,7 @@
     "message-key": "Message Key",
     "parse": "Parse",
     "attach-images-hint": "Attach images by dragging & dropping them into the editor",
+    "drop-image": "Drop image",
     "enable-ingredient-amounts-to-use-this-feature": "Enable ingredient amounts to use this feature",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Recipes with units or foods defined cannot be parsed.",
     "parse-ingredients": "Parse ingredients",
@@ -564,14 +571,17 @@
     "tag-filter": "Tag Filter",
     "search-hint": "Press '/'",
     "advanced": "Gelişmiş",
-    "auto-search": "Otomatik Arama"
+    "auto-search": "Otomatik Arama",
+    "no-results": "Sonuç bulunamadı"
   },
   "settings": {
     "add-a-new-theme": "Add a New Theme",
     "admin-settings": "Admin Settings",
     "backup": {
+      "backup-created": "Yedekleme başarıyla oluşturuldu",
       "backup-created-at-response-export_path": "Backup Created at {path}",
       "backup-deleted": "Backup deleted",
+      "restore-success": "Geri yükleme başarılı",
       "backup-tag": "Backup Tag",
       "create-heading": "Create a Backup",
       "delete-backup": "Delete Backup",
@@ -680,11 +690,13 @@
     "configuration": "Yapılandırma",
     "docker-volume": "Docker Volume",
     "docker-volume-help": "Mealie frontend ve backend konteynerlerinin aynı Docker volume'unu ya da depolamasını kullanmasını gerektirir. Bu frontent konteynerinin diskinizdeki resim ve diğer bileşenlere düzgün bir şekilde erişebildiğinden emin olur.",
-    "volumes-are-misconfigured": "Volumes are misconfigured",
+    "volumes-are-misconfigured": "Volumes are misconfigured.",
     "volumes-are-configured-correctly": "Volumes are configured correctly.",
     "status-unknown-try-running-a-validation": "Durum bilinmiyor. Bir doğrulama çalıştırmayı deneyin.",
     "validate": "Doğrula",
     "email-configuration-status": "E-posta Yapılandırma Durumu",
+    "email-configured": "E-posta Yapılandırıldı",
+    "email-test-results": "E-posta Test Sonuçları",
     "ready": "Hazır",
     "not-ready": "Hazır Değil - Çevresel Değişkenleri Kontrol Edin",
     "succeeded": "Başarılı",
@@ -819,6 +831,7 @@
     "password-updated": "Password updated",
     "password": "Password",
     "password-strength": "Password is {strength}",
+    "please-enter-password": "Lütfen yeni şifrenizi giriniz.",
     "register": "Register",
     "reset-password": "Reset Password",
     "sign-in": "Sign in",
@@ -839,6 +852,7 @@
     "username": "Username",
     "users-header": "USERS",
     "users": "Users",
+    "user-not-found": "Kullanıcı bulunamadı",
     "webhook-time": "Webhook Time",
     "webhooks-enabled": "Webhooks Enabled",
     "you-are-not-allowed-to-create-a-user": "You are not allowed to create a user",
@@ -861,6 +875,7 @@
     "user-management": "Kullanıcı Yönetimi",
     "reset-locked-users": "Kilitli Kullanıcıları Sıfırla",
     "admin-user-creation": "Admin User Creation",
+    "admin-user-management": "Yönetici Kullanıcı Yönetimi",
     "user-details": "Kullanıcı Ayrıntıları",
     "user-name": "Kullanıcı Adı",
     "authentication-method": "Kimlik Doğrulama Metodu",
@@ -872,7 +887,10 @@
     "user-can-organize-group-data": "Kullanıcı grup verilerini düzenleyebilir",
     "enable-advanced-features": "Gelişmiş özellikleri etkinleştir",
     "it-looks-like-this-is-your-first-time-logging-in": "Görünüşe göre ilk defa giriş yapıyorsunuz.",
-    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Artık bunu görmek istemiyor musunuz? Kullanıcı ayarlarınızda e-postanızı değiştirmeyi unutmayın!"
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Artık bunu görmek istemiyor musunuz? Kullanıcı ayarlarınızda e-postanızı değiştirmeyi unutmayın!",
+    "forgot-password": "Şifreni mi Unuttun?",
+    "forgot-password-text": "Lütfen e-posta adresinizi girin, size şifrenizi sıfırlamanız için bir bağlantı göndereceğiz.",
+    "changes-reflected-immediately": "Bu kullanıcıda yapılan değişiklikler hemen yansıtılacaktır."
   },
   "language-dialog": {
     "translated": "translated",
@@ -974,6 +992,7 @@
   },
   "user-registration": {
     "user-registration": "User Registration",
+    "registration-success": "Kayıt Başarılı",
     "join-a-group": "Gruba Katıl",
     "create-a-new-group": "Create a New Group",
     "provide-registration-token-description": "Please provide the registration token associated with the group that you'd like to join. You'll need to obtain this from an existing group member.",
@@ -1020,6 +1039,7 @@
   },
   "ocr-editor": {
     "ocr-editor": "Ocr editör",
+    "toolbar": "Araç Çubuğu",
     "selection-mode": "Seçim modu",
     "pan-and-zoom-picture": "Resmi kaydır ve yakınlaştır",
     "split-text": "Bölünmüş metin",
@@ -1027,6 +1047,8 @@
     "split-by-block": "Metin bloğuna göre böl",
     "flatten": "Orijinal biçimlendirmeden bağımsız olarak düzleştir",
     "help": {
+      "help": "Yardım",
+      "mouse-modes": "Fare modları",
       "selection-mode": "Seçim Modu (varsayılan)",
       "selection-mode-desc": "Seçim modu, veri girmek için kullanılabilecek ana moddur:",
       "selection-mode-steps": {

@@ -76,7 +76,8 @@
     "cookbook-events": "Esdeveniments dels llibres de receptes",
     "tag-events": "Esdeveniments de les etiquetes",
     "category-events": "Esdeveniments de les categories",
-    "when-a-new-user-joins-your-group": "Quan un nou usuari s'afegeix al grup"
+    "when-a-new-user-joins-your-group": "Quan un nou usuari s'afegeix al grup",
+    "recipe-events": "Recipe Events"
   },
   "general": {
     "cancel": "Anuŀla",
@@ -114,6 +115,8 @@
     "keyword": "Paraula clau",
     "link-copied": "S'ha copiat l'enllaç",
     "loading-events": "Carregant esdeveniments",
+    "loading-recipe": "Loading recipe...",
+    "loading-ocr-data": "Loading OCR data...",
     "loading-recipes": "Carregant les receptes",
     "message": "Missatge",
     "monday": "Dilluns",
@@ -193,7 +196,8 @@
     "export-all": "Exporta-ho tot",
     "refresh": "Actualitza",
     "upload-file": "Puja un fitxer",
-    "created-on-date": "Creat el: {0}"
+    "created-on-date": "Creat el: {0}",
+    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Esteu segur de voler suprimir el grup <b>{groupName}<b/>?",
@@ -208,6 +212,7 @@
     "group-id-with-value": "Identificador del grup: {groupID}",
     "group-name": "Nom del grup",
     "group-not-found": "No s'ha trobat el grup",
+    "group-token": "Group Token",
     "group-with-value": "Grup: {groupID}",
     "groups": "Grups",
     "manage-groups": "Gestiona els grups",
@@ -243,6 +248,7 @@
     "general-preferences": "Preferències generals",
     "group-recipe-preferences": "Group Recipe Preferences",
     "report": "Report",
+    "report-with-id": "Report ID: {id}",
     "group-management": "Gestió de grups",
     "admin-group-management": "Gestió del grup d'administradors",
     "admin-group-management-text": "Changes to this group will be reflected immediately.",
@@ -507,6 +513,7 @@
     "message-key": "Message Key",
     "parse": "Parse",
     "attach-images-hint": "Attach images by dragging & dropping them into the editor",
+    "drop-image": "Drop image",
     "enable-ingredient-amounts-to-use-this-feature": "Enable ingredient amounts to use this feature",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Recipes with units or foods defined cannot be parsed.",
     "parse-ingredients": "Parse ingredients",
@@ -564,14 +571,17 @@
     "tag-filter": "Filtra per etiqueta",
     "search-hint": "Prem '/'",
     "advanced": "Advanced",
-    "auto-search": "Auto Search"
+    "auto-search": "Auto Search",
+    "no-results": "No results found"
   },
   "settings": {
     "add-a-new-theme": "Afegiu un nou tema",
     "admin-settings": "Opcions de l'administrador",
     "backup": {
+      "backup-created": "Backup created successfully",
       "backup-created-at-response-export_path": "S'ha creat una còpia de seguretat a {path}",
       "backup-deleted": "Còpia de seguretat suprimida",
+      "restore-success": "Restore successful",
       "backup-tag": "Etiqueta de la còpia de seguretat",
       "create-heading": "Crea una còpia de seguretat",
       "delete-backup": "Esborra la còpia de seguretat",
@@ -680,11 +690,13 @@
     "configuration": "Configuration",
     "docker-volume": "Docker Volume",
     "docker-volume-help": "Mealie requires that the frontend container and the backend share the same docker volume or storage. This ensures that the frontend container can properly access the images and assets stored on disk.",
-    "volumes-are-misconfigured": "Volumes are misconfigured",
+    "volumes-are-misconfigured": "Volumes are misconfigured.",
     "volumes-are-configured-correctly": "Volumes are configured correctly.",
     "status-unknown-try-running-a-validation": "Status Unknown. Try running a validation.",
     "validate": "Validate",
     "email-configuration-status": "Email Configuration Status",
+    "email-configured": "Email Configured",
+    "email-test-results": "Email Test Results",
     "ready": "Ready",
     "not-ready": "Not Ready - Check Environmental Variables",
     "succeeded": "Succeeded",
@@ -819,6 +831,7 @@
     "password-updated": "S'ha actualitzat la contrasenya",
     "password": "Contrasenya",
     "password-strength": "Fortalesa de la contrasenya: {strength}",
+    "please-enter-password": "Please enter your new password.",
     "register": "Registreu-vos",
     "reset-password": "Restableix la contrasenya",
     "sign-in": "Inicia sessió",
@@ -839,6 +852,7 @@
     "username": "Nom d'usuari",
     "users-header": "USUARIS",
     "users": "Usuaris",
+    "user-not-found": "User not found",
     "webhook-time": "Hora del Webhook",
     "webhooks-enabled": "Webhooks habilitats",
     "you-are-not-allowed-to-create-a-user": "Vostè no està autoritzat per a crear un usuari",
@@ -861,6 +875,7 @@
     "user-management": "User Management",
     "reset-locked-users": "Reset Locked Users",
     "admin-user-creation": "Admin User Creation",
+    "admin-user-management": "Admin User Management",
     "user-details": "User Details",
     "user-name": "User Name",
     "authentication-method": "Authentication Method",
@@ -872,7 +887,10 @@
     "user-can-organize-group-data": "User can organize group data",
     "enable-advanced-features": "Enable advanced features",
     "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
-    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!"
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
+    "forgot-password": "Forgot Password",
+    "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
+    "changes-reflected-immediately": "Changes to this user will be reflected immediately."
   },
   "language-dialog": {
     "translated": "traduït",
@@ -974,6 +992,7 @@
   },
   "user-registration": {
     "user-registration": "Registre d'usuari",
+    "registration-success": "Registration Success",
     "join-a-group": "Uneix-te a un grup",
     "create-a-new-group": "Crea un grup nou",
     "provide-registration-token-description": "Per favor, proporciona el token associat al grup al qual voleu afegir-vos. Podeu obtindre'l d'un altre membre del grup.",
@@ -1020,6 +1039,7 @@
   },
   "ocr-editor": {
     "ocr-editor": "Editor OCR",
+    "toolbar": "Toolbar",
     "selection-mode": "Mode de selecció",
     "pan-and-zoom-picture": "Amplia la imatge",
     "split-text": "Divideix el text",
@@ -1027,6 +1047,8 @@
     "split-by-block": "Dividiu per blocs de text",
     "flatten": "Flatten regardless of original formating",
     "help": {
+      "help": "Help",
+      "mouse-modes": "Mouse modes",
       "selection-mode": "Mode de selecció (predeterminat)",
       "selection-mode-desc": "The selection mode is the main mode that can be used to enter data:",
       "selection-mode-steps": {

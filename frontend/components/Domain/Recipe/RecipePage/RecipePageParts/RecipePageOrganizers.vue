@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Recipe Categories -->
-    <v-card v-if="recipe.recipeCategory.length > 0 || isEditForm" class="mt-2">
+    <v-card v-if="recipe.recipeCategory.length > 0 || isEditForm" :class="{'mt-10': !isEditForm}">
       <v-card-title class="py-2">
         {{ $t("recipe.categories") }}
       </v-card-title>
@@ -19,7 +19,7 @@
     </v-card>
 
     <!-- Recipe Tags -->
-    <v-card v-if="recipe.tags.length > 0 || isEditForm" class="mt-2">
+    <v-card v-if="recipe.tags.length > 0 || isEditForm" class="mt-4">
       <v-card-title class="py-2">
         {{ $t("tag.tags") }}
       </v-card-title>
@@ -45,7 +45,7 @@
       </v-card-text>
     </v-card>
 
-    <RecipeNutrition v-if="recipe.settings.showNutrition" v-model="recipe.nutrition" class="mt-10" :edit="isEditForm" />
+    <RecipeNutrition v-if="recipe.settings.showNutrition" v-model="recipe.nutrition" class="mt-4" :edit="isEditForm" />
     <RecipeAssets
       v-if="recipe.settings.showAssets"
       v-model="recipe.assets"

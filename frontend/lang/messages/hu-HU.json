@@ -76,7 +76,8 @@
     "cookbook-events": "Szakácskönyv események",
     "tag-events": "Címke események",
     "category-events": "Kategória események",
-    "when-a-new-user-joins-your-group": "Amikor egy új felhasználó csatlakozik a csoportodba"
+    "when-a-new-user-joins-your-group": "Amikor egy új felhasználó csatlakozik a csoportodba",
+    "recipe-events": "Recipe Events"
   },
   "general": {
     "cancel": "Mégsem",
@@ -114,6 +115,8 @@
     "keyword": "Kulcsszó",
     "link-copied": "Hivatkozás másolva",
     "loading-events": "Események betöltése",
+    "loading-recipe": "Recept betöltése...",
+    "loading-ocr-data": "OCR adatok betöltése...",
     "loading-recipes": "Receptek betöltése",
     "message": "Üzenet",
     "monday": "Hétfő",
@@ -193,7 +196,8 @@
     "export-all": "Összes exportálása",
     "refresh": "Frissít",
     "upload-file": "Fájl feltöltése",
-    "created-on-date": "Létrehozva: {0}"
+    "created-on-date": "Létrehozva: {0}",
+    "unsaved-changes": "El nem mentett módosításai vannak. Szeretné elmenteni, mielőtt kilép? A mentéshez kattintson az Ok, a módosítások elvetéséhez a Mégsem gombra."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Biztosan törölni szeretnéd ezt: <b>{groupName}<b/>?",
@@ -208,6 +212,7 @@
     "group-id-with-value": "Csoport azonosító: {groupID}",
     "group-name": "Csoport neve",
     "group-not-found": "A csoport nem található",
+    "group-token": "Csoport token",
     "group-with-value": "Csoport: {groupID}",
     "groups": "Csoportok",
     "manage-groups": "Csoportok kezelése",
@@ -243,6 +248,7 @@
     "general-preferences": "Általános beállítások",
     "group-recipe-preferences": "Csoportos recept beállítások",
     "report": "Jelentés",
+    "report-with-id": "Jelentésazonosító: {id}",
     "group-management": "Csoport kezelése",
     "admin-group-management": "Admin csoport kezelése",
     "admin-group-management-text": "A csoporthoz tartozó változtatások azonnal megjelennek.",
@@ -463,9 +469,9 @@
     "add-to-plan": "Hozzáadás az étkezési tervhez",
     "add-to-timeline": "Hozzáadás idővonalhoz",
     "recipe-added-to-list": "Recept hozzáadva listához",
-    "recipes-added-to-list": "Recipes added to list",
+    "recipes-added-to-list": "Recept hozzáadva listához",
     "recipe-added-to-mealplan": "Recept hozzáadva menütervhez",
-    "failed-to-add-recipes-to-list": "Failed to add recipe to list",
+    "failed-to-add-recipes-to-list": "Nem sikerült hozzáadni a receptet a listához",
     "failed-to-add-recipe-to-mealplan": "Nem sikerült hozzáadni a receptet a menütervhez",
     "yield": "Adag",
     "quantity": "Mennyiség",
@@ -507,6 +513,7 @@
     "message-key": "Üzenetkulcs",
     "parse": "Előkészítés",
     "attach-images-hint": "Képek csatolása a szerkesztőbe történő húzásával és ejtésével",
+    "drop-image": "Dobd ide a képet",
     "enable-ingredient-amounts-to-use-this-feature": "Engedélyezze az összetevők mennyiségét a funkció használatához",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "A külön meghatározott mennyiségi egységeket vagy alapanyagokat tartalmazó receptek nem elemezhetők.",
     "parse-ingredients": "Hozzávalók elemzése",
@@ -564,14 +571,17 @@
     "tag-filter": "Címke szűrő",
     "search-hint": "Üsse be '/'",
     "advanced": "Haladó mód",
-    "auto-search": "Automatikus keresés"
+    "auto-search": "Automatikus keresés",
+    "no-results": "Nincs találat"
   },
   "settings": {
     "add-a-new-theme": "Új téma hozzáadása",
     "admin-settings": "Admin beállítások",
     "backup": {
+      "backup-created": "Biztonsági mentés sikeresen létrehozva",
       "backup-created-at-response-export_path": "Mentés a következő helyre: {path}",
       "backup-deleted": "Biztonsági mentés törölve",
+      "restore-success": "Sikeres visszaállítás",
       "backup-tag": "Biztonsági mentés leírás",
       "create-heading": "Biztonsági mentés létrehozása",
       "delete-backup": "Biztonsági mentés törlése",
@@ -680,11 +690,13 @@
     "configuration": "Beállítás",
     "docker-volume": "Docker Kötet",
     "docker-volume-help": "A Mealie megköveteli, hogy a frontend konténer és a backend ugyanazt a docker kötetet vagy tárolót használja. Ez biztosítja, hogy a frontend konténer megfelelően hozzáférjen a lemezen tárolt képekhez és eszközökhöz.",
-    "volumes-are-misconfigured": "A kötetek rosszul beállítottak",
+    "volumes-are-misconfigured": "A kötetek rosszul beállítottak.",
     "volumes-are-configured-correctly": "A kötetek helyesen beállítottak.",
     "status-unknown-try-running-a-validation": "Ismeretlen státusz. Próbáljon meg egy érvényesítést futtatni.",
     "validate": "Érvényesítés",
     "email-configuration-status": "Levelezés beállításI státusza",
+    "email-configured": "Email beállítva",
+    "email-test-results": "Email teszt eredménye",
     "ready": "Kész",
     "not-ready": "Nem kész - Ellenőrizze a környezeti változókat",
     "succeeded": "Sikeres",
@@ -819,6 +831,7 @@
     "password-updated": "Jelszó megváltoztatva",
     "password": "Jelszó",
     "password-strength": "Jelszó erőssége: {strength}",
+    "please-enter-password": "Kérjük adja meg az új jelszavát.",
     "register": "Regisztráció",
     "reset-password": "Jelszó visszaállítása",
     "sign-in": "Bejelentkezés",
@@ -839,6 +852,7 @@
     "username": "Felhasználónév",
     "users-header": "FELHASZNÁLÓK",
     "users": "Felhasználók",
+    "user-not-found": "A felhasználó nem található",
     "webhook-time": "Webhook ideje",
     "webhooks-enabled": "Webhookok engedélyezve",
     "you-are-not-allowed-to-create-a-user": "Nem hozhatsz létre új felhasználót",
@@ -861,6 +875,7 @@
     "user-management": "Felhasználók kezelése",
     "reset-locked-users": "Zárolt felhasználók feloldása",
     "admin-user-creation": "Admin felhasználó létrehozása",
+    "admin-user-management": "Admin felhasználó kezelése",
     "user-details": "Felhasználói információk",
     "user-name": "Felhasználó neve",
     "authentication-method": "Hitelesítési módszer",
@@ -872,7 +887,10 @@
     "user-can-organize-group-data": "Felhasználó szerkesztheti a csoport adatait",
     "enable-advanced-features": "Haladó funkciók engedélyezése",
     "it-looks-like-this-is-your-first-time-logging-in": "Úgy tűnik, most jelentkezik be először.",
-    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Nem akarja ezt többé látni? Mindenképpen változtassa meg az e-mail címét a felhasználói beállítások között!"
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Nem akarja ezt többé látni? Mindenképpen változtassa meg az e-mail címét a felhasználói beállítások között!",
+    "forgot-password": "Elfelejtett jelszó",
+    "forgot-password-text": "Írja be e-mail címét és mi küldünk egy linket a jelszó visszaállításához.",
+    "changes-reflected-immediately": "Ehhez a felhasználóhoz tartozó változtatások azonnal megjelennek."
   },
   "language-dialog": {
     "translated": "lefordítva",
@@ -974,6 +992,7 @@
   },
   "user-registration": {
     "user-registration": "Felhasználó regisztráció",
+    "registration-success": "Sikeres regisztráció",
     "join-a-group": "Csatlakozás egy csoporthoz",
     "create-a-new-group": "Új csoport létrehozása",
     "provide-registration-token-description": "Kérjük, adja meg a csatlakozni kívánt csoporthoz tartozó regisztrációs tokent. Ezt egy meglévő csoporttagtól kell megkapnia.",
@@ -1020,6 +1039,7 @@
   },
   "ocr-editor": {
     "ocr-editor": "OCR szerkesztő",
+    "toolbar": "Eszköztár",
     "selection-mode": "Kiválasztás mód",
     "pan-and-zoom-picture": "Kép mozgatása és nagyítása",
     "split-text": "Szöveg felbontása",
@@ -1027,6 +1047,8 @@
     "split-by-block": "Szövegblokkok szerinti bontás",
     "flatten": "Eredeti formázás elvetése",
     "help": {
+      "help": "Súgó",
+      "mouse-modes": "Egér üzemmódok",
       "selection-mode": "Kiválasztási mód (alapértelmezett)",
       "selection-mode-desc": "A kiválasztási mód a fő mód, amely az adatok megadására használható:",
       "selection-mode-steps": {
