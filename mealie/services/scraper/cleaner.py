@@ -335,6 +335,7 @@ def clean_time(time_entry: str | timedelta | None) -> None | str:
         - `"PT1H"` - returns "1 hour"
         - `"PT1H30M"` - returns "1 hour 30 minutes"
         - `timedelta(hours=1, minutes=30)` - returns "1 hour 30 minutes"
+        - `{"minValue": "PT1H30M"}` - returns "1 hour 30 minutes"
 
     Raises:
         TypeError: if the type is not supported a TypeError is raised
@@ -342,6 +343,9 @@ def clean_time(time_entry: str | timedelta | None) -> None | str:
     Returns:
         None | str: None if the time_entry is None, otherwise a string representing the time
     """
+    print("Time Entry:", time_entry)
+    print("Type of Time Entry:", type(time_entry))
+    print("Is Timedelta:", isinstance(time_entry, timedelta))
     if not time_entry:
         return None
 
@@ -357,11 +361,15 @@ def clean_time(time_entry: str | timedelta | None) -> None | str:
                 return str(time_entry)
         case timedelta():
             return pretty_print_timedelta(time_entry)
+        case dict(time_entry):
+            if "minValue" in time_entry:
+                return clean_time(time_entry["minValue"])
+            return None
         case datetime():
             # TODO: Not sure what to do here
             return str(time_entry)
         case _:
-            raise TypeError(f"Unexpected type for time: {type(time_entry)}, {time_entry}")
+            TypeError(f"Unexpected type for time: {type(time_entry)}, {time_entry}")
 
 
 def parse_duration(iso_duration: str) -> timedelta:
