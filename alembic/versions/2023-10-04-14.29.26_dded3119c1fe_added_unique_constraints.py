@@ -10,6 +10,7 @@ from dataclasses import dataclass
 from typing import Any
 
 import sqlalchemy as sa
+from pydantic import UUID4
 from sqlalchemy.orm import Session, load_only
 
 import mealie.db.migration_types
@@ -51,58 +52,78 @@ def _get_duplicates(session: Session, model: SqlAlchemyBase) -> defaultdict[str,
     return duplicate_map
 
 
-def _resolve_duplicate_food(session: Session, keep_food: IngredientFoodModel, dupe_food: IngredientFoodModel):
-    for shopping_list_item in session.query(ShoppingListItem).filter_by(food_id=dupe_food.id).all():
-        shopping_list_item.food_id = keep_food.id
+def _resolve_duplicate_food(
+    session: Session,
+    keep_food: IngredientFoodModel,
+    keep_food_id: UUID4,
+    dupe_food_id: UUID4,
+):
+    for shopping_list_item in session.query(ShoppingListItem).filter_by(food_id=dupe_food_id).all():
+        shopping_list_item.food_id = keep_food_id
         shopping_list_item.food = keep_food
 
     session.commit()
 
-    for recipe_ingredient in session.query(RecipeIngredientModel).filter_by(food_id=dupe_food.id).all():
-        recipe_ingredient.food_id = keep_food.id
+    for recipe_ingredient in (
+        session.query(RecipeIngredientModel)
+        .options(load_only(RecipeIngredientModel.id, RecipeIngredientModel.food_id))
+        .filter_by(food_id=dupe_food_id)
+        .all()
+    ):
+        recipe_ingredient.food_id = keep_food_id
         recipe_ingredient.food = keep_food
 
     session.commit()
 
-    session.delete(dupe_food)
+    session.query(IngredientFoodModel).options(load_only(IngredientFoodModel.id)).filter_by(id=dupe_food_id).delete()
     session.commit()
 
 
-def _resolve_duplicate_unit(session: Session, keep_unit: IngredientUnitModel, dupe_unit: IngredientUnitModel):
-    for shopping_list_item in session.query(ShoppingListItem).filter_by(unit_id=dupe_unit.id).all():
-        shopping_list_item.unit_id = keep_unit.id
+def _resolve_duplicate_unit(
+    session: Session,
+    keep_unit: IngredientUnitModel,
+    keep_unit_id: UUID4,
+    dupe_unit_id: UUID4,
+):
+    for shopping_list_item in session.query(ShoppingListItem).filter_by(unit_id=dupe_unit_id).all():
+        shopping_list_item.unit_id = keep_unit_id
         shopping_list_item.unit = keep_unit
 
     session.commit()
 
-    for recipe_ingredient in session.query(RecipeIngredientModel).filter_by(unit_id=dupe_unit.id).all():
-        recipe_ingredient.unit_id = keep_unit.id
+    for recipe_ingredient in session.query(RecipeIngredientModel).filter_by(unit_id=dupe_unit_id).all():
+        recipe_ingredient.unit_id = keep_unit_id
         recipe_ingredient.unit = keep_unit
 
     session.commit()
 
-    session.delete(dupe_unit)
+    session.query(IngredientUnitModel).options(load_only(IngredientUnitModel.id)).filter_by(id=dupe_unit_id).delete()
     session.commit()
 
 
-def _resolve_duplicate_label(session: Session, keep_label: MultiPurposeLabel, dupe_label: MultiPurposeLabel):
-    for shopping_list_item in session.query(ShoppingListItem).filter_by(label_id=dupe_label.id).all():
-        shopping_list_item.label_id = keep_label.id
+def _resolve_duplicate_label(
+    session: Session,
+    keep_label: MultiPurposeLabel,
+    keep_label_id: UUID4,
+    dupe_label_id: UUID4,
+):
+    for shopping_list_item in session.query(ShoppingListItem).filter_by(label_id=dupe_label_id).all():
+        shopping_list_item.label_id = keep_label_id
         shopping_list_item.label = keep_label
 
     session.commit()
 
-    for ingredient_food in session.query(IngredientFoodModel).filter_by(label_id=dupe_label.id).all():
-        ingredient_food.label_id = keep_label.id
+    for ingredient_food in session.query(IngredientFoodModel).filter_by(label_id=dupe_label_id).all():
+        ingredient_food.label_id = keep_label_id
         ingredient_food.label = keep_label
 
     session.commit()
 
-    session.delete(dupe_label)
+    session.query(MultiPurposeLabel).options(load_only(MultiPurposeLabel.id)).filter_by(id=dupe_label_id).delete()
     session.commit()
 
 
-def _resolve_duplivate_foods_units_labels():
+def _resolve_duplicate_foods_units_labels():
     bind = op.get_bind()
     session = Session(bind=bind)
 
@@ -119,8 +140,7 @@ def _resolve_duplivate_foods_units_labels():
             keep_id = ids[0]
             keep_obj = session.query(model).options(load_only(model.id)).filter_by(id=keep_id).first()
             for dupe_id in ids[1:]:
-                dupe_obj = session.query(model).options(load_only(model.id)).filter_by(id=dupe_id).first()
-                resolve_func(session, keep_obj, dupe_obj)
+                resolve_func(session, keep_obj, keep_id, dupe_id)
 
 
 def _remove_duplicates_from_m2m_table(session: Session, table_meta: TableMeta):
@@ -155,7 +175,7 @@ def _remove_duplicates_from_m2m_tables(table_metas: list[TableMeta]):
 
 
 def upgrade():
-    _resolve_duplivate_foods_units_labels()
+    _resolve_duplicate_foods_units_labels()
     _remove_duplicates_from_m2m_tables(
         [
             TableMeta("cookbooks_to_categories", "cookbook_id", "category_id"),
