@@ -140,6 +140,7 @@ def content_with_meta(group_slug: str, recipe: Recipe) -> str:
         MetaTag(hid="twitter:card", property_name="twitter:card", content="summary_large_image"),
     ]
 
+    global __contents
     __contents = inject_recipe_json(__contents, as_schema_org)
     __contents = inject_meta(__contents, meta_tags)
     return __contents
