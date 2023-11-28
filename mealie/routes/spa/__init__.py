@@ -71,6 +71,11 @@ def inject_meta(contents: str, tags: list[MetaTag]) -> str:
     return str(soup)
 
 
+def inject_recipe_json(contents: str, schema: dict) -> str:
+    schema_as_html_tag = f"""<script type="application/ld+json">{json.dumps(jsonable_encoder(schema))}</script>"""
+    return contents.replace("</head>", schema_as_html_tag + "\n</head>", 1)
+
+
 def content_with_meta(group_slug: str, recipe: Recipe) -> str:
     # Inject meta tags
     recipe_url = f"{__app_settings.BASE_URL}/g/{group_slug}/r/{recipe.slug}"
@@ -134,12 +139,10 @@ def content_with_meta(group_slug: str, recipe: Recipe) -> str:
         MetaTag(hid="twitter:url", property_name="twitter:url", content=recipe_url),
         MetaTag(hid="twitter:card", property_name="twitter:card", content="summary_large_image"),
     ]
-    __contents = inject_meta(__contents, meta_tags)
 
-    extra_tags = [
-        f"""<script type="application/ld+json">{json.dumps(jsonable_encoder(as_schema_org))}</script>""",
-    ]
-    return __contents.replace("</head>", "\n".join(extra_tags) + "\n</head>", 1)
+    __contents = inject_recipe_json(__contents, as_schema_org)
+    __contents = inject_meta(__contents, meta_tags)
+    return __contents
 
 
 def response_404():
