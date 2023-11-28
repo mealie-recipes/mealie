@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, useAsync, useContext, useMeta, useRoute, useRouter } from "@nuxtjs/composition-api";
+import { computed, defineComponent, ref, useAsync, useContext, useRoute, useRouter } from "@nuxtjs/composition-api";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipePage from "~/components/Domain/Recipe/RecipePage/RecipePage.vue";
 import { usePublicExploreApi } from "~/composables/api/api-client";
@@ -20,8 +20,6 @@ export default defineComponent({
     const route = useRoute();
     const router = useRouter();
     const slug = route.value.params.slug;
-
-    const { title } = useMeta();
 
     let recipe = ref<Recipe | null>(null);
     if (isOwnGroup.value) {
@@ -42,8 +40,6 @@ export default defineComponent({
       })
     }
 
-    title.value = recipe.value?.name || "";
-
     return {
       recipe,
     };
@@ -51,9 +47,11 @@ export default defineComponent({
   head() {
     if (this.recipe) {
       return {
-        title: this.recipe.name
+        title: this.recipe.name,
       }
+    } else {
+      return {};
     }
-  }
+  },
 });
 </script>
