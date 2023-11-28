@@ -1,6 +1,8 @@
 import json
 import pathlib
+from dataclasses import dataclass
 
+from bs4 import BeautifulSoup
 from fastapi import Depends, FastAPI, Response
 from fastapi.encoders import jsonable_encoder
 from fastapi.staticfiles import StaticFiles
@@ -14,6 +16,13 @@ from mealie.db.db_setup import generate_session
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.user.user import PrivateUser
+
+
+@dataclass
+class MetaTag:
+    hid: str
+    property_name: str
+    content: str
 
 
 class SPAStaticFiles(StaticFiles):
@@ -31,6 +40,35 @@ class SPAStaticFiles(StaticFiles):
 
 __app_settings = get_app_settings()
 __contents = ""
+
+
+def inject_meta(contents: str, tags: list[MetaTag]) -> str:
+    soup = BeautifulSoup(contents, "lxml")
+    scraped_meta_tags = soup.find_all("meta")
+
+    tags_by_hid = {tag.hid: tag for tag in tags}
+    for scraped_meta_tag in scraped_meta_tags:
+        try:
+            scraped_hid = scraped_meta_tag["data-hid"]
+        except KeyError:
+            continue
+
+        if not (matched_tag := tags_by_hid.pop(scraped_hid, None)):
+            continue
+
+        scraped_meta_tag["property"] = matched_tag.property_name
+        scraped_meta_tag["content"] = matched_tag.content
+
+    # add any tags we didn't find
+    if soup.html and soup.html.head:
+        for tag in tags_by_hid.values():
+            html_tag = soup.new_tag(
+                "meta",
+                **{"data-n-head": "1", "data-hid": tag.hid, "property": tag.property_name, "content": tag.content},
+            )
+            soup.html.head.append(html_tag)
+
+    return str(soup)
 
 
 def content_with_meta(group_slug: str, recipe: Recipe) -> str:
@@ -84,21 +122,24 @@ def content_with_meta(group_slug: str, recipe: Recipe) -> str:
         "nutrition": nutrition,
     }
 
-    tags = [
-        f"<title>{recipe.name}</title>",
-        f'<meta property="og:title" content="{recipe.name}" />',
-        f'<meta property="og:description" content="{recipe.description}" />',
-        f'<meta property="og:image" content="{image_url}" />',
-        f'<meta property="og:url" content="{recipe_url}" />',
-        '<meta name="twitter:card" content="summary_large_image" />',
-        f'<meta name="twitter:title" content="{recipe.name}" />',
-        f'<meta name="twitter:description" content="{recipe.description}" />',
-        f'<meta name="twitter:image" content="{image_url}" />',
-        f'<meta name="twitter:url" content="{recipe_url}" />',
+    meta_tags = [
+        MetaTag(hid="og:title", property_name="og:title", content=recipe.name or ""),
+        MetaTag(hid="og:description", property_name="og:description", content=recipe.description or ""),
+        MetaTag(hid="og:image", property_name="og:image", content=image_url),
+        MetaTag(hid="og:url", property_name="og:url", content=recipe_url),
+        MetaTag(hid="twitter:card", property_name="twitter:card", content="summary_large_image"),
+        MetaTag(hid="twitter:title", property_name="twitter:title", content=recipe.name or ""),
+        MetaTag(hid="twitter:description", property_name="twitter:description", content=recipe.description or ""),
+        MetaTag(hid="twitter:image", property_name="twitter:image", content=image_url),
+        MetaTag(hid="twitter:url", property_name="twitter:url", content=recipe_url),
+        MetaTag(hid="twitter:card", property_name="twitter:card", content="summary_large_image"),
+    ]
+    __contents = inject_meta(__contents, meta_tags)
+
+    extra_tags = [
         f"""<script type="application/ld+json">{json.dumps(jsonable_encoder(as_schema_org))}</script>""",
     ]
-
-    return __contents.replace("</head>", "\n".join(tags) + "\n</head>", 1)
+    return __contents.replace("</head>", "\n".join(extra_tags) + "\n</head>", 1)
 
 
 def response_404():
