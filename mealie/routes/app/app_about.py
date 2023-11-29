@@ -18,7 +18,7 @@ def get_app_info(session: Session = Depends(generate_session)):
 
     repos = get_repositories(session)
     default_group = repos.groups.get_by_name(settings.DEFAULT_GROUP)
-    if default_group and not default_group.preferences.private_group:
+    if default_group and default_group.preferences and not default_group.preferences.private_group:
         default_group_slug = default_group.slug
     else:
         default_group_slug = None
