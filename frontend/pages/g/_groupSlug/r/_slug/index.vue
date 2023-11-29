@@ -6,6 +6,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref, useAsync, useContext, useMeta, useRoute, useRouter } from "@nuxtjs/composition-api";
+import { whenever } from "@vueuse/core";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useAsyncKey } from "~/composables/use-utils";
 import RecipePage from "~/components/Domain/Recipe/RecipePage/RecipePage.vue";
@@ -26,7 +27,14 @@ export default defineComponent({
     let recipe = ref<Recipe | null>(null);
     if (isOwnGroup.value) {
       const { recipe: data } = useRecipe(slug);
+
       recipe = data;
+      whenever(
+        () => recipe.value,
+        () => {
+          setMeta(recipe.value)
+        },
+      )
     } else {
       const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "")
       const api = usePublicExploreApi(groupSlug.value);
