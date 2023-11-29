@@ -17,7 +17,7 @@ import { Recipe } from "~/lib/api/types/recipe";
 export default defineComponent({
   components: { RecipePage },
   setup() {
-    const  { $auth } = useContext();
+    const { $auth } = useContext();
     const { isOwnGroup } = useLoggedInState();
     const { title } = useMeta();
     const route = useRoute();
@@ -27,14 +27,7 @@ export default defineComponent({
     let recipe = ref<Recipe | null>(null);
     if (isOwnGroup.value) {
       const { recipe: data } = useRecipe(slug);
-
       recipe = data;
-      whenever(
-        () => recipe.value,
-        () => {
-          setMeta(recipe.value)
-        },
-      )
     } else {
       const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "")
       const api = usePublicExploreApi(groupSlug.value);
@@ -45,18 +38,18 @@ export default defineComponent({
           router.push(`/g/${groupSlug.value}`);
         }
 
-        setMeta(data);
         return data;
       }, useAsyncKey())
     }
 
-    function setMeta(recipe: Recipe | null) {
-      if (!recipe) {
-        return;
-      }
-
-      title.value = recipe.name;
-    }
+    whenever(
+      () => recipe.value,
+      () => {
+        if (recipe.value) {
+          title.value = recipe.value.name;
+        }
+      },
+    )
 
     return {
       recipe,
