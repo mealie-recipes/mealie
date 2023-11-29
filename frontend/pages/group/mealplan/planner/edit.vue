@@ -345,8 +345,6 @@ export default defineComponent({
       newMeal.entryType = "dinner";
       newMeal.recipeId = undefined;
       newMeal.existing = false;
-      newMeal.id = 0;
-      newMeal.groupId = "";
     }
 
     async function randomMeal(date: Date, type: PlanEntryType) {
