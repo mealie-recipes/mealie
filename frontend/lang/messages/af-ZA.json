@@ -76,7 +76,8 @@
     "cookbook-events": "Kookboek Gebeurtenisse",
     "tag-events": "Merker gebeurtenisse",
     "category-events": "Kategorie Gebeurtenisse",
-    "when-a-new-user-joins-your-group": "Wanneer 'n nuwe gebruiker by jou groep aansluit"
+    "when-a-new-user-joins-your-group": "Wanneer 'n nuwe gebruiker by jou groep aansluit",
+    "recipe-events": "Recipe Events"
   },
   "general": {
     "cancel": "Kanselleer",
@@ -114,6 +115,8 @@
     "keyword": "Sleutelwoord",
     "link-copied": "Skakel gekopieer",
     "loading-events": "Besig om gebeurtenisse te laai",
+    "loading-recipe": "Loading recipe...",
+    "loading-ocr-data": "Loading OCR data...",
     "loading-recipes": "Besig om resepte te laai",
     "message": "Boodskap",
     "monday": "Maandag",
@@ -193,7 +196,8 @@
     "export-all": "Voer alles uit",
     "refresh": "Verfris",
     "upload-file": "Laai dokument op",
-    "created-on-date": "Geskep op: {0}"
+    "created-on-date": "Geskep op: {0}",
+    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Is jy seker jy wil <b>{groupName}<b/> uitvee?",
@@ -208,6 +212,7 @@
     "group-id-with-value": "Groep-Id: {groupID}",
     "group-name": "Groep naam",
     "group-not-found": "Groep nie gevind nie",
+    "group-token": "Group Token",
     "group-with-value": "Groep: {groupID}",
     "groups": "Groepe",
     "manage-groups": "Bestuur groepe",
@@ -243,6 +248,7 @@
     "general-preferences": "Algemene voorkeure",
     "group-recipe-preferences": "Groepresepvoorkeure",
     "report": "Rapporteer",
+    "report-with-id": "Report ID: {id}",
     "group-management": "Groepbestuur",
     "admin-group-management": "Admin groepbestuur",
     "admin-group-management-text": "Veranderinge aan hierdie groep sal onmiddellik weerspieël word.",
@@ -507,6 +513,7 @@
     "message-key": "Boodskap sleutel",
     "parse": "Verwerk",
     "attach-images-hint": "Voeg prente by deur dit in die bewerker te sleep en los",
+    "drop-image": "Drop image",
     "enable-ingredient-amounts-to-use-this-feature": "Skakel bestanddeelhoeveelhede aan om hierdie funksie te gebruik",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Resepte met sekere eenhede of kosse kan nie verwerk word nie.",
     "parse-ingredients": "Verwerk bestanddele",
@@ -564,14 +571,17 @@
     "tag-filter": "Merker filter",
     "search-hint": "Druk '/'",
     "advanced": "Gevorderd",
-    "auto-search": "Outomatiese soektog"
+    "auto-search": "Outomatiese soektog",
+    "no-results": "No results found"
   },
   "settings": {
     "add-a-new-theme": "Voeg 'n nuwe tema by",
     "admin-settings": "Admin verstellings",
     "backup": {
+      "backup-created": "Backup created successfully",
       "backup-created-at-response-export_path": "Back-up gemaak op {path}",
       "backup-deleted": "Back-up verwyder",
+      "restore-success": "Restore successful",
       "backup-tag": "Back-up merker",
       "create-heading": "Maak 'n back-up",
       "delete-backup": "Verwyder back-up",
@@ -680,11 +690,13 @@
     "configuration": "Konfigurasie",
     "docker-volume": "Docker Volume",
     "docker-volume-help": "Mealie vereis dat die frontend container en die backend dieselfde docker volume of stoorspasie deel. Dit verseker dat die frontend container toegang tot die prente en lêers op die skyf kan kry.",
-    "volumes-are-misconfigured": "Volumes is verkeerd opgestel",
+    "volumes-are-misconfigured": "Volumes are misconfigured.",
     "volumes-are-configured-correctly": "Volumes is korrek opgestel.",
     "status-unknown-try-running-a-validation": "Status onbekend. Probeer om 'n mate van validering te doen.",
     "validate": "Tjek",
     "email-configuration-status": "E-poskonfigurasiestatus",
+    "email-configured": "Email Configured",
+    "email-test-results": "Email Test Results",
     "ready": "Gereed",
     "not-ready": "Nie gereed nie - Gaan omgewingsveranderlikes na",
     "succeeded": "Geslaag",
@@ -819,6 +831,7 @@
     "password-updated": "Wagwoord opgedateer",
     "password": "Wagwoord",
     "password-strength": "Wagwoord is {strength}",
+    "please-enter-password": "Please enter your new password.",
     "register": "Registreer",
     "reset-password": "Herstel wagwoord",
     "sign-in": "Meld aan",
@@ -839,6 +852,7 @@
     "username": "Gebruikersnaam",
     "users-header": "GEBRUIKERS",
     "users": "Gebruikers",
+    "user-not-found": "User not found",
     "webhook-time": "Webhook tyd",
     "webhooks-enabled": "Webhooks aangeskakel",
     "you-are-not-allowed-to-create-a-user": "Jy is nie toegelaat om 'n gebruiker te skep nie",
@@ -861,6 +875,7 @@
     "user-management": "Gebruikersbestuur",
     "reset-locked-users": "Stel geblokkeerde gebruikers terug",
     "admin-user-creation": "Skep admin (hoof) gebruiker",
+    "admin-user-management": "Admin User Management",
     "user-details": "Gebruikersbesonderhede",
     "user-name": "Gebruikersnaam",
     "authentication-method": "Verifikasie metode",
@@ -872,7 +887,10 @@
     "user-can-organize-group-data": "Gebruiker kan groepdata organiseer",
     "enable-advanced-features": "Aktiveer gevorderde funksies",
     "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
-    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!"
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
+    "forgot-password": "Forgot Password",
+    "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
+    "changes-reflected-immediately": "Changes to this user will be reflected immediately."
   },
   "language-dialog": {
     "translated": "vertaal",
@@ -974,6 +992,7 @@
   },
   "user-registration": {
     "user-registration": "Gebruiker registrasie",
+    "registration-success": "Registration Success",
     "join-a-group": "Sluit aan by 'n groep",
     "create-a-new-group": "Skep 'n nuwe groep",
     "provide-registration-token-description": "Voer die registrasietoken in wat verband hou met die groep waarby jy wil aansluit. Jy moet hierdie token van 'n lid van die groep aanvra.",
@@ -1020,6 +1039,7 @@
   },
   "ocr-editor": {
     "ocr-editor": "OCR-bewerker",
+    "toolbar": "Toolbar",
     "selection-mode": "Seleksie modus",
     "pan-and-zoom-picture": "Pan en zoem prent",
     "split-text": "Verdeel teks",
@@ -1027,6 +1047,8 @@
     "split-by-block": "Verdeel volgens teksblok",
     "flatten": "Maak plat ongeag die oorspronklike formatering",
     "help": {
+      "help": "Help",
+      "mouse-modes": "Mouse modes",
       "selection-mode": "Seleksie modus (standaard)",
       "selection-mode-desc": "Die seleksiemodus is die hoofmodus wat gebruik kan word om data in te voer:",
       "selection-mode-steps": {

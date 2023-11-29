@@ -76,7 +76,8 @@
     "cookbook-events": "Événements du livre de recettes",
     "tag-events": "Événements des mots-clés",
     "category-events": "Événements de catégories",
-    "when-a-new-user-joins-your-group": "Lorsqu'un nouvel utilisateur rejoint votre groupe"
+    "when-a-new-user-joins-your-group": "Lorsqu'un nouvel utilisateur rejoint votre groupe",
+    "recipe-events": "Événements de recette"
   },
   "general": {
     "cancel": "Annuler",
@@ -114,6 +115,8 @@
     "keyword": "Mot-clé",
     "link-copied": "Lien copié",
     "loading-events": "Chargement des événements",
+    "loading-recipe": "Chargement de la recette...",
+    "loading-ocr-data": "Chargement des données OCR...",
     "loading-recipes": "Chargement des recettes",
     "message": "Message",
     "monday": "Lundi",
@@ -193,7 +196,8 @@
     "export-all": "Exporter tout",
     "refresh": "Actualiser",
     "upload-file": "Transférer un fichier",
-    "created-on-date": "Créé le {0}"
+    "created-on-date": "Créé le {0}",
+    "unsaved-changes": "Vous avez des modifications non enregistrées. Voulez-vous enregistrer avant de partir ? OK pour enregistrer, Annuler pour ignorer les modifications."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Voulez-vous vraiment supprimer <b>{groupName}<b/> ?",
@@ -208,6 +212,7 @@
     "group-id-with-value": "ID groupe : {groupID}",
     "group-name": "Nom du groupe",
     "group-not-found": "Groupe non trouvé",
+    "group-token": "Jeton de groupe",
     "group-with-value": "Groupe : {groupID}",
     "groups": "Groupes",
     "manage-groups": "Gérer les groupes",
@@ -243,6 +248,7 @@
     "general-preferences": "Préférences générales",
     "group-recipe-preferences": "Préférences de recette du groupe",
     "report": "Rapport",
+    "report-with-id": "Identifiant du rapport : {id}",
     "group-management": "Gestion des groupes",
     "admin-group-management": "Administration des groupes",
     "admin-group-management-text": "Les modifications apportées à ce groupe seront immédiatement prises en compte.",
@@ -507,6 +513,7 @@
     "message-key": "Clé de message",
     "parse": "Analyser",
     "attach-images-hint": "Ajouter des images en les glissant-déposant dans l'éditeur",
+    "drop-image": "Déposer l'image",
     "enable-ingredient-amounts-to-use-this-feature": "Activez les quantités d'ingrédients pour utiliser cette fonctionnalité",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Les recettes avec des unités ou des aliments définis ne peuvent pas être analysées.",
     "parse-ingredients": "Analyser les ingrédients",
@@ -564,14 +571,17 @@
     "tag-filter": "Filtre par mots-clés",
     "search-hint": "Appuyez sur « /»",
     "advanced": "Avancé",
-    "auto-search": "Recherche automatique"
+    "auto-search": "Recherche automatique",
+    "no-results": "Aucun résultat trouvé"
   },
   "settings": {
     "add-a-new-theme": "Ajouter un nouveau thème",
     "admin-settings": "Paramètres d’administration",
     "backup": {
+      "backup-created": "Sauvegarde créée avec succès",
       "backup-created-at-response-export_path": "Sauvegarde créée dans {path}",
       "backup-deleted": "Sauvegarde supprimée",
+      "restore-success": "Restauration réussie",
       "backup-tag": "Tag de la sauvegarde",
       "create-heading": "Créer une sauvegarde",
       "delete-backup": "Supprimer la sauvegarde",
@@ -680,11 +690,13 @@
     "configuration": "Paramètres",
     "docker-volume": "Volume Docker",
     "docker-volume-help": "Mealie exige que le conteneur frontend et le backend partagent le même volume docker ou le même stockage. Cela garantit que le conteneur frontend peut accéder correctement aux images et aux ressources stockées sur le disque.",
-    "volumes-are-misconfigured": "Les volumes sont mal configurés",
+    "volumes-are-misconfigured": "Les volumes sont mal configurés.",
     "volumes-are-configured-correctly": "Les volumes sont configurés correctement.",
     "status-unknown-try-running-a-validation": "Statut inconnu. Essayez de lancer une validation.",
     "validate": "Valider",
     "email-configuration-status": "État de la configuration e-mail",
+    "email-configured": "E-mail configuré",
+    "email-test-results": "Résultats des tests e-mail",
     "ready": "Prêt",
     "not-ready": "Pas prêt - Vérifier les variables d'environnement",
     "succeeded": "Réussite",
@@ -819,6 +831,7 @@
     "password-updated": "Mot de passe mis à jour",
     "password": "Mot de passe",
     "password-strength": "Robustesse du mot de passe : {strength}",
+    "please-enter-password": "Veuillez entrer votre nouveau mot de passe.",
     "register": "S’inscrire",
     "reset-password": "Réinitialiser le mot de passe",
     "sign-in": "Se connecter",
@@ -839,6 +852,7 @@
     "username": "Nom d’utilisateur",
     "users-header": "UTILISATEURS",
     "users": "Utilisateurs",
+    "user-not-found": "Utilisateur introuvable",
     "webhook-time": "Heure du Webhook",
     "webhooks-enabled": "Webhooks activés",
     "you-are-not-allowed-to-create-a-user": "Vous n’avez pas le droit de créer un utilisateur",
@@ -861,6 +875,7 @@
     "user-management": "Gestion des utilisateurs",
     "reset-locked-users": "Réinitialiser les utilisateurs verrouillés",
     "admin-user-creation": "Création d'un utilisateur admin",
+    "admin-user-management": "Administration des utilisateurs",
     "user-details": "Détails de l'utilisateur",
     "user-name": "Nom d'utilisateur",
     "authentication-method": "Méthode d'authentification",
@@ -872,7 +887,10 @@
     "user-can-organize-group-data": "L'utilisateur peut organiser des données de groupe",
     "enable-advanced-features": "Activer les fonctions avancées",
     "it-looks-like-this-is-your-first-time-logging-in": "Il semble que ce soit votre première connexion.",
-    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Vous ne voulez plus voir cela ? Assurez-vous de changer votre adresse e-mail dans vos paramètres d'utilisateur !"
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Vous ne voulez plus voir cela ? Assurez-vous de changer votre adresse e-mail dans vos paramètres d'utilisateur !",
+    "forgot-password": "Mot de passe oublié",
+    "forgot-password-text": "Veuillez entrer votre adresse e-mail. Un e-mail vous sera envoyé afin de réinitialiser votre mot de passe.",
+    "changes-reflected-immediately": "Les changements apportés à cet utilisateur seront immédiatement pris en compte."
   },
   "language-dialog": {
     "translated": "traduit",
@@ -957,23 +975,24 @@
     "columns": "Colonnes",
     "combine": "Combiner",
     "categories": {
-      "edit-category": "Edit Category",
-      "new-category": "New Category",
-      "category-data": "Category Data"
+      "edit-category": "Modifier la catégorie",
+      "new-category": "Nouvelle catégorie",
+      "category-data": "Données de catégorie"
     },
     "tags": {
-      "new-tag": "New Tag",
-      "edit-tag": "Edit Tag",
-      "tag-data": "Tag Data"
+      "new-tag": "Nouveau mot-clé",
+      "edit-tag": "Modifier le mot-clé",
+      "tag-data": "Données du mot-clé"
     },
     "tools": {
-      "new-tool": "New Tool",
-      "edit-tool": "Edit Tool",
-      "tool-data": "Tool Data"
+      "new-tool": "Nouvel ustensile",
+      "edit-tool": "Modifier l'ustensile",
+      "tool-data": "Données de l'ustensile"
     }
   },
   "user-registration": {
     "user-registration": "Inscription d’utilisateur",
+    "registration-success": "Inscription réussie",
     "join-a-group": "Rejoindre un groupe",
     "create-a-new-group": "Créer un nouveau groupe",
     "provide-registration-token-description": "Veuillez fournir le jeton d’enregistrement associé au groupe que vous souhaitez rejoindre. Vous devrez l’obtenir auprès d’un membre existant du groupe.",
@@ -1020,6 +1039,7 @@
   },
   "ocr-editor": {
     "ocr-editor": "Éditeur OCR",
+    "toolbar": "Barre d’outils",
     "selection-mode": "Mode de sélection",
     "pan-and-zoom-picture": "Déplacer et zoomer dans l’image",
     "split-text": "Découper le texte",
@@ -1027,6 +1047,8 @@
     "split-by-block": "Séparer par bloc de texte",
     "flatten": "Aplatir quel que soit le formatage original",
     "help": {
+      "help": "Aide",
+      "mouse-modes": "Modes de souris",
       "selection-mode": "Mode de sélection (Par défaut)",
       "selection-mode-desc": "Le mode de sélection est le mode principal qui peut être utilisé pour saisir des données :",
       "selection-mode-steps": {

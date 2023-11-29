@@ -76,7 +76,8 @@
     "cookbook-events": "Kogebogs Begivenheder",
     "tag-events": "Tag Begivenheder",
     "category-events": "Kategori Begivenheder",
-    "when-a-new-user-joins-your-group": "Når en ny bruger slutter sig til din gruppe"
+    "when-a-new-user-joins-your-group": "Når en ny bruger slutter sig til din gruppe",
+    "recipe-events": "Hændelser for opskrifter"
   },
   "general": {
     "cancel": "Annuller",
@@ -114,6 +115,8 @@
     "keyword": "Nøgleord",
     "link-copied": "Link kopieret",
     "loading-events": "Indlæser hændelser",
+    "loading-recipe": "Indlæser opskrift...",
+    "loading-ocr-data": "Indlæser OCR data...",
     "loading-recipes": "Indlæser opskrifter",
     "message": "Besked",
     "monday": "Mandag",
@@ -193,7 +196,8 @@
     "export-all": "Eksportér alle",
     "refresh": "Opdater",
     "upload-file": "Upload Fil",
-    "created-on-date": "Oprettet den: {0}"
+    "created-on-date": "Oprettet den: {0}",
+    "unsaved-changes": "Du har ændringer som ikke er gemt. Vil du gemme før du forlader? Vælg \"Okay\" for at gemme, eller \"Annullér\" for at kassere ændringer."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Er du sikker på, du vil slette <b>{groupName}<b/>?",
@@ -208,6 +212,7 @@
     "group-id-with-value": "Gruppe-ID: {groupID}",
     "group-name": "Gruppenavn",
     "group-not-found": "Gruppen blev ikke fundet",
+    "group-token": "Gruppe Token",
     "group-with-value": "Gruppe: {groupID}",
     "groups": "Grupper",
     "manage-groups": "Administrer grupper",
@@ -243,6 +248,7 @@
     "general-preferences": "Generelle Indstillinger",
     "group-recipe-preferences": "Gruppe Indstillinger for opskrifter",
     "report": "Rapport",
+    "report-with-id": "Rapport ID: {id}",
     "group-management": "Gruppe Håndtering",
     "admin-group-management": "Administrationsgruppe Håndtering",
     "admin-group-management-text": "Ændringer i denne gruppe vil træde i kraft øjeblikkeligt.",
@@ -507,6 +513,7 @@
     "message-key": "Beskednøgle",
     "parse": "Behandl data",
     "attach-images-hint": "Vedhæft billeder ved at trække dem ind i redigeringsværktøjet",
+    "drop-image": "Slet billede",
     "enable-ingredient-amounts-to-use-this-feature": "Aktiver mængde af ingredienser for at bruge denne funktion",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Opskrifter med enheder eller fødevarer defineret kan ikke fortolkes.",
     "parse-ingredients": "Fortolk ingredienser",
@@ -564,14 +571,17 @@
     "tag-filter": "Tagfiler",
     "search-hint": "Tryk '/'",
     "advanced": "Avanceret",
-    "auto-search": "Automatisk Søgning"
+    "auto-search": "Automatisk Søgning",
+    "no-results": "Ingen resultater fundet"
   },
   "settings": {
     "add-a-new-theme": "Tilføj et nyt tema",
     "admin-settings": "Administratorindstillinger",
     "backup": {
+      "backup-created": "Backup oprettet med succes",
       "backup-created-at-response-export_path": "Backup oprettet ved {path}",
       "backup-deleted": "Backup slettet",
+      "restore-success": "Gendannelse lykkedes",
       "backup-tag": "Backupnavn",
       "create-heading": "Opret en backup",
       "delete-backup": "Slet backup",
@@ -680,11 +690,13 @@
     "configuration": "Konfiguration",
     "docker-volume": "Docker Volume",
     "docker-volume-help": "Mealie kræver, at frontend og backend containere deler den samme docker mappe. Dette sikrer, at frontend container har adgang til billeder og øvrige lagret på disken.",
-    "volumes-are-misconfigured": "Docker mapper er forkert konfigureret",
+    "volumes-are-misconfigured": "Docker mapper er forkert konfigureret.",
     "volumes-are-configured-correctly": "Docker mapper er korrekt konfigureret.",
     "status-unknown-try-running-a-validation": "Status Ukendt. Prøv at køre en validering.",
     "validate": "Validering",
     "email-configuration-status": "Status for konfiguration af e-mail",
+    "email-configured": "Email Konfigureret",
+    "email-test-results": "Email Testresultater",
     "ready": "Klar",
     "not-ready": "Ikke Klar - Kontroller konfigurationen",
     "succeeded": "Gennemført",
@@ -819,6 +831,7 @@
     "password-updated": "Adgangskoden blev opdateret",
     "password": "Adgangskode",
     "password-strength": "Adgangskodestyrken er {strength}",
+    "please-enter-password": "Indtast venligst din nye adgangskode.",
     "register": "Registrér",
     "reset-password": "Nulstil adgangskoden",
     "sign-in": "Log ind",
@@ -839,6 +852,7 @@
     "username": "Brugernavn",
     "users-header": "BRUGERE",
     "users": "Brugere",
+    "user-not-found": "Brugeren kunne ikke findes",
     "webhook-time": "Webhook Tid",
     "webhooks-enabled": "Webhooks Aktiveret",
     "you-are-not-allowed-to-create-a-user": "Du har ikke rettigheder til at oprette en ny bruger",
@@ -861,6 +875,7 @@
     "user-management": "Brugeradministration",
     "reset-locked-users": "Nulstil Låste Brugere",
     "admin-user-creation": "Opret administratorbruger",
+    "admin-user-management": "Håndter administratorbruger",
     "user-details": "Brugerdetaljer",
     "user-name": "Brugernavn",
     "authentication-method": "Godkendelsesmetode",
@@ -872,7 +887,10 @@
     "user-can-organize-group-data": "Bruger kan organisere gruppedata",
     "enable-advanced-features": "Aktiver avancerede funktioner",
     "it-looks-like-this-is-your-first-time-logging-in": "Det ser ud til, at det er første gang, at du logger ind.",
-    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Vil du ikke længere se dette? Sørg for at ændre din e-mail i dine brugerindstillinger!"
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Vil du ikke længere se dette? Sørg for at ændre din e-mail i dine brugerindstillinger!",
+    "forgot-password": "Glemt adgangskode",
+    "forgot-password-text": "Indtast venligst din e-mail-adresse. Vi sender dig en e-mail, så at du kan nulstille din adgangskode.",
+    "changes-reflected-immediately": "Ændringer til denne bruger vil have effekt med det samme."
   },
   "language-dialog": {
     "translated": "oversat",
@@ -974,6 +992,7 @@
   },
   "user-registration": {
     "user-registration": "Brugerregistrering",
+    "registration-success": "Registrering lykkedes",
     "join-a-group": "Deltag i en gruppe",
     "create-a-new-group": "Opret en ny gruppe",
     "provide-registration-token-description": "Angiv venligst det registreringstoken, der er knyttet til den gruppe, du gerne vil deltage i. Du skal indhente dette fra et eksisterende gruppemedlem.",
@@ -1020,6 +1039,7 @@
   },
   "ocr-editor": {
     "ocr-editor": "Ocr redigering",
+    "toolbar": "Værktøjslinje",
     "selection-mode": "Markeringstilstand",
     "pan-and-zoom-picture": "Panorer og zoom på billede",
     "split-text": "Opdel tekst",
@@ -1027,6 +1047,8 @@
     "split-by-block": "Opdelt efter tekstblok",
     "flatten": "Udjævn på trods af original formatering",
     "help": {
+      "help": "Hjælp",
+      "mouse-modes": "Muse tilstande",
       "selection-mode": "Markeringstilstand (standard)",
       "selection-mode-desc": "Markeringstilstanden er den primære tilstand, der kan benyttes til at indtaste data:",
       "selection-mode-steps": {

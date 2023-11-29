@@ -18,6 +18,7 @@ from slugify import slugify
 
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import RecipeCategory, RecipeSummary, RecipeTag
+from mealie.schema.recipe.recipe_notes import RecipeNote
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.scraper.recipe_scraper import DEFAULT_SCRAPER_STRATEGIES
 from tests import data, utils
@@ -608,6 +609,42 @@ def test_rename(api_client: TestClient, recipe_data: RecipeSiteTestCase, unique_
     assert json.loads(response.text).get("slug") == new_slug
 
     recipe_data.expected_slug = new_slug
+
+
+def test_remove_notes(api_client: TestClient, unique_user: TestUser):
+    # create recipe
+    recipe_create_url = api_routes.recipes
+    recipe_create_data = {"name": random_string()}
+    response = api_client.post(recipe_create_url, headers=unique_user.token, json=recipe_create_data)
+    assert response.status_code == 201
+    recipe_slug: str = response.json()
+
+    # get recipe and add a note
+    recipe_url = api_routes.recipes_slug(recipe_slug)
+    response = api_client.get(recipe_url, headers=unique_user.token)
+    assert response.status_code == 200
+
+    recipe = json.loads(response.text)
+    recipe["notes"] = [RecipeNote(title=random_string(), text=random_string()).dict()]
+    response = api_client.put(recipe_url, json=recipe, headers=unique_user.token)
+    assert response.status_code == 200
+
+    # get recipe and remove the note
+    response = api_client.get(recipe_url, headers=unique_user.token)
+    assert response.status_code == 200
+
+    recipe = json.loads(response.text)
+    assert len(recipe.get("notes", [])) == 1
+    recipe["notes"] = []
+    response = api_client.put(recipe_url, json=recipe, headers=unique_user.token)
+    assert response.status_code == 200
+
+    # verify the note is removed
+    response = api_client.get(recipe_url, headers=unique_user.token)
+    assert response.status_code == 200
+
+    recipe = json.loads(response.text)
+    assert len(recipe.get("notes", [])) == 0
 
 
 @pytest.mark.parametrize("recipe_data", recipe_test_data)

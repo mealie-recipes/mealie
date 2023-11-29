@@ -76,7 +76,8 @@
     "cookbook-events": "Kochbuch-Ereignisse",
     "tag-events": "Schlagwort-Ereignisse",
     "category-events": "Kategorie-Ereignisse",
-    "when-a-new-user-joins-your-group": "Wenn ein neuer Benutzer deiner Gruppe beitritt"
+    "when-a-new-user-joins-your-group": "Wenn ein neuer Benutzer deiner Gruppe beitritt",
+    "recipe-events": "Rezept-Ereignisse"
   },
   "general": {
     "cancel": "Abbrechen",
@@ -114,6 +115,8 @@
     "keyword": "Schlüsselwort",
     "link-copied": "Link kopiert",
     "loading-events": "Ereignisse werden geladen",
+    "loading-recipe": "Lade Rezept...",
+    "loading-ocr-data": "Lade OCR-Daten...",
     "loading-recipes": "Lade Rezepte",
     "message": "Nachricht",
     "monday": "Montag",
@@ -193,7 +196,8 @@
     "export-all": "Alle exportieren",
     "refresh": "Aktualisieren",
     "upload-file": "Datei hochladen",
-    "created-on-date": "Erstellt am: {0}"
+    "created-on-date": "Erstellt am: {0}",
+    "unsaved-changes": "Du hast ungespeicherte Änderungen. Möchtest du vor dem Verlassen speichern? OK um zu speichern, Cancel um Änderungen zu verwerfen."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Bist du dir sicher, dass du die Gruppe <b>{groupName}<b/> löschen möchtest?",
@@ -208,6 +212,7 @@
     "group-id-with-value": "Gruppenkennung: {groupID}",
     "group-name": "Name der Gruppe",
     "group-not-found": "Gruppe nicht gefunden",
+    "group-token": "Gruppen-Token",
     "group-with-value": "Gruppe: {groupID}",
     "groups": "Gruppen",
     "manage-groups": "Gruppen verwalten",
@@ -243,6 +248,7 @@
     "general-preferences": "Allgemeine Einstellungen",
     "group-recipe-preferences": "Gruppen-Rezept-Einstellungen",
     "report": "Bericht",
+    "report-with-id": "Bericht-ID: {id}",
     "group-management": "Gruppenverwaltung",
     "admin-group-management": "Admin: Gruppenverwaltung",
     "admin-group-management-text": "Änderungen an dieser Gruppe sind sofort wirksam.",
@@ -507,6 +513,7 @@
     "message-key": "Nachrichten-Schlüssel",
     "parse": "Parse",
     "attach-images-hint": "Bilder durch Ziehen & Ablegen in den Editor hinzufügen",
+    "drop-image": "Bild hier ablegen",
     "enable-ingredient-amounts-to-use-this-feature": "Aktiviere Zutatenmengen, um diese Funktion zu nutzen",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Rezepte mit gesondert definierten Einheiten oder Lebensmitteln können nicht analysiert werden.",
     "parse-ingredients": "Zutaten parsen",
@@ -564,14 +571,17 @@
     "tag-filter": "Schlagwortfilter",
     "search-hint": "'/' drücken",
     "advanced": "Erweitert",
-    "auto-search": "Automatische Suche"
+    "auto-search": "Automatische Suche",
+    "no-results": "Keine Ergebnisse gefunden"
   },
   "settings": {
     "add-a-new-theme": "Neues Thema hinzufügen",
     "admin-settings": "Admin Einstellungen",
     "backup": {
+      "backup-created": "Sicherung erfolgreich erstellt",
       "backup-created-at-response-export_path": "Sicherung erstellt unter {path}",
       "backup-deleted": "Sicherung gelöscht",
+      "restore-success": "Wiederherstellung erfolgreich",
       "backup-tag": "Sicherungsbeschreibung",
       "create-heading": "Sicherung erstellen",
       "delete-backup": "Sicherung löschen",
@@ -680,11 +690,13 @@
     "configuration": "Konfiguration",
     "docker-volume": "Docker Volume",
     "docker-volume-help": "Mealie setzt voraus, dass sich der Frontend-Container und das Backend das gleiche Docker-Volume oder den gleichen Speicher teilen. Dadurch wird sichergestellt, dass der Frontend-Container auf die Bilder und Assets auf der Festplatte zugreifen kann.",
-    "volumes-are-misconfigured": "Volumes sind falsch konfiguriert",
+    "volumes-are-misconfigured": "Volumes sind falsch konfiguriert.",
     "volumes-are-configured-correctly": "Volumes sind korrekt konfiguriert.",
     "status-unknown-try-running-a-validation": "Status unbekannt. Führe eine Überprüfung aus.",
     "validate": "Überprüfen",
     "email-configuration-status": "E-Mail Konfigurationsstatus",
+    "email-configured": "E-Mail konfiguriert",
+    "email-test-results": "E-Mail Test-Ergebnis",
     "ready": "Bereit",
     "not-ready": "Nicht bereit - bitte Konfiguration überprüfen",
     "succeeded": "Erfolgreich",
@@ -819,6 +831,7 @@
     "password-updated": "Passwort aktualisiert",
     "password": "Passwort",
     "password-strength": "Das Passwort ist {strength}",
+    "please-enter-password": "Bitte gib dein neues Passwort ein.",
     "register": "Registrieren",
     "reset-password": "Passwort zurücksetzen",
     "sign-in": "Einloggen",
@@ -839,6 +852,7 @@
     "username": "Benutzername",
     "users-header": "BENUTZER",
     "users": "Benutzer",
+    "user-not-found": "Benutzer nicht gefunden",
     "webhook-time": "Webhook Zeit",
     "webhooks-enabled": "Webhooks aktiviert",
     "you-are-not-allowed-to-create-a-user": "Du bist nicht berechtigt, einen Benutzer anzulegen",
@@ -861,6 +875,7 @@
     "user-management": "Benutzerverwaltung",
     "reset-locked-users": "Gesperrte Benutzer zurücksetzen",
     "admin-user-creation": "Benutzer erstellen",
+    "admin-user-management": "Administrator Benutzerverwaltung",
     "user-details": "Benutzerdetails",
     "user-name": "Benutzername",
     "authentication-method": "Authentifizierungsmethode",
@@ -872,7 +887,10 @@
     "user-can-organize-group-data": "Benutzer kann Gruppendaten bearbeiten",
     "enable-advanced-features": "Erweiterte Funktionen aktivieren",
     "it-looks-like-this-is-your-first-time-logging-in": "Es sieht so aus, als ob du dich zum ersten Mal anmeldest.",
-    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Möchtest du das hier nicht mehr sehen? Bitte ändere deine E-Mail in den Benutzereinstellungen!"
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Möchtest du das hier nicht mehr sehen? Bitte ändere deine E-Mail in den Benutzereinstellungen!",
+    "forgot-password": "Passwort vergessen",
+    "forgot-password-text": "Bitte gib Deine E-Mail-Adresse ein. Wir werden Dir eine E-Mail zusenden, damit Du Dein Passwort zurücksetzen kannst.",
+    "changes-reflected-immediately": "Änderungen an diesem Benutzer sind sofort wirksam."
   },
   "language-dialog": {
     "translated": "übersetzt",
@@ -974,6 +992,7 @@
   },
   "user-registration": {
     "user-registration": "Benutzerregistrierung",
+    "registration-success": "Registrierung erfolgreich",
     "join-a-group": "Gruppe beitreten",
     "create-a-new-group": "Neue Gruppe erstellen",
     "provide-registration-token-description": "Bitte gib den Registrierungstoken für die Gruppe ein, der du beitreten möchtest. Du kannst ihn von einem bestehenden Gruppenmitglied erhalten.",
@@ -1020,6 +1039,7 @@
   },
   "ocr-editor": {
     "ocr-editor": "OCR Editor",
+    "toolbar": "Werkzeugleiste",
     "selection-mode": "Auswahlmodus",
     "pan-and-zoom-picture": "Bild verschieben und zoomen",
     "split-text": "Text aufteilen",
@@ -1027,6 +1047,8 @@
     "split-by-block": "Nach Textblöcken aufteilen",
     "flatten": "Ursprüngliche Formatierung verwerfen",
     "help": {
+      "help": "Hilfe",
+      "mouse-modes": "Maus-Modus",
       "selection-mode": "Auswahlmodus (Standard)",
       "selection-mode-desc": "Der Auswahlmodus ist die Standardmethode, um Daten hinzuzufügen:",
       "selection-mode-steps": {
