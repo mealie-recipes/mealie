@@ -17,7 +17,7 @@ To deploy mealie on your local network it is highly recommended to use docker to
 
 [Get Docker Compose](https://docs.docker.com/compose/install/)
 
-[Mealie on Dockerhub](https://hub.docker.com/r/hkotel/mealie)
+[Mealie on GitHub registry](https://github.com/mealie-recipes/mealie/pkgs/container/mealie)
 
 - linux/amd64
 - linux/arm64
