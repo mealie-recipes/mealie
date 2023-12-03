@@ -19,12 +19,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Log in to the Container registry
+      - name: Log in to the Container registry (ghcr.io)
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Log in to the Container registry (dockerhub)
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -43,7 +49,9 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ghcr.io/${{ github.repository }}:${{ inputs.tag }}
+          tags: |
+            hkotel/mealie:${{ inputs.tag }}
+            ghcr.io/${{ github.repository }}:${{ inputs.tag }}
           build-args: |
             COMMIT=${{ github.sha }}
           # https://docs.docker.com/build/ci/github-actions/cache/#github-cache
