@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       tag:
-        required: true
+        required: false
         type: string
     secrets:
       DOCKERHUB_USERNAME:
@@ -43,7 +43,7 @@ jobs:
           echo "__version__ = \"${{ inputs.tag }}\"" > ./mealie/__init__.py
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           file: ./docker/Dockerfile
           context: .
@@ -52,6 +52,7 @@ jobs:
           tags: |
             hkotel/mealie:${{ inputs.tag }}
             ghcr.io/${{ github.repository }}:${{ inputs.tag }}
+            ${{ inputs.tags }}
           build-args: |
             COMMIT=${{ github.sha }}
           # https://docs.docker.com/build/ci/github-actions/cache/#github-cache
