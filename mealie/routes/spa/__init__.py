@@ -137,7 +137,6 @@ def content_with_meta(group_slug: str, recipe: Recipe) -> str:
         MetaTag(hid="twitter:description", property_name="twitter:description", content=recipe.description or ""),
         MetaTag(hid="twitter:image", property_name="twitter:image", content=image_url),
         MetaTag(hid="twitter:url", property_name="twitter:url", content=recipe_url),
-        MetaTag(hid="twitter:card", property_name="twitter:card", content="summary_large_image"),
     ]
 
     global __contents
@@ -179,7 +178,7 @@ async def serve_recipe_with_meta(
     user: PrivateUser | None = Depends(try_get_current_user),
     session: Session = Depends(generate_session),
 ):
-    if not user:
+    if not user or user.group_slug != group_slug:
         return serve_recipe_with_meta_public(group_slug, recipe_slug, session)
 
     try:
