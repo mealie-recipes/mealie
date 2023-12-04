@@ -35,15 +35,15 @@ def populate_normalized_fields():
         if unit.name is not None:
             session.execute(
                 sa.text(
-                    f"UPDATE {IngredientUnitModel.__tablename__} SET name_normalized='{IngredientUnitModel.normalize(unit.name)}' WHERE id='{unit.id}'"
-                )
+                    f"UPDATE {IngredientUnitModel.__tablename__} SET name_normalized=:name_normalized WHERE id=:id"
+                ).bindparams(name_normalized=IngredientUnitModel.normalize(unit.name), id=unit.id)
             )
 
         if unit.abbreviation is not None:
             session.execute(
                 sa.text(
-                    f"UPDATE {IngredientUnitModel.__tablename__} SET abbreviation_normalized='{IngredientUnitModel.normalize(unit.abbreviation)}' WHERE id='{unit.id}'"
-                )
+                    f"UPDATE {IngredientUnitModel.__tablename__} SET abbreviation_normalized=:abbreviation_normalized WHERE id=:id"
+                ).bindparams(abbreviation_normalized=IngredientUnitModel.normalize(unit.abbreviation), id=unit.id)
             )
 
     foods = (
@@ -53,8 +53,8 @@ def populate_normalized_fields():
         if food.name is not None:
             session.execute(
                 sa.text(
-                    f"UPDATE {IngredientFoodModel.__tablename__} SET name_normalized='{IngredientFoodModel.normalize(food.name)}' WHERE id='{food.id}'"
-                )
+                    f"UPDATE {IngredientFoodModel.__tablename__} SET name_normalized=:name_normalized WHERE id=:id"
+                ).bindparams(name_normalized=IngredientFoodModel.normalize(food.name), id=food.id)
             )
 
     session.commit()

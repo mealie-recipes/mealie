@@ -66,7 +66,9 @@ def _resolve_duplicate_food(
     ):
         recipe_ingredient.food_id = keep_food_id
 
-    session.execute(sa.text(f"DELETE FROM {IngredientFoodModel.__tablename__} WHERE id='{dupe_food_id}'"))
+    session.execute(
+        sa.text(f"DELETE FROM {IngredientFoodModel.__tablename__} WHERE id=:id").bindparams(id=str(dupe_food_id))
+    )
 
 
 def _resolve_duplicate_unit(
@@ -80,7 +82,9 @@ def _resolve_duplicate_unit(
     for recipe_ingredient in session.query(RecipeIngredientModel).filter_by(unit_id=dupe_unit_id).all():
         recipe_ingredient.unit_id = keep_unit_id
 
-    session.execute(sa.text(f"DELETE FROM {IngredientUnitModel.__tablename__} WHERE id='{dupe_unit_id}'"))
+    session.execute(
+        sa.text(f"DELETE FROM {IngredientUnitModel.__tablename__} WHERE id=:id").bindparams(id=str(dupe_unit_id))
+    )
 
 
 def _resolve_duplicate_label(
@@ -94,7 +98,9 @@ def _resolve_duplicate_label(
     for ingredient_food in session.query(IngredientFoodModel).filter_by(label_id=dupe_label_id).all():
         ingredient_food.label_id = keep_label_id
 
-    session.execute(sa.text(f"DELETE FROM {MultiPurposeLabel.__tablename__} WHERE id='{dupe_label_id}'"))
+    session.execute(
+        sa.text(f"DELETE FROM {MultiPurposeLabel.__tablename__} WHERE id=:id").bindparams(id=str(dupe_label_id))
+    )
 
 
 def _resolve_duplicate_foods_units_labels(session: Session):
