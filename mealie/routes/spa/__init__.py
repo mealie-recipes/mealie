@@ -194,6 +194,19 @@ async def serve_recipe_with_meta(
         return response_404()
 
 
+async def serve_shared_recipe_with_meta(group_slug: str, token_id: str, session: Session = Depends(generate_session)):
+    try:
+        repos = AllRepositories(session)
+        token_summary = repos.recipe_share_tokens.get_one(token_id)
+        if token_summary is None:
+            raise Exception("Token Not Found")
+
+        return Response(content_with_meta(group_slug, token_summary.recipe), media_type="text/html")
+
+    except Exception:
+        return response_404()
+
+
 def mount_spa(app: FastAPI):
     if not os.path.exists(__app_settings.STATIC_FILES):
         return
@@ -202,4 +215,5 @@ def mount_spa(app: FastAPI):
     __contents = pathlib.Path(__app_settings.STATIC_FILES).joinpath("index.html").read_text()
 
     app.get("/g/{group_slug}/r/{recipe_slug}")(serve_recipe_with_meta)
+    app.get("/g/{group_slug}/shared/{token_id}")(serve_shared_recipe_with_meta)
     app.mount("/", SPAStaticFiles(directory=__app_settings.STATIC_FILES, html=True), name="spa")
