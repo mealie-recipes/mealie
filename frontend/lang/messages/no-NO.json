@@ -77,7 +77,7 @@
     "tag-events": "Tagg hendelser",
     "category-events": "Kategori hendelser",
     "when-a-new-user-joins-your-group": "Når en ny bruker blir med i gruppen din",
-    "recipe-events": "Recipe Events"
+    "recipe-events": "Oppskrift hendelser"
   },
   "general": {
     "cancel": "Avbryt",
@@ -115,8 +115,8 @@
     "keyword": "Nøkkelord",
     "link-copied": "Lenke kopiert",
     "loading-events": "Laster hendelser",
-    "loading-recipe": "Loading recipe...",
-    "loading-ocr-data": "Loading OCR data...",
+    "loading-recipe": "Laster oppskrift...",
+    "loading-ocr-data": "Laster OCR data...",
     "loading-recipes": "Laster Oppskrifter",
     "message": "Melding",
     "monday": "Mandag",
@@ -197,7 +197,7 @@
     "refresh": "Oppdater",
     "upload-file": "Last opp fil",
     "created-on-date": "Opprettet: {0}",
-    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
+    "unsaved-changes": "Du har ulagrede endringer. Vil du lagre før du forlater den? Okay å lagre, Avbryt for å forkaste endringer."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Er du sikker på at du vil slette <b>{groupName}<b/>?",
@@ -248,7 +248,7 @@
     "general-preferences": "Generelle innstillinger",
     "group-recipe-preferences": "Innstillinger for gruppe-oppskrift",
     "report": "Rapport",
-    "report-with-id": "Report ID: {id}",
+    "report-with-id": "Rapport-ID: {id}",
     "group-management": "Gruppeadministrasjon",
     "admin-group-management": "Admin gruppe-administrasjon",
     "admin-group-management-text": "Endringer i denne gruppen vil umiddelbart bli reflektert.",
@@ -572,7 +572,7 @@
     "search-hint": "Trykk på '/'",
     "advanced": "Avansert",
     "auto-search": "Autosøk",
-    "no-results": "No results found"
+    "no-results": "Ingen resultater funnet"
   },
   "settings": {
     "add-a-new-theme": "Legg til nytt tema",
@@ -581,7 +581,7 @@
       "backup-created": "Backup created successfully",
       "backup-created-at-response-export_path": "Sikkerhetskopi opprettet på {path}",
       "backup-deleted": "Sikkerhetskopi slettet",
-      "restore-success": "Restore successful",
+      "restore-success": "Gjenopprettingen var vellykket",
       "backup-tag": "Sikkerhetskopi-merke",
       "create-heading": "Opprett sikkerhetskopi",
       "delete-backup": "Slett Sikkerhetskopi",
@@ -690,12 +690,12 @@
     "configuration": "Konfigurasjon",
     "docker-volume": "Docker volum",
     "docker-volume-help": "Mealie krever at frontend og backend konteinerene deler samme docker volum/lagring. Dette sikrer at frontend får tilgang til bilder og ressurser lagret på harddisken.",
-    "volumes-are-misconfigured": "Volumes are misconfigured.",
+    "volumes-are-misconfigured": "Volumene er feilkonfigurert.",
     "volumes-are-configured-correctly": "Volumene er riktig konfigurert.",
     "status-unknown-try-running-a-validation": "Statusen er ukjent. Prøv å validere.",
     "validate": "Valider",
     "email-configuration-status": "Epost konfigurasjons status",
-    "email-configured": "Email Configured",
+    "email-configured": "E-post konfigurert",
     "email-test-results": "Email Test Results",
     "ready": "Klar",
     "not-ready": "Ikke klar - sjekk miljøvariabler",
@@ -852,7 +852,7 @@
     "username": "Brukernavn",
     "users-header": "BRUKERE",
     "users": "Brukere",
-    "user-not-found": "User not found",
+    "user-not-found": "Bruker ikke funnet",
     "webhook-time": "Webhooks Tidsbruk",
     "webhooks-enabled": "Webhooks aktivert",
     "you-are-not-allowed-to-create-a-user": "Du har ikke rettigheter til å opprette en bruker",
@@ -958,13 +958,13 @@
       "tag": "Etikett",
       "categorize": "Kategoriser",
       "update-settings": "Oppdater innstillinger",
-      "tag-recipes": "Tag Recipes",
-      "categorize-recipes": "Categorize Recipes",
+      "tag-recipes": "Tagg oppskrifter",
+      "categorize-recipes": "Kategoriser oppskrifter",
       "export-recipes": "Eksporter oppskrift",
       "delete-recipes": "Slett oppskrifter",
       "source-unit-will-be-deleted": "Kildeenheten vil bli slettet"
     },
-    "create-alias": "Create Alias",
+    "create-alias": "Opprett alias",
     "manage-aliases": "Manage Aliases",
     "seed-data": "Frødata",
     "seed": "Seed",
@@ -975,18 +975,18 @@
     "columns": "Kolonner",
     "combine": "Kombiner",
     "categories": {
-      "edit-category": "Edit Category",
-      "new-category": "New Category",
-      "category-data": "Category Data"
+      "edit-category": "Rediger kategori",
+      "new-category": "Ny Kategori",
+      "category-data": "Kategoridata"
     },
     "tags": {
-      "new-tag": "New Tag",
-      "edit-tag": "Edit Tag",
-      "tag-data": "Tag Data"
+      "new-tag": "Ny tagg",
+      "edit-tag": "Rediger Tag",
+      "tag-data": "Tagg data"
     },
     "tools": {
-      "new-tool": "New Tool",
-      "edit-tool": "Edit Tool",
+      "new-tool": "Nytt verktøy",
+      "edit-tool": "Rediger verktøy",
       "tool-data": "Tool Data"
     }
   },
@@ -1047,8 +1047,8 @@
     "split-by-block": "Del på tekstblokk",
     "flatten": "Flat ut, uavhengig av orginalformatering.",
     "help": {
-      "help": "Help",
-      "mouse-modes": "Mouse modes",
+      "help": "Hjelp",
+      "mouse-modes": "Musemodus",
       "selection-mode": "Valgmodus (standard)",
       "selection-mode-desc": "Utvalgsmodus er hovedmodus som kan brukes til å legge inn data:",
       "selection-mode-steps": {
@@ -1081,7 +1081,7 @@
       "info-description-cleanable-directories": "Cleanable Directories",
       "info-description-cleanable-images": "Rydbare bilder",
       "storage": {
-        "title-temporary-directory": "Temporary Directory (.temp)",
+        "title-temporary-directory": "Midlertidig mappe (.temp)",
         "title-backups-directory": "Backups Directory (backups)",
         "title-groups-directory": "Groups Directory (groups)",
         "title-recipes-directory": "Recipes Directory (recipes)",
@@ -1094,7 +1094,7 @@
       "action-clean-temporary-files-name": "Fjern midlertidige filer",
       "action-clean-temporary-files-description": "Fjerner alle filer og mapper i .temp-mappen",
       "action-clean-images-name": "Fjern bilder",
-      "action-clean-images-description": "Removes all the images that don't end with .webp",
+      "action-clean-images-description": "Fjerner alle bildene som ikke slutter med .webp",
       "actions-description": "Maintenance actions are {destructive_in_bold} and should be used with caution. Performing any of these actions is {irreversible_in_bold}.",
       "actions-description-destructive": "destruktiv",
       "actions-description-irreversible": "irreversibel",
