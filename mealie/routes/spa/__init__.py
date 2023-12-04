@@ -79,7 +79,14 @@ def inject_recipe_json(contents: str, schema: dict) -> str:
 def content_with_meta(group_slug: str, recipe: Recipe) -> str:
     # Inject meta tags
     recipe_url = f"{__app_settings.BASE_URL}/g/{group_slug}/r/{recipe.slug}"
-    image_url = f"{__app_settings.BASE_URL}/api/media/recipes/{recipe.id}/images/original.webp?version={recipe.image}"
+    if recipe.image:
+        image_url = (
+            f"{__app_settings.BASE_URL}/api/media/recipes/{recipe.id}/images/original.webp?version={recipe.image}"
+        )
+    else:
+        image_url = (
+            "https://raw.githubusercontent.com/hay-kot/mealie/dev/frontend/public/img/icons/android-chrome-512x512.png"
+        )
 
     ingredients: list[str] = []
     if recipe.settings.disable_amount:  # type: ignore
