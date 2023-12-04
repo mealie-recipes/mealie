@@ -4,6 +4,9 @@ on:
   workflow_call:
     inputs:
       tag:
+        required: true
+        type: string
+      tags:
         required: false
         type: string
     secrets:
