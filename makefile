@@ -122,7 +122,7 @@ frontend-lint: ## 🧺 Run yarn lint
 # -----------------------------------------------------------------------------
 # Docker makefile
 
-docker: ## 🐳 Build and Start Docker Production Stack
+prod: ## 🐳 Build and Start Docker Production Stack
 	cd docker && docker compose -f docker-compose.yml -p mealie up --build
 
 generate:
