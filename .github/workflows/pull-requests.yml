@@ -17,7 +17,3 @@ jobs:
   container-scanning:
     name: "Trivy Container Scanning"
     uses: ./.github/workflows/partial-trivy-container-scanning.yml
-  
-  security-scanning:
-    name: "CodeQL Security Scanning"
-    uses: ./.github/workflows/codeql.yml
