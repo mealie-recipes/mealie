@@ -222,5 +222,5 @@ def mount_spa(app: FastAPI):
     __contents = pathlib.Path(__app_settings.STATIC_FILES).joinpath("index.html").read_text()
 
     app.get("/g/{group_slug}/r/{recipe_slug}")(serve_recipe_with_meta)
-    app.get("/g/{group_slug}/shared/{token_id}")(serve_shared_recipe_with_meta)
+    app.get("/g/{group_slug}/shared/r/{token_id}")(serve_shared_recipe_with_meta)
     app.mount("/", SPAStaticFiles(directory=__app_settings.STATIC_FILES, html=True), name="spa")
