@@ -5,6 +5,7 @@ from pathlib import Path
 from fastapi import APIRouter, File, HTTPException, UploadFile, status
 
 from mealie.core.config import get_app_dirs
+from mealie.core.root_logger import get_logger
 from mealie.core.security import create_file_token
 from mealie.pkgs.stats.fs_stats import pretty_size
 from mealie.routes._base import BaseAdminController, controller
@@ -12,6 +13,7 @@ from mealie.schema.admin.backup import AllBackups, BackupFile
 from mealie.schema.response.responses import ErrorResponse, FileTokenResponse, SuccessResponse
 from mealie.services.backups_v2.backup_v2 import BackupSchemaMismatch, BackupV2
 
+logger = get_logger()
 router = APIRouter(prefix="/backups")
 
 
@@ -42,6 +44,7 @@ class AdminBackupController(BaseAdminController):
         try:
             backup.backup()
         except Exception as e:
+            logger.exception(e)
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR) from e
 
         return SuccessResponse.respond("Backup created successfully")
@@ -106,6 +109,7 @@ class AdminBackupController(BaseAdminController):
                 ErrorResponse.respond("database backup schema version does not match current database"),
             ) from e
         except Exception as e:
+            logger.exception(e)
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR) from e
 
         return SuccessResponse.respond("Restore successful")
