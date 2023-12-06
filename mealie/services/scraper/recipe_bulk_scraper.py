@@ -4,7 +4,13 @@ from pydantic import UUID4
 
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import CreateRecipeByUrlBulk, Recipe
-from mealie.schema.reports.reports import ReportCategory, ReportCreate, ReportEntryCreate, ReportSummaryStatus
+from mealie.schema.reports.reports import (
+    ReportCategory,
+    ReportCreate,
+    ReportEntryCreate,
+    ReportEntryOut,
+    ReportSummaryStatus,
+)
 from mealie.schema.user.user import GroupInDB
 from mealie.services._base_service import BaseService
 from mealie.services.recipe.recipe_service import RecipeService
@@ -47,6 +53,7 @@ class RecipeBulkScraperService(BaseService):
         is_success = True
         is_failure = True
 
+        new_entries: list[ReportEntryOut] = []
         for entry in self.report_entries:
             if is_failure and entry.success:
                 is_failure = False
@@ -54,7 +61,7 @@ class RecipeBulkScraperService(BaseService):
             if is_success and not entry.success:
                 is_success = False
 
-            self.repos.group_report_entries.create(entry)
+            new_entries.append(self.repos.group_report_entries.create(entry))
 
         if is_success:
             self.report.status = ReportSummaryStatus.success
@@ -65,6 +72,7 @@ class RecipeBulkScraperService(BaseService):
         if not is_success and not is_failure:
             self.report.status = ReportSummaryStatus.partial
 
+        self.report.entries = new_entries
         self.repos.group_reports.update(self.report.id, self.report)
 
     async def scrape(self, urls: CreateRecipeByUrlBulk) -> None:
