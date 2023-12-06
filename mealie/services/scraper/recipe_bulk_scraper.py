@@ -1,4 +1,4 @@
-from asyncio import gather
+import asyncio
 
 from pydantic import UUID4
 
@@ -68,22 +68,25 @@ class RecipeBulkScraperService(BaseService):
         self.repos.group_reports.update(self.report.id, self.report)
 
     async def scrape(self, urls: CreateRecipeByUrlBulk) -> None:
+        sem = asyncio.Semaphore(3)
+
         async def _do(url: str) -> Recipe | None:
-            try:
-                recipe, _ = await create_from_url(url)
-                return recipe
-            except Exception as e:
-                self.service.logger.error(f"failed to scrape url during bulk url import {b.url}")
-                self.service.logger.exception(e)
-                self._add_error_entry(f"failed to scrape url {url}", str(e))
-                return None
+            async with sem:
+                try:
+                    recipe, _ = await create_from_url(url)
+                    return recipe
+                except Exception as e:
+                    self.service.logger.error(f"failed to scrape url during bulk url import {url}")
+                    self.service.logger.exception(e)
+                    self._add_error_entry(f"failed to scrape url {url}", str(e))
+                    return None
 
         if self.report is None:
             self.get_report_id()
         tasks = [_do(b.url) for b in urls.imports]
-        results = await gather(*tasks)
+        results = await asyncio.gather(*tasks, return_exceptions=True)
         for b, recipe in zip(urls.imports, results, strict=True):
-            if not recipe:
+            if not recipe or isinstance(recipe, Exception):
                 continue
 
             if b.tags:
