@@ -12,14 +12,17 @@ from mealie.services._base_service import BaseService
 _FIREFOX_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0"
 
 
-async def gather_with_concurrency(n, *coros):
+async def gather_with_concurrency(n, *coros, ignore_exceptions=False):
     semaphore = asyncio.Semaphore(n)
 
     async def sem_coro(coro):
         async with semaphore:
             return await coro
 
-    return await asyncio.gather(*(sem_coro(c) for c in coros))
+    results = await asyncio.gather(*(sem_coro(c) for c in coros), return_exceptions=ignore_exceptions)
+    if ignore_exceptions:
+        results = [r for r in results if not isinstance(r, Exception)]
+    return results
 
 
 async def largest_content_len(urls: list[str]) -> tuple[str, int]:
@@ -31,7 +34,7 @@ async def largest_content_len(urls: list[str]) -> tuple[str, int]:
 
     async with AsyncClient() as client:
         tasks = [do(client, url) for url in urls]
-        responses: list[Response] = await gather_with_concurrency(10, *tasks)
+        responses: list[Response] = await gather_with_concurrency(10, *tasks, ignore_exceptions=True)
         for response in responses:
             len_int = int(response.headers.get("Content-Length", 0))
             if len_int > largest_len:

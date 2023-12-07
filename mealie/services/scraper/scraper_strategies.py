@@ -172,7 +172,7 @@ class RecipeScraperPackage(ABCScraperStrategy):
         try:
             scraped_schema = scrape_html(recipe_html, org_url=self.url)
         except (NoSchemaFoundInWildMode, AttributeError):
-            self.logger.error("Recipe Scraper was unable to extract a recipe.")
+            self.logger.error(f"Recipe Scraper was unable to extract a recipe from {self.url}")
             return None
 
         except ConnectionError as e:
