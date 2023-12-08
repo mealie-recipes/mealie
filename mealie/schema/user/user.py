@@ -66,6 +66,14 @@ class GroupBase(MealieModel):
     class Config:
         orm_mode = True
 
+    @validator("name")
+    def not_null(cls, v: str):
+        v = v.strip()
+        if not v:
+            raise ValueError("name cannot be empty")
+
+        return v
+
 
 class UserBase(MealieModel):
     username: str | None
