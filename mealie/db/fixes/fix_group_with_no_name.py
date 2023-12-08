@@ -27,10 +27,8 @@ def fix_group_with_no_name(session: Session):
         return
 
     logger.info(
-        (
-            f'{len(groups)} {"group" if len(groups) == 1 else "groups"} found with a missing name; '
-            f'applying default name "{DEFAULT_GROUP_NAME_BASE}"'
-        )
+        f'{len(groups)} {"group" if len(groups) == 1 else "groups"} found with a missing name; '
+        f'applying default name "{DEFAULT_GROUP_NAME_BASE}"'
     )
 
     offset = 0
