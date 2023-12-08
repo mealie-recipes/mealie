@@ -10,6 +10,7 @@ from alembic.runtime import migration
 from mealie.core import root_logger
 from mealie.core.config import get_app_settings
 from mealie.db.db_setup import session_context
+from mealie.db.fixes.fix_group_with_no_name import fix_group_with_no_name
 from mealie.db.fixes.fix_slug_foods import fix_slug_food_names
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
@@ -104,6 +105,7 @@ def main():
             init_db(db)
 
         safe_try(lambda: fix_slug_food_names(db))
+        safe_try(lambda: fix_group_with_no_name(session))
 
 
 if __name__ == "__main__":
