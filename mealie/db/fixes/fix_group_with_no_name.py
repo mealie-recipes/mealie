@@ -23,7 +23,7 @@ def _do_fix(session: Session, group: Group, counter: int):
 def fix_group_with_no_name(session: Session):
     groups = session.query(Group).filter(Group.name == "").all()
     if not groups:
-        logger.info("No group found with an empty name; skipping fix")
+        logger.debug("No group found with an empty name; skipping fix")
         return
 
     logger.info(
