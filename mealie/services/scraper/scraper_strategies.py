@@ -11,6 +11,7 @@ from slugify import slugify
 from w3lib.html import get_base_url
 
 from mealie.core.root_logger import get_logger
+from mealie.lang.providers import Translator
 from mealie.schema.recipe.recipe import Recipe, RecipeStep
 from mealie.services.scraper.scraped_extras import ScrapedExtras
 
@@ -77,9 +78,10 @@ class ABCScraperStrategy(ABC):
 
     url: str
 
-    def __init__(self, url: str) -> None:
+    def __init__(self, url: str, translator: Translator) -> None:
         self.logger = get_logger()
         self.url = url
+        self.translator = translator
 
     @abstractmethod
     async def get_html(self, url: str) -> str:

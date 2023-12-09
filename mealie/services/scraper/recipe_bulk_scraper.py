@@ -2,6 +2,7 @@ import asyncio
 
 from pydantic import UUID4
 
+from mealie.lang.providers import Translator
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import CreateRecipeByUrlBulk, Recipe
 from mealie.schema.reports.reports import (
@@ -20,11 +21,14 @@ from mealie.services.scraper.scraper import create_from_url
 class RecipeBulkScraperService(BaseService):
     report_entries: list[ReportEntryCreate]
 
-    def __init__(self, service: RecipeService, repos: AllRepositories, group: GroupInDB) -> None:
+    def __init__(
+        self, service: RecipeService, repos: AllRepositories, group: GroupInDB, translator: Translator
+    ) -> None:
         self.service = service
         self.repos = repos
         self.group = group
         self.report_entries = []
+        self.translator = translator
 
         super().__init__()
 
@@ -81,7 +85,7 @@ class RecipeBulkScraperService(BaseService):
         async def _do(url: str) -> Recipe | None:
             async with sem:
                 try:
-                    recipe, _ = await create_from_url(url)
+                    recipe, _ = await create_from_url(url, self.translator)
                     return recipe
                 except Exception as e:
                     self.service.logger.error(f"failed to scrape url during bulk url import {url}")
