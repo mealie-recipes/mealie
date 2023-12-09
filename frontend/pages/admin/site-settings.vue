@@ -168,7 +168,7 @@
           </template>
         </template>
         <template v-else>
-          <div>$tc('general.loading')...</div>
+          <div>{{ $tc('general.loading') }}...</div>
         </template>
       </v-card>
     </section>
