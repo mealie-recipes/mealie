@@ -469,7 +469,7 @@
     "add-to-plan": "Dodaj do planu",
     "add-to-timeline": "Add to Timeline",
     "recipe-added-to-list": "Przepis dodany do listy",
-    "recipes-added-to-list": "Recipes added to list",
+    "recipes-added-to-list": "Przepisy dodane do listy",
     "recipe-added-to-mealplan": "Przepis dodany do planu posiłków",
     "failed-to-add-recipes-to-list": "Failed to add recipe to list",
     "failed-to-add-recipe-to-mealplan": "Nie udało się dodać przepisu do planu posiłków",
@@ -495,10 +495,10 @@
     "public-link": "Link publiczny",
     "timer": {
       "kitchen-timer": "Kitchen Timer",
-      "start-timer": "Start Timer",
+      "start-timer": "Włącz minutnik",
       "pause-timer": "Pause Timer",
       "resume-timer": "Resume Timer",
-      "stop-timer": "Stop Timer"
+      "stop-timer": "Zatrzymaj minutnik"
     },
     "edit-timeline-event": "Edytuj zdarzenie osi czasu",
     "timeline": "Oś czasu",
@@ -553,7 +553,7 @@
     "unit": "Jednostka",
     "upload-image": "Prześlij obraz",
     "screen-awake": "Keep Screen Awake",
-    "remove-image": "Remove image"
+    "remove-image": "Usuń obraz"
   },
   "search": {
     "advanced-search": "Wyszukiwanie zaawansowane",
@@ -578,7 +578,7 @@
     "add-a-new-theme": "Dodaj nowy motyw",
     "admin-settings": "Ustawienia administratora",
     "backup": {
-      "backup-created": "Backup created successfully",
+      "backup-created": "Kopia zapasowa utworzona pomyślnie",
       "backup-created-at-response-export_path": "Kopia zapasowa została utworzona w {path}",
       "backup-deleted": "Kopia zapasowa została usunięta",
       "restore-success": "Restore successful",
@@ -831,7 +831,7 @@
     "password-updated": "Hasło zostało zaktualizowane",
     "password": "Hasło",
     "password-strength": "Hasło jest {strength}",
-    "please-enter-password": "Please enter your new password.",
+    "please-enter-password": "Wpisz nowe hasło.",
     "register": "Zarejestruj się",
     "reset-password": "Zresetuj hasło",
     "sign-in": "Zaloguj się",
@@ -852,7 +852,7 @@
     "username": "Nazwa użytkownika",
     "users-header": "UŻYTKOWNICY",
     "users": "Użytkownicy",
-    "user-not-found": "User not found",
+    "user-not-found": "Nie znaleziono użytkownika",
     "webhook-time": "Czas webhooka",
     "webhooks-enabled": "Webhooki włączone",
     "you-are-not-allowed-to-create-a-user": "Nie masz uprawnień do tworzenia użytkowników",
@@ -975,12 +975,12 @@
     "columns": "Kolumny",
     "combine": "Połącz",
     "categories": {
-      "edit-category": "Edit Category",
-      "new-category": "New Category",
-      "category-data": "Category Data"
+      "edit-category": "Edytuj kategorię",
+      "new-category": "Nowa kategoria",
+      "category-data": "Dane kategorii"
     },
     "tags": {
-      "new-tag": "New Tag",
+      "new-tag": "Nowy Tag",
       "edit-tag": "Edit Tag",
       "tag-data": "Tag Data"
     },
