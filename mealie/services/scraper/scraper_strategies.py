@@ -105,7 +105,9 @@ class RecipeScraperPackage(ABCScraperStrategy):
         return await safe_scrape_html(url)
 
     def clean_scraper(self, scraped_data: SchemaScraperFactory.SchemaScraper, url: str) -> tuple[Recipe, ScrapedExtras]:
-        def try_get_default(func_call: Callable | None, get_attr: str, default: Any, clean_func=None):
+        def try_get_default(
+            func_call: Callable | None, get_attr: str, default: Any, clean_func=None, **clean_func_kwargs
+        ):
             value = default
 
             if func_call:
@@ -121,7 +123,7 @@ class RecipeScraperPackage(ABCScraperStrategy):
                     self.logger.error(f"Error parsing recipe attribute '{get_attr}'")
 
             if clean_func:
-                value = clean_func(value)
+                value = clean_func(value, **clean_func_kwargs)
 
             return value
 
@@ -141,9 +143,9 @@ class RecipeScraperPackage(ABCScraperStrategy):
             except TypeError:
                 return []
 
-        cook_time = try_get_default(None, "performTime", None, cleaner.clean_time) or try_get_default(
-            None, "cookTime", None, cleaner.clean_time
-        )
+        cook_time = try_get_default(
+            None, "performTime", None, cleaner.clean_time, translator=self.translator
+        ) or try_get_default(None, "cookTime", None, cleaner.clean_time, translator=self.translator)
 
         extras = ScrapedExtras()
 
@@ -160,8 +162,8 @@ class RecipeScraperPackage(ABCScraperStrategy):
                 scraped_data.ingredients, "recipeIngredient", [""], cleaner.clean_ingredients
             ),
             recipe_instructions=get_instructions(),
-            total_time=try_get_default(None, "totalTime", None, cleaner.clean_time),
-            prep_time=try_get_default(None, "prepTime", None, cleaner.clean_time),
+            total_time=try_get_default(None, "totalTime", None, cleaner.clean_time, translator=self.translator),
+            prep_time=try_get_default(None, "prepTime", None, cleaner.clean_time, translator=self.translator),
             perform_time=cook_time,
             org_url=url,
         )
