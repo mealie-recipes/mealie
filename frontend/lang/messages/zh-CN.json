@@ -114,6 +114,7 @@
     "json": "JSON",
     "keyword": "关键字",
     "link-copied": "链接已复制",
+    "loading": "Loading",
     "loading-events": "正在加载事件",
     "loading-recipe": "Loading recipe...",
     "loading-ocr-data": "Loading OCR data...",
