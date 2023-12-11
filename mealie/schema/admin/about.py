@@ -59,7 +59,3 @@ class CheckAppConfig(MealieModel):
     ldap_ready: bool
     base_url_set: bool
     is_up_to_date: bool
-
-
-class DockerVolumeText(MealieModel):
-    text: str
