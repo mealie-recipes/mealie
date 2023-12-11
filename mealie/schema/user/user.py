@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Any
 from uuid import UUID
 
-from pydantic import UUID4, Field, validator
+from pydantic import UUID4, Field, constr, validator
 from pydantic.types import constr
 from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
@@ -61,18 +61,10 @@ class ChangePassword(MealieModel):
 
 
 class GroupBase(MealieModel):
-    name: str
+    name: constr(strip_whitespace=True, min_length=1)  # type: ignore
 
     class Config:
         orm_mode = True
-
-    @validator("name")
-    def not_null(cls, v: str):
-        v = v.strip()
-        if not v:
-            raise ValueError("name cannot be empty")
-
-        return v
 
 
 class UserBase(MealieModel):
