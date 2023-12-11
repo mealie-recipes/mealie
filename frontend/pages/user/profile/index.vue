@@ -55,7 +55,7 @@
         <p>{{ $t('profile.account-summary-description') }}</p>
       </div>
       <v-row tag="section">
-        <v-col cols="12" sm="12" md="6">
+        <v-col cols="12" sm="12" md="12">
           <v-card outlined>
             <v-card-title class="headline pb-0"> {{ $t('profile.group-statistics') }} </v-card-title>
             <v-card-text class="py-0">
@@ -72,22 +72,6 @@
                 <template #title> {{ getStatsTitle(key) }}</template>
                 <template #value> {{ value }}</template>
               </StatsCards>
-            </v-card-text>
-          </v-card>
-        </v-col>
-        <v-col cols="12" sm="12" md="6" class="d-flex align-strart">
-          <v-card outlined>
-            <v-card-title class="headline pb-0"> {{ $t('profile.storage-capacity') }} </v-card-title>
-            <v-card-text class="py-0">
-              {{ $t('profile.storage-capacity-description') }}
-              <strong> {{ $t('general.this-feature-is-currently-inactive') }}</strong>
-            </v-card-text>
-            <v-card-text>
-              <v-progress-linear :value="storageUsedPercentage" color="accent" class="rounded" height="30">
-                <template #default>
-                  <strong> {{ storageText }} </strong>
-                </template>
-              </v-progress-linear>
             </v-card-text>
           </v-card>
         </v-col>
@@ -344,33 +328,8 @@ export default defineComponent({
       return statsTo.value[key] ?? "unknown";
     }
 
-    const storage = useAsync(async () => {
-      const { data } = await api.groups.storage();
-
-      if (data) {
-        return data;
-      }
-    }, useAsyncKey());
-
-    const storageUsedPercentage = computed(() => {
-      if (!storage.value) {
-        return 0;
-      }
-
-      return (storage.value?.usedStorageBytes / storage.value?.totalStorageBytes) * 100 ?? 0;
-    });
-
-    const storageText = computed(() => {
-      if (!storage.value) {
-        return "Loading...";
-      }
-      return `${storage.value.usedStorageStr} / ${storage.value.totalStorageStr}`;
-    });
-
     return {
       groupSlug,
-      storageText,
-      storageUsedPercentage,
       getStatsTitle,
       getStatsIcon,
       getStatsTo,

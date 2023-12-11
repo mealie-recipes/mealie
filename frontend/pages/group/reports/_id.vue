@@ -21,7 +21,7 @@
           {{ $d(Date.parse(item.timestamp), "short") }}
         </template>
         <template #expanded-item="{ headers, item }">
-          <td class="pa-6" :colspan="headers.length">{{ item.exception }}</td>
+          <td v-if="item.exception" class="pa-6" :colspan="headers.length">{{ item.exception }}</td>
         </template>
       </v-data-table>
     </v-container>
