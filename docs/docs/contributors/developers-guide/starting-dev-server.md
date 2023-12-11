@@ -124,9 +124,9 @@ docker-prod          🐳 Build and Start Docker Production Stack
 ```
 ## Internationalization
 ### Frontend
-We use vue-i18n package for internationalization. Translations are stored in json format located in [frontend/lang/messages](https://github.com/hay-kot/mealie/tree/mealie-next/frontend/lang/messages).
+We use vue-i18n package for internationalization. Translations are stored in json format located in [frontend/lang/messages](https://github.com/mealie-recipes/mealie/tree/mealie-next/frontend/lang/messages).
 ### Backend
-Translations are stored in json format located in [mealie/lang/messages](https://github.com/hay-kot/mealie/tree/mealie-next/mealie/lang/messages).
+Translations are stored in json format located in [mealie/lang/messages](https://github.com/mealie-recipes/mealie/tree/mealie-next/mealie/lang/messages).
 
 ### Quick frontend localization with VS Code
 [i18n Ally for VScode](https://marketplace.visualstudio.com/items?itemName=lokalise.i18n-ally) is helpful for generating new strings to translate using Code Actions. It also has a nice feature, which shows translations in-place when editing code.

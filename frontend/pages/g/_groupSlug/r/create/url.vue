@@ -103,7 +103,11 @@ export default defineComponent({
       if (refreshTags) {
         tags.actions.refresh();
       }
-      router.push(`/g/${groupSlug.value}/r/${response.data}?edit=${edit.toString()}`);
+
+      // we clear the query params first so if the user hits back, they don't re-import the recipe
+      router.replace({ query: {} }).then(
+        () => router.push(`/g/${groupSlug.value}/r/${response.data}?edit=${edit.toString()}`)
+      );
     }
 
     const recipeUrl = computed({
