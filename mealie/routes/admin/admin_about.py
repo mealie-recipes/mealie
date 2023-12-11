@@ -1,15 +1,10 @@
-import asyncio
-import random
-import shutil
-import string
-
-from fastapi import APIRouter, BackgroundTasks
+from fastapi import APIRouter
 from recipe_scrapers import __version__ as recipe_scraper_version
 
 from mealie.core.release_checker import get_latest_version
 from mealie.core.settings.static import APP_VERSION
 from mealie.routes._base import BaseAdminController, controller
-from mealie.schema.admin.about import AdminAboutInfo, AppStatistics, CheckAppConfig, DockerVolumeText
+from mealie.schema.admin.about import AdminAboutInfo, AppStatistics, CheckAppConfig
 
 router = APIRouter(prefix="/about")
 
