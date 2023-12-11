@@ -115,7 +115,8 @@ def clean_image(image: str | list | dict | None = None, default: str = "no image
         case {"url": str(image)}:
             return [image]
         case _:
-            raise TypeError(f"Unexpected type for image: {type(image)}, {image}")
+            logger.exception(f"Unexpected type for image: {type(image)}, {image}")
+            return [default]
 
 
 def clean_instructions(steps_object: list | dict | str, default: list | None = None) -> list[dict]:
