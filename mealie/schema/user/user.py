@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Any
 from uuid import UUID
 
-from pydantic import UUID4, Field, constr, validator
+from pydantic import UUID4, Field, validator
 from pydantic.types import constr
 from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
