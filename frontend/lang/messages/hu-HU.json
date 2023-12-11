@@ -77,7 +77,7 @@
     "tag-events": "Címke események",
     "category-events": "Kategória események",
     "when-a-new-user-joins-your-group": "Amikor egy új felhasználó csatlakozik a csoportodba",
-    "recipe-events": "Recipe Events"
+    "recipe-events": "Recept esemény"
   },
   "general": {
     "cancel": "Mégsem",
@@ -114,6 +114,7 @@
     "json": "JSON",
     "keyword": "Kulcsszó",
     "link-copied": "Hivatkozás másolva",
+    "loading": "Loading",
     "loading-events": "Események betöltése",
     "loading-recipe": "Recept betöltése...",
     "loading-ocr-data": "OCR adatok betöltése...",
@@ -590,7 +591,7 @@
       "import-summary": "Import összefoglaló",
       "partial-backup": "Részleges biztonsági mentés",
       "unable-to-delete-backup": "Nem lehetett létrehozni a biztonsági mentést.",
-      "experimental-description": "Backups a total snapshots of the database and data directory of the site. This includes all data and cannot be set to exclude subsets of data. You can think off this as a snapshot of Mealie at a specific time. Currently, {not-crossed-version} (data migrations are not done automatically). These serve as a database agnostic way to export and import data or backup the site to an external location.",
+      "experimental-description": "A biztonsági mentések az oldal adatbázisának és adatkönyvtárának teljes pillanatfelvételei. Ez az összes adatot tartalmazza, és nem lehet beállítani, hogy az adatok részhalmazait kizárja. Ezt úgy is elképzelheti, mint a Mealie egy adott időpontban készült pillanatfelvételét. Ezek adatbázis-független módon szolgálnak az adatok exportálására és importálására, vagy a webhely külső helyre történő mentésére.",
       "backup-restore": "Biztonsági Mentés/Visszaállítás",
       "back-restore-description": "A biztonsági mentés visszaállítása felülírja az adatbázisban és az adatkönyvtárban lévő összes aktuális adatot, és a biztonsági mentés tartalmával helyettesíti azokat. {cannot-be-undone} Ha a visszaállítás sikeres, akkor a rendszer kilépteti Önt.",
       "cannot-be-undone": "Ezt a műveletet visszavonható - óvatosan használja.",
@@ -1056,8 +1057,8 @@
         "click": "Kattintson bármelyik mezőre a jobb oldalon, majd kattintson vissza a kép feletti téglalapra.",
         "result": "A kiválasztott szöveg a korábban kiválasztott mezőben jelenik meg."
       },
-      "pan-and-zoom-mode": "Pan and Zoom Mode",
-      "pan-and-zoom-desc": "Select pan and zoom by clicking the icon. This mode allows to zoom inside the image and move around to make using big images easier.",
+      "pan-and-zoom-mode": "Pásztázás és nagyítás mód",
+      "pan-and-zoom-desc": "Válassza ki a pásztázást és a nagyítást az ikonra kattintva. Ez a mód lehetővé teszi a kép nagyítását és mozgását a nagy képek használatának megkönnyítése érdekében.",
       "split-text-mode": "Szöveg felosztási módok",
       "split-modes": {
         "line-mode": "Vonal mód (alapértelmezett)",
@@ -1113,7 +1114,7 @@
     "show-individual-confidence": "",
     "ingredient-text": "Hozzávaló szöveg",
     "average-confident": "{0} Confident",
-    "try-an-example": "Próbáld ki",
+    "try-an-example": "Próbáljon ki egy példát",
     "parser": "Szintaxis elemző",
     "background-tasks": "Háttér folyamatok",
     "background-tasks-description": "Itt megtekintheti az összes futó háttérfeladatot és azok állapotát",
