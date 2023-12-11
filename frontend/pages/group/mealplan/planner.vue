@@ -24,8 +24,8 @@
       </v-date-picker>
     </v-menu>
 
-    <div class="d-flex align-center justify-space-between mb-2">
-      <v-tabs>
+    <div class="d-flex flex-wrap align-center justify-space-between mb-2">
+      <v-tabs style="width: fit-content;">
         <v-tab :to="`/group/mealplan/planner/view`">{{ $t('meal-plan.meal-planner') }}</v-tab>
         <v-tab :to="`/group/mealplan/planner/edit`">{{ $t('general.edit') }}</v-tab>
       </v-tabs>
