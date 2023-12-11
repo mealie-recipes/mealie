@@ -208,10 +208,6 @@ class RecipeScraperPackage(ABCScraperStrategy):
 
 
 class RecipeScraperOpenGraph(ABCScraperStrategy):
-    """
-    Abstract class for all recipe parsers.
-    """
-
     async def get_html(self, url: str) -> str:
         return await safe_scrape_html(url)
 
@@ -241,7 +237,7 @@ class RecipeScraperOpenGraph(ABCScraperStrategy):
             "recipeIngredient": ["Could not detect ingredients"],
             "recipeInstructions": [{"text": "Could not detect instructions"}],
             "slug": slugify(og_field(properties, "og:title")),
-            "orgURL": og_field(properties, "og:url"),
+            "orgURL": self.url,
             "categories": [],
             "tags": og_fields(properties, "og:article:tag"),
             "dateAdded": None,
