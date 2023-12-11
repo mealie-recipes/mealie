@@ -57,25 +57,3 @@ class AdminAboutController(BaseAdminController):
             base_url_set=settings.BASE_URL != "http://localhost:8080",
             is_up_to_date=APP_VERSION == "develop" or APP_VERSION == "nightly" or get_latest_version() == APP_VERSION,
         )
-
-    @router.get("/docker/validate", response_model=DockerVolumeText)
-    def validate_docker_volume(self, bg: BackgroundTasks):
-        validation_dir = self.folders.DATA_DIR / "docker-validation"
-        validation_dir.mkdir(exist_ok=True)
-
-        random_string = "".join(random.choice(string.ascii_uppercase + string.digits) for _ in range(100))
-
-        with validation_dir.joinpath("validate.txt").open("w") as f:
-            f.write(random_string)
-
-        async def cleanup():
-            await asyncio.sleep(60)
-
-            try:
-                shutil.rmtree(validation_dir)
-            except Exception as e:
-                self.logger.error(f"Failed to remove docker validation directory: {e}")
-
-        bg.add_task(cleanup)
-
-        return DockerVolumeText(text=random_string)

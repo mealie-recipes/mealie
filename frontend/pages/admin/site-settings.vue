@@ -1,5 +1,6 @@
 <template>
   <v-container fluid class="narrow-container">
+    <!-- Image -->
     <BasePageTitle divider>
       <template #header>
         <v-img max-height="200" max-width="150" :src="require('~/static/svgs/admin-site-settings.svg')"></v-img>
@@ -7,6 +8,7 @@
       <template #title> {{ $t("settings.site-settings") }} </template>
     </BasePageTitle>
 
+    <!-- Bug Report -->
     <BaseDialog v-model="bugReportDialog" :title="$t('settings.bug-report')" :width="800" :icon="$globals.icons.github">
       <v-card-text>
         <div class="pb-4">
@@ -27,7 +29,6 @@
       <BaseButton
         color="info"
         @click="
-          dockerValidate();
           bugReportDialog = true;
         "
       >
@@ -36,6 +37,7 @@
       </BaseButton>
     </div>
 
+    <!-- Configuration -->
     <section>
       <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.cog" :title="$tc('settings.configuration')"> </BaseCardSectionTitle>
       <v-card class="mb-4">
@@ -60,40 +62,7 @@
       </v-card>
     </section>
 
-    <section>
-      <BaseCardSectionTitle class="pt-2" :icon="$globals.icons.docker" :title="$tc('settings.docker-volume')" />
-      <v-alert
-        border="left"
-        colored-border
-        :type="docker.state === DockerVolumeState.Error ? 'error' : 'info'"
-        :icon="$globals.icons.docker"
-        elevation="2"
-        :loading="docker.loading"
-      >
-        <div class="d-flex align-center font-weight-medium">
-          {{ $t('settings.docker-volume') }}
-          <HelpIcon small class="my-n3">
-            {{ $t('settings.docker-volume-help') }}
-          </HelpIcon>
-        </div>
-        <div>
-          <template v-if="docker.state === DockerVolumeState.Error"> {{ $t('settings.volumes-are-misconfigured') }} </template>
-          <template v-else-if="docker.state === DockerVolumeState.Success">
-            {{ $t('settings.volumes-are-configured-correctly') }}
-          </template>
-          <template v-else-if="docker.state === DockerVolumeState.Unknown">
-            {{ $t('settings.status-unknown-try-running-a-validation') }}
-          </template>
-        </div>
-        <div class="mt-4">
-          <BaseButton color="info" :loading="docker.loading" @click="dockerValidate">
-            <template #icon> {{ $globals.icons.checkboxMarkedCircle }} </template>
-            {{ $t('settings.validate') }}
-          </BaseButton>
-        </div>
-      </v-alert>
-    </section>
-
+    <!-- Email -->
     <section>
       <BaseCardSectionTitle class="pt-2" :icon="$globals.icons.email" :title="$tc('user.email')" />
       <v-alert border="left" colored-border :type="appConfig.emailReady ? 'success' : 'error'" elevation="2">
@@ -219,30 +188,6 @@ export default defineComponent({
     components: { AppLoader },
     layout: "admin",
     setup() {
-        // ==========================================================
-        // Docker Volume Validation
-        const docker = reactive({
-            loading: false,
-            state: DockerVolumeState.Unknown,
-        });
-        async function dockerValidate() {
-            docker.loading = true;
-            // Do API Check
-            const { data } = await adminApi.about.checkDocker();
-            if (data == null) {
-                docker.state = DockerVolumeState.Error;
-                return;
-            }
-            // Get File Contents
-            const { data: fileContents } = await adminApi.about.getDockerValidateFileContents();
-            if (data.text === fileContents) {
-                docker.state = DockerVolumeState.Success;
-            }
-            else {
-                docker.state = DockerVolumeState.Error;
-            }
-            docker.loading = false;
-        }
         const state = reactive({
             loading: false,
             address: "",
@@ -444,15 +389,12 @@ export default defineComponent({
                 text += `${item.text.toString()}: ${status}\n`;
             });
             text += `${i18n.tc("settings.email-configured")}: ${appConfig.value.emailReady ? i18n.tc("general.yes") : i18n.tc("general.no")}\n`;
-            text += `${i18n.tc("settings.docker-volume")}: ${docker.state}`;
             return text;
         });
         return {
             bugReportDialog,
             bugReportText,
             DockerVolumeState,
-            docker,
-            dockerValidate,
             simpleChecks,
             appConfig,
             validEmail,
