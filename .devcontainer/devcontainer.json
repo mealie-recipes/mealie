@@ -41,7 +41,8 @@
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   "forwardPorts": [
     3000,
-    9000
+    9000,
+    24678 // used by nuxt when hot-reloading using polling
   ],
   // Use 'onCreateCommand' to run commands at the end of container creation.
   // Use 'postCreateCommand' to run commands after the container is created.

@@ -216,6 +216,7 @@ interface CheckApp extends CheckAppConfig {
 }
 
 export default defineComponent({
+    components: { AppLoader },
     layout: "admin",
     setup() {
         // ==========================================================
@@ -465,8 +466,7 @@ export default defineComponent({
         return {
             title: this.$t("settings.site-settings") as string,
         };
-    },
-    components: { AppLoader }
+    }
 });
 </script>
 
