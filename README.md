@@ -9,7 +9,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/hay-kot/mealie">
+  <a href="https://github.com/mealie-recipes/mealie">
 <svg style="width:100px;height:100px" viewBox="0 0 24 24">
     <path fill="currentColor" d="M8.1,13.34L3.91,9.16C2.35,7.59 2.35,5.06 3.91,3.5L10.93,10.5L8.1,13.34M13.41,13L20.29,19.88L18.88,21.29L12,14.41L5.12,21.29L3.71,19.88L13.36,10.22L13.16,10C12.38,9.23 12.38,7.97 13.16,7.19L17.5,2.82L18.43,3.74L15.19,7L16.15,7.94L19.39,4.69L20.31,5.61L17.06,8.85L18,9.81L21.26,6.56L22.18,7.5L17.81,11.84C17.03,12.62 15.77,12.62 15,11.84L14.78,11.64L13.41,13Z" />
 </svg>
@@ -21,12 +21,12 @@
     A Place for All Your Recipes
     <br />
     <a href="https://nightly.mealie.io"><strong>Explore the docs »</strong></a>
-  <a href="https://github.com/hay-kot/mealie">
+  <a href="https://github.com/mealie-recipes/mealie">
   </a>
     <br />
     <a href="https://demo.mealie.io/">View Demo</a>
     ·
-    <a href="https://github.com/hay-kot/mealie/issues">Report Bug</a>
+    <a href="https://github.com/mealie-recipes/mealie/issues">Report Bug</a>
     ·
     <a href="https://github.com/mealie-recipes/mealie/pkgs/container/mealie">GitHub Container Registry</a>
 </p>
@@ -76,17 +76,17 @@ Thanks to Linode for providing Hosting for the Demo, Beta, and Documentation sit
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/hay-kot/mealie.svg?style=flat-square
+[contributors-shield]: https://img.shields.io/github/contributors/mealie-recipes/mealie.svg?style=flat-square
 [docker-pull]: https://img.shields.io/docker/pulls/hkotel/mealie
-[contributors-url]: https://github.com/hay-kot/mealie/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/hay-kot/mealie.svg?style=flat-square
-[forks-url]: https://github.com/hay-kot/mealie/network/members
-[stars-shield]: https://img.shields.io/github/stars/hay-kot/mealie.svg?style=flat-square
-[stars-url]: https://github.com/hay-kot/mealie/stargazers
-[issues-shield]: https://img.shields.io/github/issues/hay-kot/mealie.svg?style=flat-square
-[issues-url]: https://github.com/hay-kot/mealie/issues
-[license-shield]: https://img.shields.io/github/license/hay-kot/mealie.svg?style=flat-square
-[license-url]: https://github.com/hay-kot/mealie/blob/mealie-next/LICENSE
+[contributors-url]: https://github.com/mealie-recipes/mealie/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/mealie-recipes/mealie.svg?style=flat-square
+[forks-url]: https://github.com/mealie-recipes/mealie/network/members
+[stars-shield]: https://img.shields.io/github/stars/mealie-recipes/mealie.svg?style=flat-square
+[stars-url]: https://github.com/mealie-recipes/mealie/stargazers
+[issues-shield]: https://img.shields.io/github/issues/mealie-recipes/mealie.svg?style=flat-square
+[issues-url]: https://github.com/mealie-recipes/mealie/issues
+[license-shield]: https://img.shields.io/github/license/mealie-recipes/mealie.svg?style=flat-square
+[license-url]: https://github.com/mealie-recipes/mealie/blob/mealie-next/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/hay-kot
 [product-screenshot]: docs/docs/assets/img/home_screenshot.png
