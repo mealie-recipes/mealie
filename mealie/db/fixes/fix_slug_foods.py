@@ -13,7 +13,7 @@ def fix_slug_food_names(db: AllRepositories):
     logger = root_logger.get_logger("init_db")
 
     if not food:
-        logger.info(f"No food found with slug: '{check_for_food}' skipping fix")
+        logger.debug(f"No food found with slug: '{check_for_food}' skipping fix")
         return
 
     all_foods = db.ingredient_foods.get_all()

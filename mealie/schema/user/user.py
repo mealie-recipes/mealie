@@ -61,7 +61,7 @@ class ChangePassword(MealieModel):
 
 
 class GroupBase(MealieModel):
-    name: str
+    name: constr(strip_whitespace=True, min_length=1)  # type: ignore
 
     class Config:
         orm_mode = True
