@@ -114,6 +114,7 @@
     "json": "JSON",
     "keyword": "Paraula clau",
     "link-copied": "S'ha copiat l'enllaç",
+    "loading": "Loading",
     "loading-events": "Carregant esdeveniments",
     "loading-recipe": "Carregant la recepta...",
     "loading-ocr-data": "Carregant les dades OCR...",
