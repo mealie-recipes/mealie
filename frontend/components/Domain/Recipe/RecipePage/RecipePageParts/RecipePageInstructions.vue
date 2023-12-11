@@ -117,7 +117,7 @@
               @click="toggleDisabled(index)"
             >
               <v-card-title :class="{ 'pb-0': !isChecked(index) }">
-                <span class="handle">
+                <span :class="isEditForm ? 'handle' : ''">
                   <v-icon v-if="isEditForm" size="26" class="pb-1">{{ $globals.icons.arrowUpDown }}</v-icon>
                   {{ $t("recipe.step-index", { step: index + 1 }) }}
                 </span>
@@ -670,9 +670,6 @@ export default defineComponent({
 }
 .list-group {
   min-height: 38px;
-}
-.list-group-item {
-  cursor: move;
 }
 .list-group-item i {
   cursor: pointer;

@@ -114,6 +114,7 @@
     "json": "JSON",
     "keyword": "키워드",
     "link-copied": "링크 복사됨",
+    "loading": "Loading",
     "loading-events": "이벤트를 불러오는 중",
     "loading-recipe": "Loading recipe...",
     "loading-ocr-data": "Loading OCR data...",

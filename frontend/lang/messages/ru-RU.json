@@ -114,6 +114,7 @@
     "json": "JSON",
     "keyword": "Ключевое слово",
     "link-copied": "Ссылка скопирована",
+    "loading": "Loading",
     "loading-events": "Загрузка событий",
     "loading-recipe": "Загрузка рецепта...",
     "loading-ocr-data": "Загрузка данных OCR...",
