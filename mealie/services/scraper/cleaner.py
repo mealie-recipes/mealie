@@ -108,6 +108,8 @@ def clean_image(image: str | list | dict | None = None, default: str = "no image
             return [image]
         case [str(_), *_]:
             return [x for x in image if x]  # Only return non-null strings in list
+        case [{"@id": str(_)}, *_]:
+            return [x["@id"] for x in image]
         case [{"url": str(_)}, *_]:
             return [x["url"] for x in image]
         case {"url": str(image)}:
