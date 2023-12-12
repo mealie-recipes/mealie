@@ -330,9 +330,6 @@ export default defineComponent({
 .list-group {
   min-height: 38px;
 }
-.list-group-item {
-  cursor: move;
-}
 .list-group-item i {
   cursor: pointer;
 }

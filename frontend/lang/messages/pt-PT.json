@@ -3,7 +3,7 @@
     "about": "Sobre",
     "about-mealie": "Sobre Mealie",
     "api-docs": "Documentação de API",
-    "api-port": "Porta de API",
+    "api-port": "Porta da API",
     "application-mode": "Modo de aplicação",
     "database-type": "Tipo de Base de Dados",
     "database-url": "Endereço da Base de Dados",
@@ -77,7 +77,7 @@
     "tag-events": "Eventos de Etiquetagem",
     "category-events": "Eventos de Categoria",
     "when-a-new-user-joins-your-group": "Quando um novo utilizador entra no seu grupo",
-    "recipe-events": "Recipe Events"
+    "recipe-events": "Eventos de receita"
   },
   "general": {
     "cancel": "Cancelar",
@@ -114,9 +114,10 @@
     "json": "JSON",
     "keyword": "Palavra-chave",
     "link-copied": "Ligação copiada",
+    "loading": "Loading",
     "loading-events": "A carregar Eventos",
-    "loading-recipe": "Loading recipe...",
-    "loading-ocr-data": "Loading OCR data...",
+    "loading-recipe": "A carregar receita...",
+    "loading-ocr-data": "A carregar dados OCR...",
     "loading-recipes": "A carregar receitas",
     "message": "Mensagem",
     "monday": "Segunda-feira",
@@ -127,7 +128,7 @@
     "no-recipe-found": "Nenhuma Receita Encontrada",
     "ok": "OK",
     "options": "Opções:",
-    "plural-name": "Plural Name",
+    "plural-name": "Nome no Plural",
     "print": "Imprimir",
     "print-preferences": "Preferências de impressão",
     "random": "Aleatório",
@@ -197,7 +198,7 @@
     "refresh": "Atualizar",
     "upload-file": "Carregar ficheiro",
     "created-on-date": "Criado em: {0}",
-    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
+    "unsaved-changes": "Tem alterações por gravar. Quer gravar antes de sair? OK para gravar, Cancelar para descartar alterações."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Tem a certeza que quer eliminar <b>{groupName}</b>?",
@@ -212,7 +213,7 @@
     "group-id-with-value": "ID do Grupo: {groupID}",
     "group-name": "Nome do grupo",
     "group-not-found": "Grupo não encontrado",
-    "group-token": "Group Token",
+    "group-token": "Token do Grupo",
     "group-with-value": "Grupo: {groupID}",
     "groups": "Grupos",
     "manage-groups": "Gerir Grupos",
@@ -248,7 +249,7 @@
     "general-preferences": "Preferências Gerais",
     "group-recipe-preferences": "Agrupar preferências de receita",
     "report": "Relatório",
-    "report-with-id": "Report ID: {id}",
+    "report-with-id": "ID do relatório: {id}",
     "group-management": "Gestão de Grupos",
     "admin-group-management": "Gestão do Grupo Admin",
     "admin-group-management-text": "As alterações a este grupo serão aplicadas imediatamente.",
@@ -469,9 +470,9 @@
     "add-to-plan": "Adicionar ao plano",
     "add-to-timeline": "Adicionar à Linha Temporal",
     "recipe-added-to-list": "Receita adicionada à lista",
-    "recipes-added-to-list": "Recipes added to list",
+    "recipes-added-to-list": "Receitas adicionadas à lista",
     "recipe-added-to-mealplan": "Receita adicionada ao plano de refeições",
-    "failed-to-add-recipes-to-list": "Failed to add recipe to list",
+    "failed-to-add-recipes-to-list": "Erro ao adicionar a receita à lista",
     "failed-to-add-recipe-to-mealplan": "Erro ao adicionar receita ao plano de refeições",
     "yield": "Rendimento",
     "quantity": "Quantidade",
@@ -513,7 +514,7 @@
     "message-key": "Chave de Mensagem",
     "parse": "Interpretar",
     "attach-images-hint": "Anexe imagens arrastando e soltando-as no editor",
-    "drop-image": "Drop image",
+    "drop-image": "Remover imagem",
     "enable-ingredient-amounts-to-use-this-feature": "Ativar para usar esta funcionalidade nas quantidades de ingredientes",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Receitas com unidades ou alimentos definidos não podem ser interpretadas.",
     "parse-ingredients": "Interpretar ingredientes",
@@ -572,16 +573,16 @@
     "search-hint": "Prima '/'",
     "advanced": "Avançado",
     "auto-search": "Pesquisa Automática",
-    "no-results": "No results found"
+    "no-results": "Nenhum resultado encontrado"
   },
   "settings": {
     "add-a-new-theme": "Adicionar novo tema",
     "admin-settings": "Definições de Administrador",
     "backup": {
-      "backup-created": "Backup created successfully",
+      "backup-created": "Backup realizado com sucesso",
       "backup-created-at-response-export_path": "Backup criado em {path}",
       "backup-deleted": "Backup eliminado",
-      "restore-success": "Restore successful",
+      "restore-success": "Restauro bem-sucedido",
       "backup-tag": "Cópia de segurança de Etiqueta",
       "create-heading": "Criar um Backup",
       "delete-backup": "Eliminar Backup",
@@ -690,13 +691,13 @@
     "configuration": "Configuração",
     "docker-volume": "Volume do Docker",
     "docker-volume-help": "O Mealie requer que o contentor do frontend e do backend partilhem o mesmo volume ou armazenamento do docker. Isso garante que o contentor do frontend pode aceder corretamente às imagens e recursos armazenados no disco.",
-    "volumes-are-misconfigured": "Volumes are misconfigured.",
+    "volumes-are-misconfigured": "Os volumes estão mal configurados.",
     "volumes-are-configured-correctly": "Os volumes estão configurados corretamente.",
     "status-unknown-try-running-a-validation": "Estado desconhecido. Tente executar uma validação.",
     "validate": "Validar",
     "email-configuration-status": "Estado de configuração do correio eletrónico",
-    "email-configured": "Email Configured",
-    "email-test-results": "Email Test Results",
+    "email-configured": "Email configurado",
+    "email-test-results": "Resultados do Teste de Email",
     "ready": "Pronto",
     "not-ready": "Não Pronto — Verificar Variáveis de Ambiente",
     "succeeded": "Sucesso",
@@ -831,7 +832,7 @@
     "password-updated": "Palavra-passe atualizada",
     "password": "Palavra-passe",
     "password-strength": "A palavra-passe é {strength}",
-    "please-enter-password": "Please enter your new password.",
+    "please-enter-password": "Por favor, introduza a sua nova palavra-passe.",
     "register": "Registar",
     "reset-password": "Repor Palavra-passe",
     "sign-in": "Inscreva-se",
@@ -852,7 +853,7 @@
     "username": "Nome de utilizador",
     "users-header": "UTILIZADORES",
     "users": "Utilizadores",
-    "user-not-found": "User not found",
+    "user-not-found": "Utilizador não encontrado",
     "webhook-time": "Hora do Webhook",
     "webhooks-enabled": "Webhooks ativados",
     "you-are-not-allowed-to-create-a-user": "Não tem permissão para criar um utilizador",
@@ -875,7 +876,7 @@
     "user-management": "Gestão de utilizadores",
     "reset-locked-users": "Reiniciar utilizadores bloqueados",
     "admin-user-creation": "Criação do Utilizador Administrador",
-    "admin-user-management": "Admin User Management",
+    "admin-user-management": "Gestão do Grupo Admin",
     "user-details": "Detalhes do Utilizador",
     "user-name": "Nome do Utilizador",
     "authentication-method": "Método de Autenticação",
@@ -886,11 +887,11 @@
     "user-can-manage-group": "O utilizador pode gerir o grupo",
     "user-can-organize-group-data": "O utilizador pode organizar dados do grupo",
     "enable-advanced-features": "Habilitar recursos avançados",
-    "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
-    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
-    "forgot-password": "Forgot Password",
-    "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
-    "changes-reflected-immediately": "Changes to this user will be reflected immediately."
+    "it-looks-like-this-is-your-first-time-logging-in": "Parece que este é o seu primeiro login.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Não quer voltar a ver isto? Não se esqueça de alterar o seu email nas suas definições de utilizador!",
+    "forgot-password": "Esqueceu-se da palavra-passe",
+    "forgot-password-text": "Por favor, digite o seu endereço de email para enviarmos um link para redefinir a sua palavra-passe.",
+    "changes-reflected-immediately": "As alterações a este utilizador serão aplicadas imediatamente."
   },
   "language-dialog": {
     "translated": "traduzido",
@@ -912,8 +913,8 @@
       "food-label": "Rótulo de Alimento",
       "edit-food": "Editar Alimento",
       "food-data": "Dados do Alimento",
-      "example-food-singular": "ex: Onion",
-      "example-food-plural": "ex: Onions"
+      "example-food-singular": "ex: Cebola",
+      "example-food-plural": "ex: Cebolas"
     },
     "units": {
       "seed-dialog-text": "Popule a base de dados com unidades comuns no seu idioma.",
@@ -924,7 +925,7 @@
       "merging-unit-into-unit": "A juntar {0} com {1}",
       "create-unit": "Criar Unidade",
       "abbreviation": "Abreviatura",
-      "plural-abbreviation": "Plural Abbreviation",
+      "plural-abbreviation": "Abreviatura no Plural",
       "description": "Descrição",
       "display-as-fraction": "Mostrar como fração",
       "use-abbreviation": "Usar abreviatura",
@@ -932,10 +933,10 @@
       "unit-data": "Dados da Unidade",
       "use-abbv": "Usar Abrev.",
       "fraction": "Fração",
-      "example-unit-singular": "ex: Tablespoon",
-      "example-unit-plural": "ex: Tablespoons",
-      "example-unit-abbreviation-singular": "ex: Tbsp",
-      "example-unit-abbreviation-plural": "ex: Tbsps"
+      "example-unit-singular": "ex: Colher de Sopa",
+      "example-unit-plural": "ex: Colheres de Sopa",
+      "example-unit-abbreviation-singular": "ex: Cdsp",
+      "example-unit-abbreviation-plural": "ex: Cdsps"
     },
     "labels": {
       "seed-dialog-text": "Adicionar à base de dados rótulos comuns no seu idioma local.",
@@ -964,8 +965,8 @@
       "delete-recipes": "Eliminar Receitas",
       "source-unit-will-be-deleted": "Unidade de origem será eliminada"
     },
-    "create-alias": "Create Alias",
-    "manage-aliases": "Manage Aliases",
+    "create-alias": "Criar Pseudónimo",
+    "manage-aliases": "Gerir Pseudónimos",
     "seed-data": "Gerar dados",
     "seed": "Gerar",
     "data-management": "Gestão de dados",
@@ -975,24 +976,24 @@
     "columns": "Colunas",
     "combine": "Combinar",
     "categories": {
-      "edit-category": "Edit Category",
-      "new-category": "New Category",
-      "category-data": "Category Data"
+      "edit-category": "Editar Categoria",
+      "new-category": "Nova Categoria",
+      "category-data": "Dados de Categoria"
     },
     "tags": {
-      "new-tag": "New Tag",
-      "edit-tag": "Edit Tag",
-      "tag-data": "Tag Data"
+      "new-tag": "Nova etiqueta",
+      "edit-tag": "Editar Etiqueta",
+      "tag-data": "Dados de Etiqueta"
     },
     "tools": {
-      "new-tool": "New Tool",
-      "edit-tool": "Edit Tool",
-      "tool-data": "Tool Data"
+      "new-tool": "Novo Utensílio",
+      "edit-tool": "Editar Utensílio",
+      "tool-data": "Dados do Utensílio"
     }
   },
   "user-registration": {
     "user-registration": "Registo de Utilizador",
-    "registration-success": "Registration Success",
+    "registration-success": "Registo Bem-sucedido",
     "join-a-group": "Juntar-se a um grupo",
     "create-a-new-group": "Criar um Novo Grupo",
     "provide-registration-token-description": "Por favor, forneça o token de registo associado ao grupo a que gostaria de aderir. Terá de o obter de um membro atual do grupo.",
@@ -1039,7 +1040,7 @@
   },
   "ocr-editor": {
     "ocr-editor": "Editor OCR",
-    "toolbar": "Toolbar",
+    "toolbar": "Barra de ferramentas",
     "selection-mode": "Modo de seleção",
     "pan-and-zoom-picture": "Deslocar e ampliar imagem",
     "split-text": "Dividir texto",
@@ -1047,8 +1048,8 @@
     "split-by-block": "Dividir por bloco de texto",
     "flatten": "Nivelar independentemente da formatação original",
     "help": {
-      "help": "Help",
-      "mouse-modes": "Mouse modes",
+      "help": "Ajuda",
+      "mouse-modes": "Modos do rato",
       "selection-mode": "Modo de Seleção (padrão)",
       "selection-mode-desc": "O modo de seleção é o modo principal disponível para inserir dados:",
       "selection-mode-steps": {

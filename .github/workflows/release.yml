@@ -24,6 +24,9 @@ jobs:
       - frontend-tests
     with:
       tag: ${{ github.event.release.tag_name }}
+      tags: |
+          hkotel/mealie:latest
+          ghcr.io/${{ github.repository }}:latest
     secrets:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}

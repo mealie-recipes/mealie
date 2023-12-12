@@ -77,7 +77,7 @@
     "tag-events": "Събития за таг",
     "category-events": "Събития за категория",
     "when-a-new-user-joins-your-group": "Когато потребител се присъедини към твоята потребителска група",
-    "recipe-events": "Recipe Events"
+    "recipe-events": "Събития на рецептата"
   },
   "general": {
     "cancel": "Откажи",
@@ -114,9 +114,10 @@
     "json": "JSON",
     "keyword": "Ключова дума",
     "link-copied": "Линкът е копиран",
+    "loading": "Зареждане",
     "loading-events": "Зареждане на събития",
-    "loading-recipe": "Loading recipe...",
-    "loading-ocr-data": "Loading OCR data...",
+    "loading-recipe": "Зареждане на рецептата...",
+    "loading-ocr-data": "Зареждане на OCR данните...",
     "loading-recipes": "Рецептите се зареждат",
     "message": "Съобщение",
     "monday": "Понеделник",
@@ -127,7 +128,7 @@
     "no-recipe-found": "Няма намерени рецепти",
     "ok": "Добре",
     "options": "Опции:",
-    "plural-name": "Plural Name",
+    "plural-name": "Име в множествено число",
     "print": "Принтирай",
     "print-preferences": "Настройки на принтиране",
     "random": "Произволно",
@@ -197,7 +198,7 @@
     "refresh": "Опресни",
     "upload-file": "Качване на файл",
     "created-on-date": "Създадено на {0}",
-    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
+    "unsaved-changes": "Имате незапазени промени. Желаете ли да ги запазите преди да излезете? Натиснете Ок за запазване и Отказ за отхвърляне на промените."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Сигурни ли сте, че искате да изтриете <b>{groupName}<b/>?",
@@ -212,7 +213,7 @@
     "group-id-with-value": "ID на Групата: {groupID}",
     "group-name": "Име на групата",
     "group-not-found": "Групата не е намерена",
-    "group-token": "Group Token",
+    "group-token": "Токен на групата",
     "group-with-value": "Група: {groupID}",
     "groups": "Групи",
     "manage-groups": "Управление на групи",
@@ -248,7 +249,7 @@
     "general-preferences": "Общи предпочитания",
     "group-recipe-preferences": "Предпочитания за рецепта по група",
     "report": "Сигнал",
-    "report-with-id": "Report ID: {id}",
+    "report-with-id": "Номер на сигнала: {id}",
     "group-management": "Управление на групите",
     "admin-group-management": "Административно управление на групите",
     "admin-group-management-text": "Промените по тази група ще бъдат отразени моментално.",
@@ -469,9 +470,9 @@
     "add-to-plan": "Добави към план",
     "add-to-timeline": "Добави към времевата линия",
     "recipe-added-to-list": "Рецептата е добавена към списъка",
-    "recipes-added-to-list": "Recipes added to list",
+    "recipes-added-to-list": "Рецептите са добавени към списъка",
     "recipe-added-to-mealplan": "Рецептата е добавена към хранителния план",
-    "failed-to-add-recipes-to-list": "Failed to add recipe to list",
+    "failed-to-add-recipes-to-list": "Неуспешно добавяне на рецепта към списъка",
     "failed-to-add-recipe-to-mealplan": "Рецептата не беше добавена към хранителния план",
     "yield": "Добив",
     "quantity": "Количество",
@@ -513,7 +514,7 @@
     "message-key": "Ключ на съобщението",
     "parse": "Анализирай",
     "attach-images-hint": "Прикачете снимки като ги влачете и пуснете в редактора",
-    "drop-image": "Drop image",
+    "drop-image": "Влачете и пуснете снимка",
     "enable-ingredient-amounts-to-use-this-feature": "Пуснете количествата на съставките за да използвате функционалността",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Рецепти със зададени мерни единици и храни ме могат да бъдат анализирани.",
     "parse-ingredients": "Анализирай съставките",
@@ -572,16 +573,16 @@
     "search-hint": "Натисни '/'",
     "advanced": "Разширени",
     "auto-search": "Автоматично търсене",
-    "no-results": "No results found"
+    "no-results": "Не са намерени резултати"
   },
   "settings": {
     "add-a-new-theme": "Добавяне на нова тема",
     "admin-settings": "Административни настройки",
     "backup": {
-      "backup-created": "Backup created successfully",
+      "backup-created": "Архивът е създаден успешно",
       "backup-created-at-response-export_path": "Резервно копие е създадено на {path}",
       "backup-deleted": "Резервното копие е изтрито",
-      "restore-success": "Restore successful",
+      "restore-success": "Успешно възстановяване",
       "backup-tag": "Таг на резервното копие",
       "create-heading": "Създай резервно копие",
       "delete-backup": "Изтрий резервно копие",
@@ -690,13 +691,13 @@
     "configuration": "Конфигурация",
     "docker-volume": "Docker том",
     "docker-volume-help": "Mealie изисква контейнерът на frontend и backend да споделят един и същ том на docker или място за съхранение. Това гарантира, че frontend контейнера може да има правилен достъп до изображенията и активите, съхранени на диска.",
-    "volumes-are-misconfigured": "Volumes are misconfigured.",
+    "volumes-are-misconfigured": "Томовете са конфигурирани неправилно.",
     "volumes-are-configured-correctly": "Томовете са конфигурирани правилно.",
     "status-unknown-try-running-a-validation": "Статус Неизвестен. Опитайте да стартирате проверка.",
     "validate": "Валидирайте",
     "email-configuration-status": "Статус на имейл конфигурация",
-    "email-configured": "Email Configured",
-    "email-test-results": "Email Test Results",
+    "email-configured": "Email е конфигуриран",
+    "email-test-results": "Резултати от тест на email",
     "ready": "Готов",
     "not-ready": "Не е готово - Проверете променливите на средата",
     "succeeded": "Успешно",
@@ -831,7 +832,7 @@
     "password-updated": "Паролата е актуализирана",
     "password": "Парола",
     "password-strength": "Сигурността на паролата е {strength}",
-    "please-enter-password": "Please enter your new password.",
+    "please-enter-password": "Моля, въведете новата си парола.",
     "register": "Регистриране",
     "reset-password": "Нулиране на паролата",
     "sign-in": "Влизане",
@@ -852,7 +853,7 @@
     "username": "Потребителско име",
     "users-header": "Потребители",
     "users": "Потребители",
-    "user-not-found": "User not found",
+    "user-not-found": "Потребителят не е намерен",
     "webhook-time": "Webhook време",
     "webhooks-enabled": "Webhooks са пуснати",
     "you-are-not-allowed-to-create-a-user": "Нямате право да създавате потребител",
@@ -875,7 +876,7 @@
     "user-management": "Управление на потребителя",
     "reset-locked-users": "Нулиране на заключените потребители",
     "admin-user-creation": "Създаване на администратор",
-    "admin-user-management": "Admin User Management",
+    "admin-user-management": "Управление на администраторите",
     "user-details": "Детайли за потребителя",
     "user-name": "Потребителско име",
     "authentication-method": "Метод за автентикация",
@@ -886,11 +887,11 @@
     "user-can-manage-group": "Потребителя може да управлява групата",
     "user-can-organize-group-data": "Потребителя може да организира данните на групата",
     "enable-advanced-features": "Включване на разширени функции",
-    "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
-    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
-    "forgot-password": "Forgot Password",
-    "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
-    "changes-reflected-immediately": "Changes to this user will be reflected immediately."
+    "it-looks-like-this-is-your-first-time-logging-in": "Изглежда това е първият път, в който влизате.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Искате ли да виждате това по-често? Уверете се, че сте конфигурирали настройките си за email известяване правилно!",
+    "forgot-password": "Забравена Парола",
+    "forgot-password-text": "Въведете Вашият имейл адрес и ние ще ви изпратим линк, с който да промените Вашата парола.",
+    "changes-reflected-immediately": "Промените по този потребител ще бъдат отразени моментално."
   },
   "language-dialog": {
     "translated": "преведено",
@@ -912,8 +913,8 @@
       "food-label": "Заглавие на храната",
       "edit-food": "Редактирай храна",
       "food-data": "Данни за храните",
-      "example-food-singular": "ex: Onion",
-      "example-food-plural": "ex: Onions"
+      "example-food-singular": "пример: Домат",
+      "example-food-plural": "пример: Домати"
     },
     "units": {
       "seed-dialog-text": "Заредете базата данни с общи единици въз основа на Вашия местен език.",
@@ -924,7 +925,7 @@
       "merging-unit-into-unit": "Обединяване на {0} с {1}",
       "create-unit": "Създаване на мерна единица",
       "abbreviation": "Абревиатура",
-      "plural-abbreviation": "Plural Abbreviation",
+      "plural-abbreviation": "Съкращение за множествено число",
       "description": "Описание",
       "display-as-fraction": "Показване като фракция",
       "use-abbreviation": "Използвай съкращение",
@@ -932,10 +933,10 @@
       "unit-data": "Данни на мерната единица",
       "use-abbv": "Използвай съкращение",
       "fraction": "Фракция",
-      "example-unit-singular": "ex: Tablespoon",
-      "example-unit-plural": "ex: Tablespoons",
-      "example-unit-abbreviation-singular": "ex: Tbsp",
-      "example-unit-abbreviation-plural": "ex: Tbsps"
+      "example-unit-singular": "пример: Чаена лъжичка",
+      "example-unit-plural": "пример: Чаени лъжички",
+      "example-unit-abbreviation-singular": "пример: ч.л.",
+      "example-unit-abbreviation-plural": "пример: ч.л.-ки"
     },
     "labels": {
       "seed-dialog-text": "Заредете базата данни с общи етикети въз основа на Вашия местен език.",
@@ -964,8 +965,8 @@
       "delete-recipes": "Изтрий рецепти",
       "source-unit-will-be-deleted": "Изходната мерна единица ще бъде изтрита"
     },
-    "create-alias": "Create Alias",
-    "manage-aliases": "Manage Aliases",
+    "create-alias": "Създаване на псевдоним",
+    "manage-aliases": "Управление на псевдоними",
     "seed-data": "Сийд на данни",
     "seed": "Сийд",
     "data-management": "Управление на данни",
@@ -975,24 +976,24 @@
     "columns": "Колони",
     "combine": "Обедини",
     "categories": {
-      "edit-category": "Edit Category",
-      "new-category": "New Category",
-      "category-data": "Category Data"
+      "edit-category": "Редактиране на категория",
+      "new-category": "Нова категория",
+      "category-data": "Категория за данните"
     },
     "tags": {
-      "new-tag": "New Tag",
-      "edit-tag": "Edit Tag",
-      "tag-data": "Tag Data"
+      "new-tag": "Нов таг",
+      "edit-tag": "Редакция на таг",
+      "tag-data": "Данни на тага"
     },
     "tools": {
-      "new-tool": "New Tool",
-      "edit-tool": "Edit Tool",
-      "tool-data": "Tool Data"
+      "new-tool": "Нов инструмент",
+      "edit-tool": "Редактирай инструмента",
+      "tool-data": "Данни на инструмента"
     }
   },
   "user-registration": {
     "user-registration": "Регистрации на потребител",
-    "registration-success": "Registration Success",
+    "registration-success": "Успешна регистрация",
     "join-a-group": "Присъединете се към групата",
     "create-a-new-group": "Създай нова група",
     "provide-registration-token-description": "Моля, предоставете регистрационния маркер, свързан с групата, към която искате да се присъедините. Ще трябва да го получите от съществуващ член на групата.",
@@ -1039,7 +1040,7 @@
   },
   "ocr-editor": {
     "ocr-editor": "Ocr редактор",
-    "toolbar": "Toolbar",
+    "toolbar": "Лента с инструменти",
     "selection-mode": "Режим на избиране",
     "pan-and-zoom-picture": "Мащабиране на изображение",
     "split-text": "Раздели текст",
@@ -1047,8 +1048,8 @@
     "split-by-block": "Раздели по текстов блок",
     "flatten": "Изравняване независимо от оригиналното форматиране",
     "help": {
-      "help": "Help",
-      "mouse-modes": "Mouse modes",
+      "help": "Помощ",
+      "mouse-modes": "Режими на мишката",
       "selection-mode": "Режим на избиране (по подразбиране)",
       "selection-mode-desc": "Режимът за избиране е основният режим, който може да се използва за въвеждане на данни:",
       "selection-mode-steps": {

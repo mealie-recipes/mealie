@@ -49,6 +49,10 @@ export default defineComponent({
     ];
 
     function handleRowClick(item: ReportSummary) {
+      if (item.status === "in-progress") {
+        return;
+      }
+
       router.push(`/group/reports/${item.id}`);
     }
 
