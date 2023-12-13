@@ -38,13 +38,13 @@ Categories are the overarching organizer for recipes. You can assign as many cat
 
 #### Tags
 
-Tags, are nearly identical to categories in function but play a secondary role in some cases. As such, we recommend that you use tags freely to help you organize your recipes by more specific topics. For example, if a recipe can be frozen or is a great left-over meal, you could assign the tags **frozen** and **left-over** and easily filter for those at a later time.
+Tags are nearly identical to categories in function but play a secondary role in some cases. As such, we recommend that you use tags freely to help you organize your recipes by more specific topics. For example, if a recipe can be frozen or is a great left-over meal, you could assign the tags **frozen** and **left-over** and easily filter for those at a later time.
 
 [Tags Demo](https://demo.mealie.io/g/home/recipes/tags){ .md-button .md-button--primary }
 
 #### Tools
 
-Tools, are another way that some users like to organize their recipes. If a recipe requires some specific equipment if can be helpful to assign the tools to the recipes. This is particularly useful for things that are less common, like a pressure cooker, or a sous vide.
+Tools are another way that some users like to organize their recipes. If a recipe requires some specific equipment, it can be helpful to assign tools to the recipes. This is particularly useful for things that are less common, like a pressure cooker or a sous vide.
 
 Each of the above organizers can be filtered in searches, and have their own pages where you can view all the recipes that are associated with those organizers.
 
