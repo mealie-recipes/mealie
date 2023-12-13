@@ -209,7 +209,11 @@ class BaseMigrator(BaseService):
                 continue
 
             if alias.func:
-                prop_value = alias.func(prop_value)
+                try:
+                    prop_value = alias.func(prop_value)
+                except Exception as e:
+                    self.logger.exception(e)
+                    continue
 
             recipe_dict[alias.key] = prop_value
 
