@@ -50,7 +50,6 @@
       :logged-in="isOwnGroup"
       :open="isEditMode"
       :recipe-id="recipe.id"
-      :show-ocr-button="recipe.isOcrRecipe"
       class="ml-auto mt-n8 pb-4"
       @close="setMode(PageMode.VIEW)"
       @json="toggleEditMode()"
@@ -58,13 +57,12 @@
       @save="$emit('save')"
       @delete="$emit('delete')"
       @print="printRecipe"
-      @ocr="goToOcrEditor"
     />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, computed, ref, watch, useRouter, useRoute } from "@nuxtjs/composition-api";
+import { defineComponent, useContext, computed, ref, watch } from "@nuxtjs/composition-api";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipeRating from "~/components/Domain/Recipe/RecipeRating.vue";
 import RecipeLastMade from "~/components/Domain/Recipe/RecipeLastMade.vue";
@@ -96,15 +94,11 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { $auth, $vuetify } = useContext();
+    const { $vuetify } = useContext();
     const { recipeImage } = useStaticRoutes();
     const { imageKey, pageMode, editMode, setMode, toggleEditMode, isEditMode } = usePageState(props.recipe.slug);
     const { user } = usePageUser();
     const { isOwnGroup } = useLoggedInState();
-
-    const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
-    const router = useRouter();
 
     function printRecipe() {
       window.print();
@@ -118,10 +112,6 @@ export default defineComponent({
     const recipeImageUrl = computed(() => {
       return recipeImage(props.recipe.id, props.recipe.image, imageKey.value);
     });
-
-    function goToOcrEditor() {
-      router.push(`/g/${groupSlug.value}/r/${props.recipe.slug}/ocr-editor`);
-    }
 
     watch(
       () => recipeImageUrl.value,
@@ -146,7 +136,6 @@ export default defineComponent({
       hideImage,
       isEditMode,
       recipeImageUrl,
-      goToOcrEditor,
     };
   },
 });
