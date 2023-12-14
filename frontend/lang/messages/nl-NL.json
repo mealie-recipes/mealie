@@ -510,7 +510,7 @@
     "how-did-it-turn-out": "Hoe was je gerecht?",
     "user-made-this": "{user} heeft dit gemaakt",
     "last-made-date": "Laatste Gemaakt {date}",
-    "api-extras-description": "Extra's recepten zijn een belangrijke functie van de Mealie API. Hiermee kunt u aangepaste json key/value paren maken binnen een recept om te verwijzen naar applicaties van 3e onderdelen. Je kunt deze sleutels gebruiken om informatie te bevatten om automatisering of aangepaste berichten te laten verzenden naar het gewenste apparaat.",
+    "api-extras-description": "Extra's bij recepten zijn een belangrijke functie van de Mealie API. Hiermee kun je aangepaste JSON key/value paren maken bij een recept en kun je naar verwijzen vanuit applicaties van derden. Je kunt deze sleutels gebruiken om extra informatie te bieden, bijvoorbeeld om automatisering aan te sturen of aangepaste berichten naar je gewenste apparaat te laten versturen.",
     "message-key": "recept -> bericht-sleutel",
     "parse": "Verwerk",
     "attach-images-hint": "Voeg afbeeldingen toe door ze te slepen en in de editor te plaatsen",
