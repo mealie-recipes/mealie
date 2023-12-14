@@ -90,7 +90,7 @@ The shopping lists feature is a great way to keep track of what you need to buy 
 
 ## Data Management
 
-Managing a robust collection of recipes inevitable requires a lot of data. Mealie has a robust data management system that allows you to easily some of the more important data sets in your collection. Here's some of the features that are available in the `group/data/<type>` pages:
+Managing a robust collection of recipes inevitable requires a lot of data. Mealie has a robust data management system that allows you to easily export some of the more important data sets in your collection. Here's some of the features that are available in the `group/data/<type>` pages:
 
 - Recipes
     - Bulk Actions
@@ -113,7 +113,7 @@ Managing a robust collection of recipes inevitable requires a lot of data. Meali
 
 ### Site Settings
 
-The site settings page contains general information about your installation like the application version, some configuration details, and some utilities to help you confirm your installation is working as expected. For example, you can use the Email Configuration section to validate that your email credentials are setup correctly and that the email service is working as expected. Additionally, there is a docker-volume utility that will confirm your volumes are configured and shared correctly between the front and backend of the application.
+The site settings page contains general information about your installation like the application version, some configuration details, and some utilities to help you confirm your installation is working as expected. For example, you can use the Email Configuration section to validate that your email credentials are set up correctly and that the email service is working as expected. Additionally, there is a docker-volume utility that will confirm your volumes are configured and shared correctly between the front and backend of the application.
 
 [Settings Demo](https://demo.mealie.io/admin/site-settings){ .md-button .md-button--primary }
 
@@ -125,7 +125,7 @@ There is a small management area for users and groups that allows you to create,
 
 ### Backups
 
-The backups page provides a full system backup of your installation including all assets and images related to recipes. These are archived into a zip file and stored on the server but can also be downloaded through the UI. Due to some issues in the past, Mealie no longer performs automatic backups; **it is advised that during setup you also setup a backup strategy to ensure your data is not lost.**
+The backups page provides a full system backup of your installation including all assets and images related to recipes. These are archived into a zip file and stored on the server but can also be downloaded through the UI. Due to some issues in the past, Mealie no longer performs automatic backups; **it is advised that during setup you also set up a backup strategy to ensure your data is not lost.**
 
 
 [Backups Demo](https://demo.mealie.io/admin/backups){ .md-button .md-button--primary }
