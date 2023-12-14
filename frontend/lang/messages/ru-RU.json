@@ -510,7 +510,7 @@
     "how-did-it-turn-out": "Что получилось?",
     "user-made-this": "{user} сделал это",
     "last-made-date": "Последний раз сделано {date}",
-    "api-extras-description": "Дополнения к рецептам являются ключевым элементом Mealie API. Они позволяют создавать пользовательские пары json ключ/значение в рецепте для ссылания на другие приложения. Вы можете использовать эти ключи, чтобы сохранить нужную информацию для автоматизаций или уведомлений на ваши устройства.",
+    "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
     "message-key": "Ключ сообщения",
     "parse": "Обработать",
     "attach-images-hint": "Прикрепляйте изображения, перетаскивая их в редактор",
