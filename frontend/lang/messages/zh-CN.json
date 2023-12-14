@@ -510,7 +510,7 @@
     "how-did-it-turn-out": "成品怎么样?",
     "user-made-this": "由 {user} 制作",
     "last-made-date": "上次制作于{date}",
-    "api-extras-description": "食谱扩展键值对是Mealie API的一项重要特性。它允许你在食谱里自定义json键值对，以供第三方程序使用。你可以利用这些键值对存储的信息触发自动化，或给你需要的设备转发自定义消息。",
+    "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
     "message-key": "键名",
     "parse": "自动解析",
     "attach-images-hint": "如需添加图片，可将其拖拽到编辑器",
