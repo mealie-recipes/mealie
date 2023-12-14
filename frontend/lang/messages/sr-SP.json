@@ -510,7 +510,7 @@
     "how-did-it-turn-out": "How did it turn out?",
     "user-made-this": "{user} made this",
     "last-made-date": "Последњи пут прављено {date}",
-    "api-extras-description": "Додаци рецепата су кључна карактеристика Mили API-а. Омогућавају вам да креирате прилагођене JSON парове кључ/вредност унутар рецепта за референцу из других апликација. Можете користити ове кључеве за садржај информација за покретање аутоматизације или прилагођених порука које ће бити прослеђене на ваш уређај по жељи.",
+    "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
     "message-key": "Message Key",
     "parse": "Parse",
     "attach-images-hint": "Attach images by dragging & dropping them into the editor",

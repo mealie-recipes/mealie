@@ -510,7 +510,7 @@
     "how-did-it-turn-out": "איך יצא?",
     "user-made-this": "{user} הכין את זה",
     "last-made-date": "נעשה לאחרונה ב{date}",
-    "api-extras-description": "מתכונים אקסטרה הם פונקציה שמאפשרת שימוש ב- Mealie API. צמדי json של key/value במתכון מאפשרים לצד שלישי לקרוא להם. ניתן להשתמש במפתחות להכיל מידע על מנת להפעיל אוטומציות או הודעות מותאמות אישית למכשירים הרלוונטיים.",
+    "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
     "message-key": "מפתח הודעה",
     "parse": "ניתוח",
     "attach-images-hint": "הוסף תמונות ע\"י גרירה ושחרור אל תוך העורך",

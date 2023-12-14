@@ -510,7 +510,7 @@
     "how-did-it-turn-out": "Como que ficou?",
     "user-made-this": "{user} fez isso",
     "last-made-date": "Feito pela última vez em {date}",
-    "api-extras-description": "Receitas extras são características chave da API Mealie. Eles permitem que você crie pares personalizados de chave/valor de json em uma receita para referência a partir de aplicativos de terceiros. Você pode usar essas chaves para conter informações para acionar automação ou mensagens personalizadas para transmitir ao seu dispositivo desejado.",
+    "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
     "message-key": "Chave de mensagem",
     "parse": "Analisar",
     "attach-images-hint": "Anexe imagens arrastando e soltando-as no editor",
