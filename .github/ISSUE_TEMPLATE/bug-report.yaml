@@ -1,7 +1,7 @@
 ---
 name: Bug Report
 description: "Submit a bug for the latest version of Mealie"
-title: "[BUG] - YOUR TITLE"
+title: "[BUG] - YOUR DESCRIPTIVE TITLE GOES HERE"
 labels: ["bug", "triage"]
 body:
   - type: checkboxes
@@ -14,7 +14,7 @@ body:
       options:
         - label: This is not a feature request.
           required: true
-        - label: I added a very descriptive title to this issue.
+        - label: I added a very descriptive title to this issue (title field is above this).
           required: true
         - label: I used the GitHub search to find a similar issue and didn't find it.
           required: true
@@ -61,7 +61,8 @@ body:
         - Docker (Windows)
         - Docker (Synology)
         - Unraid
-        - Other
+        - TrueNAS
+        - Other (please specify below)
     validations:
       required: true
   - type: textarea

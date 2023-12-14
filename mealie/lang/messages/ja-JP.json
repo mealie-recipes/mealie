@@ -6,7 +6,7 @@
         "unique-name-error": "Recipe names must be unique"
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "No recipes match your rules"
+        "no-recipes-match-your-rules": "ルールに一致するレシピはありません"
     },
     "user": {
         "user-updated": "ユーザを更新しました。",

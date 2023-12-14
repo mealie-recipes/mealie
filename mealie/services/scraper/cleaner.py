@@ -9,6 +9,11 @@ from datetime import datetime, timedelta
 
 from slugify import slugify
 
+from mealie.core.root_logger import get_logger
+
+logger = get_logger("recipe-scraper")
+
+
 MATCH_DIGITS = re.compile(r"\d+([.,]\d+)?")
 """ Allow for commas as decimals (common in Europe) """
 
@@ -84,10 +89,10 @@ def clean_image(image: str | list | dict | None = None, default: str = "no image
     image attempts to parse the image field from a recipe and return a string. Currenty
 
     Supported Structures:
-        - `https://exmaple.com` - A string
-        - `{ "url": "https://exmaple.com" }` - A dictionary with a `url` key
-        - `["https://exmaple.com"]` - A list of strings
-        - `[{ "url": "https://exmaple.com" }]` - A list of dictionaries with a `url` key
+        - `https://example.com` - A string
+        - `{ "url": "https://example.com" }` - A dictionary with a `url` key
+        - `["https://example.com"]` - A list of strings
+        - `[{ "url": "https://example.com" }]` - A list of dictionaries with a `url` key
 
     Raises:
         TypeError: If the image field is not a supported type a TypeError is raised.
@@ -107,8 +112,11 @@ def clean_image(image: str | list | dict | None = None, default: str = "no image
             return [x["url"] for x in image]
         case {"url": str(image)}:
             return [image]
+        case [{"@id": str(_)}, *_]:
+            return [x["@id"] for x in image]
         case _:
-            raise TypeError(f"Unexpected type for image: {type(image)}, {image}")
+            logger.exception(f"Unexpected type for image: {type(image)}, {image}")
+            return [default]
 
 
 def clean_instructions(steps_object: list | dict | str, default: list | None = None) -> list[dict]:
@@ -335,6 +343,7 @@ def clean_time(time_entry: str | timedelta | None) -> None | str:
         - `"PT1H"` - returns "1 hour"
         - `"PT1H30M"` - returns "1 hour 30 minutes"
         - `timedelta(hours=1, minutes=30)` - returns "1 hour 30 minutes"
+        - `{"minValue": "PT1H30M"}` - returns "1 hour 30 minutes"
 
     Raises:
         TypeError: if the type is not supported a TypeError is raised
@@ -357,11 +366,16 @@ def clean_time(time_entry: str | timedelta | None) -> None | str:
                 return str(time_entry)
         case timedelta():
             return pretty_print_timedelta(time_entry)
+        case {"minValue": str(value)}:
+            return clean_time(value)
+        case [str(), *_]:
+            return clean_time(time_entry[0])
         case datetime():
             # TODO: Not sure what to do here
             return str(time_entry)
         case _:
-            raise TypeError(f"Unexpected type for time: {type(time_entry)}, {time_entry}")
+            logger.warning("[SCRAPER] Unexpected type or structure for time_entrys")
+            return None
 
 
 def parse_duration(iso_duration: str) -> timedelta:

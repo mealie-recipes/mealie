@@ -34,4 +34,4 @@ ALTER USER mealie WITH SUPERUSER;
 ALTER USER mealie WITH NOSUPERUSER;
 ```
 
-For more information see [GitHub Issue #1500](https://github.com/hay-kot/mealie/issues/1500)
+For more information see [GitHub Issue #1500](https://github.com/mealie-recipes/mealie/issues/1500)

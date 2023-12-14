@@ -1,10 +1,16 @@
-from asyncio import gather
+import asyncio
 
 from pydantic import UUID4
 
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import CreateRecipeByUrlBulk, Recipe
-from mealie.schema.reports.reports import ReportCategory, ReportCreate, ReportEntryCreate, ReportSummaryStatus
+from mealie.schema.reports.reports import (
+    ReportCategory,
+    ReportCreate,
+    ReportEntryCreate,
+    ReportEntryOut,
+    ReportSummaryStatus,
+)
 from mealie.schema.user.user import GroupInDB
 from mealie.services._base_service import BaseService
 from mealie.services.recipe.recipe_service import RecipeService
@@ -47,6 +53,7 @@ class RecipeBulkScraperService(BaseService):
         is_success = True
         is_failure = True
 
+        new_entries: list[ReportEntryOut] = []
         for entry in self.report_entries:
             if is_failure and entry.success:
                 is_failure = False
@@ -54,7 +61,7 @@ class RecipeBulkScraperService(BaseService):
             if is_success and not entry.success:
                 is_success = False
 
-            self.repos.group_report_entries.create(entry)
+            new_entries.append(self.repos.group_report_entries.create(entry))
 
         if is_success:
             self.report.status = ReportSummaryStatus.success
@@ -65,25 +72,29 @@ class RecipeBulkScraperService(BaseService):
         if not is_success and not is_failure:
             self.report.status = ReportSummaryStatus.partial
 
+        self.report.entries = new_entries
         self.repos.group_reports.update(self.report.id, self.report)
 
     async def scrape(self, urls: CreateRecipeByUrlBulk) -> None:
+        sem = asyncio.Semaphore(3)
+
         async def _do(url: str) -> Recipe | None:
-            try:
-                recipe, _ = await create_from_url(url)
-                return recipe
-            except Exception as e:
-                self.service.logger.error(f"failed to scrape url during bulk url import {b.url}")
-                self.service.logger.exception(e)
-                self._add_error_entry(f"failed to scrape url {url}", str(e))
-                return None
+            async with sem:
+                try:
+                    recipe, _ = await create_from_url(url)
+                    return recipe
+                except Exception as e:
+                    self.service.logger.error(f"failed to scrape url during bulk url import {url}")
+                    self.service.logger.exception(e)
+                    self._add_error_entry(f"failed to scrape url {url}", str(e))
+                    return None
 
         if self.report is None:
             self.get_report_id()
         tasks = [_do(b.url) for b in urls.imports]
-        results = await gather(*tasks)
+        results = await asyncio.gather(*tasks, return_exceptions=True)
         for b, recipe in zip(urls.imports, results, strict=True):
-            if not recipe:
+            if not recipe or isinstance(recipe, Exception):
                 continue
 
             if b.tags:

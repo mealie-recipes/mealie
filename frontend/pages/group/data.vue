@@ -6,7 +6,6 @@
       </template>
       <template #title> {{ $t('data-pages.data-management') }} </template>
       {{ $t('data-pages.data-management-description') }}
-      <BannerExperimental class="mt-5"></BannerExperimental>
       <template #content>
         <div>
           <BaseOverflowButton

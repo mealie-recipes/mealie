@@ -36,7 +36,7 @@ jobs:
     # Steps
     steps:
       - name: Check out repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up python
         uses: actions/setup-python@v4
@@ -60,7 +60,7 @@ jobs:
         id: cache-validate
         if: steps.cached-poetry-dependencies.outputs.cache-hit == 'true'
         run: |
-          echo "import black;print('venv good?')" > test.py && poetry run python test.py && echo ::set-output name=cache-hit-success::true
+          echo "import black;print('venv good?')" > test.py && poetry run python test.py && echo "cache-hit-success=true" >> $GITHUB_OUTPUT
           rm test.py
         continue-on-error: true
 

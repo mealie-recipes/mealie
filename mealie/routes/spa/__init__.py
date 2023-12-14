@@ -1,6 +1,8 @@
 import json
 import pathlib
+from dataclasses import dataclass
 
+from bs4 import BeautifulSoup
 from fastapi import Depends, FastAPI, Response
 from fastapi.encoders import jsonable_encoder
 from fastapi.staticfiles import StaticFiles
@@ -14,6 +16,13 @@ from mealie.db.db_setup import generate_session
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.user.user import PrivateUser
+
+
+@dataclass
+class MetaTag:
+    hid: str
+    property_name: str
+    content: str
 
 
 class SPAStaticFiles(StaticFiles):
@@ -33,10 +42,51 @@ __app_settings = get_app_settings()
 __contents = ""
 
 
+def inject_meta(contents: str, tags: list[MetaTag]) -> str:
+    soup = BeautifulSoup(contents, "lxml")
+    scraped_meta_tags = soup.find_all("meta")
+
+    tags_by_hid = {tag.hid: tag for tag in tags}
+    for scraped_meta_tag in scraped_meta_tags:
+        try:
+            scraped_hid = scraped_meta_tag["data-hid"]
+        except KeyError:
+            continue
+
+        if not (matched_tag := tags_by_hid.pop(scraped_hid, None)):
+            continue
+
+        scraped_meta_tag["property"] = matched_tag.property_name
+        scraped_meta_tag["content"] = matched_tag.content
+
+    # add any tags we didn't find
+    if soup.html and soup.html.head:
+        for tag in tags_by_hid.values():
+            html_tag = soup.new_tag(
+                "meta",
+                **{"data-n-head": "1", "data-hid": tag.hid, "property": tag.property_name, "content": tag.content},
+            )
+            soup.html.head.append(html_tag)
+
+    return str(soup)
+
+
+def inject_recipe_json(contents: str, schema: dict) -> str:
+    schema_as_html_tag = f"""<script type="application/ld+json">{json.dumps(jsonable_encoder(schema))}</script>"""
+    return contents.replace("</head>", schema_as_html_tag + "\n</head>", 1)
+
+
 def content_with_meta(group_slug: str, recipe: Recipe) -> str:
     # Inject meta tags
     recipe_url = f"{__app_settings.BASE_URL}/g/{group_slug}/r/{recipe.slug}"
-    image_url = f"{__app_settings.BASE_URL}/api/media/recipes/{recipe.id}/images/original.webp?version={recipe.image}"
+    if recipe.image:
+        image_url = (
+            f"{__app_settings.BASE_URL}/api/media/recipes/{recipe.id}/images/original.webp?version={recipe.image}"
+        )
+    else:
+        image_url = (
+            "https://raw.githubusercontent.com/hay-kot/mealie/dev/frontend/public/img/icons/android-chrome-512x512.png"
+        )
 
     ingredients: list[str] = []
     if recipe.settings.disable_amount:  # type: ignore
@@ -84,20 +134,22 @@ def content_with_meta(group_slug: str, recipe: Recipe) -> str:
         "nutrition": nutrition,
     }
 
-    tags = [
-        f'<meta property="og:title" content="{recipe.name}" />',
-        f'<meta property="og:description" content="{recipe.description}" />',
-        f'<meta property="og:image" content="{image_url}" />',
-        f'<meta property="og:url" content="{recipe_url}" />',
-        '<meta name="twitter:card" content="summary_large_image" />',
-        f'<meta name="twitter:title" content="{recipe.name}" />',
-        f'<meta name="twitter:description" content="{recipe.description}" />',
-        f'<meta name="twitter:image" content="{image_url}" />',
-        f'<meta name="twitter:url" content="{recipe_url}" />',
-        f"""<script type="application/ld+json">{json.dumps(jsonable_encoder(as_schema_org))}</script>""",
+    meta_tags = [
+        MetaTag(hid="og:title", property_name="og:title", content=recipe.name or ""),
+        MetaTag(hid="og:description", property_name="og:description", content=recipe.description or ""),
+        MetaTag(hid="og:image", property_name="og:image", content=image_url),
+        MetaTag(hid="og:url", property_name="og:url", content=recipe_url),
+        MetaTag(hid="twitter:card", property_name="twitter:card", content="summary_large_image"),
+        MetaTag(hid="twitter:title", property_name="twitter:title", content=recipe.name or ""),
+        MetaTag(hid="twitter:description", property_name="twitter:description", content=recipe.description or ""),
+        MetaTag(hid="twitter:image", property_name="twitter:image", content=image_url),
+        MetaTag(hid="twitter:url", property_name="twitter:url", content=recipe_url),
     ]
 
-    return __contents.replace("</head>", "\n".join(tags) + "\n</head>", 1)
+    global __contents
+    __contents = inject_recipe_json(__contents, as_schema_org)
+    __contents = inject_meta(__contents, meta_tags)
+    return __contents
 
 
 def response_404():
@@ -133,7 +185,7 @@ async def serve_recipe_with_meta(
     user: PrivateUser | None = Depends(try_get_current_user),
     session: Session = Depends(generate_session),
 ):
-    if not user:
+    if not user or user.group_slug != group_slug:
         return serve_recipe_with_meta_public(group_slug, recipe_slug, session)
 
     try:
@@ -149,6 +201,19 @@ async def serve_recipe_with_meta(
         return response_404()
 
 
+async def serve_shared_recipe_with_meta(group_slug: str, token_id: str, session: Session = Depends(generate_session)):
+    try:
+        repos = AllRepositories(session)
+        token_summary = repos.recipe_share_tokens.get_one(token_id)
+        if token_summary is None:
+            raise Exception("Token Not Found")
+
+        return Response(content_with_meta(group_slug, token_summary.recipe), media_type="text/html")
+
+    except Exception:
+        return response_404()
+
+
 def mount_spa(app: FastAPI):
     if not os.path.exists(__app_settings.STATIC_FILES):
         return
@@ -157,4 +222,5 @@ def mount_spa(app: FastAPI):
     __contents = pathlib.Path(__app_settings.STATIC_FILES).joinpath("index.html").read_text()
 
     app.get("/g/{group_slug}/r/{recipe_slug}")(serve_recipe_with_meta)
+    app.get("/g/{group_slug}/shared/r/{token_id}")(serve_shared_recipe_with_meta)
     app.mount("/", SPAStaticFiles(directory=__app_settings.STATIC_FILES, html=True), name="spa")

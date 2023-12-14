@@ -22,6 +22,8 @@ images_test_image_1 = CWD / "images/test-image-1.jpg"
 
 images_test_image_2 = CWD / "images/test-image-2.png"
 
+html_mealie_recipe = CWD / "html/mealie-recipe.html"
+
 html_sous_vide_smoked_beef_ribs = CWD / "html/sous-vide-smoked-beef-ribs.html"
 
 html_sous_vide_shrimp = CWD / "html/sous-vide-shrimp.html"

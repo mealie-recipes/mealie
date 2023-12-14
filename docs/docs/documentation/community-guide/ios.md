@@ -5,8 +5,8 @@
 
 ![Image from apple site](https://help.apple.com/assets/5E8CEA35094622DF10489984/5E8CEA42094622DF1048998D/en_US/ed1f9c157cdefc13e0161e0f70015455.png)
 
-User [brasilikum](https://github.com/brasilikum) opened an issue on the main repo about how they had created an [iOS shortcut](https://github.com/hay-kot/mealie/issues/103) for interested users.
-This original method broke after the transition to version 1.X and an issue was raised on [Github](https://github.com/hay-kot/mealie/issues/2092) GitHub user [Zippyy](https://github.com/zippyy) has helped to create a working shortcut for version 1.X.
+User [brasilikum](https://github.com/brasilikum) opened an issue on the main repo about how they had created an [iOS shortcut](https://github.com/mealie-recipes/mealie/issues/103) for interested users.
+This original method broke after the transition to version 1.X and an issue was raised on [Github](https://github.com/mealie-recipes/mealie/issues/2092) GitHub user [Zippyy](https://github.com/zippyy) has helped to create a working shortcut for version 1.X.
 
 This is a useful utility for iOS users who browse for recipes in their web browser from their devices.
 
