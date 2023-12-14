@@ -46,7 +46,7 @@ Tags are nearly identical to categories in function but play a secondary role in
 
 Tools are another way that some users like to organize their recipes. If a recipe requires some specific equipment, it can be helpful to assign tools to the recipes. This is particularly useful for things that are less common, like a pressure cooker or a sous vide.
 
-Each of the above organizers can be filtered in searches, and have their own pages where you can view all the recipes that are associated with those organizers.
+Each of the above organizers can be filtered in searches and have their own pages where you can view all the recipes that are associated with those organizers.
 
 [Tools Demo](https://demo.mealie.io/g/home/recipes/tools){ .md-button .md-button--primary }
 
@@ -64,7 +64,7 @@ Mealie also has the concept of cookbooks. These can be created inside of a group
 
 ## Meal Planning
 
-Mealie uses a calendar like view to help you plan your meals. It shows you the previous day, and the next 6 days by default. You can toggle through the calendar by clicking the arrows on the top of the page. In editor mode, you can use the random recipe buttons, or manually add an entry.
+Mealie uses a calendar like view to help you plan your meals. It shows you the previous day and the next 6 days by default. You can toggle through the calendar by clicking the arrows on the top of the page. In editor mode, you can use the random recipe buttons or manually add an entry.
 
 !!! tip
     You can also add a "Note" type entry to your meal-plan when you want to include something that might not have a specific recipes. This is great for leftovers, or for ordering out.
@@ -73,16 +73,16 @@ Mealie uses a calendar like view to help you plan your meals. It shows you the p
 
 ### Planner Rules
 
-The meal planner has the concept of plan rules. These offer a flexible way to use your organizers to customize how a random recipe is inserted into your meal plan. You can set rules to restrict the pool of recipes based on the Tags and/or Categories of a recipe. Additionally, since meal plans have a Breakfast, Lunch, Dinner, and Snack labels you can specifically set a rule to be active for a **specific meal type** or even a **specific day of the week.**
+The meal planner has the concept of plan rules. These offer a flexible way to use your organizers to customize how a random recipe is inserted into your meal plan. You can set rules to restrict the pool of recipes based on the Tags and/or Categories of a recipe. Additionally, since meal plans have a Breakfast, Lunch, Dinner, and Snack labels, you can specifically set a rule to be active for a **specific meal type** or even a **specific day of the week.**
 
 [Planner Settings Demo](https://demo.mealie.io/group/mealplan/settings){ .md-button .md-button--primary }
 
 ## Shopping Lists
 
-The shopping lists feature is a great way to keep track of what you need to buy for your next meal. You can add items directly to the shopping list, or link a recipe and all of it's ingredients to track meals during the week.
+The shopping lists feature is a great way to keep track of what you need to buy for your next meal. You can add items directly to the shopping list or link a recipe and all of it's ingredients to track meals during the week.
 
 !!! warning
-    At this time there isn't a tight integration between meal-plans and shopping lists, however it's something we have planned for the future.
+    At this time there isn't a tight integration between meal-plans and shopping lists; however, it's something we have planned for the future.
 
 
 [Shopping List Demo](https://demo.mealie.io/shopping-lists){ .md-button .md-button--primary }
@@ -125,7 +125,7 @@ There is a small management area for users and groups that allows you to create,
 
 ### Backups
 
-The backups page provides a full system backup of your installation including all assets and images related to recipes. These are archived into a zip file and stored on the server but can also be downloaded through the UI. Due to some issues in the past Mealie no longer performs automatic backups, **it is advised that during setup you also setup a backup strategy to ensure your data is not lost.**
+The backups page provides a full system backup of your installation including all assets and images related to recipes. These are archived into a zip file and stored on the server but can also be downloaded through the UI. Due to some issues in the past, Mealie no longer performs automatic backups; **it is advised that during setup you also setup a backup strategy to ensure your data is not lost.**
 
 
 [Backups Demo](https://demo.mealie.io/admin/backups){ .md-button .md-button--primary }
