@@ -85,7 +85,7 @@ Mealie's Recipe Steps and other fields support markdown syntax and therefore sup
 
 ## How can I unlock my account?
 
-If your account has been locked by bad password attempts, you can use an administrator account to unlock another account. Alternatively you can unlock all accounts via a scripts within the container.
+If your account has been locked by bad password attempts, you can use an administrator account to unlock another account. Alternatively, you can unlock all accounts via a script within the container.
 
 ```shell
 docker exec -it mealie-next bash
