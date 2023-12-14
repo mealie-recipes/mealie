@@ -510,7 +510,7 @@
     "how-did-it-turn-out": "Jak się to udało?",
     "user-made-this": "{user} ugotował(a) to",
     "last-made-date": "Ostatnio ugotowano {date}",
-    "api-extras-description": "Dodatki w przepisach są kluczową cechą API Mealie. Pozwalają na tworzenie niestandardowych par kluczy/wartości JSON w recepturze do odwoływania się przez zewnętrzne aplikacje. Możesz użyć tych kluczy do wyzwalania automatyzacji lub przekazywania niestandardowych wiadomości do twoich wybranych urządzeń.",
+    "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
     "message-key": "Klucz Wiadomości",
     "parse": "Analizuj",
     "attach-images-hint": "Dołącz obrazy przeciągając i upuszczając je do edytora",

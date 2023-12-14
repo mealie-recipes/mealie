@@ -510,7 +510,7 @@
     "how-did-it-turn-out": "C’était bon ?",
     "user-made-this": "{user} l’a cuisiné",
     "last-made-date": "Cuisiné le {date}",
-    "api-extras-description": "Les extras de recette sont une caractéristique clé de l'API Mealie. Ils vous permettent de créer des paires clé/valeur json personnalisées dans une recette à référencer depuis des applications externes. Vous pouvez utiliser ces clés pour stocker des informations utiles à l'automatisation ou des messages personnalisés à relayer vers l'appareil souhaité.",
+    "api-extras-description": "Les suppléments des recettes sont une fonctionnalité clé de l’API Mealie. Ils permettent de créer des paires JSON clé/valeur personnalisées dans une recette, qui peuvent être référencées depuis des applications tierces. Ces clés peuvent être utilisées par exemple pour déclencher des tâches automatisées ou des messages personnalisés à transmettre à l’appareil souhaité.",
     "message-key": "Clé de message",
     "parse": "Analyser",
     "attach-images-hint": "Ajouter des images en les glissant-déposant dans l'éditeur",

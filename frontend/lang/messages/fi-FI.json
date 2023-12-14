@@ -510,7 +510,7 @@
     "how-did-it-turn-out": "Miten se onnistui?",
     "user-made-this": "{user} teki tämän",
     "last-made-date": "Viimeksi valmistettu {date}",
-    "api-extras-description": "Reseptilisät ovat Mealie API: n avainominaisuus. Niiden avulla voit luoda mukautettuja json-avain/arvo-pareja reseptin sisällä viitaten kolmannen osapuolen sovelluksiin. Voit käyttää näitä pareja sisältämään tietoja automaation käynnistämiseksi tai mukautettuja viestejä välitettäväksi haluamaasi laitteeseen.",
+    "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
     "message-key": "Viestiavain",
     "parse": "Jäsennä",
     "attach-images-hint": "Liitä kuvia vetämällä ja pudottamalla ne editoriin",
