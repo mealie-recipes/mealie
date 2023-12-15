@@ -128,7 +128,6 @@ class Recipe(RecipeSummary):
     assets: list[RecipeAsset] | None = []
     notes: list[RecipeNote] | None = []
     extras: dict | None = {}
-    is_ocr_recipe: bool | None = False
 
     comments: list[RecipeCommentOut] | None = []
 
