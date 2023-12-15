@@ -43,6 +43,11 @@ export default defineComponent({
         value: "url",
       },
       {
+        icon: $globals.icons.link,
+        text: i18n.tc("recipe.bulk-url-import"),
+        value: "bulk",
+      },
+      {
         icon: $globals.icons.edit,
         text: i18n.tc("recipe.create-recipe"),
         value: "new",
