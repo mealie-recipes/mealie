@@ -89,6 +89,7 @@ RUN apt-get update \
     gosu \
     iproute2 \
     libldap-common \
+    libldap-2.5 \
     && rm -rf /var/lib/apt/lists/*
 
 # copying poetry and venv into image
