@@ -70,6 +70,13 @@
               </v-btn>
             </div>
           </v-card-actions>
+          <v-card-actions v-if="allowOidc" class="justify-center pt-0">
+          <div class="max-button">
+            <v-btn color="primary" large rounded class="rounded-xl" block @click.native="oidc_authenticate">
+                {{ $t("user.login-oidc") }}
+            </v-btn>
+          </div>
+        </v-card-actions>
         </v-form>
       </v-card-text>
       <v-card-actions class="d-flex justify-center flex-column flex-sm-row">
@@ -161,6 +168,11 @@ export default defineComponent({
     const { passwordIcon, inputType, togglePasswordShow } = usePasswordField();
 
     const allowSignup = computed(() => appInfo.value?.allowSignup || false);
+    const allowOidc = computed(() => appInfo.value?.enableOidc || false);
+
+    async function oidc_authenticate() {
+        await $auth.loginWith("oidc")
+    }
 
     async function authenticate() {
       if (form.email.length === 0 || form.password.length === 0) {
@@ -199,7 +211,9 @@ export default defineComponent({
       form,
       loggingIn,
       allowSignup,
+      allowOidc,
       authenticate,
+      oidc_authenticate,
       passwordIcon,
       inputType,
       togglePasswordShow,

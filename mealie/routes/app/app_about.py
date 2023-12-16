@@ -20,6 +20,7 @@ def get_app_info():
         demo_status=settings.IS_DEMO,
         production=settings.PRODUCTION,
         allow_signup=settings.ALLOW_SIGNUP,
+        enable_oidc=settings.OIDC_READY,
     )
 
 

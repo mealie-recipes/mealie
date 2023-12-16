@@ -201,6 +201,7 @@ export default defineComponent({
             isSiteSecure: true,
             isUpToDate: false,
             ldapReady: false,
+            oidcReady: false,
         });
         function isLocalHostOrHttps() {
             return window.location.hostname === "localhost" || window.location.protocol === "https:";
@@ -257,6 +258,15 @@ export default defineComponent({
                     successText: i18n.t("settings.ldap-ready-success-text"),
                     color: appConfig.value.ldapReady ? goodColor : warningColor,
                     icon: appConfig.value.ldapReady ? goodIcon : warningIcon,
+                },
+                {
+                    id: "oidc-ready",
+                    text: i18n.t("settings.oidc-ready"),
+                    status: appConfig.value.oidcReady,
+                    errorText: i18n.t("settings.oidc-ready-error-text"),
+                    successText: i18n.t("settings.oidc-ready-success-text"),
+                    color: appConfig.value.oidcReady ? goodColor : warningColor,
+                    icon: appConfig.value.oidcReady ? goodIcon : warningIcon,
                 },
             ];
             return data;

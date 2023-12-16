@@ -10,7 +10,10 @@ from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from sqlalchemy.orm.session import Session
 
+from mealie.core import root_logger
 from mealie.core.config import get_app_dirs, get_app_settings
+from mealie.core.dependencies.common import get_credentials_exception
+from mealie.core.dependencies.oidc import get_jwks, get_oidc_user
 from mealie.db.db_setup import generate_session
 from mealie.repos.all_repositories import get_repositories
 from mealie.schema.user import PrivateUser, TokenData
@@ -21,6 +24,7 @@ oauth2_scheme_soft_fail = OAuth2PasswordBearer(tokenUrl="/api/auth/token", auto_
 ALGORITHM = "HS256"
 app_dirs = get_app_dirs()
 settings = get_app_settings()
+logger = root_logger.get_logger("dependencies")
 
 
 async def is_logged_in(token: str = Depends(oauth2_scheme_soft_fail), session=Depends(generate_session)) -> bool:
@@ -76,13 +80,15 @@ async def try_get_current_user(
 
 
 async def get_current_user(
-    request: Request, token: str | None = Depends(oauth2_scheme_soft_fail), session=Depends(generate_session)
+    request: Request,
+    token: str | None = Depends(oauth2_scheme_soft_fail),
+    session=Depends(generate_session),
+    jwks=Depends(get_jwks),
 ) -> PrivateUser:
-    credentials_exception = HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Could not validate credentials",
-        headers={"WWW-Authenticate": "Bearer"},
-    )
+    if request.cookies.get("mealie.auth.strategy") == "oidc":
+        return get_oidc_user(request, session, jwks)
+
+    repos = get_repositories(session)
     if token is None and "mealie.access_token" in request.cookies:
         # Try extract from cookie
         token = request.cookies.get("mealie.access_token", "")
@@ -98,13 +104,11 @@ async def get_current_user(
             return validate_long_live_token(session, token, payload.get("id"))
 
         if user_id is None:
-            raise credentials_exception
+            raise get_credentials_exception()
 
         token_data = TokenData(user_id=user_id)
     except JWTError as e:
-        raise credentials_exception from e
-
-    repos = get_repositories(session)
+        raise get_credentials_exception() from e
 
     user = repos.users.get_one(token_data.user_id, "id", any_case=False)
 
@@ -112,16 +116,18 @@ async def get_current_user(
     # which can cause quite a bit of pain further down the line
     session.commit()
     if user is None:
-        raise credentials_exception
+        raise get_credentials_exception()
     return user
 
 
-async def get_integration_id(token: str = Depends(oauth2_scheme)) -> str:
+async def get_integration_id(request: Request, token: str = Depends(oauth2_scheme)) -> str:
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
+    if request.cookies.get("mealie.auth.strategy") == "oidc":
+        return DEFAULT_INTEGRATION_ID
 
     try:
         decoded_token = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])

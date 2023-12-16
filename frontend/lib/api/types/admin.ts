@@ -10,6 +10,7 @@ export interface AdminAboutInfo {
   version: string;
   demoStatus: boolean;
   allowSignup: boolean;
+  enableOidc: boolean;
   versionLatest: string;
   apiPort: number;
   apiDocs: boolean;
@@ -33,6 +34,7 @@ export interface AppInfo {
   version: string;
   demoStatus: boolean;
   allowSignup: boolean;
+  enableOidc: boolean;
 }
 export interface AppStartupInfo {
   isFirstLogin: boolean;
@@ -71,6 +73,7 @@ export interface BackupOptions {
 export interface CheckAppConfig {
   emailReady: boolean;
   ldapReady: boolean;
+  oidcReady: boolean;
   baseUrlSet: boolean;
   isUpToDate: boolean;
 }
@@ -150,9 +153,6 @@ export interface CustomPageOut {
   position: number;
   categories?: RecipeCategoryResponse[];
   id: number;
-}
-export interface DockerVolumeText {
-  text: string;
 }
 export interface EmailReady {
   ready: boolean;

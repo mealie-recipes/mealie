@@ -14,6 +14,7 @@ class AppInfo(MealieModel):
     version: str
     demo_status: bool
     allow_signup: bool
+    enable_oidc: bool
 
 
 class AppTheme(MealieModel):
@@ -57,5 +58,6 @@ class AdminAboutInfo(AppInfo):
 class CheckAppConfig(MealieModel):
     email_ready: bool
     ldap_ready: bool
+    oidc_ready: bool
     base_url_set: bool
     is_up_to_date: bool
