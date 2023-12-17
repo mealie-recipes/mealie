@@ -10,7 +10,7 @@ services:
 
   mealie:
     container_name: mealie
-    image: mealie:dev
+    image: mealie:e2e
     build:
       context: ../../../
       target: production

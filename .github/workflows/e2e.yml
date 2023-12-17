@@ -17,10 +17,19 @@ jobs:
         node-version: 18
         cache: 'yarn'
         cache-dependency-path: ./tests/e2e/yarn.lock
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
     - name: Build Image
-      run: docker compose build
-      working-directory: ./tests/e2e/docker
-    - name: Deploy Test Environment
+      uses: docker/build-push-action@v5
+      with:
+        file: ./docker/Dockerfile
+        context: .
+        push: false
+        load: true
+        tags: mealie:e2e
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+    - name: Deploy E2E Test Environment
       run: docker compose up -d
       working-directory: ./tests/e2e/docker
     - name: Install dependencies
