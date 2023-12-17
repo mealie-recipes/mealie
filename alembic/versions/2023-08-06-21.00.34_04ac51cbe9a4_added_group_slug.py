@@ -34,7 +34,9 @@ def populate_group_slugs(session: Session):
             group.name = f"{original_name} ({attempts})"
 
         seen_slugs.add(slug)
-        group.slug = slug
+        session.execute(
+            sa.text(f"UPDATE {Group.__tablename__} SET slug=:slug WHERE id=:id").bindparams(slug=slug, id=group.id)
+        )
 
     session.commit()
 
