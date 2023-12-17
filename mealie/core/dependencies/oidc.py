@@ -17,6 +17,8 @@ logger = root_logger.get_logger("oidc")
 
 @lru_cache
 def get_jwks():
+    if not settings.OIDC_READY:
+        return None
     configuration = None
     with requests.get(settings.OIDC_CONFIGURATION_URL, timeout=5) as config_response:
         config_response.raise_for_status()
