@@ -6,7 +6,7 @@
     "api-port": "API-port",
     "application-mode": "Programmodus",
     "database-type": "Databasetype",
-    "database-url": "Database-URL",
+    "database-url": "URL til database",
     "default-group": "Standardgruppe",
     "demo": "Demo",
     "demo-status": "Demostatus",
@@ -67,7 +67,7 @@
     "new-notification": "Ny varsel",
     "event-notifiers": "Hendelsesvarsler",
     "apprise-url-skipped-if-blank": "Apprise URL (hoppes over hvis tom)",
-    "enable-notifier": "Aktiver varsleren",
+    "enable-notifier": "Aktiver varslingsagenten",
     "what-events": "Hvilke hendelser skal denne varslingsagenten abonnere på?",
     "user-events": "Brukerhendelser",
     "mealplan-events": "Måltidsplanleggerhendelser",
@@ -128,7 +128,7 @@
     "no-recipe-found": "Ingen oppskrift funnet",
     "ok": "OK",
     "options": "Alternativer:",
-    "plural-name": "Flertallsnavn",
+    "plural-name": "Navn på flertallsform",
     "print": "Skriv ut",
     "print-preferences": "Skriv ut innstillinger",
     "random": "Tilfeldig",
@@ -341,7 +341,7 @@
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
-      "description-long": "Mealie kan importere oppskrifter fra Tandoor. Eksporter dataene i \"Standard\"-formatet, last deretter opp .zip-formatet nedenfor.",
+      "description-long": "Mealie kan importere oppskrifter fra Tandoor. Eksporter dataene i \"Standard\"-formatet, last deretter opp zip-filen nedenfor.",
       "title": "Tandoor Recipes"
     },
     "recipe-data-migrations": "Overføring av oppskrifter",
@@ -366,10 +366,10 @@
     "from-url": "Importer en oppskrift",
     "github-issues": "GitHub-problemer",
     "google-ld-json-info": "Google ld+json-informasjon",
-    "must-be-a-valid-url": "Må være en gyldig URL-adresse",
+    "must-be-a-valid-url": "Må være en gyldig nettadresse",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Lim inn oppskriftsdataene. Hver linje blir behandlet som et element i en liste",
     "recipe-markup-specification": "Spesifikasjon for oppskriftsmerking",
-    "recipe-url": "Oppskrifts-URL",
+    "recipe-url": "Nettadresse til oppskrift",
     "upload-a-recipe": "Last opp oppskrift",
     "upload-individual-zip-file": "Last opp en individuell .zip-fil eksportert fra en annen Mealie-instans.",
     "url-form-hint": "Kopier og lim inn en lenke fra nettstedet med favorittoppskriftene dine",
@@ -377,7 +377,7 @@
     "trim-whitespace-description": "Fjern innledende og etterfølgende mellomrom i tillegg til tomme linjer",
     "trim-prefix-description": "Fjern første tegn fra hver linje",
     "split-by-numbered-line-description": "Forsøk å dele opp et avsnitt ved å matche mønsteret '1)' eller '1.'",
-    "import-by-url": "Importer en oppskrift via URL",
+    "import-by-url": "Importer en oppskrift via nettadresse",
     "create-manually": "Opprett en oppskrift manuelt",
     "make-recipe-image": "Bruk dette som oppskriftsbilde"
   },
@@ -432,7 +432,7 @@
     "nutrition": "Ernæring",
     "object-key": "Objektnøkkel",
     "object-value": "Objektverdi",
-    "original-url": "URL-addresse til oppskrift",
+    "original-url": "Nettadresse til oppskrift",
     "perform-time": "Koketid",
     "prep-time": "Forberedelsestid",
     "protein-content": "Protein",
@@ -522,16 +522,16 @@
     "recipe-creation": "Opprett oppskrift",
     "select-one-of-the-various-ways-to-create-a-recipe": "Velg en av de ulike måtene å opprette en oppskrift",
     "looking-for-migrations": "Ser du etter overføringer?",
-    "import-with-url": "Importer via URL",
+    "import-with-url": "Importer via nettadresse",
     "create-recipe": "Opprett oppskrift",
     "import-with-zip": "Importer fra .zip-fil",
     "create-recipe-from-an-image": "Opprett oppskrift fra et bilde",
-    "bulk-url-import": "Importer flere URL-er",
+    "bulk-url-import": "Importer flere nettadresser",
     "debug-scraper": "Feilsøk skraper",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Opprett en oppskrift ved å angi navnet. Alle oppskrifter må ha unike navn.",
     "new-recipe-names-must-be-unique": "Navn på oppskrift må være unike",
     "scrape-recipe": "Skrap oppskrift",
-    "scrape-recipe-description": "Skrap en oppskrift ved å bruke URL-en. Oppgi nettadressen til nettstedet du vil skrape, så vil Mealie forsøke å skrape oppskriften fra den siden og legge den til i samlingen din.",
+    "scrape-recipe-description": "Skrap en oppskrift ved bruk av nettadresse. Oppgi nettadressen til nettstedet du vil skrape, så vil Mealie forsøke å skrape oppskriften fra den siden og legge den til i samlingen din.",
     "import-original-keywords-as-tags": "Importer originale søkeord som emneord",
     "stay-in-edit-mode": "Forbli i redigeringsmodus",
     "import-from-zip": "Importer fra zip-fil",
@@ -547,7 +547,7 @@
     "bulk-import-process-has-failed": "Masseimport mislyktes",
     "report-deletion-failed": "Sletting av rapport mislyktes",
     "recipe-debugger": "Oppskriftsfeilsøker",
-    "recipe-debugger-description": "Hent URL-adressen til oppskriften du vil feilsøke og lim den inn her. URL-adressen vil bli skrapt av oppskrifts-skraperen og resultatene vil bli vist. Hvis du ikke ser noen data returnert, er ikke nettstedet du prøver å skrape støttet av Mealie eller skraper-biblioteket.",
+    "recipe-debugger-description": "Hent nettadressen til oppskriften du vil feilsøke og lim den inn her. Nettsiden vil bli skrapt og resultatene vil bli vist. Hvis du ikke ser noen data returnert, er ikke nettstedet du prøver å skrape støttet av Mealie eller skraper-biblioteket.",
     "debug": "Feilsøk",
     "tree-view": "Trevisning",
     "recipe-yield": "Utbytte av oppskrift",
@@ -667,7 +667,7 @@
     },
     "toolbox": {
       "assign-all": "Tildel alle",
-      "bulk-assign": "Tilordne flere",
+      "bulk-assign": "Tildel flere",
       "new-name": "Nytt navn",
       "no-unused-items": "Ingen ubrukte elementer",
       "recipes-affected": "Ingen oppskrifter påvirket|En oppskrift påvirket|{count} Oppskrifter påvirket",
@@ -791,13 +791,13 @@
     "tag-name": "Navn på emneord"
   },
   "tool": {
-    "tools": "Utstyr",
+    "tools": "Kjøkkenredskap",
     "on-hand": "Tillgjengelig",
-    "create-a-tool": "Opprett utstyr",
-    "tool-name": "Navn på utstyr",
-    "create-new-tool": "Opprett nytt utstyr",
+    "create-a-tool": "Opprett kjøkkenredskap",
+    "tool-name": "Navn på kjøkkenredskap",
+    "create-new-tool": "Opprett nytt kjøkkenredskap",
     "on-hand-checkbox-label": "Vis som tilgjengelig (avmerket)",
-    "required-tools": "Påkrevd utstyr"
+    "required-tools": "Påkrevde kjøkkenredskaper"
   },
   "user": {
     "admin": "Administrator",
@@ -820,7 +820,7 @@
     "generate-password-reset-link": "Generer lenke for tilbakestilling av passord",
     "invite-only": "Kun inviterte",
     "link-id": "Lenke-ID",
-    "link-name": "Lenkenavn",
+    "link-name": "Navn på lenke",
     "login": "Logg på",
     "logout": "Logg ut",
     "manage-users": "Administrer brukere",
@@ -968,7 +968,7 @@
     "create-alias": "Opprett alias",
     "manage-aliases": "Administrer aliaser",
     "seed-data": "Tilføringsdata",
-    "seed": "Nøkkel",
+    "seed": "Tilfør",
     "data-management": "Databehandling",
     "data-management-description": "Velg hvilke data du vil gjøre endringer på.",
     "select-data": "Velg data",
@@ -986,9 +986,9 @@
       "tag-data": "Emneorddata"
     },
     "tools": {
-      "new-tool": "Nytt utstyr",
-      "edit-tool": "Rediger utstyr",
-      "tool-data": "Utstyrsdata"
+      "new-tool": "Nytt kjøkkenredskap",
+      "edit-tool": "Rediger kjøkkenredskap",
+      "tool-data": "Kjøkkenredskapsdata"
     }
   },
   "user-registration": {
@@ -1174,7 +1174,7 @@
     "filter-options-description": "Når krev alle er valgt, vil kokeboken bare inkludere oppskrifter som har alle de valgte elementene. Dette gjelder for hvert delsett av valgene og ikke et tverrsnitt av de valgte elementene.",
     "require-all-categories": "Krev alle kategorier",
     "require-all-tags": "Krev alle emneord",
-    "require-all-tools": "Krev alt utstyr",
+    "require-all-tools": "Krev alle kjøkkenredskaper",
     "cookbook-name": "Navn på kokebok",
     "cookbook-with-name": "Kokebok {0}"
   }
