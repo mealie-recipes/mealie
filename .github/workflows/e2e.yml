@@ -7,7 +7,6 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
-    container: ubuntu
     defaults:
       run:
         working-directory: ./tests/e2e
@@ -24,14 +23,16 @@ jobs:
         node-version: 18
     - name: Build Image
       run: docker compose build
-      working-directory: ./docker
+      working-directory: ./tests/e2e/docker
     - name: Deploy Test Environment
       run: docker compose up -d
-      working-directory: ./docker
+      working-directory: ./tests/e2e/docker
     - name: Install dependencies
       run: npm install -g yarn && yarn
     - name: Install Playwright Browsers
       run: yarn playwright install --with-deps
+    - name: Check test environment
+      run: docker ps
     - name: Run Playwright tests
       run: yarn playwright test
     - uses: actions/upload-artifact@v3
@@ -43,4 +44,4 @@ jobs:
     - name: Destroy Test Environment
       if: always()
       run: docker compose down --volumes
-      working-directory: ./docker
+      working-directory: ./tests/e2e/docker
