@@ -12,12 +12,6 @@ jobs:
         working-directory: ./tests/e2e
     steps:
     - uses: actions/checkout@v3
-    - name: Cache
-      uses: actions/cache@v3
-      if: always()
-      with:
-        path: prime
-        key: ${{ runner.os }}-cache
     - uses: actions/setup-node@v3
       with:
         node-version: 18
