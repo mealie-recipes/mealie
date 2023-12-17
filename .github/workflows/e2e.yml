@@ -38,17 +38,8 @@ jobs:
       run: yarn playwright install --with-deps
     - name: Check test environment
       run: docker ps
-    - name: docker logs
-      run: docker compose logs
-      working-directory: ./tests/e2e/docker
     - name: Run Playwright tests
       run: yarn playwright test
-    - uses: actions/upload-artifact@v3
-      if: always()
-      with:
-        name: playwright-report
-        path: playwright-report/
-        retention-days: 1
     - name: Destroy Test Environment
       if: always()
       run: docker compose down --volumes
