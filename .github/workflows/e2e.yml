@@ -7,19 +7,27 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    container: ubuntu
     defaults:
       run:
         working-directory: ./tests/e2e
     steps:
     - uses: actions/checkout@v3
+    - name: Cache
+      uses: actions/cache@v3
+      if: always()
+      with:
+        path: prime
+        key: ${{ runner.os }}-cache
     - uses: actions/setup-node@v3
       with:
         node-version: 18
-    - uses: isbang/compose-action@v1.5.1
-      with:
-        compose-file: ./docker/docker-compose.yml
-        up-flags: --build
-        down-flags: -v
+    - name: Build Image
+      run: docker compose build
+      working-directory: ./docker
+    - name: Deploy Test Environment
+      run: docker compose up -d
+      working-directory: ./docker
     - name: Install dependencies
       run: npm install -g yarn && yarn
     - name: Install Playwright Browsers
@@ -32,3 +40,7 @@ jobs:
         name: playwright-report
         path: playwright-report/
         retention-days: 1
+    - name: Destroy Test Environment
+      if: always()
+      run: docker compose down --volumes
+      working-directory: ./docker
