@@ -1,0 +1,32 @@
+version: "3.4"
+services:
+  oidc-mock-server:
+    container_name: oidc-mock-server
+    image: ghcr.io/navikt/mock-oauth2-server:2.1.0
+    network_mode: host
+    environment:
+      LOG_LEVEL: "debug"
+      SERVER_PORT: 8080
+
+  mealie:
+    container_name: mealie
+    image: mealie:dev
+    build:
+      context: ../../../
+      target: production
+      dockerfile: ./docker/Dockerfile
+    restart: always
+    volumes:
+      - mealie-data:/app/data/
+    network_mode: host
+    environment:
+      ALLOW_SIGNUP: True
+      DB_ENGINE: sqlite
+      OIDC_AUTH_ENABLED: True
+      OIDC_SIGNUP_ENABLED: True
+      OIDC_CONFIGURATION_URL: http://localhost:8080/default/.well-known/openid-configuration
+      OIDC_CLIENT_ID: default
+
+volumes:
+  mealie-data:
+    driver: local

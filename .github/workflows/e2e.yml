@@ -1,0 +1,34 @@
+name: E2E Tests
+on:
+  pull_request:
+    branches:
+      - mealie-next
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./tests/e2e
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 18
+    - uses: isbang/compose-action@v1.5.1
+      with:
+        compose-file: ./docker/docker-compose.yml
+        up-flags: --build
+        down-flags: -v
+    - name: Install dependencies
+      run: npm install -g yarn && yarn
+    - name: Install Playwright Browsers
+      run: yarn playwright install --with-deps
+    - name: Run Playwright tests
+      run: yarn playwright test
+    - uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: playwright-report
+        path: playwright-report/
+        retention-days: 1
