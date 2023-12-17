@@ -15,6 +15,7 @@ export default class DynamicOpenIDConnectScheme extends OpenIDConnectScheme {
         )
 
 
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return super.mounted()
     }
 
