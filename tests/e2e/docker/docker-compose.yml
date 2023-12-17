@@ -20,7 +20,6 @@ services:
       - mealie-data:/app/data/
     network_mode: host
     environment:
-      API_PORT: 8081
       ALLOW_SIGNUP: True
       DB_ENGINE: sqlite
       OIDC_AUTH_ENABLED: True
