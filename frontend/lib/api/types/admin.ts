@@ -220,6 +220,10 @@ export interface NotificationImport {
   status: boolean;
   exception?: string;
 }
+export interface OIDCInfo {
+  configurationUrl?: string;
+  clientId?: string;
+}
 export interface RecipeImport {
   name: string;
   status: boolean;
