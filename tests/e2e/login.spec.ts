@@ -8,7 +8,7 @@ test('oidc-login', async ({ page }) => {
         "name": "Test User"
     }
 
-    await page.goto('http://localhost:9000/login');
+    await page.goto('http://localhost:8081/login');
     await page.getByRole('button', { name: 'Login with OIDC' }).click();
     await page.getByPlaceholder('Enter any user/subject').fill('testUser');
     await page.getByPlaceholder('Optional claims JSON value,').fill(JSON.stringify(claims));

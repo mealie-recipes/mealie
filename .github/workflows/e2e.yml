@@ -33,6 +33,9 @@ jobs:
       run: yarn playwright install --with-deps
     - name: Check test environment
       run: docker ps
+    - name: docker logs
+      run: docker compose logs
+      working-directory: ./tests/e2e/docker
     - name: Run Playwright tests
       run: yarn playwright test
     - uses: actions/upload-artifact@v3
