@@ -61,3 +61,8 @@ class CheckAppConfig(MealieModel):
     oidc_ready: bool
     base_url_set: bool
     is_up_to_date: bool
+
+
+class OIDCInfo(MealieModel):
+    configuration_url: str | None
+    client_id: str | None

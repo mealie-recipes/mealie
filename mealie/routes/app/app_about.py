@@ -5,7 +5,7 @@ from mealie.core.config import get_app_settings
 from mealie.core.settings.static import APP_VERSION
 from mealie.db.db_setup import generate_session
 from mealie.db.models.users.users import User
-from mealie.schema.admin.about import AppInfo, AppStartupInfo, AppTheme
+from mealie.schema.admin.about import AppInfo, AppStartupInfo, AppTheme, OIDCInfo
 
 router = APIRouter(prefix="/about")
 
@@ -46,3 +46,12 @@ def get_app_theme(resp: Response):
 
     resp.headers["Cache-Control"] = "public, max-age=604800"
     return AppTheme(**settings.theme.dict())
+
+
+@router.get("/oidc", response_model=OIDCInfo)
+def get_oidc_info(resp: Response):
+    """Get's the current OIDC configuration needed for the frontend"""
+    settings = get_app_settings()
+
+    resp.headers["Cache-Control"] = "public, max-age=604800"
+    return OIDCInfo(configuration_url=settings.OIDC_CONFIGURATION_URL, client_id=settings.OIDC_CLIENT_ID)

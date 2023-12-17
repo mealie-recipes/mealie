@@ -160,10 +160,10 @@ export default {
         },
       },
       oidc: {
-        scheme: "openIDConnect",
-        clientId: process.env.OIDC_CLIENT_ID,
+        scheme: "~/schemes/DynamicOpenIDConnectScheme",
+        clientId: "",
         endpoints: {
-          configuration: process.env.OIDC_CONFIGURATION_URL,
+          configuration: "",
         },
         scope: ['openid', 'profile', 'email']
       }

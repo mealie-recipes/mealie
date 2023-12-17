@@ -37,9 +37,14 @@ def get_jwks():
 
 
 def get_oidc_user(request: Request, session: Session, jwks):
+    required_claims = {"preferred_username", "name", "email"}
+
     claims = JsonWebToken(["RS256"]).decode(s=request.cookies.get("mealie.auth._id_token.oidc"), key=jwks)
     if not claims:
         logger.warning("[OIDC] Claims not found")
+        raise get_credentials_exception()
+    if not required_claims.issubset(claims.keys()):
+        logger.error(f"[OIDC] Required claims not present. Expected: {required_claims} Actual: {claims.keys()}")
         raise get_credentials_exception()
 
     repos = get_repositories(session)
