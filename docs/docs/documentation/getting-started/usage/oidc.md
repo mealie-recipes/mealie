@@ -32,7 +32,7 @@ Before you can start using OIDC Authentication, you must first configure a new c
 
 4. Configure allowed scopes
 
-    The scopes required are `openid profile email`
+    The scopes required are `openid profile email groups`
 
 ## Mealie Setup
 

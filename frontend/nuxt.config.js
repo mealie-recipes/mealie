@@ -164,9 +164,8 @@ export default {
         clientId: "",
         endpoints: {
           configuration: "",
-        },
-        scope: ['openid', 'profile', 'email']
-      }
+        }
+      },
     },
   },
 

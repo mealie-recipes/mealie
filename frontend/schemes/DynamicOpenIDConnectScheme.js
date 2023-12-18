@@ -8,7 +8,7 @@ export default class DynamicOpenIDConnectScheme extends OpenIDConnectScheme {
 
     async mounted() {
         await this.setConfiguration();
-        this.options.scope = ["openid", "profile", "email"]
+        this.options.scope = ["openid", "profile", "email", "groups"]
 
         this.configurationDocument = new ConfigurationDocument(
             this,

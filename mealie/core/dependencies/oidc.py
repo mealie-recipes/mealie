@@ -54,13 +54,14 @@ def get_oidc_user(request: Request, session: Session, jwks):
     if not user:
         user = repos.users.get_one(claims.get("email"), "username", any_case=True)
 
+    admin_claim = settings.OIDC_ADMIN_GROUP and settings.OIDC_ADMIN_GROUP in claims.get("groups", [])
+
     if not user:
         if not settings.OIDC_SIGNUP_ENABLED:
             logger.debug("[OIDC] No user found. Not creating a new user - new user creation is disabled.")
             raise get_credentials_exception()
 
         logger.debug("[OIDC] No user found. Creating new OIDC user.")
-        is_admin = settings.OIDC_ADMIN_GROUP and settings.OIDC_ADMIN_GROUP in claims.get("groups", [])
 
         user = repos.users.create(
             {
@@ -68,7 +69,7 @@ def get_oidc_user(request: Request, session: Session, jwks):
                 "password": "OIDC",
                 "full_name": claims.get("name"),
                 "email": claims.get("email"),
-                "admin": is_admin,
+                "admin": admin_claim,
                 "auth_method": AuthMethod.OIDC,
             }
         )
@@ -76,6 +77,10 @@ def get_oidc_user(request: Request, session: Session, jwks):
         return user
 
     if user and (user.password == "OIDC" or user.auth_method == AuthMethod.OIDC):
+        if user.admin != admin_claim:
+            logger.debug(f"[OIDC] {'Setting' if admin_claim else 'Removing'} user as admin")
+            user.admin = admin_claim
+            repos.users.update(user.id, user)
         return user
 
     logger.info("[OIDC] Found user but their AuthMethod does not match OIDC")
