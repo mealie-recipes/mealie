@@ -16,13 +16,9 @@ declare module "vue/types/vue" {
 }
 
 declare module "@nuxt/types" {
-  interface OIDCUser {
-    // this user type is what we get from nuxt when the auth strategy is oidc
-    iss?: string;
-  }
   // @ts-ignore https://github.com/nuxt-community/auth-module/issues/1097#issuecomment-840249428
   interface Auth extends NuxtAuth {
-    user: UserOut & OIDCUser | null;
+    user: UserOut | null;
   }
 
   interface Context {

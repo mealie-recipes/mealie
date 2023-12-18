@@ -4,7 +4,6 @@
 
 <script lang="ts">
 import { computed, defineComponent, useContext, useRouter } from "@nuxtjs/composition-api";
-
 export default defineComponent({
   layout: "blank",
   setup() {
