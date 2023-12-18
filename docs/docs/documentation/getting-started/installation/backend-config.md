@@ -75,6 +75,18 @@ Changing the webworker settings may cause unforeseen memory leak issues with Mea
 | LDAP_NAME_ATTRIBUTE  |  name   | The LDAP attribute that maps to the user's name                                                                                     |
 | LDAP_MAIL_ATTRIBUTE  |  mail   | The LDAP attribute that maps to the user's email                                                                                    |
 
+### OpenID Connect (OIDC)
+
+For usage, see [Usage - OpenID Connect](../usage/oidc.md)
+
+| Variables | Default | Description |
+| --- | :--: | --- |
+| OIDC_AUTH_ENABLED | False | Enables authentication via OpenID Connect |
+| OIDC_SIGNUP_ENABLED | True | Enables new users to be created when signing in for the first time with OIDC |
+| OIDC_CONFIGURATION_URL | None | The URL to the OIDC configuration of your provider. This is usually something like https://auth.example.com/.well-known/openid-configuration |
+| OIDC_CLIENT_ID | None | The client id of your configured client in your provider |
+| OIDC_ADMIN_GROUP | None | If this group is present in the group claims, the user will be set as an admin |
+
 ### Themeing
 
 Setting the following environmental variables will change the theme of the frontend. Note that the themes are the same for all users. This is a break-change when migration from v0.x.x -> 1.x.x.

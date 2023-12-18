@@ -74,6 +74,7 @@ nav:
       - Usage:
           - Backup and Restoring: "documentation/getting-started/usage/backups-and-restoring.md"
           - LDAP Authentication: "documentation/getting-started/usage/ldap.md"
+          - OpenID Connect Authentication: "documentation/getting-started/usage/oidc.md"
 
       - Community Guides:
           - iOS Shortcuts: "documentation/community-guide/ios.md"
