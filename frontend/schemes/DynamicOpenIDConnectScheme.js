@@ -8,6 +8,7 @@ export default class DynamicOpenIDConnectScheme extends OpenIDConnectScheme {
 
     async mounted() {
         await this.setConfiguration();
+        this.options.scope = ["openid", "profile", "email"]
 
         this.configurationDocument = new ConfigurationDocument(
             this,
@@ -17,6 +18,18 @@ export default class DynamicOpenIDConnectScheme extends OpenIDConnectScheme {
 
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return super.mounted()
+    }
+
+    async fetchUser() {
+      if (!this.check().valid) {
+        return
+      }
+
+      const { data } = await this.$auth.requestWith(this.name, {
+        url: "/api/users/self"
+      })
+
+      this.$auth.setUser(data)
     }
 
     async setConfiguration() {
@@ -31,5 +44,4 @@ export default class DynamicOpenIDConnectScheme extends OpenIDConnectScheme {
             // pass
         }
     }
-
 }

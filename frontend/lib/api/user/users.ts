@@ -36,10 +36,6 @@ export class UserApi extends BaseCRUDAPI<UserIn, UserOut, UserBase> {
   baseRoute: string = routes.users;
   itemRoute = (itemid: string) => routes.usersId(itemid);
 
-  async getSelf() {
-    return await this.requests.get(routes.usersSelf);
-  }
-
   async getSelfGroup(): Promise<RequestResponse<GroupInDB>> {
     return await this.requests.get(routes.groupsSelf, {});
   }
