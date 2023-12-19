@@ -59,7 +59,5 @@ jobs:
           build-args: |
             COMMIT=${{ github.sha }}
           # https://docs.docker.com/build/ci/github-actions/cache/#github-cache
-          # TEMP: Disable cache to possible fix missing LDAP issues
-          # https://github.com/mealie-recipes/mealie/issues/2847
-          # cache-from: type=gha
-          # cache-to: type=gha,mode=max
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
