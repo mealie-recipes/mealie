@@ -70,7 +70,20 @@
               </v-btn>
             </div>
           </v-card-actions>
-          <v-card-actions v-if="allowOidc" class="justify-center pt-0">
+
+          <div v-if="allowOidc" class="d-flex my-4 justify-center align-center" width="80%">
+            <v-divider class="div-width"/>
+            <span
+                class="absolute px-2"
+                :class="{
+                    'bg-white': !$vuetify.theme.dark && !isDark,
+                    'bg-background': $vuetify.theme.dark || isDark,
+                }"
+            >
+                {{ $t("user.or") }}
+            </span>
+          </div>
+          <v-card-actions v-if="allowOidc" class="justify-center">
           <div class="max-button">
             <v-btn color="primary" large rounded class="rounded-xl" block @click.native="oidc_authenticate">
                 {{ $t("user.login-oidc") }}
@@ -263,5 +276,21 @@ export default defineComponent({
 
 .bg-off-white {
   background: #f5f8fa;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.div-width {
+    max-width: 75%;
+}
+
+.bg-background {
+    background-color: #1e1e1e;
+}
+
+.bg-white {
+    background-color: #fff;
 }
 </style>
