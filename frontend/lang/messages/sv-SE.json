@@ -249,7 +249,7 @@
     "general-preferences": "Generella inställningar",
     "group-recipe-preferences": "Inställningar för receptgrupper",
     "report": "Rapport",
-    "report-with-id": "Report ID: {id}",
+    "report-with-id": "RapportID: {id}",
     "group-management": "Grupphantering",
     "admin-group-management": "Hantering av administratörsgrupp",
     "admin-group-management-text": "Ändringar i denna grupp kommer att återspeglas omedelbart.",
@@ -355,7 +355,7 @@
     "paprika-text": "Mealie kan importera recept från Paprika-applikationen. Exportera dina recept från Paprika, byt namn på filnamnstillägget på exporten till .zip och ladda upp det nedan.",
     "mealie-text": "Mealie kan importera recept från Mealieapplikationen från en före v1.0 version. Exportera dina recept från din gamla instans, och ladda upp zip-filen nedan. Observera att endast recept kan importeras från exporten.",
     "plantoeat": {
-      "title": "Plan to Eat",
+      "title": "Planera att äta",
       "description-long": "Mealie kan importera recept från Plan to Eat."
     }
   },
