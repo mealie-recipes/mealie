@@ -114,10 +114,10 @@
     "json": "JSON",
     "keyword": "Parola chiave",
     "link-copied": "Link Copiato",
-    "loading": "Loading",
+    "loading": "Caricamento in corso",
     "loading-events": "Caricamento eventi",
-    "loading-recipe": "Loading recipe...",
-    "loading-ocr-data": "Loading OCR data...",
+    "loading-recipe": "Caricamento della ricetta...",
+    "loading-ocr-data": "Caricamento dati OCR...",
     "loading-recipes": "Caricamento Ricette",
     "message": "Messaggio",
     "monday": "Lunedì",
@@ -128,7 +128,7 @@
     "no-recipe-found": "Nessuna Ricetta Trovata",
     "ok": "OK",
     "options": "Opzioni:",
-    "plural-name": "Plural Name",
+    "plural-name": "Nome Plurale",
     "print": "Stampa",
     "print-preferences": "Preferenze Di Stampa",
     "random": "Casuale",
@@ -496,10 +496,10 @@
     "public-link": "Link Pubblico",
     "timer": {
       "kitchen-timer": "Kitchen Timer",
-      "start-timer": "Start Timer",
+      "start-timer": "Avvia timer",
       "pause-timer": "Pause Timer",
       "resume-timer": "Resume Timer",
-      "stop-timer": "Stop Timer"
+      "stop-timer": "Arresta il Timer"
     },
     "edit-timeline-event": "Modifica Evento Timeline",
     "timeline": "Timeline",
@@ -554,7 +554,7 @@
     "unit": "Unità",
     "upload-image": "Carica immagine",
     "screen-awake": "Keep Screen Awake",
-    "remove-image": "Remove image"
+    "remove-image": "Rimuovi immagine"
   },
   "search": {
     "advanced-search": "Ricerca Avanzata",
@@ -573,16 +573,16 @@
     "search-hint": "Premi '/'",
     "advanced": "Ricerca Avanzata",
     "auto-search": "Ricerca automatica",
-    "no-results": "No results found"
+    "no-results": "Nessun risultato trovato"
   },
   "settings": {
     "add-a-new-theme": "Aggiungi un Nuovo Tema",
     "admin-settings": "Impostazioni Amministratore",
     "backup": {
-      "backup-created": "Backup created successfully",
+      "backup-created": "Backup creato con successo",
       "backup-created-at-response-export_path": "Backup Creato in {path}",
       "backup-deleted": "Backup eliminato",
-      "restore-success": "Restore successful",
+      "restore-success": "Ripristino riuscito",
       "backup-tag": "Tag Backup",
       "create-heading": "Crea un Backup",
       "delete-backup": "Elimina Backup",
@@ -696,7 +696,7 @@
     "status-unknown-try-running-a-validation": "Stato sconosciuto. Prova ad eseguire una convalida.",
     "validate": "Convalida",
     "email-configuration-status": "Configurazione e-mail",
-    "email-configured": "Email Configured",
+    "email-configured": "Email configurata",
     "email-test-results": "Email Test Results",
     "ready": "Pronto",
     "not-ready": "Non Pronto - Verifica Variabili Di Ambiente",
@@ -853,7 +853,7 @@
     "username": "Nome Utente",
     "users-header": "UTENTI",
     "users": "Utenti",
-    "user-not-found": "User not found",
+    "user-not-found": "Utente non trovato",
     "webhook-time": "Ora Webhook",
     "webhooks-enabled": "Webhooks Abilitati",
     "you-are-not-allowed-to-create-a-user": "Non sei autorizzato per la creazione di utenti",
@@ -889,7 +889,7 @@
     "enable-advanced-features": "Abilita funzionalità avanzate",
     "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
-    "forgot-password": "Forgot Password",
+    "forgot-password": "Password Dimenticata",
     "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
     "changes-reflected-immediately": "Changes to this user will be reflected immediately."
   },
@@ -965,8 +965,8 @@
       "delete-recipes": "Elimina Ricette",
       "source-unit-will-be-deleted": "L'unità di origine verrà eliminata"
     },
-    "create-alias": "Create Alias",
-    "manage-aliases": "Manage Aliases",
+    "create-alias": "Crea Alias",
+    "manage-aliases": "Gestisci Alias",
     "seed-data": "Dati Predefiniti",
     "seed": "Inizializza",
     "data-management": "Gestione Dati",
@@ -976,8 +976,8 @@
     "columns": "Colonne",
     "combine": "Unisci",
     "categories": {
-      "edit-category": "Edit Category",
-      "new-category": "New Category",
+      "edit-category": "Modifica categoria",
+      "new-category": "Nuova categoria",
       "category-data": "Category Data"
     },
     "tags": {
@@ -1157,13 +1157,13 @@
     "show-advanced-description": "Mostra funzionalità avanzate (Chiavi API, Webhook e Gestione dati)",
     "back-to-profile": "Torna al Profilo",
     "looking-for-privacy-settings": "Stai cercando le Impostazioni Della Privacy?",
-    "manage-your-api-tokens": "Manage Your API Tokens",
-    "manage-user-profile": "Manage User Profile",
-    "manage-cookbooks": "Manage Cookbooks",
-    "manage-members": "Manage Members",
+    "manage-your-api-tokens": "Gestisci i tuoi Token Api",
+    "manage-user-profile": "Gestisci Profilo Utente",
+    "manage-cookbooks": "Gestisci Libri Di Cucina",
+    "manage-members": "Gestisci i membri",
     "manage-webhooks": "Manage Webhooks",
-    "manage-notifiers": "Manage Notifiers",
-    "manage-data-migrations": "Manage Data Migrations"
+    "manage-notifiers": "Gestisci Notifiche",
+    "manage-data-migrations": "Gestione Migrazioni Dei Dati"
   },
   "cookbook": {
     "cookbooks": "Ricettari",
