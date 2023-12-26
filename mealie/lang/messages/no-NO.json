@@ -11,7 +11,7 @@
     "user": {
         "user-updated": "Bruker oppdatert",
         "password-updated": "Passord oppdatert",
-        "invalid-current-password": "Feil nåværende passord",
+        "invalid-current-password": "Nåværende passord er feil",
         "ldap-update-password-unavailable": "Kan ikke oppdatere passordet, brukeren kontrolleres av LDAP"
     },
     "group": {
@@ -29,7 +29,7 @@
         "generic-updated": "{name} ble oppdatert",
         "generic-created-with-url": "{name} har blitt opprettet, {url}",
         "generic-updated-with-url": "{name} har blitt oppdatert, {url}",
-        "generic-duplicated": "Det er blitt laget kopi av {name}",
+        "generic-duplicated": "{name} har blitt duplisert",
         "generic-deleted": "{name} har blitt slettet"
     }
 }
