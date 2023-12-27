@@ -123,10 +123,11 @@ def test_database_restore_data(backup_path: Path):
 
         # 2023-02-21-22.03.19_b04a08da2108_added_shopping_list_label_settings
         for shopping_list in shopping_lists:
-            assert len(shopping_list.label_settings) == len(labels)
+            group_labels = [label for label in labels if label.group_id == shopping_list.group_id]
+            assert len(shopping_list.label_settings) == len(group_labels)
             for label_setting, label in zip(
                 sorted(shopping_list.label_settings, key=lambda x: x.label.id),
-                sorted(labels, key=lambda x: x.id),
+                sorted(group_labels, key=lambda x: x.id),
                 strict=True,
             ):
                 assert label_setting.label == label
