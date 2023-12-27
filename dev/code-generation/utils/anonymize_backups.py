@@ -58,8 +58,8 @@ def walk_data_and_anonymize(data):
             for item in v:
                 walk_data_and_anonymize(item)
         else:
-            # preserve alembic version number
-            if k == "version_num":
+            # preserve alembic version number and enums
+            if k in ["auth_method", "version_num"]:
                 continue
 
             data[k] = clean_value(v)
