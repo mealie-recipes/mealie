@@ -10,6 +10,7 @@ from sqlalchemy.orm import sessionmaker
 
 from alembic import command
 from alembic.config import Config
+from mealie.db import init_db
 from mealie.services._base_service import BaseService
 
 PROJECT_DIR = Path(__file__).parent.parent.parent.parent
@@ -139,8 +140,8 @@ SELECT SETVAL('shopping_list_item_extras_id_seq', (SELECT MAX(id) FROM shopping_
                     )
                 )
 
-        # Run all migrations up to current version
-        command.upgrade(alembic_cfg, "head")
+        # Re-init database to finish migrations
+        init_db.main()
 
     def drop_all(self) -> None:
         """Drops all data from the database"""
