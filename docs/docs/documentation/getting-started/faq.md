@@ -64,9 +64,7 @@ No. Due to limitations from the Javascript Framework, mealie doesn't support ser
 
 ## Can I install Mealie without docker?
 
-Yes, you can install Mealie on your local machine. HOWEVER, it is recommended that you don't. Managing non-system versions of python, node, and npm is a pain. Moreover, updating and upgrading your system with this configuration is unsupported and will likely require manual interventions. If you insist on installing Mealie on your local machine, you can use the links below to help guide your path.
-
-- [Advanced Installation](../installation/advanced/)
+Yes, you can install Mealie on your local machine. HOWEVER, it is recommended that you don't. Managing non-system versions of python, node, and npm is a pain. Moreover, updating and upgrading your system with this configuration is unsupported and will likely require manual interventions.
 
 ## What is fuzzy search and how do I use it?
 Mealie can use fuzzy search, which is robust to minor typos. For example, searching for "brocolli" will still find your recipe for "broccoli soup". But fuzzy search is only functional on a Postgres database backend. To enable fuzzy search you will need to migrate to Postgres:
