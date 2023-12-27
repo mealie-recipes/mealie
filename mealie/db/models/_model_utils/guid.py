@@ -1,5 +1,7 @@
 import uuid
+from typing import Any
 
+from sqlalchemy import Dialect
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.types import CHAR, TypeDecorator
 
@@ -17,6 +19,19 @@ class GUID(TypeDecorator):
     def generate():
         return uuid.uuid4()
 
+    @staticmethod
+    def convert_value_to_guid(value: Any, dialect: Dialect) -> str | None:
+        if value is None:
+            return value
+        elif dialect.name == "postgresql":
+            return str(value)
+        else:
+            if not isinstance(value, uuid.UUID):
+                return "%.32x" % uuid.UUID(value).int
+            else:
+                # hexstring
+                return "%.32x" % value.int
+
     def load_dialect_impl(self, dialect):
         if dialect.name == "postgresql":
             return dialect.type_descriptor(UUID())
@@ -24,25 +39,18 @@ class GUID(TypeDecorator):
             return dialect.type_descriptor(CHAR(32))
 
     def process_bind_param(self, value, dialect):
+        return self.convert_value_to_guid(value, dialect)
+
+    def _uuid_value(self, value):
         if value is None:
             return value
         else:
-            return str(value)
-
-        # TODO: we probably need this
-        # elif dialect.name == "postgresql":
-        #     return str(value)
-        # else:
-        #     if not isinstance(value, uuid.UUID):
-        #         return "%.32x" % uuid.UUID(value).int
-        #     else:
-        #         # hexstring
-        #         return "%.32x" % value.int
+            if not isinstance(value, uuid.UUID):
+                value = uuid.UUID(value)
+            return value
 
     def process_result_value(self, value, dialect):
-        return value
+        return self._uuid_value(value)
 
-        # TODO: we probably need this
-        # if value is not None and not isinstance(value, uuid.UUID):
-        #     value = uuid.UUID(value)
-        # return value
+    def sort_key_function(self, value):
+        return self._uuid_value(value)
