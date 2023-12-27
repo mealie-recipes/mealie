@@ -4,7 +4,7 @@
 
     <v-banner v-if="isDemo" sticky>
       <div class="text-center">
-        <b> {{ $t("demo.info_message_with_version", { version: version }) }} </b> |
+        <b> {{ $t("demo.info_message_with_version", { version: version }) }} </b>
       </div>
     </v-banner>
 
