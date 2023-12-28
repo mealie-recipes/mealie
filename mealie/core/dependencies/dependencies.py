@@ -88,7 +88,6 @@ async def get_current_user(
     token: str | None = Depends(oauth2_scheme_soft_fail),
     session=Depends(generate_session),
 ) -> PrivateUser:
-    repos = get_repositories(session)
     if token is None and "mealie.access_token" in request.cookies:
         # Try extract from cookie
         token = request.cookies.get("mealie.access_token", "")
@@ -110,6 +109,8 @@ async def get_current_user(
     except JWTError as e:
         raise credentials_exception from e
 
+    repos = get_repositories(session)
+
     user = repos.users.get_one(token_data.user_id, "id", any_case=False)
 
     # If we don't commit here, lazy-loads from user relationships will leave some table lock in postgres
@@ -120,12 +121,7 @@ async def get_current_user(
     return user
 
 
-async def get_integration_id(request: Request, token: str = Depends(oauth2_scheme)) -> str:
-    credentials_exception = HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Could not validate credentials",
-        headers={"WWW-Authenticate": "Bearer"},
-    )
+async def get_integration_id(token: str = Depends(oauth2_scheme)) -> str:
     try:
         decoded_token = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])
         return decoded_token.get("integration_id", DEFAULT_INTEGRATION_ID)

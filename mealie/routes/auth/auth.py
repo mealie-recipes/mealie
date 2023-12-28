@@ -45,7 +45,6 @@ async def get_token(
     try:
         auth_provider = get_auth_provider(session, request)
         auth = await auth_provider.authenticate()
-        # user = authenticate_user(session, email, password)  # type: ignore
     except UserLockedOut as e:
         logger.error(f"User is locked out from {ip}")
         raise HTTPException(status_code=status.HTTP_423_LOCKED, detail="User is locked out") from e
@@ -57,7 +56,6 @@ async def get_token(
         )
     access_token, duration = auth
 
-    logger.debug(duration.total_seconds())
     expires_in = duration.total_seconds() if duration else None
     response.set_cookie(
         key="mealie.access_token", value=access_token, httponly=True, max_age=expires_in, expires=expires_in
