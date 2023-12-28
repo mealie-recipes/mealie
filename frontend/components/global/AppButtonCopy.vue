@@ -70,7 +70,7 @@ export default defineComponent({
     function textToClipboard() {
       copy(props.copyText);
       console.log("copied: ", copied.value, "isSupported: ", isSupported.value)
-      if (!copied) {
+      if (!copied.value) {
         console.warn(`Copied Failed\n${props.copyText}`);
         if (!isSupported.value) {
           console.warn("Clipboard currently not supported by your browser. Ensure you're on a secure (https) site.");
