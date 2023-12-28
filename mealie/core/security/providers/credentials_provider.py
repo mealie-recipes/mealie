@@ -25,7 +25,7 @@ class CredentialsProvider(AuthProvider):
 
     def __init__(self, session: Session, request: Request) -> None:
         super().__init__(session, request)
-        self.request_data = None
+        self.request_data: CredentialsRequest | None = None
 
     async def authenticate(self) -> tuple[str, timedelta] | None:
         """Attempt to authenticate a user given a username and password"""
@@ -57,7 +57,7 @@ class CredentialsProvider(AuthProvider):
 
         user.login_attemps = 0
         user = db.users.update(user.id, user)
-        return self.get_access_token(user, data.remember_me)
+        return self.get_access_token(user, data.remember_me)  # type: ignore
 
     @staticmethod
     def verify_password(plain_password: str, hashed_password: str) -> bool:

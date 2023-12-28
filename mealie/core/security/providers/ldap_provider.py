@@ -38,6 +38,8 @@ class LDAPProvider(CredentialsProvider):
         Searches for a user by LDAP_ID_ATTRIBUTE, LDAP_MAIL_ATTRIBUTE, and the provided LDAP_USER_FILTER.
         If none or multiple users are found, return False
         """
+        if not self.request_data:
+            return None
         settings = get_app_settings()
 
         user_filter = ""
@@ -95,6 +97,9 @@ class LDAPProvider(CredentialsProvider):
 
         settings = get_app_settings()
         db = get_repositories(self.session)
+        if not self.request_data:
+            return None
+        data = self.request_data
 
         if settings.LDAP_TLS_INSECURE:
             ldap.set_option(ldap.OPT_X_TLS_REQUIRE_CERT, ldap.OPT_X_TLS_NEVER)
@@ -125,13 +130,13 @@ class LDAPProvider(CredentialsProvider):
         # Check the credentials of the user
         try:
             logger.debug(f"[LDAP] Attempting to bind with '{user_dn}' using the provided password")
-            conn.simple_bind_s(user_dn, self.request_data.password)
+            conn.simple_bind_s(user_dn, data.password)
         except (ldap.INVALID_CREDENTIALS, ldap.NO_SUCH_OBJECT):
             logger.error("[LDAP] Bind failed")
             conn.unbind_s()
             return None
 
-        user = self.try_get_user(self.request_data.username)
+        user = self.try_get_user(data.username)
 
         if user is None:
             logger.debug("[LDAP] User is not in Mealie. Creating a new account")

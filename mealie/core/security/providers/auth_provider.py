@@ -19,7 +19,7 @@ class AuthProvider(metaclass=abc.ABCMeta):
     def __init__(self, session: Session, request: Request) -> None:
         self.session = session
         self.request = request
-        self.user: PrivateUser = None
+        self.user: PrivateUser | None = None
         self.__has_tried_user = False
 
     @classmethod

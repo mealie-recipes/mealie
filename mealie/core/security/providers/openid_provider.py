@@ -47,7 +47,7 @@ class OpenIDProvider(AuthProvider):
                 }
             )
             self.session.commit()
-            return self.get_access_token(user)
+            return self.get_access_token(user)  # type: ignore
 
         if user and (user.password == "OIDC" or user.auth_method == AuthMethod.OIDC):
             if user.admin != admin_claim:
