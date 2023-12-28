@@ -73,13 +73,21 @@ export default defineComponent({
       }
       else {
         copy(props.copyText).then(
-          () => console.log(`Copied\n${props.copyText}`),
-          (err) => {
-            console.warn("Copy failed: ", err);
-          }
+          () => {
+            // apparently copy is not always throwing an error if it fails
+            console.log("copied: ", copied.value, "isSupported: ", isSupported.value)
+            if (copied.value) {
+              console.log(`Copied\n${props.copyText}`)
+            }
+            else {
+              console.warn("Copy failed: ", copied.value);
+            }
+
+          },
+          (err) => console.warn("Copy failed: ", err)
         );
       }
-      console.log("copied: ", copied.value, "isSupported: ", isSupported.value)
+
       show.value = true;
       setTimeout(() => {
         toggleBlur();
