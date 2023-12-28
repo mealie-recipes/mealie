@@ -1,6 +1,6 @@
 [
     {
-        "name": "Produce"
+        "name": "农产品"
     },
     {
         "name": "谷物"
@@ -30,7 +30,7 @@
         "name": "调味品"
     },
     {
-        "name": "Confectionary"
+        "name": "糖果类"
     },
     {
         "name": "乳制品"
@@ -54,7 +54,7 @@
         "name": "调味品"
     },
     {
-        "name": "甜味剂"
+        "name": "甜食"
     },
     {
         "name": "酒类"
