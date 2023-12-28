@@ -1,13 +1,47 @@
 import { test, expect } from '@playwright/test';
 
 test('password login', async ({ page }) => {
+    const username = "changeme@example.com"
+    const password = "MyPassword"
+    const name = "Change Me"
+
     await page.goto('http://localhost:9000/login');
     await page.getByLabel('Email or Username').click();
-    await page.getByLabel('Email or Username').fill('changeme@example.com');
+    await page.getByLabel('Email or Username').fill(username);
     await page.locator('div').filter({ hasText: /^Password$/ }).nth(3).click();
-    await page.getByLabel('Password').fill('MyPassword');
+    await page.getByLabel('Password').fill(password);
     await page.getByRole('button', { name: 'Login', exact: true }).click();
-    await expect(page.getByRole('navigation')).toContainText('Change Me');
+    await expect(page.getByRole('navigation')).toContainText(name);
+});
+
+test('ldap login', async ({ page }) => {
+    const username = "bender"
+    const password = "bender"
+    const name = "Bender Bending Rodríguez"
+
+    await page.goto('http://localhost:9000/login');
+    await page.getByLabel('Email or Username').click();
+    await page.getByLabel('Email or Username').fill(username);
+    await page.locator('div').filter({ hasText: /^Password$/ }).nth(3).click();
+    await page.getByLabel('Password').fill(password);
+    await page.getByRole('button', { name: 'Login', exact: true }).click();
+    await expect(page.getByRole('navigation')).toContainText(name);
+    await expect(page.getByRole('link', { name: 'Settings' })).not.toBeVisible();
+});
+
+test('ldap admin login', async ({ page }) => {
+    const username = "professor"
+    const password = "professor"
+    const name = "Hubert J. Farnsworth"
+
+    await page.goto('http://localhost:9000/login');
+    await page.getByLabel('Email or Username').click();
+    await page.getByLabel('Email or Username').fill(username);
+    await page.locator('div').filter({ hasText: /^Password$/ }).nth(3).click();
+    await page.getByLabel('Password').fill(password);
+    await page.getByRole('button', { name: 'Login', exact: true }).click();
+    await expect(page.getByRole('navigation')).toContainText(name);
+    await expect(page.getByRole('link', { name: 'Settings' })).toBeVisible();
 });
 
 test('oidc initial login', async ({ page }) => {
@@ -26,6 +60,7 @@ test('oidc initial login', async ({ page }) => {
     await page.getByPlaceholder('Optional claims JSON value,').fill(JSON.stringify(claims));
     await page.getByRole('button', { name: 'Sign-in' }).click();
     await expect(page.getByRole('navigation')).toContainText(name);
+    await expect(page.getByRole('link', { name: 'Settings' })).not.toBeVisible();
 });
 
 test('oidc sequential login', async ({ page }) => {
@@ -101,4 +136,5 @@ test('oidc admin user', async ({ page }) => {
     await page.getByPlaceholder('Optional claims JSON value,').fill(JSON.stringify(claims));
     await page.getByRole('button', { name: 'Sign-in' }).click();
     await expect(page.getByRole('navigation')).toContainText(name);
+    await expect(page.getByRole('link', { name: 'Settings' })).toBeVisible();
 });

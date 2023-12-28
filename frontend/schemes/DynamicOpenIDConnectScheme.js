@@ -7,7 +7,7 @@ import { ConfigurationDocument, OpenIDConnectScheme } from "~auth/runtime"
 export default class DynamicOpenIDConnectScheme extends OpenIDConnectScheme {
 
     async mounted() {
-        await this.setConfiguration();
+        await this.getConfiguration();
         this.options.scope = ["openid", "profile", "email", "groups"]
 
         this.configurationDocument = new ConfigurationDocument(
@@ -17,7 +17,7 @@ export default class DynamicOpenIDConnectScheme extends OpenIDConnectScheme {
 
 
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-        return super.mounted()
+        return await super.mounted()
     }
 
     async fetchUser() {
@@ -25,6 +25,7 @@ export default class DynamicOpenIDConnectScheme extends OpenIDConnectScheme {
         return
       }
 
+      await this.updateAccessToken()
       const { data } = await this.$auth.requestWith(this.name, {
         url: "/api/users/self"
       })
@@ -32,7 +33,17 @@ export default class DynamicOpenIDConnectScheme extends OpenIDConnectScheme {
       this.$auth.setUser(data)
     }
 
-    async setConfiguration() {
+    async updateAccessToken() {
+      const response = await this.$auth.requestWith(this.name, {
+        url: "/api/auth/token",
+        method: "post"
+      })
+
+      // Update tokens with mealie token
+      this.updateTokens(response)
+    }
+
+    async getConfiguration() {
         const route = "/api/app/about/oidc";
 
         try {

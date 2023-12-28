@@ -40,3 +40,7 @@ def mealie_registered_exceptions(t: Translator) -> dict:
         NoEntryFound: t.t("exceptions.no-entry-found"),
         IntegrityError: t.t("exceptions.integrity-error"),
     }
+
+
+class UserLockedOut(Exception):
+    ...
