@@ -69,6 +69,7 @@ export default defineComponent({
 
     function textToClipboard() {
       copy(props.copyText);
+      console.log("copied: ", copied.value, "isSupported: ", isSupported.value)
       if (!copied) {
         console.warn(`Copied Failed\n${props.copyText}`);
         if (!isSupported.value) {
