@@ -68,14 +68,18 @@ export default defineComponent({
     }
 
     function textToClipboard() {
-      copy(props.copyText);
-      console.log("copied: ", copied.value, "isSupported: ", isSupported.value)
-      if (!copied.value) {
-        console.warn(`Copied Failed\n${props.copyText}`);
-        if (!isSupported.value) {
-          console.warn("Clipboard currently not supported by your browser. Ensure you're on a secure (https) site.");
-        }
+      if (!isSupported.value) {
+        console.warn("Clipboard is currently not supported by your browser. Ensure you're on a secure (https) site.");
       }
+      else {
+        copy(props.copyText).then(
+          () => console.log(`Copied\n${props.copyText}`),
+          (err) => {
+            console.warn("Copy failed: ", err);
+          }
+        );
+      }
+      console.log("copied: ", copied.value, "isSupported: ", isSupported.value)
       show.value = true;
       setTimeout(() => {
         toggleBlur();
