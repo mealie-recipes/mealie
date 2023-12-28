@@ -41,7 +41,7 @@ init() {
     poetry run python /app/mealie/db/init_db.py
 }
 
-# change_user
+change_user
 init
 GUNICORN_PORT=${API_PORT:-9000}
 
