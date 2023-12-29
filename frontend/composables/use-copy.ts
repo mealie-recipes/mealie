@@ -7,12 +7,19 @@ export function useCopy() {
   const { i18n } = useContext();
 
   function copyText(text: string) {
-    if (!isSupported) {
+    if (!isSupported.value) {
       alert.error(i18n.tc("general.clipboard-not-supported"));
       return;
     }
-    copy(text);
-    alert.success(i18n.tc("general.copied-to-clipboard"));
+    copy(text).then(() => {
+      // Verify copy success as no error is thrown on failure.
+      if (copied.value) {
+        alert.success(i18n.tc("general.copied-to-clipboard"));
+      }
+      else {
+        alert.error(i18n.tc("general.clipboard-copy-failure"));
+      }
+    });
   }
 
   return { copyText, copied };
@@ -23,7 +30,6 @@ export function useCopyList() {
   const { i18n } = useContext();
 
   function checkClipboard() {
-    console.log("isSupported: ", isSupported.value);
     if (!isSupported.value) {
       alert.error(i18n.tc("general.your-browser-does-not-support-clipboard"));
       return false;
