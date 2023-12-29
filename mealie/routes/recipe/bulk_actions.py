@@ -1,7 +1,7 @@
 from functools import cached_property
 from pathlib import Path
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 
 from mealie.core.dependencies.dependencies import temporary_zip_path
 from mealie.core.security import create_file_token
@@ -50,6 +50,10 @@ class RecipeBulkActionsController(BaseUserController):
     @router.get("/export/download")
     def get_exported_data_token(self, path: Path):
         """Returns a token to download a file"""
+        path = Path(path).resolve()
+
+        if not path.is_relative_to(self.folders.DATA_DIR):
+            raise HTTPException(400, "path must be relative to data directory")
 
         return {"fileToken": create_file_token(path)}
 

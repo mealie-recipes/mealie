@@ -53,11 +53,6 @@ export default defineComponent({
         value: "zip",
       },
       {
-        icon: $globals.icons.fileImage,
-        text: i18n.tc("recipe.create-recipe-from-an-image"),
-        value: "ocr",
-      },
-      {
         icon: $globals.icons.link,
         text: i18n.tc("recipe.bulk-url-import"),
         value: "bulk",

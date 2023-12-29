@@ -56,6 +56,12 @@ If you are not a coder, you can still contribute financially. Financial contribu
 
 <a href="https://www.buymeacoffee.com/haykot" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-green.png" alt="Buy Me A Coffee" style="height: 30px !important;width: 107px !important;" ></a>
 
+### Translations
+
+Translations can be a great way for **non-coders** to contribute to project. We use [Crowdin](https://crowdin.com/project/mealie) to allow several contributors to work on translating Mealie. You can simply help by voting for your preferred translations, or even by completely translating Mealie into a new language.
+
+For more information, check out the translation page on the [contributor's guide](https://nightly.mealie.io/contributors/translating/).
+
 <!-- LICENSE -->
 ## License
 Distributed under the AGPL License. See `LICENSE` for more information.
