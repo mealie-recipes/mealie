@@ -29,7 +29,8 @@
       <v-icon left dark>
         {{ $globals.icons.clipboardCheck }}
       </v-icon>
-      <slot> {{ copied ? $t("general.copied_message") : $t("general.your-browser-does-not-support-clipboard") }} </slot>
+      <slot v-if="!isSupported"> {{ copied ? $t("general.copied_message") : $t("general.your-browser-does-not-support-clipboard") }} </slot>
+      <slot v-else> {{ copied ? $t("general.copied_message") : $t("general.your-browser-does-not-support-clipboard") }} </slot>
     </span>
   </v-tooltip>
 </template>
@@ -67,25 +68,18 @@ export default defineComponent({
       copyToolTip.value?.deactivate();
     }
 
-    function textToClipboard() {
-      if (!isSupported.value) {
-        console.warn("Clipboard is currently not supported by your browser. Ensure you're on a secure (https) site.");
+    async function textToClipboard() {
+      if (isSupported.value) {
+        await copy(props.copyText);
+        if (copied.value) {
+          console.log(`Copied\n${props.copyText}`)
+        }
+        else {
+          console.warn("Copy failed: ", copied.value);
+        }
       }
       else {
-        copy(props.copyText).then(
-          () => {
-            // apparently copy is not always throwing an error if it fails
-            console.log("copied: ", copied.value, "isSupported: ", isSupported.value)
-            if (copied.value) {
-              console.log(`Copied\n${props.copyText}`)
-            }
-            else {
-              console.warn("Copy failed: ", copied.value);
-            }
-
-          },
-          (err) => console.warn("Copy failed: ", err)
-        );
+        console.warn("Clipboard is currently not supported by your browser. Ensure you're on a secure (https) site.");
       }
 
       show.value = true;
@@ -99,6 +93,7 @@ export default defineComponent({
       copyToolTip,
       textToClipboard,
       copied,
+      isSupported,
     };
   },
 });
