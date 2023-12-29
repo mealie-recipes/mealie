@@ -23,6 +23,7 @@ export function useCopyList() {
   const { i18n } = useContext();
 
   function checkClipboard() {
+    console.log("isSupported: ", isSupported.value);
     if (!isSupported) {
       alert.error(i18n.tc("general.your-browser-does-not-support-clipboard"));
       return false;
