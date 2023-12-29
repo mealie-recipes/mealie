@@ -29,8 +29,8 @@
       <v-icon left dark>
         {{ $globals.icons.clipboardCheck }}
       </v-icon>
-      <slot v-if="!isSupported"> {{ copied ? $t("general.copied_message") : $t("general.your-browser-does-not-support-clipboard") }} </slot>
-      <slot v-else> {{ copied ? $t("general.copied_message") : $t("general.your-browser-does-not-support-clipboard") }} </slot>
+      <slot v-if="!isSupported"> {{ $t("general.your-browser-does-not-support-clipboard") }} </slot>
+      <slot v-else> {{ copied ? $t("general.copied_message") : $t("general.clipboard-copy-failure") }} </slot>
     </span>
   </v-tooltip>
 </template>
