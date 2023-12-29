@@ -77,7 +77,7 @@
     "tag-events": "Tag Eventi",
     "category-events": "Categoria Eventi",
     "when-a-new-user-joins-your-group": "Quando un nuovo utente entra nel tuo gruppo",
-    "recipe-events": "Recipe Events"
+    "recipe-events": "Eventi di ricette"
   },
   "general": {
     "cancel": "Cancella",
@@ -198,7 +198,7 @@
     "refresh": "Ricarica",
     "upload-file": "Carica file",
     "created-on-date": "Creato il: {0}",
-    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
+    "unsaved-changes": "Sono state apportate modifiche non salvate. Salvare prima di uscire? Premi Ok per salvare, Annulla per scartare le modifiche."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Sei sicuro di volerlo eliminare <b>{groupName}<b/>'?",
@@ -213,7 +213,7 @@
     "group-id-with-value": "ID Gruppo:{groupID}",
     "group-name": "Nome Gruppo",
     "group-not-found": "Gruppo non trovato",
-    "group-token": "Group Token",
+    "group-token": "Token del gruppo",
     "group-with-value": "Gruppo: {groupID}",
     "groups": "Gruppi",
     "manage-groups": "Gestisci Gruppi",
@@ -249,7 +249,7 @@
     "general-preferences": "Impostazioni Generali",
     "group-recipe-preferences": "Impostazioni per le ricette del gruppo",
     "report": "Report",
-    "report-with-id": "Report ID: {id}",
+    "report-with-id": "ID Report: {id}",
     "group-management": "Gestione Gruppo",
     "admin-group-management": "Gestione Gruppo Amministratore",
     "admin-group-management-text": "Le modifiche a questo gruppo si rifletteranno immediatamente.",
@@ -304,7 +304,7 @@
     "for-type-meal-types": "per {0} tipi di pasto",
     "meal-plan-rules": "Regole del piano alimentare",
     "new-rule": "Nuova regola",
-    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
+    "meal-plan-rules-description": "Puoi creare regole per la selezione automatica delle ricette per i tuoi piani alimentari. Queste regole vengono utilizzate dal server per determinare le ricette da selezionare durante la creazione dei piani alimentari. Tieni presente che se le regole hanno gli stessi vincoli di giorno/tipo, le categorie delle regole verranno unite. In pratica non è necessario creare regole duplicate, ma è possibile farlo.",
     "new-rule-description": "Quando si crea una nuova regola per un piano alimentare è possibile limitare la sua applicazione ad un giorno specifico della settimana e/o un tipo specifico di pasto. Per applicare una regola a tutti i giorni o a tutti i tipi di pasto, è possibile impostare la regola a \"Qualsiasi\", applicandola a tutti i possibili valori per il tipo di giorno e/o di pasto.",
     "recipe-rules": "Regole per le ricette",
     "applies-to-all-days": "Si applica a ogni giorno",
