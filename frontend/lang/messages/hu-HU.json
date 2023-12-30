@@ -198,7 +198,8 @@
     "refresh": "Frissít",
     "upload-file": "Fájl feltöltése",
     "created-on-date": "Létrehozva: {0}",
-    "unsaved-changes": "El nem mentett módosításai vannak. Szeretné elmenteni, mielőtt kilép? A mentéshez kattintson az Ok, a módosítások elvetéséhez a Mégsem gombra."
+    "unsaved-changes": "El nem mentett módosításai vannak. Szeretné elmenteni, mielőtt kilép? A mentéshez kattintson az Ok, a módosítások elvetéséhez a Mégsem gombra.",
+    "clipboard-copy-failure": "Failed to copy to the clipboard."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Biztosan törölni szeretnéd ezt: <b>{groupName}<b/>?",
