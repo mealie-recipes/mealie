@@ -198,7 +198,8 @@
     "refresh": "Päivitä",
     "upload-file": "Tuo tiedosto",
     "created-on-date": "Luotu {0}",
-    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
+    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
+    "clipboard-copy-failure": "Failed to copy to the clipboard."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Haluatko varmasti poistaa ryhmän <b>{groupName}<b/>?",
