@@ -199,7 +199,7 @@
     "upload-file": "Fájl feltöltése",
     "created-on-date": "Létrehozva: {0}",
     "unsaved-changes": "El nem mentett módosításai vannak. Szeretné elmenteni, mielőtt kilép? A mentéshez kattintson az Ok, a módosítások elvetéséhez a Mégsem gombra.",
-    "clipboard-copy-failure": "Failed to copy to the clipboard."
+    "clipboard-copy-failure": "Nem sikerült a vágólapra másolás."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Biztosan törölni szeretnéd ezt: <b>{groupName}<b/>?",
@@ -1114,7 +1114,7 @@
     "brute": "Brute",
     "show-individual-confidence": "",
     "ingredient-text": "Hozzávaló szöveg",
-    "average-confident": "{0} Confident",
+    "average-confident": "{0}-os bizonyosság",
     "try-an-example": "Próbáljon ki egy példát",
     "parser": "Szintaxis elemző",
     "background-tasks": "Háttér folyamatok",
