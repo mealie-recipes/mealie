@@ -218,7 +218,7 @@ class Recipe(RecipeSummary):
     @validator("tags", always=True, pre=True, allow_reuse=True)
     def validate_tags(tags: list[Any]):  # type: ignore
         if isinstance(tags, list) and tags and isinstance(tags[0], str):
-            return [RecipeTag(id=uuid4(), name=c, slug=slugify(c)) for c in tags]
+            return [RecipeTag(id=uuid4(), name=t, slug=slugify(t)) for t in tags]
         return tags
 
     @validator("recipe_category", always=True, pre=True, allow_reuse=True)
