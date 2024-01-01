@@ -15,6 +15,7 @@ class AppInfo(MealieModel):
     demo_status: bool
     allow_signup: bool
     enable_oidc: bool
+    oidc_redirect: bool
 
 
 class AppTheme(MealieModel):

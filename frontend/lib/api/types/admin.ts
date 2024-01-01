@@ -11,6 +11,7 @@ export interface AdminAboutInfo {
   demoStatus: boolean;
   allowSignup: boolean;
   enableOidc: boolean;
+  oidcRedirect: boolean;
   versionLatest: string;
   apiPort: number;
   apiDocs: boolean;
@@ -35,6 +36,7 @@ export interface AppInfo {
   demoStatus: boolean;
   allowSignup: boolean;
   enableOidc: boolean;
+  oidcRedirect: boolean;
 }
 export interface AppStartupInfo {
   isFirstLogin: boolean;

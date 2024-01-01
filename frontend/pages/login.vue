@@ -182,9 +182,26 @@ export default defineComponent({
 
     const allowSignup = computed(() => appInfo.value?.allowSignup || false);
     const allowOidc = computed(() => appInfo.value?.enableOidc || false);
+    const oidcRedirect = computed(() => appInfo.value?.allowSignup || false);
+
+    if (allowOidc && oidcRedirect && !isCallback() && !isDirectLogin()) {
+        oidc_authenticate()
+    }
+
+    function isCallback() {
+        return router.currentRoute.query.state;
+    }
+
+    function isDirectLogin() {
+        return router.currentRoute.query.direct
+    }
 
     async function oidc_authenticate() {
-        await $auth.loginWith("oidc")
+        try {
+            await $auth.loginWith("oidc")
+        } catch (error) {
+            alert.error(i18n.t("events.something-went-wrong") as string);
+        }
     }
 
     async function authenticate() {

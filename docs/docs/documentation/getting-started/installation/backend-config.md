@@ -86,6 +86,7 @@ For usage, see [Usage - OpenID Connect](../usage/oidc.md)
 | OIDC_CONFIGURATION_URL | None | The URL to the OIDC configuration of your provider. This is usually something like https://auth.example.com/.well-known/openid-configuration |
 | OIDC_CLIENT_ID | None | The client id of your configured client in your provider |
 | OIDC_ADMIN_GROUP | None | If this group is present in the group claims, the user will be set as an admin |
+| OIDC_ALWAYS_REDIRECT | False | If `True`, then the login page will be bypassed an you will be sent directly to your Identity Provider. You can still get to the login page by adding `?direct=1` to the login URL |
 
 ### Themeing
 

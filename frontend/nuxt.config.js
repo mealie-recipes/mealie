@@ -123,7 +123,7 @@ export default {
   auth: {
     redirect: {
       login: "/login",
-      logout: "/login",
+      logout: "/login?direct=1",
       callback: "/login",
       home: "/",
     },
