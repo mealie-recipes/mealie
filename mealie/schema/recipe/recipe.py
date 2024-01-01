@@ -216,10 +216,10 @@ class Recipe(RecipeSummary):
         return recipe_ingredient
 
     @validator("tags", always=True, pre=True, allow_reuse=True)
-    def validate_tags(cats: list[Any]):  # type: ignore
-        if isinstance(cats, list) and cats and isinstance(cats[0], str):
-            return [RecipeTag(id=uuid4(), name=c, slug=slugify(c)) for c in cats]
-        return cats
+    def validate_tags(tags: list[Any]):  # type: ignore
+        if isinstance(tags, list) and tags and isinstance(tags[0], str):
+            return [RecipeTag(id=uuid4(), name=c, slug=slugify(c)) for c in tags]
+        return tags
 
     @validator("recipe_category", always=True, pre=True, allow_reuse=True)
     def validate_categories(cats: list[Any]):  # type: ignore
