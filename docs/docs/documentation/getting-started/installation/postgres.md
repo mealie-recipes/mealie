@@ -46,7 +46,7 @@ services:
     image: postgres:15
     restart: always
     volumes:
-      - ./mealie-pgdata:/var/lib/postgresql/data
+      - mealie-pgdata:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: mealie
       POSTGRES_USER: mealie

@@ -198,7 +198,8 @@
     "refresh": "Verversen",
     "upload-file": "Bestand uploaden",
     "created-on-date": "Gemaakt op {0}",
-    "unsaved-changes": "Er zijn niet-opgeslagen wijzigingen. Wil je eerst opslaan voordat je vertrekt? Okay om op te slaan, Annuleren om wijzigingen ongedaan te maken."
+    "unsaved-changes": "Er zijn niet-opgeslagen wijzigingen. Wil je eerst opslaan voordat je vertrekt? Okay om op te slaan, Annuleren om wijzigingen ongedaan te maken.",
+    "clipboard-copy-failure": "Kopiëren naar klembord mislukt."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Weet je zeker dat je <b>{groupName}<b/> wil verwijderen?",

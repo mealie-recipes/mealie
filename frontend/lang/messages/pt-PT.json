@@ -198,7 +198,8 @@
     "refresh": "Atualizar",
     "upload-file": "Carregar ficheiro",
     "created-on-date": "Criado em: {0}",
-    "unsaved-changes": "Tem alterações por gravar. Quer gravar antes de sair? OK para gravar, Cancelar para descartar alterações."
+    "unsaved-changes": "Tem alterações por gravar. Quer gravar antes de sair? OK para gravar, Cancelar para descartar alterações.",
+    "clipboard-copy-failure": "Erro ao copiar para a área de transferência."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Tem a certeza que quer eliminar <b>{groupName}</b>?",
@@ -510,7 +511,7 @@
     "how-did-it-turn-out": "Que tal ficou?",
     "user-made-this": "{user} fez isto",
     "last-made-date": "Última vez {date}",
-    "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
+    "api-extras-description": "Extras para receitas são funcionalidades chave da API Mealie. Estas permitem criar, dentro de uma receita, pares personalizados de chave/valor em JSON, para referência a partir de aplicações de terceiros. Pode usar essas chaves para fornecer informações, por exemplo, para acionar automações ou mensagens personalizadas para transmitir a um determinado dispositivo.",
     "message-key": "Chave de Mensagem",
     "parse": "Interpretar",
     "attach-images-hint": "Anexe imagens arrastando e soltando-as no editor",

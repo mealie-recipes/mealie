@@ -198,7 +198,8 @@
     "refresh": "Oppdater",
     "upload-file": "Last opp fil",
     "created-on-date": "Opprettet: {0}",
-    "unsaved-changes": "Du har ulagrede endringer. Ønsker du å lagre før du forlater? Trykk 'OK' for å lagre, 'Avbryt' for å forkaste endringene."
+    "unsaved-changes": "Du har ulagrede endringer. Ønsker du å lagre før du forlater? Trykk 'OK' for å lagre, 'Avbryt' for å forkaste endringene.",
+    "clipboard-copy-failure": "Failed to copy to the clipboard."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Er du sikker på at du vil slette <b>{groupName}<b/>?",
@@ -282,7 +283,7 @@
     "side": "Tilbehør",
     "sides": "Tilbehør",
     "start-date": "Startdato",
-    "rule-day": "Regeldag",
+    "rule-day": "Regel for dager",
     "meal-type": "Type måltid",
     "breakfast": "Frokost",
     "lunch": "Lunsj",

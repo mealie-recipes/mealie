@@ -114,10 +114,10 @@
     "json": "JSON",
     "keyword": "Kľučové slovo",
     "link-copied": "Odkaz bol skopírovaný",
-    "loading": "Loading",
+    "loading": "Načítavam",
     "loading-events": "Načítanie udalostí",
-    "loading-recipe": "Loading recipe...",
-    "loading-ocr-data": "Loading OCR data...",
+    "loading-recipe": "Načítavam recept...",
+    "loading-ocr-data": "Načítavam OCR dáta...",
     "loading-recipes": "Nahrávanie receptu",
     "message": "Správa",
     "monday": "Pondelok",
@@ -128,7 +128,7 @@
     "no-recipe-found": "Žiadny recept nenájdený",
     "ok": "OK",
     "options": "Možnosti:",
-    "plural-name": "Plural Name",
+    "plural-name": "Meno v množnom čísle",
     "print": "Tlačiť",
     "print-preferences": "Nastavenia tlače",
     "random": "Náhodné",
@@ -198,7 +198,8 @@
     "refresh": "Obnoviť",
     "upload-file": "Nahrať súbor",
     "created-on-date": "Vytvorené: {0}",
-    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
+    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
+    "clipboard-copy-failure": "Failed to copy to the clipboard."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Naozaj chcete odstrániť <b>{groupName}<b/>?",
@@ -495,11 +496,11 @@
     "locked": "Zamknuté",
     "public-link": "Verejný odkaz",
     "timer": {
-      "kitchen-timer": "Kitchen Timer",
-      "start-timer": "Start Timer",
-      "pause-timer": "Pause Timer",
-      "resume-timer": "Resume Timer",
-      "stop-timer": "Stop Timer"
+      "kitchen-timer": "Kuchynský časovač",
+      "start-timer": "Spustiť časovač",
+      "pause-timer": "Pozastaviť časovač",
+      "resume-timer": "Znova spustiť časovač",
+      "stop-timer": "Zastaviť časovač"
     },
     "edit-timeline-event": "Upraviť udalosť na časovej osi",
     "timeline": "Časová os",

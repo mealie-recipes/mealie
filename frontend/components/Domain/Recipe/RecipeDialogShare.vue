@@ -143,7 +143,7 @@ export default defineComponent({
     }
 
     const { share, isSupported: shareIsSupported } = useShare();
-    const { copy } = useClipboard();
+    const { copy, copied, isSupported } = useClipboard();
 
     function getRecipeText() {
       return i18n.t("recipe.share-recipe-message", [props.name]);
@@ -154,8 +154,18 @@ export default defineComponent({
     }
 
     async function copyTokenLink(token: string) {
-      await copy(getTokenLink(token));
-      alert.success(i18n.t("recipe-share.recipe-link-copied-message") as string);
+      if (isSupported.value) {
+        await copy(getTokenLink(token));
+        if (copied.value) {
+          alert.success(i18n.t("recipe-share.recipe-link-copied-message") as string);
+        }
+        else {
+          alert.error(i18n.t("general.clipboard-copy-failure") as string);
+        }
+      }
+      else {
+        alert.error(i18n.t("general.clipboard-not-supported") as string);
+      }
     }
 
     async function shareRecipe(token: string) {
