@@ -199,7 +199,7 @@
     "upload-file": "Last opp fil",
     "created-on-date": "Opprettet: {0}",
     "unsaved-changes": "Du har ulagrede endringer. Ønsker du å lagre før du forlater? Trykk 'OK' for å lagre, 'Avbryt' for å forkaste endringene.",
-    "clipboard-copy-failure": "Failed to copy to the clipboard."
+    "clipboard-copy-failure": "Kunne ikke kopiere til utklippstavlen."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Er du sikker på at du vil slette <b>{groupName}<b/>?",
