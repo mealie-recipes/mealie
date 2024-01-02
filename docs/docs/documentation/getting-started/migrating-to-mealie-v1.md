@@ -33,7 +33,9 @@ Given the nature of the upgrade, it is highly recommended that you stand up a ne
 
 ## Step 2: Exporting Your Data from Pre-v1
 
-In your instance of Mealie prior to v1, perform an export of your data in the Admin section. Be sure to include the recipes when performing the export. Checking additional items won't impact the migration, but they will be ignored if they are included.
+In your instance of Mealie prior to v1, perform an export (backup) of your data in the Admin section. Be sure to include the recipes when performing the export. Checking additional items won't impact the migration, but they will be ignored if they are included. The backups section is located on the admin dashboard in the section labeled "Backups":
+
+![pre-v1-backup-location-image](../../assets/img/pre-v1-backup-location.png)
 
 
 ## Step 3: Using the Migration Tool
