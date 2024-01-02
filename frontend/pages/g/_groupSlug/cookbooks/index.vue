@@ -1,5 +1,26 @@
 <template>
   <div>
+    <!-- Create Dialog -->
+    <BaseDialog
+      v-model="createDialog"
+      :width="900"
+      :icon="$globals.icons.pages"
+      :title="$t('general.create')"
+      :submit-icon="$globals.icons.save"
+      :submit-text="$tc('general.save')"
+      @cancel="actions.deleteOne(createTarget[0].id)"
+    >
+      <v-card-text>
+        <CookbookEditor
+          :cookbooks=createTarget
+          :actions="actions"
+          @delete="deleteEventHandler"
+
+        />
+      </v-card-text
+    ></BaseDialog>
+
+
     <!-- Delete Dialog -->
     <BaseDialog
       v-model="deleteDialog"
@@ -26,32 +47,27 @@
     </BasePageTitle>
 
     <!-- Create New -->
-    <BaseButton create @click="actions.createOne()" />
+    <BaseButton create @click="createCookbook" />
 
     <!-- Cookbook List -->
-    <v-expansion-panels class="mt-2">
-      <draggable v-model="cookbooks" handle=".handle" style="width: 100%" @change="actions.updateOrder()">
-        <CookbookEditor
-          :cookbooks="cookbooks"
-          :actions="actions"
-          @delete="deleteEventHandler"
-        />
-      </draggable>
-    </v-expansion-panels>
+    <CookbookEditor
+      :cookbooks="cookbooks"
+      :actions="actions"
+      @delete="deleteEventHandler"
+    />
   </v-container>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, useRouter } from "@nuxtjs/composition-api";
-import draggable from "vuedraggable";
 import { useCookbooks } from "@/composables/use-group-cookbooks";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import CookbookEditor from "~/components/Domain/Cookbook/CookbookEditor.vue";
 import { ReadCookBook } from "~/lib/api/types/cookbook";
 
 export default defineComponent({
-  components: { draggable, CookbookEditor },
+  components: { CookbookEditor },
   setup() {
     const { isOwnGroup, loggedIn } = useLoggedInState();
     const router = useRouter();
@@ -62,6 +78,17 @@ export default defineComponent({
     }
 
     const { cookbooks, actions } = useCookbooks();
+
+    // create
+    const createDialog = ref(false);
+    const createTarget = ref<ReadCookBook[] | []>([]);
+    async function createCookbook() {
+      await actions.createOne().then((cookbook) => {
+        createTarget.value = [cookbook] as ReadCookBook[];
+      });
+      console.log("Create Target: ", createTarget.value);
+      createDialog.value = true;
+    }
 
     // delete
     const deleteDialog = ref(false);
@@ -79,15 +106,27 @@ export default defineComponent({
       deleteTarget.value = null;
     }
 
+    // cancel
+    function cancel() {
+      console.log("cancel");
+    }
+
 
     return {
       cookbooks,
       actions,
+      // create
+      createDialog,
+      createTarget,
+      createCookbook,
+
       // delete
       deleteDialog,
       deleteTarget,
       deleteEventHandler,
       deleteCookbook,
+
+      cancel,
     };
   },
   head() {
