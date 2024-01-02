@@ -109,6 +109,7 @@ export const useCookbooks = function () {
       }
 
       loading.value = false;
+      return data;
     },
     async updateOne(updateData: UpdateCookBook) {
       if (!updateData.id) {
