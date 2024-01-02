@@ -3,7 +3,7 @@
     <!-- Create Dialog -->
     <BaseDialog
       v-model="createDialog"
-      :width="900"
+      :width="750"
       :icon="$globals.icons.pages"
       :title="$t('general.create')"
       :submit-icon="$globals.icons.save"
@@ -15,7 +15,6 @@
           :cookbooks=createTarget
           :actions="actions"
           @delete="deleteEventHandler"
-
         />
       </v-card-text
     ></BaseDialog>
@@ -106,12 +105,6 @@ export default defineComponent({
       deleteTarget.value = null;
     }
 
-    // cancel
-    function cancel() {
-      console.log("cancel");
-    }
-
-
     return {
       cookbooks,
       actions,
@@ -125,8 +118,6 @@ export default defineComponent({
       deleteTarget,
       deleteEventHandler,
       deleteCookbook,
-
-      cancel,
     };
   },
   head() {
