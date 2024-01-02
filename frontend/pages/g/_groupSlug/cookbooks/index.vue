@@ -1,5 +1,22 @@
 <template>
-  <v-container class="narrow-container">
+  <div>
+    <!-- Delete Dialog -->
+    <BaseDialog
+      v-model="deleteDialog"
+      :title="$tc('general.confirm')"
+      :icon="$globals.icons.alertCircle"
+      color="error"
+      @confirm="deleteCookbook()"
+    >
+      <v-card-text>
+        {{ $t("general.confirm-delete-generic") }}
+        <p v-if="deleteTarget" class="mt-4 ml-4">{{ deleteTarget.name }}</p>
+      </v-card-text>
+    </BaseDialog>
+
+    <!-- Cookbook Page -->
+    <!-- Page Title -->
+    <v-container class="narrow-container">
     <BasePageTitle divider>
       <template #header>
         <v-img max-height="100" max-width="100" :src="require('~/static/svgs/manage-cookbooks.svg')"></v-img>
@@ -8,7 +25,10 @@
       {{ $t('cookbook.description') }}
     </BasePageTitle>
 
+    <!-- Create New -->
     <BaseButton create @click="actions.createOne()" />
+
+    <!-- Cookbook List -->
     <v-expansion-panels class="mt-2">
       <draggable v-model="cookbooks" handle=".handle" style="width: 100%" @change="actions.updateOrder()">
         <v-expansion-panel v-for="(cookbook, index) in cookbooks" :key="index" class="my-2 left-border rounded">
@@ -78,7 +98,7 @@
                     event: 'save',
                   },
                 ]"
-                @delete="actions.deleteOne(cookbook.id)"
+                @delete="deleteEventHandler(cookbook)"
                 @save="actions.updateOne(cookbook)"
               />
             </v-card-actions>
@@ -87,14 +107,16 @@
       </draggable>
     </v-expansion-panels>
   </v-container>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, useRouter } from "@nuxtjs/composition-api";
+import { defineComponent, ref, useRouter } from "@nuxtjs/composition-api";
 import draggable from "vuedraggable";
 import { useCookbooks } from "@/composables/use-group-cookbooks";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
+import { ReadCookBook } from "~/lib/api/types/cookbook";
 
 export default defineComponent({
   components: { draggable, RecipeOrganizerSelector },
@@ -102,15 +124,41 @@ export default defineComponent({
     const { isOwnGroup, loggedIn } = useLoggedInState();
     const router = useRouter();
 
+
     if (!(loggedIn.value && isOwnGroup.value)) {
       router.back();
     }
 
     const { cookbooks, actions } = useCookbooks();
+    console.log(cookbooks);
+
+    // delete
+    const deleteDialog = ref(false);
+    const deleteTarget = ref<ReadCookBook | null>(null);
+    function deleteEventHandler(item: ReadCookBook){
+      deleteTarget.value = item;
+      console.log("delete Target: ", deleteTarget.value)
+      deleteDialog.value = true;
+    }
+    function deleteCookbook() {
+      if (!deleteTarget.value) {
+        return;
+      }
+      console.log("delete cookbook", deleteTarget.value)
+      actions.deleteOne(deleteTarget.value.id);
+      deleteDialog.value = false;
+      deleteTarget.value = null;
+    }
+
 
     return {
       cookbooks,
       actions,
+      // delete
+      deleteDialog,
+      deleteTarget,
+      deleteEventHandler,
+      deleteCookbook,
     };
   },
   head() {
