@@ -2,27 +2,27 @@
   <div>
     <!-- Create Dialog -->
     <BaseDialog
-      v-model="createDialog"
-      :width="750"
+      v-if="createTarget"
+      v-model="dialogStates.create"
+      :width="650"
       :icon="$globals.icons.pages"
       :title="$t('general.create')"
       :submit-icon="$globals.icons.save"
       :submit-text="$tc('general.save')"
-      @cancel="actions.deleteOne(createTarget[0].id)"
+      @submit="actions.updateOne(createTarget)"
+      @cancel="actions.deleteOne(createTarget.id)"
     >
       <v-card-text>
         <CookbookEditor
-          :cookbooks=createTarget
+          :cookbook=createTarget
           :actions="actions"
-          @delete="deleteEventHandler"
         />
-      </v-card-text
-    ></BaseDialog>
-
+      </v-card-text>
+    </BaseDialog>
 
     <!-- Delete Dialog -->
     <BaseDialog
-      v-model="deleteDialog"
+      v-model="dialogStates.delete"
       :title="$tc('general.confirm')"
       :icon="$globals.icons.alertCircle"
       color="error"
@@ -37,84 +37,125 @@
     <!-- Cookbook Page -->
     <!-- Page Title -->
     <v-container class="narrow-container">
-    <BasePageTitle divider>
-      <template #header>
-        <v-img max-height="100" max-width="100" :src="require('~/static/svgs/manage-cookbooks.svg')"></v-img>
-      </template>
-      <template #title> {{ $t('cookbook.cookbooks') }} </template>
-      {{ $t('cookbook.description') }}
-    </BasePageTitle>
+      <BasePageTitle divider>
+        <template #header>
+          <v-img max-height="100" max-width="100" :src="require('~/static/svgs/manage-cookbooks.svg')"></v-img>
+        </template>
+        <template #title> {{ $t('cookbook.cookbooks') }} </template>
+        {{ $t('cookbook.description') }}
+      </BasePageTitle>
 
-    <!-- Create New -->
-    <BaseButton create @click="createCookbook" />
+      <!-- Create New -->
+      <BaseButton create @click="createCookbook" />
 
-    <!-- Cookbook List -->
-    <CookbookEditor
-      :cookbooks="cookbooks"
-      :actions="actions"
-      @delete="deleteEventHandler"
-    />
-  </v-container>
+      <!-- Cookbook List -->
+      <v-expansion-panels class="mt-2">
+        <draggable v-model="cookbooks" handle=".handle" style="width: 100%" @change="actions.updateOrder()">
+          <v-expansion-panel v-for="(cookbook, index) in cookbooks" :key="index" class="my-2 left-border rounded">
+            <v-expansion-panel-header disable-icon-rotate class="headline">
+              <div class="d-flex align-center">
+                <v-icon large left>
+                  {{ $globals.icons.pages }}
+                </v-icon>
+                {{ cookbook.name }}
+              </div>
+              <template #actions>
+                <v-icon class="handle">
+                  {{ $globals.icons.arrowUpDown }}
+                </v-icon>
+                <v-btn icon small class="ml-2">
+                  <v-icon>
+                    {{ $globals.icons.edit }}
+                  </v-icon>
+                </v-btn>
+              </template>
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <CookbookEditor :cookbook="cookbook" :actions="actions" :collapsable="false" @delete="deleteEventHandler" />
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <BaseButtonGroup
+                  :buttons="[{
+                    icon: $globals.icons.delete,
+                    text: $tc('general.delete'),
+                    event: 'delete',
+                  },
+                  {
+                    icon: $globals.icons.save,
+                    text: $tc('general.save'),
+                    event: 'save',
+                  },
+                ]"
+                @delete="deleteEventHandler(cookbook)"
+                @save="actions.updateOne(cookbook)" />
+              </v-card-actions>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </draggable>
+      </v-expansion-panels>
+    </v-container>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useRouter } from "@nuxtjs/composition-api";
+import { defineComponent, reactive, ref, useRouter } from "@nuxtjs/composition-api";
+import draggable from "vuedraggable";
 import { useCookbooks } from "@/composables/use-group-cookbooks";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import CookbookEditor from "~/components/Domain/Cookbook/CookbookEditor.vue";
 import { ReadCookBook } from "~/lib/api/types/cookbook";
 
 export default defineComponent({
-  components: { CookbookEditor },
+  components: { CookbookEditor, draggable },
   setup() {
     const { isOwnGroup, loggedIn } = useLoggedInState();
     const router = useRouter();
-
 
     if (!(loggedIn.value && isOwnGroup.value)) {
       router.back();
     }
 
+    const dialogStates = reactive({
+      create: false,
+      delete: false,
+    });
+
     const { cookbooks, actions } = useCookbooks();
 
+
     // create
-    const createDialog = ref(false);
-    const createTarget = ref<ReadCookBook[] | []>([]);
+    const createTarget = ref<ReadCookBook | null>(null);
     async function createCookbook() {
       await actions.createOne().then((cookbook) => {
-        createTarget.value = [cookbook] as ReadCookBook[];
+        createTarget.value = cookbook as ReadCookBook;
       });
-      console.log("Create Target: ", createTarget.value);
-      createDialog.value = true;
+      dialogStates.create = true;
     }
 
     // delete
-    const deleteDialog = ref(false);
     const deleteTarget = ref<ReadCookBook | null>(null);
     function deleteEventHandler(item: ReadCookBook){
       deleteTarget.value = item;
-      deleteDialog.value = true;
+      dialogStates.delete = true;
     }
     function deleteCookbook() {
       if (!deleteTarget.value) {
         return;
       }
       actions.deleteOne(deleteTarget.value.id);
-      deleteDialog.value = false;
+      dialogStates.delete = false;
       deleteTarget.value = null;
     }
 
     return {
       cookbooks,
       actions,
+      dialogStates,
       // create
-      createDialog,
       createTarget,
       createCookbook,
 
       // delete
-      deleteDialog,
       deleteTarget,
       deleteEventHandler,
       deleteCookbook,
