@@ -1177,6 +1177,7 @@
     "require-all-tags": "Require All Tags",
     "require-all-tools": "Require All Tools",
     "cookbook-name": "Cookbook Name",
-    "cookbook-with-name": "Cookbook {0}"
+    "cookbook-with-name": "Cookbook {0}",
+    "create-a-cookbook": "Create a Cookbook"
   }
 }

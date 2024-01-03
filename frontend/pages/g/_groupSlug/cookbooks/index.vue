@@ -6,7 +6,7 @@
       v-model="dialogStates.create"
       :width="650"
       :icon="$globals.icons.pages"
-      :title="$t('general.create')"
+      :title="$t('cookbook.create-a-cookbook')"
       :submit-icon="$globals.icons.save"
       :submit-text="$tc('general.save')"
       @submit="actions.updateOne(createTarget)"
