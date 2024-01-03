@@ -38,7 +38,6 @@ const routes = {
   recipesCategory: `${prefix}/recipes/category`,
   recipesParseIngredient: `${prefix}/parser/ingredient`,
   recipesParseIngredients: `${prefix}/parser/ingredients`,
-  recipesCreateFromOcr: `${prefix}/recipes/create-ocr`,
   recipesTimelineEvent: `${prefix}/recipes/timeline/events`,
 
   recipesRecipeSlug: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}`,
@@ -157,15 +156,6 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
 
   getZipRedirectUrl(recipeSlug: string, token: string) {
     return `${routes.recipesRecipeSlugExportZip(recipeSlug)}?token=${token}`;
-  }
-
-  async createFromOcr(file: File, makeFileRecipeImage: boolean) {
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("extension", file.name.split(".").pop() ?? "");
-    formData.append("makefilerecipeimage", String(makeFileRecipeImage));
-
-    return await this.requests.post(routes.recipesCreateFromOcr, formData);
   }
 
   async updateLastMade(recipeSlug: string, timestamp: string) {

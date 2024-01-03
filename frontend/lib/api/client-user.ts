@@ -23,7 +23,6 @@ import { MultiPurposeLabelsApi } from "./user/group-multiple-purpose-labels";
 import { GroupEventNotifierApi } from "./user/group-event-notifier";
 import { MealPlanRulesApi } from "./user/group-mealplan-rules";
 import { GroupDataSeederApi } from "./user/group-seeder";
-import { OcrAPI } from "./user/ocr";
 import { ApiRequestInstance } from "~/lib/api/types/non-generated";
 
 export class UserApiClient {
@@ -52,7 +51,6 @@ export class UserApiClient {
   public groupEventNotifier: GroupEventNotifierApi;
   public upload: UploadFile;
   public seeders: GroupDataSeederApi;
-  public ocr: OcrAPI;
 
   constructor(requests: ApiRequestInstance) {
     // Recipes
@@ -90,9 +88,6 @@ export class UserApiClient {
     this.email = new EmailAPI(requests);
     this.bulk = new BulkActionsAPI(requests);
     this.groupEventNotifier = new GroupEventNotifierApi(requests);
-
-    // ocr
-    this.ocr = new OcrAPI(requests);
 
     Object.freeze(this);
   }

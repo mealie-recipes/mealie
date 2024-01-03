@@ -198,7 +198,8 @@
     "refresh": "Opdater",
     "upload-file": "Upload Fil",
     "created-on-date": "Oprettet den: {0}",
-    "unsaved-changes": "Du har ændringer som ikke er gemt. Vil du gemme før du forlader? Vælg \"Okay\" for at gemme, eller \"Annullér\" for at kassere ændringer."
+    "unsaved-changes": "Du har ændringer som ikke er gemt. Vil du gemme før du forlader? Vælg \"Okay\" for at gemme, eller \"Annullér\" for at kassere ændringer.",
+    "clipboard-copy-failure": "Failed to copy to the clipboard."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Er du sikker på, du vil slette <b>{groupName}<b/>?",
