@@ -15,17 +15,17 @@
         "abbreviation": "kopp"
     },
     "fluid-ounce": {
-        "name": "us væske unse",
+        "name": "væskeunse",
         "description": "",
         "abbreviation": "fl oz"
     },
     "pint": {
-        "name": "halvliter",
+        "name": "pint",
         "description": "",
         "abbreviation": "pt"
     },
     "quart": {
-        "name": "quart",
+        "name": "kvart",
         "description": "",
         "abbreviation": "qt"
     },
@@ -60,27 +60,27 @@
         "abbreviation": "g"
     },
     "kilogram": {
-        "name": "kilo",
+        "name": "kilogram",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
-        "name": "mg",
+        "name": "milligram",
         "description": "",
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "splash",
+        "name": "skvett",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
-        "name": "dash",
+        "name": "klype",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
-        "name": "servering",
+        "name": "porsjon",
         "description": "",
         "abbreviation": ""
     },
