@@ -4,9 +4,7 @@
 
     <v-banner v-if="isDemo" sticky>
       <div class="text-center">
-        <b> {{ $t("demo.info_message_with_version", { version: version }) }} </b> |
-        {{ $t("demo.demo_username", { username: "changeme@example.com" }) }} |
-        {{ $t("demo.demo_password", { password: "demo" }) }}
+        <b> {{ $t("demo.info_message_with_version", { version: version }) }} </b>
       </div>
     </v-banner>
 
