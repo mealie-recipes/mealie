@@ -4,6 +4,15 @@ CWD = Path(__file__).parent
 
 locale_dir = CWD / "locale"
 
+backup_version_44e8d670719d = CWD / "backups/backup_version_44e8d670719d.zip"
+"""44e8d670719d: add extras to shopping lists, list items, and ingredient foods"""
+
+backup_version_ba1e4a6cfe99 = CWD / "backups/backup_version_ba1e4a6cfe99.zip"
+"""ba1e4a6cfe99: added plural names and alias tables for foods and units"""
+
+backup_version_bcfdad6b7355 = CWD / "backups/backup_version_bcfdad6b7355.zip"
+"""bcfdad6b7355: remove tool name and slug unique contraints"""
+
 migrations_paprika = CWD / "migrations/paprika.zip"
 
 migrations_chowdown = CWD / "migrations/chowdown.zip"

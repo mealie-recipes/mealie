@@ -198,7 +198,8 @@
     "refresh": "更新",
     "upload-file": "上傳文件",
     "created-on-date": "Created on: {0}",
-    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
+    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
+    "clipboard-copy-failure": "Failed to copy to the clipboard."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "確定要刪除<b>{groupName}<b/>？",
