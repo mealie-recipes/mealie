@@ -11,6 +11,7 @@
       :submit-text="$tc('general.save')"
       @submit="actions.updateOne(createTarget)"
       @cancel="actions.deleteOne(createTarget.id)"
+      @dialog-closed="actions.deleteOne(createTarget.id)"
     >
       <v-card-text>
         <CookbookEditor
