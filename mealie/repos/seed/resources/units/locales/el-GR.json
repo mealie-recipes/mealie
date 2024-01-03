@@ -2,17 +2,17 @@
     "teaspoon": {
         "name": "teaspoon",
         "description": "",
-        "abbreviation": "tsp"
+        "abbreviation": "κ.γ."
     },
     "tablespoon": {
         "name": "tablespoon",
         "description": "",
-        "abbreviation": "tbsp"
+        "abbreviation": "κ.σ."
     },
     "cup": {
-        "name": "cup",
+        "name": "φλιτζάνι",
         "description": "",
-        "abbreviation": "cup"
+        "abbreviation": "φλ."
     },
     "fluid-ounce": {
         "name": "fluid ounce",
@@ -42,7 +42,7 @@
     "liter": {
         "name": "λίτρο",
         "description": "",
-        "abbreviation": "λ"
+        "abbreviation": "l"
     },
     "pound": {
         "name": "pound",
@@ -57,17 +57,17 @@
     "gram": {
         "name": "γραμ",
         "description": "",
-        "abbreviation": "γ"
+        "abbreviation": "γρ."
     },
     "kilogram": {
         "name": "κιλό",
         "description": "",
-        "abbreviation": "κιλ"
+        "abbreviation": "kg"
     },
     "milligram": {
         "name": "χιλιοστόγραμμο",
         "description": "",
-        "abbreviation": "μιλιγκράμ"
+        "abbreviation": "mg"
     },
     "splash": {
         "name": "splash",

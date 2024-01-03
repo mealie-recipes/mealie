@@ -3,22 +3,22 @@
         "name": "Produce"
     },
     {
-        "name": "Grains"
+        "name": "Σιτηρά"
     },
     {
-        "name": "Fruits"
+        "name": "Φρούτα"
     },
     {
-        "name": "Vegetables"
+        "name": "Λαχανικά"
     },
     {
-        "name": "Meat"
+        "name": "Κρέας"
     },
     {
-        "name": "Seafood"
+        "name": "Θαλασσινά"
     },
     {
-        "name": "Beverages"
+        "name": "Ποτά"
     },
     {
         "name": "Baked Goods"
@@ -33,10 +33,10 @@
         "name": "Confectionary"
     },
     {
-        "name": "Dairy Products"
+        "name": "Γαλακτοκομικά"
     },
     {
-        "name": "Frozen Foods"
+        "name": "Κατεψυγμένα Φαγητά"
     },
     {
         "name": "Health Foods"
@@ -48,18 +48,18 @@
         "name": "Meat Products"
     },
     {
-        "name": "Snacks"
+        "name": "Σνακ"
     },
     {
-        "name": "Spices"
+        "name": "Μπαχαρικά"
     },
     {
-        "name": "Sweets"
+        "name": "Γλυκά"
     },
     {
-        "name": "Alcohol"
+        "name": "Αλκοόλ"
     },
     {
-        "name": "Other"
+        "name": "Άλλα"
     }
 ]

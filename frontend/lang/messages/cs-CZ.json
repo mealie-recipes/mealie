@@ -198,7 +198,8 @@
     "refresh": "Obnovit",
     "upload-file": "Nahrát soubor",
     "created-on-date": "Vytvořeno dne: {0}",
-    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
+    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
+    "clipboard-copy-failure": "Failed to copy to the clipboard."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Jste si jisti, že chcete smazat <b>{groupName}<b/>?",
