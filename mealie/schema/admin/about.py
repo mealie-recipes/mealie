@@ -16,6 +16,7 @@ class AppInfo(MealieModel):
     allow_signup: bool
     enable_oidc: bool
     oidc_redirect: bool
+    oidc_provider_name: str
 
 
 class AppTheme(MealieModel):

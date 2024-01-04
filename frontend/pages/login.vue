@@ -85,8 +85,8 @@
           </div>
           <v-card-actions v-if="allowOidc" class="justify-center">
           <div class="max-button">
-            <v-btn color="primary" large rounded class="rounded-xl" block @click.native="oidc_authenticate">
-                {{ $t("user.login-oidc") }}
+            <v-btn color="primary" large rounded class="rounded-xl" block @click.native="oidcAuthenticate">
+                {{ $t("user.login-oidc") }} {{ oidcProviderName }}
             </v-btn>
           </div>
         </v-card-actions>
@@ -182,11 +182,15 @@ export default defineComponent({
 
     const allowSignup = computed(() => appInfo.value?.allowSignup || false);
     const allowOidc = computed(() => appInfo.value?.enableOidc || false);
-    const oidcRedirect = computed(() => appInfo.value?.allowSignup || false);
+    const oidcRedirect = computed(() => appInfo.value?.oidcRedirect || false);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    const oidcProviderName = computed(() => appInfo.value?.oidcProviderName || "OAuth")
 
-    if (allowOidc && oidcRedirect && !isCallback() && !isDirectLogin()) {
-        oidc_authenticate()
-    }
+    whenever(
+        () => allowOidc.value && oidcRedirect.value && !isCallback() && !isDirectLogin(),
+        () => oidcAuthenticate(),
+        {immediate: true}
+    )
 
     function isCallback() {
         return router.currentRoute.query.state;
@@ -196,7 +200,7 @@ export default defineComponent({
         return router.currentRoute.query.direct
     }
 
-    async function oidc_authenticate() {
+    async function oidcAuthenticate() {
         try {
             await $auth.loginWith("oidc")
         } catch (error) {
@@ -243,7 +247,8 @@ export default defineComponent({
       allowSignup,
       allowOidc,
       authenticate,
-      oidc_authenticate,
+      oidcAuthenticate,
+      oidcProviderName,
       passwordIcon,
       inputType,
       togglePasswordShow,

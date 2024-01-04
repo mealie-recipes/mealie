@@ -177,6 +177,7 @@ class AppSettings(BaseSettings):
     OIDC_SIGNUP_ENABLED: bool = True
     OIDC_ADMIN_GROUP: NoneStr
     OIDC_AUTO_REDIRECT: bool = False
+    OIDC_PROVIDER_NAME: str = "OAuth"
 
     @property
     def OIDC_READY(self) -> bool:

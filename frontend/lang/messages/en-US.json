@@ -826,7 +826,7 @@
     "link-id": "Link ID",
     "link-name": "Link Name",
     "login": "Login",
-    "login-oidc": "Login with OIDC",
+    "login-oidc": "Login with",
     "or": "or",
     "logout": "Logout",
     "manage-users": "Manage Users",
