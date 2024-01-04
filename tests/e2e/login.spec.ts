@@ -55,7 +55,7 @@ test('oidc initial login', async ({ page }) => {
     }
 
     await page.goto('http://localhost:9000/login');
-    await page.getByRole('button', { name: 'Login with OIDC' }).click();
+    await page.getByRole('button', { name: 'Login with OAuth' }).click();
     await page.getByPlaceholder('Enter any user/subject').fill(username);
     await page.getByPlaceholder('Optional claims JSON value,').fill(JSON.stringify(claims));
     await page.getByRole('button', { name: 'Sign-in' }).click();
@@ -74,7 +74,7 @@ test('oidc sequential login', async ({ page }) => {
     }
 
     await page.goto('http://localhost:9000/login');
-    await page.getByRole('button', { name: 'Login with OIDC' }).click();
+    await page.getByRole('button', { name: 'Login with OAuth' }).click();
     await page.getByPlaceholder('Enter any user/subject').fill(username);
     await page.getByPlaceholder('Optional claims JSON value,').fill(JSON.stringify(claims));
     await page.getByRole('button', { name: 'Sign-in' }).click();
@@ -82,7 +82,7 @@ test('oidc sequential login', async ({ page }) => {
     await page.getByRole('button', { name: 'Logout' }).click();
 
     await page.goto('http://localhost:9000/login');
-    await page.getByRole('button', { name: 'Login with OIDC' }).click();
+    await page.getByRole('button', { name: 'Login with OAuth' }).click();
     await page.getByPlaceholder('Enter any user/subject').fill(username);
     await page.getByPlaceholder('Optional claims JSON value,').fill(JSON.stringify(claims));
     await page.getByRole('button', { name: 'Sign-in' }).click();
@@ -100,7 +100,7 @@ test('settings page verify oidc', async ({ page }) => {
     }
 
     await page.goto('http://localhost:9000/login');
-    await page.getByRole('button', { name: 'Login with OIDC' }).click();
+    await page.getByRole('button', { name: 'Login with OAuth' }).click();
     await page.getByPlaceholder('Enter any user/subject').fill(username);
     await page.getByPlaceholder('Optional claims JSON value,').fill(JSON.stringify(claims));
     await page.getByRole('button', { name: 'Sign-in' }).click();
@@ -131,7 +131,7 @@ test('oidc admin user', async ({ page }) => {
     }
 
     await page.goto('http://localhost:9000/login');
-    await page.getByRole('button', { name: 'Login with OIDC' }).click();
+    await page.getByRole('button', { name: 'Login with OAuth' }).click();
     await page.getByPlaceholder('Enter any user/subject').fill(username);
     await page.getByPlaceholder('Optional claims JSON value,').fill(JSON.stringify(claims));
     await page.getByRole('button', { name: 'Sign-in' }).click();
