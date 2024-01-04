@@ -31,6 +31,8 @@ class AdminAboutController(BaseAdminController):
             build_id=settings.GIT_COMMIT_HASH,
             recipe_scraper_version=recipe_scraper_version.__version__,
             enable_oidc=settings.OIDC_AUTH_ENABLED,
+            oidc_redirect=settings.OIDC_AUTO_REDIRECT,
+            oidc_provider_name=settings.OIDC_PROVIDER_NAME,
         )
 
     @router.get("/statistics", response_model=AppStatistics)
