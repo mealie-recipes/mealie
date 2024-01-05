@@ -198,8 +198,8 @@
     "refresh": "Actualiser",
     "upload-file": "Transférer un fichier",
     "created-on-date": "Créé le {0}",
-    "unsaved-changes": "Vous avez des modifications non enregistrées. Voulez-vous enregistrer avant de partir ? OK pour enregistrer, Annuler pour ignorer les modifications.",
-    "clipboard-copy-failure": "Failed to copy to the clipboard."
+    "unsaved-changes": "Vous avez des modifications non enregistrées. Voulez-vous les enregistrer ? Ok pour enregistrer, annuler pour ignorer les modifications.",
+    "clipboard-copy-failure": "Échec de la copie vers le presse-papiers."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Êtes-vous certain de vouloir supprimer <b>{groupName}<b/>?",
@@ -250,7 +250,7 @@
     "general-preferences": "Préférences générales",
     "group-recipe-preferences": "Préférences de recette du groupe",
     "report": "Rapport",
-    "report-with-id": "Identifiant du rapport : {id}",
+    "report-with-id": "ID du rapport: {id}",
     "group-management": "Gestion des groupes",
     "admin-group-management": "Administration des groupes",
     "admin-group-management-text": "Les modifications apportées à ce groupe seront immédiatement prises en compte.",
@@ -553,7 +553,7 @@
     "tree-view": "Vue en arborescence",
     "recipe-yield": "Nombre de parts",
     "unit": "Unité",
-    "upload-image": "Envoyer une image",
+    "upload-image": "Ajouter une image",
     "screen-awake": "Garder l’écran allumé",
     "remove-image": "Supprimer l’image"
   },
@@ -574,7 +574,7 @@
     "search-hint": "Appuyez sur « /»",
     "advanced": "Avancé",
     "auto-search": "Recherche automatique",
-    "no-results": "Aucun résultat trouvé"
+    "no-results": "Pas de résultats trouvés"
   },
   "settings": {
     "add-a-new-theme": "Ajouter un nouveau thème",

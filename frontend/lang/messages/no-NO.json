@@ -348,7 +348,7 @@
     "recipe-data-migrations": "Overføring av oppskrifter",
     "recipe-data-migrations-explanation": "Oppskrifter kan overføres fra et annet støttet program til Mealie. Dette er en flott måte å komme i gang med Mealie på.",
     "choose-migration-type": "Velg type overføring",
-    "tag-all-recipes": "Merk alle oppskrifter med {tag-name}-emneord",
+    "tag-all-recipes": "Merk alle oppskrifter med emneordet {tag-name}",
     "nextcloud-text": "Oppskrifter fra Nextcloud kan importeres fra en zip-fil som inneholder dataene lagret i Nextcloud. Se eksempelet på mappestrukture nedenfor for å sikre at oppskriftene kan importeres.",
     "chowdown-text": "Mealie støtter Chowdown-arkivformatet. Last ned kodearkivet som en .zip-fil og last den opp nedenfor",
     "recipe-1": "Oppskrift 1",
