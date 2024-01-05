@@ -85,6 +85,7 @@ export interface ReadGroupPreferences {
   recipeLandscapeView?: boolean;
   recipeDisableComments?: boolean;
   recipeDisableAmount?: boolean;
+  recipeCreationTag?: string;
   groupId: string;
   id: string;
 }
