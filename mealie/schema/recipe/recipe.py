@@ -29,19 +29,9 @@ from .recipe_notes import RecipeNote
 from .recipe_nutrition import Nutrition
 from .recipe_settings import RecipeSettings
 from .recipe_step import RecipeStep
+from .recipe_tag import RecipeTag
 
 app_dirs = get_app_dirs()
-
-
-class RecipeTag(MealieModel):
-    id: UUID4 | None = None
-    name: str
-    slug: str
-
-    _searchable_properties: ClassVar[list[str]] = ["name"]
-
-    class Config:
-        orm_mode = True
 
 
 class RecipeTagPagination(PaginationBase):
