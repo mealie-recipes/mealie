@@ -10,6 +10,17 @@
       item-value="value"
       :label="$t('settings.first-day-of-week')"
     />
+    <v-select
+      v-model="preferences.recipeCreationTag"
+      :prepend-icon="$globals.icons.tags"
+      :items="allTags"
+      item-text="name"
+      :return-object="false"
+      item-value="id"
+      clearable="true"
+      :label="'Default tag to be applied when recipes are created (leave blank to disable)'"
+    />
+    <!-- TODO: Translations -->
 
     <BaseCardSectionTitle class="mt-5" :title="$tc('group.group-recipe-preferences')"></BaseCardSectionTitle>
     <template v-for="(_, key) in preferences">
@@ -26,6 +37,7 @@
 
 <script lang="ts">
 import { defineComponent, computed, useContext } from "@nuxtjs/composition-api";
+import { useTagStore } from "~/composables/store";
 
 export default defineComponent({
   props: {
@@ -77,6 +89,11 @@ export default defineComponent({
       },
     ];
 
+    const { actions } = useTagStore();
+    // TODO: Can I just take the items from the store?
+    //       That wasn't working for me originally, but maybe I was doing something wrong.
+    const allTags = actions.getAll();
+
     const preferences = computed({
       get() {
         return props.value;
@@ -88,6 +105,7 @@ export default defineComponent({
 
     return {
       allDays,
+      allTags,
       labels,
       preferences,
     };

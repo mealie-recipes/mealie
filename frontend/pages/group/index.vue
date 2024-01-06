@@ -34,7 +34,18 @@
         :label="$t('settings.first-day-of-week')"
         @change="groupActions.updatePreferences()"
       />
+      <v-select
+      v-model="group.preferences.recipeCreationTag"
+      :prepend-icon="$globals.icons.tags"
+      :items="allTags"
+      item-text="name"
+      :return-object="false"
+      item-value="id"
+      clearable="true"
+      :label="'Default tag to be applied when recipes are created (leave blank to disable)'"
+      />
     </section>
+    <!-- TODO: Translations -->
 
     <section v-if="group">
       <BaseCardSectionTitle class="mt-10" :title="$tc('group.default-recipe-preferences')">
@@ -63,6 +74,7 @@
 import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
 import { useGroupSelf } from "~/composables/use-groups";
 import { ReadGroupPreferences } from "~/lib/api/types/group";
+import { useTagStore } from "~/composables/store";
 
 export default defineComponent({
   setup() {
@@ -152,10 +164,15 @@ export default defineComponent({
       },
     ];
 
+    const { actions } = useTagStore();
+    // See GroupPreferencesEditor and make sure I make equivalent changes
+    const allTags = actions.getAll();
+
     return {
       group,
       groupActions,
       allDays,
+      allTags,
       preferencesEditor,
     };
   },

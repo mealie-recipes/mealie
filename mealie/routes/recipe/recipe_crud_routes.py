@@ -170,10 +170,14 @@ class RecipeController(BaseRecipeController):
                 status_code=408, detail=ErrorResponse.respond(message="Recipe Scraping Timed Out")
             ) from e
 
-        if req.include_tags:
-            ctx = ScraperContext(self.user.id, self.group_id, self.repos)
+        ctx = ScraperContext(self.user.id, self.group_id, self.repos)
 
+        if req.include_tags:
             recipe.tags = extras.use_tags(ctx)  # type: ignore
+
+        # Append a default tag to the recipe, based on group settings
+        if self.group.preferences.recipe_creation_tag != None:
+            recipe.tags.append(ctx.repos.tags.get_one(self.group.preferences.recipe_creation_tag))
 
         new_recipe = self.service.create_one(recipe)
 
