@@ -1,7 +1,7 @@
 from uuid import uuid4
 from fastapi.testclient import TestClient
 
-from tests.utils import api_routes
+from tests.utils import api_routes, jsonify
 from tests.utils.assertion_helpers import assert_ignore_keys
 from tests.utils.factories import random_bool, random_string
 from tests.utils.fixture_schemas import TestUser
@@ -44,7 +44,7 @@ def test_admin_update_group(api_client: TestClient, admin_user: TestUser, unique
             "recipeLandscapeView": random_bool(),
             "recipeDisableComments": random_bool(),
             "recipeDisableAmount": random_bool(),
-            "recipeCreationTag": str(uuid4()),
+            "recipeCreationTag": jsonify(uuid4()),
         },
     }
 
