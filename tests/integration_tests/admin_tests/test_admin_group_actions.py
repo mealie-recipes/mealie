@@ -1,3 +1,4 @@
+from uuid import uuid4
 from fastapi.testclient import TestClient
 
 from tests.utils import api_routes
@@ -43,6 +44,7 @@ def test_admin_update_group(api_client: TestClient, admin_user: TestUser, unique
             "recipeLandscapeView": random_bool(),
             "recipeDisableComments": random_bool(),
             "recipeDisableAmount": random_bool(),
+            "recipeCreationTag": str(uuid4()),
         },
     }
 
