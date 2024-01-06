@@ -1,5 +1,6 @@
 import { computed, ComputedRef, ref, Ref, useContext } from "@nuxtjs/composition-api";
 import { UserOut } from "~/lib/api/types/user";
+import { useNavigationWarning } from "~/composables/use-navigation-warning";
 
 export enum PageMode {
   EDIT = "EDIT",
@@ -65,6 +66,8 @@ function pageRefs(slug: string) {
 }
 
 function pageState({ slugRef, pageModeRef, editModeRef, imageKey }: PageRefs): PageState {
+  const { activateNavigationWarning, deactivateNavigationWarning } = useNavigationWarning();
+
   const toggleEditMode = () => {
     if (editModeRef.value === EditorMode.FORM) {
       editModeRef.value = EditorMode.JSON;
@@ -88,8 +91,13 @@ function pageState({ slugRef, pageModeRef, editModeRef, imageKey }: PageRefs): P
   const setMode = (toMode: PageMode) => {
     const fromMode = pageModeRef.value;
 
-    if (fromMode === PageMode.EDIT && toMode === PageMode.VIEW) {
-      setEditMode(EditorMode.FORM);
+    if (fromMode === PageMode.EDIT) {
+      if (toMode === PageMode.VIEW) {
+        setEditMode(EditorMode.FORM);
+      }
+      deactivateNavigationWarning();
+    } else if (toMode === PageMode.EDIT) {
+      activateNavigationWarning();
     }
 
     pageModeRef.value = toMode;
