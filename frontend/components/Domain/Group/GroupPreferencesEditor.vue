@@ -18,9 +18,8 @@
       :return-object="false"
       item-value="id"
       clearable="true"
-      :label="'Default tag to be applied when recipes are created (leave blank to disable)'"
+      :label="$t('group.default-tag-for-recipe-creation')"
     />
-    <!-- TODO: Translations -->
 
     <BaseCardSectionTitle class="mt-5" :title="$tc('group.group-recipe-preferences')"></BaseCardSectionTitle>
     <template v-for="(_, key) in preferences">
