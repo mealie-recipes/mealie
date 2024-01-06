@@ -1,9 +1,25 @@
 from fastapi.testclient import TestClient
+from uuid import uuid4
 
 from mealie.schema.group.group_preferences import UpdateGroupPreferences
 from tests.utils import api_routes
 from tests.utils.assertion_helpers import assert_ignore_keys
 from tests.utils.fixture_schemas import TestUser
+
+# Based on https://github.com/jazzband/django-push-notifications/issues/586#issuecomment-963930371
+from json import JSONEncoder
+from uuid import UUID
+
+old_default = JSONEncoder.default
+
+
+def new_default(self, obj):
+    if isinstance(obj, UUID):
+        return str(obj)
+    return old_default(self, obj)
+
+
+JSONEncoder.default = new_default
 
 
 def test_get_preferences(api_client: TestClient, unique_user: TestUser) -> None:
@@ -31,7 +47,16 @@ def test_preferences_in_group(api_client: TestClient, unique_user: TestUser) -> 
 
 
 def test_update_preferences(api_client: TestClient, unique_user: TestUser) -> None:
-    new_data = UpdateGroupPreferences(recipe_public=False, recipe_show_nutrition=True)
+    uuid = uuid4()
+    new_data = UpdateGroupPreferences(
+        recipe_public=False,
+        recipe_show_nutrition=True,
+        recipe_show_assets=True,
+        recipe_landscape_view=True,
+        recipe_disable_comments=True,
+        recipe_disable_amount=False,
+        recipe_creation_tag=uuid,
+    )
 
     response = api_client.put(api_routes.groups_preferences, json=new_data.dict(), headers=unique_user.token)
 
@@ -42,5 +67,12 @@ def test_update_preferences(api_client: TestClient, unique_user: TestUser) -> No
     assert preferences is not None
     assert preferences["recipePublic"] is False
     assert preferences["recipeShowNutrition"] is True
+    assert preferences["recipeShowAssets"] is True
+    assert preferences["recipeLandscapeView"] is True
+    assert preferences["recipeDisableComments"] is True
+    assert preferences["recipeDisableAmount"] is False
+    assert preferences["recipeCreationTag"] == str(uuid)
 
-    assert_ignore_keys(new_data.dict(by_alias=True), preferences, ["id", "groupId"])
+    # We ignore recipeCreationTag here because the json (preferences) has it as a string,
+    # where new_data has it as a UUID
+    assert_ignore_keys(new_data.dict(by_alias=True), preferences, ["id", "groupId", "recipeCreationTag"])
