@@ -11,6 +11,7 @@ from mealie.core import root_logger
 from mealie.core.config import get_app_settings
 from mealie.db.db_setup import session_context
 from mealie.db.fixes.fix_group_with_no_name import fix_group_with_no_name
+from mealie.db.fixes.fix_migration_data import fix_migration_data
 from mealie.db.fixes.fix_slug_foods import fix_slug_food_names
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
@@ -97,15 +98,15 @@ def main():
             session.execute(text("CREATE EXTENSION IF NOT EXISTS pg_trgm;"))
 
         db = get_repositories(session)
+        safe_try(lambda: fix_migration_data(session))
+        safe_try(lambda: fix_slug_food_names(db))
+        safe_try(lambda: fix_group_with_no_name(session))
 
         if db.users.get_all():
             logger.debug("Database exists")
         else:
             logger.info("Database contains no users, initializing...")
             init_db(db)
-
-        safe_try(lambda: fix_slug_food_names(db))
-        safe_try(lambda: fix_group_with_no_name(session))
 
 
 if __name__ == "__main__":

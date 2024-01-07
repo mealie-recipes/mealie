@@ -24,17 +24,22 @@ def populate_group_slugs(session: Session):
     seen_slugs: set[str] = set()
     for group in groups:
         original_name = group.name
+        new_name = original_name
         attempts = 0
         while True:
-            slug = slugify(group.name)
+            slug = slugify(new_name)
             if slug not in seen_slugs:
                 break
 
             attempts += 1
-            group.name = f"{original_name} ({attempts})"
+            new_name = f"{original_name} ({attempts})"
 
         seen_slugs.add(slug)
-        group.slug = slug
+        session.execute(
+            sa.text(f"UPDATE {Group.__tablename__} SET name=:name, slug=:slug WHERE id=:id").bindparams(
+                name=new_name, slug=slug, id=group.id
+            )
+        )
 
     session.commit()
 
