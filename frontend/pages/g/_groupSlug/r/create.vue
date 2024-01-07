@@ -50,7 +50,7 @@ export default defineComponent({
       {
         icon: $globals.icons.tags,
         text: i18n.tc("recipe.create-bookmarklet"),
-        value: "new",
+        value: "bookmarklet",
       },
       {
         icon: $globals.icons.zip,

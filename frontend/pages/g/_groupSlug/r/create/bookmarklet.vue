@@ -1,34 +1,29 @@
 <template>
     <div>
-      <v-form ref="domUrlForm" @submit.prevent="createBookmarklet(importKeywordsAsTags, stayInEditMode)">
+      <v-form ref="domUrlForm">
         <div>
           <v-card-title class="headline"> {{ $t('recipe.create-bookmarklet') }} </v-card-title>
           <v-card-text>
             {{ $t('recipe.create-bookmarklet-description') }}
-            <v-checkbox v-model="importKeywordsAsTags" hide-details :label="$t('recipe.import-original-keywords-as-tags')" />
-            <v-checkbox v-model="stayInEditMode" hide-details :label="$t('recipe.stay-in-edit-mode')" />
+            <v-checkbox v-model="importKeywordsAsTags" validate-on-blur hide-details :label="$t('recipe.import-original-keywords-as-tags')" />
+            <v-checkbox v-model="stayInEditMode" validate-on-blur hide-details :label="$t('recipe.stay-in-edit-mode')" />
           </v-card-text>
-          <v-card-actions class="justify-center">
-            <div style="width: 250px">
-              <BaseButton rounded block type="submit" :loading="loading" />
-            </div>
-          </v-card-actions>
+            <v-textarea
+            v-model="bookmarkletResult"
+            :label="$t('recipe.create-bookmarklet-result')"
+            :prepend-inner-icon="$globals.icons.tags"
+            filled
+            rows="2"
+            class="rounded-lg mt-2"
+            rounded
+            :hint="$t('recipe.create-bookmarklet-hint')"
+            persistent-hint
+            :readonly="true"
+            @click="copyBookmarklet"
+          ></v-textarea>
+
         </div>
       </v-form>
-      <v-expand-transition>
-        <v-alert v-show="error" color="error" class="mt-6 white--text">
-          <v-card-title class="ma-0 pa-0">
-            <v-icon left color="white" x-large> {{ $globals.icons.robot }} </v-icon>
-            {{ $t("new-recipe.error-title") }}
-          </v-card-title>
-          <v-divider class="my-3 mx-2"></v-divider>
-
-          <p>
-            {{ $t("new-recipe.error-details") }}
-          </p>
-
-        </v-alert>
-      </v-expand-transition>
     </div>
   </template>
 
@@ -43,38 +38,20 @@
     useContext,
     useRoute
   } from "@nuxtjs/composition-api";
-  import { AxiosResponse } from "axios";
-  import { useUserApi } from "~/composables/api";
-  import { useTagStore } from "~/composables/store/use-tag-store";
-  import { validators } from "~/composables/use-validators";
+  import { detectServerBaseUrl } from "~/composables/use-utils";
   import { VForm } from "~/types/vuetify";
+  import { alert } from "~/composables/use-toast";
+  import { useCopy } from "~/composables/use-copy";
 
   export default defineComponent({
     setup() {
-      const state = reactive({
-        error: false,
-        loading: false,
-      });
+      const { $auth, req, i18n } = useContext();
 
-      const { $auth } = useContext();
-      const api = useUserApi();
+      const { copyText } = useCopy();
+
       const route = useRoute();
-      const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
 
       const router = useRouter();
-      const tags = useTagStore();
-
-      function handleResponse(response: AxiosResponse<string> | null, edit = false, refreshTags = false) {
-        if (response?.status !== 201) {
-          state.error = true;
-          state.loading = false;
-          return;
-        }
-        if (refreshTags) {
-          tags.actions.refresh();
-        }
-
-      }
 
       const importKeywordsAsTags = computed({
         get() {
@@ -94,28 +71,47 @@
         },
       });
 
-      const domUrlForm = ref<VForm | null>(null);
+      const baseUrl = computed(() => detectServerBaseUrl(req));
+      const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+      const importKeywordsAsTagAsNumber = computed(() => Number(importKeywordsAsTags.value));
+      const stayInEditModeAsNumber = computed(() => Number(stayInEditMode.value));
 
-      async function createBookmarklet(importKeywordsAsTags: boolean, stayInEditMode: boolean) {
-        state.loading = true;
-        const { response } = await api.recipes.createOneByUrl("https://mattmcnamara.com", importKeywordsAsTags);
-        handleResponse(response, stayInEditMode, importKeywordsAsTags);
+      const bookmarkletResult = computed({
+        get() {
+          const route = useRoute();
+
+          let url = document.URL;
+          let slashCount = 0;
+          let position = -1;
+
+          // The third slash is after the port portion of the URL
+          while(slashCount < 3) {
+            position = url.indexOf("/", position + 1);
+            if (position === -1) {
+              break;
+            }
+            slashCount++;
+          }
+        url = url.substring(0, position);
+        // window.history.replaceState is appended to fix Vivaldi bug
+        // https://forum.vivaldi.net/topic/31409/bookmarklets-replaces-the-url-in-the-address-bar/25?lang=en-US&page=2
+        return encodeURIComponent(`javascript:(function(){var dest="${url}/g/${groupSlug.value}/r/create/url?use_keywords=${importKeywordsAsTagAsNumber.value}&edit=${stayInEditModeAsNumber.value}&recipe_import_url="+encodeURIComponent(document.URL);window.open(dest,"_blank");window.history.replaceState({},"",location.href);})();`);
       }
+      });
+
+      const copyBookmarklet = () => {
+        copyText(bookmarkletResult.value);
+      };
 
       return {
         importKeywordsAsTags,
         stayInEditMode,
-        domUrlForm,
-        createBookmarklet,
-        ...toRefs(state),
-        validators,
+        baseUrl,
+        groupSlug,
+        bookmarkletResult,
+        copyBookmarklet,
+        copyText,
       };
     },
   });
-  </script>1
-
-  <style>
-  .force-white > a {
-    color: white !important;
-  }
-  </style>
+  </script>
