@@ -55,6 +55,9 @@
               {{ $t("recipe.auto") }}
             </BaseButton>
             <BaseButton class="ml-2" save @click="setIngredientIds"> </BaseButton>
+            <BaseButton v-if="availableNextStep" class="ml-2" @click="saveAndOpenNextLinkIngredients">
+              <template #icon> {{ $globals.icons.save }}</template>
+              {{ $t("recipe.nextStep") }} </BaseButton>
           </div>
         </v-card-actions>
       </v-card>
@@ -399,6 +402,8 @@ export default defineComponent({
       activeRefs.value = refs.map((ref) => ref.referenceId ?? "");
     }
 
+    const availableNextStep = computed(() => activeIndex.value < props.value.length - 1);
+
     function setIngredientIds() {
       const instruction = props.value[activeIndex.value];
       instruction.ingredientReferences = activeRefs.value.map((ref) => {
@@ -415,6 +420,18 @@ export default defineComponent({
         }
       });
       state.dialog = false;
+    }
+
+    function saveAndOpenNextLinkIngredients() {
+      const currentStepIndex = activeIndex.value;
+
+      if(!availableNextStep.value) {
+        return; // no next step, the button calling this function should not be shown
+      }
+
+      setIngredientIds();
+      const nextStep = props.value[currentStepIndex + 1];
+      openDialog(currentStepIndex + 1, nextStep.text, nextStep.ingredientReferences)
     }
 
     function setUsedIngredients() {
@@ -627,6 +644,8 @@ export default defineComponent({
       mergeAbove,
       openDialog,
       setIngredientIds,
+      availableNextStep,
+      saveAndOpenNextLinkIngredients,
       undoMerge,
       toggleDisabled,
       isChecked,
