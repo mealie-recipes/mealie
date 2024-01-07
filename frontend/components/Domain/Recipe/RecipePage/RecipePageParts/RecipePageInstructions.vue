@@ -1,7 +1,7 @@
 <template>
   <section @keyup.ctrl.90="undoMerge">
     <!-- Ingredient Link Editor -->
-    <v-dialog v-model="dialog" width="600">
+    <v-dialog v-if="dialog" v-model="dialog" width="600">
       <v-card :ripple="false">
         <v-app-bar dark color="primary" class="mt-n1 mb-3">
           <v-icon large left>
@@ -239,6 +239,7 @@ import {
   onMounted,
   useContext,
   computed,
+  nextTick,
 } from "@nuxtjs/composition-api";
 import RecipeIngredientHtml from "../../RecipeIngredientHtml.vue";
 import { RecipeStep, IngredientReferences, RecipeIngredient, RecipeAsset, Recipe } from "~/lib/api/types/recipe";
@@ -431,7 +432,9 @@ export default defineComponent({
 
       setIngredientIds();
       const nextStep = props.value[currentStepIndex + 1];
-      openDialog(currentStepIndex + 1, nextStep.text, nextStep.ingredientReferences)
+      // close dialog before opening to reset the scroll position
+      nextTick(() => openDialog(currentStepIndex + 1, nextStep.text, nextStep.ingredientReferences));
+
     }
 
     function setUsedIngredients() {
