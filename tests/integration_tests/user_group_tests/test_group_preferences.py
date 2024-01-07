@@ -50,14 +50,8 @@ def test_update_preferences(api_client: TestClient, unique_user: TestUser) -> No
     preferences = response.json()
 
     assert preferences is not None
-    assert preferences["recipePublic"] is False
-    assert preferences["recipeShowNutrition"] is True
-    assert preferences["recipeShowAssets"] is True
-    assert preferences["recipeLandscapeView"] is True
-    assert preferences["recipeDisableComments"] is True
-    assert preferences["recipeDisableAmount"] is False
     assert preferences["recipeCreationTag"] == jsonify(uuid)
 
     # We ignore recipeCreationTag here because the json (`preferences`) has it as a string,
-    # because of the jsonify, whereas new_data has it as a UUID
+    # because of the jsonify, whereas new_data has it as a UUID. We verify it above instead.
     assert_ignore_keys(new_data.dict(by_alias=True), preferences, ["id", "groupId", "recipeCreationTag"])
