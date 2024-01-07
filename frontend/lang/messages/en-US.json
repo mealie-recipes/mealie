@@ -559,7 +559,7 @@
     "create-bookmarklet": "Create Bookmarklet",
     "create-bookmarklet-description": "Create a bookmarklet that allows you to add recipes from your web browser's bookmark bar.",
     "create-bookmarklet-result": "Bookmarklet",
-    "create-bookmarklet-hint": "Copy the javascript code above and then rightclick on your bookmark bar to Create a New Bookmark, using the code as the Address of the bookmark."
+    "create-bookmarklet-hint": "Copy the javascript code above and then right-click on your bookmark bar to Create a New Bookmark, using the code as the Address of the bookmark."
   },
   "search": {
     "advanced-search": "Advanced Search",
