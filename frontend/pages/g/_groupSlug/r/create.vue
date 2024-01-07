@@ -48,6 +48,11 @@ export default defineComponent({
         value: "new",
       },
       {
+        icon: $globals.icons.tags,
+        text: i18n.tc("recipe.create-bookmarklet"),
+        value: "new",
+      },
+      {
         icon: $globals.icons.zip,
         text: i18n.tc("recipe.import-with-zip"),
         value: "zip",
