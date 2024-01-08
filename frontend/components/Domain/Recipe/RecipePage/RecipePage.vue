@@ -209,9 +209,19 @@ export default defineComponent({
     });
 
     async function lockScreen() {
-      if (wakeIsSupported) {
-        console.log("Wake Lock Requested");
-        await request("screen");
+      // https://developer.mozilla.org/en-US/docs/Web/API/WakeLock/request
+      // Even if wakeIsSupported, it can still be blocked with a NotAllowedError
+      // if the browser doesn't feel the user intended this behavior (like if on page
+      // load we try to automatically activate the wake lock).
+      // If the browser blocks it, the user can still enable by explicitly clicking on
+      // the Keep Screen Awake switch
+      try {
+        if (wakeIsSupported) {
+          console.log("Wake Lock Requested");
+          await request("screen");
+        }
+      } catch (e) {
+        console.error("Couldn't activate wake lock: ", e);
       }
     }
 
