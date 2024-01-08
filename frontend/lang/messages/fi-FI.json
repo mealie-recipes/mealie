@@ -789,7 +789,8 @@
     "tags": "Tunnisteet",
     "untagged-count": "Tunnisteettomat {count}",
     "create-a-tag": "Luo tunniste",
-    "tag-name": "Tunnisteen nimi"
+    "tag-name": "Tunnisteen nimi",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Työkalut",
@@ -798,7 +799,8 @@
     "tool-name": "Työkalun Nimi",
     "create-new-tool": "Luo Uusi Työkalu",
     "on-hand-checkbox-label": "Näytä työkalut, jotka omistan jo (valittu)",
-    "required-tools": "Tarvittavat Työkalut"
+    "required-tools": "Tarvittavat Työkalut",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Ylläpitäjä",
