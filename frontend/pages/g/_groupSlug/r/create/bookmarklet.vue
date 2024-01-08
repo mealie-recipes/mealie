@@ -21,7 +21,6 @@
             :readonly="true"
             @click="copyBookmarklet"
           ></v-textarea>
-
         </div>
       </v-form>
     </div>
@@ -97,7 +96,7 @@
 
         // window.history.replaceState is appended to fix Vivaldi bug
         // https://forum.vivaldi.net/topic/31409/bookmarklets-replaces-the-url-in-the-address-bar/25?lang=en-US&page=2
-        return encodeURIComponent(`javascript:(function(){var dest="${url}/g/${groupSlug.value}/r/create/url?use_keywords=${importKeywordsAsTagAsNumber.value}&edit=${stayInEditModeAsNumber.value}&recipe_import_url="+encodeURIComponent(document.URL);window.open(dest,"_blank");window.history.replaceState({},"",location.href);})();`);
+        return "javascript:" + encodeURIComponent(`(function(){var dest="${url}/g/${groupSlug.value}/r/create/url?use_keywords=${importKeywordsAsTagAsNumber.value}&edit=${stayInEditModeAsNumber.value}&recipe_import_url="+encodeURIComponent(document.URL);window.open(dest,"_blank");window.history.replaceState({},"",location.href);})()`) + ";"
       }
       });
 
