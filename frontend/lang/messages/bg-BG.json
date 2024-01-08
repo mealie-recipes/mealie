@@ -199,7 +199,7 @@
     "upload-file": "Качване на файл",
     "created-on-date": "Създадено на {0}",
     "unsaved-changes": "Имате незапазени промени. Желаете ли да ги запазите преди да излезете? Натиснете Ок за запазване и Отказ за отхвърляне на промените.",
-    "clipboard-copy-failure": "Failed to copy to the clipboard."
+    "clipboard-copy-failure": "Линкът към рецептата е копиран в клипборда."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Сигурни ли сте, че искате да изтриете <b>{groupName}<b/>?",
@@ -250,7 +250,7 @@
     "general-preferences": "Общи предпочитания",
     "group-recipe-preferences": "Предпочитания за рецепта по група",
     "report": "Сигнал",
-    "report-with-id": "Номер на сигнала: {id}",
+    "report-with-id": "Номер на доклада: {id}",
     "group-management": "Управление на групите",
     "admin-group-management": "Административно управление на групите",
     "admin-group-management-text": "Промените по тази група ще бъдат отразени моментално.",
@@ -515,7 +515,7 @@
     "message-key": "Ключ на съобщението",
     "parse": "Анализирай",
     "attach-images-hint": "Прикачете снимки като ги влачете и пуснете в редактора",
-    "drop-image": "Влачете и пуснете снимка",
+    "drop-image": "Премахване на изображение",
     "enable-ingredient-amounts-to-use-this-feature": "Пуснете количествата на съставките за да използвате функционалността",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Рецепти със зададени мерни единици и храни ме могат да бъдат анализирани.",
     "parse-ingredients": "Анализирай съставките",
@@ -789,7 +789,8 @@
     "tags": "Тагове",
     "untagged-count": "Без таг {count}",
     "create-a-tag": "Създаване на таг",
-    "tag-name": "Име на тага"
+    "tag-name": "Име на тага",
+    "tag": "Тагове"
   },
   "tool": {
     "tools": "Инструменти",
@@ -798,7 +799,8 @@
     "tool-name": "Име на инструмента",
     "create-new-tool": "Създаване на нов инструмент",
     "on-hand-checkbox-label": "Показване като налични (отметнато)",
-    "required-tools": "Задължителни инструменти"
+    "required-tools": "Задължителни инструменти",
+    "tool": "Инструменти"
   },
   "user": {
     "admin": "Админ",
