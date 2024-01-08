@@ -24,13 +24,13 @@
     <!-- Delete Dialog -->
     <BaseDialog
       v-model="dialogStates.delete"
-      :title="$tc('general.confirm')"
+      :title="$t('general.delete-with-name', { name: $t('cookbook.cookbook') })"
       :icon="$globals.icons.alertCircle"
       color="error"
       @confirm="deleteCookbook()"
     >
       <v-card-text>
-        {{ $t("general.confirm-delete-generic") }}
+        <p>{{ $t("general.confirm-delete-generic-with-name", { name: $t('cookbook.cookbook') }) }}</p>
         <p v-if="deleteTarget" class="mt-4 ml-4">{{ deleteTarget.name }}</p>
       </v-card-text>
     </BaseDialog>
