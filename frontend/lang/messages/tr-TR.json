@@ -789,7 +789,8 @@
     "tags": "Etiketler",
     "untagged-count": "Untagged {count}",
     "create-a-tag": "Create a Tag",
-    "tag-name": "Etiket Adı"
+    "tag-name": "Etiket Adı",
+    "tag": "Etiket"
   },
   "tool": {
     "tools": "Tools",
@@ -798,7 +799,8 @@
     "tool-name": "Tool Name",
     "create-new-tool": "Create New Tool",
     "on-hand-checkbox-label": "Show as On Hand (Checked)",
-    "required-tools": "Required Tools"
+    "required-tools": "Required Tools",
+    "tool": "Araç"
   },
   "user": {
     "admin": "Admin",

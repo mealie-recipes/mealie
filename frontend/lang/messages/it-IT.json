@@ -789,7 +789,8 @@
     "tags": "Tag",
     "untagged-count": "Senza Tag {count}",
     "create-a-tag": "Crea un Tag",
-    "tag-name": "Nome del Tag"
+    "tag-name": "Nome del Tag",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Strumenti",
@@ -798,7 +799,8 @@
     "tool-name": "Nome dell'Utensile",
     "create-new-tool": "Crea un Nuovo Utensile",
     "on-hand-checkbox-label": "Mostra come Disponibile (Spuntato)",
-    "required-tools": "Strumenti necessari"
+    "required-tools": "Strumenti necessari",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Amministratore",

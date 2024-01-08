@@ -789,7 +789,8 @@
     "tags": "תגיות",
     "untagged-count": "לא מתוייג {count}",
     "create-a-tag": "צור תגית",
-    "tag-name": "שם תגית"
+    "tag-name": "שם תגית",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "כלים",
@@ -798,7 +799,8 @@
     "tool-name": "שם כלי",
     "create-new-tool": "יצירת כלי חדש",
     "on-hand-checkbox-label": "הראה מה יש לי במטבח",
-    "required-tools": "צריך כלים"
+    "required-tools": "צריך כלים",
+    "tool": "Tool"
   },
   "user": {
     "admin": "אדמין",

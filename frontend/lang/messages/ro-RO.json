@@ -515,7 +515,7 @@
     "message-key": "Message Key",
     "parse": "Parse",
     "attach-images-hint": "Attach images by dragging & dropping them into the editor",
-    "drop-image": "Drop image",
+    "drop-image": "Trage imaginea",
     "enable-ingredient-amounts-to-use-this-feature": "Enable ingredient amounts to use this feature",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Recipes with units or foods defined cannot be parsed.",
     "parse-ingredients": "Parse ingredients",
@@ -574,16 +574,16 @@
     "search-hint": "Apasă „/”",
     "advanced": "Avansat",
     "auto-search": "Căutare automată",
-    "no-results": "No results found"
+    "no-results": "Nu s-au găsit rezultate"
   },
   "settings": {
     "add-a-new-theme": "Adaugă o nouă temă",
     "admin-settings": "Setări administrator",
     "backup": {
-      "backup-created": "Backup created successfully",
+      "backup-created": "Copia de rezervă a fost salvată",
       "backup-created-at-response-export_path": "Backup creat la {path}",
       "backup-deleted": "Backup şters",
-      "restore-success": "Restore successful",
+      "restore-success": "Restaurare efectuată",
       "backup-tag": "Backup la Tag-uri",
       "create-heading": "Create a Backup",
       "delete-backup": "Șterge Backup",
@@ -692,13 +692,13 @@
     "configuration": "Configuration",
     "docker-volume": "Docker Volume",
     "docker-volume-help": "Mealie requires that the frontend container and the backend share the same docker volume or storage. This ensures that the frontend container can properly access the images and assets stored on disk.",
-    "volumes-are-misconfigured": "Volumes are misconfigured.",
+    "volumes-are-misconfigured": "Volumele sunt configurate greșit.",
     "volumes-are-configured-correctly": "Volumes are configured correctly.",
     "status-unknown-try-running-a-validation": "Status Unknown. Try running a validation.",
     "validate": "Validate",
     "email-configuration-status": "Email Configuration Status",
-    "email-configured": "Email Configured",
-    "email-test-results": "Email Test Results",
+    "email-configured": "E-mail configurat",
+    "email-test-results": "Trimite rezultatele testului pe e-mail",
     "ready": "Ready",
     "not-ready": "Not Ready - Check Environmental Variables",
     "succeeded": "Succeeded",
@@ -789,7 +789,8 @@
     "tags": "Tags",
     "untagged-count": "Untagged {count}",
     "create-a-tag": "Create a Tag",
-    "tag-name": "Tag Name"
+    "tag-name": "Tag Name",
+    "tag": "Etichetă"
   },
   "tool": {
     "tools": "Tools",
@@ -798,7 +799,8 @@
     "tool-name": "Tool Name",
     "create-new-tool": "Create New Tool",
     "on-hand-checkbox-label": "Show as On Hand (Checked)",
-    "required-tools": "Required Tools"
+    "required-tools": "Required Tools",
+    "tool": "Instrument"
   },
   "user": {
     "admin": "Admin",
@@ -833,7 +835,7 @@
     "password-updated": "Password updated",
     "password": "Password",
     "password-strength": "Password is {strength}",
-    "please-enter-password": "Please enter your new password.",
+    "please-enter-password": "Vă rugăm să introduceţi parola nouă.",
     "register": "Register",
     "reset-password": "Reset Password",
     "sign-in": "Sign in",
@@ -854,7 +856,7 @@
     "username": "Username",
     "users-header": "USERS",
     "users": "Users",
-    "user-not-found": "User not found",
+    "user-not-found": "Utilizatorul nu a fost găsit",
     "webhook-time": "Webhook Time",
     "webhooks-enabled": "Webhooks Enabled",
     "you-are-not-allowed-to-create-a-user": "You are not allowed to create a user",
@@ -877,7 +879,7 @@
     "user-management": "User Management",
     "reset-locked-users": "Reset Locked Users",
     "admin-user-creation": "Admin User Creation",
-    "admin-user-management": "Admin User Management",
+    "admin-user-management": "Gestionare utilizatori de tip administrator",
     "user-details": "User Details",
     "user-name": "User Name",
     "authentication-method": "Authentication Method",
@@ -890,8 +892,8 @@
     "enable-advanced-features": "Enable advanced features",
     "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
-    "forgot-password": "Forgot Password",
-    "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
+    "forgot-password": "Recuperare parola",
+    "forgot-password-text": "Va rugam introduceti adresa de e-mail pentru a va trimite un link de resetare parola.",
     "changes-reflected-immediately": "Changes to this user will be reflected immediately."
   },
   "language-dialog": {

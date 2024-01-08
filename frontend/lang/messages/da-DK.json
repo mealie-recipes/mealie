@@ -789,7 +789,8 @@
     "tags": "Tags",
     "untagged-count": "Ikke-tagget: {count}",
     "create-a-tag": "Opret tag",
-    "tag-name": "Tag navn"
+    "tag-name": "Tag navn",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Værktøjer",
@@ -798,7 +799,8 @@
     "tool-name": "Værktøjsnavn",
     "create-new-tool": "Opret et nyt værktøj",
     "on-hand-checkbox-label": "Vis som \"Har allerede\" (afkrydset)",
-    "required-tools": "Nødvendige Værktøjer"
+    "required-tools": "Nødvendige Værktøjer",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administrator",

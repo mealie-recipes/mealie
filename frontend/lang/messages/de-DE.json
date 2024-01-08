@@ -789,7 +789,8 @@
     "tags": "Schlagworte",
     "untagged-count": "{count} ohne Schlagworte",
     "create-a-tag": "Ein Schlagwort erstellen",
-    "tag-name": "Name des Schlagworts"
+    "tag-name": "Name des Schlagworts",
+    "tag": "Schlagwort"
   },
   "tool": {
     "tools": "Utensilien",
@@ -798,7 +799,8 @@
     "tool-name": "Name des Utensils",
     "create-new-tool": "Neues Utensil erstellen",
     "on-hand-checkbox-label": "Als \"vorhanden\" anzeigen (markiert)",
-    "required-tools": "Benötigte Utensilien"
+    "required-tools": "Benötigte Utensilien",
+    "tool": "Utensil"
   },
   "user": {
     "admin": "Admin",

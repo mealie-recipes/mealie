@@ -789,7 +789,8 @@
     "tags": "Merkers",
     "untagged-count": "Nie gemerk {count}",
     "create-a-tag": "Skep 'n merker",
-    "tag-name": "Merker naam"
+    "tag-name": "Merker naam",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Kookgerei",
@@ -798,7 +799,8 @@
     "tool-name": "Naam van die kookgerei",
     "create-new-tool": "Skep nuwe kookgerei",
     "on-hand-checkbox-label": "Wys as in besit (gemerk)",
-    "required-tools": "Vereiste kookgerei"
+    "required-tools": "Vereiste kookgerei",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administrateur",

@@ -789,7 +789,8 @@
     "tags": "标签",
     "untagged-count": "无标签的共 {count} 个",
     "create-a-tag": "创建标签",
-    "tag-name": "标签名称"
+    "tag-name": "标签名称",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "用具",
@@ -798,7 +799,8 @@
     "tool-name": "用具名称",
     "create-new-tool": "新建用具",
     "on-hand-checkbox-label": "显示为在手上(选中)",
-    "required-tools": "所需用具"
+    "required-tools": "所需用具",
+    "tool": "Tool"
   },
   "user": {
     "admin": "管理员",

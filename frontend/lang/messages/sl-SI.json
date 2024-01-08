@@ -789,7 +789,8 @@
     "tags": "Značke",
     "untagged-count": "Brez značke {count}",
     "create-a-tag": "Ustvari značko",
-    "tag-name": "Ime značke"
+    "tag-name": "Ime značke",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Orodja",
@@ -798,7 +799,8 @@
     "tool-name": "Ime orodja",
     "create-new-tool": "Ustvari orodje",
     "on-hand-checkbox-label": "Prikaži kot Na voljo (obkljukano)",
-    "required-tools": "Required Tools"
+    "required-tools": "Required Tools",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administrator",

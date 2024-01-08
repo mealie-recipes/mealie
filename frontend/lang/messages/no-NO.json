@@ -789,7 +789,8 @@
     "tags": "Emneord",
     "untagged-count": "Umerkede {count}",
     "create-a-tag": "Opprett et emneord",
-    "tag-name": "Navn på emneord"
+    "tag-name": "Navn på emneord",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Kjøkkenredskap",
@@ -798,7 +799,8 @@
     "tool-name": "Navn på kjøkkenredskap",
     "create-new-tool": "Opprett nytt kjøkkenredskap",
     "on-hand-checkbox-label": "Vis som tilgjengelig (avmerket)",
-    "required-tools": "Påkrevde kjøkkenredskaper"
+    "required-tools": "Påkrevde kjøkkenredskaper",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administrator",

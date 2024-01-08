@@ -789,7 +789,8 @@
     "tags": "Etiquetes",
     "untagged-count": "{count} sense etiquetar",
     "create-a-tag": "Crea una etiqueta",
-    "tag-name": "Nom de l'etiqueta"
+    "tag-name": "Nom de l'etiqueta",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Estris",
@@ -798,7 +799,8 @@
     "tool-name": "Nom de l'estri",
     "create-new-tool": "Crea un nou estri",
     "on-hand-checkbox-label": "Mostra com a disponible (marcat)",
-    "required-tools": "Eines necessàries"
+    "required-tools": "Eines necessàries",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administrador/a",
