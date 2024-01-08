@@ -71,14 +71,16 @@ def test_database_restore():
 @pytest.mark.parametrize(
     "backup_path",
     [
-        test_data.backup_version_44e8d670719d,
-        test_data.backup_version_ba1e4a6cfe99,
-        test_data.backup_version_bcfdad6b7355,
+        test_data.backup_version_44e8d670719d_1,
+        test_data.backup_version_44e8d670719d_2,
+        test_data.backup_version_ba1e4a6cfe99_1,
+        test_data.backup_version_bcfdad6b7355_1,
     ],
     ids=[
-        "44e8d670719d: add extras to shopping lists, list items, and ingredient foods",
-        "ba1e4a6cfe99: added plural names and alias tables for foods and units",
-        "bcfdad6b7355: remove tool name and slug unique contraints",
+        "44e8d670719d_1: add extras to shopping lists, list items, and ingredient foods",
+        "44e8d670719d_2: add extras to shopping lists, list items, and ingredient foods",
+        "ba1e4a6cfe99_1: added plural names and alias tables for foods and units",
+        "bcfdad6b7355_1: remove tool name and slug unique contraints",
     ],
 )
 def test_database_restore_data(backup_path: Path):
