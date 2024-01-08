@@ -39,7 +39,9 @@
     >
       <v-card-text>
         {{ $t("general.confirm-delete-generic") }}
-        <MultiPurposeLabel v-if="deleteTarget" class="mt-4 ml-4" :label="deleteTarget" />
+        <v-row>
+          <MultiPurposeLabel v-if="deleteTarget" class="mt-4 ml-4 mb-1" :label="deleteTarget" />
+        </v-row>
       </v-card-text>
     </BaseDialog>
 
