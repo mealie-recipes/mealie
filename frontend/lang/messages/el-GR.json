@@ -789,7 +789,8 @@
     "tags": "Ετικέτες",
     "untagged-count": "Χωρίς ετικέτα {count}",
     "create-a-tag": "Create a Tag",
-    "tag-name": "Tag Name"
+    "tag-name": "Tag Name",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Εργαλεία",
@@ -798,7 +799,8 @@
     "tool-name": "Tool Name",
     "create-new-tool": "Create New Tool",
     "on-hand-checkbox-label": "Show as On Hand (Checked)",
-    "required-tools": "Required Tools"
+    "required-tools": "Required Tools",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Διαχειριστής",
