@@ -789,7 +789,8 @@
     "tags": "Címkék",
     "untagged-count": "Címkézetlen {count}",
     "create-a-tag": "Címke létrehozása",
-    "tag-name": "Címke Neve"
+    "tag-name": "Címke Neve",
+    "tag": "Címke"
   },
   "tool": {
     "tools": "Eszközök",
@@ -798,7 +799,8 @@
     "tool-name": "Eszköz neve",
     "create-new-tool": "Új eszköz létrehozása",
     "on-hand-checkbox-label": "Készleten lévőnek mutatni (Ellenőrizve)",
-    "required-tools": "Szükséges eszközök"
+    "required-tools": "Szükséges eszközök",
+    "tool": "Eszköz"
   },
   "user": {
     "admin": "Adminisztrátor",
