@@ -11,7 +11,7 @@
       @confirm="deleteOne()"
     >
       <v-card-text>
-        {{ $t("general.confirm-delete-generic") }}
+<p>{{ $t("general.confirm-delete-generic-with-name", { name: $t(translationKey) }) }}</p>
         <p class="mt-4 mb-0 ml-4">{{ deleteTarget.name }}</p>
       </v-card-text>
     </BaseDialog>
