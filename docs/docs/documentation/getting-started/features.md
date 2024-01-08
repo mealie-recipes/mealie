@@ -6,7 +6,13 @@
 
 ### Creating Recipes
 
-Mealie offers two main ways to create recipes. You can use the integrated recipe-scraper to create recipes from hundreds of websites, or you can create recipes manually using the recipe editor.
+Mealie offers a few ways to bring your recipes in, including:
+
+ - [Pasting the URL](https://demo.mealie.io/g/home/r/create/url) into Mealie
+ - Use a [Bookmarklet](../../community-guide/import-recipe-bookmarklet) to send recipes to Mealie from a desktop web browser
+ - Installable PWA implements the Share_Target API for mobile devices ([limited device and app support](https://caniuse.com/?search=share_target))
+ - [iOS Shortcuts](../../community-guide/ios/)
+ - Creating recipes manually using the recipe editor
 
 [Creation Demo](https://demo.mealie.io/g/home/r/create/url){ .md-button .md-button--primary .align-right }
 
