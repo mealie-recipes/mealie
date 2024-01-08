@@ -56,8 +56,9 @@
             </BaseButton>
             <BaseButton class="ml-2" save @click="setIngredientIds"> </BaseButton>
             <BaseButton v-if="availableNextStep" class="ml-2" @click="saveAndOpenNextLinkIngredients">
-              <template #icon> {{ $globals.icons.save }}</template>
-              {{ $t("recipe.nextStep") }} </BaseButton>
+              <template #icon> {{ $globals.icons.forward }}</template>
+              {{ $t("recipe.nextStep") }} 
+            </BaseButton>
           </div>
         </v-card-actions>
       </v-card>
