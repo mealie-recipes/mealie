@@ -59,30 +59,13 @@
       const importKeywordsAsTagAsNumber = computed(() => Number(importKeywordsAsTags.value));
       const stayInEditModeAsNumber = computed(() => Number(stayInEditMode.value));
 
-      const bookmarkletResult = computed({
-        get() {
-        const route = useRoute();
-
-        let url = document.URL;
-        let slashCount = 0;
-        let position = -1;
-
-        // The third slash is after the port portion of the URL
-        while(slashCount < 3) {
-          position = url.indexOf("/", position + 1);
-          if (position === -1) {
-            break;
-          }
-          slashCount++;
-        }
-
-        // Now that we found the third slash, remove it and everything after
-        url = url.substring(0, position);
+      const bookmarkletResult: ComputedRef<string> = computed(() => {
+        // get the origin of the current page
+        const url = new URL(document.URL).origin;
 
         // window.history.replaceState is appended to fix Vivaldi bug
         // https://forum.vivaldi.net/topic/31409/bookmarklets-replaces-the-url-in-the-address-bar/25?lang=en-US&page=2
-        return "javascript:" + encodeURIComponent(`(function(){var dest="${url}/g/${groupSlug.value}/r/create/url?use_keywords=${importKeywordsAsTagAsNumber.value}&edit=${stayInEditModeAsNumber.value}&recipe_import_url="+encodeURIComponent(document.URL);window.open(dest,"_blank");window.history.replaceState({},"",location.href);})()`) + ";"
-      }
+        return "javascript:" + encodeURIComponent(`(function(){var dest="${url}/g/${groupSlug.value}/r/create/url?use_keywords=${Number(importKeywordsAsTags.value)}&edit=${Number(stayInEditMode.value)}&recipe_import_url="+encodeURIComponent(document.URL);window.open(dest,"_blank");window.history.replaceState({},"",location.href);})()`) + ";"
       });
 
       const copyBookmarklet = () => {
