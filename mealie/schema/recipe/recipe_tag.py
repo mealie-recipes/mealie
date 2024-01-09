@@ -1,7 +1,6 @@
 from typing import ClassVar
-from uuid import UUID, uuid4
 
-from pydantic import UUID4, Field
+from pydantic import UUID4
 
 from mealie.schema._mealie import MealieModel
 
