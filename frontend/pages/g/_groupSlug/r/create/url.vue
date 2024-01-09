@@ -95,10 +95,7 @@ export default defineComponent({
     const router = useRouter();
     const tags = useTagStore();
 
-    const bulkImporterTarget = computed(() => {
-      const urlIndex = route.value.fullPath.lastIndexOf("/url");
-      return route.value.fullPath.slice(0, urlIndex) + "/bulk";
-    });
+    const bulkImporterTarget = computed(() => `/g/${groupSlug.value}/r/create/bulk`);
 
     function handleResponse(response: AxiosResponse<string> | null, edit = false, refreshTags = false) {
       if (response?.status !== 201) {
