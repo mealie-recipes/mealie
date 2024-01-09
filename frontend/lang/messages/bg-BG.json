@@ -533,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Името на рецептата трябва да бъде уникално",
     "scrape-recipe": "Обхождане на рецепта",
     "scrape-recipe-description": "Обходи рецепта по линк. Предоставете линк за сайт, който искате да бъде обходен. Mealie ще опита да обходи рецептата от този сайт и да я добави във Вашата колекция.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Импортирай оригиналните ключови думи като тагове",
     "stay-in-edit-mode": "Остани в режим на редакция",
     "import-from-zip": "Импортирай от Zip",
