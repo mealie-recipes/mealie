@@ -533,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Els noms de les noves receptes han de ser únics",
     "scrape-recipe": "Rastrejar recepta",
     "scrape-recipe-description": "Rastrejar recepta des de l'Url. Proporciona un Url del lloc que vols rastrejar i Mealie intentarà analitzar la recepta del lloc web i afegir-la a la teva col·lecció.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Importa les paraules clau originals com a tags",
     "stay-in-edit-mode": "Segueix en el mode d'edició",
     "import-from-zip": "Importa des d'un ZIP",
