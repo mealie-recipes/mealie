@@ -51,23 +51,8 @@
 
       const router = useRouter();
 
-      const importKeywordsAsTags = computed({
-        get() {
-          return route.value.query.use_keywords === "1";
-        },
-        set(v: boolean) {
-          router.replace({ query: { ...route.value.query, use_keywords: v ? "1" : "0" } });
-        },
-      });
-
-      const stayInEditMode = computed({
-        get() {
-          return route.value.query.edit === "1";
-        },
-        set(v: boolean) {
-          router.replace({ query: { ...route.value.query, edit: v ? "1" : "0" } });
-        },
-      });
+      const importKeywordsAsTags = ref<boolean>(false);
+      const stayInEditMode = ref<boolean>(false);
 
       const baseUrl = computed(() => detectServerBaseUrl(req));
       const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
