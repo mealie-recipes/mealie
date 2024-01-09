@@ -50,14 +50,14 @@
           <BaseButton cancel @click="dialog = false"> </BaseButton>
           <v-spacer></v-spacer>
           <div class="d-flex flex-wrap justify-end">
-            <BaseButton color="info" @click="autoSetReferences">
+            <BaseButton class="mb-1" color="info" @click="autoSetReferences">
               <template #icon> {{ $globals.icons.robot }}</template>
               {{ $t("recipe.auto") }}
             </BaseButton>
-            <BaseButton class="ml-2" save @click="setIngredientIds"> </BaseButton>
-            <BaseButton v-if="availableNextStep" class="ml-2" @click="saveAndOpenNextLinkIngredients">
+            <BaseButton class="ml-2 mb-1" save @click="setIngredientIds"> </BaseButton>
+            <BaseButton v-if="availableNextStep" class="ml-2 mb-1" @click="saveAndOpenNextLinkIngredients">
               <template #icon> {{ $globals.icons.forward }}</template>
-              {{ $t("recipe.nextStep") }} 
+              {{ $t("recipe.nextStep") }}
             </BaseButton>
           </div>
         </v-card-actions>
