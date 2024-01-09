@@ -789,7 +789,8 @@
     "tags": "Oznake",
     "untagged-count": "Neoznačeno {count}",
     "create-a-tag": "Kreiraj Oznaku",
-    "tag-name": "Naziv Oznake"
+    "tag-name": "Naziv Oznake",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Alati",
@@ -798,7 +799,8 @@
     "tool-name": "Naziv Alata",
     "create-new-tool": "Kreiraj Novi Alat",
     "on-hand-checkbox-label": "Prikaži Alat Dostupnim (Označeno)",
-    "required-tools": "Potrebni Alati"
+    "required-tools": "Potrebni Alati",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administrator",

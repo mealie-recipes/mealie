@@ -789,7 +789,8 @@
     "tags": "Štítky",
     "untagged-count": "Neoznačené {count}",
     "create-a-tag": "Vytvoriť štítok",
-    "tag-name": "Názov štítku"
+    "tag-name": "Názov štítku",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Nástroje",
@@ -798,7 +799,8 @@
     "tool-name": "Názov náčinia",
     "create-new-tool": "Vytvoriť nové náčinie",
     "on-hand-checkbox-label": "Zobraz ako \"K dispozícii\" (Checked)",
-    "required-tools": "Potrebné nástroje"
+    "required-tools": "Potrebné nástroje",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administrátor",

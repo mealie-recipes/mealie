@@ -789,7 +789,8 @@
     "tags": "Etiquetas",
     "untagged-count": "{count} sin etiquetar",
     "create-a-tag": "Crear una etiqueta",
-    "tag-name": "Nombre de la etiqueta"
+    "tag-name": "Nombre de la etiqueta",
+    "tag": "Etiqueta"
   },
   "tool": {
     "tools": "Utensilios",
@@ -798,7 +799,8 @@
     "tool-name": "Nombre del utensilio",
     "create-new-tool": "Crear nuevo utensilio",
     "on-hand-checkbox-label": "Mostrar como disponible (marcado)",
-    "required-tools": "Utensilios necesarios"
+    "required-tools": "Utensilios necesarios",
+    "tool": "Herramienta"
   },
   "user": {
     "admin": "Administrador/a",

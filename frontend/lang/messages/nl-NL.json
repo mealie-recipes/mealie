@@ -789,7 +789,8 @@
     "tags": "Labels",
     "untagged-count": "Niet gelabeld {count}",
     "create-a-tag": "Maak een nieuw label aan",
-    "tag-name": "Labelnaam"
+    "tag-name": "Labelnaam",
+    "tag": "Label"
   },
   "tool": {
     "tools": "Keukengerei",
@@ -798,7 +799,8 @@
     "tool-name": "Naam van het keukengerei",
     "create-new-tool": "Nieuw keukengerei aanmaken",
     "on-hand-checkbox-label": "Tonen als in bezit (gemarkeerd)",
-    "required-tools": "Benodig kookgerei"
+    "required-tools": "Benodig kookgerei",
+    "tool": "Keukengerei"
   },
   "user": {
     "admin": "Beheerder",

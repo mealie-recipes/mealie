@@ -789,7 +789,8 @@
     "tags": "Žymos",
     "untagged-count": "Nepažymėtų {count}",
     "create-a-tag": "Kurti žymą",
-    "tag-name": "Žymos pavadinimas"
+    "tag-name": "Žymos pavadinimas",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Įrankiai",
@@ -798,7 +799,8 @@
     "tool-name": "Įrankio pavadinimas",
     "create-new-tool": "Pridėti naują įrankį",
     "on-hand-checkbox-label": "Rodyti kaip turimą virtuvėje",
-    "required-tools": "Reikalingi įrankiai"
+    "required-tools": "Reikalingi įrankiai",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administratorius",

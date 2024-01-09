@@ -789,7 +789,8 @@
     "tags": "Taggar",
     "untagged-count": "Otaggad {count}",
     "create-a-tag": "Skapa tagg",
-    "tag-name": "Taggnamn"
+    "tag-name": "Taggnamn",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Redskap",
@@ -798,7 +799,8 @@
     "tool-name": "Verktygsnamn",
     "create-new-tool": "Skapa nytt verktyg",
     "on-hand-checkbox-label": "Visa som tillgänglig (markerad)",
-    "required-tools": "Verktyg som krävs"
+    "required-tools": "Verktyg som krävs",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administratör",

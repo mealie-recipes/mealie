@@ -84,9 +84,7 @@ def content_with_meta(group_slug: str, recipe: Recipe) -> str:
             f"{__app_settings.BASE_URL}/api/media/recipes/{recipe.id}/images/original.webp?version={recipe.image}"
         )
     else:
-        image_url = (
-            "https://raw.githubusercontent.com/hay-kot/mealie/dev/frontend/public/img/icons/android-chrome-512x512.png"
-        )
+        image_url = "https://raw.githubusercontent.com/mealie-recipes/mealie/9571816ac4eed5beacfc0abf6c03eff1427fd0eb/frontend/static/icons/android-chrome-512x512.png"
 
     ingredients: list[str] = []
     if recipe.settings.disable_amount:  # type: ignore

@@ -789,7 +789,8 @@
     "tags": "Marcadores",
     "untagged-count": "{count} sem marcador",
     "create-a-tag": "Criar um marcador",
-    "tag-name": "Nome do Marcador"
+    "tag-name": "Nome do Marcador",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Ferramentas",
@@ -798,7 +799,8 @@
     "tool-name": "Nome da ferramenta",
     "create-new-tool": "Criar Ferramenta",
     "on-hand-checkbox-label": "Mostrar como disponível (checado)",
-    "required-tools": "Ferramentas necessárias"
+    "required-tools": "Ferramentas necessárias",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administrador",

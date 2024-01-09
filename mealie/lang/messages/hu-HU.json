@@ -1,9 +1,9 @@
 {
     "generic": {
-        "server-error": "Váratlan hiba történt"
+        "server-error": "Egy váratlan hiba történt"
     },
     "recipe": {
-        "unique-name-error": "A receptek nevének egyedinek kell lennie"
+        "unique-name-error": "A receptek neveinek egyedi értéknek kell lenniük"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Nem található recept a beállítottt szabályok alapján"
@@ -12,7 +12,7 @@
         "user-updated": "Felhasználó frissítve",
         "password-updated": "Jelszó frissítve",
         "invalid-current-password": "Érvénytelen jelenlegi jelszó",
-        "ldap-update-password-unavailable": "Nem sikerült jelszót váltani, a felhasználó LDAP-al lépett be"
+        "ldap-update-password-unavailable": "A jelszó frissítése sikertelen, a felhasználó LDAP-al lépett be"
     },
     "group": {
         "report-deleted": "A jelentés törlésre került."
