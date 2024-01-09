@@ -64,9 +64,7 @@ No. Due to limitations from the Javascript Framework, mealie doesn't support ser
 
 ## Can I install Mealie without docker?
 
-Yes, you can install Mealie on your local machine. HOWEVER, it is recommended that you don't. Managing non-system versions of python, node, and npm is a pain. Moreover, updating and upgrading your system with this configuration is unsupported and will likely require manual interventions. If you insist on installing Mealie on your local machine, you can use the links below to help guide your path.
-
-- [Advanced Installation](../installation/advanced/)
+Yes, you can install Mealie on your local machine. HOWEVER, it is recommended that you don't. Managing non-system versions of python, node, and npm is a pain. Moreover, updating and upgrading your system with this configuration is unsupported and will likely require manual interventions.
 
 ## What is fuzzy search and how do I use it?
 Mealie can use fuzzy search, which is robust to minor typos. For example, searching for "brocolli" will still find your recipe for "broccoli soup". But fuzzy search is only functional on a Postgres database backend. To enable fuzzy search you will need to migrate to Postgres:
@@ -107,8 +105,9 @@ python /app/mealie/scripts/change_password.py
 
 Managing private groups and recipes can be confusing. The following diagram and notes should help explain how they work to determine if a recipe can be shared publicly.
 
-- Private links that are generated using the `Share` button bypass all group and recipe permissions.
+- Private links that are generated from the recipe page using the `Share` button bypass all group and recipe permissions
 - Private groups block all access to recipes, including those that are public, except as noted above.
+- Groups with "Allow users outside of your group to see your recipes" disabled block all access to recipes, except as noted above.
 - Private recipes block all access to the recipe from public links. This does not affect Private Links.
 
 ```mermaid
@@ -131,6 +130,8 @@ stateDiagram-v2
   p3 --> s1: Yes
   p3 --> n1: No
 ```
+
+For more information, check out the [Permissions and Public Access guide](./usage/permissions-and-public-access.md).
 
 ## Can I use fail2ban with mealie?
 Yes, mealie is configured to properly forward external IP addresses into the `mealie.log` logfile. Note that due to restrictions in docker, IP address forwarding only works on Linux.

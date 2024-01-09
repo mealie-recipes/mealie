@@ -198,7 +198,8 @@
     "refresh": "Actualizar",
     "upload-file": "Subir Archivo",
     "created-on-date": "Creado el {0}",
-    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
+    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
+    "clipboard-copy-failure": "Failed to copy to the clipboard."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Por favor, confirma que deseas eliminar <b>{groupName}<b/>",
@@ -788,7 +789,8 @@
     "tags": "Etiquetas",
     "untagged-count": "{count} sin etiquetar",
     "create-a-tag": "Crear una etiqueta",
-    "tag-name": "Nombre de la etiqueta"
+    "tag-name": "Nombre de la etiqueta",
+    "tag": "Etiqueta"
   },
   "tool": {
     "tools": "Utensilios",
@@ -797,7 +799,8 @@
     "tool-name": "Nombre del utensilio",
     "create-new-tool": "Crear nuevo utensilio",
     "on-hand-checkbox-label": "Mostrar como disponible (marcado)",
-    "required-tools": "Utensilios necesarios"
+    "required-tools": "Utensilios necesarios",
+    "tool": "Herramienta"
   },
   "user": {
     "admin": "Administrador/a",

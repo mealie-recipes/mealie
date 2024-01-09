@@ -198,7 +198,8 @@
     "refresh": "Verversen",
     "upload-file": "Bestand uploaden",
     "created-on-date": "Gemaakt op {0}",
-    "unsaved-changes": "Er zijn niet-opgeslagen wijzigingen. Wil je eerst opslaan voordat je vertrekt? Okay om op te slaan, Annuleren om wijzigingen ongedaan te maken."
+    "unsaved-changes": "Er zijn niet-opgeslagen wijzigingen. Wil je eerst opslaan voordat je vertrekt? Okay om op te slaan, Annuleren om wijzigingen ongedaan te maken.",
+    "clipboard-copy-failure": "Kopiëren naar klembord mislukt."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Weet je zeker dat je <b>{groupName}<b/> wil verwijderen?",
@@ -788,7 +789,8 @@
     "tags": "Labels",
     "untagged-count": "Niet gelabeld {count}",
     "create-a-tag": "Maak een nieuw label aan",
-    "tag-name": "Labelnaam"
+    "tag-name": "Labelnaam",
+    "tag": "Label"
   },
   "tool": {
     "tools": "Keukengerei",
@@ -797,7 +799,8 @@
     "tool-name": "Naam van het keukengerei",
     "create-new-tool": "Nieuw keukengerei aanmaken",
     "on-hand-checkbox-label": "Tonen als in bezit (gemarkeerd)",
-    "required-tools": "Benodig kookgerei"
+    "required-tools": "Benodig kookgerei",
+    "tool": "Keukengerei"
   },
   "user": {
     "admin": "Beheerder",

@@ -198,7 +198,8 @@
     "refresh": "Обновить",
     "upload-file": "Загрузить файл",
     "created-on-date": "Создано: {0}",
-    "unsaved-changes": "У вас есть несохраненные изменения. Вы хотите сохранить их перед выходом?"
+    "unsaved-changes": "У вас есть несохраненные изменения. Вы хотите сохранить их перед выходом?",
+    "clipboard-copy-failure": "Failed to copy to the clipboard."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Вы действительно хотите удалить <b>{groupName}<b/>?",
@@ -788,7 +789,8 @@
     "tags": "Теги",
     "untagged-count": "Не помеченные {count}",
     "create-a-tag": "Создать тег",
-    "tag-name": "Название тега"
+    "tag-name": "Название тега",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Инструменты",
@@ -797,7 +799,8 @@
     "tool-name": "Название инструмента",
     "create-new-tool": "Создать новый инструмент",
     "on-hand-checkbox-label": "Показывать \"в наличии\" (отмечено)",
-    "required-tools": "Необходимые инструменты"
+    "required-tools": "Необходимые инструменты",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Администратор",

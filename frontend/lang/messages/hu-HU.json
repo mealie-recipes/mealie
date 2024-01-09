@@ -42,7 +42,7 @@
     "category-deleted": "Kategória törölve",
     "category-deletion-failed": "Kategória törlése sikertelen",
     "category-filter": "Kategória szűrő",
-    "category-update-failed": "Kategória elmentése sikertelen",
+    "category-update-failed": "Kategória frissítése sikertelen",
     "category-updated": "Kategória frissítve",
     "uncategorized-count": "Kategórizálatlan {count}",
     "create-a-category": "Kategória létrehozása",
@@ -53,7 +53,7 @@
     "apprise-url": "Apprise URL",
     "database": "Adatbázis",
     "delete-event": "Esemény törlése",
-    "event-delete-confirmation": "Biztosan törölni akarod az eseményt?",
+    "event-delete-confirmation": "Biztosan törölni szeretné ezt az eseményt?",
     "event-deleted": "Esemény törölve",
     "event-updated": "Esemény Frissítve",
     "new-notification-form-description": "A Mealie az Apprise könyvtárat használja az értesítésekhez. Számos lehetőséget kínál különbőző értesítési szolgáltatásokhoz. Nézd meg a wiki oldalukon, hogy kell URL-t létrehozni az általad használt szolgáltatáshoz. Az értesítés tipusának kiválasztásával egyéb beállítási lehetőségek jelenhetnek meg.",
@@ -198,7 +198,8 @@
     "refresh": "Frissít",
     "upload-file": "Fájl feltöltése",
     "created-on-date": "Létrehozva: {0}",
-    "unsaved-changes": "El nem mentett módosításai vannak. Szeretné elmenteni, mielőtt kilép? A mentéshez kattintson az Ok, a módosítások elvetéséhez a Mégsem gombra."
+    "unsaved-changes": "El nem mentett módosításai vannak. Szeretné elmenteni, mielőtt kilép? A mentéshez kattintson az Ok, a módosítások elvetéséhez a Mégsem gombra.",
+    "clipboard-copy-failure": "Nem sikerült a vágólapra másolás."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Biztosan törölni szeretnéd ezt: <b>{groupName}<b/>?",
@@ -788,7 +789,8 @@
     "tags": "Címkék",
     "untagged-count": "Címkézetlen {count}",
     "create-a-tag": "Címke létrehozása",
-    "tag-name": "Címke Neve"
+    "tag-name": "Címke Neve",
+    "tag": "Címke"
   },
   "tool": {
     "tools": "Eszközök",
@@ -797,7 +799,8 @@
     "tool-name": "Eszköz neve",
     "create-new-tool": "Új eszköz létrehozása",
     "on-hand-checkbox-label": "Készleten lévőnek mutatni (Ellenőrizve)",
-    "required-tools": "Szükséges eszközök"
+    "required-tools": "Szükséges eszközök",
+    "tool": "Eszköz"
   },
   "user": {
     "admin": "Adminisztrátor",
@@ -1113,7 +1116,7 @@
     "brute": "Brute",
     "show-individual-confidence": "",
     "ingredient-text": "Hozzávaló szöveg",
-    "average-confident": "{0} Confident",
+    "average-confident": "{0}-os bizonyosság",
     "try-an-example": "Próbáljon ki egy példát",
     "parser": "Szintaxis elemző",
     "background-tasks": "Háttér folyamatok",

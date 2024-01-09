@@ -2204,13 +2204,13 @@ tests = ["html5lib", "pytest", "pytest-cov"]
 
 [[package]]
 name = "recipe-scrapers"
-version = "14.52.0"
+version = "14.53.0"
 description = "Python package, scraping recipes from all over the internet"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "recipe_scrapers-14.52.0-py3-none-any.whl", hash = "sha256:3514048808c7b7de467bfa56bea3921ecff637441cde9085186345e3ce7cabdc"},
-    {file = "recipe_scrapers-14.52.0.tar.gz", hash = "sha256:3d1d2cf7ad8c5fd73b5a0e921b3505daeddb42da705ef5c68523a465ccd8cd8f"},
+    {file = "recipe_scrapers-14.53.0-py3-none-any.whl", hash = "sha256:330353dc824f9d77a089e4830722fef940a04259a1a59a6578a162378ed6bc72"},
+    {file = "recipe_scrapers-14.53.0.tar.gz", hash = "sha256:916e1182fb497b89df8ac29cb816a9566aafc6d2bba73f60462aef42fc1bba22"},
 ]
 
 [package.dependencies]
@@ -3034,4 +3034,4 @@ pgsql = ["psycopg2-binary"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "984d725b667165ebbf82eeea32a38e4f4891192fc8c6be60864d25d5b36e7970"
+content-hash = "d7537958ae2ddbf8e2b350cb7b1189492a62b02becfe087efbc37a3b0115ff13"

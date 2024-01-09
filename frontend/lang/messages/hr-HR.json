@@ -198,7 +198,8 @@
     "refresh": "Osvježi",
     "upload-file": "Prenesi Datoteku",
     "created-on-date": "Kreirano dana: {0}",
-    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
+    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
+    "clipboard-copy-failure": "Failed to copy to the clipboard."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Jeste li sigurni da želite izbrisati <b>{groupName}<b/>?",
@@ -788,7 +789,8 @@
     "tags": "Oznake",
     "untagged-count": "Neoznačeno {count}",
     "create-a-tag": "Kreiraj Oznaku",
-    "tag-name": "Naziv Oznake"
+    "tag-name": "Naziv Oznake",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Alati",
@@ -797,7 +799,8 @@
     "tool-name": "Naziv Alata",
     "create-new-tool": "Kreiraj Novi Alat",
     "on-hand-checkbox-label": "Prikaži Alat Dostupnim (Označeno)",
-    "required-tools": "Potrebni Alati"
+    "required-tools": "Potrebni Alati",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administrator",
