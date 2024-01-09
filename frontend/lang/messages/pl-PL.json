@@ -533,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Nazwa przepisu musi być unikalna",
     "scrape-recipe": "Scrapuj Przepis",
     "scrape-recipe-description": "Wczytaj przepis przez URL. Podaj adres URL witryny z przepisem, który chcesz wczytać, a Mealie spróbuje wyodrębnić przepis z tej strony i dodać go do kolekcji.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Importuj oryginalne słowa kluczowe jako tagi",
     "stay-in-edit-mode": "Pozostań w trybie edycji",
     "import-from-zip": "Importuj z pliku Zip",
