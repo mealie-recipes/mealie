@@ -198,7 +198,8 @@
     "refresh": "Aktualisieren",
     "upload-file": "Datei hochladen",
     "created-on-date": "Erstellt am: {0}",
-    "unsaved-changes": "Du hast ungespeicherte Änderungen. Möchtest du vor dem Verlassen speichern? OK um zu speichern, Cancel um Änderungen zu verwerfen."
+    "unsaved-changes": "Du hast ungespeicherte Änderungen. Möchtest du vor dem Verlassen speichern? OK um zu speichern, Cancel um Änderungen zu verwerfen.",
+    "clipboard-copy-failure": "Fehler beim Kopieren in die Zwischenablage."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Bist du dir sicher, dass du die Gruppe <b>{groupName}<b/> löschen möchtest?",
@@ -788,7 +789,8 @@
     "tags": "Schlagworte",
     "untagged-count": "{count} ohne Schlagworte",
     "create-a-tag": "Ein Schlagwort erstellen",
-    "tag-name": "Name des Schlagworts"
+    "tag-name": "Name des Schlagworts",
+    "tag": "Schlagwort"
   },
   "tool": {
     "tools": "Utensilien",
@@ -797,7 +799,8 @@
     "tool-name": "Name des Utensils",
     "create-new-tool": "Neues Utensil erstellen",
     "on-hand-checkbox-label": "Als \"vorhanden\" anzeigen (markiert)",
-    "required-tools": "Benötigte Utensilien"
+    "required-tools": "Benötigte Utensilien",
+    "tool": "Utensil"
   },
   "user": {
     "admin": "Admin",

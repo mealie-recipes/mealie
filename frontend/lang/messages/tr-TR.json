@@ -198,7 +198,8 @@
     "refresh": "Yenile",
     "upload-file": "Dosya Yükle",
     "created-on-date": "{0} tarihinde oluşturuldu",
-    "unsaved-changes": "Kaydedilmemiş değişiklikleriniz mevcut. Ayrılmadan önce kaydetmek ister misiniz? Kaydetmek için Tamam'ı, değişiklikleri iptal etmek için İptal'i seçin."
+    "unsaved-changes": "Kaydedilmemiş değişiklikleriniz mevcut. Ayrılmadan önce kaydetmek ister misiniz? Kaydetmek için Tamam'ı, değişiklikleri iptal etmek için İptal'i seçin.",
+    "clipboard-copy-failure": "Panoya kopyalanamadı."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "<b>{groupName}<b/>'i silmek istediğine emin misin?",
@@ -788,7 +789,8 @@
     "tags": "Etiketler",
     "untagged-count": "Untagged {count}",
     "create-a-tag": "Create a Tag",
-    "tag-name": "Etiket Adı"
+    "tag-name": "Etiket Adı",
+    "tag": "Etiket"
   },
   "tool": {
     "tools": "Tools",
@@ -797,7 +799,8 @@
     "tool-name": "Tool Name",
     "create-new-tool": "Create New Tool",
     "on-hand-checkbox-label": "Show as On Hand (Checked)",
-    "required-tools": "Required Tools"
+    "required-tools": "Required Tools",
+    "tool": "Araç"
   },
   "user": {
     "admin": "Admin",

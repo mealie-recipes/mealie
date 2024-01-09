@@ -5,12 +5,15 @@
     <BaseDialog
       v-if="deleteTarget"
       v-model="dialogs.delete"
-      :title="$t('general.delete-with-name', { name: deleteTarget.name })"
+      :title="$t('general.delete-with-name', { name: $t(translationKey) })"
       color="error"
       :icon="$globals.icons.alertCircle"
       @confirm="deleteOne()"
     >
-      <v-card-text> {{ $t("general.confirm-delete-generic-with-name", { name: deleteTarget.name }) }} </v-card-text>
+      <v-card-text>
+<p>{{ $t("general.confirm-delete-generic-with-name", { name: $t(translationKey) }) }}</p>
+        <p class="mt-4 mb-0 ml-4">{{ deleteTarget.name }}</p>
+      </v-card-text>
     </BaseDialog>
 
     <BaseDialog v-if="updateTarget" v-model="dialogs.update" :title="$t('general.update')" @confirm="updateOne()">
@@ -136,6 +139,15 @@ export default defineComponent({
 
     const presets = useContextPresets();
 
+    const translationKey = computed<string>(() => {
+      const typeMap = {
+        "categories": "category.category",
+        "tags": "tag.tag",
+        "tools": "tool.tool"
+      };
+      return typeMap[props.itemType] || "";
+    });
+
     const deleteTarget = ref<GenericItem | null>(null);
     const updateTarget = ref<GenericItem | null>(null);
 
@@ -223,6 +235,7 @@ export default defineComponent({
       presets,
       itemsSorted,
       searchString,
+      translationKey,
     };
   },
   // Needed for useMeta
