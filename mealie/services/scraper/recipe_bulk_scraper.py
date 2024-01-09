@@ -103,6 +103,10 @@ class RecipeBulkScraperService(BaseService):
             if b.categories:
                 recipe.recipe_category = b.categories
 
+            # Append a default tag to the recipe, based on group settings
+            if self.group.preferences.recipe_creation_tag != None:
+                recipe.tags.append(self.repos.tags.get_one(self.group.preferences.recipe_creation_tag))
+
             try:
                 self.service.create_one(recipe)
             except Exception as e:

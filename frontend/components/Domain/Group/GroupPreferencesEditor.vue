@@ -18,7 +18,7 @@
       :return-object="false"
       item-value="id"
       clearable="true"
-      :label="$t('group.default-tag-for-recipe-creation')"
+      :label="$t('group.default-tag-for-recipe-import')"
     />
 
     <BaseCardSectionTitle class="mt-5" :title="$tc('group.group-recipe-preferences')"></BaseCardSectionTitle>

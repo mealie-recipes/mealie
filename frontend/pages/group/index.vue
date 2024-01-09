@@ -42,7 +42,7 @@
         :return-object="false"
         item-value="id"
         :clearable="true"
-        :label="$t('group.default-tag-for-recipe-creation')"
+        :label="$t('group.default-tag-for-recipe-import')"
         @change="groupActions.updatePreferences()"
       />
     </section>
