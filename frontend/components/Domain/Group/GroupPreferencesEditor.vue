@@ -89,8 +89,8 @@ export default defineComponent({
     ];
 
     const { actions } = useTagStore();
-    // TODO: Can I just take the items from the store?
-    //       That wasn't working for me originally, but maybe I was doing something wrong.
+    // `items` was always coming out of useTagStore null, despite
+    // looking like it would be populated, so performing getAll
     const allTags = actions.getAll();
 
     const preferences = computed({

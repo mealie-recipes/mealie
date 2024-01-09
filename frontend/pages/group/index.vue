@@ -165,7 +165,8 @@ export default defineComponent({
     ];
 
     const { actions } = useTagStore();
-    // See GroupPreferencesEditor and make sure I make equivalent changes
+    // `items` was always coming out of useTagStore null, despite
+    // looking like it would be populated, so performing getAll
     const allTags = actions.getAll();
 
     return {
