@@ -1,5 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "enabledManagers": [
+    "poetry"
+  ],
   "extends": [
     "config:base"
   ]

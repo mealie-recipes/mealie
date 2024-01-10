@@ -533,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Numele rețetei trebuie să fie unic",
     "scrape-recipe": "Importare rețetă",
     "scrape-recipe-description": "Importa o rețetă prin url. Oferiți url-ul pentru site-ul pe care doriți să îl importați, și Mealie va încerca să importe rețeta de pe acel site și să o adauge la colecția ta.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Importă cuvintele cheie originale ca tag-uri",
     "stay-in-edit-mode": "Rămâi în modul Editare",
     "import-from-zip": "Importă din zip",

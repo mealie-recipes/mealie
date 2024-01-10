@@ -533,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Az új recept nevének egyedinek kell lennie",
     "scrape-recipe": "Recept kinyerése",
     "scrape-recipe-description": "Recept (adatok) kinyerése Url alapján. Adja meg a beolvasni kívánt oldal Url-címét, és Mealie megpróbálja beolvasni a receptet az adott oldalról, majd hozzáadja azt gyűjteményéhez.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Eredeti kulcsszavak importálása címkeként",
     "stay-in-edit-mode": "Maradjon Szerkesztés módban",
     "import-from-zip": "Importálás ZIP-ből",
