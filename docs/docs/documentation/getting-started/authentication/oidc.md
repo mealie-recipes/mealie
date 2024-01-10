@@ -7,6 +7,10 @@ Mealie supports 3rd party authentication via [OpenID Connect (OIDC)](https://ope
 - [Keycloak](https://www.keycloak.org/docs/latest/securing_apps/#_oidc)
 - [Okta](https://www.okta.com/openid-connect/)
 
+## Account Linking
+
+Signing in with OAuth will automatically find your account in Mealie and link to it. If a user does not exist in Mealie, then one will be created (if enabled), but will be unable to log in with any other authentication method. An admin can configure another authentication method for such a user.
+
 ## Provider Setup
 
 Before you can start using OIDC Authentication, you must first configure a new client application in your identity provider. Your identity provider must support the OAuth **Authorization Code** flow (with PKCE). The steps will vary by provider, but generally, the steps are as follows.

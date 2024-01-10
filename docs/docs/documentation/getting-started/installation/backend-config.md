@@ -77,7 +77,7 @@ Changing the webworker settings may cause unforeseen memory leak issues with Mea
 
 ### OpenID Connect (OIDC)
 
-For usage, see [Usage - OpenID Connect](../usage/oidc.md)
+For usage, see [Usage - OpenID Connect](../authentication/oidc.md)
 
 | Variables | Default | Description |
 | --- | :--: | --- |
