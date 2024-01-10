@@ -133,6 +133,20 @@ tests = ["attrs[tests-no-zope]", "zope.interface"]
 tests-no-zope = ["cloudpickle", "cloudpickle", "hypothesis", "hypothesis", "mypy (>=0.971,<0.990)", "mypy (>=0.971,<0.990)", "pympler", "pympler", "pytest (>=4.3.0)", "pytest (>=4.3.0)", "pytest-mypy-plugins", "pytest-mypy-plugins", "pytest-xdist[psutil]", "pytest-xdist[psutil]"]
 
 [[package]]
+name = "babel"
+version = "2.14.0"
+description = "Internationalization utilities"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "Babel-2.14.0-py3-none-any.whl", hash = "sha256:efb1a25b7118e67ce3a259bed20545c29cb68be8ad2c784c83689981b7a57287"},
+    {file = "Babel-2.14.0.tar.gz", hash = "sha256:6919867db036398ba21eb5c7a0f6b28ab8cbc3ae7a73a44ebe34ae74a4e7d363"},
+]
+
+[package.extras]
+dev = ["freezegun (>=1.0,<2.0)", "pytest (>=6.0)", "pytest-cov"]
+
+[[package]]
 name = "bcrypt"
 version = "4.0.1"
 description = "Modern password hashing for your software and your servers"
@@ -1238,13 +1252,13 @@ requests = ">=2.18.4"
 
 [[package]]
 name = "mkdocs"
-version = "1.5.2"
+version = "1.5.3"
 description = "Project documentation with Markdown."
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "mkdocs-1.5.2-py3-none-any.whl", hash = "sha256:60a62538519c2e96fe8426654a67ee177350451616118a41596ae7c876bb7eac"},
-    {file = "mkdocs-1.5.2.tar.gz", hash = "sha256:70d0da09c26cff288852471be03c23f0f521fc15cf16ac89c7a3bfb9ae8d24f9"},
+    {file = "mkdocs-1.5.3-py3-none-any.whl", hash = "sha256:3b3a78e736b31158d64dbb2f8ba29bd46a379d0c6e324c2246c3bc3d2189cfc1"},
+    {file = "mkdocs-1.5.3.tar.gz", hash = "sha256:eb7c99214dcb945313ba30426c2451b735992c73c2e10838f76d09e39ff4d0e2"},
 ]
 
 [package.dependencies]
@@ -1268,35 +1282,42 @@ min-versions = ["babel (==2.9.0)", "click (==7.0)", "colorama (==0.4)", "ghp-imp
 
 [[package]]
 name = "mkdocs-material"
-version = "9.1.21"
+version = "9.5.3"
 description = "Documentation that simply works"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "mkdocs_material-9.1.21-py3-none-any.whl", hash = "sha256:58bb2f11ef240632e176d6f0f7d1cff06be1d11c696a5a1b553b808b4280ed47"},
-    {file = "mkdocs_material-9.1.21.tar.gz", hash = "sha256:71940cdfca84ab296b6362889c25395b1621273fb16c93deda257adb7ff44ec8"},
+    {file = "mkdocs_material-9.5.3-py3-none-any.whl", hash = "sha256:76c93a8525cceb0b395b9cedab3428bf518cf6439adef2b940f1c1574b775d89"},
+    {file = "mkdocs_material-9.5.3.tar.gz", hash = "sha256:5899219f422f0a6de784232d9d40374416302ffae3c160cacc72969fcc1ee372"},
 ]
 
 [package.dependencies]
-colorama = ">=0.4"
-jinja2 = ">=3.0"
-markdown = ">=3.2"
-mkdocs = ">=1.5.0"
-mkdocs-material-extensions = ">=1.1"
-pygments = ">=2.14"
-pymdown-extensions = ">=9.9.1"
-regex = ">=2022.4.24"
-requests = ">=2.26"
+babel = ">=2.10,<3.0"
+colorama = ">=0.4,<1.0"
+jinja2 = ">=3.0,<4.0"
+markdown = ">=3.2,<4.0"
+mkdocs = ">=1.5.3,<1.6.0"
+mkdocs-material-extensions = ">=1.3,<2.0"
+paginate = ">=0.5,<1.0"
+pygments = ">=2.16,<3.0"
+pymdown-extensions = ">=10.2,<11.0"
+regex = ">=2022.4"
+requests = ">=2.26,<3.0"
+
+[package.extras]
+git = ["mkdocs-git-committers-plugin-2 (>=1.1,<2.0)", "mkdocs-git-revision-date-localized-plugin (>=1.2,<2.0)"]
+imaging = ["cairosvg (>=2.6,<3.0)", "pillow (>=9.4,<10.0)"]
+recommended = ["mkdocs-minify-plugin (>=0.7,<1.0)", "mkdocs-redirects (>=1.2,<2.0)", "mkdocs-rss-plugin (>=1.6,<2.0)"]
 
 [[package]]
 name = "mkdocs-material-extensions"
-version = "1.1.1"
+version = "1.3.1"
 description = "Extension pack for Python Markdown and MkDocs Material."
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "mkdocs_material_extensions-1.1.1-py3-none-any.whl", hash = "sha256:e41d9f38e4798b6617ad98ca8f7f1157b1e4385ac1459ca1e4ea219b556df945"},
-    {file = "mkdocs_material_extensions-1.1.1.tar.gz", hash = "sha256:9c003da71e2cc2493d910237448c672e00cefc800d3d6ae93d2fc69979e3bd93"},
+    {file = "mkdocs_material_extensions-1.3.1-py3-none-any.whl", hash = "sha256:adff8b62700b25cb77b53358dad940f3ef973dd6db797907c49e3c2ef3ab4e31"},
+    {file = "mkdocs_material_extensions-1.3.1.tar.gz", hash = "sha256:10c9511cea88f568257f960358a467d12b970e1f7b2c0e5fb2bb48cab1928443"},
 ]
 
 [[package]]
@@ -1453,6 +1474,16 @@ python-versions = ">=3.7"
 files = [
     {file = "packaging-23.0-py3-none-any.whl", hash = "sha256:714ac14496c3e68c99c29b00845f7a2b85f3bb6f1078fd9f72fd20f0570002b2"},
     {file = "packaging-23.0.tar.gz", hash = "sha256:b6ad297f8907de0fa2fe1ccbd26fdaf387f5f47c7275fedf8cce89f99446cf97"},
+]
+
+[[package]]
+name = "paginate"
+version = "0.5.6"
+description = "Divides large result sets into pages for easier browsing"
+optional = false
+python-versions = "*"
+files = [
+    {file = "paginate-0.5.6.tar.gz", hash = "sha256:5e6007b6a9398177a7e1648d04fdd9f8c9766a1a945bceac82f1929e8c78af2d"},
 ]
 
 [[package]]
@@ -1765,17 +1796,18 @@ dev = ["coverage", "pytest", "pytest-cov"]
 
 [[package]]
 name = "pygments"
-version = "2.14.0"
+version = "2.17.2"
 description = "Pygments is a syntax highlighting package written in Python."
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.7"
 files = [
-    {file = "Pygments-2.14.0-py3-none-any.whl", hash = "sha256:fa7bd7bd2771287c0de303af8bfdfc731f51bd2c6a47ab69d117138893b82717"},
-    {file = "Pygments-2.14.0.tar.gz", hash = "sha256:b3ed06a9e8ac9a9aae5a6f5dbe78a8a58655d17b43b93c078f094ddc476ae297"},
+    {file = "pygments-2.17.2-py3-none-any.whl", hash = "sha256:b27c2826c47d0f3219f29554824c30c5e8945175d888647acd804ddd04af846c"},
+    {file = "pygments-2.17.2.tar.gz", hash = "sha256:da46cec9fd2de5be3a8a784f434e4c4ab670b4ff54d605c4c2717e9d49c4c367"},
 ]
 
 [package.extras]
 plugins = ["importlib-metadata"]
+windows-terminal = ["colorama (>=0.4.6)"]
 
 [[package]]
 name = "pyhumps"
@@ -1818,17 +1850,21 @@ testutils = ["gitpython (>3)"]
 
 [[package]]
 name = "pymdown-extensions"
-version = "9.9.2"
+version = "10.4"
 description = "Extension pack for Python Markdown."
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "pymdown_extensions-9.9.2-py3-none-any.whl", hash = "sha256:c3d804eb4a42b85bafb5f36436342a5ad38df03878bb24db8855a4aa8b08b765"},
-    {file = "pymdown_extensions-9.9.2.tar.gz", hash = "sha256:ebb33069bafcb64d5f5988043331d4ea4929325dc678a6bcf247ddfcf96499f8"},
+    {file = "pymdown_extensions-10.4-py3-none-any.whl", hash = "sha256:cfc28d6a09d19448bcbf8eee3ce098c7d17ff99f7bd3069db4819af181212037"},
+    {file = "pymdown_extensions-10.4.tar.gz", hash = "sha256:bc46f11749ecd4d6b71cf62396104b4a200bad3498cb0f5dad1b8502fe461a35"},
 ]
 
 [package.dependencies]
 markdown = ">=3.2"
+pyyaml = "*"
+
+[package.extras]
+extra = ["pygments (>=2.12)"]
 
 [[package]]
 name = "pyparsing"
