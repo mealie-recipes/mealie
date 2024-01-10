@@ -1,7 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "enabledManagers": [
-    "poetry"
+    "poetry",
+    "yarn"
+  ],
+  "includePaths": [
+    "pyproject.toml",
+    "frontend/package.json"
   ],
   "extends": [
     "config:base"
