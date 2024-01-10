@@ -41,22 +41,15 @@ Yes. If you are using the v1 branches (including beta), you can upgrade to the l
 
 ## How can I change the theme?
 
-You can change the theme by settings the environment variables on the frontend container.
+You can change the theme by settings the environment variables.
 
-- [Frontend Theme](../installation/frontend-config#themeing)
-
-## How can I change the language?
-
-Languages need to be set on the frontend and backend containers as ENV variables.
-
-- [Frontend Config](../installation/frontend-config/)
-- [Backend Config](../installation/backend-config/)
+- [Backend Config - Themeing](./installation/backend-config.md#themeing)
 
 ## How can I change the Login Session Timeout?
 
 Login session can be configured by setting the `TOKEN_TIME` variable on the backend container.
 
-- [Backend Config](../installation/backend-config/)
+- [Backend Config](./installation/backend-config.md)
 
 ## Can I serve Mealie on a subpath?
 
@@ -105,8 +98,9 @@ python /app/mealie/scripts/change_password.py
 
 Managing private groups and recipes can be confusing. The following diagram and notes should help explain how they work to determine if a recipe can be shared publicly.
 
-- Private links that are generated using the `Share` button bypass all group and recipe permissions.
+- Private links that are generated from the recipe page using the `Share` button bypass all group and recipe permissions
 - Private groups block all access to recipes, including those that are public, except as noted above.
+- Groups with "Allow users outside of your group to see your recipes" disabled block all access to recipes, except as noted above.
 - Private recipes block all access to the recipe from public links. This does not affect Private Links.
 
 ```mermaid
@@ -129,6 +123,8 @@ stateDiagram-v2
   p3 --> s1: Yes
   p3 --> n1: No
 ```
+
+For more information, check out the [Permissions and Public Access guide](./usage/permissions-and-public-access.md).
 
 ## Can I use fail2ban with mealie?
 Yes, mealie is configured to properly forward external IP addresses into the `mealie.log` logfile. Note that due to restrictions in docker, IP address forwarding only works on Linux.

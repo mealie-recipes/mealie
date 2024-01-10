@@ -533,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Название рецепта должно быть уникальным",
     "scrape-recipe": "Отсканировать рецепт",
     "scrape-recipe-description": "Отсканировать рецепт по ссылке. Предоставьте ссылку на страницу, которую вы хотите отсканировать, и Mealie попытается вырезать рецепт с этого сайта и добавить его в свою коллекцию.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Импортировать исходные ключевые слова как теги",
     "stay-in-edit-mode": "Остаться в режиме редактирования",
     "import-from-zip": "Импорт из архива",
@@ -789,7 +791,8 @@
     "tags": "Теги",
     "untagged-count": "Не помеченные {count}",
     "create-a-tag": "Создать тег",
-    "tag-name": "Название тега"
+    "tag-name": "Название тега",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Инструменты",
@@ -798,7 +801,8 @@
     "tool-name": "Название инструмента",
     "create-new-tool": "Создать новый инструмент",
     "on-hand-checkbox-label": "Показывать \"в наличии\" (отмечено)",
-    "required-tools": "Необходимые инструменты"
+    "required-tools": "Необходимые инструменты",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Администратор",

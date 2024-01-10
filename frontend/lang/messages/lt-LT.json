@@ -533,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Naujo recepto pavadinimas turi būti unikalus",
     "scrape-recipe": "Nuskaityti receptą",
     "scrape-recipe-description": "Nuskaityti receptą iš URL nuorodos. Pateikite recepto nuorodą, ir Mealie pabandys paimti recepto informaciją iš šios svetainės ir patalpinti ją jūsų kolekcijoje.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Įkelti pradinius raktažodžius kaip žymas",
     "stay-in-edit-mode": "Toliau redaguoti",
     "import-from-zip": "Įkelti iš .ZIP archyvo",
@@ -789,7 +791,8 @@
     "tags": "Žymos",
     "untagged-count": "Nepažymėtų {count}",
     "create-a-tag": "Kurti žymą",
-    "tag-name": "Žymos pavadinimas"
+    "tag-name": "Žymos pavadinimas",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Įrankiai",
@@ -798,7 +801,8 @@
     "tool-name": "Įrankio pavadinimas",
     "create-new-tool": "Pridėti naują įrankį",
     "on-hand-checkbox-label": "Rodyti kaip turimą virtuvėje",
-    "required-tools": "Reikalingi įrankiai"
+    "required-tools": "Reikalingi įrankiai",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administratorius",

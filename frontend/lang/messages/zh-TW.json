@@ -249,7 +249,7 @@
     "disable-organizing-recipe-ingredients-by-units-and-food-description": "Hides the Food, Unit, and Amount fields for ingredients and treats ingredients as plain text fields.",
     "general-preferences": "General Preferences",
     "group-recipe-preferences": "Group Recipe Preferences",
-    "report": "Report",
+    "report": "報告",
     "report-with-id": "Report ID: {id}",
     "group-management": "Group Management",
     "admin-group-management": "Admin Group Management",
@@ -292,7 +292,7 @@
     "day-any": "Any",
     "editor": "Editor",
     "meal-recipe": "Meal Recipe",
-    "meal-title": "Meal Title",
+    "meal-title": "用餐標題",
     "meal-note": "Meal Note",
     "note-only": "Note Only",
     "random-meal": "Random Meal",
@@ -533,6 +533,8 @@
     "new-recipe-names-must-be-unique": "New recipe names must be unique",
     "scrape-recipe": "Scrape Recipe",
     "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Import original keywords as tags",
     "stay-in-edit-mode": "Stay in Edit mode",
     "import-from-zip": "Import from Zip",
@@ -706,7 +708,7 @@
     "general-about": "General About",
     "application-version": "Application Version",
     "application-version-error-text": "Your current version ({0}) does not match the latest release. Considering updating to the latest version ({1}).",
-    "mealie-is-up-to-date": "Mealie is up to date",
+    "mealie-is-up-to-date": "Mealie已經更新了",
     "secure-site": "Secure Site",
     "secure-site-error-text": "Serve via localhost or secure with https. Clipboard and additional browser APIs may not work.",
     "secure-site-success-text": "Site is accessed by localhost or https",
@@ -751,7 +753,7 @@
     "all-recipes": "所有食譜",
     "backups": "Backups",
     "categories": "類別",
-    "cookbooks": "Cookbooks",
+    "cookbooks": "食譜",
     "dashboard": "控制面板",
     "home-page": "首頁",
     "manage-users": "管理使用者",
@@ -766,8 +768,8 @@
     "background-tasks": "Background Tasks",
     "parser": "Parser",
     "developer": "Developer",
-    "cookbook": "Cookbook",
-    "create-cookbook": "Create a new cookbook"
+    "cookbook": "食譜",
+    "create-cookbook": "新建一個食譜合集"
   },
   "signup": {
     "error-signing-up": "註冊失敗",
@@ -789,7 +791,8 @@
     "tags": "標籤",
     "untagged-count": "為標記的 {count}",
     "create-a-tag": "Create a Tag",
-    "tag-name": "Tag Name"
+    "tag-name": "Tag Name",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Tools",
@@ -798,7 +801,8 @@
     "tool-name": "Tool Name",
     "create-new-tool": "Create New Tool",
     "on-hand-checkbox-label": "Show as On Hand (Checked)",
-    "required-tools": "Required Tools"
+    "required-tools": "Required Tools",
+    "tool": "Tool"
   },
   "user": {
     "admin": "管理員",
@@ -897,7 +901,7 @@
   "language-dialog": {
     "translated": "translated",
     "choose-language": "Choose Language",
-    "select-description": "Choose the language for the Mealie UI. The setting only applies to you, not other users.",
+    "select-description": "選擇Mealie 使用者介面 的語言。 此設定僅適用於您，不適用於其他使用者。",
     "how-to-contribute-description": "Is something not translated yet, mistranslated, or your language missing from the list? {read-the-docs-link} on how to contribute!",
     "read-the-docs": "Read the docs"
   },
@@ -1049,7 +1053,7 @@
     "split-by-block": "Split by text block",
     "flatten": "Flatten regardless of original formating",
     "help": {
-      "help": "Help",
+      "help": "幫助",
       "mouse-modes": "Mouse modes",
       "selection-mode": "Selection Mode (default)",
       "selection-mode-desc": "The selection mode is the main mode that can be used to enter data:",
@@ -1101,7 +1105,7 @@
       "actions-description-destructive": "destructive",
       "actions-description-irreversible": "irreversible",
       "logs-action-refresh": "Refresh Logs",
-      "logs-page-title": "Mealie Logs",
+      "logs-page-title": "Mealie紀錄",
       "logs-tail-lines-label": "Tail Lines"
     },
     "mainentance": {
@@ -1160,14 +1164,14 @@
     "looking-for-privacy-settings": "Looking for Privacy Settings?",
     "manage-your-api-tokens": "Manage Your API Tokens",
     "manage-user-profile": "Manage User Profile",
-    "manage-cookbooks": "Manage Cookbooks",
+    "manage-cookbooks": "管理食譜",
     "manage-members": "Manage Members",
     "manage-webhooks": "Manage Webhooks",
     "manage-notifiers": "Manage Notifiers",
     "manage-data-migrations": "Manage Data Migrations"
   },
   "cookbook": {
-    "cookbooks": "Cookbooks",
+    "cookbooks": "食譜",
     "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes and tags. Creating a cookbook will add an entry to the side-bar and all the recipes with the tags and categories chosen will be displayed in the cookbook.",
     "public-cookbook": "Public Cookbook",
     "public-cookbook-description": "Public Cookbooks can be shared with non-mealie users and will be displayed on your groups page.",
@@ -1176,7 +1180,7 @@
     "require-all-categories": "Require All Categories",
     "require-all-tags": "Require All Tags",
     "require-all-tools": "Require All Tools",
-    "cookbook-name": "Cookbook Name",
-    "cookbook-with-name": "Cookbook {0}"
+    "cookbook-name": "食譜名",
+    "cookbook-with-name": "食譜 {0}"
   }
 }

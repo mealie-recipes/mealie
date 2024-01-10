@@ -533,6 +533,8 @@
     "new-recipe-names-must-be-unique": "New recipe names must be unique",
     "scrape-recipe": "Scrape Recipe",
     "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Import original keywords as tags",
     "stay-in-edit-mode": "Stay in Edit mode",
     "import-from-zip": "Import from Zip",
@@ -789,7 +791,8 @@
     "tags": "Značke",
     "untagged-count": "Brez značke {count}",
     "create-a-tag": "Ustvari značko",
-    "tag-name": "Ime značke"
+    "tag-name": "Ime značke",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Orodja",
@@ -798,7 +801,8 @@
     "tool-name": "Ime orodja",
     "create-new-tool": "Ustvari orodje",
     "on-hand-checkbox-label": "Prikaži kot Na voljo (obkljukano)",
-    "required-tools": "Required Tools"
+    "required-tools": "Required Tools",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administrator",

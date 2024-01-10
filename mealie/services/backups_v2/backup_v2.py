@@ -83,7 +83,7 @@ class BackupV2(BaseService):
             # Validation
             if not contents.validate():
                 self.logger.error(
-                    "Invalid backup file. file does not contain required elements (data directory and database.json"
+                    "Invalid backup file. file does not contain required elements (data directory and database.json)"
                 )
                 raise ValueError("Invalid backup file")
 

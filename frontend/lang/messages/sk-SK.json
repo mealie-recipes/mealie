@@ -533,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Názvy nových receptov musia byť jedinečné",
     "scrape-recipe": "Scrapovať recept",
     "scrape-recipe-description": "Stiahne recept zo zadaného url odkazu. Zadajte url stránky, z ktorej chcete stiahnuť recept, a Mealie sa pokúsi recept stiahnuť a vložiť do vašej zbierky.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Importuj pôvodné kľúčové slová ako tagy",
     "stay-in-edit-mode": "Zostať v režime editovania",
     "import-from-zip": "Importovať zo Zip-súboru",
@@ -789,7 +791,8 @@
     "tags": "Štítky",
     "untagged-count": "Neoznačené {count}",
     "create-a-tag": "Vytvoriť štítok",
-    "tag-name": "Názov štítku"
+    "tag-name": "Názov štítku",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Nástroje",
@@ -798,7 +801,8 @@
     "tool-name": "Názov náčinia",
     "create-new-tool": "Vytvoriť nové náčinie",
     "on-hand-checkbox-label": "Zobraz ako \"K dispozícii\" (Checked)",
-    "required-tools": "Potrebné nástroje"
+    "required-tools": "Potrebné nástroje",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administrátor",

@@ -533,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Nya receptnamn måste vara unika",
     "scrape-recipe": "Skrapa Recept",
     "scrape-recipe-description": "Hämta ett recept med webbadress. Ange URL:en för webbplatsen du vill hämta, och Mealie kommer att försöka hämta receptet från den webbplatsen och lägga till det i din samling.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Importera ursprungliga sökord som taggar",
     "stay-in-edit-mode": "Stanna kvar i redigeringsläge",
     "import-from-zip": "Importera från zip",
@@ -789,7 +791,8 @@
     "tags": "Taggar",
     "untagged-count": "Otaggad {count}",
     "create-a-tag": "Skapa tagg",
-    "tag-name": "Taggnamn"
+    "tag-name": "Taggnamn",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Redskap",
@@ -798,7 +801,8 @@
     "tool-name": "Verktygsnamn",
     "create-new-tool": "Skapa nytt verktyg",
     "on-hand-checkbox-label": "Visa som tillgänglig (markerad)",
-    "required-tools": "Verktyg som krävs"
+    "required-tools": "Verktyg som krävs",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administratör",

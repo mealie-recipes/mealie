@@ -42,7 +42,7 @@
     "category-deleted": "Kategória törölve",
     "category-deletion-failed": "Kategória törlése sikertelen",
     "category-filter": "Kategória szűrő",
-    "category-update-failed": "Kategória elmentése sikertelen",
+    "category-update-failed": "Kategória frissítése sikertelen",
     "category-updated": "Kategória frissítve",
     "uncategorized-count": "Kategórizálatlan {count}",
     "create-a-category": "Kategória létrehozása",
@@ -53,7 +53,7 @@
     "apprise-url": "Apprise URL",
     "database": "Adatbázis",
     "delete-event": "Esemény törlése",
-    "event-delete-confirmation": "Biztosan törölni akarod az eseményt?",
+    "event-delete-confirmation": "Biztosan törölni szeretné ezt az eseményt?",
     "event-deleted": "Esemény törölve",
     "event-updated": "Esemény Frissítve",
     "new-notification-form-description": "A Mealie az Apprise könyvtárat használja az értesítésekhez. Számos lehetőséget kínál különbőző értesítési szolgáltatásokhoz. Nézd meg a wiki oldalukon, hogy kell URL-t létrehozni az általad használt szolgáltatáshoz. Az értesítés tipusának kiválasztásával egyéb beállítási lehetőségek jelenhetnek meg.",
@@ -533,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Az új recept nevének egyedinek kell lennie",
     "scrape-recipe": "Recept kinyerése",
     "scrape-recipe-description": "Recept (adatok) kinyerése Url alapján. Adja meg a beolvasni kívánt oldal Url-címét, és Mealie megpróbálja beolvasni a receptet az adott oldalról, majd hozzáadja azt gyűjteményéhez.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Eredeti kulcsszavak importálása címkeként",
     "stay-in-edit-mode": "Maradjon Szerkesztés módban",
     "import-from-zip": "Importálás ZIP-ből",
@@ -789,7 +791,8 @@
     "tags": "Címkék",
     "untagged-count": "Címkézetlen {count}",
     "create-a-tag": "Címke létrehozása",
-    "tag-name": "Címke Neve"
+    "tag-name": "Címke Neve",
+    "tag": "Címke"
   },
   "tool": {
     "tools": "Eszközök",
@@ -798,7 +801,8 @@
     "tool-name": "Eszköz neve",
     "create-new-tool": "Új eszköz létrehozása",
     "on-hand-checkbox-label": "Készleten lévőnek mutatni (Ellenőrizve)",
-    "required-tools": "Szükséges eszközök"
+    "required-tools": "Szükséges eszközök",
+    "tool": "Eszköz"
   },
   "user": {
     "admin": "Adminisztrátor",

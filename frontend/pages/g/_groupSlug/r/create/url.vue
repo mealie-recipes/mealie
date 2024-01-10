@@ -4,7 +4,8 @@
       <div>
         <v-card-title class="headline"> {{ $t('recipe.scrape-recipe') }} </v-card-title>
         <v-card-text>
-          {{ $t('recipe.scrape-recipe-description') }}
+          <p>{{ $t('recipe.scrape-recipe-description') }}</p>
+          <p>{{ $t('recipe.scrape-recipe-have-a-lot-of-recipes') }} <a :href="bulkImporterTarget">{{ $t('recipe.scrape-recipe-suggest-bulk-importer') }}</a>.</p>
           <v-text-field
             v-model="recipeUrl"
             :label="$t('new-recipe.recipe-url')"
@@ -94,6 +95,8 @@ export default defineComponent({
     const router = useRouter();
     const tags = useTagStore();
 
+    const bulkImporterTarget = computed(() => `/g/${groupSlug.value}/r/create/bulk`);
+
     function handleResponse(response: AxiosResponse<string> | null, edit = false, refreshTags = false) {
       if (response?.status !== 201) {
         state.error = true;
@@ -167,6 +170,7 @@ export default defineComponent({
     }
 
     return {
+      bulkImporterTarget,
       recipeUrl,
       importKeywordsAsTags,
       stayInEditMode,
