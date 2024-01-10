@@ -533,6 +533,8 @@
     "new-recipe-names-must-be-unique": "I nuovi nomi delle ricette devono essere univoci",
     "scrape-recipe": "Recupera Ricetta",
     "scrape-recipe-description": "Recupera una ricetta da url. Fornire l'url per il sito che si desidera analizzare, e Mealie cercherà di recuperare la ricetta da quel sito e aggiungerlo alla vostra raccolta.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Importa parole chiave originali come tag",
     "stay-in-edit-mode": "Rimani in modalità Modifica",
     "import-from-zip": "Importa da Zip",
@@ -789,7 +791,8 @@
     "tags": "Tag",
     "untagged-count": "Senza Tag {count}",
     "create-a-tag": "Crea un Tag",
-    "tag-name": "Nome del Tag"
+    "tag-name": "Nome del Tag",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Strumenti",
@@ -798,7 +801,8 @@
     "tool-name": "Nome dell'Utensile",
     "create-new-tool": "Crea un Nuovo Utensile",
     "on-hand-checkbox-label": "Mostra come Disponibile (Spuntato)",
-    "required-tools": "Strumenti necessari"
+    "required-tools": "Strumenti necessari",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Amministratore",

@@ -533,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Назви нового рецепту має бути унікальна",
     "scrape-recipe": "Розпізнати рецепт",
     "scrape-recipe-description": "Розпізнати рецепт за посиланням. Вкажіть посилання на рецепт який ви хочете розпізнати й Mealie спробує розпізнати його і додати в вашу колекцію.",
+    "scrape-recipe-have-a-lot-of-recipes": "Багато рецептів, які ви хочете розпізнати відразу?",
+    "scrape-recipe-suggest-bulk-importer": "Спробуйте масовий розпізнавач",
     "import-original-keywords-as-tags": "Імпортувати оригінальні ключові слова як теги",
     "stay-in-edit-mode": "Залишитися в режимі редактора",
     "import-from-zip": "Імпортувати з Zip",
@@ -789,7 +791,8 @@
     "tags": "Мітки",
     "untagged-count": "Без мітки {count}",
     "create-a-tag": "Створити тег",
-    "tag-name": "Назва тегу"
+    "tag-name": "Назва тегу",
+    "tag": "Мітка"
   },
   "tool": {
     "tools": "Інструменти",
@@ -798,7 +801,8 @@
     "tool-name": "Назва інструмента",
     "create-new-tool": "Створити новий інструмент",
     "on-hand-checkbox-label": "Показувати як в наявності (позначено)",
-    "required-tools": "Необхідні інструменти"
+    "required-tools": "Необхідні інструменти",
+    "tool": "Інструмент"
   },
   "user": {
     "admin": "Адміністратор",

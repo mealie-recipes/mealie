@@ -533,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Opskriftsnavnet er allerede i brug",
     "scrape-recipe": "Scrape Opskrift",
     "scrape-recipe-description": "Hent en opskrift fra en hjemmeside. Angiv URL'en til den hjemmeside, du vil hente data fra, og Mealie vil forsøge at hente opskriften og tilføje den til din samling.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Importér originale nøgleord som mærker",
     "stay-in-edit-mode": "Bliv i redigeringstilstand",
     "import-from-zip": "Importer fra zip-fil",
@@ -789,7 +791,8 @@
     "tags": "Tags",
     "untagged-count": "Ikke-tagget: {count}",
     "create-a-tag": "Opret tag",
-    "tag-name": "Tag navn"
+    "tag-name": "Tag navn",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Værktøjer",
@@ -798,7 +801,8 @@
     "tool-name": "Værktøjsnavn",
     "create-new-tool": "Opret et nyt værktøj",
     "on-hand-checkbox-label": "Vis som \"Har allerede\" (afkrydset)",
-    "required-tools": "Nødvendige Værktøjer"
+    "required-tools": "Nødvendige Værktøjer",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administrator",

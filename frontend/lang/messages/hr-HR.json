@@ -533,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Naziv novog recepta mora imati jedinstveno ime",
     "scrape-recipe": "Prikupi (skraperaj) recept",
     "scrape-recipe-description": "Prikupi (skraperaj) recept putem URL-a. Priložite URL web stranice s koje želite prikupiti recept, a Mealie će pokušati prikupiti recept s te stranice i dodati ga u vašu kolekciju.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Uvezi originalne ključne riječi kao oznake",
     "stay-in-edit-mode": "Ostanite u načinu uređivanja",
     "import-from-zip": "Uvoz iz Zip-a",
@@ -789,7 +791,8 @@
     "tags": "Oznake",
     "untagged-count": "Neoznačeno {count}",
     "create-a-tag": "Kreiraj Oznaku",
-    "tag-name": "Naziv Oznake"
+    "tag-name": "Naziv Oznake",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Alati",
@@ -798,7 +801,8 @@
     "tool-name": "Naziv Alata",
     "create-new-tool": "Kreiraj Novi Alat",
     "on-hand-checkbox-label": "Prikaži Alat Dostupnim (Označeno)",
-    "required-tools": "Potrebni Alati"
+    "required-tools": "Potrebni Alati",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administrator",

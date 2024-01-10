@@ -16,19 +16,15 @@ The version 1 release of Mealie should be seen as an entirely different applicat
 
 ## Migration Considerations
 
-Before you migrate to v1.0.0-beta-x please consider the following:
+Before you migrate to v1.0.0 please consider the following:
 
 **API Integration Will Break**
 
 Several of the endpoints in the API have changed. This means that you will need to update your code to use the new endpoints.
 
-**Meal Plan Notifications Are Not Yet Implemented**
+**Recipes Are Private By Default**
 
-If you're using the Meal Plan webhook feature it has yet to be implemented in v1. This feature is being significantly improved in v1 and has yet to be fully fleshed out. If you were a heavy user, you may want to wait until v1 to use this feature.
-
-**Recipes are Now Private**
-
-This can be a plus or a minus depending on your use case. If you relied on the old implementation that allowed viewing of recipes without logging in, you will loose that access. We are planning on implementing a public facing interface for groups/tenants to allow unauthenticated users to view public recipes.
+By default, recipes can only be viewed by logged-in users. You can fine-tune public recipe access, or keep your instance fully private. For more information, check out the [Permissions and Public Access guide](../getting-started/usage/permissions-and-public-access.md).
 
 
 ## Step 1: Setting Up The New Application
@@ -37,7 +33,9 @@ Given the nature of the upgrade, it is highly recommended that you stand up a ne
 
 ## Step 2: Exporting Your Data from Pre-v1
 
-In your instance of Mealie prior to v1, perform an export of your data in the Admin section. Be sure to include the recipes when performing the export. Checking additional items won't impact the migration, but they will be ignored if they are included.
+In your instance of Mealie prior to v1, perform an export (backup) of your data in the Admin section. Be sure to include the recipes when performing the export. Checking additional items won't impact the migration, but they will be ignored if they are included. The backups section is located on the admin dashboard in the section labeled "Backups":
+
+![pre-v1-backup-location-image](../../assets/img/pre-v1-backup-location.png)
 
 
 ## Step 3: Using the Migration Tool

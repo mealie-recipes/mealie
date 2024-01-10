@@ -533,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Nazwa przepisu musi być unikalna",
     "scrape-recipe": "Scrapuj Przepis",
     "scrape-recipe-description": "Wczytaj przepis przez URL. Podaj adres URL witryny z przepisem, który chcesz wczytać, a Mealie spróbuje wyodrębnić przepis z tej strony i dodać go do kolekcji.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Importuj oryginalne słowa kluczowe jako tagi",
     "stay-in-edit-mode": "Pozostań w trybie edycji",
     "import-from-zip": "Importuj z pliku Zip",
@@ -789,7 +791,8 @@
     "tags": "Tagi",
     "untagged-count": "{count} bez etykiety",
     "create-a-tag": "Utwórz znacznik",
-    "tag-name": "Nazwa znacznika"
+    "tag-name": "Nazwa znacznika",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Narzędzia",
@@ -798,7 +801,8 @@
     "tool-name": "Nazwa narzędzia",
     "create-new-tool": "Utwórz nowe narzędzie",
     "on-hand-checkbox-label": "Pokaż jako Posiadane (Zaznaczono)",
-    "required-tools": "Wymagane Narzędzia"
+    "required-tools": "Wymagane Narzędzia",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administrator",

@@ -533,6 +533,8 @@
     "new-recipe-names-must-be-unique": "New recipe names must be unique",
     "scrape-recipe": "Scrape Recipe",
     "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Import original keywords as tags",
     "stay-in-edit-mode": "Stay in Edit mode",
     "import-from-zip": "Zip'ten içeri aktar",
@@ -789,7 +791,8 @@
     "tags": "Etiketler",
     "untagged-count": "Untagged {count}",
     "create-a-tag": "Create a Tag",
-    "tag-name": "Etiket Adı"
+    "tag-name": "Etiket Adı",
+    "tag": "Etiket"
   },
   "tool": {
     "tools": "Tools",
@@ -798,7 +801,8 @@
     "tool-name": "Tool Name",
     "create-new-tool": "Create New Tool",
     "on-hand-checkbox-label": "Show as On Hand (Checked)",
-    "required-tools": "Required Tools"
+    "required-tools": "Required Tools",
+    "tool": "Araç"
   },
   "user": {
     "admin": "Admin",

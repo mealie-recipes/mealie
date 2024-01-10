@@ -139,7 +139,7 @@ export default defineComponent({
       default: false,
     },
   },
-  setup(props, context) {
+  setup(_, context) {
     const deleteDialog = ref(false);
 
     const { i18n, $globals } = useContext();

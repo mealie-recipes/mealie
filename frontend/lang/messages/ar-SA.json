@@ -128,7 +128,7 @@
     "no-recipe-found": "لم يتم العثور على وصفة",
     "ok": "موافق",
     "options": "الخيارات:",
-    "plural-name": "Plural Name",
+    "plural-name": "إسم المعدود",
     "print": "طباعة",
     "print-preferences": "إعدادات الطباعة",
     "random": "عشوائي",
@@ -191,7 +191,7 @@
     "clipboard-not-supported": "الحافظة غير مدعومة",
     "copied-to-clipboard": "نُسِخَ إلى الحافظة",
     "your-browser-does-not-support-clipboard": "المتصفح الخاص بك لا يدعم الحافظة",
-    "copied-items-to-clipboard": "No item copied to clipboard|One item copied to clipboard|Copied {count} items to clipboard",
+    "copied-items-to-clipboard": "لم يتم نسخ أي عنصر إلى الحافظة<unk> عنصر واحد تم نسخه إلى الحافظة<unk> تم نسخه إلى الحافظة {count}",
     "actions": "الإجراءت",
     "selected-count": "تم اختيار: {count}",
     "export-all": "تصدير الكل",
@@ -214,7 +214,7 @@
     "group-id-with-value": "رقم تعريف المجموعة: {groupID}",
     "group-name": "اسم المجموعة",
     "group-not-found": "لم يتم العثور على المجموعة",
-    "group-token": "Group Token",
+    "group-token": "رمز المجموعة",
     "group-with-value": "المجموعة: {groupID}",
     "groups": "المجموعات",
     "manage-groups": "إدارة المجموعات",
@@ -227,7 +227,7 @@
     },
     "manage-members": "إدارة الأعضاء",
     "manage-members-description": "Manage the permissions of the members in your groups. {manage} allows the user to access the data-management page {invite} allows the user to generate invitation links for other users. Group owners cannot change their own permissions.",
-    "manage": "Manage",
+    "manage": "إدارة الحساب",
     "invite": "دعوة",
     "looking-to-update-your-profile": "هل ترغب في تحديث ملفك الشخصي؟",
     "default-recipe-preferences-description": "هذه هي الإعدادات الافتراضية عند إنشاء وصفة جديدة في مجموعتك. يمكن تغيير هذه الوصفات الفردية في قائمة إعدادات الوصفات.",
@@ -235,7 +235,7 @@
     "group-preferences": "إعدادات المجموعة",
     "private-group": "مجموعة خاصة",
     "private-group-description": "Setting your group to private will default all public view options to default. This overrides an individual recipes public view settings.",
-    "allow-users-outside-of-your-group-to-see-your-recipes": "Allow users outside of your group to see your recipes",
+    "allow-users-outside-of-your-group-to-see-your-recipes": "السماح للمستخدمين خارج مجموعتك لمشاهدة وصفاتك",
     "allow-users-outside-of-your-group-to-see-your-recipes-description": "When enabled you can use a public share link to share specific recipes without authorizing the user. When disabled, you can only share recipes with users who are in your group or with a pre-generated private link",
     "show-nutrition-information": "عرض معلومات التغذية",
     "show-nutrition-information-description": "When enabled the nutrition information will be shown on the recipe if available. If there is no nutrition information available, the nutrition information will not be shown",
@@ -533,6 +533,8 @@
     "new-recipe-names-must-be-unique": "New recipe names must be unique",
     "scrape-recipe": "Scrape Recipe",
     "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Import original keywords as tags",
     "stay-in-edit-mode": "Stay in Edit mode",
     "import-from-zip": "Import from Zip",
@@ -789,7 +791,8 @@
     "tags": "Tags",
     "untagged-count": "Untagged {count}",
     "create-a-tag": "Create a Tag",
-    "tag-name": "Tag Name"
+    "tag-name": "Tag Name",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Tools",
@@ -798,7 +801,8 @@
     "tool-name": "Tool Name",
     "create-new-tool": "Create New Tool",
     "on-hand-checkbox-label": "Show as On Hand (Checked)",
-    "required-tools": "Required Tools"
+    "required-tools": "Required Tools",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Admin",
