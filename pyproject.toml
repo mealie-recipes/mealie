@@ -107,7 +107,7 @@ strict_optional = true
 
 [tool.ruff]
 line-length = 120
-format = "text"
+output-format = "text"
 
 # Enable Pyflakes `E` and `F` codes by default.
 ignore = ["F403", "TID252", "B008"]
