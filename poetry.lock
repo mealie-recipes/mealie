@@ -509,13 +509,13 @@ test = ["pytest (>=6)"]
 
 [[package]]
 name = "extruct"
-version = "0.14.0"
+version = "0.16.0"
 description = "Extract embedded metadata from HTML markup"
 optional = false
 python-versions = "*"
 files = [
-    {file = "extruct-0.14.0-py2.py3-none-any.whl", hash = "sha256:22739b23a7fd66239137838b8cde7b15ce838ad7a0e0721dba86058df206a2da"},
-    {file = "extruct-0.14.0.tar.gz", hash = "sha256:4c74a3f0c6829252fa40b3a1c7364c966265fd4c0f0dbcef019d1b839e3434bf"},
+    {file = "extruct-0.16.0-py2.py3-none-any.whl", hash = "sha256:2499ea9e7d22744745ca708acee9542a4aa231871620c4f65f869a1286e64aa8"},
+    {file = "extruct-0.16.0.tar.gz", hash = "sha256:d09cb3d86d149a276b277b3bd45b2b867ef3ec78bed9cd58ee0f2ae01ae670c4"},
 ]
 
 [package.dependencies]
@@ -2931,4 +2931,4 @@ pgsql = ["psycopg2-binary"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "47855b0de2dbe071f33835c93b4426f9259905438f5f5c6e427792e4d14af4fc"
+content-hash = "eb49b90f9398e1f4f41b2be5564ba3a1f7c05a3f68a58a56b2b59477057950fd"
