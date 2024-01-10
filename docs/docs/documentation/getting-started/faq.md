@@ -41,22 +41,15 @@ Yes. If you are using the v1 branches (including beta), you can upgrade to the l
 
 ## How can I change the theme?
 
-You can change the theme by settings the environment variables on the frontend container.
+You can change the theme by settings the environment variables.
 
-- [Frontend Theme](../installation/frontend-config#themeing)
-
-## How can I change the language?
-
-Languages need to be set on the frontend and backend containers as ENV variables.
-
-- [Frontend Config](../installation/frontend-config/)
-- [Backend Config](../installation/backend-config/)
+- [Backend Config - Themeing](./installation/backend-config.md#themeing)
 
 ## How can I change the Login Session Timeout?
 
 Login session can be configured by setting the `TOKEN_TIME` variable on the backend container.
 
-- [Backend Config](../installation/backend-config/)
+- [Backend Config](./installation/backend-config.md)
 
 ## Can I serve Mealie on a subpath?
 
