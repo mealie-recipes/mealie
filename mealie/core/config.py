@@ -16,6 +16,7 @@ dotenv.load_dotenv(ENV)
 PRODUCTION = os.getenv("PRODUCTION", "True").lower() in ["true", "1"]
 TESTING = os.getenv("TESTING", "False").lower() in ["true", "1"]
 DATA_DIR = os.getenv("DATA_DIR")
+LOG_DIR = os.getenv("LOG_DIR")
 
 
 def determine_data_dir() -> Path:
@@ -28,6 +29,19 @@ def determine_data_dir() -> Path:
         return Path(DATA_DIR if DATA_DIR else "/app/data")
 
     return BASE_DIR.joinpath("dev", "data")
+
+
+def determine_log_dir() -> Path:
+    global PRODUCTION, TESTING, BASE_DIR, LOG_DIR
+
+    if LOG_DIR:
+        if TESTING:
+            return BASE_DIR.joinpath(LOG_DIR)
+
+        if PRODUCTION:
+            return Path(LOG_DIR)
+
+    return determine_data_dir()
 
 
 @lru_cache

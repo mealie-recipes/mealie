@@ -3,13 +3,13 @@ import sys
 from dataclasses import dataclass
 from functools import lru_cache
 
-from mealie.core.config import determine_data_dir
+from mealie.core.config import determine_log_dir
 
-DATA_DIR = determine_data_dir()
+LOG_DIR = determine_log_dir()
 
 from .config import get_app_settings  # noqa E402
 
-LOGGER_FILE = DATA_DIR.joinpath("mealie.log")
+LOGGER_FILE = LOG_DIR.joinpath("mealie.log")
 DATE_FORMAT = "%d-%b-%y %H:%M:%S"
 LOGGER_FORMAT = "%(levelname)s: %(asctime)s \t%(message)s"
 
@@ -40,6 +40,7 @@ def get_logger_config():
             level=log_level,
         )
 
+    LOG_DIR.mkdir(parents=True, exist_ok=True)
     output_file_handler = logging.FileHandler(LOGGER_FILE)
     handler_format = logging.Formatter(LOGGER_FORMAT, datefmt=DATE_FORMAT)
     output_file_handler.setFormatter(handler_format)

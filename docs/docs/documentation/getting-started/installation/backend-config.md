@@ -15,6 +15,7 @@
 | API_DOCS      |         True          | Turns on/off access to the API documentation locally.                               |
 | TZ            |          UTC          | Must be set to get correct date/time on the server                                  |
 | ALLOW_SIGNUP  |         true          | Allow user sign-up without token                                                    |
+| LOG_DIR       |       /app/data       | Directory to place log files in                                                     |
 
 ### Security
 
