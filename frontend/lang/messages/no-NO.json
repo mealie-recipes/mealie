@@ -533,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Navn på oppskrift må være unike",
     "scrape-recipe": "Skrap oppskrift",
     "scrape-recipe-description": "Skrap en oppskrift ved bruk av nettadresse. Oppgi nettadressen til nettstedet du vil skrape, så vil Mealie forsøke å skrape oppskriften fra den siden og legge den til i samlingen din.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Importer originale søkeord som emneord",
     "stay-in-edit-mode": "Forbli i redigeringsmodus",
     "import-from-zip": "Importer fra zip-fil",

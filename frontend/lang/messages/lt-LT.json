@@ -533,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Naujo recepto pavadinimas turi būti unikalus",
     "scrape-recipe": "Nuskaityti receptą",
     "scrape-recipe-description": "Nuskaityti receptą iš URL nuorodos. Pateikite recepto nuorodą, ir Mealie pabandys paimti recepto informaciją iš šios svetainės ir patalpinti ją jūsų kolekcijoje.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Įkelti pradinius raktažodžius kaip žymas",
     "stay-in-edit-mode": "Toliau redaguoti",
     "import-from-zip": "Įkelti iš .ZIP archyvo",

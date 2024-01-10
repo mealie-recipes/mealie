@@ -533,6 +533,8 @@
     "new-recipe-names-must-be-unique": "I nuovi nomi delle ricette devono essere univoci",
     "scrape-recipe": "Recupera Ricetta",
     "scrape-recipe-description": "Recupera una ricetta da url. Fornire l'url per il sito che si desidera analizzare, e Mealie cercherà di recuperare la ricetta da quel sito e aggiungerlo alla vostra raccolta.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Importa parole chiave originali come tag",
     "stay-in-edit-mode": "Rimani in modalità Modifica",
     "import-from-zip": "Importa da Zip",

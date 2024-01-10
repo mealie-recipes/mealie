@@ -533,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Nuwe resepname moet uniek wees",
     "scrape-recipe": "Skraap resep",
     "scrape-recipe-description": "Voeg 'n resep by via 'n url. Voer die url van die webwerf in wat jy vir 'n resep wil skandeer, Mealie sal probeer om die resep vanaf daardie plek te skandeer en by jou versameling te voeg.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Voer oorspronklike sleutelwoorde as merkers in",
     "stay-in-edit-mode": "Bly in redigeer modus",
     "import-from-zip": "Voer vanaf zip in",

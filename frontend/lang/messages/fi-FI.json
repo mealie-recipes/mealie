@@ -533,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Reseptin nimen on oltava yksilöllinen",
     "scrape-recipe": "Reseptin kaappain",
     "scrape-recipe-description": "Kaappaa resepti urlin avulla. Anna sen reseptin url-osoite, jonka haluat kaapata, ja Mealie yrittää kaapata reseptin kyseiseltä sivustolta ja lisätä sen kokoelmaasi.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Tuo alkuperäiset avainsanat tunnisteiksi",
     "stay-in-edit-mode": "Pysy muokkaustilassa",
     "import-from-zip": "Tuo zip-arkistosta",
