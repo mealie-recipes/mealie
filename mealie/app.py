@@ -1,7 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
-from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.routing import APIRoute
 
 from mealie.core.config import get_app_settings
