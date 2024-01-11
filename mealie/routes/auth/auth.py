@@ -67,7 +67,8 @@ def get_token(
         if "," in ip:  # if there are multiple IPs, the first one is canonically the true client
             ip = str(ip.split(",")[0])
     else:
-        ip = request.client.host
+        # there should always be a request client, except sometimes in testing
+        ip = request.client.host if request.client else ""
 
     try:
         user = authenticate_user(session, email, password)  # type: ignore
