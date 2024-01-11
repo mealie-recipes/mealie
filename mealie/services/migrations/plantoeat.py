@@ -23,8 +23,7 @@ def plantoeat_recipes(file: Path):
         for name in Path(tmpdir).glob("**/[!.]*.csv"):
             with open(name, newline="") as csvfile:
                 reader = csv.DictReader(csvfile)
-                for row in reader:
-                    yield row
+                yield from reader
 
 
 def get_value_as_string_or_none(dictionary: dict, key: str):
