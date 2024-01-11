@@ -2,7 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "enabledManagers": [
     "poetry",
-    "yarn"
+    "npm"
   ],
   "includePaths": [
     "pyproject.toml",
@@ -10,5 +10,18 @@
   ],
   "extends": [
     "config:base"
-  ]
+  ],
+  "packageRules": [
+    {
+      "matchPackagePatterns": [
+        "*"
+      ],
+      "matchPaths": [
+        "frontend/package.json"
+      ],
+      "prCreation": "never",
+      "groupName": "Frontend Dependencies"
+    }
+  ],
+  "dependencyDashboard": true
 }
