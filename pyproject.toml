@@ -57,7 +57,7 @@ pylint = "^3.0.0"
 pytest = "^7.2.0"
 pytest-asyncio = "^0.23.0"
 rich = "^13.5.2"
-ruff = "^0.0.265"
+ruff = "^0.1.0"
 types-PyYAML = "^6.0.4"
 types-python-dateutil = "^2.8.18"
 types-python-slugify = "^6.0.0"
@@ -107,7 +107,7 @@ strict_optional = true
 
 [tool.ruff]
 line-length = 120
-format = "text"
+output-format = "text"
 
 # Enable Pyflakes `E` and `F` codes by default.
 ignore = ["F403", "TID252", "B008"]
