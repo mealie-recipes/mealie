@@ -38,7 +38,7 @@ python-multipart = "^0.0.6"
 python-slugify = "^8.0.0"
 recipe-scrapers = "^14.53.0"
 requests = "^2.31.0"
-tzdata = "^2022.7"
+tzdata = "^2023.4"
 uvicorn = { extras = ["standard"], version = "^0.25.0" }
 beautifulsoup4 = "^4.11.2"
 isodate = "^0.6.1"
