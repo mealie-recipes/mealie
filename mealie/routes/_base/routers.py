@@ -34,7 +34,7 @@ class MealieCrudRoute(APIRoute):
             with contextlib.suppress(JSONDecodeError):
                 response = await original_route_handler(request)
                 response_body = json.loads(response.body)
-                if type(response_body) == dict:
+                if isinstance(response_body, dict):
                     if last_modified := response_body.get("updateAt"):
                         response.headers["last-modified"] = last_modified
 
