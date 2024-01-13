@@ -73,6 +73,7 @@ def test_database_restore():
     [
         test_data.backup_version_44e8d670719d_1,
         test_data.backup_version_44e8d670719d_2,
+        test_data.backup_version_44e8d670719d_3,
         test_data.backup_version_ba1e4a6cfe99_1,
         test_data.backup_version_bcfdad6b7355_1,
     ],
