@@ -533,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Reseptin nimen on oltava yksilöllinen",
     "scrape-recipe": "Reseptin kaappain",
     "scrape-recipe-description": "Kaappaa resepti urlin avulla. Anna sen reseptin url-osoite, jonka haluat kaapata, ja Mealie yrittää kaapata reseptin kyseiseltä sivustolta ja lisätä sen kokoelmaasi.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Tuo alkuperäiset avainsanat tunnisteiksi",
     "stay-in-edit-mode": "Pysy muokkaustilassa",
     "import-from-zip": "Tuo zip-arkistosta",
@@ -789,7 +791,8 @@
     "tags": "Tunnisteet",
     "untagged-count": "Tunnisteettomat {count}",
     "create-a-tag": "Luo tunniste",
-    "tag-name": "Tunnisteen nimi"
+    "tag-name": "Tunnisteen nimi",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Työkalut",
@@ -798,7 +801,8 @@
     "tool-name": "Työkalun Nimi",
     "create-new-tool": "Luo Uusi Työkalu",
     "on-hand-checkbox-label": "Näytä työkalut, jotka omistan jo (valittu)",
-    "required-tools": "Tarvittavat Työkalut"
+    "required-tools": "Tarvittavat Työkalut",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Ylläpitäjä",

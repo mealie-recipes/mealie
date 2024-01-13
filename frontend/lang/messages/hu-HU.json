@@ -533,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Az új recept nevének egyedinek kell lennie",
     "scrape-recipe": "Recept kinyerése",
     "scrape-recipe-description": "Recept (adatok) kinyerése Url alapján. Adja meg a beolvasni kívánt oldal Url-címét, és Mealie megpróbálja beolvasni a receptet az adott oldalról, majd hozzáadja azt gyűjteményéhez.",
+    "scrape-recipe-have-a-lot-of-recipes": "Sok receptje van, amit egyszerre szeretne átvenni?",
+    "scrape-recipe-suggest-bulk-importer": "Próbálja ki a tömeges importálót",
     "import-original-keywords-as-tags": "Eredeti kulcsszavak importálása címkeként",
     "stay-in-edit-mode": "Maradjon Szerkesztés módban",
     "import-from-zip": "Importálás ZIP-ből",
@@ -789,7 +791,8 @@
     "tags": "Címkék",
     "untagged-count": "Címkézetlen {count}",
     "create-a-tag": "Címke létrehozása",
-    "tag-name": "Címke Neve"
+    "tag-name": "Címke Neve",
+    "tag": "Címke"
   },
   "tool": {
     "tools": "Eszközök",
@@ -798,7 +801,8 @@
     "tool-name": "Eszköz neve",
     "create-new-tool": "Új eszköz létrehozása",
     "on-hand-checkbox-label": "Készleten lévőnek mutatni (Ellenőrizve)",
-    "required-tools": "Szükséges eszközök"
+    "required-tools": "Szükséges eszközök",
+    "tool": "Eszköz"
   },
   "user": {
     "admin": "Adminisztrátor",

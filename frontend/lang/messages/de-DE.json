@@ -533,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Neue Rezeptnamen müssen eindeutig sein",
     "scrape-recipe": "Rezept einlesen",
     "scrape-recipe-description": "Importiere ein Rezept mit der URL. Gib die URL für die Seite an, die du importieren möchtest und Mealie wird versuchen, das Rezept von dieser Seite einzulesen und deiner Sammlung hinzuzufügen.",
+    "scrape-recipe-have-a-lot-of-recipes": "Hast Du viele Rezepte, die Du auf einmal einlesen willst?",
+    "scrape-recipe-suggest-bulk-importer": "Probiere den Massenimporter aus",
     "import-original-keywords-as-tags": "Importiere ursprüngliche Stichwörter als Schlagwörter",
     "stay-in-edit-mode": "Im Bearbeitungsmodus bleiben",
     "import-from-zip": "Von Zip importieren",
@@ -789,7 +791,8 @@
     "tags": "Schlagworte",
     "untagged-count": "{count} ohne Schlagworte",
     "create-a-tag": "Ein Schlagwort erstellen",
-    "tag-name": "Name des Schlagworts"
+    "tag-name": "Name des Schlagworts",
+    "tag": "Schlagwort"
   },
   "tool": {
     "tools": "Utensilien",
@@ -798,7 +801,8 @@
     "tool-name": "Name des Utensils",
     "create-new-tool": "Neues Utensil erstellen",
     "on-hand-checkbox-label": "Als \"vorhanden\" anzeigen (markiert)",
-    "required-tools": "Benötigte Utensilien"
+    "required-tools": "Benötigte Utensilien",
+    "tool": "Utensil"
   },
   "user": {
     "admin": "Admin",

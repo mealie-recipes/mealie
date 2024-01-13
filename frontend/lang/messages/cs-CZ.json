@@ -533,6 +533,8 @@
     "new-recipe-names-must-be-unique": "New recipe names must be unique",
     "scrape-recipe": "Scrape Recipe",
     "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Import original keywords as tags",
     "stay-in-edit-mode": "Zůstat v režimu úprav",
     "import-from-zip": "Importovat ze zipu",
@@ -789,7 +791,8 @@
     "tags": "Štítky",
     "untagged-count": "Bez štítku {count}",
     "create-a-tag": "Vytvořit štítek",
-    "tag-name": "Název štítku"
+    "tag-name": "Název štítku",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Nástroje",
@@ -798,7 +801,8 @@
     "tool-name": "Název nástroje",
     "create-new-tool": "Vytvořit nový nástroj",
     "on-hand-checkbox-label": "Zobrazit jako \"Po ruce\" (zaškrtnuto)",
-    "required-tools": "Required Tools"
+    "required-tools": "Required Tools",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Správce",

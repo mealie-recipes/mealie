@@ -533,6 +533,8 @@
     "new-recipe-names-must-be-unique": "שם מתכון חדש חייב להיות ייחודי",
     "scrape-recipe": "קריאת מתכון",
     "scrape-recipe-description": "קריאת מתכון בעזרת לינק. ספק את הלינק של האתר שברצונך לקרוא, ומילי תנסה לקרוא את המתכון מהאתר ולהוסיף אותו לאוסף.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "ייבא שמות מפתח מקוריות כתגיות",
     "stay-in-edit-mode": "השאר במצב עריכה",
     "import-from-zip": "ייבא מקובץ",
@@ -789,7 +791,8 @@
     "tags": "תגיות",
     "untagged-count": "לא מתוייג {count}",
     "create-a-tag": "צור תגית",
-    "tag-name": "שם תגית"
+    "tag-name": "שם תגית",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "כלים",
@@ -798,7 +801,8 @@
     "tool-name": "שם כלי",
     "create-new-tool": "יצירת כלי חדש",
     "on-hand-checkbox-label": "הראה מה יש לי במטבח",
-    "required-tools": "צריך כלים"
+    "required-tools": "צריך כלים",
+    "tool": "Tool"
   },
   "user": {
     "admin": "אדמין",
