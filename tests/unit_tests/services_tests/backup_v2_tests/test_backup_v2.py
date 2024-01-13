@@ -80,6 +80,7 @@ def test_database_restore():
     ids=[
         "44e8d670719d_1: add extras to shopping lists, list items, and ingredient foods",
         "44e8d670719d_2: add extras to shopping lists, list items, and ingredient foods",
+        "44e8d670719d_3: add extras to shopping lists, list items, and ingredient foods",
         "ba1e4a6cfe99_1: added plural names and alias tables for foods and units",
         "bcfdad6b7355_1: remove tool name and slug unique contraints",
     ],
