@@ -96,7 +96,7 @@ class AlchemyExporter(BaseService):
         for row in rows:
             is_valid_row = True
             for fk in fks:
-                if self.is_valid_foreign_key(db_dump, fk, row.get(fk.name)):
+                if self.is_valid_foreign_key(db_dump, fk, row.get(fk.parent.name)):
                     continue
 
                 is_valid_row = False
