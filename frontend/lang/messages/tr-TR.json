@@ -557,7 +557,8 @@
     "unit": "Birim",
     "upload-image": "Resim yükleyin",
     "screen-awake": "Ekranı Açık Tut",
-    "remove-image": "Resmi kaldır"
+    "remove-image": "Resmi kaldır",
+    "nextStep": "Sonraki adım"
   },
   "search": {
     "advanced-search": "Advanced Search",

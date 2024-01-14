@@ -557,7 +557,8 @@
     "unit": "Единица измерения",
     "upload-image": "Загрузить изображение",
     "screen-awake": "Держать экран включенным",
-    "remove-image": "Удалить изображение"
+    "remove-image": "Удалить изображение",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Расширенный поиск",

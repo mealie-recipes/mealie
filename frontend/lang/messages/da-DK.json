@@ -557,7 +557,8 @@
     "unit": "Enhed",
     "upload-image": "Upload billede",
     "screen-awake": "Hold skærmen tændt",
-    "remove-image": "Fjern billede"
+    "remove-image": "Fjern billede",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Avanceret søgning",

@@ -557,7 +557,8 @@
     "unit": "Unité",
     "upload-image": "Ajouter une image",
     "screen-awake": "Garder l’écran allumé",
-    "remove-image": "Supprimer l’image"
+    "remove-image": "Supprimer l’image",
+    "nextStep": "Étape suivante"
   },
   "search": {
     "advanced-search": "Recherche avancée",
