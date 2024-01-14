@@ -1,4 +1,5 @@
 import datetime
+import typing
 import uuid
 from os import path
 from pathlib import Path
@@ -14,6 +15,9 @@ from alembic.config import Config
 from mealie.db import init_db
 from mealie.db.models._model_utils import GUID
 from mealie.services._base_service import BaseService
+
+if typing.TYPE_CHECKING:
+    from sqlalchemy import ForeignKey, Table
 
 PROJECT_DIR = Path(__file__).parent.parent.parent.parent
 
@@ -48,6 +52,20 @@ class AlchemyExporter(BaseService):
         except ValueError:
             return False
 
+    @staticmethod
+    def is_valid_foreign_key(db_dump: dict[str, list[dict]], fk: ForeignKey, fk_value: typing.Any) -> bool:
+        if not fk_value:
+            return True
+
+        foreign_table_name = fk.column.table.name
+        foreign_field_name = fk.column.name
+
+        for row in db_dump.get(foreign_table_name, []):
+            if row[foreign_field_name] == fk_value:
+                return True
+
+        return False
+
     def convert_types(self, data: dict) -> dict:
         """
         walks the dictionary to restore all things that look like string representations of their complex types
@@ -69,6 +87,21 @@ class AlchemyExporter(BaseService):
                 if key in self.look_for_time:
                     data[key] = self.DateTimeParser(time=value).time
         return data
+
+    def clean_rows(self, db_dump: dict[str, list[dict]], table: Table, rows: list[dict]) -> list[dict]:
+        fks = table.foreign_keys
+
+        valid_rows = []
+        for row in rows:
+            is_valid_row = True
+            for fk in fks:
+                if not self.is_valid_foreign_key(db_dump, fk, row.get(fk.name)):
+                    continue
+
+            if is_valid_row:
+                valid_rows.append(row)
+
+        return valid_rows
 
     def dump_schema(self) -> dict:
         """
@@ -125,6 +158,7 @@ class AlchemyExporter(BaseService):
                 if not rows:
                     continue
                 table = self.meta.tables[table_name]
+                rows = self.clean_rows(db_dump, table, rows)
 
                 connection.execute(table.delete())
                 connection.execute(insert(table), rows)
