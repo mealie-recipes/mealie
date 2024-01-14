@@ -557,7 +557,8 @@
     "unit": "Yksikkö",
     "upload-image": "Lataa kuva",
     "screen-awake": "Pidä näyttö aina päällä",
-    "remove-image": "Poista kuva"
+    "remove-image": "Poista kuva",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Tarkennettu haku",
