@@ -557,7 +557,8 @@
     "unit": "Enhet",
     "upload-image": "Last opp bilde",
     "screen-awake": "Hold skjermen på",
-    "remove-image": "Slett bilde"
+    "remove-image": "Slett bilde",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Avansert søk",

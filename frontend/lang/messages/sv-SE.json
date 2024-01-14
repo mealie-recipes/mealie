@@ -557,7 +557,8 @@
     "unit": "Måttenhet",
     "upload-image": "Ladda upp bild",
     "screen-awake": "Håll skärmen vaken",
-    "remove-image": "Ta bort bild"
+    "remove-image": "Ta bort bild",
+    "nextStep": "Nästa steg"
   },
   "search": {
     "advanced-search": "Avancerad sökning",

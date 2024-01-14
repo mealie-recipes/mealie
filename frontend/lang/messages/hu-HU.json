@@ -557,7 +557,8 @@
     "unit": "Mennyiségi egység",
     "upload-image": "Kép feltöltése",
     "screen-awake": "Képernyő ébren tartása",
-    "remove-image": "Kép etávolítása"
+    "remove-image": "Kép etávolítása",
+    "nextStep": "Következő lépés"
   },
   "search": {
     "advanced-search": "Részletes keresés",
