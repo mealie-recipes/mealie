@@ -6,7 +6,7 @@ from pathlib import Path
 
 from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
-from sqlalchemy import ForeignKeyConstraint, MetaData, create_engine, insert, text
+from sqlalchemy import ForeignKey, ForeignKeyConstraint, MetaData, Table, create_engine, insert, text
 from sqlalchemy.engine import base
 from sqlalchemy.orm import sessionmaker
 
@@ -15,9 +15,6 @@ from alembic.config import Config
 from mealie.db import init_db
 from mealie.db.models._model_utils import GUID
 from mealie.services._base_service import BaseService
-
-if typing.TYPE_CHECKING:
-    from sqlalchemy import ForeignKey, Table
 
 PROJECT_DIR = Path(__file__).parent.parent.parent.parent
 
@@ -89,6 +86,10 @@ class AlchemyExporter(BaseService):
         return data
 
     def clean_rows(self, db_dump: dict[str, list[dict]], table: Table, rows: list[dict]) -> list[dict]:
+        """
+        Checks rows against foreign key restraints and removes any rows that would violate them
+        """
+
         fks = table.foreign_keys
 
         valid_rows = []
