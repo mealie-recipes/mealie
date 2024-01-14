@@ -1,8 +1,8 @@
 import datetime
-import typing
 import uuid
 from os import path
 from pathlib import Path
+from typing import Any
 
 from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
@@ -42,7 +42,7 @@ class AlchemyExporter(BaseService):
         self.session_maker = sessionmaker(bind=self.engine)
 
     @staticmethod
-    def is_uuid(value: str) -> bool:
+    def is_uuid(value: Any) -> bool:
         try:
             uuid.UUID(value)
             return True
@@ -50,7 +50,7 @@ class AlchemyExporter(BaseService):
             return False
 
     @staticmethod
-    def is_valid_foreign_key(db_dump: dict[str, list[dict]], fk: ForeignKey, fk_value: typing.Any) -> bool:
+    def is_valid_foreign_key(db_dump: dict[str, list[dict]], fk: ForeignKey, fk_value: Any) -> bool:
         if not fk_value:
             return True
 
@@ -96,8 +96,11 @@ class AlchemyExporter(BaseService):
         for row in rows:
             is_valid_row = True
             for fk in fks:
-                if not self.is_valid_foreign_key(db_dump, fk, row.get(fk.name)):
+                if self.is_valid_foreign_key(db_dump, fk, row.get(fk.name)):
                     continue
+
+                is_valid_row = False
+                break
 
             if is_valid_row:
                 valid_rows.append(row)
