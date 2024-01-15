@@ -557,7 +557,8 @@
     "unit": "Unitat",
     "upload-image": "Puja una imatge",
     "screen-awake": "Mantenir la pantalla encesa",
-    "remove-image": "Esborrar la imatge"
+    "remove-image": "Esborrar la imatge",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Cerca avançada",

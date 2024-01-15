@@ -557,7 +557,8 @@
     "unit": "יחידה",
     "upload-image": "העלה תמונה",
     "screen-awake": "השאר את המסך פעיל",
-    "remove-image": "האם למחוק את התמונה?"
+    "remove-image": "האם למחוק את התמונה?",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "חיפוש מתקדם",
