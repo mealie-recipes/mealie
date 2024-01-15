@@ -101,10 +101,10 @@ class AlchemyExporter(BaseService):
                     continue
 
                 is_valid_row = False
-                self.logger.info(
+                self.logger.warning(
                     f"Removing row from table {table.name} because of invalid foreign key {fk.parent.name}: {fk_value}"
                 )
-                self.logger.info(f"Row: {row}")
+                self.logger.warning(f"Row: {row}")
                 break
 
             if is_valid_row:
