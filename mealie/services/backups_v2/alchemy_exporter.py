@@ -12,6 +12,7 @@ from sqlalchemy.orm import sessionmaker
 
 from alembic import command
 from alembic.config import Config
+from mealie.core.root_logger import get_logger
 from mealie.db import init_db
 from mealie.db.models._model_utils import GUID
 from mealie.services._base_service import BaseService
@@ -96,10 +97,15 @@ class AlchemyExporter(BaseService):
         for row in rows:
             is_valid_row = True
             for fk in fks:
+                fk_value = row.get(fk.parent.name)
                 if self.is_valid_foreign_key(db_dump, fk, row.get(fk.parent.name)):
                     continue
 
                 is_valid_row = False
+                self.logger.info(
+                    f"Removing row from table {table.name} because of invalid foreign key {fk.parent.name}: {fk_value}"
+                )
+                self.logger.info(f"Row: {row}")
                 break
 
             if is_valid_row:
