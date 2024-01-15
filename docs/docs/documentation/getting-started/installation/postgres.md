@@ -2,16 +2,14 @@
 
 PostgreSQL might be considered if you need to support many concurrent users. In addition, some features are only enabled on PostgreSQL, such as fuzzy search.
 
-**For Environmental Variable Configuration See:**
-
-- [Configuration](./backend-config.md)
+**For Environment Variable Configuration, see** [Backend Configuration](./backend-config.md)
 
 ```yaml
 ---
 version: "3.7"
 services:
   mealie:
-    image: ghcr.io/mealie-recipes/mealie:v1.0.0-RC1.1
+    image: ghcr.io/mealie-recipes/mealie:v1.0.0-RC2
     container_name: mealie
     ports:
         - "9925:9000"
