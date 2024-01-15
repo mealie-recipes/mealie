@@ -12,7 +12,6 @@ from sqlalchemy.orm import sessionmaker
 
 from alembic import command
 from alembic.config import Config
-from mealie.core.root_logger import get_logger
 from mealie.db import init_db
 from mealie.db.models._model_utils import GUID
 from mealie.services._base_service import BaseService
