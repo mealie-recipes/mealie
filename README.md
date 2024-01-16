@@ -5,7 +5,6 @@
 [![Issues][issues-shield]][issues-url]
 [![AGPL License][license-shield]][license-url]
 [![Docker Pulls][docker-pull]][docker-pull]
-[![CodeFactor](https://www.codefactor.io/repository/github/mealie-recipes/mealie/badge)](https://www.codefactor.io/repository/github/mealie-recipes/mealie)
 
 <!-- PROJECT LOGO -->
 <br />
