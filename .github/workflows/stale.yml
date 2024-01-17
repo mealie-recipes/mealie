@@ -1,0 +1,25 @@
+# Documentation: https://github.com/marketplace/actions/close-stale-issues
+name: 'Stale: Flag and close stale issues and PRs'
+on:
+  schedule:
+    - cron: '30 1 * * *'
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v9
+        with:
+          stale-issue-label: 'stale'
+          exempt-issue-labels: 'pinned,security,early-stages,"bug: confirmed",feedback,task'
+          stale-issue-message: 'This issue has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs. Thank you for your contributions.'
+          days-before-issue-stale: 30
+          days-before-issue-close: 5
+          stale-pr-label: 'stale'
+          stale-pr-message: 'This PR is stale because it has been open 45 days with no activity.'
+          days-before-pr-stale: 45
+          # This stops a PR from ever getting closed automatically.
+          days-before-pr-close: -1
+          # For initial implementation - this stops any actual updates happening.
+          # We can review the output and then decide how to proceed. I will own this action.
+          debug-only: true
