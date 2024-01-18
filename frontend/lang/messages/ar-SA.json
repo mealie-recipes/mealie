@@ -557,7 +557,8 @@
     "unit": "Unit",
     "upload-image": "Upload image",
     "screen-awake": "Keep Screen Awake",
-    "remove-image": "Remove image"
+    "remove-image": "Remove image",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Advanced Search",

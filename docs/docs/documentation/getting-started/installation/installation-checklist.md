@@ -107,11 +107,11 @@ See all available tags on [GitHub](https://github.com/mealie-recipes/mealie/pkgs
 
 The nightly build are the latest and greatest builds that are built directly off of every commit to the `mealie-next` branch and as such may contain bugs. These are great to help the community catch bugs before they hit the stable release or if you like living on the edge.
 
-`ghrc.io/mealie-recipes/mealie:<version>`
+`ghcr.io/mealie-recipes/mealie:<version>`
 
 We also provide versioned containers that allow to pin to a specific release. Each time a new release is built a new tag will be pushed with the version. These are great to pin to a specific version and allows you to have absolute control on when you upgrade your container.
 
-`ghrc.io/mealie-recipes/mealie:latest`
+`ghcr.io/mealie-recipes/mealie:latest`
 
 _Note: This tag is not yet available; it will be available with the v1 stable release_
 

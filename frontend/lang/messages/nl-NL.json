@@ -557,7 +557,8 @@
     "unit": "Eenheid",
     "upload-image": "Afbeelding uploaden",
     "screen-awake": "Scherm laten aan staan",
-    "remove-image": "Afbeelding verwijderen"
+    "remove-image": "Afbeelding verwijderen",
+    "nextStep": "Volgende stap"
   },
   "search": {
     "advanced-search": "Geavanceerd zoeken",

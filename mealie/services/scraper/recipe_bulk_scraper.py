@@ -94,7 +94,7 @@ class RecipeBulkScraperService(BaseService):
         tasks = [_do(b.url) for b in urls.imports]
         results = await asyncio.gather(*tasks, return_exceptions=True)
         for b, recipe in zip(urls.imports, results, strict=True):
-            if not recipe or isinstance(recipe, Exception):
+            if not recipe or isinstance(recipe, BaseException):
                 continue
 
             if b.tags:
