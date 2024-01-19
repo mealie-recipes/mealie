@@ -147,7 +147,7 @@ export default defineComponent({
     async function createBackup() {
       const { data } = await adminApi.backups.create();
 
-      if (!data?.error) {
+      if (data?.error === false) {
         refreshBackups();
         alert.success(i18n.tc("settings.backup.backup-created"));
       } else {

@@ -19,6 +19,6 @@ If you are upgrading from pre-v1.0.0 to v1.0.0, make sure you read [Migrating to
 ## Docker
 For all setups using Docker the updating process looks something like this
 
-- Stop the container using `docker-compose down`
-- Pull the latest image using `docker-compose pull`
-- Start the container again using `docker-compose up -d`
+- Stop the container using `docker compose down`
+- Pull the latest image using `docker compose pull`
+- Start the container again using `docker compose up -d`
