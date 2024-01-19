@@ -11,7 +11,7 @@ jobs:
       - uses: actions/stale@v9
         with:
           stale-issue-label: 'stale'
-          exempt-issue-labels: 'pinned,security,early-stages,"bug: confirmed",feedback,task'
+          exempt-issue-labels: 'pinned,security,early-stages,bug: confirmed,feedback,task'
           stale-issue-message: 'This issue has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs. Thank you for your contributions.'
           days-before-issue-stale: 30
           days-before-issue-close: 5
