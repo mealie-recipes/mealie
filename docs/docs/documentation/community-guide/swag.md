@@ -60,26 +60,25 @@ Alternatively, you can create a new file <code>mealie.subdomain.conf</code> in p
 
 !!! example "mealie.subdomain.conf"
 ```yaml
-    server {
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
+server {
+  listen 443 ssl http2;
+  listen [::]:443 ssl http2;
 
-    	server_name mealie.*;
+  server_name mealie.*;
 
-    	include /config/nginx/ssl.conf;
+  include /config/nginx/ssl.conf;
 
-    	client_max_body_size 0;
+  client_max_body_size 0;
 
-    	location / {
-        	include /config/nginx/proxy.conf;
-        	include /config/nginx/resolver.conf;
-        	set $upstream_app mealie-frontend;
-        	set $upstream_port 3000;
-        	set $upstream_proto http;
-        	proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-    		}
-
-	}
+  location / {
+    include /config/nginx/proxy.conf;
+    include /config/nginx/resolver.conf;
+    set $upstream_app mealie-frontend;
+    set $upstream_port 3000;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+  }
+}
 ```
 
 ## Step 4: Port-forward port 443
