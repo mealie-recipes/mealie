@@ -21,32 +21,31 @@ This is an example of how to set it up using duckdns and docker compose.
 ```yaml
 version: "3.1"
 services:
-swag:
-image: ghcr.io/linuxserver/swag
-container_name: swag
-cap_add:
-- NET_ADMIN
-environment:
-- PUID=1000
-- PGID=1000
-- TZ=Europe/Brussels
-- URL=<mydomain.duckdns>
-- SUBDOMAINS=wildcard
-- VALIDATION=duckdns
-- CERTPROVIDER= #optional
-- DNSPLUGIN= #optional
-- DUCKDNSTOKEN=<duckdnstoken>
-- EMAIL=<e-mail> #optional
-- ONLY_SUBDOMAINS=false #optional
-- EXTRA_DOMAINS=<extradomains> #optional
-- STAGING=false #optional
-volumes:
-- /etc/config/swag:/config
-ports:
-- 443:443
-- 80:80 #optional
-restart: unless-stopped
-
+	swag:
+		image: ghcr.io/linuxserver/swag
+		container_name: swag
+		cap_add:
+			- NET_ADMIN
+		environment:
+			- PUID=1000
+			- PGID=1000
+			- TZ=Europe/Brussels
+			- URL=<mydomain.duckdns>
+			- SUBDOMAINS=wildcard
+			- VALIDATION=duckdns
+			- CERTPROVIDER= #optional
+			- DNSPLUGIN= #optional
+			- DUCKDNSTOKEN=<duckdnstoken>
+			- EMAIL=<e-mail> #optional
+			- ONLY_SUBDOMAINS=false #optional
+			- EXTRA_DOMAINS=<extradomains> #optional
+			- STAGING=false #optional
+		volumes:
+			- /etc/config/swag:/config
+		ports:
+			- 443:443
+			- 80:80 #optional
+		restart: unless-stopped
 ```
 
 Don't forget to change the <code>mydomain.duckns</code> into your personal domain and the <code>duckdnstoken</code> into your token and remove the brackets.
