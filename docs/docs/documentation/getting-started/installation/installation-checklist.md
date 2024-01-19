@@ -72,7 +72,7 @@ After you've decided setup the files it's important to set a few ENV variables t
 After you've configured your database and updated the `docker-compose.yaml` files, you can start Mealie by running the following command in the directory where you've added your `docker-compose.yaml`.
 
 ```bash
-$ docker-compose up -d
+$ docker compose up -d
 ```
 
 You should see the containers start up without error. You should now be able to access the Mealie frontend at [http://localhost:9925](http://localhost:9925).
