@@ -557,7 +557,8 @@
     "unit": "Jedinica",
     "upload-image": "Učitavanje Slike",
     "screen-awake": "Keep Screen Awake",
-    "remove-image": "Remove image"
+    "remove-image": "Remove image",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Napredno Pretraživanje",

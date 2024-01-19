@@ -1,7 +1,7 @@
 <template>
   <section @keyup.ctrl.90="undoMerge">
     <!-- Ingredient Link Editor -->
-    <v-dialog v-model="dialog" width="600">
+    <v-dialog v-if="dialog" v-model="dialog" width="600">
       <v-card :ripple="false">
         <v-app-bar dark color="primary" class="mt-n1 mb-3">
           <v-icon large left>
@@ -50,11 +50,15 @@
           <BaseButton cancel @click="dialog = false"> </BaseButton>
           <v-spacer></v-spacer>
           <div class="d-flex flex-wrap justify-end">
-            <BaseButton color="info" @click="autoSetReferences">
+            <BaseButton class="my-1" color="info" @click="autoSetReferences">
               <template #icon> {{ $globals.icons.robot }}</template>
               {{ $t("recipe.auto") }}
             </BaseButton>
-            <BaseButton class="ml-2" save @click="setIngredientIds"> </BaseButton>
+            <BaseButton class="ml-2 my-1" save @click="setIngredientIds"> </BaseButton>
+            <BaseButton v-if="availableNextStep" class="ml-2 my-1" @click="saveAndOpenNextLinkIngredients">
+              <template #icon> {{ $globals.icons.forward }}</template>
+              {{ $t("recipe.nextStep") }}
+            </BaseButton>
           </div>
         </v-card-actions>
       </v-card>
@@ -236,6 +240,7 @@ import {
   onMounted,
   useContext,
   computed,
+  nextTick,
 } from "@nuxtjs/composition-api";
 import RecipeIngredientHtml from "../../RecipeIngredientHtml.vue";
 import { RecipeStep, IngredientReferences, RecipeIngredient, RecipeAsset, Recipe } from "~/lib/api/types/recipe";
@@ -399,6 +404,8 @@ export default defineComponent({
       activeRefs.value = refs.map((ref) => ref.referenceId ?? "");
     }
 
+    const availableNextStep = computed(() => activeIndex.value < props.value.length - 1);
+
     function setIngredientIds() {
       const instruction = props.value[activeIndex.value];
       instruction.ingredientReferences = activeRefs.value.map((ref) => {
@@ -415,6 +422,20 @@ export default defineComponent({
         }
       });
       state.dialog = false;
+    }
+
+    function saveAndOpenNextLinkIngredients() {
+      const currentStepIndex = activeIndex.value;
+
+      if(!availableNextStep.value) {
+        return; // no next step, the button calling this function should not be shown
+      }
+
+      setIngredientIds();
+      const nextStep = props.value[currentStepIndex + 1];
+      // close dialog before opening to reset the scroll position
+      nextTick(() => openDialog(currentStepIndex + 1, nextStep.text, nextStep.ingredientReferences));
+
     }
 
     function setUsedIngredients() {
@@ -627,6 +648,8 @@ export default defineComponent({
       mergeAbove,
       openDialog,
       setIngredientIds,
+      availableNextStep,
+      saveAndOpenNextLinkIngredients,
       undoMerge,
       toggleDisabled,
       isChecked,
