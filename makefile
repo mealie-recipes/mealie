@@ -28,9 +28,6 @@ docs: ## 📄 Start Mkdocs Development Server
 	poetry run python dev/code-generation/gen_docs_api.py && \
 	cd docs && poetry run python -m mkdocs serve
 
-code-gen: ## 🤖 Run Code-Gen Scripts
-	poetry run python dev/scripts/app_routes_gen.py
-
 # -----------------------------------------------------------------------------
 # Backend makefile
 
@@ -54,7 +51,6 @@ setup: ## 🏗  Setup Development Instance
 setup-model: ## 🤖 Get the latest NLP CRF++ Model
 	@echo Fetching NLP Model - CRF++ is still Required
 	curl -L0 https://github.com/mealie-recipes/nlp-model/releases/download/v1.0.0/model.crfmodel --output ./mealie/services/parser_services/crfpp/model.crfmodel
-
 
 clean-data: ## ⚠️  Removes All Developer Data for a fresh server start
 	rm -r ./dev/data/recipes/
@@ -112,9 +108,6 @@ frontend: ## 🎬 Start Mealie Frontend Development Server
 
 frontend-build: ## 🏗  Build Frontend in frontend/dist
 	cd frontend && yarn run build
-
-frontend-generate: ## 🏗  Generate Code for Frontend
-	poetry run python dev/code-generation/gen_frontend_types.py
 
 frontend-lint: ## 🧺 Run yarn lint
 	cd frontend && yarn lint
