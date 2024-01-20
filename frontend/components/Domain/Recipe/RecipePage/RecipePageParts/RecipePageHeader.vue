@@ -47,7 +47,8 @@
       :recipe-scale="recipeScale"
       :locked="isOwnGroup && user.id !== recipe.userId && recipe.settings.locked"
       :name="recipe.name"
-      :logged-in="isOwnGroup"
+      :logged-in="loggedIn"
+      :is-own-group="isOwnGroup"
       :open="isEditMode"
       :recipe-id="recipe.id"
       class="ml-auto mt-n8 pb-4"
@@ -98,7 +99,7 @@ export default defineComponent({
     const { recipeImage } = useStaticRoutes();
     const { imageKey, pageMode, editMode, setMode, toggleEditMode, isEditMode } = usePageState(props.recipe.slug);
     const { user } = usePageUser();
-    const { isOwnGroup } = useLoggedInState();
+    const { loggedIn, isOwnGroup } = useLoggedInState();
 
     function printRecipe() {
       window.print();
@@ -121,6 +122,7 @@ export default defineComponent({
     );
 
     return {
+      loggedIn,
       isOwnGroup,
       setMode,
       toggleEditMode,

@@ -5,6 +5,7 @@ import { useUserApi } from "~/composables/api";
 import { RecipeTool } from "~/lib/api/types/recipe";
 
 const toolStore: Ref<RecipeTool[]> = ref([]);
+const publicToolStore: { [slug: string]: Ref<RecipeTool[]> } = {};
 
 export function useToolData() {
   const data = reactive({
@@ -32,18 +33,18 @@ export function usePublicToolStore(groupSlug: string) {
   const loading = ref(false);
 
   const actions = {
-    ...usePublicStoreActions<RecipeTool>(api.tools, toolStore, loading),
+    ...usePublicStoreActions<RecipeTool>(api.tools, publicToolStore[groupSlug], loading),
     flushStore() {
-      toolStore.value = [];
+      publicToolStore[groupSlug].value = [];
     },
   };
 
-  if (!toolStore.value || toolStore.value?.length === 0) {
+  if (!publicToolStore[groupSlug]?.value || publicToolStore[groupSlug]?.value?.length === 0) {
     actions.getAll();
   }
 
   return {
-    items: toolStore,
+    items: publicToolStore[groupSlug],
     actions,
     loading,
   };

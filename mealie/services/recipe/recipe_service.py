@@ -44,8 +44,10 @@ class RecipeService(BaseService):
         self.group = group
         super().__init__()
 
-    def _get_recipe(self, data: str | UUID, key: str | None = None) -> Recipe:
-        recipe = self.repos.recipes.by_group(self.group.id).get_one(data, key)
+    def _get_recipe(self, data: str | UUID, key: str | None = None, group_id: str | None = None) -> Recipe:
+        if not group_id:
+            group_id = self.group.id
+        recipe = self.repos.recipes.by_group(group_id).get_one(data, key)
         if recipe is None:
             raise exceptions.NoEntryFound("Recipe not found.")
         return recipe
@@ -249,8 +251,8 @@ class RecipeService(BaseService):
     def duplicate_one(self, old_slug: str, dup_data: RecipeDuplicate) -> Recipe:
         """Duplicates a recipe and returns the new recipe."""
 
-        old_recipe = self._get_recipe(old_slug)
-        new_recipe = old_recipe.copy(exclude={"id", "name", "slug", "image", "comments"})
+        old_recipe = self._get_recipe(old_slug, group_id=dup_data.group_id)
+        new_recipe = old_recipe.copy(exclude={"id", "group_id", "name", "slug", "image", "comments"})
 
         # Asset images in steps directly link to the original recipe, so we
         # need to update them to references to the assets we copy below
@@ -268,6 +270,7 @@ class RecipeService(BaseService):
 
         new_name = dup_data.name if dup_data.name else old_recipe.name or ""
         new_recipe.id = uuid4()
+        new_recipe.group_id = self.group.id
         new_recipe.slug = slugify(new_name)
         new_recipe.image = cache.cache_key.new_key() if old_recipe.image else None
         new_recipe.recipe_instructions = (
@@ -287,12 +290,18 @@ class RecipeService(BaseService):
             additional_attrs=new_recipe.dict(),
         )
 
+        # We need to remove tags, categories and tools if we are copying the new recipe to a new group
+        if new_recipe.group_id != old_recipe.group_id:
+            new_recipe.recipe_category = []
+            new_recipe.tags = []
+            new_recipe.tools = []
+
         new_recipe = self.repos.recipes.create(new_recipe)
 
         # Copy all assets (including images) to the new recipe directory
         # This assures that replaced links in recipe steps continue to work when the old recipe is deleted
         try:
-            new_service = RecipeDataService(new_recipe.id, group_id=old_recipe.group_id)
+            new_service = RecipeDataService(new_recipe.id, group_id=new_recipe.group_id)
             old_service = RecipeDataService(old_recipe.id, group_id=old_recipe.group_id)
             copytree(
                 old_service.dir_data,

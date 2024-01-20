@@ -5,6 +5,7 @@ import { useUserApi } from "~/composables/api";
 import { RecipeTag } from "~/lib/api/types/admin";
 
 const items: Ref<RecipeTag[]> = ref([]);
+const publicTagStore: { [slug: string]: Ref<RecipeTag[]> } = {};
 
 export function useTagData() {
   const data = reactive({
@@ -30,18 +31,18 @@ export function usePublicTagStore(groupSlug: string) {
   const loading = ref(false);
 
   const actions = {
-    ...usePublicStoreActions<RecipeTag>(api.tags, items, loading),
+    ...usePublicStoreActions<RecipeTag>(api.tags, publicTagStore[groupSlug], loading),
     flushStore() {
-      items.value = [];
+      publicTagStore[groupSlug].value = [];
     },
   };
 
-  if (!items.value || items.value?.length === 0) {
+  if (!publicTagStore[groupSlug]?.value || publicTagStore[groupSlug]?.value?.length === 0) {
     actions.getAll();
   }
 
   return {
-    items,
+    items: publicTagStore[groupSlug],
     actions,
     loading,
   };

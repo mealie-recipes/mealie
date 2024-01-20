@@ -5,6 +5,7 @@ import { useUserApi } from "~/composables/api";
 import { RecipeCategory } from "~/lib/api/types/admin";
 
 const categoryStore: Ref<RecipeCategory[]> = ref([]);
+const publicCategoryStore: { [slug: string]: Ref<RecipeCategory[]> } = {};
 
 export function useCategoryData() {
   const data = reactive({
@@ -30,18 +31,18 @@ export function usePublicCategoryStore(groupSlug: string) {
   const loading = ref(false);
 
   const actions = {
-    ...usePublicStoreActions<RecipeCategory>(api.categories, categoryStore, loading),
+    ...usePublicStoreActions<RecipeCategory>(api.categories, publicCategoryStore[groupSlug], loading),
     flushStore() {
-      categoryStore.value = [];
+      publicCategoryStore[groupSlug].value = [];
     },
   };
 
-  if (!categoryStore.value || categoryStore.value?.length === 0) {
+  if (!publicCategoryStore[groupSlug]?.value || publicCategoryStore[groupSlug]?.value?.length === 0) {
     actions.getAll();
   }
 
   return {
-    items: categoryStore,
+    items: publicCategoryStore[groupSlug],
     actions,
     loading,
   };

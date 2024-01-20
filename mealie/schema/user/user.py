@@ -188,6 +188,14 @@ class UpdateGroup(GroupBase):
     webhooks: list[Any] = []
 
 
+class GroupSummary(GroupBase):
+    id: UUID4
+    slug: str
+
+    class Config:
+        orm_mode = True
+
+
 class GroupInDB(UpdateGroup):
     users: list[UserOut] | None
     preferences: ReadGroupPreferences | None = None

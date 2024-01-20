@@ -5,6 +5,7 @@ import { useUserApi } from "~/composables/api";
 import { ReadCookBook, UpdateCookBook } from "~/lib/api/types/cookbook";
 
 let cookbookStore: Ref<ReadCookBook[] | null> | null = null;
+const publicCookbookStore: { [slug: string]: Ref<ReadCookBook[] | null> } = {};
 
 export const useCookbook = function (publicGroupSlug: string | null = null) {
   function getOne(id: string | number) {
@@ -47,22 +48,22 @@ export const usePublicCookbooks = function (groupSlug: string) {
       loading.value = true;
       const { data } = await api.cookbooks.getAll(1, -1, { orderBy: "position", orderDirection: "asc" });
 
-      if (data && data.items && cookbookStore) {
-        cookbookStore.value = data.items;
+      if (data && data.items && typeof publicCookbookStore[groupSlug]) {
+        publicCookbookStore[groupSlug].value = data.items;
       }
 
       loading.value = false;
     },
     flushStore() {
-      cookbookStore = null;
+      publicCookbookStore[groupSlug].value = null;
     },
   };
 
-  if (!cookbookStore) {
-    cookbookStore = actions.getAll();
+  if (!publicCookbookStore[groupSlug]) {
+    publicCookbookStore[groupSlug] = actions.getAll();
   }
 
-  return { cookbooks: cookbookStore, actions };
+  return { cookbooks: publicCookbookStore[groupSlug], actions };
 }
 
 export const useCookbooks = function () {

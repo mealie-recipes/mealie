@@ -770,7 +770,8 @@
     "parser": "Parser",
     "developer": "Developer",
     "cookbook": "Cookbook",
-    "create-cookbook": "Create a new cookbook"
+    "create-cookbook": "Create a new cookbook",
+    "groups": "Other Groups"
   },
   "signup": {
     "error-signing-up": "Error Signing Up",

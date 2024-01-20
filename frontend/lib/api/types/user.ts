@@ -38,6 +38,11 @@ export interface ForgotPassword {
 export interface GroupBase {
   name: string;
 }
+export interface GroupSummary {
+  name: string;
+  id: string;
+  slug: string;
+}
 export interface GroupInDB {
   name: string;
   id: string;

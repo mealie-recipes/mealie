@@ -122,6 +122,7 @@ export interface ContextMenuIncludes {
   delete: boolean;
   edit: boolean;
   download: boolean;
+  duplicate: boolean,
   mealplanner: boolean;
   shoppingList: boolean;
   print: boolean;
@@ -224,10 +225,11 @@ export default defineComponent({
     });
 
     const { i18n, $auth, $globals } = useContext();
-    const { isOwnGroup } = useLoggedInState();
+    const { loggedIn, isOwnGroup } = useLoggedInState();
 
     const route = useRoute();
     const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+    const userGroupSlug = computed(() => $auth.user?.groupSlug || "");
 
     // ===========================================================================
     // Context Menu Setup
@@ -259,7 +261,7 @@ export default defineComponent({
         icon: $globals.icons.duplicate,
         color: undefined,
         event: "duplicate",
-        isPublic: false,
+        isPublic: loggedIn.value,
       },
       mealplanner: {
         title: i18n.tc("recipe.add-to-plan"),
@@ -368,9 +370,9 @@ export default defineComponent({
     }
 
     async function duplicateRecipe() {
-      const { data } = await api.recipes.duplicateOne(props.slug, state.recipeName);
+      const { data } = await api.recipes.duplicateOne(props.slug, state.recipeName, props.recipe.groupId);
       if (data && data.slug) {
-        router.push(`/g/${groupSlug.value}/r/${data.slug}`);
+        router.push(`/g/${userGroupSlug.value}/r/${data.slug}`);
       }
     }
 

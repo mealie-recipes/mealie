@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import UUID4, BaseModel
 
 from mealie.schema._mealie import MealieModel
 
@@ -24,3 +24,4 @@ class RecipeZipTokenResponse(BaseModel):
 
 class RecipeDuplicate(BaseModel):
     name: str | None
+    group_id: UUID4 | None

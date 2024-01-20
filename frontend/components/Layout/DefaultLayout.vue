@@ -13,7 +13,7 @@
       >
         <v-menu offset-y nudge-bottom="5" close-delay="50" nudge-right="15">
           <template #activator="{ on, attrs }">
-            <v-btn v-if="isOwnGroup" rounded large class="ml-2 mt-3" v-bind="attrs" v-on="on">
+            <v-btn v-if="loggedIn" rounded large class="ml-2 mt-3" v-bind="attrs" v-on="on">
               <v-icon left large color="primary">
                 {{ $globals.icons.createAlt }}
               </v-icon>
@@ -41,6 +41,26 @@
             </template>
           </v-list>
         </v-menu>
+        <template v-if="groupLinks" #groups>
+          <v-subheader class="pb-0">
+            {{ $t("sidebar.groups") }}
+          </v-subheader>
+          <v-divider></v-divider>
+          <v-list nav dense exact>
+            <template v-for="nav in groupLinks">
+              <div :key="nav.title">
+                <v-list-item-group :key="nav.title + 'single-item'" color="primary">
+                  <v-list-item exact link :to="nav.to">
+                    <v-list-item-icon>
+                      <v-icon>{{ nav.icon }}</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-title>{{ nav.title }}</v-list-item-title>
+                  </v-list-item>
+                </v-list-item-group>
+              </div>
+            </template>
+          </v-list>
+        </template>
         <template #bottom>
           <v-list-item @click.stop="languageDialog = true">
             <v-list-item-icon>
@@ -86,18 +106,20 @@
   import LanguageDialog from "~/components/global/LanguageDialog.vue";
   import TheSnackbar from "@/components/Layout/LayoutParts/TheSnackbar.vue";
   import { useCookbooks, usePublicCookbooks } from "~/composables/use-group-cookbooks";
+  import { usePublicGroups } from "~/composables/use-groups";
   import { useToggleDarkMode } from "~/composables/use-utils";
 
   export default defineComponent({
     components: { AppHeader, AppSidebar, LanguageDialog, TheSnackbar },
     setup() {
       const { $globals, $auth, $vuetify, i18n } = useContext();
-      const { isOwnGroup } = useLoggedInState();
+      const { loggedIn, isOwnGroup } = useLoggedInState();
+      const { groups } = usePublicGroups();
 
       const isAdmin = computed(() => $auth.user?.admin);
       const route = useRoute();
       const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
-      const { cookbooks } = isOwnGroup.value ? useCookbooks() : usePublicCookbooks(groupSlug.value || "");
+      const userGroupSlug = computed(() => $auth.user?.groupSlug || "");
 
       const toggleDark = useToggleDarkMode();
 
@@ -109,7 +131,19 @@
         sidebar.value = !$vuetify.breakpoint.md;
       });
 
+      const groupLinks = computed(() => {
+        if (!groups.value) return null;
+        return groups.value?.filter(group => group.slug !== groupSlug.value).map((group) => {
+          return {
+            icon: $globals.icons.group,
+            title: group.name,
+            to: `/g/${group.slug as string}`,
+          };
+        });
+      });
+
       const cookbookLinks = computed(() => {
+        const { cookbooks } = isOwnGroup.value ? useCookbooks() : usePublicCookbooks(groupSlug.value || "");
         if (!cookbooks.value) return [];
         return cookbooks.value.map((cookbook) => {
           return {
@@ -135,24 +169,24 @@
           icon: $globals.icons.link,
           title: i18n.tc("general.import"),
           subtitle: i18n.tc("new-recipe.import-by-url"),
-          to: `/g/${groupSlug.value}/r/create/url`,
-          restricted: true,
+          to: `/g/${userGroupSlug.value}/r/create/url`,
+          restricted: !loggedIn.value,
         },
         {
           insertDivider: true,
           icon: $globals.icons.edit,
           title: i18n.tc("general.create"),
           subtitle: i18n.tc("new-recipe.create-manually"),
-          to: `/g/${groupSlug.value}/r/create/new`,
-          restricted: true,
+          to: `/g/${userGroupSlug.value}/r/create/new`,
+          restricted: !loggedIn.value,
         },
         {
           insertDivider: true,
           icon: $globals.icons.pages,
           title: i18n.tc("sidebar.cookbook"),
           subtitle: i18n.tc("sidebar.create-cookbook"),
-          to: `/g/${groupSlug.value}/cookbooks`,
-          restricted: true,
+          to: `/g/${userGroupSlug.value}/cookbooks`,
+          restricted: !loggedIn.value,
         },
       ]);
 
@@ -161,7 +195,7 @@
           icon: $globals.icons.cog,
           title: i18n.tc("general.settings"),
           to: "/admin/site-settings",
-          restricted: true,
+          restricted: !isAdmin.value,
         },
       ]);
 
@@ -170,7 +204,7 @@
           icon: $globals.icons.search,
           to: `/g/${groupSlug.value}`,
           title: i18n.tc("sidebar.search"),
-          restricted: true,
+          restricted: false,
         },
         {
           icon: $globals.icons.calendarMultiselect,
@@ -212,10 +246,12 @@
 
       return {
         groupSlug,
+        groupLinks,
         cookbookLinks,
         createLinks,
         bottomLinks,
         topLinks,
+        loggedIn,
         isAdmin,
         isOwnGroup,
         languageDialog,

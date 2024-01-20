@@ -1,5 +1,5 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import { CategoryBase, GroupBase, GroupInDB, UserOut } from "~/lib/api/types/user";
+import { CategoryBase, GroupBase, GroupSummary, GroupInDB, UserOut } from "~/lib/api/types/user";
 import {
   CreateInviteToken,
   GroupAdminUpdate,
@@ -16,6 +16,7 @@ const prefix = "/api";
 const routes = {
   groups: `${prefix}/admin/groups`,
   groupsSelf: `${prefix}/groups/self`,
+  groupsPublic: `${prefix}/groups/public`,
   categories: `${prefix}/groups/categories`,
   members: `${prefix}/groups/members`,
   permissions: `${prefix}/groups/permissions`,
@@ -36,6 +37,10 @@ export class GroupAPI extends BaseCRUDAPI<GroupBase, GroupInDB, GroupAdminUpdate
    */
   async getCurrentUserGroup() {
     return await this.requests.get<GroupInDB>(routes.groupsSelf);
+  }
+
+  async getPublicGroups() {
+    return await this.requests.get<GroupSummary[]>(routes.groupsPublic);
   }
 
   async getCategories() {

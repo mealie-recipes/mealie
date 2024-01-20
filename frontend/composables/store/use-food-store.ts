@@ -5,6 +5,7 @@ import { useUserApi } from "~/composables/api";
 import { IngredientFood } from "~/lib/api/types/recipe";
 
 let foodStore: Ref<IngredientFood[] | null> | null = null;
+const publicFoodStore: { [slug: string]: Ref<IngredientFood[] | null> | null } = {};
 
 /**
  * useFoodData returns a template reactive object
@@ -37,17 +38,17 @@ export const usePublicFoodStore = function (groupSlug: string) {
   const loading = ref(false);
 
   const actions = {
-    ...usePublicStoreActions(api.foods, foodStore, loading),
+    ...usePublicStoreActions(api.foods, publicFoodStore[groupSlug], loading),
     flushStore() {
-      foodStore = null;
+      publicFoodStore[groupSlug] = null;
     },
   };
 
-  if (!foodStore) {
-    foodStore = actions.getAll();
+  if (!publicFoodStore[groupSlug]) {
+    publicFoodStore[groupSlug] = actions.getAll();
   }
 
-  return { foods: foodStore, actions };
+  return { foods: publicFoodStore[groupSlug], actions };
 };
 
 export const useFoodStore = function () {

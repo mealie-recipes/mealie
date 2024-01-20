@@ -7,14 +7,14 @@ from slugify import slugify
 from sqlalchemy import func, select
 from sqlalchemy.exc import IntegrityError
 
-from mealie.db.models.group import Group
+from mealie.db.models.group import Group, GroupPreferencesModel
 from mealie.db.models.recipe.category import Category
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.tag import Tag
 from mealie.db.models.recipe.tool import Tool
 from mealie.db.models.users.users import User
 from mealie.schema.group.group_statistics import GroupStatistics
-from mealie.schema.user.user import GroupBase, GroupInDB
+from mealie.schema.user.user import GroupBase, GroupInDB, GroupSummary
 
 from ..db.models._model_base import SqlAlchemyBase
 from .repository_generic import RepositoryGeneric
@@ -62,6 +62,17 @@ class RepositoryGroup(RepositoryGeneric[GroupInDB, Group]):
             return self.get_one(slug_or_id)
         else:
             return self.get_one(slug_or_id, key="slug")
+
+    def get_all_public(self) -> GroupSummary | None:
+        stmt = (
+            select(self.model)
+            .join(GroupPreferencesModel)
+            .filter(
+                GroupPreferencesModel.private_group == False,
+                GroupPreferencesModel.recipe_public == True,
+            )  # noqa: E712
+        )
+        return [GroupSummary.from_orm(x) for x in self.session.execute(stmt).scalars().all()]
 
     def statistics(self, group_id: UUID4) -> GroupStatistics:
         def model_count(model: type[SqlAlchemyBase]) -> int:

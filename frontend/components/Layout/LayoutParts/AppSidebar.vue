@@ -8,7 +8,7 @@
         <v-list-item-content>
           <v-list-item-title class="pr-2"> {{ $auth.user.fullName }}</v-list-item-title>
           <v-list-item-subtitle>
-            <v-btn v-if="isOwnGroup" class="px-2 pa-0" text :to="userFavoritesLink" small>
+            <v-btn class="px-2 pa-0" text :to="userFavoritesLink" small>
               <v-icon left small>
                 {{ $globals.icons.heart }}
               </v-icon>
@@ -117,6 +117,9 @@
         </template>
       </v-list>
     </template>
+
+    <!-- Public Group Links -->
+    <slot name="groups"></slot>
 
     <!-- Bottom Navigation Links -->
     <template v-if="bottomLinks" #append>

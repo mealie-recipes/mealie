@@ -21,9 +21,9 @@
 
     <v-spacer></v-spacer>
     <div v-if="!open" class="custom-btn-group ma-1">
-      <RecipeFavoriteBadge v-if="loggedIn" class="mx-1" color="info" button-style :slug="recipe.slug" show-always />
-      <RecipeTimelineBadge v-if="loggedIn" button-style :slug="recipe.slug" :recipe-name="recipe.name" />
-      <div v-if="loggedIn">
+      <RecipeFavoriteBadge v-if="isOwnGroup" class="mx-1" color="info" button-style :slug="recipe.slug" show-always />
+      <RecipeTimelineBadge v-if="isOwnGroup" button-style :slug="recipe.slug" :recipe-name="recipe.name" />
+      <div v-if="isOwnGroup">
         <v-tooltip v-if="!locked" bottom color="info">
           <template #activator="{ on, attrs }">
             <v-btn fab small class="mx-1" color="info" v-bind="attrs" v-on="on" @click="$emit('edit', true)">
@@ -63,13 +63,13 @@
         :use-items="{
           delete: false,
           edit: false,
-          download: loggedIn,
+          download: isOwnGroup,
           duplicate: loggedIn,
-          mealplanner: loggedIn,
-          shoppingList: loggedIn,
+          mealplanner: isOwnGroup,
+          shoppingList: isOwnGroup,
           print: true,
           printPreferences: true,
-          share: loggedIn,
+          share: isOwnGroup,
         }"
         @print="$emit('print')"
       />
@@ -127,6 +127,10 @@ export default defineComponent({
       type: String,
     },
     loggedIn: {
+      type: Boolean,
+      default: false,
+    },
+    isOwnGroup: {
       type: Boolean,
       default: false,
     },

@@ -34,6 +34,45 @@ export const useGroupSelf = function () {
   return { actions, group };
 };
 
+export const usePublicGroups = function () {
+  const api = useUserApi();
+  const loading = ref(false);
+
+  function getAllGroups() {
+    loading.value = true;
+    const asyncKey = String(Date.now());
+    const groups = useAsync(async () => {
+      const { data } = await api.groups.getPublicGroups();
+
+      if (data) {
+        return data;
+      } else {
+        return null;
+      }
+    }, asyncKey);
+
+    loading.value = false;
+    return groups;
+  }
+
+  async function refreshAllGroups() {
+    loading.value = true;
+    const { data } = await api.groups.getPublicGroups();
+
+    if (data) {
+      groups.value = data;
+    } else {
+      groups.value = null;
+    }
+
+    loading.value = false;
+  }
+
+  const groups = getAllGroups();
+
+  return { groups, getAllGroups, refreshAllGroups };
+};
+
 export const useGroups = function () {
   const api = useUserApi();
   const loading = ref(false);
