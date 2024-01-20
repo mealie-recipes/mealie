@@ -451,7 +451,7 @@
     "remove-section": "删除章节",
     "save-recipe-before-use": "使用前保存食谱",
     "section-title": "章节标题",
-    "servings": "份量",
+    "servings": "几人份",
     "share-recipe-message": "我想与你分享我的 {0} 配方。",
     "show-nutrition-values": "显示营养价值表",
     "sodium-content": "钠",
@@ -533,6 +533,8 @@
     "new-recipe-names-must-be-unique": "新食谱名必须唯一",
     "scrape-recipe": "刮削食谱",
     "scrape-recipe-description": "通过URL刮削食谱。提供你想要刮削网址的URL，Mealie会尝试从该网址刮削食谱并添加到你的收藏中。",
+    "scrape-recipe-have-a-lot-of-recipes": "你想要一次刮削多个食谱吗？",
+    "scrape-recipe-suggest-bulk-importer": "试试批量导入器",
     "import-original-keywords-as-tags": "导入原始关键字作为标签",
     "stay-in-edit-mode": "留在编辑模式",
     "import-from-zip": "从Zip压缩包导入",
@@ -555,7 +557,8 @@
     "unit": "单位",
     "upload-image": "上传图片",
     "screen-awake": "保持屏幕唤醒",
-    "remove-image": "删除图片"
+    "remove-image": "删除图片",
+    "nextStep": "下一步"
   },
   "search": {
     "advanced-search": "高级搜索",
@@ -789,7 +792,8 @@
     "tags": "标签",
     "untagged-count": "无标签的共 {count} 个",
     "create-a-tag": "创建标签",
-    "tag-name": "标签名称"
+    "tag-name": "标签名称",
+    "tag": "标签"
   },
   "tool": {
     "tools": "用具",
@@ -798,7 +802,8 @@
     "tool-name": "用具名称",
     "create-new-tool": "新建用具",
     "on-hand-checkbox-label": "显示为在手上(选中)",
-    "required-tools": "所需用具"
+    "required-tools": "所需用具",
+    "tool": "用具"
   },
   "user": {
     "admin": "管理员",

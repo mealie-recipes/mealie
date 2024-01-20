@@ -1,17 +1,19 @@
 # Installing with SQLite
 
+!!! Warning
+    If you're plannin on deploying and using Network Attached Storage with Mealie, you should use [Postgres](./postgres.md) instead of SQLite. SQLite is not designed to be used with Network Attached Storage and can cause data corruption, or locked database errors
+
+
 SQLite is a popular, open source, self-contained, zero-configuration database that is the ideal choice for Mealie when you have 1-20 Users. Below is a ready to use docker-compose.yaml file for deploying Mealie on your server.
 
-**For Environmental Variable Configuration See:**
-
-- [Configuration](./backend-config.md)
+**For Environment Variable Configuration, see** [Backend Configuration](./backend-config.md)
 
 ```yaml
 ---
 version: "3.7"
 services:
   mealie:
-    image: ghcr.io/mealie-recipes/mealie:v1.0.0-RC1.1
+    image: ghcr.io/mealie-recipes/mealie:v1.0.0-RC2
     container_name: mealie
     ports:
         - "9925:9000" # (1)

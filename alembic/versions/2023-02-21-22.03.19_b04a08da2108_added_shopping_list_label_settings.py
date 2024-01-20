@@ -24,10 +24,10 @@ depends_on = None
 
 def populate_shopping_lists_multi_purpose_labels(shopping_lists_multi_purpose_labels_table: sa.Table, session: Session):
     shopping_lists = session.query(ShoppingList).all()
-    labels = session.query(MultiPurposeLabel).all()
 
     shopping_lists_labels_data: list[dict] = []
     for shopping_list in shopping_lists:
+        labels = session.query(MultiPurposeLabel).filter(MultiPurposeLabel.group_id == ShoppingList.group_id).all()
         for i, label in enumerate(labels):
             shopping_lists_labels_data.append(
                 {"id": uuid4(), "shopping_list_id": shopping_list.id, "label_id": label.id, "position": i}
