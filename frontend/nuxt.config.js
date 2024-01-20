@@ -195,6 +195,7 @@ export default {
       { code: "fr-FR", file: "fr-FR.json" },
       { code: "zh-TW", file: "zh-TW.json" },
       { code: "af-ZA", file: "af-ZA.json" },
+      { code: "is-IS", file: "is-IS.json" },
       { code: "sl-SI", file: "sl-SI.json" },
       { code: "ru-RU", file: "ru-RU.json" },
       { code: "he-IL", file: "he-IL.json" },
