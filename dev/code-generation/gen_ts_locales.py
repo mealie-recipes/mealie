@@ -73,13 +73,14 @@ class TargetLanguage(MealieModel):
     id: str
     name: str
     locale: str
-    dir: str
+    dir: str = "ltr"
     threeLettersCode: str
     twoLettersCode: str
     progress: float = 0.0
 
     class Config:
         extra = Extra.allow
+        allow_population_by_field_name = True
 
 
 class CrowdinApi:
