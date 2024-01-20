@@ -113,8 +113,6 @@ We also provide versioned containers that allow to pin to a specific release. Ea
 
 `ghcr.io/mealie-recipes/mealie:latest`
 
-_Note: This tag is not yet available; it will be available with the v1 stable release_
-
 The latest tag provides the latest released image of Mealie.
 
 ---
