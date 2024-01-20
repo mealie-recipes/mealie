@@ -1,5 +1,5 @@
-from getpass import getpass
 import sys
+from getpass import getpass
 
 from mealie.core import root_logger
 from mealie.core.security.security import hash_password
