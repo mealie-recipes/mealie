@@ -63,7 +63,7 @@ class RepositoryGroup(RepositoryGeneric[GroupInDB, Group]):
         else:
             return self.get_one(slug_or_id, key="slug")
 
-    def get_all_public(self) -> GroupSummary | None:
+    def get_all_public(self) -> list[GroupSummary]:
         stmt = (
             select(self.model)
             .join(GroupPreferencesModel)

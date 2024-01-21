@@ -44,8 +44,8 @@ class RecipeService(BaseService):
         self.group = group
         super().__init__()
 
-    def _get_recipe(self, data: str | UUID, key: str | None = None, group_id: str | None = None) -> Recipe:
-        if not group_id:
+    def _get_recipe(self, data: str | UUID, key: str | None = None, group_id: UUID | None = None) -> Recipe:
+        if group_id is None:
             group_id = self.group.id
         recipe = self.repos.recipes.by_group(group_id).get_one(data, key)
         if recipe is None:
