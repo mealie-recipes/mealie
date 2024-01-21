@@ -44,7 +44,7 @@ Mealie is published via GitHub actions to the GitHub container registry with the
 
 ### Process
 
-Because we've built all our publishing effors on GitHub Actions we rely primarily on automations to perform our releases. As such creating a new build of Mealie is as simple as creating a new GitHub release. Here are the general steps we take to create a new release
+Because we've built all our publishing efforts on GitHub Actions we rely primarily on automations to perform our releases. As such creating a new build of Mealie is as simple as creating a new GitHub release. Here are the general steps we take to create a new release
 
 1. Navigate to the [Github Release Page](https://github.com/mealie-recipes/mealie/releases) and click the 'Draft a new release' button.
 2. Choose a tag and increment the version according to the semver specification. i.e, **major** version for breaking changes, **minor** for feature updates, and **patch** for bug fixes.
@@ -58,15 +58,15 @@ Because we've built all our publishing effors on GitHub Actions we rely primaril
 
 ### Tags and Releases
 
-Mealie tries to adhears to a strict [Semver](https://semver.org/) policy. This means that we try to keep our releases as stable as possible, and only introduce breaking changes when absolutely necessary. As such we try to keep our releases as follows:
+Mealie tries to adhere to a strict [Semver](https://semver.org/) policy. This means that we try to keep our releases as stable as possible, and only introduce breaking changes when absolutely necessary. As such we try to keep our releases as follows:
 
-- **Major** releases are reserved for breaking changes, and are not expected to be frequent. Ideally, we will remain at v1.x.x for the forseable future.
+- **Major** releases are reserved for breaking changes, and are not expected to be frequent. Ideally, we will remain at v1.x.x for the forseeable future.
 - **Minor** releases are reserved for new features, and are expected to be frequent.
 - **Patch** releases are reserved for bug fixes, and are expected to be frequent.
 
 Any maintainer who has privileges on GitHub to create a new release can create a release at any time they feel it is necessary. However, it is recommended that you reach out in the discord to other maintainers and get at least one other maintainer to approve the release.
 
-An important caveat to this is that we _may_ make breaking changes in a minor release if it is security related. In this case, the releasor should headline the release notes with the notice and impact of the breaking change, however we may not bump the major version depending on user impact.
+An important caveat to this is that we _may_ make breaking changes in a minor release if it is security related. In this case, the releaser should headline the release notes with the notice and impact of the breaking change, however we may not bump the major version depending on user impact.
 
 ### Release Notes
 
