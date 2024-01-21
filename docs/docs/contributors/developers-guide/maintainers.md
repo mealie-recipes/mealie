@@ -40,7 +40,7 @@ Mealie is published via GitHub actions to the GitHub container registry with the
 : published when a new GitHub Release is created - [Actions File](https://github.com/mealie-recipes/mealie/blob/mealie-next/.github/workflows/release.yml)
 
 !!! note
-    Both the latest, and {version} tags will be the same container on the release of a new version
+    Both the latest, and {version} tags will be the same image on the release of a new version
 
 ### Process
 

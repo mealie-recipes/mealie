@@ -9,14 +9,14 @@ PostgreSQL might be considered if you need to support many concurrent users. In 
 version: "3.7"
 services:
   mealie:
-    image: ghcr.io/mealie-recipes/mealie:latest
+    image: ghcr.io/mealie-recipes/mealie:v1.0.0 # (3)
     container_name: mealie
     ports:
-        - "9925:9000"
+        - "9925:9000" # (1)
     deploy:
       resources:
         limits:
-          memory: 1000M # (1)
+          memory: 1000M # (2)
     depends_on:
       - postgres
     volumes:
@@ -60,3 +60,4 @@ volumes:
 
 1.  To access the mealie interface you only need to expose port 9000 on the mealie container. Here we expose port 9925 on the host, but feel free to change this to any port you like.
 2.  Setting an explicit memory limit is recommended. Python can pre-allocate larger amounts of memory than is necessary if you have a machine with a lot of RAM. This can cause the container to idle at a high memory usage. Setting a memory limit will improve idle performance.
+3.  Whilst a 'latest' tag is available, the Mealie team advises specifying a specific version tag and consciously updating to newer versions when you have time to read the release notes and ensure you follow any manual actions required (which should be rare).
