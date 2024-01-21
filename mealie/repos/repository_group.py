@@ -68,8 +68,8 @@ class RepositoryGroup(RepositoryGeneric[GroupInDB, Group]):
             select(self.model)
             .join(GroupPreferencesModel)
             .filter(
-                GroupPreferencesModel.private_group == False,
-                GroupPreferencesModel.recipe_public == True,
+                GroupPreferencesModel.private_group == False,  # noqa
+                GroupPreferencesModel.recipe_public == True,  # noqa
             )  # noqa: E712
         )
         return [GroupSummary.from_orm(x) for x in self.session.execute(stmt).scalars().all()]

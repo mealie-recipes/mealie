@@ -137,7 +137,7 @@
           return {
             icon: $globals.icons.group,
             title: group.name,
-            to: `/g/${group.slug as string}`,
+            to: `/g/${group.slug}`,
           };
         });
       });
