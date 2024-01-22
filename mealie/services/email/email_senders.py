@@ -3,6 +3,7 @@ import typing
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from email import message
+from email.utils import formatdate
 
 from mealie.services._base_service import BaseService
 
@@ -36,6 +37,7 @@ class Message:
         msg["Subject"] = self.subject
         msg["From"] = f"{self.mail_from_name} <{self.mail_from_address}>"
         msg["To"] = to
+        msg["Date"] = formatdate(localtime=True)
         msg.add_alternative(self.html, subtype="html")
 
         if smtp.ssl:
