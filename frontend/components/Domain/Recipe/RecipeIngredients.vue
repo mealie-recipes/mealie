@@ -52,11 +52,17 @@ export default defineComponent({
     });
 
     const ingredientCopyText = computed(() => {
-      return props.value
-        .map((ingredient) => {
-          return `${parseIngredientText(ingredient, props.disableAmount, props.scale, false)}`;
-        })
-        .join("\n");
+      const components: string[] = [];
+      props.value.forEach((ingredient) => {
+        if (ingredient.title) {
+          components.length ? components.push("\n") : null;
+          components.push(`[${ingredient.title}]`);
+        }
+
+        components.push(parseIngredientText(ingredient, props.disableAmount, props.scale, false));
+      });
+
+      return components.join("\n");
     });
 
     function toggleChecked(index: number) {
