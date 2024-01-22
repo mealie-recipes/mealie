@@ -22,9 +22,6 @@ jobs:
           days-before-pr-close: -1
           # If an issue/PR has a milestone, it's exempt from being marked as stale.
           exempt-all-milestones: true
-          # For initial implementation - this stops any actual updates happening.
-          # We can review the output and then decide how to proceed. I will own this action.
-          debug-only: true
           # How many API calls will we allow the action to make, essentially.
           # Doco: https://github.com/actions/stale?tab=readme-ov-file#operations-per-run
           operations-per-run: 150
