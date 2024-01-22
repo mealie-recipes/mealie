@@ -47,7 +47,8 @@ class Message:
         try:
             message_id = f"{uuid4()}@{self.mail_from_address.split('@')[1]}"
         except IndexError:
-            # this should never happen with a valid email address, but we let the SMTP server handle it instead of raising it here
+            # this should never happen with a valid email address,
+            # but we let the SMTP server handle it instead of raising it here
             message_id = f"{uuid4()}@{self.mail_from_address}"
 
         msg["Message-ID"] = message_id
