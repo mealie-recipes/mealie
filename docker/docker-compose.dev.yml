@@ -1,0 +1,21 @@
+version: "3.4"
+services:
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: mealie_dev_mailpit
+    restart: no
+    environment:
+      - "MP_SMTP_AUTH_ACCEPT_ANY=true"
+      - "MP_SMTP_AUTH_ALLOW_INSECURE=true"
+    ports:
+      - "8025:8025"
+      - "1025:1025"
+  postgres:
+    container_name: mealie_dev_postgres
+    image: postgres:15
+    restart: no
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: mealie
+      POSTGRES_USER: mealie
