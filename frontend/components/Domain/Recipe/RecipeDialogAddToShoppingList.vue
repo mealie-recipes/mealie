@@ -272,7 +272,11 @@ export default defineComponent({
         }
       })
 
-      success ? alert.success(i18n.t("recipe.recipes-added-to-list") as string)
+      const successMessage = promises.length === 1
+        ? i18n.t("recipe.successfully-added-to-list") as string
+        : i18n.t("recipe.failed-to-add-to-list") as string;
+
+      success ? alert.success(successMessage)
       : alert.error(i18n.t("failed-to-add-recipes-to-list") as string)
 
       state.shoppingListDialog = false;
