@@ -55,7 +55,10 @@ export default defineComponent({
       const components: string[] = [];
       props.value.forEach((ingredient) => {
         if (ingredient.title) {
-          components.length ? components.push("") : null;
+          if (components.length) {
+            components.push("");
+          }
+
           components.push(`[${ingredient.title}]`);
         }
 
