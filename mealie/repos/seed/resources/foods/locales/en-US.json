@@ -2619,11 +2619,8 @@
     {
         "label": "Cheeses",
         "aliases": [],
-        "description": "",
-        "aliases": [],
-        "description": "",
-        "aliases": [],
-        "description": ""
+        "name": "colby-jack cheese",
+        "pluralName": "colby-jack cheeses"
     },
     {
         "label": "Cheeses",
@@ -8986,7 +8983,6 @@
     },
     {
         "label": "Baking",
-        "aliases": [],
         "description": "",
         "name": "unbleached all-purpose flour",
         "pluralName": "unbleached all-purpose flours",
@@ -14640,11 +14636,10 @@
     },
     {
         "label": "Sauces, Spreads & Dips",
-        "label": "Sauces, Spreads & Dips",
         "aliases": [],
         "description": "",
         "name": "peanut butter",
-        "pluralName": "peanut butter"
+        "pluralName": "peanut butters"
     },
     {
         "label": "Sauces, Spreads & Dips",
