@@ -1,65 +1,89 @@
 [
     {
-        "name": "Produce"
+        "name": "Vegetables & Greens"
     },
     {
-        "name": "Grains"
+        "name": "Mushrooms"
     },
     {
         "name": "Fruits"
     },
     {
-        "name": "Vegetables"
+        "name": "Berries"
     },
     {
-        "name": "Meat"
+        "name": "Nuts & Seeds"
     },
     {
-        "name": "Seafood"
+        "name": "Cheeses"
     },
     {
-        "name": "Beverages"
+        "name": "Dairy & Eggs"
     },
     {
-        "name": "Baked Goods"
+        "name": "Dairy-Free & Meat Substitutes"
     },
     {
-        "name": "Canned Goods"
+        "name": "Meats"
+    },
+    {
+        "name": "Poultry"
+    },
+    {
+        "name": "Fish"
+    },
+    {
+        "name": "Seafood & Seaweed"
+    },
+    {
+        "name": "Herbs & Spices"
+    },
+    {
+        "name": "Seasonings & Spice Blends"
+    },
+    {
+        "name": "Baking"
+    },
+    {
+        "name": "Pre-Made Doughs & Wrappers"
+    },
+    {
+        "name": "Grains & Cereals"
+    },
+    {
+        "name": "Legumes"
+    },
+    {
+        "name": "Pasta"
+    },
+    {
+        "name": "Bread & Salty Snacks"
+    },
+    {
+        "name": "Oils & Fats"
     },
     {
         "name": "Condiments"
     },
     {
-        "name": "Confectionary"
+        "name": "Canned Food"
     },
     {
-        "name": "Dairy Products"
+        "name": "Sauces, Spreads & Dips"
     },
     {
-        "name": "Frozen Foods"
+        "name": "Soups, Stews & Stocks"
     },
     {
-        "name": "Health Foods"
+        "name": "Desserts & Sweet Snacks"
     },
     {
-        "name": "Household"
+        "name": "Wine, Beer & Spirits"
     },
     {
-        "name": "Meat Products"
+        "name": "Beverages"
     },
     {
-        "name": "Snacks"
-    },
-    {
-        "name": "Spices"
-    },
-    {
-        "name": "Sweets"
-    },
-    {
-        "name": "Alcohol"
-    },
-    {
-        "name": "Other"
+        "name": "Supplements & Extracts"
     }
 ]
