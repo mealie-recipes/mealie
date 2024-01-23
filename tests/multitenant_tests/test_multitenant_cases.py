@@ -6,9 +6,11 @@ from tests.fixtures.fixture_multitenant import MultiTenant
 from tests.multitenant_tests.case_abc import ABCMultiTenantTestCase
 from tests.multitenant_tests.case_categories import CategoryTestCase
 from tests.multitenant_tests.case_foods import FoodsTestCase
+from tests.multitenant_tests.case_recipes import RecipesTestCase
 from tests.multitenant_tests.case_tags import TagsTestCase
 from tests.multitenant_tests.case_tools import ToolsTestCase
 from tests.multitenant_tests.case_units import UnitsTestCase
+from tests.utils import api_routes
 
 all_cases = [
     UnitsTestCase,
@@ -16,6 +18,7 @@ all_cases = [
     ToolsTestCase,
     TagsTestCase,
     CategoryTestCase,
+    RecipesTestCase,
 ]
 
 
@@ -91,3 +94,40 @@ def test_multitenant_cases_same_named_resources(
             if len(data) > 0:
                 for item in data:
                     assert item["id"] in item_ids
+
+
+def test_multitenant_duplicate_recipe(
+    api_client: TestClient,
+    multitenants: MultiTenant,
+    database: AllRepositories,
+):
+    """
+    This test will validate recipe duplication across tenants.
+    """
+
+    user1 = multitenants.user_one  # public recipes
+    user2 = multitenants.user_two  # private recipes
+
+    test_case = RecipesTestCase(database, api_client)
+
+    with test_case:
+        test_case.seed_action(user1.group_id)
+        recipe = test_case.items[0]
+
+        # Duplicate a User 1 recipe as User 2
+        recipe_duplicate_url = api_routes.recipes_slug_duplicate(recipe.slug)
+        response = api_client.post(
+            recipe_duplicate_url,
+            headers=user2.token,
+            json={
+                "name": recipe.name,
+                "group_id": user1.group_id,
+            },
+        )
+        assert response.status_code == 201
+
+        duplicate_recipe = response.json()
+        assert duplicate_recipe["id"] != recipe.id
+        assert duplicate_recipe["groupId"] == user2.group_id
+        assert duplicate_recipe["name"] == recipe.name
+        assert duplicate_recipe["slug"] == recipe.slug

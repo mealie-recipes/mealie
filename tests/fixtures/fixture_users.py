@@ -12,10 +12,12 @@ from tests.utils import api_routes
 from tests.utils.factories import random_string
 
 
-def build_unique_user(group: str, api_client: TestClient) -> utils.TestUser:
+def build_unique_user(
+    group: str, api_client: TestClient, advanced: bool | None = None, private: bool | None = None
+) -> utils.TestUser:
     group = group or random_string(12)
 
-    registration = utils.user_registration_factory()
+    registration = utils.user_registration_factory(advanced, private)
     response = api_client.post("/api/users/register", json=registration.dict(by_alias=True))
     assert response.status_code == 201
 

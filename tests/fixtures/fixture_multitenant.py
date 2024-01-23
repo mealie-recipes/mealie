@@ -17,6 +17,6 @@ class MultiTenant:
 @pytest.fixture(scope="module")
 def multitenants(api_client: TestClient) -> MultiTenant:
     yield MultiTenant(
-        user_one=build_unique_user(random_string(12), api_client),
-        user_two=build_unique_user(random_string(12), api_client),
+        user_one=build_unique_user(random_string(12), api_client, private=False),
+        user_two=build_unique_user(random_string(12), api_client, private=True),
     )
