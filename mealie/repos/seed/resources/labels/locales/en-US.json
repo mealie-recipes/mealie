@@ -1,89 +1,122 @@
 [
     {
-        "name": "Vegetables & Greens"
+      "name": "Desserts & Sweet Snacks",
+      "color": "#498675"
     },
     {
-        "name": "Mushrooms"
+      "name": "Soups, Stews & Stocks",
+      "color": "#b30447"
     },
     {
-        "name": "Fruits"
+      "name": "Sauces, Spreads & Dips",
+      "color": "#c6f8cb"
     },
     {
-        "name": "Berries"
+      "name": "Canned Food",
+      "color": "#cc135d"
     },
     {
-        "name": "Nuts & Seeds"
+      "name": "Condiments",
+      "color": "#280b6a"
     },
     {
-        "name": "Cheeses"
+      "name": "Oils & Fats",
+      "color": "#6230ce"
     },
     {
-        "name": "Dairy & Eggs"
+      "name": "Bread & Salty Snacks",
+      "color": "#337ce7"
     },
     {
-        "name": "Dairy-Free & Meat Substitutes"
+      "name": "Pasta",
+      "color": "#92d65d"
     },
     {
-        "name": "Meats"
+      "name": "Legumes",
+      "color": "#0dabb2"
     },
     {
-        "name": "Poultry"
+      "name": "Grains & Cereals",
+      "color": "#8ddf62"
     },
     {
-        "name": "Fish"
+      "name": "Pre-Made Doughs & Wrappers",
+      "color": "#c04dd5"
     },
     {
-        "name": "Seafood & Seaweed"
+      "name": "Baking",
+      "color": "#a9e49c"
     },
     {
-        "name": "Herbs & Spices"
+      "name": "Seasonings & Spice Blends",
+      "color": "#c86758"
     },
     {
-        "name": "Seasonings & Spice Blends"
+      "name": "Herbs & Spices",
+      "color": "#594edf"
     },
     {
-        "name": "Baking"
+      "name": "Seafood & Seaweed",
+      "color": "#61d7d5"
     },
     {
-        "name": "Pre-Made Doughs & Wrappers"
+      "name": "Fish",
+      "color": "#accc53"
     },
     {
-        "name": "Grains & Cereals"
+      "name": "Poultry",
+      "color": "#b73211"
     },
     {
-        "name": "Legumes"
+      "name": "Meats",
+      "color": "#1fcae0"
     },
     {
-        "name": "Pasta"
+      "name": "Dairy-Free & Meat Substitutes",
+      "color": "#38804d"
     },
     {
-        "name": "Bread & Salty Snacks"
+      "name": "Dairy & Eggs",
+      "color": "#a5a36a"
     },
     {
-        "name": "Oils & Fats"
+      "name": "Cheeses",
+      "color": "#f4c177"
     },
     {
-        "name": "Condiments"
+      "name": "Nuts & Seeds",
+      "color": "#e6daac"
     },
     {
-        "name": "Canned Food"
+      "name": "Berries",
+      "color": "#3647df"
     },
     {
-        "name": "Sauces, Spreads & Dips"
+      "name": "Mushrooms",
+      "color": "#25046e"
     },
     {
-        "name": "Soups, Stews & Stocks"
+      "name": "Supplements & Extracts",
+      "color": "#ac2a8c"
     },
     {
-        "name": "Desserts & Sweet Snacks"
+      "name": "Beverages",
+      "color": "#fb98fa"
     },
     {
-        "name": "Wine, Beer & Spirits"
+      "name": "Wine, Beer & Spirits",
+      "color": "#018fa0"
     },
     {
-        "name": "Beverages"
+      "name": "Vegetables & Greens",
+      "color": "#16e48b"
     },
     {
-        "name": "Supplements & Extracts"
+      "name": "Fruits",
+      "color": "#a107f5"
+    },
+    {
+      "name": "Sugar & Sweeteners",
+      "color": "#33d808"
     }
-]
+  ]
