@@ -283,7 +283,7 @@
     },
     {
         "label": "Vegetables & Greens",
-        "aliases": [],
+        "aliases": ["courgette","gem squash"],
         "description": "",
         "name": "summer squash",
         "pluralName": "summer squashes"
