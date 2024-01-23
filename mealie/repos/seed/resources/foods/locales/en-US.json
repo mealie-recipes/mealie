@@ -120,7 +120,9 @@
     },
     {
         "label": "Vegetables & Greens",
-        "aliases": [],
+        "aliases": [
+            "capsicum"
+        ],
         "description": "",
         "name": "chile pepper",
         "pluralName": "chile peppers"
@@ -339,6 +341,13 @@
         "label": "Vegetables & Greens",
         "aliases": [],
         "description": "",
+        "name": "cayenne pepper",
+        "pluralName": "cayenne peppers"
+    },
+    {
+        "label": "Vegetables & Greens",
+        "aliases": [],
+        "description": "",
         "name": "green tomato",
         "pluralName": "green tomatoes"
     },
@@ -407,7 +416,9 @@
     },
     {
         "label": "Vegetables & Greens",
-        "aliases": [],
+        "aliases": [
+            "chinese  leaves"
+        ],
         "description": "",
         "name": "napa cabbage",
         "pluralName": "napa cabbages"
@@ -2283,6 +2294,15 @@
     },
     {
         "label": "Cheeses",
+        "aliases": [
+            "cheddars"
+        ],
+        "description": "",
+        "name": "cheddar cheese",
+        "pluralName": "cheddar cheeses"
+    },
+    {
+        "label": "Cheeses",
         "aliases": [],
         "description": "",
         "name": "cream cheese",
@@ -2292,10 +2312,15 @@
         "label": "Cheeses",
         "aliases": [],
         "description": "",
+        "name": "sharp cheddar",
+        "pluralName": "sharp cheddars"
+    },
+    {
+        "label": "Cheeses",
         "aliases": [],
         "description": "",
-        "aliases": [],
-        "description": ""
+        "name": "cheese",
+        "pluralName": "cheeses"
     },
     {
         "label": "Cheeses",
@@ -2322,10 +2347,8 @@
         "label": "Cheeses",
         "aliases": [],
         "description": "",
-        "aliases": [],
-        "description": "",
-        "aliases": [],
-        "description": ""
+        "name": "cheddar-jack cheese",
+        "pluralName": "cheddar-jack cheeses"
     },
     {
         "label": "Cheeses",
@@ -5694,7 +5717,7 @@
         "aliases": [],
         "description": "",
         "name": "catfish",
-        "pluralName": "catfish"
+        "pluralName": "catfishes"
     },
     {
         "label": "Fish",
@@ -7385,17 +7408,30 @@
     },
     {
         "label": "Sugar & Sweeteners",
-        "aliases": [],
+        "aliases": [
+            "powdered sugar"
+        ],
         "description": "",
-        "name": "confectioners\u2019 sugar",
-        "pluralName": "confectioners\u2019 sugars"
+        "name": "confectioners sugar",
+        "pluralName": "confectioners sugars"
     },
     {
         "label": "Sugar & Sweeteners",
-        "aliases": [],
+        "aliases": [
+            "powdered sugar"
+        ],
         "description": "",
-        "name": "honey",
-        "pluralName": "honeys"
+        "name": "confectioners sugar",
+        "pluralName": "confectioners sugars"
+    },
+    {
+        "label": "Sugar & Sweeteners",
+        "aliases": [
+            "castor sugar"
+        ],
+        "description": "",
+        "name": "bar sugar",
+        "pluralName": "bar sugars"
     },
     {
         "label": "Sugar & Sweeteners",
@@ -10005,6 +10041,13 @@
         "label": "Grains & Cereals",
         "aliases": [],
         "description": "",
+        "name": "instant oat",
+        "pluralName": "instant oats"
+    },
+    {
+        "label": "Grains & Cereals",
+        "aliases": [],
+        "description": "",
         "name": "wheat berry",
         "pluralName": "wheat berries"
     },
@@ -10966,6 +11009,13 @@
         "description": "",
         "name": "tortellini",
         "pluralName": "tortellinis"
+    },
+    {
+        "label": "Pasta",
+        "aliases": [],
+        "description": "",
+        "name": "cheese tortellini",
+        "pluralName": "cheese tortellinis"
     },
     {
         "label": "Pasta",
