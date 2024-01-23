@@ -1,122 +1,122 @@
 [
-  {
-    "name": "Desserts & Sweet Snacks",
-    "color": "#498675"
-  },
-  {
-    "name": "Soups, Stews & Stocks",
-    "color": "#b30447"
-  },
-  {
-    "name": "Sauces, Spreads & Dips",
-    "color": "#c6f8cb"
-  },
-  {
-    "name": "Canned Food",
-    "color": "#cc135d"
-  },
-  {
-    "name": "Condiments",
-    "color": "#280b6a"
-  },
-  {
-    "name": "Oils & Fats",
-    "color": "#6230ce"
-  },
-  {
-    "name": "Bread & Salty Snacks",
-    "color": "#337ce7"
-  },
-  {
-    "name": "Pasta",
-    "color": "#92d65d"
-  },
-  {
-    "name": "Legumes",
-    "color": "#0dabb2"
-  },
-  {
-    "name": "Grains & Cereals",
-    "color": "#8ddf62"
-  },
-  {
-    "name": "Pre-Made Doughs & Wrappers",
-    "color": "#c04dd5"
-  },
-  {
-    "name": "Baking",
-    "color": "#a9e49c"
-  },
-  {
-    "name": "Seasonings & Spice Blends",
-    "color": "#c86758"
-  },
-  {
-    "name": "Herbs & Spices",
-    "color": "#594edf"
-  },
-  {
-    "name": "Seafood & Seaweed",
-    "color": "#61d7d5"
-  },
-  {
-    "name": "Fish",
-    "color": "#accc53"
-  },
-  {
-    "name": "Poultry",
-    "color": "#b73211"
-  },
-  {
-    "name": "Meats",
-    "color": "#1fcae0"
-  },
-  {
-    "name": "Dairy-Free & Meat Substitutes",
-    "color": "#38804d"
-  },
-  {
-    "name": "Dairy & Eggs",
-    "color": "#a5a36a"
-  },
-  {
-    "name": "Cheeses",
-    "color": "#f4c177"
-  },
-  {
-    "name": "Nuts & Seeds",
-    "color": "#e6daac"
-  },
-  {
-    "name": "Berries",
-    "color": "#3647df"
-  },
-  {
-    "name": "Mushrooms",
-    "color": "#25046e"
-  },
-  {
-    "name": "Supplements & Extracts",
-    "color": "#ac2a8c"
-  },
-  {
-    "name": "Beverages",
-    "color": "#fb98fa"
-  },
-  {
-    "name": "Wine, Beer & Spirits",
-    "color": "#018fa0"
-  },
-  {
-    "name": "Vegetables & Greens",
-    "color": "#16e48b"
-  },
-  {
-    "name": "Fruits",
-    "color": "#a107f5"
-  },
-  {
-    "name": "Sugar & Sweeteners",
-    "color": "#33d808"
-  }
-]
+    {
+      "name": "Desserts & Sweet Snacks",
+      "color": "#498675"
+    },
+    {
+      "name": "Soups, Stews & Stocks",
+      "color": "#b30447"
+    },
+    {
+      "name": "Sauces, Spreads & Dips",
+      "color": "#c6f8cb"
+    },
+    {
+      "name": "Canned Food",
+      "color": "#cc135d"
+    },
+    {
+      "name": "Condiments",
+      "color": "#280b6a"
+    },
+    {
+      "name": "Oils & Fats",
+      "color": "#6230ce"
+    },
+    {
+      "name": "Bread & Salty Snacks",
+      "color": "#337ce7"
+    },
+    {
+      "name": "Pasta",
+      "color": "#92d65d"
+    },
+    {
+      "name": "Legumes",
+      "color": "#0dabb2"
+    },
+    {
+      "name": "Grains & Cereals",
+      "color": "#8ddf62"
+    },
+    {
+      "name": "Pre-Made Doughs & Wrappers",
+      "color": "#c04dd5"
+    },
+    {
+      "name": "Baking",
+      "color": "#a9e49c"
+    },
+    {
+      "name": "Seasonings & Spice Blends",
+      "color": "#c86758"
+    },
+    {
+      "name": "Herbs & Spices",
+      "color": "#594edf"
+    },
+    {
+      "name": "Seafood & Seaweed",
+      "color": "#61d7d5"
+    },
+    {
+      "name": "Fish",
+      "color": "#accc53"
+    },
+    {
+      "name": "Poultry",
+      "color": "#b73211"
+    },
+    {
+      "name": "Meats",
+      "color": "#1fcae0"
+    },
+    {
+      "name": "Dairy-Free & Meat Substitutes",
+      "color": "#38804d"
+    },
+    {
+      "name": "Dairy & Eggs",
+      "color": "#a5a36a"
+    },
+    {
+      "name": "Cheeses",
+      "color": "#f4c177"
+    },
+    {
+      "name": "Nuts & Seeds",
+      "color": "#e6daac"
+    },
+    {
+      "name": "Berries",
+      "color": "#3647df"
+    },
+    {
+      "name": "Mushrooms",
+      "color": "#25046e"
+    },
+    {
+      "name": "Supplements & Extracts",
+      "color": "#ac2a8c"
+    },
+    {
+      "name": "Beverages",
+      "color": "#fb98fa"
+    },
+    {
+      "name": "Wine, Beer & Spirits",
+      "color": "#018fa0"
+    },
+    {
+      "name": "Vegetables & Greens",
+      "color": "#16e48b"
+    },
+    {
+      "name": "Fruits",
+      "color": "#a107f5"
+    },
+    {
+      "name": "Sugar & Sweeteners",
+      "color": "#33d808"
+    }
+  ]

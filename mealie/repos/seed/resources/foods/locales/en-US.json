@@ -52,20 +52,6 @@
         "label": "Vegetables & Greens",
         "aliases": [],
         "description": "",
-        "name": "baby yukon potatoes",
-        "pluralName": "baby yukon potatoes"
-    },
-    {
-        "label": "Vegetables & Greens",
-        "aliases": [],
-        "description": "",
-        "name": "yukon potato",
-        "pluralName": "yukon potatoes"
-    },
-    {
-        "label": "Vegetables & Greens",
-        "aliases": [],
-        "description": "",
         "name": "red onion",
         "pluralName": "red onions"
     },
@@ -185,7 +171,7 @@
         "label": "Vegetables & Greens",
         "aliases": [],
         "description": "",
-        "name": "asparagus",
+        "name": "asparagu",
         "pluralName": "asparagus"
     },
     {
@@ -211,7 +197,7 @@
     },
     {
         "label": "Vegetables & Greens",
-        "aliases": ["aubergine"],
+        "aliases": [],
         "description": "",
         "name": "eggplant",
         "pluralName": "eggplants"
@@ -2306,8 +2292,10 @@
         "label": "Cheeses",
         "aliases": [],
         "description": "",
-        "singular": "chedder",
-        "plural": "chedders"
+        "aliases": [],
+        "description": "",
+        "aliases": [],
+        "description": ""
     },
     {
         "label": "Cheeses",
@@ -2334,8 +2322,10 @@
         "label": "Cheeses",
         "aliases": [],
         "description": "",
-        "name": "sharp cheddar",
-        "pluralName": "sharp cheddars"
+        "aliases": [],
+        "description": "",
+        "aliases": [],
+        "description": ""
     },
     {
         "label": "Cheeses",
@@ -2607,8 +2597,10 @@
         "label": "Cheeses",
         "aliases": [],
         "description": "",
-        "name": "cheddar-jack cheese",
-        "pluralName": "cheddar-jack cheeses"
+        "aliases": [],
+        "description": "",
+        "aliases": [],
+        "description": ""
     },
     {
         "label": "Cheeses",
@@ -6712,13 +6704,6 @@
         "name": "basil",
         "pluralName": "basils"
     },
-        {
-        "label": "Herbs & Spices",
-        "aliases": [],
-        "description": "",
-        "name": "basil seasoning",
-        "pluralName": "basil seasonings"
-    },
     {
         "label": "Herbs & Spices",
         "aliases": [],
@@ -6896,13 +6881,10 @@
     },
     {
         "label": "Herbs & Spices",
-        "aliases": [
-        "cracked pepper",
-        "black pepper"
-        ],
+        "aliases": [],
         "description": "",
-        "name": "pepper",
-        "pluralName": "peppers"
+        "name": "cracked pepper",
+        "pluralName": "cracked peppers"
     },
     {
         "label": "Herbs & Spices",
@@ -7398,13 +7380,6 @@
         "label": "Sugar & Sweeteners",
         "aliases": [],
         "description": "",
-        "name": "bar sugar",
-        "pluralName": "bar sugars"
-    },
-    {
-        "label": "Sugar & Sweeteners",
-        "aliases": [],
-        "description": "",
         "name": "brown sugar",
         "pluralName": "brown sugars"
     },
@@ -7585,7 +7560,7 @@
     },
     {
         "label": "Sugar & Sweeteners",
-        "aliases": ["besti monk fruit allulose blend"],
+        "aliases": [],
         "description": "",
         "name": "monk fruit sweetener",
         "pluralName": "monk fruit sweeteners"
@@ -8628,7 +8603,7 @@
     },
     {
         "label": "Seasonings & Spice Blends",
-        "aliases": ["au jus gravy mix"],
+        "aliases": [],
         "description": "",
         "name": "au jus mix",
         "pluralName": "au jus mixes"
@@ -8833,13 +8808,6 @@
         "label": "Baking",
         "aliases": [],
         "description": "",
-        "name": "baking sugar",
-        "pluralName": "baking sugars"
-    },
-    {
-        "label": "Baking",
-        "aliases": [],
-        "description": "",
         "name": "cornstarch",
         "pluralName": "cornstarches"
     },
@@ -8973,6 +8941,7 @@
     },
     {
         "label": "Baking",
+        "aliases": [],
         "description": "",
         "name": "unbleached all-purpose flour",
         "pluralName": "unbleached all-purpose flours",
@@ -10696,13 +10665,6 @@
         "description": "",
         "name": "mixed bean",
         "pluralName": "mixed beans"
-    },
-    {
-        "label": "Legumes",
-        "aliases": [],
-        "description": "",
-        "name": "bean",
-        "pluralName": "beans"
     },
     {
         "label": "Legumes",
@@ -13268,7 +13230,7 @@
     },
     {
         "label": "Condiments",
-        "aliases": ["barbecue sauce"],
+        "aliases": [],
         "description": "",
         "name": "bbq sauce",
         "pluralName": "bbq sauces"
@@ -14619,6 +14581,7 @@
     },
     {
         "label": "Sauces, Spreads & Dips",
+        "label": "Sauces, Spreads & Dips",
         "aliases": [],
         "description": "",
         "name": "peanut butter",
@@ -15407,13 +15370,6 @@
         "description": "",
         "name": "better than bouillon",
         "pluralName": "better than bouillons"
-    },
-    {
-        "label": "Soups, Stews & Stocks",
-        "aliases": [],
-        "description": "",
-        "name": "beef bouillon granule",
-        "pluralName": "beef bouillon granules"
     },
     {
         "label": "Soups, Stews & Stocks",
