@@ -38,6 +38,13 @@
         "label": "Vegetables & Greens",
         "aliases": [],
         "description": "",
+        "name": "zucchini",
+        "pluralName": "zucchinis"
+    },
+    {
+        "label": "Fruits",
+        "aliases": [],
+        "description": "Yes they are a fruit",
         "name": "tomato",
         "pluralName": "tomatoes"
     },
@@ -54,6 +61,13 @@
         "description": "",
         "name": "red onion",
         "pluralName": "red onions"
+    },
+    {
+        "label": "Vegetables & Greens",
+        "aliases": [],
+        "description": "",
+        "name": "yellow onion",
+        "pluralName": "yellow onions"
     },
     {
         "label": "Vegetables & Greens",
@@ -140,6 +154,13 @@
         "description": "",
         "name": "broccoli",
         "pluralName": "broccolis"
+    },
+    {
+        "label": "Vegetables & Greens",
+        "aliases": [],
+        "description": "",
+        "name": "heart of palm",
+        "pluralName": "heart of palms"
     },
     {
         "label": "Vegetables & Greens",
@@ -283,7 +304,10 @@
     },
     {
         "label": "Vegetables & Greens",
-        "aliases": ["courgette","gem squash"],
+        "aliases": [
+            "courgette",
+            "gem squash"
+        ],
         "description": "",
         "name": "summer squash",
         "pluralName": "summer squashes"
@@ -551,7 +575,9 @@
     },
     {
         "label": "Vegetables & Greens",
-        "aliases": [],
+        "aliases": [
+            "maize"
+        ],
         "description": "",
         "name": "corn husk",
         "pluralName": "corn husks"
@@ -6352,6 +6378,13 @@
         "label": "Seafood & Seaweed",
         "aliases": [],
         "description": "",
+        "name": "octopuse",
+        "pluralName": "octopi"
+    },
+    {
+        "label": "Seafood & Seaweed",
+        "aliases": [],
+        "description": "",
         "name": "prawn",
         "pluralName": "prawns"
     },
@@ -6837,6 +6870,13 @@
         "description": "",
         "name": "ginger powder",
         "pluralName": "ginger powders"
+    },
+    {
+        "label": "Herbs & Spices",
+        "aliases": [],
+        "description": "",
+        "name": "panch puran",
+        "pluralName": "panch purans"
     },
     {
         "label": "Herbs & Spices",
@@ -7407,7 +7447,9 @@
     },
     {
         "label": "Sugar & Sweeteners",
-        "aliases": [],
+        "aliases": [
+            "turbinado sugar"
+        ],
         "description": "",
         "name": "brown sugar",
         "pluralName": "brown sugars"
@@ -7415,16 +7457,8 @@
     {
         "label": "Sugar & Sweeteners",
         "aliases": [
-            "powdered sugar"
-        ],
-        "description": "",
-        "name": "confectioners sugar",
-        "pluralName": "confectioners sugars"
-    },
-    {
-        "label": "Sugar & Sweeteners",
-        "aliases": [
-            "powdered sugar"
+            "powdered sugar",
+            "icing sugar"
         ],
         "description": "",
         "name": "confectioners sugar",
@@ -7484,9 +7518,16 @@
     {
         "label": "Sugar & Sweeteners",
         "aliases": [],
-        "description": "",
+        "description": "sugar free sweetner",
         "name": "sugar syrup",
         "pluralName": "sugar syrups"
+    },
+    {
+        "label": "Sugar & Sweeteners",
+        "aliases": [],
+        "description": "",
+        "name": "isomalt",
+        "pluralName": "isomalts"
     },
     {
         "label": "Sugar & Sweeteners",
@@ -8827,10 +8868,13 @@
     },
     {
         "label": "Baking",
-        "aliases": [],
+        "aliases": [
+            "vanilla",
+            "vanillas"
+        ],
         "description": "",
-        "name": "vanilla",
-        "pluralName": "vanillas"
+        "name": "vanilla extract",
+        "pluralName": "vanilla extracts"
     },
     {
         "label": "Baking",
@@ -9061,6 +9105,16 @@
         "description": "",
         "name": "whole-wheat pastry flour",
         "pluralName": "whole-wheat pastry flours"
+    },
+    {
+        "label": "Baking",
+        "aliases": [
+            "whole wheat",
+            "whole wheats"
+        ],
+        "description": "",
+        "name": "whole-wheat",
+        "pluralName": "whole-wheats"
     },
     {
         "label": "Baking",
@@ -9549,6 +9603,13 @@
         "label": "Pre-Made Doughs & Wrappers",
         "aliases": [],
         "description": "",
+        "name": "pizza dough",
+        "pluralName": "pizza doughs"
+    },
+    {
+        "label": "Pre-Made Doughs & Wrappers",
+        "aliases": [],
+        "description": "",
         "name": "phyllo",
         "pluralName": "phylloes"
     },
@@ -9831,6 +9892,15 @@
         "description": "",
         "name": "rice",
         "pluralName": "rices"
+    },
+    {
+        "label": "Grains & Cereals",
+        "aliases": [
+            "Rice Krispie"
+        ],
+        "description": "",
+        "name": "Rice Krispie Cereal",
+        "pluralName": "Rice Krispie Cereal"
     },
     {
         "label": "Grains & Cereals",
@@ -10961,10 +11031,12 @@
     },
     {
         "label": "Pasta",
-        "aliases": [],
+        "aliases": [
+            "lasagnas"
+        ],
         "description": "",
-        "name": "lasagna",
-        "pluralName": "lasagnas"
+        "name": "lasagna noodle",
+        "pluralName": "lasagna noodles"
     },
     {
         "label": "Pasta",
@@ -12333,7 +12405,9 @@
     },
     {
         "label": "Oils & Fats",
-        "aliases": [],
+        "aliases": [
+            "grape seed oil"
+        ],
         "description": "",
         "name": "grapeseed oil",
         "pluralName": "grapeseed oils"
@@ -13261,6 +13335,13 @@
         "description": "",
         "name": "hot sauce",
         "pluralName": "hot sauces"
+    },
+    {
+        "label": "Condiments",
+        "aliases": [],
+        "description": "",
+        "name": "worcestershire sauce",
+        "pluralName": "worcestershire sauces"
     },
     {
         "label": "Condiments",
@@ -14678,7 +14759,9 @@
     },
     {
         "label": "Sauces, Spreads & Dips",
-        "aliases": [],
+        "aliases": [
+            "marinara sauce - jarred"
+        ],
         "description": "",
         "name": "marinara sauce",
         "pluralName": "marinara sauces"
@@ -14941,6 +15024,13 @@
         "description": "",
         "name": "sun-dried tomato paste",
         "pluralName": "sun-dried tomato pastes"
+    },
+    {
+        "label": "Sauces, Spreads & Dips",
+        "aliases": [],
+        "description": "",
+        "name": "tomato paste",
+        "pluralName": "tomato pastes"
     },
     {
         "label": "Sauces, Spreads & Dips",
@@ -16038,6 +16128,13 @@
         "label": "Desserts & Sweet Snacks",
         "aliases": [],
         "description": "",
+        "name": "mini arshmallow",
+        "pluralName": "mini marshmallows"
+    },
+    {
+        "label": "Desserts & Sweet Snacks",
+        "aliases": [],
+        "description": "",
         "name": "applesauce",
         "pluralName": "applesauces"
     },
@@ -16344,6 +16441,13 @@
         "description": "",
         "name": "candied peel",
         "pluralName": "candied peels"
+    },
+    {
+        "label": "Desserts & Sweet Snacks",
+        "aliases": [],
+        "description": "",
+        "name": "nutella",
+        "pluralName": "nutellas"
     },
     {
         "label": "Desserts & Sweet Snacks",
