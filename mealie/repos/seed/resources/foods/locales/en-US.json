@@ -3075,7 +3075,9 @@
     },
     {
         "label": "Dairy & Eggs",
-        "aliases": [],
+        "aliases": [
+            "clarified butter"
+        ],
         "description": "",
         "name": "ghee",
         "pluralName": "ghees"
@@ -4311,6 +4313,13 @@
         "description": "",
         "name": "bacon",
         "pluralName": "bacons"
+    },
+    {
+        "label": "Meats",
+        "aliases": [],
+        "description": "",
+        "name": "chopped bacon",
+        "pluralName": "chopped bacons"
     },
     {
         "label": "Meats",
@@ -16071,6 +16080,13 @@
         "description": "",
         "name": "chocolate candy",
         "pluralName": "chocolate candies"
+    },
+    {
+        "label": "Desserts & Sweet Snacks",
+        "aliases": [],
+        "description": "",
+        "name": "chocolate cream-filled chocolate sandwich cookie",
+        "pluralName": "chocolate cream-filled chocolate sandwich cookies"
     },
     {
         "label": "Desserts & Sweet Snacks",
