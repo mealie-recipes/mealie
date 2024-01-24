@@ -66,7 +66,7 @@
     "test-message-sent": "Testovací zpráva odeslána",
     "new-notification": "Nové oznámení",
     "event-notifiers": "Notifikace událostí",
-    "apprise-url-skipped-if-blank": "Apprise URL (skipped if blank)",
+    "apprise-url-skipped-if-blank": "Apprise URL (přeskočeno pokud je prázdné)",
     "enable-notifier": "Povolit notifikaci",
     "what-events": "What events should this notifier subscribe to?",
     "user-events": "Uživatelské události",
@@ -114,10 +114,10 @@
     "json": "JSON",
     "keyword": "Klíčové slovo",
     "link-copied": "Odkaz zkopírován",
-    "loading": "Loading",
+    "loading": "Načítá se",
     "loading-events": "Načítání událostí",
-    "loading-recipe": "Loading recipe...",
-    "loading-ocr-data": "Loading OCR data...",
+    "loading-recipe": "Načítám recept...",
+    "loading-ocr-data": "Načítám OCR data...",
     "loading-recipes": "Načítám recepty",
     "message": "Zpráva",
     "monday": "Pondělí",
@@ -243,8 +243,8 @@
     "show-recipe-assets-description": "When enabled the recipe assets will be shown on the recipe if available",
     "default-to-landscape-view": "Default to landscape view",
     "default-to-landscape-view-description": "When enabled the recipe header section will be shown in landscape view",
-    "disable-users-from-commenting-on-recipes": "Disable users from commenting on recipes",
-    "disable-users-from-commenting-on-recipes-description": "Hides the comment section on the recipe page and disables commenting",
+    "disable-users-from-commenting-on-recipes": "Zakázat uživatelům komentovat u receptů",
+    "disable-users-from-commenting-on-recipes-description": "Na stránce receptu skryje sekci s komentáři a zakáže komentování",
     "disable-organizing-recipe-ingredients-by-units-and-food": "Disable organizing recipe ingredients by units and food",
     "disable-organizing-recipe-ingredients-by-units-and-food-description": "Hides the Food, Unit, and Amount fields for ingredients and treats ingredients as plain text fields.",
     "general-preferences": "General Preferences",
@@ -254,10 +254,11 @@
     "group-management": "Správa skupin",
     "admin-group-management": "Admin Group Management",
     "admin-group-management-text": "Změny v této skupině budou okamžitě zohledněny.",
-    "group-id-value": "Group Id: {0}"
+    "group-id-value": "ID skupiny: {0}"
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Vytvořit nový jídelníček",
+    "update-this-meal-plan": "Update this Meal Plan",
     "dinner-this-week": "Večeře na tento týden",
     "dinner-today": "Dnešní večeře",
     "dinner-tonight": "DNEŠNÍ VEČEŘE",
@@ -307,10 +308,10 @@
     "new-rule": "Nové pravidlo",
     "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "When creating a new rule for a meal plan you can restrict the rule to be applicable for a specific day of the week and/or a specific type of meal. To apply a rule to all days or all meal types you can set the rule to \"Any\" which will apply it to all the possible values for the day and/or meal type.",
-    "recipe-rules": "Recipe Rules",
+    "recipe-rules": "Pravidla receptu",
     "applies-to-all-days": "Použije se na všechny dny",
     "applies-on-days": "Applies on {0}s",
-    "meal-plan-settings": "Meal Plan Settings"
+    "meal-plan-settings": "Nastavení jídelníčku"
   },
   "migration": {
     "migration-data-removed": "Data z migrace byla smazána",
@@ -335,7 +336,7 @@
     },
     "paprika": {
       "description-long": "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
-      "title": "Paprika Recipe Manager"
+      "title": "Správce receptů Paprika"
     },
     "mealie-pre-v1": {
       "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
@@ -558,7 +559,7 @@
     "upload-image": "Nahrát obrázek",
     "screen-awake": "Keep Screen Awake",
     "remove-image": "Remove image",
-    "nextStep": "Next step"
+    "nextStep": "Další krok"
   },
   "search": {
     "advanced-search": "Pokročilé vyhledávání",
@@ -1154,7 +1155,7 @@
     "notifiers-description": "Setup email and push notifications that trigger on specific events.",
     "manage-data": "Spravovat data",
     "manage-data-description": "Manage your Food and Units (more options coming soon)",
-    "data-migrations": "Data Migrations",
+    "data-migrations": "Migrace dat",
     "data-migrations-description": "Migrate your existing data from other applications like Nextcloud Recipes and Chowdown",
     "email-sent": "E-mail odeslán",
     "error-sending-email": "Nastala chyba při odesílání e-mailu",
@@ -1166,10 +1167,10 @@
     "manage-your-api-tokens": "Správa API tokenů",
     "manage-user-profile": "Správa uživatelského profilu",
     "manage-cookbooks": "Správa kuchařek",
-    "manage-members": "Manage Members",
-    "manage-webhooks": "Manage Webhooks",
-    "manage-notifiers": "Manage Notifiers",
-    "manage-data-migrations": "Manage Data Migrations"
+    "manage-members": "Spravovat členy",
+    "manage-webhooks": "Spravovat webhooky",
+    "manage-notifiers": "Spravovat oznámení",
+    "manage-data-migrations": "Spravovat migrace dat"
   },
   "cookbook": {
     "cookbooks": "Kuchařky",
@@ -1177,10 +1178,10 @@
     "public-cookbook": "Veřejná kuchařka",
     "public-cookbook-description": "Veřejné kuchařky mohou být sdíleny s neregistrovanými uživateli a budou zobrazeny na stránce vaší skupiny.",
     "filter-options": "Možnosti filtru",
-    "filter-options-description": "When require all is selected the cookbook will only include recipes that have all of the items selected. This applies to each subset of selectors and not a cross section of the selected items.",
-    "require-all-categories": "Require All Categories",
-    "require-all-tags": "Require All Tags",
-    "require-all-tools": "Require All Tools",
+    "filter-options-description": "Pokud je vybrána možnost vyžadovat vše, kuchařka bude obsahovat pouze ty recepty, které mají všechny vybrané položky. To platí pro každou podmnožinu výběru, nikoliv pro jejich průnik.",
+    "require-all-categories": "Vyžadovat všechny kategorie",
+    "require-all-tags": "Vyžadovat všechny štítky",
+    "require-all-tools": "Vyžadovat všechny nástroje",
     "cookbook-name": "Název kuchařky",
     "cookbook-with-name": "Kuchařka {0}"
   }
