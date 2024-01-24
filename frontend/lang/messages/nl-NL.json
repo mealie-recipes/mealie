@@ -198,7 +198,8 @@
     "refresh": "Verversen",
     "upload-file": "Bestand uploaden",
     "created-on-date": "Gemaakt op {0}",
-    "unsaved-changes": "Er zijn niet-opgeslagen wijzigingen. Wil je eerst opslaan voordat je vertrekt? Okay om op te slaan, Annuleren om wijzigingen ongedaan te maken."
+    "unsaved-changes": "Er zijn niet-opgeslagen wijzigingen. Wil je eerst opslaan voordat je vertrekt? Okay om op te slaan, Annuleren om wijzigingen ongedaan te maken.",
+    "clipboard-copy-failure": "Kopiëren naar klembord mislukt."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Weet je zeker dat je <b>{groupName}<b/> wil verwijderen?",
@@ -510,7 +511,7 @@
     "how-did-it-turn-out": "Hoe was je gerecht?",
     "user-made-this": "{user} heeft dit gemaakt",
     "last-made-date": "Laatste Gemaakt {date}",
-    "api-extras-description": "Extra's recepten zijn een belangrijke functie van de Mealie API. Hiermee kunt u aangepaste json key/value paren maken binnen een recept om te verwijzen naar applicaties van 3e onderdelen. Je kunt deze sleutels gebruiken om informatie te bevatten om automatisering of aangepaste berichten te laten verzenden naar het gewenste apparaat.",
+    "api-extras-description": "Extra's bij recepten zijn een belangrijke functie van de Mealie API. Hiermee kun je aangepaste JSON key/value paren maken bij een recept en kun je naar verwijzen vanuit applicaties van derden. Je kunt deze sleutels gebruiken om extra informatie te bieden, bijvoorbeeld om automatisering aan te sturen of aangepaste berichten naar je gewenste apparaat te laten versturen.",
     "message-key": "recept -> bericht-sleutel",
     "parse": "Verwerk",
     "attach-images-hint": "Voeg afbeeldingen toe door ze te slepen en in de editor te plaatsen",
@@ -532,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Nieuwe receptnamen moeten uniek zijn",
     "scrape-recipe": "Scrape recept",
     "scrape-recipe-description": "Voeg een recept toe via een url. Geef de url op van de site welke je wil scannen voor een recept., en Mealie zal proberen het recept vanaf die plek te scannen en aan je collectie toe te voegen.",
+    "scrape-recipe-have-a-lot-of-recipes": "Heb je veel recepten die je in 1 keer wil importeren?",
+    "scrape-recipe-suggest-bulk-importer": "Probeer de bulk importer uit",
     "import-original-keywords-as-tags": "Importeer oorspronkelijke trefwoorden als tags",
     "stay-in-edit-mode": "Blijf in bewerkingsmodus",
     "import-from-zip": "Importeren uit zip",
@@ -554,7 +557,8 @@
     "unit": "Eenheid",
     "upload-image": "Afbeelding uploaden",
     "screen-awake": "Scherm laten aan staan",
-    "remove-image": "Afbeelding verwijderen"
+    "remove-image": "Afbeelding verwijderen",
+    "nextStep": "Volgende stap"
   },
   "search": {
     "advanced-search": "Geavanceerd zoeken",
@@ -788,7 +792,8 @@
     "tags": "Labels",
     "untagged-count": "Niet gelabeld {count}",
     "create-a-tag": "Maak een nieuw label aan",
-    "tag-name": "Labelnaam"
+    "tag-name": "Labelnaam",
+    "tag": "Label"
   },
   "tool": {
     "tools": "Keukengerei",
@@ -797,7 +802,8 @@
     "tool-name": "Naam van het keukengerei",
     "create-new-tool": "Nieuw keukengerei aanmaken",
     "on-hand-checkbox-label": "Tonen als in bezit (gemarkeerd)",
-    "required-tools": "Benodig kookgerei"
+    "required-tools": "Benodig kookgerei",
+    "tool": "Keukengerei"
   },
   "user": {
     "admin": "Beheerder",

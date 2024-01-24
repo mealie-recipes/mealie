@@ -198,7 +198,8 @@
     "refresh": "Yenile",
     "upload-file": "Dosya Yükle",
     "created-on-date": "{0} tarihinde oluşturuldu",
-    "unsaved-changes": "Kaydedilmemiş değişiklikleriniz mevcut. Ayrılmadan önce kaydetmek ister misiniz? Kaydetmek için Tamam'ı, değişiklikleri iptal etmek için İptal'i seçin."
+    "unsaved-changes": "Kaydedilmemiş değişiklikleriniz mevcut. Ayrılmadan önce kaydetmek ister misiniz? Kaydetmek için Tamam'ı, değişiklikleri iptal etmek için İptal'i seçin.",
+    "clipboard-copy-failure": "Panoya kopyalanamadı."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "<b>{groupName}<b/>'i silmek istediğine emin misin?",
@@ -510,7 +511,7 @@
     "how-did-it-turn-out": "Nasıl oldu?",
     "user-made-this": "{user} bunu yaptı",
     "last-made-date": "Last Made {date}",
-    "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom json key/value pairs within a recipe to reference from 3rd part applications. You can use these keys to contain information to trigger automation or custom messages to relay to your desired device.",
+    "api-extras-description": "Tarif ekstraları Mealie API'nin önemli bir özelliğidir. Üçüncü taraf uygulamalardan referans almak üzere bir tarif içinde özel JSON anahtar/değer çiftleri oluşturmanıza olanak tanır. Bu tuşları, örneğin otomasyonları tetiklemek veya istediğiniz cihaza iletilecek özel mesajları bilgi sağlamak için kullanabilirsiniz.",
     "message-key": "Message Key",
     "parse": "Parse",
     "attach-images-hint": "Attach images by dragging & dropping them into the editor",
@@ -532,6 +533,8 @@
     "new-recipe-names-must-be-unique": "New recipe names must be unique",
     "scrape-recipe": "Scrape Recipe",
     "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-have-a-lot-of-recipes": "Aynı anda kazımak istediğiniz birçok tarifiniz mi var?",
+    "scrape-recipe-suggest-bulk-importer": "Toplu ithalatçıyı deneyin",
     "import-original-keywords-as-tags": "Import original keywords as tags",
     "stay-in-edit-mode": "Stay in Edit mode",
     "import-from-zip": "Zip'ten içeri aktar",
@@ -554,7 +557,8 @@
     "unit": "Birim",
     "upload-image": "Resim yükleyin",
     "screen-awake": "Ekranı Açık Tut",
-    "remove-image": "Resmi kaldır"
+    "remove-image": "Resmi kaldır",
+    "nextStep": "Sonraki adım"
   },
   "search": {
     "advanced-search": "Advanced Search",
@@ -788,7 +792,8 @@
     "tags": "Etiketler",
     "untagged-count": "Untagged {count}",
     "create-a-tag": "Create a Tag",
-    "tag-name": "Etiket Adı"
+    "tag-name": "Etiket Adı",
+    "tag": "Etiket"
   },
   "tool": {
     "tools": "Tools",
@@ -797,7 +802,8 @@
     "tool-name": "Tool Name",
     "create-new-tool": "Create New Tool",
     "on-hand-checkbox-label": "Show as On Hand (Checked)",
-    "required-tools": "Required Tools"
+    "required-tools": "Required Tools",
+    "tool": "Araç"
   },
   "user": {
     "admin": "Admin",

@@ -198,7 +198,8 @@
     "refresh": "Recarregar",
     "upload-file": "Enviar arquivo",
     "created-on-date": "Criado em {0}",
-    "unsaved-changes": "Você possui alterações não salvas. Deseja salvar antes de sair? Ok para salvar, Cancelar para descartar alterações."
+    "unsaved-changes": "Você possui alterações não salvas. Deseja salvar antes de sair? Ok para salvar, Cancelar para descartar alterações.",
+    "clipboard-copy-failure": "Failed to copy to the clipboard."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Tem certeza que deseja excluir o grupo <b>{groupName}<b/>?",
@@ -510,7 +511,7 @@
     "how-did-it-turn-out": "Como que ficou?",
     "user-made-this": "{user} fez isso",
     "last-made-date": "Feito pela última vez em {date}",
-    "api-extras-description": "Receitas extras são características chave da API Mealie. Eles permitem que você crie pares personalizados de chave/valor de json em uma receita para referência a partir de aplicativos de terceiros. Você pode usar essas chaves para conter informações para acionar automação ou mensagens personalizadas para transmitir ao seu dispositivo desejado.",
+    "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
     "message-key": "Chave de mensagem",
     "parse": "Analisar",
     "attach-images-hint": "Anexe imagens arrastando e soltando-as no editor",
@@ -532,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Novos nomes de receitas devem ser únicos",
     "scrape-recipe": "Extrair receita do site",
     "scrape-recipe-description": "Scrape uma receita por url. Forneça o Url para o site que você deseja scrape, e Mealie tentará raspar a receita desse site e adicioná-la à sua coleção.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Importar palavras-chave originais como marcadores",
     "stay-in-edit-mode": "Permanecer no modo de edição",
     "import-from-zip": "Importar do .zip",
@@ -554,7 +557,8 @@
     "unit": "Unidade",
     "upload-image": "Enviar imagem",
     "screen-awake": "Manter a tela ligada",
-    "remove-image": "Remover imagem"
+    "remove-image": "Remover imagem",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Pesquisa avançada",
@@ -788,7 +792,8 @@
     "tags": "Marcadores",
     "untagged-count": "{count} sem marcador",
     "create-a-tag": "Criar um marcador",
-    "tag-name": "Nome do Marcador"
+    "tag-name": "Nome do Marcador",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Ferramentas",
@@ -797,7 +802,8 @@
     "tool-name": "Nome da ferramenta",
     "create-new-tool": "Criar Ferramenta",
     "on-hand-checkbox-label": "Mostrar como disponível (checado)",
-    "required-tools": "Ferramentas necessárias"
+    "required-tools": "Ferramentas necessárias",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administrador",

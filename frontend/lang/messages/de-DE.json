@@ -198,7 +198,8 @@
     "refresh": "Aktualisieren",
     "upload-file": "Datei hochladen",
     "created-on-date": "Erstellt am: {0}",
-    "unsaved-changes": "Du hast ungespeicherte Änderungen. Möchtest du vor dem Verlassen speichern? OK um zu speichern, Cancel um Änderungen zu verwerfen."
+    "unsaved-changes": "Du hast ungespeicherte Änderungen. Möchtest du vor dem Verlassen speichern? OK um zu speichern, Cancel um Änderungen zu verwerfen.",
+    "clipboard-copy-failure": "Fehler beim Kopieren in die Zwischenablage."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Bist du dir sicher, dass du die Gruppe <b>{groupName}<b/> löschen möchtest?",
@@ -510,7 +511,7 @@
     "how-did-it-turn-out": "Wie ist es geworden?",
     "user-made-this": "{user} hat's gemacht",
     "last-made-date": "Zuletzt gemacht {date}",
-    "api-extras-description": "Rezepte-Extras sind ein Hauptmerkmal der Mealie API. Sie ermöglichen es dir, benutzerdefinierte JSON Schlüssel/Wert-Paare zu einem Rezept zu erstellen, um Anwendungen von Drittanbietern zu steuern. Du kannst diese Schlüssel dazu verwenden, Automatisierungen auszulösen oder benutzerdefinierte Nachrichten an deine gewünschten Geräte zu senden.",
+    "api-extras-description": "Rezepte-Extras sind ein Hauptmerkmal der Mealie API. Sie ermöglichen es dir, benutzerdefinierte JSON Key-Value-Paare zu einem Rezept zu erstellen, um Drittanbietern-Anwendungen zu steuern. Du kannst diese dazu verwenden, um Automatisierungen auszulösen oder benutzerdefinierte Nachrichten an bestimmte Geräte zu senden.",
     "message-key": "Nachrichten-Schlüssel",
     "parse": "Parse",
     "attach-images-hint": "Bilder durch Ziehen & Ablegen in den Editor hinzufügen",
@@ -532,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Neue Rezeptnamen müssen eindeutig sein",
     "scrape-recipe": "Rezept einlesen",
     "scrape-recipe-description": "Importiere ein Rezept mit der URL. Gib die URL für die Seite an, die du importieren möchtest und Mealie wird versuchen, das Rezept von dieser Seite einzulesen und deiner Sammlung hinzuzufügen.",
+    "scrape-recipe-have-a-lot-of-recipes": "Hast Du viele Rezepte, die Du auf einmal einlesen willst?",
+    "scrape-recipe-suggest-bulk-importer": "Probiere den Massenimporter aus",
     "import-original-keywords-as-tags": "Importiere ursprüngliche Stichwörter als Schlagwörter",
     "stay-in-edit-mode": "Im Bearbeitungsmodus bleiben",
     "import-from-zip": "Von Zip importieren",
@@ -554,7 +557,8 @@
     "unit": "Maßeinheit",
     "upload-image": "Bild hochladen",
     "screen-awake": "Bildschirm nicht abschalten",
-    "remove-image": "Bild entfernen"
+    "remove-image": "Bild entfernen",
+    "nextStep": "Nächster Schritt"
   },
   "search": {
     "advanced-search": "Erweiterte Suche",
@@ -644,16 +648,16 @@
       "primary": "Primär",
       "secondary": "Sekundär",
       "success": "Erfolg",
-      "switch-to-dark-mode": "Zum dunklen Modus wechseln",
-      "switch-to-light-mode": "Zum hellen Modus wechseln",
+      "switch-to-dark-mode": "Zum dunklen Design wechseln",
+      "switch-to-light-mode": "Zum hellen Design wechseln",
       "theme-deleted": "Thema gelöscht",
       "theme-name": "Themenname",
       "theme-name-is-required": "Themenname wird benötigt.",
       "theme-saved": "Thema gespeichert",
       "theme-updated": "Thema aktualisiert",
       "warning": "Warnung",
-      "light-mode": "Heller Modus",
-      "dark-mode": "Dunkler Modus"
+      "light-mode": "Helles Design",
+      "dark-mode": "Dunkles Design"
     },
     "token": {
       "active-tokens": "AKTIVE TOKEN",
@@ -788,7 +792,8 @@
     "tags": "Schlagworte",
     "untagged-count": "{count} ohne Schlagworte",
     "create-a-tag": "Ein Schlagwort erstellen",
-    "tag-name": "Name des Schlagworts"
+    "tag-name": "Name des Schlagworts",
+    "tag": "Schlagwort"
   },
   "tool": {
     "tools": "Utensilien",
@@ -797,7 +802,8 @@
     "tool-name": "Name des Utensils",
     "create-new-tool": "Neues Utensil erstellen",
     "on-hand-checkbox-label": "Als \"vorhanden\" anzeigen (markiert)",
-    "required-tools": "Benötigte Utensilien"
+    "required-tools": "Benötigte Utensilien",
+    "tool": "Utensil"
   },
   "user": {
     "admin": "Admin",

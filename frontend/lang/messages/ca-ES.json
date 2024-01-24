@@ -56,7 +56,7 @@
     "event-delete-confirmation": "Està segur que vol suprimir aquest esdeveniment?",
     "event-deleted": "Esdeveniment eliminat",
     "event-updated": "Esdeveniment actualitzat",
-    "new-notification-form-description": "Mealie utilitza la llibreria Apprise per a generar notificacions. Ofereix moltes opcions de serveis de notificació. A la seua wiki, disposeu de guies d'ús i informació per a crear l'URL al vostre servei. Si està disponible, al seleccionar el tipus de notificació, pot incloure funcions adicionals.",
+    "new-notification-form-description": "Mealie utilitza la llibreria Apprise per a generar notificacions. Ofereix moltes opcions de serveis de notificació. A la seva wiki, disposeu de guies d'ús i informació per a crear l'URL al vostre servei. Si està disponible, en seleccionar el tipus de notificació, pot incloure funcions addicionals.",
     "new-version": "Hi ha una nova versió disponible!",
     "notification": "Notificacions",
     "refresh": "Recarrega",
@@ -114,7 +114,7 @@
     "json": "JSON",
     "keyword": "Paraula clau",
     "link-copied": "S'ha copiat l'enllaç",
-    "loading": "Loading",
+    "loading": "Carregant",
     "loading-events": "Carregant esdeveniments",
     "loading-recipe": "Carregant la recepta...",
     "loading-ocr-data": "Carregant les dades OCR...",
@@ -198,7 +198,8 @@
     "refresh": "Actualitza",
     "upload-file": "Puja un fitxer",
     "created-on-date": "Creat el: {0}",
-    "unsaved-changes": "Tens canvis que no estan guardats. Vols guardar-los abans de sortir? Clica d'acord per guardar-los o cancel·lar per descartar els canvis."
+    "unsaved-changes": "Tens canvis que no estan guardats. Vols guardar-los abans de sortir? Clica d'acord per guardar-los o cancel·lar per descartar els canvis.",
+    "clipboard-copy-failure": "No s'ha pogut copiar al porta-retalls."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Esteu segur de voler suprimir el grup <b>{groupName}<b/>?",
@@ -293,7 +294,7 @@
     "meal-recipe": "Recepta del menú",
     "meal-title": "Títol del menú",
     "meal-note": "Notes del menú",
-    "note-only": "Note Only",
+    "note-only": "Només notes",
     "random-meal": "Menú aleatori",
     "random-dinner": "Principal aleatori",
     "random-side": "Guarnició aleatòria",
@@ -510,8 +511,8 @@
     "how-did-it-turn-out": "Com ha sortit?",
     "user-made-this": "{user} ha fet això",
     "last-made-date": "Última vegada feta {date}",
-    "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom json key/value pairs within a recipe to reference from 3rd part applications. You can use these keys to contain information to trigger automation or custom messages to relay to your desired device.",
-    "message-key": "Message Key",
+    "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
+    "message-key": "Clau del missatge",
     "parse": "Analitzar",
     "attach-images-hint": "Afegeix imatges arrossegant i deixant anar la imatge a l'editor",
     "drop-image": "Deixa anar la imatge",
@@ -532,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Els noms de les noves receptes han de ser únics",
     "scrape-recipe": "Rastrejar recepta",
     "scrape-recipe-description": "Rastrejar recepta des de l'Url. Proporciona un Url del lloc que vols rastrejar i Mealie intentarà analitzar la recepta del lloc web i afegir-la a la teva col·lecció.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Importa les paraules clau originals com a tags",
     "stay-in-edit-mode": "Segueix en el mode d'edició",
     "import-from-zip": "Importa des d'un ZIP",
@@ -554,7 +557,8 @@
     "unit": "Unitat",
     "upload-image": "Puja una imatge",
     "screen-awake": "Mantenir la pantalla encesa",
-    "remove-image": "Esborrar la imatge"
+    "remove-image": "Esborrar la imatge",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Cerca avançada",
@@ -695,8 +699,8 @@
     "volumes-are-configured-correctly": "Volumes are configured correctly.",
     "status-unknown-try-running-a-validation": "Status Unknown. Try running a validation.",
     "validate": "Validate",
-    "email-configuration-status": "Email Configuration Status",
-    "email-configured": "Email Configured",
+    "email-configuration-status": "Estat de la configuració del correu electrònic",
+    "email-configured": "Correu electrònic configurat",
     "email-test-results": "Email Test Results",
     "ready": "Ready",
     "not-ready": "Not Ready - Check Environmental Variables",
@@ -788,7 +792,8 @@
     "tags": "Etiquetes",
     "untagged-count": "{count} sense etiquetar",
     "create-a-tag": "Crea una etiqueta",
-    "tag-name": "Nom de l'etiqueta"
+    "tag-name": "Nom de l'etiqueta",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Estris",
@@ -797,7 +802,8 @@
     "tool-name": "Nom de l'estri",
     "create-new-tool": "Crea un nou estri",
     "on-hand-checkbox-label": "Mostra com a disponible (marcat)",
-    "required-tools": "Eines necessàries"
+    "required-tools": "Eines necessàries",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administrador/a",
@@ -889,7 +895,7 @@
     "enable-advanced-features": "Enable advanced features",
     "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
-    "forgot-password": "Forgot Password",
+    "forgot-password": "Contrasenya oblidada",
     "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
     "changes-reflected-immediately": "Changes to this user will be reflected immediately."
   },

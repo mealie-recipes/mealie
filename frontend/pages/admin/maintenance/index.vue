@@ -58,10 +58,10 @@
         :title="$tc('admin.mainentance.actions-title')"
       >
         <i18n path="admin.maintenance.actions-description">
-          <template #destructive-in-bold>
+          <template #destructive_in_bold>
             <b>{{ $t("admin.maintenance.actions-description-destructive") }}</b>
           </template>
-          <template #irreversible-in-bold>
+          <template #irreversible_in_bold>
             <b>{{ $t("admin.maintenance.actions-description-irreversible") }}</b>
           </template>
         </i18n>

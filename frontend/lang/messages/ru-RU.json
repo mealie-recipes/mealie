@@ -198,7 +198,8 @@
     "refresh": "Обновить",
     "upload-file": "Загрузить файл",
     "created-on-date": "Создано: {0}",
-    "unsaved-changes": "У вас есть несохраненные изменения. Вы хотите сохранить их перед выходом?"
+    "unsaved-changes": "У вас есть несохраненные изменения. Вы хотите сохранить их перед выходом?",
+    "clipboard-copy-failure": "Не удалось скопировать текст."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Вы действительно хотите удалить <b>{groupName}<b/>?",
@@ -510,7 +511,7 @@
     "how-did-it-turn-out": "Что получилось?",
     "user-made-this": "{user} сделал это",
     "last-made-date": "Последний раз сделано {date}",
-    "api-extras-description": "Дополнения к рецептам являются ключевым элементом Mealie API. Они позволяют создавать пользовательские пары json ключ/значение в рецепте для ссылания на другие приложения. Вы можете использовать эти ключи, чтобы сохранить нужную информацию для автоматизаций или уведомлений на ваши устройства.",
+    "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
     "message-key": "Ключ сообщения",
     "parse": "Обработать",
     "attach-images-hint": "Прикрепляйте изображения, перетаскивая их в редактор",
@@ -532,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Название рецепта должно быть уникальным",
     "scrape-recipe": "Отсканировать рецепт",
     "scrape-recipe-description": "Отсканировать рецепт по ссылке. Предоставьте ссылку на страницу, которую вы хотите отсканировать, и Mealie попытается вырезать рецепт с этого сайта и добавить его в свою коллекцию.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Импортировать исходные ключевые слова как теги",
     "stay-in-edit-mode": "Остаться в режиме редактирования",
     "import-from-zip": "Импорт из архива",
@@ -554,7 +557,8 @@
     "unit": "Единица измерения",
     "upload-image": "Загрузить изображение",
     "screen-awake": "Держать экран включенным",
-    "remove-image": "Удалить изображение"
+    "remove-image": "Удалить изображение",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Расширенный поиск",
@@ -788,7 +792,8 @@
     "tags": "Теги",
     "untagged-count": "Не помеченные {count}",
     "create-a-tag": "Создать тег",
-    "tag-name": "Название тега"
+    "tag-name": "Название тега",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Инструменты",
@@ -797,7 +802,8 @@
     "tool-name": "Название инструмента",
     "create-new-tool": "Создать новый инструмент",
     "on-hand-checkbox-label": "Показывать \"в наличии\" (отмечено)",
-    "required-tools": "Необходимые инструменты"
+    "required-tools": "Необходимые инструменты",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Администратор",

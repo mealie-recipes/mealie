@@ -198,7 +198,8 @@
     "refresh": "Obnovit",
     "upload-file": "Nahrát soubor",
     "created-on-date": "Vytvořeno dne: {0}",
-    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
+    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
+    "clipboard-copy-failure": "Failed to copy to the clipboard."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Jste si jisti, že chcete smazat <b>{groupName}<b/>?",
@@ -510,7 +511,7 @@
     "how-did-it-turn-out": "Jak to dopadlo?",
     "user-made-this": "{user} udělal toto",
     "last-made-date": "Naposledy uvařeno {date}",
-    "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom json key/value pairs within a recipe to reference from 3rd part applications. You can use these keys to contain information to trigger automation or custom messages to relay to your desired device.",
+    "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
     "message-key": "Message Key",
     "parse": "Parse",
     "attach-images-hint": "Attach images by dragging & dropping them into the editor",
@@ -532,6 +533,8 @@
     "new-recipe-names-must-be-unique": "New recipe names must be unique",
     "scrape-recipe": "Scrape Recipe",
     "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Import original keywords as tags",
     "stay-in-edit-mode": "Zůstat v režimu úprav",
     "import-from-zip": "Importovat ze zipu",
@@ -554,7 +557,8 @@
     "unit": "Jednotka",
     "upload-image": "Nahrát obrázek",
     "screen-awake": "Keep Screen Awake",
-    "remove-image": "Remove image"
+    "remove-image": "Remove image",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Pokročilé vyhledávání",
@@ -788,7 +792,8 @@
     "tags": "Štítky",
     "untagged-count": "Bez štítku {count}",
     "create-a-tag": "Vytvořit štítek",
-    "tag-name": "Název štítku"
+    "tag-name": "Název štítku",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Nástroje",
@@ -797,7 +802,8 @@
     "tool-name": "Název nástroje",
     "create-new-tool": "Vytvořit nový nástroj",
     "on-hand-checkbox-label": "Zobrazit jako \"Po ruce\" (zaškrtnuto)",
-    "required-tools": "Required Tools"
+    "required-tools": "Required Tools",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Správce",

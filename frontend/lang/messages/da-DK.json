@@ -198,7 +198,8 @@
     "refresh": "Opdater",
     "upload-file": "Upload Fil",
     "created-on-date": "Oprettet den: {0}",
-    "unsaved-changes": "Du har ændringer som ikke er gemt. Vil du gemme før du forlader? Vælg \"Okay\" for at gemme, eller \"Annullér\" for at kassere ændringer."
+    "unsaved-changes": "Du har ændringer som ikke er gemt. Vil du gemme før du forlader? Vælg \"Okay\" for at gemme, eller \"Annullér\" for at kassere ændringer.",
+    "clipboard-copy-failure": "Failed to copy to the clipboard."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Er du sikker på, du vil slette <b>{groupName}<b/>?",
@@ -510,7 +511,7 @@
     "how-did-it-turn-out": "Hvordan blev det?",
     "user-made-this": "{user} lavede denne",
     "last-made-date": "Sidst tilberedt den {date}",
-    "api-extras-description": "Brugerdefinerede oplysninger i opskrifter i Mealie's gør det muligt at oprette JSON data bestående af en nøgle og tilhørende værdier. Data udstilles i Mealie's API og kan bruges af andre applikationer til at udløse automatiseringer eller vise brugerdefineret indhold.",
+    "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
     "message-key": "Beskednøgle",
     "parse": "Behandl data",
     "attach-images-hint": "Vedhæft billeder ved at trække dem ind i redigeringsværktøjet",
@@ -532,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Opskriftsnavnet er allerede i brug",
     "scrape-recipe": "Scrape Opskrift",
     "scrape-recipe-description": "Hent en opskrift fra en hjemmeside. Angiv URL'en til den hjemmeside, du vil hente data fra, og Mealie vil forsøge at hente opskriften og tilføje den til din samling.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Importér originale nøgleord som mærker",
     "stay-in-edit-mode": "Bliv i redigeringstilstand",
     "import-from-zip": "Importer fra zip-fil",
@@ -554,7 +557,8 @@
     "unit": "Enhed",
     "upload-image": "Upload billede",
     "screen-awake": "Hold skærmen tændt",
-    "remove-image": "Fjern billede"
+    "remove-image": "Fjern billede",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Avanceret søgning",
@@ -788,7 +792,8 @@
     "tags": "Tags",
     "untagged-count": "Ikke-tagget: {count}",
     "create-a-tag": "Opret tag",
-    "tag-name": "Tag navn"
+    "tag-name": "Tag navn",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Værktøjer",
@@ -797,7 +802,8 @@
     "tool-name": "Værktøjsnavn",
     "create-new-tool": "Opret et nyt værktøj",
     "on-hand-checkbox-label": "Vis som \"Har allerede\" (afkrydset)",
-    "required-tools": "Nødvendige Værktøjer"
+    "required-tools": "Nødvendige Værktøjer",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administrator",

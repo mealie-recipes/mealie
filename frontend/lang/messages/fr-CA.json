@@ -198,7 +198,8 @@
     "refresh": "Actualiser",
     "upload-file": "Transférer un fichier",
     "created-on-date": "Créé le {0}",
-    "unsaved-changes": "Vous avez des modifications non enregistrées. Voulez-vous enregistrer avant de partir ? OK pour enregistrer, Annuler pour ignorer les modifications."
+    "unsaved-changes": "Vous avez des modifications non enregistrées. Voulez-vous les enregistrer ? Ok pour enregistrer, annuler pour ignorer les modifications.",
+    "clipboard-copy-failure": "Échec de la copie vers le presse-papiers."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Êtes-vous certain de vouloir supprimer <b>{groupName}<b/>?",
@@ -249,7 +250,7 @@
     "general-preferences": "Préférences générales",
     "group-recipe-preferences": "Préférences de recette du groupe",
     "report": "Rapport",
-    "report-with-id": "Identifiant du rapport : {id}",
+    "report-with-id": "ID du rapport: {id}",
     "group-management": "Gestion des groupes",
     "admin-group-management": "Administration des groupes",
     "admin-group-management-text": "Les modifications apportées à ce groupe seront immédiatement prises en compte.",
@@ -510,7 +511,7 @@
     "how-did-it-turn-out": "C’était bon ?",
     "user-made-this": "{user} l’a cuisiné",
     "last-made-date": "Cuisiné le {date}",
-    "api-extras-description": "Les extras de recette sont une caractéristique clé de l'API Mealie. Ils vous permettent de créer des paires clé/valeur json personnalisées dans une recette à référencer depuis des applications externes. Vous pouvez utiliser ces clés pour stocker des informations utiles à l'automatisation ou des messages personnalisés à relayer vers l'appareil souhaité.",
+    "api-extras-description": "Les suppléments des recettes sont une fonctionnalité clé de l’API Mealie. Ils permettent de créer des paires JSON clé/valeur personnalisées dans une recette, qui peuvent être référencées depuis des applications tierces. Ces clés peuvent être utilisées par exemple pour déclencher des tâches automatisées ou des messages personnalisés à transmettre à l’appareil souhaité.",
     "message-key": "Clé de message",
     "parse": "Analyser",
     "attach-images-hint": "Ajouter des images en les glissant-déposant dans l'éditeur",
@@ -532,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Les noms de nouvelles recettes doivent être uniques",
     "scrape-recipe": "Récupérer une recette",
     "scrape-recipe-description": "Récupérer une recette par URL. Fournissez l'URL de la page que vous voulez récupérer, et Mealie essaiera d'en extraire la recette pour l'ajouter à votre collection.",
+    "scrape-recipe-have-a-lot-of-recipes": "Vous avez un tas de recettes à récupérer d’un coup ?",
+    "scrape-recipe-suggest-bulk-importer": "Essayez l’importateur de masse",
     "import-original-keywords-as-tags": "Importer les mots-clés d'origine en tant que tags",
     "stay-in-edit-mode": "Rester en mode édition",
     "import-from-zip": "Importer depuis un zip",
@@ -552,9 +555,10 @@
     "tree-view": "Vue en arborescence",
     "recipe-yield": "Nombre de parts",
     "unit": "Unité",
-    "upload-image": "Envoyer une image",
+    "upload-image": "Ajouter une image",
     "screen-awake": "Garder l’écran allumé",
-    "remove-image": "Supprimer l’image"
+    "remove-image": "Supprimer l’image",
+    "nextStep": "Étape suivante"
   },
   "search": {
     "advanced-search": "Recherche avancée",
@@ -573,7 +577,7 @@
     "search-hint": "Appuyez sur « /»",
     "advanced": "Avancé",
     "auto-search": "Recherche automatique",
-    "no-results": "Aucun résultat trouvé"
+    "no-results": "Pas de résultats trouvés"
   },
   "settings": {
     "add-a-new-theme": "Ajouter un nouveau thème",
@@ -788,7 +792,8 @@
     "tags": "Mots-clés",
     "untagged-count": "{count} sans mot-clés",
     "create-a-tag": "Créer une étiquette",
-    "tag-name": "Nom d'étiquette"
+    "tag-name": "Nom d'étiquette",
+    "tag": "Étiquette"
   },
   "tool": {
     "tools": "Outils",
@@ -797,7 +802,8 @@
     "tool-name": "Nom de l’ustensile",
     "create-new-tool": "Créer un nouvel ustensile",
     "on-hand-checkbox-label": "Afficher comme disponible (coché)",
-    "required-tools": "Ustensiles nécessaires"
+    "required-tools": "Ustensiles nécessaires",
+    "tool": "Ustensile"
   },
   "user": {
     "admin": "Administrateur",

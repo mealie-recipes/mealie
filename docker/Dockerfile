@@ -50,7 +50,6 @@ RUN apt-get update \
     build-essential \
     libpq-dev \
     libwebp-dev \
-    tesseract-ocr-all \
     # LDAP Dependencies
     libsasl2-dev libldap2-dev libssl-dev \
     gnupg gnupg2 gnupg1 \
@@ -89,8 +88,8 @@ RUN apt-get update \
     && apt-get install --no-install-recommends -y \
     gosu \
     iproute2 \
-    tesseract-ocr-all \
     libldap-common \
+    libldap-2.5 \
     && rm -rf /var/lib/apt/lists/*
 
 # copying poetry and venv into image
@@ -139,4 +138,4 @@ EXPOSE ${APP_PORT}
 COPY ./docker/entry.sh $MEALIE_HOME/run.sh
 
 RUN chmod +x $MEALIE_HOME/run.sh
-ENTRYPOINT $MEALIE_HOME/run.sh
+ENTRYPOINT ["/app/run.sh"]

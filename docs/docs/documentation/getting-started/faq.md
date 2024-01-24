@@ -2,7 +2,7 @@
 
 ## How do I enable "smart" ingredient handling?
 
-You might have noticed that scaling up a recipe or making a shopping list doesn't by default handle the ingredients in a way you might expect. Depending on your settings, scaling up might yield things like `2 1 cup broth` instead of `2 cup broth`. And making shopping lists from reciepes that have shared ingredients can yield multiple lines of the same ingredient. **But** mealie has a mechanism to intelligently handle ingredients and make your day better. How?
+You might have noticed that scaling up a recipe or making a shopping list doesn't by default handle the ingredients in a way you might expect. Depending on your settings, scaling up might yield things like `2 1 cup broth` instead of `2 cup broth`. And making shopping lists from reciepes that have shared ingredients can yield multiple lines of the same ingredient. **But**, mealie has a mechanism to intelligently handle ingredients and make your day better. How?
 ### Set up your Foods and Units
 Do the following just **once**. Doing this applies to your whole group, so be careful.
 
@@ -26,9 +26,9 @@ Do the following for each recipe you want to intelligently handle ingredients.
 6. Click the Edit button/icon again
 7. Scroll to the ingredients and you should see new fields for Amount, Unit, Food, and Note. The Note in particular will contain the original text of the Recipe.
 8. Click `Parse` and you will be taken to the ingredient parsing page.
-9. Choose your parser. the `Natural Language Parser` works very well, but you can also use the `Brute Parser`.
-10. Click `Parse All` and your ingredients should be separated out into Units and Foods based on your seeding in Step 1 above.
-11. For ingredients where the Unit or Food were not found, you can click a button to accept an automatically suggested Food to add to the database. Or manually enter the Unit/Food and hit `Enter` (or click `Create`) to add it to the database
+9. Choose your parser. The `Natural Language Parser` works very well, but you can also use the `Brute Parser`.
+10. Click `Parse All`, and your ingredients should be separated out into Units and Foods based on your seeding in Step 1 above.
+11. For ingredients where the Unit or Food was not found, you can click a button to accept an automatically suggested Food to add to the database. Or, manually enter the Unit/Food and hit `Enter` (or click `Create`) to add it to the database
 12. When done, click `Save All` and you will be taken back to the recipe. Now the Unit and Food fields of the recipe should be filled out.
 
 Scaling up this recipe or adding it to a Shopping List will now smartly take care of ingredient amounts and duplicate combinations.
@@ -41,22 +41,15 @@ Yes. If you are using the v1 branches (including beta), you can upgrade to the l
 
 ## How can I change the theme?
 
-You can change the theme by settings the environment variables on the frontend container.
+You can change the theme by settings the environment variables.
 
-- [Frontend Theme](../installation/frontend-config#themeing)
-
-## How can I change the language?
-
-Languages need to be set on the frontend and backend containers as ENV variables.
-
-- [Frontend Config](../installation/frontend-config/)
-- [Backend Config](../installation/backend-config/)
+- [Backend Config - Themeing](./installation/backend-config.md#themeing)
 
 ## How can I change the Login Session Timeout?
 
 Login session can be configured by setting the `TOKEN_TIME` variable on the backend container.
 
-- [Backend Config](../installation/backend-config/)
+- [Backend Config](./installation/backend-config.md)
 
 ## Can I serve Mealie on a subpath?
 
@@ -64,9 +57,7 @@ No. Due to limitations from the Javascript Framework, mealie doesn't support ser
 
 ## Can I install Mealie without docker?
 
-Yes, you can install Mealie on your local machine. HOWEVER, it is recommended that you don't. Managing non-system versions of python, node, and npm is a pain. Moreover updating and upgrading your system with this configuration is unsupported and will likely require manual interventions. If you insist on installing Mealie on your local machine, you can use the links below to help guide your path.
-
-- [Advanced Installation](../installation/advanced/)
+Yes, you can install Mealie on your local machine. HOWEVER, it is recommended that you don't. Managing non-system versions of python, node, and npm is a pain. Moreover, updating and upgrading your system with this configuration is unsupported and will likely require manual interventions.
 
 ## What is fuzzy search and how do I use it?
 Mealie can use fuzzy search, which is robust to minor typos. For example, searching for "brocolli" will still find your recipe for "broccoli soup". But fuzzy search is only functional on a Postgres database backend. To enable fuzzy search you will need to migrate to Postgres:
@@ -75,9 +66,9 @@ Mealie can use fuzzy search, which is robust to minor typos. For example, search
 2. Set up a [Postgres](./installation/postgres.md) instance of Mealie
 3. Upload the backup .zip and click to apply it (as as migration)
 
-## How i can attach an image or video to a Recipe?
+## How can I attach an image or video to a Recipe?
 
-Yes. Mealie's Recipe Steps and other fields support the markdown syntax and therefor supports images and videos. To attach an image to the recipe, you can upload it as an asset and use the provided copy button to generate the html image tag required to render the image. For videos, Mealie provides no way to host videos. You'll need to host your videos with another provider and embed them in your recipe. Generally, the video provider will provide a link to the video and the html tag required to render the video. For example, youtube provides the following link that works inside a step. You can adjust the width and height attributes as necessary to ensure a fit.
+Mealie's Recipe Steps and other fields support markdown syntax and therefore support images and videos. To attach an image to the recipe, you can upload it as an asset and use the provided copy button to generate the html image tag required to render the image. For videos, Mealie provides no way to host videos. You'll need to host your videos with another provider and embed them in your recipe. Generally, the video provider will provide a link to the video and the html tag required to render the video. For example, YouTube provides the following link that works inside a step. You can adjust the width and height attributes as necessary to ensure a fit.
 
 ```html
 <iframe width="560" height="315" src="https://www.youtube.com/embed/nAUwKeO93bY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -85,7 +76,7 @@ Yes. Mealie's Recipe Steps and other fields support the markdown syntax and ther
 
 ## How can I unlock my account?
 
-If your account has been locked by bad password attempts, you can use an administrator account to unlock another account. Alternatively you can unlock all account via a scripts within the container.
+If your account has been locked by bad password attempts, you can use an administrator account to unlock another account. Alternatively, you can unlock all accounts via a script within the container.
 
 ```shell
 docker exec -it mealie-next bash
@@ -93,7 +84,7 @@ docker exec -it mealie-next bash
 python /app/mealie/scripts/reset_locked_users.py
 ```
 
-## How can I change my password
+## How can I change my password?
 
 You can change your password by going to the user profile page and clicking the "Change Password" button. Alternatively you can use the following script to change your password via the CLI if you are locked out of your account.
 
@@ -107,8 +98,9 @@ python /app/mealie/scripts/change_password.py
 
 Managing private groups and recipes can be confusing. The following diagram and notes should help explain how they work to determine if a recipe can be shared publicly.
 
-- Private links that are generated using th`Share` button bypass all group and recipe permissions.
-- Private groups block all access to recipes, including those that are public. Expect as noted above.
+- Private links that are generated from the recipe page using the `Share` button bypass all group and recipe permissions
+- Private groups block all access to recipes, including those that are public, except as noted above.
+- Groups with "Allow users outside of your group to see your recipes" disabled block all access to recipes, except as noted above.
 - Private recipes block all access to the recipe from public links. This does not affect Private Links.
 
 ```mermaid
@@ -132,8 +124,10 @@ stateDiagram-v2
   p3 --> n1: No
 ```
 
+For more information, check out the [Permissions and Public Access guide](./usage/permissions-and-public-access.md).
+
 ## Can I use fail2ban with mealie?
-Yes, mealie is configured to properly forward external IP addresses into the `mealie.log` logfile. Note that, due to restrictions in docker, IP address forwarding only works on linux.
+Yes, mealie is configured to properly forward external IP addresses into the `mealie.log` logfile. Note that due to restrictions in docker, IP address forwarding only works on Linux.
 
 Your fail2ban usage should look like the following:
 ```
@@ -142,12 +136,12 @@ Use   failregex line : ^ERROR:\s+Incorrect username or password from <HOST>
 ```
 
 ## Why An API?
-An API allows integration into applications like [Home Assistant](https://www.home-assistant.io/) that can act as notification engines to provide custom notifications based of Meal Plan data to remind you to defrost the chicken, marinade the steak, or start the CrockPot. Additionally, you can access nearly any backend service via the API giving you total control to extend the application. To explore the API spin up your server and navigate to http://yourserver.com/docs for interactive API documentation.
+An API allows integration into applications like [Home Assistant](https://www.home-assistant.io/) that can act as notification engines to provide custom notifications based on Meal Plan data to remind you to defrost the chicken, marinade the steak, or start the CrockPot. Additionally, you can access nearly any backend service via the API giving you total control to extend the application. To explore the API spin up your server and navigate to http://yourserver.com/docs for interactive API documentation.
 
 ## Why a Database?
-Some users of static-site generator applications like ChowDown have expressed concerns about their data being stuck in a database. Considering this is a new project it is a valid concern to be worried about your data. Mealie specifically addresses this concern by provided automatic daily backups that export your data in json, plain-text markdown files, and/or custom Jinja2 templates. **This puts you in controls of how your data is represented** when exported from Mealie, which means you can easily migrate to any other service provided Mealie doesn't work for you.
+Some users of static-site generator applications like ChowDown have expressed concerns about their data being stuck in a database. Considering this is a new project, it is a valid concern to be worried about your data. Mealie specifically addresses this concern by provided automatic daily backups that export your data in json, plain-text markdown files, and/or custom Jinja2 templates. **This puts you in control of how your data is represented** when exported from Mealie, which means you can easily migrate to any other service provided Mealie doesn't work for you.
 
 As to why we need a database?
 
-- **Developer Experience:** Without a database a lot of the work to maintain your data is taken on by the developer instead of a battle tested platform for storing data.
-- **Multi User Support:** With a solid database as backend storage for your data Mealie can better support multi-user sites and avoid read/write access errors when multiple actions are taken at the same time.
+- **Developer Experience:** Without a database, a lot of the work to maintain your data is taken on by the developer instead of a battle-tested platform for storing data.
+- **Multi User Support:** With a solid database as backend storage for your data, Mealie can better support multi-user sites and avoid read/write access errors when multiple actions are taken at the same time.

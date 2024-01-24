@@ -198,7 +198,8 @@
     "refresh": "Atnaujinti",
     "upload-file": "Įkelti failą",
     "created-on-date": "Sukurta: {0}",
-    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
+    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
+    "clipboard-copy-failure": "Failed to copy to the clipboard."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Ar tikrai norite ištrinti <b>{groupName}<b/>?",
@@ -510,7 +511,7 @@
     "how-did-it-turn-out": "Kaip tai pavyko?",
     "user-made-this": "{user} gamino šį patiekalą",
     "last-made-date": "Paskutinį kartą gaminta {date}",
-    "api-extras-description": "Papildomi receptų laukai yra patogi Mealie API funkcija - recepto turinyje galima kurti specialias \"key/value\" duomenų poras, kurias gali perskaityti išorinės sistemos. Šiuos laukus galima panaudoti automatinių veiksmų aktyvinimui, arba specialioms žinutėms perduoti į norimą įrenginį.",
+    "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
     "message-key": "Žinutės raktas",
     "parse": "Nuskaityti",
     "attach-images-hint": "Pridėkite vaizdus vilkdami ir numesdami juos į redaktorių",
@@ -532,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Naujo recepto pavadinimas turi būti unikalus",
     "scrape-recipe": "Nuskaityti receptą",
     "scrape-recipe-description": "Nuskaityti receptą iš URL nuorodos. Pateikite recepto nuorodą, ir Mealie pabandys paimti recepto informaciją iš šios svetainės ir patalpinti ją jūsų kolekcijoje.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Įkelti pradinius raktažodžius kaip žymas",
     "stay-in-edit-mode": "Toliau redaguoti",
     "import-from-zip": "Įkelti iš .ZIP archyvo",
@@ -554,7 +557,8 @@
     "unit": "Vienetas",
     "upload-image": "Įkelti nuotrauką",
     "screen-awake": "Keep Screen Awake",
-    "remove-image": "Remove image"
+    "remove-image": "Remove image",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Išplėstinė paieška",
@@ -788,7 +792,8 @@
     "tags": "Žymos",
     "untagged-count": "Nepažymėtų {count}",
     "create-a-tag": "Kurti žymą",
-    "tag-name": "Žymos pavadinimas"
+    "tag-name": "Žymos pavadinimas",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Įrankiai",
@@ -797,7 +802,8 @@
     "tool-name": "Įrankio pavadinimas",
     "create-new-tool": "Pridėti naują įrankį",
     "on-hand-checkbox-label": "Rodyti kaip turimą virtuvėje",
-    "required-tools": "Reikalingi įrankiai"
+    "required-tools": "Reikalingi įrankiai",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administratorius",

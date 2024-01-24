@@ -20,7 +20,7 @@
 
     <AdvancedOnly>
       <v-container class="d-flex justify-center align-center my-4">
-        <a :to="`/group/migrations`"> {{ $t('recipe.looking-for-migrations') }}</a>
+        <router-link :to="`/group/migrations`"> {{ $t('recipe.looking-for-migrations') }}</router-link>
       </v-container>
     </AdvancedOnly>
   </div>
@@ -43,6 +43,11 @@ export default defineComponent({
         value: "url",
       },
       {
+        icon: $globals.icons.link,
+        text: i18n.tc("recipe.bulk-url-import"),
+        value: "bulk",
+      },
+      {
         icon: $globals.icons.edit,
         text: i18n.tc("recipe.create-recipe"),
         value: "new",
@@ -51,16 +56,6 @@ export default defineComponent({
         icon: $globals.icons.zip,
         text: i18n.tc("recipe.import-with-zip"),
         value: "zip",
-      },
-      {
-        icon: $globals.icons.fileImage,
-        text: i18n.tc("recipe.create-recipe-from-an-image"),
-        value: "ocr",
-      },
-      {
-        icon: $globals.icons.link,
-        text: i18n.tc("recipe.bulk-url-import"),
-        value: "bulk",
       },
       {
         icon: $globals.icons.robot,

@@ -198,7 +198,8 @@
     "refresh": "Osvježi",
     "upload-file": "Prenesi Datoteku",
     "created-on-date": "Kreirano dana: {0}",
-    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
+    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
+    "clipboard-copy-failure": "Failed to copy to the clipboard."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Jeste li sigurni da želite izbrisati <b>{groupName}<b/>?",
@@ -510,7 +511,7 @@
     "how-did-it-turn-out": "Kako je ispalo?",
     "user-made-this": "{user} je napravio/la ovo",
     "last-made-date": "Zadnji put napravljeno {date}",
-    "api-extras-description": "Dodatci recepata su ključna značajka Mealie API-ja. Omogućuju vam stvaranje prilagođenih JSON ključ/vrijednost parova unutar recepta kako biste ih mogli koristiti iz aplikacija trećih strana. Možete koristiti ove ključeve kako biste sadržavali informacije koje će pokrenuti automatizaciju ili prilagođene poruke koje će biti prenesene na željeni uređaj.",
+    "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
     "message-key": "Ključ poruke",
     "parse": "Razluči (parsiraj)",
     "attach-images-hint": "Priložite slike povlačenjem i ispuštanjem u uređivaču",
@@ -532,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Naziv novog recepta mora imati jedinstveno ime",
     "scrape-recipe": "Prikupi (skraperaj) recept",
     "scrape-recipe-description": "Prikupi (skraperaj) recept putem URL-a. Priložite URL web stranice s koje želite prikupiti recept, a Mealie će pokušati prikupiti recept s te stranice i dodati ga u vašu kolekciju.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Uvezi originalne ključne riječi kao oznake",
     "stay-in-edit-mode": "Ostanite u načinu uređivanja",
     "import-from-zip": "Uvoz iz Zip-a",
@@ -554,7 +557,8 @@
     "unit": "Jedinica",
     "upload-image": "Učitavanje Slike",
     "screen-awake": "Keep Screen Awake",
-    "remove-image": "Remove image"
+    "remove-image": "Remove image",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Napredno Pretraživanje",
@@ -788,7 +792,8 @@
     "tags": "Oznake",
     "untagged-count": "Neoznačeno {count}",
     "create-a-tag": "Kreiraj Oznaku",
-    "tag-name": "Naziv Oznake"
+    "tag-name": "Naziv Oznake",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Alati",
@@ -797,7 +802,8 @@
     "tool-name": "Naziv Alata",
     "create-new-tool": "Kreiraj Novi Alat",
     "on-hand-checkbox-label": "Prikaži Alat Dostupnim (Označeno)",
-    "required-tools": "Potrebni Alati"
+    "required-tools": "Potrebni Alati",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administrator",

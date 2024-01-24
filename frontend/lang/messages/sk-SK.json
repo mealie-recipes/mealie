@@ -114,10 +114,10 @@
     "json": "JSON",
     "keyword": "Kľučové slovo",
     "link-copied": "Odkaz bol skopírovaný",
-    "loading": "Loading",
+    "loading": "Načítavam",
     "loading-events": "Načítanie udalostí",
-    "loading-recipe": "Loading recipe...",
-    "loading-ocr-data": "Loading OCR data...",
+    "loading-recipe": "Načítavam recept...",
+    "loading-ocr-data": "Načítavam OCR dáta...",
     "loading-recipes": "Nahrávanie receptu",
     "message": "Správa",
     "monday": "Pondelok",
@@ -128,7 +128,7 @@
     "no-recipe-found": "Žiadny recept nenájdený",
     "ok": "OK",
     "options": "Možnosti:",
-    "plural-name": "Plural Name",
+    "plural-name": "Meno v množnom čísle",
     "print": "Tlačiť",
     "print-preferences": "Nastavenia tlače",
     "random": "Náhodné",
@@ -198,7 +198,8 @@
     "refresh": "Obnoviť",
     "upload-file": "Nahrať súbor",
     "created-on-date": "Vytvorené: {0}",
-    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
+    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
+    "clipboard-copy-failure": "Failed to copy to the clipboard."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Naozaj chcete odstrániť <b>{groupName}<b/>?",
@@ -495,11 +496,11 @@
     "locked": "Zamknuté",
     "public-link": "Verejný odkaz",
     "timer": {
-      "kitchen-timer": "Kitchen Timer",
-      "start-timer": "Start Timer",
-      "pause-timer": "Pause Timer",
-      "resume-timer": "Resume Timer",
-      "stop-timer": "Stop Timer"
+      "kitchen-timer": "Kuchynský časovač",
+      "start-timer": "Spustiť časovač",
+      "pause-timer": "Pozastaviť časovač",
+      "resume-timer": "Znova spustiť časovač",
+      "stop-timer": "Zastaviť časovač"
     },
     "edit-timeline-event": "Upraviť udalosť na časovej osi",
     "timeline": "Časová os",
@@ -510,7 +511,7 @@
     "how-did-it-turn-out": "Ako to dopadlo?",
     "user-made-this": "{user} toto uvaril/-a",
     "last-made-date": "Posledne pripravené {date}",
-    "api-extras-description": "Extras receptov sú kľúčovou funkcionalitou Mealie API. Umožňujú užívateľom vytvárať vlastné json páry kľúč/hodnota z receptu, aby ich bolo možné použiť v aplikáciách tretej strany. Údaje uložené pod jednotlivými kľúčmi je možné využiť ako spúšťač automatizovaných procesov, či zasielania vlastných správ do vami zvolených zariadení.",
+    "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
     "message-key": "Kľúč správy",
     "parse": "Analyzovať",
     "attach-images-hint": "Pridaj obrázky ich potiahnutím a pustením na editor",
@@ -532,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Názvy nových receptov musia byť jedinečné",
     "scrape-recipe": "Scrapovať recept",
     "scrape-recipe-description": "Stiahne recept zo zadaného url odkazu. Zadajte url stránky, z ktorej chcete stiahnuť recept, a Mealie sa pokúsi recept stiahnuť a vložiť do vašej zbierky.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Importuj pôvodné kľúčové slová ako tagy",
     "stay-in-edit-mode": "Zostať v režime editovania",
     "import-from-zip": "Importovať zo Zip-súboru",
@@ -554,7 +557,8 @@
     "unit": "Jednotka",
     "upload-image": "Nahrať obrázok",
     "screen-awake": "Keep Screen Awake",
-    "remove-image": "Remove image"
+    "remove-image": "Remove image",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Rozšírené vyhľadávanie",
@@ -788,7 +792,8 @@
     "tags": "Štítky",
     "untagged-count": "Neoznačené {count}",
     "create-a-tag": "Vytvoriť štítok",
-    "tag-name": "Názov štítku"
+    "tag-name": "Názov štítku",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Nástroje",
@@ -797,7 +802,8 @@
     "tool-name": "Názov náčinia",
     "create-new-tool": "Vytvoriť nové náčinie",
     "on-hand-checkbox-label": "Zobraz ako \"K dispozícii\" (Checked)",
-    "required-tools": "Potrebné nástroje"
+    "required-tools": "Potrebné nástroje",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administrátor",

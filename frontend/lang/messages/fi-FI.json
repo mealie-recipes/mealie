@@ -198,7 +198,8 @@
     "refresh": "Päivitä",
     "upload-file": "Tuo tiedosto",
     "created-on-date": "Luotu {0}",
-    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
+    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
+    "clipboard-copy-failure": "Failed to copy to the clipboard."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Haluatko varmasti poistaa ryhmän <b>{groupName}<b/>?",
@@ -510,7 +511,7 @@
     "how-did-it-turn-out": "Miten se onnistui?",
     "user-made-this": "{user} teki tämän",
     "last-made-date": "Viimeksi valmistettu {date}",
-    "api-extras-description": "Reseptilisät ovat Mealie API: n avainominaisuus. Niiden avulla voit luoda mukautettuja json-avain/arvo-pareja reseptin sisällä viitaten kolmannen osapuolen sovelluksiin. Voit käyttää näitä pareja sisältämään tietoja automaation käynnistämiseksi tai mukautettuja viestejä välitettäväksi haluamaasi laitteeseen.",
+    "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
     "message-key": "Viestiavain",
     "parse": "Jäsennä",
     "attach-images-hint": "Liitä kuvia vetämällä ja pudottamalla ne editoriin",
@@ -532,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Reseptin nimen on oltava yksilöllinen",
     "scrape-recipe": "Reseptin kaappain",
     "scrape-recipe-description": "Kaappaa resepti urlin avulla. Anna sen reseptin url-osoite, jonka haluat kaapata, ja Mealie yrittää kaapata reseptin kyseiseltä sivustolta ja lisätä sen kokoelmaasi.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Tuo alkuperäiset avainsanat tunnisteiksi",
     "stay-in-edit-mode": "Pysy muokkaustilassa",
     "import-from-zip": "Tuo zip-arkistosta",
@@ -554,7 +557,8 @@
     "unit": "Yksikkö",
     "upload-image": "Lataa kuva",
     "screen-awake": "Pidä näyttö aina päällä",
-    "remove-image": "Poista kuva"
+    "remove-image": "Poista kuva",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Tarkennettu haku",
@@ -788,7 +792,8 @@
     "tags": "Tunnisteet",
     "untagged-count": "Tunnisteettomat {count}",
     "create-a-tag": "Luo tunniste",
-    "tag-name": "Tunnisteen nimi"
+    "tag-name": "Tunnisteen nimi",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Työkalut",
@@ -797,7 +802,8 @@
     "tool-name": "Työkalun Nimi",
     "create-new-tool": "Luo Uusi Työkalu",
     "on-hand-checkbox-label": "Näytä työkalut, jotka omistan jo (valittu)",
-    "required-tools": "Tarvittavat Työkalut"
+    "required-tools": "Tarvittavat Työkalut",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Ylläpitäjä",

@@ -42,7 +42,7 @@
     "category-deleted": "Kategória törölve",
     "category-deletion-failed": "Kategória törlése sikertelen",
     "category-filter": "Kategória szűrő",
-    "category-update-failed": "Kategória elmentése sikertelen",
+    "category-update-failed": "Kategória frissítése sikertelen",
     "category-updated": "Kategória frissítve",
     "uncategorized-count": "Kategórizálatlan {count}",
     "create-a-category": "Kategória létrehozása",
@@ -53,7 +53,7 @@
     "apprise-url": "Apprise URL",
     "database": "Adatbázis",
     "delete-event": "Esemény törlése",
-    "event-delete-confirmation": "Biztosan törölni akarod az eseményt?",
+    "event-delete-confirmation": "Biztosan törölni szeretné ezt az eseményt?",
     "event-deleted": "Esemény törölve",
     "event-updated": "Esemény Frissítve",
     "new-notification-form-description": "A Mealie az Apprise könyvtárat használja az értesítésekhez. Számos lehetőséget kínál különbőző értesítési szolgáltatásokhoz. Nézd meg a wiki oldalukon, hogy kell URL-t létrehozni az általad használt szolgáltatáshoz. Az értesítés tipusának kiválasztásával egyéb beállítási lehetőségek jelenhetnek meg.",
@@ -198,7 +198,8 @@
     "refresh": "Frissít",
     "upload-file": "Fájl feltöltése",
     "created-on-date": "Létrehozva: {0}",
-    "unsaved-changes": "El nem mentett módosításai vannak. Szeretné elmenteni, mielőtt kilép? A mentéshez kattintson az Ok, a módosítások elvetéséhez a Mégsem gombra."
+    "unsaved-changes": "El nem mentett módosításai vannak. Szeretné elmenteni, mielőtt kilép? A mentéshez kattintson az Ok, a módosítások elvetéséhez a Mégsem gombra.",
+    "clipboard-copy-failure": "Nem sikerült a vágólapra másolás."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Biztosan törölni szeretnéd ezt: <b>{groupName}<b/>?",
@@ -510,7 +511,7 @@
     "how-did-it-turn-out": "Hogyan sikerült?",
     "user-made-this": "ezt {user} készítette el",
     "last-made-date": "Utoljára elkészítve {date}",
-    "api-extras-description": "A receptek extrák a Mealie API egyik legfontosabb jellemzője. Lehetővé teszik, hogy egyéni json kulcs/érték párokat hozzon létre egy receptben, amelyekre 3. féltől származó alkalmazásokból hivatkozhat. Ezeket a kulcsokat arra használhatja, hogy automatizmusokat indítsanak el vagy küldjenek egyéni üzenetek a meghatározott eszközéhez.",
+    "api-extras-description": "A receptek extrái a Mealie API egyik legfontosabb szolgáltatása. Lehetővé teszik, hogy egyéni JSON kulcs/érték párokat hozzon létre egy receptben, amelyekre harmadik féltől származó alkalmazásokból hivatkozhat. Ezeket a kulcsokat információszolgáltatásra használhatja, például automatizmusok vagy egyéni üzenetek indítására, amelyeket a kívánt eszközre küldhet.",
     "message-key": "Üzenetkulcs",
     "parse": "Előkészítés",
     "attach-images-hint": "Képek csatolása a szerkesztőbe történő húzásával és ejtésével",
@@ -532,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Az új recept nevének egyedinek kell lennie",
     "scrape-recipe": "Recept kinyerése",
     "scrape-recipe-description": "Recept (adatok) kinyerése Url alapján. Adja meg a beolvasni kívánt oldal Url-címét, és Mealie megpróbálja beolvasni a receptet az adott oldalról, majd hozzáadja azt gyűjteményéhez.",
+    "scrape-recipe-have-a-lot-of-recipes": "Sok receptje van, amit egyszerre szeretne átvenni?",
+    "scrape-recipe-suggest-bulk-importer": "Próbálja ki a tömeges importálót",
     "import-original-keywords-as-tags": "Eredeti kulcsszavak importálása címkeként",
     "stay-in-edit-mode": "Maradjon Szerkesztés módban",
     "import-from-zip": "Importálás ZIP-ből",
@@ -554,7 +557,8 @@
     "unit": "Mennyiségi egység",
     "upload-image": "Kép feltöltése",
     "screen-awake": "Képernyő ébren tartása",
-    "remove-image": "Kép etávolítása"
+    "remove-image": "Kép etávolítása",
+    "nextStep": "Következő lépés"
   },
   "search": {
     "advanced-search": "Részletes keresés",
@@ -788,7 +792,8 @@
     "tags": "Címkék",
     "untagged-count": "Címkézetlen {count}",
     "create-a-tag": "Címke létrehozása",
-    "tag-name": "Címke Neve"
+    "tag-name": "Címke Neve",
+    "tag": "Címke"
   },
   "tool": {
     "tools": "Eszközök",
@@ -797,7 +802,8 @@
     "tool-name": "Eszköz neve",
     "create-new-tool": "Új eszköz létrehozása",
     "on-hand-checkbox-label": "Készleten lévőnek mutatni (Ellenőrizve)",
-    "required-tools": "Szükséges eszközök"
+    "required-tools": "Szükséges eszközök",
+    "tool": "Eszköz"
   },
   "user": {
     "admin": "Adminisztrátor",
@@ -1113,7 +1119,7 @@
     "brute": "Brute",
     "show-individual-confidence": "",
     "ingredient-text": "Hozzávaló szöveg",
-    "average-confident": "{0} Confident",
+    "average-confident": "{0}-os bizonyosság",
     "try-an-example": "Próbáljon ki egy példát",
     "parser": "Szintaxis elemző",
     "background-tasks": "Háttér folyamatok",

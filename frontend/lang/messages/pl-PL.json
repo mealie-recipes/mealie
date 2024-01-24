@@ -114,9 +114,9 @@
     "json": "JSON",
     "keyword": "Słowo kluczowe",
     "link-copied": "Odnośnik skopiowany",
-    "loading": "Loading",
+    "loading": "Ładowanie",
     "loading-events": "Ładowanie wydarzeń",
-    "loading-recipe": "Loading recipe...",
+    "loading-recipe": "Ładowanie przepisów...",
     "loading-ocr-data": "Loading OCR data...",
     "loading-recipes": "Ładowanie przepisów",
     "message": "Wiadomość",
@@ -128,7 +128,7 @@
     "no-recipe-found": "Nie znaleziono przepisu",
     "ok": "OK",
     "options": "Opcje:",
-    "plural-name": "Plural Name",
+    "plural-name": "Nazwa w liczbie mnogiej",
     "print": "Drukuj",
     "print-preferences": "Właściwości drukowania",
     "random": "Losowa",
@@ -198,7 +198,8 @@
     "refresh": "Odśwież",
     "upload-file": "Prześlij plik",
     "created-on-date": "Utworzono dnia: {0}",
-    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
+    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
+    "clipboard-copy-failure": "Failed to copy to the clipboard."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Czy na pewno chcesz usunąć <b>{groupName}<b/>?",
@@ -213,7 +214,7 @@
     "group-id-with-value": "ID grupy: {groupID}",
     "group-name": "Nazwa grupy",
     "group-not-found": "Nie znaleziono grupy",
-    "group-token": "Group Token",
+    "group-token": "Token grupy",
     "group-with-value": "Grupa: {groupID}",
     "groups": "Grupy",
     "manage-groups": "Zarządzaj grupami",
@@ -249,7 +250,7 @@
     "general-preferences": "Ustawienia ogólne",
     "group-recipe-preferences": "Ustawienia grupy przepisów",
     "report": "Zgłoś",
-    "report-with-id": "Report ID: {id}",
+    "report-with-id": "ID zgłoszenia: {id}",
     "group-management": "Zarządzanie grupą",
     "admin-group-management": "Administracja Zarządzanie Grupami",
     "admin-group-management-text": "Zmiany w tej grupie zostaną natychmiast odzwierciedlone.",
@@ -304,7 +305,7 @@
     "for-type-meal-types": "dla {0} rodzajów posiłków",
     "meal-plan-rules": "Zasady planu posiłków",
     "new-rule": "Nowa reguła",
-    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
+    "meal-plan-rules-description": "Możesz tworzyć reguły automatycznego wyboru przepisów dla planów posiłkowych. Te reguły są używane przez serwer do określenia losowej puli przepisów do wyboru podczas tworzenia planów posiłków. Zauważ, że jeśli reguły mają ograniczenia tego samego dnia/typu, kategorie reguł zostaną połączone. W praktyce tworzenie duplikatów reguł jest zbędne, ale jest to możliwe.",
     "new-rule-description": "Przy tworzeniu nowej reguły dotyczącej planu posiłków można ograniczyć regułę, tak aby miała zastosowanie do określonego dnia tygodnia i/lub określonego rodzaju posiłku. Aby zastosować regułę do wszystkich dni lub wszystkich rodzajów posiłków można ustawić regułę na \"Dowolny\", co będzie miało zastosowanie do wszystkich możliwych wartości dla dnia i/lub typu posiłku.",
     "recipe-rules": "Reguły przepisów",
     "applies-to-all-days": "Dotyczy wszystkich dni",
@@ -341,8 +342,8 @@
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
-      "description-long": "Mealie can import recipes from Tandoor. Export your data in the \"Default\" format, then upload the .zip below.",
-      "title": "Tandoor Recipes"
+      "description-long": "Mealie może zaimportować przepisy z Tandoor. Wyeksportuj swoje przepisy w formacie HTML, a następnie prześlij plik .zip poniżej.",
+      "title": "Przepisy Tandoor"
     },
     "recipe-data-migrations": "Migracja danych przepisów",
     "recipe-data-migrations-explanation": "Receptury mogą być przeniesione z innej wspieranej aplikacji na Mealie. To świetny sposób na rozpoczęcie z Mealie.",
@@ -355,8 +356,8 @@
     "paprika-text": "Mealie może importować przepisy z aplikacji Paprika. Eksportuj swoje przepisy z papriki, zmień nazwę rozszerzenia eksportu na .zip i prześlij je poniżej.",
     "mealie-text": "Mealie może importować receptury z aplikacji Mealie z wersji przed v1.0. Wyeksportuj swoje przepisy ze starej instancji i prześlij plik zip poniżej. Pamiętaj, że tylko receptury mogą być zaimportowane z eksportu.",
     "plantoeat": {
-      "title": "Plan to Eat",
-      "description-long": "Mealie can import recipies from Plan to Eat."
+      "title": "Zaplanuj jedzenie",
+      "description-long": "Mealie może importować przepisy z Plan to Eat."
     }
   },
   "new-recipe": {
@@ -468,11 +469,11 @@
     "date-format-hint-yyyy-mm-dd": "Format RRRR-MM-DD",
     "add-to-list": "Dodaj do listy",
     "add-to-plan": "Dodaj do planu",
-    "add-to-timeline": "Add to Timeline",
+    "add-to-timeline": "Dodaj do osi czasu",
     "recipe-added-to-list": "Przepis dodany do listy",
     "recipes-added-to-list": "Przepisy dodane do listy",
     "recipe-added-to-mealplan": "Przepis dodany do planu posiłków",
-    "failed-to-add-recipes-to-list": "Failed to add recipe to list",
+    "failed-to-add-recipes-to-list": "Nie udało się dodać przepisu do listy",
     "failed-to-add-recipe-to-mealplan": "Nie udało się dodać przepisu do planu posiłków",
     "yield": "Wydajność",
     "quantity": "Ilość",
@@ -495,10 +496,10 @@
     "locked": "Zablokowany",
     "public-link": "Link publiczny",
     "timer": {
-      "kitchen-timer": "Kitchen Timer",
+      "kitchen-timer": "Minutnik",
       "start-timer": "Włącz minutnik",
-      "pause-timer": "Pause Timer",
-      "resume-timer": "Resume Timer",
+      "pause-timer": "Zatrzymaj minutnik",
+      "resume-timer": "Wznów minutnik",
       "stop-timer": "Zatrzymaj minutnik"
     },
     "edit-timeline-event": "Edytuj zdarzenie osi czasu",
@@ -510,11 +511,11 @@
     "how-did-it-turn-out": "Jak się to udało?",
     "user-made-this": "{user} ugotował(a) to",
     "last-made-date": "Ostatnio ugotowano {date}",
-    "api-extras-description": "Dodatki w przepisach są kluczową cechą API Mealie. Pozwalają na tworzenie niestandardowych par kluczy/wartości JSON w recepturze do odwoływania się przez zewnętrzne aplikacje. Możesz użyć tych kluczy do wyzwalania automatyzacji lub przekazywania niestandardowych wiadomości do twoich wybranych urządzeń.",
+    "api-extras-description": "Dodatki w przepisach są kluczową cechą API Mealie. Pozwalają na tworzenie niestandardowych par kluczy/wartości JSON w przepisie do odwoływania się przez zewnętrzne aplikacje. Możesz użyć tych kluczy do wyzwalania automatyzacji lub przekazywania niestandardowych wiadomości do twoich wybranych urządzeń.",
     "message-key": "Klucz Wiadomości",
     "parse": "Analizuj",
     "attach-images-hint": "Dołącz obrazy przeciągając i upuszczając je do edytora",
-    "drop-image": "Drop image",
+    "drop-image": "Upuść zdjęcie",
     "enable-ingredient-amounts-to-use-this-feature": "Włącz ilości składników, aby użyć tej funkcji",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Nie można przeanalizować przepisów z już zdefiniowanymi jednostkami lub żywnością.",
     "parse-ingredients": "Analizuj tekst składników",
@@ -532,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Nazwa przepisu musi być unikalna",
     "scrape-recipe": "Scrapuj Przepis",
     "scrape-recipe-description": "Wczytaj przepis przez URL. Podaj adres URL witryny z przepisem, który chcesz wczytać, a Mealie spróbuje wyodrębnić przepis z tej strony i dodać go do kolekcji.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Importuj oryginalne słowa kluczowe jako tagi",
     "stay-in-edit-mode": "Pozostań w trybie edycji",
     "import-from-zip": "Importuj z pliku Zip",
@@ -553,8 +556,9 @@
     "recipe-yield": "Wydajność przepisu",
     "unit": "Jednostka",
     "upload-image": "Prześlij obraz",
-    "screen-awake": "Keep Screen Awake",
-    "remove-image": "Usuń obraz"
+    "screen-awake": "Pozostaw ekran włączony",
+    "remove-image": "Usuń obraz",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Wyszukiwanie zaawansowane",
@@ -573,7 +577,7 @@
     "search-hint": "Naciśnij '/'",
     "advanced": "Zaawansowane",
     "auto-search": "Auto wyszukiwanie",
-    "no-results": "No results found"
+    "no-results": "Nie znaleziono wyników"
   },
   "settings": {
     "add-a-new-theme": "Dodaj nowy motyw",
@@ -582,7 +586,7 @@
       "backup-created": "Kopia zapasowa utworzona pomyślnie",
       "backup-created-at-response-export_path": "Kopia zapasowa została utworzona w {path}",
       "backup-deleted": "Kopia zapasowa została usunięta",
-      "restore-success": "Restore successful",
+      "restore-success": "Przywracanie zakończone sukcesem",
       "backup-tag": "Etykieta kopii zapasowej",
       "create-heading": "Utwórz kopię zapasową",
       "delete-backup": "Usuń kopię zapasową",
@@ -691,13 +695,13 @@
     "configuration": "Konfiguracja",
     "docker-volume": "Docker Volume",
     "docker-volume-help": "Mealie wymaga, aby kontener frontendu i backendu współdzieliły ten sam wolumen docker lub pamięć. Zapewnia to prawidłowy dostęp do zdjęć i zasobów przechowywanych na dysku.",
-    "volumes-are-misconfigured": "Volumes are misconfigured.",
+    "volumes-are-misconfigured": "Woluminy są skonfigurowane nieprawidłowo.",
     "volumes-are-configured-correctly": "Wolumeny są skonfigurowane poprawnie.",
     "status-unknown-try-running-a-validation": "Status nieznany. Spróbuj wykonać walidację.",
     "validate": "Sprawdź",
     "email-configuration-status": "Status konfiguracji Email",
-    "email-configured": "Email Configured",
-    "email-test-results": "Email Test Results",
+    "email-configured": "E-mail skonfigurowany",
+    "email-test-results": "Wyniki testu e-mail",
     "ready": "Gotowe",
     "not-ready": "Niegotowy - Sprawdź zmienne środowiskowe",
     "succeeded": "Powiodło się",
@@ -788,7 +792,8 @@
     "tags": "Tagi",
     "untagged-count": "{count} bez etykiety",
     "create-a-tag": "Utwórz znacznik",
-    "tag-name": "Nazwa znacznika"
+    "tag-name": "Nazwa znacznika",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Narzędzia",
@@ -797,7 +802,8 @@
     "tool-name": "Nazwa narzędzia",
     "create-new-tool": "Utwórz nowe narzędzie",
     "on-hand-checkbox-label": "Pokaż jako Posiadane (Zaznaczono)",
-    "required-tools": "Wymagane Narzędzia"
+    "required-tools": "Wymagane Narzędzia",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administrator",
@@ -876,7 +882,7 @@
     "user-management": "Zarządzanie użytkownikami",
     "reset-locked-users": "Zresetuj zablokowanych użytkowników",
     "admin-user-creation": "Administracja Tworzenie Użytkownika",
-    "admin-user-management": "Admin User Management",
+    "admin-user-management": "Zarządzanie użytkownikami",
     "user-details": "Dane użytkownika",
     "user-name": "Nazwa użytkownika",
     "authentication-method": "Sposób uwierzytelniania",
@@ -887,11 +893,11 @@
     "user-can-manage-group": "Użytkownik może zarządzać grupą",
     "user-can-organize-group-data": "Użytkownik może organizować dane grupy",
     "enable-advanced-features": "Włącz zaawansowane funkcje",
-    "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
-    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
-    "forgot-password": "Forgot Password",
-    "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
-    "changes-reflected-immediately": "Changes to this user will be reflected immediately."
+    "it-looks-like-this-is-your-first-time-logging-in": "Wygląda na to, że to jest twoje pierwsze logowanie.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Nie chcesz już tego widzieć? Pamiętaj, aby zmienić swój adres e-mail w ustawieniach użytkownika!",
+    "forgot-password": "Nie pamiętam hasła",
+    "forgot-password-text": "Podaj adres e-mail konta, do którego chcesz odzyskać hasło.",
+    "changes-reflected-immediately": "Zmiany dla tego użytkownika będą zastosowane natychmiastowo."
   },
   "language-dialog": {
     "translated": "przetłumaczone",
@@ -913,8 +919,8 @@
       "food-label": "Etykieta Żywności",
       "edit-food": "Edytuj Żywność",
       "food-data": "Dane Żywności",
-      "example-food-singular": "ex: Onion",
-      "example-food-plural": "ex: Onions"
+      "example-food-singular": "np. Cebula",
+      "example-food-plural": "np. Cebule"
     },
     "units": {
       "seed-dialog-text": "Wypełnij bazę zwyczajowymi jednostkami dla wybranego języka.",
@@ -933,8 +939,8 @@
       "unit-data": "Dane Jednostki",
       "use-abbv": "Użyj Skr.",
       "fraction": "Ułamki",
-      "example-unit-singular": "ex: Tablespoon",
-      "example-unit-plural": "ex: Tablespoons",
+      "example-unit-singular": "np. Łyżka stołowa",
+      "example-unit-plural": "np. Łyżki stołowe",
       "example-unit-abbreviation-singular": "ex: Tbsp",
       "example-unit-abbreviation-plural": "ex: Tbsps"
     },
@@ -965,8 +971,8 @@
       "delete-recipes": "Usuń Przepisy",
       "source-unit-will-be-deleted": "Jednostka źródłowa zostanie usunięta"
     },
-    "create-alias": "Create Alias",
-    "manage-aliases": "Manage Aliases",
+    "create-alias": "Utwórz alias",
+    "manage-aliases": "Zarządzaj aliasami",
     "seed-data": "Dane przykładowe",
     "seed": "Seed",
     "data-management": "Zarządzanie Danymi",
@@ -982,18 +988,18 @@
     },
     "tags": {
       "new-tag": "Nowy Tag",
-      "edit-tag": "Edit Tag",
-      "tag-data": "Tag Data"
+      "edit-tag": "Edytuj tag",
+      "tag-data": "Dane tagu"
     },
     "tools": {
-      "new-tool": "New Tool",
-      "edit-tool": "Edit Tool",
-      "tool-data": "Tool Data"
+      "new-tool": "Nowe Narzędzie",
+      "edit-tool": "Edytuj Narzędzie",
+      "tool-data": "Dane narzędzia"
     }
   },
   "user-registration": {
     "user-registration": "Rejestracja użytkownika",
-    "registration-success": "Registration Success",
+    "registration-success": "Rejestracja przebiegła pomyślnie",
     "join-a-group": "Dołącz do grupy",
     "create-a-new-group": "Stwórz nową grupę",
     "provide-registration-token-description": "Podaj kod rejestracyjny powiązany z grupą do której chcesz dołączyć. Taki kod uzyskać możesz od użytkownika który przynależy już do owej grupy.",
@@ -1040,7 +1046,7 @@
   },
   "ocr-editor": {
     "ocr-editor": "Edytor OCR",
-    "toolbar": "Toolbar",
+    "toolbar": "Pasek narzędzi",
     "selection-mode": "Tryb wyboru",
     "pan-and-zoom-picture": "Przesuwanie i powiększanie obrazu",
     "split-text": "Podziel tekst",
@@ -1048,8 +1054,8 @@
     "split-by-block": "Podziel według bloku tekstowego",
     "flatten": "Wyrównaj niezależnie od oryginalnego formatowania",
     "help": {
-      "help": "Help",
-      "mouse-modes": "Mouse modes",
+      "help": "Pomoc",
+      "mouse-modes": "Tryb myszy",
       "selection-mode": "Tryb wyboru (domyślny)",
       "selection-mode-desc": "Tryb wyboru jest głównym trybem, który służy do wprowadzenia danych:",
       "selection-mode-steps": {
@@ -1125,7 +1131,7 @@
     "welcome-user": "👋 Witaj, {0}",
     "description": "Zarządzaj swoim profilem, przepisami i ustawieniami grupy.",
     "get-invite-link": "Uzyskaj link z zaproszeniem",
-    "get-public-link": "Get Public Link",
+    "get-public-link": "Uzyskaj link publiczny",
     "account-summary": "Podsumowanie konta",
     "account-summary-description": "Oto podsumowanie informacji o Twojej grupie",
     "group-statistics": "Statystyki Grupy",

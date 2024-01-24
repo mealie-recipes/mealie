@@ -1,0 +1,41 @@
+# Documentation: https://github.com/marketplace/actions/close-stale-issues
+name: 'Stale: Flag and close stale issues and PRs'
+on:
+  schedule:
+    - cron: '30 1 * * *'
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v9
+        with:
+          stale-issue-label: 'stale'
+          exempt-issue-labels: 'pinned,security,early-stages,bug: confirmed,feedback,task'
+          stale-issue-message: 'This issue has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs. Thank you for your contributions.'
+          days-before-issue-stale: 30
+          days-before-issue-close: 5
+          stale-pr-label: 'stale'
+          stale-pr-message: 'This PR is stale because it has been open 45 days with no activity.'
+          days-before-pr-stale: 45
+          # This stops a PR from ever getting closed automatically.
+          days-before-pr-close: -1
+          # If an issue/PR has a milestone, it's exempt from being marked as stale.
+          exempt-all-milestones: true
+          # How many API calls will we allow the action to make, essentially.
+          # Doco: https://github.com/actions/stale?tab=readme-ov-file#operations-per-run
+          operations-per-run: 150
+          ########################################################################
+          # The below are just default values, but populating here for reference #
+          ########################################################################
+          # Automatically remove the stale label when the issues or the pull requests are updated
+          remove-stale-when-updated: true
+          # The reason used when closing issues. Valid values are `completed` and `not_planned`.
+          close-issue-reason: 'not_planned'
+          # If true, PRs currently in draft will not be marked as stale automatically.
+          # We can mark them stale (after `days-before-pr-stale`), though we don't auto-close.
+          exempt-draft-pr: false

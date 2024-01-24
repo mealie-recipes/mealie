@@ -77,7 +77,7 @@
     "tag-events": "אירועי תגיות",
     "category-events": "אירועי קטגוריות",
     "when-a-new-user-joins-your-group": "כאשר משתמש חדש מצטרף לקבוצה",
-    "recipe-events": "Recipe Events"
+    "recipe-events": "אירועי מתכון"
   },
   "general": {
     "cancel": "ביטול",
@@ -114,10 +114,10 @@
     "json": "JSON",
     "keyword": "מילת מפתח",
     "link-copied": "קישור הועתק",
-    "loading": "Loading",
+    "loading": "טעינה",
     "loading-events": "טוען",
-    "loading-recipe": "Loading recipe...",
-    "loading-ocr-data": "Loading OCR data...",
+    "loading-recipe": "טוען מתכון...",
+    "loading-ocr-data": "טוען נתוני OCR...",
     "loading-recipes": "מתכונים בטעינה",
     "message": "הודעה",
     "monday": "שני",
@@ -128,7 +128,7 @@
     "no-recipe-found": "לא נמצא מתכון",
     "ok": "אישור",
     "options": "אפשרויות:",
-    "plural-name": "Plural Name",
+    "plural-name": "שם ברבים",
     "print": "הדפסה",
     "print-preferences": "העדפות הדפסה",
     "random": "אקראי",
@@ -198,7 +198,8 @@
     "refresh": "רענן",
     "upload-file": "העלאת קבצים",
     "created-on-date": "נוצר ב-{0}",
-    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
+    "unsaved-changes": "יש שינויים שלא נשמרו. לצאת לפני שמירה? אשר לשמירה, בטל למחיקת שינויים.",
+    "clipboard-copy-failure": "כשלון בהעתקה ללוח ההדבקה."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "האם את/ה בטוח/ה שברצונך למחוק את <b>{groupName}<b/>?",
@@ -213,7 +214,7 @@
     "group-id-with-value": "מזהה קבוצה: {groupID}",
     "group-name": "שם קבוצה",
     "group-not-found": "קבוצה לא נמצאה",
-    "group-token": "Group Token",
+    "group-token": "טוקן קבוצתי",
     "group-with-value": "קבוצה: {groupID}",
     "groups": "קבוצות",
     "manage-groups": "ניהול קבוצות",
@@ -249,7 +250,7 @@
     "general-preferences": "העדפות כלליות",
     "group-recipe-preferences": "העדפות קבוצה",
     "report": "דיווח",
-    "report-with-id": "Report ID: {id}",
+    "report-with-id": "מספר דוח: {id}",
     "group-management": "ניהול קבוצה",
     "admin-group-management": "ניהול קבוצת מנהל",
     "admin-group-management-text": "השינויים לקבוצה זו יתבצעו מיידית.",
@@ -470,9 +471,9 @@
     "add-to-plan": "הוספה לתכנית",
     "add-to-timeline": "הוסף לציר הזמן",
     "recipe-added-to-list": "מתכון נוסף לרשימה",
-    "recipes-added-to-list": "Recipes added to list",
+    "recipes-added-to-list": "מתכונים הוספו לרשימה",
     "recipe-added-to-mealplan": "מתכון נוסף לתכנון ארוחות",
-    "failed-to-add-recipes-to-list": "Failed to add recipe to list",
+    "failed-to-add-recipes-to-list": "כשלון בהוספת מתכון לרשימה",
     "failed-to-add-recipe-to-mealplan": "הוספת מתכון לתכנון ארוחות נכשלה",
     "yield": "תשואה",
     "quantity": "כמות",
@@ -510,11 +511,11 @@
     "how-did-it-turn-out": "איך יצא?",
     "user-made-this": "{user} הכין את זה",
     "last-made-date": "נעשה לאחרונה ב{date}",
-    "api-extras-description": "מתכונים אקסטרה הם פונקציה שמאפשרת שימוש ב- Mealie API. צמדי json של key/value במתכון מאפשרים לצד שלישי לקרוא להם. ניתן להשתמש במפתחות להכיל מידע על מנת להפעיל אוטומציות או הודעות מותאמות אישית למכשירים הרלוונטיים.",
+    "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
     "message-key": "מפתח הודעה",
     "parse": "ניתוח",
     "attach-images-hint": "הוסף תמונות ע\"י גרירה ושחרור אל תוך העורך",
-    "drop-image": "Drop image",
+    "drop-image": "גרור תמונה",
     "enable-ingredient-amounts-to-use-this-feature": "אפשר לכמות המרכיבים להשתמש בפונקציה",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "לא ניתן לפענך מתכונים בהם יחידות או אוכל מוגדרים.",
     "parse-ingredients": "חילוץ רכיבים",
@@ -532,6 +533,8 @@
     "new-recipe-names-must-be-unique": "שם מתכון חדש חייב להיות ייחודי",
     "scrape-recipe": "קריאת מתכון",
     "scrape-recipe-description": "קריאת מתכון בעזרת לינק. ספק את הלינק של האתר שברצונך לקרוא, ומילי תנסה לקרוא את המתכון מהאתר ולהוסיף אותו לאוסף.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "ייבא שמות מפתח מקוריות כתגיות",
     "stay-in-edit-mode": "השאר במצב עריכה",
     "import-from-zip": "ייבא מקובץ",
@@ -554,7 +557,8 @@
     "unit": "יחידה",
     "upload-image": "העלה תמונה",
     "screen-awake": "השאר את המסך פעיל",
-    "remove-image": "האם למחוק את התמונה?"
+    "remove-image": "האם למחוק את התמונה?",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "חיפוש מתקדם",
@@ -573,16 +577,16 @@
     "search-hint": "לחץ '/'",
     "advanced": "מתקדם",
     "auto-search": "חיפוש אוטומטי",
-    "no-results": "No results found"
+    "no-results": "לא נמצאו תוצאות"
   },
   "settings": {
     "add-a-new-theme": "הוסף ערכת נושא חדשה",
     "admin-settings": "הגדרות מנהל",
     "backup": {
-      "backup-created": "Backup created successfully",
+      "backup-created": "הגיבוי בוצע בהצלחה",
       "backup-created-at-response-export_path": "גיבוי נוצר ב {path}",
       "backup-deleted": "גיבוי נמחק",
-      "restore-success": "Restore successful",
+      "restore-success": "השחזור הצליח",
       "backup-tag": "תגית גיבוי",
       "create-heading": "Create a Backup",
       "delete-backup": "מחיקת גיבוי",
@@ -691,13 +695,13 @@
     "configuration": "הגדרות",
     "docker-volume": "Docker Volume",
     "docker-volume-help": "מילי דורשת שקונטיינר הקצה הקדמי והקצה האחורי חולקים את באותו כונן / שטח אחסון בדוקר.\nכל זאת כל מנת לוודא שלקונטיינר תהיה גישה לתמונות הגיבוי או לנכסים בדיסק.",
-    "volumes-are-misconfigured": "Volumes are misconfigured.",
+    "volumes-are-misconfigured": "כוננים אינם מוגדרים בצורה תקינה.",
     "volumes-are-configured-correctly": "ה-Volumeים מוגדרים תקין.",
     "status-unknown-try-running-a-validation": "מצב לא ידוע. נסה להריץ אימות.",
     "validate": "אימות",
     "email-configuration-status": "מצב הגדרות דוא״ל",
-    "email-configured": "Email Configured",
-    "email-test-results": "Email Test Results",
+    "email-configured": "דואר אלקטרוני הוגדר",
+    "email-test-results": "תוצאות בדיקת דואר אלקטרוני",
     "ready": "מוכן",
     "not-ready": "לא מוכן - בדוק משתני סביבה",
     "succeeded": "הצליח",
@@ -788,7 +792,8 @@
     "tags": "תגיות",
     "untagged-count": "לא מתוייג {count}",
     "create-a-tag": "צור תגית",
-    "tag-name": "שם תגית"
+    "tag-name": "שם תגית",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "כלים",
@@ -797,7 +802,8 @@
     "tool-name": "שם כלי",
     "create-new-tool": "יצירת כלי חדש",
     "on-hand-checkbox-label": "הראה מה יש לי במטבח",
-    "required-tools": "צריך כלים"
+    "required-tools": "צריך כלים",
+    "tool": "Tool"
   },
   "user": {
     "admin": "אדמין",
@@ -832,7 +838,7 @@
     "password-updated": "הסיסמה עודכנה",
     "password": "סיסמה",
     "password-strength": "חוזק הסיסמה {strength}",
-    "please-enter-password": "Please enter your new password.",
+    "please-enter-password": "אנא הזן סיסמה חדשה.",
     "register": "הרשמה",
     "reset-password": "איפוס סיסמה",
     "sign-in": "התחברות",
@@ -853,7 +859,7 @@
     "username": "שם משתמש",
     "users-header": "משתמשים",
     "users": "משתמשים",
-    "user-not-found": "User not found",
+    "user-not-found": "משתמש לא נמצא",
     "webhook-time": "זמן Webhook",
     "webhooks-enabled": "הפעלת Webhooks",
     "you-are-not-allowed-to-create-a-user": "אין הרשאה ליצור משתמש",
@@ -876,7 +882,7 @@
     "user-management": "ניהול משתמשים",
     "reset-locked-users": "אתחל משתמשים נעולים",
     "admin-user-creation": "יצירת משתמש אדמין",
-    "admin-user-management": "Admin User Management",
+    "admin-user-management": "ניהול משתמשים",
     "user-details": "פרטי משתמש",
     "user-name": "שם משתמש",
     "authentication-method": "שיטת אימות",
@@ -887,9 +893,9 @@
     "user-can-manage-group": "משתמש יכול לנהל קבוצה",
     "user-can-organize-group-data": "משתמש יכול לשנות מידע של קבוצה",
     "enable-advanced-features": "אפשר אפשרויות מתקדמות",
-    "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
+    "it-looks-like-this-is-your-first-time-logging-in": "נראה שזו ההתחברות הראשונה שלך.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
-    "forgot-password": "Forgot Password",
+    "forgot-password": "שכחתי סיסמא",
     "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
     "changes-reflected-immediately": "Changes to this user will be reflected immediately."
   },
@@ -965,8 +971,8 @@
       "delete-recipes": "מחיקת מתכונים",
       "source-unit-will-be-deleted": "יחידת המקור תמחק"
     },
-    "create-alias": "Create Alias",
-    "manage-aliases": "Manage Aliases",
+    "create-alias": "יצירת שם נרדף",
+    "manage-aliases": "נהל שמות נרדפים",
     "seed-data": "אכלס נתונים",
     "seed": "אכלס",
     "data-management": "ניהול מידע",
@@ -976,24 +982,24 @@
     "columns": "עמודות",
     "combine": "שילוב",
     "categories": {
-      "edit-category": "Edit Category",
-      "new-category": "New Category",
-      "category-data": "Category Data"
+      "edit-category": "ערוך קטגוריה",
+      "new-category": "קטגוריה חדשה",
+      "category-data": "נתוני קטגוריה"
     },
     "tags": {
-      "new-tag": "New Tag",
-      "edit-tag": "Edit Tag",
-      "tag-data": "Tag Data"
+      "new-tag": "טאג חדש",
+      "edit-tag": "ערוך טאג",
+      "tag-data": "נתוני טאגים"
     },
     "tools": {
-      "new-tool": "New Tool",
-      "edit-tool": "Edit Tool",
-      "tool-data": "Tool Data"
+      "new-tool": "כלי חדש",
+      "edit-tool": "ערוך כלי",
+      "tool-data": "נתוני כלים"
     }
   },
   "user-registration": {
     "user-registration": "רישום משתמשים",
-    "registration-success": "Registration Success",
+    "registration-success": "ההרשמה הושלמה",
     "join-a-group": "הצטרפות לקבוצה",
     "create-a-new-group": "יצירת קבוצה חדשה",
     "provide-registration-token-description": "ספק בבקשה את טוקן הרישום המשוייך לקבוצה אליה ברצונך להצטרף. בכדי לקבל אותו יהיה צורך להשיג אותו מאחד מחברה הקבוצה הקיימים.",
@@ -1040,7 +1046,7 @@
   },
   "ocr-editor": {
     "ocr-editor": "עורך סריקת תווים",
-    "toolbar": "Toolbar",
+    "toolbar": "סרגל כלים",
     "selection-mode": "מצב בחירה",
     "pan-and-zoom-picture": "סובב והגדל תמונה",
     "split-text": "פיצול טקסט",
@@ -1048,8 +1054,8 @@
     "split-by-block": "פצל לפי מבנה המלל",
     "flatten": "שטח בלי קשר למבנה המקורי",
     "help": {
-      "help": "Help",
-      "mouse-modes": "Mouse modes",
+      "help": "עזרה",
+      "mouse-modes": "מצבי עכבר",
       "selection-mode": "מצב בחירה (ברירת מחדל)",
       "selection-mode-desc": "מצב בחירה זה הינו הראשי אשר ישמש להכנסת מידע:",
       "selection-mode-steps": {

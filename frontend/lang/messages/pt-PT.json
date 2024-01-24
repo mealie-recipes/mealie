@@ -114,7 +114,7 @@
     "json": "JSON",
     "keyword": "Palavra-chave",
     "link-copied": "Ligação copiada",
-    "loading": "Loading",
+    "loading": "A carregar",
     "loading-events": "A carregar Eventos",
     "loading-recipe": "A carregar receita...",
     "loading-ocr-data": "A carregar dados OCR...",
@@ -198,7 +198,8 @@
     "refresh": "Atualizar",
     "upload-file": "Carregar ficheiro",
     "created-on-date": "Criado em: {0}",
-    "unsaved-changes": "Tem alterações por gravar. Quer gravar antes de sair? OK para gravar, Cancelar para descartar alterações."
+    "unsaved-changes": "Tem alterações por gravar. Quer gravar antes de sair? OK para gravar, Cancelar para descartar alterações.",
+    "clipboard-copy-failure": "Erro ao copiar para a área de transferência."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Tem a certeza que quer eliminar <b>{groupName}</b>?",
@@ -237,7 +238,7 @@
     "allow-users-outside-of-your-group-to-see-your-recipes": "Permitir que utilizadores externos ao seu grupo vejam as suas receitas",
     "allow-users-outside-of-your-group-to-see-your-recipes-description": "Quando ativado, poderá usar um link público para partilhar receitas específicas sem autorizar o utilizador. Quando desativado, só poderá partilhar receitas com utilizadores do seu grupo ou com um link privado gerado previamente",
     "show-nutrition-information": "Mostrar informações nutricionais",
-    "show-nutrition-information-description": "Quando ativado, a informação nutricional será exibida na receita, se disponível. Se não houver informação nutricional disponível, está não será exibida",
+    "show-nutrition-information-description": "Quando ativado, a informação nutricional será exibida na receita, se disponível. Se não houver informação nutricional disponível, esta não será exibida",
     "show-recipe-assets": "Mostrar recursos da receita",
     "show-recipe-assets-description": "Quando ativado, os recursos da receita serão mostrados na receita, se disponíveis",
     "default-to-landscape-view": "Padrão para visualização em paisagem",
@@ -510,7 +511,7 @@
     "how-did-it-turn-out": "Que tal ficou?",
     "user-made-this": "{user} fez isto",
     "last-made-date": "Última vez {date}",
-    "api-extras-description": "Extras para receitas são funcionalidades chave da API Mealie. Estas permitem criar pares personalizados de chave/valor em json numa receita para referência a partir de aplicações de terceiros. Pode usar essas chaves para conter informações, para acionar automações ou mensagens personalizadas para transmitir a um dispositivo desejado.",
+    "api-extras-description": "Extras para receitas são funcionalidades chave da API Mealie. Estas permitem criar, dentro de uma receita, pares personalizados de chave/valor em JSON, para referência a partir de aplicações de terceiros. Pode usar essas chaves para fornecer informações, por exemplo, para acionar automações ou mensagens personalizadas para transmitir a um determinado dispositivo.",
     "message-key": "Chave de Mensagem",
     "parse": "Interpretar",
     "attach-images-hint": "Anexe imagens arrastando e soltando-as no editor",
@@ -532,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Os nomes de receitas devem ser únicos",
     "scrape-recipe": "Obter receita da Web (Scrape)",
     "scrape-recipe-description": "Fazer scrape a receita por URL. Indique o URL da página a que quer fazer scrape e o Mealie tentará obter a receita dessa página e adicioná-la à sua coleção.",
+    "scrape-recipe-have-a-lot-of-recipes": "Tem muitas receitas para processar em simultâneo?",
+    "scrape-recipe-suggest-bulk-importer": "Experimente o importador em massa",
     "import-original-keywords-as-tags": "Importar palavras-chave originais como etiquetas",
     "stay-in-edit-mode": "Permanecer no modo de edição",
     "import-from-zip": "Importar de Zip",
@@ -554,7 +557,8 @@
     "unit": "Unidade",
     "upload-image": "Carregar imagem",
     "screen-awake": "Manter ecrã ligado",
-    "remove-image": "Remover imagem"
+    "remove-image": "Remover imagem",
+    "nextStep": "Próximo passo"
   },
   "search": {
     "advanced-search": "Pesquisa Avançada",
@@ -788,7 +792,8 @@
     "tags": "Etiquetas",
     "untagged-count": "Sem etiqueta {count}",
     "create-a-tag": "Criar uma Etiqueta",
-    "tag-name": "Nome da Etiqueta"
+    "tag-name": "Nome da Etiqueta",
+    "tag": "Etiqueta"
   },
   "tool": {
     "tools": "Utensílios",
@@ -797,7 +802,8 @@
     "tool-name": "Nome do Utensílio",
     "create-new-tool": "Criar Utensílio",
     "on-hand-checkbox-label": "Mostrar como À Mão (Verificado)",
-    "required-tools": "Utensílios Necessários"
+    "required-tools": "Utensílios Necessários",
+    "tool": "Utensílio"
   },
   "user": {
     "admin": "Administrador",

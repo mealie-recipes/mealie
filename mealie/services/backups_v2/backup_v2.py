@@ -69,7 +69,7 @@ class BackupV2(BaseService):
             shutil.copytree(f, self.directories.DATA_DIR / f.name)
 
     def restore(self, backup_path: Path) -> None:
-        self.logger.info("initially backup restore")
+        self.logger.info("initializing backup restore")
 
         backup = BackupFile(backup_path)
 
@@ -83,7 +83,7 @@ class BackupV2(BaseService):
             # Validation
             if not contents.validate():
                 self.logger.error(
-                    "Invalid backup file. file does not contain required elements (data directory and database.json"
+                    "Invalid backup file. file does not contain required elements (data directory and database.json)"
                 )
                 raise ValueError("Invalid backup file")
 

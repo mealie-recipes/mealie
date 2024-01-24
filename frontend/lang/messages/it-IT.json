@@ -77,7 +77,7 @@
     "tag-events": "Tag Eventi",
     "category-events": "Categoria Eventi",
     "when-a-new-user-joins-your-group": "Quando un nuovo utente entra nel tuo gruppo",
-    "recipe-events": "Recipe Events"
+    "recipe-events": "Eventi di ricette"
   },
   "general": {
     "cancel": "Cancella",
@@ -114,10 +114,10 @@
     "json": "JSON",
     "keyword": "Parola chiave",
     "link-copied": "Link Copiato",
-    "loading": "Loading",
+    "loading": "Caricamento in corso",
     "loading-events": "Caricamento eventi",
-    "loading-recipe": "Loading recipe...",
-    "loading-ocr-data": "Loading OCR data...",
+    "loading-recipe": "Caricamento della ricetta...",
+    "loading-ocr-data": "Caricamento dati OCR...",
     "loading-recipes": "Caricamento Ricette",
     "message": "Messaggio",
     "monday": "Lunedì",
@@ -128,7 +128,7 @@
     "no-recipe-found": "Nessuna Ricetta Trovata",
     "ok": "OK",
     "options": "Opzioni:",
-    "plural-name": "Plural Name",
+    "plural-name": "Nome Plurale",
     "print": "Stampa",
     "print-preferences": "Preferenze Di Stampa",
     "random": "Casuale",
@@ -198,7 +198,8 @@
     "refresh": "Ricarica",
     "upload-file": "Carica file",
     "created-on-date": "Creato il: {0}",
-    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
+    "unsaved-changes": "Sono state apportate modifiche non salvate. Salvare prima di uscire? Premi Ok per salvare, Annulla per scartare le modifiche.",
+    "clipboard-copy-failure": "Impossibile copiare negli appunti."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Sei sicuro di volerlo eliminare <b>{groupName}<b/>'?",
@@ -213,7 +214,7 @@
     "group-id-with-value": "ID Gruppo:{groupID}",
     "group-name": "Nome Gruppo",
     "group-not-found": "Gruppo non trovato",
-    "group-token": "Group Token",
+    "group-token": "Token del gruppo",
     "group-with-value": "Gruppo: {groupID}",
     "groups": "Gruppi",
     "manage-groups": "Gestisci Gruppi",
@@ -249,7 +250,7 @@
     "general-preferences": "Impostazioni Generali",
     "group-recipe-preferences": "Impostazioni per le ricette del gruppo",
     "report": "Report",
-    "report-with-id": "Report ID: {id}",
+    "report-with-id": "ID Report: {id}",
     "group-management": "Gestione Gruppo",
     "admin-group-management": "Gestione Gruppo Amministratore",
     "admin-group-management-text": "Le modifiche a questo gruppo si rifletteranno immediatamente.",
@@ -304,7 +305,7 @@
     "for-type-meal-types": "per {0} tipi di pasto",
     "meal-plan-rules": "Regole del piano alimentare",
     "new-rule": "Nuova regola",
-    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
+    "meal-plan-rules-description": "Puoi creare regole per la selezione automatica delle ricette per i tuoi piani alimentari. Queste regole vengono utilizzate dal server per determinare le ricette da selezionare durante la creazione dei piani alimentari. Tieni presente che se le regole hanno gli stessi vincoli di giorno/tipo, le categorie delle regole verranno unite. In pratica non è necessario creare regole duplicate, ma è possibile farlo.",
     "new-rule-description": "Quando si crea una nuova regola per un piano alimentare è possibile limitare la sua applicazione ad un giorno specifico della settimana e/o un tipo specifico di pasto. Per applicare una regola a tutti i giorni o a tutti i tipi di pasto, è possibile impostare la regola a \"Qualsiasi\", applicandola a tutti i possibili valori per il tipo di giorno e/o di pasto.",
     "recipe-rules": "Regole per le ricette",
     "applies-to-all-days": "Si applica a ogni giorno",
@@ -356,7 +357,7 @@
     "mealie-text": "Mealie può importare ricette dall'applicazione Mealie da un versione pre v1.0. Esporta le tue ricette dalla tua vecchia istanza e carica il file zip qui sotto. Nota che solo le ricette possono essere importate dall'esportazione.",
     "plantoeat": {
       "title": "Plan to Eat",
-      "description-long": "Mealie can import recipies from Plan to Eat."
+      "description-long": "Mealie può importare le ricette da Plan to Eat."
     }
   },
   "new-recipe": {
@@ -468,11 +469,11 @@
     "date-format-hint-yyyy-mm-dd": "Formato YYYY-MM-DD",
     "add-to-list": "Aggiungi alla lista",
     "add-to-plan": "Aggiungi al piano giornaliero",
-    "add-to-timeline": "Add to Timeline",
+    "add-to-timeline": "Aggiungi alla linea temporale",
     "recipe-added-to-list": "Ricetta aggiunta alla lista",
-    "recipes-added-to-list": "Recipes added to list",
+    "recipes-added-to-list": "Ricette aggiunte alla lista",
     "recipe-added-to-mealplan": "Ricetta aggiunta al piano alimentare",
-    "failed-to-add-recipes-to-list": "Failed to add recipe to list",
+    "failed-to-add-recipes-to-list": "Impossibile aggiungere la ricetta alla lista",
     "failed-to-add-recipe-to-mealplan": "Impossibile aggiungere la ricetta al piano alimentare",
     "yield": "Porzioni",
     "quantity": "Quantità",
@@ -495,26 +496,26 @@
     "locked": "Bloccato",
     "public-link": "Link Pubblico",
     "timer": {
-      "kitchen-timer": "Kitchen Timer",
-      "start-timer": "Start Timer",
-      "pause-timer": "Pause Timer",
-      "resume-timer": "Resume Timer",
-      "stop-timer": "Stop Timer"
+      "kitchen-timer": "Contaminuti da cucina",
+      "start-timer": "Avvia timer",
+      "pause-timer": "Metti in pausa il contaminuti",
+      "resume-timer": "Riprendi il contaminuti",
+      "stop-timer": "Arresta il Timer"
     },
-    "edit-timeline-event": "Modifica Evento Timeline",
-    "timeline": "Timeline",
-    "timeline-is-empty": "Niente sulla timeline. Prova a fare questa ricetta!",
-    "group-global-timeline": "{groupName} Sequenza Temporale Globale",
-    "open-timeline": "Apri la Timeline",
+    "edit-timeline-event": "Modifica evento sulla linea temporale",
+    "timeline": "Linea temporale",
+    "timeline-is-empty": "Niente sulla linea temporale. Prova a fare questa ricetta!",
+    "group-global-timeline": "{groupName} Linea temporale globale",
+    "open-timeline": "Apri la linea temporale",
     "made-this": "L'Ho Preparato",
     "how-did-it-turn-out": "Come è venuto?",
     "user-made-this": "{user} l'ha preparato",
     "last-made-date": "Ultima Preparazione {date}",
-    "api-extras-description": "Le opzioni extra delle ricette sono una caratteristica fondamentale dell'API Mealie. Consentono di creare json personalizzati con coppie di chiavi/valore all'interno di una ricetta a cui fare riferimento tramite applicazioni terze. È possibile utilizzare queste chiavi per inserire informazioni e attivare l'automazione oppure messaggi personalizzati da passare al dispositivo desiderato.",
+    "api-extras-description": "Le opzioni extra delle ricette sono una caratteristica fondamentale dell'API Mealie. Consentono di creare json personalizzati con coppie di chiavi/valore all'interno di una ricetta a cui fare riferimento tramite applicazioni terze. È possibile utilizzare queste chiavi per inserire informazioni, per esempio per attivare automazioni oppure per inoltrare messaggi personalizzati al dispositivo desiderato.",
     "message-key": "Chiave Messaggio",
     "parse": "Analizza",
     "attach-images-hint": "Allega immagini trascinandole nell'editor",
-    "drop-image": "Drop image",
+    "drop-image": "Trascina l'immagine",
     "enable-ingredient-amounts-to-use-this-feature": "Abilita le quantità degli ingredienti per utilizzare questa funzione",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Le ricette con unità o alimenti definiti non possono essere analizzate.",
     "parse-ingredients": "Analizza ingredienti",
@@ -532,6 +533,8 @@
     "new-recipe-names-must-be-unique": "I nuovi nomi delle ricette devono essere univoci",
     "scrape-recipe": "Recupera Ricetta",
     "scrape-recipe-description": "Recupera una ricetta da url. Fornire l'url per il sito che si desidera analizzare, e Mealie cercherà di recuperare la ricetta da quel sito e aggiungerlo alla vostra raccolta.",
+    "scrape-recipe-have-a-lot-of-recipes": "Hai un sacco di ricette che vuoi importare contemporaneamente?",
+    "scrape-recipe-suggest-bulk-importer": "Prova l'importatore massivo",
     "import-original-keywords-as-tags": "Importa parole chiave originali come tag",
     "stay-in-edit-mode": "Rimani in modalità Modifica",
     "import-from-zip": "Importa da Zip",
@@ -553,8 +556,9 @@
     "recipe-yield": "Resa Ricetta",
     "unit": "Unità",
     "upload-image": "Carica immagine",
-    "screen-awake": "Keep Screen Awake",
-    "remove-image": "Remove image"
+    "screen-awake": "Mantieni lo schermo acceso",
+    "remove-image": "Rimuovi immagine",
+    "nextStep": "Passo successivo"
   },
   "search": {
     "advanced-search": "Ricerca Avanzata",
@@ -573,16 +577,16 @@
     "search-hint": "Premi '/'",
     "advanced": "Ricerca Avanzata",
     "auto-search": "Ricerca automatica",
-    "no-results": "No results found"
+    "no-results": "Nessun risultato trovato"
   },
   "settings": {
     "add-a-new-theme": "Aggiungi un Nuovo Tema",
     "admin-settings": "Impostazioni Amministratore",
     "backup": {
-      "backup-created": "Backup created successfully",
+      "backup-created": "Backup creato con successo",
       "backup-created-at-response-export_path": "Backup Creato in {path}",
       "backup-deleted": "Backup eliminato",
-      "restore-success": "Restore successful",
+      "restore-success": "Ripristino riuscito",
       "backup-tag": "Tag Backup",
       "create-heading": "Crea un Backup",
       "delete-backup": "Elimina Backup",
@@ -691,13 +695,13 @@
     "configuration": "Configurazione",
     "docker-volume": "Docker Volume",
     "docker-volume-help": "Mealie richiede che il frontend e il backend condividano lo stesso volume docker o archiviazione. Ciò assicura che il frontend possa accedere correttamente alle immagini e alle risorse memorizzate sul disco.",
-    "volumes-are-misconfigured": "Volumes are misconfigured.",
+    "volumes-are-misconfigured": "I volumi sono configurati male.",
     "volumes-are-configured-correctly": "I volumi sono stati configurati correttamente.",
     "status-unknown-try-running-a-validation": "Stato sconosciuto. Prova ad eseguire una convalida.",
     "validate": "Convalida",
     "email-configuration-status": "Configurazione e-mail",
-    "email-configured": "Email Configured",
-    "email-test-results": "Email Test Results",
+    "email-configured": "Email configurata",
+    "email-test-results": "Risultati del test email",
     "ready": "Pronto",
     "not-ready": "Non Pronto - Verifica Variabili Di Ambiente",
     "succeeded": "Operazione riuscita",
@@ -788,7 +792,8 @@
     "tags": "Tag",
     "untagged-count": "Senza Tag {count}",
     "create-a-tag": "Crea un Tag",
-    "tag-name": "Nome del Tag"
+    "tag-name": "Nome del Tag",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Strumenti",
@@ -797,7 +802,8 @@
     "tool-name": "Nome dell'Utensile",
     "create-new-tool": "Crea un Nuovo Utensile",
     "on-hand-checkbox-label": "Mostra come Disponibile (Spuntato)",
-    "required-tools": "Strumenti necessari"
+    "required-tools": "Strumenti necessari",
+    "tool": "Strumento"
   },
   "user": {
     "admin": "Amministratore",
@@ -832,7 +838,7 @@
     "password-updated": "Password aggiornata",
     "password": "Password",
     "password-strength": "La password è {strength}",
-    "please-enter-password": "Please enter your new password.",
+    "please-enter-password": "Si prega di inserire la nuova password.",
     "register": "Registrati",
     "reset-password": "Reimposta Password",
     "sign-in": "Accedi",
@@ -853,7 +859,7 @@
     "username": "Nome Utente",
     "users-header": "UTENTI",
     "users": "Utenti",
-    "user-not-found": "User not found",
+    "user-not-found": "Utente non trovato",
     "webhook-time": "Ora Webhook",
     "webhooks-enabled": "Webhooks Abilitati",
     "you-are-not-allowed-to-create-a-user": "Non sei autorizzato per la creazione di utenti",
@@ -876,7 +882,7 @@
     "user-management": "Gestione Utenti",
     "reset-locked-users": "Ripristina Utenti Bloccati",
     "admin-user-creation": "Creazione Utente Amministratore",
-    "admin-user-management": "Admin User Management",
+    "admin-user-management": "Gestione Utente Amministratore",
     "user-details": "Dettagli Utente",
     "user-name": "Nome Utente",
     "authentication-method": "Metodo di autenticazione",
@@ -887,11 +893,11 @@
     "user-can-manage-group": "L'utente può gestire il gruppo",
     "user-can-organize-group-data": "L'utente può organizzare i dati del gruppo",
     "enable-advanced-features": "Abilita funzionalità avanzate",
-    "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
-    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
-    "forgot-password": "Forgot Password",
-    "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
-    "changes-reflected-immediately": "Changes to this user will be reflected immediately."
+    "it-looks-like-this-is-your-first-time-logging-in": "Sembra che questa sia la tua prima volta che accedi.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Non vuoi più vederlo? Assicurati di modificare la tua email nelle impostazioni utente!",
+    "forgot-password": "Password Dimenticata",
+    "forgot-password-text": "Inserisci il tuo indirizzo email e ti invieremo un collegamento per reimpostare la tua password.",
+    "changes-reflected-immediately": "Le modifiche a questo utente diventeranno immediatamente effettive."
   },
   "language-dialog": {
     "translated": "tradotto",
@@ -913,8 +919,8 @@
       "food-label": "Etichetta Alimento",
       "edit-food": "Modifica Alimento",
       "food-data": "Dati Alimento",
-      "example-food-singular": "ex: Onion",
-      "example-food-plural": "ex: Onions"
+      "example-food-singular": "esempio: Cipolla",
+      "example-food-plural": "esempio: Cipolle"
     },
     "units": {
       "seed-dialog-text": "Riempie il database con unità comuni basate sulla lingua.",
@@ -925,7 +931,7 @@
       "merging-unit-into-unit": "Unione di {0} in {1}",
       "create-unit": "Crea Unità",
       "abbreviation": "Abbreviazione",
-      "plural-abbreviation": "Plural Abbreviation",
+      "plural-abbreviation": "Abbreviazione Plurale",
       "description": "Descrizione",
       "display-as-fraction": "Mostra come Frazione",
       "use-abbreviation": "Usa Abbreviazione",
@@ -933,10 +939,10 @@
       "unit-data": "Dati Unità",
       "use-abbv": "Utilizzare Abbrev.",
       "fraction": "Frazione",
-      "example-unit-singular": "ex: Tablespoon",
-      "example-unit-plural": "ex: Tablespoons",
-      "example-unit-abbreviation-singular": "ex: Tbsp",
-      "example-unit-abbreviation-plural": "ex: Tbsps"
+      "example-unit-singular": "esempio: Cucchiaino",
+      "example-unit-plural": "esempio: Cucchiaini",
+      "example-unit-abbreviation-singular": "esempio: Ccno",
+      "example-unit-abbreviation-plural": "esempio: Ccni"
     },
     "labels": {
       "seed-dialog-text": "Riempie il database con etichette comuni basate sulla lingua.",
@@ -965,8 +971,8 @@
       "delete-recipes": "Elimina Ricette",
       "source-unit-will-be-deleted": "L'unità di origine verrà eliminata"
     },
-    "create-alias": "Create Alias",
-    "manage-aliases": "Manage Aliases",
+    "create-alias": "Crea Alias",
+    "manage-aliases": "Gestisci Alias",
     "seed-data": "Dati Predefiniti",
     "seed": "Inizializza",
     "data-management": "Gestione Dati",
@@ -976,24 +982,24 @@
     "columns": "Colonne",
     "combine": "Unisci",
     "categories": {
-      "edit-category": "Edit Category",
-      "new-category": "New Category",
-      "category-data": "Category Data"
+      "edit-category": "Modifica categoria",
+      "new-category": "Nuova categoria",
+      "category-data": "Categoria Dati"
     },
     "tags": {
-      "new-tag": "New Tag",
-      "edit-tag": "Edit Tag",
-      "tag-data": "Tag Data"
+      "new-tag": "Nuovo Tag",
+      "edit-tag": "Modifica Tag",
+      "tag-data": "Dati del Tag"
     },
     "tools": {
-      "new-tool": "New Tool",
-      "edit-tool": "Edit Tool",
-      "tool-data": "Tool Data"
+      "new-tool": "Nuovo strumento",
+      "edit-tool": "Modifica Strumento",
+      "tool-data": "Dati dello Strumento"
     }
   },
   "user-registration": {
     "user-registration": "Registrazione Utente",
-    "registration-success": "Registration Success",
+    "registration-success": "Registrazione completata",
     "join-a-group": "Unisciti a un Gruppo",
     "create-a-new-group": "Crea un Nuovo Gruppo",
     "provide-registration-token-description": "Fornisci il token di registrazione associato al gruppo a cui desideri partecipare. Dovrai ottenerlo da un membro di gruppo esistente.",
@@ -1040,7 +1046,7 @@
   },
   "ocr-editor": {
     "ocr-editor": "Editor Ocr",
-    "toolbar": "Toolbar",
+    "toolbar": "Barra degli strumenti",
     "selection-mode": "Modalità di selezione",
     "pan-and-zoom-picture": "Sposta e Ingrandisci l'immagine",
     "split-text": "Dividi testo",
@@ -1048,8 +1054,8 @@
     "split-by-block": "Dividi per blocco di testo",
     "flatten": "Appiattire indipendentemente dalla formattazione originale",
     "help": {
-      "help": "Help",
-      "mouse-modes": "Mouse modes",
+      "help": "Aiuto",
+      "mouse-modes": "Modalità Mouse",
       "selection-mode": "Modalità di Selezione (Predefinito)",
       "selection-mode-desc": "La modalità di selezione è la modalità principale per inserire i dati:",
       "selection-mode-steps": {
@@ -1106,26 +1112,26 @@
     "mainentance": {
       "actions-title": "Azioni"
     },
-    "ingredients-natural-language-processor": "Ingredients Natural Language Processor",
+    "ingredients-natural-language-processor": "Processore Di Lingua Naturale degli Ingredienti",
     "ingredients-natural-language-processor-explanation": "Mealie utilizza campi casuali condizionali (CRFs) per l'analisi e la lavorazione di ingredienti. Il modello utilizzato per gli ingredienti è basato su una serie di dati di oltre 100.000 ingredienti da un set di dati compilato dal New York Times. Si noti che poiché il modello è addestrato solo in inglese, si possono avere risultati vari quando si utilizza il modello in altre lingue. Questa pagina è un campo di gioco per testare il modello.",
-    "ingredients-natural-language-processor-explanation-2": "It's not perfect, but it yields great results in general and is a good starting point for manually parsing ingredients into individual fields. Alternatively, you can also use the \"Brute\" processor that uses a pattern matching technique to identify ingredients.",
+    "ingredients-natural-language-processor-explanation-2": "Non è perfetto, ma produce ottimi risultati in generale ed è un buon punto di partenza per separare manualmente gli ingredienti in singoli campi. In alternativa, è anche possibile utilizzare il processore \"Bruto\" che utilizza una tecnica di corrispondenza di modello per identificare gli ingredienti.",
     "nlp": "NLP",
-    "brute": "Brute",
-    "show-individual-confidence": "Show individual confidence",
-    "ingredient-text": "Ingredient Text",
-    "average-confident": "{0} Confident",
-    "try-an-example": "Try an example",
-    "parser": "Parser",
+    "brute": "Bruto",
+    "show-individual-confidence": "Mostra fiducia individuale",
+    "ingredient-text": "Testo Ingrediente",
+    "average-confident": "{0} Fiducia",
+    "try-an-example": "Prova un esempio",
+    "parser": "Analizzatore",
     "background-tasks": "Attività in Background",
     "background-tasks-description": "Qui puoi visualizzare tutte le attività in background in esecuzione e il loro stato",
     "no-logs-found": "Nessun Log Trovato",
-    "tasks": "Tasks"
+    "tasks": "Compiti"
   },
   "profile": {
     "welcome-user": "👋 Benvenuto, {0}",
     "description": "Gestisci il tuo profilo, le ricette e le impostazioni di gruppo.",
     "get-invite-link": "Ottieni Link Di Invito",
-    "get-public-link": "Get Public Link",
+    "get-public-link": "Ottieni link pubblico",
     "account-summary": "Riepilogo Account",
     "account-summary-description": "Ecco un riepilogo delle informazioni del tuo gruppo",
     "group-statistics": "Statistiche Gruppo",
@@ -1157,13 +1163,13 @@
     "show-advanced-description": "Mostra funzionalità avanzate (Chiavi API, Webhook e Gestione dati)",
     "back-to-profile": "Torna al Profilo",
     "looking-for-privacy-settings": "Stai cercando le Impostazioni Della Privacy?",
-    "manage-your-api-tokens": "Manage Your API Tokens",
-    "manage-user-profile": "Manage User Profile",
-    "manage-cookbooks": "Manage Cookbooks",
-    "manage-members": "Manage Members",
-    "manage-webhooks": "Manage Webhooks",
-    "manage-notifiers": "Manage Notifiers",
-    "manage-data-migrations": "Manage Data Migrations"
+    "manage-your-api-tokens": "Gestisci i tuoi Token Api",
+    "manage-user-profile": "Gestisci Profilo Utente",
+    "manage-cookbooks": "Gestisci Libri Di Cucina",
+    "manage-members": "Gestisci i membri",
+    "manage-webhooks": "Gestisci i Webhook",
+    "manage-notifiers": "Gestisci Notifiche",
+    "manage-data-migrations": "Gestione Migrazioni Dei Dati"
   },
   "cookbook": {
     "cookbooks": "Ricettari",

@@ -198,7 +198,8 @@
     "refresh": "Verfris",
     "upload-file": "Laai dokument op",
     "created-on-date": "Geskep op: {0}",
-    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes."
+    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
+    "clipboard-copy-failure": "Failed to copy to the clipboard."
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Is jy seker jy wil <b>{groupName}<b/> uitvee?",
@@ -510,7 +511,7 @@
     "how-did-it-turn-out": "Hoe het dit uitgedraai?",
     "user-made-this": "{user} het dit gemaak",
     "last-made-date": "Laas gemaak {date}",
-    "api-extras-description": "Resepte ekstras is 'n belangrike funksie van die Mealie API. Hulle laat jou toe om pasgemaakte json-sleutel/waarde-pare binne 'n resep te skep om na derdeparty-toepassings te verwys. Jy kan hierdie sleutels gebruik om inligting te bevat om outomatisering of pasgemaakte boodskappe na die gewenste toestel te stuur.",
+    "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
     "message-key": "Boodskap sleutel",
     "parse": "Verwerk",
     "attach-images-hint": "Voeg prente by deur dit in die bewerker te sleep en los",
@@ -532,6 +533,8 @@
     "new-recipe-names-must-be-unique": "Nuwe resepname moet uniek wees",
     "scrape-recipe": "Skraap resep",
     "scrape-recipe-description": "Voeg 'n resep by via 'n url. Voer die url van die webwerf in wat jy vir 'n resep wil skandeer, Mealie sal probeer om die resep vanaf daardie plek te skandeer en by jou versameling te voeg.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Voer oorspronklike sleutelwoorde as merkers in",
     "stay-in-edit-mode": "Bly in redigeer modus",
     "import-from-zip": "Voer vanaf zip in",
@@ -554,7 +557,8 @@
     "unit": "Eenheid",
     "upload-image": "Laai prent",
     "screen-awake": "Hou die skerm aan",
-    "remove-image": "Verwyder prent"
+    "remove-image": "Verwyder prent",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Gevorderde soek",
@@ -788,7 +792,8 @@
     "tags": "Merkers",
     "untagged-count": "Nie gemerk {count}",
     "create-a-tag": "Skep 'n merker",
-    "tag-name": "Merker naam"
+    "tag-name": "Merker naam",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Kookgerei",
@@ -797,7 +802,8 @@
     "tool-name": "Naam van die kookgerei",
     "create-new-tool": "Skep nuwe kookgerei",
     "on-hand-checkbox-label": "Wys as in besit (gemerk)",
-    "required-tools": "Vereiste kookgerei"
+    "required-tools": "Vereiste kookgerei",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administrateur",
