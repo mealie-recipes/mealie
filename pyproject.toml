@@ -25,7 +25,6 @@ gunicorn = "^21.0.0"
 httpx = "^0.26.0"
 lxml = "^5.0.0"
 orjson = "^3.8.0"
-passlib = "^1.7.4"
 psycopg2-binary = { version = "^2.9.1", optional = true }
 pydantic = "^1.10.4"
 pyhumps = "^3.5.3"
