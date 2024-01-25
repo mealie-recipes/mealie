@@ -470,7 +470,7 @@
     "date-format-hint-yyyy-mm-dd": "Formát RRRR-MM-DD",
     "add-to-list": "Přidat na seznam",
     "add-to-plan": "Přidat do jídelníčku",
-    "add-to-timeline": "Add to Timeline",
+    "add-to-timeline": "Přidat na časovou osu",
     "recipe-added-to-list": "Recept byl přidán na seznam",
     "recipes-added-to-list": "Recipes added to list",
     "recipe-added-to-mealplan": "Recept byl přidán do jídelníčku",
@@ -497,9 +497,9 @@
     "locked": "Uzamčeno",
     "public-link": "Veřejný odkaz",
     "timer": {
-      "kitchen-timer": "Kitchen Timer",
-      "start-timer": "Start Timer",
-      "pause-timer": "Pause Timer",
+      "kitchen-timer": "Kuchyňský časovač",
+      "start-timer": "Spustit časovač",
+      "pause-timer": "Pozastavit časovač",
       "resume-timer": "Resume Timer",
       "stop-timer": "Stop Timer"
     },
