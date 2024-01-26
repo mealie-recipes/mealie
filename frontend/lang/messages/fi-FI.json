@@ -258,6 +258,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Luo uusi ateriasuunnitelma",
+    "update-this-meal-plan": "Päivitä tämä ateriasuunnitelma",
     "dinner-this-week": "Viikon päivällinen",
     "dinner-today": "Päivällinen tänään",
     "dinner-tonight": "PÄIVÄLLINEN TÄNÄÄN",

@@ -258,6 +258,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "إنشاء خطة وجبة جديدة",
+    "update-this-meal-plan": "Update this Meal Plan",
     "dinner-this-week": "العشاء لهذا الأسبوع",
     "dinner-today": "العشاء اليوم",
     "dinner-tonight": "العشاء الليلة",

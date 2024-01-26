@@ -40,7 +40,8 @@ async def get_token(
         if "," in ip:  # if there are multiple IPs, the first one is canonically the true client
             ip = str(ip.split(",")[0])
     else:
-        ip = request.client.host
+        # request.client should never be null, except sometimes during testing
+        ip = request.client.host if request.client else "unknown"
 
     try:
         auth_provider = get_auth_provider(session, request)
