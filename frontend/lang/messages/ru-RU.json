@@ -114,7 +114,7 @@
     "json": "JSON",
     "keyword": "Ключевое слово",
     "link-copied": "Ссылка скопирована",
-    "loading": "Loading",
+    "loading": "Загрузка",
     "loading-events": "Загрузка событий",
     "loading-recipe": "Загрузка рецепта...",
     "loading-ocr-data": "Загрузка данных OCR...",
@@ -258,6 +258,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Создать новый план питания",
+    "update-this-meal-plan": "Обновить план питания",
     "dinner-this-week": "Ужин на этой неделе",
     "dinner-today": "Ужин сегодня",
     "dinner-tonight": "Ужин сегодня",
@@ -511,7 +512,7 @@
     "how-did-it-turn-out": "Что получилось?",
     "user-made-this": "{user} сделал это",
     "last-made-date": "Последний раз сделано {date}",
-    "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
+    "api-extras-description": "Дополнения к рецептам являются ключевым элементом Mealie API. Они позволяют создавать пользовательские пары json ключ/значение в рецепте для ссылания на другие приложения. Вы можете использовать эти ключи, чтобы сохранить нужную информацию, например, для автоматизаций или уведомлений на ваши устройства.",
     "message-key": "Ключ сообщения",
     "parse": "Обработать",
     "attach-images-hint": "Прикрепляйте изображения, перетаскивая их в редактор",
@@ -533,8 +534,8 @@
     "new-recipe-names-must-be-unique": "Название рецепта должно быть уникальным",
     "scrape-recipe": "Отсканировать рецепт",
     "scrape-recipe-description": "Отсканировать рецепт по ссылке. Предоставьте ссылку на страницу, которую вы хотите отсканировать, и Mealie попытается вырезать рецепт с этого сайта и добавить его в свою коллекцию.",
-    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
-    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
+    "scrape-recipe-have-a-lot-of-recipes": "Хотите отсканировать несколько рецептов за раз?",
+    "scrape-recipe-suggest-bulk-importer": "Воспользуйтесь массовым импортом",
     "import-original-keywords-as-tags": "Импортировать исходные ключевые слова как теги",
     "stay-in-edit-mode": "Остаться в режиме редактирования",
     "import-from-zip": "Импорт из архива",
@@ -558,7 +559,7 @@
     "upload-image": "Загрузить изображение",
     "screen-awake": "Держать экран включенным",
     "remove-image": "Удалить изображение",
-    "nextStep": "Next step"
+    "nextStep": "След. шаг"
   },
   "search": {
     "advanced-search": "Расширенный поиск",
@@ -793,7 +794,7 @@
     "untagged-count": "Не помеченные {count}",
     "create-a-tag": "Создать тег",
     "tag-name": "Название тега",
-    "tag": "Tag"
+    "tag": "Тег"
   },
   "tool": {
     "tools": "Инструменты",
@@ -803,7 +804,7 @@
     "create-new-tool": "Создать новый инструмент",
     "on-hand-checkbox-label": "Показывать \"в наличии\" (отмечено)",
     "required-tools": "Необходимые инструменты",
-    "tool": "Tool"
+    "tool": "Инструмент"
   },
   "user": {
     "admin": "Администратор",
@@ -941,8 +942,8 @@
       "fraction": "Дробь",
       "example-unit-singular": "пр. Столовая ложка",
       "example-unit-plural": "пр. Столовых ложек",
-      "example-unit-abbreviation-singular": "ex: Tbsp",
-      "example-unit-abbreviation-plural": "ex: Tbsps"
+      "example-unit-abbreviation-singular": "пример: ст. л.",
+      "example-unit-abbreviation-plural": "пример: ст. л."
     },
     "labels": {
       "seed-dialog-text": "Дополнить базу данных типичными единицами измерений на основе выбранного языка.",
