@@ -61,6 +61,13 @@ tasks:
     cmds:
       - curl -L0 {{ .MODEL_URL }} --output {{ .OUTPUT }}
 
+  setup:
+    desc: setup all dependencies
+    deps:
+      - setup:node
+      - setup:python
+      - setup:model
+
   dev:generate:
     desc: run code generators
     cmds:
