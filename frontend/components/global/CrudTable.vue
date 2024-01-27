@@ -160,6 +160,8 @@ export default defineComponent({
       props.bulkActions.forEach((action) => {
         handlers[action.event] = () => {
           context.emit(action.event, selected.value);
+          // clear selection
+          selected.value = [];
         };
       });
 
