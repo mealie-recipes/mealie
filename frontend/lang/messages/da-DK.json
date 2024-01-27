@@ -258,6 +258,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Opret en ny madplan",
+    "update-this-meal-plan": "Update this Meal Plan",
     "dinner-this-week": "Madplan denne uge",
     "dinner-today": "Madplan i dag",
     "dinner-tonight": "AFTENSMAD I AFTEN",
@@ -472,9 +473,11 @@
     "add-to-timeline": "Tilføj til tidslinje",
     "recipe-added-to-list": "Opskrift tilføjet til listen",
     "recipes-added-to-list": "Opskrifter tilføjet til listen",
+    "successfully-added-to-list": "Tilføjet til listen",
     "recipe-added-to-mealplan": "Opskrift tilføjet til madplanen",
     "failed-to-add-recipes-to-list": "Kunne ikke tilføje opskrift til listen",
     "failed-to-add-recipe-to-mealplan": "Kunne ikke tilføje opskrift til madplanen",
+    "failed-to-add-to-list": "Kunne ikke tilføje opskrift til listen",
     "yield": "Portioner",
     "quantity": "Antal",
     "choose-unit": "Vælg enhed",
@@ -533,6 +536,8 @@
     "new-recipe-names-must-be-unique": "Opskriftsnavnet er allerede i brug",
     "scrape-recipe": "Scrape Opskrift",
     "scrape-recipe-description": "Hent en opskrift fra en hjemmeside. Angiv URL'en til den hjemmeside, du vil hente data fra, og Mealie vil forsøge at hente opskriften og tilføje den til din samling.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Importér originale nøgleord som mærker",
     "stay-in-edit-mode": "Bliv i redigeringstilstand",
     "import-from-zip": "Importer fra zip-fil",
@@ -555,7 +560,8 @@
     "unit": "Enhed",
     "upload-image": "Upload billede",
     "screen-awake": "Hold skærmen tændt",
-    "remove-image": "Fjern billede"
+    "remove-image": "Fjern billede",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Avanceret søgning",
@@ -789,7 +795,8 @@
     "tags": "Tags",
     "untagged-count": "Ikke-tagget: {count}",
     "create-a-tag": "Opret tag",
-    "tag-name": "Tag navn"
+    "tag-name": "Tag navn",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Værktøjer",
@@ -798,7 +805,8 @@
     "tool-name": "Værktøjsnavn",
     "create-new-tool": "Opret et nyt værktøj",
     "on-hand-checkbox-label": "Vis som \"Har allerede\" (afkrydset)",
-    "required-tools": "Nødvendige Værktøjer"
+    "required-tools": "Nødvendige Værktøjer",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administrator",

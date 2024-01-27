@@ -1,4 +1,5 @@
 import os
+import sys
 
 import requests
 
@@ -14,9 +15,9 @@ def main():
     r = requests.get(url)
 
     if r.status_code == 200:
-        exit(0)
+        sys.exit(0)
     else:
-        exit(1)
+        sys.exit(1)
 
 
 if __name__ == "__main__":

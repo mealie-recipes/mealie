@@ -258,6 +258,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Maak een nieuw maaltijdplan",
+    "update-this-meal-plan": "Werk dit Maaltijdplan bij",
     "dinner-this-week": "Het diner deze week",
     "dinner-today": "Het diner vandaag",
     "dinner-tonight": "DINER VOOR DEZE AVOND",
@@ -472,9 +473,11 @@
     "add-to-timeline": "Aan tijdlijn toevoegen",
     "recipe-added-to-list": "Recept toegevoegd aan de lijst",
     "recipes-added-to-list": "Recept toegevoegd aan de lijst",
+    "successfully-added-to-list": "Succesvol toegevoegd aan de lijst",
     "recipe-added-to-mealplan": "Recept toegevoegd aan het maaltijdplan",
     "failed-to-add-recipes-to-list": "Kon recept niet aan de lijst toevoegen ",
     "failed-to-add-recipe-to-mealplan": "Recept aan maaltijdplan toevoegen mislukt",
+    "failed-to-add-to-list": "Toevoegen aan lijst mislukt",
     "yield": "Resultaat",
     "quantity": "Hoeveelheid",
     "choose-unit": "Kies een eenheid",
@@ -533,6 +536,8 @@
     "new-recipe-names-must-be-unique": "Nieuwe receptnamen moeten uniek zijn",
     "scrape-recipe": "Scrape recept",
     "scrape-recipe-description": "Voeg een recept toe via een url. Geef de url op van de site welke je wil scannen voor een recept., en Mealie zal proberen het recept vanaf die plek te scannen en aan je collectie toe te voegen.",
+    "scrape-recipe-have-a-lot-of-recipes": "Heb je veel recepten die je in 1 keer wil importeren?",
+    "scrape-recipe-suggest-bulk-importer": "Probeer de bulk importer uit",
     "import-original-keywords-as-tags": "Importeer oorspronkelijke trefwoorden als tags",
     "stay-in-edit-mode": "Blijf in bewerkingsmodus",
     "import-from-zip": "Importeren uit zip",
@@ -555,7 +560,8 @@
     "unit": "Eenheid",
     "upload-image": "Afbeelding uploaden",
     "screen-awake": "Scherm laten aan staan",
-    "remove-image": "Afbeelding verwijderen"
+    "remove-image": "Afbeelding verwijderen",
+    "nextStep": "Volgende stap"
   },
   "search": {
     "advanced-search": "Geavanceerd zoeken",
@@ -789,7 +795,8 @@
     "tags": "Labels",
     "untagged-count": "Niet gelabeld {count}",
     "create-a-tag": "Maak een nieuw label aan",
-    "tag-name": "Labelnaam"
+    "tag-name": "Labelnaam",
+    "tag": "Label"
   },
   "tool": {
     "tools": "Keukengerei",
@@ -798,7 +805,8 @@
     "tool-name": "Naam van het keukengerei",
     "create-new-tool": "Nieuw keukengerei aanmaken",
     "on-hand-checkbox-label": "Tonen als in bezit (gemarkeerd)",
-    "required-tools": "Benodig kookgerei"
+    "required-tools": "Benodig kookgerei",
+    "tool": "Keukengerei"
   },
   "user": {
     "admin": "Beheerder",

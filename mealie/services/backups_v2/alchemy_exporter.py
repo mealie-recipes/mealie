@@ -2,10 +2,11 @@ import datetime
 import uuid
 from os import path
 from pathlib import Path
+from typing import Any
 
 from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
-from sqlalchemy import ForeignKeyConstraint, MetaData, create_engine, insert, text
+from sqlalchemy import ForeignKey, ForeignKeyConstraint, MetaData, Table, create_engine, insert, text
 from sqlalchemy.engine import base
 from sqlalchemy.orm import sessionmaker
 
@@ -41,12 +42,26 @@ class AlchemyExporter(BaseService):
         self.session_maker = sessionmaker(bind=self.engine)
 
     @staticmethod
-    def is_uuid(value: str) -> bool:
+    def is_uuid(value: Any) -> bool:
         try:
             uuid.UUID(value)
             return True
         except ValueError:
             return False
+
+    @staticmethod
+    def is_valid_foreign_key(db_dump: dict[str, list[dict]], fk: ForeignKey, fk_value: Any) -> bool:
+        if not fk_value:
+            return True
+
+        foreign_table_name = fk.column.table.name
+        foreign_field_name = fk.column.name
+
+        for row in db_dump.get(foreign_table_name, []):
+            if row[foreign_field_name] == fk_value:
+                return True
+
+        return False
 
     def convert_types(self, data: dict) -> dict:
         """
@@ -69,6 +84,33 @@ class AlchemyExporter(BaseService):
                 if key in self.look_for_time:
                     data[key] = self.DateTimeParser(time=value).time
         return data
+
+    def clean_rows(self, db_dump: dict[str, list[dict]], table: Table, rows: list[dict]) -> list[dict]:
+        """
+        Checks rows against foreign key restraints and removes any rows that would violate them
+        """
+
+        fks = table.foreign_keys
+
+        valid_rows = []
+        for row in rows:
+            is_valid_row = True
+            for fk in fks:
+                fk_value = row.get(fk.parent.name)
+                if self.is_valid_foreign_key(db_dump, fk, row.get(fk.parent.name)):
+                    continue
+
+                is_valid_row = False
+                self.logger.warning(
+                    f"Removing row from table {table.name} because of invalid foreign key {fk.parent.name}: {fk_value}"
+                )
+                self.logger.warning(f"Row: {row}")
+                break
+
+            if is_valid_row:
+                valid_rows.append(row)
+
+        return valid_rows
 
     def dump_schema(self) -> dict:
         """
@@ -125,6 +167,7 @@ class AlchemyExporter(BaseService):
                 if not rows:
                     continue
                 table = self.meta.tables[table_name]
+                rows = self.clean_rows(db_dump, table, rows)
 
                 connection.execute(table.delete())
                 connection.execute(insert(table), rows)
