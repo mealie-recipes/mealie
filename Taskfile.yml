@@ -146,12 +146,6 @@ tasks:
       - poetry run python mealie/db/init_db.py
       - poetry run python mealie/app.py
 
-  ui:run:
-    desc: runs the frontend server
-    dir: frontend
-    cmds:
-      - yarn start
-
   ui:build:
     desc: builds the frontend in frontend/dist
     dir: frontend
@@ -177,7 +171,7 @@ tasks:
       - ui:test
 
   ui:
-    desc: runs the frontend server and backend server
+    desc: runs the frontend server
     dir: frontend
     cmds:
       - yarn run dev
