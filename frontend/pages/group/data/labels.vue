@@ -55,7 +55,7 @@
       @confirm="deleteSelected"
     >
       <v-card-text>
-        <p class="h4">{{ $t('data-pages.recipes.confirm-delete-recipes') }}</p>
+        <p class="h4">{{ $t('general.confirm-delete-generic-items') }}</p>
         <v-card outlined>
           <v-virtual-scroll height="400" item-height="25" :items="bulkDeleteTarget">
             <template #default="{ item }">
