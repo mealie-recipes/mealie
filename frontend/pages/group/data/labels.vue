@@ -113,7 +113,7 @@
       :table-config="tableConfig"
       :headers.sync="tableHeaders"
       :data="labels || []"
-      :bulk-actions="[{icon: $globals.icons.delete, text: 'Delete Selected', event: 'delete-selected'}]"
+      :bulk-actions="[{icon: $globals.icons.delete, text: $tc('general.delete'), event: 'delete-selected'}]"
       @delete-one="deleteEventHandler"
       @edit-one="editEventHandler"
       @delete-selected="bulkDeleteEventHandler"
