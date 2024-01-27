@@ -14,12 +14,12 @@ Prerequisites
 - Visual Studio Code
 
 ### Linux and MacOS
+
 First ensure that docker is running. Then when you clone the repo and open with VS Code you should see a popup asking you to reopen the project inside a development container. Click yes and it will build the development container and run the setup required to run both the backend API and the frontend webserver. This also pre-configures pre-commit hooks to ensure that the code is up to date before committing.
 
 ### Windows
-Make sure the VSCode Dev Containers extension is installed, then select "Dev Containers: Clone Repository in Container Volume..." in the command pallete (F1). Select your forked repo and choose the `mealie-next` branch, which contains the latest changes. This mounts your repository directly in WSL2, which [greatly improves the performance of the container](https://code.visualstudio.com/docs/devcontainers/containers#_quick-start-open-a-git-repository-or-github-pr-in-an-isolated-container-volume), and enables hot-reloading for the frontend. Running the container on a mounted volume may not work correctly on Windows due to WSL permission mapping issues.
 
-[Checkout the makefile reference](#make-file-reference) for all of the available commands.
+Make sure the VSCode Dev Containers extension is installed, then select "Dev Containers: Clone Repository in Container Volume..." in the command palette (F1). Select your forked repo and choose the `mealie-next` branch, which contains the latest changes. This mounts your repository directly in WSL2, which [greatly improves the performance of the container](https://code.visualstudio.com/docs/devcontainers/containers#_quick-start-open-a-git-repository-or-github-pr-in-an-isolated-container-volume), and enables hot-reloading for the frontend. Running the container on a mounted volume may not work correctly on Windows due to WSL permission mapping issues.
 
 !!! tip
     For slow terminal checkout the solution in this [GitHub Issue](https://github.com/microsoft/vscode/issues/133215)
@@ -29,16 +29,18 @@ Make sure the VSCode Dev Containers extension is installed, then select "Dev Con
     ```
 
 ## Without Dev Containers
+
 ### Prerequisites
 
 - [Python 3.10](https://www.python.org/downloads/)
 - [Poetry](https://python-poetry.org/docs/#installation)
 - [Node v16.x](https://nodejs.org/en/)
 - [yarn](https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable)
+- [task](https://taskfile.dev/#/installation)
 
 ### Installing Dependencies
 
-Once the prerequisites are installed you can cd into the project base directory and run `make setup` to install the python and node dependencies.
+Once the prerequisites are installed you can cd into the project base directory and run `task setup` to install the python and node dependencies, and download the NLP model.
 
 === "Linux / macOS"
 
@@ -46,29 +48,16 @@ Once the prerequisites are installed you can cd into the project base directory 
     # Naviate To The Root Directory
     cd /path/to/project
 
-    # Utilize the Makefile to Install Dependencies
-    make setup
+    # Utilize the Taskfile to Install Dependencies
+    task setup
     ```
-
-=== "Windows"
-
-    ``` powershell
-    # Install Python Dependencies
-    Set-Directory -Path "C:\path\to\project"
-    poetry install
-
-    # Install Node Dependencies
-    Set-Directory frontend
-    yarn install
-    ```
-
-### Setting ENV Variables
-
-Before you start the server you MUST copy the `template.env` and `frontend/template.env` files to their respective locations with the name `.env` and `frontend/.env` respectively. The application will-not run without these files.
 
 ## Postgres
-- Whether using a container or manual install, you need to set up your own postgres dev server. The database, username, password, etc should match the `POSTGRES_*` options located in the `.env` file.
-- Install psycog2 with `poetry install -E pgsql` (in the main `mealie` directory, *not* `frontend`)
+
+The taskfile has two commands that need to be run to run the development environment against a postgres database.
+
+- `task dev:services` - This will start the postgres database, and a smtp server for email testing.
+- `task py:postgres` - This will run that backend API configured for the local postgres database.
 
 ## Starting The Server
 
@@ -78,57 +67,24 @@ Now you're ready to start the servers. You'll need two shells open, One for the 
 
     ```bash
     # Terminal #1
-    make backend
+    task py
 
     # Terminal #2
-    make frontend
+    task ui
     ```
 
-=== "Windows"
-
-    ``` powershell
-    # Terminal # 1
-	poetry run python mealie/db/init_db.py # Initialize the database
-	poetry run python mealie/app.py # start application
-
-    # Terminal # 2
-    Set-Directory frontend
-    yarn run dev
-    ```
-
-## Make File Reference
-
-Run `make help` for reference. If you're on a system that doesn't support makefiles in most cases you can use the commands directly in your terminal by copy/pasting them from the Makefile.
-
-```
-docs                 📄 Start Mkdocs Development Server
-code-gen             🤖 Run Code-Gen Scripts
-setup                🏗  Setup Development Instance
-setup-model          🤖 Get the latest NLP CRF++ Model
-clean-data           ⚠️  Removes All Developer Data for a fresh server start
-clean-pyc            🧹 Remove Python file artifacts
-clean-test           🧹 Remove test and coverage artifacts
-backend-clean        🧹 Remove all build, test, coverage and Python artifacts
-backend-test         🧪 Run tests quickly with the default Python
-backend-format       🧺 Format, Check and Flake8
-backend-all          🧪 Runs all the backend checks and tests
-backend-coverage     ☂️  Check code coverage quickly with the default Python
-backend              🎬 Start Mealie Backend Development Server
-frontend             🎬 Start Mealie Frontend Development Server
-frontend-build       🏗  Build Frontend in frontend/dist
-frontend-generate    🏗  Generate Code for Frontend
-frontend-lint        🧺 Run yarn lint
-docker-dev           🐳 Build and Start Docker Development Stack (currently not functional, see #756, #1072)
-docker-prod          🐳 Build and Start Docker Production Stack
-
-```
 ## Internationalization
+
 ### Frontend
+
 We use vue-i18n package for internationalization. Translations are stored in json format located in [frontend/lang/messages](https://github.com/mealie-recipes/mealie/tree/mealie-next/frontend/lang/messages).
+
 ### Backend
+
 Translations are stored in json format located in [mealie/lang/messages](https://github.com/mealie-recipes/mealie/tree/mealie-next/mealie/lang/messages).
 
 ### Quick frontend localization with VS Code
+
 [i18n Ally for VScode](https://marketplace.visualstudio.com/items?itemName=lokalise.i18n-ally) is helpful for generating new strings to translate using Code Actions. It also has a nice feature, which shows translations in-place when editing code.
 
 A few settings must be tweaked to make the most of its features. Some settings are stored on project level, but most of them have to be set manually in your workspace or user settings.\

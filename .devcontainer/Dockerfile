@@ -14,6 +14,7 @@ RUN echo "export PROMPT_COMMAND='history -a'" >> /home/vscode/.bashrc \
     && echo "export HISTFILE=~/commandhistory/.bash_history" >> /home/vscode/.bashrc \
     && chown vscode:vscode -R /home/vscode/
 
+RUN npm install -g @go-task/cli
 
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
@@ -37,4 +38,3 @@ RUN apt-get update \
     libwebp-dev \
     libsasl2-dev libldap2-dev libssl-dev \
     gnupg gnupg2 gnupg1
-#     && pip install -U --no-cache-dir pip
