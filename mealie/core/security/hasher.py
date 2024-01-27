@@ -7,11 +7,9 @@ from mealie.core.config import get_app_settings
 
 
 class Hasher(Protocol):
-    def hash(self, password: str) -> str:
-        ...
+    def hash(self, password: str) -> str: ...
 
-    def verify(self, password: str, hashed: str) -> bool:
-        ...
+    def verify(self, password: str, hashed: str) -> bool: ...
 
 
 class FakeHasher:

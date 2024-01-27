@@ -5,6 +5,7 @@ Revises: 38514b39a824
 Create Date: 2023-04-13 06:47:04.617131
 
 """
+
 import sqlalchemy as sa
 
 import mealie.db.migration_types
