@@ -2,7 +2,7 @@ version: "3.4"
 services:
   mealie:
     container_name: mealie
-    image: mealie:dev
+    image: ghcr.io/mealie-recipes/mealie:latest
     build:
       context: ../
       target: production
@@ -32,13 +32,13 @@ services:
       WEB_CONCURRENCY: 1
       # =====================================
       # Email Configuration
-      # SMTP_HOST=
-      # SMTP_PORT=587
-      # SMTP_FROM_NAME=Mealie
-      # SMTP_AUTH_STRATEGY=TLS # Options: 'TLS', 'SSL', 'NONE'
-      # SMTP_FROM_EMAIL=
-      # SMTP_USER=
-      # SMTP_PASSWORD=
+      # SMTP_HOST:
+      # SMTP_PORT: 587
+      # SMTP_FROM_NAME: Mealie
+      # SMTP_AUTH_STRATEGY: TLS # Options: 'TLS', 'SSL', 'NONE'
+      # SMTP_FROM_EMAIL:
+      # SMTP_USER:
+      # SMTP_PASSWORD:
 
 volumes:
   mealie-data:
