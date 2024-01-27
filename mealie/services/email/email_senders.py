@@ -73,8 +73,7 @@ class Message:
 
 class ABCEmailSender(ABC):
     @abstractmethod
-    def send(self, email_to: str, subject: str, html: str) -> bool:
-        ...
+    def send(self, email_to: str, subject: str, html: str) -> bool: ...
 
 
 class DefaultEmailSender(ABCEmailSender, BaseService):

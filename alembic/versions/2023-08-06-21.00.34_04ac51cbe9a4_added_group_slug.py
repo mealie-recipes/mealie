@@ -5,6 +5,7 @@ Revises: b3dbb554ba53
 Create Date: 2023-08-06 21:00:34.582905
 
 """
+
 import sqlalchemy as sa
 from slugify import slugify
 from sqlalchemy.orm import Session

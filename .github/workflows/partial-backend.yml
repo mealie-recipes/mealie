@@ -75,7 +75,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install libsasl2-dev libldap2-dev libssl-dev
           poetry install
-          poetry add "psycopg2-binary==2.8.6"
+          poetry add "psycopg2-binary==2.9.9"
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true' || steps.cache-validate.outputs.cache-hit-success != 'true'
 
       - name: Formatting (Black)
