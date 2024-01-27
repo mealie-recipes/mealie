@@ -12,18 +12,18 @@ add_user() {
 }
 
 change_user() {
-    # If container is started as root then create a new user and switch to it
-    if [ "$(id -u)" = "0" ]; then
+    if [ "$(id -u)" = $PUID ]; then
+        echo "
+        User uid:    $PUID
+        User gid:    $PGID
+        "
+    elif [ "$(id -u)" = "0" ]; then
+        # If container is started as root then create a new user and switch to it
         add_user
         chown -R $PUID:$PGID /app
 
         echo "Switching to dedicated user"
         exec gosu $PUID "$BASH_SOURCE" "$@"
-    elif [ "$(id -u)" = $PUID ]; then
-        echo "
-        User uid:    $PUID
-        User gid:    $PGID
-        "
     fi
 }
 
