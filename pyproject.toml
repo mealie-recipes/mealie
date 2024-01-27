@@ -49,7 +49,7 @@ html2text = "^2020.1.16"
 psycopg2-binary = { version = "^2.9.1" }
 
 [tool.poetry.group.dev.dependencies]
-black = "^23.7.0"
+black = "^24.0.0"
 coverage = "^7.0"
 coveragepy-lcov = "^0.1.1"
 mkdocs-material = "^9.0.0"

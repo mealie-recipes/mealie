@@ -31,5 +31,4 @@ class GroupWebhooksModel(SqlAlchemyBase, BaseMixins):
     time: Mapped[str | None] = mapped_column(String, default="00:00")
 
     @auto_init()
-    def __init__(self, **_) -> None:
-        ...
+    def __init__(self, **_) -> None: ...

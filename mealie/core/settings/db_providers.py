@@ -7,13 +7,11 @@ from pydantic import BaseModel, BaseSettings, PostgresDsn
 class AbstractDBProvider(ABC):
     @property
     @abstractmethod
-    def db_url(self) -> str:
-        ...
+    def db_url(self) -> str: ...
 
     @property
     @abstractmethod
-    def db_url_public(self) -> str:
-        ...
+    def db_url_public(self) -> str: ...
 
 
 class SQLiteProvider(AbstractDBProvider, BaseModel):
