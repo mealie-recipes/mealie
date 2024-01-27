@@ -35,6 +35,12 @@ jobs:
 
     # Steps
     steps:
+      - name: Install Task
+        uses: arduino/setup-task@v1
+        with:
+          version: 3.x
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Check out repository
         uses: actions/checkout@v4
 
@@ -78,11 +84,11 @@ jobs:
 
       - name: Lint (Ruff)
         run: |
-          make backend-lint
+          task py:lint
 
       - name: Mypy Typecheck
         run: |
-          make backend-typecheck
+          task py:mypy
 
       - name: Pytest
         env:
@@ -101,4 +107,4 @@ jobs:
           LDAP_NAME_ATTRIBUTE: cn
           LDAP_MAIL_ATTRIBUTE: mail
         run: |
-          make backend-test
+          task py:test
