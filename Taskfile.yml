@@ -35,13 +35,13 @@ tasks:
     cmds:
       - poetry run python -m mkdocs serve
 
-  setup:node:
+  setup:ui:
     desc: setup frontend dependencies
     dir: frontend
     cmds:
       - yarn install
 
-  setup:python:
+  setup:py:
     desc: setup python dependencies
     cmds:
       - poetry install --with main,dev,postgres
@@ -64,8 +64,8 @@ tasks:
   setup:
     desc: setup all dependencies
     deps:
-      - setup:node
-      - setup:python
+      - setup:ui
+      - setup:py
       - setup:model
 
   dev:generate:
