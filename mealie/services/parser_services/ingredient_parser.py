@@ -137,11 +137,12 @@ class ABCIngredientParser(ABC):
             fuzzy_match_threshold=self.food_fuzzy_match_threshold,
         )
 
-    def find_unit_match(self, unit: IngredientUnit | CreateIngredientUnit) -> IngredientUnit | None:
+    def find_unit_match(self, unit: IngredientUnit | CreateIngredientUnit | str) -> IngredientUnit | None:
         if isinstance(unit, IngredientUnit):
             return unit
-
-        match_value = IngredientUnitModel.normalize(unit.name)
+        
+        unit_name = unit if isinstance(unit, str) else unit.name
+        match_value = IngredientUnitModel.normalize(unit_name)
         return self.find_match(
             match_value,
             store_map=self.units_by_alias,
