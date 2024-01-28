@@ -106,12 +106,10 @@ class ABCIngredientParser(ABC):
         return 70
 
     @abstractmethod
-    def parse_one(self, ingredient_string: str) -> ParsedIngredient:
-        ...
+    def parse_one(self, ingredient_string: str) -> ParsedIngredient: ...
 
     @abstractmethod
-    def parse(self, ingredients: list[str]) -> list[ParsedIngredient]:
-        ...
+    def parse(self, ingredients: list[str]) -> list[ParsedIngredient]: ...
 
     @classmethod
     def find_match(cls, match_value: str, *, store_map: dict[str, T], fuzzy_match_threshold: int = 0) -> T | None:
