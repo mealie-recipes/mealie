@@ -106,10 +106,12 @@ class ABCIngredientParser(ABC):
         return 70
 
     @abstractmethod
-    def parse_one(self, ingredient_string: str) -> ParsedIngredient: ...
+    def parse_one(self, ingredient_string: str) -> ParsedIngredient:
+        ...
 
     @abstractmethod
-    def parse(self, ingredients: list[str]) -> list[ParsedIngredient]: ...
+    def parse(self, ingredients: list[str]) -> list[ParsedIngredient]:
+        ...
 
     @classmethod
     def find_match(cls, match_value: str, *, store_map: dict[str, T], fuzzy_match_threshold: int = 0) -> T | None:
@@ -126,11 +128,12 @@ class ABCIngredientParser(ABC):
 
         return store_map[fuzz_result[0]]
 
-    def find_food_match(self, food: IngredientFood | CreateIngredientFood) -> IngredientFood | None:
+    def find_food_match(self, food: IngredientFood | CreateIngredientFood | str) -> IngredientFood | None:
         if isinstance(food, IngredientFood):
             return food
 
-        match_value = IngredientFoodModel.normalize(food.name)
+        food_name = food if isinstance(food, str) else food.name
+        match_value = IngredientFoodModel.normalize(food_name)
         return self.find_match(
             match_value,
             store_map=self.foods_by_alias,
@@ -140,7 +143,7 @@ class ABCIngredientParser(ABC):
     def find_unit_match(self, unit: IngredientUnit | CreateIngredientUnit | str) -> IngredientUnit | None:
         if isinstance(unit, IngredientUnit):
             return unit
-        
+
         unit_name = unit if isinstance(unit, str) else unit.name
         match_value = IngredientUnitModel.normalize(unit_name)
         return self.find_match(
@@ -156,6 +159,16 @@ class ABCIngredientParser(ABC):
         if ingredient.ingredient.unit and (unit_match := self.find_unit_match(ingredient.ingredient.unit)):
             ingredient.ingredient.unit = unit_match
 
+        # Parser might have wrongly split a food into a unit and food.
+        if isinstance(ingredient.ingredient.food, CreateIngredientFood) and isinstance(
+            ingredient.ingredient.unit, CreateIngredientUnit
+        ):
+            if food_match := self.find_food_match(
+                f"{ingredient.ingredient.unit.name} {ingredient.ingredient.food.name}"
+            ):
+                ingredient.ingredient.food = food_match
+                ingredient.ingredient.unit = None
+
         return ingredient
 
 
@@ -165,7 +178,7 @@ class BruteForceParser(ABCIngredientParser):
     """
 
     def parse_one(self, ingredient: str) -> ParsedIngredient:
-        bfi = brute.parse(ingredient)
+        bfi = brute.parse(ingredient, self)
 
         parsed_ingredient = ParsedIngredient(
             input=ingredient,

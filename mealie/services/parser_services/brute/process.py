@@ -1,6 +1,5 @@
 import string
 import unicodedata
-from mealie.services.parser_services.ingredient_parser import ABCIngredientParser
 
 from pydantic import BaseModel
 
@@ -133,7 +132,7 @@ def parse_ingredient(tokens) -> tuple[str, str]:
     return ingredient, note
 
 
-def parse(ing_str, parser: ABCIngredientParser) -> BruteParsedIngredient:
+def parse(ing_str, parser) -> BruteParsedIngredient:
     amount = 0.0
     unit = ""
     ingredient = ""
@@ -199,10 +198,10 @@ def parse(ing_str, parser: ABCIngredientParser) -> BruteParsedIngredient:
         for index, token in enumerate(tokens[:3]):
             if parser.find_unit_match(token):
                 unit = token
-                ingredient, note = parse_ingredient(tokens[index+1:])
+                ingredient, note = parse_ingredient(tokens[index + 1 :])
                 break
-        if not unit:    
-            try:            
+        if not unit:
+            try:
                 # no unit -> parse everything as ingredient
                 ingredient, note = parse_ingredient(tokens)
             except ValueError:
