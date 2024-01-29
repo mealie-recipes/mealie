@@ -13,7 +13,7 @@ Pull requests are the best way to propose changes to the codebase (we use [Githu
 3. If you're interested on working on major changes please get in touch on discord and coordinate with other developers. No sense in doubling up on work if someones already on it.
 4. Once you've got an idea of what changes you want to make, create a draft PR as soon as you can to let us know what you're working on and how we can help!
 5. If you've changed APIs, update the documentation.
-6. Run tests, including `make backend-all`. Note that the tests do not clean up after themselves and leave things in the database. So be sure to also run `make clean-data` and/or `make backend-clean` inbetween major testing rounds to be sure that you aren't testing on old data.
+6. Run tests, including `task py:check`.
 6. Issue that pull request! First make a draft PR, make sure that the automated github tests all pass, then mark as ready for review.
 7. Be sure to add release notes to the pull request.
 

@@ -9,8 +9,7 @@ from mealie.services.backups_v2.alchemy_exporter import AlchemyExporter
 from mealie.services.backups_v2.backup_file import BackupFile
 
 
-class BackupSchemaMismatch(Exception):
-    ...
+class BackupSchemaMismatch(Exception): ...
 
 
 class BackupV2(BaseService):

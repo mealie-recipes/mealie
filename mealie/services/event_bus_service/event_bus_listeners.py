@@ -100,9 +100,12 @@ class AppriseEventListener(EventListenerBase):
 
         return [
             # We use query params to add custom key: value pairs to the Apprise payload by prepending the key with ":".
-            AppriseEventListener.merge_query_parameters(url, {f":{k}": v for k, v in params.items()})
-            # only certain endpoints support the custom key: value pairs, so we only apply them to those endpoints
-            if AppriseEventListener.is_custom_url(url) else url
+            (
+                AppriseEventListener.merge_query_parameters(url, {f":{k}": v for k, v in params.items()})
+                # only certain endpoints support the custom key: value pairs, so we only apply them to those endpoints
+                if AppriseEventListener.is_custom_url(url)
+                else url
+            )
             for url in urls
         ]
 
