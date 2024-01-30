@@ -79,6 +79,8 @@ export default defineComponent({
           window.location.reload();
         }
         group.value = data;
+      } else {
+        alert.error(i18n.tc("settings.settings-update-failed"));
       }
     }
 
