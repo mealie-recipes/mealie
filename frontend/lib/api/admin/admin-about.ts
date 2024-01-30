@@ -1,5 +1,5 @@
 import { BaseAPI } from "../base/base-clients";
-import { AdminAboutInfo, DockerVolumeText, CheckAppConfig } from "~/lib/api/types/admin";
+import { AdminAboutInfo, CheckAppConfig } from "~/lib/api/types/admin";
 
 const prefix = "/api";
 
@@ -22,10 +22,6 @@ export class AdminAboutAPI extends BaseAPI {
 
   async checkApp() {
     return await this.requests.get<CheckAppConfig>(routes.check);
-  }
-
-  async checkDocker() {
-    return await this.requests.get<DockerVolumeText>(routes.docker);
   }
 
   async getDockerValidateFileContents() {

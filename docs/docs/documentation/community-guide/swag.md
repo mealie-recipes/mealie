@@ -5,7 +5,7 @@
 
 
 
-To make the setup of a Reverse Proxy much easier, Linuxserver.io developed [SWAG](https://github.com/linuxserver/docker-swag)  
+To make the setup of a Reverse Proxy much easier, Linuxserver.io developed [SWAG](https://github.com/linuxserver/docker-swag)
 SWAG - Secure Web Application Gateway (formerly known as letsencrypt, no relation to Let's Encrypt™) sets up an Nginx web server and reverse proxy with PHP support and a built-in certbot client that automates free SSL server certificate generation and renewal processes (Let's Encrypt and ZeroSSL). It also contains fail2ban for intrusion prevention.
 
 ## Step 1: Get a domain
@@ -14,39 +14,38 @@ The first step is to grab a dynamic DNS if you don't have your own subdomain alr
 
 ## Step 2: Set-up SWAG
 
-Then you will need to set up SWAG, the variables of the docker-compose are explained on the Github page of [SWAG](https://github.com/linuxserver/docker-swag).
-This is an example of how to set it up using duckdns and docker-compose.
+Then you will need to set up SWAG, the variables of the docker-compose.yaml file are explained on the Github page of [SWAG](https://github.com/linuxserver/docker-swag).
+This is an example of how to set it up using duckdns and docker compose.
 
-!!! example "docker-compose.yml"
+!!! example "docker-compose.yaml"
 ```yaml
 version: "3.1"
 services:
-swag:
-image: ghcr.io/linuxserver/swag
-container_name: swag
-cap_add:
-- NET_ADMIN
-environment:
-- PUID=1000
-- PGID=1000
-- TZ=Europe/Brussels
-- URL=<mydomain.duckdns>
-- SUBDOMAINS=wildcard
-- VALIDATION=duckdns
-- CERTPROVIDER= #optional
-- DNSPLUGIN= #optional
-- DUCKDNSTOKEN=<duckdnstoken>
-- EMAIL=<e-mail> #optional
-- ONLY_SUBDOMAINS=false #optional
-- EXTRA_DOMAINS=<extradomains> #optional
-- STAGING=false #optional
-volumes:
-- /etc/config/swag:/config
-ports:
-- 443:443
-- 80:80 #optional
-restart: unless-stopped
-
+  swag:
+    image: ghcr.io/linuxserver/swag
+    container_name: swag
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Brussels
+      - URL=<mydomain.duckdns>
+      - SUBDOMAINS=wildcard
+      - VALIDATION=duckdns
+      - CERTPROVIDER= #optional
+      - DNSPLUGIN= #optional
+      - DUCKDNSTOKEN=<duckdnstoken>
+      - EMAIL=<e-mail> #optional
+      - ONLY_SUBDOMAINS=false #optional
+      - EXTRA_DOMAINS=<extradomains> #optional
+      - STAGING=false #optional
+    volumes:
+      - /etc/config/swag:/config
+    ports:
+      - 443:443
+      - 80:80 #optional
+    restart: unless-stopped
 ```
 
 Don't forget to change the <code>mydomain.duckns</code> into your personal domain and the <code>duckdnstoken</code> into your token and remove the brackets.
@@ -61,26 +60,25 @@ Alternatively, you can create a new file <code>mealie.subdomain.conf</code> in p
 
 !!! example "mealie.subdomain.conf"
 ```yaml
-    server {
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
+server {
+  listen 443 ssl http2;
+  listen [::]:443 ssl http2;
 
-    	server_name mealie.*;
+  server_name mealie.*;
 
-    	include /config/nginx/ssl.conf;
+  include /config/nginx/ssl.conf;
 
-    	client_max_body_size 0;
+  client_max_body_size 0;
 
-    	location / {
-        	include /config/nginx/proxy.conf;
-        	include /config/nginx/resolver.conf;
-        	set $upstream_app mealie-frontend;
-        	set $upstream_port 3000;
-        	set $upstream_proto http;
-        	proxy_pass $upstream_proto://$upstream_app:$upstream_port;
-    		}
-
-	}	
+  location / {
+    include /config/nginx/proxy.conf;
+    include /config/nginx/resolver.conf;
+    set $upstream_app mealie-frontend;
+    set $upstream_port 3000;
+    set $upstream_proto http;
+    proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+  }
+}
 ```
 
 ## Step 4: Port-forward port 443

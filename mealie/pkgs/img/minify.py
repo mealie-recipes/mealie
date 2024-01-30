@@ -46,8 +46,7 @@ class ABCMinifier(ABC):
         )
 
     @abstractmethod
-    def minify(self, image: Path, force=True):
-        ...
+    def minify(self, image: Path, force=True): ...
 
     def purge(self, image: Path):
         if not self._purge:

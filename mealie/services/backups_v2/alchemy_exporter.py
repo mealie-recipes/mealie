@@ -1,15 +1,19 @@
 import datetime
+import uuid
 from os import path
 from pathlib import Path
+from typing import Any
 
 from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
-from sqlalchemy import ForeignKeyConstraint, MetaData, create_engine, insert, text
+from sqlalchemy import ForeignKey, ForeignKeyConstraint, MetaData, Table, create_engine, insert, text
 from sqlalchemy.engine import base
 from sqlalchemy.orm import sessionmaker
 
 from alembic import command
 from alembic.config import Config
+from mealie.db import init_db
+from mealie.db.models._model_utils import GUID
 from mealie.services._base_service import BaseService
 
 PROJECT_DIR = Path(__file__).parent.parent.parent.parent
@@ -38,24 +42,75 @@ class AlchemyExporter(BaseService):
         self.session_maker = sessionmaker(bind=self.engine)
 
     @staticmethod
-    def convert_to_datetime(data: dict) -> dict:
+    def is_uuid(value: Any) -> bool:
+        try:
+            uuid.UUID(value)
+            return True
+        except ValueError:
+            return False
+
+    @staticmethod
+    def is_valid_foreign_key(db_dump: dict[str, list[dict]], fk: ForeignKey, fk_value: Any) -> bool:
+        if not fk_value:
+            return True
+
+        foreign_table_name = fk.column.table.name
+        foreign_field_name = fk.column.name
+
+        for row in db_dump.get(foreign_table_name, []):
+            if row[foreign_field_name] == fk_value:
+                return True
+
+        return False
+
+    def convert_types(self, data: dict) -> dict:
         """
-        walks the dictionary to convert all things that look like timestamps to datetime objects
+        walks the dictionary to restore all things that look like string representations of their complex types
         used in the context of reading a json file into a database via SQLAlchemy.
         """
         for key, value in data.items():
             if isinstance(value, dict):
-                data = AlchemyExporter.convert_to_datetime(value)
+                data = self.convert_types(value)
             elif isinstance(value, list):  # assume that this is a list of dictionaries
-                data[key] = [AlchemyExporter.convert_to_datetime(item) for item in value]
+                data[key] = [self.convert_types(item) for item in value]
             elif isinstance(value, str):
-                if key in AlchemyExporter.look_for_datetime:
-                    data[key] = AlchemyExporter.DateTimeParser(dt=value).dt
-                if key in AlchemyExporter.look_for_date:
-                    data[key] = AlchemyExporter.DateTimeParser(date=value).date
-                if key in AlchemyExporter.look_for_time:
-                    data[key] = AlchemyExporter.DateTimeParser(time=value).time
+                if self.is_uuid(value):
+                    # convert the data to the current database's native GUID type
+                    data[key] = GUID.convert_value_to_guid(value, self.engine.dialect)
+                if key in self.look_for_datetime:
+                    data[key] = self.DateTimeParser(dt=value).dt
+                if key in self.look_for_date:
+                    data[key] = self.DateTimeParser(date=value).date
+                if key in self.look_for_time:
+                    data[key] = self.DateTimeParser(time=value).time
         return data
+
+    def clean_rows(self, db_dump: dict[str, list[dict]], table: Table, rows: list[dict]) -> list[dict]:
+        """
+        Checks rows against foreign key restraints and removes any rows that would violate them
+        """
+
+        fks = table.foreign_keys
+
+        valid_rows = []
+        for row in rows:
+            is_valid_row = True
+            for fk in fks:
+                fk_value = row.get(fk.parent.name)
+                if self.is_valid_foreign_key(db_dump, fk, row.get(fk.parent.name)):
+                    continue
+
+                is_valid_row = False
+                self.logger.warning(
+                    f"Removing row from table {table.name} because of invalid foreign key {fk.parent.name}: {fk_value}"
+                )
+                self.logger.warning(f"Row: {row}")
+                break
+
+            if is_valid_row:
+                valid_rows.append(row)
+
+        return valid_rows
 
     def dump_schema(self) -> dict:
         """
@@ -105,13 +160,14 @@ class AlchemyExporter(BaseService):
         del db_dump["alembic_version"]
         """Restores all data from dictionary into the database"""
         with self.engine.begin() as connection:
-            data = AlchemyExporter.convert_to_datetime(db_dump)
+            data = self.convert_types(db_dump)
 
             self.meta.reflect(bind=self.engine)
             for table_name, rows in data.items():
                 if not rows:
                     continue
                 table = self.meta.tables[table_name]
+                rows = self.clean_rows(db_dump, table, rows)
 
                 connection.execute(table.delete())
                 connection.execute(insert(table), rows)
@@ -139,8 +195,8 @@ SELECT SETVAL('shopping_list_item_extras_id_seq', (SELECT MAX(id) FROM shopping_
                     )
                 )
 
-        # Run all migrations up to current version
-        command.upgrade(alembic_cfg, "head")
+        # Re-init database to finish migrations
+        init_db.main()
 
     def drop_all(self) -> None:
         """Drops all data from the database"""

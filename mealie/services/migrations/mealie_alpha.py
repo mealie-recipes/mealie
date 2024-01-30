@@ -39,7 +39,7 @@ class MealieAlphaMigrator(BaseMigrator):
         with contextlib.suppress(KeyError):
             if "" in recipe["categories"]:
                 recipe["categories"] = [cat for cat in recipe["categories"] if cat != ""]
-        if type(recipe["extras"]) == list:
+        if isinstance(recipe["extras"], list):
             recipe["extras"] = {}
 
         recipe["comments"] = []

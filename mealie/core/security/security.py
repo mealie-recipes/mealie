@@ -18,8 +18,7 @@ ALGORITHM = "HS256"
 logger = root_logger.get_logger("security")
 
 
-class UserLockedOut(Exception):
-    ...
+class UserLockedOut(Exception): ...
 
 
 def create_access_token(data: dict, expires_delta: timedelta | None = None) -> str:

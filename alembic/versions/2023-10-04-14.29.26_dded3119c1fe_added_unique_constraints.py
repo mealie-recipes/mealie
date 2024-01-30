@@ -5,6 +5,7 @@ Revises: 0341b154f79a
 Create Date: 2023-10-04 14:29:26.688065
 
 """
+
 from collections import defaultdict
 from dataclasses import dataclass
 from typing import Any
@@ -69,9 +70,11 @@ def _resolve_duplicate_food(
     ):
         recipe_ingredient.food_id = keep_food_id
 
+    session.commit()
     session.execute(
         sa.text(f"DELETE FROM {IngredientFoodModel.__tablename__} WHERE id=:id").bindparams(id=dupe_food_id)
     )
+    session.commit()
 
 
 def _resolve_duplicate_unit(
@@ -85,9 +88,11 @@ def _resolve_duplicate_unit(
     for recipe_ingredient in session.query(RecipeIngredientModel).filter_by(unit_id=dupe_unit_id).all():
         recipe_ingredient.unit_id = keep_unit_id
 
+    session.commit()
     session.execute(
         sa.text(f"DELETE FROM {IngredientUnitModel.__tablename__} WHERE id=:id").bindparams(id=dupe_unit_id)
     )
+    session.commit()
 
 
 def _resolve_duplicate_label(
@@ -101,7 +106,9 @@ def _resolve_duplicate_label(
     for ingredient_food in session.query(IngredientFoodModel).filter_by(label_id=dupe_label_id).all():
         ingredient_food.label_id = keep_label_id
 
+    session.commit()
     session.execute(sa.text(f"DELETE FROM {MultiPurposeLabel.__tablename__} WHERE id=:id").bindparams(id=dupe_label_id))
+    session.commit()
 
 
 def _resolve_duplicate_foods_units_labels(session: Session):
@@ -140,6 +147,7 @@ def _remove_duplicates_from_m2m_table(session: Session, table_meta: TableMeta):
     )
 
     session.execute(query)
+    session.commit()
 
 
 def _remove_duplicates_from_m2m_tables(session: Session, table_metas: list[TableMeta]):

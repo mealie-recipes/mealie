@@ -8,15 +8,14 @@ from mealie.services.event_bus_service.event_types import Event
 
 
 class PublisherLike(Protocol):
-    def publish(self, event: Event, notification_urls: list[str]):
-        ...
+    def publish(self, event: Event, notification_urls: list[str]): ...
 
 
 class ApprisePublisher:
     def __init__(self, hard_fail=False) -> None:
         asset = apprise.AppriseAsset(
             async_mode=True,
-            image_url_mask="https://raw.githubusercontent.com/hay-kot/mealie/dev/frontend/public/img/icons/android-chrome-maskable-512x512.png",
+            image_url_mask="https://raw.githubusercontent.com/mealie-recipes/mealie/9571816ac4eed5beacfc0abf6c03eff1427fd0eb/frontend/static/icons/android-chrome-maskable-512x512.png",
         )
         self.apprise = apprise.Apprise(asset=asset)
         self.hard_fail = hard_fail

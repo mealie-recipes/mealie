@@ -152,9 +152,6 @@ export interface CustomPageOut {
   categories?: RecipeCategoryResponse[];
   id: number;
 }
-export interface DockerVolumeText {
-  text: string;
-}
 export interface EmailReady {
   ready: boolean;
 }
