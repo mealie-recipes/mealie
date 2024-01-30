@@ -43,3 +43,26 @@ jobs:
         uses: Ilshidur/action-discord@0.3.2
         with:
           args: "🚀  Version {{ EVENT_PAYLOAD.release.tag_name }} of Mealie has been released. See the release notes https://github.com/mealie-recipes/mealie/releases/tag/{{ EVENT_PAYLOAD.release.tag_name }}"
+
+  update-image-tags:
+    name: Update image tag in sample docker-compose files
+    needs:
+      - build-release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@v4
+
+      - name: Modify version strings
+        run: |
+          sed -i 's/:v[0-9]*.[0-9]*.[0-9]*/:${{ github.event.release.tag_name }}/' docs/docs/documentation/getting-started/installation/sqlite.md
+          sed -i 's/:v[0-9]*.[0-9]*.[0-9]*/:${{ github.event.release.tag_name }}/' docs/docs/documentation/getting-started/installation/postgres.md
+
+      - name: Commit updates
+        uses: test-room-7/action-update-file@v1
+        with:
+          file-path: |
+            docs/docs/documentation/getting-started/installation/sqlite.md
+            docs/docs/documentation/getting-started/installation/postgres.md
+          commit-msg: "Change image tag, for release ${{ github.event.release.tag_name }}"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
