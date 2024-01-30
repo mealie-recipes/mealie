@@ -78,13 +78,13 @@ files = [
 
 [[package]]
 name = "apprise"
-version = "1.7.1"
+version = "1.7.2"
 description = "Push Notifications that work with just about every platform!"
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "apprise-1.7.1-py3-none-any.whl", hash = "sha256:eb2a7b546c6d4f426abb8b1006957e6a480c21215b5d780358445531611d1db7"},
-    {file = "apprise-1.7.1.tar.gz", hash = "sha256:8d439d08550470524425dedee4bc8a72766c216c218f3772c37404eb2fd86e5a"},
+    {file = "apprise-1.7.2-py3-none-any.whl", hash = "sha256:f3192e62924e54334d4ca0c5723d7de9293500e1a0fbf3a890433ea5b6b56df8"},
+    {file = "apprise-1.7.2.tar.gz", hash = "sha256:09e159b29008e6c8e93d7ffc3c15d419c0bbae41620405f8f2d3432b72a2e9bf"},
 ]
 
 [package.dependencies]
