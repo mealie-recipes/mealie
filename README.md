@@ -91,7 +91,7 @@ Thanks to Linode for providing Hosting for the Demo, Beta, and Documentation sit
 [stars-url]: https://github.com/mealie-recipes/mealie/stargazers
 [issues-shield]: https://img.shields.io/github/issues/mealie-recipes/mealie.svg?style=flat-square
 [issues-url]: https://github.com/mealie-recipes/mealie/issues
-[latest-release-shield]: https://img.shields.io/github/v/release/mealie-recipes/mealie.svg?style=flat-square
+[latest-release-shield]: https://img.shields.io/github/v/release/mealie-recipes/mealie?style=flat-square&label=latest%20release
 [latest-release-url]: https://img.shields.io/github/v/release/mealie-recipes/mealie
 [license-shield]: https://img.shields.io/github/license/mealie-recipes/mealie.svg?style=flat-square
 [license-url]: https://github.com/mealie-recipes/mealie/blob/mealie-next/LICENSE

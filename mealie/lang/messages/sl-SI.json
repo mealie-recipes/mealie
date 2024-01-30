@@ -6,16 +6,16 @@
         "unique-name-error": "Ime recepta mora biti unikatno"
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "No recipes match your rules"
+        "no-recipes-match-your-rules": "Noben recept ne ustreza vašim pogojem"
     },
     "user": {
-        "user-updated": "User updated",
-        "password-updated": "Password updated",
-        "invalid-current-password": "Invalid current password",
-        "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
+        "user-updated": "Uporabnik posodobljen",
+        "password-updated": "Geslo posodobljeno",
+        "invalid-current-password": "Neveljavno trenutno geslo",
+        "ldap-update-password-unavailable": "Gesla ni mogoče posodobiti, uporabnik je nadzorovan preko LDAP"
     },
     "group": {
-        "report-deleted": "Report deleted."
+        "report-deleted": "Poročilo izbrisano."
     },
     "exceptions": {
         "permission_denied": "Nimate dovoljenja za izvedbo zahtevanega dejanja",

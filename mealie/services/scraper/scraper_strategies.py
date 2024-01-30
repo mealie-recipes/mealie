@@ -82,8 +82,7 @@ class ABCScraperStrategy(ABC):
         self.url = url
 
     @abstractmethod
-    async def get_html(self, url: str) -> str:
-        ...
+    async def get_html(self, url: str) -> str: ...
 
     @abstractmethod
     async def parse(self) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:

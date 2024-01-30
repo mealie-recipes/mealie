@@ -5,6 +5,7 @@ Revises: bcfdad6b7355
 Create Date: 2023-09-01 14:55:42.166766
 
 """
+
 import sqlalchemy as sa
 from sqlalchemy import orm, select
 

@@ -162,3 +162,4 @@ lcov.info
 dev/code-generation/openapi.json
 
 .run/
+.task/*
