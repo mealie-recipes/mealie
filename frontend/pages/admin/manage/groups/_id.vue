@@ -74,6 +74,10 @@ export default defineComponent({
 
       const { response, data } = await adminApi.groups.updateOne(group.value.id, group.value);
       if (response?.status === 200 && data) {
+        if (group.value.slug !== data.slug) {
+          // the slug updated, which invalidates the nav URLs
+          window.location.reload();
+        }
         group.value = data;
       }
     }
