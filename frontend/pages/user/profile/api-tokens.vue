@@ -69,6 +69,7 @@ import { useUserApi } from "~/composables/api";
 import { VForm } from "~/types/vuetify";
 
 export default defineComponent({
+  middleware: ["auth", "advanced-only"],
   setup() {
     const nuxtContext = useContext();
 

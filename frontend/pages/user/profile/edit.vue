@@ -135,6 +135,7 @@ export default defineComponent({
     UserAvatar,
     UserPasswordStrength,
   },
+  middleware: "auth",
   setup() {
     const { $auth } = useContext();
     const user = computed(() => $auth.user as unknown as UserOut);

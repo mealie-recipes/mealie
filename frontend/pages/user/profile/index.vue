@@ -207,7 +207,7 @@ export default defineComponent({
     UserAvatar,
     StatsCards,
   },
-  middleware: ["auth"],
+  middleware: "auth",
   scrollToTop: true,
   setup() {
     const { $auth, i18n } = useContext();
