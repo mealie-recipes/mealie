@@ -176,6 +176,7 @@ enum MODES {
 
 export default defineComponent({
   components: { RecipeDataTable, RecipeOrganizerSelector, GroupExportData, RecipeSettingsSwitches },
+  middleware: ["auth", "can-organize-only"],
   scrollToTop: true,
   setup() {
     const { getAllRecipes, refreshRecipes } = useRecipes(true, true);

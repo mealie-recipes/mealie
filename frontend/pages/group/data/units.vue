@@ -218,6 +218,7 @@ import { VForm } from "~/types/vuetify";
 
 export default defineComponent({
   components: { RecipeDataAliasManagerDialog },
+  middleware: ["auth", "can-organize-only"],
   setup() {
     const userApi = useUserApi();
     const { i18n } = useContext();

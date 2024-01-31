@@ -80,6 +80,7 @@ import { useToolStore, useToolData } from "~/composables/store";
 import { RecipeTool } from "~/lib/api/types/admin";
 
 export default defineComponent({
+  middleware: ["auth", "can-organize-only"],
   setup() {
     const { i18n } = useContext();
     const tableConfig = {
