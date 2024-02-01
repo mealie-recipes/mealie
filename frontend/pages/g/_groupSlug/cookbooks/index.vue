@@ -90,24 +90,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useRouter } from "@nuxtjs/composition-api";
+import { defineComponent } from "@nuxtjs/composition-api";
 import draggable from "vuedraggable";
 import { useCookbooks } from "@/composables/use-group-cookbooks";
-import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
 
 export default defineComponent({
   components: { draggable, RecipeOrganizerSelector },
+  middleware: "auth",
   setup() {
-    const { isOwnGroup, loggedIn } = useLoggedInState();
-    const router = useRouter();
-
-    if (!(loggedIn.value && isOwnGroup.value)) {
-      router.back();
-    }
-
     const { cookbooks, actions } = useCookbooks();
-
+    console.log(cookbooks);
     return {
       cookbooks,
       actions,
