@@ -100,7 +100,6 @@ export default defineComponent({
   middleware: "auth",
   setup() {
     const { cookbooks, actions } = useCookbooks();
-    console.log(cookbooks);
     return {
       cookbooks,
       actions,
