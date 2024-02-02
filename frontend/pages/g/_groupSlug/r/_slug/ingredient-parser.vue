@@ -123,6 +123,7 @@ export default defineComponent({
   components: {
     RecipeIngredientEditor,
   },
+  middleware: ["auth", "group-only"],
   setup() {
     const { $auth } = useContext();
     const panels = ref<number[]>([]);

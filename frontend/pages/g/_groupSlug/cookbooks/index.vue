@@ -97,7 +97,7 @@ import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerS
 
 export default defineComponent({
   components: { draggable, RecipeOrganizerSelector },
-  middleware: "auth",
+  middleware: ["auth", "group-only"],
   setup() {
     const { cookbooks, actions } = useCookbooks();
     return {
