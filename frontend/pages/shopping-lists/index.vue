@@ -44,6 +44,7 @@ import { useUserApi } from "~/composables/api";
 import { useAsyncKey } from "~/composables/use-utils";
 
 export default defineComponent({
+  middleware: "auth",
   setup() {
     const { $auth } = useContext();
     const userApi = useUserApi();
