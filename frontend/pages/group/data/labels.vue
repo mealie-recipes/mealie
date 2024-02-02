@@ -122,7 +122,6 @@ import { useLabelData, useLabelStore } from "~/composables/store";
 
 export default defineComponent({
   components: { MultiPurposeLabel },
-  middleware: ["auth", "can-organize-only"],
   setup() {
     const userApi = useUserApi();
     const { i18n } = useContext();

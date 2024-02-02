@@ -202,7 +202,6 @@ import { VForm } from "~/types/vuetify";
 
 export default defineComponent({
   components: { MultiPurposeLabel, RecipeDataAliasManagerDialog },
-  middleware: ["auth", "can-organize-only"],
   setup() {
     const userApi = useUserApi();
     const { i18n } = useContext();

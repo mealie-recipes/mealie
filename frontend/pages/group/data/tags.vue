@@ -73,7 +73,6 @@ import { useTagStore, useTagData } from "~/composables/store";
 import { RecipeTag } from "~/lib/api/types/admin";
 
 export default defineComponent({
-  middleware: ["auth", "can-organize-only"],
   setup() {
     const { i18n } = useContext();
     const tableConfig = {

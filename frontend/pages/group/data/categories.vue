@@ -73,7 +73,6 @@ import { useCategoryStore, useCategoryData } from "~/composables/store";
 import { RecipeCategory } from "~/lib/api/types/admin";
 
 export default defineComponent({
-  middleware: ["auth", "can-organize-only"],
   setup() {
     const { i18n } = useContext();
     const tableConfig = {
