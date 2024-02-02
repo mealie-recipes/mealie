@@ -78,6 +78,7 @@ export default defineComponent({
   components: {
     UserAvatar,
   },
+  middleware: ["auth"],
   setup() {
     const api = useUserApi();
 
