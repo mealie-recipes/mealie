@@ -113,7 +113,7 @@
         <p>{{ $t('profile.group-description') }}</p>
       </div>
       <v-row tag="section">
-        <v-col cols="12" sm="12" md="6">
+        <v-col v-if="$auth.user.canManage" cols="12" sm="12" md="6">
           <UserProfileLinkCard
             :link="{ text: $tc('profile.group-settings'), to: `/group` }"
             :image="require('~/static/svgs/manage-group-settings.svg')"
