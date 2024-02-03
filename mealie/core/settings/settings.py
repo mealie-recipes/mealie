@@ -42,7 +42,11 @@ class AppSettings(BaseSettings):
     """time in hours"""
 
     SECRET: str
-    LOG_LEVEL: str = "INFO"
+
+    LOG_CONFIG_OVERRIDE: Path | None = None
+    """path to custom logging configuration file"""
+
+    LOG_LEVEL: str = "info"
     """corresponds to standard Python log levels"""
 
     GIT_COMMIT_HASH: str = "unknown"
