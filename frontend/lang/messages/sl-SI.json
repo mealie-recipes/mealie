@@ -249,7 +249,7 @@
     "disable-organizing-recipe-ingredients-by-units-and-food-description": "Hides the Food, Unit, and Amount fields for ingredients and treats ingredients as plain text fields.",
     "general-preferences": "General Preferences",
     "group-recipe-preferences": "Group Recipe Preferences",
-    "report": "Report",
+    "report": "Prijavi",
     "report-with-id": "Report ID: {id}",
     "group-management": "Group Management",
     "admin-group-management": "Admin Group Management",
@@ -985,8 +985,8 @@
     "columns": "Columns",
     "combine": "Combine",
     "categories": {
-      "edit-category": "Edit Category",
-      "new-category": "New Category",
+      "edit-category": "Uredi kategorijo",
+      "new-category": "Nova kategorija",
       "category-data": "Category Data"
     },
     "tags": {
@@ -1150,7 +1150,7 @@
     "group-settings": "Group Settings",
     "group-settings-description": "Manage your common group settings like mealplan and privacy settings.",
     "cookbooks-description": "Manage a collection of recipe categories and generate pages for them.",
-    "members": "Members",
+    "members": "Člani",
     "members-description": "See who's in your group and manage their permissions.",
     "webhooks-description": "Setup webhooks that trigger on days that you have have mealplan scheduled.",
     "notifiers": "Notifiers",
@@ -1175,9 +1175,9 @@
     "manage-data-migrations": "Manage Data Migrations"
   },
   "cookbook": {
-    "cookbooks": "Cookbooks",
+    "cookbooks": "Kuharske knjige",
     "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes and tags. Creating a cookbook will add an entry to the side-bar and all the recipes with the tags and categories chosen will be displayed in the cookbook.",
-    "public-cookbook": "Public Cookbook",
+    "public-cookbook": "Javna kuharska knjiga",
     "public-cookbook-description": "Public Cookbooks can be shared with non-mealie users and will be displayed on your groups page.",
     "filter-options": "Filter Options",
     "filter-options-description": "When require all is selected the cookbook will only include recipes that have all of the items selected. This applies to each subset of selectors and not a cross section of the selected items.",
