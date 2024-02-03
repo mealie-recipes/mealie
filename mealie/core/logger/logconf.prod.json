@@ -3,12 +3,15 @@
   "disable_existing_loggers": false,
   "formatters": {
     "simple": {
-      "format": "%(levelname)s: %(asctime)s \t%(message)s",
-      "datefmt": "%Y-%m-%dT%H:%M:%S%z"
+      "format": "%(levelname)-8s %(asctime)s - %(message)s",
+      "datefmt": "%Y-%m-%dT%H:%M:%S"
     },
     "detailed": {
       "format": "[%(levelname)s|%(module)s|L%(lineno)d] %(asctime)s: %(message)s",
-      "datefmt": "%Y-%m-%dT%H:%M:%S%z"
+      "datefmt": "%Y-%m-%dT%H:%M:%S"
+    },
+    "access": {
+      "fmt": "%(levelname)-8s %(asctime)s - [%(client_addr)s] %(status_code)s \"%(request_line)s\""
     }
   },
   "handlers": {
@@ -17,6 +20,18 @@
       "level": "WARNING",
       "formatter": "simple",
       "stream": "ext://sys.stderr"
+    },
+    "stdout": {
+      "class": "logging.StreamHandler",
+      "level": "${LOG_LEVEL}",
+      "formatter": "simple",
+      "stream": "ext://sys.stdout"
+    },
+    "access": {
+      "class": "logging.StreamHandler",
+      "level": "${LOG_LEVEL}",
+      "formatter": "access",
+      "stream": "ext://sys.stdout"
     },
     "file": {
       "class": "logging.handlers.RotatingFileHandler",
@@ -32,8 +47,26 @@
       "level": "${LOG_LEVEL}",
       "handlers": [
         "stderr",
-        "file"
+        "file",
+        "stdout"
       ]
+    },
+    "uvicorn.error": {
+      "handlers": [
+        "stderr",
+        "file",
+        "stdout"
+      ],
+      "level": "${LOG_LEVEL}",
+      "propagate": false
+    },
+    "uvicorn.access": {
+      "handlers": [
+        "access",
+        "file"
+      ],
+      "level": "${LOG_LEVEL}",
+      "propagate": false
     }
   }
 }
