@@ -258,6 +258,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Kreirajte Novi Plan Obroka",
+    "update-this-meal-plan": "Update this Meal Plan",
     "dinner-this-week": "Večera Ove Sedmice",
     "dinner-today": "Večera Danas",
     "dinner-tonight": "VEČERA NOĆAS",
@@ -472,9 +473,11 @@
     "add-to-timeline": "Add to Timeline",
     "recipe-added-to-list": "Recept je dodan na popis",
     "recipes-added-to-list": "Recipes added to list",
+    "successfully-added-to-list": "Successfully added to list",
     "recipe-added-to-mealplan": "Recept je dodan u Plan",
     "failed-to-add-recipes-to-list": "Failed to add recipe to list",
     "failed-to-add-recipe-to-mealplan": "Nije uspjelo dodavanje recepta u plan obroka",
+    "failed-to-add-to-list": "Failed to add to list",
     "yield": "Konačna Količina",
     "quantity": "Količina",
     "choose-unit": "Odaberi Jedinicu",
@@ -557,7 +560,8 @@
     "unit": "Jedinica",
     "upload-image": "Učitavanje Slike",
     "screen-awake": "Keep Screen Awake",
-    "remove-image": "Remove image"
+    "remove-image": "Remove image",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Napredno Pretraživanje",

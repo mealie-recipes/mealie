@@ -258,6 +258,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Opret en ny madplan",
+    "update-this-meal-plan": "Update this Meal Plan",
     "dinner-this-week": "Madplan denne uge",
     "dinner-today": "Madplan i dag",
     "dinner-tonight": "AFTENSMAD I AFTEN",
@@ -472,9 +473,11 @@
     "add-to-timeline": "Tilføj til tidslinje",
     "recipe-added-to-list": "Opskrift tilføjet til listen",
     "recipes-added-to-list": "Opskrifter tilføjet til listen",
+    "successfully-added-to-list": "Tilføjet til listen",
     "recipe-added-to-mealplan": "Opskrift tilføjet til madplanen",
     "failed-to-add-recipes-to-list": "Kunne ikke tilføje opskrift til listen",
     "failed-to-add-recipe-to-mealplan": "Kunne ikke tilføje opskrift til madplanen",
+    "failed-to-add-to-list": "Kunne ikke tilføje opskrift til listen",
     "yield": "Portioner",
     "quantity": "Antal",
     "choose-unit": "Vælg enhed",
@@ -557,7 +560,8 @@
     "unit": "Enhed",
     "upload-image": "Upload billede",
     "screen-awake": "Hold skærmen tændt",
-    "remove-image": "Fjern billede"
+    "remove-image": "Fjern billede",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Avanceret søgning",

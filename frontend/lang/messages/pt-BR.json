@@ -258,6 +258,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Criar um novo plano de refeições",
+    "update-this-meal-plan": "Update this Meal Plan",
     "dinner-this-week": "Jantar desta semana",
     "dinner-today": "Jantar de hoje",
     "dinner-tonight": "JANTAR DE HOJE À NOITE",
@@ -472,9 +473,11 @@
     "add-to-timeline": "Adicionar à linha do tempo",
     "recipe-added-to-list": "Receita adicionada à lista",
     "recipes-added-to-list": "Receitas adicionadas à lista",
+    "successfully-added-to-list": "Successfully added to list",
     "recipe-added-to-mealplan": "Receita adicionada ao plano de refeições",
     "failed-to-add-recipes-to-list": "Falha ao adicionar receita à lista",
     "failed-to-add-recipe-to-mealplan": "Falha ao adicionar a receita ao plano de refeições",
+    "failed-to-add-to-list": "Failed to add to list",
     "yield": "Rendimento",
     "quantity": "Quantidade",
     "choose-unit": "Escolher unidades",
@@ -557,7 +560,8 @@
     "unit": "Unidade",
     "upload-image": "Enviar imagem",
     "screen-awake": "Manter a tela ligada",
-    "remove-image": "Remover imagem"
+    "remove-image": "Remover imagem",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Pesquisa avançada",

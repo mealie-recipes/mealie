@@ -8,8 +8,7 @@ from mealie.services.event_bus_service.event_types import Event
 
 
 class PublisherLike(Protocol):
-    def publish(self, event: Event, notification_urls: list[str]):
-        ...
+    def publish(self, event: Event, notification_urls: list[str]): ...
 
 
 class ApprisePublisher:

@@ -258,6 +258,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Створити новий план харчування",
+    "update-this-meal-plan": "Оновити цей план харчування",
     "dinner-this-week": "Обід цього тижня",
     "dinner-today": "Обід сьогодні",
     "dinner-tonight": "Вечеря сьогодні",
@@ -472,9 +473,11 @@
     "add-to-timeline": "Додати до хроніки",
     "recipe-added-to-list": "Рецепт додано до списку",
     "recipes-added-to-list": "Рецепти додані до списку",
+    "successfully-added-to-list": "Успішно додано до списку",
     "recipe-added-to-mealplan": "Рецепт додано до плану харчування",
     "failed-to-add-recipes-to-list": "Не вдалося додати рецепт до списку",
     "failed-to-add-recipe-to-mealplan": "Не вдалося додати рецепт до плану харчування",
+    "failed-to-add-to-list": "Не вдалося додати до списку",
     "yield": "Вихід",
     "quantity": "Кількість",
     "choose-unit": "Виберіть одиниці вимірювання",
@@ -557,7 +560,8 @@
     "unit": "Одиниця виміру",
     "upload-image": "Вивантажити зображення",
     "screen-awake": "Тримати екран активним",
-    "remove-image": "Видалити зображення"
+    "remove-image": "Видалити зображення",
+    "nextStep": "Наступний крок"
   },
   "search": {
     "advanced-search": "Розширений пошук",

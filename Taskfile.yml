@@ -1,0 +1,183 @@
+# https://taskfile.dev
+
+version: "3"
+vars:
+  GREETING: Hello, World!
+env:
+  DEFAULT_GROUP: Home
+  PRODUCTION: false
+  API_PORT: 9000
+  API_DOCS: True
+  TOKEN_TIME: 256 # hours
+  # mailplit SMTP config
+  # start dev:services to use mailpit
+  SMTP_HOST: localhost
+  SMTP_PORT: 1025
+  SMTP_FROM_NAME: MealieDev
+  SMTP_AUTH_STRATEGY: NONE
+  LANG: en-US
+
+# loads .env file if it exists
+dotenv:
+  - .env
+  - .dev.env
+tasks:
+  docs:gen:
+    desc: runs the API documentation generator
+    cmds:
+      - poetry run python dev/code-generation/gen_docs_api.py
+
+  docs:
+    desc: runs the documentation server
+    dir: docs
+    deps:
+      - docs:gen
+    cmds:
+      - poetry run python -m mkdocs serve
+
+  setup:ui:
+    desc: setup frontend dependencies
+    dir: frontend
+    cmds:
+      - yarn install
+
+  setup:py:
+    desc: setup python dependencies
+    cmds:
+      - poetry install --with main,dev,postgres
+      - poetry run pre-commit install
+
+  setup:model:
+    desc: setup nlp model
+    vars:
+      MODEL_URL: https://github.com/mealie-recipes/nlp-model/releases/download/v1.0.0/model.crfmodel
+      OUTPUT: ./mealie/services/parser_services/crfpp/model.crfmodel
+    sources:
+      # using pyproject.toml as the dependency since this should only ever need to run once
+      # during setup. There is perhaps a better way to do this.
+      - ./pyproject.toml
+    generates:
+      - ./mealie/services/parser_services/crfpp/model.crfmodel
+    cmds:
+      - curl -L0 {{ .MODEL_URL }} --output {{ .OUTPUT }}
+
+  setup:
+    desc: setup all dependencies
+    deps:
+      - setup:ui
+      - setup:py
+      - setup:model
+
+  dev:generate:
+    desc: run code generators
+    cmds:
+      - poetry run python dev/code-generation/main.py
+
+  dev:services:
+    desc: starts postgres and mailpit containers
+    dir: docker
+    cmds:
+      - docker compose -f docker-compose.dev.yml up
+
+  dev:clean:
+    desc: cleans up dev environment !! removes all data files !!
+    vars:
+      DEV_DATA: ""
+    cmds:
+      - rm -r ./dev/data/recipes/
+      - rm -r ./dev/data/users/
+      - rm -f ./dev/data/mealie*.db
+      - rm -f ./dev/data/mealie.log
+      - rm -f ./dev/data/.secret
+
+  py:mypy:
+    desc: runs python type checking
+    cmds:
+      - poetry run mypy mealie
+
+  py:test:
+    desc: runs python tests (support args after '--')
+    cmds:
+      - poetry run pytest {{ .CLI_ARGS }}
+
+  py:format:
+    desc: runs python code formatter
+    cmds:
+      - poetry run black mealie
+
+  py:lint:
+    desc: runs python linter
+    cmds:
+      - poetry run ruff mealie
+
+  py:check:
+    desc: runs all linters, type checkers, and formatters
+    deps:
+      - py:format
+      - py:lint
+      - py:mypy
+      - py:test
+
+  py:coverage:
+    desc: runs python coverage and generates html report
+    cmds:
+      - poetry run pytest
+      - poetry run coverage report -m
+      - poetry run coveragepy-lcov
+      - poetry run coverage html
+      - open htmlcov/index.html
+
+  py:
+    desc: runs the backend server
+    cmds:
+      - poetry run python mealie/db/init_db.py
+      - poetry run python mealie/app.py
+
+  py:postgres:
+    desc: runs the backend server configured for containerized postgres
+    env:
+      DB_ENGINE: postgres
+      POSTGRES_USER: mealie
+      POSTGRES_PASSWORD: mealie
+      POSTGRES_SERVER: localhost
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: mealie
+    cmds:
+      - poetry run python mealie/db/init_db.py
+      - poetry run python mealie/app.py
+
+  ui:build:
+    desc: builds the frontend in frontend/dist
+    dir: frontend
+    cmds:
+      - yarn build
+
+  ui:lint:
+    desc: runs the frontend linter
+    dir: frontend
+    cmds:
+      - yarn lint
+
+  ui:test:
+    desc: runs the frontend tests
+    dir: frontend
+    cmds:
+      - yarn test
+
+  ui:check:
+    desc: runs all frontend checks
+    deps:
+      - ui:lint
+      - ui:test
+
+  ui:
+    desc: runs the frontend server
+    dir: frontend
+    cmds:
+      - yarn run dev
+
+  docker:prod:
+    desc: builds and runs the production docker image locally
+    dir: docker
+    cmds:
+      - docker compose -f docker-compose.yml -p mealie up -d --build

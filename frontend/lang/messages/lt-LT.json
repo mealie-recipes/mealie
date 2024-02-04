@@ -258,6 +258,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Sukurti naują mitybos planą",
+    "update-this-meal-plan": "Update this Meal Plan",
     "dinner-this-week": "Šios savaitės vakarienė",
     "dinner-today": "Šiandienos vakarienė",
     "dinner-tonight": "VAKARIENĖ ŠIANDIEN",
@@ -472,9 +473,11 @@
     "add-to-timeline": "Add to Timeline",
     "recipe-added-to-list": "Recepts pridėtas į sąrašą",
     "recipes-added-to-list": "Recipes added to list",
+    "successfully-added-to-list": "Successfully added to list",
     "recipe-added-to-mealplan": "Recepts pridėtas prie mitybos plano",
     "failed-to-add-recipes-to-list": "Failed to add recipe to list",
     "failed-to-add-recipe-to-mealplan": "Nepavyko pridėti recepto prie mitybos plano",
+    "failed-to-add-to-list": "Failed to add to list",
     "yield": "Išeiga",
     "quantity": "Kiekis",
     "choose-unit": "Pasirinkite vienetą",
@@ -557,7 +560,8 @@
     "unit": "Vienetas",
     "upload-image": "Įkelti nuotrauką",
     "screen-awake": "Keep Screen Awake",
-    "remove-image": "Remove image"
+    "remove-image": "Remove image",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Išplėstinė paieška",

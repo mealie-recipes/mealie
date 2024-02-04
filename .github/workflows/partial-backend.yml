@@ -35,6 +35,12 @@ jobs:
 
     # Steps
     steps:
+      - name: Install Task
+        uses: arduino/setup-task@v1
+        with:
+          version: 3.x
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Check out repository
         uses: actions/checkout@v4
 
@@ -69,7 +75,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install libsasl2-dev libldap2-dev libssl-dev
           poetry install
-          poetry add "psycopg2-binary==2.8.6"
+          poetry add "psycopg2-binary==2.9.9"
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true' || steps.cache-validate.outputs.cache-hit-success != 'true'
 
       - name: Formatting (Black)
@@ -78,11 +84,11 @@ jobs:
 
       - name: Lint (Ruff)
         run: |
-          make backend-lint
+          task py:lint
 
       - name: Mypy Typecheck
         run: |
-          make backend-typecheck
+          task py:mypy
 
       - name: Pytest
         env:
@@ -101,4 +107,4 @@ jobs:
           LDAP_NAME_ATTRIBUTE: cn
           LDAP_MAIL_ATTRIBUTE: mail
         run: |
-          make backend-test
+          task py:test

@@ -258,6 +258,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Δημιουργία νέου σχεδίου γεύματος",
+    "update-this-meal-plan": "Update this Meal Plan",
     "dinner-this-week": "Δείπνο Αυτή Τη Εβδομάδα",
     "dinner-today": "Δείπνο Σήμερα",
     "dinner-tonight": "ΔΕΙΠΝΟ ΣΗΜΕΡΑ",
@@ -472,9 +473,11 @@
     "add-to-timeline": "Add to Timeline",
     "recipe-added-to-list": "Recipe added to list",
     "recipes-added-to-list": "Recipes added to list",
+    "successfully-added-to-list": "Successfully added to list",
     "recipe-added-to-mealplan": "Recipe added to mealplan",
     "failed-to-add-recipes-to-list": "Failed to add recipe to list",
     "failed-to-add-recipe-to-mealplan": "Failed to add recipe to mealplan",
+    "failed-to-add-to-list": "Failed to add to list",
     "yield": "Yield",
     "quantity": "Quantity",
     "choose-unit": "Choose Unit",
@@ -557,7 +560,8 @@
     "unit": "Unit",
     "upload-image": "Upload image",
     "screen-awake": "Keep Screen Awake",
-    "remove-image": "Remove image"
+    "remove-image": "Remove image",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Σύνθετη Αναζήτηση",

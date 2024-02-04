@@ -3,6 +3,7 @@ This file contains code taken from fastapi-utils project. The code is licensed u
 
 See their repository for details -> https://github.com/dmontagu/fastapi-utils
 """
+
 import inspect
 from collections.abc import Callable
 from typing import Any, TypeVar, cast, get_type_hints

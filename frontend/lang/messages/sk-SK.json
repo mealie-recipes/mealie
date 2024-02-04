@@ -258,6 +258,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Vytvoriť nový jedálniček",
+    "update-this-meal-plan": "Update this Meal Plan",
     "dinner-this-week": "Večera tento týždeň",
     "dinner-today": "Večera dnes",
     "dinner-tonight": "VEČERA NA DNES",
@@ -472,9 +473,11 @@
     "add-to-timeline": "Add to Timeline",
     "recipe-added-to-list": "Recept bol pridaný do zoznamu",
     "recipes-added-to-list": "Recipes added to list",
+    "successfully-added-to-list": "Successfully added to list",
     "recipe-added-to-mealplan": "Recept bol pridaný do stravovacieho plánu",
     "failed-to-add-recipes-to-list": "Failed to add recipe to list",
     "failed-to-add-recipe-to-mealplan": "Pridanie receptu do stravovacieho plánu zlyhalo",
+    "failed-to-add-to-list": "Failed to add to list",
     "yield": "Počet porcií",
     "quantity": "Množstvo",
     "choose-unit": "Vyberte jednotku",
@@ -557,7 +560,8 @@
     "unit": "Jednotka",
     "upload-image": "Nahrať obrázok",
     "screen-awake": "Keep Screen Awake",
-    "remove-image": "Remove image"
+    "remove-image": "Remove image",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Rozšírené vyhľadávanie",

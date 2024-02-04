@@ -258,6 +258,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Skep 'n nuwe maaltydplan",
+    "update-this-meal-plan": "Update this Meal Plan",
     "dinner-this-week": "Aandete hierdie week",
     "dinner-today": "Vandag se Aandete",
     "dinner-tonight": "VANAAND SE AANDETE",
@@ -472,9 +473,11 @@
     "add-to-timeline": "Voeg by tydlyn",
     "recipe-added-to-list": "Resep by lys gevoeg",
     "recipes-added-to-list": "Recipes added to list",
+    "successfully-added-to-list": "Successfully added to list",
     "recipe-added-to-mealplan": "Resep is by die maaltydplan gevoeg",
     "failed-to-add-recipes-to-list": "Failed to add recipe to list",
     "failed-to-add-recipe-to-mealplan": "Kon nie resep by maaltydplan voeg nie",
+    "failed-to-add-to-list": "Failed to add to list",
     "yield": "Resultaat",
     "quantity": "Hoeveelheid",
     "choose-unit": "Kies 'n eenheid",
@@ -557,7 +560,8 @@
     "unit": "Eenheid",
     "upload-image": "Laai prent",
     "screen-awake": "Hou die skerm aan",
-    "remove-image": "Verwyder prent"
+    "remove-image": "Verwyder prent",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Gevorderde soek",

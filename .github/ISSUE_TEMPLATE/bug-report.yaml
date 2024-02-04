@@ -42,7 +42,7 @@ body:
     id: logs
     attributes:
       label: Please provide relevant logs
-      placeholder: For example from `docker-compose logs` or other system logs.
+      placeholder: For example from `docker compose logs` or other system logs.
     validations:
       required: true
   - type: textarea

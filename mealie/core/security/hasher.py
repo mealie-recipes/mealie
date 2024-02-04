@@ -1,17 +1,15 @@
 from functools import lru_cache
 from typing import Protocol
 
-from passlib.context import CryptContext
+import bcrypt
 
 from mealie.core.config import get_app_settings
 
 
 class Hasher(Protocol):
-    def hash(self, password: str) -> str:
-        ...
+    def hash(self, password: str) -> str: ...
 
-    def verify(self, password: str, hashed: str) -> bool:
-        ...
+    def verify(self, password: str, hashed: str) -> bool: ...
 
 
 class FakeHasher:
@@ -22,15 +20,16 @@ class FakeHasher:
         return password == hashed
 
 
-class PasslibHasher:
-    def __init__(self) -> None:
-        self.ctx = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
+class BcryptHasher:
     def hash(self, password: str) -> str:
-        return self.ctx.hash(password)
+        password_bytes = password.encode("utf-8")
+        hashed = bcrypt.hashpw(password_bytes, bcrypt.gensalt())
+        return hashed.decode("utf-8")
 
     def verify(self, password: str, hashed: str) -> bool:
-        return self.ctx.verify(password, hashed)
+        password_bytes = password.encode("utf-8")
+        hashed_bytes = hashed.encode("utf-8")
+        return bcrypt.checkpw(password_bytes, hashed_bytes)
 
 
 @lru_cache(maxsize=1)
@@ -40,4 +39,4 @@ def get_hasher() -> Hasher:
     if settings.TESTING:
         return FakeHasher()
 
-    return PasslibHasher()
+    return BcryptHasher()

@@ -258,6 +258,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Neue Mahlzeit planen",
+    "update-this-meal-plan": "Mahlzeit aktualisieren",
     "dinner-this-week": "Essen diese Woche",
     "dinner-today": "Heutiges Essen",
     "dinner-tonight": "HEUTE GIBT ES",
@@ -472,9 +473,11 @@
     "add-to-timeline": "Zum Zeitstrahl hinzufügen",
     "recipe-added-to-list": "Rezept wurde zur Einkaufsliste hinzugefügt",
     "recipes-added-to-list": "Rezepte wurden zur Einkaufsliste hinzugefügt",
+    "successfully-added-to-list": "Erfolgreich zur Liste hinzugefügt",
     "recipe-added-to-mealplan": "Rezept zum Essensplan hinzugefügt",
     "failed-to-add-recipes-to-list": "Fehler beim Hinzufügen des Rezepts zur Einkaufsliste",
     "failed-to-add-recipe-to-mealplan": "Fehler beim Hinzufügen des Rezepts zum Essensplan",
+    "failed-to-add-to-list": "Fehler beim Hinzufügen zur Liste",
     "yield": "Portionsangabe",
     "quantity": "Menge",
     "choose-unit": "Einheit wählen",
@@ -557,7 +560,8 @@
     "unit": "Maßeinheit",
     "upload-image": "Bild hochladen",
     "screen-awake": "Bildschirm nicht abschalten",
-    "remove-image": "Bild entfernen"
+    "remove-image": "Bild entfernen",
+    "nextStep": "Nächster Schritt"
   },
   "search": {
     "advanced-search": "Erweiterte Suche",

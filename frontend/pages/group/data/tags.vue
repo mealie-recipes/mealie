@@ -49,15 +49,41 @@
       </v-card-text>
     </BaseDialog>
 
+    <!-- Bulk Delete Dialog -->
+    <BaseDialog
+      v-model="state.bulkDeleteDialog"
+      width="650px"
+      :title="$tc('general.confirm')"
+      :icon="$globals.icons.alertCircle"
+      color="error"
+      @confirm="deleteSelected"
+    >
+      <v-card-text>
+        <p class="h4">{{ $t('general.confirm-delete-generic-items') }}</p>
+        <v-card outlined>
+          <v-virtual-scroll height="400" item-height="25" :items="bulkDeleteTarget">
+            <template #default="{ item }">
+              <v-list-item class="pb-2">
+                <v-list-item-content>
+                  <v-list-item-title>{{ item.name }}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+          </v-virtual-scroll>
+        </v-card>
+      </v-card-text>
+    </BaseDialog>
+
     <!-- Data Table -->
     <BaseCardSectionTitle :icon="$globals.icons.tags" section :title="$tc('data-pages.tags.tag-data')"> </BaseCardSectionTitle>
     <CrudTable
       :table-config="tableConfig"
       :headers.sync="tableHeaders"
       :data="tags || []"
-      :bulk-actions="[]"
+      :bulk-actions="[{icon: $globals.icons.delete, text: $tc('general.delete'), event: 'delete-selected'}]"
       @delete-one="deleteEventHandler"
       @edit-one="editEventHandler"
+      @delete-selected="bulkDeleteEventHandler"
     >
       <template #button-row>
         <BaseButton create @click="state.createDialog = true">{{ $t("general.create") }}</BaseButton>
@@ -96,6 +122,7 @@ export default defineComponent({
       createDialog: false,
       editDialog: false,
       deleteDialog: false,
+      bulkDeleteDialog: false,
     });
 
     const tagData = useTagData();
@@ -150,6 +177,24 @@ export default defineComponent({
       state.deleteDialog = false;
     }
 
+    // ============================================================
+    // Bulk Delete Tag
+    const bulkDeleteTarget = ref<RecipeTag[]>([]);
+    function bulkDeleteEventHandler(selection: RecipeTag[]) {
+      bulkDeleteTarget.value = selection;
+      state.bulkDeleteDialog = true;
+    }
+
+    async function deleteSelected() {
+      for (const item of bulkDeleteTarget.value) {
+        if (!item.id) {
+          continue;
+        }
+        await tagStore.actions.deleteOne(item.id);
+      }
+      bulkDeleteTarget.value = [];
+    }
+
     return {
       state,
       tableConfig,
@@ -169,7 +214,12 @@ export default defineComponent({
       // delete
       deleteTarget,
       deleteEventHandler,
-      deleteTag
+      deleteTag,
+
+      // bulk delete
+      bulkDeleteTarget,
+      bulkDeleteEventHandler,
+      deleteSelected,
     };
   },
 });

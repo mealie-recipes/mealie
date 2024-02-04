@@ -258,6 +258,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Luo uusi ateriasuunnitelma",
+    "update-this-meal-plan": "Päivitä tämä ateriasuunnitelma",
     "dinner-this-week": "Viikon päivällinen",
     "dinner-today": "Päivällinen tänään",
     "dinner-tonight": "PÄIVÄLLINEN TÄNÄÄN",
@@ -472,9 +473,11 @@
     "add-to-timeline": "Lisää aikajanalle",
     "recipe-added-to-list": "Resepti lisätty listalle",
     "recipes-added-to-list": "Recipes added to list",
+    "successfully-added-to-list": "Successfully added to list",
     "recipe-added-to-mealplan": "Resepti lisätty ateriasuunnitelmaan",
     "failed-to-add-recipes-to-list": "Failed to add recipe to list",
     "failed-to-add-recipe-to-mealplan": "Reseptiä ei voitu lisätä ateriasuunnitelmaan",
+    "failed-to-add-to-list": "Failed to add to list",
     "yield": "Sato",
     "quantity": "Määrä",
     "choose-unit": "Valitse Yksikkö",
@@ -557,7 +560,8 @@
     "unit": "Yksikkö",
     "upload-image": "Lataa kuva",
     "screen-awake": "Pidä näyttö aina päällä",
-    "remove-image": "Poista kuva"
+    "remove-image": "Poista kuva",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Tarkennettu haku",

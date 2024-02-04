@@ -258,6 +258,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "יצירת תכנית ארוחות חדשה",
+    "update-this-meal-plan": "Update this Meal Plan",
     "dinner-this-week": "ארוחות ערב השבוע",
     "dinner-today": "ארוחת ערב היום",
     "dinner-tonight": "ארוחת ערב היום",
@@ -472,9 +473,11 @@
     "add-to-timeline": "הוסף לציר הזמן",
     "recipe-added-to-list": "מתכון נוסף לרשימה",
     "recipes-added-to-list": "מתכונים הוספו לרשימה",
+    "successfully-added-to-list": "Successfully added to list",
     "recipe-added-to-mealplan": "מתכון נוסף לתכנון ארוחות",
     "failed-to-add-recipes-to-list": "כשלון בהוספת מתכון לרשימה",
     "failed-to-add-recipe-to-mealplan": "הוספת מתכון לתכנון ארוחות נכשלה",
+    "failed-to-add-to-list": "Failed to add to list",
     "yield": "תשואה",
     "quantity": "כמות",
     "choose-unit": "בחירת יחידת מידה",
@@ -557,7 +560,8 @@
     "unit": "יחידה",
     "upload-image": "העלה תמונה",
     "screen-awake": "השאר את המסך פעיל",
-    "remove-image": "האם למחוק את התמונה?"
+    "remove-image": "האם למחוק את התמונה?",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "חיפוש מתקדם",
