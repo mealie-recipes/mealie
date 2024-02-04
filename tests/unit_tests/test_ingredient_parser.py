@@ -204,7 +204,7 @@ def test_nlp_parser() -> None:
     ],
 )
 def test_brute_parser(
-    unique_user: TestUser,
+    unique_local_group_id: UUID4,
     parsed_ingredient_data: tuple[list[IngredientFood], list[IngredientUnit]],  # required so database is populated
     input: str,
     quantity: int | float,
@@ -213,7 +213,7 @@ def test_brute_parser(
     comment: str,
 ):
     with session_context() as session:
-        parser = get_parser(RegisteredParser.brute, unique_user.group_id, session)
+        parser = get_parser(RegisteredParser.brute, unique_local_group_id, session)
         parsed = parser.parse_one(input)
         ing = parsed.ingredient
 
