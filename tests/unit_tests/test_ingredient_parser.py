@@ -192,9 +192,19 @@ def test_nlp_parser() -> None:
             "cut in pieces",
             id="stalk bell peppers, cut in pieces",
         ),
+        pytest.param(
+            "a stalk bell peppers, cut in pieces",
+            0,
+            "Stalk",
+            "bell peppers",
+            "cut in pieces",
+            id="stalk bell peppers, cut in pieces",
+        ),
         pytest.param("red pepper flakes", 0, "", "red pepper flakes", "", id="red pepper flakes"),
         pytest.param("1 red pepper flakes", 1, "", "red pepper flakes", "", id="1 red pepper flakes"),
         pytest.param("1 bell peppers", 1, "", "bell peppers", "", id="1 bell peppers"),
+        pytest.param("1 stalk bell peppers", 1, "Stalk", "bell peppers", "", id="1 big stalk bell peppers"),
+        pytest.param("a big stalk bell peppers", 0, "Stalk", "bell peppers", "", id="a big stalk bell peppers"),
         pytest.param(
             "1 bell peppers, cut in pieces", 1, "", "bell peppers", "cut in pieces", id="1 bell peppers, cut in pieces"
         ),
