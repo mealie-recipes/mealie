@@ -3,7 +3,7 @@ import { useStoreActions } from "../partials/use-actions-factory";
 import { useUserApi } from "~/composables/api";
 import { IngredientUnit } from "~/lib/api/types/recipe";
 
-let unitStore: Ref<IngredientUnit[] | null> | null = null;
+let unitStore: Ref<IngredientUnit[] | null> = ref([]);
 
 /**
  * useUnitData returns a template reactive object
@@ -40,11 +40,11 @@ export const useUnitStore = function () {
   const actions = {
     ...useStoreActions<IngredientUnit>(api.units, unitStore, loading),
     flushStore() {
-      unitStore = null;
+      unitStore.value = [];
     },
   };
 
-  if (!unitStore) {
+  if (!unitStore.value) {
     unitStore = actions.getAll();
   }
 
