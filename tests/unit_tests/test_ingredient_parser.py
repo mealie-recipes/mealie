@@ -135,7 +135,7 @@ test_ingredients = [
 
 
 @pytest.mark.skipif(not crf_exists(), reason="CRF++ not installed")
-def test_nlp_parser():
+def test_nlp_parser() -> None:
     models: list[CRFIngredient] = convert_list_to_crf_model([x.input for x in test_ingredients])
 
     # Iterate over models and test_ingredients to gather
@@ -147,49 +147,92 @@ def test_nlp_parser():
         assert model.unit == test_ingredient.unit
 
 
-def test_brute_parser(
-    unique_user: TestUser,
-    parsed_ingredient_data: tuple[list[IngredientFood], list[IngredientUnit]],
-):
-    # input: (quantity, unit, food, comments)
-    expectations = {
-        # Dutch
-        "1 theelepel koffie": (1, "theelepel", "koffie", ""),
-        "3 theelepels koffie": (3, "theelepels", "koffie", ""),
-        "1 eetlepel tarwe": (1, "eetlepel", "tarwe", ""),
-        "20 eetlepels bloem": (20, "eetlepels", "bloem", ""),
-        "1 mespunt kaneel": (1, "mespunt", "kaneel", ""),
-        "1 snuf(je) zout": (1, "snuf(je)", "zout", ""),
-        "2 tbsp minced cilantro, leaves and stems": (2, "tbsp", "minced cilantro", "leaves and stems"),
-        "1 large yellow onion, coarsely chopped": (1, "large", "yellow onion", "coarsely chopped"),
-        "1 1/2 tsp garam masala": (1.5, "tsp", "garam masala", ""),
-        "2 cups mango chunks, (2 large mangoes) (fresh or frozen)": (
+@pytest.mark.parametrize(
+    "input, quantity, unit, food, comment",
+    [
+        pytest.param("1 theelepel koffie", 1, "theelepel", "koffie", "", id="1 theelepel koffie"),
+        pytest.param("3 theelepels koffie", 3, "theelepels", "koffie", "", id="3 theelepels koffie"),
+        pytest.param("1 eetlepel tarwe", 1, "eetlepel", "tarwe", "", id="1 eetlepel tarwe"),
+        pytest.param("20 eetlepels bloem", 20, "eetlepels", "bloem", "", id="20 eetlepels bloem"),
+        pytest.param("1 mespunt kaneel", 1, "mespunt", "kaneel", "", id="1 mespunt kaneel"),
+        pytest.param("1 snuf(je) zout", 1, "snuf(je)", "zout", "", id="1 snuf(je) zout"),
+        pytest.param(
+            "2 tbsp minced cilantro, leaves and stems",
+            2,
+            "tbsp",
+            "minced cilantro",
+            "leaves and stems",
+            id="2 tbsp minced cilantro, leaves and stems",
+        ),
+        pytest.param(
+            "1 large yellow onion, coarsely chopped",
+            1,
+            "large",
+            "yellow onion",
+            "coarsely chopped",
+            id="1 large yellow onion, coarsely chopped",
+        ),
+        pytest.param("1 1/2 tsp garam masala", 1.5, "tsp", "garam masala", "", id="1 1/2 tsp garam masala"),
+        pytest.param(
+            "2 cups mango chunks, (2 large mangoes) (fresh or frozen)",
             2,
             "cups",
             "mango chunks, (2 large mangoes)",
             "fresh or frozen",
+            id="2 cups mango chunks, (2 large mangoes) (fresh or frozen)",
         ),
-        "stalk onion": (0, "stalk", "onion", ""),
-        "a stalk bell peppers": (0, "stalk", "bell peppers", ""),
-        "a stalk unknownFood": (0, "tablespoon", "unknownFood", ""),
-        "stalk bell peppers, cut in pieces": (0, "stalk", "bell peppers", "cut in pieces"),
-        "red pepper flakes": (0, "", "red pepper flakes", ""),
-        "1 red pepper flakes": (1, "", "red pepper flakes", ""),
-        "1 bell peppers": (1, "", "bell peppers", ""),
-        "1 bell peppers, cut in pieces": (1, "", "bell peppers", "cut in pieces"),
-        "bell peppers, cut in pieces": (0, "", "bell peppers", "cut in pieces"),
-    }
-
+        pytest.param("stalk onion", 0, "stalk", "onion", "", id="stalk onion"),
+        pytest.param("a stalk bell peppers", 0, "stalk", "bell peppers", "", id="a stalk bell peppers"),
+        pytest.param("a stalk unknownFood", 0, "tablespoon", "unknownFood", "", id="a stalk unknownFood"),
+        pytest.param(
+            "stalk bell peppers, cut in pieces",
+            0,
+            "stalk",
+            "bell peppers",
+            "cut in pieces",
+            id="stalk bell peppers, cut in pieces",
+        ),
+        pytest.param("red pepper flakes", 0, "", "red pepper flakes", "", id="red pepper flakes"),
+        pytest.param("1 red pepper flakes", 1, "", "red pepper flakes", "", id="1 red pepper flakes"),
+        pytest.param("1 bell peppers", 1, "", "bell peppers", "", id="1 bell peppers"),
+        pytest.param(
+            "1 bell peppers, cut in pieces", 1, "", "bell peppers", "cut in pieces", id="1 bell peppers, cut in pieces"
+        ),
+        pytest.param(
+            "bell peppers, cut in pieces", 0, "", "bell peppers", "cut in pieces", id="bell peppers, cut in pieces"
+        ),
+    ],
+)
+def test_brute_parser(
+    unique_user: TestUser,
+    parsed_ingredient_data: tuple[list[IngredientFood], list[IngredientUnit]],  # required so database is populated
+    input: str,
+    quantity: int | float,
+    unit: str,
+    food: str,
+    comment: str,
+):
     with session_context() as session:
         parser = get_parser(RegisteredParser.brute, unique_user.group_id, session)
+        parsed = parser.parse_one(input)
+        ing = parsed.ingredient
 
-        for key, val in expectations.items():
-            parsed = parser.parse_one(key)
-
-            assert parsed.ingredient.quantity == val[0]
-            assert parsed.ingredient.unit.name == val[1]
-            assert parsed.ingredient.food.name == val[2]
-            assert parsed.ingredient.note in {val[3], None}
+        if ing.quantity:
+            assert ing.quantity == quantity
+        else:
+            assert not quantity
+        if ing.unit:
+            assert ing.unit.name == unit
+        else:
+            assert not unit
+        if ing.food:
+            assert ing.food.name == food
+        else:
+            assert not food
+        if ing.note:
+            assert ing.note == comment
+        else:
+            assert not comment
 
 
 @pytest.mark.parametrize(
