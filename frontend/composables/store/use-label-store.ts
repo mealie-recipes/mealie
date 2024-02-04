@@ -3,7 +3,7 @@ import { useStoreActions } from "../partials/use-actions-factory";
 import { MultiPurposeLabelOut } from "~/lib/api/types/labels";
 import { useUserApi } from "~/composables/api";
 
-let labelStore: Ref<MultiPurposeLabelOut[] | null> | null = null;
+let labelStore: Ref<MultiPurposeLabelOut[] | null> = ref([]);
 
 export function useLabelData() {
   const data = reactive({
@@ -33,11 +33,11 @@ export function useLabelStore() {
   const actions = {
     ...useStoreActions<MultiPurposeLabelOut>(api.multiPurposeLabels, labelStore, loading),
     flushStore() {
-      labelStore = null;
+      labelStore.value =[];
     },
   };
 
-  if (!labelStore) {
+  if (!labelStore.value) {
     labelStore = actions.getAll();
   }
 

@@ -4,7 +4,7 @@ import { usePublicExploreApi } from "../api/api-client";
 import { useUserApi } from "~/composables/api";
 import { IngredientFood } from "~/lib/api/types/recipe";
 
-let foodStore: Ref<IngredientFood[] | null> | null = null;
+let foodStore: Ref<IngredientFood[] | null> = ref([]);
 
 /**
  * useFoodData returns a template reactive object
@@ -39,11 +39,11 @@ export const usePublicFoodStore = function (groupSlug: string) {
   const actions = {
     ...usePublicStoreActions(api.foods, foodStore, loading),
     flushStore() {
-      foodStore = null;
+      foodStore = ref([]);
     },
   };
 
-  if (!foodStore) {
+  if (!foodStore.value) {
     foodStore = actions.getAll();
   }
 
@@ -57,7 +57,7 @@ export const useFoodStore = function () {
   const actions = {
     ...useStoreActions(api.foods, foodStore, loading),
     flushStore() {
-      foodStore = null;
+      foodStore.value = [];
     },
   };
 
