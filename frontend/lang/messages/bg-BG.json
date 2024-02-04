@@ -199,7 +199,8 @@
     "upload-file": "Качване на файл",
     "created-on-date": "Създадено на {0}",
     "unsaved-changes": "Имате незапазени промени. Желаете ли да ги запазите преди да излезете? Натиснете Ок за запазване и Отказ за отхвърляне на промените.",
-    "clipboard-copy-failure": "Линкът към рецептата е копиран в клипборда."
+    "clipboard-copy-failure": "Линкът към рецептата е копиран в клипборда.",
+    "confirm-delete-generic-items": "Are you sure you want to delete the following items?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Сигурни ли сте, че искате да изтриете <b>{groupName}<b/>?",
@@ -1185,6 +1186,8 @@
     "require-all-tags": "Изискване на всички тагове",
     "require-all-tools": "Изискване на всички инструменти",
     "cookbook-name": "Име на книгата с рецепти",
-    "cookbook-with-name": "Книга с рецепти {0}"
+    "cookbook-with-name": "Книга с рецепти {0}",
+    "create-a-cookbook": "Create a Cookbook",
+    "cookbook": "Cookbook"
   }
 }
