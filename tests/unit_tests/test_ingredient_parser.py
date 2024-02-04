@@ -147,7 +147,10 @@ def test_nlp_parser():
         assert model.unit == test_ingredient.unit
 
 
-def test_brute_parser(unique_user: TestUser):
+def test_brute_parser(
+    unique_user: TestUser,
+    parsed_ingredient_data: tuple[list[IngredientFood], list[IngredientUnit]],
+):
     # input: (quantity, unit, food, comments)
     expectations = {
         # Dutch
@@ -166,6 +169,15 @@ def test_brute_parser(unique_user: TestUser):
             "mango chunks, (2 large mangoes)",
             "fresh or frozen",
         ),
+        "stalk onion": (0, "stalk", "onion", ""),
+        "a stalk bell peppers": (0, "stalk", "bell peppers", ""),
+        "a stalk unknownFood": (0, "tablespoon", "unknownFood", ""),
+        "stalk bell peppers, cut in pieces": (0, "stalk", "bell peppers", "cut in pieces"),
+        "red pepper flakes": (0, "", "red pepper flakes", ""),
+        "1 red pepper flakes": (1, "", "red pepper flakes", ""),
+        "1 bell peppers": (1, "", "bell peppers", ""),
+        "1 bell peppers, cut in pieces": (1, "", "bell peppers", "cut in pieces"),
+        "bell peppers, cut in pieces": (0, "", "bell peppers", "cut in pieces"),
     }
 
     with session_context() as session:
