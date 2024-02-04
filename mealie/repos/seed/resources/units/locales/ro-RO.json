@@ -12,7 +12,7 @@
     "cup": {
         "name": "cup",
         "description": "",
-        "abbreviation": "cup"
+        "abbreviation": "cană"
     },
     "fluid-ounce": {
         "name": "fluid ounce",
@@ -20,7 +20,7 @@
         "abbreviation": "fl oz"
     },
     "pint": {
-        "name": "pint",
+        "name": "halbă",
         "description": "",
         "abbreviation": "pt"
     },
@@ -30,12 +30,12 @@
         "abbreviation": "qt"
     },
     "gallon": {
-        "name": "gallon",
+        "name": "galon",
         "description": "",
         "abbreviation": "gal"
     },
     "milliliter": {
-        "name": "milliliter",
+        "name": "mililitru",
         "description": "",
         "abbreviation": "ml"
     },
@@ -45,19 +45,19 @@
         "abbreviation": "l"
     },
     "pound": {
-        "name": "pound",
+        "name": "livră",
         "description": "",
         "abbreviation": "lb"
     },
     "ounce": {
-        "name": "ounce",
+        "name": "uncie",
         "description": "",
-        "abbreviation": "oz"
+        "abbreviation": "uncii"
     },
     "gram": {
         "name": "gram",
         "description": "",
-        "abbreviation": "g"
+        "abbreviation": "h"
     },
     "kilogram": {
         "name": "kilogram",
@@ -65,7 +65,7 @@
         "abbreviation": "kg"
     },
     "milligram": {
-        "name": "milligram",
+        "name": "miligram",
         "description": "",
         "abbreviation": "mg"
     },
@@ -95,7 +95,7 @@
         "abbreviation": ""
     },
     "can": {
-        "name": "can",
+        "name": "cutie",
         "description": "",
         "abbreviation": ""
     }
