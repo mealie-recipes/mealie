@@ -199,7 +199,8 @@
     "upload-file": "Last opp fil",
     "created-on-date": "Opprettet: {0}",
     "unsaved-changes": "Du har ulagrede endringer. Ønsker du å lagre før du forlater? Trykk 'OK' for å lagre, 'Avbryt' for å forkaste endringene.",
-    "clipboard-copy-failure": "Kunne ikke kopiere til utklippstavlen."
+    "clipboard-copy-failure": "Kunne ikke kopiere til utklippstavlen.",
+    "confirm-delete-generic-items": "Are you sure you want to delete the following items?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Er du sikker på at du vil slette <b>{groupName}<b/>?",
@@ -258,6 +259,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Opprett en ny måltidsplan",
+    "update-this-meal-plan": "Update this Meal Plan",
     "dinner-this-week": "Middag denne uken",
     "dinner-today": "Middag idag",
     "dinner-tonight": "DAGENS MIDDAG",
@@ -472,9 +474,11 @@
     "add-to-timeline": "Legg til tidslinje",
     "recipe-added-to-list": "Oppskrift er lagt til i liste",
     "recipes-added-to-list": "Oppskrifter lagt til listen",
+    "successfully-added-to-list": "Successfully added to list",
     "recipe-added-to-mealplan": "Oppskrift er lagt til i måltidsplan",
     "failed-to-add-recipes-to-list": "Klarte ikke å legge til oppskrift i listen",
     "failed-to-add-recipe-to-mealplan": "Klarte ikke å legge til oppskrift i måltidsplan",
+    "failed-to-add-to-list": "Failed to add to list",
     "yield": "Gir",
     "quantity": "Antall",
     "choose-unit": "Velg enhet",
@@ -533,6 +537,8 @@
     "new-recipe-names-must-be-unique": "Navn på oppskrift må være unike",
     "scrape-recipe": "Skrap oppskrift",
     "scrape-recipe-description": "Skrap en oppskrift ved bruk av nettadresse. Oppgi nettadressen til nettstedet du vil skrape, så vil Mealie forsøke å skrape oppskriften fra den siden og legge den til i samlingen din.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Importer originale søkeord som emneord",
     "stay-in-edit-mode": "Forbli i redigeringsmodus",
     "import-from-zip": "Importer fra zip-fil",
@@ -555,7 +561,8 @@
     "unit": "Enhet",
     "upload-image": "Last opp bilde",
     "screen-awake": "Hold skjermen på",
-    "remove-image": "Slett bilde"
+    "remove-image": "Slett bilde",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Avansert søk",
@@ -789,7 +796,8 @@
     "tags": "Emneord",
     "untagged-count": "Umerkede {count}",
     "create-a-tag": "Opprett et emneord",
-    "tag-name": "Navn på emneord"
+    "tag-name": "Navn på emneord",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Kjøkkenredskap",
@@ -798,7 +806,8 @@
     "tool-name": "Navn på kjøkkenredskap",
     "create-new-tool": "Opprett nytt kjøkkenredskap",
     "on-hand-checkbox-label": "Vis som tilgjengelig (avmerket)",
-    "required-tools": "Påkrevde kjøkkenredskaper"
+    "required-tools": "Påkrevde kjøkkenredskaper",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administrator",
@@ -971,7 +980,7 @@
     "seed-data": "Tilføringsdata",
     "seed": "Tilfør",
     "data-management": "Databehandling",
-    "data-management-description": "Velg hvilke data du vil gjøre endringer på.",
+    "data-management-description": "Velg hvilke data du vil endre.",
     "select-data": "Velg data",
     "select-language": "Velg språk",
     "columns": "Kolonner",
@@ -1177,6 +1186,8 @@
     "require-all-tags": "Krev alle emneord",
     "require-all-tools": "Krev alle kjøkkenredskaper",
     "cookbook-name": "Navn på kokebok",
-    "cookbook-with-name": "Kokebok {0}"
+    "cookbook-with-name": "Kokebok {0}",
+    "create-a-cookbook": "Create a Cookbook",
+    "cookbook": "Cookbook"
   }
 }

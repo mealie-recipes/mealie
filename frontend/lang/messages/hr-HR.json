@@ -199,7 +199,8 @@
     "upload-file": "Prenesi Datoteku",
     "created-on-date": "Kreirano dana: {0}",
     "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
-    "clipboard-copy-failure": "Failed to copy to the clipboard."
+    "clipboard-copy-failure": "Failed to copy to the clipboard.",
+    "confirm-delete-generic-items": "Are you sure you want to delete the following items?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Jeste li sigurni da želite izbrisati <b>{groupName}<b/>?",
@@ -258,6 +259,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Kreirajte Novi Plan Obroka",
+    "update-this-meal-plan": "Update this Meal Plan",
     "dinner-this-week": "Večera Ove Sedmice",
     "dinner-today": "Večera Danas",
     "dinner-tonight": "VEČERA NOĆAS",
@@ -472,9 +474,11 @@
     "add-to-timeline": "Add to Timeline",
     "recipe-added-to-list": "Recept je dodan na popis",
     "recipes-added-to-list": "Recipes added to list",
+    "successfully-added-to-list": "Successfully added to list",
     "recipe-added-to-mealplan": "Recept je dodan u Plan",
     "failed-to-add-recipes-to-list": "Failed to add recipe to list",
     "failed-to-add-recipe-to-mealplan": "Nije uspjelo dodavanje recepta u plan obroka",
+    "failed-to-add-to-list": "Failed to add to list",
     "yield": "Konačna Količina",
     "quantity": "Količina",
     "choose-unit": "Odaberi Jedinicu",
@@ -533,6 +537,8 @@
     "new-recipe-names-must-be-unique": "Naziv novog recepta mora imati jedinstveno ime",
     "scrape-recipe": "Prikupi (skraperaj) recept",
     "scrape-recipe-description": "Prikupi (skraperaj) recept putem URL-a. Priložite URL web stranice s koje želite prikupiti recept, a Mealie će pokušati prikupiti recept s te stranice i dodati ga u vašu kolekciju.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Uvezi originalne ključne riječi kao oznake",
     "stay-in-edit-mode": "Ostanite u načinu uređivanja",
     "import-from-zip": "Uvoz iz Zip-a",
@@ -555,7 +561,8 @@
     "unit": "Jedinica",
     "upload-image": "Učitavanje Slike",
     "screen-awake": "Keep Screen Awake",
-    "remove-image": "Remove image"
+    "remove-image": "Remove image",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Napredno Pretraživanje",
@@ -789,7 +796,8 @@
     "tags": "Oznake",
     "untagged-count": "Neoznačeno {count}",
     "create-a-tag": "Kreiraj Oznaku",
-    "tag-name": "Naziv Oznake"
+    "tag-name": "Naziv Oznake",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Alati",
@@ -798,7 +806,8 @@
     "tool-name": "Naziv Alata",
     "create-new-tool": "Kreiraj Novi Alat",
     "on-hand-checkbox-label": "Prikaži Alat Dostupnim (Označeno)",
-    "required-tools": "Potrebni Alati"
+    "required-tools": "Potrebni Alati",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administrator",
@@ -1177,6 +1186,8 @@
     "require-all-tags": "Zahtijevaj sve oznake",
     "require-all-tools": "Zahtijevaj sve Alate",
     "cookbook-name": "Naziv Zbirke recepata",
-    "cookbook-with-name": "ZbirkaRecepata {0}"
+    "cookbook-with-name": "ZbirkaRecepata {0}",
+    "create-a-cookbook": "Create a Cookbook",
+    "cookbook": "Cookbook"
   }
 }

@@ -66,7 +66,7 @@
     "test-message-sent": "Testovací zpráva odeslána",
     "new-notification": "Nové oznámení",
     "event-notifiers": "Notifikace událostí",
-    "apprise-url-skipped-if-blank": "Apprise URL (skipped if blank)",
+    "apprise-url-skipped-if-blank": "Apprise URL (přeskočeno pokud je prázdné)",
     "enable-notifier": "Povolit notifikaci",
     "what-events": "What events should this notifier subscribe to?",
     "user-events": "Uživatelské události",
@@ -114,10 +114,10 @@
     "json": "JSON",
     "keyword": "Klíčové slovo",
     "link-copied": "Odkaz zkopírován",
-    "loading": "Loading",
+    "loading": "Načítá se",
     "loading-events": "Načítání událostí",
-    "loading-recipe": "Loading recipe...",
-    "loading-ocr-data": "Loading OCR data...",
+    "loading-recipe": "Načítám recept...",
+    "loading-ocr-data": "Načítám OCR data...",
     "loading-recipes": "Načítám recepty",
     "message": "Zpráva",
     "monday": "Pondělí",
@@ -199,7 +199,8 @@
     "upload-file": "Nahrát soubor",
     "created-on-date": "Vytvořeno dne: {0}",
     "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
-    "clipboard-copy-failure": "Failed to copy to the clipboard."
+    "clipboard-copy-failure": "Failed to copy to the clipboard.",
+    "confirm-delete-generic-items": "Are you sure you want to delete the following items?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Jste si jisti, že chcete smazat <b>{groupName}<b/>?",
@@ -243,8 +244,8 @@
     "show-recipe-assets-description": "When enabled the recipe assets will be shown on the recipe if available",
     "default-to-landscape-view": "Default to landscape view",
     "default-to-landscape-view-description": "When enabled the recipe header section will be shown in landscape view",
-    "disable-users-from-commenting-on-recipes": "Disable users from commenting on recipes",
-    "disable-users-from-commenting-on-recipes-description": "Hides the comment section on the recipe page and disables commenting",
+    "disable-users-from-commenting-on-recipes": "Zakázat uživatelům komentovat u receptů",
+    "disable-users-from-commenting-on-recipes-description": "Na stránce receptu skryje sekci s komentáři a zakáže komentování",
     "disable-organizing-recipe-ingredients-by-units-and-food": "Disable organizing recipe ingredients by units and food",
     "disable-organizing-recipe-ingredients-by-units-and-food-description": "Hides the Food, Unit, and Amount fields for ingredients and treats ingredients as plain text fields.",
     "general-preferences": "General Preferences",
@@ -254,10 +255,11 @@
     "group-management": "Správa skupin",
     "admin-group-management": "Admin Group Management",
     "admin-group-management-text": "Změny v této skupině budou okamžitě zohledněny.",
-    "group-id-value": "Group Id: {0}"
+    "group-id-value": "ID skupiny: {0}"
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Vytvořit nový jídelníček",
+    "update-this-meal-plan": "Update this Meal Plan",
     "dinner-this-week": "Večeře na tento týden",
     "dinner-today": "Dnešní večeře",
     "dinner-tonight": "DNEŠNÍ VEČEŘE",
@@ -307,10 +309,10 @@
     "new-rule": "Nové pravidlo",
     "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "When creating a new rule for a meal plan you can restrict the rule to be applicable for a specific day of the week and/or a specific type of meal. To apply a rule to all days or all meal types you can set the rule to \"Any\" which will apply it to all the possible values for the day and/or meal type.",
-    "recipe-rules": "Recipe Rules",
+    "recipe-rules": "Pravidla receptu",
     "applies-to-all-days": "Použije se na všechny dny",
     "applies-on-days": "Applies on {0}s",
-    "meal-plan-settings": "Meal Plan Settings"
+    "meal-plan-settings": "Nastavení jídelníčku"
   },
   "migration": {
     "migration-data-removed": "Data z migrace byla smazána",
@@ -335,7 +337,7 @@
     },
     "paprika": {
       "description-long": "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
-      "title": "Paprika Recipe Manager"
+      "title": "Správce receptů Paprika"
     },
     "mealie-pre-v1": {
       "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
@@ -469,12 +471,14 @@
     "date-format-hint-yyyy-mm-dd": "Formát RRRR-MM-DD",
     "add-to-list": "Přidat na seznam",
     "add-to-plan": "Přidat do jídelníčku",
-    "add-to-timeline": "Add to Timeline",
+    "add-to-timeline": "Přidat na časovou osu",
     "recipe-added-to-list": "Recept byl přidán na seznam",
     "recipes-added-to-list": "Recipes added to list",
+    "successfully-added-to-list": "Successfully added to list",
     "recipe-added-to-mealplan": "Recept byl přidán do jídelníčku",
     "failed-to-add-recipes-to-list": "Failed to add recipe to list",
     "failed-to-add-recipe-to-mealplan": "Přidání receptu do jídelníčku selhalo",
+    "failed-to-add-to-list": "Failed to add to list",
     "yield": "Úroda",
     "quantity": "Množství",
     "choose-unit": "Vybrat jednotku",
@@ -496,9 +500,9 @@
     "locked": "Uzamčeno",
     "public-link": "Veřejný odkaz",
     "timer": {
-      "kitchen-timer": "Kitchen Timer",
-      "start-timer": "Start Timer",
-      "pause-timer": "Pause Timer",
+      "kitchen-timer": "Kuchyňský časovač",
+      "start-timer": "Spustit časovač",
+      "pause-timer": "Pozastavit časovač",
       "resume-timer": "Resume Timer",
       "stop-timer": "Stop Timer"
     },
@@ -533,6 +537,8 @@
     "new-recipe-names-must-be-unique": "New recipe names must be unique",
     "scrape-recipe": "Scrape Recipe",
     "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Import original keywords as tags",
     "stay-in-edit-mode": "Zůstat v režimu úprav",
     "import-from-zip": "Importovat ze zipu",
@@ -555,7 +561,8 @@
     "unit": "Jednotka",
     "upload-image": "Nahrát obrázek",
     "screen-awake": "Keep Screen Awake",
-    "remove-image": "Remove image"
+    "remove-image": "Remove image",
+    "nextStep": "Další krok"
   },
   "search": {
     "advanced-search": "Pokročilé vyhledávání",
@@ -789,7 +796,8 @@
     "tags": "Štítky",
     "untagged-count": "Bez štítku {count}",
     "create-a-tag": "Vytvořit štítek",
-    "tag-name": "Název štítku"
+    "tag-name": "Název štítku",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Nástroje",
@@ -798,7 +806,8 @@
     "tool-name": "Název nástroje",
     "create-new-tool": "Vytvořit nový nástroj",
     "on-hand-checkbox-label": "Zobrazit jako \"Po ruce\" (zaškrtnuto)",
-    "required-tools": "Required Tools"
+    "required-tools": "Required Tools",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Správce",
@@ -1149,7 +1158,7 @@
     "notifiers-description": "Setup email and push notifications that trigger on specific events.",
     "manage-data": "Spravovat data",
     "manage-data-description": "Manage your Food and Units (more options coming soon)",
-    "data-migrations": "Data Migrations",
+    "data-migrations": "Migrace dat",
     "data-migrations-description": "Migrate your existing data from other applications like Nextcloud Recipes and Chowdown",
     "email-sent": "E-mail odeslán",
     "error-sending-email": "Nastala chyba při odesílání e-mailu",
@@ -1161,10 +1170,10 @@
     "manage-your-api-tokens": "Správa API tokenů",
     "manage-user-profile": "Správa uživatelského profilu",
     "manage-cookbooks": "Správa kuchařek",
-    "manage-members": "Manage Members",
-    "manage-webhooks": "Manage Webhooks",
-    "manage-notifiers": "Manage Notifiers",
-    "manage-data-migrations": "Manage Data Migrations"
+    "manage-members": "Spravovat členy",
+    "manage-webhooks": "Spravovat webhooky",
+    "manage-notifiers": "Spravovat oznámení",
+    "manage-data-migrations": "Spravovat migrace dat"
   },
   "cookbook": {
     "cookbooks": "Kuchařky",
@@ -1172,11 +1181,13 @@
     "public-cookbook": "Veřejná kuchařka",
     "public-cookbook-description": "Veřejné kuchařky mohou být sdíleny s neregistrovanými uživateli a budou zobrazeny na stránce vaší skupiny.",
     "filter-options": "Možnosti filtru",
-    "filter-options-description": "When require all is selected the cookbook will only include recipes that have all of the items selected. This applies to each subset of selectors and not a cross section of the selected items.",
-    "require-all-categories": "Require All Categories",
-    "require-all-tags": "Require All Tags",
-    "require-all-tools": "Require All Tools",
+    "filter-options-description": "Pokud je vybrána možnost vyžadovat vše, kuchařka bude obsahovat pouze ty recepty, které mají všechny vybrané položky. To platí pro každou podmnožinu výběru, nikoliv pro jejich průnik.",
+    "require-all-categories": "Vyžadovat všechny kategorie",
+    "require-all-tags": "Vyžadovat všechny štítky",
+    "require-all-tools": "Vyžadovat všechny nástroje",
     "cookbook-name": "Název kuchařky",
-    "cookbook-with-name": "Kuchařka {0}"
+    "cookbook-with-name": "Kuchařka {0}",
+    "create-a-cookbook": "Create a Cookbook",
+    "cookbook": "Cookbook"
   }
 }

@@ -5,7 +5,7 @@ from pathlib import Path
 from uuid import uuid4
 
 import fastapi
-from fastapi import Depends, HTTPException, Request, status
+from fastapi import BackgroundTasks, Depends, HTTPException, Request, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from sqlalchemy.orm.session import Session
@@ -215,14 +215,14 @@ async def temporary_zip_path() -> AsyncGenerator[Path, None]:
         temp_path.unlink(missing_ok=True)
 
 
-async def temporary_dir() -> AsyncGenerator[Path, None]:
+async def temporary_dir(background_tasks: BackgroundTasks) -> AsyncGenerator[Path, None]:
     temp_path = app_dirs.TEMP_DIR.joinpath(uuid4().hex)
     temp_path.mkdir(exist_ok=True, parents=True)
 
     try:
         yield temp_path
     finally:
-        shutil.rmtree(temp_path)
+        background_tasks.add_task(shutil.rmtree, temp_path)
 
 
 def temporary_file(ext: str = "") -> Callable[[], Generator[tempfile._TemporaryFileWrapper, None, None]]:

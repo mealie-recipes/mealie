@@ -37,12 +37,10 @@ class ABCExporter(BaseService):
         super().__init__()
 
     @abstractproperty
-    def destination_dir(self) -> str:
-        ...
+    def destination_dir(self) -> str: ...
 
     @abstractmethod
-    def items(self) -> Iterator[ExportedItem]:
-        ...
+    def items(self) -> Iterator[ExportedItem]: ...
 
     def _post_export_hook(self, _: BaseModel) -> None:
         pass

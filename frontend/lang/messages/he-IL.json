@@ -199,7 +199,8 @@
     "upload-file": "העלאת קבצים",
     "created-on-date": "נוצר ב-{0}",
     "unsaved-changes": "יש שינויים שלא נשמרו. לצאת לפני שמירה? אשר לשמירה, בטל למחיקת שינויים.",
-    "clipboard-copy-failure": "כשלון בהעתקה ללוח ההדבקה."
+    "clipboard-copy-failure": "כשלון בהעתקה ללוח ההדבקה.",
+    "confirm-delete-generic-items": "Are you sure you want to delete the following items?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "האם את/ה בטוח/ה שברצונך למחוק את <b>{groupName}<b/>?",
@@ -258,6 +259,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "יצירת תכנית ארוחות חדשה",
+    "update-this-meal-plan": "Update this Meal Plan",
     "dinner-this-week": "ארוחות ערב השבוע",
     "dinner-today": "ארוחת ערב היום",
     "dinner-tonight": "ארוחת ערב היום",
@@ -472,9 +474,11 @@
     "add-to-timeline": "הוסף לציר הזמן",
     "recipe-added-to-list": "מתכון נוסף לרשימה",
     "recipes-added-to-list": "מתכונים הוספו לרשימה",
+    "successfully-added-to-list": "Successfully added to list",
     "recipe-added-to-mealplan": "מתכון נוסף לתכנון ארוחות",
     "failed-to-add-recipes-to-list": "כשלון בהוספת מתכון לרשימה",
     "failed-to-add-recipe-to-mealplan": "הוספת מתכון לתכנון ארוחות נכשלה",
+    "failed-to-add-to-list": "Failed to add to list",
     "yield": "תשואה",
     "quantity": "כמות",
     "choose-unit": "בחירת יחידת מידה",
@@ -533,6 +537,8 @@
     "new-recipe-names-must-be-unique": "שם מתכון חדש חייב להיות ייחודי",
     "scrape-recipe": "קריאת מתכון",
     "scrape-recipe-description": "קריאת מתכון בעזרת לינק. ספק את הלינק של האתר שברצונך לקרוא, ומילי תנסה לקרוא את המתכון מהאתר ולהוסיף אותו לאוסף.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "ייבא שמות מפתח מקוריות כתגיות",
     "stay-in-edit-mode": "השאר במצב עריכה",
     "import-from-zip": "ייבא מקובץ",
@@ -555,7 +561,8 @@
     "unit": "יחידה",
     "upload-image": "העלה תמונה",
     "screen-awake": "השאר את המסך פעיל",
-    "remove-image": "האם למחוק את התמונה?"
+    "remove-image": "האם למחוק את התמונה?",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "חיפוש מתקדם",
@@ -789,7 +796,8 @@
     "tags": "תגיות",
     "untagged-count": "לא מתוייג {count}",
     "create-a-tag": "צור תגית",
-    "tag-name": "שם תגית"
+    "tag-name": "שם תגית",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "כלים",
@@ -798,7 +806,8 @@
     "tool-name": "שם כלי",
     "create-new-tool": "יצירת כלי חדש",
     "on-hand-checkbox-label": "הראה מה יש לי במטבח",
-    "required-tools": "צריך כלים"
+    "required-tools": "צריך כלים",
+    "tool": "Tool"
   },
   "user": {
     "admin": "אדמין",
@@ -1177,6 +1186,8 @@
     "require-all-tags": "זקוק לכל התגיות",
     "require-all-tools": "זקוק לכל הכלים",
     "cookbook-name": "שם ספר בישול",
-    "cookbook-with-name": "ספר בישול {0}"
+    "cookbook-with-name": "ספר בישול {0}",
+    "create-a-cookbook": "Create a Cookbook",
+    "cookbook": "Cookbook"
   }
 }

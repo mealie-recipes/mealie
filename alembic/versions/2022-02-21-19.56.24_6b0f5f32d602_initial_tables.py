@@ -1,10 +1,11 @@
 """Initial tables
 
 Revision ID: 6b0f5f32d602
-Revises: 
+Revises:
 Create Date: 2022-02-21 19:56:24.351115
 
 """
+
 import sqlalchemy as sa
 from sqlalchemy import engine_from_config
 

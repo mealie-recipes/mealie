@@ -199,7 +199,8 @@
     "upload-file": "Įkelti failą",
     "created-on-date": "Sukurta: {0}",
     "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
-    "clipboard-copy-failure": "Failed to copy to the clipboard."
+    "clipboard-copy-failure": "Failed to copy to the clipboard.",
+    "confirm-delete-generic-items": "Are you sure you want to delete the following items?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Ar tikrai norite ištrinti <b>{groupName}<b/>?",
@@ -258,6 +259,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Sukurti naują mitybos planą",
+    "update-this-meal-plan": "Update this Meal Plan",
     "dinner-this-week": "Šios savaitės vakarienė",
     "dinner-today": "Šiandienos vakarienė",
     "dinner-tonight": "VAKARIENĖ ŠIANDIEN",
@@ -472,9 +474,11 @@
     "add-to-timeline": "Add to Timeline",
     "recipe-added-to-list": "Recepts pridėtas į sąrašą",
     "recipes-added-to-list": "Recipes added to list",
+    "successfully-added-to-list": "Successfully added to list",
     "recipe-added-to-mealplan": "Recepts pridėtas prie mitybos plano",
     "failed-to-add-recipes-to-list": "Failed to add recipe to list",
     "failed-to-add-recipe-to-mealplan": "Nepavyko pridėti recepto prie mitybos plano",
+    "failed-to-add-to-list": "Failed to add to list",
     "yield": "Išeiga",
     "quantity": "Kiekis",
     "choose-unit": "Pasirinkite vienetą",
@@ -533,6 +537,8 @@
     "new-recipe-names-must-be-unique": "Naujo recepto pavadinimas turi būti unikalus",
     "scrape-recipe": "Nuskaityti receptą",
     "scrape-recipe-description": "Nuskaityti receptą iš URL nuorodos. Pateikite recepto nuorodą, ir Mealie pabandys paimti recepto informaciją iš šios svetainės ir patalpinti ją jūsų kolekcijoje.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Įkelti pradinius raktažodžius kaip žymas",
     "stay-in-edit-mode": "Toliau redaguoti",
     "import-from-zip": "Įkelti iš .ZIP archyvo",
@@ -555,7 +561,8 @@
     "unit": "Vienetas",
     "upload-image": "Įkelti nuotrauką",
     "screen-awake": "Keep Screen Awake",
-    "remove-image": "Remove image"
+    "remove-image": "Remove image",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Išplėstinė paieška",
@@ -789,7 +796,8 @@
     "tags": "Žymos",
     "untagged-count": "Nepažymėtų {count}",
     "create-a-tag": "Kurti žymą",
-    "tag-name": "Žymos pavadinimas"
+    "tag-name": "Žymos pavadinimas",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Įrankiai",
@@ -798,7 +806,8 @@
     "tool-name": "Įrankio pavadinimas",
     "create-new-tool": "Pridėti naują įrankį",
     "on-hand-checkbox-label": "Rodyti kaip turimą virtuvėje",
-    "required-tools": "Reikalingi įrankiai"
+    "required-tools": "Reikalingi įrankiai",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administratorius",
@@ -1177,6 +1186,8 @@
     "require-all-tags": "Būtinos visos žymos",
     "require-all-tools": "Būtini visi įrankiai",
     "cookbook-name": "Receptų knygos pavadinimas",
-    "cookbook-with-name": "Receptų knyga {0}"
+    "cookbook-with-name": "Receptų knyga {0}",
+    "create-a-cookbook": "Create a Cookbook",
+    "cookbook": "Cookbook"
   }
 }

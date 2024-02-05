@@ -199,7 +199,8 @@
     "upload-file": "Вивантажити файл",
     "created-on-date": "Створено: {0}",
     "unsaved-changes": "У вас є незбережені зміни. Ви хочете зберегти їх перед виходом? Гаразд, щоб зберегти, Скасувати, щоб скасувати.",
-    "clipboard-copy-failure": "Не вдалося скопіювати до буфера обміну."
+    "clipboard-copy-failure": "Не вдалося скопіювати до буфера обміну.",
+    "confirm-delete-generic-items": "Ви впевнені, що хочете видалити вибрані елементи?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Ви дійсно бажаєте видалити <b>{groupName}<b/>?",
@@ -258,6 +259,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Створити новий план харчування",
+    "update-this-meal-plan": "Оновити цей план харчування",
     "dinner-this-week": "Обід цього тижня",
     "dinner-today": "Обід сьогодні",
     "dinner-tonight": "Вечеря сьогодні",
@@ -472,9 +474,11 @@
     "add-to-timeline": "Додати до хроніки",
     "recipe-added-to-list": "Рецепт додано до списку",
     "recipes-added-to-list": "Рецепти додані до списку",
+    "successfully-added-to-list": "Успішно додано до списку",
     "recipe-added-to-mealplan": "Рецепт додано до плану харчування",
     "failed-to-add-recipes-to-list": "Не вдалося додати рецепт до списку",
     "failed-to-add-recipe-to-mealplan": "Не вдалося додати рецепт до плану харчування",
+    "failed-to-add-to-list": "Не вдалося додати до списку",
     "yield": "Вихід",
     "quantity": "Кількість",
     "choose-unit": "Виберіть одиниці вимірювання",
@@ -533,6 +537,8 @@
     "new-recipe-names-must-be-unique": "Назви нового рецепту має бути унікальна",
     "scrape-recipe": "Розпізнати рецепт",
     "scrape-recipe-description": "Розпізнати рецепт за посиланням. Вкажіть посилання на рецепт який ви хочете розпізнати й Mealie спробує розпізнати його і додати в вашу колекцію.",
+    "scrape-recipe-have-a-lot-of-recipes": "Багато рецептів, які ви хочете розпізнати відразу?",
+    "scrape-recipe-suggest-bulk-importer": "Спробуйте масовий розпізнавач",
     "import-original-keywords-as-tags": "Імпортувати оригінальні ключові слова як теги",
     "stay-in-edit-mode": "Залишитися в режимі редактора",
     "import-from-zip": "Імпортувати з Zip",
@@ -555,7 +561,8 @@
     "unit": "Одиниця виміру",
     "upload-image": "Вивантажити зображення",
     "screen-awake": "Тримати екран активним",
-    "remove-image": "Видалити зображення"
+    "remove-image": "Видалити зображення",
+    "nextStep": "Наступний крок"
   },
   "search": {
     "advanced-search": "Розширений пошук",
@@ -789,7 +796,8 @@
     "tags": "Мітки",
     "untagged-count": "Без мітки {count}",
     "create-a-tag": "Створити тег",
-    "tag-name": "Назва тегу"
+    "tag-name": "Назва тегу",
+    "tag": "Мітка"
   },
   "tool": {
     "tools": "Інструменти",
@@ -798,7 +806,8 @@
     "tool-name": "Назва інструмента",
     "create-new-tool": "Створити новий інструмент",
     "on-hand-checkbox-label": "Показувати як в наявності (позначено)",
-    "required-tools": "Необхідні інструменти"
+    "required-tools": "Необхідні інструменти",
+    "tool": "Інструмент"
   },
   "user": {
     "admin": "Адміністратор",
@@ -1177,6 +1186,8 @@
     "require-all-tags": "Вимагати всі мітки",
     "require-all-tools": "Вимагати всі інструменти",
     "cookbook-name": "Назва кулінарної книги",
-    "cookbook-with-name": "Кулінарна книга {0}"
+    "cookbook-with-name": "Кулінарна книга {0}",
+    "create-a-cookbook": "Створити кулінарну книгу",
+    "cookbook": "Кулінарна книга"
   }
 }

@@ -199,7 +199,8 @@
     "upload-file": "上传文件",
     "created-on-date": "创建于: {0}",
     "unsaved-changes": "你有未保存的更改。你希望现在离开前保存吗？保存选择“是”，不保存选择“取消”。",
-    "clipboard-copy-failure": "未能复制到剪切板。"
+    "clipboard-copy-failure": "未能复制到剪切板。",
+    "confirm-delete-generic-items": "Are you sure you want to delete the following items?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "您确定要删除<b>{groupName}<b/>吗？",
@@ -258,6 +259,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "新建饮食计划",
+    "update-this-meal-plan": "更新该饮食计划",
     "dinner-this-week": "本周晚餐",
     "dinner-today": "今日晚餐",
     "dinner-tonight": "今晚食谱",
@@ -472,9 +474,11 @@
     "add-to-timeline": "添加到时间轴",
     "recipe-added-to-list": "食谱已被添加到购物清单",
     "recipes-added-to-list": "食谱已被添加到购物清单",
+    "successfully-added-to-list": "Successfully added to list",
     "recipe-added-to-mealplan": "已添加该食谱到饮食计划",
     "failed-to-add-recipes-to-list": "食谱未能添加到购物清单",
     "failed-to-add-recipe-to-mealplan": "添加食谱到饮食计划失败",
+    "failed-to-add-to-list": "Failed to add to list",
     "yield": "菜量（几人份）",
     "quantity": "数量",
     "choose-unit": "选择单位",
@@ -533,6 +537,8 @@
     "new-recipe-names-must-be-unique": "新食谱名必须唯一",
     "scrape-recipe": "刮削食谱",
     "scrape-recipe-description": "通过URL刮削食谱。提供你想要刮削网址的URL，Mealie会尝试从该网址刮削食谱并添加到你的收藏中。",
+    "scrape-recipe-have-a-lot-of-recipes": "你想要一次刮削多个食谱吗？",
+    "scrape-recipe-suggest-bulk-importer": "试试批量导入器",
     "import-original-keywords-as-tags": "导入原始关键字作为标签",
     "stay-in-edit-mode": "留在编辑模式",
     "import-from-zip": "从Zip压缩包导入",
@@ -555,7 +561,8 @@
     "unit": "单位",
     "upload-image": "上传图片",
     "screen-awake": "保持屏幕唤醒",
-    "remove-image": "删除图片"
+    "remove-image": "删除图片",
+    "nextStep": "下一步"
   },
   "search": {
     "advanced-search": "高级搜索",
@@ -789,7 +796,8 @@
     "tags": "标签",
     "untagged-count": "无标签的共 {count} 个",
     "create-a-tag": "创建标签",
-    "tag-name": "标签名称"
+    "tag-name": "标签名称",
+    "tag": "标签"
   },
   "tool": {
     "tools": "用具",
@@ -798,7 +806,8 @@
     "tool-name": "用具名称",
     "create-new-tool": "新建用具",
     "on-hand-checkbox-label": "显示为在手上(选中)",
-    "required-tools": "所需用具"
+    "required-tools": "所需用具",
+    "tool": "用具"
   },
   "user": {
     "admin": "管理员",
@@ -1177,6 +1186,8 @@
     "require-all-tags": "包含全部标签",
     "require-all-tools": "包含全部工具",
     "cookbook-name": "食谱名称",
-    "cookbook-with-name": "{0}合集"
+    "cookbook-with-name": "{0}合集",
+    "create-a-cookbook": "Create a Cookbook",
+    "cookbook": "Cookbook"
   }
 }

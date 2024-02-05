@@ -9,8 +9,7 @@ from mealie.services.backups_v2.alchemy_exporter import AlchemyExporter
 from mealie.services.backups_v2.backup_file import BackupFile
 
 
-class BackupSchemaMismatch(Exception):
-    ...
+class BackupSchemaMismatch(Exception): ...
 
 
 class BackupV2(BaseService):
@@ -69,7 +68,7 @@ class BackupV2(BaseService):
             shutil.copytree(f, self.directories.DATA_DIR / f.name)
 
     def restore(self, backup_path: Path) -> None:
-        self.logger.info("initially backup restore")
+        self.logger.info("initializing backup restore")
 
         backup = BackupFile(backup_path)
 

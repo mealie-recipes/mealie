@@ -199,7 +199,8 @@
     "upload-file": "Laai dokument op",
     "created-on-date": "Geskep op: {0}",
     "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
-    "clipboard-copy-failure": "Failed to copy to the clipboard."
+    "clipboard-copy-failure": "Failed to copy to the clipboard.",
+    "confirm-delete-generic-items": "Are you sure you want to delete the following items?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Is jy seker jy wil <b>{groupName}<b/> uitvee?",
@@ -258,6 +259,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Skep 'n nuwe maaltydplan",
+    "update-this-meal-plan": "Update this Meal Plan",
     "dinner-this-week": "Aandete hierdie week",
     "dinner-today": "Vandag se Aandete",
     "dinner-tonight": "VANAAND SE AANDETE",
@@ -472,9 +474,11 @@
     "add-to-timeline": "Voeg by tydlyn",
     "recipe-added-to-list": "Resep by lys gevoeg",
     "recipes-added-to-list": "Recipes added to list",
+    "successfully-added-to-list": "Successfully added to list",
     "recipe-added-to-mealplan": "Resep is by die maaltydplan gevoeg",
     "failed-to-add-recipes-to-list": "Failed to add recipe to list",
     "failed-to-add-recipe-to-mealplan": "Kon nie resep by maaltydplan voeg nie",
+    "failed-to-add-to-list": "Failed to add to list",
     "yield": "Resultaat",
     "quantity": "Hoeveelheid",
     "choose-unit": "Kies 'n eenheid",
@@ -533,6 +537,8 @@
     "new-recipe-names-must-be-unique": "Nuwe resepname moet uniek wees",
     "scrape-recipe": "Skraap resep",
     "scrape-recipe-description": "Voeg 'n resep by via 'n url. Voer die url van die webwerf in wat jy vir 'n resep wil skandeer, Mealie sal probeer om die resep vanaf daardie plek te skandeer en by jou versameling te voeg.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Voer oorspronklike sleutelwoorde as merkers in",
     "stay-in-edit-mode": "Bly in redigeer modus",
     "import-from-zip": "Voer vanaf zip in",
@@ -555,7 +561,8 @@
     "unit": "Eenheid",
     "upload-image": "Laai prent",
     "screen-awake": "Hou die skerm aan",
-    "remove-image": "Verwyder prent"
+    "remove-image": "Verwyder prent",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Gevorderde soek",
@@ -789,7 +796,8 @@
     "tags": "Merkers",
     "untagged-count": "Nie gemerk {count}",
     "create-a-tag": "Skep 'n merker",
-    "tag-name": "Merker naam"
+    "tag-name": "Merker naam",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Kookgerei",
@@ -798,7 +806,8 @@
     "tool-name": "Naam van die kookgerei",
     "create-new-tool": "Skep nuwe kookgerei",
     "on-hand-checkbox-label": "Wys as in besit (gemerk)",
-    "required-tools": "Vereiste kookgerei"
+    "required-tools": "Vereiste kookgerei",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administrateur",
@@ -1177,6 +1186,8 @@
     "require-all-tags": "Vereis alle merkers",
     "require-all-tools": "Vereis alle kookgerei",
     "cookbook-name": "Naam van die kookboek",
-    "cookbook-with-name": "Kookboek {0}"
+    "cookbook-with-name": "Kookboek {0}",
+    "create-a-cookbook": "Create a Cookbook",
+    "cookbook": "Cookbook"
   }
 }

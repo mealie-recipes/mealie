@@ -199,7 +199,8 @@
     "upload-file": "تحميل الملف",
     "created-on-date": "تم الإنشاء في {0}",
     "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
-    "clipboard-copy-failure": "Failed to copy to the clipboard."
+    "clipboard-copy-failure": "Failed to copy to the clipboard.",
+    "confirm-delete-generic-items": "Are you sure you want to delete the following items?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "هل انت متأكد من رغبتك في حذف <b>{groupName}<b/>؟",
@@ -258,6 +259,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "إنشاء خطة وجبة جديدة",
+    "update-this-meal-plan": "Update this Meal Plan",
     "dinner-this-week": "العشاء لهذا الأسبوع",
     "dinner-today": "العشاء اليوم",
     "dinner-tonight": "العشاء الليلة",
@@ -472,9 +474,11 @@
     "add-to-timeline": "Add to Timeline",
     "recipe-added-to-list": "Recipe added to list",
     "recipes-added-to-list": "Recipes added to list",
+    "successfully-added-to-list": "Successfully added to list",
     "recipe-added-to-mealplan": "Recipe added to mealplan",
     "failed-to-add-recipes-to-list": "Failed to add recipe to list",
     "failed-to-add-recipe-to-mealplan": "Failed to add recipe to mealplan",
+    "failed-to-add-to-list": "Failed to add to list",
     "yield": "Yield",
     "quantity": "Quantity",
     "choose-unit": "Choose Unit",
@@ -533,6 +537,8 @@
     "new-recipe-names-must-be-unique": "New recipe names must be unique",
     "scrape-recipe": "Scrape Recipe",
     "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Import original keywords as tags",
     "stay-in-edit-mode": "Stay in Edit mode",
     "import-from-zip": "Import from Zip",
@@ -555,7 +561,8 @@
     "unit": "Unit",
     "upload-image": "Upload image",
     "screen-awake": "Keep Screen Awake",
-    "remove-image": "Remove image"
+    "remove-image": "Remove image",
+    "nextStep": "Next step"
   },
   "search": {
     "advanced-search": "Advanced Search",
@@ -789,7 +796,8 @@
     "tags": "Tags",
     "untagged-count": "Untagged {count}",
     "create-a-tag": "Create a Tag",
-    "tag-name": "Tag Name"
+    "tag-name": "Tag Name",
+    "tag": "Tag"
   },
   "tool": {
     "tools": "Tools",
@@ -798,7 +806,8 @@
     "tool-name": "Tool Name",
     "create-new-tool": "Create New Tool",
     "on-hand-checkbox-label": "Show as On Hand (Checked)",
-    "required-tools": "Required Tools"
+    "required-tools": "Required Tools",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Admin",
@@ -1177,6 +1186,8 @@
     "require-all-tags": "Require All Tags",
     "require-all-tools": "Require All Tools",
     "cookbook-name": "Cookbook Name",
-    "cookbook-with-name": "Cookbook {0}"
+    "cookbook-with-name": "Cookbook {0}",
+    "create-a-cookbook": "Create a Cookbook",
+    "cookbook": "Cookbook"
   }
 }

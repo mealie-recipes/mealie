@@ -34,7 +34,7 @@ import { SidebarLinks } from "~/types/application-types";
 
 export default defineComponent({
   components: { AppHeader, AppSidebar, TheSnackbar },
-  middleware: "auth",
+  middleware: ["auth", "admin-only"],
   auth: true,
   setup() {
     const { $globals, i18n, $vuetify } = useContext();

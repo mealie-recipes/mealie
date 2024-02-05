@@ -22,7 +22,7 @@
     "support": "Podpora",
     "version": "Verzija",
     "unknown-version": "neznano",
-    "sponsor": "Sponsor"
+    "sponsor": "Sponzor"
   },
   "asset": {
     "assets": "Viri",
@@ -53,9 +53,9 @@
     "apprise-url": "Apprise URL",
     "database": "Baza podatkov",
     "delete-event": "Zbriši dogodek",
-    "event-delete-confirmation": "Are you sure you want to delete this event?",
-    "event-deleted": "Event Deleted",
-    "event-updated": "Event Updated",
+    "event-delete-confirmation": "Ali ste prepričani, da želite izbrisati ta dogodek?",
+    "event-deleted": "Dogodek izbrisan",
+    "event-updated": "Dogodek posodobljen",
     "new-notification-form-description": "Mealie uporablja Apprise knjižnico za kreiranje obvestil. Omogoča več različnih servisov za uporabo obvestil. Preglejte njihovo wiki stran, za bolj natančen vodič, kako izdelati URL za vaš servis. Če je na voljo, so za vaš izbran servis obvestil, na voljo tudi dodane možnosti.",
     "new-version": "Na voljo je nova verzija!",
     "notification": "Obvestila",
@@ -64,7 +64,7 @@
     "something-went-wrong": "Nekaj je šlo narobe!",
     "subscribed-events": "Naročeni dogodki",
     "test-message-sent": "Testno sporočilo je bilo poslano",
-    "new-notification": "New Notification",
+    "new-notification": "Novo obvestilo",
     "event-notifiers": "Event Notifiers",
     "apprise-url-skipped-if-blank": "Apprise URL (skipped if blank)",
     "enable-notifier": "Enable Notifier",
@@ -114,12 +114,12 @@
     "json": "JSON",
     "keyword": "Ključna beseda",
     "link-copied": "Povezava kopirana",
-    "loading": "Loading",
+    "loading": "Nalaganje",
     "loading-events": "Loading Events",
-    "loading-recipe": "Loading recipe...",
+    "loading-recipe": "Nalagam recepte...",
     "loading-ocr-data": "Loading OCR data...",
     "loading-recipes": "Nalagam recepte",
-    "message": "Message",
+    "message": "Sporočilo",
     "monday": "Ponedeljek",
     "name": "Ime",
     "new": "Novo",
@@ -146,7 +146,7 @@
     "sort": "Razvrsti",
     "sort-alphabetically": "Po abecedi",
     "status": "Stanje",
-    "subject": "Subject",
+    "subject": "Zadeva",
     "submit": "Pošlji",
     "success-count": "Uspešno: {count}",
     "sunday": "Nedelja",
@@ -186,20 +186,21 @@
     "color": "Barva",
     "timestamp": "Časovni žig",
     "last-made": "Last Made",
-    "learn-more": "Learn More",
+    "learn-more": "Več o tem",
     "this-feature-is-currently-inactive": "This feature is currently inactive",
     "clipboard-not-supported": "Clipboard not supported",
-    "copied-to-clipboard": "Copied to clipboard",
+    "copied-to-clipboard": "Kopiraj v odložišče",
     "your-browser-does-not-support-clipboard": "Your browser does not support clipboard",
     "copied-items-to-clipboard": "No item copied to clipboard|One item copied to clipboard|Copied {count} items to clipboard",
     "actions": "Actions",
     "selected-count": "Selected: {count}",
-    "export-all": "Export All",
-    "refresh": "Refresh",
-    "upload-file": "Upload File",
+    "export-all": "Izvozi vse",
+    "refresh": "Osveži",
+    "upload-file": "Naloži datoteko",
     "created-on-date": "Created on: {0}",
     "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
-    "clipboard-copy-failure": "Failed to copy to the clipboard."
+    "clipboard-copy-failure": "Failed to copy to the clipboard.",
+    "confirm-delete-generic-items": "Are you sure you want to delete the following items?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Ste prepričani, da želite izbrisati <b>{groupName}<b/>?",
@@ -225,15 +226,15 @@
       "keep-my-recipes-private": "Moji recepti naj bodo privatni",
       "keep-my-recipes-private-description": "Nastavi vaše skupine in vse recepte privzeto kot privatni. Kasneje lahko to vedno spremenite."
     },
-    "manage-members": "Manage Members",
+    "manage-members": "Urejanje članov",
     "manage-members-description": "Manage the permissions of the members in your groups. {manage} allows the user to access the data-management page {invite} allows the user to generate invitation links for other users. Group owners cannot change their own permissions.",
     "manage": "Manage",
-    "invite": "Invite",
+    "invite": "Povabi",
     "looking-to-update-your-profile": "Looking to Update Your Profile?",
     "default-recipe-preferences-description": "These are the default settings when a new recipe is created in your group. These can be changed for individual recipes in the recipe settings menu.",
     "default-recipe-preferences": "Default Recipe Preferences",
     "group-preferences": "Group Preferences",
-    "private-group": "Private Group",
+    "private-group": "Zasebna skupina",
     "private-group-description": "Setting your group to private will default all public view options to default. This overrides an individual recipes public view settings.",
     "allow-users-outside-of-your-group-to-see-your-recipes": "Allow users outside of your group to see your recipes",
     "allow-users-outside-of-your-group-to-see-your-recipes-description": "When enabled you can use a public share link to share specific recipes without authorizing the user. When disabled, you can only share recipes with users who are in your group or with a pre-generated private link",
@@ -249,7 +250,7 @@
     "disable-organizing-recipe-ingredients-by-units-and-food-description": "Hides the Food, Unit, and Amount fields for ingredients and treats ingredients as plain text fields.",
     "general-preferences": "General Preferences",
     "group-recipe-preferences": "Group Recipe Preferences",
-    "report": "Report",
+    "report": "Prijavi",
     "report-with-id": "Report ID: {id}",
     "group-management": "Group Management",
     "admin-group-management": "Admin Group Management",
@@ -258,6 +259,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Izdelaj nov načrt obrokov",
+    "update-this-meal-plan": "Update this Meal Plan",
     "dinner-this-week": "Večerje tega tedna",
     "dinner-today": "Današnja večerja",
     "dinner-tonight": "DANAŠNJA VEČERJA",
@@ -406,7 +408,7 @@
     "carbohydrate-content": "Ogljikovi hidrati",
     "categories": "Kategorije",
     "comment-action": "Pripomba",
-    "comment": "Comment",
+    "comment": "Komentar",
     "comments": "Pripombe",
     "delete-confirmation": "Ali želite izbrisati ta recept?",
     "delete-recipe": "Izbriši recept",
@@ -471,10 +473,12 @@
     "add-to-plan": "Dodaj v načrt",
     "add-to-timeline": "Add to Timeline",
     "recipe-added-to-list": "Recept dodan na seznam",
-    "recipes-added-to-list": "Recipes added to list",
+    "recipes-added-to-list": "Recepti dodani na seznam",
+    "successfully-added-to-list": "Uspešno dodano na seznam",
     "recipe-added-to-mealplan": "Recept dodan v načrtovanje obroka",
     "failed-to-add-recipes-to-list": "Failed to add recipe to list",
     "failed-to-add-recipe-to-mealplan": "Napaka pri dodajanji recepta v načrtovanje obroka",
+    "failed-to-add-to-list": "Failed to add to list",
     "yield": "Donos",
     "quantity": "Količina",
     "choose-unit": "Izberite enoto",
@@ -497,18 +501,18 @@
     "public-link": "Javna povezava",
     "timer": {
       "kitchen-timer": "Kitchen Timer",
-      "start-timer": "Start Timer",
-      "pause-timer": "Pause Timer",
-      "resume-timer": "Resume Timer",
-      "stop-timer": "Stop Timer"
+      "start-timer": "Zaženi časovnik",
+      "pause-timer": "Ustavi časovnik",
+      "resume-timer": "Nadaljuj časovnik",
+      "stop-timer": "Ustavi časovnik"
     },
     "edit-timeline-event": "Edit Timeline Event",
-    "timeline": "Timeline",
+    "timeline": "Časovnica",
     "timeline-is-empty": "Nothing on the timeline yet. Try making this recipe!",
     "group-global-timeline": "{groupName} Global Timeline",
     "open-timeline": "Open Timeline",
-    "made-this": "I Made This",
-    "how-did-it-turn-out": "How did it turn out?",
+    "made-this": "Naredil sem to",
+    "how-did-it-turn-out": "Kako se je izkazalo?",
     "user-made-this": "{user} made this",
     "last-made-date": "Last Made {date}",
     "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
@@ -533,6 +537,8 @@
     "new-recipe-names-must-be-unique": "New recipe names must be unique",
     "scrape-recipe": "Scrape Recipe",
     "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Import original keywords as tags",
     "stay-in-edit-mode": "Stay in Edit mode",
     "import-from-zip": "Import from Zip",
@@ -552,10 +558,11 @@
     "debug": "Debug",
     "tree-view": "Tree View",
     "recipe-yield": "Recipe Yield",
-    "unit": "Unit",
-    "upload-image": "Upload image",
-    "screen-awake": "Keep Screen Awake",
-    "remove-image": "Remove image"
+    "unit": "Enota",
+    "upload-image": "Naloži sliko",
+    "screen-awake": "Ohranjanje budnega zaslona",
+    "remove-image": "Odstrani sliko",
+    "nextStep": "Naslednji korak"
   },
   "search": {
     "advanced-search": "Napredno iskanje",
@@ -706,7 +713,7 @@
     "general-about": "General About",
     "application-version": "Application Version",
     "application-version-error-text": "Your current version ({0}) does not match the latest release. Considering updating to the latest version ({1}).",
-    "mealie-is-up-to-date": "Mealie is up to date",
+    "mealie-is-up-to-date": "Mealie je v najnovejši različici",
     "secure-site": "Secure Site",
     "secure-site-error-text": "Serve via localhost or secure with https. Clipboard and additional browser APIs may not work.",
     "secure-site-success-text": "Site is accessed by localhost or https",
@@ -789,7 +796,8 @@
     "tags": "Značke",
     "untagged-count": "Brez značke {count}",
     "create-a-tag": "Ustvari značko",
-    "tag-name": "Ime značke"
+    "tag-name": "Ime značke",
+    "tag": "Oznaka"
   },
   "tool": {
     "tools": "Orodja",
@@ -798,7 +806,8 @@
     "tool-name": "Ime orodja",
     "create-new-tool": "Ustvari orodje",
     "on-hand-checkbox-label": "Prikaži kot Na voljo (obkljukano)",
-    "required-tools": "Required Tools"
+    "required-tools": "Required Tools",
+    "tool": "Tool"
   },
   "user": {
     "admin": "Administrator",
@@ -869,10 +878,10 @@
     "account-locked-please-try-again-later": "Account Locked. Please try again later",
     "user-favorites": "User Favorites",
     "password-strength-values": {
-      "weak": "Weak",
-      "good": "Good",
-      "strong": "Strong",
-      "very-strong": "Very Strong"
+      "weak": "Šibko",
+      "good": "Dobro",
+      "strong": "Močno",
+      "very-strong": "Zelo močno"
     },
     "user-management": "User Management",
     "reset-locked-users": "Reset Locked Users",
@@ -890,7 +899,7 @@
     "enable-advanced-features": "Enable advanced features",
     "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
-    "forgot-password": "Forgot Password",
+    "forgot-password": "Ste pozabili geslo",
     "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
     "changes-reflected-immediately": "Changes to this user will be reflected immediately."
   },
@@ -912,10 +921,10 @@
       "target-food": "Target Food",
       "create-food": "Create Food",
       "food-label": "Food Label",
-      "edit-food": "Edit Food",
+      "edit-food": "Spremeni živilo",
       "food-data": "Food Data",
-      "example-food-singular": "ex: Onion",
-      "example-food-plural": "ex: Onions"
+      "example-food-singular": "npr: Čebula",
+      "example-food-plural": "npr: Čebule"
     },
     "units": {
       "seed-dialog-text": "Napolni podatkovno bazo z običajnimi enotami, glede na vaš lokalni jezik.",
@@ -973,12 +982,12 @@
     "data-management": "Data Management",
     "data-management-description": "Select which data set you want to make changes to.",
     "select-data": "Select Data",
-    "select-language": "Select Language",
+    "select-language": "Izberite jezik",
     "columns": "Columns",
     "combine": "Combine",
     "categories": {
-      "edit-category": "Edit Category",
-      "new-category": "New Category",
+      "edit-category": "Uredi kategorijo",
+      "new-category": "Nova kategorija",
       "category-data": "Category Data"
     },
     "tags": {
@@ -1123,7 +1132,7 @@
     "tasks": "Tasks"
   },
   "profile": {
-    "welcome-user": "👋 Welcome, {0}",
+    "welcome-user": "👋 Dobrodošel, {0}",
     "description": "Manage your profile, recipes, and group settings.",
     "get-invite-link": "Get Invite Link",
     "get-public-link": "Get Public Link",
@@ -1142,7 +1151,7 @@
     "group-settings": "Group Settings",
     "group-settings-description": "Manage your common group settings like mealplan and privacy settings.",
     "cookbooks-description": "Manage a collection of recipe categories and generate pages for them.",
-    "members": "Members",
+    "members": "Člani",
     "members-description": "See who's in your group and manage their permissions.",
     "webhooks-description": "Setup webhooks that trigger on days that you have have mealplan scheduled.",
     "notifiers": "Notifiers",
@@ -1167,9 +1176,9 @@
     "manage-data-migrations": "Manage Data Migrations"
   },
   "cookbook": {
-    "cookbooks": "Cookbooks",
+    "cookbooks": "Kuharske knjige",
     "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes and tags. Creating a cookbook will add an entry to the side-bar and all the recipes with the tags and categories chosen will be displayed in the cookbook.",
-    "public-cookbook": "Public Cookbook",
+    "public-cookbook": "Javna kuharska knjiga",
     "public-cookbook-description": "Public Cookbooks can be shared with non-mealie users and will be displayed on your groups page.",
     "filter-options": "Filter Options",
     "filter-options-description": "When require all is selected the cookbook will only include recipes that have all of the items selected. This applies to each subset of selectors and not a cross section of the selected items.",
@@ -1177,6 +1186,8 @@
     "require-all-tags": "Require All Tags",
     "require-all-tools": "Require All Tools",
     "cookbook-name": "Cookbook Name",
-    "cookbook-with-name": "Cookbook {0}"
+    "cookbook-with-name": "Cookbook {0}",
+    "create-a-cookbook": "Create a Cookbook",
+    "cookbook": "Cookbook"
   }
 }

@@ -16,7 +16,7 @@ export default {
         hid: "og:image",
         property: "og:image",
         content:
-          "https://raw.githubusercontent.com/hay-kot/mealie/dev/frontend/public/img/icons/android-chrome-512x512.png",
+          "https://raw.githubusercontent.com/mealie-recipes/mealie/9571816ac4eed5beacfc0abf6c03eff1427fd0eb/frontend/static/icons/android-chrome-512x512.png",
       },
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
@@ -195,6 +195,7 @@ export default {
       { code: "fr-FR", file: "fr-FR.json" },
       { code: "zh-TW", file: "zh-TW.json" },
       { code: "af-ZA", file: "af-ZA.json" },
+      { code: "is-IS", file: "is-IS.json" },
       { code: "sl-SI", file: "sl-SI.json" },
       { code: "ru-RU", file: "ru-RU.json" },
       { code: "he-IL", file: "he-IL.json" },
