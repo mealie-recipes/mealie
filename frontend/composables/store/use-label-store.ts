@@ -33,11 +33,11 @@ export function useLabelStore() {
   const actions = {
     ...useStoreActions<MultiPurposeLabelOut>(api.multiPurposeLabels, labelStore, loading),
     flushStore() {
-      labelStore.value =[];
+      labelStore.value = [];
     },
   };
 
-  if (!labelStore.value) {
+  if (!labelStore.value || labelStore.value?.length === 0) {
     labelStore = actions.getAll();
   }
 
