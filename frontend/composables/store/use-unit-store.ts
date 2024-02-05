@@ -44,7 +44,7 @@ export const useUnitStore = function () {
     },
   };
 
-  if (!unitStore.value) {
+  if (!unitStore.value || unitStore.value.length === 0) {
     unitStore = actions.getAll();
   }
 
