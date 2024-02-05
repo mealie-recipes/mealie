@@ -9,7 +9,6 @@ export function useNavigationWarning() {
  * or closing the tab.
  */
 const activateNavigationWarning = () => {
-    console.log("ACTIVATE");
     window.onbeforeunload = () => true;
 }
 
@@ -17,6 +16,5 @@ const activateNavigationWarning = () => {
  * Disables the warning when navigating to a page
  */
 const deactivateNavigationWarning = () => {
-    console.log("deACTIVATE");
     window.onbeforeunload = null;
 }
