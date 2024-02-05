@@ -664,6 +664,11 @@ export default defineComponent({
         return;
       }
 
+      if (!createListItemData.value.foodId && !createListItemData.value.note) {
+        // don't create an empty item
+        return;
+      }
+
       loadingCounter.value += 1;
 
       // make sure it's inserted into the end of the list, which may have been updated
