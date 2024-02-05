@@ -53,7 +53,7 @@
     "apprise-url": "Apprise URL",
     "database": "Database",
     "delete-event": "Gebeurtenis verwijderen",
-    "event-delete-confirmation": "Weet je zeker dat je deze gebeurtenis wil verwijderen?",
+    "event-delete-confirmation": "Weet je zeker dat je deze gebeurtenis wilt verwijderen?",
     "event-deleted": "Gebeurtenis verwijderd",
     "event-updated": "Gebeurtenis bijgewerkt",
     "new-notification-form-description": "Mealie gebruikt de notificatieservices van Apprise om notificaties te genereren. Apprise biedt diverse services aan om notificaties te versturen. Raadpleeg hun wiki voor een uitgebreide handleiding over het creëren van een link voor je service. Afhankelijk van de gekozen service zijn er mogelijk extra functionaliteiten beschikbaar.",
@@ -84,7 +84,7 @@
     "clear": "Wissen",
     "close": "Sluiten",
     "confirm": "Bevestigen",
-    "confirm-delete-generic": "Weet je zeker dat je dit wil verwijderen?",
+    "confirm-delete-generic": "Weet je zeker dat je dit wilt verwijderen?",
     "copied_message": "Gekopieerd!",
     "create": "Aanmaken",
     "created": "Aangemaakt op",
@@ -199,7 +199,8 @@
     "upload-file": "Bestand uploaden",
     "created-on-date": "Gemaakt op {0}",
     "unsaved-changes": "Er zijn niet-opgeslagen wijzigingen. Wil je eerst opslaan voordat je vertrekt? Okay om op te slaan, Annuleren om wijzigingen ongedaan te maken.",
-    "clipboard-copy-failure": "Kopiëren naar klembord mislukt."
+    "clipboard-copy-failure": "Kopiëren naar klembord mislukt.",
+    "confirm-delete-generic-items": "Are you sure you want to delete the following items?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Weet je zeker dat je <b>{groupName}<b/> wil verwijderen?",
@@ -559,7 +560,7 @@
     "recipe-yield": "Recept Opbrengst",
     "unit": "Eenheid",
     "upload-image": "Afbeelding uploaden",
-    "screen-awake": "Scherm laten aan staan",
+    "screen-awake": "Scherm aan laten staan",
     "remove-image": "Afbeelding verwijderen",
     "nextStep": "Volgende stap"
   },
@@ -736,7 +737,7 @@
     "shopping-lists": "Boodschappenlijsten",
     "food": "Voedsel",
     "note": "Notitie",
-    "label": "Etiket",
+    "label": "Label",
     "linked-item-warning": "Dit element is gekoppeld aan een of meer recepten. Het aanpassen van de eenheden of ingrediënten zal onverwachte resultaten opleveren bij het toevoegen of verwijderen van het recept uit deze lijst.",
     "toggle-food": "Voedsel schakelen",
     "manage-labels": "Labels beheren",
@@ -746,10 +747,10 @@
     "delete-checked": "Selectie verwijderen",
     "toggle-label-sort": "Label sortering in-/uitschakelen",
     "reorder-labels": "Labels opnieuw indelen",
-    "uncheck-all-items": "Deselecteer alle Items",
-    "check-all-items": "Alle producten controleren",
+    "uncheck-all-items": "Deselecteer alle items",
+    "check-all-items": "Selecteer alle items",
     "linked-recipes-count": "Geen Gelinkte Recepten Eén Gekoppeld Recept{count} Gekoppelde Recepten",
-    "items-checked-count": "Geen items aangevinkt, Eén item gecontroleerd{count} items gecontroleerd",
+    "items-checked-count": "Geen items geselecteerd|Eén item geselecteerd|{count} items geselecteerd",
     "no-label": "Geen label",
     "completed-on": "Afgemaakt op {date}"
   },
@@ -1185,6 +1186,8 @@
     "require-all-tags": "Vereis alle tags",
     "require-all-tools": "Vereis al het kookgerei",
     "cookbook-name": "Naam van het kookboek",
-    "cookbook-with-name": "Kookboek {0}"
+    "cookbook-with-name": "Kookboek {0}",
+    "create-a-cookbook": "Maak een kookboek",
+    "cookbook": "Kookboek"
   }
 }

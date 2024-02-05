@@ -12,7 +12,7 @@
         "user-updated": "Gebruiker bijgewerkt",
         "password-updated": "Wachtwoord bijgewerkt",
         "invalid-current-password": "Ongeldig huidig wachtwoord",
-        "ldap-update-password-unavailable": "Kan het wachtwoord niet bijwerken. De gebruiker wordt beheerd door LDAP."
+        "ldap-update-password-unavailable": "Kan het wachtwoord niet bijwerken, de gebruiker wordt beheerd door LDAP"
     },
     "group": {
         "report-deleted": "Rapport verwijderd."
@@ -20,7 +20,7 @@
     "exceptions": {
         "permission_denied": "Je hebt geen toestemming om deze actie uit te voeren",
         "no-entry-found": "Het opgevraagde is niet gevonden",
-        "integrity-error": "Integriteitsprobleem voor database",
+        "integrity-error": "Database integriteitsfout",
         "username-conflict-error": "Deze gebruikersnaam is al in gebruik",
         "email-conflict-error": "Dit e-mailadres is al in gebruik"
     },
