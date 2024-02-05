@@ -675,7 +675,6 @@ export default defineComponent({
 
       if (data) {
         createListItemData.value = ingredientResetFactory();
-        createEditorOpen.value = false;
         refresh();
       }
     }

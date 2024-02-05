@@ -25,6 +25,7 @@
             :label="$t('shopping-list.note')"
             rows="1"
             auto-grow
+            @keypress="handleNoteKeyPress"
           ></v-textarea>
         </div>
         <div class="d-flex align-end" style="gap: 20px">
@@ -132,5 +133,14 @@ export default defineComponent({
       listItem,
     };
   },
+  methods: {
+    handleNoteKeyPress(event) {
+      // Save on Enter
+      if (!event.shiftKey && event.key === "Enter") {
+        event.preventDefault();
+        this.$emit("save");
+      }
+    },
+  }
 });
 </script>
