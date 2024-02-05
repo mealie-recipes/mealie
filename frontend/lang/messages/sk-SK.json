@@ -199,7 +199,8 @@
     "upload-file": "Nahrať súbor",
     "created-on-date": "Vytvorené: {0}",
     "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
-    "clipboard-copy-failure": "Failed to copy to the clipboard."
+    "clipboard-copy-failure": "Failed to copy to the clipboard.",
+    "confirm-delete-generic-items": "Are you sure you want to delete the following items?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Naozaj chcete odstrániť <b>{groupName}<b/>?",
@@ -1185,6 +1186,8 @@
     "require-all-tags": "Vyžadovať všetky štítky",
     "require-all-tools": "Vyžadovať všetky nástroje",
     "cookbook-name": "Názov kuchárky",
-    "cookbook-with-name": "Kuchárka {0}"
+    "cookbook-with-name": "Kuchárka {0}",
+    "create-a-cookbook": "Create a Cookbook",
+    "cookbook": "Cookbook"
   }
 }

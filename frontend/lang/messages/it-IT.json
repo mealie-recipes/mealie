@@ -199,7 +199,8 @@
     "upload-file": "Carica file",
     "created-on-date": "Creato il: {0}",
     "unsaved-changes": "Sono state apportate modifiche non salvate. Salvare prima di uscire? Premi Ok per salvare, Annulla per scartare le modifiche.",
-    "clipboard-copy-failure": "Impossibile copiare negli appunti."
+    "clipboard-copy-failure": "Impossibile copiare negli appunti.",
+    "confirm-delete-generic-items": "Sei sicuro di voler eliminare i seguenti elementi?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Sei sicuro di volerlo eliminare <b>{groupName}<b/>'?",
@@ -1185,6 +1186,8 @@
     "require-all-tags": "Richiedi Tutti I Tag",
     "require-all-tools": "Richiedi Tutti Gli Strumenti",
     "cookbook-name": "Nome Ricettario",
-    "cookbook-with-name": "Ricettario {0}"
+    "cookbook-with-name": "Ricettario {0}",
+    "create-a-cookbook": "Crea un libro di cucina",
+    "cookbook": "Libro di cucina"
   }
 }

@@ -199,7 +199,8 @@
     "upload-file": "Subir Archivo",
     "created-on-date": "Creado el {0}",
     "unsaved-changes": "Tienes cambios sin guardar. ¿Quieres guardar antes de salir? Aceptar para guardar, Cancelar para descartar cambios.",
-    "clipboard-copy-failure": "No se pudo copiar al portapapeles."
+    "clipboard-copy-failure": "No se pudo copiar al portapapeles.",
+    "confirm-delete-generic-items": "Are you sure you want to delete the following items?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Por favor, confirma que deseas eliminar <b>{groupName}<b/>",
@@ -1185,6 +1186,8 @@
     "require-all-tags": "Requerir todas las etiquetas",
     "require-all-tools": "Requiere todos los utensilios",
     "cookbook-name": "Nombre del recetario",
-    "cookbook-with-name": "Recetario {0}"
+    "cookbook-with-name": "Recetario {0}",
+    "create-a-cookbook": "Create a Cookbook",
+    "cookbook": "Cookbook"
   }
 }

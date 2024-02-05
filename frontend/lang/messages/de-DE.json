@@ -199,7 +199,8 @@
     "upload-file": "Datei hochladen",
     "created-on-date": "Erstellt am: {0}",
     "unsaved-changes": "Du hast ungespeicherte Änderungen. Möchtest du vor dem Verlassen speichern? OK um zu speichern, Cancel um Änderungen zu verwerfen.",
-    "clipboard-copy-failure": "Fehler beim Kopieren in die Zwischenablage."
+    "clipboard-copy-failure": "Fehler beim Kopieren in die Zwischenablage.",
+    "confirm-delete-generic-items": "Bist du dir sicher, dass du die folgenden Einträge löschen möchtest?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Bist du dir sicher, dass du die Gruppe <b>{groupName}<b/> löschen möchtest?",
@@ -1185,6 +1186,8 @@
     "require-all-tags": "Alle Schlagwörter erforderlich",
     "require-all-tools": "Alle Utensilien erforderlich",
     "cookbook-name": "Kochbuch Name",
-    "cookbook-with-name": "Kochbuch {0}"
+    "cookbook-with-name": "Kochbuch {0}",
+    "create-a-cookbook": "Ein Kochbuch erstellen",
+    "cookbook": "Kochbuch"
   }
 }

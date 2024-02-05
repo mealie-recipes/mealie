@@ -199,7 +199,8 @@
     "upload-file": "Загрузить файл",
     "created-on-date": "Создано: {0}",
     "unsaved-changes": "У вас есть несохраненные изменения. Вы хотите сохранить их перед выходом?",
-    "clipboard-copy-failure": "Не удалось скопировать текст."
+    "clipboard-copy-failure": "Не удалось скопировать текст.",
+    "confirm-delete-generic-items": "Вы уверены, что хотите удалить следующие элементы?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Вы действительно хотите удалить <b>{groupName}<b/>?",
@@ -1185,6 +1186,8 @@
     "require-all-tags": "Требовать все теги",
     "require-all-tools": "Требовать все инструменты",
     "cookbook-name": "Название книги рецептов",
-    "cookbook-with-name": "Книга рецептов {0}"
+    "cookbook-with-name": "Книга рецептов {0}",
+    "create-a-cookbook": "Создать книгу рецептов",
+    "cookbook": "Книга рецептов"
   }
 }
