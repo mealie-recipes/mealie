@@ -200,7 +200,7 @@
     "created-on-date": "Skapad {0}",
     "unsaved-changes": "Du har osparade ändringar. Vill du spara innan du lämnar? Tryck Okej att spara, Avbryt för att ignorera ändringar.",
     "clipboard-copy-failure": "Det gick inte att kopiera till urklipp.",
-    "confirm-delete-generic-items": "Are you sure you want to delete the following items?"
+    "confirm-delete-generic-items": "Är du säker på att du vill radera följande objekt?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Är du säker på att du vill radera <b>{groupName}<b/>?",
