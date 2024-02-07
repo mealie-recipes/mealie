@@ -57,12 +57,12 @@
           :buttons="[
             {
               icon: $globals.icons.edit,
-              text: $t('general.edit'),
+              text: $tc('general.edit'),
               event: 'edit',
             },
             {
               icon: $globals.icons.delete,
-              text: $t('general.delete'),
+              text: $tc('general.delete'),
               event: 'delete',
             },
           ]"
@@ -160,6 +160,8 @@ export default defineComponent({
       props.bulkActions.forEach((action) => {
         handlers[action.event] = () => {
           context.emit(action.event, selected.value);
+          // clear selection
+          selected.value = [];
         };
       });
 

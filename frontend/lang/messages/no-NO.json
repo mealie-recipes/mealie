@@ -199,7 +199,8 @@
     "upload-file": "Last opp fil",
     "created-on-date": "Opprettet: {0}",
     "unsaved-changes": "Du har ulagrede endringer. Ønsker du å lagre før du forlater? Trykk 'OK' for å lagre, 'Avbryt' for å forkaste endringene.",
-    "clipboard-copy-failure": "Kunne ikke kopiere til utklippstavlen."
+    "clipboard-copy-failure": "Kunne ikke kopiere til utklippstavlen.",
+    "confirm-delete-generic-items": "Are you sure you want to delete the following items?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Er du sikker på at du vil slette <b>{groupName}<b/>?",
@@ -1185,6 +1186,8 @@
     "require-all-tags": "Krev alle emneord",
     "require-all-tools": "Krev alle kjøkkenredskaper",
     "cookbook-name": "Navn på kokebok",
-    "cookbook-with-name": "Kokebok {0}"
+    "cookbook-with-name": "Kokebok {0}",
+    "create-a-cookbook": "Create a Cookbook",
+    "cookbook": "Cookbook"
   }
 }
