@@ -117,7 +117,7 @@
     "loading": "Ładowanie",
     "loading-events": "Ładowanie wydarzeń",
     "loading-recipe": "Ładowanie przepisów...",
-    "loading-ocr-data": "Loading OCR data...",
+    "loading-ocr-data": "Wczytywanie danych OCR...",
     "loading-recipes": "Ładowanie przepisów",
     "message": "Wiadomość",
     "monday": "Poniedziałek",
@@ -198,8 +198,9 @@
     "refresh": "Odśwież",
     "upload-file": "Prześlij plik",
     "created-on-date": "Utworzono dnia: {0}",
-    "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
-    "clipboard-copy-failure": "Failed to copy to the clipboard."
+    "unsaved-changes": "Masz niezapisane zmiany. Czy chcesz zapisać przed wyjściem? Ok, aby zapisać, Anuluj, żeby odrzucić zmiany.",
+    "clipboard-copy-failure": "Failed to copy to the clipboard.",
+    "confirm-delete-generic-items": "Are you sure you want to delete the following items?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Czy na pewno chcesz usunąć <b>{groupName}<b/>?",
@@ -258,7 +259,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Utwórz nowy plan posiłku",
-    "update-this-meal-plan": "Update this Meal Plan",
+    "update-this-meal-plan": "Zaktualizuj plan posiłku",
     "dinner-this-week": "Obiad w tym tygodniu",
     "dinner-today": "Obiad dziś",
     "dinner-tonight": "OBIAD DZIŚ",
@@ -473,7 +474,7 @@
     "add-to-timeline": "Dodaj do osi czasu",
     "recipe-added-to-list": "Przepis dodany do listy",
     "recipes-added-to-list": "Przepisy dodane do listy",
-    "successfully-added-to-list": "Successfully added to list",
+    "successfully-added-to-list": "Pomyślnie dodano do listy",
     "recipe-added-to-mealplan": "Przepis dodany do planu posiłków",
     "failed-to-add-recipes-to-list": "Nie udało się dodać przepisu do listy",
     "failed-to-add-recipe-to-mealplan": "Nie udało się dodać przepisu do planu posiłków",
@@ -806,7 +807,7 @@
     "create-new-tool": "Utwórz nowe narzędzie",
     "on-hand-checkbox-label": "Pokaż jako Posiadane (Zaznaczono)",
     "required-tools": "Wymagane Narzędzia",
-    "tool": "Tool"
+    "tool": "Narzędzie"
   },
   "user": {
     "admin": "Administrator",
@@ -944,7 +945,7 @@
       "fraction": "Ułamki",
       "example-unit-singular": "np. Łyżka stołowa",
       "example-unit-plural": "np. Łyżki stołowe",
-      "example-unit-abbreviation-singular": "ex: Tbsp",
+      "example-unit-abbreviation-singular": "na przykład: Łyżka stołowa",
       "example-unit-abbreviation-plural": "ex: Tbsps"
     },
     "labels": {
@@ -1185,6 +1186,8 @@
     "require-all-tags": "Wymagaj wszystkich tagów",
     "require-all-tools": "Wymagaj wszystkich narzędzi",
     "cookbook-name": "Nazwa książki kucharskiej",
-    "cookbook-with-name": "Książka kucharska {0}"
+    "cookbook-with-name": "Książka kucharska {0}",
+    "create-a-cookbook": "Utwórz nową książkę kucharską",
+    "cookbook": "Książka kucharska"
   }
 }

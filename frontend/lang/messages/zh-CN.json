@@ -199,7 +199,8 @@
     "upload-file": "上传文件",
     "created-on-date": "创建于: {0}",
     "unsaved-changes": "你有未保存的更改。你希望现在离开前保存吗？保存选择“是”，不保存选择“取消”。",
-    "clipboard-copy-failure": "未能复制到剪切板。"
+    "clipboard-copy-failure": "未能复制到剪切板。",
+    "confirm-delete-generic-items": "Are you sure you want to delete the following items?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "您确定要删除<b>{groupName}<b/>吗？",
@@ -1185,6 +1186,8 @@
     "require-all-tags": "包含全部标签",
     "require-all-tools": "包含全部工具",
     "cookbook-name": "食谱名称",
-    "cookbook-with-name": "{0}合集"
+    "cookbook-with-name": "{0}合集",
+    "create-a-cookbook": "Create a Cookbook",
+    "cookbook": "Cookbook"
   }
 }
