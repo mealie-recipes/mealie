@@ -59,7 +59,12 @@ def _resolve_duplicate_food(
     keep_food_id: UUID4,
     dupe_food_id: UUID4,
 ):
-    for shopping_list_item in session.query(ShoppingListItem).filter_by(food_id=dupe_food_id).all():
+    for shopping_list_item in (
+        session.query(ShoppingListItem)
+        .options(load_only(ShoppingListItem.id, ShoppingListItem.food_id))
+        .filter_by(food_id=dupe_food_id)
+        .all()
+    ):
         shopping_list_item.food_id = keep_food_id
 
     for recipe_ingredient in (
@@ -82,10 +87,20 @@ def _resolve_duplicate_unit(
     keep_unit_id: UUID4,
     dupe_unit_id: UUID4,
 ):
-    for shopping_list_item in session.query(ShoppingListItem).filter_by(unit_id=dupe_unit_id).all():
+    for shopping_list_item in (
+        session.query(ShoppingListItem)
+        .options(load_only(ShoppingListItem.id, ShoppingListItem.unit_id))
+        .filter_by(unit_id=dupe_unit_id)
+        .all()
+    ):
         shopping_list_item.unit_id = keep_unit_id
 
-    for recipe_ingredient in session.query(RecipeIngredientModel).filter_by(unit_id=dupe_unit_id).all():
+    for recipe_ingredient in (
+        session.query(RecipeIngredientModel)
+        .options(load_only(RecipeIngredientModel.id, RecipeIngredientModel.unit_id))
+        .filter_by(unit_id=dupe_unit_id)
+        .all()
+    ):
         recipe_ingredient.unit_id = keep_unit_id
 
     session.commit()
@@ -100,10 +115,20 @@ def _resolve_duplicate_label(
     keep_label_id: UUID4,
     dupe_label_id: UUID4,
 ):
-    for shopping_list_item in session.query(ShoppingListItem).filter_by(label_id=dupe_label_id).all():
+    for shopping_list_item in (
+        session.query(ShoppingListItem)
+        .options(load_only(ShoppingListItem.id, ShoppingListItem.label_id))
+        .filter_by(label_id=dupe_label_id)
+        .all()
+    ):
         shopping_list_item.label_id = keep_label_id
 
-    for ingredient_food in session.query(IngredientFoodModel).filter_by(label_id=dupe_label_id).all():
+    for ingredient_food in (
+        session.query(IngredientFoodModel)
+        .options(load_only(IngredientFoodModel.id, IngredientFoodModel.label_id))
+        .filter_by(label_id=dupe_label_id)
+        .all()
+    ):
         ingredient_food.label_id = keep_label_id
 
     session.commit()

@@ -199,7 +199,8 @@
     "upload-file": "Загрузить файл",
     "created-on-date": "Создано: {0}",
     "unsaved-changes": "У вас есть несохраненные изменения. Вы хотите сохранить их перед выходом?",
-    "clipboard-copy-failure": "Не удалось скопировать текст."
+    "clipboard-copy-failure": "Не удалось скопировать текст.",
+    "confirm-delete-generic-items": "Вы уверены, что хотите удалить следующие элементы?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Вы действительно хотите удалить <b>{groupName}<b/>?",
@@ -473,11 +474,11 @@
     "add-to-timeline": "Добавить в историю",
     "recipe-added-to-list": "Рецепт добавлен в список",
     "recipes-added-to-list": "Рецепты добавлены в список",
-    "successfully-added-to-list": "Successfully added to list",
+    "successfully-added-to-list": "Успешно добавлено в список",
     "recipe-added-to-mealplan": "Рецепт добавлен в план питания",
     "failed-to-add-recipes-to-list": "Не удалось добавить рецепт в список",
     "failed-to-add-recipe-to-mealplan": "Не удалось добавить рецепт в план питания",
-    "failed-to-add-to-list": "Failed to add to list",
+    "failed-to-add-to-list": "Не удалось добавить в список",
     "yield": "Выход",
     "quantity": "Количество",
     "choose-unit": "Выберите единицу измерения",
@@ -1185,6 +1186,8 @@
     "require-all-tags": "Требовать все теги",
     "require-all-tools": "Требовать все инструменты",
     "cookbook-name": "Название книги рецептов",
-    "cookbook-with-name": "Книга рецептов {0}"
+    "cookbook-with-name": "Книга рецептов {0}",
+    "create-a-cookbook": "Создать книгу рецептов",
+    "cookbook": "Книга рецептов"
   }
 }

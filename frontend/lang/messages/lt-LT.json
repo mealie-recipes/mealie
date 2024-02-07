@@ -199,7 +199,8 @@
     "upload-file": "Įkelti failą",
     "created-on-date": "Sukurta: {0}",
     "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
-    "clipboard-copy-failure": "Failed to copy to the clipboard."
+    "clipboard-copy-failure": "Failed to copy to the clipboard.",
+    "confirm-delete-generic-items": "Are you sure you want to delete the following items?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Ar tikrai norite ištrinti <b>{groupName}<b/>?",
@@ -1185,6 +1186,8 @@
     "require-all-tags": "Būtinos visos žymos",
     "require-all-tools": "Būtini visi įrankiai",
     "cookbook-name": "Receptų knygos pavadinimas",
-    "cookbook-with-name": "Receptų knyga {0}"
+    "cookbook-with-name": "Receptų knyga {0}",
+    "create-a-cookbook": "Create a Cookbook",
+    "cookbook": "Cookbook"
   }
 }

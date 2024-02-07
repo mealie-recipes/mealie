@@ -199,7 +199,8 @@
     "upload-file": "Transférer un fichier",
     "created-on-date": "Créé le {0}",
     "unsaved-changes": "Vous avez des modifications non enregistrées. Voulez-vous enregistrer avant de partir ? OK pour enregistrer, Annuler pour ignorer les modifications.",
-    "clipboard-copy-failure": "Échec de la copie dans le presse-papiers."
+    "clipboard-copy-failure": "Échec de la copie dans le presse-papiers.",
+    "confirm-delete-generic-items": "Êtes-vous sûr de vouloir supprimer les éléments suivants ?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Voulez-vous vraiment supprimer <b>{groupName}<b/> ?",
@@ -1185,6 +1186,8 @@
     "require-all-tags": "Nécessite tous les mots-clés",
     "require-all-tools": "Nécessite tous les ustensiles",
     "cookbook-name": "Nom du livre de recettes",
-    "cookbook-with-name": "Livre de recettes {0}"
+    "cookbook-with-name": "Livre de recettes {0}",
+    "create-a-cookbook": "Create a Cookbook",
+    "cookbook": "Cookbook"
   }
 }

@@ -41,15 +41,15 @@ class Message:
         msg["From"] = f"{self.mail_from_name} <{self.mail_from_address}>"
         msg["To"] = to
         msg["Date"] = formatdate(localtime=True)
-        msg.add_alternative(self.html, subtype="html")
         msg.add_alternative(html2text(self.html), subtype="plain")
+        msg.add_alternative(self.html, subtype="html")
 
         try:
-            message_id = f"{uuid4()}@{self.mail_from_address.split('@')[1]}"
+            message_id = f"<{uuid4()}@{self.mail_from_address.split('@')[1]}>"
         except IndexError:
             # this should never happen with a valid email address,
             # but we let the SMTP server handle it instead of raising it here
-            message_id = f"{uuid4()}@{self.mail_from_address}"
+            message_id = f"<{uuid4()}@{self.mail_from_address}>"
 
         msg["Message-ID"] = message_id
         msg["MIME-Version"] = "1.0"
