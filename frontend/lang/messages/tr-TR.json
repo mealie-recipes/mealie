@@ -200,7 +200,7 @@
     "created-on-date": "{0} tarihinde oluşturuldu",
     "unsaved-changes": "Kaydedilmemiş değişiklikleriniz mevcut. Ayrılmadan önce kaydetmek ister misiniz? Kaydetmek için Tamam'ı, değişiklikleri iptal etmek için İptal'i seçin.",
     "clipboard-copy-failure": "Panoya kopyalanamadı.",
-    "confirm-delete-generic-items": "Are you sure you want to delete the following items?"
+    "confirm-delete-generic-items": "Aşağıdaki öğeleri silmek istediğinizden emin misiniz?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "<b>{groupName}<b/>'i silmek istediğine emin misin?",
@@ -1187,7 +1187,7 @@
     "require-all-tools": "Require All Tools",
     "cookbook-name": "Cookbook Name",
     "cookbook-with-name": "Cookbook {0}",
-    "create-a-cookbook": "Create a Cookbook",
-    "cookbook": "Cookbook"
+    "create-a-cookbook": "Yemek Kitabı Oluştur",
+    "cookbook": "Yemek kitabı"
   }
 }
