@@ -4,6 +4,7 @@ from typing import Any
 
 import pytest
 
+from mealie.lang.providers import local_provider
 from mealie.services.scraper import cleaner
 
 
@@ -324,32 +325,32 @@ time_test_cases = (
     CleanerCase(
         test_id="timedelta",
         input=timedelta(minutes=30),
-        expected="30 Minutes",
+        expected="30 minutes",
     ),
     CleanerCase(
         test_id="timedelta string (1)",
         input="PT2H30M",
-        expected="2 Hours 30 Minutes",
+        expected="2 hours 30 minutes",
     ),
     CleanerCase(
         test_id="timedelta string (2)",
         input="PT30M",
-        expected="30 Minutes",
+        expected="30 minutes",
     ),
     CleanerCase(
         test_id="timedelta string (3)",
         input="PT2H",
-        expected="2 Hours",
+        expected="2 hours",
     ),
     CleanerCase(
         test_id="timedelta string (4)",
         input="P1DT1H1M1S",
-        expected="1 day 1 Hour 1 Minute 1 Second",
+        expected="1 day 1 hour 1 minute 1 second",
     ),
     CleanerCase(
         test_id="timedelta string (4)",
         input="P1DT1H1M1.53S",
-        expected="1 day 1 Hour 1 Minute 1 Second",
+        expected="1 day 1 hour 1 minute 1 second",
     ),
     CleanerCase(
         test_id="timedelta string (5) invalid",
@@ -366,7 +367,8 @@ time_test_cases = (
 
 @pytest.mark.parametrize("case", time_test_cases, ids=(x.test_id for x in time_test_cases))
 def test_cleaner_clean_time(case: CleanerCase):
-    result = cleaner.clean_time(case.input)
+    translator = local_provider()
+    result = cleaner.clean_time(case.input, translator)
     assert case.expected == result
 
 
@@ -536,10 +538,11 @@ def test_cleaner_clean_nutrition(case: CleanerCase):
 @pytest.mark.parametrize(
     "t,max_components,max_decimal_places,expected",
     [
-        (timedelta(days=2, seconds=17280), None, 2, "2 days 4 Hours 48 Minutes"),
+        (timedelta(days=2, seconds=17280), None, 2, "2 days 4 hours 48 minutes"),
         (timedelta(days=2, seconds=17280), 1, 2, "2.2 days"),
         (timedelta(days=365), None, 2, "1 year"),
     ],
 )
 def test_pretty_print_timedelta(t, max_components, max_decimal_places, expected):
-    assert cleaner.pretty_print_timedelta(t, max_components, max_decimal_places) == expected
+    translator = local_provider()
+    assert cleaner.pretty_print_timedelta(t, translator, max_components, max_decimal_places) == expected
