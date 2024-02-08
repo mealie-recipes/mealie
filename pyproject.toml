@@ -45,6 +45,7 @@ text-unidecode = "^1.3"
 rapidfuzz = "^3.2.0"
 html2text = "^2020.1.16"
 paho-mqtt = "^1.6.1"
+pydantic-settings = "^2.1.0"
 
 [tool.poetry.group.postgres.dependencies]
 psycopg2-binary = { version = "^2.9.1" }
@@ -82,7 +83,7 @@ line_length = 120
 
 [tool.vulture]
 exclude = ["**/models/**/*.py", "dir/"]
-ignore_decorators = ["@*router.*", "@app.on_event", "@validator", "@controller"]
+ignore_decorators = ["@*router.*", "@app.on_event", "@field_validator", "@controller"]
 make_whitelist = true
 min_confidence = 60
 paths = ["mealie"]
