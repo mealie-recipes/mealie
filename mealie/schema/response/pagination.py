@@ -1,9 +1,9 @@
 import enum
-from typing import Any, Generic, TypeVar
+from typing import Annotated, Any, Generic, TypeVar
 from urllib.parse import parse_qs, urlencode, urlsplit, urlunsplit
 
 from humps import camelize
-from pydantic import UUID4, BaseModel, field_validator
+from pydantic import UUID4, BaseModel, Field, field_validator
 from pydantic_core.core_schema import ValidationInfo
 
 from mealie.schema._mealie import MealieModel
@@ -38,9 +38,9 @@ class PaginationQuery(MealieModel):
     order_by_null_position: OrderByNullPosition | None = None
     order_direction: OrderDirection = OrderDirection.desc
     query_filter: str | None = None
-    pagination_seed: str | None = None
+    pagination_seed: Annotated[str | None, Field(validate_default=True)] = None
 
-    @field_validator("pagination_seed", always=True, mode="before")
+    @field_validator("pagination_seed", mode="before")
     def validate_randseed(cls, pagination_seed, info: ValidationInfo):
         if info.data.get("order_by") == "random" and not pagination_seed:
             raise ValueError("paginationSeed is required when orderBy is random")

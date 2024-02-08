@@ -1,4 +1,6 @@
-from pydantic import UUID4, ConfigDict, field_validator
+from typing import Annotated
+
+from pydantic import UUID4, ConfigDict, Field, field_validator
 from pydantic_core.core_schema import ValidationInfo
 from slugify import slugify
 from sqlalchemy.orm import joinedload
@@ -15,9 +17,9 @@ from ..recipe.recipe_category import CategoryBase, TagBase
 class CreateCookBook(MealieModel):
     name: str
     description: str = ""
-    slug: str | None = None
+    slug: Annotated[str | None, Field(validate_default=True)] = None
     position: int = 1
-    public: bool = False
+    public: Annotated[bool, Field(validate_default=True)] = False
     categories: list[CategoryBase] = []
     tags: list[TagBase] = []
     tools: list[RecipeTool] = []
@@ -25,11 +27,11 @@ class CreateCookBook(MealieModel):
     require_all_tags: bool = True
     require_all_tools: bool = True
 
-    @field_validator("public", always=True, mode="before")
+    @field_validator("public", mode="before")
     def validate_public(public: bool | None) -> bool:
         return False if public is None else public
 
-    @field_validator("slug", always=True, mode="before")
+    @field_validator("slug", mode="before")
     def validate_slug(slug: str, info: ValidationInfo):
         name: str = info.data["name"]
         calc_slug: str = slugify(name)

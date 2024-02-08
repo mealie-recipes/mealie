@@ -1,8 +1,9 @@
 from datetime import date
 from enum import Enum
+from typing import Annotated
 from uuid import UUID
 
-from pydantic import ConfigDict, field_validator
+from pydantic import ConfigDict, Field, field_validator
 from pydantic_core.core_schema import ValidationInfo
 from sqlalchemy.orm import selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
@@ -31,9 +32,9 @@ class CreatePlanEntry(MealieModel):
     entry_type: PlanEntryType = PlanEntryType.breakfast
     title: str = ""
     text: str = ""
-    recipe_id: UUID | None
+    recipe_id: Annotated[UUID | None, Field(validate_default=True)]
 
-    @field_validator("recipe_id", always=True)
+    @field_validator("recipe_id")
     @classmethod
     def id_or_title(cls, value, info: ValidationInfo):
         if bool(value) is False and bool(info.data["title"]) is False:

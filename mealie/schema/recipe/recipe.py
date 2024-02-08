@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import datetime
 from pathlib import Path
-from typing import Any, ClassVar
+from typing import Annotated, Any, ClassVar
 from uuid import uuid4
 
 from pydantic import UUID4, BaseModel, ConfigDict, Field, field_validator
@@ -82,11 +82,11 @@ class RecipeSummary(MealieModel):
     id: UUID4 | None
     _normalize_search: ClassVar[bool] = True
 
-    user_id: UUID4 = Field(default_factory=uuid4)
-    group_id: UUID4 = Field(default_factory=uuid4)
+    user_id: UUID4 = Field(default_factory=uuid4, validate_default=True)
+    group_id: UUID4 = Field(default_factory=uuid4, validate_default=True)
 
     name: str | None
-    slug: str = ""
+    slug: Annotated[str, Field(validate_default=True)] = ""
     image: Any | None
     recipe_yield: str | None
 
@@ -96,8 +96,8 @@ class RecipeSummary(MealieModel):
     perform_time: str | None = None
 
     description: str | None = ""
-    recipe_category: list[RecipeCategory] | None = []
-    tags: list[RecipeTag] | None = []
+    recipe_category: Annotated[list[RecipeCategory] | None, Field(validate_default=True)] | None = []
+    tags: Annotated[list[RecipeTag] | None, Field(validate_default=True)] = []
     tools: list[RecipeTool] = []
     rating: int | None
     org_url: str | None = Field(None, alias="orgURL")
@@ -116,7 +116,7 @@ class RecipePagination(PaginationBase):
 
 
 class Recipe(RecipeSummary):
-    recipe_ingredient: list[RecipeIngredient] = []
+    recipe_ingredient: Annotated[list[RecipeIngredient], Field(validate_default=True)] = []
     recipe_instructions: list[RecipeStep] | None = []
     nutrition: Nutrition | None
 
@@ -195,14 +195,14 @@ class Recipe(RecipeSummary):
             ingredient.is_food = not ingredient.disable_amount
             ingredient.display = ingredient._format_display()
 
-    @field_validator("slug", always=True, mode="before", allow_reuse=True)
+    @field_validator("slug", mode="before", allow_reuse=True)
     def validate_slug(slug: str, info: ValidationInfo):
         if not info.data.get("name"):
             return slug
 
         return slugify(info.data["name"])
 
-    @field_validator("recipe_ingredient", always=True, mode="before", allow_reuse=True)
+    @field_validator("recipe_ingredient", mode="before", allow_reuse=True)
     def validate_ingredients(recipe_ingredient):
         if not recipe_ingredient or not isinstance(recipe_ingredient, list):
             return recipe_ingredient
@@ -212,25 +212,25 @@ class Recipe(RecipeSummary):
 
         return recipe_ingredient
 
-    @field_validator("tags", always=True, mode="before", allow_reuse=True)
+    @field_validator("tags", mode="before", allow_reuse=True)
     def validate_tags(cats: list[Any]):
         if isinstance(cats, list) and cats and isinstance(cats[0], str):
             return [RecipeTag(id=uuid4(), name=c, slug=slugify(c)) for c in cats]
         return cats
 
-    @field_validator("recipe_category", always=True, mode="before", allow_reuse=True)
+    @field_validator("recipe_category", mode="before", allow_reuse=True)
     def validate_categories(cats: list[Any]):
         if isinstance(cats, list) and cats and isinstance(cats[0], str):
             return [RecipeCategory(id=uuid4(), name=c, slug=slugify(c)) for c in cats]
         return cats
 
-    @field_validator("group_id", always=True, mode="before", allow_reuse=True)
+    @field_validator("group_id", mode="before", allow_reuse=True)
     def validate_group_id(group_id: Any):
         if isinstance(group_id, int):
             return uuid4()
         return group_id
 
-    @field_validator("user_id", always=True, mode="before", allow_reuse=True)
+    @field_validator("user_id", mode="before", allow_reuse=True)
     def validate_user_id(user_id: Any):
         if isinstance(user_id, int):
             return uuid4()

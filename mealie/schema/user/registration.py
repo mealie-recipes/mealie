@@ -1,6 +1,7 @@
-from pydantic import StringConstraints, field_validator
+from typing import Annotated
+
+from pydantic import Field, StringConstraints, field_validator
 from pydantic_core.core_schema import ValidationInfo
-from typing_extensions import Annotated
 
 from mealie.schema._mealie import MealieModel
 from mealie.schema._mealie.validators import validate_locale
@@ -8,7 +9,7 @@ from mealie.schema._mealie.validators import validate_locale
 
 class CreateUserRegistration(MealieModel):
     group: str | None = None
-    group_token: str | None = None
+    group_token: Annotated[str | None, Field(validate_default=True)] = None
     email: Annotated[str, StringConstraints(to_lower=True, strip_whitespace=True)]  # type: ignore
     username: Annotated[str, StringConstraints(to_lower=True, strip_whitespace=True)]  # type: ignore
     password: str
@@ -32,7 +33,7 @@ class CreateUserRegistration(MealieModel):
             raise ValueError("passwords do not match")
         return value
 
-    @field_validator("group_token", always=True)
+    @field_validator("group_token")
     @classmethod
     def group_or_token(cls, value, info: ValidationInfo):
         if not bool(value) and not bool(info.data["group"]):
