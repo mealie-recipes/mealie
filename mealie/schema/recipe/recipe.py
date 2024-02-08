@@ -5,7 +5,8 @@ from pathlib import Path
 from typing import Any, ClassVar
 from uuid import uuid4
 
-from pydantic import UUID4, BaseModel, ConfigDict, Field, validator
+from pydantic import UUID4, BaseModel, ConfigDict, Field, field_validator
+from pydantic_core.core_schema import ValidationInfo
 from slugify import slugify
 from sqlalchemy import Select, desc, func, or_, select, text
 from sqlalchemy.orm import Session, joinedload, selectinload
@@ -194,19 +195,15 @@ class Recipe(RecipeSummary):
             ingredient.is_food = not ingredient.disable_amount
             ingredient.display = ingredient._format_display()
 
-    # TODO[pydantic]: We couldn't refactor the `validator`, please replace it by `field_validator` manually.
-    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-validators for more information.
-    @validator("slug", always=True, pre=True, allow_reuse=True)
-    def validate_slug(slug: str, values):  # type: ignore
-        if not values.get("name"):
+    @field_validator("slug", always=True, mode="before", allow_reuse=True)
+    def validate_slug(slug: str, info: ValidationInfo):
+        if not info.data.get("name"):
             return slug
 
-        return slugify(values["name"])
+        return slugify(info.data["name"])
 
-    # TODO[pydantic]: We couldn't refactor the `validator`, please replace it by `field_validator` manually.
-    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-validators for more information.
-    @validator("recipe_ingredient", always=True, pre=True, allow_reuse=True)
-    def validate_ingredients(recipe_ingredient, values):
+    @field_validator("recipe_ingredient", always=True, mode="before", allow_reuse=True)
+    def validate_ingredients(recipe_ingredient):
         if not recipe_ingredient or not isinstance(recipe_ingredient, list):
             return recipe_ingredient
 
@@ -215,33 +212,25 @@ class Recipe(RecipeSummary):
 
         return recipe_ingredient
 
-    # TODO[pydantic]: We couldn't refactor the `validator`, please replace it by `field_validator` manually.
-    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-validators for more information.
-    @validator("tags", always=True, pre=True, allow_reuse=True)
-    def validate_tags(cats: list[Any]):  # type: ignore
+    @field_validator("tags", always=True, mode="before", allow_reuse=True)
+    def validate_tags(cats: list[Any]):
         if isinstance(cats, list) and cats and isinstance(cats[0], str):
             return [RecipeTag(id=uuid4(), name=c, slug=slugify(c)) for c in cats]
         return cats
 
-    # TODO[pydantic]: We couldn't refactor the `validator`, please replace it by `field_validator` manually.
-    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-validators for more information.
-    @validator("recipe_category", always=True, pre=True, allow_reuse=True)
-    def validate_categories(cats: list[Any]):  # type: ignore
+    @field_validator("recipe_category", always=True, mode="before", allow_reuse=True)
+    def validate_categories(cats: list[Any]):
         if isinstance(cats, list) and cats and isinstance(cats[0], str):
             return [RecipeCategory(id=uuid4(), name=c, slug=slugify(c)) for c in cats]
         return cats
 
-    # TODO[pydantic]: We couldn't refactor the `validator`, please replace it by `field_validator` manually.
-    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-validators for more information.
-    @validator("group_id", always=True, pre=True, allow_reuse=True)
+    @field_validator("group_id", always=True, mode="before", allow_reuse=True)
     def validate_group_id(group_id: Any):
         if isinstance(group_id, int):
             return uuid4()
         return group_id
 
-    # TODO[pydantic]: We couldn't refactor the `validator`, please replace it by `field_validator` manually.
-    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-validators for more information.
-    @validator("user_id", always=True, pre=True, allow_reuse=True)
+    @field_validator("user_id", always=True, mode="before", allow_reuse=True)
     def validate_user_id(user_id: Any):
         if isinstance(user_id, int):
             return uuid4()

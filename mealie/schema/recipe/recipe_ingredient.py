@@ -6,7 +6,7 @@ from fractions import Fraction
 from typing import ClassVar
 from uuid import UUID, uuid4
 
-from pydantic import UUID4, ConfigDict, Field, field_validator, validator
+from pydantic import UUID4, ConfigDict, Field, field_validator
 from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -290,9 +290,7 @@ class IngredientConfidence(MealieModel):
     quantity: NoneFloat = None
     food: NoneFloat = None
 
-    # TODO[pydantic]: We couldn't refactor the `validator`, please replace it by `field_validator` manually.
-    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-validators for more information.
-    @validator("quantity", pre=True)
+    @field_validator("quantity", mode="before")
     @classmethod
     def validate_quantity(cls, value, values) -> NoneFloat:
         if isinstance(value, float):

@@ -3,7 +3,8 @@ import tempfile
 from fractions import Fraction
 from pathlib import Path
 
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, field_validator
+from pydantic_core.core_schema import ValidationInfo
 
 from mealie.schema._mealie.types import NoneFloat
 
@@ -31,15 +32,13 @@ class CRFIngredient(BaseModel):
     unit: str = ""
     confidence: CRFConfidence
 
-    # TODO[pydantic]: We couldn't refactor the `validator`, please replace it by `field_validator` manually.
-    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-validators for more information.
-    @validator("qty", always=True, pre=True)
-    def validate_qty(qty, values):  # sourcery skip: merge-nested-ifs
+    @field_validator("qty", always=True, mode="before")
+    def validate_qty(qty, info: ValidationInfo):  # sourcery skip: merge-nested-ifs
         if qty is None or qty == "":
             # Check if other contains a fraction
             try:
-                if values["other"] is not None and values["other"].find("/") != -1:
-                    return round(float(Fraction(values["other"])), 3)
+                if info.data["other"] is not None and info.data["other"].find("/") != -1:
+                    return round(float(Fraction(info.data["other"])), 3)
                 else:
                     return 1
             except Exception:

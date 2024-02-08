@@ -1,4 +1,5 @@
-from pydantic import ConfigDict, UUID4, validator
+from pydantic import UUID4, ConfigDict, field_validator
+from pydantic_core.core_schema import ValidationInfo
 from slugify import slugify
 from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.interfaces import LoaderOption
@@ -24,17 +25,13 @@ class CreateCookBook(MealieModel):
     require_all_tags: bool = True
     require_all_tools: bool = True
 
-    # TODO[pydantic]: We couldn't refactor the `validator`, please replace it by `field_validator` manually.
-    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-validators for more information.
-    @validator("public", always=True, pre=True)
-    def validate_public(public: bool | None, values: dict) -> bool:  # type: ignore
+    @field_validator("public", always=True, mode="before")
+    def validate_public(public: bool | None) -> bool:
         return False if public is None else public
 
-    # TODO[pydantic]: We couldn't refactor the `validator`, please replace it by `field_validator` manually.
-    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-validators for more information.
-    @validator("slug", always=True, pre=True)
-    def validate_slug(slug: str, values):  # type: ignore
-        name: str = values["name"]
+    @field_validator("slug", always=True, mode="before")
+    def validate_slug(slug: str, info: ValidationInfo):
+        name: str = info.data["name"]
         calc_slug: str = slugify(name)
 
         if slug != calc_slug:
