@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Any, ClassVar
 from uuid import uuid4
 
-from pydantic import ConfigDict, UUID4, BaseModel, Field, validator
+from pydantic import UUID4, BaseModel, ConfigDict, Field, validator
 from slugify import slugify
 from sqlalchemy import Select, desc, func, or_, select, text
 from sqlalchemy.orm import Session, joinedload, selectinload
@@ -340,5 +340,5 @@ class RecipeLastMade(BaseModel):
 
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient  # noqa: E402
 
-RecipeSummary.update_forward_refs()
-Recipe.update_forward_refs()
+RecipeSummary.model_rebuild()
+Recipe.model_rebuild()

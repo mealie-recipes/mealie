@@ -1,4 +1,4 @@
-from pydantic import ConfigDict, UUID4
+from pydantic import UUID4, ConfigDict
 from sqlalchemy.orm import selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -37,4 +37,4 @@ class RecipeToolResponse(RecipeToolOut):
 
 from .recipe import RecipeSummary  # noqa: E402
 
-RecipeToolResponse.update_forward_refs()
+RecipeToolResponse.model_rebuild()

@@ -125,7 +125,7 @@ class RecipeExportController(BaseRecipeController):
         recipe: Recipe = self.mixins.get_one(slug)
         image_asset = recipe.image_dir.joinpath(RecipeImageTypes.original.value)
         with ZipFile(temp_path, "w") as myzip:
-            myzip.writestr(f"{slug}.json", recipe.json())
+            myzip.writestr(f"{slug}.json", recipe.model_dump_json())
 
             if image_asset.is_file():
                 myzip.write(image_asset, arcname=image_asset.name)
@@ -265,13 +265,13 @@ class RecipeController(BaseRecipeController):
         )
 
         # merge default pagination with the request's query params
-        query_params = q.dict() | {**request.query_params}
+        query_params = q.model_dump() | {**request.query_params}
         pagination_response.set_pagination_guides(
             router.url_path_for("get_all"),
             {k: v for k, v in query_params.items() if v is not None},
         )
 
-        json_compatible_response = orjson.dumps(pagination_response.dict(by_alias=True))
+        json_compatible_response = orjson.dumps(pagination_response.model_dump(by_alias=True))
 
         # Response is returned directly, to avoid validation and improve performance
         return JSONBytes(content=json_compatible_response)

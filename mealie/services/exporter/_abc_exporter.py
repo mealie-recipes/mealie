@@ -63,7 +63,7 @@ class ABCExporter(BaseService):
                 self.logger.error("Failed to export item. no item found")
                 continue
 
-            zip.writestr(f"{self.destination_dir}/{item.name}/{item.name}.json", item.model.json())
+            zip.writestr(f"{self.destination_dir}/{item.name}/{item.name}.json", item.model.model_dump_json())
 
             self._post_export_hook(item.model)
 

@@ -172,7 +172,7 @@ def test_shopping_lists_add_one_with_zero_quantity(
     )
 
     response = api_client.get(api_routes.groups_shopping_lists_item_id(shopping_list.id), headers=unique_user.token)
-    shopping_list_out = ShoppingListOut.parse_obj(utils.assert_derserialize(response, 200))
+    shopping_list_out = ShoppingListOut.model_validate(utils.assert_derserialize(response, 200))
 
     assert len(shopping_list_out.list_items) == 3
 
@@ -296,7 +296,7 @@ def test_shopping_lists_add_recipe_with_merge(
     )
 
     response = api_client.get(api_routes.groups_shopping_lists_item_id(shopping_list.id), headers=unique_user.token)
-    shopping_list_out = ShoppingListOut.parse_obj(utils.assert_derserialize(response, 200))
+    shopping_list_out = ShoppingListOut.model_validate(utils.assert_derserialize(response, 200))
 
     assert len(shopping_list_out.list_items) == 3
 

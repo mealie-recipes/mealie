@@ -36,7 +36,7 @@ class PublicCookbooksController(BasePublicExploreController):
             search=search,
         )
 
-        response.set_pagination_guides(router.url_path_for("get_all", group_slug=self.group.slug), q.dict())
+        response.set_pagination_guides(router.url_path_for("get_all", group_slug=self.group.slug), q.model_dump())
         return response
 
     @router.get("/{item_id}", response_model=RecipeCookBook)

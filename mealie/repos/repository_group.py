@@ -23,7 +23,7 @@ from .repository_generic import RepositoryGeneric
 class RepositoryGroup(RepositoryGeneric[GroupInDB, Group]):
     def create(self, data: GroupBase | dict) -> GroupInDB:
         if isinstance(data, GroupBase):
-            data = data.dict()
+            data = data.model_dump()
 
         max_attempts = 10
         original_name = cast(str, data["name"])

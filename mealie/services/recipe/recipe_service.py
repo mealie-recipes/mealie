@@ -129,7 +129,7 @@ class RecipeService(BaseService):
         data: Recipe = self._recipe_creation_factory(
             self.user,
             name=create_data.name,
-            additional_attrs=create_data.dict(),
+            additional_attrs=create_data.model_dump(),
         )
 
         if isinstance(create_data, CreateRecipe) or create_data.settings is None:
@@ -175,11 +175,11 @@ class RecipeService(BaseService):
         # if the item exists, return the actual data
         query = repo.get_one(slug, "slug")
         if query:
-            return query.dict()
+            return query.model_dump()
 
         # otherwise, create the item
         new_item = repo.create(data)
-        return new_item.dict()
+        return new_item.model_dump()
 
     def _process_recipe_data(self, key: str, data: list | dict | Any):
         if isinstance(data, list):
@@ -250,19 +250,19 @@ class RecipeService(BaseService):
         """Duplicates a recipe and returns the new recipe."""
 
         old_recipe = self._get_recipe(old_slug)
-        new_recipe = old_recipe.copy(exclude={"id", "name", "slug", "image", "comments"})
+        new_recipe = old_recipe.model_copy(exclude={"id", "name", "slug", "image", "comments"})
 
         # Asset images in steps directly link to the original recipe, so we
         # need to update them to references to the assets we copy below
         def replace_recipe_step(step: RecipeStep) -> RecipeStep:
-            new_step = step.copy(exclude={"id", "text"})
+            new_step = step.model_copy(exclude={"id", "text"})
             new_step.id = uuid4()
             new_step.text = step.text.replace(str(old_recipe.id), str(new_recipe.id))
             return new_step
 
         # Copy ingredients to make them independent of the original
         def copy_recipe_ingredient(ingredient: RecipeIngredient):
-            new_ingredient = ingredient.copy(exclude={"reference_id"})
+            new_ingredient = ingredient.model_copy(exclude={"reference_id"})
             new_ingredient.reference_id = uuid4()
             return new_ingredient
 
@@ -284,7 +284,7 @@ class RecipeService(BaseService):
         new_recipe = self._recipe_creation_factory(
             self.user,
             new_name,
-            additional_attrs=new_recipe.dict(),
+            additional_attrs=new_recipe.model_dump(),
         )
 
         new_recipe = self.repos.recipes.create(new_recipe)
@@ -350,7 +350,9 @@ class RecipeService(BaseService):
         if recipe is None:
             raise exceptions.NoEntryFound("Recipe not found.")
 
-        new_data = self.repos.recipes.by_group(self.group.id).patch(recipe.slug, patch_data.dict(exclude_unset=True))
+        new_data = self.repos.recipes.by_group(self.group.id).patch(
+            recipe.slug, patch_data.model_dump(exclude_unset=True)
+        )
 
         self.check_assets(new_data, recipe.slug)
         return new_data

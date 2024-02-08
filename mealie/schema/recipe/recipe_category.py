@@ -1,4 +1,4 @@
-from pydantic import ConfigDict, UUID4
+from pydantic import UUID4, ConfigDict
 from sqlalchemy.orm import selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -61,5 +61,5 @@ class RecipeTagResponse(RecipeCategoryResponse):
 
 from mealie.schema.recipe.recipe import RecipeSummary  # noqa: E402
 
-RecipeCategoryResponse.update_forward_refs()
-RecipeTagResponse.update_forward_refs()
+RecipeCategoryResponse.model_rebuild()
+RecipeTagResponse.model_rebuild()

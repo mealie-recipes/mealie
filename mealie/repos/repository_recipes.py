@@ -160,7 +160,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         search: str | None = None,
     ) -> RecipePagination:
         # Copy this, because calling methods (e.g. tests) might rely on it not getting mutated
-        pagination_result = pagination.copy()
+        pagination_result = pagination.model_copy()
         q = select(self.model)
 
         args = [

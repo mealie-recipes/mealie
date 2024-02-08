@@ -6,7 +6,7 @@ from fractions import Fraction
 from typing import ClassVar
 from uuid import UUID, uuid4
 
-from pydantic import field_validator, ConfigDict, UUID4, Field, validator
+from pydantic import UUID4, ConfigDict, Field, field_validator, validator
 from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -335,4 +335,4 @@ class MergeUnit(MealieModel):
 
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary  # noqa: E402
 
-IngredientFood.update_forward_refs()
+IngredientFood.model_rebuild()

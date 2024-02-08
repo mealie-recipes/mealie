@@ -45,7 +45,7 @@ class DatabaseMigrationHelpers:
                     )
                 )
 
-            items_out.append(item_model.dict())
+            items_out.append(item_model.model_dump())
         return items_out
 
     def get_or_set_category(self, categories: Iterable[str]) -> list[RecipeCategory]:

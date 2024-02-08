@@ -1,7 +1,7 @@
 from functools import cached_property
 
 from fastapi import APIRouter, Depends
-from pydantic import ConfigDict, UUID4, BaseModel
+from pydantic import UUID4, BaseModel, ConfigDict
 
 from mealie.routes._base import BaseCrudController, controller
 from mealie.routes._base.mixins import HttpRepo
@@ -44,7 +44,7 @@ class RecipeCategoryController(BaseCrudController):
             search=search,
         )
 
-        response.set_pagination_guides(router.url_path_for("get_all"), q.dict())
+        response.set_pagination_guides(router.url_path_for("get_all"), q.model_dump())
         return response
 
     @router.post("", status_code=201)
@@ -117,7 +117,7 @@ class RecipeCategoryController(BaseCrudController):
     def get_one_by_slug(self, category_slug: str):
         """Returns a category object with the associated recieps relating to the category"""
         category: RecipeCategory = self.mixins.get_one(category_slug, "slug")
-        return RecipeCategoryResponse.construct(
+        return RecipeCategoryResponse.model_construct(
             id=category.id,
             slug=category.slug,
             name=category.name,

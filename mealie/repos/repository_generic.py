@@ -165,7 +165,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
     def create(self, data: Schema | BaseModel | dict) -> Schema:
         try:
-            data = data if isinstance(data, dict) else data.dict()
+            data = data if isinstance(data, dict) else data.model_dump()
             new_document = self.model(session=self.session, **data)
             self.session.add(new_document)
             self.session.commit()
@@ -180,7 +180,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
     def create_many(self, data: Iterable[Schema | dict]) -> list[Schema]:
         new_documents = []
         for document in data:
-            document = document if isinstance(document, dict) else document.dict()
+            document = document if isinstance(document, dict) else document.model_dump()
             new_document = self.model(session=self.session, **document)
             new_documents.append(new_document)
 
@@ -202,7 +202,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
         Returns:
             dict: Returns a dictionary representation of the database entry
         """
-        new_data = new_data if isinstance(new_data, dict) else new_data.dict()
+        new_data = new_data if isinstance(new_data, dict) else new_data.model_dump()
 
         entry = self._query_one(match_value=match_value)
         entry.update(session=self.session, **new_data)
@@ -213,7 +213,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
     def update_many(self, data: Iterable[Schema | dict]) -> list[Schema]:
         document_data_by_id: dict[str, dict] = {}
         for document in data:
-            document_data = document if isinstance(document, dict) else document.dict()
+            document_data = document if isinstance(document, dict) else document.model_dump()
             document_data_by_id[document_data["id"]] = document_data
 
         documents_to_update_query = self._query().filter(self.model.id.in_(list(document_data_by_id.keys())))
@@ -229,11 +229,11 @@ class RepositoryGeneric(Generic[Schema, Model]):
         return [self.schema.from_orm(x) for x in updated_documents]
 
     def patch(self, match_value: str | int | UUID4, new_data: dict | BaseModel) -> Schema:
-        new_data = new_data if isinstance(new_data, dict) else new_data.dict()
+        new_data = new_data if isinstance(new_data, dict) else new_data.model_dump()
 
         entry = self._query_one(match_value=match_value)
 
-        entry_as_dict = self.schema.from_orm(entry).dict()
+        entry_as_dict = self.schema.from_orm(entry).model_dump()
         entry_as_dict.update(new_data)
 
         return self.update(match_value, entry_as_dict)
@@ -309,7 +309,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
         """
         eff_schema = override or self.schema
         # Copy this, because calling methods (e.g. tests) might rely on it not getting mutated
-        pagination_result = pagination.copy()
+        pagination_result = pagination.model_copy()
         q = self._query(override_schema=eff_schema, with_options=False)
 
         fltr = self._filter_builder()
