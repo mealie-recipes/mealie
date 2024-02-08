@@ -375,7 +375,7 @@ def clean_time(time_entry: str | timedelta | None, translator: Translator) -> No
             # TODO: Not sure what to do here
             return str(time_entry)
         case _:
-            logger.warning("[SCRAPER] Unexpected type or structure for time_entries")
+            logger.warning("[SCRAPER] Unexpected type or structure for variable time_entry")
             return None
 
 
