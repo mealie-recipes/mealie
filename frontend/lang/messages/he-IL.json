@@ -200,7 +200,7 @@
     "created-on-date": "נוצר ב-{0}",
     "unsaved-changes": "יש שינויים שלא נשמרו. לצאת לפני שמירה? אשר לשמירה, בטל למחיקת שינויים.",
     "clipboard-copy-failure": "כשלון בהעתקה ללוח ההדבקה.",
-    "confirm-delete-generic-items": "Are you sure you want to delete the following items?"
+    "confirm-delete-generic-items": "האם אתה בטוח שברצונך למחוק את הפריטים הנבחרים?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "האם את/ה בטוח/ה שברצונך למחוק את <b>{groupName}<b/>?",
@@ -259,7 +259,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "יצירת תכנית ארוחות חדשה",
-    "update-this-meal-plan": "Update this Meal Plan",
+    "update-this-meal-plan": "עדכן את תכנון הארוחות",
     "dinner-this-week": "ארוחות ערב השבוע",
     "dinner-today": "ארוחת ערב היום",
     "dinner-tonight": "ארוחת ערב היום",
@@ -474,11 +474,11 @@
     "add-to-timeline": "הוסף לציר הזמן",
     "recipe-added-to-list": "מתכון נוסף לרשימה",
     "recipes-added-to-list": "מתכונים הוספו לרשימה",
-    "successfully-added-to-list": "Successfully added to list",
+    "successfully-added-to-list": "נוסף לרשימה בהצלחה",
     "recipe-added-to-mealplan": "מתכון נוסף לתכנון ארוחות",
     "failed-to-add-recipes-to-list": "כשלון בהוספת מתכון לרשימה",
     "failed-to-add-recipe-to-mealplan": "הוספת מתכון לתכנון ארוחות נכשלה",
-    "failed-to-add-to-list": "Failed to add to list",
+    "failed-to-add-to-list": "כשלון בהוספה לרשימה",
     "yield": "תשואה",
     "quantity": "כמות",
     "choose-unit": "בחירת יחידת מידה",
@@ -515,7 +515,7 @@
     "how-did-it-turn-out": "איך יצא?",
     "user-made-this": "{user} הכין את זה",
     "last-made-date": "נעשה לאחרונה ב{date}",
-    "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
+    "api-extras-description": "מתכונים נוספים הם יכולת מפתח של Mealie API. הם מאפשרים ליצור צמדי key/value בצורת JSON על מנת לקרוא אותם בתוכנת צד שלישית. תוכלו להשתמש בצמדים האלה כדי לספק מידע, לדוגמא להפעיל אוטומציות או הודעות מותאמות אישית למכשירים מסויימים.",
     "message-key": "מפתח הודעה",
     "parse": "ניתוח",
     "attach-images-hint": "הוסף תמונות ע\"י גרירה ושחרור אל תוך העורך",
@@ -537,8 +537,8 @@
     "new-recipe-names-must-be-unique": "שם מתכון חדש חייב להיות ייחודי",
     "scrape-recipe": "קריאת מתכון",
     "scrape-recipe-description": "קריאת מתכון בעזרת לינק. ספק את הלינק של האתר שברצונך לקרוא, ומילי תנסה לקרוא את המתכון מהאתר ולהוסיף אותו לאוסף.",
-    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
-    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
+    "scrape-recipe-have-a-lot-of-recipes": "יש לך הרבה מתכונים שאתה רוצה לקרוא בבת אחת?",
+    "scrape-recipe-suggest-bulk-importer": "נסה את יכולת קריאת רשימה",
     "import-original-keywords-as-tags": "ייבא שמות מפתח מקוריות כתגיות",
     "stay-in-edit-mode": "השאר במצב עריכה",
     "import-from-zip": "ייבא מקובץ",
@@ -562,7 +562,7 @@
     "upload-image": "העלה תמונה",
     "screen-awake": "השאר את המסך פעיל",
     "remove-image": "האם למחוק את התמונה?",
-    "nextStep": "Next step"
+    "nextStep": "השלב הבא"
   },
   "search": {
     "advanced-search": "חיפוש מתקדם",
@@ -797,7 +797,7 @@
     "untagged-count": "לא מתוייג {count}",
     "create-a-tag": "צור תגית",
     "tag-name": "שם תגית",
-    "tag": "Tag"
+    "tag": "תגית"
   },
   "tool": {
     "tools": "כלים",
@@ -807,7 +807,7 @@
     "create-new-tool": "יצירת כלי חדש",
     "on-hand-checkbox-label": "הראה מה יש לי במטבח",
     "required-tools": "צריך כלים",
-    "tool": "Tool"
+    "tool": "כלי"
   },
   "user": {
     "admin": "אדמין",
@@ -898,10 +898,10 @@
     "user-can-organize-group-data": "משתמש יכול לשנות מידע של קבוצה",
     "enable-advanced-features": "אפשר אפשרויות מתקדמות",
     "it-looks-like-this-is-your-first-time-logging-in": "נראה שזו ההתחברות הראשונה שלך.",
-    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "לא רוצה לראות את זה יותר? דאג לשנות את המייל של בהגדרות המשתמש!",
     "forgot-password": "שכחתי סיסמא",
-    "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
-    "changes-reflected-immediately": "Changes to this user will be reflected immediately."
+    "forgot-password-text": "נא לספק כתובת דוא\"ל. אנו נשלח לך הודעת דוא\"ל לצורך איפוס הסיסמה שלך.",
+    "changes-reflected-immediately": "השינויים למשתמש זה יבוצעו מיידית."
   },
   "language-dialog": {
     "translated": "תורגם",
@@ -923,8 +923,8 @@
       "food-label": "תוית אוכל",
       "edit-food": "עריכת מזון",
       "food-data": "נתוני אוכל",
-      "example-food-singular": "ex: Onion",
-      "example-food-plural": "ex: Onions"
+      "example-food-singular": "דוגמא: בצל",
+      "example-food-plural": "דוגמא: בצלים"
     },
     "units": {
       "seed-dialog-text": "אכלס את מסד הנתונים עם יחידות מדידה בהתאם לשפה המקומית שלך.",
@@ -935,7 +935,7 @@
       "merging-unit-into-unit": "ממזג את {0} לתוך {1}",
       "create-unit": "יצירת יחידה",
       "abbreviation": "קיצור",
-      "plural-abbreviation": "Plural Abbreviation",
+      "plural-abbreviation": "צורת הרבית",
       "description": "תיאור",
       "display-as-fraction": "הצגה כשבר",
       "use-abbreviation": "השתמש בקיצור",
@@ -943,10 +943,10 @@
       "unit-data": "נתוני יחידה",
       "use-abbv": "השתמש בקיצור",
       "fraction": "שבר",
-      "example-unit-singular": "ex: Tablespoon",
-      "example-unit-plural": "ex: Tablespoons",
-      "example-unit-abbreviation-singular": "ex: Tbsp",
-      "example-unit-abbreviation-plural": "ex: Tbsps"
+      "example-unit-singular": "דוגמא: כפית",
+      "example-unit-plural": "דוגמא: כפיות",
+      "example-unit-abbreviation-singular": "דוגמא: כף",
+      "example-unit-abbreviation-plural": "דוגמא: כפות"
     },
     "labels": {
       "seed-dialog-text": "אכלס את מסד הנתונים בתגיות נפוצות בהתאם לשפה המקומית שלך.",
@@ -1187,7 +1187,7 @@
     "require-all-tools": "זקוק לכל הכלים",
     "cookbook-name": "שם ספר בישול",
     "cookbook-with-name": "ספר בישול {0}",
-    "create-a-cookbook": "Create a Cookbook",
-    "cookbook": "Cookbook"
+    "create-a-cookbook": "צור ספר בישול חדש",
+    "cookbook": "ספר בישול"
   }
 }
