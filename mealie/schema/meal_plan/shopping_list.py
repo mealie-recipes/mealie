@@ -1,5 +1,6 @@
 from mealie.schema._mealie import MealieModel
 from mealie.schema.getter_dict import GroupGetterDict
+from pydantic import ConfigDict
 
 
 class ListItem(MealieModel):
@@ -7,9 +8,7 @@ class ListItem(MealieModel):
     text: str = ""
     quantity: int = 1
     checked: bool = False
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class ShoppingListIn(MealieModel):
@@ -20,7 +19,6 @@ class ShoppingListIn(MealieModel):
 
 class ShoppingListOut(ShoppingListIn):
     id: int
-
-    class Config:
-        orm_mode = True
-        getter_dict = GroupGetterDict
+    # TODO[pydantic]: The following keys were removed: `getter_dict`.
+    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-config for more information.
+    model_config = ConfigDict(from_attributes=True, getter_dict=GroupGetterDict)

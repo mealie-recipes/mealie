@@ -5,7 +5,7 @@ from enum import Enum
 from typing import ClassVar, Protocol, TypeVar
 
 from humps.main import camelize
-from pydantic import UUID4, BaseModel
+from pydantic import ConfigDict, UUID4, BaseModel
 from sqlalchemy import Select, desc, func, or_, text
 from sqlalchemy.orm import InstrumentedAttribute, Session
 from sqlalchemy.orm.interfaces import LoaderOption
@@ -28,10 +28,7 @@ class MealieModel(BaseModel):
     Searchable properties for the search API.
     The first property will be used for sorting (order_by)
     """
-
-    class Config:
-        alias_generator = camelize
-        allow_population_by_field_name = True
+    model_config = ConfigDict(alias_generator=camelize, populate_by_name=True)
 
     def cast(self, cls: type[T], **kwargs) -> T:
         """

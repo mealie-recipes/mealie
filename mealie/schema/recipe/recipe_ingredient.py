@@ -6,7 +6,7 @@ from fractions import Fraction
 from typing import ClassVar
 from uuid import UUID, uuid4
 
-from pydantic import UUID4, Field, validator
+from pydantic import field_validator, ConfigDict, UUID4, Field, validator
 from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -43,8 +43,7 @@ class CreateIngredientFoodAlias(MealieModel):
 
 
 class IngredientFoodAlias(CreateIngredientFoodAlias):
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class CreateIngredientFood(UnitFoodBase):
@@ -66,10 +65,9 @@ class IngredientFood(CreateIngredientFood):
 
     _searchable_properties: ClassVar[list[str]] = ["name_normalized", "plural_name_normalized"]
     _normalize_search: ClassVar[bool] = True
-
-    class Config:
-        orm_mode = True
-        getter_dict = ExtrasGetterDict
+    # TODO[pydantic]: The following keys were removed: `getter_dict`.
+    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-config for more information.
+    model_config = ConfigDict(from_attributes=True, getter_dict=ExtrasGetterDict)
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
@@ -85,8 +83,7 @@ class CreateIngredientUnitAlias(MealieModel):
 
 
 class IngredientUnitAlias(CreateIngredientUnitAlias):
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class CreateIngredientUnit(UnitFoodBase):
@@ -115,9 +112,7 @@ class IngredientUnit(CreateIngredientUnit):
         "plural_abbreviation_normalized",
     ]
     _normalize_search: ClassVar[bool] = True
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class RecipeIngredientBase(MealieModel):
@@ -152,14 +147,16 @@ class RecipeIngredientBase(MealieModel):
         if not self.display:
             self.display = self._format_display()
 
-    @validator("unit", pre=True)
+    @field_validator("unit", mode="before")
+    @classmethod
     def validate_unit(cls, v):
         if isinstance(v, str):
             return CreateIngredientUnit(name=v)
         else:
             return v
 
-    @validator("food", pre=True)
+    @field_validator("food", mode="before")
+    @classmethod
     def validate_food(cls, v):
         if isinstance(v, str):
             return CreateIngredientFood(name=v)
@@ -268,11 +265,10 @@ class RecipeIngredient(RecipeIngredientBase):
     # It is required for the reorder and section titles to function properly because of how
     # Vue handles reactivity. ref may serve another purpose in the future.
     reference_id: UUID = Field(default_factory=uuid4)
+    model_config = ConfigDict(from_attributes=True)
 
-    class Config:
-        orm_mode = True
-
-    @validator("quantity", pre=True)
+    @field_validator("quantity", mode="before")
+    @classmethod
     def validate_quantity(cls, value) -> NoneFloat:
         """
         Sometimes the frontend UI will provide an empty string as a "null" value because of the default
@@ -294,6 +290,8 @@ class IngredientConfidence(MealieModel):
     quantity: NoneFloat = None
     food: NoneFloat = None
 
+    # TODO[pydantic]: We couldn't refactor the `validator`, please replace it by `field_validator` manually.
+    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-validators for more information.
     @validator("quantity", pre=True)
     @classmethod
     def validate_quantity(cls, value, values) -> NoneFloat:

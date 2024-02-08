@@ -12,6 +12,7 @@ from mealie.db.models._model_utils.guid import GUID
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import auto_init
 from .user_to_favorite import users_to_favorites
+from pydantic import ConfigDict
 
 if TYPE_CHECKING:
     from ..group import Group
@@ -84,9 +85,8 @@ class User(SqlAlchemyBase, BaseMixins):
     favorite_recipes: Mapped[list["RecipeModel"]] = orm.relationship(
         "RecipeModel", secondary=users_to_favorites, back_populates="favorited_by"
     )
-
-    class Config:
-        exclude = {
+    model_config = ConfigDict(
+        exclude={
             "password",
             "admin",
             "can_manage",
@@ -94,6 +94,7 @@ class User(SqlAlchemyBase, BaseMixins):
             "can_organize",
             "group",
         }
+    )
 
     @hybrid_property
     def group_slug(self) -> str:

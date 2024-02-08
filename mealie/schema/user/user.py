@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Any
 from uuid import UUID
 
-from pydantic import UUID4, Field, validator
+from pydantic import field_validator, StringConstraints, ConfigDict, UUID4, Field
 from pydantic.types import constr
 from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
@@ -20,6 +20,7 @@ from ...db.models.group import Group
 from ...db.models.recipe import RecipeModel
 from ..getter_dict import GroupGetterDict, UserGetterDict
 from ..recipe import CategoryBase
+from typing_extensions import Annotated
 
 DEFAULT_INTEGRATION_ID = "generic"
 settings = get_app_settings()
@@ -35,24 +36,18 @@ class LongLiveTokenOut(MealieModel):
     name: str
     id: int
     created_at: datetime | None
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class CreateToken(LongLiveTokenIn):
     user_id: UUID4
     token: str
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class DeleteTokenResponse(MealieModel):
     token_delete: str
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class ChangePassword(MealieModel):
@@ -61,16 +56,14 @@ class ChangePassword(MealieModel):
 
 
 class GroupBase(MealieModel):
-    name: constr(strip_whitespace=True, min_length=1)  # type: ignore
-
-    class Config:
-        orm_mode = True
+    name: Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]  # type: ignore
+    model_config = ConfigDict(from_attributes=True)
 
 
 class UserBase(MealieModel):
     username: str | None
     full_name: str | None = None
-    email: constr(to_lower=True, strip_whitespace=True)  # type: ignore
+    email: Annotated[str, StringConstraints(to_lower=True, strip_whitespace=True)]  # type: ignore
     auth_method: AuthMethod = AuthMethod.MEALIE
     admin: bool = False
     group: str | None
@@ -80,12 +73,12 @@ class UserBase(MealieModel):
     can_invite: bool = False
     can_manage: bool = False
     can_organize: bool = False
-
-    class Config:
-        orm_mode = True
-        getter_dict = GroupGetterDict
-
-        schema_extra = {
+    # TODO[pydantic]: The following keys were removed: `getter_dict`.
+    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-config for more information.
+    model_config = ConfigDict(
+        from_attributes=True,
+        getter_dict=GroupGetterDict,
+        json_schema_extra={
             "example": {
                 "username": "ChangeMe",
                 "fullName": "Change Me",
@@ -93,7 +86,8 @@ class UserBase(MealieModel):
                 "group": settings.DEFAULT_GROUP,
                 "admin": "false",
             }
-        }
+        },
+    )
 
 
 class UserIn(UserBase):
@@ -108,11 +102,9 @@ class UserOut(UserBase):
     tokens: list[LongLiveTokenOut] | None
     cache_key: str
     favorite_recipes: list[str] | None = []
-
-    class Config:
-        orm_mode = True
-
-        getter_dict = UserGetterDict
+    # TODO[pydantic]: The following keys were removed: `getter_dict`.
+    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-config for more information.
+    model_config = ConfigDict(from_attributes=True, getter_dict=UserGetterDict)
 
     @property
     def is_default_user(self) -> bool:
@@ -129,10 +121,9 @@ class UserPagination(PaginationBase):
 
 class UserFavorites(UserBase):
     favorite_recipes: list[RecipeSummary] = []  # type: ignore
-
-    class Config:
-        orm_mode = True
-        getter_dict = GroupGetterDict
+    # TODO[pydantic]: The following keys were removed: `getter_dict`.
+    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-config for more information.
+    model_config = ConfigDict(from_attributes=True, getter_dict=GroupGetterDict)
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
@@ -149,11 +140,10 @@ class PrivateUser(UserOut):
     group_id: UUID4
     login_attemps: int = 0
     locked_at: datetime | None = None
+    model_config = ConfigDict(from_attributes=True)
 
-    class Config:
-        orm_mode = True
-
-    @validator("login_attemps", pre=True)
+    @field_validator("login_attemps", mode="before")
+    @classmethod
     def none_to_zero(cls, v):
         return 0 if v is None else v
 
@@ -191,9 +181,7 @@ class UpdateGroup(GroupBase):
 class GroupInDB(UpdateGroup):
     users: list[UserOut] | None
     preferences: ReadGroupPreferences | None = None
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
     @staticmethod
     def get_directory(id: UUID4) -> Path:
@@ -234,6 +222,4 @@ class GroupPagination(PaginationBase):
 class LongLiveTokenInDB(CreateToken):
     id: int
     user: PrivateUser
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)

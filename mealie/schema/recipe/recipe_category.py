@@ -1,4 +1,4 @@
-from pydantic import UUID4
+from pydantic import ConfigDict, UUID4
 from sqlalchemy.orm import selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -17,24 +17,18 @@ class CategorySave(CategoryIn):
 class CategoryBase(CategoryIn):
     id: UUID4
     slug: str
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class CategoryOut(CategoryBase):
     slug: str
     group_id: UUID4
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class RecipeCategoryResponse(CategoryBase):
     recipes: "list[RecipeSummary]" = []
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class TagIn(CategoryIn):
@@ -52,9 +46,7 @@ class TagBase(CategoryBase):
 class TagOut(TagSave):
     id: UUID4
     slug: str
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class RecipeTagResponse(RecipeCategoryResponse):

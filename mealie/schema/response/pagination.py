@@ -4,7 +4,6 @@ from urllib.parse import parse_qs, urlencode, urlsplit, urlunsplit
 
 from humps import camelize
 from pydantic import UUID4, BaseModel, validator
-from pydantic.generics import GenericModel
 
 from mealie.schema._mealie import MealieModel
 
@@ -40,6 +39,8 @@ class PaginationQuery(MealieModel):
     query_filter: str | None = None
     pagination_seed: str | None = None
 
+    # TODO[pydantic]: We couldn't refactor the `validator`, please replace it by `field_validator` manually.
+    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-validators for more information.
     @validator("pagination_seed", always=True, pre=True)
     def validate_randseed(cls, pagination_seed, values):
         if values.get("order_by") == "random" and not pagination_seed:
@@ -47,7 +48,7 @@ class PaginationQuery(MealieModel):
         return pagination_seed
 
 
-class PaginationBase(GenericModel, Generic[DataT]):
+class PaginationBase(BaseModel, Generic[DataT]):
     page: int = 1
     per_page: int = 10
     total: int = 0

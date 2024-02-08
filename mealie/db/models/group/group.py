@@ -18,6 +18,7 @@ from ..server.task import ServerTaskModel
 from .cookbook import CookBook
 from .mealplan import GroupMealPlan
 from .preferences import GroupPreferencesModel
+from pydantic import ConfigDict
 
 if TYPE_CHECKING:
     from ..recipe import IngredientFoodModel, IngredientUnitModel, RecipeModel, Tag, Tool
@@ -79,9 +80,8 @@ class Group(SqlAlchemyBase, BaseMixins):
     ingredient_foods: Mapped[list["IngredientFoodModel"]] = orm.relationship("IngredientFoodModel", **common_args)
     tools: Mapped[list["Tool"]] = orm.relationship("Tool", **common_args)
     tags: Mapped[list["Tag"]] = orm.relationship("Tag", **common_args)
-
-    class Config:
-        exclude = {
+    model_config = ConfigDict(
+        exclude={
             "users",
             "webhooks",
             "shopping_lists",
@@ -91,6 +91,7 @@ class Group(SqlAlchemyBase, BaseMixins):
             "mealplans",
             "data_exports",
         }
+    )
 
     @auto_init()
     def __init__(self, **_) -> None:

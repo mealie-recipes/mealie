@@ -31,6 +31,8 @@ class CRFIngredient(BaseModel):
     unit: str = ""
     confidence: CRFConfidence
 
+    # TODO[pydantic]: We couldn't refactor the `validator`, please replace it by `field_validator` manually.
+    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-validators for more information.
     @validator("qty", always=True, pre=True)
     def validate_qty(qty, values):  # sourcery skip: merge-nested-ifs
         if qty is None or qty == "":

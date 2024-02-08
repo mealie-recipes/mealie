@@ -1,4 +1,5 @@
 from mealie.schema._mealie import MealieModel
+from pydantic import ConfigDict
 
 
 class RecipeSettings(MealieModel):
@@ -9,6 +10,4 @@ class RecipeSettings(MealieModel):
     disable_comments: bool = True
     disable_amount: bool = True
     locked: bool = False
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)

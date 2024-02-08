@@ -1,4 +1,4 @@
-from pydantic import UUID4, validator
+from pydantic import ConfigDict, UUID4, validator
 from slugify import slugify
 from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.interfaces import LoaderOption
@@ -24,10 +24,14 @@ class CreateCookBook(MealieModel):
     require_all_tags: bool = True
     require_all_tools: bool = True
 
+    # TODO[pydantic]: We couldn't refactor the `validator`, please replace it by `field_validator` manually.
+    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-validators for more information.
     @validator("public", always=True, pre=True)
     def validate_public(public: bool | None, values: dict) -> bool:  # type: ignore
         return False if public is None else public
 
+    # TODO[pydantic]: We couldn't refactor the `validator`, please replace it by `field_validator` manually.
+    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-validators for more information.
     @validator("slug", always=True, pre=True)
     def validate_slug(slug: str, values):  # type: ignore
         name: str = values["name"]
@@ -50,9 +54,7 @@ class UpdateCookBook(SaveCookBook):
 class ReadCookBook(UpdateCookBook):
     group_id: UUID4
     categories: list[CategoryBase] = []
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
@@ -66,6 +68,4 @@ class CookBookPagination(PaginationBase):
 class RecipeCookBook(ReadCookBook):
     group_id: UUID4
     recipes: list[RecipeSummary]
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)

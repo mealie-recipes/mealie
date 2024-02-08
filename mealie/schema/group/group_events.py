@@ -1,4 +1,4 @@
-from pydantic import UUID4, NoneStr
+from pydantic import ConfigDict, UUID4, NoneStr
 from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -54,9 +54,7 @@ class GroupEventNotifierOptionsSave(GroupEventNotifierOptions):
 
 class GroupEventNotifierOptionsOut(GroupEventNotifierOptions):
     id: UUID4
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 # =======================================================================
@@ -85,9 +83,7 @@ class GroupEventNotifierOut(MealieModel):
     enabled: bool
     group_id: UUID4
     options: GroupEventNotifierOptionsOut
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
@@ -100,6 +96,4 @@ class GroupEventPagination(PaginationBase):
 
 class GroupEventNotifierPrivate(GroupEventNotifierOut):
     apprise_url: str
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)

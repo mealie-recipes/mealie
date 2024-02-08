@@ -4,6 +4,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import auto_init
 from .._model_utils.guid import GUID
+from pydantic import ConfigDict
 
 
 class RecipeIngredientRefLink(SqlAlchemyBase, BaseMixins):
@@ -28,12 +29,12 @@ class RecipeInstruction(SqlAlchemyBase):
     ingredient_references: Mapped[list[RecipeIngredientRefLink]] = orm.relationship(
         RecipeIngredientRefLink, cascade="all, delete-orphan"
     )
-
-    class Config:
-        exclude = {
+    model_config = ConfigDict(
+        exclude={
             "id",
             "ingredient_references",
         }
+    )
 
     @auto_init()
     def __init__(self, ingredient_references, session, **_) -> None:

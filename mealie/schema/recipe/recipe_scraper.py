@@ -1,4 +1,5 @@
 from mealie.schema._mealie.mealie_model import MealieModel
+from pydantic import ConfigDict
 
 
 class ScrapeRecipeTest(MealieModel):
@@ -8,11 +9,11 @@ class ScrapeRecipeTest(MealieModel):
 class ScrapeRecipe(MealieModel):
     url: str
     include_tags: bool = False
-
-    class Config:
-        schema_extra = {
+    model_config = ConfigDict(
+        json_schema_extra={
             "example": {
                 "url": "https://myfavoriterecipes.com/recipes",
                 "includeTags": True,
             },
         }
+    )

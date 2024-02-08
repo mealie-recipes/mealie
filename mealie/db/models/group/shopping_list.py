@@ -10,6 +10,7 @@ from mealie.db.models.recipe.api_extras import ShoppingListExtras, ShoppingListI
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import GUID, auto_init
 from ..recipe.ingredient import IngredientFoodModel, IngredientUnitModel
+from pydantic import ConfigDict
 
 if TYPE_CHECKING:
     from group import Group
@@ -69,9 +70,7 @@ class ShoppingListItem(SqlAlchemyBase, BaseMixins):
     recipe_references: Mapped[list[ShoppingListItemRecipeReference]] = orm.relationship(
         ShoppingListItemRecipeReference, cascade="all, delete, delete-orphan"
     )
-
-    class Config:
-        exclude = {"id", "label", "food", "unit"}
+    model_config = ConfigDict(exclude={"id", "label", "food", "unit"})
 
     @api_extras
     @auto_init()
@@ -91,9 +90,7 @@ class ShoppingListRecipeReference(BaseMixins, SqlAlchemyBase):
     )
 
     recipe_quantity: Mapped[float] = mapped_column(Float, nullable=False)
-
-    class Config:
-        exclude = {"id", "recipe"}
+    model_config = ConfigDict(exclude={"id", "recipe"})
 
     @auto_init()
     def __init__(self, **_) -> None:
@@ -112,9 +109,7 @@ class ShoppingListMultiPurposeLabel(SqlAlchemyBase, BaseMixins):
         "MultiPurposeLabel", back_populates="shopping_lists_label_settings"
     )
     position: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
-
-    class Config:
-        exclude = {"label"}
+    model_config = ConfigDict(exclude={"label"})
 
     @auto_init()
     def __init__(self, **_) -> None:
@@ -146,9 +141,7 @@ class ShoppingList(SqlAlchemyBase, BaseMixins):
         collection_class=ordering_list("position"),
     )
     extras: Mapped[list[ShoppingListExtras]] = orm.relationship("ShoppingListExtras", cascade="all, delete-orphan")
-
-    class Config:
-        exclude = {"id", "list_items"}
+    model_config = ConfigDict(exclude={"id", "list_items"})
 
     @api_extras
     @auto_init()

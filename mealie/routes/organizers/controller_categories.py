@@ -1,7 +1,7 @@
 from functools import cached_property
 
 from fastapi import APIRouter, Depends
-from pydantic import UUID4, BaseModel
+from pydantic import ConfigDict, UUID4, BaseModel
 
 from mealie.routes._base import BaseCrudController, controller
 from mealie.routes._base.mixins import HttpRepo
@@ -20,9 +20,7 @@ class CategorySummary(BaseModel):
     id: UUID4
     slug: str
     name: str
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 @controller(router)

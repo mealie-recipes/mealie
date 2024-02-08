@@ -1,4 +1,4 @@
-from pydantic import UUID4
+from pydantic import ConfigDict, UUID4
 from sqlalchemy.orm import selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -19,16 +19,12 @@ class RecipeToolSave(RecipeToolCreate):
 class RecipeToolOut(RecipeToolCreate):
     id: UUID4
     slug: str
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class RecipeToolResponse(RecipeToolOut):
     recipes: list["RecipeSummary"] = []
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:

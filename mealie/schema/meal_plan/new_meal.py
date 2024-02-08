@@ -2,7 +2,7 @@ from datetime import date
 from enum import Enum
 from uuid import UUID
 
-from pydantic import validator
+from pydantic import ConfigDict, validator
 from sqlalchemy.orm import selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -32,6 +32,8 @@ class CreatePlanEntry(MealieModel):
     text: str = ""
     recipe_id: UUID | None
 
+    # TODO[pydantic]: We couldn't refactor the `validator`, please replace it by `field_validator` manually.
+    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-validators for more information.
     @validator("recipe_id", always=True)
     @classmethod
     def id_or_title(cls, value, values):
@@ -50,16 +52,12 @@ class UpdatePlanEntry(CreatePlanEntry):
 class SavePlanEntry(CreatePlanEntry):
     group_id: UUID
     user_id: UUID | None
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class ReadPlanEntry(UpdatePlanEntry):
     recipe: RecipeSummary | None
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:

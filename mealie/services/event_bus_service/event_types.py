@@ -89,9 +89,9 @@ class EventMealplanCreatedData(EventDocumentDataBase):
     operation = EventOperation.create
     mealplan_id: int
     date: date
-    recipe_id: UUID4 | None
-    recipe_name: str | None
-    recipe_slug: str | None
+    recipe_id: UUID4 | None = None
+    recipe_name: str | None = None
+    recipe_slug: str | None = None
 
 
 class EventUserSignupData(EventDocumentDataBase):
@@ -157,7 +157,7 @@ class EventTagData(EventDocumentDataBase):
 class EventWebhookData(EventDocumentDataBase):
     webhook_start_dt: datetime
     webhook_end_dt: datetime
-    webhook_body: Any
+    webhook_body: Any = None
 
 
 class EventBusMessage(MealieModel):
@@ -177,8 +177,8 @@ class Event(MealieModel):
     document_data: EventDocumentDataBase
 
     # set at instantiation
-    event_id: UUID4 | None
-    timestamp: datetime | None
+    event_id: UUID4 | None = None
+    timestamp: datetime | None = None
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)

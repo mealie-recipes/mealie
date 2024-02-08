@@ -9,6 +9,7 @@ from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 
 from .._model_utils import auto_init
 from .._model_utils.guid import GUID
+from pydantic import ConfigDict
 
 if TYPE_CHECKING:
     from group import Group
@@ -47,9 +48,7 @@ class ReportModel(SqlAlchemyBase, BaseMixins):
     # Relationships
     group_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
     group: Mapped["Group"] = orm.relationship("Group", back_populates="group_reports", single_parent=True)
-
-    class Config:
-        exclude = ["entries"]
+    model_config = ConfigDict(exclude=["entries"])
 
     @auto_init()
     def __init__(self, **_) -> None:

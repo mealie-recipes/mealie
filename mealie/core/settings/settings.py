@@ -1,11 +1,12 @@
 import secrets
 from pathlib import Path
 
-from pydantic import BaseSettings, NoneStr, validator
+from pydantic import field_validator, NoneStr
 
 from mealie.core.settings.themes import Theme
 
 from .db_providers import AbstractDBProvider, db_provider_factory
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 def determine_secrets(data_dir: Path, production: bool) -> str:
@@ -55,7 +56,8 @@ class AppSettings(BaseSettings):
     SECURITY_USER_LOCKOUT_TIME: int = 24
     "time in hours"
 
-    @validator("BASE_URL")
+    @field_validator("BASE_URL")
+    @classmethod
     def remove_trailing_slash(cls, v: str) -> str:
         if v and v[-1] == "/":
             return v[:-1]
@@ -173,9 +175,7 @@ class AppSettings(BaseSettings):
     # Testing Config
 
     TESTING: bool = False
-
-    class Config:
-        arbitrary_types_allowed = True
+    model_config = SettingsConfigDict(arbitrary_types_allowed=True)
 
 
 def app_settings_constructor(data_dir: Path, production: bool, env_file: Path, env_encoding="utf-8") -> AppSettings:

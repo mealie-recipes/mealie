@@ -3,7 +3,7 @@ import enum
 from uuid import UUID
 
 from isodate import parse_time
-from pydantic import UUID4, validator
+from pydantic import field_validator, ConfigDict, UUID4
 from pydantic.datetime_parse import parse_datetime
 
 from mealie.schema._mealie import MealieModel
@@ -22,7 +22,8 @@ class CreateWebhook(MealieModel):
     webhook_type: WebhookType = WebhookType.mealplan
     scheduled_time: datetime.time
 
-    @validator("scheduled_time", pre=True)
+    @field_validator("scheduled_time", mode="before")
+    @classmethod
     @classmethod
     def validate_scheduled_time(cls, v):
         """
@@ -55,9 +56,7 @@ class SaveWebhook(CreateWebhook):
 
 class ReadWebhook(SaveWebhook):
     id: UUID4
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class WebhookPagination(PaginationBase):
