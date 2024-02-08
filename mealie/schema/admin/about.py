@@ -14,6 +14,7 @@ class AppInfo(MealieModel):
     version: str
     demo_status: bool
     allow_signup: bool
+    default_group_slug: str | None = None
 
 
 class AppTheme(MealieModel):

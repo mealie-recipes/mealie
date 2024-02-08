@@ -1,9 +1,34 @@
+import pytest
 from fastapi.testclient import TestClient
 
 from mealie.core.config import get_app_settings
 from mealie.core.settings.static import APP_VERSION
+from mealie.repos.repository_factory import AllRepositories
 from tests.utils import api_routes
 from tests.utils.fixture_schemas import TestUser
+
+
+@pytest.mark.parametrize("is_private_group", [True, False], ids=["private group", "public group"])
+def test_public_about_get_app_info(api_client: TestClient, is_private_group: bool, database: AllRepositories):
+    settings = get_app_settings()
+    group = database.groups.get_by_name(settings.DEFAULT_GROUP)
+    assert group and group.preferences
+
+    group.preferences.private_group = is_private_group
+    database.group_preferences.update(group.id, group.preferences)
+
+    response = api_client.get(api_routes.app_about)
+    as_dict = response.json()
+
+    assert as_dict["production"] == settings.PRODUCTION
+    assert as_dict["version"] == APP_VERSION
+    assert as_dict["demoStatus"] == settings.IS_DEMO
+    assert as_dict["allowSignup"] == settings.ALLOW_SIGNUP
+
+    if is_private_group:
+        assert as_dict["defaultGroupSlug"] == None
+    else:
+        assert as_dict["defaultGroupSlug"] == group.slug
 
 
 def test_admin_about_get_app_info(api_client: TestClient, admin_user: TestUser):
