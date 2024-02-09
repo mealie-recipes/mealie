@@ -49,9 +49,6 @@
   "onCreateCommand": "sudo chown -R vscode:vscode /workspaces/mealie/frontend/node_modules && task setup",
   // Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
   "remoteUser": "vscode",
-  // "features": {
-  //   "git": "latest"
-  // }
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {
       "dockerDashComposeVersion": "v2"
