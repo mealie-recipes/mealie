@@ -1,5 +1,6 @@
-from mealie.schema._mealie import MealieModel
 from pydantic import ConfigDict
+
+from mealie.schema._mealie import MealieModel
 
 
 class RecipeSettings(MealieModel):

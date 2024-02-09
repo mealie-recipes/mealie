@@ -1,12 +1,11 @@
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Any
+from typing import Annotated, Any
 from uuid import UUID
 
 from pydantic import UUID4, ConfigDict, Field, StringConstraints, field_validator
 from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
-from typing_extensions import Annotated
 
 from mealie.core.config import get_app_dirs, get_app_settings
 from mealie.db.models.users import User

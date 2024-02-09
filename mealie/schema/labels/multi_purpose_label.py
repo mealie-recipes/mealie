@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import ClassVar
 
-from pydantic import ConfigDict, UUID4
+from pydantic import UUID4, ConfigDict
 
 from mealie.schema._mealie import MealieModel
 from mealie.schema.response.pagination import PaginationBase

@@ -1,5 +1,6 @@
-from mealie.schema._mealie.mealie_model import MealieModel
 from pydantic import ConfigDict
+
+from mealie.schema._mealie.mealie_model import MealieModel
 
 
 class ScrapeRecipeTest(MealieModel):

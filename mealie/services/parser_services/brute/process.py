@@ -1,7 +1,7 @@
 import string
 import unicodedata
 
-from pydantic import ConfigDict, BaseModel
+from pydantic import BaseModel, ConfigDict
 
 from .._helpers import check_char, move_parens_to_end
 

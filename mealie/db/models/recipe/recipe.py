@@ -3,6 +3,7 @@ from typing import TYPE_CHECKING
 
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
+from pydantic import ConfigDict
 from sqlalchemy import event
 from sqlalchemy.ext.orderinglist import ordering_list
 from sqlalchemy.orm import Mapped, mapped_column, validates
@@ -25,7 +26,6 @@ from .settings import RecipeSettings
 from .shared import RecipeShareTokenModel
 from .tag import recipes_to_tags
 from .tool import recipes_to_tools
-from pydantic import ConfigDict
 
 if TYPE_CHECKING:
     from ..group import Group, GroupMealPlan, ShoppingListItemRecipeReference, ShoppingListRecipeReference

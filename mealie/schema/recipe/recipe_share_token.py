@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 
-from pydantic import ConfigDict, UUID4, Field
+from pydantic import UUID4, ConfigDict, Field
 from sqlalchemy.orm import selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 

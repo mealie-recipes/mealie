@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import TYPE_CHECKING
 
+from pydantic import ConfigDict
 from sqlalchemy import ForeignKey, orm
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.sql.sqltypes import Boolean, DateTime, String
@@ -9,7 +10,6 @@ from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 
 from .._model_utils import auto_init
 from .._model_utils.guid import GUID
-from pydantic import ConfigDict
 
 if TYPE_CHECKING:
     from group import Group

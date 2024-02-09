@@ -1,10 +1,10 @@
+from pydantic import ConfigDict
 from sqlalchemy import ForeignKey, Integer, String, orm
 from sqlalchemy.orm import Mapped, mapped_column
 
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import auto_init
 from .._model_utils.guid import GUID
-from pydantic import ConfigDict
 
 
 class RecipeIngredientRefLink(SqlAlchemyBase, BaseMixins):

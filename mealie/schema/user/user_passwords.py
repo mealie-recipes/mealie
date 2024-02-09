@@ -1,4 +1,4 @@
-from pydantic import ConfigDict, UUID4
+from pydantic import UUID4, ConfigDict
 from sqlalchemy.orm import selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 

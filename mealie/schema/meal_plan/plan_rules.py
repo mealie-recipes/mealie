@@ -1,7 +1,7 @@
 import datetime
 from enum import Enum
 
-from pydantic import ConfigDict, UUID4
+from pydantic import UUID4, ConfigDict
 from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.interfaces import LoaderOption
 

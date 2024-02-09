@@ -1,8 +1,8 @@
-from pydantic import StringConstraints, UUID4, BaseModel
-from pydantic.types import constr
+from typing import Annotated
+
+from pydantic import UUID4, BaseModel, StringConstraints
 
 from mealie.schema._mealie.mealie_model import MealieModel
-from typing_extensions import Annotated
 
 
 class Token(BaseModel):

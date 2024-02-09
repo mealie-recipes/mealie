@@ -2,7 +2,7 @@ from datetime import datetime
 from enum import Enum
 from pathlib import Path
 
-from pydantic import ConfigDict, UUID4, Field
+from pydantic import UUID4, ConfigDict, Field
 
 from mealie.core.config import get_app_dirs
 from mealie.schema._mealie.mealie_model import MealieModel

@@ -1,4 +1,4 @@
-from pydantic import ConfigDict, BaseModel
+from pydantic import BaseModel, ConfigDict
 
 from mealie.schema._mealie import MealieModel
 

@@ -1,5 +1,6 @@
 from typing import TYPE_CHECKING, Optional
 
+from pydantic import ConfigDict
 from sqlalchemy import Boolean, Float, ForeignKey, Integer, String, UniqueConstraint, orm
 from sqlalchemy.ext.orderinglist import ordering_list
 from sqlalchemy.orm import Mapped, mapped_column
@@ -10,7 +11,6 @@ from mealie.db.models.recipe.api_extras import ShoppingListExtras, ShoppingListI
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import GUID, auto_init
 from ..recipe.ingredient import IngredientFoodModel, IngredientUnitModel
-from pydantic import ConfigDict
 
 if TYPE_CHECKING:
     from group import Group

@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from pydantic import ConfigDict, UUID4
+from pydantic import UUID4, ConfigDict
 
 from mealie.schema._mealie import MealieModel
 
