@@ -27,7 +27,7 @@ class ExportedItem:
 
 
 class ABCExporter(BaseService):
-    write_dir_to_zip: Callable[[Path, str, set[str] | None], None] | None
+    write_dir_to_zip: Callable[[Path, str, set[str] | None], None] | None = None
 
     def __init__(self, db: AllRepositories, group_id: UUID) -> None:
         self.logger = get_logger()

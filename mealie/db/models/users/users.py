@@ -2,6 +2,7 @@ import enum
 from datetime import datetime
 from typing import TYPE_CHECKING, Optional
 
+from pydantic import ConfigDict
 from sqlalchemy import Boolean, DateTime, Enum, ForeignKey, Integer, String, orm
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import Mapped, mapped_column
@@ -12,7 +13,6 @@ from mealie.db.models._model_utils.guid import GUID
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import auto_init
 from .user_to_favorite import users_to_favorites
-from pydantic import ConfigDict
 
 if TYPE_CHECKING:
     from ..group import Group

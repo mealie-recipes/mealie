@@ -1,6 +1,6 @@
 from uuid import UUID, uuid4
 
-from pydantic import ConfigDict, UUID4, Field
+from pydantic import UUID4, ConfigDict, Field
 
 from mealie.schema._mealie import MealieModel
 
@@ -10,7 +10,7 @@ class IngredientReferences(MealieModel):
     A list of ingredient references.
     """
 
-    reference_id: UUID4 | None
+    reference_id: UUID4 | None = None
     model_config = ConfigDict(from_attributes=True)
 
 

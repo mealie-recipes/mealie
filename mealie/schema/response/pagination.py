@@ -22,12 +22,12 @@ class OrderByNullPosition(str, enum.Enum):
 
 
 class RecipeSearchQuery(MealieModel):
-    cookbook: UUID4 | str | None
+    cookbook: UUID4 | str | None = None
     require_all_categories: bool = False
     require_all_tags: bool = False
     require_all_tools: bool = False
     require_all_foods: bool = False
-    search: str | None
+    search: str | None = None
     _search_seed: str | None = None
 
 
@@ -53,8 +53,8 @@ class PaginationBase(BaseModel, Generic[DataT]):
     total: int = 0
     total_pages: int = 0
     items: list[DataT]
-    next: str | None
-    previous: str | None
+    next: str | None = None
+    previous: str | None = None
 
     def _set_next(self, route: str, query_params: dict[str, Any]) -> None:
         if self.page >= self.total_pages:

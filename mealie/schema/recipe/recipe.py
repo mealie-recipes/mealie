@@ -79,16 +79,16 @@ class CreateRecipe(MealieModel):
 
 
 class RecipeSummary(MealieModel):
-    id: UUID4 | None
+    id: UUID4 | None = None
     _normalize_search: ClassVar[bool] = True
 
     user_id: UUID4 = Field(default_factory=uuid4, validate_default=True)
     group_id: UUID4 = Field(default_factory=uuid4, validate_default=True)
 
-    name: str | None
+    name: str | None = None
     slug: Annotated[str, Field(validate_default=True)] = ""
-    image: Any | None
-    recipe_yield: str | None
+    image: Any | None = None
+    recipe_yield: str | None = None
 
     total_time: str | None = None
     prep_time: str | None = None
@@ -99,15 +99,15 @@ class RecipeSummary(MealieModel):
     recipe_category: Annotated[list[RecipeCategory] | None, Field(validate_default=True)] | None = []
     tags: Annotated[list[RecipeTag] | None, Field(validate_default=True)] = []
     tools: list[RecipeTool] = []
-    rating: int | None
+    rating: int | None = None
     org_url: str | None = Field(None, alias="orgURL")
 
-    date_added: datetime.date | None
-    date_updated: datetime.datetime | None
+    date_added: datetime.date | None = None
+    date_updated: datetime.datetime | None = None
 
-    created_at: datetime.datetime | None
-    update_at: datetime.datetime | None
-    last_made: datetime.datetime | None
+    created_at: datetime.datetime | None = None
+    update_at: datetime.datetime | None = None
+    last_made: datetime.datetime | None = None
     model_config = ConfigDict(from_attributes=True)
 
 
@@ -118,7 +118,7 @@ class RecipePagination(PaginationBase):
 class Recipe(RecipeSummary):
     recipe_ingredient: Annotated[list[RecipeIngredient], Field(validate_default=True)] = []
     recipe_instructions: list[RecipeStep] | None = []
-    nutrition: Nutrition | None
+    nutrition: Nutrition | None = None
 
     # Mealie Specific
     settings: RecipeSettings | None = None

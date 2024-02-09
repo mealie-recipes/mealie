@@ -1,4 +1,4 @@
-from datetime import date
+import datetime
 
 from pydantic import ConfigDict, field_validator
 from pydantic_core.core_schema import ValidationInfo
@@ -7,14 +7,14 @@ from mealie.schema._mealie import MealieModel
 
 
 class MealIn(MealieModel):
-    slug: str | None
-    name: str | None
-    description: str | None
+    slug: str | None = None
+    name: str | None = None
+    description: str | None = None
     model_config = ConfigDict(from_attributes=True)
 
 
 class MealDayIn(MealieModel):
-    date: date | None
+    date: datetime.date | None = None
     meals: list[MealIn]
     model_config = ConfigDict(from_attributes=True)
 
@@ -26,8 +26,8 @@ class MealDayOut(MealDayIn):
 
 class MealPlanIn(MealieModel):
     group: str
-    start_date: date
-    end_date: date
+    start_date: datetime.date
+    end_date: datetime.date
     plan_days: list[MealDayIn]
 
     @field_validator("end_date")
@@ -41,5 +41,5 @@ class MealPlanIn(MealieModel):
 
 class MealPlanOut(MealPlanIn):
     id: int
-    shopping_list: int | None
+    shopping_list: int | None = None
     model_config = ConfigDict(from_attributes=True)

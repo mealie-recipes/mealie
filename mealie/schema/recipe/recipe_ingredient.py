@@ -60,8 +60,8 @@ class IngredientFood(CreateIngredientFood):
     label: MultiPurposeLabelSummary | None = None
     aliases: list[IngredientFoodAlias] = []
 
-    created_at: datetime.datetime | None
-    update_at: datetime.datetime | None
+    created_at: datetime.datetime | None = None
+    update_at: datetime.datetime | None = None
 
     _searchable_properties: ClassVar[list[str]] = ["name_normalized", "plural_name_normalized"]
     _normalize_search: ClassVar[bool] = True
@@ -102,8 +102,8 @@ class IngredientUnit(CreateIngredientUnit):
     id: UUID4
     aliases: list[IngredientUnitAlias] = []
 
-    created_at: datetime.datetime | None
-    update_at: datetime.datetime | None
+    created_at: datetime.datetime | None = None
+    update_at: datetime.datetime | None = None
 
     _searchable_properties: ClassVar[list[str]] = [
         "name_normalized",
@@ -117,8 +117,8 @@ class IngredientUnit(CreateIngredientUnit):
 
 class RecipeIngredientBase(MealieModel):
     quantity: NoneFloat = 1
-    unit: IngredientUnit | CreateIngredientUnit | None
-    food: IngredientFood | CreateIngredientFood | None
+    unit: IngredientUnit | CreateIngredientUnit | None = None
+    food: IngredientFood | CreateIngredientFood | None = None
     note: str | None = ""
 
     is_food: bool | None = None
@@ -257,8 +257,8 @@ class IngredientUnitPagination(PaginationBase):
 
 
 class RecipeIngredient(RecipeIngredientBase):
-    title: str | None
-    original_text: str | None
+    title: str | None = None
+    original_text: str | None = None
     disable_amount: bool = True
 
     # Ref is used as a way to distinguish between an individual ingredient on the frontend
@@ -301,7 +301,7 @@ class IngredientConfidence(MealieModel):
 
 
 class ParsedIngredient(MealieModel):
-    input: str | None
+    input: str | None = None
     confidence: IngredientConfidence = IngredientConfidence()
     ingredient: RecipeIngredient
 

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime
 
-from pydantic import field_validator, ConfigDict, UUID4
+from pydantic import UUID4, ConfigDict, field_validator
 from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -85,14 +85,14 @@ class ShoppingListItemUpdateBulk(ShoppingListItemUpdate):
 class ShoppingListItemOut(ShoppingListItemBase):
     id: UUID4
 
-    food: IngredientFood | None
-    label: MultiPurposeLabelSummary | None
-    unit: IngredientUnit | None
+    food: IngredientFood | None = None
+    label: MultiPurposeLabelSummary | None = None
+    unit: IngredientUnit | None = None
 
     recipe_references: list[ShoppingListItemRecipeRefOut] = []
 
-    created_at: datetime | None
-    update_at: datetime | None
+    created_at: datetime | None = None
+    update_at: datetime | None = None
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -153,8 +153,8 @@ class ShoppingListCreate(MealieModel):
     name: str | None = None
     extras: dict | None = {}
 
-    created_at: datetime | None
-    update_at: datetime | None
+    created_at: datetime | None = None
+    update_at: datetime | None = None
 
 
 class ShoppingListRecipeRefOut(MealieModel):

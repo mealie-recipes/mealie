@@ -1,10 +1,11 @@
-from mealie.schema._mealie import MealieModel
-from mealie.schema.getter_dict import GroupGetterDict
 from pydantic import ConfigDict
+
+from mealie.schema._mealie import MealieModel
+from mealie.schema.user.user import GroupBase
 
 
 class ListItem(MealieModel):
-    title: str | None
+    title: str | None = None
     text: str = ""
     quantity: int = 1
     checked: bool = False
@@ -13,12 +14,10 @@ class ListItem(MealieModel):
 
 class ShoppingListIn(MealieModel):
     name: str
-    group: str | None
+    group: GroupBase | None = None
     items: list[ListItem]
 
 
 class ShoppingListOut(ShoppingListIn):
     id: int
-    # TODO[pydantic]: The following keys were removed: `getter_dict`.
-    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-config for more information.
-    model_config = ConfigDict(from_attributes=True, getter_dict=GroupGetterDict)
+    model_config = ConfigDict(from_attributes=True)

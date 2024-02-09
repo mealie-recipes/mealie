@@ -3,10 +3,10 @@ from pathlib import Path
 from typing import Any
 from uuid import UUID
 
-from pydantic import field_validator, StringConstraints, ConfigDict, UUID4, Field
-from pydantic.types import constr
+from pydantic import UUID4, ConfigDict, Field, StringConstraints, field_validator
 from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
+from typing_extensions import Annotated
 
 from mealie.core.config import get_app_dirs, get_app_settings
 from mealie.db.models.users import User
@@ -18,9 +18,7 @@ from mealie.schema.response.pagination import PaginationBase
 
 from ...db.models.group import Group
 from ...db.models.recipe import RecipeModel
-from ..getter_dict import GroupGetterDict, UserGetterDict
 from ..recipe import CategoryBase
-from typing_extensions import Annotated
 
 DEFAULT_INTEGRATION_ID = "generic"
 settings = get_app_settings()
@@ -35,7 +33,7 @@ class LongLiveTokenOut(MealieModel):
     token: str
     name: str
     id: int
-    created_at: datetime | None
+    created_at: datetime | None = None
     model_config = ConfigDict(from_attributes=True)
 
 
@@ -61,23 +59,20 @@ class GroupBase(MealieModel):
 
 
 class UserBase(MealieModel):
-    username: str | None
+    username: str | None = None
     full_name: str | None = None
     email: Annotated[str, StringConstraints(to_lower=True, strip_whitespace=True)]  # type: ignore
     auth_method: AuthMethod = AuthMethod.MEALIE
     admin: bool = False
-    group: str | None
+    group: GroupBase | None = None
     advanced: bool = False
     favorite_recipes: list[str] | None = []
 
     can_invite: bool = False
     can_manage: bool = False
     can_organize: bool = False
-    # TODO[pydantic]: The following keys were removed: `getter_dict`.
-    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-config for more information.
     model_config = ConfigDict(
         from_attributes=True,
-        getter_dict=GroupGetterDict,
         json_schema_extra={
             "example": {
                 "username": "ChangeMe",
@@ -96,15 +91,13 @@ class UserIn(UserBase):
 
 class UserOut(UserBase):
     id: UUID4
-    group: str
+    group: GroupBase
     group_id: UUID4
     group_slug: str
-    tokens: list[LongLiveTokenOut] | None
+    tokens: list[LongLiveTokenOut] | None = None
     cache_key: str
-    favorite_recipes: list[str] | None = []
-    # TODO[pydantic]: The following keys were removed: `getter_dict`.
-    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-config for more information.
-    model_config = ConfigDict(from_attributes=True, getter_dict=UserGetterDict)
+    favorite_recipes: Annotated[list[str] | None, Field(validate_default=True)] = []
+    model_config = ConfigDict(from_attributes=True)
 
     @property
     def is_default_user(self) -> bool:
@@ -114,6 +107,10 @@ class UserOut(UserBase):
     def loader_options(cls) -> list[LoaderOption]:
         return [joinedload(User.group), joinedload(User.favorite_recipes), joinedload(User.tokens)]
 
+    @field_validator("favorite_recipes", mode="before")
+    def convert_favorite_recipes_to_slugs(cls, v):
+        return [recipe.slug for recipe in v] if v else v
+
 
 class UserPagination(PaginationBase):
     items: list[UserOut]
@@ -121,9 +118,7 @@ class UserPagination(PaginationBase):
 
 class UserFavorites(UserBase):
     favorite_recipes: list[RecipeSummary] = []  # type: ignore
-    # TODO[pydantic]: The following keys were removed: `getter_dict`.
-    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-config for more information.
-    model_config = ConfigDict(from_attributes=True, getter_dict=GroupGetterDict)
+    model_config = ConfigDict(from_attributes=True)
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
@@ -179,7 +174,7 @@ class UpdateGroup(GroupBase):
 
 
 class GroupInDB(UpdateGroup):
-    users: list[UserOut] | None
+    users: list[UserOut] | None = None
     preferences: ReadGroupPreferences | None = None
     model_config = ConfigDict(from_attributes=True)
 

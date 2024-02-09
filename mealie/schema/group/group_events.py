@@ -63,7 +63,7 @@ class GroupEventNotifierOptionsOut(GroupEventNotifierOptions):
 
 class GroupEventNotifierCreate(MealieModel):
     name: str
-    apprise_url: str | None
+    apprise_url: str | None = None
 
 
 class GroupEventNotifierSave(GroupEventNotifierCreate):

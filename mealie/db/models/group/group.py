@@ -2,6 +2,7 @@ from typing import TYPE_CHECKING, Optional
 
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
+from pydantic import ConfigDict
 from sqlalchemy import select
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.orm.session import Session
@@ -18,7 +19,6 @@ from ..server.task import ServerTaskModel
 from .cookbook import CookBook
 from .mealplan import GroupMealPlan
 from .preferences import GroupPreferencesModel
-from pydantic import ConfigDict
 
 if TYPE_CHECKING:
     from ..recipe import IngredientFoodModel, IngredientUnitModel, RecipeModel, Tag, Tool

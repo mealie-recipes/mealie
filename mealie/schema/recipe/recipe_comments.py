@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from pydantic import ConfigDict, UUID4
+from pydantic import UUID4, ConfigDict
 from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -11,7 +11,7 @@ from mealie.schema.response.pagination import PaginationBase
 
 class UserBase(MealieModel):
     id: UUID4
-    username: str | None
+    username: str | None = None
     admin: bool
     model_config = ConfigDict(from_attributes=True)
 
