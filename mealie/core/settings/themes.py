@@ -17,4 +17,4 @@ class Theme(BaseSettings):
     dark_info: str = "#1976D2"
     dark_warning: str = "#FF6D00"
     dark_error: str = "#EF5350"
-    model_config = SettingsConfigDict(env_prefix="theme_")
+    model_config = SettingsConfigDict(env_prefix="theme_", extra="allow")

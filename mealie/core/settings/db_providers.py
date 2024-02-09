@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from pathlib import Path
 
 from pydantic import BaseModel, PostgresDsn
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class AbstractDBProvider(ABC):
@@ -38,6 +38,8 @@ class PostgresProvider(AbstractDBProvider, BaseSettings):
     POSTGRES_SERVER: str = "postgres"
     POSTGRES_PORT: str = "5432"
     POSTGRES_DB: str = "mealie"
+
+    model_config = SettingsConfigDict(arbitrary_types_allowed=True, extra="allow")
 
     @property
     def db_url(self) -> str:
