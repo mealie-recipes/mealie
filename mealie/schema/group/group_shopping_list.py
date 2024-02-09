@@ -66,6 +66,13 @@ class ShoppingListItemBase(RecipeIngredientBase):
     is_food: bool = False
     extras: dict | None = {}
 
+    @field_validator("extras", mode="before")
+    def convert_extras_to_dict(cls, v):
+        if isinstance(v, dict):
+            return v
+
+        return {x.key_name: x.value for x in v} if v else {}
+
 
 class ShoppingListItemCreate(ShoppingListItemBase):
     recipe_references: list[ShoppingListItemRecipeRefCreate] = []
@@ -114,10 +121,6 @@ class ShoppingListItemOut(ShoppingListItemBase):
             selectinload(ShoppingListItem.recipe_references),
         ]
 
-    @field_validator("extras", mode="before")
-    def convert_extras_to_dict(cls, v):
-        return {x.key_name: x.value for x in v} if v else v
-
 
 class ShoppingListItemsCollectionOut(MealieModel):
     """Container for bulk shopping list item changes"""
@@ -156,6 +159,13 @@ class ShoppingListCreate(MealieModel):
 
     created_at: datetime | None = None
     update_at: datetime | None = None
+
+    @field_validator("extras", mode="before")
+    def convert_extras_to_dict(cls, v):
+        if isinstance(v, dict):
+            return v
+
+        return {x.key_name: x.value for x in v} if v else {}
 
 
 class ShoppingListRecipeRefOut(MealieModel):
@@ -203,10 +213,6 @@ class ShoppingListSummary(ShoppingListSave):
             selectinload(ShoppingList.label_settings).joinedload(ShoppingListMultiPurposeLabel.label),
         ]
 
-    @field_validator("extras", mode="before")
-    def convert_extras_to_dict(cls, v):
-        return {x.key_name: x.value for x in v} if v else v
-
 
 class ShoppingListPagination(PaginationBase):
     items: list[ShoppingListSummary]
@@ -247,10 +253,6 @@ class ShoppingListOut(ShoppingListUpdate):
             .joinedload(RecipeModel.tools),
             selectinload(ShoppingList.label_settings).joinedload(ShoppingListMultiPurposeLabel.label),
         ]
-
-    @field_validator("extras", mode="before")
-    def convert_extras_to_dict(cls, v):
-        return {x.key_name: x.value for x in v} if v else v
 
 
 class ShoppingListAddRecipeParams(MealieModel):

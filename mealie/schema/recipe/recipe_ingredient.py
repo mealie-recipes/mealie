@@ -36,6 +36,13 @@ class UnitFoodBase(MealieModel):
     description: str = ""
     extras: dict | None = {}
 
+    @field_validator("extras", mode="before")
+    def convert_extras_to_dict(cls, v):
+        if isinstance(v, dict):
+            return v
+
+        return {x.key_name: x.value for x in v} if v else {}
+
 
 class CreateIngredientFoodAlias(MealieModel):
     name: str
@@ -69,10 +76,6 @@ class IngredientFood(CreateIngredientFood):
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
         return [joinedload(IngredientFoodModel.extras), joinedload(IngredientFoodModel.label)]
-
-    @field_validator("extras", mode="before")
-    def convert_extras_to_dict(cls, v):
-        return {x.key_name: x.value for x in v} if v else v
 
 
 class IngredientFoodPagination(PaginationBase):
