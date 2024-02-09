@@ -9,6 +9,29 @@ def test_json_provider():
     assert provider.t("test2", "DEFAULT") == "DEFAULT"
 
 
+def test_json_provider_plural():
+    provider = JsonProvider({"test": "test | tests"})
+    assert provider.t("test", count=0) == "tests"
+    assert provider.t("test", count=0.5) == "tests"
+    assert provider.t("test", count=1) == "test"
+    assert provider.t("test", count=1.5) == "tests"
+    assert provider.t("test", count=2) == "tests"
+
+    provider = JsonProvider({"test": "test 0 | test | tests"})
+    assert provider.t("test", count=0) == "test 0"
+    assert provider.t("test", count=0.5) == "tests"
+    assert provider.t("test", count=1) == "test"
+    assert provider.t("test", count=1.5) == "tests"
+    assert provider.t("test", count=2) == "tests"
+
+    provider = JsonProvider({"test": "zero tests | one test | {count} tests"})
+    assert provider.t("test", count=0) == "zero tests"
+    assert provider.t("test", count=0.5) == "0.5 tests"
+    assert provider.t("test", count=1) == "one test"
+    assert provider.t("test", count=1.5) == "1.5 tests"
+    assert provider.t("test", count=2) == "2 tests"
+
+
 def test_json_provider_nested_keys():
     nested_dict = {
         "root": {

@@ -31,5 +31,14 @@
         "generic-updated-with-url": "{name} a fost actualizat, {url}",
         "generic-duplicated": "{name} a fost duplicat",
         "generic-deleted": "{name} a fost șters"
+    },
+    "datetime": {
+        "year": "year|years",
+        "day": "day|days",
+        "hour": "hour|hours",
+        "minute": "minute|minutes",
+        "second": "second|seconds",
+        "millisecond": "millisecond|milliseconds",
+        "microsecond": "microsecond|microseconds"
     }
 }
