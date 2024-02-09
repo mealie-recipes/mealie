@@ -97,7 +97,7 @@ def handle_one_to_many_list(
 
         updated_elems.append(existing_elem)
 
-    new_elems = [safe_call(relation_cls, elem, session=session) for elem in elems_to_create]
+    new_elems = [safe_call(relation_cls, elem.copy(), session=session) for elem in elems_to_create]
     return new_elems + updated_elems
 
 
@@ -164,7 +164,7 @@ def auto_init():  # sourcery no-metrics
                         setattr(self, key, instances)
 
                     elif relation_dir == ONETOMANY:
-                        instance = safe_call(relation_cls, val, session=session)
+                        instance = safe_call(relation_cls, val.copy() if val else None, session=session)
                         setattr(self, key, instance)
 
                     elif relation_dir == MANYTOONE and not use_list:
