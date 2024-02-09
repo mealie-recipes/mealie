@@ -31,5 +31,14 @@
         "generic-updated-with-url": "{name} беше актуализирано, {url}",
         "generic-duplicated": "{name} е дублицирано",
         "generic-deleted": "{name} беше изтрито"
+    },
+    "datetime": {
+        "year": "година|години",
+        "day": "ден|дни",
+        "hour": "час|часове",
+        "minute": "минута|минути",
+        "second": "секунда|секунди",
+        "millisecond": "милисекунда|милисекунди",
+        "microsecond": "микросекунда|микросекунди"
     }
 }
