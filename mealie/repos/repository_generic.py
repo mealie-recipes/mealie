@@ -106,7 +106,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
             except AttributeError:
                 self.logger.info(f'Attempted to sort by unknown sort property "{order_by}"; ignoring')
         result = self.session.execute(q.offset(start).limit(limit)).unique().scalars().all()
-        return [eff_schema.from_orm(x) for x in result]
+        return [eff_schema.model_validate(x) for x in result]
 
     def multi_query(
         self,
@@ -129,7 +129,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
         q = q.offset(start).limit(limit)
         result = self.session.execute(q).unique().scalars().all()
-        return [eff_schema.from_orm(x) for x in result]
+        return [eff_schema.model_validate(x) for x in result]
 
     def _query_one(self, match_value: str | int | UUID4, match_key: str | None = None) -> Model:
         """
@@ -161,7 +161,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
         if not result:
             return None
 
-        return eff_schema.from_orm(result)
+        return eff_schema.model_validate(result)
 
     def create(self, data: Schema | BaseModel | dict) -> Schema:
         try:
@@ -175,7 +175,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
         self.session.refresh(new_document)
 
-        return self.schema.from_orm(new_document)
+        return self.schema.model_validate(new_document)
 
     def create_many(self, data: Iterable[Schema | dict]) -> list[Schema]:
         new_documents = []
@@ -190,7 +190,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
         for created_document in new_documents:
             self.session.refresh(created_document)
 
-        return [self.schema.from_orm(x) for x in new_documents]
+        return [self.schema.model_validate(x) for x in new_documents]
 
     def update(self, match_value: str | int | UUID4, new_data: dict | BaseModel) -> Schema:
         """Update a database entry.
@@ -208,7 +208,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
         entry.update(session=self.session, **new_data)
 
         self.session.commit()
-        return self.schema.from_orm(entry)
+        return self.schema.model_validate(entry)
 
     def update_many(self, data: Iterable[Schema | dict]) -> list[Schema]:
         document_data_by_id: dict[str, dict] = {}
@@ -226,14 +226,14 @@ class RepositoryGeneric(Generic[Schema, Model]):
             updated_documents.append(document_to_update)
 
         self.session.commit()
-        return [self.schema.from_orm(x) for x in updated_documents]
+        return [self.schema.model_validate(x) for x in updated_documents]
 
     def patch(self, match_value: str | int | UUID4, new_data: dict | BaseModel) -> Schema:
         new_data = new_data if isinstance(new_data, dict) else new_data.model_dump()
 
         entry = self._query_one(match_value=match_value)
 
-        entry_as_dict = self.schema.from_orm(entry).model_dump()
+        entry_as_dict = self.schema.model_validate(entry).model_dump()
         entry_as_dict.update(new_data)
 
         return self.update(match_value, entry_as_dict)
@@ -242,7 +242,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
         match_key = match_key or self.primary_key
 
         result = self._query_one(value, match_key)
-        results_as_model = self.schema.from_orm(result)
+        results_as_model = self.schema.model_validate(result)
 
         try:
             self.session.delete(result)
@@ -256,7 +256,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
     def delete_many(self, values: Iterable) -> Schema:
         query = self._query().filter(self.model.id.in_(values))  # type: ignore
         results = self.session.execute(query).unique().scalars().all()
-        results_as_model = [self.schema.from_orm(result) for result in results]
+        results_as_model = [self.schema.model_validate(result) for result in results]
 
         try:
             # we create a delete statement for each row
@@ -295,7 +295,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
             return self.session.scalar(q)
         else:
             q = self._query(override_schema=eff_schema).filter(attribute_name == attr_match)
-            return [eff_schema.from_orm(x) for x in self.session.execute(q).scalars().all()]
+            return [eff_schema.model_validate(x) for x in self.session.execute(q).scalars().all()]
 
     def page_all(self, pagination: PaginationQuery, override=None, search: str | None = None) -> PaginationBase[Schema]:
         """
@@ -336,7 +336,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
             per_page=pagination_result.per_page,
             total=count,
             total_pages=total_pages,
-            items=[eff_schema.from_orm(s) for s in data],
+            items=[eff_schema.model_validate(s) for s in data],
         )
 
     def add_pagination_to_query(self, query: Select, pagination: PaginationQuery) -> tuple[Select, int, int]:

@@ -61,7 +61,7 @@ class RepositoryGroup(RepositoryGeneric[GroupInDB, Group]):
         dbgroup = self.session.execute(select(self.model).filter_by(name=name)).scalars().one_or_none()
         if dbgroup is None:
             return None
-        return self.schema.from_orm(dbgroup)
+        return self.schema.model_validate(dbgroup)
 
     def get_by_slug_or_id(self, slug_or_id: str | UUID) -> GroupInDB | None:
         if isinstance(slug_or_id, str):

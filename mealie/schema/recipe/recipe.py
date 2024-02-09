@@ -177,8 +177,8 @@ class Recipe(RecipeSummary):
     model_config = ConfigDict(from_attributes=True, getter_dict=ExtrasGetterDict)
 
     @classmethod
-    def from_orm(cls, obj):
-        recipe = super().from_orm(obj)
+    def model_validate(cls, obj):
+        recipe = super().model_validate(obj)
         recipe.__post_init__()
         return recipe
 

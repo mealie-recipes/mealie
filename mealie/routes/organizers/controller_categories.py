@@ -69,7 +69,7 @@ class RecipeCategoryController(BaseCrudController):
     def get_one(self, item_id: UUID4):
         """Returns a list of recipes associated with the provided category."""
         category_obj = self.mixins.get_one(item_id)
-        category_obj = CategorySummary.from_orm(category_obj)
+        category_obj = CategorySummary.model_validate(category_obj)
         return category_obj
 
     @router.put("/{item_id}", response_model=CategorySummary)
