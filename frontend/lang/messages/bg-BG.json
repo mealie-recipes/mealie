@@ -200,7 +200,7 @@
     "created-on-date": "Създадено на {0}",
     "unsaved-changes": "Имате незапазени промени. Желаете ли да ги запазите преди да излезете? Натиснете Ок за запазване и Отказ за отхвърляне на промените.",
     "clipboard-copy-failure": "Линкът към рецептата е копиран в клипборда.",
-    "confirm-delete-generic-items": "Are you sure you want to delete the following items?"
+    "confirm-delete-generic-items": "Сигурни ли сте, че желаете да изтриете следните елементи?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Сигурни ли сте, че искате да изтриете <b>{groupName}<b/>?",
@@ -259,7 +259,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Създаване на нов хранителен план",
-    "update-this-meal-plan": "Update this Meal Plan",
+    "update-this-meal-plan": "Обнови този План за хранене",
     "dinner-this-week": "Вечеря тази седмица",
     "dinner-today": "Вечеря Днес",
     "dinner-tonight": "Вечеря ТАЗИ ВЕЧЕР",
@@ -474,11 +474,11 @@
     "add-to-timeline": "Добави към времевата линия",
     "recipe-added-to-list": "Рецептата е добавена към списъка",
     "recipes-added-to-list": "Рецептите са добавени към списъка",
-    "successfully-added-to-list": "Successfully added to list",
+    "successfully-added-to-list": "Успешно добавено в списъка",
     "recipe-added-to-mealplan": "Рецептата е добавена към хранителния план",
     "failed-to-add-recipes-to-list": "Неуспешно добавяне на рецепта към списъка",
     "failed-to-add-recipe-to-mealplan": "Рецептата не беше добавена към хранителния план",
-    "failed-to-add-to-list": "Failed to add to list",
+    "failed-to-add-to-list": "Неуспешно добавяне към списъка",
     "yield": "Добив",
     "quantity": "Количество",
     "choose-unit": "Избери единица",
@@ -537,8 +537,8 @@
     "new-recipe-names-must-be-unique": "Името на рецептата трябва да бъде уникално",
     "scrape-recipe": "Обхождане на рецепта",
     "scrape-recipe-description": "Обходи рецепта по линк. Предоставете линк за сайт, който искате да бъде обходен. Mealie ще опита да обходи рецептата от този сайт и да я добави във Вашата колекция.",
-    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
-    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
+    "scrape-recipe-have-a-lot-of-recipes": "Имате много рецепти, които искате да обходите наведнъж?",
+    "scrape-recipe-suggest-bulk-importer": "Пробвайте масовото импорторане",
     "import-original-keywords-as-tags": "Импортирай оригиналните ключови думи като тагове",
     "stay-in-edit-mode": "Остани в режим на редакция",
     "import-from-zip": "Импортирай от Zip",
@@ -562,7 +562,7 @@
     "upload-image": "Качване на изображение",
     "screen-awake": "Запази екрана активен",
     "remove-image": "Премахване на изображение",
-    "nextStep": "Next step"
+    "nextStep": "Следваща стъпка"
   },
   "search": {
     "advanced-search": "Разширено търсене",
@@ -1187,7 +1187,7 @@
     "require-all-tools": "Изискване на всички инструменти",
     "cookbook-name": "Име на книгата с рецепти",
     "cookbook-with-name": "Книга с рецепти {0}",
-    "create-a-cookbook": "Create a Cookbook",
-    "cookbook": "Cookbook"
+    "create-a-cookbook": "Създай Готварска книга",
+    "cookbook": "Готварска книга"
   }
 }

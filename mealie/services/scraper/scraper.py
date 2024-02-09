@@ -5,6 +5,7 @@ from fastapi import HTTPException, status
 from slugify import slugify
 
 from mealie.core.root_logger import get_logger
+from mealie.lang.providers import Translator
 from mealie.pkgs import cache
 from mealie.schema.recipe import Recipe
 from mealie.services.recipe.recipe_data_service import RecipeDataService
@@ -19,7 +20,7 @@ class ParserErrors(str, Enum):
     CONNECTION_ERROR = "CONNECTION_ERROR"
 
 
-async def create_from_url(url: str) -> tuple[Recipe, ScrapedExtras | None]:
+async def create_from_url(url: str, translator: Translator) -> tuple[Recipe, ScrapedExtras | None]:
     """Main entry point for generating a recipe from a URL. Pass in a URL and
     a Recipe object will be returned if successful.
 
@@ -29,7 +30,7 @@ async def create_from_url(url: str) -> tuple[Recipe, ScrapedExtras | None]:
     Returns:
         Recipe: Recipe Object
     """
-    scraper = RecipeScraper()
+    scraper = RecipeScraper(translator)
     new_recipe, extras = await scraper.scrape(url)
 
     if not new_recipe:

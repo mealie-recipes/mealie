@@ -1,3 +1,4 @@
+from mealie.lang.providers import Translator
 from mealie.schema.recipe.recipe import Recipe
 from mealie.services.scraper.scraped_extras import ScrapedExtras
 
@@ -14,11 +15,12 @@ class RecipeScraper:
     # List of recipe scrapers. Note that order matters
     scrapers: list[type[ABCScraperStrategy]]
 
-    def __init__(self, scrapers: list[type[ABCScraperStrategy]] | None = None) -> None:
+    def __init__(self, translator: Translator, scrapers: list[type[ABCScraperStrategy]] | None = None) -> None:
         if scrapers is None:
             scrapers = DEFAULT_SCRAPER_STRATEGIES
 
         self.scrapers = scrapers
+        self.translator = translator
 
     async def scrape(self, url: str) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
         """
@@ -26,7 +28,7 @@ class RecipeScraper:
         """
 
         for scraper_type in self.scrapers:
-            scraper = scraper_type(url)
+            scraper = scraper_type(url, self.translator)
             result = await scraper.parse()
 
             if result is not None:
