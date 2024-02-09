@@ -29,19 +29,9 @@ from .recipe_notes import RecipeNote
 from .recipe_nutrition import Nutrition
 from .recipe_settings import RecipeSettings
 from .recipe_step import RecipeStep
+from .recipe_tag import RecipeTag
 
 app_dirs = get_app_dirs()
-
-
-class RecipeTag(MealieModel):
-    id: UUID4 | None = None
-    name: str
-    slug: str
-
-    _searchable_properties: ClassVar[list[str]] = ["name"]
-
-    class Config:
-        orm_mode = True
 
 
 class RecipeTagPagination(PaginationBase):
@@ -216,10 +206,10 @@ class Recipe(RecipeSummary):
         return recipe_ingredient
 
     @validator("tags", always=True, pre=True, allow_reuse=True)
-    def validate_tags(cats: list[Any]):  # type: ignore
-        if isinstance(cats, list) and cats and isinstance(cats[0], str):
-            return [RecipeTag(id=uuid4(), name=c, slug=slugify(c)) for c in cats]
-        return cats
+    def validate_tags(tags: list[Any]):  # type: ignore
+        if isinstance(tags, list) and tags and isinstance(tags[0], str):
+            return [RecipeTag(id=uuid4(), name=t, slug=slugify(t)) for t in tags]
+        return tags
 
     @validator("recipe_category", always=True, pre=True, allow_reuse=True)
     def validate_categories(cats: list[Any]):  # type: ignore

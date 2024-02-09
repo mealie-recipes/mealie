@@ -10,6 +10,16 @@
       item-value="value"
       :label="$t('settings.first-day-of-week')"
     />
+    <v-select
+      v-model="preferences.recipeCreationTag"
+      :prepend-icon="$globals.icons.tags"
+      :items="allTags"
+      item-text="name"
+      :return-object="false"
+      item-value="id"
+      clearable="true"
+      :label="$t('group.default-tag-for-recipe-import')"
+    />
 
     <BaseCardSectionTitle class="mt-5" :title="$tc('group.group-recipe-preferences')"></BaseCardSectionTitle>
     <template v-for="(_, key) in preferences">
@@ -26,6 +36,7 @@
 
 <script lang="ts">
 import { defineComponent, computed, useContext } from "@nuxtjs/composition-api";
+import { useTagStore } from "~/composables/store";
 
 export default defineComponent({
   props: {
@@ -77,6 +88,11 @@ export default defineComponent({
       },
     ];
 
+    const { actions } = useTagStore();
+    // `items` was always coming out of useTagStore null, despite
+    // looking like it would be populated, so performing getAll
+    const allTags = actions.getAll();
+
     const preferences = computed({
       get() {
         return props.value;
@@ -88,6 +104,7 @@ export default defineComponent({
 
     return {
       allDays,
+      allTags,
       labels,
       preferences,
     };

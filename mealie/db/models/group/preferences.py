@@ -29,6 +29,7 @@ class GroupPreferencesModel(SqlAlchemyBase, BaseMixins):
     recipe_landscape_view: Mapped[bool | None] = mapped_column(sa.Boolean, default=False)
     recipe_disable_comments: Mapped[bool | None] = mapped_column(sa.Boolean, default=False)
     recipe_disable_amount: Mapped[bool | None] = mapped_column(sa.Boolean, default=True)
+    recipe_creation_tag: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("tags.id"), nullable=True, index=False)
 
     @auto_init()
     def __init__(self, **_) -> None:

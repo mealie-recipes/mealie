@@ -24,6 +24,7 @@ export interface CreateGroupPreferences {
   recipeLandscapeView?: boolean;
   recipeDisableComments?: boolean;
   recipeDisableAmount?: boolean;
+  recipeCreationTag?: string;
   groupId: string;
 }
 export interface CreateInviteToken {
@@ -61,6 +62,7 @@ export interface UpdateGroupPreferences {
   recipeLandscapeView?: boolean;
   recipeDisableComments?: boolean;
   recipeDisableAmount?: boolean;
+  recipeCreationTag?: string;
 }
 export interface GroupDataExport {
   id: string;
@@ -213,6 +215,7 @@ export interface ReadGroupPreferences {
   recipeLandscapeView?: boolean;
   recipeDisableComments?: boolean;
   recipeDisableAmount?: boolean;
+  recipeCreationTag?: string;
   groupId: string;
   id: string;
 }

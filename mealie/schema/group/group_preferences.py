@@ -16,6 +16,7 @@ class UpdateGroupPreferences(MealieModel):
     recipe_landscape_view: bool = False
     recipe_disable_comments: bool = False
     recipe_disable_amount: bool = True
+    recipe_creation_tag: UUID4 = None
 
 
 class CreateGroupPreferences(UpdateGroupPreferences):

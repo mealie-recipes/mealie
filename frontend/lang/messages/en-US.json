@@ -242,6 +242,7 @@
     "show-nutrition-information-description": "When enabled the nutrition information will be shown on the recipe if available. If there is no nutrition information available, the nutrition information will not be shown",
     "show-recipe-assets": "Show recipe assets",
     "show-recipe-assets-description": "When enabled the recipe assets will be shown on the recipe if available",
+    "default-tag-for-recipe-import": "Tag applied on recipe creation by URL import, in bulk or single (blank to disable)",
     "default-to-landscape-view": "Default to landscape view",
     "default-to-landscape-view-description": "When enabled the recipe header section will be shown in landscape view",
     "disable-users-from-commenting-on-recipes": "Disable users from commenting on recipes",

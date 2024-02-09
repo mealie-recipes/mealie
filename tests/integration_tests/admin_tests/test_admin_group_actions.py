@@ -1,6 +1,7 @@
 from fastapi.testclient import TestClient
 
-from tests.utils import api_routes
+from mealie.repos.repository_factory import AllRepositories
+from tests.utils import api_routes, jsonify
 from tests.utils.assertion_helpers import assert_ignore_keys
 from tests.utils.factories import random_bool, random_string
 from tests.utils.fixture_schemas import TestUser
@@ -30,7 +31,15 @@ def test_admin_create_group(api_client: TestClient, admin_user: TestUser):
     assert response.status_code == 201
 
 
-def test_admin_update_group(api_client: TestClient, admin_user: TestUser, unique_user: TestUser):
+def test_admin_update_group(
+    database: AllRepositories, api_client: TestClient, admin_user: TestUser, unique_user: TestUser
+):
+    # Postgres enforces foreign key on the test (good!),
+    # whereas SQLite does not, so we need to create a tag first.
+    tag = database.tags.by_group(unique_user.group_id).create(
+        {"name": random_string(), "group_id": unique_user.group_id}
+    )
+
     update_payload = {
         "id": unique_user.group_id,
         "name": "New Name",
@@ -43,6 +52,7 @@ def test_admin_update_group(api_client: TestClient, admin_user: TestUser, unique
             "recipeLandscapeView": random_bool(),
             "recipeDisableComments": random_bool(),
             "recipeDisableAmount": random_bool(),
+            "recipeCreationTag": jsonify(tag.id),
         },
     }
 

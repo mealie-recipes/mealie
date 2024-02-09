@@ -34,6 +34,17 @@
         :label="$t('settings.first-day-of-week')"
         @change="groupActions.updatePreferences()"
       />
+      <v-select
+        v-model="group.preferences.recipeCreationTag"
+        :prepend-icon="$globals.icons.tags"
+        :items="allTags"
+        item-text="name"
+        :return-object="false"
+        item-value="id"
+        :clearable="true"
+        :label="$t('group.default-tag-for-recipe-import')"
+        @change="groupActions.updatePreferences()"
+      />
     </section>
 
     <section v-if="group">
@@ -63,6 +74,7 @@
 import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
 import { useGroupSelf } from "~/composables/use-groups";
 import { ReadGroupPreferences } from "~/lib/api/types/group";
+import { useTagStore } from "~/composables/store";
 
 export default defineComponent({
   setup() {
@@ -152,10 +164,16 @@ export default defineComponent({
       },
     ];
 
+    const { actions } = useTagStore();
+    // `items` was always coming out of useTagStore null, despite
+    // looking like it would be populated, so performing getAll
+    const allTags = actions.getAll();
+
     return {
       group,
       groupActions,
       allDays,
+      allTags,
       preferencesEditor,
     };
   },

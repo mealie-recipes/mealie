@@ -5,6 +5,7 @@ from pydantic import UUID4
 from mealie.lang.providers import Translator
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import CreateRecipeByUrlBulk, Recipe
+from mealie.schema.recipe.recipe_tag import RecipeTag
 from mealie.schema.reports.reports import (
     ReportCategory,
     ReportCreate,
@@ -106,6 +107,20 @@ class RecipeBulkScraperService(BaseService):
 
             if b.categories:
                 recipe.recipe_category = b.categories
+
+            # Append a default tag to the recipe, based on group settings
+            if self.group.preferences is not None:
+                if self.group.preferences.recipe_creation_tag is not None:
+                    if recipe.tags is None:
+                        recipe.tags = []
+                    tag_out = self.repos.tags.get_one(self.group.preferences.recipe_creation_tag)
+                    if tag_out is not None:
+                        recipe_tag = RecipeTag(
+                            id=tag_out.id,
+                            name=tag_out.name,
+                            slug=tag_out.slug,
+                        )
+                        recipe.tags.append(recipe_tag)
 
             try:
                 self.service.create_one(recipe)
