@@ -44,12 +44,14 @@ class PostgresProvider(AbstractDBProvider, BaseSettings):
     @property
     def db_url(self) -> str:
         host = f"{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}"
-        return PostgresDsn.build(
-            scheme="postgresql",
-            user=self.POSTGRES_USER,
-            password=self.POSTGRES_PASSWORD,
-            host=host,
-            path=f"/{self.POSTGRES_DB or ''}",
+        return str(
+            PostgresDsn.build(
+                scheme="postgresql",
+                username=self.POSTGRES_USER,
+                password=self.POSTGRES_PASSWORD,
+                host=host,
+                path=f"{self.POSTGRES_DB or ''}",
+            )
         )
 
     @property
