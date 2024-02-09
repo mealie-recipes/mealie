@@ -59,12 +59,13 @@ class GroupBase(MealieModel):
 
 
 class UserBase(MealieModel):
+    id: UUID4 | None = None
     username: str | None = None
     full_name: str | None = None
     email: Annotated[str, StringConstraints(to_lower=True, strip_whitespace=True)]  # type: ignore
     auth_method: AuthMethod = AuthMethod.MEALIE
     admin: bool = False
-    group: GroupBase | None = None
+    group: str | None = None
     advanced: bool = False
     favorite_recipes: list[str] | None = []
 
@@ -84,6 +85,16 @@ class UserBase(MealieModel):
         },
     )
 
+    @field_validator("group", mode="before")
+    def convert_group_to_name(cls, v):
+        if not v or isinstance(v, str):
+            return v
+
+        try:
+            return v.name
+        except AttributeError:
+            return v
+
 
 class UserIn(UserBase):
     password: str
@@ -91,7 +102,7 @@ class UserIn(UserBase):
 
 class UserOut(UserBase):
     id: UUID4
-    group: GroupBase
+    group: str
     group_id: UUID4
     group_slug: str
     tokens: list[LongLiveTokenOut] | None = None

@@ -1,7 +1,6 @@
 from pydantic import ConfigDict
 
 from mealie.schema._mealie import MealieModel
-from mealie.schema.user.user import GroupBase
 
 
 class ListItem(MealieModel):
@@ -14,7 +13,7 @@ class ListItem(MealieModel):
 
 class ShoppingListIn(MealieModel):
     name: str
-    group: GroupBase | None = None
+    group: str | None = None
     items: list[ListItem]
 
 
