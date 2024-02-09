@@ -53,8 +53,7 @@
   //   "git": "latest"
   // }
   "features": {
-    "docker-in-docker": {
-      "version": "latest",
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
       "dockerDashComposeVersion": "v2"
     }
   }
