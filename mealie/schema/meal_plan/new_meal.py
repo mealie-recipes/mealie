@@ -32,7 +32,7 @@ class CreatePlanEntry(MealieModel):
     entry_type: PlanEntryType = PlanEntryType.breakfast
     title: str = ""
     text: str = ""
-    recipe_id: Annotated[UUID | None, Field(validate_default=True)]
+    recipe_id: Annotated[UUID | None, Field(validate_default=True)] = None
 
     @field_validator("recipe_id")
     @classmethod
