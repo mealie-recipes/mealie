@@ -13,7 +13,6 @@ from sqlalchemy.orm.interfaces import LoaderOption
 from mealie.db.models.recipe import IngredientFoodModel
 from mealie.schema._mealie import MealieModel
 from mealie.schema._mealie.types import NoneFloat
-from mealie.schema.getter_dict import ExtrasGetterDict
 from mealie.schema.response.pagination import PaginationBase
 
 INGREDIENT_QTY_PRECISION = 3
@@ -65,13 +64,15 @@ class IngredientFood(CreateIngredientFood):
 
     _searchable_properties: ClassVar[list[str]] = ["name_normalized", "plural_name_normalized"]
     _normalize_search: ClassVar[bool] = True
-    # TODO[pydantic]: The following keys were removed: `getter_dict`.
-    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-config for more information.
-    model_config = ConfigDict(from_attributes=True, getter_dict=ExtrasGetterDict)
+    model_config = ConfigDict(from_attributes=True)
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
         return [joinedload(IngredientFoodModel.extras), joinedload(IngredientFoodModel.label)]
+
+    @field_validator("extras", mode="before")
+    def convert_extras_to_dict(cls, v):
+        return {x.key_name: x.value for x in v} if v else v
 
 
 class IngredientFoodPagination(PaginationBase):

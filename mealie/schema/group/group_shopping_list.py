@@ -15,7 +15,6 @@ from mealie.db.models.group import (
 from mealie.db.models.recipe import IngredientFoodModel, RecipeModel
 from mealie.schema._mealie import MealieModel
 from mealie.schema._mealie.types import NoneFloat
-from mealie.schema.getter_dict import ExtrasGetterDict
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary
 from mealie.schema.recipe.recipe import RecipeSummary
 from mealie.schema.recipe.recipe_ingredient import (
@@ -102,9 +101,7 @@ class ShoppingListItemOut(ShoppingListItemBase):
             self.label = self.food.label
             self.label_id = self.label.id
 
-    # TODO[pydantic]: The following keys were removed: `getter_dict`.
-    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-config for more information.
-    model_config = ConfigDict(from_attributes=True, getter_dict=ExtrasGetterDict)
+    model_config = ConfigDict(from_attributes=True)
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
@@ -116,6 +113,10 @@ class ShoppingListItemOut(ShoppingListItemBase):
             joinedload(ShoppingListItem.unit),
             selectinload(ShoppingListItem.recipe_references),
         ]
+
+    @field_validator("extras", mode="before")
+    def convert_extras_to_dict(cls, v):
+        return {x.key_name: x.value for x in v} if v else v
 
 
 class ShoppingListItemsCollectionOut(MealieModel):
@@ -184,9 +185,7 @@ class ShoppingListSummary(ShoppingListSave):
     id: UUID4
     recipe_references: list[ShoppingListRecipeRefOut]
     label_settings: list[ShoppingListMultiPurposeLabelOut]
-    # TODO[pydantic]: The following keys were removed: `getter_dict`.
-    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-config for more information.
-    model_config = ConfigDict(from_attributes=True, getter_dict=ExtrasGetterDict)
+    model_config = ConfigDict(from_attributes=True)
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
@@ -204,6 +203,10 @@ class ShoppingListSummary(ShoppingListSave):
             selectinload(ShoppingList.label_settings).joinedload(ShoppingListMultiPurposeLabel.label),
         ]
 
+    @field_validator("extras", mode="before")
+    def convert_extras_to_dict(cls, v):
+        return {x.key_name: x.value for x in v} if v else v
+
 
 class ShoppingListPagination(PaginationBase):
     items: list[ShoppingListSummary]
@@ -217,9 +220,7 @@ class ShoppingListUpdate(ShoppingListSave):
 class ShoppingListOut(ShoppingListUpdate):
     recipe_references: list[ShoppingListRecipeRefOut]
     label_settings: list[ShoppingListMultiPurposeLabelOut]
-    # TODO[pydantic]: The following keys were removed: `getter_dict`.
-    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-config for more information.
-    model_config = ConfigDict(from_attributes=True, getter_dict=ExtrasGetterDict)
+    model_config = ConfigDict(from_attributes=True)
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
@@ -246,6 +247,10 @@ class ShoppingListOut(ShoppingListUpdate):
             .joinedload(RecipeModel.tools),
             selectinload(ShoppingList.label_settings).joinedload(ShoppingListMultiPurposeLabel.label),
         ]
+
+    @field_validator("extras", mode="before")
+    def convert_extras_to_dict(cls, v):
+        return {x.key_name: x.value for x in v} if v else v
 
 
 class ShoppingListAddRecipeParams(MealieModel):

@@ -23,7 +23,6 @@ from ...db.models.recipe import (
     RecipeInstruction,
     RecipeModel,
 )
-from ..getter_dict import ExtrasGetterDict
 from .recipe_asset import RecipeAsset
 from .recipe_comments import RecipeCommentOut
 from .recipe_notes import RecipeNote
@@ -172,9 +171,7 @@ class Recipe(RecipeSummary):
 
         return self.image_dir_from_id(self.id)
 
-    # TODO[pydantic]: The following keys were removed: `getter_dict`.
-    # Check https://docs.pydantic.dev/dev-v2/migration/#changes-to-config for more information.
-    model_config = ConfigDict(from_attributes=True, getter_dict=ExtrasGetterDict)
+    model_config = ConfigDict(from_attributes=True)
 
     @classmethod
     def model_validate(cls, obj):
@@ -235,6 +232,10 @@ class Recipe(RecipeSummary):
         if isinstance(user_id, int):
             return uuid4()
         return user_id
+
+    @field_validator("extras", mode="before")
+    def convert_extras_to_dict(cls, v):
+        return {x.key_name: x.value for x in v} if v else v
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
