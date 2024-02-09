@@ -195,14 +195,14 @@ class Recipe(RecipeSummary):
             ingredient.is_food = not ingredient.disable_amount
             ingredient.display = ingredient._format_display()
 
-    @field_validator("slug", mode="before", allow_reuse=True)
+    @field_validator("slug", mode="before")
     def validate_slug(slug: str, info: ValidationInfo):
         if not info.data.get("name"):
             return slug
 
         return slugify(info.data["name"])
 
-    @field_validator("recipe_ingredient", mode="before", allow_reuse=True)
+    @field_validator("recipe_ingredient", mode="before")
     def validate_ingredients(recipe_ingredient):
         if not recipe_ingredient or not isinstance(recipe_ingredient, list):
             return recipe_ingredient
@@ -212,25 +212,25 @@ class Recipe(RecipeSummary):
 
         return recipe_ingredient
 
-    @field_validator("tags", mode="before", allow_reuse=True)
+    @field_validator("tags", mode="before")
     def validate_tags(cats: list[Any]):
         if isinstance(cats, list) and cats and isinstance(cats[0], str):
             return [RecipeTag(id=uuid4(), name=c, slug=slugify(c)) for c in cats]
         return cats
 
-    @field_validator("recipe_category", mode="before", allow_reuse=True)
+    @field_validator("recipe_category", mode="before")
     def validate_categories(cats: list[Any]):
         if isinstance(cats, list) and cats and isinstance(cats[0], str):
             return [RecipeCategory(id=uuid4(), name=c, slug=slugify(c)) for c in cats]
         return cats
 
-    @field_validator("group_id", mode="before", allow_reuse=True)
+    @field_validator("group_id", mode="before")
     def validate_group_id(group_id: Any):
         if isinstance(group_id, int):
             return uuid4()
         return group_id
 
-    @field_validator("user_id", mode="before", allow_reuse=True)
+    @field_validator("user_id", mode="before")
     def validate_user_id(user_id: Any):
         if isinstance(user_id, int):
             return uuid4()
