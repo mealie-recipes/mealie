@@ -52,4 +52,10 @@
   // "features": {
   //   "git": "latest"
   // }
+  "features": {
+    "docker-in-docker": {
+      "version": "latest",
+      "dockerDashComposeVersion": "v2"
+    }
+  }
 }
