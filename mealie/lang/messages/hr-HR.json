@@ -31,5 +31,14 @@
         "generic-updated-with-url": "{name} je ažuriran, {url}",
         "generic-duplicated": "{name} je dupliciran",
         "generic-deleted": "{name} je obrisan"
+    },
+    "datetime": {
+        "year": "year|years",
+        "day": "day|days",
+        "hour": "hour|hours",
+        "minute": "minute|minutes",
+        "second": "second|seconds",
+        "millisecond": "millisecond|milliseconds",
+        "microsecond": "microsecond|microseconds"
     }
 }

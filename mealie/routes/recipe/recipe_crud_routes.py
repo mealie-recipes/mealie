@@ -164,7 +164,7 @@ class RecipeController(BaseRecipeController):
     async def parse_recipe_url(self, req: ScrapeRecipe):
         """Takes in a URL and attempts to scrape data and load it into the database"""
         try:
-            recipe, extras = await create_from_url(req.url)
+            recipe, extras = await create_from_url(req.url, self.translator)
         except ForceTimeoutException as e:
             raise HTTPException(
                 status_code=408, detail=ErrorResponse.respond(message="Recipe Scraping Timed Out")
@@ -193,7 +193,7 @@ class RecipeController(BaseRecipeController):
     @router.post("/create-url/bulk", status_code=202)
     def parse_recipe_url_bulk(self, bulk: CreateRecipeByUrlBulk, bg_tasks: BackgroundTasks):
         """Takes in a URL and attempts to scrape data and load it into the database"""
-        bulk_scraper = RecipeBulkScraperService(self.service, self.repos, self.group)
+        bulk_scraper = RecipeBulkScraperService(self.service, self.repos, self.group, self.translator)
         report_id = bulk_scraper.get_report_id()
         bg_tasks.add_task(bulk_scraper.scrape, bulk)
 
@@ -208,7 +208,7 @@ class RecipeController(BaseRecipeController):
     async def test_parse_recipe_url(self, url: ScrapeRecipeTest):
         # Debugger should produce the same result as the scraper sees before cleaning
         try:
-            if scraped_data := await RecipeScraperPackage(url.url).scrape_url():
+            if scraped_data := await RecipeScraperPackage(url.url, self.translator).scrape_url():
                 return scraped_data.schema.data
         except ForceTimeoutException as e:
             raise HTTPException(
