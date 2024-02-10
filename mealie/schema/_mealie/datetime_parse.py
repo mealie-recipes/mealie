@@ -68,14 +68,14 @@ class DurationError(ValueError):
 
 
 def get_numeric(value: str | bytes | int | float, native_expected_type: str) -> None | int | float:
-    if isinstance(value, (int, float)):
+    if isinstance(value, int | float):
         return value
     try:
         return float(value)
     except ValueError:
         return None
-    except TypeError:
-        raise TypeError(f"invalid type; expected {native_expected_type}, string, bytes, int or float")
+    except TypeError as e:
+        raise TypeError(f"invalid type; expected {native_expected_type}, string, bytes, int or float") from e
 
 
 def from_unix_seconds(seconds: int | float) -> datetime:
@@ -100,8 +100,8 @@ def _parse_timezone(value: str | None, error: type[Exception]) -> None | int | t
             offset = -offset
         try:
             return timezone(timedelta(minutes=offset))
-        except ValueError:
-            raise error()
+        except ValueError as e:
+            raise error() from e
     else:
         return None
 
@@ -134,8 +134,8 @@ def parse_date(value: date | str | bytes | int | float) -> date:
 
     try:
         return date(**kw)
-    except ValueError:
-        raise DateError()
+    except ValueError as e:
+        raise DateError() from e
 
 
 def parse_time(value: time | str | bytes | int | float) -> time:
@@ -172,8 +172,8 @@ def parse_time(value: time | str | bytes | int | float) -> time:
 
     try:
         return time(**kw_)  # type: ignore
-    except ValueError:
-        raise TimeError()
+    except ValueError as e:
+        raise TimeError() from e
 
 
 def parse_datetime(value: datetime | str | bytes | int | float) -> datetime:
@@ -210,8 +210,8 @@ def parse_datetime(value: datetime | str | bytes | int | float) -> datetime:
 
     try:
         return datetime(**kw_)  # type: ignore
-    except ValueError:
-        raise DateTimeError()
+    except ValueError as e:
+        raise DateTimeError() from e
 
 
 def parse_duration(value: str | bytes | int | float) -> timedelta:
@@ -225,7 +225,7 @@ def parse_duration(value: str | bytes | int | float) -> timedelta:
     if isinstance(value, timedelta):
         return value
 
-    if isinstance(value, (int, float)):
+    if isinstance(value, int | float):
         # below code requires a string
         value = f"{value:f}"
     elif isinstance(value, bytes):
@@ -233,8 +233,8 @@ def parse_duration(value: str | bytes | int | float) -> timedelta:
 
     try:
         match = standard_duration_re.match(value) or iso8601_duration_re.match(value)
-    except TypeError:
-        raise TypeError("invalid type; expected timedelta, string, bytes, int or float")
+    except TypeError as e:
+        raise TypeError("invalid type; expected timedelta, string, bytes, int or float") from e
 
     if not match:
         raise DurationError()
