@@ -250,20 +250,21 @@ class RecipeService(BaseService):
         """Duplicates a recipe and returns the new recipe."""
 
         old_recipe = self._get_recipe(old_slug)
-        new_recipe = old_recipe.model_copy(exclude={"id", "name", "slug", "image", "comments"})
+        new_recipe_data = old_recipe.model_dump(exclude={"id", "name", "slug", "image", "comments"}, round_trip=True)
+        new_recipe = Recipe.model_validate(new_recipe_data)
 
         # Asset images in steps directly link to the original recipe, so we
         # need to update them to references to the assets we copy below
         def replace_recipe_step(step: RecipeStep) -> RecipeStep:
-            new_step = step.model_copy(exclude={"id", "text"})
-            new_step.id = uuid4()
-            new_step.text = step.text.replace(str(old_recipe.id), str(new_recipe.id))
+            new_id = uuid4()
+            new_text = step.text.replace(str(old_recipe.id), str(new_recipe.id))
+            new_step = step.model_copy(update={"id": new_id, "text": new_text})
             return new_step
 
         # Copy ingredients to make them independent of the original
         def copy_recipe_ingredient(ingredient: RecipeIngredient):
-            new_ingredient = ingredient.model_copy(exclude={"reference_id"})
-            new_ingredient.reference_id = uuid4()
+            new_reference_id = uuid4()
+            new_ingredient = ingredient.model_copy(update={"reference_id": new_reference_id})
             return new_ingredient
 
         new_name = dup_data.name if dup_data.name else old_recipe.name or ""
