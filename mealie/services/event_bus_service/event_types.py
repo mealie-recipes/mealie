@@ -3,7 +3,7 @@ from datetime import date, datetime
 from enum import Enum, auto
 from typing import Any
 
-from pydantic import UUID4
+from pydantic import UUID4, field_validator
 
 from ...schema._mealie.mealie_model import MealieModel
 
@@ -168,6 +168,11 @@ class EventBusMessage(MealieModel):
     def from_type(cls, event_type: EventTypes, body: str = "") -> "EventBusMessage":
         title = event_type.name.replace("_", " ").title()
         return cls(title=title, body=body)
+
+    @field_validator("body")
+    def populate_body(v):
+        # if the body is empty, apprise won't send the notification
+        return v or "generic"
 
 
 class Event(MealieModel):
