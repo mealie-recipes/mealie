@@ -1,4 +1,5 @@
 from functools import cached_property
+from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import UUID4
@@ -85,7 +86,15 @@ class GroupCookbookController(BaseCrudController):
 
     @router.get("/{item_id}", response_model=RecipeCookBook)
     def get_one(self, item_id: UUID4 | str):
-        match_attr = "slug" if isinstance(item_id, str) else "id"
+        if isinstance(item_id, UUID):
+            match_attr = "id"
+        else:
+            try:
+                UUID(item_id)
+                match_attr = "id"
+            except ValueError:
+                match_attr = "slug"
+
         cookbook = self.repo.get_one(item_id, match_attr)
 
         if cookbook is None:

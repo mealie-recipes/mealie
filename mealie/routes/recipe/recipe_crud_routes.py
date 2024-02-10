@@ -1,5 +1,6 @@
 from functools import cached_property
 from shutil import copyfileobj
+from uuid import UUID
 from zipfile import ZipFile
 
 import orjson
@@ -244,7 +245,14 @@ class RecipeController(BaseRecipeController):
     ):
         cookbook_data: ReadCookBook | None = None
         if search_query.cookbook:
-            cb_match_attr = "slug" if isinstance(search_query.cookbook, str) else "id"
+            if isinstance(search_query.cookbook, UUID):
+                cb_match_attr = "id"
+            else:
+                try:
+                    UUID(search_query.cookbook)
+                    cb_match_attr = "id"
+                except ValueError:
+                    cb_match_attr = "slug"
             cookbook_data = self.cookbooks_repo.get_one(search_query.cookbook, cb_match_attr)
 
             if cookbook_data is None:

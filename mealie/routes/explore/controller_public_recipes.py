@@ -1,3 +1,5 @@
+from uuid import UUID
+
 import orjson
 from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from pydantic import UUID4
@@ -37,7 +39,14 @@ class PublicRecipesController(BasePublicExploreController):
     ) -> PaginationBase[RecipeSummary]:
         cookbook_data: ReadCookBook | None = None
         if search_query.cookbook:
-            cb_match_attr = "slug" if isinstance(search_query.cookbook, str) else "id"
+            if isinstance(search_query.cookbook, UUID):
+                cb_match_attr = "id"
+            else:
+                try:
+                    UUID(search_query.cookbook)
+                    cb_match_attr = "id"
+                except ValueError:
+                    cb_match_attr = "slug"
             cookbook_data = self.cookbooks.get_one(search_query.cookbook, cb_match_attr)
 
             if cookbook_data is None or not cookbook_data.public:

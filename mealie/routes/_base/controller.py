@@ -46,7 +46,7 @@ def _cbv(router: APIRouter, cls: type[T], *urls: str, instance: Any | None = Non
     return cls
 
 
-# copied from Pydantic V1 Source
+# copied from Pydantic V1 Source: https://github.com/pydantic/pydantic/blob/1c91c8627b541b22354b9ed56b9ef1bb21ac6fbd/pydantic/v1/typing.py
 def _check_classvar(v: type[Any] | None) -> bool:
     if v is None:
         return False
@@ -54,7 +54,7 @@ def _check_classvar(v: type[Any] | None) -> bool:
     return v.__class__ == ClassVar.__class__ and getattr(v, "_name", None) == "ClassVar"
 
 
-# copied from Pydantic V1 Source
+# copied from Pydantic V1 Source: https://github.com/pydantic/pydantic/blob/1c91c8627b541b22354b9ed56b9ef1bb21ac6fbd/pydantic/v1/typing.py
 def _is_classvar(ann_type: type[Any]) -> bool:
     if _check_classvar(ann_type) or _check_classvar(get_origin(ann_type)):
         return True
