@@ -33,12 +33,12 @@
         "generic-deleted": "{name} silindi"
     },
     "datetime": {
-        "year": "year|years",
-        "day": "day|days",
-        "hour": "hour|hours",
-        "minute": "minute|minutes",
-        "second": "second|seconds",
-        "millisecond": "millisecond|milliseconds",
-        "microsecond": "microsecond|microseconds"
+        "year": "yıl|yıllar",
+        "day": "gün|günler",
+        "hour": "saat|saatler",
+        "minute": "dakika|dakikalar",
+        "second": "saniye|saniyeler",
+        "millisecond": "milisaniye|milisaniyeler",
+        "microsecond": "mikrosaniye|mikrosaniyeler"
     }
 }
