@@ -1,7 +1,7 @@
 from functools import wraps
 from uuid import UUID
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy import select
 from sqlalchemy.orm import MANYTOMANY, MANYTOONE, ONETOMANY, Session
 from sqlalchemy.orm.mapper import Mapper
@@ -34,13 +34,13 @@ def _get_config(relation_cls: type[SqlAlchemyBase]) -> AutoInitConfig:
     cfgKeys = cfg.model_dump().keys()
     # Get the config for the class
     try:
-        class_config: AutoInitConfig = relation_cls.Config
+        class_config: ConfigDict = relation_cls.model_config
     except AttributeError:
         return cfg
     # Map all matching attributes in Config to all AutoInitConfig attributes
-    for attr in dir(class_config):
+    for attr in class_config:
         if attr in cfgKeys:
-            setattr(cfg, attr, getattr(class_config, attr))
+            setattr(cfg, attr, class_config[attr])
 
     return cfg
 
