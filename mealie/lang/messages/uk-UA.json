@@ -33,12 +33,12 @@
         "generic-deleted": "{name} видалено"
     },
     "datetime": {
-        "year": "year|years",
-        "day": "day|days",
-        "hour": "hour|hours",
-        "minute": "minute|minutes",
-        "second": "second|seconds",
-        "millisecond": "millisecond|milliseconds",
-        "microsecond": "microsecond|microseconds"
+        "year": "рік|роки",
+        "day": "день|дні",
+        "hour": "година|години",
+        "minute": "хвилина|хвилини",
+        "second": "секунда|секунди",
+        "millisecond": "мілісекунда|мілісекунди",
+        "microsecond": "мікросекунда|мікросекунди"
     }
 }
