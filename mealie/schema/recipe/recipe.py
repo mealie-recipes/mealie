@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import datetime
+from numbers import Number
 from pathlib import Path
 from typing import Annotated, Any, ClassVar
 from uuid import uuid4
@@ -108,6 +109,15 @@ class RecipeSummary(MealieModel):
     update_at: datetime.datetime | None = None
     last_made: datetime.datetime | None = None
     model_config = ConfigDict(from_attributes=True)
+
+    @field_validator("recipe_yield", "total_time", "prep_time", "cook_time", "perform_time", mode="before")
+    def clean_strings(val: Any):
+        if val is None:
+            return val
+        if isinstance(val, Number):
+            return str(val)
+
+        return val
 
 
 class RecipePagination(PaginationBase):
