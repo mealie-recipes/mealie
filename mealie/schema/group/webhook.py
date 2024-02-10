@@ -3,12 +3,11 @@ import enum
 from uuid import UUID
 
 from isodate import parse_time
-from pydantic import UUID4, ConfigDict, TypeAdapter, field_validator
+from pydantic import UUID4, ConfigDict, field_validator
 
 from mealie.schema._mealie import MealieModel
+from mealie.schema._mealie.datetime_parse import parse_datetime
 from mealie.schema.response.pagination import PaginationBase
-
-parse_datetime = TypeAdapter(datetime.datetime).validate_json
 
 
 class WebhookType(str, enum.Enum):
@@ -24,7 +23,6 @@ class CreateWebhook(MealieModel):
     scheduled_time: datetime.time
 
     @field_validator("scheduled_time", mode="before")
-    @classmethod
     @classmethod
     def validate_scheduled_time(cls, v):
         """
