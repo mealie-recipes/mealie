@@ -31,7 +31,18 @@
             <BaseButton type="button" :loading="generatingToken" create @click.prevent="handlePasswordReset">
               {{ $t("user.generate-password-reset-link") }}
             </BaseButton>
-            <AppButtonCopy v-if="resetUrl" :copy-text="resetUrl"></AppButtonCopy>
+          </div>
+          <div v-if="resetUrl" class="mb-2">
+            <v-card-text>
+              <p class="text-center pb-0">
+                {{ resetUrl }}
+              </p>
+            </v-card-text>
+            <v-card-actions class="align-center" style="gap: 4px">
+              <BaseButton cancel @click="resetUrl = ''"> {{ $t("general.close") }} </BaseButton>
+              <v-spacer></v-spacer>
+              <AppButtonCopy :icon="false" color="info" :copy-text="resetUrl" />
+            </v-card-actions>
           </div>
 
           <AutoForm v-model="user" :items="userForm" update-mode :disabled-fields="disabledFields" />
