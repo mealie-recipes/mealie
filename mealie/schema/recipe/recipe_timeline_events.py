@@ -1,6 +1,7 @@
 from datetime import datetime
 from enum import Enum
 from pathlib import Path
+from typing import Annotated
 
 from pydantic import UUID4, ConfigDict, Field
 
@@ -32,7 +33,7 @@ class RecipeTimelineEventIn(MealieModel):
     event_type: TimelineEventType
 
     message: str | None = Field(None, alias="eventMessage")
-    image: TimelineEventImage | None = TimelineEventImage.does_not_have_image
+    image: Annotated[TimelineEventImage | None, Field(validate_default=True)] = TimelineEventImage.does_not_have_image
 
     timestamp: datetime = datetime.now()
     model_config = ConfigDict(use_enum_values=True)
