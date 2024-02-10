@@ -15,6 +15,7 @@ env:
   SMTP_PORT: 1025
   SMTP_FROM_NAME: MealieDev
   SMTP_AUTH_STRATEGY: NONE
+  SMTP_FROM_EMAIL: mealie@example.com
   LANG: en-US
 
 # loads .env file if it exists
