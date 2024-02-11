@@ -266,6 +266,9 @@ class RecipeIngredient(RecipeIngredientBase):
     original_text: str | None = None
     disable_amount: bool = True
 
+    unit: IngredientUnit | None = None
+    food: IngredientFood | None = None
+
     # Ref is used as a way to distinguish between an individual ingredient on the frontend
     # It is required for the reorder and section titles to function properly because of how
     # Vue handles reactivity. ref may serve another purpose in the future.
