@@ -6,7 +6,7 @@ from fractions import Fraction
 from typing import ClassVar
 from uuid import UUID, uuid4
 
-from pydantic import UUID4, ConfigDict, Field, field_validator
+from pydantic import UUID4, ConfigDict, Field, field_validator, model_validator
 from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -31,6 +31,7 @@ def display_fraction(fraction: Fraction):
 
 
 class UnitFoodBase(MealieModel):
+    id: UUID4 | None = None
     name: str
     plural_name: str | None = None
     description: str = ""
@@ -134,9 +135,8 @@ class RecipeIngredientBase(MealieModel):
     Automatically calculated after the object is created, unless overwritten
     """
 
-    def __init__(self, **kwargs) -> None:
-        super().__init__(**kwargs)
-
+    @model_validator(mode="after")
+    def post_validate(self):
         # calculate missing is_food and disable_amount values
         # we can't do this in a validator since they depend on each other
         if self.is_food is None and self.disable_amount is not None:
@@ -150,6 +150,8 @@ class RecipeIngredientBase(MealieModel):
         # format the display property
         if not self.display:
             self.display = self._format_display()
+
+        return self
 
     @field_validator("unit", mode="before")
     @classmethod
