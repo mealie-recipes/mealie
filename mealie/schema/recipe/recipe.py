@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Annotated, Any, ClassVar
 from uuid import uuid4
 
-from pydantic import UUID4, BaseModel, ConfigDict, Field, field_validator
+from pydantic import UUID4, BaseModel, ConfigDict, Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 from slugify import slugify
 from sqlalchemy import Select, desc, func, or_, select, text
@@ -183,17 +183,8 @@ class Recipe(RecipeSummary):
 
     model_config = ConfigDict(from_attributes=True)
 
-    @classmethod
-    def model_validate(cls, obj):
-        recipe = super().model_validate(obj)
-        recipe.__post_init__()
-        return recipe
-
-    def __init__(self, **kwargs) -> None:
-        super().__init__(**kwargs)
-        self.__post_init__()
-
-    def __post_init__(self) -> None:
+    @model_validator(mode="after")
+    def post_validate(self):
         # the ingredient disable_amount property is unreliable,
         # so we set it here and recalculate the display property
         disable_amount = self.settings.disable_amount if self.settings else True
@@ -201,6 +192,8 @@ class Recipe(RecipeSummary):
             ingredient.disable_amount = disable_amount
             ingredient.is_food = not ingredient.disable_amount
             ingredient.display = ingredient._format_display()
+
+        return self
 
     @field_validator("slug", mode="before")
     def validate_slug(slug: str, info: ValidationInfo):

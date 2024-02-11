@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime
 
-from pydantic import UUID4, ConfigDict, field_validator
+from pydantic import UUID4, ConfigDict, field_validator, model_validator
 from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -100,13 +100,14 @@ class ShoppingListItemOut(ShoppingListItemBase):
     created_at: datetime | None = None
     update_at: datetime | None = None
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-
+    @model_validator(mode="after")
+    def post_validate(self):
         # if we're missing a label, but the food has a label, use that as the label
         if (not self.label) and (self.food and self.food.label):
             self.label = self.food.label
             self.label_id = self.label.id
+
+        return self
 
     model_config = ConfigDict(from_attributes=True)
 
