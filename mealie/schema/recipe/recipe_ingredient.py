@@ -31,6 +31,7 @@ def display_fraction(fraction: Fraction):
 
 
 class UnitFoodBase(MealieModel):
+    id: UUID4 | None = None
     name: str
     plural_name: str | None = None
     description: str = ""
@@ -265,9 +266,6 @@ class RecipeIngredient(RecipeIngredientBase):
     title: str | None = None
     original_text: str | None = None
     disable_amount: bool = True
-
-    unit: IngredientUnit | None = None
-    food: IngredientFood | None = None
 
     # Ref is used as a way to distinguish between an individual ingredient on the frontend
     # It is required for the reorder and section titles to function properly because of how
