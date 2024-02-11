@@ -1965,17 +1965,17 @@ pyasn1_modules = ">=0.1.5"
 
 [[package]]
 name = "python-multipart"
-version = "0.0.8"
+version = "0.0.9"
 description = "A streaming multipart parser for Python"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "python_multipart-0.0.8-py3-none-any.whl", hash = "sha256:999725bf08cf7a071073d157a27cc34f8669af98da0d2435bde1cc1493a50ec3"},
-    {file = "python_multipart-0.0.8.tar.gz", hash = "sha256:613015c642c2f6dc6d22e2d3a4d993683bb4752509ccd87f831dced121ed2f1d"},
+    {file = "python_multipart-0.0.9-py3-none-any.whl", hash = "sha256:97ca7b8ea7b05f977dc3849c3ba99d51689822fab725c3703af7c866a0c2b215"},
+    {file = "python_multipart-0.0.9.tar.gz", hash = "sha256:03f54688c663f1b7977105f021043b0793151e4cb1c1a9d4a11fc13d622c4026"},
 ]
 
 [package.extras]
-dev = ["atomicwrites (==1.2.1)", "attrs (==19.2.0)", "coverage (==6.5.0)", "hatch", "invoke (==2.2.0)", "more-itertools (==4.3.0)", "pbr (==4.3.0)", "pluggy (==1.0.0)", "py (==1.11.0)", "pytest (==7.2.0)", "pytest-cov (==4.0.0)", "pytest-timeout (==2.1.0)", "pyyaml (==5.1)"]
+dev = ["atomicwrites (==1.4.1)", "attrs (==23.2.0)", "coverage (==7.4.1)", "hatch", "invoke (==2.2.0)", "more-itertools (==10.2.0)", "pbr (==6.0.0)", "pluggy (==1.4.0)", "py (==1.11.0)", "pytest (==8.0.0)", "pytest-cov (==4.1.0)", "pytest-timeout (==2.2.0)", "pyyaml (==6.0.1)", "ruff (==0.2.1)"]
 
 [[package]]
 name = "python-slugify"
@@ -2944,4 +2944,4 @@ pgsql = ["psycopg2-binary"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "1736aa5636b88092eb4e998a1a783ea13fdf1e4987b524d3570dfbc7f6e6f35a"
+content-hash = "b04b135869e2955f04e9a7929abb3608228ef7d558d7bd949d26c4cf8264628d"
