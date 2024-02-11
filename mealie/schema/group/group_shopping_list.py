@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime
 
-from pydantic import UUID4, validator
+from pydantic import UUID4, ConfigDict, field_validator
 from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -15,7 +15,6 @@ from mealie.db.models.group import (
 from mealie.db.models.recipe import IngredientFoodModel, RecipeModel
 from mealie.schema._mealie import MealieModel
 from mealie.schema._mealie.types import NoneFloat
-from mealie.schema.getter_dict import ExtrasGetterDict
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary
 from mealie.schema.recipe.recipe import RecipeSummary
 from mealie.schema.recipe.recipe_ingredient import (
@@ -38,7 +37,8 @@ class ShoppingListItemRecipeRefCreate(MealieModel):
     recipe_note: str | None = None
     """the original note from the recipe"""
 
-    @validator("recipe_quantity", pre=True)
+    @field_validator("recipe_quantity", mode="before")
+    @classmethod
     def default_none_to_zero(cls, v):
         return 0 if v is None else v
 
@@ -49,8 +49,7 @@ class ShoppingListItemRecipeRefUpdate(ShoppingListItemRecipeRefCreate):
 
 
 class ShoppingListItemRecipeRefOut(ShoppingListItemRecipeRefUpdate):
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class ShoppingListItemBase(RecipeIngredientBase):
@@ -66,6 +65,13 @@ class ShoppingListItemBase(RecipeIngredientBase):
 
     is_food: bool = False
     extras: dict | None = {}
+
+    @field_validator("extras", mode="before")
+    def convert_extras_to_dict(cls, v):
+        if isinstance(v, dict):
+            return v
+
+        return {x.key_name: x.value for x in v} if v else {}
 
 
 class ShoppingListItemCreate(ShoppingListItemBase):
@@ -85,14 +91,14 @@ class ShoppingListItemUpdateBulk(ShoppingListItemUpdate):
 class ShoppingListItemOut(ShoppingListItemBase):
     id: UUID4
 
-    food: IngredientFood | None
-    label: MultiPurposeLabelSummary | None
-    unit: IngredientUnit | None
+    food: IngredientFood | None = None
+    label: MultiPurposeLabelSummary | None = None
+    unit: IngredientUnit | None = None
 
     recipe_references: list[ShoppingListItemRecipeRefOut] = []
 
-    created_at: datetime | None
-    update_at: datetime | None
+    created_at: datetime | None = None
+    update_at: datetime | None = None
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -102,9 +108,7 @@ class ShoppingListItemOut(ShoppingListItemBase):
             self.label = self.food.label
             self.label_id = self.label.id
 
-    class Config:
-        orm_mode = True
-        getter_dict = ExtrasGetterDict
+    model_config = ConfigDict(from_attributes=True)
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
@@ -138,9 +142,7 @@ class ShoppingListMultiPurposeLabelUpdate(ShoppingListMultiPurposeLabelCreate):
 
 class ShoppingListMultiPurposeLabelOut(ShoppingListMultiPurposeLabelUpdate):
     label: MultiPurposeLabelSummary
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
@@ -155,8 +157,15 @@ class ShoppingListCreate(MealieModel):
     name: str | None = None
     extras: dict | None = {}
 
-    created_at: datetime | None
-    update_at: datetime | None
+    created_at: datetime | None = None
+    update_at: datetime | None = None
+
+    @field_validator("extras", mode="before")
+    def convert_extras_to_dict(cls, v):
+        if isinstance(v, dict):
+            return v
+
+        return {x.key_name: x.value for x in v} if v else {}
 
 
 class ShoppingListRecipeRefOut(MealieModel):
@@ -167,9 +176,7 @@ class ShoppingListRecipeRefOut(MealieModel):
     """the number of times this recipe has been added"""
 
     recipe: RecipeSummary
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
@@ -188,10 +195,7 @@ class ShoppingListSummary(ShoppingListSave):
     id: UUID4
     recipe_references: list[ShoppingListRecipeRefOut]
     label_settings: list[ShoppingListMultiPurposeLabelOut]
-
-    class Config:
-        orm_mode = True
-        getter_dict = ExtrasGetterDict
+    model_config = ConfigDict(from_attributes=True)
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
@@ -222,10 +226,7 @@ class ShoppingListUpdate(ShoppingListSave):
 class ShoppingListOut(ShoppingListUpdate):
     recipe_references: list[ShoppingListRecipeRefOut]
     label_settings: list[ShoppingListMultiPurposeLabelOut]
-
-    class Config:
-        orm_mode = True
-        getter_dict = ExtrasGetterDict
+    model_config = ConfigDict(from_attributes=True)
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:

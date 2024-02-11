@@ -24,7 +24,7 @@ def test_new_mealplan_event(api_client: TestClient, unique_user: TestUser):
 
     response = api_client.get(api_routes.recipes_slug(recipe_name), headers=unique_user.token)
     original_recipe_data: dict = response.json()
-    recipe = RecipeSummary.parse_obj(original_recipe_data)
+    recipe = RecipeSummary.model_validate(original_recipe_data)
     recipe_id = recipe.id
     assert recipe.last_made is None
 
@@ -34,7 +34,7 @@ def test_new_mealplan_event(api_client: TestClient, unique_user: TestUser):
     response_json = response.json()
     initial_event_count = len(response_json["items"])
 
-    new_plan = CreatePlanEntry(date=date.today(), entry_type="dinner", recipe_id=recipe_id).dict(by_alias=True)
+    new_plan = CreatePlanEntry(date=date.today(), entry_type="dinner", recipe_id=recipe_id).model_dump(by_alias=True)
     new_plan["date"] = date.today().isoformat()
     new_plan["recipeId"] = str(recipe_id)
 
@@ -62,7 +62,7 @@ def test_new_mealplan_event(api_client: TestClient, unique_user: TestUser):
     # make sure the recipe's last made date was updated
     response = api_client.get(api_routes.recipes_slug(recipe_name), headers=unique_user.token)
     new_recipe_data: dict = response.json()
-    recipe = RecipeSummary.parse_obj(new_recipe_data)
+    recipe = RecipeSummary.model_validate(new_recipe_data)
     assert recipe.last_made.date() == date.today()  # type: ignore
 
     # make sure nothing else was updated
@@ -90,7 +90,7 @@ def test_new_mealplan_event_duplicates(api_client: TestClient, unique_user: Test
     assert response.status_code == 201
 
     response = api_client.get(api_routes.recipes_slug(recipe_name), headers=unique_user.token)
-    recipe = RecipeSummary.parse_obj(response.json())
+    recipe = RecipeSummary.model_validate(response.json())
     recipe_id = recipe.id
 
     # store the number of events, so we can compare later
@@ -99,7 +99,7 @@ def test_new_mealplan_event_duplicates(api_client: TestClient, unique_user: Test
     response_json = response.json()
     initial_event_count = len(response_json["items"])
 
-    new_plan = CreatePlanEntry(date=date.today(), entry_type="dinner", recipe_id=recipe_id).dict(by_alias=True)
+    new_plan = CreatePlanEntry(date=date.today(), entry_type="dinner", recipe_id=recipe_id).model_dump(by_alias=True)
     new_plan["date"] = date.today().isoformat()
     new_plan["recipeId"] = str(recipe_id)
 
@@ -130,7 +130,7 @@ def test_new_mealplan_events_with_multiple_recipes(api_client: TestClient, uniqu
         assert response.status_code == 201
 
         response = api_client.get(api_routes.recipes_slug(recipe_name), headers=unique_user.token)
-        recipes.append(RecipeSummary.parse_obj(response.json()))
+        recipes.append(RecipeSummary.model_validate(response.json()))
 
     # store the number of events, so we can compare later
     params = {"queryFilter": f"recipe_id={recipes[0].id}"}
@@ -143,7 +143,7 @@ def test_new_mealplan_events_with_multiple_recipes(api_client: TestClient, uniqu
     for recipe in recipes:
         mealplan_count_by_recipe_id[recipe.id] = 0  # type: ignore
         for _ in range(random_int(1, 5)):
-            new_plan = CreatePlanEntry(date=date.today(), entry_type="dinner", recipe_id=str(recipe.id)).dict(
+            new_plan = CreatePlanEntry(date=date.today(), entry_type="dinner", recipe_id=str(recipe.id)).model_dump(
                 by_alias=True
             )
             new_plan["date"] = date.today().isoformat()
@@ -193,7 +193,7 @@ def test_preserve_future_made_date(api_client: TestClient, unique_user: TestUser
     assert response.status_code == 201
 
     response = api_client.get(api_routes.recipes_slug(recipe_name), headers=unique_user.token)
-    recipe = RecipeSummary.parse_obj(response.json())
+    recipe = RecipeSummary.model_validate(response.json())
     recipe_id = str(recipe.id)
 
     future_dt = datetime.now() + timedelta(days=random_int(1, 10))
@@ -203,7 +203,7 @@ def test_preserve_future_made_date(api_client: TestClient, unique_user: TestUser
     )
     assert response.status_code == 200
 
-    new_plan = CreatePlanEntry(date=date.today(), entry_type="dinner", recipe_id=recipe_id).dict(by_alias=True)
+    new_plan = CreatePlanEntry(date=date.today(), entry_type="dinner", recipe_id=recipe_id).model_dump(by_alias=True)
     new_plan["date"] = date.today().isoformat()
     new_plan["recipeId"] = str(recipe_id)
 
@@ -214,5 +214,5 @@ def test_preserve_future_made_date(api_client: TestClient, unique_user: TestUser
     create_mealplan_timeline_events()
 
     response = api_client.get(api_routes.recipes_slug(recipe_name), headers=unique_user.token)
-    recipe = RecipeSummary.parse_obj(response.json())
+    recipe = RecipeSummary.model_validate(response.json())
     assert recipe.last_made == future_dt

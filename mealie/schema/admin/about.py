@@ -49,7 +49,7 @@ class AdminAboutInfo(AppInfo):
     api_port: int
     api_docs: bool
     db_type: str
-    db_url: str | None
+    db_url: str | None = None
     default_group: str
     build_id: str
     recipe_scraper_version: str

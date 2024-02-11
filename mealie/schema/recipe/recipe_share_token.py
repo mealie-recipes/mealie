@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 
-from pydantic import UUID4, Field
+from pydantic import UUID4, ConfigDict, Field
 from sqlalchemy.orm import selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -26,16 +26,12 @@ class RecipeShareTokenSave(RecipeShareTokenCreate):
 class RecipeShareTokenSummary(RecipeShareTokenSave):
     id: UUID4
     created_at: datetime
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class RecipeShareToken(RecipeShareTokenSummary):
     recipe: Recipe
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:

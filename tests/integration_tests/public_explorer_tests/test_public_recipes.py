@@ -112,7 +112,7 @@ def test_get_all_public_recipes_filtered(
 
     assert random_recipe.settings
     random_recipe.settings.public = True
-    database.recipes.update(random_recipe.slug, random_recipe.dict() | recipe_data)
+    database.recipes.update(random_recipe.slug, random_recipe.model_dump() | recipe_data)
 
     ## Query All Recipes
     response = api_client.get(api_routes.explore_recipes_group_slug(group.slug), params={"queryFilter": query_filter})

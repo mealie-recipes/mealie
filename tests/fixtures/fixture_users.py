@@ -16,7 +16,7 @@ def build_unique_user(group: str, api_client: TestClient) -> utils.TestUser:
     group = group or random_string(12)
 
     registration = utils.user_registration_factory()
-    response = api_client.post("/api/users/register", json=registration.dict(by_alias=True))
+    response = api_client.post("/api/users/register", json=registration.model_dump(by_alias=True))
     assert response.status_code == 201
 
     form_data = {"username": registration.username, "password": registration.password}
@@ -84,7 +84,7 @@ def g2_user(admin_token, api_client: TestClient):
 @fixture(scope="module")
 def unique_user(api_client: TestClient):
     registration = utils.user_registration_factory()
-    response = api_client.post("/api/users/register", json=registration.dict(by_alias=True))
+    response = api_client.post("/api/users/register", json=registration.model_dump(by_alias=True))
     assert response.status_code == 201
 
     form_data = {"username": registration.username, "password": registration.password}
