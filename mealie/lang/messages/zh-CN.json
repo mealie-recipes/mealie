@@ -31,5 +31,14 @@
         "generic-updated-with-url": "{name} 已创建， {url}",
         "generic-duplicated": "{name} 已复制",
         "generic-deleted": "{name} 已删除"
+    },
+    "datetime": {
+        "year": "year|years",
+        "day": "day|days",
+        "hour": "hour|hours",
+        "minute": "minute|minutes",
+        "second": "second|seconds",
+        "millisecond": "millisecond|milliseconds",
+        "microsecond": "microsecond|microseconds"
     }
 }

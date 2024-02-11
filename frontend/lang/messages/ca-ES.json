@@ -199,7 +199,8 @@
     "upload-file": "Puja un fitxer",
     "created-on-date": "Creat el: {0}",
     "unsaved-changes": "Tens canvis que no estan guardats. Vols guardar-los abans de sortir? Clica d'acord per guardar-los o cancel·lar per descartar els canvis.",
-    "clipboard-copy-failure": "No s'ha pogut copiar al porta-retalls."
+    "clipboard-copy-failure": "No s'ha pogut copiar al porta-retalls.",
+    "confirm-delete-generic-items": "Are you sure you want to delete the following items?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Esteu segur de voler suprimir el grup <b>{groupName}<b/>?",
@@ -473,9 +474,11 @@
     "add-to-timeline": "Afegir a la cronologia",
     "recipe-added-to-list": "Recepta afegida a la llista",
     "recipes-added-to-list": "Receptes afegides a la llista",
+    "successfully-added-to-list": "Successfully added to list",
     "recipe-added-to-mealplan": "Recepta afegida al menú",
     "failed-to-add-recipes-to-list": "S'ha produït un error al intentar afegir la recepta a la llista",
     "failed-to-add-recipe-to-mealplan": "S'ha produït un error afegint la recepta al menú",
+    "failed-to-add-to-list": "Failed to add to list",
     "yield": "Racions",
     "quantity": "Quantitat",
     "choose-unit": "Tria el tipus d'unitat",
@@ -1183,6 +1186,8 @@
     "require-all-tags": "Requereix totes les etiquetes",
     "require-all-tools": "Requereix tots els utensilis",
     "cookbook-name": "Nom del receptari",
-    "cookbook-with-name": "Receptari {0}"
+    "cookbook-with-name": "Receptari {0}",
+    "create-a-cookbook": "Create a Cookbook",
+    "cookbook": "Cookbook"
   }
 }

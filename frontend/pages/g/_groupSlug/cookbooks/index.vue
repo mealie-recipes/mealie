@@ -1,73 +1,81 @@
 <template>
-  <v-container class="narrow-container">
-    <BasePageTitle divider>
-      <template #header>
-        <v-img max-height="100" max-width="100" :src="require('~/static/svgs/manage-cookbooks.svg')"></v-img>
-      </template>
-      <template #title> {{ $t('cookbook.cookbooks') }} </template>
-      {{ $t('cookbook.description') }}
-    </BasePageTitle>
+  <div>
+    <!-- Create Dialog -->
+    <BaseDialog
+      v-if="createTarget"
+      v-model="dialogStates.create"
+      :width="650"
+      :icon="$globals.icons.pages"
+      :title="$t('cookbook.create-a-cookbook')"
+      :submit-icon="$globals.icons.save"
+      :submit-text="$tc('general.save')"
+      @submit="actions.updateOne(createTarget)"
+      @cancel="actions.deleteOne(createTarget.id)"
+    >
+      <v-card-text>
+        <CookbookEditor
+          :cookbook=createTarget
+          :actions="actions"
+        />
+      </v-card-text>
+    </BaseDialog>
 
-    <BaseButton create @click="actions.createOne()" />
-    <v-expansion-panels class="mt-2">
-      <draggable v-model="cookbooks" handle=".handle" style="width: 100%" @change="actions.updateOrder()">
-        <v-expansion-panel v-for="(cookbook, index) in cookbooks" :key="index" class="my-2 left-border rounded">
-          <v-expansion-panel-header disable-icon-rotate class="headline">
-            <div class="d-flex align-center">
-              <v-icon large left>
-                {{ $globals.icons.pages }}
-              </v-icon>
-              {{ cookbook.name }}
-            </div>
-            <template #actions>
-              <v-icon class="handle">
-                {{ $globals.icons.arrowUpDown }}
-              </v-icon>
-              <v-btn icon small class="ml-2">
-                <v-icon>
-                  {{ $globals.icons.edit }}
+    <!-- Delete Dialog -->
+    <BaseDialog
+      v-model="dialogStates.delete"
+      :title="$t('general.delete-with-name', { name: $t('cookbook.cookbook') })"
+      :icon="$globals.icons.alertCircle"
+      color="error"
+      @confirm="deleteCookbook()"
+    >
+      <v-card-text>
+        <p>{{ $t("general.confirm-delete-generic-with-name", { name: $t('cookbook.cookbook') }) }}</p>
+        <p v-if="deleteTarget" class="mt-4 ml-4">{{ deleteTarget.name }}</p>
+      </v-card-text>
+    </BaseDialog>
+
+    <!-- Cookbook Page -->
+    <!-- Page Title -->
+    <v-container class="narrow-container">
+      <BasePageTitle divider>
+        <template #header>
+          <v-img max-height="100" max-width="100" :src="require('~/static/svgs/manage-cookbooks.svg')"></v-img>
+        </template>
+        <template #title> {{ $t('cookbook.cookbooks') }} </template>
+        {{ $t('cookbook.description') }}
+      </BasePageTitle>
+
+      <!-- Create New -->
+      <BaseButton create @click="createCookbook" />
+
+      <!-- Cookbook List -->
+      <v-expansion-panels class="mt-2">
+        <draggable v-model="cookbooks" handle=".handle" style="width: 100%" @change="actions.updateOrder()">
+          <v-expansion-panel v-for="(cookbook, index) in cookbooks" :key="index" class="my-2 left-border rounded">
+            <v-expansion-panel-header disable-icon-rotate class="headline">
+              <div class="d-flex align-center">
+                <v-icon large left>
+                  {{ $globals.icons.pages }}
                 </v-icon>
-              </v-btn>
-            </template>
-          </v-expansion-panel-header>
-          <v-expansion-panel-content>
-            <v-card-text v-if="cookbooks">
-              <v-text-field v-model="cookbooks[index].name" :label="$t('cookbook.cookbook-name')"></v-text-field>
-              <v-textarea v-model="cookbooks[index].description" auto-grow :rows="2" :label="$t('recipe.description')"></v-textarea>
-              <RecipeOrganizerSelector v-model="cookbooks[index].categories" selector-type="categories" />
-              <RecipeOrganizerSelector v-model="cookbooks[index].tags" selector-type="tags" />
-              <RecipeOrganizerSelector v-model="cookbooks[index].tools" selector-type="tools" />
-              <v-switch v-model="cookbooks[index].public" hide-details single-line>
-                <template #label>
-                  {{ $t('cookbook.public-cookbook') }}
-                  <HelpIcon small right class="ml-2">
-                    {{ $t('cookbook.public-cookbook-description') }}
-                  </HelpIcon>
-                </template>
-              </v-switch>
-              <div class="mt-4">
-                <h3 class="text-subtitle-1 d-flex align-center mb-0 pb-0">
-                  {{ $t('cookbook.filter-options') }}
-                  <HelpIcon right small class="ml-2">
-                    {{ $t('cookbook.filter-options-description') }}
-                  </HelpIcon>
-                </h3>
-                <v-switch v-model="cookbooks[index].requireAllCategories" class="mt-0" hide-details single-line>
-                  <template #label> {{ $t('cookbook.require-all-categories') }} </template>
-                </v-switch>
-                <v-switch v-model="cookbooks[index].requireAllTags" hide-details single-line>
-                  <template #label> {{ $t('cookbook.require-all-tags') }} </template>
-                </v-switch>
-                <v-switch v-model="cookbooks[index].requireAllTools" hide-details single-line>
-                  <template #label> {{ $t('cookbook.require-all-tools') }} </template>
-                </v-switch>
+                {{ cookbook.name }}
               </div>
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <BaseButtonGroup
-                :buttons="[
-                  {
+              <template #actions>
+                <v-icon class="handle">
+                  {{ $globals.icons.arrowUpDown }}
+                </v-icon>
+                <v-btn icon small class="ml-2">
+                  <v-icon>
+                    {{ $globals.icons.edit }}
+                  </v-icon>
+                </v-btn>
+              </template>
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <CookbookEditor :cookbook="cookbook" :actions="actions" :collapsable="false" @delete="deleteEventHandler" />
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <BaseButtonGroup
+                  :buttons="[{
                     icon: $globals.icons.delete,
                     text: $tc('general.delete'),
                     event: 'delete',
@@ -78,26 +86,27 @@
                     event: 'save',
                   },
                 ]"
-                @delete="actions.deleteOne(cookbook.id)"
-                @save="actions.updateOne(cookbook)"
-              />
-            </v-card-actions>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </draggable>
-    </v-expansion-panels>
-  </v-container>
+                @delete="deleteEventHandler(cookbook)"
+                @save="actions.updateOne(cookbook)" />
+              </v-card-actions>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </draggable>
+      </v-expansion-panels>
+    </v-container>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, useRouter } from "@nuxtjs/composition-api";
+import { defineComponent, reactive, ref, useRouter } from "@nuxtjs/composition-api";
 import draggable from "vuedraggable";
 import { useCookbooks } from "@/composables/use-group-cookbooks";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
-import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
+import CookbookEditor from "~/components/Domain/Cookbook/CookbookEditor.vue";
+import { ReadCookBook } from "~/lib/api/types/cookbook";
 
 export default defineComponent({
-  components: { draggable, RecipeOrganizerSelector },
+  components: { CookbookEditor, draggable },
   setup() {
     const { isOwnGroup, loggedIn } = useLoggedInState();
     const router = useRouter();
@@ -106,11 +115,50 @@ export default defineComponent({
       router.back();
     }
 
+    const dialogStates = reactive({
+      create: false,
+      delete: false,
+    });
+
     const { cookbooks, actions } = useCookbooks();
+
+
+    // create
+    const createTarget = ref<ReadCookBook | null>(null);
+    async function createCookbook() {
+      await actions.createOne().then((cookbook) => {
+        createTarget.value = cookbook as ReadCookBook;
+      });
+      dialogStates.create = true;
+    }
+
+    // delete
+    const deleteTarget = ref<ReadCookBook | null>(null);
+    function deleteEventHandler(item: ReadCookBook){
+      deleteTarget.value = item;
+      dialogStates.delete = true;
+    }
+    function deleteCookbook() {
+      if (!deleteTarget.value) {
+        return;
+      }
+      actions.deleteOne(deleteTarget.value.id);
+      dialogStates.delete = false;
+      deleteTarget.value = null;
+    }
 
     return {
       cookbooks,
       actions,
+      dialogStates,
+      // create
+      createTarget,
+      createCookbook,
+
+      // delete
+      deleteTarget,
+      deleteEventHandler,
+      deleteCookbook,
     };
   },
   head() {

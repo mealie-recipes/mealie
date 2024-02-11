@@ -51,8 +51,8 @@ extra_css:
   - assets/stylesheets/custom.css
 extra_javascript:
   - assets/js/extra.js
-repo_url: https://github.com/hay-kot/mealie/
-repo_name: hay-kot/mealie
+repo_url: https://github.com/mealie-recipes/mealie/
+repo_name: mealie-recipes/mealie
 edit_uri: edit/mealie-next/docs/docs/
 
 nav:

@@ -36,6 +36,7 @@ export interface AppInfo {
   version: string;
   demoStatus: boolean;
   allowSignup: boolean;
+  defaultGroupSlug?: string;
   enableOidc: boolean;
   oidcRedirect: boolean;
   oidcProviderName: string;

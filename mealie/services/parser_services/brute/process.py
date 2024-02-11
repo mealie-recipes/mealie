@@ -132,7 +132,7 @@ def parse_ingredient(tokens) -> tuple[str, str]:
     return ingredient, note
 
 
-def parse(ing_str) -> BruteParsedIngredient:
+def parse(ing_str, parser) -> BruteParsedIngredient:
     amount = 0.0
     unit = ""
     ingredient = ""
@@ -192,12 +192,20 @@ def parse(ing_str) -> BruteParsedIngredient:
             # which means this is the ingredient
             ingredient = tokens[1]
     except ValueError:
-        try:
-            # can't parse first argument as amount
-            # -> no unit -> parse everything as ingredient
-            ingredient, note = parse_ingredient(tokens)
-        except ValueError:
-            ingredient = " ".join(tokens[1:])
+        # can't parse first argument as amount
+        # try to parse as unit and ingredient (e.g. "a tblsp salt"), with unit in first three tokens
+        # won't work for units that have spaces
+        for index, token in enumerate(tokens[:3]):
+            if parser.find_unit_match(token):
+                unit = token
+                ingredient, note = parse_ingredient(tokens[index + 1 :])
+                break
+        if not unit:
+            try:
+                # no unit -> parse everything as ingredient
+                ingredient, note = parse_ingredient(tokens)
+            except ValueError:
+                ingredient = " ".join(tokens[1:])
 
     if unit_note not in note:
         note += " " + unit_note

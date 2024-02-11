@@ -31,5 +31,14 @@
         "generic-updated-with-url": "{name} frissítve, {url}",
         "generic-duplicated": "{name} duplikálva",
         "generic-deleted": "{name} törölve lett"
+    },
+    "datetime": {
+        "year": "év|év",
+        "day": "nap/nap",
+        "hour": "óra|óra",
+        "minute": "perc/perc",
+        "second": "másodperc|másodperc",
+        "millisecond": "ezredmásodperc|ezredmásodperc",
+        "microsecond": "mikroszekundum|mikroszekundum"
     }
 }
