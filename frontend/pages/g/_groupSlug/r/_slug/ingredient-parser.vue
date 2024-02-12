@@ -54,7 +54,6 @@
           handle=".handle"
           :style="{ width: '100%' }"
           ghost-class="ghost"
-          :animatin="200"
         >
           <v-expansion-panel v-for="(ing, index) in parsedIng" :key="index">
             <v-expansion-panel-header class="my-0 py-0" disable-icon-rotate>
