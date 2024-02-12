@@ -37,6 +37,15 @@ class UnitFoodBase(MealieModel):
     description: str = ""
     extras: dict | None = {}
 
+    @field_validator("id", mode="before")
+    def convert_empty_id_to_none(cls, v):
+        # sometimes the frontend will give us an empty string instead of null, so we convert it to None,
+        # otherwise Pydantic will try to convert it to a UUID and fail
+        if not v:
+            v = None
+
+        return v
+
     @field_validator("extras", mode="before")
     def convert_extras_to_dict(cls, v):
         if isinstance(v, dict):
