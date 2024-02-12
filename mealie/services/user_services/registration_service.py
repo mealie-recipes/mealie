@@ -29,7 +29,7 @@ class RegistrationService:
             password=hash_password(self.registration.password),
             full_name=self.registration.username,
             advanced=self.registration.advanced,
-            group=group.name,
+            group=group,
             can_invite=new_group,
             can_manage=new_group,
             can_organize=new_group,

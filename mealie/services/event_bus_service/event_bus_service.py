@@ -38,9 +38,9 @@ class EventSource:
 
 
 class EventBusService:
-    bg: BackgroundTasks | None
-    session: Session | None
-    group_id: UUID4 | None
+    bg: BackgroundTasks | None = None
+    session: Session | None = None
+    group_id: UUID4 | None = None
 
     def __init__(
         self, bg: BackgroundTasks | None = None, session: Session | None = None, group_id: UUID4 | None = None

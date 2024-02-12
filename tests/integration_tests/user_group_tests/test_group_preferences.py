@@ -33,7 +33,7 @@ def test_preferences_in_group(api_client: TestClient, unique_user: TestUser) -> 
 def test_update_preferences(api_client: TestClient, unique_user: TestUser) -> None:
     new_data = UpdateGroupPreferences(recipe_public=False, recipe_show_nutrition=True)
 
-    response = api_client.put(api_routes.groups_preferences, json=new_data.dict(), headers=unique_user.token)
+    response = api_client.put(api_routes.groups_preferences, json=new_data.model_dump(), headers=unique_user.token)
 
     assert response.status_code == 200
 
@@ -43,4 +43,4 @@ def test_update_preferences(api_client: TestClient, unique_user: TestUser) -> No
     assert preferences["recipePublic"] is False
     assert preferences["recipeShowNutrition"] is True
 
-    assert_ignore_keys(new_data.dict(by_alias=True), preferences, ["id", "groupId"])
+    assert_ignore_keys(new_data.model_dump(by_alias=True), preferences, ["id", "groupId"])

@@ -92,7 +92,7 @@ class TemplateService(BaseService):
 
         save_path = self.temp.joinpath(f"{recipe.slug}.json")
         with open(save_path, "w") as f:
-            f.write(recipe.json(indent=4, by_alias=True))
+            f.write(recipe.model_dump_json(indent=4, by_alias=True))
 
         return save_path
 
@@ -115,7 +115,7 @@ class TemplateService(BaseService):
             template_text = f.read()
 
         template = Template(template_text)
-        rendered_text = template.render(recipe=recipe.dict(by_alias=True))
+        rendered_text = template.render(recipe=recipe.model_dump(by_alias=True))
 
         save_name = f"{recipe.slug}{j2_path.suffix}"
 
@@ -140,7 +140,7 @@ class TemplateService(BaseService):
         zip_temp = self.temp.joinpath(f"{recipe.slug}.zip")
 
         with ZipFile(zip_temp, "w") as myzip:
-            myzip.writestr(f"{recipe.slug}.json", recipe.json())
+            myzip.writestr(f"{recipe.slug}.json", recipe.model_dump_json())
 
             if image_asset.is_file():
                 myzip.write(image_asset, arcname=image_asset.name)

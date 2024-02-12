@@ -18,7 +18,7 @@ from .utils.migration_helpers import MigrationReaders, glob_walker, import_image
 class NextcloudDir:
     name: str
     recipe: dict
-    image: Path | None
+    image: Path | None = None
 
     @property
     def slug(self):

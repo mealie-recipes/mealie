@@ -1,26 +1,22 @@
+from pydantic import ConfigDict
+
 from mealie.schema._mealie import MealieModel
-from mealie.schema.getter_dict import GroupGetterDict
 
 
 class ListItem(MealieModel):
-    title: str | None
+    title: str | None = None
     text: str = ""
     quantity: int = 1
     checked: bool = False
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class ShoppingListIn(MealieModel):
     name: str
-    group: str | None
+    group: str | None = None
     items: list[ListItem]
 
 
 class ShoppingListOut(ShoppingListIn):
     id: int
-
-    class Config:
-        orm_mode = True
-        getter_dict = GroupGetterDict
+    model_config = ConfigDict(from_attributes=True)

@@ -33,12 +33,12 @@
         "generic-deleted": "{name} törölve lett"
     },
     "datetime": {
-        "year": "év|év",
-        "day": "nap/nap",
-        "hour": "óra|óra",
-        "minute": "perc/perc",
-        "second": "másodperc|másodperc",
-        "millisecond": "ezredmásodperc|ezredmásodperc",
-        "microsecond": "mikroszekundum|mikroszekundum"
+        "year": "év",
+        "day": "nap",
+        "hour": "óra",
+        "minute": "perc",
+        "second": "másodperc",
+        "millisecond": "ezredmásodperc",
+        "microsecond": "mikroszekundum"
     }
 }
