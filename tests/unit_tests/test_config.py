@@ -38,6 +38,15 @@ def test_pg_connection_args(monkeypatch):
     assert app_settings.DB_URL == "postgresql://mealie:mealie@postgres:5432/mealie"
 
 
+def test_pg_connection_url_encode_password(monkeypatch):
+    monkeypatch.setenv("DB_ENGINE", "postgres")
+    monkeypatch.setenv("POSTGRES_SERVER", "postgres")
+    monkeypatch.setenv("POSTGRES_PASSWORD", "please,url#encode/this?password")
+    get_app_settings.cache_clear()
+    app_settings = get_app_settings()
+    assert app_settings.DB_URL == "postgresql://mealie:please%2Curl%23encode%2Fthis%3Fpassword@postgres:5432/mealie"
+
+
 @dataclass(slots=True)
 class SMTPValidationCase:
     host: str
