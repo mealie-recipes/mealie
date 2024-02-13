@@ -19,11 +19,11 @@
         </div>
       </v-card-text>
       <v-list v-if="showViewer" dense class="mt-0 pt-0">
-        <v-list-item v-for="(item, key, index) in labels" :key="index" style="min-height: 25px" dense>
+        <v-list-item v-for="(item, key, index) in renderedList" :key="index" style="min-height: 25px" dense>
           <v-list-item-content>
             <v-list-item-title class="pl-4 caption flex row">
               <div>{{ item.label }}</div>
-              <div class="ml-auto mr-1">{{ value[key] }}</div>
+              <div class="ml-auto mr-1">{{ item.value }}</div>
               <div>{{ item.suffix }}</div>
             </v-list-item-title>
           </v-list-item-content>
@@ -36,6 +36,14 @@
 <script lang="ts">
 import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
 import { Nutrition } from "~/lib/api/types/recipe";
+
+type NutritionLabelType = {
+  [key: string]: {
+    label: string;
+    suffix: string;
+    value?: string;
+  };
+};
 
 export default defineComponent({
   props: {
@@ -50,34 +58,34 @@ export default defineComponent({
   },
   setup(props, context) {
     const { i18n } = useContext();
-    const labels = {
+    const labels = <NutritionLabelType>{
       calories: {
-        label: i18n.t("recipe.calories"),
-        suffix: i18n.t("recipe.calories-suffix"),
+        label: i18n.tc("recipe.calories"),
+        suffix: i18n.tc("recipe.calories-suffix"),
       },
       fatContent: {
-        label: i18n.t("recipe.fat-content"),
-        suffix: i18n.t("recipe.grams"),
+        label: i18n.tc("recipe.fat-content"),
+        suffix: i18n.tc("recipe.grams"),
       },
       fiberContent: {
-        label: i18n.t("recipe.fiber-content"),
-        suffix: i18n.t("recipe.grams"),
+        label: i18n.tc("recipe.fiber-content"),
+        suffix: i18n.tc("recipe.grams"),
       },
       proteinContent: {
-        label: i18n.t("recipe.protein-content"),
-        suffix: i18n.t("recipe.grams"),
+        label: i18n.tc("recipe.protein-content"),
+        suffix: i18n.tc("recipe.grams"),
       },
       sodiumContent: {
-        label: i18n.t("recipe.sodium-content"),
-        suffix: i18n.t("recipe.milligrams"),
+        label: i18n.tc("recipe.sodium-content"),
+        suffix: i18n.tc("recipe.milligrams"),
       },
       sugarContent: {
-        label: i18n.t("recipe.sugar-content"),
-        suffix: i18n.t("recipe.grams"),
+        label: i18n.tc("recipe.sugar-content"),
+        suffix: i18n.tc("recipe.grams"),
       },
       carbohydrateContent: {
-        label: i18n.t("recipe.carbohydrate-content"),
-        suffix: i18n.t("recipe.grams"),
+        label: i18n.tc("recipe.carbohydrate-content"),
+        suffix: i18n.tc("recipe.grams"),
       },
     };
     const valueNotNull = computed(() => {
@@ -96,11 +104,25 @@ export default defineComponent({
       context.emit("input", { ...props.value, [key]: event });
     }
 
+    // Build a new list that only contains nutritional information that has a value
+    const renderedList = computed(() => {
+      return Object.entries(labels).reduce((item: NutritionLabelType, [key, label]) => {
+        if (props.value[key]?.trim()) {
+          item[key] = {
+            ...label,
+            value: props.value[key],
+          };
+        }
+        return item;
+      }, {});
+    });
+
     return {
       labels,
       valueNotNull,
       showViewer,
       updateValue,
+      renderedList,
     };
   },
 });
