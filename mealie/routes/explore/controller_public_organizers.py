@@ -31,7 +31,9 @@ class PublicCategoriesController(BasePublicExploreController):
             search=search,
         )
 
-        response.set_pagination_guides(categories_router.url_path_for("get_all", group_slug=self.group.slug), q.dict())
+        response.set_pagination_guides(
+            categories_router.url_path_for("get_all", group_slug=self.group.slug), q.model_dump()
+        )
         return response
 
     @categories_router.get("/{item_id}", response_model=CategoryOut)
@@ -59,7 +61,7 @@ class PublicTagsController(BasePublicExploreController):
             search=search,
         )
 
-        response.set_pagination_guides(tags_router.url_path_for("get_all", group_slug=self.group.slug), q.dict())
+        response.set_pagination_guides(tags_router.url_path_for("get_all", group_slug=self.group.slug), q.model_dump())
         return response
 
     @tags_router.get("/{item_id}", response_model=TagOut)
@@ -87,7 +89,7 @@ class PublicToolsController(BasePublicExploreController):
             search=search,
         )
 
-        response.set_pagination_guides(tools_router.url_path_for("get_all", group_slug=self.group.slug), q.dict())
+        response.set_pagination_guides(tools_router.url_path_for("get_all", group_slug=self.group.slug), q.model_dump())
         return response
 
     @tools_router.get("/{item_id}", response_model=RecipeToolOut)

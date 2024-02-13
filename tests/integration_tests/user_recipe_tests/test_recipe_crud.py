@@ -461,7 +461,7 @@ def test_read_update(
 
     recipe["notes"] = test_notes
 
-    recipe["recipeCategory"] = [x.dict() for x in recipe_categories]
+    recipe["recipeCategory"] = [x.model_dump() for x in recipe_categories]
 
     response = api_client.put(recipe_url, json=utils.jsonify(recipe), headers=unique_user.token)
 
@@ -625,7 +625,7 @@ def test_remove_notes(api_client: TestClient, unique_user: TestUser):
     assert response.status_code == 200
 
     recipe = json.loads(response.text)
-    recipe["notes"] = [RecipeNote(title=random_string(), text=random_string()).dict()]
+    recipe["notes"] = [RecipeNote(title=random_string(), text=random_string()).model_dump()]
     response = api_client.put(recipe_url, json=recipe, headers=unique_user.token)
     assert response.status_code == 200
 

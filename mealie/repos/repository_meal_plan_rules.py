@@ -28,4 +28,4 @@ class RepositoryMealPlanRules(RepositoryGeneric[PlanRulesOut, GroupMealPlanRules
 
         rules = self.session.execute(stmt).scalars().all()
 
-        return [self.schema.from_orm(x) for x in rules]
+        return [self.schema.model_validate(x) for x in rules]

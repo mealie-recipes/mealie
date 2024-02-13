@@ -105,7 +105,7 @@ class ShoppingListItemController(BaseCrudController):
     @item_router.get("", response_model=ShoppingListItemPagination)
     def get_all(self, q: PaginationQuery = Depends()):
         response = self.repo.page_all(pagination=q, override=ShoppingListItemOut)
-        response.set_pagination_guides(router.url_path_for("get_all"), q.dict())
+        response.set_pagination_guides(router.url_path_for("get_all"), q.model_dump())
         return response
 
     @item_router.post("/create-bulk", response_model=ShoppingListItemsCollectionOut, status_code=201)
@@ -174,7 +174,7 @@ class ShoppingListController(BaseCrudController):
             override=ShoppingListSummary,
         )
 
-        response.set_pagination_guides(router.url_path_for("get_all"), q.dict())
+        response.set_pagination_guides(router.url_path_for("get_all"), q.model_dump())
         return response
 
     @router.post("", response_model=ShoppingListOut, status_code=201)

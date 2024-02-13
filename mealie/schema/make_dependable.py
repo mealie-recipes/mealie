@@ -4,6 +4,10 @@ from fastapi.exceptions import HTTPException, RequestValidationError
 from pydantic import ValidationError
 
 
+def format_exception(ex: Exception) -> str:
+    return f"{ex.__class__.__name__}: {ex}"
+
+
 def make_dependable(cls):
     """
     Pydantic BaseModels are very powerful because we get lots of validations and type checking right out of the box.
@@ -29,7 +33,7 @@ def make_dependable(cls):
         except (ValidationError, RequestValidationError) as e:
             for error in e.errors():
                 error["loc"] = ["query"] + list(error["loc"])
-            raise HTTPException(422, detail=e.errors()) from None
+            raise HTTPException(422, detail=[format_exception(ex) for ex in e.errors()]) from None
 
     init_cls_and_handle_errors.__signature__ = signature(cls)
     return init_cls_and_handle_errors
