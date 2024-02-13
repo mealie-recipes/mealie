@@ -15,7 +15,7 @@ def food(api_client: TestClient, unique_user: TestUser) -> Generator[dict, None,
     data = CreateIngredientFood(
         name=random_string(10),
         description=random_string(10),
-    ).dict(by_alias=True)
+    ).model_dump(by_alias=True)
 
     response = api_client.post(api_routes.foods, json=data, headers=unique_user.token)
 
@@ -30,7 +30,7 @@ def test_create_food(api_client: TestClient, unique_user: TestUser):
     data = CreateIngredientFood(
         name=random_string(10),
         description=random_string(10),
-    ).dict(by_alias=True)
+    ).model_dump(by_alias=True)
 
     response = api_client.post(api_routes.foods, json=data, headers=unique_user.token)
     assert response.status_code == 201

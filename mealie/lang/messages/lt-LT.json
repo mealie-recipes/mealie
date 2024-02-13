@@ -31,5 +31,14 @@
         "generic-updated-with-url": "{name} atnaujintas, {url}",
         "generic-duplicated": "{name} buvo nukopijuotas",
         "generic-deleted": "{name} ištrintas"
+    },
+    "datetime": {
+        "year": "year|years",
+        "day": "day|days",
+        "hour": "hour|hours",
+        "minute": "minute|minutes",
+        "second": "second|seconds",
+        "millisecond": "millisecond|milliseconds",
+        "microsecond": "microsecond|microseconds"
     }
 }

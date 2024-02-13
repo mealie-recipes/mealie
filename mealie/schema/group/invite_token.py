@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from pydantic import NoneStr
+from pydantic import ConfigDict
 
 from mealie.schema._mealie import MealieModel
 
@@ -19,9 +19,7 @@ class ReadInviteToken(MealieModel):
     token: str
     uses_left: int
     group_id: UUID
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class EmailInvitation(MealieModel):
@@ -31,4 +29,4 @@ class EmailInvitation(MealieModel):
 
 class EmailInitationResponse(MealieModel):
     success: bool
-    error: NoneStr = None
+    error: str | None = None

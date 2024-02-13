@@ -33,6 +33,7 @@ export interface AppInfo {
   version: string;
   demoStatus: boolean;
   allowSignup: boolean;
+  defaultGroupSlug?: string;
 }
 export interface AppStartupInfo {
   isFirstLogin: boolean;

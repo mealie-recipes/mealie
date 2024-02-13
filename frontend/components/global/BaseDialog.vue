@@ -12,6 +12,8 @@
         $emit('submit');
         dialog = false;
       "
+      @click:outside="$emit('cancel')"
+      @keydown.esc="$emit('cancel')"
     >
       <v-card height="100%">
         <v-app-bar dark dense :color="color" class="">

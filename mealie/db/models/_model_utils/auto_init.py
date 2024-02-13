@@ -1,7 +1,7 @@
 from functools import wraps
 from uuid import UUID
 
-from pydantic import BaseModel, Field, NoneStr
+from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy import select
 from sqlalchemy.orm import MANYTOMANY, MANYTOONE, ONETOMANY, Session
 from sqlalchemy.orm.mapper import Mapper
@@ -21,7 +21,7 @@ class AutoInitConfig(BaseModel):
     Config class for `auto_init` decorator.
     """
 
-    get_attr: NoneStr = None
+    get_attr: str | None = None
     exclude: set = Field(default_factory=_default_exclusion)
     # auto_create: bool = False
 
@@ -31,16 +31,16 @@ def _get_config(relation_cls: type[SqlAlchemyBase]) -> AutoInitConfig:
     Returns the config for the given class.
     """
     cfg = AutoInitConfig()
-    cfgKeys = cfg.dict().keys()
+    cfgKeys = cfg.model_dump().keys()
     # Get the config for the class
     try:
-        class_config: AutoInitConfig = relation_cls.Config
+        class_config: ConfigDict = relation_cls.model_config
     except AttributeError:
         return cfg
     # Map all matching attributes in Config to all AutoInitConfig attributes
-    for attr in dir(class_config):
+    for attr in class_config:
         if attr in cfgKeys:
-            setattr(cfg, attr, getattr(class_config, attr))
+            setattr(cfg, attr, class_config[attr])
 
     return cfg
 
@@ -97,7 +97,7 @@ def handle_one_to_many_list(
 
         updated_elems.append(existing_elem)
 
-    new_elems = [safe_call(relation_cls, elem, session=session) for elem in elems_to_create]
+    new_elems = [safe_call(relation_cls, elem.copy(), session=session) for elem in elems_to_create]
     return new_elems + updated_elems
 
 
@@ -164,7 +164,7 @@ def auto_init():  # sourcery no-metrics
                         setattr(self, key, instances)
 
                     elif relation_dir == ONETOMANY:
-                        instance = safe_call(relation_cls, val, session=session)
+                        instance = safe_call(relation_cls, val.copy() if val else None, session=session)
                         setattr(self, key, instance)
 
                     elif relation_dir == MANYTOONE and not use_list:

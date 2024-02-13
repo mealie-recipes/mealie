@@ -2,7 +2,7 @@ import datetime
 import enum
 from uuid import UUID
 
-from pydantic import Field
+from pydantic import ConfigDict, Field
 
 from mealie.schema._mealie import MealieModel
 from mealie.schema.response.pagination import PaginationBase
@@ -43,9 +43,7 @@ class ServerTaskCreate(MealieModel):
 
 class ServerTask(ServerTaskCreate):
     id: int
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class ServerTaskPagination(PaginationBase):

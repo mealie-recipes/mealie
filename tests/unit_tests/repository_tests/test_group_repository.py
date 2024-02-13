@@ -1,8 +1,10 @@
+from slugify import slugify
+
 from mealie.repos.repository_factory import AllRepositories
 from tests.utils.factories import random_int, random_string
 
 
-def test_group_resolve_similar_names(database: AllRepositories):
+def test_create_group_resolve_similar_names(database: AllRepositories):
     base_group_name = random_string()
     groups = database.groups.create_many({"name": base_group_name} for _ in range(random_int(3, 10)))
 
@@ -22,3 +24,12 @@ def test_group_get_by_slug_or_id(database: AllRepositories):
     for group in groups:
         assert database.groups.get_by_slug_or_id(group.id) == group
         assert database.groups.get_by_slug_or_id(group.slug) == group
+
+
+def test_update_group_updates_slug(database: AllRepositories):
+    group = database.groups.create({"name": random_string()})
+    assert group.slug == slugify(group.name)
+
+    new_name = random_string()
+    group = database.groups.update(group.id, {"name": new_name})
+    assert group.slug == slugify(new_name)

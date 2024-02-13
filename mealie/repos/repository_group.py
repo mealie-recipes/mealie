@@ -14,7 +14,7 @@ from mealie.db.models.recipe.tag import Tag
 from mealie.db.models.recipe.tool import Tool
 from mealie.db.models.users.users import User
 from mealie.schema.group.group_statistics import GroupStatistics
-from mealie.schema.user.user import GroupBase, GroupInDB
+from mealie.schema.user.user import GroupBase, GroupInDB, UpdateGroup
 
 from ..db.models._model_base import SqlAlchemyBase
 from .repository_generic import RepositoryGeneric
@@ -23,7 +23,7 @@ from .repository_generic import RepositoryGeneric
 class RepositoryGroup(RepositoryGeneric[GroupInDB, Group]):
     def create(self, data: GroupBase | dict) -> GroupInDB:
         if isinstance(data, GroupBase):
-            data = data.dict()
+            data = data.model_dump()
 
         max_attempts = 10
         original_name = cast(str, data["name"])
@@ -45,11 +45,23 @@ class RepositoryGroup(RepositoryGeneric[GroupInDB, Group]):
         # since create uses special logic for resolving slugs, we don't want to use the standard create_many method
         return [self.create(new_group) for new_group in data]
 
+    def update(self, match_value: str | int | UUID4, new_data: UpdateGroup | dict) -> GroupInDB:
+        if isinstance(new_data, GroupBase):
+            new_data.slug = slugify(new_data.name)
+        else:
+            new_data["slug"] = slugify(new_data["name"])
+
+        return super().update(match_value, new_data)
+
+    def update_many(self, data: Iterable[UpdateGroup | dict]) -> list[GroupInDB]:
+        # since update uses special logic for resolving slugs, we don't want to use the standard update_many method
+        return [self.update(group["id"] if isinstance(group, dict) else group.id, group) for group in data]
+
     def get_by_name(self, name: str) -> GroupInDB | None:
         dbgroup = self.session.execute(select(self.model).filter_by(name=name)).scalars().one_or_none()
         if dbgroup is None:
             return None
-        return self.schema.from_orm(dbgroup)
+        return self.schema.model_validate(dbgroup)
 
     def get_by_slug_or_id(self, slug_or_id: str | UUID) -> GroupInDB | None:
         if isinstance(slug_or_id, str):

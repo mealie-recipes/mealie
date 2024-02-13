@@ -46,7 +46,7 @@ def test_bulk_tag_recipes(
     for _ in range(3):
         tag_name = random_string()
         tag = database.tags.create(TagSave(group_id=unique_user.group_id, name=tag_name))
-        tags.append(tag.dict())
+        tags.append(tag.model_dump())
 
     payload = {"recipes": ten_slugs, "tags": tags}
 
@@ -74,7 +74,7 @@ def test_bulk_categorize_recipes(
     for _ in range(3):
         cat_name = random_string()
         cat = database.categories.create(CategorySave(group_id=unique_user.group_id, name=cat_name))
-        categories.append(cat.dict())
+        categories.append(cat.model_dump())
 
     payload = {"recipes": ten_slugs, "categories": categories}
 

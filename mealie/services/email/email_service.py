@@ -24,7 +24,7 @@ class EmailTemplate(BaseModel):
     def render_html(self, template: Path) -> str:
         tmpl = Template(template.read_text())
 
-        return tmpl.render(data=self.dict())
+        return tmpl.render(data=self.model_dump())
 
 
 class EmailService(BaseService):
