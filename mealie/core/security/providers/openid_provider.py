@@ -27,7 +27,7 @@ class OpenIDProvider(AuthProvider):
         repos = get_repositories(self.session)
 
         user = self.try_get_user(claims.get("email"))
-        admin_claim = settings.OIDC_ADMIN_GROUP and settings.OIDC_ADMIN_GROUP in claims.get("groups", [])
+        admin_claim = settings.OIDC_ADMIN_GROUP in claims.get("groups", []) if settings.OIDC_ADMIN_GROUP else False
 
         if not user:
             if not settings.OIDC_SIGNUP_ENABLED:
@@ -82,7 +82,7 @@ class OpenIDProvider(AuthProvider):
         """Get the key set from the open id configuration"""
         settings = get_app_settings()
 
-        if not settings.OIDC_READY:
+        if not (settings.OIDC_READY and settings.OIDC_CONFIGURATION_URL):
             return None
         configuration = None
         with requests.get(settings.OIDC_CONFIGURATION_URL, timeout=5) as config_response:
