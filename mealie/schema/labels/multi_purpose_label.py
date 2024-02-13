@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import ClassVar
 
-from pydantic import UUID4
+from pydantic import UUID4, ConfigDict
 
 from mealie.schema._mealie import MealieModel
 from mealie.schema.response.pagination import PaginationBase
@@ -23,9 +23,7 @@ class MultiPurposeLabelUpdate(MultiPurposeLabelSave):
 
 class MultiPurposeLabelSummary(MultiPurposeLabelUpdate):
     _searchable_properties: ClassVar[list[str]] = ["name"]
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class MultiPurposeLabelPagination(PaginationBase):
@@ -33,5 +31,4 @@ class MultiPurposeLabelPagination(PaginationBase):
 
 
 class MultiPurposeLabelOut(MultiPurposeLabelUpdate):
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)

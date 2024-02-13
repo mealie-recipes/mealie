@@ -17,4 +17,4 @@ class RepositoryMeals(RepositoryGeneric[ReadPlanEntry, GroupMealPlan]):
         today = date.today()
         stmt = select(GroupMealPlan).filter(GroupMealPlan.date == today, GroupMealPlan.group_id == group_id)
         plans = self.session.execute(stmt).scalars().all()
-        return [self.schema.from_orm(x) for x in plans]
+        return [self.schema.model_validate(x) for x in plans]

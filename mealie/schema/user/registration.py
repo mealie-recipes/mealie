@@ -1,15 +1,17 @@
-from pydantic import validator
-from pydantic.types import NoneStr, constr
+from typing import Annotated
+
+from pydantic import Field, StringConstraints, field_validator
+from pydantic_core.core_schema import ValidationInfo
 
 from mealie.schema._mealie import MealieModel
 from mealie.schema._mealie.validators import validate_locale
 
 
 class CreateUserRegistration(MealieModel):
-    group: NoneStr = None
-    group_token: NoneStr = None
-    email: constr(to_lower=True, strip_whitespace=True)  # type: ignore
-    username: constr(to_lower=True, strip_whitespace=True)  # type: ignore
+    group: str | None = None
+    group_token: Annotated[str | None, Field(validate_default=True)] = None
+    email: Annotated[str, StringConstraints(to_lower=True, strip_whitespace=True)]  # type: ignore
+    username: Annotated[str, StringConstraints(to_lower=True, strip_whitespace=True)]  # type: ignore
     password: str
     password_confirm: str
     advanced: bool = False
@@ -18,23 +20,23 @@ class CreateUserRegistration(MealieModel):
     seed_data: bool = False
     locale: str = "en-US"
 
-    @validator("locale")
-    def valid_locale(cls, v, values, **kwargs):
+    @field_validator("locale")
+    def valid_locale(cls, v):
         if not validate_locale(v):
             raise ValueError("invalid locale")
         return v
 
-    @validator("password_confirm")
+    @field_validator("password_confirm")
     @classmethod
-    def passwords_match(cls, value, values):
-        if "password" in values and value != values["password"]:
+    def passwords_match(cls, value, info: ValidationInfo):
+        if "password" in info.data and value != info.data["password"]:
             raise ValueError("passwords do not match")
         return value
 
-    @validator("group_token", always=True)
+    @field_validator("group_token")
     @classmethod
-    def group_or_token(cls, value, values):
-        if not bool(value) and not bool(values["group"]):
+    def group_or_token(cls, value, info: ValidationInfo):
+        if not bool(value) and not bool(info.data["group"]):
             raise ValueError("group or group_token must be provided")
 
         return value

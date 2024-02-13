@@ -135,14 +135,14 @@ def test_pagination_guides(database: AllRepositories, unique_user: TestUser):
     query = PaginationQuery(page=1, per_page=1)
 
     first_page_of_results = foods_repo.page_all(query)
-    first_page_of_results.set_pagination_guides(foods_route, query.dict())
+    first_page_of_results.set_pagination_guides(foods_route, query.model_dump())
     assert first_page_of_results.next is not None
     assert first_page_of_results.previous is None
 
     query = PaginationQuery(page=-1, per_page=1)
 
     last_page_of_results = foods_repo.page_all(query)
-    last_page_of_results.set_pagination_guides(foods_route, query.dict())
+    last_page_of_results.set_pagination_guides(foods_route, query.model_dump())
     assert last_page_of_results.next is None
     assert last_page_of_results.previous is not None
 
@@ -150,7 +150,7 @@ def test_pagination_guides(database: AllRepositories, unique_user: TestUser):
     query = PaginationQuery(page=random_page, per_page=1, filter_string="createdAt>2021-02-22")
 
     random_page_of_results = foods_repo.page_all(query)
-    random_page_of_results.set_pagination_guides(foods_route, query.dict())
+    random_page_of_results.set_pagination_guides(foods_route, query.model_dump())
 
     next_params: dict = dict(parse_qsl(urlsplit(random_page_of_results.next).query))  # type: ignore
     assert int(next_params["page"]) == random_page + 1
@@ -158,7 +158,7 @@ def test_pagination_guides(database: AllRepositories, unique_user: TestUser):
     prev_params: dict = dict(parse_qsl(urlsplit(random_page_of_results.previous).query))  # type: ignore
     assert int(prev_params["page"]) == random_page - 1
 
-    source_params = camelize(query.dict())
+    source_params = camelize(query.model_dump())
     for source_param in source_params:
         assert source_param in next_params
         assert source_param in prev_params
@@ -835,7 +835,7 @@ def test_pagination_filter_dates(api_client: TestClient, unique_user: TestUser):
     )
 
     for mealplan_to_create in [mealplan_today, mealplan_tomorrow]:
-        data = mealplan_to_create.dict()
+        data = mealplan_to_create.model_dump()
         data["date"] = data["date"].strftime("%Y-%m-%d")
         response = api_client.post(api_routes.groups_mealplans, json=data, headers=unique_user.token)
         assert response.status_code == 201

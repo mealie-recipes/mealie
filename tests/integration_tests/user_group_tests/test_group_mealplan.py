@@ -15,7 +15,7 @@ def route_all_slice(page: int, perPage: int, start_date: str, end_date: str):
 def test_create_mealplan_no_recipe(api_client: TestClient, unique_user: TestUser):
     title = random_string(length=25)
     text = random_string(length=25)
-    new_plan = CreatePlanEntry(date=date.today(), entry_type="breakfast", title=title, text=text).dict()
+    new_plan = CreatePlanEntry(date=date.today(), entry_type="breakfast", title=title, text=text).model_dump()
     new_plan["date"] = date.today().strftime("%Y-%m-%d")
 
     response = api_client.post(api_routes.groups_mealplans, json=new_plan, headers=unique_user.token)
@@ -36,7 +36,7 @@ def test_create_mealplan_with_recipe(api_client: TestClient, unique_user: TestUs
     recipe = response.json()
     recipe_id = recipe["id"]
 
-    new_plan = CreatePlanEntry(date=date.today(), entry_type="dinner", recipe_id=recipe_id).dict(by_alias=True)
+    new_plan = CreatePlanEntry(date=date.today(), entry_type="dinner", recipe_id=recipe_id).model_dump(by_alias=True)
     new_plan["date"] = date.today().strftime("%Y-%m-%d")
     new_plan["recipeId"] = str(recipe_id)
 
@@ -53,7 +53,7 @@ def test_crud_mealplan(api_client: TestClient, unique_user: TestUser):
         entry_type="breakfast",
         title=random_string(),
         text=random_string(),
-    ).dict()
+    ).model_dump()
 
     # Create
     new_plan["date"] = date.today().strftime("%Y-%m-%d")
@@ -91,7 +91,7 @@ def test_get_all_mealplans(api_client: TestClient, unique_user: TestUser):
             entry_type="breakfast",
             title=random_string(),
             text=random_string(),
-        ).dict()
+        ).model_dump()
 
         new_plan["date"] = date.today().strftime("%Y-%m-%d")
         response = api_client.post(api_routes.groups_mealplans, json=new_plan, headers=unique_user.token)
@@ -109,7 +109,7 @@ def test_get_slice_mealplans(api_client: TestClient, unique_user: TestUser):
 
     # Make a list of 10 meal plans
     meal_plans = [
-        CreatePlanEntry(date=date, entry_type="breakfast", title=random_string(), text=random_string()).dict()
+        CreatePlanEntry(date=date, entry_type="breakfast", title=random_string(), text=random_string()).model_dump()
         for date in dates
     ]
 
@@ -138,7 +138,9 @@ def test_get_slice_mealplans(api_client: TestClient, unique_user: TestUser):
 def test_get_mealplan_today(api_client: TestClient, unique_user: TestUser):
     # Create Meal Plans for today
     test_meal_plans = [
-        CreatePlanEntry(date=date.today(), entry_type="breakfast", title=random_string(), text=random_string()).dict()
+        CreatePlanEntry(
+            date=date.today(), entry_type="breakfast", title=random_string(), text=random_string()
+        ).model_dump()
         for _ in range(3)
     ]
 

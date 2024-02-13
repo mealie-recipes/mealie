@@ -1,3 +1,5 @@
+from uuid import UUID
+
 import orjson
 from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from pydantic import UUID4
@@ -37,7 +39,14 @@ class PublicRecipesController(BasePublicExploreController):
     ) -> PaginationBase[RecipeSummary]:
         cookbook_data: ReadCookBook | None = None
         if search_query.cookbook:
-            cb_match_attr = "slug" if isinstance(search_query.cookbook, str) else "id"
+            if isinstance(search_query.cookbook, UUID):
+                cb_match_attr = "id"
+            else:
+                try:
+                    UUID(search_query.cookbook)
+                    cb_match_attr = "id"
+                except ValueError:
+                    cb_match_attr = "slug"
             cookbook_data = self.cookbooks.get_one(search_query.cookbook, cb_match_attr)
 
             if cookbook_data is None or not cookbook_data.public:
@@ -64,13 +73,13 @@ class PublicRecipesController(BasePublicExploreController):
         )
 
         # merge default pagination with the request's query params
-        query_params = q.dict() | {**request.query_params}
+        query_params = q.model_dump() | {**request.query_params}
         pagination_response.set_pagination_guides(
             router.url_path_for("get_all", group_slug=self.group.slug),
             {k: v for k, v in query_params.items() if v is not None},
         )
 
-        json_compatible_response = orjson.dumps(pagination_response.dict(by_alias=True))
+        json_compatible_response = orjson.dumps(pagination_response.model_dump(by_alias=True))
 
         # Response is returned directly, to avoid validation and improve performance
         return JSONBytes(content=json_compatible_response)

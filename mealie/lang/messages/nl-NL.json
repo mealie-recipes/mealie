@@ -31,5 +31,14 @@
         "generic-updated-with-url": "{name} is bijgewerkt, {url}",
         "generic-duplicated": "(naam) is gekopieerd",
         "generic-deleted": "{name} is verwijderd"
+    },
+    "datetime": {
+        "year": "jaar|jaren",
+        "day": "dag|dagen",
+        "hour": "uur|uren",
+        "minute": "minuut|minuten",
+        "second": "seconde|seconden",
+        "millisecond": "milliseconde milliseconden",
+        "microsecond": "microseconde microseconden"
     }
 }

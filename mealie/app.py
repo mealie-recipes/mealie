@@ -112,7 +112,7 @@ async def system_startup():
     logger.info("-----SYSTEM STARTUP----- \n")
     logger.info("------APP SETTINGS------")
     logger.info(
-        settings.json(
+        settings.model_dump_json(
             indent=4,
             exclude={
                 "SECRET",

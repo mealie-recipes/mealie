@@ -58,7 +58,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
                 .offset(start)
                 .limit(limit)
             )
-            return [eff_schema.from_orm(x) for x in self.session.execute(stmt).scalars().all()]
+            return [eff_schema.model_validate(x) for x in self.session.execute(stmt).scalars().all()]
 
         stmt = (
             select(self.model)
@@ -67,7 +67,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             .offset(start)
             .limit(limit)
         )
-        return [eff_schema.from_orm(x) for x in self.session.execute(stmt).scalars().all()]
+        return [eff_schema.model_validate(x) for x in self.session.execute(stmt).scalars().all()]
 
     def update_image(self, slug: str, _: str | None = None) -> int:
         entry: RecipeModel = self._query_one(match_value=slug)
@@ -160,7 +160,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         search: str | None = None,
     ) -> RecipePagination:
         # Copy this, because calling methods (e.g. tests) might rely on it not getting mutated
-        pagination_result = pagination.copy()
+        pagination_result = pagination.model_copy()
         q = select(self.model)
 
         args = [
@@ -216,7 +216,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             self.session.rollback()
             raise e
 
-        items = [RecipeSummary.from_orm(item) for item in data]
+        items = [RecipeSummary.model_validate(item) for item in data]
         return RecipePagination(
             page=pagination_result.page,
             per_page=pagination_result.per_page,
@@ -236,7 +236,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             .join(RecipeModel.recipe_category)
             .filter(RecipeModel.recipe_category.any(Category.id.in_(ids)))
         )
-        return [RecipeSummary.from_orm(x) for x in self.session.execute(stmt).unique().scalars().all()]
+        return [RecipeSummary.model_validate(x) for x in self.session.execute(stmt).unique().scalars().all()]
 
     def _build_recipe_filter(
         self,
@@ -298,7 +298,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             require_all_tools=require_all_tools,
         )
         stmt = select(RecipeModel).filter(*fltr)
-        return [self.schema.from_orm(x) for x in self.session.execute(stmt).scalars().all()]
+        return [self.schema.model_validate(x) for x in self.session.execute(stmt).scalars().all()]
 
     def get_random_by_categories_and_tags(
         self, categories: list[RecipeCategory], tags: list[RecipeTag]
@@ -316,7 +316,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         stmt = (
             select(RecipeModel).filter(and_(*filters)).order_by(func.random()).limit(1)  # Postgres and SQLite specific
         )
-        return [self.schema.from_orm(x) for x in self.session.execute(stmt).scalars().all()]
+        return [self.schema.model_validate(x) for x in self.session.execute(stmt).scalars().all()]
 
     def get_random(self, limit=1) -> list[Recipe]:
         stmt = (
@@ -325,14 +325,14 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             .order_by(func.random())  # Postgres and SQLite specific
             .limit(limit)
         )
-        return [self.schema.from_orm(x) for x in self.session.execute(stmt).scalars().all()]
+        return [self.schema.model_validate(x) for x in self.session.execute(stmt).scalars().all()]
 
     def get_by_slug(self, group_id: UUID4, slug: str, limit=1) -> Recipe | None:
         stmt = select(RecipeModel).filter(RecipeModel.group_id == group_id, RecipeModel.slug == slug)
         dbrecipe = self.session.execute(stmt).scalars().one_or_none()
         if dbrecipe is None:
             return None
-        return self.schema.from_orm(dbrecipe)
+        return self.schema.model_validate(dbrecipe)
 
     def all_ids(self, group_id: UUID4) -> Sequence[UUID4]:
         stmt = select(RecipeModel.id).filter(RecipeModel.group_id == group_id)

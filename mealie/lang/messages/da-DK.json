@@ -31,5 +31,14 @@
         "generic-updated-with-url": "{name} er blevet opdateret, {url}",
         "generic-duplicated": "{name} er blevet dublikeret",
         "generic-deleted": "{name} er blevet slettet"
+    },
+    "datetime": {
+        "year": "år|år",
+        "day": "dag|dage",
+        "hour": "time|timer",
+        "minute": "minut|minutter",
+        "second": "sekund|sekunder",
+        "millisecond": "millisekund|millisekunder",
+        "microsecond": "mikrosekund|mikrosekunder"
     }
 }

@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from pydantic import UUID4
+from pydantic import UUID4, ConfigDict
 
 from mealie.schema._mealie import MealieModel
 
@@ -13,6 +13,4 @@ class GroupDataExport(MealieModel):
     path: str
     size: str
     expires: datetime
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)

@@ -1,53 +1,45 @@
-from datetime import date
+import datetime
 
-from pydantic import validator
+from pydantic import ConfigDict, field_validator
+from pydantic_core.core_schema import ValidationInfo
 
 from mealie.schema._mealie import MealieModel
 
 
 class MealIn(MealieModel):
-    slug: str | None
-    name: str | None
-    description: str | None
-
-    class Config:
-        orm_mode = True
+    slug: str | None = None
+    name: str | None = None
+    description: str | None = None
+    model_config = ConfigDict(from_attributes=True)
 
 
 class MealDayIn(MealieModel):
-    date: date | None
+    date: datetime.date | None = None
     meals: list[MealIn]
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class MealDayOut(MealDayIn):
     id: int
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class MealPlanIn(MealieModel):
     group: str
-    start_date: date
-    end_date: date
+    start_date: datetime.date
+    end_date: datetime.date
     plan_days: list[MealDayIn]
 
-    @validator("end_date")
-    def end_date_after_start_date(v, values, config, field):
-        if "start_date" in values and v < values["start_date"]:
+    @field_validator("end_date")
+    def end_date_after_start_date(v, info: ValidationInfo):
+        if "start_date" in info.data and v < info.data["start_date"]:
             raise ValueError("EndDate should be greater than StartDate")
         return v
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class MealPlanOut(MealPlanIn):
     id: int
-    shopping_list: int | None
-
-    class Config:
-        orm_mode = True
+    shopping_list: int | None = None
+    model_config = ConfigDict(from_attributes=True)

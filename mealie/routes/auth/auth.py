@@ -48,7 +48,7 @@ class MealieAuthToken(BaseModel):
 
     @classmethod
     def respond(cls, token: str, token_type: str = "bearer") -> dict:
-        return cls(access_token=token, token_type=token_type).dict()
+        return cls(access_token=token, token_type=token_type).model_dump()
 
 
 @public_router.post("/token")
