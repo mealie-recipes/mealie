@@ -67,7 +67,7 @@ def test_recipe_migration(api_client: TestClient, unique_user: TestUser, mig: Mi
     response_json = response.json()
     assert response_json["entries"]
 
-    for item in response.json()["entries"]:
+    for item in response_json["entries"]:
         assert item["success"]
 
     # Validate Create Event
