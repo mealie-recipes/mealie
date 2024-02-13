@@ -15,7 +15,7 @@ def create_labels(api_client: TestClient, unique_user: TestUser, count: int = 10
     labels: list[MultiPurposeLabelOut] = []
     for _ in range(count):
         response = api_client.post(api_routes.groups_labels, json={"name": random_string()}, headers=unique_user.token)
-        labels.append(MultiPurposeLabelOut.parse_obj(response.json()))
+        labels.append(MultiPurposeLabelOut.model_validate(response.json()))
 
     return labels
 
@@ -25,7 +25,7 @@ def test_new_list_creates_list_labels(api_client: TestClient, unique_user: TestU
     response = api_client.post(
         api_routes.groups_shopping_lists, json={"name": random_string()}, headers=unique_user.token
     )
-    new_list = ShoppingListOut.parse_obj(response.json())
+    new_list = ShoppingListOut.model_validate(response.json())
 
     assert len(new_list.label_settings) == len(labels)
     label_settings_label_ids = [setting.label_id for setting in new_list.label_settings]
@@ -39,13 +39,13 @@ def test_new_label_creates_list_labels(api_client: TestClient, unique_user: Test
     response = api_client.post(
         api_routes.groups_shopping_lists, json={"name": random_string()}, headers=unique_user.token
     )
-    new_list = ShoppingListOut.parse_obj(response.json())
+    new_list = ShoppingListOut.model_validate(response.json())
     existing_label_settings = new_list.label_settings
 
     # create more labels and make sure they were added to the list's label settings
     new_labels = create_labels(api_client, unique_user)
     response = api_client.get(api_routes.groups_shopping_lists_item_id(new_list.id), headers=unique_user.token)
-    updated_list = ShoppingListOut.parse_obj(response.json())
+    updated_list = ShoppingListOut.model_validate(response.json())
     updated_label_settings = updated_list.label_settings
     assert len(updated_label_settings) == len(existing_label_settings) + len(new_labels)
 
@@ -66,7 +66,7 @@ def test_seed_label_creates_list_labels(database: AllRepositories, api_client: T
     response = api_client.post(
         api_routes.groups_shopping_lists, json={"name": random_string()}, headers=unique_user.token
     )
-    new_list = ShoppingListOut.parse_obj(response.json())
+    new_list = ShoppingListOut.model_validate(response.json())
     existing_label_settings = new_list.label_settings
 
     # seed labels and make sure they were added to the list's label settings
@@ -75,7 +75,7 @@ def test_seed_label_creates_list_labels(database: AllRepositories, api_client: T
     seeder.seed_labels("en-US")
 
     response = api_client.get(api_routes.groups_shopping_lists_item_id(new_list.id), headers=unique_user.token)
-    updated_list = ShoppingListOut.parse_obj(response.json())
+    updated_list = ShoppingListOut.model_validate(response.json())
     updated_label_settings = updated_list.label_settings
     assert len(updated_label_settings) == len(existing_label_settings) + CREATED_LABELS
 
@@ -89,14 +89,14 @@ def test_delete_label_deletes_list_labels(api_client: TestClient, unique_user: T
     response = api_client.post(
         api_routes.groups_shopping_lists, json={"name": random_string()}, headers=unique_user.token
     )
-    new_list = ShoppingListOut.parse_obj(response.json())
+    new_list = ShoppingListOut.model_validate(response.json())
 
     existing_label_settings = new_list.label_settings
     label_to_delete = random.choice(new_labels)
     api_client.delete(api_routes.groups_labels_item_id(label_to_delete.id), headers=unique_user.token)
 
     response = api_client.get(api_routes.groups_shopping_lists_item_id(new_list.id), headers=unique_user.token)
-    updated_list = ShoppingListOut.parse_obj(response.json())
+    updated_list = ShoppingListOut.model_validate(response.json())
     assert len(updated_list.label_settings) == len(existing_label_settings) - 1
 
     label_settings_label_ids = [setting.label_id for setting in updated_list.label_settings]
@@ -116,11 +116,11 @@ def test_update_list_doesnt_change_list_labels(api_client: TestClient, unique_us
     response = api_client.post(
         api_routes.groups_shopping_lists, json={"name": original_name}, headers=unique_user.token
     )
-    new_list = ShoppingListOut.parse_obj(response.json())
+    new_list = ShoppingListOut.model_validate(response.json())
     assert new_list.name == original_name
     assert new_list.label_settings
 
-    updated_list_data = new_list.dict()
+    updated_list_data = new_list.model_dump()
     updated_list_data.pop("created_at", None)
     updated_list_data.pop("update_at", None)
 
@@ -132,7 +132,7 @@ def test_update_list_doesnt_change_list_labels(api_client: TestClient, unique_us
         json=jsonify(updated_list_data),
         headers=unique_user.token,
     )
-    updated_list = ShoppingListOut.parse_obj(response.json())
+    updated_list = ShoppingListOut.model_validate(response.json())
     assert updated_list.name == updated_name
     assert updated_list.label_settings == new_list.label_settings
 
@@ -142,7 +142,7 @@ def test_update_list_labels(api_client: TestClient, unique_user: TestUser):
     response = api_client.post(
         api_routes.groups_shopping_lists, json={"name": random_string()}, headers=unique_user.token
     )
-    new_list = ShoppingListOut.parse_obj(response.json())
+    new_list = ShoppingListOut.model_validate(response.json())
     changed_setting = random.choice(new_list.label_settings)
     changed_setting.position = random_int(999, 9999)
 
@@ -151,7 +151,7 @@ def test_update_list_labels(api_client: TestClient, unique_user: TestUser):
         json=jsonify(new_list.label_settings),
         headers=unique_user.token,
     )
-    updated_list = ShoppingListOut.parse_obj(response.json())
+    updated_list = ShoppingListOut.model_validate(response.json())
 
     original_settings_by_id = {setting.id: setting for setting in new_list.label_settings}
     for setting in updated_list.label_settings:
@@ -170,7 +170,7 @@ def test_list_label_order(api_client: TestClient, unique_user: TestUser):
     response = api_client.post(
         api_routes.groups_shopping_lists, json={"name": random_string()}, headers=unique_user.token
     )
-    new_list = ShoppingListOut.parse_obj(response.json())
+    new_list = ShoppingListOut.model_validate(response.json())
     for i, setting in enumerate(new_list.label_settings):
         if not i:
             continue
@@ -183,7 +183,7 @@ def test_list_label_order(api_client: TestClient, unique_user: TestUser):
         json=jsonify(new_list.label_settings),
         headers=unique_user.token,
     )
-    updated_list = ShoppingListOut.parse_obj(response.json())
+    updated_list = ShoppingListOut.model_validate(response.json())
     for i, setting in enumerate(updated_list.label_settings):
         if not i:
             continue

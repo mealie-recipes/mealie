@@ -2,6 +2,7 @@ import enum
 from datetime import datetime
 from typing import TYPE_CHECKING, Optional
 
+from pydantic import ConfigDict
 from sqlalchemy import Boolean, DateTime, Enum, ForeignKey, Integer, String, orm
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import Mapped, mapped_column
@@ -84,9 +85,8 @@ class User(SqlAlchemyBase, BaseMixins):
     favorite_recipes: Mapped[list["RecipeModel"]] = orm.relationship(
         "RecipeModel", secondary=users_to_favorites, back_populates="favorited_by"
     )
-
-    class Config:
-        exclude = {
+    model_config = ConfigDict(
+        exclude={
             "password",
             "admin",
             "can_manage",
@@ -94,6 +94,7 @@ class User(SqlAlchemyBase, BaseMixins):
             "can_organize",
             "group",
         }
+    )
 
     @hybrid_property
     def group_slug(self) -> str:

@@ -38,14 +38,14 @@ def preferences_generator():
         category_created=random_bool(),
         category_updated=random_bool(),
         category_deleted=random_bool(),
-    ).dict(by_alias=True)
+    ).model_dump(by_alias=True)
 
 
 def notifier_generator():
     return GroupEventNotifierCreate(
         name=random_string(),
         apprise_url=random_string(),
-    ).dict(by_alias=True)
+    ).model_dump(by_alias=True)
 
 
 def event_generator():

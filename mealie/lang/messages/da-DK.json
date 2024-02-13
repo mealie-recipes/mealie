@@ -33,12 +33,12 @@
         "generic-deleted": "{name} er blevet slettet"
     },
     "datetime": {
-        "year": "year|years",
-        "day": "day|days",
-        "hour": "hour|hours",
-        "minute": "minute|minutes",
-        "second": "second|seconds",
-        "millisecond": "millisecond|milliseconds",
-        "microsecond": "microsecond|microseconds"
+        "year": "år|år",
+        "day": "dag|dage",
+        "hour": "time|timer",
+        "minute": "minut|minutter",
+        "second": "sekund|sekunder",
+        "millisecond": "millisekund|millisekunder",
+        "microsecond": "mikrosekund|mikrosekunder"
     }
 }

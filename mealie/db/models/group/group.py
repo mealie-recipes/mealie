@@ -2,6 +2,7 @@ from typing import TYPE_CHECKING, Optional
 
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
+from pydantic import ConfigDict
 from sqlalchemy import select
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.orm.session import Session
@@ -79,9 +80,8 @@ class Group(SqlAlchemyBase, BaseMixins):
     ingredient_foods: Mapped[list["IngredientFoodModel"]] = orm.relationship("IngredientFoodModel", **common_args)
     tools: Mapped[list["Tool"]] = orm.relationship("Tool", **common_args)
     tags: Mapped[list["Tag"]] = orm.relationship("Tag", **common_args)
-
-    class Config:
-        exclude = {
+    model_config = ConfigDict(
+        exclude={
             "users",
             "webhooks",
             "shopping_lists",
@@ -91,6 +91,7 @@ class Group(SqlAlchemyBase, BaseMixins):
             "mealplans",
             "data_exports",
         }
+    )
 
     @auto_init()
     def __init__(self, **_) -> None:
