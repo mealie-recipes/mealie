@@ -41,6 +41,8 @@ jobs:
         run: |
           echo "__version__ = \"${{ inputs.tag }}\"" > ./mealie/__init__.py
 
+      - uses: depot/setup-action@v1
+
       - name: Build and push Docker image, via Depot.dev
         uses: depot/build-push-action@v1
         with:
