@@ -1,5 +1,6 @@
 from functools import cached_property
 from shutil import copyfileobj
+from uuid import UUID
 from zipfile import ZipFile
 
 import orjson
@@ -125,7 +126,7 @@ class RecipeExportController(BaseRecipeController):
         recipe: Recipe = self.mixins.get_one(slug)
         image_asset = recipe.image_dir.joinpath(RecipeImageTypes.original.value)
         with ZipFile(temp_path, "w") as myzip:
-            myzip.writestr(f"{slug}.json", recipe.json())
+            myzip.writestr(f"{slug}.json", recipe.model_dump_json())
 
             if image_asset.is_file():
                 myzip.write(image_asset, arcname=image_asset.name)
@@ -164,7 +165,7 @@ class RecipeController(BaseRecipeController):
     async def parse_recipe_url(self, req: ScrapeRecipe):
         """Takes in a URL and attempts to scrape data and load it into the database"""
         try:
-            recipe, extras = await create_from_url(req.url)
+            recipe, extras = await create_from_url(req.url, self.translator)
         except ForceTimeoutException as e:
             raise HTTPException(
                 status_code=408, detail=ErrorResponse.respond(message="Recipe Scraping Timed Out")
@@ -193,7 +194,7 @@ class RecipeController(BaseRecipeController):
     @router.post("/create-url/bulk", status_code=202)
     def parse_recipe_url_bulk(self, bulk: CreateRecipeByUrlBulk, bg_tasks: BackgroundTasks):
         """Takes in a URL and attempts to scrape data and load it into the database"""
-        bulk_scraper = RecipeBulkScraperService(self.service, self.repos, self.group)
+        bulk_scraper = RecipeBulkScraperService(self.service, self.repos, self.group, self.translator)
         report_id = bulk_scraper.get_report_id()
         bg_tasks.add_task(bulk_scraper.scrape, bulk)
 
@@ -208,7 +209,7 @@ class RecipeController(BaseRecipeController):
     async def test_parse_recipe_url(self, url: ScrapeRecipeTest):
         # Debugger should produce the same result as the scraper sees before cleaning
         try:
-            if scraped_data := await RecipeScraperPackage(url.url).scrape_url():
+            if scraped_data := await RecipeScraperPackage(url.url, self.translator).scrape_url():
                 return scraped_data.schema.data
         except ForceTimeoutException as e:
             raise HTTPException(
@@ -244,7 +245,14 @@ class RecipeController(BaseRecipeController):
     ):
         cookbook_data: ReadCookBook | None = None
         if search_query.cookbook:
-            cb_match_attr = "slug" if isinstance(search_query.cookbook, str) else "id"
+            if isinstance(search_query.cookbook, UUID):
+                cb_match_attr = "id"
+            else:
+                try:
+                    UUID(search_query.cookbook)
+                    cb_match_attr = "id"
+                except ValueError:
+                    cb_match_attr = "slug"
             cookbook_data = self.cookbooks_repo.get_one(search_query.cookbook, cb_match_attr)
 
             if cookbook_data is None:
@@ -265,13 +273,13 @@ class RecipeController(BaseRecipeController):
         )
 
         # merge default pagination with the request's query params
-        query_params = q.dict() | {**request.query_params}
+        query_params = q.model_dump() | {**request.query_params}
         pagination_response.set_pagination_guides(
             router.url_path_for("get_all"),
             {k: v for k, v in query_params.items() if v is not None},
         )
 
-        json_compatible_response = orjson.dumps(pagination_response.dict(by_alias=True))
+        json_compatible_response = orjson.dumps(pagination_response.model_dump(by_alias=True))
 
         # Response is returned directly, to avoid validation and improve performance
         return JSONBytes(content=json_compatible_response)

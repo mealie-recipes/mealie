@@ -54,7 +54,7 @@ def test_group_mealplan_rules_create(
         "groupId": unique_user.group_id,
         "day": "monday",
         "entryType": "breakfast",
-        "categories": [category.dict()],
+        "categories": [category.model_dump()],
     }
 
     response = api_client.post(

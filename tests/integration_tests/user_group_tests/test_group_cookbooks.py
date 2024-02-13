@@ -41,7 +41,7 @@ def cookbooks(database: AllRepositories, unique_user: TestUser) -> list[TestCook
     for _ in range(3):
         cb = database.cookbooks.create(SaveCookBook(**get_page_data(unique_user.group_id)))
         data.append(cb)
-        yield_data.append(TestCookbook(id=cb.id, slug=cb.slug, name=cb.name, data=cb.dict()))
+        yield_data.append(TestCookbook(id=cb.id, slug=cb.slug, name=cb.name, data=cb.model_dump()))
 
     yield yield_data
 

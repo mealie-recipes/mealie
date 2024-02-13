@@ -199,7 +199,8 @@
     "upload-file": "Fájl feltöltése",
     "created-on-date": "Létrehozva: {0}",
     "unsaved-changes": "El nem mentett módosításai vannak. Szeretné elmenteni, mielőtt kilép? A mentéshez kattintson az Ok, a módosítások elvetéséhez a Mégsem gombra.",
-    "clipboard-copy-failure": "Nem sikerült a vágólapra másolás."
+    "clipboard-copy-failure": "Nem sikerült a vágólapra másolás.",
+    "confirm-delete-generic-items": "Biztos benne, hogy törölni szeretné az alábbi tételeket?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Biztosan törölni szeretnéd ezt: <b>{groupName}<b/>?",
@@ -1185,6 +1186,8 @@
     "require-all-tags": "Minden címke szükséges",
     "require-all-tools": "Minden szükséges eszköz",
     "cookbook-name": "Szakácskönyv neve",
-    "cookbook-with-name": "Szakácskönyv {0}"
+    "cookbook-with-name": "Szakácskönyv {0}",
+    "create-a-cookbook": "Szakácskönyv létrehozása",
+    "cookbook": "Szakácskönyv"
   }
 }

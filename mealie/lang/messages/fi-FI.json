@@ -31,5 +31,14 @@
         "generic-updated-with-url": "{name} on päivitetty, {url}",
         "generic-duplicated": "{name} on kahdennettu",
         "generic-deleted": "{name} on poistettu"
+    },
+    "datetime": {
+        "year": "year|years",
+        "day": "day|days",
+        "hour": "hour|hours",
+        "minute": "minute|minutes",
+        "second": "second|seconds",
+        "millisecond": "millisecond|milliseconds",
+        "microsecond": "microsecond|microseconds"
     }
 }

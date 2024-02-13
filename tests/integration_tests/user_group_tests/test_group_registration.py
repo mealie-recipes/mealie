@@ -7,7 +7,7 @@ from tests.utils.factories import user_registration_factory
 def test_user_registration_new_group(api_client: TestClient):
     registration = user_registration_factory()
 
-    response = api_client.post(api_routes.users_register, json=registration.dict(by_alias=True))
+    response = api_client.post(api_routes.users_register, json=registration.model_dump(by_alias=True))
     assert response.status_code == 201
 
     # Login
@@ -23,7 +23,7 @@ def test_user_registration_new_group(api_client: TestClient):
 def test_new_user_group_permissions(api_client: TestClient):
     registration = user_registration_factory()
 
-    response = api_client.post(api_routes.users_register, json=registration.dict(by_alias=True))
+    response = api_client.post(api_routes.users_register, json=registration.model_dump(by_alias=True))
     assert response.status_code == 201
 
     # Login

@@ -43,7 +43,7 @@ export const usePublicFoodStore = function (groupSlug: string) {
     },
   };
 
-  if (!foodStore.value) {
+  if (!foodStore.value || foodStore.value.length === 0) {
     foodStore = actions.getAll();
   }
 
@@ -61,7 +61,7 @@ export const useFoodStore = function () {
     },
   };
 
-  if (!foodStore) {
+  if (!foodStore.value || foodStore.value.length === 0) {
     foodStore = actions.getAll();
   }
 

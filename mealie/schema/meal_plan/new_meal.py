@@ -1,8 +1,10 @@
 from datetime import date
 from enum import Enum
+from typing import Annotated
 from uuid import UUID
 
-from pydantic import validator
+from pydantic import ConfigDict, Field, field_validator
+from pydantic_core.core_schema import ValidationInfo
 from sqlalchemy.orm import selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -30,13 +32,13 @@ class CreatePlanEntry(MealieModel):
     entry_type: PlanEntryType = PlanEntryType.breakfast
     title: str = ""
     text: str = ""
-    recipe_id: UUID | None
+    recipe_id: Annotated[UUID | None, Field(validate_default=True)] = None
 
-    @validator("recipe_id", always=True)
+    @field_validator("recipe_id")
     @classmethod
-    def id_or_title(cls, value, values):
-        if bool(value) is False and bool(values["title"]) is False:
-            raise ValueError(f"`recipe_id={value}` or `title={values['title']}` must be provided")
+    def id_or_title(cls, value, info: ValidationInfo):
+        if bool(value) is False and bool(info.data["title"]) is False:
+            raise ValueError(f"`recipe_id={value}` or `title={info.data['title']}` must be provided")
 
         return value
 
@@ -44,22 +46,18 @@ class CreatePlanEntry(MealieModel):
 class UpdatePlanEntry(CreatePlanEntry):
     id: int
     group_id: UUID
-    user_id: UUID | None
+    user_id: UUID | None = None
 
 
 class SavePlanEntry(CreatePlanEntry):
     group_id: UUID
-    user_id: UUID | None
-
-    class Config:
-        orm_mode = True
+    user_id: UUID | None = None
+    model_config = ConfigDict(from_attributes=True)
 
 
 class ReadPlanEntry(UpdatePlanEntry):
-    recipe: RecipeSummary | None
-
-    class Config:
-        orm_mode = True
+    recipe: RecipeSummary | None = None
+    model_config = ConfigDict(from_attributes=True)
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:

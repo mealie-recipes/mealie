@@ -1,7 +1,9 @@
 from abc import ABC, abstractmethod
 from pathlib import Path
+from urllib import parse as urlparse
 
-from pydantic import BaseModel, BaseSettings, PostgresDsn
+from pydantic import BaseModel, PostgresDsn
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class AbstractDBProvider(ABC):
@@ -38,15 +40,19 @@ class PostgresProvider(AbstractDBProvider, BaseSettings):
     POSTGRES_PORT: str = "5432"
     POSTGRES_DB: str = "mealie"
 
+    model_config = SettingsConfigDict(arbitrary_types_allowed=True, extra="allow")
+
     @property
     def db_url(self) -> str:
         host = f"{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}"
-        return PostgresDsn.build(
-            scheme="postgresql",
-            user=self.POSTGRES_USER,
-            password=self.POSTGRES_PASSWORD,
-            host=host,
-            path=f"/{self.POSTGRES_DB or ''}",
+        return str(
+            PostgresDsn.build(
+                scheme="postgresql",
+                username=self.POSTGRES_USER,
+                password=urlparse.quote_plus(self.POSTGRES_PASSWORD),
+                host=host,
+                path=f"{self.POSTGRES_DB or ''}",
+            )
         )
 
     @property
