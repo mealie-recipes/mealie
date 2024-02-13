@@ -54,8 +54,8 @@ Changing the webworker settings may cause unforeseen memory leak issues with Mea
 | ---------------- | :-----: | --------------------------------------------------------------------------------------------------------------------------------- |
 | WEB_GUNICORN     |  false  | Enables Gunicorn to manage Uvicorn web for multiple works                                                                         |
 | WORKERS_PER_CORE |    1    | Set the number of workers to the number of CPU cores multiplied by this value (Value \* CPUs). More info [here][workers_per_core] |
-| MAX_WORKERS      |    1    | Set the maximum number of workers to use. Default is not set meaning unlimited. More info [here][max_workers]                     |
-| WEB_CONCURRENCY  |    1    | Override the automatic definition of number of workers. More info [here][web_concurrency]                                         |
+| MAX_WORKERS      |  None   | Set the maximum number of workers to use. Default is not set meaning unlimited. More info [here][max_workers]                     |
+| WEB_CONCURRENCY  |    2    | Override the automatic definition of number of workers. More info [here][web_concurrency]                                         |
 
 ### LDAP
 
@@ -95,3 +95,8 @@ Setting the following environmental variables will change the theme of the front
 | THEME_DARK_INFO       | #1976D2 | Dark Theme Config Variable  |
 | THEME_DARK_WARNING    | #FF6D00 | Dark Theme Config Variable  |
 | THEME_DARK_ERROR      | #EF5350 | Dark Theme Config Variable  |
+
+
+[workers_per_core]: https://github.com/tiangolo/uvicorn-gunicorn-docker/blob/2daa3e3873c837d5781feb4ff6a40a89f791f81b/README.md#workers_per_core
+[max_workers]: https://github.com/tiangolo/uvicorn-gunicorn-docker/blob/2daa3e3873c837d5781feb4ff6a40a89f791f81b/README.md#max_workers
+[web_concurrency]: https://github.com/tiangolo/uvicorn-gunicorn-docker/blob/2daa3e3873c837d5781feb4ff6a40a89f791f81b/README.md#web_concurrency

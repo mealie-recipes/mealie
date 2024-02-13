@@ -28,7 +28,7 @@ def recipes(api_client: TestClient, unique_user: TestUser):
         response = api_client.get(f"{api_routes.recipes}/{slug}", headers=unique_user.token)
         assert response.status_code == 200
 
-        recipe = Recipe.parse_obj(response.json())
+        recipe = Recipe.model_validate(response.json())
         recipes.append(recipe)
 
     yield recipes
@@ -52,7 +52,7 @@ def test_create_timeline_event(api_client: TestClient, unique_user: TestUser, re
     )
     assert event_response.status_code == 201
 
-    event = RecipeTimelineEventOut.parse_obj(event_response.json())
+    event = RecipeTimelineEventOut.model_validate(event_response.json())
     assert event.recipe_id == recipe.id
     assert str(event.user_id) == str(unique_user.user_id)
 
@@ -77,13 +77,13 @@ def test_get_all_timeline_events(api_client: TestClient, unique_user: TestUser, 
         event_response = api_client.post(
             api_routes.recipes_timeline_events, params=params, json=event_data, headers=unique_user.token
         )
-        events.append(RecipeTimelineEventOut.parse_obj(event_response.json()))
+        events.append(RecipeTimelineEventOut.model_validate(event_response.json()))
 
     # check that we see them all
     params = {"page": 1, "perPage": -1}
 
     events_response = api_client.get(api_routes.recipes_timeline_events, params=params, headers=unique_user.token)
-    events_pagination = RecipeTimelineEventPagination.parse_obj(events_response.json())
+    events_pagination = RecipeTimelineEventPagination.model_validate(events_response.json())
 
     event_ids = [event.id for event in events]
     paginated_event_ids = [event.id for event in events_pagination.items]
@@ -109,13 +109,13 @@ def test_get_timeline_event(api_client: TestClient, unique_user: TestUser, recip
         json=new_event_data,
         headers=unique_user.token,
     )
-    new_event = RecipeTimelineEventOut.parse_obj(event_response.json())
+    new_event = RecipeTimelineEventOut.model_validate(event_response.json())
 
     # fetch the new event
     event_response = api_client.get(api_routes.recipes_timeline_events_item_id(new_event.id), headers=unique_user.token)
     assert event_response.status_code == 200
 
-    event = RecipeTimelineEventOut.parse_obj(event_response.json())
+    event = RecipeTimelineEventOut.model_validate(event_response.json())
     assert event == new_event
 
 
@@ -133,7 +133,7 @@ def test_update_timeline_event(api_client: TestClient, unique_user: TestUser, re
     }
 
     event_response = api_client.post(api_routes.recipes_timeline_events, json=new_event_data, headers=unique_user.token)
-    new_event = RecipeTimelineEventOut.parse_obj(event_response.json())
+    new_event = RecipeTimelineEventOut.model_validate(event_response.json())
     assert new_event.subject == old_subject
 
     # update the event
@@ -146,7 +146,7 @@ def test_update_timeline_event(api_client: TestClient, unique_user: TestUser, re
     )
     assert event_response.status_code == 200
 
-    updated_event = RecipeTimelineEventOut.parse_obj(event_response.json())
+    updated_event = RecipeTimelineEventOut.model_validate(event_response.json())
     assert updated_event.id == new_event.id
     assert updated_event.subject == new_subject
     assert updated_event.timestamp == new_event.timestamp
@@ -164,7 +164,7 @@ def test_delete_timeline_event(api_client: TestClient, unique_user: TestUser, re
     }
 
     event_response = api_client.post(api_routes.recipes_timeline_events, json=new_event_data, headers=unique_user.token)
-    new_event = RecipeTimelineEventOut.parse_obj(event_response.json())
+    new_event = RecipeTimelineEventOut.model_validate(event_response.json())
 
     # delete the event
     event_response = api_client.delete(
@@ -172,7 +172,7 @@ def test_delete_timeline_event(api_client: TestClient, unique_user: TestUser, re
     )
     assert event_response.status_code == 200
 
-    deleted_event = RecipeTimelineEventOut.parse_obj(event_response.json())
+    deleted_event = RecipeTimelineEventOut.model_validate(event_response.json())
     assert deleted_event.id == new_event.id
 
     # try to get the event
@@ -198,7 +198,7 @@ def test_timeline_event_message_alias(api_client: TestClient, unique_user: TestU
         json=new_event_data,
         headers=unique_user.token,
     )
-    new_event = RecipeTimelineEventOut.parse_obj(event_response.json())
+    new_event = RecipeTimelineEventOut.model_validate(event_response.json())
     assert str(new_event.user_id) == new_event_data["userId"]
     assert str(new_event.event_type) == new_event_data["eventType"]
     assert new_event.message == new_event_data["eventMessage"]
@@ -207,7 +207,7 @@ def test_timeline_event_message_alias(api_client: TestClient, unique_user: TestU
     event_response = api_client.get(api_routes.recipes_timeline_events_item_id(new_event.id), headers=unique_user.token)
     assert event_response.status_code == 200
 
-    event = RecipeTimelineEventOut.parse_obj(event_response.json())
+    event = RecipeTimelineEventOut.model_validate(event_response.json())
     assert event == new_event
 
     # update the event message
@@ -222,7 +222,7 @@ def test_timeline_event_message_alias(api_client: TestClient, unique_user: TestU
     )
     assert event_response.status_code == 200
 
-    updated_event = RecipeTimelineEventOut.parse_obj(event_response.json())
+    updated_event = RecipeTimelineEventOut.model_validate(event_response.json())
     assert updated_event.subject == new_subject
     assert updated_event.message == new_message
 
@@ -241,7 +241,7 @@ def test_timeline_event_update_image(
     }
 
     event_response = api_client.post(api_routes.recipes_timeline_events, json=new_event_data, headers=unique_user.token)
-    new_event = RecipeTimelineEventOut.parse_obj(event_response.json())
+    new_event = RecipeTimelineEventOut.model_validate(event_response.json())
     assert new_event.image == TimelineEventImage.does_not_have_image.value
 
     with open(test_image_jpg, "rb") as f:
@@ -253,7 +253,7 @@ def test_timeline_event_update_image(
         )
     r.raise_for_status()
 
-    update_image_response = UpdateImageResponse.parse_obj(r.json())
+    update_image_response = UpdateImageResponse.model_validate(r.json())
     assert update_image_response.image == TimelineEventImage.has_image.value
 
     event_response = api_client.get(
@@ -262,7 +262,7 @@ def test_timeline_event_update_image(
     )
     assert event_response.status_code == 200
 
-    updated_event = RecipeTimelineEventOut.parse_obj(event_response.json())
+    updated_event = RecipeTimelineEventOut.model_validate(event_response.json())
     assert updated_event.subject == new_event.subject
     assert updated_event.message == new_event.message
     assert updated_event.timestamp == new_event.timestamp
@@ -274,7 +274,7 @@ def test_create_recipe_with_timeline_event(api_client: TestClient, unique_user: 
     for recipe in recipes:
         params = {"queryFilter": f"recipe_id={recipe.id}"}
         events_response = api_client.get(api_routes.recipes_timeline_events, params=params, headers=unique_user.token)
-        events_pagination = RecipeTimelineEventPagination.parse_obj(events_response.json())
+        events_pagination = RecipeTimelineEventPagination.model_validate(events_response.json())
         assert events_pagination.items
 
 

@@ -14,7 +14,9 @@ env:
   SMTP_HOST: localhost
   SMTP_PORT: 1025
   SMTP_FROM_NAME: MealieDev
+  SMTP_FROM_EMAIL: mealie@example.com
   SMTP_AUTH_STRATEGY: NONE
+  BASE_URL: http://localhost:3000
   LANG: en-US
 
 # loads .env file if it exists

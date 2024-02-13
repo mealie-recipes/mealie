@@ -2,8 +2,10 @@ import subprocess
 import tempfile
 from fractions import Fraction
 from pathlib import Path
+from typing import Annotated
 
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, Field, field_validator
+from pydantic_core.core_schema import ValidationInfo
 
 from mealie.schema._mealie.types import NoneFloat
 
@@ -19,7 +21,7 @@ class CRFConfidence(BaseModel):
     comment: NoneFloat = None
     name: NoneFloat = None
     unit: NoneFloat = None
-    qty: NoneFloat = None
+    qty: Annotated[NoneFloat, Field(validate_default=True)] = None
 
 
 class CRFIngredient(BaseModel):
@@ -31,13 +33,13 @@ class CRFIngredient(BaseModel):
     unit: str = ""
     confidence: CRFConfidence
 
-    @validator("qty", always=True, pre=True)
-    def validate_qty(qty, values):  # sourcery skip: merge-nested-ifs
+    @field_validator("qty", mode="before")
+    def validate_qty(qty, info: ValidationInfo):  # sourcery skip: merge-nested-ifs
         if qty is None or qty == "":
             # Check if other contains a fraction
             try:
-                if values["other"] is not None and values["other"].find("/") != -1:
-                    return round(float(Fraction(values["other"])), 3)
+                if info.data["other"] is not None and info.data["other"].find("/") != -1:
+                    return round(float(Fraction(info.data["other"])), 3)
                 else:
                     return 1
             except Exception:

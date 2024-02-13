@@ -228,7 +228,7 @@ class NLPParser(ABCIngredientParser):
             confidence=IngredientConfidence(
                 quantity=crf_model.confidence.qty,
                 food=crf_model.confidence.name,
-                **crf_model.confidence.dict(),
+                **crf_model.confidence.model_dump(),
             ),
         )
 

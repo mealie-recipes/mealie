@@ -29,7 +29,7 @@ class AdminUserController(BaseAdminController):
             override=UserOut,
         )
 
-        response.set_pagination_guides(admin_router.url_path_for("get_all"), q.dict())
+        response.set_pagination_guides(admin_router.url_path_for("get_all"), q.model_dump())
         return response
 
     @admin_router.post("", response_model=UserOut, status_code=201)
@@ -103,7 +103,7 @@ class UserController(BaseUserController):
             )
 
         try:
-            self.repos.users.update(item_id, new_data.dict())
+            self.repos.users.update(item_id, new_data.model_dump())
         except Exception as e:
             raise HTTPException(
                 status.HTTP_400_BAD_REQUEST,

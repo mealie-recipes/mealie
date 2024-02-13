@@ -26,7 +26,7 @@ def test_associate_ingredient_with_step(api_client: TestClient, unique_user: Tes
 
     response = api_client.put(
         api_routes.recipes_slug(recipe.slug),
-        json=jsonify(recipe.dict()),
+        json=jsonify(recipe.model_dump()),
         headers=unique_user.token,
     )
 

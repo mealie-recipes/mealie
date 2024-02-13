@@ -1,10 +1,9 @@
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Any
+from typing import Annotated, Any
 from uuid import UUID
 
-from pydantic import UUID4, Field, validator
-from pydantic.types import constr
+from pydantic import UUID4, ConfigDict, Field, StringConstraints, field_validator
 from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -18,7 +17,6 @@ from mealie.schema.response.pagination import PaginationBase
 
 from ...db.models.group import Group
 from ...db.models.recipe import RecipeModel
-from ..getter_dict import GroupGetterDict, UserGetterDict
 from ..recipe import CategoryBase
 
 DEFAULT_INTEGRATION_ID = "generic"
@@ -34,25 +32,19 @@ class LongLiveTokenOut(MealieModel):
     token: str
     name: str
     id: int
-    created_at: datetime | None
-
-    class Config:
-        orm_mode = True
+    created_at: datetime | None = None
+    model_config = ConfigDict(from_attributes=True)
 
 
 class CreateToken(LongLiveTokenIn):
     user_id: UUID4
     token: str
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class DeleteTokenResponse(MealieModel):
     token_delete: str
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class ChangePassword(MealieModel):
@@ -61,31 +53,27 @@ class ChangePassword(MealieModel):
 
 
 class GroupBase(MealieModel):
-    name: constr(strip_whitespace=True, min_length=1)  # type: ignore
-
-    class Config:
-        orm_mode = True
+    name: Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]  # type: ignore
+    model_config = ConfigDict(from_attributes=True)
 
 
 class UserBase(MealieModel):
-    username: str | None
+    id: UUID4 | None = None
+    username: str | None = None
     full_name: str | None = None
-    email: constr(to_lower=True, strip_whitespace=True)  # type: ignore
+    email: Annotated[str, StringConstraints(to_lower=True, strip_whitespace=True)]  # type: ignore
     auth_method: AuthMethod = AuthMethod.MEALIE
     admin: bool = False
-    group: str | None
+    group: str | None = None
     advanced: bool = False
     favorite_recipes: list[str] | None = []
 
     can_invite: bool = False
     can_manage: bool = False
     can_organize: bool = False
-
-    class Config:
-        orm_mode = True
-        getter_dict = GroupGetterDict
-
-        schema_extra = {
+    model_config = ConfigDict(
+        from_attributes=True,
+        json_schema_extra={
             "example": {
                 "username": "ChangeMe",
                 "fullName": "Change Me",
@@ -93,7 +81,18 @@ class UserBase(MealieModel):
                 "group": settings.DEFAULT_GROUP,
                 "admin": "false",
             }
-        }
+        },
+    )
+
+    @field_validator("group", mode="before")
+    def convert_group_to_name(cls, v):
+        if not v or isinstance(v, str):
+            return v
+
+        try:
+            return v.name
+        except AttributeError:
+            return v
 
 
 class UserIn(UserBase):
@@ -105,14 +104,10 @@ class UserOut(UserBase):
     group: str
     group_id: UUID4
     group_slug: str
-    tokens: list[LongLiveTokenOut] | None
+    tokens: list[LongLiveTokenOut] | None = None
     cache_key: str
-    favorite_recipes: list[str] | None = []
-
-    class Config:
-        orm_mode = True
-
-        getter_dict = UserGetterDict
+    favorite_recipes: Annotated[list[str] | None, Field(validate_default=True)] = []
+    model_config = ConfigDict(from_attributes=True)
 
     @property
     def is_default_user(self) -> bool:
@@ -122,6 +117,10 @@ class UserOut(UserBase):
     def loader_options(cls) -> list[LoaderOption]:
         return [joinedload(User.group), joinedload(User.favorite_recipes), joinedload(User.tokens)]
 
+    @field_validator("favorite_recipes", mode="before")
+    def convert_favorite_recipes_to_slugs(cls, v):
+        return [recipe.slug for recipe in v] if v else v
+
 
 class UserPagination(PaginationBase):
     items: list[UserOut]
@@ -129,10 +128,7 @@ class UserPagination(PaginationBase):
 
 class UserFavorites(UserBase):
     favorite_recipes: list[RecipeSummary] = []  # type: ignore
-
-    class Config:
-        orm_mode = True
-        getter_dict = GroupGetterDict
+    model_config = ConfigDict(from_attributes=True)
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
@@ -149,11 +145,10 @@ class PrivateUser(UserOut):
     group_id: UUID4
     login_attemps: int = 0
     locked_at: datetime | None = None
+    model_config = ConfigDict(from_attributes=True)
 
-    class Config:
-        orm_mode = True
-
-    @validator("login_attemps", pre=True)
+    @field_validator("login_attemps", mode="before")
+    @classmethod
     def none_to_zero(cls, v):
         return 0 if v is None else v
 
@@ -189,11 +184,9 @@ class UpdateGroup(GroupBase):
 
 
 class GroupInDB(UpdateGroup):
-    users: list[UserOut] | None
+    users: list[UserOut] | None = None
     preferences: ReadGroupPreferences | None = None
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
     @staticmethod
     def get_directory(id: UUID4) -> Path:
@@ -234,6 +227,4 @@ class GroupPagination(PaginationBase):
 class LongLiveTokenInDB(CreateToken):
     id: int
     user: PrivateUser
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)

@@ -30,7 +30,7 @@ class RecipeSharedController(BaseUserController):
 
     @router.post("", response_model=RecipeShareToken, status_code=201)
     def create_one(self, data: RecipeShareTokenCreate) -> RecipeShareToken:
-        save_data = RecipeShareTokenSave(**data.dict(), group_id=self.group_id)
+        save_data = RecipeShareTokenSave(**data.model_dump(), group_id=self.group_id)
         return self.mixins.create_one(save_data)
 
     @router.get("/{item_id}", response_model=RecipeShareToken)

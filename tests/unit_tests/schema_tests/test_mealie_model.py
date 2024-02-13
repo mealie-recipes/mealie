@@ -17,7 +17,7 @@ class TestModel2(MealieModel):
 def test_camelize_variables():
     model = TestModel(long_name="Hello", long_int=1, long_float=1.1)
 
-    as_dict = model.dict(by_alias=True)
+    as_dict = model.model_dump(by_alias=True)
 
     assert as_dict["longName"] == "Hello"
     assert as_dict["longInt"] == 1

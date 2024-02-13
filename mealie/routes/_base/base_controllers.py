@@ -2,7 +2,7 @@ from abc import ABC
 from logging import Logger
 
 from fastapi import Depends
-from pydantic import UUID4
+from pydantic import UUID4, ConfigDict
 from sqlalchemy.orm import Session
 
 from mealie.core.config import get_app_dirs, get_app_settings
@@ -25,10 +25,10 @@ class _BaseController(ABC):
     session: Session = Depends(generate_session)
     translator: Translator = Depends(local_provider)
 
-    _repos: AllRepositories | None
-    _logger: Logger | None
-    _settings: AppSettings | None
-    _folders: AppDirectories | None
+    _repos: AllRepositories | None = None
+    _logger: Logger | None = None
+    _settings: AppSettings | None = None
+    _folders: AppDirectories | None = None
 
     @property
     def t(self):
@@ -58,8 +58,7 @@ class _BaseController(ABC):
             self._folders = get_app_dirs()
         return self._folders
 
-    class Config:
-        arbitrary_types_allowed = True
+    model_config = ConfigDict(arbitrary_types_allowed=True)
 
 
 class BasePublicController(_BaseController):
