@@ -63,7 +63,6 @@
 
 <script lang="ts">
 import { computed, defineComponent, useRoute, onMounted, ref, useContext } from "@nuxtjs/composition-api";
-import { tr } from "date-fns/locale";
 import { useAdminApi, useUserApi } from "~/composables/api";
 import { useGroups } from "~/composables/use-groups";
 import { alert } from "~/composables/use-toast";
