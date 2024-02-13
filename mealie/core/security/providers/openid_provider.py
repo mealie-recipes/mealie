@@ -10,11 +10,11 @@ from mealie.core.security.providers.auth_provider import AuthProvider
 from mealie.db.models.users.users import AuthMethod
 from mealie.repos.all_repositories import get_repositories
 
-logger = root_logger.get_logger("openid_provider")
-
 
 class OpenIDProvider(AuthProvider):
     """Authentication provider that authenticates a user using a token from OIDC ID token"""
+
+    _logger = root_logger.get_logger("openid_provider")
 
     async def authenticate(self) -> tuple[str, timedelta] | None:
         """Attempt to authenticate a user given a username and password"""
@@ -31,10 +31,10 @@ class OpenIDProvider(AuthProvider):
 
         if not user:
             if not settings.OIDC_SIGNUP_ENABLED:
-                logger.debug("[OIDC] No user found. Not creating a new user - new user creation is disabled.")
+                self._logger.debug("[OIDC] No user found. Not creating a new user - new user creation is disabled.")
                 return None
 
-            logger.debug("[OIDC] No user found. Creating new OIDC user.")
+            self._logger.debug("[OIDC] No user found. Creating new OIDC user.")
 
             user = repos.users.create(
                 {
@@ -51,12 +51,12 @@ class OpenIDProvider(AuthProvider):
 
         if user:
             if user.admin != admin_claim:
-                logger.debug(f"[OIDC] {'Setting' if admin_claim else 'Removing'} user as admin")
+                self._logger.debug(f"[OIDC] {'Setting' if admin_claim else 'Removing'} user as admin")
                 user.admin = admin_claim
                 repos.users.update(user.id, user)
             return self.get_access_token(user)
 
-        logger.info("[OIDC] Found user but their AuthMethod does not match OIDC")
+        self._logger.info("[OIDC] Found user but their AuthMethod does not match OIDC")
         return None
 
     def get_claims(self) -> JWTClaims | None:
@@ -67,10 +67,12 @@ class OpenIDProvider(AuthProvider):
             return None
         claims = JsonWebToken(["RS256"]).decode(s=self.request.cookies.get("mealie.auth._id_token.oidc"), key=jwks)
         if not claims:
-            logger.warning("[OIDC] Claims not found")
+            self._logger.warning("[OIDC] Claims not found")
             return None
         if not required_claims.issubset(claims.keys()):
-            logger.error(f"[OIDC] Required claims not present. Expected: {required_claims} Actual: {claims.keys()}")
+            self._logger.error(
+                f"[OIDC] Required claims not present. Expected: {required_claims} Actual: {claims.keys()}"
+            )
             return None
         return claims
 
@@ -88,12 +90,12 @@ class OpenIDProvider(AuthProvider):
             configuration = config_response.json()
 
         if not configuration:
-            logger.warning("[OIDC] Unable to fetch configuration from the OIDC_CONFIGURATION_URL")
+            OpenIDProvider._logger.warning("[OIDC] Unable to fetch configuration from the OIDC_CONFIGURATION_URL")
             return None
 
         jwks_uri = configuration.get("jwks_uri", None)
         if not jwks_uri:
-            logger.warning("[OIDC] Unable to find the jwks_uri from the OIDC_CONFIGURATION_URL")
+            OpenIDProvider._logger.warning("[OIDC] Unable to find the jwks_uri from the OIDC_CONFIGURATION_URL")
             return None
 
         with requests.get(jwks_uri, timeout=5) as response:

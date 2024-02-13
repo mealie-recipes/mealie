@@ -12,11 +12,11 @@ from mealie.db.models.users.users import AuthMethod
 from mealie.repos.all_repositories import get_repositories
 from mealie.schema.user.user import PrivateUser
 
-logger = root_logger.get_logger("ldap_provider")
-
 
 class LDAPProvider(CredentialsProvider):
     """Authentication provider that authenticats a user against an LDAP server using username/password combination"""
+
+    _logger = root_logger.get_logger("ldap_provider")
 
     def __init__(self, session: Session, request: Request) -> None:
         super().__init__(session, request)
@@ -60,7 +60,7 @@ class LDAPProvider(CredentialsProvider):
 
         user_entry: list[tuple[str, dict[str, list[bytes]]]] | None = None
         try:
-            logger.debug(f"[LDAP] Starting search with filter: {search_filter}")
+            self._logger.debug(f"[LDAP] Starting search with filter: {search_filter}")
             user_entry = conn.search_s(
                 settings.LDAP_BASE_DN,
                 ldap.SCOPE_SUBTREE,
@@ -68,19 +68,19 @@ class LDAPProvider(CredentialsProvider):
                 [settings.LDAP_ID_ATTRIBUTE, settings.LDAP_NAME_ATTRIBUTE, settings.LDAP_MAIL_ATTRIBUTE],
             )
         except ldap.FILTER_ERROR:
-            logger.error("[LDAP] Bad user search filter")
+            self._logger.error("[LDAP] Bad user search filter")
 
         if not user_entry:
             conn.unbind_s()
-            logger.error("[LDAP] No user was found with the provided user filter")
+            self._logger.error("[LDAP] No user was found with the provided user filter")
             return None
 
         # we only want the entries that have a dn
         user_entry = [(dn, attr) for dn, attr in user_entry if dn]
 
         if len(user_entry) > 1:
-            logger.warning("[LDAP] Multiple users found with the provided user filter")
-            logger.debug(f"[LDAP] The following entries were returned: {user_entry}")
+            self._logger.warning("[LDAP] Multiple users found with the provided user filter")
+            self._logger.debug(f"[LDAP] The following entries were returned: {user_entry}")
             conn.unbind_s()
             return None
 
@@ -118,7 +118,7 @@ class LDAPProvider(CredentialsProvider):
         try:
             conn.simple_bind_s(settings.LDAP_QUERY_BIND, settings.LDAP_QUERY_PASSWORD)
         except (ldap.INVALID_CREDENTIALS, ldap.NO_SUCH_OBJECT):
-            logger.error("[LDAP] Unable to bind to with provided user/password")
+            self._logger.error("[LDAP] Unable to bind to with provided user/password")
             conn.unbind_s()
             return None
 
@@ -129,17 +129,17 @@ class LDAPProvider(CredentialsProvider):
 
         # Check the credentials of the user
         try:
-            logger.debug(f"[LDAP] Attempting to bind with '{user_dn}' using the provided password")
+            self._logger.debug(f"[LDAP] Attempting to bind with '{user_dn}' using the provided password")
             conn.simple_bind_s(user_dn, data.password)
         except (ldap.INVALID_CREDENTIALS, ldap.NO_SUCH_OBJECT):
-            logger.error("[LDAP] Bind failed")
+            self._logger.error("[LDAP] Bind failed")
             conn.unbind_s()
             return None
 
         user = self.try_get_user(data.username)
 
         if user is None:
-            logger.debug("[LDAP] User is not in Mealie. Creating a new account")
+            self._logger.debug("[LDAP] User is not in Mealie. Creating a new account")
 
             attribute_keys = {
                 settings.LDAP_ID_ATTRIBUTE: "username",
@@ -149,10 +149,10 @@ class LDAPProvider(CredentialsProvider):
             attributes = {}
             for attribute_key, attribute_name in attribute_keys.items():
                 if attribute_key not in user_attr or len(user_attr[attribute_key]) == 0:
-                    logger.error(
+                    self._logger.error(
                         f"[LDAP] Unable to create user due to missing '{attribute_name}' ('{attribute_key}') attribute"
                     )
-                    logger.debug(f"[LDAP] User has the following attributes: {user_attr}")
+                    self._logger.debug(f"[LDAP] User has the following attributes: {user_attr}")
                     conn.unbind_s()
                     return None
                 attributes[attribute_key] = user_attr[attribute_key][0].decode("utf-8")
@@ -171,7 +171,7 @@ class LDAPProvider(CredentialsProvider):
         if settings.LDAP_ADMIN_FILTER:
             should_be_admin = len(conn.search_s(user_dn, ldap.SCOPE_BASE, settings.LDAP_ADMIN_FILTER, [])) > 0
             if user.admin != should_be_admin:
-                logger.debug(f"[LDAP] {'Setting' if should_be_admin else 'Removing'} user as admin")
+                self._logger.debug(f"[LDAP] {'Setting' if should_be_admin else 'Removing'} user as admin")
                 user.admin = should_be_admin
                 db.users.update(user.id, user)
 
