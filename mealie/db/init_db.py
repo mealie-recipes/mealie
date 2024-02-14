@@ -1,3 +1,4 @@
+import os
 from collections.abc import Callable
 from pathlib import Path
 from time import sleep
@@ -87,7 +88,12 @@ def main():
             if max_retry == 0:
                 raise ConnectionError("Database connection failed - exiting application.")
 
-        alembic_cfg = Config(str(PROJECT_DIR / "alembic.ini"))
+        alembic_cfg_path = os.getenv("ALEMBIC_CONFIG_FILE", default=str(PROJECT_DIR / "alembic.ini"))
+
+        if not os.path.isfile(alembic_cfg_path):
+            raise Exception("Provided alembic config path doesn't exist")
+
+        alembic_cfg = Config(alembic_cfg_path)
         if db_is_at_head(alembic_cfg):
             logger.debug("Migration not needed.")
         else:
