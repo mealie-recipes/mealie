@@ -1,3 +1,4 @@
+import os
 import subprocess
 import tempfile
 from fractions import Fraction
@@ -13,7 +14,7 @@ from . import utils
 from .pre_processor import pre_process_string
 
 CWD = Path(__file__).parent
-MODEL_PATH = CWD / "model.crfmodel"
+MODEL_PATH = os.getenv("CRF_MODEL_PATH", default=CWD / "model.crfmodel")
 
 
 class CRFConfidence(BaseModel):
