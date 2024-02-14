@@ -48,46 +48,54 @@
       </div>
 
       <v-expansion-panels v-model="panels" multiple>
-        <v-expansion-panel v-for="(ing, index) in parsedIng" :key="index">
-          <v-expansion-panel-header class="my-0 py-0" disable-icon-rotate>
-            <template #default="{ open }">
-              <v-fade-transition>
-                <span v-if="!open" key="0"> {{ ing.input }} </span>
-              </v-fade-transition>
-            </template>
-            <template #actions>
-              <v-icon left :color="isError(ing) ? 'error' : 'success'">
-                {{ isError(ing) ? $globals.icons.alert : $globals.icons.check }}
-              </v-icon>
-              <div class="my-auto" :color="isError(ing) ? 'error-text' : 'success-text'">
-                {{ ing.confidence ? asPercentage(ing.confidence.average) : "" }}
-              </div>
-            </template>
-          </v-expansion-panel-header>
-          <v-expansion-panel-content class="pb-0 mb-0">
-            <RecipeIngredientEditor v-model="parsedIng[index].ingredient" allow-insert-ingredient @insert-ingredient="insertIngredient(index)"  @delete="deleteIngredient(index)" />
-            {{ ing.input }}
-            <v-card-actions>
-              <v-spacer />
-              <BaseButton
-                v-if="errors[index].unitError && errors[index].unitErrorMessage !== ''"
-                color="warning"
-                small
-                @click="createUnit(ing.ingredient.unit, index)"
-              >
-                {{ errors[index].unitErrorMessage }}
-              </BaseButton>
-              <BaseButton
-                v-if="errors[index].foodError && errors[index].foodErrorMessage !== ''"
-                color="warning"
-                small
-                @click="createFood(ing.ingredient.food, index)"
-              >
-                {{ errors[index].foodErrorMessage }}
-              </BaseButton>
-            </v-card-actions>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
+        <draggable
+          v-if="parsedIng.length > 0"
+          v-model="parsedIng"
+          handle=".handle"
+          :style="{ width: '100%' }"
+          ghost-class="ghost"
+        >
+          <v-expansion-panel v-for="(ing, index) in parsedIng" :key="index">
+            <v-expansion-panel-header class="my-0 py-0" disable-icon-rotate>
+              <template #default="{ open }">
+                <v-fade-transition>
+                  <span v-if="!open" key="0"> {{ ing.input }} </span>
+                </v-fade-transition>
+              </template>
+              <template #actions>
+                <v-icon left :color="isError(ing) ? 'error' : 'success'">
+                  {{ isError(ing) ? $globals.icons.alert : $globals.icons.check }}
+                </v-icon>
+                <div class="my-auto" :color="isError(ing) ? 'error-text' : 'success-text'">
+                  {{ ing.confidence ? asPercentage(ing.confidence.average) : "" }}
+                </div>
+              </template>
+            </v-expansion-panel-header>
+            <v-expansion-panel-content class="pb-0 mb-0">
+              <RecipeIngredientEditor v-model="parsedIng[index].ingredient" allow-insert-ingredient @insert-ingredient="insertIngredient(index)"  @delete="deleteIngredient(index)" />
+              {{ ing.input }}
+              <v-card-actions>
+                <v-spacer />
+                <BaseButton
+                  v-if="errors[index].unitError && errors[index].unitErrorMessage !== ''"
+                  color="warning"
+                  small
+                  @click="createUnit(ing.ingredient.unit, index)"
+                >
+                  {{ errors[index].unitErrorMessage }}
+                </BaseButton>
+                <BaseButton
+                  v-if="errors[index].foodError && errors[index].foodErrorMessage !== ''"
+                  color="warning"
+                  small
+                  @click="createFood(ing.ingredient.food, index)"
+                >
+                  {{ errors[index].foodErrorMessage }}
+                </BaseButton>
+              </v-card-actions>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </draggable>
       </v-expansion-panels>
     </v-container>
   </v-container>
@@ -96,6 +104,7 @@
 <script lang="ts">
 import { computed, defineComponent, ref, useContext, useRoute, useRouter } from "@nuxtjs/composition-api";
 import { invoke, until } from "@vueuse/core";
+import draggable from "vuedraggable";
 import {
   CreateIngredientFood,
   CreateIngredientUnit,
@@ -122,6 +131,7 @@ interface Error {
 export default defineComponent({
   components: {
     RecipeIngredientEditor,
+    draggable
   },
   setup() {
     const { $auth } = useContext();
