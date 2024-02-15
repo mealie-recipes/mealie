@@ -650,7 +650,7 @@ export default defineComponent({
         shoppingListId: id,
         checked: false,
         position: shoppingList.value?.listItems?.length || 1,
-        isFood: isFood,
+        isFood,
         quantity: 0,
         note: "",
         labelId: undefined,
