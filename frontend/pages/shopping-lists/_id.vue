@@ -645,7 +645,7 @@ export default defineComponent({
     const createEditorOpen = ref(false);
     const createListItemData = ref<ShoppingListItemCreate>(listItemFactory());
 
-    function listItemFactory(isFood: boolean = false): ShoppingListItemCreate {
+    function listItemFactory(isFood = false): ShoppingListItemCreate {
       return {
         shoppingListId: id,
         checked: false,
