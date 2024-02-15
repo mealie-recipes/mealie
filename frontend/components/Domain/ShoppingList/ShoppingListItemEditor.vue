@@ -35,7 +35,7 @@
             <InputLabelType
               v-model="listItem.label"
               :items="labels"
-              :item-id.sync="calculatedLabelId"
+              :item-id.sync="listItem.labelId"
               :label="$t('shopping-list.label')"
             />
           </div>
@@ -129,21 +129,18 @@ export default defineComponent({
       },
     });
 
-    const calculatedLabelId = computed(() => {
-      return listItem.value.labelId || listItem.value.food?.labelId;
-    });
-
     watch(
       () => props.value.food,
       (newFood) => {
+        console.log(newFood?.label);
         // @ts-ignore our logic already assumes there's a label attribute, even if TS doesn't think there is
-        listItem.value.label = newFood?.label;
+        listItem.value.label = newFood?.label || null;
+        listItem.value.labelId = listItem.value.label?.id || null;
       }
     );
 
     return {
       listItem,
-      calculatedLabelId,
     };
   },
 });
