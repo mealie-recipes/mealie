@@ -35,7 +35,7 @@
             <InputLabelType
               v-model="listItem.label"
               :items="labels"
-              :item-id.sync="listItem.labelId"
+              :item-id.sync="calculatedLabelId"
               :label="$t('shopping-list.label')"
             />
           </div>
@@ -95,7 +95,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from "@nuxtjs/composition-api";
+import { defineComponent, computed, watch } from "@nuxtjs/composition-api";
 import { ShoppingListItemCreate, ShoppingListItemOut } from "~/lib/api/types/group";
 import { MultiPurposeLabelOut } from "~/lib/api/types/labels";
 import { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
@@ -128,8 +128,22 @@ export default defineComponent({
         context.emit("input", val);
       },
     });
+
+    const calculatedLabelId = computed(() => {
+      return listItem.value.labelId || listItem.value.food?.labelId;
+    });
+
+    watch(
+      () => props.value.food,
+      (newFood) => {
+        // @ts-ignore our logic already assumes there's a label attribute, even if TS doesn't think there is
+        listItem.value.label = newFood?.label;
+      }
+    );
+
     return {
       listItem,
+      calculatedLabelId,
     };
   },
 });
