@@ -33,6 +33,7 @@ import AdvancedOnly from "~/components/global/AdvancedOnly.vue";
 
 export default defineComponent({
   components: { AdvancedOnly },
+  middleware: ["auth", "group-only"],
   setup() {
     const { $auth, $globals, i18n } = useContext();
 

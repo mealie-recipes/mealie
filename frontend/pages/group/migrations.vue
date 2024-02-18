@@ -85,6 +85,7 @@ const MIGRATIONS = {
 };
 
 export default defineComponent({
+  middleware: ["auth", "advanced-only"],
   setup() {
     const { $globals, i18n } = useContext();
 

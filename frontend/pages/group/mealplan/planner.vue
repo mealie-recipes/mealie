@@ -46,6 +46,7 @@ import { isSameDay, addDays, parseISO } from "date-fns";
 import { useMealplans } from "~/composables/use-group-mealplan";
 
 export default defineComponent({
+  middleware: ["auth"],
   setup() {
     const route = useRoute();
     const router = useRouter();

@@ -30,6 +30,7 @@
 import { computed, defineComponent, useContext, useRoute } from "@nuxtjs/composition-api";
 
 export default defineComponent({
+  middleware: ["auth", "can-organize-only"],
   props: {
     value: {
       type: Boolean,

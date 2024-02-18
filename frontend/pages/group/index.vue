@@ -65,6 +65,7 @@ import { useGroupSelf } from "~/composables/use-groups";
 import { ReadGroupPreferences } from "~/lib/api/types/group";
 
 export default defineComponent({
+  middleware: ["auth", "can-manage-only"],
   setup() {
     const { group, actions: groupActions } = useGroupSelf();
 
