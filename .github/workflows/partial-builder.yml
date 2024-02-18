@@ -35,19 +35,16 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
       - name: Override __init__.py
         run: |
           echo "__version__ = \"${{ inputs.tag }}\"" > ./mealie/__init__.py
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v5
+      - uses: depot/setup-action@v1
+
+      - name: Build and push Docker image, via Depot.dev
+        uses: depot/build-push-action@v1
         with:
+          project: srzjb6mhzm
           file: ./docker/Dockerfile
           context: .
           platforms: linux/amd64,linux/arm64
@@ -58,6 +55,3 @@ jobs:
             ${{ inputs.tags }}
           build-args: |
             COMMIT=${{ github.sha }}
-          # https://docs.docker.com/build/ci/github-actions/cache/#github-cache
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
