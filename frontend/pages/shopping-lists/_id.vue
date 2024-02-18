@@ -235,6 +235,7 @@ export default defineComponent({
     RecipeList,
     ShoppingListItemEditor,
   },
+  middleware: "auth",
   setup() {
     const { $auth, i18n } = useContext();
     const preferences = useShoppingListPreferences();

@@ -50,6 +50,7 @@ import GroupWebhookEditor from "~/components/Domain/Group/GroupWebhookEditor.vue
 
 export default defineComponent({
   components: { GroupWebhookEditor },
+  middleware: ["auth", "advanced-only"],
   setup() {
     const { actions, webhooks } = useGroupWebhooks();
 

@@ -113,7 +113,7 @@
         <p>{{ $t('profile.group-description') }}</p>
       </div>
       <v-row tag="section">
-        <v-col cols="12" sm="12" md="6">
+        <v-col v-if="$auth.user.canManage" cols="12" sm="12" md="6">
           <UserProfileLinkCard
             :link="{ text: $tc('profile.group-settings'), to: `/group` }"
             :image="require('~/static/svgs/manage-group-settings.svg')"
@@ -162,17 +162,16 @@
             </UserProfileLinkCard>
           </v-col>
         </AdvancedOnly>
-        <AdvancedOnly>
-          <v-col cols="12" sm="12" md="6">
-            <UserProfileLinkCard
-              :link="{ text: $tc('profile.manage-data'), to: `/group/data/foods` }"
-              :image="require('~/static/svgs/manage-recipes.svg')"
-            >
-              <template #title> {{ $t('profile.manage-data') }} </template>
-              {{ $t('profile.manage-data-description') }}
-            </UserProfileLinkCard>
-          </v-col>
-        </AdvancedOnly>
+        <!-- $auth.user.canOrganize should not be null because of the auth middleware -->
+        <v-col v-if="$auth.user.canOrganize" cols="12" sm="12" md="6">
+          <UserProfileLinkCard
+            :link="{ text: $tc('profile.manage-data'), to: `/group/data/foods` }"
+            :image="require('~/static/svgs/manage-recipes.svg')"
+          >
+            <template #title> {{ $t('profile.manage-data') }} </template>
+            {{ $t('profile.manage-data-description') }}
+          </UserProfileLinkCard>
+        </v-col>
         <AdvancedOnly>
           <v-col cols="12" sm="12" md="6">
             <UserProfileLinkCard
@@ -208,6 +207,7 @@ export default defineComponent({
     UserAvatar,
     StatsCards,
   },
+  middleware: "auth",
   scrollToTop: true,
   setup() {
     const { $auth, i18n } = useContext();
