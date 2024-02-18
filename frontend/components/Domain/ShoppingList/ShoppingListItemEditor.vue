@@ -132,7 +132,6 @@ export default defineComponent({
     watch(
       () => props.value.food,
       (newFood) => {
-        console.log(newFood?.label);
         // @ts-ignore our logic already assumes there's a label attribute, even if TS doesn't think there is
         listItem.value.label = newFood?.label || null;
         listItem.value.labelId = listItem.value.label?.id || null;
