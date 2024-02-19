@@ -61,7 +61,7 @@ export default defineComponent({
   components: { UserRegistrationForm },
   layout: "blank",
   setup() {
-    const { $auth, $globals, $vuetify, i18n } = useContext();
+    const { $auth, $globals, i18n } = useContext();
     const { accountDetails } = useUserRegistrationForm();
 
     const groupSlug = computed(() => $auth.user?.groupSlug);
@@ -71,14 +71,6 @@ export default defineComponent({
     if (!$auth.loggedIn) {
       router.push("/login");
     }
-
-    const attrs = computed(() => {
-      return $vuetify.breakpoint.smAndDown ? {
-        maxWidth: undefined,
-      } : {
-        maxWidth: "800",
-      }
-    })
 
     type Config = {
       nextButtonText: string | undefined;
@@ -159,7 +151,6 @@ export default defineComponent({
     }
 
     return {
-      attrs,
       Pages,
       currentPage,
       totalPages,
