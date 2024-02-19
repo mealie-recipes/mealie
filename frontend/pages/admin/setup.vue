@@ -27,11 +27,13 @@
         {{ $i18n.tc('admin.welcome-to-mealie-get-started') }}
       </v-card-title>
       <v-btn
+        :to="groupSlug ? `/g/${groupSlug}` : '/login'"
         rounded
         outlined
         text
         color="grey lighten-1"
         class="text-subtitle-2 d-flex mx-auto"
+        style="width: fit-content;"
       >
         {{ $i18n.tc('admin.already-set-up-bring-to-homepage') }}
       </v-btn>
@@ -70,6 +72,8 @@ export default defineComponent({
 
     if (!$auth.loggedIn) {
       router.push("/login");
+    } else if (!$auth.user?.admin) {
+      router.push(groupSlug.value ? `/g/${groupSlug.value}` : "/login");
     }
 
     type Config = {
@@ -144,7 +148,7 @@ export default defineComponent({
           currentPage.value += 1;
           break;
         case Pages.END:
-          router.push(groupSlug.value ? `/g/${groupSlug.value || ""}` : "/login");
+          router.push(groupSlug.value ? `/g/${groupSlug.value}` : "/login");
           break;
       }
       isSubmitting.value = false;
@@ -157,6 +161,7 @@ export default defineComponent({
       activeConfig,
       isSubmitting,
       handleSubmit,
+      groupSlug,
     }
   },
 
