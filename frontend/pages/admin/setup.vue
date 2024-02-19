@@ -63,6 +63,8 @@ export default defineComponent({
   components: { UserRegistrationForm },
   layout: "blank",
   setup() {
+    // ================================================================
+    // Setup
     const { $auth, $globals, i18n } = useContext();
     const { accountDetails } = useUserRegistrationForm();
 
@@ -94,6 +96,8 @@ export default defineComponent({
       END = 4,
     }
 
+    // ================================================================
+    // Page Navigation
     const currentPage = ref(0);
     const activeConfig = computed<Config>(() => {
       const config: Config = {
@@ -131,6 +135,8 @@ export default defineComponent({
       return config;
     })
 
+    // ================================================================
+    // Page Submission
     async function handleSubmit(page: number) {
       if (isSubmitting.value) {
         return;
@@ -165,7 +171,7 @@ export default defineComponent({
     }
   },
 
-  header() {
+  head() {
     return {
       title: this.$i18n.tc("admin.first-time-setup"),
     };
