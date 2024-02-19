@@ -131,8 +131,8 @@ class ShoppingList(SqlAlchemyBase, BaseMixins):
         collection_class=ordering_list("position"),
     )
 
-    recipe_references: Mapped[ShoppingListRecipeReference] = orm.relationship(
-        ShoppingListRecipeReference, cascade="all, delete, delete-orphan"
+    recipe_references: Mapped[list[ShoppingListRecipeReference]] = orm.relationship(
+        ShoppingListRecipeReference, cascade="all, delete, delete-orphan", uselist=True
     )
     label_settings: Mapped[list["ShoppingListMultiPurposeLabel"]] = orm.relationship(
         ShoppingListMultiPurposeLabel,
