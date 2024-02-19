@@ -168,6 +168,7 @@
     "units": "Units",
     "back": "Back",
     "next": "Next",
+    "start": "Start",
     "toggle-view": "Toggle View",
     "date": "Date",
     "id": "Id",
@@ -1129,7 +1130,10 @@
     "background-tasks": "Background Tasks",
     "background-tasks-description": "Here you can view all the running background tasks and their status",
     "no-logs-found": "No Logs Found",
-    "tasks": "Tasks"
+    "tasks": "Tasks",
+    "first-time-setup": "First Time Setup",
+    "welcome-to-mealie-get-started": "Welcome to Mealie! Let's get started",
+    "already-set-up-bring-to-homepage": "I'm already set up, just bring me to the homepage"
   },
   "profile": {
     "welcome-user": "👋 Welcome, {0}",
