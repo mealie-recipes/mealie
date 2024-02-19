@@ -18,7 +18,7 @@ class RepositoryUsers(RepositoryGeneric[PrivateUser, User]):
     def update_password(self, id, password: str):
         entry = self._query_one(match_value=id)
         if settings.IS_DEMO:
-            user_to_update = self.schema.from_orm(entry)
+            user_to_update = self.schema.model_validate(entry)
             if user_to_update.is_default_user:
                 # do not update the default user in demo mode
                 return user_to_update
@@ -26,7 +26,7 @@ class RepositoryUsers(RepositoryGeneric[PrivateUser, User]):
         entry.update_password(password)
         self.session.commit()
 
-        return self.schema.from_orm(entry)
+        return self.schema.model_validate(entry)
 
     def create(self, user: PrivateUser | dict):  # type: ignore
         new_user = super().create(user)
@@ -66,9 +66,9 @@ class RepositoryUsers(RepositoryGeneric[PrivateUser, User]):
     def get_by_username(self, username: str) -> PrivateUser | None:
         stmt = select(User).filter(User.username == username)
         dbuser = self.session.execute(stmt).scalars().one_or_none()
-        return None if dbuser is None else self.schema.from_orm(dbuser)
+        return None if dbuser is None else self.schema.model_validate(dbuser)
 
     def get_locked_users(self) -> list[PrivateUser]:
         stmt = select(User).filter(User.locked_at != None)  # noqa E711
         results = self.session.execute(stmt).scalars().all()
-        return [self.schema.from_orm(x) for x in results]
+        return [self.schema.model_validate(x) for x in results]

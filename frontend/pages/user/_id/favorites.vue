@@ -14,6 +14,7 @@ import { useAsyncKey } from "~/composables/use-utils";
 
 export default defineComponent({
   components: { RecipeCardSection },
+  middleware: "auth",
   setup() {
     const api = useUserApi();
     const route = useRoute();

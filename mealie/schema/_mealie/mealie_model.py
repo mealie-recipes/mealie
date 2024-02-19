@@ -5,7 +5,7 @@ from enum import Enum
 from typing import ClassVar, Protocol, TypeVar
 
 from humps.main import camelize
-from pydantic import UUID4, BaseModel
+from pydantic import UUID4, BaseModel, ConfigDict
 from sqlalchemy import Select, desc, func, or_, text
 from sqlalchemy.orm import InstrumentedAttribute, Session
 from sqlalchemy.orm.interfaces import LoaderOption
@@ -28,10 +28,7 @@ class MealieModel(BaseModel):
     Searchable properties for the search API.
     The first property will be used for sorting (order_by)
     """
-
-    class Config:
-        alias_generator = camelize
-        allow_population_by_field_name = True
+    model_config = ConfigDict(alias_generator=camelize, populate_by_name=True)
 
     def cast(self, cls: type[T], **kwargs) -> T:
         """
@@ -48,8 +45,8 @@ class MealieModel(BaseModel):
         for method chaining.
         """
 
-        for field in self.__fields__:
-            if field in dest.__fields__:
+        for field in self.model_fields:
+            if field in dest.model_fields:
                 setattr(dest, field, getattr(self, field))
 
         return dest
@@ -59,8 +56,8 @@ class MealieModel(BaseModel):
         Map matching values from another model to the current model.
         """
 
-        for field in src.__fields__:
-            if field in self.__fields__:
+        for field in src.model_fields:
+            if field in self.model_fields:
                 setattr(self, field, getattr(src, field))
 
     def merge(self, src: T, replace_null=False):
@@ -68,9 +65,9 @@ class MealieModel(BaseModel):
         Replace matching values from another instance to the current instance.
         """
 
-        for field in src.__fields__:
+        for field in src.model_fields:
             val = getattr(src, field)
-            if field in self.__fields__ and (val is not None or replace_null):
+            if field in self.model_fields and (val is not None or replace_null):
                 setattr(self, field, val)
 
     @classmethod

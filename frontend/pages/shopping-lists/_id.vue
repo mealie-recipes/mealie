@@ -235,6 +235,7 @@ export default defineComponent({
     RecipeList,
     ShoppingListItemEditor,
   },
+  middleware: "auth",
   setup() {
     const { $auth, i18n } = useContext();
     const preferences = useShoppingListPreferences();
@@ -643,15 +644,15 @@ export default defineComponent({
     // Create New Item
 
     const createEditorOpen = ref(false);
-    const createListItemData = ref<ShoppingListItemCreate>(ingredientResetFactory());
+    const createListItemData = ref<ShoppingListItemCreate>(listItemFactory());
 
-    function ingredientResetFactory(): ShoppingListItemCreate {
+    function listItemFactory(isFood = false): ShoppingListItemCreate {
       return {
         shoppingListId: id,
         checked: false,
         position: shoppingList.value?.listItems?.length || 1,
-        isFood: false,
-        quantity: 1,
+        isFood,
+        quantity: 0,
         note: "",
         labelId: undefined,
         unitId: undefined,
@@ -679,7 +680,7 @@ export default defineComponent({
       loadingCounter.value -= 1;
 
       if (data) {
-        createListItemData.value = ingredientResetFactory();
+        createListItemData.value = listItemFactory(createListItemData.value.isFood || false);
         refresh();
       }
     }

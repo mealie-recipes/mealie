@@ -34,6 +34,7 @@ import { useUserApi } from "~/composables/api";
 import { ReportOut } from "~/lib/api/types/reports";
 
 export default defineComponent({
+  middleware: "auth",
   setup() {
     const route = useRoute();
     const id = route.value.params.id;

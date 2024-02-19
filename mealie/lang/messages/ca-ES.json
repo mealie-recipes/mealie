@@ -31,5 +31,14 @@
         "generic-updated-with-url": "{name} ha estat actualitzat, {url}",
         "generic-duplicated": "S'ha duplicat {name}",
         "generic-deleted": "{name} ha estat eliminat"
+    },
+    "datetime": {
+        "year": "year|years",
+        "day": "day|days",
+        "hour": "hour|hours",
+        "minute": "minute|minutes",
+        "second": "second|seconds",
+        "millisecond": "millisecond|milliseconds",
+        "microsecond": "microsecond|microseconds"
     }
 }

@@ -23,7 +23,7 @@ def create_item(list_id: UUID4) -> dict:
 def serialize_list_items(list_items: list[ShoppingListItemOut]) -> list:
     as_dict = []
     for item in list_items:
-        item_dict = item.dict(by_alias=True)
+        item_dict = item.model_dump(by_alias=True)
         item_dict["shoppingListId"] = str(item.shopping_list_id)
         item_dict["id"] = str(item.id)
         as_dict.append(item_dict)
@@ -192,7 +192,7 @@ def test_shopping_list_items_update_many_reorder(
     as_dict = []
     for i, item in enumerate(list_items):
         item.position = i
-        item_dict = item.dict(by_alias=True)
+        item_dict = item.model_dump(by_alias=True)
         item_dict["shoppingListId"] = str(list_with_items.id)
         item_dict["id"] = str(item.id)
         as_dict.append(item_dict)
@@ -319,7 +319,7 @@ def test_shopping_list_items_update_mergable(
 
         item.note = list_with_items.list_items[i - 1].note
 
-    payload = utils.jsonify([item.dict() for item in list_with_items.list_items])
+    payload = utils.jsonify([item.model_dump() for item in list_with_items.list_items])
     response = api_client.put(api_routes.groups_shopping_items, json=payload, headers=unique_user.token)
     as_json = utils.assert_derserialize(response, 200)
 
@@ -382,7 +382,7 @@ def test_shopping_list_items_checked_off(
 
     response = api_client.put(
         api_routes.groups_shopping_items_item_id(checked_item.id),
-        json=utils.jsonify(checked_item.dict()),
+        json=utils.jsonify(checked_item.model_dump()),
         headers=unique_user.token,
     )
 
@@ -396,7 +396,7 @@ def test_shopping_list_items_checked_off(
     # get the reference item and make sure it didn't change
     response = api_client.get(api_routes.groups_shopping_items_item_id(reference_item.id), headers=unique_user.token)
     as_json = utils.assert_derserialize(response, 200)
-    reference_item_get = ShoppingListItemOut.parse_obj(as_json)
+    reference_item_get = ShoppingListItemOut.model_validate(as_json)
 
     assert reference_item_get.id == reference_item.id
     assert reference_item_get.shopping_list_id == reference_item.shopping_list_id
@@ -407,7 +407,7 @@ def test_shopping_list_items_checked_off(
     # rename an item to match another item and check both off, and make sure they are not merged
     response = api_client.get(api_routes.groups_shopping_lists_item_id(list_with_items.id), headers=unique_user.token)
     as_json = utils.assert_derserialize(response, 200)
-    updated_list = ShoppingListOut.parse_obj(as_json)
+    updated_list = ShoppingListOut.model_validate(as_json)
 
     item_1, item_2 = random.sample(updated_list.list_items, 2)
     item_1.checked = True
@@ -416,7 +416,7 @@ def test_shopping_list_items_checked_off(
 
     response = api_client.put(
         api_routes.groups_shopping_items,
-        json=utils.jsonify([item_1.dict(), item_2.dict()]),
+        json=utils.jsonify([item_1.model_dump(), item_2.model_dump()]),
         headers=unique_user.token,
     )
 

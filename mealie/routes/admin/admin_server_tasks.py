@@ -18,7 +18,7 @@ class AdminServerTasksController(BaseAdminController):
             override=ServerTask,
         )
 
-        response.set_pagination_guides(router.url_path_for("get_all"), q.dict())
+        response.set_pagination_guides(router.url_path_for("get_all"), q.model_dump())
         return response
 
     @router.post("/server-tasks", response_model=ServerTask, status_code=201)

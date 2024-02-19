@@ -43,7 +43,7 @@ class BackupContents:
 
 
 class BackupFile:
-    temp_dir: Path | None
+    temp_dir: Path | None = None
 
     def __init__(self, file: Path) -> None:
         self.zip = file

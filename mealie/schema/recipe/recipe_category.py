@@ -1,4 +1,4 @@
-from pydantic import UUID4
+from pydantic import UUID4, ConfigDict
 from sqlalchemy.orm import selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -17,24 +17,18 @@ class CategorySave(CategoryIn):
 class CategoryBase(CategoryIn):
     id: UUID4
     slug: str
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class CategoryOut(CategoryBase):
     slug: str
     group_id: UUID4
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class RecipeCategoryResponse(CategoryBase):
     recipes: "list[RecipeSummary]" = []
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class TagIn(CategoryIn):
@@ -52,9 +46,7 @@ class TagBase(CategoryBase):
 class TagOut(TagSave):
     id: UUID4
     slug: str
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class RecipeTagResponse(RecipeCategoryResponse):
@@ -69,5 +61,5 @@ class RecipeTagResponse(RecipeCategoryResponse):
 
 from mealie.schema.recipe.recipe import RecipeSummary  # noqa: E402
 
-RecipeCategoryResponse.update_forward_refs()
-RecipeTagResponse.update_forward_refs()
+RecipeCategoryResponse.model_rebuild()
+RecipeTagResponse.model_rebuild()

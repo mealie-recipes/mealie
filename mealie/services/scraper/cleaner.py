@@ -10,6 +10,7 @@ from datetime import datetime, timedelta
 from slugify import slugify
 
 from mealie.core.root_logger import get_logger
+from mealie.lang.providers import Translator
 
 logger = get_logger("recipe-scraper")
 
@@ -32,7 +33,7 @@ MATCH_ERRONEOUS_WHITE_SPACE = re.compile(r"\n\s*\n")
 """ Matches multiple new lines and removes erroneous white space """
 
 
-def clean(recipe_data: dict, url=None) -> dict:
+def clean(recipe_data: dict, translator: Translator, url=None) -> dict:
     """Main entrypoint to clean a recipe extracted from the web
     and format the data into an accectable format for the database
 
@@ -45,9 +46,9 @@ def clean(recipe_data: dict, url=None) -> dict:
     recipe_data["description"] = clean_string(recipe_data.get("description", ""))
 
     # Times
-    recipe_data["prepTime"] = clean_time(recipe_data.get("prepTime"))
-    recipe_data["performTime"] = clean_time(recipe_data.get("performTime"))
-    recipe_data["totalTime"] = clean_time(recipe_data.get("totalTime"))
+    recipe_data["prepTime"] = clean_time(recipe_data.get("prepTime"), translator)
+    recipe_data["performTime"] = clean_time(recipe_data.get("performTime"), translator)
+    recipe_data["totalTime"] = clean_time(recipe_data.get("totalTime"), translator)
     recipe_data["recipeCategory"] = clean_categories(recipe_data.get("recipeCategory", []))
     recipe_data["recipeYield"] = clean_yield(recipe_data.get("recipeYield"))
     recipe_data["recipeIngredient"] = clean_ingredients(recipe_data.get("recipeIngredient", []))
@@ -335,7 +336,7 @@ def clean_yield(yld: str | list[str] | None) -> str:
     return yld
 
 
-def clean_time(time_entry: str | timedelta | None) -> None | str:
+def clean_time(time_entry: str | timedelta | None, translator: Translator) -> None | str:
     """_summary_
 
     Supported Structures:
@@ -361,11 +362,11 @@ def clean_time(time_entry: str | timedelta | None) -> None | str:
 
             try:
                 time_delta_instructionsect = parse_duration(time_entry)
-                return pretty_print_timedelta(time_delta_instructionsect)
+                return pretty_print_timedelta(time_delta_instructionsect, translator)
             except ValueError:
                 return str(time_entry)
         case timedelta():
-            return pretty_print_timedelta(time_entry)
+            return pretty_print_timedelta(time_entry, translator)
         case {"minValue": str(value)}:
             return clean_time(value)
         case [str(), *_]:
@@ -374,7 +375,7 @@ def clean_time(time_entry: str | timedelta | None) -> None | str:
             # TODO: Not sure what to do here
             return str(time_entry)
         case _:
-            logger.warning("[SCRAPER] Unexpected type or structure for time_entrys")
+            logger.warning("[SCRAPER] Unexpected type or structure for variable time_entry")
             return None
 
 
@@ -408,25 +409,25 @@ def parse_duration(iso_duration: str) -> timedelta:
     return timedelta(**times)
 
 
-def pretty_print_timedelta(t: timedelta, max_components=None, max_decimal_places=2):
+def pretty_print_timedelta(t: timedelta, translator: Translator, max_components=None, max_decimal_places=2):
     """
     Print a pretty string for a timedelta.
     For example datetime.timedelta(days=2, seconds=17280) will be printed as '2 days 4 Hours 48 Minutes'.
     Setting max_components to e.g. 1 will change this to '2.2 days', where the number of decimal
     points can also be set.
     """
-    time_scale_names_dict = {
-        timedelta(days=365): "year",
-        timedelta(days=1): "day",
-        timedelta(hours=1): "Hour",
-        timedelta(minutes=1): "Minute",
-        timedelta(seconds=1): "Second",
-        timedelta(microseconds=1000): "millisecond",
-        timedelta(microseconds=1): "microsecond",
+    time_scale_translation_keys_dict = {
+        timedelta(days=365): "datetime.year",
+        timedelta(days=1): "datetime.day",
+        timedelta(hours=1): "datetime.hour",
+        timedelta(minutes=1): "datetime.minute",
+        timedelta(seconds=1): "datetime.second",
+        timedelta(microseconds=1000): "datetime.millisecond",
+        timedelta(microseconds=1): "datetime.microsecond",
     }
     count = 0
     out_list = []
-    for scale, scale_name in time_scale_names_dict.items():
+    for scale, scale_translation_key in time_scale_translation_keys_dict.items():
         if t >= scale:
             count += 1
             n = t / scale if count == max_components else int(t / scale)
@@ -436,7 +437,8 @@ def pretty_print_timedelta(t: timedelta, max_components=None, max_decimal_places
             if n_txt[-2:] == ".0":
                 n_txt = n_txt[:-2]
 
-            out_list.append(f"{n_txt} {scale_name}{'s' if n > 1 else ''}")
+            scale_value = translator.t(scale_translation_key, count=n)
+            out_list.append(f"{n_txt} {scale_value}")
 
     if out_list == []:
         return "none"
