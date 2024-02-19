@@ -394,7 +394,7 @@ export default defineComponent({
         alert.success(i18n.tc("user-registration.registration-success"));
         router.push("/login");
       } else {
-        alert.error(i18n.t("events.something-went-wrong") as string);
+        alert.error(i18n.tc("events.something-went-wrong"));
       }
     }
     return {

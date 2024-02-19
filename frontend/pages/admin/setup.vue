@@ -42,10 +42,26 @@
       <UserRegistrationForm />
     </v-container>
     <v-container v-if="currentPage === Pages.PAGE_2">
-      <v-card-text>Page 2</v-card-text>
+      <v-card-title class="headline justify-center">
+        {{ $i18n.tc('admin.common-settings-for-new-sites') }}
+      </v-card-title>
+      <AutoForm v-model="commonSettings" :items="commonSettingsForm" />
     </v-container>
     <v-container v-if="currentPage === Pages.CONFIRM">
-      <v-card-text>Confirm Page</v-card-text>
+      <v-card-title class="headline justify-center">
+        {{ $t("general.confirm-how-does-everything-look") }}
+      </v-card-title>
+      <v-list>
+        <template v-for="(item, idx) in confirmationData">
+          <v-list-item v-if="item.display" :key="idx">
+            <v-list-item-content>
+              <v-list-item-title> {{ item.text }} </v-list-item-title>
+              <v-list-item-subtitle> {{ item.value }} </v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+          <v-divider v-if="idx !== confirmationData.length - 1" :key="`divider-${idx}`" />
+        </template>
+      </v-list>
     </v-container>
     <v-container v-if="currentPage === Pages.END">
       <v-card-text>End Page</v-card-text>
@@ -56,7 +72,11 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref, useContext, useRouter } from "@nuxtjs/composition-api";
+import { useUserApi } from "~/composables/api";
+import { useLocales } from "~/composables/use-locales";
+import { alert } from "~/composables/use-toast";
 import { useUserRegistrationForm } from "~/composables/use-users/user-registration-form";
+import { useCommonSettingsForm } from "~/composables/use-setup/common-settings-form";
 import UserRegistrationForm from "~/components/Domain/User/UserRegistrationForm.vue";
 
 export default defineComponent({
@@ -66,9 +86,10 @@ export default defineComponent({
     // ================================================================
     // Setup
     const { $auth, $globals, i18n } = useContext();
-    const { accountDetails } = useUserRegistrationForm();
+    const api = useUserApi();
 
     const groupSlug = computed(() => $auth.user?.groupSlug);
+    const { locale } = useLocales();
     const router = useRouter();
     const isSubmitting = ref(false);
 
@@ -95,6 +116,45 @@ export default defineComponent({
       CONFIRM = 3,
       END = 4,
     }
+
+    // ================================================================
+    // Forms
+    const { accountDetails, credentials } = useUserRegistrationForm();
+    const { commonSettingsForm } = useCommonSettingsForm();
+    const commonSettings = ref({
+      makeGroupRecipesPublic: false,
+      useSeedData: true,
+    })
+
+    const confirmationData = computed(() => {
+      return [
+        {
+          display: true,
+          text: i18n.tc("user.email"),
+          value: accountDetails.email.value,
+        },
+        {
+          display: true,
+          text: i18n.tc("user.username"),
+          value: accountDetails.username.value,
+        },
+        {
+          display: true,
+          text: i18n.tc("user.enable-advanced-content"),
+          value: accountDetails.advancedOptions.value ? i18n.tc("general.yes") : i18n.tc("general.no"),
+        },
+        {
+          display: true,
+          text: i18n.tc("group.enable-public-access"),
+          value: commonSettings.value.makeGroupRecipesPublic ? i18n.tc("general.yes") : i18n.tc("general.no"),
+        },
+        {
+          display: true,
+          text: i18n.tc("user-registration.use-seed-data"),
+          value: commonSettings.value.useSeedData ? i18n.tc("general.yes") : i18n.tc("general.no"),
+        },
+      ];
+    });
 
     // ================================================================
     // Page Navigation
@@ -137,6 +197,122 @@ export default defineComponent({
 
     // ================================================================
     // Page Submission
+
+    async function updateUser() {
+      // @ts-ignore-next-line user will never be null here
+      const { response } = await api.users.updateOne($auth.user?.id, {
+        ...$auth.user,
+        email: accountDetails.email.value,
+        username: accountDetails.username.value,
+        advancedOptions: accountDetails.advancedOptions.value,
+      })
+
+      if (!response || response.status !== 200) {
+        alert.error(i18n.tc("events.something-went-wrong"));
+      } else {
+        // TODO: update $auth.user
+      }
+    }
+
+    async function updatePassword() {
+      const { response } = await api.users.changePassword({
+        currentPassword: "",  // TODO: adjust workflow to capture this
+        newPassword: credentials.password1.value,
+      });
+
+      if (!response || response.status !== 200) {
+        alert.error(i18n.tc("events.something-went-wrong"));
+      }
+    }
+
+    async function submitRegistration() {
+      const tasks = [
+        updateUser(),
+        updatePassword(),
+      ]
+
+      await Promise.all(tasks);
+    }
+
+    async function updateGroup() {
+      // @ts-ignore-next-line user will never be null here
+      const { data } = await api.groups.getOne($auth.user?.groupId);
+      if (!data || !data.preferences) {
+        alert.error(i18n.tc("events.something-went-wrong"));
+        return;
+      }
+
+      const preferences = {
+        ...data.preferences,
+        privateGroup: !commonSettings.value.makeGroupRecipesPublic,
+        recipePublic: commonSettings.value.makeGroupRecipesPublic,
+      }
+
+      const payload = {
+        ...data,
+        preferences,
+      }
+
+      // @ts-ignore-next-line user will never be null here
+      const { response } = await api.groups.updateOne($auth.user?.groupId, payload);
+      if (!response || response.status !== 200) {
+        alert.error(i18n.tc("events.something-went-wrong"));
+      }
+    }
+
+    async function seedFoods() {
+      const { response } = await api.seeders.foods({ locale: locale.value })
+      if (!response || response.status !== 200) {
+        alert.error(i18n.tc("events.something-went-wrong"));
+      }
+    }
+
+    async function seedUnits() {
+      const { response } = await api.seeders.units({ locale: locale.value })
+      if (!response || response.status !== 200) {
+        alert.error(i18n.tc("events.something-went-wrong"));
+      }
+    }
+
+    async function seedLabels() {
+      const { response } = await api.seeders.labels({ locale: locale.value })
+      if (!response || response.status !== 200) {
+        alert.error(i18n.tc("events.something-went-wrong"));
+      }
+    }
+
+    async function seedData() {
+      if (!commonSettings.value.useSeedData) {
+        return;
+      }
+
+      const tasks = [
+        seedFoods(),
+        seedUnits(),
+        seedLabels(),
+      ]
+
+      await Promise.all(tasks);
+    }
+
+    async function submitCommonSettings() {
+      const tasks = [
+        updateGroup(),
+        seedData(),
+      ]
+
+      await Promise.all(tasks);
+    }
+
+    async function submitAll() {
+      const tasks = [
+        submitRegistration(),
+        submitCommonSettings(),
+      ]
+
+      await Promise.all(tasks);
+    }
+
     async function handleSubmit(page: number) {
       if (isSubmitting.value) {
         return;
@@ -150,7 +326,7 @@ export default defineComponent({
           }
           break;
         case Pages.CONFIRM:
-          // TODO: handle submit
+          await submitAll();
           currentPage.value += 1;
           break;
         case Pages.END:
@@ -161,13 +337,20 @@ export default defineComponent({
     }
 
     return {
+      // Setup
+      groupSlug,
+      // Forms
+      commonSettingsForm,
+      commonSettings,
+      confirmationData,
+      // Page Navigation
       Pages,
       currentPage,
       totalPages,
       activeConfig,
+      // Page Submission
       isSubmitting,
       handleSubmit,
-      groupSlug,
     }
   },
 
