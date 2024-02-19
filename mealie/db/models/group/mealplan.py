@@ -30,7 +30,7 @@ class GroupMealPlanRules(BaseMixins, SqlAlchemyBase):
         String, nullable=False, default=""
     )  # "breakfast", "lunch", "dinner", "side"
 
-    categories: Mapped[Category] = orm.relationship(Category, secondary=plan_rules_to_categories, uselist=True)
+    categories: Mapped[list[Category]] = orm.relationship(Category, secondary=plan_rules_to_categories, uselist=True)
     tags: Mapped[list[Tag]] = orm.relationship(Tag, secondary=plan_rules_to_tags, uselist=True)
 
     @auto_init()

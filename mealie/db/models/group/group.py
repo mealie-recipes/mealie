@@ -35,7 +35,7 @@ class Group(SqlAlchemyBase, BaseMixins):
     name: Mapped[str] = mapped_column(sa.String, index=True, nullable=False, unique=True)
     slug: Mapped[str | None] = mapped_column(sa.String, index=True, unique=True)
     users: Mapped[list["User"]] = orm.relationship("User", back_populates="group")
-    categories: Mapped[Category] = orm.relationship(
+    categories: Mapped[list[Category]] = orm.relationship(
         Category, secondary=group_to_categories, single_parent=True, uselist=True
     )
 
