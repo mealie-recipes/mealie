@@ -1813,13 +1813,13 @@ typing-extensions = ">=4.6.0,<4.7.0 || >4.7.0"
 
 [[package]]
 name = "pydantic-settings"
-version = "2.2.0"
+version = "2.2.1"
 description = "Settings management using Pydantic"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "pydantic_settings-2.2.0-py3-none-any.whl", hash = "sha256:5f7bcaf9ad4419559dc5ac155c0324a9aeb2547c60471ee7c7d026f467a6b515"},
-    {file = "pydantic_settings-2.2.0.tar.gz", hash = "sha256:648d0a76673e69c51278979cba2e83cf16a23d57519bfd7e553d1c3f37db5560"},
+    {file = "pydantic_settings-2.2.1-py3-none-any.whl", hash = "sha256:0235391d26db4d2190cb9b31051c4b46882d28a51533f97440867f012d4da091"},
+    {file = "pydantic_settings-2.2.1.tar.gz", hash = "sha256:00b9f6a5e95553590434c0fa01ead0b216c3e10bc54ae02e37f359948643c5ed"},
 ]
 
 [package.dependencies]
@@ -1827,7 +1827,7 @@ pydantic = ">=2.3.0"
 python-dotenv = ">=0.21.0"
 
 [package.extras]
-toml = ["tomlkit (>=0.12)"]
+toml = ["tomli (>=2.0.1)"]
 yaml = ["pyyaml (>=6.0.1)"]
 
 [[package]]
