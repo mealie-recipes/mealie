@@ -48,7 +48,7 @@ class DeleteTokenResponse(MealieModel):
 
 
 class ChangePassword(MealieModel):
-    current_password: str
+    current_password: str = ""
     new_password: str = Field(..., min_length=8)
 
 

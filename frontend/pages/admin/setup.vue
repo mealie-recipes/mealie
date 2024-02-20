@@ -140,6 +140,11 @@ export default defineComponent({
         },
         {
           display: true,
+          text: i18n.tc("user.full-name"),
+          value: accountDetails.fullName.value,
+        },
+        {
+          display: true,
           text: i18n.tc("user.enable-advanced-content"),
           value: accountDetails.advancedOptions.value ? i18n.tc("general.yes") : i18n.tc("general.no"),
         },
@@ -204,19 +209,25 @@ export default defineComponent({
         ...$auth.user,
         email: accountDetails.email.value,
         username: accountDetails.username.value,
+        fullName: accountDetails.fullName.value,
         advancedOptions: accountDetails.advancedOptions.value,
       })
 
       if (!response || response.status !== 200) {
         alert.error(i18n.tc("events.something-went-wrong"));
       } else {
-        // TODO: update $auth.user
+        $auth.setUser({
+          ...$auth.user,
+          email: accountDetails.email.value,
+          username: accountDetails.username.value,
+          fullName: accountDetails.fullName.value,
+        })
       }
     }
 
     async function updatePassword() {
       const { response } = await api.users.changePassword({
-        currentPassword: "",  // TODO: adjust workflow to capture this
+        currentPassword: "",  // the backend will automatically assume the current password is the default password
         newPassword: credentials.password1.value,
       });
 
@@ -226,12 +237,9 @@ export default defineComponent({
     }
 
     async function submitRegistration() {
-      const tasks = [
-        updateUser(),
-        updatePassword(),
-      ]
-
-      await Promise.all(tasks);
+      // the backend will only update the password without the "currentPassword" field if the user is the default user,
+      // so we update the password first, then update the user's details
+      await updatePassword().then(updateUser);
     }
 
     async function updateGroup() {

@@ -70,7 +70,12 @@ class UserController(BaseUserController):
             raise HTTPException(
                 status.HTTP_400_BAD_REQUEST, ErrorResponse.respond(self.t("user.ldap-update-password-unavailable"))
             )
-        if not verify_password(password_change.current_password, self.user.password):
+        if (not password_change.current_password) and self.user.is_default_user:
+            # this might be from the setup wizard, which doesn't require the user's current password
+            password_change.current_password = self.settings._DEFAULT_PASSWORD
+        if not (
+            password_change.current_password and verify_password(password_change.current_password, self.user.password)
+        ):
             raise HTTPException(
                 status.HTTP_400_BAD_REQUEST, ErrorResponse.respond(self.t("user.invalid-current-password"))
             )
