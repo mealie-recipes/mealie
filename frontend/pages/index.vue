@@ -26,8 +26,9 @@ export default defineComponent({
     useAsync(async () => {
       if (groupSlug.value) {
         const data = await $axios.get<AppStartupInfo>("/api/app/about/startup-info");
+        const isDemo = data.data.isDemo;
         const isFirstLogin = data.data.isFirstLogin;
-        if (isFirstLogin && $auth.user?.admin) {
+        if (!isDemo && isFirstLogin && $auth.user?.admin) {
           router.push("/admin/setup");
         } else {
           router.push(`/g/${groupSlug.value}`);

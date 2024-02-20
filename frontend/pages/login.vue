@@ -132,6 +132,7 @@ export default defineComponent({
     const { $auth, i18n, $axios } = useContext();
     const { loggedIn } = useLoggedInState();
     const groupSlug = computed(() => $auth.user?.groupSlug);
+    const isDemo = ref(false);
     const isFirstLogin = ref(false);
 
     const form = reactive({
@@ -142,13 +143,14 @@ export default defineComponent({
 
     useAsync(async () => {
       const data = await $axios.get<AppStartupInfo>("/api/app/about/startup-info");
+      isDemo.value = data.data.isDemo;
       isFirstLogin.value = data.data.isFirstLogin;
     }, useAsyncKey());
 
     whenever(
       () => loggedIn.value && groupSlug.value,
       () => {
-        if (isFirstLogin.value && $auth.user?.admin) {
+        if (!isDemo.value && isFirstLogin.value && $auth.user?.admin) {
           router.push("/admin/setup");
         } else {
           router.push(`/g/${groupSlug.value || ""}`);
