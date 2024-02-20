@@ -22,50 +22,50 @@
       :is-submitting="isSubmitting"
       @submit="handleSubmit"
     >
-    <v-container v-if="currentPage === Pages.LANDING" class="mb-12">
-      <v-card-title class="text-h4 justify-center">
-        {{ $i18n.tc('admin.welcome-to-mealie-get-started') }}
-      </v-card-title>
-      <v-btn
-        :to="groupSlug ? `/g/${groupSlug}` : '/login'"
-        rounded
-        outlined
-        text
-        color="grey lighten-1"
-        class="text-subtitle-2 d-flex mx-auto"
-        style="width: fit-content;"
-      >
-        {{ $i18n.tc('admin.already-set-up-bring-to-homepage') }}
-      </v-btn>
-    </v-container>
-    <v-container v-if="currentPage === Pages.USER_INFO">
-      <UserRegistrationForm />
-    </v-container>
-    <v-container v-if="currentPage === Pages.PAGE_2">
-      <v-card-title class="headline justify-center">
-        {{ $i18n.tc('admin.common-settings-for-new-sites') }}
-      </v-card-title>
-      <AutoForm v-model="commonSettings" :items="commonSettingsForm" />
-    </v-container>
-    <v-container v-if="currentPage === Pages.CONFIRM">
-      <v-card-title class="headline justify-center">
-        {{ $t("general.confirm-how-does-everything-look") }}
-      </v-card-title>
-      <v-list>
-        <template v-for="(item, idx) in confirmationData">
-          <v-list-item v-if="item.display" :key="idx">
-            <v-list-item-content>
-              <v-list-item-title> {{ item.text }} </v-list-item-title>
-              <v-list-item-subtitle> {{ item.value }} </v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-          <v-divider v-if="idx !== confirmationData.length - 1" :key="`divider-${idx}`" />
-        </template>
-      </v-list>
-    </v-container>
-    <v-container v-if="currentPage === Pages.END">
-      <v-card-text>End Page</v-card-text>
-    </v-container>
+      <v-container v-if="currentPage === Pages.LANDING" class="mb-12">
+        <v-card-title class="text-h4 justify-center">
+          {{ $i18n.tc('admin.welcome-to-mealie-get-started') }}
+        </v-card-title>
+        <v-btn
+          :to="groupSlug ? `/g/${groupSlug}` : '/login'"
+          rounded
+          outlined
+          text
+          color="grey lighten-1"
+          class="text-subtitle-2 d-flex mx-auto"
+          style="width: fit-content;"
+        >
+          {{ $i18n.tc('admin.already-set-up-bring-to-homepage') }}
+        </v-btn>
+      </v-container>
+      <v-container v-if="currentPage === Pages.USER_INFO">
+        <UserRegistrationForm />
+      </v-container>
+      <v-container v-if="currentPage === Pages.PAGE_2">
+        <v-card-title class="headline justify-center">
+          {{ $i18n.tc('admin.common-settings-for-new-sites') }}
+        </v-card-title>
+        <AutoForm v-model="commonSettings" :items="commonSettingsForm" />
+      </v-container>
+      <v-container v-if="currentPage === Pages.CONFIRM">
+        <v-card-title class="headline justify-center">
+          {{ $t("general.confirm-how-does-everything-look") }}
+        </v-card-title>
+        <v-list>
+          <template v-for="(item, idx) in confirmationData">
+            <v-list-item v-if="item.display" :key="idx">
+              <v-list-item-content>
+                <v-list-item-title> {{ item.text }} </v-list-item-title>
+                <v-list-item-subtitle> {{ item.value }} </v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+            <v-divider v-if="idx !== confirmationData.length - 1" :key="`divider-${idx}`" />
+          </template>
+        </v-list>
+      </v-container>
+      <v-container v-if="currentPage === Pages.END">
+        <v-card-text>End Page</v-card-text>
+      </v-container>
     </Wizard>
   </v-container>
 </template>
