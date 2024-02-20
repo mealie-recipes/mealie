@@ -12,7 +12,7 @@
     <Wizard
       v-model="currentPage"
       :max-page-number="totalPages"
-      :title="$i18n.tc('admin.first-time-setup')"
+      :title="$i18n.tc('admin.setup.first-time-setup')"
       :prev-button-show="activeConfig.showPrevButton"
       :next-button-show="activeConfig.showNextButton"
       :next-button-text="activeConfig.nextButtonText"
@@ -24,7 +24,7 @@
     >
       <v-container v-if="currentPage === Pages.LANDING" class="mb-12">
         <v-card-title class="text-h4 justify-center">
-          {{ $i18n.tc('admin.welcome-to-mealie-get-started') }}
+          {{ $i18n.tc('admin.setup.welcome-to-mealie-get-started') }}
         </v-card-title>
         <v-btn
           :to="groupSlug ? `/g/${groupSlug}` : '/login'"
@@ -35,7 +35,7 @@
           class="text-subtitle-2 d-flex mx-auto"
           style="width: fit-content;"
         >
-          {{ $i18n.tc('admin.already-set-up-bring-to-homepage') }}
+          {{ $i18n.tc('admin.setup.already-set-up-bring-to-homepage') }}
         </v-btn>
       </v-container>
       <v-container v-if="currentPage === Pages.USER_INFO">
@@ -43,7 +43,7 @@
       </v-container>
       <v-container v-if="currentPage === Pages.PAGE_2">
         <v-card-title class="headline justify-center">
-          {{ $i18n.tc('admin.common-settings-for-new-sites') }}
+          {{ $i18n.tc('admin.setup.common-settings-for-new-sites') }}
         </v-card-title>
         <AutoForm v-model="commonSettings" :items="commonSettingsForm" />
       </v-container>
@@ -64,7 +64,29 @@
         </v-list>
       </v-container>
       <v-container v-if="currentPage === Pages.END">
-        <v-card-text>End Page</v-card-text>
+        <v-card-title class="text-h4 justify-center">
+          {{ $i18n.tc('admin.setup.setup-complete') }}
+        </v-card-title>
+        <v-card-title class="text-h6 justify-center">
+          {{ $i18n.tc('admin.setup.here-are-a-few-things-to-help-you-get-started') }}
+        </v-card-title>
+        <div v-for="link, idx in setupCompleteLinks" class="px-4 pt-4">
+          <div v-if="link.section">
+            <v-divider v-if="idx" />
+            <v-card-text class="headline pl-0">
+              {{ link.section }}
+            </v-card-text>
+          </div>
+          <v-btn
+            :to="link.to"
+            color="info"
+          >
+            {{ link.text }}
+          </v-btn>
+          <v-card-text class="subtitle px-0 py-2">
+            {{ link.description }}
+          </v-card-text>
+        </div>
       </v-container>
     </Wizard>
   </v-container>
@@ -160,6 +182,42 @@ export default defineComponent({
         },
       ];
     });
+
+    const setupCompleteLinks = ref([
+      {
+        section: i18n.tc("profile.data-migrations"),
+        to: "/admin/backups",
+        text: i18n.tc("settings.backup.backup-restore"),
+        description: i18n.tc("admin.setup.restore-from-v1-backup"),
+      },
+      {
+        to: "/group/migrations",
+        text: i18n.tc("migration.recipe-migration"),
+        description: i18n.tc("migration.coming-from-another-application-or-an-even-older-version-of-mealie"),
+      },
+      {
+        section: i18n.tc("recipe.create-recipes"),
+        to: computed(() => `/g/${groupSlug.value}/r/create/new`),
+        text: i18n.tc("recipe.create-recipe"),
+        description: i18n.tc("recipe.create-recipe-description"),
+      },
+      {
+        to: computed(() => `/g/${groupSlug.value}/r/create/url`),
+        text: i18n.tc("recipe.import-with-url"),
+        description: i18n.tc("recipe.scrape-recipe-description"),
+      },
+      {
+        section: i18n.tc("user.manage-users"),
+        to: "/admin/manage/users",
+        text: i18n.tc("user.manage-users"),
+        description: i18n.tc("user.manage-users-description"),
+      },
+      {
+        to: "/user/profile",
+        text: i18n.tc("profile.manage-user-profile"),
+        description: i18n.tc("admin.setup.manage-profile-or-get-invite-link"),
+      },
+    ]);
 
     // ================================================================
     // Page Navigation
@@ -351,6 +409,7 @@ export default defineComponent({
       commonSettingsForm,
       commonSettings,
       confirmationData,
+      setupCompleteLinks,
       // Page Navigation
       Pages,
       currentPage,
@@ -364,7 +423,7 @@ export default defineComponent({
 
   head() {
     return {
-      title: this.$i18n.tc("admin.first-time-setup"),
+      title: this.$i18n.tc("admin.setup.first-time-setup"),
     };
   },
 })
