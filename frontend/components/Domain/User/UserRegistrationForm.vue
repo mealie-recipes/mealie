@@ -18,6 +18,13 @@
           @blur="validateUsername"
         />
         <v-text-field
+          v-model="accountDetails.fullName.value"
+          v-bind="inputAttrs"
+          :label="$tc('user.full-name')"
+          :prepend-icon="$globals.icons.user"
+          :rules="[validators.required]"
+        />
+        <v-text-field
           v-model="accountDetails.email.value"
           v-bind="inputAttrs"
           :prepend-icon="$globals.icons.email"

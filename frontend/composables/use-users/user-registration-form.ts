@@ -5,6 +5,7 @@ import { usePublicApi } from "~/composables/api/api-client";
 
 const domAccountForm = ref<VForm | null>(null);
 const username = ref("");
+const fullName = ref("");
 const email = ref("");
 const password1 = ref("");
 const password2 = ref("");
@@ -40,6 +41,7 @@ export const useUserRegistrationForm = () => {
   );
   const accountDetails = {
     username,
+    fullName,
     email,
     advancedOptions,
     validate: async () => {
@@ -51,6 +53,7 @@ export const useUserRegistrationForm = () => {
     },
     reset: () => {
       accountDetails.username.value = "";
+      accountDetails.fullName.value = "";
       accountDetails.email.value = "";
       accountDetails.advancedOptions.value = false;
     },

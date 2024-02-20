@@ -359,6 +359,11 @@ export default defineComponent({
         },
         {
           display: true,
+          text: i18n.tc("user.full-name"),
+          value: accountDetails.fullName.value,
+        },
+        {
+          display: true,
           text: i18n.tc("user.username"),
           value: accountDetails.username.value,
         },
@@ -375,6 +380,7 @@ export default defineComponent({
       const payload: CreateUserRegistration = {
         email: accountDetails.email.value,
         username: accountDetails.username.value,
+        fullName: accountDetails.fullName.value,
         password: credentials.password1.value,
         passwordConfirm: credentials.password2.value,
         locale: locale.value,

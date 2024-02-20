@@ -27,7 +27,7 @@ class RegistrationService:
             email=self.registration.email,
             username=self.registration.username,
             password=hash_password(self.registration.password),
-            full_name=self.registration.username,
+            full_name=self.registration.full_name,
             advanced=self.registration.advanced,
             group=group,
             can_invite=new_group,
