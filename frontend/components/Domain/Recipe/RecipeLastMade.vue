@@ -133,7 +133,7 @@ export default defineComponent({
     const domMadeThisForm = ref<VForm>();
     const newTimelineEvent = ref<RecipeTimelineEventIn>({
       // @ts-expect-error - TS doesn't like the $auth global user attribute
-      subject: i18n.t("recipe.user-made-this", { user: $auth.user.fullName } as string),
+      subject: i18n.tc("recipe.user-made-this", { user: $auth.user.fullName }),
       eventType: "comment",
       eventMessage: "",
       timestamp: undefined,

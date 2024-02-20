@@ -22,6 +22,7 @@ export default defineComponent({
   components: {
     RecipeOrganizerPage,
   },
+  middleware: ["auth", "group-only"],
   setup() {
     const { items, actions } = useTagStore();
 

@@ -98,6 +98,7 @@ export default defineComponent({
     GroupMealPlanRuleForm,
     RecipeChips,
   },
+  middleware: ["auth"],
   props: {
     value: {
       type: Boolean,
