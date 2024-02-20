@@ -133,6 +133,7 @@ export default defineComponent({
     RecipeIngredientEditor,
     draggable
   },
+  middleware: ["auth", "group-only"],
   setup() {
     const { $auth } = useContext();
     const panels = ref<number[]>([]);

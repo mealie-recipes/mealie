@@ -17,8 +17,10 @@ from recipe_scrapers._schemaorg import SchemaOrg
 from slugify import slugify
 
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.recipe.recipe import RecipeCategory, RecipeSummary, RecipeTag
+from mealie.schema.recipe.recipe import Recipe, RecipeCategory, RecipeSummary, RecipeTag
+from mealie.schema.recipe.recipe_category import CategorySave, TagSave
 from mealie.schema.recipe.recipe_notes import RecipeNote
+from mealie.schema.recipe.recipe_tool import RecipeToolSave
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.scraper.recipe_scraper import DEFAULT_SCRAPER_STRATEGIES
 from tests import data, utils
@@ -738,6 +740,70 @@ def test_get_recipe_by_slug_or_id(api_client: TestClient, unique_user: utils.Tes
         recipe_data = response.json()
         assert recipe_data["slug"] == slug
         assert recipe_data["id"] == recipe_id
+
+
+@pytest.mark.parametrize("organizer_type", ["tags", "categories", "tools"])
+def test_get_recipes_organizer_filter(
+    api_client: TestClient, unique_user: utils.TestUser, organizer_type: str, database: AllRepositories
+):
+    # create recipes with different organizers
+    tags = database.tags.by_group(unique_user.group_id).create_many(
+        [TagSave(name=random_string(), group_id=unique_user.group_id) for _ in range(3)]
+    )
+    categories = database.categories.by_group(unique_user.group_id).create_many(
+        [CategorySave(name=random_string(), group_id=unique_user.group_id) for _ in range(3)]
+    )
+    tools = database.tools.by_group(unique_user.group_id).create_many(
+        [RecipeToolSave(name=random_string(), group_id=unique_user.group_id) for _ in range(3)]
+    )
+
+    new_recipes_data: list[dict] = []
+    for i in range(40):
+        name = random_string()
+        new_recipes_data.append(
+            Recipe(
+                id=uuid4(),
+                user_id=unique_user.user_id,
+                group_id=unique_user.group_id,
+                name=name,
+                slug=name,
+                tags=[random.choice(tags)] if i % 2 else [],
+                recipe_category=[random.choice(categories)] if i % 2 else [],
+                tools=[random.choice(tools)] if i % 2 else [],
+            )
+        )
+
+    recipes = database.recipes.by_group(unique_user.group_id).create_many(new_recipes_data)  # type: ignore
+
+    # get recipes by organizer
+    if organizer_type == "tags":
+        organizer = random.choice(tags)
+        expected_recipe_ids = set(
+            str(recipe.id) for recipe in recipes if organizer.id in [tag.id for tag in recipe.tags or []]
+        )
+    elif organizer_type == "categories":
+        organizer = random.choice(categories)
+        expected_recipe_ids = set(
+            str(recipe.id)
+            for recipe in recipes
+            if organizer.id in [category.id for category in recipe.recipe_category or []]
+        )
+    elif organizer_type == "tools":
+        organizer = random.choice(tools)
+        expected_recipe_ids = set(
+            str(recipe.id) for recipe in recipes if organizer.id in [tool.id for tool in recipe.tools or []]
+        )
+    else:
+        raise ValueError(f"Unknown organizer type: {organizer_type}")
+
+    query_params = {organizer_type: str(organizer.id)}
+    response = api_client.get(api_routes.recipes, params=query_params, headers=unique_user.token)
+    assert response.status_code == 200
+
+    response_json = response.json()
+    assert len(response_json["items"]) == len(expected_recipe_ids)
+    fetched_recipes_ids = [recipe["id"] for recipe in response_json["items"]]
+    assert set(fetched_recipes_ids) == expected_recipe_ids
 
 
 def test_get_random_order(api_client: TestClient, unique_user: utils.TestUser):

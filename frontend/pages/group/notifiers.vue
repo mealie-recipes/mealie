@@ -124,6 +124,7 @@ interface OptionSection {
 }
 
 export default defineComponent({
+  middleware: ["auth", "advanced-only"],
   setup() {
     const api = useUserApi();
 

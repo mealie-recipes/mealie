@@ -25,6 +25,7 @@
             :label="$t('shopping-list.note')"
             rows="1"
             auto-grow
+            @keypress="handleNoteKeyPress"
           ></v-textarea>
         </div>
         <div class="d-flex align-end" style="gap: 20px">
@@ -95,7 +96,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from "@nuxtjs/composition-api";
+import { defineComponent, computed, watch } from "@nuxtjs/composition-api";
 import { ShoppingListItemCreate, ShoppingListItemOut } from "~/lib/api/types/group";
 import { MultiPurposeLabelOut } from "~/lib/api/types/labels";
 import { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
@@ -128,9 +129,28 @@ export default defineComponent({
         context.emit("input", val);
       },
     });
+
+    watch(
+      () => props.value.food,
+      (newFood) => {
+        // @ts-ignore our logic already assumes there's a label attribute, even if TS doesn't think there is
+        listItem.value.label = newFood?.label || null;
+        listItem.value.labelId = listItem.value.label?.id || null;
+      }
+    );
+
     return {
       listItem,
     };
   },
+  methods: {
+    handleNoteKeyPress(event) {
+      // Save on Enter
+      if (!event.shiftKey && event.key === "Enter") {
+        event.preventDefault();
+        this.$emit("save");
+      }
+    },
+  }
 });
 </script>

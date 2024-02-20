@@ -140,7 +140,11 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             if isinstance(i, UUID):
                 ids.append(i)
             else:
-                slugs.append(i)
+                try:
+                    i_as_uuid = UUID(i)
+                    ids.append(i_as_uuid)
+                except ValueError:
+                    slugs.append(i)
         additional_ids = self.session.execute(select(model.id).filter(model.slug.in_(slugs))).scalars().all()
         return ids + additional_ids
 
