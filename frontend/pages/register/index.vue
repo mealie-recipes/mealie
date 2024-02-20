@@ -209,7 +209,6 @@ import { VForm } from "~/types/vuetify";
 import { usePasswordField } from "~/composables/use-passwords";
 import { usePublicApi } from "~/composables/api/api-client";
 import { useLocales } from "~/composables/use-locales";
-import UserPasswordStrength from "~/components/Domain/User/UserPasswordStrength.vue";
 import UserRegistrationForm from "~/components/Domain/User/UserRegistrationForm.vue";
 
 const inputAttrs = {
@@ -220,7 +219,7 @@ const inputAttrs = {
 };
 
 export default defineComponent({
-  components: { UserPasswordStrength, UserRegistrationForm },
+  components: { UserRegistrationForm },
   layout: "blank",
   setup() {
     const { i18n } = useContext();

@@ -70,7 +70,7 @@
         <v-card-title class="text-h6 justify-center">
           {{ $i18n.tc('admin.setup.here-are-a-few-things-to-help-you-get-started') }}
         </v-card-title>
-        <div v-for="link, idx in setupCompleteLinks" class="px-4 pt-4">
+        <div v-for="link, idx in setupCompleteLinks" :key="idx" class="px-4 pt-4">
           <div v-if="link.section">
             <v-divider v-if="idx" />
             <v-card-text class="headline pl-0">
@@ -197,12 +197,12 @@ export default defineComponent({
       },
       {
         section: i18n.tc("recipe.create-recipes"),
-        to: computed(() => `/g/${groupSlug.value}/r/create/new`),
+        to: computed(() => `/g/${groupSlug.value || ""}/r/create/new`),
         text: i18n.tc("recipe.create-recipe"),
         description: i18n.tc("recipe.create-recipe-description"),
       },
       {
-        to: computed(() => `/g/${groupSlug.value}/r/create/url`),
+        to: computed(() => `/g/${groupSlug.value || ""}/r/create/url`),
         text: i18n.tc("recipe.import-with-url"),
         description: i18n.tc("recipe.scrape-recipe-description"),
       },
@@ -243,6 +243,7 @@ export default defineComponent({
           config.nextButtonText = i18n.tc("general.next");
           config.nextButtonIcon = $globals.icons.forward;
           config.isSubmit = true;
+          break;
         case Pages.CONFIRM:
           config.isSubmit = true;
           break;

@@ -1,1 +1,1 @@
-export { useCommonSettingsForm } from './common-settings-form';
+export { useCommonSettingsForm } from "./common-settings-form";

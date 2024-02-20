@@ -37,28 +37,28 @@
           :color="prevButtonColor"
           @click="decrementPage"
         >
-          <v-icon v-if="prevButtonIcon">
-            {{ prevButtonIcon }}
+          <v-icon v-if="prevButtonIconRef">
+            {{ prevButtonIconRef }}
           </v-icon>
-          {{ prevButtonText }}
+          {{ prevButtonTextRef }}
         </v-btn>
         <v-spacer />
         <v-btn
           v-if="nextButtonShow"
           :disabled="!nextButtonEnable"
-          :color="nextButtonColor"
+          :color="nextButtonColorRef"
           @click="incrementPage"
         >
           <div v-if="isSubmitting">
             <v-progress-circular indeterminate color="white" size="24" />
           </div>
           <div v-else>
-            <v-icon v-if="nextButtonIcon && !nextButtonIconAfter">
-              {{ nextButtonIcon }}
+            <v-icon v-if="nextButtonIconRef && !nextButtonIconAfter">
+              {{ nextButtonIconRef }}
             </v-icon>
-            {{ nextButtonText }}
-            <v-icon v-if="nextButtonIcon && nextButtonIconAfter">
-              {{ nextButtonIcon }}
+            {{ nextButtonTextRef }}
+            <v-icon v-if="nextButtonIconRef && nextButtonIconAfter">
+              {{ nextButtonIconRef }}
             </v-icon>
           </div>
         </v-btn>
@@ -164,27 +164,29 @@ export default defineComponent({
     const ready = ref(false);
     const langDialog = ref(false);
 
-    const prevButtonText = computed(() => props.prevButtonText || i18n.tc("general.back"));
-    const prevButtonIcon = computed(() => props.prevButtonIcon || $globals.icons.back);
-    const nextButtonText = computed(
+    const prevButtonTextRef = computed(() => props.prevButtonText || i18n.tc("general.back"));
+    const prevButtonIconRef = computed(() => props.prevButtonIcon || $globals.icons.back);
+    const nextButtonTextRef = computed(
       () => props.nextButtonText || (
           props.nextButtonIsSubmit ? i18n.tc("general.submit") : i18n.tc("general.next")
         )
       );
-    const nextButtonIcon = computed(
+    const nextButtonIconRef = computed(
       () => props.nextButtonIcon || (
           props.nextButtonIsSubmit ? $globals.icons.createAlt : $globals.icons.forward
       )
     );
-    const nextButtonColor = computed(
+    const nextButtonColorRef = computed(
       () => props.nextButtonColor || (props.nextButtonIsSubmit ? "success" : "info")
     );
 
     function goToPage(page: number) {
       if (page < props.minPageNumber) {
-        return goToPage(props.minPageNumber);
+        goToPage(props.minPageNumber);
+        return;
       } else if (page > props.maxPageNumber) {
-        return goToPage(props.maxPageNumber);
+        goToPage(props.maxPageNumber);
+        return;
       }
 
       context.emit("input", page);
@@ -207,11 +209,11 @@ export default defineComponent({
     return {
       ready,
       langDialog,
-      prevButtonText,
-      prevButtonIcon,
-      nextButtonText,
-      nextButtonIcon,
-      nextButtonColor,
+      prevButtonTextRef,
+      prevButtonIconRef,
+      nextButtonTextRef,
+      nextButtonIconRef,
+      nextButtonColorRef,
       decrementPage,
       incrementPage,
     };
