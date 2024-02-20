@@ -9,7 +9,7 @@
       'bg-off-white': !$vuetify.theme.dark,
     }"
   >
-    <Wizard
+    <BaseWizard
       v-model="currentPage"
       :max-page-number="totalPages"
       :title="$i18n.tc('admin.setup.first-time-setup')"
@@ -88,7 +88,7 @@
           </v-card-text>
         </div>
       </v-container>
-    </Wizard>
+    </BaseWizard>
   </v-container>
 </template>
 
