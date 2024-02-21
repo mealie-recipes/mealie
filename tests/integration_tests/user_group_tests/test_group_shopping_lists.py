@@ -161,7 +161,9 @@ def test_shopping_lists_add_one_with_zero_quantity(
     response = api_client.put(f"{api_routes.recipes}/{recipe_slug}", json=recipe_data, headers=unique_user.token)
     utils.assert_derserialize(response, 200)
 
-    recipe = Recipe.parse_raw(api_client.get(f"{api_routes.recipes}/{recipe_slug}", headers=unique_user.token).content)
+    recipe = Recipe.model_validate_json(
+        api_client.get(f"{api_routes.recipes}/{recipe_slug}", headers=unique_user.token).content
+    )
     assert recipe.id
     assert len(recipe.recipe_ingredient) == 3
 
@@ -172,7 +174,7 @@ def test_shopping_lists_add_one_with_zero_quantity(
     )
 
     response = api_client.get(api_routes.groups_shopping_lists_item_id(shopping_list.id), headers=unique_user.token)
-    shopping_list_out = ShoppingListOut.parse_obj(utils.assert_derserialize(response, 200))
+    shopping_list_out = ShoppingListOut.model_validate(utils.assert_derserialize(response, 200))
 
     assert len(shopping_list_out.list_items) == 3
 
@@ -285,7 +287,9 @@ def test_shopping_lists_add_recipe_with_merge(
     response = api_client.put(f"{api_routes.recipes}/{recipe_slug}", json=recipe_data, headers=unique_user.token)
     utils.assert_derserialize(response, 200)
 
-    recipe = Recipe.parse_raw(api_client.get(f"{api_routes.recipes}/{recipe_slug}", headers=unique_user.token).content)
+    recipe = Recipe.model_validate_json(
+        api_client.get(f"{api_routes.recipes}/{recipe_slug}", headers=unique_user.token).content
+    )
     assert recipe.id
     assert len(recipe.recipe_ingredient) == 4
 
@@ -296,7 +300,7 @@ def test_shopping_lists_add_recipe_with_merge(
     )
 
     response = api_client.get(api_routes.groups_shopping_lists_item_id(shopping_list.id), headers=unique_user.token)
-    shopping_list_out = ShoppingListOut.parse_obj(utils.assert_derserialize(response, 200))
+    shopping_list_out = ShoppingListOut.model_validate(utils.assert_derserialize(response, 200))
 
     assert len(shopping_list_out.list_items) == 3
 
@@ -635,7 +639,9 @@ def test_recipe_manipulation_with_zero_quantities(
     response = api_client.put(f"{api_routes.recipes}/{recipe_slug}", json=recipe_data, headers=unique_user.token)
     utils.assert_derserialize(response, 200)
 
-    recipe = Recipe.parse_raw(api_client.get(f"{api_routes.recipes}/{recipe_slug}", headers=unique_user.token).content)
+    recipe = Recipe.model_validate_json(
+        api_client.get(f"{api_routes.recipes}/{recipe_slug}", headers=unique_user.token).content
+    )
     assert recipe.id
     assert len(recipe.recipe_ingredient) == 4
 
@@ -653,7 +659,7 @@ def test_recipe_manipulation_with_zero_quantities(
     utils.assert_derserialize(response, 200)
 
     response = api_client.get(api_routes.groups_shopping_lists_item_id(shopping_list.id), headers=unique_user.token)
-    updated_list = ShoppingListOut.parse_raw(response.content)
+    updated_list = ShoppingListOut.model_validate_json(response.content)
     assert len(updated_list.list_items) == 4
 
     found = False
@@ -679,7 +685,7 @@ def test_recipe_manipulation_with_zero_quantities(
     )
 
     response = api_client.get(api_routes.groups_shopping_lists_item_id(shopping_list.id), headers=unique_user.token)
-    updated_list = ShoppingListOut.parse_raw(response.content)
+    updated_list = ShoppingListOut.model_validate_json(response.content)
     assert len(updated_list.list_items) == 4
 
     found = False
@@ -705,7 +711,7 @@ def test_recipe_manipulation_with_zero_quantities(
     )
 
     response = api_client.get(api_routes.groups_shopping_lists_item_id(shopping_list.id), headers=unique_user.token)
-    updated_list = ShoppingListOut.parse_raw(response.content)
+    updated_list = ShoppingListOut.model_validate_json(response.content)
     assert len(updated_list.list_items) == 0
 
 

@@ -29,11 +29,14 @@ def get_valid_call(func: Callable, args_dict) -> dict:
     return {k: v for k, v in args_dict.items() if k in valid_args}
 
 
-def safe_call(func, dict_args: dict, **kwargs) -> Any:
+def safe_call(func, dict_args: dict | None, **kwargs) -> Any:
     """
     Safely calls the supplied function with the supplied dictionary of arguments.
     by removing any invalid arguments.
     """
+
+    if dict_args is None:
+        dict_args = {}
 
     if kwargs:
         dict_args.update(kwargs)

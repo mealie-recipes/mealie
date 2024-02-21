@@ -3,6 +3,7 @@ from typing import TYPE_CHECKING
 
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
+from pydantic import ConfigDict
 from sqlalchemy import event
 from sqlalchemy.ext.orderinglist import ordering_list
 from sqlalchemy.orm import Mapped, mapped_column, validates
@@ -134,10 +135,9 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     # Automatically updated by sqlalchemy event, do not write to this manually
     name_normalized: Mapped[str] = mapped_column(sa.String, nullable=False, index=True)
     description_normalized: Mapped[str | None] = mapped_column(sa.String, index=True)
-
-    class Config:
-        get_attr = "slug"
-        exclude = {
+    model_config = ConfigDict(
+        get_attr="slug",
+        exclude={
             "assets",
             "notes",
             "nutrition",
@@ -146,7 +146,8 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
             "settings",
             "comments",
             "timeline_events",
-        }
+        },
+    )
 
     @validates("name")
     def validate_name(self, _, name):

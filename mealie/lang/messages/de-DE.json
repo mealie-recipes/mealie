@@ -31,5 +31,14 @@
         "generic-updated-with-url": "{name} wurde aktualisiert, {url}",
         "generic-duplicated": "{name} wurde dupliziert",
         "generic-deleted": "{name} wurde gelöscht"
+    },
+    "datetime": {
+        "year": "jahr|jahre",
+        "day": "tag|tage",
+        "hour": "stunde|stunden",
+        "minute": "minute|minuten",
+        "second": "sekunde|sekunden",
+        "millisecond": "millisekunde|millisekunden",
+        "microsecond": "mikrosekunde|mikrosekunden"
     }
 }

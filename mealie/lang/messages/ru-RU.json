@@ -31,5 +31,14 @@
         "generic-updated-with-url": "{name} был обновлен, {url}",
         "generic-duplicated": "Копия {name} была создана",
         "generic-deleted": "{name} был удален"
+    },
+    "datetime": {
+        "year": "year|years",
+        "day": "day|days",
+        "hour": "hour|hours",
+        "minute": "minute|minutes",
+        "second": "second|seconds",
+        "millisecond": "millisecond|milliseconds",
+        "microsecond": "microsecond|microseconds"
     }
 }

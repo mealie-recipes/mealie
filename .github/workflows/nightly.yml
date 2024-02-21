@@ -4,6 +4,12 @@ on:
   push:
     branches:
       - mealie-next
+    paths-ignore:
+      - '*.md'
+      - '.devcontainer/**'
+      # I'm not excluding .github as changes in there might be to workflows etc
+      - '.vscode/**'
+      - 'docs/**'
 
 concurrency:
   group: nightly-${{ github.ref }}
@@ -22,7 +28,13 @@ jobs:
     permissions:
       contents: read
       packages: write
+      # The id-token write permission is needed to connect to Depot.dev
+      # as part of the partial-builder.yml action. It needs to be declared
+      # in the parent action, as noted here:
+      # https://github.com/orgs/community/discussions/76409#discussioncomment-8131390
+      id-token: write
     name: Build Tagged Release
+    if: github.repository == 'mealie-recipes/mealie'
     uses: ./.github/workflows/partial-builder.yml
     needs:
       - frontend-tests
@@ -35,6 +47,7 @@ jobs:
 
   notify-discord:
     name: Notify Discord
+    if: github.repository == 'mealie-recipes/mealie'
     needs:
       - build-release
     runs-on: ubuntu-latest

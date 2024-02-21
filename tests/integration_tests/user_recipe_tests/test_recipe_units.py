@@ -15,7 +15,7 @@ def unit(api_client: TestClient, unique_user: TestUser):
         fraction=random_bool(),
         abbreviation=f"{random_string(3)}.",
         use_abbreviation=random_bool(),
-    ).dict(by_alias=True)
+    ).model_dump(by_alias=True)
 
     response = api_client.post(api_routes.units, json=data, headers=unique_user.token)
 
@@ -30,7 +30,7 @@ def test_create_unit(api_client: TestClient, unique_user: TestUser):
     data = CreateIngredientUnit(
         name=random_string(10),
         description=random_string(10),
-    ).dict(by_alias=True)
+    ).model_dump(by_alias=True)
 
     response = api_client.post(api_routes.units, json=data, headers=unique_user.token)
     assert response.status_code == 201

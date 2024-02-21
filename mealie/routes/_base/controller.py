@@ -6,11 +6,10 @@ See their repository for details -> https://github.com/dmontagu/fastapi-utils
 
 import inspect
 from collections.abc import Callable
-from typing import Any, TypeVar, cast, get_type_hints
+from typing import Any, ClassVar, ForwardRef, TypeVar, cast, get_origin, get_type_hints
 
 from fastapi import APIRouter, Depends
 from fastapi.routing import APIRoute
-from pydantic.typing import is_classvar
 from starlette.routing import Route, WebSocketRoute
 
 T = TypeVar("T")
@@ -47,6 +46,25 @@ def _cbv(router: APIRouter, cls: type[T], *urls: str, instance: Any | None = Non
     return cls
 
 
+# copied from Pydantic V1 Source: https://github.com/pydantic/pydantic/blob/1c91c8627b541b22354b9ed56b9ef1bb21ac6fbd/pydantic/v1/typing.py
+def _check_classvar(v: type[Any] | None) -> bool:
+    if v is None:
+        return False
+
+    return v.__class__ == ClassVar.__class__ and getattr(v, "_name", None) == "ClassVar"
+
+
+# copied from Pydantic V1 Source: https://github.com/pydantic/pydantic/blob/1c91c8627b541b22354b9ed56b9ef1bb21ac6fbd/pydantic/v1/typing.py
+def _is_classvar(ann_type: type[Any]) -> bool:
+    if _check_classvar(ann_type) or _check_classvar(get_origin(ann_type)):
+        return True
+
+    if ann_type.__class__ == ForwardRef and ann_type.__forward_arg__.startswith("ClassVar["):  # type: ignore
+        return True
+
+    return False
+
+
 def _init_cbv(cls: type[Any], instance: Any | None = None) -> None:
     """
     Idempotently modifies the provided `cls`, performing the following modifications:
@@ -67,7 +85,7 @@ def _init_cbv(cls: type[Any], instance: Any | None = None) -> None:
 
     dependency_names: list[str] = []
     for name, hint in get_type_hints(cls).items():
-        if is_classvar(hint):
+        if _is_classvar(hint):
             continue
 
         if name.startswith("_"):

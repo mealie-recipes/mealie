@@ -31,7 +31,24 @@
             <BaseButton type="button" :loading="generatingToken" create @click.prevent="handlePasswordReset">
               {{ $t("user.generate-password-reset-link") }}
             </BaseButton>
-            <AppButtonCopy v-if="resetUrl" :copy-text="resetUrl"></AppButtonCopy>
+          </div>
+          <div v-if="resetUrl" class="mb-2">
+            <v-card-text>
+              <p class="text-center pb-0">
+                {{ resetUrl }}
+              </p>
+            </v-card-text>
+            <v-card-actions class="align-center pt-0" style="gap: 4px">
+              <BaseButton cancel @click="resetUrl = ''"> {{ $t("general.close") }} </BaseButton>
+              <v-spacer></v-spacer>
+              <BaseButton v-if="user.email" color="info" class="mr-1" @click="sendResetEmail">
+                <template #icon>
+                  {{ $globals.icons.email }}
+                </template>
+                {{ $t("user.email") }}
+              </BaseButton>
+              <AppButtonCopy :icon="false" color="info" :copy-text="resetUrl" />
+            </v-card-actions>
           </div>
 
           <AutoForm v-model="user" :items="userForm" update-mode :disabled-fields="disabledFields" />
@@ -46,7 +63,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, useRoute, onMounted, ref, useContext } from "@nuxtjs/composition-api";
-import { useAdminApi } from "~/composables/api";
+import { useAdminApi, useUserApi } from "~/composables/api";
 import { useGroups } from "~/composables/use-groups";
 import { alert } from "~/composables/use-toast";
 import { useUserForm } from "~/composables/use-users";
@@ -118,6 +135,17 @@ export default defineComponent({
       generatingToken.value = false;
     }
 
+    const userApi = useUserApi();
+    async function sendResetEmail() {
+      if (!user.value?.email) return;
+      const { response } = await userApi.email.sendForgotPassword({ email: user.value.email });
+      if (response && response.status === 200) {
+        alert.success(i18n.tc("profile.email-sent"));
+      } else {
+        alert.error(i18n.tc("profile.error-sending-email"));
+      }
+    }
+
     return {
       user,
       disabledFields,
@@ -130,6 +158,7 @@ export default defineComponent({
       handlePasswordReset,
       resetUrl,
       generatingToken,
+      sendResetEmail,
     };
   },
 });

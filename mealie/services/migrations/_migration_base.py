@@ -6,6 +6,7 @@ from pydantic import UUID4
 
 from mealie.core import root_logger
 from mealie.core.exceptions import UnexpectedNone
+from mealie.lang.providers import Translator
 from mealie.repos.all_repositories import AllRepositories
 from mealie.schema.recipe import Recipe
 from mealie.schema.recipe.recipe_settings import RecipeSettings
@@ -35,12 +36,20 @@ class BaseMigrator(BaseService):
     helpers: DatabaseMigrationHelpers
 
     def __init__(
-        self, archive: Path, db: AllRepositories, session, user_id: UUID4, group_id: UUID, add_migration_tag: bool
+        self,
+        archive: Path,
+        db: AllRepositories,
+        session,
+        user_id: UUID4,
+        group_id: UUID,
+        add_migration_tag: bool,
+        translator: Translator,
     ):
         self.archive = archive
         self.db = db
         self.session = session
         self.add_migration_tag = add_migration_tag
+        self.translator = translator
 
         user = db.users.get_one(user_id)
         if not user:
@@ -229,6 +238,6 @@ class BaseMigrator(BaseService):
         with contextlib.suppress(KeyError):
             del recipe_dict["id"]
 
-        recipe_dict = cleaner.clean(recipe_dict, url=recipe_dict.get("org_url", None))
+        recipe_dict = cleaner.clean(recipe_dict, self.translator, url=recipe_dict.get("org_url", None))
 
         return Recipe(**recipe_dict)

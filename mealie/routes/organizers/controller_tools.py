@@ -32,7 +32,7 @@ class RecipeToolController(BaseUserController):
             search=search,
         )
 
-        response.set_pagination_guides(router.url_path_for("get_all"), q.dict())
+        response.set_pagination_guides(router.url_path_for("get_all"), q.model_dump())
         return response
 
     @router.post("", response_model=RecipeTool, status_code=201)

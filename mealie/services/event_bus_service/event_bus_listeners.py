@@ -23,8 +23,8 @@ from .publisher import ApprisePublisher, PublisherLike, WebhookPublisher
 
 
 class EventListenerBase(ABC):
-    _session: Session | None
-    _repos: AllRepositories | None
+    _session: Session | None = None
+    _repos: AllRepositories | None = None
 
     def __init__(self, group_id: UUID4, publisher: PublisherLike) -> None:
         self.group_id = group_id

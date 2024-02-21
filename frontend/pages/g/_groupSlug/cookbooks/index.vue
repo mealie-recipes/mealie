@@ -98,31 +98,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, useRouter } from "@nuxtjs/composition-api";
+
+import { defineComponent, reactive, ref } from "@nuxtjs/composition-api";
 import draggable from "vuedraggable";
 import { useCookbooks } from "@/composables/use-group-cookbooks";
-import { useLoggedInState } from "~/composables/use-logged-in-state";
 import CookbookEditor from "~/components/Domain/Cookbook/CookbookEditor.vue";
 import { ReadCookBook } from "~/lib/api/types/cookbook";
 
 export default defineComponent({
   components: { CookbookEditor, draggable },
+  middleware: ["auth", "group-only"],
   setup() {
-    const { isOwnGroup, loggedIn } = useLoggedInState();
-    const router = useRouter();
-
-    if (!(loggedIn.value && isOwnGroup.value)) {
-      router.back();
-    }
-
     const dialogStates = reactive({
       create: false,
       delete: false,
     });
-
     const { cookbooks, actions } = useCookbooks();
-
-
+    
     // create
     const createTarget = ref<ReadCookBook | null>(null);
     async function createCookbook() {
@@ -146,7 +138,6 @@ export default defineComponent({
       dialogStates.delete = false;
       deleteTarget.value = null;
     }
-
     return {
       cookbooks,
       actions,

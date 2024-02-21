@@ -71,12 +71,9 @@ Distributed under the AGPL License. See `LICENSE` for more information.
 
 Huge thanks to all the sponsors of this project on [Github Sponsors](https://github.com/sponsors/hay-kot) and Buy Me a Coffee. Without you, this project would surely not be possible.
 
-Thanks to Linode for providing Hosting for the Demo, Beta, and Documentation sites! Another big thanks to JetBrains for providing their IDEs for development.
+Thanks to Depot for providing build instances for our Docker image builds.
 
-<div align='center'>
-  <img height="100" src="docs/docs/assets/img/sponsors-linode.svg" />
-  <img height="100" src="docs/docs/assets/img/sponsors-jetbrains.png" />
-</div>
+[![Built with Depot](https://depot.dev/badges/built-with-depot.svg)](https://depot.dev?utm_source=Mealie)
 
 
 

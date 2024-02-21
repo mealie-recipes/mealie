@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from pydantic import UUID4
+from pydantic import UUID4, ConfigDict
 from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -11,11 +11,9 @@ from mealie.schema.response.pagination import PaginationBase
 
 class UserBase(MealieModel):
     id: UUID4
-    username: str | None
+    username: str | None = None
     admin: bool
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class RecipeCommentCreate(MealieModel):
@@ -39,9 +37,7 @@ class RecipeCommentOut(RecipeCommentCreate):
     update_at: datetime
     user_id: UUID4
     user: UserBase
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:

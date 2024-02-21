@@ -108,7 +108,7 @@ class HttpRepo(Generic[C, R, U]):
             )
 
         try:
-            item = self.repo.patch(item_id, data.dict(exclude_unset=True, exclude_defaults=True))
+            item = self.repo.patch(item_id, data.model_dump(exclude_unset=True, exclude_defaults=True))
         except Exception as ex:
             self.handle_exception(ex)
 

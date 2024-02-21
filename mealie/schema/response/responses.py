@@ -14,7 +14,7 @@ class ErrorResponse(BaseModel):
         This method is an helper to create an object and convert to a dictionary
         in the same call, for use while providing details to a HTTPException
         """
-        return cls(message=message, exception=exception).dict()
+        return cls(message=message, exception=exception).model_dump()
 
 
 class SuccessResponse(BaseModel):
@@ -27,7 +27,7 @@ class SuccessResponse(BaseModel):
         This method is an helper to create an object and convert to a dictionary
         in the same call, for use while providing details to a HTTPException
         """
-        return cls(message=message).dict()
+        return cls(message=message).model_dump()
 
 
 class FileTokenResponse(MealieModel):
@@ -39,4 +39,4 @@ class FileTokenResponse(MealieModel):
         This method is an helper to create an object and convert to a dictionary
         in the same call, for use while providing details to a HTTPException
         """
-        return cls(file_token=token).dict()
+        return cls(file_token=token).model_dump()

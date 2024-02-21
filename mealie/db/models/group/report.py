@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import TYPE_CHECKING
 
+from pydantic import ConfigDict
 from sqlalchemy import ForeignKey, orm
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.sql.sqltypes import Boolean, DateTime, String
@@ -47,9 +48,7 @@ class ReportModel(SqlAlchemyBase, BaseMixins):
     # Relationships
     group_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
     group: Mapped["Group"] = orm.relationship("Group", back_populates="group_reports", single_parent=True)
-
-    class Config:
-        exclude = ["entries"]
+    model_config = ConfigDict(exclude=["entries"])
 
     @auto_init()
     def __init__(self, **_) -> None:
