@@ -259,7 +259,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Skapa en ny måltidsplan",
-    "update-this-meal-plan": "Update this Meal Plan",
+    "update-this-meal-plan": "Uppdatera denna måltidsplan",
     "dinner-this-week": "Veckans middagar",
     "dinner-today": "Middag idag",
     "dinner-tonight": "Middag ikväll",
@@ -474,11 +474,11 @@
     "add-to-timeline": "Lägg till i tidslinje",
     "recipe-added-to-list": "Recept tillagt i listan",
     "recipes-added-to-list": "Recept tillagt i listan",
-    "successfully-added-to-list": "Successfully added to list",
+    "successfully-added-to-list": "Framgångsrikt tillagd till listan",
     "recipe-added-to-mealplan": "Recept tillagt i måltidsplanen",
     "failed-to-add-recipes-to-list": "Det gick inte att lägga till recept till listan",
     "failed-to-add-recipe-to-mealplan": "Det gick inte att lägga till recept i måltidsplanen",
-    "failed-to-add-to-list": "Failed to add to list",
+    "failed-to-add-to-list": "Misslyckades att lägga till listan",
     "yield": "Ger",
     "quantity": "Antal",
     "choose-unit": "Välj enhet",
@@ -1111,12 +1111,12 @@
       "actions-description-irreversible": "oåterkallelig",
       "logs-action-refresh": "Uppdatera loggar",
       "logs-page-title": "Mealie loggar",
-      "logs-tail-lines-label": "Tail Lines"
+      "logs-tail-lines-label": "Slutrader"
     },
     "mainentance": {
       "actions-title": "Åtgärder"
     },
-    "ingredients-natural-language-processor": "Ingredients Natural Language Processor",
+    "ingredients-natural-language-processor": "Ingredienser Naturligt språkprocessor",
     "ingredients-natural-language-processor-explanation": "Mealie använder villkorliga slumpfält (CRF) för tolkning och bearbetning av ingredienser. Modellen som används för ingredienser är baserad på en uppsättning data på över 100.000 ingredienser från en dataset sammanställd av New York Times. Observera att eftersom modellen endast är utbildad på engelska kan du ha olika resultat när du använder modellen på andra språk. Denna sida är en lekplats för att testa modellen.",
     "ingredients-natural-language-processor-explanation-2": "Det är inte perfekt, men det ger bra resultat i allmänhet och är en bra utgångspunkt för att manuellt tolka ingredienser i enskilda områden. Alternativt kan du också använda \"Brute\" processor som använder en mönstermatchningsteknik för att identifiera ingredienser.",
     "nlp": "NLP",
@@ -1187,7 +1187,7 @@
     "require-all-tools": "Kräv alla verktyg",
     "cookbook-name": "Namn på kokbok",
     "cookbook-with-name": "Kokbok {0}",
-    "create-a-cookbook": "Create a Cookbook",
-    "cookbook": "Cookbook"
+    "create-a-cookbook": "Skapa en kokbok",
+    "cookbook": "Kokbok"
   }
 }
