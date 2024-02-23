@@ -89,7 +89,7 @@ def publish_list_item_events(publisher: Callable, items_collection: ShoppingList
 class ShoppingListItemController(BaseCrudController):
     @cached_property
     def service(self):
-        return ShoppingListService(self.repos, self.group)
+        return ShoppingListService(self.repos, self.group, self.user)
 
     @cached_property
     def repo(self):
@@ -154,7 +154,7 @@ router = APIRouter(prefix="/groups/shopping/lists", tags=["Group: Shopping Lists
 class ShoppingListController(BaseCrudController):
     @cached_property
     def service(self):
-        return ShoppingListService(self.repos, self.group)
+        return ShoppingListService(self.repos, self.group, self.user)
 
     @cached_property
     def repo(self):
