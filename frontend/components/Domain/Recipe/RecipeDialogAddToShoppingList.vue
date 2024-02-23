@@ -3,8 +3,7 @@
     <BaseDialog v-if="shoppingListDialog" v-model="dialog" :title="$t('recipe.add-to-list')" :icon="$globals.icons.cartCheck">
       <v-card-text>
         <v-card
-          v-for="list in shoppingLists"
-          v-if="showAll || $auth.user && $auth.user.id == list.userId"
+          v-for="list in shoppingListChoices"
           :key="list.id"
           hover
           class="my-2 left-border"
@@ -177,7 +176,7 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-    const { i18n } = useContext();
+    const { $auth, i18n } = useContext();
     const api = useUserApi();
 
     // v-model support
@@ -195,6 +194,10 @@ export default defineComponent({
       shoppingListDialog: true,
       shoppingListIngredientDialog: false,
       showAll: false,
+    });
+
+    const shoppingListChoices = computed(() => {
+      return props.shoppingLists.filter((list) => state.showAll || list.userId === $auth.user?.id);
     });
 
     const recipeIngredientSections = ref<ShoppingListRecipeIngredientSection[]>([]);
@@ -348,6 +351,7 @@ export default defineComponent({
 
     return {
       dialog,
+      shoppingListChoices,
       ...toRefs(state),
       addRecipesToList,
       bulkCheckIngredients,

@@ -1,5 +1,5 @@
 <template>
-  <v-container v-if="shoppingLists" class="narrow-container">
+  <v-container v-if="shoppingListChoices" class="narrow-container">
     <BaseDialog v-model="createDialog" :title="$tc('shopping-list.create-shopping-list')" @submit="createOne">
       <v-card-text>
         <v-text-field v-model="createName" autofocus :label="$t('shopping-list.new-list')"> </v-text-field>
@@ -23,8 +23,7 @@
 
     <section>
       <v-card
-        v-for="list in shoppingLists"
-        v-if="showAll || ($auth.user && $auth.user.id == list.userId)"
+        v-for="list in shoppingListChoices"
         :key="list.id"
         class="my-2 left-border"
         :to="`/shopping-lists/${list.id}`"
@@ -73,6 +72,14 @@ export default defineComponent({
       return await fetchShoppingLists();
     }, useAsyncKey());
 
+    const shoppingListChoices = computed(() => {
+      if (!shoppingLists.value) {
+        return [];
+      }
+
+      return shoppingLists.value.filter((list) => state.showAll || list.userId === $auth.user?.id);
+    });
+
     async function fetchShoppingLists() {
       const { data } = await userApi.shopping.lists.getAll(1, -1, { orderBy: "name", orderDirection: "asc" });
 
@@ -111,7 +118,7 @@ export default defineComponent({
     return {
       ...toRefs(state),
       groupSlug,
-      shoppingLists,
+      shoppingListChoices,
       createOne,
       deleteOne,
       openDelete,
