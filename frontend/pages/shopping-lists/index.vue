@@ -63,7 +63,7 @@ export default defineComponent({
     }, useAsyncKey());
 
     async function fetchShoppingLists() {
-      const { data } = await userApi.shopping.lists.getAll();
+      const { data } = await userApi.shopping.lists.getAll(1, -1, { orderBy: "name", orderDirection: "asc" });
 
       if (!data) {
         return [];
