@@ -3,6 +3,8 @@ from functools import lru_cache
 
 import requests
 from authlib.jose import JsonWebKey, JsonWebToken, JWTClaims, KeySet
+from authlib.jose.errors import InvalidClaimError
+from authlib.oidc.core import CodeIDToken
 from sqlalchemy.orm.session import Session
 
 from mealie.core import root_logger
@@ -70,7 +72,13 @@ class OpenIDProvider(AuthProvider[OIDCRequest]):
         jwks = OpenIDProvider.get_jwks()
         if not jwks:
             return None
-        claims = JsonWebToken(["RS256"]).decode(s=self.data.id_token, key=jwks)
+        claims = JsonWebToken(["RS256"]).decode(s=self.data.id_token, key=jwks, claims_cls=CodeIDToken)
+
+        try:
+            claims.validate()
+        except InvalidClaimError as e:
+            self._logger.error(f"[OIDC] {e.description}")
+
         if not claims:
             self._logger.warning("[OIDC] Claims not found")
             return None
