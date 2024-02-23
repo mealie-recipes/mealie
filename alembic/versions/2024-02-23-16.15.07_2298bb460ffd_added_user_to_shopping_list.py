@@ -41,7 +41,7 @@ def find_user_id_for_group(group_id: UUID):
         except orm.exc.NoResultFound:
             # fallback to any user
             user_id = session.execute(
-                sa.text("SELECT id FROM users LIMIT 1").bindparams(group_id=group_id)
+                sa.text("SELECT id FROM users WHERE group_id=:group_id LIMIT 1").bindparams(group_id=group_id)
             ).scalar_one()
         return user_id
 
