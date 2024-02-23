@@ -34,6 +34,7 @@ def test_shopping_lists_create_one(api_client: TestClient, unique_user: TestUser
 
     assert response_list["name"] == payload["name"]
     assert response_list["groupId"] == str(unique_user.group_id)
+    assert response_list["userId"] == str(unique_user.user_id)
 
 
 def test_shopping_lists_get_one(api_client: TestClient, unique_user: TestUser, shopping_lists: list[ShoppingListOut]):
@@ -47,6 +48,7 @@ def test_shopping_lists_get_one(api_client: TestClient, unique_user: TestUser, s
     assert response_list["id"] == str(shopping_list.id)
     assert response_list["name"] == shopping_list.name
     assert response_list["groupId"] == str(shopping_list.group_id)
+    assert response_list["userId"] == str(shopping_list.user_id)
 
 
 def test_shopping_lists_update_one(
@@ -58,6 +60,7 @@ def test_shopping_lists_update_one(
         "name": random_string(10),
         "id": str(sample_list.id),
         "groupId": str(sample_list.group_id),
+        "userId": str(sample_list.user_id),
         "listItems": [],
     }
 
@@ -71,6 +74,7 @@ def test_shopping_lists_update_one(
     assert response_list["id"] == str(sample_list.id)
     assert response_list["name"] == payload["name"]
     assert response_list["groupId"] == str(sample_list.group_id)
+    assert response_list["userId"] == str(sample_list.user_id)
 
 
 def test_shopping_lists_delete_one(
