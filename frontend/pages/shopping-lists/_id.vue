@@ -77,7 +77,8 @@
       >
         <v-container>
           <v-form>
-            <v-select v-model="currentUserId"
+            <v-select
+              v-model="currentUserId"
               :items="allUsers"
               item-text="fullName"
               item-value="id"

@@ -24,7 +24,7 @@
           {{ $t("general.cancel") }}
         </v-btn>
         <div class="d-flex justify-end" style="width: 100%;">
-          <v-checkbox v-model="showAll" hideDetails :label="$tc('general.show-all')" class="my-auto mr-4" />
+          <v-checkbox v-model="showAll" hide-details :label="$tc('general.show-all')" class="my-auto mr-4" />
         </div>
       </template>
     </BaseDialog>
