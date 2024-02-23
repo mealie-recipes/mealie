@@ -14,6 +14,7 @@ from ..recipe.ingredient import IngredientFoodModel, IngredientUnitModel
 
 if TYPE_CHECKING:
     from group import Group
+    from users import User
 
     from ..recipe import RecipeModel
 
@@ -122,6 +123,8 @@ class ShoppingList(SqlAlchemyBase, BaseMixins):
 
     group_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
     group: Mapped["Group"] = orm.relationship("Group", back_populates="shopping_lists")
+    user_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("users.id"), nullable=False, index=True)
+    user: Mapped["User"] = orm.relationship("User", back_populates="shopping_lists")
 
     name: Mapped[str | None] = mapped_column(String)
     list_items: Mapped[ShoppingListItem] = orm.relationship(
