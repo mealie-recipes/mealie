@@ -3,18 +3,23 @@ from functools import lru_cache
 
 import requests
 from authlib.jose import JsonWebKey, JsonWebToken, JWTClaims, KeySet
+from sqlalchemy.orm.session import Session
 
 from mealie.core import root_logger
 from mealie.core.config import get_app_settings
 from mealie.core.security.providers.auth_provider import AuthProvider
 from mealie.db.models.users.users import AuthMethod
 from mealie.repos.all_repositories import get_repositories
+from mealie.schema.user.auth import OIDCRequest
 
 
-class OpenIDProvider(AuthProvider):
+class OpenIDProvider(AuthProvider[OIDCRequest]):
     """Authentication provider that authenticates a user using a token from OIDC ID token"""
 
     _logger = root_logger.get_logger("openid_provider")
+
+    def __init__(self, session: Session, data: OIDCRequest) -> None:
+        super().__init__(session, data)
 
     async def authenticate(self) -> tuple[str, timedelta] | None:
         """Attempt to authenticate a user given a username and password"""
@@ -65,7 +70,7 @@ class OpenIDProvider(AuthProvider):
         jwks = OpenIDProvider.get_jwks()
         if not jwks:
             return None
-        claims = JsonWebToken(["RS256"]).decode(s=self.request.cookies.get("mealie.auth._id_token.oidc"), key=jwks)
+        claims = JsonWebToken(["RS256"]).decode(s=self.data.id_token, key=jwks)
         if not claims:
             self._logger.warning("[OIDC] Claims not found")
             return None

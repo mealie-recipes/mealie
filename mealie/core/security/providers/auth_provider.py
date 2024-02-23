@@ -1,7 +1,7 @@
 import abc
 from datetime import datetime, timedelta, timezone
+from typing import Generic, TypeVar
 
-from fastapi import Request
 from jose import jwt
 from sqlalchemy.orm.session import Session
 
@@ -12,13 +12,15 @@ from mealie.schema.user.user import PrivateUser
 ALGORITHM = "HS256"
 remember_me_duration = timedelta(days=14)
 
+T = TypeVar("T")
 
-class AuthProvider(metaclass=abc.ABCMeta):
+
+class AuthProvider(Generic[T], metaclass=abc.ABCMeta):
     """Base Authentication Provider interface"""
 
-    def __init__(self, session: Session, request: Request) -> None:
+    def __init__(self, session: Session, data: T) -> None:
         self.session = session
-        self.request = request
+        self.data = data
         self.user: PrivateUser | None = None
         self.__has_tried_user = False
 

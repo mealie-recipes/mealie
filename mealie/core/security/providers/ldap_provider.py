@@ -24,12 +24,11 @@ class LDAPProvider(CredentialsProvider):
 
     async def authenticate(self) -> tuple[str, timedelta] | None:
         """Attempt to authenticate a user given a username and password"""
-        data = await self.get_request_data()
-        user = self.try_get_user(data.username)
+        user = self.try_get_user(self.data.username)
         if not user or user.password == "LDAP" or user.auth_method == AuthMethod.LDAP:
             user = self.get_user()
             if user:
-                return self.get_access_token(user, data.remember_me)
+                return self.get_access_token(user, self.data.remember_me)
 
         return await super().authenticate()
 
@@ -38,7 +37,7 @@ class LDAPProvider(CredentialsProvider):
         Searches for a user by LDAP_ID_ATTRIBUTE, LDAP_MAIL_ATTRIBUTE, and the provided LDAP_USER_FILTER.
         If none or multiple users are found, return False
         """
-        if not self.request_data:
+        if not self.data:
             return None
         settings = get_app_settings()
 
@@ -48,13 +47,13 @@ class LDAPProvider(CredentialsProvider):
             user_filter = settings.LDAP_USER_FILTER.format(
                 id_attribute=settings.LDAP_ID_ATTRIBUTE,
                 mail_attribute=settings.LDAP_MAIL_ATTRIBUTE,
-                input=self.request_data.username,
+                input=self.data.username,
             )
         # Don't assume the provided search filter has (|({id_attribute}={input})({mail_attribute}={input}))
         search_filter = "(&(|({id_attribute}={input})({mail_attribute}={input})){filter})".format(
             id_attribute=settings.LDAP_ID_ATTRIBUTE,
             mail_attribute=settings.LDAP_MAIL_ATTRIBUTE,
-            input=self.request_data.username,
+            input=self.data.username,
             filter=user_filter,
         )
 
@@ -97,9 +96,9 @@ class LDAPProvider(CredentialsProvider):
 
         settings = get_app_settings()
         db = get_repositories(self.session)
-        if not self.request_data:
+        if not self.data:
             return None
-        data = self.request_data
+        data = self.data
 
         if settings.LDAP_TLS_INSECURE:
             ldap.set_option(ldap.OPT_X_TLS_REQUIRE_CERT, ldap.OPT_X_TLS_NEVER)

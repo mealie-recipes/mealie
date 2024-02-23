@@ -12,6 +12,7 @@ from mealie.core.security.security import get_auth_provider
 from mealie.db.db_setup import generate_session
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.user import PrivateUser
+from mealie.schema.user.auth import CredentialsRequestForm
 
 public_router = APIRouter(tags=["Users: Authentication"])
 user_router = UserAPIRouter(tags=["Users: Authentication"])
@@ -33,6 +34,7 @@ class MealieAuthToken(BaseModel):
 async def get_token(
     request: Request,
     response: Response,
+    data: CredentialsRequestForm = Depends(),
     session: Session = Depends(generate_session),
 ):
     if "x-forwarded-for" in request.headers:
@@ -44,7 +46,7 @@ async def get_token(
         ip = request.client.host if request.client else "unknown"
 
     try:
-        auth_provider = get_auth_provider(session, request)
+        auth_provider = get_auth_provider(session, request, data)
         auth = await auth_provider.authenticate()
     except UserLockedOut as e:
         logger.error(f"User is locked out from {ip}")
