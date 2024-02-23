@@ -17,6 +17,7 @@ import RecipeTimeline from "~/components/Domain/Recipe/RecipeTimeline.vue";
 
 export default defineComponent({
   components: { RecipeTimeline },
+  middleware: ["auth", "group-only"],
   setup() {
     const api = useUserApi();
     const ready = ref<boolean>(false);
