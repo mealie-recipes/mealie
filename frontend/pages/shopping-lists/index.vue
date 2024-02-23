@@ -17,7 +17,7 @@
     </BasePageTitle>
 
     <v-container class="d-flex justify-end px-0 pt-0 pb-4">
-      <v-checkbox v-model="showAll" :label="$tc('general.show-all')" class="my-auto mr-4" />
+      <v-checkbox v-model="showAll" hideDetails :label="$tc('general.show-all')" class="my-auto mr-4" />
       <BaseButton create @click="createDialog = true" />
     </v-container>
 

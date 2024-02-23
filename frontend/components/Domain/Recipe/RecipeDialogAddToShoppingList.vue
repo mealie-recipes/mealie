@@ -4,6 +4,7 @@
       <v-card-text>
         <v-card
           v-for="list in shoppingLists"
+          v-if="showAll || $auth.user && $auth.user.id == list.userId"
           :key="list.id"
           hover
           class="my-2 left-border"
@@ -14,6 +15,18 @@
           </v-card-title>
         </v-card>
       </v-card-text>
+      <template #card-actions>
+        <v-btn
+          text
+          color="grey"
+          @click="dialog = false"
+        >
+          {{ $t("general.cancel") }}
+        </v-btn>
+        <div class="d-flex justify-end" style="width: 100%;">
+          <v-checkbox v-model="showAll" hideDetails :label="$tc('general.show-all')" class="my-auto mr-4" />
+        </div>
+      </template>
     </BaseDialog>
     <BaseDialog
       v-if="shoppingListIngredientDialog"
@@ -181,6 +194,7 @@ export default defineComponent({
     const state = reactive({
       shoppingListDialog: true,
       shoppingListIngredientDialog: false,
+      showAll: false,
     });
 
     const recipeIngredientSections = ref<ShoppingListRecipeIngredientSection[]>([]);
