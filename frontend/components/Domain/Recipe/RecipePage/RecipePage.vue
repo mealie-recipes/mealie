@@ -112,6 +112,7 @@ import { useUserApi } from "~/composables/api";
 import { uuid4, deepCopy } from "~/composables/use-utils";
 import RecipeDialogBulkAdd from "~/components/Domain/Recipe/RecipeDialogBulkAdd.vue";
 import RecipeNotes from "~/components/Domain/Recipe/RecipeNotes.vue";
+import { useNavigationWarning } from "~/composables/use-navigation-warning";
 
 const EDITOR_OPTIONS = {
   mode: "code",
@@ -151,6 +152,7 @@ export default defineComponent({
     const api = useUserApi();
     const { pageMode, editMode, setMode, isEditForm, isEditJSON, isCookMode, isEditMode, toggleCookMode } =
       usePageState(props.recipe.slug);
+    const { deactivateNavigationWarning } = useNavigationWarning();
 
     /** =============================================================
      * Recipe Snapshot on Mount
@@ -175,6 +177,7 @@ export default defineComponent({
           await api.recipes.updateOne(props.recipe.slug, props.recipe);
         }
       }
+      deactivateNavigationWarning();
     });
 
     /** =============================================================
