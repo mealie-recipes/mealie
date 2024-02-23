@@ -106,10 +106,6 @@
           <template #icon> {{ $globals.icons.tags }} </template>
           {{ $t('shopping-list.reorder-labels') }}
         </BaseButton>
-        <BaseButton edit class="mr-2" @click="toggleSettingsDialog">
-          <template #icon> {{ $globals.icons.cog }} </template>
-          {{ $t('general.settings') }}
-        </BaseButton>
         <BaseButton create @click="createEditorOpen = true" />
       </div>
 
@@ -219,6 +215,15 @@
           </template>
         </RecipeList>
       </section>
+    </v-lazy>
+
+    <v-lazy>
+      <div class="d-flex justify-end">
+        <BaseButton edit @click="toggleSettingsDialog">
+          <template #icon> {{ $globals.icons.cog }} </template>
+          {{ $t('general.settings') }}
+        </BaseButton>
+      </div>
     </v-lazy>
 
     <v-lazy>
