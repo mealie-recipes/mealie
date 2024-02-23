@@ -15,10 +15,20 @@
       </template>
       <template #title>{{ $t('shopping-list.shopping-lists') }}</template>
     </BasePageTitle>
-    <BaseButton create @click="createDialog = true" />
+
+    <v-container class="d-flex justify-end px-0 pt-0 pb-4">
+      <v-checkbox v-model="showAll" :label="$tc('general.show-all')" class="my-auto mr-4" />
+      <BaseButton create @click="createDialog = true" />
+    </v-container>
 
     <section>
-      <v-card v-for="list in shoppingLists" :key="list.id" class="my-2 left-border" :to="`/shopping-lists/${list.id}`">
+      <v-card
+        v-for="list in shoppingLists"
+        v-if="showAll || ($auth.user && $auth.user.id == list.userId)"
+        :key="list.id"
+        class="my-2 left-border"
+        :to="`/shopping-lists/${list.id}`
+      ">
         <v-card-title>
           <v-icon left>
             {{ $globals.icons.cartCheck }}
@@ -56,6 +66,7 @@ export default defineComponent({
       createDialog: false,
       deleteDialog: false,
       deleteTarget: "",
+      showAll: false,
     });
 
     const shoppingLists = useAsync(async () => {
