@@ -81,7 +81,7 @@
               :items="allUsers"
               item-text="fullName"
               item-value="id"
-              :label="'Owner'"
+              :label="$t('general.owner')"
               :prepend-icon="$globals.icons.user"
             />
           </v-form>
