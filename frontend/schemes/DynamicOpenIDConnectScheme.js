@@ -41,6 +41,10 @@ export default class DynamicOpenIDConnectScheme extends OpenIDConnectScheme {
     }
 
     async updateAccessToken() {
+      if (!this.idToken.sync()) {
+        return
+      }
+
       const response = await this.$auth.requestWith(this.name, {
         url: "/api/auth/token",
         method: "post"
