@@ -161,6 +161,7 @@ export default {
       },
       oidc: {
         scheme: "~/schemes/DynamicOpenIDConnectScheme",
+        resetOnError: true,
         clientId: "",
         endpoints: {
           configuration: "",

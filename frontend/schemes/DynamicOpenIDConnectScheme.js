@@ -25,12 +25,19 @@ export default class DynamicOpenIDConnectScheme extends OpenIDConnectScheme {
         return
       }
 
-      await this.updateAccessToken()
       const { data } = await this.$auth.requestWith(this.name, {
         url: "/api/users/self"
       })
 
       this.$auth.setUser(data)
+    }
+
+    async _handleCallback() {
+      const redirect = await super._handleCallback()
+      await this.updateAccessToken()
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+      return redirect;
     }
 
     async updateAccessToken() {
