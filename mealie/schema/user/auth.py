@@ -23,7 +23,7 @@ class UnlockResults(MealieModel):
 class CredentialsRequest(BaseModel):
     username: str
     password: str
-    remember_me: bool
+    remember_me: bool = False
 
 
 class OIDCRequest(BaseModel):

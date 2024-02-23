@@ -10,6 +10,7 @@ from mealie.core.security.providers.credentials_provider import CredentialsProvi
 from mealie.core.security.providers.ldap_provider import LDAPProvider
 from mealie.db.db_setup import session_context
 from mealie.db.models.users.users import AuthMethod
+from mealie.schema.user.auth import CredentialsRequestForm
 from mealie.schema.user.user import PrivateUser
 from tests.utils import random_string
 
@@ -116,9 +117,8 @@ def test_create_file_token():
 
 
 def get_provider(session, username: str, password: str):
-    provider = LDAPProvider(session, None)
-    provider.request_data = CredentialsRequest(username, password)
-    return provider
+    request_data = CredentialsRequest(username=username, password=password)
+    return LDAPProvider(session, request_data)
 
 
 def test_ldap_user_creation(monkeypatch: MonkeyPatch):
@@ -217,7 +217,8 @@ def test_ldap_disabled(monkeypatch: MonkeyPatch):
     get_app_settings.cache_clear()
 
     with session_context() as session:
-        provider = security.get_auth_provider(session, Request("local"))
+        form = CredentialsRequestForm("username", "password", False)
+        provider = security.get_auth_provider(session, Request("local"), form)
 
     assert isinstance(provider, CredentialsProvider)
 

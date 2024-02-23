@@ -1,7 +1,6 @@
 from datetime import timedelta
 
 import ldap
-from fastapi import Request
 from ldap.ldapobject import LDAPObject
 from sqlalchemy.orm.session import Session
 
@@ -10,6 +9,7 @@ from mealie.core.config import get_app_settings
 from mealie.core.security.providers.credentials_provider import CredentialsProvider
 from mealie.db.models.users.users import AuthMethod
 from mealie.repos.all_repositories import get_repositories
+from mealie.schema.user.auth import CredentialsRequest
 from mealie.schema.user.user import PrivateUser
 
 
@@ -18,8 +18,8 @@ class LDAPProvider(CredentialsProvider):
 
     _logger = root_logger.get_logger("ldap_provider")
 
-    def __init__(self, session: Session, request: Request) -> None:
-        super().__init__(session, request)
+    def __init__(self, session: Session, data: CredentialsRequest) -> None:
+        super().__init__(session, data)
         self.conn = None
 
     async def authenticate(self) -> tuple[str, timedelta] | None:
