@@ -38,7 +38,7 @@
         "hour": "timme|timmar",
         "minute": "minut|minuter",
         "second": "sekund|sekunder",
-        "millisecond": "millisecond|milliseconds",
-        "microsecond": "microsecond|microseconds"
+        "millisecond": "millisekund millisekunder",
+        "microsecond": "mikrosekund mikrosekunder"
     }
 }
