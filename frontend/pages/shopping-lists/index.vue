@@ -27,8 +27,8 @@
         v-if="showAll || ($auth.user && $auth.user.id == list.userId)"
         :key="list.id"
         class="my-2 left-border"
-        :to="`/shopping-lists/${list.id}`
-      ">
+        :to="`/shopping-lists/${list.id}`"
+      >
         <v-card-title>
           <v-icon left>
             {{ $globals.icons.cartCheck }}
