@@ -37,6 +37,3 @@ class CredentialsRequestForm:
         self.username = username
         self.password = password
         self.remember_me = remember_me
-
-    def as_dict(self):
-        return {"username": self.username, "password": self.password, "remember_me": self.remember_me}
