@@ -68,6 +68,26 @@
         </v-card>
       </BaseDialog>
 
+      <!-- Settings -->
+      <BaseDialog
+        v-model="settingsDialog"
+        :icon="$globals.icons.cog"
+        :title="$t('general.settings')"
+        @confirm="updateSettings"
+      >
+        <v-container>
+          <v-form>
+            <v-select v-model="currentUserId"
+              :items="allUsers"
+              item-text="fullName"
+              item-value="id"
+              :label="'Owner'"
+              :prepend-icon="$globals.icons.user"
+            />
+          </v-form>
+        </v-container>
+      </BaseDialog>
+
       <!-- Create Item -->
       <div v-if="createEditorOpen">
         <ShoppingListItemEditor
@@ -82,9 +102,13 @@
         />
       </div>
       <div v-else class="mt-4 d-flex justify-end">
-        <BaseButton v-if="preferences.viewByLabel" color="info" class="mr-2" @click="reorderLabelsDialog = true">
+        <BaseButton v-if="preferences.viewByLabel" edit class="mr-2" @click="reorderLabelsDialog = true">
           <template #icon> {{ $globals.icons.tags }} </template>
           {{ $t('shopping-list.reorder-labels') }}
+        </BaseButton>
+        <BaseButton edit class="mr-2" @click="toggleSettingsDialog">
+          <template #icon> {{ $globals.icons.cog }} </template>
+          {{ $t('general.settings') }}
         </BaseButton>
         <BaseButton create @click="createEditorOpen = true" />
       </div>
@@ -215,6 +239,7 @@ import { useUserApi } from "~/composables/api";
 import MultiPurposeLabelSection from "~/components/Domain/ShoppingList/MultiPurposeLabelSection.vue"
 import ShoppingListItem from "~/components/Domain/ShoppingList/ShoppingListItem.vue";
 import { ShoppingListItemCreate, ShoppingListItemOut, ShoppingListMultiPurposeLabelOut, ShoppingListOut } from "~/lib/api/types/group";
+import { UserOut } from "~/lib/api/types/user";
 import RecipeList from "~/components/Domain/Recipe/RecipeList.vue";
 import ShoppingListItemEditor from "~/components/Domain/ShoppingList/ShoppingListItemEditor.vue";
 import { useFoodStore, useLabelStore, useUnitStore } from "~/composables/store";
@@ -247,6 +272,7 @@ export default defineComponent({
 
     const edit = ref(false);
     const reorderLabelsDialog = ref(false);
+    const settingsDialog = ref(false);
 
     const route = useRoute();
     const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
@@ -433,6 +459,13 @@ export default defineComponent({
 
     function toggleReorderLabelsDialog() {
       reorderLabelsDialog.value = !reorderLabelsDialog.value
+    }
+
+    async function toggleSettingsDialog() {
+      if (!settingsDialog.value) {
+        await fetchAllUsers();
+      }
+      settingsDialog.value = !settingsDialog.value;
     }
 
     async function updateLabelOrder(labelSettings: ShoppingListMultiPurposeLabelOut[]) {
@@ -746,6 +779,39 @@ export default defineComponent({
       }
     }
 
+    // ===============================================================
+    // Shopping List Settings
+
+    const allUsers = ref<UserOut[]>([]);
+    const currentUserId = ref<string | undefined>();
+    async function fetchAllUsers() {
+      const { data } = await userApi.users.getAll(1, -1, { orderBy: "full_name", orderDirection: "asc" });
+      if (!data) {
+        return;
+      }
+
+      // update current user
+      allUsers.value = data.items;
+      currentUserId.value = shoppingList.value?.userId;
+    }
+
+    async function updateSettings() {
+      if (!shoppingList.value || !currentUserId.value) {
+        return;
+      }
+
+      loadingCounter.value += 1;
+      const { data } = await userApi.shopping.lists.updateOne(
+        shoppingList.value.id,
+        {...shoppingList.value, userId: currentUserId.value},
+      );
+      loadingCounter.value -= 1;
+
+      if (data) {
+        refresh();
+      }
+    }
+
     return {
       addRecipeReferenceToList,
       updateListItems,
@@ -770,6 +836,8 @@ export default defineComponent({
       removeRecipeReferenceToList,
       reorderLabelsDialog,
       toggleReorderLabelsDialog,
+      settingsDialog,
+      toggleSettingsDialog,
       updateLabelOrder,
       saveListItem,
       shoppingList,
@@ -781,6 +849,9 @@ export default defineComponent({
       updateIndexUncheckedByLabel,
       allUnits,
       allFoods,
+      allUsers,
+      currentUserId,
+      updateSettings,
     };
   },
   head() {
