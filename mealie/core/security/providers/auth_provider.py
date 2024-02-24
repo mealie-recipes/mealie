@@ -10,6 +10,7 @@ from mealie.repos.all_repositories import get_repositories
 from mealie.schema.user.user import PrivateUser
 
 ALGORITHM = "HS256"
+ISS = "mealie"
 remember_me_duration = timedelta(days=14)
 
 T = TypeVar("T")
@@ -47,6 +48,7 @@ class AuthProvider(Generic[T], metaclass=abc.ABCMeta):
         expire = datetime.now(timezone.utc) + expires_delta
 
         to_encode["exp"] = expire
+        to_encode["iss"] = ISS
         return (jwt.encode(to_encode, settings.SECRET, algorithm=ALGORITHM), expires_delta)
 
     def try_get_user(self, username: str) -> PrivateUser | None:

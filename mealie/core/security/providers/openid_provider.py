@@ -3,7 +3,7 @@ from functools import lru_cache
 
 import requests
 from authlib.jose import JsonWebKey, JsonWebToken, JWTClaims, KeySet
-from authlib.jose.errors import InvalidClaimError
+from authlib.jose.errors import ExpiredTokenError
 from authlib.oidc.core import CodeIDToken
 from sqlalchemy.orm.session import Session
 
@@ -76,8 +76,9 @@ class OpenIDProvider(AuthProvider[OIDCRequest]):
 
         try:
             claims.validate()
-        except InvalidClaimError as e:
-            self._logger.error(f"[OIDC] {e.description}")
+        except ExpiredTokenError as e:
+            self._logger.debug(f"[OIDC] {e.error}: {e.description}")
+            return None
 
         if not claims:
             self._logger.warning("[OIDC] Claims not found")
