@@ -1,3 +1,4 @@
+import jwtDecode from "jwt-decode"
 import { ConfigurationDocument, OpenIDConnectScheme } from "~auth/runtime"
 
 /**
@@ -44,6 +45,9 @@ export default class DynamicOpenIDConnectScheme extends OpenIDConnectScheme {
       if (!this.idToken.sync()) {
         return
       }
+      if (this.isValidMealieToken()) {
+        return
+      }
 
       const response = await this.$auth.requestWith(this.name, {
         url: "/api/auth/token",
@@ -52,6 +56,20 @@ export default class DynamicOpenIDConnectScheme extends OpenIDConnectScheme {
 
       // Update tokens with mealie token
       this.updateTokens(response)
+    }
+
+    isValidMealieToken() {
+      if (this.token.status().valid()) {
+        let iss = null;
+        try {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+          iss = jwtDecode(this.token.get()).iss
+        } catch (e) {
+          // pass
+        }
+        return iss === "mealie"
+      }
+      return false
     }
 
     async getConfiguration() {
