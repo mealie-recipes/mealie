@@ -102,6 +102,8 @@ class ShoppingListItemOut(ShoppingListItemBase):
 
     @model_validator(mode="after")
     def post_validate(self):
+        super().post_validate()
+
         # if we're missing a label, but the food has a label, use that as the label
         if (not self.label) and (self.food and self.food.label):
             self.label = self.food.label
