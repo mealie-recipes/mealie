@@ -149,6 +149,16 @@
                               event: 'link-ingredients',
                             },
                             {
+                              text: $tc('recipe.upload-image'),
+                              event: 'upload-image'
+                            },
+                            {
+                              icon: previewStates[index] ? $globals.icons.edit : $globals.icons.eye,
+                              text: previewStates[index] ? $tc('recipe.edit-markdown') : $tc('markdown-editor.preview-markdown-button-label'),
+                              event: 'preview-step',
+                              divider: true,
+                            },
+                            {
                               text: $tc('recipe.merge-above'),
                               event: 'merge-above',
                             },
@@ -159,15 +169,6 @@
                             {
                               text: $tc('recipe.move-to-bottom'),
                               event: 'move-to-bottom',
-                            },
-                            {
-                              text: $tc('recipe.upload-image'),
-                              event: 'upload-image'
-                            },
-                            {
-                              icon: previewStates[index] ? $globals.icons.edit : $globals.icons.eye,
-                              text: previewStates[index] ? $tc('recipe.edit-markdown') : $tc('markdown-editor.preview-markdown-button-label'),
-                              event: 'preview-step',
                             },
                           ],
                         },

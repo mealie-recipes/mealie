@@ -10,9 +10,12 @@
           </v-btn>
         </template>
         <v-list dense>
-          <v-list-item v-for="(child, idx) in btn.children" :key="idx" dense @click="$emit(child.event)">
-            <v-list-item-title>{{ child.text }}</v-list-item-title>
-          </v-list-item>
+          <template v-for="(child, idx) in btn.children">
+            <v-list-item :key="idx" dense @click="$emit(child.event)">
+              <v-list-item-title>{{ child.text }}</v-list-item-title>
+            </v-list-item>
+            <v-divider v-if="child.divider" :key="`divider-${idx}`" class="my-1"></v-divider>
+          </template>
         </v-list>
       </v-menu>
       <v-tooltip
@@ -55,6 +58,7 @@ export interface ButtonOption {
   event: string;
   children?: ButtonOption[];
   disabled?: boolean;
+  divider?: boolean;
 }
 
 export default defineComponent({
