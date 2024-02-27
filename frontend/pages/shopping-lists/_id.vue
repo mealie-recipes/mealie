@@ -337,7 +337,12 @@ export default defineComponent({
     const copy = useCopyList();
 
     function copyListItems(copyType: CopyTypes) {
-      const items = shoppingList.value?.listItems?.filter((item) => !item.checked);
+      let items: ShoppingListItemOut[] | undefined = []
+      if (preferences.value.viewByLabel) {
+        Object.values(itemsByLabel.value).forEach((labelItems) => items?.push(...labelItems))
+      } else {
+        items = shoppingList.value?.listItems?.filter((item) => !item.checked);
+      }
 
       if (!items) {
         return;
