@@ -341,7 +341,11 @@ export default defineComponent({
 
       if (preferences.value.viewByLabel) {
         // if we're sorting by label, we want the copied text in subsections
-        Object.entries(itemsByLabel.value).forEach(([label, items]) => {
+        Object.entries(itemsByLabel.value).forEach(([label, items], idx) => {
+          // for every group except the first, add a blank line
+          if (idx) {
+            text.push("")
+          }
 
           // add an appropriate heading for the label depending on the copy format
           text.push(formatCopiedLabelHeading(copyType, label))
