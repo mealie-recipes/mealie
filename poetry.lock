@@ -720,12 +720,12 @@ lxml = "*"
 
 [[package]]
 name = "html2text"
-version = "2024.2.25"
+version = "2024.2.26"
 description = "Turn HTML into equivalent Markdown-structured text."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "html2text-2024.2.25.tar.gz", hash = "sha256:a197e7acaba5b5e46ff9f132b6fbeb89428c9155b5a971d7d9c343ebeb1019d3"},
+    {file = "html2text-2024.2.26.tar.gz", hash = "sha256:05f8e367d15aaabc96415376776cdd11afd5127a77fce6e36afc60c563ca2c32"},
 ]
 
 [[package]]
