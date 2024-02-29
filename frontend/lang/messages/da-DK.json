@@ -599,7 +599,7 @@
       "import-summary": "Importer resumé",
       "partial-backup": "Delvis backup",
       "unable-to-delete-backup": "Ude af stand til at slette backup.",
-      "experimental-description": "Backups en samlet snapshots af databasen og datamappe på installationen. Dette omfatter alle data og kan ikke indstilles til at udelukke undergrupper af data. Du kan tænke på dette som et øjebliksbillede af Mealie på et bestemt tidspunkt. I øjeblikket, {not-crossed-version} (data migrationer er ikke udført automatisk). Disse fungerer som en database agnostisk måde at eksportere og importere data eller backup af webstedet til en ekstern placering.",
+      "experimental-description": "Backups are total snapshots of the database and data directory of the site. This includes all data and cannot be set to exclude subsets of data. You can think of this as a snapshot of Mealie at a specific time. These serve as a database agnostic way to export and import data, or back up the site to an external location.",
       "backup-restore": "Backup / gendannelse",
       "back-restore-description": "Gendannelse af denne sikkerhedskopi vil overskrive alle de aktuelle data i din database og i datamappen og erstatte dem med indholdet af denne sikkerhedskopi. {cannot-be-undone} Hvis gendannelsen lykkes, vil du blive logget ud.",
       "cannot-be-undone": "Denne handling kan ikke fortrydes - brug med forsigtighed.",
