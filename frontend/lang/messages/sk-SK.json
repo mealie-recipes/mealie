@@ -599,7 +599,7 @@
       "import-summary": "Importovať zhrnutie",
       "partial-backup": "Čiastočná záloha",
       "unable-to-delete-backup": "Zálohu nebolo možné odstrániť.",
-      "experimental-description": "Zálohuje kompletný aktuálny obsah databázy a adresára s dátami inštalácie Mealie. Toto zahŕňa všetky dáta, pričom nie je možné zo zálohy vylúčiť akúkoľvek podskupinu dát. Takúto zálohu možno považovať za obraz dátového obsahu Mealie v danom čase. Aktuálne, {not-crossed-version} (dátové migrácie nie sú vykonávané automaticky). Táto funkcionalita slúži ako databázovo agnostický spôsob exportovania a importovania dát alebo ako záloha inštalácie na externú lokáciu.",
+      "experimental-description": "Backups are total snapshots of the database and data directory of the site. This includes all data and cannot be set to exclude subsets of data. You can think of this as a snapshot of Mealie at a specific time. These serve as a database agnostic way to export and import data, or back up the site to an external location.",
       "backup-restore": "Uložiť zálohu",
       "back-restore-description": "Obnovenie tejto zálohy prepíše všetky aktuálne údaje vo vašej databáze a dáta v dátovom adresári a nahradí ich obsahom tejto zálohy. {cannot-be-undone} Po úspešnom obnovení budete odhlásený.",
       "cannot-be-undone": "Túto akciu nie je možné vrátiť späť - používajte s rozvahou.",
