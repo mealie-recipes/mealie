@@ -599,7 +599,7 @@
       "import-summary": "导入概况",
       "partial-backup": "部分备份",
       "unable-to-delete-backup": "无法删除备份",
-      "experimental-description": "Backups a total snapshots of the database and data directory of the site. This includes all data and cannot be set to exclude subsets of data. You can think off this as a snapshot of Mealie at a specific time. Currently, {not-crossed-version} (data migrations are not done automatically). These serve as a database agnostic way to export and import data or backup the site to an external location.",
+      "experimental-description": "Backups are total snapshots of the database and data directory of the site. This includes all data and cannot be set to exclude subsets of data. You can think of this as a snapshot of Mealie at a specific time. These serve as a database agnostic way to export and import data, or back up the site to an external location.",
       "backup-restore": "备份恢复",
       "back-restore-description": "恢复该备份将覆盖当前数据库和数据文件夹的数据。 {cannot-be-undone} 若恢复成功，你需要重新登录。",
       "cannot-be-undone": "该操作无法撤销，请谨慎使用！",

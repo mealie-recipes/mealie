@@ -599,7 +599,7 @@
       "import-summary": "Резюме імпорту",
       "partial-backup": "Часткова резервна копія",
       "unable-to-delete-backup": "Не вдалося видалити резервну копію.",
-      "experimental-description": "Резервні копії - це загальні знімки каталогу бази даних і даних сайту. Це включає всі дані без виключень. Вважайте це знімком Mealie у певний час. Вони служать способом експорту та імпорту даних, або створення резервної копії сайту.",
+      "experimental-description": "Backups are total snapshots of the database and data directory of the site. This includes all data and cannot be set to exclude subsets of data. You can think of this as a snapshot of Mealie at a specific time. These serve as a database agnostic way to export and import data, or back up the site to an external location.",
       "backup-restore": "Відновлення з резервної копії",
       "back-restore-description": "Відновлення резервної копії перезапише всі дані вашої бази даних і в каталозі даних і замінить їх вміст вмістом цієї резервної копії. {cannot-be-undone} Якщо відновлення успішне, вас вилогінить з системи.",
       "cannot-be-undone": "Цю дію не можна скасувати - використовуйте з обережністю.",

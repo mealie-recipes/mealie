@@ -599,7 +599,7 @@
       "import-summary": "Resum de la importació",
       "partial-backup": "Còpia de seguretat parcial",
       "unable-to-delete-backup": "No s'ha pogut suprimir la còpia.",
-      "experimental-description": "Backups a total snapshots of the database and data directory of the site. This includes all data and cannot be set to exclude subsets of data. You can think off this as a snapshot of Mealie at a specific time. Currently, {not-crossed-version} (data migrations are not done automatically). These serve as a database agnostic way to export and import data or backup the site to an external location.",
+      "experimental-description": "Backups are total snapshots of the database and data directory of the site. This includes all data and cannot be set to exclude subsets of data. You can think of this as a snapshot of Mealie at a specific time. These serve as a database agnostic way to export and import data, or back up the site to an external location.",
       "backup-restore": "Restaura la còpia de seguretat",
       "back-restore-description": "Restaurar aquesta còpia de seguretat sobreescriurà totes les dades actuals de la teva base de dades i qualsevol directori i els substituirà amb el contingut d'aquesta còpia de seguretat. {cannot-be-undone} Si la restauració es duu a terme correctament, se us tancarà la sessió.",
       "cannot-be-undone": "Aquesta acció no es pot desfer. Utilitza-la amb precaució.",

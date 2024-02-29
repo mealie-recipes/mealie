@@ -599,7 +599,7 @@
       "import-summary": "Importa Riepilogo",
       "partial-backup": "Backup Parziale",
       "unable-to-delete-backup": "Impossibile rimuovere backup.",
-      "experimental-description": "Esegue il backup di un'istantanea totale del database e della directory dati del sito. Questo include tutti i dati e non può essere impostato per escludere sottoinsiemi di dati. Si può pensare a questo come un'istantanea di Mealie in un momento specifico. Attualmente, {not-crossed-version} (le migrazioni dei dati non sono effettuate automaticamente). Questi servono come modo indipendente dal database per esportare e importare i dati o il backup del sito in una posizione esterna.",
+      "experimental-description": "I backup sono immagini complete del database e della cartella dati del sito. Questo include tutti i dati e non è possibile escluderne alcune. Puoi pensare a questo come un'immagine vera e propria di Mealie a uno specifico orario. Questo funge da metodo agnostico per esportare e importare database e relativi dati, o per fare un backup del sito in una posizione esterna.",
       "backup-restore": "Ripristina backup",
       "back-restore-description": "Il ripristino di questo backup sovrascriverà tutti i dati correnti nel database e nella directory dei dati e li sostituirà con il contenuto di questo backup. {cannot-be-undone} Se il ripristino avrà successo, sarai disconnesso.",
       "cannot-be-undone": "Questa azione non può essere annullata - usa con cautela.",

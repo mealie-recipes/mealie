@@ -599,7 +599,7 @@
       "import-summary": "Resumo da importação",
       "partial-backup": "Backup Parcial",
       "unable-to-delete-backup": "Erro ao eliminar Backup.",
-      "experimental-description": "Faz backup total da base de dados e da pasta de dados do site. Isto inclui todos os dados e não pode excluir subconjuntos de dados. Pode ver isto como uma fotografia do Mealie num determinado momento. Atualmente, {not-crossed-version} (as migrações de dados são feitas automaticamente). Isto é uma forma agnóstica de exportar e importar dados ou fazer backup do site para uma localização externa.",
+      "experimental-description": "Backups are total snapshots of the database and data directory of the site. This includes all data and cannot be set to exclude subsets of data. You can think of this as a snapshot of Mealie at a specific time. These serve as a database agnostic way to export and import data, or back up the site to an external location.",
       "backup-restore": "Restaurar backup",
       "back-restore-description": "Restaurar este backup irá apagar todos os dados atuais da sua base de dados e da pasta de dados e substituí-los pelo conteúdo deste backup. {cannot-be-undone} Se o restauro for bem-sucedido, a sua sessão será encerrada.",
       "cannot-be-undone": "Esta acção não pode ser desfeita - use com prudência.",
