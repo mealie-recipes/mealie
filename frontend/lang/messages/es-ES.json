@@ -599,7 +599,7 @@
       "import-summary": "Importar resumen",
       "partial-backup": "Copia de seguridad parcial",
       "unable-to-delete-backup": "No se puede eliminar la copia de seguridad.",
-      "experimental-description": "Las copias de seguridad son instantáneas completas de la base de datos y del directorio de datos del sitio. Esto incluye todos los datos y no se pueden configurar para excluir subconjuntos de datos. Puedes pensar en esto como una instantánea de Mealie en un momento específico. Estas sirven como una forma agnóstica de la base de datos para exportar e importar datos, o respaldar el sitio en una ubicación externa.",
+      "experimental-description": "Backups are total snapshots of the database and data directory of the site. This includes all data and cannot be set to exclude subsets of data. You can think of this as a snapshot of Mealie at a specific time. These serve as a database agnostic way to export and import data, or back up the site to an external location.",
       "backup-restore": "Restaurar Copia de Seguridad",
       "back-restore-description": "Restaurar esta copia de seguridad sobrescribirá todos los datos actuales de su base de datos y del directorio de datos y los sustituirá por el contenido de esta copia. {cannot-be-undone} Si la restauración se realiza correctamente, se cerrará su sesión.",
       "cannot-be-undone": "Esta acción no se puede deshacer, use con precaución.",
