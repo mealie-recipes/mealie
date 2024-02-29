@@ -599,7 +599,7 @@
       "import-summary": "Обобщение на импортирането",
       "partial-backup": "Частично резервно копие",
       "unable-to-delete-backup": "Невъзможно е да се изтрие това резервно копие.",
-      "experimental-description": "Резервните копия са моменти копия на базата данни и директорията за данни на сайта. Това включва цялата информация и е невъзможно да изключите определени раздели от информация. Може да гледате на това като моменти копия на Mealie за специфично време. Те служат като агностичен начин за експортиране на базата данни и импортиране на данни или архивиране на сайта към външна локация.",
+      "experimental-description": "Backups are total snapshots of the database and data directory of the site. This includes all data and cannot be set to exclude subsets of data. You can think of this as a snapshot of Mealie at a specific time. These serve as a database agnostic way to export and import data, or back up the site to an external location.",
       "backup-restore": "Възстановяване на резервно копие",
       "back-restore-description": "Възстановяването на това резервно копие ще презапише цялата текуща информация във Вашата база данни и директорията с данни, и ще ги замени със съдържанието от резервното копие. {cannot-be-undone} Ако възстановяването е успешно ще бъдете отписан от системата.",
       "cannot-be-undone": "Това действие не може да бъде отменено - използвайте с внимание.",
