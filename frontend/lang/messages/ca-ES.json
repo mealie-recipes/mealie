@@ -259,7 +259,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Crea un nou menú",
-    "update-this-meal-plan": "Update this Meal Plan",
+    "update-this-meal-plan": "Actualitza aquest pla de menjar",
     "dinner-this-week": "Sopar d'esta setmana",
     "dinner-today": "Sopar per avui",
     "dinner-tonight": "Sopar d'aquesta nit",
@@ -307,7 +307,7 @@
     "for-type-meal-types": "per {0} tipus de menús",
     "meal-plan-rules": "Normes del planificador de menús",
     "new-rule": "Nova norma",
-    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
+    "meal-plan-rules-description": "Podeu crear regles per a la selecció automàtica de receptes per als vostres plans d'àpats. El servidor utilitza aquestes regles per determinar el conjunt aleatori de receptes per seleccionar quan es creen plans d'àpats. Tingueu en compte que si les regles tenen les mateixes restriccions de dia/tipus, les categories de les regles es fusionaran. A la pràctica, no és necessari crear regles duplicades, però és possible fer-ho.",
     "new-rule-description": "When creating a new rule for a meal plan you can restrict the rule to be applicable for a specific day of the week and/or a specific type of meal. To apply a rule to all days or all meal types you can set the rule to \"Any\" which will apply it to all the possible values for the day and/or meal type.",
     "recipe-rules": "Normes per la recepta",
     "applies-to-all-days": "Aplica a tots els dies",
