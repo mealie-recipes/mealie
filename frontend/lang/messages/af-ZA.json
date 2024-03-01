@@ -599,7 +599,7 @@
       "import-summary": "Invoeropsomming",
       "partial-backup": "Gedeeltelike back-up",
       "unable-to-delete-backup": "Kon nie back-up verwyder nie.",
-      "experimental-description": "Back-up skep 'n momentopname van die werf se databasis en data directory. Dit sluit alle data in en kan nie gestel word om substelle data uit te sluit nie. Jy kan dit as 'n momentopname van Mealie neem. Dit dien as 'n agnostiese manier om data uit te voer en in te voer, of om die webwerf na 'n eksterne ligging te back-up.",
+      "experimental-description": "Backups are total snapshots of the database and data directory of the site. This includes all data and cannot be set to exclude subsets of data. You can think of this as a snapshot of Mealie at a specific time. These serve as a database agnostic way to export and import data, or back up the site to an external location.",
       "backup-restore": "Herlaai vanaf back-up",
       "back-restore-description": "Die herstel van hierdie back-up sal alle huidige data in jou databasis en in die data-lêergids oorskryf. {cannot-be-undone} As die herstel suksesvol was, sal jy afgemeld word.",
       "cannot-be-undone": "Hierdie aksie kan nie ongedaan gemaak word nie - gebruik met omsigtigheid.",
