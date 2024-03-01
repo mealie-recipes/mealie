@@ -180,6 +180,7 @@ class AppSettings(BaseSettings):
     OIDC_ADMIN_GROUP: str | None = None
     OIDC_AUTO_REDIRECT: bool = False
     OIDC_PROVIDER_NAME: str = "OAuth"
+    OIDC_REMEMBER_ME: bool = False
 
     @property
     def OIDC_READY(self) -> bool:

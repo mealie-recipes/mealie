@@ -54,14 +54,14 @@ class OpenIDProvider(AuthProvider[OIDCRequest]):
                 }
             )
             self.session.commit()
-            return self.get_access_token(user)  # type: ignore
+            return self.get_access_token(user, settings.OIDC_REMEMBER_ME)  # type: ignore
 
         if user:
             if user.admin != admin_claim:
                 self._logger.debug(f"[OIDC] {'Setting' if admin_claim else 'Removing'} user as admin")
                 user.admin = admin_claim
                 repos.users.update(user.id, user)
-            return self.get_access_token(user)
+            return self.get_access_token(user, settings.OIDC_REMEMBER_ME)
 
         self._logger.info("[OIDC] Found user but their AuthMethod does not match OIDC")
         return None
