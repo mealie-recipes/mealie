@@ -29,13 +29,13 @@
         "generic-updated": "{name} беше актуализирано",
         "generic-created-with-url": "{name} беше създадено, {url}",
         "generic-updated-with-url": "{name} беше актуализирано, {url}",
-        "generic-duplicated": "{name} е дублицирано",
+        "generic-duplicated": "{name} е дублирано",
         "generic-deleted": "{name} беше изтрито"
     },
     "datetime": {
         "year": "година|години",
         "day": "ден|дни",
-        "hour": "час|часове",
+        "hour": "час|часа и",
         "minute": "минута|минути",
         "second": "секунда|секунди",
         "millisecond": "милисекунда|милисекунди",
