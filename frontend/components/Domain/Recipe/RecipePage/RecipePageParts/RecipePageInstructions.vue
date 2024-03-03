@@ -149,10 +149,6 @@
                               event: 'link-ingredients',
                             },
                             {
-                              text: $tc('recipe.merge-above'),
-                              event: 'merge-above',
-                            },
-                            {
                               text: $tc('recipe.upload-image'),
                               event: 'upload-image'
                             },
@@ -160,11 +156,26 @@
                               icon: previewStates[index] ? $globals.icons.edit : $globals.icons.eye,
                               text: previewStates[index] ? $tc('recipe.edit-markdown') : $tc('markdown-editor.preview-markdown-button-label'),
                               event: 'preview-step',
+                              divider: true,
+                            },
+                            {
+                              text: $tc('recipe.merge-above'),
+                              event: 'merge-above',
+                            },
+                            {
+                              text: $tc('recipe.move-to-top'),
+                              event: 'move-to-top',
+                            },
+                            {
+                              text: $tc('recipe.move-to-bottom'),
+                              event: 'move-to-bottom',
                             },
                           ],
                         },
                       ]"
                       @merge-above="mergeAbove(index - 1, index)"
+                      @move-to-top="moveTo('top', index)"
+                      @move-to-bottom="moveTo('bottom', index)"
                       @toggle-section="toggleShowTitle(step.id)"
                       @link-ingredients="openDialog(index, step.text, step.ingredientReferences)"
                       @preview-step="togglePreviewState(index)"
@@ -531,6 +542,14 @@ export default defineComponent({
       }
     }
 
+    function moveTo(dest: string, source: number) {
+      if (dest === "top") {
+        props.value.unshift(props.value.splice(source, 1)[0]);
+      } else {
+        props.value.push(props.value.splice(source, 1)[0]);
+      }
+    }
+
     const previewStates = ref<boolean[]>([]);
 
     function togglePreviewState(index: number) {
@@ -646,6 +665,7 @@ export default defineComponent({
       getIngredientByRefId,
       showTitleEditor,
       mergeAbove,
+      moveTo,
       openDialog,
       setIngredientIds,
       availableNextStep,
