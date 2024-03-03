@@ -599,7 +599,7 @@
       "import-summary": "Podsumowanie importu",
       "partial-backup": "Częściowa kopia zapasowa",
       "unable-to-delete-backup": "Nie można usunąć kopii zapasowej.",
-      "experimental-description": "Kopia zapasowa wszystkich migawek bazy danych i katalogu danych witryny. Obejmuje to wszystkie dane i nie można ich ustawić, aby wykluczyć podzbiory danych. Możesz to pomyśleć o tym jako zrzut Mączki w określonym czasie. Obecnie {not-crossed-version} (migracje danych nie są wykonywane automatycznie). Służą one jako agnostyczny sposób eksportowania i importu danych lub tworzenia kopii zapasowej witryny do zewnętrznej lokalizacji.",
+      "experimental-description": "Backups are total snapshots of the database and data directory of the site. This includes all data and cannot be set to exclude subsets of data. You can think of this as a snapshot of Mealie at a specific time. These serve as a database agnostic way to export and import data, or back up the site to an external location.",
       "backup-restore": "Przywróć kopie",
       "back-restore-description": "Przywracanie tej kopii zapasowej nadpisze wszystkie aktualne dane w bazie danych i w katalogu danych i zastąpi je zawartością tej kopii zapasowej. {cannot-be-undone} Jeśli przywrócenie zakończy się pomyślnie, zostaniesz wylogowany.",
       "cannot-be-undone": "Tej czynności nie można cofnąć - należy zachować ostrożność.",

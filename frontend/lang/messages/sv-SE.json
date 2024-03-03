@@ -599,7 +599,7 @@
       "import-summary": "Import sammanfattning",
       "partial-backup": "Partiell backup",
       "unable-to-delete-backup": "Kan inte radera backup.",
-      "experimental-description": "Säkerhetskopierar en komplett ögonblicksbild av databasen och datakatalogen på webbplatsen. Detta inkluderar all data och kan inte ställas in för att utesluta undergrupper av data. Du kan se det som en ögonblicksbild av Mealie vid en viss tidpunkt. För närvarande {not-crossed-version} (datamigreringar görs inte automatiskt). Dessa fungerar som ett agnostiskt sätt att exportera eller säkerhetskopiera siten till en extern plats.",
+      "experimental-description": "Backups are total snapshots of the database and data directory of the site. This includes all data and cannot be set to exclude subsets of data. You can think of this as a snapshot of Mealie at a specific time. These serve as a database agnostic way to export and import data, or back up the site to an external location.",
       "backup-restore": "Återställ backup",
       "back-restore-description": "Återställning av den här backuppen kommer att skriva över all information i databasen och datakatalogen och ersätta allt med innehållet i nackuppen. {cannot-be-undone} Om återställningen går bra kommer du att loggas ut.",
       "cannot-be-undone": "Denna åtgärd kan inte ångras - använd med försiktighet.",

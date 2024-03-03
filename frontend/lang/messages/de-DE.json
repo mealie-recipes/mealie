@@ -599,7 +599,7 @@
       "import-summary": "Zusammenfassung des Imports",
       "partial-backup": "Teilsicherung",
       "unable-to-delete-backup": "Sicherung kann nicht gelöscht werden.",
-      "experimental-description": "Sichert eine vollständige Momentaufnahme der Datenbank und des Datenverzeichnisses der Webseite. Dies schließt alle Daten ein, es können keine Daten ausgenommen werden. Es handelt sich also um eine Momentaufnahme von Mealie zu einem bestimmten Zeitpunkt. Zur Zeit {not-crossed-version} (es erfolgt keine automatische Datenmigration). Es ist eine Datenbank-unabhängige Möglichkeit, Daten zu exportieren und importieren oder um die Webseite an einem externen Ort zu sichern.",
+      "experimental-description": "Backups are total snapshots of the database and data directory of the site. This includes all data and cannot be set to exclude subsets of data. You can think of this as a snapshot of Mealie at a specific time. These serve as a database agnostic way to export and import data, or back up the site to an external location.",
       "backup-restore": "Wiederherstellen aus Sicherung",
       "back-restore-description": "Das Wiederherstellen dieser Sicherung wird alle vorhandenen Daten in deiner Datenbank und im Datenverzeichnis überschreiben und durch den Inhalt dieser Sicherung ersetzen. {cannot-be-undone} Wenn die Wiederherstellung erfolgreich war, wirst du abgemeldet.",
       "cannot-be-undone": "Diese Aktion kann nicht rückgängig gemacht werden - verwende sie mit Vorsicht.",

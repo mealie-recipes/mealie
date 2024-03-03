@@ -337,21 +337,50 @@ export default defineComponent({
     const copy = useCopyList();
 
     function copyListItems(copyType: CopyTypes) {
-      const items = shoppingList.value?.listItems?.filter((item) => !item.checked);
+      const text: string[] = [];
 
-      if (!items) {
-        return;
+      if (preferences.value.viewByLabel) {
+        // if we're sorting by label, we want the copied text in subsections
+        Object.entries(itemsByLabel.value).forEach(([label, items], idx) => {
+          // for every group except the first, add a blank line
+          if (idx) {
+            text.push("")
+          }
+
+          // add an appropriate heading for the label depending on the copy format
+          text.push(formatCopiedLabelHeading(copyType, label))
+
+          // now add the appropriately formatted list items with the given label
+          items.forEach((item) => text.push(formatCopiedListItem(copyType, item)))
+        })
+      } else {
+        // labels are toggled off, so just copy in the order they come in
+        const items = shoppingList.value?.listItems?.filter((item) => !item.checked)
+
+        items?.forEach((item) => {
+          text.push(formatCopiedListItem(copyType, item))
+        });
       }
 
-      const text: string[] = items.map((itm) => itm.display || "");
+      copy.copyPlain(text);
+    }
 
+    function formatCopiedListItem(copyType: CopyTypes, item: ShoppingListItemOut): string {
+      const display = item.display || ""
       switch (copyType) {
         case "markdown":
-          copy.copyMarkdownCheckList(text);
-          break;
+          return `- [ ] ${display}`
         default:
-          copy.copyPlain(text);
-          break;
+          return display
+      }
+    }
+
+    function formatCopiedLabelHeading(copyType: CopyTypes, label: string): string {
+      switch (copyType) {
+        case "markdown":
+          return `# ${label}`
+        default:
+          return `[${label}]`
       }
     }
 

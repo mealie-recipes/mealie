@@ -599,7 +599,7 @@
       "import-summary": "Import összefoglaló",
       "partial-backup": "Részleges biztonsági mentés",
       "unable-to-delete-backup": "Nem lehetett létrehozni a biztonsági mentést.",
-      "experimental-description": "A biztonsági mentések az oldal adatbázisának és adatkönyvtárának teljes pillanatfelvételei. Ez az összes adatot tartalmazza, és nem lehet beállítani, hogy az adatok részhalmazait kizárja. Ezt úgy is elképzelheti, mint a Mealie egy adott időpontban készült pillanatfelvételét. Ezek adatbázis-független módon szolgálnak az adatok exportálására és importálására, vagy a webhely külső helyre történő mentésére.",
+      "experimental-description": "Backups are total snapshots of the database and data directory of the site. This includes all data and cannot be set to exclude subsets of data. You can think of this as a snapshot of Mealie at a specific time. These serve as a database agnostic way to export and import data, or back up the site to an external location.",
       "backup-restore": "Biztonsági Mentés/Visszaállítás",
       "back-restore-description": "A biztonsági mentés visszaállítása felülírja az adatbázisban és az adatkönyvtárban lévő összes aktuális adatot, és a biztonsági mentés tartalmával helyettesíti azokat. {cannot-be-undone} Ha a visszaállítás sikeres, akkor a rendszer kilépteti Önt.",
       "cannot-be-undone": "Ezt a műveletet visszavonható - óvatosan használja.",

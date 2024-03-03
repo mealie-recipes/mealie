@@ -599,7 +599,7 @@
       "import-summary": "ייבא תקציר",
       "partial-backup": "גיבוי חלקי",
       "unable-to-delete-backup": "לא ניתן למחוק גיבוי.",
-      "experimental-description": "גיבויים, סנאפשוט מלא של מלא של מסד הנתונים והסיפריות באתר. הגיבוי מכיל את כל המידע ולא ניתן להסיר מידע מהגיבוי. ניתן להתייחס לגיבוי כסנאפשוט של מילי בזמן ספציפי. כרגע {not-crossed-version} (מיגרציית נתונים לא מתבצעות אוטומטית). הם מאפשרים לייבא, לייצא ולגבות את האתר למקום חיצוני.",
+      "experimental-description": "Backups are total snapshots of the database and data directory of the site. This includes all data and cannot be set to exclude subsets of data. You can think of this as a snapshot of Mealie at a specific time. These serve as a database agnostic way to export and import data, or back up the site to an external location.",
       "backup-restore": "גיבוי / שחזור",
       "back-restore-description": "שחזור מגיבוי זה ידרוס את המידע הקיים במסד הנתונים ובספריות האתר ויחליף אותם בזה הקיים בגיבוי. {cannot-be-undone} אם השחזור יצליח, המשתמש ינותק מהמערכת.",
       "cannot-be-undone": "פעולה זו לא בלתי הפיכה - השתמש בזהירות.",

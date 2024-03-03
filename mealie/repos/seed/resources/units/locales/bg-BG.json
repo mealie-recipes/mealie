@@ -10,7 +10,7 @@
         "abbreviation": "с.л."
     },
     "cup": {
-        "name": "cup",
+        "name": "чаена чаша",
         "description": "",
         "abbreviation": "cup"
     },
@@ -70,7 +70,7 @@
         "abbreviation": "мг"
     },
     "splash": {
-        "name": "плисък",
+        "name": "1/2 ч.л.",
         "description": "",
         "abbreviation": ""
     },
@@ -80,7 +80,7 @@
         "abbreviation": ""
     },
     "serving": {
-        "name": "порция",
+        "name": "порция|порции",
         "description": "",
         "abbreviation": ""
     },
