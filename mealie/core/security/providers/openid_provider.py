@@ -34,7 +34,17 @@ class OpenIDProvider(AuthProvider[OIDCRequest]):
         repos = get_repositories(self.session)
 
         user = self.try_get_user(claims.get("email"))
-        admin_claim = settings.OIDC_ADMIN_GROUP in claims.get("groups", []) if settings.OIDC_ADMIN_GROUP else False
+        group_claim = claims.get("groups", [])
+        is_admin = settings.OIDC_ADMIN_GROUP in group_claim if settings.OIDC_ADMIN_GROUP else False
+        is_valid_user = settings.OIDC_USER_GROUP in group_claim if settings.OIDC_USER_GROUP else True
+
+        if not is_valid_user:
+            self._logger.debug(
+                "[OIDC] User does not have the required group. Found: %s - Required: %s",
+                group_claim,
+                settings.OIDC_USER_GROUP,
+            )
+            return None
 
         if not user:
             if not settings.OIDC_SIGNUP_ENABLED:
@@ -49,7 +59,7 @@ class OpenIDProvider(AuthProvider[OIDCRequest]):
                     "password": "OIDC",
                     "full_name": claims.get("name"),
                     "email": claims.get("email"),
-                    "admin": admin_claim,
+                    "admin": is_admin,
                     "auth_method": AuthMethod.OIDC,
                 }
             )
@@ -57,9 +67,9 @@ class OpenIDProvider(AuthProvider[OIDCRequest]):
             return self.get_access_token(user, settings.OIDC_REMEMBER_ME)  # type: ignore
 
         if user:
-            if user.admin != admin_claim:
-                self._logger.debug(f"[OIDC] {'Setting' if admin_claim else 'Removing'} user as admin")
-                user.admin = admin_claim
+            if user.admin != is_admin:
+                self._logger.debug(f"[OIDC] {'Setting' if is_admin else 'Removing'} user as admin")
+                user.admin = is_admin
                 repos.users.update(user.id, user)
             return self.get_access_token(user, settings.OIDC_REMEMBER_ME)
 
