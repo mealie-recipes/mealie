@@ -494,6 +494,8 @@
     "cook-mode": "Tryb Gotowania",
     "link-ingredients": "Podłącz składniki",
     "merge-above": "Scal z powyższym",
+    "move-to-bottom": "Move To Bottom",
+    "move-to-top": "Move To Top",
     "reset-scale": "Zresetuj Skalę",
     "decrease-scale-label": "Zmniejsz Skalę o 1",
     "increase-scale-label": "Zwiększ Skalę o 1",
