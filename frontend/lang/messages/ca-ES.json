@@ -494,6 +494,8 @@
     "cook-mode": "Mode \"cuinant\"",
     "link-ingredients": "Enllaça amb els ingredients",
     "merge-above": "Fusiona amb el de dalt",
+    "move-to-bottom": "Move To Bottom",
+    "move-to-top": "Move To Top",
     "reset-scale": "Reinicialitza",
     "decrease-scale-label": "Divideix",
     "increase-scale-label": "Multiplica",

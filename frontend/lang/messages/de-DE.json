@@ -494,6 +494,8 @@
     "cook-mode": "Koch-Modus",
     "link-ingredients": "Zutaten verlinken",
     "merge-above": "Mit Eintrag darüber zusammenführen",
+    "move-to-bottom": "Move To Bottom",
+    "move-to-top": "Move To Top",
     "reset-scale": "Maßstab zurücksetzen",
     "decrease-scale-label": "Maßstab um 1 verringern",
     "increase-scale-label": "Maßstab um 1 erhöhen",

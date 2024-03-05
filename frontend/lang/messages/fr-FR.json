@@ -494,6 +494,8 @@
     "cook-mode": "Mode Cuisine",
     "link-ingredients": "Lier des ingrédients",
     "merge-above": "Fusionner avec au-dessus",
+    "move-to-bottom": "Move To Bottom",
+    "move-to-top": "Move To Top",
     "reset-scale": "Rétablir l’échelle par défaut",
     "decrease-scale-label": "Diminuer l’échelle de 1",
     "increase-scale-label": "Augmenter l’échelle de 1",

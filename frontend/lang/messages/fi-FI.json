@@ -494,6 +494,8 @@
     "cook-mode": "Kokkitila",
     "link-ingredients": "Linkitä Ainesosat",
     "merge-above": "Yhdistä Yläpuolelle",
+    "move-to-bottom": "Move To Bottom",
+    "move-to-top": "Move To Top",
     "reset-scale": "Palauta skaala",
     "decrease-scale-label": "Vähennä mittakaavaa yhdellä",
     "increase-scale-label": "Suurenna mittakaavaa yhdellä",
