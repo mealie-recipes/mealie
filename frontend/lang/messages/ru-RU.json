@@ -494,6 +494,8 @@
     "cook-mode": "Режим готовки",
     "link-ingredients": "Связать ингредиенты",
     "merge-above": "Объединить с верхними",
+    "move-to-bottom": "Move To Bottom",
+    "move-to-top": "Move To Top",
     "reset-scale": "Кол-во порций по умолчанию",
     "decrease-scale-label": "Убрать порцию",
     "increase-scale-label": "Добавить порцию",

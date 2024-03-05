@@ -494,6 +494,8 @@
     "cook-mode": "烹饪模式",
     "link-ingredients": "关联食材",
     "merge-above": "合并上一步",
+    "move-to-bottom": "Move To Bottom",
+    "move-to-top": "Move To Top",
     "reset-scale": "重置倍数",
     "decrease-scale-label": "减1倍",
     "increase-scale-label": "加1倍",

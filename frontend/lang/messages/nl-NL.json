@@ -494,6 +494,8 @@
     "cook-mode": "Kookmodus",
     "link-ingredients": "Koppel ingrediënten",
     "merge-above": "Bovenstaande samenvoegen",
+    "move-to-bottom": "Verplaats naar onderen",
+    "move-to-top": "Verplaats naar begin",
     "reset-scale": "Schaal resetten",
     "decrease-scale-label": "Verlaag de schaal met 1",
     "increase-scale-label": "Verhoog de schaal met 1",
