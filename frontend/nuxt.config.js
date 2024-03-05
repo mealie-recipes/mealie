@@ -379,6 +379,20 @@ export default {
           purpose: "maskable",
         },
       ],
+      "shortcuts": [
+        {
+          "name": "Shopping Lists",
+          "short_name": "Shopping Lists",
+          "description": "Open the shopping lists",
+          "url": "/shopping-lists",
+        },
+        {
+          "name": "Meal Planner",
+          "short_name": "Meal Planner",
+          "description": "Open the meal planner",
+          "url": "/group/mealplan/planner/view",
+        },
+      ],
     },
     icon: false, // disables the icon module
   },
