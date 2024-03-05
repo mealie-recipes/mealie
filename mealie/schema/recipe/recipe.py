@@ -184,13 +184,13 @@ class Recipe(RecipeSummary):
     model_config = ConfigDict(from_attributes=True)
 
     @model_validator(mode="after")
-    def post_validate(self):
-        # the ingredient disable_amount property is unreliable,
-        # so we set it here and recalculate the display property
+    def calculate_missing_food_flags_and_format_display(self):
         disable_amount = self.settings.disable_amount if self.settings else True
         for ingredient in self.recipe_ingredient:
             ingredient.disable_amount = disable_amount
             ingredient.is_food = not ingredient.disable_amount
+
+            # recalculate the display property, since it depends on the disable_amount flag
             ingredient.display = ingredient._format_display()
 
         return self

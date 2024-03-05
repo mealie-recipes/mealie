@@ -494,6 +494,8 @@
     "cook-mode": "Режим кухаря",
     "link-ingredients": "Зв'язати інгредієнти",
     "merge-above": "Об'єднати з тим що вище",
+    "move-to-bottom": "Перемістити вниз",
+    "move-to-top": "Перемістити вгору",
     "reset-scale": "Скинути масштабування",
     "decrease-scale-label": "Зменшити масштабування на 1",
     "increase-scale-label": "Збільшити масштабування на 1",

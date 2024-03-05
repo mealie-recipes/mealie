@@ -494,6 +494,8 @@
     "cook-mode": "Mode Cuisine",
     "link-ingredients": "Lier des ingrédients",
     "merge-above": "Fusionner avec au-dessus",
+    "move-to-bottom": "Déplacer à la fin",
+    "move-to-top": "Déplacer au début",
     "reset-scale": "Rétablir l’échelle par défaut",
     "decrease-scale-label": "Diminuer l’échelle de 1",
     "increase-scale-label": "Augmenter l’échelle de 1",
@@ -599,7 +601,7 @@
       "import-summary": "Résumé de l’importation",
       "partial-backup": "Sauvegarde partielle",
       "unable-to-delete-backup": "Impossible de supprimer la sauvegarde.",
-      "experimental-description": "Sauvegarde une photo complète de la base de données et du répertoire de données du site. Cela inclut toutes les données et ne peut pas être configuré pour exclure des sous-ensembles de données. C'est un peu comme une photo de Mealie à un instant précis. Actuellement, {not-crossed-version} (les migrations de données ne sont pas effectuées automatiquement). Il s'agit d'un moyen indépendant de la base de données pour exporter et importer des données ou de sauvegarder le site vers un emplacement externe.",
+      "experimental-description": "Les sauvegardes sont des instantanés complets de la base de données et du répertoire de données du site. Cela inclue toutes les données et il n’est pas possible d’en exclure un sous-ensemble. Vous pouvez le voir comme un instantané de Mealie à un temps donné. Cela peut servir de moyen d’importer et d’exporter les données indépendamment du moteur de base de données, ou bien de sauvegarder le site vers un emplacement externe.",
       "backup-restore": "Restaurer la sauvegarde",
       "back-restore-description": "La restauration de cette sauvegarde écrasera toutes les données actuelles dans votre base de données et dans le répertoire de données et les remplacera par le contenu de cette sauvegarde. {cannot-be-undone} Si la restauration est réussie, vous serez déconnecté.",
       "cannot-be-undone": "Cette action ne peut pas être annulée - à utiliser avec prudence.",
@@ -1187,7 +1189,7 @@
     "require-all-tools": "Nécessite tous les ustensiles",
     "cookbook-name": "Nom du livre de recettes",
     "cookbook-with-name": "Livre de recettes {0}",
-    "create-a-cookbook": "Create a Cookbook",
-    "cookbook": "Cookbook"
+    "create-a-cookbook": "Créer un livre de cuisine",
+    "cookbook": "Livre de recettes"
   }
 }

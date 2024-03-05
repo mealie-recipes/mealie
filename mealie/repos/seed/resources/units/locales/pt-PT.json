@@ -2,17 +2,17 @@
     "teaspoon": {
         "name": "colher de chá",
         "description": "",
-        "abbreviation": "tsp"
+        "abbreviation": "csm"
     },
     "tablespoon": {
         "name": "colher de sopa",
         "description": "",
-        "abbreviation": "tbsp"
+        "abbreviation": "csp"
     },
     "cup": {
         "name": "chávena",
         "description": "",
-        "abbreviation": "cup"
+        "abbreviation": "chávena"
     },
     "fluid-ounce": {
         "name": "onça fluida",
@@ -80,7 +80,7 @@
         "abbreviation": ""
     },
     "serving": {
-        "name": "dose",
+        "name": "porção",
         "description": "",
         "abbreviation": ""
     },

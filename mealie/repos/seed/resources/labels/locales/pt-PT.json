@@ -21,7 +21,7 @@
         "name": "Bebidas"
     },
     {
-        "name": "Pães e Bolos"
+        "name": "Produtos de pastelaria"
     },
     {
         "name": "Enlatados"
@@ -30,7 +30,7 @@
         "name": "Condimentos"
     },
     {
-        "name": "Doçaria"
+        "name": "Confeitaria"
     },
     {
         "name": "Lacticínios"
@@ -57,7 +57,7 @@
         "name": "Doces"
     },
     {
-        "name": "Bebidas Alcoólicas"
+        "name": "Álcool"
     },
     {
         "name": "Outros"
