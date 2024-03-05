@@ -199,8 +199,8 @@
     "upload-file": "Upload Fil",
     "created-on-date": "Oprettet den: {0}",
     "unsaved-changes": "Du har ændringer som ikke er gemt. Vil du gemme før du forlader? Vælg \"Okay\" for at gemme, eller \"Annullér\" for at kassere ændringer.",
-    "clipboard-copy-failure": "Failed to copy to the clipboard.",
-    "confirm-delete-generic-items": "Are you sure you want to delete the following items?"
+    "clipboard-copy-failure": "Kopiering til udklipsholderen mislykkedes.",
+    "confirm-delete-generic-items": "Er du sikker på at du ønsker at slette de valgte emner?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Er du sikker på, du vil slette <b>{groupName}<b/>?",
@@ -259,7 +259,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Opret en ny madplan",
-    "update-this-meal-plan": "Update this Meal Plan",
+    "update-this-meal-plan": "Opdater denne måltidsplan",
     "dinner-this-week": "Madplan denne uge",
     "dinner-today": "Madplan i dag",
     "dinner-tonight": "AFTENSMAD I AFTEN",
@@ -494,8 +494,8 @@
     "cook-mode": "Tilberedningsvisning",
     "link-ingredients": "Link ingredienser",
     "merge-above": "Sammenflet ovenstående",
-    "move-to-bottom": "Move To Bottom",
-    "move-to-top": "Move To Top",
+    "move-to-bottom": "Flyt til bunden",
+    "move-to-top": "Flyt til toppen",
     "reset-scale": "Nulstil skalering",
     "decrease-scale-label": "Formindsk skala med 1",
     "increase-scale-label": "Forøg skala med 1",
@@ -517,7 +517,7 @@
     "how-did-it-turn-out": "Hvordan blev det?",
     "user-made-this": "{user} lavede denne",
     "last-made-date": "Sidst tilberedt den {date}",
-    "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
+    "api-extras-description": "Opskrifter ekstra er en central feature i Mealie API. De giver dig mulighed for at oprette brugerdefinerede JSON nøgle / værdi par inden for en opskrift, at henvise til fra 3. parts applikationer. Du kan bruge disse nøgler til at give oplysninger, for eksempel til at udløse automatiseringer eller brugerdefinerede beskeder til at videresende til din ønskede enhed.",
     "message-key": "Beskednøgle",
     "parse": "Behandl data",
     "attach-images-hint": "Vedhæft billeder ved at trække dem ind i redigeringsværktøjet",
@@ -539,7 +539,7 @@
     "new-recipe-names-must-be-unique": "Opskriftsnavnet er allerede i brug",
     "scrape-recipe": "Scrape Opskrift",
     "scrape-recipe-description": "Hent en opskrift fra en hjemmeside. Angiv URL'en til den hjemmeside, du vil hente data fra, og Mealie vil forsøge at hente opskriften og tilføje den til din samling.",
-    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
+    "scrape-recipe-have-a-lot-of-recipes": "Har du en masse opskrifter, du ønsker at scrappe på en gang?",
     "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "import-original-keywords-as-tags": "Importér originale nøgleord som mærker",
     "stay-in-edit-mode": "Bliv i redigeringstilstand",
