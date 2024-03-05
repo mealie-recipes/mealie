@@ -101,7 +101,7 @@ class ShoppingListItemOut(ShoppingListItemBase):
     update_at: datetime | None = None
 
     @model_validator(mode="after")
-    def post_validate(self):
+    def populate_missing_label(self):
         # if we're missing a label, but the food has a label, use that as the label
         if (not self.label) and (self.food and self.food.label):
             self.label = self.food.label
