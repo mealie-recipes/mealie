@@ -33,12 +33,12 @@
         "generic-deleted": "{name} a été supprimé"
     },
     "datetime": {
-        "year": "année|années",
-        "day": "jour|jours",
-        "hour": "heure|heures",
+        "year": "year|years",
+        "day": "day|days",
+        "hour": "hour|hours",
         "minute": "minute|minutes",
-        "second": "seconde|secondes",
-        "millisecond": "milliseconde|millisecondes",
-        "microsecond": "microseconde|microsecondes"
+        "second": "second|seconds",
+        "millisecond": "millisecond|milliseconds",
+        "microsecond": "microsecond|microseconds"
     }
 }
