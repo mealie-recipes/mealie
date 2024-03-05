@@ -44,7 +44,7 @@ isodate = "^0.6.1"
 text-unidecode = "^1.3"
 rapidfuzz = "^3.2.0"
 html2text = "^2024.0.0"
-paho-mqtt = "^2.0.0"
+paho-mqtt = "^1.6.1"
 pydantic-settings = "^2.1.0"
 
 [tool.poetry.group.postgres.dependencies]

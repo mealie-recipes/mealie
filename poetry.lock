@@ -89,13 +89,13 @@ files = [
 
 [[package]]
 name = "apprise"
-version = "1.7.2"
+version = "1.7.3"
 description = "Push Notifications that work with just about every platform!"
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "apprise-1.7.2-py3-none-any.whl", hash = "sha256:f3192e62924e54334d4ca0c5723d7de9293500e1a0fbf3a890433ea5b6b56df8"},
-    {file = "apprise-1.7.2.tar.gz", hash = "sha256:09e159b29008e6c8e93d7ffc3c15d419c0bbae41620405f8f2d3432b72a2e9bf"},
+    {file = "apprise-1.7.3-py3-none-any.whl", hash = "sha256:d071ff2a12dd57c783edc0aab375e8606f2fb527b1e3afbc8750f0190c8928f4"},
+    {file = "apprise-1.7.3.tar.gz", hash = "sha256:31e2a639407bb8d266249fc075ff317e9d34ff5951c6e16bfeefddc2af5fe84c"},
 ]
 
 [package.dependencies]
@@ -1438,17 +1438,16 @@ files = [
 
 [[package]]
 name = "paho-mqtt"
-version = "2.0.0"
+version = "1.6.1"
 description = "MQTT version 5.0/3.1.1 client class"
 optional = false
-python-versions = ">=3.7"
+python-versions = "*"
 files = [
-    {file = "paho_mqtt-2.0.0-py3-none-any.whl", hash = "sha256:2ef745073dfc9aa68bfec30d0b9b6f0304ea75182bae85a7c77a80cefce1eff5"},
-    {file = "paho_mqtt-2.0.0.tar.gz", hash = "sha256:13b205f29251e4f2c66a6c923c31fc4fd780561e03b2d775cff8e4f2915cf947"},
+    {file = "paho-mqtt-1.6.1.tar.gz", hash = "sha256:2a8291c81623aec00372b5a85558a372c747cbca8e9934dfe218638b8eefc26f"},
 ]
 
 [package.extras]
-proxy = ["pysocks"]
+proxy = ["PySocks"]
 
 [[package]]
 name = "pathspec"
@@ -3032,4 +3031,4 @@ pgsql = ["psycopg2-binary"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "f9fdeac4b5c61a64d2d6761bef515e90c81536d5683f2b81fd6f73f8dd3b23e3"
+content-hash = "9576c2fb9e9274b65b13e01fd962d59dafd9a1d2f054e8b0407b3e6c0695d0bb"
