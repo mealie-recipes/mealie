@@ -145,7 +145,7 @@ class RecipeIngredientBase(MealieModel):
     """
 
     @model_validator(mode="after")
-    def post_validate(self):
+    def calculate_missing_food_flags(self):
         # calculate missing is_food and disable_amount values
         # we can't do this in a validator since they depend on each other
         if self.is_food is None and self.disable_amount is not None:
@@ -156,7 +156,10 @@ class RecipeIngredientBase(MealieModel):
             self.is_food = bool(self.food)
             self.disable_amount = not self.is_food
 
-        # format the display property
+        return self
+
+    @model_validator(mode="after")
+    def format_display(self):
         if not self.display:
             self.display = self._format_display()
 
