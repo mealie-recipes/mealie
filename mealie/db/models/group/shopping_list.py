@@ -124,14 +124,14 @@ class ShoppingList(SqlAlchemyBase, BaseMixins):
     group: Mapped["Group"] = orm.relationship("Group", back_populates="shopping_lists")
 
     name: Mapped[str | None] = mapped_column(String)
-    list_items: Mapped[ShoppingListItem] = orm.relationship(
+    list_items: Mapped[list[ShoppingListItem]] = orm.relationship(
         ShoppingListItem,
         cascade="all, delete, delete-orphan",
         order_by="ShoppingListItem.position",
         collection_class=ordering_list("position"),
     )
 
-    recipe_references: Mapped[ShoppingListRecipeReference] = orm.relationship(
+    recipe_references: Mapped[list[ShoppingListRecipeReference]] = orm.relationship(
         ShoppingListRecipeReference, cascade="all, delete, delete-orphan"
     )
     label_settings: Mapped[list["ShoppingListMultiPurposeLabel"]] = orm.relationship(
