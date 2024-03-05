@@ -385,28 +385,12 @@ export default {
           "short_name": "Shopping Lists",
           "description": "Open the shopping lists",
           "url": "/shopping-lists",
-          "icons": [
-            {
-              src: "/icons/android-chrome-96x96.png",
-              sizes: "96x96",
-              type: "image/png",
-              purpose: "any",
-            },
-          ],
         },
         {
           "name": "Meal Planner",
           "short_name": "Meal Planner",
           "description": "Open the meal planner",
           "url": "/group/mealplan/planner/view",
-          "icons": [
-            {
-              src: "/icons/android-chrome-96x96.png",
-              sizes: "96x96",
-              type: "image/png",
-              purpose: "any",
-            },
-          ],
         },
       ],
     },
