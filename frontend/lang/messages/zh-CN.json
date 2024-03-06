@@ -200,7 +200,7 @@
     "created-on-date": "创建于: {0}",
     "unsaved-changes": "你有未保存的更改。你希望现在离开前保存吗？保存选择“是”，不保存选择“取消”。",
     "clipboard-copy-failure": "未能复制到剪切板。",
-    "confirm-delete-generic-items": "Are you sure you want to delete the following items?"
+    "confirm-delete-generic-items": "你确定删除以下条目吗？"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "您确定要删除<b>{groupName}<b/>吗？",
@@ -474,11 +474,11 @@
     "add-to-timeline": "添加到时间轴",
     "recipe-added-to-list": "食谱已被添加到购物清单",
     "recipes-added-to-list": "食谱已被添加到购物清单",
-    "successfully-added-to-list": "Successfully added to list",
+    "successfully-added-to-list": "成功添加到列表",
     "recipe-added-to-mealplan": "已添加该食谱到饮食计划",
     "failed-to-add-recipes-to-list": "食谱未能添加到购物清单",
     "failed-to-add-recipe-to-mealplan": "添加食谱到饮食计划失败",
-    "failed-to-add-to-list": "Failed to add to list",
+    "failed-to-add-to-list": "未能添加到列表",
     "yield": "菜量（几人份）",
     "quantity": "数量",
     "choose-unit": "选择单位",
@@ -494,8 +494,8 @@
     "cook-mode": "烹饪模式",
     "link-ingredients": "关联食材",
     "merge-above": "合并上一步",
-    "move-to-bottom": "Move To Bottom",
-    "move-to-top": "Move To Top",
+    "move-to-bottom": "置底",
+    "move-to-top": "置顶",
     "reset-scale": "重置倍数",
     "decrease-scale-label": "减1倍",
     "increase-scale-label": "加1倍",
@@ -601,7 +601,7 @@
       "import-summary": "导入概况",
       "partial-backup": "部分备份",
       "unable-to-delete-backup": "无法删除备份",
-      "experimental-description": "Backups are total snapshots of the database and data directory of the site. This includes all data and cannot be set to exclude subsets of data. You can think of this as a snapshot of Mealie at a specific time. These serve as a database agnostic way to export and import data, or back up the site to an external location.",
+      "experimental-description": "备份是网站数据库和数据目录的共同快照。它必须包含全部数据，不能排除任何数据。你可以把它视为Mealie在某个时刻的快照。这些备份作为一种与数据库无关的方式，用于导入和导出数据，或将站点备份到外部位置。",
       "backup-restore": "备份恢复",
       "back-restore-description": "恢复该备份将覆盖当前数据库和数据文件夹的数据。 {cannot-be-undone} 若恢复成功，你需要重新登录。",
       "cannot-be-undone": "该操作无法撤销，请谨慎使用！",
@@ -1189,7 +1189,7 @@
     "require-all-tools": "包含全部工具",
     "cookbook-name": "食谱名称",
     "cookbook-with-name": "{0}合集",
-    "create-a-cookbook": "Create a Cookbook",
-    "cookbook": "Cookbook"
+    "create-a-cookbook": "创建一个食谱合集",
+    "cookbook": "食谱合集"
   }
 }
