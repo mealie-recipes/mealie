@@ -225,9 +225,13 @@ class ShoppingListUpdate(ShoppingListSave):
 
 
 class ShoppingListOut(ShoppingListUpdate):
-    recipe_references: list[ShoppingListRecipeRefOut]
-    label_settings: list[ShoppingListMultiPurposeLabelOut]
+    recipe_references: list[ShoppingListRecipeRefOut] = []
+    label_settings: list[ShoppingListMultiPurposeLabelOut] = []
     model_config = ConfigDict(from_attributes=True)
+
+    @field_validator("recipe_references", "label_settings", mode="before")
+    def default_none_to_empty_list(cls, v):
+        return v or []
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
