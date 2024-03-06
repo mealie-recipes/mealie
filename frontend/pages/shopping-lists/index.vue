@@ -17,7 +17,7 @@
     </BasePageTitle>
 
     <v-container class="d-flex justify-end px-0 pt-0 pb-4">
-      <v-checkbox v-model="showAll" hide-details :label="$tc('general.show-all')" class="my-auto mr-4" />
+      <v-checkbox v-model="preferences.viewAllLists" hide-details :label="$tc('general.show-all')" class="my-auto mr-4" />
       <BaseButton create @click="createDialog = true" />
     </v-container>
 
@@ -51,6 +51,7 @@
 import { computed, defineComponent, useAsync, useContext, reactive, toRefs, useRoute } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 import { useAsyncKey } from "~/composables/use-utils";
+import { useShoppingListPreferences } from "~/composables/use-users/preferences";
 
 export default defineComponent({
   middleware: "auth",
@@ -59,13 +60,13 @@ export default defineComponent({
     const userApi = useUserApi();
     const route = useRoute();
     const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+    const preferences = useShoppingListPreferences();
 
     const state = reactive({
       createName: "",
       createDialog: false,
       deleteDialog: false,
       deleteTarget: "",
-      showAll: false,
     });
 
     const shoppingLists = useAsync(async () => {
@@ -77,7 +78,7 @@ export default defineComponent({
         return [];
       }
 
-      return shoppingLists.value.filter((list) => state.showAll || list.userId === $auth.user?.id);
+      return shoppingLists.value.filter((list) => preferences.value.viewAllLists || list.userId === $auth.user?.id);
     });
 
     async function fetchShoppingLists() {
@@ -118,6 +119,7 @@ export default defineComponent({
     return {
       ...toRefs(state),
       groupSlug,
+      preferences,
       shoppingListChoices,
       createOne,
       deleteOne,

@@ -23,7 +23,7 @@
           {{ $t("general.cancel") }}
         </v-btn>
         <div class="d-flex justify-end" style="width: 100%;">
-          <v-checkbox v-model="showAll" hide-details :label="$tc('general.show-all')" class="my-auto mr-4" />
+          <v-checkbox v-model="preferences.viewAllLists" hide-details :label="$tc('general.show-all')" class="my-auto mr-4" />
         </div>
       </template>
     </BaseDialog>
@@ -132,6 +132,7 @@ import { toRefs } from "@vueuse/core";
 import RecipeIngredientListItem from "./RecipeIngredientListItem.vue";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
+import { useShoppingListPreferences } from "~/composables/use-users/preferences";
 import { ShoppingListSummary } from "~/lib/api/types/group";
 import { Recipe, RecipeIngredient } from "~/lib/api/types/recipe";
 
@@ -178,6 +179,7 @@ export default defineComponent({
   setup(props, context) {
     const { $auth, i18n } = useContext();
     const api = useUserApi();
+    const preferences = useShoppingListPreferences();
 
     // v-model support
     const dialog = computed({
@@ -193,11 +195,10 @@ export default defineComponent({
     const state = reactive({
       shoppingListDialog: true,
       shoppingListIngredientDialog: false,
-      showAll: false,
     });
 
     const shoppingListChoices = computed(() => {
-      return props.shoppingLists.filter((list) => state.showAll || list.userId === $auth.user?.id);
+      return props.shoppingLists.filter((list) => preferences.value.viewAllLists || list.userId === $auth.user?.id);
     });
 
     const recipeIngredientSections = ref<ShoppingListRecipeIngredientSection[]>([]);
@@ -351,6 +352,7 @@ export default defineComponent({
 
     return {
       dialog,
+      preferences,
       shoppingListChoices,
       ...toRefs(state),
       addRecipesToList,
