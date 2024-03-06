@@ -190,6 +190,7 @@ class ShoppingListRecipeRefOut(MealieModel):
 
 class ShoppingListSave(ShoppingListCreate):
     group_id: UUID4
+    user_id: UUID4
 
 
 class ShoppingListSummary(ShoppingListSave):

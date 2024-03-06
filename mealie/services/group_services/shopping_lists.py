@@ -19,13 +19,14 @@ from mealie.schema.group.group_shopping_list import (
 )
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit, RecipeIngredient
 from mealie.schema.response.pagination import OrderDirection, PaginationQuery
-from mealie.schema.user.user import GroupInDB
+from mealie.schema.user.user import GroupInDB, UserOut
 
 
 class ShoppingListService:
-    def __init__(self, repos: AllRepositories, group: GroupInDB):
+    def __init__(self, repos: AllRepositories, group: GroupInDB, user: UserOut):
         self.repos = repos
         self.group = group
+        self.user = user
         self.shopping_lists = repos.group_shopping_lists
         self.list_items = repos.group_shopping_list_item
         self.list_item_refs = repos.group_shopping_list_item_references
@@ -476,7 +477,7 @@ class ShoppingListService:
         return self.shopping_lists.get_one(shopping_list.id), items  # type: ignore
 
     def create_one_list(self, data: ShoppingListCreate):
-        create_data = data.cast(ShoppingListSave, group_id=self.group.id)
+        create_data = data.cast(ShoppingListSave, group_id=self.group.id, user_id=self.user.id)
         new_list = self.shopping_lists.create(create_data)  # type: ignore
 
         labels = self.repos.group_multi_purpose_labels.by_group(self.group.id).page_all(
