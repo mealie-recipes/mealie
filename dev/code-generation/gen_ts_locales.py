@@ -152,6 +152,7 @@ PROJECT_DIR = Path(__file__).parent.parent.parent
 datetime_dir = PROJECT_DIR / "frontend" / "lang" / "dateTimeFormats"
 locales_dir = PROJECT_DIR / "frontend" / "lang" / "messages"
 nuxt_config = PROJECT_DIR / "frontend" / "nuxt.config.js"
+reg_valid = PROJECT_DIR / "mealie" / "schema" / "_mealie" / "validators.py"
 
 """
 This snippet walks the message and dat locales directories and generates the import information
@@ -175,6 +176,16 @@ def inject_nuxt_values():
     inject_inline(nuxt_config, CodeKeys.nuxt_local_dates, all_date_locales)
 
 
+def inject_registration_validation_values():
+    all_langs = []
+    for match in locales_dir.glob("*.json"):
+        lang_string = f'"{match.stem}",'
+        all_langs.append(lang_string)
+
+    log.debug(f"injecting locales into user registration validation -> {reg_valid}")
+    inject_inline(reg_valid, CodeKeys.nuxt_local_messages, all_langs)
+
+
 def generate_locales_ts_file():
     api = CrowdinApi("")
     models = api.get_languages()
@@ -193,6 +204,7 @@ def main():
 
     generate_locales_ts_file()
     inject_nuxt_values()
+    inject_registration_validation_values()
 
 
 if __name__ == "__main__":
