@@ -3,8 +3,9 @@
     <v-hover v-slot="{ hover }" :open-delay="50">
       <v-card
         :class="{ 'on-hover': hover }"
+        :style="{ cursor }"
         :elevation="hover ? 12 : 2"
-        :to="route ? recipeRoute : ''"
+        :to="recipeRoute"
         :min-height="imageHeight + 75"
         @click="$emit('click')"
       >
@@ -33,7 +34,7 @@
         </v-card-title>
 
         <slot name="actions">
-          <v-card-actions class="px-1">
+          <v-card-actions v-if="showRecipeContent" class="px-1">
             <RecipeFavoriteBadge v-if="isOwnGroup" class="absolute" :slug="slug" show-always />
 
             <RecipeRating class="pb-1" :value="rating" :name="name" :slug="slug" :small="true" />
@@ -101,10 +102,6 @@ export default defineComponent({
       required: false,
       default: "abc123",
     },
-    route: {
-      type: Boolean,
-      default: true,
-    },
     tags: {
       type: Array,
       default: () => [],
@@ -123,14 +120,18 @@ export default defineComponent({
     const { isOwnGroup } = useLoggedInState();
 
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "")
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+    const showRecipeContent = computed(() => props.recipeId && props.slug);
     const recipeRoute = computed<string>(() => {
-      return `/g/${groupSlug.value}/r/${props.slug}`;
+      return showRecipeContent.value ? `/g/${groupSlug.value}/r/${props.slug}` : "";
     });
+    const cursor = computed(() => showRecipeContent.value ? "pointer" : "auto");
 
     return {
       isOwnGroup,
       recipeRoute,
+      showRecipeContent,
+      cursor,
     };
   },
 });
