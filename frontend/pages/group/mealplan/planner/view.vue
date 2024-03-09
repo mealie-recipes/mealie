@@ -38,7 +38,6 @@
             :key="mealplan.id"
             :recipe-id="mealplan.recipe ? mealplan.recipe.id : ''"
             class="mb-2"
-            :route="mealplan.recipe ? true : false"
             :rating="mealplan.recipe ? mealplan.recipe.rating : 0"
             :slug="mealplan.recipe ? mealplan.recipe.slug : mealplan.title"
             :description="mealplan.recipe ? mealplan.recipe.description : mealplan.text"
