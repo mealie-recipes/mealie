@@ -112,7 +112,7 @@ strict_optional = true
 
 [tool.ruff]
 line-length = 120
-output-format = "text"
+output-format = "concise"
 
 # Exclude a variety of commonly ignored directories.
 exclude = [
