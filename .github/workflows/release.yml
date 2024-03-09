@@ -68,6 +68,9 @@ jobs:
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
+        # This doesn't currently work for us because it creates the PR but the workflows don't run.
+        # TODO: Provide a personal access token as a parameter here, that solves that problem.
+        # https://github.com/peter-evans/create-pull-request
         with:
           commit-message: "Update image tag, for release ${{ github.event.release.tag_name }}"
           branch: "docs/newrelease-update-version-${{ github.event.release.tag_name }}"

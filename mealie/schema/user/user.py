@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Annotated, Any
+from typing import Annotated
 from uuid import UUID
 
 from pydantic import UUID4, ConfigDict, Field, StringConstraints, field_validator
@@ -12,6 +12,7 @@ from mealie.db.models.users import User
 from mealie.db.models.users.users import AuthMethod
 from mealie.schema._mealie import MealieModel
 from mealie.schema.group.group_preferences import ReadGroupPreferences
+from mealie.schema.group.webhook import CreateWebhook, ReadWebhook
 from mealie.schema.recipe import RecipeSummary
 from mealie.schema.response.pagination import PaginationBase
 
@@ -180,12 +181,14 @@ class UpdateGroup(GroupBase):
     slug: str
     categories: list[CategoryBase] | None = []
 
-    webhooks: list[Any] = []
+    webhooks: list[CreateWebhook] = []
 
 
 class GroupInDB(UpdateGroup):
     users: list[UserOut] | None = None
     preferences: ReadGroupPreferences | None = None
+    webhooks: list[ReadWebhook] = []
+
     model_config = ConfigDict(from_attributes=True)
 
     @staticmethod

@@ -107,7 +107,7 @@
           <template #icon> {{ $globals.icons.tags }} </template>
           {{ $t('shopping-list.reorder-labels') }}
         </BaseButton>
-        <BaseButton create @click="createEditorOpen = true" />
+        <BaseButton create @click="createEditorOpen = true" > {{ $t('general.add') }} </BaseButton>
       </div>
 
       <!-- Action Bar -->

@@ -24,11 +24,8 @@ def search_user(conn: LDAPObject, username: str) -> list[tuple[str, dict[str, li
             id_attribute=settings.LDAP_ID_ATTRIBUTE, mail_attribute=settings.LDAP_MAIL_ATTRIBUTE, input=username
         )
     # Don't assume the provided search filter has (|({id_attribute}={input})({mail_attribute}={input}))
-    search_filter = "(&(|({id_attribute}={input})({mail_attribute}={input})){filter})".format(
-        id_attribute=settings.LDAP_ID_ATTRIBUTE,
-        mail_attribute=settings.LDAP_MAIL_ATTRIBUTE,
-        input=username,
-        filter=user_filter,
+    search_filter = (
+        f"(&(|({settings.LDAP_ID_ATTRIBUTE}={username})({settings.LDAP_MAIL_ATTRIBUTE}={username})){user_filter})"
     )
 
     user_entry: list[tuple[str, dict[str, list[bytes]]]] | None = None

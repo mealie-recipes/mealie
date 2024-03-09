@@ -47,7 +47,7 @@
         <span>{{ parserToolTip }}</span>
       </v-tooltip>
       <RecipeDialogBulkAdd class="mx-1 mb-1" @bulk-data="addIngredient" />
-      <BaseButton class="mb-1" @click="addIngredient" > {{ $t("general.new") }} </BaseButton>
+      <BaseButton class="mb-1" @click="addIngredient" > {{ $t("general.add") }} </BaseButton>
     </div>
   </div>
 </template>
