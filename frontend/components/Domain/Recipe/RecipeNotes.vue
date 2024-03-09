@@ -24,7 +24,7 @@
     </div>
 
     <div v-if="edit" class="d-flex justify-end">
-      <BaseButton class="ml-auto my-2" @click="addNote"> {{ $t("general.new") }}</BaseButton>
+      <BaseButton class="ml-auto my-2" @click="addNote"> {{ $t("general.add") }}</BaseButton>
     </div>
   </div>
 </template>
