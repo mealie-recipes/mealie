@@ -49,7 +49,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     user_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("users.id", use_alter=True), index=True)
     user: Mapped["User"] = orm.relationship("User", uselist=False, foreign_keys=[user_id])
 
-    meal_entries: Mapped["GroupMealPlan"] = orm.relationship(
+    meal_entries: Mapped[list["GroupMealPlan"]] = orm.relationship(
         "GroupMealPlan", back_populates="recipe", cascade="all, delete-orphan"
     )
 
@@ -72,7 +72,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     recipe_yield: Mapped[str | None] = mapped_column(sa.String)
     recipeCuisine: Mapped[str | None] = mapped_column(sa.String)
 
-    assets: Mapped[RecipeAsset] = orm.relationship("RecipeAsset", cascade="all, delete-orphan")
+    assets: Mapped[list[RecipeAsset]] = orm.relationship("RecipeAsset", cascade="all, delete-orphan")
     nutrition: Mapped[Nutrition] = orm.relationship("Nutrition", uselist=False, cascade="all, delete-orphan")
     recipe_category: Mapped[list["Category"]] = orm.relationship(
         "Category", secondary=recipes_to_categories, back_populates="recipes"

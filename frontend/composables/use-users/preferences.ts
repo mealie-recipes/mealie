@@ -22,6 +22,7 @@ export interface UserRecipePreferences {
 }
 
 export interface UserShoppingListPreferences {
+  viewAllLists: boolean;
   viewByLabel: boolean;
 }
 
@@ -70,6 +71,7 @@ export function useShoppingListPreferences(): Ref<UserShoppingListPreferences> {
   const fromStorage = useLocalStorage(
     "shopping-list-preferences",
     {
+      viewAllLists: false,
       viewByLabel: false,
     },
     { mergeDefaults: true }

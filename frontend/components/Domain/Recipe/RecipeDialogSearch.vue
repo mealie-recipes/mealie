@@ -45,7 +45,6 @@
           :rating="recipe.rating"
           :image="recipe.image"
           :recipe-id="recipe.id"
-          :route="true"
           v-on="$listeners.selected ? { selected: () => handleSelect(recipe) } : {}"
         />
       </v-card>

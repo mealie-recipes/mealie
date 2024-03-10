@@ -80,6 +80,7 @@
     "recipe-events": "Evenimente rețetă"
   },
   "general": {
+    "add": "Add",
     "cancel": "Anulează",
     "clear": "Șterge",
     "close": "Închide",
@@ -142,6 +143,7 @@
     "save": "Salvează",
     "settings": "Setări",
     "share": "Distribuie",
+    "show-all": "Show All",
     "shuffle": "Redați aleatoriu",
     "sort": "Sortează",
     "sort-alphabetically": "Alfabetic",

@@ -3,7 +3,7 @@
     <BaseDialog v-if="shoppingListDialog" v-model="dialog" :title="$t('recipe.add-to-list')" :icon="$globals.icons.cartCheck">
       <v-card-text>
         <v-card
-          v-for="list in shoppingLists"
+          v-for="list in shoppingListChoices"
           :key="list.id"
           hover
           class="my-2 left-border"
@@ -14,6 +14,18 @@
           </v-card-title>
         </v-card>
       </v-card-text>
+      <template #card-actions>
+        <v-btn
+          text
+          color="grey"
+          @click="dialog = false"
+        >
+          {{ $t("general.cancel") }}
+        </v-btn>
+        <div class="d-flex justify-end" style="width: 100%;">
+          <v-checkbox v-model="preferences.viewAllLists" hide-details :label="$tc('general.show-all')" class="my-auto mr-4" />
+        </div>
+      </template>
     </BaseDialog>
     <BaseDialog
       v-if="shoppingListIngredientDialog"
@@ -120,6 +132,7 @@ import { toRefs } from "@vueuse/core";
 import RecipeIngredientListItem from "./RecipeIngredientListItem.vue";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
+import { useShoppingListPreferences } from "~/composables/use-users/preferences";
 import { ShoppingListSummary } from "~/lib/api/types/group";
 import { Recipe, RecipeIngredient } from "~/lib/api/types/recipe";
 
@@ -164,8 +177,9 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-    const { i18n } = useContext();
+    const { $auth, i18n } = useContext();
     const api = useUserApi();
+    const preferences = useShoppingListPreferences();
 
     // v-model support
     const dialog = computed({
@@ -181,6 +195,10 @@ export default defineComponent({
     const state = reactive({
       shoppingListDialog: true,
       shoppingListIngredientDialog: false,
+    });
+
+    const shoppingListChoices = computed(() => {
+      return props.shoppingLists.filter((list) => preferences.value.viewAllLists || list.userId === $auth.user?.id);
     });
 
     const recipeIngredientSections = ref<ShoppingListRecipeIngredientSection[]>([]);
@@ -334,6 +352,8 @@ export default defineComponent({
 
     return {
       dialog,
+      preferences,
+      shoppingListChoices,
       ...toRefs(state),
       addRecipesToList,
       bulkCheckIngredients,

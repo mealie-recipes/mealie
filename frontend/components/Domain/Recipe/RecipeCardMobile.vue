@@ -3,6 +3,7 @@
     <v-card
       :ripple="false"
       :class="isFlat ? 'mx-auto flat' : 'mx-auto'"
+      :style="{ cursor }"
       hover
       :to="$listeners.selected ? undefined : recipeRoute"
       @click="$emit('selected')"
@@ -37,8 +38,9 @@
           </v-list-item-subtitle>
           <div class="d-flex flex-wrap justify-end align-center">
             <slot name="actions">
-              <RecipeFavoriteBadge v-if="isOwnGroup" :slug="slug" show-always />
+              <RecipeFavoriteBadge v-if="isOwnGroup && showRecipeContent" :slug="slug" show-always />
               <v-rating
+                v-if="showRecipeContent"
                 color="secondary"
                 :class="isOwnGroup ? 'ml-auto' : 'ml-auto pb-2'"
                 background-color="secondary lighten-3"
@@ -52,7 +54,7 @@
               <!-- If we're not logged-in, no items display, so we hide this menu -->
               <!-- We also add padding to the v-rating above to compensate -->
               <RecipeContextMenu
-                v-if="isOwnGroup"
+                v-if="isOwnGroup && showRecipeContent"
                 :slug="slug"
                 :menu-icon="$globals.icons.dotsHorizontal"
                 :name="name"
@@ -113,10 +115,6 @@ export default defineComponent({
       required: false,
       default: "abc123",
     },
-    route: {
-      type: Boolean,
-      default: true,
-    },
     recipeId: {
       type: String,
       required: true,
@@ -135,14 +133,19 @@ export default defineComponent({
     const { isOwnGroup } = useLoggedInState();
 
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "")
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+    const showRecipeContent = computed(() => props.recipeId && props.slug);
     const recipeRoute = computed<string>(() => {
-      return `/g/${groupSlug.value}/r/${props.slug}`;
+      return showRecipeContent.value ? `/g/${groupSlug.value}/r/${props.slug}` : "";
     });
+    const cursor = computed(() => showRecipeContent.value ? "pointer" : "auto");
+
 
     return {
       isOwnGroup,
       recipeRoute,
+      showRecipeContent,
+      cursor,
     };
   },
 });

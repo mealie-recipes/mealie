@@ -505,6 +505,7 @@ export interface ShoppingListOut {
   createdAt?: string;
   updateAt?: string;
   groupId: string;
+  userId: string;
   id: string;
   listItems?: ShoppingListItemOut[];
   recipeReferences: ShoppingListRecipeRefOut[];
@@ -568,6 +569,7 @@ export interface ShoppingListSave {
   createdAt?: string;
   updateAt?: string;
   groupId: string;
+  userId: string;
 }
 export interface ShoppingListSummary {
   name?: string;
@@ -577,6 +579,7 @@ export interface ShoppingListSummary {
   createdAt?: string;
   updateAt?: string;
   groupId: string;
+  userId: string;
   id: string;
   recipeReferences: ShoppingListRecipeRefOut[];
   labelSettings: ShoppingListMultiPurposeLabelOut[];
@@ -589,6 +592,7 @@ export interface ShoppingListUpdate {
   createdAt?: string;
   updateAt?: string;
   groupId: string;
+  userId: string;
   id: string;
   listItems?: ShoppingListItemOut[];
 }

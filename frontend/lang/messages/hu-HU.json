@@ -80,6 +80,7 @@
     "recipe-events": "Recept esemény"
   },
   "general": {
+    "add": "Add",
     "cancel": "Mégsem",
     "clear": "Törlés",
     "close": "Bezár",
@@ -142,6 +143,7 @@
     "save": "Mentés",
     "settings": "Beállítások",
     "share": "Megosztás",
+    "show-all": "Show All",
     "shuffle": "Véletlenszerű",
     "sort": "Rendezés",
     "sort-alphabetically": "Betűrendben",

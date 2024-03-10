@@ -80,6 +80,7 @@
     "recipe-events": "Recipe Events"
   },
   "general": {
+    "add": "Ekle",
     "cancel": "İptal",
     "clear": "Temizle",
     "close": "Kapat",
@@ -142,6 +143,7 @@
     "save": "Kaydet",
     "settings": "Ayarlar",
     "share": "Paylaş",
+    "show-all": "Tümünü Göster",
     "shuffle": "Karıştır",
     "sort": "Sırala",
     "sort-alphabetically": "Alfabetik",

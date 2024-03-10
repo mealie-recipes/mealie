@@ -80,6 +80,7 @@
     "recipe-events": "Recipe Events"
   },
   "general": {
+    "add": "Add",
     "cancel": "إلغاء",
     "clear": "مسح",
     "close": "إغلاق",
@@ -142,6 +143,7 @@
     "save": "حفظ",
     "settings": "الإعدادات",
     "share": "مشاركة",
+    "show-all": "Show All",
     "shuffle": "ترتيب عشوائي",
     "sort": "ترتيب",
     "sort-alphabetically": "ترتيب حَسَبَ الحروف الأبجدية",

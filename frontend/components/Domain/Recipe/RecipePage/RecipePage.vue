@@ -51,7 +51,7 @@
             />
             <div v-if="isEditForm" class="d-flex">
               <RecipeDialogBulkAdd class="ml-auto my-2 mr-1" @bulk-data="addStep" />
-              <BaseButton class="my-2" @click="addStep()"> {{ $t("general.new") }}</BaseButton>
+              <BaseButton class="my-2" @click="addStep()"> {{ $t("general.add") }}</BaseButton>
             </div>
             <div v-if="!$vuetify.breakpoint.mdAndUp">
               <RecipePageOrganizers :recipe="recipe" />

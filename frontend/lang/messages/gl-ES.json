@@ -80,6 +80,7 @@
     "recipe-events": "Recipe Events"
   },
   "general": {
+    "add": "Add",
     "cancel": "Cancel",
     "clear": "Clear",
     "close": "Close",
@@ -142,6 +143,7 @@
     "save": "Gardar",
     "settings": "Axustes",
     "share": "Compartir",
+    "show-all": "Show All",
     "shuffle": "Barallar",
     "sort": "Ordenar",
     "sort-alphabetically": "Alfabético",

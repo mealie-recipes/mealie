@@ -80,6 +80,7 @@
     "recipe-events": "Recipe Events"
   },
   "general": {
+    "add": "Add",
     "cancel": "Άκυρο",
     "clear": "Εκκαθάριση",
     "close": "Κλείσιμο",
@@ -142,6 +143,7 @@
     "save": "Αποθήκευση",
     "settings": "Ρυθμίσεις",
     "share": "Κοινοποίηση",
+    "show-all": "Show All",
     "shuffle": "Τυχαία",
     "sort": "Ταξινόμηση",
     "sort-alphabetically": "Αλφαβητική",

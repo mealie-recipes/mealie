@@ -758,7 +758,7 @@ def test_pagination_order_by_nulls(
 def test_pagination_shopping_list_items_with_labels(database: AllRepositories, unique_user: TestUser):
     # create a shopping list and populate it with some items with labels, and some without labels
     shopping_list = database.group_shopping_lists.create(
-        ShoppingListSave(name=random_string(), group_id=unique_user.group_id)
+        ShoppingListSave(name=random_string(), group_id=unique_user.group_id, user_id=unique_user.user_id)
     )
 
     labels = database.group_multi_purpose_labels.create_many(

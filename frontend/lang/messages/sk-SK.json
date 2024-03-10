@@ -80,6 +80,7 @@
     "recipe-events": "Recipe Events"
   },
   "general": {
+    "add": "Add",
     "cancel": "Zrušiť",
     "clear": "Vymazať",
     "close": "Zavrieť",
@@ -142,6 +143,7 @@
     "save": "Uložiť",
     "settings": "Nastavenia",
     "share": "Zdieľať",
+    "show-all": "Show All",
     "shuffle": "Náhodný výber",
     "sort": "Usporiadať",
     "sort-alphabetically": "Abecedne",

@@ -14,6 +14,7 @@ from mealie.schema.reports.reports import (
     ReportCategory,
     ReportCreate,
     ReportEntryCreate,
+    ReportEntryOut,
     ReportOut,
     ReportSummary,
     ReportSummaryStatus,
@@ -91,6 +92,7 @@ class BaseMigrator(BaseService):
         is_success = True
         is_failure = True
 
+        new_entries: list[ReportEntryOut] = []
         for entry in self.report_entries:
             if is_failure and entry.success:
                 is_failure = False
@@ -98,7 +100,7 @@ class BaseMigrator(BaseService):
             if is_success and not entry.success:
                 is_success = False
 
-            self.db.group_report_entries.create(entry)
+            new_entries.append(self.db.group_report_entries.create(entry))
 
         if is_success:
             self.report.status = ReportSummaryStatus.success
@@ -109,6 +111,7 @@ class BaseMigrator(BaseService):
         if not is_success and not is_failure:
             self.report.status = ReportSummaryStatus.partial
 
+        self.report.entries = new_entries
         self.db.group_reports.update(self.report.id, self.report)
 
     def migrate(self, report_name: str) -> ReportSummary:

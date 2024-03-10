@@ -80,6 +80,7 @@
     "recipe-events": "Eventos de receita"
   },
   "general": {
+    "add": "Adicionar",
     "cancel": "Cancelar",
     "clear": "Limpar",
     "close": "Fechar",
@@ -142,6 +143,7 @@
     "save": "Guardar",
     "settings": "Definições",
     "share": "Partilhar",
+    "show-all": "Mostrar todos",
     "shuffle": "Baralhar",
     "sort": "Ordenar",
     "sort-alphabetically": "Ordem alfabética",

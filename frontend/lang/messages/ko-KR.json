@@ -80,6 +80,7 @@
     "recipe-events": "Recipe Events"
   },
   "general": {
+    "add": "Add",
     "cancel": "Cancel",
     "clear": "Clear",
     "close": "Close",
@@ -142,6 +143,7 @@
     "save": "저장",
     "settings": "설정",
     "share": "공유",
+    "show-all": "Show All",
     "shuffle": "섞기",
     "sort": "정렬",
     "sort-alphabetically": "알파벳순",

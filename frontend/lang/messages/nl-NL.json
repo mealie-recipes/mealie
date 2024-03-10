@@ -80,6 +80,7 @@
     "recipe-events": "Recept gebeurtenissen"
   },
   "general": {
+    "add": "Voeg toe",
     "cancel": "Annuleren",
     "clear": "Wissen",
     "close": "Sluiten",
@@ -142,6 +143,7 @@
     "save": "Opslaan",
     "settings": "Instellingen",
     "share": "Delen",
+    "show-all": "Laat alles zien",
     "shuffle": "Willekeurig",
     "sort": "Sorteren",
     "sort-alphabetically": "Alfabetisch",

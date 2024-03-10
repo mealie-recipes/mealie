@@ -80,6 +80,7 @@
     "recipe-events": "События Рецепта"
   },
   "general": {
+    "add": "Add",
     "cancel": "Отмена",
     "clear": "Очистить",
     "close": "Закрыть",
@@ -142,6 +143,7 @@
     "save": "Сохранить",
     "settings": "Настройки",
     "share": "Поделиться",
+    "show-all": "Show All",
     "shuffle": "Перемешать",
     "sort": "Сортировать",
     "sort-alphabetically": "По алфавиту",

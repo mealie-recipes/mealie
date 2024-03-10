@@ -80,6 +80,7 @@
     "recipe-events": "Recipe Events"
   },
   "general": {
+    "add": "Add",
     "cancel": "Odustani",
     "clear": "Očisti",
     "close": "Zatvori",
@@ -142,6 +143,7 @@
     "save": "Spremi",
     "settings": "Postavke",
     "share": "Podijeli",
+    "show-all": "Show All",
     "shuffle": "Nasumično",
     "sort": "Sortiraj",
     "sort-alphabetically": "Abecedno",

@@ -6,8 +6,11 @@ from pytest import MonkeyPatch
 from mealie.core import security
 from mealie.core.config import get_app_settings
 from mealie.core.dependencies import validate_file_token
+from mealie.core.security.providers.credentials_provider import CredentialsProvider, CredentialsRequest
+from mealie.core.security.providers.ldap_provider import LDAPProvider
 from mealie.db.db_setup import session_context
 from mealie.db.models.users.users import AuthMethod
+from mealie.schema.user.auth import CredentialsRequestForm
 from mealie.schema.user.user import PrivateUser
 from tests.utils import random_string
 
@@ -113,6 +116,11 @@ def test_create_file_token():
     assert file_path == validate_file_token(file_token)
 
 
+def get_provider(session, username: str, password: str):
+    request_data = CredentialsRequest(username=username, password=password)
+    return LDAPProvider(session, request_data)
+
+
 def test_ldap_user_creation(monkeypatch: MonkeyPatch):
     user, mail, name, password, query_bind, query_password = setup_env(monkeypatch)
 
@@ -125,7 +133,8 @@ def test_ldap_user_creation(monkeypatch: MonkeyPatch):
     get_app_settings.cache_clear()
 
     with session_context() as session:
-        result = security.authenticate_user(session, user, password)
+        provider = get_provider(session, user, password)
+        result = provider.get_user()
 
     assert result
     assert result.username == user
@@ -146,9 +155,10 @@ def test_ldap_user_creation_fail(monkeypatch: MonkeyPatch):
     get_app_settings.cache_clear()
 
     with session_context() as session:
-        result = security.authenticate_user(session, user, password + "a")
+        provider = get_provider(session, user, password + "a")
+        result = provider.get_user()
 
-    assert result is False
+    assert result is None
 
 
 def test_ldap_user_creation_non_admin(monkeypatch: MonkeyPatch):
@@ -164,7 +174,8 @@ def test_ldap_user_creation_non_admin(monkeypatch: MonkeyPatch):
     get_app_settings.cache_clear()
 
     with session_context() as session:
-        result = security.authenticate_user(session, user, password)
+        provider = get_provider(session, user, password)
+        result = provider.get_user()
 
     assert result
     assert result.username == user
@@ -186,7 +197,8 @@ def test_ldap_user_creation_admin(monkeypatch: MonkeyPatch):
     get_app_settings.cache_clear()
 
     with session_context() as session:
-        result = security.authenticate_user(session, user, password)
+        provider = get_provider(session, user, password)
+        result = provider.get_user()
 
     assert result
     assert result.username == user
@@ -198,35 +210,17 @@ def test_ldap_user_creation_admin(monkeypatch: MonkeyPatch):
 def test_ldap_disabled(monkeypatch: MonkeyPatch):
     monkeypatch.setenv("LDAP_AUTH_ENABLED", "False")
 
-    user = random_string(10)
-    password = random_string(10)
-
-    class LdapConnMock:
-        def simple_bind_s(self, dn, bind_pw):
-            assert False  # When LDAP is disabled, this method should not be called
-
-        def search_s(self, dn, scope, filter, attrlist):
-            pass
-
-        def set_option(self, option, invalue):
-            pass
-
-        def unbind_s(self):
-            pass
-
-        def start_tls_s(self):
-            pass
-
-    def ldap_initialize_mock(url):
-        assert url == ""
-        return LdapConnMock()
-
-    monkeypatch.setattr(ldap, "initialize", ldap_initialize_mock)
+    class Request:
+        def __init__(self, auth_strategy: str):
+            self.cookies = {"mealie.auth.strategy": auth_strategy}
 
     get_app_settings.cache_clear()
 
     with session_context() as session:
-        security.authenticate_user(session, user, password)
+        form = CredentialsRequestForm("username", "password", False)
+        provider = security.get_auth_provider(session, Request("local"), form)
+
+    assert isinstance(provider, CredentialsProvider)
 
 
 def test_user_login_ldap_auth_method(monkeypatch: MonkeyPatch, ldap_user: PrivateUser):
@@ -245,7 +239,8 @@ def test_user_login_ldap_auth_method(monkeypatch: MonkeyPatch, ldap_user: Privat
     get_app_settings.cache_clear()
 
     with session_context() as session:
-        result = security.authenticate_user(session, ldap_user.username, ldap_password)
+        provider = get_provider(session, ldap_user.username, ldap_password)
+        result = provider.get_user()
 
     assert result
     assert result.username == ldap_user.username

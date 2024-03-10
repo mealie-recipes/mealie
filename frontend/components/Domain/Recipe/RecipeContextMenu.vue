@@ -321,7 +321,7 @@ export default defineComponent({
     const recipeRefWithScale = computed(() => recipeRef.value ? { scale: props.recipeScale, ...recipeRef.value } : undefined);
 
     async function getShoppingLists() {
-      const { data } = await api.shopping.lists.getAll();
+      const { data } = await api.shopping.lists.getAll(1, -1, { orderBy: "name", orderDirection: "asc" });
       if (data) {
         shoppingLists.value = data.items ?? [];
       }

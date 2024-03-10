@@ -1,0 +1,46 @@
+name: E2E Tests
+on:
+  pull_request:
+    branches:
+      - mealie-next
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./tests/e2e
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 18
+        cache: 'yarn'
+        cache-dependency-path: ./tests/e2e/yarn.lock
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+    - name: Build Image
+      uses: docker/build-push-action@v5
+      with:
+        file: ./docker/Dockerfile
+        context: .
+        push: false
+        load: true
+        tags: mealie:e2e
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+    - name: Deploy E2E Test Environment
+      run: docker compose up -d
+      working-directory: ./tests/e2e/docker
+    - name: Install dependencies
+      run: npm install -g yarn && yarn
+    - name: Install Playwright Browsers
+      run: yarn playwright install --with-deps
+    - name: Check test environment
+      run: docker ps
+    - name: Run Playwright tests
+      run: yarn playwright test
+    - name: Destroy Test Environment
+      if: always()
+      run: docker compose down --volumes
+      working-directory: ./tests/e2e/docker

@@ -80,6 +80,7 @@
     "recipe-events": "Esdeveniments de receptes"
   },
   "general": {
+    "add": "Add",
     "cancel": "Anuŀla",
     "clear": "Neteja",
     "close": "Tanca",
@@ -142,6 +143,7 @@
     "save": "Desa",
     "settings": "Configuració",
     "share": "Compartiu",
+    "show-all": "Show All",
     "shuffle": "Barreja",
     "sort": "Ordena",
     "sort-alphabetically": "Alfabèticament",

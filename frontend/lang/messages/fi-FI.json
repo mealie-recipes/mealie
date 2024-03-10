@@ -80,6 +80,7 @@
     "recipe-events": "Recipe Events"
   },
   "general": {
+    "add": "Add",
     "cancel": "Peruuta",
     "clear": "Tyhjennä",
     "close": "Sulje",
@@ -142,6 +143,7 @@
     "save": "Tallenna",
     "settings": "Asetukset",
     "share": "Jaa",
+    "show-all": "Show All",
     "shuffle": "Sekoita",
     "sort": "Järjestä",
     "sort-alphabetically": "Aakkosjärjestyksessä",

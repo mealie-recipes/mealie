@@ -80,6 +80,7 @@
     "recipe-events": "Oppskriftshendelser"
   },
   "general": {
+    "add": "Add",
     "cancel": "Avbryt",
     "clear": "Tøm",
     "close": "Lukk",
@@ -142,6 +143,7 @@
     "save": "Lagre",
     "settings": "Innstillinger",
     "share": "Del",
+    "show-all": "Show All",
     "shuffle": "Tilfeldig rekkefølge",
     "sort": "Sortér",
     "sort-alphabetically": "Alfabetisk",

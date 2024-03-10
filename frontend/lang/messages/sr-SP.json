@@ -80,6 +80,7 @@
     "recipe-events": "Recipe Events"
   },
   "general": {
+    "add": "Add",
     "cancel": "Откажи",
     "clear": "Обриши",
     "close": "Затвори",
@@ -142,6 +143,7 @@
     "save": "Сачувај",
     "settings": "Подешавања",
     "share": "Подели",
+    "show-all": "Show All",
     "shuffle": "Помешано",
     "sort": "Сортирај",
     "sort-alphabetically": "Азбучно",

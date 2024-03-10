@@ -80,6 +80,7 @@
     "recipe-events": "Recipe Events"
   },
   "general": {
+    "add": "Add",
     "cancel": "取消",
     "clear": "清除",
     "close": "關閉",
@@ -142,6 +143,7 @@
     "save": "保存",
     "settings": "設定",
     "share": "分享",
+    "show-all": "Show All",
     "shuffle": "隨機",
     "sort": "排序",
     "sort-alphabetically": "按字母順序",

@@ -80,6 +80,7 @@
     "recipe-events": "Recepthändelser"
   },
   "general": {
+    "add": "Add",
     "cancel": "Avbryt",
     "clear": "Rensa",
     "close": "Stäng",
@@ -142,6 +143,7 @@
     "save": "Spara",
     "settings": "Inställningar",
     "share": "Dela",
+    "show-all": "Show All",
     "shuffle": "Blanda",
     "sort": "Sortering",
     "sort-alphabetically": "Alfabetisk",

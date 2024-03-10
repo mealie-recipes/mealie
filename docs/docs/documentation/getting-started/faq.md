@@ -94,6 +94,10 @@ docker exec -it mealie-next bash
 python /app/mealie/scripts/change_password.py
 ```
 
+## I can't log in with external auth. How can I change my authentication method?
+
+Follow the [steps above](#how-can-i-change-my-password) for changing your password. You will be prompted if you would like to switch your authentication method back to local auth so you can log in again.
+
 ## How do private groups and recipes work?
 
 Managing private groups and recipes can be confusing. The following diagram and notes should help explain how they work to determine if a recipe can be shared publicly.

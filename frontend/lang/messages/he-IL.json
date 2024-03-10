@@ -80,6 +80,7 @@
     "recipe-events": "אירועי מתכון"
   },
   "general": {
+    "add": "Add",
     "cancel": "ביטול",
     "clear": "נקה",
     "close": "סגירה",
@@ -142,6 +143,7 @@
     "save": "שמירה",
     "settings": "הגדרות",
     "share": "שיתוף",
+    "show-all": "Show All",
     "shuffle": "אקראי",
     "sort": "מיון",
     "sort-alphabetically": "א-ת",
