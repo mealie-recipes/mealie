@@ -1,8 +1,8 @@
 """add OIDC auth method
 
 Revision ID: 09aba125b57a
-Revises: ba1e4a6cfe99
-Create Date: 2023-12-28 05:08:32.397027
+Revises: 2298bb460ffd
+Create Date: 2024-03-10 05:08:32.397027
 
 """
 
@@ -13,7 +13,7 @@ from alembic import op
 
 # revision identifiers, used by Alembic.
 revision = "09aba125b57a"
-down_revision = "ba1e4a6cfe99"
+down_revision = "2298bb460ffd"
 branch_labels = None
 depends_on = None
 
