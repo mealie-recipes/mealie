@@ -50,7 +50,7 @@ class CodeSlicer:
         self._next_line += 1
 
 
-def get_indentation_of_string(line: str, comment_char: str = "//") -> str:
+def get_indentation_of_string(line: str, comment_char: str = "//|#") -> str:
     return re.sub(rf"{comment_char}.*", "", line).removesuffix("\n")
 
 

@@ -1,9 +1,8 @@
 import re
 from enum import Enum
-from typing import Optional
 
 from humps import camelize
-from pydantic import BaseModel, Extra, Field
+from pydantic import BaseModel, ConfigDict, Field
 from slugify import slugify
 
 
@@ -34,32 +33,29 @@ class ParameterIn(str, Enum):
 
 
 class RouterParameter(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
     required: bool = False
     name: str
     location: ParameterIn = Field(..., alias="in")
 
-    class Config:
-        extra = Extra.allow
-
 
 class RequestBody(BaseModel):
-    required: bool = False
+    model_config = ConfigDict(extra="allow")
 
-    class Config:
-        extra = Extra.allow
+    required: bool = False
 
 
 class HTTPRequest(BaseModel):
+    model_config = ConfigDict(extra="allow", populate_by_name=True)
+
     request_type: RequestType
     description: str = ""
     summary: str
-    requestBody: Optional[RequestBody]
+    request_body: RequestBody | None = None
 
     parameters: list[RouterParameter] = []
     tags: list[str] | None = []
-
-    class Config:
-        extra = Extra.allow
 
     def list_as_js_object_string(self, parameters, braces=True):
         if len(parameters) == 0:
@@ -71,11 +67,11 @@ class HTTPRequest(BaseModel):
             return ", ".join(parameters)
 
     def payload(self):
-        return "payload" if self.requestBody else ""
+        return "payload" if self.request_body else ""
 
     def function_args(self):
         all_params = [p.name for p in self.parameters]
-        if self.requestBody:
+        if self.request_body:
             all_params.append("payload")
         return self.list_as_js_object_string(all_params)
 
