@@ -80,6 +80,7 @@
     "recipe-events": "Recept gebeurtenissen"
   },
   "general": {
+    "add": "Voeg toe",
     "cancel": "Annuleren",
     "clear": "Wissen",
     "close": "Sluiten",

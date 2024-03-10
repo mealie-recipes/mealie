@@ -80,6 +80,7 @@
     "recipe-events": "Recipe Events"
   },
   "general": {
+    "add": "Add",
     "cancel": "キャンセル",
     "clear": "クリア",
     "close": "閉じる",

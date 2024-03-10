@@ -80,6 +80,7 @@
     "recipe-events": "אירועי מתכון"
   },
   "general": {
+    "add": "Add",
     "cancel": "ביטול",
     "clear": "נקה",
     "close": "סגירה",
