@@ -80,6 +80,7 @@
     "recipe-events": "Recepthändelser"
   },
   "general": {
+    "add": "Add",
     "cancel": "Avbryt",
     "clear": "Rensa",
     "close": "Stäng",
