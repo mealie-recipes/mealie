@@ -77,9 +77,10 @@
     "tag-events": "Zdarzenia tagów",
     "category-events": "Wydarzenia kategorii",
     "when-a-new-user-joins-your-group": "Kiedy nowy użytkownik dołączy do Twojej grupy",
-    "recipe-events": "Recipe Events"
+    "recipe-events": "Zdarzenia Przepisów"
   },
   "general": {
+    "add": "Dodaj",
     "cancel": "Anuluj",
     "clear": "Wyczyść",
     "close": "Zamknij",
@@ -142,7 +143,7 @@
     "save": "Zapisz",
     "settings": "Ustawienia",
     "share": "Udostępnij",
-    "show-all": "Show All",
+    "show-all": "Pokaż wszystko",
     "shuffle": "Pomieszaj",
     "sort": "Sortuj",
     "sort-alphabetically": "Alfabetyczne",
@@ -495,8 +496,8 @@
     "cook-mode": "Tryb Gotowania",
     "link-ingredients": "Podłącz składniki",
     "merge-above": "Scal z powyższym",
-    "move-to-bottom": "Move To Bottom",
-    "move-to-top": "Move To Top",
+    "move-to-bottom": "Przesuń na sam dół",
+    "move-to-top": "Przesuń na samą górę",
     "reset-scale": "Zresetuj Skalę",
     "decrease-scale-label": "Zmniejsz Skalę o 1",
     "increase-scale-label": "Zwiększ Skalę o 1",
@@ -602,7 +603,7 @@
       "import-summary": "Podsumowanie importu",
       "partial-backup": "Częściowa kopia zapasowa",
       "unable-to-delete-backup": "Nie można usunąć kopii zapasowej.",
-      "experimental-description": "Backups are total snapshots of the database and data directory of the site. This includes all data and cannot be set to exclude subsets of data. You can think of this as a snapshot of Mealie at a specific time. These serve as a database agnostic way to export and import data, or back up the site to an external location.",
+      "experimental-description": "Kopie zapasowe to całkowite zrzuty bazy danych i katalogu danych witryny. Obejmują one wszystkie dane i nie można nic ustawić, aby wykluczyć podzbiory danych. Traktuj je jako stan całego Mealie w określonym momencie czasu. Backupy to agnostyczny sposób eksportowania i importowania danych oraz sposób na zrobienie kopii witryny do zewnętrznej lokalizacji.",
       "backup-restore": "Przywróć kopie",
       "back-restore-description": "Przywracanie tej kopii zapasowej nadpisze wszystkie aktualne dane w bazie danych i w katalogu danych i zastąpi je zawartością tej kopii zapasowej. {cannot-be-undone} Jeśli przywrócenie zakończy się pomyślnie, zostaniesz wylogowany.",
       "cannot-be-undone": "Tej czynności nie można cofnąć - należy zachować ostrożność.",
@@ -872,7 +873,7 @@
     "you-are-not-allowed-to-create-a-user": "Nie masz uprawnień do tworzenia użytkowników",
     "you-are-not-allowed-to-delete-this-user": "Nie masz uprawnień do usuwania użytkowników",
     "enable-advanced-content": "Włącz zaawansowane ustawienia",
-    "enable-advanced-content-description": "Włącza funkcje zaawansowane takie jak skalowanie przepisów, klucze API, webhooki i zarządzanie danymi. Nie mart się, opcję tą można później zmienić",
+    "enable-advanced-content-description": "Włącza zaawansowane funkcje, takie jak skalowanie receptur, klucze API, Webhooki i zarządzanie danymi. Nie martw się, zawsze możesz to zmienić później",
     "favorite-recipes": "Ulubione przepisy",
     "email-or-username": "E-mail lub nazwa użytkownika",
     "remember-me": "Zapamiętaj",
@@ -949,7 +950,7 @@
       "example-unit-singular": "np. Łyżka stołowa",
       "example-unit-plural": "np. Łyżki stołowe",
       "example-unit-abbreviation-singular": "na przykład: Łyżka stołowa",
-      "example-unit-abbreviation-plural": "ex: Tbsps"
+      "example-unit-abbreviation-plural": "na przykład: Łyżka stołowa"
     },
     "labels": {
       "seed-dialog-text": "Wypełnij bazę zwyczajowymi etykietami dla wybranego języka.",
