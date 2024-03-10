@@ -80,6 +80,7 @@
     "recipe-events": "Recept esemény"
   },
   "general": {
+    "add": "Add",
     "cancel": "Mégsem",
     "clear": "Törlés",
     "close": "Bezár",
@@ -142,6 +143,7 @@
     "save": "Mentés",
     "settings": "Beállítások",
     "share": "Megosztás",
+    "show-all": "Show All",
     "shuffle": "Véletlenszerű",
     "sort": "Rendezés",
     "sort-alphabetically": "Betűrendben",
@@ -494,6 +496,8 @@
     "cook-mode": "Főzési mód",
     "link-ingredients": "Hozzávalók összekapcsolása",
     "merge-above": "Összevonás a fentivel",
+    "move-to-bottom": "Move To Bottom",
+    "move-to-top": "Move To Top",
     "reset-scale": "Skála alaphelyzetbe állítása",
     "decrease-scale-label": "Skála csökkentése 1-gyel",
     "increase-scale-label": "Skála növelése 1-gyel",

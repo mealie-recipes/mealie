@@ -110,7 +110,7 @@ tasks:
   py:lint:
     desc: runs python linter
     cmds:
-      - poetry run ruff mealie
+      - poetry run ruff check mealie
 
   py:check:
     desc: runs all linters, type checkers, and formatters

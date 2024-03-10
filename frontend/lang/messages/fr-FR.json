@@ -80,6 +80,7 @@
     "recipe-events": "Événements de recette"
   },
   "general": {
+    "add": "Ajouter",
     "cancel": "Annuler",
     "clear": "Effacer",
     "close": "Fermer",
@@ -142,6 +143,7 @@
     "save": "Sauvegarder",
     "settings": "Paramètres",
     "share": "Partager",
+    "show-all": "Tout afficher",
     "shuffle": "Aléatoire",
     "sort": "Trier",
     "sort-alphabetically": "Alphabétique",
@@ -494,6 +496,8 @@
     "cook-mode": "Mode Cuisine",
     "link-ingredients": "Lier des ingrédients",
     "merge-above": "Fusionner avec au-dessus",
+    "move-to-bottom": "Déplacer à la fin",
+    "move-to-top": "Déplacer au début",
     "reset-scale": "Rétablir l’échelle par défaut",
     "decrease-scale-label": "Diminuer l’échelle de 1",
     "increase-scale-label": "Augmenter l’échelle de 1",

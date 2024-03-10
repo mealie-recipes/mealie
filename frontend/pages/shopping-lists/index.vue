@@ -1,5 +1,5 @@
 <template>
-  <v-container v-if="shoppingLists" class="narrow-container">
+  <v-container v-if="shoppingListChoices" class="narrow-container">
     <BaseDialog v-model="createDialog" :title="$tc('shopping-list.create-shopping-list')" @submit="createOne">
       <v-card-text>
         <v-text-field v-model="createName" autofocus :label="$t('shopping-list.new-list')"> </v-text-field>
@@ -15,10 +15,19 @@
       </template>
       <template #title>{{ $t('shopping-list.shopping-lists') }}</template>
     </BasePageTitle>
-    <BaseButton create @click="createDialog = true" />
+
+    <v-container class="d-flex justify-end px-0 pt-0 pb-4">
+      <v-checkbox v-model="preferences.viewAllLists" hide-details :label="$tc('general.show-all')" class="my-auto mr-4" />
+      <BaseButton create @click="createDialog = true" />
+    </v-container>
 
     <section>
-      <v-card v-for="list in shoppingLists" :key="list.id" class="my-2 left-border" :to="`/shopping-lists/${list.id}`">
+      <v-card
+        v-for="list in shoppingListChoices"
+        :key="list.id"
+        class="my-2 left-border"
+        :to="`/shopping-lists/${list.id}`"
+      >
         <v-card-title>
           <v-icon left>
             {{ $globals.icons.cartCheck }}
@@ -42,6 +51,7 @@
 import { computed, defineComponent, useAsync, useContext, reactive, toRefs, useRoute } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 import { useAsyncKey } from "~/composables/use-utils";
+import { useShoppingListPreferences } from "~/composables/use-users/preferences";
 
 export default defineComponent({
   middleware: "auth",
@@ -50,6 +60,7 @@ export default defineComponent({
     const userApi = useUserApi();
     const route = useRoute();
     const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+    const preferences = useShoppingListPreferences();
 
     const state = reactive({
       createName: "",
@@ -62,8 +73,16 @@ export default defineComponent({
       return await fetchShoppingLists();
     }, useAsyncKey());
 
+    const shoppingListChoices = computed(() => {
+      if (!shoppingLists.value) {
+        return [];
+      }
+
+      return shoppingLists.value.filter((list) => preferences.value.viewAllLists || list.userId === $auth.user?.id);
+    });
+
     async function fetchShoppingLists() {
-      const { data } = await userApi.shopping.lists.getAll();
+      const { data } = await userApi.shopping.lists.getAll(1, -1, { orderBy: "name", orderDirection: "asc" });
 
       if (!data) {
         return [];
@@ -100,7 +119,8 @@ export default defineComponent({
     return {
       ...toRefs(state),
       groupSlug,
-      shoppingLists,
+      preferences,
+      shoppingListChoices,
       createOne,
       deleteOne,
       openDelete,

@@ -60,7 +60,8 @@ def delete_old_checked_list_items(group_id: UUID4 | None = None):
 
         for group in groups:
             event_bus_service = EventBusService(session=session, group_id=group.id)
-            shopping_list_service = ShoppingListService(repos, group)
+            # user is passed as None since we don't use it here
+            shopping_list_service = ShoppingListService(repos, group, None)  # type: ignore
             shopping_list_data = repos.group_shopping_lists.by_group(group.id).page_all(
                 PaginationQuery(page=1, per_page=-1)
             )

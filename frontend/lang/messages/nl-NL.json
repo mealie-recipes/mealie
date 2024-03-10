@@ -80,6 +80,7 @@
     "recipe-events": "Recept gebeurtenissen"
   },
   "general": {
+    "add": "Voeg toe",
     "cancel": "Annuleren",
     "clear": "Wissen",
     "close": "Sluiten",
@@ -142,6 +143,7 @@
     "save": "Opslaan",
     "settings": "Instellingen",
     "share": "Delen",
+    "show-all": "Laat alles zien",
     "shuffle": "Willekeurig",
     "sort": "Sorteren",
     "sort-alphabetically": "Alfabetisch",
@@ -494,6 +496,8 @@
     "cook-mode": "Kookmodus",
     "link-ingredients": "Koppel ingrediënten",
     "merge-above": "Bovenstaande samenvoegen",
+    "move-to-bottom": "Verplaats naar onderen",
+    "move-to-top": "Verplaats naar begin",
     "reset-scale": "Schaal resetten",
     "decrease-scale-label": "Verlaag de schaal met 1",
     "increase-scale-label": "Verhoog de schaal met 1",

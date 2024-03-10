@@ -9,7 +9,7 @@ Create Date: 2023-21-02 22:03:19.837244
 from uuid import uuid4
 
 import sqlalchemy as sa
-from sqlalchemy.orm.session import Session
+from sqlalchemy import orm
 
 import mealie.db.migration_types
 from alembic import op
@@ -23,8 +23,10 @@ branch_labels = None
 depends_on = None
 
 
-def populate_shopping_lists_multi_purpose_labels(shopping_lists_multi_purpose_labels_table: sa.Table, session: Session):
-    shopping_lists = session.query(ShoppingList).all()
+def populate_shopping_lists_multi_purpose_labels(
+    shopping_lists_multi_purpose_labels_table: sa.Table, session: orm.Session
+):
+    shopping_lists = session.query(ShoppingList).options(orm.load_only(ShoppingList.id, ShoppingList.group_id)).all()
 
     shopping_lists_labels_data: list[dict] = []
     for shopping_list in shopping_lists:
@@ -60,7 +62,7 @@ def upgrade():
     )
     # ### end Alembic commands ###
 
-    session = Session(bind=op.get_bind())
+    session = orm.Session(bind=op.get_bind())
     populate_shopping_lists_multi_purpose_labels(shopping_lists_multi_purpose_labels_table, session)
 
 

@@ -14,7 +14,9 @@ def test_cleanup(database: AllRepositories, unique_user: TestUser):
     list_repo = database.group_shopping_lists.by_group(unique_user.group_id)
     list_item_repo = database.group_shopping_list_item
 
-    shopping_list = list_repo.create(ShoppingListSave(name=random_string(), group_id=unique_user.group_id))
+    shopping_list = list_repo.create(
+        ShoppingListSave(name=random_string(), group_id=unique_user.group_id, user_id=unique_user.user_id)
+    )
     unchecked_items = list_item_repo.create_many(
         [
             ShoppingListItemCreate(note=random_string(), shopping_list_id=shopping_list.id)
@@ -57,7 +59,9 @@ def test_no_cleanup(database: AllRepositories, unique_user: TestUser):
     list_repo = database.group_shopping_lists.by_group(unique_user.group_id)
     list_item_repo = database.group_shopping_list_item
 
-    shopping_list = list_repo.create(ShoppingListSave(name=random_string(), group_id=unique_user.group_id))
+    shopping_list = list_repo.create(
+        ShoppingListSave(name=random_string(), group_id=unique_user.group_id, user_id=unique_user.user_id)
+    )
     unchecked_items = list_item_repo.create_many(
         [
             ShoppingListItemCreate(note=random_string(), shopping_list_id=shopping_list.id)

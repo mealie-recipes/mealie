@@ -132,8 +132,7 @@ export default defineComponent({
     const { $auth, i18n } = useContext();
     const domMadeThisForm = ref<VForm>();
     const newTimelineEvent = ref<RecipeTimelineEventIn>({
-      // @ts-expect-error - TS doesn't like the $auth global user attribute
-      subject: i18n.tc("recipe.user-made-this", { user: $auth.user.fullName }),
+      subject: "",
       eventType: "comment",
       eventMessage: "",
       timestamp: undefined,
@@ -178,6 +177,8 @@ export default defineComponent({
       }
 
       newTimelineEvent.value.recipeId = props.recipe.id
+      // @ts-expect-error - TS doesn't like the $auth global user attribute
+      newTimelineEvent.value.subject = i18n.t("recipe.user-made-this", { user: $auth.user.fullName })
 
       // the user only selects the date, so we set the time to end of day local time
       // we choose the end of day so it always comes after "new recipe" events

@@ -80,6 +80,7 @@
     "recipe-events": "Eventi di ricette"
   },
   "general": {
+    "add": "Aggiungi",
     "cancel": "Cancella",
     "clear": "Resetta",
     "close": "Chiudi",
@@ -142,6 +143,7 @@
     "save": "Salva",
     "settings": "Impostazioni",
     "share": "Condividi",
+    "show-all": "Mostra tutto",
     "shuffle": "Casuale",
     "sort": "Ordina",
     "sort-alphabetically": "Alfabetico",
@@ -494,6 +496,8 @@
     "cook-mode": "Modalità di Cottura",
     "link-ingredients": "Link Ingredienti",
     "merge-above": "Unisci Sopra",
+    "move-to-bottom": "Sposta in fondo",
+    "move-to-top": "Sposta in cima",
     "reset-scale": "Ripristina la Scala",
     "decrease-scale-label": "Riduci la Scala di 1",
     "increase-scale-label": "Aumenta la scala di 1",

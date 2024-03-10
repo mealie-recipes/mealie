@@ -80,6 +80,7 @@
     "recipe-events": "אירועי מתכון"
   },
   "general": {
+    "add": "Add",
     "cancel": "ביטול",
     "clear": "נקה",
     "close": "סגירה",
@@ -142,6 +143,7 @@
     "save": "שמירה",
     "settings": "הגדרות",
     "share": "שיתוף",
+    "show-all": "Show All",
     "shuffle": "אקראי",
     "sort": "מיון",
     "sort-alphabetically": "א-ת",
@@ -494,6 +496,8 @@
     "cook-mode": "מצב בישול",
     "link-ingredients": "קשר בין רכיבים",
     "merge-above": "מזג למעלה",
+    "move-to-bottom": "Move To Bottom",
+    "move-to-top": "Move To Top",
     "reset-scale": "איפוס קנה המידה",
     "decrease-scale-label": "הורד קנה מידה ב-1",
     "increase-scale-label": "העלה קנה מידה ב-1",

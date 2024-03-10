@@ -80,6 +80,7 @@
     "recipe-events": "Recipe Events"
   },
   "general": {
+    "add": "Add",
     "cancel": "Zrušit",
     "clear": "Vymazat",
     "close": "Zavřít",
@@ -142,6 +143,7 @@
     "save": "Uložit",
     "settings": "Nastavení",
     "share": "Sdílet",
+    "show-all": "Show All",
     "shuffle": "Náhodně",
     "sort": "Seřadit",
     "sort-alphabetically": "Abecedně",
@@ -494,6 +496,8 @@
     "cook-mode": "Režim vaření",
     "link-ingredients": "Propojit ingredience",
     "merge-above": "Sloučit s předchozím",
+    "move-to-bottom": "Move To Bottom",
+    "move-to-top": "Move To Top",
     "reset-scale": "Obnovit násobení",
     "decrease-scale-label": "Snížit násobení o 1",
     "increase-scale-label": "Zvýšit násobení o 1",

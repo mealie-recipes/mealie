@@ -80,6 +80,7 @@
     "recipe-events": "Recipe Events"
   },
   "general": {
+    "add": "Add",
     "cancel": "キャンセル",
     "clear": "クリア",
     "close": "閉じる",
@@ -142,6 +143,7 @@
     "save": "保存",
     "settings": "設定",
     "share": "共有",
+    "show-all": "Show All",
     "shuffle": "シャッフル",
     "sort": "並べ換え",
     "sort-alphabetically": "Alphabetical",
@@ -494,6 +496,8 @@
     "cook-mode": "Cook Mode",
     "link-ingredients": "Link Ingredients",
     "merge-above": "Merge Above",
+    "move-to-bottom": "Move To Bottom",
+    "move-to-top": "Move To Top",
     "reset-scale": "Reset Scale",
     "decrease-scale-label": "Decrease Scale by 1",
     "increase-scale-label": "Increase Scale by 1",

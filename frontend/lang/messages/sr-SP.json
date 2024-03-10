@@ -80,6 +80,7 @@
     "recipe-events": "Recipe Events"
   },
   "general": {
+    "add": "Add",
     "cancel": "Откажи",
     "clear": "Обриши",
     "close": "Затвори",
@@ -142,6 +143,7 @@
     "save": "Сачувај",
     "settings": "Подешавања",
     "share": "Подели",
+    "show-all": "Show All",
     "shuffle": "Помешано",
     "sort": "Сортирај",
     "sort-alphabetically": "Азбучно",
@@ -494,6 +496,8 @@
     "cook-mode": "Cook Mode",
     "link-ingredients": "Повежи састојке",
     "merge-above": "Merge Above",
+    "move-to-bottom": "Move To Bottom",
+    "move-to-top": "Move To Top",
     "reset-scale": "Reset Scale",
     "decrease-scale-label": "Decrease Scale by 1",
     "increase-scale-label": "Increase Scale by 1",
