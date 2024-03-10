@@ -80,6 +80,7 @@
     "recipe-events": "Hændelser for opskrifter"
   },
   "general": {
+    "add": "Add",
     "cancel": "Annuller",
     "clear": "Ryd",
     "close": "Luk",
