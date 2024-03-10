@@ -11,6 +11,7 @@ test('password login', async ({ page }) => {
     await page.locator('div').filter({ hasText: /^Password$/ }).nth(3).click();
     await page.getByLabel('Password').fill(password);
     await page.getByRole('button', { name: 'Login', exact: true }).click();
+    await page.getByRole('link', { name: "I'm already set up, just bring me to the homepage" }).click();
     await expect(page.getByRole('navigation')).toContainText(name);
 });
 
@@ -113,6 +114,7 @@ test('settings page verify oidc', async ({ page }) => {
     await page.getByLabel('Password').click();
     await page.getByLabel('Password').fill('MyPassword');
     await page.getByRole('button', { name: 'Login', exact: true }).click();
+    await page.getByRole('link', { name: "I'm already set up, just bring me to the homepage" }).click();
     await page.getByRole('link', { name: 'Settings' }).click();
     await page.getByRole('link', { name: 'Users' }).click();
     await page.getByRole('cell', { name: username, exact: true }).click();
