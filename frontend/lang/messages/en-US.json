@@ -728,7 +728,10 @@
     "ldap-ready-error-text": "Not all LDAP Values are configured. This can be ignored if you are not using LDAP Authentication.",
     "ldap-ready-success-text": "Required LDAP variables are all set.",
     "build": "Build",
-    "recipe-scraper-version": "Recipe Scraper Version"
+    "recipe-scraper-version": "Recipe Scraper Version",
+    "oidc-ready": "OIDC Ready",
+    "oidc-ready-error-text": "Not all OIDC Values are configured. This can be ignored if you are not using OIDC Authentication.",
+    "oidc-ready-success-text": "Required OIDC variables are all set."
   },
   "shopping-list": {
     "all-lists": "All Lists",
@@ -836,6 +839,8 @@
     "link-id": "Link ID",
     "link-name": "Link Name",
     "login": "Login",
+    "login-oidc": "Login with",
+    "or": "or",
     "logout": "Logout",
     "manage-users": "Manage Users",
     "new-password": "New Password",

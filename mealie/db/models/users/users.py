@@ -39,6 +39,7 @@ class LongLiveToken(SqlAlchemyBase, BaseMixins):
 class AuthMethod(enum.Enum):
     MEALIE = "Mealie"
     LDAP = "LDAP"
+    OIDC = "OIDC"
 
 
 class User(SqlAlchemyBase, BaseMixins):

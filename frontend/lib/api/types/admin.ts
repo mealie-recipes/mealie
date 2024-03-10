@@ -10,6 +10,9 @@ export interface AdminAboutInfo {
   version: string;
   demoStatus: boolean;
   allowSignup: boolean;
+  enableOidc: boolean;
+  oidcRedirect: boolean;
+  oidcProviderName: string;
   versionLatest: string;
   apiPort: number;
   apiDocs: boolean;
@@ -34,6 +37,9 @@ export interface AppInfo {
   demoStatus: boolean;
   allowSignup: boolean;
   defaultGroupSlug?: string;
+  enableOidc: boolean;
+  oidcRedirect: boolean;
+  oidcProviderName: string;
 }
 export interface AppStartupInfo {
   isFirstLogin: boolean;
@@ -72,6 +78,7 @@ export interface BackupOptions {
 export interface CheckAppConfig {
   emailReady: boolean;
   ldapReady: boolean;
+  oidcReady: boolean;
   baseUrlSet: boolean;
   isUpToDate: boolean;
 }
@@ -217,6 +224,10 @@ export interface NotificationImport {
   name: string;
   status: boolean;
   exception?: string;
+}
+export interface OIDCInfo {
+  configurationUrl?: string;
+  clientId?: string;
 }
 export interface RecipeImport {
   name: string;

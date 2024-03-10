@@ -172,6 +172,26 @@ class AppSettings(BaseSettings):
         return self.LDAP_AUTH_ENABLED and not_none
 
     # ===============================================
+    # OIDC Configuration
+    OIDC_AUTH_ENABLED: bool = False
+    OIDC_CLIENT_ID: str | None = None
+    OIDC_CONFIGURATION_URL: str | None = None
+    OIDC_SIGNUP_ENABLED: bool = True
+    OIDC_USER_GROUP: str | None = None
+    OIDC_ADMIN_GROUP: str | None = None
+    OIDC_AUTO_REDIRECT: bool = False
+    OIDC_PROVIDER_NAME: str = "OAuth"
+    OIDC_REMEMBER_ME: bool = False
+
+    @property
+    def OIDC_READY(self) -> bool:
+        """Validates OIDC settings are all set"""
+
+        required = {self.OIDC_CLIENT_ID, self.OIDC_CONFIGURATION_URL}
+        not_none = None not in required
+        return self.OIDC_AUTH_ENABLED and not_none
+
+    # ===============================================
     # Testing Config
 
     TESTING: bool = False

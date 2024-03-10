@@ -1,0 +1,52 @@
+version: "3.4"
+services:
+  oidc-mock-server:
+    container_name: oidc-mock-server
+    image: ghcr.io/navikt/mock-oauth2-server:2.1.0
+    network_mode: host
+    environment:
+      LOG_LEVEL: "debug"
+      SERVER_PORT: 8080
+
+  ldap:
+    image: rroemhild/test-openldap
+    ports:
+      - 10389:10389
+
+  mealie:
+    container_name: mealie
+    image: mealie:e2e
+    build:
+      context: ../../../
+      target: production
+      dockerfile: ./docker/Dockerfile
+    restart: always
+    volumes:
+      - mealie-data:/app/data/
+    network_mode: host
+    environment:
+      ALLOW_SIGNUP: True
+      DB_ENGINE: sqlite
+
+      OIDC_AUTH_ENABLED: True
+      OIDC_SIGNUP_ENABLED: True
+      OIDC_ADMIN_GROUP: admin
+      OIDC_CONFIGURATION_URL: http://localhost:8080/default/.well-known/openid-configuration
+      OIDC_CLIENT_ID: default
+
+      LDAP_AUTH_ENABLED: True
+      LDAP_SERVER_URL: ldap://localhost:10389
+      LDAP_TLS_INSECURE: true
+      LDAP_ENABLE_STARTTLS: false
+      LDAP_BASE_DN: "ou=people,dc=planetexpress,dc=com"
+      LDAP_QUERY_BIND: "cn=admin,dc=planetexpress,dc=com"
+      LDAP_QUERY_PASSWORD: "GoodNewsEveryone"
+      LDAP_USER_FILTER: "(&(|({id_attribute}={input})({mail_attribute}={input}))(|(memberOf=cn=ship_crew,ou=people,dc=planetexpress,dc=com)(memberOf=cn=admin_staff,ou=people,dc=planetexpress,dc=com)))"
+      LDAP_ADMIN_FILTER: "memberOf=cn=admin_staff,ou=people,dc=planetexpress,dc=com"
+      LDAP_ID_ATTRIBUTE: uid
+      LDAP_NAME_ATTRIBUTE: cn
+      LDAP_MAIL_ATTRIBUTE: mail
+
+volumes:
+  mealie-data:
+    driver: local

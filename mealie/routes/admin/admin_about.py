@@ -30,6 +30,9 @@ class AdminAboutController(BaseAdminController):
             allow_signup=settings.ALLOW_SIGNUP,
             build_id=settings.GIT_COMMIT_HASH,
             recipe_scraper_version=recipe_scraper_version.__version__,
+            enable_oidc=settings.OIDC_AUTH_ENABLED,
+            oidc_redirect=settings.OIDC_AUTO_REDIRECT,
+            oidc_provider_name=settings.OIDC_PROVIDER_NAME,
         )
 
     @router.get("/statistics", response_model=AppStatistics)
@@ -51,4 +54,5 @@ class AdminAboutController(BaseAdminController):
             ldap_ready=settings.LDAP_ENABLED,
             base_url_set=settings.BASE_URL != "http://localhost:8080",
             is_up_to_date=APP_VERSION == "develop" or APP_VERSION == "nightly" or get_latest_version() == APP_VERSION,
+            oidc_ready=settings.OIDC_READY,
         )
