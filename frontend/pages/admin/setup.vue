@@ -286,7 +286,7 @@ export default defineComponent({
 
     async function updatePassword() {
       const { response } = await api.users.changePassword({
-        currentPassword: "",  // the backend will automatically assume the current password is the default password
+        currentPassword: "MyPassword",
         newPassword: credentials.password1.value,
       });
 
