@@ -80,6 +80,7 @@
     "recipe-events": "Oppskriftshendelser"
   },
   "general": {
+    "add": "Add",
     "cancel": "Avbryt",
     "clear": "Tøm",
     "close": "Lukk",

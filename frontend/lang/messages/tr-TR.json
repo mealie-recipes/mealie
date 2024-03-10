@@ -80,6 +80,7 @@
     "recipe-events": "Recipe Events"
   },
   "general": {
+    "add": "Ekle",
     "cancel": "İptal",
     "clear": "Temizle",
     "close": "Kapat",
