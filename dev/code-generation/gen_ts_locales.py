@@ -5,7 +5,7 @@ from pathlib import Path
 import dotenv
 import requests
 from jinja2 import Template
-from pydantic import Extra
+from pydantic import ConfigDict
 from requests import Response
 from utils import CodeDest, CodeKeys, inject_inline, log
 
@@ -70,6 +70,8 @@ export const LOCALES = [{% for locale in locales %}
 
 
 class TargetLanguage(MealieModel):
+    model_config = ConfigDict(populate_by_name=True, extra="allow")
+
     id: str
     name: str
     locale: str
@@ -77,10 +79,6 @@ class TargetLanguage(MealieModel):
     threeLettersCode: str
     twoLettersCode: str
     progress: float = 0.0
-
-    class Config:
-        extra = Extra.allow
-        allow_population_by_field_name = True
 
 
 class CrowdinApi:
@@ -181,6 +179,9 @@ def inject_registration_validation_values():
     for match in locales_dir.glob("*.json"):
         lang_string = f'"{match.stem}",'
         all_langs.append(lang_string)
+
+    # sort
+    all_langs.sort()
 
     log.debug(f"injecting locales into user registration validation -> {reg_valid}")
     inject_inline(reg_valid, CodeKeys.nuxt_local_messages, all_langs)
