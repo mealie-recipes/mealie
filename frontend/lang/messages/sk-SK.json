@@ -80,6 +80,7 @@
     "recipe-events": "Recipe Events"
   },
   "general": {
+    "add": "Add",
     "cancel": "Zrušiť",
     "clear": "Vymazať",
     "close": "Zavrieť",
