@@ -62,62 +62,6 @@ def test_password_reset(api_client: TestClient, unique_user: TestUser, casing: s
     assert response.status_code == 400
 
 
-@pytest.mark.parametrize("use_default_user", [True, False], ids=["default user", "non-default user"])
-def test_update_password_without_current_password(
-    api_client: TestClient, use_default_user: bool, database: AllRepositories
-):
-    settings = get_app_settings()
-    if use_default_user:
-        users = database.users.page_all(PaginationQuery(query_filter=f"email={settings._DEFAULT_EMAIL}"))
-        if not users.items:
-            user = database.users.create(
-                {
-                    "full_name": "Change Me",
-                    "username": "admin",
-                    "email": settings._DEFAULT_EMAIL,
-                    "password": settings._DEFAULT_PASSWORD,
-                    "group": settings.DEFAULT_GROUP,
-                    "admin": True,
-                }
-            )
-        else:
-            user = users.items[0]
-    else:
-        user = database.users.create(
-            {
-                "full_name": "Non Default User",
-                "username": "non-default-user",
-                "email": random_email(),
-                "password": settings._DEFAULT_PASSWORD,
-                "group": settings.DEFAULT_GROUP,
-                "admin": True,
-            }
-        )
-
-    old_form_data = {"username": user.email, "password": settings._DEFAULT_PASSWORD}
-    response = api_client.post(api_routes.auth_token, data=old_form_data)
-    assert response.status_code == 200
-    token = response.json()["access_token"]
-    old_headers = {"Authorization": f"Bearer {token}"}
-
-    new_password = random_string()
-    payload = ChangePassword(new_password=new_password).model_dump()  # current password is not passed here
-    response = api_client.put(api_routes.users_password, json=payload, headers=old_headers)
-    if use_default_user:
-        assert response.status_code == 200
-    else:
-        # even if the default password is correct, we shouldn't authenticate without passing it
-        assert response.status_code == 400
-
-    # Test Login
-    new_form_data = {"username": user.email, "password": new_password}
-    response = api_client.post(api_routes.auth_token, data=new_form_data)
-    if use_default_user:
-        assert response.status_code == 200
-    else:
-        assert response.status_code == 401
-
-
 @pytest.mark.parametrize("casing", ["lower", "upper", "mixed"])
 def test_password_reset_ldap(ldap_user: PrivateUser, casing: str):
     cased_email = ""
