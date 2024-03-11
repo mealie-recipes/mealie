@@ -3,9 +3,52 @@
     <v-row class="my-0 mx-7">
       <v-spacer />
       <v-col class="text-right">
-        <v-btn fab small color="info" @click="reverseSort">
-          <v-icon> {{ preferences.orderDirection === "asc" ? $globals.icons.sortCalendarAscending : $globals.icons.sortCalendarDescending }} </v-icon>
-        </v-btn>
+        <!-- Filters -->
+        <v-menu offset-y bottom left nudge-bottom="3" :close-on-content-click="false">
+          <template #activator="{ on, attrs }">
+            <v-btn fab small color="info" v-bind="attrs" v-on="on">
+              <v-icon> {{ $globals.icons.filter }} </v-icon>
+            </v-btn>
+          </template>
+          <v-card>
+            <v-list>
+              <v-list-item @click="reverseSort">
+                <v-icon left>
+                  {{
+                    preferences.orderDirection === "asc" ?
+                    $globals.icons.sortCalendarAscending : $globals.icons.sortCalendarDescending
+                  }}
+                </v-icon>
+                <v-list-item-title>
+                  {{ preferences.orderDirection === "asc" ? "Sort Descending" : "Sort Ascending" }}
+                </v-list-item-title>
+              </v-list-item>
+              <v-divider />
+              <v-list-item class="pa-0">
+                <v-list class="py-0" style="width: 100%;">
+                  <v-list-item
+                    v-for="option in eventTypeOptions"
+                    @click="toggleEventTypeOption(option.value)"
+                  >
+                    <v-checkbox
+                      :input-value="preferences.types.includes(option.value)"
+                    >
+                      <template #label>
+                        <v-icon left>
+                          <template v-if="option.value === 'comment'">{{ $globals.icons.commentTextMultiple }}</template>
+                          <template v-else-if="option.value === 'info'">{{ $globals.icons.informationVariant }}</template>
+                          <template v-else-if="option.value === 'system'">{{ $globals.icons.cog }}</template>
+                          <template v-else>{{ $globals.icons.informationVariant }}</template>
+                        </v-icon>
+                        {{ option.text }}
+                      </template>
+                    </v-checkbox>
+                  </v-list-item>
+                </v-list>
+              </v-list-item>
+            </v-list>
+          </v-card>
+        </v-menu>
       </v-col>
     </v-row>
     <v-divider class="mx-2"/>
@@ -41,14 +84,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, useAsync, useContext } from "@nuxtjs/composition-api";
+import { computed, defineComponent, onMounted, ref, useAsync, useContext } from "@nuxtjs/composition-api";
 import { useThrottleFn, whenever } from "@vueuse/core";
 import RecipeTimelineItem from "./RecipeTimelineItem.vue"
 import { useTimelinePreferences } from "~/composables/use-users/preferences";
 import { useAsyncKey } from "~/composables/use-utils";
 import { alert } from "~/composables/use-toast";
 import { useUserApi } from "~/composables/api";
-import { Recipe, RecipeTimelineEventOut, RecipeTimelineEventUpdate } from "~/lib/api/types/recipe"
+import { Recipe, RecipeTimelineEventOut, RecipeTimelineEventUpdate, TimelineEventType } from "~/lib/api/types/recipe"
 
 export default defineComponent({
   components: { RecipeTimelineItem },
@@ -85,6 +128,11 @@ export default defineComponent({
 
     const timelineEvents = ref([] as RecipeTimelineEventOut[]);
     const recipes = new Map<string, Recipe>();
+    const eventTypeOptions = computed(() => [
+      { text: "Info", value: "info" as TimelineEventType },
+      { text: "System", value: "system" as TimelineEventType },
+      { text: "Comment", value: "comment" as TimelineEventType },
+    ]);
 
     interface ScrollEvent extends Event {
         target: HTMLInputElement;
@@ -112,13 +160,28 @@ export default defineComponent({
       }
     );
 
-    // Sorting
+    // Preferences
     function reverseSort() {
       if (loading.value) {
         return;
       }
 
       preferences.value.orderDirection = preferences.value.orderDirection === "asc" ?  "desc" : "asc";
+      initializeTimelineEvents();
+    }
+
+    function toggleEventTypeOption(option: TimelineEventType) {
+      if (loading.value) {
+        return;
+      }
+
+      const index = preferences.value.types.indexOf(option);
+      if (index === -1) {
+        preferences.value.types.push(option);
+      } else {
+        preferences.value.types.splice(index, 1);
+      }
+
       initializeTimelineEvents();
     }
 
@@ -179,8 +242,10 @@ export default defineComponent({
     async function scrollTimelineEvents() {
       const orderBy = "timestamp";
       const orderDirection = preferences.value.orderDirection === "asc" ? "asc" : "desc";
+      const eventTypeValue = `["${preferences.value.types.join('", "')}"]`;
+      const queryFilter = `(${props.queryFilter}) AND eventType IN ${eventTypeValue}`
 
-      const response = await api.recipes.getAllTimelineEvents(page.value, perPage, { orderBy, orderDirection, queryFilter: props.queryFilter });
+      const response = await api.recipes.getAllTimelineEvents(page.value, perPage, { orderBy, orderDirection, queryFilter });
       page.value += 1;
       if (!response?.data) {
         return;
@@ -259,8 +324,10 @@ export default defineComponent({
       loading,
       onScroll,
       preferences,
+      eventTypeOptions,
       recipes,
       reverseSort,
+      toggleEventTypeOption,
       timelineEvents,
       updateTimelineEvent,
     };
