@@ -72,7 +72,7 @@
         />
       </v-timeline>
     </div>
-    <v-card v-else-if="!loading">
+    <v-card v-else-if="!loading" class="mt-2">
       <v-card-title class="justify-center pa-9">
         {{ $t("recipe.timeline-no-events-found-try-adjusting-filters") }}
       </v-card-title>
