@@ -18,7 +18,7 @@
                 <v-icon left>
                   {{
                     preferences.orderDirection === "asc" ?
-                    $globals.icons.sortCalendarAscending : $globals.icons.sortCalendarDescending
+                    $globals.icons.sortCalendarDescending : $globals.icons.sortCalendarAscending
                   }}
                 </v-icon>
                 <v-list-item-title>
