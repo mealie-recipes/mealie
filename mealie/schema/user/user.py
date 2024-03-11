@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Annotated
+from typing import Annotated, Any
 from uuid import UUID
 
 from pydantic import UUID4, ConfigDict, Field, StringConstraints, field_validator
@@ -119,16 +119,22 @@ class UserOut(UserBase):
         return [joinedload(User.group), joinedload(User.favorite_recipes), joinedload(User.tokens)]
 
     @field_validator("favorite_recipes", mode="before")
-    def convert_favorite_recipes_to_slugs(cls, v: list[str | RecipeSummary] | None):
+    def convert_favorite_recipes_to_slugs(cls, v: Any):
         if not v:
             return []
+        if not isinstance(v, list):
+            return v
 
         slugs: list[str] = []
         for recipe in v:
             if isinstance(recipe, str):
                 slugs.append(recipe)
             else:
-                slugs.append(recipe.slug)
+                try:
+                    slugs.append(recipe.slug)
+                except AttributeError:
+                    # this isn't a list of recipes, so we quit early and let Pydantic's typical validation handle it
+                    return v
 
         return slugs
 
