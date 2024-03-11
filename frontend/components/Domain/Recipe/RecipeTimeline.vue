@@ -29,12 +29,13 @@
               <v-list-item class="pa-0">
                 <v-list class="py-0" style="width: 100%;">
                   <v-list-item
-                    v-for="option, idx in eventTypeOptions"
+                    v-for="option, idx in eventTypeFilterState"
                     :key="idx"
-                    @click="toggleEventTypeOption(option.value)"
                   >
                     <v-checkbox
-                      :input-value="preferences.types.includes(option.value)"
+                      :input-value="option.checked"
+                      readonly
+                      @click="toggleEventTypeOption(option.value)"
                     >
                       <template #label>
                         <v-icon left>
@@ -131,6 +132,14 @@ export default defineComponent({
     const timelineEvents = ref([] as RecipeTimelineEventOut[]);
     const recipes = new Map<string, Recipe>();
     const filterBadgeCount = computed(() => eventTypeOptions.value.length - preferences.value.types.length);
+    const eventTypeFilterState = computed(() => {
+      return eventTypeOptions.value.map(option => {
+        return {
+          ...option,
+          checked: preferences.value.types.includes(option.value),
+        }
+      });
+    });
 
     interface ScrollEvent extends Event {
         target: HTMLInputElement;
@@ -324,7 +333,7 @@ export default defineComponent({
       loading,
       onScroll,
       preferences,
-      eventTypeOptions,
+      eventTypeFilterState,
       recipes,
       reverseSort,
       toggleEventTypeOption,
