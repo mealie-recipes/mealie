@@ -6,9 +6,11 @@
         <!-- Filters -->
         <v-menu offset-y bottom left nudge-bottom="3" :close-on-content-click="false">
           <template #activator="{ on, attrs }">
-            <v-btn fab small color="info" v-bind="attrs" v-on="on">
-              <v-icon> {{ $globals.icons.filter }} </v-icon>
-            </v-btn>
+            <v-badge :content="filterBadgeCount" :value="filterBadgeCount" bordered overlap>
+              <v-btn fab small color="info" v-bind="attrs" v-on="on">
+                <v-icon> {{ $globals.icons.filter }} </v-icon>
+              </v-btn>
+            </v-badge>
           </template>
           <v-card>
             <v-list>
@@ -81,7 +83,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, useAsync, useContext } from "@nuxtjs/composition-api";
+import { computed, defineComponent, onMounted, ref, useAsync, useContext } from "@nuxtjs/composition-api";
 import { useThrottleFn, whenever } from "@vueuse/core";
 import RecipeTimelineItem from "./RecipeTimelineItem.vue"
 import { useTimelinePreferences } from "~/composables/use-users/preferences";
@@ -127,6 +129,7 @@ export default defineComponent({
 
     const timelineEvents = ref([] as RecipeTimelineEventOut[]);
     const recipes = new Map<string, Recipe>();
+    const filterBadgeCount = computed(() => eventTypeOptions.value.length - preferences.value.types.length);
 
     interface ScrollEvent extends Event {
         target: HTMLInputElement;
@@ -315,6 +318,7 @@ export default defineComponent({
 
     return {
       deleteTimelineEvent,
+      filterBadgeCount,
       loading,
       onScroll,
       preferences,
