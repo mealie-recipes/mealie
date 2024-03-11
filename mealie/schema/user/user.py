@@ -107,7 +107,7 @@ class UserOut(UserBase):
     group_slug: str
     tokens: list[LongLiveTokenOut] | None = None
     cache_key: str
-    favorite_recipes: Annotated[list[str] | None, Field(validate_default=True)] = []
+    favorite_recipes: Annotated[list[str], Field(validate_default=True)] = []
     model_config = ConfigDict(from_attributes=True)
 
     @property
@@ -119,8 +119,18 @@ class UserOut(UserBase):
         return [joinedload(User.group), joinedload(User.favorite_recipes), joinedload(User.tokens)]
 
     @field_validator("favorite_recipes", mode="before")
-    def convert_favorite_recipes_to_slugs(cls, v):
-        return [recipe.slug for recipe in v] if v else v
+    def convert_favorite_recipes_to_slugs(cls, v: list[str | RecipeSummary] | None):
+        if not v:
+            return []
+
+        slugs: list[str] = []
+        for recipe in v:
+            if isinstance(recipe, str):
+                slugs.append(recipe)
+            else:
+                slugs.append(recipe.slug)
+
+        return slugs
 
 
 class UserPagination(PaginationBase):
