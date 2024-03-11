@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Annotated
+from typing import Annotated, Any
 from uuid import UUID
 
 from pydantic import UUID4, ConfigDict, Field, StringConstraints, field_validator
@@ -107,7 +107,7 @@ class UserOut(UserBase):
     group_slug: str
     tokens: list[LongLiveTokenOut] | None = None
     cache_key: str
-    favorite_recipes: Annotated[list[str] | None, Field(validate_default=True)] = []
+    favorite_recipes: Annotated[list[str], Field(validate_default=True)] = []
     model_config = ConfigDict(from_attributes=True)
 
     @property
@@ -119,8 +119,24 @@ class UserOut(UserBase):
         return [joinedload(User.group), joinedload(User.favorite_recipes), joinedload(User.tokens)]
 
     @field_validator("favorite_recipes", mode="before")
-    def convert_favorite_recipes_to_slugs(cls, v):
-        return [recipe.slug for recipe in v] if v else v
+    def convert_favorite_recipes_to_slugs(cls, v: Any):
+        if not v:
+            return []
+        if not isinstance(v, list):
+            return v
+
+        slugs: list[str] = []
+        for recipe in v:
+            if isinstance(recipe, str):
+                slugs.append(recipe)
+            else:
+                try:
+                    slugs.append(recipe.slug)
+                except AttributeError:
+                    # this isn't a list of recipes, so we quit early and let Pydantic's typical validation handle it
+                    return v
+
+        return slugs
 
 
 class UserPagination(PaginationBase):
