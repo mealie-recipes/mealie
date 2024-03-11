@@ -69,7 +69,7 @@
                   <v-icon left>
                     {{
                       state.orderDirection === "asc" ?
-                      $globals.icons.sortAscending : $globals.icons.sortDescending
+                      $globals.icons.sortDescending : $globals.icons.sortAscending
                     }}
                   </v-icon>
                   <v-list-item-title>
