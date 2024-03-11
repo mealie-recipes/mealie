@@ -35,12 +35,9 @@
                     >
                       <template #label>
                         <v-icon left>
-                          <template v-if="option.value === 'comment'">{{ $globals.icons.commentTextMultiple }}</template>
-                          <template v-else-if="option.value === 'info'">{{ $globals.icons.informationVariant }}</template>
-                          <template v-else-if="option.value === 'system'">{{ $globals.icons.cog }}</template>
-                          <template v-else>{{ $globals.icons.informationVariant }}</template>
+                          {{ option.icon }}
                         </v-icon>
-                        {{ option.text }}
+                        {{ option.label }}
                       </template>
                     </v-checkbox>
                   </v-list-item>
@@ -84,14 +81,15 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, useAsync, useContext } from "@nuxtjs/composition-api";
+import { defineComponent, onMounted, ref, useAsync, useContext } from "@nuxtjs/composition-api";
 import { useThrottleFn, whenever } from "@vueuse/core";
 import RecipeTimelineItem from "./RecipeTimelineItem.vue"
 import { useTimelinePreferences } from "~/composables/use-users/preferences";
+import { useTimelineEventTypes } from "~/composables/recipes/use-recipe-timeline-events";
 import { useAsyncKey } from "~/composables/use-utils";
 import { alert } from "~/composables/use-toast";
 import { useUserApi } from "~/composables/api";
-import { Recipe, RecipeTimelineEventOut, RecipeTimelineEventUpdate, TimelineEventType } from "~/lib/api/types/recipe"
+import { Recipe, RecipeTimelineEventOut, RecipeTimelineEventUpdate, TimelineEventType } from "~/lib/api/types/recipe";
 
 export default defineComponent({
   components: { RecipeTimelineItem },
@@ -119,6 +117,7 @@ export default defineComponent({
     const api = useUserApi();
     const { i18n } = useContext();
     const preferences = useTimelinePreferences();
+    const { eventTypeOptions } = useTimelineEventTypes();
     const loading = ref(true);
     const ready = ref(false);
 
@@ -128,11 +127,6 @@ export default defineComponent({
 
     const timelineEvents = ref([] as RecipeTimelineEventOut[]);
     const recipes = new Map<string, Recipe>();
-    const eventTypeOptions = computed(() => [
-      { text: "Info", value: "info" as TimelineEventType },
-      { text: "System", value: "system" as TimelineEventType },
-      { text: "Comment", value: "comment" as TimelineEventType },
-    ]);
 
     interface ScrollEvent extends Event {
         target: HTMLInputElement;
