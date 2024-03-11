@@ -29,7 +29,8 @@
               <v-list-item class="pa-0">
                 <v-list class="py-0" style="width: 100%;">
                   <v-list-item
-                    v-for="option in eventTypeOptions"
+                    v-for="option, idx in eventTypeOptions"
+                    :key="idx"
                     @click="toggleEventTypeOption(option.value)"
                   >
                     <v-checkbox
@@ -239,6 +240,7 @@ export default defineComponent({
     async function scrollTimelineEvents() {
       const orderBy = "timestamp";
       const orderDirection = preferences.value.orderDirection === "asc" ? "asc" : "desc";
+      // eslint-disable-next-line quotes
       const eventTypeValue = `["${preferences.value.types.join('", "')}"]`;
       const queryFilter = `(${props.queryFilter}) AND eventType IN ${eventTypeValue}`
 
