@@ -15,12 +15,22 @@
           v-if="inputField.type === fieldTypes.BOOLEAN"
           v-model="value[inputField.varName]"
           class="my-0 py-0"
-          :label="inputField.label"
           :name="inputField.varName"
-          :hint="inputField.hint || ''"
           :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (disabledFields && disabledFields.includes(inputField.varName))"
           @change="emitBlur"
-        />
+        >
+          <template #label>
+            <div>
+              <v-card-text class="text-body-1 my-0 py-0">
+                {{ inputField.label }}
+              </v-card-text>
+              <v-card-text v-if="inputField.hint" class="text-caption my-0 py-0">
+                {{ inputField.hint }}
+              </v-card-text>
+            </div>
+          </template>
+        </v-checkbox>
+
 
         <!-- Text Field -->
         <v-text-field

@@ -47,6 +47,7 @@ def get_startup_info(session: Session = Depends(generate_session)):
 
     return AppStartupInfo(
         is_first_login=is_first_login,
+        is_demo=settings.IS_DEMO,
     )
 
 

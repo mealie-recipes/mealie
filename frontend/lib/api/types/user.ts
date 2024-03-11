@@ -22,6 +22,7 @@ export interface CreateUserRegistration {
   groupToken?: string;
   email: string;
   username: string;
+  fullName: string;
   password: string;
   passwordConfirm: string;
   advanced?: boolean;

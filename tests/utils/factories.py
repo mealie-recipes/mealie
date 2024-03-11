@@ -25,6 +25,7 @@ def user_registration_factory(advanced=None, private=None) -> CreateUserRegistra
         group=random_string(),
         email=random_email(),
         username=random_string(),
+        full_name=random_string(),
         password="fake-password",
         password_confirm="fake-password",
         advanced=advanced or random_bool(),

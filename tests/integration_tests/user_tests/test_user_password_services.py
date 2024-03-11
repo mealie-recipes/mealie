@@ -3,11 +3,14 @@ import json
 import pytest
 from fastapi.testclient import TestClient
 
+from mealie.core.config import get_app_settings
 from mealie.db.db_setup import session_context
-from mealie.schema.user.user import PrivateUser
+from mealie.repos.repository_factory import AllRepositories
+from mealie.schema.response.pagination import PaginationQuery
+from mealie.schema.user.user import ChangePassword, PrivateUser
 from mealie.services.user_services.password_reset_service import PasswordResetService
 from tests.utils import api_routes
-from tests.utils.factories import random_string
+from tests.utils.factories import random_email, random_string
 from tests.utils.fixture_schemas import TestUser
 
 
