@@ -70,7 +70,7 @@
                     {{ $globals.icons.sort }}
                   </v-icon>
                   <v-list-item-title>
-                    {{ state.orderDirection === "asc" ? "Sort Descending" : "Sort Ascending" }}
+                    {{ state.orderDirection === "asc" ? $tc("general.sort-descending") : $tc("general.sort-ascending") }}
                   </v-list-item-title>
                 </v-list-item>
                 <v-list-item

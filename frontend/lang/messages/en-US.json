@@ -146,6 +146,8 @@
     "show-all": "Show All",
     "shuffle": "Shuffle",
     "sort": "Sort",
+    "sort-ascending": "Sort Ascending",
+    "sort-descending": "Sort Descending",
     "sort-alphabetically": "Alphabetical",
     "status": "Status",
     "subject": "Subject",
