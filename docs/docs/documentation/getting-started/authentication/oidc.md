@@ -40,17 +40,17 @@ Before you can start using OIDC Authentication, you must first configure a new c
 
 ## Mealie Setup
 
-Take the client id and your discovery URL and update your environment variables to include the required OIDC variables described in [Installation - Backend Configuration](../installation/backend-config.md#openid-connect-oidc)
+Take the client id and your discovery URL and update your environment variables to include the required OIDC variables described in [Installation - Backend Configuration](../installation/backend-config.md#openid-connect-oidc).
 
 ## Examples
 
 ### Authelia
 
-Follow the instructions in [Authelia's documentation](https://www.authelia.com/configuration/identity-providers/open-id-connect/). Below is an example config
+Follow the instructions in [Authelia's documentation](https://www.authelia.com/configuration/identity-providers/open-id-connect/). Below is an example config.
 
 !!! warning
 
-    This is only an example and not meant to be an exhaustive configuration. You should read read through the documentation and adjust your configuration as needed.
+    This is only an example and not meant to be an exhaustive configuration. You should read through the documentation and adjust your configuration as needed.
 
 ```yaml
 identity_providers:
