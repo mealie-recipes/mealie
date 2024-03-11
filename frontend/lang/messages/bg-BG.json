@@ -80,6 +80,7 @@
     "recipe-events": "Събития на рецептата"
   },
   "general": {
+    "add": "Add",
     "cancel": "Откажи",
     "clear": "Изчисти",
     "close": "Затвори",

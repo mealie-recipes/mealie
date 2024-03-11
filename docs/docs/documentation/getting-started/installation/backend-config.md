@@ -75,6 +75,22 @@ Changing the webworker settings may cause unforeseen memory leak issues with Mea
 | LDAP_NAME_ATTRIBUTE  |  name   | The LDAP attribute that maps to the user's name                                                                                     |
 | LDAP_MAIL_ATTRIBUTE  |  mail   | The LDAP attribute that maps to the user's email                                                                                    |
 
+### OpenID Connect (OIDC)
+
+For usage, see [Usage - OpenID Connect](../authentication/oidc.md)
+
+| Variables | Default | Description |
+| --- | :--: | --- |
+| OIDC_AUTH_ENABLED | False | Enables authentication via OpenID Connect |
+| OIDC_SIGNUP_ENABLED | True | Enables new users to be created when signing in for the first time with OIDC |
+| OIDC_CONFIGURATION_URL | None | The URL to the OIDC configuration of your provider. This is usually something like https://auth.example.com/.well-known/openid-configuration |
+| OIDC_CLIENT_ID | None | The client id of your configured client in your provider |
+| OIDC_USER_GROUP| None | If specified, this group must be present in the user's group claim in order to authenticate |
+| OIDC_ADMIN_GROUP | None | If this group is present in the group claims, the user will be set as an admin |
+| OIDC_AUTO_REDIRECT | False | If `True`, then the login page will be bypassed an you will be sent directly to your Identity Provider. You can still get to the login page by adding `?direct=1` to the login URL |
+| OIDC_PROVIDER_NAME | OAuth | The provider name is shown in SSO login button. "Login with <OIDC_PROVIDER_NAME\>" |
+| OIDC_REMEMBER_ME | False | Because redirects bypass the login screen, you cant extend your session by clicking the "Remember Me" checkbox. By setting this value to true, a session will be extended as if "Remember Me" was checked |
+
 ### Themeing
 
 Setting the following environmental variables will change the theme of the frontend. Note that the themes are the same for all users. This is a break-change when migration from v0.x.x -> 1.x.x.

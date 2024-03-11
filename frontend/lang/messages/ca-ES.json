@@ -80,6 +80,7 @@
     "recipe-events": "Esdeveniments de receptes"
   },
   "general": {
+    "add": "Add",
     "cancel": "Anuŀla",
     "clear": "Neteja",
     "close": "Tanca",

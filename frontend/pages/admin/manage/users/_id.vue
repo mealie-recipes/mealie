@@ -90,7 +90,7 @@ export default defineComponent({
 
     const user = ref<UserOut | null>(null);
     const disabledFields = computed(() => {
-      return user.value?.authMethod === "LDAP" ? ["admin"] : [];
+      return user.value?.authMethod !== "Mealie" ? ["admin"] : [];
     })
 
     const userError = ref(false);

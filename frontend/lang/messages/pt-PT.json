@@ -80,6 +80,7 @@
     "recipe-events": "Eventos de receita"
   },
   "general": {
+    "add": "Adicionar",
     "cancel": "Cancelar",
     "clear": "Limpar",
     "close": "Fechar",

@@ -70,6 +70,26 @@
               </v-btn>
             </div>
           </v-card-actions>
+
+          <div v-if="allowOidc" class="d-flex my-4 justify-center align-center" width="80%">
+            <v-divider class="div-width"/>
+            <span
+                class="absolute px-2"
+                :class="{
+                    'bg-white': !$vuetify.theme.dark && !isDark,
+                    'bg-background': $vuetify.theme.dark || isDark,
+                }"
+            >
+                {{ $t("user.or") }}
+            </span>
+          </div>
+          <v-card-actions v-if="allowOidc" class="justify-center">
+          <div class="max-button">
+            <v-btn color="primary" large rounded class="rounded-xl" block @click.native="oidcAuthenticate">
+                {{ $t("user.login-oidc") }} {{ oidcProviderName }}
+            </v-btn>
+          </div>
+        </v-card-actions>
         </v-form>
       </v-card-text>
       <v-card-actions class="d-flex justify-center flex-column flex-sm-row">
@@ -161,6 +181,32 @@ export default defineComponent({
     const { passwordIcon, inputType, togglePasswordShow } = usePasswordField();
 
     const allowSignup = computed(() => appInfo.value?.allowSignup || false);
+    const allowOidc = computed(() => appInfo.value?.enableOidc || false);
+    const oidcRedirect = computed(() => appInfo.value?.oidcRedirect || false);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    const oidcProviderName = computed(() => appInfo.value?.oidcProviderName || "OAuth")
+
+    whenever(
+        () => allowOidc.value && oidcRedirect.value && !isCallback() && !isDirectLogin(),
+        () => oidcAuthenticate(),
+        {immediate: true}
+    )
+
+    function isCallback() {
+        return router.currentRoute.query.state;
+    }
+
+    function isDirectLogin() {
+        return router.currentRoute.query.direct
+    }
+
+    async function oidcAuthenticate() {
+        try {
+            await $auth.loginWith("oidc")
+        } catch (error) {
+            alert.error(i18n.t("events.something-went-wrong") as string);
+        }
+    }
 
     async function authenticate() {
       if (form.email.length === 0 || form.password.length === 0) {
@@ -199,7 +245,10 @@ export default defineComponent({
       form,
       loggingIn,
       allowSignup,
+      allowOidc,
       authenticate,
+      oidcAuthenticate,
+      oidcProviderName,
       passwordIcon,
       inputType,
       togglePasswordShow,
@@ -249,5 +298,21 @@ export default defineComponent({
 
 .bg-off-white {
   background: #f5f8fa;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.div-width {
+    max-width: 75%;
+}
+
+.bg-background {
+    background-color: #1e1e1e;
+}
+
+.bg-white {
+    background-color: #fff;
 }
 </style>

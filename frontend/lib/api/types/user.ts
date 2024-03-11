@@ -5,7 +5,7 @@
 /* Do not modify it by hand - just update the pydantic models and then re-run the script
 */
 
-export type AuthMethod = "Mealie" | "LDAP";
+export type AuthMethod = "Mealie" | "LDAP" | "OIDC";
 
 export interface ChangePassword {
   currentPassword: string;

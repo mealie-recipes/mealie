@@ -80,6 +80,7 @@
     "recipe-events": "Recept esemény"
   },
   "general": {
+    "add": "Add",
     "cancel": "Mégsem",
     "clear": "Törlés",
     "close": "Bezár",

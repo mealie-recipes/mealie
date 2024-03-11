@@ -1,45 +1,24 @@
 from datetime import timedelta
 
-from fastapi import APIRouter, Depends, Form, Request, Response, status
+from fastapi import APIRouter, Depends, Request, Response, status
 from fastapi.exceptions import HTTPException
-from fastapi.security import OAuth2PasswordRequestForm
 from pydantic import BaseModel
 from sqlalchemy.orm.session import Session
 
 from mealie.core import root_logger, security
-from mealie.core.config import get_app_settings
 from mealie.core.dependencies import get_current_user
-from mealie.core.security import authenticate_user
-from mealie.core.security.security import UserLockedOut
+from mealie.core.exceptions import UserLockedOut
+from mealie.core.security.security import get_auth_provider
 from mealie.db.db_setup import generate_session
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.user import PrivateUser
+from mealie.schema.user.auth import CredentialsRequestForm
 
 public_router = APIRouter(tags=["Users: Authentication"])
 user_router = UserAPIRouter(tags=["Users: Authentication"])
 logger = root_logger.get_logger("auth")
 
 remember_me_duration = timedelta(days=14)
-
-
-class CustomOAuth2Form(OAuth2PasswordRequestForm):
-    def __init__(
-        self,
-        grant_type: str = Form(None, pattern="password"),
-        username: str = Form(...),
-        password: str = Form(...),
-        remember_me: bool = Form(False),
-        scope: str = Form(""),
-        client_id: str | None = Form(None),
-        client_secret: str | None = Form(None),
-    ):
-        self.grant_type = grant_type
-        self.username = username
-        self.password = password
-        self.remember_me = remember_me
-        self.scopes = scope.split()
-        self.client_id = client_id
-        self.client_secret = client_secret
 
 
 class MealieAuthToken(BaseModel):
@@ -52,16 +31,12 @@ class MealieAuthToken(BaseModel):
 
 
 @public_router.post("/token")
-def get_token(
+async def get_token(
     request: Request,
     response: Response,
-    data: CustomOAuth2Form = Depends(),
+    data: CredentialsRequestForm = Depends(),
     session: Session = Depends(generate_session),
 ):
-    settings = get_app_settings()
-
-    email = data.username
-    password = data.password
     if "x-forwarded-for" in request.headers:
         ip = request.headers["x-forwarded-for"]
         if "," in ip:  # if there are multiple IPs, the first one is canonically the true client
@@ -71,28 +46,22 @@ def get_token(
         ip = request.client.host if request.client else "unknown"
 
     try:
-        user = authenticate_user(session, email, password)  # type: ignore
+        auth_provider = get_auth_provider(session, request, data)
+        auth = await auth_provider.authenticate()
     except UserLockedOut as e:
         logger.error(f"User is locked out from {ip}")
         raise HTTPException(status_code=status.HTTP_423_LOCKED, detail="User is locked out") from e
 
-    if not user:
+    if not auth:
         logger.error(f"Incorrect username or password from {ip}")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
         )
+    access_token, duration = auth
 
-    duration = timedelta(hours=settings.TOKEN_TIME)
-    if data.remember_me and remember_me_duration > duration:
-        duration = remember_me_duration
-
-    access_token = security.create_access_token(dict(sub=str(user.id)), duration)  # type: ignore
-
+    expires_in = duration.total_seconds() if duration else None
     response.set_cookie(
-        key="mealie.access_token",
-        value=access_token,
-        httponly=True,
-        max_age=duration.seconds if duration else None,
+        key="mealie.access_token", value=access_token, httponly=True, max_age=expires_in, expires=expires_in
     )
 
     return MealieAuthToken.respond(access_token)

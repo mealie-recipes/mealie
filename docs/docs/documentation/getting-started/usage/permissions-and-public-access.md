@@ -1,7 +1,7 @@
 # Permissions and Public Access
 
 Mealie provides various levels of user access and permissions. This includes:
-- Authentication and registration ([check out the LDAP guide](./ldap.md) for how to configure access using LDAP)
+- Authentication and registration ([LDAP](../authentication/ldap.md) and [OpenID Connect](../authentication/oidc.md) are both supported)
 - Customizable user permissions
 - Fine-tuned public access for non-users
 

@@ -2,23 +2,35 @@ import secrets
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+from fastapi import Request
 from jose import jwt
+from sqlalchemy.orm.session import Session
 
 from mealie.core import root_logger
 from mealie.core.config import get_app_settings
-from mealie.core.security import ldap
 from mealie.core.security.hasher import get_hasher
-from mealie.db.models.users.users import AuthMethod
-from mealie.repos.all_repositories import get_repositories
-from mealie.schema.user import PrivateUser
-from mealie.services.user_services.user_service import UserService
+from mealie.core.security.providers.auth_provider import AuthProvider
+from mealie.core.security.providers.credentials_provider import CredentialsProvider
+from mealie.core.security.providers.ldap_provider import LDAPProvider
+from mealie.core.security.providers.openid_provider import OpenIDProvider
+from mealie.schema.user.auth import CredentialsRequest, CredentialsRequestForm, OIDCRequest
 
 ALGORITHM = "HS256"
 
 logger = root_logger.get_logger("security")
 
 
-class UserLockedOut(Exception): ...
+def get_auth_provider(session: Session, request: Request, data: CredentialsRequestForm) -> AuthProvider:
+    settings = get_app_settings()
+
+    if request.cookies.get("mealie.auth.strategy") == "oidc":
+        return OpenIDProvider(session, OIDCRequest(id_token=request.cookies.get("mealie.auth._id_token.oidc")))
+
+    credentials_request = CredentialsRequest(**data.__dict__)
+    if settings.LDAP_ENABLED:
+        return LDAPProvider(session, credentials_request)
+
+    return CredentialsProvider(session, credentials_request)
 
 
 def create_access_token(data: dict, expires_delta: timedelta | None = None) -> str:
@@ -41,44 +53,6 @@ def create_file_token(file_path: Path) -> str:
 def create_recipe_slug_token(file_path: str | Path) -> str:
     token_data = {"slug": str(file_path)}
     return create_access_token(token_data, expires_delta=timedelta(minutes=30))
-
-
-def authenticate_user(session, email: str, password: str) -> PrivateUser | bool:
-    settings = get_app_settings()
-
-    db = get_repositories(session)
-    user = db.users.get_one(email, "email", any_case=True)
-
-    if not user:
-        user = db.users.get_one(email, "username", any_case=True)
-    if settings.LDAP_AUTH_ENABLED and (not user or user.password == "LDAP" or user.auth_method == AuthMethod.LDAP):
-        return ldap.get_user(db, email, password)
-    if not user:
-        # To prevent user enumeration we perform the verify_password computation to ensure
-        # server side time is relatively constant and not vulnerable to timing attacks.
-        verify_password("abc123cba321", "$2b$12$JdHtJOlkPFwyxdjdygEzPOtYmdQF5/R5tHxw5Tq8pxjubyLqdIX5i")
-        return False
-
-    if user.login_attemps >= settings.SECURITY_MAX_LOGIN_ATTEMPTS or user.is_locked:
-        raise UserLockedOut()
-
-    elif not verify_password(password, user.password):
-        user.login_attemps += 1
-        db.users.update(user.id, user)
-
-        if user.login_attemps >= settings.SECURITY_MAX_LOGIN_ATTEMPTS:
-            user_service = UserService(db)
-            user_service.lock_user(user)
-
-        return False
-
-    user.login_attemps = 0
-    return db.users.update(user.id, user)
-
-
-def verify_password(plain_password: str, hashed_password: str) -> bool:
-    """Compares a plain string to a hashed password"""
-    return get_hasher().verify(plain_password, hashed_password)
 
 
 def hash_password(password: str) -> str:

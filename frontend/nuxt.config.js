@@ -123,7 +123,7 @@ export default {
   auth: {
     redirect: {
       login: "/login",
-      logout: "/login",
+      logout: "/login?direct=1",
       callback: "/login",
       home: "/",
     },
@@ -134,6 +134,7 @@ export default {
         path: "/",
       },
     },
+    rewriteRedirects: false,
     // Options
     strategies: {
       local: {
@@ -157,6 +158,14 @@ export default {
           refresh: { url: "api/auth/refresh", method: "post" },
           user: { url: "api/users/self", method: "get" },
         },
+      },
+      oidc: {
+        scheme: "~/schemes/DynamicOpenIDConnectScheme",
+        resetOnError: true,
+        clientId: "",
+        endpoints: {
+          configuration: "",
+        }
       },
     },
   },
