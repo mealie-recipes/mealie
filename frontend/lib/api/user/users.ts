@@ -1,6 +1,5 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import { PaginationData } from "~/lib/api/types/non-generated";
-import { RequestResponse } from "../types/non-generated";
+import { PaginationData, RequestResponse } from "~/lib/api/types/non-generated";
 import {
   ChangePassword,
   DeleteTokenResponse,
