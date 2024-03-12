@@ -5,6 +5,8 @@ import { useUserApi } from "~/composables/api";
 import { RecipeTool } from "~/lib/api/types/recipe";
 
 const toolStore: Ref<RecipeTool[]> = ref([]);
+const publicStoreLoading = ref(false);
+const storeLoading = ref(false);
 
 export function useToolData() {
   const data = reactive({
@@ -29,7 +31,7 @@ export function useToolData() {
 
 export function usePublicToolStore(groupSlug: string) {
   const api = usePublicExploreApi(groupSlug).explore;
-  const loading = ref(false);
+  const loading = publicStoreLoading;
 
   const actions = {
     ...usePublicStoreActions<RecipeTool>(api.tools, toolStore, loading),
@@ -38,7 +40,7 @@ export function usePublicToolStore(groupSlug: string) {
     },
   };
 
-  if (!toolStore.value || toolStore.value?.length === 0) {
+  if (!loading.value && (!toolStore.value || toolStore.value?.length === 0)) {
     actions.getAll();
   }
 
@@ -51,7 +53,7 @@ export function usePublicToolStore(groupSlug: string) {
 
 export function useToolStore() {
   const api = useUserApi();
-  const loading = ref(false);
+  const loading = storeLoading;
 
   const actions = {
     ...useStoreActions<RecipeTool>(api.tools, toolStore, loading),
@@ -60,7 +62,7 @@ export function useToolStore() {
     },
   };
 
-  if (!toolStore.value || toolStore.value?.length === 0) {
+  if (!loading.value && (!toolStore.value || toolStore.value?.length === 0)) {
     actions.getAll();
   }
 
