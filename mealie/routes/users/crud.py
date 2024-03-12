@@ -25,6 +25,8 @@ class AdminUserController(BaseAdminController):
 
     @admin_router.get("", response_model=UserPagination)
     def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
+        """Returns all users from all groups"""
+
         response = self.repos.users.page_all(
             pagination=q,
             override=UserOut,
@@ -56,6 +58,18 @@ class AdminUserController(BaseAdminController):
 
 @controller(user_router)
 class UserController(BaseUserController):
+    @user_router.get("/group-users", response_model=UserPagination)
+    def get_all_group_users(self, q: PaginationQuery = Depends(PaginationQuery)):
+        """Returns all users from the current group"""
+
+        response = self.repos.users.by_group(self.group_id).page_all(
+            pagination=q,
+            override=UserOut,
+        )
+
+        response.set_pagination_guides(user_router.url_path_for("get_all_group_users"), q.model_dump())
+        return response
+
     @user_router.get("/self", response_model=UserOut)
     def get_logged_in_user(self):
         return self.user
