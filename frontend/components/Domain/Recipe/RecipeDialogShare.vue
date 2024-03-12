@@ -22,7 +22,13 @@
               v-on="on"
             ></v-text-field>
           </template>
-          <v-date-picker v-model="expirationDate" no-title @input="datePickerMenu = false"></v-date-picker>
+          <v-date-picker
+            v-model="expirationDate"
+            no-title
+            :first-day-of-week="firstDayOfWeek"
+            :local="$i18n.locale"
+            @input="datePickerMenu = false"
+          />
         </v-menu>
       </v-card-text>
       <v-card-actions class="justify-end">
@@ -60,6 +66,7 @@ import { defineComponent, computed, toRefs, reactive, useContext, useRoute } fro
 import { useClipboard, useShare, whenever } from "@vueuse/core";
 import { RecipeShareToken } from "~/lib/api/types/recipe";
 import { useUserApi } from "~/composables/api";
+import { useGroupSelf } from "~/composables/use-groups";
 import { alert } from "~/composables/use-toast";
 
 export default defineComponent({
@@ -106,8 +113,13 @@ export default defineComponent({
     );
 
     const { $auth, i18n } = useContext();
+    const { group } = useGroupSelf();
     const route = useRoute();
     const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+
+    const firstDayOfWeek = computed(() => {
+      return group.value?.preferences?.firstDayOfWeek || 0;
+    });
 
     // ============================================================
     // Token Actions
@@ -185,6 +197,7 @@ export default defineComponent({
       dialog,
       createNewToken,
       deleteToken,
+      firstDayOfWeek,
       shareRecipe,
       copyTokenLink,
     };
