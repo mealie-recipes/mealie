@@ -820,7 +820,7 @@ export default defineComponent({
     const allUsers = ref<UserOut[]>([]);
     const currentUserId = ref<string | undefined>();
     async function fetchAllUsers() {
-      const { data } = await userApi.users.getAll(1, -1, { orderBy: "full_name", orderDirection: "asc" });
+      const { data } = await userApi.users.getGroupUsers(1, -1, { orderBy: "full_name", orderDirection: "asc" });
       if (!data) {
         return;
       }
