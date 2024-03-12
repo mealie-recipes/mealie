@@ -46,8 +46,9 @@
           </template>
           <v-date-picker
             v-model="newMeal.date"
-            :first-day-of-week="firstDayOfWeek"
             no-title
+            :first-day-of-week="firstDayOfWeek"
+            :local="$i18n.locale"
             @input="state.pickerMenu = false"
           />
         </v-menu>
@@ -256,13 +257,7 @@ export default defineComponent({
     });
 
     const firstDayOfWeek = computed(() => {
-      const pref = group.value?.preferences?.firstDayOfWeek;
-
-      if (pref) {
-        return pref;
-      }
-
-      return 0;
+      return group.value?.preferences?.firstDayOfWeek || 0;
     });
 
     function onMoveCallback(evt: SortableEvent) {

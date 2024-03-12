@@ -16,7 +16,13 @@
           {{ $d(weekRange.start, "short") }} - {{ $d(weekRange.end, "short") }}
         </v-btn>
       </template>
-      <v-date-picker v-model="state.range" no-title range>
+      <v-date-picker
+        v-model="state.range"
+        no-title
+        range
+        :first-day-of-week="firstDayOfWeek"
+        :local="$i18n.locale"
+      >
         <v-spacer></v-spacer>
         <v-btn text color="primary" @click="state.picker = false">
           {{ $t("general.ok") }}
@@ -43,6 +49,7 @@
 <script lang="ts">
 import { computed, defineComponent, ref, useRoute, useRouter } from "@nuxtjs/composition-api";
 import { isSameDay, addDays, parseISO } from "date-fns";
+import { useGroupSelf } from "~/composables/use-groups";
 import { useMealplans } from "~/composables/use-group-mealplan";
 
 export default defineComponent({
@@ -50,6 +57,7 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     const router = useRouter();
+    const { group } = useGroupSelf();
 
     // Force to /view if current route is /planner
     if (route.value.path === "/group/mealplan/planner") {
@@ -70,6 +78,10 @@ export default defineComponent({
       start: new Date(),
       picker: false,
       end: addDays(new Date(), 6),
+    });
+
+    const firstDayOfWeek = computed(() => {
+      return group.value?.preferences?.firstDayOfWeek || 0;
     });
 
     const recipeSearchTerm = ref("");
@@ -128,6 +140,7 @@ export default defineComponent({
       actions,
       mealsByDate,
       weekRange,
+      firstDayOfWeek,
       recipeSearchTerm,
     };
   },

@@ -41,6 +41,7 @@
                     <v-date-picker
                       v-model="newTimelineEventTimestamp"
                       no-title
+                      :first-day-of-week="firstDayOfWeek"
                       :local="$i18n.locale"
                       @input="datePickerMenu = false"
                     />
@@ -109,10 +110,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, toRefs, useContext } from "@nuxtjs/composition-api";
+import { computed, defineComponent, reactive, ref, toRefs, useContext } from "@nuxtjs/composition-api";
 import { whenever } from "@vueuse/core";
 import { VForm } from "~/types/vuetify";
 import { useUserApi } from "~/composables/api";
+import { useGroupSelf } from "~/composables/use-groups";
 import { Recipe, RecipeTimelineEventIn } from "~/lib/api/types/recipe";
 
 export default defineComponent({
@@ -129,6 +131,7 @@ export default defineComponent({
   setup(props, context) {
     const madeThisDialog = ref(false);
     const userApi = useUserApi();
+    const { group } = useGroupSelf();
     const { $auth, i18n } = useContext();
     const domMadeThisForm = ref<VForm>();
     const newTimelineEvent = ref<RecipeTimelineEventIn>({
@@ -152,6 +155,10 @@ export default defineComponent({
         ).toISOString().substring(0, 10);
       }
     );
+
+    const firstDayOfWeek = computed(() => {
+      return group.value?.preferences?.firstDayOfWeek || 0;
+    });
 
     function clearImage() {
       newTimelineEventImage.value = undefined;
@@ -226,6 +233,7 @@ export default defineComponent({
       ...toRefs(state),
       domMadeThisForm,
       madeThisDialog,
+      firstDayOfWeek,
       newTimelineEvent,
       newTimelineEventImage,
       newTimelineEventImagePreviewUrl,
