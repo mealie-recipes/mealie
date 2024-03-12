@@ -37,6 +37,7 @@ export function usePublicStoreActions<T extends BoundT>(
     loading.value = true;
     const allItems = useAsync(async () => {
       const { data } = await api.getAll(page, perPage, params);
+      loading.value = false;
 
       if (data && allRef) {
         allRef.value = data.items;
@@ -49,7 +50,6 @@ export function usePublicStoreActions<T extends BoundT>(
       }
     }, useAsyncKey());
 
-    loading.value = false;
     return allItems;
   }
 
@@ -88,6 +88,7 @@ export function useStoreActions<T extends BoundT>(
     loading.value = true;
     const allItems = useAsync(async () => {
       const { data } = await api.getAll(page, perPage, params);
+      loading.value = false;
 
       if (data && allRef) {
         allRef.value = data.items;
@@ -100,7 +101,6 @@ export function useStoreActions<T extends BoundT>(
       }
     }, useAsyncKey());
 
-    loading.value = false;
     return allItems;
   }
 
