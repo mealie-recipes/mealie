@@ -99,6 +99,7 @@ import { computed, defineComponent, ref, useContext, useRoute } from "@nuxtjs/co
 import RecipeCardMobile from "./RecipeCardMobile.vue";
 import RecipeTimelineContextMenu from "./RecipeTimelineContextMenu.vue";
 import { useStaticRoutes } from "~/composables/api";
+import { useTimelineEventTypes } from "~/composables/recipes/use-recipe-timeline-events";
 import { Recipe, RecipeTimelineEventOut } from "~/lib/api/types/recipe"
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 import SafeMarkdown from "~/components/global/SafeMarkdown.vue";
@@ -124,6 +125,7 @@ export default defineComponent({
   setup(props) {
     const { $auth, $globals, $vuetify } = useContext();
     const { recipeTimelineEventImage } = useStaticRoutes();
+    const { eventTypeOptions } = useTimelineEventTypes();
     const timelineEvents = ref([] as RecipeTimelineEventOut[]);
 
     const route = useRoute();
@@ -164,21 +166,10 @@ export default defineComponent({
       }
     })
 
-    const icon = computed( () => {
-      switch (props.event.eventType) {
-        case "comment":
-          return $globals.icons.commentTextMultiple;
-
-        case "info":
-          return $globals.icons.informationVariant;
-
-        case "system":
-          return $globals.icons.cog;
-
-        default:
-          return $globals.icons.informationVariant;
-      };
-    })
+    const icon = computed(() => {
+      const option = eventTypeOptions.value.find((option) => option.value === props.event.eventType);
+      return option ? option.icon : $globals.icons.informationVariant;
+    });
 
     const hideImage = ref(false);
     const eventImageUrl = computed<string>( () => {

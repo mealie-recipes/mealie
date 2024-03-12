@@ -188,7 +188,6 @@ export default defineComponent({
     const allowSignup = computed(() => appInfo.value?.allowSignup || false);
     const allowOidc = computed(() => appInfo.value?.enableOidc || false);
     const oidcRedirect = computed(() => appInfo.value?.oidcRedirect || false);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     const oidcProviderName = computed(() => appInfo.value?.oidcProviderName || "OAuth")
 
     whenever(

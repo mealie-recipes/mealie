@@ -4,6 +4,7 @@ import { MultiPurposeLabelOut } from "~/lib/api/types/labels";
 import { useUserApi } from "~/composables/api";
 
 let labelStore: Ref<MultiPurposeLabelOut[] | null> = ref([]);
+const storeLoading = ref(false);
 
 export function useLabelData() {
   const data = reactive({
@@ -28,7 +29,7 @@ export function useLabelData() {
 
 export function useLabelStore() {
   const api = useUserApi();
-  const loading = ref(false);
+  const loading = storeLoading;
 
   const actions = {
     ...useStoreActions<MultiPurposeLabelOut>(api.multiPurposeLabels, labelStore, loading),
@@ -37,7 +38,7 @@ export function useLabelStore() {
     },
   };
 
-  if (!labelStore.value || labelStore.value?.length === 0) {
+  if (!loading.value && (!labelStore.value || labelStore.value?.length === 0)) {
     labelStore = actions.getAll();
   }
 

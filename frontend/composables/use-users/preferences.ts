@@ -1,5 +1,6 @@
 import { Ref, useContext } from "@nuxtjs/composition-api";
 import { useLocalStorage } from "@vueuse/core";
+import { TimelineEventType } from "~/lib/api/types/recipe";
 
 export interface UserPrintPreferences {
   imagePosition: string;
@@ -28,6 +29,7 @@ export interface UserShoppingListPreferences {
 
 export interface UserTimelinePreferences {
   orderDirection: string;
+  types: TimelineEventType[];
 }
 
 export function useUserPrintPreferences(): Ref<UserPrintPreferences> {
@@ -87,6 +89,7 @@ export function useTimelinePreferences(): Ref<UserTimelinePreferences> {
     "timeline-preferences",
     {
       orderDirection: "asc",
+      types: ["info", "system", "comment"] as TimelineEventType[],
     },
     { mergeDefaults: true }
     // we cast to a Ref because by default it will return an optional type ref

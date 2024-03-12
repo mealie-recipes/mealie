@@ -3,9 +3,53 @@
     <v-row class="my-0 mx-7">
       <v-spacer />
       <v-col class="text-right">
-        <v-btn fab small color="info" @click="reverseSort">
-          <v-icon> {{ preferences.orderDirection === "asc" ? $globals.icons.sortCalendarAscending : $globals.icons.sortCalendarDescending }} </v-icon>
-        </v-btn>
+        <!-- Filters -->
+        <v-menu offset-y bottom left nudge-bottom="3" :close-on-content-click="false">
+          <template #activator="{ on, attrs }">
+            <v-badge :content="filterBadgeCount" :value="filterBadgeCount" bordered overlap>
+              <v-btn fab small color="info" v-bind="attrs" v-on="on">
+                <v-icon> {{ $globals.icons.filter }} </v-icon>
+              </v-btn>
+            </v-badge>
+          </template>
+          <v-card>
+            <v-list>
+              <v-list-item @click="reverseSort">
+                <v-icon left>
+                  {{
+                    preferences.orderDirection === "asc" ?
+                    $globals.icons.sortCalendarDescending : $globals.icons.sortCalendarAscending
+                  }}
+                </v-icon>
+                <v-list-item-title>
+                  {{ preferences.orderDirection === "asc" ? $tc("general.sort-descending") : $tc("general.sort-ascending") }}
+                </v-list-item-title>
+              </v-list-item>
+              <v-divider />
+              <v-list-item class="pa-0">
+                <v-list class="py-0" style="width: 100%;">
+                  <v-list-item
+                    v-for="option, idx in eventTypeFilterState"
+                    :key="idx"
+                  >
+                    <v-checkbox
+                      :input-value="option.checked"
+                      readonly
+                      @click="toggleEventTypeOption(option.value)"
+                    >
+                      <template #label>
+                        <v-icon left>
+                          {{ option.icon }}
+                        </v-icon>
+                        {{ option.label }}
+                      </template>
+                    </v-checkbox>
+                  </v-list-item>
+                </v-list>
+              </v-list-item>
+            </v-list>
+          </v-card>
+        </v-menu>
       </v-col>
     </v-row>
     <v-divider class="mx-2"/>
@@ -29,9 +73,9 @@
         />
       </v-timeline>
     </div>
-    <v-card v-else-if="!loading">
+    <v-card v-else-if="!loading" class="mt-2">
       <v-card-title class="justify-center pa-9">
-        {{ $t("recipe.timeline-is-empty") }}
+        {{ $t("recipe.timeline-no-events-found-try-adjusting-filters") }}
       </v-card-title>
     </v-card>
     <div v-if="loading" class="mb-3 text-center">
@@ -41,14 +85,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, useAsync, useContext } from "@nuxtjs/composition-api";
+import { computed, defineComponent, onMounted, ref, useAsync, useContext } from "@nuxtjs/composition-api";
 import { useThrottleFn, whenever } from "@vueuse/core";
 import RecipeTimelineItem from "./RecipeTimelineItem.vue"
 import { useTimelinePreferences } from "~/composables/use-users/preferences";
+import { useTimelineEventTypes } from "~/composables/recipes/use-recipe-timeline-events";
 import { useAsyncKey } from "~/composables/use-utils";
 import { alert } from "~/composables/use-toast";
 import { useUserApi } from "~/composables/api";
-import { Recipe, RecipeTimelineEventOut, RecipeTimelineEventUpdate } from "~/lib/api/types/recipe"
+import { Recipe, RecipeTimelineEventOut, RecipeTimelineEventUpdate, TimelineEventType } from "~/lib/api/types/recipe";
 
 export default defineComponent({
   components: { RecipeTimelineItem },
@@ -76,6 +121,7 @@ export default defineComponent({
     const api = useUserApi();
     const { i18n } = useContext();
     const preferences = useTimelinePreferences();
+    const { eventTypeOptions } = useTimelineEventTypes();
     const loading = ref(true);
     const ready = ref(false);
 
@@ -85,6 +131,15 @@ export default defineComponent({
 
     const timelineEvents = ref([] as RecipeTimelineEventOut[]);
     const recipes = new Map<string, Recipe>();
+    const filterBadgeCount = computed(() => eventTypeOptions.value.length - preferences.value.types.length);
+    const eventTypeFilterState = computed(() => {
+      return eventTypeOptions.value.map(option => {
+        return {
+          ...option,
+          checked: preferences.value.types.includes(option.value),
+        }
+      });
+    });
 
     interface ScrollEvent extends Event {
         target: HTMLInputElement;
@@ -112,13 +167,28 @@ export default defineComponent({
       }
     );
 
-    // Sorting
+    // Preferences
     function reverseSort() {
       if (loading.value) {
         return;
       }
 
       preferences.value.orderDirection = preferences.value.orderDirection === "asc" ?  "desc" : "asc";
+      initializeTimelineEvents();
+    }
+
+    function toggleEventTypeOption(option: TimelineEventType) {
+      if (loading.value) {
+        return;
+      }
+
+      const index = preferences.value.types.indexOf(option);
+      if (index === -1) {
+        preferences.value.types.push(option);
+      } else {
+        preferences.value.types.splice(index, 1);
+      }
+
       initializeTimelineEvents();
     }
 
@@ -179,8 +249,11 @@ export default defineComponent({
     async function scrollTimelineEvents() {
       const orderBy = "timestamp";
       const orderDirection = preferences.value.orderDirection === "asc" ? "asc" : "desc";
+      // eslint-disable-next-line quotes
+      const eventTypeValue = `["${preferences.value.types.join('", "')}"]`;
+      const queryFilter = `(${props.queryFilter}) AND eventType IN ${eventTypeValue}`
 
-      const response = await api.recipes.getAllTimelineEvents(page.value, perPage, { orderBy, orderDirection, queryFilter: props.queryFilter });
+      const response = await api.recipes.getAllTimelineEvents(page.value, perPage, { orderBy, orderDirection, queryFilter });
       page.value += 1;
       if (!response?.data) {
         return;
@@ -256,11 +329,14 @@ export default defineComponent({
 
     return {
       deleteTimelineEvent,
+      filterBadgeCount,
       loading,
       onScroll,
       preferences,
+      eventTypeFilterState,
       recipes,
       reverseSort,
+      toggleEventTypeOption,
       timelineEvents,
       updateTimelineEvent,
     };
