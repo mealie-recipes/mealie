@@ -1,5 +1,5 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import { QueryValue } from "~/lib/api/base/route";
+import { QueryValue, route } from "~/lib/api/base/route";
 import { PaginationData, RequestResponse } from "~/lib/api/types/non-generated";
 import {
   ChangePassword,
@@ -40,7 +40,7 @@ export class UserApi extends BaseCRUDAPI<UserIn, UserOut, UserBase> {
   itemRoute = (itemid: string) => routes.usersId(itemid);
 
   async getGroupUsers(page = 1, perPage = -1, params = {} as Record<string, QueryValue>) {
-    return await this.requests.get<PaginationData<UserSummary>>(routes.groupUsers, { page, perPage, ...params });
+    return await this.requests.get<PaginationData<UserSummary>>(route(routes.groupUsers, { page, perPage, ...params }));
   }
 
   async getSelfGroup(): Promise<RequestResponse<GroupInDB>> {
