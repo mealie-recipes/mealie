@@ -5,6 +5,8 @@ import { useUserApi } from "~/composables/api";
 import { RecipeCategory } from "~/lib/api/types/admin";
 
 const categoryStore: Ref<RecipeCategory[]> = ref([]);
+const publicStoreLoading = ref(false);
+const storeLoading = ref(false);
 
 export function useCategoryData() {
   const data = reactive({
@@ -27,7 +29,7 @@ export function useCategoryData() {
 
 export function usePublicCategoryStore(groupSlug: string) {
   const api = usePublicExploreApi(groupSlug).explore;
-  const loading = ref(false);
+  const loading = publicStoreLoading;
 
   const actions = {
     ...usePublicStoreActions<RecipeCategory>(api.categories, categoryStore, loading),
@@ -36,7 +38,7 @@ export function usePublicCategoryStore(groupSlug: string) {
     },
   };
 
-  if (!categoryStore.value || categoryStore.value?.length === 0) {
+  if (!loading.value && (!categoryStore.value || categoryStore.value?.length === 0)) {
     actions.getAll();
   }
 
@@ -50,7 +52,7 @@ export function usePublicCategoryStore(groupSlug: string) {
 export function useCategoryStore() {
   // passing the group slug switches to using the public API
   const api = useUserApi();
-  const loading = ref(false);
+  const loading = storeLoading;
 
   const actions = {
     ...useStoreActions<RecipeCategory>(api.categories, categoryStore, loading),
@@ -59,7 +61,7 @@ export function useCategoryStore() {
     },
   };
 
-  if (!categoryStore.value || categoryStore.value?.length === 0) {
+  if (!loading.value && (!categoryStore.value || categoryStore.value?.length === 0)) {
     actions.getAll();
   }
 

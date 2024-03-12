@@ -67,12 +67,16 @@
               <v-list>
                 <v-list-item @click="toggleOrderDirection()">
                   <v-icon left>
-                    {{ $globals.icons.sort }}
+                    {{
+                      state.orderDirection === "asc" ?
+                      $globals.icons.sortDescending : $globals.icons.sortAscending
+                    }}
                   </v-icon>
                   <v-list-item-title>
-                    {{ state.orderDirection === "asc" ? "Sort Descending" : "Sort Ascending" }}
+                    {{ state.orderDirection === "asc" ? $tc("general.sort-descending") : $tc("general.sort-ascending") }}
                   </v-list-item-title>
                 </v-list-item>
+                <v-divider />
                 <v-list-item
                   v-for="v in sortable"
                   :key="v.name"
