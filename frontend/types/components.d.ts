@@ -32,6 +32,7 @@ import ReportTable from "@/components/global/ReportTable.vue";
 import SafeMarkdown from "@/components/global/SafeMarkdown.vue";
 import StatsCards from "@/components/global/StatsCards.vue";
 import ToggleState from "@/components/global/ToggleState.vue";
+import BaseWizard from "@/components/global/BaseWizard.vue";
 import DefaultLayout from "@/components/layout/DefaultLayout.vue";
 
 declare module "vue" {
@@ -70,6 +71,7 @@ declare module "vue" {
     SafeMarkdown: typeof SafeMarkdown;
     StatsCards: typeof StatsCards;
     ToggleState: typeof ToggleState;
+    BaseWizard: typeof BaseWizard;
     // Layout Components
     DefaultLayout: typeof DefaultLayout;
   }

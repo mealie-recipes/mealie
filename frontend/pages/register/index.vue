@@ -4,7 +4,7 @@
     fluid
     class="d-flex justify-center align-center"
     :class="{
-      'bg-off-white': !$vuetify.theme.dark && !isDark.value,
+      'bg-off-white': !$vuetify.theme.dark && !isDark,
     }"
   >
     <LanguageDialog v-model="langDialog" />
@@ -136,73 +136,14 @@
 
         <template v-else-if="state.ctx.state === States.ProvideAccountDetails">
           <div>
-            <v-card-title>
-              <v-icon large class="mr-3"> {{ $globals.icons.user }}</v-icon>
-              <span class="headline"> {{ $t("user-registration.account-details") }}</span>
-            </v-card-title>
-            <v-divider />
-            <v-card-text>
-              <v-form ref="domAccountForm" @submit.prevent>
-                <v-text-field
-                  v-model="accountDetails.username.value"
-                  autofocus
-                  v-bind="inputAttrs"
-                  :label="$tc('user.username')"
-                  :prepend-icon="$globals.icons.user"
-                  :rules="[validators.required]"
-                  :error-messages="usernameErrorMessages"
-                  @blur="validateUsername"
-                />
-                <v-text-field
-                  v-model="accountDetails.email.value"
-                  v-bind="inputAttrs"
-                  :prepend-icon="$globals.icons.email"
-                  :label="$tc('user.email')"
-                  :rules="[validators.required, validators.email]"
-                  :error-messages="emailErrorMessages"
-                  @blur="validateEmail"
-                />
-                <v-text-field
-                  v-model="credentials.password1.value"
-                  v-bind="inputAttrs"
-                  :type="pwFields.inputType.value"
-                  :append-icon="pwFields.passwordIcon.value"
-                  :prepend-icon="$globals.icons.lock"
-                  :label="$tc('user.password')"
-                  :rules="[validators.required, validators.minLength(8), validators.maxLength(258)]"
-                  @click:append="pwFields.togglePasswordShow"
-                />
-
-                <UserPasswordStrength :value="credentials.password1.value" />
-
-                <v-text-field
-                  v-model="credentials.password2.value"
-                  v-bind="inputAttrs"
-                  :type="pwFields.inputType.value"
-                  :append-icon="pwFields.passwordIcon.value"
-                  :prepend-icon="$globals.icons.lock"
-                  :label="$tc('user.confirm-password')"
-                  :rules="[validators.required, credentials.passwordMatch]"
-                  @click:append="pwFields.togglePasswordShow"
-                />
-                <div class="px-2">
-                  <v-checkbox
-                    v-model="accountDetails.advancedOptions.value"
-                    :label="$tc('user.enable-advanced-content')"
-                  />
-                  <p class="text-caption mt-n4">
-                    {{ $tc("user.enable-advanced-content-description") }}
-                  </p>
-                </div>
-              </v-form>
-            </v-card-text>
+            <UserRegistrationForm />
             <v-divider />
             <v-card-actions class="justify-space-between">
               <BaseButton cancel @click="state.back">
                 <template #icon> {{ $globals.icons.back }}</template>
                 {{ $t("general.back") }}
               </BaseButton>
-              <BaseButton icon-right @click="accountDetails.next">
+              <BaseButton icon-right @click="accountDetailsNext">
                 <template #icon> {{ $globals.icons.forward }}</template>
                 {{ $t("general.next") }}
               </BaseButton>
@@ -258,6 +199,7 @@
 import { defineComponent, onMounted, ref, useRouter, Ref, useContext, computed } from "@nuxtjs/composition-api";
 import { useDark } from "@vueuse/core";
 import { States, RegistrationType, useRegistration } from "./states";
+import { useUserRegistrationForm } from "~/composables/use-users/user-registration-form";
 import { useRouteQuery } from "~/composables/use-router";
 import { validators, useAsyncValidator } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
@@ -267,7 +209,7 @@ import { VForm } from "~/types/vuetify";
 import { usePasswordField } from "~/composables/use-passwords";
 import { usePublicApi } from "~/composables/api/api-client";
 import { useLocales } from "~/composables/use-locales";
-import UserPasswordStrength from "~/components/Domain/User/UserPasswordStrength.vue";
+import UserRegistrationForm from "~/components/Domain/User/UserRegistrationForm.vue";
 
 const inputAttrs = {
   filled: true,
@@ -277,7 +219,7 @@ const inputAttrs = {
 };
 
 export default defineComponent({
-  components: { UserPasswordStrength },
+  components: { UserRegistrationForm },
   layout: "blank",
   setup() {
     const { i18n } = useContext();
@@ -370,48 +312,22 @@ export default defineComponent({
         state.setState(States.ProvideAccountDetails);
       },
     };
-    // ================================================================
-    // Provide Account Details
-    const domAccountForm = ref<VForm | null>(null);
-    const username = ref("");
-    const email = ref("");
-    const advancedOptions = ref(false);
-    const usernameErrorMessages = ref<string[]>([]);
-    const { validate: validateUsername, valid: validUsername } = useAsyncValidator(
-      username,
-      (v: string) => publicApi.validators.username(v),
-      i18n.tc("validation.username-is-taken"),
-      usernameErrorMessages
-    );
-    const emailErrorMessages = ref<string[]>([]);
-    const { validate: validateEmail, valid: validEmail } = useAsyncValidator(
-      email,
-      (v: string) => publicApi.validators.email(v),
-      i18n.tc("validation.email-is-taken"),
-      emailErrorMessages
-    );
-    const accountDetails = {
-      username,
-      email,
-      advancedOptions,
-      next: () => {
-        if (!safeValidate(domAccountForm as Ref<VForm>) || !validUsername.value || !validEmail.value) {
+    const pwFields = usePasswordField();
+    const {
+      accountDetails,
+      credentials,
+      domAccountForm,
+      emailErrorMessages,
+      usernameErrorMessages,
+      validateUsername,
+      validateEmail,
+    } = useUserRegistrationForm();
+    async function accountDetailsNext() {
+      if (!await accountDetails.validate()) {
           return;
         }
         state.setState(States.Confirmation);
-      },
-    };
-    // ================================================================
-    // Provide Credentials
-    const password1 = ref("");
-    const password2 = ref("");
-    const pwFields = usePasswordField();
-    const passwordMatch = () => password1.value === password2.value || i18n.tc("user.password-must-match");
-    const credentials = {
-      password1,
-      password2,
-      passwordMatch,
-    };
+    }
     // ================================================================
     // Locale
     const { locale } = useLocales();
@@ -438,17 +354,22 @@ export default defineComponent({
         {
           display: true,
           text: i18n.tc("user.email"),
-          value: email.value,
+          value: accountDetails.email.value,
+        },
+        {
+          display: true,
+          text: i18n.tc("user.full-name"),
+          value: accountDetails.fullName.value,
         },
         {
           display: true,
           text: i18n.tc("user.username"),
-          value: username.value,
+          value: accountDetails.username.value,
         },
         {
           display: true,
           text: i18n.tc("user.enable-advanced-content"),
-          value: advancedOptions.value ? i18n.tc("general.yes") : i18n.tc("general.no"),
+          value: accountDetails.advancedOptions.value ? i18n.tc("general.yes") : i18n.tc("general.no"),
         },
       ];
     });
@@ -456,12 +377,13 @@ export default defineComponent({
     const router = useRouter();
     async function submitRegistration() {
       const payload: CreateUserRegistration = {
-        email: email.value,
-        username: username.value,
-        password: password1.value,
-        passwordConfirm: password2.value,
+        email: accountDetails.email.value,
+        username: accountDetails.username.value,
+        fullName: accountDetails.fullName.value,
+        password: credentials.password1.value,
+        passwordConfirm: credentials.password2.value,
         locale: locale.value,
-        advanced: advancedOptions.value,
+        advanced: accountDetails.advancedOptions.value,
       };
       if (state.ctx.type === RegistrationType.CreateGroup) {
         payload.group = groupName.value;
@@ -472,12 +394,17 @@ export default defineComponent({
       }
       const { response } = await api.register.register(payload);
       if (response?.status === 201) {
+        accountDetails.reset();
+        credentials.reset();
         alert.success(i18n.tc("user-registration.registration-success"));
         router.push("/login");
+      } else {
+        alert.error(i18n.tc("events.something-went-wrong"));
       }
     }
     return {
       accountDetails,
+      accountDetailsNext,
       confirmationData,
       credentials,
       emailErrorMessages,

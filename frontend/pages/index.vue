@@ -3,8 +3,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext, useRouter } from "@nuxtjs/composition-api";
-import { AppInfo } from "~/lib/api/types/admin";
+import { computed, defineComponent, useAsync, useContext, useRouter } from "@nuxtjs/composition-api";
+import { useAsyncKey } from "~/composables/use-utils";
+import { AppInfo, AppStartupInfo } from "~/lib/api/types/admin";
 
 export default defineComponent({
   layout: "blank",
@@ -22,11 +23,20 @@ export default defineComponent({
       }
     }
 
-    if (groupSlug.value) {
-      router.push(`/g/${groupSlug.value}`);
-    } else {
-      redirectPublicUserToDefaultGroup();
-    }
+    useAsync(async () => {
+      if (groupSlug.value) {
+        const data = await $axios.get<AppStartupInfo>("/api/app/about/startup-info");
+        const isDemo = data.data.isDemo;
+        const isFirstLogin = data.data.isFirstLogin;
+        if (!isDemo && isFirstLogin && $auth.user?.admin) {
+          router.push("/admin/setup");
+        } else {
+          router.push(`/g/${groupSlug.value}`);
+        }
+      } else {
+        redirectPublicUserToDefaultGroup();
+      }
+    }, useAsyncKey());
   }
 });
 </script>

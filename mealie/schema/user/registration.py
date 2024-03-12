@@ -10,8 +10,9 @@ from mealie.schema._mealie.validators import validate_locale
 class CreateUserRegistration(MealieModel):
     group: str | None = None
     group_token: Annotated[str | None, Field(validate_default=True)] = None
-    email: Annotated[str, StringConstraints(to_lower=True, strip_whitespace=True)]  # type: ignore
-    username: Annotated[str, StringConstraints(to_lower=True, strip_whitespace=True)]  # type: ignore
+    email: Annotated[str, StringConstraints(to_lower=True, strip_whitespace=True)]
+    username: Annotated[str, StringConstraints(to_lower=True, strip_whitespace=True)]
+    full_name: Annotated[str, StringConstraints(strip_whitespace=True)]
     password: str
     password_confirm: str
     advanced: bool = False

@@ -43,6 +43,7 @@ export interface AppInfo {
 }
 export interface AppStartupInfo {
   isFirstLogin: boolean;
+  isDemo: boolean;
 }
 export interface AppStatistics {
   totalRecipes: number;

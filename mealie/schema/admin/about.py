@@ -46,6 +46,8 @@ class AppStartupInfo(MealieModel):
     it is removed, this will always return False.
     """
 
+    is_demo: bool
+
 
 class AdminAboutInfo(AppInfo):
     versionLatest: str
