@@ -245,7 +245,7 @@ import { useUserApi } from "~/composables/api";
 import MultiPurposeLabelSection from "~/components/Domain/ShoppingList/MultiPurposeLabelSection.vue"
 import ShoppingListItem from "~/components/Domain/ShoppingList/ShoppingListItem.vue";
 import { ShoppingListItemCreate, ShoppingListItemOut, ShoppingListMultiPurposeLabelOut, ShoppingListOut } from "~/lib/api/types/group";
-import { UserOut } from "~/lib/api/types/user";
+import { UserSummary } from "~/lib/api/types/user";
 import RecipeList from "~/components/Domain/Recipe/RecipeList.vue";
 import ShoppingListItemEditor from "~/components/Domain/ShoppingList/ShoppingListItemEditor.vue";
 import { useFoodStore, useLabelStore, useUnitStore } from "~/composables/store";
@@ -817,7 +817,7 @@ export default defineComponent({
     // ===============================================================
     // Shopping List Settings
 
-    const allUsers = ref<UserOut[]>([]);
+    const allUsers = ref<UserSummary[]>([]);
     const currentUserId = ref<string | undefined>();
     async function fetchAllUsers() {
       const { data } = await userApi.users.getGroupUsers(1, -1, { orderBy: "full_name", orderDirection: "asc" });
