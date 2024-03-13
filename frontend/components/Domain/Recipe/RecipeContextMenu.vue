@@ -59,7 +59,13 @@
               v-on="on"
             ></v-text-field>
           </template>
-          <v-date-picker v-model="newMealdate" no-title @input="pickerMenu = false"></v-date-picker>
+          <v-date-picker
+            v-model="newMealdate"
+            no-title
+            :first-day-of-week="firstDayOfWeek"
+            :local="$i18n.locale"
+            @input="pickerMenu = false"
+          />
         </v-menu>
         <v-select
           v-model="newMealType"
@@ -111,6 +117,7 @@ import RecipeDialogPrintPreferences from "./RecipeDialogPrintPreferences.vue";
 import RecipeDialogShare from "./RecipeDialogShare.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useUserApi } from "~/composables/api";
+import { useGroupSelf } from "~/composables/use-groups";
 import { alert } from "~/composables/use-toast";
 import { usePlanTypeOptions } from "~/composables/use-group-mealplan";
 import { Recipe } from "~/lib/api/types/recipe";
@@ -224,10 +231,15 @@ export default defineComponent({
     });
 
     const { i18n, $auth, $globals } = useContext();
+    const { group } = useGroupSelf();
     const { isOwnGroup } = useLoggedInState();
 
     const route = useRoute();
     const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+
+    const firstDayOfWeek = computed(() => {
+      return group.value?.preferences?.firstDayOfWeek || 0;
+    });
 
     // ===========================================================================
     // Context Menu Setup
@@ -432,6 +444,7 @@ export default defineComponent({
       addRecipeToPlan,
       icon,
       planTypeOptions,
+      firstDayOfWeek,
     };
   },
 });

@@ -4,6 +4,7 @@ import { useUserApi } from "~/composables/api";
 import { IngredientUnit } from "~/lib/api/types/recipe";
 
 let unitStore: Ref<IngredientUnit[] | null> = ref([]);
+const storeLoading = ref(false);
 
 /**
  * useUnitData returns a template reactive object
@@ -35,7 +36,7 @@ export const useUnitData = function () {
 
 export const useUnitStore = function () {
   const api = useUserApi();
-  const loading = ref(false);
+  const loading = storeLoading;
 
   const actions = {
     ...useStoreActions<IngredientUnit>(api.units, unitStore, loading),
@@ -44,7 +45,7 @@ export const useUnitStore = function () {
     },
   };
 
-  if (!unitStore.value || unitStore.value.length === 0) {
+  if (!loading.value && (!unitStore.value || unitStore.value.length === 0)) {
     unitStore = actions.getAll();
   }
 
