@@ -238,6 +238,10 @@ export interface UserIn {
   canOrganize?: boolean;
   password: string;
 }
+export interface UserSummary {
+  id: string;
+  fullName?: string;
+}
 export interface ValidateResetToken {
   token: string;
 }

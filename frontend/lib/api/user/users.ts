@@ -1,5 +1,6 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import { RequestResponse } from "../types/non-generated";
+import { QueryValue, route } from "~/lib/api/base/route";
+import { PaginationData, RequestResponse } from "~/lib/api/types/non-generated";
 import {
   ChangePassword,
   DeleteTokenResponse,
@@ -11,11 +12,13 @@ import {
   UserFavorites,
   UserIn,
   UserOut,
+  UserSummary,
 } from "~/lib/api/types/user";
 
 const prefix = "/api";
 
 const routes = {
+  groupUsers: `${prefix}/users/group-users`,
   usersSelf: `${prefix}/users/self`,
   groupsSelf: `${prefix}/users/self/group`,
   passwordReset: `${prefix}/users/reset-password`,
@@ -35,6 +38,10 @@ const routes = {
 export class UserApi extends BaseCRUDAPI<UserIn, UserOut, UserBase> {
   baseRoute: string = routes.users;
   itemRoute = (itemid: string) => routes.usersId(itemid);
+
+  async getGroupUsers(page = 1, perPage = -1, params = {} as Record<string, QueryValue>) {
+    return await this.requests.get<PaginationData<UserSummary>>(route(routes.groupUsers, { page, perPage, ...params }));
+  }
 
   async getSelfGroup(): Promise<RequestResponse<GroupInDB>> {
     return await this.requests.get(routes.groupsSelf, {});

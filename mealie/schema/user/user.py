@@ -139,8 +139,18 @@ class UserOut(UserBase):
         return slugs
 
 
+class UserSummary(MealieModel):
+    id: UUID4
+    full_name: str
+    model_config = ConfigDict(from_attributes=True)
+
+
 class UserPagination(PaginationBase):
     items: list[UserOut]
+
+
+class UserSummaryPagination(PaginationBase):
+    items: list[UserSummary]
 
 
 class UserFavorites(UserBase):
