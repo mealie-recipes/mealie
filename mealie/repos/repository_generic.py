@@ -80,33 +80,18 @@ class RepositoryGeneric(Generic[Schema, Model]):
         limit: int | None = None,
         order_by: str | None = None,
         order_descending: bool = True,
-        start=0,
         override=None,
     ) -> list[Schema]:
-        self.logger.warning('"get_all" method is deprecated; use "page_all" instead')
+        pq = PaginationQuery(
+            per_page=limit or -1,
+            order_by=order_by,
+            order_direction=OrderDirection.desc if order_descending else OrderDirection.asc,
+            page=1,
+        )
 
-        # sourcery skip: remove-unnecessary-cast
-        eff_schema = override or self.schema
+        results = self.page_all(pq, override=override)
 
-        fltr = self._filter_builder()
-
-        q = self._query(override_schema=eff_schema).filter_by(**fltr)
-
-        if order_by:
-            try:
-                order_attr = getattr(self.model, str(order_by))
-                if order_descending:
-                    order_attr = order_attr.desc()
-
-                else:
-                    order_attr = order_attr.asc()
-
-                q = q.order_by(order_attr)
-
-            except AttributeError:
-                self.logger.info(f'Attempted to sort by unknown sort property "{order_by}"; ignoring')
-        result = self.session.execute(q.offset(start).limit(limit)).unique().scalars().all()
-        return [eff_schema.model_validate(x) for x in result]
+        return results.items
 
     def multi_query(
         self,
