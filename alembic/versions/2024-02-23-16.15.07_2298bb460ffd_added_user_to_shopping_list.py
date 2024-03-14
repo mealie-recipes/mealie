@@ -13,6 +13,9 @@ from sqlalchemy import orm
 
 import mealie.db.migration_types
 from alembic import op
+from mealie.core.root_logger import get_logger
+
+logger = get_logger()
 
 # revision identifiers, used by Alembic.
 revision = "2298bb460ffd"
@@ -37,13 +40,20 @@ def find_user_id_for_group(group_id: UUID):
     with session:
         try:
             # try to find an admin user
-            user_id = session.execute(sa.text(stmt).bindparams(group_id=group_id)).scalar_one()
+            return session.execute(sa.text(stmt).bindparams(group_id=group_id)).scalar_one()
         except orm.exc.NoResultFound:
+            pass
+
+        try:
             # fallback to any user
-            user_id = session.execute(
+            return session.execute(
                 sa.text("SELECT id FROM users WHERE group_id=:group_id LIMIT 1").bindparams(group_id=group_id)
             ).scalar_one()
-        return user_id
+        except orm.exc.NoResultFound:
+            pass
+
+        # no user could be found
+        return None
 
 
 def populate_shopping_list_users():
@@ -54,11 +64,17 @@ def populate_shopping_list_users():
         list_ids_and_group_ids = session.execute(sa.text("SELECT id, group_id FROM shopping_lists")).all()
         for list_id, group_id in list_ids_and_group_ids:
             user_id = find_user_id_for_group(group_id)
-            session.execute(
-                sa.text(f"UPDATE shopping_lists SET user_id=:user_id WHERE id=:id").bindparams(
-                    user_id=user_id, id=list_id
+            if user_id:
+                session.execute(
+                    sa.text(f"UPDATE shopping_lists SET user_id=:user_id WHERE id=:id").bindparams(
+                        user_id=user_id, id=list_id
+                    )
                 )
-            )
+            else:
+                logger.warning(
+                    f"No user found for shopping list {list_id} with group {group_id}; deleting shopping list"
+                )
+                session.execute(sa.text(f"DELETE FROM shopping_lists WHERE id=:id").bindparams(id=list_id))
 
 
 def upgrade():
