@@ -1,3 +1,6 @@
+from collections.abc import AsyncGenerator
+from contextlib import asynccontextmanager
+
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -39,12 +42,55 @@ community members. If you'd like to file an issue, please use the
 - [Beta](https://demo.mealie.io)
 """
 
+logger = get_logger()
+
+
+@asynccontextmanager
+async def lifespan_fn(_: FastAPI) -> AsyncGenerator[None, None]:
+    """
+    lifespan_fn controls the startup and shutdown of the FastAPI Application.
+    This function is called when the FastAPI application starts and stops.
+
+    See FastAPI documentation for more information:
+      - https://fastapi.tiangolo.com/advanced/events/
+    """
+    logger.info("start: database initialization")
+    import mealie.db.init_db as init_db
+
+    init_db.main()
+    logger.info("end: database initialization")
+
+    await start_scheduler()
+
+    logger.info("-----SYSTEM STARTUP-----")
+    logger.info("------APP SETTINGS------")
+    logger.info(
+        settings.model_dump_json(
+            indent=4,
+            exclude={
+                "SECRET",
+                "SFTP_PASSWORD",
+                "SFTP_USERNAME",
+                "DB_URL",  # replace by DB_URL_PUBLIC for logs
+                "DB_PROVIDER",
+                "SMTP_USER",
+                "SMTP_PASSWORD",
+            },
+        )
+    )
+
+    yield
+
+    logger.info("-----SYSTEM SHUTDOWN----- \n")
+
+
 app = FastAPI(
     title="Mealie",
     description=description,
     version=APP_VERSION,
     docs_url=settings.DOCS_URL,
     redoc_url=settings.REDOC_URL,
+    lifespan=lifespan_fn,
 )
 
 app.add_middleware(GZipMiddleware, minimum_size=1000)
@@ -101,30 +147,6 @@ api_routers()
 for route in app.routes:
     if isinstance(route, APIRoute):
         route.tags = list(set(route.tags))
-
-
-@app.on_event("startup")
-async def system_startup():
-    logger = get_logger()
-
-    await start_scheduler()
-
-    logger.info("-----SYSTEM STARTUP----- \n")
-    logger.info("------APP SETTINGS------")
-    logger.info(
-        settings.model_dump_json(
-            indent=4,
-            exclude={
-                "SECRET",
-                "SFTP_PASSWORD",
-                "SFTP_USERNAME",
-                "DB_URL",  # replace by DB_URL_PUBLIC for logs
-                "DB_PROVIDER",
-                "SMTP_USER",
-                "SMTP_PASSWORD",
-            },
-        )
-    )
 
 
 def main():

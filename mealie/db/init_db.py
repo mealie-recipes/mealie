@@ -22,7 +22,7 @@ from mealie.services.group_services.group_service import GroupService
 
 PROJECT_DIR = Path(__file__).parent.parent.parent
 
-logger = root_logger.get_logger("init_db")
+logger = root_logger.get_logger()
 
 
 def init_db(db: AllRepositories) -> None:
