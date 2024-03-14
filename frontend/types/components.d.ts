@@ -14,6 +14,7 @@ import BaseDivider from "@/components/global/BaseDivider.vue";
 import BaseOverflowButton from "@/components/global/BaseOverflowButton.vue";
 import BasePageTitle from "@/components/global/BasePageTitle.vue";
 import BaseStatCard from "@/components/global/BaseStatCard.vue";
+import BaseWizard from "@/components/global/BaseWizard.vue";
 import ButtonLink from "@/components/global/ButtonLink.vue";
 import ContextMenu from "@/components/global/ContextMenu.vue";
 import CrudTable from "@/components/global/CrudTable.vue";
@@ -32,7 +33,6 @@ import ReportTable from "@/components/global/ReportTable.vue";
 import SafeMarkdown from "@/components/global/SafeMarkdown.vue";
 import StatsCards from "@/components/global/StatsCards.vue";
 import ToggleState from "@/components/global/ToggleState.vue";
-import BaseWizard from "@/components/global/BaseWizard.vue";
 import DefaultLayout from "@/components/layout/DefaultLayout.vue";
 
 declare module "vue" {
@@ -53,6 +53,7 @@ declare module "vue" {
     BaseOverflowButton: typeof BaseOverflowButton;
     BasePageTitle: typeof BasePageTitle;
     BaseStatCard: typeof BaseStatCard;
+    BaseWizard: typeof BaseWizard;
     ButtonLink: typeof ButtonLink;
     ContextMenu: typeof ContextMenu;
     CrudTable: typeof CrudTable;
@@ -71,7 +72,6 @@ declare module "vue" {
     SafeMarkdown: typeof SafeMarkdown;
     StatsCards: typeof StatsCards;
     ToggleState: typeof ToggleState;
-    BaseWizard: typeof BaseWizard;
     // Layout Components
     DefaultLayout: typeof DefaultLayout;
   }
