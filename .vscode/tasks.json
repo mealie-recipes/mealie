@@ -25,16 +25,6 @@
       "problemMatcher": []
     },
     {
-      "label": "Init Database",
-      "command": "poetry run python mealie/db/init_db.py",
-      "type": "shell",
-      "presentation": {
-        "reveal": "always",
-        "group": "groupA"
-      },
-      "problemMatcher": []
-    },
-    {
       "label": "Dev: Start Frontend",
       "command": "task ui",
       "type": "shell",

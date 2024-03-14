@@ -132,7 +132,6 @@ tasks:
   py:
     desc: runs the backend server
     cmds:
-      - poetry run python mealie/db/init_db.py
       - poetry run python mealie/app.py
 
   py:postgres:
@@ -145,7 +144,6 @@ tasks:
       POSTGRES_PORT: 5432
       POSTGRES_DB: mealie
     cmds:
-      - poetry run python mealie/db/init_db.py
       - poetry run python mealie/app.py
 
   ui:build:
