@@ -249,6 +249,21 @@ class GroupInDB(UpdateGroup):
         ]
 
 
+class GroupSummary(MealieModel):
+    id: UUID4
+    name: str
+    slug: str
+    preferences: ReadGroupPreferences | None = None
+
+    model_config = ConfigDict(from_attributes=True)
+
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [
+            joinedload(Group.preferences),
+        ]
+
+
 class GroupPagination(PaginationBase):
     items: list[GroupInDB]
 

@@ -1,8 +1,8 @@
 import { useAsync, ref } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
-import { GroupBase, GroupInDB } from "~/lib/api/types/user";
+import { GroupBase, GroupSummary } from "~/lib/api/types/user";
 
-const groupSelfRef = ref<GroupInDB | null>(null);
+const groupSelfRef = ref<GroupSummary | null>(null);
 const loading = ref(false);
 
 export const useGroupSelf = function () {

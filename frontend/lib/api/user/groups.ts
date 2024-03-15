@@ -1,5 +1,5 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import { CategoryBase, GroupBase, GroupInDB, UserOut } from "~/lib/api/types/user";
+import { CategoryBase, GroupBase, GroupInDB, GroupSummary, UserOut } from "~/lib/api/types/user";
 import {
   CreateInviteToken,
   GroupAdminUpdate,
@@ -35,7 +35,7 @@ export class GroupAPI extends BaseCRUDAPI<GroupBase, GroupInDB, GroupAdminUpdate
   /** Returns the Group Data for the Current User
    */
   async getCurrentUserGroup() {
-    return await this.requests.get<GroupInDB>(routes.groupsSelf);
+    return await this.requests.get<GroupSummary>(routes.groupsSelf);
   }
 
   async getCategories() {
