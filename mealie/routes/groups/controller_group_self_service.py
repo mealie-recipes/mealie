@@ -8,7 +8,7 @@ from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.group.group_permissions import SetPermissions
 from mealie.schema.group.group_preferences import ReadGroupPreferences, UpdateGroupPreferences
 from mealie.schema.group.group_statistics import GroupStatistics, GroupStorage
-from mealie.schema.user.user import GroupInDB, GroupSummary, UserOut
+from mealie.schema.user.user import GroupSummary, UserOut
 from mealie.services.group_services.group_service import GroupService
 
 router = UserAPIRouter(prefix="/groups", tags=["Groups: Self Service"])
