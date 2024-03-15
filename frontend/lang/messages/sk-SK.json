@@ -85,7 +85,7 @@
     "clear": "Vymazať",
     "close": "Zavrieť",
     "confirm": "Potvrdiť",
-    "confirm-how-does-everything-look": "How does everything look?",
+    "confirm-how-does-everything-look": "Ako to vyzerá?",
     "confirm-delete-generic": "Naozaj chcete odstrániť?",
     "copied_message": "Okopírované!",
     "create": "Vytvoriť",
@@ -147,15 +147,15 @@
     "show-all": "Ukázať všetko",
     "shuffle": "Náhodný výber",
     "sort": "Usporiadať",
-    "sort-ascending": "Sort Ascending",
-    "sort-descending": "Sort Descending",
+    "sort-ascending": "Zoradiť vzostupne",
+    "sort-descending": "Zoradiť zostupne",
     "sort-alphabetically": "Abecedne",
     "status": "Stav",
     "subject": "Predmet",
     "submit": "Odoslať",
     "success-count": "Úspešné {count}",
     "sunday": "Nedeľa",
-    "system": "System",
+    "system": "Systém",
     "templates": "Šablóny:",
     "test": "Otestovať",
     "themes": "Motívy",
@@ -174,7 +174,7 @@
     "units": "Jednotky",
     "back": "Späť",
     "next": "Nasledujúci",
-    "start": "Start",
+    "start": "Začať",
     "toggle-view": "Zmeniť zobrazenie",
     "date": "Dátum",
     "id": "Id",
@@ -243,8 +243,8 @@
     "group-preferences": "Nastavenia skupiny",
     "private-group": "Súkromná skupina",
     "private-group-description": "Nastavenie vašej skupiny ako súkromnej zmení všetky nastavenia vonkajších prístupov na prednastavené hodnoty. Zmeníte tým všetky individuálne nastavené verejné prístupy.",
-    "enable-public-access": "Enable Public Access",
-    "enable-public-access-description": "Make group recipes public by default, and allow visitors to view recipes without logging-in",
+    "enable-public-access": "Povoliť verejný prístup",
+    "enable-public-access-description": "Nastaviť skupinové recepty ako verejné a umožniť hosťom ich zobrazenie bez nutnosti prihlásenia",
     "allow-users-outside-of-your-group-to-see-your-recipes": "Povoliť užívateľom mimo vašej skupiny čítať vaše recepty",
     "allow-users-outside-of-your-group-to-see-your-recipes-description": "Po aktivácii môžete zdielať vybrané recepty prostredníctvom verejne dostupných odkazov bez nutnosti autorizácie užívateľa. Pri deaktivácii je možné recepty zdielať len s užívateľmi vo vašej skupine alebo prostredníctvom pred-generovaných súkromných odkazov",
     "show-nutrition-information": "Zobraziť informáciu o nutričných hodnotách",
@@ -358,7 +358,7 @@
     },
     "recipe-data-migrations": "Migrácie dát receptov",
     "recipe-data-migrations-explanation": "Recepty je možné prenášať do Mealie z inej podporovanej aplikácie. Je to výborný spôsob ako začať s používaním Mealie.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Coming from another application or an even older version of Mealie? Check out migrations and see if your data can be imported.",
+    "coming-from-another-application-or-an-even-older-version-of-mealie": "Prichádzate z inej aplikácie alebo dokonca staršej verzie Mealie? Pozrite si možnosti migrácie a zistite, či je možné importovať vaše pôvodné dáta.",
     "choose-migration-type": "Vyberte spôsob migrácie",
     "tag-all-recipes": "Označte všetky recepty štítkom {tag-name}",
     "nextcloud-text": "Recepty z Nextcloud-u je možné importovať priamo zo zip-súboru, ktorý obsahuje dáta uložené na Nextcloud-e. Pozrite sa nižšie na príklad adresárovej štruktúry, aby ste sa uistili, že je možné vaše recepty importovať.",
@@ -521,7 +521,7 @@
     "edit-timeline-event": "Upraviť udalosť na časovej osi",
     "timeline": "Časová os",
     "timeline-is-empty": "Na časovej osi zatiaľ nič nie je. Skúste pripraviť tento recept!",
-    "timeline-no-events-found-try-adjusting-filters": "No events found. Try adjusting your search filters.",
+    "timeline-no-events-found-try-adjusting-filters": "Neboli nájdené žiadne udalosti. Skúste zmeniť kritéria filtrov.",
     "group-global-timeline": "{groupName} Globálna časová os",
     "open-timeline": "Otvoriť časovú os",
     "made-this": "Toto som uvaril",
@@ -542,8 +542,8 @@
     "looking-for-migrations": "Hľadáte možnosti migrácie?",
     "import-with-url": "Importovať z URL",
     "create-recipe": "Vytvoriť recept",
-    "create-recipe-description": "Create a new recipe from scratch.",
-    "create-recipes": "Create Recipes",
+    "create-recipe-description": "Vytvoriť nový recept od začiatku.",
+    "create-recipes": "Vytvoriť recept",
     "import-with-zip": "Importovať .zip súbor",
     "create-recipe-from-an-image": "Vytvoriť recept z obrázku",
     "bulk-url-import": "Hromadný URL import",
@@ -740,9 +740,9 @@
     "ldap-ready-success-text": "Všetky potrebné LDAP premenné sú nastavené.",
     "build": "Vytvoriť",
     "recipe-scraper-version": "Verzia scrapera receptov",
-    "oidc-ready": "OIDC Ready",
-    "oidc-ready-error-text": "Not all OIDC Values are configured. This can be ignored if you are not using OIDC Authentication.",
-    "oidc-ready-success-text": "Required OIDC variables are all set."
+    "oidc-ready": "OIDC pripravené",
+    "oidc-ready-error-text": "Niektoré z OIDC hodnôt nie sú nakonfigurované. Toto varovanie je možné ignorovať, ak nepoužívate OIDC autentifikáciu.",
+    "oidc-ready-success-text": "Všetky potrebné OIDC premenné sú nastavené."
   },
   "shopping-list": {
     "all-lists": "Všetky zoznamy",
@@ -815,7 +815,7 @@
     "untagged-count": "Neoznačené {count}",
     "create-a-tag": "Vytvoriť štítok",
     "tag-name": "Názov štítku",
-    "tag": "Tag"
+    "tag": "Štítok"
   },
   "tool": {
     "tools": "Nástroje",
@@ -825,7 +825,7 @@
     "create-new-tool": "Vytvoriť nové náčinie",
     "on-hand-checkbox-label": "Zobraz ako \"K dispozícii\" (Checked)",
     "required-tools": "Potrebné nástroje",
-    "tool": "Tool"
+    "tool": "Nástroj"
   },
   "user": {
     "admin": "Administrátor",
@@ -850,11 +850,11 @@
     "link-id": "ID odkazu",
     "link-name": "Názov odkazu",
     "login": "Prihlásiť sa",
-    "login-oidc": "Login with",
-    "or": "or",
+    "login-oidc": "Prihlásiť sa s",
+    "or": "alebo",
     "logout": "Odhlásiť sa",
     "manage-users": "Správa užívateľov",
-    "manage-users-description": "Create and manage users.",
+    "manage-users-description": "Vytváranie a správa používateľov.",
     "new-password": "Nové heslo",
     "new-user": "Nový užívateľ",
     "password-has-been-reset-to-the-default-password": "Heslo bolo zresetované na prednastavenú hodnotu",
@@ -863,7 +863,7 @@
     "password-updated": "Heslo bolo aktualizované",
     "password": "Heslo",
     "password-strength": "Sila hesla je {strength}",
-    "please-enter-password": "Please enter your new password.",
+    "please-enter-password": "Prosím, zadajte svoje nové heslo.",
     "register": "Registrácia",
     "reset-password": "Resetovať heslo",
     "sign-in": "Prihlásiť sa",
@@ -884,7 +884,7 @@
     "username": "Užívateľské meno",
     "users-header": "Používatelia",
     "users": "Užívatelia",
-    "user-not-found": "User not found",
+    "user-not-found": "Používateľ nebol nájdený",
     "webhook-time": "Čas webhookov",
     "webhooks-enabled": "Webhooky povolené",
     "you-are-not-allowed-to-create-a-user": "Nie Ste oprávnený vytvoriť nového užívateľa",
@@ -907,7 +907,7 @@
     "user-management": "Správa užívateľov",
     "reset-locked-users": "Obnov uzamknutých užívateľov",
     "admin-user-creation": "Vytvorenie administrátorského používateľa",
-    "admin-user-management": "Admin User Management",
+    "admin-user-management": "Správa administratívneho užívateľa",
     "user-details": "Údaje o užívateľovi",
     "user-name": "Užívateľské meno",
     "authentication-method": "Metóda overenia",
@@ -918,11 +918,11 @@
     "user-can-manage-group": "Užívateľ môže spravovať skupinu",
     "user-can-organize-group-data": "Užívateľ môže spravovať údaje skupiny",
     "enable-advanced-features": "Povoliť pokročilé funkcie",
-    "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
-    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
-    "forgot-password": "Forgot Password",
-    "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
-    "changes-reflected-immediately": "Changes to this user will be reflected immediately."
+    "it-looks-like-this-is-your-first-time-logging-in": "Zrejme je toto vaše prvé prihlásenie.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Želáte si, aby sa vám toto už viackrát nezobrazovalo? Zmeňte si prosím váš e-mail v nastaveniach používateľa!",
+    "forgot-password": "Zabudnuté heslo",
+    "forgot-password-text": "Prosím zadajte svoju e-mailovú adresu a my vám zašleme odkaz, ktorý vám umožní heslo obnoviť.",
+    "changes-reflected-immediately": "Zmeny týkajúce sa tohto užívateľa budú vykonané okamžite."
   },
   "language-dialog": {
     "translated": "preložené",
@@ -944,8 +944,8 @@
       "food-label": "Značka jedla",
       "edit-food": "Upraviť jedlo",
       "food-data": "Údaje o jedle",
-      "example-food-singular": "ex: Onion",
-      "example-food-plural": "ex: Onions"
+      "example-food-singular": "napr.: cibuľa",
+      "example-food-plural": "napr.: cibule"
     },
     "units": {
       "seed-dialog-text": "Naplniť databázu z bežnými štítkami podla vášho lokálneho jazyka.",
@@ -956,7 +956,7 @@
       "merging-unit-into-unit": "Zlúčiť {0} do {1}",
       "create-unit": "Vytvoriť jednotku",
       "abbreviation": "Skratky",
-      "plural-abbreviation": "Plural Abbreviation",
+      "plural-abbreviation": "Skratka množného čísla",
       "description": "Popis",
       "display-as-fraction": "Zobraziť ako zlomok",
       "use-abbreviation": "Použiť skratky",
@@ -964,10 +964,10 @@
       "unit-data": "Údaje o jednotke",
       "use-abbv": "Použiť skrt.",
       "fraction": "Zlomok",
-      "example-unit-singular": "ex: Tablespoon",
-      "example-unit-plural": "ex: Tablespoons",
-      "example-unit-abbreviation-singular": "ex: Tbsp",
-      "example-unit-abbreviation-plural": "ex: Tbsps"
+      "example-unit-singular": "napr.: polievková lyžica",
+      "example-unit-plural": "napr.: polievkové lyžice",
+      "example-unit-abbreviation-singular": "napr.: PL",
+      "example-unit-abbreviation-plural": "napr.: PL"
     },
     "labels": {
       "seed-dialog-text": "Naplniť databázu z bežnými štítkami podla vášho lokálneho jazyka.",
@@ -996,8 +996,8 @@
       "delete-recipes": "Odstrániť recepty",
       "source-unit-will-be-deleted": "Zdroj bude vymazaný"
     },
-    "create-alias": "Create Alias",
-    "manage-aliases": "Manage Aliases",
+    "create-alias": "Vytvoriť alias",
+    "manage-aliases": "Spravovať aliasy",
     "seed-data": "Naplniť dáta",
     "seed": "Zdroj",
     "data-management": "Správa dát",
@@ -1007,24 +1007,24 @@
     "columns": "Stĺpce",
     "combine": "Kombinovať",
     "categories": {
-      "edit-category": "Edit Category",
-      "new-category": "New Category",
-      "category-data": "Category Data"
+      "edit-category": "Upraviť kategóriu",
+      "new-category": "Nová kategória",
+      "category-data": "Údaje kategórie"
     },
     "tags": {
-      "new-tag": "New Tag",
-      "edit-tag": "Edit Tag",
-      "tag-data": "Tag Data"
+      "new-tag": "Nový štítok",
+      "edit-tag": "Upraviť štítok",
+      "tag-data": "Údaje štítku"
     },
     "tools": {
-      "new-tool": "New Tool",
-      "edit-tool": "Edit Tool",
-      "tool-data": "Tool Data"
+      "new-tool": "Nový nástroj",
+      "edit-tool": "Upraviť nástroj",
+      "tool-data": "Údaje nástroja"
     }
   },
   "user-registration": {
     "user-registration": "Registrácia",
-    "registration-success": "Registration Success",
+    "registration-success": "Registrácia úspešná",
     "join-a-group": "Pridať sa do skupiny",
     "create-a-new-group": "Vytvoriť novú skupinu",
     "provide-registration-token-description": "Zadajte registračný kľuč priradený ku skupine, ku ktorej sa chcete pripojiť. Budete ho musieť získať od existujúceho člena skupiny.",
@@ -1071,7 +1071,7 @@
   },
   "ocr-editor": {
     "ocr-editor": "OCR editor",
-    "toolbar": "Toolbar",
+    "toolbar": "Panely s nástrojmi",
     "selection-mode": "Režim výberu",
     "pan-and-zoom-picture": "Priblížiť a posunúť obrázok",
     "split-text": "Rozdeliť text",
@@ -1079,8 +1079,8 @@
     "split-by-block": "Rozdeliť podľa blokov textu",
     "flatten": "Zrovnať bez ohľadu na pôvodné formátovanie",
     "help": {
-      "help": "Help",
-      "mouse-modes": "Mouse modes",
+      "help": "Nápoveda",
+      "mouse-modes": "Módy myši",
       "selection-mode": "Režim výberu (predvolený)",
       "selection-mode-desc": "Režim výberu je hlavný režim, ktorý môže byť použitý na zadávanie údajov:",
       "selection-mode-steps": {
@@ -1152,21 +1152,21 @@
     "no-logs-found": "Neboli nájdené žiadne záznamy",
     "tasks": "Úlohy",
     "setup": {
-      "first-time-setup": "First Time Setup",
-      "welcome-to-mealie-get-started": "Welcome to Mealie! Let's get started",
-      "already-set-up-bring-to-homepage": "I'm already set up, just bring me to the homepage",
-      "common-settings-for-new-sites": "Here are some common settings for new sites",
-      "setup-complete": "Setup Complete!",
-      "here-are-a-few-things-to-help-you-get-started": "Here are a few things to help you get started with Mealie",
-      "restore-from-v1-backup": "Have a backup from a previous instance of Mealie v1? You can restore it here.",
-      "manage-profile-or-get-invite-link": "Manage your own profile, or grab an invite link to share with others."
+      "first-time-setup": "Úvodné nastavenia",
+      "welcome-to-mealie-get-started": "Vitajte v Mealie! Začíname.",
+      "already-set-up-bring-to-homepage": "Som pripravený začať, vezmi ma na hlavnú stránku",
+      "common-settings-for-new-sites": "Toto sú bežné nastavenia nových inštalácií",
+      "setup-complete": "Nastavenie je dokončené!",
+      "here-are-a-few-things-to-help-you-get-started": "Tu je niekoľko bodov, ktoré vám pomôžu na začiatku v Mealie",
+      "restore-from-v1-backup": "Máte zálohu z predchádzajúcej inštalácie Mealie v1? Tu ju môžete obnoviť.",
+      "manage-profile-or-get-invite-link": "Spravujte svoj profil ako súkromný alebo ho s pomocou pozývacieho linku zdieľajte s ostatnými."
     }
   },
   "profile": {
     "welcome-user": "👋 Vitajte, {0}",
     "description": "Spravujte svoj profil, recepty a nastavenia skupín.",
     "get-invite-link": "Odkaz s pozvánkou",
-    "get-public-link": "Get Public Link",
+    "get-public-link": "Vytvoriť verejný odkaz",
     "account-summary": "Zhrnutie účtu",
     "account-summary-description": "Tu je zhrnutie informácií o vašej skupine",
     "group-statistics": "Štatistiky skupiny",
@@ -1218,7 +1218,7 @@
     "require-all-tools": "Vyžadovať všetky nástroje",
     "cookbook-name": "Názov kuchárky",
     "cookbook-with-name": "Kuchárka {0}",
-    "create-a-cookbook": "Create a Cookbook",
-    "cookbook": "Cookbook"
+    "create-a-cookbook": "Vytvoriť kuchárku",
+    "cookbook": "Kuchárka"
   }
 }
