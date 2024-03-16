@@ -13,7 +13,7 @@ Signing in with OAuth will automatically find your account in Mealie and link to
 
 ## Provider Setup
 
-Before you can start using OIDC Authentication, you must first configure a new client application in your identity provider. Your identity provider must support the OAuth **Authorization Code** flow (with PKCE). The steps will vary by provider, but generally, the steps are as follows.
+Before you can start using OIDC Authentication, you must first configure a new client application in your identity provider. Your identity provider must support the OAuth **Authorization Code flow with PKCE**. The steps will vary by provider, but generally, the steps are as follows.
 
 1. Create a new client application
     - The Provider type should be OIDC or OAuth2
