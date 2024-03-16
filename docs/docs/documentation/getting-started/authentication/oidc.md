@@ -52,37 +52,76 @@ Follow the instructions in [Authelia's documentation](https://www.authelia.com/c
 
     This is only an example and not meant to be an exhaustive configuration. You should read through the documentation and adjust your configuration as needed.
 
-```yaml
-identity_providers:
-  oidc:
-    access_token_lifespan: 1h
-    authorize_code_lifespan: 1m
-    id_token_lifespan: 1h
-    refresh_token_lifespan: 90m
-    enable_client_debug_messages: false
-    enforce_pkce: public_clients_only
-    cors:
-      endpoints:
-        - authorization
-        - token
-        - revocation
-        - introspection
-      allowed_origins:
-        - https://mealie.example.com
-      allowed_origins_from_client_redirect_uris: false
-    clients:
-      - id: mealie
-        description: Mealie
-        authorization_policy: one_factor
-        redirect_uris:
-          - https://mealie.example.com/login
-        public: true
-        grant_types:
-          - authorization_code
-        scopes:
-          - openid
-          - profile
-          - groups
-          - email
-          - offline_access
-```
+=== "v4.37"
+
+    This configuration format has been deprecated in Authelia v4.38. It is still valid, however it will eventually be removed.
+
+    ```yaml
+    identity_providers:
+        oidc:
+            access_token_lifespan: 1h
+            authorize_code_lifespan: 1m
+            id_token_lifespan: 1h
+            refresh_token_lifespan: 90m
+            enable_client_debug_messages: false
+            enforce_pkce: public_clients_only
+            cors:
+                endpoints:
+                    - authorization
+                    - token
+                    - revocation
+                    - introspection
+            allowed_origins:
+                - https://mealie.example.com
+            clients:
+                - id: mealie
+                description: Mealie
+                authorization_policy: one_factor
+                redirect_uris:
+                    - https://mealie.example.com/login
+                public: true
+                grant_types:
+                    - authorization_code
+                scopes:
+                    - openid
+                    - profile
+                    - groups
+                    - email
+    ```
+
+=== "v4.38"
+
+    The configuration in Authelia v4.38 has changed. Although the old configuration will still work, it is deprecated and will eventually be removed.
+
+    ```yaml
+    identity_providers:
+        oidc:
+            jwks:
+                - key: {{ secret "/secrets/private_key_file" | mindent 10 "|" | msquote }}
+            enforce_pkce: public_clients_only
+            cors:
+            endpoints:
+                - userinfo
+                - authorization
+                - token
+                - revocation
+                - introspection
+            allowed_origins:
+                - https://mealie.example.com
+            allowed_origins_from_client_redirect_uris: false
+            clients:
+                - client_id: mealie
+                client_name: Mealie
+                authorization_policy: one_factor
+                redirect_uris:
+                    - https://mealie.example.com/login
+                public: true
+                pkce_challenge_method: S256
+                grant_types:
+                    - authorization_code
+                scopes:
+                    - openid
+                    - profile
+                    - groups
+                    - email
+    ```
