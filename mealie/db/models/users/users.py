@@ -49,7 +49,7 @@ class User(SqlAlchemyBase, BaseMixins):
     username: Mapped[str | None] = mapped_column(String, index=True, unique=True)
     email: Mapped[str | None] = mapped_column(String, unique=True, index=True)
     password: Mapped[str | None] = mapped_column(String)
-    auth_method: Mapped[Enum(AuthMethod)] = mapped_column(Enum(AuthMethod), default=AuthMethod.MEALIE)
+    auth_method: Mapped[Enum[AuthMethod]] = mapped_column(Enum(AuthMethod), default=AuthMethod.MEALIE)
     admin: Mapped[bool | None] = mapped_column(Boolean, default=False)
     advanced: Mapped[bool | None] = mapped_column(Boolean, default=False)
 
