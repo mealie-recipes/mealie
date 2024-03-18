@@ -12,7 +12,7 @@ from mealie.db.models._model_utils.guid import GUID
 
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import auto_init
-from .user_to_favorite import users_to_favorites
+from .user_to_recipe import UserToRecipe
 
 if TYPE_CHECKING:
     from ..group import Group
@@ -84,8 +84,8 @@ class User(SqlAlchemyBase, BaseMixins):
         "GroupMealPlan", order_by="GroupMealPlan.date", **sp_args
     )
     shopping_lists: Mapped[Optional["ShoppingList"]] = orm.relationship("ShoppingList", **sp_args)
-    favorite_recipes: Mapped[list["RecipeModel"]] = orm.relationship(
-        "RecipeModel", secondary=users_to_favorites, back_populates="favorited_by"
+    rated_recipes: Mapped[list["RecipeModel"]] = orm.relationship(
+        "RecipeModel", secondary=UserToRecipe.__tablename__, back_populates="rated_by"
     )
     model_config = ConfigDict(
         exclude={
@@ -112,7 +112,7 @@ class User(SqlAlchemyBase, BaseMixins):
 
         self.group = Group.get_by_name(session, group)
 
-        self.favorite_recipes = []
+        self.rated_recipes = []
 
         self.password = password
 

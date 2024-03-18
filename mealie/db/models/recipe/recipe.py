@@ -12,7 +12,7 @@ from mealie.db.models._model_utils.guid import GUID
 
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import auto_init
-from ..users.user_to_favorite import users_to_favorites
+from ..users.user_to_recipe import UserToRecipe
 from .api_extras import ApiExtras, api_extras
 from .assets import RecipeAsset
 from .category import recipes_to_categories
@@ -49,12 +49,13 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     user_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("users.id", use_alter=True), index=True)
     user: Mapped["User"] = orm.relationship("User", uselist=False, foreign_keys=[user_id])
 
-    meal_entries: Mapped[list["GroupMealPlan"]] = orm.relationship(
-        "GroupMealPlan", back_populates="recipe", cascade="all, delete-orphan"
+    rating: Mapped[float | None] = mapped_column(sa.Float, index=True, nullable=True)
+    rated_by: Mapped[list["User"]] = orm.relationship(
+        "User", secondary=UserToRecipe.__tablename__, back_populates="rated_recipes"
     )
 
-    favorited_by: Mapped[list["User"]] = orm.relationship(
-        "User", secondary=users_to_favorites, back_populates="favorite_recipes"
+    meal_entries: Mapped[list["GroupMealPlan"]] = orm.relationship(
+        "GroupMealPlan", back_populates="recipe", cascade="all, delete-orphan"
     )
 
     # General Recipe Properties
@@ -110,7 +111,6 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     )
     tags: Mapped[list["Tag"]] = orm.relationship("Tag", secondary=recipes_to_tags, back_populates="recipes")
     notes: Mapped[list[Note]] = orm.relationship("Note", cascade="all, delete-orphan")
-    rating: Mapped[int | None] = mapped_column(sa.Integer)
     org_url: Mapped[str | None] = mapped_column(sa.String)
     extras: Mapped[list[ApiExtras]] = orm.relationship("ApiExtras", cascade="all, delete-orphan")
     is_ocr_recipe: Mapped[bool | None] = mapped_column(sa.Boolean, default=False)
