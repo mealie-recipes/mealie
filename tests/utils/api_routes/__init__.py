@@ -181,8 +181,12 @@ users_reset_password = "/api/users/reset-password"
 """`/api/users/reset-password`"""
 users_self = "/api/users/self"
 """`/api/users/self`"""
+users_self_favorites = "/api/users/self/favorites"
+"""`/api/users/self/favorites`"""
 users_self_group = "/api/users/self/group"
 """`/api/users/self/group`"""
+users_self_ratings = "/api/users/self/ratings"
+"""`/api/users/self/ratings`"""
 utils_download = "/api/utils/download"
 """`/api/utils/download`"""
 validators_group = "/api/validators/group"
@@ -488,6 +492,16 @@ def users_id_favorites_slug(id, slug):
 def users_id_image(id):
     """`/api/users/{id}/image`"""
     return f"{prefix}/users/{id}/image"
+
+
+def users_id_ratings(id):
+    """`/api/users/{id}/ratings`"""
+    return f"{prefix}/users/{id}/ratings"
+
+
+def users_id_ratings_slug(id, slug):
+    """`/api/users/{id}/ratings/{slug}`"""
+    return f"{prefix}/users/{id}/ratings/{slug}"
 
 
 def users_item_id(item_id):

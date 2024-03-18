@@ -17,7 +17,12 @@ from .user import (
     UserIn,
     UserOut,
     UserPagination,
+    UserRatingCreate,
+    UserRatingOut,
+    UserRatings,
+    UserRatingSummary,
     UserSummary,
+    UserSummaryPagination,
 )
 from .user_passwords import (
     ForgotPassword,
@@ -57,5 +62,10 @@ __all__ = [
     "UserIn",
     "UserOut",
     "UserPagination",
+    "UserRatingCreate",
+    "UserRatingOut",
+    "UserRatingSummary",
+    "UserRatings",
     "UserSummary",
+    "UserSummaryPagination",
 ]
