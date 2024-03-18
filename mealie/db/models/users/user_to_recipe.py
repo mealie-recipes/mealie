@@ -23,12 +23,11 @@ class UserToRecipe(SqlAlchemyBase, BaseMixins):
 def update_recipe_rating(session: Session, target: UserToRecipe):
     from mealie.db.models.recipe.recipe import RecipeModel
 
-    recipe_id = target.recipe_id
     recipe = session.query(RecipeModel).filter(RecipeModel.id == target.recipe_id).first()
     if not recipe:
         return
 
-    recipe.rating = session.query(func.avg(UserToRecipe.rating)).filter(UserToRecipe.recipe_id == recipe_id).scalar()
+    recipe.rating = -1  # this will trigger the recipe to re-calculate the rating
 
 
 @event.listens_for(UserToRecipe, "after_insert")

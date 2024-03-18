@@ -7,6 +7,8 @@ from pydantic import ConfigDict
 from sqlalchemy import event
 from sqlalchemy.ext.orderinglist import ordering_list
 from sqlalchemy.orm import Mapped, mapped_column, validates
+from sqlalchemy.orm.attributes import get_history
+from sqlalchemy.orm.session import object_session
 
 from mealie.db.models._model_utils.guid import GUID
 
@@ -246,3 +248,19 @@ def receive_description(target: RecipeModel, value: str, oldvalue, initiator):
         target.description_normalized = RecipeModel.normalize(value)
     else:
         target.description_normalized = None
+
+
+@event.listens_for(RecipeModel, "before_update")
+def calculate_rating(mapper, connection, target: RecipeModel):
+    session = object_session(target)
+    if not session:
+        return
+
+    if session.is_modified(target, "rating"):
+        history = get_history(target, "rating")
+        old_value = history.deleted[0] if history.deleted else None
+        new_value = history.added[0] if history.added else None
+    if old_value == new_value:
+        return
+
+    target.rating = session.query(sa.func.avg(UserToRecipe.rating)).filter(UserToRecipe.recipe_id == target.id).scalar()
