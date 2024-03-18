@@ -85,6 +85,17 @@ class UserController(BaseUserController):
     def get_logged_in_user_ratings(self):
         return UserRatings(ratings=self.repos.user_ratings.get_by_user(self.user.id))
 
+    @user_router.get("/self/ratings/{recipe_id}", response_model=UserRatingSummary)
+    def get_logged_in_user_rating_for_recipe(self, recipe_id: UUID4):
+        user_rating = self.repos.user_ratings.get_by_user_and_recipe(self.user.id, recipe_id)
+        if user_rating:
+            return user_rating
+        else:
+            raise HTTPException(
+                status.HTTP_404_NOT_FOUND,
+                ErrorResponse.respond("User has not rated this recipe"),
+            )
+
     @user_router.get("/self/favorites", response_model=UserRatings[UserRatingSummary])
     def get_logged_in_user_favorites(self):
         return UserRatings(ratings=self.repos.user_ratings.get_by_user(self.user.id, favorites_only=True))
