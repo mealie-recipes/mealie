@@ -1,12 +1,12 @@
 from sqlalchemy import Boolean, Column, Float, ForeignKey, UniqueConstraint, event, func
 from sqlalchemy.engine.base import Connection
-from sqlalchemy.orm.session import Session
+from sqlalchemy.orm.session import Session, object_session
 
-from .._model_base import SqlAlchemyBase
-from .._model_utils import GUID
+from .._model_base import BaseMixins, SqlAlchemyBase
+from .._model_utils import GUID, auto_init
 
 
-class UserToRecipe(SqlAlchemyBase):
+class UserToRecipe(SqlAlchemyBase, BaseMixins):
     __tablename__ = "users_to_recipes"
     __table_args__ = (UniqueConstraint("user_id", "recipe_id", name="user_id_recipe_id_key"),)
 
@@ -15,20 +15,35 @@ class UserToRecipe(SqlAlchemyBase):
     rating = Column(Float, index=True, nullable=True)
     is_favorite = Column(Boolean, index=True, nullable=False)
 
+    @auto_init()
+    def __init__(self, **_) -> None:
+        pass
+
+
+def update_recipe_rating(session: Session, target: UserToRecipe):
+    from mealie.db.models.recipe.recipe import RecipeModel
+
+    recipe_id = target.recipe_id
+    recipe = session.query(RecipeModel).filter(RecipeModel.id == target.recipe_id).first()
+    if not recipe:
+        return
+
+    recipe.rating = session.query(func.avg(UserToRecipe.rating)).filter(UserToRecipe.recipe_id == recipe_id).scalar()
+
 
 @event.listens_for(UserToRecipe, "after_insert")
 @event.listens_for(UserToRecipe, "after_delete")
+def update_recipe_rating_on_insert_or_delete(_, connection: Connection, target: UserToRecipe):
+    session = Session(bind=connection)
+    update_recipe_rating(session, target)
+    session.commit()
+
+
 @event.listens_for(UserToRecipe.rating, "set")
-def update_recipe_rating(connection: Connection, target: UserToRecipe):
-    from mealie.db.models.recipe.recipe import RecipeModel
+def update_recipe_rating_on_update(target: UserToRecipe, *_):
+    session = object_session(target)
+    if not session:
+        return
 
-    with Session(bind=connection) as session:
-        recipe_id = target.recipe_id
-        recipe = session.query(RecipeModel).filter(RecipeModel.id == target.recipe_id).first()
-        if not recipe:
-            return
-
-        recipe.rating = (
-            session.query(func.avg(UserToRecipe.rating)).filter(UserToRecipe.recipe_id == recipe_id).scalar()
-        )
-        session.commit()
+    update_recipe_rating(session, target)
+    session.commit()
