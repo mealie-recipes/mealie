@@ -331,7 +331,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         )
         return [self.schema.model_validate(x) for x in self.session.execute(stmt).scalars().all()]
 
-    def get_by_slug(self, group_id: UUID4, slug: str, limit=1) -> Recipe | None:
+    def get_by_slug(self, group_id: UUID4, slug: str) -> Recipe | None:
         stmt = select(RecipeModel).filter(RecipeModel.group_id == group_id, RecipeModel.slug == slug)
         dbrecipe = self.session.execute(stmt).scalars().one_or_none()
         if dbrecipe is None:
