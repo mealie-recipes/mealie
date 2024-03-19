@@ -35,7 +35,7 @@
 
         <slot name="actions">
           <v-card-actions v-if="showRecipeContent" class="px-1">
-            <RecipeFavoriteBadge v-if="isOwnGroup" class="absolute" :slug="slug" show-always />
+            <RecipeFavoriteBadge v-if="isOwnGroup" class="absolute" :recipe-id="recipeId" show-always />
 
             <RecipeRating class="pb-1" :value="rating" :slug="slug" :small="true" />
             <v-spacer></v-spacer>
@@ -96,6 +96,10 @@ export default defineComponent({
       type: Number,
       required: false,
       default: 0,
+    },
+    ratingColor: {
+      type: String,
+      default: "secondary",
     },
     image: {
       type: String,

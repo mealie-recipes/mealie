@@ -22,11 +22,12 @@
 
 <script lang="ts">
 import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
+import { useUserSelfRatings } from "~/composables/use-users";
 import { useUserApi } from "~/composables/api";
 import { UserOut } from "~/lib/api/types/user";
 export default defineComponent({
   props: {
-    slug: {
+    recipeId: {
       type: String,
       default: "",
     },
@@ -42,19 +43,23 @@ export default defineComponent({
   setup(props) {
     const api = useUserApi();
     const { $auth } = useContext();
+    const { userRatings, refreshUserRatings } = useUserSelfRatings();
 
     // TODO Setup the correct type for $auth.user
     // See https://github.com/nuxt-community/auth-module/issues/1097
     const user = computed(() => $auth.user as unknown as UserOut);
-    const isFavorite = computed(() => user.value?.favoriteRecipes?.includes(props.slug));
+    const isFavorite = computed(() => {
+      const rating = userRatings.value.find((r) => r.recipeId === props.recipeId);
+      return rating?.isFavorite || false;
+    });
 
     async function toggleFavorite() {
       if (!isFavorite.value) {
-        await api.users.addFavorite(user.value?.id, props.slug);
+        await api.users.addFavorite(user.value?.id, props.recipeId);
       } else {
-        await api.users.removeFavorite(user.value?.id, props.slug);
+        await api.users.removeFavorite(user.value?.id, props.recipeId);
       }
-      $auth.fetchUser();
+      await refreshUserRatings();
     }
 
     return { isFavorite, toggleFavorite };

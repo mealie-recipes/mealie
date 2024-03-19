@@ -38,7 +38,7 @@
           </v-list-item-subtitle>
           <div class="d-flex flex-wrap justify-end align-center">
             <slot name="actions">
-              <RecipeFavoriteBadge v-if="isOwnGroup && showRecipeContent" :slug="slug" show-always />
+              <RecipeFavoriteBadge v-if="isOwnGroup && showRecipeContent" :recipe-id="recipeId" show-always />
               <v-rating
                 v-if="showRecipeContent"
                 color="secondary"
