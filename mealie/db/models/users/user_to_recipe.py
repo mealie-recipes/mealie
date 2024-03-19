@@ -1,5 +1,6 @@
 from sqlalchemy import Boolean, Column, Float, ForeignKey, UniqueConstraint, event, func
 from sqlalchemy.engine.base import Connection
+from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.orm.session import Session, object_session
 
 from .._model_base import BaseMixins, SqlAlchemyBase
@@ -9,6 +10,7 @@ from .._model_utils import GUID, auto_init
 class UserToRecipe(SqlAlchemyBase, BaseMixins):
     __tablename__ = "users_to_recipes"
     __table_args__ = (UniqueConstraint("user_id", "recipe_id", name="user_id_recipe_id_key"),)
+    id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
 
     user_id = Column(GUID, ForeignKey("users.id"), index=True, primary_key=True)
     recipe_id = Column(GUID, ForeignKey("recipes.id"), index=True, primary_key=True)

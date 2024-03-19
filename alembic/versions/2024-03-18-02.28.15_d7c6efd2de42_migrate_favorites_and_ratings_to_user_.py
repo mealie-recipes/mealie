@@ -158,7 +158,7 @@ def upgrade():
         sa.Column("recipe_id", mealie.db.migration_types.GUID(), nullable=False),
         sa.Column("rating", sa.Float(), nullable=True),
         sa.Column("is_favorite", sa.Boolean(), nullable=False),
-        sa.Column("id", sa.Integer(), nullable=False),
+        sa.Column("id", mealie.db.migration_types.GUID(), nullable=False),
         sa.Column("created_at", sa.DateTime(), nullable=True),
         sa.Column("update_at", sa.DateTime(), nullable=True),
         sa.ForeignKeyConstraint(
