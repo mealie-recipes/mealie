@@ -27,7 +27,6 @@ export default defineComponent({
     const userId = route.value.params.id;
     const recipes = useAsync(async () => {
       const { data } = await api.recipes.getAll(1, -1, { queryFilter: `favoritedBy.id = "${userId}"` });
-      console.log(data?.items);
       return data?.items || null;
     }, useAsyncKey());
 
