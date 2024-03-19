@@ -1,23 +1,25 @@
 <template>
   <div @click.prevent>
-    <v-rating
-      :value="rating"
-      :readonly="!isOwnGroup"
-      color="secondary"
-      background-color="secondary lighten-3"
-      length="5"
-      :dense="small ? true : undefined"
-      :size="small ? 15 : undefined"
-      hover
-      clearable
-      @input="updateRating"
-      @click="updateRating"
-    ></v-rating>
+    <v-hover v-slot="{ hover }">
+      <v-rating
+        :value="rating.ratingValue"
+        :readonly="!isOwnGroup"
+        :color="hover ? attrs.hoverColor : attrs.color"
+        :background-color="attrs.backgroundColor"
+        length="5"
+        :dense="small ? true : undefined"
+        :size="small ? 15 : undefined"
+        hover
+        clearable
+        @input="updateRating"
+        @click="updateRating"
+      />
+    </v-hover>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
+import { computed, defineComponent, ref, useContext, watch } from "@nuxtjs/composition-api";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useUserSelfRatings } from "~/composables/use-users";
 export default defineComponent({
@@ -51,19 +53,52 @@ export default defineComponent({
     const { $auth } = useContext();
     const { isOwnGroup } = useLoggedInState();
     const { userRatings, setRating, ready: ratingsLoaded } = useUserSelfRatings();
+    const hideGroupRating = ref(false);
+
+    type Rating = {
+      ratingValue: number | undefined;
+      hasUserRating: boolean | undefined
+    };
 
     // prefer user rating over group rating
-    const rating = computed(() => {
+    const rating = computed<Rating>(() => {
       if (!ratingsLoaded.value) {
-        return;
+        return { ratingValue: undefined, hasUserRating: undefined };
       }
       if (!($auth.user?.id) || props.preferGroupRating) {
-        return props.value;
+        return { ratingValue: props.value, hasUserRating: false };
       }
 
       const userRating = userRatings.value.find((r) => r.recipeId === props.recipeId);
-      return userRating?.rating || props.value;
+      return {
+        ratingValue: userRating?.rating || (hideGroupRating.value ? 0 : props.value),
+        hasUserRating: !!userRating?.rating
+      };
     });
+
+    // if a user unsets their rating, we don't want to fall back to the group rating since it's out of sync
+    watch(
+      () => rating.value.hasUserRating,
+      () => {
+        if (rating.value.hasUserRating && !props.preferGroupRating) {
+          hideGroupRating.value = true;
+        }
+      },
+    )
+
+    const attrs = computed(() => {
+      return isOwnGroup.value ? {
+        // Logged-in user
+        color: rating.value.hasUserRating ? "secondary" : "grey darken-1",
+        hoverColor: "secondary",
+        backgroundColor: "secondary lighten-3",
+      } : {
+        // Anonymous user
+        color: "secondary",
+        hoverColor: "secondary",
+        backgroundColor: "secondary lighten-3",
+      };
+    })
 
     function updateRating(val: number | null) {
       if (!isOwnGroup.value) {
@@ -76,7 +111,12 @@ export default defineComponent({
       context.emit("input", val);
     }
 
-    return { isOwnGroup, rating, updateRating };
+    return {
+      attrs,
+      isOwnGroup,
+      rating,
+      updateRating,
+    };
   },
 });
 </script>
