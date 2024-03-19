@@ -170,7 +170,7 @@ def upgrade():
             ["users.id"],
         ),
         sa.PrimaryKeyConstraint("user_id", "recipe_id", "id"),
-        sa.UniqueConstraint("user_id", "recipe_id", name="user_id_recipe_id_key"),
+        sa.UniqueConstraint("user_id", "recipe_id", name="user_id_recipe_id_rating_key"),
     )
     op.create_index(op.f("ix_users_to_recipes_created_at"), "users_to_recipes", ["created_at"], unique=False)
     op.create_index(op.f("ix_users_to_recipes_is_favorite"), "users_to_recipes", ["is_favorite"], unique=False)
