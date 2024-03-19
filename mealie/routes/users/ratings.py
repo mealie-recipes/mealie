@@ -71,10 +71,10 @@ class UserRatingsController(BaseUserController):
 
     @router.post("/{id}/favorites/{slug}")
     def add_favorite(self, id: UUID4, slug: str):
-        """Adds a Recipe to the user's favorites"""
-        self.set_rating(id, slug, is_favorite=True)
+        """Adds a recipe to the user's favorites"""
+        self.set_rating(id, slug, data=UserRatingUpdate(is_favorite=True))
 
     @router.delete("/{id}/favorites/{slug}")
     def remove_favorite(self, id: UUID4, slug: str):
-        """Adds a Recipe to the user's favorites"""
-        self.set_rating(id, slug, is_favorite=False)
+        """Removes a recipe from the user's favorites"""
+        self.set_rating(id, slug, data=UserRatingUpdate(is_favorite=False))
