@@ -33,18 +33,10 @@ def update_recipe_rating(session: Session, target: UserToRecipe):
 
 
 @event.listens_for(UserToRecipe, "after_insert")
+@event.listens_for(UserToRecipe, "after_update")
 @event.listens_for(UserToRecipe, "after_delete")
 def update_recipe_rating_on_insert_or_delete(_, connection: Connection, target: UserToRecipe):
     session = Session(bind=connection)
-    update_recipe_rating(session, target)
-    session.commit()
-
-
-@event.listens_for(UserToRecipe.rating, "set")
-def update_recipe_rating_on_update(target: UserToRecipe, *_):
-    session = object_session(target)
-    if not session:
-        return
 
     update_recipe_rating(session, target)
     session.commit()

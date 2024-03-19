@@ -41,6 +41,7 @@ const routes = {
   usersIdFavorites: (id: string) => `${prefix}/users/${id}/favorites`,
   usersIdFavoritesSlug: (id: string, slug: string) => `${prefix}/users/${id}/favorites/${slug}`,
   usersIdRatings: (id: string) => `${prefix}/users/${id}/ratings`,
+  usersIdRatingsSlug: (id: string, slug: string) => `${prefix}/users/${id}/ratings/${slug}`,
   usersSelfFavoritesId: (id: string) => `${prefix}/users/self/favorites/${id}`,
   usersSelfRatingsId: (id: string) => `${prefix}/users/self/ratings/${id}`,
 
@@ -81,7 +82,7 @@ export class UserApi extends BaseCRUDAPI<UserIn, UserOut, UserBase> {
   }
 
   async setRating(id: string, slug: string, rating: number | null, isFavorite: boolean | null) {
-    return await this.requests.post(routes.usersIdFavoritesSlug(id, slug), { rating, isFavorite });
+    return await this.requests.post(routes.usersIdRatingsSlug(id, slug), { rating, isFavorite });
   }
 
   async getSelfRatings() {

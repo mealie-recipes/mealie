@@ -7,7 +7,7 @@ from mealie.routes._base import BaseUserController, controller
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.routes.users._helpers import assert_user_change_allowed
 from mealie.schema.response.responses import ErrorResponse
-from mealie.schema.user.user import UserRatingCreate, UserRatingOut, UserRatings
+from mealie.schema.user.user import UserRatingCreate, UserRatingOut, UserRatings, UserRatingUpdate
 
 router = UserAPIRouter()
 
@@ -46,7 +46,7 @@ class UserRatingsController(BaseUserController):
         return UserRatings(ratings=self.repos.user_ratings.get_by_user(id, favorites_only=True))
 
     @router.post("/{id}/ratings/{slug}")
-    def set_rating(self, id: UUID4, slug: str, rating: float | None = None, is_favorite: bool | None = None):
+    def set_rating(self, id: UUID4, slug: str, data: UserRatingUpdate):
         """Sets the user's rating for a recipe"""
         assert_user_change_allowed(id, self.user)
 
@@ -57,15 +57,15 @@ class UserRatingsController(BaseUserController):
                 UserRatingCreate(
                     user_id=id,
                     recipe_id=recipe.id,
-                    rating=rating,
-                    is_favorite=is_favorite or False,
+                    rating=data.rating,
+                    is_favorite=data.is_favorite or False,
                 )
             )
         else:
-            if rating is not None:
-                user_rating.rating = rating
-            if is_favorite is not None:
-                user_rating.is_favorite = is_favorite
+            if data.rating is not None:
+                user_rating.rating = data.rating
+            if data.is_favorite is not None:
+                user_rating.is_favorite = data.is_favorite
 
             self.repos.user_ratings.update(user_rating.id, user_rating)
 

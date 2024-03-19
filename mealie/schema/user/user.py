@@ -77,6 +77,11 @@ class UserRatingCreate(UserRatingSummary):
     user_id: UUID4
 
 
+class UserRatingUpdate(MealieModel):
+    rating: float | None = None
+    is_favorite: bool | None = None
+
+
 class UserRatingOut(UserRatingCreate):
     id: UUID4
 

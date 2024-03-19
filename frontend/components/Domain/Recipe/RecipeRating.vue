@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "@nuxtjs/composition-api";
+import { defineComponent, ref, useContext } from "@nuxtjs/composition-api";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useUserApi } from "~/composables/api";
 export default defineComponent({
@@ -41,19 +41,15 @@ export default defineComponent({
     },
   },
   setup(props, context) {
+    const { $auth } = useContext();
     const { isOwnGroup } = useLoggedInState();
 
     const rating = ref(props.value);
 
     const api = useUserApi();
     function updateRating(val: number | null) {
-      if (val === 0) {
-        val = null;
-      }
       if (!props.emitOnly) {
-        api.recipes.patchOne(props.slug, {
-          rating: val,
-        });
+        api.users.setRating($auth.user?.id || "", props.slug, val || 0, null);
       }
       context.emit("input", val);
     }

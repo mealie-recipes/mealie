@@ -270,4 +270,8 @@ def calculate_rating(mapper, connection, target: RecipeModel):
     if old_value == new_value:
         return
 
-    target.rating = session.query(sa.func.avg(UserToRecipe.rating)).filter(UserToRecipe.recipe_id == target.id).scalar()
+    target.rating = (
+        session.query(sa.func.avg(UserToRecipe.rating))
+        .filter(UserToRecipe.recipe_id == target.id, UserToRecipe.rating is not None)
+        .scalar()
+    )
