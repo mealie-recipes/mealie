@@ -4,6 +4,7 @@ import { UserRatingSummary } from "~/lib/api/types/user";
 
 const userRatings = ref<UserRatingSummary[]>([]);
 const loading = ref(false);
+const ready = ref(false);
 
 export const useUserSelfRatings = function () {
     const { $auth } = useContext();
@@ -18,6 +19,7 @@ export const useUserSelfRatings = function () {
         const { data } = await api.users.getSelfRatings();
         userRatings.value = data?.ratings || [];
         loading.value = false;
+        ready.value = true;
     }
 
     async function setRating(slug: string, rating: number | null, isFavorite: boolean | null) {
@@ -25,6 +27,7 @@ export const useUserSelfRatings = function () {
         const userId = $auth.user?.id || "";
         await api.users.setRating(userId, slug, rating, isFavorite);
         loading.value = false;
+        await refreshUserRatings();
     }
 
     refreshUserRatings();
@@ -32,5 +35,6 @@ export const useUserSelfRatings = function () {
         userRatings,
         refreshUserRatings,
         setRating,
+        ready,
     }
 }

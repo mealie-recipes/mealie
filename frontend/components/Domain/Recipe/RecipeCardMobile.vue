@@ -42,6 +42,7 @@
               <RecipeRating
                 :class="isOwnGroup ? 'ml-auto' : 'ml-auto pb-2'"
                 :value="rating"
+                :recipe-id="recipeId"
                 :slug="slug"
                 :small="true"
               />

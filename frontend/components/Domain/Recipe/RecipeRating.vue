@@ -1,7 +1,7 @@
 <template>
   <div @click.prevent>
     <v-rating
-      v-model="rating"
+      :value="rating"
       :readonly="!isOwnGroup"
       color="secondary"
       background-color="secondary lighten-3"
@@ -9,7 +9,6 @@
       :dense="small ? true : undefined"
       :size="small ? 15 : undefined"
       hover
-      :value="value"
       clearable
       @input="updateRating"
       @click="updateRating"
@@ -18,14 +17,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useContext } from "@nuxtjs/composition-api";
+import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
-import { useUserApi } from "~/composables/api";
+import { useUserSelfRatings } from "~/composables/use-users";
 export default defineComponent({
   props: {
     emitOnly: {
       type: Boolean,
       default: false,
+    },
+    recipeId: {
+      type: String,
+      default: "",
     },
     slug: {
       type: String,
@@ -39,17 +42,36 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    preferGroupRating: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props, context) {
     const { $auth } = useContext();
     const { isOwnGroup } = useLoggedInState();
+    const { userRatings, setRating, ready: ratingsLoaded } = useUserSelfRatings();
 
-    const rating = ref(props.value);
+    // prefer user rating over group rating
+    const rating = computed(() => {
+      if (!ratingsLoaded.value) {
+        return;
+      }
+      if (!($auth.user?.id) || props.preferGroupRating) {
+        return props.value;
+      }
 
-    const api = useUserApi();
+      const userRating = userRatings.value.find((r) => r.recipeId === props.recipeId);
+      return userRating?.rating || props.value;
+    });
+
     function updateRating(val: number | null) {
+      if (!isOwnGroup.value) {
+        return;
+      }
+
       if (!props.emitOnly) {
-        api.users.setRating($auth.user?.id || "", props.slug, val || 0, null);
+        setRating(props.slug, val || 0, null);
       }
       context.emit("input", val);
     }
