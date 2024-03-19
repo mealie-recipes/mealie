@@ -3,6 +3,7 @@
     <v-hover v-slot="{ hover }">
       <v-rating
         :value="rating.ratingValue"
+        :half-increments="(!hover) || (!isOwnGroup)"
         :readonly="!isOwnGroup"
         :color="hover ? attrs.hoverColor : attrs.color"
         :background-color="attrs.backgroundColor"
