@@ -48,4 +48,6 @@ Take the client id and your discovery URL and update your environment variables 
 
 ## Examples
 
-Example configurations for several Identity Providers have been provided by the Community in the [GitHub Discussions](https://github.com/mealie-recipes/mealie/discussions?discussions_q=is%3Aopen+OAuth+setup). If you don't see your provider and have successfully set it up, please consider creating your own post so that others can have a smoother setup.
+Example configurations for several Identity Providers have been provided by the Community in the [GitHub Discussions](https://github.com/mealie-recipes/mealie/discussions/categories/oauth-provider-example).
+
+If you don't see your provider and have successfully set it up, please consider [creating your own example](https://github.com/mealie-recipes/mealie/discussions/new?category=oauth-provider-example) so that others can have a smoother setup.
