@@ -55,6 +55,13 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     rated_by: Mapped[list["User"]] = orm.relationship(
         "User", secondary=UserToRecipe.__tablename__, back_populates="rated_recipes"
     )
+    favorited_by: Mapped[list["User"]] = orm.relationship(
+        "User",
+        secondary=UserToRecipe.__tablename__,
+        primaryjoin="and_(RecipeModel.id==UserToRecipe.recipe_id, UserToRecipe.is_favorite==True)",
+        back_populates="favorite_recipes",
+        viewonly=True,
+    )
 
     meal_entries: Mapped[list["GroupMealPlan"]] = orm.relationship(
         "GroupMealPlan", back_populates="recipe", cascade="all, delete-orphan"

@@ -87,6 +87,13 @@ class User(SqlAlchemyBase, BaseMixins):
     rated_recipes: Mapped[list["RecipeModel"]] = orm.relationship(
         "RecipeModel", secondary=UserToRecipe.__tablename__, back_populates="rated_by"
     )
+    favorite_recipes: Mapped[list["RecipeModel"]] = orm.relationship(
+        "RecipeModel",
+        secondary=UserToRecipe.__tablename__,
+        primaryjoin="and_(User.id==UserToRecipe.user_id, UserToRecipe.is_favorite==True)",
+        back_populates="favorited_by",
+        viewonly=True,
+    )
     model_config = ConfigDict(
         exclude={
             "password",
