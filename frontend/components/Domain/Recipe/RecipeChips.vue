@@ -19,7 +19,7 @@
 <script lang="ts">
 import { computed, defineComponent, useContext, useRoute } from "@nuxtjs/composition-api";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
-import { RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/user";
+import { RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
 
 export type UrlPrefixParam = "tags" | "categories" | "tools";
 
