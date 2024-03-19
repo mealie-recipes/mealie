@@ -16,7 +16,6 @@ from mealie.schema.group.webhook import CreateWebhook, ReadWebhook
 from mealie.schema.response.pagination import PaginationBase
 
 from ...db.models.group import Group
-from ...db.models.recipe import RecipeModel
 from ..recipe import CategoryBase
 
 DataT = TypeVar("DataT", bound=BaseModel)

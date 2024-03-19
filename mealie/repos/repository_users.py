@@ -79,7 +79,7 @@ class RepositoryUserRatings(RepositoryGeneric[UserRatingOut, UserToRecipe]):
     def get_by_user(self, user_id: UUID4, favorites_only=False) -> list[UserRatingOut]:
         stmt = select(UserToRecipe).filter(UserToRecipe.user_id == user_id)
         if favorites_only:
-            stmt = stmt.filter(UserToRecipe.is_favorite == True)
+            stmt = stmt.filter(UserToRecipe.is_favorite)
 
         results = self.session.execute(stmt).scalars().all()
         return [self.schema.model_validate(x) for x in results]
@@ -87,7 +87,7 @@ class RepositoryUserRatings(RepositoryGeneric[UserRatingOut, UserToRecipe]):
     def get_by_recipe(self, recipe_id: UUID4, favorites_only=False) -> list[UserRatingOut]:
         stmt = select(UserToRecipe).filter(UserToRecipe.recipe_id == recipe_id)
         if favorites_only:
-            stmt = stmt.filter(UserToRecipe.is_favorite == True)
+            stmt = stmt.filter(UserToRecipe.is_favorite)
 
         results = self.session.execute(stmt).scalars().all()
         return [self.schema.model_validate(x) for x in results]

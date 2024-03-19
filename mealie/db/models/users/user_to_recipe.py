@@ -1,7 +1,7 @@
-from sqlalchemy import Boolean, Column, Float, ForeignKey, UniqueConstraint, event, func
+from sqlalchemy import Boolean, Column, Float, ForeignKey, UniqueConstraint, event
 from sqlalchemy.engine.base import Connection
 from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy.orm.session import Session, object_session
+from sqlalchemy.orm.session import Session
 
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import GUID, auto_init
