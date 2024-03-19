@@ -27,11 +27,6 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    // TODO Remove name prop?
-    name: {
-      type: String,
-      default: "",
-    },
     slug: {
       type: String,
       default: "",

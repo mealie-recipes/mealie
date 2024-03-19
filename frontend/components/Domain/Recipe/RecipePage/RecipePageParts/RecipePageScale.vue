@@ -20,7 +20,6 @@
       v-if="landscape && $vuetify.breakpoint.smAndUp"
       :key="recipe.slug"
       v-model="recipe.rating"
-      :name="recipe.name"
       :slug="recipe.slug"
     />
   </div>
