@@ -8,6 +8,7 @@ from typing import Any, Generic, TypeVar
 from fastapi import HTTPException
 from pydantic import UUID4, BaseModel
 from sqlalchemy import Select, case, delete, func, nulls_first, nulls_last, select
+from sqlalchemy.orm import InstrumentedAttribute
 from sqlalchemy.orm.session import Session
 from sqlalchemy.sql import sqltypes
 
@@ -368,6 +369,29 @@ class RepositoryGeneric(Generic[Schema, Model]):
         query = self.add_order_by_to_query(query, pagination)
         return query.limit(pagination.per_page).offset((pagination.page - 1) * pagination.per_page), count, total_pages
 
+    def add_order_attr_to_query(
+        self,
+        query: Select,
+        order_attr: InstrumentedAttribute,
+        order_dir: OrderDirection,
+        order_by_null: OrderByNullPosition | None,
+    ) -> Select:
+        if order_dir is OrderDirection.asc:
+            order_attr = order_attr.asc()
+        elif order_dir is OrderDirection.desc:
+            order_attr = order_attr.desc()
+
+        # queries handle uppercase and lowercase differently, which is undesirable
+        if isinstance(order_attr.type, sqltypes.String):
+            order_attr = func.lower(order_attr)
+
+        if order_by_null is OrderByNullPosition.first:
+            order_attr = nulls_first(order_attr)
+        elif order_by_null is OrderByNullPosition.last:
+            order_attr = nulls_last(order_attr)
+
+        return query.order_by(order_attr)
+
     def add_order_by_to_query(self, query: Select, pagination: PaginationQuery) -> Select:
         if not pagination.order_by:
             return query
@@ -399,21 +423,9 @@ class RepositoryGeneric(Generic[Schema, Model]):
                         order_by, self.model, query=query
                     )
 
-                    if order_dir is OrderDirection.asc:
-                        order_attr = order_attr.asc()
-                    elif order_dir is OrderDirection.desc:
-                        order_attr = order_attr.desc()
-
-                    # queries handle uppercase and lowercase differently, which is undesirable
-                    if isinstance(order_attr.type, sqltypes.String):
-                        order_attr = func.lower(order_attr)
-
-                    if pagination.order_by_null_position is OrderByNullPosition.first:
-                        order_attr = nulls_first(order_attr)
-                    elif pagination.order_by_null_position is OrderByNullPosition.last:
-                        order_attr = nulls_last(order_attr)
-
-                    query = query.order_by(order_attr)
+                    query = self.add_order_attr_to_query(
+                        query, order_attr, order_dir, pagination.order_by_null_position
+                    )
 
                 except ValueError as e:
                     raise HTTPException(
