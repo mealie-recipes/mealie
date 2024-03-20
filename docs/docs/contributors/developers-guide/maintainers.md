@@ -6,7 +6,7 @@ This is the start of the maintainers guide for Mealie developers. Those who have
 
 If you are working on issues, it can be helpful to understand the workflow for our repository. When an issue comes in it is tagged with the `bug` and `triage` flags. This is to indicate that they need to be reviewed by a maintainer to determine validity.
 
-After you've reviered an issue it will generally move into one of two states:
+After you've reviewed an issue it will generally move into one of two states:
 
 `bug:confirmed`
 :   Your were able to verify the issue and we determined we need to fix it
