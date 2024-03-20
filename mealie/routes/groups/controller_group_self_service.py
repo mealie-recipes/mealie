@@ -8,7 +8,7 @@ from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.group.group_permissions import SetPermissions
 from mealie.schema.group.group_preferences import ReadGroupPreferences, UpdateGroupPreferences
 from mealie.schema.group.group_statistics import GroupStatistics, GroupStorage
-from mealie.schema.user.user import GroupInDB, UserOut
+from mealie.schema.user.user import GroupSummary, UserOut
 from mealie.services.group_services.group_service import GroupService
 
 router = UserAPIRouter(prefix="/groups", tags=["Groups: Self Service"])
@@ -20,10 +20,10 @@ class GroupSelfServiceController(BaseUserController):
     def service(self) -> GroupService:
         return GroupService(self.group_id, self.repos)
 
-    @router.get("/self", response_model=GroupInDB)
+    @router.get("/self", response_model=GroupSummary)
     def get_logged_in_user_group(self):
         """Returns the Group Data for the Current User"""
-        return self.group
+        return self.group.cast(GroupSummary)
 
     @router.get("/members", response_model=list[UserOut])
     def get_group_members(self):
