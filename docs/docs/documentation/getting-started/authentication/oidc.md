@@ -1,6 +1,6 @@
 # OpenID Connect (OIDC) Authentication
 
-Mealie supports 3rd party authentication via [OpenID Connect (OIDC)](https://openid.net/connect/), an identity layer built on top of OAuth2. OIDC is supported by many identity providers, including:
+Mealie supports 3rd party authentication via [OpenID Connect (OIDC)](https://openid.net/connect/), an identity layer built on top of OAuth2. OIDC is supported by many Identity Providers (IdP), including:
 
 - [Authentik](https://goauthentik.io/integrations/sources/oauth/#openid-connect)
 - [Authelia](https://www.authelia.com/configuration/identity-providers/open-id-connect/)
@@ -13,7 +13,7 @@ Signing in with OAuth will automatically find your account in Mealie and link to
 
 ## Provider Setup
 
-Before you can start using OIDC Authentication, you must first configure a new client application in your identity provider. Your identity provider must support the OAuth **Authorization Code** flow (with PKCE). The steps will vary by provider, but generally, the steps are as follows.
+Before you can start using OIDC Authentication, you must first configure a new client application in your identity provider. Your identity provider must support the OAuth **Authorization Code flow with PKCE**. The steps will vary by provider, but generally, the steps are as follows.
 
 1. Create a new client application
     - The Provider type should be OIDC or OAuth2
@@ -23,9 +23,13 @@ Before you can start using OIDC Authentication, you must first configure a new c
 
 2. Configure redirect URI
 
-    The only redirect URI that is needed is `http(s)://DOMAIN:PORT/login`
+    The redirect URI(s) that are needed:
 
-    The redirect URI should include any URL that Mealie is accessible from. Some examples include
+    1. `http(s)://DOMAIN:PORT/login`
+    2. `https(s)://DOMAIN:PORT/login?direct=1`
+        1. This URI is only required if your IdP supports [RP-Initiated Logout](https://openid.net/specs/openid-connect-rpinitiated-1_0.html) such as Keycloak. You may also be able to combine this into the previous URI by using a wildcard: `http(s)://DOMAIN:PORT/login*`
+
+    The redirect URI(s) should include any URL that Mealie is accessible from. Some examples include
 
         http://localhost:9091/login
         https://mealie.example.com/login
@@ -44,45 +48,6 @@ Take the client id and your discovery URL and update your environment variables 
 
 ## Examples
 
-### Authelia
+Example configurations for several Identity Providers have been provided by the Community in the [GitHub Discussions](https://github.com/mealie-recipes/mealie/discussions/categories/oauth-provider-example).
 
-Follow the instructions in [Authelia's documentation](https://www.authelia.com/configuration/identity-providers/open-id-connect/). Below is an example config.
-
-!!! warning
-
-    This is only an example and not meant to be an exhaustive configuration. You should read through the documentation and adjust your configuration as needed.
-
-```yaml
-identity_providers:
-  oidc:
-    access_token_lifespan: 1h
-    authorize_code_lifespan: 1m
-    id_token_lifespan: 1h
-    refresh_token_lifespan: 90m
-    enable_client_debug_messages: false
-    enforce_pkce: public_clients_only
-    cors:
-      endpoints:
-        - authorization
-        - token
-        - revocation
-        - introspection
-      allowed_origins:
-        - https://mealie.example.com
-      allowed_origins_from_client_redirect_uris: false
-    clients:
-      - id: mealie
-        description: Mealie
-        authorization_policy: one_factor
-        redirect_uris:
-          - https://mealie.example.com/login
-        public: true
-        grant_types:
-          - authorization_code
-        scopes:
-          - openid
-          - profile
-          - groups
-          - email
-          - offline_access
-```
+If you don't see your provider and have successfully set it up, please consider [creating your own example](https://github.com/mealie-recipes/mealie/discussions/new?category=oauth-provider-example) so that others can have a smoother setup.

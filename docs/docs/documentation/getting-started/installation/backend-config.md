@@ -85,8 +85,8 @@ For usage, see [Usage - OpenID Connect](../authentication/oidc.md)
 | OIDC_SIGNUP_ENABLED | True | Enables new users to be created when signing in for the first time with OIDC |
 | OIDC_CONFIGURATION_URL | None | The URL to the OIDC configuration of your provider. This is usually something like https://auth.example.com/.well-known/openid-configuration |
 | OIDC_CLIENT_ID | None | The client id of your configured client in your provider |
-| OIDC_USER_GROUP| None | If specified, this group must be present in the user's group claim in order to authenticate |
-| OIDC_ADMIN_GROUP | None | If this group is present in the group claims, the user will be set as an admin |
+| OIDC_USER_GROUP| None | If specified, only users belonging to this group will be able to successfully authenticate, regardless of the OIDC_ADMIN_GROUP |
+| OIDC_ADMIN_GROUP | None | If specified, users belonging to this group will be made an admin |
 | OIDC_AUTO_REDIRECT | False | If `True`, then the login page will be bypassed an you will be sent directly to your Identity Provider. You can still get to the login page by adding `?direct=1` to the login URL |
 | OIDC_PROVIDER_NAME | OAuth | The provider name is shown in SSO login button. "Login with <OIDC_PROVIDER_NAME\>" |
 | OIDC_REMEMBER_ME | False | Because redirects bypass the login screen, you cant extend your session by clicking the "Remember Me" checkbox. By setting this value to true, a session will be extended as if "Remember Me" was checked |
