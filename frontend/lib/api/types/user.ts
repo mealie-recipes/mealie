@@ -48,6 +48,13 @@ export interface GroupInDB {
   users?: UserOut[];
   preferences?: ReadGroupPreferences;
 }
+export interface GroupSummary {
+  name: string;
+  id: string;
+  slug: string;
+  preferences?: ReadGroupPreferences;
+
+}
 export interface CategoryBase {
   name: string;
   id: string;

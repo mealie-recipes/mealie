@@ -249,6 +249,19 @@ class GroupInDB(UpdateGroup):
         ]
 
 
+class GroupSummary(GroupBase):
+    id: UUID4
+    name: str
+    slug: str
+    preferences: ReadGroupPreferences | None = None
+
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [
+            joinedload(Group.preferences),
+        ]
+
+
 class GroupPagination(PaginationBase):
     items: list[GroupInDB]
 
