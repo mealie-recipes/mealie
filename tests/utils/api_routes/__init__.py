@@ -507,3 +507,8 @@ def users_id_ratings_slug(id, slug):
 def users_item_id(item_id):
     """`/api/users/{item_id}`"""
     return f"{prefix}/users/{item_id}"
+
+
+def users_self_ratings_recipe_id(recipe_id):
+    """`/api/users/self/ratings/{recipe_id}`"""
+    return f"{prefix}/users/self/ratings/{recipe_id}"
