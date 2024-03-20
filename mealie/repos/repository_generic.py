@@ -68,9 +68,6 @@ class RepositoryGeneric(Generic[Schema, Model]):
     def _filter_builder(self, **kwargs) -> dict[str, Any]:
         dct = {}
 
-        if self.user_id:
-            dct["user_id"] = self.user_id
-
         if self.group_id:
             dct["group_id"] = self.group_id
 
@@ -288,7 +285,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
         pagination is a method to interact with the filtered database table and return a paginated result
         using the PaginationBase that provides several data points that are needed to manage pagination
         on the client side. This method does utilize the _filter_build method to ensure that the results
-        are filtered by the user and group id when applicable.
+        are filtered by the group id when applicable.
 
         NOTE: When you provide an override you'll need to manually type the result of this method
         as the override, as the type system is not able to infer the result of this method.
