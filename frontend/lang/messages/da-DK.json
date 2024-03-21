@@ -542,7 +542,7 @@
     "looking-for-migrations": "Kigger du efter data migrering?",
     "import-with-url": "Importér via URL",
     "create-recipe": "Opret opskrift",
-    "create-recipe-description": "Create a new recipe from scratch.",
+    "create-recipe-description": "Opret ny opskrift fra bunden.",
     "create-recipes": "Opret opskrift",
     "import-with-zip": "Importér fra ZIP-fil",
     "create-recipe-from-an-image": "Opret opskrift ud fra et billede",
@@ -553,7 +553,7 @@
     "scrape-recipe": "Scrape Opskrift",
     "scrape-recipe-description": "Hent en opskrift fra en hjemmeside. Angiv URL'en til den hjemmeside, du vil hente data fra, og Mealie vil forsøge at hente opskriften og tilføje den til din samling.",
     "scrape-recipe-have-a-lot-of-recipes": "Har du en masse opskrifter, du ønsker at scrappe på en gang?",
-    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
+    "scrape-recipe-suggest-bulk-importer": "Prøv masse import",
     "import-original-keywords-as-tags": "Importér originale nøgleord som mærker",
     "stay-in-edit-mode": "Bliv i redigeringstilstand",
     "import-from-zip": "Importer fra zip-fil",
@@ -614,7 +614,7 @@
       "import-summary": "Importer resumé",
       "partial-backup": "Delvis backup",
       "unable-to-delete-backup": "Ude af stand til at slette backup.",
-      "experimental-description": "Backups are total snapshots of the database and data directory of the site. This includes all data and cannot be set to exclude subsets of data. You can think of this as a snapshot of Mealie at a specific time. These serve as a database agnostic way to export and import data, or back up the site to an external location.",
+      "experimental-description": "Backups er samlede snapshots af databasen og datamappe på installationen. Dette omfatter alle data og kan ikke indstilles til at udelukke undergrupper af data. Du kan tænke på dette som et øjebliksbillede af Mealie på et bestemt tidspunkt. Disse fungerer som en database agnostisk måde at eksportere og importere data, eller sikkerhedskopiere installationen til en ekstern placering.",
       "backup-restore": "Backup / gendannelse",
       "back-restore-description": "Gendannelse af denne sikkerhedskopi vil overskrive alle de aktuelle data i din database og i datamappen og erstatte dem med indholdet af denne sikkerhedskopi. {cannot-be-undone} Hvis gendannelsen lykkes, vil du blive logget ud.",
       "cannot-be-undone": "Denne handling kan ikke fortrydes - brug med forsigtighed.",
@@ -740,9 +740,9 @@
     "ldap-ready-success-text": "Påkrævede LDAP-variabler er alle angivet.",
     "build": "Build",
     "recipe-scraper-version": "Version på opskrift-indsamler",
-    "oidc-ready": "OIDC Ready",
-    "oidc-ready-error-text": "Not all OIDC Values are configured. This can be ignored if you are not using OIDC Authentication.",
-    "oidc-ready-success-text": "Required OIDC variables are all set."
+    "oidc-ready": "OIDC er Klar",
+    "oidc-ready-error-text": "Ikke alle OIDC værdier er konfigureret. Dette kan ignoreres, hvis du ikke bruger OIDC godkendelse.",
+    "oidc-ready-success-text": "Alle påkrævede OIDC værdier er angivet."
   },
   "shopping-list": {
     "all-lists": "Alle lister",
@@ -825,7 +825,7 @@
     "create-new-tool": "Opret et nyt værktøj",
     "on-hand-checkbox-label": "Vis som \"Har allerede\" (afkrydset)",
     "required-tools": "Nødvendige Værktøjer",
-    "tool": "Tool"
+    "tool": "Værktøj"
   },
   "user": {
     "admin": "Administrator",
@@ -1152,14 +1152,14 @@
     "no-logs-found": "Ingen logfiler fundet",
     "tasks": "Opgaver",
     "setup": {
-      "first-time-setup": "First Time Setup",
-      "welcome-to-mealie-get-started": "Welcome to Mealie! Let's get started",
-      "already-set-up-bring-to-homepage": "I'm already set up, just bring me to the homepage",
-      "common-settings-for-new-sites": "Here are some common settings for new sites",
-      "setup-complete": "Setup Complete!",
-      "here-are-a-few-things-to-help-you-get-started": "Here are a few things to help you get started with Mealie",
-      "restore-from-v1-backup": "Have a backup from a previous instance of Mealie v1? You can restore it here.",
-      "manage-profile-or-get-invite-link": "Manage your own profile, or grab an invite link to share with others."
+      "first-time-setup": "Første Opsætning",
+      "welcome-to-mealie-get-started": "Velkommen til Mealie! Lad os starte",
+      "already-set-up-bring-to-homepage": "Jeg er allerede oprettet, bare bringe mig til hjemmesiden",
+      "common-settings-for-new-sites": "Her er nogle almindelige indstillinger for nye sites",
+      "setup-complete": "Opsætning fuldført!",
+      "here-are-a-few-things-to-help-you-get-started": "Her er et par ting, der kan hjælpe dig i gang med Mealie",
+      "restore-from-v1-backup": "Har du en sikkerhedskopi fra en tidligere udgave af Mealie v1? Du kan gendanne den her.",
+      "manage-profile-or-get-invite-link": "Administrer din egen profil, eller tag et invitationslink til at dele med andre."
     }
   },
   "profile": {
