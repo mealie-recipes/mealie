@@ -31,7 +31,7 @@
         <v-card-title class="mt-0"> {{ $t('general.upload-file') }} </v-card-title>
         <v-card-text>
           <AppButtonUpload
-            accept=".zip"
+            accept=".zip,.csv"
             class="mb-2"
             :post="false"
             file-name="file"
@@ -75,13 +75,14 @@ import { useUserApi } from "~/composables/api";
 import { SupportedMigrations } from "~/lib/api/types/group";
 
 const MIGRATIONS = {
-  nextcloud: "nextcloud",
+  mealie: "mealie_alpha",
   chowdown: "chowdown",
   copymethat: "copymethat",
+  myrecipebox: "myrecipebox",
+  nextcloud: "nextcloud",
   paprika: "paprika",
-  mealie: "mealie_alpha",
-  tandoor: "tandoor",
   plantoeat: "plantoeat",
+  tandoor: "tandoor",
 };
 
 export default defineComponent({
@@ -95,15 +96,16 @@ export default defineComponent({
       addMigrationTag: false,
       loading: false,
       treeState: true,
-      migrationType: MIGRATIONS.nextcloud as SupportedMigrations,
+      migrationType: MIGRATIONS.mealie as SupportedMigrations,
       fileObject: {} as File,
       reports: [] as ReportSummary[],
     });
 
     const items: MenuItem[] = [
       {
-        text: i18n.tc("migration.nextcloud.title"),
-        value: MIGRATIONS.nextcloud,
+        text: i18n.tc("migration.mealie-pre-v1.title"),
+        value: MIGRATIONS.mealie,
+        divider: true,
       },
       {
         text: i18n.tc("migration.chowdown.title"),
@@ -114,50 +116,76 @@ export default defineComponent({
         value: MIGRATIONS.copymethat,
       },
       {
+        text: i18n.tc("migration.myrecipebox.title"),
+        value: MIGRATIONS.myrecipebox,
+      },
+      {
+        text: i18n.tc("migration.nextcloud.title"),
+        value: MIGRATIONS.nextcloud,
+      },
+      {
         text: i18n.tc("migration.paprika.title"),
         value: MIGRATIONS.paprika,
-      },
-      {
-        text: i18n.tc("migration.mealie-pre-v1.title"),
-        value: MIGRATIONS.mealie,
-      },
-      {
-        text: i18n.tc("migration.tandoor.title"),
-        value: MIGRATIONS.tandoor,
       },
       {
         text: i18n.tc("migration.plantoeat.title"),
         value: MIGRATIONS.plantoeat,
       },
+      {
+        text: i18n.tc("migration.tandoor.title"),
+        value: MIGRATIONS.tandoor,
+      },
     ];
-
     const _content = {
-      [MIGRATIONS.nextcloud]: {
-        text: i18n.tc("migration.nextcloud.description-long"),
+      [MIGRATIONS.mealie]: {
+        text: i18n.tc("migration.mealie-pre-v1.description-long"),
         tree: [
           {
             id: 1,
             icon: $globals.icons.zip,
-            name: "nextcloud.zip",
+            name: "mealie.zip",
             children: [
               {
                 id: 2,
-                name: i18n.t("migration.recipe-1"),
+                name: "recipes",
                 icon: $globals.icons.folderOutline,
                 children: [
-                  { id: 3, name: "recipe.json", icon: $globals.icons.codeJson },
-                  { id: 4, name: "full.jpg", icon: $globals.icons.fileImage },
-                  { id: 5, name: "thumb.jpg", icon: $globals.icons.fileImage },
-                ],
-              },
-              {
-                id: 6,
-                name: i18n.t("migration.recipe-2"),
-                icon: $globals.icons.folderOutline,
-                children: [
-                  { id: 7, name: "recipe.json", icon: $globals.icons.codeJson },
-                  { id: 8, name: "full.jpg", icon: $globals.icons.fileImage },
-                  { id: 9, name: "thumb.jpg", icon: $globals.icons.fileImage },
+                  {
+                    id: 3,
+                    name: "recipe-name",
+                    icon: $globals.icons.folderOutline,
+                    children: [
+                      { id: 4, name: "recipe-name.json", icon: $globals.icons.codeJson },
+                      {
+                        id: 5,
+                        name: "images",
+                        icon: $globals.icons.folderOutline,
+                        children: [
+                          { id: 6, name: "original.webp", icon: $globals.icons.codeJson },
+                          { id: 7, name: "full.jpg", icon: $globals.icons.fileImage },
+                          { id: 8, name: "thumb.jpg", icon: $globals.icons.fileImage },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    id: 9,
+                    name: "recipe-name-1",
+                    icon: $globals.icons.folderOutline,
+                    children: [
+                      { id: 10, name: "recipe-name-1.json", icon: $globals.icons.codeJson },
+                      {
+                        id: 11,
+                        name: "images",
+                        icon: $globals.icons.folderOutline,
+                        children: [
+                          { id: 12, name: "original.webp", icon: $globals.icons.codeJson },
+                          { id: 13, name: "full.jpg", icon: $globals.icons.fileImage },
+                          { id: 14, name: "thumb.jpg", icon: $globals.icons.fileImage },
+                        ],
+                      },
+                    ],
+                  },
                 ],
               },
             ],
@@ -219,63 +247,57 @@ export default defineComponent({
           }
         ],
       },
-      [MIGRATIONS.paprika]: {
-        text: i18n.tc("migration.paprika.description-long"),
+      [MIGRATIONS.myrecipebox]: {
+        text: i18n.tc("migration.myrecipebox.description-long"),
         tree: false,
       },
-      [MIGRATIONS.mealie]: {
-        text: i18n.tc("migration.mealie-pre-v1.description-long"),
+      [MIGRATIONS.nextcloud]: {
+        text: i18n.tc("migration.nextcloud.description-long"),
         tree: [
           {
             id: 1,
             icon: $globals.icons.zip,
-            name: "mealie.zip",
+            name: "nextcloud.zip",
             children: [
               {
                 id: 2,
-                name: "recipes",
+                name: i18n.t("migration.recipe-1"),
                 icon: $globals.icons.folderOutline,
                 children: [
-                  {
-                    id: 3,
-                    name: "recipe-name",
-                    icon: $globals.icons.folderOutline,
-                    children: [
-                      { id: 4, name: "recipe-name.json", icon: $globals.icons.codeJson },
-                      {
-                        id: 5,
-                        name: "images",
-                        icon: $globals.icons.folderOutline,
-                        children: [
-                          { id: 6, name: "original.webp", icon: $globals.icons.codeJson },
-                          { id: 7, name: "full.jpg", icon: $globals.icons.fileImage },
-                          { id: 8, name: "thumb.jpg", icon: $globals.icons.fileImage },
-                        ],
-                      },
-                    ],
-                  },
-                  {
-                    id: 9,
-                    name: "recipe-name-1",
-                    icon: $globals.icons.folderOutline,
-                    children: [
-                      { id: 10, name: "recipe-name-1.json", icon: $globals.icons.codeJson },
-                      {
-                        id: 11,
-                        name: "images",
-                        icon: $globals.icons.folderOutline,
-                        children: [
-                          { id: 12, name: "original.webp", icon: $globals.icons.codeJson },
-                          { id: 13, name: "full.jpg", icon: $globals.icons.fileImage },
-                          { id: 14, name: "thumb.jpg", icon: $globals.icons.fileImage },
-                        ],
-                      },
-                    ],
-                  },
+                  { id: 3, name: "recipe.json", icon: $globals.icons.codeJson },
+                  { id: 4, name: "full.jpg", icon: $globals.icons.fileImage },
+                  { id: 5, name: "thumb.jpg", icon: $globals.icons.fileImage },
+                ],
+              },
+              {
+                id: 6,
+                name: i18n.t("migration.recipe-2"),
+                icon: $globals.icons.folderOutline,
+                children: [
+                  { id: 7, name: "recipe.json", icon: $globals.icons.codeJson },
+                  { id: 8, name: "full.jpg", icon: $globals.icons.fileImage },
+                  { id: 9, name: "thumb.jpg", icon: $globals.icons.fileImage },
                 ],
               },
             ],
           },
+        ],
+      },
+      [MIGRATIONS.paprika]: {
+        text: i18n.tc("migration.paprika.description-long"),
+        tree: false,
+      },
+      [MIGRATIONS.plantoeat]: {
+        text: i18n.tc("migration.plantoeat.description-long"),
+        tree: [
+          {
+            id: 1,
+            icon: $globals.icons.zip,
+            name: "plantoeat-recipes-508318_10-13-2023.zip",
+            children: [
+                  { id: 9, name: "plantoeat-recipes-508318_10-13-2023.csv", icon: $globals.icons.codeJson },
+            ],
+          }
         ],
       },
       [MIGRATIONS.tandoor]: {
@@ -314,19 +336,6 @@ export default defineComponent({
                 ]
               }
             ]
-          }
-        ],
-      },
-      [MIGRATIONS.plantoeat]: {
-        text: i18n.tc("migration.plantoeat.description-long"),
-        tree: [
-          {
-            id: 1,
-            icon: $globals.icons.zip,
-            name: "plantoeat-recipes-508318_10-13-2023.zip",
-            children: [
-                  { id: 9, name: "plantoeat-recipes-508318_10-13-2023.csv", icon: $globals.icons.codeJson },
-            ],
           }
         ],
       },
