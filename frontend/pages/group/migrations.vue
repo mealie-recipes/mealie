@@ -31,7 +31,7 @@
         <v-card-title class="mt-0"> {{ $t('general.upload-file') }} </v-card-title>
         <v-card-text>
           <AppButtonUpload
-            accept=".zip,.csv"
+            :accept="content.acceptedFileType || '.zip'"
             class="mb-2"
             :post="false"
             file-name="file"
@@ -139,6 +139,7 @@ export default defineComponent({
     const _content = {
       [MIGRATIONS.mealie]: {
         text: i18n.tc("migration.mealie-pre-v1.description-long"),
+        acceptedFileType: ".zip",
         tree: [
           {
             id: 1,
@@ -194,6 +195,7 @@ export default defineComponent({
       },
       [MIGRATIONS.chowdown]: {
         text: i18n.tc("migration.chowdown.description-long"),
+        acceptedFileType: ".zip",
         tree: [
           {
             id: 1,
@@ -226,6 +228,7 @@ export default defineComponent({
       },
       [MIGRATIONS.copymethat]: {
         text: i18n.tc("migration.copymethat.description-long"),
+        acceptedFileType: ".zip",
         tree: [
           {
             id: 1,
@@ -249,10 +252,12 @@ export default defineComponent({
       },
       [MIGRATIONS.myrecipebox]: {
         text: i18n.tc("migration.myrecipebox.description-long"),
+        acceptedFileType: ".csv",
         tree: false,
       },
       [MIGRATIONS.nextcloud]: {
         text: i18n.tc("migration.nextcloud.description-long"),
+        acceptedFileType: ".zip",
         tree: [
           {
             id: 1,
@@ -285,10 +290,12 @@ export default defineComponent({
       },
       [MIGRATIONS.paprika]: {
         text: i18n.tc("migration.paprika.description-long"),
+        acceptedFileType: ".zip",
         tree: false,
       },
       [MIGRATIONS.plantoeat]: {
         text: i18n.tc("migration.plantoeat.description-long"),
+        acceptedFileType: ".zip",
         tree: [
           {
             id: 1,
@@ -302,6 +309,7 @@ export default defineComponent({
       },
       [MIGRATIONS.tandoor]: {
         text: i18n.tc("migration.tandoor.description-long"),
+        acceptedFileType: ".zip",
         tree: [
           {
             id: 1,
@@ -387,6 +395,7 @@ export default defineComponent({
       } else {
         return {
           text: "",
+          acceptedFileType: ".zip",
           tree: false,
         };
       }
