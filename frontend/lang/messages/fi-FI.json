@@ -362,7 +362,7 @@
     "choose-migration-type": "Valitse migraatiotyyppi",
     "tag-all-recipes": "Merkitse kaikki reseptit tunnisteella {tag-name}",
     "nextcloud-text": "Nextcloud reseptejä voidaan tuoda zip-tiedostosta, joka sisältää Nextcloudiin tallennetut tiedot. Katso esimerkkikansiorakenne alla varmistaaksesi, että reseptisi voidaan tuoda.",
-    "chowdown-text": "Mealie tukee natiivisti chowdown arkiston muotoa. Lataa koodiarkisto .zip tiedostoksi ja lataa se alta",
+    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
     "recipe-1": "Resepti 1",
     "recipe-2": "Resepti 2",
     "paprika-text": "Mealie voi tuoda reseptejä Paprika-sovelluksesta. Vie reseptisi ohjelmasta ulos, nimeä tiedoston pääte uudelleen .zip ja lataa se alla.",
@@ -370,6 +370,10 @@
     "plantoeat": {
       "title": "Plan to Eat",
       "description-long": "Mealieen voi tuoda reseptejä Plan to Eat -sovelluksesta."
+    },
+    "myrecipebox": {
+      "title": "My Recipe Box",
+      "description-long": "Mealie can import recipes from My Recipe Box. Export your recipes in CSV format, then upload the .csv file below."
     }
   },
   "new-recipe": {

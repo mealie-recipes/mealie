@@ -362,7 +362,7 @@
     "choose-migration-type": "Vælg Migreringstype",
     "tag-all-recipes": "Tag alle opskrifter med {tag-name} tag",
     "nextcloud-text": "Nextcloud opskrifter kan importeres fra en zip-fil, der indeholder data lagret i Nextcloud. Se eksempelmappestrukturen nedenfor for at sikre, at dine opskrifter kan importeres.",
-    "chowdown-text": "Mealie understøtter indbygget chowdown repository format. Download repositoriet som en .zip-fil og upload den nedenfor",
+    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
     "recipe-1": "Opskrift 1",
     "recipe-2": "Opskrift 2",
     "paprika-text": "Mealie kan importere opskrifter fra Paprika applikationen. Eksporter dine opskrifter fra paprika, omdøbe eksportudvidelsen til .zip og uploade den nedenfor.",
@@ -370,6 +370,10 @@
     "plantoeat": {
       "title": "Planlæg at spise",
       "description-long": "Mealie kan importere opskrifter, der er markeret som \"Planlæg at spise\"."
+    },
+    "myrecipebox": {
+      "title": "My Recipe Box",
+      "description-long": "Mealie can import recipes from My Recipe Box. Export your recipes in CSV format, then upload the .csv file below."
     }
   },
   "new-recipe": {

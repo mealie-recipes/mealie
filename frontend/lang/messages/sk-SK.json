@@ -362,7 +362,7 @@
     "choose-migration-type": "Vyberte spôsob migrácie",
     "tag-all-recipes": "Označte všetky recepty štítkom {tag-name}",
     "nextcloud-text": "Recepty z Nextcloud-u je možné importovať priamo zo zip-súboru, ktorý obsahuje dáta uložené na Nextcloud-e. Pozrite sa nižšie na príklad adresárovej štruktúry, aby ste sa uistili, že je možné vaše recepty importovať.",
-    "chowdown-text": "Mealie prirodzene podporuje chowdown formát úložiska. Stiahnite úložisko kódu ako zip-súbor a nahrajte ho nižšie",
+    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
     "recipe-1": "Recept 1",
     "recipe-2": "Recept 2",
     "paprika-text": "Mealie dokáže importovať recepty z aplikácie Paprika. Exportujte vaše recepty z Papriky, premenujte príponu exportovaného súboru na .zip a nahrajte ho nižšie.",
@@ -370,6 +370,10 @@
     "plantoeat": {
       "title": "Plan To Eat",
       "description-long": "Mealie dokáže importovať recepty z Plan To Eat."
+    },
+    "myrecipebox": {
+      "title": "My Recipe Box",
+      "description-long": "Mealie can import recipes from My Recipe Box. Export your recipes in CSV format, then upload the .csv file below."
     }
   },
   "new-recipe": {

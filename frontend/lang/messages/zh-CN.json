@@ -362,7 +362,7 @@
     "choose-migration-type": "选择迁移类型",
     "tag-all-recipes": "用{tag-name} 标签标记所有食谱",
     "nextcloud-text": "Mealie支持从Nextcloud中导入食谱。为了确保能被导入，应按照下方示例整理文件夹结构，并将其压缩成zip文件，然后在下方上传。",
-    "chowdown-text": "Mealie原生支持chowdown格式，只需将代码仓库打包成zip文件，并在下方上传。",
+    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
     "recipe-1": "食谱 1",
     "recipe-2": "食谱 2",
     "paprika-text": "Mealie 可以从 Paprika 导入食谱。请从paprika 导出食谱，重命名导出文件并压缩成.zip格式后，在下方上传",
@@ -370,6 +370,10 @@
     "plantoeat": {
       "title": "Plan to Eat",
       "description-long": "Mealie支持从 Plan to Eat 中导入食谱。"
+    },
+    "myrecipebox": {
+      "title": "My Recipe Box",
+      "description-long": "Mealie can import recipes from My Recipe Box. Export your recipes in CSV format, then upload the .csv file below."
     }
   },
   "new-recipe": {

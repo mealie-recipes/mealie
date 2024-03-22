@@ -362,7 +362,7 @@
     "choose-migration-type": "Válassza ki a migrációs típusát",
     "tag-all-recipes": "Az összes recept címkézése a {tag-name} címkével",
     "nextcloud-text": "A Nextcloud-receptek importálhatók a Nextcloudban tárolt adatokat tartalmazó zip-fájlból. Tekintse meg az alábbi példamappaszerkezetet, hogy receptjei biztosan importálhatók legyenek.",
-    "chowdown-text": "Mealie natívan támogatja a chowdown repository formátumot. Töltse le a kódtárat .zip fájlként, és töltse fel alább",
+    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
     "recipe-1": "Recept 1",
     "recipe-2": "Recept 2",
     "paprika-text": "Mealie képes recepteket importálni a Paprika alkalmazásból. Exportálja a receptjeit a Paprikából, nevezze át az export kiterjesztést .zip-re, és töltse fel alább.",
@@ -370,6 +370,10 @@
     "plantoeat": {
       "title": "Plan to Eat",
       "description-long": "Mealie képes recepteket importálni a Plan to Eat alkalmazásból."
+    },
+    "myrecipebox": {
+      "title": "My Recipe Box",
+      "description-long": "Mealie can import recipes from My Recipe Box. Export your recipes in CSV format, then upload the .csv file below."
     }
   },
   "new-recipe": {

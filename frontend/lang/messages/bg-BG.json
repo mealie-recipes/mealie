@@ -362,7 +362,7 @@
     "choose-migration-type": "Избери тип на миграцията",
     "tag-all-recipes": "Добави {tag-name} като етикет във всички рецепти",
     "nextcloud-text": "Nextcloud рецептите могат да бъдат импортирани от .zip файл, който съдържа данни съхранени в Nextcloud. Вижте примерната структура на папките по-долу за да се подсигурите, че рецептите Ви могат да бъдат импортирани.",
-    "chowdown-text": "Mealie поддържа формата на хранилището на Chowdown. Свалете кода на хранилището като .zip файл и го качете по-долу",
+    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
     "recipe-1": "Рецепта 1",
     "recipe-2": "Рецепта 2",
     "paprika-text": "Mealie може да импортирай рецепти от приложението Paprika. Експортирайте рецептите си от Paprika, преименувате файловото разширение на .zip и го качете по-долу.",
@@ -370,6 +370,10 @@
     "plantoeat": {
       "title": "Планиране на меню",
       "description-long": "Mealie може да импортира рецепти от Plan to Eat."
+    },
+    "myrecipebox": {
+      "title": "My Recipe Box",
+      "description-long": "Mealie can import recipes from My Recipe Box. Export your recipes in CSV format, then upload the .csv file below."
     }
   },
   "new-recipe": {

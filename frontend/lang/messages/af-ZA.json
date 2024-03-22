@@ -362,7 +362,7 @@
     "choose-migration-type": "Kies die tipe migrasie",
     "tag-all-recipes": "Merk alle resepte met {tag-name}-merker",
     "nextcloud-text": "Nextcloud-resepte kan ingevoer word vanaf 'n zip-dokument wat die data bevat wat in Nextcloud gestoor is. Sien die voorbeeldstruktuur hieronder om te verseker dat jou resepte ingevoer kan word.",
-    "chowdown-text": "Mealie kan invoer vanaf Chowdown. Laai die .zip-dokument daar af. En laai dit hier op",
+    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
     "recipe-1": "Resep 1",
     "recipe-2": "Resep 2",
     "paprika-text": "Mealie kan resepte vanaf die Paprika-program invoer. Voer jou resepte uit Paprika uit, hernoem die uitvoeruitbreiding na .zip en laai dit hieronder op.",
@@ -370,6 +370,10 @@
     "plantoeat": {
       "title": "Plan to Eat",
       "description-long": "Mealie kan resepte invoer vanaf Plan to Eat."
+    },
+    "myrecipebox": {
+      "title": "My Recipe Box",
+      "description-long": "Mealie can import recipes from My Recipe Box. Export your recipes in CSV format, then upload the .csv file below."
     }
   },
   "new-recipe": {
