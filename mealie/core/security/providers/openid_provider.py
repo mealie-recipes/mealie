@@ -87,7 +87,7 @@ class OpenIDProvider(AuthProvider[OIDCRequest]):
         algorithm = settings.OIDC_SIGNING_ALGORITHM
         try:
             claims = JsonWebToken([algorithm]).decode(s=self.data.id_token, key=jwks, claims_cls=CodeIDToken)
-        except UnsupportedAlgorithmError as e:
+        except UnsupportedAlgorithmError:
             self._logger.error(
                 f"[OIDC] Unsupported algorithm '{algorithm}'. Unable to decode id token due to mismatched algorithm."
             )
