@@ -362,7 +362,7 @@
     "choose-migration-type": "Scegli Il Tipo Di Migrazione",
     "tag-all-recipes": "Etichetta tutte le ricette con {tag-name} etichetta",
     "nextcloud-text": "Le ricette di Nextcloud possono essere importate da un file zip che contiene i dati memorizzati in Nextcloud. Osserva la struttura della cartella di esempio qui sotto per assicurarti che le tue ricette siano in grado di essere importate.",
-    "chowdown-text": "Mealie supporta nativamente il formato del repository chowdown. Scarica il repository del codice come file .zip e caricalo qui sotto",
+    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
     "recipe-1": "Ricetta 1",
     "recipe-2": "Ricetta 2",
     "paprika-text": "Mealie può importare ricette dall'applicazione Paprika. Esporta le tue ricette da paprika, rinomina l'estensione di esportazione in .zip e caricala qui sotto.",
@@ -370,6 +370,10 @@
     "plantoeat": {
       "title": "Plan to Eat",
       "description-long": "Mealie può importare le ricette da Plan to Eat."
+    },
+    "myrecipebox": {
+      "title": "My Recipe Box",
+      "description-long": "Mealie can import recipes from My Recipe Box. Export your recipes in CSV format, then upload the .csv file below."
     }
   },
   "new-recipe": {
