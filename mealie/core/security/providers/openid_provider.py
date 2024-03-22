@@ -3,13 +3,14 @@ from functools import lru_cache
 
 import requests
 from authlib.jose import JsonWebKey, JsonWebToken, JWTClaims, KeySet
-from authlib.jose.errors import ExpiredTokenError
+from authlib.jose.errors import ExpiredTokenError, UnsupportedAlgorithmError
 from authlib.oidc.core import CodeIDToken
 from sqlalchemy.orm.session import Session
 
 from mealie.core import root_logger
 from mealie.core.config import get_app_settings
 from mealie.core.security.providers.auth_provider import AuthProvider
+from mealie.core.settings.settings import AppSettings
 from mealie.db.models.users.users import AuthMethod
 from mealie.repos.all_repositories import get_repositories
 from mealie.schema.user.auth import OIDCRequest
@@ -26,11 +27,11 @@ class OpenIDProvider(AuthProvider[OIDCRequest]):
     async def authenticate(self) -> tuple[str, timedelta] | None:
         """Attempt to authenticate a user given a username and password"""
 
-        claims = self.get_claims()
+        settings = get_app_settings()
+        claims = self.get_claims(settings)
         if not claims:
             return None
 
-        settings = get_app_settings()
         repos = get_repositories(self.session)
 
         user = self.try_get_user(claims.get("email"))
@@ -76,13 +77,20 @@ class OpenIDProvider(AuthProvider[OIDCRequest]):
         self._logger.info("[OIDC] Found user but their AuthMethod does not match OIDC")
         return None
 
-    def get_claims(self) -> JWTClaims | None:
+    def get_claims(self, settings: AppSettings) -> JWTClaims | None:
         """Get the claims from the ID token and check if the required claims are present"""
         required_claims = {"preferred_username", "name", "email"}
         jwks = OpenIDProvider.get_jwks()
         if not jwks:
             return None
-        claims = JsonWebToken(["RS256"]).decode(s=self.data.id_token, key=jwks, claims_cls=CodeIDToken)
+
+        algorithm = settings.OIDC_SIGNING_ALGORITHM
+        try:
+            claims = JsonWebToken([algorithm]).decode(s=self.data.id_token, key=jwks, claims_cls=CodeIDToken)
+        except UnsupportedAlgorithmError as e:
+            self._logger.error(
+                f"[OIDC] Unsupported algorithm '{algorithm}'. Unable to decode id token due to mismatched algorithm."
+            )
 
         try:
             claims.validate()
