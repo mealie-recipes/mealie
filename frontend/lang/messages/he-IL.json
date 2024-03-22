@@ -362,7 +362,7 @@
     "choose-migration-type": "בחר סוג מיגרציה",
     "tag-all-recipes": "תייג את כל המתכונים עם תגית {tag-name}",
     "nextcloud-text": "ייבוא מתכונים מ- Nextcould יכול להתבצע בקובץ zip שמכיל את המידע מ- Nextcloud. ראה את דוגמת מבנה התיקיות למטה כדי לוודא שניתן לייבא את המתכון.",
-    "chowdown-text": "מילי תומכת באופן טבעי בפורמט Chowndown. הורד את הקוד של הריפוסיטורי כ-zip והעלה אותו",
+    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
     "recipe-1": "מתכון 1",
     "recipe-2": "מתכון 2",
     "paprika-text": "מילי יכולה לייבא מתכונים מאפליקציית Paprika. ייצא את המתכונים מהאפליקציה, שנה את סיומת הקובץ ל- zip והעלה אותו למטה.",
@@ -370,6 +370,10 @@
     "plantoeat": {
       "title": "Plan to Eat",
       "description-long": "Mealie יכולה לייבא מתכונים מהאתר- Plan to Eat."
+    },
+    "myrecipebox": {
+      "title": "My Recipe Box",
+      "description-long": "Mealie can import recipes from My Recipe Box. Export your recipes in CSV format, then upload the .csv file below."
     }
   },
   "new-recipe": {
