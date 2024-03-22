@@ -80,12 +80,12 @@
     "recipe-events": "Oppskriftshendelser"
   },
   "general": {
-    "add": "Add",
+    "add": "Legg til",
     "cancel": "Avbryt",
     "clear": "Tøm",
     "close": "Lukk",
     "confirm": "Bekreft",
-    "confirm-how-does-everything-look": "How does everything look?",
+    "confirm-how-does-everything-look": "Hvordan ser alt på?",
     "confirm-delete-generic": "Er du sikker på at du vil slette denne?",
     "copied_message": "Kopiert!",
     "create": "Opprett",
@@ -144,11 +144,11 @@
     "save": "Lagre",
     "settings": "Innstillinger",
     "share": "Del",
-    "show-all": "Show All",
+    "show-all": "Vis alle",
     "shuffle": "Tilfeldig rekkefølge",
     "sort": "Sortér",
-    "sort-ascending": "Sort Ascending",
-    "sort-descending": "Sort Descending",
+    "sort-ascending": "Stigende sortering",
+    "sort-descending": "Synkende sortering",
     "sort-alphabetically": "Alfabetisk",
     "status": "Status",
     "subject": "Emne",
@@ -207,7 +207,7 @@
     "created-on-date": "Opprettet: {0}",
     "unsaved-changes": "Du har ulagrede endringer. Ønsker du å lagre før du forlater? Trykk 'OK' for å lagre, 'Avbryt' for å forkaste endringene.",
     "clipboard-copy-failure": "Kunne ikke kopiere til utklippstavlen.",
-    "confirm-delete-generic-items": "Are you sure you want to delete the following items?"
+    "confirm-delete-generic-items": "Er du sikker på at du vil følgende elementer?"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Er du sikker på at du vil slette <b>{groupName}<b/>?",
@@ -243,8 +243,8 @@
     "group-preferences": "Gruppeinnstillinger",
     "private-group": "Privat gruppe",
     "private-group-description": "Når du setter gruppen din til privat, vil alle offentlige visningsalternativer tilbakestilles til standardverdiene. Dette overskriver individuelle oppskrifters offentlige visningsinnstillinger.",
-    "enable-public-access": "Enable Public Access",
-    "enable-public-access-description": "Make group recipes public by default, and allow visitors to view recipes without logging-in",
+    "enable-public-access": "Aktiver offentlig tilgang",
+    "enable-public-access-description": "Gjør gruppeoppskrifte offentlige som standard, og tillat besøkende å se oppskrifter uten å logge inn",
     "allow-users-outside-of-your-group-to-see-your-recipes": "Tillat brukere utenfor gruppen å se oppskriftene dine",
     "allow-users-outside-of-your-group-to-see-your-recipes-description": "Når aktivert, kan du bruke en offentlig lenke for å dele spesifikke oppskrifter uten å autorisere brukeren. Når deaktivert, kan du kun dele oppskrifter med brukere som er i gruppen din eller med en forhåndsgenerert privat lenke",
     "show-nutrition-information": "Vis ernæringsinformasjon",
@@ -268,7 +268,7 @@
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Opprett en ny måltidsplan",
-    "update-this-meal-plan": "Update this Meal Plan",
+    "update-this-meal-plan": "Oppdater denne måltidsplanen",
     "dinner-this-week": "Middag denne uken",
     "dinner-today": "Middag idag",
     "dinner-tonight": "DAGENS MIDDAG",
@@ -358,7 +358,7 @@
     },
     "recipe-data-migrations": "Overføring av oppskrifter",
     "recipe-data-migrations-explanation": "Oppskrifter kan overføres fra et annet støttet program til Mealie. Dette er en flott måte å komme i gang med Mealie på.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Coming from another application or an even older version of Mealie? Check out migrations and see if your data can be imported.",
+    "coming-from-another-application-or-an-even-older-version-of-mealie": "Kommer du fra en annen applikasjon eller en enda eldre versjon av Mealie? Sjekk ut overføringer og se om dine data kan importeres.",
     "choose-migration-type": "Velg type overføring",
     "tag-all-recipes": "Merk alle oppskrifter med emneordet {tag-name}",
     "nextcloud-text": "Oppskrifter fra Nextcloud kan importeres fra en zip-fil som inneholder dataene lagret i Nextcloud. Se eksempelet på mappestrukture nedenfor for å sikre at oppskriftene kan importeres.",
@@ -484,11 +484,11 @@
     "add-to-timeline": "Legg til tidslinje",
     "recipe-added-to-list": "Oppskrift er lagt til i liste",
     "recipes-added-to-list": "Oppskrifter lagt til listen",
-    "successfully-added-to-list": "Successfully added to list",
+    "successfully-added-to-list": "Lagt til i listen",
     "recipe-added-to-mealplan": "Oppskrift er lagt til i måltidsplan",
     "failed-to-add-recipes-to-list": "Klarte ikke å legge til oppskrift i listen",
     "failed-to-add-recipe-to-mealplan": "Klarte ikke å legge til oppskrift i måltidsplan",
-    "failed-to-add-to-list": "Failed to add to list",
+    "failed-to-add-to-list": "Klarte ikke å legge til oppskrift i listen",
     "yield": "Gir",
     "quantity": "Antall",
     "choose-unit": "Velg enhet",
@@ -504,8 +504,8 @@
     "cook-mode": "Tilberedelsesmodus",
     "link-ingredients": "Tilknytt ingredienser",
     "merge-above": "Slå sammen med steget over",
-    "move-to-bottom": "Move To Bottom",
-    "move-to-top": "Move To Top",
+    "move-to-bottom": "Flytt til bunnen",
+    "move-to-top": "Flytt til toppen",
     "reset-scale": "Nullstill skala",
     "decrease-scale-label": "Reduser skala med 1",
     "increase-scale-label": "Øk skala med 1",
@@ -521,7 +521,7 @@
     "edit-timeline-event": "Endre tidslinjehendelser",
     "timeline": "Tidslinje",
     "timeline-is-empty": "Ingenting på tidslinjen ennå. Prøv å lage denne oppskriften!",
-    "timeline-no-events-found-try-adjusting-filters": "No events found. Try adjusting your search filters.",
+    "timeline-no-events-found-try-adjusting-filters": "Ingen hendelser funnet. Prøv å endre søkefiltrene.",
     "group-global-timeline": "{groupName} Global tidslinje",
     "open-timeline": "Åpne tidslinje",
     "made-this": "Jeg har laget denne",
@@ -542,8 +542,8 @@
     "looking-for-migrations": "Ser du etter overføringer?",
     "import-with-url": "Importer via nettadresse",
     "create-recipe": "Opprett oppskrift",
-    "create-recipe-description": "Create a new recipe from scratch.",
-    "create-recipes": "Create Recipes",
+    "create-recipe-description": "Opprett en ny oppskrift fra bunnen av.",
+    "create-recipes": "Opprett oppskrifter",
     "import-with-zip": "Importer fra .zip-fil",
     "create-recipe-from-an-image": "Opprett oppskrift fra et bilde",
     "bulk-url-import": "Importer flere nettadresser",
@@ -552,8 +552,8 @@
     "new-recipe-names-must-be-unique": "Navn på oppskrift må være unike",
     "scrape-recipe": "Skrap oppskrift",
     "scrape-recipe-description": "Skrap en oppskrift ved bruk av nettadresse. Oppgi nettadressen til nettstedet du vil skrape, så vil Mealie forsøke å skrape oppskriften fra den siden og legge den til i samlingen din.",
-    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
-    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
+    "scrape-recipe-have-a-lot-of-recipes": "Har du mange oppskrifter du ønsker å skrape samtidig?",
+    "scrape-recipe-suggest-bulk-importer": "Prøv masseimporten",
     "import-original-keywords-as-tags": "Importer originale søkeord som emneord",
     "stay-in-edit-mode": "Forbli i redigeringsmodus",
     "import-from-zip": "Importer fra zip-fil",
@@ -577,7 +577,7 @@
     "upload-image": "Last opp bilde",
     "screen-awake": "Hold skjermen på",
     "remove-image": "Slett bilde",
-    "nextStep": "Next step"
+    "nextStep": "Neste trinn"
   },
   "search": {
     "advanced-search": "Avansert søk",
@@ -614,7 +614,7 @@
       "import-summary": "Importer sammendrag",
       "partial-backup": "Delvis sikkerhetskopi",
       "unable-to-delete-backup": "Kan ikke slette sikkerhetskopi.",
-      "experimental-description": "Backups are total snapshots of the database and data directory of the site. This includes all data and cannot be set to exclude subsets of data. You can think of this as a snapshot of Mealie at a specific time. These serve as a database agnostic way to export and import data, or back up the site to an external location.",
+      "experimental-description": "Sikkerhetskopier er komplette øyeblikksbilder av databasen og datamappen til nettstedet. Dette inkluderer all data og kan ikke settes til å ekskludere delsett av data. Du kan tenke på dette som et øyeblikksbilde av Mealie på et bestemt tidspunkt. Disse fungerer som en databasesystemuavhengig måte å eksportere og importere data på, eller sikkerhetskopiere nettstedet til en ekstern plassering.",
       "backup-restore": "Gjenoppretting av sikkerhetskopi",
       "back-restore-description": "Gjenoppretting av denne sikkerhetskopien vil overskrive alle gjeldende data i databasen og i datamappen og erstatte dem med innholdet i denne sikkerhetskopien. {cannot-be-undone} Hvis gjenopprettingen er vellykket, vil du bli logget ut.",
       "cannot-be-undone": "Denne handlingen kan ikke angres – bruk med forsiktighet.",
@@ -740,9 +740,9 @@
     "ldap-ready-success-text": "Alle obligratoriske LDAP-variabler er satt.",
     "build": "Build",
     "recipe-scraper-version": "Versjon på oppskrift-scraper",
-    "oidc-ready": "OIDC Ready",
-    "oidc-ready-error-text": "Not all OIDC Values are configured. This can be ignored if you are not using OIDC Authentication.",
-    "oidc-ready-success-text": "Required OIDC variables are all set."
+    "oidc-ready": "OIDC klar",
+    "oidc-ready-error-text": "Ikke alle OIDC-verdier er konfigurert. Dette kan ignoreres hvis du ikke bruker OIDC-autentisering.",
+    "oidc-ready-success-text": "Alle obligratoriske OIDC-variabler er satt."
   },
   "shopping-list": {
     "all-lists": "Alle lister",
@@ -815,7 +815,7 @@
     "untagged-count": "Umerkede {count}",
     "create-a-tag": "Opprett et emneord",
     "tag-name": "Navn på emneord",
-    "tag": "Tag"
+    "tag": "Emneord"
   },
   "tool": {
     "tools": "Kjøkkenredskap",
@@ -825,7 +825,7 @@
     "create-new-tool": "Opprett nytt kjøkkenredskap",
     "on-hand-checkbox-label": "Vis som tilgjengelig (avmerket)",
     "required-tools": "Påkrevde kjøkkenredskaper",
-    "tool": "Tool"
+    "tool": "Kjøkkenredskap"
   },
   "user": {
     "admin": "Administrator",
@@ -850,11 +850,11 @@
     "link-id": "Lenke-ID",
     "link-name": "Navn på lenke",
     "login": "Logg på",
-    "login-oidc": "Login with",
-    "or": "or",
+    "login-oidc": "Logg inn med",
+    "or": "eller",
     "logout": "Logg ut",
     "manage-users": "Administrer brukere",
-    "manage-users-description": "Create and manage users.",
+    "manage-users-description": "Opprett og administrer brukere.",
     "new-password": "Nytt passord",
     "new-user": "Ny bruker",
     "password-has-been-reset-to-the-default-password": "Passordet har blitt tilbakestilt til standardpassordet",
@@ -1152,14 +1152,14 @@
     "no-logs-found": "Ingen logger funnet",
     "tasks": "Oppgaver",
     "setup": {
-      "first-time-setup": "First Time Setup",
-      "welcome-to-mealie-get-started": "Welcome to Mealie! Let's get started",
-      "already-set-up-bring-to-homepage": "I'm already set up, just bring me to the homepage",
-      "common-settings-for-new-sites": "Here are some common settings for new sites",
-      "setup-complete": "Setup Complete!",
-      "here-are-a-few-things-to-help-you-get-started": "Here are a few things to help you get started with Mealie",
-      "restore-from-v1-backup": "Have a backup from a previous instance of Mealie v1? You can restore it here.",
-      "manage-profile-or-get-invite-link": "Manage your own profile, or grab an invite link to share with others."
+      "first-time-setup": "Førstegangsoppsett",
+      "welcome-to-mealie-get-started": "Velkommen til Mealie! La oss begynne",
+      "already-set-up-bring-to-homepage": "Jeg er allerede satt opp, bare ta meg med til hjemmesiden",
+      "common-settings-for-new-sites": "Her er noen vanlige innstillinger for nye sider",
+      "setup-complete": "Oppsett fullført!",
+      "here-are-a-few-things-to-help-you-get-started": "Her er noen ting som kan hjelpe deg å komme i gang med Mealie",
+      "restore-from-v1-backup": "Har du en sikkerhetskopi fra en tidligere forekomst av Mealie v1? Du kan gjenopprette den her.",
+      "manage-profile-or-get-invite-link": "Administrer din egen profil, eller hent en invitasjonslenke for å dele med andre."
     }
   },
   "profile": {
@@ -1218,7 +1218,7 @@
     "require-all-tools": "Krev alle kjøkkenredskaper",
     "cookbook-name": "Navn på kokebok",
     "cookbook-with-name": "Kokebok {0}",
-    "create-a-cookbook": "Create a Cookbook",
-    "cookbook": "Cookbook"
+    "create-a-cookbook": "Opprett en kokebok",
+    "cookbook": "Kokebok"
   }
 }
