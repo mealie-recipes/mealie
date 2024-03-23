@@ -362,7 +362,7 @@
     "choose-migration-type": "Choose Migration Type",
     "tag-all-recipes": "Tag all recipes with {tag-name} tag",
     "nextcloud-text": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
-    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
+    "chowdown-text": "Mealie yerel olarak chowdown veri havuzu formatını destekler. Kod deposunu .zip dosyası olarak indirin ve aşağıya yükleyin.",
     "recipe-1": "Tarif 1",
     "recipe-2": "Tarif 2",
     "paprika-text": "Mealie, Paprika uygulamasından tarifleri içe aktarabilir. Tariflerinizi paprika'dan dışa aktarın, dışa aktarma uzantısını .zip olarak yeniden adlandırın ve aşağıda yükleyin.",
@@ -372,8 +372,8 @@
       "description-long": "Mealie, Plan to Eat'ten tarifleri içe aktarabilir."
     },
     "myrecipebox": {
-      "title": "My Recipe Box",
-      "description-long": "Mealie can import recipes from My Recipe Box. Export your recipes in CSV format, then upload the .csv file below."
+      "title": "Tarife Kutum",
+      "description-long": "Mealie Tarife Kutum'dan tarifleri içe aktarabilir. Tariflerinizi CSV formatında dışa aktarın, ardından .csv dosyasını aşağıya yükleyin."
     }
   },
   "new-recipe": {
