@@ -47,7 +47,7 @@ class AppSettings(BaseSettings):
 
     GIT_COMMIT_HASH: str = "unknown"
 
-    ALLOW_SIGNUP: bool = True
+    ALLOW_SIGNUP: bool = False
 
     # ===============================================
     # Security Configuration
