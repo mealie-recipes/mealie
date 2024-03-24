@@ -108,7 +108,7 @@ class RecipeDataService(BaseService):
         Validates that the URL is of an allowed source and restricts certain sources to prevent
         malicious images from being downloaded.
         """
-        invalid_domains = {"127.0.0.1", "localhost"}
+        invalid_domains = {"127.0.0.1", "localhost", "127.0.1.1"}
         for domain in invalid_domains:
             if domain in url:
                 return False
