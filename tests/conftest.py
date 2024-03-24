@@ -6,6 +6,7 @@ from pytest import MonkeyPatch, fixture
 mp = MonkeyPatch()
 mp.setenv("PRODUCTION", "True")
 mp.setenv("TESTING", "True")
+mp.setenv("ALLOW_SIGNUP", "True")
 from pathlib import Path
 
 from fastapi.testclient import TestClient

@@ -40,9 +40,12 @@ def resolve_ip_with_socket(url):
 __disallow_list = [
     "0.0.0.0/32",  # Current network (only valid as source address)
     "10.0.0.0/8",  # Used for local communications within a private network
-    "100.64.0.0/10",  # Shared address space for communications between a service provider and its subscribers when using a carrier-grade NAT.
+    # Shared address space for communications between a service provider and its subscribers
+    # when using a carrier-grade NAT.
+    "100.64.0.0/10",
     "127.0.0.0/8",  # Used for loopback addresses to the local host
-    "169.254.0.0/16",  # Used for link-local addresses between two hosts on a single link when no IP address is otherwise specified
+    # Used for link-local addresses between two hosts on a single link when no IP address is otherwise specified
+    "169.254.0.0/16",
     "172.16.0.0/12",  # Used for local communications within a private network
     "192.0.0.0/24",  # IETF Protocol Assignments
     "192.0.2.0/24",  # Assigned as TEST-NET-1, documentation and examples
