@@ -13,6 +13,7 @@
       $globals.icons.tags"
     return-object
     v-bind="inputAttrs"
+    auto-select-first="true"
     :search-input.sync="searchInput"
     @change="resetSearchInput"
   >
@@ -140,7 +141,6 @@ export default defineComponent({
     }
 
     function appendCreated(item: RecipeTag | RecipeCategory | RecipeTool) {
-      console.log(item);
       if (selected.value === undefined) {
         return;
       }
