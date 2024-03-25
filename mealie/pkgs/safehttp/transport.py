@@ -1,10 +1,7 @@
 import ipaddress
 import socket
-from urllib.parse import urlparse
 
 import httpx
-
-__http_timeout = 15
 
 
 class ForcedTimeoutException(Exception):
@@ -23,14 +20,12 @@ class InvalidDomainError(Exception):
     ...
 
 
-def resolve_ip_with_socket(url):
+def resolve_ip_with_socket(domain_name: str):
     """
     Resolve the IP address of a given URL. If the URL is invalid,
     return None.
     """
     try:
-        parsed_url = urlparse(url)
-        domain_name = parsed_url.netloc
         ip_address = socket.gethostbyname(domain_name)
         return ip_address
     except (socket.gaierror, ValueError):
@@ -74,19 +69,23 @@ class AsyncSafeTransport(httpx.AsyncBaseTransport):
     and that the request is not made to a local IP address.
     """
 
+    timeout: int = 15
+
     def __init__(self, **kwargs):
+        self.timeout = kwargs.pop("timeout", self.timeout)
         self._wrapper = httpx.AsyncHTTPTransport(**kwargs)
 
     async def handle_async_request(self, request):
         # override timeout value for _all_ requests
-        request.extensions["timeout"] = httpx.Timeout(__http_timeout)
+        request.extensions["timeout"] = httpx.Timeout(self.timeout, pool=self.timeout).as_dict()
 
         # validate the request is not attempting to connect to a local IP
         # This is a security measure to prevent SSRF attacks
 
-        ip_address = resolve_ip_with_socket(request.url)
+        ip_address = resolve_ip_with_socket(str(request.url.netloc))
 
         if ip_address and is_local_ip(ip_address):
+            print("HERE, I'M HERE")
             raise InvalidDomainError(f"invalid request on local resource: {request.url} -> {ip_address}")
 
         return await self._wrapper.handle_async_request(request)
