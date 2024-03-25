@@ -1,16 +1,13 @@
-import contextlib
-import os
 import shutil
 import uuid
 from pathlib import Path
 
 from fastapi import APIRouter, HTTPException
 
-from mealie.core.root_logger import LOGGER_FILE
 from mealie.pkgs.stats import fs_stats
 from mealie.routes._base import BaseAdminController, controller
 from mealie.schema.admin import MaintenanceSummary
-from mealie.schema.admin.maintenance import MaintenanceLogs, MaintenanceStorageDetails
+from mealie.schema.admin.maintenance import MaintenanceStorageDetails
 from mealie.schema.response import ErrorResponse, SuccessResponse
 
 router = APIRouter(prefix="/maintenance")
