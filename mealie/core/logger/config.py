@@ -47,7 +47,7 @@ def configured_logger(
     Args:
         mode (str): The mode to configure the logger for (production, development, testing)
         config_override (pathlib.Path, optional): A path to a custom logging config. Defaults to None.
-        substitutions (dict[str, str], optional): A dictionary of substitutions to apply to the logging config. Defaults to None.
+        substitutions (dict[str, str], optional): A dictionary of substitutions to apply to the logging config.
     """
     global __conf
 

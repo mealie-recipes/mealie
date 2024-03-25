@@ -22,10 +22,6 @@
       <template #title> {{ $t("admin.maintenance.page-title") }} </template>
     </BasePageTitle>
 
-    <div class="d-flex justify-end">
-      <ButtonLink to="/admin/maintenance/logs" text="Logs" :icon="$globals.icons.file" />
-    </div>
-
     <section>
       <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.wrench" :title="$tc('admin.maintenance.summary-title')">
       </BaseCardSectionTitle>
@@ -110,7 +106,6 @@ export default defineComponent({
 
     const infoResults = ref<MaintenanceSummary>({
       dataDirSize: i18n.tc("about.unknown-version"),
-      logFileSize: i18n.tc("about.unknown-version"),
       cleanableDirs: 0,
       cleanableImages: 0,
     });
@@ -121,7 +116,6 @@ export default defineComponent({
 
       infoResults.value = data ?? {
         dataDirSize: i18n.tc("about.unknown-version"),
-        logFileSize: i18n.tc("about.unknown-version"),
         cleanableDirs: 0,
         cleanableImages: 0,
       };
@@ -129,16 +123,11 @@ export default defineComponent({
       state.fetchingInfo = false;
     }
 
-
     const info = computed(() => {
       return [
         {
           name: i18n.t("admin.maintenance.info-description-data-dir-size"),
           value: infoResults.value.dataDirSize,
-        },
-        {
-          name: i18n.t("admin.maintenance.info-description-log-file-size"),
-          value: infoResults.value.logFileSize,
         },
         {
           name: i18n.t("admin.maintenance.info-description-cleanable-directories"),
@@ -184,12 +173,6 @@ export default defineComponent({
     // ==========================================================================
     // Actions
 
-    async function handleDeleteLogFile() {
-      state.actionLoading = true;
-      await adminApi.maintenance.cleanLogFile();
-      state.actionLoading = false;
-    }
-
     async function handleCleanDirectories() {
       state.actionLoading = true;
       await adminApi.maintenance.cleanRecipeFolders();
@@ -209,11 +192,6 @@ export default defineComponent({
     }
 
     const actions = [
-      {
-        name: i18n.t("admin.maintenance.action-delete-log-files-name"),
-        handler: handleDeleteLogFile,
-        subtitle: i18n.t("admin.maintenance.action-delete-log-files-description"),
-      },
       {
         name: i18n.t("admin.maintenance.action-clean-directories-name"),
         handler: handleCleanDirectories,
