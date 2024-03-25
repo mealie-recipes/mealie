@@ -13,6 +13,8 @@
       $globals.icons.tags"
     return-object
     v-bind="inputAttrs"
+    :search-input.sync="searchInput"
+    @change="resetSearchInput"
   >
     <template #selection="data">
       <v-chip
@@ -41,7 +43,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useContext, computed, onMounted } from "@nuxtjs/composition-api";
+import { defineComponent, ref, useContext, computed, onMounted, watch } from "@nuxtjs/composition-api";
 import RecipeOrganizerDialog from "./RecipeOrganizerDialog.vue";
 import { RecipeCategory, RecipeTag } from "~/lib/api/types/user";
 import { RecipeTool } from "~/lib/api/types/admin";
@@ -148,6 +150,12 @@ export default defineComponent({
 
     const dialog = ref(false);
 
+    const searchInput = ref("");
+
+    function resetSearchInput() {
+      searchInput.value = "";
+    }
+
     return {
       Organizer,
       appendCreated,
@@ -156,6 +164,8 @@ export default defineComponent({
       label,
       selected,
       removeByIndex,
+      searchInput,
+      resetSearchInput,
     };
   },
 });
