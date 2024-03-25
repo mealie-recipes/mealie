@@ -20,6 +20,7 @@ export interface UserRecipePreferences {
   filterNull: boolean;
   sortIcon: string;
   useMobileCards: boolean;
+  searchQuery: string;
 }
 
 export interface UserShoppingListPreferences {
@@ -59,6 +60,7 @@ export function useUserSortPreferences(): Ref<UserRecipePreferences> {
       filterNull: false,
       sortIcon: $globals.icons.sortAlphabeticalAscending,
       useMobileCards: false,
+      searchQuery: "",
     },
     { mergeDefaults: true }
     // we cast to a Ref because by default it will return an optional type ref
