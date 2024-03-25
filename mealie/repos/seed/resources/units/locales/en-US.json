@@ -39,6 +39,11 @@
         "description": "",
         "abbreviation": "ml"
     },
+    "husk": {
+        "name": "husk",
+        "description": "a husk of corn or corn",
+        "abbreviation": "hu"
+    },
     "liter": {
         "name": "liter",
         "description": "",
