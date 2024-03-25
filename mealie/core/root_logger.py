@@ -5,8 +5,6 @@ from .logger.config import configured_logger
 
 __root_logger: None | logging.Logger = None
 
-LOGGER_FILE = "logconf.dev.json"
-
 
 def get_logger(module=None) -> logging.Logger:
     """

@@ -5,7 +5,6 @@ from . import (
     admin_analytics,
     admin_backups,
     admin_email,
-    admin_log,
     admin_maintenance,
     admin_management_groups,
     admin_management_users,
@@ -15,7 +14,6 @@ from . import (
 router = AdminAPIRouter(prefix="/admin")
 
 router.include_router(admin_about.router, tags=["Admin: About"])
-router.include_router(admin_log.router, tags=["Admin: Log"])
 router.include_router(admin_management_users.router, tags=["Admin: Manage Users"])
 router.include_router(admin_management_groups.router, tags=["Admin: Manage Groups"])
 router.include_router(admin_email.router, tags=["Admin: Email"])
