@@ -36,6 +36,10 @@ class AppSettings(BaseSettings):
     """path to static files directory (ex. `mealie/dist`)"""
 
     IS_DEMO: bool = False
+
+    HOST_IP: str = "*"
+
+    API_HOST: str = "0.0.0.0"
     API_PORT: int = 9000
     API_DOCS: bool = True
     TOKEN_TIME: int = 48

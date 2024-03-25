@@ -11,7 +11,9 @@
       "datefmt": "%Y-%m-%dT%H:%M:%S"
     },
     "access": {
-      "fmt": "%(levelname)-8s %(asctime)s - [%(client_addr)s] %(status_code)s \"%(request_line)s\""
+      "()": "uvicorn.logging.AccessFormatter",
+      "fmt": "%(levelname)-8s %(asctime)s - [%(client_addr)s] %(status_code)s \"%(request_line)s\"",
+      "datefmt": "%Y-%m-%dT%H:%M:%S"
     }
   },
   "handlers": {
