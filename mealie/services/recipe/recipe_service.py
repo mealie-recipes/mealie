@@ -20,7 +20,7 @@ from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.recipe.recipe_step import RecipeStep
 from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventCreate, TimelineEventType
 from mealie.schema.recipe.request_helpers import RecipeDuplicate
-from mealie.schema.user.user import GroupInDB, PrivateUser
+from mealie.schema.user.user import GroupInDB, PrivateUser, UserRatingCreate
 from mealie.services._base_service import BaseService
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 
@@ -145,7 +145,19 @@ class RecipeService(BaseService):
             else:
                 data.settings = RecipeSettings()
 
+        rating_input = data.rating
         new_recipe = self.repos.recipes.create(data)
+
+        # convert rating into user rating
+        if rating_input:
+            self.repos.user_ratings.create(
+                UserRatingCreate(
+                    user_id=self.user.id,
+                    recipe_id=new_recipe.id,
+                    rating=rating_input,
+                    is_favorite=False,
+                )
+            )
 
         # create first timeline entry
         timeline_event_data = RecipeTimelineEventCreate(

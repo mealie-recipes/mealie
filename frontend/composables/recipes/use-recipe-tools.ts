@@ -2,7 +2,7 @@ import { reactive, ref, useAsync } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "../use-utils";
 import { useUserApi } from "~/composables/api";
 import { VForm } from "~/types/vuetify";
-import { RecipeTool } from "~/lib/api/types/user";
+import { RecipeTool } from "~/lib/api/types/recipe";
 
 export const useTools = function (eager = true) {
   const workingToolData = reactive<RecipeTool>({

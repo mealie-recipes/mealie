@@ -1,7 +1,11 @@
 <template>
   <v-container>
-    <RecipeCardSection v-if="user && isOwnGroup" :icon="$globals.icons.heart" :title="$tc('user.user-favorites')" :recipes="user.favoriteRecipes">
-    </RecipeCardSection>
+    <RecipeCardSection
+      v-if="recipes && isOwnGroup"
+      :icon="$globals.icons.heart"
+      :title="$tc('user.user-favorites')"
+      :recipes="recipes"
+    />
   </v-container>
 </template>
 
@@ -21,14 +25,13 @@ export default defineComponent({
     const { isOwnGroup } = useLoggedInState();
 
     const userId = route.value.params.id;
-
-    const user = useAsync(async () => {
-      const { data } = await api.users.getFavorites(userId);
-      return data;
+    const recipes = useAsync(async () => {
+      const { data } = await api.recipes.getAll(1, -1, { queryFilter: `favoritedBy.id = "${userId}"` });
+      return data?.items || null;
     }, useAsyncKey());
 
     return {
-      user,
+      recipes,
       isOwnGroup,
     };
   },

@@ -1,3 +1,3 @@
 from .password_reset import *
-from .user_to_favorite import *
+from .user_to_recipe import *
 from .users import *

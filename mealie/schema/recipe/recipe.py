@@ -99,7 +99,7 @@ class RecipeSummary(MealieModel):
     recipe_category: Annotated[list[RecipeCategory] | None, Field(validate_default=True)] | None = []
     tags: Annotated[list[RecipeTag] | None, Field(validate_default=True)] = []
     tools: list[RecipeTool] = []
-    rating: int | None = None
+    rating: float | None = None
     org_url: str | None = Field(None, alias="orgURL")
 
     date_added: datetime.date | None = None

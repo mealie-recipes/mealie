@@ -6,7 +6,8 @@ from sqlalchemy import select
 
 from mealie.assets import users as users_assets
 from mealie.core.config import get_app_settings
-from mealie.schema.user.user import PrivateUser
+from mealie.db.models.users.user_to_recipe import UserToRecipe
+from mealie.schema.user.user import PrivateUser, UserRatingOut
 
 from ..db.models.users import User
 from .repository_generic import RepositoryGeneric
@@ -72,3 +73,26 @@ class RepositoryUsers(RepositoryGeneric[PrivateUser, User]):
         stmt = select(User).filter(User.locked_at != None)  # noqa E711
         results = self.session.execute(stmt).scalars().all()
         return [self.schema.model_validate(x) for x in results]
+
+
+class RepositoryUserRatings(RepositoryGeneric[UserRatingOut, UserToRecipe]):
+    def get_by_user(self, user_id: UUID4, favorites_only=False) -> list[UserRatingOut]:
+        stmt = select(UserToRecipe).filter(UserToRecipe.user_id == user_id)
+        if favorites_only:
+            stmt = stmt.filter(UserToRecipe.is_favorite)
+
+        results = self.session.execute(stmt).scalars().all()
+        return [self.schema.model_validate(x) for x in results]
+
+    def get_by_recipe(self, recipe_id: UUID4, favorites_only=False) -> list[UserRatingOut]:
+        stmt = select(UserToRecipe).filter(UserToRecipe.recipe_id == recipe_id)
+        if favorites_only:
+            stmt = stmt.filter(UserToRecipe.is_favorite)
+
+        results = self.session.execute(stmt).scalars().all()
+        return [self.schema.model_validate(x) for x in results]
+
+    def get_by_user_and_recipe(self, user_id: UUID4, recipe_id: UUID4) -> UserRatingOut | None:
+        stmt = select(UserToRecipe).filter(UserToRecipe.user_id == user_id, UserToRecipe.recipe_id == recipe_id)
+        result = self.session.execute(stmt).scalars().one_or_none()
+        return None if result is None else self.schema.model_validate(result)

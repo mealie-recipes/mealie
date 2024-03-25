@@ -19,7 +19,7 @@
 <script lang="ts">
 import { defineComponent, computed, useContext } from "@nuxtjs/composition-api";
 import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
-import { RecipeTag, RecipeCategory } from "~/lib/api/types/group";
+import { RecipeTag, RecipeCategory } from "~/lib/api/types/recipe";
 
 export default defineComponent({
   components: {

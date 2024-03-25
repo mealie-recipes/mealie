@@ -7,12 +7,14 @@ from pydantic import ConfigDict
 from sqlalchemy import event
 from sqlalchemy.ext.orderinglist import ordering_list
 from sqlalchemy.orm import Mapped, mapped_column, validates
+from sqlalchemy.orm.attributes import get_history
+from sqlalchemy.orm.session import object_session
 
 from mealie.db.models._model_utils.guid import GUID
 
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils import auto_init
-from ..users.user_to_favorite import users_to_favorites
+from ..users.user_to_recipe import UserToRecipe
 from .api_extras import ApiExtras, api_extras
 from .assets import RecipeAsset
 from .category import recipes_to_categories
@@ -49,12 +51,20 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     user_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("users.id", use_alter=True), index=True)
     user: Mapped["User"] = orm.relationship("User", uselist=False, foreign_keys=[user_id])
 
-    meal_entries: Mapped[list["GroupMealPlan"]] = orm.relationship(
-        "GroupMealPlan", back_populates="recipe", cascade="all, delete-orphan"
+    rating: Mapped[float | None] = mapped_column(sa.Float, index=True, nullable=True)
+    rated_by: Mapped[list["User"]] = orm.relationship(
+        "User", secondary=UserToRecipe.__tablename__, back_populates="rated_recipes"
+    )
+    favorited_by: Mapped[list["User"]] = orm.relationship(
+        "User",
+        secondary=UserToRecipe.__tablename__,
+        primaryjoin="and_(RecipeModel.id==UserToRecipe.recipe_id, UserToRecipe.is_favorite==True)",
+        back_populates="favorite_recipes",
+        viewonly=True,
     )
 
-    favorited_by: Mapped[list["User"]] = orm.relationship(
-        "User", secondary=users_to_favorites, back_populates="favorite_recipes"
+    meal_entries: Mapped[list["GroupMealPlan"]] = orm.relationship(
+        "GroupMealPlan", back_populates="recipe", cascade="all, delete-orphan"
     )
 
     # General Recipe Properties
@@ -110,7 +120,6 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     )
     tags: Mapped[list["Tag"]] = orm.relationship("Tag", secondary=recipes_to_tags, back_populates="recipes")
     notes: Mapped[list[Note]] = orm.relationship("Note", cascade="all, delete-orphan")
-    rating: Mapped[int | None] = mapped_column(sa.Integer)
     org_url: Mapped[str | None] = mapped_column(sa.String)
     extras: Mapped[list[ApiExtras]] = orm.relationship("ApiExtras", cascade="all, delete-orphan")
     is_ocr_recipe: Mapped[bool | None] = mapped_column(sa.Boolean, default=False)
@@ -246,3 +255,23 @@ def receive_description(target: RecipeModel, value: str, oldvalue, initiator):
         target.description_normalized = RecipeModel.normalize(value)
     else:
         target.description_normalized = None
+
+
+@event.listens_for(RecipeModel, "before_update")
+def calculate_rating(mapper, connection, target: RecipeModel):
+    session = object_session(target)
+    if not session:
+        return
+
+    if session.is_modified(target, "rating"):
+        history = get_history(target, "rating")
+        old_value = history.deleted[0] if history.deleted else None
+        new_value = history.added[0] if history.added else None
+    if old_value == new_value:
+        return
+
+    target.rating = (
+        session.query(sa.func.avg(UserToRecipe.rating))
+        .filter(UserToRecipe.recipe_id == target.id, UserToRecipe.rating is not None, UserToRecipe.rating > 0)
+        .scalar()
+    )

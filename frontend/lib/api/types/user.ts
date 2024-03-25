@@ -5,10 +5,11 @@
 /* Do not modify it by hand - just update the pydantic models and then re-run the script
 */
 
+export type WebhookType = "mealplan";
 export type AuthMethod = "Mealie" | "LDAP" | "OIDC";
 
 export interface ChangePassword {
-  currentPassword: string;
+  currentPassword?: string;
   newPassword: string;
 }
 export interface CreateToken {
@@ -30,6 +31,11 @@ export interface CreateUserRegistration {
   seedData?: boolean;
   locale?: string;
 }
+export interface CredentialsRequest {
+  username: string;
+  password: string;
+  remember_me?: boolean;
+}
 export interface DeleteTokenResponse {
   tokenDelete: string;
 }
@@ -44,7 +50,7 @@ export interface GroupInDB {
   id: string;
   slug: string;
   categories?: CategoryBase[];
-  webhooks?: unknown[];
+  webhooks?: ReadWebhook[];
   users?: UserOut[];
   preferences?: ReadGroupPreferences;
 }
@@ -60,7 +66,17 @@ export interface CategoryBase {
   id: string;
   slug: string;
 }
+export interface ReadWebhook {
+  enabled?: boolean;
+  name?: string;
+  url?: string;
+  webhookType?: WebhookType & string;
+  scheduledTime: string;
+  groupId: string;
+  id: string;
+}
 export interface UserOut {
+  id: string;
   username?: string;
   fullName?: string;
   email: string;
@@ -68,11 +84,9 @@ export interface UserOut {
   admin?: boolean;
   group: string;
   advanced?: boolean;
-  favoriteRecipes?: string[];
   canInvite?: boolean;
   canManage?: boolean;
   canOrganize?: boolean;
-  id: string;
   groupId: string;
   groupSlug: string;
   tokens?: LongLiveTokenOut[];
@@ -109,6 +123,7 @@ export interface LongLiveTokenInDB {
   user: PrivateUser;
 }
 export interface PrivateUser {
+  id: string;
   username?: string;
   fullName?: string;
   email: string;
@@ -116,11 +131,9 @@ export interface PrivateUser {
   admin?: boolean;
   group: string;
   advanced?: boolean;
-  favoriteRecipes?: string[];
   canInvite?: boolean;
   canManage?: boolean;
   canOrganize?: boolean;
-  id: string;
   groupId: string;
   groupSlug: string;
   tokens?: LongLiveTokenOut[];
@@ -128,6 +141,9 @@ export interface PrivateUser {
   password: string;
   loginAttemps?: number;
   lockedAt?: string;
+}
+export interface OIDCRequest {
+  id_token: string;
 }
 export interface PasswordResetToken {
   token: string;
@@ -163,9 +179,17 @@ export interface UpdateGroup {
   id: string;
   slug: string;
   categories?: CategoryBase[];
-  webhooks?: unknown[];
+  webhooks?: CreateWebhook[];
+}
+export interface CreateWebhook {
+  enabled?: boolean;
+  name?: string;
+  url?: string;
+  webhookType?: WebhookType & string;
+  scheduledTime: string;
 }
 export interface UserBase {
+  id?: string;
   username?: string;
   fullName?: string;
   email: string;
@@ -173,65 +197,12 @@ export interface UserBase {
   admin?: boolean;
   group?: string;
   advanced?: boolean;
-  favoriteRecipes?: string[];
   canInvite?: boolean;
   canManage?: boolean;
   canOrganize?: boolean;
-}
-export interface UserFavorites {
-  username?: string;
-  fullName?: string;
-  email: string;
-  authMethod?: AuthMethod & string;
-  admin?: boolean;
-  group?: string;
-  advanced?: boolean;
-  favoriteRecipes?: RecipeSummary[];
-  canInvite?: boolean;
-  canManage?: boolean;
-  canOrganize?: boolean;
-}
-export interface RecipeSummary {
-  id?: string;
-  userId?: string;
-  groupId?: string;
-  name?: string;
-  slug?: string;
-  image?: unknown;
-  recipeYield?: string;
-  totalTime?: string;
-  prepTime?: string;
-  cookTime?: string;
-  performTime?: string;
-  description?: string;
-  recipeCategory?: RecipeCategory[];
-  tags?: RecipeTag[];
-  tools?: RecipeTool[];
-  rating?: number;
-  orgURL?: string;
-  dateAdded?: string;
-  dateUpdated?: string;
-  createdAt?: string;
-  updateAt?: string;
-  lastMade?: string;
-}
-export interface RecipeCategory {
-  id?: string;
-  name: string;
-  slug: string;
-}
-export interface RecipeTag {
-  id?: string;
-  name: string;
-  slug: string;
-}
-export interface RecipeTool {
-  id: string;
-  name: string;
-  slug: string;
-  onHand?: boolean;
 }
 export interface UserIn {
+  id?: string;
   username?: string;
   fullName?: string;
   email: string;
@@ -239,15 +210,32 @@ export interface UserIn {
   admin?: boolean;
   group?: string;
   advanced?: boolean;
-  favoriteRecipes?: string[];
   canInvite?: boolean;
   canManage?: boolean;
   canOrganize?: boolean;
   password: string;
 }
+export interface UserRatingCreate {
+  recipeId: string;
+  rating?: number;
+  isFavorite?: boolean;
+  userId: string;
+}
+export interface UserRatingOut {
+  recipeId: string;
+  rating?: number;
+  isFavorite?: boolean;
+  userId: string;
+  id: string;
+}
+export interface UserRatingSummary {
+  recipeId: string;
+  rating?: number;
+  isFavorite?: boolean;
+}
 export interface UserSummary {
   id: string;
-  fullName?: string;
+  fullName: string;
 }
 export interface ValidateResetToken {
   token: string;
