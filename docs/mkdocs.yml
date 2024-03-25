@@ -41,7 +41,8 @@ markdown_extensions:
       custom_checkbox: true
   - admonition
   - attr_list
-  - pymdownx.tabbed
+  - pymdownx.tabbed:
+      alternate_style: true
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid

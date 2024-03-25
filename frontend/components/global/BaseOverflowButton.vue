@@ -20,8 +20,8 @@
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-icon>
             <v-list-item-title>{{ item.text }}</v-list-item-title>
-            <v-divider v-if="item.divider" :key="`divider-${index}`" class="my-1" ></v-divider>
           </v-list-item>
+          <v-divider v-if="item.divider" :key="`divider-${index}`" class="my-1" ></v-divider>
         </template>
       </v-list-item-group>
     </v-list>
@@ -47,8 +47,8 @@
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
           <v-list-item-title>{{ item.text }}</v-list-item-title>
-          <v-divider v-if="item.divider" :key="`divider-${index}`" class="my-1" ></v-divider>
         </v-list-item>
+        <v-divider v-if="item.divider" :key="`divider-${index}`" class="my-1" ></v-divider>
       </template>
     </v-list>
   </v-menu>

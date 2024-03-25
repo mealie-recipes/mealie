@@ -362,7 +362,7 @@
     "choose-migration-type": "Alegeți tipul de migrare",
     "tag-all-recipes": "Etichetați toate rețetele cu eticheta {tag-name}",
     "nextcloud-text": "Rețetele din Nextcloud pot fi importate dintr-un fișier de tip \".ZIP\" ce conține toate datele stocate în Nextcloud. Vedeți structura directorului din exemplul de mai jos pentru a vă asigura că rețetele pot fi importate cu succes.",
-    "chowdown-text": "Mealie acceptă nativ formatul repo-ului Chowdown. Descărcați depozitul de cod ca fișier \".ZIP\" și încărcați-l mai jos.",
+    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
     "recipe-1": "Rețeta 1",
     "recipe-2": "Rețeta 2",
     "paprika-text": "Mealie poate importa rețete din aplicația Paprika. Exportă rețetele din Paprika, redenumește extensia de export în \".zip\" și încarcă-o folosind câmpul de mai jos.",
@@ -370,6 +370,10 @@
     "plantoeat": {
       "title": "Planifică să Mănânci",
       "description-long": "Mealie poate importa rețete din Planul de Masă."
+    },
+    "myrecipebox": {
+      "title": "My Recipe Box",
+      "description-long": "Mealie can import recipes from My Recipe Box. Export your recipes in CSV format, then upload the .csv file below."
     }
   },
   "new-recipe": {

@@ -362,7 +362,7 @@
     "choose-migration-type": "Pasirinkite migracijos tipą",
     "tag-all-recipes": "Pažymėti visus receptus {tag-name} žyma",
     "nextcloud-text": "\"Nextcloud\" receptus galima importuoti iš .ZIP failo. Žemiau galima rasti tinkamos aplankų struktūros pavyzdį.",
-    "chowdown-text": "Mealie palaiko \"Chowdown\" repozitorijos formatą. Atsisiųskite kodo repozitoriją kaip .ZIP failą ir įkelkite žemiau",
+    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
     "recipe-1": "Receptas 1",
     "recipe-2": "Receptas 2",
     "paprika-text": "Į Mealie galima importuoti receptus iš \"Paprika\" sistemos. Eksportuokite duomenis iš \"Paprika\", pervadinkite failo plėtinį į .ZIP ir įkelkite žemiau.",
@@ -370,6 +370,10 @@
     "plantoeat": {
       "title": "Plan to Eat",
       "description-long": "Mealie can import recipies from Plan to Eat."
+    },
+    "myrecipebox": {
+      "title": "My Recipe Box",
+      "description-long": "Mealie can import recipes from My Recipe Box. Export your recipes in CSV format, then upload the .csv file below."
     }
   },
   "new-recipe": {

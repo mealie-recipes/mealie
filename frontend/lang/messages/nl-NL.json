@@ -362,7 +362,7 @@
     "choose-migration-type": "Kies het migratietype",
     "tag-all-recipes": "Label alle recepten met {tag-name} tag",
     "nextcloud-text": "Nextcloud recepten kunnen worden geïmporteerd uit een zip-bestand dat de gegevens bevat die zijn opgeslagen in Nextcloud. Zie de voorbeeldmapstructuur hieronder om ervoor te zorgen dat je recepten kunnen worden geïmporteerd.",
-    "chowdown-text": "Mealie kan importeren vanuit Chowdown. Download daar het .zip bestand. En upload het hier",
+    "chowdown-text": "Mealie ondersteunt het formaat van de chowdown repository. Download de repository als een .zip-bestand en upload deze hieronder.",
     "recipe-1": "Eerste recept",
     "recipe-2": "Tweede recept",
     "paprika-text": "Mealie kan recepten uit het programma Paprika importeren. Exporteer je recepten uit Paprika, hernoem de exportuitbreiding naar .zip en upload ze hieronder.",
@@ -370,6 +370,10 @@
     "plantoeat": {
       "title": "Plan naar Eat",
       "description-long": "Mealie kan recepten importeren van Plan naar Eet."
+    },
+    "myrecipebox": {
+      "title": "Mijn Receptenbox",
+      "description-long": "Mealie kan recepten importeren uit My Recipe Box. Exporteer je recepten in CSV formaat, upload daarna het .csv bestand hieronder."
     }
   },
   "new-recipe": {

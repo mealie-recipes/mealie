@@ -362,7 +362,7 @@
     "choose-migration-type": "Odaberi Vrstu Migracije",
     "tag-all-recipes": "Označi sve recepte s oznakom {tag-name}",
     "nextcloud-text": "Recepti iz Nextcloud-a mogu se uvesti iz zip datoteke koja sadrži podatke pohranjene u Nextcloud-u. Pogledajte primjer strukture mape u nastavku kako biste osigurali da se vaši recepti mogu uspješno uvesti.",
-    "chowdown-text": "Mealie izvorno podržava format repozitorija \"chowdown\". Preuzmite repozitorij koda kao .zip datoteku i učitajte je u nastavku",
+    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
     "recipe-1": "Recept 1",
     "recipe-2": "Recept 2",
     "paprika-text": "Mealie može uvesti recepte iz aplikacije Paprika. Izvezite svoje recepte iz Paprike, preimenujte ekstenziju izvoza u .zip i učitajte je u nastavku.",
@@ -370,6 +370,10 @@
     "plantoeat": {
       "title": "Plan to Eat",
       "description-long": "Mealie can import recipies from Plan to Eat."
+    },
+    "myrecipebox": {
+      "title": "My Recipe Box",
+      "description-long": "Mealie can import recipes from My Recipe Box. Export your recipes in CSV format, then upload the .csv file below."
     }
   },
   "new-recipe": {

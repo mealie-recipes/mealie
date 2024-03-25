@@ -36,6 +36,8 @@ migrations_tandoor = CWD / "migrations/tandoor.zip"
 
 migrations_plantoeat = CWD / "migrations/plantoeat.zip"
 
+migrations_myrecipebox = CWD / "migrations/myrecipebox.csv"
+
 images_test_image_1 = CWD / "images/test-image-1.jpg"
 
 images_test_image_2 = CWD / "images/test-image-2.png"
