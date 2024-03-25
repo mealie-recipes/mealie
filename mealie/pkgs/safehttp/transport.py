@@ -85,7 +85,6 @@ class AsyncSafeTransport(httpx.AsyncBaseTransport):
         ip_address = resolve_ip_with_socket(str(request.url.netloc))
 
         if ip_address and is_local_ip(ip_address):
-            print("HERE, I'M HERE")
             raise InvalidDomainError(f"invalid request on local resource: {request.url} -> {ip_address}")
 
         return await self._wrapper.handle_async_request(request)
