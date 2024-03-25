@@ -13,6 +13,7 @@
       $globals.icons.tags"
     return-object
     v-bind="inputAttrs"
+    auto-select-first="true"
   >
     <template #selection="data">
       <v-chip
@@ -138,7 +139,6 @@ export default defineComponent({
     }
 
     function appendCreated(item: RecipeTag | RecipeCategory | RecipeTool) {
-      console.log(item);
       if (selected.value === undefined) {
         return;
       }
