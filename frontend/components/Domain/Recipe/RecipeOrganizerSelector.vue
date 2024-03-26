@@ -13,7 +13,7 @@
       $globals.icons.tags"
     return-object
     v-bind="inputAttrs"
-    auto-select-first="true"
+    auto-select-first
     :search-input.sync="searchInput"
     @change="resetSearchInput"
   >
