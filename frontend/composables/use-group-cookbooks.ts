@@ -122,6 +122,7 @@ export const useCookbooks = function () {
         this.refreshAll();
       }
       loading.value = false;
+      return data;
     },
 
     async updateOrder() {
