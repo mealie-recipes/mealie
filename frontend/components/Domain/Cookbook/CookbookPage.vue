@@ -23,6 +23,7 @@
         <v-toolbar-title class="headline"> {{ book.name }} </v-toolbar-title>
         <v-spacer></v-spacer>
         <BaseButton
+          v-if="isOwnGroup"
           class="mx-1"
           :edit="true"
           @click="handleEditCookbook"
@@ -115,6 +116,7 @@
         recipes,
         removeRecipe,
         replaceRecipes,
+        isOwnGroup,
         dialogStates,
         editTarget,
         handleEditCookbook,
