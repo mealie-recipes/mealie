@@ -124,11 +124,12 @@
     <v-divider></v-divider>
     <v-container class="mt-6 px-md-6">
       <RecipeCardSection
+        v-if="state.ready"
         class="mt-n5"
         :icon="$globals.icons.search"
         :title="$tc('search.results')"
         :recipes="recipes"
-        :query="passedQuery"
+        :query="passedQueryWithSeed"
         @replaceRecipes="replaceRecipes"
         @appendRecipes="appendRecipes"
       />
@@ -137,11 +138,12 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, useRouter, onMounted, useContext, computed, Ref, useRoute } from "@nuxtjs/composition-api";
+import { ref, defineComponent, useRouter, onMounted, useContext, computed, Ref, useRoute, watch } from "@nuxtjs/composition-api";
 import { watchDebounced } from "@vueuse/shared";
 import SearchFilter from "~/components/Domain/SearchFilter.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useCategoryStore, useFoodStore, useTagStore, useToolStore } from "~/composables/store";
+import { useUserSortPreferences } from "~/composables/use-users/preferences";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
 import { IngredientFood, RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
@@ -161,6 +163,7 @@ export default defineComponent({
     const { isOwnGroup } = useLoggedInState();
     const state = ref({
       auto: true,
+      ready: false,
       search: "",
       orderBy: "created_at",
       orderDirection: "desc" as "asc" | "desc",
@@ -174,6 +177,7 @@ export default defineComponent({
 
     const route = useRoute();
     const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+    const preferences = useUserSortPreferences();
 
     const { recipes, appendRecipes, assignSorted, removeRecipe, replaceRecipes } = useLazyRecipes(isOwnGroup.value ? null : groupSlug.value);
     const categories = isOwnGroup.value ? useCategoryStore() : usePublicCategoryStore(groupSlug.value);
@@ -188,7 +192,30 @@ export default defineComponent({
     const tools = isOwnGroup.value ? useToolStore() : usePublicToolStore(groupSlug.value);
     const selectedTools = ref<NoUndefinedField<RecipeTool>[]>([]);
 
-    const passedQuery = ref<RecipeSearchQuery | null>(null);
+    function calcPassedQuery(): RecipeSearchQuery {
+      return {
+        search: state.value.search,
+        categories: toIDArray(selectedCategories.value),
+        foods: toIDArray(selectedFoods.value),
+        tags: toIDArray(selectedTags.value),
+        tools: toIDArray(selectedTools.value),
+        requireAllCategories: state.value.requireAllCategories,
+        requireAllTags: state.value.requireAllTags,
+        requireAllTools: state.value.requireAllTools,
+        requireAllFoods: state.value.requireAllFoods,
+        orderBy: state.value.orderBy,
+        orderDirection: state.value.orderDirection,
+      };
+    }
+    const passedQuery = ref<RecipeSearchQuery>(calcPassedQuery());
+
+    // we calculate this separately because otherwise we can't check for query changes
+    const passedQueryWithSeed = computed(() => {
+      return {
+        ...passedQuery.value,
+        _searchSeed: Date.now().toString()
+      };
+    })
 
     function reset() {
       state.value.search = "";
@@ -203,10 +230,6 @@ export default defineComponent({
       selectedTags.value = [];
       selectedTools.value = [];
 
-      router.push({
-        query: {},
-      });
-
       search();
     }
 
@@ -215,7 +238,8 @@ export default defineComponent({
     }
 
     function toIDArray(array: { id: string }[]) {
-      return array.map((item) => item.id);
+      // we sort the array to make sure the query is always the same
+      return array.map((item) => item.id).sort();
     }
 
     function hideKeyboard() {
@@ -225,40 +249,33 @@ export default defineComponent({
     const input: Ref<any> = ref(null);
 
     async function search() {
-      await router.push({
-        query: {
-          categories: toIDArray(selectedCategories.value),
-          foods: toIDArray(selectedFoods.value),
-          tags: toIDArray(selectedTags.value),
-          tools: toIDArray(selectedTools.value),
-          // Only add the query param if it's or not default
-          ...{
-            auto: state.value.auto ? undefined : "false",
-            search: state.value.search === "" ? undefined : state.value.search,
-            orderBy: state.value.orderBy === "createdAt" ? undefined : state.value.orderBy,
-            orderDirection: state.value.orderDirection === "desc" ? undefined : state.value.orderDirection,
-            requireAllCategories: state.value.requireAllCategories ? "true" : undefined,
-            requireAllTags: state.value.requireAllTags ? "true" : undefined,
-            requireAllTools: state.value.requireAllTools ? "true" : undefined,
-            requireAllFoods: state.value.requireAllFoods ? "true" : undefined,
-          },
-        },
-      });
+      const oldQueryValueString = JSON.stringify(passedQuery.value);
+      const newQueryValue = calcPassedQuery();
+      const newQueryValueString = JSON.stringify(newQueryValue);
+      if (oldQueryValueString === newQueryValueString) {
+        return;
+      }
 
-      passedQuery.value = {
-        search: state.value.search,
-        categories: toIDArray(selectedCategories.value),
-        foods: toIDArray(selectedFoods.value),
-        tags: toIDArray(selectedTags.value),
-        tools: toIDArray(selectedTools.value),
-        requireAllCategories: state.value.requireAllCategories,
-        requireAllTags: state.value.requireAllTags,
-        requireAllTools: state.value.requireAllTools,
-        requireAllFoods: state.value.requireAllFoods,
-        orderBy: state.value.orderBy,
-        orderDirection: state.value.orderDirection,
-        _searchSeed: Date.now().toString()
-      };
+      passedQuery.value = newQueryValue;
+      const query = {
+        categories: passedQuery.value.categories,
+        foods: passedQuery.value.foods,
+        tags: passedQuery.value.tags,
+        tools: passedQuery.value.tools,
+        // Only add the query param if it's or not default
+        ...{
+          auto: state.value.auto ? undefined : "false",
+          search: passedQuery.value.search === "" ? undefined : passedQuery.value.search,
+          orderBy: passedQuery.value.orderBy === "created_at" ? undefined : passedQuery.value.orderBy,
+          orderDirection: passedQuery.value.orderDirection === "desc" ? undefined : passedQuery.value.orderDirection,
+          requireAllCategories: passedQuery.value.requireAllCategories ? "true" : undefined,
+          requireAllTags: passedQuery.value.requireAllTags ? "true" : undefined,
+          requireAllTools: passedQuery.value.requireAllTools ? "true" : undefined,
+          requireAllFoods: passedQuery.value.requireAllFoods ? "true" : undefined,
+        },
+      }
+      await router.push({ query });
+      preferences.value.searchQuery = JSON.stringify(query);
     }
 
     function waitUntilAndExecute(
@@ -329,13 +346,20 @@ export default defineComponent({
       },
     ];
 
-    onMounted(() => {
-      // Hydrate Search
-      // wait for stores to be hydrated
+    watch(
+      () => route.value.query,
+      () => {
+        if (state.value.ready) {
+          hydrateSearch();
+        }
+      },
+      {
+        deep: true,
+      },
+    )
 
-      // read query params
+    async function hydrateSearch() {
       const query = router.currentRoute.query;
-
       if (query.auto) {
         state.value.auto = query.auto === "true";
       }
@@ -367,6 +391,8 @@ export default defineComponent({
             }
           )
         );
+      } else {
+        selectedCategories.value = [];
       }
 
       if (query.foods) {
@@ -384,6 +410,8 @@ export default defineComponent({
             }
           )
         );
+      } else {
+        selectedFoods.value = [];
       }
 
       if (query.tags) {
@@ -396,6 +424,8 @@ export default defineComponent({
             }
           )
         );
+      } else {
+        selectedTags.value = [];
       }
 
       if (query.tools) {
@@ -408,11 +438,28 @@ export default defineComponent({
             }
           )
         );
+      } else {
+        selectedTools.value = [];
       }
 
-      Promise.allSettled(promises).then(() => {
-        search();
-      });
+      await Promise.allSettled(promises);
+    };
+
+    onMounted(async () => {
+      // restore the user's last search query
+      if (preferences.value.searchQuery && !(Object.keys(route.value.query).length > 0)) {
+        try {
+          const query = JSON.parse(preferences.value.searchQuery);
+          await router.replace({ query });
+        } catch (error) {
+          preferences.value.searchQuery = "";
+          router.replace({ query: {} });
+        }
+      }
+
+      await hydrateSearch();
+      await search();
+      state.value.ready = true;
     });
 
     watchDebounced(
@@ -430,7 +477,7 @@ export default defineComponent({
         selectedTools,
       ],
       async () => {
-        if (state.value.auto) {
+        if (state.value.ready && state.value.auto) {
           await search();
         }
       },
@@ -463,7 +510,7 @@ export default defineComponent({
       recipes,
       removeRecipe,
       replaceRecipes,
-      passedQuery,
+      passedQueryWithSeed,
     };
   },
   head: {},
