@@ -146,6 +146,7 @@ import {
   mdiFlipVertical,
   mdiRotateLeft,
   mdiRotateRight,
+  mdiBookOpenPageVariant,
 } from "@mdi/js";
 
 export const icons = {
@@ -293,6 +294,7 @@ export const icons = {
   tagArrowUp: mdiTagArrowUpOutline,
   categories: mdiShapeOutline,
   pages: mdiBookOutline,
+  book: mdiBookOpenPageVariant,
 
   // Admin
   user: mdiAccount,
