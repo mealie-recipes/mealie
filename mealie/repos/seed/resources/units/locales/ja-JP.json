@@ -15,24 +15,24 @@
         "abbreviation": "カップ"
     },
     "fluid-ounce": {
-        "name": "fluid ounce",
+        "name": "液量オンス",
         "description": "",
-        "abbreviation": "fl oz"
+        "abbreviation": "液量オンス"
     },
     "pint": {
-        "name": "pint",
+        "name": "パイント",
         "description": "",
-        "abbreviation": "pt"
+        "abbreviation": "パイント"
     },
     "quart": {
-        "name": "quart",
+        "name": "クォート",
         "description": "",
-        "abbreviation": "qt"
+        "abbreviation": "クォート"
     },
     "gallon": {
-        "name": "gallon",
+        "name": "ガロン",
         "description": "",
-        "abbreviation": "gal"
+        "abbreviation": "ガロン"
     },
     "milliliter": {
         "name": "ミリリットル",
@@ -45,14 +45,14 @@
         "abbreviation": "l"
     },
     "pound": {
-        "name": "pound",
+        "name": "ポンド",
         "description": "",
-        "abbreviation": "lb"
+        "abbreviation": "ポンド"
     },
     "ounce": {
-        "name": "ounce",
+        "name": "オンス",
         "description": "",
-        "abbreviation": "oz"
+        "abbreviation": "オンス"
     },
     "gram": {
         "name": "グラム",
@@ -60,7 +60,7 @@
         "abbreviation": "g"
     },
     "kilogram": {
-        "name": "kilogram",
+        "name": "キログラム",
         "description": "",
         "abbreviation": "kg"
     },
@@ -70,27 +70,27 @@
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "splash",
+        "name": "しぶき",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
-        "name": "dash",
+        "name": "ダッシュ",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
-        "name": "serving",
+        "name": "人前",
         "description": "",
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
+        "name": "頭",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
-        "name": "clove",
+        "name": "クローブ",
         "description": "",
         "abbreviation": ""
     },

@@ -1,9 +1,9 @@
 {
     "generic": {
-        "server-error": "An unexpected error occurred"
+        "server-error": "予期しないエラーが発生しました"
     },
     "recipe": {
-        "unique-name-error": "Recipe names must be unique"
+        "unique-name-error": "レシピ名は固有のものでなければなりません"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "ルールに一致するレシピはありません"
@@ -11,34 +11,34 @@
     "user": {
         "user-updated": "ユーザを更新しました。",
         "password-updated": "パスワードを更新しました。",
-        "invalid-current-password": "Invalid current password",
-        "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
+        "invalid-current-password": "現在のパスワードが無効です",
+        "ldap-update-password-unavailable": "パスワードを更新できません。ユーザーはLDAPによって制御されています"
     },
     "group": {
-        "report-deleted": "Report deleted."
+        "report-deleted": "レポートを削除しました。"
     },
     "exceptions": {
-        "permission_denied": "You do not have permission to perform this action",
-        "no-entry-found": "The requested resource was not found",
-        "integrity-error": "Database integrity error",
+        "permission_denied": "この操作を実行する権限がありません",
+        "no-entry-found": "リクエストされた情報は見つかりませんでした",
+        "integrity-error": "データベースの整合性エラー",
         "username-conflict-error": "この ユーザー名はすでに使用されています。",
         "email-conflict-error": "この Eメイルはすでに使用されています。"
     },
     "notifications": {
-        "generic-created": "{name} was created",
-        "generic-updated": "{name} was updated",
-        "generic-created-with-url": "{name} has been created, {url}",
-        "generic-updated-with-url": "{name} has been updated, {url}",
-        "generic-duplicated": "{name} has been duplicated",
-        "generic-deleted": "{name} has been deleted"
+        "generic-created": "{name} が作成されました",
+        "generic-updated": "{name} が更新されました",
+        "generic-created-with-url": "{name} は作成されています。 {url}",
+        "generic-updated-with-url": "{name} は更新されています。 {url}",
+        "generic-duplicated": "{name} が複製されました",
+        "generic-deleted": "{name} は削除されています"
     },
     "datetime": {
-        "year": "year|years",
-        "day": "day|days",
-        "hour": "hour|hours",
-        "minute": "minute|minutes",
-        "second": "second|seconds",
-        "millisecond": "millisecond|milliseconds",
-        "microsecond": "microsecond|microseconds"
+        "year": "年",
+        "day": "日",
+        "hour": "時間",
+        "minute": "分",
+        "second": "秒",
+        "millisecond": "ミリ秒",
+        "microsecond": "マイクロ秒"
     }
 }

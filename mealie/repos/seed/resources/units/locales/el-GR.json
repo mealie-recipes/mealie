@@ -1,11 +1,11 @@
 {
     "teaspoon": {
-        "name": "teaspoon",
+        "name": "κουταλάκι του γλυκού",
         "description": "",
         "abbreviation": "κ.γ."
     },
     "tablespoon": {
-        "name": "tablespoon",
+        "name": "κουταλιά της σούπας",
         "description": "",
         "abbreviation": "κ.σ."
     },
@@ -20,7 +20,7 @@
         "abbreviation": "fl oz"
     },
     "pint": {
-        "name": "pint",
+        "name": "πίντα",
         "description": "",
         "abbreviation": "pt"
     },
@@ -30,7 +30,7 @@
         "abbreviation": "qt"
     },
     "gallon": {
-        "name": "gallon",
+        "name": "γαλόνι",
         "description": "",
         "abbreviation": "γαλ"
     },
@@ -55,7 +55,7 @@
         "abbreviation": "οζ"
     },
     "gram": {
-        "name": "γραμ",
+        "name": "γραμμάριο",
         "description": "",
         "abbreviation": "γρ."
     },
@@ -95,7 +95,7 @@
         "abbreviation": ""
     },
     "can": {
-        "name": "can",
+        "name": "κονσέρβα",
         "description": "",
         "abbreviation": ""
     }
