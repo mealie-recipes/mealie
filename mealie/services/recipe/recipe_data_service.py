@@ -2,7 +2,7 @@ import asyncio
 import shutil
 from pathlib import Path
 
-from httpx import AsyncClient, Response
+from curl_cffi.requests import AsyncSession, Response
 from pydantic import UUID4
 
 from mealie.pkgs import img
@@ -10,6 +10,7 @@ from mealie.schema.recipe.recipe import Recipe
 from mealie.services._base_service import BaseService
 
 _FIREFOX_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0"
+_BROWSER_TO_IMPERSONATE = "chrome101"
 
 
 async def gather_with_concurrency(n, *coros, ignore_exceptions=False):
@@ -29,10 +30,10 @@ async def largest_content_len(urls: list[str]) -> tuple[str, int]:
     largest_url = ""
     largest_len = 0
 
-    async def do(client: AsyncClient, url: str) -> Response:
-        return await client.head(url, headers={"User-Agent": _FIREFOX_UA})
+    async def do(client: AsyncSession, url: str) -> Response:
+        return await client.head(url, headers={"User-Agent": _FIREFOX_UA}, impersonate=_BROWSER_TO_IMPERSONATE)
 
-    async with AsyncClient() as client:
+    async with AsyncSession() as client:
         tasks = [do(client, url) for url in urls]
         responses: list[Response] = await gather_with_concurrency(10, *tasks, ignore_exceptions=True)
         for response in responses:
@@ -144,9 +145,9 @@ class RecipeDataService(BaseService):
         file_name = f"{str(self.recipe_id)}.{ext}"
         file_path = Recipe.directory_from_id(self.recipe_id).joinpath("images", file_name)
 
-        async with AsyncClient() as client:
+        async with AsyncSession() as client:
             try:
-                r = await client.get(image_url, headers={"User-Agent": _FIREFOX_UA})
+                r = await client.get(image_url, headers={"User-Agent": _FIREFOX_UA}, impersonate=_BROWSER_TO_IMPERSONATE)
             except Exception:
                 self.logger.exception("Fatal Image Request Exception")
                 return None
@@ -163,5 +164,5 @@ class RecipeDataService(BaseService):
                 raise NotAnImageError(f"Content-Type {content_type} is not an image")
 
             self.logger.debug(f"File Name Suffix {file_path.suffix}")
-            self.write_image(r.read(), file_path.suffix)
+            self.write_image(r.content, file_path.suffix)
             file_path.unlink(missing_ok=True)

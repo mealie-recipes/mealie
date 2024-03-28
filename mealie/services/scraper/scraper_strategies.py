@@ -5,7 +5,7 @@ from typing import Any
 
 import extruct
 from fastapi import HTTPException, status
-from httpx import AsyncClient
+from curl_cffi.requests import AsyncSession
 from recipe_scrapers import NoSchemaFoundInWildMode, SchemaScraperFactory, scrape_html
 from slugify import slugify
 from w3lib.html import get_base_url
@@ -18,6 +18,7 @@ from mealie.services.scraper.scraped_extras import ScrapedExtras
 from . import cleaner
 
 _FIREFOX_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0"
+_BROWSER_TO_IMPERSONATE = "chrome101"
 SCRAPER_TIMEOUT = 15
 
 
@@ -31,12 +32,12 @@ async def safe_scrape_html(url: str) -> str:
     if the request takes longer than 15 seconds. This is used to mitigate
     DDOS attacks from users providing a url with arbitrary large content.
     """
-    async with AsyncClient() as client:
+    async with AsyncSession() as client:
         html_bytes = b""
-        async with client.stream("GET", url, timeout=SCRAPER_TIMEOUT, headers={"User-Agent": _FIREFOX_UA}) as resp:
+        async with client.stream("GET", url, timeout=SCRAPER_TIMEOUT, headers={"User-Agent": _FIREFOX_UA}, impersonate=_BROWSER_TO_IMPERSONATE) as resp:
             start_time = time.time()
 
-            async for chunk in resp.aiter_bytes(chunk_size=1024):
+            async for chunk in resp.aiter_content(chunk_size=1024):
                 html_bytes += chunk
 
                 if time.time() - start_time > SCRAPER_TIMEOUT:
