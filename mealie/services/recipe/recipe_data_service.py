@@ -10,7 +10,8 @@ from mealie.schema.recipe.recipe import Recipe
 from mealie.services._base_service import BaseService
 
 _FIREFOX_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0"
-# Since Pillow does not support AVIF image the Accept header excludes image/avif to reduce the chance of scraping an avif image.
+# Since Pillow does not support AVIF image the Accept header excludes image/avif to reduce the
+# chance of scraping an avif image.
 _ACCEPT_HEADER = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
 _BROWSER_TO_IMPERSONATE = "chrome101"
 
