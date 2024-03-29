@@ -147,6 +147,7 @@ import {
   mdiRotateLeft,
   mdiRotateRight,
   mdiBookOpenPageVariant,
+  mdiFileCabinet,
 } from "@mdi/js";
 
 export const icons = {
@@ -295,6 +296,7 @@ export const icons = {
   categories: mdiShapeOutline,
   pages: mdiBookOutline,
   book: mdiBookOpenPageVariant,
+  organizers: mdiFileCabinet,
 
   // Admin
   user: mdiAccount,

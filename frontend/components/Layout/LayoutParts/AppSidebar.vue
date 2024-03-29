@@ -45,7 +45,6 @@
                 </v-list-item-icon>
                 <v-list-item-title>{{ child.title }}</v-list-item-title>
               </v-list-item>
-              <!-- <v-divider class="mb-4"></v-divider> -->
             </v-list-group>
 
             <!-- Single Item -->

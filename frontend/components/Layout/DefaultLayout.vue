@@ -187,7 +187,7 @@
           restricted: true,
         },
         {
-          icon: $globals.icons.filter,
+          icon: $globals.icons.organizers,
           title: "Organizers",
           restricted: true,
           children: [
@@ -211,24 +211,6 @@
             },
           ],
         },
-        // {
-        //   icon: $globals.icons.categories,
-        //   to: `/g/${groupSlug.value}/recipes/categories`,
-        //   title: i18n.tc("sidebar.categories"),
-        //   restricted: true,
-        // },
-        // {
-        //   icon: $globals.icons.tags,
-        //   to: `/g/${groupSlug.value}/recipes/tags`,
-        //   title: i18n.tc("sidebar.tags"),
-        //   restricted: true,
-        // },
-        // {
-        //   icon: $globals.icons.potSteam,
-        //   to: `/g/${groupSlug.value}/recipes/tools`,
-        //   title: i18n.tc("tool.tools"),
-        //   restricted: true,
-        // },
       ]);
 
       return {
