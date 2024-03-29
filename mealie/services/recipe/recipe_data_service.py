@@ -10,6 +10,8 @@ from mealie.schema.recipe.recipe import Recipe
 from mealie.services._base_service import BaseService
 
 _FIREFOX_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0"
+# Since Pillow does not support AVIF image the Accept header excludes image/avif to reduce the chance of scraping an avif image.
+_ACCEPT_HEADER = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
 _BROWSER_TO_IMPERSONATE = "chrome101"
 
 
@@ -31,7 +33,9 @@ async def largest_content_len(urls: list[str]) -> tuple[str, int]:
     largest_len = 0
 
     async def do(client: AsyncSession, url: str) -> Response:
-        return await client.head(url, headers={"User-Agent": _FIREFOX_UA}, impersonate=_BROWSER_TO_IMPERSONATE)
+        return await client.head(
+            url, headers={"User-Agent": _FIREFOX_UA, "Accept": _ACCEPT_HEADER}, impersonate=_BROWSER_TO_IMPERSONATE
+        )
 
     async with AsyncSession() as client:
         tasks = [do(client, url) for url in urls]
@@ -147,7 +151,11 @@ class RecipeDataService(BaseService):
 
         async with AsyncSession() as client:
             try:
-                r = await client.get(image_url, headers={"User-Agent": _FIREFOX_UA}, impersonate=_BROWSER_TO_IMPERSONATE)
+                r = await client.get(
+                    image_url,
+                    headers={"User-Agent": _FIREFOX_UA, "Accept": _ACCEPT_HEADER},
+                    impersonate=_BROWSER_TO_IMPERSONATE,
+                )
             except Exception:
                 self.logger.exception("Fatal Image Request Exception")
                 return None

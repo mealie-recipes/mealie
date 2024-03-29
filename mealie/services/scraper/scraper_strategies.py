@@ -18,6 +18,8 @@ from mealie.services.scraper.scraped_extras import ScrapedExtras
 from . import cleaner
 
 _FIREFOX_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0"
+# Since Pillow does not support AVIF image the Accept header excludes image/avif to reduce the chance of scraping an avif image.
+_ACCEPT_HEADER = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
 _BROWSER_TO_IMPERSONATE = "chrome101"
 SCRAPER_TIMEOUT = 15
 
@@ -34,7 +36,13 @@ async def safe_scrape_html(url: str) -> str:
     """
     async with AsyncSession() as client:
         html_bytes = b""
-        async with client.stream("GET", url, timeout=SCRAPER_TIMEOUT, headers={"User-Agent": _FIREFOX_UA}, impersonate=_BROWSER_TO_IMPERSONATE) as resp:
+        async with client.stream(
+            "GET",
+            url,
+            timeout=SCRAPER_TIMEOUT,
+            headers={"User-Agent": _FIREFOX_UA, "Accept": _ACCEPT_HEADER},
+            impersonate=_BROWSER_TO_IMPERSONATE,
+        ) as resp:
             start_time = time.time()
 
             async for chunk in resp.aiter_content(chunk_size=1024):
