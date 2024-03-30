@@ -39,21 +39,26 @@ class PostgresProvider(AbstractDBProvider, BaseSettings):
     POSTGRES_SERVER: str = "postgres"
     POSTGRES_PORT: str = "5432"
     POSTGRES_DB: str = "mealie"
+    POSTGRES_URL: str = ""
 
     model_config = SettingsConfigDict(arbitrary_types_allowed=True, extra="allow")
 
     @property
     def db_url(self) -> str:
-        host = f"{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}"
-        return str(
+        if self.POSTGRES_URL:
+            return self.POSTGRES_URL
+
+        self.db_url: str = str(
             PostgresDsn.build(
                 scheme="postgresql",
                 username=self.POSTGRES_USER,
                 password=urlparse.quote_plus(self.POSTGRES_PASSWORD),
-                host=host,
+                host=f"{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}",
                 path=f"{self.POSTGRES_DB or ''}",
             )
         )
+
+        return self.POSTGRES_URL
 
     @property
     def db_url_public(self) -> str:
