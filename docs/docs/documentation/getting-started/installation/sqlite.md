@@ -10,11 +10,11 @@ SQLite is a popular, open source, self-contained, zero-configuration database th
 
 ```yaml
 ---
-version: "3.7"
 services:
   mealie:
-    image: ghcr.io/mealie-recipes/mealie:v1.3.2 # (3)
+    image: ghcr.io/mealie-recipes/mealie:1.3.2 # (3)
     container_name: mealie
+    restart: always
     ports:
         - "9925:9000" # (1)
     deploy:
@@ -23,20 +23,21 @@ services:
           memory: 1000M # (2)
     volumes:
       - mealie-data:/app/data/
+      - /etc/timezone:/etc/timezone:ro
     environment:
-    # Set Backend ENV Variables Here
-      - ALLOW_SIGNUP=true
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/Anchorage
-      - MAX_WORKERS=1
-      - WEB_CONCURRENCY=1
-      - BASE_URL=https://mealie.yourdomain.com
-    restart: always
+      # Set Backend ENV Variables Here
+      ALLOW_SIGNUP: true
+      PUID: 1000
+      PGID: 1000
+      MAX_WORKERS: 1
+      WEB_CONCURRENCY: 1
+      BASE_URL: http://localhost # (4)
+    depends_on:
+      postgres:
+        condition: service_healthy
 
 volumes:
   mealie-data:
-    driver: local
 ```
 
 <!-- Updating This? Be Sure to also update the Postgres Annotations -->
@@ -44,3 +45,4 @@ volumes:
 1.  To access the mealie interface you only need to expose port 9000 on the container. Here we expose port 9925 on the host, but feel free to change this to any port you like.
 2.  Setting an explicit memory limit is recommended. Python can pre-allocate larger amounts of memory than is necessary if you have a machine with a lot of RAM. This can cause the container to idle at a high memory usage. Setting a memory limit will improve idle performance.
 3.  You should double check this value isn't out of date when setting up for the first time; check the README and use the value from the "latest release" badge at the top - the format should be `vX.Y.Z`. Whilst a 'latest' tag is available, the Mealie team advises specifying a specific version tag and consciously updating to newer versions when you have time to read the release notes and ensure you follow any manual actions required (which should be rare).
+4. You should replace this with your domain eg. mealie.yourdomain.com
