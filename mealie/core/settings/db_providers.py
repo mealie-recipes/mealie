@@ -48,7 +48,7 @@ class PostgresProvider(AbstractDBProvider, BaseSettings):
         if self.POSTGRES_URL:
             return self.POSTGRES_URL
 
-        self.db_url: str = str(
+        self.POSTGRES_URL = str(
             PostgresDsn.build(
                 scheme="postgresql",
                 username=self.POSTGRES_USER,
