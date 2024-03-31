@@ -33,7 +33,7 @@
 | POSTGRES_SERVER   | postgres | Postgres database server address |
 | POSTGRES_PORT     |   5432   | Postgres database port           |
 | POSTGRES_DB       |  mealie  | Postgres database name           |
-| POSTGRES_URL      |   None   | Postgres URL override. Must be used with DB_ENGINE: postgres |
+| POSTGRES_URL_OVERRIDE |   None   | Postgres URL override. Must be used with DB_ENGINE: postgres |
 
 ### Email
 
