@@ -39,16 +39,16 @@ class PostgresProvider(AbstractDBProvider, BaseSettings):
     POSTGRES_SERVER: str = "postgres"
     POSTGRES_PORT: str = "5432"
     POSTGRES_DB: str = "mealie"
-    POSTGRES_URL: str = ""
+    POSTGRES_URL_OVERRIDE: str | None = None
 
     model_config = SettingsConfigDict(arbitrary_types_allowed=True, extra="allow")
 
     @property
     def db_url(self) -> str:
-        if self.POSTGRES_URL:
-            return self.POSTGRES_URL
+        if self.POSTGRES_URL_OVERRIDE:
+            return self.POSTGRES_URL_OVERRIDE
 
-        self.POSTGRES_URL = str(
+        return str(
             PostgresDsn.build(
                 scheme="postgresql",
                 username=self.POSTGRES_USER,
@@ -57,8 +57,6 @@ class PostgresProvider(AbstractDBProvider, BaseSettings):
                 path=f"{self.POSTGRES_DB or ''}",
             )
         )
-
-        return self.POSTGRES_URL
 
     @property
     def db_url_public(self) -> str:
