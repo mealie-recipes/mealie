@@ -26,16 +26,14 @@ services:
       PGID: 1000
       MAX_WORKERS: 1
       WEB_CONCURRENCY: 1
-      BASE_URL: http://localhost # (4)
+      BASE_URL: https://mealie.yourdomain.com
       # Database Settings
       DB_ENGINE: postgres
-      POSTGRES_URL: 'postgres://mealie:mealie@postgres/mealie' # (5)
-      # The following variables are supported if you do not specify POSTGRES_URL
-      # POSTGRES_USER: mealie
-      # POSTGRES_PASSWORD: mealie
-      # POSTGRES_SERVER: postgres
-      # POSTGRES_PORT: 5432
-      # POSTGRES_DB: mealie
+      POSTGRES_USER: mealie
+      POSTGRES_PASSWORD: mealie
+      POSTGRES_SERVER: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: mealie
     depends_on:
       postgres:
         condition: service_healthy
@@ -65,8 +63,3 @@ volumes:
 1.  To access the mealie interface you only need to expose port 9000 on the mealie container. Here we expose port 9925 on the host, but feel free to change this to any port you like.
 2.  Setting an explicit memory limit is recommended. Python can pre-allocate larger amounts of memory than is necessary if you have a machine with a lot of RAM. This can cause the container to idle at a high memory usage. Setting a memory limit will improve idle performance.
 3.  You should double check this value isn't out of date when setting up for the first time; check the README and use the value from the "latest release" badge at the top - the format should be `vX.Y.Z`. Whilst a 'latest' tag is available, the Mealie team advises specifying a specific version tag and consciously updating to newer versions when you have time to read the release notes and ensure you follow any manual actions required (which should be rare).
-4. You should replace this with your domain eg. mealie.yourdomain.com
-5. When set, this variable will override POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_SERVER,
-POSTGRES_PORT, and POSTGRES_DB. It must be used in conjunction with DB_ENGINE: postgres.
-The format is 'postgresql://POSTGRES_USER:POSTGRES_PASSWORD@POSTGRES_SERVER:POSTGRES_PORT/POSTGRES_DB'
-You may pass in a UNIX socket with the following format: postgresql://POSTGRES_USER:POSTGRES_PASSWORD@/POSTGRES_DB?host=/run/postgresql', where the path at the end is the parent directory of the socket.
