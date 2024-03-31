@@ -44,16 +44,16 @@ class AsyncSafeTransport(httpx.AsyncBaseTransport):
         ip: ipaddress.IPv4Address | ipaddress.IPv6Address | None = None
 
         netloc = request.url.netloc.decode()
-        if ":" in netloc: # Either an IP, or a hostname:port combo
+        if ":" in netloc:  # Either an IP, or a hostname:port combo
             netloc_parts = netloc.split(":")
-            if len(netloc_parts) > 1: # netloc of username:password@hostname:port not supported
+            if len(netloc_parts) > 1:  # netloc of username:password@hostname:port not supported
                 raise InvalidDomainError(f"unsupported request format: {request.url} -> {ip}")
-            
+
             netloc = netloc_parts[0]
-            
+
             try:
                 ip = ipaddress.ip_address(netloc)
-            except ValueError: 
+            except ValueError:
                 if self._log:
                     self._log.debug(f"failed to parse ip for {netloc=} falling back to domain resolution")
                 pass
@@ -68,7 +68,6 @@ class AsyncSafeTransport(httpx.AsyncBaseTransport):
 
             if self._log:
                 self._log.debug(f"resolved IP for domain: {netloc} -> {ip}")
-
 
         if ip.is_private:
             if self._log:
