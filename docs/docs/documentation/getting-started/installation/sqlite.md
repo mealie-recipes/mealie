@@ -9,7 +9,6 @@ SQLite is a popular, open source, self-contained, zero-configuration database th
 **For Environment Variable Configuration, see** [Backend Configuration](./backend-config.md)
 
 ```yaml
----
 services:
   mealie:
     image: ghcr.io/mealie-recipes/mealie:v1.3.2 # (3)
@@ -31,10 +30,7 @@ services:
       PGID: 1000
       MAX_WORKERS: 1
       WEB_CONCURRENCY: 1
-      BASE_URL: http://localhost # (4)
-    depends_on:
-      postgres:
-        condition: service_healthy
+      BASE_URL: https://mealie.yourdomain.com
 
 volumes:
   mealie-data:
@@ -45,4 +41,3 @@ volumes:
 1.  To access the mealie interface you only need to expose port 9000 on the container. Here we expose port 9925 on the host, but feel free to change this to any port you like.
 2.  Setting an explicit memory limit is recommended. Python can pre-allocate larger amounts of memory than is necessary if you have a machine with a lot of RAM. This can cause the container to idle at a high memory usage. Setting a memory limit will improve idle performance.
 3.  You should double check this value isn't out of date when setting up for the first time; check the README and use the value from the "latest release" badge at the top - the format should be `vX.Y.Z`. Whilst a 'latest' tag is available, the Mealie team advises specifying a specific version tag and consciously updating to newer versions when you have time to read the release notes and ensure you follow any manual actions required (which should be rare).
-4. You should replace this with your domain eg. mealie.yourdomain.com
