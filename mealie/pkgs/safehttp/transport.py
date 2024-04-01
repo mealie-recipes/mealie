@@ -46,8 +46,6 @@ class AsyncSafeTransport(httpx.AsyncBaseTransport):
         netloc = request.url.netloc.decode()
         if ":" in netloc:  # Either an IP, or a hostname:port combo
             netloc_parts = netloc.split(":")
-            if len(netloc_parts) > 1:  # netloc of username:password@hostname:port not supported
-                raise InvalidDomainError(f"unsupported request format: {request.url} -> {ip}")
 
             netloc = netloc_parts[0]
 
