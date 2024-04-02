@@ -12,6 +12,7 @@ from w3lib.html import get_base_url
 
 from mealie.core.root_logger import get_logger
 from mealie.lang.providers import Translator
+from mealie.pkgs import safehttp
 from mealie.schema.recipe.recipe import Recipe, RecipeStep
 from mealie.services.scraper.scraped_extras import ScrapedExtras
 
@@ -31,7 +32,7 @@ async def safe_scrape_html(url: str) -> str:
     if the request takes longer than 15 seconds. This is used to mitigate
     DDOS attacks from users providing a url with arbitrary large content.
     """
-    async with AsyncClient() as client:
+    async with AsyncClient(transport=safehttp.AsyncSafeTransport()) as client:
         html_bytes = b""
         async with client.stream("GET", url, timeout=SCRAPER_TIMEOUT, headers={"User-Agent": _FIREFOX_UA}) as resp:
             start_time = time.time()

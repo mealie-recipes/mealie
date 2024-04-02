@@ -43,7 +43,7 @@ async def create_from_url(url: str, translator: Translator) -> tuple[Recipe, Scr
     recipe_data_service = RecipeDataService(new_recipe.id)
 
     try:
-        await recipe_data_service.scrape_image(new_recipe.image)
+        await recipe_data_service.scrape_image(new_recipe.image)  # type: ignore
 
         if new_recipe.name is None:
             new_recipe.name = "Untitled"
