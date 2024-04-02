@@ -46,7 +46,11 @@ class PostgresProvider(AbstractDBProvider, BaseSettings):
     @property
     def db_url(self) -> str:
         if self.POSTGRES_URL_OVERRIDE:
-            return self.POSTGRES_URL_OVERRIDE
+            url = PostgresDsn(url=self.POSTGRES_URL_OVERRIDE)
+            if not url.scheme == ("postgresql"):
+                raise ValueError("POSTGRES_URL_OVERRIDE scheme must be postgresql")
+
+            return str(url)
 
         return str(
             PostgresDsn.build(
