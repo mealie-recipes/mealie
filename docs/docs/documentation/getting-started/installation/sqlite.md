@@ -22,12 +22,12 @@ services:
           memory: 1000M # (2)
     volumes:
       - mealie-data:/app/data/
-      - /etc/timezone:/etc/timezone:ro
     environment:
       # Set Backend ENV Variables Here
       ALLOW_SIGNUP: true
       PUID: 1000
       PGID: 1000
+      TZ: America/Anchorage
       MAX_WORKERS: 1
       WEB_CONCURRENCY: 1
       BASE_URL: https://mealie.yourdomain.com
