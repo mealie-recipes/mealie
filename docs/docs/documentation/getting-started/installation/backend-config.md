@@ -4,17 +4,19 @@
 
 ### General
 
-| Variables     |        Default        | Description                                                                         |
-| ------------- | :-------------------: | ----------------------------------------------------------------------------------- |
-| PUID          |          911          | UserID permissions between host OS and container                                    |
-| PGID          |          911          | GroupID permissions between host OS and container                                   |
-| DEFAULT_GROUP |         Home          | The default group for users                                                         |
-| BASE_URL      | http://localhost:8080 | Used for Notifications                                                              |
-| TOKEN_TIME    |          48           | The time in hours that a login/auth token is valid                                  |
-| API_PORT      |         9000          | The port exposed by backend API. **Do not change this if you're running in Docker** |
-| API_DOCS      |         True          | Turns on/off access to the API documentation locally.                               |
-| TZ            |          UTC          | Must be set to get correct date/time on the server                                  |
-| ALLOW_SIGNUP  |         true          | Allow user sign-up without token                                                    |
+| Variables                     |        Default        | Description                                                                         |
+| ----------------------------- | :-------------------: | ----------------------------------------------------------------------------------- |
+| PUID                          |          911          | UserID permissions between host OS and container                                    |
+| PGID                          |          911          | GroupID permissions between host OS and container                                   |
+| DEFAULT_GROUP                 |         Home          | The default group for users                                                         |
+| BASE_URL                      | http://localhost:8080 | Used for Notifications                                                              |
+| TOKEN_TIME                    |          48           | The time in hours that a login/auth token is valid                                  |
+| API_PORT                      |         9000          | The port exposed by backend API. **Do not change this if you're running in Docker** |
+| API_DOCS                      |         True          | Turns on/off access to the API documentation locally.                               |
+| TZ                            |          UTC          | Must be set to get correct date/time on the server                                  |
+| ALLOW_SIGNUP<super>\*</super> |         false         | Allow user sign-up without token                                                    |
+
+<super>\*</super> Starting in v1.4.0 this was changed to default to `false` as apart of a security review of the application.
 
 ### Security
 
@@ -78,20 +80,22 @@ Changing the webworker settings may cause unforeseen memory leak issues with Mea
 
 ### OpenID Connect (OIDC)
 
+:octicons-tag-24: v1.4.0
+
 For usage, see [Usage - OpenID Connect](../authentication/oidc.md)
 
-| Variables | Default | Description |
-| --- | :--: | --- |
-| OIDC_AUTH_ENABLED | False | Enables authentication via OpenID Connect |
-| OIDC_SIGNUP_ENABLED | True | Enables new users to be created when signing in for the first time with OIDC |
-| OIDC_CONFIGURATION_URL | None | The URL to the OIDC configuration of your provider. This is usually something like https://auth.example.com/.well-known/openid-configuration |
-| OIDC_CLIENT_ID | None | The client id of your configured client in your provider |
-| OIDC_USER_GROUP| None | If specified, only users belonging to this group will be able to successfully authenticate, regardless of the `OIDC_ADMIN_GROUP`. For more information see [this page](../authentication/oidc.md#groups) |
-| OIDC_ADMIN_GROUP | None | If specified, users belonging to this group will be made an admin. For more information see [this page](../authentication/oidc.md#groups) |
-| OIDC_AUTO_REDIRECT | False | If `True`, then the login page will be bypassed an you will be sent directly to your Identity Provider. You can still get to the login page by adding `?direct=1` to the login URL |
-| OIDC_PROVIDER_NAME | OAuth | The provider name is shown in SSO login button. "Login with <OIDC_PROVIDER_NAME\>" |
-| OIDC_REMEMBER_ME | False | Because redirects bypass the login screen, you cant extend your session by clicking the "Remember Me" checkbox. By setting this value to true, a session will be extended as if "Remember Me" was checked |
-| OIDC_SIGNING_ALGORITHM | RS256 | The algorithm used to sign the id token (examples: RS256, HS256) |
+| Variables              | Default | Description                                                                                                                                                                                               |
+| ---------------------- | :-----: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| OIDC_AUTH_ENABLED      |  False  | Enables authentication via OpenID Connect                                                                                                                                                                 |
+| OIDC_SIGNUP_ENABLED    |  True   | Enables new users to be created when signing in for the first time with OIDC                                                                                                                              |
+| OIDC_CONFIGURATION_URL |  None   | The URL to the OIDC configuration of your provider. This is usually something like https://auth.example.com/.well-known/openid-configuration                                                              |
+| OIDC_CLIENT_ID         |  None   | The client id of your configured client in your provider                                                                                                                                                  |
+| OIDC_USER_GROUP        |  None   | If specified, only users belonging to this group will be able to successfully authenticate, regardless of the `OIDC_ADMIN_GROUP`. For more information see [this page](../authentication/oidc.md#groups)  |
+| OIDC_ADMIN_GROUP       |  None   | If specified, users belonging to this group will be made an admin. For more information see [this page](../authentication/oidc.md#groups)                                                                 |
+| OIDC_AUTO_REDIRECT     |  False  | If `True`, then the login page will be bypassed an you will be sent directly to your Identity Provider. You can still get to the login page by adding `?direct=1` to the login URL                        |
+| OIDC_PROVIDER_NAME     |  OAuth  | The provider name is shown in SSO login button. "Login with <OIDC_PROVIDER_NAME\>"                                                                                                                        |
+| OIDC_REMEMBER_ME       |  False  | Because redirects bypass the login screen, you cant extend your session by clicking the "Remember Me" checkbox. By setting this value to true, a session will be extended as if "Remember Me" was checked |
+| OIDC_SIGNING_ALGORITHM |  RS256  | The algorithm used to sign the id token (examples: RS256, HS256)                                                                                                                                          |
 
 ### Themeing
 
@@ -113,7 +117,6 @@ Setting the following environmental variables will change the theme of the front
 | THEME_DARK_INFO       | #1976D2 | Dark Theme Config Variable  |
 | THEME_DARK_WARNING    | #FF6D00 | Dark Theme Config Variable  |
 | THEME_DARK_ERROR      | #EF5350 | Dark Theme Config Variable  |
-
 
 [workers_per_core]: https://github.com/tiangolo/uvicorn-gunicorn-docker/blob/2daa3e3873c837d5781feb4ff6a40a89f791f81b/README.md#workers_per_core
 [max_workers]: https://github.com/tiangolo/uvicorn-gunicorn-docker/blob/2daa3e3873c837d5781feb4ff6a40a89f791f81b/README.md#max_workers
