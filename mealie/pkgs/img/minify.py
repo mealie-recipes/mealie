@@ -4,11 +4,14 @@ from logging import Logger
 from pathlib import Path
 
 from PIL import Image
+from pi_heif import register_heif_opener
+
+register_heif_opener()
 
 WEBP = ".webp"
 FORMAT = "WEBP"
 
-IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp"}
+IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp", ".heic", ".avif"}
 
 
 def get_format(image: Path) -> str:
