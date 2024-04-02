@@ -34,6 +34,11 @@ export default class DynamicOpenIDConnectScheme extends OpenIDConnectScheme {
     }
 
     async _handleCallback() {
+      // sometimes the mealie token is being sent in the request to the IdP on callback which
+      // causes an error, so we clear it if we have one
+      if (this.token.get()) {
+        this.token.reset();
+      }
       const redirect = await super._handleCallback()
       await this.updateAccessToken()
 
@@ -49,13 +54,20 @@ export default class DynamicOpenIDConnectScheme extends OpenIDConnectScheme {
         return
       }
 
-      const response = await this.$auth.requestWith(this.name, {
-        url: "/api/auth/token",
-        method: "post"
-      })
-
-      // Update tokens with mealie token
-      this.updateTokens(response)
+      try {
+        const response = await this.$auth.requestWith(this.name, {
+          url: "/api/auth/token",
+          method: "post"
+        })
+        // Update tokens with mealie token
+        this.updateTokens(response)
+      } catch {
+        const currentUrl = new URL(window.location.href)
+        if (currentUrl.pathname === "/login" && currentUrl.searchParams.has("direct")) {
+          return
+        }
+        window.location.replace("/login?direct=1")
+      }
     }
 
     isValidMealieToken() {
