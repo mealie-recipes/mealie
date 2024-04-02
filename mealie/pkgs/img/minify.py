@@ -3,8 +3,8 @@ from dataclasses import dataclass
 from logging import Logger
 from pathlib import Path
 
-from PIL import Image
 from pi_heif import register_heif_opener
+from PIL import Image
 
 register_heif_opener()
 
