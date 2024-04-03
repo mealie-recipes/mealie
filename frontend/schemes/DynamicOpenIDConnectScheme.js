@@ -21,6 +21,55 @@ export default class DynamicOpenIDConnectScheme extends OpenIDConnectScheme {
         return await super.mounted()
     }
 
+    // Overrides the check method in the OpenIDConnectScheme
+    // Differences are, we don't check if the id token is valid because we only use it on the initial
+    // log in sequence to check for identity, so if it's expired but we have a valid access token, then its fine
+    check(checkStatus = false) {
+      const response = {
+        valid: false,
+        tokenExpired: false,
+        refreshTokenExpired: false,
+        idTokenExpired: false,
+        isRefreshable: true
+      }
+
+      // Sync tokens
+      const token = this.token.sync()
+      this.refreshToken.sync()
+
+      // Token is required but not available
+      if (!token) {
+        return response
+      }
+
+      // Check status wasn't enabled, let it pass
+      if (!checkStatus) {
+        response.valid = true
+        return response
+      }
+
+      // Get status
+      const tokenStatus = this.token.status()
+      const refreshTokenStatus = this.refreshToken.status()
+
+      // Refresh token has expired. There is no way to refresh. Force reset.
+      if (refreshTokenStatus.expired()) {
+        console.log("refresh token expired")
+        response.refreshTokenExpired = true
+        return response
+      }
+
+      // Token has expired, Force reset.
+      if (tokenStatus.expired()) {
+        console.log("token expired")
+        response.tokenExpired = true
+        return response
+      }
+
+      response.valid = true
+      return response
+    }
+
     async fetchUser() {
       if (!this.check().valid) {
         return
@@ -36,7 +85,7 @@ export default class DynamicOpenIDConnectScheme extends OpenIDConnectScheme {
     async _handleCallback() {
       // sometimes the mealie token is being sent in the request to the IdP on callback which
       // causes an error, so we clear it if we have one
-      if (this.token.get()) {
+      if (!this.token.status().valid()) {
         this.token.reset();
       }
       const redirect = await super._handleCallback()
@@ -47,10 +96,11 @@ export default class DynamicOpenIDConnectScheme extends OpenIDConnectScheme {
     }
 
     async updateAccessToken() {
-      if (!this.idToken.sync()) {
+      if (this.isValidMealieToken()) {
         return
       }
-      if (this.isValidMealieToken()) {
+      if (!this.idToken.status().valid()) {
+        this.idToken.reset();
         return
       }
 
