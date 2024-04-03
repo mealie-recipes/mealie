@@ -22,52 +22,19 @@ export default class DynamicOpenIDConnectScheme extends OpenIDConnectScheme {
     }
 
     // Overrides the check method in the OpenIDConnectScheme
-    // Differences are, we don't check if the id token is valid because we only use it on the initial
-    // log in sequence to check for identity, so if it's expired but we have a valid access token, then its fine
+    // We don't care if the id token is expired as long as we have a valid Mealie token.
+    // We only use the id token to verify identity on the initial login, then issue a Mealie token
     check(checkStatus = false) {
-      const response = {
-        valid: false,
-        tokenExpired: false,
-        refreshTokenExpired: false,
-        idTokenExpired: false,
-        isRefreshable: true
+      const response = super.check(checkStatus)
+
+      // we can do this because id token is the last thing to be checked so if the id token is expired then it was
+      // the only thing making the request not valid
+      if (response.idTokenExpired && !response.valid) {
+        response.valid = true;
+        response.idTokenExpired = false;
       }
-
-      // Sync tokens
-      const token = this.token.sync()
-      this.refreshToken.sync()
-
-      // Token is required but not available
-      if (!token) {
-        return response
-      }
-
-      // Check status wasn't enabled, let it pass
-      if (!checkStatus) {
-        response.valid = true
-        return response
-      }
-
-      // Get status
-      const tokenStatus = this.token.status()
-      const refreshTokenStatus = this.refreshToken.status()
-
-      // Refresh token has expired. There is no way to refresh. Force reset.
-      if (refreshTokenStatus.expired()) {
-        console.log("refresh token expired")
-        response.refreshTokenExpired = true
-        return response
-      }
-
-      // Token has expired, Force reset.
-      if (tokenStatus.expired()) {
-        console.log("token expired")
-        response.tokenExpired = true
-        return response
-      }
-
-      response.valid = true
-      return response
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+      return response;
     }
 
     async fetchUser() {
