@@ -207,7 +207,8 @@
     "created-on-date": "Opprettet: {0}",
     "unsaved-changes": "Du har ulagrede endringer. Ønsker du å lagre før du forlater? Trykk 'OK' for å lagre, 'Avbryt' for å forkaste endringene.",
     "clipboard-copy-failure": "Kunne ikke kopiere til utklippstavlen.",
-    "confirm-delete-generic-items": "Er du sikker på at du vil følgende elementer?"
+    "confirm-delete-generic-items": "Er du sikker på at du vil følgende elementer?",
+    "organizers": "Organizers"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Er du sikker på at du vil slette <b>{groupName}<b/>?",

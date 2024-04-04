@@ -207,7 +207,8 @@
     "created-on-date": "Creado el {0}",
     "unsaved-changes": "Tienes cambios sin guardar. ¿Quieres guardar antes de salir? Aceptar para guardar, Cancelar para descartar cambios.",
     "clipboard-copy-failure": "No se pudo copiar al portapapeles.",
-    "confirm-delete-generic-items": "¿Estás seguro que quieres eliminar los siguientes elementos?"
+    "confirm-delete-generic-items": "¿Estás seguro que quieres eliminar los siguientes elementos?",
+    "organizers": "Organizers"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Por favor, confirma que deseas eliminar <b>{groupName}<b/>",

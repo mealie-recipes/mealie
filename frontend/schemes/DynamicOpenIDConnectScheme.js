@@ -21,6 +21,22 @@ export default class DynamicOpenIDConnectScheme extends OpenIDConnectScheme {
         return await super.mounted()
     }
 
+    // Overrides the check method in the OpenIDConnectScheme
+    // We don't care if the id token is expired as long as we have a valid Mealie token.
+    // We only use the id token to verify identity on the initial login, then issue a Mealie token
+    check(checkStatus = false) {
+      const response = super.check(checkStatus)
+
+      // we can do this because id token is the last thing to be checked so if the id token is expired then it was
+      // the only thing making the request not valid
+      if (response.idTokenExpired && !response.valid) {
+        response.valid = true;
+        response.idTokenExpired = false;
+      }
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+      return response;
+    }
+
     async fetchUser() {
       if (!this.check().valid) {
         return
@@ -36,7 +52,7 @@ export default class DynamicOpenIDConnectScheme extends OpenIDConnectScheme {
     async _handleCallback() {
       // sometimes the mealie token is being sent in the request to the IdP on callback which
       // causes an error, so we clear it if we have one
-      if (this.token.get()) {
+      if (!this.token.status().valid()) {
         this.token.reset();
       }
       const redirect = await super._handleCallback()
@@ -47,10 +63,11 @@ export default class DynamicOpenIDConnectScheme extends OpenIDConnectScheme {
     }
 
     async updateAccessToken() {
-      if (!this.idToken.sync()) {
+      if (this.isValidMealieToken()) {
         return
       }
-      if (this.isValidMealieToken()) {
+      if (!this.idToken.status().valid()) {
+        this.idToken.reset();
         return
       }
 

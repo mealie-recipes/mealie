@@ -191,7 +191,7 @@ export default defineComponent({
     const oidcProviderName = computed(() => appInfo.value?.oidcProviderName || "OAuth")
 
     whenever(
-        () => allowOidc.value && oidcRedirect.value && !isCallback() && !isDirectLogin(),
+        () => allowOidc.value && oidcRedirect.value && !isCallback() && !isDirectLogin() && !$auth.check().valid,
         () => oidcAuthenticate(),
         {immediate: true}
     )

@@ -207,7 +207,8 @@
     "created-on-date": "Oprettet den: {0}",
     "unsaved-changes": "Du har ændringer som ikke er gemt. Vil du gemme før du forlader? Vælg \"Okay\" for at gemme, eller \"Annullér\" for at kassere ændringer.",
     "clipboard-copy-failure": "Kopiering til udklipsholderen mislykkedes.",
-    "confirm-delete-generic-items": "Er du sikker på at du ønsker at slette de valgte emner?"
+    "confirm-delete-generic-items": "Er du sikker på at du ønsker at slette de valgte emner?",
+    "organizers": "Organizers"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Er du sikker på, du vil slette <b>{groupName}<b/>?",
