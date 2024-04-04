@@ -207,7 +207,8 @@
     "created-on-date": "Създадено на {0}",
     "unsaved-changes": "Имате незапазени промени. Желаете ли да ги запазите преди да излезете? Натиснете Ок за запазване и Отказ за отхвърляне на промените.",
     "clipboard-copy-failure": "Линкът към рецептата е копиран в клипборда.",
-    "confirm-delete-generic-items": "Сигурни ли сте, че желаете да изтриете следните елементи?"
+    "confirm-delete-generic-items": "Сигурни ли сте, че желаете да изтриете следните елементи?",
+    "organizers": "Organizers"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Сигурни ли сте, че искате да изтриете <b>{groupName}<b/>?",

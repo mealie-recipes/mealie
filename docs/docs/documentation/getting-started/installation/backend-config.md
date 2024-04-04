@@ -35,6 +35,7 @@
 | POSTGRES_SERVER   | postgres | Postgres database server address |
 | POSTGRES_PORT     |   5432   | Postgres database port           |
 | POSTGRES_DB       |  mealie  | Postgres database name           |
+| POSTGRES_URL_OVERRIDE |   None   | Optional Postgres URL override to use instead of POSTGRES_* variables |
 
 ### Email
 
@@ -95,6 +96,7 @@ For usage, see [Usage - OpenID Connect](../authentication/oidc.md)
 | OIDC_PROVIDER_NAME     |  OAuth  | The provider name is shown in SSO login button. "Login with <OIDC_PROVIDER_NAME\>"                                                                                                                        |
 | OIDC_REMEMBER_ME       |  False  | Because redirects bypass the login screen, you cant extend your session by clicking the "Remember Me" checkbox. By setting this value to true, a session will be extended as if "Remember Me" was checked |
 | OIDC_SIGNING_ALGORITHM |  RS256  | The algorithm used to sign the id token (examples: RS256, HS256)                                                                                                                                          |
+| OIDC_USER_CLAIM | email | Optional: 'email', 'preferred_username'
 
 ### Themeing
 

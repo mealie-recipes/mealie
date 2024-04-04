@@ -1,5 +1,5 @@
 <template>
-  <div v-if="ready">
+  <v-app dark>
     <v-card-title>
       <slot>
         <h1 class="mx-auto">{{ $t("page.404-page-not-found") }}</h1>
@@ -24,7 +24,7 @@
       </slot>
       <v-spacer></v-spacer>
     </v-card-actions>
-  </div>
+  </v-app>
 </template>
 
 <script lang="ts">
