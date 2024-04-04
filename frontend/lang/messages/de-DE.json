@@ -207,7 +207,8 @@
     "created-on-date": "Erstellt am: {0}",
     "unsaved-changes": "Du hast ungespeicherte Änderungen. Möchtest du vor dem Verlassen speichern? OK um zu speichern, Cancel um Änderungen zu verwerfen.",
     "clipboard-copy-failure": "Fehler beim Kopieren in die Zwischenablage.",
-    "confirm-delete-generic-items": "Bist du dir sicher, dass du die folgenden Einträge löschen möchtest?"
+    "confirm-delete-generic-items": "Bist du dir sicher, dass du die folgenden Einträge löschen möchtest?",
+    "organizers": "Organisieren"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Bist du dir sicher, dass du die Gruppe <b>{groupName}<b/> löschen möchtest?",
