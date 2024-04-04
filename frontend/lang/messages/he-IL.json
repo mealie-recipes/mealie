@@ -207,7 +207,8 @@
     "created-on-date": "נוצר ב-{0}",
     "unsaved-changes": "יש שינויים שלא נשמרו. לצאת לפני שמירה? אשר לשמירה, בטל למחיקת שינויים.",
     "clipboard-copy-failure": "כשלון בהעתקה ללוח ההדבקה.",
-    "confirm-delete-generic-items": "האם אתה בטוח שברצונך למחוק את הפריטים הנבחרים?"
+    "confirm-delete-generic-items": "האם אתה בטוח שברצונך למחוק את הפריטים הנבחרים?",
+    "organizers": "Organizers"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "האם את/ה בטוח/ה שברצונך למחוק את <b>{groupName}<b/>?",
