@@ -207,7 +207,8 @@
     "created-on-date": "Creato il: {0}",
     "unsaved-changes": "Sono state apportate modifiche non salvate. Salvare prima di uscire? Premi Ok per salvare, Annulla per scartare le modifiche.",
     "clipboard-copy-failure": "Impossibile copiare negli appunti.",
-    "confirm-delete-generic-items": "Sei sicuro di voler eliminare i seguenti elementi?"
+    "confirm-delete-generic-items": "Sei sicuro di voler eliminare i seguenti elementi?",
+    "organizers": "Organizers"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Sei sicuro di volerlo eliminare <b>{groupName}<b/>'?",
