@@ -207,7 +207,8 @@
     "created-on-date": "Vytvorené: {0}",
     "unsaved-changes": "Posledne vykonané zmeny nie sú uložené. Želáte si ich uložiť alebo zrušiť?",
     "clipboard-copy-failure": "Skopírovanie do schránky zlyhalo.",
-    "confirm-delete-generic-items": "Ste si istý, že chcete odstrániť nasledujúce položky?"
+    "confirm-delete-generic-items": "Ste si istý, že chcete odstrániť nasledujúce položky?",
+    "organizers": "Organizers"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Naozaj chcete odstrániť <b>{groupName}<b/>?",
