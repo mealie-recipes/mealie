@@ -188,7 +188,7 @@
         },
         {
           icon: $globals.icons.organizers,
-          title: "Organizers",
+          title: i18n.tc("general.organizers"),
           restricted: true,
           children: [
             {

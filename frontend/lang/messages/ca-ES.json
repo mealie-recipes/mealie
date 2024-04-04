@@ -207,7 +207,8 @@
     "created-on-date": "Creat el: {0}",
     "unsaved-changes": "Tens canvis que no estan guardats. Vols guardar-los abans de sortir? Clica d'acord per guardar-los o cancel·lar per descartar els canvis.",
     "clipboard-copy-failure": "No s'ha pogut copiar al porta-retalls.",
-    "confirm-delete-generic-items": "Are you sure you want to delete the following items?"
+    "confirm-delete-generic-items": "Are you sure you want to delete the following items?",
+    "organizers": "Organizers"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Esteu segur de voler suprimir el grup <b>{groupName}<b/>?",

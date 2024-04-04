@@ -207,7 +207,8 @@
     "created-on-date": "创建于: {0}",
     "unsaved-changes": "你有未保存的更改。你希望现在离开前保存吗？保存选择“是”，不保存选择“取消”。",
     "clipboard-copy-failure": "未能复制到剪切板。",
-    "confirm-delete-generic-items": "你确定删除以下条目吗？"
+    "confirm-delete-generic-items": "你确定删除以下条目吗？",
+    "organizers": "Organizers"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "您确定要删除<b>{groupName}<b/>吗？",

@@ -207,7 +207,8 @@
     "created-on-date": "Создано: {0}",
     "unsaved-changes": "У вас есть несохраненные изменения. Вы хотите сохранить их перед выходом?",
     "clipboard-copy-failure": "Не удалось скопировать текст.",
-    "confirm-delete-generic-items": "Вы уверены, что хотите удалить следующие элементы?"
+    "confirm-delete-generic-items": "Вы уверены, что хотите удалить следующие элементы?",
+    "organizers": "Organizers"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Вы действительно хотите удалить <b>{groupName}<b/>?",

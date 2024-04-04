@@ -207,7 +207,8 @@
     "created-on-date": "作成日: {0}",
     "unsaved-changes": "保存されていない変更があります。移動する前に保存しますか？保存するには はい を、変更を破棄するにはキャンセルしてください。",
     "clipboard-copy-failure": "クリップボードにコピーできませんでした",
-    "confirm-delete-generic-items": "次のアイテムを本当に削除しますか？"
+    "confirm-delete-generic-items": "次のアイテムを本当に削除しますか？",
+    "organizers": "Organizers"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "<b>{groupName}<b/> を削除しますか？",
