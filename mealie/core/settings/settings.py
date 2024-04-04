@@ -191,7 +191,9 @@ class AppSettings(BaseSettings):
 
         required = {self.OIDC_CLIENT_ID, self.OIDC_CONFIGURATION_URL}
         not_none = None not in required
-        return self.OIDC_AUTH_ENABLED and not_none
+        valid_user_claim = self.OIDC_USER_CLAIM in ["email", "preferred_username"]
+
+        return self.OIDC_AUTH_ENABLED and not_none and valid_user_claim
 
     # ===============================================
     # Testing Config
