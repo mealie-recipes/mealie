@@ -207,7 +207,8 @@
     "created-on-date": "Creat pe {0}",
     "unsaved-changes": "Aveți modificări nesalvate. Doriți să salvați înainte de a închide aplicația? Apăsați \"OK\" pentru a salva sau \"Anulare\" pentru a renunța la modificări.",
     "clipboard-copy-failure": "Copierea în clipboard a eșuat.",
-    "confirm-delete-generic-items": "Sunteți sigur că doriți să ștergeți următoarele?"
+    "confirm-delete-generic-items": "Sunteți sigur că doriți să ștergeți următoarele?",
+    "organizers": "Organizers"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Sunteți sigur că doriți să ștergeți <b>{groupName}<b/>?",

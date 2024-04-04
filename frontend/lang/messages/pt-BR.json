@@ -207,7 +207,8 @@
     "created-on-date": "Criado em {0}",
     "unsaved-changes": "Você possui alterações não salvas. Deseja salvar antes de sair? Ok para salvar, Cancelar para descartar alterações.",
     "clipboard-copy-failure": "Failed to copy to the clipboard.",
-    "confirm-delete-generic-items": "Are you sure you want to delete the following items?"
+    "confirm-delete-generic-items": "Are you sure you want to delete the following items?",
+    "organizers": "Organizers"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Tem certeza que deseja excluir o grupo <b>{groupName}<b/>?",
