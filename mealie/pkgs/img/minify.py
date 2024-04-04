@@ -3,10 +3,11 @@ from dataclasses import dataclass
 from logging import Logger
 from pathlib import Path
 
-from pi_heif import register_heif_opener
+from pillow_heif import register_heif_opener, register_avif_opener
 from PIL import Image
 
 register_heif_opener()
+register_avif_opener()
 
 WEBP = ".webp"
 FORMAT = "WEBP"
