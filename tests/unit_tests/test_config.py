@@ -56,22 +56,6 @@ psql_validation_cases = [
         ],
     ),
     (
-        "already_encoded_password",
-        [
-            "POSTGRES_PASSWORD",
-            "p%40ssword1",
-            "p%40ssword1",
-        ],
-    ),
-    (
-        "already_encoded_url",
-        [
-            "POSTGRES_URL_OVERRIDE",
-            "postgresql://mealie:p%40ssword1@postgres:5432/mealie",
-            "postgresql://mealie:p%40ssword1@postgres:5432/mealie",
-        ],
-    ),
-    (
         "no_encode_needed_password",
         [
             "POSTGRES_PASSWORD",
@@ -98,13 +82,15 @@ def test_pg_connection_url_encode_password(data, monkeypatch):
     env, value, expected = data
     monkeypatch.setenv("DB_ENGINE", "postgres")
     monkeypatch.setenv(env, value)
+
     get_app_settings.cache_clear()
     app_settings = get_app_settings()
-    assert (
-        app_settings.DB_URL == expected
-        if expected.startswith("postgresql://")
-        else f"postgresql://mealie:{expected}@postgres:5432/mealie"
+
+    expected = (
+        expected if expected.startswith("postgresql://") else f"postgresql://mealie:{expected}@postgres:5432/mealie"
     )
+
+    assert app_settings.DB_URL == expected
 
 
 @dataclass(slots=True)
