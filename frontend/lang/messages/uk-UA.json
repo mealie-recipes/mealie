@@ -147,15 +147,15 @@
     "show-all": "Показати все",
     "shuffle": "Перемішати",
     "sort": "Сортувати",
-    "sort-ascending": "Sort Ascending",
-    "sort-descending": "Sort Descending",
+    "sort-ascending": "Сортувати за зростанням",
+    "sort-descending": "Сортувати за спаданням",
     "sort-alphabetically": "За алфавітом",
     "status": "Статус",
     "subject": "Тема",
     "submit": "Надіслати",
     "success-count": "Успіх: {count}",
     "sunday": "Неділя",
-    "system": "System",
+    "system": "Система",
     "templates": "Шаблони:",
     "test": "Тест",
     "themes": "Теми",
@@ -208,7 +208,7 @@
     "unsaved-changes": "У вас є незбережені зміни. Ви хочете зберегти їх перед виходом? Гаразд, щоб зберегти, Скасувати, щоб скасувати.",
     "clipboard-copy-failure": "Не вдалося скопіювати до буфера обміну.",
     "confirm-delete-generic-items": "Ви впевнені, що хочете видалити вибрані елементи?",
-    "organizers": "Organizers"
+    "organizers": "Організатори"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Ви дійсно бажаєте видалити <b>{groupName}<b/>?",
@@ -363,7 +363,7 @@
     "choose-migration-type": "Оберіть тип міграції",
     "tag-all-recipes": "Позначити усі рецепти тегом {tag-name}",
     "nextcloud-text": "Рецепти Nextcloud можна імпортувати з zip-архіву, який містить дані, що зберігаються в Nextcloud. Перегляньте приклади структури тек нижче, щоб пересвідчитися що ваші рецепти можна імпортувати.",
-    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
+    "chowdown-text": "Mealie підтримує формат chowdown репозиторію. Завантажте репозиторій коду як файл .zip і відвантажте його нижче.",
     "recipe-1": "Рецепт 1",
     "recipe-2": "Рецепт 2",
     "paprika-text": "Mealie може імпортувати рецепти з додатку Paprika. Експортуйте ваші рецепти з Paprika, перейменуйте розширення експорту в .zip та відвантажте його нижче.",
@@ -374,7 +374,7 @@
     },
     "myrecipebox": {
       "title": "My Recipe Box",
-      "description-long": "Mealie can import recipes from My Recipe Box. Export your recipes in CSV format, then upload the .csv file below."
+      "description-long": "Mealie може імпортувати рецепти з My Recipe Box. Експортуйте ваші рецепти в форматі CSV, а потім відвантажте .csv файл нижче."
     }
   },
   "new-recipe": {
@@ -526,7 +526,7 @@
     "edit-timeline-event": "Редагувати подію хронології",
     "timeline": "Хронологія",
     "timeline-is-empty": "Хронологія порожня. Спробуйте зробити цей рецепт!",
-    "timeline-no-events-found-try-adjusting-filters": "No events found. Try adjusting your search filters.",
+    "timeline-no-events-found-try-adjusting-filters": "Не знайдено жодних подій. Спробуйте змінити фільтри пошуку.",
     "group-global-timeline": "Глобальна хроніка {groupName}",
     "open-timeline": "Відкрити хронологію",
     "made-this": "Я це зробив",
