@@ -19,6 +19,7 @@ NOT_WEBP = {
     ".dib",
     ".heif",
     ".heic",
+    ".avif",
     ".ind",
     ".jp2",
     ".svg",
