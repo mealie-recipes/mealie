@@ -86,8 +86,11 @@ def test_pg_connection_url_encode_password(data, monkeypatch):
     get_app_settings.cache_clear()
     app_settings = get_app_settings()
 
+    pg_provider = app_settings.DB_PROVIDER
     expected = (
-        expected if expected.startswith("postgresql://") else f"postgresql://mealie:{expected}@postgres:5432/mealie"
+        expected
+        if expected.startswith("postgresql://")
+        else f"postgresql://{pg_provider.POSTGRES_USER}:{expected}@{pg_provider.POSTGRES_SERVER}:5432/{pg_provider.POSTGRES_DB}"
     )
 
     assert app_settings.DB_URL == expected
