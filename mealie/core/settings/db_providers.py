@@ -54,10 +54,9 @@ class PostgresProvider(AbstractDBProvider, BaseSettings):
 
             remainder = remainder.split(":", 1)[1]
             password = remainder[: remainder.rfind("@")]
-            unquoted_password = urlparse.unquote(password)
-            safe_password = urlparse.quote(unquoted_password)
+            quoted_password = urlparse.quote(password)
 
-            safe_url = url.replace(password, safe_password)
+            safe_url = url.replace(password, quoted_password)
 
             return safe_url
 
@@ -65,7 +64,7 @@ class PostgresProvider(AbstractDBProvider, BaseSettings):
             PostgresDsn.build(
                 scheme="postgresql",
                 username=self.POSTGRES_USER,
-                password=urlparse.quote(urlparse.unquote(self.POSTGRES_PASSWORD)),
+                password=urlparse.quote(self.POSTGRES_PASSWORD),
                 host=f"{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}",
                 path=f"{self.POSTGRES_DB or ''}",
             )
