@@ -22,6 +22,10 @@ target_metadata = SqlAlchemyBase.metadata
 
 # Set DB url from config
 settings = get_app_settings()
+    
+if not settings.DB_URL: 
+    raise Exception("DB URL not set in config") 
+
 config.set_main_option("sqlalchemy.url", settings.DB_URL.replace("%", "%%"))
 
 
