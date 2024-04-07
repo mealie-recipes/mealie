@@ -8,9 +8,7 @@ from jinja2 import Template
 from rich.logging import RichHandler
 
 FORMAT = "%(message)s"
-logging.basicConfig(
-    level=logging.INFO, format=FORMAT, datefmt="[%X]", handlers=[RichHandler()]
-)
+logging.basicConfig(level=logging.INFO, format=FORMAT, datefmt="[%X]", handlers=[RichHandler()])
 
 log = logging.getLogger("rich")
 
@@ -69,9 +67,7 @@ def find_start_end(file_text: list[str], gen_id: str) -> tuple[int, int, str]:
         raise Exception("Could not find start and end of code generation block")
 
     if start > end:
-        raise Exception(
-            f"Start ({start=}) of code generation block is after end ({end=})"
-        )
+        raise Exception(f"Start ({start=}) of code generation block is after end ({end=})")
 
     return start, end, indentation
 
