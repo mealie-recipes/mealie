@@ -66,7 +66,7 @@ class PostgresProvider(AbstractDBProvider, BaseSettings):
         # we will unquote and requote the password to ensure it is correctly encoded
         password = urlparse.unquote(self.POSTGRES_PASSWORD)
         password = urlparse.quote(password)
-        
+
         return str(
             PostgresDsn.build(
                 scheme="postgresql",
