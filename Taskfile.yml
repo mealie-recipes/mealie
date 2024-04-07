@@ -92,6 +92,11 @@ tasks:
       - rm -f ./dev/data/mealie.log
       - rm -f ./dev/data/.secret
 
+  dev:revision:
+    desc: creates a new alembic revision; optionally set a message with "task dev:revision -- YOUR REVISION MESSAGE"
+    cmds:
+      - poetry run alembic revision --autogenerate -m "{{ .CLI_ARGS }}"
+
   py:mypy:
     desc: runs python type checking
     cmds:
