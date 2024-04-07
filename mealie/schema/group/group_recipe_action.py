@@ -6,12 +6,12 @@ from mealie.schema._mealie import MealieModel
 from mealie.schema.response.pagination import PaginationBase
 
 
-class RecipeActionType(Enum):
+class GroupRecipeActionType(Enum):
     link = "link"
 
 
 class CreateGroupRecipeAction(MealieModel):
-    action_type: RecipeActionType
+    action_type: GroupRecipeActionType
     title: str
     url: str
 

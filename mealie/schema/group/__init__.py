@@ -19,7 +19,7 @@ from .group_recipe_action import (
     CreateGroupRecipeAction,
     GroupRecipeActionOut,
     GroupRecipeActionPagination,
-    RecipeActionType,
+    GroupRecipeActionType,
     SaveGroupRecipeAction,
 )
 from .group_seeder import SeederConfig
@@ -64,7 +64,7 @@ __all__ = [
     "CreateGroupRecipeAction",
     "GroupRecipeActionOut",
     "GroupRecipeActionPagination",
-    "RecipeActionType",
+    "GroupRecipeActionType",
     "SaveGroupRecipeAction",
     "CreateWebhook",
     "ReadWebhook",
