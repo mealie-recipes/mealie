@@ -3,13 +3,14 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
-import black
 import isort
 from jinja2 import Template
 from rich.logging import RichHandler
 
 FORMAT = "%(message)s"
-logging.basicConfig(level=logging.INFO, format=FORMAT, datefmt="[%X]", handlers=[RichHandler()])
+logging.basicConfig(
+    level=logging.INFO, format=FORMAT, datefmt="[%X]", handlers=[RichHandler()]
+)
 
 log = logging.getLogger("rich")
 
@@ -22,8 +23,6 @@ def render_python_template(template_file: Path | str, dest: Path, data: dict):
         tplt = Template(template_file)
 
     text = tplt.render(data=data)
-
-    text = black.format_str(text, mode=black.FileMode())
 
     dest.write_text(text)
     isort.file(dest)
@@ -70,7 +69,9 @@ def find_start_end(file_text: list[str], gen_id: str) -> tuple[int, int, str]:
         raise Exception("Could not find start and end of code generation block")
 
     if start > end:
-        raise Exception(f"Start ({start=}) of code generation block is after end ({end=})")
+        raise Exception(
+            f"Start ({start=}) of code generation block is after end ({end=})"
+        )
 
     return start, end, indentation
 

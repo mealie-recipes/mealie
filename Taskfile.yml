@@ -74,6 +74,7 @@ tasks:
     desc: run code generators
     cmds:
       - poetry run python dev/code-generation/main.py
+      - task: py:format
 
   dev:services:
     desc: starts postgres and mailpit containers
@@ -105,7 +106,7 @@ tasks:
   py:format:
     desc: runs python code formatter
     cmds:
-      - poetry run black mealie
+      - poetry run ruff format mealie
 
   py:lint:
     desc: runs python linter
