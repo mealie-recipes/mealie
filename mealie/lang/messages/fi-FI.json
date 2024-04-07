@@ -33,12 +33,12 @@
         "generic-deleted": "{name} on poistettu"
     },
     "datetime": {
-        "year": "year|years",
-        "day": "day|days",
-        "hour": "hour|hours",
-        "minute": "minute|minutes",
-        "second": "second|seconds",
-        "millisecond": "millisecond|milliseconds",
-        "microsecond": "microsecond|microseconds"
+        "year": "vuosi|vuotta",
+        "day": "päivä|päivää",
+        "hour": "tunti|tuntia",
+        "minute": "minuutti|minuuttia",
+        "second": "sekunti|sekuntia",
+        "millisecond": "millisekunti|millisekuntia",
+        "microsecond": "mikrosekunti|mikrosekuntia"
     }
 }
