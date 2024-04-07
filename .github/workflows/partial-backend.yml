@@ -78,9 +78,9 @@ jobs:
           poetry add "psycopg2-binary==2.9.9"
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true' || steps.cache-validate.outputs.cache-hit-success != 'true'
 
-      - name: Formatting (Black)
+      - name: Formatting (Ruff)
         run: |
-          poetry run black . --check
+          poetry run ruff . --check
 
       - name: Lint (Ruff)
         run: |
