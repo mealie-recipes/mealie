@@ -60,11 +60,18 @@ class PostgresProvider(AbstractDBProvider, BaseSettings):
 
             return safe_url
 
+        # We unquote and then requote the password to ensure that it is correctly encoded
+        # This is necessaru because of a bug introduced that caused some users to modify their
+        # passwords to escape the characters manully. In an effort _not_ to break those users
+        # we will unquote and requote the password to ensure it is correctly encoded
+        password = urlparse.unquote(self.POSTGRES_PASSWORD)
+        password = urlparse.quote(password)
+        
         return str(
             PostgresDsn.build(
                 scheme="postgresql",
                 username=self.POSTGRES_USER,
-                password=urlparse.quote(self.POSTGRES_PASSWORD),
+                password=password,
                 host=f"{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}",
                 path=f"{self.POSTGRES_DB or ''}",
             )
