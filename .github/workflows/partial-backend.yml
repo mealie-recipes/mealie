@@ -80,7 +80,7 @@ jobs:
 
       - name: Formatting (Ruff)
         run: |
-          poetry run ruff . --check
+          poetry run ruff format . --check
 
       - name: Lint (Ruff)
         run: |
