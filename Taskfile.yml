@@ -106,7 +106,7 @@ tasks:
   py:format:
     desc: runs python code formatter
     cmds:
-      - poetry run ruff format mealie
+      - poetry run ruff format .
 
   py:lint:
     desc: runs python linter
