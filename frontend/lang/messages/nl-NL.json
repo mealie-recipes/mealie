@@ -207,7 +207,8 @@
     "created-on-date": "Gemaakt op {0}",
     "unsaved-changes": "Er zijn niet-opgeslagen wijzigingen. Wil je eerst opslaan voordat je vertrekt? Okay om op te slaan, Annuleren om wijzigingen ongedaan te maken.",
     "clipboard-copy-failure": "Kopiëren naar klembord mislukt.",
-    "confirm-delete-generic-items": "Weet u zeker dat u de volgende items wilt verwijderen?"
+    "confirm-delete-generic-items": "Weet u zeker dat u de volgende items wilt verwijderen?",
+    "organizers": "Organisatoren"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Weet je zeker dat je <b>{groupName}<b/> wil verwijderen?",
@@ -362,7 +363,7 @@
     "choose-migration-type": "Kies het migratietype",
     "tag-all-recipes": "Label alle recepten met {tag-name} tag",
     "nextcloud-text": "Nextcloud recepten kunnen worden geïmporteerd uit een zip-bestand dat de gegevens bevat die zijn opgeslagen in Nextcloud. Zie de voorbeeldmapstructuur hieronder om ervoor te zorgen dat je recepten kunnen worden geïmporteerd.",
-    "chowdown-text": "Mealie kan importeren vanuit Chowdown. Download daar het .zip bestand. En upload het hier",
+    "chowdown-text": "Mealie ondersteunt het formaat van de chowdown repository. Download de repository als een .zip-bestand en upload deze hieronder.",
     "recipe-1": "Eerste recept",
     "recipe-2": "Tweede recept",
     "paprika-text": "Mealie kan recepten uit het programma Paprika importeren. Exporteer je recepten uit Paprika, hernoem de exportuitbreiding naar .zip en upload ze hieronder.",
@@ -370,6 +371,10 @@
     "plantoeat": {
       "title": "Plan naar Eat",
       "description-long": "Mealie kan recepten importeren van Plan naar Eet."
+    },
+    "myrecipebox": {
+      "title": "Mijn Receptenbox",
+      "description-long": "Mealie kan recepten importeren uit My Recipe Box. Exporteer je recepten in CSV formaat, upload daarna het .csv bestand hieronder."
     }
   },
   "new-recipe": {
@@ -1163,21 +1168,21 @@
     }
   },
   "profile": {
-    "welcome-user": "👋 Welkom, {0}",
+    "welcome-user": "👋 Welkom, {0}!",
     "description": "Beheer je profiel, recepten en groepsinstellingen.",
     "get-invite-link": "Krijg uitnodigingslink",
     "get-public-link": "Openbare link krijgen",
     "account-summary": "Accountoverzicht",
-    "account-summary-description": "Hier is een samenvatting van de informatie van jouw groep",
+    "account-summary-description": "Hier is een samenvatting van jouw groep.",
     "group-statistics": "Groepsstatistieken",
     "group-statistics-description": "Jouw groepsstatistieken bieden inzicht in hoe je Mealie gebruikt.",
     "storage-capacity": "Opslagcapaciteit",
     "storage-capacity-description": "Jouw opslagcapaciteit is een berekening van de afbeeldingen en bijlagen die je hebt geüpload.",
     "personal": "Persoonlijk",
-    "personal-description": "Dit zijn je persoonlijke instellingen. Veranderingen hier hebben geen invloed op andere gebruikers",
+    "personal-description": "Dit zijn jouw persoonlijke instellingen. Aanpassingen hier hebben geen invloed op andere gebruikers.",
     "user-settings": "Gebruikersinstellingen",
-    "user-settings-description": "Beheer jouw voorkeuren, verander jouw wachtwoord en werk jouw e-mailadres bij",
-    "api-tokens-description": "Beheer jouw API-tokens voor toegang vanuit externe applicaties",
+    "user-settings-description": "Beheer jouw voorkeuren, verander jouw wachtwoord en werk jouw e-mailadres bij.",
+    "api-tokens-description": "Beheer jouw API-tokens voor toegang vanuit externe applicaties.",
     "group-description": "Deze items worden gedeeld binnen je groep. Het bewerken van een van deze items zal het voor de hele groep veranderen!",
     "group-settings": "Groepsinstellingen",
     "group-settings-description": "Beheer je groepsinstellingen zoals maaltijdplan en privacyinstellingen.",
@@ -1188,9 +1193,9 @@
     "notifiers": "Notificeerders",
     "notifiers-description": "Stel e-mail en push-meldingen in die worden getriggerd bij specifieke gebeurtenissen.",
     "manage-data": "Gegevensbeheer",
-    "manage-data-description": "Beheer Voedsel en Eenheden (er komen binnenkort meer opties)",
+    "manage-data-description": "Beheer je Mealie-gegevens: Levensmiddelen, Eenheden, Categorieën, Tags en meer.",
     "data-migrations": "Datamigratie",
-    "data-migrations-description": "Migreer je bestaande gegevens van andere applicaties, zoals Nextcloud recepten en Chowdown",
+    "data-migrations-description": "Importeer jouw bestaande gegevens van andere applicaties, zoals Nextcloud recepten en Chowdown.",
     "email-sent": "E-mail verzonden",
     "error-sending-email": "Fout tijdens het verzenden van de e-mail",
     "personal-information": "Persoonlijke gegevens",

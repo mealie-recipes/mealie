@@ -29,6 +29,7 @@ test_cases = [
     MigrationTestData(typ=SupportedMigrations.mealie_alpha, archive=test_data.migrations_mealie),
     MigrationTestData(typ=SupportedMigrations.tandoor, archive=test_data.migrations_tandoor),
     MigrationTestData(typ=SupportedMigrations.plantoeat, archive=test_data.migrations_plantoeat),
+    MigrationTestData(typ=SupportedMigrations.myrecipebox, archive=test_data.migrations_myrecipebox),
 ]
 
 test_ids = [
@@ -39,6 +40,7 @@ test_ids = [
     "mealie_alpha_archive",
     "tandoor_archive",
     "plantoeat_archive",
+    "myrecipebox_csv",
 ]
 
 

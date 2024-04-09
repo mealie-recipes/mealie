@@ -207,7 +207,8 @@
     "created-on-date": "Sukurta: {0}",
     "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
     "clipboard-copy-failure": "Failed to copy to the clipboard.",
-    "confirm-delete-generic-items": "Are you sure you want to delete the following items?"
+    "confirm-delete-generic-items": "Are you sure you want to delete the following items?",
+    "organizers": "Organizers"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Ar tikrai norite ištrinti <b>{groupName}<b/>?",
@@ -362,7 +363,7 @@
     "choose-migration-type": "Pasirinkite migracijos tipą",
     "tag-all-recipes": "Pažymėti visus receptus {tag-name} žyma",
     "nextcloud-text": "\"Nextcloud\" receptus galima importuoti iš .ZIP failo. Žemiau galima rasti tinkamos aplankų struktūros pavyzdį.",
-    "chowdown-text": "Mealie palaiko \"Chowdown\" repozitorijos formatą. Atsisiųskite kodo repozitoriją kaip .ZIP failą ir įkelkite žemiau",
+    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
     "recipe-1": "Receptas 1",
     "recipe-2": "Receptas 2",
     "paprika-text": "Į Mealie galima importuoti receptus iš \"Paprika\" sistemos. Eksportuokite duomenis iš \"Paprika\", pervadinkite failo plėtinį į .ZIP ir įkelkite žemiau.",
@@ -370,6 +371,10 @@
     "plantoeat": {
       "title": "Plan to Eat",
       "description-long": "Mealie can import recipies from Plan to Eat."
+    },
+    "myrecipebox": {
+      "title": "My Recipe Box",
+      "description-long": "Mealie can import recipes from My Recipe Box. Export your recipes in CSV format, then upload the .csv file below."
     }
   },
   "new-recipe": {
@@ -1163,21 +1168,21 @@
     }
   },
   "profile": {
-    "welcome-user": "👋 Sveiki atvykę, {0}",
+    "welcome-user": "👋 Welcome, {0}!",
     "description": "Valdykite savo profilį, receptus ir grupių nustatymus.",
     "get-invite-link": "Gauti pakvietimo nuorodą",
     "get-public-link": "Get Public Link",
     "account-summary": "Paskyros apžvalga",
-    "account-summary-description": "Čia pateikiama jūsų grupės informacijos santrauka",
+    "account-summary-description": "Here's a summary of your group's information.",
     "group-statistics": "Grupės statistika",
     "group-statistics-description": "Jūsų grupės statistika pateikia įžvalgų apie jūsų Mealie naudojimą.",
     "storage-capacity": "Atminties talpa",
     "storage-capacity-description": "Duomenų užimama talpa yra dydis, apskaičiuojamas pagal jkeltų nuotraukų ir duomenų dydį.",
     "personal": "Asmeniniai",
-    "personal-description": "Šie nustatymai yra jūsų asmeniniai. Čia atlikti pakeitimai nepaveiks kitų naudotojų",
+    "personal-description": "These are settings that are personal to you. Changes here won't affect other users.",
     "user-settings": "Vartotojo nustatymai",
-    "user-settings-description": "Valdykite savo nustatymus, pasikeiskite slaptažodį ar atnaujinkite el. pašto adresą",
-    "api-tokens-description": "Valdykite savo API Tokens prieigai iš išorinių sistemų",
+    "user-settings-description": "Manage your preferences, change your password, and update your email.",
+    "api-tokens-description": "Manage your API Tokens for access from external applications.",
     "group-description": "Šie nustatymai yra bendri jūsų grupei. Čia atlikti pakeitimai paveiks visus grupės naudotojus.",
     "group-settings": "Gupės nustatymai",
     "group-settings-description": "Valdykite bendrus grupės nustatymus, tokius kaip valgių plano ar privatumo nustatymai.",
@@ -1188,9 +1193,9 @@
     "notifiers": "Pranešikliai",
     "notifiers-description": "Setup email and push notifications that trigger on specific events.",
     "manage-data": "Duomenų valdymas",
-    "manage-data-description": "Tvarkykite produktus ir vienetus (daugiau pasirinkimų jau greitai)",
+    "manage-data-description": "Manage your Mealie data; Foods, Units, Categories, Tags and more.",
     "data-migrations": "Duomenų migracijos",
-    "data-migrations-description": "Perkelkite esamus duomenis iš kitų sistemų, pvz. \"Nextcloud Recipes\" ar \"Chowdown\"",
+    "data-migrations-description": "Migrate your existing data from other applications like Nextcloud Recipes and Chowdown.",
     "email-sent": "El. laiškas išsiųstas",
     "error-sending-email": "Klaida siunčiant el. laišką",
     "personal-information": "Asmeninė informacija",

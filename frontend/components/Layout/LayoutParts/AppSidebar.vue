@@ -39,13 +39,12 @@
                 <v-list-item-title>{{ nav.title }}</v-list-item-title>
               </template>
 
-              <v-list-item v-for="child in nav.children" :key="child.title" exact :to="child.to">
+              <v-list-item v-for="child in nav.children" :key="child.title" exact :to="child.to" class="ml-2">
                 <v-list-item-icon>
                   <v-icon>{{ child.icon }}</v-icon>
                 </v-list-item-icon>
                 <v-list-item-title>{{ child.title }}</v-list-item-title>
               </v-list-item>
-              <v-divider class="mb-4"></v-divider>
             </v-list-group>
 
             <!-- Single Item -->
@@ -68,18 +67,8 @@
     </template>
 
     <!-- Secondary Links -->
-    <template v-if="secondaryLinks">
-      <router-link v-if="secondaryHeader && secondaryHeaderLink" :to="secondaryHeaderLink" style="text-decoration: none;">
-        <v-subheader :to="secondaryHeaderLink" class="pb-0">
-          {{ secondaryHeader }}
-        </v-subheader>
-      </router-link>
-      <div v-else-if="secondaryHeader">
-        <v-subheader :to="secondaryHeaderLink" class="pb-0">
-          {{ secondaryHeader }}
-        </v-subheader>
-      </div>
-      <v-divider v-if="secondaryHeader"></v-divider>
+    <template v-if="secondaryLinks.length > 0">
+      <v-divider class="mt-2"></v-divider>
       <v-list nav dense exact>
         <template v-for="nav in secondaryLinks">
           <div v-if="!nav.restricted || isOwnGroup" :key="nav.title">
@@ -177,14 +166,6 @@ export default defineComponent({
     bottomLinks: {
       type: Array as () => SidebarLinks,
       required: false,
-      default: null,
-    },
-    secondaryHeader: {
-      type: String,
-      default: null,
-    },
-    secondaryHeaderLink: {
-      type: String,
       default: null,
     },
   },

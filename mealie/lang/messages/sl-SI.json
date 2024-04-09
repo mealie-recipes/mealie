@@ -33,12 +33,12 @@
         "generic-deleted": "{name} je bil izbrisan"
     },
     "datetime": {
-        "year": "year|years",
-        "day": "day|days",
-        "hour": "hour|hours",
-        "minute": "minute|minutes",
-        "second": "second|seconds",
-        "millisecond": "millisecond|milliseconds",
-        "microsecond": "microsecond|microseconds"
+        "year": "leto|let",
+        "day": "dan|dnevi",
+        "hour": "ura|ure",
+        "minute": "minuta|minute",
+        "second": "sekunda|sekunde",
+        "millisecond": "milisekunda|milisekunde",
+        "microsecond": "mikrosekunda|mikrosekunde"
     }
 }

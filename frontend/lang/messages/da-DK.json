@@ -80,7 +80,7 @@
     "recipe-events": "Hændelser for opskrifter"
   },
   "general": {
-    "add": "Add",
+    "add": "Tilføj",
     "cancel": "Annuller",
     "clear": "Ryd",
     "close": "Luk",
@@ -144,11 +144,11 @@
     "save": "Gem",
     "settings": "Indstillinger",
     "share": "Del",
-    "show-all": "Show All",
+    "show-all": "Vis alle",
     "shuffle": "Bland",
     "sort": "Sorter",
-    "sort-ascending": "Sort Ascending",
-    "sort-descending": "Sort Descending",
+    "sort-ascending": "Sorter stigende",
+    "sort-descending": "Sorter Faldende",
     "sort-alphabetically": "Alfabetisk",
     "status": "Status",
     "subject": "Emne",
@@ -207,7 +207,8 @@
     "created-on-date": "Oprettet den: {0}",
     "unsaved-changes": "Du har ændringer som ikke er gemt. Vil du gemme før du forlader? Vælg \"Okay\" for at gemme, eller \"Annullér\" for at kassere ændringer.",
     "clipboard-copy-failure": "Kopiering til udklipsholderen mislykkedes.",
-    "confirm-delete-generic-items": "Er du sikker på at du ønsker at slette de valgte emner?"
+    "confirm-delete-generic-items": "Er du sikker på at du ønsker at slette de valgte emner?",
+    "organizers": "Organizers"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Er du sikker på, du vil slette <b>{groupName}<b/>?",
@@ -243,8 +244,8 @@
     "group-preferences": "Gruppe Indstillinger",
     "private-group": "Privat Gruppe",
     "private-group-description": "Indstilling af din gruppe til privat, vil ændre alle indstillinger for offentlig visning. Dette tilsidesætter individuelle opskrifters indstillinger for offentlig visning.",
-    "enable-public-access": "Enable Public Access",
-    "enable-public-access-description": "Make group recipes public by default, and allow visitors to view recipes without logging-in",
+    "enable-public-access": "Aktiver Offentlig Adgang",
+    "enable-public-access-description": "Gør gruppeopskrifter offentlige som standard, og tillade besøgende at se opskrifter uden at logge ind",
     "allow-users-outside-of-your-group-to-see-your-recipes": "Tillad brugere udenfor din gruppe at se dine opskrifter",
     "allow-users-outside-of-your-group-to-see-your-recipes-description": "Når aktiveret kan du bruge et link til offentlig deling til at dele specifikke opskrifter uden at oprette en bruger. Når deaktiveret, kan du kun dele opskrifter med brugere, der er i din gruppe eller med et prægenereret privat link",
     "show-nutrition-information": "Vis ernæringsoplysninger",
@@ -358,11 +359,11 @@
     },
     "recipe-data-migrations": "Migrering af opskrifter",
     "recipe-data-migrations-explanation": "Opskrifter kan migreres fra et andet understøttet program til Mealie. Dette er en fantastisk måde at komme i gang med Mealie.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Coming from another application or an even older version of Mealie? Check out migrations and see if your data can be imported.",
+    "coming-from-another-application-or-an-even-older-version-of-mealie": "Kommer fra en anden applikation eller en endnu ældre version af Mealie? Tjek migrationer og se om dine data kan importeres.",
     "choose-migration-type": "Vælg Migreringstype",
     "tag-all-recipes": "Tag alle opskrifter med {tag-name} tag",
     "nextcloud-text": "Nextcloud opskrifter kan importeres fra en zip-fil, der indeholder data lagret i Nextcloud. Se eksempelmappestrukturen nedenfor for at sikre, at dine opskrifter kan importeres.",
-    "chowdown-text": "Mealie understøtter indbygget chowdown repository format. Download repositoriet som en .zip-fil og upload den nedenfor",
+    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
     "recipe-1": "Opskrift 1",
     "recipe-2": "Opskrift 2",
     "paprika-text": "Mealie kan importere opskrifter fra Paprika applikationen. Eksporter dine opskrifter fra paprika, omdøbe eksportudvidelsen til .zip og uploade den nedenfor.",
@@ -370,6 +371,10 @@
     "plantoeat": {
       "title": "Planlæg at spise",
       "description-long": "Mealie kan importere opskrifter, der er markeret som \"Planlæg at spise\"."
+    },
+    "myrecipebox": {
+      "title": "My Recipe Box",
+      "description-long": "Mealie can import recipes from My Recipe Box. Export your recipes in CSV format, then upload the .csv file below."
     }
   },
   "new-recipe": {
@@ -542,8 +547,8 @@
     "looking-for-migrations": "Kigger du efter data migrering?",
     "import-with-url": "Importér via URL",
     "create-recipe": "Opret opskrift",
-    "create-recipe-description": "Create a new recipe from scratch.",
-    "create-recipes": "Create Recipes",
+    "create-recipe-description": "Opret ny opskrift fra bunden.",
+    "create-recipes": "Opret opskrift",
     "import-with-zip": "Importér fra ZIP-fil",
     "create-recipe-from-an-image": "Opret opskrift ud fra et billede",
     "bulk-url-import": "Import fra flere URL-adresser",
@@ -553,7 +558,7 @@
     "scrape-recipe": "Scrape Opskrift",
     "scrape-recipe-description": "Hent en opskrift fra en hjemmeside. Angiv URL'en til den hjemmeside, du vil hente data fra, og Mealie vil forsøge at hente opskriften og tilføje den til din samling.",
     "scrape-recipe-have-a-lot-of-recipes": "Har du en masse opskrifter, du ønsker at scrappe på en gang?",
-    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
+    "scrape-recipe-suggest-bulk-importer": "Prøv masse import",
     "import-original-keywords-as-tags": "Importér originale nøgleord som mærker",
     "stay-in-edit-mode": "Bliv i redigeringstilstand",
     "import-from-zip": "Importer fra zip-fil",
@@ -577,7 +582,7 @@
     "upload-image": "Upload billede",
     "screen-awake": "Hold skærmen tændt",
     "remove-image": "Fjern billede",
-    "nextStep": "Next step"
+    "nextStep": "Næste trin"
   },
   "search": {
     "advanced-search": "Avanceret søgning",
@@ -614,7 +619,7 @@
       "import-summary": "Importer resumé",
       "partial-backup": "Delvis backup",
       "unable-to-delete-backup": "Ude af stand til at slette backup.",
-      "experimental-description": "Backups are total snapshots of the database and data directory of the site. This includes all data and cannot be set to exclude subsets of data. You can think of this as a snapshot of Mealie at a specific time. These serve as a database agnostic way to export and import data, or back up the site to an external location.",
+      "experimental-description": "Backups er samlede snapshots af databasen og datamappe på installationen. Dette omfatter alle data og kan ikke indstilles til at udelukke undergrupper af data. Du kan tænke på dette som et øjebliksbillede af Mealie på et bestemt tidspunkt. Disse fungerer som en database agnostisk måde at eksportere og importere data, eller sikkerhedskopiere installationen til en ekstern placering.",
       "backup-restore": "Backup / gendannelse",
       "back-restore-description": "Gendannelse af denne sikkerhedskopi vil overskrive alle de aktuelle data i din database og i datamappen og erstatte dem med indholdet af denne sikkerhedskopi. {cannot-be-undone} Hvis gendannelsen lykkes, vil du blive logget ud.",
       "cannot-be-undone": "Denne handling kan ikke fortrydes - brug med forsigtighed.",
@@ -740,9 +745,9 @@
     "ldap-ready-success-text": "Påkrævede LDAP-variabler er alle angivet.",
     "build": "Build",
     "recipe-scraper-version": "Version på opskrift-indsamler",
-    "oidc-ready": "OIDC Ready",
-    "oidc-ready-error-text": "Not all OIDC Values are configured. This can be ignored if you are not using OIDC Authentication.",
-    "oidc-ready-success-text": "Required OIDC variables are all set."
+    "oidc-ready": "OIDC er Klar",
+    "oidc-ready-error-text": "Ikke alle OIDC værdier er konfigureret. Dette kan ignoreres, hvis du ikke bruger OIDC godkendelse.",
+    "oidc-ready-success-text": "Alle påkrævede OIDC værdier er angivet."
   },
   "shopping-list": {
     "all-lists": "Alle lister",
@@ -825,7 +830,7 @@
     "create-new-tool": "Opret et nyt værktøj",
     "on-hand-checkbox-label": "Vis som \"Har allerede\" (afkrydset)",
     "required-tools": "Nødvendige Værktøjer",
-    "tool": "Tool"
+    "tool": "Værktøj"
   },
   "user": {
     "admin": "Administrator",
@@ -850,11 +855,11 @@
     "link-id": "Link ID",
     "link-name": "Linknavn",
     "login": "Log på",
-    "login-oidc": "Login with",
+    "login-oidc": "Log ind med",
     "or": "eller",
     "logout": "Log ud",
     "manage-users": "Administrer brugere",
-    "manage-users-description": "Create and manage users.",
+    "manage-users-description": "Opret og administrér brugere.",
     "new-password": "Ny adgangskode",
     "new-user": "Ny bruger",
     "password-has-been-reset-to-the-default-password": "Adgangskode er blevet nulstillet til systemstandarden",
@@ -1152,32 +1157,32 @@
     "no-logs-found": "Ingen logfiler fundet",
     "tasks": "Opgaver",
     "setup": {
-      "first-time-setup": "First Time Setup",
-      "welcome-to-mealie-get-started": "Welcome to Mealie! Let's get started",
-      "already-set-up-bring-to-homepage": "I'm already set up, just bring me to the homepage",
-      "common-settings-for-new-sites": "Here are some common settings for new sites",
-      "setup-complete": "Setup Complete!",
-      "here-are-a-few-things-to-help-you-get-started": "Here are a few things to help you get started with Mealie",
-      "restore-from-v1-backup": "Have a backup from a previous instance of Mealie v1? You can restore it here.",
-      "manage-profile-or-get-invite-link": "Manage your own profile, or grab an invite link to share with others."
+      "first-time-setup": "Første Opsætning",
+      "welcome-to-mealie-get-started": "Velkommen til Mealie! Lad os starte",
+      "already-set-up-bring-to-homepage": "Jeg er allerede oprettet, bare bringe mig til hjemmesiden",
+      "common-settings-for-new-sites": "Her er nogle almindelige indstillinger for nye sites",
+      "setup-complete": "Opsætning fuldført!",
+      "here-are-a-few-things-to-help-you-get-started": "Her er et par ting, der kan hjælpe dig i gang med Mealie",
+      "restore-from-v1-backup": "Har du en sikkerhedskopi fra en tidligere udgave af Mealie v1? Du kan gendanne den her.",
+      "manage-profile-or-get-invite-link": "Administrer din egen profil, eller tag et invitationslink til at dele med andre."
     }
   },
   "profile": {
-    "welcome-user": "👋 Velkommen, {0}",
+    "welcome-user": "👋 Velkommen, {0}!",
     "description": "Administrer din profil, opskrifter og gruppeindstillinger.",
     "get-invite-link": "Få Invitationslink",
     "get-public-link": "Offentligt link",
     "account-summary": "Konto oversigt",
-    "account-summary-description": "Her er en oversigt over din gruppes oplysninger",
+    "account-summary-description": "Her er en oversigt over din gruppes oplysninger.",
     "group-statistics": "Gruppestatistik",
     "group-statistics-description": "Din gruppestatistik giver indsigt i, hvordan du bruger Mealie.",
     "storage-capacity": "Lagerkapacitet",
     "storage-capacity-description": "Din lagerkapacitet er en beregning af de billeder og elementer, du har uploadet.",
     "personal": "Personlig",
-    "personal-description": "Disse indstillinger er personlige for dig. Ændringer her vil ikke påvirke andre brugere",
+    "personal-description": "Disse indstillinger er personlige for dig. Ændringer vil ikke påvirke andre brugere.",
     "user-settings": "Brugerindstillinger",
-    "user-settings-description": "Administrer dine indstillinger, din adgangskode eller din e-mail",
-    "api-tokens-description": "Administrer dine API Tokens, der giver adgang til eksterne applikationer",
+    "user-settings-description": "Administrer dine indstillinger, din adgangskode eller din e-mail.",
+    "api-tokens-description": "Administrer dine API Tokens for adgang fra eksterne applikationer.",
     "group-description": "Disse elementer deles i din gruppe. Redigering af et af dem vil ændre det for hele gruppen!",
     "group-settings": "Gruppeindstillinger",
     "group-settings-description": "Administrer dine fælles gruppeindstillinger såsom madplaner og privatlivsindstillinger.",
@@ -1188,9 +1193,9 @@
     "notifiers": "Notifikationer",
     "notifiers-description": "Opsæt e-mail og push-notifikationer, der udløser på specifikke begivenheder.",
     "manage-data": "Administrer data",
-    "manage-data-description": "Administrer dine fødevarer og enheder (flere muligheder kommer snart)",
+    "manage-data-description": "Administrer dine Mealie data; Mad, Enheder, Kategorier, Tags og meget mere.",
     "data-migrations": "Migrering af data",
-    "data-migrations-description": "Migrer dine eksisterende data fra andre programmer som Nextcloud Recipes og Chowdown",
+    "data-migrations-description": "Migrér dine eksisterende data fra andre programmer som Nextcloud Opskrifter og Chowdown.",
     "email-sent": "E-mail sendt",
     "error-sending-email": "Fejl ved afsendelse af email",
     "personal-information": "Personlige oplysninger",

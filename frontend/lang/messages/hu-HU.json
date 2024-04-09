@@ -207,7 +207,8 @@
     "created-on-date": "Létrehozva: {0}",
     "unsaved-changes": "El nem mentett módosításai vannak. Szeretné elmenteni, mielőtt kilép? A mentéshez kattintson az Ok, a módosítások elvetéséhez a Mégsem gombra.",
     "clipboard-copy-failure": "Nem sikerült a vágólapra másolás.",
-    "confirm-delete-generic-items": "Biztos benne, hogy törölni szeretné az alábbi tételeket?"
+    "confirm-delete-generic-items": "Biztos benne, hogy törölni szeretné az alábbi tételeket?",
+    "organizers": "Rendszerezők"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Biztosan törölni szeretnéd ezt: <b>{groupName}<b/>?",
@@ -362,7 +363,7 @@
     "choose-migration-type": "Válassza ki a migrációs típusát",
     "tag-all-recipes": "Az összes recept címkézése a {tag-name} címkével",
     "nextcloud-text": "A Nextcloud-receptek importálhatók a Nextcloudban tárolt adatokat tartalmazó zip-fájlból. Tekintse meg az alábbi példamappaszerkezetet, hogy receptjei biztosan importálhatók legyenek.",
-    "chowdown-text": "Mealie natívan támogatja a chowdown repository formátumot. Töltse le a kódtárat .zip fájlként, és töltse fel alább",
+    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
     "recipe-1": "Recept 1",
     "recipe-2": "Recept 2",
     "paprika-text": "Mealie képes recepteket importálni a Paprika alkalmazásból. Exportálja a receptjeit a Paprikából, nevezze át az export kiterjesztést .zip-re, és töltse fel alább.",
@@ -370,6 +371,10 @@
     "plantoeat": {
       "title": "Plan to Eat",
       "description-long": "Mealie képes recepteket importálni a Plan to Eat alkalmazásból."
+    },
+    "myrecipebox": {
+      "title": "My Recipe Box",
+      "description-long": "Mealie can import recipes from My Recipe Box. Export your recipes in CSV format, then upload the .csv file below."
     }
   },
   "new-recipe": {
@@ -1163,21 +1168,21 @@
     }
   },
   "profile": {
-    "welcome-user": "👋 Üdvözöljük, {0}",
+    "welcome-user": "👋 Üdvözöljük, {0}!",
     "description": "Profiljának, receptjeinek és csoportbeállításainak kezelése.",
     "get-invite-link": "Meghívó link beszerzése",
     "get-public-link": "Nyilvánon link beszerzése",
     "account-summary": "Fiók áttekintése",
-    "account-summary-description": "Itt egy áttekintés a csoportja információiról",
+    "account-summary-description": "Itt egy áttekintés a csoportja információiról.",
     "group-statistics": "Csoportstatisztikák",
     "group-statistics-description": "Az Ön csoportstatisztikái betekintést nyújtanak abba, hogyan használja a Mealie-t.",
     "storage-capacity": "Tárhely mérete",
     "storage-capacity-description": "A tárhely kapacitása az Ön által feltöltött képek és eszközök számításából adódik.",
     "personal": "Személyes",
-    "personal-description": "Ezek a beállítások az Ön személyes beállításai. Az itt végzett változtatások nincsenek hatással más felhasználókra",
+    "personal-description": "These are settings that are personal to you. Changes here won't affect other users.",
     "user-settings": "Felhasználói beállítások",
-    "user-settings-description": "Beállításainak kezelése, jelszavának módosítása és e-mail címének frissítése",
-    "api-tokens-description": "API tokenek kezelése külső alkalmazásokon keresztül történő hozzáféréshez",
+    "user-settings-description": "Itt kezelheti beállításait, módosíthatja jelszavát és frissítheti e-mail címét.",
+    "api-tokens-description": "Manage your API Tokens for access from external applications.",
     "group-description": "Ezek az elemek a csoporton belül megosztottak. Az egyik szerkesztése az egész csoport számára megváltoztatja azt!",
     "group-settings": "Csoport beállításai",
     "group-settings-description": "Közös csoportbeállítások, például menüterv és adatvédelmi beállítások kezelése.",
@@ -1188,9 +1193,9 @@
     "notifiers": "Értesítések",
     "notifiers-description": "Állítson be olyan e-mail és push-értesítéseket, amelyek meghatározott események esetén lépnek működésbe.",
     "manage-data": "Adatok kezelése",
-    "manage-data-description": "Alapanyagainak és mennyiségi egységeinek kezelése (további opciók hamarosan)",
+    "manage-data-description": "Az Ön Mealie adatainak kezelése: alapanyagok, mértékegységek, kategóriák, címkék, stb.",
     "data-migrations": "Adat migráció",
-    "data-migrations-description": "Migrálja meglévő adatait más alkalmazásokból, például a Nextcloud Recipes és a Chowdown",
+    "data-migrations-description": "Migrálja meglévő adatait más alkalmazásokból, például Nextcloud Recipes vagy Chowdown.",
     "email-sent": "E-mail elküldve",
     "error-sending-email": "Hiba történt az e-Mail küldésénél",
     "personal-information": "Személyes adatok",

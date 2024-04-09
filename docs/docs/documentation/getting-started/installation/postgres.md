@@ -5,40 +5,39 @@ PostgreSQL might be considered if you need to support many concurrent users. In 
 **For Environment Variable Configuration, see** [Backend Configuration](./backend-config.md)
 
 ```yaml
----
-version: "3.7"
 services:
   mealie:
-    image: ghcr.io/mealie-recipes/mealie:v1.3.2 # (3)
+    image: ghcr.io/mealie-recipes/mealie:v1.4.0 # (3)
     container_name: mealie
+    restart: always
     ports:
         - "9925:9000" # (1)
     deploy:
       resources:
         limits:
           memory: 1000M # (2)
-    depends_on:
-      - postgres
     volumes:
       - mealie-data:/app/data/
     environment:
-    # Set Backend ENV Variables Here
-      - ALLOW_SIGNUP=true
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/Anchorage
-      - MAX_WORKERS=1
-      - WEB_CONCURRENCY=1
-      - BASE_URL=https://mealie.yourdomain.com
+      # Set Backend ENV Variables Here
+      ALLOW_SIGNUP: true
+      PUID: 1000
+      PGID: 1000
+      TZ: America/Anchorage
+      MAX_WORKERS: 1
+      WEB_CONCURRENCY: 1
+      BASE_URL: https://mealie.yourdomain.com
+      # Database Settings
+      DB_ENGINE: postgres
+      POSTGRES_USER: mealie
+      POSTGRES_PASSWORD: mealie
+      POSTGRES_SERVER: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: mealie
+    depends_on:
+      postgres:
+        condition: service_healthy
 
-    # Database Settings
-      - DB_ENGINE=postgres
-      - POSTGRES_USER=mealie
-      - POSTGRES_PASSWORD=mealie
-      - POSTGRES_SERVER=postgres
-      - POSTGRES_PORT=5432
-      - POSTGRES_DB=mealie
-    restart: always
   postgres:
     container_name: postgres
     image: postgres:15
@@ -48,12 +47,15 @@ services:
     environment:
       POSTGRES_PASSWORD: mealie
       POSTGRES_USER: mealie
+    healthcheck:
+      test: ["CMD", "pg_isready"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
 
 volumes:
   mealie-data:
-    driver: local
   mealie-pgdata:
-    driver: local
 ```
 
 <!-- Updating This? Be Sure to also update the SQLite Annotations -->

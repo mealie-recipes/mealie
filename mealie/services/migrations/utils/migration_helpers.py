@@ -57,6 +57,21 @@ def split_by_comma(tag_string: str):
     return [x.title().lstrip() for x in tag_string.split(",") if x != ""]
 
 
+def split_by_semicolon(input: str):
+    """Splits a single string by ';', performs a line strip removes empty strings"""
+
+    if not isinstance(input, str):
+        return None
+    return [x.strip() for x in input.split(";") if x]
+
+
+def split_by_line_break(input: str):
+    """Splits a single string by line break, performs a line strip removes empty strings"""
+    if not isinstance(input, str):
+        return None
+    return [x.strip() for x in input.split("\n") if x]
+
+
 def glob_walker(directory: Path, glob_str: str, return_parent=True) -> list[Path]:  # TODO:
     """A Helper function that will return the glob matches for the temporary directotry
     that was unpacked and passed in as the `directory` parameter. If `return_parent` is

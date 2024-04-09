@@ -47,7 +47,7 @@ class AppSettings(BaseSettings):
 
     GIT_COMMIT_HASH: str = "unknown"
 
-    ALLOW_SIGNUP: bool = True
+    ALLOW_SIGNUP: bool = False
 
     # ===============================================
     # Security Configuration
@@ -182,6 +182,8 @@ class AppSettings(BaseSettings):
     OIDC_AUTO_REDIRECT: bool = False
     OIDC_PROVIDER_NAME: str = "OAuth"
     OIDC_REMEMBER_ME: bool = False
+    OIDC_SIGNING_ALGORITHM: str = "RS256"
+    OIDC_USER_CLAIM: str = "email"
 
     @property
     def OIDC_READY(self) -> bool:
@@ -189,7 +191,9 @@ class AppSettings(BaseSettings):
 
         required = {self.OIDC_CLIENT_ID, self.OIDC_CONFIGURATION_URL}
         not_none = None not in required
-        return self.OIDC_AUTH_ENABLED and not_none
+        valid_user_claim = self.OIDC_USER_CLAIM in ["email", "preferred_username"]
+
+        return self.OIDC_AUTH_ENABLED and not_none and valid_user_claim
 
     # ===============================================
     # Testing Config

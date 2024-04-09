@@ -207,7 +207,8 @@
     "created-on-date": "Vytvořeno dne: {0}",
     "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
     "clipboard-copy-failure": "Failed to copy to the clipboard.",
-    "confirm-delete-generic-items": "Are you sure you want to delete the following items?"
+    "confirm-delete-generic-items": "Are you sure you want to delete the following items?",
+    "organizers": "Organizers"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Jste si jisti, že chcete smazat <b>{groupName}<b/>?",
@@ -362,7 +363,7 @@
     "choose-migration-type": "Zvolte si typ migrace",
     "tag-all-recipes": "Tag all recipes with {tag-name} tag",
     "nextcloud-text": "Nextcloud recepty lze importovat ze souboru zip, který obsahuje data uložená v Nextcloudu. Podívejte se na příklad struktury složek níže, abyste se ujistili, že vaše recepty lze importovat.",
-    "chowdown-text": "Mealie nativně podporuje formát chowdown. Stáhněte si z repozitáře kód jako .zip soubor a nahrajte ho níže",
+    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
     "recipe-1": "Recept 1",
     "recipe-2": "Recept 2",
     "paprika-text": "Mealie může importovat recepty z aplikace Paprika. Exportujte své recepty z papriky, přejmenujte příponu exportovaného souboru na .zip a nahrajte jej níže.",
@@ -370,6 +371,10 @@
     "plantoeat": {
       "title": "Plan to Eat",
       "description-long": "Mealie can import recipies from Plan to Eat."
+    },
+    "myrecipebox": {
+      "title": "My Recipe Box",
+      "description-long": "Mealie can import recipes from My Recipe Box. Export your recipes in CSV format, then upload the .csv file below."
     }
   },
   "new-recipe": {
@@ -1163,21 +1168,21 @@
     }
   },
   "profile": {
-    "welcome-user": "👋 Vítejte, {0}",
+    "welcome-user": "👋 Welcome, {0}!",
     "description": "Manage your profile, recipes, and group settings.",
     "get-invite-link": "Get Invite Link",
     "get-public-link": "Get Public Link",
     "account-summary": "Přehled účtu",
-    "account-summary-description": "Here's a summary of your group's information",
+    "account-summary-description": "Here's a summary of your group's information.",
     "group-statistics": "Statistiky skupiny",
     "group-statistics-description": "Your Group Statistics provide some insight how you're using Mealie.",
     "storage-capacity": "Kapacita úložiště",
     "storage-capacity-description": "Your storage capacity is a calculation of the images and assets you have uploaded.",
     "personal": "Osobní",
-    "personal-description": "These are settings that are personal to you. Changes here won't affect other users",
+    "personal-description": "These are settings that are personal to you. Changes here won't affect other users.",
     "user-settings": "Uživatelské nastavení",
-    "user-settings-description": "Manage your preferences, change your password, and update your email",
-    "api-tokens-description": "Manage your API Tokens for access from external applications",
+    "user-settings-description": "Manage your preferences, change your password, and update your email.",
+    "api-tokens-description": "Manage your API Tokens for access from external applications.",
     "group-description": "These items are shared within your group. Editing one of them will change it for the whole group!",
     "group-settings": "Nastavení skupiny",
     "group-settings-description": "Manage your common group settings like mealplan and privacy settings.",
@@ -1188,9 +1193,9 @@
     "notifiers": "Oznámení",
     "notifiers-description": "Setup email and push notifications that trigger on specific events.",
     "manage-data": "Spravovat data",
-    "manage-data-description": "Manage your Food and Units (more options coming soon)",
+    "manage-data-description": "Manage your Mealie data; Foods, Units, Categories, Tags and more.",
     "data-migrations": "Migrace dat",
-    "data-migrations-description": "Migrate your existing data from other applications like Nextcloud Recipes and Chowdown",
+    "data-migrations-description": "Migrate your existing data from other applications like Nextcloud Recipes and Chowdown.",
     "email-sent": "E-mail odeslán",
     "error-sending-email": "Nastala chyba při odesílání e-mailu",
     "personal-information": "Osobní údaje",

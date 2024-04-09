@@ -80,7 +80,7 @@
     "recipe-events": "Recepthändelser"
   },
   "general": {
-    "add": "Add",
+    "add": "Lägg till",
     "cancel": "Avbryt",
     "clear": "Rensa",
     "close": "Stäng",
@@ -207,7 +207,8 @@
     "created-on-date": "Skapad {0}",
     "unsaved-changes": "Du har osparade ändringar. Vill du spara innan du lämnar? Tryck Okej att spara, Avbryt för att ignorera ändringar.",
     "clipboard-copy-failure": "Det gick inte att kopiera till urklipp.",
-    "confirm-delete-generic-items": "Är du säker på att du vill radera följande objekt?"
+    "confirm-delete-generic-items": "Är du säker på att du vill radera följande objekt?",
+    "organizers": "Organizers"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Är du säker på att du vill radera <b>{groupName}<b/>?",
@@ -362,7 +363,7 @@
     "choose-migration-type": "Välj migrationstyp",
     "tag-all-recipes": "Tagga alla recept med {tag-name} tagg",
     "nextcloud-text": "Nextcloud-recept kan importeras från en zip-fil som innehåller data som lagras i Nextcloud. Se exempelmappens struktur nedan för att säkerställa att dina recept kan importeras.",
-    "chowdown-text": "Mealie har inbyggt stöd för chowdowns kodförrådsformat. Ladda ner kodförrådet som en .zip-fil och ladda upp det nedan",
+    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
     "recipe-1": "Recept 1",
     "recipe-2": "Recept 2",
     "paprika-text": "Mealie kan importera recept från Paprika-applikationen. Exportera dina recept från Paprika, byt namn på filnamnstillägget på exporten till .zip och ladda upp det nedan.",
@@ -370,6 +371,10 @@
     "plantoeat": {
       "title": "Planera att äta",
       "description-long": "Mealie kan importera recept från Plan to Eat."
+    },
+    "myrecipebox": {
+      "title": "My Recipe Box",
+      "description-long": "Mealie can import recipes from My Recipe Box. Export your recipes in CSV format, then upload the .csv file below."
     }
   },
   "new-recipe": {
@@ -543,7 +548,7 @@
     "import-with-url": "Importera från URL",
     "create-recipe": "Skapa recept",
     "create-recipe-description": "Create a new recipe from scratch.",
-    "create-recipes": "Create Recipes",
+    "create-recipes": "Skapa recept",
     "import-with-zip": "Importera från .zip",
     "create-recipe-from-an-image": "Skapa recept från en bild",
     "bulk-url-import": "Massimport från URL",
@@ -850,8 +855,8 @@
     "link-id": "Länk ID",
     "link-name": "Länk namn",
     "login": "Logga in",
-    "login-oidc": "Login with",
-    "or": "or",
+    "login-oidc": "Logga in med",
+    "or": "eller",
     "logout": "Logga ut",
     "manage-users": "Hantera användare",
     "manage-users-description": "Create and manage users.",
@@ -1163,21 +1168,21 @@
     }
   },
   "profile": {
-    "welcome-user": "👋 Välkommen, {0}",
+    "welcome-user": "👋 Välkommen, {0}!",
     "description": "Hantera dina profil, recept och gruppinställningar.",
     "get-invite-link": "Få inbjudningslänk",
     "get-public-link": "Få offentlig länk",
     "account-summary": "Kontosammanfattning",
-    "account-summary-description": "Här är en sammanfattning av din grupps information",
+    "account-summary-description": "Here's a summary of your group's information.",
     "group-statistics": "Gruppstatistik",
     "group-statistics-description": "Din gruppstatistik ger dig en inblick i hur du använder Mealie.",
     "storage-capacity": "Lagringskapacitet",
     "storage-capacity-description": "Din lagringskapacitet är en beräkning av de bilder och tillgångar du har laddat upp.",
     "personal": "Personligt",
-    "personal-description": "Detta är inställningar som är personliga för dig. Ändringar här påverkar inte andra användare",
+    "personal-description": "These are settings that are personal to you. Changes here won't affect other users.",
     "user-settings": "Användarinställningar",
-    "user-settings-description": "Hantera dina inställningar, ändra ditt lösenord och uppdatera din e-post",
-    "api-tokens-description": "Hantera dina API-Tokens för åtkomst från externa applikationer",
+    "user-settings-description": "Manage your preferences, change your password, and update your email.",
+    "api-tokens-description": "Manage your API Tokens for access from external applications.",
     "group-description": "Dessa objekt delas inom din grupp. Att redigera en av dem kommer att ändra den för hela gruppen!",
     "group-settings": "Gruppinställningar",
     "group-settings-description": "Hantera dina gemensamma gruppinställningar som måltidsplan och sekretessinställningar.",
@@ -1188,9 +1193,9 @@
     "notifiers": "Notifierare",
     "notifiers-description": "Setup email and push notifications that trigger on specific events.",
     "manage-data": "Hantera data",
-    "manage-data-description": "Hantera Mat och Enheter (fler alternativ kommer snart)",
+    "manage-data-description": "Manage your Mealie data; Foods, Units, Categories, Tags and more.",
     "data-migrations": "Data migreringar",
-    "data-migrations-description": "Migrera befintliga data från andra program som Nextcloud Recipes och Chowdown",
+    "data-migrations-description": "Migrate your existing data from other applications like Nextcloud Recipes and Chowdown.",
     "email-sent": "E-post skickades",
     "error-sending-email": "Fel vid sändning av e-post",
     "personal-information": "Personlig information",

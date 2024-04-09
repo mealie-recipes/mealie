@@ -6,8 +6,6 @@
         v-model="sidebar"
         absolute
         :top-link="topLinks"
-        :secondary-header="cookbookLinks.length ? $tc('sidebar.cookbooks') : undefined"
-        :secondary-header-link="isOwnGroup && cookbookLinks.length ? `/g/${groupSlug}/cookbooks` : undefined"
         :secondary-links="cookbookLinks || []"
         :bottom-links="isAdmin ? bottomLinks : []"
       >
@@ -146,14 +144,6 @@
           to: `/g/${groupSlug.value}/r/create/new`,
           restricted: true,
         },
-        {
-          insertDivider: true,
-          icon: $globals.icons.pages,
-          title: i18n.tc("sidebar.cookbook"),
-          subtitle: i18n.tc("sidebar.create-cookbook"),
-          to: `/g/${groupSlug.value}/cookbooks`,
-          restricted: true,
-        },
       ]);
 
       const bottomLinks = computed<SidebarLinks>(() => [
@@ -191,22 +181,35 @@
           restricted: true,
         },
         {
-          icon: $globals.icons.categories,
-          to: `/g/${groupSlug.value}/recipes/categories`,
-          title: i18n.tc("sidebar.categories"),
+          icon: $globals.icons.book,
+          to: `/g/${groupSlug.value}/cookbooks`,
+          title: i18n.tc("cookbook.cookbooks"),
           restricted: true,
         },
         {
-          icon: $globals.icons.tags,
-          to: `/g/${groupSlug.value}/recipes/tags`,
-          title: i18n.tc("sidebar.tags"),
+          icon: $globals.icons.organizers,
+          title: i18n.tc("general.organizers"),
           restricted: true,
-        },
-        {
-          icon: $globals.icons.potSteam,
-          to: `/g/${groupSlug.value}/recipes/tools`,
-          title: i18n.tc("tool.tools"),
-          restricted: true,
+          children: [
+            {
+              icon: $globals.icons.categories,
+              to: `/g/${groupSlug.value}/recipes/categories`,
+              title: i18n.tc("sidebar.categories"),
+              restricted: true,
+            },
+            {
+              icon: $globals.icons.tags,
+              to: `/g/${groupSlug.value}/recipes/tags`,
+              title: i18n.tc("sidebar.tags"),
+              restricted: true,
+            },
+            {
+              icon: $globals.icons.potSteam,
+              to: `/g/${groupSlug.value}/recipes/tools`,
+              title: i18n.tc("tool.tools"),
+              restricted: true,
+            },
+          ],
         },
       ]);
 

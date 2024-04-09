@@ -207,7 +207,8 @@
     "created-on-date": "Criado em: {0}",
     "unsaved-changes": "Tem alterações por gravar. Quer gravar antes de sair? OK para gravar, Cancelar para descartar alterações.",
     "clipboard-copy-failure": "Erro ao copiar para a área de transferência.",
-    "confirm-delete-generic-items": "Tem a certeza de que deseja eliminar os seguintes itens?"
+    "confirm-delete-generic-items": "Tem a certeza de que deseja eliminar os seguintes itens?",
+    "organizers": "Organizadores"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Tem a certeza que quer eliminar <b>{groupName}<b/>?",
@@ -362,7 +363,7 @@
     "choose-migration-type": "Escolha o tipo de migração",
     "tag-all-recipes": "Marcar todas as receitas com a etiqueta {tag-name}",
     "nextcloud-text": "As receitas do Nextcloud podem ser importadas a partir de um ficheiro zip que contém os dados armazenados na Nextcloud. Veja abaixo os exemplos da estrutura da pasta para garantir que as suas receitas podem ser importadas.",
-    "chowdown-text": "Mealie suporta de forma nativa o formato de repositório chowdown. Descarregue o repositório de código como ficheiro .zip e carregue-o abaixo",
+    "chowdown-text": "O Mealie suporta nativamente o formato de repositório chowdown. Descarregue o repositório de código como um ficheiro .zip e carregue-o abaixo.",
     "recipe-1": "Receita 1",
     "recipe-2": "Receita 2",
     "paprika-text": "O Mealie pode importar receitas da app Paprika. Exporte as suas receitas do Paprika, renomeie a extensão do ficheiro exportado para .zip e carregue-o mais abaixo.",
@@ -370,6 +371,10 @@
     "plantoeat": {
       "title": "Plano Alimentar",
       "description-long": "O Mealie pode importar receitas do Plano Alimentar."
+    },
+    "myrecipebox": {
+      "title": "My Recipe Box",
+      "description-long": "O Mealie pode importar receitas do My Recipe Box. Exporte as suas receitas em formato CSV e, em seguida, carregue o ficheiro .csv abaixo."
     }
   },
   "new-recipe": {
@@ -1163,21 +1168,21 @@
     }
   },
   "profile": {
-    "welcome-user": "👋 Bem-vindo, {0}",
+    "welcome-user": "👋 Bem-vindo, {0}!",
     "description": "Gira o seu perfil, receitas e definições de grupo.",
     "get-invite-link": "Obter ligação de convite",
     "get-public-link": "Obter ligação pública",
     "account-summary": "Resumo da conta",
-    "account-summary-description": "Aqui está um resumo das informações do seu grupo",
+    "account-summary-description": "Aqui está um resumo das informações do seu grupo.",
     "group-statistics": "Estatísticas do Grupo",
     "group-statistics-description": "A suas Estatísticas de Grupo fornecem algumas informações sobre como usa o Mealie.",
     "storage-capacity": "Capacidade de armazenamento",
     "storage-capacity-description": "A sua capacidade de armazenamento é um cálculo das imagens e itens que carregou.",
     "personal": "Pessoal",
-    "personal-description": "Estas são definições que só se aplicam a si. Alterações aqui não afetam os outros utilizadores",
+    "personal-description": "Estas são definições que só se aplicam a si. Alterações aqui não afetam os outros utilizadores.",
     "user-settings": "Definições do utilizador",
-    "user-settings-description": "Gira as suas preferências, altera a sua senha e atualize o seu email",
-    "api-tokens-description": "Gira os seus Tokens da API para acesso de aplicações externas",
+    "user-settings-description": "Gira as suas preferências, altere a sua senha e atualize o seu email.",
+    "api-tokens-description": "Gira os seus Tokens da API para acesso a partir de aplicações externas.",
     "group-description": "Estes itens são partilhados no seu grupo. As alterações aqui afetam todos os elementos do grupo!",
     "group-settings": "Definições do grupo",
     "group-settings-description": "Gira as definições comuns do grupo, tais como o plano de refeições e as definições de privacidade.",
@@ -1188,9 +1193,9 @@
     "notifiers": "Notificadores",
     "notifiers-description": "Setup email and push notifications that trigger on specific events.",
     "manage-data": "Gerir Dados",
-    "manage-data-description": "Gira os seus Alimentos e Unidades (mais opções em breve)",
+    "manage-data-description": "Gira os seus dados no Mealie; Ingredientes, Unidades, Categorias, Etiquetas, etc.",
     "data-migrations": "Migrações de dados",
-    "data-migrations-description": "Migre os seus dados existentes noutras aplicações, como Receitas Nextcloud e Chowdown",
+    "data-migrations-description": "Migre os seus dados existentes noutras aplicações, tais como o Nextcloud Recipes e Chowdown.",
     "email-sent": "Email Enviado",
     "error-sending-email": "Erro ao enviar Email",
     "personal-information": "Informação pessoal",

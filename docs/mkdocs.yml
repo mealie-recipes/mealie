@@ -41,7 +41,8 @@ markdown_extensions:
       custom_checkbox: true
   - admonition
   - attr_list
-  - pymdownx.tabbed
+  - pymdownx.tabbed:
+      alternate_style: true
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
@@ -71,6 +72,7 @@ nav:
           - SQLite (Recommended): "documentation/getting-started/installation/sqlite.md"
           - PostgreSQL: "documentation/getting-started/installation/postgres.md"
           - Backend Configuration: "documentation/getting-started/installation/backend-config.md"
+          - Security: "documentation/getting-started/installation/security.md"
       - Usage:
           - Backup and Restoring: "documentation/getting-started/usage/backups-and-restoring.md"
           - Permissions and Public Access: "documentation/getting-started/usage/permissions-and-public-access.md"

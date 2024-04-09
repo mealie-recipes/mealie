@@ -9,12 +9,11 @@ SQLite is a popular, open source, self-contained, zero-configuration database th
 **For Environment Variable Configuration, see** [Backend Configuration](./backend-config.md)
 
 ```yaml
----
-version: "3.7"
 services:
   mealie:
-    image: ghcr.io/mealie-recipes/mealie:v1.3.2 # (3)
+    image: ghcr.io/mealie-recipes/mealie:v1.4.0 # (3)
     container_name: mealie
+    restart: always
     ports:
         - "9925:9000" # (1)
     deploy:
@@ -24,19 +23,17 @@ services:
     volumes:
       - mealie-data:/app/data/
     environment:
-    # Set Backend ENV Variables Here
-      - ALLOW_SIGNUP=true
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/Anchorage
-      - MAX_WORKERS=1
-      - WEB_CONCURRENCY=1
-      - BASE_URL=https://mealie.yourdomain.com
-    restart: always
+      # Set Backend ENV Variables Here
+      ALLOW_SIGNUP: true
+      PUID: 1000
+      PGID: 1000
+      TZ: America/Anchorage
+      MAX_WORKERS: 1
+      WEB_CONCURRENCY: 1
+      BASE_URL: https://mealie.yourdomain.com
 
 volumes:
   mealie-data:
-    driver: local
 ```
 
 <!-- Updating This? Be Sure to also update the Postgres Annotations -->

@@ -207,7 +207,8 @@
     "created-on-date": "创建于: {0}",
     "unsaved-changes": "你有未保存的更改。你希望现在离开前保存吗？保存选择“是”，不保存选择“取消”。",
     "clipboard-copy-failure": "未能复制到剪切板。",
-    "confirm-delete-generic-items": "你确定删除以下条目吗？"
+    "confirm-delete-generic-items": "你确定删除以下条目吗？",
+    "organizers": "Organizers"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "您确定要删除<b>{groupName}<b/>吗？",
@@ -362,7 +363,7 @@
     "choose-migration-type": "选择迁移类型",
     "tag-all-recipes": "用{tag-name} 标签标记所有食谱",
     "nextcloud-text": "Mealie支持从Nextcloud中导入食谱。为了确保能被导入，应按照下方示例整理文件夹结构，并将其压缩成zip文件，然后在下方上传。",
-    "chowdown-text": "Mealie原生支持chowdown格式，只需将代码仓库打包成zip文件，并在下方上传。",
+    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
     "recipe-1": "食谱 1",
     "recipe-2": "食谱 2",
     "paprika-text": "Mealie 可以从 Paprika 导入食谱。请从paprika 导出食谱，重命名导出文件并压缩成.zip格式后，在下方上传",
@@ -370,6 +371,10 @@
     "plantoeat": {
       "title": "Plan to Eat",
       "description-long": "Mealie支持从 Plan to Eat 中导入食谱。"
+    },
+    "myrecipebox": {
+      "title": "My Recipe Box",
+      "description-long": "Mealie can import recipes from My Recipe Box. Export your recipes in CSV format, then upload the .csv file below."
     }
   },
   "new-recipe": {
@@ -1163,21 +1168,21 @@
     }
   },
   "profile": {
-    "welcome-user": "👋 欢迎，{0}",
+    "welcome-user": "👋 Welcome, {0}!",
     "description": "管理您的个人资料、食谱谱和群组设置。",
     "get-invite-link": "生成邀请链接",
     "get-public-link": "生成公开链接",
     "account-summary": "账户概况",
-    "account-summary-description": "以下是你的群组概况",
+    "account-summary-description": "Here's a summary of your group's information.",
     "group-statistics": "群组统计",
     "group-statistics-description": "群组统计为你如何使用Mealie提供一些深入信息。",
     "storage-capacity": "总储存容量",
     "storage-capacity-description": "你的存储容量基于你上传的图片和资源计算得出。",
     "personal": "个人设置",
-    "personal-description": "这些是你的个人设置。此处的更改不影响同组其他用户。",
+    "personal-description": "These are settings that are personal to you. Changes here won't affect other users.",
     "user-settings": "个人资料",
-    "user-settings-description": "修改密码，更换邮箱，管理偏好设置",
-    "api-tokens-description": "管理您的 API 令牌以从外部应用程序访问",
+    "user-settings-description": "Manage your preferences, change your password, and update your email.",
+    "api-tokens-description": "Manage your API Tokens for access from external applications.",
     "group-description": "这些项目已在你的群组中共享，一旦被编辑，更改之处会对所有群组成员生效！",
     "group-settings": "基础选项",
     "group-settings-description": "管理常见的群组设置，如饮食计划和隐私设置。",
@@ -1188,9 +1193,9 @@
     "notifiers": "通知方案",
     "notifiers-description": "设置基于特定事件触发的邮件提醒和通知推送。",
     "manage-data": "数据库",
-    "manage-data-description": "管理食品和单位（将会提供更多选项）",
+    "manage-data-description": "Manage your Mealie data; Foods, Units, Categories, Tags and more.",
     "data-migrations": "数据迁移",
-    "data-migrations-description": "将现有数据从其他应用（如Nextcloud食谱、Chowdown）迁移至Mealie",
+    "data-migrations-description": "Migrate your existing data from other applications like Nextcloud Recipes and Chowdown.",
     "email-sent": "邮件已发送",
     "error-sending-email": "发送邮件出错",
     "personal-information": "个人信息",

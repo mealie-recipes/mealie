@@ -207,7 +207,8 @@
     "created-on-date": "Создано: {0}",
     "unsaved-changes": "У вас есть несохраненные изменения. Вы хотите сохранить их перед выходом?",
     "clipboard-copy-failure": "Не удалось скопировать текст.",
-    "confirm-delete-generic-items": "Вы уверены, что хотите удалить следующие элементы?"
+    "confirm-delete-generic-items": "Вы уверены, что хотите удалить следующие элементы?",
+    "organizers": "Organizers"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Вы действительно хотите удалить <b>{groupName}<b/>?",
@@ -362,7 +363,7 @@
     "choose-migration-type": "Выберите тип миграции",
     "tag-all-recipes": "Отметить все рецепты тегом {tag-name}",
     "nextcloud-text": "Рецепты Nextcloud могут быть импортированы из zip-файла c данными из Nextcloud. Смотрите пример структуры папок ниже, чтобы убедиться, что ваши рецепты могут быть импортированы.",
-    "chowdown-text": "Mealie поддерживает формат chowdown репозитория. Загрузите хранилище кода в формате .zip и загрузите его ниже",
+    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
     "recipe-1": "Рецепт 1",
     "recipe-2": "Рецепт 2",
     "paprika-text": "Mealie может импортировать рецепты из приложения Paprika. Экспортируйте рецепты из paprika, измените расширение для экспорта в .zip и загрузить его ниже.",
@@ -370,6 +371,10 @@
     "plantoeat": {
       "title": "Plan to Eat",
       "description-long": "Mealie может импортировать рецепты из Plan to Eat."
+    },
+    "myrecipebox": {
+      "title": "My Recipe Box",
+      "description-long": "Mealie can import recipes from My Recipe Box. Export your recipes in CSV format, then upload the .csv file below."
     }
   },
   "new-recipe": {
@@ -1163,21 +1168,21 @@
     }
   },
   "profile": {
-    "welcome-user": "👋 Добро пожаловать, {0}",
+    "welcome-user": "👋 Welcome, {0}!",
     "description": "Управление настройками профиля, рецептов и группы.",
     "get-invite-link": "Получить ссылку для приглашения",
     "get-public-link": "Получить публичную ссылку",
     "account-summary": "Cведения об учетной записи",
-    "account-summary-description": "Сводка информации о вашей группе",
+    "account-summary-description": "Here's a summary of your group's information.",
     "group-statistics": "Статистика группы",
     "group-statistics-description": "Статистика вашей группы дает некоторую информацию о том, как вы используете Mealie.",
     "storage-capacity": "Емкость хранилища",
     "storage-capacity-description": "Указанный размер хранилища - это подсчёт размера изображений и приложений рецептов загруженных вами.",
     "personal": "Личное",
-    "personal-description": "Это персональные настройки. Изменения здесь не повлияют на других пользователей",
+    "personal-description": "These are settings that are personal to you. Changes here won't affect other users.",
     "user-settings": "Настройки пользователя",
-    "user-settings-description": "Управляйте своими предпочтениями, меняйте свой пароль и обновите ваш адрес электронной почты",
-    "api-tokens-description": "Управление API токенами для доступа из внешних приложений",
+    "user-settings-description": "Manage your preferences, change your password, and update your email.",
+    "api-tokens-description": "Manage your API Tokens for access from external applications.",
     "group-description": "Эти элементы доступны внутри вашей группы. Редактирование одного из них изменит их для всей группы!",
     "group-settings": "Настройки группы",
     "group-settings-description": "Управляйте общими настройками группы, такими как настройки плана питания и конфиденциальности.",
@@ -1188,9 +1193,9 @@
     "notifiers": "Уведомления",
     "notifiers-description": "Setup email and push notifications that trigger on specific events.",
     "manage-data": "Настройки хранилища данных",
-    "manage-data-description": "Управление продуктами и единицами измерений (скоро появятся дополнительные опции)",
+    "manage-data-description": "Manage your Mealie data; Foods, Units, Categories, Tags and more.",
     "data-migrations": "Перенос данных",
-    "data-migrations-description": "Переносите ваши существующие данные из других приложений, таких как Nextcloud Recipes и Chowdown",
+    "data-migrations-description": "Migrate your existing data from other applications like Nextcloud Recipes and Chowdown.",
     "email-sent": "Отправленные письма",
     "error-sending-email": "Ошибка при отправке письма",
     "personal-information": "Личные данные",

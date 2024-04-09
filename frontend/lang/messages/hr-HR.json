@@ -207,7 +207,8 @@
     "created-on-date": "Kreirano dana: {0}",
     "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
     "clipboard-copy-failure": "Failed to copy to the clipboard.",
-    "confirm-delete-generic-items": "Are you sure you want to delete the following items?"
+    "confirm-delete-generic-items": "Are you sure you want to delete the following items?",
+    "organizers": "Organizers"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Jeste li sigurni da želite izbrisati <b>{groupName}<b/>?",
@@ -362,7 +363,7 @@
     "choose-migration-type": "Odaberi Vrstu Migracije",
     "tag-all-recipes": "Označi sve recepte s oznakom {tag-name}",
     "nextcloud-text": "Recepti iz Nextcloud-a mogu se uvesti iz zip datoteke koja sadrži podatke pohranjene u Nextcloud-u. Pogledajte primjer strukture mape u nastavku kako biste osigurali da se vaši recepti mogu uspješno uvesti.",
-    "chowdown-text": "Mealie izvorno podržava format repozitorija \"chowdown\". Preuzmite repozitorij koda kao .zip datoteku i učitajte je u nastavku",
+    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
     "recipe-1": "Recept 1",
     "recipe-2": "Recept 2",
     "paprika-text": "Mealie može uvesti recepte iz aplikacije Paprika. Izvezite svoje recepte iz Paprike, preimenujte ekstenziju izvoza u .zip i učitajte je u nastavku.",
@@ -370,6 +371,10 @@
     "plantoeat": {
       "title": "Plan to Eat",
       "description-long": "Mealie can import recipies from Plan to Eat."
+    },
+    "myrecipebox": {
+      "title": "My Recipe Box",
+      "description-long": "Mealie can import recipes from My Recipe Box. Export your recipes in CSV format, then upload the .csv file below."
     }
   },
   "new-recipe": {
@@ -1163,21 +1168,21 @@
     }
   },
   "profile": {
-    "welcome-user": "👋 Dobrodošli, {0}",
+    "welcome-user": "👋 Welcome, {0}!",
     "description": "Upravljajte svojim profilom, receptima i postavkama grupa.",
     "get-invite-link": "Zatražite Poveznicu Pozivnice",
     "get-public-link": "Get Public Link",
     "account-summary": "Zbirni Prikaz Računa",
-    "account-summary-description": "Evo sažetka informacija o vašoj grupi",
+    "account-summary-description": "Here's a summary of your group's information.",
     "group-statistics": "Statistika Grupe",
     "group-statistics-description": "Statistika vaše grupe pruža uvid u to kako koristite Mealie.",
     "storage-capacity": "Prostor za Pohranu",
     "storage-capacity-description": "Vaša kapacitet za pohranu je izračun temeljen na slikama i resursima koje ste prenijeli.",
     "personal": "Osobno",
-    "personal-description": "Ovo su postavke koje su osobne samo za vas. Promjene ovdje neće utjecati na druge korisnike",
+    "personal-description": "These are settings that are personal to you. Changes here won't affect other users.",
     "user-settings": "Korisničke Postavke",
-    "user-settings-description": "Upravljajte svojim postavkama, promijenite lozinku i ažurirajte svoju e-poštu",
-    "api-tokens-description": "Upravljajte svojim API tokenima za pristup izvanjskim aplikacijama",
+    "user-settings-description": "Manage your preferences, change your password, and update your email.",
+    "api-tokens-description": "Manage your API Tokens for access from external applications.",
     "group-description": "Ovi predmeti su zajednički unutar vaše grupe. Uređivanje jednog od njih promijenit će ga za cijelu grupu!",
     "group-settings": "Postavke grupe",
     "group-settings-description": "Upravljajte zajedničkim postavkama grupe kao što su postavke plana obroka i privatnosti.",
@@ -1188,9 +1193,9 @@
     "notifiers": "Obavještavači (Notifiers)",
     "notifiers-description": "Postavi obavijesti putem e-pošte i push obavijesti koje se aktiviraju na određene događaje.",
     "manage-data": "Upravljaj podacima",
-    "manage-data-description": "Upravljajte hranom i jedinicama mjere (uskoro će biti dostupno više opcija)",
+    "manage-data-description": "Manage your Mealie data; Foods, Units, Categories, Tags and more.",
     "data-migrations": "Migracija podataka",
-    "data-migrations-description": "Migrirajte postojeće podatke iz drugih aplikacija poput Nextcloud Recipes i Chowdown",
+    "data-migrations-description": "Migrate your existing data from other applications like Nextcloud Recipes and Chowdown.",
     "email-sent": "E-pošta poslana",
     "error-sending-email": "Pogreška pri slanju e-maila",
     "personal-information": "Osobne informacije",

@@ -13,6 +13,9 @@
       $globals.icons.tags"
     return-object
     v-bind="inputAttrs"
+    auto-select-first
+    :search-input.sync="searchInput"
+    @change="resetSearchInput"
   >
     <template #selection="data">
       <v-chip
@@ -138,7 +141,6 @@ export default defineComponent({
     }
 
     function appendCreated(item: RecipeTag | RecipeCategory | RecipeTool) {
-      console.log(item);
       if (selected.value === undefined) {
         return;
       }
@@ -148,6 +150,12 @@ export default defineComponent({
 
     const dialog = ref(false);
 
+    const searchInput = ref("");
+
+    function resetSearchInput() {
+      searchInput.value = "";
+    }
+
     return {
       Organizer,
       appendCreated,
@@ -156,6 +164,8 @@ export default defineComponent({
       label,
       selected,
       removeByIndex,
+      searchInput,
+      resetSearchInput,
     };
   },
 });
