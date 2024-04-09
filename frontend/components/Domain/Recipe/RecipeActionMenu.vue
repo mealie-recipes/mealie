@@ -70,6 +70,7 @@
           print: true,
           printPreferences: true,
           share: loggedIn,
+          recipeActions: true,
         }"
         @print="$emit('print')"
       />
