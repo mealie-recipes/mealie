@@ -80,7 +80,7 @@
     "recipe-events": "Recepthändelser"
   },
   "general": {
-    "add": "Add",
+    "add": "Lägg till",
     "cancel": "Avbryt",
     "clear": "Rensa",
     "close": "Stäng",
@@ -548,7 +548,7 @@
     "import-with-url": "Importera från URL",
     "create-recipe": "Skapa recept",
     "create-recipe-description": "Create a new recipe from scratch.",
-    "create-recipes": "Create Recipes",
+    "create-recipes": "Skapa recept",
     "import-with-zip": "Importera från .zip",
     "create-recipe-from-an-image": "Skapa recept från en bild",
     "bulk-url-import": "Massimport från URL",
@@ -855,8 +855,8 @@
     "link-id": "Länk ID",
     "link-name": "Länk namn",
     "login": "Logga in",
-    "login-oidc": "Login with",
-    "or": "or",
+    "login-oidc": "Logga in med",
+    "or": "eller",
     "logout": "Logga ut",
     "manage-users": "Hantera användare",
     "manage-users-description": "Create and manage users.",
@@ -1168,7 +1168,7 @@
     }
   },
   "profile": {
-    "welcome-user": "👋 Welcome, {0}!",
+    "welcome-user": "👋 Välkommen, {0}!",
     "description": "Hantera dina profil, recept och gruppinställningar.",
     "get-invite-link": "Få inbjudningslänk",
     "get-public-link": "Få offentlig länk",
