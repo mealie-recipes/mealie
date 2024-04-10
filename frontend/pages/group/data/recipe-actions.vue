@@ -20,6 +20,12 @@
             :label="$t('general.url')"
             :rules="[validators.required]"
           />
+          <v-select
+            v-model="createTarget.actionType"
+            :items="actionTypeOptions"
+            :label="$t('data-pages.recipe-actions.action-type')"
+            :rules="[validators.required]"
+          />
         </v-form>
       </v-card-text>
     </BaseDialog>
@@ -34,10 +40,17 @@
     >
       <v-card-text v-if="editTarget">
         <div class="mt-4">
-          <v-text-field v-model="editTarget.title" :label="$t('general.title')"> </v-text-field>
+          <v-text-field v-model="editTarget.title" :label="$t('general.title')"/>
         </div>
         <div class="mt-4">
-          <v-text-field v-model="editTarget.url" :label="$t('general.url')"> </v-text-field>
+          <v-text-field v-model="editTarget.url" :label="$t('general.url')"/>
+        </div>
+        <div class="mt-4">
+          <v-select
+            v-model="editTarget.actionType"
+            :items="actionTypeOptions"
+            :label="$t('data-pages.recipe-actions.action-type')"
+          />
         </div>
       </v-card-text>
     </BaseDialog>
@@ -124,11 +137,6 @@ export default defineComponent({
         show: false,
       },
       {
-        text: i18n.t("data-pages.recipe-actions.action-type"),
-        value: "actionType",
-        show: false,
-      },
-      {
         text: i18n.t("general.title"),
         value: "title",
         show: true,
@@ -136,6 +144,11 @@ export default defineComponent({
       {
         text: i18n.t("general.url"),
         value: "url",
+        show: true,
+      },
+      {
+        text: i18n.t("data-pages.recipe-actions.action-type"),
+        value: "actionType",
         show: true,
       },
     ];
@@ -148,7 +161,8 @@ export default defineComponent({
     });
 
     const actionData = useGroupRecipeActionData();
-    const actionStore = useGroupRecipeActions();
+    const actionStore = useGroupRecipeActions(null, null);
+    const actionTypeOptions = ["link", "post"]
 
 
     // ============================================================
@@ -223,7 +237,8 @@ export default defineComponent({
       state,
       tableConfig,
       tableHeaders,
-      actions: actionStore.recipeActionsData,
+      actionTypeOptions,
+      actions: actionStore.recipeActions,
       validators,
 
       // create

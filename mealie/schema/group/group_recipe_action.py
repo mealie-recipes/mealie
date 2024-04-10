@@ -8,6 +8,7 @@ from mealie.schema.response.pagination import PaginationBase
 
 class GroupRecipeActionType(Enum):
     link = "link"
+    post = "post"
 
 
 class CreateGroupRecipeAction(MealieModel):

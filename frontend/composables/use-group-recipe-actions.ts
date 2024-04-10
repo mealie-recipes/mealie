@@ -1,7 +1,8 @@
-import { computed, reactive, ref } from "@nuxtjs/composition-api";
+import { computed, reactive, ref, useContext } from "@nuxtjs/composition-api";
 import { useStoreActions } from "./partials/use-actions-factory";
 import { useUserApi } from "~/composables/api";
 import { GroupRecipeActionOut, RecipeActionType } from "~/lib/api/types/group";
+import { Recipe } from "~/lib/api/types/recipe";
 
 const groupRecipeActions = ref<GroupRecipeActionOut[] | null>(null);
 const loading = ref(false);
@@ -27,8 +28,13 @@ export function useGroupRecipeActionData() {
   };
 }
 
-export const useGroupRecipeActions = function (orderBy = "title", orderDirection = "asc") {
+export const useGroupRecipeActions = function (
+  orderBy: string | null = "title",
+  orderDirection: string | null = "asc",
+) {
+  const { $axios } = useContext();
   const api = useUserApi();
+
   async function refreshGroupRecipeActions() {
     loading.value = true;
     const { data } = await api.groupRecipeActions.getAll(1, -1, { orderBy, orderDirection });
@@ -36,30 +42,30 @@ export const useGroupRecipeActions = function (orderBy = "title", orderDirection
     loading.value = false;
   }
 
-  const recipeActionsData = computed<GroupRecipeActionOut[] | null>(() => {
+  const recipeActions = computed<GroupRecipeActionOut[] | null>(() => {
     return groupRecipeActions.value;
   });
 
-  const recipeActions = computed<GroupRecipeActionOut[] | null>(() => {
-    if (groupRecipeActions.value === null) {
-      return null;
-    }
-
-    return groupRecipeActions.value.map(action => {
-      action.url = parseRecipeActionUrl(action.url);
-      return action;
-    });
-  });
-
-  function parseRecipeActionUrl(url: string): string {
-    // eslint-disable-next-line no-template-curly-in-string
-    return url.replace("${url}", window.location.href)
+  function parseRecipeActionUrl(url: string, recipe: Recipe): string {
+    /* eslint-disable no-template-curly-in-string */
+    return url
+      .replace("${url}", window.location.href)
+      .replace("${id}", recipe.id || "")
+      .replace("${slug}", recipe.slug || "")
+    /* eslint-enable no-template-curly-in-string */
   };
 
-  function executeRecipeAction(action: GroupRecipeActionOut) {
+  async function execute(action: GroupRecipeActionOut, recipe: Recipe) {
+    const url = parseRecipeActionUrl(action.url, recipe);
+
     switch (action.actionType) {
       case "link":
-        window.open(action.url, "_blank")?.focus();
+        window.open(url, "_blank")?.focus();
+        break;
+      case "post":
+        await $axios.post(url).catch((error) => {
+          console.error(error);
+        });
         break;
       default:
         break;
@@ -79,8 +85,7 @@ export const useGroupRecipeActions = function (orderBy = "title", orderDirection
 
   return {
     actions,
-    executeRecipeAction,
+    execute,
     recipeActions,
-    recipeActionsData,
   };
 };

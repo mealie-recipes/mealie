@@ -142,7 +142,7 @@ import { useGroupSelf } from "~/composables/use-groups";
 import { alert } from "~/composables/use-toast";
 import { usePlanTypeOptions } from "~/composables/use-group-mealplan";
 import { Recipe } from "~/lib/api/types/recipe";
-import { ShoppingListSummary } from "~/lib/api/types/group";
+import { GroupRecipeActionOut, ShoppingListSummary } from "~/lib/api/types/group";
 import { PlanEntryType } from "~/lib/api/types/meal-plan";
 import { useAxiosDownloader } from "~/composables/api/use-axios-download";
 
@@ -370,7 +370,19 @@ export default defineComponent({
     }
 
     const router = useRouter();
-    const { executeRecipeAction, recipeActions } = useGroupRecipeActions();
+    const groupRecipeActionsStore = useGroupRecipeActions();
+
+    async function executeRecipeAction(action: GroupRecipeActionOut) {
+      await groupRecipeActionsStore.execute(action, props.recipe);
+
+      switch (action.actionType) {
+        case "post":
+          alert.success(i18n.tc("events.message-sent") as string);
+          break;
+        default:
+          break;
+      }
+    }
 
     async function deleteRecipe() {
       await api.recipes.deleteOne(props.slug);
@@ -462,7 +474,7 @@ export default defineComponent({
       recipeRef,
       recipeRefWithScale,
       executeRecipeAction,
-      recipeActions,
+      recipeActions: groupRecipeActionsStore.recipeActions,
       shoppingLists,
       duplicateRecipe,
       contextMenuEventHandler,

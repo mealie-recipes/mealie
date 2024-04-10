@@ -5,7 +5,9 @@
 /* Do not modify it by hand - just update the pydantic models and then re-run the script
 */
 
-export type RecipeActionType = "link";
+export type RecipeActionType =
+  | "link"
+  | "post";
 export type WebhookType = "mealplan";
 export type SupportedMigrations =
   | "nextcloud"
