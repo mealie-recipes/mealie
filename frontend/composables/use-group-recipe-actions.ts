@@ -1,4 +1,4 @@
-import { computed, reactive, ref, useContext } from "@nuxtjs/composition-api";
+import { computed, reactive, ref } from "@nuxtjs/composition-api";
 import { useStoreActions } from "./partials/use-actions-factory";
 import { useUserApi } from "~/composables/api";
 import { GroupRecipeActionOut, RecipeActionType } from "~/lib/api/types/group";
@@ -32,7 +32,6 @@ export const useGroupRecipeActions = function (
   orderBy: string | null = "title",
   orderDirection: string | null = "asc",
 ) {
-  const { $axios } = useContext();
   const api = useUserApi();
 
   async function refreshGroupRecipeActions() {
@@ -63,7 +62,12 @@ export const useGroupRecipeActions = function (
         window.open(url, "_blank")?.focus();
         break;
       case "post":
-        await $axios.post(url).catch((error) => {
+        await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "text/plain",
+          },
+        }).catch((error) => {
           console.error(error);
         });
         break;
