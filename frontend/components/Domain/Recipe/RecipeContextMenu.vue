@@ -111,11 +111,11 @@
             <template #activator>
               <v-list-item-title>{{ $tc("recipe.recipe-actions") }}</v-list-item-title>
             </template>
-            <v-list dense>
+            <v-list dense class="ma-0">
               <v-list-item
                 v-for="(action, index) in recipeActions"
                 :key="index"
-                class="ml-2"
+                class="pl-2"
                 @click="executeRecipeAction(action)"
               >
                 <v-list-item-title>
