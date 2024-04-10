@@ -72,7 +72,7 @@ def inject_meta(contents: str, tags: list[MetaTag]) -> str:
 
 
 def inject_recipe_json(contents: str, schema: dict) -> str:
-    soup = BeautifulSoup(contents, "html.parser")
+    soup = BeautifulSoup(contents, "lxml")
     schema_as_json = json.dumps(jsonable_encoder(schema))
 
     script_tags = soup.find_all("script", {"type": "application/ld+json"})
