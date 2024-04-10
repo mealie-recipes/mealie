@@ -80,13 +80,11 @@ def inject_recipe_json(contents: str, schema: dict) -> str:
         try:
             data = json.loads(script_tag.string)
             if data.get("@type") == "Recipe":
-                # If the script tag exists and its @type is 'Recipe', replace its contents
                 script_tag.string = schema_as_json
                 break
         except json.JSONDecodeError:
             continue
     else:
-        # If no script tag with @type 'Recipe' exists, create a new one and add it to the head
         schema_as_html_tag = soup.new_tag("script", type="application/ld+json")
         schema_as_html_tag.string = schema_as_json
         soup.head.append(schema_as_html_tag)
