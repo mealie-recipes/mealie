@@ -72,8 +72,26 @@ def inject_meta(contents: str, tags: list[MetaTag]) -> str:
 
 
 def inject_recipe_json(contents: str, schema: dict) -> str:
-    schema_as_html_tag = f"""<script type="application/ld+json">{json.dumps(jsonable_encoder(schema))}</script>"""
-    return contents.replace("</head>", schema_as_html_tag + "\n</head>", 1)
+    soup = BeautifulSoup(contents, "html.parser")
+    schema_as_json = json.dumps(jsonable_encoder(schema))
+
+    script_tags = soup.find_all("script", {"type": "application/ld+json"})
+    for script_tag in script_tags:
+        try:
+            data = json.loads(script_tag.string)
+            if data.get("@type") == "Recipe":
+                # If the script tag exists and its @type is 'Recipe', replace its contents
+                script_tag.string = schema_as_json
+                break
+        except json.JSONDecodeError:
+            continue
+    else:
+        # If no script tag with @type 'Recipe' exists, create a new one and add it to the head
+        schema_as_html_tag = soup.new_tag("script", type="application/ld+json")
+        schema_as_html_tag.string = schema_as_json
+        soup.head.append(schema_as_html_tag)
+
+    return str(soup)
 
 
 def content_with_meta(group_slug: str, recipe: Recipe) -> str:
@@ -145,9 +163,11 @@ def content_with_meta(group_slug: str, recipe: Recipe) -> str:
     ]
 
     global __contents
-    __contents = inject_recipe_json(__contents, as_schema_org)
-    __contents = inject_meta(__contents, meta_tags)
-    return __contents
+    contents = __contents  # make a local copy so we don't modify the global contents
+    contents = inject_recipe_json(contents, as_schema_org)
+    contents = inject_meta(contents, meta_tags)
+
+    return contents
 
 
 def response_404():
