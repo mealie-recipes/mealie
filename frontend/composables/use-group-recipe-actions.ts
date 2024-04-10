@@ -27,7 +27,7 @@ export function useGroupRecipeActionData() {
   };
 }
 
-export const useGroupRecipeActions = function (orderBy: string = "title", orderDirection: string = "asc") {
+export const useGroupRecipeActions = function (orderBy = "title", orderDirection = "asc") {
   const api = useUserApi();
   async function refreshGroupRecipeActions() {
     loading.value = true;
@@ -52,16 +52,17 @@ export const useGroupRecipeActions = function (orderBy: string = "title", orderD
   });
 
   function parseRecipeActionUrl(url: string): string {
+    // eslint-disable-next-line no-template-curly-in-string
     return url.replace("${url}", window.location.href)
   };
 
-  async function executeRecipeAction(action: GroupRecipeActionOut) {
+  function executeRecipeAction(action: GroupRecipeActionOut) {
     switch (action.actionType) {
       case "link":
         window.open(action.url, "_blank")?.focus();
-        return;
+        break;
       default:
-        return;
+        break;
     }
   };
 
