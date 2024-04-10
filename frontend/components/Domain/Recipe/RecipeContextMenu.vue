@@ -377,7 +377,7 @@ export default defineComponent({
 
       switch (action.actionType) {
         case "post":
-          alert.success(i18n.tc("events.message-sent") as string);
+          alert.success(i18n.tc("events.message-sent"));
           break;
         default:
           break;
