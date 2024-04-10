@@ -160,6 +160,7 @@
     "test": "Test",
     "themes": "Themes",
     "thursday": "Thursday",
+    "title": "Title",
     "token": "Token",
     "tuesday": "Tuesday",
     "type": "Type",
@@ -1001,6 +1002,12 @@
       "export-recipes": "Export Recipes",
       "delete-recipes": "Delete Recipes",
       "source-unit-will-be-deleted": "Source Unit will be deleted"
+    },
+    "recipe-actions": {
+      "recipe-actions-data": "Recipe Actions Data",
+      "new-recipe-action": "New Recipe Action",
+      "edit-recipe-action": "Edit Recipe Action",
+      "action-type": "Action Type"
     },
     "create-alias": "Create Alias",
     "manage-aliases": "Manage Aliases",
