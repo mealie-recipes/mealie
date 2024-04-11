@@ -2,11 +2,17 @@ import random
 
 from fastapi.testclient import TestClient
 
-from mealie.schema.group.group_shopping_list import ShoppingListOut
+from mealie.repos.repository_factory import AllRepositories
+from mealie.schema.group.group_shopping_list import (
+    ShoppingListItemOut,
+    ShoppingListItemUpdate,
+    ShoppingListItemUpdateBulk,
+    ShoppingListOut,
+)
 from mealie.schema.recipe.recipe import Recipe
-from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from tests import utils
 from tests.utils import api_routes
+from tests.utils.assertion_helpers import assert_derserialize
 from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser
 
@@ -755,3 +761,93 @@ def test_shopping_list_extras(
     assert key_str_2 in extras
     assert extras[key_str_1] == val_str_1
     assert extras[key_str_2] == val_str_2
+
+
+def test_modify_shopping_list_items_updates_shopping_list(
+    database: AllRepositories, api_client: TestClient, unique_user: TestUser, shopping_lists: list[ShoppingListOut]
+):
+    shopping_list = random.choice(shopping_lists)
+    last_update_at = shopping_list.update_at
+    assert last_update_at
+
+    # Create
+    new_item_data = {"note": random_string(), "shopping_list_id": str(shopping_list.id)}
+    response = api_client.post(api_routes.groups_shopping_items, json=new_item_data, headers=unique_user.token)
+    data = assert_derserialize(response, 201)
+    updated_list = database.group_shopping_lists.get_one(shopping_list.id)
+    assert updated_list and updated_list.update_at
+    assert updated_list.update_at > last_update_at
+    last_update_at = updated_list.update_at
+
+    list_item_id = data["createdItems"][0]["id"]
+    list_item = database.group_shopping_list_item.get_one(list_item_id)
+    assert list_item
+
+    # Update
+    list_item.note = random_string()
+    response = api_client.put(
+        api_routes.groups_shopping_items_item_id(list_item_id),
+        json=utils.jsonify(list_item.cast(ShoppingListItemUpdate).model_dump()),
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+    updated_list = database.group_shopping_lists.get_one(shopping_list.id)
+    assert updated_list and updated_list.update_at
+    assert updated_list.update_at > last_update_at
+    last_update_at = updated_list.update_at
+
+    # Delete
+    response = api_client.delete(api_routes.groups_shopping_items_item_id(list_item_id), headers=unique_user.token)
+    assert response.status_code == 200
+    updated_list = database.group_shopping_lists.get_one(shopping_list.id)
+    assert updated_list and updated_list.update_at
+    assert updated_list.update_at > last_update_at
+
+
+def test_bulk_modify_shopping_list_items_updates_shopping_list(
+    database: AllRepositories, api_client: TestClient, unique_user: TestUser, shopping_lists: list[ShoppingListOut]
+):
+    shopping_list = random.choice(shopping_lists)
+    last_update_at = shopping_list.update_at
+    assert last_update_at
+
+    # Create
+    new_item_data = [
+        {"note": random_string(), "shopping_list_id": str(shopping_list.id)} for _ in range(random_int(3, 5))
+    ]
+    response = api_client.post(
+        api_routes.groups_shopping_items_create_bulk, json=new_item_data, headers=unique_user.token
+    )
+    data = assert_derserialize(response, 201)
+    updated_list = database.group_shopping_lists.get_one(shopping_list.id)
+    assert updated_list and updated_list.update_at
+    assert updated_list.update_at > last_update_at
+    last_update_at = updated_list.update_at
+
+    # Update
+    list_item_ids = [item["id"] for item in data["createdItems"]]
+    list_items: list[ShoppingListItemOut] = []
+    for list_item_id in list_item_ids:
+        list_item = database.group_shopping_list_item.get_one(list_item_id)
+        assert list_item
+        list_item.note = random_string()
+        list_items.append(list_item)
+
+    payload = [utils.jsonify(list_item.cast(ShoppingListItemUpdateBulk).model_dump()) for list_item in list_items]
+    response = api_client.put(api_routes.groups_shopping_items, json=payload, headers=unique_user.token)
+    assert response.status_code == 200
+    updated_list = database.group_shopping_lists.get_one(shopping_list.id)
+    assert updated_list and updated_list.update_at
+    assert updated_list.update_at > last_update_at
+    last_update_at = updated_list.update_at
+
+    # Delete
+    response = api_client.delete(
+        api_routes.groups_shopping_items,
+        params={"ids": [str(list_item.id) for list_item in list_items]},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+    updated_list = database.group_shopping_lists.get_one(shopping_list.id)
+    assert updated_list and updated_list.update_at
+    assert updated_list.update_at > last_update_at
