@@ -65,8 +65,12 @@ export const useGroupRecipeActions = function (
         await fetch(url, {
           method: "POST",
           headers: {
+            // The "text/plain" content type header is used here to skip the CORS preflight request,
+            // since it may fail. This is fine, since we don't care about the response, we just want
+            // the request to get sent.
             "Content-Type": "text/plain",
           },
+          body: JSON.stringify(recipe),
         }).catch((error) => {
           console.error(error);
         });
