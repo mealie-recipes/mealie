@@ -72,24 +72,8 @@ def inject_meta(contents: str, tags: list[MetaTag]) -> str:
 
 
 def inject_recipe_json(contents: str, schema: dict) -> str:
-    soup = BeautifulSoup(contents, "lxml")
-    schema_as_json = json.dumps(jsonable_encoder(schema))
-
-    script_tags = soup.find_all("script", {"type": "application/ld+json"})
-    for script_tag in script_tags:
-        try:
-            data = json.loads(script_tag.string)
-            if data.get("@type") == "Recipe":
-                script_tag.string = schema_as_json
-                break
-        except json.JSONDecodeError:
-            continue
-    else:
-        schema_as_html_tag = soup.new_tag("script", type="application/ld+json")
-        schema_as_html_tag.string = schema_as_json
-        soup.head.append(schema_as_html_tag)
-
-    return str(soup)
+    schema_as_html_tag = f"""<script type="application/ld+json">{json.dumps(jsonable_encoder(schema))}</script>"""
+    return contents.replace("</head>", schema_as_html_tag + "\n</head>", 1)
 
 
 def content_with_meta(group_slug: str, recipe: Recipe) -> str:
