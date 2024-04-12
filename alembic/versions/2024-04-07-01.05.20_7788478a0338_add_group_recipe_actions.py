@@ -1,7 +1,7 @@
 """add group recipe actions
 
 Revision ID: 7788478a0338
-Revises: 09aba125b57a
+Revises: d7c6efd2de42
 Create Date: 2024-04-07 01:05:20.816270
 
 """
@@ -13,7 +13,7 @@ from alembic import op
 
 # revision identifiers, used by Alembic.
 revision = "7788478a0338"
-down_revision = "09aba125b57a"
+down_revision = "d7c6efd2de42"
 branch_labels = None
 depends_on = None
 
