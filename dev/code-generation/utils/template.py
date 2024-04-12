@@ -3,7 +3,6 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
-import isort
 from jinja2 import Template
 from rich.logging import RichHandler
 
@@ -23,7 +22,6 @@ def render_python_template(template_file: Path | str, dest: Path, data: dict):
     text = tplt.render(data=data)
 
     dest.write_text(text)
-    isort.file(dest)
 
 
 @dataclass
