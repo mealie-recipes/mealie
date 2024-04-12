@@ -75,9 +75,6 @@ types-urllib3 = "^1.26.11"
 build-backend = "poetry.core.masonry.api"
 requires = ["poetry-core>=1.0.0"]
 
-[tool.isort]
-line_length = 120
-
 [tool.vulture]
 exclude = ["**/models/**/*.py", "dir/"]
 ignore_decorators = ["@*router.*", "@app.on_event", "@field_validator", "@controller"]
