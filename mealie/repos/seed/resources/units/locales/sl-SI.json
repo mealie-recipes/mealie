@@ -1,11 +1,11 @@
 {
     "teaspoon": {
-        "name": "čajna žlička",
+        "name": "žlička",
         "description": "",
         "abbreviation": "tsp"
     },
     "tablespoon": {
-        "name": "namizna žlica",
+        "name": "žlica",
         "description": "",
         "abbreviation": "tbsp"
     },
@@ -90,7 +90,7 @@
         "abbreviation": ""
     },
     "clove": {
-        "name": "nageljnova žbica",
+        "name": "strok",
         "description": "",
         "abbreviation": ""
     },
