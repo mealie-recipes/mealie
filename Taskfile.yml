@@ -147,6 +147,12 @@ tasks:
     cmds:
       - poetry run python mealie/app.py
 
+  py:migrate:
+    desc: generates a new migration file e.g. task py:migrate:generate "add new column"
+    cmds:
+      - poetry run alembic revision --autogenerate -m "{{ .CLI_ARGS }}"
+      - task: py:format
+
   ui:build:
     desc: builds the frontend in frontend/dist
     dir: frontend
