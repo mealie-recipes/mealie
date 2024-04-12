@@ -1,9 +1,9 @@
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Annotated, Any
+from typing import Annotated, Any, Generic, TypeVar
 from uuid import UUID
 
-from pydantic import UUID4, ConfigDict, Field, StringConstraints, field_validator
+from pydantic import UUID4, BaseModel, ConfigDict, Field, StringConstraints, field_validator
 from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -13,13 +13,12 @@ from mealie.db.models.users.users import AuthMethod
 from mealie.schema._mealie import MealieModel
 from mealie.schema.group.group_preferences import ReadGroupPreferences
 from mealie.schema.group.webhook import CreateWebhook, ReadWebhook
-from mealie.schema.recipe import RecipeSummary
 from mealie.schema.response.pagination import PaginationBase
 
 from ...db.models.group import Group
-from ...db.models.recipe import RecipeModel
 from ..recipe import CategoryBase
 
+DataT = TypeVar("DataT", bound=BaseModel)
 DEFAULT_INTEGRATION_ID = "generic"
 settings = get_app_settings()
 
@@ -58,6 +57,38 @@ class GroupBase(MealieModel):
     model_config = ConfigDict(from_attributes=True)
 
 
+class UserRatingSummary(MealieModel):
+    recipe_id: UUID4
+    rating: float | None = None
+    is_favorite: Annotated[bool, Field(validate_default=True)] = False
+
+    model_config = ConfigDict(from_attributes=True)
+
+    @field_validator("is_favorite", mode="before")
+    def convert_is_favorite(cls, v: Any) -> bool:
+        if v is None:
+            return False
+        else:
+            return v
+
+
+class UserRatingCreate(UserRatingSummary):
+    user_id: UUID4
+
+
+class UserRatingUpdate(MealieModel):
+    rating: float | None = None
+    is_favorite: bool | None = None
+
+
+class UserRatingOut(UserRatingCreate):
+    id: UUID4
+
+
+class UserRatings(BaseModel, Generic[DataT]):
+    ratings: list[DataT]
+
+
 class UserBase(MealieModel):
     id: UUID4 | None = None
     username: str | None = None
@@ -67,7 +98,6 @@ class UserBase(MealieModel):
     admin: bool = False
     group: str | None = None
     advanced: bool = False
-    favorite_recipes: list[str] | None = []
 
     can_invite: bool = False
     can_manage: bool = False
@@ -107,7 +137,6 @@ class UserOut(UserBase):
     group_slug: str
     tokens: list[LongLiveTokenOut] | None = None
     cache_key: str
-    favorite_recipes: Annotated[list[str], Field(validate_default=True)] = []
     model_config = ConfigDict(from_attributes=True)
 
     @property
@@ -116,27 +145,7 @@ class UserOut(UserBase):
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
-        return [joinedload(User.group), joinedload(User.favorite_recipes), joinedload(User.tokens)]
-
-    @field_validator("favorite_recipes", mode="before")
-    def convert_favorite_recipes_to_slugs(cls, v: Any):
-        if not v:
-            return []
-        if not isinstance(v, list):
-            return v
-
-        slugs: list[str] = []
-        for recipe in v:
-            if isinstance(recipe, str):
-                slugs.append(recipe)
-            else:
-                try:
-                    slugs.append(recipe.slug)
-                except AttributeError:
-                    # this isn't a list of recipes, so we quit early and let Pydantic's typical validation handle it
-                    return v
-
-        return slugs
+        return [joinedload(User.group), joinedload(User.tokens)]
 
 
 class UserSummary(MealieModel):
@@ -151,20 +160,6 @@ class UserPagination(PaginationBase):
 
 class UserSummaryPagination(PaginationBase):
     items: list[UserSummary]
-
-
-class UserFavorites(UserBase):
-    favorite_recipes: list[RecipeSummary] = []  # type: ignore
-    model_config = ConfigDict(from_attributes=True)
-
-    @classmethod
-    def loader_options(cls) -> list[LoaderOption]:
-        return [
-            joinedload(User.group),
-            selectinload(User.favorite_recipes).joinedload(RecipeModel.recipe_category),
-            selectinload(User.favorite_recipes).joinedload(RecipeModel.tags),
-            selectinload(User.favorite_recipes).joinedload(RecipeModel.tools),
-        ]
 
 
 class PrivateUser(UserOut):
@@ -198,7 +193,7 @@ class PrivateUser(UserOut):
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
-        return [joinedload(User.group), selectinload(User.favorite_recipes), joinedload(User.tokens)]
+        return [joinedload(User.group), joinedload(User.tokens)]
 
 
 class UpdateGroup(GroupBase):
@@ -244,7 +239,6 @@ class GroupInDB(UpdateGroup):
             joinedload(Group.webhooks),
             joinedload(Group.preferences),
             selectinload(Group.users).joinedload(User.group),
-            selectinload(Group.users).joinedload(User.favorite_recipes),
             selectinload(Group.users).joinedload(User.tokens),
         ]
 
