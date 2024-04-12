@@ -46,17 +46,25 @@ class PostgresProvider(AbstractDBProvider, BaseSettings):
     @property
     def db_url(self) -> str:
         if self.POSTGRES_URL_OVERRIDE:
-            url = PostgresDsn(url=self.POSTGRES_URL_OVERRIDE)
-            if not url.scheme == ("postgresql"):
+            url = self.POSTGRES_URL_OVERRIDE
+
+            scheme, remainder = url.split("://", 1)
+            if scheme != "postgresql":
                 raise ValueError("POSTGRES_URL_OVERRIDE scheme must be postgresql")
 
-            return str(url)
+            remainder = remainder.split(":", 1)[1]
+            password = remainder[: remainder.rfind("@")]
+            quoted_password = urlparse.quote(password)
+
+            safe_url = url.replace(password, quoted_password)
+
+            return safe_url
 
         return str(
             PostgresDsn.build(
                 scheme="postgresql",
                 username=self.POSTGRES_USER,
-                password=urlparse.quote_plus(self.POSTGRES_PASSWORD),
+                password=urlparse.quote(self.POSTGRES_PASSWORD),
                 host=f"{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}",
                 path=f"{self.POSTGRES_DB or ''}",
             )

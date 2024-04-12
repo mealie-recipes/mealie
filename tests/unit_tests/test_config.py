@@ -38,13 +38,62 @@ def test_pg_connection_args(monkeypatch):
     assert app_settings.DB_URL == "postgresql://mealie:mealie@postgres:5432/mealie"
 
 
-def test_pg_connection_url_encode_password(monkeypatch):
+psql_validation_cases = [
+    (
+        "unencoded_to_encoded_password",
+        [
+            "POSTGRES_PASSWORD",
+            "P@ssword!@#$%%^^&&**()+;'\"'<>?{}[]",
+            "P%40ssword%21%40%23%24%25%25%5E%5E%26%26%2A%2A%28%29%2B%3B%27%22%27%3C%3E%3F%7B%7D%5B%5D",
+        ],
+    ),
+    (
+        "unencoded_to_encoded_url",
+        [
+            "POSTGRES_URL_OVERRIDE",
+            "postgresql://mealie:P@ssword!@#$%%^^&&**()+;'\"'<>?{}[]@postgres:5432/mealie",
+            "postgresql://mealie:P%40ssword%21%40%23%24%25%25%5E%5E%26%26%2A%2A%28%29%2B%3B%27%22%27%3C%3E%3F%7B%7D%5B%5D@postgres:5432/mealie",
+        ],
+    ),
+    (
+        "no_encode_needed_password",
+        [
+            "POSTGRES_PASSWORD",
+            "MyPassword",
+            "MyPassword",
+        ],
+    ),
+    (
+        "no_encode_needed_url",
+        [
+            "POSTGRES_URL_OVERRIDE",
+            "postgresql://mealie:MyPassword@postgres:5432/mealie",
+            "postgresql://mealie:MyPassword@postgres:5432/mealie",
+        ],
+    ),
+]
+
+psql_cases = [x[1] for x in psql_validation_cases]
+psql_cases_ids = [x[0] for x in psql_validation_cases]
+
+
+@pytest.mark.parametrize("data", psql_cases, ids=psql_cases_ids)
+def test_pg_connection_url_encode_password(data, monkeypatch):
+    env, value, expected = data
     monkeypatch.setenv("DB_ENGINE", "postgres")
-    monkeypatch.setenv("POSTGRES_SERVER", "postgres")
-    monkeypatch.setenv("POSTGRES_PASSWORD", "please,url#encode/this?password")
+    monkeypatch.setenv(env, value)
+
     get_app_settings.cache_clear()
     app_settings = get_app_settings()
-    assert app_settings.DB_URL == "postgresql://mealie:please%2Curl%23encode%2Fthis%3Fpassword@postgres:5432/mealie"
+
+    pg_provider = app_settings.DB_PROVIDER
+    expected = (
+        expected
+        if expected.startswith("postgresql://")
+        else f"postgresql://{pg_provider.POSTGRES_USER}:{expected}@{pg_provider.POSTGRES_SERVER}:5432/{pg_provider.POSTGRES_DB}"
+    )
+
+    assert app_settings.DB_URL == expected
 
 
 @dataclass(slots=True)
