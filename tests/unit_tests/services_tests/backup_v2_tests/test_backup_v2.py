@@ -1,4 +1,5 @@
 import filecmp
+import statistics
 from pathlib import Path
 from typing import Any, cast
 
@@ -8,11 +9,14 @@ from sqlalchemy.orm import Session
 import tests.data as test_data
 from mealie.core.config import get_app_settings
 from mealie.db.db_setup import session_context
+from mealie.db.models._model_utils import GUID
 from mealie.db.models.group import Group
 from mealie.db.models.group.shopping_list import ShoppingList
 from mealie.db.models.labels import MultiPurposeLabel
 from mealie.db.models.recipe.ingredient import IngredientFoodModel, IngredientUnitModel
 from mealie.db.models.recipe.recipe import RecipeModel
+from mealie.db.models.users.user_to_recipe import UserToRecipe
+from mealie.db.models.users.users import User
 from mealie.services.backups_v2.alchemy_exporter import AlchemyExporter
 from mealie.services.backups_v2.backup_file import BackupFile
 from mealie.services.backups_v2.backup_v2 import BackupV2
@@ -155,5 +159,18 @@ def test_database_restore_data(backup_path: Path):
                 assert unit.name_normalized
                 if unit.abbreviation:
                     assert unit.abbreviation_normalized
+
+            # 2024-03-18-02.28.15_d7c6efd2de42_migrate_favorites_and_ratings_to_user_ratings
+            users_by_group_id: dict[GUID, list[User]] = {}
+            for recipe in recipes:
+                users = users_by_group_id.get(recipe.group_id)
+                if users is None:
+                    users = session.query(User).filter(User.group_id == recipe.group_id).all()
+                    users_by_group_id[recipe.group_id] = users
+
+                user_to_recipes = session.query(UserToRecipe).filter(UserToRecipe.recipe_id == recipe.id).all()
+                user_ratings = [x.rating for x in user_to_recipes if x.rating]
+                assert recipe.rating == (statistics.mean(user_ratings) if user_ratings else None)
+
     finally:
         backup_v2.restore(original_data_backup)

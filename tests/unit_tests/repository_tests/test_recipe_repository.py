@@ -1,5 +1,6 @@
 from datetime import datetime
 from typing import cast
+from uuid import UUID
 
 import pytest
 
@@ -10,7 +11,7 @@ from mealie.schema.recipe.recipe import Recipe, RecipeCategory, RecipeSummary
 from mealie.schema.recipe.recipe_category import CategoryOut, CategorySave, TagSave
 from mealie.schema.recipe.recipe_tool import RecipeToolSave
 from mealie.schema.response import OrderDirection, PaginationQuery
-from mealie.schema.user.user import GroupBase
+from mealie.schema.user.user import GroupBase, UserRatingCreate
 from tests.utils.factories import random_email, random_string
 from tests.utils.fixture_schemas import TestUser
 
@@ -658,3 +659,126 @@ def test_random_order_recipe_search(
         pagination.pagination_seed = str(datetime.now())
         random_ordered.append(repo.page_all(pagination, search="soup").items)
     assert not all(i == random_ordered[0] for i in random_ordered)
+
+
+def test_order_by_rating(database: AllRepositories, user_tuple: tuple[TestUser, TestUser]):
+    user_1, user_2 = user_tuple
+    repo = database.recipes.by_group(UUID(user_1.group_id))
+
+    recipes: list[Recipe] = []
+    for i in range(3):
+        slug = f"recipe-{i+1}-{random_string(5)}"
+        recipes.append(
+            database.recipes.create(
+                Recipe(
+                    user_id=user_1.user_id,
+                    group_id=user_1.group_id,
+                    name=slug,
+                    slug=slug,
+                )
+            )
+        )
+
+    # set the rating for user_1 and confirm both users see the same ordering
+    recipe_1, recipe_2, recipe_3 = recipes
+    database.user_ratings.create(
+        UserRatingCreate(
+            user_id=user_1.user_id,
+            recipe_id=recipe_1.id,
+            rating=5,
+        )
+    )
+    database.user_ratings.create(
+        UserRatingCreate(
+            user_id=user_1.user_id,
+            recipe_id=recipe_2.id,
+            rating=4,
+        )
+    )
+    database.user_ratings.create(
+        UserRatingCreate(
+            user_id=user_1.user_id,
+            recipe_id=recipe_3.id,
+            rating=3,
+        )
+    )
+
+    pq = PaginationQuery(page=1, per_page=-1, order_by="rating", order_direction=OrderDirection.desc)
+    data_1 = repo.by_user(user_1.user_id).page_all(pq).items
+    data_2 = repo.by_user(user_2.user_id).page_all(pq).items
+    for data in [data_1, data_2]:
+        assert len(data) == 3
+        assert data[0].slug == recipe_1.slug  # global and user rating == 5
+        assert data[1].slug == recipe_2.slug  # global and user rating == 4
+        assert data[2].slug == recipe_3.slug  # global and user rating == 3
+
+    pq = PaginationQuery(page=1, per_page=-1, order_by="rating", order_direction=OrderDirection.asc)
+    data_1 = repo.by_user(user_1.user_id).page_all(pq).items
+    data_2 = repo.by_user(user_2.user_id).page_all(pq).items
+    for data in [data_1, data_2]:
+        assert len(data) == 3
+        assert data[0].slug == recipe_3.slug  # global and user rating == 3
+        assert data[1].slug == recipe_2.slug  # global and user rating == 4
+        assert data[2].slug == recipe_1.slug  # global and user rating == 5
+
+    # set rating for one recipe for user_2 and confirm user_2 sees the correct order and user_1's order is unchanged
+    database.user_ratings.create(
+        UserRatingCreate(
+            user_id=user_2.user_id,
+            recipe_id=recipe_1.id,
+            rating=3.5,
+        )
+    )
+
+    pq = PaginationQuery(page=1, per_page=-1, order_by="rating", order_direction=OrderDirection.desc)
+    data_1 = repo.by_user(user_1.user_id).page_all(pq).items
+    data_2 = repo.by_user(user_2.user_id).page_all(pq).items
+
+    assert len(data_1) == 3
+    assert data_1[0].slug == recipe_1.slug  # user rating == 5
+    assert data_1[1].slug == recipe_2.slug  # user rating == 4
+    assert data_1[2].slug == recipe_3.slug  # user rating == 3
+
+    assert len(data_2) == 3
+    assert data_2[0].slug == recipe_2.slug  # global rating == 4
+    assert data_2[1].slug == recipe_1.slug  # user rating == 3.5
+    assert data_2[2].slug == recipe_3.slug  # user rating == 3
+
+    pq = PaginationQuery(page=1, per_page=-1, order_by="rating", order_direction=OrderDirection.asc)
+    data_1 = repo.by_user(user_1.user_id).page_all(pq).items
+    data_2 = repo.by_user(user_2.user_id).page_all(pq).items
+
+    assert len(data_1) == 3
+    assert data_1[0].slug == recipe_3.slug  # global and user rating == 3
+    assert data_1[1].slug == recipe_2.slug  # global and user rating == 4
+    assert data_1[2].slug == recipe_1.slug  # global and user rating == 5
+
+    assert len(data_2) == 3
+    assert data_2[0].slug == recipe_3.slug  # user rating == 3
+    assert data_2[1].slug == recipe_1.slug  # user rating == 3.5
+    assert data_2[2].slug == recipe_2.slug  # global rating == 4
+
+    # verify public users see only global ratings
+    database.user_ratings.create(
+        UserRatingCreate(
+            user_id=user_2.user_id,
+            recipe_id=recipe_2.id,
+            rating=1,
+        )
+    )
+
+    pq = PaginationQuery(page=1, per_page=-1, order_by="rating", order_direction=OrderDirection.desc)
+    data = database.recipes.by_group(UUID(user_1.group_id)).page_all(pq).items
+
+    assert len(data) == 3
+    assert data[0].slug == recipe_1.slug  # global rating == 4.25 (avg of 5 and 3.5)
+    assert data[1].slug == recipe_3.slug  # global rating == 3
+    assert data[2].slug == recipe_2.slug  # global rating == 2.5 (avg of 4 and 1)
+
+    pq = PaginationQuery(page=1, per_page=-1, order_by="rating", order_direction=OrderDirection.asc)
+    data = database.recipes.by_group(UUID(user_1.group_id)).page_all(pq).items
+
+    assert len(data) == 3
+    assert data[0].slug == recipe_2.slug  # global rating == 2.5 (avg of 4 and 1)
+    assert data[1].slug == recipe_3.slug  # global rating == 3
+    assert data[2].slug == recipe_1.slug  # global rating == 4.25 (avg of 5 and 3.5)

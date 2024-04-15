@@ -66,7 +66,7 @@ jobs:
         id: cache-validate
         if: steps.cached-poetry-dependencies.outputs.cache-hit == 'true'
         run: |
-          echo "import black;print('venv good?')" > test.py && poetry run python test.py && echo "cache-hit-success=true" >> $GITHUB_OUTPUT
+          echo "import fastapi;print('venv good?')" > test.py && poetry run python test.py && echo "cache-hit-success=true" >> $GITHUB_OUTPUT
           rm test.py
         continue-on-error: true
 
@@ -78,9 +78,9 @@ jobs:
           poetry add "psycopg2-binary==2.9.9"
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true' || steps.cache-validate.outputs.cache-hit-success != 'true'
 
-      - name: Formatting (Black)
+      - name: Formatting (Ruff)
         run: |
-          poetry run black . --check
+          poetry run ruff format . --check
 
       - name: Lint (Ruff)
         run: |

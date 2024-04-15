@@ -53,7 +53,6 @@ pillow-heif = "^0.16.0"
 psycopg2-binary = { version = "^2.9.1" }
 
 [tool.poetry.group.dev.dependencies]
-black = "^24.0.0"
 coverage = "^7.0"
 coveragepy-lcov = "^0.1.1"
 mkdocs-material = "^9.0.0"
@@ -75,13 +74,6 @@ types-urllib3 = "^1.26.11"
 [build-system]
 build-backend = "poetry.core.masonry.api"
 requires = ["poetry-core>=1.0.0"]
-
-[tool.black]
-line-length = 120
-target-version = ["py310"]
-
-[tool.isort]
-line_length = 120
 
 [tool.vulture]
 exclude = ["**/models/**/*.py", "dir/"]

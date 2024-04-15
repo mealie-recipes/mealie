@@ -2,7 +2,7 @@ import { reactive, ref, Ref } from "@nuxtjs/composition-api";
 import { usePublicStoreActions, useStoreActions } from "../partials/use-actions-factory";
 import { usePublicExploreApi } from "../api/api-client";
 import { useUserApi } from "~/composables/api";
-import { RecipeCategory } from "~/lib/api/types/admin";
+import { RecipeCategory } from "~/lib/api/types/recipe";
 
 const categoryStore: Ref<RecipeCategory[]> = ref([]);
 const publicStoreLoading = ref(false);
