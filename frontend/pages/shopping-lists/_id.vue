@@ -543,13 +543,53 @@ export default defineComponent({
 
     const itemsByLabel = ref<{ [key: string]: ShoppingListItemOut[] }>({});
 
+    interface ListItemGroup {
+      position: Number;
+      createdAt: String;
+      items: ShoppingListItemOut[];
+    }
+
     function sortListItems() {
       if (!shoppingList.value?.listItems?.length) {
         return;
       }
 
-      // sort by position ascending, then createdAt descending
-      shoppingList.value.listItems.sort((a, b) => (a.position > b.position || a.createdAt < b.createdAt ? 1 : -1))
+      const checkedItemKey = "__checkedItem"
+      const listItemGroupsMap = new Map<string, ListItemGroup>();
+      listItemGroupsMap.set(checkedItemKey, {position: Number.MAX_SAFE_INTEGER, createdAt: "", items: []});
+
+      // group items by checked status, food, or note
+      shoppingList.value.listItems.forEach((item) => {
+        const key = item.checked ? checkedItemKey : item.isFood && item.food?.name
+          ? item.food.name
+          : item.note || ""
+
+        const group = listItemGroupsMap.get(key);
+        if (!group) {
+          listItemGroupsMap.set(key, {position: item.position || 0, createdAt: item.createdAt || "", items: [item]});
+        } else {
+          group.items.push(item);
+        }
+      });
+
+      // sort group items by position ascending, then createdAt descending
+      const listItemGroups = Array.from(listItemGroupsMap.values());
+      listItemGroups.sort((a, b) => (a.position > b.position || a.createdAt < b.createdAt ? 1 : -1));
+
+      // sort group items by position ascending, then createdAt descending, and aggregate them
+      const sortedItems: ShoppingListItemOut[] = [];
+      let nextPosition = 0;
+      listItemGroups.forEach((listItemGroup) => {
+        // @ts-ignore none of these fields are undefined
+        listItemGroup.items.sort((a, b) => (a.position > b.position || a.createdAt < b.createdAt ? 1 : -1));
+        listItemGroup.items.forEach((item) => {
+          item.position = nextPosition;
+          nextPosition += 1;
+          sortedItems.push(item);
+        })
+      });
+
+      shoppingList.value.listItems = sortedItems;
     }
 
     function updateItemsByLabel() {
