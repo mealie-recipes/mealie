@@ -14,9 +14,10 @@
 | API_PORT                      |         9000          | The port exposed by backend API. **Do not change this if you're running in Docker** |
 | API_DOCS                      |         True          | Turns on/off access to the API documentation locally.                               |
 | TZ                            |          UTC          | Must be set to get correct date/time on the server                                  |
+| LOG_LEVEL                     |         INFO          | Level of logging information output. Common alternative would be DEBUG              |
 | ALLOW_SIGNUP<super>\*</super> |         false         | Allow user sign-up without token                                                    |
 
-<super>\*</super> Starting in v1.4.0 this was changed to default to `false` as apart of a security review of the application.
+<super>\*</super> Starting in v1.4.0 this was changed to default to `false` as part of a security review of the application.
 
 ### Security
 
