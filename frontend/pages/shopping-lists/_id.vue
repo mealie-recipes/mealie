@@ -556,8 +556,8 @@ export default defineComponent({
     const itemsByLabel = ref<{ [key: string]: ShoppingListItemOut[] }>({});
 
     interface ListItemGroup {
-      position: Number;
-      createdAt: String;
+      position: number;
+      createdAt: string;
       items: ShoppingListItemOut[];
     }
 
