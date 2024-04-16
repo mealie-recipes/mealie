@@ -6,7 +6,7 @@ from mealie.schema._mealie import MealieModel
 
 
 class UpdateGroupPreferences(MealieModel):
-    private_group: bool = False
+    private_group: bool = True
     first_day_of_week: int = 0
 
     # Recipe Defaults
