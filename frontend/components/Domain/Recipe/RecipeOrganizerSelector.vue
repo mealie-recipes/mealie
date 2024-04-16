@@ -46,7 +46,7 @@
 <script lang="ts">
 import { defineComponent, ref, useContext, computed, onMounted } from "@nuxtjs/composition-api";
 import RecipeOrganizerDialog from "./RecipeOrganizerDialog.vue";
-import { RecipeCategory, RecipeTag } from "~/lib/api/types/user";
+import { RecipeCategory, RecipeTag } from "~/lib/api/types/recipe";
 import { RecipeTool } from "~/lib/api/types/admin";
 import { useTagStore } from "~/composables/store/use-tag-store";
 import { useCategoryStore, useToolStore } from "~/composables/store";

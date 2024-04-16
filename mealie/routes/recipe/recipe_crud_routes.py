@@ -258,7 +258,8 @@ class RecipeController(BaseRecipeController):
             if cookbook_data is None:
                 raise HTTPException(status_code=404, detail="cookbook not found")
 
-        pagination_response = self.repo.page_all(
+        # we use the repo by user so we can sort favorites correctly
+        pagination_response = self.repo.by_user(self.user.id).page_all(
             pagination=q,
             cookbook=cookbook_data,
             categories=categories,

@@ -9,17 +9,27 @@ import {
   LongLiveTokenOut,
   ResetPassword,
   UserBase,
-  UserFavorites,
   UserIn,
   UserOut,
+  UserRatingOut,
+  UserRatingSummary,
   UserSummary,
 } from "~/lib/api/types/user";
+
+export interface UserRatingsSummaries {
+  ratings: UserRatingSummary[];
+}
+
+export interface UserRatingsOut {
+  ratings: UserRatingOut[];
+}
 
 const prefix = "/api";
 
 const routes = {
   groupUsers: `${prefix}/users/group-users`,
   usersSelf: `${prefix}/users/self`,
+  ratingsSelf: `${prefix}/users/self/ratings`,
   groupsSelf: `${prefix}/users/self/group`,
   passwordReset: `${prefix}/users/reset-password`,
   passwordChange: `${prefix}/users/password`,
@@ -30,6 +40,10 @@ const routes = {
   usersId: (id: string) => `${prefix}/users/${id}`,
   usersIdFavorites: (id: string) => `${prefix}/users/${id}/favorites`,
   usersIdFavoritesSlug: (id: string, slug: string) => `${prefix}/users/${id}/favorites/${slug}`,
+  usersIdRatings: (id: string) => `${prefix}/users/${id}/ratings`,
+  usersIdRatingsSlug: (id: string, slug: string) => `${prefix}/users/${id}/ratings/${slug}`,
+  usersSelfFavoritesId: (id: string) => `${prefix}/users/self/favorites/${id}`,
+  usersSelfRatingsId: (id: string) => `${prefix}/users/self/ratings/${id}`,
 
   usersApiTokens: `${prefix}/users/api-tokens`,
   usersApiTokensTokenId: (token_id: string | number) => `${prefix}/users/api-tokens/${token_id}`,
@@ -56,7 +70,23 @@ export class UserApi extends BaseCRUDAPI<UserIn, UserOut, UserBase> {
   }
 
   async getFavorites(id: string) {
-    return await this.requests.get<UserFavorites>(routes.usersIdFavorites(id));
+    return await this.requests.get<UserRatingsOut>(routes.usersIdFavorites(id));
+  }
+
+  async getSelfFavorites() {
+    return await this.requests.get<UserRatingsSummaries>(routes.ratingsSelf);
+  }
+
+  async getRatings(id: string) {
+    return await this.requests.get<UserRatingsOut>(routes.usersIdRatings(id));
+  }
+
+  async setRating(id: string, slug: string, rating: number | null, isFavorite: boolean | null) {
+    return await this.requests.post(routes.usersIdRatingsSlug(id, slug), { rating, isFavorite });
+  }
+
+  async getSelfRatings() {
+    return await this.requests.get<UserRatingsSummaries>(routes.ratingsSelf);
   }
 
   async changePassword(changePassword: ChangePassword) {

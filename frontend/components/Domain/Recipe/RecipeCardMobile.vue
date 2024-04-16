@@ -38,17 +38,14 @@
           </v-list-item-subtitle>
           <div class="d-flex flex-wrap justify-end align-center">
             <slot name="actions">
-              <RecipeFavoriteBadge v-if="isOwnGroup && showRecipeContent" :slug="slug" show-always />
-              <v-rating
-                v-if="showRecipeContent"
-                color="secondary"
+              <RecipeFavoriteBadge v-if="isOwnGroup && showRecipeContent" :recipe-id="recipeId" show-always />
+              <RecipeRating
                 :class="isOwnGroup ? 'ml-auto' : 'ml-auto pb-2'"
-                background-color="secondary lighten-3"
-                dense
-                length="5"
-                size="15"
                 :value="rating"
-              ></v-rating>
+                :recipe-id="recipeId"
+                :slug="slug"
+                :small="true"
+              />
               <v-spacer></v-spacer>
 
               <!-- If we're not logged-in, no items display, so we hide this menu -->
@@ -85,12 +82,14 @@ import { computed, defineComponent, useContext, useRoute } from "@nuxtjs/composi
 import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
 import RecipeContextMenu from "./RecipeContextMenu.vue";
 import RecipeCardImage from "./RecipeCardImage.vue";
+import RecipeRating from "./RecipeRating.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 
 export default defineComponent({
   components: {
     RecipeFavoriteBadge,
     RecipeContextMenu,
+    RecipeRating,
     RecipeCardImage,
   },
   props: {
