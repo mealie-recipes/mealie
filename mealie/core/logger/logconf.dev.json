@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "disable_existing_loggers": false,
+  "handlers": {
+    "rich": {
+      "class": "rich.logging.RichHandler"
+    }
+  },
+  "loggers": {
+    "root": {
+      "level": "DEBUG",
+      "handlers": [
+        "rich"
+      ]
+    }
+  }
+}
