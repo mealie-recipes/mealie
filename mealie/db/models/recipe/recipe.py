@@ -260,13 +260,12 @@ def receive_description(target: RecipeModel, value: str, oldvalue, initiator):
 @event.listens_for(RecipeModel, "before_update")
 def calculate_rating(mapper, connection, target: RecipeModel):
     session = object_session(target)
-    if not session:
+    if not (session and session.is_modified(target, "rating")):
         return
 
-    if session.is_modified(target, "rating"):
-        history = get_history(target, "rating")
-        old_value = history.deleted[0] if history.deleted else None
-        new_value = history.added[0] if history.added else None
+    history = get_history(target, "rating")
+    old_value = history.deleted[0] if history.deleted else None
+    new_value = history.added[0] if history.added else None
     if old_value == new_value:
         return
 
