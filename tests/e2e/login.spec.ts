@@ -55,7 +55,8 @@ test('oidc initial login', async ({ page }) => {
         "sub": username,
         "email": `${username}@example.com`,
         "preferred_username": username,
-        "name": name
+        "name": name,
+        "groups": ["user"]
     }
 
     await page.goto('http://localhost:9000/login');
@@ -67,6 +68,26 @@ test('oidc initial login', async ({ page }) => {
     await expect(page.getByRole('link', { name: 'Settings' })).not.toBeVisible();
 });
 
+test('oidc login with user not in propery group', async ({ page }) => {
+    const username = "testUserNoGroup"
+    const name = "Test User No Group"
+    const claims = {
+        "sub": username,
+        "email": `${username}@example.com`,
+        "preferred_username": username,
+        "name": name,
+        "groups": []
+    }
+
+    await page.goto('http://localhost:9000/login');
+    await page.getByRole('button', { name: 'Login with OAuth' }).click();
+    await page.getByPlaceholder('Enter any user/subject').fill(username);
+    await page.getByPlaceholder('Optional claims JSON value,').fill(JSON.stringify(claims));
+    await page.getByRole('button', { name: 'Sign-in' }).click();
+    await expect(page).toHaveURL(/.*\/login\/?\?direct=1/)
+    await expect(page.getByRole('button', { name: 'Login with OAuth' })).toBeVisible()
+});
+
 test('oidc sequential login', async ({ page }) => {
     const username = "testUser2"
     const name = "Test User 2"
@@ -74,7 +95,8 @@ test('oidc sequential login', async ({ page }) => {
         "sub": username,
         "email": `${username}@example.com`,
         "preferred_username": username,
-        "name": name
+        "name": name,
+        "groups": ["user"]
     }
 
     await page.goto('http://localhost:9000/login');
@@ -100,7 +122,8 @@ test('settings page verify oidc', async ({ page }) => {
         "sub": username,
         "email": `${username}@example.com`,
         "preferred_username": username,
-        "name": name
+        "name": name,
+        "groups": ["user"]
     }
 
     await page.goto('http://localhost:9000/login');
@@ -133,7 +156,7 @@ test('oidc admin user', async ({ page }) => {
         "email": `${username}@example.com`,
         "preferred_username": username,
         "name": name,
-        "groups": ["admin"]
+        "groups": ["user", "admin"]
     }
 
     await page.goto('http://localhost:9000/login');
