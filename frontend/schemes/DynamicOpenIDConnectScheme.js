@@ -16,7 +16,6 @@ export default class DynamicOpenIDConnectScheme extends OpenIDConnectScheme {
             this.$auth.$storage
         )
 
-
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return await super.mounted()
     }
@@ -79,6 +78,7 @@ export default class DynamicOpenIDConnectScheme extends OpenIDConnectScheme {
         // Update tokens with mealie token
         this.updateTokens(response)
       } catch {
+        this.$auth.reset()
         const currentUrl = new URL(window.location.href)
         if (currentUrl.pathname === "/login" && currentUrl.searchParams.has("direct")) {
           return
