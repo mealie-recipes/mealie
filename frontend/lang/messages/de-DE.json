@@ -1119,10 +1119,10 @@
       "info-description-cleanable-images": "Löschbare Bilder",
       "storage": {
         "title-temporary-directory": "Temporäres Verzeichnis (.temp)",
-        "title-backups-directory": "Sicherungsverzeichnis (backups)",
+        "title-backups-directory": "Sicherungen-Verzeichnis (backups)",
         "title-groups-directory": "Gruppen-Verzeichnis (groups)",
         "title-recipes-directory": "Rezept-Verzeichnis (recipes)",
-        "title-user-directory": "Benutzerverzeichnis (user)"
+        "title-user-directory": "Benutzer-Verzeichnis (user)"
       },
       "action-delete-log-files-name": "Logs löschen",
       "action-delete-log-files-description": "Löscht alle Logdateien",
