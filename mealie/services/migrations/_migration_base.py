@@ -70,7 +70,7 @@ class BaseMigrator(BaseService):
         self.logger = root_logger.get_logger()
 
         self.helpers = DatabaseMigrationHelpers(self.db, self.session, self.group.id, self.user.id)
-        self.recipe_service = RecipeService(db, user, group)
+        self.recipe_service = RecipeService(db, user, group, translator=self.translator)
 
         super().__init__()
 
