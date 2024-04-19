@@ -99,6 +99,7 @@ For usage, see [Usage - OpenID Connect](../authentication/oidc.md)
 | OIDC_REMEMBER_ME       |  False  | Because redirects bypass the login screen, you cant extend your session by clicking the "Remember Me" checkbox. By setting this value to true, a session will be extended as if "Remember Me" was checked |
 | OIDC_SIGNING_ALGORITHM |  RS256  | The algorithm used to sign the id token (examples: RS256, HS256)                                                                                                                                          |
 | OIDC_USER_CLAIM        |  email  | Optional: 'email', 'preferred_username'                                                                                                                                                                   |
+| OIDC_TLS_CACERTFILE    | None    | File path to Certificate Authority used to verify server certificate (e.g. `/path/to/ca.crt`) |
 
 ### Themeing
 
