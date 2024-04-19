@@ -279,6 +279,7 @@ export default defineComponent({
     const edit = ref(false);
     const reorderLabelsDialog = ref(false);
     const settingsDialog = ref(false);
+    const preserveItemOrder = ref(false);
 
     const route = useRoute();
     const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
@@ -299,8 +300,19 @@ export default defineComponent({
       loadingCounter.value -= 1;
 
       // only update the list with the new value if we're not loading, to prevent UI jitter
-      if (!loadingCounter.value) {
-        shoppingList.value = newListValue;
+      if (loadingCounter.value) {
+        return;
+      }
+
+      shoppingList.value = newListValue;
+      updateListItemOrder();
+    }
+
+    function updateListItemOrder() {
+      if (!preserveItemOrder.value) {
+        groupAndSortListItemsByFood();
+        updateItemsByLabel();
+      } else {
         sortListItems();
         updateItemsByLabel();
       }
@@ -515,7 +527,7 @@ export default defineComponent({
 
       // setting this doesn't have any effect on the data since it's refreshed automatically, but it makes the ux feel smoother
       shoppingList.value.labelSettings = labelSettings;
-      updateItemsByLabel();
+      updateListItemOrder();
 
       loadingCounter.value += 1;
       const { data } = await userApi.shopping.lists.updateLabelSettings(shoppingList.value.id, labelSettings);
@@ -543,12 +555,62 @@ export default defineComponent({
 
     const itemsByLabel = ref<{ [key: string]: ShoppingListItemOut[] }>({});
 
+    interface ListItemGroup {
+      position: number;
+      createdAt: string;
+      items: ShoppingListItemOut[];
+    }
+
+    function groupAndSortListItemsByFood() {
+      if (!shoppingList.value?.listItems?.length) {
+        return;
+      }
+
+      const checkedItemKey = "__checkedItem"
+      const listItemGroupsMap = new Map<string, ListItemGroup>();
+      listItemGroupsMap.set(checkedItemKey, {position: Number.MAX_SAFE_INTEGER, createdAt: "", items: []});
+
+      // group items by checked status, food, or note
+      shoppingList.value.listItems.forEach((item) => {
+        const key = item.checked ? checkedItemKey : item.isFood && item.food?.name
+          ? item.food.name
+          : item.note || ""
+
+        const group = listItemGroupsMap.get(key);
+        if (!group) {
+          listItemGroupsMap.set(key, {position: item.position || 0, createdAt: item.createdAt || "", items: [item]});
+        } else {
+          group.items.push(item);
+        }
+      });
+
+      // sort group items by position ascending, then createdAt descending
+      const listItemGroups = Array.from(listItemGroupsMap.values());
+      listItemGroups.sort((a, b) => (a.position > b.position || a.createdAt < b.createdAt ? 1 : -1));
+
+      // sort group items by position ascending, then createdAt descending, and aggregate them
+      const sortedItems: ShoppingListItemOut[] = [];
+      let nextPosition = 0;
+      listItemGroups.forEach((listItemGroup) => {
+        // @ts-ignore none of these fields are undefined
+        listItemGroup.items.sort((a, b) => (a.position > b.position || a.createdAt < b.createdAt ? 1 : -1));
+        listItemGroup.items.forEach((item) => {
+          item.position = nextPosition;
+          nextPosition += 1;
+          sortedItems.push(item);
+        })
+      });
+
+      shoppingList.value.listItems = sortedItems;
+    }
+
     function sortListItems() {
       if (!shoppingList.value?.listItems?.length) {
         return;
       }
 
       // sort by position ascending, then createdAt descending
+      // @ts-ignore none of these fields are undefined
       shoppingList.value.listItems.sort((a, b) => (a.position > b.position || a.createdAt < b.createdAt ? 1 : -1))
     }
 
@@ -682,8 +744,7 @@ export default defineComponent({
         });
       }
 
-      sortListItems();
-      updateItemsByLabel();
+      updateListItemOrder();
 
       loadingCounter.value += 1;
       const { data } = await userApi.shopping.items.updateOne(item.id, item);
@@ -759,6 +820,9 @@ export default defineComponent({
         shoppingList.value.listItems = uncheckedItems.concat(listItems.value.checked);
       }
 
+      // since the user has manually reordered the list, we should preserve this order
+      preserveItemOrder.value = true;
+
       updateListItems();
     }
 
@@ -775,6 +839,9 @@ export default defineComponent({
       for (labelName in itemsByLabel.value) {
         allUncheckedItems.push(...itemsByLabel.value[labelName]);
       }
+
+      // since the user has manually reordered the list, we should preserve this order
+      preserveItemOrder.value = true;
 
       // save changes
       return updateIndexUnchecked(allUncheckedItems);

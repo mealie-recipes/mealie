@@ -36,13 +36,21 @@ class AppSettings(BaseSettings):
     """path to static files directory (ex. `mealie/dist`)"""
 
     IS_DEMO: bool = False
+
+    HOST_IP: str = "*"
+
+    API_HOST: str = "0.0.0.0"
     API_PORT: int = 9000
     API_DOCS: bool = True
     TOKEN_TIME: int = 48
     """time in hours"""
 
     SECRET: str
-    LOG_LEVEL: str = "INFO"
+
+    LOG_CONFIG_OVERRIDE: Path | None = None
+    """path to custom logging configuration file"""
+
+    LOG_LEVEL: str = "info"
     """corresponds to standard Python log levels"""
 
     GIT_COMMIT_HASH: str = "unknown"
@@ -184,6 +192,7 @@ class AppSettings(BaseSettings):
     OIDC_REMEMBER_ME: bool = False
     OIDC_SIGNING_ALGORITHM: str = "RS256"
     OIDC_USER_CLAIM: str = "email"
+    OIDC_TLS_CACERTFILE: str | None = None
 
     @property
     def OIDC_READY(self) -> bool:

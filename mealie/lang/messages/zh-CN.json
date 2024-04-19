@@ -33,12 +33,12 @@
         "generic-deleted": "{name} 已删除"
     },
     "datetime": {
-        "year": "year|years",
-        "day": "day|days",
-        "hour": "hour|hours",
-        "minute": "minute|minutes",
-        "second": "second|seconds",
-        "millisecond": "millisecond|milliseconds",
-        "microsecond": "microsecond|microseconds"
+        "year": "年|年",
+        "day": "天|天",
+        "hour": "小时|小时",
+        "minute": "分钟|分钟",
+        "second": "秒|秒",
+        "millisecond": "毫秒|毫秒",
+        "microsecond": "微秒|微秒"
     }
 }

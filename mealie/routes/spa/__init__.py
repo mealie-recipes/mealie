@@ -145,9 +145,11 @@ def content_with_meta(group_slug: str, recipe: Recipe) -> str:
     ]
 
     global __contents
-    __contents = inject_recipe_json(__contents, as_schema_org)
-    __contents = inject_meta(__contents, meta_tags)
-    return __contents
+    contents = __contents  # make a local copy so we don't modify the global contents
+    contents = inject_recipe_json(contents, as_schema_org)
+    contents = inject_meta(contents, meta_tags)
+
+    return contents
 
 
 def response_404():
