@@ -3,7 +3,11 @@
         "server-error": "Er is een onverwachte fout opgetreden"
     },
     "recipe": {
-        "unique-name-error": "Receptnamen moeten uniek zijn"
+        "unique-name-error": "Receptnamen moeten uniek zijn",
+        "recipe-defaults": {
+            "ingredient-note": "250 gram bloem",
+            "step-text": "Receptstappen en andere velden op de receptpagina ondersteunen Markdown syntaxis.\n\n**Voeg een link toe**\n\n[Mijn Link](https://demo.mealie.io)\n"
+        }
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Geen recepten die overeenkomen met je regels"
