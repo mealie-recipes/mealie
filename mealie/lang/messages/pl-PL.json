@@ -3,7 +3,11 @@
         "server-error": "Wystąpił nieoczekiwany błąd"
     },
     "recipe": {
-        "unique-name-error": "Nazwy przepisów muszą być unikalne"
+        "unique-name-error": "Nazwy przepisów muszą być unikalne",
+        "recipe-defaults": {
+            "ingredient-note": "1 Cup Flour",
+            "step-text": "Recipe steps as well as other fields in the recipe page support markdown syntax.\n\n**Add a link**\n\n[My Link](https://demo.mealie.io)\n"
+        }
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Nie znaleziono przepisu spełniającego warunki"
