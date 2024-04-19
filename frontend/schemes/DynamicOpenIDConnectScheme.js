@@ -77,8 +77,10 @@ export default class DynamicOpenIDConnectScheme extends OpenIDConnectScheme {
         })
         // Update tokens with mealie token
         this.updateTokens(response)
-      } catch {
-        this.$auth.reset()
+      } catch (e) {
+        if (e.response?.status === 401) {
+          this.$auth.reset()
+        }
         const currentUrl = new URL(window.location.href)
         if (currentUrl.pathname === "/login" && currentUrl.searchParams.has("direct")) {
           return
