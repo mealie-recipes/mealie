@@ -30,6 +30,7 @@ services:
 
       OIDC_AUTH_ENABLED: True
       OIDC_SIGNUP_ENABLED: True
+      OIDC_USER_GROUP: user
       OIDC_ADMIN_GROUP: admin
       OIDC_CONFIGURATION_URL: http://localhost:8080/default/.well-known/openid-configuration
       OIDC_CLIENT_ID: default

@@ -201,7 +201,7 @@ export default defineComponent({
     }
 
     function isDirectLogin() {
-        return router.currentRoute.query.direct
+        return Object.keys(router.currentRoute.query).includes("direct")
     }
 
     async function oidcAuthenticate() {

@@ -35,17 +35,19 @@ class OpenIDProvider(AuthProvider[OIDCRequest]):
         repos = get_repositories(self.session)
 
         user = self.try_get_user(claims.get(settings.OIDC_USER_CLAIM))
-        group_claim = claims.get("groups", [])
-        is_admin = settings.OIDC_ADMIN_GROUP in group_claim if settings.OIDC_ADMIN_GROUP else False
-        is_valid_user = settings.OIDC_USER_GROUP in group_claim if settings.OIDC_USER_GROUP else True
+        is_admin = False
+        if settings.OIDC_USER_GROUP or settings.OIDC_ADMIN_GROUP:
+            group_claim = claims.get("groups", [])
+            is_admin = settings.OIDC_ADMIN_GROUP in group_claim if settings.OIDC_ADMIN_GROUP else False
+            is_valid_user = settings.OIDC_USER_GROUP in group_claim if settings.OIDC_USER_GROUP else True
 
-        if not is_valid_user:
-            self._logger.debug(
-                "[OIDC] User does not have the required group. Found: %s - Required: %s",
-                group_claim,
-                settings.OIDC_USER_GROUP,
-            )
-            return None
+            if not is_valid_user:
+                self._logger.debug(
+                    "[OIDC] User does not have the required group. Found: %s - Required: %s",
+                    group_claim,
+                    settings.OIDC_USER_GROUP,
+                )
+                return None
 
         if not user:
             if not settings.OIDC_SIGNUP_ENABLED:
@@ -68,7 +70,7 @@ class OpenIDProvider(AuthProvider[OIDCRequest]):
             return self.get_access_token(user, settings.OIDC_REMEMBER_ME)  # type: ignore
 
         if user:
-            if user.admin != is_admin:
+            if settings.OIDC_ADMIN_GROUP and user.admin != is_admin:
                 self._logger.debug(f"[OIDC] {'Setting' if is_admin else 'Removing'} user as admin")
                 user.admin = is_admin
                 repos.users.update(user.id, user)
@@ -91,6 +93,7 @@ class OpenIDProvider(AuthProvider[OIDCRequest]):
             self._logger.error(
                 f"[OIDC] Unsupported algorithm '{algorithm}'. Unable to decode id token due to mismatched algorithm."
             )
+            return None
 
         try:
             claims.validate()
