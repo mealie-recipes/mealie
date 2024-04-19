@@ -3,7 +3,11 @@
         "server-error": "Iets het skeefgeloop"
     },
     "recipe": {
-        "unique-name-error": "Nuwe resepname moet uniek wees"
+        "unique-name-error": "Nuwe resepname moet uniek wees",
+        "recipe-defaults": {
+            "ingredient-note": "1 Cup Flour",
+            "step-text": "Recipe steps as well as other fields in the recipe page support markdown syntax.\n\n**Add a link**\n\n[My Link](https://demo.mealie.io)\n"
+        }
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Geen resepte voldoen aan jou reëls nie"
