@@ -3,7 +3,11 @@
         "server-error": "Une erreur inattendue s'est produite"
     },
     "recipe": {
-        "unique-name-error": "Les noms de recette doivent être uniques"
+        "unique-name-error": "Les noms de recette doivent être uniques",
+        "recipe-defaults": {
+            "ingredient-note": "100 g de farine",
+            "step-text": "Les étapes de la recette ainsi que les autres champs de la page de recette supportent la syntaxe markdown.\n\n**Ajouter un lien**\n\n[Mon lien](https://demo.mealie.io)\n"
+        }
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Aucune recette ne correspond à vos règles"
@@ -33,12 +37,12 @@
         "generic-deleted": "{name} a été supprimé"
     },
     "datetime": {
-        "year": "year|years",
-        "day": "day|days",
-        "hour": "hour|hours",
+        "year": "année|années",
+        "day": "jour|jours",
+        "hour": "heure|heures",
         "minute": "minute|minutes",
-        "second": "second|seconds",
-        "millisecond": "millisecond|milliseconds",
-        "microsecond": "microsecond|microseconds"
+        "second": "seconde|secondes",
+        "millisecond": "milliseconde|millisecondes",
+        "microsecond": "microseconde|microsecondes"
     }
 }

@@ -3,7 +3,11 @@
         "server-error": "An unexpected error occurred"
     },
     "recipe": {
-        "unique-name-error": "Recipe names must be unique"
+        "unique-name-error": "Recipe names must be unique",
+        "recipe-defaults": {
+            "ingredient-note": "1 Κύπελλο Αλεύρι",
+            "step-text": "Βήματα συνταγής, καθώς και άλλα πεδία στη σύνταξη σήμανσης της σελίδας συνταγής.\n\n**Προσθήκη συνδέσμου**\n\n[Ο σύνδεσμος μου](https://demo.mealie.io)\n"
+        }
     },
     "mealplan": {
         "no-recipes-match-your-rules": "No recipes match your rules"

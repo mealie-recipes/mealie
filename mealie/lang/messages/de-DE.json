@@ -3,7 +3,11 @@
         "server-error": "Ein unerwarteter Fehler ist aufgetreten"
     },
     "recipe": {
-        "unique-name-error": "Rezeptnamen müssen einzigartig sein"
+        "unique-name-error": "Rezeptnamen müssen einzigartig sein",
+        "recipe-defaults": {
+            "ingredient-note": "250 g Mehl",
+            "step-text": "Zubereitungs-Schritte und andere Felder der Rezeptseite unterstützen Markdown Syntax.\n\n**Füge einen Link hinzu**\n\n[Mein Link](https://demo.mealie.io)\n"
+        }
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Keine Rezepte entsprechen deinen Regeln"
