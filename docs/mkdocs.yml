@@ -73,6 +73,7 @@ nav:
           - PostgreSQL: "documentation/getting-started/installation/postgres.md"
           - Backend Configuration: "documentation/getting-started/installation/backend-config.md"
           - Security: "documentation/getting-started/installation/security.md"
+          - Logs: "documentation/getting-started/installation/logs.md"
       - Usage:
           - Backup and Restoring: "documentation/getting-started/usage/backups-and-restoring.md"
           - Permissions and Public Access: "documentation/getting-started/usage/permissions-and-public-access.md"

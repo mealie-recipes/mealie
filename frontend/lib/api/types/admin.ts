@@ -203,7 +203,6 @@ export interface MaintenanceStorageDetails {
 }
 export interface MaintenanceSummary {
   dataDirSize: string;
-  logFileSize: string;
   cleanableImages: number;
   cleanableDirs: number;
 }

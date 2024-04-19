@@ -260,6 +260,12 @@ export default {
         "en-GB": require("./lang/dateTimeFormats/en-GB.json"),
         "fi-FI": require("./lang/dateTimeFormats/fi-FI.json"),
         "vi-VN": require("./lang/dateTimeFormats/vi-VN.json"),
+        "sl-SI": require("./lang/dateTimeFormats/sl-SI.json"),
+        "lv-LV": require("./lang/dateTimeFormats/lv-LV.json"),
+        "is-IS": require("./lang/dateTimeFormats/is-IS.json"),
+        "gl-ES": require("./lang/dateTimeFormats/gl-ES.json"),
+        "lt-LT": require("./lang/dateTimeFormats/lt-LT.json"),
+        "hr-HR": require("./lang/dateTimeFormats/hr-HR.json"),
         // END: DATE_LOCALES
       },
       fallbackLocale: "en-US",
