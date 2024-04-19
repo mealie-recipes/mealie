@@ -3,7 +3,11 @@
         "server-error": "Egy váratlan hiba történt"
     },
     "recipe": {
-        "unique-name-error": "A receptek neveinek egyedi értéknek kell lenniük"
+        "unique-name-error": "A receptek neveinek egyedi értéknek kell lenniük",
+        "recipe-defaults": {
+            "ingredient-note": "1 csésze liszt",
+            "step-text": "A recept lépései és a receptoldal egyéb mezői támogatják a markdown szintaxist.\n\n**Hivatkozás hozzáadása**\n\n[Saját link](https://demo.mealie.io)\n"
+        }
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Nem található recept a beállítottt szabályok alapján"
