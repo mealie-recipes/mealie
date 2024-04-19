@@ -192,6 +192,7 @@ class AppSettings(BaseSettings):
     OIDC_REMEMBER_ME: bool = False
     OIDC_SIGNING_ALGORITHM: str = "RS256"
     OIDC_USER_CLAIM: str = "email"
+    OIDC_TLS_CACERTFILE: str | None = None
 
     @property
     def OIDC_READY(self) -> bool:

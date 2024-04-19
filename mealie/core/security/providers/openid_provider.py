@@ -119,20 +119,27 @@ class OpenIDProvider(AuthProvider[OIDCRequest]):
 
         if not (settings.OIDC_READY and settings.OIDC_CONFIGURATION_URL):
             return None
-        configuration = None
-        with requests.get(settings.OIDC_CONFIGURATION_URL, timeout=5) as config_response:
-            config_response.raise_for_status()
-            configuration = config_response.json()
+
+        session = requests.Session()
+        if settings.OIDC_TLS_CACERTFILE:
+            session.verify = settings.OIDC_TLS_CACERTFILE
+
+        config_response = session.get(settings.OIDC_CONFIGURATION_URL, timeout=5)
+        config_response.raise_for_status()
+        configuration = config_response.json()
 
         if not configuration:
             OpenIDProvider._logger.warning("[OIDC] Unable to fetch configuration from the OIDC_CONFIGURATION_URL")
+            session.close()
             return None
 
         jwks_uri = configuration.get("jwks_uri", None)
         if not jwks_uri:
             OpenIDProvider._logger.warning("[OIDC] Unable to find the jwks_uri from the OIDC_CONFIGURATION_URL")
+            session.close()
             return None
 
-        with requests.get(jwks_uri, timeout=5) as response:
-            response.raise_for_status()
-            return JsonWebKey.import_key_set(response.json())
+        response = session.get(jwks_uri, timeout=5)
+        response.raise_for_status()
+        session.close()
+        return JsonWebKey.import_key_set(response.json())
