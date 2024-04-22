@@ -3,7 +3,11 @@
         "server-error": "Сталася неочікувана помилка"
     },
     "recipe": {
-        "unique-name-error": "Назва рецепту повинна бути унікальною"
+        "unique-name-error": "Назва рецепту повинна бути унікальною",
+        "recipe-defaults": {
+            "ingredient-note": "Стакан борошна",
+            "step-text": "Кроки рецептів, так само як і інші поля сторінки, підтримують синтаксис markdown.\n\n**Додати посилання**\n\n[Mоє посилання](https://demo.mealie.io)\n"
+        }
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Немає рецептів, що відповідають вашим правилам"

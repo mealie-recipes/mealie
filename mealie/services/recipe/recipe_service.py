@@ -11,6 +11,7 @@ from fastapi import UploadFile
 from slugify import slugify
 
 from mealie.core import exceptions
+from mealie.lang.providers import Translator
 from mealie.pkgs import cache
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_generic import RepositoryGeneric
@@ -26,22 +27,16 @@ from mealie.services.recipe.recipe_data_service import RecipeDataService
 
 from .template_service import TemplateService
 
-step_text = """Recipe steps as well as other fields in the recipe page support markdown syntax.
-
-**Add a link**
-
-[My Link](https://demo.mealie.io)
-
-"""
-
-ingredient_note = "1 Cup Flour"
-
 
 class RecipeService(BaseService):
-    def __init__(self, repos: AllRepositories, user: PrivateUser, group: GroupInDB):
+    def __init__(self, repos: AllRepositories, user: PrivateUser, group: GroupInDB, translator: Translator):
         self.repos = repos
         self.user = user
         self.group = group
+
+        self.translator = translator
+        self.t = translator.t
+
         super().__init__()
 
     def _get_recipe(self, data: str | UUID, key: str | None = None) -> Recipe:
@@ -85,8 +80,7 @@ class RecipeService(BaseService):
         rmtree(recipe_dir, ignore_errors=True)
         self.logger.info(f"Recipe Directory Removed: {recipe.slug}")
 
-    @staticmethod
-    def _recipe_creation_factory(user: PrivateUser, name: str, additional_attrs: dict | None = None) -> Recipe:
+    def _recipe_creation_factory(self, name: str, additional_attrs: dict | None = None) -> Recipe:
         """
         The main creation point for recipes. The factor method returns an instance of the
         Recipe Schema class with the appropriate defaults set. Recipes should not be created
@@ -94,18 +88,20 @@ class RecipeService(BaseService):
         """
         additional_attrs = additional_attrs or {}
         additional_attrs["name"] = name
-        additional_attrs["user_id"] = user.id
-        additional_attrs["group_id"] = user.group_id
+        additional_attrs["user_id"] = self.user.id
+        additional_attrs["group_id"] = self.user.group_id
 
         if additional_attrs.get("tags"):
             for i in range(len(additional_attrs.get("tags", []))):
-                additional_attrs["tags"][i]["group_id"] = user.group_id
+                additional_attrs["tags"][i]["group_id"] = self.user.group_id
 
         if not additional_attrs.get("recipe_ingredient"):
-            additional_attrs["recipe_ingredient"] = [RecipeIngredient(note=ingredient_note)]
+            additional_attrs["recipe_ingredient"] = [
+                RecipeIngredient(note=self.t("recipe.recipe-defaults.ingredient-note"))
+            ]
 
         if not additional_attrs.get("recipe_instructions"):
-            additional_attrs["recipe_instructions"] = [RecipeStep(text=step_text)]
+            additional_attrs["recipe_instructions"] = [RecipeStep(text=self.t("recipe.recipe-defaults.step-text"))]
 
         return Recipe(**additional_attrs)
 
@@ -126,11 +122,7 @@ class RecipeService(BaseService):
         if create_data.name is None:
             create_data.name = "New Recipe"
 
-        data: Recipe = self._recipe_creation_factory(
-            self.user,
-            name=create_data.name,
-            additional_attrs=create_data.model_dump(),
-        )
+        data: Recipe = self._recipe_creation_factory(name=create_data.name, additional_attrs=create_data.model_dump())
 
         if isinstance(create_data, CreateRecipe) or create_data.settings is None:
             if self.group.preferences is not None:
@@ -294,11 +286,7 @@ class RecipeService(BaseService):
             else list(map(copy_recipe_ingredient, old_recipe.recipe_ingredient))
         )
 
-        new_recipe = self._recipe_creation_factory(
-            self.user,
-            new_name,
-            additional_attrs=new_recipe.model_dump(),
-        )
+        new_recipe = self._recipe_creation_factory(new_name, additional_attrs=new_recipe.model_dump())
 
         new_recipe = self.repos.recipes.create(new_recipe)
 

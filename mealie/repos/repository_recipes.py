@@ -18,9 +18,19 @@ from mealie.db.models.recipe.tool import Tool
 from mealie.db.models.users.user_to_recipe import UserToRecipe
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.recipe import Recipe
-from mealie.schema.recipe.recipe import RecipeCategory, RecipePagination, RecipeSummary, RecipeTag, RecipeTool
+from mealie.schema.recipe.recipe import (
+    RecipeCategory,
+    RecipePagination,
+    RecipeSummary,
+    RecipeTag,
+    RecipeTool,
+)
 from mealie.schema.recipe.recipe_category import CategoryBase, TagBase
-from mealie.schema.response.pagination import OrderByNullPosition, OrderDirection, PaginationQuery
+from mealie.schema.response.pagination import (
+    OrderByNullPosition,
+    OrderDirection,
+    PaginationQuery,
+)
 
 from ..db.models._model_base import SqlAlchemyBase
 from ..schema._mealie.mealie_model import extract_uuids
@@ -173,11 +183,11 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
                         UserToRecipe.rating is not None,
                         UserToRecipe.rating > 0,
                     ),
-                    sa.select(UserToRecipe.rating)
+                    sa.select(sa.func.max(UserToRecipe.rating))
                     .where(UserToRecipe.recipe_id == self.model.id, UserToRecipe.user_id == self.user_id)
                     .scalar_subquery(),
                 ),
-                else_=self.model.rating,
+                else_=sa.case((self.model.rating == 0, None), else_=self.model.rating),
             ).label(effective_rating_column_name)
         )
 
@@ -189,7 +199,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
 
         if order_by_null is OrderByNullPosition.first:
             order_attr = sa.nulls_first(order_attr)
-        elif order_by_null is OrderByNullPosition.last:
+        else:
             order_attr = sa.nulls_last(order_attr)
 
         return query.order_by(order_attr)

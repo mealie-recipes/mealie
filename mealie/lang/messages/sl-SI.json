@@ -3,7 +3,11 @@
         "server-error": "Prišlo je do nepričakovane napake"
     },
     "recipe": {
-        "unique-name-error": "Ime recepta mora biti unikatno"
+        "unique-name-error": "Ime recepta mora biti unikatno",
+        "recipe-defaults": {
+            "ingredient-note": "skodelica moke",
+            "step-text": "Postopek priprave recepta, kot tudi druga polja v receptu podpirajo markdown sintakso.\n\n**Dodaj povezavo**\n\n[Moja povezava](https://demo.mealie.io)\n"
+        }
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Noben recept ne ustreza vašim pogojem"

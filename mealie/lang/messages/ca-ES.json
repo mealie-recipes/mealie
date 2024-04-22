@@ -3,7 +3,11 @@
         "server-error": "S'ha produït un error inesperat"
     },
     "recipe": {
-        "unique-name-error": "El nom de la recepta ha de ser únic"
+        "unique-name-error": "El nom de la recepta ha de ser únic",
+        "recipe-defaults": {
+            "ingredient-note": "1 Cup Flour",
+            "step-text": "Recipe steps as well as other fields in the recipe page support markdown syntax.\n\n**Add a link**\n\n[My Link](https://demo.mealie.io)\n"
+        }
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Cap recepta coincideix amb les teues regles"
