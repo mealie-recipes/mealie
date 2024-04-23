@@ -5,7 +5,7 @@
     "recipe": {
         "unique-name-error": "Les noms de recette doivent être uniques",
         "recipe-defaults": {
-            "ingredient-note": "100 g de farine",
+            "ingredient-note": "1 tasse de Farine",
             "step-text": "Les étapes de la recette ainsi que les autres champs de la page de recette supportent la syntaxe markdown.\n\n**Ajouter un lien**\n\n[Mon lien](https://demo.mealie.io)\n"
         }
     },
