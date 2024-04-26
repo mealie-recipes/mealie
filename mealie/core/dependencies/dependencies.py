@@ -5,9 +5,9 @@ from pathlib import Path
 from uuid import uuid4
 
 import fastapi
+import jwt
 from fastapi import BackgroundTasks, Depends, HTTPException, Request, status
 from fastapi.security import OAuth2PasswordBearer
-import jwt
 from jwt.exceptions import PyJWTError
 from sqlalchemy.orm.session import Session
 
