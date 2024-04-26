@@ -31,7 +31,6 @@ pyhumps = "^3.5.3"
 python = "^3.10"
 python-dateutil = "^2.8.2"
 python-dotenv = "^1.0.0"
-python-jose = "^3.3.0"
 python-ldap = "^3.3.1"
 python-multipart = "^0.0.9"
 python-slugify = "^8.0.0"
@@ -48,6 +47,7 @@ html2text = "^2024.0.0"
 paho-mqtt = "^1.6.1"
 pydantic-settings = "^2.1.0"
 pillow-heif = "^0.16.0"
+pyjwt = "^2.8.0"
 
 [tool.poetry.group.postgres.dependencies]
 psycopg2-binary = { version = "^2.9.1" }

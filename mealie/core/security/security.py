@@ -3,7 +3,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from fastapi import Request
-from jose import jwt
+import jwt
 from sqlalchemy.orm.session import Session
 
 from mealie.core import root_logger
