@@ -97,8 +97,8 @@ async def get_current_user(
 
     try:
         payload = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])
-        user_id: str = payload.get("sub")
-        long_token: str = payload.get("long_token")
+        user_id: str | None = payload.get("sub")
+        long_token: str | None = payload.get("long_token")
 
         if long_token is not None:
             return validate_long_live_token(session, token, payload.get("id"))
