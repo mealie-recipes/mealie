@@ -1,10 +1,9 @@
 import { BaseCRUDAPI } from "../base/base-clients";
 import { QueryValue, route } from "~/lib/api/base/route";
-import { PaginationData, RequestResponse } from "~/lib/api/types/non-generated";
+import { PaginationData } from "~/lib/api/types/non-generated";
 import {
   ChangePassword,
   DeleteTokenResponse,
-  GroupInDB,
   LongLiveTokenIn,
   LongLiveTokenOut,
   ResetPassword,
