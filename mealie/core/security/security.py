@@ -2,8 +2,8 @@ import secrets
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+import jwt
 from fastapi import Request
-from jose import jwt
 from sqlalchemy.orm.session import Session
 
 from mealie.core import root_logger
