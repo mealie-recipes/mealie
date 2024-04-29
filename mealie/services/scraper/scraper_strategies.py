@@ -4,6 +4,7 @@ from collections.abc import Callable
 from typing import Any
 
 import extruct
+import simple_useragent as sua
 from fastapi import HTTPException, status
 from httpx import AsyncClient
 from recipe_scrapers import NoSchemaFoundInWildMode, SchemaScraperFactory, scrape_html
@@ -17,14 +18,6 @@ from mealie.schema.recipe.recipe import Recipe, RecipeStep
 from mealie.services.scraper.scraped_extras import ScrapedExtras
 
 from . import cleaner
-
-try:
-    from recipe_scrapers._abstract import HEADERS
-
-    _FIREFOX_UA = HEADERS["User-Agent"]
-except (ImportError, KeyError):
-    _FIREFOX_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0"
-
 
 SCRAPER_TIMEOUT = 15
 
@@ -41,7 +34,9 @@ async def safe_scrape_html(url: str) -> str:
     """
     async with AsyncClient(transport=safehttp.AsyncSafeTransport()) as client:
         html_bytes = b""
-        async with client.stream("GET", url, timeout=SCRAPER_TIMEOUT, headers={"User-Agent": _FIREFOX_UA}) as resp:
+        async with client.stream(
+            "GET", url, timeout=SCRAPER_TIMEOUT, headers={"User-Agent": sua.get_list(num=1)[0]}
+        ) as resp:
             start_time = time.time()
 
             async for chunk in resp.aiter_bytes(chunk_size=1024):

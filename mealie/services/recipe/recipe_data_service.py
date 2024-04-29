@@ -2,6 +2,7 @@ import asyncio
 import shutil
 from pathlib import Path
 
+import simple_useragent as sua
 from httpx import AsyncClient, Response
 from pydantic import UUID4
 
@@ -9,13 +10,6 @@ from mealie.pkgs import img, safehttp
 from mealie.pkgs.safehttp.transport import AsyncSafeTransport
 from mealie.schema.recipe.recipe import Recipe
 from mealie.services._base_service import BaseService
-
-try:
-    from recipe_scrapers._abstract import HEADERS
-
-    _FIREFOX_UA = HEADERS["User-Agent"]
-except (ImportError, KeyError):
-    _FIREFOX_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0"
 
 
 async def gather_with_concurrency(n, *coros, ignore_exceptions=False):
@@ -38,7 +32,7 @@ async def largest_content_len(urls: list[str]) -> tuple[str, int]:
     max_concurrency = 10
 
     async def do(client: AsyncClient, url: str) -> Response:
-        return await client.head(url, headers={"User-Agent": _FIREFOX_UA})
+        return await client.head(url, headers={"User-Agent": sua.get_list(num=1)[0]})
 
     async with AsyncClient(transport=safehttp.AsyncSafeTransport()) as client:
         tasks = [do(client, url) for url in urls]
@@ -141,7 +135,7 @@ class RecipeDataService(BaseService):
 
         async with AsyncClient(transport=AsyncSafeTransport()) as client:
             try:
-                r = await client.get(image_url_str, headers={"User-Agent": _FIREFOX_UA})
+                r = await client.get(image_url_str, headers={"User-Agent": sua.get_list(num=1)[0]})
             except Exception:
                 self.logger.exception("Fatal Image Request Exception")
                 return None
