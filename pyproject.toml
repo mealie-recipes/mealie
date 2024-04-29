@@ -34,7 +34,7 @@ python-dotenv = "^1.0.0"
 python-ldap = "^3.3.1"
 python-multipart = "^0.0.9"
 python-slugify = "^8.0.0"
-recipe-scrapers = "^14.53.0"
+recipe-scrapers = "^14.55.0"
 requests = "^2.31.0"
 tzdata = "^2023.4"
 uvicorn = { extras = ["standard"], version = "^0.29.0" }

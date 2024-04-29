@@ -18,7 +18,14 @@ from mealie.services.scraper.scraped_extras import ScrapedExtras
 
 from . import cleaner
 
-_FIREFOX_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0"
+try:
+    from recipe_scrapers._abstract import HEADERS
+
+    _FIREFOX_UA = HEADERS["User-Agent"]
+except (ImportError, KeyError):
+    _FIREFOX_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0"
+
+
 SCRAPER_TIMEOUT = 15
 
 
@@ -106,7 +113,11 @@ class RecipeScraperPackage(ABCScraperStrategy):
 
     def clean_scraper(self, scraped_data: SchemaScraperFactory.SchemaScraper, url: str) -> tuple[Recipe, ScrapedExtras]:
         def try_get_default(
-            func_call: Callable | None, get_attr: str, default: Any, clean_func=None, **clean_func_kwargs
+            func_call: Callable | None,
+            get_attr: str,
+            default: Any,
+            clean_func=None,
+            **clean_func_kwargs,
         ):
             value = default
 
@@ -129,7 +140,9 @@ class RecipeScraperPackage(ABCScraperStrategy):
 
         def get_instructions() -> list[RecipeStep]:
             instruction_as_text = try_get_default(
-                scraped_data.instructions, "recipeInstructions", ["No Instructions Found"]
+                scraped_data.instructions,
+                "recipeInstructions",
+                ["No Instructions Found"],
             )
 
             self.logger.debug(f"Scraped Instructions: (Type: {type(instruction_as_text)}) \n {instruction_as_text}")
@@ -159,7 +172,10 @@ class RecipeScraperPackage(ABCScraperStrategy):
             nutrition=try_get_default(None, "nutrition", None, cleaner.clean_nutrition),
             recipe_yield=try_get_default(scraped_data.yields, "recipeYield", "1", cleaner.clean_string),
             recipe_ingredient=try_get_default(
-                scraped_data.ingredients, "recipeIngredient", [""], cleaner.clean_ingredients
+                scraped_data.ingredients,
+                "recipeIngredient",
+                [""],
+                cleaner.clean_ingredients,
             ),
             recipe_instructions=get_instructions(),
             total_time=try_get_default(None, "totalTime", None, cleaner.clean_time, translator=self.translator),
