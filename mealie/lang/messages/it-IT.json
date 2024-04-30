@@ -3,7 +3,11 @@
         "server-error": "Si è verificato un errore inaspettato"
     },
     "recipe": {
-        "unique-name-error": "I nomi delle ricette devono essere unici"
+        "unique-name-error": "I nomi delle ricette devono essere unici",
+        "recipe-defaults": {
+            "ingredient-note": "1 Tazza Di Farina",
+            "step-text": "I passaggi della ricetta e altri campi nella pagina delle ricette supportano la sintassi markdown.\n\n**Aggiungi un link**\n\n[Il mio Link](https://demo.mealie.io)"
+        }
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Nessuna ricetta corrisponde alle tue regole"

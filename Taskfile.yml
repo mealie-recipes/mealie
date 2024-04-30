@@ -74,6 +74,7 @@ tasks:
     desc: run code generators
     cmds:
       - poetry run python dev/code-generation/main.py
+      - task: py:format
 
   dev:services:
     desc: starts postgres and mailpit containers
@@ -105,7 +106,7 @@ tasks:
   py:format:
     desc: runs python code formatter
     cmds:
-      - poetry run black mealie
+      - poetry run ruff format .
 
   py:lint:
     desc: runs python linter
@@ -145,6 +146,12 @@ tasks:
       POSTGRES_DB: mealie
     cmds:
       - poetry run python mealie/app.py
+
+  py:migrate:
+    desc: generates a new migration file e.g. task py:migrate:generate "add new column"
+    cmds:
+      - poetry run alembic revision --autogenerate -m "{{ .CLI_ARGS }}"
+      - task: py:format
 
   ui:build:
     desc: builds the frontend in frontend/dist

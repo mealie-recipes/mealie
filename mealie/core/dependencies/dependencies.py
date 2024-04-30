@@ -5,9 +5,10 @@ from pathlib import Path
 from uuid import uuid4
 
 import fastapi
+import jwt
 from fastapi import BackgroundTasks, Depends, HTTPException, Request, status
 from fastapi.security import OAuth2PasswordBearer
-from jose import JWTError, jwt
+from jwt.exceptions import PyJWTError
 from sqlalchemy.orm.session import Session
 
 from mealie.core import root_logger
@@ -96,8 +97,8 @@ async def get_current_user(
 
     try:
         payload = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])
-        user_id: str = payload.get("sub")
-        long_token: str = payload.get("long_token")
+        user_id: str | None = payload.get("sub")
+        long_token: str | None = payload.get("long_token")
 
         if long_token is not None:
             return validate_long_live_token(session, token, payload.get("id"))
@@ -106,7 +107,7 @@ async def get_current_user(
             raise credentials_exception
 
         token_data = TokenData(user_id=user_id)
-    except JWTError as e:
+    except PyJWTError as e:
         raise credentials_exception from e
 
     repos = get_repositories(session)
@@ -126,7 +127,7 @@ async def get_integration_id(token: str = Depends(oauth2_scheme)) -> str:
         decoded_token = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])
         return decoded_token.get("integration_id", DEFAULT_INTEGRATION_ID)
 
-    except JWTError as e:
+    except PyJWTError as e:
         raise credentials_exception from e
 
 
@@ -162,7 +163,7 @@ def validate_file_token(token: str | None = None) -> Path:
     try:
         payload = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])
         file_path = Path(payload.get("file"))
-    except JWTError as e:
+    except PyJWTError as e:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="could not validate file token",
@@ -181,7 +182,7 @@ def validate_recipe_token(token: str | None = None) -> str:
 
     Raises:
         HTTPException: 400 Bad Request when no token or the recipe doesn't exist
-        HTTPException: 401 JWTError when token is invalid
+        HTTPException: 401 PyJWTError when token is invalid
 
     Returns:
         str: token data
@@ -192,7 +193,7 @@ def validate_recipe_token(token: str | None = None) -> str:
     try:
         payload = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])
         slug: str | None = payload.get("slug")
-    except JWTError as e:
+    except PyJWTError as e:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="could not validate file token",

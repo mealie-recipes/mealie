@@ -30,7 +30,6 @@
         "dbaeumer.vscode-eslint",
         "matangover.mypy",
         "ms-python.black-formatter",
-        "ms-python.isort",
         "ms-python.pylint",
         "ms-python.python",
         "ms-python.vscode-pylance",
@@ -42,6 +41,7 @@
   "forwardPorts": [
     3000,
     9000,
+    9091, // used by docker production
     24678 // used by nuxt when hot-reloading using polling
   ],
   // Use 'onCreateCommand' to run commands at the end of container creation.

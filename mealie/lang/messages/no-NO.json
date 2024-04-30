@@ -3,7 +3,11 @@
         "server-error": "Det oppstod en uventet feil"
     },
     "recipe": {
-        "unique-name-error": "Oppskriftsnavn må være unike"
+        "unique-name-error": "Oppskriftsnavn må være unike",
+        "recipe-defaults": {
+            "ingredient-note": "1 Cup Flour",
+            "step-text": "Recipe steps as well as other fields in the recipe page support markdown syntax.\n\n**Add a link**\n\n[My Link](https://demo.mealie.io)\n"
+        }
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Ingen oppskrifter samsvarer med reglene dine"

@@ -3,7 +3,11 @@
         "server-error": "A apărut o eroare neașteptată"
     },
     "recipe": {
-        "unique-name-error": "Numele rețetei trebuie să fie unic"
+        "unique-name-error": "Numele rețetei trebuie să fie unic",
+        "recipe-defaults": {
+            "ingredient-note": "1 Cup Flour",
+            "step-text": "Recipe steps as well as other fields in the recipe page support markdown syntax.\n\n**Add a link**\n\n[My Link](https://demo.mealie.io)\n"
+        }
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Nicio rețetă nu corespunde criteriilor tale"

@@ -3,7 +3,11 @@
         "server-error": "Došlo je do neočekivane pogreške"
     },
     "recipe": {
-        "unique-name-error": "Naziv recepta mora imati jedinstveno ime"
+        "unique-name-error": "Naziv recepta mora imati jedinstveno ime",
+        "recipe-defaults": {
+            "ingredient-note": "1 Cup Flour",
+            "step-text": "Recipe steps as well as other fields in the recipe page support markdown syntax.\n\n**Add a link**\n\n[My Link](https://demo.mealie.io)\n"
+        }
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Nema recepata koji odgovaraju vašim pravilima"

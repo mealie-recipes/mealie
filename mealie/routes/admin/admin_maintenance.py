@@ -1,16 +1,13 @@
-import contextlib
-import os
 import shutil
 import uuid
 from pathlib import Path
 
 from fastapi import APIRouter, HTTPException
 
-from mealie.core.root_logger import LOGGER_FILE
 from mealie.pkgs.stats import fs_stats
 from mealie.routes._base import BaseAdminController, controller
 from mealie.schema.admin import MaintenanceSummary
-from mealie.schema.admin.maintenance import MaintenanceLogs, MaintenanceStorageDetails
+from mealie.schema.admin.maintenance import MaintenanceStorageDetails
 from mealie.schema.response import ErrorResponse, SuccessResponse
 
 router = APIRouter(prefix="/maintenance")
@@ -72,20 +69,12 @@ class AdminMaintenanceController(BaseAdminController):
         """
         Get the maintenance summary
         """
-        log_file_size = 0
-        with contextlib.suppress(FileNotFoundError):
-            log_file_size = os.path.getsize(LOGGER_FILE)
 
         return MaintenanceSummary(
             data_dir_size=fs_stats.pretty_size(fs_stats.get_dir_size(self.folders.DATA_DIR)),
-            log_file_size=fs_stats.pretty_size(log_file_size),
             cleanable_images=clean_images(self.folders.RECIPE_DATA_DIR, dry_run=True),
             cleanable_dirs=clean_recipe_folders(self.folders.RECIPE_DATA_DIR, dry_run=True),
         )
-
-    @router.get("/logs", response_model=MaintenanceLogs)
-    def get_logs(self, lines: int = 200):
-        return MaintenanceLogs(logs=tail_log(LOGGER_FILE, lines))
 
     @router.get("/storage", response_model=MaintenanceStorageDetails)
     def get_storage_details(self):
@@ -130,16 +119,3 @@ class AdminMaintenanceController(BaseAdminController):
             return SuccessResponse.respond(f"{cleaned_dirs} Recipe folders removed")
         except Exception as e:
             raise HTTPException(status_code=500, detail=ErrorResponse.respond("Failed to clean directories")) from e
-
-    @router.post("/clean/logs", response_model=SuccessResponse)
-    def clean_logs(self):
-        """
-        Purges the logs
-        """
-        try:
-            with contextlib.suppress(FileNotFoundError):
-                os.remove(LOGGER_FILE)
-                LOGGER_FILE.touch()
-            return SuccessResponse.respond("Logs cleaned")
-        except Exception as e:
-            raise HTTPException(status_code=500, detail=ErrorResponse.respond("Failed to clean logs")) from e
