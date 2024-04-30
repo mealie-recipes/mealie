@@ -1,6 +1,5 @@
 import pytest
 from fastapi.testclient import TestClient
-from pydantic import UUID4
 
 from mealie.schema.group.group_recipe_action import CreateGroupRecipeAction, GroupRecipeActionOut, GroupRecipeActionType
 from tests.utils import api_routes, assert_derserialize
