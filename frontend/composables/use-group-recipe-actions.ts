@@ -54,7 +54,7 @@ export const useGroupRecipeActions = function (
     /* eslint-enable no-template-curly-in-string */
   };
 
-  async function execute(action: GroupRecipeActionOut, recipe: Recipe) {
+  async function execute(action: GroupRecipeActionOut, recipe: Recipe): Promise<void | Response> {
     const url = parseRecipeActionUrl(action.url, recipe);
 
     switch (action.actionType) {
@@ -62,7 +62,7 @@ export const useGroupRecipeActions = function (
         window.open(url, "_blank")?.focus();
         break;
       case "post":
-        await fetch(url, {
+        return await fetch(url, {
           method: "POST",
           headers: {
             // The "text/plain" content type header is used here to skip the CORS preflight request,
@@ -74,7 +74,6 @@ export const useGroupRecipeActions = function (
         }).catch((error) => {
           console.error(error);
         });
-        break;
       default:
         break;
     }

@@ -373,10 +373,14 @@ export default defineComponent({
     const groupRecipeActionsStore = useGroupRecipeActions();
 
     async function executeRecipeAction(action: GroupRecipeActionOut) {
-      await groupRecipeActionsStore.execute(action, props.recipe);
+      const response = await groupRecipeActionsStore.execute(action, props.recipe);
 
       if (action.actionType === "post") {
-        alert.success(i18n.tc("events.message-sent"));
+        if (!response || (200 <= response.status && response.status < 300)) {
+          alert.success(i18n.tc("events.message-sent"));
+        } else {
+          alert.error(i18n.tc("events.something-went-wrong"));
+        }
       }
     }
 
