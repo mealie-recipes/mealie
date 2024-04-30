@@ -11,14 +11,7 @@ from mealie.routes.users._helpers import assert_user_change_allowed
 from mealie.schema.response import ErrorResponse, SuccessResponse
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.user import ChangePassword, UserBase, UserIn, UserOut
-from mealie.schema.user.user import (
-    GroupInDB,
-    UserPagination,
-    UserRatings,
-    UserRatingSummary,
-    UserSummary,
-    UserSummaryPagination,
-)
+from mealie.schema.user.user import UserPagination, UserRatings, UserRatingSummary, UserSummary, UserSummaryPagination
 
 user_router = UserAPIRouter(prefix="/users", tags=["Users: CRUD"])
 admin_router = AdminAPIRouter(prefix="/users", tags=["Users: Admin CRUD"])
@@ -99,10 +92,6 @@ class UserController(BaseUserController):
     @user_router.get("/self/favorites", response_model=UserRatings[UserRatingSummary])
     def get_logged_in_user_favorites(self):
         return UserRatings(ratings=self.repos.user_ratings.get_by_user(self.user.id, favorites_only=True))
-
-    @user_router.get("/self/group", response_model=GroupInDB)
-    def get_logged_in_user_group(self):
-        return self.group
 
     @user_router.put("/password")
     def update_password(self, password_change: ChangePassword):
