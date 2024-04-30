@@ -27,10 +27,10 @@ class GUID(TypeDecorator):
             return str(value)
         else:
             if not isinstance(value, uuid.UUID):
-                return "%.32x" % uuid.UUID(value).int
+                return f"{uuid.UUID(value).int:032x}"
             else:
                 # hexstring
-                return "%.32x" % value.int
+                return f"{value.int:032x}"
 
     def load_dialect_impl(self, dialect):
         if dialect.name == "postgresql":
