@@ -2,7 +2,7 @@ import abc
 from datetime import datetime, timedelta, timezone
 from typing import Generic, TypeVar
 
-from jose import jwt
+import jwt
 from sqlalchemy.orm.session import Session
 
 from mealie.core.config import get_app_settings
