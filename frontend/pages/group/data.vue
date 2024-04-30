@@ -57,7 +57,6 @@ export default defineComponent({
         text: i18n.t("general.recipes"),
         value: "new",
         to: "/group/data/recipes",
-        divider: false,
       },
       {
         text: i18n.t("recipe.recipe-actions"),
