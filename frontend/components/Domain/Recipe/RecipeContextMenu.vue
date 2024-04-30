@@ -375,13 +375,10 @@ export default defineComponent({
     async function executeRecipeAction(action: GroupRecipeActionOut) {
       await groupRecipeActionsStore.execute(action, props.recipe);
 
-      switch (action.actionType) {
-        case "post":
-          alert.success(i18n.tc("events.message-sent"));
-          break;
-        default:
-          break;
+      if (action.actionType === "post") {
+        alert.success(i18n.tc("events.message-sent"));
       }
+      break;
     }
 
     async function deleteRecipe() {
