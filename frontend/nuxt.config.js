@@ -156,7 +156,7 @@ export default {
             propertyName: "access_token",
           },
           refresh: { url: "api/auth/refresh", method: "post" },
-          logout: { url: "api/auth/logout",method: "post" },
+          logout: { url: "api/auth/logout", method: "post" },
           user: { url: "api/users/self", method: "get" },
         },
       },
