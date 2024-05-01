@@ -81,12 +81,60 @@ The meal planner has the concept of plan rules. These offer a flexible way to us
 
 The shopping lists feature is a great way to keep track of what you need to buy for your next meal. You can add items directly to the shopping list or link a recipe and all of it's ingredients to track meals during the week.
 
-!!! warning
-    At this time there isn't a tight integration between meal-plans and shopping lists; however, it's something we have planned for the future.
-
 
 [Shopping List Demo](https://demo.mealie.io/shopping-lists){ .md-button .md-button--primary }
 
+## Integrations
+
+Mealie is designed to integrate with many different external services. There are several ways you can integrate with Mealie to achieve custom IoT automations, data synchronization, and anything else you can think of. [You can work directly with Mealie through the API](./api-usage.md), or leverage other services to make seamless integrations.
+
+### Notifiers
+
+Notifiers are event-driven notifications sent when specific actions are performed within Mealie. Some actions include:
+- creating a recipe
+- adding items to a shopping list
+- creating a new mealplan
+
+Notifiers use the [Apprise library](https://github.com/caronc/apprise/wiki), which integrates with a large number of notification services. In addition, certain custom notifiers send basic event data to the consumer (e.g. the `id` of the resource). These include:
+- `form` and `forms`
+- `json` and `jsons`
+- `xml` and `xmls`
+
+[Notifiers Demo](https://demo.mealie.io/group/notifiers){ .md-button .md-button--primary }
+
+### Webhooks
+
+Unlike notifiers, which are event-driven notifications, Webhooks allow you to send scheduled notifications to your desired endpoint. Webhooks are sent on the day of a scheduled mealplan, at the specified time, and contain the mealplan data in the request.
+
+[Webhooks Demo](https://demo.mealie.io/group/webhooks){ .md-button .md-button--primary }
+
+### Recipe Actions
+
+Recipe Actions are custom actions you can add to all recipes in Mealie. This is a great way to add custom integrations that are fired manually. There are two types of recipe actions:
+1. link - these actions will take you directly to an external page
+2. post - these actions will send a `POST` request to the specified URL, with the recipe JSON in the request body. These can be used, for instance, to manually trigger a webhook in Home Assistant
+
+Recipe Action URLs can include merge fields to inject the current recipe's data. For instance, you can use the following URL to include a Google search with the recipe's slug:
+```
+https://www.google.com/search?q=${slug}
+```
+
+When the action is clicked on, the `${slug}` field is replaced with the recipe's slug value. So, for example, it might take you to this URL on one of your recipes:
+```
+https://www.google.com/search?q=pasta-fagioli
+```
+
+A common use case for "link" recipe actions is to integrate with the Bring! shopping list. Simply add a Recipe Action with the following URL:
+```
+https://api.getbring.com/rest/bringrecipes/deeplink?url=${url}&source=web
+```
+
+Below is a list of all valid merge fields:
+- ${id}
+- ${slug}
+- ${url}
+
+To add, modify, or delete Recipe Actions, visit the Data Management page (more on that below).
 
 ## Data Management
 

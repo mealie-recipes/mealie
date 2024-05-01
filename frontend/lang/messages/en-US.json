@@ -64,6 +64,7 @@
     "something-went-wrong": "Something Went Wrong!",
     "subscribed-events": "Subscribed Events",
     "test-message-sent": "Test Message Sent",
+    "message-sent": "Message Sent",
     "new-notification": "New Notification",
     "event-notifiers": "Event Notifiers",
     "apprise-url-skipped-if-blank": "Apprise URL (skipped if blank)",
@@ -160,6 +161,7 @@
     "test": "Test",
     "themes": "Themes",
     "thursday": "Thursday",
+    "title": "Title",
     "token": "Token",
     "tuesday": "Tuesday",
     "type": "Type",
@@ -582,7 +584,8 @@
     "upload-image": "Upload image",
     "screen-awake": "Keep Screen Awake",
     "remove-image": "Remove image",
-    "nextStep": "Next step"
+    "nextStep": "Next step",
+    "recipe-actions": "Recipe Actions"
   },
   "search": {
     "advanced-search": "Advanced Search",
@@ -1000,6 +1003,12 @@
       "export-recipes": "Export Recipes",
       "delete-recipes": "Delete Recipes",
       "source-unit-will-be-deleted": "Source Unit will be deleted"
+    },
+    "recipe-actions": {
+      "recipe-actions-data": "Recipe Actions Data",
+      "new-recipe-action": "New Recipe Action",
+      "edit-recipe-action": "Edit Recipe Action",
+      "action-type": "Action Type"
     },
     "create-alias": "Create Alias",
     "manage-aliases": "Manage Aliases",
