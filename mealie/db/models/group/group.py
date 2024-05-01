@@ -25,6 +25,7 @@ if TYPE_CHECKING:
     from ..users import User
     from .events import GroupEventNotifierModel
     from .exports import GroupDataExportsModel
+    from .recipe_action import GroupRecipeAction
     from .report import ReportModel
     from .shopping_list import ShoppingList
 
@@ -64,6 +65,7 @@ class Group(SqlAlchemyBase, BaseMixins):
         GroupMealPlan, order_by="GroupMealPlan.date", **common_args
     )
     webhooks: Mapped[list[GroupWebhooksModel]] = orm.relationship(GroupWebhooksModel, **common_args)
+    recipe_actions: Mapped[list["GroupRecipeAction"]] = orm.relationship("GroupRecipeAction", **common_args)
     cookbooks: Mapped[list[CookBook]] = orm.relationship(CookBook, **common_args)
     server_tasks: Mapped[list[ServerTaskModel]] = orm.relationship(ServerTaskModel, **common_args)
     data_exports: Mapped[list["GroupDataExportsModel"]] = orm.relationship("GroupDataExportsModel", **common_args)
@@ -82,6 +84,7 @@ class Group(SqlAlchemyBase, BaseMixins):
         exclude={
             "users",
             "webhooks",
+            "recipe_actions",
             "shopping_lists",
             "cookbooks",
             "preferences",

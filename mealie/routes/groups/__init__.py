@@ -3,6 +3,7 @@ from fastapi import APIRouter
 from . import (
     controller_cookbooks,
     controller_group_notifications,
+    controller_group_recipe_actions,
     controller_group_reports,
     controller_group_self_service,
     controller_invitations,
@@ -31,4 +32,5 @@ router.include_router(controller_shopping_lists.router)
 router.include_router(controller_shopping_lists.item_router)
 router.include_router(controller_labels.router)
 router.include_router(controller_group_notifications.router)
+router.include_router(controller_group_recipe_actions.router)
 router.include_router(controller_seeder.router)

@@ -190,7 +190,6 @@
 
 <script lang="ts">
 import { computed, defineComponent, useContext, ref, toRefs, reactive, useAsync, useRoute } from "@nuxtjs/composition-api";
-import { invoke, until } from "@vueuse/core";
 import UserProfileLinkCard from "@/components/Domain/User/UserProfileLinkCard.vue";
 import { useUserApi } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
@@ -198,7 +197,7 @@ import { alert } from "~/composables/use-toast";
 import UserAvatar from "@/components/Domain/User/UserAvatar.vue";
 import { useAsyncKey } from "~/composables/use-utils";
 import StatsCards from "~/components/global/StatsCards.vue";
-import { GroupInDB, UserOut } from "~/lib/api/types/user";
+import { UserOut } from "~/lib/api/types/user";
 
 export default defineComponent({
   name: "UserProfile",
@@ -216,7 +215,6 @@ export default defineComponent({
 
     // @ts-ignore $auth.user is typed as unknown, but it's a user
     const user = computed<UserOut | null>(() => $auth.user);
-    const group = ref<GroupInDB | null>(null);
 
     const showPublicLink = ref(false);
     const publicLink = ref("");
@@ -224,16 +222,6 @@ export default defineComponent({
     const generatedSignupLink = ref("");
     const token = ref("");
     const api = useUserApi();
-
-    invoke(async () => {
-      await until(user.value).not.toBeNull();
-      if (!user.value) {
-        return;
-      }
-
-      const { data } = await api.users.getSelfGroup();
-      group.value = data;
-    });
 
     async function getSignupLink() {
       const { data } = await api.groups.createInvitation({ uses: 1 });
@@ -333,7 +321,6 @@ export default defineComponent({
       getStatsTitle,
       getStatsIcon,
       getStatsTo,
-      group,
       stats,
       user,
       constructLink,
