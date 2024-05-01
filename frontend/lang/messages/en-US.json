@@ -594,7 +594,11 @@
       "select-parser": "Select Parser",
       "natural-language-processor": "Natural Language Processor",
       "brute-parser": "Brute Parser",
-      "parse-all": "Parse All"
+      "parse-all": "Parse All",
+      "no-unit": "No unit",
+      "missing-unit": "Create missing unit: {unit}",
+      "missing-food": "Create missing food: {food}",
+      "no-food": "No Food"
     }
   },
   "search": {

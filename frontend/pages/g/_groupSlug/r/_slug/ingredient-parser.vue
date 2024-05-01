@@ -140,6 +140,8 @@ export default defineComponent({
     const slug = route.value.params.slug;
     const api = useUserApi();
 
+    const { i18n } = useContext();
+
     const { recipe, loading } = useRecipe(slug);
 
     invoke(async () => {
@@ -165,13 +167,15 @@ export default defineComponent({
       if (unitError || foodError) {
         if (unitError) {
           if (ing?.ingredient?.unit?.name) {
-            unitErrorMessage = `Create missing unit '${ing?.ingredient?.unit?.name || "No unit"}'`;
+            const unit = ing.ingredient.unit.name || i18n.tc("recipe.parser.no-unit");
+            unitErrorMessage = i18n.t("recipe.parser.missing-unit", { unit }).toString();
           }
         }
 
         if (foodError) {
           if (ing?.ingredient?.food?.name) {
-            foodErrorMessage = `Create missing food '${ing.ingredient.food.name || "No food"}'?`;
+            const food = ing.ingredient.food.name || i18n.tc("recipe.parser.no-food");
+            foodErrorMessage = i18n.t("recipe.parser.missing-food", { food }).toString();
           }
         }
       }
@@ -359,7 +363,7 @@ export default defineComponent({
   },
   head() {
     return {
-      title: "Parser",
+      title: this.$tc("recipe.parser.ingredient-parser"),
     };
   },
 });
