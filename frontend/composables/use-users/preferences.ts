@@ -1,11 +1,15 @@
 import { Ref, useContext } from "@nuxtjs/composition-api";
-import { useLocalStorage } from "@vueuse/core";
+import { useLocalStorage, useSessionStorage } from "@vueuse/core";
 import { TimelineEventType } from "~/lib/api/types/recipe";
 
 export interface UserPrintPreferences {
   imagePosition: string;
   showDescription: boolean;
   showNotes: boolean;
+}
+
+export interface UserSearchQuery {
+  recipe: string;
 }
 
 export enum ImagePosition {
@@ -20,7 +24,6 @@ export interface UserRecipePreferences {
   filterNull: boolean;
   sortIcon: string;
   useMobileCards: boolean;
-  searchQuery: string;
 }
 
 export interface UserShoppingListPreferences {
@@ -60,12 +63,25 @@ export function useUserSortPreferences(): Ref<UserRecipePreferences> {
       filterNull: false,
       sortIcon: $globals.icons.sortAlphabeticalAscending,
       useMobileCards: false,
-      searchQuery: "",
     },
     { mergeDefaults: true }
     // we cast to a Ref because by default it will return an optional type ref
     // but since we pass defaults we know all properties are set.
   ) as unknown as Ref<UserRecipePreferences>;
+
+  return fromStorage;
+}
+
+export function useUserSearchQuerySession(): Ref<UserSearchQuery> {
+  const fromStorage = useSessionStorage(
+    "search-query",
+    {
+      recipe: "",
+    },
+    { mergeDefaults: true }
+    // we cast to a Ref because by default it will return an optional type ref
+    // but since we pass defaults we know all properties are set.
+  ) as unknown as Ref<UserSearchQuery>;
 
   return fromStorage;
 }

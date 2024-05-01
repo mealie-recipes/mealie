@@ -143,7 +143,7 @@ import { watchDebounced } from "@vueuse/shared";
 import SearchFilter from "~/components/Domain/SearchFilter.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useCategoryStore, useFoodStore, useTagStore, useToolStore } from "~/composables/store";
-import { useUserSortPreferences } from "~/composables/use-users/preferences";
+import { useUserSearchQuerySession } from "~/composables/use-users/preferences";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
 import { IngredientFood, RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
@@ -177,7 +177,7 @@ export default defineComponent({
 
     const route = useRoute();
     const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
-    const preferences = useUserSortPreferences();
+    const searchQuerySession = useUserSearchQuerySession();
 
     const { recipes, appendRecipes, assignSorted, removeRecipe, replaceRecipes } = useLazyRecipes(isOwnGroup.value ? null : groupSlug.value);
     const categories = isOwnGroup.value ? useCategoryStore() : usePublicCategoryStore(groupSlug.value);
@@ -287,7 +287,7 @@ export default defineComponent({
         },
       }
       await router.push({ query });
-      preferences.value.searchQuery = JSON.stringify(query);
+      searchQuerySession.value.recipe = JSON.stringify(query);
     }
 
     function waitUntilAndExecute(
@@ -489,12 +489,12 @@ export default defineComponent({
 
     onMounted(async () => {
       // restore the user's last search query
-      if (preferences.value.searchQuery && !(Object.keys(route.value.query).length > 0)) {
+      if (searchQuerySession.value.recipe && !(Object.keys(route.value.query).length > 0)) {
         try {
-          const query = JSON.parse(preferences.value.searchQuery);
+          const query = JSON.parse(searchQuerySession.value.recipe);
           await router.replace({ query });
         } catch (error) {
-          preferences.value.searchQuery = "";
+          searchQuerySession.value.recipe = "";
           router.replace({ query: {} });
         }
       }
