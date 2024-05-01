@@ -194,7 +194,9 @@ export default defineComponent({
 
     function calcPassedQuery(): RecipeSearchQuery {
       return {
-        search: state.value.search,
+        // the search clear button sets search to null, which still renders the query param for a moment,
+        // whereas an empty string is not rendered
+        search: state.value.search ? state.value.search : "",
         categories: toIDArray(selectedCategories.value),
         foods: toIDArray(selectedFoods.value),
         tags: toIDArray(selectedTags.value),
@@ -217,14 +219,24 @@ export default defineComponent({
       };
     })
 
+    const queryDefaults = {
+      search: "",
+      orderBy: "created_at",
+      orderDirection: "desc" as "asc" | "desc",
+      requireAllCategories: false,
+      requireAllTags: false,
+      requireAllTools: false,
+      requireAllFoods: false,
+    }
+
     function reset() {
-      state.value.search = "";
-      state.value.orderBy = "created_at";
-      state.value.orderDirection = "desc";
-      state.value.requireAllCategories = false;
-      state.value.requireAllTags = false;
-      state.value.requireAllTools = false;
-      state.value.requireAllFoods = false;
+      state.value.search = queryDefaults.search;
+      state.value.orderBy = queryDefaults.orderBy;
+      state.value.orderDirection = queryDefaults.orderDirection;
+      state.value.requireAllCategories = queryDefaults.requireAllCategories;
+      state.value.requireAllTags = queryDefaults.requireAllTags;
+      state.value.requireAllTools = queryDefaults.requireAllTools;
+      state.value.requireAllFoods = queryDefaults.requireAllFoods;
       selectedCategories.value = [];
       selectedFoods.value = [];
       selectedTags.value = [];
@@ -364,8 +376,10 @@ export default defineComponent({
         state.value.auto = query.auto === "true";
       }
 
-      if (query.search) {
+      if (query.search?.length) {
         state.value.search = query.search as string;
+      } else {
+        state.value.search = queryDefaults.search;
       }
 
       if (query.orderBy) {
