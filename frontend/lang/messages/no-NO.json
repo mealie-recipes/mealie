@@ -208,7 +208,7 @@
     "unsaved-changes": "Du har ulagrede endringer. Ønsker du å lagre før du forlater? Trykk 'OK' for å lagre, 'Avbryt' for å forkaste endringene.",
     "clipboard-copy-failure": "Kunne ikke kopiere til utklippstavlen.",
     "confirm-delete-generic-items": "Er du sikker på at du vil følgende elementer?",
-    "organizers": "Organizers"
+    "organizers": "Organisatorer"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Er du sikker på at du vil slette <b>{groupName}<b/>?",
@@ -363,7 +363,7 @@
     "choose-migration-type": "Velg type overføring",
     "tag-all-recipes": "Merk alle oppskrifter med emneordet {tag-name}",
     "nextcloud-text": "Oppskrifter fra Nextcloud kan importeres fra en zip-fil som inneholder dataene lagret i Nextcloud. Se eksempelet på mappestrukture nedenfor for å sikre at oppskriftene kan importeres.",
-    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
+    "chowdown-text": "Mealie støtter Chowdown-arkivformatet. Last ned kodearkivet som en .zip-fil og last den opp nedenfor.",
     "recipe-1": "Oppskrift 1",
     "recipe-2": "Oppskrift 2",
     "paprika-text": "Mealie kan importere oppskrifter fra Paprika. Eksporter oppskriftene fra Paprika, endre filnavnutvidelsen til .zip og last den opp nedenfor.",
@@ -374,7 +374,7 @@
     },
     "myrecipebox": {
       "title": "My Recipe Box",
-      "description-long": "Mealie can import recipes from My Recipe Box. Export your recipes in CSV format, then upload the .csv file below."
+      "description-long": "Mealie kan importere oppskrifter fra My Recipe Box. Eksporter oppskrifter i CSV-format, og last deretter opp .csv-filen nedenfor."
     }
   },
   "new-recipe": {
@@ -1168,21 +1168,21 @@
     }
   },
   "profile": {
-    "welcome-user": "👋 Welcome, {0}!",
+    "welcome-user": "Velkommen, {0}!",
     "description": "Administrer din profil, oppskrifter og gruppeinnstillinger.",
     "get-invite-link": "Få invitasjonslenke",
     "get-public-link": "Få offentlig lenke",
     "account-summary": "Kontosammendrag",
-    "account-summary-description": "Here's a summary of your group's information.",
+    "account-summary-description": "Her er en oppsummering av informasjonen til gruppen din.",
     "group-statistics": "Gruppestatistikk",
     "group-statistics-description": "Gruppestatistikken din gir deg et innblikk i hvordan du bruker Mealie.",
     "storage-capacity": "Lagringskapasitet",
     "storage-capacity-description": "Lagringskapasiteten er en beregning av bildene og ressursene du har lastet opp.",
     "personal": "Personlig",
-    "personal-description": "These are settings that are personal to you. Changes here won't affect other users.",
+    "personal-description": "Dette er personlige innstillinger. Endringer gjort her påvirker ikke andre brukere.",
     "user-settings": "Brukerinnstillinger",
-    "user-settings-description": "Manage your preferences, change your password, and update your email.",
-    "api-tokens-description": "Manage your API Tokens for access from external applications.",
+    "user-settings-description": "Administrer innstillingene, endre passordet og oppdater e-postadressen din.",
+    "api-tokens-description": "Administrer dine API-tokens for tilgang fra eksterne programmer.",
     "group-description": "Disse elementene deles innad i gruppen din. Redigering av elementenee vil føre til endringer for hele gruppen!",
     "group-settings": "Gruppeinnstillinger",
     "group-settings-description": "Administrer felles gruppeinnstillinger som innstillinger for måltidsplaner og personvern.",
@@ -1193,9 +1193,9 @@
     "notifiers": "Varslingsagenter",
     "notifiers-description": "Sett opp e-post- og pushvarsler som utløses av spesifikke hendelser.",
     "manage-data": "Administrer data",
-    "manage-data-description": "Manage your Mealie data; Foods, Units, Categories, Tags and more.",
+    "manage-data-description": "Administrer dine Mealie-data; Ingredienser, enheter, kategorier, emneknagger og mer.",
     "data-migrations": "Dataoverføringer",
-    "data-migrations-description": "Migrate your existing data from other applications like Nextcloud Recipes and Chowdown.",
+    "data-migrations-description": "Overfør eksisterende data fra andre programmer som Nextcloud Recipes og Chowdown.",
     "email-sent": "E-post sendt",
     "error-sending-email": "Feil ved sending av e-post",
     "personal-information": "Personlig informasjon",
