@@ -64,6 +64,7 @@
     "something-went-wrong": "出错了\t#",
     "subscribed-events": "订阅事件",
     "test-message-sent": "测试消息已发送",
+    "message-sent": "Message Sent",
     "new-notification": "新通知",
     "event-notifiers": "事件通知器",
     "apprise-url-skipped-if-blank": "Apprise URL (如果为空则跳过)",
@@ -160,6 +161,7 @@
     "test": "测试",
     "themes": "布景主题",
     "thursday": "周四",
+    "title": "Title",
     "token": "密钥",
     "tuesday": "周二",
     "type": "类型",
@@ -582,7 +584,22 @@
     "upload-image": "上传图片",
     "screen-awake": "保持屏幕唤醒",
     "remove-image": "删除图片",
-    "nextStep": "下一步"
+    "nextStep": "下一步",
+    "recipe-actions": "Recipe Actions",
+    "parser": {
+      "experimental-alert-text": "Mealie uses natural language processing to parse and create units and food items for your recipe ingredients. This feature is experimental and may not always work as expected. If you prefer not to use the parsed results, you can select 'Cancel' and your changes will not be saved.",
+      "ingredient-parser": "Ingredient Parser",
+      "explanation": "To use the ingredient parser, click the 'Parse All' button to start the process. Once the processed ingredients are available, you can review the items and verify that they were parsed correctly. The model's confidence score is displayed on the right of the item title. This score is an average of all the individual scores and may not always be completely accurate.",
+      "alerts-explainer": "Alerts will be displayed if a matching foods or unit is found but does not exists in the database.",
+      "select-parser": "Select Parser",
+      "natural-language-processor": "Natural Language Processor",
+      "brute-parser": "Brute Parser",
+      "parse-all": "Parse All",
+      "no-unit": "No unit",
+      "missing-unit": "Create missing unit: {unit}",
+      "missing-food": "Create missing food: {food}",
+      "no-food": "No Food"
+    }
   },
   "search": {
     "advanced-search": "高级搜索",
@@ -1000,6 +1017,12 @@
       "export-recipes": "导出食谱",
       "delete-recipes": "删除食谱",
       "source-unit-will-be-deleted": "“待合并单位”将会被删除"
+    },
+    "recipe-actions": {
+      "recipe-actions-data": "Recipe Actions Data",
+      "new-recipe-action": "New Recipe Action",
+      "edit-recipe-action": "Edit Recipe Action",
+      "action-type": "Action Type"
     },
     "create-alias": "创建别名",
     "manage-aliases": "管理别名",
