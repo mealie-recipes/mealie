@@ -1,4 +1,4 @@
-from pydantic import ConfigDict, field_validator
+from pydantic import ConfigDict
 
 from mealie.schema._mealie import MealieModel
 
