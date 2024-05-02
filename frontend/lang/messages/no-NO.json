@@ -64,6 +64,7 @@
     "something-went-wrong": "Noe gikk galt!",
     "subscribed-events": "Abonnerte hendelser",
     "test-message-sent": "Testmelding sendt",
+    "message-sent": "Melding sendt",
     "new-notification": "Ny varsel",
     "event-notifiers": "Hendelsesvarsler",
     "apprise-url-skipped-if-blank": "Apprise URL (hoppes over hvis tom)",
@@ -160,6 +161,7 @@
     "test": "Test",
     "themes": "Temaer",
     "thursday": "Torsdag",
+    "title": "Tittel",
     "token": "Token",
     "tuesday": "Tirsdag",
     "type": "Type",
@@ -582,7 +584,22 @@
     "upload-image": "Last opp bilde",
     "screen-awake": "Hold skjermen på",
     "remove-image": "Slett bilde",
-    "nextStep": "Neste trinn"
+    "nextStep": "Neste trinn",
+    "recipe-actions": "Oppskriftshandlinger",
+    "parser": {
+      "experimental-alert-text": "Mealie uses natural language processing to parse and create units and food items for your recipe ingredients. This feature is experimental and may not always work as expected. If you prefer not to use the parsed results, you can select 'Cancel' and your changes will not be saved.",
+      "ingredient-parser": "Ingredient Parser",
+      "explanation": "To use the ingredient parser, click the 'Parse All' button to start the process. Once the processed ingredients are available, you can review the items and verify that they were parsed correctly. The model's confidence score is displayed on the right of the item title. This score is an average of all the individual scores and may not always be completely accurate.",
+      "alerts-explainer": "Alerts will be displayed if a matching foods or unit is found but does not exists in the database.",
+      "select-parser": "Select Parser",
+      "natural-language-processor": "Natural Language Processor",
+      "brute-parser": "Brute Parser",
+      "parse-all": "Parse All",
+      "no-unit": "No unit",
+      "missing-unit": "Create missing unit: {unit}",
+      "missing-food": "Create missing food: {food}",
+      "no-food": "No Food"
+    }
   },
   "search": {
     "advanced-search": "Avansert søk",
@@ -1000,6 +1017,12 @@
       "export-recipes": "Eksporter oppskrift",
       "delete-recipes": "Slett oppskrifter",
       "source-unit-will-be-deleted": "Kildeenheten vil bli slettet"
+    },
+    "recipe-actions": {
+      "recipe-actions-data": "Opppgavehandlings-data",
+      "new-recipe-action": "Ny oppskriftshandling",
+      "edit-recipe-action": "Rediger oppskriftshandling",
+      "action-type": "Handlingstype"
     },
     "create-alias": "Opprett alias",
     "manage-aliases": "Administrer aliaser",

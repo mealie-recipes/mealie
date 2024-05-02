@@ -64,6 +64,7 @@
     "something-went-wrong": "משהו השתבש!",
     "subscribed-events": "אירועים שנרשמת אליהם",
     "test-message-sent": "הודעת בדיקה נשלחה",
+    "message-sent": "Message Sent",
     "new-notification": "התראה חדשה",
     "event-notifiers": "אירועי נוטיפיקציות",
     "apprise-url-skipped-if-blank": "כתובת Apprise (דלג אם ריק)",
@@ -160,6 +161,7 @@
     "test": "ניסיון",
     "themes": "ערכות נושא",
     "thursday": "חמישי",
+    "title": "Title",
     "token": "טוקן",
     "tuesday": "שלישי",
     "type": "סוג",
@@ -582,7 +584,22 @@
     "upload-image": "העלה תמונה",
     "screen-awake": "השאר את המסך פעיל",
     "remove-image": "האם למחוק את התמונה?",
-    "nextStep": "השלב הבא"
+    "nextStep": "השלב הבא",
+    "recipe-actions": "Recipe Actions",
+    "parser": {
+      "experimental-alert-text": "Mealie uses natural language processing to parse and create units and food items for your recipe ingredients. This feature is experimental and may not always work as expected. If you prefer not to use the parsed results, you can select 'Cancel' and your changes will not be saved.",
+      "ingredient-parser": "Ingredient Parser",
+      "explanation": "To use the ingredient parser, click the 'Parse All' button to start the process. Once the processed ingredients are available, you can review the items and verify that they were parsed correctly. The model's confidence score is displayed on the right of the item title. This score is an average of all the individual scores and may not always be completely accurate.",
+      "alerts-explainer": "Alerts will be displayed if a matching foods or unit is found but does not exists in the database.",
+      "select-parser": "Select Parser",
+      "natural-language-processor": "Natural Language Processor",
+      "brute-parser": "Brute Parser",
+      "parse-all": "Parse All",
+      "no-unit": "No unit",
+      "missing-unit": "Create missing unit: {unit}",
+      "missing-food": "Create missing food: {food}",
+      "no-food": "No Food"
+    }
   },
   "search": {
     "advanced-search": "חיפוש מתקדם",
@@ -1000,6 +1017,12 @@
       "export-recipes": "ייצוא מתכונים",
       "delete-recipes": "מחיקת מתכונים",
       "source-unit-will-be-deleted": "יחידת המקור תמחק"
+    },
+    "recipe-actions": {
+      "recipe-actions-data": "Recipe Actions Data",
+      "new-recipe-action": "New Recipe Action",
+      "edit-recipe-action": "Edit Recipe Action",
+      "action-type": "Action Type"
     },
     "create-alias": "יצירת שם נרדף",
     "manage-aliases": "נהל שמות נרדפים",
