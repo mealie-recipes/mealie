@@ -243,6 +243,12 @@ class Recipe(RecipeSummary):
 
         return {x.key_name: x.value for x in v} if v else {}
 
+    @field_validator("nutrition", mode="before")
+    def validate_nutrition(cls, v):
+        if not v:
+            return None
+        return v
+
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
         return [
