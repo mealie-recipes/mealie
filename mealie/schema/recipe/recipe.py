@@ -245,9 +245,7 @@ class Recipe(RecipeSummary):
 
     @field_validator("nutrition", mode="before")
     def validate_nutrition(cls, v):
-        if not v:
-            return None
-        return v
+        return v or None
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
