@@ -58,7 +58,8 @@
       </div>
 
       <!-- Reorder Labels -->
-      <BaseDialog v-model="reorderLabelsDialog"
+      <BaseDialog
+        v-model="reorderLabelsDialog"
         :icon="$globals.icons.tagArrowUp"
         :title="$t('shopping-list.reorder-labels')"
         :submit-icon="$globals.icons.save"
@@ -109,7 +110,8 @@
         />
       </div>
       <div v-else class="mt-4 d-flex justify-end">
-        <BaseButton v-if="preferences.viewByLabel" edit class="mr-2"
+        <BaseButton
+          v-if="preferences.viewByLabel" edit class="mr-2"
           @click="reorderLabelsDialog = true; loadingCounter +=1">
           <template #icon> {{ $globals.icons.tags }} </template>
           {{ $t('shopping-list.reorder-labels') }}
