@@ -204,9 +204,9 @@ export default defineComponent({
         return Object.keys(router.currentRoute.query).includes("direct")
     }
 
-    async function oidcAuthenticate() {
+    function oidcAuthenticate() {
         try {
-            await $auth.loginWith("oidc")
+            window.location.replace("/api/auth/oauth")
         } catch (error) {
             alert.error(i18n.t("events.something-went-wrong") as string);
         }

@@ -29,7 +29,8 @@ class OpenIDProvider(AuthProvider[OIDCRequest]):
         """Attempt to authenticate a user given a username and password"""
 
         settings = get_app_settings()
-        claims = self.get_claims(settings)
+        claims = self.data.userinfo
+        # claims = self.get_claims(settings)
         if not claims:
             return None
 

@@ -1,24 +1,39 @@
 from datetime import timedelta
 
+from authlib.integrations.starlette_client import OAuth
 from fastapi import APIRouter, Depends, Request, Response, status
 from fastapi.exceptions import HTTPException
+from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 from sqlalchemy.orm.session import Session
 
 from mealie.core import root_logger, security
+from mealie.core.config import get_app_settings
 from mealie.core.dependencies import get_current_user
 from mealie.core.exceptions import UserLockedOut
+from mealie.core.security.providers.openid_provider import OpenIDProvider
 from mealie.core.security.security import get_auth_provider
 from mealie.db.db_setup import generate_session
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.user import PrivateUser
-from mealie.schema.user.auth import CredentialsRequestForm
+from mealie.schema.user.auth import CredentialsRequestForm, OIDCRequest
 
 public_router = APIRouter(tags=["Users: Authentication"])
 user_router = UserAPIRouter(tags=["Users: Authentication"])
 logger = root_logger.get_logger("auth")
 
 remember_me_duration = timedelta(days=14)
+
+settings = get_app_settings()
+if settings.OIDC_READY:
+    oauth = OAuth()
+    oauth.register(
+        "oidc",
+        client_id="mealie2",
+        client_secret="tjRdWbhX7BP47n7izJoqyHAkZhu3mEOO5cQRsGbGlgFgagw4f8FpxgeAQJFf7u50",
+        server_metadata_url=settings.OIDC_CONFIGURATION_URL,
+        client_kwargs={"scope": "openid email profile groups"},
+    )
 
 
 class MealieAuthToken(BaseModel):
@@ -65,6 +80,43 @@ async def get_token(
     )
 
     return MealieAuthToken.respond(access_token)
+
+
+@public_router.get("/oauth")
+async def oauth_login(request: Request):
+    if oauth:
+        client = oauth.create_client("oidc")
+        redirect_uri = request.url_for("oauth_callback")
+        return await client.authorize_redirect(request, redirect_uri)
+
+
+@public_router.get("/oauth/callback")
+async def oauth_callback(request: Request, session: Session = Depends(generate_session)):
+    if oauth:
+        client = oauth.create_client("oidc")
+        token = await client.authorize_access_token(request)
+        print(token["userinfo"])
+        try:
+            auth_provider = OpenIDProvider(session, OIDCRequest(id_token="", userinfo=token["userinfo"]))
+            auth = await auth_provider.authenticate()
+        except UserLockedOut as e:
+            # logger.error(f"User is locked out from {ip}")
+            raise HTTPException(status_code=status.HTTP_423_LOCKED, detail="User is locked out") from e
+
+        if not auth:
+            # logger.error(f"Incorrect username or password from {ip}")
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+            )
+        access_token, duration = auth
+
+        expires_in = duration.total_seconds() if duration else None
+        response = RedirectResponse(url="http://localhost:3000?direct=1")
+        response.set_cookie(
+            key="mealie.access_token", value=access_token, httponly=True, max_age=expires_in, expires=expires_in
+        )
+
+        return response
 
 
 @user_router.get("/refresh")

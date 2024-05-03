@@ -28,6 +28,7 @@ class CredentialsRequest(BaseModel):
 
 class OIDCRequest(BaseModel):
     id_token: str
+    userinfo: dict
 
 
 class CredentialsRequestForm:
