@@ -101,7 +101,7 @@ class OpenIDProvider(AuthProvider[OIDCRequest]):
             self._logger.error(f"[OIDC] {e.error}: {e.description}")
             return None
         except Exception as e:
-            self._logger.error(f"[OIDC] Exception while validating id_token claims", e)
+            self._logger.error("[OIDC] Exception while validating id_token claims", e)
 
         if not claims:
             self._logger.error("[OIDC] Claims not found")
