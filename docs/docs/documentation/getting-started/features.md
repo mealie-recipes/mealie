@@ -96,6 +96,7 @@ Notifiers are event-driven notifications sent when specific actions are performe
 - creating a new mealplan
 
 Notifiers use the [Apprise library](https://github.com/caronc/apprise/wiki), which integrates with a large number of notification services. In addition, certain custom notifiers send basic event data to the consumer (e.g. the `id` of the resource). These include:
+
 - `form` and `forms`
 - `json` and `jsons`
 - `xml` and `xmls`
@@ -111,6 +112,7 @@ Unlike notifiers, which are event-driven notifications, Webhooks allow you to se
 ### Recipe Actions
 
 Recipe Actions are custom actions you can add to all recipes in Mealie. This is a great way to add custom integrations that are fired manually. There are two types of recipe actions:
+
 1. link - these actions will take you directly to an external page
 2. post - these actions will send a `POST` request to the specified URL, with the recipe JSON in the request body. These can be used, for instance, to manually trigger a webhook in Home Assistant
 
@@ -130,6 +132,7 @@ https://api.getbring.com/rest/bringrecipes/deeplink?url=${url}&source=web
 ```
 
 Below is a list of all valid merge fields:
+
 - ${id}
 - ${slug}
 - ${url}

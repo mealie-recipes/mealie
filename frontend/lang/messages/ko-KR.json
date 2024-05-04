@@ -64,6 +64,7 @@
     "something-went-wrong": "Something Went Wrong!",
     "subscribed-events": "구독한 이벤트",
     "test-message-sent": "Test Message Sent",
+    "message-sent": "Message Sent",
     "new-notification": "새 알림",
     "event-notifiers": "Event Notifiers",
     "apprise-url-skipped-if-blank": "Apprise URL (skipped if blank)",
@@ -160,6 +161,7 @@
     "test": "Test",
     "themes": "Themes",
     "thursday": "목요일",
+    "title": "Title",
     "token": "Token",
     "tuesday": "화요일",
     "type": "Type",
@@ -582,7 +584,22 @@
     "upload-image": "이미지 업로드",
     "screen-awake": "화면을 항상 켠 상태로 유지",
     "remove-image": "이미지 제거",
-    "nextStep": "다음 단계"
+    "nextStep": "다음 단계",
+    "recipe-actions": "Recipe Actions",
+    "parser": {
+      "experimental-alert-text": "Mealie uses natural language processing to parse and create units and food items for your recipe ingredients. This feature is experimental and may not always work as expected. If you prefer not to use the parsed results, you can select 'Cancel' and your changes will not be saved.",
+      "ingredient-parser": "Ingredient Parser",
+      "explanation": "To use the ingredient parser, click the 'Parse All' button to start the process. Once the processed ingredients are available, you can review the items and verify that they were parsed correctly. The model's confidence score is displayed on the right of the item title. This score is an average of all the individual scores and may not always be completely accurate.",
+      "alerts-explainer": "Alerts will be displayed if a matching foods or unit is found but does not exists in the database.",
+      "select-parser": "Select Parser",
+      "natural-language-processor": "Natural Language Processor",
+      "brute-parser": "Brute Parser",
+      "parse-all": "Parse All",
+      "no-unit": "No unit",
+      "missing-unit": "Create missing unit: {unit}",
+      "missing-food": "Create missing food: {food}",
+      "no-food": "No Food"
+    }
   },
   "search": {
     "advanced-search": "고급 검색",
@@ -1000,6 +1017,12 @@
       "export-recipes": "Export Recipes",
       "delete-recipes": "Delete Recipes",
       "source-unit-will-be-deleted": "Source Unit will be deleted"
+    },
+    "recipe-actions": {
+      "recipe-actions-data": "Recipe Actions Data",
+      "new-recipe-action": "New Recipe Action",
+      "edit-recipe-action": "Edit Recipe Action",
+      "action-type": "Action Type"
     },
     "create-alias": "Create Alias",
     "manage-aliases": "Manage Aliases",

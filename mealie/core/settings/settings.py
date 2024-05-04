@@ -192,17 +192,20 @@ class AppSettings(BaseSettings):
     OIDC_REMEMBER_ME: bool = False
     OIDC_SIGNING_ALGORITHM: str = "RS256"
     OIDC_USER_CLAIM: str = "email"
+    OIDC_GROUPS_CLAIM: str | None = "groups"
     OIDC_TLS_CACERTFILE: str | None = None
 
     @property
     def OIDC_READY(self) -> bool:
         """Validates OIDC settings are all set"""
 
-        required = {self.OIDC_CLIENT_ID, self.OIDC_CONFIGURATION_URL}
+        required = {self.OIDC_CLIENT_ID, self.OIDC_CONFIGURATION_URL, self.OIDC_USER_CLAIM}
         not_none = None not in required
-        valid_user_claim = self.OIDC_USER_CLAIM in ["email", "preferred_username"]
+        valid_group_claim = True
+        if (not self.OIDC_USER_GROUP or not self.OIDC_ADMIN_GROUP) and not self.OIDC_GROUPS_CLAIM:
+            valid_group_claim = False
 
-        return self.OIDC_AUTH_ENABLED and not_none and valid_user_claim
+        return self.OIDC_AUTH_ENABLED and not_none and valid_group_claim
 
     # ===============================================
     # Testing Config

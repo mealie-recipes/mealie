@@ -64,6 +64,7 @@
     "something-went-wrong": "問題が発生しました",
     "subscribed-events": "購読中のイベント",
     "test-message-sent": "テストメッセージを送信しました",
+    "message-sent": "Message Sent",
     "new-notification": "新着通知",
     "event-notifiers": "イベント通知",
     "apprise-url-skipped-if-blank": "通知用URL (空欄の場合はスキップ)",
@@ -160,6 +161,7 @@
     "test": "テスト",
     "themes": "テーマ",
     "thursday": "木曜日",
+    "title": "Title",
     "token": "トークン",
     "tuesday": "火曜日",
     "type": "タイプ",
@@ -582,7 +584,22 @@
     "upload-image": "画像をアップロード",
     "screen-awake": "画面をスリープ状態にしない",
     "remove-image": "画像を削除",
-    "nextStep": "次のステップ"
+    "nextStep": "次のステップ",
+    "recipe-actions": "Recipe Actions",
+    "parser": {
+      "experimental-alert-text": "Mealie uses natural language processing to parse and create units and food items for your recipe ingredients. This feature is experimental and may not always work as expected. If you prefer not to use the parsed results, you can select 'Cancel' and your changes will not be saved.",
+      "ingredient-parser": "Ingredient Parser",
+      "explanation": "To use the ingredient parser, click the 'Parse All' button to start the process. Once the processed ingredients are available, you can review the items and verify that they were parsed correctly. The model's confidence score is displayed on the right of the item title. This score is an average of all the individual scores and may not always be completely accurate.",
+      "alerts-explainer": "Alerts will be displayed if a matching foods or unit is found but does not exists in the database.",
+      "select-parser": "Select Parser",
+      "natural-language-processor": "Natural Language Processor",
+      "brute-parser": "Brute Parser",
+      "parse-all": "Parse All",
+      "no-unit": "No unit",
+      "missing-unit": "Create missing unit: {unit}",
+      "missing-food": "Create missing food: {food}",
+      "no-food": "No Food"
+    }
   },
   "search": {
     "advanced-search": "詳細検索",
@@ -1000,6 +1017,12 @@
       "export-recipes": "レシピのエクスポート",
       "delete-recipes": "レシピを削除",
       "source-unit-will-be-deleted": "元の単位が削除されます"
+    },
+    "recipe-actions": {
+      "recipe-actions-data": "Recipe Actions Data",
+      "new-recipe-action": "New Recipe Action",
+      "edit-recipe-action": "Edit Recipe Action",
+      "action-type": "Action Type"
     },
     "create-alias": "エイリアスを作成",
     "manage-aliases": "エイリアスの管理",

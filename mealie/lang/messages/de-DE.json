@@ -41,7 +41,7 @@
         "day": "Tag|Tage",
         "hour": "Stunde|Stunden",
         "minute": "Minute|Minuten",
-        "second": "sekunde|sekunden",
+        "second": "Sekunde|Sekunden",
         "millisecond": "Millisekunde|Millisekunden",
         "microsecond": "Mikrosekunde|Mikrosekunden"
     }

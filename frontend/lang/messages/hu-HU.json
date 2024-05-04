@@ -64,6 +64,7 @@
     "something-went-wrong": "Hiba történt!",
     "subscribed-events": "Feliratkozott események",
     "test-message-sent": "Teszt üzenet elküldve",
+    "message-sent": "Üzenet elküldve",
     "new-notification": "Új értesítés",
     "event-notifiers": "Esemény értesítők",
     "apprise-url-skipped-if-blank": "Értesítendő URL (kihagy, ha üres)",
@@ -160,6 +161,7 @@
     "test": "Teszt",
     "themes": "Témák",
     "thursday": "Csütörtök",
+    "title": "Cím",
     "token": "Token",
     "tuesday": "Kedd",
     "type": "Típus",
@@ -582,7 +584,22 @@
     "upload-image": "Kép feltöltése",
     "screen-awake": "Képernyő ébren tartása",
     "remove-image": "Kép etávolítása",
-    "nextStep": "Következő lépés"
+    "nextStep": "Következő lépés",
+    "recipe-actions": "Recipe Actions",
+    "parser": {
+      "experimental-alert-text": "A Mealie természetes nyelvi feldolgozást használ a recept összetevőinek elemzésére, az egységek és az élelmiszerelemek létrehozására. Ez a funkció kísérleti jellegű, és előfordulhat, hogy nem mindig működik az elvárt módon. Ha nem szeretné használni az elemzett eredményeket, válassza a 'Mégse' lehetőséget, és a módosítások nem kerülnek mentésre.",
+      "ingredient-parser": "Hozzávaló elemző",
+      "explanation": "A hozzávalók elemzőjének használatához kattintson a 'Parse All' gombra a folyamat elindításához. Amint a feldolgozott hozzávalók elérhetővé válnak, áttekintheti az elemeket, és ellenőrizheti, hogy azok helyesen lettek-e elemezve. A modell megbízhatósági pontszáma az elem címének jobb oldalán jelenik meg. Ez a pontszám az összes egyéni pontszám átlaga, és nem biztos, hogy mindig teljesen pontos.",
+      "alerts-explainer": "Figyelmeztetések jelennek meg, ha talál egy megfelelő élelmiszert vagy egységet, de az nem létezik az adatbázisban.",
+      "select-parser": "Válasszon elemzőt",
+      "natural-language-processor": "Természetes nyelvi feldolgozó",
+      "brute-parser": "Brute elemző",
+      "parse-all": "Összes elemzése",
+      "no-unit": "Mértékegység nélkül",
+      "missing-unit": "Hiányzó mértékegység létrehozása: {unit}",
+      "missing-food": "Hiányzó élelmiszer létrehozása: {food}",
+      "no-food": "Élelmiszer nélküli"
+    }
   },
   "search": {
     "advanced-search": "Részletes keresés",
@@ -1000,6 +1017,12 @@
       "export-recipes": "Receptek exportálása",
       "delete-recipes": "Receptek törlése",
       "source-unit-will-be-deleted": "A forrás mennyiségi egység törlésre kerül"
+    },
+    "recipe-actions": {
+      "recipe-actions-data": "Recipe Actions Data",
+      "new-recipe-action": "New Recipe Action",
+      "edit-recipe-action": "Edit Recipe Action",
+      "action-type": "Action Type"
     },
     "create-alias": "Alias készítése",
     "manage-aliases": "Alias kezelése",
