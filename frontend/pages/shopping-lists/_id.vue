@@ -562,7 +562,7 @@ export default defineComponent({
 
       if (data) {
         // update shoppingList labels using the API response
-        shoppingList.value.labelSettings = (data as ShoppingListOut).labelSettings
+        shoppingList.value.labelSettings = (data as ShoppingListOut).labelSettings;
         updateItemsByLabel();
       }
     }
