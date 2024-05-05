@@ -21,7 +21,7 @@ from mealie.services.event_bus_service.event_bus_service import EventBusService
 from mealie.services.event_bus_service.event_types import EventDocumentDataBase, EventTypes
 
 
-class _BaseController(ABC):
+class _BaseController(ABC):  # noqa: B024
     session: Session = Depends(generate_session)
     translator: Translator = Depends(local_provider)
 
