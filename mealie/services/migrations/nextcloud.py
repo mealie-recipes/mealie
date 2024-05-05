@@ -9,6 +9,8 @@ import isodate
 from isodate.isoerror import ISO8601Error
 from slugify import slugify
 
+from mealie.schema.reports.reports import ReportEntryCreate
+
 from ._migration_base import BaseMigrator
 from .utils.migration_alias import MigrationAlias
 from .utils.migration_helpers import MigrationReaders, glob_walker, import_image, split_by_comma
@@ -66,8 +68,19 @@ class NextcloudMigrator(BaseMigrator):
 
             all_recipes = []
             for _, nc_dir in nextcloud_dirs.items():
-                recipe = self.clean_recipe_dictionary(nc_dir.recipe)
-                all_recipes.append(recipe)
+                try:
+                    recipe = self.clean_recipe_dictionary(nc_dir.recipe)
+                    all_recipes.append(recipe)
+                except Exception as e:
+                    self.logger.exception(e)
+                    self.report_entries.append(
+                        ReportEntryCreate(
+                            report_id=self.report_id,
+                            success=False,
+                            message=f"Failed to import {nc_dir.name}",
+                            exception=f"{e.__class__.__name__}: {e}",
+                        )
+                    )
 
             all_statuses = self.import_recipes_to_database(all_recipes)
 
