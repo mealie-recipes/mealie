@@ -66,4 +66,8 @@ def get_oidc_info(resp: Response):
     settings = get_app_settings()
 
     resp.headers["Cache-Control"] = "public, max-age=604800"
-    return OIDCInfo(configuration_url=settings.OIDC_CONFIGURATION_URL, client_id=settings.OIDC_CLIENT_ID)
+    return OIDCInfo(
+        configuration_url=settings.OIDC_CONFIGURATION_URL,
+        client_id=settings.OIDC_CLIENT_ID,
+        groups_claim=settings.OIDC_GROUPS_CLAIM if settings.OIDC_USER_GROUP or settings.OIDC_ADMIN_GROUP else None,
+    )

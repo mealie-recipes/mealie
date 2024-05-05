@@ -9,7 +9,6 @@ export default class DynamicOpenIDConnectScheme extends OpenIDConnectScheme {
 
     async mounted() {
         await this.getConfiguration();
-        this.options.scope = ["openid", "profile", "email", "groups"]
 
         this.configurationDocument = new ConfigurationDocument(
             this,
@@ -78,7 +77,7 @@ export default class DynamicOpenIDConnectScheme extends OpenIDConnectScheme {
         // Update tokens with mealie token
         this.updateTokens(response)
       } catch (e) {
-        if (e.response?.status === 401) {
+        if (e.response?.status === 401 || e.response?.status === 500) {
           this.$auth.reset()
         }
         const currentUrl = new URL(window.location.href)
@@ -111,6 +110,11 @@ export default class DynamicOpenIDConnectScheme extends OpenIDConnectScheme {
             const data = await response.json();
             this.options.endpoints.configuration = data.configurationUrl;
             this.options.clientId = data.clientId;
+            this.options.scope = ["openid", "profile", "email"]
+            if (data.groupsClaim !== null) {
+              this.options.scope.push(data.groupsClaim)
+            }
+            console.log(this.options.scope)
         } catch (error) {
             // pass
         }

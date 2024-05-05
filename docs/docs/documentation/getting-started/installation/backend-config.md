@@ -98,7 +98,8 @@ For usage, see [Usage - OpenID Connect](../authentication/oidc.md)
 | OIDC_PROVIDER_NAME     |  OAuth  | The provider name is shown in SSO login button. "Login with <OIDC_PROVIDER_NAME\>"                                                                                                                        |
 | OIDC_REMEMBER_ME       |  False  | Because redirects bypass the login screen, you cant extend your session by clicking the "Remember Me" checkbox. By setting this value to true, a session will be extended as if "Remember Me" was checked |
 | OIDC_SIGNING_ALGORITHM |  RS256  | The algorithm used to sign the id token (examples: RS256, HS256)                                                                                                                                          |
-| OIDC_USER_CLAIM        |  email  | Optional: 'email', 'preferred_username'                                                                                                                                                                   |
+| OIDC_USER_CLAIM        |  email  | This is the claim which Mealie will use to look up an existing user by (e.g. "email", "preferred_username") |
+| OIDC_GROUPS_CLAIM      | groups  | Optional if not using `OIDC_USER_GROUP` or `OIDC_ADMIN_GROUP`. This is the claim Mealie will request from your IdP and will use to compare to `OIDC_USER_GROUP` or `OIDC_ADMIN_GROUP` to allow the user to log in to Mealie or is set as an admin. **Your IdP must be configured to grant this claim**|
 | OIDC_TLS_CACERTFILE    | None    | File path to Certificate Authority used to verify server certificate (e.g. `/path/to/ca.crt`) |
 
 ### Themeing
