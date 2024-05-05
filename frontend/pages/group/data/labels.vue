@@ -17,6 +17,7 @@
       v-model="state.editDialog"
       :icon="$globals.icons.tags"
       :title="$t('data-pages.labels.edit-label')"
+      :submit-icon="$globals.icons.save"
       :submit-text="$tc('general.save')"
       @submit="editSaveLabel"
     >
