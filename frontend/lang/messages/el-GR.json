@@ -64,6 +64,7 @@
     "something-went-wrong": "Κάτι δεν πήγε καλά!",
     "subscribed-events": "Εγγεγραμμένα Γεγονότα",
     "test-message-sent": "Το δοκιμαστικό μήνυμα εστάλη",
+    "message-sent": "Το μήνυμα εστάλη",
     "new-notification": "Νέα ειδοποίηση",
     "event-notifiers": "Ειδοποιητές Συμβάντος",
     "apprise-url-skipped-if-blank": "Apprise URL (skipped if blank)",
@@ -160,6 +161,7 @@
     "test": "Δοκιμή",
     "themes": "Θέματα",
     "thursday": "Τρίτη",
+    "title": "Τίτλος",
     "token": "Token",
     "tuesday": "Τρίτη",
     "type": "Τύπος",
@@ -582,7 +584,22 @@
     "upload-image": "Upload image",
     "screen-awake": "Keep Screen Awake",
     "remove-image": "Remove image",
-    "nextStep": "Next step"
+    "nextStep": "Next step",
+    "recipe-actions": "Ενέργειες Συνταγής",
+    "parser": {
+      "experimental-alert-text": "Το Mealie χρησιμοποιεί επεξεργασία φυσικής γλώσσας για να αναλύσει και να δημιουργήσει μονάδες και είδη διατροφής για τα συστατικά της συνταγής σας. Αυτή η λειτουργία είναι πειραματική και μπορεί να μην λειτουργεί πάντα όπως πρέπει. Αν προτιμάτε να μην χρησιμοποιείτε τα αναλυμένα αποτελέσματα, μπορείτε να επιλέξετε 'Ακύρωση' και οι αλλαγές σας δεν θα αποθηκευτούν.",
+      "ingredient-parser": "Αναλυτής Συστατικών",
+      "explanation": "Για να χρησιμοποιήσετε τον αναλυτή συστατικών, κάντε κλικ στο πλήκτρο 'Ανάλυση Ολων' για να ξεκινήσετε τη διαδικασία. Μόλις τα αναλυμένα συστατικά είναι διαθέσιμα, μπορείτε να τα επανεξετάσετε και να βεβαιωθείτε ότι έχουν αναλυθεί σωστά. Η βαθμολογία εμπιστοσύνης του μοντέλου εμφανίζεται στα δεξιά του τίτλου αντικειμένου. Αυτό το σκορ είναι ένας μέσος όρος όλων των επιμέρους βαθμολογιών και μπορεί να μην είναι πάντα εντελώς ακριβής.",
+      "alerts-explainer": "Θα εμφανίζονται ειδοποιήσεις αν βρεθεί ένα αντίστοιχο φαγητό ή μονάδα αλλά δεν υπάρχει στη βάση δεδομένων.",
+      "select-parser": "Επιλέξτε Αναλυτή",
+      "natural-language-processor": "Επεξεργαστής Φυσικής Γλώσσας",
+      "brute-parser": "Αναλυτής Ωμής Βίας",
+      "parse-all": "Ανάλυση Ολων",
+      "no-unit": "Καμία μονάδα",
+      "missing-unit": "Δημιουργία μονάδας που λείπει: {unit}",
+      "missing-food": "Δημιουργία φαγητού που λείπει: {food}",
+      "no-food": "Χωρίς Φαγητό"
+    }
   },
   "search": {
     "advanced-search": "Σύνθετη Αναζήτηση",
@@ -1000,6 +1017,12 @@
       "export-recipes": "Export Recipes",
       "delete-recipes": "Delete Recipes",
       "source-unit-will-be-deleted": "Source Unit will be deleted"
+    },
+    "recipe-actions": {
+      "recipe-actions-data": "Δεδομένα Ενεργειών Συνταγής",
+      "new-recipe-action": "Νέα Ενέργεια Συνταγής",
+      "edit-recipe-action": "Επεξεργασία Ενέργειας Συνταγής",
+      "action-type": "Τύπος Ενέργειας"
     },
     "create-alias": "Create Alias",
     "manage-aliases": "Manage Aliases",
