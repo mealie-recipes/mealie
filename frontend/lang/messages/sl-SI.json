@@ -64,7 +64,7 @@
     "something-went-wrong": "Nekaj je šlo narobe!",
     "subscribed-events": "Naročeni dogodki",
     "test-message-sent": "Testno sporočilo je bilo poslano",
-    "message-sent": "Message Sent",
+    "message-sent": "Sporočilo poslano",
     "new-notification": "Novo obvestilo",
     "event-notifiers": "Obvestila o dogodkih",
     "apprise-url-skipped-if-blank": "Apprise URL (preskočeno, če je prazno)",
@@ -161,7 +161,7 @@
     "test": "Test",
     "themes": "Teme",
     "thursday": "Četrtek",
-    "title": "Title",
+    "title": "Naslov",
     "token": "Žeton",
     "tuesday": "Torek",
     "type": "Tip",
@@ -585,20 +585,20 @@
     "screen-awake": "Ohranjanje budnega zaslona",
     "remove-image": "Odstrani sliko",
     "nextStep": "Naslednji korak",
-    "recipe-actions": "Recipe Actions",
+    "recipe-actions": "Opravila na receptu",
     "parser": {
-      "experimental-alert-text": "Mealie uses natural language processing to parse and create units and food items for your recipe ingredients. This feature is experimental and may not always work as expected. If you prefer not to use the parsed results, you can select 'Cancel' and your changes will not be saved.",
-      "ingredient-parser": "Ingredient Parser",
-      "explanation": "To use the ingredient parser, click the 'Parse All' button to start the process. Once the processed ingredients are available, you can review the items and verify that they were parsed correctly. The model's confidence score is displayed on the right of the item title. This score is an average of all the individual scores and may not always be completely accurate.",
-      "alerts-explainer": "Alerts will be displayed if a matching foods or unit is found but does not exists in the database.",
-      "select-parser": "Select Parser",
-      "natural-language-processor": "Natural Language Processor",
+      "experimental-alert-text": "Mealie uporablja procesiranje naravnega jezika za razčlenjevanje in ustvarjanje živil in enot v seznamu sestavin. Ta storitev je eksperimentalna in včasih ne deluje kot pričakovano. Če dobljenega rezultata ne želiš uporabiti, izberi 'Prekliči' in tvoje spremembe ne bodo shranjene.",
+      "ingredient-parser": "Razčlenjevalnik sestavin",
+      "explanation": "Če želiš uporabiti razčlenjevalnik sestavin, izberi 'Razčleni vse', da pričneš s postopkom. Ko bodo sestavine na voljo, lahko pregledaš podatke in preveriš, če so bili pravilno razčlenjeni. Stopnja zaupanja je prikazana desno od podatka. Ta vrednost je povprečje vseh posameznih vrednosti in ni nujno popolnoma natančna.",
+      "alerts-explainer": "Opozorila bodo prikazana v primeru, da obstaja ujemajoče živilo ali enota, ampak še ne obstaja v podatkovni bazi.",
+      "select-parser": "Izberi razčlenjevalnik",
+      "natural-language-processor": "Procesor naravnega jezika",
       "brute-parser": "Brute Parser",
-      "parse-all": "Parse All",
-      "no-unit": "No unit",
-      "missing-unit": "Create missing unit: {unit}",
-      "missing-food": "Create missing food: {food}",
-      "no-food": "No Food"
+      "parse-all": "Razčleni vse",
+      "no-unit": "Ni enote",
+      "missing-unit": "Ustvari manjkajočo enoto: {unit}",
+      "missing-food": "Ustvari manjkajoče živilo: {food}",
+      "no-food": "Ni živila"
     }
   },
   "search": {
@@ -1019,10 +1019,10 @@
       "source-unit-will-be-deleted": "Izvorna enota bo izbrisana"
     },
     "recipe-actions": {
-      "recipe-actions-data": "Recipe Actions Data",
-      "new-recipe-action": "New Recipe Action",
-      "edit-recipe-action": "Edit Recipe Action",
-      "action-type": "Action Type"
+      "recipe-actions-data": "Podatki o opravilu na receptu",
+      "new-recipe-action": "Novo opravilo na receptu",
+      "edit-recipe-action": "Urejaj opravilo na receptu",
+      "action-type": "Tip opravila"
     },
     "create-alias": "Ustvari alias",
     "manage-aliases": "Upravljanje z aliasi",
