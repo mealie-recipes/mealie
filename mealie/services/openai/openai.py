@@ -1,0 +1,113 @@
+from mealie.core.config import get_app_settings
+from .._base_service import BaseService
+from openai import AsyncOpenAI, NOT_GIVEN
+
+import os
+from pathlib import Path
+from pydantic import BaseModel, field_validator
+import json
+from textwrap import dedent
+
+
+class OpenAIDataInjection(BaseModel):
+    description: str
+    value: str
+
+    @field_validator("value", mode="before")
+    def parse_value(cls, value):
+        if not value:
+            raise ValueError("Value cannot be empty")
+        if isinstance(value, str):
+            return value
+
+        # convert Pydantic models to JSON
+        if isinstance(value, BaseModel):
+            return value.model_dump_json()
+
+        # convert Pydantic types to their JSON schema definition
+        if issubclass(value, BaseModel):
+            value = value.model_json_schema()
+
+        # attempt to convert object to JSON
+        try:
+            return json.dumps(value, separators=(",", ":"))
+        except TypeError:
+            return value
+
+
+class OpenAIService(BaseService):
+    PROMPTS_DIR = Path(os.path.dirname(os.path.abspath(__file__))) / "prompts"
+
+    def __init__(self) -> None:
+        settings = get_app_settings()
+        if not settings.OPENAI_ENABLED:
+            raise ValueError("OpenAI is not enabled")
+
+        self.model = settings.OPENAI_MODEL
+        self.get_client = lambda: AsyncOpenAI(api_key=settings.OPENAI_API_KEY)
+
+        super().__init__()
+
+    @classmethod
+    def get_prompt(cls, name: str, data_injections: list[OpenAIDataInjection] | None = None) -> str:
+        """
+        Load stored prompt and inject data into it.
+
+        Access prompts with dot notation.
+        For example, to access `prompts/recipes/parse-recipe-ingredients.txt`, use
+        `recipes.parse-recipe-ingredients`
+        """
+
+        if not name:
+            raise ValueError("Prompt name cannot be empty")
+
+        tree = name.split(".")
+        prompt_dir = os.path.join(cls.PROMPTS_DIR, *tree[:-1], tree[-1] + ".txt")
+        try:
+            with open(prompt_dir, "r") as f:
+                content = f.read()
+        except OSError as e:
+            raise OSError(f"Unable to load prompt {name}") from e
+
+        if not data_injections:
+            return content
+
+        content_parts = [content]
+        for data_injection in data_injections:
+            content_parts.append(
+                dedent(
+                    f"""
+                    ###
+                    {data_injection.description}
+                    ---
+
+                    {data_injection.value}
+                    """
+                )
+            )
+        return "\n".join(content_parts)
+
+    async def get_response(self, prompt: str, message: str, force_json_response=True) -> str | None:
+        try:
+            client = self.get_client()
+            response = await client.chat.completions.create(
+                messages=[
+                    {
+                        "role": "system",
+                        "content": prompt,
+                    },
+                    {
+                        "role": "user",
+                        "content": message,
+                    },
+                ],
+                model=self.model,
+                response_format={"type": "json_object"} if force_json_response else NOT_GIVEN,
+            )
+
+            if not response.choices:
+                return None
+            return response.choices[0].message.content
+        except Exception:
+            self.logger.exception("OpenAI Request Failed")
+            return None
