@@ -102,6 +102,13 @@ For usage, see [Usage - OpenID Connect](../authentication/oidc.md)
 | OIDC_GROUPS_CLAIM      | groups  | Optional if not using `OIDC_USER_GROUP` or `OIDC_ADMIN_GROUP`. This is the claim Mealie will request from your IdP and will use to compare to `OIDC_USER_GROUP` or `OIDC_ADMIN_GROUP` to allow the user to log in to Mealie or is set as an admin. **Your IdP must be configured to grant this claim**|
 | OIDC_TLS_CACERTFILE    | None    | File path to Certificate Authority used to verify server certificate (e.g. `/path/to/ca.crt`) |
 
+### OpenAI
+
+| Variables             |     Default   | Description                                                             |
+| --------------------- |    :------:   | ----------------------------------------------------------------------- |
+| OPENAI_API_KEY        |      None     | Your OpenAI API Key. Enables OpenAI-related features                    |
+| OPENAI_MODEL          |  gpt-4-turbo  | Which OpenAI model to use. If you're not sure, leave this empty         |
+
 ### Themeing
 
 Setting the following environmental variables will change the theme of the frontend. Note that the themes are the same for all users. This is a break-change when migration from v0.x.x -> 1.x.x.

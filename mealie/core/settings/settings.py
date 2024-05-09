@@ -208,6 +208,17 @@ class AppSettings(BaseSettings):
         return self.OIDC_AUTH_ENABLED and not_none and valid_group_claim
 
     # ===============================================
+    # OpenAI Configuration
+
+    OPENAI_API_KEY: str | None = None
+    OPENAI_MODEL: str = "gpt-4-turbo"
+
+    @property
+    def OPENAI_ENABLED(self) -> bool:
+        """Validates OpenAI settings are all set"""
+        return bool(self.OPENAI_API_KEY and self.OPENAI_MODEL)
+
+    # ===============================================
     # Testing Config
 
     TESTING: bool = False
