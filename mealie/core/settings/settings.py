@@ -211,7 +211,19 @@ class AppSettings(BaseSettings):
     # OpenAI Configuration
 
     OPENAI_API_KEY: str | None = None
+    """Your OpenAPI API key. Required to enable OpenAI features"""
     OPENAI_MODEL: str = "gpt-4-turbo"
+    """Which OpenAPI model to send requests to. Leave this unset for most usecases"""
+    OPENAI_WORKERS: int = 4
+    """
+    Number of OpenAI workers per request. Higher values may increase
+    processing speed, but will incur additional API costs
+    """
+    OPENAI_SEND_DATABASE_DATA: bool = True
+    """
+    Sending database data may increase accuracy in certain requests,
+    but will incur additional API costs
+    """
 
     @property
     def OPENAI_ENABLED(self) -> bool:

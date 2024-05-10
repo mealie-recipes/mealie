@@ -46,6 +46,9 @@ class OpenAIService(BaseService):
             raise ValueError("OpenAI is not enabled")
 
         self.model = settings.OPENAI_MODEL
+        self.workers = settings.OPENAI_WORKERS
+        self.send_db_data = settings.OPENAI_SEND_DATABASE_DATA
+
         self.get_client = lambda: AsyncOpenAI(api_key=settings.OPENAI_API_KEY)
 
         super().__init__()

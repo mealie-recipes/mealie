@@ -1,6 +1,5 @@
-from .process import parse, OpenAIIngredient
+from .parser import OpenAIParser
 
 __all__ = [
-    "OpenAIIngredient",
-    "parse",
+    "OpenAIParser",
 ]
