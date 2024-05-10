@@ -13,7 +13,7 @@ While parsing the ingredients, there are some things to keep in mind:
     - It's possible for the input to contain typos. For instance, you might see the word "potatos" instead of "potatoes". If it is a common misspelling, you may correct it
     - Pay close attention to what can be considered a unit of measurement. There are common measurements such as tablespoon, teaspoon, and gram, abbreviations such as tsp, tbsp, and oz, and others such as can, sprig, bundle, bunch, unit, cube, package, and pinch
     - Sometimes quantities can be given a range, such as "3-5" or "1 to 2" or "three or four". In this instance, choose the lower quantity; do not try to average or otherwise calculate the quantity. For instance, if the input it "2-3 lbs of chicken breast" the quantity should be "2"
-    - Any text that does not appear in the unit or food must appear in the notes. No text should be left off
+    - Any text that does not appear in the unit or food must appear in the notes. No text should be left off. The only exception for this is if a quantity is converted from text into a number. For instance, if you convert "2 dozen" into the number "24", you should not put the word "dozen" into any other field
 
 It is imperative that you do not create any data or otherwise make up any information. Failure to adhere to this rule is illegal and will result in harsh punishment. If you are unsure, place the entire string into the note section of the response. Do not make things up.
 
