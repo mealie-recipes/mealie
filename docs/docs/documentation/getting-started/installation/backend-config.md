@@ -104,6 +104,10 @@ For usage, see [Usage - OpenID Connect](../authentication/oidc.md)
 
 ### OpenAI
 
+:octicons-tag-24: v1.7.0
+
+Mealie supports various integrations using OpenAI. To enable OpenAI, [you must provide your OpenAI API key](https://platform.openai.com/api-keys). You can tweak how OpenAI is used using these backend settings. Please note that while OpenAI usage is optimized to reduce API costs, you're unlikely to be able to use OpenAI features with the free tier limits.
+
 | Variables                 |     Default   | Description                                                                                                                    |
 | ------------------------- |    :------:   | ------------------------------------------------------------------------------------------------------------------------------ |
 | OPENAI_API_KEY            |      None     | Your OpenAI API Key. Enables OpenAI-related features                                                                           |
