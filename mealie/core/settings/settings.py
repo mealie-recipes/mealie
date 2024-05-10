@@ -214,7 +214,7 @@ class AppSettings(BaseSettings):
     """Your OpenAPI API key. Required to enable OpenAI features"""
     OPENAI_MODEL: str = "gpt-4-turbo"
     """Which OpenAPI model to send requests to. Leave this unset for most usecases"""
-    OPENAI_WORKERS: int = 4
+    OPENAI_WORKERS: int = 2
     """
     Number of OpenAI workers per request. Higher values may increase
     processing speed, but will incur additional API costs
