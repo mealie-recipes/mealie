@@ -19,20 +19,7 @@
           <BaseOverflowButton
             v-model="parser"
             btn-class="mx-2 mb-4"
-            :items="[
-              {
-                text: $tc('recipe.parser.natural-language-processor'),
-                value: 'nlp',
-              },
-              {
-                text: $tc('recipe.parser.brute-parser'),
-                value: 'brute',
-              },
-              {
-                text: $tc('recipe.parser.openai-parser'),
-                value: 'openai',
-              },
-            ]"
+            :items="availableParsers"
           />
         </div>
       </BaseCardSectionTitle>
@@ -105,7 +92,7 @@ import { computed, defineComponent, ref, useContext, useRoute, useRouter, watch 
 import { invoke, until } from "@vueuse/core";
 import draggable from "vuedraggable";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
-import { useUserApi } from "~/composables/api";
+import { useAppInfo, useUserApi } from "~/composables/api";
 import { useRecipe } from "~/composables/recipes";
 import { useFoodData, useFoodStore, useUnitData, useUnitStore } from "~/composables/store";
 import { useParsingPreferences } from "~/composables/use-users/preferences";
@@ -135,7 +122,7 @@ export default defineComponent({
   },
   middleware: ["auth", "group-only"],
   setup() {
-    const { $auth } = useContext();
+    const { $auth, i18n } = useContext();
     const panels = ref<number[]>([]);
 
     const route = useRoute();
@@ -144,8 +131,7 @@ export default defineComponent({
     const router = useRouter();
     const slug = route.value.params.slug;
     const api = useUserApi();
-
-    const { i18n } = useContext();
+    const appInfo = useAppInfo();
 
     const { recipe, loading } = useRecipe(slug);
 
@@ -156,6 +142,24 @@ export default defineComponent({
     });
 
     const ingredients = ref<any[]>([]);
+
+    const availableParsers = computed(() => {
+      return [
+        {
+          "text": i18n.tc("recipe.parser.natural-language-processor"),
+          "value": "nlp",
+        },
+        {
+          "text": i18n.tc("recipe.parser.brute-parser"),
+          "value": "brute",
+        },
+        {
+          "text": i18n.tc("recipe.parser.openai-parser"),
+          "value": "openai",
+          "hide": !appInfo.value?.enableOpenai,
+        },
+      ]
+    });
 
     // =========================================================
     // Parser Logic
@@ -352,6 +356,7 @@ export default defineComponent({
 
     return {
       parser,
+      availableParsers,
       saveAll,
       createFood,
       createUnit,
