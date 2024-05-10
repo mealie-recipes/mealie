@@ -26,63 +26,72 @@
 
       <div class="d-flex mt-n3 mb-4 justify-end" style="gap: 5px">
         <BaseButton cancel class="mr-auto" @click="$router.go(-1)"></BaseButton>
-        <BaseButton color="info" @click="fetchParsed">
+        <BaseButton color="info" :disabled="parserLoading" @click="fetchParsed">
           <template #icon> {{ $globals.icons.foods }}</template>
           {{ $tc("recipe.parser.parse-all") }}
         </BaseButton>
-        <BaseButton save @click="saveAll" />
+        <BaseButton save :disabled="parserLoading" @click="saveAll" />
       </div>
 
-      <v-expansion-panels v-model="panels" multiple>
-        <draggable
-          v-if="parsedIng.length > 0"
-          v-model="parsedIng"
-          handle=".handle"
-          :style="{ width: '100%' }"
-          ghost-class="ghost"
-        >
-          <v-expansion-panel v-for="(ing, index) in parsedIng" :key="index">
-            <v-expansion-panel-header class="my-0 py-0" disable-icon-rotate>
-              <template #default="{ open }">
-                <v-fade-transition>
-                  <span v-if="!open" key="0"> {{ ing.input }} </span>
-                </v-fade-transition>
-              </template>
-              <template #actions>
-                <v-icon left :color="isError(ing) ? 'error' : 'success'">
-                  {{ isError(ing) ? $globals.icons.alert : $globals.icons.check }}
-                </v-icon>
-                <div class="my-auto" :color="isError(ing) ? 'error-text' : 'success-text'">
-                  {{ ing.confidence ? asPercentage(ing.confidence.average) : "" }}
-                </div>
-              </template>
-            </v-expansion-panel-header>
-            <v-expansion-panel-content class="pb-0 mb-0">
-              <RecipeIngredientEditor v-model="parsedIng[index].ingredient" allow-insert-ingredient @insert-ingredient="insertIngredient(index)"  @delete="deleteIngredient(index)" />
-              {{ ing.input }}
-              <v-card-actions>
-                <v-spacer />
-                <BaseButton
-                  v-if="errors[index].unitError && errors[index].unitErrorMessage !== ''"
-                  color="warning"
-                  small
-                  @click="createUnit(ing.ingredient.unit, index)"
-                >
-                  {{ errors[index].unitErrorMessage }}
-                </BaseButton>
-                <BaseButton
-                  v-if="errors[index].foodError && errors[index].foodErrorMessage !== ''"
-                  color="warning"
-                  small
-                  @click="createFood(ing.ingredient.food, index)"
-                >
-                  {{ errors[index].foodErrorMessage }}
-                </BaseButton>
-              </v-card-actions>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-        </draggable>
-      </v-expansion-panels>
+      <div v-if="parserLoading">
+        <AppLoader
+          v-if="parserLoading"
+          :loading="parserLoading"
+          waiting-text=""
+        />
+      </div>
+      <div v-else>
+        <v-expansion-panels v-model="panels" multiple>
+          <draggable
+            v-if="parsedIng.length > 0"
+            v-model="parsedIng"
+            handle=".handle"
+            :style="{ width: '100%' }"
+            ghost-class="ghost"
+          >
+            <v-expansion-panel v-for="(ing, index) in parsedIng" :key="index">
+              <v-expansion-panel-header class="my-0 py-0" disable-icon-rotate>
+                <template #default="{ open }">
+                  <v-fade-transition>
+                    <span v-if="!open" key="0"> {{ ing.input }} </span>
+                  </v-fade-transition>
+                </template>
+                <template #actions>
+                  <v-icon left :color="isError(ing) ? 'error' : 'success'">
+                    {{ isError(ing) ? $globals.icons.alert : $globals.icons.check }}
+                  </v-icon>
+                  <div class="my-auto" :color="isError(ing) ? 'error-text' : 'success-text'">
+                    {{ ing.confidence ? asPercentage(ing.confidence.average) : "" }}
+                  </div>
+                </template>
+              </v-expansion-panel-header>
+              <v-expansion-panel-content class="pb-0 mb-0">
+                <RecipeIngredientEditor v-model="parsedIng[index].ingredient" allow-insert-ingredient @insert-ingredient="insertIngredient(index)"  @delete="deleteIngredient(index)" />
+                {{ ing.input }}
+                <v-card-actions>
+                  <v-spacer />
+                  <BaseButton
+                    v-if="errors[index].unitError && errors[index].unitErrorMessage !== ''"
+                    color="warning"
+                    small
+                    @click="createUnit(ing.ingredient.unit, index)"
+                  >
+                    {{ errors[index].unitErrorMessage }}
+                  </BaseButton>
+                  <BaseButton
+                    v-if="errors[index].foodError && errors[index].foodErrorMessage !== ''"
+                    color="warning"
+                    small
+                    @click="createFood(ing.ingredient.food, index)"
+                  >
+                    {{ errors[index].foodErrorMessage }}
+                  </BaseButton>
+                </v-card-actions>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </draggable>
+        </v-expansion-panels>
+      </div>
     </v-container>
   </v-container>
 </template>
@@ -134,6 +143,7 @@ export default defineComponent({
     const appInfo = useAppInfo();
 
     const { recipe, loading } = useRecipe(slug);
+    const parserLoading = ref(false);
 
     invoke(async () => {
       await until(recipe).not.toBeNull();
@@ -208,7 +218,10 @@ export default defineComponent({
         return;
       }
       const raw = recipe.value.recipeIngredient.map((ing) => ing.note ?? "");
+
+      parserLoading.value = true;
       const { data } = await api.recipes.parseIngredients(parser.value, raw);
+      parserLoading.value = false;
 
       if (data) {
         // When we send the recipe ingredient text to be parsed, we lose the reference to the original unparsed ingredient.
@@ -372,6 +385,7 @@ export default defineComponent({
       parsedIng,
       recipe,
       loading,
+      parserLoading,
       ingredients,
     };
   },
