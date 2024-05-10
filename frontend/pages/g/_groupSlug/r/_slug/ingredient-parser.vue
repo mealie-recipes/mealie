@@ -101,13 +101,14 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, useContext, useRoute, useRouter } from "@nuxtjs/composition-api";
+import { computed, defineComponent, ref, useContext, useRoute, useRouter, watch } from "@nuxtjs/composition-api";
 import { invoke, until } from "@vueuse/core";
 import draggable from "vuedraggable";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
 import { useUserApi } from "~/composables/api";
 import { useRecipe } from "~/composables/recipes";
 import { useFoodData, useFoodStore, useUnitData, useUnitStore } from "~/composables/store";
+import { useParsingPreferences } from "~/composables/use-users/preferences";
 import { uuid4 } from "~/composables/use-utils";
 import {
   CreateIngredientFood,
@@ -158,8 +159,12 @@ export default defineComponent({
 
     // =========================================================
     // Parser Logic
-    const parser = ref<Parser>("nlp");
+    const parserPreferences = useParsingPreferences();
+    const parser = ref<Parser>(parserPreferences.value.parser || "nlp");
     const parsedIng = ref<ParsedIngredient[]>([]);
+    watch(parser, (val) => {
+      parserPreferences.value.parser = val;
+    });
 
     function processIngredientError(ing: ParsedIngredient, index: number): Error {
       const unitError = !checkForUnit(ing.ingredient.unit);
