@@ -41,6 +41,7 @@ export default defineComponent({
     const { i18n } = useContext();
     const buttonLookup: { [key: string]: string } = {
       recipes: i18n.tc("general.recipes"),
+      recipeActions: i18n.tc("recipe.recipe-actions"),
       foods: i18n.tc("general.foods"),
       units: i18n.tc("general.units"),
       labels: i18n.tc("data-pages.labels.labels"),
@@ -56,6 +57,11 @@ export default defineComponent({
         text: i18n.t("general.recipes"),
         value: "new",
         to: "/group/data/recipes",
+      },
+      {
+        text: i18n.t("recipe.recipe-actions"),
+        value: "new",
+        to: "/group/data/recipe-actions",
         divider: true,
       },
       {
@@ -92,7 +98,13 @@ export default defineComponent({
     ]);
 
     const buttonText = computed(() => {
-      const last = route.value.path.split("/").pop();
+      const last = route.value.path
+        .split("/")
+        .pop()
+        // convert hypenated-values to camelCase
+        ?.replace(/-([a-z])/g, function (g) {
+          return g[1].toUpperCase();
+        })
 
       if (last) {
         return buttonLookup[last];

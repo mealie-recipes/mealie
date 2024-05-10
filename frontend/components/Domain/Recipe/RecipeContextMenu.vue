@@ -105,6 +105,26 @@
           </v-list-item-icon>
           <v-list-item-title>{{ item.title }}</v-list-item-title>
         </v-list-item>
+        <div v-if="useItems.recipeActions && recipeActions && recipeActions.length">
+          <v-divider />
+          <v-list-group @click.stop>
+            <template #activator>
+              <v-list-item-title>{{ $tc("recipe.recipe-actions") }}</v-list-item-title>
+            </template>
+            <v-list dense class="ma-0 pa-0">
+              <v-list-item
+                v-for="(action, index) in recipeActions"
+                :key="index"
+                class="pl-6"
+                @click="executeRecipeAction(action)"
+              >
+                <v-list-item-title>
+                  {{ action.title }}
+                </v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-list-group>
+        </div>
       </v-list>
     </v-menu>
   </div>
@@ -117,11 +137,12 @@ import RecipeDialogPrintPreferences from "./RecipeDialogPrintPreferences.vue";
 import RecipeDialogShare from "./RecipeDialogShare.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useUserApi } from "~/composables/api";
+import { useGroupRecipeActions } from "~/composables/use-group-recipe-actions";
 import { useGroupSelf } from "~/composables/use-groups";
 import { alert } from "~/composables/use-toast";
 import { usePlanTypeOptions } from "~/composables/use-group-mealplan";
 import { Recipe } from "~/lib/api/types/recipe";
-import { ShoppingListSummary } from "~/lib/api/types/group";
+import { GroupRecipeActionOut, ShoppingListSummary } from "~/lib/api/types/group";
 import { PlanEntryType } from "~/lib/api/types/meal-plan";
 import { useAxiosDownloader } from "~/composables/api/use-axios-download";
 
@@ -134,6 +155,7 @@ export interface ContextMenuIncludes {
   print: boolean;
   printPreferences: boolean;
   share: boolean;
+  recipeActions: boolean;
 }
 
 export interface ContextMenuItem {
@@ -163,6 +185,7 @@ export default defineComponent({
         print: true,
         printPreferences: true,
         share: true,
+        recipeActions: true,
       }),
     },
     // Append items are added at the end of the useItems list
@@ -347,6 +370,19 @@ export default defineComponent({
     }
 
     const router = useRouter();
+    const groupRecipeActionsStore = useGroupRecipeActions();
+
+    async function executeRecipeAction(action: GroupRecipeActionOut) {
+      const response = await groupRecipeActionsStore.execute(action, props.recipe);
+
+      if (action.actionType === "post") {
+        if (!response || (response.status >= 200  && response.status < 300)) {
+          alert.success(i18n.tc("events.message-sent"));
+        } else {
+          alert.error(i18n.tc("events.something-went-wrong"));
+        }
+      }
+    }
 
     async function deleteRecipe() {
       await api.recipes.deleteOne(props.slug);
@@ -437,6 +473,8 @@ export default defineComponent({
       ...toRefs(state),
       recipeRef,
       recipeRefWithScale,
+      executeRecipeAction,
+      recipeActions: groupRecipeActionsStore.recipeActions,
       shoppingLists,
       duplicateRecipe,
       contextMenuEventHandler,

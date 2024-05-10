@@ -11,4 +11,4 @@ class Nutrition(MealieModel):
     fiber_content: str | None = None
     sodium_content: str | None = None
     sugar_content: str | None = None
-    model_config = ConfigDict(from_attributes=True)
+    model_config = ConfigDict(from_attributes=True, coerce_numbers_to_str=True)

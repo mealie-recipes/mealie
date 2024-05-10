@@ -37,7 +37,7 @@ class OpenIDProvider(AuthProvider[OIDCRequest]):
         user = self.try_get_user(claims.get(settings.OIDC_USER_CLAIM))
         is_admin = False
         if settings.OIDC_USER_GROUP or settings.OIDC_ADMIN_GROUP:
-            group_claim = claims.get("groups", [])
+            group_claim = claims.get(settings.OIDC_GROUPS_CLAIM, [])
             is_admin = settings.OIDC_ADMIN_GROUP in group_claim if settings.OIDC_ADMIN_GROUP else False
             is_valid_user = settings.OIDC_USER_GROUP in group_claim if settings.OIDC_USER_GROUP else True
 
@@ -76,12 +76,12 @@ class OpenIDProvider(AuthProvider[OIDCRequest]):
                 repos.users.update(user.id, user)
             return self.get_access_token(user, settings.OIDC_REMEMBER_ME)
 
-        self._logger.info("[OIDC] Found user but their AuthMethod does not match OIDC")
+        self._logger.warning("[OIDC] Found user but their AuthMethod does not match OIDC")
         return None
 
     def get_claims(self, settings: AppSettings) -> JWTClaims | None:
         """Get the claims from the ID token and check if the required claims are present"""
-        required_claims = {"preferred_username", "name", "email"}
+        required_claims = {"preferred_username", "name", "email", settings.OIDC_USER_CLAIM}
         jwks = OpenIDProvider.get_jwks()
         if not jwks:
             return None
@@ -98,11 +98,13 @@ class OpenIDProvider(AuthProvider[OIDCRequest]):
         try:
             claims.validate()
         except ExpiredTokenError as e:
-            self._logger.debug(f"[OIDC] {e.error}: {e.description}")
+            self._logger.error(f"[OIDC] {e.error}: {e.description}")
             return None
+        except Exception as e:
+            self._logger.error("[OIDC] Exception while validating id_token claims", e)
 
         if not claims:
-            self._logger.warning("[OIDC] Claims not found")
+            self._logger.error("[OIDC] Claims not found")
             return None
         if not required_claims.issubset(claims.keys()):
             self._logger.error(

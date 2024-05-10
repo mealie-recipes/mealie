@@ -58,11 +58,18 @@
       </div>
 
       <!-- Reorder Labels -->
-      <BaseDialog v-model="reorderLabelsDialog" :icon="$globals.icons.tagArrowUp" :title="$t('shopping-list.reorder-labels')">
+      <BaseDialog
+        v-model="reorderLabelsDialog"
+        :icon="$globals.icons.tagArrowUp"
+        :title="$t('shopping-list.reorder-labels')"
+        :submit-icon="$globals.icons.save"
+        :submit-text="$tc('general.save')"
+        @submit="saveLabelOrder"
+        @close="cancelLabelOrder">
         <v-card height="fit-content" max-height="70vh" style="overflow-y: auto;">
-          <draggable :value="shoppingList.labelSettings" handle=".handle" class="my-2" @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateLabelOrder">
-            <div v-for="(labelSetting, index) in shoppingList.labelSettings" :key="labelSetting.id">
-              <MultiPurposeLabelSection v-model="shoppingList.labelSettings[index]" use-color />
+          <draggable v-if="localLabels" :value="localLabels" handle=".handle" class="my-2" @input="updateLabelOrder">
+            <div v-for="(labelSetting, index) in localLabels" :key="labelSetting.id">
+              <MultiPurposeLabelSection v-model="localLabels[index]" use-color />
             </div>
           </draggable>
         </v-card>
@@ -103,7 +110,9 @@
         />
       </div>
       <div v-else class="mt-4 d-flex justify-end">
-        <BaseButton v-if="preferences.viewByLabel" edit class="mr-2" @click="reorderLabelsDialog = true">
+        <BaseButton
+          v-if="preferences.viewByLabel" edit class="mr-2"
+          @click="toggleReorderLabelsDialog">
           <template #icon> {{ $globals.icons.tags }} </template>
           {{ $t('shopping-list.reorder-labels') }}
         </BaseButton>
@@ -492,6 +501,8 @@ export default defineComponent({
     // Labels, Units, Foods
     // TODO: Extract to Composable
 
+    const localLabels = ref<ShoppingListMultiPurposeLabelOut[]>()
+
     const { labels: allLabels } = useLabelStore();
     const { units: allUnits } = useUnitStore();
     const { foods: allFoods } = useFoodStore();
@@ -505,7 +516,10 @@ export default defineComponent({
     }
 
     function toggleReorderLabelsDialog() {
+      // stop polling and populate localLabels
+      loadingCounter.value += 1
       reorderLabelsDialog.value = !reorderLabelsDialog.value
+      localLabels.value = shoppingList.value?.labelSettings
     }
 
     async function toggleSettingsDialog() {
@@ -515,7 +529,7 @@ export default defineComponent({
       settingsDialog.value = !settingsDialog.value;
     }
 
-    async function updateLabelOrder(labelSettings: ShoppingListMultiPurposeLabelOut[]) {
+    function updateLabelOrder(labelSettings: ShoppingListMultiPurposeLabelOut[]) {
       if (!shoppingList.value) {
         return;
       }
@@ -525,16 +539,31 @@ export default defineComponent({
         return labelSetting;
       });
 
-      // setting this doesn't have any effect on the data since it's refreshed automatically, but it makes the ux feel smoother
-      shoppingList.value.labelSettings = labelSettings;
-      updateListItemOrder();
+      localLabels.value = labelSettings
+    }
+
+    function cancelLabelOrder() {
+      loadingCounter.value -= 1
+      if (!shoppingList.value) {
+        return;
+      }
+      // restore original state
+      localLabels.value = shoppingList.value.labelSettings
+    }
+
+    async function saveLabelOrder() {
+      if (!shoppingList.value || !localLabels.value || (localLabels.value === shoppingList.value.labelSettings)) {
+        return;
+      }
 
       loadingCounter.value += 1;
-      const { data } = await userApi.shopping.lists.updateLabelSettings(shoppingList.value.id, labelSettings);
+      const { data } = await userApi.shopping.lists.updateLabelSettings(shoppingList.value.id, localLabels.value);
       loadingCounter.value -= 1;
 
       if (data) {
-        refresh();
+        // update shoppingList labels using the API response
+        shoppingList.value.labelSettings = (data as ShoppingListOut).labelSettings;
+        updateItemsByLabel();
       }
     }
 
@@ -940,7 +969,10 @@ export default defineComponent({
       toggleReorderLabelsDialog,
       settingsDialog,
       toggleSettingsDialog,
+      localLabels,
       updateLabelOrder,
+      cancelLabelOrder,
+      saveLabelOrder,
       saveListItem,
       shoppingList,
       showChecked,
