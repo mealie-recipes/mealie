@@ -1,13 +1,6 @@
 import json
 
 from pydantic import BaseModel
-from mealie.schema.recipe.recipe_ingredient import (
-    CreateIngredientFood,
-    CreateIngredientUnit,
-    IngredientConfidence,
-    ParsedIngredient,
-    RecipeIngredient,
-)
 from mealie.services.openai import OpenAIDataInjection, OpenAIService
 
 
@@ -25,21 +18,7 @@ class OpenAIIngredients(BaseModel):
     ingredients: list[OpenAIIngredient] = []
 
 
-def _convert(ing: OpenAIIngredient) -> ParsedIngredient:
-    return ParsedIngredient(
-        input=ing.input,
-        confidence=IngredientConfidence(average=ing.confidence),
-        ingredient=RecipeIngredient(
-            original_text=ing.input,
-            quantity=ing.quantity,
-            unit=CreateIngredientUnit(name=ing.unit) if ing.unit else None,
-            food=CreateIngredientFood(name=ing.food) if ing.food else None,
-            note=ing.note,
-        ),
-    )
-
-
-async def parse(ingredients: list[str]) -> list[ParsedIngredient]:
+async def parse(ingredients: list[str]) -> OpenAIIngredients:
     service = OpenAIService()
     data_injections = [
         OpenAIDataInjection(
@@ -59,5 +38,4 @@ async def parse(ingredients: list[str]) -> list[ParsedIngredient]:
     if not response:
         raise Exception("No response from OpenAI")
 
-    parsed_ingredients = OpenAIIngredients.model_validate_json(response)
-    return [_convert(ing) for ing in parsed_ingredients.ingredients]
+    return OpenAIIngredients.model_validate_json(response)

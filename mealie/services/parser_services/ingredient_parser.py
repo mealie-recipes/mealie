@@ -243,12 +243,30 @@ class NLPParser(ABCIngredientParser):
 
 
 class OpenAIParser(ABCIngredientParser):
+    def _convert_ingredient(self, openai_ing: openai.OpenAIIngredient) -> ParsedIngredient:
+        ingredient = RecipeIngredient(
+            original_text=openai_ing.input,
+            quantity=openai_ing.quantity,
+            unit=CreateIngredientUnit(name=openai_ing.unit) if openai_ing.unit else None,
+            food=CreateIngredientFood(name=openai_ing.food) if openai_ing.food else None,
+            note=openai_ing.note,
+        )
+
+        parsed_ingredient = ParsedIngredient(
+            input=openai_ing.input,
+            confidence=IngredientConfidence(average=openai_ing.confidence),
+            ingredient=ingredient,
+        )
+
+        return self.find_ingredient_match(parsed_ingredient)
+
     async def parse_one(self, ingredient_string: str) -> ParsedIngredient:
         items = await self.parse([ingredient_string])
         return items[0]
 
     async def parse(self, ingredients: list[str]) -> list[ParsedIngredient]:
-        return await openai.parse(ingredients)
+        response = await openai.parse(ingredients)
+        return [self._convert_ingredient(ing) for ing in response.ingredients]
 
 
 __registrar: dict[RegisteredParser, type[ABCIngredientParser]] = {
