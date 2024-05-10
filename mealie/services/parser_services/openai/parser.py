@@ -59,22 +59,16 @@ class OpenAIParser(ABCIngredientParser):
         ]
 
         if service.send_db_data:
-            description_template = (
-                "Below is a list of {plural} found in the {plural} database. While parsing, you should "
-                "reference this list when determining which part of the input is the {singular}. You may "
-                "find a {singular} in the input that does not exist in this list. This should not prevent "
-                "you from parsing that text as a {singular}, however it may lower your confidence level."
-            )
-
             data_injections.extend(
                 [
                     OpenAIDataInjection(
-                        description=description_template.format(singular="unit", plural="units"),
+                        description=(
+                            "Below is a list of units found in the units database. While parsing, you should "
+                            "reference this list when determining which part of the input is the unit. You may "
+                            "find a unit in the input that does not exist in this list. This should not prevent "
+                            "you from parsing that text as a unit, however it may lower your confidence level."
+                        ),
                         value=list(set(self.units_by_alias)),
-                    ),
-                    OpenAIDataInjection(
-                        description=description_template.format(singular="food", plural="foods"),
-                        value=list(set(self.foods_by_alias)),
                     ),
                 ]
             )
