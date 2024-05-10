@@ -13,7 +13,7 @@ from mealie.schema.recipe.recipe_ingredient import (
 )
 from mealie.services.openai import OpenAIDataInjection, OpenAIService
 
-from ..ingredient_parser import ABCIngredientParser
+from .._base import ABCIngredientParser
 
 
 class OpenAIIngredient(BaseModel):
