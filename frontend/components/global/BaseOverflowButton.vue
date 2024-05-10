@@ -15,8 +15,8 @@
     <v-list v-if="mode === MODES.model" dense>
       <v-list-item-group v-model="itemGroup">
         <template v-for="(item, index) in items">
-          <div v-if="!item.hide">
-            <v-list-item :key="index" @click="setValue(item)">
+          <div v-if="!item.hide" :key="index">
+            <v-list-item @click="setValue(item)">
               <v-list-item-icon v-if="item.icon">
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-item-icon>
@@ -31,8 +31,8 @@
     <v-list v-else-if="mode === MODES.link" dense>
       <v-list-item-group v-model="itemGroup">
         <template v-for="(item, index) in items">
-          <div v-if="!item.hide">
-            <v-list-item :key="index" :to="item.to">
+          <div v-if="!item.hide" :key="index">
+            <v-list-item :to="item.to">
             <v-list-item-icon v-if="item.icon">
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-icon>
@@ -46,8 +46,8 @@
     <!-- Event -->
     <v-list v-else-if="mode === MODES.event" dense>
       <template v-for="(item, index) in items">
-        <div v-if="!item.hide">
-          <v-list-item :key="index" @click="$emit(item.event)">
+        <div v-if="!item.hide" :key="index">
+          <v-list-item @click="$emit(item.event)">
             <v-list-item-icon v-if="item.icon">
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-icon>
