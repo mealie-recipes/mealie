@@ -10,10 +10,11 @@ from fastapi.datastructures import UploadFile
 from fastapi.responses import JSONResponse
 from pydantic import UUID4, BaseModel, Field
 from slugify import slugify
+from starlette.background import BackgroundTask
 from starlette.responses import FileResponse
 
 from mealie.core import exceptions
-from mealie.core.dependencies import temporary_zip_path
+from mealie.core.dependencies import temporary_zip_path, unlinking_temporary_zip_path
 from mealie.core.dependencies.dependencies import temporary_dir, validate_recipe_token
 from mealie.core.security import create_recipe_slug_token
 from mealie.db.models.group.cookbook import CookBook
@@ -131,7 +132,9 @@ class RecipeExportController(BaseRecipeController):
             if image_asset.is_file():
                 myzip.write(image_asset, arcname=image_asset.name)
 
-        return FileResponse(temp_path, filename=f"{slug}.zip")
+        return FileResponse(
+            temp_path, filename=f"{slug}.zip", background=BackgroundTask(temp_path.unlink, missing_ok=True)
+        )
 
 
 router = UserAPIRouter(prefix="/recipes", tags=["Recipe: CRUD"], route_class=MealieCrudRoute)
@@ -219,7 +222,7 @@ class RecipeController(BaseRecipeController):
         return "recipe_scrapers was unable to scrape this URL"
 
     @router.post("/create-from-zip", status_code=201)
-    def create_recipe_from_zip(self, temp_path=Depends(temporary_zip_path), archive: UploadFile = File(...)):
+    def create_recipe_from_zip(self, temp_path=Depends(unlinking_temporary_zip_path), archive: UploadFile = File(...)):
         """Create recipe from archive"""
         recipe = self.service.create_from_zip(archive, temp_path)
         self.publish_event(

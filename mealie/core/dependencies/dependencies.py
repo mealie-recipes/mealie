@@ -205,9 +205,13 @@ def validate_recipe_token(token: str | None = None) -> str:
     return slug
 
 
-async def temporary_zip_path() -> AsyncGenerator[Path, None]:
+def temporary_zip_path() -> Path:
     app_dirs.TEMP_DIR.mkdir(exist_ok=True, parents=True)
-    temp_path = app_dirs.TEMP_DIR.joinpath("my_zip_archive.zip")
+    return app_dirs.TEMP_DIR.joinpath("my_zip_archive.zip")
+
+
+async def unlinking_temporary_zip_path() -> AsyncGenerator[Path, None]:
+    temp_path = temporary_zip_path()
 
     try:
         yield temp_path
