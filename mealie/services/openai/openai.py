@@ -7,6 +7,8 @@ from pathlib import Path
 from pydantic import BaseModel, field_validator
 import json
 from textwrap import dedent
+import inspect
+from openai.resources.chat.completions import ChatCompletion
 
 
 class OpenAIDataInjection(BaseModel):
@@ -25,7 +27,7 @@ class OpenAIDataInjection(BaseModel):
             return value.model_dump_json()
 
         # convert Pydantic types to their JSON schema definition
-        if issubclass(value, BaseModel):
+        if inspect.isclass(value) and issubclass(value, BaseModel):
             value = value.model_json_schema()
 
         # attempt to convert object to JSON
@@ -87,24 +89,30 @@ class OpenAIService(BaseService):
             )
         return "\n".join(content_parts)
 
-    async def get_response(self, prompt: str, message: str, force_json_response=True) -> str | None:
-        try:
-            client = self.get_client()
-            response = await client.chat.completions.create(
-                messages=[
-                    {
-                        "role": "system",
-                        "content": prompt,
-                    },
-                    {
-                        "role": "user",
-                        "content": message,
-                    },
-                ],
-                model=self.model,
-                response_format={"type": "json_object"} if force_json_response else NOT_GIVEN,
-            )
+    async def _get_raw_response(
+        self, prompt: str, message: str, temperature=0.2, force_json_response=True
+    ) -> ChatCompletion:
+        client = self.get_client()
+        return await client.chat.completions.create(
+            messages=[
+                {
+                    "role": "system",
+                    "content": prompt,
+                },
+                {
+                    "role": "user",
+                    "content": message,
+                },
+            ],
+            model=self.model,
+            temperature=temperature,
+            response_format={"type": "json_object"} if force_json_response else NOT_GIVEN,
+        )
 
+    async def get_response(self, prompt: str, message: str, temperature=0.2, force_json_response=True) -> str | None:
+        """Send data to OpenAI and return the response message content"""
+        try:
+            response = await self._get_raw_response(prompt, message, temperature, force_json_response)
             if not response.choices:
                 return None
             return response.choices[0].message.content

@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 from fractions import Fraction
 from typing import TypeVar
-
 from pydantic import UUID4, BaseModel
 from rapidfuzz import fuzz, process
 from sqlalchemy.orm import Session
@@ -23,7 +22,7 @@ from mealie.schema.recipe.recipe_ingredient import (
 )
 from mealie.schema.response.pagination import PaginationQuery
 
-from . import brute, crfpp
+from . import brute, crfpp, openai
 
 logger = get_logger(__name__)
 T = TypeVar("T", bound=BaseModel)
@@ -106,10 +105,10 @@ class ABCIngredientParser(ABC):
         return 70
 
     @abstractmethod
-    def parse_one(self, ingredient_string: str) -> ParsedIngredient: ...
+    async def parse_one(self, ingredient_string: str) -> ParsedIngredient: ...
 
     @abstractmethod
-    def parse(self, ingredients: list[str]) -> list[ParsedIngredient]: ...
+    async def parse(self, ingredients: list[str]) -> list[ParsedIngredient]: ...
 
     @classmethod
     def find_match(cls, match_value: str, *, store_map: dict[str, T], fuzzy_match_threshold: int = 0) -> T | None:
@@ -175,7 +174,7 @@ class BruteForceParser(ABCIngredientParser):
     Brute force ingredient parser.
     """
 
-    def parse_one(self, ingredient: str) -> ParsedIngredient:
+    async def parse_one(self, ingredient: str) -> ParsedIngredient:
         bfi = brute.parse(ingredient, self)
 
         parsed_ingredient = ParsedIngredient(
@@ -191,8 +190,8 @@ class BruteForceParser(ABCIngredientParser):
 
         return self.find_ingredient_match(parsed_ingredient)
 
-    def parse(self, ingredients: list[str]) -> list[ParsedIngredient]:
-        return [self.parse_one(ingredient) for ingredient in ingredients]
+    async def parse(self, ingredients: list[str]) -> list[ParsedIngredient]:
+        return [await self.parse_one(ingredient) for ingredient in ingredients]
 
 
 class NLPParser(ABCIngredientParser):
@@ -234,18 +233,28 @@ class NLPParser(ABCIngredientParser):
 
         return self.find_ingredient_match(parsed_ingredient)
 
-    def parse(self, ingredients: list[str]) -> list[ParsedIngredient]:
+    async def parse(self, ingredients: list[str]) -> list[ParsedIngredient]:
         crf_models = crfpp.convert_list_to_crf_model(ingredients)
         return [self._crf_to_ingredient(crf_model) for crf_model in crf_models]
 
-    def parse_one(self, ingredient: str) -> ParsedIngredient:
-        items = self.parse([ingredient])
+    async def parse_one(self, ingredient_string: str) -> ParsedIngredient:
+        items = await self.parse([ingredient_string])
         return items[0]
 
 
-__registrar = {
+class OpenAIParser(ABCIngredientParser):
+    async def parse_one(self, ingredient_string: str) -> ParsedIngredient:
+        items = await self.parse([ingredient_string])
+        return items[0]
+
+    async def parse(self, ingredients: list[str]) -> list[ParsedIngredient]:
+        return await openai.parse(ingredients)
+
+
+__registrar: dict[RegisteredParser, type[ABCIngredientParser]] = {
     RegisteredParser.nlp: NLPParser,
     RegisteredParser.brute: BruteForceParser,
+    RegisteredParser.openai: OpenAIParser,
 }
 
 

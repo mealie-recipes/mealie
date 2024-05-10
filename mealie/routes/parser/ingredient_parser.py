@@ -11,11 +11,12 @@ router = APIRouter(prefix="/parser")
 @controller(router)
 class IngredientParserController(BaseUserController):
     @router.post("/ingredients", response_model=list[ParsedIngredient])
-    def parse_ingredients(self, ingredients: IngredientsRequest):
+    async def parse_ingredients(self, ingredients: IngredientsRequest):
         parser = get_parser(ingredients.parser, self.group_id, self.session)
-        return parser.parse(ingredients.ingredients)
+        return await parser.parse(ingredients.ingredients)
 
     @router.post("/ingredient", response_model=ParsedIngredient)
-    def parse_ingredient(self, ingredient: IngredientRequest):
+    async def parse_ingredient(self, ingredient: IngredientRequest):
         parser = get_parser(ingredient.parser, self.group_id, self.session)
-        return parser.parse([ingredient.ingredient])[0]
+        response = await parser.parse([ingredient.ingredient])
+        return response[0]
