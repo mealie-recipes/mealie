@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import TypeVar
+
 from pydantic import UUID4, BaseModel
 from rapidfuzz import fuzz, process
 from sqlalchemy.orm import Session
@@ -15,7 +16,6 @@ from mealie.schema.recipe.recipe_ingredient import (
     ParsedIngredient,
 )
 from mealie.schema.response.pagination import PaginationQuery
-
 
 T = TypeVar("T", bound=BaseModel)
 

@@ -1,14 +1,16 @@
-from mealie.core.config import get_app_settings
-from .._base_service import BaseService
-from openai import AsyncOpenAI, NOT_GIVEN
-
+import inspect
+import json
 import os
 from pathlib import Path
-from pydantic import BaseModel, field_validator
-import json
 from textwrap import dedent
-import inspect
+
+from openai import NOT_GIVEN, AsyncOpenAI
 from openai.resources.chat.completions import ChatCompletion
+from pydantic import BaseModel, field_validator
+
+from mealie.core.config import get_app_settings
+
+from .._base_service import BaseService
 
 
 class OpenAIDataInjection(BaseModel):
@@ -69,7 +71,7 @@ class OpenAIService(BaseService):
         tree = name.split(".")
         prompt_dir = os.path.join(cls.PROMPTS_DIR, *tree[:-1], tree[-1] + ".txt")
         try:
-            with open(prompt_dir, "r") as f:
+            with open(prompt_dir) as f:
                 content = f.read()
         except OSError as e:
             raise OSError(f"Unable to load prompt {name}") from e

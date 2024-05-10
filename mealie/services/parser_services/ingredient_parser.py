@@ -1,10 +1,9 @@
 from fractions import Fraction
+
 from pydantic import UUID4
 from sqlalchemy.orm import Session
-from ._base import ABCIngredientParser
+
 from mealie.core.root_logger import get_logger
-
-
 from mealie.schema.recipe import RecipeIngredient
 from mealie.schema.recipe.recipe_ingredient import (
     MAX_INGREDIENT_DENOMINATOR,
@@ -15,8 +14,8 @@ from mealie.schema.recipe.recipe_ingredient import (
     RegisteredParser,
 )
 
-
 from . import brute, crfpp, openai
+from ._base import ABCIngredientParser
 
 logger = get_logger(__name__)
 

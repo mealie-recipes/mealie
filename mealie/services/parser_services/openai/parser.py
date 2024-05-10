@@ -1,8 +1,9 @@
 import asyncio
 import json
-from typing import Awaitable
+from collections.abc import Awaitable
 
 from pydantic import BaseModel
+
 from mealie.schema.recipe.recipe_ingredient import (
     CreateIngredientFood,
     CreateIngredientUnit,
@@ -11,6 +12,7 @@ from mealie.schema.recipe.recipe_ingredient import (
     RecipeIngredient,
 )
 from mealie.services.openai import OpenAIDataInjection, OpenAIService
+
 from ..ingredient_parser import ABCIngredientParser
 
 
