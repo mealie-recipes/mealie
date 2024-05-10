@@ -28,6 +28,10 @@
                 text: $tc('recipe.parser.brute-parser'),
                 value: 'brute',
               },
+              {
+                text: $tc('recipe.parser.openai-parser'),
+                value: 'openai',
+              },
             ]"
           />
         </div>
@@ -100,6 +104,11 @@
 import { computed, defineComponent, ref, useContext, useRoute, useRouter } from "@nuxtjs/composition-api";
 import { invoke, until } from "@vueuse/core";
 import draggable from "vuedraggable";
+import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
+import { useUserApi } from "~/composables/api";
+import { useRecipe } from "~/composables/recipes";
+import { useFoodData, useFoodStore, useUnitData, useUnitStore } from "~/composables/store";
+import { uuid4 } from "~/composables/use-utils";
 import {
   CreateIngredientFood,
   CreateIngredientUnit,
@@ -108,12 +117,7 @@ import {
   ParsedIngredient,
   RecipeIngredient,
 } from "~/lib/api/types/recipe";
-import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
-import { useUserApi } from "~/composables/api";
-import { useRecipe } from "~/composables/recipes";
-import { useFoodData, useFoodStore, useUnitStore, useUnitData } from "~/composables/store";
 import { Parser } from "~/lib/api/user/recipes/recipe";
-import { uuid4 } from "~/composables/use-utils";
 
 interface Error {
   ingredientIndex: number;
