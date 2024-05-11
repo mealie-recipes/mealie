@@ -1,5 +1,4 @@
 from datetime import timedelta
-from functools import lru_cache
 
 import requests
 from authlib.jose import JsonWebKey, JsonWebToken, JWTClaims, KeySet
@@ -113,7 +112,6 @@ class OpenIDProvider(AuthProvider[OIDCRequest]):
             return None
         return claims
 
-    @lru_cache
     @staticmethod
     def get_jwks() -> KeySet | None:
         """Get the key set from the open id configuration"""
