@@ -1024,8 +1024,8 @@
       "edit-recipe-action": "Muuta reseptin toimintoa",
       "action-type": "Toiminnon tyyppi"
     },
-    "create-alias": "Create Alias",
-    "manage-aliases": "Manage Aliases",
+    "create-alias": "Luo alias",
+    "manage-aliases": "Hallitse aliaksia",
     "seed-data": "Tietokannan pohjadata",
     "seed": "Lisää pohjadata",
     "data-management": "Tietojen hallinta",
@@ -1035,9 +1035,9 @@
     "columns": "Sarakkeet",
     "combine": "Yhdistä",
     "categories": {
-      "edit-category": "Edit Category",
-      "new-category": "New Category",
-      "category-data": "Category Data"
+      "edit-category": "Muuta luokkaa",
+      "new-category": "Uusi luokka",
+      "category-data": "Luokan tiedot"
     },
     "tags": {
       "new-tag": "New Tag",
