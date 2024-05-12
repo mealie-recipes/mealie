@@ -80,7 +80,7 @@ class OpenIDProvider(AuthProvider[OIDCRequest]):
         self._logger.warning("[OIDC] Found user but their AuthMethod does not match OIDC")
         return None
 
-    def get_claims(self, settings: AppSettings, retry=False) -> JWTClaims | None:
+    def get_claims(self, settings: AppSettings) -> JWTClaims | None:
         """Get the claims from the ID token and check if the required claims are present"""
         required_claims = {"preferred_username", "name", "email", settings.OIDC_USER_CLAIM}
         jwks = OpenIDProvider.get_jwks(self.get_ttl_hash())  # cache the key set for 30 minutes
