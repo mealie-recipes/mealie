@@ -53,7 +53,9 @@ export function useParsedIngredientText(ingredient: RecipeIngredient, disableAmo
 
   // casting to number is required as sometimes quantity is a string
   if (quantity && Number(quantity) !== 0) {
-    if (unit?.fraction) {
+    if (unit && !unit.fraction) {
+      returnQty = (quantity * scale).toString();
+    } else {
       const fraction = frac(quantity * scale, 10, true);
       if (fraction[0] !== undefined && fraction[0] > 0) {
         returnQty += fraction[0];
@@ -64,8 +66,6 @@ export function useParsedIngredientText(ingredient: RecipeIngredient, disableAmo
           ` <sup>${fraction[1]}</sup>&frasl;<sub>${fraction[2]}</sub>` :
           ` ${fraction[1]}/${fraction[2]}`;
       }
-    } else {
-      returnQty = (quantity * scale).toString();
     }
   }
 
