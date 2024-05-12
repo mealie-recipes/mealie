@@ -3,19 +3,19 @@
         "server-error": "予期しないエラーが発生しました"
     },
     "recipe": {
-        "unique-name-error": "レシピ名は固有のものでなければなりません",
+        "unique-name-error": "レシピ名が重複しています",
         "recipe-defaults": {
-            "ingredient-note": "1 Cup Flour",
-            "step-text": "Recipe steps as well as other fields in the recipe page support markdown syntax.\n\n**Add a link**\n\n[My Link](https://demo.mealie.io)\n"
+            "ingredient-note": "小麦粉1カップ",
+            "step-text": "レシピの手順など、レシピページはmarkdown構文に対応しています\n\n例）\n[ミーリー](https://demo.mealie.io)\n"
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "ルールに一致するレシピはありません"
+        "no-recipes-match-your-rules": "ルールに合致するレシピはありません"
     },
     "user": {
-        "user-updated": "ユーザを更新しました。",
-        "password-updated": "パスワードを更新しました。",
-        "invalid-current-password": "現在のパスワードが無効です",
+        "user-updated": "ユーザーを更新しました",
+        "password-updated": "パスワードを更新しました",
+        "invalid-current-password": "現在のパスワードと一致しません",
         "ldap-update-password-unavailable": "パスワードを更新できません。ユーザーはLDAPによって制御されています"
     },
     "group": {
@@ -26,15 +26,15 @@
         "no-entry-found": "リクエストされた情報は見つかりませんでした",
         "integrity-error": "データベースの整合性エラー",
         "username-conflict-error": "この ユーザー名はすでに使用されています。",
-        "email-conflict-error": "この Eメイルはすでに使用されています。"
+        "email-conflict-error": "このメールアドレスはすでに使用されています。"
     },
     "notifications": {
         "generic-created": "{name} が作成されました",
         "generic-updated": "{name} が更新されました",
-        "generic-created-with-url": "{name} は作成されています。 {url}",
-        "generic-updated-with-url": "{name} は更新されています。 {url}",
+        "generic-created-with-url": "{name} が作成されました: {url}",
+        "generic-updated-with-url": "{name} が更新されました: {url}",
         "generic-duplicated": "{name} が複製されました",
-        "generic-deleted": "{name} は削除されています"
+        "generic-deleted": "{name} が削除されました"
     },
     "datetime": {
         "year": "年",
