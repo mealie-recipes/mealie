@@ -27,6 +27,7 @@ if TYPE_CHECKING:
         Tag,
         Tool,
     )
+    from ..server.task import ServerTaskModel
     from ..users import User
     from .events import GroupEventNotifierModel
     from .exports import GroupDataExportsModel
@@ -72,6 +73,7 @@ class Group(SqlAlchemyBase, BaseMixins):
     webhooks: Mapped[list[GroupWebhooksModel]] = orm.relationship(GroupWebhooksModel, **common_args)
     recipe_actions: Mapped[list["GroupRecipeAction"]] = orm.relationship("GroupRecipeAction", **common_args)
     cookbooks: Mapped[list[CookBook]] = orm.relationship(CookBook, **common_args)
+    server_tasks: Mapped[list["ServerTaskModel"]] = orm.relationship("ServerTaskModel", **common_args)
     data_exports: Mapped[list["GroupDataExportsModel"]] = orm.relationship("GroupDataExportsModel", **common_args)
     shopping_lists: Mapped[list["ShoppingList"]] = orm.relationship("ShoppingList", **common_args)
     group_reports: Mapped[list["ReportModel"]] = orm.relationship("ReportModel", **common_args)
