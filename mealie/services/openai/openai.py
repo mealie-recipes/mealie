@@ -51,7 +51,10 @@ class OpenAIService(BaseService):
         self.workers = settings.OPENAI_WORKERS
         self.send_db_data = settings.OPENAI_SEND_DATABASE_DATA
 
-        self.get_client = lambda: AsyncOpenAI(api_key=settings.OPENAI_API_KEY)
+        self.get_client = lambda: AsyncOpenAI(
+            base_url=settings.OPENAI_BASE_URL,
+            api_key=settings.OPENAI_API_KEY,
+        )
 
         super().__init__()
 

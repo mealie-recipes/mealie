@@ -210,6 +210,8 @@ class AppSettings(BaseSettings):
     # ===============================================
     # OpenAI Configuration
 
+    OPENAI_BASE_URL: str | None = None
+    """The base URL for the OpenAI API. Leave this unset for most usecases"""
     OPENAI_API_KEY: str | None = None
     """Your OpenAI API key. Required to enable OpenAI features"""
     OPENAI_MODEL: str = "gpt-4o"
