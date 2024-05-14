@@ -212,7 +212,7 @@ class AppSettings(BaseSettings):
 
     OPENAI_API_KEY: str | None = None
     """Your OpenAI API key. Required to enable OpenAI features"""
-    OPENAI_MODEL: str = "gpt-4-turbo"
+    OPENAI_MODEL: str = "gpt-4o"
     """Which OpenAI model to send requests to. Leave this unset for most usecases"""
     OPENAI_WORKERS: int = 2
     """

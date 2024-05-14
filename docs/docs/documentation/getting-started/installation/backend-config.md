@@ -111,7 +111,7 @@ Mealie supports various integrations using OpenAI. To enable OpenAI, [you must p
 | Variables                 |     Default   | Description                                                                                                                    |
 | ------------------------- |    :------:   | ------------------------------------------------------------------------------------------------------------------------------ |
 | OPENAI_API_KEY            |      None     | Your OpenAI API Key. Enables OpenAI-related features                                                                           |
-| OPENAI_MODEL              |  gpt-4-turbo  | Which OpenAI model to use. If you're not sure, leave this empty                                                                |
+| OPENAI_MODEL              |     gpt-4o    | Which OpenAI model to use. If you're not sure, leave this empty                                                                |
 | OPENAI_WORKERS            |       2       | Number of OpenAI workers per request. Higher values may increase processing speed, but will incur additional API costs         |
 | OPENAI_SEND_DATABASE_DATA |      True     | Whether to send Mealie data to OpenAI to improve request accuracy. This will incur additional API costs                        |
 
