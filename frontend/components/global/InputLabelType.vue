@@ -2,6 +2,7 @@
   <v-autocomplete
     v-model="itemVal"
     v-bind="$attrs"
+    ref="autocompleteRef"
     :search-input.sync="searchInput"
     item-text="name"
     return-object
@@ -71,6 +72,7 @@ export default defineComponent({
     },
   },
   setup(props, context) {
+    const autocompleteRef = ref<HTMLInputElement>();
     const searchInput = ref("");
     const itemIdVal = computed({
       get: () => {
@@ -96,9 +98,11 @@ export default defineComponent({
         return;
       }
       context.emit("create", searchInput.value);
+      autocompleteRef.value?.blur();
     }
 
     return {
+      autocompleteRef,
       itemVal,
       itemIdVal,
       searchInput,

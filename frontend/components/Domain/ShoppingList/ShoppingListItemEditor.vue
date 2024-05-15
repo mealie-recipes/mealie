@@ -41,7 +41,6 @@
                 :items="labels"
                 :item-id.sync="listItem.labelId"
                 :label="$t('shopping-list.label')"
-                @create="createAssignLabel"
               />
             </div>
 
@@ -172,6 +171,9 @@ export default defineComponent({
     );
 
     async function createAssignFood(val: string) {
+      // keep UI reactive
+      listItem.value.food ? listItem.value.food.name = val : listItem.value.food = { name: val };
+
       foodData.data.name = val;
       const newFood = await foodStore.actions.createOne(foodData.data);
       if (newFood) {
@@ -182,6 +184,9 @@ export default defineComponent({
     }
 
     async function createAssignUnit(val: string) {
+      // keep UI reactive
+      listItem.value.unit ? listItem.value.unit.name = val : listItem.value.unit = { name: val };
+
       unitData.data.name = val;
       const newUnit = await unitStore.actions.createOne(unitData.data);
       if (newUnit) {
