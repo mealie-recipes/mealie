@@ -92,6 +92,9 @@ export default defineComponent({
     });
 
     function emitCreate() {
+      if (props.items.some(item => item.name === searchInput.value)) {
+        return;
+      }
       context.emit("create", searchInput.value);
     }
 
