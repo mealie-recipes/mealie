@@ -119,12 +119,12 @@ class RecipeExportController(BaseRecipeController):
     @router_exports.get("/{slug}/exports/zip")
     def get_recipe_as_zip(self, slug: str, token: str, temp_path=Depends(temporary_zip_path)):
         """Get a Recipe and It's Original Image as a Zip File"""
-        slug = validate_recipe_token(token)
+        validated_slug = validate_recipe_token(token)
 
-        if slug != slug:
+        if validated_slug != slug:
             raise HTTPException(status_code=400, detail="Invalid Slug")
 
-        recipe: Recipe = self.mixins.get_one(slug)
+        recipe: Recipe = self.mixins.get_one(validated_slug)
         image_asset = recipe.image_dir.joinpath(RecipeImageTypes.original.value)
         with ZipFile(temp_path, "w") as myzip:
             myzip.writestr(f"{slug}.json", recipe.model_dump_json())
@@ -133,7 +133,7 @@ class RecipeExportController(BaseRecipeController):
                 myzip.write(image_asset, arcname=image_asset.name)
 
         return FileResponse(
-            temp_path, filename=f"{slug}.zip", background=BackgroundTask(temp_path.unlink, missing_ok=True)
+            temp_path, filename=f"{recipe.slug}.zip", background=BackgroundTask(temp_path.unlink, missing_ok=True)
         )
 
 
