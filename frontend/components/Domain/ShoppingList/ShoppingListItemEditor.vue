@@ -181,15 +181,6 @@ export default defineComponent({
       foodData.reset();
     }
 
-    async function createAssignLabel(val: string) {
-      labelData.data.name = val;
-      const newLabel = await labelStore.actions.createOne(labelData.data);
-      if (newLabel) {
-        listItem.value.labelId = newLabel.id;
-      }
-      labelData.reset();
-    }
-
     async function createAssignUnit(val: string) {
       unitData.data.name = val;
       const newUnit = await unitStore.actions.createOne(unitData.data);
@@ -213,7 +204,6 @@ export default defineComponent({
     return {
       listItem,
       createAssignFood,
-      createAssignLabel,
       createAssignUnit,
       assignLabelToFood,
     };
