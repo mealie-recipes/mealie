@@ -340,7 +340,7 @@
     },
     "nextcloud": {
       "description": "Migrovat data z instance Nextcloud Cookbook",
-      "description-long": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
+      "description-long": "Nextcloud recepty lze importovat ze souboru zip, který obsahuje data uložená v Nextcloudu. Podívejte se na příklad struktury složek níže, abyste se ujistili, že vaše recepty lze importovat.",
       "title": "Nextcloud Cookbook"
     },
     "copymethat": {

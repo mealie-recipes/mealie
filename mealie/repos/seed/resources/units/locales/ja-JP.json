@@ -70,12 +70,12 @@
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "しぶき",
+        "name": "少量",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
-        "name": "ダッシュ",
+        "name": "少量",
         "description": "",
         "abbreviation": ""
     },
@@ -90,7 +90,7 @@
         "abbreviation": ""
     },
     "clove": {
-        "name": "クローブ",
+        "name": "欠片",
         "description": "",
         "abbreviation": ""
     },
