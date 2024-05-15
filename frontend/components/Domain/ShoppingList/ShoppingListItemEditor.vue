@@ -30,38 +30,50 @@
             @keypress="handleNoteKeyPress"
           ></v-textarea>
         </div>
-        <div class="d-flex align-end" style="gap: 20px">
-          <div>
-            <InputQuantity v-model="listItem.quantity" />
-          </div>
-          <div style="max-width: 300px" class="mt-3 mr-auto">
-            <InputLabelType
-              v-model="listItem.label"
-              :items="labels"
-              :item-id.sync="listItem.labelId"
-              :label="$t('shopping-list.label')"
-              @create="createAssignLabel"
-            />
-          </div>
+        <div class="d-flex flex-wrap align-end" style="gap: 20px">
+          <div class="d-flex align-end">
+            <div>
+              <InputQuantity v-model="listItem.quantity" />
+            </div>
+            <div style="max-width: 300px" class="mt-3 mr-auto">
+              <InputLabelType
+                v-model="listItem.label"
+                :items="labels"
+                :item-id.sync="listItem.labelId"
+                :label="$t('shopping-list.label')"
+                @create="createAssignLabel"
+              />
+            </div>
 
-          <v-menu
-            v-if="listItem.recipeReferences && listItem.recipeReferences.length > 0"
-            open-on-hover
-            offset-y
-            left
-            top
-          >
-            <template #activator="{ on, attrs }">
-              <v-icon class="mt-auto" icon v-bind="attrs" color="warning" v-on="on">
-                {{ $globals.icons.alert }}
-              </v-icon>
-            </template>
-            <v-card max-width="350px" class="left-warning-border">
-              <v-card-text>
-                {{ $t("shopping-list.linked-item-warning") }}
-              </v-card-text>
-            </v-card>
-          </v-menu>
+            <v-menu
+              v-if="listItem.recipeReferences && listItem.recipeReferences.length > 0"
+              open-on-hover
+              offset-y
+              left
+              top
+            >
+              <template #activator="{ on, attrs }">
+                <v-icon class="mt-auto" icon v-bind="attrs" color="warning" v-on="on">
+                  {{ $globals.icons.alert }}
+                </v-icon>
+              </template>
+              <v-card max-width="350px" class="left-warning-border">
+                <v-card-text>
+                  {{ $t("shopping-list.linked-item-warning") }}
+                </v-card-text>
+              </v-card>
+            </v-menu>
+          </div>
+          <BaseButton
+            v-if="listItem.labelId && listItem.food && listItem.labelId !== listItem.food.labelId"
+            small
+            color="info"
+            :icon="$globals.icons.tagArrowRight"
+            :text="$tc('shopping-list.copy-to-food')"
+            class="mt-2 align-items-flex-start"
+            @click="assignLabelToFood"
+          />
+          <v-spacer />
         </div>
       </v-card-text>
     </v-card>
@@ -188,11 +200,22 @@ export default defineComponent({
       unitData.reset();
     }
 
+    async function assignLabelToFood() {
+      if (!(listItem.value.food && listItem.value.foodId && listItem.value.labelId)) {
+        return;
+      }
+
+      listItem.value.food.labelId = listItem.value.labelId;
+      // @ts-ignore the food will have an id, even though TS says it might not
+      await foodStore.actions.updateOne(listItem.value.food);
+    }
+
     return {
       listItem,
       createAssignFood,
       createAssignLabel,
       createAssignUnit,
+      assignLabelToFood,
     };
   },
   methods: {
