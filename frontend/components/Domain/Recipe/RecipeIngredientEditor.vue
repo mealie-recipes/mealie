@@ -30,6 +30,7 @@
       <v-col v-if="!disableAmount" sm="12" md="3" cols="12">
         <v-autocomplete
           v-model="value.unit"
+          ref="unitAutocomplete"
           :search-input.sync="unitSearch"
           auto-select-first
           hide-details
@@ -58,6 +59,7 @@
       <v-col v-if="!disableAmount" m="12" md="3" cols="12" class="">
         <v-autocomplete
           v-model="value.food"
+          ref="foodAutocomplete"
           :search-input.sync="foodSearch"
           auto-select-first
           hide-details
@@ -200,11 +202,13 @@ export default defineComponent({
     const foodStore = useFoodStore();
     const foodData = useFoodData();
     const foodSearch = ref("");
+    const foodAutocomplete = ref<HTMLInputElement>();
 
     async function createAssignFood() {
       foodData.data.name = foodSearch.value;
       props.value.food = await foodStore.actions.createOne(foodData.data) || undefined;
       foodData.reset();
+      foodAutocomplete.value?.blur();
     }
 
     // ==================================================
@@ -212,11 +216,13 @@ export default defineComponent({
     const unitStore = useUnitStore();
     const unitsData = useUnitData();
     const unitSearch = ref("");
+    const unitAutocomplete = ref<HTMLInputElement>();
 
     async function createAssignUnit() {
       unitsData.data.name = unitSearch.value;
       props.value.unit = await unitStore.actions.createOne(unitsData.data) || undefined;
       unitsData.reset();
+      unitAutocomplete.value?.blur();
     }
 
     const state = reactive({
@@ -269,7 +275,9 @@ export default defineComponent({
       contextMenuOptions,
       handleUnitEnter,
       handleFoodEnter,
+      foodAutocomplete,
       createAssignFood,
+      unitAutocomplete,
       createAssignUnit,
       foods: foodStore.foods,
       foodSearch,
