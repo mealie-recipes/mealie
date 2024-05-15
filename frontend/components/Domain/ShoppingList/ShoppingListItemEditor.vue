@@ -9,6 +9,7 @@
             :item-id.sync="listItem.foodId"
             :label="$t('shopping-list.food')"
             :icon="$globals.icons.foods"
+            @create="createAssignFood"
           />
           <InputLabelType
             v-model="listItem.unit"
@@ -16,6 +17,7 @@
             :item-id.sync="listItem.unitId"
             :label="$t('general.units')"
             :icon="$globals.icons.units"
+            @create="createAssignUnit"
           />
         </div>
         <div class="d-md-flex align-center" style="gap: 20px">
@@ -38,6 +40,7 @@
               :items="labels"
               :item-id.sync="listItem.labelId"
               :label="$t('shopping-list.label')"
+              @create="createAssignLabel"
             />
           </div>
 
@@ -100,6 +103,14 @@ import { defineComponent, computed, watch } from "@nuxtjs/composition-api";
 import { ShoppingListItemCreate, ShoppingListItemOut } from "~/lib/api/types/group";
 import { MultiPurposeLabelOut } from "~/lib/api/types/labels";
 import { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
+import {
+  useFoodStore,
+  useFoodData,
+  useLabelStore,
+  useLabelData,
+  useUnitStore,
+  useUnitData
+} from "~/composables/store";
 
 export default defineComponent({
   props: {
@@ -121,6 +132,15 @@ export default defineComponent({
     },
   },
   setup(props, context) {
+    const foodStore = useFoodStore();
+    const foodData = useFoodData();
+
+    const labelStore = useLabelStore();
+    const labelData = useLabelData();
+
+    const unitStore = useUnitStore();
+    const unitData = useUnitData();
+
     const listItem = computed({
       get: () => {
         return props.value;
@@ -139,8 +159,40 @@ export default defineComponent({
       }
     );
 
+    async function createAssignFood(val: string) {
+      foodData.data.name = val;
+      const newFood = await foodStore.actions.createOne(foodData.data);
+      if (newFood) {
+        listItem.value.food = newFood;
+        listItem.value.foodId = newFood.id;
+      }
+      foodData.reset();
+    }
+
+    async function createAssignLabel(val: string) {
+      labelData.data.name = val;
+      const newLabel = await labelStore.actions.createOne(labelData.data);
+      if (newLabel) {
+        listItem.value.labelId = newLabel.id;
+      }
+      labelData.reset();
+    }
+
+    async function createAssignUnit(val: string) {
+      unitData.data.name = val;
+      const newUnit = await unitStore.actions.createOne(unitData.data);
+      if (newUnit) {
+        listItem.value.unit = newUnit;
+        listItem.value.unitId = newUnit.id;
+      }
+      unitData.reset();
+    }
+
     return {
       listItem,
+      createAssignFood,
+      createAssignLabel,
+      createAssignUnit,
     };
   },
   methods: {
