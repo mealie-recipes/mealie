@@ -71,3 +71,4 @@ class CheckAppConfig(MealieModel):
 class OIDCInfo(MealieModel):
     configuration_url: str | None
     client_id: str | None
+    groups_claim: str | None

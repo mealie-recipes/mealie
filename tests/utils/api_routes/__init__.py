@@ -87,6 +87,8 @@ groups_permissions = "/api/groups/permissions"
 """`/api/groups/permissions`"""
 groups_preferences = "/api/groups/preferences"
 """`/api/groups/preferences`"""
+groups_recipe_actions = "/api/groups/recipe-actions"
+"""`/api/groups/recipe-actions`"""
 groups_reports = "/api/groups/reports"
 """`/api/groups/reports`"""
 groups_seeders_foods = "/api/groups/seeders/foods"
@@ -183,8 +185,6 @@ users_self = "/api/users/self"
 """`/api/users/self`"""
 users_self_favorites = "/api/users/self/favorites"
 """`/api/users/self/favorites`"""
-users_self_group = "/api/users/self/group"
-"""`/api/users/self/group`"""
 users_self_ratings = "/api/users/self/ratings"
 """`/api/users/self/ratings`"""
 utils_download = "/api/utils/download"
@@ -322,6 +322,11 @@ def groups_mealplans_item_id(item_id):
 def groups_mealplans_rules_item_id(item_id):
     """`/api/groups/mealplans/rules/{item_id}`"""
     return f"{prefix}/groups/mealplans/rules/{item_id}"
+
+
+def groups_recipe_actions_item_id(item_id):
+    """`/api/groups/recipe-actions/{item_id}`"""
+    return f"{prefix}/groups/recipe-actions/{item_id}"
 
 
 def groups_reports_item_id(item_id):

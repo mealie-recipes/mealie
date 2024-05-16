@@ -2,8 +2,11 @@ from uuid import uuid4
 
 import pytest
 
-from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit, RecipeIngredient
-from tests.utils.factories import random_string
+from mealie.schema.recipe.recipe_ingredient import (
+    IngredientFood,
+    IngredientUnit,
+    RecipeIngredient,
+)
 
 
 @pytest.mark.parametrize(
@@ -19,6 +22,12 @@ from tests.utils.factories import random_string
 @pytest.mark.parametrize(
     ["unit", "expect_display_fraction", "expected_unit_singular_string", "expected_unit_plural_string"],
     [
+        [
+            None,
+            True,
+            "",
+            "",
+        ],
         [
             IngredientUnit(
                 id=uuid4(),
@@ -154,7 +163,7 @@ def test_ingredient_display(
     quantity: float | None,
     quantity_display_decimal: str,
     quantity_display_fraction: str,
-    unit: IngredientUnit,
+    unit: IngredientUnit | None,
     food: IngredientFood,
     note: str,
     use_food: bool,

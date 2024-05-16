@@ -64,6 +64,7 @@
     "something-went-wrong": "Si è verificato un errore!",
     "subscribed-events": "Eventi Sottoscritti",
     "test-message-sent": "Messaggio di prova inviato",
+    "message-sent": "Message Sent",
     "new-notification": "Nuova Notifica",
     "event-notifiers": "Notifiche Evento",
     "apprise-url-skipped-if-blank": "Url di Apprise (ignorato se vuoto)",
@@ -160,6 +161,7 @@
     "test": "Test",
     "themes": "Temi",
     "thursday": "Giovedì",
+    "title": "Title",
     "token": "Token",
     "tuesday": "Martedì",
     "type": "Tipo",
@@ -582,7 +584,22 @@
     "upload-image": "Carica immagine",
     "screen-awake": "Mantieni lo schermo acceso",
     "remove-image": "Rimuovi immagine",
-    "nextStep": "Passo successivo"
+    "nextStep": "Passo successivo",
+    "recipe-actions": "Recipe Actions",
+    "parser": {
+      "experimental-alert-text": "Mealie utilizza l'elaborazione del linguaggio naturale per analizzare e creare unità e prodotti alimentari per i vostri ingredienti di ricetta. Questa funzione è sperimentale e potrebbe non funzionare sempre come previsto. Se preferisci non usare i risultati analizzati, puoi selezionare 'Annulla' e le tue modifiche non saranno salvate.",
+      "ingredient-parser": "Analizzatore ingredienti",
+      "explanation": "Per utilizzare l'analizzatore degli ingredienti, fare clic sul pulsante 'Analizza tutto' per avviare il processo. Una volta che gli ingredienti elaborati saranno disponibili, sarà possibile rivedere gli elementi e verificare che siano stati analizzati correttamente. Il punteggio di confidenza del modello viene visualizzato alla destra del titolo dell'elemento. Questo punteggio è una media di tutti i singoli punteggi e potrebbe non essere sempre completamente accurato.",
+      "alerts-explainer": "Gli avvisi verranno visualizzati se si trova un prodotto o un'unità corrispondente ma non esiste nel database.",
+      "select-parser": "Seleziona Analizzatore",
+      "natural-language-processor": "Analizzatore di Linguaggio Naturale",
+      "brute-parser": "Analizzatore brutale",
+      "parse-all": "Analizza tutto",
+      "no-unit": "Nessuna unità",
+      "missing-unit": "Crea unità mancante: {unit}",
+      "missing-food": "Crea cibo mancante: {food}",
+      "no-food": "Nessun Alimento"
+    }
   },
   "search": {
     "advanced-search": "Ricerca Avanzata",
@@ -1000,6 +1017,12 @@
       "export-recipes": "Esporta Ricette",
       "delete-recipes": "Elimina Ricette",
       "source-unit-will-be-deleted": "L'unità di origine verrà eliminata"
+    },
+    "recipe-actions": {
+      "recipe-actions-data": "Recipe Actions Data",
+      "new-recipe-action": "New Recipe Action",
+      "edit-recipe-action": "Edit Recipe Action",
+      "action-type": "Action Type"
     },
     "create-alias": "Crea Alias",
     "manage-aliases": "Gestisci Alias",

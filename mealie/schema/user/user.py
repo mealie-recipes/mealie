@@ -206,7 +206,7 @@ class UpdateGroup(GroupBase):
 
 
 class GroupInDB(UpdateGroup):
-    users: list[UserOut] | None = None
+    users: list[UserSummary] | None = None
     preferences: ReadGroupPreferences | None = None
     webhooks: list[ReadWebhook] = []
 

@@ -64,6 +64,7 @@
     "something-went-wrong": "Ceva nu a funcţionat corect!",
     "subscribed-events": "Evenimente la care ești Abonat",
     "test-message-sent": "Mesaj de test trimis",
+    "message-sent": "Mesaj trimis",
     "new-notification": "Notificare nouă",
     "event-notifiers": "Notificatori de evenimente",
     "apprise-url-skipped-if-blank": "URL Apprise (ignorat daca e gol)",
@@ -160,6 +161,7 @@
     "test": "Testează",
     "themes": "Teme",
     "thursday": "Joi",
+    "title": "Titlu",
     "token": "Token",
     "tuesday": "Marţi",
     "type": "Tip",
@@ -208,7 +210,7 @@
     "unsaved-changes": "Aveți modificări nesalvate. Doriți să salvați înainte de a închide aplicația? Apăsați \"OK\" pentru a salva sau \"Anulare\" pentru a renunța la modificări.",
     "clipboard-copy-failure": "Copierea în clipboard a eșuat.",
     "confirm-delete-generic-items": "Sunteți sigur că doriți să ștergeți următoarele?",
-    "organizers": "Organizers"
+    "organizers": "Organizatori"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Sunteți sigur că doriți să ștergeți <b>{groupName}<b/>?",
@@ -363,7 +365,7 @@
     "choose-migration-type": "Alegeți tipul de migrare",
     "tag-all-recipes": "Etichetați toate rețetele cu eticheta {tag-name}",
     "nextcloud-text": "Rețetele din Nextcloud pot fi importate dintr-un fișier de tip \".ZIP\" ce conține toate datele stocate în Nextcloud. Vedeți structura directorului din exemplul de mai jos pentru a vă asigura că rețetele pot fi importate cu succes.",
-    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
+    "chowdown-text": "Mealie acceptă nativ formatul repo-ului Chowdown. Descărcați repository-ul de cod ca fișier \".zip\" și încărcați-l mai jos.",
     "recipe-1": "Rețeta 1",
     "recipe-2": "Rețeta 2",
     "paprika-text": "Mealie poate importa rețete din aplicația Paprika. Exportă rețetele din Paprika, redenumește extensia de export în \".zip\" și încarcă-o folosind câmpul de mai jos.",
@@ -373,7 +375,7 @@
       "description-long": "Mealie poate importa rețete din Planul de Masă."
     },
     "myrecipebox": {
-      "title": "My Recipe Box",
+      "title": "Cutia mea de rețete",
       "description-long": "Mealie can import recipes from My Recipe Box. Export your recipes in CSV format, then upload the .csv file below."
     }
   },
@@ -582,7 +584,22 @@
     "upload-image": "Încărcare imagine",
     "screen-awake": "Păstrare ecran aprins",
     "remove-image": "Șterge Imaginea",
-    "nextStep": "Pasul următor"
+    "nextStep": "Pasul următor",
+    "recipe-actions": "Recipe Actions",
+    "parser": {
+      "experimental-alert-text": "Mealie uses natural language processing to parse and create units and food items for your recipe ingredients. This feature is experimental and may not always work as expected. If you prefer not to use the parsed results, you can select 'Cancel' and your changes will not be saved.",
+      "ingredient-parser": "Ingredient Parser",
+      "explanation": "To use the ingredient parser, click the 'Parse All' button to start the process. Once the processed ingredients are available, you can review the items and verify that they were parsed correctly. The model's confidence score is displayed on the right of the item title. This score is an average of all the individual scores and may not always be completely accurate.",
+      "alerts-explainer": "Alerts will be displayed if a matching foods or unit is found but does not exists in the database.",
+      "select-parser": "Select Parser",
+      "natural-language-processor": "Natural Language Processor",
+      "brute-parser": "Brute Parser",
+      "parse-all": "Parse All",
+      "no-unit": "No unit",
+      "missing-unit": "Create missing unit: {unit}",
+      "missing-food": "Create missing food: {food}",
+      "no-food": "No Food"
+    }
   },
   "search": {
     "advanced-search": "Căutare avansată",
@@ -1000,6 +1017,12 @@
       "export-recipes": "Export Recipes",
       "delete-recipes": "Delete Recipes",
       "source-unit-will-be-deleted": "Source Unit will be deleted"
+    },
+    "recipe-actions": {
+      "recipe-actions-data": "Recipe Actions Data",
+      "new-recipe-action": "New Recipe Action",
+      "edit-recipe-action": "Edit Recipe Action",
+      "action-type": "Action Type"
     },
     "create-alias": "Create Alias",
     "manage-aliases": "Manage Aliases",

@@ -20,7 +20,7 @@ Before you can start using OIDC Authentication, you must first configure a new c
 1. Create a new client application
     - The Provider type should be OIDC or OAuth2
     - The Grant type should be `Authorization Code`
-    - The Application type should be `Web`
+    - The Application type should be `Web` or `SPA`
     - The Client type should be `public`
 
 2. Configure redirect URI
@@ -42,7 +42,9 @@ Before you can start using OIDC Authentication, you must first configure a new c
 
 4. Configure allowed scopes
 
-    The scopes required are `openid profile email groups`
+    The scopes required are `openid profile email`
+
+    If you plan to use the [groups](#groups) to configure access within Mealie, you will need to also add the scope defined by the `OIDC_GROUPS_CLAIM` environment variable. The default claim is `groups`
 
 ## Mealie Setup
 
@@ -50,7 +52,7 @@ Take the client id and your discovery URL and update your environment variables 
 
 ### Groups
 
-There are two (optional) [environment variables](../installation/backend-config.md#openid-connect-oidc) that can control which of the users in your IdP can log in to Mealie and what permissions they will have. The groups should be **defined in your IdP** and be returned in the `groups` claim.
+There are two (optional) [environment variables](../installation/backend-config.md#openid-connect-oidc) that can control which of the users in your IdP can log in to Mealie and what permissions they will have. Keep in mind that these groups **do not necessarily correspond to groups in Mealie**. The groups claim is configurable via the `OIDC_GROUPS_CLAIM` environment variable. The groups should be **defined in your IdP** and be returned in the configured claim value.
 
 `OIDC_USER_GROUP`: Users must be a part of this group (within your IdP) to be able to log in.
 

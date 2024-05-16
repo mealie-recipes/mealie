@@ -5,6 +5,9 @@
 /* Do not modify it by hand - just update the pydantic models and then re-run the script
 */
 
+export type RecipeActionType =
+  | "link"
+  | "post";
 export type WebhookType = "mealplan";
 export type SupportedMigrations =
   | "nextcloud"
@@ -25,6 +28,11 @@ export interface CreateGroupPreferences {
   recipeDisableComments?: boolean;
   recipeDisableAmount?: boolean;
   groupId: string;
+}
+export interface CreateGroupRecipeAction {
+  actionType: RecipeActionType;
+  title: string;
+  url: string;
 }
 export interface CreateInviteToken {
   uses: number;
@@ -191,6 +199,13 @@ export interface GroupEventNotifierUpdate {
   options?: GroupEventNotifierOptions;
   id: string;
 }
+export interface GroupRecipeActionOut {
+  actionType: RecipeActionType;
+  title: string;
+  url: string;
+  groupId: string;
+  id: string;
+}
 export interface GroupStatistics {
   totalRecipes: number;
   totalUsers: number;
@@ -229,6 +244,12 @@ export interface ReadWebhook {
   scheduledTime: string;
   groupId: string;
   id: string;
+}
+export interface SaveGroupRecipeAction {
+  actionType: RecipeActionType;
+  title: string;
+  url: string;
+  groupId: string;
 }
 export interface SaveInviteToken {
   usesLeft: number;

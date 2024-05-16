@@ -64,6 +64,7 @@
     "something-went-wrong": "Jotain meni pieleen!",
     "subscribed-events": "Tilatut tapahtumat",
     "test-message-sent": "Viesti lähetetty",
+    "message-sent": "Viesti lähetetty",
     "new-notification": "Uusi ilmoitus",
     "event-notifiers": "Tapahtumien ilmoitukset",
     "apprise-url-skipped-if-blank": "Ilmoitusverkko-osoite (voi jättää tyhjäksi)",
@@ -160,6 +161,7 @@
     "test": "Testi",
     "themes": "Teemat",
     "thursday": "Torstai",
+    "title": "Otsikko",
     "token": "Tunniste",
     "tuesday": "Tiistai",
     "type": "Tyyppi",
@@ -557,8 +559,8 @@
     "new-recipe-names-must-be-unique": "Reseptin nimen on oltava yksilöllinen",
     "scrape-recipe": "Reseptin kaappain",
     "scrape-recipe-description": "Kaappaa resepti urlin avulla. Anna sen reseptin url-osoite, jonka haluat kaapata, ja Mealie yrittää kaapata reseptin kyseiseltä sivustolta ja lisätä sen kokoelmaasi.",
-    "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
-    "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
+    "scrape-recipe-have-a-lot-of-recipes": "Haluatko kerätä useamman reseptin kerralla?",
+    "scrape-recipe-suggest-bulk-importer": "Kokeile massasiirtotyökalua",
     "import-original-keywords-as-tags": "Tuo alkuperäiset avainsanat tunnisteiksi",
     "stay-in-edit-mode": "Pysy muokkaustilassa",
     "import-from-zip": "Tuo zip-arkistosta",
@@ -582,7 +584,22 @@
     "upload-image": "Lataa kuva",
     "screen-awake": "Pidä näyttö aina päällä",
     "remove-image": "Poista kuva",
-    "nextStep": "Seuraava askel"
+    "nextStep": "Seuraava askel",
+    "recipe-actions": "Reseptin toiminnot",
+    "parser": {
+      "experimental-alert-text": "Mealie käyttää luonnollisen kielen prosessointia jäsentääkseen ja luodakseen yksiköitä ja tarvikkeita reseptiesi ainesosille. Ominaisuus on kokeellinen, eikä välttämättä toimi aina odotetulla tavalla. Jos et halua näitä jäsennettyjä tuloksia, voit painaa \"Peruuta\", ja muutoksiasi ei tallenneta.",
+      "ingredient-parser": "Ainesosan jäsentäjä",
+      "explanation": "Paina \"Jäsennä kaikki\" -painiketta käyttääksesi ainesosien jäsennystyökalua. Kun ainesosat ovat saatavilla, voit tarkastella kohteita ja varmistaa, että jäsennys onnistui. Mallin luottamusarvo mainitaan kohteen nimen oikealla puolella. Tämä arvo on yksittäisten arvojen keskiarvo, eikä se ole aina kovin tarkka.",
+      "alerts-explainer": "Ohjelmisto hälyttää, mikäli jokin sopiva ruoka tai yksikkö löytyy, mutta sitä ei ole olemassa tietokannassa.",
+      "select-parser": "Valitse jäsentäjätyökalu",
+      "natural-language-processor": "Luonnollisen kielen prosessointityökalu",
+      "brute-parser": "Voimakas jäsentäjätyökalu",
+      "parse-all": "Jäsennä kaikki",
+      "no-unit": "Ei yksikköä",
+      "missing-unit": "Luo puuttuva yksikkö: {unit}",
+      "missing-food": "Luo puuttuva ruoka: {food}",
+      "no-food": "Ei ruokaa"
+    }
   },
   "search": {
     "advanced-search": "Tarkennettu haku",
@@ -700,7 +717,7 @@
       "no-unused-items": "Ei käyttämättömiä kohteita",
       "recipes-affected": "Ei vaikuttanut resepteihin|Vaikutti yhteen reseptiin|Vaikutti {count} reseptiin",
       "remove-unused": "Poista käyttämättömät",
-      "title-case-all": "Title Case All",
+      "title-case-all": "Isot alkukirjaimet kaikille sanoille",
       "toolbox": "Työkalut",
       "unorganized": "Järjestämätön"
     },
@@ -746,8 +763,8 @@
     "build": "Koonti",
     "recipe-scraper-version": "Reseptikaappaimen versio",
     "oidc-ready": "OIDC valmis",
-    "oidc-ready-error-text": "Not all OIDC Values are configured. This can be ignored if you are not using OIDC Authentication.",
-    "oidc-ready-success-text": "Required OIDC variables are all set."
+    "oidc-ready-error-text": "Kaikkia OIDC-arvoja ei ole määritelty. Jos et käytä OIDC-todennusta, voidaan asia jättää huomiotta.",
+    "oidc-ready-success-text": "Kaikki vaaditut OIDC-muuttujat asetettu."
   },
   "shopping-list": {
     "all-lists": "Kaikki ostoslistat",
@@ -820,7 +837,7 @@
     "untagged-count": "Tunnisteettomat {count}",
     "create-a-tag": "Luo tunniste",
     "tag-name": "Tunnisteen nimi",
-    "tag": "Tag"
+    "tag": "Tunniste"
   },
   "tool": {
     "tools": "Työkalut",
@@ -830,7 +847,7 @@
     "create-new-tool": "Luo Uusi Työkalu",
     "on-hand-checkbox-label": "Näytä työkalut, jotka omistan jo (valittu)",
     "required-tools": "Tarvittavat Työkalut",
-    "tool": "Tool"
+    "tool": "Työkalu"
   },
   "user": {
     "admin": "Ylläpitäjä",
@@ -855,11 +872,11 @@
     "link-id": "Linkin ID",
     "link-name": "Linkin nimi",
     "login": "Kirjaudu",
-    "login-oidc": "Login with",
-    "or": "or",
+    "login-oidc": "Kirjaudu sisään käyttäen",
+    "or": "tai",
     "logout": "Uloskirjaudu",
     "manage-users": "Käyttäjien hallinta",
-    "manage-users-description": "Create and manage users.",
+    "manage-users-description": "Luo ja hallitse käyttäjiä.",
     "new-password": "Uusi salasana",
     "new-user": "Uusi käyttäjä",
     "password-has-been-reset-to-the-default-password": "Salasana on palautettu oletussalasanaksi",
@@ -868,7 +885,7 @@
     "password-updated": "Salasana päivitetty",
     "password": "Salasana",
     "password-strength": "Salasana on {strength}",
-    "please-enter-password": "Please enter your new password.",
+    "please-enter-password": "Syötä uusi salasanasi.",
     "register": "Rekisteröidy",
     "reset-password": "Palauta salasana",
     "sign-in": "Kirjaudu",
@@ -889,7 +906,7 @@
     "username": "Käyttäjänimi",
     "users-header": "KÄYTTÄJÄT",
     "users": "Käyttäjät",
-    "user-not-found": "User not found",
+    "user-not-found": "Käyttäjää ei löytynyt",
     "webhook-time": "Webhook-aika",
     "webhooks-enabled": "Webhookit käytössä",
     "you-are-not-allowed-to-create-a-user": "Sinulla ei ole oikeutta luoda käyttäjää",
@@ -912,7 +929,7 @@
     "user-management": "Käyttäjien Hallinta",
     "reset-locked-users": "Nollaa Lukitut Käyttäjät",
     "admin-user-creation": "Ylläpitokäyttäjän Luonti",
-    "admin-user-management": "Admin User Management",
+    "admin-user-management": "Ylläpidon käyttäjien hallinta",
     "user-details": "Käyttäjän tiedot",
     "user-name": "Käyttäjänimi",
     "authentication-method": "Todentamistapa",
@@ -923,11 +940,11 @@
     "user-can-manage-group": "Käyttäjä voi hallita ryhmää",
     "user-can-organize-group-data": "Käyttäjä voi järjestellä ryhmän tietoja",
     "enable-advanced-features": "Salli edistyneemmät ominaisuudet",
-    "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
-    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
-    "forgot-password": "Forgot Password",
-    "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
-    "changes-reflected-immediately": "Changes to this user will be reflected immediately."
+    "it-looks-like-this-is-your-first-time-logging-in": "Tämä vaikuttaa olevan ensimmäinen kirjautumisesi.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Vaihda sähköpostisi asetuksista, jos et halua nähdä tätä enää.",
+    "forgot-password": "Unohditko salasanasi",
+    "forgot-password-text": "Syötä sähköpostiosoitteesi, niin voit muuttaa salasanaasi linkin kautta.",
+    "changes-reflected-immediately": "Muutokset tähän käyttäjään astuvat välittömästi voimaan."
   },
   "language-dialog": {
     "translated": "käännetty",
@@ -949,8 +966,8 @@
       "food-label": "Elintarvikkeiden nimike",
       "edit-food": "Muokkaa elintarviketta",
       "food-data": "Elintarvikkeiden tiedot",
-      "example-food-singular": "ex: Onion",
-      "example-food-plural": "ex: Onions"
+      "example-food-singular": "esim. sipuli",
+      "example-food-plural": "esim. sipulit"
     },
     "units": {
       "seed-dialog-text": "Lisää tietokantaan yksiköt paikallisen kielen perusteella.",
@@ -961,7 +978,7 @@
       "merging-unit-into-unit": "Yhdistä {0} ja {1} yhdeksi",
       "create-unit": "Luo yksikkö",
       "abbreviation": "Lyhenne",
-      "plural-abbreviation": "Plural Abbreviation",
+      "plural-abbreviation": "Monikon lyhenne",
       "description": "Kuvaus",
       "display-as-fraction": "Näytä murtolukuna",
       "use-abbreviation": "Käytä Lyhennettä",
@@ -969,10 +986,10 @@
       "unit-data": "Yksikkötiedot",
       "use-abbv": "Käytä lyhennettä.",
       "fraction": "Murtoluku",
-      "example-unit-singular": "ex: Tablespoon",
-      "example-unit-plural": "ex: Tablespoons",
-      "example-unit-abbreviation-singular": "ex: Tbsp",
-      "example-unit-abbreviation-plural": "ex: Tbsps"
+      "example-unit-singular": "esim. ruokalusikka",
+      "example-unit-plural": "esim. ruokalusikat",
+      "example-unit-abbreviation-singular": "esim. rkl",
+      "example-unit-abbreviation-plural": "esim. rkl"
     },
     "labels": {
       "seed-dialog-text": "Lisää tietokantaan yleiset tunnisteet paikallisen kielen perusteella.",
@@ -1001,8 +1018,14 @@
       "delete-recipes": "Poista Reseptit",
       "source-unit-will-be-deleted": "Lähdeyksikkö poistetaan"
     },
-    "create-alias": "Create Alias",
-    "manage-aliases": "Manage Aliases",
+    "recipe-actions": {
+      "recipe-actions-data": "Reseptin toimintojen käyttötiedot",
+      "new-recipe-action": "Uusi reseptin toiminto",
+      "edit-recipe-action": "Muuta reseptin toimintoa",
+      "action-type": "Toiminnon tyyppi"
+    },
+    "create-alias": "Luo alias",
+    "manage-aliases": "Hallitse aliaksia",
     "seed-data": "Tietokannan pohjadata",
     "seed": "Lisää pohjadata",
     "data-management": "Tietojen hallinta",
@@ -1012,9 +1035,9 @@
     "columns": "Sarakkeet",
     "combine": "Yhdistä",
     "categories": {
-      "edit-category": "Edit Category",
-      "new-category": "New Category",
-      "category-data": "Category Data"
+      "edit-category": "Muuta luokkaa",
+      "new-category": "Uusi luokka",
+      "category-data": "Luokan tiedot"
     },
     "tags": {
       "new-tag": "New Tag",

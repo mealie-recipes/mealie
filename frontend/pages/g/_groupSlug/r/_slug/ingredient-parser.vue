@@ -2,35 +2,30 @@
   <v-container v-if="recipe">
     <v-container>
       <v-alert dismissible border="left" colored-border type="warning" elevation="2" :icon="$globals.icons.alert">
-        <b>Experimental Feature</b>
+        <b>{{ $tc("banner-experimental.title") }}</b>
         <div>
-          Mealie can use natural language processing to attempt to parse and create units, and foods for your Recipe
-          ingredients. This is experimental and may not work as expected. If you choose to not use the parsed results
-          you can select cancel and your changes will not be saved.
+          {{ $tc("recipe.parser.experimental-alert-text") }}
         </div>
       </v-alert>
 
-      <BaseCardSectionTitle title="Ingredients Processor">
-        To use the ingredient parser, click the "Parse All" button and the process will start. When the processed
-        ingredients are available, you can look through the items and verify that they were parsed correctly. The models
-        confidence score is displayed on the right of the title item. This is an average of all scores and may not be
-        wholely accurate.
+      <BaseCardSectionTitle :title="$tc('recipe.parser.ingredient-parser')">
+        <div class="mt-4">{{ $tc("recipe.parser.explanation") }}</div>
 
         <div class="my-4">
-          Alerts will be displayed if a matching foods or unit is found but does not exists in the database.
+          {{ $tc("recipe.parser.alerts-explainer") }}
         </div>
         <div class="d-flex align-center mb-n4">
-          <div class="mb-4">Select Parser</div>
+          <div class="mb-4">{{ $tc("recipe.parser.select-parser") }}</div>
           <BaseOverflowButton
             v-model="parser"
             btn-class="mx-2 mb-4"
             :items="[
               {
-                text: 'Natural Language Processor ',
+                text: $tc('recipe.parser.natural-language-processor'),
                 value: 'nlp',
               },
               {
-                text: 'Brute Parser',
+                text: $tc('recipe.parser.brute-parser'),
                 value: 'brute',
               },
             ]"
@@ -42,9 +37,9 @@
         <BaseButton cancel class="mr-auto" @click="$router.go(-1)"></BaseButton>
         <BaseButton color="info" @click="fetchParsed">
           <template #icon> {{ $globals.icons.foods }}</template>
-          Parse All
+          {{ $tc("recipe.parser.parse-all") }}
         </BaseButton>
-        <BaseButton save @click="saveAll"> Save All </BaseButton>
+        <BaseButton save @click="saveAll" />
       </div>
 
       <v-expansion-panels v-model="panels" multiple>
@@ -145,6 +140,8 @@ export default defineComponent({
     const slug = route.value.params.slug;
     const api = useUserApi();
 
+    const { i18n } = useContext();
+
     const { recipe, loading } = useRecipe(slug);
 
     invoke(async () => {
@@ -170,13 +167,15 @@ export default defineComponent({
       if (unitError || foodError) {
         if (unitError) {
           if (ing?.ingredient?.unit?.name) {
-            unitErrorMessage = `Create missing unit '${ing?.ingredient?.unit?.name || "No unit"}'`;
+            const unit = ing.ingredient.unit.name || i18n.tc("recipe.parser.no-unit");
+            unitErrorMessage = i18n.t("recipe.parser.missing-unit", { unit }).toString();
           }
         }
 
         if (foodError) {
           if (ing?.ingredient?.food?.name) {
-            foodErrorMessage = `Create missing food '${ing.ingredient.food.name || "No food"}'?`;
+            const food = ing.ingredient.food.name || i18n.tc("recipe.parser.no-food");
+            foodErrorMessage = i18n.t("recipe.parser.missing-food", { food }).toString();
           }
         }
       }
@@ -364,7 +363,7 @@ export default defineComponent({
   },
   head() {
     return {
-      title: "Parser",
+      title: this.$tc("recipe.parser.ingredient-parser"),
     };
   },
 });

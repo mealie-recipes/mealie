@@ -64,6 +64,7 @@
     "something-went-wrong": "Er is iets fout gegaan!",
     "subscribed-events": "Geabonneerde gebeurtenissen",
     "test-message-sent": "Testbericht verzonden",
+    "message-sent": "Bericht verstuurd",
     "new-notification": "Nieuwe melding",
     "event-notifiers": "Meldingen van gebeurtenissen",
     "apprise-url-skipped-if-blank": "URL van Apprise (overgeslagen als veld leeg is)",
@@ -160,6 +161,7 @@
     "test": "Test",
     "themes": "Thema's",
     "thursday": "donderdag",
+    "title": "Titel",
     "token": "Token",
     "tuesday": "dinsdag",
     "type": "Soort",
@@ -582,7 +584,22 @@
     "upload-image": "Afbeelding uploaden",
     "screen-awake": "Scherm aan laten staan",
     "remove-image": "Afbeelding verwijderen",
-    "nextStep": "Volgende stap"
+    "nextStep": "Volgende stap",
+    "recipe-actions": "Acties met recepten ",
+    "parser": {
+      "experimental-alert-text": "Mealie gebruikt natuurlijke taalverwerking om te ontleden en maakt eenheden en levensmiddelen voor de ingrediënten van je recept. Deze functie is experimenteel en werkt misschien niet altijd zoals verwacht. Als u liever niet de bewerkte resultaten gebruikt, kunt u 'Annuleren' selecteren en de wijzigingen worden niet opgeslagen.",
+      "ingredient-parser": "",
+      "explanation": "To use the ingredient parser, click the 'Parse All' button to start the process. Once the processed ingredients are available, you can review the items and verify that they were parsed correctly. The model's confidence score is displayed on the right of the item title. This score is an average of all the individual scores and may not always be completely accurate.",
+      "alerts-explainer": "Alerts will be displayed if a matching foods or unit is found but does not exists in the database.",
+      "select-parser": "Select Parser",
+      "natural-language-processor": "Natural Language Processor",
+      "brute-parser": "Brute Parser",
+      "parse-all": "Parse All",
+      "no-unit": "No unit",
+      "missing-unit": "Create missing unit: {unit}",
+      "missing-food": "Create missing food: {food}",
+      "no-food": "No Food"
+    }
   },
   "search": {
     "advanced-search": "Geavanceerd zoeken",
@@ -1000,6 +1017,12 @@
       "export-recipes": "Exporteer recepten",
       "delete-recipes": "Verwijder recepten",
       "source-unit-will-be-deleted": "Broneenheid zal worden verwijderd"
+    },
+    "recipe-actions": {
+      "recipe-actions-data": "Gegevens voor acties met recepten",
+      "new-recipe-action": "Nieuwe actie met recept",
+      "edit-recipe-action": "Pas actie met recept aan",
+      "action-type": "Soort actie"
     },
     "create-alias": "Maak alias",
     "manage-aliases": "Beheer aliassen ",

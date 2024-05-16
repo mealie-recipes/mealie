@@ -22,10 +22,10 @@ def getFeatures(token, index, tokens):
     length = len(tokens)
 
     return [
-        ("I%s" % index),
-        ("L%s" % lengthGroup(length)),
-        ("Yes" if isCapitalized(token) else "No") + "CAP",
-        ("Yes" if insideParenthesis(token, tokens) else "No") + "PAREN",
+        f"I{index}",
+        f"L{lengthGroup(length)}",
+        f"{'Yes' if isCapitalized(token) else 'No'}CAP",
+        f"{'Yes' if insideParenthesis(token, tokens) else 'No'}PAREN",
     ]
 
 

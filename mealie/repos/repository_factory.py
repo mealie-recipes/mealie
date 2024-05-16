@@ -11,6 +11,7 @@ from mealie.db.models.group.exports import GroupDataExportsModel
 from mealie.db.models.group.invite_tokens import GroupInviteToken
 from mealie.db.models.group.mealplan import GroupMealPlanRules
 from mealie.db.models.group.preferences import GroupPreferencesModel
+from mealie.db.models.group.recipe_action import GroupRecipeAction
 from mealie.db.models.group.shopping_list import (
     ShoppingList,
     ShoppingListItem,
@@ -39,6 +40,7 @@ from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.group.group_events import GroupEventNotifierOut
 from mealie.schema.group.group_exports import GroupDataExport
 from mealie.schema.group.group_preferences import ReadGroupPreferences
+from mealie.schema.group.group_recipe_action import GroupRecipeActionOut
 from mealie.schema.group.group_shopping_list import (
     ShoppingListItemOut,
     ShoppingListItemRecipeRefOut,
@@ -191,6 +193,10 @@ class AllRepositories:
     @cached_property
     def cookbooks(self) -> RepositoryGeneric[ReadCookBook, CookBook]:
         return RepositoryGeneric(self.session, PK_ID, CookBook, ReadCookBook)
+
+    @cached_property
+    def group_recipe_actions(self) -> RepositoryGeneric[GroupRecipeActionOut, GroupRecipeAction]:
+        return RepositoryGeneric(self.session, PK_ID, GroupRecipeAction, GroupRecipeActionOut)
 
     # ================================================================
     # Meal Plan
