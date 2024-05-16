@@ -187,7 +187,7 @@ class RecipeIngredientBase(MealieModel):
         qty: float | Fraction
 
         # decimal
-        if not self.unit or not self.unit.fraction:
+        if self.unit and not self.unit.fraction:
             qty = round(self.quantity or 0, INGREDIENT_QTY_PRECISION)
             if qty.is_integer():
                 return str(int(qty))

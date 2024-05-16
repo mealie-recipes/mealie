@@ -64,7 +64,7 @@
     "something-went-wrong": "Ceva nu a funcţionat corect!",
     "subscribed-events": "Evenimente la care ești Abonat",
     "test-message-sent": "Mesaj de test trimis",
-    "message-sent": "Message Sent",
+    "message-sent": "Mesaj trimis",
     "new-notification": "Notificare nouă",
     "event-notifiers": "Notificatori de evenimente",
     "apprise-url-skipped-if-blank": "URL Apprise (ignorat daca e gol)",
@@ -161,7 +161,7 @@
     "test": "Testează",
     "themes": "Teme",
     "thursday": "Joi",
-    "title": "Title",
+    "title": "Titlu",
     "token": "Token",
     "tuesday": "Marţi",
     "type": "Tip",
@@ -210,7 +210,7 @@
     "unsaved-changes": "Aveți modificări nesalvate. Doriți să salvați înainte de a închide aplicația? Apăsați \"OK\" pentru a salva sau \"Anulare\" pentru a renunța la modificări.",
     "clipboard-copy-failure": "Copierea în clipboard a eșuat.",
     "confirm-delete-generic-items": "Sunteți sigur că doriți să ștergeți următoarele?",
-    "organizers": "Organizers"
+    "organizers": "Organizatori"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Sunteți sigur că doriți să ștergeți <b>{groupName}<b/>?",
@@ -365,7 +365,7 @@
     "choose-migration-type": "Alegeți tipul de migrare",
     "tag-all-recipes": "Etichetați toate rețetele cu eticheta {tag-name}",
     "nextcloud-text": "Rețetele din Nextcloud pot fi importate dintr-un fișier de tip \".ZIP\" ce conține toate datele stocate în Nextcloud. Vedeți structura directorului din exemplul de mai jos pentru a vă asigura că rețetele pot fi importate cu succes.",
-    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
+    "chowdown-text": "Mealie acceptă nativ formatul repo-ului Chowdown. Descărcați repository-ul de cod ca fișier \".zip\" și încărcați-l mai jos.",
     "recipe-1": "Rețeta 1",
     "recipe-2": "Rețeta 2",
     "paprika-text": "Mealie poate importa rețete din aplicația Paprika. Exportă rețetele din Paprika, redenumește extensia de export în \".zip\" și încarcă-o folosind câmpul de mai jos.",
@@ -375,7 +375,7 @@
       "description-long": "Mealie poate importa rețete din Planul de Masă."
     },
     "myrecipebox": {
-      "title": "My Recipe Box",
+      "title": "Cutia mea de rețete",
       "description-long": "Mealie can import recipes from My Recipe Box. Export your recipes in CSV format, then upload the .csv file below."
     }
   },

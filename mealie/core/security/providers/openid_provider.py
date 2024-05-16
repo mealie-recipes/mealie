@@ -1,3 +1,4 @@
+import time
 from datetime import timedelta
 from functools import lru_cache
 
@@ -82,7 +83,7 @@ class OpenIDProvider(AuthProvider[OIDCRequest]):
     def get_claims(self, settings: AppSettings) -> JWTClaims | None:
         """Get the claims from the ID token and check if the required claims are present"""
         required_claims = {"preferred_username", "name", "email", settings.OIDC_USER_CLAIM}
-        jwks = OpenIDProvider.get_jwks()
+        jwks = OpenIDProvider.get_jwks(self.get_ttl_hash())  # cache the key set for 30 minutes
         if not jwks:
             return None
 
@@ -115,8 +116,9 @@ class OpenIDProvider(AuthProvider[OIDCRequest]):
 
     @lru_cache
     @staticmethod
-    def get_jwks() -> KeySet | None:
-        """Get the key set from the open id configuration"""
+    def get_jwks(ttl_hash=None) -> KeySet | None:
+        """Get the key set from the openid configuration"""
+        del ttl_hash  # ttl_hash is used for caching only
         settings = get_app_settings()
 
         if not (settings.OIDC_READY and settings.OIDC_CONFIGURATION_URL):
@@ -145,3 +147,6 @@ class OpenIDProvider(AuthProvider[OIDCRequest]):
         response.raise_for_status()
         session.close()
         return JsonWebKey.import_key_set(response.json())
+
+    def get_ttl_hash(self, seconds=1800):
+        return time.time() // seconds
