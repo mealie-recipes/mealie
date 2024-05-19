@@ -29,7 +29,7 @@ class CRFIngredient(BaseModel):
     input: str = ""
     name: str = ""
     other: str = ""
-    qty: str = ""
+    qty: Annotated[str, Field(validate_default=True)] = ""
     comment: str = ""
     unit: str = ""
     confidence: CRFConfidence
