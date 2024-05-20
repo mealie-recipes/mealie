@@ -1,12 +1,11 @@
-import shutil
 import tempfile
-from collections.abc import AsyncGenerator, Callable, Generator
+from collections.abc import Callable, Generator
 from pathlib import Path
 from uuid import uuid4
 
 import fastapi
 import jwt
-from fastapi import BackgroundTasks, Depends, HTTPException, Request, status
+from fastapi import Depends, HTTPException, Request, status
 from fastapi.security import OAuth2PasswordBearer
 from jwt.exceptions import PyJWTError
 from sqlalchemy.orm.session import Session
@@ -205,28 +204,15 @@ def validate_recipe_token(token: str | None = None) -> str:
     return slug
 
 
-def temporary_zip_path() -> Path:
+def get_temporary_zip_path() -> Path:
     app_dirs.TEMP_DIR.mkdir(exist_ok=True, parents=True)
     return app_dirs.TEMP_DIR.joinpath("my_zip_archive.zip")
 
 
-async def unlinking_temporary_zip_path() -> AsyncGenerator[Path, None]:
-    temp_path = temporary_zip_path()
-
-    try:
-        yield temp_path
-    finally:
-        temp_path.unlink(missing_ok=True)
-
-
-async def temporary_dir(background_tasks: BackgroundTasks) -> AsyncGenerator[Path, None]:
+def get_temporary_dir() -> Path:
     temp_path = app_dirs.TEMP_DIR.joinpath(uuid4().hex)
     temp_path.mkdir(exist_ok=True, parents=True)
-
-    try:
-        yield temp_path
-    finally:
-        background_tasks.add_task(shutil.rmtree, temp_path)
+    return temp_path
 
 
 def temporary_file(ext: str = "") -> Callable[[], Generator[tempfile._TemporaryFileWrapper, None, None]]:

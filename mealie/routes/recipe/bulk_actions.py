@@ -1,9 +1,9 @@
 from functools import cached_property
 from pathlib import Path
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, HTTPException
 
-from mealie.core.dependencies.dependencies import unlinking_temporary_zip_path
+from mealie.core.dependencies.dependencies import get_temporary_zip_path
 from mealie.core.security import create_file_token
 from mealie.routes._base import BaseUserController, controller
 from mealie.schema.group.group_exports import GroupDataExport
@@ -44,8 +44,10 @@ class RecipeBulkActionsController(BaseUserController):
         self.service.delete_recipes(delete_recipes.recipes)
 
     @router.post("/export", status_code=202)
-    def bulk_export_recipes(self, export_recipes: ExportRecipes, temp_path=Depends(unlinking_temporary_zip_path)):
+    def bulk_export_recipes(self, export_recipes: ExportRecipes):
+        temp_path = get_temporary_zip_path()
         self.service.export_recipes(temp_path, export_recipes.recipes)
+        temp_path.unlink(missing_ok=True)
 
     @router.get("/export/download")
     def get_exported_data_token(self, path: Path):

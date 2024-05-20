@@ -1,10 +1,9 @@
 import shutil
-from pathlib import Path
 
-from fastapi import Depends, File, Form
+from fastapi import File, Form
 from fastapi.datastructures import UploadFile
 
-from mealie.core.dependencies import unlinking_temporary_zip_path
+from mealie.core.dependencies import get_temporary_zip_path
 from mealie.routes._base import BaseUserController, controller
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.group.group_migration import SupportedMigrations
@@ -32,8 +31,8 @@ class GroupMigrationController(BaseUserController):
         add_migration_tag: bool = Form(False),
         migration_type: SupportedMigrations = Form(...),
         archive: UploadFile = File(...),
-        temp_path: Path = Depends(unlinking_temporary_zip_path),
     ):
+        temp_path = get_temporary_zip_path()
         # Save archive to temp_path
         with temp_path.open("wb") as buffer:
             shutil.copyfileobj(archive.file, buffer)
@@ -66,4 +65,6 @@ class GroupMigrationController(BaseUserController):
 
         migrator = constructor(**args)
 
-        return migrator.migrate(f"{migration_type.value.title()} Migration")
+        migration_result = migrator.migrate(f"{migration_type.value.title()} Migration")
+        temp_path.unlink(missing_ok=True)
+        return migration_result
