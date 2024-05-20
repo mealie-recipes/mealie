@@ -86,12 +86,6 @@ export default defineComponent({
         restricted: true,
       },
       {
-        icon: $globals.icons.check,
-        to: "/admin/background-tasks",
-        title: i18n.tc("sidebar.background-tasks"),
-        restricted: true,
-      },
-      {
         icon: $globals.icons.slotMachine,
         to: "/admin/parser",
         title: i18n.tc("sidebar.parser"),

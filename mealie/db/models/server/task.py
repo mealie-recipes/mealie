@@ -14,6 +14,8 @@ if TYPE_CHECKING:
 
 
 class ServerTaskModel(SqlAlchemyBase, BaseMixins):
+    # Server Tasks are deprecated, but the table still exists in the database
+
     __tablename__ = "server_tasks"
     name: Mapped[str] = mapped_column(String, nullable=False)
     completed_date: Mapped[datetime] = mapped_column(DateTime, nullable=True)
