@@ -15,6 +15,7 @@ from .._model_utils import GUID, auto_init
 from ..group.invite_tokens import GroupInviteToken
 from ..group.webhooks import GroupWebhooksModel
 from ..recipe.category import Category, group_to_categories
+from ..server.task import ServerTaskModel
 from .cookbook import CookBook
 from .mealplan import GroupMealPlan
 from .preferences import GroupPreferencesModel
@@ -27,7 +28,6 @@ if TYPE_CHECKING:
         Tag,
         Tool,
     )
-    from ..server.task import ServerTaskModel
     from ..users import User
     from .events import GroupEventNotifierModel
     from .exports import GroupDataExportsModel
