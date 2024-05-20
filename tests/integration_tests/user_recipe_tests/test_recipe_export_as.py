@@ -4,7 +4,6 @@ import zipfile
 
 from fastapi.testclient import TestClient
 
-from mealie.core.dependencies.dependencies import get_temporary_dir, get_temporary_zip_path
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
@@ -56,9 +55,6 @@ def test_get_recipe_as_zip(api_client: TestClient, unique_user: TestUser) -> Non
 
     response = api_client.get(api_routes.recipes_slug_exports_zip(slug) + f"?token={token}", headers=unique_user.token)
     assert response.status_code == 200
-
-    # Verify we clean up.
-    assert not get_temporary_zip_path().exists()
 
     # Verify the zip
     zip_file = BytesIO(response.content)

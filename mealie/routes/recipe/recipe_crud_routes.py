@@ -14,7 +14,7 @@ from starlette.background import BackgroundTask
 from starlette.responses import FileResponse
 
 from mealie.core import exceptions
-from mealie.core.dependencies import get_temporary_dir, get_temporary_zip_path, validate_recipe_token
+from mealie.core.dependencies import get_temporary_path, get_temporary_zip_path, validate_recipe_token
 from mealie.core.security import create_recipe_slug_token
 from mealie.db.models.group.cookbook import CookBook
 from mealie.pkgs import cache
@@ -111,31 +111,31 @@ class RecipeExportController(BaseRecipeController):
         names and formats in the /api/recipes/exports endpoint.
 
         """
-        temp_dir = get_temporary_dir()
-        recipe = self.mixins.get_one(slug)
-        file = self.service.render_template(recipe, temp_dir, template_name)
-        return FileResponse(file, background=BackgroundTask(rmtree, temp_dir))
+        with get_temporary_path(auto_unlink=False) as temp_path:
+            recipe = self.mixins.get_one(slug)
+            file = self.service.render_template(recipe, temp_path, template_name)
+            return FileResponse(file, background=BackgroundTask(rmtree, temp_path))
 
     @router_exports.get("/{slug}/exports/zip")
     def get_recipe_as_zip(self, slug: str, token: str):
         """Get a Recipe and Its Original Image as a Zip File"""
-        temp_path = get_temporary_zip_path()
-        validated_slug = validate_recipe_token(token)
+        with get_temporary_zip_path(auto_unlink=False) as temp_path:
+            validated_slug = validate_recipe_token(token)
 
-        if validated_slug != slug:
-            raise HTTPException(status_code=400, detail="Invalid Slug")
+            if validated_slug != slug:
+                raise HTTPException(status_code=400, detail="Invalid Slug")
 
-        recipe: Recipe = self.mixins.get_one(validated_slug)
-        image_asset = recipe.image_dir.joinpath(RecipeImageTypes.original.value)
-        with ZipFile(temp_path, "w") as myzip:
-            myzip.writestr(f"{slug}.json", recipe.model_dump_json())
+            recipe: Recipe = self.mixins.get_one(validated_slug)
+            image_asset = recipe.image_dir.joinpath(RecipeImageTypes.original.value)
+            with ZipFile(temp_path, "w") as myzip:
+                myzip.writestr(f"{slug}.json", recipe.model_dump_json())
 
-            if image_asset.is_file():
-                myzip.write(image_asset, arcname=image_asset.name)
+                if image_asset.is_file():
+                    myzip.write(image_asset, arcname=image_asset.name)
 
-        return FileResponse(
-            temp_path, filename=f"{recipe.slug}.zip", background=BackgroundTask(temp_path.unlink, missing_ok=True)
-        )
+            return FileResponse(
+                temp_path, filename=f"{recipe.slug}.zip", background=BackgroundTask(temp_path.unlink, missing_ok=True)
+            )
 
 
 router = UserAPIRouter(prefix="/recipes", tags=["Recipe: CRUD"], route_class=MealieCrudRoute)
@@ -225,13 +225,12 @@ class RecipeController(BaseRecipeController):
     @router.post("/create-from-zip", status_code=201)
     def create_recipe_from_zip(self, archive: UploadFile = File(...)):
         """Create recipe from archive"""
-        temp_path = get_temporary_zip_path()
-        recipe = self.service.create_from_zip(archive, temp_path)
-        self.publish_event(
-            event_type=EventTypes.recipe_created,
-            document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=recipe.slug),
-        )
-        temp_path.unlink(missing_ok=True)
+        with get_temporary_zip_path() as temp_path:
+            recipe = self.service.create_from_zip(archive, temp_path)
+            self.publish_event(
+                event_type=EventTypes.recipe_created,
+                document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=recipe.slug),
+            )
 
         return recipe.slug
 

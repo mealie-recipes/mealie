@@ -1,6 +1,8 @@
 import tempfile
 from collections.abc import Callable, Generator
+from contextlib import contextmanager
 from pathlib import Path
+from shutil import rmtree
 from uuid import uuid4
 
 import fastapi
@@ -204,15 +206,26 @@ def validate_recipe_token(token: str | None = None) -> str:
     return slug
 
 
-def get_temporary_zip_path() -> Path:
+@contextmanager
+def get_temporary_zip_path(auto_unlink=True) -> Generator[Path, None, None]:
     app_dirs.TEMP_DIR.mkdir(exist_ok=True, parents=True)
-    return app_dirs.TEMP_DIR.joinpath("my_zip_archive.zip")
+    temp_path = app_dirs.TEMP_DIR.joinpath("my_zip_archive.zip")
+    try:
+        yield temp_path
+    finally:
+        if auto_unlink:
+            temp_path.unlink(missing_ok=True)
 
 
-def get_temporary_dir() -> Path:
+@contextmanager
+def get_temporary_path(auto_unlink=True) -> Generator[Path, None, None]:
     temp_path = app_dirs.TEMP_DIR.joinpath(uuid4().hex)
     temp_path.mkdir(exist_ok=True, parents=True)
-    return temp_path
+    try:
+        yield temp_path
+    finally:
+        if auto_unlink:
+            rmtree(temp_path)
 
 
 def temporary_file(ext: str = "") -> Callable[[], Generator[tempfile._TemporaryFileWrapper, None, None]]:

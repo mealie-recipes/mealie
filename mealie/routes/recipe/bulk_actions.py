@@ -45,9 +45,8 @@ class RecipeBulkActionsController(BaseUserController):
 
     @router.post("/export", status_code=202)
     def bulk_export_recipes(self, export_recipes: ExportRecipes):
-        temp_path = get_temporary_zip_path()
-        self.service.export_recipes(temp_path, export_recipes.recipes)
-        temp_path.unlink(missing_ok=True)
+        with get_temporary_zip_path() as temp_path:
+            self.service.export_recipes(temp_path, export_recipes.recipes)
 
     @router.get("/export/download")
     def get_exported_data_token(self, path: Path):
