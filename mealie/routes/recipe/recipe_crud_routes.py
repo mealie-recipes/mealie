@@ -1,5 +1,5 @@
 from functools import cached_property
-from shutil import copyfileobj
+from shutil import copyfileobj, rmtree
 from uuid import UUID
 from zipfile import ZipFile
 
@@ -10,11 +10,11 @@ from fastapi.datastructures import UploadFile
 from fastapi.responses import JSONResponse
 from pydantic import UUID4, BaseModel, Field
 from slugify import slugify
+from starlette.background import BackgroundTask
 from starlette.responses import FileResponse
 
 from mealie.core import exceptions
-from mealie.core.dependencies import temporary_zip_path
-from mealie.core.dependencies.dependencies import temporary_dir, validate_recipe_token
+from mealie.core.dependencies import get_temporary_path, get_temporary_zip_path, validate_recipe_token
 from mealie.core.security import create_recipe_slug_token
 from mealie.db.models.group.cookbook import CookBook
 from mealie.pkgs import cache
@@ -103,7 +103,7 @@ class RecipeExportController(BaseRecipeController):
         return RecipeZipTokenResponse(token=create_recipe_slug_token(slug))
 
     @router_exports.get("/{slug}/exports", response_class=FileResponse)
-    def get_recipe_as_format(self, slug: str, template_name: str, temp_dir=Depends(temporary_dir)):
+    def get_recipe_as_format(self, slug: str, template_name: str):
         """
         ## Parameters
         `template_name`: The name of the template to use to use in the exports listed. Template type will automatically
@@ -111,27 +111,31 @@ class RecipeExportController(BaseRecipeController):
         names and formats in the /api/recipes/exports endpoint.
 
         """
-        recipe = self.mixins.get_one(slug)
-        file = self.service.render_template(recipe, temp_dir, template_name)
-        return FileResponse(file)
+        with get_temporary_path(auto_unlink=False) as temp_path:
+            recipe = self.mixins.get_one(slug)
+            file = self.service.render_template(recipe, temp_path, template_name)
+            return FileResponse(file, background=BackgroundTask(rmtree, temp_path))
 
     @router_exports.get("/{slug}/exports/zip")
-    def get_recipe_as_zip(self, slug: str, token: str, temp_path=Depends(temporary_zip_path)):
-        """Get a Recipe and It's Original Image as a Zip File"""
-        slug = validate_recipe_token(token)
+    def get_recipe_as_zip(self, slug: str, token: str):
+        """Get a Recipe and Its Original Image as a Zip File"""
+        with get_temporary_zip_path(auto_unlink=False) as temp_path:
+            validated_slug = validate_recipe_token(token)
 
-        if slug != slug:
-            raise HTTPException(status_code=400, detail="Invalid Slug")
+            if validated_slug != slug:
+                raise HTTPException(status_code=400, detail="Invalid Slug")
 
-        recipe: Recipe = self.mixins.get_one(slug)
-        image_asset = recipe.image_dir.joinpath(RecipeImageTypes.original.value)
-        with ZipFile(temp_path, "w") as myzip:
-            myzip.writestr(f"{slug}.json", recipe.model_dump_json())
+            recipe: Recipe = self.mixins.get_one(validated_slug)
+            image_asset = recipe.image_dir.joinpath(RecipeImageTypes.original.value)
+            with ZipFile(temp_path, "w") as myzip:
+                myzip.writestr(f"{slug}.json", recipe.model_dump_json())
 
-            if image_asset.is_file():
-                myzip.write(image_asset, arcname=image_asset.name)
+                if image_asset.is_file():
+                    myzip.write(image_asset, arcname=image_asset.name)
 
-        return FileResponse(temp_path, filename=f"{slug}.zip")
+            return FileResponse(
+                temp_path, filename=f"{recipe.slug}.zip", background=BackgroundTask(temp_path.unlink, missing_ok=True)
+            )
 
 
 router = UserAPIRouter(prefix="/recipes", tags=["Recipe: CRUD"], route_class=MealieCrudRoute)
@@ -219,13 +223,14 @@ class RecipeController(BaseRecipeController):
         return "recipe_scrapers was unable to scrape this URL"
 
     @router.post("/create-from-zip", status_code=201)
-    def create_recipe_from_zip(self, temp_path=Depends(temporary_zip_path), archive: UploadFile = File(...)):
+    def create_recipe_from_zip(self, archive: UploadFile = File(...)):
         """Create recipe from archive"""
-        recipe = self.service.create_from_zip(archive, temp_path)
-        self.publish_event(
-            event_type=EventTypes.recipe_created,
-            document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=recipe.slug),
-        )
+        with get_temporary_zip_path() as temp_path:
+            recipe = self.service.create_from_zip(archive, temp_path)
+            self.publish_event(
+                event_type=EventTypes.recipe_created,
+                document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=recipe.slug),
+            )
 
         return recipe.slug
 
