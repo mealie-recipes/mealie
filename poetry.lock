@@ -1504,13 +1504,13 @@ signedtoken = ["cryptography (>=3.0.0)", "pyjwt (>=2.0.0,<3)"]
 
 [[package]]
 name = "openai"
-version = "1.27.0"
+version = "1.30.1"
 description = "The official Python library for the openai API"
 optional = false
 python-versions = ">=3.7.1"
 files = [
-    {file = "openai-1.27.0-py3-none-any.whl", hash = "sha256:1183346fae6e63cb3a9134e397c0067690dc9d94ceb36eb0eb2c1bb9a1542aca"},
-    {file = "openai-1.27.0.tar.gz", hash = "sha256:498adc80ba81a95324afdfd11a71fa43a37e1d94a5ca5f4542e52fe9568d995b"},
+    {file = "openai-1.30.1-py3-none-any.whl", hash = "sha256:c9fb3c3545c118bbce8deb824397b9433a66d0d0ede6a96f7009c95b76de4a46"},
+    {file = "openai-1.30.1.tar.gz", hash = "sha256:4f85190e577cba0b066e1950b8eb9b11d25bc7ebcc43a86b326ce1bfa564ec74"},
 ]
 
 [package.dependencies]
