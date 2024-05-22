@@ -1,8 +1,8 @@
 <template>
   <v-autocomplete
+    ref="autocompleteRef"
     v-model="itemVal"
     v-bind="$attrs"
-    ref="autocompleteRef"
     :search-input.sync="searchInput"
     item-text="name"
     return-object
@@ -13,10 +13,10 @@
     hide-details
     @keyup.enter="emitCreate"
   >
-    <template #no-data v-if="$listeners.create">
+    <template v-if="$listeners.create" #no-data>
       <div class="caption text-center pb-2">{{ $t("recipe.press-enter-to-create") }}</div>
     </template>
-    <template #append-item v-if="$listeners.create">
+    <template v-if="$listeners.create" #append-item>
       <div class="px-2">
         <BaseButton block small @click="emitCreate"></BaseButton>
       </div>

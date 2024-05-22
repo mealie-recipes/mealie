@@ -114,14 +114,7 @@ import { defineComponent, computed, watch } from "@nuxtjs/composition-api";
 import { ShoppingListItemCreate, ShoppingListItemOut } from "~/lib/api/types/group";
 import { MultiPurposeLabelOut } from "~/lib/api/types/labels";
 import { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
-import {
-  useFoodStore,
-  useFoodData,
-  useLabelStore,
-  useLabelData,
-  useUnitStore,
-  useUnitData
-} from "~/composables/store";
+import { useFoodStore, useFoodData, useUnitStore, useUnitData } from "~/composables/store";
 
 export default defineComponent({
   props: {
@@ -145,9 +138,6 @@ export default defineComponent({
   setup(props, context) {
     const foodStore = useFoodStore();
     const foodData = useFoodData();
-
-    const labelStore = useLabelStore();
-    const labelData = useLabelData();
 
     const unitStore = useUnitStore();
     const unitData = useUnitData();

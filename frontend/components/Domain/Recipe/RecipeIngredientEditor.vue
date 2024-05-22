@@ -29,8 +29,8 @@
       </v-col>
       <v-col v-if="!disableAmount" sm="12" md="3" cols="12">
         <v-autocomplete
-          v-model="value.unit"
           ref="unitAutocomplete"
+          v-model="value.unit"
           :search-input.sync="unitSearch"
           auto-select-first
           hide-details
@@ -58,8 +58,8 @@
       <!-- Foods Input -->
       <v-col v-if="!disableAmount" m="12" md="3" cols="12" class="">
         <v-autocomplete
-          v-model="value.food"
           ref="foodAutocomplete"
+          v-model="value.food"
           :search-input.sync="foodSearch"
           auto-select-first
           hide-details
