@@ -68,7 +68,7 @@
             small
             color="info"
             :icon="$globals.icons.tagArrowRight"
-            :text="$tc('shopping-list.copy-to-food')"
+            :text="$tc('shopping-list.save-label')"
             class="mt-2 align-items-flex-start"
             @click="assignLabelToFood"
           />
