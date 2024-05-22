@@ -268,6 +268,15 @@ export default defineComponent({
                     color: appConfig.value.oidcReady ? goodColor : warningColor,
                     icon: appConfig.value.oidcReady ? goodIcon : warningIcon,
                 },
+                {
+                    id: "openai-ready",
+                    text: i18n.t("settings.openai-ready"),
+                    status: appConfig.value.enableOpenai,
+                    errorText: i18n.t("settings.openai-ready-error-text"),
+                    successText: i18n.t("settings.openai-ready-success-text"),
+                    color: appConfig.value.enableOpenai ? goodColor : warningColor,
+                    icon: appConfig.value.enableOpenai ? goodIcon : warningIcon,
+                },
             ];
             return data;
         });

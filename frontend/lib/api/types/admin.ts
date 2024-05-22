@@ -13,6 +13,7 @@ export interface AdminAboutInfo {
   enableOidc: boolean;
   oidcRedirect: boolean;
   oidcProviderName: string;
+  enableOpenai: boolean;
   versionLatest: string;
   apiPort: number;
   apiDocs: boolean;
@@ -40,6 +41,7 @@ export interface AppInfo {
   enableOidc: boolean;
   oidcRedirect: boolean;
   oidcProviderName: string;
+  enableOpenai: boolean;
 }
 export interface AppStartupInfo {
   isFirstLogin: boolean;
@@ -80,6 +82,7 @@ export interface CheckAppConfig {
   emailReady: boolean;
   ldapReady: boolean;
   oidcReady: boolean;
+  enableOpenai: boolean;
   baseUrlSet: boolean;
   isUpToDate: boolean;
 }

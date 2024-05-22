@@ -6,7 +6,7 @@
 */
 
 export type ExportTypes = "json";
-export type RegisteredParser = "nlp" | "brute";
+export type RegisteredParser = "nlp" | "brute" | "openai";
 export type TimelineEventType = "system" | "info" | "comment";
 export type TimelineEventImage = "has image" | "does not have image";
 
