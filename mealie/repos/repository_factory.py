@@ -29,7 +29,6 @@ from mealie.db.models.recipe.recipe_timeline import RecipeTimelineEvent
 from mealie.db.models.recipe.shared import RecipeShareTokenModel
 from mealie.db.models.recipe.tag import Tag
 from mealie.db.models.recipe.tool import Tool
-from mealie.db.models.server.task import ServerTaskModel
 from mealie.db.models.users import LongLiveToken, User
 from mealie.db.models.users.password_reset import PasswordResetModel
 from mealie.db.models.users.user_to_recipe import UserToRecipe
@@ -59,7 +58,6 @@ from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUni
 from mealie.schema.recipe.recipe_share_token import RecipeShareToken
 from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventOut
 from mealie.schema.reports.reports import ReportEntryOut, ReportOut
-from mealie.schema.server import ServerTask
 from mealie.schema.user import GroupInDB, LongLiveTokenInDB, PrivateUser
 from mealie.schema.user.user import UserRatingOut
 from mealie.schema.user.user_passwords import PrivatePasswordResetToken
@@ -161,10 +159,6 @@ class AllRepositories:
 
     # ================================================================
     # Group
-
-    @cached_property
-    def server_tasks(self) -> RepositoryGeneric[ServerTask, ServerTaskModel]:
-        return RepositoryGeneric(self.session, PK_ID, ServerTaskModel, ServerTask)
 
     @cached_property
     def groups(self) -> RepositoryGroup:

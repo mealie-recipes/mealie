@@ -13,6 +13,7 @@
         <v-btn-toggle v-model="parser" dense mandatory @change="processIngredient">
           <v-btn value="nlp"> {{ $t('admin.nlp') }} </v-btn>
           <v-btn value="brute"> {{ $t('admin.brute') }} </v-btn>
+          <v-btn value="openai"> {{ $t('admin.openai') }} </v-btn>
         </v-btn-toggle>
 
         <v-checkbox v-model="showConfidence" class="ml-5" :label="$t('admin.show-individual-confidence')"></v-checkbox>
@@ -63,8 +64,8 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref, toRefs, useContext } from "@nuxtjs/composition-api";
-import { IngredientConfidence } from "~/lib/api/types/recipe";
 import { useUserApi } from "~/composables/api";
+import { IngredientConfidence } from "~/lib/api/types/recipe";
 import { Parser } from "~/lib/api/user/recipes/recipe";
 
 type ConfidenceAttribute = "average" | "comment" | "name" | "unit" | "quantity" | "food";

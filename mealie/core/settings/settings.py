@@ -208,6 +208,31 @@ class AppSettings(BaseSettings):
         return self.OIDC_AUTH_ENABLED and not_none and valid_group_claim
 
     # ===============================================
+    # OpenAI Configuration
+
+    OPENAI_BASE_URL: str | None = None
+    """The base URL for the OpenAI API. Leave this unset for most usecases"""
+    OPENAI_API_KEY: str | None = None
+    """Your OpenAI API key. Required to enable OpenAI features"""
+    OPENAI_MODEL: str = "gpt-4o"
+    """Which OpenAI model to send requests to. Leave this unset for most usecases"""
+    OPENAI_WORKERS: int = 2
+    """
+    Number of OpenAI workers per request. Higher values may increase
+    processing speed, but will incur additional API costs
+    """
+    OPENAI_SEND_DATABASE_DATA: bool = True
+    """
+    Sending database data may increase accuracy in certain requests,
+    but will incur additional API costs
+    """
+
+    @property
+    def OPENAI_ENABLED(self) -> bool:
+        """Validates OpenAI settings are all set"""
+        return bool(self.OPENAI_API_KEY and self.OPENAI_MODEL)
+
+    # ===============================================
     # Testing Config
 
     TESTING: bool = False
