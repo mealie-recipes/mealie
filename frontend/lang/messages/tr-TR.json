@@ -64,7 +64,7 @@
     "something-went-wrong": "Bir sorun oluştu!",
     "subscribed-events": "Abone Olunan Etkinlikler",
     "test-message-sent": "Test Mesajı Gönderildi",
-    "message-sent": "Message Sent",
+    "message-sent": "Mesaj Gönderildi",
     "new-notification": "Yeni bildirim",
     "event-notifiers": "Etkinlik Bildirimleri",
     "apprise-url-skipped-if-blank": "Apprise URL'si (boşsa geçilir)",
@@ -78,7 +78,7 @@
     "tag-events": "Etiket Etkinlikleri",
     "category-events": "Kategori Etkinlikleri",
     "when-a-new-user-joins-your-group": "Grubunuza yeni bir kullanıcı katıldığında",
-    "recipe-events": "Recipe Events"
+    "recipe-events": "Tarif Etkinlikleri"
   },
   "general": {
     "add": "Ekle",
@@ -161,7 +161,7 @@
     "test": "Dene",
     "themes": "Temalar",
     "thursday": "Perşembe",
-    "title": "Title",
+    "title": "Başlık",
     "token": "Anahtar",
     "tuesday": "Salı",
     "type": "Tür",
@@ -332,7 +332,7 @@
     "no-file-selected": "Dosya seçilmedi",
     "no-migration-data-available": "No Migration Data Available",
     "previous-migrations": "Önceki Yer Değiştirme",
-    "recipe-migration": "Recipe Migration",
+    "recipe-migration": "Tarif Taşıma",
     "chowdown": {
       "description": "Migrate data from Chowdown",
       "description-long": "Mealie yerel olarak chowdown veri havuzu biçimini destekler. Kod havuzunu bir .zip dosyası olarak indirin ve aşağıya yükleyin.",
@@ -362,7 +362,7 @@
     "recipe-data-migrations": "Recipe Data Migrations",
     "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Başka bir uygulamadan mı yoksa Mealie'nin daha eski bir sürümünden mi geliyorsunuz? Taşıma işlemlerine göz atın ve verilerinizin içe aktarılıp aktarılamayacağını görün.",
-    "choose-migration-type": "Choose Migration Type",
+    "choose-migration-type": "Taşıma Türünü Seçin",
     "tag-all-recipes": "Tag all recipes with {tag-name} tag",
     "nextcloud-text": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
     "chowdown-text": "Mealie yerel olarak chowdown veri havuzu formatını destekler. Kod deposunu .zip dosyası olarak indirin ve aşağıya yükleyin.",
@@ -537,7 +537,7 @@
     "last-made-date": "En Son {date} Yapıldı",
     "api-extras-description": "Tarif ekstraları Mealie API'nin önemli bir özelliğidir. Üçüncü taraf uygulamalardan referans almak üzere bir tarif içinde özel JSON anahtar/değer çiftleri oluşturmanıza olanak tanır. Bu tuşları, örneğin otomasyonları tetiklemek veya istediğiniz cihaza iletilecek özel mesajları bilgi sağlamak için kullanabilirsiniz.",
     "message-key": "İleti Anahtarı",
-    "parse": "Parse",
+    "parse": "Ayrıştırma",
     "attach-images-hint": "Düzenleyiciye sürükleyip bırakarak görselleri ekleyin",
     "drop-image": "Yüklenecek resimi sürükleyip bırakın",
     "enable-ingredient-amounts-to-use-this-feature": "Enable ingredient amounts to use this feature",

@@ -10,7 +10,7 @@ const storeLoading = ref(false);
 
 /**
  * useFoodData returns a template reactive object
- * for managing the creation of units. It also provides a
+ * for managing the creation of foods. It also provides a
  * function to reset the data back to the initial state.
  */
 export const useFoodData = function () {

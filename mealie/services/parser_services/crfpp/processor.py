@@ -29,24 +29,24 @@ class CRFIngredient(BaseModel):
     input: str = ""
     name: str = ""
     other: str = ""
-    qty: str = ""
+    qty: Annotated[str, Field(validate_default=True)] = ""
     comment: str = ""
     unit: str = ""
     confidence: CRFConfidence
 
     @field_validator("qty", mode="before")
-    def validate_qty(qty, info: ValidationInfo):  # sourcery skip: merge-nested-ifs
-        if qty is None or qty == "":
-            # Check if other contains a fraction
-            try:
-                if info.data["other"] is not None and info.data["other"].find("/") != -1:
-                    return round(float(Fraction(info.data["other"])), 3)
-                else:
-                    return 1
-            except Exception:
-                pass
+    def validate_qty(cls, qty, info: ValidationInfo):
+        if qty is not None and qty != "":
+            return qty
 
-        return qty
+        # Check if other contains a fraction
+        try:
+            if info.data["other"] is not None and info.data["other"].find("/") != -1:
+                return str(round(float(Fraction(info.data["other"])), 3))
+            else:
+                return "0"
+        except Exception:
+            return ""
 
 
 def _exec_crf_test(input_text):
