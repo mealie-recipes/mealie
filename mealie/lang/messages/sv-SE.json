@@ -5,8 +5,8 @@
     "recipe": {
         "unique-name-error": "Receptnamn måste vara unika",
         "recipe-defaults": {
-            "ingredient-note": "1 Cup Flour",
-            "step-text": "Recipe steps as well as other fields in the recipe page support markdown syntax.\n\n**Add a link**\n\n[My Link](https://demo.mealie.io)\n"
+            "ingredient-note": "1 kopp mjöl",
+            "step-text": "Receptsteg samt andra fält i receptsidan stöder markdown syntax.\n\n**Lägg till en länk**\n\n[Min länk](https://demo.mealie.io)\n"
         }
     },
     "mealplan": {

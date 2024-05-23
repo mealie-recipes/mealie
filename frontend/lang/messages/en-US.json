@@ -594,6 +594,7 @@
       "select-parser": "Select Parser",
       "natural-language-processor": "Natural Language Processor",
       "brute-parser": "Brute Parser",
+      "openai-parser": "OpenAI Parser",
       "parse-all": "Parse All",
       "no-unit": "No unit",
       "missing-unit": "Create missing unit: {unit}",
@@ -764,7 +765,10 @@
     "recipe-scraper-version": "Recipe Scraper Version",
     "oidc-ready": "OIDC Ready",
     "oidc-ready-error-text": "Not all OIDC Values are configured. This can be ignored if you are not using OIDC Authentication.",
-    "oidc-ready-success-text": "Required OIDC variables are all set."
+    "oidc-ready-success-text": "Required OIDC variables are all set.",
+    "openai-ready": "OpenAI Ready",
+    "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
+    "openai-ready-success-text": "Required OpenAI variables are all set."
   },
   "shopping-list": {
     "all-lists": "All Lists",
@@ -778,6 +782,7 @@
     "food": "Food",
     "note": "Note",
     "label": "Label",
+    "save-label": "Save Label",
     "linked-item-warning": "This item is linked to one or more recipe. Adjusting the units or foods will yield unexpected results when adding or removing the recipe from this list.",
     "toggle-food": "Toggle Food",
     "manage-labels": "Manage Labels",
@@ -1170,6 +1175,7 @@
     "ingredients-natural-language-processor-explanation-2": "It's not perfect, but it yields great results in general and is a good starting point for manually parsing ingredients into individual fields. Alternatively, you can also use the \"Brute\" processor that uses a pattern matching technique to identify ingredients.",
     "nlp": "NLP",
     "brute": "Brute",
+    "openai": "OpenAI",
     "show-individual-confidence": "Show individual confidence",
     "ingredient-text": "Ingredient Text",
     "average-confident": "{0} Confident",

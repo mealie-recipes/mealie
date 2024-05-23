@@ -18,6 +18,7 @@ class AppInfo(MealieModel):
     enable_oidc: bool
     oidc_redirect: bool
     oidc_provider_name: str
+    enable_openai: bool
 
 
 class AppTheme(MealieModel):
@@ -64,6 +65,7 @@ class CheckAppConfig(MealieModel):
     email_ready: bool
     ldap_ready: bool
     oidc_ready: bool
+    enable_openai: bool
     base_url_set: bool
     is_up_to_date: bool
 

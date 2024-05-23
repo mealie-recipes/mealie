@@ -1,14 +1,27 @@
 <template>
   <v-autocomplete
+    ref="autocompleteRef"
     v-model="itemVal"
     v-bind="$attrs"
+    :search-input.sync="searchInput"
     item-text="name"
     return-object
     :items="items"
     :prepend-icon="icon || $globals.icons.tags"
+    auto-select-first
     clearable
     hide-details
-  />
+    @keyup.enter="emitCreate"
+  >
+    <template v-if="$listeners.create" #no-data>
+      <div class="caption text-center pb-2">{{ $t("recipe.press-enter-to-create") }}</div>
+    </template>
+    <template v-if="$listeners.create" #append-item>
+      <div class="px-2">
+        <BaseButton block small @click="emitCreate"></BaseButton>
+      </div>
+    </template>
+  </v-autocomplete>
 </template>
 
 <script lang="ts">
@@ -31,7 +44,7 @@
  * Both the ID and Item can be synced. The item can be synced using the v-model syntax and the itemId can be synced
  * using the .sync syntax `item-id.sync="item.labelId"`
  */
-import { defineComponent, computed } from "@nuxtjs/composition-api";
+import { computed, defineComponent, ref } from "@nuxtjs/composition-api";
 import { MultiPurposeLabelSummary } from "~/lib/api/types/labels";
 import { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
 
@@ -59,6 +72,8 @@ export default defineComponent({
     },
   },
   setup(props, context) {
+    const autocompleteRef = ref<HTMLInputElement>();
+    const searchInput = ref("");
     const itemIdVal = computed({
       get: () => {
         return props.itemId || undefined;
@@ -78,9 +93,20 @@ export default defineComponent({
       },
     });
 
+    function emitCreate() {
+      if (props.items.some(item => item.name === searchInput.value)) {
+        return;
+      }
+      context.emit("create", searchInput.value);
+      autocompleteRef.value?.blur();
+    }
+
     return {
+      autocompleteRef,
       itemVal,
       itemIdVal,
+      searchInput,
+      emitCreate,
     };
   },
 });

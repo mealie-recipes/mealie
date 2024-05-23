@@ -14,15 +14,15 @@
   >
     <v-icon v-if="!iconRight" left>
       <slot name="icon">
-        {{ btnAttrs.icon }}
+        {{ icon || btnAttrs.icon }}
       </slot>
     </v-icon>
     <slot name="default">
-      {{ btnAttrs.text }}
+      {{ text || btnAttrs.text }}
     </slot>
     <v-icon v-if="iconRight" right>
       <slot name="icon">
-        {{ btnAttrs.icon }}
+        {{ icon || btnAttrs.icon }}
       </slot>
     </v-icon>
   </v-btn>
@@ -100,6 +100,14 @@ export default defineComponent({
       default: null,
     },
     color: {
+      type: String,
+      default: null,
+    },
+    text: {
+      type: String,
+      default: null,
+    },
+    icon: {
       type: String,
       default: null,
     },
