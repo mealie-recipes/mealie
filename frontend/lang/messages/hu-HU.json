@@ -594,6 +594,7 @@
       "select-parser": "Válasszon elemzőt",
       "natural-language-processor": "Természetes nyelvi feldolgozó",
       "brute-parser": "Brute elemző",
+      "openai-parser": "OpenAI elemző",
       "parse-all": "Összes elemzése",
       "no-unit": "Mértékegység nélkül",
       "missing-unit": "Hiányzó mértékegység létrehozása: {unit}",
@@ -764,7 +765,10 @@
     "recipe-scraper-version": "Receptkinyerő verziója",
     "oidc-ready": "OIDC készen áll",
     "oidc-ready-error-text": "Nem minden OIDC érték van beállítva. Ezt figyelmen kívül lehet hagyni ha nem használ OIDC hitelesítést.",
-    "oidc-ready-success-text": "A szükséges OIDC változók mind beállítva."
+    "oidc-ready-success-text": "A szükséges OIDC változók mind beállítva.",
+    "openai-ready": "OpenAI készen áll",
+    "openai-ready-error-text": "Nem minden OpenAI érték van beállítva. Ez figyelmen kívül hagyható, ha nem használja az OpenAI funkcióit.",
+    "openai-ready-success-text": "Minden szükséges OpenAI változó beállítva."
   },
   "shopping-list": {
     "all-lists": "Összes lista",
@@ -778,6 +782,7 @@
     "food": "Étel",
     "note": "Megjegyzés",
     "label": "Címke",
+    "save-label": "Save Label",
     "linked-item-warning": "Ez a tétel egy vagy több recepthez kapcsolódik. A mennyiségi egységek vagy az alapanyagok átállítása nem várt eredményeket fog eredményezni, amikor hozzáadja vagy eltávolítja a receptet ebből a listából.",
     "toggle-food": "Váltás alapanyagokra",
     "manage-labels": "Címkék kezelése",
@@ -1022,7 +1027,7 @@
       "recipe-actions-data": "Recipe Actions Data",
       "new-recipe-action": "New Recipe Action",
       "edit-recipe-action": "Edit Recipe Action",
-      "action-type": "Action Type"
+      "action-type": "Művelet típusa"
     },
     "create-alias": "Alias készítése",
     "manage-aliases": "Alias kezelése",
@@ -1170,6 +1175,7 @@
     "ingredients-natural-language-processor-explanation-2": "Nem tökéletes, de általában nagyszerű eredményeket ad, és jó kiindulópont a hozzávalók kézi elemzésére az egyedi mezőkbe. Alternatívaként használhatja a \"Brute\" feldolgozót is, amely egy mintaillesztési technikát használ a hozzávalók azonosítására.",
     "nlp": "NLP",
     "brute": "Brute",
+    "openai": "OpenAI",
     "show-individual-confidence": "",
     "ingredient-text": "Hozzávaló szöveg",
     "average-confident": "{0}-os bizonyosság",
