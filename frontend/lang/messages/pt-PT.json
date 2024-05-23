@@ -594,6 +594,7 @@
       "select-parser": "Select Parser",
       "natural-language-processor": "Natural Language Processor",
       "brute-parser": "Brute Parser",
+      "openai-parser": "OpenAI Parser",
       "parse-all": "Parse All",
       "no-unit": "No unit",
       "missing-unit": "Create missing unit: {unit}",
@@ -764,7 +765,10 @@
     "recipe-scraper-version": "Versão do Scraper de receitas",
     "oidc-ready": "Suporta OICD",
     "oidc-ready-error-text": "Nem todos os valores OICD estão configurados. Pode ignorar isto se não estiver a utilizar autenticação OICD.",
-    "oidc-ready-success-text": "As variáveis OICD necessárias estão definidas."
+    "oidc-ready-success-text": "As variáveis OICD necessárias estão definidas.",
+    "openai-ready": "OpenAI Ready",
+    "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
+    "openai-ready-success-text": "Required OpenAI variables are all set."
   },
   "shopping-list": {
     "all-lists": "Todas as Listas",
@@ -778,6 +782,7 @@
     "food": "Alimentos",
     "note": "Nota",
     "label": "Rótulo",
+    "save-label": "Save Label",
     "linked-item-warning": "Este item tem ligação a uma ou mais receitas. Ajustar as unidades ou alimentos irá produzir resultados inesperados quando adicionar ou remover a receita desta lista.",
     "toggle-food": "Alternar Alimento",
     "manage-labels": "Gerir Rótulos",
@@ -1170,6 +1175,7 @@
     "ingredients-natural-language-processor-explanation-2": "Não é perfeito, mas produz bons resultados em geral e é um bom ponto de partida para, manualmente, fazer corresponder ingredientes a campos individuais. Em alternativa, também pode usar o processador \"Brute\" que usa uma técnica de correspondência de padrões para identificar ingredientes.",
     "nlp": "PLN",
     "brute": "Bruto",
+    "openai": "OpenAI",
     "show-individual-confidence": "Mostrar confiança individual",
     "ingredient-text": "Texto de Ingrediente",
     "average-confident": "{0} Confiante",
