@@ -594,6 +594,7 @@
       "select-parser": "Select Parser",
       "natural-language-processor": "Natural Language Processor",
       "brute-parser": "Brute Parser",
+      "openai-parser": "Analitzador d'OpenAI",
       "parse-all": "Parse All",
       "no-unit": "No unit",
       "missing-unit": "Create missing unit: {unit}",
@@ -764,7 +765,10 @@
     "recipe-scraper-version": "Recipe Scraper Version",
     "oidc-ready": "OIDC Ready",
     "oidc-ready-error-text": "Not all OIDC Values are configured. This can be ignored if you are not using OIDC Authentication.",
-    "oidc-ready-success-text": "Required OIDC variables are all set."
+    "oidc-ready-success-text": "Required OIDC variables are all set.",
+    "openai-ready": "Llest per OpenAI",
+    "openai-ready-error-text": "No tots els valors d'OpenAI estan configurats. Es pot ignorar si no s'estan utilitzant les funcionalitats d'OpenAI.",
+    "openai-ready-success-text": "Les variables requerides per OpenAI estan establertes."
   },
   "shopping-list": {
     "all-lists": "Totes les llistes",
@@ -778,6 +782,7 @@
     "food": "Aliments",
     "note": "Nota",
     "label": "Etiqueta",
+    "save-label": "Save Label",
     "linked-item-warning": "Aquest element està enllaçat amb una o més receptes. Modificar les unitats o els aliments pot provocar resultats inesperats en afegir o elimina la recepta del llistat.",
     "toggle-food": "Mostra el nom de l'aliment",
     "manage-labels": "Gestiona etiquetes",
@@ -1170,6 +1175,7 @@
     "ingredients-natural-language-processor-explanation-2": "It's not perfect, but it yields great results in general and is a good starting point for manually parsing ingredients into individual fields. Alternatively, you can also use the \"Brute\" processor that uses a pattern matching technique to identify ingredients.",
     "nlp": "NLP",
     "brute": "Brute",
+    "openai": "OpenAI",
     "show-individual-confidence": "Show individual confidence",
     "ingredient-text": "Ingredient Text",
     "average-confident": "{0} Confident",
