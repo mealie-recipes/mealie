@@ -594,6 +594,7 @@
       "select-parser": "Select Parser",
       "natural-language-processor": "Natural Language Processor",
       "brute-parser": "Brute Parser",
+      "openai-parser": "OpenAI Parser",
       "parse-all": "Parse All",
       "no-unit": "No unit",
       "missing-unit": "Create missing unit: {unit}",
@@ -764,7 +765,10 @@
     "recipe-scraper-version": "Версия на скрепер на рецепти",
     "oidc-ready": "Готов за OIDC",
     "oidc-ready-error-text": "Не всички OIDC стойности са конфигурирани. Това може да бъде игнорирано, ако не използвате OIDC удостоверяване.",
-    "oidc-ready-success-text": "Задължителните OIDC променливи са зададени."
+    "oidc-ready-success-text": "Задължителните OIDC променливи са зададени.",
+    "openai-ready": "OpenAI Ready",
+    "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
+    "openai-ready-success-text": "Required OpenAI variables are all set."
   },
   "shopping-list": {
     "all-lists": "Всички списъци",
@@ -778,6 +782,7 @@
     "food": "Продукт",
     "note": "Бележка",
     "label": "Етикет",
+    "save-label": "Save Label",
     "linked-item-warning": "Елементът е добавен към една или повече рецепти. Редактиране на единиците или храните ще се отрази с непредвидими резултати когато добавяте или премахвате рецепта от списъка.",
     "toggle-food": "Превключване на храна",
     "manage-labels": "Управление на етикети",
@@ -1170,6 +1175,7 @@
     "ingredients-natural-language-processor-explanation-2": "Не е перфектно, но като цяло дава страхотни резултати и е добра отправна точка за ръчно анализиране на съставки в отделни полета. Като алтернатива можете също да използвате процесора \"Груб\", който използва техника за съвпадение на шаблони, за да идентифицира съставките.",
     "nlp": "ПЕЕ",
     "brute": "Груб",
+    "openai": "OpenAI",
     "show-individual-confidence": "Покажи индивидуална увереност",
     "ingredient-text": "Текст на съставката",
     "average-confident": "{0} Уверен",
