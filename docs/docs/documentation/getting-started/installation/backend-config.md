@@ -16,7 +16,7 @@
 | TZ                            |          UTC          | Must be set to get correct date/time on the server                                  |
 | ALLOW_SIGNUP<super>\*</super> |         false         | Allow user sign-up without token                                                    |
 | LOG_CONFIG_OVERRIDE           |                       | Override the config for logging with a custom path                                  |
-| LOG_LEVEL                     |         info          | logging level configured                                                            |
+| LOG_LEVEL                     |         info          | logging level (e.g. critical, error, warning, info, debug, trace)                   |
 
 <super>\*</super> Starting in v1.4.0 this was changed to default to `false` as apart of a security review of the application.
 
