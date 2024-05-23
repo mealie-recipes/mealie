@@ -594,6 +594,7 @@
       "select-parser": "Select Parser",
       "natural-language-processor": "Natural Language Processor",
       "brute-parser": "Brute Parser",
+      "openai-parser": "OpenAI Parser",
       "parse-all": "Parse All",
       "no-unit": "No unit",
       "missing-unit": "Create missing unit: {unit}",
@@ -764,7 +765,10 @@
     "recipe-scraper-version": "Версия скрейпера рецептов",
     "oidc-ready": "OIDC Ready",
     "oidc-ready-error-text": "Not all OIDC Values are configured. This can be ignored if you are not using OIDC Authentication.",
-    "oidc-ready-success-text": "Required OIDC variables are all set."
+    "oidc-ready-success-text": "Required OIDC variables are all set.",
+    "openai-ready": "OpenAI Ready",
+    "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
+    "openai-ready-success-text": "Required OpenAI variables are all set."
   },
   "shopping-list": {
     "all-lists": "Все списки",
@@ -778,6 +782,7 @@
     "food": "Продукты",
     "note": "Заметка",
     "label": "Метка",
+    "save-label": "Save Label",
     "linked-item-warning": "Этот предмет связан с одним или несколькими рецептами. Обновление единиц измерения или продуктов приведет к неожиданным результатам при добавлении или удалении рецепта из этого списка.",
     "toggle-food": "Переключить продукты",
     "manage-labels": "Настройки меток",
@@ -1170,6 +1175,7 @@
     "ingredients-natural-language-processor-explanation-2": "Он не совершенен, но, в целом, дает хорошие результаты и является хорошей отправной точкой для ручного разбора ингредиентов в отдельных полях. Иначе, для определения ингредиентов можно использовать процессор \"Brute\", использующий технику сопоставления образцов (pattern matching).",
     "nlp": "NLP",
     "brute": "Brute",
+    "openai": "OpenAI",
     "show-individual-confidence": "Показать уверенность каждого поля",
     "ingredient-text": "Описание ингредиента",
     "average-confident": "Уверенность {0}",
