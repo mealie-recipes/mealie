@@ -594,6 +594,7 @@
       "select-parser": "Select Parser",
       "natural-language-processor": "Natural Language Processor",
       "brute-parser": "Brute Parser",
+      "openai-parser": "OpenAI Parser",
       "parse-all": "Parse All",
       "no-unit": "No unit",
       "missing-unit": "Create missing unit: {unit}",
@@ -764,7 +765,10 @@
     "recipe-scraper-version": "Versjon på oppskrift-scraper",
     "oidc-ready": "OIDC klar",
     "oidc-ready-error-text": "Ikke alle OIDC-verdier er konfigurert. Dette kan ignoreres hvis du ikke bruker OIDC-autentisering.",
-    "oidc-ready-success-text": "Alle obligratoriske OIDC-variabler er satt."
+    "oidc-ready-success-text": "Alle obligratoriske OIDC-variabler er satt.",
+    "openai-ready": "OpenAI Ready",
+    "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
+    "openai-ready-success-text": "Required OpenAI variables are all set."
   },
   "shopping-list": {
     "all-lists": "Alle lister",
@@ -778,6 +782,7 @@
     "food": "Matvare",
     "note": "Notat",
     "label": "Etikett",
+    "save-label": "Save Label",
     "linked-item-warning": "Dette elementet er koblet til én eller flere oppskrifter. Å endre enheter eller matvarer vil føre til uventede resultater når oppskriften legges til eller fjernes fra denne listen.",
     "toggle-food": "Vis/skjul matvare",
     "manage-labels": "Administrer etiketter",
@@ -1170,6 +1175,7 @@
     "ingredients-natural-language-processor-explanation-2": "Modellen er ikke perfekt, men det gir generelt sett gode resultater og er et godt utgangspunkt for å manuelt analysere ingredienser i individuelle felt. Alternativt kan du også bruke 'Brute'-prosessoren som bruker mønstergjenkjennelsesteknikker for å identifisere ingredienser.",
     "nlp": "NLP",
     "brute": "Brute",
+    "openai": "OpenAI",
     "show-individual-confidence": "Vis individuell konfidens",
     "ingredient-text": "Ingredienstekst",
     "average-confident": "{0} Troverdig",
