@@ -594,6 +594,7 @@
       "select-parser": "Select Parser",
       "natural-language-processor": "Natural Language Processor",
       "brute-parser": "Brute Parser",
+      "openai-parser": "OpenAI Parser",
       "parse-all": "Parse All",
       "no-unit": "No unit",
       "missing-unit": "Create missing unit: {unit}",
@@ -764,7 +765,10 @@
     "recipe-scraper-version": "Versão do receptor de receita",
     "oidc-ready": "OIDC Ready",
     "oidc-ready-error-text": "Not all OIDC Values are configured. This can be ignored if you are not using OIDC Authentication.",
-    "oidc-ready-success-text": "Required OIDC variables are all set."
+    "oidc-ready-success-text": "Required OIDC variables are all set.",
+    "openai-ready": "OpenAI Ready",
+    "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
+    "openai-ready-success-text": "Required OpenAI variables are all set."
   },
   "shopping-list": {
     "all-lists": "Todas as Listas",
@@ -778,6 +782,7 @@
     "food": "Comida",
     "note": "Nota",
     "label": "Marcador",
+    "save-label": "Save Label",
     "linked-item-warning": "Este item está vinculado a uma ou mais receitas. Ajustar as unidades ou alimentos produzirá resultados inesperados ao adicionar ou remover a receita desta lista.",
     "toggle-food": "Mostrar nome da Comida",
     "manage-labels": "Gerenciar marcadores",
@@ -1170,6 +1175,7 @@
     "ingredients-natural-language-processor-explanation-2": "Não é perfeito, mas produz grandes resultados em geral e é um bom ponto de partida para analisar ingredientes manualmente em campos individuais. Como alternativa, você também pode usar o processador \"Brute\" que usa uma técnica de correspondência de padrões para identificar ingredientes.",
     "nlp": "PLN",
     "brute": "Bruto",
+    "openai": "OpenAI",
     "show-individual-confidence": "Mostrar confiança individual",
     "ingredient-text": "Texto de Ingrediente",
     "average-confident": "{0} confiante",

@@ -594,6 +594,7 @@
       "select-parser": "Parser auswählen",
       "natural-language-processor": "Natürliche Sprachverarbeitung (NLP)",
       "brute-parser": "Brute Parser",
+      "openai-parser": "OpenAI Parser",
       "parse-all": "Alles parsen",
       "no-unit": "Keine Einheit",
       "missing-unit": "Fehlende Einheit erstellen: {unit}",
@@ -764,7 +765,10 @@
     "recipe-scraper-version": "Rezept Scraper Version",
     "oidc-ready": "OIDC bereit",
     "oidc-ready-error-text": "Es sind nicht alle OIDC-Werte konfiguriert. Wenn du keine OIDC-Authentifizierung benutzt, kannst du das ignorieren.",
-    "oidc-ready-success-text": "Alle erforderlichen OIDC-Variablen sind gesetzt."
+    "oidc-ready-success-text": "Alle erforderlichen OIDC-Variablen sind gesetzt.",
+    "openai-ready": "OpenAI bereit",
+    "openai-ready-error-text": "Es sind nicht alle OpenAI-Werte konfiguriert. Wenn du die OpenAI Funktionen nicht benutzt, kannst du das ignorieren.",
+    "openai-ready-success-text": "Alle erforderlichen OpenAI-Variablen sind hinterlegt."
   },
   "shopping-list": {
     "all-lists": "Alle Listen",
@@ -778,6 +782,7 @@
     "food": "Lebensmittel",
     "note": "Notiz",
     "label": "Etikett",
+    "save-label": "Save Label",
     "linked-item-warning": "Dieser Eintrag ist mit einem oder mehreren Rezepten verknüpft. Das Ändern der Einheiten oder Lebensmittel führt zu unerwarteten Ergebnissen, wenn das Rezept von dieser Einkaufsliste entfernt oder hinzugefügt wird.",
     "toggle-food": "Lebensmittel-Eingabe umschalten",
     "manage-labels": "Etiketten verwalten",
@@ -1170,6 +1175,7 @@
     "ingredients-natural-language-processor-explanation-2": "Es ist nicht perfekt, aber es erzeugt meist sehr gute Ergebnisse und ist ein guter Anfang, um Zutaten manuell den einzelnen Feldern zuzuordnen. Alternativ kannst du auch den \"Brute\" Prozessor benutzen, der eine Musterabgleich-Technik verwendet, um Zutaten zu identifizieren.",
     "nlp": "NLP",
     "brute": "Brute",
+    "openai": "OpenAI",
     "show-individual-confidence": "Zeige individuelle Zuverlässigkeitswerte an",
     "ingredient-text": "Zutaten-Angabe",
     "average-confident": "{0} zuverlässig",

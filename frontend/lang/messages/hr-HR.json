@@ -594,6 +594,7 @@
       "select-parser": "Select Parser",
       "natural-language-processor": "Natural Language Processor",
       "brute-parser": "Brute Parser",
+      "openai-parser": "OpenAI Parser",
       "parse-all": "Parse All",
       "no-unit": "No unit",
       "missing-unit": "Create missing unit: {unit}",
@@ -764,7 +765,10 @@
     "recipe-scraper-version": "Verzija skraper alata za recepte",
     "oidc-ready": "OIDC Ready",
     "oidc-ready-error-text": "Not all OIDC Values are configured. This can be ignored if you are not using OIDC Authentication.",
-    "oidc-ready-success-text": "Required OIDC variables are all set."
+    "oidc-ready-success-text": "Required OIDC variables are all set.",
+    "openai-ready": "OpenAI Ready",
+    "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
+    "openai-ready-success-text": "Required OpenAI variables are all set."
   },
   "shopping-list": {
     "all-lists": "Svi Popisi",
@@ -778,6 +782,7 @@
     "food": "Namirnica",
     "note": "Bilješka",
     "label": "Oznaka",
+    "save-label": "Save Label",
     "linked-item-warning": "Ova stavka je povezana s jednim ili više recepata. Prilagođavanje jedinica ili namirnica može rezultirati neočekivanim rezultatima prilikom dodavanja ili uklanjanja recepta s ove liste.",
     "toggle-food": "Prebaci prekidač Namirnice",
     "manage-labels": "Upravljanje Oznakama",
@@ -1170,6 +1175,7 @@
     "ingredients-natural-language-processor-explanation-2": "Nije savršen, ali općenito daje odlične rezultate i dobra je polazna točka za ručno parsiranje sastojaka u pojedinačna polja. Alternativno, možete koristiti \"Brute\" procesor koji koristi tehniku usklađivanja uzoraka za identifikaciju sastojaka.",
     "nlp": "NLP",
     "brute": "Brute",
+    "openai": "OpenAI",
     "show-individual-confidence": "Prikaži pojedinačno povjerenje",
     "ingredient-text": "Tekst Sastojka",
     "average-confident": "{0} - Siguran",

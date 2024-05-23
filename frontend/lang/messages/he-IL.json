@@ -594,6 +594,7 @@
       "select-parser": "Select Parser",
       "natural-language-processor": "Natural Language Processor",
       "brute-parser": "Brute Parser",
+      "openai-parser": "OpenAI Parser",
       "parse-all": "Parse All",
       "no-unit": "No unit",
       "missing-unit": "Create missing unit: {unit}",
@@ -764,7 +765,10 @@
     "recipe-scraper-version": "גרסת מפענך המתכונים",
     "oidc-ready": "OIDC Ready",
     "oidc-ready-error-text": "Not all OIDC Values are configured. This can be ignored if you are not using OIDC Authentication.",
-    "oidc-ready-success-text": "Required OIDC variables are all set."
+    "oidc-ready-success-text": "Required OIDC variables are all set.",
+    "openai-ready": "OpenAI Ready",
+    "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
+    "openai-ready-success-text": "Required OpenAI variables are all set."
   },
   "shopping-list": {
     "all-lists": "כל הרשימות",
@@ -778,6 +782,7 @@
     "food": "אוכל",
     "note": "הערה",
     "label": "תווית",
+    "save-label": "Save Label",
     "linked-item-warning": "האובייקט הזה מקושר לאחד או יותר מתכונים. שינוי היחידות או האוכל יוביל לתוצאות בלתי צפויות בהוספה או הסרת מתכונים מהרשימה.",
     "toggle-food": "הצג/הסתר אוכל",
     "manage-labels": "ניהול תויות",
@@ -1170,6 +1175,7 @@
     "ingredients-natural-language-processor-explanation-2": "זה לא מושלם, אבל מספק תוצאות טובות באופן כללי ומספק נקודת התחלה טובה עבור עיבוד ידני של מרכיבים לשדות נפרדים. לחילופין ניתן להשתמש בעיבוד \"נוקשה\" לזיהוי המרכיבים.",
     "nlp": "NLP",
     "brute": "נוקשה",
+    "openai": "OpenAI",
     "show-individual-confidence": "הראה תאימות בודדת",
     "ingredient-text": "טקסט מרכיב",
     "average-confident": "{0} דיוק",

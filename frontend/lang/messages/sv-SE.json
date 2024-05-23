@@ -594,6 +594,7 @@
       "select-parser": "Välj tolk",
       "natural-language-processor": "Naturlig språkbehandlare",
       "brute-parser": "Brute Parser",
+      "openai-parser": "OpenAI Parser",
       "parse-all": "Analysera allt",
       "no-unit": "Ingen enhet",
       "missing-unit": "Skapa saknad enhet: {unit}",
@@ -764,7 +765,10 @@
     "recipe-scraper-version": "Version av Recept-scraper",
     "oidc-ready": "OIDC Klar",
     "oidc-ready-error-text": "Alla OIDC-värden är inte konfigurerade. Detta kan ignoreras om du inte använder OIDC-autentisering.",
-    "oidc-ready-success-text": "Alla obligatoriska OIDC-variabler är satta."
+    "oidc-ready-success-text": "Alla obligatoriska OIDC-variabler är satta.",
+    "openai-ready": "OpenAI Ready",
+    "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
+    "openai-ready-success-text": "Required OpenAI variables are all set."
   },
   "shopping-list": {
     "all-lists": "Visa alla listor",
@@ -778,6 +782,7 @@
     "food": "Mat",
     "note": "Anteckning",
     "label": "Etikett",
+    "save-label": "Save Label",
     "linked-item-warning": "Denna artikel är länkad till ett eller flera recept. Justering av enheter eller livsmedel ger oväntade resultat när du lägger till eller tar bort receptet från denna lista.",
     "toggle-food": "Växla mat",
     "manage-labels": "Hantera etiketter",
@@ -1170,6 +1175,7 @@
     "ingredients-natural-language-processor-explanation-2": "Det är inte perfekt, men det ger bra resultat i allmänhet och är en bra utgångspunkt för att manuellt tolka ingredienser i enskilda områden. Alternativt kan du också använda \"Brute\" processor som använder en mönstermatchningsteknik för att identifiera ingredienser.",
     "nlp": "NLP",
     "brute": "Brute",
+    "openai": "OpenAI",
     "show-individual-confidence": "Visa individuella självförtroende",
     "ingredient-text": "Ingrediens text",
     "average-confident": "{0} Säker",

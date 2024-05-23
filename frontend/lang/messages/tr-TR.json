@@ -594,6 +594,7 @@
       "select-parser": "Select Parser",
       "natural-language-processor": "Natural Language Processor",
       "brute-parser": "Brute Parser",
+      "openai-parser": "OpenAI Parser",
       "parse-all": "Parse All",
       "no-unit": "No unit",
       "missing-unit": "Create missing unit: {unit}",
@@ -764,7 +765,10 @@
     "recipe-scraper-version": "Recipe Scraper Version",
     "oidc-ready": "OIDC Hazır",
     "oidc-ready-error-text": "Tüm OIDC Değerleri yapılandırılmamıştır. OIDC Kimlik Doğrulamasını kullanmıyorsanız bu göz ardı edilebilir.",
-    "oidc-ready-success-text": "Gerekli OIDC değişkenlerinin tümü ayarlanmıştır."
+    "oidc-ready-success-text": "Gerekli OIDC değişkenlerinin tümü ayarlanmıştır.",
+    "openai-ready": "OpenAI Ready",
+    "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
+    "openai-ready-success-text": "Required OpenAI variables are all set."
   },
   "shopping-list": {
     "all-lists": "All Lists",
@@ -778,6 +782,7 @@
     "food": "Food",
     "note": "Not",
     "label": "Etiket",
+    "save-label": "Save Label",
     "linked-item-warning": "This item is linked to one or more recipe. Adjusting the units or foods will yield unexpected results when adding or removing the recipe from this list.",
     "toggle-food": "Toggle Food",
     "manage-labels": "Manage Labels",
@@ -1170,6 +1175,7 @@
     "ingredients-natural-language-processor-explanation-2": "Mükemmel değil, ancak genel olarak harika sonuçlar veriyor ve malzemeleri manuel olarak ayrı alanlara ayrıştırmak için iyi bir başlangıç noktası. Alternatif olarak, malzemeleri tanımlamak için bir model eşleştirme tekniği kullanan \"Brute\" işlemciyi de kullanabilirsiniz.",
     "nlp": "NLP",
     "brute": "Kaba",
+    "openai": "OpenAI",
     "show-individual-confidence": "Show individual confidence",
     "ingredient-text": "İçerik Metni",
     "average-confident": "{0} Confident",

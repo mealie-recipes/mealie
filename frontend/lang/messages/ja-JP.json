@@ -594,6 +594,7 @@
       "select-parser": "Select Parser",
       "natural-language-processor": "Natural Language Processor",
       "brute-parser": "Brute Parser",
+      "openai-parser": "OpenAI Parser",
       "parse-all": "Parse All",
       "no-unit": "No unit",
       "missing-unit": "Create missing unit: {unit}",
@@ -764,7 +765,10 @@
     "recipe-scraper-version": "Recipe Scraper バージョン",
     "oidc-ready": "OIDC対応",
     "oidc-ready-error-text": "すべてのOIDC値が設定されていません。OIDC認証を使用していない場合は無視できます。",
-    "oidc-ready-success-text": "必要なOIDC変数はすべて設定されています。"
+    "oidc-ready-success-text": "必要なOIDC変数はすべて設定されています。",
+    "openai-ready": "OpenAI Ready",
+    "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
+    "openai-ready-success-text": "Required OpenAI variables are all set."
   },
   "shopping-list": {
     "all-lists": "すべてのリスト",
@@ -778,6 +782,7 @@
     "food": "食料",
     "note": "メモ",
     "label": "ラベル",
+    "save-label": "Save Label",
     "linked-item-warning": "このアイテムは 1 つ以上のレシピにリンクされています。このリストにレシピを追加または削除するときに、単位や食品を調整すると予期しない結果が生じることがあります。",
     "toggle-food": "食料の切り替え",
     "manage-labels": "ラベルの管理",
@@ -1170,6 +1175,7 @@
     "ingredients-natural-language-processor-explanation-2": "これは完璧ではありませんが、一般的に優れた結果が得られ、成分を手動で個別のフィールドに解析するための良い出発点となります。あるいは、パターン マッチング技術を使用して成分を識別する「Brute」プロセッサを使用することもできます。",
     "nlp": "NLP",
     "brute": "ブルート",
+    "openai": "OpenAI",
     "show-individual-confidence": "個々の信頼性を表示",
     "ingredient-text": "材料テキスト",
     "average-confident": "{0} 自信あり",

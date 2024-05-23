@@ -594,6 +594,7 @@
       "select-parser": "Вибрати аналізатор",
       "natural-language-processor": "Аналізатор природної мови",
       "brute-parser": "Простий аналізатор",
+      "openai-parser": "OpenAI Parser",
       "parse-all": "Аналізувати все",
       "no-unit": "Без одиниці",
       "missing-unit": "Створити відсутню одиниці: {unit}",
@@ -764,7 +765,10 @@
     "recipe-scraper-version": "Версія парсера рецептів",
     "oidc-ready": "OIDC готово",
     "oidc-ready-error-text": "Не всі значення OIDC налаштовано. Це можна ігнорувати, якщо ви не використовуєте авторизацію OIDC.",
-    "oidc-ready-success-text": "Всі необхідні змінні OIDC встановлені."
+    "oidc-ready-success-text": "Всі необхідні змінні OIDC встановлені.",
+    "openai-ready": "OpenAI Ready",
+    "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
+    "openai-ready-success-text": "Required OpenAI variables are all set."
   },
   "shopping-list": {
     "all-lists": "Всі списки",
@@ -778,6 +782,7 @@
     "food": "Продукт",
     "note": "Нотатка",
     "label": "Етикетка",
+    "save-label": "Save Label",
     "linked-item-warning": "Цей предмет зв'язано з одним або більше рецептами. Зміна одиниць виміру або продуктів дасть неочікувані результати при додаванні або видаленні рецепту з цього списку.",
     "toggle-food": "Перемкнути продукт",
     "manage-labels": "Керування етикетками",
@@ -1170,6 +1175,7 @@
     "ingredients-natural-language-processor-explanation-2": "Модель не ідеальна, але дає непогані результати в загальному і є хорошим початковим пунктом для ручного парсингу інгредієнтів в окремі поля. Крім того, ви можете використовувати \"Brute\" процесор, який використовує метод підбору для визначення інгредієнтів.",
     "nlp": "ОПМ",
     "brute": "Брут",
+    "openai": "OpenAI",
     "show-individual-confidence": "Показати індивідуальну впевненість",
     "ingredient-text": "Текст інгредієнта",
     "average-confident": "Впевненість {0}",

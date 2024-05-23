@@ -594,6 +594,7 @@
       "select-parser": "Select Parser",
       "natural-language-processor": "Natural Language Processor",
       "brute-parser": "Brute Parser",
+      "openai-parser": "OpenAI Parser",
       "parse-all": "Parse All",
       "no-unit": "No unit",
       "missing-unit": "Create missing unit: {unit}",
@@ -764,7 +765,10 @@
     "recipe-scraper-version": "Verzia scrapera receptov",
     "oidc-ready": "OIDC pripravené",
     "oidc-ready-error-text": "Niektoré z OIDC hodnôt nie sú nakonfigurované. Toto varovanie je možné ignorovať, ak nepoužívate OIDC autentifikáciu.",
-    "oidc-ready-success-text": "Všetky potrebné OIDC premenné sú nastavené."
+    "oidc-ready-success-text": "Všetky potrebné OIDC premenné sú nastavené.",
+    "openai-ready": "OpenAI Ready",
+    "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
+    "openai-ready-success-text": "Required OpenAI variables are all set."
   },
   "shopping-list": {
     "all-lists": "Všetky zoznamy",
@@ -778,6 +782,7 @@
     "food": "Jedlo",
     "note": "Poznámka",
     "label": "Štítok",
+    "save-label": "Save Label",
     "linked-item-warning": "Táto položka je prepojená s jedným alebo viacerými receptami. Zmena jednotiek alebo jedál bude viesť k neželaným zmenám pri pridávaní alebo odoberaní receptov z tohto zoznamu.",
     "toggle-food": "Prepnúť jedlo",
     "manage-labels": "Spravovať štítky",
@@ -1170,6 +1175,7 @@
     "ingredients-natural-language-processor-explanation-2": "Napriek tomu, že nie je bezchybným, vo všeobecnosti poskytuje veľmi dobré výsledky, ktoré môžu slúžiť ako výborný štartovací bod manuálneho parsovania textov prísad do príslušných polí. Alternatívne tiež môžete využiť procesor založený na využití \"hrubej sily\", ktorý využíva na identifikáciu jednotlivých prísad metódu vyhľadávania vzorov v poskytnutom texte.",
     "nlp": "NLP",
     "brute": "Hrubá sila",
+    "openai": "OpenAI",
     "show-individual-confidence": "Zobraziť individuálne miery spoľahlivosti",
     "ingredient-text": "Text prísady",
     "average-confident": "{0} Spoľahlivý",

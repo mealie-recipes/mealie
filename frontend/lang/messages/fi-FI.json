@@ -594,6 +594,7 @@
       "select-parser": "Valitse jäsentäjätyökalu",
       "natural-language-processor": "Luonnollisen kielen prosessointityökalu",
       "brute-parser": "Voimakas jäsentäjätyökalu",
+      "openai-parser": "OpenAI Parser",
       "parse-all": "Jäsennä kaikki",
       "no-unit": "Ei yksikköä",
       "missing-unit": "Luo puuttuva yksikkö: {unit}",
@@ -764,7 +765,10 @@
     "recipe-scraper-version": "Reseptikaappaimen versio",
     "oidc-ready": "OIDC valmis",
     "oidc-ready-error-text": "Kaikkia OIDC-arvoja ei ole määritelty. Jos et käytä OIDC-todennusta, voidaan asia jättää huomiotta.",
-    "oidc-ready-success-text": "Kaikki vaaditut OIDC-muuttujat asetettu."
+    "oidc-ready-success-text": "Kaikki vaaditut OIDC-muuttujat asetettu.",
+    "openai-ready": "OpenAI Ready",
+    "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
+    "openai-ready-success-text": "Required OpenAI variables are all set."
   },
   "shopping-list": {
     "all-lists": "Kaikki ostoslistat",
@@ -778,6 +782,7 @@
     "food": "Elintarvikkeet",
     "note": "Muistiinpano",
     "label": "Tunnus",
+    "save-label": "Save Label",
     "linked-item-warning": "Tämä kohde on linkitetty yhteen tai useampaan reseptiin. Yksikköjen tai elintarvikkeiden muuttaminen tuottaa odottamattomia tuloksia, kun reseptiä lisätään tai poistetaan tästä luettelosta.",
     "toggle-food": "Vaihda elintarvike",
     "manage-labels": "Hallinnoi nimikkeitä",
@@ -1170,6 +1175,7 @@
     "ingredients-natural-language-processor-explanation-2": "Se ei ole täydellinen, mutta se tuottaa hyviä tuloksia yleensä ja on hyvä lähtökohta manuaalisesti jäsentää ainesosia yksittäisiin kenttiin. Vaihtoehtoisesti voit myös käyttää Brute-prosessori, joka käyttää kuvion täsmäystekniikkaa tunnistamaan ainesosia.",
     "nlp": "NLP",
     "brute": "Brute",
+    "openai": "OpenAI",
     "show-individual-confidence": "Näytä yksilöllinen luottamus",
     "ingredient-text": "Ainesosan Teksti",
     "average-confident": "{0} Luottamus",

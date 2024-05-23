@@ -594,6 +594,7 @@
       "select-parser": "Seleccionar Analizador",
       "natural-language-processor": "Procesador de Lenguaje Natural",
       "brute-parser": "Analizador Bruto",
+      "openai-parser": "OpenAI Parser",
       "parse-all": "Analizar Todo",
       "no-unit": "Sin unidad",
       "missing-unit": "Crear unidad faltante: {unit}",
@@ -764,7 +765,10 @@
     "recipe-scraper-version": "Versión de Analizador de Recetas",
     "oidc-ready": "OIDC Listo",
     "oidc-ready-error-text": "No todos los valores OIDC están configurados. Puedes ignorar esto si no estás usando autenticación OIDC.",
-    "oidc-ready-success-text": "Todas las variables OIDC requeridas están configuradas."
+    "oidc-ready-success-text": "Todas las variables OIDC requeridas están configuradas.",
+    "openai-ready": "OpenAI Ready",
+    "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
+    "openai-ready-success-text": "Required OpenAI variables are all set."
   },
   "shopping-list": {
     "all-lists": "Todas las listas",
@@ -778,6 +782,7 @@
     "food": "Alimentos",
     "note": "Nota",
     "label": "Etiqueta",
+    "save-label": "Save Label",
     "linked-item-warning": "Este elemento está vinculado a una o más recetas. Ajustar las unidades o los alimentos producirá resultados inesperados al añadir o quitar la receta de esta lista.",
     "toggle-food": "Mostrar nombre del alimento",
     "manage-labels": "Administrar etiquetas",
@@ -1170,6 +1175,7 @@
     "ingredients-natural-language-processor-explanation-2": "Si bien no es perfecto, entrega buenos resultados en general y es un buen punto de partida para empezar a analizar ingredientes a campos individuales. Alternativamente puedes usar el procesador \"bruto\", que utiliza una técnica de reconocimiento de patrones para identificar ingredientes.",
     "nlp": "PLN",
     "brute": "En bruto",
+    "openai": "OpenAI",
     "show-individual-confidence": "Mostrar confianza individual",
     "ingredient-text": "Texto del ingrediente",
     "average-confident": "{0} Confianza",
