@@ -594,6 +594,7 @@
       "select-parser": "Select Parser",
       "natural-language-processor": "Natural Language Processor",
       "brute-parser": "Brute Parser",
+      "openai-parser": "OpenAI verwerker",
       "parse-all": "Parse All",
       "no-unit": "No unit",
       "missing-unit": "Create missing unit: {unit}",
@@ -764,7 +765,10 @@
     "recipe-scraper-version": "Versie van de receptenscraper",
     "oidc-ready": "OIDC Ready",
     "oidc-ready-error-text": "Not all OIDC Values are configured. This can be ignored if you are not using OIDC Authentication.",
-    "oidc-ready-success-text": "Required OIDC variables are all set."
+    "oidc-ready-success-text": "Required OIDC variables are all set.",
+    "openai-ready": "OpenAI staat klaar",
+    "openai-ready-error-text": "Niet alle tekstvakken voor OpenAI zijn ingevuld. Als je geen OpenAI gebruikt kun je dit leeg laten.",
+    "openai-ready-success-text": "Verplichte tekstvakken voor OpenAI zijn ingevuld."
   },
   "shopping-list": {
     "all-lists": "Alle lijsten",
@@ -778,6 +782,7 @@
     "food": "Voedsel",
     "note": "Notitie",
     "label": "Label",
+    "save-label": "Save Label",
     "linked-item-warning": "Dit element is gekoppeld aan een of meer recepten. Het aanpassen van de eenheden of ingrediënten zal onverwachte resultaten opleveren bij het toevoegen of verwijderen van het recept uit deze lijst.",
     "toggle-food": "Voedsel schakelen",
     "manage-labels": "Labels beheren",
@@ -1170,6 +1175,7 @@
     "ingredients-natural-language-processor-explanation-2": "Het is niet perfect, maar het levert uitstekende resultaten op in het algemeen en is een goed uitgangspunt voor het handmatig verwerken van ingrediënten in afzonderlijke velden. Je kunt ook de \"Brute\" processor gebruiken die een patroonovereenkomende techniek gebruikt om ingrediënten te identificeren.",
     "nlp": "NLP",
     "brute": "Brute",
+    "openai": "OpenAI kunstmatige intelligentie",
     "show-individual-confidence": "Individuele overtuiging tonen",
     "ingredient-text": "Ingrediënt tekst",
     "average-confident": "{0} overtuigd",
