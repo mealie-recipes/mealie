@@ -594,6 +594,7 @@
       "select-parser": "Sélectionner l'analyseur",
       "natural-language-processor": "Traitement du Langage Naturel",
       "brute-parser": "Analyseur brut",
+      "openai-parser": "OpenAI Parser",
       "parse-all": "Tout analyser",
       "no-unit": "Pas d'unité",
       "missing-unit": "Créer une unité manquante : {unit}",
@@ -764,7 +765,10 @@
     "recipe-scraper-version": "Version du Scraper de recette",
     "oidc-ready": "Prêt pour OIDC",
     "oidc-ready-error-text": "Toutes les valeurs OIDC ne sont pas configurées. Vous pouvez ignorer cet avertissement si vous n’utilisez pas l’authentification OIDC.",
-    "oidc-ready-success-text": "Les variables OIDC obligatoires sont toutes définies."
+    "oidc-ready-success-text": "Les variables OIDC obligatoires sont toutes définies.",
+    "openai-ready": "OpenAI Ready",
+    "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
+    "openai-ready-success-text": "Required OpenAI variables are all set."
   },
   "shopping-list": {
     "all-lists": "Toutes les listes",
@@ -778,6 +782,7 @@
     "food": "Aliments",
     "note": "Note",
     "label": "Étiquette",
+    "save-label": "Save Label",
     "linked-item-warning": "Cet article est lié à une ou plusieurs recettes. Ajuster les unités ou les aliments donnera des résultats inattendus lors de l’ajout ou de la suppression de la recette de cette liste.",
     "toggle-food": "Activer/Désactiver aliment",
     "manage-labels": "Gérer les libellés",
@@ -1170,6 +1175,7 @@
     "ingredients-natural-language-processor-explanation-2": "Ce n'est pas parfait, mais cela donne de bons résultats en général et est un bon point de départ pour décomposer manuellement les ingrédients dans des champs individuels. Alternativement, vous pouvez également utiliser le processeur « Brut » qui utilise une technique de correspondance (patterns) pour identifier les ingrédients.",
     "nlp": "NLP",
     "brute": "Brut",
+    "openai": "OpenAI",
     "show-individual-confidence": "Afficher la confiance individuelle",
     "ingredient-text": "Texte de l'ingrédient",
     "average-confident": "Confiant à {0}",
