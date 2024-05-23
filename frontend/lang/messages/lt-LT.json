@@ -594,6 +594,7 @@
       "select-parser": "Select Parser",
       "natural-language-processor": "Natural Language Processor",
       "brute-parser": "Brute Parser",
+      "openai-parser": "OpenAI Parser",
       "parse-all": "Parse All",
       "no-unit": "No unit",
       "missing-unit": "Create missing unit: {unit}",
@@ -764,7 +765,10 @@
     "recipe-scraper-version": "Recipe Scraper Version",
     "oidc-ready": "OIDC Ready",
     "oidc-ready-error-text": "Not all OIDC Values are configured. This can be ignored if you are not using OIDC Authentication.",
-    "oidc-ready-success-text": "Required OIDC variables are all set."
+    "oidc-ready-success-text": "Required OIDC variables are all set.",
+    "openai-ready": "OpenAI Ready",
+    "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
+    "openai-ready-success-text": "Required OpenAI variables are all set."
   },
   "shopping-list": {
     "all-lists": "Visi sąrašai",
@@ -778,6 +782,7 @@
     "food": "Maistas",
     "note": "Pastaba",
     "label": "Žyma",
+    "save-label": "Save Label",
     "linked-item-warning": "Šis įrašas susietas su vienu ar keliais receptais. Jei pakeisite vienetus ar produktus, galimi nenumatyti rezultatai pridedant ar pašalinant receptą iš šio sąrašo.",
     "toggle-food": "Įjungti produktą",
     "manage-labels": "Tvarkyti žymas",
@@ -1170,6 +1175,7 @@
     "ingredients-natural-language-processor-explanation-2": "Šiuo metu funkcionalumo veikimas tobulinamas, bet jau duoda pakankamai gerus rezultatus ir yra nebloga pradžia rankiniu būdu skirstant ingredientus į atskirus laukelius. Taip pat galima pasinaudoti funkcija \"Netikslus apdorojimas\", kuri atpažįsta ingredientus pagal šabloninį algoritmą.",
     "nlp": "NLP",
     "brute": "Netikslus apdorojimas",
+    "openai": "OpenAI",
     "show-individual-confidence": "Rodyti individualų patikimumą",
     "ingredient-text": "Ingrediento tekstas",
     "average-confident": "{0} patikimumas",
