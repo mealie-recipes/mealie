@@ -594,6 +594,7 @@
       "select-parser": "Select Parser",
       "natural-language-processor": "Natural Language Processor",
       "brute-parser": "Brute Parser",
+      "openai-parser": "OpenAI Parser",
       "parse-all": "Parse All",
       "no-unit": "No unit",
       "missing-unit": "Create missing unit: {unit}",
@@ -764,7 +765,10 @@
     "recipe-scraper-version": "Resep skraper weergawe",
     "oidc-ready": "OIDC Klar",
     "oidc-ready-error-text": "Ikke alle OIDC værdier er konfigureret. Dette kan ignoreres hvis du ikke bruger OIDC godkendelse.",
-    "oidc-ready-success-text": "Krævede OIDC variabler er udfyldt."
+    "oidc-ready-success-text": "Krævede OIDC variabler er udfyldt.",
+    "openai-ready": "OpenAI Ready",
+    "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
+    "openai-ready-success-text": "Required OpenAI variables are all set."
   },
   "shopping-list": {
     "all-lists": "Alle lyste",
@@ -778,6 +782,7 @@
     "food": "Voedsel",
     "note": "Nota",
     "label": "Etiket",
+    "save-label": "Save Label",
     "linked-item-warning": "Hierdie item is gekoppel aan een of meer resepte. Die aanpassing van die eenhede of bestanddele sal onverwagte resultate lewer wanneer die resep van hierdie lys bygevoeg of verwyder word.",
     "toggle-food": "Voedsel skakelling",
     "manage-labels": "Bestuur etikette",
@@ -1170,6 +1175,7 @@
     "ingredients-natural-language-processor-explanation-2": "Dit is nie perfek nie, maar dit lewer oor die algemeen uitstekende resultate en is 'n goeie beginpunt vir die handverwerking van bestanddele in individuele velde. Jy kan ook die \"Brute\" verwerker gebruik wat 'n patroonpastegniek gebruik om bestanddele te identifiseer.",
     "nlp": "NLP",
     "brute": "Brute",
+    "openai": "OpenAI",
     "show-individual-confidence": "Wys individuele oortuiging",
     "ingredient-text": "Bestanddeel teks",
     "average-confident": "{0} oortuig",
