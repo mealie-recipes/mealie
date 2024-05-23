@@ -7,7 +7,7 @@ PostgreSQL might be considered if you need to support many concurrent users. In 
 ```yaml
 services:
   mealie:
-    image: ghcr.io/mealie-recipes/mealie:v1.6.0 # (3)
+    image: ghcr.io/mealie-recipes/mealie:v1.7.0 # (3)
     container_name: mealie
     restart: always
     ports:
