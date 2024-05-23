@@ -594,6 +594,7 @@
       "select-parser": "Select Parser",
       "natural-language-processor": "Natural Language Processor",
       "brute-parser": "Brute Parser",
+      "openai-parser": "OpenAI Parser",
       "parse-all": "Parse All",
       "no-unit": "No unit",
       "missing-unit": "Create missing unit: {unit}",
@@ -764,7 +765,10 @@
     "recipe-scraper-version": "Wersja Scrapera Przepisów",
     "oidc-ready": "OIDC Ready",
     "oidc-ready-error-text": "Not all OIDC Values are configured. This can be ignored if you are not using OIDC Authentication.",
-    "oidc-ready-success-text": "Required OIDC variables are all set."
+    "oidc-ready-success-text": "Required OIDC variables are all set.",
+    "openai-ready": "OpenAI Ready",
+    "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
+    "openai-ready-success-text": "Required OpenAI variables are all set."
   },
   "shopping-list": {
     "all-lists": "Wszystkie listy",
@@ -778,6 +782,7 @@
     "food": "Jedzenie",
     "note": "Notatka",
     "label": "Etykieta",
+    "save-label": "Save Label",
     "linked-item-warning": "Ten przedmiot jest powiązany z jednym lub kilkoma przepisami. Dostosowanie jednostek lub żywności przyniesie niespodziewane wyniki podczas dodawania lub usuwania przepisu z tej listy.",
     "toggle-food": "Przełącz Żywność",
     "manage-labels": "Zarządzaj Etykietami",
@@ -1170,6 +1175,7 @@
     "ingredients-natural-language-processor-explanation-2": "Nie jest on idealny, ale na ogół daje świetne wyniki i jest dobrym punktem wyjścia do ręcznego przydzielania składników w poszczególne pola. Alternatywnie możesz również użyć procesora \"Brut\", który używa dopasowywujący schemat do identyfikacji składników.",
     "nlp": "NLP",
     "brute": "Brut",
+    "openai": "OpenAI",
     "show-individual-confidence": "Pokaż pojedyncze pewności",
     "ingredient-text": "Tekst składnika",
     "average-confident": "Pewność {0}",
