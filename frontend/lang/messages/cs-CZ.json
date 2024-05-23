@@ -594,6 +594,7 @@
       "select-parser": "Select Parser",
       "natural-language-processor": "Natural Language Processor",
       "brute-parser": "Brute Parser",
+      "openai-parser": "OpenAI Parser",
       "parse-all": "Parse All",
       "no-unit": "No unit",
       "missing-unit": "Create missing unit: {unit}",
@@ -764,7 +765,10 @@
     "recipe-scraper-version": "Recipe Scraper Version",
     "oidc-ready": "OIDC Ready",
     "oidc-ready-error-text": "Not all OIDC Values are configured. This can be ignored if you are not using OIDC Authentication.",
-    "oidc-ready-success-text": "Required OIDC variables are all set."
+    "oidc-ready-success-text": "Required OIDC variables are all set.",
+    "openai-ready": "OpenAI Ready",
+    "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
+    "openai-ready-success-text": "Required OpenAI variables are all set."
   },
   "shopping-list": {
     "all-lists": "Všechny seznamy",
@@ -778,6 +782,7 @@
     "food": "Jídlo",
     "note": "Poznámka",
     "label": "Popisek",
+    "save-label": "Save Label",
     "linked-item-warning": "Tato položka je propojena s jedním nebo více recepty. Úprava jednotky nebo jídla bude mít neočekávané důsledky při přidání nebo odebrání receptu z tohoto seznamu.",
     "toggle-food": "Přepnout typ položky",
     "manage-labels": "Manage Labels",
@@ -1170,6 +1175,7 @@
     "ingredients-natural-language-processor-explanation-2": "Není to dokonalé, ale obecně to přináší skvělé výsledky a je dobrým výchozím bodem pro ruční zpracování ingrediencí do jednotlivých polí. Alternativně můžete také použít procesor \"Brute\", který používá metodu porovnávání vzorců pro idenfikaci ingrediencí.",
     "nlp": "ZPJ",
     "brute": "Brute",
+    "openai": "OpenAI",
     "show-individual-confidence": "Zobrazit individuální důvěru",
     "ingredient-text": "Text přísady",
     "average-confident": "{0} Confident",
