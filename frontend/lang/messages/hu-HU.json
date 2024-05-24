@@ -782,7 +782,7 @@
     "food": "Étel",
     "note": "Megjegyzés",
     "label": "Címke",
-    "save-label": "Save Label",
+    "save-label": "Címke mentése",
     "linked-item-warning": "Ez a tétel egy vagy több recepthez kapcsolódik. A mennyiségi egységek vagy az alapanyagok átállítása nem várt eredményeket fog eredményezni, amikor hozzáadja vagy eltávolítja a receptet ebből a listából.",
     "toggle-food": "Váltás alapanyagokra",
     "manage-labels": "Címkék kezelése",
