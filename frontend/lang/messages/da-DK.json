@@ -64,7 +64,7 @@
     "something-went-wrong": "Noget gik galt!",
     "subscribed-events": "Abonnerede begivenheder",
     "test-message-sent": "Testbesked sendt",
-    "message-sent": "Message Sent",
+    "message-sent": "Besked afsendt",
     "new-notification": "Ny notifikation",
     "event-notifiers": "Notifikation om begivenheder",
     "apprise-url-skipped-if-blank": "Informations link (sprunget over hvis ladet være tomt)",
@@ -86,7 +86,7 @@
     "clear": "Ryd",
     "close": "Luk",
     "confirm": "Bekræft",
-    "confirm-how-does-everything-look": "How does everything look?",
+    "confirm-how-does-everything-look": "Hvordan ser alting ud?",
     "confirm-delete-generic": "Er du sikker på, du vil slette dette?",
     "copied_message": "Kopieret!",
     "create": "Opret",
@@ -161,7 +161,7 @@
     "test": "Afprøv",
     "themes": "Temaer",
     "thursday": "Torsdag",
-    "title": "Title",
+    "title": "Titel",
     "token": "Token",
     "tuesday": "Tirsdag",
     "type": "Type",
@@ -210,7 +210,7 @@
     "unsaved-changes": "Du har ændringer som ikke er gemt. Vil du gemme før du forlader? Vælg \"Okay\" for at gemme, eller \"Annullér\" for at kassere ændringer.",
     "clipboard-copy-failure": "Kopiering til udklipsholderen mislykkedes.",
     "confirm-delete-generic-items": "Er du sikker på at du ønsker at slette de valgte emner?",
-    "organizers": "Organizers"
+    "organizers": "Organisatorer"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Er du sikker på, du vil slette <b>{groupName}<b/>?",
@@ -365,7 +365,7 @@
     "choose-migration-type": "Vælg Migreringstype",
     "tag-all-recipes": "Tag alle opskrifter med {tag-name} tag",
     "nextcloud-text": "Nextcloud opskrifter kan importeres fra en zip-fil, der indeholder data lagret i Nextcloud. Se eksempelmappestrukturen nedenfor for at sikre, at dine opskrifter kan importeres.",
-    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
+    "chowdown-text": "Mealie understøtter chowdown repository fil formater. Download repositoriet som en .zip-fil og upload den nedenfor.",
     "recipe-1": "Opskrift 1",
     "recipe-2": "Opskrift 2",
     "paprika-text": "Mealie kan importere opskrifter fra Paprika applikationen. Eksporter dine opskrifter fra paprika, omdøbe eksportudvidelsen til .zip og uploade den nedenfor.",
@@ -375,8 +375,8 @@
       "description-long": "Mealie kan importere opskrifter, der er markeret som \"Planlæg at spise\"."
     },
     "myrecipebox": {
-      "title": "My Recipe Box",
-      "description-long": "Mealie can import recipes from My Recipe Box. Export your recipes in CSV format, then upload the .csv file below."
+      "title": "Mine opskrifter",
+      "description-long": "Mealie kan importere opskrifter fra My Recipe Box. Eksporter dine opskrifter i CSV-format, og upload derefter .csv-filen nedenfor."
     }
   },
   "new-recipe": {
@@ -528,7 +528,7 @@
     "edit-timeline-event": "Rediger tidslinjebegivenhed",
     "timeline": "Tidslinje",
     "timeline-is-empty": "Intet på tidslinjen endnu. Prøv at lave denne opskrift!",
-    "timeline-no-events-found-try-adjusting-filters": "No events found. Try adjusting your search filters.",
+    "timeline-no-events-found-try-adjusting-filters": "Ingen begivenheder fundet. Prøv at justere dine søgefiltre.",
     "group-global-timeline": "{groupName} Global Tidslinje",
     "open-timeline": "Åbn tidslinje",
     "made-this": "Jeg har lavet denne",
@@ -585,21 +585,21 @@
     "screen-awake": "Hold skærmen tændt",
     "remove-image": "Fjern billede",
     "nextStep": "Næste trin",
-    "recipe-actions": "Recipe Actions",
+    "recipe-actions": "Opskriftshandlinger",
     "parser": {
-      "experimental-alert-text": "Mealie uses natural language processing to parse and create units and food items for your recipe ingredients. This feature is experimental and may not always work as expected. If you prefer not to use the parsed results, you can select 'Cancel' and your changes will not be saved.",
-      "ingredient-parser": "Ingredient Parser",
-      "explanation": "To use the ingredient parser, click the 'Parse All' button to start the process. Once the processed ingredients are available, you can review the items and verify that they were parsed correctly. The model's confidence score is displayed on the right of the item title. This score is an average of all the individual scores and may not always be completely accurate.",
-      "alerts-explainer": "Alerts will be displayed if a matching foods or unit is found but does not exists in the database.",
-      "select-parser": "Select Parser",
+      "experimental-alert-text": "Mealie bruger natural language processing til at behandle og oprette relevante måleenheder og fødrerevarer som ingredienser i dine opskrifter. Denne funktion er eksperimentel og fungerer måske ikke altid som forventet. Hvis du foretrækker ikke at bruge de fortolkede resultater, kan du vælge 'Annullér' og dine ændringer vil ikke blive gemt.",
+      "ingredient-parser": "Ingrediens- Parser",
+      "explanation": "For at bruge ingrediensparseren, skal du klikke på knappen 'Parse Alle' for at starte behandlingen. Når relevante ingredienser er identificeret, kan du gennemgå sem og kontrollere, at de blev korrekt identificeret. Modellens konfidensscore vises til højre for ingrediensens titel. Denne score er et gennemsnit af alle de enkelte scorer og er måske ikke altid helt præcis.",
+      "alerts-explainer": "En advarsel vil blive vist, hvis en identificeret fødevare eller måleenhed ikke findes i databasen.",
+      "select-parser": "Vælg Parser",
       "natural-language-processor": "Natural Language Processor",
       "brute-parser": "Brute Parser",
       "openai-parser": "OpenAI Parser",
-      "parse-all": "Parse All",
-      "no-unit": "No unit",
-      "missing-unit": "Create missing unit: {unit}",
-      "missing-food": "Create missing food: {food}",
-      "no-food": "No Food"
+      "parse-all": "Fortolk alt",
+      "no-unit": "Ingen enhed",
+      "missing-unit": "Opret manglende måleenhed: {unit}",
+      "missing-food": "Opret manglende fødevare: {food}",
+      "no-food": "Ingen fødevarer"
     }
   },
   "search": {
@@ -766,9 +766,9 @@
     "oidc-ready": "OIDC er Klar",
     "oidc-ready-error-text": "Ikke alle OIDC værdier er konfigureret. Dette kan ignoreres, hvis du ikke bruger OIDC godkendelse.",
     "oidc-ready-success-text": "Alle påkrævede OIDC værdier er angivet.",
-    "openai-ready": "OpenAI Ready",
-    "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
-    "openai-ready-success-text": "Required OpenAI variables are all set."
+    "openai-ready": "OpenAI Klar",
+    "openai-ready-error-text": "Ikke alle OpenAI værdier er konfigureret. Dette kan ignoreres, hvis du ikke bruger OpenAI funktioner.",
+    "openai-ready-success-text": "Påkrævede OpenAI variabler er alle indstillet."
   },
   "shopping-list": {
     "all-lists": "Alle lister",
@@ -782,7 +782,7 @@
     "food": "Fødevarer",
     "note": "Note",
     "label": "Etiket",
-    "save-label": "Save Label",
+    "save-label": "Gem etiket",
     "linked-item-warning": "Dette element er tilknyttet en eller flere opskrifter. Justering af enheder eller fødevarer vil give uventede resultater, når du tilføjer eller fjerner opskriften fra denne liste.",
     "toggle-food": "Slå fødevarer til/fra",
     "manage-labels": "Håndter etiketter",
@@ -842,7 +842,7 @@
     "untagged-count": "Ikke-tagget: {count}",
     "create-a-tag": "Opret tag",
     "tag-name": "Tag navn",
-    "tag": "Tag"
+    "tag": "Mærker"
   },
   "tool": {
     "tools": "Værktøjer",
@@ -1024,10 +1024,10 @@
       "source-unit-will-be-deleted": "Kildeenhed vil blive slettet"
     },
     "recipe-actions": {
-      "recipe-actions-data": "Recipe Actions Data",
-      "new-recipe-action": "New Recipe Action",
-      "edit-recipe-action": "Edit Recipe Action",
-      "action-type": "Action Type"
+      "recipe-actions-data": "Data for Opskriftshandlinger",
+      "new-recipe-action": "Ny Opskriftshandling",
+      "edit-recipe-action": "Rediger Opskriftshandling",
+      "action-type": "Handlingstype"
     },
     "create-alias": "Opret alias",
     "manage-aliases": "Administrer Aliaser",

@@ -594,7 +594,7 @@
       "select-parser": "Вибрати аналізатор",
       "natural-language-processor": "Аналізатор природної мови",
       "brute-parser": "Простий аналізатор",
-      "openai-parser": "OpenAI Parser",
+      "openai-parser": "OpenAI аналізатор",
       "parse-all": "Аналізувати все",
       "no-unit": "Без одиниці",
       "missing-unit": "Створити відсутню одиниці: {unit}",
@@ -766,9 +766,9 @@
     "oidc-ready": "OIDC готово",
     "oidc-ready-error-text": "Не всі значення OIDC налаштовано. Це можна ігнорувати, якщо ви не використовуєте авторизацію OIDC.",
     "oidc-ready-success-text": "Всі необхідні змінні OIDC встановлені.",
-    "openai-ready": "OpenAI Ready",
-    "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
-    "openai-ready-success-text": "Required OpenAI variables are all set."
+    "openai-ready": "OpenAI готовий",
+    "openai-ready-error-text": "Не всі значення OpenAI налаштовано. Це можна ігнорувати, якщо ви не використовуєте функції OpenAI.",
+    "openai-ready-success-text": "Всі необхідні змінні OpenAI встановлені."
   },
   "shopping-list": {
     "all-lists": "Всі списки",
@@ -782,7 +782,7 @@
     "food": "Продукт",
     "note": "Нотатка",
     "label": "Етикетка",
-    "save-label": "Save Label",
+    "save-label": "Зберегти мітку",
     "linked-item-warning": "Цей предмет зв'язано з одним або більше рецептами. Зміна одиниць виміру або продуктів дасть неочікувані результати при додаванні або видаленні рецепту з цього списку.",
     "toggle-food": "Перемкнути продукт",
     "manage-labels": "Керування етикетками",
