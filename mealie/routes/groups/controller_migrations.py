@@ -17,6 +17,7 @@ from mealie.services.migrations import (
     NextcloudMigrator,
     PaprikaMigrator,
     PlanToEatMigrator,
+    RecipeKeeperMigrator,
     TandoorMigrator,
 )
 
@@ -56,6 +57,7 @@ class GroupMigrationController(BaseUserController):
                 SupportedMigrations.tandoor: TandoorMigrator,
                 SupportedMigrations.plantoeat: PlanToEatMigrator,
                 SupportedMigrations.myrecipebox: MyRecipeBoxMigrator,
+                SupportedMigrations.recipekeeper: RecipeKeeperMigrator,
             }
 
             constructor = table.get(migration_type, None)

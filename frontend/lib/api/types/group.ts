@@ -16,7 +16,8 @@ export type SupportedMigrations =
   | "paprika"
   | "mealie_alpha"
   | "tandoor"
-  | "plantoeat";
+  | "plantoeat"
+  | "recipekeeper";
 
 export interface CreateGroupPreferences {
   privateGroup?: boolean;
