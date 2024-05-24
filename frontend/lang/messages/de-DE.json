@@ -782,7 +782,7 @@
     "food": "Lebensmittel",
     "note": "Notiz",
     "label": "Etikett",
-    "save-label": "Save Label",
+    "save-label": "Etikett speichern",
     "linked-item-warning": "Dieser Eintrag ist mit einem oder mehreren Rezepten verknüpft. Das Ändern der Einheiten oder Lebensmittel führt zu unerwarteten Ergebnissen, wenn das Rezept von dieser Einkaufsliste entfernt oder hinzugefügt wird.",
     "toggle-food": "Lebensmittel-Eingabe umschalten",
     "manage-labels": "Etiketten verwalten",
