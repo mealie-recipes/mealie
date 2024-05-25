@@ -27,9 +27,11 @@ Follow the relevent guide in the [n8n Documentation](https://docs.n8n.io/)
 
 1. In n8n, add a new workflow
 2. In the top right hit the 3 dot menu and select 'Import from URL...'
-   ![screenshot](../../assets/img/n8n/n8n-workflow-import.png)
-3. Paste `{{Needs Permalink to n8n-mealie-backup.json}}`
-4. Click through the nodes and update the URLs for your environment
+   
+![screenshot](../../assets/img/n8n/n8n-workflow-import.png)
+
+4. Paste `{{Needs Permalink to n8n-mealie-backup.json}}`
+5. Click through the nodes and update the URLs for your environment
 
 ## API Credentials
 
@@ -45,11 +47,14 @@ Follow the relevent guide in the [n8n Documentation](https://docs.n8n.io/)
 > [n8n Docs](https://docs.n8n.io/credentials/add-edit-credentials/)
 
 1. Create a new "Header Auth" Credential
-   ![screenshot](../../assets/img/n8n/n8n-cred-app.png)
-2. In the connection screen set - Name as `Authorization` - Value as `Bearer {INSERT MEALIE API KEY}`
-   ![screenshot](../../assets/img/n8n/n8n-cred-connection.png)
 
-3. In the workflow you created, for the "Run Backup", "Get All backups", and "Delete Oldies" nodes, update:
+![screenshot](../../assets/img/n8n/n8n-cred-app.png)
+
+3. In the connection screen set - Name as `Authorization` - Value as `Bearer {INSERT MEALIE API KEY}`
+
+![screenshot](../../assets/img/n8n/n8n-cred-connection.png)
+
+4. In the workflow you created, for the "Run Backup", "Get All backups", and "Delete Oldies" nodes, update:
    - Authentication to `Generic Credential Type`
    - Generic Auth Type to `Header Auth`
    - Header Auth to `Mealie API` or whatever you named your credentials
