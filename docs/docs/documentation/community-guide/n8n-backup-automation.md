@@ -27,10 +27,10 @@ Follow the relevent guide in the [n8n Documentation](https://docs.n8n.io/)
 
 1. In n8n, add a new workflow
 2. In the top right hit the 3 dot menu and select 'Import from URL...'
-   
+
 ![screenshot](../../assets/img/n8n/n8n-workflow-import.png)
 
-4. Paste `{{Needs Permalink to n8n-mealie-backup.json}}`
+4. Paste `https://github.com/mealie-recipes/mealie/blob/mealie-next/docs/docs/assets/other/n8n/n8n-mealie-backup.json` and click Import
 5. Click through the nodes and update the URLs for your environment
 
 ## API Credentials
