@@ -23,6 +23,13 @@
         :first-day-of-week="firstDayOfWeek"
         :local="$i18n.locale"
       >
+        <v-text-field
+          v-model="numberOfDays"
+          type="number"
+          :label="$t('meal-plan.numberOfDays-label')"
+          :hint="$t('meal-plan.numberOfDays-hint')"
+          persistent-hint
+        />
         <v-spacer></v-spacer>
         <v-btn text color="primary" @click="state.picker = false">
           {{ $t("general.ok") }}
@@ -47,10 +54,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, useRoute, useRouter } from "@nuxtjs/composition-api";
+import { computed, defineComponent, ref, useRoute, useRouter, watch } from "@nuxtjs/composition-api";
 import { isSameDay, addDays, parseISO } from "date-fns";
 import { useGroupSelf } from "~/composables/use-groups";
 import { useMealplans } from "~/composables/use-group-mealplan";
+import { useUserMealPlanPreferences } from "~/composables/use-users/preferences";
 
 export default defineComponent({
   middleware: ["auth"],
@@ -58,6 +66,12 @@ export default defineComponent({
     const route = useRoute();
     const router = useRouter();
     const { group } = useGroupSelf();
+
+    const mealPlanPreferences = useUserMealPlanPreferences();
+    const numberOfDays = ref<number>(mealPlanPreferences.value.numberOfDays || 7);
+    watch(numberOfDays, (val) => {
+      mealPlanPreferences.value.numberOfDays = Number(val);
+    });
 
     // Force to /view if current route is /planner
     if (route.value.path === "/group/mealplan/planner") {
@@ -74,14 +88,14 @@ export default defineComponent({
     }
 
     const state = ref({
-      range: [fmtYYYYMMDD(new Date()), fmtYYYYMMDD(addDays(new Date(), 6))] as [string, string],
+      range: [fmtYYYYMMDD(new Date()), fmtYYYYMMDD(addDays(new Date(), adjustForToday(numberOfDays.value)))] as [string, string],
       start: new Date(),
       picker: false,
-      end: addDays(new Date(), 6),
+      end: addDays(new Date(), adjustForToday(numberOfDays.value)),
     });
 
     const firstDayOfWeek = computed(() => {
-      return group.value?.preferences?.firstDayOfWeek || 0;
+      return group.value?.preferences?.firstDayOfWeek || 7;
     });
 
     const recipeSearchTerm = ref("");
@@ -99,7 +113,7 @@ export default defineComponent({
       }
       return {
         start: new Date(),
-        end: addDays(new Date(), 6),
+        end: addDays(new Date(), adjustForToday(numberOfDays.value)),
       };
     });
 
@@ -111,6 +125,11 @@ export default defineComponent({
         const mealDate = parseISO(meal.date);
         return isSameDay(mealDate, date);
       });
+    }
+
+    function adjustForToday(days: number) {
+      // e.g. If the user wants 7 days, we substract one to do "today + 6"
+      return days > 0 ? days - 1 : days + 1
     }
 
     const days = computed(() => {
@@ -141,6 +160,7 @@ export default defineComponent({
       mealsByDate,
       weekRange,
       firstDayOfWeek,
+      numberOfDays,
       recipeSearchTerm,
     };
   },
