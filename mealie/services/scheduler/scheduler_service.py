@@ -37,7 +37,7 @@ async def schedule_daily():
     )
     try:
         hour_target, minute_target = _parse_daily_schedule_time(daily_schedule_time)
-    except Exception as e:
+    except Exception:
         logger.exception(f"Unable to parse {daily_schedule_time=}")
         hour_target = 23
         minute_target = 45
