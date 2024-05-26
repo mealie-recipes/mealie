@@ -98,8 +98,6 @@ export default defineComponent({
       return group.value?.preferences?.firstDayOfWeek || 0;
     });
 
-    const recipeSearchTerm = ref("");
-
     const weekRange = computed(() => {
       const sorted = state.value.range.sort((a, b) => {
         return parseYYYYMMDD(a).getTime() - parseYYYYMMDD(b).getTime();
@@ -162,7 +160,6 @@ export default defineComponent({
       weekRange,
       firstDayOfWeek,
       numberOfDays,
-      recipeSearchTerm,
     };
   },
   head() {
