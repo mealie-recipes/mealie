@@ -95,7 +95,7 @@ export default defineComponent({
     });
 
     const firstDayOfWeek = computed(() => {
-      return group.value?.preferences?.firstDayOfWeek || 7;
+      return group.value?.preferences?.firstDayOfWeek || 0;
     });
 
     const recipeSearchTerm = ref("");
