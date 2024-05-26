@@ -128,6 +128,7 @@ export default defineComponent({
     }
 
     function adjustForToday(days: number) {
+      // The use case for this function is "how many days are we adding to 'today'?"
       // e.g. If the user wants 7 days, we substract one to do "today + 6"
       return days > 0 ? days - 1 : days + 1
     }
