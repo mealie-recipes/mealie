@@ -35,8 +35,12 @@ async def schedule_daily():
         str(now),
         daily_schedule_time,
     )
-    hour_target = int(daily_schedule_time.split(":")[0])
-    minute_target = int(daily_schedule_time.split(":")[1])
+    try:
+        hour_target, minute_target = _parse_daily_schedule_time(daily_schedule_time)
+    except Exception as e:
+        logger.exception(f"Unable to parse {daily_schedule_time=}")
+        hour_target = 23
+        minute_target = 45
 
     hours_until = ((hour_target - now.hour) % 24) or 24
     minutes_until = (minute_target - now.minute) % 60
@@ -48,6 +52,12 @@ async def schedule_daily():
     wait_seconds = (target_time - now).total_seconds()
     await asyncio.sleep(wait_seconds)
     await run_daily()
+
+
+def _parse_daily_schedule_time(time):
+    hour_target = int(time.split(":")[0])
+    minute_target = int(time.split(":")[1])
+    return hour_target, minute_target
 
 
 def _scheduled_task_wrapper(callable):
