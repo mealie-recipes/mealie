@@ -58,3 +58,19 @@ Follow the relevent guide in the [n8n Documentation](https://docs.n8n.io/)
    - Authentication to `Generic Credential Type`
    - Generic Auth Type to `Header Auth`
    - Header Auth to `Mealie API` or whatever you named your credentials
+
+## Notification Node
+
+> Please use error notifications of some kind. It's very easy to set and forget an automation, then have the worst happen and lose data.
+
+[ntfy](https://github.com/binwiederhier/ntfy) Is a great open source, self-hostable, tool for sending notifications.
+
+If you want to use ntfy, you will need to install it on your environment, or sgn up for their service, and configure it with the webhook URL
+
+If you want to use another notification service, you can create a new node in nn that sends the notification using whatever method you like.
+
+- For example, if you want to send a push notification via [Pushover](https:/pushover.net/) you could create a new node that uses the Pushover API and sendsthe notification.
+- You can use the [Send Email](https://docs.n8n.io/integrations/builtincore-nodes/n8n-nodes-base.sendemail/) node in n8n as an example of how tocreate your own custom node.
+- You can send it off to influxdb, slack, discord etc. Go nuts.
+
+If you're using another method for backups we'd love to hear about it. Pop in [Discord](https://discord.gg/QuStdQGSGK) and say hi!
