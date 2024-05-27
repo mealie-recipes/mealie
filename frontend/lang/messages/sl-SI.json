@@ -291,6 +291,8 @@
     "mealplan-updated": "Jedilnik je posodobljen",
     "no-meal-plan-defined-yet": "Za danes ni definiranjega načrta obroka",
     "no-meal-planned-for-today": "Za danes ni planiranega načrta obroka",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Samo recepti v teh kategorija bodo uporabljeni v načrtu obroka",
     "planner": "Načrtovalec",
     "quick-week": "Hiter pogled tedna",
