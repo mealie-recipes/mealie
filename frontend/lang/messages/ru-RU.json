@@ -291,6 +291,8 @@
     "mealplan-updated": "План питания обновлен",
     "no-meal-plan-defined-yet": "План питания еще не определен",
     "no-meal-planned-for-today": "На сегодня нет запланированных блюд",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Только рецепты с этими категориями будут использоваться в планах питания",
     "planner": "Планировщик",
     "quick-week": "Быстрый план",
