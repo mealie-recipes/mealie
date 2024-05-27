@@ -291,6 +291,8 @@
     "mealplan-updated": "用餐計劃已更新",
     "no-meal-plan-defined-yet": "目前無用餐計畫",
     "no-meal-planned-for-today": "本日無用餐計畫",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "只有屬於這些類別的食譜會被用於用餐計畫",
     "planner": "規劃師",
     "quick-week": "快速規劃",
