@@ -291,6 +291,8 @@
     "mealplan-updated": "Plan posiłków został zaktualizowany",
     "no-meal-plan-defined-yet": "Brak zdefiniowanego planu posiłków",
     "no-meal-planned-for-today": "Brak zaplanowane posiłku na dziś",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Tylko przepisy z tych kategorii będą używane w planach posiłków",
     "planner": "Planer",
     "quick-week": "Szybki plan na tydzień",
