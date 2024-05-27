@@ -291,6 +291,8 @@
     "mealplan-updated": "Madplanen blev ændret",
     "no-meal-plan-defined-yet": "Ingen madplan er defineret",
     "no-meal-planned-for-today": "Ingen ret er planlagt til i dag",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Kun opskrifter med disse kategorier vil blive brugt i madplaner",
     "planner": "Planlæg madplan",
     "quick-week": "Hurtig uge",

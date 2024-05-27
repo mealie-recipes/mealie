@@ -291,6 +291,8 @@
     "mealplan-updated": "Седмичното меню бе обновено",
     "no-meal-plan-defined-yet": "Все още няма създадено седмично меню",
     "no-meal-planned-for-today": "За днес няма планирано меню",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Само рецептите от тези категории ще бъдат използвани в хранителните планове",
     "planner": "Планьор",
     "quick-week": "Бърза седмица",

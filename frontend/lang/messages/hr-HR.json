@@ -291,6 +291,8 @@
     "mealplan-updated": "Plan obroka je Ažuriran",
     "no-meal-plan-defined-yet": "Plan obroka još nije definiran",
     "no-meal-planned-for-today": "Nema Plan obroka za današnji dan",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Samo recepti s ovim kategorijama bit će korišteni u planovima obroka",
     "planner": "Planer",
     "quick-week": "Brzi Tjedan",

@@ -291,6 +291,8 @@
     "mealplan-updated": "Mitybos planas atnaujintas",
     "no-meal-plan-defined-yet": "Nėra nustatytų mitybos planų",
     "no-meal-planned-for-today": "Nėra šios dienos mitybos plano",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Mitybos planuose bus naudojami tik šių kategorijų receptai",
     "planner": "Planuoklis",
     "quick-week": "Greitas savaitės planas",

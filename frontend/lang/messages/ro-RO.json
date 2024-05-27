@@ -291,6 +291,8 @@
     "mealplan-updated": "Plan de mese actualizat",
     "no-meal-plan-defined-yet": "Nici un plan de mese definit încă",
     "no-meal-planned-for-today": "Nicio masă planificată pentru astăzi",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Numai rețetele cu aceste categorii vor fi utilizate în Planurile de mese",
     "planner": "Planificator",
     "quick-week": "Săptămână rapidă",
