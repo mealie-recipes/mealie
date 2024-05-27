@@ -291,6 +291,8 @@
     "mealplan-updated": "S'ha actualitzat el menú",
     "no-meal-plan-defined-yet": "No hi ha cap menú planificat",
     "no-meal-planned-for-today": "No hi han cap menú per a hui",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Només s'utilitzaran aquestes categories per als menús",
     "planner": "Planificador",
     "quick-week": "Pla ràpid",
