@@ -291,6 +291,8 @@
     "mealplan-updated": "Öğün planı güncellendi",
     "no-meal-plan-defined-yet": "Henüz bir öğün planı tanımlanmadı",
     "no-meal-planned-for-today": "Bugün için öğün planı tanımlanmadı",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Sadece bu kategorilerdeki tarifler öğün planlarında kullanılacak",
     "planner": "Planlayıcı",
     "quick-week": "Hızlı Hafta",
