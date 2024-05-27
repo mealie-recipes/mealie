@@ -291,6 +291,8 @@
     "mealplan-updated": "תכנית ארוחה עודכנה",
     "no-meal-plan-defined-yet": "עדיין לא הוגדרה תכנית ארוחה",
     "no-meal-planned-for-today": "לא מתוכננת ארוחה להיום",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "רק מתכונים שהוגדרו עם הקטגוריות הללו ישומשו בתכנוני ארוחות",
     "planner": "תכנון",
     "quick-week": "תכנון שבועי מהיר",
