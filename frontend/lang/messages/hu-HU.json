@@ -291,6 +291,8 @@
     "mealplan-updated": "Menüterv módosítva",
     "no-meal-plan-defined-yet": "Nincs még menüterv létrehozva",
     "no-meal-planned-for-today": "Nincs mára menüterv",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "A menütervekben csak a következő kategóriához tartozó receptek kerülnek felhasználásra",
     "planner": "Tervező",
     "quick-week": "Gyors hét",
