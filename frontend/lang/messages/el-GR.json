@@ -291,6 +291,8 @@
     "mealplan-updated": "Το Γεύμα Ενημερώθηκε",
     "no-meal-plan-defined-yet": "Δεν έχει οριστεί ακόμα σχέδιο γεύματος",
     "no-meal-planned-for-today": "Δεν έχει προγραμματιστεί γεύμα για σήμερα",
+    "numberOfDays-hint": "Αριθμός ημερών κατά την φόρτωση της σελίδας",
+    "numberOfDays-label": "Προεπιλεγμένες Ημέρες",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Μόνο συνταγές με αυτές τις κατηγορίες θα χρησιμοποιηθούν στα σχέδια γεύματος",
     "planner": "Προγραμματισμός",
     "quick-week": "Γρήγορη προβολή",
