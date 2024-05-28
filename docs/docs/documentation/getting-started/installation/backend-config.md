@@ -138,6 +138,28 @@ Setting the following environmental variables will change the theme of the front
 | THEME_DARK_WARNING    | #FF6D00 | Dark Theme Config Variable  |
 | THEME_DARK_ERROR      | #EF5350 | Dark Theme Config Variable  |
 
+### Docker Secrets
+
+Setting a credential can be done using secrets when running in a Docker container.
+This can be used to avoid leaking passwords through compose files, environment variables, or command-line history.
+For example, to configure the Postgres database password in Docker compose, create a file on the host that contains only the password, and expose that file to the Mealie service as a secret with the correct name.
+Note that environment variables take priority over secrets, so any previously defined environment variables should be removed when migrating to secrets.
+
+```
+services:
+  mealie:
+    ...
+    environment:
+      ...
+      POSTGRES_USER: postgres
+    secrets:
+      - POSTGRES_PASSWORD
+
+secrets:
+  POSTGRES_PASSWORD:
+    file: postgrespassword.txt
+```
+
 [workers_per_core]: https://github.com/tiangolo/uvicorn-gunicorn-docker/blob/2daa3e3873c837d5781feb4ff6a40a89f791f81b/README.md#workers_per_core
 [max_workers]: https://github.com/tiangolo/uvicorn-gunicorn-docker/blob/2daa3e3873c837d5781feb4ff6a40a89f791f81b/README.md#max_workers
 [web_concurrency]: https://github.com/tiangolo/uvicorn-gunicorn-docker/blob/2daa3e3873c837d5781feb4ff6a40a89f791f81b/README.md#web_concurrency
