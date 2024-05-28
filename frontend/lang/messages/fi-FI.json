@@ -291,6 +291,8 @@
     "mealplan-updated": "Ateriasuunnitelma päivitetty",
     "no-meal-plan-defined-yet": "Ateriasuunnitelmaa ei ole vielä määritelty",
     "no-meal-planned-for-today": "Ei ateriasuunnitelmaa tälle päivälle",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Vain näiden luokkien reseptejä käytetään ateriasuunnitelmissa",
     "planner": "Suunnittelija",
     "quick-week": "Pikaviikkosuunnitelma",

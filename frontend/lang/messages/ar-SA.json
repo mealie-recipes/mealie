@@ -291,6 +291,8 @@
     "mealplan-updated": "تم تحديث خطة الوجبات",
     "no-meal-plan-defined-yet": "لم يتم تحديد خطة بعد",
     "no-meal-planned-for-today": "لم يتم تخطيط وجبة لهذا اليوم",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "فقط الوجبات التي تحتوي على التصنيفات التالية سوف تستخدم لإنشاء خطتك",
     "planner": "المخطط",
     "quick-week": "Quick Week",
