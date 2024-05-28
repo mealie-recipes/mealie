@@ -20,7 +20,7 @@
   <p align="center">
     A Place for All Your Recipes
     <br />
-    <a href="https://nightly.mealie.io"><strong>Explore the docs »</strong></a>
+    <a href="https://docs.mealie.io/documentation/getting-started/introduction/"><strong>Explore the docs »</strong></a>
   <a href="https://github.com/mealie-recipes/mealie">
   </a>
     <br />
