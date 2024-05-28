@@ -9,13 +9,13 @@
           ]
         }
       },
-      "id": "5dc89858-1f01-4691-9797-dd39eb528de8",
+      "id": "2ec440b4-0668-4bc0-aa66-4023d6379f28",
       "name": "Schedule Trigger",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.1,
       "position": [
-        340,
-        520
+        240,
+        660
       ]
     },
     {
@@ -26,13 +26,13 @@
         "genericAuthType": "httpHeaderAuth",
         "options": {}
       },
-      "id": "fa710f2f-6d06-4493-b1b3-d01bb3537d44",
+      "id": "235f26f7-0f45-479e-a7e3-bf8cda7c8426",
       "name": "Run Backup ",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        620,
-        380
+        520,
+        520
       ],
       "notesInFlow": false,
       "credentials": {
@@ -73,13 +73,13 @@
         "body": "\"Full Panic!\"",
         "options": {}
       },
-      "id": "4c5df2ee-2a4a-4be9-8062-2d6a5a5a6410",
+      "id": "40ba81a5-5741-4b15-98af-1a9e6b34f997",
       "name": "Ntfy Warning",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        1100,
-        380
+        1000,
+        520
       ],
       "onError": "continueRegularOutput"
     },
@@ -90,13 +90,13 @@
         "genericAuthType": "httpHeaderAuth",
         "options": {}
       },
-      "id": "752a2a9b-c2cc-497a-8ee4-47ce7e8d89ea",
+      "id": "b75571d0-d926-440c-897f-55b89c6a5080",
       "name": "Get all backups",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        620,
-        680
+        520,
+        820
       ],
       "credentials": {
         "httpHeaderAuth": {
@@ -110,60 +110,27 @@
         "fieldToSplitOut": "imports",
         "options": {}
       },
-      "id": "a340cf6b-5637-4a80-8740-aed84ab83145",
+      "id": "943d0e83-682b-4500-9faf-53284cfb02c6",
       "name": "Split Out",
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        820,
-        680
+        720,
+        820
       ]
     },
     {
       "parameters": {
         "jsCode": "// Get input data\nconst inputData = items.map(item => item.json);\n\n// Sort the data based on the 'date' field in descending order\ninputData.sort((a, b) => new Date(b.date) - new Date(a.date));\n\n// Get all records except the latest 7\nconst allExceptLatest7 = inputData.slice(7);\n\n// Map the output data back to the required format\nreturn allExceptLatest7.map(record => ({ json: record }));\n"
       },
-      "id": "b69de435-e92a-4e3e-b3f3-ed5c934c7da0",
+      "id": "64eae81d-fdb6-44f7-9a2d-eff8d1763281",
       "name": "Code",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        960,
-        680
+        860,
+        820
       ]
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict"
-          },
-          "conditions": [
-            {
-              "id": "044ebfc5-c289-4d84-b03a-64d6af8c2702",
-              "leftValue": "{{ $json.error }}",
-              "rightValue": "=true",
-              "operator": {
-                "type": "string",
-                "operation": "contains"
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "id": "dd5083f0-b62b-48c2-99e1-3c925ff1e5e3",
-      "name": "Error?",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2,
-      "position": [
-        840,
-        380
-      ],
-      "alwaysOutputData": true
     },
     {
       "parameters": {
@@ -173,13 +140,13 @@
         "genericAuthType": "httpHeaderAuth",
         "options": {}
       },
-      "id": "34c57711-c204-42ed-98fa-24ac2abba4fb",
+      "id": "1148eeb8-4860-46df-8f61-0e85ea1e0e89",
       "name": "Delete Oldies",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        1140,
-        680
+        1040,
+        820
       ],
       "credentials": {
         "httpHeaderAuth": {
@@ -195,13 +162,13 @@
         "width": 226,
         "color": 4
       },
-      "id": "12676aee-e61a-4977-a950-425fbec98898",
+      "id": "cd2cb5db-87c1-40d8-a746-e61ace231987",
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        560,
-        320
+        460,
+        460
       ]
     },
     {
@@ -211,13 +178,13 @@
         "width": 231,
         "color": 3
       },
-      "id": "bb667412-22c9-4ad0-bfef-d02cd9ad54f5",
+      "id": "0bebecbe-903e-4a69-bb1a-35619e68b540",
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        800,
-        320
+        700,
+        460
       ]
     },
     {
@@ -226,13 +193,13 @@
         "height": 225,
         "width": 229
       },
-      "id": "96286e12-fa4c-4102-9df3-a119322b12a9",
+      "id": "0b732adb-8a84-456d-b26d-5fc5ee5a4cae",
       "name": "Sticky Note2",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1040,
-        320
+        940,
+        460
       ]
     },
     {
@@ -242,13 +209,13 @@
         "width": 226,
         "color": 4
       },
-      "id": "2dfe3a65-8a99-4b5b-b39c-aaa288ee9b4e",
+      "id": "99c6886b-6a07-4b51-b395-d4bbcbde7d18",
       "name": "Sticky Note3",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        560,
-        620
+        460,
+        760
       ]
     },
     {
@@ -257,13 +224,13 @@
         "height": 225,
         "width": 281
       },
-      "id": "ece7d0fc-b66b-4f8c-b92e-60037a1cedc2",
+      "id": "549555f8-0aed-42c0-9693-9c0d93902796",
       "name": "Sticky Note4",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        800,
-        620
+        700,
+        760
       ]
     },
     {
@@ -272,13 +239,13 @@
         "height": 225,
         "width": 229
       },
-      "id": "2de94b38-3a05-4cd8-94fb-da701cfe57a2",
+      "id": "bcc5f0ba-73e9-42d7-b01b-c32f9f69f2f7",
       "name": "Sticky Note5",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1100,
-        620
+        1000,
+        760
       ]
     },
     {
@@ -288,13 +255,46 @@
         "width": 226,
         "color": 4
       },
-      "id": "38c0c7fe-0924-40f6-97ef-73a8aedd72d6",
+      "id": "ce797062-d727-43e3-a27f-e29b13ad3c9a",
       "name": "Sticky Note6",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        280,
-        460
+        180,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "8b00bb85-827f-4f2f-813e-db0d25e927d3",
+              "leftValue": "={{ $json.error }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "fefd3e8b-9b71-490a-82e3-25e5468a4135",
+      "name": "Error?",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2,
+      "position": [
+        760,
+        520
       ]
     }
   ],
@@ -376,11 +376,11 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "70f11e4a-0a6c-4f29-a4e3-f69314f7268b",
+  "versionId": "68e3e469-3ddb-4838-b09d-3c69fdd851f5",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "630eefaa8c490b9c5221d83a182af6450c2c3efaf4b580b8ac348631abfe1aeb"
   },
-  "id": "R9SkxwaOj50UyK8r",
+  "id": "whloxeXkdBWWi2Uj",
   "tags": []
 }
