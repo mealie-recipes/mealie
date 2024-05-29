@@ -628,23 +628,23 @@ test = ["pytest (>=6)"]
 
 [[package]]
 name = "extruct"
-version = "0.16.0"
+version = "0.17.0"
 description = "Extract embedded metadata from HTML markup"
 optional = false
-python-versions = "*"
+python-versions = ">=3.8"
 files = [
-    {file = "extruct-0.16.0-py2.py3-none-any.whl", hash = "sha256:2499ea9e7d22744745ca708acee9542a4aa231871620c4f65f869a1286e64aa8"},
-    {file = "extruct-0.16.0.tar.gz", hash = "sha256:d09cb3d86d149a276b277b3bd45b2b867ef3ec78bed9cd58ee0f2ae01ae670c4"},
+    {file = "extruct-0.17.0-py2.py3-none-any.whl", hash = "sha256:5f1d8e307fbb0c41f64ce486ddfaf16dc67e4b8f6e9570c57b123409ee37a307"},
+    {file = "extruct-0.17.0.tar.gz", hash = "sha256:a94c0be5b5fd95a8370204ecc02687bd27845d536055d8d1c69a0a30da0420c7"},
 ]
 
 [package.dependencies]
 html-text = ">=0.5.1"
 jstyleson = "*"
 lxml = "*"
+lxml-html-clean = "*"
 mf2py = "*"
 pyrdfa3 = "*"
-rdflib = {version = ">=6.0.0", markers = "python_version >= \"3.7\""}
-six = "*"
+rdflib = ">=6.0.0"
 w3lib = "*"
 
 [package.extras]
@@ -1163,6 +1163,20 @@ cssselect = ["cssselect (>=0.7)"]
 html5 = ["html5lib"]
 htmlsoup = ["BeautifulSoup4"]
 source = ["Cython (>=3.0.7)"]
+
+[[package]]
+name = "lxml-html-clean"
+version = "0.1.1"
+description = "HTML cleaner from lxml project"
+optional = false
+python-versions = "*"
+files = [
+    {file = "lxml_html_clean-0.1.1-py3-none-any.whl", hash = "sha256:58c04176593c9caf72ec92e033d2f38859e918b3eff0cc0f8051ad27dc2ab8ef"},
+    {file = "lxml_html_clean-0.1.1.tar.gz", hash = "sha256:8a644ed01dbbe132fabddb9467f077f6dad12a1d4f3a6a553e280f3815fa46df"},
+]
+
+[package.dependencies]
+lxml = "*"
 
 [[package]]
 name = "mako"
@@ -3393,4 +3407,4 @@ pgsql = ["psycopg2-binary"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "4155d1d818a04f1e03b512399d5ecbc01b007fae7884f6322d5d389745276a17"
+content-hash = "324774964bd61d647fcb5a18fa0a4f2fd13240e45cdedbd023aec4fab34a6863"
