@@ -7,6 +7,7 @@ mp = MonkeyPatch()
 mp.setenv("PRODUCTION", "True")
 mp.setenv("TESTING", "True")
 mp.setenv("ALLOW_SIGNUP", "True")
+mp.setenv("OPENAI_API_KEY", "dummy-api-key")
 from pathlib import Path
 
 from fastapi.testclient import TestClient

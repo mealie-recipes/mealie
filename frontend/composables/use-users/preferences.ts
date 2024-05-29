@@ -1,6 +1,6 @@
 import { Ref, useContext } from "@nuxtjs/composition-api";
 import { useLocalStorage, useSessionStorage } from "@vueuse/core";
-import { TimelineEventType } from "~/lib/api/types/recipe";
+import { RegisteredParser, TimelineEventType } from "~/lib/api/types/recipe";
 
 export interface UserPrintPreferences {
   imagePosition: string;
@@ -16,6 +16,10 @@ export enum ImagePosition {
   hidden = "hidden",
   left = "left",
   right = "right",
+}
+
+export interface UserMealPlanPreferences {
+  numberOfDays: number;
 }
 
 export interface UserRecipePreferences {
@@ -34,6 +38,24 @@ export interface UserShoppingListPreferences {
 export interface UserTimelinePreferences {
   orderDirection: string;
   types: TimelineEventType[];
+}
+
+export interface UserParsingPreferences {
+  parser: RegisteredParser;
+}
+
+export function useUserMealPlanPreferences(): Ref<UserMealPlanPreferences> {
+  const fromStorage = useLocalStorage(
+    "meal-planner-preferences",
+    {
+      numberOfDays: 7,
+    },
+    { mergeDefaults: true }
+    // we cast to a Ref because by default it will return an optional type ref
+    // but since we pass defaults we know all properties are set.
+  ) as unknown as Ref<UserMealPlanPreferences>;
+
+  return fromStorage;
 }
 
 export function useUserPrintPreferences(): Ref<UserPrintPreferences> {
@@ -113,6 +135,20 @@ export function useTimelinePreferences(): Ref<UserTimelinePreferences> {
     // we cast to a Ref because by default it will return an optional type ref
     // but since we pass defaults we know all properties are set.
   ) as unknown as Ref<UserTimelinePreferences>;
+
+  return fromStorage;
+}
+
+export function useParsingPreferences(): Ref<UserParsingPreferences> {
+  const fromStorage = useLocalStorage(
+    "parsing-preferences",
+    {
+      parser: "nlp",
+    },
+    { mergeDefaults: true }
+    // we cast to a Ref because by default it will return an optional type ref
+    // but since we pass defaults we know all properties are set.
+  ) as unknown as Ref<UserParsingPreferences>;
 
   return fromStorage;
 }

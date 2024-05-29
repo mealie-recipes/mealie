@@ -16,7 +16,8 @@
 | TZ                            |          UTC          | Must be set to get correct date/time on the server                                  |
 | ALLOW_SIGNUP<super>\*</super> |         false         | Allow user sign-up without token                                                    |
 | LOG_CONFIG_OVERRIDE           |                       | Override the config for logging with a custom path                                  |
-| LOG_LEVEL                     |         info          | logging level configured                                                            |
+| LOG_LEVEL                     |         info          | Logging level configured                                                            |
+| DAILY_SCHEDULE_TIME           |        23:45          | The time of day to run the daily tasks.                                             |
 
 <super>\*</super> Starting in v1.4.0 this was changed to default to `false` as apart of a security review of the application.
 
@@ -102,6 +103,20 @@ For usage, see [Usage - OpenID Connect](../authentication/oidc.md)
 | OIDC_GROUPS_CLAIM      | groups  | Optional if not using `OIDC_USER_GROUP` or `OIDC_ADMIN_GROUP`. This is the claim Mealie will request from your IdP and will use to compare to `OIDC_USER_GROUP` or `OIDC_ADMIN_GROUP` to allow the user to log in to Mealie or is set as an admin. **Your IdP must be configured to grant this claim**|
 | OIDC_TLS_CACERTFILE    | None    | File path to Certificate Authority used to verify server certificate (e.g. `/path/to/ca.crt`) |
 
+### OpenAI
+
+:octicons-tag-24: v1.7.0
+
+Mealie supports various integrations using OpenAI. To enable OpenAI, [you must provide your OpenAI API key](https://platform.openai.com/api-keys). You can tweak how OpenAI is used using these backend settings. Please note that while OpenAI usage is optimized to reduce API costs, you're unlikely to be able to use OpenAI features with the free tier limits.
+
+| Variables                 |     Default   | Description                                                                                                                    |
+| ------------------------- |    :------:   | ------------------------------------------------------------------------------------------------------------------------------ |
+| OPENAI_BASE_URL           |      None     | The base URL for the OpenAI API. If you're not sure, leave this empty to use the standard OpenAI platform                      |
+| OPENAI_API_KEY            |      None     | Your OpenAI API Key. Enables OpenAI-related features                                                                           |
+| OPENAI_MODEL              |     gpt-4o    | Which OpenAI model to use. If you're not sure, leave this empty                                                                |
+| OPENAI_WORKERS            |       2       | Number of OpenAI workers per request. Higher values may increase processing speed, but will incur additional API costs         |
+| OPENAI_SEND_DATABASE_DATA |      True     | Whether to send Mealie data to OpenAI to improve request accuracy. This will incur additional API costs                        |
+
 ### Themeing
 
 Setting the following environmental variables will change the theme of the frontend. Note that the themes are the same for all users. This is a break-change when migration from v0.x.x -> 1.x.x.
@@ -122,6 +137,28 @@ Setting the following environmental variables will change the theme of the front
 | THEME_DARK_INFO       | #1976D2 | Dark Theme Config Variable  |
 | THEME_DARK_WARNING    | #FF6D00 | Dark Theme Config Variable  |
 | THEME_DARK_ERROR      | #EF5350 | Dark Theme Config Variable  |
+
+### Docker Secrets
+
+Setting a credential can be done using secrets when running in a Docker container.
+This can be used to avoid leaking passwords through compose files, environment variables, or command-line history.
+For example, to configure the Postgres database password in Docker compose, create a file on the host that contains only the password, and expose that file to the Mealie service as a secret with the correct name.
+Note that environment variables take priority over secrets, so any previously defined environment variables should be removed when migrating to secrets.
+
+```
+services:
+  mealie:
+    ...
+    environment:
+      ...
+      POSTGRES_USER: postgres
+    secrets:
+      - POSTGRES_PASSWORD
+
+secrets:
+  POSTGRES_PASSWORD:
+    file: postgrespassword.txt
+```
 
 [workers_per_core]: https://github.com/tiangolo/uvicorn-gunicorn-docker/blob/2daa3e3873c837d5781feb4ff6a40a89f791f81b/README.md#workers_per_core
 [max_workers]: https://github.com/tiangolo/uvicorn-gunicorn-docker/blob/2daa3e3873c837d5781feb4ff6a40a89f791f81b/README.md#max_workers

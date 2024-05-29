@@ -9,6 +9,7 @@ import {
   mdiSquareEditOutline,
   mdiClose,
   mdiTagArrowUpOutline,
+  mdiTagArrowRight,
   mdiTagMultipleOutline,
   mdiShapeOutline,
   mdiBookOutline,
@@ -293,6 +294,7 @@ export const icons = {
   // Organization
   tags: mdiTagMultipleOutline,
   tagArrowUp: mdiTagArrowUpOutline,
+  tagArrowRight: mdiTagArrowRight,
   categories: mdiShapeOutline,
   pages: mdiBookOutline,
   book: mdiBookOpenPageVariant,

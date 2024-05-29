@@ -57,6 +57,8 @@ class AppSettings(BaseSettings):
 
     ALLOW_SIGNUP: bool = False
 
+    DAILY_SCHEDULE_TIME: str = "23:45"
+
     # ===============================================
     # Security Configuration
 
@@ -199,7 +201,11 @@ class AppSettings(BaseSettings):
     def OIDC_READY(self) -> bool:
         """Validates OIDC settings are all set"""
 
-        required = {self.OIDC_CLIENT_ID, self.OIDC_CONFIGURATION_URL, self.OIDC_USER_CLAIM}
+        required = {
+            self.OIDC_CLIENT_ID,
+            self.OIDC_CONFIGURATION_URL,
+            self.OIDC_USER_CLAIM,
+        }
         not_none = None not in required
         valid_group_claim = True
         if (not self.OIDC_USER_GROUP or not self.OIDC_ADMIN_GROUP) and not self.OIDC_GROUPS_CLAIM:
@@ -208,10 +214,35 @@ class AppSettings(BaseSettings):
         return self.OIDC_AUTH_ENABLED and not_none and valid_group_claim
 
     # ===============================================
+    # OpenAI Configuration
+
+    OPENAI_BASE_URL: str | None = None
+    """The base URL for the OpenAI API. Leave this unset for most usecases"""
+    OPENAI_API_KEY: str | None = None
+    """Your OpenAI API key. Required to enable OpenAI features"""
+    OPENAI_MODEL: str = "gpt-4o"
+    """Which OpenAI model to send requests to. Leave this unset for most usecases"""
+    OPENAI_WORKERS: int = 2
+    """
+    Number of OpenAI workers per request. Higher values may increase
+    processing speed, but will incur additional API costs
+    """
+    OPENAI_SEND_DATABASE_DATA: bool = True
+    """
+    Sending database data may increase accuracy in certain requests,
+    but will incur additional API costs
+    """
+
+    @property
+    def OPENAI_ENABLED(self) -> bool:
+        """Validates OpenAI settings are all set"""
+        return bool(self.OPENAI_API_KEY and self.OPENAI_MODEL)
+
+    # ===============================================
     # Testing Config
 
     TESTING: bool = False
-    model_config = SettingsConfigDict(arbitrary_types_allowed=True, extra="allow")
+    model_config = SettingsConfigDict(arbitrary_types_allowed=True, extra="allow", secrets_dir="/run/secrets")
 
 
 def app_settings_constructor(data_dir: Path, production: bool, env_file: Path, env_encoding="utf-8") -> AppSettings:
