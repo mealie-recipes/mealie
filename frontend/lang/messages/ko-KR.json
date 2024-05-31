@@ -291,6 +291,8 @@
     "mealplan-updated": "Mealplan Updated",
     "no-meal-plan-defined-yet": "No meal plan defined yet",
     "no-meal-planned-for-today": "No meal planned for today",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Only recipes with these categories will be used in Meal Plans",
     "planner": "Planner",
     "quick-week": "Quick Week",

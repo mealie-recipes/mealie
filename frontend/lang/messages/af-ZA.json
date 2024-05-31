@@ -291,6 +291,8 @@
     "mealplan-updated": "Maaltydplan opgedateer",
     "no-meal-plan-defined-yet": "Nog geen maaltydplan opgestel nie",
     "no-meal-planned-for-today": "Geen maaltyd beplan vir vandag nie",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Slegs resepte met hierdie kategorieë sal in maaltydplanne gebruik word",
     "planner": "Beplanner",
     "quick-week": "Vinnige week",

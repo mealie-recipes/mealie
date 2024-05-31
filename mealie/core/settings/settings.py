@@ -57,6 +57,8 @@ class AppSettings(BaseSettings):
 
     ALLOW_SIGNUP: bool = False
 
+    DAILY_SCHEDULE_TIME: str = "23:45"
+
     # ===============================================
     # Security Configuration
 
@@ -199,7 +201,11 @@ class AppSettings(BaseSettings):
     def OIDC_READY(self) -> bool:
         """Validates OIDC settings are all set"""
 
-        required = {self.OIDC_CLIENT_ID, self.OIDC_CONFIGURATION_URL, self.OIDC_USER_CLAIM}
+        required = {
+            self.OIDC_CLIENT_ID,
+            self.OIDC_CONFIGURATION_URL,
+            self.OIDC_USER_CLAIM,
+        }
         not_none = None not in required
         valid_group_claim = True
         if (not self.OIDC_USER_GROUP or not self.OIDC_ADMIN_GROUP) and not self.OIDC_GROUPS_CLAIM:
@@ -236,7 +242,7 @@ class AppSettings(BaseSettings):
     # Testing Config
 
     TESTING: bool = False
-    model_config = SettingsConfigDict(arbitrary_types_allowed=True, extra="allow")
+    model_config = SettingsConfigDict(arbitrary_types_allowed=True, extra="allow", secrets_dir="/run/secrets")
 
 
 def app_settings_constructor(data_dir: Path, production: bool, env_file: Path, env_encoding="utf-8") -> AppSettings:

@@ -18,6 +18,10 @@ export enum ImagePosition {
   right = "right",
 }
 
+export interface UserMealPlanPreferences {
+  numberOfDays: number;
+}
+
 export interface UserRecipePreferences {
   orderBy: string;
   orderDirection: string;
@@ -38,6 +42,20 @@ export interface UserTimelinePreferences {
 
 export interface UserParsingPreferences {
   parser: RegisteredParser;
+}
+
+export function useUserMealPlanPreferences(): Ref<UserMealPlanPreferences> {
+  const fromStorage = useLocalStorage(
+    "meal-planner-preferences",
+    {
+      numberOfDays: 7,
+    },
+    { mergeDefaults: true }
+    // we cast to a Ref because by default it will return an optional type ref
+    // but since we pass defaults we know all properties are set.
+  ) as unknown as Ref<UserMealPlanPreferences>;
+
+  return fromStorage;
 }
 
 export function useUserPrintPreferences(): Ref<UserPrintPreferences> {

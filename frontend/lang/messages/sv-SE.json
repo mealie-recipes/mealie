@@ -291,6 +291,8 @@
     "mealplan-updated": "Måltidsplan uppdaterad",
     "no-meal-plan-defined-yet": "Ingen måltidsplan definierad ännu",
     "no-meal-planned-for-today": "Ingen måltidsplan för idag",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Endast recept med dessa kategorier kommer att användas i måltidsplaner",
     "planner": "Planeringkalender",
     "quick-week": "Snabb vecka",

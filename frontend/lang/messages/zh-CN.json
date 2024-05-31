@@ -291,6 +291,8 @@
     "mealplan-updated": "已更新饮食计划",
     "no-meal-plan-defined-yet": "还没有制定饮食计划",
     "no-meal-planned-for-today": "今日没有饮食计划",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "只有属于这些分类的食谱才会被用于饮食计划",
     "planner": "计划人",
     "quick-week": "快速创建周食谱计划",

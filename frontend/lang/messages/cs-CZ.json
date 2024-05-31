@@ -291,6 +291,8 @@
     "mealplan-updated": "Jídelníček byl aktualizován",
     "no-meal-plan-defined-yet": "Dosud nebyl definován žádný jídelníček",
     "no-meal-planned-for-today": "Pro dnešek není naplánováno žádné jídlo",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Pouze recepty z těchto kategorií budou použity v jídelníčku",
     "planner": "Plánovač",
     "quick-week": "Rychlý plán týdne",

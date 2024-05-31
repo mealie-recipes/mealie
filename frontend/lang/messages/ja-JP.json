@@ -291,6 +291,8 @@
     "mealplan-updated": "献立を更新しました",
     "no-meal-plan-defined-yet": "食事プランはまだ定義されていません",
     "no-meal-planned-for-today": "今日の食事プランはありません",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "食事プランでは、これらのカテゴリを持つレシピのみが使用されます",
     "planner": "プランナー",
     "quick-week": "クイックウィーク",
