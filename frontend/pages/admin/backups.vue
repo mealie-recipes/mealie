@@ -164,7 +164,6 @@ export default defineComponent({
         state.importDialog = false;
         state.runningRestore = false;
         alert.error(i18n.tc("settings.backup.restore-fail"));
-
       } else {
         alert.success(i18n.tc("settings.backup.restore-success"));
         $auth.logout();
