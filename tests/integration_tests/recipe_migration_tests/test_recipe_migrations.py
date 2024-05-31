@@ -30,6 +30,7 @@ test_cases = [
     MigrationTestData(typ=SupportedMigrations.tandoor, archive=test_data.migrations_tandoor),
     MigrationTestData(typ=SupportedMigrations.plantoeat, archive=test_data.migrations_plantoeat),
     MigrationTestData(typ=SupportedMigrations.myrecipebox, archive=test_data.migrations_myrecipebox),
+    MigrationTestData(typ=SupportedMigrations.recipekeeper, archive=test_data.migrations_recipekeeper),
 ]
 
 test_ids = [
@@ -41,6 +42,7 @@ test_ids = [
     "tandoor_archive",
     "plantoeat_archive",
     "myrecipebox_csv",
+    "recipekeeper_archive",
 ]
 
 
@@ -55,7 +57,10 @@ def test_recipe_migration(api_client: TestClient, unique_user: TestUser, mig: Mi
     }
 
     response = api_client.post(
-        api_routes.groups_migrations, data=payload, files=file_payload, headers=unique_user.token
+        api_routes.groups_migrations,
+        data=payload,
+        files=file_payload,
+        headers=unique_user.token,
     )
 
     assert response.status_code == 200
@@ -117,7 +122,10 @@ def test_bad_mealie_alpha_data_is_ignored(api_client: TestClient, unique_user: T
         }
 
         response = api_client.post(
-            api_routes.groups_migrations, data=payload, files=file_payload, headers=unique_user.token
+            api_routes.groups_migrations,
+            data=payload,
+            files=file_payload,
+            headers=unique_user.token,
         )
 
         assert response.status_code == 200
