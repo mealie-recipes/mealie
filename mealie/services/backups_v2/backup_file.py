@@ -16,8 +16,7 @@ class BackupContents:
     def _find_base(cls, file: Path) -> Path:
         # Safari mangles our ZIP structure and adds a "__MACOSX" directory at the root along with
         # an arbitrarily-named directory containing the actual contents. So, if we find a dunder directory
-        # at the root (i.e. __MACOSX) we traverse down the first non-dunder directory and continue crawling
-        # until we don't see a dunder directory.
+        # at the root (i.e. __MACOSX) we traverse down the first non-dunder directory and assume this is the base.
         # This works because our backups never contain a directory that starts with "__".
         dirs = [d for d in file.iterdir() if d.is_dir()]
         dunder_dirs = [d for d in dirs if d.name.startswith("__")]
@@ -26,12 +25,13 @@ class BackupContents:
         if not dunder_dirs:
             return file
 
-        # If the backup somehow adds a __MACOSX directory alongside the data directory, we don't want to traverse
-        # down that path, so we check for our database.json file, which should be at the expected base.
+        # If the backup somehow adds a __MACOSX directory alongside the data directory, rather than in the
+        # parent directory, we don't want to traverse down. We check for our database.json file, and if it exists,
+        # we're already at the correct base.
         if cls._find_database_from_base(file).exists():
             return file
 
-        # This ZIP file was mangled, so we need to return the first non-dunder directory (if it exists)
+        # This ZIP file was mangled, so we return the first non-dunder directory (if it exists).
         return normal_dirs[0] if normal_dirs else file
 
     @classmethod
