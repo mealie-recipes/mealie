@@ -379,6 +379,10 @@
     "myrecipebox": {
       "title": "My Recipe Box",
       "description-long": "Mealie lahko uvozi recepte iz aplikacije My Recipe Box. Izvozi recepte v CSV formatu, nato pa .csv datoteko naloži spodaj."
+    },
+    "recipekeeper": {
+      "title": "Recipe Keeper",
+      "description-long": "Mealie can import recipes from Recipe Keeper. Export your recipes in zip format, then upload the .zip file below."
     }
   },
   "new-recipe": {
