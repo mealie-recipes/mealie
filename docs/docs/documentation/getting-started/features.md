@@ -14,10 +14,14 @@ Mealie offers two main ways to create recipes. You can use the integrated recipe
 
 Mealie supports importing recipes from a few other sources besides websites. Currently the following sources are supported:
 
-- Mealie Pre v1
+- Tandoor
 - Nextcloud Cookbooks
 - Paprika
 - Chowdown
+- Plan to Eat
+- Recipe Keeper
+- Copy Me That
+- My Recipe Box
 
 You can access these options on your installation at the `/group/migrations` page on your installation. If you'd like to see another source added, feel free to request so on Github.
 
