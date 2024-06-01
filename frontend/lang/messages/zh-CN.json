@@ -379,6 +379,10 @@
     "myrecipebox": {
       "title": "My Recipe Box",
       "description-long": "Mealie可以从“My Recipe Box\"导入食谱。把你的食谱导出为CSV模式，然后在下面上传.csv文件。"
+    },
+    "recipekeeper": {
+      "title": "Recipe Keeper",
+      "description-long": "Mealie can import recipes from Recipe Keeper. Export your recipes in zip format, then upload the .zip file below."
     }
   },
   "new-recipe": {
