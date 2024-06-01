@@ -291,6 +291,8 @@
     "mealplan-updated": "Jedilnik je posodobljen",
     "no-meal-plan-defined-yet": "Za danes ni definiranjega načrta obroka",
     "no-meal-planned-for-today": "Za danes ni planiranega načrta obroka",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Samo recepti v teh kategorija bodo uporabljeni v načrtu obroka",
     "planner": "Načrtovalec",
     "quick-week": "Hiter pogled tedna",
@@ -377,6 +379,10 @@
     "myrecipebox": {
       "title": "My Recipe Box",
       "description-long": "Mealie lahko uvozi recepte iz aplikacije My Recipe Box. Izvozi recepte v CSV formatu, nato pa .csv datoteko naloži spodaj."
+    },
+    "recipekeeper": {
+      "title": "Recipe Keeper",
+      "description-long": "Mealie can import recipes from Recipe Keeper. Export your recipes in zip format, then upload the .zip file below."
     }
   },
   "new-recipe": {

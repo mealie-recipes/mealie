@@ -1,7 +1,9 @@
+from contextvars import ContextVar
+from datetime import datetime
 from typing import TYPE_CHECKING, Optional
 
 from pydantic import ConfigDict
-from sqlalchemy import Boolean, Float, ForeignKey, Integer, String, UniqueConstraint, orm
+from sqlalchemy import Boolean, Float, ForeignKey, Integer, String, UniqueConstraint, event, orm
 from sqlalchemy.ext.orderinglist import ordering_list
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -150,3 +152,60 @@ class ShoppingList(SqlAlchemyBase, BaseMixins):
     @auto_init()
     def __init__(self, **_) -> None:
         pass
+
+
+class SessionBuffer:
+    def __init__(self) -> None:
+        self.shopping_list_ids: set[GUID] = set()
+
+    def add(self, shopping_list_id: GUID) -> None:
+        self.shopping_list_ids.add(shopping_list_id)
+
+    def pop(self) -> GUID | None:
+        try:
+            return self.shopping_list_ids.pop()
+        except KeyError:
+            return None
+
+    def clear(self) -> None:
+        self.shopping_list_ids.clear()
+
+
+session_buffer_context = ContextVar("session_buffer", default=SessionBuffer())
+
+
+@event.listens_for(ShoppingListItem, "after_insert")
+@event.listens_for(ShoppingListItem, "after_update")
+@event.listens_for(ShoppingListItem, "after_delete")
+def buffer_shopping_list_updates(_, connection, target: ShoppingListItem):
+    """Adds the shopping list id to the session buffer so its `update_at` property can be updated later"""
+
+    session_buffer = session_buffer_context.get()
+    session_buffer.add(target.shopping_list_id)
+
+
+@event.listens_for(orm.Session, "after_flush")
+def update_shopping_lists(session: orm.Session, _):
+    """Pulls all pending shopping list updates from the buffer and updates their `update_at` property"""
+
+    session_buffer = session_buffer_context.get()
+    if not session_buffer.shopping_list_ids:
+        return
+
+    local_session = orm.Session(bind=session.connection())
+    try:
+        local_session.begin()
+        while True:
+            shopping_list_id = session_buffer.pop()
+            if not shopping_list_id:
+                break
+
+            shopping_list = local_session.query(ShoppingList).filter(ShoppingList.id == shopping_list_id).first()
+            if not shopping_list:
+                continue
+
+            shopping_list.update_at = datetime.now()
+        local_session.commit()
+    except Exception:
+        local_session.rollback()
+        raise

@@ -291,6 +291,8 @@
     "mealplan-updated": "Essensplan aktualisiert",
     "no-meal-plan-defined-yet": "Noch kein Essensplan definiert",
     "no-meal-planned-for-today": "Kein Essen für heute geplant",
+    "numberOfDays-hint": "Anzahl der Tage beim Laden der Seite",
+    "numberOfDays-label": "Anzuzeigende Tage",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Nur Rezepte dieser Kategorien werden in Essensplänen verwendet",
     "planner": "Planer",
     "quick-week": "Schnelle Woche",
@@ -377,6 +379,10 @@
     "myrecipebox": {
       "title": "My Recipe Box",
       "description-long": "Mealie kann Rezepte von My Recipe Box importieren. Exportiere deine Rezepte im CSV-Format und lade dann unten die .csv Datei hoch."
+    },
+    "recipekeeper": {
+      "title": "Recipe Keeper",
+      "description-long": "Mealie kann Rezepte von Recipe Keeper importieren. Exportiere deine Rezepte im ZIP-Format und lade dann unten die .zip Datei hoch.\n"
     }
   },
   "new-recipe": {
@@ -782,7 +788,7 @@
     "food": "Lebensmittel",
     "note": "Notiz",
     "label": "Etikett",
-    "save-label": "Save Label",
+    "save-label": "Etikett speichern",
     "linked-item-warning": "Dieser Eintrag ist mit einem oder mehreren Rezepten verknüpft. Das Ändern der Einheiten oder Lebensmittel führt zu unerwarteten Ergebnissen, wenn das Rezept von dieser Einkaufsliste entfernt oder hinzugefügt wird.",
     "toggle-food": "Lebensmittel-Eingabe umschalten",
     "manage-labels": "Etiketten verwalten",

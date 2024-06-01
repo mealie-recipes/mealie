@@ -291,6 +291,8 @@
     "mealplan-updated": "Menú actualizado",
     "no-meal-plan-defined-yet": "Todavía no hay ningún menú",
     "no-meal-planned-for-today": "No hay ningún menú para hoy",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Sólo las recetas con estas categorías se utilizarán en los menús",
     "planner": "Planificador",
     "quick-week": "Plan rápido",
@@ -377,6 +379,10 @@
     "myrecipebox": {
       "title": "My Recipe Box",
       "description-long": "Mealie puede importar recetas de My Recipe Box. Exporta tus recetas en formato CSV y sube el archivo a continuación."
+    },
+    "recipekeeper": {
+      "title": "Recipe Keeper",
+      "description-long": "Mealie can import recipes from Recipe Keeper. Export your recipes in zip format, then upload the .zip file below."
     }
   },
   "new-recipe": {

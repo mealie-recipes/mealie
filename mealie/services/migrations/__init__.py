@@ -5,4 +5,5 @@ from .myrecipebox import *
 from .nextcloud import *
 from .paprika import *
 from .plantoeat import *
+from .recipekeeper import *
 from .tandoor import *

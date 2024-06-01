@@ -82,6 +82,7 @@ const MIGRATIONS = {
   nextcloud: "nextcloud",
   paprika: "paprika",
   plantoeat: "plantoeat",
+  recipekeeper: "recipekeeper",
   tandoor: "tandoor",
 };
 
@@ -134,6 +135,10 @@ export default defineComponent({
       {
         text: i18n.tc("migration.tandoor.title"),
         value: MIGRATIONS.tandoor,
+      },
+      {
+        text: i18n.tc("migration.recipekeeper.title"),
+        value: MIGRATIONS.recipekeeper,
       },
     ];
     const _content = {
@@ -344,6 +349,26 @@ export default defineComponent({
                 ]
               }
             ]
+          }
+        ],
+      },
+      [MIGRATIONS.recipekeeper]: {
+        text: i18n.tc("migration.recipekeeper.description-long"),
+        acceptedFileType: ".zip",
+        tree: [
+          {
+            id: 1,
+            icon: $globals.icons.zip,
+            name: "recipekeeperhtml.zip",
+            children: [
+                  { id: 2, name: "recipes.html", icon: $globals.icons.codeJson },
+                  { id: 3, name: "images", icon: $globals.icons.folderOutline,
+                    children: [
+                    { id: 4, name: "image1.jpeg", icon: $globals.icons.fileImage },
+                    { id: 5, name: "image2.jpeg", icon: $globals.icons.fileImage },
+                    ]
+                   },
+            ],
           }
         ],
       },
