@@ -379,6 +379,10 @@
     "myrecipebox": {
       "title": "Reseptilaatikkoni",
       "description-long": "Voit tuoda Mealieen reseptejä reseptilaatikosta. Tuo reseptisi csv-muodossa ja lataa sitten csv-tiedosto alempaa."
+    },
+    "recipekeeper": {
+      "title": "Recipe Keeper",
+      "description-long": "Mealie can import recipes from Recipe Keeper. Export your recipes in zip format, then upload the .zip file below."
     }
   },
   "new-recipe": {

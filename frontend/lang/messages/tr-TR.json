@@ -379,6 +379,10 @@
     "myrecipebox": {
       "title": "Tarife Kutum",
       "description-long": "Mealie Tarife Kutum'dan tarifleri içe aktarabilir. Tariflerinizi CSV formatında dışa aktarın, ardından .csv dosyasını aşağıya yükleyin."
+    },
+    "recipekeeper": {
+      "title": "Recipe Keeper",
+      "description-long": "Mealie can import recipes from Recipe Keeper. Export your recipes in zip format, then upload the .zip file below."
     }
   },
   "new-recipe": {
