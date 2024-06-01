@@ -80,7 +80,7 @@ export interface MenuItem {
   value?: string;
   event?: string;
   divider?: boolean;
-  hide?:boolean;
+  hide?: boolean;
 }
 
 export default defineComponent({
