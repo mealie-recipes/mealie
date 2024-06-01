@@ -379,6 +379,10 @@
     "myrecipebox": {
       "title": "Моята кутия с рецепти",
       "description-long": "Mealie може да импортира рецепти от Моята кутия за рецепти. Експортирайте рецептите си в CSV формат, после качете .csv файлът по-долу."
+    },
+    "recipekeeper": {
+      "title": "Recipe Keeper",
+      "description-long": "Mealie can import recipes from Recipe Keeper. Export your recipes in zip format, then upload the .zip file below."
     }
   },
   "new-recipe": {

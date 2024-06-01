@@ -379,6 +379,10 @@
     "myrecipebox": {
       "title": "Il mio ricettario",
       "description-long": "Mealie può importare ricette da My Recipe Box. Esporta le tue ricette in formato HTML, quindi carica il .zip qui sotto."
+    },
+    "recipekeeper": {
+      "title": "Recipe Keeper",
+      "description-long": "Mealie can import recipes from Recipe Keeper. Export your recipes in zip format, then upload the .zip file below."
     }
   },
   "new-recipe": {

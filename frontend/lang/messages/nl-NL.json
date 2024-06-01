@@ -379,6 +379,10 @@
     "myrecipebox": {
       "title": "Mijn Receptenbox",
       "description-long": "Mealie kan recepten importeren uit My Recipe Box. Exporteer je recepten in CSV formaat, upload daarna het .csv bestand hieronder."
+    },
+    "recipekeeper": {
+      "title": "Recipe Keeper",
+      "description-long": "Mealie kan recepten importeren van Recipe Keeper. Exporteer de recepten als .zip. Dat bestand kunt u hier dan uploaden."
     }
   },
   "new-recipe": {
