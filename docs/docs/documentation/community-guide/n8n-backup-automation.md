@@ -61,6 +61,8 @@ Follow the relevant guide in the [n8n Documentation](https://docs.n8n.io/)
    - Generic Auth Type to `Header Auth`
    - Header Auth to `Mealie API` or whatever you named your credentials
 
+![screenshot](../../assets/img/n8n/n8n-workflow-auth.png)
+
 ## Notification Node
 
 > Please use error notifications of some kind. It's very easy to set and forget an automation, then have the worst happen and lose data.
