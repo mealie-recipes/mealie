@@ -635,6 +635,7 @@
       "backup-created-at-response-export_path": "Sigurnosna Kopija Kreirana na lokaciji {path}",
       "backup-deleted": "Sigurnosna kopija izbrisana",
       "restore-success": "Restore successful",
+      "restore-fail": "Restore failed. Check your server logs for more details",
       "backup-tag": "Sigurnosna kopija Oznake",
       "create-heading": "Kreiraj sigurnosnu kopiju",
       "delete-backup": "Izbriši sigurnosnu kopiju",
