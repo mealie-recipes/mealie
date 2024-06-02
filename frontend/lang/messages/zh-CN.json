@@ -379,6 +379,10 @@
     "myrecipebox": {
       "title": "My Recipe Box",
       "description-long": "Mealie可以从“My Recipe Box\"导入食谱。把你的食谱导出为CSV模式，然后在下面上传.csv文件。"
+    },
+    "recipekeeper": {
+      "title": "Recipe Keeper",
+      "description-long": "Mealie can import recipes from Recipe Keeper. Export your recipes in zip format, then upload the .zip file below."
     }
   },
   "new-recipe": {
@@ -631,6 +635,7 @@
       "backup-created-at-response-export_path": "备份创建于 {path}",
       "backup-deleted": "备份已删除",
       "restore-success": "还原成功",
+      "restore-fail": "Restore failed. Check your server logs for more details",
       "backup-tag": "标签备份",
       "create-heading": "创建备份",
       "delete-backup": "删除备份",

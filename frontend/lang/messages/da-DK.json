@@ -379,6 +379,10 @@
     "myrecipebox": {
       "title": "Mine opskrifter",
       "description-long": "Mealie kan importere opskrifter fra My Recipe Box. Eksporter dine opskrifter i CSV-format, og upload derefter .csv-filen nedenfor."
+    },
+    "recipekeeper": {
+      "title": "Recipe Keeper",
+      "description-long": "Mealie can import recipes from Recipe Keeper. Export your recipes in zip format, then upload the .zip file below."
     }
   },
   "new-recipe": {
@@ -631,6 +635,7 @@
       "backup-created-at-response-export_path": "Backup oprettet ved {path}",
       "backup-deleted": "Backup slettet",
       "restore-success": "Gendannelse lykkedes",
+      "restore-fail": "Restore failed. Check your server logs for more details",
       "backup-tag": "Backupnavn",
       "create-heading": "Opret en backup",
       "delete-backup": "Slet backup",

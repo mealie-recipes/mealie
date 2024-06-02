@@ -20,7 +20,7 @@
   <p align="center">
     A Place for All Your Recipes
     <br />
-    <a href="https://nightly.mealie.io"><strong>Explore the docs »</strong></a>
+    <a href="https://docs.mealie.io/"><strong>Explore the docs »</strong></a>
   <a href="https://github.com/mealie-recipes/mealie">
   </a>
     <br />
@@ -41,7 +41,7 @@
 Mealie is a self hosted recipe manager and meal planner with a RestAPI backend and a reactive frontend application built in Vue for a pleasant user experience for the whole family. Easily add recipes into your database by providing the URL and Mealie will automatically import the relevant data, or add a family recipe with the UI editor. Mealie also provides an API for interactions from 3rd party applications.
 
 - [Remember to join the Discord](https://discord.gg/QuStdQGSGK)!
-- [Documentation](https://nightly.mealie.io)
+- [Documentation](https://docs.mealie.io/)
 
 
 <!-- CONTRIBUTING -->

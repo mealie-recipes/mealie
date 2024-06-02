@@ -291,8 +291,8 @@
     "mealplan-updated": "Menüterv módosítva",
     "no-meal-plan-defined-yet": "Nincs még menüterv létrehozva",
     "no-meal-planned-for-today": "Nincs mára menüterv",
-    "numberOfDays-hint": "Number of days on page load",
-    "numberOfDays-label": "Default Days",
+    "numberOfDays-hint": "Napok száma az oldal betöltésekor",
+    "numberOfDays-label": "Alapértelmezett napok",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "A menütervekben csak a következő kategóriához tartozó receptek kerülnek felhasználásra",
     "planner": "Tervező",
     "quick-week": "Gyors hét",
@@ -379,6 +379,10 @@
     "myrecipebox": {
       "title": "Az én receptes dobozom",
       "description-long": "A Mealie képest recepteket importálni az Én Receptes Dobozomból. Exportáld a receptjeidet CSV formátúmba, aztán töltsd fel a .csv fájlt lentebb."
+    },
+    "recipekeeper": {
+      "title": "Recipe Keeper",
+      "description-long": "A Mealie képes recepteket importálni a Recipe Keeperből. Exportálja a receptjeit zip formátumban, majd töltse fel a .zip fájlt az oldal alján."
     }
   },
   "new-recipe": {
@@ -631,6 +635,7 @@
       "backup-created-at-response-export_path": "Mentés a következő helyre: {path}",
       "backup-deleted": "Biztonsági mentés törölve",
       "restore-success": "Sikeres visszaállítás",
+      "restore-fail": "A visszaállítás sikertelen. További részletekért ellenőrizze a szervernaplókat",
       "backup-tag": "Biztonsági mentés leírás",
       "create-heading": "Biztonsági mentés létrehozása",
       "delete-backup": "Biztonsági mentés törlése",

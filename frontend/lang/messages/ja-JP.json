@@ -379,6 +379,10 @@
     "myrecipebox": {
       "title": "My Recipe Box",
       "description-long": "MealieはMy Recipe Boxからレシピをインポートできます。レシピをCSV形式でエクスポートし、以下に.csvをアップロードしてください。"
+    },
+    "recipekeeper": {
+      "title": "Recipe Keeper",
+      "description-long": "Mealie can import recipes from Recipe Keeper. Export your recipes in zip format, then upload the .zip file below."
     }
   },
   "new-recipe": {
@@ -631,6 +635,7 @@
       "backup-created-at-response-export_path": "{path} にバックアップを作成しました",
       "backup-deleted": "バックアップを削除しました",
       "restore-success": "復元に成功しました",
+      "restore-fail": "Restore failed. Check your server logs for more details",
       "backup-tag": "バックアップ タグ",
       "create-heading": "Create a Backup",
       "delete-backup": "バックアップを削除",

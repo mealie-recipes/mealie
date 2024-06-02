@@ -22,6 +22,9 @@ backup_version_ba1e4a6cfe99_1 = CWD / "backups/backup_version_ba1e4a6cfe99_1.zip
 backup_version_bcfdad6b7355_1 = CWD / "backups/backup_version_bcfdad6b7355_1.zip"
 """bcfdad6b7355: remove tool name and slug unique contraints"""
 
+backup_version_09aba125b57a_1 = CWD / "backups/backup_version_09aba125b57a_1.zip"
+"""09aba125b57a: add OIDC auth method (Safari-mangled ZIP structure)"""
+
 migrations_paprika = CWD / "migrations/paprika.zip"
 
 migrations_chowdown = CWD / "migrations/chowdown.zip"
@@ -37,6 +40,8 @@ migrations_tandoor = CWD / "migrations/tandoor.zip"
 migrations_plantoeat = CWD / "migrations/plantoeat.zip"
 
 migrations_myrecipebox = CWD / "migrations/myrecipebox.csv"
+
+migrations_recipekeeper = CWD / "migrations/recipekeeper.zip"
 
 images_test_image_1 = CWD / "images/test-image-1.jpg"
 
