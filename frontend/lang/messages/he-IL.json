@@ -635,6 +635,7 @@
       "backup-created-at-response-export_path": "גיבוי נוצר ב {path}",
       "backup-deleted": "גיבוי נמחק",
       "restore-success": "השחזור הצליח",
+      "restore-fail": "Restore failed. Check your server logs for more details",
       "backup-tag": "תגית גיבוי",
       "create-heading": "Create a Backup",
       "delete-backup": "מחיקת גיבוי",

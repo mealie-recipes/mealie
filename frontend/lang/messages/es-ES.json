@@ -635,6 +635,7 @@
       "backup-created-at-response-export_path": "Copia de seguridad creada en {path}",
       "backup-deleted": "Copia de seguridad eliminada",
       "restore-success": "Restauración exitosa",
+      "restore-fail": "Restore failed. Check your server logs for more details",
       "backup-tag": "Etiqueta de la copia de seguridad",
       "create-heading": "Crear una copia de seguridad",
       "delete-backup": "Eliminar copia de seguridad",

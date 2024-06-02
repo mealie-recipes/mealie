@@ -635,6 +635,7 @@
       "backup-created-at-response-export_path": "Záloha vytvořena v {path}",
       "backup-deleted": "Záloha smazána",
       "restore-success": "Restore successful",
+      "restore-fail": "Restore failed. Check your server logs for more details",
       "backup-tag": "Štítek zálohy",
       "create-heading": "Create a Backup",
       "delete-backup": "Smazat zálohu",

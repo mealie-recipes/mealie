@@ -635,6 +635,7 @@
       "backup-created-at-response-export_path": "Atsarginė kopija sukurta {path}",
       "backup-deleted": "Atsarginė kopija ištrinta",
       "restore-success": "Restore successful",
+      "restore-fail": "Restore failed. Check your server logs for more details",
       "backup-tag": "Atsarginės kopijos žyma",
       "create-heading": "Sukurti atsarginę kopiją",
       "delete-backup": "Ištrinti atsarginę kopiją",

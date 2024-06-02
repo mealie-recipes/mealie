@@ -635,6 +635,7 @@
       "backup-created-at-response-export_path": "Backup skapad {path}",
       "backup-deleted": "Backup raderad",
       "restore-success": "Återställning slutförd",
+      "restore-fail": "Restore failed. Check your server logs for more details",
       "backup-tag": "Backup tagg",
       "create-heading": "Skapa en säkerhetskopia",
       "delete-backup": "Ta bort säkerhetskopian",
