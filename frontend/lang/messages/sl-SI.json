@@ -635,6 +635,7 @@
       "backup-created-at-response-export_path": "Varnostna kopija ustvarjena v {path}",
       "backup-deleted": "Varnostna kopija je izbrisana",
       "restore-success": "Obnovitev uspešna",
+      "restore-fail": "Restore failed. Check your server logs for more details",
       "backup-tag": "Oznaka varnostne kopije",
       "create-heading": "Izdelaj varnostno kopijo",
       "delete-backup": "Izbriši varnostno kopijo",
