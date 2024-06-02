@@ -635,6 +635,7 @@
       "backup-created-at-response-export_path": "Varmuuskopio luotu sijaintiin {path}",
       "backup-deleted": "Varmuuskopio poistettu",
       "restore-success": "Palautus onnistui",
+      "restore-fail": "Restore failed. Check your server logs for more details",
       "backup-tag": "Varmuuskopion tunniste",
       "create-heading": "Create a Backup",
       "delete-backup": "Poista varmuuskopio",
