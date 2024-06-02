@@ -635,6 +635,7 @@
       "backup-created-at-response-export_path": "Backup creat la {path}",
       "backup-deleted": "Backup şters",
       "restore-success": "Restaurare efectuată",
+      "restore-fail": "Restore failed. Check your server logs for more details",
       "backup-tag": "Backup la Tag-uri",
       "create-heading": "Create a Backup",
       "delete-backup": "Șterge Backup",
