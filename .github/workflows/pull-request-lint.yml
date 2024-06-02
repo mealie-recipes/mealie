@@ -3,9 +3,6 @@ name: Pull Request Linter
 on:
   workflow_call:
 
-permissions:
-  pull-requests: read
-
 jobs:
   validate-title:
     name: Validate PR title
