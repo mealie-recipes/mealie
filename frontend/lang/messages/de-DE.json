@@ -635,6 +635,7 @@
       "backup-created-at-response-export_path": "Sicherung erstellt unter {path}",
       "backup-deleted": "Sicherung gelöscht",
       "restore-success": "Wiederherstellung erfolgreich",
+      "restore-fail": "Wiederherstellung fehlgeschlagen. Überprüfe deine Serverprotokolle für weitere Informationen",
       "backup-tag": "Sicherungsbeschreibung",
       "create-heading": "Sicherung erstellen",
       "delete-backup": "Sicherung löschen",
