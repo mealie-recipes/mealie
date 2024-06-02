@@ -379,6 +379,10 @@
     "myrecipebox": {
       "title": "Min receptlåda",
       "description-long": "Mealie kan importera recept från appen 'My Recipe Box'. Exportera dina recept i CSV format, och sen ladda upp .csv filen nedan."
+    },
+    "recipekeeper": {
+      "title": "Recipe Keeper",
+      "description-long": "Mealie can import recipes from Recipe Keeper. Export your recipes in zip format, then upload the .zip file below."
     }
   },
   "new-recipe": {

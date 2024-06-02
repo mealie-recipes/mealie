@@ -379,6 +379,10 @@
     "myrecipebox": {
       "title": "Az én receptes dobozom",
       "description-long": "A Mealie képest recepteket importálni az Én Receptes Dobozomból. Exportáld a receptjeidet CSV formátúmba, aztán töltsd fel a .csv fájlt lentebb."
+    },
+    "recipekeeper": {
+      "title": "Recipe Keeper",
+      "description-long": "A Mealie képes recepteket importálni a Recipe Keeperből. Exportálja a receptjeit zip formátumban, majd töltse fel a .zip fájlt az oldal alján."
     }
   },
   "new-recipe": {

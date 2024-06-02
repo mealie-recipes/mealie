@@ -379,6 +379,10 @@
     "myrecipebox": {
       "title": "My Recipe Box",
       "description-long": "Mealie peut importer des recettes depuis My Recipe Box. Exportez vos recettes au format CSV, puis téléchargez le fichier CSV ci-dessous."
+    },
+    "recipekeeper": {
+      "title": "Recipe Keeper",
+      "description-long": "Mealie peut importer des recettes depuis Recipe Keeper. Exportez vos recettes au format Zip, puis téléversez le fichier .zip ci-dessous."
     }
   },
   "new-recipe": {
