@@ -635,6 +635,7 @@
       "backup-created-at-response-export_path": "Mentés a következő helyre: {path}",
       "backup-deleted": "Biztonsági mentés törölve",
       "restore-success": "Sikeres visszaállítás",
+      "restore-fail": "A visszaállítás sikertelen. További részletekért ellenőrizze a szervernaplókat",
       "backup-tag": "Biztonsági mentés leírás",
       "create-heading": "Biztonsági mentés létrehozása",
       "delete-backup": "Biztonsági mentés törlése",
