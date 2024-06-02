@@ -2,11 +2,11 @@
 
 [Please Join the Discord](https://discord.gg/QuStdQGSGK). We are building a community of developers working on the project.
 
-## We Develop with Github
-We use github to host code, to track issues and feature requests, as well as accept pull requests.
+## We Develop with GitHub
+We use GitHub to host code, to track issues and feature requests, as well as accept pull requests.
 
-## We Use [Github Flow](https://docs.github.com/en/get-started/using-github/github-flow), So All Code Changes Happen Through Pull Requests
-Pull requests are the best way to propose changes to the codebase (we use [Github Flow](https://docs.github.com/en/get-started/using-github/github-flow)). We actively welcome your pull requests:
+## We Use [GitHub Flow](https://docs.github.com/en/get-started/using-github/github-flow), So All Code Changes Happen Through Pull Requests
+Pull requests are the best way to propose changes to the codebase (we use [GitHub Flow](https://docs.github.com/en/get-started/using-github/github-flow)). We actively welcome your pull requests:
 
 1. Fork the repo and create your branch from `mealie-next`.
 2. Checkout the Discord, the PRs page, or the Projects page to get an idea of what's already being worked on.
@@ -14,13 +14,13 @@ Pull requests are the best way to propose changes to the codebase (we use [Githu
 4. Once you've got an idea of what changes you want to make, create a draft PR as soon as you can to let us know what you're working on and how we can help!
 5. If you've changed APIs, update the documentation.
 6. Run tests, including `task py:check`.
-6. Issue that pull request! First make a draft PR, make sure that the automated github tests all pass, then mark as ready for review.
-7. Be sure to add release notes to the pull request.
+7. Issue that pull request! First make a draft PR, make sure that the automated GitHub tests all pass, then mark as ready for review. We follow Conventional Commits syntax; please title your PR as described in the PR template.
+8. Be sure to add release notes to the pull request.
 
 ## Any contributions you make will be under the AGPL Software License
 In short, when you submit code changes, your submissions are understood to be under the same [AGPL License](https://choosealicense.com/licenses/agpl-3.0/) that covers the project. Feel free to contact the maintainers if that's a concern.
 
-## Report bugs using Github's [issues](https://github.com/mealie-recipes/mealie/issues)
+## Report bugs using GitHub's [issues](https://github.com/mealie-recipes/mealie/issues)
 We use GitHub issues to track public bugs. Report a bug by [opening a new issue](https://github.com/mealie-recipes/mealie/issues/new); it's that easy!
 
 ## Write bug reports with detail, background, and sample code
