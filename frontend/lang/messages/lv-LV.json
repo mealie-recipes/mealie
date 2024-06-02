@@ -635,6 +635,7 @@
       "backup-created-at-response-export_path": "Backup Created at {path}",
       "backup-deleted": "Backup deleted",
       "restore-success": "Restore successful",
+      "restore-fail": "Restore failed. Check your server logs for more details",
       "backup-tag": "Backup Tag",
       "create-heading": "Create A Backup",
       "delete-backup": "Delete Backup",
