@@ -6,6 +6,10 @@ on:
       - mealie-next
 
 jobs:
+  pull-request-lint:
+    name: "Lint PR"
+    uses: ./.github/workflows/pull-request-lint.yml
+
   backend-tests:
     name: "Backend Server Tests"
     uses: ./.github/workflows/partial-backend.yml
