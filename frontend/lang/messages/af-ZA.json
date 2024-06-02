@@ -635,6 +635,7 @@
       "backup-created-at-response-export_path": "Back-up gemaak op {path}",
       "backup-deleted": "Back-up verwyder",
       "restore-success": "Restore successful",
+      "restore-fail": "Restore failed. Check your server logs for more details",
       "backup-tag": "Back-up merker",
       "create-heading": "Maak 'n back-up",
       "delete-backup": "Verwyder back-up",
