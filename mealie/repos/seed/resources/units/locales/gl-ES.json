@@ -2,17 +2,17 @@
     "teaspoon": {
         "name": "teaspoon",
         "description": "",
-        "abbreviation": "tsp"
+        "abbreviation": "culleradiña"
     },
     "tablespoon": {
         "name": "tablespoon",
         "description": "",
-        "abbreviation": "tbsp"
+        "abbreviation": "culleradas sopeiras"
     },
     "cup": {
-        "name": "cup",
+        "name": "taza",
         "description": "",
-        "abbreviation": "cup"
+        "abbreviation": "taza"
     },
     "fluid-ounce": {
         "name": "fluid ounce",
