@@ -1,7 +1,4 @@
-from typing import Any
-
 from pydantic import BaseModel
-from pydantic.json_schema import GenerateJsonSchema, JsonSchemaMode
 
 
 class OpenAIBase(BaseModel):
