@@ -89,9 +89,15 @@ class ABCScraperStrategy(ABC):
 
     url: str
 
-    def __init__(self, url: str, translator: Translator) -> None:
+    def __init__(
+        self,
+        url: str,
+        translator: Translator,
+        raw_html: str | None = None,
+    ) -> None:
         self.logger = get_logger()
         self.url = url
+        self.raw_html = raw_html
         self.translator = translator
 
     @abstractmethod
@@ -112,7 +118,7 @@ class ABCScraperStrategy(ABC):
 
 class RecipeScraperPackage(ABCScraperStrategy):
     async def get_html(self, url: str) -> str:
-        return await safe_scrape_html(url)
+        return self.raw_html or await safe_scrape_html(url)
 
     def clean_scraper(self, scraped_data: SchemaScraperFactory.SchemaScraper, url: str) -> tuple[Recipe, ScrapedExtras]:
         def try_get_default(
@@ -279,7 +285,7 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
         if not settings.OPENAI_ENABLED:
             return ""
 
-        html = await safe_scrape_html(url)
+        html = self.raw_html or await safe_scrape_html(url)
         text = self.format_html_to_text(html)
         try:
             service = OpenAIService()
@@ -298,7 +304,7 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
 
 class RecipeScraperOpenGraph(ABCScraperStrategy):
     async def get_html(self, url: str) -> str:
-        return await safe_scrape_html(url)
+        return self.raw_html or await safe_scrape_html(url)
 
     def get_recipe_fields(self, html) -> dict | None:
         """
