@@ -38,7 +38,7 @@
             </v-list-item-icon>
             <v-list-item-title>{{ item.text }}</v-list-item-title>
             </v-list-item>
-            <v-divider v-if="item.divider" :key="`divider-${index}`" class="my-1" ></v-divider>\
+            <v-divider v-if="item.divider" :key="`divider-${index}`" class="my-1" ></v-divider>
           </div>
         </template>
       </v-list-item-group>
@@ -80,7 +80,7 @@ export interface MenuItem {
   value?: string;
   event?: string;
   divider?: boolean;
-  hide?:boolean;
+  hide?: boolean;
 }
 
 export default defineComponent({

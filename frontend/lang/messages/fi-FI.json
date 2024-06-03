@@ -379,6 +379,10 @@
     "myrecipebox": {
       "title": "Reseptilaatikkoni",
       "description-long": "Voit tuoda Mealieen reseptejä reseptilaatikosta. Tuo reseptisi csv-muodossa ja lataa sitten csv-tiedosto alempaa."
+    },
+    "recipekeeper": {
+      "title": "Recipe Keeper",
+      "description-long": "Mealie can import recipes from Recipe Keeper. Export your recipes in zip format, then upload the .zip file below."
     }
   },
   "new-recipe": {
@@ -631,6 +635,7 @@
       "backup-created-at-response-export_path": "Varmuuskopio luotu sijaintiin {path}",
       "backup-deleted": "Varmuuskopio poistettu",
       "restore-success": "Palautus onnistui",
+      "restore-fail": "Restore failed. Check your server logs for more details",
       "backup-tag": "Varmuuskopion tunniste",
       "create-heading": "Create a Backup",
       "delete-backup": "Poista varmuuskopio",

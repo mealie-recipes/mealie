@@ -379,6 +379,10 @@
     "myrecipebox": {
       "title": "Az én receptes dobozom",
       "description-long": "A Mealie képest recepteket importálni az Én Receptes Dobozomból. Exportáld a receptjeidet CSV formátúmba, aztán töltsd fel a .csv fájlt lentebb."
+    },
+    "recipekeeper": {
+      "title": "Recipe Keeper",
+      "description-long": "A Mealie képes recepteket importálni a Recipe Keeperből. Exportálja a receptjeit zip formátumban, majd töltse fel a .zip fájlt az oldal alján."
     }
   },
   "new-recipe": {
@@ -631,6 +635,7 @@
       "backup-created-at-response-export_path": "Mentés a következő helyre: {path}",
       "backup-deleted": "Biztonsági mentés törölve",
       "restore-success": "Sikeres visszaállítás",
+      "restore-fail": "A visszaállítás sikertelen. További részletekért ellenőrizze a szervernaplókat",
       "backup-tag": "Biztonsági mentés leírás",
       "create-heading": "Biztonsági mentés létrehozása",
       "delete-backup": "Biztonsági mentés törlése",

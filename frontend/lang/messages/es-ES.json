@@ -379,6 +379,10 @@
     "myrecipebox": {
       "title": "My Recipe Box",
       "description-long": "Mealie puede importar recetas de My Recipe Box. Exporta tus recetas en formato CSV y sube el archivo a continuación."
+    },
+    "recipekeeper": {
+      "title": "Recipe Keeper",
+      "description-long": "Mealie can import recipes from Recipe Keeper. Export your recipes in zip format, then upload the .zip file below."
     }
   },
   "new-recipe": {
@@ -631,6 +635,7 @@
       "backup-created-at-response-export_path": "Copia de seguridad creada en {path}",
       "backup-deleted": "Copia de seguridad eliminada",
       "restore-success": "Restauración exitosa",
+      "restore-fail": "Restore failed. Check your server logs for more details",
       "backup-tag": "Etiqueta de la copia de seguridad",
       "create-heading": "Crear una copia de seguridad",
       "delete-backup": "Eliminar copia de seguridad",
