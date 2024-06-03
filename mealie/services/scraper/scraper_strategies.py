@@ -230,58 +230,6 @@ class RecipeScraperPackage(ABCScraperStrategy):
         return self.clean_scraper(scraped_data, self.url)
 
 
-class RecipeScraperOpenGraph(ABCScraperStrategy):
-    async def get_html(self, url: str) -> str:
-        return await safe_scrape_html(url)
-
-    def get_recipe_fields(self, html) -> dict | None:
-        """
-        Get the recipe fields from the Open Graph data.
-        """
-
-        def og_field(properties: dict, field_name: str) -> str:
-            return next((val for name, val in properties if name == field_name), "")
-
-        def og_fields(properties: list[tuple[str, str]], field_name: str) -> list[str]:
-            return list({val for name, val in properties if name == field_name})
-
-        base_url = get_base_url(html, self.url)
-        data = extruct.extract(html, base_url=base_url, errors="log")
-        try:
-            properties = data["opengraph"][0]["properties"]
-        except Exception:
-            return None
-
-        return {
-            "name": og_field(properties, "og:title"),
-            "description": og_field(properties, "og:description"),
-            "image": og_field(properties, "og:image"),
-            "recipeYield": "",
-            "recipeIngredient": ["Could not detect ingredients"],
-            "recipeInstructions": [{"text": "Could not detect instructions"}],
-            "slug": slugify(og_field(properties, "og:title")),
-            "orgURL": self.url,
-            "categories": [],
-            "tags": og_fields(properties, "og:article:tag"),
-            "dateAdded": None,
-            "notes": [],
-            "extras": [],
-        }
-
-    async def parse(self):
-        """
-        Parse a recipe from a given url.
-        """
-        html = await self.get_html(self.url)
-
-        og_data = self.get_recipe_fields(html)
-
-        if og_data is None:
-            return None
-
-        return Recipe(**og_data), ScrapedExtras()
-
-
 class RecipeScraperOpenAI(RecipeScraperPackage):
     """
     A wrapper around the `RecipeScraperPackage` class that uses OpenAI to extract the recipe from the URL,
@@ -346,3 +294,55 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
         except Exception:
             self.logger.exception(f"OpenAI was unable to extract a recipe from {url}")
             return ""
+
+
+class RecipeScraperOpenGraph(ABCScraperStrategy):
+    async def get_html(self, url: str) -> str:
+        return await safe_scrape_html(url)
+
+    def get_recipe_fields(self, html) -> dict | None:
+        """
+        Get the recipe fields from the Open Graph data.
+        """
+
+        def og_field(properties: dict, field_name: str) -> str:
+            return next((val for name, val in properties if name == field_name), "")
+
+        def og_fields(properties: list[tuple[str, str]], field_name: str) -> list[str]:
+            return list({val for name, val in properties if name == field_name})
+
+        base_url = get_base_url(html, self.url)
+        data = extruct.extract(html, base_url=base_url, errors="log")
+        try:
+            properties = data["opengraph"][0]["properties"]
+        except Exception:
+            return None
+
+        return {
+            "name": og_field(properties, "og:title"),
+            "description": og_field(properties, "og:description"),
+            "image": og_field(properties, "og:image"),
+            "recipeYield": "",
+            "recipeIngredient": ["Could not detect ingredients"],
+            "recipeInstructions": [{"text": "Could not detect instructions"}],
+            "slug": slugify(og_field(properties, "og:title")),
+            "orgURL": self.url,
+            "categories": [],
+            "tags": og_fields(properties, "og:article:tag"),
+            "dateAdded": None,
+            "notes": [],
+            "extras": [],
+        }
+
+    async def parse(self):
+        """
+        Parse a recipe from a given url.
+        """
+        html = await self.get_html(self.url)
+
+        og_data = self.get_recipe_fields(html)
+
+        if og_data is None:
+            return None
+
+        return Recipe(**og_data), ScrapedExtras()
