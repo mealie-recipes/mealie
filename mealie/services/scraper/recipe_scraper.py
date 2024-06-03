@@ -2,9 +2,18 @@ from mealie.lang.providers import Translator
 from mealie.schema.recipe.recipe import Recipe
 from mealie.services.scraper.scraped_extras import ScrapedExtras
 
-from .scraper_strategies import ABCScraperStrategy, RecipeScraperOpenGraph, RecipeScraperPackage
+from .scraper_strategies import (
+    ABCScraperStrategy,
+    RecipeScraperOpenAI,
+    RecipeScraperOpenGraph,
+    RecipeScraperPackage,
+)
 
-DEFAULT_SCRAPER_STRATEGIES: list[type[ABCScraperStrategy]] = [RecipeScraperPackage, RecipeScraperOpenGraph]
+DEFAULT_SCRAPER_STRATEGIES: list[type[ABCScraperStrategy]] = [
+    RecipeScraperPackage,
+    RecipeScraperOpenAI,
+    RecipeScraperOpenGraph,
+]
 
 
 class RecipeScraper:
