@@ -1,4 +1,8 @@
 preserve_hierarchy: false
+pull_request_title: "chore(l10n): New Crowdin updates"
+pull_request_labels: [
+  "l10n"
+]
 files:
   - source: /frontend/lang/messages/en-US.json
     translation: /frontend/lang/messages/%locale%.json
