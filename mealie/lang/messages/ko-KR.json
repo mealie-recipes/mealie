@@ -1,25 +1,25 @@
 {
     "generic": {
-        "server-error": "An unexpected error occurred"
+        "server-error": "예상하지 못한 에러가 발생했습니다."
     },
     "recipe": {
-        "unique-name-error": "Recipe names must be unique",
+        "unique-name-error": "Recipe 이름은 고유해야 합니다",
         "recipe-defaults": {
-            "ingredient-note": "1 Cup Flour",
-            "step-text": "Recipe steps as well as other fields in the recipe page support markdown syntax.\n\n**Add a link**\n\n[My Link](https://demo.mealie.io)\n"
+            "ingredient-note": "밀가루 1컵",
+            "step-text": "Recipe 단계는 물론 recipe 페이지의 다른 필드도 Markdown 문법을 지원합니다.\n\n**Add a link**\n\n[\b나의 링크](https://demo.mealie.io)"
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "No recipes match your rules"
+        "no-recipes-match-your-rules": "규칙과 일치하는 Recipe가 없습니다"
     },
     "user": {
         "user-updated": "User updated",
-        "password-updated": "Password updated",
-        "invalid-current-password": "Invalid current password",
-        "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
+        "password-updated": "비밀번호가 변경되었습니다",
+        "invalid-current-password": "현재 비밀번호가 잘못되었습니다",
+        "ldap-update-password-unavailable": "사용자가 LDAP으로 제어되기 때문에 비밀번호를 변경할 수 없습니다"
     },
     "group": {
-        "report-deleted": "Report deleted."
+        "report-deleted": "Report가 삭제됐습니다"
     },
     "exceptions": {
         "permission_denied": "You do not have permission to perform this action",
