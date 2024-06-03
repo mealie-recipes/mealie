@@ -291,7 +291,7 @@
     "mealplan-updated": "Menú actualizado",
     "no-meal-plan-defined-yet": "Todavía no hay ningún menú",
     "no-meal-planned-for-today": "No hay ningún menú para hoy",
-    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-hint": "Número de días al cargar la página",
     "numberOfDays-label": "Default Days",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Sólo las recetas con estas categorías se utilizarán en los menús",
     "planner": "Planificador",
@@ -374,7 +374,7 @@
     "mealie-text": "Mealie puede importar recetas de la aplicación Mealie desde una versión anterior a v1.0. Exporta tus recetas de tu antigua instancia y sube el archivo zip a continuación. Ten en cuenta que solo se pueden importar recetas de la exportación.",
     "plantoeat": {
       "title": "Plan to Eat",
-      "description-long": "Mealie puede importar recetas de Plan a Comer."
+      "description-long": "Mealie puede importar recetas de Plan to Eat."
     },
     "myrecipebox": {
       "title": "My Recipe Box",
@@ -755,7 +755,7 @@
     "not-ready": "No Listo - Comprobar variables de ambiente",
     "succeeded": "Logrado",
     "failed": "Error",
-    "general-about": "General Acerca de",
+    "general-about": "Información General",
     "application-version": "Versión de la aplicación",
     "application-version-error-text": "Su versión actual ({0}) no coincide con la última versión. Considere actualizar a la última versión ({1}).",
     "mealie-is-up-to-date": "Mealie está actualizada",
@@ -1144,14 +1144,14 @@
   "admin": {
     "maintenance": {
       "storage-details": "Detalle del almacenamiento",
-      "page-title": "Mantenimiento del sitio",
+      "page-title": "Mantenimiento del Sitio",
       "summary-title": "Índice",
       "button-label-get-summary": "Obtener Resumen",
       "button-label-open-details": "Detalles",
-      "info-description-data-dir-size": "Tamaño del directorio de datos",
+      "info-description-data-dir-size": "Tamaño del Directorio de Datos",
       "info-description-log-file-size": "Tamaño del archivo de registro",
-      "info-description-cleanable-directories": "Directorios eliminables",
-      "info-description-cleanable-images": "Imágenes eliminables",
+      "info-description-cleanable-directories": "Directorios Eliminables",
+      "info-description-cleanable-images": "Imágenes Eliminables",
       "storage": {
         "title-temporary-directory": "Directorio temporal (.temp)",
         "title-backups-directory": "Directorio de Copias de Seguridad (respaldos)",
