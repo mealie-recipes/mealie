@@ -19,13 +19,13 @@ class OpenAIIngredient(OpenAIBase):
         None,
         description=dedent(
             """
-            This value is a float between 0 - 1, where 1 is full confidence that the result is correct,
+            This value is a float between 0 - 100, where 100 is full confidence that the result is correct,
             and 0 is no confidence that the result is correct. If you're unable to parse anything,
             and you put the entire string in the notes, you should return 0 confidence. If you can easily
-            parse the string into each component, then you should return a confidence of 1. If you have to
-            guess which part is the unit and which part is the food, your confidence should be lower, such as 0.6.
+            parse the string into each component, then you should return a confidence of 100. If you have to
+            guess which part is the unit and which part is the food, your confidence should be lower, such as 60.
             Even if there is no unit or note, if you're able to determine the food, you may use a higher confidence.
-            If the entire ingredient consists of only a food, you can use a confidence of 1.
+            If the entire ingredient consists of only a food, you can use a confidence of 100.
             """
         ),
     )
@@ -75,6 +75,17 @@ class OpenAIIngredient(OpenAIBase):
     @field_validator("quantity")
     def coerce_none_qty(cls, v: float | None) -> float:
         return v or 0
+
+    @field_validator("confidence")
+    def validate_confidence(cls, v: float | None) -> float:
+        v = v or 0
+
+        if v < 0:
+            v = 0
+        elif v > 100:
+            v = 100
+
+        return v / 100
 
 
 class OpenAIIngredients(OpenAIBase):
