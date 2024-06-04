@@ -2,7 +2,7 @@
     "teaspoon": {
         "name": "colher de chá",
         "description": "",
-        "abbreviation": "col. de chá"
+        "abbreviation": "cc"
     },
     "tablespoon": {
         "name": "colher de sopa",
@@ -12,7 +12,7 @@
     "cup": {
         "name": "xícara",
         "description": "",
-        "abbreviation": "xíc."
+        "abbreviation": "x"
     },
     "fluid-ounce": {
         "name": "onça fluida",

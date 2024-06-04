@@ -3,10 +3,10 @@
         "server-error": "Ocorreu um erro inesperado"
     },
     "recipe": {
-        "unique-name-error": "O nome das receitas precisar ser único",
+        "unique-name-error": "Nomes de receitas devem ser únicos",
         "recipe-defaults": {
-            "ingredient-note": "1 Cup Flour",
-            "step-text": "Recipe steps as well as other fields in the recipe page support markdown syntax.\n\n**Add a link**\n\n[My Link](https://demo.mealie.io)\n"
+            "ingredient-note": "1 Xícara de Farinha",
+            "step-text": "Passos das receitas, assim como outros campos na página da receita, suportam sintaxe \"markdown\".\n\n**Adicione um link**\n\n[Meu Link](https://demo.mealie.io)\n"
         }
     },
     "mealplan": {
@@ -16,10 +16,10 @@
         "user-updated": "Usuário atualizado",
         "password-updated": "Senha atualizada",
         "invalid-current-password": "Senha atual inválida",
-        "ldap-update-password-unavailable": "Não é possível atualizar a senha, o usuário é controlado pelo LDAP"
+        "ldap-update-password-unavailable": "Impossível atualizar a senha, o usuário é controlado por LDAP"
     },
     "group": {
-        "report-deleted": "Relatório excluído"
+        "report-deleted": "Relatório excluído."
     },
     "exceptions": {
         "permission_denied": "Você não tem permissão para realizar esta ação",
@@ -37,12 +37,12 @@
         "generic-deleted": "{name} foi excluído"
     },
     "datetime": {
-        "year": "year|years",
-        "day": "day|days",
-        "hour": "hour|hours",
-        "minute": "minute|minutes",
-        "second": "second|seconds",
-        "millisecond": "millisecond|milliseconds",
-        "microsecond": "microsecond|microseconds"
+        "year": "ano|anos",
+        "day": "dia|dias",
+        "hour": "hora|horas",
+        "minute": "minuto|minutos",
+        "second": "segundo|segundos",
+        "millisecond": "milissegundo|milissegundos",
+        "microsecond": "microssegundo|microssegundos"
     }
 }
