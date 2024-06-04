@@ -18,7 +18,7 @@
   <h3 align="center">Mealie</h3>
 
   <p align="center">
-    A Place for All Your Recipes
+    A Place For All Your Recipes
     <br />
     <a href="https://docs.mealie.io/"><strong>Explore the docs »</strong></a>
   <a href="https://github.com/mealie-recipes/mealie">
@@ -38,11 +38,19 @@
 
 # About The Project
 
-Mealie is a self hosted recipe manager and meal planner with a RestAPI backend and a reactive frontend application built in Vue for a pleasant user experience for the whole family. Easily add recipes into your database by providing the URL and Mealie will automatically import the relevant data, or add a family recipe with the UI editor. Mealie also provides an API for interactions from 3rd party applications.
+Mealie is a self hosted recipe manager, meal planner and shopping list with a RestAPI backend and a reactive frontend built in Vue for a pleasant user experience for the whole family. Easily add recipes into your database by providing the URL and Mealie will automatically import the relevant data, or add a family recipe with the UI editor. Mealie also provides an API for interactions from 3rd party applications.
 
 - [Remember to join the Discord](https://discord.gg/QuStdQGSGK)!
 - [Documentation](https://docs.mealie.io/)
 
+
+## Key Features
+- Recipe imports: Create recipes, by **importing from a URL** or entering data manually
+- Meal Planner: Use the **Meal Planner** to plan your what you'll cook for the next week
+- Shopping List: Put the necessary ingredients on your **Shopping List**, organised into sections of your local supermarket
+- Cookbooks: Group recipes into **Cookbooks** based on your own criteria
+- Docker: Easy **Docker** deployment
+- Localisation: **Translations** for 35+ languages
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -58,7 +66,7 @@ If you are not a coder, you can still contribute financially. Financial contribu
 
 ### Translations
 
-Translations can be a great way for **non-coders** to contribute to project. We use [Crowdin](https://crowdin.com/project/mealie) to allow several contributors to work on translating Mealie. You can simply help by voting for your preferred translations, or even by completely translating Mealie into a new language.
+Translations can be a great way for **non-coders** to contribute to the project. We use [Crowdin](https://crowdin.com/project/mealie) to allow several contributors to work on translating Mealie. You can simply help by voting for your preferred translations, or even by completely translating Mealie into a new language.
 
 For more information, check out the translation page on the [contributor's guide](https://nightly.mealie.io/contributors/translating/).
 

@@ -635,6 +635,7 @@
       "backup-created-at-response-export_path": "已備份於：{path}",
       "backup-deleted": "備份已刪除",
       "restore-success": "Restore successful",
+      "restore-fail": "Restore failed. Check your server logs for more details",
       "backup-tag": "備份標籤",
       "create-heading": "創建備份",
       "delete-backup": "刪除備份",

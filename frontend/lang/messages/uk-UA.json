@@ -635,6 +635,7 @@
       "backup-created-at-response-export_path": "Резервна копія створена {path}",
       "backup-deleted": "Резервна копія видалена",
       "restore-success": "Відновлення успішне",
+      "restore-fail": "Restore failed. Check your server logs for more details",
       "backup-tag": "Мітка резервної копії",
       "create-heading": "Створити резервну копію",
       "delete-backup": "Видалити резервну копію",

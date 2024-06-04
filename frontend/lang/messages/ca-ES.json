@@ -635,6 +635,7 @@
       "backup-created-at-response-export_path": "S'ha creat una còpia de seguretat a {path}",
       "backup-deleted": "Còpia de seguretat suprimida",
       "restore-success": "La restauració s'ha dut a terme correctament",
+      "restore-fail": "Restore failed. Check your server logs for more details",
       "backup-tag": "Etiqueta de la còpia de seguretat",
       "create-heading": "Crea una còpia de seguretat",
       "delete-backup": "Esborra la còpia de seguretat",

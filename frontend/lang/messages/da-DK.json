@@ -635,6 +635,7 @@
       "backup-created-at-response-export_path": "Backup oprettet ved {path}",
       "backup-deleted": "Backup slettet",
       "restore-success": "Gendannelse lykkedes",
+      "restore-fail": "Restore failed. Check your server logs for more details",
       "backup-tag": "Backupnavn",
       "create-heading": "Opret en backup",
       "delete-backup": "Slet backup",
