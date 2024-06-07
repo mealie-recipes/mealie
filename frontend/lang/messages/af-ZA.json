@@ -583,6 +583,8 @@
     "report-deletion-failed": "Kon nie verslag uitvee nie",
     "recipe-debugger": "Resep debugger",
     "recipe-debugger-description": "Gryp die URL van die resep wat jy wil debug en plak dit hier. Die URL sal deur die resepskraper geskraap word en die resultate sal vertoon word. As jy nie enige data terugstuur sien nie, word die webwerf wat jy probeer skraap nie deur Mealie of sy skraperbiblioteek ondersteun nie.",
+    "use-openai": "Use OpenAI",
+    "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Debug",
     "tree-view": "Boomstruktuur",
     "recipe-yield": "Resep opbrengs",
