@@ -25,6 +25,18 @@ class MealieAlphaMigrator(BaseMigrator):
             MigrationAlias(key="tags", alias="tags", func=split_by_comma),
         ]
 
+    @classmethod
+    def get_zip_base_path(cls, path: Path) -> Path:
+        potential_path = super().get_zip_base_path(path)
+        if path == potential_path:
+            return path
+
+        # make sure we didn't accidentally open the "recipes" dir
+        if potential_path.name == "recipes":
+            return path
+        else:
+            return potential_path
+
     def _convert_to_new_schema(self, recipe: dict) -> Recipe:
         if recipe.get("categories", False):
             recipe["recipeCategory"] = recipe.get("categories")
@@ -55,7 +67,7 @@ class MealieAlphaMigrator(BaseMigrator):
             with zipfile.ZipFile(self.archive) as zip_file:
                 zip_file.extractall(tmpdir)
 
-            temp_path = Path(tmpdir)
+            temp_path = self.get_zip_base_path(Path(tmpdir))
             recipe_lookup: dict[str, Path] = {}
 
             recipes: list[Recipe] = []

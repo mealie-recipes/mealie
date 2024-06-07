@@ -57,6 +57,18 @@ class NextcloudMigrator(BaseMigrator):
             MigrationAlias(key="performTime", alias="cookTime", func=parse_iso8601_duration),
         ]
 
+    @classmethod
+    def get_zip_base_path(cls, path: Path) -> Path:
+        potential_path = super().get_zip_base_path(path)
+        if path == potential_path:
+            return path
+
+        # make sure we didn't accidentally open a recipe dir
+        if (potential_path / "recipe.json").exists():
+            return path
+        else:
+            return potential_path
+
     def _migrate(self) -> None:
         # Unzip File into temp directory
 
@@ -65,7 +77,8 @@ class NextcloudMigrator(BaseMigrator):
             with zipfile.ZipFile(self.archive) as zip_file:
                 zip_file.extractall(tmpdir)
 
-            potential_recipe_dirs = glob_walker(Path(tmpdir), glob_str="**/[!.]*.json", return_parent=True)
+            base_dir = self.get_zip_base_path(Path(tmpdir))
+            potential_recipe_dirs = glob_walker(base_dir, glob_str="**/[!.]*.json", return_parent=True)
             nextcloud_dirs = {y.slug: y for x in potential_recipe_dirs if (y := NextcloudDir.from_dir(x))}
 
             all_recipes = []
