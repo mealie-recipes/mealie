@@ -109,7 +109,7 @@ class TandoorMigrator(BaseMigrator):
             with zipfile.ZipFile(self.archive) as zip_file:
                 zip_file.extractall(tmpdir)
 
-            source_dir = Path(tmpdir)
+            source_dir = self.get_zip_base_path(Path(tmpdir))
 
             recipes_as_dicts: list[dict] = []
             for i, recipe_zip_file in enumerate(source_dir.glob("*.zip")):
