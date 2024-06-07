@@ -583,6 +583,8 @@
     "report-deletion-failed": "מחיקת דוח נכשלה",
     "recipe-debugger": "דיבאגר למתכון",
     "recipe-debugger-description": "הדבק פה את קישור המתקון שברצונך לבצע לו דיבוג. הקישור יפוענך ע\"י מפענך המתכונים והתוצאה תוצג. אם לא חוזרת תוצאה, האתר אותו אתה מנסה להוסיף אינו נתמך ע\"י מילי או ספריית הפיענוך.",
+    "use-openai": "Use OpenAI",
+    "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "דיבאג",
     "tree-view": "תצוגת עץ",
     "recipe-yield": "תשואת מתכון",
