@@ -583,6 +583,8 @@
     "report-deletion-failed": "Vymazanie reportov zlyhalo",
     "recipe-debugger": "Debugger receptov",
     "recipe-debugger-description": "Vezmite URL odkaz receptu, ktorý chcete opraviť a vložte ju sem. Recept bude stiahnutý z URL odkazu pomocou scrapera receptov a zobrazí sa výsledok sťahovania. V prípade, ak nevidíte žiadne zobrazené dáta, stránka z URL odkazu nie je podporovaná Mealie alebo jej scrapovacou knižnicou.",
+    "use-openai": "Use OpenAI",
+    "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Debugovať",
     "tree-view": "Stromový pohľad",
     "recipe-yield": "Počet porcií",
