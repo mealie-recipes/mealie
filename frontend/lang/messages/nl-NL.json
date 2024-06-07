@@ -583,6 +583,8 @@
     "report-deletion-failed": "Rapport verwijderen is mislukt",
     "recipe-debugger": "Recept debugger",
     "recipe-debugger-description": "Pak de URL van het recept dat u wilt debuggen en plak die hier. De URL zal door de receptenscraper worden gescrapt en de resultaten zullen worden weergegeven. Als u geen gegevens ziet, wordt de site die u probeert te scrapen niet ondersteund door Mealie of zijn scraperbibliotheek.",
+    "use-openai": "Gebruik OpenAI",
+    "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Debug",
     "tree-view": "Boomstructuurweergave",
     "recipe-yield": "Recept Opbrengst",

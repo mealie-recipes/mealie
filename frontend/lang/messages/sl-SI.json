@@ -583,6 +583,8 @@
     "report-deletion-failed": "Brisanje poročila ni bilo uspešno",
     "recipe-debugger": "Odpravljanje težav v strganju recepta",
     "recipe-debugger-description": "Prilepi povezavo do recepta, ki ga želiš postrgati. Strgalnik receptov bo postrgal spletno stran in prikazal rezultate. Če ne vidiš nobenih podatkov, potem spletna stran, ki jo želiš strgati ni podprta v Mealie oz. v strgalniku, ki ga uporablja.",
+    "use-openai": "Use OpenAI",
+    "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Debug",
     "tree-view": "Drevesni prikaz",
     "recipe-yield": "Število porcij",

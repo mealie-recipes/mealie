@@ -583,6 +583,8 @@
     "report-deletion-failed": "Sletting av rapport mislyktes",
     "recipe-debugger": "Oppskriftsfeilsøker",
     "recipe-debugger-description": "Hent nettadressen til oppskriften du vil feilsøke og lim den inn her. Nettsiden vil bli skrapt og resultatene vil bli vist. Hvis du ikke ser noen data returnert, er ikke nettstedet du prøver å skrape støttet av Mealie eller skraper-biblioteket.",
+    "use-openai": "Use OpenAI",
+    "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Feilsøk",
     "tree-view": "Trevisning",
     "recipe-yield": "Utbytte av oppskrift",

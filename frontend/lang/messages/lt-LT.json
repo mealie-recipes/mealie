@@ -583,6 +583,8 @@
     "report-deletion-failed": "Ataskaitų trynimas nepavyko",
     "recipe-debugger": "Recepto klaidų radimas",
     "recipe-debugger-description": "Įkelkite neveikiančio recepto URL nuorodą. Iš nuorodos bus nuskaitytas receptas ir parodyti nuskaitymo rezultatai. Jei nematote jokių duomenų - ši svetainė nėra suderinama su Mealie.",
+    "use-openai": "Use OpenAI",
+    "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Šalinti klaidas",
     "tree-view": "Medžio struktūra",
     "recipe-yield": "Recepto išeiga",
