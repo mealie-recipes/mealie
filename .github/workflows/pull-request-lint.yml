@@ -1,0 +1,41 @@
+name: Pull Request Linter
+
+on:
+  workflow_call:
+  pull_request:
+    types: [edited] # This captures the PR title changing
+    branches:
+      - mealie-next
+
+jobs:
+  validate-title:
+    name: Validate PR title
+    runs-on: ubuntu-latest
+    steps:
+      # https://github.com/amannn/action-semantic-pull-request
+      - uses: amannn/action-semantic-pull-request@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # Configure which types are allowed (newline-delimited).
+          # Default: https://github.com/commitizen/conventional-commit-types
+          types: |
+            fix
+            feat
+            docs
+            chore
+          # Configure which scopes are allowed (newline-delimited).
+          # These are regex patterns auto-wrapped in `^ $`.
+          scopes: |
+            deps
+            auto
+            l10n
+          # Configure that a scope must always be provided.
+          requireScope: false
+          # If the PR contains one of these newline-delimited labels, the
+          # validation is skipped. If you want to rerun the validation when
+          # labels change, you might want to use the `labeled` and `unlabeled`
+          # event triggers in your workflow.
+          ignoreLabels: |
+            bot
+            ignore-semantic-pull-request

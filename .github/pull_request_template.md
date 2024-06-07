@@ -1,6 +1,12 @@
 <!--
   This template provides some ideas of things to include in your PR description.
-  To start, try providing a short summary of your changes in the Title above.
+  
+  To start, try providing a short summary of your changes in the Title above. We follow Conventional Commits syntax, please ensure your title is prefixed with one of:
+  - `feat: `
+  - `fix: `
+  - `docs: `
+  - `chore: `
+  
   If a section of the PR template does not apply to this PR, then delete that section.
 
   PLEASE READ:
@@ -36,6 +42,8 @@ _(REQUIRED)_
   Briefly explain any decisions you made with respect to the changes.
   Include anything here that you didn't include in *Release Notes*
   above, such as changes to CI or changes to internal methods.
+
+  If there is a UI component to the change, please include before/after images.
 -->
 
 ## Which issue(s) this PR fixes:
@@ -44,7 +52,7 @@ _(REQUIRED)_
 
 <!--
 If this PR fixes one of more issues, list them here.
-One line each, like so:
+One per line, like so:
 Fixes #123
 Fixes #39
 -->
