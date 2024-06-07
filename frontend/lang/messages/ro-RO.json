@@ -583,6 +583,8 @@
     "report-deletion-failed": "Ștergerea raportului a eșuat",
     "recipe-debugger": "Depanare rețetă",
     "recipe-debugger-description": "Copiază URL-ul rețetei pe care vrei să o depanezi și lipește-l aici. URL-ul va fi importat și rezultatele vor fi afișate ulterior. Dacă nu vedeți date returnate, site-ul pe care încerci să îl procesezi nu este suportat de Mealie sau biblioteca sa de import.",
+    "use-openai": "Use OpenAI",
+    "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Depanare",
     "tree-view": "Vizualizare Ierarhică",
     "recipe-yield": "Producere rețetă",
