@@ -583,6 +583,8 @@
     "report-deletion-failed": "删除报告失败",
     "recipe-debugger": "食谱调试器",
     "recipe-debugger-description": "抓取你想要的食谱的URL并粘贴在此。食谱刮削器将尝试刮削该URL并显示结果。如果你没看到任何返回数据，则说明对应的网站不支持Mealie或它的刮削库。",
+    "use-openai": "Use OpenAI",
+    "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "调试",
     "tree-view": "树状图",
     "recipe-yield": "食谱菜量",

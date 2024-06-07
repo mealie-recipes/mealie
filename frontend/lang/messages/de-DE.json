@@ -583,6 +583,8 @@
     "report-deletion-failed": "Bericht löschen fehlgeschlagen",
     "recipe-debugger": "Rezept Debugger",
     "recipe-debugger-description": "Füge die URL des Rezepts, das du debuggen möchtest, hier ein. Die URL wird vom Scraper eingelesen und die Ergebnisse werden angezeigt. Wenn du keine Ausgabedaten sehen solltest, wird das Einlesen dieser Webseite nicht von Mealie oder dessen Scraper-Bibliothek unterstützt.",
+    "use-openai": "Verwende OpenAI",
+    "recipe-debugger-use-openai-description": "Verwende OpenAI anstelle der Scraper-Bibliothek, um die Einträge zu parsen. Wenn du ein Rezept über dessen URL erstellst und der Versuch über die Scraper-Bibliothek fehlschlägt, passiert das automatisch. Aber du kannst es hier auch manuell testen.",
     "debug": "Debug",
     "tree-view": "Strukturierte Ansicht",
     "recipe-yield": "Portionsangabe",

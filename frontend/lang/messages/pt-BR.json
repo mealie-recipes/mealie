@@ -583,6 +583,8 @@
     "report-deletion-failed": "Relatório de exclusão falhou",
     "recipe-debugger": "Depurador de Receita",
     "recipe-debugger-description": "Pegue a URL da receita que deseja depurar e cole aqui. A URL será encontrada pelo scraper das receitas e os resultados serão exibidos. Se não ver nenhum dado retornado, o site que você está tentando criar um scrape não é suportado pelo Mealie ou pela sua biblioteca de scraper.",
+    "use-openai": "Use OpenAI",
+    "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Depurar",
     "tree-view": "Visualização em árvore",
     "recipe-yield": "Rendimento da Receita",

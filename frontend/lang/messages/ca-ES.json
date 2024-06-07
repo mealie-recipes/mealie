@@ -583,6 +583,8 @@
     "report-deletion-failed": "No s'ha pogut suprimir l'informe",
     "recipe-debugger": "Depuradora de receptes",
     "recipe-debugger-description": "Agafa l'URL de la recepta que vols depurar i enganxa-la aquí. L'URL serà reastrejada pel rastrejador de receptes i es mostraran els resultats. Si no veieu cap dada retornada, el lloc que esteu provant de rastrejar no és compatible amb Mealie ni la seva biblioteca de rastreig.",
+    "use-openai": "Use OpenAI",
+    "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Depuració",
     "tree-view": "Vista en arbre",
     "recipe-yield": "Rendiment de la recepta",

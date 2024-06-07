@@ -583,6 +583,8 @@
     "report-deletion-failed": "La suppression du rapport a échoué",
     "recipe-debugger": "Débogueur de recette",
     "recipe-debugger-description": "Récupérez l'URL de la recette que vous voulez déboguer et collez-la ici. La recette sera analysée et les résultats seront affichés. Si vous ne voyez aucune donnée retournée, le site que vous essayez de récupérer n'est pas pris en charge par Mealie.",
+    "use-openai": "Utiliser OpenAI",
+    "recipe-debugger-use-openai-description": "Utilisez OpenAI pour analyser les résultats au lieu de la bibliothèque d’extraction. Lors de la création d'une recette via une URL, cela se fait automatiquement si la bibliothèque d’extraction échoue, mais vous pouvez le tester manuellement ici.",
     "debug": "Déboguer",
     "tree-view": "Vue en arborescence",
     "recipe-yield": "Nombre de parts",

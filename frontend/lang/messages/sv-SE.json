@@ -583,6 +583,8 @@
     "report-deletion-failed": "Rapporten gick inte att radera",
     "recipe-debugger": "Receptfelsökning",
     "recipe-debugger-description": "Ta tag i URL: en till det recept du vill felsöka och klistra in det här. URL-adressen kommer att skrapas av receptskrapan och resultaten kommer att visas. Om du inte ser några data returnerade, stödjs inte webbplatsen du försöker skrapa av Mealie eller dess skrapbibliotek.",
+    "use-openai": "Use OpenAI",
+    "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Felsök",
     "tree-view": "Trädvy",
     "recipe-yield": "Receptutfall",

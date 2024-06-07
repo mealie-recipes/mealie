@@ -583,6 +583,8 @@
     "report-deletion-failed": "レポートの削除に失敗しました",
     "recipe-debugger": "レシピのデバッガー",
     "recipe-debugger-description": "デバッグしたいレシピのURLを取得し、ここに貼り付けます。 URLはレシピスクレーパーによって削除され、結果が表示されます。 データが返されていない場合、スクレイプしようとしているサイトはMealieまたはそのスクレイパーライブラリではサポートされていません。",
+    "use-openai": "Use OpenAI",
+    "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "デバッグ",
     "tree-view": "ツリービュー",
     "recipe-yield": "レシピ収率",
@@ -1204,7 +1206,7 @@
     }
   },
   "profile": {
-    "welcome-user": "👋 Welcome, {0}!",
+    "welcome-user": "👋 ようこそ, {0}!",
     "description": "プロフィール、レシピ、グループ設定を管理します。",
     "get-invite-link": "招待リンクを取得",
     "get-public-link": "公開リンクを取得",

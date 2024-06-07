@@ -583,6 +583,8 @@
     "report-deletion-failed": "Не вдалося видалити звіт",
     "recipe-debugger": "Дебаггер рецептів",
     "recipe-debugger-description": "Вставте URL-адресу рецепта, який ви хочете дебажити сюди. URL буде розпарсено парсером рецептів й результати будуть відображені. Якщо ви не бачите жодних даних - значить Mealie або парсер рецептів не підтримує сайт який ви намагаєтеся використати.",
+    "use-openai": "Use OpenAI",
+    "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Дебажити",
     "tree-view": "У вигляді дерева",
     "recipe-yield": "Вихід рецепту",
