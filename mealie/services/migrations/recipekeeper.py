@@ -77,7 +77,7 @@ class RecipeKeeperMigrator(BaseMigrator):
             with zipfile.ZipFile(self.archive) as zip_file:
                 zip_file.extractall(tmpdir)
 
-            source_dir = Path(tmpdir) / "recipekeeperhtml"
+            source_dir = Path(tmpdir)
 
             recipes_as_dicts: list[dict] = []
             with open(source_dir / "recipes.html") as fp:
