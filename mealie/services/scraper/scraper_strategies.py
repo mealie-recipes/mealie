@@ -3,6 +3,7 @@ from abc import ABC, abstractmethod
 from collections.abc import Callable
 from typing import Any
 
+import bs4
 import extruct
 from fastapi import HTTPException, status
 from httpx import AsyncClient
@@ -10,10 +11,12 @@ from recipe_scrapers import NoSchemaFoundInWildMode, SchemaScraperFactory, scrap
 from slugify import slugify
 from w3lib.html import get_base_url
 
+from mealie.core.config import get_app_settings
 from mealie.core.root_logger import get_logger
 from mealie.lang.providers import Translator
 from mealie.pkgs import safehttp
 from mealie.schema.recipe.recipe import Recipe, RecipeStep
+from mealie.services.openai import OpenAIService
 from mealie.services.scraper.scraped_extras import ScrapedExtras
 
 from . import cleaner
@@ -86,9 +89,15 @@ class ABCScraperStrategy(ABC):
 
     url: str
 
-    def __init__(self, url: str, translator: Translator) -> None:
+    def __init__(
+        self,
+        url: str,
+        translator: Translator,
+        raw_html: str | None = None,
+    ) -> None:
         self.logger = get_logger()
         self.url = url
+        self.raw_html = raw_html
         self.translator = translator
 
     @abstractmethod
@@ -109,7 +118,7 @@ class ABCScraperStrategy(ABC):
 
 class RecipeScraperPackage(ABCScraperStrategy):
     async def get_html(self, url: str) -> str:
-        return await safe_scrape_html(url)
+        return self.raw_html or await safe_scrape_html(url)
 
     def clean_scraper(self, scraped_data: SchemaScraperFactory.SchemaScraper, url: str) -> tuple[Recipe, ScrapedExtras]:
         def try_get_default(
@@ -227,9 +236,75 @@ class RecipeScraperPackage(ABCScraperStrategy):
         return self.clean_scraper(scraped_data, self.url)
 
 
+class RecipeScraperOpenAI(RecipeScraperPackage):
+    """
+    A wrapper around the `RecipeScraperPackage` class that uses OpenAI to extract the recipe from the URL,
+    rather than trying to scrape it directly.
+    """
+
+    def find_image(self, soup: bs4.BeautifulSoup) -> str | None:
+        # find the open graph image tag
+        og_image = soup.find("meta", property="og:image")
+        if og_image and og_image.get("content"):
+            return og_image["content"]
+
+        # find the largest image on the page
+        largest_img = None
+        max_size = 0
+        for img in soup.find_all("img"):
+            width = img.get("width", 0)
+            height = img.get("height", 0)
+            if not width or not height:
+                continue
+
+            size = int(width) * int(height)
+            if size > max_size:
+                max_size = size
+                largest_img = img
+
+        if largest_img:
+            return largest_img.get("src")
+
+        return None
+
+    def format_html_to_text(self, html: str) -> str:
+        soup = bs4.BeautifulSoup(html, "lxml")
+
+        text = soup.get_text(separator="\n", strip=True)
+        if not text:
+            raise Exception("No text found in HTML")
+        image = self.find_image(soup)
+
+        components = [f"Convert this content to JSON: {text}"]
+        if image:
+            components.append(f"Recipe Image: {image}")
+        return "\n".join(components)
+
+    async def get_html(self, url: str) -> str:
+        settings = get_app_settings()
+        if not settings.OPENAI_ENABLED:
+            return ""
+
+        html = self.raw_html or await safe_scrape_html(url)
+        text = self.format_html_to_text(html)
+        try:
+            service = OpenAIService()
+            prompt = service.get_prompt("recipes.scrape-recipe")
+
+            response_json = await service.get_response(prompt, text, force_json_response=True)
+            return (
+                "<!DOCTYPE html><html><head>"
+                f'<script type="application/ld+json">{response_json}</script>'
+                "</head><body></body></html>"
+            )
+        except Exception:
+            self.logger.exception(f"OpenAI was unable to extract a recipe from {url}")
+            return ""
+
+
 class RecipeScraperOpenGraph(ABCScraperStrategy):
     async def get_html(self, url: str) -> str:
-        return await safe_scrape_html(url)
+        return self.raw_html or await safe_scrape_html(url)
 
     def get_recipe_fields(self, html) -> dict | None:
         """
