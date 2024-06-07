@@ -2,8 +2,7 @@ import asyncio
 import json
 from collections.abc import Awaitable
 
-from pydantic import BaseModel
-
+from mealie.schema.openai.recipe_ingredient import OpenAIIngredient, OpenAIIngredients
 from mealie.schema.recipe.recipe_ingredient import (
     CreateIngredientFood,
     CreateIngredientUnit,
@@ -14,27 +13,6 @@ from mealie.schema.recipe.recipe_ingredient import (
 from mealie.services.openai import OpenAIDataInjection, OpenAIService
 
 from .._base import ABCIngredientParser
-
-
-class OpenAIIngredient(BaseModel):
-    """
-    This class defines the JSON schema sent to OpenAI. Its schema is
-    injected directly into the OpenAI prompt.
-    """
-
-    __doc__ = ""  # we don't want to include the docstring in the JSON schema
-
-    input: str
-    confidence: float | None = None
-
-    quantity: float | None = 0
-    unit: str | None = None
-    food: str | None = None
-    note: str | None = None
-
-
-class OpenAIIngredients(BaseModel):
-    ingredients: list[OpenAIIngredient] = []
 
 
 class OpenAIParser(ABCIngredientParser):
