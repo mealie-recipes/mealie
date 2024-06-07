@@ -583,6 +583,8 @@
     "report-deletion-failed": "Не удалось удалить отчёт",
     "recipe-debugger": "Отладчик рецептов",
     "recipe-debugger-description": "Вставьте сюда URL рецепта, который вы хотите отладить. Рецепт по указанному URL-адресу будет отсканирован и результаты сканирования будут указаны ниже. Если вы не видите никаких возвращенных данных, то сайт, который вы пытаетесь обработать, не поддерживается Mealie или библиотекой сканера.",
+    "use-openai": "Use OpenAI",
+    "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Отладка",
     "tree-view": "В виде дерева",
     "recipe-yield": "Количество порций",
