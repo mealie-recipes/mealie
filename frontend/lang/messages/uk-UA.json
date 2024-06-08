@@ -291,8 +291,8 @@
     "mealplan-updated": "План харчування оновлено",
     "no-meal-plan-defined-yet": "Не створено жодного плану харчування",
     "no-meal-planned-for-today": "Не заплановано харчування на сьогодні",
-    "numberOfDays-hint": "Number of days on page load",
-    "numberOfDays-label": "Default Days",
+    "numberOfDays-hint": "Скільки днів завантажувати на сторінку",
+    "numberOfDays-label": "Дні за замовчуванням",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Лише рецепти з цими категоріями будуть використані в планах харчування",
     "planner": "Планувальник",
     "quick-week": "Швидкий тиждень",
@@ -382,7 +382,7 @@
     },
     "recipekeeper": {
       "title": "Recipe Keeper",
-      "description-long": "Mealie can import recipes from Recipe Keeper. Export your recipes in zip format, then upload the .zip file below."
+      "description-long": "Mealie може імпортувати рецепти з Recipe Keeper. Експортувати ваші рецепти у форматі zip, а потім відвантажте файл .zip нижче."
     }
   },
   "new-recipe": {
@@ -583,8 +583,8 @@
     "report-deletion-failed": "Не вдалося видалити звіт",
     "recipe-debugger": "Дебаггер рецептів",
     "recipe-debugger-description": "Вставте URL-адресу рецепта, який ви хочете дебажити сюди. URL буде розпарсено парсером рецептів й результати будуть відображені. Якщо ви не бачите жодних даних - значить Mealie або парсер рецептів не підтримує сайт який ви намагаєтеся використати.",
-    "use-openai": "Use OpenAI",
-    "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
+    "use-openai": "Використовувати OpenAI",
+    "recipe-debugger-use-openai-description": "Використовуйте OpenAI для аналізу результатів замість використання бібліотеки парсера. Під час створення рецепта через URL це робиться автоматично, якщо бібліотека парсера не впоралася, але ви можете перевірити це тут вручну.",
     "debug": "Дебажити",
     "tree-view": "У вигляді дерева",
     "recipe-yield": "Вихід рецепту",
@@ -637,7 +637,7 @@
       "backup-created-at-response-export_path": "Резервна копія створена {path}",
       "backup-deleted": "Резервна копія видалена",
       "restore-success": "Відновлення успішне",
-      "restore-fail": "Restore failed. Check your server logs for more details",
+      "restore-fail": "Не вдалося відновити. Перевірте журнали вашого сервера для більш докладної інформації",
       "backup-tag": "Мітка резервної копії",
       "create-heading": "Створити резервну копію",
       "delete-backup": "Видалити резервну копію",
