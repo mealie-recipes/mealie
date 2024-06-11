@@ -1,6 +1,6 @@
 <template>
   <div class="ma-0 pa-0 text-subtitle-1 dense-markdown ingredient-item">
-    <SafeMarkdown v-if="parsedIng.quantity" class="d-inline" :source="parsedIng.quantity" />
+    <SafeMarkdown v-if="parsedIng.quantity" class="d-inline quantity" :source="parsedIng.quantity" />
     <template v-if="parsedIng.unit">{{ parsedIng.unit }} </template>
     <SafeMarkdown v-if="parsedIng.note && !parsedIng.name" class="text-bold d-inline" :source="parsedIng.note" />
     <template v-else>
@@ -52,7 +52,17 @@ export default defineComponent({
     font-weight: bold;
   }
 }
-
+.quantity {
+  letter-spacing: -0.2rem;
+}
+.quantity:after {
+    content: "\00a0";
+    letter-spacing: 0;
+}
+.quantity sup:before {
+    content: "\00a0";
+    letter-spacing: -0.1rem;
+}
 .note {
   line-height: 1.25em;
   font-size: 0.8em;
