@@ -9,6 +9,7 @@ from pydantic import UUID4
 
 from mealie.db.db_setup import session_context
 from mealie.repos.repository_factory import AllRepositories
+from mealie.schema.openai.recipe_ingredient import OpenAIIngredient, OpenAIIngredients
 from mealie.schema.recipe.recipe_ingredient import (
     CreateIngredientFood,
     CreateIngredientFoodAlias,
@@ -24,8 +25,10 @@ from mealie.schema.recipe.recipe_ingredient import (
 from mealie.schema.user.user import GroupBase
 from mealie.services.openai import OpenAIService
 from mealie.services.parser_services import RegisteredParser, get_parser
-from mealie.services.parser_services.crfpp.processor import CRFIngredient, convert_list_to_crf_model
-from mealie.services.parser_services.openai.parser import OpenAIIngredient, OpenAIIngredients
+from mealie.services.parser_services.crfpp.processor import (
+    CRFIngredient,
+    convert_list_to_crf_model,
+)
 from tests.utils.factories import random_int, random_string
 
 

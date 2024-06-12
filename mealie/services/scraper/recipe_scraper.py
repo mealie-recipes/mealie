@@ -2,9 +2,19 @@ from mealie.lang.providers import Translator
 from mealie.schema.recipe.recipe import Recipe
 from mealie.services.scraper.scraped_extras import ScrapedExtras
 
-from .scraper_strategies import ABCScraperStrategy, RecipeScraperOpenGraph, RecipeScraperPackage
+from .scraper_strategies import (
+    ABCScraperStrategy,
+    RecipeScraperOpenAI,
+    RecipeScraperOpenGraph,
+    RecipeScraperPackage,
+    safe_scrape_html,
+)
 
-DEFAULT_SCRAPER_STRATEGIES: list[type[ABCScraperStrategy]] = [RecipeScraperPackage, RecipeScraperOpenGraph]
+DEFAULT_SCRAPER_STRATEGIES: list[type[ABCScraperStrategy]] = [
+    RecipeScraperPackage,
+    RecipeScraperOpenAI,
+    RecipeScraperOpenGraph,
+]
 
 
 class RecipeScraper:
@@ -27,8 +37,9 @@ class RecipeScraper:
         Scrapes a recipe from the web.
         """
 
+        raw_html = await safe_scrape_html(url)
         for scraper_type in self.scrapers:
-            scraper = scraper_type(url, self.translator)
+            scraper = scraper_type(url, self.translator, raw_html=raw_html)
             result = await scraper.parse()
 
             if result is not None:

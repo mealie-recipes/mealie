@@ -11,6 +11,17 @@ from .utils.migration_alias import MigrationAlias
 from .utils.migration_helpers import import_image, parse_iso8601_duration
 
 
+def clean_instructions(instructions: list[str]) -> list[str]:
+    try:
+        for i, instruction in enumerate(instructions):
+            if instruction.startswith(f"{i + 1}. "):
+                instructions[i] = instruction.removeprefix(f"{i + 1}. ")
+
+        return instructions
+    except Exception:
+        return instructions
+
+
 def parse_recipe_div(recipe, image_path):
     meta = {}
     for item in recipe.find_all(lambda x: x.has_attr("itemprop")):
@@ -59,7 +70,7 @@ class RecipeKeeperMigrator(BaseMigrator):
                 key="recipeIngredient",
                 alias="recipeIngredients",
             ),
-            MigrationAlias(key="recipeInstructions", alias="recipeDirections"),
+            MigrationAlias(key="recipeInstructions", alias="recipeDirections", func=clean_instructions),
             MigrationAlias(key="performTime", alias="cookTime", func=parse_iso8601_duration),
             MigrationAlias(key="prepTime", alias="prepTime", func=parse_iso8601_duration),
             MigrationAlias(key="image", alias="photo0"),
@@ -77,7 +88,7 @@ class RecipeKeeperMigrator(BaseMigrator):
             with zipfile.ZipFile(self.archive) as zip_file:
                 zip_file.extractall(tmpdir)
 
-            source_dir = Path(tmpdir) / "recipekeeperhtml"
+            source_dir = self.get_zip_base_path(Path(tmpdir))
 
             recipes_as_dicts: list[dict] = []
             with open(source_dir / "recipes.html") as fp:

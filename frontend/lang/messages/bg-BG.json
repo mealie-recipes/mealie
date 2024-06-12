@@ -583,6 +583,8 @@
     "report-deletion-failed": "Неуспешно изтриване на доклад",
     "recipe-debugger": "Debugger на рецепти",
     "recipe-debugger-description": "Вземете URL на рецептата, която желаете да проверите за грешки и го поставете тук. URL ще бъде обходен и резултатите ще бъдат визуализирани. Ако не виждате върнати данни, сайтът който се опитвате да обходите не се поддържа от Mealie или библиотеката за обхождане.",
+    "use-openai": "Use OpenAI",
+    "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Отстраняване на грешки",
     "tree-view": "Дървовиден изглед",
     "recipe-yield": "Добиване от рецепта",

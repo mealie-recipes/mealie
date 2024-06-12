@@ -583,6 +583,8 @@
     "report-deletion-failed": "Brisanje nije uspjelo",
     "recipe-debugger": "Ispravljač Pogrešaka Recepta",
     "recipe-debugger-description": "Preuzmite URL recepta koji želite ispraviti i zalijepite ga ovdje. URL će biti obrađen od strane scraper-a za recepte i rezultati će biti prikazani. Ako ne vidite nikakve povratne podatke, to znači da web stranica koju pokušavate obraditi nije podržana od strane Mealie-a ili njegove biblioteke za scraper-e.",
+    "use-openai": "Use OpenAI",
+    "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Ispravljanje grešaka",
     "tree-view": "Prikaz Stabla",
     "recipe-yield": "Konačna Količina Recepta",

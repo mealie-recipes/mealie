@@ -74,6 +74,28 @@ class BaseMigrator(BaseService):
 
         super().__init__()
 
+    @classmethod
+    def get_zip_base_path(cls, path: Path) -> Path:
+        # Safari mangles our ZIP structure and adds a "__MACOSX" directory at the root along with
+        # an arbitrarily-named directory containing the actual contents. So, if we find a dunder directory
+        # at the root (i.e. __MACOSX) we traverse down the first non-dunder directory and assume this is the base.
+        # We assume migration exports never contain a directory that starts with "__".
+        normal_dirs: list[Path] = []
+        dunder_dirs: list[Path] = []
+        for dir in path.iterdir():
+            if not dir.is_dir():
+                continue
+
+            if dir.name.startswith("__"):
+                dunder_dirs.append(dir)
+            else:
+                normal_dirs.append(dir)
+
+        if len(normal_dirs) == 1 and len(dunder_dirs) == 1:
+            return normal_dirs[0]
+        else:
+            return path
+
     def _migrate(self) -> None:
         raise NotImplementedError
 

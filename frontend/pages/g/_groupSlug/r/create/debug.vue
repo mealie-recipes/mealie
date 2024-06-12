@@ -18,7 +18,11 @@
             :rules="[validators.url]"
             :hint="$t('new-recipe.url-form-hint')"
             persistent-hint
-          ></v-text-field>
+          />
+        </v-card-text>
+        <v-card-text v-if="appInfo && appInfo.enableOpenai">
+          {{ $t('recipe.recipe-debugger-use-openai-description') }}
+          <v-checkbox v-model="useOpenAI" :label="$t('recipe.use-openai')"></v-checkbox>
         </v-card-text>
         <v-card-actions class="justify-center">
           <div style="width: 250px">
@@ -51,7 +55,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs, ref, useRouter, computed, useRoute } from "@nuxtjs/composition-api";
-import { useUserApi } from "~/composables/api";
+import { useAppInfo, useUserApi } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
 import { Recipe } from "~/lib/api/types/recipe";
 
@@ -60,11 +64,13 @@ export default defineComponent({
     const state = reactive({
       error: false,
       loading: false,
+      useOpenAI: false,
     });
 
     const api = useUserApi();
     const route = useRoute();
     const router = useRouter();
+    const appInfo = useAppInfo();
 
     const recipeUrl = computed({
       set(recipe_import_url: string | null) {
@@ -89,13 +95,14 @@ export default defineComponent({
 
       state.loading = true;
 
-      const { data } = await api.recipes.testCreateOneUrl(url);
+      const { data } = await api.recipes.testCreateOneUrl(url, state.useOpenAI);
 
       state.loading = false;
       debugData.value = data;
     }
 
     return {
+      appInfo,
       recipeUrl,
       debugTreeView,
       debugUrl,

@@ -583,6 +583,8 @@
     "report-deletion-failed": "Raportin poistaminen epäonnistui",
     "recipe-debugger": "Reseptin vianhaku",
     "recipe-debugger-description": "Tartu sen reseptin URL-osoitteeseen, jonka virheenkorjausta haluat tehdä, ja liitä se tähän. Reseptikaappain hakee URL-osoitteen ja tulokset näytetään. Jos et näe palautettua dataa, Mealie tai sen kappauskirjasto ei tue sivua, jota yrität kaapata.",
+    "use-openai": "Use OpenAI",
+    "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Vianhaku",
     "tree-view": "Puunäkymä",
     "recipe-yield": "Reseptin tekijä",
