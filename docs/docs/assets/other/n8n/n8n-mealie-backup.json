@@ -1,0 +1,386 @@
+{
+  "name": "Mealie Backup",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "id": "2ec440b4-0668-4bc0-aa66-4023d6379f28",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        660
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://mealie.example/api/admin/backups",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "235f26f7-0f45-479e-a7e3-bf8cda7c8426",
+      "name": "Run Backup ",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        520,
+        520
+      ],
+      "notesInFlow": false,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "GSL12tNi3MPvTZux",
+          "name": "Mealie API"
+        }
+      },
+      "notes": "Send an API call to run the backup"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://ntfy.example/backups",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Title",
+              "value": "Meale Backup Failure"
+            },
+            {
+              "name": "Priority",
+              "value": "urgent"
+            },
+            {
+              "name": "Tags",
+              "value": "warning"
+            },
+            {
+              "name": "Actions",
+              "value": "view, Open Mealie, https://mealie.example/admin/backups; view, Open n8n, https://n8n.example"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "body": "\"Full Panic!\"",
+        "options": {}
+      },
+      "id": "40ba81a5-5741-4b15-98af-1a9e6b34f997",
+      "name": "Ntfy Warning",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1000,
+        520
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "url": "https://mealie.example/api/admin/backups",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "b75571d0-d926-440c-897f-55b89c6a5080",
+      "name": "Get all backups",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        520,
+        820
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "GSL12tNi3MPvTZux",
+          "name": "Mealie API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "imports",
+        "options": {}
+      },
+      "id": "943d0e83-682b-4500-9faf-53284cfb02c6",
+      "name": "Split Out",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        720,
+        820
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get input data\nconst inputData = items.map(item => item.json);\n\n// Sort the data based on the 'date' field in descending order\ninputData.sort((a, b) => new Date(b.date) - new Date(a.date));\n\n// Get all records except the latest 7\nconst allExceptLatest7 = inputData.slice(7);\n\n// Map the output data back to the required format\nreturn allExceptLatest7.map(record => ({ json: record }));\n"
+      },
+      "id": "64eae81d-fdb6-44f7-9a2d-eff8d1763281",
+      "name": "Code",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        860,
+        820
+      ]
+    },
+    {
+      "parameters": {
+        "method": "DELETE",
+        "url": "=https://mealie.example/api/admin/backups/{{ $json.name }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "1148eeb8-4860-46df-8f61-0e85ea1e0e89",
+      "name": "Delete Oldies",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1040,
+        820
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "GSL12tNi3MPvTZux",
+          "name": "Mealie API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "Sends API Call to run backup",
+        "height": 225,
+        "width": 226,
+        "color": 4
+      },
+      "id": "cd2cb5db-87c1-40d8-a746-e61ace231987",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        460,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "content": "Is there an error?",
+        "height": 225,
+        "width": 231,
+        "color": 3
+      },
+      "id": "0bebecbe-903e-4a69-bb1a-35619e68b540",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        700,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "content": "Send alert to NTFY",
+        "height": 225,
+        "width": 229
+      },
+      "id": "0b732adb-8a84-456d-b26d-5fc5ee5a4cae",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        940,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "content": "Gets all backups in Mealie",
+        "height": 225,
+        "width": 226,
+        "color": 4
+      },
+      "id": "99c6886b-6a07-4b51-b395-d4bbcbde7d18",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        460,
+        760
+      ]
+    },
+    {
+      "parameters": {
+        "content": "Splits the data, and parses the output",
+        "height": 225,
+        "width": 281
+      },
+      "id": "549555f8-0aed-42c0-9693-9c0d93902796",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        700,
+        760
+      ]
+    },
+    {
+      "parameters": {
+        "content": "Deletes all but the last 7 backups",
+        "height": 225,
+        "width": 229
+      },
+      "id": "bcc5f0ba-73e9-42d7-b01b-c32f9f69f2f7",
+      "name": "Sticky Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        760
+      ]
+    },
+    {
+      "parameters": {
+        "content": "Run every day a 01:00",
+        "height": 225,
+        "width": 226,
+        "color": 4
+      },
+      "id": "ce797062-d727-43e3-a27f-e29b13ad3c9a",
+      "name": "Sticky Note6",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        180,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "8b00bb85-827f-4f2f-813e-db0d25e927d3",
+              "leftValue": "={{ $json.error }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "fefd3e8b-9b71-490a-82e3-25e5468a4135",
+      "name": "Error?",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2,
+      "position": [
+        760,
+        520
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Run Backup ",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get all backups",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run Backup ": {
+      "main": [
+        [
+          {
+            "node": "Error?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get all backups": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Delete Oldies",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error?": {
+      "main": [
+        [
+          {
+            "node": "Ntfy Warning",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "68e3e469-3ddb-4838-b09d-3c69fdd851f5",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "630eefaa8c490b9c5221d83a182af6450c2c3efaf4b580b8ac348631abfe1aeb"
+  },
+  "id": "whloxeXkdBWWi2Uj",
+  "tags": []
+}
