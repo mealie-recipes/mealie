@@ -51,7 +51,6 @@ export default defineComponent({
     }
     &:has(sub) {
       &:after {
-        content: "\00a0";
         letter-spacing: -0.2rem;
       }
     }
