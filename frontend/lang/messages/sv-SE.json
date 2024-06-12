@@ -86,7 +86,7 @@
     "clear": "Rensa",
     "close": "Stäng",
     "confirm": "Bekräfta",
-    "confirm-how-does-everything-look": "How does everything look?",
+    "confirm-how-does-everything-look": "Hur ser det ut?",
     "confirm-delete-generic": "Är du säker på att du vill radera detta?",
     "copied_message": "Kopierad!",
     "create": "Skapa",
@@ -291,8 +291,8 @@
     "mealplan-updated": "Måltidsplan uppdaterad",
     "no-meal-plan-defined-yet": "Ingen måltidsplan definierad ännu",
     "no-meal-planned-for-today": "Ingen måltidsplan för idag",
-    "numberOfDays-hint": "Number of days on page load",
-    "numberOfDays-label": "Default Days",
+    "numberOfDays-hint": "Antal dagar vid sidhämtning",
+    "numberOfDays-label": "Förvalda dagar",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Endast recept med dessa kategorier kommer att användas i måltidsplaner",
     "planner": "Planeringkalender",
     "quick-week": "Snabb vecka",
@@ -367,7 +367,7 @@
     "choose-migration-type": "Välj migrationstyp",
     "tag-all-recipes": "Tagga alla recept med {tag-name} tagg",
     "nextcloud-text": "Nextcloud-recept kan importeras från en zip-fil som innehåller data som lagras i Nextcloud. Se exempelmappens struktur nedan för att säkerställa att dina recept kan importeras.",
-    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
+    "chowdown-text": "Mealie har inbyggt stöd för chowdowns repository-format. Ladda ner kodförrådet som en .zip-fil och ladda upp det nedan.",
     "recipe-1": "Recept 1",
     "recipe-2": "Recept 2",
     "paprika-text": "Mealie kan importera recept från Paprika-applikationen. Exportera dina recept från Paprika, byt namn på filnamnstillägget på exporten till .zip och ladda upp det nedan.",
@@ -382,7 +382,7 @@
     },
     "recipekeeper": {
       "title": "Recipe Keeper",
-      "description-long": "Mealie can import recipes from Recipe Keeper. Export your recipes in zip format, then upload the .zip file below."
+      "description-long": "Mealie kan importera recept från Recept Keeper. Exportera dina recept i zip-format, ladda sedan upp .zip-filen här under."
     }
   },
   "new-recipe": {
@@ -583,8 +583,8 @@
     "report-deletion-failed": "Rapporten gick inte att radera",
     "recipe-debugger": "Receptfelsökning",
     "recipe-debugger-description": "Ta tag i URL: en till det recept du vill felsöka och klistra in det här. URL-adressen kommer att skrapas av receptskrapan och resultaten kommer att visas. Om du inte ser några data returnerade, stödjs inte webbplatsen du försöker skrapa av Mealie eller dess skrapbibliotek.",
-    "use-openai": "Use OpenAI",
-    "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
+    "use-openai": "Använd OpenAI",
+    "recipe-debugger-use-openai-description": "Använd OpenAI för att tolka resultaten istället för att förlita sig på skrapans bibliotek. När du skapar ett recept via URL görs detta automatiskt om skrapbiblioteket misslyckas, men du kan testa det manuellt här.",
     "debug": "Felsök",
     "tree-view": "Trädvy",
     "recipe-yield": "Receptutfall",
@@ -593,7 +593,7 @@
     "screen-awake": "Håll skärmen vaken",
     "remove-image": "Ta bort bild",
     "nextStep": "Nästa steg",
-    "recipe-actions": "Recipe Actions",
+    "recipe-actions": "Recept åtgärder",
     "parser": {
       "experimental-alert-text": "Mealie använder naturligt språk för att tolka enheter och livsmedel som behövs för dina recept. Denna funktion är experimentell och kanske inte alltid funkar som förväntat. Om du föredrar att inte använda de tolkade resultatet, kan du välja 'Avbryt' och förändringarna kommer då inte sparas.",
       "ingredient-parser": "Ingrediensanalysator",
@@ -607,7 +607,7 @@
       "no-unit": "Ingen enhet",
       "missing-unit": "Skapa saknad enhet: {unit}",
       "missing-food": "Skapa saknad ingrediens: {food}",
-      "no-food": "No Food"
+      "no-food": "Ingen mat"
     }
   },
   "search": {
@@ -637,7 +637,7 @@
       "backup-created-at-response-export_path": "Backup skapad {path}",
       "backup-deleted": "Backup raderad",
       "restore-success": "Återställning slutförd",
-      "restore-fail": "Restore failed. Check your server logs for more details",
+      "restore-fail": "Återställning misslyckades. Kontrollera dina serverloggar för mer information",
       "backup-tag": "Backup tagg",
       "create-heading": "Skapa en säkerhetskopia",
       "delete-backup": "Ta bort säkerhetskopian",
@@ -775,9 +775,9 @@
     "oidc-ready": "OIDC Klar",
     "oidc-ready-error-text": "Alla OIDC-värden är inte konfigurerade. Detta kan ignoreras om du inte använder OIDC-autentisering.",
     "oidc-ready-success-text": "Alla obligatoriska OIDC-variabler är satta.",
-    "openai-ready": "OpenAI Ready",
-    "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
-    "openai-ready-success-text": "Required OpenAI variables are all set."
+    "openai-ready": "OpenAI redo",
+    "openai-ready-error-text": "Alla OpenAI-värden är inte konfigurerade. Detta kan ignoreras om du inte använder OpenAI-funktioner.",
+    "openai-ready-success-text": "Alla obligatoriska OpenAI-variabler är satta."
   },
   "shopping-list": {
     "all-lists": "Visa alla listor",
@@ -791,7 +791,7 @@
     "food": "Mat",
     "note": "Anteckning",
     "label": "Etikett",
-    "save-label": "Save Label",
+    "save-label": "Spara etikett",
     "linked-item-warning": "Denna artikel är länkad till ett eller flera recept. Justering av enheter eller livsmedel ger oväntade resultat när du lägger till eller tar bort receptet från denna lista.",
     "toggle-food": "Växla mat",
     "manage-labels": "Hantera etiketter",
@@ -1033,10 +1033,10 @@
       "source-unit-will-be-deleted": "Källenheten kommer att raderas"
     },
     "recipe-actions": {
-      "recipe-actions-data": "Recipe Actions Data",
-      "new-recipe-action": "New Recipe Action",
-      "edit-recipe-action": "Edit Recipe Action",
-      "action-type": "Action Type"
+      "recipe-actions-data": "Data för receptåtgärder",
+      "new-recipe-action": "Ny receptåtgärd",
+      "edit-recipe-action": "Redigera receptåtgärd",
+      "action-type": "Åtgärdstyp"
     },
     "create-alias": "Skapa alias",
     "manage-aliases": "Hantera alias",
@@ -1195,14 +1195,14 @@
     "no-logs-found": "Inga loggar hittade",
     "tasks": "Uppgifter",
     "setup": {
-      "first-time-setup": "First Time Setup",
-      "welcome-to-mealie-get-started": "Welcome to Mealie! Let's get started",
-      "already-set-up-bring-to-homepage": "I'm already set up, just bring me to the homepage",
-      "common-settings-for-new-sites": "Here are some common settings for new sites",
-      "setup-complete": "Setup Complete!",
-      "here-are-a-few-things-to-help-you-get-started": "Here are a few things to help you get started with Mealie",
-      "restore-from-v1-backup": "Have a backup from a previous instance of Mealie v1? You can restore it here.",
-      "manage-profile-or-get-invite-link": "Manage your own profile, or grab an invite link to share with others."
+      "first-time-setup": "Första installationen",
+      "welcome-to-mealie-get-started": "Välkommen till Mealie! Låt oss komma igång",
+      "already-set-up-bring-to-homepage": "Jag har redan gjort inställningarna, ta mig bara till hemsidan",
+      "common-settings-for-new-sites": "Här är några vanliga inställningar för nya webbplatser",
+      "setup-complete": "Konfigurationen slutförd!",
+      "here-are-a-few-things-to-help-you-get-started": "Här är några saker som hjälper dig att komma igång med Mealie",
+      "restore-from-v1-backup": "Har du en säkerhetskopia från en tidigare instans av Mealie v1? Du kan återställa den här.",
+      "manage-profile-or-get-invite-link": "Hantera din egen profil eller hämta en inbjudningslänk för att dela med andra."
     }
   },
   "profile": {
@@ -1211,16 +1211,16 @@
     "get-invite-link": "Få inbjudningslänk",
     "get-public-link": "Få offentlig länk",
     "account-summary": "Kontosammanfattning",
-    "account-summary-description": "Here's a summary of your group's information.",
+    "account-summary-description": "Här är en sammanfattning av din grupps information.",
     "group-statistics": "Gruppstatistik",
     "group-statistics-description": "Din gruppstatistik ger dig en inblick i hur du använder Mealie.",
     "storage-capacity": "Lagringskapacitet",
     "storage-capacity-description": "Din lagringskapacitet är en beräkning av de bilder och tillgångar du har laddat upp.",
     "personal": "Personligt",
-    "personal-description": "These are settings that are personal to you. Changes here won't affect other users.",
+    "personal-description": "Det här är inställningar som är personliga för dig. Ändringar här påverkar inte andra användare.",
     "user-settings": "Användarinställningar",
-    "user-settings-description": "Manage your preferences, change your password, and update your email.",
-    "api-tokens-description": "Manage your API Tokens for access from external applications.",
+    "user-settings-description": "Hantera dina inställningar, ändra ditt lösenord och uppdatera din e-post.",
+    "api-tokens-description": "Hantera dina API-Tokens för åtkomst från externa program.",
     "group-description": "Dessa objekt delas inom din grupp. Att redigera en av dem kommer att ändra den för hela gruppen!",
     "group-settings": "Gruppinställningar",
     "group-settings-description": "Hantera dina gemensamma gruppinställningar som måltidsplan och sekretessinställningar.",
@@ -1231,9 +1231,9 @@
     "notifiers": "Notifierare",
     "notifiers-description": "Setup email and push notifications that trigger on specific events.",
     "manage-data": "Hantera data",
-    "manage-data-description": "Manage your Mealie data; Foods, Units, Categories, Tags and more.",
+    "manage-data-description": "Hantera din Mealie data; Livsmedel, Enheter, Kategorier, Taggar och mer.",
     "data-migrations": "Data migreringar",
-    "data-migrations-description": "Migrate your existing data from other applications like Nextcloud Recipes and Chowdown.",
+    "data-migrations-description": "Migrera befintliga data från andra program som Nextcloud Recipes och Chowdown.",
     "email-sent": "E-post skickades",
     "error-sending-email": "Fel vid sändning av e-post",
     "personal-information": "Personlig information",
