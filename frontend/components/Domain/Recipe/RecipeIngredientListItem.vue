@@ -48,19 +48,18 @@ export default defineComponent({
       &:has(>sub)>sup {
         letter-spacing: -0.05rem;
       }
-      &:has(>sub)>sub {
-        letter-spacing: -0.1rem;
-      }
     }
     &:has(sub) {
       &:after {
         content: "\00a0";
-        letter-spacing: -0.1rem;
+        letter-spacing: -0.2rem;
       }
     }
     sup {
+      &+span{
+        letter-spacing: -0.05rem;
+      }
       &:before {
-        // content: "\00a0";
         letter-spacing: 0rem;
       }
     }
