@@ -45,19 +45,22 @@ export default defineComponent({
   .d-inline {
     & > p {
       display: inline;
-      &:has(>sub) {
-        letter-spacing: -0.2rem;
+      &:has(>sub)>sup {
+        letter-spacing: -0.05rem;
+      }
+      &:has(>sub)>sub {
+        letter-spacing: -0.1rem;
       }
     }
     &:has(sub) {
       &:after {
         content: "\00a0";
-        letter-spacing: -0.2rem;
+        letter-spacing: -0.1rem;
       }
     }
     sup {
       &:before {
-        content: "\00a0";
+        // content: "\00a0";
         letter-spacing: 0rem;
       }
     }
