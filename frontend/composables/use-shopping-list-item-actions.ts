@@ -88,14 +88,9 @@ export function useShoppingListItemActions(shoppingListId: string) {
     }
 
     await action(items)
-      .then(() => {
-        clearQueue();
-      })
-      .catch(error => {
-        console.log(error);
-        if (!error?.message?.includes("Network Error")) {  // TODO: is there a better way of checking for network errors?
-          // The request successfully hit the backend, but the backend returned an error,
-          // so the queue items are invalid and we should clear them
+      .then((response) => {
+        // TODO: is there a better way of checking for network errors?
+        if (!response.error.includes("Network Error")) {
           clearQueue();
         }
       });
