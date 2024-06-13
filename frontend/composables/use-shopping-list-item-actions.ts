@@ -110,7 +110,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
     await action(items)
       .then((response) => {
         // TODO: is there a better way of checking for network errors?
-        if (!response.error.includes("Network Error")) {
+        if (!response?.error?.includes("Network Error")) {
           clearQueue(queueType);
         }
       });
