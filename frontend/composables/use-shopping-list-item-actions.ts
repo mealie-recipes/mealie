@@ -4,6 +4,8 @@ import { ShoppingListItemOut } from "~/lib/api/types/group";
 
 const localStorageKey = "shopping-list-queue";
 
+type QueueType = "create" | "update" | "delete";
+
 interface ShoppingListQueue {
   create: ShoppingListItemOut[];
   update: ShoppingListItemOut[];
@@ -78,11 +80,29 @@ export function useShoppingListItemActions(shoppingListId: string) {
     queue.delete.push(item);
   }
 
+  function getQueue(queueType: QueueType) {
+    return queue[queueType];
+  }
+
+  function clearQueue(queueType: QueueType) {
+    switch (queueType) {
+      case "create":
+        queue.create = [];
+        break;
+      case "update":
+        queue.update = [];
+        break;
+      case "delete":
+        queue.delete = [];
+        break;
+    }
+  }
+
   async function processQueueItems(
     action: (items: ShoppingListItemOut[]) => Promise<any>,
-    items: ShoppingListItemOut[],
-    clearQueue: () => void
+    queueType: QueueType,
   ) {
+    const items = getQueue(queueType);
     if (!items.length) {
       return;
     }
@@ -91,16 +111,16 @@ export function useShoppingListItemActions(shoppingListId: string) {
       .then((response) => {
         // TODO: is there a better way of checking for network errors?
         if (!response.error.includes("Network Error")) {
-          clearQueue();
+          clearQueue(queueType);
         }
       });
   }
 
   async function process() {
     // we send each bulk request one at a time, since the backend may merge items
-    await processQueueItems((items) => api.shopping.items.deleteMany(items), queue.delete, () => queue.delete = []);
-    await processQueueItems((items) => api.shopping.items.updateMany(items), queue.update, () => queue.update = []);
-    await processQueueItems((items) => api.shopping.items.createMany(items), queue.create, () => queue.create = []);
+    await processQueueItems((items) => api.shopping.items.deleteMany(items), "delete");
+    await processQueueItems((items) => api.shopping.items.updateMany(items), "update");
+    await processQueueItems((items) => api.shopping.items.createMany(items), "create");
   }
 
   return {
