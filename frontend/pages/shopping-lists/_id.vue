@@ -258,7 +258,9 @@ import { UserSummary } from "~/lib/api/types/user";
 import RecipeList from "~/components/Domain/Recipe/RecipeList.vue";
 import ShoppingListItemEditor from "~/components/Domain/ShoppingList/ShoppingListItemEditor.vue";
 import { useFoodStore, useLabelStore, useUnitStore } from "~/composables/store";
+import { useShoppingListItemActions } from "~/composables/use-shopping-list-item-actions";
 import { useShoppingListPreferences } from "~/composables/use-users/preferences";
+import { uuid4 } from "~/composables/use-utils";
 
 type CopyTypes = "plain" | "markdown";
 
@@ -293,6 +295,7 @@ export default defineComponent({
     const route = useRoute();
     const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
     const id = route.value.params.id;
+    const shoppingListItemActions = useShoppingListItemActions(id);
 
     // ===============================================================
     // Shopping List Actions
@@ -305,6 +308,7 @@ export default defineComponent({
 
     async function refresh() {
       loadingCounter.value += 1;
+      await shoppingListItemActions.process();
       const newListValue = await fetchShoppingList();
       loadingCounter.value -= 1;
 
@@ -774,14 +778,8 @@ export default defineComponent({
       }
 
       updateListItemOrder();
-
-      loadingCounter.value += 1;
-      const { data } = await userApi.shopping.items.updateOne(item.id, item);
-      loadingCounter.value -= 1;
-
-      if (data) {
-        refresh();
-      }
+      shoppingListItemActions.updateItem(item);
+      refresh();
     }
 
     async function deleteListItem(item: ShoppingListItemOut) {
@@ -789,13 +787,8 @@ export default defineComponent({
         return;
       }
 
-      loadingCounter.value += 1;
-      const { data } = await userApi.shopping.items.deleteOne(item.id);
-      loadingCounter.value -= 1;
-
-      if (data) {
-        refresh();
-      }
+      shoppingListItemActions.deleteItem(item);
+      refresh();
     }
 
     // =====================================
@@ -804,8 +797,9 @@ export default defineComponent({
     const createEditorOpen = ref(false);
     const createListItemData = ref<ShoppingListItemCreate>(listItemFactory());
 
-    function listItemFactory(isFood = false): ShoppingListItemCreate {
+    function listItemFactory(isFood = false): ShoppingListItemOut {
       return {
+        id: uuid4(),
         shoppingListId: id,
         checked: false,
         position: shoppingList.value?.listItems?.length || 1,
@@ -834,13 +828,13 @@ export default defineComponent({
       createListItemData.value.position = shoppingList.value?.listItems?.length
         ? (shoppingList.value.listItems.reduce((a, b) => (a.position || 0) > (b.position || 0) ? a : b).position || 0) + 1
         : 0;
-      const { data } = await userApi.shopping.items.createOne(createListItemData.value);
+
+      // @ts-ignore - we're not using the full ShoppingListItemOut type, but we don't actually need it
+      shoppingListItemActions.createItem(createListItemData.value);
       loadingCounter.value -= 1;
 
-      if (data) {
-        createListItemData.value = listItemFactory(createListItemData.value.isFood || false);
-        refresh();
-      }
+      createListItemData.value = listItemFactory(createListItemData.value.isFood || false);
+      refresh();
     }
 
     function updateIndexUnchecked(uncheckedItems: ShoppingListItemOut[]) {
@@ -881,13 +875,10 @@ export default defineComponent({
         return;
       }
 
-      loadingCounter.value += 1;
-      const { data } = await userApi.shopping.items.deleteMany(items);
-      loadingCounter.value -= 1;
-
-      if (data) {
-        refresh();
-      }
+      items.forEach((item) => {
+        shoppingListItemActions.deleteItem(item);
+      });
+      refresh();
     }
 
     async function updateListItems() {
@@ -901,13 +892,10 @@ export default defineComponent({
         return itm;
       });
 
-      loadingCounter.value += 1;
-      const { data } = await userApi.shopping.items.updateMany(shoppingList.value.listItems);
-      loadingCounter.value -= 1;
-
-      if (data) {
-        refresh();
-      }
+      shoppingList.value.listItems.forEach((item) => {
+        shoppingListItemActions.updateItem(item);
+      });
+      refresh();
     }
 
     // ===============================================================
