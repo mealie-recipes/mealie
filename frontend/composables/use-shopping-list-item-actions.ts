@@ -4,7 +4,7 @@ import { ShoppingListItemOut } from "~/lib/api/types/group";
 
 const localStorageKey = "shopping-list-queue";
 
-type QueueType = "create" | "update" | "delete";
+type ItemQueueType = "create" | "update" | "delete";
 
 interface ShoppingListQueue {
   create: ShoppingListItemOut[];
@@ -80,12 +80,12 @@ export function useShoppingListItemActions(shoppingListId: string) {
     queue.delete.push(item);
   }
 
-  function getQueue(queueType: QueueType) {
-    return queue[queueType];
+  function getQueueItems(itemQueueType: ItemQueueType) {
+    return queue[itemQueueType];
   }
 
-  function clearQueue(queueType: QueueType) {
-    switch (queueType) {
+  function clearQueueItems(itemQueueType: ItemQueueType) {
+    switch (itemQueueType) {
       case "create":
         queue.create = [];
         break;
@@ -100,9 +100,9 @@ export function useShoppingListItemActions(shoppingListId: string) {
 
   async function processQueueItems(
     action: (items: ShoppingListItemOut[]) => Promise<any>,
-    queueType: QueueType,
+    itemQueueType: ItemQueueType,
   ) {
-    const items = getQueue(queueType);
+    const items = getQueueItems(itemQueueType);
     if (!items.length) {
       return;
     }
@@ -111,7 +111,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
       .then((response) => {
         // TODO: is there a better way of checking for network errors?
         if (!response?.error?.includes("Network Error")) {
-          clearQueue(queueType);
+          clearQueueItems(itemQueueType);
         }
       });
   }
