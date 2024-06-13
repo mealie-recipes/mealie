@@ -308,8 +308,19 @@ export default defineComponent({
 
     async function refresh() {
       loadingCounter.value += 1;
-      await shoppingListItemActions.process();
-      const newListValue = await fetchShoppingList();
+      try {
+        await shoppingListItemActions.process();
+      } catch (error) {
+        console.error(error);
+      }
+
+      let newListValue = null
+      try {
+        newListValue = await fetchShoppingList();
+      } catch (error) {
+        console.error(error);
+      }
+
       loadingCounter.value -= 1;
 
       // only update the list with the new value if we're not loading, to prevent UI jitter
