@@ -3,6 +3,7 @@ import { useUserApi } from "~/composables/api";
 import { ShoppingListItemOut } from "~/lib/api/types/group";
 
 const localStorageKey = "shopping-list-queue";
+const queueTimeout = 5 * 60 * 1000;  // 5 minutes
 
 type ItemQueueType = "create" | "update" | "delete";
 
@@ -10,6 +11,8 @@ interface ShoppingListQueue {
   create: ShoppingListItemOut[];
   update: ShoppingListItemOut[];
   delete: ShoppingListItemOut[];
+
+  lastUpdate: number;
 }
 
 interface Storage {
@@ -19,7 +22,7 @@ interface Storage {
 export function useShoppingListItemActions(shoppingListId: string) {
   const api = useUserApi();
   const storage = useLocalStorage(localStorageKey, {} as Storage, { deep: true });
-  const queue = storage.value[shoppingListId] ||= { create: [], update: [], delete: [] };
+  const queue = storage.value[shoppingListId] ||= { create: [], update: [], delete: [], lastUpdate: Date.now()};
 
   function removeFromCreate(item: ShoppingListItemOut): boolean {
     const index = queue.create.findIndex(i => i.id === item.id);
@@ -84,7 +87,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
     return queue[itemQueueType];
   }
 
-  function clearQueueItems(itemQueueType: ItemQueueType) {
+  function clearQueueItems(itemQueueType: ItemQueueType | "all") {
     switch (itemQueueType) {
       case "create":
         queue.create = [];
@@ -93,6 +96,11 @@ export function useShoppingListItemActions(shoppingListId: string) {
         queue.update = [];
         break;
       case "delete":
+        queue.delete = [];
+        break;
+      case "all":
+        queue.create = [];
+        queue.update = [];
         queue.delete = [];
         break;
     }
@@ -117,10 +125,35 @@ export function useShoppingListItemActions(shoppingListId: string) {
   }
 
   async function process() {
-    // we send each bulk request one at a time, since the backend may merge items
-    await processQueueItems((items) => api.shopping.items.deleteMany(items), "delete");
-    await processQueueItems((items) => api.shopping.items.updateMany(items), "update");
-    await processQueueItems((items) => api.shopping.items.createMany(items), "create");
+    if(
+      !queue.create.length &&
+      !queue.update.length &&
+      !queue.delete.length
+    ) {
+      // The queue is empty, so there's no need to do anything
+      queue.lastUpdate = Date.now();
+      return;
+    }
+
+    const { data } = await api.shopping.lists.getOne(shoppingListId);
+    if (!data) {
+      // We can't fetch the shopping list, so we can't do anything.
+      // Additionally, by returning early, we don't update the "lastUpdate" time.
+      return;
+    }
+
+    const cutoffDate = new Date(queue.lastUpdate + queueTimeout).toISOString();
+    if (data.updateAt && data.updateAt > cutoffDate) {
+      // If the queue is too far behind the shopping list to reliably do updates, we clear the queue
+      clearQueueItems("all");
+    } else {
+      // We send each bulk request one at a time, since the backend may merge items
+      await processQueueItems((items) => api.shopping.items.deleteMany(items), "delete");
+      await processQueueItems((items) => api.shopping.items.updateMany(items), "update");
+      await processQueueItems((items) => api.shopping.items.createMany(items), "create");
+    }
+
+    queue.lastUpdate = Date.now();
   }
 
   return {
