@@ -804,6 +804,12 @@ export default defineComponent({
       }
 
       shoppingListItemActions.deleteItem(item);
+
+      // remove the item from the list immediately so the user sees the change
+      if (shoppingList.value.listItems) {
+        shoppingList.value.listItems = shoppingList.value.listItems.filter((itm) => itm.id !== item.id);
+      }
+
       refresh();
     }
 
