@@ -324,11 +324,15 @@ export default defineComponent({
       loadingCounter.value -= 1;
 
       // only update the list with the new value if we're not loading, to prevent UI jitter
-      if (loadingCounter.value || !newListValue) {
+      if (loadingCounter.value) {
         return;
       }
 
-      shoppingList.value = newListValue;
+      // if we're not connected to the network, this will be null, so we don't want to clear the list
+      if (newListValue) {
+        shoppingList.value = newListValue;
+      }
+
       updateListItemOrder();
     }
 
