@@ -140,7 +140,7 @@ class ShoppingListItemController(BaseCrudController):
         message = (
             f"Successfully deleted {len(items.deleted_items)} {'item' if len(items.deleted_items) == 1 else 'items'}"
         )
-        return SuccessResponse.respond(message=message)
+        return SuccessResponse.respond()
 
     @item_router.delete("/{item_id}", response_model=SuccessResponse)
     def delete_one(self, item_id: UUID4):
