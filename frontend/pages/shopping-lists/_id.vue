@@ -376,11 +376,13 @@ export default defineComponent({
 
     // start polling
     loadingCounter.value -= 1;
-    const pollFrequency = 5000;
     pollForChanges();  // populate initial list
 
+    // max poll time = pollFrequency * maxAttempts = 24 hours
+    // we use a long max poll time since polling stops when the user is idle anyway
+    const pollFrequency = 5000;
+    const maxAttempts = 17280;
     let attempts = 0;
-    const maxAttempts = 3;
 
     const pollTimer: ReturnType<typeof setInterval> = setInterval(() => { pollForChanges() }, pollFrequency);
     onUnmounted(() => {
