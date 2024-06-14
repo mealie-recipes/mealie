@@ -339,11 +339,10 @@ export default defineComponent({
     function updateListItemOrder() {
       if (!preserveItemOrder.value) {
         groupAndSortListItemsByFood();
-        updateItemsByLabel();
       } else {
         sortListItems();
-        updateItemsByLabel();
       }
+      updateItemsByLabel();
     }
 
     // constantly polls for changes
