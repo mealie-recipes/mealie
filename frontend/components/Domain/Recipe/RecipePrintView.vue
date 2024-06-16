@@ -95,8 +95,10 @@
           <table class="nutrition-table">
             <tbody>
               <tr v-for="(value, key) in recipe.nutrition" :key="key">
-                <td>{{ labels[key].label }}</td>
-                <td>{{ value || '-' }}</td>
+                <div v-if="value">
+                  <td>{{ labels[key].label }}</td>
+                  <td>{{ value || '-' }}</td>
+                </div>
               </tr>
             </tbody>
           </table>
@@ -329,9 +331,9 @@ li {
 }
 
 .nutrition-table td {
-  border: 1px solid #ddd;
   padding: 2px;
   text-align: left;
+  font-size: 14px;
 }
 
 .nutrition-table th {
