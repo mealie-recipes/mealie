@@ -83,18 +83,40 @@
         </div>
       </section>
     </div>
+
+    <!-- Nutrition -->
+    <div v-if="preferences.showNutrition">
+      <v-card-title class="headline pl-0"> {{ $t("recipe.nutrition") }} </v-card-title>
+
+      <v-divider v-if="hasNutrition" class="grey my-4"></v-divider>
+
+      <section>
+        <div class="print-section">
+          <table class="nutrition-table">
+            <tbody>
+              <tr v-for="(value, key) in recipe.nutrition" :key="key">
+                <td>{{ labels[key].label }}</td>
+                <td>{{ value || '-' }}</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+    </section>
+    </div>
+
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from "@nuxtjs/composition-api";
+import { computed, defineComponent } from "@nuxtjs/composition-api";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
 import { useStaticRoutes } from "~/composables/api";
-import { Recipe, RecipeIngredient, RecipeStep } from "~/lib/api/types/recipe";
+import { Recipe, RecipeIngredient, RecipeStep} from "~/lib/api/types/recipe";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { ImagePosition, useUserPrintPreferences } from "~/composables/use-users/preferences";
-import { parseIngredientText } from "~/composables/recipes";
+import { parseIngredientText, useNutritionLabels } from "~/composables/recipes";
 import { usePageState } from "~/composables/recipe-page/shared-state";
+
 
 type IngredientSection = {
   sectionName: string;
@@ -129,6 +151,10 @@ export default defineComponent({
     const preferences = useUserPrintPreferences();
     const { recipeImage } = useStaticRoutes();
     const { imageKey } = usePageState(props.recipe.slug);
+    const {labels} = useNutritionLabels();
+
+
+
 
     const recipeImageUrl = computed(() => {
       return recipeImage(props.recipe.id, props.recipe.image, imageKey.value);
@@ -216,12 +242,18 @@ export default defineComponent({
       return props.recipe.notes && props.recipe.notes.length > 0;
     });
 
+    const hasNutrition = computed(() => {
+      return props.recipe.nutrition && props.recipe.nutrition.length > 0;
+    });
+
     function parseText(ingredient: RecipeIngredient) {
       return parseIngredientText(ingredient, props.recipe.settings?.disableAmount || false, props.scale);
     }
 
     return {
+      labels,
       hasNotes,
+      hasNutrition,
       imageKey,
       ImagePosition,
       parseText,
@@ -290,4 +322,23 @@ li {
   list-style-type: none;
   margin-bottom: 0.25rem;
 }
+
+.nutrition-table {
+  width: 25%;
+  border-collapse: collapse;
+}
+
+.nutrition-table td {
+  border: 1px solid #ddd;
+  padding: 2px;
+  text-align: left;
+}
+
+.nutrition-table th {
+  background-color: #4CAF50;
+  color: white;
+  text-align: left;
+  padding: 5px;
+}
+
 </style>
