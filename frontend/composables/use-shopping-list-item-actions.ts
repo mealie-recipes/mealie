@@ -89,22 +89,15 @@ export function useShoppingListItemActions(shoppingListId: string) {
     return queue[itemQueueType];
   }
 
-  function clearQueueItems(itemQueueType: ItemQueueType | "all") {
-    switch (itemQueueType) {
-      case "create":
-        queue.create = [];
-        break;
-      case "update":
-        queue.update = [];
-        break;
-      case "delete":
-        queue.delete = [];
-        break;
-      case "all":
-        queue.create = [];
-        queue.update = [];
-        queue.delete = [];
-        break;
+  function clearQueueItems(itemQueueType: ItemQueueType | "all", itemIds: string[] | null = null) {
+    if (itemQueueType === "create" || "all") {
+      queue.create = itemIds ? queue.create.filter(item => !itemIds.includes(item.id)) : [];
+    }
+    if (itemQueueType === "update" || "all") {
+      queue.update = itemIds ? queue.update.filter(item => !itemIds.includes(item.id)) : [];
+    }
+    if (itemQueueType === "delete" || "all") {
+      queue.delete = itemIds ? queue.delete.filter(item => !itemIds.includes(item.id)) : [];
     }
   }
 
@@ -123,16 +116,17 @@ export function useShoppingListItemActions(shoppingListId: string) {
     action: (items: ShoppingListItemOut[]) => Promise<any>,
     itemQueueType: ItemQueueType,
   ) {
-    const items = getQueueItems(itemQueueType);
-    if (!items.length) {
+    const queueItems = getQueueItems(itemQueueType);
+    if (!queueItems.length) {
       return;
     }
 
-    await action(items)
+    const itemsToProcess = [...queueItems];
+    await action(itemsToProcess)
       .then((response) => {
         handleResponse(response);
         if (!isOffline.value) {
-          clearQueueItems(itemQueueType);
+          clearQueueItems(itemQueueType, itemsToProcess.map(item => item.id));
         }
       });
   }
