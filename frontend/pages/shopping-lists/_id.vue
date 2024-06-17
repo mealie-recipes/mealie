@@ -112,6 +112,7 @@
       <div v-else class="mt-4 d-flex justify-end">
         <BaseButton
           v-if="preferences.viewByLabel" edit class="mr-2"
+          :disabled="isOffline"
           @click="toggleReorderLabelsDialog">
           <template #icon> {{ $globals.icons.tags }} </template>
           {{ $t('shopping-list.reorder-labels') }}
@@ -207,10 +208,10 @@
           {{ $tc('shopping-list.linked-recipes-count', shoppingList.recipeReferences ? shoppingList.recipeReferences.length : 0) }}
         </div>
         <v-divider class="my-4"></v-divider>
-        <RecipeList :recipes="Array.from(recipeMap.values())" show-description>
+        <RecipeList :recipes="Array.from(recipeMap.values())" show-description :disabled="isOffline">
           <template v-for="(recipe, index) in recipeMap.values()" #[`actions-${recipe.id}`]>
             <v-list-item-action :key="'item-actions-decrease' + recipe.id">
-              <v-btn icon @click.prevent="removeRecipeReferenceToList(recipe.id)">
+              <v-btn icon :disabled="isOffline" @click.prevent="removeRecipeReferenceToList(recipe.id)">
                 <v-icon color="grey lighten-1">{{ $globals.icons.minus }}</v-icon>
               </v-btn>
             </v-list-item-action>
@@ -218,7 +219,7 @@
               {{ shoppingList.recipeReferences[index].recipeQuantity }}
             </div>
             <v-list-item-action :key="'item-actions-increase' + recipe.id">
-              <v-btn icon @click.prevent="addRecipeReferenceToList(recipe.id)">
+              <v-btn icon :disabled="isOffline" @click.prevent="addRecipeReferenceToList(recipe.id)">
                 <v-icon color="grey lighten-1">{{ $globals.icons.createAlt }}</v-icon>
               </v-btn>
             </v-list-item-action>
@@ -229,7 +230,11 @@
 
     <v-lazy>
       <div class="d-flex justify-end">
-        <BaseButton edit @click="toggleSettingsDialog">
+        <BaseButton
+          edit
+          :disabled="isOffline"
+          @click="toggleSettingsDialog"
+        >
           <template #icon> {{ $globals.icons.cog }} </template>
           {{ $t('general.settings') }}
         </BaseButton>
@@ -237,8 +242,12 @@
     </v-lazy>
 
     <v-lazy>
-      <div class="d-flex justify-end mt-10">
-        <ButtonLink :to="`/group/data/labels`" :text="$tc('shopping-list.manage-labels')" :icon="$globals.icons.tags" />
+      <div v-if="!isOffline" class="d-flex justify-end mt-10">
+        <ButtonLink
+          :to="`/group/data/labels`"
+          :text="$tc('shopping-list.manage-labels')"
+          :icon="$globals.icons.tags"
+        />
       </div>
     </v-lazy>
   </v-container>
@@ -302,7 +311,7 @@ export default defineComponent({
 
     const shoppingList = ref<ShoppingListOut | null>(null);
     async function fetchShoppingList() {
-      const { data } = await userApi.shopping.lists.getOne(id);
+      const data = await shoppingListItemActions.getList();
       return data;
     }
 
@@ -991,6 +1000,7 @@ export default defineComponent({
       getLabelColor,
       groupSlug,
       itemsByLabel,
+      isOffline: shoppingListItemActions.isOffline,
       listItems,
       loadingCounter,
       preferences,

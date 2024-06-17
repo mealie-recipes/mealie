@@ -56,6 +56,12 @@ export function useShoppingListItemActions(shoppingListId: string) {
     return true;
   }
 
+  async function getList() {
+    const response = await api.shopping.lists.getOne(shoppingListId);
+    handleResponse(response);
+    return response.data;
+  }
+
   function createItem(item: ShoppingListItemOut) {
     removeFromCreate(item);
     queue.create.push(item);
@@ -140,9 +146,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
       return;
     }
 
-    const response = await api.shopping.lists.getOne(shoppingListId);
-    handleResponse(response);
-    const data = response.data
+    const data = await getList(shoppingListId);
     if (!data) {
       return;
     }
@@ -161,6 +165,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
 
   return {
     isOffline,
+    getList,
     createItem,
     updateItem,
     deleteItem,
