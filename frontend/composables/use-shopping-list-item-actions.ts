@@ -1,3 +1,4 @@
+import { ref } from "@nuxtjs/composition-api";
 import { useLocalStorage } from "@vueuse/core";
 import { useUserApi } from "~/composables/api";
 import { ShoppingListItemOut } from "~/lib/api/types/group";
@@ -23,6 +24,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
   const api = useUserApi();
   const storage = useLocalStorage(localStorageKey, {} as Storage, { deep: true });
   const queue = storage.value[shoppingListId] ||= { create: [], update: [], delete: [], lastUpdate: Date.now()};
+  const isOffline = ref(false);
 
   function removeFromCreate(item: ShoppingListItemOut): boolean {
     const index = queue.create.findIndex(i => i.id === item.id);
@@ -106,6 +108,11 @@ export function useShoppingListItemActions(shoppingListId: string) {
     }
   }
 
+  function handleOfflineState(response: any) {
+    // TODO: is there a better way of checking for network errors?
+    isOffline.value = response.error?.message?.includes("Network Error") || false;
+  }
+
   async function processQueueItems(
     action: (items: ShoppingListItemOut[]) => Promise<any>,
     itemQueueType: ItemQueueType,
@@ -117,8 +124,8 @@ export function useShoppingListItemActions(shoppingListId: string) {
 
     await action(items)
       .then((response) => {
-        // TODO: is there a better way of checking for network errors?
-        if (!response?.error?.includes("Network Error")) {
+        handleOfflineState(response);
+        if (!isOffline.value) {
           clearQueueItems(itemQueueType);
         }
       });
@@ -135,7 +142,9 @@ export function useShoppingListItemActions(shoppingListId: string) {
       return;
     }
 
-    const { data } = await api.shopping.lists.getOne(shoppingListId);
+    const response = await api.shopping.lists.getOne(shoppingListId);
+    handleOfflineState(response);
+    const data = response.data
     if (!data) {
       // We can't fetch the shopping list, so we can't do anything.
       // Additionally, by returning early, we don't update the "lastUpdate" time.
@@ -157,6 +166,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
   }
 
   return {
+    isOffline,
     createItem,
     updateItem,
     deleteItem,
