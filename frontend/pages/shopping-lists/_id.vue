@@ -610,6 +610,14 @@ export default defineComponent({
       items: ShoppingListItemOut[];
     }
 
+    function sortItems(a: ShoppingListItemOut | ListItemGroup, b: ShoppingListItemOut | ListItemGroup) {
+      return (
+        ((a.position || 0) > (b.position || 0)) ||
+        ((a.createdAt || "") < (b.createdAt || ""))
+        ? 1 : -1
+      );
+    }
+
     function groupAndSortListItemsByFood() {
       if (!shoppingList.value?.listItems?.length) {
         return;
@@ -633,16 +641,14 @@ export default defineComponent({
         }
       });
 
-      // sort group items by position ascending, then createdAt descending
       const listItemGroups = Array.from(listItemGroupsMap.values());
-      listItemGroups.sort((a, b) => (a.position > b.position || a.createdAt < b.createdAt ? 1 : -1));
+      listItemGroups.sort(sortItems);
 
-      // sort group items by position ascending, then createdAt descending, and aggregate them
+      // sort group items, then aggregate them
       const sortedItems: ShoppingListItemOut[] = [];
       let nextPosition = 0;
       listItemGroups.forEach((listItemGroup) => {
-        // @ts-ignore none of these fields are undefined
-        listItemGroup.items.sort((a, b) => (a.position > b.position || a.createdAt < b.createdAt ? 1 : -1));
+        listItemGroup.items.sort(sortItems);
         listItemGroup.items.forEach((item) => {
           item.position = nextPosition;
           nextPosition += 1;
@@ -658,9 +664,7 @@ export default defineComponent({
         return;
       }
 
-      // sort by position ascending, then createdAt descending
-      // @ts-ignore none of these fields are undefined
-      shoppingList.value.listItems.sort((a, b) => (a.position > b.position || a.createdAt < b.createdAt ? 1 : -1))
+      shoppingList.value.listItems.sort(sortItems)
     }
 
     function updateItemsByLabel() {
