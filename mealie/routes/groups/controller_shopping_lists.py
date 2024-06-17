@@ -136,10 +136,6 @@ class ShoppingListItemController(BaseCrudController):
     def delete_many(self, ids: list[UUID4] = Query(None)):
         items = self.service.bulk_delete_items(ids)
         publish_list_item_events(self.publish_event, items)
-
-        message = (
-            f"Successfully deleted {len(items.deleted_items)} {'item' if len(items.deleted_items) == 1 else 'items'}"
-        )
         return SuccessResponse.respond()
 
     @item_router.delete("/{item_id}", response_model=SuccessResponse)
