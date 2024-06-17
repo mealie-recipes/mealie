@@ -916,6 +916,12 @@ export default defineComponent({
       items.forEach((item) => {
         shoppingListItemActions.deleteItem(item);
       });
+      // remove the items from the list immediately so the user sees the change
+      if (shoppingList.value?.listItems) {
+        const deletedItems = new Set(items.map(item => item.id));
+        shoppingList.value.listItems = shoppingList.value.listItems.filter((itm) => !deletedItems.has(itm.id));
+      }
+
       refresh();
     }
 
