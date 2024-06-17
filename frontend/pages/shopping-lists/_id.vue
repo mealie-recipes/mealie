@@ -253,7 +253,7 @@ import { useCopyList } from "~/composables/use-copy";
 import { useUserApi } from "~/composables/api";
 import MultiPurposeLabelSection from "~/components/Domain/ShoppingList/MultiPurposeLabelSection.vue"
 import ShoppingListItem from "~/components/Domain/ShoppingList/ShoppingListItem.vue";
-import { ShoppingListItemCreate, ShoppingListItemOut, ShoppingListMultiPurposeLabelOut, ShoppingListOut } from "~/lib/api/types/group";
+import { ShoppingListItemOut, ShoppingListMultiPurposeLabelOut, ShoppingListOut } from "~/lib/api/types/group";
 import { UserSummary } from "~/lib/api/types/user";
 import RecipeList from "~/components/Domain/Recipe/RecipeList.vue";
 import ShoppingListItemEditor from "~/components/Domain/ShoppingList/ShoppingListItemEditor.vue";
@@ -821,7 +821,7 @@ export default defineComponent({
     // Create New Item
 
     const createEditorOpen = ref(false);
-    const createListItemData = ref<ShoppingListItemCreate>(listItemFactory());
+    const createListItemData = ref<ShoppingListItemOut>(listItemFactory());
 
     function listItemFactory(isFood = false): ShoppingListItemOut {
       return {
@@ -855,12 +855,24 @@ export default defineComponent({
         ? (shoppingList.value.listItems.reduce((a, b) => (a.position || 0) > (b.position || 0) ? a : b).position || 0) + 1
         : 0;
 
-      // @ts-ignore - we're not using the full ShoppingListItemOut type, but we don't actually need it
+      createListItemData.value.createdAt = new Date().toISOString();
+      createListItemData.value.updateAt = createListItemData.value.createdAt;
+
+      updateListItemOrder();
+
       shoppingListItemActions.createItem(createListItemData.value);
       loadingCounter.value -= 1;
 
+      // "isOffline" is only accurate after an attempted refresh.
+      await refresh();
+      if (shoppingListItemActions.isOffline.value) {
+        // Add item to the list so the user sees the change. We only do this offline since otherwise the item is added
+        // when the server responds, and we can't accurately predict its state.
+        if (shoppingList.value.listItems) {
+          shoppingList.value.listItems.push(createListItemData.value);
+        }
+      }
       createListItemData.value = listItemFactory(createListItemData.value.isFood || false);
-      refresh();
     }
 
     function updateIndexUnchecked(uncheckedItems: ShoppingListItemOut[]) {
