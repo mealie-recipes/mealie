@@ -108,9 +108,15 @@ export function useShoppingListItemActions(shoppingListId: string) {
     }
   }
 
-  function handleOfflineState(response: any) {
+  /**
+   * Handles the response from the backend and sets the isOffline flag if necessary.
+   */
+  function handleResponse(response: any) {
     // TODO: is there a better way of checking for network errors?
     isOffline.value = response.error?.message?.includes("Network Error") || false;
+    if (!isOffline.value) {
+      queue.lastUpdate = Date.now();
+    }
   }
 
   async function processQueueItems(
@@ -124,7 +130,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
 
     await action(items)
       .then((response) => {
-        handleOfflineState(response);
+        handleResponse(response);
         if (!isOffline.value) {
           clearQueueItems(itemQueueType);
         }
@@ -137,17 +143,13 @@ export function useShoppingListItemActions(shoppingListId: string) {
       !queue.update.length &&
       !queue.delete.length
     ) {
-      // The queue is empty, so there's no need to do anything
-      queue.lastUpdate = Date.now();
       return;
     }
 
     const response = await api.shopping.lists.getOne(shoppingListId);
-    handleOfflineState(response);
+    handleResponse(response);
     const data = response.data
     if (!data) {
-      // We can't fetch the shopping list, so we can't do anything.
-      // Additionally, by returning early, we don't update the "lastUpdate" time.
       return;
     }
 
@@ -161,8 +163,6 @@ export function useShoppingListItemActions(shoppingListId: string) {
       await processQueueItems((items) => api.shopping.items.updateMany(items), "update");
       await processQueueItems((items) => api.shopping.items.createMany(items), "create");
     }
-
-    queue.lastUpdate = Date.now();
   }
 
   return {
