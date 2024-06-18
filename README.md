@@ -3,8 +3,8 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![AGPL License][license-shield]][license-url]
-[![Docker Pulls][docker-pull]][docker-pull]
-[![GHCR Pulls][ghcr-pulls]][ghcr-pulls]
+[![Docker Pulls][docker-pull]][docker-url]
+[![GHCR Pulls][ghcr-pulls]][ghcr-url]
 
 <!-- PROJECT LOGO -->
 <br />
@@ -89,14 +89,16 @@ Thanks to Depot for providing build instances for our Docker image builds.
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/mealie-recipes/mealie.svg?style=flat-square
 [docker-pull]: https://img.shields.io/docker/pulls/hkotel/mealie?style=flat-square
+[docker-url]: https://hub.docker.com/r/hkotel/mealie
 [ghcr-pulls]: https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fipitio%2Fghcr-pulls%2Fmaster%2Findex.json&query=%24%5B%3F(%40.owner%3D%3D%22mealie-recipes%22%20%26%26%20%40.repo%3D%3D%22mealie%22%20%26%26%20%40.image%3D%3D%22mealie%22)%5D.pulls&style=flat-square&label=ghcr%20pulls
+[ghcr-url]: https://github.com/mealie-recipes/mealie/pkgs/container/mealie
 [contributors-url]: https://github.com/mealie-recipes/mealie/graphs/contributors
 [stars-shield]: https://img.shields.io/github/stars/mealie-recipes/mealie.svg?style=flat-square
 [stars-url]: https://github.com/mealie-recipes/mealie/stargazers
 [issues-shield]: https://img.shields.io/github/issues/mealie-recipes/mealie.svg?style=flat-square
 [issues-url]: https://github.com/mealie-recipes/mealie/issues
 [latest-release-shield]: https://img.shields.io/github/v/release/mealie-recipes/mealie?style=flat-square&label=latest%20release
-[latest-release-url]: https://img.shields.io/github/v/release/mealie-recipes/mealie
+[latest-release-url]: https://github.com/mealie-recipes/mealie/releases
 [license-shield]: https://img.shields.io/github/license/mealie-recipes/mealie.svg?style=flat-square
 [license-url]: https://github.com/mealie-recipes/mealie/blob/mealie-next/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
