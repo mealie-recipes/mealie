@@ -170,12 +170,22 @@
                               text: $tc('recipe.move-to-bottom'),
                               event: 'move-to-bottom',
                             },
+                            {
+                              text: $tc('recipe.insert-above'),
+                              event: 'insert-above'
+                            },
+                            {
+                              text: $tc('recipe.insert-below'),
+                              event: 'insert-below'
+                            },
                           ],
                         },
                       ]"
                       @merge-above="mergeAbove(index - 1, index)"
                       @move-to-top="moveTo('top', index)"
                       @move-to-bottom="moveTo('bottom', index)"
+                      @insert-above="insert(index)"
+                      @insert-below="insert(index+1)"
                       @toggle-section="toggleShowTitle(step.id)"
                       @link-ingredients="openDialog(index, step.text, step.ingredientReferences)"
                       @preview-step="togglePreviewState(index)"
@@ -550,6 +560,10 @@ export default defineComponent({
       }
     }
 
+    function insert(dest: number) {
+      props.value.splice(dest, 0, { id: uuid4(), text: "", title: "", ingredientReferences: [] });
+    }
+
     const previewStates = ref<boolean[]>([]);
 
     function togglePreviewState(index: number) {
@@ -681,6 +695,7 @@ export default defineComponent({
       showCookMode,
       isCookMode,
       isEditForm,
+      insert,
     };
   },
 });

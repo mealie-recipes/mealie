@@ -8,14 +8,8 @@
       <v-card-text v-if="edit">
         <div v-for="(item, key, index) in value" :key="index">
           <v-text-field
-            dense
-            :value="value[key]"
-            :label="labels[key].label"
-            :suffix="labels[key].suffix"
-            type="number"
-            autocomplete="off"
-            @input="updateValue(key, $event)"
-          ></v-text-field>
+dense :value="value[key]" :label="labels[key].label" :suffix="labels[key].suffix" type="number"
+            autocomplete="off" @input="updateValue(key, $event)"></v-text-field>
         </div>
       </v-card-text>
       <v-list v-if="showViewer" dense class="mt-0 pt-0">
@@ -34,17 +28,10 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
+import { computed, defineComponent } from "@nuxtjs/composition-api";
+import { useNutritionLabels } from "~/composables/recipes";
 import { Nutrition } from "~/lib/api/types/recipe";
-
-type NutritionLabelType = {
-  [key: string]: {
-    label: string;
-    suffix: string;
-    value?: string;
-  };
-};
-
+import { NutritionLabelType } from "~/composables/recipes/use-recipe-nutrition";
 export default defineComponent({
   props: {
     value: {
@@ -57,37 +44,7 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-    const { i18n } = useContext();
-    const labels = <NutritionLabelType>{
-      calories: {
-        label: i18n.tc("recipe.calories"),
-        suffix: i18n.tc("recipe.calories-suffix"),
-      },
-      fatContent: {
-        label: i18n.tc("recipe.fat-content"),
-        suffix: i18n.tc("recipe.grams"),
-      },
-      fiberContent: {
-        label: i18n.tc("recipe.fiber-content"),
-        suffix: i18n.tc("recipe.grams"),
-      },
-      proteinContent: {
-        label: i18n.tc("recipe.protein-content"),
-        suffix: i18n.tc("recipe.grams"),
-      },
-      sodiumContent: {
-        label: i18n.tc("recipe.sodium-content"),
-        suffix: i18n.tc("recipe.milligrams"),
-      },
-      sugarContent: {
-        label: i18n.tc("recipe.sugar-content"),
-        suffix: i18n.tc("recipe.grams"),
-      },
-      carbohydrateContent: {
-        label: i18n.tc("recipe.carbohydrate-content"),
-        suffix: i18n.tc("recipe.grams"),
-      },
-    };
+    const { labels } = useNutritionLabels();
     const valueNotNull = computed(() => {
       let key: keyof Nutrition;
       for (key in props.value) {
