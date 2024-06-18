@@ -448,6 +448,8 @@
     "ingredients": "Ingrédients",
     "insert-ingredient": "Insérer un ingrédient",
     "insert-section": "Insérer une section",
+    "insert-above": "Insérer au-dessus",
+    "insert-below": "Insérer en dessous",
     "instructions": "Instructions",
     "key-name-required": "Un nom de clé est requis",
     "landscape-view-coming-soon": "Vue paysage (bientôt disponible)",
