@@ -448,6 +448,8 @@
     "ingredients": "Ingredients",
     "insert-ingredient": "Afegiu ingredient",
     "insert-section": "Insereix una secció",
+    "insert-above": "Insert Above",
+    "insert-below": "Insert Below",
     "instructions": "Instruccions",
     "key-name-required": "Es requereix un nom de clau",
     "landscape-view-coming-soon": "Vista apaïsada (aviat)",
