@@ -257,7 +257,10 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
             if not width or not height:
                 continue
 
-            size = int(width) * int(height)
+            try:
+                size = int(width) * int(height)
+            except (ValueError, TypeError):
+                size = 1
             if size > max_size:
                 max_size = size
                 largest_img = img
@@ -273,7 +276,10 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
         text = soup.get_text(separator="\n", strip=True)
         if not text:
             raise Exception("No text found in HTML")
-        image = self.find_image(soup)
+        try:
+            image = self.find_image(soup)
+        except Exception:
+            image = None
 
         components = [f"Convert this content to JSON: {text}"]
         if image:
