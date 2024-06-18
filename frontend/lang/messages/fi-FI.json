@@ -448,6 +448,8 @@
     "ingredients": "Ainesosat",
     "insert-ingredient": "Lisää Ainesosa",
     "insert-section": "Lisää osio",
+    "insert-above": "Insert Above",
+    "insert-below": "Insert Below",
     "instructions": "Ohjeet",
     "key-name-required": "Avaimen nimi vaaditaan",
     "landscape-view-coming-soon": "Landscape View (Coming Soon)",
