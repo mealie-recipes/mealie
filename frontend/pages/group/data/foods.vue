@@ -185,7 +185,7 @@
       v-model="bulkAssignLabelDialog"
       :title="$tc('data-pages.labels.assign-label')"
       :icon="$globals.icons.tags"
-      @confirm="asignSelected"
+      @confirm="assignSelected"
     >
       <v-card-text>
         <v-card class="mb-4">
@@ -464,7 +464,7 @@ export default defineComponent({
       bulkAssignLabelDialog.value = true;
     }
 
-    async function asignSelected() {
+    async function assignSelected() {
       if (!bulkAssignLabelId.value) {
         return;
       }
@@ -525,7 +525,7 @@ export default defineComponent({
       bulkAssignTarget,
       bulkAssignLabelId,
       bulkAssignEventHandler,
-      asignSelected,
+      assignSelected,
     };
   },
 });
