@@ -448,6 +448,8 @@
     "ingredients": "Hozzávalók",
     "insert-ingredient": "Hozzávaló beszúrása",
     "insert-section": "Szakasz beszúrása",
+    "insert-above": "Beillesztés fent",
+    "insert-below": "Beszúrás alá",
     "instructions": "Elkészítés",
     "key-name-required": "Kulcs név szükséges",
     "landscape-view-coming-soon": "Horizontális nézet",
