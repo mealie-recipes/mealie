@@ -29,9 +29,8 @@ dense :value="value[key]" :label="labels[key].label" :suffix="labels[key].suffix
 
 <script lang="ts">
 import { computed, defineComponent } from "@nuxtjs/composition-api";
-import { useNutritionLabels } from "~/composables/recipes";
+import { useNutritionLabels, NutritionLabelType } from "~/composables/recipes";
 import { Nutrition } from "~/lib/api/types/recipe";
-
 
 export default defineComponent({
   props: {
@@ -76,6 +75,7 @@ export default defineComponent({
     });
 
     return {
+      labels,
       valueNotNull,
       showViewer,
       updateValue,
