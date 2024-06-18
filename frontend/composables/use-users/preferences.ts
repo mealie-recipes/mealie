@@ -6,6 +6,7 @@ export interface UserPrintPreferences {
   imagePosition: string;
   showDescription: boolean;
   showNotes: boolean;
+  showNutrition: boolean;
 }
 
 export interface UserSearchQuery {
