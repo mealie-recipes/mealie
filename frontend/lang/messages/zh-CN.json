@@ -448,6 +448,8 @@
     "ingredients": "食材",
     "insert-ingredient": "插入食材",
     "insert-section": "插入章节",
+    "insert-above": "Insert Above",
+    "insert-below": "Insert Below",
     "instructions": "做法",
     "key-name-required": "必须输入关键字",
     "landscape-view-coming-soon": "横向视图 (即将到来)",
