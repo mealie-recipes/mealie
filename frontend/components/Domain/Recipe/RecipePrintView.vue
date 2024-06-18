@@ -83,18 +83,41 @@
         </div>
       </section>
     </div>
+
+    <!-- Nutrition -->
+    <div v-if="preferences.showNutrition">
+      <v-card-title class="headline pl-0"> {{ $t("recipe.nutrition") }} </v-card-title>
+
+
+      <section>
+        <div class="print-section">
+          <table class="nutrition-table">
+            <tbody>
+              <tr v-for="(value, key) in recipe.nutrition" :key="key">
+                <template v-if="value">
+                  <td>{{ labels[key].label }}</td>
+                  <td>{{ value || '-' }}</td>
+                </template>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+    </section>
+    </div>
+
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from "@nuxtjs/composition-api";
+import { computed, defineComponent } from "@nuxtjs/composition-api";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
 import { useStaticRoutes } from "~/composables/api";
-import { Recipe, RecipeIngredient, RecipeStep } from "~/lib/api/types/recipe";
+import { Recipe, RecipeIngredient, RecipeStep} from "~/lib/api/types/recipe";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { ImagePosition, useUserPrintPreferences } from "~/composables/use-users/preferences";
-import { parseIngredientText } from "~/composables/recipes";
+import { parseIngredientText, useNutritionLabels } from "~/composables/recipes";
 import { usePageState } from "~/composables/recipe-page/shared-state";
+
 
 type IngredientSection = {
   sectionName: string;
@@ -129,6 +152,10 @@ export default defineComponent({
     const preferences = useUserPrintPreferences();
     const { recipeImage } = useStaticRoutes();
     const { imageKey } = usePageState(props.recipe.slug);
+    const {labels} = useNutritionLabels();
+
+
+
 
     const recipeImageUrl = computed(() => {
       return recipeImage(props.recipe.id, props.recipe.image, imageKey.value);
@@ -221,6 +248,7 @@ export default defineComponent({
     }
 
     return {
+      labels,
       hasNotes,
       imageKey,
       ImagePosition,
@@ -290,4 +318,16 @@ li {
   list-style-type: none;
   margin-bottom: 0.25rem;
 }
+
+.nutrition-table {
+  width: 25%;
+  border-collapse: collapse;
+}
+
+.nutrition-table td {
+  padding: 2px;
+  text-align: left;
+  font-size: 14px;
+}
+
 </style>

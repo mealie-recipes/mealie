@@ -45,6 +45,22 @@ export default defineComponent({
   .d-inline {
     & > p {
       display: inline;
+      &:has(>sub)>sup {
+        letter-spacing: -0.05rem;
+      }
+    }
+    &:has(sub) {
+      &:after {
+        letter-spacing: -0.2rem;
+      }
+    }
+    sup {
+      &+span{
+        letter-spacing: -0.05rem;
+      }
+      &:before {
+        letter-spacing: 0rem;
+      }
     }
   }
 
