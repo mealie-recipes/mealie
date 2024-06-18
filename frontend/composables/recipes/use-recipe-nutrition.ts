@@ -1,7 +1,7 @@
 import { useContext } from "@nuxtjs/composition-api";
 
 
-type NutritionLabelType = {
+export interface NutritionLabelType {
     [key: string]: {
         label: string;
         suffix: string;

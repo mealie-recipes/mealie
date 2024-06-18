@@ -88,7 +88,6 @@
     <div v-if="preferences.showNutrition">
       <v-card-title class="headline pl-0"> {{ $t("recipe.nutrition") }} </v-card-title>
 
-      <v-divider v-if="hasNutrition" class="grey my-4"></v-divider>
 
       <section>
         <div class="print-section">
@@ -244,10 +243,6 @@ export default defineComponent({
       return props.recipe.notes && props.recipe.notes.length > 0;
     });
 
-    const hasNutrition = computed(() => {
-      return props.recipe.nutrition && props.recipe.nutrition.length > 0;
-    });
-
     function parseText(ingredient: RecipeIngredient) {
       return parseIngredientText(ingredient, props.recipe.settings?.disableAmount || false, props.scale);
     }
@@ -255,7 +250,6 @@ export default defineComponent({
     return {
       labels,
       hasNotes,
-      hasNutrition,
       imageKey,
       ImagePosition,
       parseText,
