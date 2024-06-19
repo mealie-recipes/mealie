@@ -5,7 +5,7 @@
         <v-menu v-model="menu" :disabled="!editScale" offset-y top nudge-top="6" :close-on-content-click="false">
           <template #activator="{ on, attrs }">
             <v-card class="pa-1 px-2" dark color="secondary darken-1" small v-bind="attrs" v-on="on">
-              <span v-if="recipeYield"> {{ scaledYield }} </span>
+              <SafeMarkdown v-if="recipeYield" :source="scaledYield" />
               <span v-if="!recipeYield"> x {{ scale }} </span>
             </v-card>
           </template>
@@ -47,8 +47,8 @@
             event: 'increment',
           },
         ]"
-        @decrement="scale > 1 ? scale-- : null"
-        @increment="scale++"
+        @decrement="scale > 1 ? scale-- : (scale > 0.12 ? scale = scale / 2 : null)"
+        @increment="scale > 1 ? scale++ : scale = scale * 2"
       />
     </div>
   </div>
@@ -56,6 +56,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs, computed } from "@nuxtjs/composition-api";
+import { scaleYield } from "~/composables/recipes";
 
 export default defineComponent({
   props: {

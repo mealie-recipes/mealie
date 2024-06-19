@@ -37,7 +37,8 @@ describe(parseIngredientText.name, () => {
   test("ingredient text with fraction when unit is null", () => {
     const ingredient = createRecipeIngredient({ quantity: 1.5, unit: undefined });
 
-    expect(parseIngredientText(ingredient, false, 1, true)).contain("1<sup>1</sup>").and.to.contain("<sub>2</sub>");
+    expect(parseIngredientText(ingredient, false, 1, true)).toStrictEqual("1<sup>1</sup><span>⁄</span><sub>2</sub> Item 1")
+    expect(parseIngredientText(ingredient, false, 1, false)).toStrictEqual("1 1/2 Item 1")
   });
 
   test("ingredient text with fraction no formatting", () => {

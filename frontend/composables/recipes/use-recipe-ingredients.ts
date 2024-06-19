@@ -35,6 +35,22 @@ function useUnitName(unit: CreateIngredientUnit | IngredientUnit | undefined, us
   return returnVal;
 }
 
+
+export function formatFraction(fraction: number[], includeFormating = true): string {
+  let result = ""
+  if (fraction[0] !== undefined && fraction[0] > 0) {
+    result += includeFormating ? `${fraction[0]}` : `${fraction[0]} `;
+  }
+
+  if (fraction[1] > 0) {
+    result += includeFormating ?
+      `<sup>${fraction[1]}</sup><span>&frasl;</span><sub>${fraction[2]}</sub>` :
+      `${fraction[1]}/${fraction[2]}`;
+  }
+
+  return result
+}
+
 export function useParsedIngredientText(ingredient: RecipeIngredient, disableAmount: boolean, scale = 1, includeFormating = true) {
   if (disableAmount) {
     return {
@@ -57,17 +73,10 @@ export function useParsedIngredientText(ingredient: RecipeIngredient, disableAmo
       returnQty = (quantity * scale).toString();
     } else {
       const fraction = frac(quantity * scale, 10, true);
-      if (fraction[0] !== undefined && fraction[0] > 0) {
-        returnQty += fraction[0];
-      }
-
-      if (fraction[1] > 0) {
-        returnQty += includeFormating ?
-          `<sup>${fraction[1]}</sup><span>&frasl;</span><sub>${fraction[2]}</sub>` :
-          ` ${fraction[1]}/${fraction[2]}`;
-      }
+      returnQty += formatFraction(fraction, includeFormating)
     }
   }
+
 
   const unitName = useUnitName(unit, usePluralUnit);
   const foodName = useFoodName(food, usePluralFood);

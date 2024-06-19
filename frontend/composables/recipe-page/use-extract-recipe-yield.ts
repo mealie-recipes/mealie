@@ -1,3 +1,4 @@
+import { formatFraction } from "../recipes/use-recipe-ingredients";
 import { useFraction } from "~/composables/recipes";
 
 const matchMixedFraction = /(?:\d*\s\d*\d*|0)\/\d*\d*/;
@@ -39,7 +40,7 @@ function extractServingsFromFraction(fractionString: string): number | undefined
 
 
 
-function findMatch(yieldString: string): [matchString: string, servings: number, isFraction: boolean] | null {
+function findMatch(yieldString: string): [matchString: string, servings: number] | null {
     if (!yieldString) {
         return null;
     }
@@ -53,7 +54,7 @@ function findMatch(yieldString: string): [matchString: string, servings: number,
         if (servings === undefined) {
             return null;
         } else {
-            return [match, servings, true];
+            return [match, servings];
         }
     }
 
@@ -66,52 +67,41 @@ function findMatch(yieldString: string): [matchString: string, servings: number,
         if (servings === undefined) {
             return null;
         } else {
-            return [match, servings, true];
+            return [match, servings];
         }
     }
 
     const decimalMatch = yieldString.match(matchDecimal);
     if (decimalMatch?.length) {
         const match = decimalMatch[0];
-        return [match, parseFloat(match), false];
+        return [match, parseFloat(match)];
     }
 
     const intMatch = yieldString.match(matchInt);
     if (intMatch?.length) {
         const match = intMatch[0];
-        return [match, parseInt(match), false];
+        return [match, parseInt(match)];
     }
 
     return null;
 }
 
-function formatServings(servings: number, scale: number, isFraction: boolean): string {
+function formatServings(servings: number, scale: number, includeFormating: boolean): string {
     const val = servings * scale;
     if (Number.isInteger(val)) {
         return val.toString();
-    } else if (!isFraction) {
-        return (Math.round(val * 1000) / 1000).toString();
     }
 
     // convert val into a fraction string
     const { frac } = useFraction();
 
-    let valString = "";
     const fraction = frac(val, 10, true);
 
-    if (fraction[0] !== undefined && fraction[0] > 0) {
-        valString += fraction[0];
-    }
-
-    if (fraction[1] > 0) {
-        valString += ` ${fraction[1]}/${fraction[2]}`;
-    }
-
-    return valString.trim();
+    return formatFraction(fraction, includeFormating)
 }
 
 
-export function useExtractRecipeYield(yieldString: string | null, scale: number): string {
+export function useExtractRecipeYield(yieldString: string | null, scale: number, includeFormating = true): string {
     if (!yieldString) {
         return "";
     }
@@ -121,12 +111,12 @@ export function useExtractRecipeYield(yieldString: string | null, scale: number)
         return yieldString;
     }
 
-    const [matchString, servings, isFraction] = match;
+    const [matchString, servings] = match;
 
-    const formattedServings = formatServings(servings, scale, isFraction);
+    const formattedServings = formatServings(servings, scale, includeFormating);
     if (!formattedServings) {
         return yieldString  // this only happens with very weird or small fractions
     } else {
-        return yieldString.replace(matchString, formatServings(servings, scale, isFraction));
+        return yieldString.replace(matchString, formattedServings);
     }
 }
