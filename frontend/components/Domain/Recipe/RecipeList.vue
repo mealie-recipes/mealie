@@ -30,7 +30,7 @@
 <script lang="ts">
 import { computed, defineComponent, useContext, useRoute } from "@nuxtjs/composition-api";
 import DOMPurify from "dompurify";
-import { useFraction } from "~/composables/recipes/use-fraction";
+import { getLowestFraction } from "~/composables/recipes/use-fraction";
 import { ShoppingListItemOut } from "~/lib/api/types/group";
 import { RecipeSummary } from "~/lib/api/types/recipe";
 
@@ -59,7 +59,6 @@ export default defineComponent({
   },
   setup(props) {
     const { $auth } = useContext();
-    const { frac } = useFraction();
     const route = useRoute();
     const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
 
@@ -118,7 +117,7 @@ export default defineComponent({
 
         let listItemDescription = ""
         if (props.listItem.unit?.fraction) {
-            const fraction = frac(quantity, 10, true);
+            const fraction = getLowestFraction(quantity);
             if (fraction[0] !== undefined && fraction[0] > 0) {
               listItemDescription += fraction[0];
             }

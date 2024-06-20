@@ -1,7 +1,6 @@
 import DOMPurify from "isomorphic-dompurify";
-import { useFraction } from "./use-fraction";
+import { getLowestFraction } from "./use-fraction";
 import { CreateIngredientFood, CreateIngredientUnit, IngredientFood, IngredientUnit, RecipeIngredient } from "~/lib/api/types/recipe";
-const { frac } = useFraction();
 
 export function sanitizeIngredientHTML(rawHtml: string) {
   return DOMPurify.sanitize(rawHtml, {
@@ -72,7 +71,7 @@ export function useParsedIngredientText(ingredient: RecipeIngredient, disableAmo
     if (unit && !unit.fraction) {
       returnQty = (quantity * scale).toString();
     } else {
-      const fraction = frac(quantity * scale, 10, true);
+      const fraction = getLowestFraction(quantity * scale);
       returnQty += formatFraction(fraction, includeFormating)
     }
   }

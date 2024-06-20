@@ -47,7 +47,7 @@
             event: 'increment',
           },
         ]"
-        @decrement="scale > 1 ? scale-- : (scale > 0.12 ? scale = scale / 2 : null)"
+        @decrement="scale > 1 ? scale-- : scale = scale / 2"
         @increment="scale > 1 ? scale++ : scale = scale * 2"
       />
     </div>
@@ -56,7 +56,6 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs, computed } from "@nuxtjs/composition-api";
-import { scaleYield } from "~/composables/recipes";
 
 export default defineComponent({
   props: {

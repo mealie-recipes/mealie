@@ -1,7 +1,20 @@
 import { describe, expect, test } from "vitest";
+import { getLowestFraction } from "../recipes/use-fraction";
 import { useExtractRecipeYield } from "./use-extract-recipe-yield";
 
 describe("test use extract recipe yield", () => {
+    test("useFraction", () => {
+        expect(getLowestFraction(0.5)).toStrictEqual([0, 1, 2]);
+        expect(getLowestFraction(1.5)).toStrictEqual([1, 1, 2]);
+        expect(getLowestFraction(3.25)).toStrictEqual([3, 1, 4]);
+        expect(getLowestFraction(93452.75)).toStrictEqual([93452, 3, 4]);
+        expect(getLowestFraction(0.125)).toStrictEqual([0, 1, 8]);
+        expect(getLowestFraction(1.0 / 3.0)).toStrictEqual([0, 1, 3]);
+        expect(getLowestFraction(0.142857)).toStrictEqual([0, 1, 7]);
+        expect(getLowestFraction(0.5)).toStrictEqual([0, 1, 2]);
+        expect(getLowestFraction(0.5)).toStrictEqual([0, 1, 2]);
+    });
+
     test("when text empty return empty", () => {
         const result = useExtractRecipeYield(null, 1);
         expect(result).toStrictEqual("");
@@ -29,6 +42,15 @@ describe("test use extract recipe yield", () => {
 
         const resultScaledInt = useExtractRecipeYield(val, 4);
         expect(resultScaledInt).toStrictEqual("42 units");
+    });
+
+    test("when unit precedes number, have correct formatting", () => {
+        const val = "serves 3";
+        const result = useExtractRecipeYield(val, 1, false);
+        expect(result).toStrictEqual(val)
+
+        const resultScaled = useExtractRecipeYield(val, 2.5, false);
+        expect(resultScaled).toStrictEqual("serves 7 1/2")
     });
 
     test("when text matches a fraction, return a scaled fraction", () => {
@@ -93,13 +115,13 @@ describe("test use extract recipe yield", () => {
         expect(resultDivZeroMixed).toStrictEqual(valDivZeroMixed);
     });
 
-    test("when text contains a weird or small fraction, return the original string", () => {
+    test("use an approximation for very weird fractions", () => {
         const valWeird = "2323231239087/134527431962272135 servings";
-        const resultWeird = useExtractRecipeYield(valWeird, 5);
-        expect(resultWeird).toStrictEqual(valWeird);
+        const resultWeird = useExtractRecipeYield(valWeird, 5, false);
+        expect(resultWeird).toStrictEqual("1/11581 servings");
 
         const valSmall = "1/20230225 lovable servings";
-        const resultSmall = useExtractRecipeYield(valSmall, 12);
+        const resultSmall = useExtractRecipeYield(valSmall, 12, false);
         expect(resultSmall).toStrictEqual(valSmall);
     });
 

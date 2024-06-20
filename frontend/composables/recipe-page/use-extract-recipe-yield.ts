@@ -1,5 +1,5 @@
+import { getLowestFraction } from "../recipes/use-fraction";
 import { formatFraction } from "../recipes/use-recipe-ingredients";
-import { useFraction } from "~/composables/recipes";
 
 const matchMixedFraction = /(?:\d*\s\d*\d*|0)\/\d*\d*/;
 const matchFraction = /(?:\d*\d*|0)\/\d*\d*/;
@@ -37,8 +37,6 @@ function extractServingsFromFraction(fractionString: string): number | undefined
         return numerator / denominator;
     }
 }
-
-
 
 function findMatch(yieldString: string): [matchString: string, servings: number] | null {
     if (!yieldString) {
@@ -93,9 +91,7 @@ function formatServings(servings: number, scale: number, includeFormating: boole
     }
 
     // convert val into a fraction string
-    const { frac } = useFraction();
-
-    const fraction = frac(val, 10, true);
+    const fraction = getLowestFraction(val);
 
     return formatFraction(fraction, includeFormating)
 }
@@ -117,6 +113,6 @@ export function useExtractRecipeYield(yieldString: string | null, scale: number,
     if (!formattedServings) {
         return yieldString  // this only happens with very weird or small fractions
     } else {
-        return yieldString.replace(matchString, formattedServings);
+        return yieldString.replace(matchString, " " + formattedServings + " ").replace(/\s\s+/g, " ").trim();
     }
 }
