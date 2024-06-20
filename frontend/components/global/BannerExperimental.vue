@@ -3,7 +3,7 @@
     :title="$tc('banner-experimental.title')"
     :description="$tc('banner-experimental.description')"
   >
-    <template #default v-if="issue">
+    <template v-if="issue" #default>
       <a :href="issue" target="_blank">{{ $t("banner-experimental.issue-link-text") }}</a>
     </template>
   </BannerWarning>

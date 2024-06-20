@@ -28,7 +28,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
 
   function removeFromQueue(queue: ShoppingListItemOut[], item: ShoppingListItemOut): boolean {
     const index = queue.findIndex(i => i.id === item.id);
-    if (index == -1) {
+    if (index === -1) {
       return false;
     }
 
@@ -76,13 +76,13 @@ export function useShoppingListItemActions(shoppingListId: string) {
   }
 
   function clearQueueItems(itemQueueType: ItemQueueType | "all", itemIds: string[] | null = null) {
-    if (itemQueueType === "create" || "all") {
+    if (itemQueueType === "create" || itemQueueType === "all") {
       queue.create = itemIds ? queue.create.filter(item => !itemIds.includes(item.id)) : [];
     }
-    if (itemQueueType === "update" || "all") {
+    if (itemQueueType === "update" || itemQueueType === "all") {
       queue.update = itemIds ? queue.update.filter(item => !itemIds.includes(item.id)) : [];
     }
-    if (itemQueueType === "delete" || "all") {
+    if (itemQueueType === "delete" || itemQueueType === "all") {
       queue.delete = itemIds ? queue.delete.filter(item => !itemIds.includes(item.id)) : [];
     }
 

@@ -789,7 +789,7 @@ export default defineComponent({
      * checked it will also append that item to the end of the list so that the unchecked items
      * are at the top of the list.
      */
-    async function saveListItem(item: ShoppingListItemOut) {
+    function saveListItem(item: ShoppingListItemOut) {
       if (!shoppingList.value) {
         return;
       }
@@ -820,7 +820,7 @@ export default defineComponent({
       refresh();
     }
 
-    async function deleteListItem(item: ShoppingListItemOut) {
+    function deleteListItem(item: ShoppingListItemOut) {
       if (!shoppingList.value) {
         return;
       }
@@ -856,7 +856,7 @@ export default defineComponent({
       };
     }
 
-    async function createListItem() {
+    function createListItem() {
       if (!shoppingList.value) {
         return;
       }
@@ -923,7 +923,7 @@ export default defineComponent({
       return updateIndexUnchecked(allUncheckedItems);
     }
 
-    async function deleteListItems(items: ShoppingListItemOut[]) {
+    function deleteListItems(items: ShoppingListItemOut[]) {
       if (!shoppingList.value) {
         return;
       }
@@ -940,7 +940,7 @@ export default defineComponent({
       refresh();
     }
 
-    async function updateListItems() {
+    function updateListItems() {
       if (!shoppingList.value?.listItems) {
         return;
       }
