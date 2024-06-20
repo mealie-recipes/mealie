@@ -1,5 +1,8 @@
 <template>
   <v-container v-if="shoppingList" class="md-container">
+    <div class="flex-wrap align-left mt-10">
+      <ButtonLink :to="`/shopping-lists?disableRedirect=true`" :text="$tc('shopping-list.back-to-lists')" :icon="$globals.icons.backArrow" />
+    </div>
     <BasePageTitle divider>
       <template #header>
         <v-img max-height="100" max-width="100" :src="require('~/static/svgs/shopping-cart.svg')"></v-img>

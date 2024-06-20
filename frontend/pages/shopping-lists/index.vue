@@ -48,7 +48,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useAsync, useContext, reactive, toRefs, useRoute } from "@nuxtjs/composition-api";
+import { computed, defineComponent, useAsync, useContext, reactive, toRefs, useRoute, useRouter } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 import { useAsyncKey } from "~/composables/use-utils";
 import { useShoppingListPreferences } from "~/composables/use-users/preferences";
@@ -59,7 +59,9 @@ export default defineComponent({
     const { $auth } = useContext();
     const userApi = useUserApi();
     const route = useRoute();
+    const router = useRouter();
     const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+    const disableRedirect = computed(() => route.value.query.disableRedirect === "true");
     const preferences = useShoppingListPreferences();
 
     const state = reactive({
@@ -114,6 +116,15 @@ export default defineComponent({
       if (data) {
         refresh();
       }
+    }
+
+    if (!disableRedirect.value) {
+      useAsync(async () => {
+        await refresh();
+          if (shoppingListChoices.value?.length === 1) {
+            router.push(`/shopping-lists/${shoppingListChoices.value[0].id}`);
+          }
+      }, useAsyncKey());
     }
 
     return {
