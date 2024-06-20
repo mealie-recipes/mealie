@@ -96,9 +96,6 @@ export function useShoppingListItemActions(shoppingListId: string) {
   function handleResponse(response: any) {
     // TODO: is there a better way of checking for network errors?
     isOffline.value = response.error?.message?.includes("Network Error") || false;
-    if (!isOffline.value) {
-      queue.lastUpdate = Date.now();
-    }
   }
 
   async function processQueueItems(
@@ -143,6 +140,11 @@ export function useShoppingListItemActions(shoppingListId: string) {
       await processQueueItems((items) => api.shopping.items.deleteMany(items), "delete");
       await processQueueItems((items) => api.shopping.items.updateMany(items), "update");
       await processQueueItems((items) => api.shopping.items.createMany(items), "create");
+    }
+
+    // If we're online, the queue is fully processed, so we're up to date
+    if (!isOffline.value) {
+      queue.lastUpdate = Date.now();
     }
   }
 
