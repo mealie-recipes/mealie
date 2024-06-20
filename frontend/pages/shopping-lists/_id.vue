@@ -1,6 +1,6 @@
 <template>
   <v-container v-if="shoppingList" class="md-container">
-    <div class="flex-wrap align-left mt-10">
+    <div class="d-flex mt-4">
       <ButtonLink :to="`/shopping-lists?disableRedirect=true`" :text="$tc('shopping-list.back-to-lists')" :icon="$globals.icons.backArrow" />
     </div>
     <BasePageTitle divider>
