@@ -24,6 +24,10 @@ export function useShoppingListItemActions(shoppingListId: string) {
   const api = useUserApi();
   const storage = useLocalStorage(localStorageKey, {} as Storage, { deep: true });
   const queue = storage.value[shoppingListId] ||= { create: [], update: [], delete: [], lastUpdate: Date.now()};
+  if (!queue.create.length && !queue.update.length && !queue.delete.length) {
+    queue.lastUpdate = Date.now();
+  }
+
   const isOffline = ref(false);
 
   function removeFromQueue(queue: ShoppingListItemOut[], item: ShoppingListItemOut): boolean {
