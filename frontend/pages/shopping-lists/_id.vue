@@ -6,6 +6,11 @@
       </template>
       <template #title> {{ shoppingList.name }} </template>
     </BasePageTitle>
+    <BannerWarning
+      v-if="isOffline"
+      :title="$tc('shopping-list.you-are-offline')"
+      :description="$tc('shopping-list.you-are-offline-description')"
+    />
 
     <!-- Viewer -->
     <section v-if="!edit" class="py-2">
