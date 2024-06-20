@@ -146,7 +146,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
       return;
     }
 
-    const data = await getList(shoppingListId);
+    const data = await getList();
     if (!data) {
       return;
     }

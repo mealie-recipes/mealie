@@ -881,16 +881,13 @@ export default defineComponent({
       shoppingListItemActions.createItem(createListItemData.value);
       loadingCounter.value -= 1;
 
-      // "isOffline" is only accurate after an attempted refresh.
-      await refresh();
-      if (shoppingListItemActions.isOffline.value) {
-        // Add item to the list so the user sees the change. We only do this offline since otherwise the item is added
-        // when the server responds, and we can't accurately predict its state.
-        if (shoppingList.value.listItems) {
+      if (shoppingList.value.listItems) {
+          // add the item to the list immediately so the user sees the change
           shoppingList.value.listItems.push(createListItemData.value);
+          updateListItemOrder();
         }
-      }
       createListItemData.value = listItemFactory(createListItemData.value.isFood || false);
+      refresh();
     }
 
     function updateIndexUnchecked(uncheckedItems: ShoppingListItemOut[]) {
