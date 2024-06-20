@@ -105,6 +105,9 @@ export function useShoppingListItemActions(shoppingListId: string) {
     if (itemQueueType === "delete" || "all") {
       queue.delete = itemIds ? queue.delete.filter(item => !itemIds.includes(item.id)) : [];
     }
+
+    // Set the storage value explicitly so changes are saved in the browser.
+    storage.value[shoppingListId] = { ...queue };
   }
 
   /**
