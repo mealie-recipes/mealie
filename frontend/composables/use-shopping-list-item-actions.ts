@@ -1,4 +1,4 @@
-import { ref } from "@nuxtjs/composition-api";
+import { computed, ref } from "@nuxtjs/composition-api";
 import { useLocalStorage } from "@vueuse/core";
 import { useUserApi } from "~/composables/api";
 import { ShoppingListItemOut } from "~/lib/api/types/group";
@@ -24,7 +24,8 @@ export function useShoppingListItemActions(shoppingListId: string) {
   const api = useUserApi();
   const storage = useLocalStorage(localStorageKey, {} as Storage, { deep: true });
   const queue = storage.value[shoppingListId] ||= { create: [], update: [], delete: [], lastUpdate: Date.now()};
-  if (!queue.create.length && !queue.update.length && !queue.delete.length) {
+  const queueEmpty = computed(() => !queue.create.length && !queue.update.length && !queue.delete.length);
+  if (queueEmpty.value) {
     queue.lastUpdate = Date.now();
   }
 
