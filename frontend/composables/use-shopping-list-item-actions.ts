@@ -26,33 +26,13 @@ export function useShoppingListItemActions(shoppingListId: string) {
   const queue = storage.value[shoppingListId] ||= { create: [], update: [], delete: [], lastUpdate: Date.now()};
   const isOffline = ref(false);
 
-  function removeFromCreate(item: ShoppingListItemOut): boolean {
-    const index = queue.create.findIndex(i => i.id === item.id);
+  function removeFromQueue(queue: ShoppingListItemOut[], item: ShoppingListItemOut): boolean {
+    const index = queue.findIndex(i => i.id === item.id);
     if (index == -1) {
       return false;
     }
 
-    queue.create.splice(index, 1);
-    return true;
-  }
-
-  function removeFromUpdate(item: ShoppingListItemOut): boolean {
-    const index = queue.update.findIndex(i => i.id === item.id);
-    if (index == -1) {
-      return false;
-    }
-
-    queue.update.splice(index, 1);
-    return true;
-  }
-
-  function removeFromDelete(item: ShoppingListItemOut): boolean {
-    const index = queue.delete.findIndex(i => i.id === item.id);
-    if (index == -1) {
-      return false;
-    }
-
-    queue.delete.splice(index, 1);
+    queue.splice(index, 1);
     return true;
   }
 
@@ -63,31 +43,31 @@ export function useShoppingListItemActions(shoppingListId: string) {
   }
 
   function createItem(item: ShoppingListItemOut) {
-    removeFromCreate(item);
+    removeFromQueue(queue.create, item);
     queue.create.push(item);
   }
 
   function updateItem(item: ShoppingListItemOut) {
-    const removedFromCreate = removeFromCreate(item);
+    const removedFromCreate = removeFromQueue(queue.create, item);
     if (removedFromCreate) {
       // this item hasn't been created yet, so we don't need to update it
       queue.create.push(item);
       return;
     }
 
-    removeFromUpdate(item);
+    removeFromQueue(queue.update, item);
     queue.update.push(item);
   }
 
   function deleteItem(item: ShoppingListItemOut) {
-    const removedFromCreate = removeFromCreate(item);
+    const removedFromCreate = removeFromQueue(queue.create, item);
     if (removedFromCreate) {
       // this item hasn't been created yet, so we don't need to delete it
       return;
     }
 
-    removeFromUpdate(item);
-    removeFromDelete(item);
+    removeFromQueue(queue.update, item);
+    removeFromQueue(queue.delete, item);
     queue.delete.push(item);
   }
 
