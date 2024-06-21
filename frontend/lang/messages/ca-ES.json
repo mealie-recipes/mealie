@@ -985,7 +985,7 @@
       "food-data": "Food Data",
       "example-food-singular": "p. ex.: Ceba",
       "example-food-plural": "p. ex.: Cebes",
-      "label-overwrite-warning": "Això assignarà l'etiqueta escollida a tots els aliments seleccionats i, potencialment, sobreescriurà les etiquetes existents."
+      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "Afegeix a la base de dades les unitats més comunes en el vostre idioma.",
