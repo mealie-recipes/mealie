@@ -985,7 +985,7 @@
       "food-data": "נתוני אוכל",
       "example-food-singular": "דוגמא: בצל",
       "example-food-plural": "דוגמא: בצלים",
-      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
+      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "אכלס את מסד הנתונים עם יחידות מדידה בהתאם לשפה המקומית שלך.",
