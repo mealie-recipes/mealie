@@ -211,7 +211,7 @@
     "clipboard-copy-failure": "Η αντιγραφή στο πρόχειρο απέτυχε.",
     "confirm-delete-generic-items": "Θέλετε σίγουρα να διαγράψετε τα ακόλουθα αντικείμενα;",
     "organizers": "Οργανωτές",
-    "caution": "Caution"
+    "caution": "Προσοχή"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Θέλετε σίγουρα να διαγράψετε αυτό τον ασφαλή σύνδεσμο <b>{groupName}<b/>;",
@@ -985,7 +985,7 @@
       "food-data": "Food Data",
       "example-food-singular": "ex: Onion",
       "example-food-plural": "ex: Onions",
-      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
+      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "Seed the database with common units based on your local language.",
@@ -1014,7 +1014,7 @@
       "edit-label": "Edit Label",
       "new-label": "New Label",
       "labels": "Labels",
-      "assign-label": "Assign Label"
+      "assign-label": "Ορισμός Ετικέτας"
     },
     "recipes": {
       "purge-exports": "Purge Exports",
