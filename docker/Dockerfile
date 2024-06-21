@@ -104,7 +104,6 @@ COPY --from=crfpp /usr/local/bin/crf_test /usr/local/bin/crf_test
 # copy backend
 COPY ./mealie $MEALIE_HOME/mealie
 COPY ./poetry.lock ./pyproject.toml $MEALIE_HOME/
-COPY ./gunicorn_conf.py $MEALIE_HOME
 
 # Alembic
 COPY ./alembic $MEALIE_HOME/alembic

@@ -11,7 +11,7 @@ def main():
         port=settings.API_PORT,
         log_level=settings.LOG_LEVEL.lower(),
         log_config=log_config(),
-        workers=1,
+        workers=settings.WORKERS,
         forwarded_allow_ips=settings.HOST_IP,
     )
 

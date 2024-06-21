@@ -210,7 +210,8 @@
     "unsaved-changes": "Kaydedilmemiş değişiklikleriniz mevcut. Ayrılmadan önce kaydetmek ister misiniz? Kaydetmek için Tamam'ı, değişiklikleri iptal etmek için İptal'i seçin.",
     "clipboard-copy-failure": "Panoya kopyalanamadı.",
     "confirm-delete-generic-items": "Aşağıdaki öğeleri silmek istediğinizden emin misiniz?",
-    "organizers": "Organizatörler"
+    "organizers": "Organizatörler",
+    "caution": "Caution"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "<b>{groupName}<b/>'i silmek istediğine emin misin?",
@@ -448,6 +449,8 @@
     "ingredients": "Malzemeler",
     "insert-ingredient": "İçerik Ekle",
     "insert-section": "Bölüm Ekle",
+    "insert-above": "Insert Above",
+    "insert-below": "Insert Below",
     "instructions": "Yapılışı",
     "key-name-required": "Anahtar Adı Zorunlu",
     "landscape-view-coming-soon": "Landscape View (Coming Soon)",
@@ -981,7 +984,8 @@
       "edit-food": "Yiyecek Düzenle",
       "food-data": "Food Data",
       "example-food-singular": "örn: Soğan",
-      "example-food-plural": "örn: Soğan"
+      "example-food-plural": "örn: Soğan",
+      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "Seed the database with common units based on your local language.",
@@ -1009,7 +1013,8 @@
       "seed-dialog-text": "Seed the database with common labels based on your local language.",
       "edit-label": "Etiketi Düzenle",
       "new-label": "Yeni Etiket",
-      "labels": "Etiketler"
+      "labels": "Etiketler",
+      "assign-label": "Assign Label"
     },
     "recipes": {
       "purge-exports": "Purge Exports",

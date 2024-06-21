@@ -210,7 +210,8 @@
     "unsaved-changes": "Du har osparade ändringar. Vill du spara innan du lämnar? Tryck Okej att spara, Avbryt för att ignorera ändringar.",
     "clipboard-copy-failure": "Det gick inte att kopiera till urklipp.",
     "confirm-delete-generic-items": "Är du säker på att du vill radera följande objekt?",
-    "organizers": "Organisatörer"
+    "organizers": "Organisatörer",
+    "caution": "Caution"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Är du säker på att du vill radera <b>{groupName}<b/>?",
@@ -448,6 +449,8 @@
     "ingredients": "Ingredienser",
     "insert-ingredient": "Infoga ingrediens",
     "insert-section": "Infoga avdelning",
+    "insert-above": "Insert Above",
+    "insert-below": "Insert Below",
     "instructions": "Instruktioner",
     "key-name-required": "Nyckelnamn krävs",
     "landscape-view-coming-soon": "Landskapsvy (kommer snart)",
@@ -981,7 +984,8 @@
       "edit-food": "Redigera mat",
       "food-data": "Mat data",
       "example-food-singular": "ex: Lök",
-      "example-food-plural": "ex: Lökar"
+      "example-food-plural": "ex: Lökar",
+      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "Fyll databasen med vanliga enheter baserade på ditt språk.",
@@ -1009,7 +1013,8 @@
       "seed-dialog-text": "Fyll databasen med vanliga etiketter baserade på ditt språk.",
       "edit-label": "Redigera etikett",
       "new-label": "Ny etikett",
-      "labels": "Etiketter"
+      "labels": "Etiketter",
+      "assign-label": "Assign Label"
     },
     "recipes": {
       "purge-exports": "Rensa exporter",

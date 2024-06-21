@@ -210,7 +210,8 @@
     "unsaved-changes": "El nem mentett módosításai vannak. Szeretné elmenteni, mielőtt kilép? A mentéshez kattintson az Ok, a módosítások elvetéséhez a Mégsem gombra.",
     "clipboard-copy-failure": "Nem sikerült a vágólapra másolás.",
     "confirm-delete-generic-items": "Biztos benne, hogy törölni szeretné az alábbi tételeket?",
-    "organizers": "Rendszerezők"
+    "organizers": "Rendszerezők",
+    "caution": "Caution"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Biztosan törölni szeretnéd ezt: <b>{groupName}<b/>?",
@@ -448,6 +449,8 @@
     "ingredients": "Hozzávalók",
     "insert-ingredient": "Hozzávaló beszúrása",
     "insert-section": "Szakasz beszúrása",
+    "insert-above": "Beillesztés fent",
+    "insert-below": "Beszúrás alá",
     "instructions": "Elkészítés",
     "key-name-required": "Kulcs név szükséges",
     "landscape-view-coming-soon": "Horizontális nézet",
@@ -981,7 +984,8 @@
       "edit-food": "Étel szerkesztése",
       "food-data": "Étel adatai",
       "example-food-singular": "pl. Hagyma",
-      "example-food-plural": "pl. Hagymák"
+      "example-food-plural": "pl. Hagymák",
+      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "Töltse be az Ön nyelve szerinti közös mennyiségi egységet tartalmazó adatbázist.",
@@ -1009,7 +1013,8 @@
       "seed-dialog-text": "Töltse be az Ön nyelve szerinti közös címkélet tartalmazó adatbázist.",
       "edit-label": "Címke szerkesztése",
       "new-label": "Új címke",
-      "labels": "Címkék"
+      "labels": "Címkék",
+      "assign-label": "Assign Label"
     },
     "recipes": {
       "purge-exports": "Exportálás tisztítása",

@@ -210,7 +210,8 @@
     "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
     "clipboard-copy-failure": "Failed to copy to the clipboard.",
     "confirm-delete-generic-items": "Are you sure you want to delete the following items?",
-    "organizers": "Organizers"
+    "organizers": "Organizers",
+    "caution": "Caution"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Are you sure you want to delete <b>{groupName}<b/>?",
@@ -448,6 +449,8 @@
     "ingredients": "Ingredients",
     "insert-ingredient": "Insert Ingredient",
     "insert-section": "Insert Section",
+    "insert-above": "Insert Above",
+    "insert-below": "Insert Below",
     "instructions": "Instructions",
     "key-name-required": "Key Name Required",
     "landscape-view-coming-soon": "Landscape View",
@@ -981,7 +984,8 @@
       "edit-food": "Edit Food",
       "food-data": "Food Data",
       "example-food-singular": "ex: Onion",
-      "example-food-plural": "ex: Onions"
+      "example-food-plural": "ex: Onions",
+      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "Seed the database with common units based on your local language.",
@@ -1009,7 +1013,8 @@
       "seed-dialog-text": "Seed the database with common labels based on your local language.",
       "edit-label": "Edit Label",
       "new-label": "New Label",
-      "labels": "Labels"
+      "labels": "Labels",
+      "assign-label": "Assign Label"
     },
     "recipes": {
       "purge-exports": "Purge Exports",
