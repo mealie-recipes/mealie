@@ -39,7 +39,7 @@
         </v-card-text>
         <v-card-actions class="justify-end mt-0 pt-0">
           <v-btn
-            v-if="user.id == comment.user.id || user.admin"
+            v-if="user.id == comment.user.id || (user.admin && user.groupId === recipe.groupId)"
             color="error"
             text
             x-small
