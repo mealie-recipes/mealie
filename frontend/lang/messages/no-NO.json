@@ -210,7 +210,8 @@
     "unsaved-changes": "Du har ulagrede endringer. Ønsker du å lagre før du forlater? Trykk 'OK' for å lagre, 'Avbryt' for å forkaste endringene.",
     "clipboard-copy-failure": "Kunne ikke kopiere til utklippstavlen.",
     "confirm-delete-generic-items": "Er du sikker på at du vil følgende elementer?",
-    "organizers": "Organisatorer"
+    "organizers": "Organisatorer",
+    "caution": "Caution"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Er du sikker på at du vil slette <b>{groupName}<b/>?",
@@ -448,6 +449,8 @@
     "ingredients": "Ingredienser",
     "insert-ingredient": "Sett inn ingrediens",
     "insert-section": "Sett inn avsnitt",
+    "insert-above": "Insert Above",
+    "insert-below": "Insert Below",
     "instructions": "Instruksjoner",
     "key-name-required": "Navn på nøkkel er påkrevd",
     "landscape-view-coming-soon": "Landskapsvisning",
@@ -981,7 +984,8 @@
       "edit-food": "Rediger matvare",
       "food-data": "Matvaredata",
       "example-food-singular": "f.eks: tomat",
-      "example-food-plural": "f.eks: tomater"
+      "example-food-plural": "f.eks: tomater",
+      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "Tilfør typiske enheter i databasen basert på ditt lokale språk.",
@@ -1009,7 +1013,8 @@
       "seed-dialog-text": "Tilfør typiske etiketter i databasen basert på ditt lokale språk.",
       "edit-label": "Rediger etikett",
       "new-label": "Ny etikett",
-      "labels": "Etiketter"
+      "labels": "Etiketter",
+      "assign-label": "Assign Label"
     },
     "recipes": {
       "purge-exports": "Fjern eksporter",

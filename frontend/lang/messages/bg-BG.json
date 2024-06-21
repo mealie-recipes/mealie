@@ -210,7 +210,8 @@
     "unsaved-changes": "Имате незапазени промени. Желаете ли да ги запазите преди да излезете? Натиснете Ок за запазване и Отказ за отхвърляне на промените.",
     "clipboard-copy-failure": "Линкът към рецептата е копиран в клипборда.",
     "confirm-delete-generic-items": "Сигурни ли сте, че желаете да изтриете следните елементи?",
-    "organizers": "Органайзер"
+    "organizers": "Органайзер",
+    "caution": "Caution"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Сигурни ли сте, че искате да изтриете <b>{groupName}<b/>?",
@@ -448,6 +449,8 @@
     "ingredients": "Съставки",
     "insert-ingredient": "Въведете съставка",
     "insert-section": "Въведете раздел",
+    "insert-above": "Insert Above",
+    "insert-below": "Insert Below",
     "instructions": "Инструкции",
     "key-name-required": "Ключовото име е задължително",
     "landscape-view-coming-soon": "Пейзажен изглед",
@@ -981,7 +984,8 @@
       "edit-food": "Редактирай храна",
       "food-data": "Данни за храните",
       "example-food-singular": "пример: Домат",
-      "example-food-plural": "пример: Домати"
+      "example-food-plural": "пример: Домати",
+      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "Заредете базата данни с мерни единици на Вашия местен език.",
@@ -1009,7 +1013,8 @@
       "seed-dialog-text": "Заредете базата данни с етикети на Вашия местен език.",
       "edit-label": "Редактиране на етикет",
       "new-label": "Нов етикет",
-      "labels": "Етикети"
+      "labels": "Етикети",
+      "assign-label": "Assign Label"
     },
     "recipes": {
       "purge-exports": "Изчистване на експортите",

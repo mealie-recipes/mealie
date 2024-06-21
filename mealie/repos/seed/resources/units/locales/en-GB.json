@@ -10,9 +10,9 @@
         "abbreviation": "tbsp"
     },
     "cup": {
-        "name": "cup",
+        "name": "US cup",
         "description": "",
-        "abbreviation": "cup"
+        "abbreviation": "US cup"
     },
     "fluid-ounce": {
         "name": "fluid ounce",
@@ -30,17 +30,17 @@
         "abbreviation": "qt"
     },
     "gallon": {
-        "name": "gallon",
+        "name": "US gallon",
         "description": "",
         "abbreviation": "gal"
     },
     "milliliter": {
-        "name": "milliliter",
+        "name": "millilitre",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
-        "name": "liter",
+        "name": "litre",
         "description": "",
         "abbreviation": "l"
     },
@@ -75,7 +75,7 @@
         "abbreviation": ""
     },
     "dash": {
-        "name": "dash",
+        "name": "pinch",
         "description": "",
         "abbreviation": ""
     },

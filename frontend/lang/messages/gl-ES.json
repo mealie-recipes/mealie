@@ -210,7 +210,8 @@
     "unsaved-changes": "Tes cambios sen gardar. Queres gardar antes de saír? OK para gardar, Cancelar para descartar cambios.",
     "clipboard-copy-failure": "Produciuse un erro ao copiar contido no portapapeis.",
     "confirm-delete-generic-items": "Estás seguro de que queres eliminar os seguintes elementos?",
-    "organizers": "Organizadores"
+    "organizers": "Organizadores",
+    "caution": "Caution"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Estás seguro de que queres eliminar <b>{groupName}<b/>?",
@@ -448,6 +449,8 @@
     "ingredients": "Ingredientes",
     "insert-ingredient": "Inserir Ingrediente",
     "insert-section": "Inserir Sección",
+    "insert-above": "Insert Above",
+    "insert-below": "Insert Below",
     "instructions": "Instrucións",
     "key-name-required": "Nome da Chave Obrigatorio",
     "landscape-view-coming-soon": "Vista Horizontal",
@@ -981,7 +984,8 @@
       "edit-food": "Edit Food",
       "food-data": "Food Data",
       "example-food-singular": "ex: Onion",
-      "example-food-plural": "ex: Onions"
+      "example-food-plural": "ex: Onions",
+      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "Seed the database with common units based on your local language.",
@@ -1009,7 +1013,8 @@
       "seed-dialog-text": "Seed the database with common labels based on your local language.",
       "edit-label": "Edit Label",
       "new-label": "New Label",
-      "labels": "Labels"
+      "labels": "Labels",
+      "assign-label": "Assign Label"
     },
     "recipes": {
       "purge-exports": "Purge Exports",

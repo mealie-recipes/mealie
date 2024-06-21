@@ -210,7 +210,8 @@
     "unsaved-changes": "יש שינויים שלא נשמרו. לצאת לפני שמירה? אשר לשמירה, בטל למחיקת שינויים.",
     "clipboard-copy-failure": "כשלון בהעתקה ללוח ההדבקה.",
     "confirm-delete-generic-items": "האם אתה בטוח שברצונך למחוק את הפריטים הנבחרים?",
-    "organizers": "Organizers"
+    "organizers": "Organizers",
+    "caution": "Caution"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "האם את/ה בטוח/ה שברצונך למחוק את <b>{groupName}<b/>?",
@@ -448,6 +449,8 @@
     "ingredients": "מרכיבים",
     "insert-ingredient": "הוסף מרכיב",
     "insert-section": "הוסף מקטע",
+    "insert-above": "Insert Above",
+    "insert-below": "Insert Below",
     "instructions": "הוראות",
     "key-name-required": "שם מפתח נדרש",
     "landscape-view-coming-soon": "Landscape View (Coming Soon)",
@@ -981,7 +984,8 @@
       "edit-food": "עריכת מזון",
       "food-data": "נתוני אוכל",
       "example-food-singular": "דוגמא: בצל",
-      "example-food-plural": "דוגמא: בצלים"
+      "example-food-plural": "דוגמא: בצלים",
+      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "אכלס את מסד הנתונים עם יחידות מדידה בהתאם לשפה המקומית שלך.",
@@ -1009,7 +1013,8 @@
       "seed-dialog-text": "אכלס את מסד הנתונים בתגיות נפוצות בהתאם לשפה המקומית שלך.",
       "edit-label": "עריכת תווית",
       "new-label": "תוויות חדשה",
-      "labels": "תויות"
+      "labels": "תויות",
+      "assign-label": "Assign Label"
     },
     "recipes": {
       "purge-exports": "נקה ייצואים",

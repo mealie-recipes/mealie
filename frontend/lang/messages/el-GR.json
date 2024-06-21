@@ -67,7 +67,7 @@
     "message-sent": "Το μήνυμα εστάλη",
     "new-notification": "Νέα ειδοποίηση",
     "event-notifiers": "Ειδοποιητές Συμβάντος",
-    "apprise-url-skipped-if-blank": "Apprise URL (skipped if blank)",
+    "apprise-url-skipped-if-blank": "URL για ενημέρωση (παραλείπεται αν είναι κενό)",
     "enable-notifier": "Ενεργοποίηση Ειδοποίησης",
     "what-events": "What events should this notifier subscribe to?",
     "user-events": "Συμβάντα Χρήστη",
@@ -210,7 +210,8 @@
     "unsaved-changes": "Εχετε μη αποθηκευμένες αλλαγές. Θέλετε να κάνετε αποθήκευση πριν από την αποχώρηση; Εντάξει για αποθήκευση, Ακυρο για απόρριψη των αλλαγών.",
     "clipboard-copy-failure": "Η αντιγραφή στο πρόχειρο απέτυχε.",
     "confirm-delete-generic-items": "Θέλετε σίγουρα να διαγράψετε τα ακόλουθα αντικείμενα;",
-    "organizers": "Οργανωτές"
+    "organizers": "Οργανωτές",
+    "caution": "Caution"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Θέλετε σίγουρα να διαγράψετε αυτό τον ασφαλή σύνδεσμο <b>{groupName}<b/>;",
@@ -448,6 +449,8 @@
     "ingredients": "Συστατικά",
     "insert-ingredient": "Insert Ingredient",
     "insert-section": "Εισαγωγή ενότητας",
+    "insert-above": "Εισαγωγή από επάνω",
+    "insert-below": "Εισαγωγή από κάτω",
     "instructions": "Οδηγίες",
     "key-name-required": "Απαιτείται Όνομα Κλειδιού",
     "landscape-view-coming-soon": "Οριζόντια Προβολή (Σύντομα)",
@@ -981,7 +984,8 @@
       "edit-food": "Edit Food",
       "food-data": "Food Data",
       "example-food-singular": "ex: Onion",
-      "example-food-plural": "ex: Onions"
+      "example-food-plural": "ex: Onions",
+      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "Seed the database with common units based on your local language.",
@@ -1009,7 +1013,8 @@
       "seed-dialog-text": "Seed the database with common labels based on your local language.",
       "edit-label": "Edit Label",
       "new-label": "New Label",
-      "labels": "Labels"
+      "labels": "Labels",
+      "assign-label": "Assign Label"
     },
     "recipes": {
       "purge-exports": "Purge Exports",
