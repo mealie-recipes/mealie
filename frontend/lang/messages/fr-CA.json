@@ -210,7 +210,8 @@
     "unsaved-changes": "Vous avez des modifications non enregistrées. Voulez-vous les enregistrer ? Ok pour enregistrer, annuler pour ignorer les modifications.",
     "clipboard-copy-failure": "Échec de la copie vers le presse-papiers.",
     "confirm-delete-generic-items": "Êtes-vous sûr de vouloir supprimer les éléments suivants ?",
-    "organizers": "Classification"
+    "organizers": "Classification",
+    "caution": "Caution"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Êtes-vous certain de vouloir supprimer <b>{groupName}<b/>?",
@@ -448,6 +449,8 @@
     "ingredients": "Ingrédients",
     "insert-ingredient": "Insérer un ingrédient",
     "insert-section": "Insérer une section",
+    "insert-above": "Insérer au-dessus",
+    "insert-below": "Insérer en dessous",
     "instructions": "Instructions",
     "key-name-required": "Un nom de clé est requis",
     "landscape-view-coming-soon": "Vue paysage (bientôt disponible)",
@@ -981,7 +984,8 @@
       "edit-food": "Modifier Aliment",
       "food-data": "Données de l'aliment",
       "example-food-singular": "ex : Oignon",
-      "example-food-plural": "ex : Oignons"
+      "example-food-plural": "ex : Oignons",
+      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "Initialisez la base de données avec des unités communes basées sur votre langue locale.",
@@ -1009,7 +1013,8 @@
       "seed-dialog-text": "Initialisez la base de données avec des étiquettes communes basées sur votre langue locale.",
       "edit-label": "Modifier l’étiquette",
       "new-label": "Nouvelle étiquette",
-      "labels": "Étiquettes"
+      "labels": "Étiquettes",
+      "assign-label": "Assign Label"
     },
     "recipes": {
       "purge-exports": "Purger les exports",

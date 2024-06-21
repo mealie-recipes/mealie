@@ -210,7 +210,8 @@
     "unsaved-changes": "Du har ændringer som ikke er gemt. Vil du gemme før du forlader? Vælg \"Okay\" for at gemme, eller \"Annullér\" for at kassere ændringer.",
     "clipboard-copy-failure": "Kopiering til udklipsholderen mislykkedes.",
     "confirm-delete-generic-items": "Er du sikker på at du ønsker at slette de valgte emner?",
-    "organizers": "Organisatorer"
+    "organizers": "Organisatorer",
+    "caution": "Caution"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Er du sikker på, du vil slette <b>{groupName}<b/>?",
@@ -448,6 +449,8 @@
     "ingredients": "Ingredienser",
     "insert-ingredient": "Indsæt Ingrediens",
     "insert-section": "Indsæt sektion",
+    "insert-above": "Insert Above",
+    "insert-below": "Insert Below",
     "instructions": "Instruktioner",
     "key-name-required": "Nøglenavn påkrævet",
     "landscape-view-coming-soon": "Liggende visning (Kommer snart)",
@@ -981,7 +984,8 @@
       "edit-food": "Redigér fødevare",
       "food-data": "Oplysninger om fødevare",
       "example-food-singular": "fx.: grøntsag",
-      "example-food-plural": "fx.: grøntsager"
+      "example-food-plural": "fx.: grøntsager",
+      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "Opret standard enheder i dit sprog.",
@@ -1009,7 +1013,8 @@
       "seed-dialog-text": "Opret standard etiketter på dit sprog.",
       "edit-label": "Redigér etiket",
       "new-label": "Ny etiket",
-      "labels": "Etiketter"
+      "labels": "Etiketter",
+      "assign-label": "Assign Label"
     },
     "recipes": {
       "purge-exports": "Tøm Eksport",

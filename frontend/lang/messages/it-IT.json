@@ -210,7 +210,8 @@
     "unsaved-changes": "Sono state apportate modifiche non salvate. Salvare prima di uscire? Premi Ok per salvare, Annulla per scartare le modifiche.",
     "clipboard-copy-failure": "Impossibile copiare negli appunti.",
     "confirm-delete-generic-items": "Sei sicuro di voler eliminare i seguenti elementi?",
-    "organizers": "Organizzatori"
+    "organizers": "Organizzatori",
+    "caution": "Caution"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Sei sicuro di volerlo eliminare <b>{groupName}<b/>'?",
@@ -448,6 +449,8 @@
     "ingredients": "Ingredienti",
     "insert-ingredient": "Inserisci Ingrediente",
     "insert-section": "Inserisci Sezione",
+    "insert-above": "Insert Above",
+    "insert-below": "Insert Below",
     "instructions": "Istruzioni",
     "key-name-required": "Nome Chiave Richiesto",
     "landscape-view-coming-soon": "Vista Orizzontale (Prossimamente)",
@@ -981,7 +984,8 @@
       "edit-food": "Modifica Alimento",
       "food-data": "Dati Alimento",
       "example-food-singular": "esempio: Cipolla",
-      "example-food-plural": "esempio: Cipolle"
+      "example-food-plural": "esempio: Cipolle",
+      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "Riempie il database con unità comuni basate sulla lingua.",
@@ -1009,7 +1013,8 @@
       "seed-dialog-text": "Riempie il database con etichette comuni basate sulla lingua.",
       "edit-label": "Modifica Etichetta",
       "new-label": "Nuova Etichetta",
-      "labels": "Etichette"
+      "labels": "Etichette",
+      "assign-label": "Assign Label"
     },
     "recipes": {
       "purge-exports": "Elimina Esportazioni",

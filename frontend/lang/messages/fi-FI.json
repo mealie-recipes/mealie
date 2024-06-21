@@ -210,7 +210,8 @@
     "unsaved-changes": "Et ole tallentanut tekemiäsi muutoksia. Tallennetaanko ne? Paina \"ok\" tallentaaksesi ja \"peruuta\", jos et halua tallentaa.",
     "clipboard-copy-failure": "Kopioiminen leikepöydälle epäonnistui.",
     "confirm-delete-generic-items": "Haluatko varmasti poistaa seuraavat kohteet?",
-    "organizers": "Järjestäjät"
+    "organizers": "Järjestäjät",
+    "caution": "Caution"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Haluatko varmasti poistaa ryhmän <b>{groupName}<b/>?",
@@ -448,6 +449,8 @@
     "ingredients": "Ainesosat",
     "insert-ingredient": "Lisää Ainesosa",
     "insert-section": "Lisää osio",
+    "insert-above": "Insert Above",
+    "insert-below": "Insert Below",
     "instructions": "Ohjeet",
     "key-name-required": "Avaimen nimi vaaditaan",
     "landscape-view-coming-soon": "Landscape View (Coming Soon)",
@@ -981,7 +984,8 @@
       "edit-food": "Muokkaa elintarviketta",
       "food-data": "Elintarvikkeiden tiedot",
       "example-food-singular": "esim. sipuli",
-      "example-food-plural": "esim. sipulit"
+      "example-food-plural": "esim. sipulit",
+      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "Lisää tietokantaan yksiköt paikallisen kielen perusteella.",
@@ -1009,7 +1013,8 @@
       "seed-dialog-text": "Lisää tietokantaan yleiset tunnisteet paikallisen kielen perusteella.",
       "edit-label": "Muokkaa tunnistetta",
       "new-label": "Uusi tunniste",
-      "labels": "Tunnisteet"
+      "labels": "Tunnisteet",
+      "assign-label": "Assign Label"
     },
     "recipes": {
       "purge-exports": "Tyhjennä Vientitiedostot",

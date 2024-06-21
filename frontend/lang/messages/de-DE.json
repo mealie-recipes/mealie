@@ -210,7 +210,8 @@
     "unsaved-changes": "Du hast ungespeicherte Änderungen. Möchtest du vor dem Verlassen speichern? OK um zu speichern, Cancel um Änderungen zu verwerfen.",
     "clipboard-copy-failure": "Fehler beim Kopieren in die Zwischenablage.",
     "confirm-delete-generic-items": "Bist du dir sicher, dass du die folgenden Einträge löschen möchtest?",
-    "organizers": "Organisieren"
+    "organizers": "Organisieren",
+    "caution": "Caution"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Bist du dir sicher, dass du die Gruppe <b>{groupName}<b/> löschen möchtest?",
@@ -448,6 +449,8 @@
     "ingredients": "Zutaten",
     "insert-ingredient": "Zutat einfügen",
     "insert-section": "Abschnitt einfügen",
+    "insert-above": "Darüber einfügen",
+    "insert-below": "Darunter einfügen",
     "instructions": "Zubereitung",
     "key-name-required": "Schlüsselname benötigt",
     "landscape-view-coming-soon": "Querformat",
@@ -981,7 +984,8 @@
       "edit-food": "Lebensmittel bearbeiten",
       "food-data": "Lebensmitteldaten",
       "example-food-singular": "z.B. Zwiebel",
-      "example-food-plural": "z.B. Zwiebeln"
+      "example-food-plural": "z.B. Zwiebeln",
+      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "Füllt die Datenbank mit gängigen Maßeinheiten basierend auf deiner Sprache.",
@@ -1009,7 +1013,8 @@
       "seed-dialog-text": "Füllt die Datenbank mit gängigen Etiketten basierend auf deiner Sprache.",
       "edit-label": "Etikett bearbeiten",
       "new-label": "Neues Etikett",
-      "labels": "Etiketten"
+      "labels": "Etiketten",
+      "assign-label": "Assign Label"
     },
     "recipes": {
       "purge-exports": "Exporte bereinigen",

@@ -210,7 +210,8 @@
     "unsaved-changes": "Aveți modificări nesalvate. Doriți să salvați înainte de a închide aplicația? Apăsați \"OK\" pentru a salva sau \"Anulare\" pentru a renunța la modificări.",
     "clipboard-copy-failure": "Copierea în clipboard a eșuat.",
     "confirm-delete-generic-items": "Sunteți sigur că doriți să ștergeți următoarele?",
-    "organizers": "Organizatori"
+    "organizers": "Organizatori",
+    "caution": "Caution"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Sunteți sigur că doriți să ștergeți <b>{groupName}<b/>?",
@@ -448,6 +449,8 @@
     "ingredients": "Ingrediente",
     "insert-ingredient": "Inserați Ingredientul",
     "insert-section": "Adăugare secțiune",
+    "insert-above": "Insert Above",
+    "insert-below": "Insert Below",
     "instructions": "Instrucțiuni",
     "key-name-required": "Numele cheii este necesar",
     "landscape-view-coming-soon": "Landscape View (Coming Soon)",
@@ -981,7 +984,8 @@
       "edit-food": "Edit Food",
       "food-data": "Food Data",
       "example-food-singular": "ex: Onion",
-      "example-food-plural": "ex: Onions"
+      "example-food-plural": "ex: Onions",
+      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "Seed the database with common units based on your local language.",
@@ -1009,7 +1013,8 @@
       "seed-dialog-text": "Seed the database with common labels based on your local language.",
       "edit-label": "Edit Label",
       "new-label": "New Label",
-      "labels": "Labels"
+      "labels": "Labels",
+      "assign-label": "Assign Label"
     },
     "recipes": {
       "purge-exports": "Purge Exports",
