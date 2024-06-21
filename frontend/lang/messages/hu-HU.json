@@ -211,7 +211,7 @@
     "clipboard-copy-failure": "Nem sikerült a vágólapra másolás.",
     "confirm-delete-generic-items": "Biztos benne, hogy törölni szeretné az alábbi tételeket?",
     "organizers": "Rendszerezők",
-    "caution": "Caution"
+    "caution": "Figyelmeztetés"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Biztosan törölni szeretnéd ezt: <b>{groupName}<b/>?",
@@ -985,7 +985,7 @@
       "food-data": "Étel adatai",
       "example-food-singular": "pl. Hagyma",
       "example-food-plural": "pl. Hagymák",
-      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
+      "label-overwrite-warning": "Ez a kiválasztott címkét az összes kiválasztott élelmiszerhez hozzárendeli, és esetleg felülírja a meglévő címkéket."
     },
     "units": {
       "seed-dialog-text": "Töltse be az Ön nyelve szerinti közös mennyiségi egységet tartalmazó adatbázist.",
@@ -1014,7 +1014,7 @@
       "edit-label": "Címke szerkesztése",
       "new-label": "Új címke",
       "labels": "Címkék",
-      "assign-label": "Assign Label"
+      "assign-label": "Címke hozzárendelése"
     },
     "recipes": {
       "purge-exports": "Exportálás tisztítása",
