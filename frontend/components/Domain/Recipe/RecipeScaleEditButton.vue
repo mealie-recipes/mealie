@@ -5,7 +5,8 @@
         <v-menu v-model="menu" :disabled="!editScale" offset-y top nudge-top="6" :close-on-content-click="false">
           <template #activator="{ on, attrs }">
             <v-card class="pa-1 px-2" dark color="secondary darken-1" small v-bind="attrs" v-on="on">
-              <SafeMarkdown v-if="recipeYield" :source="scaledYield" />
+              <!-- eslint-disable-next-line vue/no-v-html -->
+              <span v-if="recipeYield" v-html="scaledYield"></span>
               <span v-if="!recipeYield"> x {{ scale }} </span>
             </v-card>
           </template>
@@ -56,6 +57,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs, computed } from "@nuxtjs/composition-api";
+import { sanitizeMarkdown } from "~/components/global/SafeMarkdown.vue";
 
 export default defineComponent({
   props: {

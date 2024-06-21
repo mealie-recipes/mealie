@@ -34,6 +34,7 @@ import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { Recipe } from "~/lib/api/types/recipe";
 import { usePageState } from "~/composables/recipe-page/shared-state";
 import { useExtractRecipeYield } from "~/composables/recipe-page/use-extract-recipe-yield";
+import { sanitizeMarkdown } from "~/components/global/SafeMarkdown.vue";
 
 export default defineComponent({
   components: {
@@ -67,7 +68,8 @@ export default defineComponent({
     });
 
     const scaledYield = computed(() => {
-      return useExtractRecipeYield(props.recipe.recipeYield, scaleValue.value);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+      return sanitizeMarkdown(useExtractRecipeYield(props.recipe.recipeYield, scaleValue.value));
     });
 
     const basicYield = computed(() => {
