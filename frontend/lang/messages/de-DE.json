@@ -211,7 +211,7 @@
     "clipboard-copy-failure": "Fehler beim Kopieren in die Zwischenablage.",
     "confirm-delete-generic-items": "Bist du dir sicher, dass du die folgenden Einträge löschen möchtest?",
     "organizers": "Organisieren",
-    "caution": "Caution"
+    "caution": "Vorsicht"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Bist du dir sicher, dass du die Gruppe <b>{groupName}<b/> löschen möchtest?",
@@ -985,7 +985,7 @@
       "food-data": "Lebensmitteldaten",
       "example-food-singular": "z.B. Zwiebel",
       "example-food-plural": "z.B. Zwiebeln",
-      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
+      "label-overwrite-warning": "Hiermit wird das ausgewählte Etikett allen ausgewählten Lebensmitteln zugewiesen und möglicherweise bestehende Etiketten werden überschrieben."
     },
     "units": {
       "seed-dialog-text": "Füllt die Datenbank mit gängigen Maßeinheiten basierend auf deiner Sprache.",
@@ -1014,7 +1014,7 @@
       "edit-label": "Etikett bearbeiten",
       "new-label": "Neues Etikett",
       "labels": "Etiketten",
-      "assign-label": "Assign Label"
+      "assign-label": "Etikett zuweisen"
     },
     "recipes": {
       "purge-exports": "Exporte bereinigen",
