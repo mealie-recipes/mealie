@@ -63,7 +63,7 @@ export function useParsedIngredientText(ingredient: RecipeIngredient, disableAmo
 
       if (fraction[1] > 0) {
         returnQty += includeFormating ?
-          ` <sup>${fraction[1]}</sup>&frasl;<sub>${fraction[2]}</sub>` :
+          `<sup>${fraction[1]}</sup><span>&frasl;</span><sub>${fraction[2]}</sub>` :
           ` ${fraction[1]}/${fraction[2]}`;
       }
     }

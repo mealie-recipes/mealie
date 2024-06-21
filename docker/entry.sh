@@ -37,14 +37,8 @@ init() {
 
 change_user
 init
-GUNICORN_PORT=${API_PORT:-9000}
 
 # Start API
 HOST_IP=`/sbin/ip route|awk '/default/ { print $3 }'`
 
-if [ "$WEB_GUNICORN" = 'true' ]; then
-    echo "Starting Gunicorn"
-    exec gunicorn mealie.app:app -b 0.0.0.0:$GUNICORN_PORT --forwarded-allow-ips=$HOST_IP -k uvicorn.workers.UvicornWorker -c /app/gunicorn_conf.py --preload
-else
-    exec python /app/mealie/main.py
-fi
+exec python /app/mealie/main.py

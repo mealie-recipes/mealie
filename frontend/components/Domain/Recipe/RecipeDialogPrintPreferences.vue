@@ -31,6 +31,13 @@
               <v-switch v-model="preferences.showNotes" hide-details :label="$tc('recipe.notes')" />
             </v-row>
           </v-col>
+          <v-col cols="auto" align-self="start">
+            <v-row no-gutters>
+              <v-switch v-model="preferences.showNutrition" hide-details :label="$tc('recipe.nutrition')" />
+            </v-row>
+            <v-row no-gutters>
+            </v-row>
+          </v-col>
         </v-row>
       </v-container>
       <v-card
