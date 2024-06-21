@@ -985,7 +985,7 @@
       "food-data": "Food Data",
       "example-food-singular": "ex: Onion",
       "example-food-plural": "ex: Onions",
-      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
+      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "Seed the database with common units based on your local language.",
