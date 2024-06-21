@@ -104,6 +104,8 @@
             :buttons="btns"
             @toggle-section="toggleTitle"
             @toggle-original="toggleOriginalText"
+            @insert-above="$emit('insert-above')"
+            @insert-below="$emit('insert-below')"
             @insert-ingredient="$emit('insert-ingredient')"
             @delete="$emit('delete')"
           />
@@ -147,6 +149,14 @@ export default defineComponent({
         {
           text: i18n.tc("recipe.toggle-section"),
           event: "toggle-section",
+        },
+        {
+          text: i18n.tc("recipe.insert-above"),
+          event: "insert-above",
+        },
+        {
+          text: i18n.tc("recipe.insert-below"),
+          event: "insert-below",
         },
       ];
 

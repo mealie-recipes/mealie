@@ -233,6 +233,19 @@ class AppSettings(BaseSettings):
     but will incur additional API costs
     """
 
+    # ===============================================
+    # Web Concurrency
+
+    WORKER_PER_CORE: int = 1
+    """Old gunicorn env for workers per core."""
+
+    UVICORN_WORKERS: int = 1
+    """Number of Uvicorn workers to run."""
+
+    @property
+    def WORKERS(self) -> int:
+        return max(1, self.WORKER_PER_CORE * self.UVICORN_WORKERS)
+
     @property
     def OPENAI_ENABLED(self) -> bool:
         """Validates OpenAI settings are all set"""

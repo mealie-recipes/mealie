@@ -180,17 +180,56 @@
       </v-card-text>
     </BaseDialog>
 
+    <!-- Bulk Asign Labels Dialog -->
+    <BaseDialog
+      v-model="bulkAssignLabelDialog"
+      :title="$tc('data-pages.labels.assign-label')"
+      :icon="$globals.icons.tags"
+      @confirm="assignSelected"
+    >
+      <v-card-text>
+        <v-card class="mb-4">
+          <v-card-title>{{ $tc("general.caution") }}</v-card-title>
+          <v-card-text>{{ $tc("data-pages.foods.label-overwrite-warning") }}</v-card-text>
+        </v-card>
+
+        <v-autocomplete
+          v-model="bulkAssignLabelId"
+          clearable
+          :items="allLabels"
+          item-value="id"
+          item-text="name"
+          :label="$tc('data-pages.foods.food-label')"
+        />
+        <v-card outlined>
+          <v-virtual-scroll height="400" item-height="25" :items="bulkAssignTarget">
+            <template #default="{ item }">
+              <v-list-item class="pb-2">
+                <v-list-item-content>
+                  <v-list-item-title>{{ item.name }}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+          </v-virtual-scroll>
+        </v-card>
+      </v-card-text>
+    </BaseDialog>
+
     <!-- Data Table -->
     <BaseCardSectionTitle :icon="$globals.icons.foods" section :title="$tc('data-pages.foods.food-data')"> </BaseCardSectionTitle>
     <CrudTable
       :table-config="tableConfig"
       :headers.sync="tableHeaders"
       :data="foods || []"
-      :bulk-actions="[{icon: $globals.icons.delete, text: $tc('general.delete'), event: 'delete-selected'}]"
+      :bulk-actions="[
+        {icon: $globals.icons.delete, text: $tc('general.delete'), event: 'delete-selected'},
+        {icon: $globals.icons.tags, text: $tc('data-pages.labels.assign-label'), event: 'assign-selected'}
+      ]"
       @delete-one="deleteEventHandler"
       @edit-one="editEventHandler"
       @create-one="createEventHandler"
       @delete-selected="bulkDeleteEventHandler"
+      @assign-selected="bulkAssignEventHandler"
     >
       <template #button-row>
         <BaseButton create @click="createDialog = true" />
@@ -414,6 +453,32 @@ export default defineComponent({
       }
     }
 
+    // ============================================================
+    // Bulk Assign Labels
+    const bulkAssignLabelDialog = ref(false);
+    const bulkAssignTarget = ref<IngredientFood[]>([]);
+    const bulkAssignLabelId = ref<string | undefined>();
+
+    function bulkAssignEventHandler(selection: IngredientFood[]) {
+      bulkAssignTarget.value = selection;
+      bulkAssignLabelDialog.value = true;
+    }
+
+    async function assignSelected() {
+      if (!bulkAssignLabelId.value) {
+        return;
+      }
+      for (const item of bulkAssignTarget.value) {
+        item.labelId = bulkAssignLabelId.value;
+        await foodStore.actions.updateOne(item);
+      }
+      bulkAssignTarget.value = [];
+      bulkAssignLabelId.value = undefined;
+      foodStore.actions.refresh();
+      // reload page, because foodStore.actions.refresh() does not update the table, reactivity for this seems to be broken (again)
+      document.location.reload();
+    }
+
     return {
       tableConfig,
       tableHeaders,
@@ -455,6 +520,12 @@ export default defineComponent({
       locales,
       seedDialog,
       seedDatabase,
+      // Bulk Assign Labels
+      bulkAssignLabelDialog,
+      bulkAssignTarget,
+      bulkAssignLabelId,
+      bulkAssignEventHandler,
+      assignSelected,
     };
   },
 });
