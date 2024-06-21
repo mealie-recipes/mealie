@@ -210,7 +210,8 @@
     "unsaved-changes": "Imate neohranjene spremembe. Ali želite shraniti pred odhodom? V redu, če želite shraniti, Prekliči, če želite zavreči spremembe.",
     "clipboard-copy-failure": "Kopiranje na odložišče ni bilo uspešno.",
     "confirm-delete-generic-items": "Ali ste prepričani, da želite izbrisati izbrane elemente?",
-    "organizers": "Organizatorji"
+    "organizers": "Organizatorji",
+    "caution": "Caution"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Ste prepričani, da želite izbrisati <b>{groupName}<b/>?",
@@ -448,6 +449,8 @@
     "ingredients": "Sestavine",
     "insert-ingredient": "Dodaj sestavino",
     "insert-section": "Vstavi odsek",
+    "insert-above": "Insert Above",
+    "insert-below": "Insert Below",
     "instructions": "Navodila",
     "key-name-required": "Obvezen vnos imena ključa",
     "landscape-view-coming-soon": "Ležeči pogled",
@@ -981,7 +984,8 @@
       "edit-food": "Spremeni živilo",
       "food-data": "Podatki o živilih",
       "example-food-singular": "npr: Čebula",
-      "example-food-plural": "npr: Čebule"
+      "example-food-plural": "npr: Čebule",
+      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "Napolni podatkovno bazo z običajnimi enotami, glede na vaš lokalni jezik.",
@@ -1009,7 +1013,8 @@
       "seed-dialog-text": "Napolni podatkovno bazi s običajnimi oznakami, glede na vaš lokalni jezik.",
       "edit-label": "Uredi oznako",
       "new-label": "Nova oznaka",
-      "labels": "Oznake"
+      "labels": "Oznake",
+      "assign-label": "Assign Label"
     },
     "recipes": {
       "purge-exports": "Počisti izvoze",

@@ -210,7 +210,8 @@
     "unsaved-changes": "Tens canvis que no estan guardats. Vols guardar-los abans de sortir? Clica d'acord per guardar-los o cancel·lar per descartar els canvis.",
     "clipboard-copy-failure": "No s'ha pogut copiar al porta-retalls.",
     "confirm-delete-generic-items": "Are you sure you want to delete the following items?",
-    "organizers": "Organitzadors"
+    "organizers": "Organitzadors",
+    "caution": "Precaució"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Esteu segur de voler suprimir el grup <b>{groupName}<b/>?",
@@ -448,6 +449,8 @@
     "ingredients": "Ingredients",
     "insert-ingredient": "Afegiu ingredient",
     "insert-section": "Insereix una secció",
+    "insert-above": "Insert Above",
+    "insert-below": "Insert Below",
     "instructions": "Instruccions",
     "key-name-required": "Es requereix un nom de clau",
     "landscape-view-coming-soon": "Vista apaïsada (aviat)",
@@ -981,7 +984,8 @@
       "edit-food": "Editar Aliment",
       "food-data": "Food Data",
       "example-food-singular": "p. ex.: Ceba",
-      "example-food-plural": "p. ex.: Cebes"
+      "example-food-plural": "p. ex.: Cebes",
+      "label-overwrite-warning": "Això assignarà l'etiqueta escollida a tots els aliments seleccionats i, potencialment, sobreescriurà les etiquetes existents."
     },
     "units": {
       "seed-dialog-text": "Afegeix a la base de dades les unitats més comunes en el vostre idioma.",
@@ -1009,7 +1013,8 @@
       "seed-dialog-text": "Afegeix a la base de dades etiquetes comunes en el vostre idioma.",
       "edit-label": "Edit Label",
       "new-label": "New Label",
-      "labels": "Labels"
+      "labels": "Labels",
+      "assign-label": "Assigna L'etiqueta"
     },
     "recipes": {
       "purge-exports": "Purge Exports",

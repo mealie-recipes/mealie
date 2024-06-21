@@ -210,7 +210,8 @@
     "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
     "clipboard-copy-failure": "Failed to copy to the clipboard.",
     "confirm-delete-generic-items": "Are you sure you want to delete the following items?",
-    "organizers": "Organizers"
+    "organizers": "Organizers",
+    "caution": "Caution"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Is jy seker jy wil <b>{groupName}<b/> uitvee?",
@@ -448,6 +449,8 @@
     "ingredients": "Bestanddele",
     "insert-ingredient": "Voeg bestanddeel in",
     "insert-section": "Voeg bestanddeel in",
+    "insert-above": "Insert Above",
+    "insert-below": "Insert Below",
     "instructions": "Instruksies",
     "key-name-required": "Sleutelnaam word vereis",
     "landscape-view-coming-soon": "Landscape View (Coming Soon)",
@@ -981,7 +984,8 @@
       "edit-food": "Wysig kos",
       "food-data": "Voedseldata",
       "example-food-singular": "ex: Onion",
-      "example-food-plural": "ex: Onions"
+      "example-food-plural": "ex: Onions",
+      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "Saai die databasis met algemene eenhede gebaseer op jou plaaslike taal.",
@@ -1009,7 +1013,8 @@
       "seed-dialog-text": "Vul die databasis met algemene etikette gebaseer op jou plaaslike taal.",
       "edit-label": "Wysig etiket",
       "new-label": "Nuwe etiket",
-      "labels": "Etikette"
+      "labels": "Etikette",
+      "assign-label": "Assign Label"
     },
     "recipes": {
       "purge-exports": "Verwyder uitvoerlêers",

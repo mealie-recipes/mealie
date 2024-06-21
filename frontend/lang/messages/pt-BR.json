@@ -210,7 +210,8 @@
     "unsaved-changes": "Você possui alterações não salvas. Deseja salvar antes de sair? Ok para salvar, Cancelar para descartar alterações.",
     "clipboard-copy-failure": "Falha ao copiar para a área de transferência.",
     "confirm-delete-generic-items": "Tem certeza que quer excluir os itens seguintes?",
-    "organizers": "Organizadores"
+    "organizers": "Organizadores",
+    "caution": "Caution"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Tem certeza que deseja excluir o grupo <b>{groupName}<b/>?",
@@ -448,6 +449,8 @@
     "ingredients": "Ingredientes",
     "insert-ingredient": "Inserir Ingrediente",
     "insert-section": "Inserir Seção",
+    "insert-above": "Insert Above",
+    "insert-below": "Insert Below",
     "instructions": "Modo de Preparo",
     "key-name-required": "Nome da chave obrigatório",
     "landscape-view-coming-soon": "Visualização em modo paisagem (Em breve)",
@@ -981,7 +984,8 @@
       "edit-food": "Editar Comida",
       "food-data": "Dados da Comida",
       "example-food-singular": "ex: Cebola",
-      "example-food-plural": "ex: Cebolas"
+      "example-food-plural": "ex: Cebolas",
+      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "Adicione a base de dados unidades comuns baseadas em seu idioma.",
@@ -1009,7 +1013,8 @@
       "seed-dialog-text": "Semente o banco de dados com rótulos comuns baseados no seu idioma local.",
       "edit-label": "Editar marcador",
       "new-label": "Novo Marcador",
-      "labels": "Marcadores"
+      "labels": "Marcadores",
+      "assign-label": "Assign Label"
     },
     "recipes": {
       "purge-exports": "Limpar exportações",

@@ -210,7 +210,8 @@
     "unsaved-changes": "У вас є незбережені зміни. Ви хочете зберегти їх перед виходом? Гаразд, щоб зберегти, Скасувати, щоб скасувати.",
     "clipboard-copy-failure": "Не вдалося скопіювати до буфера обміну.",
     "confirm-delete-generic-items": "Ви впевнені, що хочете видалити вибрані елементи?",
-    "organizers": "Організатори"
+    "organizers": "Організатори",
+    "caution": "Caution"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Ви дійсно бажаєте видалити <b>{groupName}<b/>?",
@@ -448,6 +449,8 @@
     "ingredients": "Інгредієнти",
     "insert-ingredient": "Вставити інгредієнт",
     "insert-section": "Вставити розділ",
+    "insert-above": "Insert Above",
+    "insert-below": "Insert Below",
     "instructions": "Інструкції",
     "key-name-required": "Необхідно вказати назву ключа",
     "landscape-view-coming-soon": "Вид в ландшафтному режимі (незабаром буде)",
@@ -981,7 +984,8 @@
       "edit-food": "Редагувати продукт",
       "food-data": "Дані про продукти",
       "example-food-singular": "приклад: Цибулина",
-      "example-food-plural": "приклад: Цибуля"
+      "example-food-plural": "приклад: Цибуля",
+      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "Заповнити базу даних розповсюдженими одиницями виміру що відповідають мові.",
@@ -1009,7 +1013,8 @@
       "seed-dialog-text": "Заповнити базу даних розповсюдженими категоріями що відповідають мові.",
       "edit-label": "Редагувати мітку",
       "new-label": "Нова мітка",
-      "labels": "Мітки"
+      "labels": "Мітки",
+      "assign-label": "Assign Label"
     },
     "recipes": {
       "purge-exports": "Знищити експорт",

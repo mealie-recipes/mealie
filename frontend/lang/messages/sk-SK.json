@@ -210,7 +210,8 @@
     "unsaved-changes": "Posledne vykonané zmeny nie sú uložené. Želáte si ich uložiť alebo zrušiť?",
     "clipboard-copy-failure": "Skopírovanie do schránky zlyhalo.",
     "confirm-delete-generic-items": "Ste si istý, že chcete odstrániť nasledujúce položky?",
-    "organizers": "Organizers"
+    "organizers": "Organizers",
+    "caution": "Caution"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Naozaj chcete odstrániť <b>{groupName}<b/>?",
@@ -448,6 +449,8 @@
     "ingredients": "Suroviny",
     "insert-ingredient": "Vložiť prísadu",
     "insert-section": "Vložiť sekciu",
+    "insert-above": "Insert Above",
+    "insert-below": "Insert Below",
     "instructions": "Postup",
     "key-name-required": "Názov kľúča je povinným údajom",
     "landscape-view-coming-soon": "Orientácia na šírku (čoskoro)",
@@ -981,7 +984,8 @@
       "edit-food": "Upraviť jedlo",
       "food-data": "Údaje o jedle",
       "example-food-singular": "napr.: cibuľa",
-      "example-food-plural": "napr.: cibule"
+      "example-food-plural": "napr.: cibule",
+      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "Naplniť databázu z bežnými štítkami podla vášho lokálneho jazyka.",
@@ -1009,7 +1013,8 @@
       "seed-dialog-text": "Naplniť databázu z bežnými štítkami podla vášho lokálneho jazyka.",
       "edit-label": "Upraviť značku",
       "new-label": "Nová značka",
-      "labels": "Značky"
+      "labels": "Značky",
+      "assign-label": "Assign Label"
     },
     "recipes": {
       "purge-exports": "Vyčistiť exporty",

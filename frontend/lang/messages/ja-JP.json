@@ -210,7 +210,8 @@
     "unsaved-changes": "保存されていない変更があります。移動する前に保存しますか？保存するには はい を、変更を破棄するにはキャンセルしてください。",
     "clipboard-copy-failure": "クリップボードにコピーできませんでした",
     "confirm-delete-generic-items": "次のアイテムを本当に削除しますか？",
-    "organizers": "Organizers"
+    "organizers": "Organizers",
+    "caution": "Caution"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "<b>{groupName}<b/> を削除しますか？",
@@ -448,6 +449,8 @@
     "ingredients": "材料",
     "insert-ingredient": "材料を投入",
     "insert-section": "手順を挿入",
+    "insert-above": "Insert Above",
+    "insert-below": "Insert Below",
     "instructions": "説明",
     "key-name-required": "キー名が必要です",
     "landscape-view-coming-soon": "Landscape View (Coming Soon)",
@@ -981,7 +984,8 @@
       "edit-food": "食品を編集",
       "food-data": "食品データ",
       "example-food-singular": "例: 玉ねぎ",
-      "example-food-plural": "例: 玉ねぎ"
+      "example-food-plural": "例: 玉ねぎ",
+      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "ローカル言語に基づいた共通の単位をデータベースにシードします。",
@@ -1009,7 +1013,8 @@
       "seed-dialog-text": "ローカル言語に基づいた共通ラベルをデータベースにシードします。",
       "edit-label": "ラベルの編集",
       "new-label": "新規ラベル",
-      "labels": "ラベル"
+      "labels": "ラベル",
+      "assign-label": "Assign Label"
     },
     "recipes": {
       "purge-exports": "エクスポートの削除",

@@ -210,7 +210,8 @@
     "unsaved-changes": "Er zijn niet-opgeslagen wijzigingen. Wil je eerst opslaan voordat je vertrekt? Okay om op te slaan, Annuleren om wijzigingen ongedaan te maken.",
     "clipboard-copy-failure": "Kopiëren naar klembord mislukt.",
     "confirm-delete-generic-items": "Weet u zeker dat u de volgende items wilt verwijderen?",
-    "organizers": "Organisatoren"
+    "organizers": "Organisatoren",
+    "caution": "Caution"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Weet je zeker dat je <b>{groupName}<b/> wil verwijderen?",
@@ -448,6 +449,8 @@
     "ingredients": "Ingrediënten",
     "insert-ingredient": "Insert Ingredient",
     "insert-section": "Sectie invoegen",
+    "insert-above": "Voeg boven in",
+    "insert-below": "Voeg hieronder in",
     "instructions": "Bereidingswijze",
     "key-name-required": "Sleutelnaam vereist",
     "landscape-view-coming-soon": "Liggende modus",
@@ -981,7 +984,8 @@
       "edit-food": "Bewerk voedsel",
       "food-data": "Voedsel gegevens",
       "example-food-singular": "bv: Ui",
-      "example-food-plural": "bv: Uien"
+      "example-food-plural": "bv: Uien",
+      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "Vul de database aan met veelvoorkomende eenheden, gebaseerd op je lokale taal.",
@@ -1009,7 +1013,8 @@
       "seed-dialog-text": "Vul de database aan met veelvoorkomende labels, gebaseerd op je lokale taal.",
       "edit-label": "Bewerk Label",
       "new-label": "Nieuw label",
-      "labels": "Labels"
+      "labels": "Labels",
+      "assign-label": "Assign Label"
     },
     "recipes": {
       "purge-exports": "Verwijder exports",

@@ -210,7 +210,8 @@
     "unsaved-changes": "Tem alterações por gravar. Quer gravar antes de sair? OK para gravar, Cancelar para descartar alterações.",
     "clipboard-copy-failure": "Erro ao copiar para a área de transferência.",
     "confirm-delete-generic-items": "Tem a certeza de que deseja eliminar os seguintes itens?",
-    "organizers": "Organizadores"
+    "organizers": "Organizadores",
+    "caution": "Caution"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Tem a certeza que quer eliminar <b>{groupName}<b/>?",
@@ -448,6 +449,8 @@
     "ingredients": "Ingredientes",
     "insert-ingredient": "Inserir Ingrediente",
     "insert-section": "Inserir Secção",
+    "insert-above": "Insert Above",
+    "insert-below": "Insert Below",
     "instructions": "Instruções",
     "key-name-required": "Nome da Chave é Obrigatório",
     "landscape-view-coming-soon": "Modo paisagem",
@@ -981,7 +984,8 @@
       "edit-food": "Editar Alimento",
       "food-data": "Dados do Alimento",
       "example-food-singular": "ex: Cebola",
-      "example-food-plural": "ex: Cebolas"
+      "example-food-plural": "ex: Cebolas",
+      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "Popule a base de dados com unidades comuns no seu idioma.",
@@ -1009,7 +1013,8 @@
       "seed-dialog-text": "Adicionar à base de dados rótulos comuns no seu idioma local.",
       "edit-label": "Editar Rótulo",
       "new-label": "Novo rótulo",
-      "labels": "Rótulos"
+      "labels": "Rótulos",
+      "assign-label": "Assign Label"
     },
     "recipes": {
       "purge-exports": "Limpar exportações",

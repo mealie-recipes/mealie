@@ -210,7 +210,8 @@
     "unsaved-changes": "Masz niezapisane zmiany. Czy chcesz zapisać przed wyjściem? Ok, aby zapisać, Anuluj, żeby odrzucić zmiany.",
     "clipboard-copy-failure": "Nie udało się skopiować do schowka.",
     "confirm-delete-generic-items": "Czy na pewno chcesz usunąć następujące elementy?",
-    "organizers": "Organizers"
+    "organizers": "Organizers",
+    "caution": "Caution"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Czy na pewno chcesz usunąć <b>{groupName}<b/>?",
@@ -448,6 +449,8 @@
     "ingredients": "Składniki",
     "insert-ingredient": "Wstaw Składnik",
     "insert-section": "Wstaw sekcję",
+    "insert-above": "Insert Above",
+    "insert-below": "Insert Below",
     "instructions": "Instrukcje",
     "key-name-required": "Nazwa klucza jest wymagana",
     "landscape-view-coming-soon": "Widok poziomy (wkrótce)",
@@ -981,7 +984,8 @@
       "edit-food": "Edytuj Żywność",
       "food-data": "Dane Żywności",
       "example-food-singular": "np. Cebula",
-      "example-food-plural": "np. Cebule"
+      "example-food-plural": "np. Cebule",
+      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "Wypełnij bazę zwyczajowymi jednostkami dla wybranego języka.",
@@ -1009,7 +1013,8 @@
       "seed-dialog-text": "Wypełnij bazę zwyczajowymi etykietami dla wybranego języka.",
       "edit-label": "Edytuj Etykietę",
       "new-label": "Nowa Etykieta",
-      "labels": "Etykiety"
+      "labels": "Etykiety",
+      "assign-label": "Assign Label"
     },
     "recipes": {
       "purge-exports": "Wyczyść Eksport",
