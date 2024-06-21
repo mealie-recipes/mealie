@@ -62,7 +62,8 @@ export default defineComponent({
     const route = useRoute();
     const router = useRouter();
     const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
-    const disableRedirect = computed(() => route.value.query.disableRedirect === "true");
+    const overrideDisableRedirect = ref(false);
+    const disableRedirect = computed(() => route.value.query.disableRedirect === "true" || overrideDisableRedirect.value);
     const preferences = useShoppingListPreferences();
 
     const state = reactive({
@@ -84,6 +85,14 @@ export default defineComponent({
       return shoppingLists.value.filter((list) => preferences.value.viewAllLists || list.userId === $auth.user?.id);
     });
 
+    // This has to appear before the shoppingListChoices watcher, otherwise that runs first and the redirect is not disabled
+    watch(
+      () => preferences.value.viewAllLists,
+      () => {
+        overrideDisableRedirect.value = true;
+      },
+    );
+
     watch(
       () => shoppingListChoices,
       () => {
@@ -96,7 +105,7 @@ export default defineComponent({
       {
         deep: true,
       },
-    )
+    );
 
     async function fetchShoppingLists() {
       const { data } = await userApi.shopping.lists.getAll(1, -1, { orderBy: "name", orderDirection: "asc" });
