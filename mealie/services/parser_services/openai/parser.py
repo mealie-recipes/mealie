@@ -45,7 +45,7 @@ class OpenAIParser(ABCIngredientParser):
             ),
         ]
 
-        if service.send_db_data:
+        if service.send_db_data and self.units_by_alias:
             data_injections.extend(
                 [
                     OpenAIDataInjection(
