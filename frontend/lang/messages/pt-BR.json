@@ -985,7 +985,7 @@
       "food-data": "Dados da Comida",
       "example-food-singular": "ex: Cebola",
       "example-food-plural": "ex: Cebolas",
-      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
+      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "Adicione a base de dados unidades comuns baseadas em seu idioma.",
