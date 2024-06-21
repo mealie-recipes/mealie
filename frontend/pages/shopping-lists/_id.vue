@@ -4,10 +4,10 @@
       <template #header>
         <v-container>
           <v-row>
-            <v-col cols="12" sm="3" class="text-left">
+            <v-col cols="3" class="text-left">
               <ButtonLink :to="`/shopping-lists?disableRedirect=true`" :text="$tc('shopping-list.back-to-lists')" :icon="$globals.icons.backArrow" />
             </v-col>
-            <v-col cols="12" sm="6" class="d-flex justify-center">
+            <v-col cols="6" class="d-flex justify-center">
               <v-img max-height="100" max-width="100" :src="require('~/static/svgs/shopping-cart.svg')"></v-img>
             </v-col>
           </v-row>
