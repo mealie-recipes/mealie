@@ -985,7 +985,7 @@
       "food-data": "Údaje o jedle",
       "example-food-singular": "napr.: cibuľa",
       "example-food-plural": "napr.: cibule",
-      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
+      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "Naplniť databázu z bežnými štítkami podla vášho lokálneho jazyka.",
