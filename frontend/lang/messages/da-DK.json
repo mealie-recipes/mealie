@@ -985,7 +985,7 @@
       "food-data": "Oplysninger om fødevare",
       "example-food-singular": "fx.: grøntsag",
       "example-food-plural": "fx.: grøntsager",
-      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
+      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "Opret standard enheder i dit sprog.",

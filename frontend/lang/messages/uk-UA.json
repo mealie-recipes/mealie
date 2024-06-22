@@ -985,7 +985,7 @@
       "food-data": "Дані про продукти",
       "example-food-singular": "приклад: Цибулина",
       "example-food-plural": "приклад: Цибуля",
-      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
+      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "Заповнити базу даних розповсюдженими одиницями виміру що відповідають мові.",

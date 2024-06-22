@@ -985,7 +985,7 @@
       "food-data": "Données de l'aliment",
       "example-food-singular": "ex : Oignon",
       "example-food-plural": "ex : Oignons",
-      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
+      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "Initialisez la base de données avec des unités communes basées sur votre langue locale.",

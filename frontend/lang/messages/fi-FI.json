@@ -211,7 +211,7 @@
     "clipboard-copy-failure": "Kopioiminen leikepöydälle epäonnistui.",
     "confirm-delete-generic-items": "Haluatko varmasti poistaa seuraavat kohteet?",
     "organizers": "Järjestäjät",
-    "caution": "Caution"
+    "caution": "Huomio"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Haluatko varmasti poistaa ryhmän <b>{groupName}<b/>?",
@@ -985,7 +985,7 @@
       "food-data": "Elintarvikkeiden tiedot",
       "example-food-singular": "esim. sipuli",
       "example-food-plural": "esim. sipulit",
-      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
+      "label-overwrite-warning": "Tämä määrittää valitun tunnisteen kaikille valituille elintarvikkeille ja mahdollisesti korvaa olemassa olevat tunnisteet."
     },
     "units": {
       "seed-dialog-text": "Lisää tietokantaan yksiköt paikallisen kielen perusteella.",
@@ -1014,7 +1014,7 @@
       "edit-label": "Muokkaa tunnistetta",
       "new-label": "Uusi tunniste",
       "labels": "Tunnisteet",
-      "assign-label": "Assign Label"
+      "assign-label": "Määritä tunniste"
     },
     "recipes": {
       "purge-exports": "Tyhjennä Vientitiedostot",
