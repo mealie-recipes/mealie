@@ -357,8 +357,6 @@ class MergeUnit(MealieModel):
     to_unit: UUID4
 
 
-from mealie.schema.labels.multi_purpose_label import (
-    MultiPurposeLabelSummary,
-)  # noqa: E402
+from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary  # noqa: E402
 
 IngredientFood.model_rebuild()
