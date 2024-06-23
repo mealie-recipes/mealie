@@ -211,5 +211,6 @@ at least these sensitive environment variables when working within shared enviro
 - `LDAP_QUERY_PASSWORD`
 - `OPENAI_API_KEY`
 
+[docker-secrets]: https://docs.docker.com/compose/use-secrets/
 [secrets]: #docker-secrets
 [unicorn_workers]: https://www.uvicorn.org/deployment/#built-in
