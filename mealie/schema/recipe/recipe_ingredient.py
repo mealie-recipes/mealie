@@ -36,7 +36,7 @@ class UnitFoodBase(MealieModel):
     plural_name: str | None = None
     description: str = ""
     extras: dict | None = {}
-    onHand: bool = False
+    on_hand: bool = False
 
     @field_validator("id", mode="before")
     def convert_empty_id_to_none(cls, v):
@@ -357,6 +357,8 @@ class MergeUnit(MealieModel):
     to_unit: UUID4
 
 
-from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary  # noqa: E402
+from mealie.schema.labels.multi_purpose_label import (
+    MultiPurposeLabelSummary,
+)  # noqa: E402
 
 IngredientFood.model_rebuild()

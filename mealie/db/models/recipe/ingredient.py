@@ -146,7 +146,7 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
     name: Mapped[str | None] = mapped_column(String)
     plural_name: Mapped[str | None] = mapped_column(String)
     description: Mapped[str | None] = mapped_column(String)
-    onHand: Mapped[bool] = mapped_column(Boolean)
+    on_hand: Mapped[bool] = mapped_column(Boolean)
 
     ingredients: Mapped[list["RecipeIngredientModel"]] = orm.relationship(
         "RecipeIngredientModel", back_populates="food"
