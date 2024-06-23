@@ -311,7 +311,7 @@ export default defineComponent({
         show: true,
       },
       {
-        text: i18n.tc("data-pages.foods.on-hand"),
+        text: i18n.tc("tool.on-hand"),
         value: "onHand",
         show: true,
       },
