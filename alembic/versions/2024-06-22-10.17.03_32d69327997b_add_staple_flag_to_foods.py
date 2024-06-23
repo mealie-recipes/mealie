@@ -24,7 +24,7 @@ def is_postgres():
 
 
 def upgrade():
-    with op.batch_alter_table("ingredient_foods", schema=None) as batch_op:
+    with op.batch_alter_table("ingredient_foods") as batch_op:
         batch_op.add_column(sa.Column("onHand", sa.Boolean(), nullable=True, default=False))
 
     bind = op.get_bind()
@@ -44,5 +44,5 @@ def upgrade():
 
 
 def downgrade():
-    with op.batch_alter_table("ingredient_foods", schema=None) as batch_op:
+    with op.batch_alter_table("ingredient_foods") as batch_op:
         batch_op.drop_column("onHand")
