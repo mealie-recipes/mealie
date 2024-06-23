@@ -231,7 +231,7 @@ export default defineComponent({
 
         const shoppingListIngredients: ShoppingListIngredient[] = recipe.recipeIngredient.map((ing) => {
           return {
-            checked: true,
+            checked: !ing.food?.onHand,
             ingredient: ing,
             disableAmount: recipe.settings?.disableAmount || false,
           }

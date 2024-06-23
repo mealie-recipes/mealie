@@ -87,6 +87,11 @@
             :label="$t('data-pages.foods.food-label')"
           >
           </v-autocomplete>
+          <v-checkbox
+            v-model="createTarget.onHand"
+            :label="$t('data-pages.foods.on-hand-checkbox-label')"
+          >
+          </v-checkbox>
         </v-form> </v-card-text
     ></BaseDialog>
 
@@ -134,6 +139,11 @@
             :label="$t('data-pages.foods.food-label')"
           >
           </v-autocomplete>
+          <v-checkbox
+            v-model="editTarget.onHand"
+            :label="$t('data-pages.foods.on-hand-checkbox-label')"
+          >
+          </v-checkbox>
         </v-form>
       </v-card-text>
       <template #custom-card-action>
@@ -298,6 +308,11 @@ export default defineComponent({
       {
         text: i18n.tc("shopping-list.label"),
         value: "label",
+        show: true,
+      },
+      {
+        text: i18n.tc("data-pages.foods.on-hand"),
+        value: "onHand",
         show: true,
       },
     ];

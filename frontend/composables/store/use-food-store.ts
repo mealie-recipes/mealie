@@ -19,6 +19,7 @@ export const useFoodData = function () {
     name: "",
     description: "",
     labelId: undefined,
+    onHand: false,
   });
 
   function reset() {
@@ -26,6 +27,7 @@ export const useFoodData = function () {
     data.name = "";
     data.description = "";
     data.labelId = undefined;
+    data.onHand = false;
   }
 
   return {
