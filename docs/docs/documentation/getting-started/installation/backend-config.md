@@ -137,8 +137,8 @@ Setting the following environmental variables will change the theme of the front
 
 ### Docker Secrets
 
-> <super>[&dagger;][secrets]</super> Any environment variable in the preceding lists with a dagger symbol next to them
-> support the Docker Compose secrets pattern, below.
+> <super>&dagger;</super> Starting in version `1.10.0`, any environment variable in the preceding lists with a dagger
+> symbol next to them support the Docker Compose secrets pattern, below.
 
 [Docker Compose secrets][docker-secrets] can be used to secure sensitive information regarding the Mealie implementation
 by managing control of each secret independently from the single `.env` file. This is helpful for users that may need
