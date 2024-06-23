@@ -34,7 +34,7 @@ def test_get_locked_users(database: AllRepositories, user_tuple: list[TestUser])
         elif locked_user.id == user_2.id:
             assert locked_user.locked_at == user_2.locked_at
         else:
-            assert False
+            raise AssertionError()
 
     # Cleanup
     user_service.unlock_user(user_1)

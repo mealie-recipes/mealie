@@ -145,7 +145,7 @@ def test_nlp_parser() -> None:
     models: list[CRFIngredient] = convert_list_to_crf_model([x.input for x in test_ingredients])
 
     # Iterate over models and test_ingredients to gather
-    for model, test_ingredient in zip(models, test_ingredients):
+    for model, test_ingredient in zip(models, test_ingredients, strict=False):
         assert round(float(sum(Fraction(s) for s in model.qty.split())), 3) == pytest.approx(test_ingredient.quantity)
 
         assert model.comment == test_ingredient.comments

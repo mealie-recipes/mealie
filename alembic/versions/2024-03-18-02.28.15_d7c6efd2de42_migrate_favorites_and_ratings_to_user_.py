@@ -32,7 +32,7 @@ def new_user_rating(user_id: Any, recipe_id: Any, rating: float | None = None, i
     if is_postgres():
         id = str(uuid4())
     else:
-        id = "%.32x" % uuid4().int
+        id = f"{uuid4().int:.32x}"
 
     now = datetime.now().isoformat()
     return {

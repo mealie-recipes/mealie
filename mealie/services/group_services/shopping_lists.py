@@ -170,7 +170,7 @@ class ShoppingListService:
             self.list_items.update_many(update_items) if update_items else [],  # type: ignore
         )
 
-        for list_id in set(item.shopping_list_id for item in created_items + updated_items):
+        for list_id in {item.shopping_list_id for item in created_items + updated_items}:
             self.remove_unused_recipe_references(list_id)
 
         return ShoppingListItemsCollectionOut(
@@ -257,7 +257,7 @@ class ShoppingListService:
             self.list_items.delete_many(delete_items) if delete_items else [],  # type: ignore
         )
 
-        for list_id in set(item.shopping_list_id for item in updated_items + deleted_items):
+        for list_id in {item.shopping_list_id for item in updated_items + deleted_items}:
             self.remove_unused_recipe_references(list_id)
 
         return ShoppingListItemsCollectionOut(
@@ -270,7 +270,7 @@ class ShoppingListService:
             self.list_items.delete_many(set(delete_items)) if delete_items else [],  # type: ignore
         )
 
-        for list_id in set(item.shopping_list_id for item in deleted_items):
+        for list_id in {item.shopping_list_id for item in deleted_items}:
             self.remove_unused_recipe_references(list_id)
 
         return ShoppingListItemsCollectionOut(created_items=[], updated_items=[], deleted_items=deleted_items)

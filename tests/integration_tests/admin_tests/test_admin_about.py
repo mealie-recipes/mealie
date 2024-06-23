@@ -26,7 +26,7 @@ def test_public_about_get_app_info(api_client: TestClient, is_private_group: boo
     assert as_dict["allowSignup"] == settings.ALLOW_SIGNUP
 
     if is_private_group:
-        assert as_dict["defaultGroupSlug"] == None
+        assert as_dict["defaultGroupSlug"] is None
     else:
         assert as_dict["defaultGroupSlug"] == group.slug
 

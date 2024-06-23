@@ -95,7 +95,7 @@ def insideParenthesis(token, tokens):
     else:
         line = " ".join(tokens)
         return (
-            re.match(r".*\(.*" + re.escape(token) + r".*\).*", line) is not None  # noqa: W605 - invalid dscape sequence
+            re.match(r".*\(.*" + re.escape(token) + r".*\).*", line) is not None  # - invalid dscape sequence
         )
 
 
@@ -188,7 +188,7 @@ def import_data(lines):
 
             # turn B-NAME/123 back into "name"
             tag, confidence = re.split(r"/", columns[-1], maxsplit=1)
-            tag = re.sub(r"^[BI]\-", "", tag).lower()  # noqa: W605 - invalid dscape sequence
+            tag = re.sub(r"^[BI]\-", "", tag).lower()  # - invalid dscape sequence
 
             # ====================
             # Confidence Getter
@@ -261,6 +261,6 @@ def export_data(lines):
 
         for i, token in enumerate(tokens):
             features = getFeatures(token, i + 1, tokens)
-            output.append(joinLine([token] + features))
+            output.append(joinLine([token, *features]))
         output.append("")
     return "\n".join(output)

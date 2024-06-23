@@ -162,7 +162,7 @@ def clean_instructions(steps_object: list | dict | str, default: list | None = N
             # }
             #
             steps_object = typing.cast(dict, steps_object)
-            return clean_instructions([x for x in steps_object.values()])
+            return clean_instructions(list(steps_object.values()))
         case str(step_as_str):
             # Strings are weird, some sites return a single string with newlines
             # others returns a json string for some reasons
@@ -481,7 +481,7 @@ def clean_tags(data: str | list[str]) -> list[str]:
         case [str(), *_]:
             return [tag.strip().title() for tag in data if tag.strip()]
         case str(data):
-            return clean_tags([t for t in data.split(",")])
+            return clean_tags(data.split(","))
         case _:
             return []
             # should probably raise exception

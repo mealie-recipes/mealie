@@ -29,7 +29,7 @@ def test_recipe_ingredients_parser_nlp(api_client: TestClient, unique_user: Test
     response = api_client.post(api_routes.parser_ingredients, json=payload, headers=unique_user.token)
     assert response.status_code == 200
 
-    for api_ingredient, test_ingredient in zip(response.json(), test_ingredients):
+    for api_ingredient, test_ingredient in zip(response.json(), test_ingredients, strict=False):
         assert_ingredient(api_ingredient, test_ingredient)
 
 

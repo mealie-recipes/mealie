@@ -1,23 +1,22 @@
 import contextlib
 from collections.abc import Generator
-
-from pytest import MonkeyPatch, fixture
-
-mp = MonkeyPatch()
-mp.setenv("PRODUCTION", "True")
-mp.setenv("TESTING", "True")
-mp.setenv("ALLOW_SIGNUP", "True")
-mp.setenv("OPENAI_API_KEY", "dummy-api-key")
 from pathlib import Path
 
 from fastapi.testclient import TestClient
+from pytest import MonkeyPatch, fixture
 
 from mealie.app import app
 from mealie.core import config
 from mealie.db.db_setup import SessionLocal, generate_session
 from mealie.db.init_db import main
 from tests import data as test_data
-from tests.fixtures import *  # noqa: F403 F401
+from tests.fixtures import *
+
+mp = MonkeyPatch()
+mp.setenv("PRODUCTION", "True")
+mp.setenv("TESTING", "True")
+mp.setenv("ALLOW_SIGNUP", "True")
+mp.setenv("OPENAI_API_KEY", "dummy-api-key")
 
 main()
 

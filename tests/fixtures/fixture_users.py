@@ -1,5 +1,5 @@
 import json
-from typing import Generator
+from collections.abc import Generator
 
 from pytest import fixture
 from starlette.testclient import TestClient

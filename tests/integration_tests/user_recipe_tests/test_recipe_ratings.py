@@ -1,5 +1,5 @@
 import random
-from typing import Generator
+from collections.abc import Generator
 from uuid import UUID
 
 import pytest
@@ -71,8 +71,8 @@ def test_user_recipe_favorites(
     ratings = response.json()["ratings"]
 
     assert len(ratings) == len(recipes_to_favorite)
-    fetched_recipe_ids = set(rating["recipeId"] for rating in ratings)
-    favorited_recipe_ids = set(str(recipe.id) for recipe in recipes_to_favorite)
+    fetched_recipe_ids = {rating["recipeId"] for rating in ratings}
+    favorited_recipe_ids = {str(recipe.id) for recipe in recipes_to_favorite}
     assert fetched_recipe_ids == favorited_recipe_ids
 
     # remove favorites
@@ -87,8 +87,8 @@ def test_user_recipe_favorites(
     ratings = response.json()["ratings"]
 
     assert len(ratings) == len(recipes_to_favorite) - len(recipe_favorites_to_remove)
-    fetched_recipe_ids = set(rating["recipeId"] for rating in ratings)
-    removed_recipe_ids = set(str(recipe.id) for recipe in recipe_favorites_to_remove)
+    fetched_recipe_ids = {rating["recipeId"] for rating in ratings}
+    removed_recipe_ids = {str(recipe.id) for recipe in recipe_favorites_to_remove}
     assert fetched_recipe_ids == favorited_recipe_ids - removed_recipe_ids
 
 

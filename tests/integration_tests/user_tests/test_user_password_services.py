@@ -3,14 +3,11 @@ import json
 import pytest
 from fastapi.testclient import TestClient
 
-from mealie.core.config import get_app_settings
 from mealie.db.db_setup import session_context
-from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.response.pagination import PaginationQuery
-from mealie.schema.user.user import ChangePassword, PrivateUser
+from mealie.schema.user.user import PrivateUser
 from mealie.services.user_services.password_reset_service import PasswordResetService
 from tests.utils import api_routes
-from tests.utils.factories import random_email, random_string
+from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 
 
@@ -27,7 +24,7 @@ def test_password_reset(api_client: TestClient, unique_user: TestUser, casing: s
                 cased_email += letter.upper()
             else:
                 cased_email += letter.lower()
-        cased_email
+        assert cased_email
 
     with session_context() as session:
         service = PasswordResetService(session)
@@ -75,7 +72,7 @@ def test_password_reset_ldap(ldap_user: PrivateUser, casing: str):
                 cased_email += letter.upper()
             else:
                 cased_email += letter.lower()
-        cased_email
+        assert cased_email
 
     with session_context() as session:
         service = PasswordResetService(session)

@@ -32,7 +32,7 @@ def make_dependable(cls):
             return cls(*args, **kwargs)
         except (ValidationError, RequestValidationError) as e:
             for error in e.errors():
-                error["loc"] = ["query"] + list(error["loc"])
+                error["loc"] = ["query", *list(error["loc"])]
             raise HTTPException(422, detail=[format_exception(ex) for ex in e.errors()]) from None
 
     init_cls_and_handle_errors.__signature__ = signature(cls)

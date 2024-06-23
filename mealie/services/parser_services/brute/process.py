@@ -122,7 +122,7 @@ def parse_ingredient(tokens) -> tuple[str, str]:
             # no opening bracket anywhere -> just ignore the last bracket
             ingredient, note = parse_ingredient_with_comma(tokens)
         else:
-            # opening bracket found -> split in ingredient and note, remove brackets from note  # noqa: E501
+            # opening bracket found -> split in ingredient and note, remove brackets from note
             note = " ".join(tokens[start:])[1:-1]
             ingredient = " ".join(tokens[:start])
     else:

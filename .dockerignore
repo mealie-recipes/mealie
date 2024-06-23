@@ -26,7 +26,7 @@ venv
 */node_modules
 */dist
 */data/db
-*/mealie/test 
+*/mealie/test
 */mealie/.temp
 
 model.crfmodel

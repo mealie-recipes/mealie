@@ -104,7 +104,7 @@ def test_bad_mealie_alpha_data_is_ignored(api_client: TestClient, unique_user: T
             with open(invalid_json_path, "w"):
                 pass  # write nothing to the file, which is invalid JSON
         except Exception:
-            raise Exception(os.listdir(tmpdir))
+            raise Exception(os.listdir(tmpdir))  # noqa: B904
 
         modified_test_data = os.path.join(tmpdir, "modified-test-data.zip")
         with ZipFile(modified_test_data, "w") as zf:

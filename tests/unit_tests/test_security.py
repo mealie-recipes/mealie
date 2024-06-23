@@ -27,9 +27,9 @@ class LdapConnMock:
         self.name = name
 
     def simple_bind_s(self, dn, bind_pw):
-        if dn == "cn={}, {}".format(self.user, self.app_settings.LDAP_BASE_DN):
+        if dn == f"cn={self.user}, {self.app_settings.LDAP_BASE_DN}":
             valid_password = self.password
-        elif "cn={}, {}".format(self.query_bind, self.app_settings.LDAP_BASE_DN):
+        elif f"cn={self.query_bind}, {self.app_settings.LDAP_BASE_DN}":
             valid_password = self.query_password
 
         if bind_pw == valid_password:
@@ -42,7 +42,7 @@ class LdapConnMock:
         if filter == self.app_settings.LDAP_ADMIN_FILTER:
             assert attrlist == []
             assert filter == self.app_settings.LDAP_ADMIN_FILTER
-            assert dn == "cn={}, {}".format(self.user, self.app_settings.LDAP_BASE_DN)
+            assert dn == f"cn={self.user}, {self.app_settings.LDAP_BASE_DN}"
             assert scope == ldap.SCOPE_BASE
 
             if not self.admin:
@@ -60,11 +60,9 @@ class LdapConnMock:
             mail_attribute=self.app_settings.LDAP_MAIL_ATTRIBUTE,
             input=self.user,
         )
-        search_filter = "(&(|({id_attribute}={input})({mail_attribute}={input})){filter})".format(
-            id_attribute=self.app_settings.LDAP_ID_ATTRIBUTE,
-            mail_attribute=self.app_settings.LDAP_MAIL_ATTRIBUTE,
-            input=self.user,
-            filter=user_filter,
+        search_filter = (
+            f"(&(|({self.app_settings.LDAP_ID_ATTRIBUTE}={self.user})"
+            f"({self.app_settings.LDAP_MAIL_ATTRIBUTE}={self.user})){user_filter})"
         )
         assert filter == search_filter
         assert dn == self.app_settings.LDAP_BASE_DN
@@ -72,7 +70,7 @@ class LdapConnMock:
 
         return [
             (
-                "cn={}, {}".format(self.user, self.app_settings.LDAP_BASE_DN),
+                f"cn={self.user}, {self.app_settings.LDAP_BASE_DN}",
                 {
                     self.app_settings.LDAP_ID_ATTRIBUTE: [self.user.encode()],
                     self.app_settings.LDAP_NAME_ATTRIBUTE: [self.name.encode()],
