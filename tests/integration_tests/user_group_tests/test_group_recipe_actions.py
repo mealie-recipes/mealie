@@ -49,7 +49,7 @@ def test_group_recipe_actions_get_all(api_client: TestClient, unique_user: TestU
 
     response = api_client.get(api_routes.groups_recipe_actions, headers=unique_user.token)
     data = assert_deserialize(response, 200)
-    fetched_ids = set(item["id"] for item in data["items"])
+    fetched_ids = {item["id"] for item in data["items"]}
     for expected_id in expected_ids:
         assert expected_id in fetched_ids
 

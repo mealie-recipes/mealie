@@ -40,7 +40,7 @@ def test_get_all_users_admin(
     assert response.status_code == 200
 
     # assert all users from all groups are returned
-    response_user_ids = set(user["id"] for user in response.json()["items"])
+    response_user_ids = {user["id"] for user in response.json()["items"]}
     for user_id in user_ids:
         assert user_id in response_user_ids
 
@@ -73,7 +73,7 @@ def test_get_all_group_users(
 
     user_group = database.groups.get_by_slug_or_id(user.group_id)
     assert user_group
-    same_group_user_ids: set[str] = set([str(user.user_id)])
+    same_group_user_ids: set[str] = {user.user_id}
     for _ in range(random_int(2, 5)):
         new_user = database.users.create(
             {
@@ -89,7 +89,7 @@ def test_get_all_group_users(
 
     response = api_client.get(api_routes.users_group_users, params={"perPage": -1}, headers=user.token)
     assert response.status_code == 200
-    response_user_ids = set(user["id"] for user in response.json()["items"])
+    response_user_ids = {user["id"] for user in response.json()["items"]}
 
     # assert only users from the same group are returned
     for user_id in other_group_user_ids:
