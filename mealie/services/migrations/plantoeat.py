@@ -98,7 +98,7 @@ class PlanToEatMigrator(BaseMigrator):
         return tags
 
     def _process_recipe_row(self, row: dict) -> dict:
-        """Reads a single recipe's row, parses its nutrition, and converts it to a dictionary"""
+        """Reads a single recipe's row, merges columns, and converts the row to a dictionary"""
 
         recipe_dict: dict = row
 
