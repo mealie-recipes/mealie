@@ -164,10 +164,16 @@
               text: $tc('shopping-list.uncheck-all-items'),
               event: 'uncheck',
             },
+            {
+              icon: $globals.icons.checkboxOutline,
+              text: $tc('shopping-list.check-all-items'),
+              event: 'check',
+            },
           ]"
           @edit="edit = true"
           @delete="deleteChecked"
           @uncheck="uncheckAll"
+          @check="checkAll"
           @sort-by-labels="sortByLabels"
           @copy-plain="copyListItems('plain')"
           @copy-markdown="copyListItems('markdown')"
@@ -448,6 +454,18 @@ export default defineComponent({
 
     // =====================================
     // Check / Uncheck All
+    function checkAll() {
+      let hasChanged = false;
+      shoppingList.value?.listItems?.forEach((item) => {
+        if (!item.checked) {
+          hasChanged = true;
+          item.checked = true;
+        }
+      });
+      if (hasChanged) {
+        updateListItems();
+      }
+    }
 
     function uncheckAll() {
       let hasChanged = false;
@@ -988,6 +1006,7 @@ export default defineComponent({
       sortByLabels,
       toggleShowChecked,
       uncheckAll,
+      checkAll,
       updateIndexUnchecked,
       updateIndexUncheckedByLabel,
       allUnits,
