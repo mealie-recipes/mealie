@@ -841,7 +841,7 @@
     "sign-up-links": "Registrierungslinks",
     "sign-up-token-deleted": "Registrierungs-Token entfernt",
     "sign-up-token-deletion-failed": "Entfernen des Registrierungs-Tokens fehlgeschlagen",
-    "welcome-to-mealie": "Willkommen bei Mealie! Um ein Benutzer dieser Instanz zu werden musst du einen gültigen Einladungslink haben. Wenn du keine Einladung erhalten hast kannst du dich nicht registrieren. Wende dich an den Administrator, um einen Link zu erhalten."
+    "welcome-to-mealie": "Willkommen bei Mealie! Um ein Benutzer dieser Instanz zu werden, musst du einen gültigen Einladungslink haben. Wenn du keine Einladung erhalten hast, kannst du dich nicht registrieren. Wende dich an den Administrator, um einen Link zu erhalten."
   },
   "tag": {
     "tag-created": "Schlagwort angelegt",
