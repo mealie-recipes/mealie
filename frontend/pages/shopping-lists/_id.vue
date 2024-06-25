@@ -1,5 +1,17 @@
 <template>
   <v-container v-if="shoppingList" class="md-container">
+    <BaseDialog v-model="checkAllDialog" :title="$tc('general.confirm')" @confirm="checkAll">
+      <v-card-text>{{ $t('shopping-list.are-you-sure-you-want-to-check-all-items') }}</v-card-text>
+    </BaseDialog>
+
+    <BaseDialog v-model="uncheckAllDialog" :title="$tc('general.confirm')" @confirm="uncheckAll">
+      <v-card-text>{{ $t('shopping-list.are-you-sure-you-want-to-uncheck-all-items') }}</v-card-text>
+    </BaseDialog>
+
+    <BaseDialog v-model="deleteCheckedDialog" :title="$tc('general.confirm')" @confirm="deleteChecked">
+      <v-card-text>{{ $t('shopping-list.are-you-sure-you-want-to-delete-checked-items') }}</v-card-text>
+    </BaseDialog>
+
     <BasePageTitle divider>
       <template #header>
         <v-container>
@@ -171,9 +183,9 @@
             },
           ]"
           @edit="edit = true"
-          @delete="deleteChecked"
-          @uncheck="uncheckAll"
-          @check="checkAll"
+          @delete="openDeleteChecked"
+          @uncheck="openUncheckAll"
+          @check="openCheckAll"
           @sort-by-labels="sortByLabels"
           @copy-plain="copyListItems('plain')"
           @copy-markdown="copyListItems('markdown')"
@@ -262,7 +274,7 @@
 <script lang="ts">
 import draggable from "vuedraggable";
 
-import { defineComponent, useRoute, computed, ref, onUnmounted, useContext } from "@nuxtjs/composition-api";
+import { defineComponent, useRoute, computed, ref, toRefs, onUnmounted, useContext, reactive } from "@nuxtjs/composition-api";
 import { useIdle, useToggle } from "@vueuse/core";
 import { useCopyList } from "~/composables/use-copy";
 import { useUserApi } from "~/composables/api";
@@ -308,6 +320,12 @@ export default defineComponent({
     const route = useRoute();
     const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
     const id = route.value.params.id;
+
+    const state = reactive({
+      checkAllDialog: false,
+      uncheckAllDialog: false,
+      deleteCheckedDialog: false,
+    });
 
     // ===============================================================
     // Shopping List Actions
@@ -454,7 +472,12 @@ export default defineComponent({
 
     // =====================================
     // Check / Uncheck All
+    function openCheckAll() {
+      state.checkAllDialog = true;
+    }
+
     function checkAll() {
+      state.checkAllDialog = false;
       let hasChanged = false;
       shoppingList.value?.listItems?.forEach((item) => {
         if (!item.checked) {
@@ -467,7 +490,12 @@ export default defineComponent({
       }
     }
 
+    function openUncheckAll() {
+      state.uncheckAllDialog = true;
+    }
+
     function uncheckAll() {
+      state.uncheckAllDialog = false;
       let hasChanged = false;
       shoppingList.value?.listItems?.forEach((item) => {
         if (item.checked) {
@@ -478,6 +506,10 @@ export default defineComponent({
       if (hasChanged) {
         updateListItems();
       }
+    }
+
+    function openDeleteChecked() {
+      state.deleteCheckedDialog = true;
     }
 
     function deleteChecked() {
@@ -971,6 +1003,7 @@ export default defineComponent({
     }
 
     return {
+      ...toRefs(state),
       addRecipeReferenceToList,
       updateListItems,
       allLabels,
@@ -981,6 +1014,7 @@ export default defineComponent({
       createListItem,
       createListItemData,
       deleteChecked,
+      openDeleteChecked,
       deleteListItem,
       edit,
       getLabelColor,
@@ -1006,7 +1040,9 @@ export default defineComponent({
       sortByLabels,
       toggleShowChecked,
       uncheckAll,
+      openUncheckAll,
       checkAll,
+      openCheckAll,
       updateIndexUnchecked,
       updateIndexUncheckedByLabel,
       allUnits,
