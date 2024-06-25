@@ -211,7 +211,7 @@
     "clipboard-copy-failure": "Не вдалося скопіювати до буфера обміну.",
     "confirm-delete-generic-items": "Ви впевнені, що хочете видалити вибрані елементи?",
     "organizers": "Організатори",
-    "caution": "Caution"
+    "caution": "Увага"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Ви дійсно бажаєте видалити <b>{groupName}<b/>?",
@@ -449,8 +449,8 @@
     "ingredients": "Інгредієнти",
     "insert-ingredient": "Вставити інгредієнт",
     "insert-section": "Вставити розділ",
-    "insert-above": "Insert Above",
-    "insert-below": "Insert Below",
+    "insert-above": "Додати зверху",
+    "insert-below": "Додати нижче",
     "instructions": "Інструкції",
     "key-name-required": "Необхідно вказати назву ключа",
     "landscape-view-coming-soon": "Вид в ландшафтному режимі (незабаром буде)",
@@ -793,22 +793,22 @@
     "shopping-lists": "Списки покупок",
     "food": "Продукт",
     "note": "Нотатка",
-    "label": "Етикетка",
+    "label": "Мітка",
     "save-label": "Зберегти мітку",
     "linked-item-warning": "Цей предмет зв'язано з одним або більше рецептами. Зміна одиниць виміру або продуктів дасть неочікувані результати при додаванні або видаленні рецепту з цього списку.",
     "toggle-food": "Перемкнути продукт",
-    "manage-labels": "Керування етикетками",
+    "manage-labels": "Керування мітками",
     "are-you-sure-you-want-to-delete-this-item": "Ви дійсно бажаєте видалити цей елемент?",
     "copy-as-text": "Копіювати як текст",
     "copy-as-markdown": "Копіювати як Markdown",
     "delete-checked": "Видалити відмічене",
-    "toggle-label-sort": "Сортування ярликів",
-    "reorder-labels": "Перевпорядкувати ярлики",
+    "toggle-label-sort": "Сортування міток",
+    "reorder-labels": "Перевпорядкувати мітки",
     "uncheck-all-items": "Зняти вибір з усіх елементів",
     "check-all-items": "Вибрати всі елементи",
     "linked-recipes-count": "Нема пов'язаних рецептів|Один пов'язаний рецепт|{count} пов'язаних рецептів",
     "items-checked-count": "Нема відмічених елементів|Один відмічений елемент|{count} елементів відмічено",
-    "no-label": "Без мітки",
+    "no-label": "Без Мітки",
     "completed-on": "Завершено {date}"
   },
   "sidebar": {
@@ -980,12 +980,12 @@
       "source-food": "Вихідний продукт",
       "target-food": "Цільовий продукт",
       "create-food": "Створити продукт",
-      "food-label": "Етикетка продукту",
+      "food-label": "Мітка продукту",
       "edit-food": "Редагувати продукт",
       "food-data": "Дані про продукти",
       "example-food-singular": "приклад: Цибулина",
       "example-food-plural": "приклад: Цибуля",
-      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels."
+      "label-overwrite-warning": "Це призначить обрану мітку для всіх вибраних продуктів і потенційно перезапише існуючі мітки."
     },
     "units": {
       "seed-dialog-text": "Заповнити базу даних розповсюдженими одиницями виміру що відповідають мові.",
@@ -1014,7 +1014,7 @@
       "edit-label": "Редагувати мітку",
       "new-label": "Нова мітка",
       "labels": "Мітки",
-      "assign-label": "Assign Label"
+      "assign-label": "Призначити мітку"
     },
     "recipes": {
       "purge-exports": "Знищити експорт",
