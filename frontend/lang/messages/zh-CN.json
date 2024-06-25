@@ -985,7 +985,7 @@
       "food-data": "食品数据",
       "example-food-singular": "例如：洋葱",
       "example-food-plural": "中文用户可忽略",
-      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
+      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "基于你的本地语言，将一些常见单位添加到数据库。",

@@ -72,7 +72,7 @@
     </div>
 
     <RecipePageComments
-      v-if="isOwnGroup && !recipe.settings.disableComments && !isEditForm && !isCookMode"
+      v-if="!recipe.settings.disableComments && !isEditForm && !isCookMode"
       :recipe="recipe"
       class="px-1 my-4 d-print-none"
     />

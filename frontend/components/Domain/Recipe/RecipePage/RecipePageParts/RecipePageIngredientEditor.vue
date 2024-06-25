@@ -7,7 +7,7 @@
       handle=".handle"
       v-bind="{
         animation: 200,
-        group: 'description',
+        group: 'recipe-ingredients',
         disabled: false,
         ghostClass: 'ghost',
       }"

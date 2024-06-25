@@ -985,7 +985,7 @@
       "food-data": "Dati Alimento",
       "example-food-singular": "esempio: Cipolla",
       "example-food-plural": "esempio: Cipolle",
-      "label-overwrite-warning": "This will assign the choosen label to all selected foods and potentially overwrite your existing labels."
+      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels."
     },
     "units": {
       "seed-dialog-text": "Riempie il database con unità comuni basate sulla lingua.",
