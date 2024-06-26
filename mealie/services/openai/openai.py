@@ -42,7 +42,7 @@ class OpenAIDataInjection(BaseModel):
 class OpenAIService(BaseService):
     PROMPTS_DIR = Path(os.path.dirname(os.path.abspath(__file__))) / "prompts"
 
-    def __init__(self) -> None:
+    def __init__(self, timeout: int = 10) -> None:
         settings = get_app_settings()
         if not settings.OPENAI_ENABLED:
             raise ValueError("OpenAI is not enabled")
@@ -54,6 +54,7 @@ class OpenAIService(BaseService):
         self.get_client = lambda: AsyncOpenAI(
             base_url=settings.OPENAI_BASE_URL,
             api_key=settings.OPENAI_API_KEY,
+            timeout=timeout,
         )
 
         super().__init__()
