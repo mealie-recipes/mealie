@@ -1,5 +1,5 @@
 <template>
-  <v-container v-if="shoppingListChoices" class="narrow-container">
+  <v-container v-if="shoppingListChoices && ready" class="narrow-container">
     <BaseDialog v-model="createDialog" :title="$tc('shopping-list.create-shopping-list')" @submit="createOne">
       <v-card-text>
         <v-text-field v-model="createName" autofocus :label="$t('shopping-list.new-list')"> </v-text-field>
@@ -48,7 +48,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useAsync, useContext, reactive, toRefs, useRoute, useRouter } from "@nuxtjs/composition-api";
+import { computed, defineComponent, useAsync, useContext, reactive, ref, toRefs, useRoute, useRouter, watch } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 import { useAsyncKey } from "~/composables/use-utils";
 import { useShoppingListPreferences } from "~/composables/use-users/preferences";
@@ -57,11 +57,13 @@ export default defineComponent({
   middleware: "auth",
   setup() {
     const { $auth } = useContext();
+    const ready = ref(false);
     const userApi = useUserApi();
     const route = useRoute();
     const router = useRouter();
     const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
-    const disableRedirect = computed(() => route.value.query.disableRedirect === "true");
+    const overrideDisableRedirect = ref(false);
+    const disableRedirect = computed(() => route.value.query.disableRedirect === "true" || overrideDisableRedirect.value);
     const preferences = useShoppingListPreferences();
 
     const state = reactive({
@@ -82,6 +84,28 @@ export default defineComponent({
 
       return shoppingLists.value.filter((list) => preferences.value.viewAllLists || list.userId === $auth.user?.id);
     });
+
+    // This has to appear before the shoppingListChoices watcher, otherwise that runs first and the redirect is not disabled
+    watch(
+      () => preferences.value.viewAllLists,
+      () => {
+        overrideDisableRedirect.value = true;
+      },
+    );
+
+    watch(
+      () => shoppingListChoices,
+      () => {
+        if (!disableRedirect.value && shoppingListChoices.value.length === 1) {
+          router.push(`/shopping-lists/${shoppingListChoices.value[0].id}`);
+        } else {
+          ready.value = true;
+        }
+      },
+      {
+        deep: true,
+      },
+    );
 
     async function fetchShoppingLists() {
       const { data } = await userApi.shopping.lists.getAll(1, -1, { orderBy: "name", orderDirection: "asc" });
@@ -118,17 +142,9 @@ export default defineComponent({
       }
     }
 
-    if (!disableRedirect.value) {
-      useAsync(async () => {
-        await refresh();
-          if (shoppingListChoices.value?.length === 1) {
-            router.push(`/shopping-lists/${shoppingListChoices.value[0].id}`);
-          }
-      }, useAsyncKey());
-    }
-
     return {
       ...toRefs(state),
+      ready,
       groupSlug,
       preferences,
       shoppingListChoices,

@@ -211,7 +211,7 @@
     "clipboard-copy-failure": "Falha ao copiar para a área de transferência.",
     "confirm-delete-generic-items": "Tem certeza que quer excluir os itens seguintes?",
     "organizers": "Organizadores",
-    "caution": "Caution"
+    "caution": "Cuidado"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Tem certeza que deseja excluir o grupo <b>{groupName}<b/>?",
@@ -449,8 +449,8 @@
     "ingredients": "Ingredientes",
     "insert-ingredient": "Inserir Ingrediente",
     "insert-section": "Inserir Seção",
-    "insert-above": "Insert Above",
-    "insert-below": "Insert Below",
+    "insert-above": "Inserir Acima",
+    "insert-below": "Inserir Abaixo",
     "instructions": "Modo de Preparo",
     "key-name-required": "Nome da chave obrigatório",
     "landscape-view-coming-soon": "Visualização em modo paisagem (Em breve)",
@@ -586,8 +586,8 @@
     "report-deletion-failed": "Relatório de exclusão falhou",
     "recipe-debugger": "Depurador de Receita",
     "recipe-debugger-description": "Pegue a URL da receita que deseja depurar e cole aqui. A URL será encontrada pelo scraper das receitas e os resultados serão exibidos. Se não ver nenhum dado retornado, o site que você está tentando criar um scrape não é suportado pelo Mealie ou pela sua biblioteca de scraper.",
-    "use-openai": "Use OpenAI",
-    "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
+    "use-openai": "Usar OpenAI",
+    "recipe-debugger-use-openai-description": "Usar OpenAI para analisar os resultados ao invés de depender da biblioteca de extração. Criando uma receita via URL, isso é feito automaticamente se essa biblioteca, mas você pode testar manualmente aqui.",
     "debug": "Depurar",
     "tree-view": "Visualização em árvore",
     "recipe-yield": "Rendimento da Receita",
@@ -985,7 +985,7 @@
       "food-data": "Dados da Comida",
       "example-food-singular": "ex: Cebola",
       "example-food-plural": "ex: Cebolas",
-      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels."
+      "label-overwrite-warning": "Isto irá atribuir a etiqueta escolhida a todos os alimentos selecionados e potencialmente sobrescrever suas etiquetas existentes."
     },
     "units": {
       "seed-dialog-text": "Adicione a base de dados unidades comuns baseadas em seu idioma.",
@@ -1014,7 +1014,7 @@
       "edit-label": "Editar marcador",
       "new-label": "Novo Marcador",
       "labels": "Marcadores",
-      "assign-label": "Assign Label"
+      "assign-label": "Atribuir Etiqueta"
     },
     "recipes": {
       "purge-exports": "Limpar exportações",
