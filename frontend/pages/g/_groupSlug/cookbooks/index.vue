@@ -114,7 +114,7 @@ export default defineComponent({
       delete: false,
     });
     const { cookbooks, actions } = useCookbooks();
-    
+
     // create
     const createTarget = ref<ReadCookBook | null>(null);
     async function createCookbook() {
