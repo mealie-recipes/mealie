@@ -20,26 +20,26 @@ from mealie.schema.response.pagination import PaginationQuery
 T = TypeVar("T", bound=BaseModel)
 
 
-class ABCIngredientParser(ABC):
-    """
-    Abstract class for ingredient parsers.
-    """
-
-    def __init__(self, group_id: UUID4, session: Session) -> None:
+class DataMatcher:
+    def __init__(
+        self,
+        group_id: UUID4,
+        repos: AllRepositories,
+        food_fuzzy_match_threshold: int = 85,
+        unit_fuzzy_match_threshold: int = 70,
+    ) -> None:
         self.group_id = group_id
-        self.session = session
+        self.repos = repos
 
+        self._food_fuzzy_match_threshold = food_fuzzy_match_threshold
+        self._unit_fuzzy_match_threshold = unit_fuzzy_match_threshold
         self._foods_by_alias: dict[str, IngredientFood] | None = None
         self._units_by_alias: dict[str, IngredientUnit] | None = None
 
     @property
-    def _repos(self) -> AllRepositories:
-        return get_repositories(self.session)
-
-    @property
     def foods_by_alias(self) -> dict[str, IngredientFood]:
         if self._foods_by_alias is None:
-            foods_repo = self._repos.ingredient_foods.by_group(self.group_id)
+            foods_repo = self.repos.ingredient_foods.by_group(self.group_id)
             query = PaginationQuery(page=1, per_page=-1)
             all_foods = foods_repo.page_all(query).items
 
@@ -61,7 +61,7 @@ class ABCIngredientParser(ABC):
     @property
     def units_by_alias(self) -> dict[str, IngredientUnit]:
         if self._units_by_alias is None:
-            units_repo = self._repos.ingredient_units.by_group(self.group_id)
+            units_repo = self.repos.ingredient_units.by_group(self.group_id)
             query = PaginationQuery(page=1, per_page=-1)
             all_units = units_repo.page_all(query).items
 
@@ -83,24 +83,6 @@ class ABCIngredientParser(ABC):
             self._units_by_alias = units_by_alias
 
         return self._units_by_alias
-
-    @property
-    def food_fuzzy_match_threshold(self) -> int:
-        """Minimum threshold to fuzzy match against a database food search"""
-
-        return 85
-
-    @property
-    def unit_fuzzy_match_threshold(self) -> int:
-        """Minimum threshold to fuzzy match against a database unit search"""
-
-        return 70
-
-    @abstractmethod
-    async def parse_one(self, ingredient_string: str) -> ParsedIngredient: ...
-
-    @abstractmethod
-    async def parse(self, ingredients: list[str]) -> list[ParsedIngredient]: ...
 
     @classmethod
     def find_match(cls, match_value: str, *, store_map: dict[str, T], fuzzy_match_threshold: int = 0) -> T | None:
@@ -126,7 +108,7 @@ class ABCIngredientParser(ABC):
         return self.find_match(
             match_value,
             store_map=self.foods_by_alias,
-            fuzzy_match_threshold=self.food_fuzzy_match_threshold,
+            fuzzy_match_threshold=self._food_fuzzy_match_threshold,
         )
 
     def find_unit_match(self, unit: IngredientUnit | CreateIngredientUnit | str) -> IngredientUnit | None:
@@ -138,21 +120,56 @@ class ABCIngredientParser(ABC):
         return self.find_match(
             match_value,
             store_map=self.units_by_alias,
-            fuzzy_match_threshold=self.unit_fuzzy_match_threshold,
+            fuzzy_match_threshold=self._unit_fuzzy_match_threshold,
         )
 
+
+class ABCIngredientParser(ABC):
+    """
+    Abstract class for ingredient parsers.
+    """
+
+    def __init__(self, group_id: UUID4, session: Session) -> None:
+        self.group_id = group_id
+        self.session = session
+        self.data_matcher = DataMatcher(
+            self.group_id, self._repos, self.food_fuzzy_match_threshold, self.unit_fuzzy_match_threshold
+        )
+
+    @property
+    def _repos(self) -> AllRepositories:
+        return get_repositories(self.session)
+
+    @property
+    def food_fuzzy_match_threshold(self) -> int:
+        """Minimum threshold to fuzzy match against a database food search"""
+
+        return 85
+
+    @property
+    def unit_fuzzy_match_threshold(self) -> int:
+        """Minimum threshold to fuzzy match against a database unit search"""
+
+        return 70
+
+    @abstractmethod
+    async def parse_one(self, ingredient_string: str) -> ParsedIngredient: ...
+
+    @abstractmethod
+    async def parse(self, ingredients: list[str]) -> list[ParsedIngredient]: ...
+
     def find_ingredient_match(self, ingredient: ParsedIngredient) -> ParsedIngredient:
-        if ingredient.ingredient.food and (food_match := self.find_food_match(ingredient.ingredient.food)):
+        if ingredient.ingredient.food and (food_match := self.data_matcher.find_food_match(ingredient.ingredient.food)):
             ingredient.ingredient.food = food_match
 
-        if ingredient.ingredient.unit and (unit_match := self.find_unit_match(ingredient.ingredient.unit)):
+        if ingredient.ingredient.unit and (unit_match := self.data_matcher.find_unit_match(ingredient.ingredient.unit)):
             ingredient.ingredient.unit = unit_match
 
         # Parser might have wrongly split a food into a unit and food.
         if isinstance(ingredient.ingredient.food, CreateIngredientFood) and isinstance(
             ingredient.ingredient.unit, CreateIngredientUnit
         ):
-            if food_match := self.find_food_match(
+            if food_match := self.data_matcher.find_food_match(
                 f"{ingredient.ingredient.unit.name} {ingredient.ingredient.food.name}"
             ):
                 ingredient.ingredient.food = food_match
