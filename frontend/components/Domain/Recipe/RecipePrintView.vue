@@ -91,7 +91,6 @@
     <div v-if="preferences.showNutrition">
       <v-card-title class="headline pl-0"> {{ $t("recipe.nutrition") }} </v-card-title>
 
-
       <section>
         <div class="print-section">
           <table class="nutrition-table">
