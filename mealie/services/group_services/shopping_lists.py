@@ -17,7 +17,11 @@ from mealie.schema.group.group_shopping_list import (
     ShoppingListMultiPurposeLabelCreate,
     ShoppingListSave,
 )
-from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit, RecipeIngredient
+from mealie.schema.recipe.recipe_ingredient import (
+    IngredientFood,
+    IngredientUnit,
+    RecipeIngredient,
+)
 from mealie.schema.response.pagination import OrderDirection, PaginationQuery
 from mealie.schema.user.user import GroupInDB, UserOut
 
@@ -160,15 +164,8 @@ class ShoppingListService:
 
             filtered_create_items.append(create_item)
 
-        created_items = cast(
-            list[ShoppingListItemOut],
-            self.list_items.create_many(filtered_create_items) if filtered_create_items else [],  # type: ignore
-        )
-
-        updated_items = cast(
-            list[ShoppingListItemOut],
-            self.list_items.update_many(update_items) if update_items else [],  # type: ignore
-        )
+        created_items = self.list_items.create_many(filtered_create_items) if filtered_create_items else []
+        updated_items = self.list_items.update_many(update_items) if update_items else []
 
         for list_id in set(item.shopping_list_id for item in created_items + updated_items):
             self.remove_unused_recipe_references(list_id)
