@@ -112,7 +112,27 @@ class ShoppingListService:
         if list_refs_to_delete:
             self.list_refs.delete_many(list_refs_to_delete)
 
-    def bulk_create_items(self, create_items: list[ShoppingListItemCreate]) -> ShoppingListItemsCollectionOut:
+    def find_matching_label(self, item: ShoppingListItemBase) -> UUID4 | None:
+        if item.label_id:
+            return item.label_id
+        if item.food:
+            return item.food.label_id
+
+        query = PaginationQuery(page=1, per_page=1)
+        food_search = self.repos.ingredient_foods.page_all(query, search=item.display)
+        if not food_search.items:
+            return None
+
+        return food_search.items[0].label_id
+
+    def bulk_create_items(
+        self, create_items: list[ShoppingListItemCreate], auto_find_labels=True
+    ) -> ShoppingListItemsCollectionOut:
+        """
+        Create a list of items, merging into existing ones where possible.
+        Optionally try to find a label for each item if one isn't provided using the item's food data or display name.
+        """
+
         # consolidate items to be created
         consolidated_create_items: list[ShoppingListItemCreate] = []
         for create_item in create_items:
@@ -161,6 +181,8 @@ class ShoppingListService:
             if create_item.checked:
                 # checked items should not have recipe references
                 create_item.recipe_references = []
+            if auto_find_labels:
+                create_item.label_id = self.find_matching_label(create_item)
 
             filtered_create_items.append(create_item)
 
