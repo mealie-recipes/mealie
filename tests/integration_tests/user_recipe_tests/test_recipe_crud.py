@@ -9,6 +9,7 @@ from typing import Generator
 from uuid import uuid4
 from zipfile import ZipFile
 
+from httpx import Response
 import pytest
 from bs4 import BeautifulSoup
 from fastapi.testclient import TestClient
@@ -18,6 +19,7 @@ from recipe_scrapers._schemaorg import SchemaOrg
 from recipe_scrapers.plugins import SchemaOrgFillPlugin
 from slugify import slugify
 
+from mealie.pkgs.safehttp.transport import AsyncSafeTransport
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import Recipe, RecipeCategory, RecipeSummary, RecipeTag
 from mealie.schema.recipe.recipe_category import CategorySave, TagSave
@@ -112,6 +114,16 @@ def test_create_by_url(
             "get_html",
             open_graph_override(recipe_data.html_file.read_text()),
         )
+
+    # Skip AsyncSafeTransport requests
+    async def return_empty_response(*args, **kwargs):
+        return Response(200, content=b"")
+
+    monkeypatch.setattr(
+        AsyncSafeTransport,
+        "handle_async_request",
+        return_empty_response,
+    )
     # Skip image downloader
     monkeypatch.setattr(
         RecipeDataService,
@@ -159,6 +171,16 @@ def test_create_by_url_with_tags(
             "get_html",
             open_graph_override(html_file.read_text()),
         )
+
+    # Skip AsyncSafeTransport requests
+    async def return_empty_response(*args, **kwargs):
+        return Response(200, content=b"")
+
+    monkeypatch.setattr(
+        AsyncSafeTransport,
+        "handle_async_request",
+        return_empty_response,
+    )
     # Skip image downloader
     monkeypatch.setattr(
         RecipeDataService,
@@ -168,7 +190,7 @@ def test_create_by_url_with_tags(
 
     response = api_client.post(
         api_routes.recipes_create_url,
-        json={"url": "https://google.com", "include_tags": True},  # URL Doesn't matter
+        json={"url": "https://test.example.com/", "include_tags": True},
         headers=unique_user.token,
     )
     assert response.status_code == 201
