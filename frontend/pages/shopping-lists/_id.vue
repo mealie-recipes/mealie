@@ -2,7 +2,16 @@
   <v-container v-if="shoppingList" class="md-container">
     <BasePageTitle divider>
       <template #header>
-        <v-img max-height="100" max-width="100" :src="require('~/static/svgs/shopping-cart.svg')"></v-img>
+        <v-container>
+          <v-row>
+            <v-col cols="3" class="text-left">
+              <ButtonLink :to="`/shopping-lists?disableRedirect=true`" :text="$tc('general.back')" :icon="$globals.icons.backArrow" />
+            </v-col>
+            <v-col cols="6" class="d-flex justify-center">
+              <v-img max-height="100" max-width="100" :src="require('~/static/svgs/shopping-cart.svg')"></v-img>
+            </v-col>
+          </v-row>
+        </v-container>
       </template>
       <template #title> {{ shoppingList.name }} </template>
     </BasePageTitle>

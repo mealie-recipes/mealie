@@ -1,8 +1,8 @@
 {
     "teaspoon": {
-        "name": "κουταλάκι του γλυκού",
+        "name": "Κουταλάκι Γλυκού",
         "description": "",
-        "abbreviation": "κ.γ."
+        "abbreviation": "κ. γ"
     },
     "tablespoon": {
         "name": "κουταλιά της σούπας",
@@ -15,7 +15,7 @@
         "abbreviation": "φλ."
     },
     "fluid-ounce": {
-        "name": "fluid ounce",
+        "name": "ρευστή ουγγιά",
         "description": "",
         "abbreviation": "fl oz"
     },
@@ -25,9 +25,9 @@
         "abbreviation": "pt"
     },
     "quart": {
-        "name": "quart",
+        "name": "1/4",
         "description": "",
-        "abbreviation": "qt"
+        "abbreviation": "1/4"
     },
     "gallon": {
         "name": "γαλόνι",
@@ -45,7 +45,7 @@
         "abbreviation": "l"
     },
     "pound": {
-        "name": "pound",
+        "name": "λίβρα",
         "description": "",
         "abbreviation": "λβρ"
     },
@@ -90,7 +90,7 @@
         "abbreviation": ""
     },
     "clove": {
-        "name": "clove",
+        "name": "σκελίδα",
         "description": "",
         "abbreviation": ""
     },

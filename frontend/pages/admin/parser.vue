@@ -64,6 +64,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref, toRefs, useContext } from "@nuxtjs/composition-api";
+import { alert } from "~/composables/use-toast";
 import { useUserApi } from "~/composables/api";
 import { IngredientConfidence } from "~/lib/api/types/recipe";
 import { Parser } from "~/lib/api/user/recipes/recipe";
@@ -161,6 +162,9 @@ export default defineComponent({
             properties[property].confidence = confidence;
           }
         });
+      } else {
+        alert.error(i18n.t("events.something-went-wrong") as string);
+        state.results = false;
       }
       state.loading = false;
     }

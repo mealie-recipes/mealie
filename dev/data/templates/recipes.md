@@ -6,11 +6,11 @@
 {{ recipe.description }}
 
 ## Ingredients
-{% for ingredient in recipe.recipeIngredient %} 
+{% for ingredient in recipe.recipeIngredient %}
 - [ ] {{ ingredient }} {% endfor %}
 
 ## Instructions
-{% for step in recipe.recipeInstructions %} 
+{% for step in recipe.recipeInstructions %}
 - [ ] {{ step.text }} {% endfor %}
 
 {% for note in recipe.notes %}
