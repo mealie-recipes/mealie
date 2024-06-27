@@ -3,18 +3,15 @@ import os
 import random
 import shutil
 import tempfile
-from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Callable, Generator
 from uuid import uuid4
 from zipfile import ZipFile
 
 import pytest
-from bs4 import BeautifulSoup
 from fastapi.testclient import TestClient
 from pytest import MonkeyPatch
 from recipe_scrapers._abstract import AbstractScraper
-from recipe_scrapers._schemaorg import SchemaOrg
 from slugify import slugify
 
 from mealie.repos.repository_factory import AllRepositories
