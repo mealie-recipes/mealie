@@ -1,17 +1,21 @@
+import inspect
 import json
 import os
 import random
 import shutil
 import tempfile
 from pathlib import Path
-from typing import Callable, Generator
+from typing import Generator
 from uuid import uuid4
 from zipfile import ZipFile
 
 import pytest
+from bs4 import BeautifulSoup
 from fastapi.testclient import TestClient
 from pytest import MonkeyPatch
 from recipe_scrapers._abstract import AbstractScraper
+from recipe_scrapers._schemaorg import SchemaOrg
+from recipe_scrapers.settings import settings as recipe_scrapers_settings
 from slugify import slugify
 
 from mealie.repos.repository_factory import AllRepositories
@@ -48,7 +52,7 @@ def zip_recipe(tempdir: str, recipe: RecipeSummary) -> dict:
     return {"archive": Path(zip_file).read_bytes()}
 
 
-def get_init(original_init: Callable, html_path: Path):
+def get_init(html_path: Path):
     """
     Override the init method of the abstract scraper to return a bootstrapped init function that
     serves the html from the given path instead of calling the url.
@@ -60,14 +64,25 @@ def get_init(original_init: Callable, html_path: Path):
         proxies: str | None = None,
         timeout: float | tuple | None = None,
         wild_mode: bool | None = False,
-        **kwargs,
+        **_,
     ):
+        page_data = html_path.read_bytes()
         url = "https://test.example.com/"
-        html = html_path.read_bytes()
 
-        kwargs.pop("url", None)
-        kwargs.pop("html", None)
-        original_init(self, url, proxies=proxies, timeout=timeout, wild_mode=wild_mode, html=html, **kwargs)
+        self.wild_mode = wild_mode
+        self.soup = BeautifulSoup(page_data, "html.parser")
+        self.url = url
+        self.schema = SchemaOrg(page_data)
+
+        # attach the plugins as instructed in settings.PLUGINS
+        if not hasattr(self.__class__, "plugins_initialized"):
+            for name, _ in inspect.getmembers(self, inspect.ismethod):  # type: ignore
+                current_method = getattr(self.__class__, name)
+                for plugin in reversed(recipe_scrapers_settings.PLUGINS):
+                    if plugin.should_run(self.host(), name):
+                        current_method = plugin.run(current_method)
+                setattr(self.__class__, name, current_method)
+            setattr(self.__class__, "plugins_initialized", True)
 
     return init_override
 
@@ -90,7 +105,7 @@ def test_create_by_url(
     monkeypatch.setattr(
         AbstractScraper,
         "__init__",
-        get_init(AbstractScraper.__init__, recipe_data.html_file),
+        get_init(recipe_data.html_file),
     )
     # Override the get_html method of the RecipeScraperOpenGraph to return the test html
     for scraper_cls in DEFAULT_SCRAPER_STRATEGIES:
@@ -137,7 +152,7 @@ def test_create_by_url_with_tags(
     monkeypatch.setattr(
         AbstractScraper,
         "__init__",
-        get_init(AbstractScraper.__init__, html_file),
+        get_init(html_file),
     )
     # Override the get_html method of all scraper strategies to return the test html
     for scraper_cls in DEFAULT_SCRAPER_STRATEGIES:
