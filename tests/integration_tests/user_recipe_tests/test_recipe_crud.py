@@ -155,10 +155,11 @@ def test_create_by_url(
     if not recipe_data.include_tags:
         return
 
-    assert len(recipe["tags"]) == len(recipe_data.expected_tags)
+    expected_tags = recipe_data.expected_tags or set()
+    assert len(recipe_dict["tags"]) == len(expected_tags)
 
-    for tag in recipe["tags"]:
-        assert tag["name"] in recipe_data.expected_tags
+    for tag in recipe_dict["tags"]:
+        assert tag["name"] in expected_tags
 
 
 def test_create_recipe_from_zip(database: AllRepositories, api_client: TestClient, unique_user: TestUser, tempdir: str):

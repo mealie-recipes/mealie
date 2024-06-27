@@ -14,7 +14,7 @@ class RecipeSiteTestCase:
     html_file: Path
 
     include_tags: bool = False
-    expected_tags: set[str] = set()
+    expected_tags: set[str] | None = None
 
 
 def get_recipe_test_cases():
@@ -72,8 +72,8 @@ def get_recipe_test_cases():
             html="nutty-umami-noodles-with-scallion-brown-butter-and-snow-peas-recipe.html",
             html_file=test_data.html_nutty_umami_noodles_with_scallion_brown_butter_and_snow_peas_recipe,
             expected_slug="nutty-umami-noodles-with-scallion-brown-butter-and-snow-peas",
-            num_ingredients=1,
-            num_steps=1,
+            num_ingredients=10,
+            num_steps=6,
             include_tags=True,
             expected_tags={
                 "Sauté",
