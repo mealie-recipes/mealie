@@ -473,7 +473,9 @@ export default defineComponent({
     // =====================================
     // Check / Uncheck All
     function openCheckAll() {
-      state.checkAllDialog = true;
+      if (shoppingList.value?.listItems?.some((item) => !item.checked)) {
+        state.checkAllDialog = true;
+      }
     }
 
     function checkAll() {
@@ -491,7 +493,9 @@ export default defineComponent({
     }
 
     function openUncheckAll() {
-      state.uncheckAllDialog = true;
+      if (shoppingList.value?.listItems?.some((item) => item.checked)) {
+        state.uncheckAllDialog = true;
+      }
     }
 
     function uncheckAll() {
@@ -509,7 +513,9 @@ export default defineComponent({
     }
 
     function openDeleteChecked() {
-      state.deleteCheckedDialog = true;
+      if (shoppingList.value?.listItems?.some((item) => item.checked)) {
+        state.deleteCheckedDialog = true;
+      }
     }
 
     function deleteChecked() {
