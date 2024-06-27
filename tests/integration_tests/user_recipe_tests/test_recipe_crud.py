@@ -1,3 +1,4 @@
+import asyncio
 import json
 import os
 import random
@@ -102,11 +103,15 @@ def test_create_by_url(
             "get_html",
             open_graph_override(recipe_data.html_file.read_text()),
         )
+
     # Skip image downloader
+    async def test_image(*args, **kwargs):
+        return "TEST_IMAGE"
+
     monkeypatch.setattr(
         RecipeDataService,
         "scrape_image",
-        lambda *_: "TEST_IMAGE",
+        test_image,
     )
 
     api_client.delete(api_routes.recipes_slug(recipe_data.expected_slug), headers=unique_user.token)
