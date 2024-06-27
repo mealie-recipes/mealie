@@ -1,11 +1,11 @@
-import asyncio
 import json
 import os
 import random
 import shutil
 import tempfile
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
-from typing import Generator
+from typing import Callable, Generator
 from uuid import uuid4
 from zipfile import ZipFile
 
@@ -51,7 +51,7 @@ def zip_recipe(tempdir: str, recipe: RecipeSummary) -> dict:
     return {"archive": Path(zip_file).read_bytes()}
 
 
-def get_init(html_path: Path):
+def get_init(original_init: Callable, html_path: Path):
     """
     Override the init method of the abstract scraper to return a bootstrapped init function that
     serves the html from the given path instead of calling the url.
@@ -63,15 +63,14 @@ def get_init(html_path: Path):
         proxies: str | None = None,
         timeout: float | tuple | None = None,
         wild_mode: bool | None = False,
-        **_,
+        **kwargs,
     ):
-        page_data = html_path.read_bytes()
         url = "https://test.example.com/"
+        html = html_path.read_bytes()
 
-        self.wild_mode = wild_mode
-        self.soup = BeautifulSoup(page_data, "html.parser")
-        self.url = url
-        self.schema = SchemaOrg(page_data)
+        kwargs.pop("url", None)
+        kwargs.pop("html", None)
+        original_init(self, url, proxies=proxies, timeout=timeout, wild_mode=wild_mode, html=html, **kwargs)
 
     return init_override
 
@@ -94,7 +93,7 @@ def test_create_by_url(
     monkeypatch.setattr(
         AbstractScraper,
         "__init__",
-        get_init(recipe_data.html_file),
+        get_init(AbstractScraper.__init__, recipe_data.html_file),
     )
     # Override the get_html method of the RecipeScraperOpenGraph to return the test html
     for scraper_cls in DEFAULT_SCRAPER_STRATEGIES:
@@ -103,15 +102,11 @@ def test_create_by_url(
             "get_html",
             open_graph_override(recipe_data.html_file.read_text()),
         )
-
     # Skip image downloader
-    async def test_image(*args, **kwargs):
-        return "TEST_IMAGE"
-
     monkeypatch.setattr(
         RecipeDataService,
         "scrape_image",
-        test_image,
+        lambda *_: "TEST_IMAGE",
     )
 
     api_client.delete(api_routes.recipes_slug(recipe_data.expected_slug), headers=unique_user.token)
@@ -145,7 +140,7 @@ def test_create_by_url_with_tags(
     monkeypatch.setattr(
         AbstractScraper,
         "__init__",
-        get_init(html_file),
+        get_init(AbstractScraper.__init__, html_file),
     )
     # Override the get_html method of all scraper strategies to return the test html
     for scraper_cls in DEFAULT_SCRAPER_STRATEGIES:
