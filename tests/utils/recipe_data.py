@@ -13,6 +13,9 @@ class RecipeSiteTestCase:
     num_steps: int
     html_file: Path
 
+    include_tags: bool = False
+    expected_tags: set[str] = set()
+
 
 def get_recipe_test_cases():
     return [
@@ -63,6 +66,29 @@ def get_recipe_test_cases():
             expected_slug="detroit-style-pepperoni-pizza",
             num_ingredients=8,
             num_steps=5,
+        ),
+        RecipeSiteTestCase(
+            url="https://www.bonappetit.com/recipe/nutty-umami-noodles-with-scallion-brown-butter-and-snow-peas",
+            html="nutty-umami-noodles-with-scallion-brown-butter-and-snow-peas-recipe.html",
+            html_file=test_data.html_nutty_umami_noodles_with_scallion_brown_butter_and_snow_peas_recipe,
+            expected_slug="nutty-umami-noodles-with-scallion-brown-butter-and-snow-peas",
+            num_ingredients=1,
+            num_steps=1,
+            include_tags=True,
+            expected_tags={
+                "Sauté",
+                "Pea",
+                "Noodle",
+                "Udon Noodle",
+                "Ramen Noodle",
+                "Dinner",
+                "Main",
+                "Vegetarian",
+                "Easy",
+                "Quick",
+                "Weeknight Meals",
+                "Web",
+            },
         ),
     ]
 

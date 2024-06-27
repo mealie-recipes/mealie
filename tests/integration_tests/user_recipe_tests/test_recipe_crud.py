@@ -134,7 +134,9 @@ def test_create_by_url(
     api_client.delete(api_routes.recipes_slug(recipe_data.expected_slug), headers=unique_user.token)
 
     response = api_client.post(
-        api_routes.recipes_create_url, json={"url": recipe_data.url, "include_tags": False}, headers=unique_user.token
+        api_routes.recipes_create_url,
+        json={"url": recipe_data.url, "include_tags": recipe_data.include_tags},
+        headers=unique_user.token,
     )
 
     assert response.status_code == 201
@@ -150,78 +152,13 @@ def test_create_by_url(
     assert len(recipe_dict["recipeInstructions"]) == recipe_data.num_steps
     assert len(recipe_dict["recipeIngredient"]) == recipe_data.num_ingredients
 
+    if not recipe_data.include_tags:
+        return
 
-def test_create_by_url_with_tags(
-    api_client: TestClient,
-    unique_user: TestUser,
-    monkeypatch: MonkeyPatch,
-):
-    html_file = data.html_nutty_umami_noodles_with_scallion_brown_butter_and_snow_peas_recipe
-
-    # Override init function for AbstractScraper to use the test html instead of calling the url
-    monkeypatch.setattr(
-        AbstractScraper,
-        "__init__",
-        get_init(html_file),
-    )
-    # Override the get_html method of all scraper strategies to return the test html
-    for scraper_cls in DEFAULT_SCRAPER_STRATEGIES:
-        monkeypatch.setattr(
-            scraper_cls,
-            "get_html",
-            open_graph_override(html_file.read_text()),
-        )
-
-    # Skip AsyncSafeTransport requests
-    async def return_empty_response(*args, **kwargs):
-        return Response(200, content=b"")
-
-    monkeypatch.setattr(
-        AsyncSafeTransport,
-        "handle_async_request",
-        return_empty_response,
-    )
-    # Skip image downloader
-    monkeypatch.setattr(
-        RecipeDataService,
-        "scrape_image",
-        lambda *_: "TEST_IMAGE",
-    )
-
-    response = api_client.post(
-        api_routes.recipes_create_url,
-        json={"url": "https://test.example.com/", "include_tags": True},
-        headers=unique_user.token,
-    )
-    assert response.status_code == 201
-    slug = "nutty-umami-noodles-with-scallion-brown-butter-and-snow-peas"
-
-    # Get the recipe
-    response = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token)
-    assert response.status_code == 200
-
-    # Verifiy the tags are present and title cased
-    expected_tags = {
-        "Sauté",
-        "Pea",
-        "Noodle",
-        "Udon Noodle",
-        "Ramen Noodle",
-        "Dinner",
-        "Main",
-        "Vegetarian",
-        "Easy",
-        "Quick",
-        "Weeknight Meals",
-        "Web",
-    }
-
-    recipe = json.loads(response.text)
-
-    assert len(recipe["tags"]) == len(expected_tags)
+    assert len(recipe["tags"]) == len(recipe_data.expected_tags)
 
     for tag in recipe["tags"]:
-        assert tag["name"] in expected_tags
+        assert tag["name"] in recipe_data.expected_tags
 
 
 def test_create_recipe_from_zip(database: AllRepositories, api_client: TestClient, unique_user: TestUser, tempdir: str):
