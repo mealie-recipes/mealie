@@ -15,7 +15,7 @@ from fastapi.testclient import TestClient
 from pytest import MonkeyPatch
 from recipe_scrapers._abstract import AbstractScraper
 from recipe_scrapers._schemaorg import SchemaOrg
-from recipe_scrapers.settings import settings as recipe_scrapers_settings
+from recipe_scrapers.plugins import SchemaOrgFillPlugin
 from slugify import slugify
 
 from mealie.repos.repository_factory import AllRepositories
@@ -74,13 +74,11 @@ def get_init(html_path: Path):
         self.url = url
         self.schema = SchemaOrg(page_data)
 
-        # attach the plugins as instructed in settings.PLUGINS
+        # attach the SchemaOrgFill plugin
         if not hasattr(self.__class__, "plugins_initialized"):
             for name, _ in inspect.getmembers(self, inspect.ismethod):  # type: ignore
                 current_method = getattr(self.__class__, name)
-                for plugin in reversed(recipe_scrapers_settings.PLUGINS):
-                    if plugin.should_run(self.host(), name):
-                        current_method = plugin.run(current_method)
+                current_method = SchemaOrgFillPlugin.run(current_method)
                 setattr(self.__class__, name, current_method)
             setattr(self.__class__, "plugins_initialized", True)
 
