@@ -809,7 +809,10 @@
     "linked-recipes-count": "没有关联食谱|1个关联食谱|{count}个关联食谱",
     "items-checked-count": "未选中条目|已选中1个条目|已选中{count}个条目",
     "no-label": "无标签",
-    "completed-on": "于 {date} 完成"
+    "completed-on": "于 {date} 完成",
+    "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
+    "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
+    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
   },
   "sidebar": {
     "all-recipes": "全部食谱",

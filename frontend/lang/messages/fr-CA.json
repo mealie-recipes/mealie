@@ -211,7 +211,7 @@
     "clipboard-copy-failure": "Échec de la copie vers le presse-papiers.",
     "confirm-delete-generic-items": "Êtes-vous sûr de vouloir supprimer les éléments suivants ?",
     "organizers": "Classification",
-    "caution": "Caution"
+    "caution": "Avertissement"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Êtes-vous certain de vouloir supprimer <b>{groupName}<b/>?",
@@ -809,7 +809,10 @@
     "linked-recipes-count": "Aucune recette liée|Une recette liée|{count} recettes liées",
     "items-checked-count": "Aucun élément coché|Un élément coché|{count} éléments cochés",
     "no-label": "Aucune étiquette",
-    "completed-on": "Terminé le {date}"
+    "completed-on": "Terminé le {date}",
+    "are-you-sure-you-want-to-check-all-items": "Voulez-vous vraiment sélectionner tous les éléments ?",
+    "are-you-sure-you-want-to-uncheck-all-items": "Voulez-vous vraiment désélectionner tous les éléments ?",
+    "are-you-sure-you-want-to-delete-checked-items": "Voulez-vous vraiment supprimer tous les éléments sélectionnés ?"
   },
   "sidebar": {
     "all-recipes": "Les recettes",
@@ -985,7 +988,7 @@
       "food-data": "Données de l'aliment",
       "example-food-singular": "ex : Oignon",
       "example-food-plural": "ex : Oignons",
-      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels."
+      "label-overwrite-warning": "Ceci affectera l’étiquette choisie à tous les aliments sélectionnés et remplacera potentiellement vos étiquettes existantes."
     },
     "units": {
       "seed-dialog-text": "Initialisez la base de données avec des unités communes basées sur votre langue locale.",
@@ -1014,7 +1017,7 @@
       "edit-label": "Modifier l’étiquette",
       "new-label": "Nouvelle étiquette",
       "labels": "Étiquettes",
-      "assign-label": "Assign Label"
+      "assign-label": "Affecter une étiquette"
     },
     "recipes": {
       "purge-exports": "Purger les exports",

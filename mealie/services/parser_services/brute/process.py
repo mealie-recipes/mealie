@@ -194,7 +194,7 @@ def parse(ing_str, parser) -> BruteParsedIngredient:
         # try to parse as unit and ingredient (e.g. "a tblsp salt"), with unit in first three tokens
         # won't work for units that have spaces
         for index, token in enumerate(tokens[:3]):
-            if parser.find_unit_match(token):
+            if parser.data_matcher.find_unit_match(token):
                 unit = token
                 ingredient, note = parse_ingredient(tokens[index + 1 :])
                 break

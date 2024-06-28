@@ -233,6 +233,11 @@ class AppSettings(BaseSettings):
     but will incur additional API costs
     """
 
+    OPENAI_REQUEST_TIMEOUT: int = 10
+    """
+    The number of seconds to wait for an OpenAI request to complete before cancelling the request
+    """
+
     # ===============================================
     # Web Concurrency
 

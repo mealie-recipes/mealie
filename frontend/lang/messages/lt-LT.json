@@ -809,7 +809,10 @@
     "linked-recipes-count": "Nėra susietų receptų|Vienas susietas receptas|{count} susieti (-ų) receptai (-ų)",
     "items-checked-count": "Nėra pažymėtų|Vienas pažymėtas|{count} pažymėti (-ų)",
     "no-label": "Be etiketės",
-    "completed-on": "Išbraukta {date}"
+    "completed-on": "Išbraukta {date}",
+    "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
+    "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
+    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
   },
   "sidebar": {
     "all-recipes": "Visi receptai",
