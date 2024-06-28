@@ -809,7 +809,10 @@
     "linked-recipes-count": "Нема пов'язаних рецептів|Один пов'язаний рецепт|{count} пов'язаних рецептів",
     "items-checked-count": "Нема відмічених елементів|Один відмічений елемент|{count} елементів відмічено",
     "no-label": "Без Мітки",
-    "completed-on": "Завершено {date}"
+    "completed-on": "Завершено {date}",
+    "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
+    "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
+    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
   },
   "sidebar": {
     "all-recipes": "Всі рецепти",

@@ -809,7 +809,10 @@
     "linked-recipes-count": "Ingen Sammenkædede Opskrifter: En Sammenkædet Opskrift.{count} Sammenkædede Opskrifter",
     "items-checked-count": "Ingen elementer markeret|Et element markeret|{count} elementer er markeret",
     "no-label": "Ingen etiket",
-    "completed-on": "Afsluttet den {date}"
+    "completed-on": "Afsluttet den {date}",
+    "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
+    "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
+    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
   },
   "sidebar": {
     "all-recipes": "Alle opskr.",

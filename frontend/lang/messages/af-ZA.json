@@ -809,7 +809,10 @@
     "linked-recipes-count": "Geen gekoppelde resepte|Een gekoppelde resep|{count} gekoppelde resepte",
     "items-checked-count": "Geen items gemerk|Een item gemerk|{count} items gemerk",
     "no-label": "Geen etiket nie",
-    "completed-on": "Voltooi op {date}"
+    "completed-on": "Voltooi op {date}",
+    "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
+    "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
+    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
   },
   "sidebar": {
     "all-recipes": "Alle resepte",

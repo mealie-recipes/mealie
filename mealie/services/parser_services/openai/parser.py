@@ -45,7 +45,7 @@ class OpenAIParser(ABCIngredientParser):
             ),
         ]
 
-        if service.send_db_data and self.units_by_alias:
+        if service.send_db_data and self.data_matcher.units_by_alias:
             data_injections.extend(
                 [
                     OpenAIDataInjection(
@@ -55,7 +55,7 @@ class OpenAIParser(ABCIngredientParser):
                             "find a unit in the input that does not exist in this list. This should not prevent "
                             "you from parsing that text as a unit, however it may lower your confidence level."
                         ),
-                        value=list(set(self.units_by_alias)),
+                        value=list(set(self.data_matcher.units_by_alias)),
                     ),
                 ]
             )

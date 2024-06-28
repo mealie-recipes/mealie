@@ -93,4 +93,3 @@ mealie_url="http://localhost:9000"
 token = authentication(mail, password, mealie_url)
 import_from_file(input_file, token, mealie_url)
 ```
-

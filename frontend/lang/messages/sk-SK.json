@@ -809,7 +809,10 @@
     "linked-recipes-count": "Žiadne súvisiace recepty|Jeden súvisiaci recept|{count} súvisiacich receptov",
     "items-checked-count": "Nie sú označené žiadne položky|Jedna označená položka|{count} označených položiek",
     "no-label": "Žiadny štítok",
-    "completed-on": "Ukončené {date}"
+    "completed-on": "Ukončené {date}",
+    "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
+    "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
+    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
   },
   "sidebar": {
     "all-recipes": "Všetky recepty",

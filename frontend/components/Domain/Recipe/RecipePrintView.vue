@@ -30,6 +30,9 @@
     <!-- Ingredients -->
     <section>
       <v-card-title class="headline pl-0"> {{ $t("recipe.ingredients") }} </v-card-title>
+      <div class="font-italic px-0 py-0">
+        <SafeMarkdown :source="recipe.recipeYield" />
+      </div>
       <div
         v-for="(ingredientSection, sectionIndex) in ingredientSections"
         :key="`ingredient-section-${sectionIndex}`"
@@ -87,7 +90,6 @@
     <!-- Nutrition -->
     <div v-if="preferences.showNutrition">
       <v-card-title class="headline pl-0"> {{ $t("recipe.nutrition") }} </v-card-title>
-
 
       <section>
         <div class="print-section">
