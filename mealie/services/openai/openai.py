@@ -54,6 +54,7 @@ class OpenAIService(BaseService):
         self.get_client = lambda: AsyncOpenAI(
             base_url=settings.OPENAI_BASE_URL,
             api_key=settings.OPENAI_API_KEY,
+            timeout=settings.OPENAI_REQUEST_TIMEOUT,
         )
 
         super().__init__()
