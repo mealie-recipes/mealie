@@ -809,7 +809,10 @@
     "linked-recipes-count": "Няма свързани рецепти|Една свързана рецепта|{count} свързани рецепти",
     "items-checked-count": "Няма отбелязани етикети|Един елемент е отбелязан|{count} елементи са отбелязани",
     "no-label": "Няма етикет",
-    "completed-on": "Приключена на {date}"
+    "completed-on": "Приключена на {date}",
+    "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
+    "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
+    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
   },
   "sidebar": {
     "all-recipes": "Всички рецепти",
