@@ -809,7 +809,10 @@
     "linked-recipes-count": "Geen Gelinkte Recepten|Eén Gekoppeld Recept|{count} Gekoppelde Recepten",
     "items-checked-count": "Geen items geselecteerd|Eén item geselecteerd|{count} items geselecteerd",
     "no-label": "Geen label",
-    "completed-on": "Afgemaakt op {date}"
+    "completed-on": "Afgemaakt op {date}",
+    "are-you-sure-you-want-to-check-all-items": "Weet je zeker dat je alle items wilt selecteren?",
+    "are-you-sure-you-want-to-uncheck-all-items": "Weet je zeker dat je alle items wilt deselecteren?",
+    "are-you-sure-you-want-to-delete-checked-items": "Weet je zeker dat je de geselecteerde items wilt verwijderen?"
   },
   "sidebar": {
     "all-recipes": "Alle Recepten",
