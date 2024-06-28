@@ -63,6 +63,7 @@ export interface CreateIngredientFood {
   };
   labelId?: string;
   aliases?: CreateIngredientFoodAlias[];
+  onHand?: boolean;
 }
 export interface CreateIngredientFoodAlias {
   name: string;
@@ -135,6 +136,7 @@ export interface IngredientFood {
   label?: MultiPurposeLabelSummary;
   createdAt?: string;
   updateAt?: string;
+  onHand?: boolean;
 }
 export interface IngredientFoodAlias {
   name: string;
@@ -464,7 +466,7 @@ export interface ScrapeRecipe {
 export interface ScrapeRecipeTest {
   url: string;
 }
-export interface SlugResponse {}
+export interface SlugResponse { }
 export interface TagIn {
   name: string;
 }
