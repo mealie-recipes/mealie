@@ -809,7 +809,10 @@
     "linked-recipes-count": "Ni povezanih receptov|En povezan recept|{count} povezanih receptov",
     "items-checked-count": "Nobena postavka ni izbrana|Ena postavka izbrana|{count} postavk izbranih",
     "no-label": "Brez oznake",
-    "completed-on": "Zaključena {date}"
+    "completed-on": "Zaključena {date}",
+    "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
+    "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
+    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
   },
   "sidebar": {
     "all-recipes": "Vsi recepti",

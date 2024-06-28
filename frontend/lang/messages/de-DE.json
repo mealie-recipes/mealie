@@ -809,7 +809,10 @@
     "linked-recipes-count": "Kein verknüpftes Rezept|Ein verknüpftes Rezept|{count} verknüpfte Rezepte",
     "items-checked-count": "Kein Eintrag erledigt|Ein Eintrag erledigt|{count} Einträge erledigt",
     "no-label": "Kein Etikett",
-    "completed-on": "Erledigt am {date}"
+    "completed-on": "Erledigt am {date}",
+    "are-you-sure-you-want-to-check-all-items": "Bist du sicher, dass du alle Elemente markieren möchtest?",
+    "are-you-sure-you-want-to-uncheck-all-items": "Bist du sicher, dass du die Auswahl aller Elemente aufheben möchtest?",
+    "are-you-sure-you-want-to-delete-checked-items": "Bist du sicher, dass du alle ausgewählten Elemente löschen möchtest?"
   },
   "sidebar": {
     "all-recipes": "Alle Rezepte",

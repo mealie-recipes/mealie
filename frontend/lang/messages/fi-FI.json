@@ -809,7 +809,10 @@
     "linked-recipes-count": "Ei Linkitettyjä Reseptejä: Yksi Linkitetty Resepti:{count} Linkitettyjä Reseptejä",
     "items-checked-count": "Ei kohteita valittu: Yksi kohde tarkistettu:{count} kohdetta tarkistettu",
     "no-label": "Ei tunnistetta",
-    "completed-on": "Valmistui {date}"
+    "completed-on": "Valmistui {date}",
+    "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
+    "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
+    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
   },
   "sidebar": {
     "all-recipes": "Reseptit",

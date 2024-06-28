@@ -17,12 +17,19 @@ from mealie.schema.group.group_shopping_list import (
     ShoppingListMultiPurposeLabelCreate,
     ShoppingListSave,
 )
-from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit, RecipeIngredient
+from mealie.schema.recipe.recipe_ingredient import (
+    IngredientFood,
+    IngredientUnit,
+    RecipeIngredient,
+)
 from mealie.schema.response.pagination import OrderDirection, PaginationQuery
 from mealie.schema.user.user import GroupInDB, UserOut
+from mealie.services.parser_services._base import DataMatcher
 
 
 class ShoppingListService:
+    DEFAULT_FOOD_FUZZY_MATCH_THRESHOLD = 80
+
     def __init__(self, repos: AllRepositories, group: GroupInDB, user: UserOut):
         self.repos = repos
         self.group = group
@@ -31,6 +38,9 @@ class ShoppingListService:
         self.list_items = repos.group_shopping_list_item
         self.list_item_refs = repos.group_shopping_list_item_references
         self.list_refs = repos.group_shopping_list_recipe_refs
+        self.data_matcher = DataMatcher(
+            self.group.id, self.repos, food_fuzzy_match_threshold=self.DEFAULT_FOOD_FUZZY_MATCH_THRESHOLD
+        )
 
     @staticmethod
     def can_merge(item1: ShoppingListItemBase, item2: ShoppingListItemBase) -> bool:
@@ -108,7 +118,23 @@ class ShoppingListService:
         if list_refs_to_delete:
             self.list_refs.delete_many(list_refs_to_delete)
 
-    def bulk_create_items(self, create_items: list[ShoppingListItemCreate]) -> ShoppingListItemsCollectionOut:
+    def find_matching_label(self, item: ShoppingListItemBase) -> UUID4 | None:
+        if item.label_id:
+            return item.label_id
+        if item.food:
+            return item.food.label_id
+
+        food_search = self.data_matcher.find_food_match(item.display)
+        return food_search.label_id if food_search else None
+
+    def bulk_create_items(
+        self, create_items: list[ShoppingListItemCreate], auto_find_labels=True
+    ) -> ShoppingListItemsCollectionOut:
+        """
+        Create a list of items, merging into existing ones where possible.
+        Optionally try to find a label for each item if one isn't provided using the item's food data or display name.
+        """
+
         # consolidate items to be created
         consolidated_create_items: list[ShoppingListItemCreate] = []
         for create_item in create_items:
@@ -157,18 +183,13 @@ class ShoppingListService:
             if create_item.checked:
                 # checked items should not have recipe references
                 create_item.recipe_references = []
+            if auto_find_labels:
+                create_item.label_id = self.find_matching_label(create_item)
 
             filtered_create_items.append(create_item)
 
-        created_items = cast(
-            list[ShoppingListItemOut],
-            self.list_items.create_many(filtered_create_items) if filtered_create_items else [],  # type: ignore
-        )
-
-        updated_items = cast(
-            list[ShoppingListItemOut],
-            self.list_items.update_many(update_items) if update_items else [],  # type: ignore
-        )
+        created_items = self.list_items.create_many(filtered_create_items) if filtered_create_items else []
+        updated_items = self.list_items.update_many(update_items) if update_items else []
 
         for list_id in set(item.shopping_list_id for item in created_items + updated_items):
             self.remove_unused_recipe_references(list_id)

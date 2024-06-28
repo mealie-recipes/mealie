@@ -2,22 +2,21 @@ import random
 from math import ceil, floor
 from uuid import uuid4
 
+import pytest
 from fastapi.testclient import TestClient
 from pydantic import UUID4
 
+from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.group.group_shopping_list import ShoppingListItemOut, ShoppingListOut
+from mealie.schema.recipe.recipe_ingredient import SaveIngredientFood
 from tests import utils
 from tests.utils import api_routes
 from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser
 
 
-def create_item(list_id: UUID4) -> dict:
-    return {
-        "shopping_list_id": str(list_id),
-        "note": random_string(10),
-        "quantity": random_int(1, 10),
-    }
+def create_item(list_id: UUID4, **kwargs) -> dict:
+    return {"shopping_list_id": str(list_id), "note": random_string(10), "quantity": random_int(1, 10), **kwargs}
 
 
 def serialize_list_items(list_items: list[ShoppingListItemOut]) -> list:
@@ -87,6 +86,69 @@ def test_shopping_list_items_create_many(
 
     # make sure we found all items
     assert not created_item_ids
+
+
+def test_shopping_list_items_auto_assign_label_with_food_without_label(
+    api_client: TestClient, unique_user: TestUser, shopping_list: ShoppingListOut, database: AllRepositories
+):
+    food = database.ingredient_foods.create(SaveIngredientFood(name=random_string(10), group_id=unique_user.group_id))
+
+    item = create_item(shopping_list.id, food_id=str(food.id))
+    response = api_client.post(api_routes.groups_shopping_items, json=item, headers=unique_user.token)
+    as_json = utils.assert_derserialize(response, 201)
+    assert len(as_json["createdItems"]) == 1
+
+    item_out = ShoppingListItemOut.model_validate(as_json["createdItems"][0])
+    assert item_out.label_id is None
+    assert item_out.label is None
+
+
+def test_shopping_list_items_auto_assign_label_with_food_with_label(
+    api_client: TestClient, unique_user: TestUser, shopping_list: ShoppingListOut, database: AllRepositories
+):
+    label = database.group_multi_purpose_labels.create({"name": random_string(10), "group_id": unique_user.group_id})
+    food = database.ingredient_foods.create(
+        SaveIngredientFood(name=random_string(10), group_id=unique_user.group_id, label_id=label.id)
+    )
+
+    item = create_item(shopping_list.id, food_id=str(food.id))
+    response = api_client.post(api_routes.groups_shopping_items, json=item, headers=unique_user.token)
+    as_json = utils.assert_derserialize(response, 201)
+    assert len(as_json["createdItems"]) == 1
+
+    item_out = ShoppingListItemOut.model_validate(as_json["createdItems"][0])
+    assert item_out.label_id == label.id
+    assert item_out.label
+    assert item_out.label.id == label.id
+
+
+@pytest.mark.parametrize("use_fuzzy_name", [True, False])
+def test_shopping_list_items_auto_assign_label_with_food_search(
+    api_client: TestClient,
+    unique_user: TestUser,
+    shopping_list: ShoppingListOut,
+    database: AllRepositories,
+    use_fuzzy_name: bool,
+):
+    label = database.group_multi_purpose_labels.create({"name": random_string(10), "group_id": unique_user.group_id})
+    food = database.ingredient_foods.create(
+        SaveIngredientFood(name=random_string(20), group_id=unique_user.group_id, label_id=label.id)
+    )
+
+    item = create_item(shopping_list.id)
+    name = food.name
+    if use_fuzzy_name:
+        name = name + random_string(2)
+    item["note"] = name
+
+    response = api_client.post(api_routes.groups_shopping_items, json=item, headers=unique_user.token)
+    as_json = utils.assert_derserialize(response, 201)
+    assert len(as_json["createdItems"]) == 1
+
+    item_out = ShoppingListItemOut.model_validate(as_json["createdItems"][0])
+    assert item_out.label_id == label.id
+    assert item_out.label
+    assert item_out.label.id == label.id
 
 
 def test_shopping_list_items_get_one(

@@ -809,7 +809,10 @@
     "linked-recipes-count": "リンクされたレシピはありません|1つのレシピにリンクされています|{count} のレシピにリンクされています",
     "items-checked-count": "チェックされたアイテムはありません|チェックされたアイテムは1つです| チェックされたアイテムは {count} です",
     "no-label": "ラベルなし",
-    "completed-on": "完了日: {date}"
+    "completed-on": "完了日: {date}",
+    "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
+    "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
+    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
   },
   "sidebar": {
     "all-recipes": "すべてのレシピ",

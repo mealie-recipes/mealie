@@ -809,7 +809,10 @@
     "linked-recipes-count": "Aucune recette liée|Une recette liée|{count} recettes liées",
     "items-checked-count": "Aucun élément coché|Un élément coché|{count} éléments cochés",
     "no-label": "Aucune étiquette",
-    "completed-on": "Terminé le {date}"
+    "completed-on": "Terminé le {date}",
+    "are-you-sure-you-want-to-check-all-items": "Voulez-vous vraiment sélectionner tous les éléments ?",
+    "are-you-sure-you-want-to-uncheck-all-items": "Voulez-vous vraiment désélectionner tous les éléments ?",
+    "are-you-sure-you-want-to-delete-checked-items": "Voulez-vous vraiment supprimer tous les éléments sélectionnés ?"
   },
   "sidebar": {
     "all-recipes": "Recettes",
