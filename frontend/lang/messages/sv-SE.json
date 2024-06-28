@@ -809,7 +809,10 @@
     "linked-recipes-count": "Inga länkade recept|Ett länkat recept|{count} länkade recept",
     "items-checked-count": "Inga artiklar markerade|En artikel markerad|{count} artiklar markerade",
     "no-label": "Ingen etikett",
-    "completed-on": "Slutförd på {date}"
+    "completed-on": "Slutförd på {date}",
+    "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
+    "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
+    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
   },
   "sidebar": {
     "all-recipes": "Recept",

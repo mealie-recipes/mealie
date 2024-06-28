@@ -809,7 +809,10 @@
     "linked-recipes-count": "Нет связанных рецептов|Один связанный рецепт|{count} связанных рецептов",
     "items-checked-count": "Нет выбранных элементов|Один элемент выбран|{count} элементов выбрано",
     "no-label": "Без метки",
-    "completed-on": "Выполнено в {date}"
+    "completed-on": "Выполнено в {date}",
+    "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
+    "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
+    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
   },
   "sidebar": {
     "all-recipes": "Все рецепты",

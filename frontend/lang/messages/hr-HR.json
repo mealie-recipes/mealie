@@ -809,7 +809,10 @@
     "linked-recipes-count": "Nema povezanih recepata|Jedan povezani recept|{count} povezanih recepata",
     "items-checked-count": "Nijedna stavka nije označena|Jedna stavka je označena|Označeno je {count} stavki",
     "no-label": "Bez Oznake",
-    "completed-on": "Dovršeno dana {date}"
+    "completed-on": "Dovršeno dana {date}",
+    "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
+    "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
+    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
   },
   "sidebar": {
     "all-recipes": "Svi Recepti",
