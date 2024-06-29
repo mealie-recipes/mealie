@@ -810,6 +810,8 @@
     "items-checked-count": "Aucun élément coché|Un élément coché|{count} éléments cochés",
     "no-label": "Aucune étiquette",
     "completed-on": "Terminé le {date}",
+    "you-are-offline": "You are offline",
+    "you-are-offline-description": "Not all features are available while offline. You can still add, modify, and remove items, but you will not be able to sync your changes to the server until you are back online.",
     "are-you-sure-you-want-to-check-all-items": "Voulez-vous vraiment sélectionner tous les éléments ?",
     "are-you-sure-you-want-to-uncheck-all-items": "Voulez-vous vraiment désélectionner tous les éléments ?",
     "are-you-sure-you-want-to-delete-checked-items": "Voulez-vous vraiment supprimer tous les éléments sélectionnés ?"
@@ -988,7 +990,8 @@
       "food-data": "Données de l'aliment",
       "example-food-singular": "ex : Oignon",
       "example-food-plural": "ex : Oignons",
-      "label-overwrite-warning": "Ceci affectera l’étiquette choisie à tous les aliments sélectionnés et remplacera potentiellement vos étiquettes existantes."
+      "label-overwrite-warning": "Ceci affectera l’étiquette choisie à tous les aliments sélectionnés et remplacera potentiellement vos étiquettes existantes.",
+      "on-hand-checkbox-label": "Appliquer cet attribut décochera cet aliment par défaut lorsqu'il est ajouté à une liste de courses."
     },
     "units": {
       "seed-dialog-text": "Initialisez la base de données avec des unités communes basées sur votre langue locale.",
