@@ -20,6 +20,6 @@ def assert_ignore_keys(dict1: dict, dict2: dict, ignore_keys: list | None = None
             assert value == dict2[key]
 
 
-def assert_derserialize(response: Response, expected_status_code=200) -> dict:
+def assert_deserialize(response: Response, expected_status_code=200) -> dict:
     assert response.status_code == expected_status_code
     return response.json()

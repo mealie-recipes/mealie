@@ -11,7 +11,7 @@ from mealie.schema.group.group_migration import SupportedMigrations
 from mealie.schema.reports.reports import ReportEntryOut
 from tests import data as test_data
 from tests.utils import api_routes
-from tests.utils.assertion_helpers import assert_derserialize
+from tests.utils.assertion_helpers import assert_deserialize
 from tests.utils.fixture_schemas import TestUser
 
 
@@ -80,14 +80,14 @@ def test_recipe_migration(api_client: TestClient, unique_user: TestUser, mig: Mi
     # Validate Create Event
     params = {"orderBy": "created_at", "orderDirection": "desc"}
     response = api_client.get(api_routes.recipes, params=params, headers=unique_user.token)
-    query_data = assert_derserialize(response)
+    query_data = assert_deserialize(response)
     assert len(query_data["items"])
 
     recipe_id = query_data["items"][0]["id"]
     params = {"queryFilter": f"recipe_id={recipe_id}"}
 
     response = api_client.get(api_routes.recipes_timeline_events, params=params, headers=unique_user.token)
-    query_data = assert_derserialize(response)
+    query_data = assert_deserialize(response)
     events = query_data["items"]
     assert len(events)
 

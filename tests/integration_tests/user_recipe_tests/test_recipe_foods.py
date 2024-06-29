@@ -53,7 +53,11 @@ def test_update_food(api_client: TestClient, food: dict, unique_user: TestUser):
         "name": random_string(10),
         "description": random_string(10),
     }
-    response = api_client.put(api_routes.foods_item_id(food["id"]), json=update_data, headers=unique_user.token)
+    response = api_client.put(
+        api_routes.foods_item_id(food["id"]),
+        json=update_data,
+        headers=unique_user.token,
+    )
     assert response.status_code == 200
     as_json = response.json()
 
@@ -88,7 +92,7 @@ def test_food_extras(
     new_food_data["extras"] = {key_str_1: val_str_1}
 
     response = api_client.post(api_routes.foods, json=new_food_data, headers=unique_user.token)
-    food_as_json = utils.assert_derserialize(response, 201)
+    food_as_json = utils.assert_deserialize(response, 201)
 
     # make sure the extra persists
     extras = food_as_json["extras"]
@@ -99,9 +103,11 @@ def test_food_extras(
     food_as_json["extras"][key_str_2] = val_str_2
 
     response = api_client.put(
-        api_routes.foods_item_id(food_as_json["id"]), json=food_as_json, headers=unique_user.token
+        api_routes.foods_item_id(food_as_json["id"]),
+        json=food_as_json,
+        headers=unique_user.token,
     )
-    food_as_json = utils.assert_derserialize(response, 200)
+    food_as_json = utils.assert_deserialize(response, 200)
 
     # make sure both the new extra and original extra persist
     extras = food_as_json["extras"]

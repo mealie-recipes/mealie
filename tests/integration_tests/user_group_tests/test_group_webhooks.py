@@ -3,7 +3,7 @@ from datetime import datetime, timezone
 import pytest
 from fastapi.testclient import TestClient
 
-from tests.utils import api_routes, assert_derserialize, jsonify
+from tests.utils import api_routes, assert_deserialize, jsonify
 from tests.utils.fixture_schemas import TestUser
 
 
@@ -19,16 +19,24 @@ def webhook_data():
 
 
 def test_create_webhook(api_client: TestClient, unique_user: TestUser, webhook_data):
-    response = api_client.post(api_routes.groups_webhooks, json=jsonify(webhook_data), headers=unique_user.token)
+    response = api_client.post(
+        api_routes.groups_webhooks,
+        json=jsonify(webhook_data),
+        headers=unique_user.token,
+    )
     assert response.status_code == 201
 
 
 def test_read_webhook(api_client: TestClient, unique_user: TestUser, webhook_data):
-    response = api_client.post(api_routes.groups_webhooks, json=jsonify(webhook_data), headers=unique_user.token)
+    response = api_client.post(
+        api_routes.groups_webhooks,
+        json=jsonify(webhook_data),
+        headers=unique_user.token,
+    )
     item_id = response.json()["id"]
 
     response = api_client.get(api_routes.groups_webhooks_item_id(item_id), headers=unique_user.token)
-    webhook = assert_derserialize(response, 200)
+    webhook = assert_deserialize(response, 200)
 
     assert webhook["id"] == item_id
     assert webhook["name"] == webhook_data["name"]
@@ -38,8 +46,12 @@ def test_read_webhook(api_client: TestClient, unique_user: TestUser, webhook_dat
 
 
 def test_update_webhook(api_client: TestClient, webhook_data, unique_user: TestUser):
-    response = api_client.post(api_routes.groups_webhooks, json=jsonify(webhook_data), headers=unique_user.token)
-    item_dict = assert_derserialize(response, 201)
+    response = api_client.post(
+        api_routes.groups_webhooks,
+        json=jsonify(webhook_data),
+        headers=unique_user.token,
+    )
+    item_dict = assert_deserialize(response, 201)
     item_id = item_dict["id"]
 
     webhook_data["name"] = "My New Name"
@@ -47,9 +59,11 @@ def test_update_webhook(api_client: TestClient, webhook_data, unique_user: TestU
     webhook_data["enabled"] = False
 
     response = api_client.put(
-        api_routes.groups_webhooks_item_id(item_id), json=jsonify(webhook_data), headers=unique_user.token
+        api_routes.groups_webhooks_item_id(item_id),
+        json=jsonify(webhook_data),
+        headers=unique_user.token,
     )
-    updated_webhook = assert_derserialize(response, 200)
+    updated_webhook = assert_deserialize(response, 200)
 
     assert updated_webhook["name"] == webhook_data["name"]
     assert updated_webhook["url"] == webhook_data["url"]
@@ -57,8 +71,12 @@ def test_update_webhook(api_client: TestClient, webhook_data, unique_user: TestU
 
 
 def test_delete_webhook(api_client: TestClient, webhook_data, unique_user: TestUser):
-    response = api_client.post(api_routes.groups_webhooks, json=jsonify(webhook_data), headers=unique_user.token)
-    item_dict = assert_derserialize(response, 201)
+    response = api_client.post(
+        api_routes.groups_webhooks,
+        json=jsonify(webhook_data),
+        headers=unique_user.token,
+    )
+    item_dict = assert_deserialize(response, 201)
     item_id = item_dict["id"]
 
     response = api_client.delete(api_routes.groups_webhooks_item_id(item_id), headers=unique_user.token)
