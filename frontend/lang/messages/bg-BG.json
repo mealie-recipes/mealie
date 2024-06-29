@@ -810,6 +810,8 @@
     "items-checked-count": "Няма отбелязани етикети|Един елемент е отбелязан|{count} елементи са отбелязани",
     "no-label": "Няма етикет",
     "completed-on": "Приключена на {date}",
+    "you-are-offline": "You are offline",
+    "you-are-offline-description": "Not all features are available while offline. You can still add, modify, and remove items, but you will not be able to sync your changes to the server until you are back online.",
     "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
     "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
     "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
@@ -988,7 +990,8 @@
       "food-data": "Данни за храните",
       "example-food-singular": "пример: Домат",
       "example-food-plural": "пример: Домати",
-      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels."
+      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels.",
+      "on-hand-checkbox-label": "Setting this flag will make this food unchecked by default when adding a recipe to a shopping list."
     },
     "units": {
       "seed-dialog-text": "Заредете базата данни с мерни единици на Вашия местен език.",

@@ -810,6 +810,8 @@
     "items-checked-count": "Kein Eintrag erledigt|Ein Eintrag erledigt|{count} Einträge erledigt",
     "no-label": "Kein Etikett",
     "completed-on": "Erledigt am {date}",
+    "you-are-offline": "Keine Verbindung zum Internet",
+    "you-are-offline-description": "Nicht alle Funktionen sind offline verfügbar. Du kannst weiterhin Einträge hinzufügen, ändern und entfernen, aber Änderungen werden erst dann mit dem Server synchronisiert, wenn du wieder online bist.",
     "are-you-sure-you-want-to-check-all-items": "Bist du sicher, dass du alle Elemente markieren möchtest?",
     "are-you-sure-you-want-to-uncheck-all-items": "Bist du sicher, dass du die Auswahl aller Elemente aufheben möchtest?",
     "are-you-sure-you-want-to-delete-checked-items": "Bist du sicher, dass du alle ausgewählten Elemente löschen möchtest?"
@@ -988,7 +990,8 @@
       "food-data": "Lebensmitteldaten",
       "example-food-singular": "z.B. Zwiebel",
       "example-food-plural": "z.B. Zwiebeln",
-      "label-overwrite-warning": "Hiermit wird das ausgewählte Etikett allen ausgewählten Lebensmitteln zugewiesen und möglicherweise bestehende Etiketten werden überschrieben."
+      "label-overwrite-warning": "Hiermit wird das ausgewählte Etikett allen ausgewählten Lebensmitteln zugewiesen und möglicherweise bestehende Etiketten werden überschrieben.",
+      "on-hand-checkbox-label": "Mit dieser Markierung wird dieses Lebensmittel standardmäßig deaktiviert, wenn ein Rezept einer Einkaufsliste hinzugefügt wird."
     },
     "units": {
       "seed-dialog-text": "Füllt die Datenbank mit gängigen Maßeinheiten basierend auf deiner Sprache.",
