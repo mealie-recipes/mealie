@@ -2,101 +2,121 @@
     "teaspoon": {
         "name": "cucchiaino",
         "description": "",
-        "abbreviation": "cucchiaino"
+        "abbreviation": "cucchiaino",
+        "pluralName": "cucchiaini"
     },
     "tablespoon": {
         "name": "cucchiaio",
         "description": "",
-        "abbreviation": "cucch.o"
+        "abbreviation": "cucch.o",
+        "pluralName": "cucchiai"
     },
     "cup": {
         "name": "tazza",
         "description": "",
-        "abbreviation": "tazza"
+        "abbreviation": "tazza",
+        "pluralName": "tazze"
     },
     "fluid-ounce": {
         "name": "oncia liquida",
         "description": "",
-        "abbreviation": "fl oz"
+        "abbreviation": "fl oz",
+        "pluralName": "once liquide"
     },
     "pint": {
         "name": "pinta",
         "description": "",
-        "abbreviation": "pt"
+        "abbreviation": "pt",
+        "pluralName": "pinte"
     },
     "quart": {
         "name": "quarto di pinta",
         "description": "",
-        "abbreviation": "qt"
+        "abbreviation": "qt",
+        "pluralName": "quarti di pinta"
     },
     "gallon": {
         "name": "gallone",
         "description": "",
-        "abbreviation": "gal"
+        "abbreviation": "gal",
+        "pluralName": "galloni"
     },
     "milliliter": {
         "name": "millilitro",
         "description": "",
-        "abbreviation": "ml"
+        "abbreviation": "ml",
+        "pluralName": "millilitri"
     },
     "liter": {
         "name": "litro",
         "description": "",
-        "abbreviation": "l"
+        "abbreviation": "l",
+        "pluralName": "litri"
     },
     "pound": {
         "name": "libbra",
         "description": "",
-        "abbreviation": "lb"
+        "abbreviation": "lb",
+        "pluralName": "libbre"
     },
     "ounce": {
         "name": "oncia",
         "description": "",
-        "abbreviation": "oz"
+        "abbreviation": "oz",
+        "pluralName": "once"
     },
     "gram": {
         "name": "grammo",
         "description": "",
-        "abbreviation": "g"
+        "abbreviation": "g",
+        "pluralName": "grammi"
     },
     "kilogram": {
         "name": "chilogrammo",
         "description": "",
-        "abbreviation": "kg"
+        "abbreviation": "kg",
+        "pluralName": "chilogrammi"
     },
     "milligram": {
         "name": "milligrammo",
         "description": "",
-        "abbreviation": "mg"
+        "abbreviation": "mg",
+        "pluralName": "milligrammi"
     },
     "splash": {
         "name": "splash",
         "description": "",
-        "abbreviation": ""
+        "abbreviation": "",
+        "pluralName": "splash"
     },
     "dash": {
         "name": "pizzico",
         "description": "",
-        "abbreviation": ""
+        "abbreviation": "",
+        "pluralName": "pizzichi"
     },
     "serving": {
         "name": "porzione",
         "description": "",
-        "abbreviation": ""
+        "abbreviation": "",
+        "pluralName": "porzioni"
     },
     "head": {
         "name": "testa",
         "description": "",
-        "abbreviation": ""
+        "abbreviation": "",
+        "pluralName": "teste"
     },
     "clove": {
         "name": "spicchio",
         "description": "",
-        "abbreviation": ""
+        "abbreviation": "",
+        "pluralName": "spicchi"
     },
     "can": {
         "name": "lattina",
         "description": "",
-        "abbreviation": ""
+        "abbreviation": "",
+        "pluralName": "lattine"
     }
 }
