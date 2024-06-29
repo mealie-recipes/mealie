@@ -810,6 +810,8 @@
     "items-checked-count": "Nobena postavka ni izbrana|Ena postavka izbrana|{count} postavk izbranih",
     "no-label": "Brez oznake",
     "completed-on": "Zaključena {date}",
+    "you-are-offline": "You are offline",
+    "you-are-offline-description": "Not all features are available while offline. You can still add, modify, and remove items, but you will not be able to sync your changes to the server until you are back online.",
     "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
     "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
     "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
@@ -988,7 +990,8 @@
       "food-data": "Podatki o živilih",
       "example-food-singular": "npr: Čebula",
       "example-food-plural": "npr: Čebule",
-      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels."
+      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels.",
+      "on-hand-checkbox-label": "Setting this flag will make this food unchecked by default when adding a recipe to a shopping list."
     },
     "units": {
       "seed-dialog-text": "Napolni podatkovno bazo z običajnimi enotami, glede na vaš lokalni jezik.",
