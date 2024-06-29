@@ -15,10 +15,9 @@ from .._model_utils import GUID, auto_init
 from ..recipe.ingredient import IngredientFoodModel, IngredientUnitModel
 
 if TYPE_CHECKING:
-    from group import Group
-    from users import User
-
     from ..recipe import RecipeModel
+    from ..users import User
+    from .group import Group
 
 
 class ShoppingListItemRecipeReference(BaseMixins, SqlAlchemyBase):
@@ -73,7 +72,7 @@ class ShoppingListItem(SqlAlchemyBase, BaseMixins):
     recipe_references: Mapped[list[ShoppingListItemRecipeReference]] = orm.relationship(
         ShoppingListItemRecipeReference, cascade="all, delete, delete-orphan"
     )
-    model_config = ConfigDict(exclude={"id", "label", "food", "unit"})
+    model_config = ConfigDict(exclude={"label", "food", "unit"})
 
     @api_extras
     @auto_init()

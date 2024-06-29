@@ -69,7 +69,7 @@
     </v-row>
     <v-row v-if="!listItem.checked && recipeList && recipeList.length && displayRecipeRefs" no-gutters class="mb-2">
       <v-col cols="auto" style="width: 100%;">
-        <RecipeList :recipes="recipeList" :list-item="listItem" small tile />
+        <RecipeList :recipes="recipeList" :list-item="listItem" :disabled="isOffline" small tile />
       </v-col>
     </v-row>
     <v-row v-if="listItem.checked" no-gutters class="mb-2">
@@ -135,7 +135,11 @@ export default defineComponent({
     recipes: {
       type: Map<string, RecipeSummary>,
       default: undefined,
-    }
+    },
+    isOffline: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props, context) {
     const { i18n } = useContext();

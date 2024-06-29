@@ -27,6 +27,11 @@
       </template>
       <template #title> {{ shoppingList.name }} </template>
     </BasePageTitle>
+    <BannerWarning
+      v-if="isOffline"
+      :title="$tc('shopping-list.you-are-offline')"
+      :description="$tc('shopping-list.you-are-offline-description')"
+    />
 
     <!-- Viewer -->
     <section v-if="!edit" class="py-2">
@@ -41,6 +46,7 @@
               :units="allUnits || []"
               :foods="allFoods || []"
               :recipes="recipeMap"
+              :is-offline="isOffline"
               @checked="saveListItem"
               @save="saveListItem"
               @delete="deleteListItem(item)"
@@ -69,6 +75,7 @@
                 :units="allUnits || []"
                 :foods="allFoods || []"
                 :recipes="recipeMap"
+                :is-offline="isOffline"
                 @checked="saveListItem"
                 @save="saveListItem"
                 @delete="deleteListItem(item)"
@@ -125,6 +132,7 @@
           :labels="allLabels || []"
           :units="allUnits || []"
           :foods="allFoods || []"
+          :is-offline="isOffline"
           @delete="createEditorOpen = false"
           @cancel="createEditorOpen = false"
           @save="createListItem"
@@ -133,6 +141,7 @@
       <div v-else class="mt-4 d-flex justify-end">
         <BaseButton
           v-if="preferences.viewByLabel" edit class="mr-2"
+          :disabled="isOffline"
           @click="toggleReorderLabelsDialog">
           <template #icon> {{ $globals.icons.tags }} </template>
           {{ $t('shopping-list.reorder-labels') }}
@@ -212,6 +221,7 @@
                 :labels="allLabels || []"
                 :units="allUnits || []"
                 :foods="allFoods || []"
+                :is-offline="isOffline"
                 @checked="saveListItem"
                 @save="saveListItem"
                 @delete="deleteListItem(item)"
@@ -234,10 +244,10 @@
           {{ $tc('shopping-list.linked-recipes-count', shoppingList.recipeReferences ? shoppingList.recipeReferences.length : 0) }}
         </div>
         <v-divider class="my-4"></v-divider>
-        <RecipeList :recipes="Array.from(recipeMap.values())" show-description>
+        <RecipeList :recipes="Array.from(recipeMap.values())" show-description :disabled="isOffline">
           <template v-for="(recipe, index) in recipeMap.values()" #[`actions-${recipe.id}`]>
             <v-list-item-action :key="'item-actions-decrease' + recipe.id">
-              <v-btn icon @click.prevent="removeRecipeReferenceToList(recipe.id)">
+              <v-btn icon :disabled="isOffline" @click.prevent="removeRecipeReferenceToList(recipe.id)">
                 <v-icon color="grey lighten-1">{{ $globals.icons.minus }}</v-icon>
               </v-btn>
             </v-list-item-action>
@@ -245,7 +255,7 @@
               {{ shoppingList.recipeReferences[index].recipeQuantity }}
             </div>
             <v-list-item-action :key="'item-actions-increase' + recipe.id">
-              <v-btn icon @click.prevent="addRecipeReferenceToList(recipe.id)">
+              <v-btn icon :disabled="isOffline" @click.prevent="addRecipeReferenceToList(recipe.id)">
                 <v-icon color="grey lighten-1">{{ $globals.icons.createAlt }}</v-icon>
               </v-btn>
             </v-list-item-action>
@@ -256,7 +266,11 @@
 
     <v-lazy>
       <div class="d-flex justify-end">
-        <BaseButton edit @click="toggleSettingsDialog">
+        <BaseButton
+          edit
+          :disabled="isOffline"
+          @click="toggleSettingsDialog"
+        >
           <template #icon> {{ $globals.icons.cog }} </template>
           {{ $t('general.settings') }}
         </BaseButton>
@@ -264,8 +278,12 @@
     </v-lazy>
 
     <v-lazy>
-      <div class="d-flex justify-end mt-10">
-        <ButtonLink :to="`/group/data/labels`" :text="$tc('shopping-list.manage-labels')" :icon="$globals.icons.tags" />
+      <div v-if="!isOffline" class="d-flex justify-end mt-10">
+        <ButtonLink
+          :to="`/group/data/labels`"
+          :text="$tc('shopping-list.manage-labels')"
+          :icon="$globals.icons.tags"
+        />
       </div>
     </v-lazy>
   </v-container>
@@ -280,12 +298,14 @@ import { useCopyList } from "~/composables/use-copy";
 import { useUserApi } from "~/composables/api";
 import MultiPurposeLabelSection from "~/components/Domain/ShoppingList/MultiPurposeLabelSection.vue"
 import ShoppingListItem from "~/components/Domain/ShoppingList/ShoppingListItem.vue";
-import { ShoppingListItemCreate, ShoppingListItemOut, ShoppingListMultiPurposeLabelOut, ShoppingListOut } from "~/lib/api/types/group";
+import { ShoppingListItemOut, ShoppingListMultiPurposeLabelOut, ShoppingListOut } from "~/lib/api/types/group";
 import { UserSummary } from "~/lib/api/types/user";
 import RecipeList from "~/components/Domain/Recipe/RecipeList.vue";
 import ShoppingListItemEditor from "~/components/Domain/ShoppingList/ShoppingListItemEditor.vue";
 import { useFoodStore, useLabelStore, useUnitStore } from "~/composables/store";
+import { useShoppingListItemActions } from "~/composables/use-shopping-list-item-actions";
 import { useShoppingListPreferences } from "~/composables/use-users/preferences";
+import { uuid4 } from "~/composables/use-utils";
 
 type CopyTypes = "plain" | "markdown";
 
@@ -320,6 +340,7 @@ export default defineComponent({
     const route = useRoute();
     const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
     const id = route.value.params.id;
+    const shoppingListItemActions = useShoppingListItemActions(id);
 
     const state = reactive({
       checkAllDialog: false,
@@ -332,13 +353,25 @@ export default defineComponent({
 
     const shoppingList = ref<ShoppingListOut | null>(null);
     async function fetchShoppingList() {
-      const { data } = await userApi.shopping.lists.getOne(id);
+      const data = await shoppingListItemActions.getList();
       return data;
     }
 
     async function refresh() {
       loadingCounter.value += 1;
-      const newListValue = await fetchShoppingList();
+      try {
+        await shoppingListItemActions.process();
+      } catch (error) {
+        console.error(error);
+      }
+
+      let newListValue = null
+      try {
+        newListValue = await fetchShoppingList();
+      } catch (error) {
+        console.error(error);
+      }
+
       loadingCounter.value -= 1;
 
       // only update the list with the new value if we're not loading, to prevent UI jitter
@@ -346,18 +379,21 @@ export default defineComponent({
         return;
       }
 
-      shoppingList.value = newListValue;
+      // if we're not connected to the network, this will be null, so we don't want to clear the list
+      if (newListValue) {
+        shoppingList.value = newListValue;
+      }
+
       updateListItemOrder();
     }
 
     function updateListItemOrder() {
       if (!preserveItemOrder.value) {
         groupAndSortListItemsByFood();
-        updateItemsByLabel();
       } else {
         sortListItems();
-        updateItemsByLabel();
       }
+      updateItemsByLabel();
     }
 
     // constantly polls for changes
@@ -391,11 +427,13 @@ export default defineComponent({
 
     // start polling
     loadingCounter.value -= 1;
-    const pollFrequency = 5000;
     pollForChanges();  // populate initial list
 
+    // max poll time = pollFrequency * maxAttempts = 24 hours
+    // we use a long max poll time since polling stops when the user is idle anyway
+    const pollFrequency = 5000;
+    const maxAttempts = 17280;
     let attempts = 0;
-    const maxAttempts = 3;
 
     const pollTimer: ReturnType<typeof setInterval> = setInterval(() => { pollForChanges() }, pollFrequency);
     onUnmounted(() => {
@@ -655,6 +693,14 @@ export default defineComponent({
       items: ShoppingListItemOut[];
     }
 
+    function sortItems(a: ShoppingListItemOut | ListItemGroup, b: ShoppingListItemOut | ListItemGroup) {
+      return (
+        ((a.position || 0) > (b.position || 0)) ||
+        ((a.createdAt || "") < (b.createdAt || ""))
+        ? 1 : -1
+      );
+    }
+
     function groupAndSortListItemsByFood() {
       if (!shoppingList.value?.listItems?.length) {
         return;
@@ -678,16 +724,14 @@ export default defineComponent({
         }
       });
 
-      // sort group items by position ascending, then createdAt descending
       const listItemGroups = Array.from(listItemGroupsMap.values());
-      listItemGroups.sort((a, b) => (a.position > b.position || a.createdAt < b.createdAt ? 1 : -1));
+      listItemGroups.sort(sortItems);
 
-      // sort group items by position ascending, then createdAt descending, and aggregate them
+      // sort group items, then aggregate them
       const sortedItems: ShoppingListItemOut[] = [];
       let nextPosition = 0;
       listItemGroups.forEach((listItemGroup) => {
-        // @ts-ignore none of these fields are undefined
-        listItemGroup.items.sort((a, b) => (a.position > b.position || a.createdAt < b.createdAt ? 1 : -1));
+        listItemGroup.items.sort(sortItems);
         listItemGroup.items.forEach((item) => {
           item.position = nextPosition;
           nextPosition += 1;
@@ -703,9 +747,7 @@ export default defineComponent({
         return;
       }
 
-      // sort by position ascending, then createdAt descending
-      // @ts-ignore none of these fields are undefined
-      shoppingList.value.listItems.sort((a, b) => (a.position > b.position || a.createdAt < b.createdAt ? 1 : -1))
+      shoppingList.value.listItems.sort(sortItems)
     }
 
     function updateItemsByLabel() {
@@ -812,7 +854,7 @@ export default defineComponent({
      * checked it will also append that item to the end of the list so that the unchecked items
      * are at the top of the list.
      */
-    async function saveListItem(item: ShoppingListItemOut) {
+    function saveListItem(item: ShoppingListItemOut) {
       if (!shoppingList.value) {
         return;
       }
@@ -839,38 +881,34 @@ export default defineComponent({
       }
 
       updateListItemOrder();
-
-      loadingCounter.value += 1;
-      const { data } = await userApi.shopping.items.updateOne(item.id, item);
-      loadingCounter.value -= 1;
-
-      if (data) {
-        refresh();
-      }
+      shoppingListItemActions.updateItem(item);
+      refresh();
     }
 
-    async function deleteListItem(item: ShoppingListItemOut) {
+    function deleteListItem(item: ShoppingListItemOut) {
       if (!shoppingList.value) {
         return;
       }
 
-      loadingCounter.value += 1;
-      const { data } = await userApi.shopping.items.deleteOne(item.id);
-      loadingCounter.value -= 1;
+      shoppingListItemActions.deleteItem(item);
 
-      if (data) {
-        refresh();
+      // remove the item from the list immediately so the user sees the change
+      if (shoppingList.value.listItems) {
+        shoppingList.value.listItems = shoppingList.value.listItems.filter((itm) => itm.id !== item.id);
       }
+
+      refresh();
     }
 
     // =====================================
     // Create New Item
 
     const createEditorOpen = ref(false);
-    const createListItemData = ref<ShoppingListItemCreate>(listItemFactory());
+    const createListItemData = ref<ShoppingListItemOut>(listItemFactory());
 
-    function listItemFactory(isFood = false): ShoppingListItemCreate {
+    function listItemFactory(isFood = false): ShoppingListItemOut {
       return {
+        id: uuid4(),
         shoppingListId: id,
         checked: false,
         position: shoppingList.value?.listItems?.length || 1,
@@ -883,7 +921,7 @@ export default defineComponent({
       };
     }
 
-    async function createListItem() {
+    function createListItem() {
       if (!shoppingList.value) {
         return;
       }
@@ -899,13 +937,22 @@ export default defineComponent({
       createListItemData.value.position = shoppingList.value?.listItems?.length
         ? (shoppingList.value.listItems.reduce((a, b) => (a.position || 0) > (b.position || 0) ? a : b).position || 0) + 1
         : 0;
-      const { data } = await userApi.shopping.items.createOne(createListItemData.value);
+
+      createListItemData.value.createdAt = new Date().toISOString();
+      createListItemData.value.updateAt = createListItemData.value.createdAt;
+
+      updateListItemOrder();
+
+      shoppingListItemActions.createItem(createListItemData.value);
       loadingCounter.value -= 1;
 
-      if (data) {
-        createListItemData.value = listItemFactory(createListItemData.value.isFood || false);
-        refresh();
-      }
+      if (shoppingList.value.listItems) {
+          // add the item to the list immediately so the user sees the change
+          shoppingList.value.listItems.push(createListItemData.value);
+          updateListItemOrder();
+        }
+      createListItemData.value = listItemFactory(createListItemData.value.isFood || false);
+      refresh();
     }
 
     function updateIndexUnchecked(uncheckedItems: ShoppingListItemOut[]) {
@@ -941,21 +988,24 @@ export default defineComponent({
       return updateIndexUnchecked(allUncheckedItems);
     }
 
-    async function deleteListItems(items: ShoppingListItemOut[]) {
+    function deleteListItems(items: ShoppingListItemOut[]) {
       if (!shoppingList.value) {
         return;
       }
 
-      loadingCounter.value += 1;
-      const { data } = await userApi.shopping.items.deleteMany(items);
-      loadingCounter.value -= 1;
-
-      if (data) {
-        refresh();
+      items.forEach((item) => {
+        shoppingListItemActions.deleteItem(item);
+      });
+      // remove the items from the list immediately so the user sees the change
+      if (shoppingList.value?.listItems) {
+        const deletedItems = new Set(items.map(item => item.id));
+        shoppingList.value.listItems = shoppingList.value.listItems.filter((itm) => !deletedItems.has(itm.id));
       }
+
+      refresh();
     }
 
-    async function updateListItems() {
+    function updateListItems() {
       if (!shoppingList.value?.listItems) {
         return;
       }
@@ -966,13 +1016,10 @@ export default defineComponent({
         return itm;
       });
 
-      loadingCounter.value += 1;
-      const { data } = await userApi.shopping.items.updateMany(shoppingList.value.listItems);
-      loadingCounter.value -= 1;
-
-      if (data) {
-        refresh();
-      }
+      shoppingList.value.listItems.forEach((item) => {
+        shoppingListItemActions.updateItem(item);
+      });
+      refresh();
     }
 
     // ===============================================================
@@ -1026,6 +1073,7 @@ export default defineComponent({
       getLabelColor,
       groupSlug,
       itemsByLabel,
+      isOffline: shoppingListItemActions.isOffline,
       listItems,
       loadingCounter,
       preferences,
