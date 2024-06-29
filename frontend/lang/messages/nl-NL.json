@@ -810,6 +810,8 @@
     "items-checked-count": "Geen items geselecteerd|Eén item geselecteerd|{count} items geselecteerd",
     "no-label": "Geen label",
     "completed-on": "Afgemaakt op {date}",
+    "you-are-offline": "Je bent offline",
+    "you-are-offline-description": "Je kunt niet alles doen als je offline bent. Je kunt wel dingen toevoegen, veranderen of weghalen. Maar we verwerken je aanpassingen pas als je weer online bent.",
     "are-you-sure-you-want-to-check-all-items": "Weet je zeker dat je alle items wilt selecteren?",
     "are-you-sure-you-want-to-uncheck-all-items": "Weet je zeker dat je alle items wilt deselecteren?",
     "are-you-sure-you-want-to-delete-checked-items": "Weet je zeker dat je de geselecteerde items wilt verwijderen?"
@@ -988,7 +990,8 @@
       "food-data": "Levensmiddel-gegevens",
       "example-food-singular": "bijv: Ui",
       "example-food-plural": "bijv: Uien",
-      "label-overwrite-warning": "Dit geeft alle geselecteerde levensmiddelen het gekozen label. Het kan bestaande labels overschrijven."
+      "label-overwrite-warning": "Dit geeft alle geselecteerde levensmiddelen het gekozen label. Het kan bestaande labels overschrijven.",
+      "on-hand-checkbox-label": "Door deze vlag in te stellen, wordt dit voedsel standaard niet aangevinkt bij het toevoegen van een recept aan een boodschappenlijst."
     },
     "units": {
       "seed-dialog-text": "Vul de database aan met veelvoorkomende eenheden, gebaseerd op je lokale taal.",

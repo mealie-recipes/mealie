@@ -64,7 +64,7 @@
     "something-went-wrong": "Si è verificato un errore!",
     "subscribed-events": "Eventi Sottoscritti",
     "test-message-sent": "Messaggio di prova inviato",
-    "message-sent": "Message Sent",
+    "message-sent": "Messaggio Inviato",
     "new-notification": "Nuova Notifica",
     "event-notifiers": "Notifiche Evento",
     "apprise-url-skipped-if-blank": "Url di Apprise (ignorato se vuoto)",
@@ -161,7 +161,7 @@
     "test": "Test",
     "themes": "Temi",
     "thursday": "Giovedì",
-    "title": "Title",
+    "title": "Titolo",
     "token": "Token",
     "tuesday": "Martedì",
     "type": "Tipo",
@@ -211,7 +211,7 @@
     "clipboard-copy-failure": "Impossibile copiare negli appunti.",
     "confirm-delete-generic-items": "Sei sicuro di voler eliminare i seguenti elementi?",
     "organizers": "Organizzatori",
-    "caution": "Caution"
+    "caution": "Attenzione"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Sei sicuro di volerlo eliminare <b>{groupName}<b/>'?",
@@ -292,8 +292,8 @@
     "mealplan-updated": "Piano Alimentare Aggiornato",
     "no-meal-plan-defined-yet": "Ancora nessun piano alimentare definito",
     "no-meal-planned-for-today": "Nessun piano alimentare per oggi",
-    "numberOfDays-hint": "Number of days on page load",
-    "numberOfDays-label": "Default Days",
+    "numberOfDays-hint": "Numero di giorni sul caricamento della pagina",
+    "numberOfDays-label": "Giorni Predefiniti",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Solo ricette con queste categorie possono essere utilizzate un un Piano Alimentare",
     "planner": "Pianificatore",
     "quick-week": "Settimana Veloce",
@@ -383,7 +383,7 @@
     },
     "recipekeeper": {
       "title": "Recipe Keeper",
-      "description-long": "Mealie can import recipes from Recipe Keeper. Export your recipes in zip format, then upload the .zip file below."
+      "description-long": "Mealie può importare ricette da Recipe Keeper. Esporta le tue ricette in formato zip, quindi carica lo .zip qui sotto."
     }
   },
   "new-recipe": {
@@ -449,8 +449,8 @@
     "ingredients": "Ingredienti",
     "insert-ingredient": "Inserisci Ingrediente",
     "insert-section": "Inserisci Sezione",
-    "insert-above": "Insert Above",
-    "insert-below": "Insert Below",
+    "insert-above": "Inserisci Sopra",
+    "insert-below": "Inserisci Sotto",
     "instructions": "Istruzioni",
     "key-name-required": "Nome Chiave Richiesto",
     "landscape-view-coming-soon": "Vista Orizzontale (Prossimamente)",
@@ -586,7 +586,7 @@
     "report-deletion-failed": "Eliminazione report fallita",
     "recipe-debugger": "Debugger Ricetta",
     "recipe-debugger-description": "Prendi l'URL della ricetta che vuoi fare il debug e incollalo qui. L'URL verrà recuperato dallo scraper di ricette e i risultati verranno visualizzati. Se non si vede alcun dato restituito, il sito che si sta cercando di analizzare non è supportato da Mealie o la sua libreria di scraping.",
-    "use-openai": "Use OpenAI",
+    "use-openai": "Usa OpenAI",
     "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Debug",
     "tree-view": "Visualizzazione ad Albero",
@@ -810,6 +810,8 @@
     "items-checked-count": "Nessun elemento selezionato|Un elemento selezionato|{count} elementi selezionati",
     "no-label": "Nessuna etichetta",
     "completed-on": "Completato il {date}",
+    "you-are-offline": "You are offline",
+    "you-are-offline-description": "Not all features are available while offline. You can still add, modify, and remove items, but you will not be able to sync your changes to the server until you are back online.",
     "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
     "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
     "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
@@ -988,7 +990,8 @@
       "food-data": "Dati Alimento",
       "example-food-singular": "esempio: Cipolla",
       "example-food-plural": "esempio: Cipolle",
-      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels."
+      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels.",
+      "on-hand-checkbox-label": "Setting this flag will make this food unchecked by default when adding a recipe to a shopping list."
     },
     "units": {
       "seed-dialog-text": "Riempie il database con unità comuni basate sulla lingua.",

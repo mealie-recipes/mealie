@@ -810,9 +810,11 @@
     "items-checked-count": "No items checked|One item checked|{count} items checked",
     "no-label": "No Label",
     "completed-on": "Completed on {date}",
-    "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
-    "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
-    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
+    "you-are-offline": "Είστε εκτός σύνδεσης",
+    "you-are-offline-description": "Δεν είναι όλες οι λειτουργίες διαθέσιμες όταν είναι εκτός σύνδεσης. Μπορείτε ακόμα να προσθέσετε, να τροποποιήσετε και να αφαιρέσετε αντικείμενα, αλλά δεν θα μπορείτε να συγχρονίσετε τις αλλαγές σας στο διακομιστή μέχρι να επανέλθει η σύνδεση στο διαδίκτυο.",
+    "are-you-sure-you-want-to-check-all-items": "Θέλετε σίγουρα να επιλέξετε όλα τα στοιχεία;",
+    "are-you-sure-you-want-to-uncheck-all-items": "Θέλετε σίγουρα να αποεπιλέξετε όλα τα στοιχεία;",
+    "are-you-sure-you-want-to-delete-checked-items": "Θέλετε σίγουρα να διαγράψετε όλα τα επιλεγμένα στοιχεία;"
   },
   "sidebar": {
     "all-recipes": "Συνταγές όλες",
@@ -988,7 +990,8 @@
       "food-data": "Food Data",
       "example-food-singular": "ex: Onion",
       "example-food-plural": "ex: Onions",
-      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels."
+      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels.",
+      "on-hand-checkbox-label": "Η ρύθμιση αυτής της σημαίας θα κάνει αυτό το φαγητό αποεπιλεγμένο από προεπιλογή κατά την προσθήκη μιας συνταγής σε μια λίστα αγορών."
     },
     "units": {
       "seed-dialog-text": "Seed the database with common units based on your local language.",

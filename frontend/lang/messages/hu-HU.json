@@ -810,6 +810,8 @@
     "items-checked-count": "Nincs ellenőrzött tétel|Egy ellenőrzött tétel|{count} ellenőrzött tétel",
     "no-label": "Nincs címke",
     "completed-on": "Teljesítve {date}",
+    "you-are-offline": "You are offline",
+    "you-are-offline-description": "Not all features are available while offline. You can still add, modify, and remove items, but you will not be able to sync your changes to the server until you are back online.",
     "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
     "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
     "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
@@ -988,7 +990,8 @@
       "food-data": "Étel adatai",
       "example-food-singular": "pl. Hagyma",
       "example-food-plural": "pl. Hagymák",
-      "label-overwrite-warning": "Ez a kiválasztott címkét az összes kiválasztott élelmiszerhez hozzárendeli, és esetleg felülírja a meglévő címkéket."
+      "label-overwrite-warning": "Ez a kiválasztott címkét az összes kiválasztott élelmiszerhez hozzárendeli, és esetleg felülírja a meglévő címkéket.",
+      "on-hand-checkbox-label": "Setting this flag will make this food unchecked by default when adding a recipe to a shopping list."
     },
     "units": {
       "seed-dialog-text": "Töltse be az Ön nyelve szerinti közös mennyiségi egységet tartalmazó adatbázist.",
