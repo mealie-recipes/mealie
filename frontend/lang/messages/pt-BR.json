@@ -810,11 +810,11 @@
     "items-checked-count": "Nenhum itens checados|Um itens checados|{count} itens checados",
     "no-label": "Sem Marcador",
     "completed-on": "Concluída em {date}",
-    "you-are-offline": "You are offline",
-    "you-are-offline-description": "Not all features are available while offline. You can still add, modify, and remove items, but you will not be able to sync your changes to the server until you are back online.",
-    "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
-    "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
-    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
+    "you-are-offline": "Você está desconectado",
+    "you-are-offline-description": "Nem todos os recursos estão disponíveis enquanto desconectado. Você ainda pode adicionar, modificar, e remover itens, mas não poderá sincronizar suas mudanças com o servidor até que esteja conectado novamente.",
+    "are-you-sure-you-want-to-check-all-items": "Tem certeza que deseja marcar todos os itens?",
+    "are-you-sure-you-want-to-uncheck-all-items": "Tem certeza que deseja desmarcar todos os itens?",
+    "are-you-sure-you-want-to-delete-checked-items": "Tem certeza que deseja apagar todos os itens marcados?"
   },
   "sidebar": {
     "all-recipes": "Todas as Receitas",
@@ -991,7 +991,7 @@
       "example-food-singular": "ex: Cebola",
       "example-food-plural": "ex: Cebolas",
       "label-overwrite-warning": "Isto irá atribuir a etiqueta escolhida a todos os alimentos selecionados e potencialmente sobrescrever suas etiquetas existentes.",
-      "on-hand-checkbox-label": "Setting this flag will make this food unchecked by default when adding a recipe to a shopping list."
+      "on-hand-checkbox-label": "Definir este sinalizador fará este alimento desmarcado por padrão quando adicionar uma receita a uma lista de compras."
     },
     "units": {
       "seed-dialog-text": "Adicione a base de dados unidades comuns baseadas em seu idioma.",
