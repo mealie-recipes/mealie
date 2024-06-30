@@ -42,14 +42,21 @@ async def schedule_daily():
         hour_target = 23
         minute_target = 45
 
-    hours_until = ((hour_target - now.hour) % 24) or 24
-    minutes_until = (minute_target - now.minute) % 60
-    logger.debug("Hours until %s and minutes until %s", str(hours_until), str(minutes_until))
+    next_schedule = now.replace(hour=hour_target, minute=minute_target, second=0, microsecond=0)
+    delta = next_schedule - now
+    if delta < timedelta(0):
+        next_schedule = next_schedule + timedelta(days=1)
+        delta = next_schedule - now
 
-    delta = timedelta(hours=hours_until, minutes=minutes_until)
-    target_time = (now + delta).replace(microsecond=0, second=0)
+    hours_until, seconds_reminder = divmod(delta.total_seconds(), 3600)
+    minutes_until, seconds_reminder = divmod(seconds_reminder, 60)
+    seconds_until = round(seconds_reminder)
+    logger.debug("Time left: %02d:%02d:%02d", hours_until, minutes_until, seconds_until)
+
+    target_time = next_schedule.replace(microsecond=0, second=0)
     logger.info("Daily tasks scheduled for %s", str(target_time))
-    wait_seconds = (target_time - now).total_seconds()
+
+    wait_seconds = delta.total_seconds()
     await asyncio.sleep(wait_seconds)
     await run_daily()
 
