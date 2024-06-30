@@ -211,7 +211,7 @@
     "clipboard-copy-failure": "No se pudo copiar al portapapeles.",
     "confirm-delete-generic-items": "¿Estás seguro que quieres eliminar los siguientes elementos?",
     "organizers": "Organizadores",
-    "caution": "Caution"
+    "caution": "Precaución"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Por favor, confirma que deseas eliminar <b>{groupName}<b/>",
@@ -293,7 +293,7 @@
     "no-meal-plan-defined-yet": "Todavía no hay ningún menú",
     "no-meal-planned-for-today": "No hay ningún menú para hoy",
     "numberOfDays-hint": "Número de días al cargar la página",
-    "numberOfDays-label": "Default Days",
+    "numberOfDays-label": "Días por defecto",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Sólo las recetas con estas categorías se utilizarán en los menús",
     "planner": "Planificador",
     "quick-week": "Plan rápido",
@@ -383,7 +383,7 @@
     },
     "recipekeeper": {
       "title": "Recipe Keeper",
-      "description-long": "Mealie can import recipes from Recipe Keeper. Export your recipes in zip format, then upload the .zip file below."
+      "description-long": "Mealie puede importar recetas de Recipe Keeper. Exporta tus recetas en formato zip y luego sube el archivo a continuación."
     }
   },
   "new-recipe": {
@@ -449,8 +449,8 @@
     "ingredients": "Ingredientes",
     "insert-ingredient": "Agregar ingrediente",
     "insert-section": "Insertar sección",
-    "insert-above": "Insert Above",
-    "insert-below": "Insert Below",
+    "insert-above": "Insertar Arriba",
+    "insert-below": "Insertar Debajo",
     "instructions": "Instrucciones",
     "key-name-required": "Nombre de clave requerido",
     "landscape-view-coming-soon": "Vista apaisada (Próximamente)",
@@ -586,8 +586,8 @@
     "report-deletion-failed": "Error al eliminar el reporte",
     "recipe-debugger": "Depurador de recetas",
     "recipe-debugger-description": "Obtenga la URL de la receta que desea depurar y pegala aquí. La URL será analizadada por el extractor de recetas y los resultados se mostrarán. Si no ves ningún dato devuelta, el sitio que estás intentando rascar no está soportado por Mealie o su biblioteca de analizadores.",
-    "use-openai": "Use OpenAI",
-    "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
+    "use-openai": "Usar OpenAI",
+    "recipe-debugger-use-openai-description": "Utilice OpenAI para analizar los resultados en lugar de depender de la biblioteca de analizadores. Cuando se crea una receta a través de la URL, esto se hace automáticamente si la biblioteca del analizador falla, pero puede probarla manualmente aquí.",
     "debug": "Depuración",
     "tree-view": "Vista en árbol",
     "recipe-yield": "Porciones",
@@ -640,7 +640,7 @@
       "backup-created-at-response-export_path": "Copia de seguridad creada en {path}",
       "backup-deleted": "Copia de seguridad eliminada",
       "restore-success": "Restauración exitosa",
-      "restore-fail": "Restore failed. Check your server logs for more details",
+      "restore-fail": "Restauración fallida. Compruebe los registros de su servidor para más detalles",
       "backup-tag": "Etiqueta de la copia de seguridad",
       "create-heading": "Crear una copia de seguridad",
       "delete-backup": "Eliminar copia de seguridad",
@@ -810,11 +810,11 @@
     "items-checked-count": "Ningún elemento comprobado|Un elemento comprobado|{count} elementos comprobados",
     "no-label": "Sin Etiqueta",
     "completed-on": "Completado el {date}",
-    "you-are-offline": "You are offline",
-    "you-are-offline-description": "Not all features are available while offline. You can still add, modify, and remove items, but you will not be able to sync your changes to the server until you are back online.",
-    "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
-    "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
-    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
+    "you-are-offline": "Estás sin conexión",
+    "you-are-offline-description": "No todas las características están disponibles mientras esté fuera de línea. Todavía puedes añadir, modificar y eliminar elementos, pero no podrá sincronizar sus cambios en el servidor hasta que vuelva a estar en línea.",
+    "are-you-sure-you-want-to-check-all-items": "¿Seguro que quieres seleccionar todos los elementos?",
+    "are-you-sure-you-want-to-uncheck-all-items": "¿Seguro que quieres de-seleccionar todos los elementos?",
+    "are-you-sure-you-want-to-delete-checked-items": "¿Está seguro que deseas eliminar los elementos seleccionados?"
   },
   "sidebar": {
     "all-recipes": "Recetas",
@@ -990,8 +990,8 @@
       "food-data": "Datos de Alimento",
       "example-food-singular": "ej: Cebolla",
       "example-food-plural": "ej: Cebollas",
-      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels.",
-      "on-hand-checkbox-label": "Setting this flag will make this food unchecked by default when adding a recipe to a shopping list."
+      "label-overwrite-warning": "Esto asignará la etiqueta elegida a todos los alimentos seleccionados y potencialmente sobrescribirá las etiquetas existentes.",
+      "on-hand-checkbox-label": "Establecer esta bandera hará que este alimento se desmarque por defecto al añadir una receta a una lista de compras."
     },
     "units": {
       "seed-dialog-text": "Añade a la base de datos unidades comunes basadas en su idioma local.",
@@ -1020,7 +1020,7 @@
       "edit-label": "Editar etiqueta",
       "new-label": "Nueva etiqueta",
       "labels": "Etiquetas",
-      "assign-label": "Assign Label"
+      "assign-label": "Asignar Etiqueta"
     },
     "recipes": {
       "purge-exports": "Limpiar exportaciones",
