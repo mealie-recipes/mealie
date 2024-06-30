@@ -64,7 +64,7 @@
     "something-went-wrong": "Něco se nepovedlo!",
     "subscribed-events": "Odebírané události",
     "test-message-sent": "Testovací zpráva odeslána",
-    "message-sent": "Message Sent",
+    "message-sent": "Zpráva odeslána",
     "new-notification": "Nové oznámení",
     "event-notifiers": "Notifikace událostí",
     "apprise-url-skipped-if-blank": "Apprise URL (přeskočeno pokud je prázdné)",
@@ -81,7 +81,7 @@
     "recipe-events": "Recipe Events"
   },
   "general": {
-    "add": "Add",
+    "add": "Přidat",
     "cancel": "Zrušit",
     "clear": "Vymazat",
     "close": "Zavřít",
