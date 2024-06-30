@@ -43,7 +43,7 @@ async def schedule_daily():
         minute_target = 45
 
     next_schedule = now.replace(hour=hour_target, minute=minute_target, second=0, microsecond=0)
-    delta = next_schedule - now 
+    delta = next_schedule - now
     if delta < timedelta(0):
         next_schedule = next_schedule + timedelta(days=1)
         delta = next_schedule - now
