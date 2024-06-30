@@ -23,13 +23,46 @@ interface Storage {
 export function useShoppingListItemActions(shoppingListId: string) {
   const api = useUserApi();
   const storage = useLocalStorage(localStorageKey, {} as Storage, { deep: true });
-  const queue = storage.value[shoppingListId] ||= { create: [], update: [], delete: [], lastUpdate: Date.now()};
+  const queue = getQueue();
   const queueEmpty = computed(() => !queue.create.length && !queue.update.length && !queue.delete.length);
   if (queueEmpty.value) {
     queue.lastUpdate = Date.now();
   }
 
   const isOffline = ref(false);
+
+  function isValidQueueObject(obj: any): obj is ShoppingListQueue {
+    if (typeof obj !== "object" || obj === null) {
+      return false;
+    }
+
+    const hasRequiredProps = "create" in obj && "update" in obj && "delete" in obj && "lastUpdate" in obj;
+    if (!hasRequiredProps) {
+      return false;
+    }
+
+    const arraysValid = Array.isArray(obj.create) && Array.isArray(obj.update) && Array.isArray(obj.delete);
+    const lastUpdateValid = typeof obj.lastUpdate === "number" && !isNaN(new Date(obj.lastUpdate).getTime());
+
+    return arraysValid && lastUpdateValid;
+  }
+
+  function createEmptyQueue(): ShoppingListQueue {
+    return { create: [], update: [], delete: [], lastUpdate: Date.now() };
+  }
+
+  function getQueue(): ShoppingListQueue {
+    try {
+      const queue = storage.value[shoppingListId];
+      if (!isValidQueueObject(queue)) {
+        return createEmptyQueue();
+      } else {
+        return queue;
+      }
+    } catch {
+      return createEmptyQueue();
+    }
+  }
 
   function removeFromQueue(queue: ShoppingListItemOut[], item: ShoppingListItemOut): boolean {
     const index = queue.findIndex(i => i.id === item.id);
