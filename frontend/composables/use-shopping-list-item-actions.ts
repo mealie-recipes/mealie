@@ -2,6 +2,7 @@ import { computed, ref } from "@nuxtjs/composition-api";
 import { useLocalStorage } from "@vueuse/core";
 import { useUserApi } from "~/composables/api";
 import { ShoppingListItemOut } from "~/lib/api/types/group";
+import { RequestResponse } from "~/lib/api/types/non-generated";
 
 const localStorageKey = "shopping-list-queue";
 const queueTimeout = 5 * 60 * 1000;  // 5 minutes
@@ -134,28 +135,46 @@ export function useShoppingListItemActions(shoppingListId: string) {
   /**
    * Handles the response from the backend and sets the isOffline flag if necessary.
    */
-  function handleResponse(response: any) {
+  function handleResponse(response: RequestResponse<any>) {
     // TODO: is there a better way of checking for network errors?
-    isOffline.value = response.error?.message?.includes("Network Error") || false;
+    isOffline.value = response?.response?.status === undefined;
   }
 
+  /**
+   * Processes the queue items and returns whether the processing was successful.
+   */
   async function processQueueItems(
     action: (items: ShoppingListItemOut[]) => Promise<any>,
     itemQueueType: ItemQueueType,
-  ) {
-    const queueItems = getQueueItems(itemQueueType);
-    if (!queueItems.length) {
-      return;
+  ): Promise<boolean> {
+    let queueItems: ShoppingListItemOut[];
+    try {
+      queueItems = getQueueItems(itemQueueType);
+      if (!queueItems.length) {
+        return true;
+      }
+    } catch (error) {
+      console.log(`Error fetching queue items of type ${itemQueueType}:`, error);
+      clearQueueItems(itemQueueType);
+      return false;
     }
 
-    const itemsToProcess = [...queueItems];
-    await action(itemsToProcess)
-      .then((response) => {
-        handleResponse(response);
-        if (!isOffline.value) {
-          clearQueueItems(itemQueueType, itemsToProcess.map(item => item.id));
-        }
-      });
+    try {
+      const itemsToProcess = [...queueItems];
+      await action(itemsToProcess)
+        .then((response) => {
+          handleResponse(response);
+          if (!isOffline.value) {
+            clearQueueItems(itemQueueType, itemsToProcess.map(item => item.id));
+          }
+        });
+    } catch (error) {
+      console.log(`Error processing queue items of type ${itemQueueType}:`, error);
+      clearQueueItems(itemQueueType);
+      return false;
+    }
+
+    return true;
   }
 
   async function process() {
@@ -176,15 +195,19 @@ export function useShoppingListItemActions(shoppingListId: string) {
     if (data.updateAt && data.updateAt > cutoffDate) {
       // If the queue is too far behind the shopping list to reliably do updates, we clear the queue
       clearQueueItems("all");
-    } else {
-      // We send each bulk request one at a time, since the backend may merge items
-      await processQueueItems((items) => api.shopping.items.deleteMany(items), "delete");
-      await processQueueItems((items) => api.shopping.items.updateMany(items), "update");
-      await processQueueItems((items) => api.shopping.items.createMany(items), "create");
+      return;
     }
 
+    // We send each bulk request one at a time, since the backend may merge items
+    // "failures" here refers to an actual error, rather than failing to reach the backend
+    let failures = 0;
+    await processQueueItems((items) => api.shopping.items.deleteMany(items), "delete") ? null : failures++;
+    await processQueueItems((items) => api.shopping.items.updateMany(items), "update") ? null : failures++;
+    await processQueueItems((items) => api.shopping.items.createMany(items), "create") ? null : failures++;
+
     // If we're online, the queue is fully processed, so we're up to date
-    if (!isOffline.value) {
+    // Otherwise, if all three queue processes failed, we've already reset the queue, so we need to reset the date
+    if (!isOffline.value || failures === 3) {
       queue.lastUpdate = Date.now();
     }
   }
