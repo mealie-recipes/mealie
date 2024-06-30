@@ -123,6 +123,9 @@ export function useShoppingListItemActions(shoppingListId: string) {
     if (itemQueueType === "delete" || itemQueueType === "all") {
       queue.delete = itemIds ? queue.delete.filter(item => !itemIds.includes(item.id)) : [];
     }
+    if (itemQueueType === "all") {
+      queue.lastUpdate = Date.now();
+    }
 
     // Set the storage value explicitly so changes are saved in the browser.
     storage.value[shoppingListId] = { ...queue };
