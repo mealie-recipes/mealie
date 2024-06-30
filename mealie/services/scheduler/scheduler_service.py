@@ -48,9 +48,10 @@ async def schedule_daily():
         next_schedule = next_schedule + timedelta(days=1)
         delta = next_schedule - now
 
-    hours_until = int(delta.total_seconds() / 3600)
-    minutes_until = int(delta.total_seconds() % 3600 / 60)
-    logger.debug("Hours until %s and minutes until %s", str(hours_until), str(minutes_until))
+    hours_until, seconds_reminder = divmod(delta.total_seconds(), 3600)
+    minutes_until, seconds_reminder = divmod(seconds_reminder, 60)
+    seconds_until = round(seconds_reminder)
+    logger.debug("Time left: %02d:%02d:%02d", hours_until, minutes_until, seconds_until)
 
     target_time = next_schedule.replace(microsecond=0, second=0)
     logger.info("Daily tasks scheduled for %s", str(target_time))
