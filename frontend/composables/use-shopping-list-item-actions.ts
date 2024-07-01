@@ -44,6 +44,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
     }
 
     const arraysValid = Array.isArray(obj.create) && Array.isArray(obj.update) && Array.isArray(obj.delete);
+    // @ ts-ignore we're checking if the date is valid
     const lastUpdateValid = typeof obj.lastUpdate === "number" && !isNaN(new Date(obj.lastUpdate).getTime());
 
     return arraysValid && lastUpdateValid;
@@ -146,7 +147,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
     isOffline.value = response?.response?.status === undefined;
   }
 
-  async function checkUpdateState(list: ShoppingListOut) {
+  function checkUpdateState(list: ShoppingListOut) {
     const cutoffDate = new Date(queue.lastUpdate + queueTimeout).toISOString();
     if (list.updateAt && list.updateAt > cutoffDate) {
       // If the queue is too far behind the shopping list to reliably do updates, we clear the queue
@@ -159,7 +160,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
    * Processes the queue items and returns whether the processing was successful.
    */
   async function processQueueItems(
-    action: (items: ShoppingListItemOut[]) => Promise<any>,
+    action: (items: ShoppingListItemOut[]) => Promise<RequestResponse<any>>,
     itemQueueType: ItemQueueType,
   ): Promise<boolean> {
     let queueItems: ShoppingListItemOut[];
@@ -208,9 +209,9 @@ export function useShoppingListItemActions(shoppingListId: string) {
     // We send each bulk request one at a time, since the backend may merge items
     // "failures" here refers to an actual error, rather than failing to reach the backend
     let failures = 0;
-    await processQueueItems((items) => api.shopping.items.deleteMany(items), "delete") ? null : failures++;
-    await processQueueItems((items) => api.shopping.items.updateMany(items), "update") ? null : failures++;
-    await processQueueItems((items) => api.shopping.items.createMany(items), "create") ? null : failures++;
+    if (!(await processQueueItems((items) => api.shopping.items.deleteMany(items), "delete"))) failures++;
+    if (!(await processQueueItems((items) => api.shopping.items.updateMany(items), "update"))) failures++;
+    if (!(await processQueueItems((items) => api.shopping.items.createMany(items), "create"))) failures++;
 
     // If we're online, or the queue is empty, the queue is fully processed, so we're up to date
     // Otherwise, if all three queue processes failed, we've already reset the queue, so we need to reset the date
