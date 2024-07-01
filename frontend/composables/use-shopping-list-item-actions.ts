@@ -56,11 +56,13 @@ export function useShoppingListItemActions(shoppingListId: string) {
     try {
       const queue = storage.value[shoppingListId];
       if (!isValidQueueObject(queue)) {
+        console.log("Invalid queue object in local storage; resetting queue.");
         return createEmptyQueue();
       } else {
         return queue;
       }
-    } catch {
+    } catch (error) {
+      console.log("Error validating queue object in local storage; resetting queue.", error);
       return createEmptyQueue();
     }
   }
