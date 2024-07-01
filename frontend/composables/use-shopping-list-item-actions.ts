@@ -44,7 +44,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
     }
 
     const arraysValid = Array.isArray(obj.create) && Array.isArray(obj.update) && Array.isArray(obj.delete);
-    // @ ts-ignore we're checking if the date is valid
+    // @ts-ignore we're checking if the date is valid
     const lastUpdateValid = typeof obj.lastUpdate === "number" && !isNaN(new Date(obj.lastUpdate).getTime());
 
     return arraysValid && lastUpdateValid;
@@ -204,7 +204,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
     if (!data) {
       return;
     }
-    await checkUpdateState(data);
+    checkUpdateState(data);
 
     // We send each bulk request one at a time, since the backend may merge items
     // "failures" here refers to an actual error, rather than failing to reach the backend
