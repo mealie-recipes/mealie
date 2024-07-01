@@ -2609,18 +2609,18 @@ tests = ["html5lib", "pytest", "pytest-cov"]
 
 [[package]]
 name = "recipe-scrapers"
-version = "14.56.0"
+version = "14.57.0"
 description = "Python package, scraping recipes from all over the internet"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "recipe_scrapers-14.56.0-py3-none-any.whl", hash = "sha256:77ad1a1d21077877dd5d29ae0423a488bdf9084fb495d7f8a8b20dd2545160cf"},
-    {file = "recipe_scrapers-14.56.0.tar.gz", hash = "sha256:97b40b33a2e29416a7348d86db784a1e21568b78d978c3148b572244ff85ca00"},
+    {file = "recipe_scrapers-14.57.0-py3-none-any.whl", hash = "sha256:6e45de0ca6fdb634a319799973940ab70fae02821ca525e6b3917a146b86a99f"},
+    {file = "recipe_scrapers-14.57.0.tar.gz", hash = "sha256:e6a83cb82519f9730d6deebe44219db28e29f9738a497ab0a60bfa67135e775c"},
 ]
 
 [package.dependencies]
 beautifulsoup4 = ">=4.12.3"
-extruct = ">=0.15.0"
+extruct = ">=0.17.0"
 isodate = ">=0.6.1"
 requests = ">=2.31.0"
 
