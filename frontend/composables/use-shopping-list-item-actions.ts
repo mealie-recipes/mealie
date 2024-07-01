@@ -28,6 +28,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
   const queueEmpty = computed(() => !queue.create.length && !queue.update.length && !queue.delete.length);
   if (queueEmpty.value) {
     queue.lastUpdate = Date.now();
+    storage.value[shoppingListId].lastUpdate = queue.lastUpdate;
   }
 
   const isOffline = ref(false);
@@ -67,13 +68,13 @@ export function useShoppingListItemActions(shoppingListId: string) {
     }
   }
 
-  function removeFromQueue(queue: ShoppingListItemOut[], item: ShoppingListItemOut): boolean {
-    const index = queue.findIndex(i => i.id === item.id);
+  function removeFromQueue(itemQueue: ShoppingListItemOut[], item: ShoppingListItemOut): boolean {
+    const index = itemQueue.findIndex(i => i.id === item.id);
     if (index === -1) {
       return false;
     }
 
-    queue.splice(index, 1);
+    itemQueue.splice(index, 1);
     return true;
   }
 
@@ -86,6 +87,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
   function createItem(item: ShoppingListItemOut) {
     removeFromQueue(queue.create, item);
     queue.create.push(item);
+    storage.value[shoppingListId] = { ...queue };
   }
 
   function updateItem(item: ShoppingListItemOut) {
@@ -93,11 +95,13 @@ export function useShoppingListItemActions(shoppingListId: string) {
     if (removedFromCreate) {
       // this item hasn't been created yet, so we don't need to update it
       queue.create.push(item);
+      storage.value[shoppingListId] = { ...queue };
       return;
     }
 
     removeFromQueue(queue.update, item);
     queue.update.push(item);
+    storage.value[shoppingListId] = { ...queue };
   }
 
   function deleteItem(item: ShoppingListItemOut) {
@@ -110,6 +114,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
     removeFromQueue(queue.update, item);
     removeFromQueue(queue.delete, item);
     queue.delete.push(item);
+    storage.value[shoppingListId] = { ...queue };
   }
 
   function getQueueItems(itemQueueType: ItemQueueType) {
@@ -190,6 +195,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
   async function process() {
     if(queueEmpty.value) {
       queue.lastUpdate = Date.now();
+      storage.value[shoppingListId].lastUpdate = queue.lastUpdate;
       return;
     }
 
@@ -210,6 +216,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
     // Otherwise, if all three queue processes failed, we've already reset the queue, so we need to reset the date
     if (!isOffline.value || queueEmpty.value || failures === 3) {
       queue.lastUpdate = Date.now();
+      storage.value[shoppingListId].lastUpdate = queue.lastUpdate;
     }
   }
 
