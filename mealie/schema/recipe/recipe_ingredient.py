@@ -36,6 +36,7 @@ class UnitFoodBase(MealieModel):
     plural_name: str | None = None
     description: str = ""
     extras: dict | None = {}
+    on_hand: bool = False
 
     @field_validator("id", mode="before")
     def convert_empty_id_to_none(cls, v):
@@ -79,13 +80,19 @@ class IngredientFood(CreateIngredientFood):
     created_at: datetime.datetime | None = None
     update_at: datetime.datetime | None = None
 
-    _searchable_properties: ClassVar[list[str]] = ["name_normalized", "plural_name_normalized"]
+    _searchable_properties: ClassVar[list[str]] = [
+        "name_normalized",
+        "plural_name_normalized",
+    ]
     _normalize_search: ClassVar[bool] = True
     model_config = ConfigDict(from_attributes=True)
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
-        return [joinedload(IngredientFoodModel.extras), joinedload(IngredientFoodModel.label)]
+        return [
+            joinedload(IngredientFoodModel.extras),
+            joinedload(IngredientFoodModel.label),
+        ]
 
 
 class IngredientFoodPagination(PaginationBase):

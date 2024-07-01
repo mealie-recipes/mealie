@@ -12,7 +12,7 @@ from mealie.schema.group.group_shopping_list import (
 from mealie.schema.recipe.recipe import Recipe
 from tests import utils
 from tests.utils import api_routes
-from tests.utils.assertion_helpers import assert_derserialize
+from tests.utils.assertion_helpers import assert_deserialize
 from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser
 
@@ -36,7 +36,7 @@ def test_shopping_lists_create_one(api_client: TestClient, unique_user: TestUser
     }
 
     response = api_client.post(api_routes.groups_shopping_lists, json=payload, headers=unique_user.token)
-    response_list = utils.assert_derserialize(response, 201)
+    response_list = utils.assert_deserialize(response, 201)
 
     assert response_list["name"] == payload["name"]
     assert response_list["groupId"] == str(unique_user.group_id)
@@ -46,7 +46,10 @@ def test_shopping_lists_create_one(api_client: TestClient, unique_user: TestUser
 def test_shopping_lists_get_one(api_client: TestClient, unique_user: TestUser, shopping_lists: list[ShoppingListOut]):
     shopping_list = shopping_lists[0]
 
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(shopping_list.id), headers=unique_user.token)
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(shopping_list.id),
+        headers=unique_user.token,
+    )
     assert response.status_code == 200
 
     response_list = response.json()
@@ -71,7 +74,9 @@ def test_shopping_lists_update_one(
     }
 
     response = api_client.put(
-        api_routes.groups_shopping_lists_item_id(sample_list.id), json=payload, headers=unique_user.token
+        api_routes.groups_shopping_lists_item_id(sample_list.id),
+        json=payload,
+        headers=unique_user.token,
     )
     assert response.status_code == 200
 
@@ -88,10 +93,16 @@ def test_shopping_lists_delete_one(
 ):
     sample_list = random.choice(shopping_lists)
 
-    response = api_client.delete(api_routes.groups_shopping_lists_item_id(sample_list.id), headers=unique_user.token)
+    response = api_client.delete(
+        api_routes.groups_shopping_lists_item_id(sample_list.id),
+        headers=unique_user.token,
+    )
     assert response.status_code == 200
 
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(sample_list.id), headers=unique_user.token)
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(sample_list.id),
+        headers=unique_user.token,
+    )
     assert response.status_code == 404
 
 
@@ -105,13 +116,17 @@ def test_shopping_lists_add_recipe(
     recipe = recipe_ingredient_only
 
     response = api_client.post(
-        api_routes.groups_shopping_lists_item_id_recipe_recipe_id(sample_list.id, recipe.id), headers=unique_user.token
+        api_routes.groups_shopping_lists_item_id_recipe_recipe_id(sample_list.id, recipe.id),
+        headers=unique_user.token,
     )
     assert response.status_code == 200
 
     # get list and verify items against ingredients
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(sample_list.id), headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 200)
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(sample_list.id),
+        headers=unique_user.token,
+    )
+    as_json = utils.assert_deserialize(response, 200)
     assert len(as_json["listItems"]) == len(recipe.recipe_ingredient)
 
     known_ingredients = {ingredient.note: ingredient for ingredient in recipe.recipe_ingredient}
@@ -129,12 +144,16 @@ def test_shopping_lists_add_recipe(
 
     # add the recipe again and check the resulting items
     response = api_client.post(
-        api_routes.groups_shopping_lists_item_id_recipe_recipe_id(sample_list.id, recipe.id), headers=unique_user.token
+        api_routes.groups_shopping_lists_item_id_recipe_recipe_id(sample_list.id, recipe.id),
+        headers=unique_user.token,
     )
     assert response.status_code == 200
 
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(sample_list.id), headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 200)
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(sample_list.id),
+        headers=unique_user.token,
+    )
+    as_json = utils.assert_deserialize(response, 200)
     assert len(as_json["listItems"]) == len(recipe.recipe_ingredient)
 
     for item in as_json["listItems"]:
@@ -158,18 +177,26 @@ def test_shopping_lists_add_one_with_zero_quantity(
 
     # build a recipe that has some ingredients with a null quantity
     response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=unique_user.token)
-    recipe_slug = utils.assert_derserialize(response, 201)
+    recipe_slug = utils.assert_deserialize(response, 201)
 
     response = api_client.get(f"{api_routes.recipes}/{recipe_slug}", headers=unique_user.token)
-    recipe_data = utils.assert_derserialize(response, 200)
+    recipe_data = utils.assert_deserialize(response, 200)
 
     ingredient_1 = {"quantity": random_int(1, 10), "note": random_string()}
     ingredient_2 = {"quantity": random_int(1, 10), "note": random_string()}
     ingredient_3_null_qty = {"quantity": None, "note": random_string()}
 
-    recipe_data["recipeIngredient"] = [ingredient_1, ingredient_2, ingredient_3_null_qty]
-    response = api_client.put(f"{api_routes.recipes}/{recipe_slug}", json=recipe_data, headers=unique_user.token)
-    utils.assert_derserialize(response, 200)
+    recipe_data["recipeIngredient"] = [
+        ingredient_1,
+        ingredient_2,
+        ingredient_3_null_qty,
+    ]
+    response = api_client.put(
+        f"{api_routes.recipes}/{recipe_slug}",
+        json=recipe_data,
+        headers=unique_user.token,
+    )
+    utils.assert_deserialize(response, 200)
 
     recipe = Recipe.model_validate_json(
         api_client.get(f"{api_routes.recipes}/{recipe_slug}", headers=unique_user.token).content
@@ -183,8 +210,11 @@ def test_shopping_lists_add_one_with_zero_quantity(
         headers=unique_user.token,
     )
 
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(shopping_list.id), headers=unique_user.token)
-    shopping_list_out = ShoppingListOut.model_validate(utils.assert_derserialize(response, 200))
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(shopping_list.id),
+        headers=unique_user.token,
+    )
+    shopping_list_out = ShoppingListOut.model_validate(utils.assert_deserialize(response, 200))
 
     assert len(shopping_list_out.list_items) == 3
 
@@ -209,7 +239,8 @@ def test_shopping_lists_add_custom_recipe_items(
     recipe = recipe_ingredient_only
 
     response = api_client.post(
-        api_routes.groups_shopping_lists_item_id_recipe_recipe_id(sample_list.id, recipe.id), headers=unique_user.token
+        api_routes.groups_shopping_lists_item_id_recipe_recipe_id(sample_list.id, recipe.id),
+        headers=unique_user.token,
     )
     assert response.status_code == 200
 
@@ -222,8 +253,11 @@ def test_shopping_lists_add_custom_recipe_items(
     assert response.status_code == 200
 
     # get list and verify items against ingredients
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(sample_list.id), headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 200)
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(sample_list.id),
+        headers=unique_user.token,
+    )
+    as_json = utils.assert_deserialize(response, 200)
     assert len(as_json["listItems"]) == len(recipe.recipe_ingredient)
 
     known_ingredients = {ingredient.note: ingredient for ingredient in recipe.recipe_ingredient}
@@ -246,7 +280,10 @@ def test_shopping_lists_add_custom_recipe_items(
 
 
 def test_shopping_list_ref_removes_itself(
-    api_client: TestClient, unique_user: TestUser, shopping_list: ShoppingListOut, recipe_ingredient_only: Recipe
+    api_client: TestClient,
+    unique_user: TestUser,
+    shopping_list: ShoppingListOut,
+    recipe_ingredient_only: Recipe,
 ):
     # add a recipe to a list, then check off all recipe items and make sure the recipe ref is deleted
     recipe = recipe_ingredient_only
@@ -254,10 +291,13 @@ def test_shopping_list_ref_removes_itself(
         api_routes.groups_shopping_lists_item_id_recipe_recipe_id(shopping_list.id, recipe.id),
         headers=unique_user.token,
     )
-    utils.assert_derserialize(response, 200)
+    utils.assert_deserialize(response, 200)
 
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(shopping_list.id), headers=unique_user.token)
-    shopping_list_json = utils.assert_derserialize(response, 200)
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(shopping_list.id),
+        headers=unique_user.token,
+    )
+    shopping_list_json = utils.assert_deserialize(response, 200)
     assert len(shopping_list_json["listItems"]) == len(recipe.recipe_ingredient)
     assert len(shopping_list_json["recipeReferences"]) == 1
 
@@ -265,12 +305,17 @@ def test_shopping_list_ref_removes_itself(
         item["checked"] = True
 
     response = api_client.put(
-        api_routes.groups_shopping_items, json=shopping_list_json["listItems"], headers=unique_user.token
+        api_routes.groups_shopping_items,
+        json=shopping_list_json["listItems"],
+        headers=unique_user.token,
     )
-    utils.assert_derserialize(response, 200)
+    utils.assert_deserialize(response, 200)
 
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(shopping_list.id), headers=unique_user.token)
-    shopping_list_json = utils.assert_derserialize(response, 200)
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(shopping_list.id),
+        headers=unique_user.token,
+    )
+    shopping_list_json = utils.assert_deserialize(response, 200)
     assert len(shopping_list_json["recipeReferences"]) == 0
 
 
@@ -283,19 +328,31 @@ def test_shopping_lists_add_recipe_with_merge(
 
     # build a recipe that has some ingredients more than once
     response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=unique_user.token)
-    recipe_slug = utils.assert_derserialize(response, 201)
+    recipe_slug = utils.assert_deserialize(response, 201)
 
     response = api_client.get(f"{api_routes.recipes}/{recipe_slug}", headers=unique_user.token)
-    recipe_data = utils.assert_derserialize(response, 200)
+    recipe_data = utils.assert_deserialize(response, 200)
 
     ingredient_1 = {"quantity": random_int(1, 10), "note": random_string()}
     ingredient_2 = {"quantity": random_int(1, 10), "note": random_string()}
     ingredient_duplicate_1 = {"quantity": random_int(1, 10), "note": random_string()}
-    ingredient_duplicate_2 = {"quantity": random_int(1, 10), "note": ingredient_duplicate_1["note"]}
+    ingredient_duplicate_2 = {
+        "quantity": random_int(1, 10),
+        "note": ingredient_duplicate_1["note"],
+    }
 
-    recipe_data["recipeIngredient"] = [ingredient_1, ingredient_2, ingredient_duplicate_1, ingredient_duplicate_2]
-    response = api_client.put(f"{api_routes.recipes}/{recipe_slug}", json=recipe_data, headers=unique_user.token)
-    utils.assert_derserialize(response, 200)
+    recipe_data["recipeIngredient"] = [
+        ingredient_1,
+        ingredient_2,
+        ingredient_duplicate_1,
+        ingredient_duplicate_2,
+    ]
+    response = api_client.put(
+        f"{api_routes.recipes}/{recipe_slug}",
+        json=recipe_data,
+        headers=unique_user.token,
+    )
+    utils.assert_deserialize(response, 200)
 
     recipe = Recipe.model_validate_json(
         api_client.get(f"{api_routes.recipes}/{recipe_slug}", headers=unique_user.token).content
@@ -309,8 +366,11 @@ def test_shopping_lists_add_recipe_with_merge(
         headers=unique_user.token,
     )
 
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(shopping_list.id), headers=unique_user.token)
-    shopping_list_out = ShoppingListOut.model_validate(utils.assert_derserialize(response, 200))
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(shopping_list.id),
+        headers=unique_user.token,
+    )
+    shopping_list_out = ShoppingListOut.model_validate(utils.assert_deserialize(response, 200))
 
     assert len(shopping_list_out.list_items) == 3
 
@@ -350,11 +410,15 @@ def test_shopping_list_add_recipe_scale(
     recipe = recipe_ingredient_only
 
     response = api_client.post(
-        api_routes.groups_shopping_lists_item_id_recipe_recipe_id(sample_list.id, recipe.id), headers=unique_user.token
+        api_routes.groups_shopping_lists_item_id_recipe_recipe_id(sample_list.id, recipe.id),
+        headers=unique_user.token,
     )
 
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(sample_list.id), headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 200)
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(sample_list.id),
+        headers=unique_user.token,
+    )
+    as_json = utils.assert_deserialize(response, 200)
 
     assert len(as_json["recipeReferences"]) == 1
     assert as_json["recipeReferences"][0]["recipeQuantity"] == 1
@@ -381,8 +445,11 @@ def test_shopping_list_add_recipe_scale(
         json=payload,
     )
 
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(sample_list.id), headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 200)
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(sample_list.id),
+        headers=unique_user.token,
+    )
+    as_json = utils.assert_deserialize(response, 200)
 
     assert len(as_json["recipeReferences"]) == 1
     assert as_json["recipeReferences"][0]["recipeQuantity"] == 1 + recipe_scale
@@ -422,8 +489,11 @@ def test_shopping_lists_remove_recipe(
     assert response.status_code == 200
 
     # get list and verify items against ingredients
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(sample_list.id), headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 200)
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(sample_list.id),
+        headers=unique_user.token,
+    )
+    as_json = utils.assert_deserialize(response, 200)
     assert len(as_json["listItems"]) == len(recipe.recipe_ingredient)
 
     known_ingredients = {ingredient.note: ingredient for ingredient in recipe.recipe_ingredient}
@@ -446,8 +516,11 @@ def test_shopping_lists_remove_recipe(
     )
     assert response.status_code == 200
 
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(sample_list.id), headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 200)
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(sample_list.id),
+        headers=unique_user.token,
+    )
+    as_json = utils.assert_deserialize(response, 200)
     assert len(as_json["listItems"]) == 0
     assert len(as_json["recipeReferences"]) == 0
 
@@ -468,8 +541,11 @@ def test_shopping_lists_remove_recipe_multiple_quantity(
         )
         assert response.status_code == 200
 
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(sample_list.id), headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 200)
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(sample_list.id),
+        headers=unique_user.token,
+    )
+    as_json = utils.assert_deserialize(response, 200)
 
     assert len(as_json["listItems"]) == len(recipe.recipe_ingredient)
 
@@ -485,8 +561,11 @@ def test_shopping_lists_remove_recipe_multiple_quantity(
     )
 
     # Get List and Check for Ingredients
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(sample_list.id), headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 200)
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(sample_list.id),
+        headers=unique_user.token,
+    )
+    as_json = utils.assert_deserialize(response, 200)
 
     # All Items Should Still Exists
     assert len(as_json["listItems"]) == len(recipe.recipe_ingredient)
@@ -519,8 +598,11 @@ def test_shopping_list_remove_recipe_scale(
         json=payload,
     )
 
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(sample_list.id), headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 200)
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(sample_list.id),
+        headers=unique_user.token,
+    )
+    as_json = utils.assert_deserialize(response, 200)
 
     assert len(as_json["recipeReferences"]) == 1
     assert as_json["recipeReferences"][0]["recipeQuantity"] == recipe_initital_scale
@@ -544,8 +626,11 @@ def test_shopping_list_remove_recipe_scale(
         json=payload,
     )
 
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(sample_list.id), headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 200)
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(sample_list.id),
+        headers=unique_user.token,
+    )
+    as_json = utils.assert_deserialize(response, 200)
 
     assert len(as_json["recipeReferences"]) == 1
     assert as_json["recipeReferences"][0]["recipeQuantity"] == recipe_expected_scale
@@ -578,8 +663,11 @@ def test_recipe_decrement_max(
         json=payload,
     )
 
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(sample_list.id), headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 200)
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(sample_list.id),
+        headers=unique_user.token,
+    )
+    as_json = utils.assert_deserialize(response, 200)
 
     assert len(as_json["recipeReferences"]) == 1
     assert as_json["recipeReferences"][0]["recipeQuantity"] == recipe_scale
@@ -598,9 +686,11 @@ def test_recipe_decrement_max(
     item_json["quantity"] += item_additional_quantity
 
     response = api_client.put(
-        api_routes.groups_shopping_items_item_id(item_json["id"]), json=item_json, headers=unique_user.token
+        api_routes.groups_shopping_items_item_id(item_json["id"]),
+        json=item_json,
+        headers=unique_user.token,
     )
-    as_json = utils.assert_derserialize(response, 200)
+    as_json = utils.assert_deserialize(response, 200)
     item_json = as_json["updatedItems"][0]
     assert item_json["quantity"] == recipe_scale + item_additional_quantity
 
@@ -612,8 +702,11 @@ def test_recipe_decrement_max(
         json=payload,
     )
 
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(sample_list.id), headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 200)
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(sample_list.id),
+        headers=unique_user.token,
+    )
+    as_json = utils.assert_deserialize(response, 200)
 
     # check that only the original recipe quantity and its reference were removed, not the additional quantity
     assert len(as_json["recipeReferences"]) == 0
@@ -633,10 +726,10 @@ def test_recipe_manipulation_with_zero_quantities(
 
     # create a recipe with one item that has a quantity of zero
     response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=unique_user.token)
-    recipe_slug = utils.assert_derserialize(response, 201)
+    recipe_slug = utils.assert_deserialize(response, 201)
 
     response = api_client.get(f"{api_routes.recipes}/{recipe_slug}", headers=unique_user.token)
-    recipe_data = utils.assert_derserialize(response, 200)
+    recipe_data = utils.assert_deserialize(response, 200)
 
     note_with_zero_quantity = random_string()
     recipe_data["recipeIngredient"] = [
@@ -646,8 +739,12 @@ def test_recipe_manipulation_with_zero_quantities(
         {"quantity": 0, "note": note_with_zero_quantity},
     ]
 
-    response = api_client.put(f"{api_routes.recipes}/{recipe_slug}", json=recipe_data, headers=unique_user.token)
-    utils.assert_derserialize(response, 200)
+    response = api_client.put(
+        f"{api_routes.recipes}/{recipe_slug}",
+        json=recipe_data,
+        headers=unique_user.token,
+    )
+    utils.assert_deserialize(response, 200)
 
     recipe = Recipe.model_validate_json(
         api_client.get(f"{api_routes.recipes}/{recipe_slug}", headers=unique_user.token).content
@@ -660,15 +757,18 @@ def test_recipe_manipulation_with_zero_quantities(
         api_routes.groups_shopping_lists_item_id_recipe_recipe_id(shopping_list.id, recipe.id),
         headers=unique_user.token,
     )
-    utils.assert_derserialize(response, 200)
+    utils.assert_deserialize(response, 200)
 
     response = api_client.post(
         api_routes.groups_shopping_lists_item_id_recipe_recipe_id(shopping_list.id, recipe.id),
         headers=unique_user.token,
     )
-    utils.assert_derserialize(response, 200)
+    utils.assert_deserialize(response, 200)
 
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(shopping_list.id), headers=unique_user.token)
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(shopping_list.id),
+        headers=unique_user.token,
+    )
     updated_list = ShoppingListOut.model_validate_json(response.content)
     assert len(updated_list.list_items) == 4
 
@@ -694,7 +794,10 @@ def test_recipe_manipulation_with_zero_quantities(
         headers=unique_user.token,
     )
 
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(shopping_list.id), headers=unique_user.token)
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(shopping_list.id),
+        headers=unique_user.token,
+    )
     updated_list = ShoppingListOut.model_validate_json(response.content)
     assert len(updated_list.list_items) == 4
 
@@ -720,7 +823,10 @@ def test_recipe_manipulation_with_zero_quantities(
         headers=unique_user.token,
     )
 
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(shopping_list.id), headers=unique_user.token)
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(shopping_list.id),
+        headers=unique_user.token,
+    )
     updated_list = ShoppingListOut.model_validate_json(response.content)
     assert len(updated_list.list_items) == 0
 
@@ -740,7 +846,7 @@ def test_shopping_list_extras(
     new_list_data["extras"] = {key_str_1: val_str_1}
 
     response = api_client.post(api_routes.groups_shopping_lists, json=new_list_data, headers=unique_user.token)
-    list_as_json = utils.assert_derserialize(response, 201)
+    list_as_json = utils.assert_deserialize(response, 201)
 
     # make sure the extra persists
     extras = list_as_json["extras"]
@@ -751,9 +857,11 @@ def test_shopping_list_extras(
     list_as_json["extras"][key_str_2] = val_str_2
 
     response = api_client.put(
-        api_routes.groups_shopping_lists_item_id(list_as_json["id"]), json=list_as_json, headers=unique_user.token
+        api_routes.groups_shopping_lists_item_id(list_as_json["id"]),
+        json=list_as_json,
+        headers=unique_user.token,
     )
-    list_as_json = utils.assert_derserialize(response, 200)
+    list_as_json = utils.assert_deserialize(response, 200)
 
     # make sure both the new extra and original extra persist
     extras = list_as_json["extras"]
@@ -764,7 +872,10 @@ def test_shopping_list_extras(
 
 
 def test_modify_shopping_list_items_updates_shopping_list(
-    database: AllRepositories, api_client: TestClient, unique_user: TestUser, shopping_lists: list[ShoppingListOut]
+    database: AllRepositories,
+    api_client: TestClient,
+    unique_user: TestUser,
+    shopping_lists: list[ShoppingListOut],
 ):
     shopping_list = random.choice(shopping_lists)
     last_update_at = shopping_list.update_at
@@ -773,7 +884,7 @@ def test_modify_shopping_list_items_updates_shopping_list(
     # Create
     new_item_data = {"note": random_string(), "shopping_list_id": str(shopping_list.id)}
     response = api_client.post(api_routes.groups_shopping_items, json=new_item_data, headers=unique_user.token)
-    data = assert_derserialize(response, 201)
+    data = assert_deserialize(response, 201)
     updated_list = database.group_shopping_lists.get_one(shopping_list.id)
     assert updated_list and updated_list.update_at
     assert updated_list.update_at > last_update_at
@@ -797,7 +908,10 @@ def test_modify_shopping_list_items_updates_shopping_list(
     last_update_at = updated_list.update_at
 
     # Delete
-    response = api_client.delete(api_routes.groups_shopping_items_item_id(list_item_id), headers=unique_user.token)
+    response = api_client.delete(
+        api_routes.groups_shopping_items_item_id(list_item_id),
+        headers=unique_user.token,
+    )
     assert response.status_code == 200
     updated_list = database.group_shopping_lists.get_one(shopping_list.id)
     assert updated_list and updated_list.update_at
@@ -805,7 +919,10 @@ def test_modify_shopping_list_items_updates_shopping_list(
 
 
 def test_bulk_modify_shopping_list_items_updates_shopping_list(
-    database: AllRepositories, api_client: TestClient, unique_user: TestUser, shopping_lists: list[ShoppingListOut]
+    database: AllRepositories,
+    api_client: TestClient,
+    unique_user: TestUser,
+    shopping_lists: list[ShoppingListOut],
 ):
     shopping_list = random.choice(shopping_lists)
     last_update_at = shopping_list.update_at
@@ -816,9 +933,11 @@ def test_bulk_modify_shopping_list_items_updates_shopping_list(
         {"note": random_string(), "shopping_list_id": str(shopping_list.id)} for _ in range(random_int(3, 5))
     ]
     response = api_client.post(
-        api_routes.groups_shopping_items_create_bulk, json=new_item_data, headers=unique_user.token
+        api_routes.groups_shopping_items_create_bulk,
+        json=new_item_data,
+        headers=unique_user.token,
     )
-    data = assert_derserialize(response, 201)
+    data = assert_deserialize(response, 201)
     updated_list = database.group_shopping_lists.get_one(shopping_list.id)
     assert updated_list and updated_list.update_at
     assert updated_list.update_at > last_update_at

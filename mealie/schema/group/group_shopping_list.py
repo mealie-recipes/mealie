@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+from uuid import UUID
 
 from pydantic import UUID4, ConfigDict, field_validator, model_validator
 from sqlalchemy.orm import joinedload, selectinload
@@ -75,7 +76,20 @@ class ShoppingListItemBase(RecipeIngredientBase):
 
 
 class ShoppingListItemCreate(ShoppingListItemBase):
+    id: UUID4 | None = None
+    """The unique id of the item to create. If not supplied, one will be generated."""
     recipe_references: list[ShoppingListItemRecipeRefCreate] = []
+
+    @field_validator("id", mode="before")
+    def validate_id(cls, v):
+        v = v or None
+        if not v or isinstance(v, UUID):
+            return v
+
+        try:
+            return UUID(v)
+        except Exception:
+            return None
 
 
 class ShoppingListItemUpdate(ShoppingListItemBase):

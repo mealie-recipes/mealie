@@ -87,6 +87,14 @@
             :label="$t('data-pages.foods.food-label')"
           >
           </v-autocomplete>
+          <v-checkbox
+            v-model="createTarget.onHand"
+            hide-details
+            :label="$t('tool.on-hand')"
+          />
+          <p class="text-caption mt-1">
+            {{ $t("data-pages.foods.on-hand-checkbox-label") }}
+          </p>
         </v-form> </v-card-text
     ></BaseDialog>
 
@@ -134,6 +142,14 @@
             :label="$t('data-pages.foods.food-label')"
           >
           </v-autocomplete>
+          <v-checkbox
+            v-model="editTarget.onHand"
+            hide-details
+            :label="$t('tool.on-hand')"
+          />
+          <p class="text-caption mt-1">
+            {{ $t("data-pages.foods.on-hand-checkbox-label") }}
+          </p>
         </v-form>
       </v-card-text>
       <template #custom-card-action>
@@ -243,6 +259,11 @@
           {{ item.label.name }}
         </MultiPurposeLabel>
       </template>
+      <template #item.onHand="{ item }">
+        <v-icon :color="item.onHand ? 'success' : undefined">
+          {{ item.onHand ? $globals.icons.check : $globals.icons.close }}
+        </v-icon>
+      </template>
       <template #button-bottom>
         <BaseButton @click="seedDialog = true">
           <template #icon> {{ $globals.icons.database }} </template>
@@ -298,6 +319,11 @@ export default defineComponent({
       {
         text: i18n.tc("shopping-list.label"),
         value: "label",
+        show: true,
+      },
+      {
+        text: i18n.tc("tool.on-hand"),
+        value: "onHand",
         show: true,
       },
     ];
