@@ -131,7 +131,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
     if (itemQueueType === "delete" || itemQueueType === "all") {
       queue.delete = itemIds ? queue.delete.filter(item => !itemIds.includes(item.id)) : [];
     }
-    if (itemQueueType === "all") {
+    if (queueEmpty.value) {
       queue.lastUpdate = Date.now();
     }
 
