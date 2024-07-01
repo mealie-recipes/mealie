@@ -1,7 +1,7 @@
 import { computed, ref } from "@nuxtjs/composition-api";
 import { useLocalStorage } from "@vueuse/core";
 import { useUserApi } from "~/composables/api";
-import { ShoppingListItemOut } from "~/lib/api/types/group";
+import { ShoppingListItemOut, ShoppingListOut } from "~/lib/api/types/group";
 import { RequestResponse } from "~/lib/api/types/non-generated";
 
 const localStorageKey = "shopping-list-queue";
@@ -136,8 +136,16 @@ export function useShoppingListItemActions(shoppingListId: string) {
    * Handles the response from the backend and sets the isOffline flag if necessary.
    */
   function handleResponse(response: RequestResponse<any>) {
-    // TODO: is there a better way of checking for network errors?
     isOffline.value = response?.response?.status === undefined;
+  }
+
+  async function checkUpdateState(list: ShoppingListOut) {
+    const cutoffDate = new Date(queue.lastUpdate + queueTimeout).toISOString();
+    if (list.updateAt && list.updateAt > cutoffDate) {
+      // If the queue is too far behind the shopping list to reliably do updates, we clear the queue
+      console.log("Out of sync with server; clearing queue");
+      clearQueueItems("all");
+    }
   }
 
   /**
@@ -178,11 +186,8 @@ export function useShoppingListItemActions(shoppingListId: string) {
   }
 
   async function process() {
-    if(
-      !queue.create.length &&
-      !queue.update.length &&
-      !queue.delete.length
-    ) {
+    if(queueEmpty.value) {
+      queue.lastUpdate = Date.now();
       return;
     }
 
@@ -190,13 +195,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
     if (!data) {
       return;
     }
-
-    const cutoffDate = new Date(queue.lastUpdate + queueTimeout).toISOString();
-    if (data.updateAt && data.updateAt > cutoffDate) {
-      // If the queue is too far behind the shopping list to reliably do updates, we clear the queue
-      clearQueueItems("all");
-      return;
-    }
+    await checkUpdateState(data);
 
     // We send each bulk request one at a time, since the backend may merge items
     // "failures" here refers to an actual error, rather than failing to reach the backend
@@ -205,9 +204,9 @@ export function useShoppingListItemActions(shoppingListId: string) {
     await processQueueItems((items) => api.shopping.items.updateMany(items), "update") ? null : failures++;
     await processQueueItems((items) => api.shopping.items.createMany(items), "create") ? null : failures++;
 
-    // If we're online, the queue is fully processed, so we're up to date
+    // If we're online, or the queue is empty, the queue is fully processed, so we're up to date
     // Otherwise, if all three queue processes failed, we've already reset the queue, so we need to reset the date
-    if (!isOffline.value || failures === 3) {
+    if (!isOffline.value || queueEmpty.value || failures === 3) {
       queue.lastUpdate = Date.now();
     }
   }
