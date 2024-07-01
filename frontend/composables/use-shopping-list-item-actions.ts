@@ -44,7 +44,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
     }
 
     const arraysValid = Array.isArray(obj.create) && Array.isArray(obj.update) && Array.isArray(obj.delete);
-    // @ts-ignore we're checking if the date is valid
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const lastUpdateValid = typeof obj.lastUpdate === "number" && !isNaN(new Date(obj.lastUpdate).getTime());
 
     return arraysValid && lastUpdateValid;
