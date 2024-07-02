@@ -13,6 +13,9 @@ class RecipeSiteTestCase:
     num_steps: int
     html_file: Path
 
+    include_tags: bool = False
+    expected_tags: set[str] | None = None
+
 
 def get_recipe_test_cases():
     return [
@@ -63,6 +66,21 @@ def get_recipe_test_cases():
             expected_slug="detroit-style-pepperoni-pizza",
             num_ingredients=8,
             num_steps=5,
+            include_tags=True,
+            expected_tags={
+                "Pizza",
+                "Basil",
+                "Dough",
+                "Dinner",
+                "Oregano",
+                "Mozzarella",
+                "Olive Oil",
+                "Pizza Dough",
+                "Basically",
+                "Flour",
+                "Web",
+                "Web Recipe",
+            },
         ),
     ]
 
