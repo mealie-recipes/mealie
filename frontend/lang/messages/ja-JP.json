@@ -210,8 +210,8 @@
     "unsaved-changes": "保存されていない変更があります。移動する前に保存しますか？保存するには はい を、変更を破棄するにはキャンセルしてください。",
     "clipboard-copy-failure": "クリップボードにコピーできませんでした",
     "confirm-delete-generic-items": "次のアイテムを本当に削除しますか？",
-    "organizers": "Organizers",
-    "caution": "Caution"
+    "organizers": "収納",
+    "caution": "注意"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "<b>{groupName}<b/> を削除しますか？",
@@ -292,8 +292,8 @@
     "mealplan-updated": "献立を更新しました",
     "no-meal-plan-defined-yet": "食事プランはまだ定義されていません",
     "no-meal-planned-for-today": "今日の食事プランはありません",
-    "numberOfDays-hint": "Number of days on page load",
-    "numberOfDays-label": "Default Days",
+    "numberOfDays-hint": "ページ読み込みの日数",
+    "numberOfDays-label": "デフォルトの日数",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "食事プランでは、これらのカテゴリを持つレシピのみが使用されます",
     "planner": "プランナー",
     "quick-week": "クイックウィーク",
@@ -383,7 +383,7 @@
     },
     "recipekeeper": {
       "title": "Recipe Keeper",
-      "description-long": "Mealie can import recipes from Recipe Keeper. Export your recipes in zip format, then upload the .zip file below."
+      "description-long": "MealieはRecipe Keeperからレシピをインポートできます。レシピをzip形式でエクスポートし、以下に.zipファイルをアップロードしてください。"
     }
   },
   "new-recipe": {
@@ -449,8 +449,8 @@
     "ingredients": "材料",
     "insert-ingredient": "材料を投入",
     "insert-section": "手順を挿入",
-    "insert-above": "Insert Above",
-    "insert-below": "Insert Below",
+    "insert-above": "上に挿入",
+    "insert-below": "下に挿入",
     "instructions": "説明",
     "key-name-required": "キー名が必要です",
     "landscape-view-coming-soon": "Landscape View (Coming Soon)",
@@ -586,8 +586,8 @@
     "report-deletion-failed": "レポートの削除に失敗しました",
     "recipe-debugger": "レシピのデバッガー",
     "recipe-debugger-description": "デバッグしたいレシピのURLを取得し、ここに貼り付けます。 URLはレシピスクレーパーによって削除され、結果が表示されます。 データが返されていない場合、スクレイプしようとしているサイトはMealieまたはそのスクレイパーライブラリではサポートされていません。",
-    "use-openai": "Use OpenAI",
-    "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
+    "use-openai": "OpenAIを使用する",
+    "recipe-debugger-use-openai-description": "スクレーパーライブラリに依存するのではなく、結果を解析するためにOpenAIを使用してください。 URL経由でレシピを作成する場合は、スクレーパーライブラリが失敗した場合に自動的に行われますが、ここで手動でテストすることができます。",
     "debug": "デバッグ",
     "tree-view": "ツリービュー",
     "recipe-yield": "レシピ収率",
@@ -598,19 +598,19 @@
     "nextStep": "次のステップ",
     "recipe-actions": "レシピ操作",
     "parser": {
-      "experimental-alert-text": "Mealie uses natural language processing to parse and create units and food items for your recipe ingredients. This feature is experimental and may not always work as expected. If you prefer not to use the parsed results, you can select 'Cancel' and your changes will not be saved.",
+      "experimental-alert-text": "Mealieは、自然言語処理を使用して、レシピ成分のための単位や食品を解析し、作成します。 この機能は実験的であり、常に期待どおりに動作するとは限りません。 解析結果を使用したくない場合は、「キャンセル」を選択することができ、変更内容は保存されません。",
       "ingredient-parser": "Ingredient Parser",
-      "explanation": "To use the ingredient parser, click the 'Parse All' button to start the process. Once the processed ingredients are available, you can review the items and verify that they were parsed correctly. The model's confidence score is displayed on the right of the item title. This score is an average of all the individual scores and may not always be completely accurate.",
-      "alerts-explainer": "Alerts will be displayed if a matching foods or unit is found but does not exists in the database.",
-      "select-parser": "Select Parser",
-      "natural-language-processor": "Natural Language Processor",
-      "brute-parser": "Brute Parser",
-      "openai-parser": "OpenAI Parser",
-      "parse-all": "Parse All",
-      "no-unit": "No unit",
-      "missing-unit": "Create missing unit: {unit}",
-      "missing-food": "Create missing food: {food}",
-      "no-food": "No Food"
+      "explanation": "Ingredient Parserを使用するには、「すべて解析」ボタンをクリックしてプロセスを開始します。 処理された原材料が利用可能になったら、項目を確認し、それらが正しく解析されたことを確認できます。 アイテムタイトルの右側にモデルの信頼度が表示されます。 このスコアは、すべての個々のスコアの平均であり、常に完全に正確であるとは限りません。",
+      "alerts-explainer": "一致する食品または単位が見つかってもデータベースに存在しない場合は、アラートが表示されます。",
+      "select-parser": "パーサを選択",
+      "natural-language-processor": "自然言語処理",
+      "brute-parser": "Bruteパーサ",
+      "openai-parser": "OpenAIパーサ",
+      "parse-all": "すべて解析",
+      "no-unit": "単位がありません",
+      "missing-unit": "欠けている単位を作成: {unit}",
+      "missing-food": "欠けている食材を作成: {food}",
+      "no-food": "食材はありません"
     }
   },
   "search": {
@@ -640,7 +640,7 @@
       "backup-created-at-response-export_path": "{path} にバックアップを作成しました",
       "backup-deleted": "バックアップを削除しました",
       "restore-success": "復元に成功しました",
-      "restore-fail": "Restore failed. Check your server logs for more details",
+      "restore-fail": "復元に失敗しました。詳細はサーバーのログを確認してください",
       "backup-tag": "バックアップ タグ",
       "create-heading": "Create a Backup",
       "delete-backup": "バックアップを削除",
@@ -771,7 +771,7 @@
     "server-side-base-url-error-text": "`BASE_URL` はAPIサーバーのデフォルト値です。サーバー上でメールなどの通知リンクが生成されると問題が発生します。",
     "server-side-base-url-success-text": "サーバー側のURLがデフォルトと一致しません",
     "ldap-ready": "LDAP対応",
-    "ldap-ready-error-text": "すべてのLDAP値が設定されているわけではありません。LDAP認証を使用していない場合はこれは無視できます。",
+    "ldap-ready-error-text": "すべてのLDAP値が設定されていません。LDAP認証を使用していない場合は無視できます。",
     "ldap-ready-success-text": "必要なLDAP変数はすべて設定されています。",
     "build": "Build",
     "recipe-scraper-version": "Recipe Scraper バージョン",
@@ -779,8 +779,8 @@
     "oidc-ready-error-text": "すべてのOIDC値が設定されていません。OIDC認証を使用していない場合は無視できます。",
     "oidc-ready-success-text": "必要なOIDC変数はすべて設定されています。",
     "openai-ready": "OpenAI Ready",
-    "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
-    "openai-ready-success-text": "Required OpenAI variables are all set."
+    "openai-ready-error-text": "すべてのOpenAIの値が設定されていません。OpenAIを使用していない場合は無視できます。",
+    "openai-ready-success-text": "必須のOpenAI変数はすべて設定されています。"
   },
   "shopping-list": {
     "all-lists": "すべてのリスト",
@@ -794,7 +794,7 @@
     "food": "食料",
     "note": "メモ",
     "label": "ラベル",
-    "save-label": "Save Label",
+    "save-label": "ラベルを保存",
     "linked-item-warning": "このアイテムは 1 つ以上のレシピにリンクされています。このリストにレシピを追加または削除するときに、単位や食品を調整すると予期しない結果が生じることがあります。",
     "toggle-food": "食料の切り替え",
     "manage-labels": "ラベルの管理",
@@ -810,11 +810,11 @@
     "items-checked-count": "チェックされたアイテムはありません|チェックされたアイテムは1つです| チェックされたアイテムは {count} です",
     "no-label": "ラベルなし",
     "completed-on": "完了日: {date}",
-    "you-are-offline": "You are offline",
-    "you-are-offline-description": "Not all features are available while offline. You can still add, modify, and remove items, but you will not be able to sync your changes to the server until you are back online.",
-    "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
-    "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
-    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
+    "you-are-offline": "オフライン",
+    "you-are-offline-description": "オフライン中は機能が一部制限されます。 アイテムの追加、変更、削除は可能ですがオンラインに戻るまでサーバーに変更を同期することはできません",
+    "are-you-sure-you-want-to-check-all-items": "すべての項目をチェックしてもよろしいですか?",
+    "are-you-sure-you-want-to-uncheck-all-items": "すべてのアイテムのチェックを外してもよろしいですか？",
+    "are-you-sure-you-want-to-delete-checked-items": "チェックされた項目をすべて削除してもよろしいですか？"
   },
   "sidebar": {
     "all-recipes": "すべてのレシピ",
@@ -990,8 +990,8 @@
       "food-data": "食品データ",
       "example-food-singular": "例: 玉ねぎ",
       "example-food-plural": "例: 玉ねぎ",
-      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels.",
-      "on-hand-checkbox-label": "Setting this flag will make this food unchecked by default when adding a recipe to a shopping list."
+      "label-overwrite-warning": "選択したすべての食品に選択したラベルが割り当てられ、既存のラベルが上書きされます。",
+      "on-hand-checkbox-label": "このフラグを設定すると、ショッピング リストにレシピを追加するときに、デフォルトでこの食品のチェックが外されます。"
     },
     "units": {
       "seed-dialog-text": "ローカル言語に基づいた共通の単位をデータベースにシードします。",
@@ -1020,7 +1020,7 @@
       "edit-label": "ラベルの編集",
       "new-label": "新規ラベル",
       "labels": "ラベル",
-      "assign-label": "Assign Label"
+      "assign-label": "ラベルの割り当て"
     },
     "recipes": {
       "purge-exports": "エクスポートの削除",
@@ -1044,10 +1044,10 @@
       "source-unit-will-be-deleted": "元の単位が削除されます"
     },
     "recipe-actions": {
-      "recipe-actions-data": "Recipe Actions Data",
-      "new-recipe-action": "New Recipe Action",
-      "edit-recipe-action": "Edit Recipe Action",
-      "action-type": "Action Type"
+      "recipe-actions-data": "レシピ操作データ",
+      "new-recipe-action": "新しいレシピ操作",
+      "edit-recipe-action": "レシピ操作の編集",
+      "action-type": "操作タイプ"
     },
     "create-alias": "エイリアスを作成",
     "manage-aliases": "エイリアスの管理",
@@ -1222,16 +1222,16 @@
     "get-invite-link": "招待リンクを取得",
     "get-public-link": "公開リンクを取得",
     "account-summary": "アカウントの概要",
-    "account-summary-description": "Here's a summary of your group's information.",
+    "account-summary-description": "グループ情報の概要は次のとおりです.",
     "group-statistics": "グループ統計",
     "group-statistics-description": "グループ統計によりMealieの使用状況がわかります。",
     "storage-capacity": "ストレージ容量",
     "storage-capacity-description": "ストレージ容量は、アップロードした画像とアセットの合計です。",
     "personal": "個人",
-    "personal-description": "These are settings that are personal to you. Changes here won't affect other users.",
+    "personal-description": "これらは個人的な設定です。ここでの変更は他のユーザーには影響しません.",
     "user-settings": "ユーザー設定",
-    "user-settings-description": "Manage your preferences, change your password, and update your email.",
-    "api-tokens-description": "Manage your API Tokens for access from external applications.",
+    "user-settings-description": "設定を管理し、パスワードを変更し、電子メールを更新します。",
+    "api-tokens-description": "外部アプリケーションからアクセスするためのAPIトークンを管理します.",
     "group-description": "これらのアイテムはグループ内で共有されます。そのうちの 1 つを編集すると、グループ全体の内容が変更されます。",
     "group-settings": "グループ設定",
     "group-settings-description": "食事プランやプライバシー設定などの共通のグループ設定を管理します。",
@@ -1242,9 +1242,9 @@
     "notifiers": "通知",
     "notifiers-description": "Setup email and push notifications that trigger on specific events.",
     "manage-data": "データ管理",
-    "manage-data-description": "Manage your Mealie data; Foods, Units, Categories, Tags and more.",
+    "manage-data-description": "Mealieデータの管理：食材、単位、カテゴリ、タグなど。",
     "data-migrations": "データ移行",
-    "data-migrations-description": "Migrate your existing data from other applications like Nextcloud Recipes and Chowdown.",
+    "data-migrations-description": "NextcloudレシピやChowdownなどの他のアプリケーションから既存のデータを移行します。",
     "email-sent": "メールが送信されました",
     "error-sending-email": "メール送信エラー",
     "personal-information": "個人情報",
