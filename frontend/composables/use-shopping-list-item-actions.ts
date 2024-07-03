@@ -51,17 +51,19 @@ export function useShoppingListItemActions(shoppingListId: string) {
   }
 
   function createEmptyQueue(): ShoppingListQueue {
-    return { create: [], update: [], delete: [], lastUpdate: Date.now() };
+    const newQueue = { create: [], update: [], delete: [], lastUpdate: Date.now() };
+    storage.value[shoppingListId] = newQueue;
+    return newQueue;
   }
 
   function getQueue(): ShoppingListQueue {
     try {
-      const queue = storage.value[shoppingListId];
-      if (!isValidQueueObject(queue)) {
+      const fetchedQueue = storage.value[shoppingListId];
+      if (!isValidQueueObject(fetchedQueue)) {
         console.log("Invalid queue object in local storage; resetting queue.");
         return createEmptyQueue();
       } else {
-        return queue;
+        return fetchedQueue;
       }
     } catch (error) {
       console.log("Error validating queue object in local storage; resetting queue.", error);
