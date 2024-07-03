@@ -13,10 +13,10 @@ jobs:
       pull-requests: write
     steps:
       - name: Checkout 🛎
-      - uses: actions/checkout@v4
+        uses: actions/checkout@v4
 
       - name: Update pre-commit Hooks
-      - uses: vrslev/pre-commit-autoupdate@v1.0.0
+        uses: vrslev/pre-commit-autoupdate@v1.0.0
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
