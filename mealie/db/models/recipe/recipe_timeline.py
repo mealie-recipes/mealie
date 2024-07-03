@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import TYPE_CHECKING
 
 from sqlalchemy import DateTime, ForeignKey, String
@@ -42,4 +42,4 @@ class RecipeTimelineEvent(SqlAlchemyBase, BaseMixins):
         timestamp=None,
         **_,
     ) -> None:
-        self.timestamp = timestamp or datetime.now()
+        self.timestamp = timestamp or datetime.now(timezone.utc)

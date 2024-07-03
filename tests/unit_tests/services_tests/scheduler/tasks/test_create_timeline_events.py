@@ -1,4 +1,4 @@
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 
 from fastapi.testclient import TestClient
 from pydantic import UUID4
@@ -196,7 +196,7 @@ def test_preserve_future_made_date(api_client: TestClient, unique_user: TestUser
     recipe = RecipeSummary.model_validate(response.json())
     recipe_id = str(recipe.id)
 
-    future_dt = datetime.now() + timedelta(days=random_int(1, 10))
+    future_dt = datetime.now(timezone.utc) + timedelta(days=random_int(1, 10))
     recipe.last_made = future_dt
     response = api_client.put(
         api_routes.recipes_slug(recipe.slug), json=utils.jsonify(recipe), headers=unique_user.token

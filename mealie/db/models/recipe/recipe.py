@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from typing import TYPE_CHECKING
 
 import sqlalchemy as sa
@@ -194,7 +194,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         if notes:
             self.notes = [Note(**n) for n in notes]
 
-        self.date_updated = datetime.now()
+        self.date_updated = datetime.now(timezone.utc)
 
         # SQLAlchemy events do not seem to register things that are set during auto_init
         if name is not None:

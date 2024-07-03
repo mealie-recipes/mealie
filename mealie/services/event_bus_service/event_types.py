@@ -1,5 +1,5 @@
 import uuid
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from enum import Enum, auto
 from typing import Any
 
@@ -188,4 +188,4 @@ class Event(MealieModel):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.event_id = uuid.uuid4()
-        self.timestamp = datetime.now()
+        self.timestamp = datetime.now(timezone.utc)

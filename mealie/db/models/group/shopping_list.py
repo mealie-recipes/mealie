@@ -1,5 +1,5 @@
 from contextvars import ContextVar
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import TYPE_CHECKING, Optional
 
 from pydantic import ConfigDict
@@ -203,7 +203,7 @@ def update_shopping_lists(session: orm.Session, _):
             if not shopping_list:
                 continue
 
-            shopping_list.update_at = datetime.now()
+            shopping_list.update_at = datetime.now(timezone.utc)
         local_session.commit()
     except Exception:
         local_session.rollback()
