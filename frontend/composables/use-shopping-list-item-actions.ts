@@ -1,4 +1,4 @@
-import { computed, ref } from "@nuxtjs/composition-api";
+import { computed, reactive, ref, watch } from "@nuxtjs/composition-api";
 import { useLocalStorage } from "@vueuse/core";
 import { useUserApi } from "~/composables/api";
 import { ShoppingListItemOut, ShoppingListOut } from "~/lib/api/types/group";
@@ -24,12 +24,24 @@ interface Storage {
 export function useShoppingListItemActions(shoppingListId: string) {
   const api = useUserApi();
   const storage = useLocalStorage(localStorageKey, {} as Storage, { deep: true });
-  const queue = getQueue();
+  const queue = reactive(getQueue());
   const queueEmpty = computed(() => !queue.create.length && !queue.update.length && !queue.delete.length);
   if (queueEmpty.value) {
     queue.lastUpdate = Date.now();
-    storage.value[shoppingListId].lastUpdate = queue.lastUpdate;
   }
+
+  storage.value[shoppingListId] = { ...queue }
+  watch(
+    () => queue,
+    (value) => {
+      storage.value[shoppingListId] = { ...value }
+    },
+    {
+      deep: true,
+      immediate: true,
+    },
+  )
+
 
   const isOffline = ref(false);
 
@@ -52,7 +64,6 @@ export function useShoppingListItemActions(shoppingListId: string) {
 
   function createEmptyQueue(): ShoppingListQueue {
     const newQueue = { create: [], update: [], delete: [], lastUpdate: Date.now() };
-    storage.value[shoppingListId] = newQueue;
     return newQueue;
   }
 
@@ -90,7 +101,6 @@ export function useShoppingListItemActions(shoppingListId: string) {
   function createItem(item: ShoppingListItemOut) {
     removeFromQueue(queue.create, item);
     queue.create.push(item);
-    storage.value[shoppingListId] = { ...queue };
   }
 
   function updateItem(item: ShoppingListItemOut) {
@@ -98,13 +108,11 @@ export function useShoppingListItemActions(shoppingListId: string) {
     if (removedFromCreate) {
       // this item hasn't been created yet, so we don't need to update it
       queue.create.push(item);
-      storage.value[shoppingListId] = { ...queue };
       return;
     }
 
     removeFromQueue(queue.update, item);
     queue.update.push(item);
-    storage.value[shoppingListId] = { ...queue };
   }
 
   function deleteItem(item: ShoppingListItemOut) {
@@ -117,7 +125,6 @@ export function useShoppingListItemActions(shoppingListId: string) {
     removeFromQueue(queue.update, item);
     removeFromQueue(queue.delete, item);
     queue.delete.push(item);
-    storage.value[shoppingListId] = { ...queue };
   }
 
   function getQueueItems(itemQueueType: ItemQueueType) {
@@ -137,9 +144,6 @@ export function useShoppingListItemActions(shoppingListId: string) {
     if (queueEmpty.value) {
       queue.lastUpdate = Date.now();
     }
-
-    // Set the storage value explicitly so changes are saved in the browser.
-    storage.value[shoppingListId] = { ...queue };
   }
 
   /**
@@ -198,7 +202,6 @@ export function useShoppingListItemActions(shoppingListId: string) {
   async function process() {
     if(queueEmpty.value) {
       queue.lastUpdate = Date.now();
-      storage.value[shoppingListId].lastUpdate = queue.lastUpdate;
       return;
     }
 
@@ -219,7 +222,6 @@ export function useShoppingListItemActions(shoppingListId: string) {
     // Otherwise, if all three queue processes failed, we've already reset the queue, so we need to reset the date
     if (!isOffline.value || queueEmpty.value || failures === 3) {
       queue.lastUpdate = Date.now();
-      storage.value[shoppingListId].lastUpdate = queue.lastUpdate;
     }
   }
 
