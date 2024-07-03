@@ -3,7 +3,7 @@ authors = ["Hayden <hay-kot@pm.me>"]
 description = "A Recipe Manager"
 license = "AGPL"
 name = "mealie"
-version = "1.0.0b"
+version = "1.10.1"
 
 [tool.poetry.scripts]
 start = "mealie.app:main"
