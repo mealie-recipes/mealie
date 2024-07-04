@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from collections.abc import Sequence
 from datetime import datetime, timezone
 from enum import Enum
@@ -15,6 +16,8 @@ from typing_extensions import Self
 from mealie.db.models._model_base import SqlAlchemyBase
 
 T = TypeVar("T", bound=BaseModel)
+
+HOUR_ONLY_TZ_PATTERN = re.compile(r"[+-]\d{2}$")
 
 
 class SearchType(Enum):
@@ -49,8 +52,7 @@ class MealieModel(BaseModel):
                     continue
             except AttributeError:
                 continue
-            # this only works for UTC, but we enforce UTC throughout the entire application
-            if val.endswith("+00"):
+            if re.search(HOUR_ONLY_TZ_PATTERN, val):
                 setattr(data, field, val + ":00")
 
         return data
