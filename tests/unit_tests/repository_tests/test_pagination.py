@@ -1,7 +1,7 @@
 import random
 import time
 from collections import defaultdict
-from datetime import date, datetime, timedelta, timezone
+from datetime import datetime, timedelta, timezone
 from random import randint
 from urllib.parse import parse_qsl, urlsplit
 
@@ -909,10 +909,11 @@ def test_pagination_shopping_list_items_with_labels(database: AllRepositories, u
 
 
 def test_pagination_filter_dates(api_client: TestClient, unique_user: TestUser):
-    yesterday = date.today() - timedelta(days=1)
-    today = date.today()
-    tomorrow = date.today() + timedelta(days=1)
-    day_after_tomorrow = date.today() + timedelta(days=2)
+    today = datetime.now(timezone.utc).date()
+
+    yesterday = today - timedelta(days=1)
+    tomorrow = today + timedelta(days=1)
+    day_after_tomorrow = today + timedelta(days=2)
 
     mealplan_today = CreatePlanEntry(date=today, entry_type="breakfast", title=random_string(), text=random_string())
     mealplan_tomorrow = CreatePlanEntry(
