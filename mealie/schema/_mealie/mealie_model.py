@@ -32,6 +32,29 @@ class MealieModel(BaseModel):
     """
     model_config = ConfigDict(alias_generator=camelize, populate_by_name=True)
 
+    @model_validator(mode="before")
+    @classmethod
+    def fix_hour_only_tz(cls, data: T) -> T:
+        """
+        Fixes datetimes with timezones that only have the hour portion.
+
+        Pydantic assumes timezones are in the format +HH:MM, but postgres returns +HH.
+        https://github.com/pydantic/pydantic/issues/8609
+        """
+        for field, field_info in cls.model_fields.items():
+            if field_info.annotation != datetime:
+                continue
+            try:
+                if not isinstance(val := getattr(data, field), str):
+                    continue
+            except AttributeError:
+                continue
+            # this only works for UTC, but we enforce UTC throughout the entire application
+            if val.endswith("+00"):
+                setattr(data, field, val + ":00")
+
+        return data
+
     @model_validator(mode="after")
     def set_tz_info(self) -> Self:
         """
