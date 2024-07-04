@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import TYPE_CHECKING
 
 from pydantic import ConfigDict
@@ -12,7 +12,11 @@ from .._model_utils import auto_init
 from .._model_utils.guid import GUID
 
 if TYPE_CHECKING:
-    from group import Group
+    from .group import Group
+
+
+def _get_now_utc():
+    return datetime.now(timezone.utc)
 
 
 class ReportEntryModel(SqlAlchemyBase, BaseMixins):
@@ -22,7 +26,7 @@ class ReportEntryModel(SqlAlchemyBase, BaseMixins):
     success: Mapped[bool | None] = mapped_column(Boolean, default=False)
     message: Mapped[str] = mapped_column(String, nullable=True)
     exception: Mapped[str] = mapped_column(String, nullable=True)
-    timestamp: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=datetime.utcnow)
+    timestamp: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=_get_now_utc)
 
     report_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("group_reports.id"), nullable=False, index=True)
     report: Mapped["ReportModel"] = orm.relationship("ReportModel", back_populates="entries")
@@ -39,7 +43,7 @@ class ReportModel(SqlAlchemyBase, BaseMixins):
     name: Mapped[str] = mapped_column(String, nullable=False)
     status: Mapped[str] = mapped_column(String, nullable=False)
     category: Mapped[str] = mapped_column(String, index=True, nullable=False)
-    timestamp: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=datetime.utcnow)
+    timestamp: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=_get_now_utc)
 
     entries: Mapped[list[ReportEntryModel]] = orm.relationship(
         ReportEntryModel, back_populates="report", cascade="all, delete-orphan"

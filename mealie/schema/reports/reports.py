@@ -10,6 +10,10 @@ from mealie.db.models.group import ReportModel
 from mealie.schema._mealie import MealieModel
 
 
+def _get_now_utc():
+    return datetime.datetime.now(datetime.timezone.utc)
+
+
 class ReportCategory(str, enum.Enum):
     backup = "backup"
     restore = "restore"
@@ -26,7 +30,7 @@ class ReportSummaryStatus(str, enum.Enum):
 
 class ReportEntryCreate(MealieModel):
     report_id: UUID4
-    timestamp: datetime.datetime = Field(default_factory=datetime.datetime.utcnow)
+    timestamp: datetime.datetime = Field(default_factory=_get_now_utc)
     success: bool = True
     message: str
     exception: str = ""
@@ -38,7 +42,7 @@ class ReportEntryOut(ReportEntryCreate):
 
 
 class ReportCreate(MealieModel):
-    timestamp: datetime.datetime = Field(default_factory=datetime.datetime.utcnow)
+    timestamp: datetime.datetime = Field(default_factory=_get_now_utc)
     category: ReportCategory
     group_id: UUID4
     name: str
