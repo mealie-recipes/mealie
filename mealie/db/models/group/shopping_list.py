@@ -11,7 +11,8 @@ from mealie.db.models.labels import MultiPurposeLabel
 from mealie.db.models.recipe.api_extras import ShoppingListExtras, ShoppingListItemExtras, api_extras
 
 from .._model_base import BaseMixins, SqlAlchemyBase
-from .._model_utils import GUID, auto_init
+from .._model_utils.auto_init import auto_init
+from .._model_utils.guid import GUID
 from ..recipe.ingredient import IngredientFoodModel, IngredientUnitModel
 
 if TYPE_CHECKING:

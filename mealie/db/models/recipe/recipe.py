@@ -10,11 +10,11 @@ from sqlalchemy.orm import Mapped, mapped_column, validates
 from sqlalchemy.orm.attributes import get_history
 from sqlalchemy.orm.session import object_session
 
+from mealie.db.models._model_utils.auto_init import auto_init
+from mealie.db.models._model_utils.datetime import get_utc_today
 from mealie.db.models._model_utils.guid import GUID
-from mealie.db.models._model_utils.helpers import get_utc_today
 
 from .._model_base import BaseMixins, SqlAlchemyBase
-from .._model_utils import auto_init
 from ..users.user_to_recipe import UserToRecipe
 from .api_extras import ApiExtras, api_extras
 from .assets import RecipeAsset

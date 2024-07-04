@@ -8,10 +8,10 @@ from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import Mapped, mapped_column
 
 from mealie.core.config import get_app_settings
+from mealie.db.models._model_utils.auto_init import auto_init
 from mealie.db.models._model_utils.guid import GUID
 
 from .._model_base import BaseMixins, SqlAlchemyBase
-from .._model_utils import auto_init
 from .user_to_recipe import UserToRecipe
 
 if TYPE_CHECKING:

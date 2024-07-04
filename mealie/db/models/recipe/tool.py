@@ -5,7 +5,7 @@ from sqlalchemy import Boolean, Column, ForeignKey, String, Table, UniqueConstra
 from sqlalchemy.orm import Mapped, mapped_column
 
 from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
-from mealie.db.models._model_utils import auto_init
+from mealie.db.models._model_utils.auto_init import auto_init
 from mealie.db.models._model_utils.guid import GUID
 
 if TYPE_CHECKING:

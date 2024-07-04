@@ -8,8 +8,9 @@ from sqlalchemy.sql.sqltypes import Boolean, DateTime, String
 
 from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 
-from .._model_utils import GUID, auto_init
+from .._model_utils.auto_init import auto_init
 from .._model_utils.datetime import get_utc_now
+from .._model_utils.guid import GUID
 
 if TYPE_CHECKING:
     from .group import Group
