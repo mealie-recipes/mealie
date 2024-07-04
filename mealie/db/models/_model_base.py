@@ -4,7 +4,7 @@ from sqlalchemy import DateTime, Integer
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from text_unidecode import unidecode
 
-from ._model_utils.helpers import get_utc_now
+from ._model_utils.datetime import get_utc_now
 
 
 class SqlAlchemyBase(DeclarativeBase):
