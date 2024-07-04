@@ -144,6 +144,7 @@ select = [
   "T",  # flake8-print
   "UP", # pyupgrade
   "B",  # flake8-bugbear
+  "DTZ", # flake8-datetimez
   # "ANN", # flake8-annotations
   # "C", # McCabe complexity
   # "RUF", # Ruff specific
