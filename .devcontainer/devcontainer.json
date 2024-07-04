@@ -27,6 +27,7 @@
         "python.formatting.yapfPath": "/usr/local/py-utils/bin/yapf",
       },
       "extensions": [
+        "charliermarsh.ruff",
         "dbaeumer.vscode-eslint",
         "matangover.mypy",
         "ms-python.black-formatter",

@@ -6,12 +6,9 @@ from pydantic.types import UUID4
 from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.interfaces import LoaderOption
 
+from mealie.db.models._model_utils.helpers import get_utc_now
 from mealie.db.models.group import ReportModel
 from mealie.schema._mealie import MealieModel
-
-
-def _get_now_utc():
-    return datetime.datetime.now(datetime.timezone.utc)
 
 
 class ReportCategory(str, enum.Enum):
@@ -30,7 +27,7 @@ class ReportSummaryStatus(str, enum.Enum):
 
 class ReportEntryCreate(MealieModel):
     report_id: UUID4
-    timestamp: datetime.datetime = Field(default_factory=_get_now_utc)
+    timestamp: datetime.datetime = Field(default_factory=get_utc_now)
     success: bool = True
     message: str
     exception: str = ""
@@ -42,7 +39,7 @@ class ReportEntryOut(ReportEntryCreate):
 
 
 class ReportCreate(MealieModel):
-    timestamp: datetime.datetime = Field(default_factory=_get_now_utc)
+    timestamp: datetime.datetime = Field(default_factory=get_utc_now)
     category: ReportCategory
     group_id: UUID4
     name: str

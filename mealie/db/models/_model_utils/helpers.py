@@ -1,5 +1,6 @@
 import inspect
 from collections.abc import Callable
+from datetime import datetime, timezone
 from typing import Any
 
 
@@ -45,3 +46,10 @@ def safe_call(func, dict_args: dict | None, **kwargs) -> Any:
         return func(**get_valid_call(func, dict_args))
     except TypeError:
         return func(**dict_args)
+
+
+def get_utc_now():
+    """
+    Returns the current time in UTC.
+    """
+    return datetime.now(timezone.utc)
