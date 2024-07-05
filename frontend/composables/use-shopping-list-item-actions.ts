@@ -5,7 +5,7 @@ import { ShoppingListItemOut, ShoppingListOut } from "~/lib/api/types/group";
 import { RequestResponse } from "~/lib/api/types/non-generated";
 
 const localStorageKey = "shopping-list-queue";
-const queueTimeout = 5 * 60 * 1000;  // 5 minutes
+const queueTimeout = 48 * 60 * 60 * 1000;  // 48 hours
 
 type ItemQueueType = "create" | "update" | "delete";
 
