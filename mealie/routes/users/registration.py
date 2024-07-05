@@ -15,7 +15,7 @@ router = APIRouter(prefix="/register")
 
 @controller(router)
 class RegistrationController(BasePublicController):
-    event_bus: EventBusService = Depends(EventBusService.create)
+    event_bus: EventBusService = Depends(EventBusService.as_dependency)
 
     @router.post("", response_model=UserOut, status_code=status.HTTP_201_CREATED)
     def register_new_user(self, data: CreateUserRegistration):
