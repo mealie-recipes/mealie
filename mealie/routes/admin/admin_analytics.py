@@ -6,7 +6,7 @@ from mealie.routes._base import BaseAdminController, controller
 from mealie.schema.analytics.analytics import MealieAnalytics
 from mealie.services.analytics.service_analytics import AnalyticsService
 
-router = APIRouter(prefix="/analytics")
+router = APIRouter(prefix="/analytics", include_in_schema=False)  # deprecated - use statistics route instead
 
 
 @controller(router)

@@ -6,4 +6,4 @@ prefix = "/validators"
 
 router = APIRouter()
 
-router.include_router(validators.router, prefix=prefix, tags=["Validators"])
+router.include_router(validators.router, prefix=prefix, tags=["Validators"], include_in_schema=False)
