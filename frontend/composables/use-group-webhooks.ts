@@ -64,7 +64,6 @@ export const useGroupWebhooks = function () {
       newDt.setMinutes(Number(minutes));
 
       updateData.scheduledTime = `${pad(newDt.getUTCHours(), 2)}:${pad(newDt.getUTCMinutes(), 2)}`;
-      console.log(updateData.scheduledTime);
 
       const payload = {
         ...updateData,
