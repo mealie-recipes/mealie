@@ -84,7 +84,14 @@ export const useGroupWebhooks = function () {
       if (data) {
         this.refreshAll();
       }
+      loading.value = false;
     },
+
+    async testOne(id: string | number) {
+      loading.value = true;
+      await api.groupWebhooks.testOne(id);
+      loading.value = false;
+    }
   };
 
   const webhooks = actions.getAll();
