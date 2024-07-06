@@ -3,7 +3,7 @@ from datetime import date, datetime
 from enum import Enum, auto
 from typing import Any
 
-from pydantic import UUID4, field_validator
+from pydantic import UUID4, SerializeAsAny, field_validator
 
 from ...schema._mealie.mealie_model import MealieModel
 
@@ -179,7 +179,7 @@ class Event(MealieModel):
     message: EventBusMessage
     event_type: EventTypes
     integration_id: str
-    document_data: EventDocumentDataBase
+    document_data: SerializeAsAny[EventDocumentDataBase]
 
     # set at instantiation
     event_id: UUID4 | None = None
