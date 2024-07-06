@@ -958,7 +958,7 @@
     "authentication-method-hint": "Це вливає на те, як користувач буде аутентифікований Mealie. Якщо ви не впевнені, обирайте \"Mealie\"",
     "permissions": "Дозволи",
     "administrator": "Адміністратор",
-    "user-can-invite-other-to-group": "Користувач може запрошувати інших в групу",
+    "user-can-invite-other-to-group": "User can invite others to group",
     "user-can-manage-group": "Користувач може керувати групою",
     "user-can-organize-group-data": "Користувач може впорядковувати дані групи",
     "enable-advanced-features": "Увімкнути додаткові функції",

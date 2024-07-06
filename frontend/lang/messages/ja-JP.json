@@ -958,7 +958,7 @@
     "authentication-method-hint": "This specifies how a user will authenticate with Mealie. If you're not sure, choose 'Mealie",
     "permissions": "権限",
     "administrator": "管理者",
-    "user-can-invite-other-to-group": "ユーザーは他のグループに招待できます",
+    "user-can-invite-other-to-group": "User can invite others to group",
     "user-can-manage-group": "ユーザーはグループを管理できます",
     "user-can-organize-group-data": "ユーザーはグループデータを整理できます",
     "enable-advanced-features": "高度な機能を有効にする",

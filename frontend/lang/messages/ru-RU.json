@@ -958,7 +958,7 @@
     "authentication-method-hint": "This specifies how a user will authenticate with Mealie. If you're not sure, choose 'Mealie",
     "permissions": "Права доступа",
     "administrator": "Администратор",
-    "user-can-invite-other-to-group": "Пользователь может пригласить других в группу",
+    "user-can-invite-other-to-group": "User can invite others to group",
     "user-can-manage-group": "Пользователь может управлять группой",
     "user-can-organize-group-data": "Пользователь может менять групповые данные",
     "enable-advanced-features": "Включить доп. функции",
