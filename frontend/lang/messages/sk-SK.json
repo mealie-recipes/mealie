@@ -958,7 +958,7 @@
     "authentication-method-hint": "Toto určuje ako bude overený užívateľ. Ak si nie ste istý, zvoľte 'Mealie'",
     "permissions": "Povolenia",
     "administrator": "Administrátor",
-    "user-can-invite-other-to-group": "Užívateľ môže do skupiny pozvať ďalších",
+    "user-can-invite-other-to-group": "User can invite others to group",
     "user-can-manage-group": "Užívateľ môže spravovať skupinu",
     "user-can-organize-group-data": "Užívateľ môže spravovať údaje skupiny",
     "enable-advanced-features": "Povoliť pokročilé funkcie",

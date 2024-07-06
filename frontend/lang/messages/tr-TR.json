@@ -958,7 +958,7 @@
     "authentication-method-hint": "Bu, bir kullanıcının Mealie ile nasıl kimlik doğrulaması yapacağını belirtir. Emin değilseniz, 'Mealie'yi seçin",
     "permissions": "İzinler",
     "administrator": "Yönetici",
-    "user-can-invite-other-to-group": "Kullanıcı başkalarını gruba davet edebilir",
+    "user-can-invite-other-to-group": "User can invite others to group",
     "user-can-manage-group": "Kullanıcı grubu yönetebilir",
     "user-can-organize-group-data": "Kullanıcı grup verilerini düzenleyebilir",
     "enable-advanced-features": "Gelişmiş özellikleri etkinleştir",

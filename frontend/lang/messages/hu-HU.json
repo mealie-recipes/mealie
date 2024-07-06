@@ -958,7 +958,7 @@
     "authentication-method-hint": "This specifies how a user will authenticate with Mealie. If you're not sure, choose 'Mealie",
     "permissions": "Engedélyek",
     "administrator": "Adminisztrátor",
-    "user-can-invite-other-to-group": "A felhasználó meghívhat másokat a csoportba",
+    "user-can-invite-other-to-group": "User can invite others to group",
     "user-can-manage-group": "A felhasználó csoportot kezelhet",
     "user-can-organize-group-data": "Felhasználó szerkesztheti a csoport adatait",
     "enable-advanced-features": "Haladó funkciók engedélyezése",
