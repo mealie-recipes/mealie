@@ -90,7 +90,6 @@ export function useShoppingListItemActions(shoppingListId: string) {
   }
 
   async function getList() {
-    console.log(window.$nuxt.isOffline);
     const response = await api.shopping.lists.getOne(shoppingListId);
     return response.data;
   }
