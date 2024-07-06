@@ -958,7 +958,7 @@
     "authentication-method-hint": "זה מציין איך משתמש יתחבר ל״מילי״. אם אתה לא בטוח, בחר מילי",
     "permissions": "הרשאות",
     "administrator": "מנהל ראשי",
-    "user-can-invite-other-to-group": "משתמש יכול להזמין אחרים לקבוצה",
+    "user-can-invite-other-to-group": "User can invite others to group",
     "user-can-manage-group": "משתמש יכול לנהל קבוצה",
     "user-can-organize-group-data": "משתמש יכול לשנות מידע של קבוצה",
     "enable-advanced-features": "אפשר אפשרויות מתקדמות",
