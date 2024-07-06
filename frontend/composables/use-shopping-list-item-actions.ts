@@ -42,9 +42,6 @@ export function useShoppingListItemActions(shoppingListId: string) {
     },
   )
 
-
-  const isOffline = ref(false);
-
   function isValidQueueObject(obj: any): obj is ShoppingListQueue {
     if (typeof obj !== "object" || obj === null) {
       return false;
@@ -93,8 +90,8 @@ export function useShoppingListItemActions(shoppingListId: string) {
   }
 
   async function getList() {
+    console.log(window.$nuxt.isOffline);
     const response = await api.shopping.lists.getOne(shoppingListId);
-    handleResponse(response);
     return response.data;
   }
 
@@ -146,13 +143,6 @@ export function useShoppingListItemActions(shoppingListId: string) {
     }
   }
 
-  /**
-   * Handles the response from the backend and sets the isOffline flag if necessary.
-   */
-  function handleResponse(response: RequestResponse<any>) {
-    isOffline.value = response?.response?.status === undefined;
-  }
-
   function checkUpdateState(list: ShoppingListOut) {
     const cutoffDate = new Date(queue.lastUpdate + queueTimeout).toISOString();
     if (list.updateAt && list.updateAt > cutoffDate) {
@@ -184,9 +174,8 @@ export function useShoppingListItemActions(shoppingListId: string) {
     try {
       const itemsToProcess = [...queueItems];
       await action(itemsToProcess)
-        .then((response) => {
-          handleResponse(response);
-          if (!isOffline.value) {
+        .then(() => {
+          if (window.$nuxt.isOffline) {
             clearQueueItems(itemQueueType, itemsToProcess.map(item => item.id));
           }
         });
@@ -220,13 +209,12 @@ export function useShoppingListItemActions(shoppingListId: string) {
 
     // If we're online, or the queue is empty, the queue is fully processed, so we're up to date
     // Otherwise, if all three queue processes failed, we've already reset the queue, so we need to reset the date
-    if (!isOffline.value || queueEmpty.value || failures === 3) {
+    if (window.$nuxt.isOnline || queueEmpty.value || failures === 3) {
       queue.lastUpdate = Date.now();
     }
   }
 
   return {
-    isOffline,
     getList,
     createItem,
     updateItem,
