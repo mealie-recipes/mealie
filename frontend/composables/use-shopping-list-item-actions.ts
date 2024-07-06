@@ -174,7 +174,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
       const itemsToProcess = [...queueItems];
       await action(itemsToProcess)
         .then(() => {
-          if (window.$nuxt.isOffline) {
+          if (window.$nuxt.isOnline) {
             clearQueueItems(itemQueueType, itemsToProcess.map(item => item.id));
           }
         });
