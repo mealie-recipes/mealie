@@ -958,7 +958,7 @@
     "authentication-method-hint": "Tämä määrittelee, miten käyttäjä todentaa Mealien. Jos et ole varma, valitse 'Mealie'",
     "permissions": "Käyttöoikeudet",
     "administrator": "Ylläpitäjä",
-    "user-can-invite-other-to-group": "Käyttäjä voi kutsua muita ryhmään",
+    "user-can-invite-other-to-group": "User can invite others to group",
     "user-can-manage-group": "Käyttäjä voi hallita ryhmää",
     "user-can-organize-group-data": "Käyttäjä voi järjestellä ryhmän tietoja",
     "enable-advanced-features": "Salli edistyneemmät ominaisuudet",
