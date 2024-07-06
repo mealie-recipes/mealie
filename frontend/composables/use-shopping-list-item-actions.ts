@@ -1,4 +1,4 @@
-import { computed, reactive, ref, watch } from "@nuxtjs/composition-api";
+import { computed, reactive, watch } from "@nuxtjs/composition-api";
 import { useLocalStorage } from "@vueuse/core";
 import { useUserApi } from "~/composables/api";
 import { ShoppingListItemOut, ShoppingListOut } from "~/lib/api/types/group";
