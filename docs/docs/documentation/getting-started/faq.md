@@ -33,7 +33,7 @@ Do the following for each recipe you want to intelligently handle ingredients.
 
 Scaling up this recipe or adding it to a Shopping List will now smartly take care of ingredient amounts and duplicate combinations.
 
-## Is it Safe to Upgrade Mealie?
+## Is it safe to upgrade Mealie?
 
 Yes. If you are using the v1 branches (including beta), you can upgrade to the latest version of Mealie without performing a site Export/Restore. This process was required in previous versions of Mealie, however we've automated the database migration process to make it easier to upgrade. Note that if you were using the v0.5.x version, you CANNOT upgrade to the latest version automatically. You must follow the migration instructions in the documentation.
 
@@ -45,7 +45,7 @@ You can change the theme by settings the environment variables.
 
 - [Backend Config - Themeing](./installation/backend-config.md#themeing)
 
-## How can I change the Login Session Timeout?
+## How can I change the login session timeout?
 
 Login session can be configured by setting the `TOKEN_TIME` variable on the backend container.
 
@@ -53,7 +53,7 @@ Login session can be configured by setting the `TOKEN_TIME` variable on the back
 
 ## Can I serve Mealie on a subpath?
 
-No. Due to limitations from the JavaScript Framework, mealie doesn't support serving Mealie on a subpath.
+No. Due to limitations from the JavaScript Framework, Mealie doesn't support serving Mealie on a subpath.
 
 ## Can I install Mealie without docker?
 
@@ -130,8 +130,8 @@ stateDiagram-v2
 
 For more information, check out the [Permissions and Public Access guide](./usage/permissions-and-public-access.md).
 
-## Can I use fail2ban with mealie?
-Yes, mealie is configured to properly forward external IP addresses into the `mealie.log` logfile. Note that due to restrictions in docker, IP address forwarding only works on Linux.
+## Can I use fail2ban with Mealie?
+Yes, Mealie is configured to properly forward external IP addresses into the `mealie.log` logfile. Note that due to restrictions in docker, IP address forwarding only works on Linux.
 
 Your fail2ban usage should look like the following:
 ```
@@ -139,10 +139,10 @@ Use      datepattern : %d-%b-%y %H:%M:%S : Day-MON-Year2 24hour:Minute:Second
 Use   failregex line : ^ERROR:\s+Incorrect username or password from <HOST>
 ```
 
-## Why An API?
+## Why an API?
 An API allows integration into applications like [Home Assistant](https://www.home-assistant.io/) that can act as notification engines to provide custom notifications based on Meal Plan data to remind you to defrost the chicken, marinate the steak, or start the CrockPot. Additionally, you can access nearly any backend service via the API giving you total control to extend the application. To explore the API spin up your server and navigate to http://yourserver.com/docs for interactive API documentation.
 
-## Why a Database?
+## Why a database?
 Some users of static-site generator applications like ChowDown have expressed concerns about their data being stuck in a database. Considering this is a new project, it is a valid concern to be worried about your data. Mealie specifically addresses this concern by providing automatic daily backups that export your data in json, plain-text markdown files, and/or custom Jinja2 templates. **This puts you in control of how your data is represented** when exported from Mealie, which means you can easily migrate to any other service provided Mealie doesn't work for you.
 
 As to why we need a database?
