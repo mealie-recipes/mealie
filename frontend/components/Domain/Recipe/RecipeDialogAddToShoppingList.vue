@@ -244,18 +244,23 @@ export default defineComponent({
             currentTitle = ing.ingredient.title;
           }
 
-          // If the ingredient is on hand, add to separate section
-          if (ing.ingredient.food?.onHand) {
-            onHandIngs.push(ing);
-            return sections;
-          }
-
           // If this is the first item in the section, create a new section
           if (sections.length === 0 || currentTitle !== sections[sections.length - 1].sectionName) {
+            if (sections.length) {
+              // Add the on-hand ingredients to the last section
+              sections[sections.length - 1].ingredients.push(...onHandIngs);
+              onHandIngs.length = 0;
+            }
             sections.push({
               sectionName: currentTitle,
               ingredients: [],
             });
+          }
+
+          // Store the on-hand ingredients for later
+          if (ing.ingredient.food?.onHand) {
+            onHandIngs.push(ing);
+            return sections;
           }
 
           // Add the ingredient to last section
@@ -263,13 +268,8 @@ export default defineComponent({
           return sections;
         }, [] as ShoppingListIngredientSection[]);
 
-        // Add on hand ingredients as the last section
-        if (onHandIngs.length) {
-          shoppingListIngredientSections.push({
-            sectionName: i18n.tc("tool.on-hand"),
-            ingredients: onHandIngs,
-          });
-        }
+        // Add remaining on-hand ingredients to the last section
+        shoppingListIngredientSections[shoppingListIngredientSections.length - 1].ingredients.push(...onHandIngs);
 
         recipeSectionMap.set(recipe.slug, {
           recipeId: recipe.id,
