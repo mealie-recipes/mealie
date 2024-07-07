@@ -958,7 +958,7 @@
     "authentication-method-hint": "This specifies how a user will authenticate with Mealie. If you're not sure, choose 'Mealie",
     "permissions": "权限",
     "administrator": "管理员",
-    "user-can-invite-other-to-group": "用户可以邀请其他人加入群组",
+    "user-can-invite-other-to-group": "User can invite others to group",
     "user-can-manage-group": "用户可以管理群组",
     "user-can-organize-group-data": "用户可以整理群组数据",
     "enable-advanced-features": "启用高级功能",

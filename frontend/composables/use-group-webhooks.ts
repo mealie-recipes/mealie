@@ -64,7 +64,6 @@ export const useGroupWebhooks = function () {
       newDt.setMinutes(Number(minutes));
 
       updateData.scheduledTime = `${pad(newDt.getUTCHours(), 2)}:${pad(newDt.getUTCMinutes(), 2)}`;
-      console.log(updateData.scheduledTime);
 
       const payload = {
         ...updateData,
@@ -85,7 +84,14 @@ export const useGroupWebhooks = function () {
       if (data) {
         this.refreshAll();
       }
+      loading.value = false;
     },
+
+    async testOne(id: string | number) {
+      loading.value = true;
+      await api.groupWebhooks.testOne(id);
+      loading.value = false;
+    }
   };
 
   const webhooks = actions.getAll();
