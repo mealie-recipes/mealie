@@ -1,6 +1,6 @@
 import json
 import shutil
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from shutil import copytree, rmtree
 from typing import Any
@@ -157,7 +157,7 @@ class RecipeService(BaseService):
             recipe_id=new_recipe.id,
             subject="Recipe Created",
             event_type=TimelineEventType.system,
-            timestamp=new_recipe.created_at or datetime.now(),
+            timestamp=new_recipe.created_at or datetime.now(timezone.utc),
         )
 
         self.repos.recipe_timeline_events.create(timeline_event_data)

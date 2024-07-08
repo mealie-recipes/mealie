@@ -1,5 +1,5 @@
 import asyncio
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from mealie.core import root_logger
@@ -28,7 +28,7 @@ class SchedulerService:
 
 
 async def schedule_daily():
-    now = datetime.now()
+    now = datetime.now(timezone.utc)
     daily_schedule_time = get_app_settings().DAILY_SCHEDULE_TIME
     logger.debug(
         "Current time is %s and DAILY_SCHEDULE_TIME is %s",

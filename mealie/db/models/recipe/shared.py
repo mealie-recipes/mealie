@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import TYPE_CHECKING
 from uuid import uuid4
 
@@ -6,14 +6,15 @@ import sqlalchemy as sa
 from sqlalchemy.orm import Mapped, mapped_column
 
 from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
-from mealie.db.models._model_utils import GUID, auto_init
+from mealie.db.models._model_utils.auto_init import auto_init
+from mealie.db.models._model_utils.guid import GUID
 
 if TYPE_CHECKING:
     from . import RecipeModel
 
 
 def defaut_expires_at_time() -> datetime:
-    return datetime.utcnow() + timedelta(days=30)
+    return datetime.now(timezone.utc) + timedelta(days=30)
 
 
 class RecipeShareTokenModel(SqlAlchemyBase, BaseMixins):

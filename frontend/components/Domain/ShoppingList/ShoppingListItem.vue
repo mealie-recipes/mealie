@@ -75,7 +75,7 @@
     <v-row v-if="listItem.checked" no-gutters class="mb-2">
       <v-col cols="auto">
         <div class="text-caption font-weight-light font-italic">
-          {{ $t("shopping-list.completed-on", {date: new Date(listItem.updateAt+"Z").toLocaleDateString($i18n.locale)}) }}
+          {{ $t("shopping-list.completed-on", {date: new Date(listItem.updateAt || "").toLocaleDateString($i18n.locale)}) }}
         </div>
       </v-col>
     </v-row>
