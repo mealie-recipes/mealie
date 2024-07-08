@@ -958,7 +958,7 @@
     "authentication-method-hint": "Αυτό καθορίζει τον τρόπο με τον οποίο ένας χρήστης θα ταυτοποιηθεί με το Mealie. Αν δεν είστε σίγουροι, επιλέξτε 'Mealie'",
     "permissions": "Permissions",
     "administrator": "Administrator",
-    "user-can-invite-other-to-group": "User can invite other to group",
+    "user-can-invite-other-to-group": "Ο χρήστης μπορεί να προσκαλέσει άλλους στην ομάδα",
     "user-can-manage-group": "User can manage group",
     "user-can-organize-group-data": "User can organize group data",
     "enable-advanced-features": "Ενεργοποίηση χαρακτηριστικών για προχωρημένους",

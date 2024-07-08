@@ -10,8 +10,6 @@
       </v-card-text>
     </BasePageTitle>
 
-    <BannerExperimental />
-
     <BaseButton create @click="actions.createOne()" />
     <v-expansion-panels class="mt-2">
       <v-expansion-panel v-for="(webhook, index) in webhooks" :key="index" class="my-2 left-border rounded">
@@ -36,6 +34,7 @@
             :webhook="webhook"
             @save="actions.updateOne($event)"
             @delete="actions.deleteOne($event)"
+            @test="actions.testOne($event).then(() => alert.success($tc('events.test-message-sent')))"
           />
         </v-expansion-panel-content>
       </v-expansion-panel>
@@ -47,6 +46,7 @@
 import { defineComponent } from "@nuxtjs/composition-api";
 import { useGroupWebhooks, timeUTC } from "~/composables/use-group-webhooks";
 import GroupWebhookEditor from "~/components/Domain/Group/GroupWebhookEditor.vue";
+import { alert } from "~/composables/use-toast";
 
 export default defineComponent({
   components: { GroupWebhookEditor },
@@ -55,6 +55,7 @@ export default defineComponent({
     const { actions, webhooks } = useGroupWebhooks();
 
     return {
+      alert,
       webhooks,
       actions,
       timeUTC

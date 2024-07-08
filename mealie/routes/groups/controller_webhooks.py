@@ -1,7 +1,7 @@
 from datetime import datetime
 from functools import cached_property
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, BackgroundTasks, Depends
 from pydantic import UUID4
 
 from mealie.routes._base.base_controllers import BaseUserController
@@ -10,7 +10,7 @@ from mealie.routes._base.mixins import HttpRepo
 from mealie.schema import mapper
 from mealie.schema.group.webhook import CreateWebhook, ReadWebhook, SaveWebhook, WebhookPagination
 from mealie.schema.response.pagination import PaginationQuery
-from mealie.services.scheduler.tasks.post_webhooks import post_group_webhooks
+from mealie.services.scheduler.tasks.post_webhooks import post_group_webhooks, post_single_webhook
 
 router = APIRouter(prefix="/groups/webhooks", tags=["Groups: Webhooks"])
 
@@ -51,6 +51,11 @@ class ReadWebhookController(BaseUserController):
     @router.get("/{item_id}", response_model=ReadWebhook)
     def get_one(self, item_id: UUID4):
         return self.mixins.get_one(item_id)
+
+    @router.post("/{item_id}/test")
+    def test_one(self, item_id: UUID4, bg_tasks: BackgroundTasks):
+        webhook = self.mixins.get_one(item_id)
+        bg_tasks.add_task(post_single_webhook, webhook, "Test Webhook")
 
     @router.put("/{item_id}", response_model=ReadWebhook)
     def update_one(self, item_id: UUID4, data: CreateWebhook):

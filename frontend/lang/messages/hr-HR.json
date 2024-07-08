@@ -958,7 +958,7 @@
     "authentication-method-hint": "Ovo određuje način autentifikacije korisnika u Mealie sustavu. Ako niste sigurni, odaberite 'Mealie",
     "permissions": "Dozvole",
     "administrator": "Administrator",
-    "user-can-invite-other-to-group": "Korisnik može pozvati druge u grupu",
+    "user-can-invite-other-to-group": "User can invite others to group",
     "user-can-manage-group": "Korisnik može upravljati grupom",
     "user-can-organize-group-data": "Korisnik može organizirati podatke grupe",
     "enable-advanced-features": "Omogućite napredne značajke",
