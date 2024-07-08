@@ -1,4 +1,4 @@
-from fastapi import BackgroundTasks, Depends
+from fastapi import BackgroundTasks, Depends, Query
 from pydantic import UUID4
 from sqlalchemy.orm.session import Session
 
@@ -84,5 +84,11 @@ class EventBusService:
                 listener.publish_to_subscribers(event, subscribers)
 
     @classmethod
-    def create(cls, bg: BackgroundTasks, session=Depends(generate_session), group_id: UUID4 | None = None):
+    def as_dependency(
+        cls,
+        bg: BackgroundTasks,
+        session=Depends(generate_session),
+        group_id: UUID4 | None = Query(None, include_in_schema=False),
+    ):
+        """Convenience method to use as a dependency in FastAPI routes"""
         return cls(bg, session, group_id)
