@@ -39,7 +39,7 @@ iso8601_duration_re = re.compile(
     r"$"
 )
 
-EPOCH = datetime(1970, 1, 1)
+EPOCH = datetime(1970, 1, 1, tzinfo=timezone.utc)
 # if greater than this, the number is in ms, if less than or equal it's in seconds
 # (in seconds this is 11th October 2603, in ms it's 20th August 1970)
 MS_WATERSHED = int(2e10)
@@ -209,7 +209,7 @@ def parse_datetime(value: datetime | str | bytes | int | float) -> datetime:
     kw_["tzinfo"] = tzinfo
 
     try:
-        return datetime(**kw_)  # type: ignore
+        return datetime(**kw_)  # type: ignore # noqa DTZ001
     except ValueError as e:
         raise DateTimeError() from e
 

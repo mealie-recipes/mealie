@@ -38,7 +38,7 @@ class OpenIDProvider(AuthProvider[OIDCRequest]):
         user = self.try_get_user(claims.get(settings.OIDC_USER_CLAIM))
         is_admin = False
         if settings.OIDC_USER_GROUP or settings.OIDC_ADMIN_GROUP:
-            group_claim = claims.get(settings.OIDC_GROUPS_CLAIM, [])
+            group_claim = claims.get(settings.OIDC_GROUPS_CLAIM, []) or []
             is_admin = settings.OIDC_ADMIN_GROUP in group_claim if settings.OIDC_ADMIN_GROUP else False
             is_valid_user = settings.OIDC_USER_GROUP in group_claim if settings.OIDC_USER_GROUP else True
 
@@ -82,7 +82,12 @@ class OpenIDProvider(AuthProvider[OIDCRequest]):
 
     def get_claims(self, settings: AppSettings) -> JWTClaims | None:
         """Get the claims from the ID token and check if the required claims are present"""
-        required_claims = {"preferred_username", "name", "email", settings.OIDC_USER_CLAIM}
+        required_claims = {
+            "preferred_username",
+            "name",
+            "email",
+            settings.OIDC_USER_CLAIM,
+        }
         jwks = OpenIDProvider.get_jwks(self.get_ttl_hash())  # cache the key set for 30 minutes
         if not jwks:
             return None

@@ -11,7 +11,8 @@ from mealie.core.config import get_app_settings
 from mealie.db.models.labels import MultiPurposeLabel
 
 from .._model_base import BaseMixins, SqlAlchemyBase
-from .._model_utils import GUID, auto_init
+from .._model_utils.auto_init import auto_init
+from .._model_utils.guid import GUID
 from ..group.invite_tokens import GroupInviteToken
 from ..group.webhooks import GroupWebhooksModel
 from ..recipe.category import Category, group_to_categories

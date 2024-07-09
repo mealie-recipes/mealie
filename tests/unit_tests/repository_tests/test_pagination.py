@@ -1,7 +1,7 @@
 import random
 import time
 from collections import defaultdict
-from datetime import date, datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from random import randint
 from urllib.parse import parse_qsl, urlsplit
 
@@ -233,7 +233,7 @@ def test_pagination_filter_null(database: AllRepositories, unique_user: TestUser
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=random_string(),
-            last_made=datetime.now(),
+            last_made=datetime.now(timezone.utc),
         )
     )
 
@@ -619,7 +619,7 @@ def test_pagination_filter_datetimes(
 def test_pagination_order_by_multiple(
     database: AllRepositories, unique_user: TestUser, order_direction: OrderDirection
 ):
-    current_time = datetime.now()
+    current_time = datetime.now(timezone.utc)
 
     alphabet = ["a", "b", "c", "d", "e"]
     abbreviations = alphabet.copy()
@@ -681,7 +681,7 @@ def test_pagination_order_by_multiple_directions(
     order_by_str: str,
     order_direction: OrderDirection,
 ):
-    current_time = datetime.now()
+    current_time = datetime.now(timezone.utc)
 
     alphabet = ["a", "b", "c", "d", "e"]
     abbreviations = alphabet.copy()
@@ -729,7 +729,7 @@ def test_pagination_order_by_multiple_directions(
 def test_pagination_order_by_nested_model(
     database: AllRepositories, unique_user: TestUser, order_direction: OrderDirection
 ):
-    current_time = datetime.now()
+    current_time = datetime.now(timezone.utc)
 
     alphabet = ["a", "b", "c", "d", "e"]
     labels = database.group_multi_purpose_labels.create_many(
@@ -759,7 +759,7 @@ def test_pagination_order_by_nested_model(
 
 
 def test_pagination_order_by_doesnt_filter(database: AllRepositories, unique_user: TestUser):
-    current_time = datetime.now()
+    current_time = datetime.now(timezone.utc)
 
     label = database.group_multi_purpose_labels.create(
         MultiPurposeLabelSave(name=random_string(), group_id=unique_user.group_id)
@@ -805,7 +805,7 @@ def test_pagination_order_by_nulls(
     null_position: OrderByNullPosition,
     order_direction: OrderDirection,
 ):
-    current_time = datetime.now()
+    current_time = datetime.now(timezone.utc)
 
     label = database.group_multi_purpose_labels.create(
         MultiPurposeLabelSave(name=random_string(), group_id=unique_user.group_id)
@@ -909,10 +909,11 @@ def test_pagination_shopping_list_items_with_labels(database: AllRepositories, u
 
 
 def test_pagination_filter_dates(api_client: TestClient, unique_user: TestUser):
-    yesterday = date.today() - timedelta(days=1)
-    today = date.today()
-    tomorrow = date.today() + timedelta(days=1)
-    day_after_tomorrow = date.today() + timedelta(days=2)
+    today = datetime.now(timezone.utc).date()
+
+    yesterday = today - timedelta(days=1)
+    tomorrow = today + timedelta(days=1)
+    day_after_tomorrow = today + timedelta(days=2)
 
     mealplan_today = CreatePlanEntry(date=today, entry_type="breakfast", title=random_string(), text=random_string())
     mealplan_tomorrow = CreatePlanEntry(

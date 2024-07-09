@@ -13,7 +13,7 @@ from text_unidecode import unidecode
 
 import mealie.db.migration_types
 from alembic import op
-from mealie.db.models._model_utils import GUID
+from mealie.db.models._model_utils.guid import GUID
 
 # revision identifiers, used by Alembic.
 revision = "5ab195a474eb"
