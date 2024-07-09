@@ -596,7 +596,7 @@
     "screen-awake": "Képernyő ébren tartása",
     "remove-image": "Kép etávolítása",
     "nextStep": "Következő lépés",
-    "recipe-actions": "Recipe Actions",
+    "recipe-actions": "Receptekkel kapcsolatos tevékenységek",
     "parser": {
       "experimental-alert-text": "A Mealie természetes nyelvi feldolgozást használ a recept összetevőinek elemzésére, az egységek és az élelmiszerelemek létrehozására. Ez a funkció kísérleti jellegű, és előfordulhat, hogy nem mindig működik az elvárt módon. Ha nem szeretné használni az elemzett eredményeket, válassza a 'Mégse' lehetőséget, és a módosítások nem kerülnek mentésre.",
       "ingredient-parser": "Hozzávaló elemző",
@@ -810,11 +810,11 @@
     "items-checked-count": "Nincs ellenőrzött tétel|Egy ellenőrzött tétel|{count} ellenőrzött tétel",
     "no-label": "Nincs címke",
     "completed-on": "Teljesítve {date}",
-    "you-are-offline": "You are offline",
-    "you-are-offline-description": "Not all features are available while offline. You can still add, modify, and remove items, but you will not be able to sync your changes to the server until you are back online.",
-    "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
-    "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
-    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
+    "you-are-offline": "Offline vagy",
+    "you-are-offline-description": "Offline állapotban nem minden funkció érhető el. Továbbra is hozzáadhat, módosíthat és eltávolíthat elemeket, de a módosításokat nem tudja szinkronizálni a szerverrel, amíg vissza nem tér az online állapotba.",
+    "are-you-sure-you-want-to-check-all-items": "Biztos, hogy minden elemet be akar jelölni?",
+    "are-you-sure-you-want-to-uncheck-all-items": "Biztos, hogy minden elem kijelölését visszavonja?",
+    "are-you-sure-you-want-to-delete-checked-items": "Biztosan törölni akarja az összes bejelölt elemet?"
   },
   "sidebar": {
     "all-recipes": "Minden recept",
@@ -958,7 +958,7 @@
     "authentication-method-hint": "This specifies how a user will authenticate with Mealie. If you're not sure, choose 'Mealie",
     "permissions": "Engedélyek",
     "administrator": "Adminisztrátor",
-    "user-can-invite-other-to-group": "User can invite others to group",
+    "user-can-invite-other-to-group": "A felhasználó meghívhat másokat a csoportba",
     "user-can-manage-group": "A felhasználó csoportot kezelhet",
     "user-can-organize-group-data": "Felhasználó szerkesztheti a csoport adatait",
     "enable-advanced-features": "Haladó funkciók engedélyezése",
@@ -991,7 +991,7 @@
       "example-food-singular": "pl. Hagyma",
       "example-food-plural": "pl. Hagymák",
       "label-overwrite-warning": "Ez a kiválasztott címkét az összes kiválasztott élelmiszerhez hozzárendeli, és esetleg felülírja a meglévő címkéket.",
-      "on-hand-checkbox-label": "Setting this flag will make this food unchecked by default when adding a recipe to a shopping list."
+      "on-hand-checkbox-label": "Ha ezt a jelzőt beállítja, akkor ez az élelmiszer alapértelmezés szerint nem lesz bejelölve, amikor egy receptet hozzáad egy bevásárlólistához."
     },
     "units": {
       "seed-dialog-text": "Töltse be az Ön nyelve szerinti közös mennyiségi egységet tartalmazó adatbázist.",
@@ -1044,9 +1044,9 @@
       "source-unit-will-be-deleted": "A forrás mennyiségi egység törlésre kerül"
     },
     "recipe-actions": {
-      "recipe-actions-data": "Recipe Actions Data",
-      "new-recipe-action": "New Recipe Action",
-      "edit-recipe-action": "Edit Recipe Action",
+      "recipe-actions-data": "Receptekkel kapcsolatos tevékenységek adatai",
+      "new-recipe-action": "Új recept tevékenység",
+      "edit-recipe-action": "Recept tevékenység szerkesztése",
       "action-type": "Művelet típusa"
     },
     "create-alias": "Alias készítése",
