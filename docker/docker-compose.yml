@@ -15,8 +15,8 @@ services:
     environment:
       ALLOW_SIGNUP: "false"
       LOG_LEVEL: "DEBUG"
-      ENABLE_INGREDIENTS_HOLDER: True
-      ENABLE_STEPS_HOLDER: True
+      ENABLE_INGREDIENTS_PLACEHOLDER: True
+      ENABLE_STEPS_PLACEHOLDER: True
 
       DB_ENGINE: sqlite # Optional: 'sqlite', 'postgres'
       # =====================================
