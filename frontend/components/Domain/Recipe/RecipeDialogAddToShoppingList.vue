@@ -247,7 +247,7 @@ export default defineComponent({
           // If this is the first item in the section, create a new section
           if (sections.length === 0 || currentTitle !== sections[sections.length - 1].sectionName) {
             if (sections.length) {
-              // Add the on-hand ingredients to the last section
+              // Add the on-hand ingredients to the previous section
               sections[sections.length - 1].ingredients.push(...onHandIngs);
               onHandIngs.length = 0;
             }
@@ -263,12 +263,12 @@ export default defineComponent({
             return sections;
           }
 
-          // Add the ingredient to last section
+          // Add the ingredient to previous section
           sections[sections.length - 1].ingredients.push(ing);
           return sections;
         }, [] as ShoppingListIngredientSection[]);
 
-        // Add remaining on-hand ingredients to the last section
+        // Add remaining on-hand ingredients to the previous section
         shoppingListIngredientSections[shoppingListIngredientSections.length - 1].ingredients.push(...onHandIngs);
 
         recipeSectionMap.set(recipe.slug, {
