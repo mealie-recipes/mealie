@@ -57,6 +57,9 @@ class AppSettings(BaseSettings):
 
     ALLOW_SIGNUP: bool = False
 
+    ENABLE_INGREDIENTS_PLACEHOLDER: bool = True
+    ENABLE_STEPS_PLACEHOLDER: bool = True
+
     DAILY_SCHEDULE_TIME: str = "23:45"
 
     # ===============================================

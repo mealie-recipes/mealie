@@ -11,6 +11,7 @@ from fastapi import UploadFile
 from slugify import slugify
 
 from mealie.core import exceptions
+from mealie.core.config import get_app_settings
 from mealie.lang.providers import Translator
 from mealie.pkgs import cache
 from mealie.repos.repository_factory import AllRepositories
@@ -95,13 +96,14 @@ class RecipeService(BaseService):
             for i in range(len(additional_attrs.get("tags", []))):
                 additional_attrs["tags"][i]["group_id"] = self.user.group_id
 
+        settings = get_app_settings()
         if not additional_attrs.get("recipe_ingredient"):
-            additional_attrs["recipe_ingredient"] = [
-                RecipeIngredient(note=self.t("recipe.recipe-defaults.ingredient-note"))
-            ]
+            note = self.t("recipe.recipe-defaults.ingredient-note") if settings.ENABLE_INGREDIENTS_PLACEHOLDER else ""
+            additional_attrs["recipe_ingredient"] = [RecipeIngredient(note=note)]
 
         if not additional_attrs.get("recipe_instructions"):
-            additional_attrs["recipe_instructions"] = [RecipeStep(text=self.t("recipe.recipe-defaults.step-text"))]
+            text = self.t("recipe.recipe-defaults.step-text") if settings.ENABLE_STEPS_PLACEHOLDER else ""
+            additional_attrs["recipe_instructions"] = [RecipeStep(text=text)]
 
         return Recipe(**additional_attrs)
 

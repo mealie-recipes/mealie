@@ -9,6 +9,8 @@ env:
   API_PORT: 9000
   API_DOCS: True
   TOKEN_TIME: 256 # hours
+  ENABLE_INGREDIENTS_HOLDER: True
+  ENABLE_STEPS_HOLDER: True
   # mailplit SMTP config
   # start dev:services to use mailpit
   SMTP_HOST: localhost

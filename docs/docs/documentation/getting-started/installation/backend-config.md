@@ -18,6 +18,8 @@
 | LOG_CONFIG_OVERRIDE           |                       | Override the config for logging with a custom path                                  |
 | LOG_LEVEL                     |         info          | Logging level (e.g. critical, error, warning, info, debug, trace)                   |
 | DAILY_SCHEDULE_TIME           |         23:45         | The time of day to run the daily tasks.                                             |
+| ENABLE_INGREDIENTS_PLACEHOLDER|         True          | Enable to put ingredients placeholder when creating a recipe. (True, False)         |
+| ENABLE_STEPS_PLACEHOLDER      |         True          | Enable to put steps placeholder when creating a recipe. (True, False)               |
 
 <super>\*</super> Starting in v1.4.0 this was changed to default to `false` as apart of a security review of the application.
 

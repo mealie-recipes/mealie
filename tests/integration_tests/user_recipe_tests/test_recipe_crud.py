@@ -10,6 +10,7 @@ from uuid import uuid4
 from zipfile import ZipFile
 
 from httpx import Response
+from mealie.core.config import get_app_settings
 import pytest
 from bs4 import BeautifulSoup
 from fastapi.testclient import TestClient
@@ -799,3 +800,81 @@ def test_get_random_order(api_client: TestClient, unique_user: utils.TestUser):
     badparams: dict[str, int | str] = {"page": 1, "perPage": -1, "orderBy": "random"}
     response = api_client.get(api_routes.recipes, params=badparams, headers=unique_user.token)
     assert response.status_code == 422
+
+
+def test_create_recipe_default_enable_ingredients_placeholder(api_client: TestClient, unique_user: TestUser):
+    # create a recipe
+    recipe_create_url = api_routes.recipes
+    recipe_create_data = {"name": random_string()}
+    response = api_client.post(recipe_create_url, headers=unique_user.token, json=recipe_create_data)
+    assert response.status_code == 201
+    recipe_slug: str = response.json()
+
+    # get a recipe
+    recipe_url = api_routes.recipes_slug(recipe_slug)
+    response = api_client.get(recipe_url, headers=unique_user.token)
+    assert response.status_code == 200
+
+    recipe_dict: dict = json.loads(response.text)
+
+    assert recipe_dict["recipeIngredient"][0]["note"] != ""
+
+
+def test_create_recipe_default_enable_steps_placeholder(api_client: TestClient, unique_user: TestUser):
+    # create a recipe
+    recipe_create_url = api_routes.recipes
+    recipe_create_data = {"name": random_string()}
+    response = api_client.post(recipe_create_url, headers=unique_user.token, json=recipe_create_data)
+    assert response.status_code == 201
+    recipe_slug: str = response.json()
+
+    # get a recipe
+    recipe_url = api_routes.recipes_slug(recipe_slug)
+    response = api_client.get(recipe_url, headers=unique_user.token)
+    assert response.status_code == 200
+
+    recipe_dict: dict = json.loads(response.text)
+
+    assert recipe_dict["recipeInstructions"][0]["text"] != ""
+
+
+def test_create_recipe_disable_ingredients_placeholder(api_client: TestClient, unique_user: TestUser):
+    settings = get_app_settings()
+    settings.ENABLE_INGREDIENTS_PLACEHOLDER = False
+
+    # create a recipe
+    recipe_create_url = api_routes.recipes
+    recipe_create_data = {"name": random_string()}
+    response = api_client.post(recipe_create_url, headers=unique_user.token, json=recipe_create_data)
+    assert response.status_code == 201
+    recipe_slug: str = response.json()
+
+    # get a recipe
+    recipe_url = api_routes.recipes_slug(recipe_slug)
+    response = api_client.get(recipe_url, headers=unique_user.token)
+    assert response.status_code == 200
+
+    recipe_dict: dict = json.loads(response.text)
+
+    assert recipe_dict["recipeIngredient"][0]["note"] == ""
+
+
+def test_create_recipe_disable_steps_placeholder(api_client: TestClient, unique_user: TestUser):
+    settings = get_app_settings()
+    settings.ENABLE_STEPS_PLACEHOLDER = False
+
+    # create a recipe
+    recipe_create_url = api_routes.recipes
+    recipe_create_data = {"name": random_string()}
+    response = api_client.post(recipe_create_url, headers=unique_user.token, json=recipe_create_data)
+    assert response.status_code == 201
+    recipe_slug: str = response.json()
+
+    # get a recipe
+    recipe_url = api_routes.recipes_slug(recipe_slug)
+    response = api_client.get(recipe_url, headers=unique_user.token)
+    assert response.status_code == 200
+
+    recipe_dict: dict = json.loads(response.text)
+
+    assert recipe_dict["recipeInstructions"][0]["text"] == ""

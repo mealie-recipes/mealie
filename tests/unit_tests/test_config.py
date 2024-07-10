@@ -11,6 +11,8 @@ def test_non_default_settings(monkeypatch):
     monkeypatch.setenv("DEFAULT_GROUP", "Test Group")
     monkeypatch.setenv("API_PORT", "8000")
     monkeypatch.setenv("API_DOCS", "False")
+    monkeypatch.setenv("ENABLE_INGREDIENTS_HOLDER", "False")
+    monkeypatch.setenv("ENABLE_STEPS_HOLDER", "False")
 
     get_app_settings.cache_clear()
     app_settings = get_app_settings()
@@ -21,6 +23,9 @@ def test_non_default_settings(monkeypatch):
 
     assert app_settings.REDOC_URL is None
     assert app_settings.DOCS_URL is None
+
+    assert app_settings.ENABLE_INGREDIENTS_PLACEHOLDER is False
+    assert app_settings.ENABLE_STEPS_PLACEHOLDER is False
 
 
 def test_default_connection_args(monkeypatch):
