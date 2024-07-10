@@ -1,14 +1,15 @@
-from datetime import datetime, time
+from datetime import datetime, time, timezone
 from typing import TYPE_CHECKING, Optional
 
 from sqlalchemy import Boolean, ForeignKey, String, Time, orm
 from sqlalchemy.orm import Mapped, mapped_column
 
 from .._model_base import BaseMixins, SqlAlchemyBase
-from .._model_utils import GUID, auto_init
+from .._model_utils.auto_init import auto_init
+from .._model_utils.guid import GUID
 
 if TYPE_CHECKING:
-    from group import Group
+    from .group import Group
 
 
 class GroupWebhooksModel(SqlAlchemyBase, BaseMixins):
@@ -24,7 +25,7 @@ class GroupWebhooksModel(SqlAlchemyBase, BaseMixins):
 
     # New Fields
     webhook_type: Mapped[str | None] = mapped_column(String, default="")  # Future use for different types of webhooks
-    scheduled_time: Mapped[time | None] = mapped_column(Time, default=lambda: datetime.now().time())
+    scheduled_time: Mapped[time | None] = mapped_column(Time, default=lambda: datetime.now(timezone.utc).time())
 
     # Columne is no longer used but is kept for since it's super annoying to
     # delete a column in SQLite and it's not a big deal to keep it around

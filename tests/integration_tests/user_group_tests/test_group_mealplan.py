@@ -1,4 +1,4 @@
-from datetime import date, timedelta
+from datetime import datetime, timedelta, timezone
 
 from fastapi.testclient import TestClient
 
@@ -15,8 +15,10 @@ def route_all_slice(page: int, perPage: int, start_date: str, end_date: str):
 def test_create_mealplan_no_recipe(api_client: TestClient, unique_user: TestUser):
     title = random_string(length=25)
     text = random_string(length=25)
-    new_plan = CreatePlanEntry(date=date.today(), entry_type="breakfast", title=title, text=text).model_dump()
-    new_plan["date"] = date.today().strftime("%Y-%m-%d")
+    new_plan = CreatePlanEntry(
+        date=datetime.now(timezone.utc).date(), entry_type="breakfast", title=title, text=text
+    ).model_dump()
+    new_plan["date"] = datetime.now(timezone.utc).date().strftime("%Y-%m-%d")
 
     response = api_client.post(api_routes.groups_mealplans, json=new_plan, headers=unique_user.token)
 
@@ -36,8 +38,10 @@ def test_create_mealplan_with_recipe(api_client: TestClient, unique_user: TestUs
     recipe = response.json()
     recipe_id = recipe["id"]
 
-    new_plan = CreatePlanEntry(date=date.today(), entry_type="dinner", recipe_id=recipe_id).model_dump(by_alias=True)
-    new_plan["date"] = date.today().strftime("%Y-%m-%d")
+    new_plan = CreatePlanEntry(
+        date=datetime.now(timezone.utc).date(), entry_type="dinner", recipe_id=recipe_id
+    ).model_dump(by_alias=True)
+    new_plan["date"] = datetime.now(timezone.utc).date().strftime("%Y-%m-%d")
     new_plan["recipeId"] = str(recipe_id)
 
     response = api_client.post(api_routes.groups_mealplans, json=new_plan, headers=unique_user.token)
@@ -49,14 +53,14 @@ def test_create_mealplan_with_recipe(api_client: TestClient, unique_user: TestUs
 
 def test_crud_mealplan(api_client: TestClient, unique_user: TestUser):
     new_plan = CreatePlanEntry(
-        date=date.today(),
+        date=datetime.now(timezone.utc).date(),
         entry_type="breakfast",
         title=random_string(),
         text=random_string(),
     ).model_dump()
 
     # Create
-    new_plan["date"] = date.today().strftime("%Y-%m-%d")
+    new_plan["date"] = datetime.now(timezone.utc).date().strftime("%Y-%m-%d")
     response = api_client.post(api_routes.groups_mealplans, json=new_plan, headers=unique_user.token)
     response_json = response.json()
     assert response.status_code == 201
@@ -87,13 +91,13 @@ def test_crud_mealplan(api_client: TestClient, unique_user: TestUser):
 def test_get_all_mealplans(api_client: TestClient, unique_user: TestUser):
     for _ in range(3):
         new_plan = CreatePlanEntry(
-            date=date.today(),
+            date=datetime.now(timezone.utc).date(),
             entry_type="breakfast",
             title=random_string(),
             text=random_string(),
         ).model_dump()
 
-        new_plan["date"] = date.today().strftime("%Y-%m-%d")
+        new_plan["date"] = datetime.now(timezone.utc).date().strftime("%Y-%m-%d")
         response = api_client.post(api_routes.groups_mealplans, json=new_plan, headers=unique_user.token)
         assert response.status_code == 201
 
@@ -105,7 +109,7 @@ def test_get_all_mealplans(api_client: TestClient, unique_user: TestUser):
 
 def test_get_slice_mealplans(api_client: TestClient, unique_user: TestUser):
     # Make List of 10 dates from now to +10 days
-    dates = [date.today() + timedelta(days=x) for x in range(10)]
+    dates = [datetime.now(timezone.utc).date() + timedelta(days=x) for x in range(10)]
 
     # Make a list of 10 meal plans
     meal_plans = [
@@ -139,7 +143,7 @@ def test_get_mealplan_today(api_client: TestClient, unique_user: TestUser):
     # Create Meal Plans for today
     test_meal_plans = [
         CreatePlanEntry(
-            date=date.today(), entry_type="breakfast", title=random_string(), text=random_string()
+            date=datetime.now(timezone.utc).date(), entry_type="breakfast", title=random_string(), text=random_string()
         ).model_dump()
         for _ in range(3)
     ]
@@ -158,4 +162,4 @@ def test_get_mealplan_today(api_client: TestClient, unique_user: TestUser):
     response_json = response.json()
 
     for meal_plan in response_json:
-        assert meal_plan["date"] == date.today().strftime("%Y-%m-%d")
+        assert meal_plan["date"] == datetime.now(timezone.utc).date().strftime("%Y-%m-%d")

@@ -14,7 +14,7 @@ def webhook_data():
         "name": "Test-Name",
         "url": "https://my-fake-url.com",
         "time": "00:00",
-        "scheduledTime": datetime.now(),
+        "scheduledTime": datetime.now(timezone.utc),
     }
 
 

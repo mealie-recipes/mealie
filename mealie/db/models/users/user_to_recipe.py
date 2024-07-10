@@ -4,7 +4,8 @@ from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.orm.session import Session
 
 from .._model_base import BaseMixins, SqlAlchemyBase
-from .._model_utils import GUID, auto_init
+from .._model_utils.auto_init import auto_init
+from .._model_utils.guid import GUID
 
 
 class UserToRecipe(SqlAlchemyBase, BaseMixins):

@@ -868,7 +868,6 @@ export default defineComponent({
 
         // set a temporary updatedAt timestamp prior to refresh so it appears at the top of the checked items
         item.updateAt = new Date().toISOString();
-        item.updateAt = item.updateAt.substring(0, item.updateAt.length-1);
       }
 
       // make updates reflect immediately
