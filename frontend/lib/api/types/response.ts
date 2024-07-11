@@ -11,7 +11,7 @@ export type OrderDirection = "asc" | "desc";
 export interface ErrorResponse {
   message: string;
   error?: boolean;
-  exception?: string;
+  exception?: string | null;
 }
 export interface FileTokenResponse {
   fileToken: string;
@@ -19,19 +19,19 @@ export interface FileTokenResponse {
 export interface PaginationQuery {
   page?: number;
   perPage?: number;
-  orderBy?: string;
-  orderByNullPosition?: OrderByNullPosition;
+  orderBy?: string | null;
+  orderByNullPosition?: OrderByNullPosition | null;
   orderDirection?: OrderDirection & string;
-  queryFilter?: string;
-  paginationSeed?: string;
+  queryFilter?: string | null;
+  paginationSeed?: string | null;
 }
 export interface RecipeSearchQuery {
-  cookbook?: string;
+  cookbook?: string | null;
   requireAllCategories?: boolean;
   requireAllTags?: boolean;
   requireAllTools?: boolean;
   requireAllFoods?: boolean;
-  search?: string;
+  search?: string | null;
 }
 export interface SuccessResponse {
   message: string;

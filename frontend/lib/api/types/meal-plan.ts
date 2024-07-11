@@ -19,29 +19,29 @@ export interface CreatePlanEntry {
   entryType?: PlanEntryType & string;
   title?: string;
   text?: string;
-  recipeId?: string;
+  recipeId?: string | null;
 }
 export interface CreateRandomEntry {
   date: string;
   entryType?: PlanEntryType & string;
 }
 export interface ListItem {
-  title?: string;
+  title?: string | null;
   text?: string;
   quantity?: number;
   checked?: boolean;
 }
 export interface MealDayIn {
-  date?: string;
+  date?: string | null;
   meals: MealIn[];
 }
 export interface MealIn {
-  slug?: string;
-  name?: string;
-  description?: string;
+  slug?: string | null;
+  name?: string | null;
+  description?: string | null;
 }
 export interface MealDayOut {
-  date?: string;
+  date?: string | null;
   meals: MealIn[];
   id: number;
 }
@@ -57,7 +57,7 @@ export interface MealPlanOut {
   endDate: string;
   planDays: MealDayIn[];
   id: number;
-  shoppingList?: number;
+  shoppingList?: number | null;
 }
 export interface PlanRulesCreate {
   day?: PlanRulesDay & string;
@@ -90,45 +90,47 @@ export interface ReadPlanEntry {
   entryType?: PlanEntryType & string;
   title?: string;
   text?: string;
-  recipeId?: string;
+  recipeId?: string | null;
   id: number;
   groupId: string;
-  userId?: string;
-  recipe?: RecipeSummary;
+  userId?: string | null;
+  recipe?: RecipeSummary | null;
 }
 export interface RecipeSummary {
-  id?: string;
+  id?: string | null;
   userId?: string;
   groupId?: string;
-  name?: string;
+  name?: string | null;
   slug?: string;
   image?: unknown;
-  recipeYield?: string;
-  totalTime?: string;
-  prepTime?: string;
-  cookTime?: string;
-  performTime?: string;
-  description?: string;
-  recipeCategory?: RecipeCategory[];
-  tags?: RecipeTag[];
+  recipeYield?: string | null;
+  totalTime?: string | null;
+  prepTime?: string | null;
+  cookTime?: string | null;
+  performTime?: string | null;
+  description?: string | null;
+  recipeCategory?: RecipeCategory[] | null;
+  tags?: RecipeTag[] | null;
   tools?: RecipeTool[];
-  rating?: number;
-  orgURL?: string;
-  dateAdded?: string;
-  dateUpdated?: string;
-  createdAt?: string;
-  updateAt?: string;
-  lastMade?: string;
+  rating?: number | null;
+  orgURL?: string | null;
+  dateAdded?: string | null;
+  dateUpdated?: string | null;
+  createdAt?: string | null;
+  updateAt?: string | null;
+  lastMade?: string | null;
 }
 export interface RecipeCategory {
-  id?: string;
+  id?: string | null;
   name: string;
   slug: string;
+  [k: string]: unknown;
 }
 export interface RecipeTag {
-  id?: string;
+  id?: string | null;
   name: string;
   slug: string;
+  [k: string]: unknown;
 }
 export interface RecipeTool {
   id: string;
@@ -141,18 +143,18 @@ export interface SavePlanEntry {
   entryType?: PlanEntryType & string;
   title?: string;
   text?: string;
-  recipeId?: string;
+  recipeId?: string | null;
   groupId: string;
-  userId?: string;
+  userId?: string | null;
 }
 export interface ShoppingListIn {
   name: string;
-  group?: string;
+  group?: string | null;
   items: ListItem[];
 }
 export interface ShoppingListOut {
   name: string;
-  group?: string;
+  group?: string | null;
   items: ListItem[];
   id: number;
 }
@@ -161,8 +163,8 @@ export interface UpdatePlanEntry {
   entryType?: PlanEntryType & string;
   title?: string;
   text?: string;
-  recipeId?: string;
+  recipeId?: string | null;
   id: number;
   groupId: string;
-  userId?: string;
+  userId?: string | null;
 }

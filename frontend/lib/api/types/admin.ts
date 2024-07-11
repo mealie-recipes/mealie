@@ -10,6 +10,7 @@ export interface AdminAboutInfo {
   version: string;
   demoStatus: boolean;
   allowSignup: boolean;
+  defaultGroupSlug?: string | null;
   enableOidc: boolean;
   oidcRedirect: boolean;
   oidcProviderName: string;
@@ -18,7 +19,7 @@ export interface AdminAboutInfo {
   apiPort: number;
   apiDocs: boolean;
   dbType: string;
-  dbUrl?: string;
+  dbUrl?: string | null;
   defaultGroup: string;
   buildId: string;
   recipeScraperVersion: string;
@@ -37,7 +38,7 @@ export interface AppInfo {
   version: string;
   demoStatus: boolean;
   allowSignup: boolean;
-  defaultGroupSlug?: string;
+  defaultGroupSlug?: string | null;
   enableOidc: boolean;
   oidcRedirect: boolean;
   oidcProviderName: string;
@@ -92,16 +93,16 @@ export interface ChowdownURL {
 export interface CommentImport {
   name: string;
   status: boolean;
-  exception?: string;
+  exception?: string | null;
 }
 export interface CreateBackup {
-  tag?: string;
+  tag?: string | null;
   options: BackupOptions;
-  templates?: string[];
+  templates?: string[] | null;
 }
 export interface CustomPageBase {
   name: string;
-  slug?: string;
+  slug: string | null;
   position: number;
   categories?: RecipeCategoryResponse[];
 }
@@ -112,38 +113,40 @@ export interface RecipeCategoryResponse {
   recipes?: RecipeSummary[];
 }
 export interface RecipeSummary {
-  id?: string;
+  id?: string | null;
   userId?: string;
   groupId?: string;
-  name?: string;
+  name?: string | null;
   slug?: string;
   image?: unknown;
-  recipeYield?: string;
-  totalTime?: string;
-  prepTime?: string;
-  cookTime?: string;
-  performTime?: string;
-  description?: string;
-  recipeCategory?: RecipeCategory[];
-  tags?: RecipeTag[];
+  recipeYield?: string | null;
+  totalTime?: string | null;
+  prepTime?: string | null;
+  cookTime?: string | null;
+  performTime?: string | null;
+  description?: string | null;
+  recipeCategory?: RecipeCategory[] | null;
+  tags?: RecipeTag[] | null;
   tools?: RecipeTool[];
-  rating?: number;
-  orgURL?: string;
-  dateAdded?: string;
-  dateUpdated?: string;
-  createdAt?: string;
-  updateAt?: string;
-  lastMade?: string;
+  rating?: number | null;
+  orgURL?: string | null;
+  dateAdded?: string | null;
+  dateUpdated?: string | null;
+  createdAt?: string | null;
+  updateAt?: string | null;
+  lastMade?: string | null;
 }
 export interface RecipeCategory {
-  id?: string;
+  id?: string | null;
   name: string;
   slug: string;
+  [k: string]: unknown;
 }
 export interface RecipeTag {
-  id?: string;
+  id?: string | null;
   name: string;
   slug: string;
+  [k: string]: unknown;
 }
 export interface RecipeTool {
   id: string;
@@ -154,11 +157,11 @@ export interface RecipeTool {
 export interface CustomPageImport {
   name: string;
   status: boolean;
-  exception?: string;
+  exception?: string | null;
 }
 export interface CustomPageOut {
   name: string;
-  slug?: string;
+  slug: string | null;
   position: number;
   categories?: RecipeCategoryResponse[];
   id: number;
@@ -168,7 +171,7 @@ export interface EmailReady {
 }
 export interface EmailSuccess {
   success: boolean;
-  error?: string;
+  error?: string | null;
 }
 export interface EmailTest {
   email: string;
@@ -176,12 +179,12 @@ export interface EmailTest {
 export interface GroupImport {
   name: string;
   status: boolean;
-  exception?: string;
+  exception?: string | null;
 }
 export interface ImportBase {
   name: string;
   status: boolean;
-  exception?: string;
+  exception?: string | null;
 }
 export interface ImportJob {
   recipes?: boolean;
@@ -216,8 +219,8 @@ export interface MigrationFile {
 export interface MigrationImport {
   name: string;
   status: boolean;
-  exception?: string;
-  slug?: string;
+  exception?: string | null;
+  slug?: string | null;
 }
 export interface Migrations {
   type: string;
@@ -226,25 +229,26 @@ export interface Migrations {
 export interface NotificationImport {
   name: string;
   status: boolean;
-  exception?: string;
+  exception?: string | null;
 }
 export interface OIDCInfo {
-  configurationUrl?: string;
-  clientId?: string;
+  configurationUrl: string | null;
+  clientId: string | null;
+  groupsClaim: string | null;
 }
 export interface RecipeImport {
   name: string;
   status: boolean;
-  exception?: string;
-  slug?: string;
+  exception?: string | null;
+  slug?: string | null;
 }
 export interface SettingsImport {
   name: string;
   status: boolean;
-  exception?: string;
+  exception?: string | null;
 }
 export interface UserImport {
   name: string;
   status: boolean;
-  exception?: string;
+  exception?: string | null;
 }

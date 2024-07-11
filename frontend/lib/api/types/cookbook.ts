@@ -8,7 +8,7 @@
 export interface CreateCookBook {
   name: string;
   description?: string;
-  slug?: string;
+  slug?: string | null;
   position?: number;
   public?: boolean;
   categories?: CategoryBase[];
@@ -37,7 +37,7 @@ export interface RecipeTool {
 export interface ReadCookBook {
   name: string;
   description?: string;
-  slug?: string;
+  slug?: string | null;
   position?: number;
   public?: boolean;
   categories?: CategoryBase[];
@@ -52,7 +52,7 @@ export interface ReadCookBook {
 export interface RecipeCookBook {
   name: string;
   description?: string;
-  slug?: string;
+  slug?: string | null;
   position?: number;
   public?: boolean;
   categories?: CategoryBase[];
@@ -66,43 +66,45 @@ export interface RecipeCookBook {
   recipes: RecipeSummary[];
 }
 export interface RecipeSummary {
-  id?: string;
+  id?: string | null;
   userId?: string;
   groupId?: string;
-  name?: string;
+  name?: string | null;
   slug?: string;
   image?: unknown;
-  recipeYield?: string;
-  totalTime?: string;
-  prepTime?: string;
-  cookTime?: string;
-  performTime?: string;
-  description?: string;
-  recipeCategory?: RecipeCategory[];
-  tags?: RecipeTag[];
+  recipeYield?: string | null;
+  totalTime?: string | null;
+  prepTime?: string | null;
+  cookTime?: string | null;
+  performTime?: string | null;
+  description?: string | null;
+  recipeCategory?: RecipeCategory[] | null;
+  tags?: RecipeTag[] | null;
   tools?: RecipeTool[];
-  rating?: number;
-  orgURL?: string;
-  dateAdded?: string;
-  dateUpdated?: string;
-  createdAt?: string;
-  updateAt?: string;
-  lastMade?: string;
+  rating?: number | null;
+  orgURL?: string | null;
+  dateAdded?: string | null;
+  dateUpdated?: string | null;
+  createdAt?: string | null;
+  updateAt?: string | null;
+  lastMade?: string | null;
 }
 export interface RecipeCategory {
-  id?: string;
+  id?: string | null;
   name: string;
   slug: string;
+  [k: string]: unknown;
 }
 export interface RecipeTag {
-  id?: string;
+  id?: string | null;
   name: string;
   slug: string;
+  [k: string]: unknown;
 }
 export interface SaveCookBook {
   name: string;
   description?: string;
-  slug?: string;
+  slug?: string | null;
   position?: number;
   public?: boolean;
   categories?: CategoryBase[];
@@ -116,7 +118,7 @@ export interface SaveCookBook {
 export interface UpdateCookBook {
   name: string;
   description?: string;
-  slug?: string;
+  slug?: string | null;
   position?: number;
   public?: boolean;
   categories?: CategoryBase[];
