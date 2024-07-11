@@ -69,6 +69,7 @@ class GroupEventNotifierCreate(MealieModel):
 class GroupEventNotifierSave(GroupEventNotifierCreate):
     enabled: bool = True
     group_id: UUID4
+    household_id: UUID4
     options: GroupEventNotifierOptions = GroupEventNotifierOptions()
 
 
@@ -82,6 +83,7 @@ class GroupEventNotifierOut(MealieModel):
     name: str
     enabled: bool
     group_id: UUID4
+    household_id: UUID4
     options: GroupEventNotifierOptionsOut
     model_config = ConfigDict(from_attributes=True)
 

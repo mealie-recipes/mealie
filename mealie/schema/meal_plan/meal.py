@@ -26,6 +26,7 @@ class MealDayOut(MealDayIn):
 
 class MealPlanIn(MealieModel):
     group: str
+    household: str
     start_date: datetime.date
     end_date: datetime.date
     plan_days: list[MealDayIn]

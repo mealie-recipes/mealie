@@ -1,6 +1,5 @@
 import datetime
 import enum
-from uuid import UUID
 
 from isodate import parse_time
 from pydantic import UUID4, ConfigDict, field_validator
@@ -50,7 +49,8 @@ class CreateWebhook(MealieModel):
 
 
 class SaveWebhook(CreateWebhook):
-    group_id: UUID
+    group_id: UUID4
+    household_id: UUID4
 
 
 class ReadWebhook(SaveWebhook):

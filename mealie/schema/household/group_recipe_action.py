@@ -21,6 +21,7 @@ class CreateGroupRecipeAction(MealieModel):
 
 class SaveGroupRecipeAction(CreateGroupRecipeAction):
     group_id: UUID4
+    household_id: UUID4
 
 
 class GroupRecipeActionOut(SaveGroupRecipeAction):

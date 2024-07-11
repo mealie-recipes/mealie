@@ -57,6 +57,7 @@ class PlanRulesCreate(MealieModel):
 
 class PlanRulesSave(PlanRulesCreate):
     group_id: UUID4
+    household_id: UUID4
 
 
 class PlanRulesOut(PlanRulesSave):

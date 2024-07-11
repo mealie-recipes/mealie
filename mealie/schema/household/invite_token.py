@@ -12,6 +12,7 @@ class CreateInviteToken(MealieModel):
 class SaveInviteToken(MealieModel):
     uses_left: int
     group_id: UUID
+    household_id: UUID
     token: str
 
 
@@ -19,6 +20,7 @@ class ReadInviteToken(MealieModel):
     token: str
     uses_left: int
     group_id: UUID
+    household_id: UUID
     model_config = ConfigDict(from_attributes=True)
 
 

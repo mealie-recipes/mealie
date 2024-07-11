@@ -46,11 +46,13 @@ class CreatePlanEntry(MealieModel):
 class UpdatePlanEntry(CreatePlanEntry):
     id: int
     group_id: UUID
+    household_id: UUID
     user_id: UUID | None = None
 
 
 class SavePlanEntry(CreatePlanEntry):
     group_id: UUID
+    household_id: UUID
     user_id: UUID | None = None
     model_config = ConfigDict(from_attributes=True)
 

@@ -97,6 +97,7 @@ class AppSettings(BaseSettings):
         return self.DB_PROVIDER.db_url_public if self.DB_PROVIDER else None
 
     DEFAULT_GROUP: str = "Home"
+    DEFAULT_HOUSEHOLD: str = "Family"
 
     _DEFAULT_EMAIL: str = "changeme@example.com"
     """

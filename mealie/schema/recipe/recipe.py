@@ -83,6 +83,7 @@ class RecipeSummary(MealieModel):
     _normalize_search: ClassVar[bool] = True
 
     user_id: UUID4 = Field(default_factory=uuid4, validate_default=True)
+    household_id: UUID4 = Field(default_factory=uuid4, validate_default=True)
     group_id: UUID4 = Field(default_factory=uuid4, validate_default=True)
 
     name: str | None = None
@@ -229,6 +230,12 @@ class Recipe(RecipeSummary):
         if isinstance(group_id, int):
             return uuid4()
         return group_id
+
+    @field_validator("household_id", mode="before")
+    def validate_household_id(household_id: Any):
+        if isinstance(household_id, int):
+            return uuid4()
+        return household_id
 
     @field_validator("user_id", mode="before")
     def validate_user_id(user_id: Any):

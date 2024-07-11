@@ -9,6 +9,7 @@ from mealie.schema._mealie.validators import validate_locale
 
 class CreateUserRegistration(MealieModel):
     group: str | None = None
+    household: str | None = None
     group_token: Annotated[str | None, Field(validate_default=True)] = None
     email: Annotated[str, StringConstraints(to_lower=True, strip_whitespace=True)]
     username: Annotated[str, StringConstraints(to_lower=True, strip_whitespace=True)]
@@ -36,8 +37,8 @@ class CreateUserRegistration(MealieModel):
 
     @field_validator("group_token")
     @classmethod
-    def group_or_token(cls, value, info: ValidationInfo):
-        if not bool(value) and not bool(info.data["group"]):
-            raise ValueError("group or group_token must be provided")
+    def group_and_household_or_token(cls, value, info: ValidationInfo):
+        if not bool(value) and not (bool(info.data["group"]) and bool(info.data["household"])):
+            raise ValueError("group and household, or group_token, must be provided")
 
         return value
