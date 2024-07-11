@@ -1,7 +1,7 @@
 from pydantic import UUID4
 
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.group.group_shopping_list import ShoppingListMultiPurposeLabelCreate
+from mealie.schema.household.group_shopping_list import ShoppingListMultiPurposeLabelCreate
 from mealie.schema.labels.multi_purpose_label import (
     MultiPurposeLabelCreate,
     MultiPurposeLabelOut,

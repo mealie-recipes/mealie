@@ -1,4 +1,4 @@
-from mealie.schema.group.group_shopping_list import ShoppingListItemOut
+from mealie.schema.household.group_shopping_list import ShoppingListItemOut
 
 
 def test_shopping_list_ingredient_validation():

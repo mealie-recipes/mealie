@@ -8,7 +8,7 @@ from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.schema import mapper
-from mealie.schema.group.webhook import CreateWebhook, ReadWebhook, SaveWebhook, WebhookPagination
+from mealie.schema.household.webhook import CreateWebhook, ReadWebhook, SaveWebhook, WebhookPagination
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.scheduler.tasks.post_webhooks import post_group_webhooks, post_single_webhook
 

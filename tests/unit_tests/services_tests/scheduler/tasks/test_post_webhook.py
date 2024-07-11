@@ -3,7 +3,7 @@ from datetime import datetime, timedelta, timezone
 from pydantic import UUID4
 
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.group.webhook import SaveWebhook, WebhookType
+from mealie.schema.household.webhook import SaveWebhook, WebhookType
 from mealie.services.event_bus_service.event_bus_listeners import WebhookEventListener
 from tests.utils import random_string
 from tests.utils.factories import random_bool

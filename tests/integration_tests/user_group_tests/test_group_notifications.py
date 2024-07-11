@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 
-from mealie.schema.group.group_events import GroupEventNotifierCreate, GroupEventNotifierOptions
+from mealie.schema.household.group_events import GroupEventNotifierCreate, GroupEventNotifierOptions
 from mealie.services.event_bus_service.event_bus_listeners import AppriseEventListener
 from mealie.services.event_bus_service.event_bus_service import Event
 from mealie.services.event_bus_service.event_types import (

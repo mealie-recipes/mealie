@@ -7,7 +7,7 @@ from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import MealieCrudRoute
-from mealie.schema.group.group_events import (
+from mealie.schema.household.group_events import (
     GroupEventNotifierCreate,
     GroupEventNotifierOut,
     GroupEventNotifierPrivate,

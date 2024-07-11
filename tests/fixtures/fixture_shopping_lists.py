@@ -3,7 +3,7 @@ import sqlalchemy
 from pydantic import UUID4
 
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.group.group_shopping_list import ShoppingListItemCreate, ShoppingListOut, ShoppingListSave
+from mealie.schema.household.group_shopping_list import ShoppingListItemCreate, ShoppingListOut, ShoppingListSave
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 

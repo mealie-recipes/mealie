@@ -14,8 +14,8 @@ from sqlalchemy.orm.session import Session
 from mealie.db.db_setup import session_context
 from mealie.db.models.household.webhooks import GroupWebhooksModel
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.group.group_events import GroupEventNotifierPrivate
-from mealie.schema.group.webhook import ReadWebhook
+from mealie.schema.household.group_events import GroupEventNotifierPrivate
+from mealie.schema.household.webhook import ReadWebhook
 from mealie.schema.response.pagination import PaginationQuery
 
 from .event_types import Event, EventDocumentType, EventTypes, EventWebhookData

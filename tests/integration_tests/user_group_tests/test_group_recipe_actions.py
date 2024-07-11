@@ -1,7 +1,7 @@
 import pytest
 from fastapi.testclient import TestClient
 
-from mealie.schema.group.group_recipe_action import (
+from mealie.schema.household.group_recipe_action import (
     CreateGroupRecipeAction,
     GroupRecipeActionOut,
     GroupRecipeActionType,

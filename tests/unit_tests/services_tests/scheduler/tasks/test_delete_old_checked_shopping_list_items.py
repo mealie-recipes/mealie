@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.group.group_shopping_list import ShoppingListItemCreate, ShoppingListItemOut, ShoppingListSave
+from mealie.schema.household.group_shopping_list import ShoppingListItemCreate, ShoppingListItemOut, ShoppingListSave
 from mealie.services.scheduler.tasks.delete_old_checked_shopping_list_items import (
     MAX_CHECKED_ITEMS,
     delete_old_checked_list_items,

@@ -4,7 +4,7 @@ from pydantic import UUID4
 
 from mealie.db.db_setup import session_context
 from mealie.repos.all_repositories import get_repositories
-from mealie.schema.group.webhook import ReadWebhook
+from mealie.schema.household.webhook import ReadWebhook
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.event_bus_service.event_bus_listeners import WebhookEventListener
 from mealie.services.event_bus_service.event_bus_service import EventBusService

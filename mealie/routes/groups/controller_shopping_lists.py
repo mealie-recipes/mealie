@@ -7,7 +7,7 @@ from pydantic import UUID4
 from mealie.routes._base.base_controllers import BaseCrudController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
-from mealie.schema.group.group_shopping_list import (
+from mealie.schema.household.group_shopping_list import (
     ShoppingListAddRecipeParams,
     ShoppingListCreate,
     ShoppingListItemCreate,

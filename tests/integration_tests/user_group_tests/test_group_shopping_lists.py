@@ -3,7 +3,7 @@ import random
 from fastapi.testclient import TestClient
 
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.group.group_shopping_list import (
+from mealie.schema.household.group_shopping_list import (
     ShoppingListItemOut,
     ShoppingListItemUpdate,
     ShoppingListItemUpdateBulk,

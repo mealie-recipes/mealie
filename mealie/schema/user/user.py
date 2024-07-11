@@ -12,7 +12,7 @@ from mealie.db.models.users import User
 from mealie.db.models.users.users import AuthMethod
 from mealie.schema._mealie import MealieModel
 from mealie.schema.group.group_preferences import ReadGroupPreferences
-from mealie.schema.group.webhook import CreateWebhook, ReadWebhook
+from mealie.schema.household.webhook import CreateWebhook, ReadWebhook
 from mealie.schema.response.pagination import PaginationBase
 
 from ...db.models.group import Group

@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, status
 
 from mealie.core.security import url_safe_token
 from mealie.routes._base import BaseUserController, controller
-from mealie.schema.group.invite_token import (
+from mealie.schema.household.invite_token import (
     CreateInviteToken,
     EmailInitationResponse,
     EmailInvitation,

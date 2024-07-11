@@ -36,19 +36,19 @@ from mealie.repos.repository_foods import RepositoryFood
 from mealie.repos.repository_meal_plan_rules import RepositoryMealPlanRules
 from mealie.repos.repository_units import RepositoryUnit
 from mealie.schema.cookbook.cookbook import ReadCookBook
-from mealie.schema.group.group_events import GroupEventNotifierOut
 from mealie.schema.group.group_exports import GroupDataExport
 from mealie.schema.group.group_preferences import ReadGroupPreferences
-from mealie.schema.group.group_recipe_action import GroupRecipeActionOut
-from mealie.schema.group.group_shopping_list import (
+from mealie.schema.household.group_events import GroupEventNotifierOut
+from mealie.schema.household.group_recipe_action import GroupRecipeActionOut
+from mealie.schema.household.group_shopping_list import (
     ShoppingListItemOut,
     ShoppingListItemRecipeRefOut,
     ShoppingListMultiPurposeLabelOut,
     ShoppingListOut,
     ShoppingListRecipeRefOut,
 )
-from mealie.schema.group.invite_token import ReadInviteToken
-from mealie.schema.group.webhook import ReadWebhook
+from mealie.schema.household.invite_token import ReadInviteToken
+from mealie.schema.household.webhook import ReadWebhook
 from mealie.schema.labels import MultiPurposeLabelOut
 from mealie.schema.meal_plan.new_meal import ReadPlanEntry
 from mealie.schema.meal_plan.plan_rules import PlanRulesOut
