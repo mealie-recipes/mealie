@@ -12,6 +12,7 @@ from ..recipe.tool import Tool, cookbooks_to_tools
 
 if TYPE_CHECKING:
     from ..group import Group
+    from .household import Household
 
 
 class CookBook(SqlAlchemyBase, BaseMixins):
@@ -21,6 +22,8 @@ class CookBook(SqlAlchemyBase, BaseMixins):
 
     group_id: Mapped[guid.GUID | None] = mapped_column(guid.GUID, ForeignKey("groups.id"), index=True)
     group: Mapped[Optional["Group"]] = orm.relationship("Group", back_populates="cookbooks")
+    household_id: Mapped[guid.GUID | None] = mapped_column(guid.GUID, ForeignKey("households.id"), index=True)
+    household: Mapped[Optional["Household"]] = orm.relationship("Household", back_populates="cookbooks")
 
     name: Mapped[str] = mapped_column(String, nullable=False)
     slug: Mapped[str] = mapped_column(String, nullable=False, index=True)

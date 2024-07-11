@@ -31,7 +31,8 @@ from .tag import recipes_to_tags
 from .tool import recipes_to_tools
 
 if TYPE_CHECKING:
-    from ..group import Group, GroupMealPlan, ShoppingListItemRecipeReference, ShoppingListRecipeReference
+    from ..group import Group, GroupMealPlan
+    from ..household import ShoppingListItemRecipeReference, ShoppingListRecipeReference
     from ..users import User
     from . import Category, Tag, Tool
 

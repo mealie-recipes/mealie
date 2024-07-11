@@ -9,6 +9,7 @@ from .._model_utils.guid import GUID
 
 if TYPE_CHECKING:
     from ..group import Group
+    from .household import Household
 
 
 class GroupEventNotifierOptionsModel(SqlAlchemyBase, BaseMixins):
@@ -62,6 +63,10 @@ class GroupEventNotifierModel(SqlAlchemyBase, BaseMixins):
         "Group", back_populates="group_event_notifiers", single_parent=True
     )
     group_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("groups.id"), index=True)
+    household: Mapped[Optional["Household"]] = orm.relationship(
+        "Group", back_populates="group_event_notifiers", single_parent=True
+    )
+    household_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("households.id"), index=True)
 
     options: Mapped[GroupEventNotifierOptionsModel] = orm.relationship(
         GroupEventNotifierOptionsModel, uselist=False, cascade="all, delete-orphan"

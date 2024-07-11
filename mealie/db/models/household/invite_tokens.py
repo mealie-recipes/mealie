@@ -9,6 +9,7 @@ from .._model_utils.auto_init import auto_init
 
 if TYPE_CHECKING:
     from ..group import Group
+    from .household import Household
 
 
 class GroupInviteToken(SqlAlchemyBase, BaseMixins):
@@ -18,6 +19,8 @@ class GroupInviteToken(SqlAlchemyBase, BaseMixins):
 
     group_id: Mapped[guid.GUID | None] = mapped_column(guid.GUID, ForeignKey("groups.id"), index=True)
     group: Mapped[Optional["Group"]] = orm.relationship("Group", back_populates="invite_tokens")
+    household_id: Mapped[guid.GUID | None] = mapped_column(guid.GUID, ForeignKey("households.id"), index=True)
+    household: Mapped[Optional["Household"]] = orm.relationship("Household", back_populates="invite_tokens")
 
     @auto_init()
     def __init__(self, **_):
