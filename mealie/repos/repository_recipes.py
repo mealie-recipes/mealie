@@ -309,12 +309,11 @@ class RepositoryRecipes(GroupRepositoryGeneric[Recipe, RecipeModel]):
         require_all_tools: bool = True,
         require_all_foods: bool = True,
     ) -> list:
+        fltr: list[sa.ColumnElement] = []
         if self.group_id:
-            fltr = [
-                RecipeModel.group_id == self.group_id,
-            ]
-        else:
-            fltr = []
+            fltr.append(RecipeModel.group_id == self.group_id)
+        if self.household_id:
+            fltr.append(RecipeModel.household_id == self.household_id)
 
         if categories:
             if require_all_categories:

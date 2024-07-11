@@ -115,6 +115,8 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
         if self.group_id:
             dct["group_id"] = self.group_id
+        if self.household_id:
+            dct["household_id"] = self.household_id
 
         return {**dct, **kwargs}
 
