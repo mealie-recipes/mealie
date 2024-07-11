@@ -1,6 +1,6 @@
 from pydantic import UUID4
 
-from mealie.db.models.group.shopping_list import ShoppingList
+from mealie.db.models.household.shopping_list import ShoppingList
 from mealie.schema.group.group_shopping_list import ShoppingListOut, ShoppingListUpdate
 
 from .repository_generic import RepositoryGeneric

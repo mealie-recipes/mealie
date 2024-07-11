@@ -13,7 +13,7 @@ from sqlalchemy import orm
 
 import mealie.db.migration_types
 from alembic import op
-from mealie.db.models.group.shopping_list import ShoppingList
+from mealie.db.models.household.shopping_list import ShoppingList
 from mealie.db.models.labels import MultiPurposeLabel
 
 # revision identifiers, used by Alembic.

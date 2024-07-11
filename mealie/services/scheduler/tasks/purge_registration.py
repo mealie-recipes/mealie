@@ -4,7 +4,7 @@ from sqlalchemy import delete
 
 from mealie.core import root_logger
 from mealie.db.db_setup import session_context
-from mealie.db.models.group import GroupInviteToken
+from mealie.db.models.household import GroupInviteToken
 
 logger = root_logger.get_logger()
 

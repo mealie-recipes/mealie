@@ -8,7 +8,7 @@ from .._model_utils import guid
 from .._model_utils.auto_init import auto_init
 
 if TYPE_CHECKING:
-    from .group import Group
+    from ..group import Group
 
 
 class GroupInviteToken(SqlAlchemyBase, BaseMixins):

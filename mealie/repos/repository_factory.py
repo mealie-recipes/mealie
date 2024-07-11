@@ -4,22 +4,22 @@ from functools import cached_property
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from mealie.db.models.group import Group, GroupMealPlan, ReportEntryModel, ReportModel
-from mealie.db.models.group.cookbook import CookBook
-from mealie.db.models.group.events import GroupEventNotifierModel
+from mealie.db.models.group import Group, ReportEntryModel, ReportModel
 from mealie.db.models.group.exports import GroupDataExportsModel
-from mealie.db.models.group.invite_tokens import GroupInviteToken
-from mealie.db.models.group.mealplan import GroupMealPlanRules
 from mealie.db.models.group.preferences import GroupPreferencesModel
-from mealie.db.models.group.recipe_action import GroupRecipeAction
-from mealie.db.models.group.shopping_list import (
+from mealie.db.models.household.cookbook import CookBook
+from mealie.db.models.household.events import GroupEventNotifierModel
+from mealie.db.models.household.invite_tokens import GroupInviteToken
+from mealie.db.models.household.mealplan import GroupMealPlan, GroupMealPlanRules
+from mealie.db.models.household.recipe_action import GroupRecipeAction
+from mealie.db.models.household.shopping_list import (
     ShoppingList,
     ShoppingListItem,
     ShoppingListItemRecipeReference,
     ShoppingListMultiPurposeLabel,
     ShoppingListRecipeReference,
 )
-from mealie.db.models.group.webhooks import GroupWebhooksModel
+from mealie.db.models.household.webhooks import GroupWebhooksModel
 from mealie.db.models.labels import MultiPurposeLabel
 from mealie.db.models.recipe.category import Category
 from mealie.db.models.recipe.comment import RecipeComment

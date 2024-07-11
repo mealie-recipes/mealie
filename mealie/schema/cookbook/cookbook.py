@@ -10,7 +10,7 @@ from mealie.schema._mealie import MealieModel
 from mealie.schema.recipe.recipe import RecipeSummary, RecipeTool
 from mealie.schema.response.pagination import PaginationBase
 
-from ...db.models.group import CookBook
+from ...db.models.household import CookBook
 from ..recipe.recipe_category import CategoryBase, TagBase
 
 

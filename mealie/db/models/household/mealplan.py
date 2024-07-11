@@ -1,4 +1,4 @@
-from datetime import date
+import datetime
 from typing import TYPE_CHECKING, Optional
 
 from sqlalchemy import Date, ForeignKey, String, orm
@@ -12,9 +12,9 @@ from .._model_utils.guid import GUID
 from ..recipe.category import Category, plan_rules_to_categories
 
 if TYPE_CHECKING:
+    from ..group import Group
     from ..recipe import RecipeModel
     from ..users import User
-    from .group import Group
 
 
 class GroupMealPlanRules(BaseMixins, SqlAlchemyBase):
@@ -41,7 +41,7 @@ class GroupMealPlanRules(BaseMixins, SqlAlchemyBase):
 class GroupMealPlan(SqlAlchemyBase, BaseMixins):
     __tablename__ = "group_meal_plans"
 
-    date: Mapped[date] = mapped_column(Date, index=True, nullable=False)
+    date: Mapped[datetime.date] = mapped_column(Date, index=True, nullable=False)
     entry_type: Mapped[str] = mapped_column(String, index=True, nullable=False)
     title: Mapped[str] = mapped_column(String, index=True, nullable=False)
     text: Mapped[str] = mapped_column(String, nullable=False)

@@ -7,7 +7,7 @@ from pydantic import UUID4, ConfigDict, field_validator, model_validator
 from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
-from mealie.db.models.group import (
+from mealie.db.models.household import (
     ShoppingList,
     ShoppingListItem,
     ShoppingListMultiPurposeLabel,

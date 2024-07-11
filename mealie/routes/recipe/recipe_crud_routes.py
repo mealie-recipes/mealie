@@ -30,7 +30,7 @@ from mealie.core.dependencies import (
     validate_recipe_token,
 )
 from mealie.core.security import create_recipe_slug_token
-from mealie.db.models.group.cookbook import CookBook
+from mealie.db.models.household.cookbook import CookBook
 from mealie.pkgs import cache
 from mealie.repos.repository_generic import RepositoryGeneric
 from mealie.repos.repository_recipes import RepositoryRecipes

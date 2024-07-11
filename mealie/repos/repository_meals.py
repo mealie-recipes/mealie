@@ -3,7 +3,7 @@ from uuid import UUID
 
 from sqlalchemy import select
 
-from mealie.db.models.group import GroupMealPlan
+from mealie.db.models.household import GroupMealPlan
 from mealie.schema.meal_plan.new_meal import ReadPlanEntry
 
 from .repository_generic import RepositoryGeneric

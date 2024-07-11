@@ -16,7 +16,7 @@ from sqlalchemy.orm import Session, load_only
 
 from alembic import op
 from mealie.db.models._model_base import SqlAlchemyBase
-from mealie.db.models.group.shopping_list import ShoppingListItem
+from mealie.db.models.household.shopping_list import ShoppingListItem
 from mealie.db.models.labels import MultiPurposeLabel
 from mealie.db.models.recipe.ingredient import IngredientFoodModel, IngredientUnitModel, RecipeIngredientModel
 

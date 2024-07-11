@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 from mealie.core import root_logger
 from mealie.db.models.group.group import Group
-from mealie.db.models.group.shopping_list import ShoppingList, ShoppingListMultiPurposeLabel
+from mealie.db.models.household.shopping_list import ShoppingList, ShoppingListMultiPurposeLabel
 from mealie.db.models.labels import MultiPurposeLabel
 from mealie.db.models.recipe.ingredient import IngredientFoodModel, IngredientUnitModel
 from mealie.db.models.recipe.recipe import RecipeModel

@@ -11,7 +11,7 @@ from ..recipe.tag import Tag, cookbooks_to_tags
 from ..recipe.tool import Tool, cookbooks_to_tools
 
 if TYPE_CHECKING:
-    from .group import Group
+    from ..group import Group
 
 
 class CookBook(SqlAlchemyBase, BaseMixins):

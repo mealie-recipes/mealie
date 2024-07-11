@@ -13,15 +13,18 @@ from mealie.db.models.labels import MultiPurposeLabel
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils.auto_init import auto_init
 from .._model_utils.guid import GUID
-from ..group.invite_tokens import GroupInviteToken
-from ..group.webhooks import GroupWebhooksModel
+from ..household.cookbook import CookBook
+from ..household.invite_tokens import GroupInviteToken
+from ..household.mealplan import GroupMealPlan
+from ..household.webhooks import GroupWebhooksModel
 from ..recipe.category import Category, group_to_categories
 from ..server.task import ServerTaskModel
-from .cookbook import CookBook
-from .mealplan import GroupMealPlan
 from .preferences import GroupPreferencesModel
 
 if TYPE_CHECKING:
+    from ..household.events import GroupEventNotifierModel
+    from ..household.recipe_action import GroupRecipeAction
+    from ..household.shopping_list import ShoppingList
     from ..recipe import (
         IngredientFoodModel,
         IngredientUnitModel,
@@ -30,11 +33,8 @@ if TYPE_CHECKING:
         Tool,
     )
     from ..users import User
-    from .events import GroupEventNotifierModel
     from .exports import GroupDataExportsModel
-    from .recipe_action import GroupRecipeAction
     from .report import ReportModel
-    from .shopping_list import ShoppingList
 
 
 class Group(SqlAlchemyBase, BaseMixins):

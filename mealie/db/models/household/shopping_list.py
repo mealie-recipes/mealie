@@ -16,9 +16,9 @@ from .._model_utils.guid import GUID
 from ..recipe.ingredient import IngredientFoodModel, IngredientUnitModel
 
 if TYPE_CHECKING:
+    from ..group import Group
     from ..recipe import RecipeModel
     from ..users import User
-    from .group import Group
 
 
 class ShoppingListItemRecipeReference(BaseMixins, SqlAlchemyBase):

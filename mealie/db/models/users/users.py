@@ -16,8 +16,8 @@ from .user_to_recipe import UserToRecipe
 
 if TYPE_CHECKING:
     from ..group import Group
-    from ..group.mealplan import GroupMealPlan
-    from ..group.shopping_list import ShoppingList
+    from ..household.mealplan import GroupMealPlan
+    from ..household.shopping_list import ShoppingList
     from ..recipe import RecipeComment, RecipeModel, RecipeTimelineEvent
     from .password_reset import PasswordResetModel
 
