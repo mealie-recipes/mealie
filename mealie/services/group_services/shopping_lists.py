@@ -4,10 +4,10 @@ from pydantic import UUID4
 
 from mealie.core.exceptions import UnexpectedNone
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.group import ShoppingListItemCreate, ShoppingListOut
 from mealie.schema.household.group_shopping_list import (
     ShoppingListCreate,
     ShoppingListItemBase,
+    ShoppingListItemCreate,
     ShoppingListItemOut,
     ShoppingListItemRecipeRefCreate,
     ShoppingListItemRecipeRefOut,
@@ -15,6 +15,7 @@ from mealie.schema.household.group_shopping_list import (
     ShoppingListItemUpdate,
     ShoppingListItemUpdateBulk,
     ShoppingListMultiPurposeLabelCreate,
+    ShoppingListOut,
     ShoppingListSave,
 )
 from mealie.schema.recipe.recipe_ingredient import (
