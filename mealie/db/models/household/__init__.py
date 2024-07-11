@@ -3,7 +3,7 @@ from .events import GroupEventNotifierModel, GroupEventNotifierOptionsModel
 from .household import Household
 from .invite_tokens import GroupInviteToken
 from .mealplan import GroupMealPlan, GroupMealPlanRules
-from .preferences import *  # TODO
+from .preferences import HouseholdPreferencesModel
 from .recipe_action import GroupRecipeAction
 from .shopping_list import (
     ShoppingList,
@@ -23,6 +23,7 @@ __all__ = [
     "GroupMealPlan",
     "GroupMealPlanRules",
     "Household",
+    "HouseholdPreferencesModel",
     "GroupRecipeAction",
     "ShoppingList",
     "ShoppingListExtras",

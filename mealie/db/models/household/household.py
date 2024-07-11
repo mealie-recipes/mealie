@@ -20,6 +20,7 @@ if TYPE_CHECKING:
         GroupMealPlan,
         GroupRecipeAction,
         GroupWebhooksModel,
+        HouseholdPreferencesModel,
         ShoppingList,
     )
 
@@ -33,7 +34,13 @@ class Household(SqlAlchemyBase, BaseMixins):
     invite_tokens: Mapped[list["GroupInviteToken"]] = orm.relationship(
         "GroupInviteToken", back_populates="household", cascade="all, delete-orphan"
     )
-    preferences = None  # TODO
+    preferences: Mapped["HouseholdPreferencesModel"] = orm.relationship(
+        "HouseholdPreferencesModel",
+        back_populates="group",
+        uselist=False,
+        single_parent=True,
+        cascade="all, delete-orphan",
+    )
 
     group_id: Mapped[GUID] = mapped_column(GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)
     group: Mapped["Group"] = orm.relationship("Group", back_populates="households")
