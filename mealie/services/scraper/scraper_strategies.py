@@ -44,7 +44,9 @@ async def safe_scrape_html(url: str) -> str:
     """
     async with AsyncClient(transport=safehttp.AsyncSafeTransport()) as client:
         html_bytes = b""
-        async with client.stream("GET", url, timeout=SCRAPER_TIMEOUT, headers={"User-Agent": _FIREFOX_UA}) as resp:
+        async with client.stream(
+            "GET", url, timeout=SCRAPER_TIMEOUT, headers={"User-Agent": _FIREFOX_UA}, follow_redirects=True
+        ) as resp:
             start_time = time.time()
 
             async for chunk in resp.aiter_bytes(chunk_size=1024):
