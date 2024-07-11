@@ -36,7 +36,7 @@ class Household(SqlAlchemyBase, BaseMixins):
     )
     preferences: Mapped["HouseholdPreferencesModel"] = orm.relationship(
         "HouseholdPreferencesModel",
-        back_populates="group",
+        back_populates="household",
         uselist=False,
         single_parent=True,
         cascade="all, delete-orphan",
