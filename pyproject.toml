@@ -59,7 +59,6 @@ coveragepy-lcov = "^0.1.1"
 mkdocs-material = "^9.0.0"
 mypy = "^1.5.1"
 pre-commit = "^3.3.3"
-pydantic-to-typescript = "^1.0.7"
 pylint = "^3.0.0"
 pytest = "^8.0.0"
 pytest-asyncio = "^0.23.0"
@@ -70,6 +69,7 @@ types-python-dateutil = "^2.8.18"
 types-python-slugify = "^6.0.0"
 types-requests = "^2.27.12"
 types-urllib3 = "^1.26.11"
+pydantic-to-typescript2 = "^1.0.4"
 
 
 [build-system]
