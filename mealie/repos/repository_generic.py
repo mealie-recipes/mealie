@@ -19,6 +19,8 @@ from mealie.schema.response.pagination import OrderByNullPosition, OrderDirectio
 from mealie.schema.response.query_filter import QueryFilter
 from mealie.schema.response.query_search import SearchFilter
 
+from ._utils import NOT_SET, NotSet
+
 Schema = TypeVar("Schema", bound=MealieModel)
 Model = TypeVar("Model", bound=SqlAlchemyBase)
 
@@ -33,11 +35,25 @@ class RepositoryGeneric(Generic[Schema, Model]):
         Generic ([Model]): Represents the SqlAlchemyModel Model
     """
 
-    user_id: UUID4 | None = None
     group_id: UUID4 | None = None
+    household_id: UUID4 | None = None
+    user_id: UUID4 | None = None
     session: Session
 
-    def __init__(self, session: Session, primary_key: str, sql_model: type[Model], schema: type[Schema]) -> None:
+    _REQUIRE_SET_GROUP_ID = False
+    _REQUIRE_SET_HOUSEHOLD_ID = False
+    _REQUIRE_SET_USER_ID = False
+
+    def __init__(
+        self,
+        session: Session,
+        primary_key: str,
+        sql_model: type[Model],
+        schema: type[Schema],
+        group_id: UUID4 | None | NotSet = NOT_SET,
+        household_id: UUID4 | None | NotSet = NOT_SET,
+        user_id: UUID4 | None | NotSet = NOT_SET,
+    ) -> None:
         self.session = session
         self.primary_key = primary_key
         self.model = sql_model
@@ -45,12 +61,41 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
         self.logger = get_logger()
 
-    def by_user(self: T, user_id: UUID4) -> T:
-        self.user_id = user_id
-        return self
+        self._validate_group_id(group_id)
+        self._validate_household_id(household_id)
+        self._validate_user_id(user_id)
+
+    def _validate_group_id(self, group_id: UUID4 | None | NotSet) -> None:
+        if self._REQUIRE_SET_GROUP_ID and group_id is NOT_SET:
+            raise ValueError("group_id must be set")
+
+        if group_id and group_id is not NOT_SET:
+            self.by_group(group_id)
+
+    def _validate_household_id(self, household_id: UUID4 | None | NotSet) -> None:
+        if self._REQUIRE_SET_HOUSEHOLD_ID and household_id is NOT_SET:
+            raise ValueError("household_id must be set")
+
+        if household_id and household_id is not NOT_SET:
+            self.by_household(household_id)
+
+    def _validate_user_id(self, user_id: UUID4 | None | NotSet) -> None:
+        if self._REQUIRE_SET_USER_ID and user_id is NOT_SET:
+            raise ValueError("user_id must be set")
+
+        if user_id and user_id is not NOT_SET:
+            self.by_user(user_id)
 
     def by_group(self: T, group_id: UUID4) -> T:
         self.group_id = group_id
+        return self
+
+    def by_household(self: T, household_id: UUID4) -> T:
+        self.household_id = household_id
+        return self
+
+    def by_user(self: T, user_id: UUID4) -> T:
+        self.user_id = user_id
         return self
 
     def _log_exception(self, e: Exception) -> None:
@@ -435,3 +480,18 @@ class RepositoryGeneric(Generic[Schema, Model]):
     def add_search_to_query(self, query: Select, schema: type[Schema], search: str) -> Select:
         search_filter = SearchFilter(self.session, search, schema._normalize_search)
         return search_filter.filter_query_by_search(query, schema, self.model)
+
+
+class GroupRepositoryGeneric(RepositoryGeneric[Schema, Model]):
+    _REQUIRE_SET_GROUP_ID = True
+
+
+class HouseholdRepositoryGeneric(RepositoryGeneric[Schema, Model]):
+    _REQUIRE_SET_GROUP_ID = True
+    _REQUIRE_SET_HOUSEHOLD_ID = True
+
+
+class UserRepositoryGeneric(RepositoryGeneric[Schema, Model]):
+    _REQUIRE_SET_GROUP_ID = True
+    _REQUIRE_SET_HOUSEHOLD_ID = True
+    _REQUIRE_SET_USER_ID = True

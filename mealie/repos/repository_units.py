@@ -4,10 +4,10 @@ from sqlalchemy import select
 from mealie.db.models.recipe.ingredient import IngredientUnitModel
 from mealie.schema.recipe.recipe_ingredient import IngredientUnit
 
-from .repository_generic import RepositoryGeneric
+from .repository_generic import GroupRepositoryGeneric
 
 
-class RepositoryUnit(RepositoryGeneric[IngredientUnit, IngredientUnitModel]):
+class RepositoryUnit(GroupRepositoryGeneric[IngredientUnit, IngredientUnitModel]):
     def _get_unit(self, id: UUID4) -> IngredientUnitModel:
         stmt = select(self.model).filter_by(**self._filter_builder(**{"id": id}))
         return self.session.execute(stmt).scalars().one()
@@ -26,6 +26,3 @@ class RepositoryUnit(RepositoryGeneric[IngredientUnit, IngredientUnitModel]):
             raise e
 
         return self.get_one(to_unit)
-
-    def by_group(self, group_id: UUID4) -> "RepositoryUnit":
-        return super().by_group(group_id)

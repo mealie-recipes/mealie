@@ -1,17 +1,21 @@
+from __future__ import annotations
+
 from collections.abc import Iterable
-from typing import TypeVar
+from typing import TYPE_CHECKING, TypeVar
 
 from pydantic import UUID4, BaseModel
 from slugify import slugify
 from sqlalchemy.orm import Session
 
 from mealie.repos.all_repositories import AllRepositories
-from mealie.repos.repository_factory import RepositoryGeneric
 from mealie.schema.recipe import RecipeCategory
 from mealie.schema.recipe.recipe import RecipeTag
 from mealie.schema.recipe.recipe_category import CategoryOut, CategorySave, TagOut, TagSave
 
 T = TypeVar("T", bound=BaseModel)
+
+if TYPE_CHECKING:
+    from mealie.repos.repository_generic import RepositoryGeneric
 
 
 class DatabaseMigrationHelpers:

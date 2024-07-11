@@ -1,17 +1,12 @@
-from uuid import UUID
-
 from sqlalchemy import or_, select
 
 from mealie.db.models.household.mealplan import GroupMealPlanRules
 from mealie.schema.meal_plan.plan_rules import PlanRulesDay, PlanRulesOut, PlanRulesType
 
-from .repository_generic import RepositoryGeneric
+from .repository_generic import HouseholdRepositoryGeneric
 
 
-class RepositoryMealPlanRules(RepositoryGeneric[PlanRulesOut, GroupMealPlanRules]):
-    def by_group(self, group_id: UUID) -> "RepositoryMealPlanRules":
-        return super().by_group(group_id)
-
+class RepositoryMealPlanRules(HouseholdRepositoryGeneric[PlanRulesOut, GroupMealPlanRules]):
     def get_rules(self, day: PlanRulesDay, entry_type: PlanRulesType) -> list[PlanRulesOut]:
         stmt = select(GroupMealPlanRules).filter(
             or_(
