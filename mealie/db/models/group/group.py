@@ -22,16 +22,11 @@ from ..server.task import ServerTaskModel
 from .preferences import GroupPreferencesModel
 
 if TYPE_CHECKING:
+    from ..household import Household
     from ..household.events import GroupEventNotifierModel
     from ..household.recipe_action import GroupRecipeAction
     from ..household.shopping_list import ShoppingList
-    from ..recipe import (
-        IngredientFoodModel,
-        IngredientUnitModel,
-        RecipeModel,
-        Tag,
-        Tool,
-    )
+    from ..recipe import IngredientFoodModel, IngredientUnitModel, RecipeModel, Tag, Tool
     from ..users import User
     from .exports import GroupDataExportsModel
     from .report import ReportModel
@@ -42,6 +37,7 @@ class Group(SqlAlchemyBase, BaseMixins):
     id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
     name: Mapped[str] = mapped_column(sa.String, index=True, nullable=False, unique=True)
     slug: Mapped[str | None] = mapped_column(sa.String, index=True, unique=True)
+    households: Mapped[list["Household"]] = orm.relationship("Household", back_populates="group")
     users: Mapped[list["User"]] = orm.relationship("User", back_populates="group")
     categories: Mapped[list[Category]] = orm.relationship(Category, secondary=group_to_categories, single_parent=True)
 
@@ -89,6 +85,7 @@ class Group(SqlAlchemyBase, BaseMixins):
     tags: Mapped[list["Tag"]] = orm.relationship("Tag", **common_args)
     model_config = ConfigDict(
         exclude={
+            "households",
             "users",
             "webhooks",
             "recipe_actions",

@@ -19,7 +19,7 @@ class GroupWebhooksModel(SqlAlchemyBase, BaseMixins):
 
     group: Mapped[Optional["Group"]] = orm.relationship("Group", back_populates="webhooks", single_parent=True)
     group_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("groups.id"), index=True)
-    Household: Mapped[Optional["Household"]] = orm.relationship(
+    household: Mapped[Optional["Household"]] = orm.relationship(
         "Household", back_populates="webhooks", single_parent=True
     )
     household_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("households.id"), index=True)

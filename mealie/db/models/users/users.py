@@ -16,6 +16,7 @@ from .user_to_recipe import UserToRecipe
 
 if TYPE_CHECKING:
     from ..group import Group
+    from ..household import Household
     from ..household.mealplan import GroupMealPlan
     from ..household.shopping_list import ShoppingList
     from ..recipe import RecipeComment, RecipeModel, RecipeTimelineEvent
@@ -55,6 +56,8 @@ class User(SqlAlchemyBase, BaseMixins):
 
     group_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
     group: Mapped["Group"] = orm.relationship("Group", back_populates="users")
+    household_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("households.id"), nullable=True, index=True)
+    household: Mapped["Household"] = orm.relationship("Household", back_populates="users")
 
     cache_key: Mapped[str | None] = mapped_column(String, default="1234")
     login_attemps: Mapped[int | None] = mapped_column(Integer, default=0)

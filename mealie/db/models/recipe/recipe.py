@@ -32,7 +32,7 @@ from .tool import recipes_to_tools
 
 if TYPE_CHECKING:
     from ..group import Group, GroupMealPlan
-    from ..household import ShoppingListItemRecipeReference, ShoppingListRecipeReference
+    from ..household import Household, ShoppingListItemRecipeReference, ShoppingListRecipeReference
     from ..users import User
     from . import Category, Tag, Tool
 
@@ -49,6 +49,11 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     # ID Relationships
     group_id: Mapped[GUID] = mapped_column(GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)
     group: Mapped["Group"] = orm.relationship("Group", back_populates="recipes", foreign_keys=[group_id])
+
+    household_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("households.id"), index=True)
+    household: Mapped["Household"] = orm.relationship(
+        "Household", back_populates="recipes", foreign_keys=[household_id]
+    )
 
     user_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("users.id", use_alter=True), index=True)
     user: Mapped["User"] = orm.relationship("User", uselist=False, foreign_keys=[user_id])
