@@ -1,5 +1,6 @@
 import datetime
 import uuid
+import os
 from os import path
 from pathlib import Path
 from typing import Any
@@ -153,7 +154,7 @@ class AlchemyExporter(BaseService):
 
         alembic_cfg_path = os.getenv("ALEMBIC_CONFIG_FILE", default=str(PROJECT_DIR / "alembic.ini"))
 
-        if not os.path.isfile(alembic_cfg_path):
+        if not path.isfile(alembic_cfg_path):
             raise Exception("Provided alembic config path doesn't exist")
 
         alembic_cfg = Config(alembic_cfg_path)
