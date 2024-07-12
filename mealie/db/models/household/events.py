@@ -64,7 +64,7 @@ class GroupEventNotifierModel(SqlAlchemyBase, BaseMixins):
     )
     group_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("groups.id"), index=True)
     household: Mapped[Optional["Household"]] = orm.relationship(
-        "Group", back_populates="group_event_notifiers", single_parent=True
+        "Household", back_populates="group_event_notifiers", single_parent=True
     )
     household_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("households.id"), index=True)
 

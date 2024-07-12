@@ -27,9 +27,14 @@ if TYPE_CHECKING:
 
 class Household(SqlAlchemyBase, BaseMixins):
     __tablename__ = "households"
+    __table_args__ = (
+        sa.UniqueConstraint("group_id", "name", name="household_name_group_id_key"),
+        sa.UniqueConstraint("group_id", "slug", name="household_slug_group_id_key"),
+    )
+
     id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
-    name: Mapped[str] = mapped_column(sa.String, index=True, nullable=False, unique=True)
-    slug: Mapped[str | None] = mapped_column(sa.String, index=True, unique=True)
+    name: Mapped[str] = mapped_column(sa.String, index=True, nullable=False)
+    slug: Mapped[str | None] = mapped_column(sa.String, index=True)
 
     invite_tokens: Mapped[list["GroupInviteToken"]] = orm.relationship(
         "GroupInviteToken", back_populates="household", cascade="all, delete-orphan"
