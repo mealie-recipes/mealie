@@ -8,6 +8,7 @@ from sqlalchemy import func, select
 from sqlalchemy.exc import IntegrityError
 
 from mealie.db.models.group import Group
+from mealie.db.models.household.household import Household
 from mealie.db.models.recipe.category import Category
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.tag import Tag
@@ -81,6 +82,7 @@ class RepositoryGroup(RepositoryGeneric[GroupInDB, Group]):
             return self.session.scalar(stmt)
 
         return GroupStatistics(
+            total_households=model_count(Household),
             total_recipes=model_count(RecipeModel),
             total_users=model_count(User),
             total_categories=model_count(Category),

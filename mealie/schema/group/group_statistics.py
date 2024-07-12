@@ -3,6 +3,7 @@ from mealie.schema._mealie import MealieModel
 
 
 class GroupStatistics(MealieModel):
+    total_households: int
     total_recipes: int
     total_users: int
     total_categories: int

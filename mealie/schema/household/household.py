@@ -13,10 +13,10 @@ class HouseholdBase(MealieModel):
 
 
 class UpdateHousehold(HouseholdBase):
+    id: UUID4
     slug: str
 
 
 class HouseholdOut(UpdateHousehold):
-    id: UUID4
     model_config = ConfigDict(from_attributes=True)
     preferences: ReadHouseholdPreferences | None = None

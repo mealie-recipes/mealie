@@ -8,7 +8,7 @@ from mealie.repos.all_repositories import AllRepositories, get_repositories
 def database() -> AllRepositories:
     try:
         db = SessionLocal()
-        yield get_repositories(db)
+        yield get_repositories(db, None, None)
 
     finally:
         db.close()

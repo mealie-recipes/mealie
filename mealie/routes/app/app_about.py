@@ -16,12 +16,20 @@ def get_app_info(session: Session = Depends(generate_session)):
     """Get general application information"""
     settings = get_app_settings()
 
-    repos = get_repositories(session)
+    repos = get_repositories(session, None, None)
+
+    default_group_slug: str | None = None
+    default_household_slug: str | None = None
+
     default_group = repos.groups.get_by_name(settings.DEFAULT_GROUP)
     if default_group and default_group.preferences and not default_group.preferences.private_group:
         default_group_slug = default_group.slug
-    else:
-        default_group_slug = None
+
+    if default_group and default_group_slug:
+        repos.set_group(default_group.id)
+        default_household = repos.households.get_by_name(settings.DEFAULT_HOUSEHOLD)
+        if default_household and default_household.preferences and not default_household.preferences.private_household:
+            default_household_slug = default_household.slug
 
     return AppInfo(
         version=APP_VERSION,
@@ -29,6 +37,7 @@ def get_app_info(session: Session = Depends(generate_session)):
         production=settings.PRODUCTION,
         allow_signup=settings.ALLOW_SIGNUP,
         default_group_slug=default_group_slug,
+        default_household_slug=default_household_slug,
         enable_oidc=settings.OIDC_READY,
         oidc_redirect=settings.OIDC_AUTO_REDIRECT,
         oidc_provider_name=settings.OIDC_PROVIDER_NAME,

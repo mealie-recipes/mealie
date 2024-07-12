@@ -191,7 +191,7 @@ def ldap_user():
     # Create an LDAP user directly instead of using TestClient since we don't have
     # a LDAP service set up
     with session_context() as session:
-        db = get_repositories(session)
+        db = get_repositories(session, None, None)
         user = db.users.create(
             {
                 "username": utils.random_string(10),
@@ -204,5 +204,5 @@ def ldap_user():
         )
     yield user
     with session_context() as session:
-        db = get_repositories(session)
+        db = get_repositories(session, None, None)
         db.users.delete(user.id)

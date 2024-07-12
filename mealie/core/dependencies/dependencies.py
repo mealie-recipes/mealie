@@ -111,7 +111,7 @@ async def get_current_user(
     except PyJWTError as e:
         raise credentials_exception from e
 
-    repos = get_repositories(session)
+    repos = get_repositories(session, None, None)
 
     user = repos.users.get_one(token_data.user_id, "id", any_case=False)
 
@@ -139,7 +139,7 @@ async def get_admin_user(current_user: PrivateUser = Depends(get_current_user)) 
 
 
 def validate_long_live_token(session: Session, client_token: str, user_id: str) -> PrivateUser:
-    repos = get_repositories(session)
+    repos = get_repositories(session, None, None)
 
     token = repos.api_tokens.multi_query({"token": client_token, "user_id": user_id})
 
