@@ -48,6 +48,7 @@ pydantic-settings = "^2.1.0"
 pillow-heif = "^0.17.0"
 pyjwt = "^2.8.0"
 openai = "^1.27.0"
+typing-extensions = "^4.12.2"
 
 [tool.poetry.group.postgres.dependencies]
 psycopg2-binary = { version = "^2.9.1" }
@@ -144,6 +145,7 @@ select = [
   "T",  # flake8-print
   "UP", # pyupgrade
   "B",  # flake8-bugbear
+  "DTZ", # flake8-datetimez
   # "ANN", # flake8-annotations
   # "C", # McCabe complexity
   # "RUF", # Ruff specific

@@ -958,7 +958,7 @@
     "authentication-method-hint": "Ово одређује како ће се корисник аутентификовати са Mили. Ако нисте сигурни, изаберите 'Mealie'",
     "permissions": "Permissions",
     "administrator": "Administrator",
-    "user-can-invite-other-to-group": "User can invite other to group",
+    "user-can-invite-other-to-group": "User can invite others to group",
     "user-can-manage-group": "User can manage group",
     "user-can-organize-group-data": "User can organize group data",
     "enable-advanced-features": "Enable advanced features",

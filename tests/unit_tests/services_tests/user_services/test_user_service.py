@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from mealie.repos.repository_factory import AllRepositories
 from mealie.services.user_services.user_service import UserService
@@ -59,7 +59,7 @@ def test_lock_unlocker_user(database: AllRepositories, unique_user: TestUser) ->
     assert not unlocked_user.is_locked
 
     # Sanity check that the is_locked property is working
-    user.locked_at = datetime.now() - timedelta(days=2)
+    user.locked_at = datetime.now(timezone.utc) - timedelta(days=2)
     assert not user.is_locked
 
 
@@ -85,7 +85,7 @@ def test_reset_locked_users(database: AllRepositories, unique_user: TestUser) ->
     assert user.login_attemps == 5
 
     # Test that the locked user is unlocked by reset
-    user.locked_at = datetime.now() - timedelta(days=2)
+    user.locked_at = datetime.now(timezone.utc) - timedelta(days=2)
     database.users.update(user.id, user)
     unlocked = user_service.reset_locked_users()
     user = database.users.get_one(unique_user.user_id)

@@ -13,7 +13,7 @@ from sqlalchemy.orm import sessionmaker
 from alembic import command
 from alembic.config import Config
 from mealie.db import init_db
-from mealie.db.models._model_utils import GUID
+from mealie.db.models._model_utils.guid import GUID
 from mealie.services._base_service import BaseService
 
 PROJECT_DIR = Path(__file__).parent.parent.parent.parent

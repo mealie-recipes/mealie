@@ -4,13 +4,14 @@ from sqlalchemy import Boolean, ForeignKey, Integer, String, orm
 from sqlalchemy.orm import Mapped, mapped_column
 
 from .._model_base import BaseMixins, SqlAlchemyBase
-from .._model_utils import auto_init, guid
+from .._model_utils import guid
+from .._model_utils.auto_init import auto_init
 from ..recipe.category import Category, cookbooks_to_categories
 from ..recipe.tag import Tag, cookbooks_to_tags
 from ..recipe.tool import Tool, cookbooks_to_tools
 
 if TYPE_CHECKING:
-    from group import Group
+    from .group import Group
 
 
 class CookBook(SqlAlchemyBase, BaseMixins):

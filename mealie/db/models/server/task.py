@@ -7,7 +7,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 from mealie.db.models._model_utils.guid import GUID
 
-from .._model_utils import auto_init
+from .._model_utils.auto_init import auto_init
 
 if TYPE_CHECKING:
     from ..group import Group

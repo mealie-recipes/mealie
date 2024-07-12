@@ -237,29 +237,39 @@ export default defineComponent({
           }
         });
 
+        let currentTitle = "";
+        const onHandIngs: ShoppingListIngredient[] = [];
         const shoppingListIngredientSections = shoppingListIngredients.reduce((sections, ing) => {
-          // if title append new section to the end of the array
           if (ing.ingredient.title) {
+            currentTitle = ing.ingredient.title;
+          }
+
+          // If this is the first item in the section, create a new section
+          if (sections.length === 0 || currentTitle !== sections[sections.length - 1].sectionName) {
+            if (sections.length) {
+              // Add the on-hand ingredients to the previous section
+              sections[sections.length - 1].ingredients.push(...onHandIngs);
+              onHandIngs.length = 0;
+            }
             sections.push({
-              sectionName: ing.ingredient.title,
-              ingredients: [ing],
+              sectionName: currentTitle,
+              ingredients: [],
             });
+          }
+
+          // Store the on-hand ingredients for later
+          if (ing.ingredient.food?.onHand) {
+            onHandIngs.push(ing);
             return sections;
           }
 
-          // append new section if first
-          if (sections.length === 0) {
-            sections.push({
-              sectionName: "",
-              ingredients: [ing],
-            });
-            return sections;
-          }
-
-          // otherwise add ingredient to last section in the array
+          // Add the ingredient to previous section
           sections[sections.length - 1].ingredients.push(ing);
           return sections;
         }, [] as ShoppingListIngredientSection[]);
+
+        // Add remaining on-hand ingredients to the previous section
+        shoppingListIngredientSections[shoppingListIngredientSections.length - 1].ingredients.push(...onHandIngs);
 
         recipeSectionMap.set(recipe.slug, {
           recipeId: recipe.id,

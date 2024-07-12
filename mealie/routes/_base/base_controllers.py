@@ -131,7 +131,7 @@ class BaseCrudController(BaseUserController):
     Base class for all CRUD controllers to facilitate common CRUD functions.
     """
 
-    event_bus: EventBusService = Depends(EventBusService.create)
+    event_bus: EventBusService = Depends(EventBusService.as_dependency)
 
     def publish_event(self, event_type: EventTypes, document_data: EventDocumentDataBase, message: str = "") -> None:
         self.event_bus.dispatch(
