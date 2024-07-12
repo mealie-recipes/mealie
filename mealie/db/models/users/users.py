@@ -112,6 +112,10 @@ class User(SqlAlchemyBase, BaseMixins):
     def group_slug(self) -> str:
         return self.group.slug
 
+    @hybrid_property
+    def household_slug(self) -> str:
+        return self.household.slug
+
     @auto_init()
     def __init__(self, session, full_name, password, group: str | None = None, **kwargs) -> None:
         if group is None:
