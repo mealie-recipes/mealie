@@ -40,19 +40,12 @@ class RepositoryGeneric(Generic[Schema, Model]):
     user_id: UUID4 | None = None
     session: Session
 
-    _REQUIRE_SET_GROUP_ID = False
-    _REQUIRE_SET_HOUSEHOLD_ID = False
-    _REQUIRE_SET_USER_ID = False
-
     def __init__(
         self,
         session: Session,
         primary_key: str,
         sql_model: type[Model],
         schema: type[Schema],
-        group_id: UUID4 | None | NotSet = NOT_SET,
-        household_id: UUID4 | None | NotSet = NOT_SET,
-        user_id: UUID4 | None | NotSet = NOT_SET,
     ) -> None:
         self.session = session
         self.primary_key = primary_key
@@ -60,31 +53,6 @@ class RepositoryGeneric(Generic[Schema, Model]):
         self.schema = schema
 
         self.logger = get_logger()
-
-        self._validate_group_id(group_id)
-        self._validate_household_id(household_id)
-        self._validate_user_id(user_id)
-
-    def _validate_group_id(self, group_id: UUID4 | None | NotSet) -> None:
-        if self._REQUIRE_SET_GROUP_ID and group_id is NOT_SET:
-            raise ValueError("group_id must be set")
-
-        if group_id and group_id is not NOT_SET:
-            self.by_group(group_id)
-
-    def _validate_household_id(self, household_id: UUID4 | None | NotSet) -> None:
-        if self._REQUIRE_SET_HOUSEHOLD_ID and household_id is NOT_SET:
-            raise ValueError("household_id must be set")
-
-        if household_id and household_id is not NOT_SET:
-            self.by_household(household_id)
-
-    def _validate_user_id(self, user_id: UUID4 | None | NotSet) -> None:
-        if self._REQUIRE_SET_USER_ID and user_id is NOT_SET:
-            raise ValueError("user_id must be set")
-
-        if user_id and user_id is not NOT_SET:
-            self.by_user(user_id)
 
     def by_group(self: T, group_id: UUID4) -> T:
         self.group_id = group_id
@@ -485,15 +453,66 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
 
 class GroupRepositoryGeneric(RepositoryGeneric[Schema, Model]):
-    _REQUIRE_SET_GROUP_ID = True
+    def __init__(
+        self,
+        session: Session,
+        primary_key: str,
+        sql_model: type[Model],
+        schema: type[Schema],
+        group_id: UUID4 | None | NotSet = NOT_SET,
+    ) -> None:
+        super().__init__(session, primary_key, sql_model, schema)
+        if group_id is NOT_SET:
+            raise ValueError("group_id must be set")
+        if group_id:
+            self.by_group(group_id)
 
 
 class HouseholdRepositoryGeneric(RepositoryGeneric[Schema, Model]):
-    _REQUIRE_SET_GROUP_ID = True
-    _REQUIRE_SET_HOUSEHOLD_ID = True
+    def __init__(
+        self,
+        session: Session,
+        primary_key: str,
+        sql_model: type[Model],
+        schema: type[Schema],
+        group_id: UUID4 | None | NotSet = NOT_SET,
+        household_id: UUID4 | None | NotSet = NOT_SET,
+    ) -> None:
+        super().__init__(session, primary_key, sql_model, schema)
+        if group_id is NOT_SET:
+            raise ValueError("group_id must be set")
+        if group_id:
+            self.by_group(group_id)
+
+        if household_id is NOT_SET:
+            raise ValueError("household_id must be set")
+        if household_id:
+            self.by_household(household_id)
 
 
 class UserRepositoryGeneric(RepositoryGeneric[Schema, Model]):
-    _REQUIRE_SET_GROUP_ID = True
-    _REQUIRE_SET_HOUSEHOLD_ID = True
-    _REQUIRE_SET_USER_ID = True
+    def __init__(
+        self,
+        session: Session,
+        primary_key: str,
+        sql_model: type[Model],
+        schema: type[Schema],
+        group_id: UUID4 | None | NotSet = NOT_SET,
+        household_id: UUID4 | None | NotSet = NOT_SET,
+        user_id: UUID4 | None | NotSet = NOT_SET,
+    ) -> None:
+        super().__init__(session, primary_key, sql_model, schema)
+        if group_id is NOT_SET:
+            raise ValueError("group_id must be set")
+        if group_id:
+            self.by_group(group_id)
+
+        if household_id is NOT_SET:
+            raise ValueError("household_id must be set")
+        if household_id:
+            self.by_household(household_id)
+
+        if user_id is NOT_SET:
+            raise ValueError("user_id must be set")
+        if user_id:
+            self.by_user(user_id)

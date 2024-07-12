@@ -10,6 +10,7 @@ from mealie.db.models.group.exports import GroupDataExportsModel
 from mealie.db.models.group.preferences import GroupPreferencesModel
 from mealie.db.models.household.cookbook import CookBook
 from mealie.db.models.household.events import GroupEventNotifierModel
+from mealie.db.models.household.household import Household
 from mealie.db.models.household.invite_tokens import GroupInviteToken
 from mealie.db.models.household.mealplan import GroupMealPlan, GroupMealPlanRules
 from mealie.db.models.household.recipe_action import GroupRecipeAction
@@ -34,6 +35,7 @@ from mealie.db.models.users import LongLiveToken, User
 from mealie.db.models.users.password_reset import PasswordResetModel
 from mealie.db.models.users.user_to_recipe import UserToRecipe
 from mealie.repos.repository_foods import RepositoryFood
+from mealie.repos.repository_household import RepositoryHousehold
 from mealie.repos.repository_meal_plan_rules import RepositoryMealPlanRules
 from mealie.repos.repository_units import RepositoryUnit
 from mealie.schema.cookbook.cookbook import ReadCookBook
@@ -48,6 +50,7 @@ from mealie.schema.household.group_shopping_list import (
     ShoppingListOut,
     ShoppingListRecipeRefOut,
 )
+from mealie.schema.household.household import HouseholdOut
 from mealie.schema.household.invite_token import ReadInviteToken
 from mealie.schema.household.webhook import ReadWebhook
 from mealie.schema.labels import MultiPurposeLabelOut
@@ -105,76 +108,70 @@ class AllRepositories:
         self.group_id = group_id
         self.household_id = household_id
 
+    def set_group(self, group_id: UUID4 | None):
+        self.group_id = group_id
+
+    def set_household(self, household_id: UUID4 | None):
+        self.household_id = household_id
+
     # ================================================================
     # Recipe
 
     @cached_property
     def recipes(self) -> RepositoryRecipes:
-        return RepositoryRecipes(self.session, PK_SLUG, RecipeModel, Recipe, self.group_id, self.household_id)
+        return RepositoryRecipes(self.session, PK_SLUG, RecipeModel, Recipe, self.group_id)
 
     @cached_property
     def ingredient_foods(self) -> RepositoryFood:
-        return RepositoryFood(
-            self.session, PK_ID, IngredientFoodModel, IngredientFood, self.group_id, self.household_id
-        )
+        return RepositoryFood(self.session, PK_ID, IngredientFoodModel, IngredientFood, self.group_id)
 
     @cached_property
     def ingredient_units(self) -> RepositoryUnit:
-        return RepositoryUnit(
-            self.session, PK_ID, IngredientUnitModel, IngredientUnit, self.group_id, self.household_id
-        )
+        return RepositoryUnit(self.session, PK_ID, IngredientUnitModel, IngredientUnit, self.group_id)
 
     @cached_property
     def tools(self) -> GroupRepositoryGeneric[RecipeToolOut, Tool]:
-        return GroupRepositoryGeneric(self.session, PK_ID, Tool, RecipeToolOut, self.group_id, self.household_id)
+        return GroupRepositoryGeneric(self.session, PK_ID, Tool, RecipeToolOut, self.group_id)
 
     @cached_property
     def comments(self) -> GroupRepositoryGeneric[RecipeCommentOut, RecipeComment]:
-        return GroupRepositoryGeneric(
-            self.session, PK_ID, RecipeComment, RecipeCommentOut, self.group_id, self.household_id
-        )
+        return GroupRepositoryGeneric(self.session, PK_ID, RecipeComment, RecipeCommentOut, self.group_id)
 
     @cached_property
     def categories(self) -> RepositoryCategories:
-        return RepositoryCategories(self.session, PK_ID, Category, CategoryOut, self.group_id, self.household_id)
+        return RepositoryCategories(self.session, PK_ID, Category, CategoryOut, self.group_id)
 
     @cached_property
     def tags(self) -> RepositoryTags:
-        return RepositoryTags(self.session, PK_ID, Tag, TagOut, self.group_id, self.household_id)
+        return RepositoryTags(self.session, PK_ID, Tag, TagOut, self.group_id)
 
     @cached_property
     def recipe_share_tokens(self) -> GroupRepositoryGeneric[RecipeShareToken, RecipeShareTokenModel]:
-        return GroupRepositoryGeneric(
-            self.session, PK_ID, RecipeShareTokenModel, RecipeShareToken, self.group_id, self.household_id
-        )
+        return GroupRepositoryGeneric(self.session, PK_ID, RecipeShareTokenModel, RecipeShareToken, self.group_id)
 
     @cached_property
     def recipe_timeline_events(self) -> GroupRepositoryGeneric[RecipeTimelineEventOut, RecipeTimelineEvent]:
-        return GroupRepositoryGeneric(
-            self.session, PK_ID, RecipeTimelineEvent, RecipeTimelineEventOut, self.group_id, self.household_id
-        )
+        return GroupRepositoryGeneric(self.session, PK_ID, RecipeTimelineEvent, RecipeTimelineEventOut, self.group_id)
 
     # ================================================================
     # User
 
     @cached_property
     def users(self) -> RepositoryUsers:
-        return RepositoryUsers(self.session, PK_ID, User, PrivateUser, self.group_id, self.household_id)
+        return RepositoryUsers(self.session, PK_ID, User, PrivateUser, self.group_id)
 
     @cached_property
     def user_ratings(self) -> RepositoryUserRatings:
-        return RepositoryUserRatings(self.session, PK_ID, UserToRecipe, UserRatingOut, self.group_id, self.household_id)
+        return RepositoryUserRatings(self.session, PK_ID, UserToRecipe, UserRatingOut, self.group_id)
 
     @cached_property
     def api_tokens(self) -> GroupRepositoryGeneric[LongLiveTokenInDB, LongLiveToken]:
-        return GroupRepositoryGeneric(
-            self.session, PK_ID, LongLiveToken, LongLiveTokenInDB, self.group_id, self.household_id
-        )
+        return GroupRepositoryGeneric(self.session, PK_ID, LongLiveToken, LongLiveTokenInDB, self.group_id)
 
     @cached_property
     def tokens_pw_reset(self) -> GroupRepositoryGeneric[PrivatePasswordResetToken, PasswordResetModel]:
         return GroupRepositoryGeneric(
-            self.session, PK_TOKEN, PasswordResetModel, PrivatePasswordResetToken, self.group_id, self.household_id
+            self.session, PK_TOKEN, PasswordResetModel, PrivatePasswordResetToken, self.group_id
         )
 
     # ================================================================
@@ -186,34 +183,32 @@ class AllRepositories:
 
     @cached_property
     def group_invite_tokens(self) -> GroupRepositoryGeneric[ReadInviteToken, GroupInviteToken]:
-        return GroupRepositoryGeneric(
-            self.session, PK_TOKEN, GroupInviteToken, ReadInviteToken, self.group_id, self.household_id
-        )
+        return GroupRepositoryGeneric(self.session, PK_TOKEN, GroupInviteToken, ReadInviteToken, self.group_id)
 
     @cached_property
     def group_preferences(self) -> GroupRepositoryGeneric[ReadGroupPreferences, GroupPreferencesModel]:
         return GroupRepositoryGeneric(
-            self.session, PK_GROUP_ID, GroupPreferencesModel, ReadGroupPreferences, self.group_id, self.household_id
+            self.session, PK_GROUP_ID, GroupPreferencesModel, ReadGroupPreferences, self.group_id
         )
 
     @cached_property
     def group_exports(self) -> GroupRepositoryGeneric[GroupDataExport, GroupDataExportsModel]:
-        return GroupRepositoryGeneric(
-            self.session, PK_ID, GroupDataExportsModel, GroupDataExport, self.group_id, self.household_id
-        )
+        return GroupRepositoryGeneric(self.session, PK_ID, GroupDataExportsModel, GroupDataExport, self.group_id)
 
     @cached_property
     def group_reports(self) -> GroupRepositoryGeneric[ReportOut, ReportModel]:
-        return GroupRepositoryGeneric(self.session, PK_ID, ReportModel, ReportOut, self.group_id, self.household_id)
+        return GroupRepositoryGeneric(self.session, PK_ID, ReportModel, ReportOut, self.group_id)
 
     @cached_property
     def group_report_entries(self) -> GroupRepositoryGeneric[ReportEntryOut, ReportEntryModel]:
-        return GroupRepositoryGeneric(
-            self.session, PK_ID, ReportEntryModel, ReportEntryOut, self.group_id, self.household_id
-        )
+        return GroupRepositoryGeneric(self.session, PK_ID, ReportEntryModel, ReportEntryOut, self.group_id)
 
     # ================================================================
     # Household
+
+    @cached_property
+    def households(self) -> RepositoryHousehold:
+        return RepositoryHousehold(self.session, PK_ID, Household, HouseholdOut, self.group_id)
 
     @cached_property
     def cookbooks(self) -> HouseholdRepositoryGeneric[ReadCookBook, CookBook]:
@@ -295,9 +290,7 @@ class AllRepositories:
 
     @cached_property
     def group_multi_purpose_labels(self) -> GroupRepositoryGeneric[MultiPurposeLabelOut, MultiPurposeLabel]:
-        return GroupRepositoryGeneric(
-            self.session, PK_ID, MultiPurposeLabel, MultiPurposeLabelOut, self.group_id, self.household_id
-        )
+        return GroupRepositoryGeneric(self.session, PK_ID, MultiPurposeLabel, MultiPurposeLabelOut, self.group_id)
 
     # ================================================================
     # Group Events

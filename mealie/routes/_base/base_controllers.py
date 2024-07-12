@@ -14,8 +14,10 @@ from mealie.core.settings.settings import AppSettings
 from mealie.db.db_setup import generate_session
 from mealie.lang import local_provider
 from mealie.lang.providers import Translator
+from mealie.repos._utils import NOT_SET, NotSet
 from mealie.repos.all_repositories import AllRepositories
 from mealie.routes._base.checks import OperationChecks
+from mealie.schema.household.household import HouseholdOut
 from mealie.schema.user.user import GroupInDB, PrivateUser
 from mealie.services.event_bus_service.event_bus_service import EventBusService
 from mealie.services.event_bus_service.event_types import EventDocumentDataBase, EventTypes
@@ -37,7 +39,7 @@ class _BaseController(ABC):  # noqa: B024
     @property
     def repos(self):
         if not self._repos:
-            self._repos = AllRepositories(self.session)
+            self._repos = AllRepositories(self.session, self.group_id, self.household_id)
         return self._repos
 
     @property
@@ -57,6 +59,14 @@ class _BaseController(ABC):  # noqa: B024
         if not self._folders:
             self._folders = get_app_dirs()
         return self._folders
+
+    @property
+    def group_id(self) -> UUID4 | None | NotSet:
+        return NOT_SET
+
+    @property
+    def household_id(self) -> UUID4 | None | NotSet:
+        return NOT_SET
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
@@ -106,8 +116,16 @@ class BaseUserController(_BaseController):
         return self.user.group_id
 
     @property
+    def household_id(self) -> UUID4:
+        return self.user.household_id
+
+    @property
     def group(self) -> GroupInDB:
         return self.repos.groups.get_one(self.group_id)
+
+    @property
+    def household(self) -> HouseholdOut:
+        return self.repos.households.get_one(self.household_id)
 
     @property
     def checks(self) -> OperationChecks:
