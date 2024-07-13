@@ -14,6 +14,7 @@ class HouseholdBase(MealieModel):
 
 class UpdateHousehold(HouseholdBase):
     id: UUID4
+    group_id: UUID4
     slug: str
 
 

@@ -16,6 +16,7 @@ from mealie.core import root_logger
 from mealie.core.config import get_app_dirs, get_app_settings
 from mealie.db.db_setup import generate_session
 from mealie.repos.all_repositories import get_repositories
+from mealie.schema.household.household import HouseholdOut
 from mealie.schema.user import PrivateUser, TokenData
 from mealie.schema.user.user import DEFAULT_INTEGRATION_ID, GroupInDB
 
@@ -68,10 +69,23 @@ async def get_public_group(group_slug: str = fastapi.Path(...), session=Depends(
     repos = get_repositories(session)
     group = repos.groups.get_by_slug_or_id(group_slug)
 
-    if not group or group.preferences.private_group or not group.preferences.recipe_public:
+    if not group or group.preferences.private_group:
         raise HTTPException(404, "group not found")
     else:
         return group
+
+
+async def get_public_household(
+    group_slug: str = fastapi.Path(...), household_slug: str = fastapi.Path(...), session=Depends(generate_session)
+) -> HouseholdOut:
+    group = await get_public_group(group_slug, session)
+    repos = get_repositories(session, group.id)
+    household = repos.households.get_by_slug_or_id(household_slug)
+
+    if not household or household.preferences.private_household or not household.preferences.recipe_public:
+        raise HTTPException(404, "household not found")
+    else:
+        return household
 
 
 async def try_get_current_user(

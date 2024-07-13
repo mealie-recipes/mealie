@@ -26,7 +26,7 @@ def get_app_info(session: Session = Depends(generate_session)):
         default_group_slug = default_group.slug
 
     if default_group and default_group_slug:
-        repos.set_group(default_group.id)
+        repos = repos.by_group(default_group.id)
         default_household = repos.households.get_by_name(settings.DEFAULT_HOUSEHOLD)
         if default_household and default_household.preferences and not default_household.preferences.private_household:
             default_household_slug = default_household.slug

@@ -90,6 +90,10 @@ class BasePublicExploreController(BasePublicController):
 
     group: GroupInDB = Depends(get_public_group)
 
+    @property
+    def group_id(self) -> UUID4 | None | NotSet:
+        return self.group.id
+
 
 class BaseUserController(_BaseController):
     """
