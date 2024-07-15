@@ -351,13 +351,22 @@ export default {
     },
     manifest: {
       start_url: "/",
+      scope: "/",
       lang: "en",
+      dir: "auto",
       name: "Mealie",
       short_name: "Mealie",
+      id: "mealie",
       description: "Mealie is a recipe management and meal planning app",
       theme_color: process.env.THEME_LIGHT_PRIMARY || "#E58325",
       background_color: "#FFFFFF",
       display: "standalone",
+      display_override: [
+        "standalone",
+        "minimal-ui",
+        "browser",
+        "window-controls-overlay"
+      ],
       share_target: {
         action: "/r/create/url",
         method: "GET",
@@ -429,6 +438,18 @@ export default {
           ]
         },
       ],
+      prefer_related_applications: false,
+      handle_links: "preferred",
+      orientation: "any",
+      categories: [
+        "food"
+      ],
+      launch_handler: {
+        "client_mode": ["focus-existing", "auto"]
+      },
+      edge_side_panel: {
+        "preferred_width": 400
+      }
     },
     icon: false, // disables the icon module
   },
