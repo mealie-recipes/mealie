@@ -403,8 +403,12 @@ export default {
           "url": "/shopping-lists",
           "icons": [
             {
-              "src": "/svgs/mdiFormatListChecks.svg",
-              "sizes": "256x256",
+              "src": "/svgs/mdiFormatListChecks-192x192.svg",
+              "sizes": "192x192",
+            },
+            {
+              "src": "/svgs/mdiFormatListChecks-96x96.svg",
+              "sizes": "96x96",
             }
           ]
         },
@@ -415,8 +419,12 @@ export default {
           "url": "/group/mealplan/planner/view",
           "icons": [
             {
-              "src": "/svgs/mdiCalendarMultiselect.svg",
-              "sizes": "256x256",
+              "src": "/svgs/mdiCalendarMultiselect-192x192.svg",
+              "sizes": "192x192",
+            },
+            {
+              "src": "/svgs/mdiCalendarMultiselect-96x96.svg",
+              "sizes": "96x96",
             }
           ]
         },
