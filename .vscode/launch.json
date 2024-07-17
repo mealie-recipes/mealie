@@ -19,7 +19,7 @@
       },
       "justMyCode": false,
       "jinja": true,
-      "preLaunchTask": "Init Database"
+      "preLaunchTask": "Dev: Start Frontend"
     }
   ]
 }
