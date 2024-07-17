@@ -404,6 +404,56 @@ export default {
           purpose: "maskable",
         },
       ],
+      screenshots: [
+        {
+          "src": "/screenshots/home-narrow.png",
+          "sizes": "1600x2420",
+          "form_factor": "narrow",
+          "label": "Home Page"
+        },
+        {
+          "src": "/screenshots/recipe-narrow.png",
+          "sizes": "1600x2420",
+          "form_factor": "narrow",
+          "label": "Recipe Page"
+        },
+        {
+          "src": "/screenshots/editor-narrow.png",
+          "sizes": "1600x2420",
+          "form_factor": "narrow",
+          "label": "Editor Page"
+        },
+        {
+          "src": "/screenshots/parser-narrow.png",
+          "sizes": "1600x2420",
+          "form_factor": "narrow",
+          "label": "Parser Page"
+        },
+        {
+          "src": "/screenshots/home-wide.png",
+          "sizes": "2560x1460",
+          "form_factor": "wide",
+          "label": "Home Page"
+        },
+        {
+          "src": "/screenshots/recipe-wide.png",
+          "sizes": "2560x1460",
+          "form_factor": "wide",
+          "label": "Recipe Page"
+        },
+        {
+          "src": "/screenshots/editor-wide.png",
+          "sizes": "2560x1460",
+          "form_factor": "wide",
+          "label": "Editor Page"
+        },
+        {
+          "src": "/screenshots/parser-wide.png",
+          "sizes": "2560x1460",
+          "form_factor": "wide",
+          "label": "Parser Page"
+        }
+      ],
       "shortcuts": [
         {
           "name": "Shopping Lists",
