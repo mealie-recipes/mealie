@@ -38,3 +38,6 @@ RUN apt-get update \
     libwebp-dev \
     libsasl2-dev libldap2-dev libssl-dev \
     gnupg gnupg2 gnupg1
+
+# create directory used for Docker Secrets
+RUN mkdir -p /run/secrets
