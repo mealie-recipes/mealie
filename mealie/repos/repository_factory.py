@@ -13,6 +13,7 @@ from mealie.db.models.household.events import GroupEventNotifierModel
 from mealie.db.models.household.household import Household
 from mealie.db.models.household.invite_tokens import GroupInviteToken
 from mealie.db.models.household.mealplan import GroupMealPlan, GroupMealPlanRules
+from mealie.db.models.household.preferences import HouseholdPreferencesModel
 from mealie.db.models.household.recipe_action import GroupRecipeAction
 from mealie.db.models.household.shopping_list import (
     ShoppingList,
@@ -51,6 +52,7 @@ from mealie.schema.household.group_shopping_list import (
     ShoppingListRecipeRefOut,
 )
 from mealie.schema.household.household import HouseholdOut
+from mealie.schema.household.household_preferences import ReadHouseholdPreferences
 from mealie.schema.household.invite_token import ReadInviteToken
 from mealie.schema.household.webhook import ReadWebhook
 from mealie.schema.labels import MultiPurposeLabelOut
@@ -129,6 +131,8 @@ class AllRepositories:
 
     @cached_property
     def comments(self) -> GroupRepositoryGeneric[RecipeCommentOut, RecipeComment]:
+        # Since users can comment on recipes that belong to other households,
+        # this is a group repository, rather than a household repository.
         return GroupRepositoryGeneric(self.session, PK_ID, RecipeComment, RecipeCommentOut, self.group_id)
 
     @cached_property
@@ -145,6 +149,8 @@ class AllRepositories:
 
     @cached_property
     def recipe_timeline_events(self) -> GroupRepositoryGeneric[RecipeTimelineEventOut, RecipeTimelineEvent]:
+        # Since users can post events on recipes that belong to other households,
+        # this is a group repository, rather than a household repository.
         return GroupRepositoryGeneric(self.session, PK_ID, RecipeTimelineEvent, RecipeTimelineEventOut, self.group_id)
 
     # ================================================================
@@ -205,6 +211,12 @@ class AllRepositories:
         return RepositoryHousehold(self.session, PK_ID, Household, HouseholdOut, self.group_id)
 
     @cached_property
+    def household_preferences(self) -> HouseholdRepositoryGeneric[ReadHouseholdPreferences, HouseholdPreferencesModel]:
+        return HouseholdRepositoryGeneric(
+            self.session, PK_GROUP_ID, GroupPreferencesModel, ReadGroupPreferences, self.group_id, self.household_id
+        )
+
+    @cached_property
     def cookbooks(self) -> HouseholdRepositoryGeneric[ReadCookBook, CookBook]:
         return HouseholdRepositoryGeneric(self.session, PK_ID, CookBook, ReadCookBook, self.group_id, self.household_id)
 
@@ -225,12 +237,6 @@ class AllRepositories:
     def group_meal_plan_rules(self) -> RepositoryMealPlanRules:
         return RepositoryMealPlanRules(
             self.session, PK_ID, GroupMealPlanRules, PlanRulesOut, self.group_id, self.household_id
-        )
-
-    @cached_property
-    def webhooks(self) -> HouseholdRepositoryGeneric[ReadWebhook, GroupWebhooksModel]:
-        return HouseholdRepositoryGeneric(
-            self.session, PK_ID, GroupWebhooksModel, ReadWebhook, self.group_id, self.household_id
         )
 
     # ================================================================
@@ -287,10 +293,16 @@ class AllRepositories:
         return GroupRepositoryGeneric(self.session, PK_ID, MultiPurposeLabel, MultiPurposeLabelOut, self.group_id)
 
     # ================================================================
-    # Group Events
+    # Events
 
     @cached_property
     def group_event_notifier(self) -> HouseholdRepositoryGeneric[GroupEventNotifierOut, GroupEventNotifierModel]:
         return HouseholdRepositoryGeneric(
             self.session, PK_ID, GroupEventNotifierModel, GroupEventNotifierOut, self.group_id, self.household_id
+        )
+
+    @cached_property
+    def webhooks(self) -> HouseholdRepositoryGeneric[ReadWebhook, GroupWebhooksModel]:
+        return HouseholdRepositoryGeneric(
+            self.session, PK_ID, GroupWebhooksModel, ReadWebhook, self.group_id, self.household_id
         )

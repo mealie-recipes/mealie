@@ -34,10 +34,10 @@ from mealie.schema.response.pagination import (
 
 from ..db.models._model_base import SqlAlchemyBase
 from ..schema._mealie.mealie_model import extract_uuids
-from .repository_generic import GroupRepositoryGeneric
+from .repository_generic import HouseholdRepositoryGeneric
 
 
-class RepositoryRecipes(GroupRepositoryGeneric[Recipe, RecipeModel]):
+class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
     def create(self, document: Recipe) -> Recipe:  # type: ignore
         max_retries = 10
         original_name: str = document.name  # type: ignore
