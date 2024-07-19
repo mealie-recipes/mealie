@@ -1,5 +1,6 @@
 class NotSet:
-    pass
+    def __bool__(self):
+        return False
 
 
 NOT_SET = NotSet()

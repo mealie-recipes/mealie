@@ -110,11 +110,11 @@ class AllRepositories:
 
     def by_group(self, group_id: UUID4 | None):
         self.group_id = group_id
-        return AllRepositories(self.session, self.group_id, self.household_id)
+        return self.__class__(self.session, self.group_id, self.household_id)
 
     def by_household(self, household_id: UUID4 | None):
         self.household_id = household_id
-        return AllRepositories(self.session, self.group_id, self.household_id)
+        return self.__class__(self.session, self.group_id, self.household_id)
 
     # ================================================================
     # Recipe

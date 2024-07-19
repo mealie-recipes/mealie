@@ -464,8 +464,7 @@ class GroupRepositoryGeneric(RepositoryGeneric[Schema, Model]):
         super().__init__(session, primary_key, sql_model, schema)
         if group_id is NOT_SET:
             raise ValueError("group_id must be set")
-        if group_id:
-            self.by_group(group_id)
+        self.group_id = group_id if group_id else None
 
 
 class HouseholdRepositoryGeneric(RepositoryGeneric[Schema, Model]):
@@ -481,13 +480,11 @@ class HouseholdRepositoryGeneric(RepositoryGeneric[Schema, Model]):
         super().__init__(session, primary_key, sql_model, schema)
         if group_id is NOT_SET:
             raise ValueError("group_id must be set")
-        if group_id:
-            self.by_group(group_id)
+        self.group_id = group_id if group_id else None
 
         if household_id is NOT_SET:
             raise ValueError("household_id must be set")
-        if household_id:
-            self.by_household(household_id)
+        self.household_id = household_id if household_id else None
 
 
 class UserRepositoryGeneric(RepositoryGeneric[Schema, Model]):
@@ -504,15 +501,12 @@ class UserRepositoryGeneric(RepositoryGeneric[Schema, Model]):
         super().__init__(session, primary_key, sql_model, schema)
         if group_id is NOT_SET:
             raise ValueError("group_id must be set")
-        if group_id:
-            self.by_group(group_id)
+        self.group_id = group_id if group_id else None
 
         if household_id is NOT_SET:
             raise ValueError("household_id must be set")
-        if household_id:
-            self.by_household(household_id)
+        self.household_id = household_id if household_id else None
 
         if user_id is NOT_SET:
             raise ValueError("user_id must be set")
-        if user_id:
-            self.by_user(user_id)
+        self.user_id = user_id if user_id else None
