@@ -211,7 +211,7 @@
     "clipboard-copy-failure": "Kopiering til udklipsholderen mislykkedes.",
     "confirm-delete-generic-items": "Er du sikker på at du ønsker at slette de valgte emner?",
     "organizers": "Organisatorer",
-    "caution": "Caution"
+    "caution": "Bemærk"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Er du sikker på, du vil slette <b>{groupName}<b/>?",
@@ -292,8 +292,8 @@
     "mealplan-updated": "Madplanen blev ændret",
     "no-meal-plan-defined-yet": "Ingen madplan er defineret",
     "no-meal-planned-for-today": "Ingen ret er planlagt til i dag",
-    "numberOfDays-hint": "Number of days on page load",
-    "numberOfDays-label": "Default Days",
+    "numberOfDays-hint": "Antal dage ved sideindlæsning",
+    "numberOfDays-label": "Standarddage",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Kun opskrifter med disse kategorier vil blive brugt i madplaner",
     "planner": "Planlæg madplan",
     "quick-week": "Hurtig uge",
@@ -383,7 +383,7 @@
     },
     "recipekeeper": {
       "title": "Recipe Keeper",
-      "description-long": "Mealie can import recipes from Recipe Keeper. Export your recipes in zip format, then upload the .zip file below."
+      "description-long": "Mealie kan importere opskrifter fra Recipe Keeper. Eksportér dine opskrifter i zip-format, og upload derefter .zip-filen nedenfor."
     }
   },
   "new-recipe": {
@@ -449,8 +449,8 @@
     "ingredients": "Ingredienser",
     "insert-ingredient": "Indsæt Ingrediens",
     "insert-section": "Indsæt sektion",
-    "insert-above": "Insert Above",
-    "insert-below": "Insert Below",
+    "insert-above": "Indsæt ovenover",
+    "insert-below": "Indsæt nedenunder",
     "instructions": "Instruktioner",
     "key-name-required": "Nøglenavn påkrævet",
     "landscape-view-coming-soon": "Liggende visning (Kommer snart)",
@@ -586,8 +586,8 @@
     "report-deletion-failed": "Sletning af rapport mislykkedes",
     "recipe-debugger": "Fejlsøgning af opskrifter",
     "recipe-debugger-description": "Indsæt URL'en på hjemmesiden, der indeholder den opskrift, du vil fejlsøge. URL-adressen vil blive læst og resultaterne vil blive vist. Hvis ingen data bliver vist, er indhentning af opskrifter fra hjemmesiden endnu ikke understøttet af Mealie.",
-    "use-openai": "Use OpenAI",
-    "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
+    "use-openai": "Brug OpenAI",
+    "recipe-debugger-use-openai-description": "Brug OpenAI til at fortolke resultaterne i stedet for at stole på scraper biblioteket. Når du opretter en opskrift via URL, gøres dette automatisk, hvis skraberbiblioteket fejler, men du kan teste det manuelt her.",
     "debug": "Fejlsøgning",
     "tree-view": "Træ visning",
     "recipe-yield": "Udbytte af opskrift",
@@ -640,7 +640,7 @@
       "backup-created-at-response-export_path": "Backup oprettet ved {path}",
       "backup-deleted": "Backup slettet",
       "restore-success": "Gendannelse lykkedes",
-      "restore-fail": "Restore failed. Check your server logs for more details",
+      "restore-fail": "Gendannelse mislykkedes. Tjek dine serverlogs for flere detaljer",
       "backup-tag": "Backupnavn",
       "create-heading": "Opret en backup",
       "delete-backup": "Slet backup",
@@ -810,11 +810,11 @@
     "items-checked-count": "Ingen elementer markeret|Et element markeret|{count} elementer er markeret",
     "no-label": "Ingen etiket",
     "completed-on": "Afsluttet den {date}",
-    "you-are-offline": "You are offline",
+    "you-are-offline": "Du er offline",
     "you-are-offline-description": "Not all features are available while offline. You can still add, modify, and remove items, but you will not be able to sync your changes to the server until you are back online.",
-    "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
-    "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
-    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
+    "are-you-sure-you-want-to-check-all-items": "Er du sikker på, at du vil markere alle elementer?",
+    "are-you-sure-you-want-to-uncheck-all-items": "Er du sikker på, at du vil fjerne markeringen af alle elementer?",
+    "are-you-sure-you-want-to-delete-checked-items": "Er du sikker på, at du vil sletter de valgte elementer?"
   },
   "sidebar": {
     "all-recipes": "Alle opskr.",
@@ -955,10 +955,10 @@
     "user-details": "Brugerdetaljer",
     "user-name": "Brugernavn",
     "authentication-method": "Godkendelsesmetode",
-    "authentication-method-hint": "This specifies how a user will authenticate with Mealie. If you're not sure, choose 'Mealie",
+    "authentication-method-hint": "Dette angiver, hvordan en bruger vil logge ind på Mealie. Hvis du ikke er sikker, vælg 'Mealie'",
     "permissions": "Rettigheder",
     "administrator": "Administrator",
-    "user-can-invite-other-to-group": "User can invite others to group",
+    "user-can-invite-other-to-group": "Bruger kan invitere andre til gruppen",
     "user-can-manage-group": "Bruger kan administrere gruppen",
     "user-can-organize-group-data": "Bruger kan organisere gruppedata",
     "enable-advanced-features": "Aktiver avancerede funktioner",
@@ -990,7 +990,7 @@
       "food-data": "Oplysninger om fødevare",
       "example-food-singular": "fx.: grøntsag",
       "example-food-plural": "fx.: grøntsager",
-      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels.",
+      "label-overwrite-warning": "Dette vil tildele den valgte etiket til alle udvalgte fødevarer og potentielt overskrive dine eksisterende etiketter.",
       "on-hand-checkbox-label": "Setting this flag will make this food unchecked by default when adding a recipe to a shopping list."
     },
     "units": {
@@ -1020,7 +1020,7 @@
       "edit-label": "Redigér etiket",
       "new-label": "Ny etiket",
       "labels": "Etiketter",
-      "assign-label": "Assign Label"
+      "assign-label": "Tildel etiket"
     },
     "recipes": {
       "purge-exports": "Tøm Eksport",
