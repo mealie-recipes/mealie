@@ -89,7 +89,7 @@ def publish_list_item_events(publisher: Callable, items_collection: ShoppingList
 class ShoppingListItemController(BaseCrudController):
     @cached_property
     def service(self):
-        return ShoppingListService(self.repos, self.group, self.user)
+        return ShoppingListService(self.repos)
 
     @cached_property
     def repo(self):
@@ -150,11 +150,11 @@ router = APIRouter(prefix="/groups/shopping/lists", tags=["Group: Shopping Lists
 class ShoppingListController(BaseCrudController):
     @cached_property
     def service(self):
-        return ShoppingListService(self.repos, self.group, self.user)
+        return ShoppingListService(self.repos)
 
     @cached_property
     def repo(self):
-        return self.repos.group_shopping_lists.by_group(self.user.group_id)
+        return self.repos.group_shopping_lists
 
     # =======================================================================
     # CRUD Operations
@@ -175,7 +175,7 @@ class ShoppingListController(BaseCrudController):
 
     @router.post("", response_model=ShoppingListOut, status_code=201)
     def create_one(self, data: ShoppingListCreate):
-        shopping_list = self.service.create_one_list(data)
+        shopping_list = self.service.create_one_list(data, self.user.id)
         if shopping_list:
             self.publish_event(
                 event_type=EventTypes.shopping_list_created,

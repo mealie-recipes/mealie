@@ -14,7 +14,7 @@ router = APIRouter(prefix="/foods/{group_slug}")
 class PublicFoodsController(BasePublicExploreController):
     @property
     def ingredient_foods(self):
-        return self.repos.ingredient_foods.by_group(self.group.id)
+        return self.repos.ingredient_foods
 
     @router.get("", response_model=PaginationBase[IngredientFood])
     def get_all(

@@ -3,7 +3,7 @@ from __future__ import annotations
 from collections.abc import Iterable
 from typing import TYPE_CHECKING, TypeVar
 
-from pydantic import UUID4, BaseModel
+from pydantic import BaseModel
 from slugify import slugify
 from sqlalchemy.orm import Session
 
@@ -19,9 +19,7 @@ if TYPE_CHECKING:
 
 
 class DatabaseMigrationHelpers:
-    def __init__(self, db: AllRepositories, session: Session, group_id: UUID4, user_id: UUID4) -> None:
-        self.group_id = group_id
-        self.user_id = user_id
+    def __init__(self, db: AllRepositories, session: Session) -> None:
         self.session = session
         self.db = db
 
@@ -43,7 +41,7 @@ class DatabaseMigrationHelpers:
             if not item_model:
                 item_model = accessor.create(
                     create_model(
-                        group_id=self.group_id,
+                        group_id=self.db.group_id,
                         name=item_name,
                         slug=slug_lookup,
                     )
@@ -54,7 +52,7 @@ class DatabaseMigrationHelpers:
 
     def get_or_set_category(self, categories: Iterable[str]) -> list[RecipeCategory]:
         return self._get_or_set_generic(
-            self.db.categories.by_group(self.group_id),
+            self.db.categories,
             categories,
             CategorySave,
             CategoryOut,
@@ -62,7 +60,7 @@ class DatabaseMigrationHelpers:
 
     def get_or_set_tags(self, tags: Iterable[str]) -> list[RecipeTag]:
         return self._get_or_set_generic(
-            self.db.tags.by_group(self.group_id),
+            self.db.tags,
             tags,
             TagSave,
             TagOut,

@@ -19,7 +19,7 @@ router = APIRouter(prefix="/groups/webhooks", tags=["Groups: Webhooks"])
 class ReadWebhookController(BaseUserController):
     @cached_property
     def repo(self):
-        return self.repos.webhooks.by_group(self.group_id)
+        return self.repos.webhooks
 
     @property
     def mixins(self) -> HttpRepo:

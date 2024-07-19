@@ -24,24 +24,19 @@ from mealie.schema.recipe.recipe_ingredient import (
     RecipeIngredient,
 )
 from mealie.schema.response.pagination import OrderDirection, PaginationQuery
-from mealie.schema.user.user import GroupInDB, UserOut
 from mealie.services.parser_services._base import DataMatcher
 
 
 class ShoppingListService:
     DEFAULT_FOOD_FUZZY_MATCH_THRESHOLD = 80
 
-    def __init__(self, repos: AllRepositories, group: GroupInDB, user: UserOut):
+    def __init__(self, repos: AllRepositories):
         self.repos = repos
-        self.group = group
-        self.user = user
         self.shopping_lists = repos.group_shopping_lists
         self.list_items = repos.group_shopping_list_item
         self.list_item_refs = repos.group_shopping_list_item_references
         self.list_refs = repos.group_shopping_list_recipe_refs
-        self.data_matcher = DataMatcher(
-            self.group.id, self.repos, food_fuzzy_match_threshold=self.DEFAULT_FOOD_FUZZY_MATCH_THRESHOLD
-        )
+        self.data_matcher = DataMatcher(self.repos, food_fuzzy_match_threshold=self.DEFAULT_FOOD_FUZZY_MATCH_THRESHOLD)
 
     @staticmethod
     def can_merge(item1: ShoppingListItemBase, item2: ShoppingListItemBase) -> bool:
@@ -498,11 +493,11 @@ class ShoppingListService:
 
         return self.shopping_lists.get_one(shopping_list.id), items  # type: ignore
 
-    def create_one_list(self, data: ShoppingListCreate):
-        create_data = data.cast(ShoppingListSave, group_id=self.group.id, user_id=self.user.id)
+    def create_one_list(self, data: ShoppingListCreate, owner_id: UUID4):
+        create_data = data.cast(ShoppingListSave, group_id=self.repos.group_id, user_id=owner_id)
         new_list = self.shopping_lists.create(create_data)  # type: ignore
 
-        labels = self.repos.group_multi_purpose_labels.by_group(self.group.id).page_all(
+        labels = self.repos.group_multi_purpose_labels.page_all(
             PaginationQuery(page=1, per_page=-1, order_by="name", order_direction=OrderDirection.asc)
         )
         label_settings = [

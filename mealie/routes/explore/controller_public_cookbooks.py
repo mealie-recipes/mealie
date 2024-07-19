@@ -16,11 +16,11 @@ router = APIRouter(prefix="/cookbooks/{group_slug}")
 class PublicCookbooksController(BasePublicExploreController):
     @property
     def cookbooks(self):
-        return self.repos.cookbooks.by_group(self.group.id)
+        return self.repos.cookbooks
 
     @property
     def recipes(self):
-        return self.repos.recipes.by_group(self.group.id)
+        return self.repos.recipes
 
     @router.get("", response_model=PaginationBase[ReadCookBook])
     def get_all(

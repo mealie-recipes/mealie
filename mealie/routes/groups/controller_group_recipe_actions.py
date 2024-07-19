@@ -21,7 +21,7 @@ router = APIRouter(prefix="/groups/recipe-actions", tags=["Groups: Recipe Action
 class GroupRecipeActionController(BaseUserController):
     @cached_property
     def repo(self):
-        return self.repos.group_recipe_actions.by_group(self.group_id)
+        return self.repos.group_recipe_actions
 
     @property
     def mixins(self):

@@ -95,11 +95,11 @@ class JSONBytes(JSONResponse):
 class BaseRecipeController(BaseCrudController):
     @cached_property
     def repo(self) -> RepositoryRecipes:
-        return self.repos.recipes.by_group(self.group_id)
+        return self.repos.recipes
 
     @cached_property
     def cookbooks_repo(self) -> RepositoryGeneric[ReadCookBook, CookBook]:
-        return self.repos.cookbooks.by_group(self.group_id)
+        return self.repos.cookbooks
 
     @cached_property
     def service(self) -> RecipeService:
@@ -207,7 +207,7 @@ class RecipeController(BaseRecipeController):
             ) from e
 
         if req.include_tags:
-            ctx = ScraperContext(self.user.id, self.group_id, self.repos)
+            ctx = ScraperContext(self.repos)
 
             recipe.tags = extras.use_tags(ctx)  # type: ignore
 
@@ -296,7 +296,7 @@ class RecipeController(BaseRecipeController):
                 raise HTTPException(status_code=404, detail="cookbook not found")
 
         # we use the repo by user so we can sort favorites correctly
-        pagination_response = self.repo.by_user(self.user.id).page_all(
+        pagination_response = self.repos.recipes.by_user(self.user.id).page_all(
             pagination=q,
             cookbook=cookbook_data,
             categories=categories,

@@ -20,11 +20,11 @@ router = APIRouter(prefix="/recipes/{group_slug}")
 class PublicRecipesController(BasePublicExploreController):
     @property
     def cookbooks(self):
-        return self.repos.cookbooks.by_group(self.group.id)
+        return self.repos.cookbooks
 
     @property
     def recipes(self):
-        return self.repos.recipes.by_group(self.group.id)
+        return self.repos.recipes
 
     @router.get("", response_model=PaginationBase[RecipeSummary])
     def get_all(
@@ -86,7 +86,7 @@ class PublicRecipesController(BasePublicExploreController):
 
     @router.get("/{recipe_slug}", response_model=Recipe)
     def get_recipe(self, recipe_slug: str) -> Recipe:
-        recipe = self.repos.recipes.by_group(self.group.id).get_one(recipe_slug)
+        recipe = self.repos.recipes.get_one(recipe_slug)
 
         if not recipe or not recipe.settings.public:
             raise HTTPException(404, "recipe not found")

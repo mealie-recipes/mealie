@@ -24,7 +24,7 @@ router = APIRouter(prefix="/groups/mealplans", tags=["Groups: Mealplans"])
 class GroupMealplanController(BaseCrudController):
     @cached_property
     def repo(self) -> RepositoryMeals:
-        return self.repos.meals.by_group(self.group_id)
+        return self.repos.meals
 
     def registered_exceptions(self, ex: type[Exception]) -> str:
         registered = {
@@ -55,11 +55,9 @@ class GroupMealplanController(BaseCrudController):
         to the random meal selector.
         """
         # Get relevant group rules
-        rules = self.repos.group_meal_plan_rules.by_group(self.group_id).get_rules(
-            PlanRulesDay.from_date(data.date), data.entry_type.value
-        )
+        rules = self.repos.group_meal_plan_rules.get_rules(PlanRulesDay.from_date(data.date), data.entry_type.value)
 
-        recipe_repo = self.repos.recipes.by_group(self.group_id)
+        recipe_repo = self.repos.recipes
         random_recipes: list[Recipe] = []
 
         if not rules:  # If no rules are set, return any random recipe from the group
@@ -74,9 +72,7 @@ class GroupMealplanController(BaseCrudController):
                     categories.extend(rule.categories)
 
             if tags or categories:
-                random_recipes = self.repos.recipes.by_group(self.group_id).get_random_by_categories_and_tags(
-                    categories, tags
-                )
+                random_recipes = self.repos.recipes.get_random_by_categories_and_tags(categories, tags)
             else:
                 random_recipes = recipe_repo.get_random()
 

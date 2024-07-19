@@ -19,7 +19,7 @@ tools_router = APIRouter(prefix=f"{base_prefix}/tools")
 class PublicCategoriesController(BasePublicExploreController):
     @property
     def categories(self):
-        return self.repos.categories.by_group(self.group.id)
+        return self.repos.categories
 
     @categories_router.get("", response_model=PaginationBase[RecipeCategory])
     def get_all(
@@ -49,7 +49,7 @@ class PublicCategoriesController(BasePublicExploreController):
 class PublicTagsController(BasePublicExploreController):
     @property
     def tags(self):
-        return self.repos.tags.by_group(self.group.id)
+        return self.repos.tags
 
     @tags_router.get("", response_model=PaginationBase[RecipeTag])
     def get_all(
@@ -77,7 +77,7 @@ class PublicTagsController(BasePublicExploreController):
 class PublicToolsController(BasePublicExploreController):
     @property
     def tools(self):
-        return self.repos.tools.by_group(self.group.id)
+        return self.repos.tools
 
     @tools_router.get("", response_model=PaginationBase[RecipeTool])
     def get_all(

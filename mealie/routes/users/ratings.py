@@ -22,7 +22,7 @@ class UserRatingsController(BaseUserController):
             except ValueError:
                 pass
 
-        recipes_repo = self.repos.recipes.by_group(self.group_id)
+        recipes_repo = self.repos.recipes
         if isinstance(slug_or_id, UUID):
             recipe = recipes_repo.get_one(slug_or_id, key="id")
         else:

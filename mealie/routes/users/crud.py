@@ -62,7 +62,7 @@ class UserController(BaseUserController):
     def get_all_group_users(self, q: PaginationQuery = Depends(PaginationQuery)):
         """Returns all users from the current group"""
 
-        response = self.repos.users.by_group(self.group_id).page_all(
+        response = self.repos.users.page_all(
             pagination=q,
             override=UserSummary,
         )

@@ -20,7 +20,7 @@ router = APIRouter(prefix="/tags", tags=["Organizer: Tags"])
 class TagController(BaseCrudController):
     @cached_property
     def repo(self):
-        return self.repos.tags.by_group(self.group_id)
+        return self.repos.tags
 
     @cached_property
     def mixins(self):

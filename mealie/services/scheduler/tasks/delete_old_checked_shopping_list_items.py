@@ -59,12 +59,10 @@ def delete_old_checked_list_items(group_id: UUID4 | None = None):
             groups = [group]
 
         for group in groups:
+            group_repos = get_repositories(session, group.id)
             event_bus_service = EventBusService(session=session, group_id=group.id)
-            # user is passed as None since we don't use it here
-            shopping_list_service = ShoppingListService(repos, group, None)  # type: ignore
-            shopping_list_data = repos.group_shopping_lists.by_group(group.id).page_all(
-                PaginationQuery(page=1, per_page=-1)
-            )
+            shopping_list_service = ShoppingListService(group_repos)
+            shopping_list_data = group_repos.group_shopping_lists.page_all(PaginationQuery(page=1, per_page=-1))
             for shopping_list in shopping_list_data.items:
                 _trim_list_items(
                     shopping_list_service, shopping_list.id, _create_publish_event(event_bus_service, group.id)

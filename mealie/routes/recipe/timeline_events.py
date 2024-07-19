@@ -32,7 +32,7 @@ class RecipeTimelineEventsController(BaseCrudController):
 
     @cached_property
     def recipes_repo(self):
-        return self.repos.recipes.by_group(self.group_id)
+        return self.repos.recipes
 
     @cached_property
     def mixins(self):

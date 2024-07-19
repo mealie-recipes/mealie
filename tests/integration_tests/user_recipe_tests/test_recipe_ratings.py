@@ -1,5 +1,5 @@
 import random
-from typing import Generator
+from collections.abc import Generator
 from uuid import UUID
 
 import pytest

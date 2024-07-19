@@ -61,10 +61,10 @@ class EventListenerBase(ABC):
             yield self._session
 
     @contextlib.contextmanager
-    def ensure_repos(self) -> Generator[AllRepositories, None, None]:
+    def ensure_repos(self, group_id: UUID4) -> Generator[AllRepositories, None, None]:
         if self._repos is None:
             with self.ensure_session() as session:
-                self._repos = AllRepositories(session)
+                self._repos = AllRepositories(session, group_id)
                 yield self._repos
         else:
             yield self._repos
@@ -75,10 +75,10 @@ class AppriseEventListener(EventListenerBase):
         super().__init__(group_id, ApprisePublisher())
 
     def get_subscribers(self, event: Event) -> list[str]:
-        with self.ensure_repos() as repos:
-            notifiers: list[GroupEventNotifierPrivate] = repos.group_event_notifier.by_group(  # type: ignore
-                self.group_id
-            ).multi_query({"enabled": True}, override_schema=GroupEventNotifierPrivate)
+        with self.ensure_repos(self.group_id) as repos:
+            notifiers: list[GroupEventNotifierPrivate] = repos.group_event_notifier.multi_query(
+                {"enabled": True}, override_schema=GroupEventNotifierPrivate
+            )
 
             urls = [notifier.apprise_url for notifier in notifiers if getattr(notifier.options, event.event_type.name)]
             urls = AppriseEventListener.update_urls_with_event_data(urls, event)
@@ -140,10 +140,10 @@ class WebhookEventListener(EventListenerBase):
         return scheduled_webhooks
 
     def publish_to_subscribers(self, event: Event, subscribers: list[ReadWebhook]) -> None:
-        with self.ensure_repos() as repos:
+        with self.ensure_repos(self.group_id) as repos:
             if event.document_data.document_type == EventDocumentType.mealplan:
                 # TODO: limit mealplan data to a date range instead of returning all mealplans
-                meal_repo = repos.meals.by_group(self.group_id)
+                meal_repo = repos.meals
                 meal_pagination_data = meal_repo.page_all(pagination=PaginationQuery(page=1, per_page=-1))
                 meal_data = meal_pagination_data.items
                 if meal_data:

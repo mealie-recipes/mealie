@@ -42,7 +42,7 @@ class GroupEventsNotifierController(BaseUserController):
         if not self.user:
             raise Exception("No user is logged in.")
 
-        return self.repos.group_event_notifier.by_group(self.user.group_id)
+        return self.repos.group_event_notifier
 
     # =======================================================================
     # CRUD Operations

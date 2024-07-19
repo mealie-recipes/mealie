@@ -18,7 +18,7 @@ router = UserAPIRouter(prefix="/groups/mealplans/rules", tags=["Groups: Mealplan
 class GroupMealplanConfigController(BaseUserController):
     @cached_property
     def repo(self):
-        return self.repos.group_meal_plan_rules.by_group(self.group_id)
+        return self.repos.group_meal_plan_rules
 
     @cached_property
     def mixins(self):

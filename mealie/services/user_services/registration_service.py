@@ -87,7 +87,7 @@ class RegistrationService:
         user = self._create_new_user(group, new_group)
 
         if new_group and registration.seed_data:
-            seeder_service = SeederService(self.repos, user, group)
+            seeder_service = SeederService(self.repos)
             seeder_service.seed_foods(registration.locale)
             seeder_service.seed_labels(registration.locale)
             seeder_service.seed_units(registration.locale)

@@ -71,7 +71,9 @@ def test_seed_label_creates_list_labels(database: AllRepositories, api_client: T
 
     # seed labels and make sure they were added to the list's label settings
     group = database.groups.get_one(unique_user.group_id)
-    seeder = SeederService(database, None, group)  # type: ignore
+    assert group
+    database = AllRepositories(database.session, group.id)
+    seeder = SeederService(database)
     seeder.seed_labels("en-US")
 
     response = api_client.get(api_routes.groups_shopping_lists_item_id(new_list.id), headers=unique_user.token)

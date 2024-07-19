@@ -25,7 +25,7 @@ router = APIRouter(prefix="/units", tags=["Recipes: Units"], route_class=MealieC
 class IngredientUnitsController(BaseUserController):
     @cached_property
     def repo(self):
-        return self.repos.ingredient_units.by_group(self.group_id)
+        return self.repos.ingredient_units
 
     @cached_property
     def mixins(self):

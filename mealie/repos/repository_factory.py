@@ -94,27 +94,19 @@ class RepositoryTags(GroupRepositoryGeneric[TagOut, Tag]):
 
 
 class AllRepositories:
+    """
+    `AllRepositories` class is the data access layer for all database actions within
+    Mealie. Database uses composition from classes derived from AccessModel. These
+    can be substantiated from the AccessModel class or through inheritance when
+    additional methods are required.
+    """
+
     def __init__(
         self, session: Session, group_id: UUID4 | None | NotSet = NOT_SET, household_id: UUID4 | None | NotSet = NOT_SET
     ) -> None:
-        """
-        `AllRepositories` class is the data access layer for all database actions within
-        Mealie. Database uses composition from classes derived from AccessModel. These
-        can be substantiated from the AccessModel class or through inheritance when
-        additional methods are required.
-        """
-
         self.session = session
         self.group_id = group_id
         self.household_id = household_id
-
-    def by_group(self, group_id: UUID4 | None):
-        self.group_id = group_id
-        return self.__class__(self.session, self.group_id, self.household_id)
-
-    def by_household(self, household_id: UUID4 | None):
-        self.household_id = household_id
-        return self.__class__(self.session, self.group_id, self.household_id)
 
     # ================================================================
     # Recipe

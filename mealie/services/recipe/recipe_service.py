@@ -34,13 +34,18 @@ class RecipeService(BaseService):
         self.user = user
         self.group = group
 
+        if repos.group_id != group.id:
+            raise Exception("repo and group do not match")
+        if repos.group_id != user.group_id:
+            raise Exception("user and group do not match")
+
         self.translator = translator
         self.t = translator.t
 
         super().__init__()
 
     def _get_recipe(self, data: str | UUID, key: str | None = None) -> Recipe:
-        recipe = self.repos.recipes.by_group(self.group.id).get_one(data, key)
+        recipe = self.repos.recipes.get_one(data, key)
         if recipe is None:
             raise exceptions.NoEntryFound("Recipe not found.")
         return recipe
@@ -164,7 +169,7 @@ class RecipeService(BaseService):
         return new_recipe
 
     def _transform_user_id(self, user_id: str) -> str:
-        query = self.repos.users.by_group(self.group.id).get_one(user_id)
+        query = self.repos.users.get_one(user_id)
         if query:
             return user_id
         else:
@@ -204,9 +209,9 @@ class RecipeService(BaseService):
 
         # make sure categories and tags are valid
         if key == "recipe_category":
-            return self._transform_category_or_tag(data, self.repos.categories.by_group(self.group.id))
+            return self._transform_category_or_tag(data, self.repos.categories)
         elif key == "tags":
-            return self._transform_category_or_tag(data, self.repos.tags.by_group(self.group.id))
+            return self._transform_category_or_tag(data, self.repos.tags)
 
         # recursively process other objects
         for k, v in data.items():
@@ -351,9 +356,7 @@ class RecipeService(BaseService):
         if recipe is None:
             raise exceptions.NoEntryFound("Recipe not found.")
 
-        new_data = self.repos.recipes.by_group(self.group.id).patch(
-            recipe.slug, patch_data.model_dump(exclude_unset=True)
-        )
+        new_data = self.repos.recipes.patch(recipe.slug, patch_data.model_dump(exclude_unset=True))
 
         self.check_assets(new_data, recipe.slug)
         return new_data
@@ -361,7 +364,7 @@ class RecipeService(BaseService):
     def update_last_made(self, slug: str, timestamp: datetime) -> Recipe:
         # we bypass the pre update check since any user can update a recipe's last made date, even if it's locked
         recipe = self._get_recipe(slug)
-        return self.repos.recipes.by_group(self.group.id).patch(recipe.slug, {"last_made": timestamp})
+        return self.repos.recipes.patch(recipe.slug, {"last_made": timestamp})
 
     def delete_one(self, slug) -> Recipe:
         recipe = self._get_recipe(slug)

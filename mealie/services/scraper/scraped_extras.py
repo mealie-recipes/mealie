@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 
-from pydantic import UUID4
 from slugify import slugify
 
 from mealie.repos.repository_factory import AllRepositories
@@ -14,8 +13,6 @@ class NoContextException(Exception):
 
 @dataclass(slots=True)
 class ScraperContext:
-    user_id: UUID4
-    group_id: UUID4
     repos: AllRepositories
 
 
@@ -30,7 +27,7 @@ class ScrapedExtras:
         if not self._tags:
             return []
 
-        repo = ctx.repos.tags.by_group(ctx.group_id)
+        repo = ctx.repos.tags
 
         tags = []
         seen_tag_slugs: set[str] = set()
@@ -46,7 +43,7 @@ class ScrapedExtras:
                 tags.append(db_tag)
                 continue
 
-            save_data = TagSave(name=tag, group_id=ctx.group_id)
+            save_data = TagSave(name=tag, group_id=ctx.repos.group_id)
             db_tag = repo.create(save_data)
 
             tags.append(db_tag)

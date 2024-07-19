@@ -26,7 +26,7 @@ router = APIRouter(prefix="/groups/cookbooks", tags=["Groups: Cookbooks"], route
 class GroupCookbookController(BaseCrudController):
     @cached_property
     def repo(self):
-        return self.repos.cookbooks.by_group(self.group_id)
+        return self.repos.cookbooks
 
     def registered_exceptions(self, ex: type[Exception]) -> str:
         registered = {
@@ -102,7 +102,7 @@ class GroupCookbookController(BaseCrudController):
 
         return cookbook.cast(
             RecipeCookBook,
-            recipes=self.repos.recipes.by_group(self.group_id).by_category_and_tags(
+            recipes=self.repos.recipes.by_category_and_tags(
                 cookbook.categories,
                 cookbook.tags,
                 cookbook.tools,

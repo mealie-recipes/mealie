@@ -29,7 +29,7 @@ class RecipeCategoryController(BaseCrudController):
     # CRUD Operations
     @cached_property
     def repo(self):
-        return self.repos.categories.by_group(self.group_id)
+        return self.repos.categories
 
     @cached_property
     def mixins(self):
@@ -121,5 +121,5 @@ class RecipeCategoryController(BaseCrudController):
             id=category.id,
             slug=category.slug,
             name=category.name,
-            recipes=self.repos.recipes.by_group(self.group_id).get_by_categories([category]),
+            recipes=self.repos.recipes.get_by_categories([category]),
         )

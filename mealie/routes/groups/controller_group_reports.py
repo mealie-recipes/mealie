@@ -17,7 +17,7 @@ router = APIRouter(prefix="/groups/reports", tags=["Groups: Reports"])
 class GroupReportsController(BaseUserController):
     @cached_property
     def repo(self):
-        return self.repos.group_reports.by_group(self.user.group_id)
+        return self.repos.group_reports
 
     def registered_exceptions(self, ex: type[Exception]) -> str:
         return {
