@@ -4,20 +4,20 @@
 
 ### General
 
-| Variables                     |        Default        | Description                                                                         |
-| ----------------------------- | :-------------------: | ----------------------------------------------------------------------------------- |
-| PUID                          |          911          | UserID permissions between host OS and container                                    |
-| PGID                          |          911          | GroupID permissions between host OS and container                                   |
-| DEFAULT_GROUP                 |         Home          | The default group for users                                                         |
-| BASE_URL                      | http://localhost:8080 | Used for Notifications                                                              |
-| TOKEN_TIME                    |          48           | The time in hours that a login/auth token is valid                                  |
-| API_PORT                      |         9000          | The port exposed by backend API. **Do not change this if you're running in Docker** |
-| API_DOCS                      |         True          | Turns on/off access to the API documentation locally.                               |
-| TZ                            |          UTC          | Must be set to get correct date/time on the server                                  |
-| ALLOW_SIGNUP<super>\*</super> |         false         | Allow user sign-up without token                                                    |
-| LOG_CONFIG_OVERRIDE           |                       | Override the config for logging with a custom path                                  |
-| LOG_LEVEL                     |         info          | Logging level (e.g. critical, error, warning, info, debug, trace)                   |
-| DAILY_SCHEDULE_TIME           |         23:45         | The time of day to run the daily tasks.                                             |
+| Variables                     |        Default        | Description                                                                                               |
+| ----------------------------- | :-------------------: | --------------------------------------------------------------------------------------------------------- |
+| PUID                          |          911          | UserID permissions between host OS and container                                                          |
+| PGID                          |          911          | GroupID permissions between host OS and container                                                         |
+| DEFAULT_GROUP                 |         Home          | The default group for users                                                                               |
+| BASE_URL                      | http://localhost:8080 | Used for Notifications                                                                                    |
+| TOKEN_TIME                    |          48           | The time in hours that a login/auth token is valid                                                        |
+| API_PORT                      |         9000          | The port exposed by backend API. **Do not change this if you're running in Docker**                       |
+| API_DOCS                      |         True          | Turns on/off access to the API documentation locally                                                      |
+| TZ                            |          UTC          | Must be set to get correct date/time on the server                                                        |
+| ALLOW_SIGNUP<super>\*</super> |         false         | Allow user sign-up without token                                                                          |
+| LOG_CONFIG_OVERRIDE           |                       | Override the config for logging with a custom path                                                        |
+| LOG_LEVEL                     |         info          | Logging level (e.g. critical, error, warning, info, debug, trace)                                         |
+| DAILY_SCHEDULE_TIME           |         23:45         | The time of day to run daily server tasks, in HH:MM format. Use the server's local time, *not* UTC        |
 
 <super>\*</super> Starting in v1.4.0 this was changed to default to `false` as part of a security review of the application.
 
