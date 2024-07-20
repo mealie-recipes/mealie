@@ -15,13 +15,14 @@ from mealie.lang.providers import Translator
 from mealie.pkgs import cache
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_generic import RepositoryGeneric
+from mealie.schema.household.household import HouseholdOut
 from mealie.schema.recipe.recipe import CreateRecipe, Recipe
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.recipe.recipe_step import RecipeStep
 from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventCreate, TimelineEventType
 from mealie.schema.recipe.request_helpers import RecipeDuplicate
-from mealie.schema.user.user import GroupInDB, PrivateUser, UserRatingCreate
+from mealie.schema.user.user import PrivateUser, UserRatingCreate
 from mealie.services._base_service import BaseService
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 
@@ -29,15 +30,15 @@ from .template_service import TemplateService
 
 
 class RecipeService(BaseService):
-    def __init__(self, repos: AllRepositories, user: PrivateUser, group: GroupInDB, translator: Translator):
+    def __init__(self, repos: AllRepositories, user: PrivateUser, household: HouseholdOut, translator: Translator):
         self.repos = repos
         self.user = user
-        self.group = group
+        self.household = household
 
-        if repos.group_id != group.id:
-            raise Exception("repo and group do not match")
         if repos.group_id != user.group_id:
             raise Exception("user and group do not match")
+        if repos.household_id != user.household_id != household.id:
+            raise Exception("user and household do not match")
 
         self.translator = translator
         self.t = translator.t
@@ -94,6 +95,7 @@ class RecipeService(BaseService):
         additional_attrs = additional_attrs or {}
         additional_attrs["name"] = name
         additional_attrs["user_id"] = self.user.id
+        additional_attrs["household_id"] = self.user.household_id
         additional_attrs["group_id"] = self.user.group_id
 
         if additional_attrs.get("tags"):
@@ -130,14 +132,14 @@ class RecipeService(BaseService):
         data: Recipe = self._recipe_creation_factory(name=create_data.name, additional_attrs=create_data.model_dump())
 
         if isinstance(create_data, CreateRecipe) or create_data.settings is None:
-            if self.group.preferences is not None:
+            if self.household.preferences is not None:
                 data.settings = RecipeSettings(
-                    public=self.group.preferences.recipe_public,
-                    show_nutrition=self.group.preferences.recipe_show_nutrition,
-                    show_assets=self.group.preferences.recipe_show_assets,
-                    landscape_view=self.group.preferences.recipe_landscape_view,
-                    disable_comments=self.group.preferences.recipe_disable_comments,
-                    disable_amount=self.group.preferences.recipe_disable_amount,
+                    public=self.household.preferences.recipe_public,
+                    show_nutrition=self.household.preferences.recipe_show_nutrition,
+                    show_assets=self.household.preferences.recipe_show_assets,
+                    landscape_view=self.household.preferences.recipe_landscape_view,
+                    disable_comments=self.household.preferences.recipe_disable_comments,
+                    disable_amount=self.household.preferences.recipe_disable_amount,
                 )
             else:
                 data.settings = RecipeSettings()
@@ -204,8 +206,9 @@ class RecipeService(BaseService):
         elif not isinstance(data, dict):
             return data
 
-        # force group_id to match the group id of the current user
-        data["group_id"] = str(self.group.id)
+        # force group_id and household_id to match the group id of the current user
+        data["group_id"] = str(self.user.group_id)
+        data["household_id"] = str(self.user.household_id)
 
         # make sure categories and tags are valid
         if key == "recipe_category":
@@ -298,8 +301,8 @@ class RecipeService(BaseService):
         # Copy all assets (including images) to the new recipe directory
         # This assures that replaced links in recipe steps continue to work when the old recipe is deleted
         try:
-            new_service = RecipeDataService(new_recipe.id, group_id=old_recipe.group_id)
-            old_service = RecipeDataService(old_recipe.id, group_id=old_recipe.group_id)
+            new_service = RecipeDataService(new_recipe.id)
+            old_service = RecipeDataService(old_recipe.id)
             copytree(
                 old_service.dir_data,
                 new_service.dir_data,

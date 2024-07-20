@@ -103,7 +103,7 @@ class BaseRecipeController(BaseCrudController):
 
     @cached_property
     def service(self) -> RecipeService:
-        return RecipeService(self.repos, self.user, self.group, translator=self.translator)
+        return RecipeService(self.repos, self.user, self.household, translator=self.translator)
 
     @cached_property
     def mixins(self):
