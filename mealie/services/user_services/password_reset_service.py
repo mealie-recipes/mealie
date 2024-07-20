@@ -32,14 +32,14 @@ class PasswordResetService(BaseService):
 
         return self.db.tokens_pw_reset.create(save_token)
 
-    def send_reset_email(self, email: str):
+    def send_reset_email(self, email: str, accept_language: str | None = None):
         token_entry = self.generate_reset_token(email)
 
         if token_entry is None:
             return None
 
         # Send Email
-        email_servive = EmailService()
+        email_servive = EmailService(locale=accept_language)
         reset_url = f"{self.settings.BASE_URL}/reset-password/?token={token_entry.token}"
 
         try:
