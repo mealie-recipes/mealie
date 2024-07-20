@@ -19,7 +19,7 @@
 | LOG_LEVEL                     |         info          | Logging level (e.g. critical, error, warning, info, debug, trace)                   |
 | DAILY_SCHEDULE_TIME           |         23:45         | The time of day to run the daily tasks.                                             |
 
-<super>\*</super> Starting in v1.4.0 this was changed to default to `false` as apart of a security review of the application.
+<super>\*</super> Starting in v1.4.0 this was changed to default to `false` as part of a security review of the application.
 
 ### Security
 
