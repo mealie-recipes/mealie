@@ -54,7 +54,7 @@ class GroupCookbookController(BaseCrudController):
 
     @router.post("", response_model=ReadCookBook, status_code=201)
     def create_one(self, data: CreateCookBook):
-        data = mapper.cast(data, SaveCookBook, group_id=self.group_id)
+        data = mapper.cast(data, SaveCookBook, group_id=self.group_id, household_id=self.household_id)
         cookbook = self.mixins.create_one(data)
 
         if cookbook:

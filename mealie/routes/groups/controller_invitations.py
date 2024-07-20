@@ -25,7 +25,9 @@ class GroupInvitationsController(BaseUserController):
         if not self.user.can_invite:
             raise HTTPException(status.HTTP_403_FORBIDDEN, detail="User is not allowed to create invite tokens")
 
-        token = SaveInviteToken(uses_left=uses.uses, group_id=self.group_id, token=url_safe_token())
+        token = SaveInviteToken(
+            uses_left=uses.uses, group_id=self.group_id, household_id=self.household_id, token=url_safe_token()
+        )
         return self.repos.group_invite_tokens.create(token)
 
     @router.post("/email", response_model=EmailInitationResponse)

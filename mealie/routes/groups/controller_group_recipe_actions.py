@@ -39,7 +39,7 @@ class GroupRecipeActionController(BaseUserController):
 
     @router.post("", response_model=GroupRecipeActionOut, status_code=201)
     def create_one(self, data: CreateGroupRecipeAction):
-        save = data.cast(SaveGroupRecipeAction, group_id=self.group.id)
+        save = data.cast(SaveGroupRecipeAction, group_id=self.group_id, household_id=self.household_id)
         return self.mixins.create_one(save)
 
     @router.get("/{item_id}", response_model=GroupRecipeActionOut)

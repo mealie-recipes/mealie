@@ -37,7 +37,7 @@ class ReadWebhookController(BaseUserController):
 
     @router.post("", response_model=ReadWebhook, status_code=201)
     def create_one(self, data: CreateWebhook):
-        save = mapper.cast(data, SaveWebhook, group_id=self.group.id)
+        save = mapper.cast(data, SaveWebhook, group_id=self.group_id, household_id=self.household_id)
         return self.mixins.create_one(save)
 
     @router.post("/rerun")

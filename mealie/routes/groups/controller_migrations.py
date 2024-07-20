@@ -43,6 +43,7 @@ class GroupMigrationController(BaseUserController):
                 "db": self.repos,
                 "session": self.session,
                 "user_id": self.user.id,
+                "household_id": self.household_id,
                 "group_id": self.group_id,
                 "add_migration_tag": add_migration_tag,
                 "translator": self.translator,

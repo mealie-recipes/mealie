@@ -63,7 +63,7 @@ class GroupEventsNotifierController(BaseUserController):
 
     @router.post("", response_model=GroupEventNotifierOut, status_code=201)
     def create_one(self, data: GroupEventNotifierCreate):
-        save_data = cast(data, GroupEventNotifierSave, group_id=self.user.group_id)
+        save_data = cast(data, GroupEventNotifierSave, group_id=self.group_id, household_id=self.household_id)
         return self.mixins.create_one(save_data)
 
     @router.get("/{item_id}", response_model=GroupEventNotifierOut)
