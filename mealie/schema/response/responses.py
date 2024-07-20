@@ -22,7 +22,7 @@ class SuccessResponse(BaseModel):
     error: bool = False
 
     @classmethod
-    def respond(cls, message: str) -> dict:
+    def respond(cls, message: str = "") -> dict:
         """
         This method is an helper to create an object and convert to a dictionary
         in the same call, for use while providing details to a HTTPException

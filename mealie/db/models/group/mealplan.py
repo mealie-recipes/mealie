@@ -7,14 +7,14 @@ from sqlalchemy.orm import Mapped, mapped_column
 from mealie.db.models.recipe.tag import Tag, plan_rules_to_tags
 
 from .._model_base import BaseMixins, SqlAlchemyBase
-from .._model_utils import GUID, auto_init
+from .._model_utils.auto_init import auto_init
+from .._model_utils.guid import GUID
 from ..recipe.category import Category, plan_rules_to_categories
 
 if TYPE_CHECKING:
-    from group import Group
-
     from ..recipe import RecipeModel
     from ..users import User
+    from .group import Group
 
 
 class GroupMealPlanRules(BaseMixins, SqlAlchemyBase):

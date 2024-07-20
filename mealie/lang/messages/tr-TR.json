@@ -5,8 +5,8 @@
     "recipe": {
         "unique-name-error": "Tarif adları benzersiz olmalıdır",
         "recipe-defaults": {
-            "ingredient-note": "1 Cup Flour",
-            "step-text": "Recipe steps as well as other fields in the recipe page support markdown syntax.\n\n**Add a link**\n\n[My Link](https://demo.mealie.io)\n"
+            "ingredient-note": "1 Bardak Un",
+            "step-text": "Tarif sayfasındaki tarif adımlarının yanı sıra diğer alanlar da markdown destekler.\n\n**Bağlantı ekle**\n\n[Bağlantım](https://demo.mealie.io)\n"
         }
     },
     "mealplan": {

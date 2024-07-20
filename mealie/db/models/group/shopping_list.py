@@ -1,5 +1,5 @@
 from contextvars import ContextVar
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import TYPE_CHECKING, Optional
 
 from pydantic import ConfigDict
@@ -11,14 +11,14 @@ from mealie.db.models.labels import MultiPurposeLabel
 from mealie.db.models.recipe.api_extras import ShoppingListExtras, ShoppingListItemExtras, api_extras
 
 from .._model_base import BaseMixins, SqlAlchemyBase
-from .._model_utils import GUID, auto_init
+from .._model_utils.auto_init import auto_init
+from .._model_utils.guid import GUID
 from ..recipe.ingredient import IngredientFoodModel, IngredientUnitModel
 
 if TYPE_CHECKING:
-    from group import Group
-    from users import User
-
     from ..recipe import RecipeModel
+    from ..users import User
+    from .group import Group
 
 
 class ShoppingListItemRecipeReference(BaseMixins, SqlAlchemyBase):
@@ -73,7 +73,7 @@ class ShoppingListItem(SqlAlchemyBase, BaseMixins):
     recipe_references: Mapped[list[ShoppingListItemRecipeReference]] = orm.relationship(
         ShoppingListItemRecipeReference, cascade="all, delete, delete-orphan"
     )
-    model_config = ConfigDict(exclude={"id", "label", "food", "unit"})
+    model_config = ConfigDict(exclude={"label", "food", "unit"})
 
     @api_extras
     @auto_init()
@@ -204,7 +204,7 @@ def update_shopping_lists(session: orm.Session, _):
             if not shopping_list:
                 continue
 
-            shopping_list.update_at = datetime.now()
+            shopping_list.update_at = datetime.now(timezone.utc)
         local_session.commit()
     except Exception:
         local_session.rollback()

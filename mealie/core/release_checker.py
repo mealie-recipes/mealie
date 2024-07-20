@@ -32,7 +32,7 @@ def get_latest_version() -> str:
 
     global _LAST_RESET
 
-    now = datetime.datetime.now()
+    now = datetime.datetime.now(datetime.timezone.utc)
 
     if not _LAST_RESET or now - _LAST_RESET > datetime.timedelta(days=MAX_DAYS_OLD):
         _LAST_RESET = now

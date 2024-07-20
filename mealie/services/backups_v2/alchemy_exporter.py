@@ -1,4 +1,5 @@
 import datetime
+import os
 import uuid
 from os import path
 from pathlib import Path
@@ -13,7 +14,7 @@ from sqlalchemy.orm import sessionmaker
 from alembic import command
 from alembic.config import Config
 from mealie.db import init_db
-from mealie.db.models._model_utils import GUID
+from mealie.db.models._model_utils.guid import GUID
 from mealie.services._base_service import BaseService
 
 PROJECT_DIR = Path(__file__).parent.parent.parent.parent
@@ -151,7 +152,12 @@ class AlchemyExporter(BaseService):
         alembic_data = db_dump["alembic_version"]
         alembic_version = alembic_data[0]["version_num"]
 
-        alembic_cfg = Config(str(PROJECT_DIR / "alembic.ini"))
+        alembic_cfg_path = os.getenv("ALEMBIC_CONFIG_FILE", default=str(PROJECT_DIR / "alembic.ini"))
+
+        if not path.isfile(alembic_cfg_path):
+            raise Exception("Provided alembic config path doesn't exist")
+
+        alembic_cfg = Config(alembic_cfg_path)
         # alembic's file resolver wants to use the "mealie" subdirectory when called from within the server package
         # Just override this to use the correct migrations path
         alembic_cfg.set_main_option("script_location", path.join(PROJECT_DIR, "alembic"))

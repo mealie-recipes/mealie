@@ -64,7 +64,7 @@
     "something-went-wrong": "Si è verificato un errore!",
     "subscribed-events": "Eventi Sottoscritti",
     "test-message-sent": "Messaggio di prova inviato",
-    "message-sent": "Message Sent",
+    "message-sent": "Messaggio Inviato",
     "new-notification": "Nuova Notifica",
     "event-notifiers": "Notifiche Evento",
     "apprise-url-skipped-if-blank": "Url di Apprise (ignorato se vuoto)",
@@ -161,7 +161,7 @@
     "test": "Test",
     "themes": "Temi",
     "thursday": "Giovedì",
-    "title": "Title",
+    "title": "Titolo",
     "token": "Token",
     "tuesday": "Martedì",
     "type": "Tipo",
@@ -211,7 +211,7 @@
     "clipboard-copy-failure": "Impossibile copiare negli appunti.",
     "confirm-delete-generic-items": "Sei sicuro di voler eliminare i seguenti elementi?",
     "organizers": "Organizzatori",
-    "caution": "Caution"
+    "caution": "Attenzione"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Sei sicuro di volerlo eliminare <b>{groupName}<b/>'?",
@@ -292,8 +292,8 @@
     "mealplan-updated": "Piano Alimentare Aggiornato",
     "no-meal-plan-defined-yet": "Ancora nessun piano alimentare definito",
     "no-meal-planned-for-today": "Nessun piano alimentare per oggi",
-    "numberOfDays-hint": "Number of days on page load",
-    "numberOfDays-label": "Default Days",
+    "numberOfDays-hint": "Numero di giorni sul caricamento della pagina",
+    "numberOfDays-label": "Giorni Predefiniti",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Solo ricette con queste categorie possono essere utilizzate un un Piano Alimentare",
     "planner": "Pianificatore",
     "quick-week": "Settimana Veloce",
@@ -383,7 +383,7 @@
     },
     "recipekeeper": {
       "title": "Recipe Keeper",
-      "description-long": "Mealie can import recipes from Recipe Keeper. Export your recipes in zip format, then upload the .zip file below."
+      "description-long": "Mealie può importare ricette da Recipe Keeper. Esporta le tue ricette in formato zip, quindi carica lo .zip qui sotto."
     }
   },
   "new-recipe": {
@@ -449,8 +449,8 @@
     "ingredients": "Ingredienti",
     "insert-ingredient": "Inserisci Ingrediente",
     "insert-section": "Inserisci Sezione",
-    "insert-above": "Insert Above",
-    "insert-below": "Insert Below",
+    "insert-above": "Inserisci Sopra",
+    "insert-below": "Inserisci Sotto",
     "instructions": "Istruzioni",
     "key-name-required": "Nome Chiave Richiesto",
     "landscape-view-coming-soon": "Vista Orizzontale (Prossimamente)",
@@ -586,8 +586,8 @@
     "report-deletion-failed": "Eliminazione report fallita",
     "recipe-debugger": "Debugger Ricetta",
     "recipe-debugger-description": "Prendi l'URL della ricetta che vuoi fare il debug e incollalo qui. L'URL verrà recuperato dallo scraper di ricette e i risultati verranno visualizzati. Se non si vede alcun dato restituito, il sito che si sta cercando di analizzare non è supportato da Mealie o la sua libreria di scraping.",
-    "use-openai": "Use OpenAI",
-    "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
+    "use-openai": "Usa OpenAI",
+    "recipe-debugger-use-openai-description": "Usa OpenAI per analizzare i risultati invece di affidarsi alla libreria scraper. Quando si crea una ricetta tramite URL, questo viene fatto automaticamente se la libreria scraper fallisce, ma è possibile testarlo manualmente qui.",
     "debug": "Debug",
     "tree-view": "Visualizzazione ad Albero",
     "recipe-yield": "Resa Ricetta",
@@ -596,7 +596,7 @@
     "screen-awake": "Mantieni lo schermo acceso",
     "remove-image": "Rimuovi immagine",
     "nextStep": "Passo successivo",
-    "recipe-actions": "Recipe Actions",
+    "recipe-actions": "Azioni Ricetta",
     "parser": {
       "experimental-alert-text": "Mealie utilizza l'elaborazione del linguaggio naturale per analizzare e creare unità e prodotti alimentari per i vostri ingredienti di ricetta. Questa funzione è sperimentale e potrebbe non funzionare sempre come previsto. Se preferisci non usare i risultati analizzati, puoi selezionare 'Annulla' e le tue modifiche non saranno salvate.",
       "ingredient-parser": "Analizzatore ingredienti",
@@ -605,7 +605,7 @@
       "select-parser": "Seleziona Analizzatore",
       "natural-language-processor": "Analizzatore di Linguaggio Naturale",
       "brute-parser": "Analizzatore brutale",
-      "openai-parser": "OpenAI Parser",
+      "openai-parser": "Parser OpenAI",
       "parse-all": "Analizza tutto",
       "no-unit": "Nessuna unità",
       "missing-unit": "Crea unità mancante: {unit}",
@@ -640,7 +640,7 @@
       "backup-created-at-response-export_path": "Backup Creato in {path}",
       "backup-deleted": "Backup eliminato",
       "restore-success": "Ripristino riuscito",
-      "restore-fail": "Restore failed. Check your server logs for more details",
+      "restore-fail": "Ripristino non riuscito. Controlla i log del tuo server per maggiori dettagli",
       "backup-tag": "Tag Backup",
       "create-heading": "Crea un Backup",
       "delete-backup": "Elimina Backup",
@@ -778,9 +778,9 @@
     "oidc-ready": "Pronto per OIDC",
     "oidc-ready-error-text": "I valori OIDC non sono configurati. Questo può essere ignorato se non si utilizza Autenticazione OIDC.",
     "oidc-ready-success-text": "Le variabili OIDC richieste sono tutte impostate.",
-    "openai-ready": "OpenAI Ready",
-    "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
-    "openai-ready-success-text": "Required OpenAI variables are all set."
+    "openai-ready": "OpenAI Pronto",
+    "openai-ready-error-text": "Non tutti i valori OpenAI sono configurati. Puoi ignorarlo se non utilizzi le funzioni di OpenAI.",
+    "openai-ready-success-text": "Le variabili OpenAI richieste sono tutte impostate."
   },
   "shopping-list": {
     "all-lists": "Tutte le Liste",
@@ -794,7 +794,7 @@
     "food": "Alimenti",
     "note": "Nota",
     "label": "Etichetta",
-    "save-label": "Save Label",
+    "save-label": "Salva Etichetta",
     "linked-item-warning": "Questo elemento è collegato a una o più ricette. La modifica delle unità o degli alimenti potrebbe dare risultati inattesi quando si aggiunge o si rimuove la ricetta da questo elenco.",
     "toggle-food": "Attiva/Disattiva Alimento",
     "manage-labels": "Gestisci Etichette",
@@ -810,9 +810,11 @@
     "items-checked-count": "Nessun elemento selezionato|Un elemento selezionato|{count} elementi selezionati",
     "no-label": "Nessuna etichetta",
     "completed-on": "Completato il {date}",
-    "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
-    "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
-    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
+    "you-are-offline": "Non sei in linea",
+    "you-are-offline-description": "Non tutte le funzioni sono disponibili quando non sei in linea. Puoi ancora aggiungere, modificare e rimuovere elementi, ma non sarai in grado di sincronizzare le modifiche con il server fino a quando non sarai di nuovo in linea.",
+    "are-you-sure-you-want-to-check-all-items": "Sei sicuro di voler tutti gli elementi?",
+    "are-you-sure-you-want-to-uncheck-all-items": "Sei sicuro di voler deselezionare tutti gli elementi?",
+    "are-you-sure-you-want-to-delete-checked-items": "Sei sicuro di voler rimuovere tutti gli articoli selezionati?"
   },
   "sidebar": {
     "all-recipes": "Ricette",
@@ -956,7 +958,7 @@
     "authentication-method-hint": "Indica come un utente si autenticherà con Mealie. Se non sei sicuro, scegli 'Mealie",
     "permissions": "Permessi",
     "administrator": "Amministratore",
-    "user-can-invite-other-to-group": "L'utente può invitare altri al gruppo",
+    "user-can-invite-other-to-group": "L'utente può invitare altre persone nel gruppo",
     "user-can-manage-group": "L'utente può gestire il gruppo",
     "user-can-organize-group-data": "L'utente può organizzare i dati del gruppo",
     "enable-advanced-features": "Abilita funzionalità avanzate",
@@ -988,7 +990,8 @@
       "food-data": "Dati Alimento",
       "example-food-singular": "esempio: Cipolla",
       "example-food-plural": "esempio: Cipolle",
-      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels."
+      "label-overwrite-warning": "Questo assegnerà l'etichetta scelta a tutti gli alimenti selezionati e potenzialmente sovrascriverà le etichette esistenti.",
+      "on-hand-checkbox-label": "Abilitando questa impostazione, l'alimento verrà deselezionato di default quando si aggiungerà una ricetta a una lista della spesa."
     },
     "units": {
       "seed-dialog-text": "Riempie il database con unità comuni basate sulla lingua.",
@@ -1017,7 +1020,7 @@
       "edit-label": "Modifica Etichetta",
       "new-label": "Nuova Etichetta",
       "labels": "Etichette",
-      "assign-label": "Assign Label"
+      "assign-label": "Assegna Etichetta"
     },
     "recipes": {
       "purge-exports": "Elimina Esportazioni",
@@ -1041,10 +1044,10 @@
       "source-unit-will-be-deleted": "L'unità di origine verrà eliminata"
     },
     "recipe-actions": {
-      "recipe-actions-data": "Recipe Actions Data",
-      "new-recipe-action": "New Recipe Action",
-      "edit-recipe-action": "Edit Recipe Action",
-      "action-type": "Action Type"
+      "recipe-actions-data": "Dati Azioni Ricetta",
+      "new-recipe-action": "Nuova Azione Ricetta",
+      "edit-recipe-action": "Modifica Azione Ricetta",
+      "action-type": "Tipo Di Azione"
     },
     "create-alias": "Crea Alias",
     "manage-aliases": "Gestisci Alias",

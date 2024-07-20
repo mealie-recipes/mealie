@@ -92,6 +92,9 @@ RUN apt-get update \
     libldap-2.5 \
     && rm -rf /var/lib/apt/lists/*
 
+# create directory used for Docker Secrets
+RUN mkdir -p /run/secrets
+
 # copying poetry and venv into image
 COPY --from=builder-base $POETRY_HOME $POETRY_HOME
 COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH

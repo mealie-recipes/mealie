@@ -1,18 +1,23 @@
 from __future__ import annotations
 
+import re
 from collections.abc import Sequence
+from datetime import datetime, timezone
 from enum import Enum
 from typing import ClassVar, Protocol, TypeVar
 
 from humps.main import camelize
-from pydantic import UUID4, BaseModel, ConfigDict
+from pydantic import UUID4, BaseModel, ConfigDict, model_validator
 from sqlalchemy import Select, desc, func, or_, text
 from sqlalchemy.orm import InstrumentedAttribute, Session
 from sqlalchemy.orm.interfaces import LoaderOption
+from typing_extensions import Self
 
 from mealie.db.models._model_base import SqlAlchemyBase
 
 T = TypeVar("T", bound=BaseModel)
+
+HOUR_ONLY_TZ_PATTERN = re.compile(r"[+-]\d{2}$")
 
 
 class SearchType(Enum):
@@ -29,6 +34,43 @@ class MealieModel(BaseModel):
     The first property will be used for sorting (order_by)
     """
     model_config = ConfigDict(alias_generator=camelize, populate_by_name=True)
+
+    @model_validator(mode="before")
+    @classmethod
+    def fix_hour_only_tz(cls, data: T) -> T:
+        """
+        Fixes datetimes with timezones that only have the hour portion.
+
+        Pydantic assumes timezones are in the format +HH:MM, but postgres returns +HH.
+        https://github.com/pydantic/pydantic/issues/8609
+        """
+        for field, field_info in cls.model_fields.items():
+            if field_info.annotation != datetime:
+                continue
+            try:
+                if not isinstance(val := getattr(data, field), str):
+                    continue
+            except AttributeError:
+                continue
+            if re.search(HOUR_ONLY_TZ_PATTERN, val):
+                setattr(data, field, val + ":00")
+
+        return data
+
+    @model_validator(mode="after")
+    def set_tz_info(self) -> Self:
+        """
+        Adds UTC timezone information to all datetimes in the model.
+        The server stores everything in UTC without timezone info.
+        """
+        for field in self.model_fields:
+            val = getattr(self, field)
+            if not isinstance(val, datetime):
+                continue
+            if not val.tzinfo:
+                setattr(self, field, val.replace(tzinfo=timezone.utc))
+
+        return self
 
     def cast(self, cls: type[T], **kwargs) -> T:
         """

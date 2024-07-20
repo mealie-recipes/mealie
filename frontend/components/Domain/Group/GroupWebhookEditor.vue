@@ -18,8 +18,6 @@
             icon: $globals.icons.testTube,
             text: $tc('general.test'),
             event: 'test',
-            // TODO: There is no functionality hooked up to this. Enable it when there is
-            disabled: true,
           },
           {
             icon: $globals.icons.save,

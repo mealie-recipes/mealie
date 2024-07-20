@@ -6,6 +6,7 @@ import AppLoader from "@/components/global/AppLoader.vue";
 import AppToolbar from "@/components/global/AppToolbar.vue";
 import AutoForm from "@/components/global/AutoForm.vue";
 import BannerExperimental from "@/components/global/BannerExperimental.vue";
+import BannerWarning from "@/components/global/BannerWarning.vue";
 import BaseButton from "@/components/global/BaseButton.vue";
 import BaseButtonGroup from "@/components/global/BaseButtonGroup.vue";
 import BaseCardSectionTitle from "@/components/global/BaseCardSectionTitle.vue";
@@ -45,6 +46,7 @@ declare module "vue" {
     AppToolbar: typeof AppToolbar;
     AutoForm: typeof AutoForm;
     BannerExperimental: typeof BannerExperimental;
+    BannerWarning: typeof BannerWarning;
     BaseButton: typeof BaseButton;
     BaseButtonGroup: typeof BaseButtonGroup;
     BaseCardSectionTitle: typeof BaseCardSectionTitle;

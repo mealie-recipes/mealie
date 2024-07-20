@@ -51,7 +51,7 @@
               <v-list-item-title>
                 {{ token.name }}
               </v-list-item-title>
-              <v-list-item-subtitle> {{ $t('general.created-on-date', [$d(new Date(token.createdAt+"Z"))]) }} </v-list-item-subtitle>
+              <v-list-item-subtitle> {{ $t('general.created-on-date', [$d(new Date(token.createdAt))]) }} </v-list-item-subtitle>
             </v-list-item-content>
             <v-list-item-action>
               <BaseButton delete small @click="deleteToken(token.id)"></BaseButton>

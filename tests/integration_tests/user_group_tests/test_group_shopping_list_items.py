@@ -16,7 +16,12 @@ from tests.utils.fixture_schemas import TestUser
 
 
 def create_item(list_id: UUID4, **kwargs) -> dict:
-    return {"shopping_list_id": str(list_id), "note": random_string(10), "quantity": random_int(1, 10), **kwargs}
+    return {
+        "shopping_list_id": str(list_id),
+        "note": random_string(10),
+        "quantity": random_int(1, 10),
+        **kwargs,
+    }
 
 
 def serialize_list_items(list_items: list[ShoppingListItemOut]) -> list:
@@ -38,20 +43,26 @@ def test_shopping_list_items_create_one(
     item = create_item(shopping_list.id)
 
     response = api_client.post(api_routes.groups_shopping_items, json=item, headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 201)
+    as_json = utils.assert_deserialize(response, 201)
     assert len(as_json["createdItems"]) == 1
 
     # Test Item is Getable
     created_item_id = as_json["createdItems"][0]["id"]
-    response = api_client.get(api_routes.groups_shopping_items_item_id(created_item_id), headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 200)
+    response = api_client.get(
+        api_routes.groups_shopping_items_item_id(created_item_id),
+        headers=unique_user.token,
+    )
+    as_json = utils.assert_deserialize(response, 200)
 
     # Ensure List Id is Set
     assert as_json["shoppingListId"] == str(shopping_list.id)
 
     # Test Item In List
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(shopping_list.id), headers=unique_user.token)
-    response_list = utils.assert_derserialize(response, 200)
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(shopping_list.id),
+        headers=unique_user.token,
+    )
+    response_list = utils.assert_deserialize(response, 200)
 
     assert len(response_list["listItems"]) == 1
 
@@ -64,16 +75,23 @@ def test_shopping_list_items_create_many(
 ) -> None:
     items = [create_item(shopping_list.id) for _ in range(10)]
 
-    response = api_client.post(api_routes.groups_shopping_items_create_bulk, json=items, headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 201)
+    response = api_client.post(
+        api_routes.groups_shopping_items_create_bulk,
+        json=items,
+        headers=unique_user.token,
+    )
+    as_json = utils.assert_deserialize(response, 201)
     assert len(as_json["createdItems"]) == len(items)
     assert len(as_json["updatedItems"]) == 0
     assert len(as_json["deletedItems"]) == 0
 
     # test items in list
     created_item_ids = [item["id"] for item in as_json["createdItems"]]
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(shopping_list.id), headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 200)
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(shopping_list.id),
+        headers=unique_user.token,
+    )
+    as_json = utils.assert_deserialize(response, 200)
 
     # make sure the list is the correct size
     assert len(as_json["listItems"]) == len(items)
@@ -89,13 +107,16 @@ def test_shopping_list_items_create_many(
 
 
 def test_shopping_list_items_auto_assign_label_with_food_without_label(
-    api_client: TestClient, unique_user: TestUser, shopping_list: ShoppingListOut, database: AllRepositories
+    api_client: TestClient,
+    unique_user: TestUser,
+    shopping_list: ShoppingListOut,
+    database: AllRepositories,
 ):
     food = database.ingredient_foods.create(SaveIngredientFood(name=random_string(10), group_id=unique_user.group_id))
 
     item = create_item(shopping_list.id, food_id=str(food.id))
     response = api_client.post(api_routes.groups_shopping_items, json=item, headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 201)
+    as_json = utils.assert_deserialize(response, 201)
     assert len(as_json["createdItems"]) == 1
 
     item_out = ShoppingListItemOut.model_validate(as_json["createdItems"][0])
@@ -104,7 +125,10 @@ def test_shopping_list_items_auto_assign_label_with_food_without_label(
 
 
 def test_shopping_list_items_auto_assign_label_with_food_with_label(
-    api_client: TestClient, unique_user: TestUser, shopping_list: ShoppingListOut, database: AllRepositories
+    api_client: TestClient,
+    unique_user: TestUser,
+    shopping_list: ShoppingListOut,
+    database: AllRepositories,
 ):
     label = database.group_multi_purpose_labels.create({"name": random_string(10), "group_id": unique_user.group_id})
     food = database.ingredient_foods.create(
@@ -113,7 +137,7 @@ def test_shopping_list_items_auto_assign_label_with_food_with_label(
 
     item = create_item(shopping_list.id, food_id=str(food.id))
     response = api_client.post(api_routes.groups_shopping_items, json=item, headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 201)
+    as_json = utils.assert_deserialize(response, 201)
     assert len(as_json["createdItems"]) == 1
 
     item_out = ShoppingListItemOut.model_validate(as_json["createdItems"][0])
@@ -142,7 +166,7 @@ def test_shopping_list_items_auto_assign_label_with_food_search(
     item["note"] = name
 
     response = api_client.post(api_routes.groups_shopping_items, json=item, headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 201)
+    as_json = utils.assert_deserialize(response, 201)
     assert len(as_json["createdItems"]) == 1
 
     item_out = ShoppingListItemOut.model_validate(as_json["createdItems"][0])
@@ -168,9 +192,13 @@ def test_shopping_list_items_get_all(
     unique_user: TestUser,
     list_with_items: ShoppingListOut,
 ) -> None:
-    params = {"page": 1, "perPage": -1, "queryFilter": f"shopping_list_id={list_with_items.id}"}
+    params = {
+        "page": 1,
+        "perPage": -1,
+        "queryFilter": f"shopping_list_id={list_with_items.id}",
+    }
     response = api_client.get(api_routes.groups_shopping_items, params=params, headers=unique_user.token)
-    pagination_json = utils.assert_derserialize(response, 200)
+    pagination_json = utils.assert_deserialize(response, 200)
     assert len(pagination_json["items"]) == len(list_with_items.list_items)
 
 
@@ -193,9 +221,11 @@ def test_shopping_list_items_update_one(
         update_data["id"] = str(item.id)
 
         response = api_client.put(
-            api_routes.groups_shopping_items_item_id(item.id), json=update_data, headers=unique_user.token
+            api_routes.groups_shopping_items_item_id(item.id),
+            json=update_data,
+            headers=unique_user.token,
         )
-        item_json = utils.assert_derserialize(response, 200)
+        item_json = utils.assert_deserialize(response, 200)
 
         assert len(item_json["createdItems"]) == 0
         assert len(item_json["updatedItems"]) == 1
@@ -204,8 +234,11 @@ def test_shopping_list_items_update_one(
         assert item_json["updatedItems"][0]["quantity"] == update_data["quantity"]
 
     # make sure the list didn't change sizes
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(list_with_items.id), headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 200)
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(list_with_items.id),
+        headers=unique_user.token,
+    )
+    as_json = utils.assert_deserialize(response, 200)
     assert len(as_json["listItems"]) == len(list_with_items.list_items)
 
 
@@ -217,8 +250,12 @@ def test_shopping_list_items_update_many(
     for item in items:
         item["quantity"] += 10
 
-    response = api_client.post(api_routes.groups_shopping_items_create_bulk, json=items, headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 201)
+    response = api_client.post(
+        api_routes.groups_shopping_items_create_bulk,
+        json=items,
+        headers=unique_user.token,
+    )
+    as_json = utils.assert_deserialize(response, 201)
     assert len(as_json["createdItems"]) == len(items)
 
     # update the items and compare values
@@ -227,16 +264,23 @@ def test_shopping_list_items_update_many(
         update_item["quantity"] += random_int(-5, 5)
         item_quantity_map[update_item["id"]] = update_item["quantity"]
 
-    response = api_client.put(api_routes.groups_shopping_items, json=as_json["createdItems"], headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 200)
+    response = api_client.put(
+        api_routes.groups_shopping_items,
+        json=as_json["createdItems"],
+        headers=unique_user.token,
+    )
+    as_json = utils.assert_deserialize(response, 200)
     assert len(as_json["updatedItems"]) == len(items)
 
     for updated_item in as_json["updatedItems"]:
         assert item_quantity_map[updated_item["id"]] == updated_item["quantity"]
 
     # make sure the list didn't change sizes
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(shopping_list.id), headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 200)
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(shopping_list.id),
+        headers=unique_user.token,
+    )
+    as_json = utils.assert_deserialize(response, 200)
     assert len(as_json["listItems"]) == len(items)
 
 
@@ -266,8 +310,11 @@ def test_shopping_list_items_update_many_reorder(
     assert response.status_code == 200
 
     # retrieve list and check positions against list
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(list_with_items.id), headers=unique_user.token)
-    response_list = utils.assert_derserialize(response, 200)
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(list_with_items.id),
+        headers=unique_user.token,
+    )
+    response_list = utils.assert_deserialize(response, 200)
 
     for i, item_data in enumerate(response_list["listItems"]):
         assert item_data["position"] == i
@@ -306,13 +353,18 @@ def test_shopping_list_items_update_many_consolidates_common_items(
 
     # update list
     response = api_client.put(
-        api_routes.groups_shopping_items, json=serialize_list_items(list_items), headers=unique_user.token
+        api_routes.groups_shopping_items,
+        json=serialize_list_items(list_items),
+        headers=unique_user.token,
     )
     assert response.status_code == 200
 
     # retrieve list and check positions against list
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(list_with_items.id), headers=unique_user.token)
-    response_list = utils.assert_derserialize(response, 200)
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(list_with_items.id),
+        headers=unique_user.token,
+    )
+    response_list = utils.assert_deserialize(response, 200)
 
     assert len(response_list["listItems"]) == 1
     assert response_list["listItems"][0]["quantity"] == len(list_items)
@@ -333,9 +385,11 @@ def test_shopping_list_items_add_mergeable(
     merged_qty = sum([item["quantity"] for item in duplicate_items])  # type: ignore
 
     response = api_client.post(
-        api_routes.groups_shopping_items_create_bulk, json=items + duplicate_items, headers=unique_user.token
+        api_routes.groups_shopping_items_create_bulk,
+        json=items + duplicate_items,
+        headers=unique_user.token,
     )
-    as_json = utils.assert_derserialize(response, 201)
+    as_json = utils.assert_deserialize(response, 201)
     assert len(as_json["createdItems"]) == len(items) + 1
     assert len(as_json["updatedItems"]) == 0
     assert len(as_json["deletedItems"]) == 0
@@ -356,7 +410,7 @@ def test_shopping_list_items_add_mergeable(
     updated_quantity = new_item["quantity"] + item_to_merge_into["quantity"]
 
     response = api_client.post(api_routes.groups_shopping_items, json=new_item, headers=unique_user.token)
-    item_json = utils.assert_derserialize(response, 201)
+    item_json = utils.assert_deserialize(response, 201)
 
     # we should have received an updated item, not a created item
     assert len(item_json["createdItems"]) == 0
@@ -366,8 +420,11 @@ def test_shopping_list_items_add_mergeable(
     assert item_json["updatedItems"][0]["quantity"] == updated_quantity
 
     # fetch the list and make sure we have the correct number of items
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(shopping_list.id), headers=unique_user.token)
-    list_json = utils.assert_derserialize(response, 200)
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(shopping_list.id),
+        headers=unique_user.token,
+    )
+    list_json = utils.assert_deserialize(response, 200)
     assert len(list_json["listItems"]) == len(as_json["createdItems"])
 
 
@@ -383,7 +440,7 @@ def test_shopping_list_items_update_mergable(
 
     payload = utils.jsonify([item.model_dump() for item in list_with_items.list_items])
     response = api_client.put(api_routes.groups_shopping_items, json=payload, headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 200)
+    as_json = utils.assert_deserialize(response, 200)
 
     assert len(as_json["createdItems"]) == 0
     assert len(as_json["updatedItems"]) == ceil(len(list_with_items.list_items) / 2)
@@ -400,8 +457,11 @@ def test_shopping_list_items_update_mergable(
         )
 
     # confirm the number of items on the list matches
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(list_with_items.id), headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 200)
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(list_with_items.id),
+        headers=unique_user.token,
+    )
+    as_json = utils.assert_deserialize(response, 200)
     updated_list_items = as_json["listItems"]
     assert len(updated_list_items) == ceil(len(list_with_items.list_items) / 2)
 
@@ -415,7 +475,7 @@ def test_shopping_list_items_update_mergable(
 
     payload = utils.jsonify(items_to_merge)
     response = api_client.put(api_routes.groups_shopping_items, json=payload, headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 200)
+    as_json = utils.assert_deserialize(response, 200)
 
     assert len(as_json["createdItems"]) == 0
     assert len(as_json["updatedItems"]) == 1
@@ -448,7 +508,7 @@ def test_shopping_list_items_checked_off(
         headers=unique_user.token,
     )
 
-    as_json = utils.assert_derserialize(response, 200)
+    as_json = utils.assert_deserialize(response, 200)
     assert len(as_json["createdItems"]) == 0
     assert len(as_json["updatedItems"]) == 1
     assert len(as_json["deletedItems"]) == 0
@@ -456,8 +516,11 @@ def test_shopping_list_items_checked_off(
     assert updated_item["checked"]
 
     # get the reference item and make sure it didn't change
-    response = api_client.get(api_routes.groups_shopping_items_item_id(reference_item.id), headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 200)
+    response = api_client.get(
+        api_routes.groups_shopping_items_item_id(reference_item.id),
+        headers=unique_user.token,
+    )
+    as_json = utils.assert_deserialize(response, 200)
     reference_item_get = ShoppingListItemOut.model_validate(as_json)
 
     assert reference_item_get.id == reference_item.id
@@ -467,8 +530,11 @@ def test_shopping_list_items_checked_off(
     assert reference_item_get.checked == reference_item.checked
 
     # rename an item to match another item and check both off, and make sure they are not merged
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(list_with_items.id), headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 200)
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(list_with_items.id),
+        headers=unique_user.token,
+    )
+    as_json = utils.assert_deserialize(response, 200)
     updated_list = ShoppingListOut.model_validate(as_json)
 
     item_1, item_2 = random.sample(updated_list.list_items, 2)
@@ -482,7 +548,7 @@ def test_shopping_list_items_checked_off(
         headers=unique_user.token,
     )
 
-    as_json = utils.assert_derserialize(response, 200)
+    as_json = utils.assert_deserialize(response, 200)
     assert len(as_json["createdItems"]) == 0
     assert len(as_json["updatedItems"]) == 2
     assert len(as_json["deletedItems"]) == 0
@@ -505,14 +571,19 @@ def test_shopping_list_items_with_zero_quantity(
         item["quantity"] = 0
 
     response = api_client.post(
-        api_routes.groups_shopping_items_create_bulk, json=normal_items + zero_qty_items, headers=unique_user.token
+        api_routes.groups_shopping_items_create_bulk,
+        json=normal_items + zero_qty_items,
+        headers=unique_user.token,
     )
-    as_json = utils.assert_derserialize(response, 201)
+    as_json = utils.assert_deserialize(response, 201)
     assert len(as_json["createdItems"]) == len(normal_items + zero_qty_items)
 
     # confirm the number of items on the list matches
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(shopping_list.id), headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 200)
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(shopping_list.id),
+        headers=unique_user.token,
+    )
+    as_json = utils.assert_deserialize(response, 200)
     created_items = as_json["listItems"]
     assert len(created_items) == len(normal_items + zero_qty_items)
 
@@ -522,8 +593,12 @@ def test_shopping_list_items_with_zero_quantity(
     target_item = random.choice(created_items)
     new_item_to_merge["note"] = target_item["note"]
 
-    response = api_client.post(api_routes.groups_shopping_items, json=new_item_to_merge, headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 201)
+    response = api_client.post(
+        api_routes.groups_shopping_items,
+        json=new_item_to_merge,
+        headers=unique_user.token,
+    )
+    as_json = utils.assert_deserialize(response, 201)
     assert len(as_json["createdItems"]) == 0
     assert len(as_json["updatedItems"]) == 1
     assert len(as_json["deletedItems"]) == 0
@@ -534,8 +609,11 @@ def test_shopping_list_items_with_zero_quantity(
     assert updated_item["quantity"] == target_item["quantity"]
 
     # confirm the number of items on the list stayed the same
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(shopping_list.id), headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 200)
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(shopping_list.id),
+        headers=unique_user.token,
+    )
+    as_json = utils.assert_deserialize(response, 200)
     assert len(as_json["listItems"]) == len(normal_items + zero_qty_items)
 
     # update an existing item to zero quantity and make sure it merges into the existing item
@@ -548,7 +626,7 @@ def test_shopping_list_items_with_zero_quantity(
         json=update_item_to_merge,
         headers=unique_user.token,
     )
-    as_json = utils.assert_derserialize(response, 200)
+    as_json = utils.assert_deserialize(response, 200)
     assert len(as_json["createdItems"]) == 0
     assert len(as_json["updatedItems"]) == 1
     assert len(as_json["deletedItems"]) == 1
@@ -560,8 +638,11 @@ def test_shopping_list_items_with_zero_quantity(
     assert updated_item["quantity"] == target_item["quantity"]
 
     # confirm the number of items on the list shrunk by one
-    response = api_client.get(api_routes.groups_shopping_lists_item_id(shopping_list.id), headers=unique_user.token)
-    as_json = utils.assert_derserialize(response, 200)
+    response = api_client.get(
+        api_routes.groups_shopping_lists_item_id(shopping_list.id),
+        headers=unique_user.token,
+    )
+    as_json = utils.assert_deserialize(response, 200)
     assert len(as_json["listItems"]) == len(normal_items + zero_qty_items) - 1
 
 
@@ -579,7 +660,7 @@ def test_shopping_list_item_extras(
     new_item_data["extras"] = {key_str_1: val_str_1}
 
     response = api_client.post(api_routes.groups_shopping_items, json=new_item_data, headers=unique_user.token)
-    collection = utils.assert_derserialize(response, 201)
+    collection = utils.assert_deserialize(response, 201)
     item_as_json = collection["createdItems"][0]
 
     # make sure the extra persists
@@ -591,9 +672,11 @@ def test_shopping_list_item_extras(
     item_as_json["extras"][key_str_2] = val_str_2
 
     response = api_client.put(
-        api_routes.groups_shopping_items_item_id(item_as_json["id"]), json=item_as_json, headers=unique_user.token
+        api_routes.groups_shopping_items_item_id(item_as_json["id"]),
+        json=item_as_json,
+        headers=unique_user.token,
     )
-    collection = utils.assert_derserialize(response, 200)
+    collection = utils.assert_deserialize(response, 200)
     item_as_json = collection["updatedItems"][0]
 
     # make sure both the new extra and original extra persist

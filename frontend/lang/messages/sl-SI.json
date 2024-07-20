@@ -211,7 +211,7 @@
     "clipboard-copy-failure": "Kopiranje na odložišče ni bilo uspešno.",
     "confirm-delete-generic-items": "Ali ste prepričani, da želite izbrisati izbrane elemente?",
     "organizers": "Organizatorji",
-    "caution": "Caution"
+    "caution": "Pozor"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Ste prepričani, da želite izbrisati <b>{groupName}<b/>?",
@@ -449,8 +449,8 @@
     "ingredients": "Sestavine",
     "insert-ingredient": "Dodaj sestavino",
     "insert-section": "Vstavi odsek",
-    "insert-above": "Insert Above",
-    "insert-below": "Insert Below",
+    "insert-above": "Vstavi zgoraj",
+    "insert-below": "Vstavi spodaj",
     "instructions": "Navodila",
     "key-name-required": "Obvezen vnos imena ključa",
     "landscape-view-coming-soon": "Ležeči pogled",
@@ -586,7 +586,7 @@
     "report-deletion-failed": "Brisanje poročila ni bilo uspešno",
     "recipe-debugger": "Odpravljanje težav v strganju recepta",
     "recipe-debugger-description": "Prilepi povezavo do recepta, ki ga želiš postrgati. Strgalnik receptov bo postrgal spletno stran in prikazal rezultate. Če ne vidiš nobenih podatkov, potem spletna stran, ki jo želiš strgati ni podprta v Mealie oz. v strgalniku, ki ga uporablja.",
-    "use-openai": "Use OpenAI",
+    "use-openai": "Uporabi OpenAI",
     "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Debug",
     "tree-view": "Drevesni prikaz",
@@ -810,6 +810,8 @@
     "items-checked-count": "Nobena postavka ni izbrana|Ena postavka izbrana|{count} postavk izbranih",
     "no-label": "Brez oznake",
     "completed-on": "Zaključena {date}",
+    "you-are-offline": "You are offline",
+    "you-are-offline-description": "Not all features are available while offline. You can still add, modify, and remove items, but you will not be able to sync your changes to the server until you are back online.",
     "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
     "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
     "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
@@ -956,7 +958,7 @@
     "authentication-method-hint": "This specifies how a user will authenticate with Mealie. If you're not sure, choose 'Mealie",
     "permissions": "Dovoljenja",
     "administrator": "Administrator",
-    "user-can-invite-other-to-group": "Uporabnik lahko druge povabi v skupino",
+    "user-can-invite-other-to-group": "User can invite others to group",
     "user-can-manage-group": "Uporabnik lahko upravlja s skupino",
     "user-can-organize-group-data": "Uporabnik lahko organizira podatke skupine",
     "enable-advanced-features": "Vključi napredne funkcije",
@@ -988,7 +990,8 @@
       "food-data": "Podatki o živilih",
       "example-food-singular": "npr: Čebula",
       "example-food-plural": "npr: Čebule",
-      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels."
+      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels.",
+      "on-hand-checkbox-label": "Setting this flag will make this food unchecked by default when adding a recipe to a shopping list."
     },
     "units": {
       "seed-dialog-text": "Napolni podatkovno bazo z običajnimi enotami, glede na vaš lokalni jezik.",

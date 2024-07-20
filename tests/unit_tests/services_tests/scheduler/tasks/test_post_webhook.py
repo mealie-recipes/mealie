@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from pydantic import UUID4
 
@@ -23,7 +23,7 @@ def webhook_factory(
         name=name or random_string(),
         url=url or random_string(),
         webhook_type=webhook_type,
-        scheduled_time=scheduled_time.time() if scheduled_time else datetime.now().time(),
+        scheduled_time=scheduled_time.time() if scheduled_time else datetime.now(timezone.utc).time(),
         group_id=group_id,
     )
 
@@ -35,7 +35,7 @@ def test_get_scheduled_webhooks_filter_query(database: AllRepositories, unique_u
 
     expected: list[SaveWebhook] = []
 
-    start = datetime.now()
+    start = datetime.now(timezone.utc)
 
     for _ in range(5):
         new_item = webhook_factory(group_id=unique_user.group_id, enabled=random_bool())
@@ -52,7 +52,7 @@ def test_get_scheduled_webhooks_filter_query(database: AllRepositories, unique_u
             expected.append(new_item)
 
     event_bus_listener = WebhookEventListener(unique_user.group_id)  # type: ignore
-    results = event_bus_listener.get_scheduled_webhooks(start, datetime.now() + timedelta(minutes=5))
+    results = event_bus_listener.get_scheduled_webhooks(start, datetime.now(timezone.utc) + timedelta(minutes=5))
 
     assert len(results) == len(expected)
 

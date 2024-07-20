@@ -21,6 +21,7 @@ const routes = {
   shoppingListIdUpdateLabelSettings: (id: string) => `${prefix}/groups/shopping/lists/${id}/label-settings`,
 
   shoppingListItems: `${prefix}/groups/shopping/items`,
+  shoppingListItemsCreateBulk: `${prefix}/groups/shopping/items/create-bulk`,
   shoppingListItemsId: (id: string) => `${prefix}/groups/shopping/items/${id}`,
 };
 
@@ -48,6 +49,10 @@ export class ShoppingListItemsApi extends BaseCRUDAPI<
 > {
   baseRoute = routes.shoppingListItems;
   itemRoute = routes.shoppingListItemsId;
+
+  async createMany(items: ShoppingListItemCreate[]) {
+    return await this.requests.post(routes.shoppingListItemsCreateBulk, items);
+  }
 
   async updateMany(items: ShoppingListItemOut[]) {
     return await this.requests.put(routes.shoppingListItems, items);

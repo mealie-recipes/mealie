@@ -4,10 +4,11 @@ from sqlalchemy import ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .._model_base import BaseMixins, SqlAlchemyBase
-from .._model_utils import GUID, auto_init
+from .._model_utils.auto_init import auto_init
+from .._model_utils.guid import GUID
 
 if TYPE_CHECKING:
-    from group import Group
+    from .group import Group
 
 
 class GroupRecipeAction(SqlAlchemyBase, BaseMixins):

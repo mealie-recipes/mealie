@@ -810,6 +810,8 @@
     "items-checked-count": "לא נבחרו פריטים|פריט אחד נבחר|{count} פריטים נבחרו",
     "no-label": "ללא תווית",
     "completed-on": "הושלם ב- {date}",
+    "you-are-offline": "You are offline",
+    "you-are-offline-description": "Not all features are available while offline. You can still add, modify, and remove items, but you will not be able to sync your changes to the server until you are back online.",
     "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
     "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
     "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
@@ -956,7 +958,7 @@
     "authentication-method-hint": "זה מציין איך משתמש יתחבר ל״מילי״. אם אתה לא בטוח, בחר מילי",
     "permissions": "הרשאות",
     "administrator": "מנהל ראשי",
-    "user-can-invite-other-to-group": "משתמש יכול להזמין אחרים לקבוצה",
+    "user-can-invite-other-to-group": "User can invite others to group",
     "user-can-manage-group": "משתמש יכול לנהל קבוצה",
     "user-can-organize-group-data": "משתמש יכול לשנות מידע של קבוצה",
     "enable-advanced-features": "אפשר אפשרויות מתקדמות",
@@ -988,7 +990,8 @@
       "food-data": "נתוני אוכל",
       "example-food-singular": "דוגמא: בצל",
       "example-food-plural": "דוגמא: בצלים",
-      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels."
+      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels.",
+      "on-hand-checkbox-label": "Setting this flag will make this food unchecked by default when adding a recipe to a shopping list."
     },
     "units": {
       "seed-dialog-text": "אכלס את מסד הנתונים עם יחידות מדידה בהתאם לשפה המקומית שלך.",

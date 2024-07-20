@@ -810,6 +810,8 @@
     "items-checked-count": "Aucun élément coché|Un élément coché|{count} éléments cochés",
     "no-label": "Aucune étiquette",
     "completed-on": "Terminé le {date}",
+    "you-are-offline": "Vous êtes hors-ligne",
+    "you-are-offline-description": "Certaines fonctionnalités ne sont pas disponibles lorsque vous êtes hors-ligne. Vous pouvez toujours ajouter, modifier et supprimer des éléments, mais il ne sera pas possible de synchroniser les changements avec le serveur tant que vous ne serez pas en ligne.",
     "are-you-sure-you-want-to-check-all-items": "Voulez-vous vraiment sélectionner tous les éléments ?",
     "are-you-sure-you-want-to-uncheck-all-items": "Voulez-vous vraiment désélectionner tous les éléments ?",
     "are-you-sure-you-want-to-delete-checked-items": "Voulez-vous vraiment supprimer tous les éléments sélectionnés ?"
@@ -956,7 +958,7 @@
     "authentication-method-hint": "Ceci infique comment un utilisateur va s'authentifier sur Mealie. Si vous n'êtes pas sûr, choisissez 'Mealie'",
     "permissions": "Autorisations",
     "administrator": "Administrateur",
-    "user-can-invite-other-to-group": "L'utilisateur peut inviter quelqu'un au groupe",
+    "user-can-invite-other-to-group": "L’utilisateur peut inviter d’autres personnes dans le groupe",
     "user-can-manage-group": "L'utilisateur peut gérer le groupe",
     "user-can-organize-group-data": "L'utilisateur peut organiser des données de groupe",
     "enable-advanced-features": "Activer les fonctions avancées",
@@ -988,7 +990,8 @@
       "food-data": "Données de l'aliment",
       "example-food-singular": "ex : Oignon",
       "example-food-plural": "ex : Oignons",
-      "label-overwrite-warning": "Ceci affectera l’étiquette choisie à tous les aliments sélectionnés et remplacera potentiellement vos étiquettes existantes."
+      "label-overwrite-warning": "Ceci affectera l’étiquette choisie à tous les aliments sélectionnés et remplacera potentiellement vos étiquettes existantes.",
+      "on-hand-checkbox-label": "Appliquer cet attribut décochera cet aliment par défaut lorsqu'il est ajouté à une liste de courses."
     },
     "units": {
       "seed-dialog-text": "Initialisez la base de données avec des unités communes basées sur votre langue locale.",
