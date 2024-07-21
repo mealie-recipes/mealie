@@ -13,11 +13,11 @@ from mealie.services.group_services.group_service import GroupService
 from .._base import BaseAdminController, controller
 from .._base.mixins import HttpRepo
 
-router = APIRouter(prefix="/groups", tags=["Admin: Groups"])
+router = APIRouter(prefix="/groups")
 
 
 @controller(router)
-class AdminUserManagementRoutes(BaseAdminController):
+class AdminGroupManagementRoutes(BaseAdminController):
     @cached_property
     def repo(self):
         if not self.user:
@@ -64,6 +64,7 @@ class AdminUserManagementRoutes(BaseAdminController):
             group.preferences = self.repos.group_preferences.update(item_id, preferences)
 
         if data.name not in ["", group.name]:
+            # only update the group if the name changed, since the name is the only field that can be updated
             group.name = data.name
             group = self.repo.update(item_id, group)
 
