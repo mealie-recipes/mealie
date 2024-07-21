@@ -3,6 +3,7 @@ from pydantic import UUID4
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.household.household import HouseholdBase
 from mealie.schema.household.household_preferences import CreateHouseholdPreferences
+from mealie.schema.household.household_statistics import HouseholdStatistics
 from mealie.services._base_service import BaseService
 
 
@@ -26,3 +27,15 @@ class HouseholdService(BaseService):
 
         repos.household_preferences.create(prefs)
         return new_household
+
+    def calculate_statistics(
+        self, group_id: UUID4 | None = None, household_id: UUID4 | None = None
+    ) -> HouseholdStatistics:
+        """
+        calculate_statistics calculates the statistics for the group and returns
+        a HouseholdStatistics object.
+        """
+        group_id = group_id or self.group_id
+        household_id = household_id or self.household_id
+
+        return self.repos.households.statistics(group_id, household_id)

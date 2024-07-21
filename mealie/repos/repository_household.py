@@ -4,12 +4,19 @@ from uuid import UUID
 
 from pydantic import UUID4
 from slugify import slugify
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.exc import IntegrityError
 
+from mealie.db.models._model_base import SqlAlchemyBase
 from mealie.db.models.household.household import Household
+from mealie.db.models.recipe.category import Category
+from mealie.db.models.recipe.recipe import RecipeModel
+from mealie.db.models.recipe.tag import Tag
+from mealie.db.models.recipe.tool import Tool
+from mealie.db.models.users.users import User
 from mealie.repos.repository_generic import GroupRepositoryGeneric
 from mealie.schema.household.household import HouseholdBase, HouseholdOut, UpdateHousehold
+from mealie.schema.household.household_statistics import HouseholdStatistics
 
 
 class RepositoryHousehold(GroupRepositoryGeneric[HouseholdOut, Household]):
@@ -69,3 +76,20 @@ class RepositoryHousehold(GroupRepositoryGeneric[HouseholdOut, Household]):
             return self.get_one(slug_or_id)
         else:
             return self.get_one(slug_or_id, key="slug")
+
+    def statistics(self, group_id: UUID4, household_id: UUID4) -> HouseholdStatistics:
+        def model_count(model: type[SqlAlchemyBase], *, filter_household: bool = True) -> int:
+            stmt = select(func.count(model.id)).filter_by(group_id=group_id)
+            if filter_household:
+                stmt = stmt.filter_by(household_id=household_id)
+            return self.session.scalar(stmt)
+
+        return HouseholdStatistics(
+            # household-level statistics
+            total_recipes=model_count(RecipeModel),
+            total_users=model_count(User),
+            # group-level statistics
+            total_categories=model_count(Category, filter_household=False),
+            total_tags=model_count(Tag, filter_household=False),
+            total_tools=model_count(Tool, filter_household=False),
+        )

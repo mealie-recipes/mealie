@@ -3,7 +3,7 @@ from pydantic import UUID4
 from mealie.pkgs.stats import fs_stats
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.group.group_preferences import CreateGroupPreferences
-from mealie.schema.group.group_statistics import GroupStatistics, GroupStorage
+from mealie.schema.group.group_statistics import GroupStorage
 from mealie.schema.user.user import GroupBase
 from mealie.services._base_service import BaseService
 
@@ -32,15 +32,6 @@ class GroupService(BaseService):
         repos.group_preferences.create(prefs)
 
         return new_group
-
-    def calculate_statistics(self, group_id: None | UUID4 = None) -> GroupStatistics:
-        """
-        calculate_statistics calculates the statistics for the group and returns
-        a GroupStatistics object.
-        """
-        target_id = group_id or self.group_id
-
-        return self.repos.groups.statistics(target_id)
 
     def calculate_group_storage(self, group_id: None | UUID4 = None) -> GroupStorage:
         """
