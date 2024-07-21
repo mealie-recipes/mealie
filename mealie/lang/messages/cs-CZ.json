@@ -37,7 +37,7 @@
         "generic-deleted": "{name} byl odstraněn"
     },
     "datetime": {
-        "year": "year|years",
+        "year": "rok|roky",
         "day": "day|days",
         "hour": "hour|hours",
         "minute": "minute|minutes",

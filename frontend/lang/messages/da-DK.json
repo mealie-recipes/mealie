@@ -811,7 +811,7 @@
     "no-label": "Ingen etiket",
     "completed-on": "Afsluttet den {date}",
     "you-are-offline": "Du er offline",
-    "you-are-offline-description": "Not all features are available while offline. You can still add, modify, and remove items, but you will not be able to sync your changes to the server until you are back online.",
+    "you-are-offline-description": "Ikke alle funktioner er tilgængelige mens offline. Du kan stadig tilføje, modificere, og fjerne elementer, men du vil ikke kunne synkronisere dine ændringer til serveren, før du er online igen.",
     "are-you-sure-you-want-to-check-all-items": "Er du sikker på, at du vil markere alle elementer?",
     "are-you-sure-you-want-to-uncheck-all-items": "Er du sikker på, at du vil fjerne markeringen af alle elementer?",
     "are-you-sure-you-want-to-delete-checked-items": "Er du sikker på, at du vil sletter de valgte elementer?"
@@ -991,7 +991,7 @@
       "example-food-singular": "fx.: grøntsag",
       "example-food-plural": "fx.: grøntsager",
       "label-overwrite-warning": "Dette vil tildele den valgte etiket til alle udvalgte fødevarer og potentielt overskrive dine eksisterende etiketter.",
-      "on-hand-checkbox-label": "Setting this flag will make this food unchecked by default when adding a recipe to a shopping list."
+      "on-hand-checkbox-label": "Ændring af dette flag ændrer markeringen, så denne fødevare ikke er markeret som standard, når du tilføjer en opskrift til en indkøbsliste."
     },
     "units": {
       "seed-dialog-text": "Opret standard enheder i dit sprog.",

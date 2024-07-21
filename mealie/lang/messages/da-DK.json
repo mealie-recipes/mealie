@@ -47,25 +47,25 @@
     },
     "emails": {
         "password": {
-            "subject": "Mealie Forgot Password",
-            "header_text": "Forgot Password",
-            "message_top": "You have requested to reset your password.",
-            "message_bottom": "Please click the button above to reset your password.",
-            "button_text": "Reset Password"
+            "subject": "Mealie Glemt Adgangskode",
+            "header_text": "Glemt adgangskode",
+            "message_top": "Du har anmodet om at nulstille din adgangskode.",
+            "message_bottom": "Klik på knappen ovenfor for at nulstille din adgangskode.",
+            "button_text": "Nulstil adgangskoden"
         },
         "invitation": {
-            "subject": "Invitation to join Mealie",
-            "header_text": "You're Invited!",
-            "message_top": "You have been invited to join Mealie.",
-            "message_bottom": "Please click the button above to accept the invitation.",
-            "button_text": "Accept Invitation"
+            "subject": "Invitation til at deltage i Mealie",
+            "header_text": "Du er Inviteret!",
+            "message_top": "Du er blevet inviteret til Mealie.",
+            "message_bottom": "Klik på knappen ovenfor for at acceptere invitationen.",
+            "button_text": "Acceptér invitation"
         },
         "test": {
-            "subject": "Mealie Test Email",
-            "header_text": "Test Email",
-            "message_top": "This is a test email.",
-            "message_bottom": "Please click the button above to test the email.",
-            "button_text": "Open Mealie"
+            "subject": "E-mail-test fra Mealie",
+            "header_text": "Test E-mail",
+            "message_top": "Dette er en test e-mail.",
+            "message_bottom": "Klik på knappen ovenfor for at teste e-mailen.",
+            "button_text": "Åbn Mealie"
         }
     }
 }
