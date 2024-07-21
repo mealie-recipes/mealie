@@ -630,7 +630,8 @@
     "search-hint": "Press '/'",
     "advanced": "Advanced",
     "auto-search": "자동 검색",
-    "no-results": "검색 결과가 없습니다."
+    "no-results": "검색 결과가 없습니다.",
+    "recipes": "조리법"
   },
   "settings": {
     "add-a-new-theme": "새 테마 추가",
@@ -836,7 +837,8 @@
     "parser": "Parser",
     "developer": "Developer",
     "cookbook": "Cookbook",
-    "create-cookbook": "Create a new cookbook"
+    "create-cookbook": "Create a new cookbook",
+    "recipes": "조리법"
   },
   "signup": {
     "error-signing-up": "Error Signing Up",

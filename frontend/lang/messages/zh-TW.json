@@ -630,7 +630,8 @@
     "search-hint": "Press '/'",
     "advanced": "Advanced",
     "auto-search": "Auto Search",
-    "no-results": "No results found"
+    "no-results": "No results found",
+    "recipes": "食譜"
   },
   "settings": {
     "add-a-new-theme": "新增佈景主題",
@@ -836,7 +837,8 @@
     "parser": "Parser",
     "developer": "Developer",
     "cookbook": "食譜",
-    "create-cookbook": "新建一個食譜合集"
+    "create-cookbook": "新建一個食譜合集",
+    "recipes": "食譜"
   },
   "signup": {
     "error-signing-up": "註冊失敗",

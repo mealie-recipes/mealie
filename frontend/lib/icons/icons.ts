@@ -149,6 +149,7 @@ import {
   mdiRotateRight,
   mdiBookOpenPageVariant,
   mdiFileCabinet,
+  mdiSilverwareFork
 } from "@mdi/js";
 
 export const icons = {
@@ -249,6 +250,7 @@ export const icons = {
   search: mdiMagnify,
   shareVariant: mdiShareVariant,
   shuffleVariant: mdiShuffleVariant,
+  silverwareFork: mdiSilverwareFork,
   sort: mdiSort,
   sortAscending: mdiSortAscending,
   sortDescending: mdiSortDescending,

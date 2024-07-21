@@ -630,7 +630,8 @@
     "search-hint": "'/' drücken",
     "advanced": "Erweitert",
     "auto-search": "Automatische Suche",
-    "no-results": "Keine Ergebnisse gefunden"
+    "no-results": "Keine Ergebnisse gefunden",
+    "recipes": "Rezepte"
   },
   "settings": {
     "add-a-new-theme": "Neues Thema hinzufügen",
@@ -836,7 +837,8 @@
     "parser": "Parser",
     "developer": "Entwickler",
     "cookbook": "Kochbuch",
-    "create-cookbook": "Ein neues Kochbuch erstellen"
+    "create-cookbook": "Ein neues Kochbuch erstellen",
+    "recipes": "Rezepte"
   },
   "signup": {
     "error-signing-up": "Fehler beim Registrieren",

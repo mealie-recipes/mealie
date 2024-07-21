@@ -630,7 +630,8 @@
     "search-hint": "Prima '/'",
     "advanced": "Avançado",
     "auto-search": "Pesquisa Automática",
-    "no-results": "Nenhum resultado encontrado"
+    "no-results": "Nenhum resultado encontrado",
+    "recipes": "Receitas"
   },
   "settings": {
     "add-a-new-theme": "Adicionar novo tema",
@@ -836,7 +837,8 @@
     "parser": "Analisador",
     "developer": "Programador",
     "cookbook": "Livro de Receitas",
-    "create-cookbook": "Criar um novo livro de receitas"
+    "create-cookbook": "Criar um novo livro de receitas",
+    "recipes": "Receitas"
   },
   "signup": {
     "error-signing-up": "Erro ao inscrever-se",

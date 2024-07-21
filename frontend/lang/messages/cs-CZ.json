@@ -630,7 +630,8 @@
     "search-hint": "Stiskněte '/'",
     "advanced": "Pokročilé",
     "auto-search": "Auto Search",
-    "no-results": "No results found"
+    "no-results": "No results found",
+    "recipes": "Recepty"
   },
   "settings": {
     "add-a-new-theme": "Přidat nový motiv",
@@ -836,7 +837,8 @@
     "parser": "Parser",
     "developer": "Vývojář",
     "cookbook": "Kuchařka",
-    "create-cookbook": "Vytvořit novou kuchařku"
+    "create-cookbook": "Vytvořit novou kuchařku",
+    "recipes": "Recepty"
   },
   "signup": {
     "error-signing-up": "Při registraci došlo k chybě",

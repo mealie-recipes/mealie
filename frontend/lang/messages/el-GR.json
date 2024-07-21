@@ -630,7 +630,8 @@
     "search-hint": "Πατήστε '/'",
     "advanced": "Για προχωρημένους",
     "auto-search": "Auto Search",
-    "no-results": "No results found"
+    "no-results": "No results found",
+    "recipes": "Συνταγές"
   },
   "settings": {
     "add-a-new-theme": "Προσθήκη νέου θέματος",
@@ -836,7 +837,8 @@
     "parser": "Αναλυτής",
     "developer": "Developer",
     "cookbook": "Cookbook",
-    "create-cookbook": "Create a new cookbook"
+    "create-cookbook": "Create a new cookbook",
+    "recipes": "Συνταγές"
   },
   "signup": {
     "error-signing-up": "Σφάλμα Στην Υπογραφή",

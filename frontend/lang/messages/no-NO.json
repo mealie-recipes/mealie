@@ -630,7 +630,8 @@
     "search-hint": "Trykk på '/'",
     "advanced": "Avansert",
     "auto-search": "Autosøk",
-    "no-results": "Ingen resultater funnet"
+    "no-results": "Ingen resultater funnet",
+    "recipes": "Oppskrifter"
   },
   "settings": {
     "add-a-new-theme": "Legg til nytt tema",
@@ -836,7 +837,8 @@
     "parser": "Parser",
     "developer": "Utvikler",
     "cookbook": "Kokebok",
-    "create-cookbook": "Opprett en ny kokebok"
+    "create-cookbook": "Opprett en ny kokebok",
+    "recipes": "Oppskrifter"
   },
   "signup": {
     "error-signing-up": "Feil ved registrering",

@@ -630,7 +630,8 @@
     "search-hint": "Pritisni '/'",
     "advanced": "Napredno",
     "auto-search": "Auto Pretraga",
-    "no-results": "No results found"
+    "no-results": "No results found",
+    "recipes": "Recepti"
   },
   "settings": {
     "add-a-new-theme": "Dodaj Novu Temu",
@@ -836,7 +837,8 @@
     "parser": "Parser",
     "developer": "Razvojni programer",
     "cookbook": "Zbirka recepata",
-    "create-cookbook": "Kreiraj novu Zbirku recepata"
+    "create-cookbook": "Kreiraj novu Zbirku recepata",
+    "recipes": "Recepti"
   },
   "signup": {
     "error-signing-up": "Greška pri registraciji",

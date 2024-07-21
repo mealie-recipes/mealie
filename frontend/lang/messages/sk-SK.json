@@ -630,7 +630,8 @@
     "search-hint": "Stlač '/'",
     "advanced": "Rozšírené",
     "auto-search": "Automatické vyhľadávanie",
-    "no-results": "Nenašli sa žiadne výsledky"
+    "no-results": "Nenašli sa žiadne výsledky",
+    "recipes": "Recepty"
   },
   "settings": {
     "add-a-new-theme": "Pridať nový motív",
@@ -836,7 +837,8 @@
     "parser": "Parser",
     "developer": "Vývojár",
     "cookbook": "Kuchárka",
-    "create-cookbook": "Vytvoriť novú kuchárku"
+    "create-cookbook": "Vytvoriť novú kuchárku",
+    "recipes": "Recepty"
   },
   "signup": {
     "error-signing-up": "Nastala chyba pri registrácii",

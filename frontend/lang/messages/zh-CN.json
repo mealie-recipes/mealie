@@ -630,7 +630,8 @@
     "search-hint": "按 '/'",
     "advanced": "高级",
     "auto-search": "自动搜索",
-    "no-results": "未找到任何结果"
+    "no-results": "未找到任何结果",
+    "recipes": "食谱"
   },
   "settings": {
     "add-a-new-theme": "新增布景主题",
@@ -836,7 +837,8 @@
     "parser": "解析器",
     "developer": "开发人员",
     "cookbook": "食谱合集",
-    "create-cookbook": "新建一个食谱合集"
+    "create-cookbook": "新建一个食谱合集",
+    "recipes": "食谱"
   },
   "signup": {
     "error-signing-up": "注册时出错",

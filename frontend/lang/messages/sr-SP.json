@@ -630,7 +630,8 @@
     "search-hint": "Стисни '/'",
     "advanced": "Напредна",
     "auto-search": "Аутоматска претрага",
-    "no-results": "No results found"
+    "no-results": "No results found",
+    "recipes": "Recipes"
   },
   "settings": {
     "add-a-new-theme": "Add a New Theme",
@@ -836,7 +837,8 @@
     "parser": "Parser",
     "developer": "Developer",
     "cookbook": "Кувар",
-    "create-cookbook": "Направи нови кувар"
+    "create-cookbook": "Направи нови кувар",
+    "recipes": "Recipes"
   },
   "signup": {
     "error-signing-up": "Error Signing Up",
