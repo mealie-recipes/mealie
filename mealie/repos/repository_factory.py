@@ -115,7 +115,7 @@ class AllRepositories:
 
     @cached_property
     def recipes(self) -> RepositoryRecipes:
-        return RepositoryRecipes(self.session, PK_SLUG, RecipeModel, Recipe, self.group_id)
+        return RepositoryRecipes(self.session, PK_SLUG, RecipeModel, Recipe, self.group_id, self.household_id)
 
     @cached_property
     def ingredient_foods(self) -> RepositoryFood:

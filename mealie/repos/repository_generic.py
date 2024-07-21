@@ -459,7 +459,7 @@ class GroupRepositoryGeneric(RepositoryGeneric[Schema, Model]):
         primary_key: str,
         sql_model: type[Model],
         schema: type[Schema],
-        group_id: UUID4 | None | NotSet = NOT_SET,
+        group_id: UUID4 | None | NotSet,
     ) -> None:
         super().__init__(session, primary_key, sql_model, schema)
         if group_id is NOT_SET:
@@ -474,8 +474,8 @@ class HouseholdRepositoryGeneric(RepositoryGeneric[Schema, Model]):
         primary_key: str,
         sql_model: type[Model],
         schema: type[Schema],
-        group_id: UUID4 | None | NotSet = NOT_SET,
-        household_id: UUID4 | None | NotSet = NOT_SET,
+        group_id: UUID4 | None | NotSet,
+        household_id: UUID4 | None | NotSet,
     ) -> None:
         super().__init__(session, primary_key, sql_model, schema)
         if group_id is NOT_SET:
@@ -494,9 +494,9 @@ class UserRepositoryGeneric(RepositoryGeneric[Schema, Model]):
         primary_key: str,
         sql_model: type[Model],
         schema: type[Schema],
-        group_id: UUID4 | None | NotSet = NOT_SET,
-        household_id: UUID4 | None | NotSet = NOT_SET,
-        user_id: UUID4 | None | NotSet = NOT_SET,
+        group_id: UUID4 | None | NotSet,
+        household_id: UUID4 | None | NotSet,
+        user_id: UUID4 | None | NotSet,
     ) -> None:
         super().__init__(session, primary_key, sql_model, schema)
         if group_id is NOT_SET:
