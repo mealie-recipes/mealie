@@ -43,6 +43,7 @@ class AdminAboutController(BaseAdminController):
             uncategorized_recipes=self.repos.recipes.count_uncategorized(),  # type: ignore
             untagged_recipes=self.repos.recipes.count_untagged(),  # type: ignore
             total_users=self.repos.users.count_all(),
+            total_households=self.repos.households.count_all(),
             total_groups=self.repos.groups.count_all(),
         )
 

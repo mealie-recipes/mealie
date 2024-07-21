@@ -4,6 +4,7 @@ from mealie.schema._mealie import MealieModel
 class AppStatistics(MealieModel):
     total_recipes: int
     total_users: int
+    total_households: int
     total_groups: int
     uncategorized_recipes: int
     untagged_recipes: int
