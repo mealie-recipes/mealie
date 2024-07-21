@@ -47,7 +47,7 @@
     },
     "emails": {
         "password": {
-            "subject": "Mealie Forgot Password",
+            "subject": "Mot de passe oublié pour Mealie",
             "header_text": "Forgot Password",
             "message_top": "You have requested to reset your password.",
             "message_bottom": "Please click the button above to reset your password.",
@@ -57,7 +57,7 @@
             "subject": "Invitation to join Mealie",
             "header_text": "You're Invited!",
             "message_top": "You have been invited to join Mealie.",
-            "message_bottom": "Please click the button above to accept the invitation.",
+            "message_bottom": "Veuillez cliquer sur le bouton ci-dessus pour accepter l'invitation.",
             "button_text": "Accept Invitation"
         },
         "test": {
