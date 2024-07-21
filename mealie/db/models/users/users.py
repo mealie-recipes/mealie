@@ -3,9 +3,9 @@ from datetime import datetime
 from typing import TYPE_CHECKING, Optional
 
 from pydantic import ConfigDict
-from sqlalchemy import Boolean, DateTime, Enum, ForeignKey, Integer, String, orm
+from sqlalchemy import Boolean, DateTime, Enum, ForeignKey, Integer, String, orm, select
 from sqlalchemy.ext.hybrid import hybrid_property
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, Session, mapped_column
 
 from mealie.core.config import get_app_settings
 from mealie.db.models._model_utils.auto_init import auto_init
@@ -117,14 +117,19 @@ class User(SqlAlchemyBase, BaseMixins):
         return self.household.slug
 
     @auto_init()
-    def __init__(self, session, full_name, password, group: str | None = None, **kwargs) -> None:
-        if group is None:
+    def __init__(
+        self, session: Session, full_name, password, group: str | None = None, household: str | None = None, **kwargs
+    ) -> None:
+        if group is None or household is None:
             settings = get_app_settings()
-            group = settings.DEFAULT_GROUP
+            group = group or settings.DEFAULT_GROUP
+            household = household or settings.DEFAULT_HOUSEHOLD
 
         from mealie.db.models.group import Group
+        from mealie.db.models.household import Household
 
-        self.group = Group.get_by_name(session, group)
+        self.group = session.execute(select(Group).filter(Group.name == group)).scalars().one_or_none()
+        self.household = session.execute(select(Household).filter(Household.name == household)).scalars().one_or_none()
 
         self.rated_recipes = []
 
@@ -136,14 +141,16 @@ class User(SqlAlchemyBase, BaseMixins):
         self._set_permissions(**kwargs)
 
     @auto_init()
-    def update(self, full_name, email, group, username, session=None, **kwargs):
+    def update(self, session: Session, full_name, email, group, household, username, **kwargs):
         self.username = username
         self.full_name = full_name
         self.email = email
 
         from mealie.db.models.group import Group
+        from mealie.db.models.household import Household
 
-        self.group = Group.get_by_name(session, group)
+        self.group = session.execute(select(Group).filter(Group.name == group)).scalars().one_or_none()
+        self.household = session.execute(select(Household).filter(Household.name == household)).scalars().one_or_none()
 
         if self.username is None:
             self.username = full_name

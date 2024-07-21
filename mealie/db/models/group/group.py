@@ -101,12 +101,3 @@ class Group(SqlAlchemyBase, BaseMixins):
     @auto_init()
     def __init__(self, **_) -> None:
         pass
-
-    @staticmethod  # TODO: Remove this
-    def get_by_name(session: Session, name: str) -> Optional["Group"]:
-        settings = get_app_settings()
-
-        item = session.execute(select(Group).filter(Group.name == name)).scalars().one_or_none()
-        if item is None:
-            item = session.execute(select(Group).filter(Group.name == settings.DEFAULT_GROUP)).scalars().one_or_none()
-        return item
