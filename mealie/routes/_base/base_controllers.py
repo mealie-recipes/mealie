@@ -147,6 +147,13 @@ class BaseAdminController(BaseUserController):
 
     user: PrivateUser = Depends(get_admin_user)
 
+    @property
+    def repos(self):
+        if not self._repos:
+            # Admins have access to all groups and households, so we don't want to filter by group_id or household_id
+            self._repos = AllRepositories(self.session, None, None)
+        return self._repos
+
 
 class BaseCrudController(BaseUserController):
     """
