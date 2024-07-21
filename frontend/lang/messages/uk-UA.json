@@ -804,17 +804,17 @@
     "delete-checked": "Видалити відмічене",
     "toggle-label-sort": "Сортування міток",
     "reorder-labels": "Перевпорядкувати мітки",
-    "uncheck-all-items": "Зняти вибір з усіх елементів",
-    "check-all-items": "Вибрати всі елементи",
+    "uncheck-all-items": "Зняти відмітку з усіх елементів",
+    "check-all-items": "Відмітити всі елементи",
     "linked-recipes-count": "Нема пов'язаних рецептів|Один пов'язаний рецепт|{count} пов'язаних рецептів",
     "items-checked-count": "Нема відмічених елементів|Один відмічений елемент|{count} елементів відмічено",
     "no-label": "Без Мітки",
     "completed-on": "Завершено {date}",
-    "you-are-offline": "You are offline",
-    "you-are-offline-description": "Not all features are available while offline. You can still add, modify, and remove items, but you will not be able to sync your changes to the server until you are back online.",
-    "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
-    "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
-    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
+    "you-are-offline": "Ви не в мережі",
+    "you-are-offline-description": "Не всі функції доступні без мережі. Ви все ще можете додавати, змінювати та видаляти елементи, але не зможете синхронізувати зміни на сервер, поки під'єднаєтесь до мережі.",
+    "are-you-sure-you-want-to-check-all-items": "Ви впевнені, що хочете відмітити всі елементи?",
+    "are-you-sure-you-want-to-uncheck-all-items": "Ви впевнені, що хочете зняти відмітку з усіх елементів?",
+    "are-you-sure-you-want-to-delete-checked-items": "Ви впевнені, що хочете видалити всі відмічені елементи?"
   },
   "sidebar": {
     "all-recipes": "Всі рецепти",
@@ -867,7 +867,7 @@
     "create-a-tool": "Створити новий інструмент",
     "tool-name": "Назва інструмента",
     "create-new-tool": "Створити новий інструмент",
-    "on-hand-checkbox-label": "Показувати як в наявності (позначено)",
+    "on-hand-checkbox-label": "Показувати як в наявності (відмічене)",
     "required-tools": "Необхідні інструменти",
     "tool": "Інструмент"
   },
@@ -958,7 +958,7 @@
     "authentication-method-hint": "Це вливає на те, як користувач буде аутентифікований Mealie. Якщо ви не впевнені, обирайте \"Mealie\"",
     "permissions": "Дозволи",
     "administrator": "Адміністратор",
-    "user-can-invite-other-to-group": "User can invite others to group",
+    "user-can-invite-other-to-group": "Користувач може запрошувати інших в групу",
     "user-can-manage-group": "Користувач може керувати групою",
     "user-can-organize-group-data": "Користувач може впорядковувати дані групи",
     "enable-advanced-features": "Увімкнути додаткові функції",
@@ -991,7 +991,7 @@
       "example-food-singular": "приклад: Цибулина",
       "example-food-plural": "приклад: Цибуля",
       "label-overwrite-warning": "Це призначить обрану мітку для всіх вибраних продуктів і потенційно перезапише існуючі мітки.",
-      "on-hand-checkbox-label": "Setting this flag will make this food unchecked by default when adding a recipe to a shopping list."
+      "on-hand-checkbox-label": "Встановлення цього параметра дозволить зробити цю їжу невідміченою за замовчуванням при додаванні рецепта до списку покупок."
     },
     "units": {
       "seed-dialog-text": "Заповнити базу даних розповсюдженими одиницями виміру що відповідають мові.",
