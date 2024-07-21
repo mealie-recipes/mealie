@@ -17,7 +17,6 @@ class UpdateHouseholdPreferences(MealieModel):
 
 
 class CreateHouseholdPreferences(UpdateHouseholdPreferences):
-    group_id: UUID4
     household_id: UUID4
 
 
