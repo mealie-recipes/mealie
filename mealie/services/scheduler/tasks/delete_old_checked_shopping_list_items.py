@@ -9,7 +9,7 @@ from mealie.schema.response.pagination import OrderDirection, PaginationQuery
 from mealie.schema.user.user import DEFAULT_INTEGRATION_ID
 from mealie.services.event_bus_service.event_bus_service import EventBusService
 from mealie.services.event_bus_service.event_types import EventDocumentDataBase, EventTypes
-from mealie.services.group_services.shopping_lists import ShoppingListService
+from mealie.services.household_services.shopping_lists import ShoppingListService
 
 MAX_CHECKED_ITEMS = 100
 

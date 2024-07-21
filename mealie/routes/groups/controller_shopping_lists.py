@@ -32,7 +32,7 @@ from mealie.services.event_bus_service.event_types import (
     EventShoppingListItemBulkData,
     EventTypes,
 )
-from mealie.services.group_services.shopping_lists import ShoppingListService
+from mealie.services.household_services.shopping_lists import ShoppingListService
 
 item_router = APIRouter(prefix="/groups/shopping/items", tags=["Group: Shopping List Items"])
 
