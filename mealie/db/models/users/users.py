@@ -105,6 +105,7 @@ class User(SqlAlchemyBase, BaseMixins):
             "can_invite",
             "can_organize",
             "group",
+            "household",
         }
     )
 
