@@ -51,11 +51,11 @@ def delete_old_checked_list_items():
         groups = repos.groups.page_all(PaginationQuery(page=1, per_page=-1)).items
 
         for group in groups:
-            group_repos = get_repositories(session, group.id)
+            group_repos = get_repositories(session, group_id=group.id)
             households = group_repos.households.page_all(PaginationQuery(page=1, per_page=-1)).items
 
             for household in households:
-                household_repos = get_repositories(session, group.id, household.id)
+                household_repos = get_repositories(session, group_id=group.id, household_id=household.id)
                 event_bus_service = EventBusService(session=session)
                 shopping_list_service = ShoppingListService(household_repos)
                 shopping_list_data = household_repos.group_shopping_lists.page_all(PaginationQuery(page=1, per_page=-1))

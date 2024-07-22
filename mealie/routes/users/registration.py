@@ -29,7 +29,7 @@ class RegistrationController(BasePublicController):
 
         registration_service = RegistrationService(
             self.logger,
-            get_repositories(self.session, None, None),
+            get_repositories(self.session, group_id=None, household_id=None),
             self.translator,
         )
 

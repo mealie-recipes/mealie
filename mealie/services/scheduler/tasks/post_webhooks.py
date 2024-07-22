@@ -62,7 +62,7 @@ def post_group_webhooks(
     for group_id in group_ids:
         if household_id is None:
             with session_context() as session:
-                household_repos = get_repositories(session, group_id)
+                household_repos = get_repositories(session, group_id=group_id)
                 households_data = household_repos.households.page_all(PaginationQuery(page=1, per_page=-1))
                 household_ids = [household.id for household in households_data.items]
         else:

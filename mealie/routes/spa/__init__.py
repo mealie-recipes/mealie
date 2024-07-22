@@ -168,7 +168,7 @@ def serve_recipe_with_meta_public(
         if not group or group.preferences.private_group:  # type: ignore
             return response_404()
 
-        group_repos = AllRepositories(session, group.id)
+        group_repos = AllRepositories(session, group_id=group.id)
         recipe = group_repos.recipes.get_one(recipe_slug)
 
         if not recipe or not recipe.settings.public:  # type: ignore
@@ -190,7 +190,7 @@ async def serve_recipe_with_meta(
         return serve_recipe_with_meta_public(group_slug, recipe_slug, session)
 
     try:
-        repos = AllRepositories(session, user.group_id)
+        repos = AllRepositories(session, group_id=user.group_id)
 
         recipe = repos.recipes.get_one(recipe_slug, "slug")
         if recipe is None:

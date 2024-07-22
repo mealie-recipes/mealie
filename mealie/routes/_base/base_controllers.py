@@ -39,7 +39,7 @@ class _BaseController(ABC):  # noqa: B024
     @property
     def repos(self):
         if not self._repos:
-            self._repos = AllRepositories(self.session, self.group_id, self.household_id)
+            self._repos = AllRepositories(self.session, group_id=self.group_id, household_id=self.household_id)
         return self._repos
 
     @property
@@ -151,7 +151,7 @@ class BaseAdminController(BaseUserController):
     def repos(self):
         if not self._repos:
             # Admins have access to all groups and households, so we don't want to filter by group_id or household_id
-            self._repos = AllRepositories(self.session, None, None)
+            self._repos = AllRepositories(self.session, group_id=None, household_id=None)
         return self._repos
 
 

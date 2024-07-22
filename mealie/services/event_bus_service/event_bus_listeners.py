@@ -65,7 +65,7 @@ class EventListenerBase(ABC):
     def ensure_repos(self, group_id: UUID4, household_id: UUID4) -> Generator[AllRepositories, None, None]:
         if self._repos is None:
             with self.ensure_session() as session:
-                self._repos = AllRepositories(session, group_id, household_id)
+                self._repos = AllRepositories(session, group_id=group_id, household_id=household_id)
                 yield self._repos
         else:
             yield self._repos

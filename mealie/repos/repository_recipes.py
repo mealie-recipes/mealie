@@ -8,6 +8,7 @@ from pydantic import UUID4
 from slugify import slugify
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import InstrumentedAttribute, joinedload
+from typing_extensions import Self
 
 from mealie.db.models.recipe.category import Category
 from mealie.db.models.recipe.ingredient import RecipeIngredientModel
@@ -38,6 +39,13 @@ from .repository_generic import HouseholdRepositoryGeneric
 
 
 class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
+    user_id: UUID4 | None = None
+
+    def by_user(self: Self, user_id: UUID4) -> Self:
+        """Add a user_id to the repo, which will be used to handle recipe ratings"""
+        self.user_id = user_id
+        return self
+
     def create(self, document: Recipe) -> Recipe:  # type: ignore
         max_retries = 10
         original_name: str = document.name  # type: ignore

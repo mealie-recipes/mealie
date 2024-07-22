@@ -79,7 +79,7 @@ async def get_public_household(
     group_slug: str = fastapi.Path(...), household_slug: str = fastapi.Path(...), session=Depends(generate_session)
 ) -> HouseholdOut:
     group = await get_public_group(group_slug, session)
-    repos = get_repositories(session, group.id)
+    repos = get_repositories(session, group_id=group.id)
     household = repos.households.get_by_slug_or_id(household_slug)
 
     if not household or household.preferences.private_household or not household.preferences.recipe_public:
@@ -125,7 +125,7 @@ async def get_current_user(
     except PyJWTError as e:
         raise credentials_exception from e
 
-    repos = get_repositories(session, None, None)
+    repos = get_repositories(session, group_id=None, household_id=None)
 
     user = repos.users.get_one(token_data.user_id, "id", any_case=False)
 
@@ -153,7 +153,7 @@ async def get_admin_user(current_user: PrivateUser = Depends(get_current_user)) 
 
 
 def validate_long_live_token(session: Session, client_token: str, user_id: str) -> PrivateUser:
-    repos = get_repositories(session, None, None)
+    repos = get_repositories(session, group_id=None, household_id=None)
 
     token = repos.api_tokens.multi_query({"token": client_token, "user_id": user_id})
 

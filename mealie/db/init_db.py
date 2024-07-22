@@ -103,7 +103,7 @@ def main():
         if session.get_bind().name == "postgresql":  # needed for fuzzy search and fast GIN text indices
             session.execute(text("CREATE EXTENSION IF NOT EXISTS pg_trgm;"))
 
-        db = get_repositories(session, None, None)
+        db = get_repositories(session, group_id=None, household_id=None)
         safe_try(lambda: fix_migration_data(session))
         safe_try(lambda: fix_slug_food_names(db))
         safe_try(lambda: fix_group_with_no_name(session))

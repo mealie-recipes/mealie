@@ -41,7 +41,7 @@ class GroupService(BaseService):
         """
 
         # we need all recipes from all households, not just our household
-        group_repos = get_repositories(self.repos.session, group_id, None)
+        group_repos = get_repositories(self.repos.session, group_id=group_id, household_id=None)
 
         target_id = group_id or self.group_id
 

@@ -35,10 +35,10 @@ class RepositoryGeneric(Generic[Schema, Model]):
         Generic ([Model]): Represents the SqlAlchemyModel Model
     """
 
-    group_id: UUID4 | None = None
-    household_id: UUID4 | None = None
-    user_id: UUID4 | None = None
     session: Session
+
+    _group_id: UUID4 | None = None
+    _household_id: UUID4 | None = None
 
     def __init__(
         self,
@@ -54,17 +54,13 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
         self.logger = get_logger()
 
-    def by_group(self: T, group_id: UUID4) -> T:
-        self.group_id = group_id
-        return self
+    @property
+    def group_id(self) -> UUID4 | None:
+        return self._group_id
 
-    def by_household(self: T, household_id: UUID4) -> T:
-        self.household_id = household_id
-        return self
-
-    def by_user(self: T, user_id: UUID4) -> T:
-        self.user_id = user_id
-        return self
+    @property
+    def household_id(self) -> UUID4 | None:
+        return self._household_id
 
     def _log_exception(self, e: Exception) -> None:
         self.logger.error(f"Error processing query for Repo model={self.model.__name__} schema={self.schema.__name__}")
@@ -459,12 +455,13 @@ class GroupRepositoryGeneric(RepositoryGeneric[Schema, Model]):
         primary_key: str,
         sql_model: type[Model],
         schema: type[Schema],
+        *,
         group_id: UUID4 | None | NotSet,
     ) -> None:
         super().__init__(session, primary_key, sql_model, schema)
         if group_id is NOT_SET:
             raise ValueError("group_id must be set")
-        self.group_id = group_id if group_id else None
+        self._group_id = group_id if group_id else None
 
 
 class HouseholdRepositoryGeneric(RepositoryGeneric[Schema, Model]):
@@ -474,39 +471,15 @@ class HouseholdRepositoryGeneric(RepositoryGeneric[Schema, Model]):
         primary_key: str,
         sql_model: type[Model],
         schema: type[Schema],
+        *,
         group_id: UUID4 | None | NotSet,
         household_id: UUID4 | None | NotSet,
     ) -> None:
         super().__init__(session, primary_key, sql_model, schema)
         if group_id is NOT_SET:
             raise ValueError("group_id must be set")
-        self.group_id = group_id if group_id else None
+        self._group_id = group_id if group_id else None
 
         if household_id is NOT_SET:
             raise ValueError("household_id must be set")
-        self.household_id = household_id if household_id else None
-
-
-class UserRepositoryGeneric(RepositoryGeneric[Schema, Model]):
-    def __init__(
-        self,
-        session: Session,
-        primary_key: str,
-        sql_model: type[Model],
-        schema: type[Schema],
-        group_id: UUID4 | None | NotSet,
-        household_id: UUID4 | None | NotSet,
-        user_id: UUID4 | None | NotSet,
-    ) -> None:
-        super().__init__(session, primary_key, sql_model, schema)
-        if group_id is NOT_SET:
-            raise ValueError("group_id must be set")
-        self.group_id = group_id if group_id else None
-
-        if household_id is NOT_SET:
-            raise ValueError("household_id must be set")
-        self.household_id = household_id if household_id else None
-
-        if user_id is NOT_SET:
-            raise ValueError("user_id must be set")
-        self.user_id = user_id if user_id else None
+        self._household_id = household_id if household_id else None

@@ -10,11 +10,11 @@ router = APIRouter()
 
 @router.get("/summary/untagged", response_model=list[RecipeSummary])
 async def get_untagged_recipes(count: bool = False, session: Session = Depends(generate_session)):
-    db = get_repositories(session, None, None)
+    db = get_repositories(session, group_id=None, household_id=None)
     return db.recipes.count_untagged(count=count, override_schema=RecipeSummary)
 
 
 @router.get("/summary/uncategorized", response_model=list[RecipeSummary])
 async def get_uncategorized_recipes(count: bool = False, session: Session = Depends(generate_session)):
-    db = get_repositories(session, None, None)
+    db = get_repositories(session, group_id=None, household_id=None)
     return db.recipes.count_uncategorized(count=count, override_schema=RecipeSummary)

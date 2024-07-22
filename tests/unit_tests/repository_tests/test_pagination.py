@@ -68,7 +68,7 @@ def test_repository_pagination(database: AllRepositories, unique_user: TestUser)
     group = database.groups.get_one(unique_user.group_id)
     assert group
 
-    seeder = SeederService(AllRepositories(database.session, group.id))
+    seeder = SeederService(AllRepositories(database.session, group_id=group.id))
     seeder.seed_foods("en-US")
 
     foods_repo = database.ingredient_foods.by_group(unique_user.group_id)  # type: ignore
@@ -103,7 +103,7 @@ def test_pagination_response_and_metadata(database: AllRepositories, unique_user
     group = database.groups.get_one(unique_user.group_id)
     assert group
 
-    seeder = SeederService(AllRepositories(database.session, group.id))
+    seeder = SeederService(AllRepositories(database.session, group_id=group.id))
     seeder.seed_foods("en-US")
 
     foods_repo = database.ingredient_foods.by_group(unique_user.group_id)  # type: ignore
@@ -132,7 +132,7 @@ def test_pagination_guides(database: AllRepositories, unique_user: TestUser):
     group = database.groups.get_one(unique_user.group_id)
     assert group
 
-    seeder = SeederService(AllRepositories(database.session, group.id))
+    seeder = SeederService(AllRepositories(database.session, group_id=group.id))
     seeder.seed_foods("en-US")
 
     foods_repo = database.ingredient_foods.by_group(unique_user.group_id)  # type: ignore

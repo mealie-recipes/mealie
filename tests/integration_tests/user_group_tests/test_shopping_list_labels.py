@@ -72,7 +72,7 @@ def test_seed_label_creates_list_labels(database: AllRepositories, api_client: T
     # seed labels and make sure they were added to the list's label settings
     group = database.groups.get_one(unique_user.group_id)
     assert group
-    database = AllRepositories(database.session, group.id)
+    database = AllRepositories(database.session, group_id=group.id)
     seeder = SeederService(database)
     seeder.seed_labels("en-US")
 

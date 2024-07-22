@@ -16,7 +16,7 @@ def get_app_info(session: Session = Depends(generate_session)):
     """Get general application information"""
     settings = get_app_settings()
 
-    public_repos = get_repositories(session, None, None)
+    public_repos = get_repositories(session, group_id=None, household_id=None)
 
     default_group_slug: str | None = None
     default_household_slug: str | None = None
@@ -26,7 +26,7 @@ def get_app_info(session: Session = Depends(generate_session)):
         default_group_slug = default_group.slug
 
     if default_group and default_group_slug:
-        group_repos = get_repositories(session, default_group.id, None)
+        group_repos = get_repositories(session, group_id=default_group.id, household_id=None)
         default_household = group_repos.households.get_by_name(settings.DEFAULT_HOUSEHOLD)
         if default_household and default_household.preferences and not default_household.preferences.private_household:
             default_household_slug = default_household.slug

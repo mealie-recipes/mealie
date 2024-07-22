@@ -134,7 +134,7 @@ class ABCIngredientParser(ABC):
 
     @property
     def _repos(self) -> AllRepositories:
-        return get_repositories(self.session, self.group_id)
+        return get_repositories(self.session, group_id=self.group_id)
 
     @property
     def food_fuzzy_match_threshold(self) -> int:
