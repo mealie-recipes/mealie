@@ -15,7 +15,7 @@ def test_shopping_list_ingredient_validation():
             "aliases": [],
             "label": None,
             "createdAt": "2024-02-26T18:29:46.190754",
-            "updateAt": "2024-02-26T18:29:46.190758",
+            "updatedAt": "2024-02-26T18:29:46.190758",
         },
         "note": "",
         "isFood": True,
@@ -31,7 +31,7 @@ def test_shopping_list_ingredient_validation():
         "label": None,
         "recipeReferences": [],
         "createdAt": "2024-02-27T10:18:19.274677",
-        "updateAt": "2024-02-27T11:26:32.643392",
+        "updatedAt": "2024-02-27T11:26:32.643392",
     }
     out = ShoppingListItemOut.model_validate(db_obj)
     assert out.display == "8 bell peppers"

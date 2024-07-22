@@ -86,7 +86,7 @@ export interface RecipeSummary {
   dateAdded?: string | null;
   dateUpdated?: string | null;
   createdAt?: string | null;
-  updateAt?: string | null;
+  updatedAt?: string | null;
   lastMade?: string | null;
 }
 export interface RecipeCategory {

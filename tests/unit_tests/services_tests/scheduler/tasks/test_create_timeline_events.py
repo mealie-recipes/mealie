@@ -70,7 +70,7 @@ def test_new_mealplan_event(api_client: TestClient, unique_user: TestUser):
     # make sure nothing else was updated
     for data in [original_recipe_data, new_recipe_data]:
         data.pop("dateUpdated")
-        data.pop("updateAt")
+        data.pop("updatedAt")
         data.pop("lastMade")
 
     # instructions ids are generated randomly and aren't consistent between get requests

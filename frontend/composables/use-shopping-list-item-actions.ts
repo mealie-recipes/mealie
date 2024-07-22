@@ -137,7 +137,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
     }
 
     const cutoffDate = new Date(queue.lastUpdate + queueTimeout).toISOString();
-    if (data.updateAt && data.updateAt > cutoffDate) {
+    if (data.updatedAt && data.updatedAt > cutoffDate) {
       // If the queue is too far behind the shopping list to reliably do updates, we clear the queue
       clearQueueItems("all");
     } else {

@@ -124,7 +124,7 @@ def test_update_list_doesnt_change_list_labels(api_client: TestClient, unique_us
 
     updated_list_data = new_list.model_dump()
     updated_list_data.pop("created_at", None)
-    updated_list_data.pop("update_at", None)
+    updated_list_data.pop("updated_at", None)
 
     updated_list_data["name"] = updated_name
     updated_list_data["label_settings"][0]["position"] = random_int(999, 9999)

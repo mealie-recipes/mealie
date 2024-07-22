@@ -139,7 +139,7 @@ export interface IngredientFood {
   aliases?: IngredientFoodAlias[];
   label?: MultiPurposeLabelSummary | null;
   createdAt?: string | null;
-  updateAt?: string | null;
+  updatedAt?: string | null;
 }
 export interface IngredientFoodAlias {
   name: string;
@@ -175,7 +175,7 @@ export interface IngredientUnit {
   useAbbreviation?: boolean;
   aliases?: IngredientUnitAlias[];
   createdAt?: string | null;
-  updateAt?: string | null;
+  updatedAt?: string | null;
 }
 export interface IngredientUnitAlias {
   name: string;
@@ -239,7 +239,7 @@ export interface Recipe {
   dateAdded?: string | null;
   dateUpdated?: string | null;
   createdAt?: string | null;
-  updateAt?: string | null;
+  updatedAt?: string | null;
   lastMade?: string | null;
   recipeIngredient?: RecipeIngredient[];
   recipeInstructions?: RecipeStep[] | null;
@@ -278,7 +278,7 @@ export interface RecipeCommentOut {
   text: string;
   id: string;
   createdAt: string;
-  updateAt: string;
+  updatedAt: string;
   userId: string;
   user: UserBase;
 }
@@ -314,7 +314,7 @@ export interface RecipeSummary {
   dateAdded?: string | null;
   dateUpdated?: string | null;
   createdAt?: string | null;
-  updateAt?: string | null;
+  updatedAt?: string | null;
   lastMade?: string | null;
 }
 export interface RecipeCommentCreate {
@@ -406,7 +406,7 @@ export interface RecipeTimelineEventOut {
   timestamp?: string;
   id: string;
   createdAt: string;
-  updateAt: string;
+  updatedAt: string;
 }
 export interface RecipeTimelineEventUpdate {
   subject: string;

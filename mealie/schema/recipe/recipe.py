@@ -14,7 +14,7 @@ from sqlalchemy.orm import Session, joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.core.config import get_app_dirs
-from mealie.schema._mealie import MealieModel, SearchType
+from mealie.schema._mealie import MealieModel, SearchType, UpdatedAtField
 from mealie.schema.response.pagination import PaginationBase
 
 from ...db.models.recipe import (
@@ -107,7 +107,7 @@ class RecipeSummary(MealieModel):
     date_updated: datetime.datetime | None = None
 
     created_at: datetime.datetime | None = None
-    update_at: datetime.datetime | None = None
+    updated_at: datetime.datetime | None = UpdatedAtField(None)
     last_made: datetime.datetime | None = None
     model_config = ConfigDict(from_attributes=True)
 

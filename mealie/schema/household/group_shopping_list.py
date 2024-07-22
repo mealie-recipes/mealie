@@ -14,7 +14,7 @@ from mealie.db.models.household import (
     ShoppingListRecipeReference,
 )
 from mealie.db.models.recipe import IngredientFoodModel, RecipeModel
-from mealie.schema._mealie import MealieModel
+from mealie.schema._mealie import MealieModel, UpdatedAtField
 from mealie.schema._mealie.types import NoneFloat
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary
 from mealie.schema.recipe.recipe import RecipeSummary
@@ -112,7 +112,7 @@ class ShoppingListItemOut(ShoppingListItemBase):
     recipe_references: list[ShoppingListItemRecipeRefOut] = []
 
     created_at: datetime | None = None
-    update_at: datetime | None = None
+    updated_at: datetime | None = UpdatedAtField(None)
 
     @model_validator(mode="after")
     def populate_missing_label(self):
@@ -173,7 +173,7 @@ class ShoppingListCreate(MealieModel):
     extras: dict | None = {}
 
     created_at: datetime | None = None
-    update_at: datetime | None = None
+    updated_at: datetime | None = UpdatedAtField(None)
 
     @field_validator("extras", mode="before")
     def convert_extras_to_dict(cls, v):

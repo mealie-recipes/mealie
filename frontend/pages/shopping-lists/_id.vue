@@ -448,7 +448,7 @@ export default defineComponent({
         unchecked: shoppingList.value?.listItems?.filter((item) => !item.checked) ?? [],
         checked: shoppingList.value?.listItems
           ?.filter((item) => item.checked)
-          .sort((a, b) => (a.updateAt < b.updateAt ? 1 : -1))
+          .sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1))
           ?? [],
       };
     });
@@ -867,7 +867,7 @@ export default defineComponent({
         item.position = shoppingList.value.listItems.length;
 
         // set a temporary updatedAt timestamp prior to refresh so it appears at the top of the checked items
-        item.updateAt = new Date().toISOString();
+        item.updatedAt = new Date().toISOString();
       }
 
       // make updates reflect immediately
@@ -938,7 +938,7 @@ export default defineComponent({
         : 0;
 
       createListItemData.value.createdAt = new Date().toISOString();
-      createListItemData.value.updateAt = createListItemData.value.createdAt;
+      createListItemData.value.updatedAt = createListItemData.value.createdAt;
 
       updateListItemOrder();
 

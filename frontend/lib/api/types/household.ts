@@ -214,7 +214,7 @@ export interface IngredientUnit {
   useAbbreviation?: boolean;
   aliases?: IngredientUnitAlias[];
   createdAt?: string | null;
-  updateAt?: string | null;
+  updatedAt?: string | null;
 }
 export interface IngredientUnitAlias {
   name: string;
@@ -253,7 +253,7 @@ export interface IngredientFood {
   aliases?: IngredientFoodAlias[];
   label?: MultiPurposeLabelSummary | null;
   createdAt?: string | null;
-  updateAt?: string | null;
+  updatedAt?: string | null;
 }
 export interface IngredientFoodAlias {
   name: string;
@@ -288,7 +288,7 @@ export interface ShoppingListCreate {
     [k: string]: unknown;
   } | null;
   createdAt?: string | null;
-  updateAt?: string | null;
+  updatedAt?: string | null;
 }
 export interface ShoppingListItemBase {
   quantity?: number;
@@ -355,7 +355,7 @@ export interface ShoppingListItemOut {
   label?: MultiPurposeLabelSummary | null;
   recipeReferences?: ShoppingListItemRecipeRefOut[];
   createdAt?: string | null;
-  updateAt?: string | null;
+  updatedAt?: string | null;
 }
 export interface ShoppingListItemRecipeRefOut {
   recipeId: string;
@@ -447,7 +447,7 @@ export interface ShoppingListOut {
     [k: string]: unknown;
   } | null;
   createdAt?: string | null;
-  updateAt?: string | null;
+  updatedAt?: string | null;
   groupId: string;
   userId: string;
   id: string;
@@ -483,7 +483,7 @@ export interface RecipeSummary {
   dateAdded?: string | null;
   dateUpdated?: string | null;
   createdAt?: string | null;
-  updateAt?: string | null;
+  updatedAt?: string | null;
   lastMade?: string | null;
 }
 export interface RecipeCategory {
@@ -513,7 +513,7 @@ export interface ShoppingListSave {
     [k: string]: unknown;
   } | null;
   createdAt?: string | null;
-  updateAt?: string | null;
+  updatedAt?: string | null;
   groupId: string;
   userId: string;
 }
@@ -523,7 +523,7 @@ export interface ShoppingListSummary {
     [k: string]: unknown;
   } | null;
   createdAt?: string | null;
-  updateAt?: string | null;
+  updatedAt?: string | null;
   groupId: string;
   userId: string;
   id: string;
@@ -536,7 +536,7 @@ export interface ShoppingListUpdate {
     [k: string]: unknown;
   } | null;
   createdAt?: string | null;
-  updateAt?: string | null;
+  updatedAt?: string | null;
   groupId: string;
   userId: string;
   id: string;

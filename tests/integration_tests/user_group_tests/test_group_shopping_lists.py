@@ -878,7 +878,7 @@ def test_modify_shopping_list_items_updates_shopping_list(
     shopping_lists: list[ShoppingListOut],
 ):
     shopping_list = random.choice(shopping_lists)
-    last_update_at = shopping_list.update_at
+    last_update_at = shopping_list.updated_at
     assert last_update_at
 
     # Create
@@ -886,9 +886,9 @@ def test_modify_shopping_list_items_updates_shopping_list(
     response = api_client.post(api_routes.groups_shopping_items, json=new_item_data, headers=unique_user.token)
     data = assert_deserialize(response, 201)
     updated_list = database.group_shopping_lists.get_one(shopping_list.id)
-    assert updated_list and updated_list.update_at
-    assert updated_list.update_at > last_update_at
-    last_update_at = updated_list.update_at
+    assert updated_list and updated_list.updated_at
+    assert updated_list.updated_at > last_update_at
+    last_update_at = updated_list.updated_at
 
     list_item_id = data["createdItems"][0]["id"]
     list_item = database.group_shopping_list_item.get_one(list_item_id)
@@ -903,9 +903,9 @@ def test_modify_shopping_list_items_updates_shopping_list(
     )
     assert response.status_code == 200
     updated_list = database.group_shopping_lists.get_one(shopping_list.id)
-    assert updated_list and updated_list.update_at
-    assert updated_list.update_at > last_update_at
-    last_update_at = updated_list.update_at
+    assert updated_list and updated_list.updated_at
+    assert updated_list.updated_at > last_update_at
+    last_update_at = updated_list.updated_at
 
     # Delete
     response = api_client.delete(
@@ -914,8 +914,8 @@ def test_modify_shopping_list_items_updates_shopping_list(
     )
     assert response.status_code == 200
     updated_list = database.group_shopping_lists.get_one(shopping_list.id)
-    assert updated_list and updated_list.update_at
-    assert updated_list.update_at > last_update_at
+    assert updated_list and updated_list.updated_at
+    assert updated_list.updated_at > last_update_at
 
 
 def test_bulk_modify_shopping_list_items_updates_shopping_list(
@@ -925,7 +925,7 @@ def test_bulk_modify_shopping_list_items_updates_shopping_list(
     shopping_lists: list[ShoppingListOut],
 ):
     shopping_list = random.choice(shopping_lists)
-    last_update_at = shopping_list.update_at
+    last_update_at = shopping_list.updated_at
     assert last_update_at
 
     # Create
@@ -939,9 +939,9 @@ def test_bulk_modify_shopping_list_items_updates_shopping_list(
     )
     data = assert_deserialize(response, 201)
     updated_list = database.group_shopping_lists.get_one(shopping_list.id)
-    assert updated_list and updated_list.update_at
-    assert updated_list.update_at > last_update_at
-    last_update_at = updated_list.update_at
+    assert updated_list and updated_list.updated_at
+    assert updated_list.updated_at > last_update_at
+    last_update_at = updated_list.updated_at
 
     # Update
     list_item_ids = [item["id"] for item in data["createdItems"]]
@@ -956,9 +956,9 @@ def test_bulk_modify_shopping_list_items_updates_shopping_list(
     response = api_client.put(api_routes.groups_shopping_items, json=payload, headers=unique_user.token)
     assert response.status_code == 200
     updated_list = database.group_shopping_lists.get_one(shopping_list.id)
-    assert updated_list and updated_list.update_at
-    assert updated_list.update_at > last_update_at
-    last_update_at = updated_list.update_at
+    assert updated_list and updated_list.updated_at
+    assert updated_list.updated_at > last_update_at
+    last_update_at = updated_list.updated_at
 
     # Delete
     response = api_client.delete(
@@ -968,5 +968,5 @@ def test_bulk_modify_shopping_list_items_updates_shopping_list(
     )
     assert response.status_code == 200
     updated_list = database.group_shopping_lists.get_one(shopping_list.id)
-    assert updated_list and updated_list.update_at
-    assert updated_list.update_at > last_update_at
+    assert updated_list and updated_list.updated_at
+    assert updated_list.updated_at > last_update_at

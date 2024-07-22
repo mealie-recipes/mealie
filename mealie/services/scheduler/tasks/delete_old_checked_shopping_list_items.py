@@ -33,7 +33,7 @@ def _trim_list_items(shopping_list_service: ShoppingListService, shopping_list_i
         page=1,
         per_page=-1,
         query_filter=f'shopping_list_id="{shopping_list_id}" AND checked=true',
-        order_by="update_at",
+        order_by="updated_at",
         order_direction=OrderDirection.desc,
     )
     query = shopping_list_service.list_items.page_all(pagination)

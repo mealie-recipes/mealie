@@ -181,7 +181,7 @@ session_buffer_context = ContextVar("session_buffer", default=SessionBuffer())
 @event.listens_for(ShoppingListItem, "after_update")
 @event.listens_for(ShoppingListItem, "after_delete")
 def buffer_shopping_list_updates(_, connection, target: ShoppingListItem):
-    """Adds the shopping list id to the session buffer so its `update_at` property can be updated later"""
+    """Adds the shopping list id to the session buffer so its `updated_at` property can be updated later"""
 
     session_buffer = session_buffer_context.get()
     session_buffer.add(target.shopping_list_id)
@@ -189,7 +189,7 @@ def buffer_shopping_list_updates(_, connection, target: ShoppingListItem):
 
 @event.listens_for(orm.Session, "after_flush")
 def update_shopping_lists(session: orm.Session, _):
-    """Pulls all pending shopping list updates from the buffer and updates their `update_at` property"""
+    """Pulls all pending shopping list updates from the buffer and updates their `updated_at` property"""
 
     session_buffer = session_buffer_context.get()
     if not session_buffer.shopping_list_ids:
@@ -207,7 +207,7 @@ def update_shopping_lists(session: orm.Session, _):
             if not shopping_list:
                 continue
 
-            shopping_list.update_at = datetime.now(timezone.utc)
+            shopping_list.updated_at = datetime.now(timezone.utc)
         local_session.commit()
     except Exception:
         local_session.rollback()

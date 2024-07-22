@@ -40,7 +40,7 @@ def test_cleanup(database: AllRepositories, unique_user: TestUser):
     for item in unchecked_items + checked_items:
         assert item in shopping_list.list_items
 
-    checked_items.sort(key=lambda x: x.update_at or datetime.now(timezone.utc), reverse=True)
+    checked_items.sort(key=lambda x: x.updated_at or datetime.now(timezone.utc), reverse=True)
     expected_kept_items = unchecked_items + checked_items[:MAX_CHECKED_ITEMS]
     expected_deleted_items = checked_items[MAX_CHECKED_ITEMS:]
 
