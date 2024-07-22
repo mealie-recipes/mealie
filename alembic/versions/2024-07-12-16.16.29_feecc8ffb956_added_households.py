@@ -6,6 +6,7 @@ Create Date: 2024-07-12 16:16:29.973929
 
 """
 
+from datetime import datetime, timezone
 from textwrap import dedent
 from typing import Any
 from uuid import uuid4
@@ -43,11 +44,14 @@ def generate_id() -> str:
 def create_household(session: orm.Session, group_id: str) -> str:
     # create/insert household
     household_id = generate_id()
+    timestamp = datetime.now(timezone.utc).isoformat()
     household_data = {
         "id": household_id,
         "name": settings.DEFAULT_HOUSEHOLD,
         "slug": slugify(settings.DEFAULT_HOUSEHOLD),
         "group_id": group_id,
+        "created_at": timestamp,
+        "update_at": timestamp,
     }
     columns = ", ".join(household_data.keys())
     placeholders = ", ".join(f":{key}" for key in household_data.keys())
@@ -82,6 +86,8 @@ def create_household(session: orm.Session, group_id: str) -> str:
 
     preferences_data["id"] = generate_id()
     preferences_data["household_id"] = household_id
+    preferences_data["created_at"] = timestamp
+    preferences_data["update_at"] = timestamp
     preferences_data["private_household"] = preferences_data.pop("private_group")
 
     # insert preferences data
