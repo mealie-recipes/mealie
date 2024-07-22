@@ -30,7 +30,8 @@ class GroupService(BaseService):
         else:
             prefs.group_id = new_group.id
 
-        repos.group_preferences.create(prefs)
+        group_repos = get_repositories(repos.session, group_id=new_group.id, household_id=None)
+        group_repos.group_preferences.create(prefs)
 
         return new_group
 

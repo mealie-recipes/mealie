@@ -15,15 +15,16 @@ from mealie.db.models.recipe.tag import Tag
 from mealie.db.models.recipe.tool import Tool
 from mealie.db.models.users.users import User
 from mealie.repos.repository_generic import GroupRepositoryGeneric
-from mealie.schema.household.household import HouseholdBase, HouseholdOut, UpdateHousehold
+from mealie.schema.household.household import HouseholdCreate, HouseholdOut, UpdateHousehold
 from mealie.schema.household.household_statistics import HouseholdStatistics
 
 
 class RepositoryHousehold(GroupRepositoryGeneric[HouseholdOut, Household]):
-    def create(self, data: HouseholdBase | dict) -> HouseholdOut:
-        if isinstance(data, HouseholdBase):
+    def create(self, data: HouseholdCreate | dict) -> HouseholdOut:
+        if isinstance(data, HouseholdCreate):
             data = data.model_dump()
 
+        data["group_id"] = self.group_id
         max_attempts = 10
         original_name = cast(str, data["name"])
 
@@ -45,7 +46,7 @@ class RepositoryHousehold(GroupRepositoryGeneric[HouseholdOut, Household]):
         return [self.create(new_household) for new_household in data]
 
     def update(self, match_value: str | int | UUID4, new_data: UpdateHousehold | dict) -> HouseholdOut:
-        if isinstance(new_data, HouseholdBase):
+        if isinstance(new_data, HouseholdCreate):
             new_data.slug = slugify(new_data.name)
         else:
             new_data["slug"] = slugify(new_data["name"])

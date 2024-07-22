@@ -5,7 +5,7 @@ from pydantic import UUID4
 from sqlalchemy import func, select
 
 from mealie.db.models.users.users import User
-from mealie.schema.household.household import HouseholdBase, HouseholdOut, HouseholdPagination, UpdateHouseholdAdmin
+from mealie.schema.household.household import HouseholdCreate, HouseholdOut, HouseholdPagination, UpdateHouseholdAdmin
 from mealie.schema.mapper import mapper
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.response.responses import ErrorResponse
@@ -31,7 +31,7 @@ class AdminHouseholdManagementRoutes(BaseAdminController):
 
     @property
     def mixins(self):
-        return HttpRepo[HouseholdBase, HouseholdOut, UpdateHouseholdAdmin](
+        return HttpRepo[HouseholdCreate, HouseholdOut, UpdateHouseholdAdmin](
             self.repo,
             self.logger,
             self.registered_exceptions,
@@ -48,7 +48,7 @@ class AdminHouseholdManagementRoutes(BaseAdminController):
         return response
 
     @router.post("", response_model=HouseholdOut, status_code=status.HTTP_201_CREATED)
-    def create_one(self, data: HouseholdBase):
+    def create_one(self, data: HouseholdCreate):
         return HouseholdService.create_household(self.repos, data)
 
     @router.get("/{item_id}", response_model=HouseholdOut)

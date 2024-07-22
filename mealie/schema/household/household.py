@@ -8,14 +8,17 @@ from mealie.schema.response.pagination import PaginationBase
 from .household_preferences import ReadHouseholdPreferences, UpdateHouseholdPreferences
 
 
-class HouseholdBase(MealieModel):
+class HouseholdCreate(MealieModel):
     name: Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
     model_config = ConfigDict(from_attributes=True)
 
 
-class UpdateHousehold(HouseholdBase):
-    id: UUID4
+class HouseholdSave(HouseholdCreate):
     group_id: UUID4
+
+
+class UpdateHousehold(HouseholdSave):
+    id: UUID4
     slug: str
 
 

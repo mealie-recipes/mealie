@@ -227,8 +227,8 @@ class AllRepositories:
         return HouseholdRepositoryGeneric(
             self.session,
             PK_GROUP_ID,
-            GroupPreferencesModel,
-            ReadGroupPreferences,
+            HouseholdPreferencesModel,
+            ReadHouseholdPreferences,
             group_id=self.group_id,
             household_id=self.household_id,
         )
