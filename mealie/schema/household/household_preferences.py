@@ -16,7 +16,10 @@ class UpdateHouseholdPreferences(MealieModel):
     recipe_disable_amount: bool = True
 
 
-class CreateHouseholdPreferences(UpdateHouseholdPreferences):
+class CreateHouseholdPreferences(UpdateHouseholdPreferences): ...
+
+
+class SaveHouseholdPreferences(UpdateHouseholdPreferences):
     household_id: UUID4
 
 
