@@ -40,30 +40,36 @@ class EventSource:
 class EventBusService:
     bg: BackgroundTasks | None = None
     session: Session | None = None
-    group_id: UUID4 | None = None
 
     def __init__(
-        self, bg: BackgroundTasks | None = None, session: Session | None = None, group_id: UUID4 | None = None
+        self,
+        bg: BackgroundTasks | None = None,
+        session: Session | None = None,
     ) -> None:
         self.bg = bg
         self.session = session
-        self.group_id = group_id
 
-        self.listeners: list[EventListenerBase] = [
-            AppriseEventListener(self.group_id),
-            WebhookEventListener(self.group_id),
+    def _get_listeners(self, group_id: UUID4, household_id: UUID4) -> list[EventListenerBase]:
+        return [
+            AppriseEventListener(group_id, household_id),
+            WebhookEventListener(group_id, household_id),
         ]
+
+    def _publish_event(self, event: Event, group_id: UUID4, household_id: UUID4) -> None:
+        """Publishes the event to all listeners"""
+        for listener in self._get_listeners(group_id, household_id):
+            if subscribers := listener.get_subscribers(event):
+                listener.publish_to_subscribers(event, subscribers)
 
     def dispatch(
         self,
         integration_id: str,
         group_id: UUID4,
+        household_id: UUID4,
         event_type: EventTypes,
         document_data: EventDocumentDataBase | None,
         message: str = "",
     ) -> None:
-        self.group_id = group_id
-
         event = Event(
             message=EventBusMessage.from_type(event_type, body=message),
             event_type=event_type,
@@ -72,23 +78,15 @@ class EventBusService:
         )
 
         if self.bg:
-            self.bg.add_task(self.publish_event, event=event)
-
+            self.bg.add_task(self._publish_event, event=event, group_id=group_id, household_id=household_id)
         else:
-            self.publish_event(event)
-
-    def publish_event(self, event: Event) -> None:
-        """Publishes the event to all listeners"""
-        for listener in self.listeners:
-            if subscribers := listener.get_subscribers(event):
-                listener.publish_to_subscribers(event, subscribers)
+            self._publish_event(event, group_id, household_id)
 
     @classmethod
     def as_dependency(
         cls,
         bg: BackgroundTasks,
         session=Depends(generate_session),
-        group_id: UUID4 | None = Query(None, include_in_schema=False),
     ):
         """Convenience method to use as a dependency in FastAPI routes"""
-        return cls(bg, session, group_id)
+        return cls(bg, session)

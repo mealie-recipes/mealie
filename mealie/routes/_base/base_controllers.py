@@ -166,6 +166,7 @@ class BaseCrudController(BaseUserController):
         self.event_bus.dispatch(
             integration_id=self.integration_id,
             group_id=self.group_id,
+            household_id=self.household_id,
             event_type=event_type,
             document_data=document_data,
             message=message,

@@ -46,7 +46,7 @@ class ReadWebhookController(BaseUserController):
 
         start_time = datetime.min.time()
         start_dt = datetime.combine(datetime.now(timezone.utc).date(), start_time)
-        post_group_webhooks(start_dt=start_dt, group_id=self.group.id)
+        post_group_webhooks(start_dt=start_dt, group_id=self.group.id, household_id=self.household.id)
 
     @router.get("/{item_id}", response_model=ReadWebhook)
     def get_one(self, item_id: UUID4):

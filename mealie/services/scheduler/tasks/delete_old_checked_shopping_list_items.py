@@ -14,11 +14,12 @@ from mealie.services.household_services.shopping_lists import ShoppingListServic
 MAX_CHECKED_ITEMS = 100
 
 
-def _create_publish_event(event_bus_service: EventBusService, group_id: UUID4):
+def _create_publish_event(event_bus_service: EventBusService, group_id: UUID4, household_id: UUID4):
     def publish_event(event_type: EventTypes, document_data: EventDocumentDataBase, message: str = ""):
         event_bus_service.dispatch(
             integration_id=DEFAULT_INTEGRATION_ID,
             group_id=group_id,
+            household_id=household_id,
             event_type=event_type,
             document_data=document_data,
             message=message,
@@ -44,26 +45,23 @@ def _trim_list_items(shopping_list_service: ShoppingListService, shopping_list_i
     publish_list_item_events(event_publisher, items_response)
 
 
-def delete_old_checked_list_items(group_id: UUID4 | None = None):
+def delete_old_checked_list_items():
     with session_context() as session:
         repos = get_repositories(session)
-        if group_id is None:
-            # if not specified, we check all groups
-            groups = repos.groups.page_all(PaginationQuery(page=1, per_page=-1)).items
-
-        else:
-            group = repos.groups.get_one(group_id)
-            if not group:
-                raise Exception(f'Group not found: "{group_id}"')
-
-            groups = [group]
+        groups = repos.groups.page_all(PaginationQuery(page=1, per_page=-1)).items
 
         for group in groups:
             group_repos = get_repositories(session, group.id)
-            event_bus_service = EventBusService(session=session, group_id=group.id)
-            shopping_list_service = ShoppingListService(group_repos)
-            shopping_list_data = group_repos.group_shopping_lists.page_all(PaginationQuery(page=1, per_page=-1))
-            for shopping_list in shopping_list_data.items:
-                _trim_list_items(
-                    shopping_list_service, shopping_list.id, _create_publish_event(event_bus_service, group.id)
-                )
+            households = group_repos.households.page_all(PaginationQuery(page=1, per_page=-1)).items
+
+            for household in households:
+                household_repos = get_repositories(session, group.id, household.id)
+                event_bus_service = EventBusService(session=session)
+                shopping_list_service = ShoppingListService(household_repos)
+                shopping_list_data = household_repos.group_shopping_lists.page_all(PaginationQuery(page=1, per_page=-1))
+                for shopping_list in shopping_list_data.items:
+                    _trim_list_items(
+                        shopping_list_service,
+                        shopping_list.id,
+                        _create_publish_event(event_bus_service, group.id, household.id),
+                    )
