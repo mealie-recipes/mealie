@@ -44,5 +44,28 @@
         "second": "másodperc",
         "millisecond": "ezredmásodperc",
         "microsecond": "mikroszekundum"
+    },
+    "emails": {
+        "password": {
+            "subject": "Mealie elfelejtett jelszó",
+            "header_text": "Elfelejtett jelszó",
+            "message_top": "Ön a jelszava visszaállítását kérte.",
+            "message_bottom": "Kérjük, kattintson a fenti gombra a jelszó visszaállításához.",
+            "button_text": "Jelszó visszaállítása"
+        },
+        "invitation": {
+            "subject": "Meghívás a Mealie-hoz való csatlakozásra",
+            "header_text": "Meghívód érkezett!",
+            "message_top": "Meghívást kaptál, hogy csatlakozz Mealie-hoz.",
+            "message_bottom": "Kérjük, kattintson a fenti gombra a meghívás elfogadásához.",
+            "button_text": "Meghívás elfogadása"
+        },
+        "test": {
+            "subject": "Mealie teszt e-mail",
+            "header_text": "Teszt e-mail",
+            "message_top": "Ez egy teszt e-mail.",
+            "message_bottom": "Kérjük, kattintson a fenti gombra az e-mail teszteléséhez.",
+            "button_text": "Mealie megnyitása"
+        }
     }
 }

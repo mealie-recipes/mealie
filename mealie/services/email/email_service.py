@@ -4,6 +4,8 @@ from jinja2 import Template
 from pydantic import BaseModel
 
 from mealie.core.root_logger import get_logger
+from mealie.lang import local_provider
+from mealie.lang.providers import Translator
 from mealie.services._base_service import BaseService
 
 from .email_senders import ABCEmailSender, DefaultEmailSender
@@ -28,10 +30,11 @@ class EmailTemplate(BaseModel):
 
 
 class EmailService(BaseService):
-    def __init__(self, sender: ABCEmailSender | None = None) -> None:
+    def __init__(self, sender: ABCEmailSender | None = None, locale: str | None = None) -> None:
         self.templates_dir = CWD / "templates"
         self.default_template = self.templates_dir / "default.html"
         self.sender: ABCEmailSender = sender or DefaultEmailSender()
+        self.translator: Translator = local_provider(locale)
 
         super().__init__()
 
@@ -43,33 +46,33 @@ class EmailService(BaseService):
 
     def send_forgot_password(self, address: str, reset_password_url: str) -> bool:
         forgot_password = EmailTemplate(
-            subject="Mealie Forgot Password",
-            header_text="Forgot Password",
-            message_top="You have requested to reset your password.",
-            message_bottom="Please click the button above to reset your password.",
+            subject=self.translator.t("emails.password.subject"),
+            header_text=self.translator.t("emails.password.header_text"),
+            message_top=self.translator.t("emails.password.message_top"),
+            message_bottom=self.translator.t("emails.password.message_bottom"),
             button_link=reset_password_url,
-            button_text="Reset Password",
+            button_text=self.translator.t("emails.password.button_text"),
         )
         return self.send_email(address, forgot_password)
 
     def send_invitation(self, address: str, invitation_url: str) -> bool:
         invitation = EmailTemplate(
-            subject="Invitation to join Mealie",
-            header_text="You're Invited!",
-            message_top="You have been invited to join Mealie.",
-            message_bottom="Please click the button above to accept the invitation.",
+            subject=self.translator.t("emails.invitation.subject"),
+            header_text=self.translator.t("emails.invitation.header_text"),
+            message_top=self.translator.t("emails.invitation.message_top"),
+            message_bottom=self.translator.t("emails.invitation.message_bottom"),
             button_link=invitation_url,
-            button_text="Accept Invitation",
+            button_text=self.translator.t("emails.invitation.button_text"),
         )
         return self.send_email(address, invitation)
 
     def send_test_email(self, address: str) -> bool:
         test_email = EmailTemplate(
-            subject="Test Email",
-            header_text="Test Email",
-            message_top="This is a test email.",
-            message_bottom="Please click the button above to test the email.",
-            button_link="https://www.google.com",
-            button_text="Test Email",
+            subject=self.translator.t("emails.test.subject"),
+            header_text=self.translator.t("emails.test.header_text"),
+            message_top=self.translator.t("emails.test.message_top"),
+            message_bottom=self.translator.t("emails.test.message_bottom"),
+            button_link=self.settings.BASE_URL,
+            button_text=self.translator.t("emails.test.button_text"),
         )
         return self.send_email(address, test_email)
