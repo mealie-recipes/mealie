@@ -1,4 +1,6 @@
-from fastapi import APIRouter
+from typing import Annotated
+
+from fastapi import APIRouter, Header
 
 from mealie.routes._base import BaseAdminController, controller
 from mealie.schema.admin.email import EmailReady, EmailSuccess, EmailTest
@@ -15,8 +17,12 @@ class AdminEmailController(BaseAdminController):
         return EmailReady(ready=self.settings.SMTP_ENABLE)
 
     @router.post("", response_model=EmailSuccess)
-    async def send_test_email(self, data: EmailTest):
-        service = EmailService()
+    async def send_test_email(
+        self,
+        data: EmailTest,
+        accept_language: Annotated[str | None, Header()] = None,
+    ):
+        service = EmailService(locale=accept_language)
         status = False
         error = None
 

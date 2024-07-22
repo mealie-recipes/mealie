@@ -24,7 +24,7 @@ services:
       - mealie-data:/app/data/
     environment:
       # Set Backend ENV Variables Here
-      ALLOW_SIGNUP: true
+      ALLOW_SIGNUP: false
       PUID: 1000
       PGID: 1000
       TZ: America/Anchorage

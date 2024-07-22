@@ -58,7 +58,7 @@ The following steps were tested on a Ubuntu 20.04 server, but should work for mo
 4. Create a docker-compose.yaml file in the mealie directory: `touch docker-compose.yaml`
 5. Use the text editor of your choice to edit the file and copy the contents of the docker-compose template for the deployment type you want to use: `nano docker-compose.yaml` or `vi docker-compose.yaml`
 
-## Step 2: Customizing The `docker-compose.yaml` files.
+## Step 3: Customizing The `docker-compose.yaml` files.
 
 After you've decided setup the files it's important to set a few ENV variables to ensure that you can use all the features of Mealie. I recommend that you verify and check that:
 
@@ -67,7 +67,7 @@ After you've decided setup the files it's important to set a few ENV variables t
 - [x] You've set the [`BASE_URL`](./backend-config.md#general) variable.
 - [x] You've set the `DEFAULT_EMAIL` and `DEFAULT_GROUP` variable.
 
-## Step 3: Startup
+## Step 4: Startup
 
 After you've configured your database and updated the `docker-compose.yaml` files, you can start Mealie by running the following command in the directory where you've added your `docker-compose.yaml`.
 
@@ -87,11 +87,11 @@ You should see the containers start up without error. You should now be able to 
 
     **Password:** MyPassword
 
-## Step 4: Validate Installation
+## Step 5: Validate Installation
 
 After the startup is complete, you should see a login screen. Use the default credentials above to log in and navigate to `/admin/site-settings`. Here, you'll find a summary of your configuration details and their respective status. Before proceeding, you should validate that the configuration is correct. For any warnings or errors the page will display an error and notify you of what you need to verify.
 
-## Step 5: Backup
+## Step 6: Backup
 
 While v1.0.0 is a great step to data-stability and security, it's not a backup. Mealie provides a full site data backup mechanism through the UI.
 

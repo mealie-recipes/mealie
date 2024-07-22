@@ -44,5 +44,28 @@
         "second": "Sekunde|Sekunden",
         "millisecond": "Millisekunde|Millisekunden",
         "microsecond": "Mikrosekunde|Mikrosekunden"
+    },
+    "emails": {
+        "password": {
+            "subject": "Mealie Passwort vergessen",
+            "header_text": "Passwort vergessen",
+            "message_top": "Du hast angefordert, dein Passwort zurückzusetzen.",
+            "message_bottom": "Bitte klicke auf den Button oben, um dein Passwort zurückzusetzen.",
+            "button_text": "Passwort zurücksetzen"
+        },
+        "invitation": {
+            "subject": "Einladung zu Mealie",
+            "header_text": "Du wurdest eingeladen!",
+            "message_top": "Du wurdest eingeladen, bei Mealie dabei zu sein.",
+            "message_bottom": "Bitte klicke auf den Button oben, um die Einladung anzunehmen.",
+            "button_text": "Einladung annehmen"
+        },
+        "test": {
+            "subject": "Mealie Test E-Mail",
+            "header_text": "Test E-Mail",
+            "message_top": "Das ist eine Test E-Mail.",
+            "message_bottom": "Bitte klicke auf den Button oben, um die E-Mail zu testen.",
+            "button_text": "Mealie öffnen"
+        }
     }
 }

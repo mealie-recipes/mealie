@@ -1,4 +1,6 @@
-from fastapi import APIRouter, Depends
+from typing import Annotated
+
+from fastapi import APIRouter, Depends, Header
 from sqlalchemy.orm.session import Session
 
 from mealie.db.db_setup import generate_session
@@ -9,10 +11,14 @@ router = APIRouter(prefix="")
 
 
 @router.post("/forgot-password")
-def forgot_password(email: ForgotPassword, session: Session = Depends(generate_session)):
+def forgot_password(
+    email: ForgotPassword,
+    session: Session = Depends(generate_session),
+    accept_language: Annotated[str | None, Header()] = None,
+):
     """Sends an email with a reset link to the user"""
     f_service = PasswordResetService(session)
-    return f_service.send_reset_email(email.email)
+    return f_service.send_reset_email(email.email, accept_language)
 
 
 @router.post("/reset-password")
