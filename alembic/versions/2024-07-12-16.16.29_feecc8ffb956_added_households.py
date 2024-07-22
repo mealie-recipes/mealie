@@ -7,6 +7,7 @@ Create Date: 2024-07-12 16:16:29.973929
 """
 
 from textwrap import dedent
+from typing import Any
 from uuid import uuid4
 
 import sqlalchemy as sa
@@ -40,6 +41,7 @@ def generate_id() -> str:
 
 
 def create_household(session: orm.Session, group_id: str) -> str:
+    # create/insert household
     household_id = generate_id()
     household_data = {
         "id": household_id,
@@ -53,10 +55,9 @@ def create_household(session: orm.Session, group_id: str) -> str:
 
     session.execute(sa.text(sql_statement), household_data)
 
-    preferences_data = {
-        "id": generate_id(),
-        "household_id": household_id,
-        "private_household": True,
+    # fetch group preferences so we can copy them over to household preferences
+    migrated_field_defaults = {
+        "private_group": True,  # this is renamed later
         "first_day_of_week": 0,
         "recipe_public": True,
         "recipe_show_nutrition": False,
@@ -65,6 +66,25 @@ def create_household(session: orm.Session, group_id: str) -> str:
         "recipe_disable_comments": False,
         "recipe_disable_amount": True,
     }
+    sql_statement = (
+        f"SELECT {', '.join(migrated_field_defaults.keys())} FROM group_preferences WHERE group_id = :group_id"
+    )
+    group_preferences = session.execute(sa.text(sql_statement), {"group_id": group_id}).fetchone()
+
+    # build preferences data
+    if group_preferences:
+        preferences_data: dict[str, Any] = {}
+        for i, (field, default_value) in enumerate(migrated_field_defaults.items()):
+            value = group_preferences[i]
+            preferences_data[field] = value if value is not None else default_value
+    else:
+        preferences_data = migrated_field_defaults
+
+    preferences_data["id"] = generate_id()
+    preferences_data["household_id"] = household_id
+    preferences_data["private_household"] = preferences_data.pop("private_group")
+
+    # insert preferences data
     columns = ", ".join(preferences_data.keys())
     placeholders = ", ".join(f":{key}" for key in preferences_data.keys())
     sql_statement = f"INSERT INTO household_preferences ({columns}) VALUES ({placeholders})"
