@@ -15,7 +15,7 @@
         "name": "cup",
         "plural_name": "cups",
         "description": "",
-        "abbreviation": "cup"
+        "abbreviation": "c"
     },
     "fluid-ounce": {
         "name": "fluid ounce",
@@ -117,6 +117,24 @@
     "can": {
         "name": "can",
         "plural_name": "cans",
+        "description": "",
+        "abbreviation": ""
+    },
+    "bunch": {
+        "name": "bunch",
+        "plural_name": "bunches",
+        "description": "",
+        "abbreviation": ""
+    },
+    "pack": {
+        "name": "pack",
+        "plural_name": "packs",
+        "description": "",
+        "abbreviation": ""
+    },
+    "pinch": {
+        "name": "pinch",
+        "plural_name": "pinches",
         "description": "",
         "abbreviation": ""
     }
