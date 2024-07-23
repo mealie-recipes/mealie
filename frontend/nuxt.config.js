@@ -351,13 +351,22 @@ export default {
     },
     manifest: {
       start_url: "/",
+      scope: "/",
       lang: "en",
+      dir: "auto",
       name: "Mealie",
       short_name: "Mealie",
+      id: "mealie",
       description: "Mealie is a recipe management and meal planning app",
       theme_color: process.env.THEME_LIGHT_PRIMARY || "#E58325",
       background_color: "#FFFFFF",
       display: "standalone",
+      display_override: [
+        "standalone",
+        "minimal-ui",
+        "browser",
+        "window-controls-overlay"
+      ],
       share_target: {
         action: "/r/create/url",
         method: "GET",
@@ -395,6 +404,56 @@ export default {
           purpose: "maskable",
         },
       ],
+      screenshots: [
+        {
+          "src": "/screenshots/home-narrow.png",
+          "sizes": "1600x2420",
+          "form_factor": "narrow",
+          "label": "Home Page"
+        },
+        {
+          "src": "/screenshots/recipe-narrow.png",
+          "sizes": "1600x2420",
+          "form_factor": "narrow",
+          "label": "Recipe Page"
+        },
+        {
+          "src": "/screenshots/editor-narrow.png",
+          "sizes": "1600x2420",
+          "form_factor": "narrow",
+          "label": "Editor Page"
+        },
+        {
+          "src": "/screenshots/parser-narrow.png",
+          "sizes": "1600x2420",
+          "form_factor": "narrow",
+          "label": "Parser Page"
+        },
+        {
+          "src": "/screenshots/home-wide.png",
+          "sizes": "2560x1460",
+          "form_factor": "wide",
+          "label": "Home Page"
+        },
+        {
+          "src": "/screenshots/recipe-wide.png",
+          "sizes": "2560x1460",
+          "form_factor": "wide",
+          "label": "Recipe Page"
+        },
+        {
+          "src": "/screenshots/editor-wide.png",
+          "sizes": "2560x1460",
+          "form_factor": "wide",
+          "label": "Editor Page"
+        },
+        {
+          "src": "/screenshots/parser-wide.png",
+          "sizes": "2560x1460",
+          "form_factor": "wide",
+          "label": "Parser Page"
+        }
+      ],
       "shortcuts": [
         {
           "name": "Shopping Lists",
@@ -403,8 +462,12 @@ export default {
           "url": "/shopping-lists",
           "icons": [
             {
-              "src": "/svgs/mdiFormatListChecks.svg",
-              "sizes": "256x256",
+              "src": "/icons/mdiFormatListChecks-192x192.png",
+              "sizes": "192x192",
+            },
+            {
+              "src": "/icons/mdiFormatListChecks-96x96.png",
+              "sizes": "96x96",
             }
           ]
         },
@@ -415,12 +478,28 @@ export default {
           "url": "/group/mealplan/planner/view",
           "icons": [
             {
-              "src": "/svgs/mdiCalendarMultiselect.svg",
-              "sizes": "256x256",
+              "src": "/icons/mdiCalendarMultiselect-192x192.png",
+              "sizes": "192x192",
+            },
+            {
+              "src": "/icons/mdiCalendarMultiselect-96x96.png",
+              "sizes": "96x96",
             }
           ]
         },
       ],
+      prefer_related_applications: false,
+      handle_links: "preferred",
+      orientation: "any",
+      categories: [
+        "food"
+      ],
+      launch_handler: {
+        "client_mode": ["focus-existing", "auto"]
+      },
+      edge_side_panel: {
+        "preferred_width": 400
+      }
     },
     icon: false, // disables the icon module
   },
