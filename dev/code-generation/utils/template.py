@@ -1,5 +1,6 @@
 import logging
 import re
+import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -22,6 +23,11 @@ def render_python_template(template_file: Path | str, dest: Path, data: dict):
     text = tplt.render(data=data)
 
     dest.write_text(text)
+
+    # lint/format file with Ruff
+    log.info(f"Formatting {dest}")
+    subprocess.run(["poetry", "run", "ruff", "check", str(dest), "--fix"])
+    subprocess.run(["poetry", "run", "ruff", "format", str(dest)])
 
 
 @dataclass
