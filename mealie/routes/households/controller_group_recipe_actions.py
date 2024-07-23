@@ -14,7 +14,7 @@ from mealie.schema.household.group_recipe_action import (
 )
 from mealie.schema.response.pagination import PaginationQuery
 
-router = APIRouter(prefix="/groups/recipe-actions", tags=["Groups: Recipe Actions"])
+router = APIRouter(prefix="/households/recipe-actions", tags=["Households: Recipe Actions"])
 
 
 @controller(router)

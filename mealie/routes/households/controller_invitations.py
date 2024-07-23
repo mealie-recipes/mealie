@@ -14,7 +14,7 @@ from mealie.schema.household.invite_token import (
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.email.email_service import EmailService
 
-router = APIRouter(prefix="/groups/invitations", tags=["Groups: Invitations"])
+router = APIRouter(prefix="/households/invitations", tags=["Households: Invitations"])
 
 
 @controller(router)

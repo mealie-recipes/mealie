@@ -12,7 +12,7 @@ from mealie.schema.household.webhook import CreateWebhook, ReadWebhook, SaveWebh
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.scheduler.tasks.post_webhooks import post_group_webhooks, post_single_webhook
 
-router = APIRouter(prefix="/groups/webhooks", tags=["Groups: Webhooks"])
+router = APIRouter(prefix="/households/webhooks", tags=["Households: Webhooks"])
 
 
 @controller(router)

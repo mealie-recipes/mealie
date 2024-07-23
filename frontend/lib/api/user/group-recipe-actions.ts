@@ -1,11 +1,11 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import { CreateGroupRecipeAction, GroupRecipeActionOut } from "~/lib/api/types/group";
+import { CreateGroupRecipeAction, GroupRecipeActionOut } from "~/lib/api/types/household";
 
 const prefix = "/api";
 
 const routes = {
-    groupRecipeActions: `${prefix}/groups/recipe-actions`,
-    groupRecipeActionsId: (id: string | number) => `${prefix}/groups/recipe-actions/${id}`,
+    groupRecipeActions: `${prefix}/households/recipe-actions`,
+    groupRecipeActionsId: (id: string | number) => `${prefix}/households/recipe-actions/${id}`,
   };
 
   export class GroupRecipeActionsAPI extends BaseCRUDAPI<CreateGroupRecipeAction, GroupRecipeActionOut> {

@@ -17,7 +17,7 @@ from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.response.responses import ErrorResponse
 from mealie.services.event_bus_service.event_types import EventMealplanCreatedData, EventTypes
 
-router = APIRouter(prefix="/groups/mealplans", tags=["Groups: Mealplans"])
+router = APIRouter(prefix="/households/mealplans", tags=["Households: Mealplans"])
 
 
 @controller(router)

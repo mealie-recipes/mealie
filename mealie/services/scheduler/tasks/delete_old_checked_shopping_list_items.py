@@ -4,7 +4,7 @@ from pydantic import UUID4
 
 from mealie.db.db_setup import session_context
 from mealie.repos.all_repositories import get_repositories
-from mealie.routes.groups.controller_shopping_lists import publish_list_item_events
+from mealie.routes.households.controller_shopping_lists import publish_list_item_events
 from mealie.schema.response.pagination import OrderDirection, PaginationQuery
 from mealie.schema.user.user import DEFAULT_INTEGRATION_ID
 from mealie.services.event_bus_service.event_bus_service import EventBusService

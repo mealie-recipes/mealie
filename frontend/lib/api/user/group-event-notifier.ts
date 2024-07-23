@@ -1,11 +1,11 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import { GroupEventNotifierCreate, GroupEventNotifierOut, GroupEventNotifierUpdate } from "~/lib/api/types/group";
+import { GroupEventNotifierCreate, GroupEventNotifierOut, GroupEventNotifierUpdate } from "~/lib/api/types/household";
 
 const prefix = "/api";
 
 const routes = {
-  eventNotifier: `${prefix}/groups/events/notifications`,
-  eventNotifierId: (id: string | number) => `${prefix}/groups/events/notifications/${id}`,
+  eventNotifier: `${prefix}/households/events/notifications`,
+  eventNotifierId: (id: string | number) => `${prefix}/households/events/notifications/${id}`,
 };
 
 export class GroupEventNotifierApi extends BaseCRUDAPI<

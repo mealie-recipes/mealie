@@ -1,22 +1,23 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import { CategoryBase, GroupBase, GroupInDB, GroupSummary, UserOut } from "~/lib/api/types/user";
+import { GroupBase, GroupInDB, GroupSummary, UserOut } from "~/lib/api/types/user";
 import {
-  CreateInviteToken,
   GroupAdminUpdate,
   GroupStatistics,
   GroupStorage,
   ReadGroupPreferences,
-  ReadInviteToken,
   SetPermissions,
   UpdateGroupPreferences,
 } from "~/lib/api/types/group";
+import {
+  CreateInviteToken,
+  ReadInviteToken,
+} from "~/lib/api/types/household";
 
 const prefix = "/api";
 
 const routes = {
   groups: `${prefix}/admin/groups`,
   groupsSelf: `${prefix}/groups/self`,
-  categories: `${prefix}/groups/categories`,
   members: `${prefix}/groups/members`,
   permissions: `${prefix}/groups/permissions`,
 
@@ -24,7 +25,7 @@ const routes = {
   statistics: `${prefix}/groups/statistics`,
   storage: `${prefix}/groups/storage`,
 
-  invitation: `${prefix}/groups/invitations`,
+  invitation: `${prefix}/households/invitations`,
 
   groupsId: (id: string | number) => `${prefix}/admin/groups/${id}`,
 };
@@ -36,14 +37,6 @@ export class GroupAPI extends BaseCRUDAPI<GroupBase, GroupInDB, GroupAdminUpdate
    */
   async getCurrentUserGroup() {
     return await this.requests.get<GroupSummary>(routes.groupsSelf);
-  }
-
-  async getCategories() {
-    return await this.requests.get<CategoryBase[]>(routes.categories);
-  }
-
-  async setCategories(payload: CategoryBase[]) {
-    return await this.requests.put<CategoryBase[]>(routes.categories, payload);
   }
 
   async getPreferences() {

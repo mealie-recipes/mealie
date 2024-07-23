@@ -29,7 +29,7 @@ from mealie.services.event_bus_service.event_types import (
 )
 
 router = APIRouter(
-    prefix="/groups/events/notifications", tags=["Group: Event Notifications"], route_class=MealieCrudRoute
+    prefix="/households/events/notifications", tags=["Households: Event Notifications"], route_class=MealieCrudRoute
 )
 
 

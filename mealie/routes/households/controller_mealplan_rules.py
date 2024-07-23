@@ -11,7 +11,7 @@ from mealie.schema import mapper
 from mealie.schema.meal_plan.plan_rules import PlanRulesCreate, PlanRulesOut, PlanRulesPagination, PlanRulesSave
 from mealie.schema.response.pagination import PaginationQuery
 
-router = UserAPIRouter(prefix="/groups/mealplans/rules", tags=["Groups: Mealplan Rules"])
+router = UserAPIRouter(prefix="/households/mealplans/rules", tags=["Households: Mealplan Rules"])
 
 
 @controller(router)
