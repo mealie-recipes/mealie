@@ -3,7 +3,6 @@ from enum import Enum
 import pytest
 from fastapi.testclient import TestClient
 
-from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe_category import CategorySave, TagSave
 from mealie.schema.recipe.recipe_tool import RecipeToolSave
 from tests.utils import api_routes
@@ -39,10 +38,11 @@ class OrganizerType(Enum):
 def test_get_all_organizers(
     api_client: TestClient,
     unique_user: TestUser,
-    database: AllRepositories,
     organizer_type: OrganizerType,
     is_private_group: bool,
 ):
+    database = unique_user.repos
+
     ## Set Up Group
     group = database.groups.get_one(unique_user.group_id)
     assert group and group.preferences
@@ -105,10 +105,11 @@ def test_get_all_organizers(
 def test_get_one_organizer(
     api_client: TestClient,
     unique_user: TestUser,
-    database: AllRepositories,
     organizer_type: OrganizerType,
     is_private_group: bool,
 ):
+    database = unique_user.repos
+
     ## Set Up Group
     group = database.groups.get_one(unique_user.group_id)
     assert group and group.preferences

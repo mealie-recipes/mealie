@@ -20,7 +20,7 @@ def get_permissions_payload(user_id: str, can_manage=None) -> dict:
 def test_get_group_members(api_client: TestClient, user_tuple: list[TestUser]):
     usr_1, usr_2 = user_tuple
 
-    response = api_client.get(api_routes.groups_members, headers=usr_1.token)
+    response = api_client.get(api_routes.households_members, headers=usr_1.token)
     assert response.status_code == 200
 
     members = response.json()
@@ -32,13 +32,13 @@ def test_get_group_members(api_client: TestClient, user_tuple: list[TestUser]):
     assert str(usr_2.user_id) in all_ids
 
 
-def test_set_memeber_permissions(api_client: TestClient, user_tuple: list[TestUser], database: AllRepositories):
+def test_set_member_permissions(api_client: TestClient, user_tuple: list[TestUser]):
     usr_1, usr_2 = user_tuple
 
     # Set Acting User
-    acting_user = database.users.get_one(usr_1.user_id)
+    acting_user = usr_1.repos.users.get_one(usr_1.user_id)
     acting_user.can_manage = True
-    database.users.update(acting_user.id, acting_user)
+    usr_1.repos.users.update(acting_user.id, acting_user)
 
     payload = get_permissions_payload(str(usr_2.user_id))
 
@@ -47,7 +47,9 @@ def test_set_memeber_permissions(api_client: TestClient, user_tuple: list[TestUs
     assert response.status_code == 200
 
 
-def test_set_memeber_permissions_unauthorized(api_client: TestClient, unique_user: TestUser, database: AllRepositories):
+def test_set_member_permissions_unauthorized(api_client: TestClient, unique_user: TestUser):
+    database = unique_user.repos
+
     # Setup
     user = database.users.get_one(unique_user.user_id)
     user.can_manage = False
@@ -66,12 +68,13 @@ def test_set_memeber_permissions_unauthorized(api_client: TestClient, unique_use
     assert response.status_code == 403
 
 
-def test_set_memeber_permissions_other_group(
+def test_set_member_permissions_other_group(
     api_client: TestClient,
     unique_user: TestUser,
     g2_user: TestUser,
-    database: AllRepositories,
 ):
+    database = unique_user.repos
+
     user = database.users.get_one(unique_user.user_id)
     user.can_manage = True
     database.users.update(user.id, user)
@@ -81,11 +84,12 @@ def test_set_memeber_permissions_other_group(
     assert response.status_code == 403
 
 
-def test_set_memeber_permissions_no_user(
+def test_set_member_permissions_no_user(
     api_client: TestClient,
     unique_user: TestUser,
-    database: AllRepositories,
 ):
+    database = unique_user.repos
+
     user = database.users.get_one(unique_user.user_id)
     user.can_manage = True
     database.users.update(user.id, user)

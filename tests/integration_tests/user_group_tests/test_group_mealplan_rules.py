@@ -13,10 +13,8 @@ from tests.utils.fixture_schemas import TestUser
 
 
 @pytest.fixture(scope="function")
-def category(
-    database: AllRepositories,
-    unique_user: TestUser,
-):
+def category(unique_user: TestUser):
+    database = unique_user.repos
     slug = utils.random_string(length=10)
     model = database.categories.create(CategorySave(group_id=unique_user.group_id, slug=slug, name=slug))
 
@@ -29,7 +27,8 @@ def category(
 
 
 @pytest.fixture(scope="function")
-def plan_rule(database: AllRepositories, unique_user: TestUser):
+def plan_rule(unique_user: TestUser):
+    database = unique_user.repos
     schema = PlanRulesSave(
         group_id=unique_user.group_id,
         day="monday",
@@ -47,9 +46,8 @@ def plan_rule(database: AllRepositories, unique_user: TestUser):
         pass
 
 
-def test_group_mealplan_rules_create(
-    api_client: TestClient, unique_user: TestUser, category: RecipeCategory, database: AllRepositories
-):
+def test_group_mealplan_rules_create(api_client: TestClient, unique_user: TestUser, category: RecipeCategory):
+    database = unique_user.repos
     payload = {
         "groupId": unique_user.group_id,
         "day": "monday",
@@ -58,7 +56,7 @@ def test_group_mealplan_rules_create(
     }
 
     response = api_client.post(
-        api_routes.groups_mealplans_rules, json=utils.jsonify(payload), headers=unique_user.token
+        api_routes.households_mealplans_rules, json=utils.jsonify(payload), headers=unique_user.token
     )
     assert response.status_code == 201
 
@@ -72,6 +70,7 @@ def test_group_mealplan_rules_create(
 
     # Validate database entry
     rule = database.group_meal_plan_rules.get_one(UUID(response_data["id"]))
+    assert rule
 
     assert str(rule.group_id) == unique_user.group_id
     assert rule.day == "monday"
@@ -84,7 +83,7 @@ def test_group_mealplan_rules_create(
 
 
 def test_group_mealplan_rules_read(api_client: TestClient, unique_user: TestUser, plan_rule: PlanRulesOut):
-    response = api_client.get(api_routes.groups_mealplans_rules_item_id(plan_rule.id), headers=unique_user.token)
+    response = api_client.get(api_routes.households_mealplans_rules_item_id(plan_rule.id), headers=unique_user.token)
     assert response.status_code == 200
 
     # Validate the response data
@@ -104,7 +103,7 @@ def test_group_mealplan_rules_update(api_client: TestClient, unique_user: TestUs
     }
 
     response = api_client.put(
-        api_routes.groups_mealplans_rules_item_id(plan_rule.id), json=payload, headers=unique_user.token
+        api_routes.households_mealplans_rules_item_id(plan_rule.id), json=payload, headers=unique_user.token
     )
     assert response.status_code == 200
 
@@ -117,10 +116,9 @@ def test_group_mealplan_rules_update(api_client: TestClient, unique_user: TestUs
     assert len(response_data["categories"]) == 0
 
 
-def test_group_mealplan_rules_delete(
-    api_client: TestClient, unique_user: TestUser, plan_rule: PlanRulesOut, database: AllRepositories
-):
-    response = api_client.delete(api_routes.groups_mealplans_rules_item_id(plan_rule.id), headers=unique_user.token)
+def test_group_mealplan_rules_delete(api_client: TestClient, unique_user: TestUser, plan_rule: PlanRulesOut):
+    database = unique_user.repos
+    response = api_client.delete(api_routes.households_mealplans_rules_item_id(plan_rule.id), headers=unique_user.token)
     assert response.status_code == 200
 
     # Validate no entry in database

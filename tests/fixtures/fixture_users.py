@@ -1,7 +1,8 @@
 import json
-from typing import Generator
+from collections.abc import Generator
 
 from pytest import fixture
+from sqlalchemy.orm import Session
 from starlette.testclient import TestClient
 
 from mealie.db.db_setup import session_context
@@ -12,7 +13,7 @@ from tests.utils import api_routes
 from tests.utils.factories import random_string
 
 
-def build_unique_user(group: str, api_client: TestClient) -> utils.TestUser:
+def build_unique_user(session: Session, group: str, api_client: TestClient) -> utils.TestUser:
     group = group or random_string(12)
 
     registration = utils.user_registration_factory()
@@ -26,13 +27,18 @@ def build_unique_user(group: str, api_client: TestClient) -> utils.TestUser:
     user_data = api_client.get(api_routes.users_self, headers=token).json()
     assert token is not None
 
+    group_id = user_data.get("groupId")
+    household_id = user_data.get("householdId")
+
     return utils.TestUser(
-        _group_id=user_data.get("groupId"),
+        _group_id=group_id,
+        __household_id=household_id,
         user_id=user_data.get("id"),
         email=user_data.get("email"),
         username=user_data.get("username"),
         password=registration.password,
         token=token,
+        repos=get_repositories(session, group_id=group_id, household_id=household_id),
     )
 
 
@@ -82,7 +88,7 @@ def g2_user(admin_token, api_client: TestClient):
 
 
 @fixture(scope="module")
-def unique_user(api_client: TestClient):
+def unique_user(session: Session, api_client: TestClient):
     registration = utils.user_registration_factory()
     response = api_client.post("/api/users/register", json=registration.model_dump(by_alias=True))
     assert response.status_code == 201
@@ -94,14 +100,19 @@ def unique_user(api_client: TestClient):
     user_data = api_client.get(api_routes.users_self, headers=token).json()
     assert token is not None
 
+    assert (group_id := user_data.get("groupId")) is not None
+    assert (household_id := user_data.get("householdId")) is not None
+
     try:
         yield utils.TestUser(
-            _group_id=user_data.get("groupId"),
+            _group_id=group_id,
+            __household_id=household_id,
             user_id=user_data.get("id"),
             email=user_data.get("email"),
             username=user_data.get("username"),
             password=registration.password,
             token=token,
+            repos=get_repositories(session, group_id=group_id, household_id=household_id),
         )
     finally:
         # TODO: Delete User after test
@@ -109,7 +120,7 @@ def unique_user(api_client: TestClient):
 
 
 @fixture(scope="module")
-def user_tuple(admin_token, api_client: TestClient) -> Generator[list[utils.TestUser], None, None]:
+def user_tuple(session: Session, admin_token, api_client: TestClient) -> Generator[list[utils.TestUser], None, None]:
     group_name = utils.random_string()
     # Create the user
     create_data_1 = {
@@ -147,14 +158,19 @@ def user_tuple(admin_token, api_client: TestClient) -> Generator[list[utils.Test
         assert response.status_code == 200
         user_data = json.loads(response.text)
 
+        group_id = user_data.get("groupId")
+        household_id = user_data.get("householdId")
+
         users_out.append(
             utils.TestUser(
-                _group_id=user_data.get("groupId"),
+                _group_id=group_id,
+                __household_id=household_id,
                 user_id=user_data.get("id"),
                 username=user_data.get("username"),
                 email=user_data.get("email"),
                 password="useruser",
                 token=token,
+                repos=get_repositories(session, group_id=group_id, household_id=household_id),
             )
         )
 

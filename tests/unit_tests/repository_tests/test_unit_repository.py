@@ -1,11 +1,12 @@
-from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient, SaveIngredientUnit
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 
 
-def test_unit_merger(database: AllRepositories, unique_user: TestUser):
+def test_unit_merger(unique_user: TestUser):
+    database = unique_user.repos
+    recipe: Recipe | None = None
     slug1 = random_string(10)
 
     unit_1 = database.ingredient_units.create(
@@ -35,6 +36,7 @@ def test_unit_merger(database: AllRepositories, unique_user: TestUser):
     )
 
     # Santiy check make sure recipe got created
+
     assert recipe.id is not None
 
     for ing in recipe.recipe_ingredient:
@@ -43,6 +45,7 @@ def test_unit_merger(database: AllRepositories, unique_user: TestUser):
     database.ingredient_units.merge(unit_2.id, unit_1.id)
 
     recipe = database.recipes.get_one(recipe.slug)
+    assert recipe
 
     for ingredient in recipe.recipe_ingredient:
         assert ingredient.unit.id == unit_1.id  # type: ignore

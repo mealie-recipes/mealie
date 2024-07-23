@@ -4,15 +4,15 @@ import os
 import random
 import shutil
 import tempfile
+from collections.abc import Generator
 from pathlib import Path
-from typing import Generator
 from uuid import uuid4
 from zipfile import ZipFile
 
-from httpx import Response
 import pytest
 from bs4 import BeautifulSoup
 from fastapi.testclient import TestClient
+from httpx import Response
 from pytest import MonkeyPatch
 from recipe_scrapers._abstract import AbstractScraper
 from recipe_scrapers._schemaorg import SchemaOrg
@@ -162,7 +162,8 @@ def test_create_by_url(
         assert tag["name"] in expected_tags
 
 
-def test_create_recipe_from_zip(database: AllRepositories, api_client: TestClient, unique_user: TestUser, tempdir: str):
+def test_create_recipe_from_zip(api_client: TestClient, unique_user: TestUser, tempdir: str):
+    database = unique_user.repos
     recipe_name = random_string()
     recipe = RecipeSummary(
         id=uuid4(),
@@ -181,9 +182,8 @@ def test_create_recipe_from_zip(database: AllRepositories, api_client: TestClien
     assert fetched_recipe
 
 
-def test_create_recipe_from_zip_invalid_group(
-    database: AllRepositories, api_client: TestClient, unique_user: TestUser, tempdir: str
-):
+def test_create_recipe_from_zip_invalid_group(api_client: TestClient, unique_user: TestUser, tempdir: str):
+    database = unique_user.repos
     recipe_name = random_string()
     recipe = RecipeSummary(
         id=uuid4(),
@@ -205,9 +205,8 @@ def test_create_recipe_from_zip_invalid_group(
     assert str(fetched_recipe.group_id) == str(unique_user.group_id)
 
 
-def test_create_recipe_from_zip_invalid_user(
-    database: AllRepositories, api_client: TestClient, unique_user: TestUser, tempdir: str
-):
+def test_create_recipe_from_zip_invalid_user(api_client: TestClient, unique_user: TestUser, tempdir: str):
+    database = unique_user.repos
     recipe_name = random_string()
     recipe = RecipeSummary(
         id=uuid4(),
@@ -229,10 +228,9 @@ def test_create_recipe_from_zip_invalid_user(
     assert str(fetched_recipe.user_id) == str(unique_user.user_id)
 
 
-def test_create_recipe_from_zip_existing_category(
-    database: AllRepositories, api_client: TestClient, unique_user: TestUser, tempdir: str
-):
-    categories = database.categories.by_group(unique_user.group_id).create_many(
+def test_create_recipe_from_zip_existing_category(api_client: TestClient, unique_user: TestUser, tempdir: str):
+    database = unique_user.repos
+    categories = database.categories.create_many(
         [{"name": random_string(), "group_id": unique_user.group_id} for _ in range(random_int(5, 10))]
     )
     category = random.choice(categories)
@@ -259,10 +257,9 @@ def test_create_recipe_from_zip_existing_category(
     assert str(fetched_recipe.recipe_category[0].id) == str(category.id)
 
 
-def test_create_recipe_from_zip_existing_tag(
-    database: AllRepositories, api_client: TestClient, unique_user: TestUser, tempdir: str
-):
-    tags = database.tags.by_group(unique_user.group_id).create_many(
+def test_create_recipe_from_zip_existing_tag(api_client: TestClient, unique_user: TestUser, tempdir: str):
+    database = unique_user.repos
+    tags = database.tags.create_many(
         [{"name": random_string(), "group_id": unique_user.group_id} for _ in range(random_int(5, 10))]
     )
     tag = random.choice(tags)
@@ -290,9 +287,10 @@ def test_create_recipe_from_zip_existing_tag(
 
 
 def test_create_recipe_from_zip_existing_category_wrong_ids(
-    database: AllRepositories, api_client: TestClient, unique_user: TestUser, tempdir: str
+    api_client: TestClient, unique_user: TestUser, tempdir: str
 ):
-    categories = database.categories.by_group(unique_user.group_id).create_many(
+    database = unique_user.repos
+    categories = database.categories.create_many(
         [{"name": random_string(), "group_id": unique_user.group_id} for _ in range(random_int(5, 10))]
     )
     category = random.choice(categories)
@@ -320,10 +318,9 @@ def test_create_recipe_from_zip_existing_category_wrong_ids(
     assert str(fetched_recipe.recipe_category[0].id) == str(category.id)
 
 
-def test_create_recipe_from_zip_existing_tag_wrong_ids(
-    database: AllRepositories, api_client: TestClient, unique_user: TestUser, tempdir: str
-):
-    tags = database.tags.by_group(unique_user.group_id).create_many(
+def test_create_recipe_from_zip_existing_tag_wrong_ids(api_client: TestClient, unique_user: TestUser, tempdir: str):
+    database = unique_user.repos
+    tags = database.tags.create_many(
         [{"name": random_string(), "group_id": unique_user.group_id} for _ in range(random_int(5, 10))]
     )
     tag = random.choice(tags)
@@ -351,9 +348,8 @@ def test_create_recipe_from_zip_existing_tag_wrong_ids(
     assert str(fetched_recipe.tags[0].id) == str(tag.id)
 
 
-def test_create_recipe_from_zip_invalid_category(
-    database: AllRepositories, api_client: TestClient, unique_user: TestUser, tempdir: str
-):
+def test_create_recipe_from_zip_invalid_category(api_client: TestClient, unique_user: TestUser, tempdir: str):
+    database = unique_user.repos
     invalid_name = random_string()
     invalid_category = RecipeCategory(id=uuid4(), name=invalid_name, slug=invalid_name)
 
@@ -382,9 +378,8 @@ def test_create_recipe_from_zip_invalid_category(
     assert fetched_recipe.recipe_category[0].slug == invalid_name
 
 
-def test_create_recipe_from_zip_invalid_tag(
-    database: AllRepositories, api_client: TestClient, unique_user: TestUser, tempdir: str
-):
+def test_create_recipe_from_zip_invalid_tag(api_client: TestClient, unique_user: TestUser, tempdir: str):
+    database = unique_user.repos
     invalid_name = random_string()
     invalid_tag = RecipeTag(id=uuid4(), name=invalid_name, slug=invalid_name)
 
@@ -713,17 +708,15 @@ def test_get_recipe_by_slug_or_id(api_client: TestClient, unique_user: utils.Tes
 
 
 @pytest.mark.parametrize("organizer_type", ["tags", "categories", "tools"])
-def test_get_recipes_organizer_filter(
-    api_client: TestClient, unique_user: utils.TestUser, organizer_type: str, database: AllRepositories
-):
+def test_get_recipes_organizer_filter(api_client: TestClient, unique_user: utils.TestUser, organizer_type: str):
+    database = unique_user.repos
+
     # create recipes with different organizers
-    tags = database.tags.by_group(unique_user.group_id).create_many(
-        [TagSave(name=random_string(), group_id=unique_user.group_id) for _ in range(3)]
-    )
-    categories = database.categories.by_group(unique_user.group_id).create_many(
+    tags = database.tags.create_many([TagSave(name=random_string(), group_id=unique_user.group_id) for _ in range(3)])
+    categories = database.categories.create_many(
         [CategorySave(name=random_string(), group_id=unique_user.group_id) for _ in range(3)]
     )
-    tools = database.tools.by_group(unique_user.group_id).create_many(
+    tools = database.tools.create_many(
         [RecipeToolSave(name=random_string(), group_id=unique_user.group_id) for _ in range(3)]
     )
 

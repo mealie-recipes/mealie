@@ -23,7 +23,7 @@ all_cases = [
 def test_multitenant_cases_get_all(
     api_client: TestClient,
     multitenants: MultiTenant,
-    database: AllRepositories,
+    unfiltered_database: AllRepositories,
     test_case_type: type[ABCMultiTenantTestCase],
 ):
     """
@@ -34,7 +34,7 @@ def test_multitenant_cases_get_all(
     user1 = multitenants.user_one
     user2 = multitenants.user_two
 
-    test_case = test_case_type(database, api_client)
+    test_case = test_case_type(unfiltered_database, api_client)
 
     with test_case:
         expected_ids = test_case.seed_action(user1.group_id)
@@ -60,7 +60,7 @@ def test_multitenant_cases_get_all(
 def test_multitenant_cases_same_named_resources(
     api_client: TestClient,
     multitenants: MultiTenant,
-    database: AllRepositories,
+    unfiltered_database: AllRepositories,
     test_case_type: type[ABCMultiTenantTestCase],
 ):
     """
@@ -71,7 +71,7 @@ def test_multitenant_cases_same_named_resources(
     user1 = multitenants.user_one
     user2 = multitenants.user_two
 
-    test_case = test_case_type(database, api_client)
+    test_case = test_case_type(unfiltered_database, api_client)
 
     with test_case:
         expected_ids, expected_ids2 = test_case.seed_multi(user1.group_id, user2.group_id)

@@ -1,11 +1,9 @@
 import random
 from collections.abc import Generator
-from uuid import UUID
 
 import pytest
 from fastapi.testclient import TestClient
 
-from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.user.user import UserRatingUpdate
 from tests.utils import api_routes
@@ -14,9 +12,10 @@ from tests.utils.fixture_schemas import TestUser
 
 
 @pytest.fixture(scope="function")
-def recipes(database: AllRepositories, user_tuple: tuple[TestUser, TestUser]) -> Generator[list[Recipe], None, None]:
+def recipes(user_tuple: tuple[TestUser, TestUser]) -> Generator[list[Recipe], None, None]:
     unique_user = random.choice(user_tuple)
-    recipes_repo = database.recipes.by_group(UUID(unique_user.group_id))
+    database = unique_user.repos
+    recipes_repo = database.recipes
 
     recipes: list[Recipe] = []
     for _ in range(random_int(10, 20)):
@@ -289,9 +288,10 @@ def test_set_rating_to_zero(api_client: TestClient, user_tuple: tuple[TestUser, 
 
 
 def test_delete_recipe_deletes_ratings(
-    database: AllRepositories, api_client: TestClient, user_tuple: tuple[TestUser, TestUser], recipes: list[Recipe]
+    api_client: TestClient, user_tuple: tuple[TestUser, TestUser], recipes: list[Recipe]
 ):
     unique_user = random.choice(user_tuple)
+    database = unique_user.repos
     recipe = random.choice(recipes)
     rating = UserRatingUpdate(rating=random.uniform(1, 5), is_favorite=random.choice([True, False, None]))
     response = api_client.post(

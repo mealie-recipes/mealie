@@ -9,7 +9,9 @@ from tests.utils.fixture_schemas import TestUser
 
 
 def route_all_slice(page: int, perPage: int, start_date: str, end_date: str):
-    return f"{api_routes.groups_mealplans}?page={page}&perPage={perPage}&start_date={start_date}&end_date={end_date}"
+    return (
+        f"{api_routes.households_mealplans}?page={page}&perPage={perPage}&start_date={start_date}&end_date={end_date}"
+    )
 
 
 def test_create_mealplan_no_recipe(api_client: TestClient, unique_user: TestUser):
@@ -20,7 +22,7 @@ def test_create_mealplan_no_recipe(api_client: TestClient, unique_user: TestUser
     ).model_dump()
     new_plan["date"] = datetime.now(timezone.utc).date().strftime("%Y-%m-%d")
 
-    response = api_client.post(api_routes.groups_mealplans, json=new_plan, headers=unique_user.token)
+    response = api_client.post(api_routes.households_mealplans, json=new_plan, headers=unique_user.token)
 
     assert response.status_code == 201
 
@@ -44,7 +46,7 @@ def test_create_mealplan_with_recipe(api_client: TestClient, unique_user: TestUs
     new_plan["date"] = datetime.now(timezone.utc).date().strftime("%Y-%m-%d")
     new_plan["recipeId"] = str(recipe_id)
 
-    response = api_client.post(api_routes.groups_mealplans, json=new_plan, headers=unique_user.token)
+    response = api_client.post(api_routes.households_mealplans, json=new_plan, headers=unique_user.token)
     response_json = response.json()
     assert response.status_code == 201
 
@@ -61,7 +63,7 @@ def test_crud_mealplan(api_client: TestClient, unique_user: TestUser):
 
     # Create
     new_plan["date"] = datetime.now(timezone.utc).date().strftime("%Y-%m-%d")
-    response = api_client.post(api_routes.groups_mealplans, json=new_plan, headers=unique_user.token)
+    response = api_client.post(api_routes.households_mealplans, json=new_plan, headers=unique_user.token)
     response_json = response.json()
     assert response.status_code == 201
     plan_id = response_json["id"]
@@ -98,10 +100,12 @@ def test_get_all_mealplans(api_client: TestClient, unique_user: TestUser):
         ).model_dump()
 
         new_plan["date"] = datetime.now(timezone.utc).date().strftime("%Y-%m-%d")
-        response = api_client.post(api_routes.groups_mealplans, json=new_plan, headers=unique_user.token)
+        response = api_client.post(api_routes.households_mealplans, json=new_plan, headers=unique_user.token)
         assert response.status_code == 201
 
-    response = api_client.get(api_routes.groups_mealplans, headers=unique_user.token, params={"page": 1, "perPage": -1})
+    response = api_client.get(
+        api_routes.households_mealplans, headers=unique_user.token, params={"page": 1, "perPage": -1}
+    )
 
     assert response.status_code == 200
     assert len(response.json()["items"]) >= 3
@@ -120,7 +124,7 @@ def test_get_slice_mealplans(api_client: TestClient, unique_user: TestUser):
     # Add the meal plans to the database
     for meal_plan in meal_plans:
         meal_plan["date"] = meal_plan["date"].strftime("%Y-%m-%d")
-        response = api_client.post(api_routes.groups_mealplans, json=meal_plan, headers=unique_user.token)
+        response = api_client.post(api_routes.households_mealplans, json=meal_plan, headers=unique_user.token)
         assert response.status_code == 201
 
     # Get meal slice of meal plans from database
@@ -151,7 +155,7 @@ def test_get_mealplan_today(api_client: TestClient, unique_user: TestUser):
     # Add the meal plans to the database
     for meal_plan in test_meal_plans:
         meal_plan["date"] = meal_plan["date"].strftime("%Y-%m-%d")
-        response = api_client.post(api_routes.groups_mealplans, json=meal_plan, headers=unique_user.token)
+        response = api_client.post(api_routes.households_mealplans, json=meal_plan, headers=unique_user.token)
         assert response.status_code == 201
 
     # Get meal plan for today

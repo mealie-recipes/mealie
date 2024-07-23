@@ -3,7 +3,6 @@ import random
 import pytest
 from fastapi.testclient import TestClient
 
-from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.cookbook.cookbook import SaveCookBook
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.recipe.recipe_category import TagSave
@@ -16,9 +15,10 @@ from tests.utils.fixture_schemas import TestUser
 def test_get_all_cookbooks(
     api_client: TestClient,
     unique_user: TestUser,
-    database: AllRepositories,
     is_private_group: bool,
 ):
+    database = unique_user.repos
+
     ## Set Up Group
     group = database.groups.get_one(unique_user.group_id)
     assert group and group.preferences
@@ -80,10 +80,11 @@ def test_get_all_cookbooks(
 def test_get_one_cookbook(
     api_client: TestClient,
     unique_user: TestUser,
-    database: AllRepositories,
     is_private_group: bool,
     is_private_cookbook: bool,
 ):
+    database = unique_user.repos
+
     ## Set Up Group
     group = database.groups.get_one(unique_user.group_id)
     assert group and group.preferences
@@ -112,7 +113,9 @@ def test_get_one_cookbook(
     assert cookbook_data["id"] == str(cookbook.id)
 
 
-def test_get_cookbooks_with_recipes(api_client: TestClient, unique_user: TestUser, database: AllRepositories):
+def test_get_cookbooks_with_recipes(api_client: TestClient, unique_user: TestUser):
+    database = unique_user.repos
+
     # Create a public and private recipe with a known tag
     group = database.groups.get_one(unique_user.group_id)
     assert group and group.preferences

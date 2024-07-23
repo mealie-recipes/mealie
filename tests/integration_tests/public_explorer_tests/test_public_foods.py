@@ -1,7 +1,6 @@
 import pytest
 from fastapi.testclient import TestClient
 
-from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe_ingredient import SaveIngredientFood
 from tests.utils import api_routes
 from tests.utils.factories import random_int, random_string
@@ -12,9 +11,10 @@ from tests.utils.fixture_schemas import TestUser
 def test_get_all_foods(
     api_client: TestClient,
     unique_user: TestUser,
-    database: AllRepositories,
     is_private_group: bool,
 ):
+    database = unique_user.repos
+
     ## Set Up Group
     group = database.groups.get_one(unique_user.group_id)
     assert group and group.preferences
@@ -46,9 +46,10 @@ def test_get_all_foods(
 def test_get_one_food(
     api_client: TestClient,
     unique_user: TestUser,
-    database: AllRepositories,
     is_private_group: bool,
 ):
+    database = unique_user.repos
+
     ## Set Up Group
     group = database.groups.get_one(unique_user.group_id)
     assert group and group.preferences

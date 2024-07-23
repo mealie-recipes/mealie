@@ -4,7 +4,6 @@ from collections.abc import Generator
 import sqlalchemy
 from pytest import fixture
 
-from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.recipe.recipe_category import CategoryOut, CategorySave
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
@@ -30,7 +29,8 @@ def recipe_store():
 
 
 @fixture(scope="function")
-def recipe_ingredient_only(database: AllRepositories, unique_user: TestUser):
+def recipe_ingredient_only(unique_user: TestUser):
+    database = unique_user.repos
     # Create a recipe
     recipe = Recipe(
         user_id=unique_user.user_id,
@@ -55,7 +55,8 @@ def recipe_ingredient_only(database: AllRepositories, unique_user: TestUser):
 
 
 @fixture(scope="function")
-def recipe_categories(database: AllRepositories, unique_user: TestUser) -> Generator[list[CategoryOut], None, None]:
+def recipe_categories(unique_user: TestUser) -> Generator[list[CategoryOut], None, None]:
+    database = unique_user.repos
     models: list[CategoryOut] = []
     for _ in range(3):
         category = CategorySave(
@@ -73,7 +74,8 @@ def recipe_categories(database: AllRepositories, unique_user: TestUser) -> Gener
 
 
 @fixture(scope="function")
-def random_recipe(database: AllRepositories, unique_user: TestUser) -> Generator[Recipe, None, None]:
+def random_recipe(unique_user: TestUser) -> Generator[Recipe, None, None]:
+    database = unique_user.repos
     recipe = Recipe(
         user_id=unique_user.user_id,
         group_id=unique_user.group_id,

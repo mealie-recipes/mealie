@@ -2,7 +2,6 @@ from datetime import datetime, timedelta, timezone
 
 from pydantic import UUID4
 
-from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.household.webhook import SaveWebhook, WebhookType
 from mealie.services.event_bus_service.event_bus_listeners import WebhookEventListener
 from tests.utils import random_string
@@ -28,11 +27,12 @@ def webhook_factory(
     )
 
 
-def test_get_scheduled_webhooks_filter_query(database: AllRepositories, unique_user: TestUser):
+def test_get_scheduled_webhooks_filter_query(unique_user: TestUser):
     """
     get_scheduled_webhooks_test tests the get_scheduled_webhooks function on the webhook event bus listener.
     """
 
+    database = unique_user.repos
     expected: list[SaveWebhook] = []
 
     start = datetime.now(timezone.utc)

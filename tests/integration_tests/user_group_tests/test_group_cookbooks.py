@@ -6,7 +6,6 @@ import pytest
 from fastapi.testclient import TestClient
 from pydantic import UUID4
 
-from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.cookbook.cookbook import ReadCookBook, SaveCookBook
 from tests import utils
 from tests.utils import api_routes
@@ -35,7 +34,9 @@ class TestCookbook:
 
 
 @pytest.fixture(scope="function")
-def cookbooks(database: AllRepositories, unique_user: TestUser) -> list[TestCookbook]:
+def cookbooks(unique_user: TestUser) -> list[TestCookbook]:
+    database = unique_user.repos
+
     data: list[ReadCookBook] = []
     yield_data: list[TestCookbook] = []
     for _ in range(3):
@@ -54,13 +55,13 @@ def cookbooks(database: AllRepositories, unique_user: TestUser) -> list[TestCook
 
 def test_create_cookbook(api_client: TestClient, unique_user: TestUser):
     page_data = get_page_data(unique_user.group_id)
-    response = api_client.post(api_routes.groups_cookbooks, json=page_data, headers=unique_user.token)
+    response = api_client.post(api_routes.households_cookbooks, json=page_data, headers=unique_user.token)
     assert response.status_code == 201
 
 
 def test_read_cookbook(api_client: TestClient, unique_user: TestUser, cookbooks: list[TestCookbook]):
     sample = random.choice(cookbooks)
-    response = api_client.get(api_routes.groups_cookbooks_item_id(sample.id), headers=unique_user.token)
+    response = api_client.get(api_routes.households_cookbooks_item_id(sample.id), headers=unique_user.token)
     assert response.status_code == 200
 
     page_data = response.json()
@@ -79,11 +80,11 @@ def test_update_cookbook(api_client: TestClient, unique_user: TestUser, cookbook
     update_data["name"] = random_string(10)
 
     response = api_client.put(
-        api_routes.groups_cookbooks_item_id(cookbook.id), json=update_data, headers=unique_user.token
+        api_routes.households_cookbooks_item_id(cookbook.id), json=update_data, headers=unique_user.token
     )
     assert response.status_code == 200
 
-    response = api_client.get(api_routes.groups_cookbooks_item_id(cookbook.id), headers=unique_user.token)
+    response = api_client.get(api_routes.households_cookbooks_item_id(cookbook.id), headers=unique_user.token)
     assert response.status_code == 200
 
     page_data = response.json()
@@ -99,10 +100,12 @@ def test_update_cookbooks_many(api_client: TestClient, unique_user: TestUser, co
         page["position"] = x
         page["group_id"] = str(unique_user.group_id)
 
-    response = api_client.put(api_routes.groups_cookbooks, json=utils.jsonify(reverse_order), headers=unique_user.token)
+    response = api_client.put(
+        api_routes.households_cookbooks, json=utils.jsonify(reverse_order), headers=unique_user.token
+    )
     assert response.status_code == 200
 
-    response = api_client.get(api_routes.groups_cookbooks, headers=unique_user.token)
+    response = api_client.get(api_routes.households_cookbooks, headers=unique_user.token)
     assert response.status_code == 200
 
     known_ids = [x.id for x in cookbooks]
@@ -115,9 +118,9 @@ def test_update_cookbooks_many(api_client: TestClient, unique_user: TestUser, co
 
 def test_delete_cookbook(api_client: TestClient, unique_user: TestUser, cookbooks: list[TestCookbook]):
     sample = random.choice(cookbooks)
-    response = api_client.delete(api_routes.groups_cookbooks_item_id(sample.id), headers=unique_user.token)
+    response = api_client.delete(api_routes.households_cookbooks_item_id(sample.id), headers=unique_user.token)
 
     assert response.status_code == 200
 
-    response = api_client.get(api_routes.groups_cookbooks_item_id(sample.slug), headers=unique_user.token)
+    response = api_client.get(api_routes.households_cookbooks_item_id(sample.slug), headers=unique_user.token)
     assert response.status_code == 404

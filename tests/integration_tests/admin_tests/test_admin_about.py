@@ -9,13 +9,15 @@ from tests.utils.fixture_schemas import TestUser
 
 
 @pytest.mark.parametrize("is_private_group", [True, False], ids=["private group", "public group"])
-def test_public_about_get_app_info(api_client: TestClient, is_private_group: bool, database: AllRepositories):
+def test_public_about_get_app_info(
+    api_client: TestClient, is_private_group: bool, unfiltered_database: AllRepositories
+):
     settings = get_app_settings()
-    group = database.groups.get_by_name(settings.DEFAULT_GROUP)
+    group = unfiltered_database.groups.get_by_name(settings.DEFAULT_GROUP)
     assert group and group.preferences
 
     group.preferences.private_group = is_private_group
-    database.group_preferences.update(group.id, group.preferences)
+    unfiltered_database.group_preferences.update(group.id, group.preferences)
 
     response = api_client.get(api_routes.app_about)
     as_dict = response.json()

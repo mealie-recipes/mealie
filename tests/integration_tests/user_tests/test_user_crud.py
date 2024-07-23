@@ -1,21 +1,19 @@
 import pytest
 from fastapi.testclient import TestClient
 
-from mealie.repos.repository_factory import AllRepositories
 from tests.utils import TestUser, api_routes
 from tests.utils.factories import random_email, random_int, random_string
 
 
 @pytest.mark.parametrize("use_admin_user", [True, False])
-def test_get_all_users_admin(
-    request: pytest.FixtureRequest, database: AllRepositories, api_client: TestClient, use_admin_user: bool
-):
+def test_get_all_users_admin(request: pytest.FixtureRequest, api_client: TestClient, use_admin_user: bool):
     user: TestUser
     if use_admin_user:
         user = request.getfixturevalue("admin_user")
     else:
         user = request.getfixturevalue("unique_user")
 
+    database = user.repos
     user_ids: set[str] = set()
     for _ in range(random_int(2, 5)):
         group = database.groups.create({"name": random_string()})
@@ -46,15 +44,14 @@ def test_get_all_users_admin(
 
 
 @pytest.mark.parametrize("use_admin_user", [True, False])
-def test_get_all_group_users(
-    request: pytest.FixtureRequest, database: AllRepositories, api_client: TestClient, use_admin_user: bool
-):
+def test_get_all_group_users(request: pytest.FixtureRequest, api_client: TestClient, use_admin_user: bool):
     user: TestUser
     if use_admin_user:
         user = request.getfixturevalue("admin_user")
     else:
         user = request.getfixturevalue("unique_user")
 
+    database = user.repos
     other_group_user_ids: set[str] = set()
     for _ in range(random_int(2, 5)):
         group = database.groups.create({"name": random_string()})

@@ -1,7 +1,6 @@
 import tempfile
 from pathlib import Path
 
-from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import Recipe
 from mealie.services.recipe.recipe_bulk_service import RecipeBulkActionsService
 from mealie.services.scheduler.tasks.purge_group_exports import purge_group_data_exports
@@ -9,7 +8,9 @@ from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser
 
 
-def test_purge_group_exports(database: AllRepositories, unique_user: TestUser):
+def test_purge_group_exports(unique_user: TestUser):
+    database = unique_user.repos
+
     # create the export
     group = database.groups.get_one(unique_user.group_id)
     assert group

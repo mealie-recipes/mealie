@@ -1,11 +1,11 @@
-from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient, SaveIngredientFood
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 
 
-def test_food_merger(database: AllRepositories, unique_user: TestUser):
+def test_food_merger(unique_user: TestUser):
+    database = unique_user.repos
     slug1 = random_string(10)
 
     food_1 = database.ingredient_foods.create(

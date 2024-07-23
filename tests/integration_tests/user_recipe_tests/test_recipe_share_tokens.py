@@ -1,18 +1,18 @@
-from typing import Generator
+from collections.abc import Generator
 
 import pytest
 import sqlalchemy
 from fastapi.testclient import TestClient
 
-from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.recipe.recipe_share_token import RecipeShareTokenSave
+from mealie.schema.recipe.recipe_share_token import RecipeShareToken, RecipeShareTokenSave
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 
 
 @pytest.fixture(scope="function")
-def slug(api_client: TestClient, unique_user: TestUser, database: AllRepositories) -> Generator[str, None, None]:
+def slug(api_client: TestClient, unique_user: TestUser) -> Generator[str, None, None]:
+    database = unique_user.repos
     payload = {"name": random_string(length=20)}
     response = api_client.post(api_routes.recipes, json=payload, headers=unique_user.token)
     assert response.status_code == 201
@@ -27,14 +27,13 @@ def slug(api_client: TestClient, unique_user: TestUser, database: AllRepositorie
         pass
 
 
-def test_recipe_share_tokens_get_all(
-    api_client: TestClient,
-    unique_user: TestUser,
-    database: AllRepositories,
-    slug: str,
-):
+def test_recipe_share_tokens_get_all(api_client: TestClient, unique_user: TestUser, slug: str):
+    database = unique_user.repos
+
     # Create 5 Tokens
     recipe = database.recipes.get_one(slug)
+    assert recipe
+
     tokens = []
     for _ in range(5):
         token = database.recipe_share_tokens.create(
@@ -50,14 +49,13 @@ def test_recipe_share_tokens_get_all(
     assert len(response_data) == 5
 
 
-def test_recipe_share_tokens_get_all_with_id(
-    api_client: TestClient,
-    unique_user: TestUser,
-    database: AllRepositories,
-    slug: str,
-):
+def test_recipe_share_tokens_get_all_with_id(api_client: TestClient, unique_user: TestUser, slug: str):
+    database = unique_user.repos
+
     # Create 5 Tokens
     recipe = database.recipes.get_one(slug)
+    assert recipe
+
     tokens = []
     for _ in range(3):
         token = database.recipe_share_tokens.create(
@@ -73,13 +71,10 @@ def test_recipe_share_tokens_get_all_with_id(
     assert len(response_data) == 3
 
 
-def test_recipe_share_tokens_create_and_get_one(
-    api_client: TestClient,
-    unique_user: TestUser,
-    database: AllRepositories,
-    slug: str,
-):
+def test_recipe_share_tokens_create_and_get_one(api_client: TestClient, unique_user: TestUser, slug: str):
+    database = unique_user.repos
     recipe = database.recipes.get_one(slug)
+    assert recipe
 
     payload = {
         "recipeId": str(recipe.id),
@@ -95,14 +90,13 @@ def test_recipe_share_tokens_create_and_get_one(
     assert response_data["recipe"]["id"] == str(recipe.id)
 
 
-def test_recipe_share_tokens_delete_one(
-    api_client: TestClient,
-    unique_user: TestUser,
-    database: AllRepositories,
-    slug: str,
-):
+def test_recipe_share_tokens_delete_one(api_client: TestClient, unique_user: TestUser, slug: str):
+    database = unique_user.repos
+
     # Create Token
+    token: RecipeShareToken | None = None
     recipe = database.recipes.get_one(slug)
+    assert recipe
 
     token = database.recipe_share_tokens.create(
         RecipeShareTokenSave(recipe_id=recipe.id, group_id=unique_user.group_id)
