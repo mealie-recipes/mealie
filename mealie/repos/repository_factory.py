@@ -192,10 +192,6 @@ class AllRepositories:
         return RepositoryGroup(self.session, PK_ID, Group, GroupInDB)
 
     @cached_property
-    def group_invite_tokens(self) -> GroupRepositoryGeneric[ReadInviteToken, GroupInviteToken]:
-        return GroupRepositoryGeneric(self.session, PK_TOKEN, GroupInviteToken, ReadInviteToken, group_id=self.group_id)
-
-    @cached_property
     def group_preferences(self) -> GroupRepositoryGeneric[ReadGroupPreferences, GroupPreferencesModel]:
         return GroupRepositoryGeneric(
             self.session, PK_GROUP_ID, GroupPreferencesModel, ReadGroupPreferences, group_id=self.group_id
@@ -237,6 +233,17 @@ class AllRepositories:
     def cookbooks(self) -> HouseholdRepositoryGeneric[ReadCookBook, CookBook]:
         return HouseholdRepositoryGeneric(
             self.session, PK_ID, CookBook, ReadCookBook, group_id=self.group_id, household_id=self.household_id
+        )
+
+    @cached_property
+    def group_invite_tokens(self) -> HouseholdRepositoryGeneric[ReadInviteToken, GroupInviteToken]:
+        return HouseholdRepositoryGeneric(
+            self.session,
+            PK_TOKEN,
+            GroupInviteToken,
+            ReadInviteToken,
+            group_id=self.group_id,
+            household_id=self.household_id,
         )
 
     @cached_property

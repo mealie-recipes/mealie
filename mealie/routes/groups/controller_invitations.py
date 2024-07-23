@@ -9,6 +9,7 @@ from mealie.schema.household.invite_token import (
     ReadInviteToken,
     SaveInviteToken,
 )
+from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.email.email_service import EmailService
 
 router = APIRouter(prefix="/groups/invitations", tags=["Groups: Invitations"])
@@ -18,7 +19,7 @@ router = APIRouter(prefix="/groups/invitations", tags=["Groups: Invitations"])
 class GroupInvitationsController(BaseUserController):
     @router.get("", response_model=list[ReadInviteToken])
     def get_invite_tokens(self):
-        return self.repos.group_invite_tokens.multi_query({"group_id": self.group_id})
+        return self.repos.group_invite_tokens.page_all(PaginationQuery(page=1, per_page=-1)).items
 
     @router.post("", response_model=ReadInviteToken, status_code=status.HTTP_201_CREATED)
     def create_invite_token(self, uses: CreateInviteToken):
