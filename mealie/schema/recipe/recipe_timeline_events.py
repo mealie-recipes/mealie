@@ -6,7 +6,8 @@ from typing import Annotated
 from pydantic import UUID4, ConfigDict, Field
 
 from mealie.core.config import get_app_dirs
-from mealie.schema._mealie.mealie_model import MealieModel, UpdatedAtField
+from mealie.schema._mealie import MealieModel
+from mealie.schema._mealie.mealie_model import UpdatedAtField
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.response.pagination import PaginationBase
 

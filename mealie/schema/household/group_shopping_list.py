@@ -14,7 +14,8 @@ from mealie.db.models.household import (
     ShoppingListRecipeReference,
 )
 from mealie.db.models.recipe import IngredientFoodModel, RecipeModel
-from mealie.schema._mealie import MealieModel, UpdatedAtField
+from mealie.schema._mealie import MealieModel
+from mealie.schema._mealie.mealie_model import UpdatedAtField
 from mealie.schema._mealie.types import NoneFloat
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary
 from mealie.schema.recipe.recipe import RecipeSummary

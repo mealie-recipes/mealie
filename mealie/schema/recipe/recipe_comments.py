@@ -5,7 +5,8 @@ from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.db.models.recipe import RecipeComment
-from mealie.schema._mealie import MealieModel, UpdatedAtField
+from mealie.schema._mealie import MealieModel
+from mealie.schema._mealie.mealie_model import UpdatedAtField
 from mealie.schema.response.pagination import PaginationBase
 
 

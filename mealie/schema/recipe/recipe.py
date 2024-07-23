@@ -14,7 +14,8 @@ from sqlalchemy.orm import Session, joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.core.config import get_app_dirs
-from mealie.schema._mealie import MealieModel, SearchType, UpdatedAtField
+from mealie.schema._mealie import MealieModel, SearchType
+from mealie.schema._mealie.mealie_model import UpdatedAtField
 from mealie.schema.response.pagination import PaginationBase
 
 from ...db.models.recipe import (
