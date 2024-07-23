@@ -47,25 +47,25 @@
     },
     "emails": {
         "password": {
-            "subject": "Mealie Forgot Password",
-            "header_text": "Forgot Password",
-            "message_top": "You have requested to reset your password.",
-            "message_bottom": "Please click the button above to reset your password.",
-            "button_text": "Reset Password"
+            "subject": "Mealie Senha Esquecida",
+            "header_text": "Esqueci minha senha",
+            "message_top": "Você pediu para redefinir a sua senha.",
+            "message_bottom": "Clique no botão acima para redefinir sua senha.",
+            "button_text": "Redefinir Senha"
         },
         "invitation": {
-            "subject": "Invitation to join Mealie",
-            "header_text": "You're Invited!",
-            "message_top": "You have been invited to join Mealie.",
-            "message_bottom": "Please click the button above to accept the invitation.",
-            "button_text": "Accept Invitation"
+            "subject": "Convite para se inscrever no Mealie",
+            "header_text": "Você foi convidado!",
+            "message_top": "Você foi convidado para participar do Mealie.",
+            "message_bottom": "Clique no botão acima para aceitar o convite.",
+            "button_text": "Aceitar Convite"
         },
         "test": {
-            "subject": "Mealie Test Email",
-            "header_text": "Test Email",
-            "message_top": "This is a test email.",
-            "message_bottom": "Please click the button above to test the email.",
-            "button_text": "Open Mealie"
+            "subject": "E-mail de Teste do Mealie",
+            "header_text": "E-mail de Teste",
+            "message_top": "Este é um e-mail de teste.",
+            "message_bottom": "Clique no botão acima para testar o e-mail.",
+            "button_text": "Abrir Mealie"
         }
     }
 }

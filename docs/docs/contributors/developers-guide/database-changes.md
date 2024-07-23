@@ -9,7 +9,7 @@ How exactly you need to modify it is of course highly contextual to the change y
 
 ## Using Alembic to generate upgrade script
 
-In your dev container you can run something like (change the message) `task py:migrate "Add creation tag to group preferences"` to have Alembic generate an upgrade script for you.
+In your dev container you can run something like (change the message) `task py:migrate -- "Add creation tag to group preferences"` to have Alembic generate an upgrade script for you.
 
 The script Alembic generates, will be limited! (Perhaps there's a way to resolve that? Haven't looked into it yet)
 For example, Alembic generated a script _similar_ to this (it has been modified already to have accurate foreign key names, for instance):
