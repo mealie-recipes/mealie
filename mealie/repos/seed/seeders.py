@@ -60,8 +60,10 @@ class IngredientUnitsSeeder(AbstractSeeder):
             yield SaveIngredientUnit(
                 group_id=self.group_id,
                 name=unit["name"],
+                plural_name=unit.get("plural_name"),
                 description=unit["description"],
                 abbreviation=unit["abbreviation"],
+                plural_abbreviation=unit.get("plural_abbreviation"),
             )
 
     def seed(self, locale: str | None = None) -> None:
