@@ -13,7 +13,7 @@ class TestUser:
     username: str
     password: str
     _group_id: UUID
-    __household_id: UUID
+    _household_id: UUID
     token: Any
     auth_method = AuthMethod.MEALIE
     repos: AllRepositories
@@ -24,7 +24,7 @@ class TestUser:
 
     @property
     def household_id(self) -> str:
-        return str(self.__household_id)
+        return str(self._household_id)
 
     @property
     def auth_headers(self):

@@ -35,7 +35,7 @@ def admin_user(session: Session, api_client: TestClient):
     try:
         yield utils.TestUser(
             _group_id=user_data.get("groupId"),
-            __household_id=user_data.get("householdId"),
+            _household_id=user_data.get("householdId"),
             user_id=user_data.get("id"),
             password=settings._DEFAULT_PASSWORD,
             username=user_data.get("username"),

@@ -32,7 +32,7 @@ def build_unique_user(session: Session, group: str, api_client: TestClient) -> u
 
     return utils.TestUser(
         _group_id=group_id,
-        __household_id=household_id,
+        _household_id=household_id,
         user_id=user_data.get("id"),
         email=user_data.get("email"),
         username=user_data.get("username"),
@@ -106,7 +106,7 @@ def unique_user(session: Session, api_client: TestClient):
     try:
         yield utils.TestUser(
             _group_id=group_id,
-            __household_id=household_id,
+            _household_id=household_id,
             user_id=user_data.get("id"),
             email=user_data.get("email"),
             username=user_data.get("username"),
@@ -164,7 +164,7 @@ def user_tuple(session: Session, admin_token, api_client: TestClient) -> Generat
         users_out.append(
             utils.TestUser(
                 _group_id=group_id,
-                __household_id=household_id,
+                _household_id=household_id,
                 user_id=user_data.get("id"),
                 username=user_data.get("username"),
                 email=user_data.get("email"),
