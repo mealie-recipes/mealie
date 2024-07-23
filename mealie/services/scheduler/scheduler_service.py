@@ -29,20 +29,12 @@ class SchedulerService:
 
 async def schedule_daily():
     now = datetime.now(timezone.utc)
-    daily_schedule_time = get_app_settings().DAILY_SCHEDULE_TIME
-    logger.debug(
-        "Current time is %s and DAILY_SCHEDULE_TIME is %s",
-        str(now),
-        daily_schedule_time,
-    )
-    try:
-        hour_target, minute_target = _parse_daily_schedule_time(daily_schedule_time)
-    except Exception:
-        logger.exception(f"Unable to parse {daily_schedule_time=}")
-        hour_target = 23
-        minute_target = 45
+    daily_schedule_time = get_app_settings().DAILY_SCHEDULE_TIME_UTC
+    logger.debug(f"Current time is {now} and DAILY_SCHEDULE_TIME (in UTC) is {daily_schedule_time}")
 
-    next_schedule = now.replace(hour=hour_target, minute=minute_target, second=0, microsecond=0)
+    next_schedule = now.replace(
+        hour=daily_schedule_time.hour, minute=daily_schedule_time.minute, second=0, microsecond=0
+    )
     delta = next_schedule - now
     if delta < timedelta(0):
         next_schedule = next_schedule + timedelta(days=1)
@@ -59,12 +51,6 @@ async def schedule_daily():
     wait_seconds = delta.total_seconds()
     await asyncio.sleep(wait_seconds)
     await run_daily()
-
-
-def _parse_daily_schedule_time(time):
-    hour_target = int(time.split(":")[0])
-    minute_target = int(time.split(":")[1])
-    return hour_target, minute_target
 
 
 def _scheduled_task_wrapper(callable):

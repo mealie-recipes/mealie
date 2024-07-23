@@ -44,5 +44,28 @@
         "second": "seconde|seconden",
         "millisecond": "milliseconde milliseconden",
         "microsecond": "microseconde microseconden"
+    },
+    "emails": {
+        "password": {
+            "subject": "Vergeten wachtwoord van Mealie",
+            "header_text": "Wachtwoord vergeten",
+            "message_top": "Je hebt gevraagd om een reset van je wachtwoord.",
+            "message_bottom": "Klik op de bovenstaande knop om uw wachtwoord te resetten.",
+            "button_text": "Wachtwoord opnieuw instellen"
+        },
+        "invitation": {
+            "subject": "Uitnodiging om mee te doen met Mealie",
+            "header_text": "Je bent uitgenodigd!",
+            "message_top": "Je bent uitgenodigd om mee te doen met Mealie.",
+            "message_bottom": "Klik op de knop hierboven om de uitnodiging te accepteren.",
+            "button_text": "Uitnodiging accepteren"
+        },
+        "test": {
+            "subject": "Test e-mail van Mealie",
+            "header_text": "Test e-mail",
+            "message_top": "Dit is een test e-mail.",
+            "message_bottom": "Klik op de knop hierboven om de e-mail te testen.",
+            "button_text": "Mealie openen"
+        }
     }
 }
