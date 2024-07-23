@@ -6,6 +6,7 @@ from mealie.schema.user.registration import CreateUserRegistration
 def test_create_user_registration() -> None:
     CreateUserRegistration(
         group="Home",
+        household="Family",
         group_token=None,
         email="SomeValidEmail@example.com",
         username="SomeValidUsername",
@@ -18,6 +19,7 @@ def test_create_user_registration() -> None:
 
     CreateUserRegistration(
         group=None,
+        household=None,
         group_token="asdfadsfasdfasdfasdf",
         email="SomeValidEmail@example.com",
         username="SomeValidUsername",
@@ -29,11 +31,14 @@ def test_create_user_registration() -> None:
     )
 
 
-@pytest.mark.parametrize("group, group_token", [(None, None), ("", None), (None, "")])
-def test_group_or_token_validator(group, group_token) -> None:
+@pytest.mark.parametrize("group", [None, ""])
+@pytest.mark.parametrize("household", [None, ""])
+@pytest.mark.parametrize("group_token", [None, ""])
+def test_group_or_token_validator(group, household, group_token) -> None:
     with pytest.raises(ValueError):
         CreateUserRegistration(
             group=group,
+            household=household,
             group_token=group_token,
             email="SomeValidEmail@example.com",
             username="SomeValidUsername",
@@ -62,6 +67,7 @@ def test_password_validator() -> None:
     with pytest.raises(ValueError):
         CreateUserRegistration(
             group=None,
+            household=None,
             group_token="asdfadsfasdfasdfasdf",
             email="SomeValidEmail@example.com",
             username="SomeValidUsername",
@@ -71,6 +77,3 @@ def test_password_validator() -> None:
             advanced=False,
             private=True,
         )
-
-
-test_create_user_registration()
