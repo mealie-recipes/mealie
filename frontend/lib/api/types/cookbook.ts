@@ -47,6 +47,7 @@ export interface ReadCookBook {
   requireAllTags?: boolean;
   requireAllTools?: boolean;
   groupId: string;
+  householdId: string;
   id: string;
 }
 export interface RecipeCookBook {
@@ -62,12 +63,14 @@ export interface RecipeCookBook {
   requireAllTags?: boolean;
   requireAllTools?: boolean;
   groupId: string;
+  householdId: string;
   id: string;
   recipes: RecipeSummary[];
 }
 export interface RecipeSummary {
   id?: string | null;
   userId?: string;
+  householdId?: string;
   groupId?: string;
   name?: string | null;
   slug?: string;
@@ -114,6 +117,7 @@ export interface SaveCookBook {
   requireAllTags?: boolean;
   requireAllTools?: boolean;
   groupId: string;
+  householdId: string;
 }
 export interface UpdateCookBook {
   name: string;
@@ -128,5 +132,6 @@ export interface UpdateCookBook {
   requireAllTags?: boolean;
   requireAllTools?: boolean;
   groupId: string;
+  householdId: string;
   id: string;
 }

@@ -47,12 +47,14 @@ export interface MealDayOut {
 }
 export interface MealPlanIn {
   group: string;
+  household: string;
   startDate: string;
   endDate: string;
   planDays: MealDayIn[];
 }
 export interface MealPlanOut {
   group: string;
+  household: string;
   startDate: string;
   endDate: string;
   planDays: MealDayIn[];
@@ -76,6 +78,7 @@ export interface PlanRulesOut {
   categories?: Category[];
   tags?: Tag[];
   groupId: string;
+  householdId: string;
   id: string;
 }
 export interface PlanRulesSave {
@@ -84,6 +87,7 @@ export interface PlanRulesSave {
   categories?: Category[];
   tags?: Tag[];
   groupId: string;
+  householdId: string;
 }
 export interface ReadPlanEntry {
   date: string;
@@ -93,12 +97,14 @@ export interface ReadPlanEntry {
   recipeId?: string | null;
   id: number;
   groupId: string;
+  householdId: string;
   userId?: string | null;
   recipe?: RecipeSummary | null;
 }
 export interface RecipeSummary {
   id?: string | null;
   userId?: string;
+  householdId?: string;
   groupId?: string;
   name?: string | null;
   slug?: string;
@@ -145,6 +151,7 @@ export interface SavePlanEntry {
   text?: string;
   recipeId?: string | null;
   groupId: string;
+  householdId: string;
   userId?: string | null;
 }
 export interface ShoppingListIn {
@@ -166,5 +173,6 @@ export interface UpdatePlanEntry {
   recipeId?: string | null;
   id: number;
   groupId: string;
+  householdId: string;
   userId?: string | null;
 }

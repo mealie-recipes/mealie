@@ -15,6 +15,8 @@ admin_email = "/api/admin/email"
 """`/api/admin/email`"""
 admin_groups = "/api/admin/groups"
 """`/api/admin/groups`"""
+admin_households = "/api/admin/households"
+"""`/api/admin/households`"""
 admin_maintenance = "/api/admin/maintenance"
 """`/api/admin/maintenance`"""
 admin_maintenance_clean_images = "/api/admin/maintenance/clean/images"
@@ -51,36 +53,12 @@ foods = "/api/foods"
 """`/api/foods`"""
 foods_merge = "/api/foods/merge"
 """`/api/foods/merge`"""
-groups_categories = "/api/groups/categories"
-"""`/api/groups/categories`"""
-groups_cookbooks = "/api/groups/cookbooks"
-"""`/api/groups/cookbooks`"""
-groups_events_notifications = "/api/groups/events/notifications"
-"""`/api/groups/events/notifications`"""
-groups_invitations = "/api/groups/invitations"
-"""`/api/groups/invitations`"""
-groups_invitations_email = "/api/groups/invitations/email"
-"""`/api/groups/invitations/email`"""
 groups_labels = "/api/groups/labels"
 """`/api/groups/labels`"""
-groups_mealplans = "/api/groups/mealplans"
-"""`/api/groups/mealplans`"""
-groups_mealplans_random = "/api/groups/mealplans/random"
-"""`/api/groups/mealplans/random`"""
-groups_mealplans_rules = "/api/groups/mealplans/rules"
-"""`/api/groups/mealplans/rules`"""
-groups_mealplans_today = "/api/groups/mealplans/today"
-"""`/api/groups/mealplans/today`"""
-groups_members = "/api/groups/members"
-"""`/api/groups/members`"""
 groups_migrations = "/api/groups/migrations"
 """`/api/groups/migrations`"""
-groups_permissions = "/api/groups/permissions"
-"""`/api/groups/permissions`"""
 groups_preferences = "/api/groups/preferences"
 """`/api/groups/preferences`"""
-groups_recipe_actions = "/api/groups/recipe-actions"
-"""`/api/groups/recipe-actions`"""
 groups_reports = "/api/groups/reports"
 """`/api/groups/reports`"""
 groups_seeders_foods = "/api/groups/seeders/foods"
@@ -91,20 +69,46 @@ groups_seeders_units = "/api/groups/seeders/units"
 """`/api/groups/seeders/units`"""
 groups_self = "/api/groups/self"
 """`/api/groups/self`"""
-groups_shopping_items = "/api/groups/shopping/items"
-"""`/api/groups/shopping/items`"""
-groups_shopping_items_create_bulk = "/api/groups/shopping/items/create-bulk"
-"""`/api/groups/shopping/items/create-bulk`"""
-groups_shopping_lists = "/api/groups/shopping/lists"
-"""`/api/groups/shopping/lists`"""
-groups_statistics = "/api/groups/statistics"
-"""`/api/groups/statistics`"""
 groups_storage = "/api/groups/storage"
 """`/api/groups/storage`"""
-groups_webhooks = "/api/groups/webhooks"
-"""`/api/groups/webhooks`"""
-groups_webhooks_rerun = "/api/groups/webhooks/rerun"
-"""`/api/groups/webhooks/rerun`"""
+households_cookbooks = "/api/households/cookbooks"
+"""`/api/households/cookbooks`"""
+households_events_notifications = "/api/households/events/notifications"
+"""`/api/households/events/notifications`"""
+households_invitations = "/api/households/invitations"
+"""`/api/households/invitations`"""
+households_invitations_email = "/api/households/invitations/email"
+"""`/api/households/invitations/email`"""
+households_mealplans = "/api/households/mealplans"
+"""`/api/households/mealplans`"""
+households_mealplans_random = "/api/households/mealplans/random"
+"""`/api/households/mealplans/random`"""
+households_mealplans_rules = "/api/households/mealplans/rules"
+"""`/api/households/mealplans/rules`"""
+households_mealplans_today = "/api/households/mealplans/today"
+"""`/api/households/mealplans/today`"""
+households_members = "/api/households/members"
+"""`/api/households/members`"""
+households_permissions = "/api/households/permissions"
+"""`/api/households/permissions`"""
+households_preferences = "/api/households/preferences"
+"""`/api/households/preferences`"""
+households_recipe_actions = "/api/households/recipe-actions"
+"""`/api/households/recipe-actions`"""
+households_self = "/api/households/self"
+"""`/api/households/self`"""
+households_shopping_items = "/api/households/shopping/items"
+"""`/api/households/shopping/items`"""
+households_shopping_items_create_bulk = "/api/households/shopping/items/create-bulk"
+"""`/api/households/shopping/items/create-bulk`"""
+households_shopping_lists = "/api/households/shopping/lists"
+"""`/api/households/shopping/lists`"""
+households_statistics = "/api/households/statistics"
+"""`/api/households/statistics`"""
+households_webhooks = "/api/households/webhooks"
+"""`/api/households/webhooks`"""
+households_webhooks_rerun = "/api/households/webhooks/rerun"
+"""`/api/households/webhooks/rerun`"""
 media_docker_validate_txt = "/api/media/docker/validate.txt"
 """`/api/media/docker/validate.txt`"""
 organizers_categories = "/api/organizers/categories"
@@ -165,8 +169,6 @@ users_api_tokens = "/api/users/api-tokens"
 """`/api/users/api-tokens`"""
 users_forgot_password = "/api/users/forgot-password"
 """`/api/users/forgot-password`"""
-users_group_users = "/api/users/group-users"
-"""`/api/users/group-users`"""
 users_password = "/api/users/password"
 """`/api/users/password`"""
 users_register = "/api/users/register"
@@ -196,6 +198,11 @@ def admin_backups_file_name_restore(file_name):
 def admin_groups_item_id(item_id):
     """`/api/admin/groups/{item_id}`"""
     return f"{prefix}/admin/groups/{item_id}"
+
+
+def admin_households_item_id(item_id):
+    """`/api/admin/households/{item_id}`"""
+    return f"{prefix}/admin/households/{item_id}"
 
 
 def admin_users_item_id(item_id):
@@ -273,39 +280,9 @@ def foods_item_id(item_id):
     return f"{prefix}/foods/{item_id}"
 
 
-def groups_cookbooks_item_id(item_id):
-    """`/api/groups/cookbooks/{item_id}`"""
-    return f"{prefix}/groups/cookbooks/{item_id}"
-
-
-def groups_events_notifications_item_id(item_id):
-    """`/api/groups/events/notifications/{item_id}`"""
-    return f"{prefix}/groups/events/notifications/{item_id}"
-
-
-def groups_events_notifications_item_id_test(item_id):
-    """`/api/groups/events/notifications/{item_id}/test`"""
-    return f"{prefix}/groups/events/notifications/{item_id}/test"
-
-
 def groups_labels_item_id(item_id):
     """`/api/groups/labels/{item_id}`"""
     return f"{prefix}/groups/labels/{item_id}"
-
-
-def groups_mealplans_item_id(item_id):
-    """`/api/groups/mealplans/{item_id}`"""
-    return f"{prefix}/groups/mealplans/{item_id}"
-
-
-def groups_mealplans_rules_item_id(item_id):
-    """`/api/groups/mealplans/rules/{item_id}`"""
-    return f"{prefix}/groups/mealplans/rules/{item_id}"
-
-
-def groups_recipe_actions_item_id(item_id):
-    """`/api/groups/recipe-actions/{item_id}`"""
-    return f"{prefix}/groups/recipe-actions/{item_id}"
 
 
 def groups_reports_item_id(item_id):
@@ -313,39 +290,69 @@ def groups_reports_item_id(item_id):
     return f"{prefix}/groups/reports/{item_id}"
 
 
-def groups_shopping_items_item_id(item_id):
-    """`/api/groups/shopping/items/{item_id}`"""
-    return f"{prefix}/groups/shopping/items/{item_id}"
+def households_cookbooks_item_id(item_id):
+    """`/api/households/cookbooks/{item_id}`"""
+    return f"{prefix}/households/cookbooks/{item_id}"
 
 
-def groups_shopping_lists_item_id(item_id):
-    """`/api/groups/shopping/lists/{item_id}`"""
-    return f"{prefix}/groups/shopping/lists/{item_id}"
+def households_events_notifications_item_id(item_id):
+    """`/api/households/events/notifications/{item_id}`"""
+    return f"{prefix}/households/events/notifications/{item_id}"
 
 
-def groups_shopping_lists_item_id_label_settings(item_id):
-    """`/api/groups/shopping/lists/{item_id}/label-settings`"""
-    return f"{prefix}/groups/shopping/lists/{item_id}/label-settings"
+def households_events_notifications_item_id_test(item_id):
+    """`/api/households/events/notifications/{item_id}/test`"""
+    return f"{prefix}/households/events/notifications/{item_id}/test"
 
 
-def groups_shopping_lists_item_id_recipe_recipe_id(item_id, recipe_id):
-    """`/api/groups/shopping/lists/{item_id}/recipe/{recipe_id}`"""
-    return f"{prefix}/groups/shopping/lists/{item_id}/recipe/{recipe_id}"
+def households_mealplans_item_id(item_id):
+    """`/api/households/mealplans/{item_id}`"""
+    return f"{prefix}/households/mealplans/{item_id}"
 
 
-def groups_shopping_lists_item_id_recipe_recipe_id_delete(item_id, recipe_id):
-    """`/api/groups/shopping/lists/{item_id}/recipe/{recipe_id}/delete`"""
-    return f"{prefix}/groups/shopping/lists/{item_id}/recipe/{recipe_id}/delete"
+def households_mealplans_rules_item_id(item_id):
+    """`/api/households/mealplans/rules/{item_id}`"""
+    return f"{prefix}/households/mealplans/rules/{item_id}"
 
 
-def groups_webhooks_item_id(item_id):
-    """`/api/groups/webhooks/{item_id}`"""
-    return f"{prefix}/groups/webhooks/{item_id}"
+def households_recipe_actions_item_id(item_id):
+    """`/api/households/recipe-actions/{item_id}`"""
+    return f"{prefix}/households/recipe-actions/{item_id}"
 
 
-def groups_webhooks_item_id_test(item_id):
-    """`/api/groups/webhooks/{item_id}/test`"""
-    return f"{prefix}/groups/webhooks/{item_id}/test"
+def households_shopping_items_item_id(item_id):
+    """`/api/households/shopping/items/{item_id}`"""
+    return f"{prefix}/households/shopping/items/{item_id}"
+
+
+def households_shopping_lists_item_id(item_id):
+    """`/api/households/shopping/lists/{item_id}`"""
+    return f"{prefix}/households/shopping/lists/{item_id}"
+
+
+def households_shopping_lists_item_id_label_settings(item_id):
+    """`/api/households/shopping/lists/{item_id}/label-settings`"""
+    return f"{prefix}/households/shopping/lists/{item_id}/label-settings"
+
+
+def households_shopping_lists_item_id_recipe_recipe_id(item_id, recipe_id):
+    """`/api/households/shopping/lists/{item_id}/recipe/{recipe_id}`"""
+    return f"{prefix}/households/shopping/lists/{item_id}/recipe/{recipe_id}"
+
+
+def households_shopping_lists_item_id_recipe_recipe_id_delete(item_id, recipe_id):
+    """`/api/households/shopping/lists/{item_id}/recipe/{recipe_id}/delete`"""
+    return f"{prefix}/households/shopping/lists/{item_id}/recipe/{recipe_id}/delete"
+
+
+def households_webhooks_item_id(item_id):
+    """`/api/households/webhooks/{item_id}`"""
+    return f"{prefix}/households/webhooks/{item_id}"
+
+
+def households_webhooks_item_id_test(item_id):
+    """`/api/households/webhooks/{item_id}/test`"""
+    return f"{prefix}/households/webhooks/{item_id}/test"
 
 
 def media_recipes_recipe_id_assets_file_name(recipe_id, file_name):

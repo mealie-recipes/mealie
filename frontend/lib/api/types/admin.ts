@@ -11,6 +11,7 @@ export interface AdminAboutInfo {
   demoStatus: boolean;
   allowSignup: boolean;
   defaultGroupSlug?: string | null;
+  defaultHouseholdSlug?: string | null;
   enableOidc: boolean;
   oidcRedirect: boolean;
   oidcProviderName: string;
@@ -39,6 +40,7 @@ export interface AppInfo {
   demoStatus: boolean;
   allowSignup: boolean;
   defaultGroupSlug?: string | null;
+  defaultHouseholdSlug?: string | null;
   enableOidc: boolean;
   oidcRedirect: boolean;
   oidcProviderName: string;
@@ -51,6 +53,7 @@ export interface AppStartupInfo {
 export interface AppStatistics {
   totalRecipes: number;
   totalUsers: number;
+  totalHouseholds: number;
   totalGroups: number;
   uncategorizedRecipes: number;
   untaggedRecipes: number;
@@ -115,6 +118,7 @@ export interface RecipeCategoryResponse {
 export interface RecipeSummary {
   id?: string | null;
   userId?: string;
+  householdId?: string;
   groupId?: string;
   name?: string | null;
   slug?: string;

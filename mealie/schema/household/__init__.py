@@ -41,6 +41,22 @@ from .group_shopping_list import (
     ShoppingListSummary,
     ShoppingListUpdate,
 )
+from .household import (
+    HouseholdCreate,
+    HouseholdOut,
+    HouseholdPagination,
+    HouseholdSave,
+    UpdateHousehold,
+    UpdateHouseholdAdmin,
+)
+from .household_permissions import SetPermissions
+from .household_preferences import (
+    CreateHouseholdPreferences,
+    ReadHouseholdPreferences,
+    SaveHouseholdPreferences,
+    UpdateHouseholdPreferences,
+)
+from .household_statistics import HouseholdStatistics
 from .invite_token import CreateInviteToken, EmailInitationResponse, EmailInvitation, ReadInviteToken, SaveInviteToken
 from .webhook import CreateWebhook, ReadWebhook, SaveWebhook, WebhookPagination, WebhookType
 
@@ -64,6 +80,17 @@ __all__ = [
     "SaveWebhook",
     "WebhookPagination",
     "WebhookType",
+    "CreateHouseholdPreferences",
+    "ReadHouseholdPreferences",
+    "SaveHouseholdPreferences",
+    "UpdateHouseholdPreferences",
+    "HouseholdCreate",
+    "HouseholdOut",
+    "HouseholdPagination",
+    "HouseholdSave",
+    "UpdateHousehold",
+    "UpdateHouseholdAdmin",
+    "HouseholdStatistics",
     "CreateInviteToken",
     "EmailInitationResponse",
     "EmailInvitation",
@@ -91,4 +118,5 @@ __all__ = [
     "ShoppingListSave",
     "ShoppingListSummary",
     "ShoppingListUpdate",
+    "SetPermissions",
 ]

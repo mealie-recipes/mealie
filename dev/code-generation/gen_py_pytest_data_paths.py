@@ -67,7 +67,7 @@ def rename_non_compliant_paths():
     kabab case.
     """
 
-    ignore_files = ["DS_Store", ".gitkeep"]
+    ignore_files = ["DS_Store", ".gitkeep", "af-ZA.json", "en-US.json"]
 
     ignore_extensions = [".pyc", ".pyo", ".py"]
 

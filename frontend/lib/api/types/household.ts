@@ -13,6 +13,16 @@ export interface CreateGroupRecipeAction {
   title: string;
   url: string;
 }
+export interface CreateHouseholdPreferences {
+  privateHousehold?: boolean;
+  firstDayOfWeek?: number;
+  recipePublic?: boolean;
+  recipeShowNutrition?: boolean;
+  recipeShowAssets?: boolean;
+  recipeLandscapeView?: boolean;
+  recipeDisableComments?: boolean;
+  recipeDisableAmount?: boolean;
+}
 export interface CreateInviteToken {
   uses: number;
 }
@@ -118,6 +128,7 @@ export interface GroupEventNotifierOut {
   name: string;
   enabled: boolean;
   groupId: string;
+  householdId: string;
   options: GroupEventNotifierOptionsOut;
 }
 export interface GroupEventNotifierPrivate {
@@ -125,6 +136,7 @@ export interface GroupEventNotifierPrivate {
   name: string;
   enabled: boolean;
   groupId: string;
+  householdId: string;
   options: GroupEventNotifierOptionsOut;
   appriseUrl: string;
 }
@@ -133,6 +145,7 @@ export interface GroupEventNotifierSave {
   appriseUrl?: string | null;
   enabled?: boolean;
   groupId: string;
+  householdId: string;
   options?: GroupEventNotifierOptions;
 }
 export interface GroupEventNotifierUpdate {
@@ -140,6 +153,7 @@ export interface GroupEventNotifierUpdate {
   appriseUrl?: string | null;
   enabled?: boolean;
   groupId: string;
+  householdId: string;
   options?: GroupEventNotifierOptions;
   id: string;
 }
@@ -148,12 +162,46 @@ export interface GroupRecipeActionOut {
   title: string;
   url: string;
   groupId: string;
+  householdId: string;
   id: string;
+}
+export interface HouseholdCreate {
+  name: string;
+}
+export interface HouseholdOut {
+  name: string;
+  groupId: string;
+  id: string;
+  slug: string;
+  preferences?: ReadHouseholdPreferences | null;
+}
+export interface ReadHouseholdPreferences {
+  privateHousehold?: boolean;
+  firstDayOfWeek?: number;
+  recipePublic?: boolean;
+  recipeShowNutrition?: boolean;
+  recipeShowAssets?: boolean;
+  recipeLandscapeView?: boolean;
+  recipeDisableComments?: boolean;
+  recipeDisableAmount?: boolean;
+  id: string;
+}
+export interface HouseholdSave {
+  name: string;
+  groupId: string;
+}
+export interface HouseholdStatistics {
+  totalRecipes: number;
+  totalUsers: number;
+  totalCategories: number;
+  totalTags: number;
+  totalTools: number;
 }
 export interface ReadInviteToken {
   token: string;
   usesLeft: number;
   groupId: string;
+  householdId: string;
 }
 export interface ReadWebhook {
   enabled?: boolean;
@@ -162,6 +210,7 @@ export interface ReadWebhook {
   webhookType?: WebhookType & string;
   scheduledTime: string;
   groupId: string;
+  householdId: string;
   id: string;
 }
 export interface SaveGroupRecipeAction {
@@ -169,10 +218,23 @@ export interface SaveGroupRecipeAction {
   title: string;
   url: string;
   groupId: string;
+  householdId: string;
+}
+export interface SaveHouseholdPreferences {
+  privateHousehold?: boolean;
+  firstDayOfWeek?: number;
+  recipePublic?: boolean;
+  recipeShowNutrition?: boolean;
+  recipeShowAssets?: boolean;
+  recipeLandscapeView?: boolean;
+  recipeDisableComments?: boolean;
+  recipeDisableAmount?: boolean;
+  householdId: string;
 }
 export interface SaveInviteToken {
   usesLeft: number;
   groupId: string;
+  householdId: string;
   token: string;
 }
 export interface SaveWebhook {
@@ -182,6 +244,13 @@ export interface SaveWebhook {
   webhookType?: WebhookType & string;
   scheduledTime: string;
   groupId: string;
+  householdId: string;
+}
+export interface SetPermissions {
+  userId: string;
+  canManage?: boolean;
+  canInvite?: boolean;
+  canOrganize?: boolean;
 }
 export interface ShoppingListAddRecipeParams {
   recipeIncrementQuantity?: number;
@@ -449,6 +518,7 @@ export interface ShoppingListOut {
   createdAt?: string | null;
   updatedAt?: string | null;
   groupId: string;
+  householdId: string;
   userId: string;
   id: string;
   listItems?: ShoppingListItemOut[];
@@ -465,6 +535,7 @@ export interface ShoppingListRecipeRefOut {
 export interface RecipeSummary {
   id?: string | null;
   userId?: string;
+  householdId?: string;
   groupId?: string;
   name?: string | null;
   slug?: string;
@@ -515,6 +586,7 @@ export interface ShoppingListSave {
   createdAt?: string | null;
   updatedAt?: string | null;
   groupId: string;
+  householdId: string;
   userId: string;
 }
 export interface ShoppingListSummary {
@@ -525,6 +597,7 @@ export interface ShoppingListSummary {
   createdAt?: string | null;
   updatedAt?: string | null;
   groupId: string;
+  householdId: string;
   userId: string;
   id: string;
   recipeReferences: ShoppingListRecipeRefOut[];
@@ -538,9 +611,33 @@ export interface ShoppingListUpdate {
   createdAt?: string | null;
   updatedAt?: string | null;
   groupId: string;
+  householdId: string;
   userId: string;
   id: string;
   listItems?: ShoppingListItemOut[];
+}
+export interface UpdateHousehold {
+  name: string;
+  groupId: string;
+  id: string;
+  slug: string;
+}
+export interface UpdateHouseholdAdmin {
+  name: string;
+  groupId: string;
+  id: string;
+  slug: string;
+  preferences?: UpdateHouseholdPreferences | null;
+}
+export interface UpdateHouseholdPreferences {
+  privateHousehold?: boolean;
+  firstDayOfWeek?: number;
+  recipePublic?: boolean;
+  recipeShowNutrition?: boolean;
+  recipeShowAssets?: boolean;
+  recipeLandscapeView?: boolean;
+  recipeDisableComments?: boolean;
+  recipeDisableAmount?: boolean;
 }
 export interface RecipeIngredientBase {
   quantity?: number | null;

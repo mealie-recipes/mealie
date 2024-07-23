@@ -221,6 +221,7 @@ export interface RecipeIngredient {
 export interface Recipe {
   id?: string | null;
   userId?: string;
+  householdId?: string;
   groupId?: string;
   name?: string | null;
   slug?: string;
@@ -296,6 +297,7 @@ export interface RecipeCategoryResponse {
 export interface RecipeSummary {
   id?: string | null;
   userId?: string;
+  householdId?: string;
   groupId?: string;
   name?: string | null;
   slug?: string;

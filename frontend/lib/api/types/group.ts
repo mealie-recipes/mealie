@@ -18,13 +18,6 @@ export type SupportedMigrations =
 
 export interface CreateGroupPreferences {
   privateGroup?: boolean;
-  firstDayOfWeek?: number;
-  recipePublic?: boolean;
-  recipeShowNutrition?: boolean;
-  recipeShowAssets?: boolean;
-  recipeLandscapeView?: boolean;
-  recipeDisableComments?: boolean;
-  recipeDisableAmount?: boolean;
   groupId: string;
 }
 export interface DataMigrationCreate {
@@ -37,13 +30,6 @@ export interface GroupAdminUpdate {
 }
 export interface UpdateGroupPreferences {
   privateGroup?: boolean;
-  firstDayOfWeek?: number;
-  recipePublic?: boolean;
-  recipeShowNutrition?: boolean;
-  recipeShowAssets?: boolean;
-  recipeLandscapeView?: boolean;
-  recipeDisableComments?: boolean;
-  recipeDisableAmount?: boolean;
 }
 export interface GroupDataExport {
   id: string;
@@ -54,13 +40,6 @@ export interface GroupDataExport {
   size: string;
   expires: string;
 }
-export interface GroupStatistics {
-  totalRecipes: number;
-  totalUsers: number;
-  totalCategories: number;
-  totalTags: number;
-  totalTools: number;
-}
 export interface GroupStorage {
   usedStorageBytes: number;
   usedStorageStr: string;
@@ -69,22 +48,9 @@ export interface GroupStorage {
 }
 export interface ReadGroupPreferences {
   privateGroup?: boolean;
-  firstDayOfWeek?: number;
-  recipePublic?: boolean;
-  recipeShowNutrition?: boolean;
-  recipeShowAssets?: boolean;
-  recipeLandscapeView?: boolean;
-  recipeDisableComments?: boolean;
-  recipeDisableAmount?: boolean;
   groupId: string;
   id: string;
 }
 export interface SeederConfig {
   locale: string;
-}
-export interface SetPermissions {
-  userId: string;
-  canManage?: boolean;
-  canInvite?: boolean;
-  canOrganize?: boolean;
 }
