@@ -630,8 +630,7 @@
     "search-hint": "Pritisni '/'",
     "advanced": "Napredno",
     "auto-search": "Avtomatsko iskanje",
-    "no-results": "Ni zadetkov",
-    "recipes": "Recepti"
+    "no-results": "Ni zadetkov"
   },
   "settings": {
     "add-a-new-theme": "Dodaj novo temo",
@@ -837,8 +836,7 @@
     "parser": "Parser",
     "developer": "Razvijalec",
     "cookbook": "Kuharska knjiga",
-    "create-cookbook": "Izdelaj novo kuharsko knjigo",
-    "recipes": "Recepti"
+    "create-cookbook": "Izdelaj novo kuharsko knjigo"
   },
   "signup": {
     "error-signing-up": "Napaka pri vpisu",

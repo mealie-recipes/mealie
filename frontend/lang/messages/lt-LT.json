@@ -630,8 +630,7 @@
     "search-hint": "Paspauskite '/'",
     "advanced": "Išplėstinė paieška",
     "auto-search": "Automatinė paieška",
-    "no-results": "No results found",
-    "recipes": "Receptai"
+    "no-results": "No results found"
   },
   "settings": {
     "add-a-new-theme": "Pridėti naują temą",
@@ -837,8 +836,7 @@
     "parser": "Teksto analizatorius",
     "developer": "Vystymas",
     "cookbook": "Receptų knyga",
-    "create-cookbook": "Sukurti naują receptų knygą",
-    "recipes": "Receptai"
+    "create-cookbook": "Sukurti naują receptų knygą"
   },
   "signup": {
     "error-signing-up": "Klaida registruojantis",

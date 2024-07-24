@@ -630,8 +630,7 @@
     "search-hint": "'/' Tuşuna Basın",
     "advanced": "Gelişmiş",
     "auto-search": "Otomatik Arama",
-    "no-results": "Sonuç bulunamadı",
-    "recipes": "Tarifler"
+    "no-results": "Sonuç bulunamadı"
   },
   "settings": {
     "add-a-new-theme": "Yeni Tema Ekle",
@@ -837,8 +836,7 @@
     "parser": "Ayrıştırıcı",
     "developer": "Geliştirici",
     "cookbook": "Yemek Kitabı",
-    "create-cookbook": "Yeni bir yemek kitabı oluştur",
-    "recipes": "Tarifler"
+    "create-cookbook": "Yeni bir yemek kitabı oluştur"
   },
   "signup": {
     "error-signing-up": "Üye olma hatası",

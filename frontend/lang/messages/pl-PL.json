@@ -630,8 +630,7 @@
     "search-hint": "Naciśnij '/'",
     "advanced": "Zaawansowane",
     "auto-search": "Auto wyszukiwanie",
-    "no-results": "Nie znaleziono wyników",
-    "recipes": "Przepisy"
+    "no-results": "Nie znaleziono wyników"
   },
   "settings": {
     "add-a-new-theme": "Dodaj nowy motyw",
@@ -837,8 +836,7 @@
     "parser": "Parser",
     "developer": "Deweloper",
     "cookbook": "Książka kucharska",
-    "create-cookbook": "Utwórz nową książkę kucharską",
-    "recipes": "Przepisy"
+    "create-cookbook": "Utwórz nową książkę kucharską"
   },
   "signup": {
     "error-signing-up": "W trakcie rejestracji wystąpił błąd",

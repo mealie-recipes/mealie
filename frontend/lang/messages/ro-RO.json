@@ -630,8 +630,7 @@
     "search-hint": "Apasă „/”",
     "advanced": "Avansat",
     "auto-search": "Căutare automată",
-    "no-results": "Nu s-au găsit rezultate",
-    "recipes": "Rețete"
+    "no-results": "Nu s-au găsit rezultate"
   },
   "settings": {
     "add-a-new-theme": "Adaugă o nouă temă",
@@ -837,8 +836,7 @@
     "parser": "Parser",
     "developer": "Developer",
     "cookbook": "Cookbook",
-    "create-cookbook": "Create a new cookbook",
-    "recipes": "Rețete"
+    "create-cookbook": "Create a new cookbook"
   },
   "signup": {
     "error-signing-up": "Error Signing Up",

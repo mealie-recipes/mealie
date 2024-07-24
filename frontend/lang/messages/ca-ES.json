@@ -630,8 +630,7 @@
     "search-hint": "Prem '/'",
     "advanced": "Avançat",
     "auto-search": "Cerca automàtica",
-    "no-results": "No s'han trobat resultats",
-    "recipes": "Receptes"
+    "no-results": "No s'han trobat resultats"
   },
   "settings": {
     "add-a-new-theme": "Afegiu un nou tema",
@@ -837,8 +836,7 @@
     "parser": "Intèrpret (parser)",
     "developer": "Desenvolupador",
     "cookbook": "Llibres de cuina",
-    "create-cookbook": "Crea un nou receptari de cuina",
-    "recipes": "Receptes"
+    "create-cookbook": "Crea un nou receptari de cuina"
   },
   "signup": {
     "error-signing-up": "S'ha produït un error al registrar-se",

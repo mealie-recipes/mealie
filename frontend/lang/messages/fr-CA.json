@@ -630,8 +630,7 @@
     "search-hint": "Appuyez sur « /»",
     "advanced": "Avancé",
     "auto-search": "Recherche automatique",
-    "no-results": "Pas de résultats trouvés",
-    "recipes": "Recettes"
+    "no-results": "Pas de résultats trouvés"
   },
   "settings": {
     "add-a-new-theme": "Ajouter un nouveau thème",
@@ -837,8 +836,7 @@
     "parser": "Analyseur syntaxique",
     "developer": "Développeur",
     "cookbook": "Livre de recettes",
-    "create-cookbook": "Créer un nouveau livre de recettes",
-    "recipes": "Recettes"
+    "create-cookbook": "Créer un nouveau livre de recettes"
   },
   "signup": {
     "error-signing-up": "Erreur lors de l'inscription",

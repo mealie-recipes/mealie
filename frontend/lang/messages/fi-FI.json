@@ -630,8 +630,7 @@
     "search-hint": "Paina '/'",
     "advanced": "Lisäasetukset",
     "auto-search": "Automaattinen Haku",
-    "no-results": "Ei tuloksia",
-    "recipes": "Reseptit"
+    "no-results": "Ei tuloksia"
   },
   "settings": {
     "add-a-new-theme": "Lisää uusi teema",
@@ -837,8 +836,7 @@
     "parser": "Parser",
     "developer": "Kehittäjä",
     "cookbook": "Keittokirja",
-    "create-cookbook": "Luo uusi keittokirja",
-    "recipes": "Reseptit"
+    "create-cookbook": "Luo uusi keittokirja"
   },
   "signup": {
     "error-signing-up": "Virhe sisäänkirjautumisessa",

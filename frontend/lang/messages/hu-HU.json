@@ -630,8 +630,7 @@
     "search-hint": "Üsse be '/'",
     "advanced": "Haladó mód",
     "auto-search": "Automatikus keresés",
-    "no-results": "Nincs találat",
-    "recipes": "Receptek"
+    "no-results": "Nincs találat"
   },
   "settings": {
     "add-a-new-theme": "Új téma hozzáadása",
@@ -837,8 +836,7 @@
     "parser": "Szintaxis elemző",
     "developer": "Fejlesztő",
     "cookbook": "Szakácskönyv",
-    "create-cookbook": "Szakácskönyv létrehozása",
-    "recipes": "Receptek"
+    "create-cookbook": "Szakácskönyv létrehozása"
   },
   "signup": {
     "error-signing-up": "Regisztráció hiba",

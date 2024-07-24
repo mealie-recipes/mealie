@@ -630,8 +630,7 @@
     "search-hint": "לחץ '/'",
     "advanced": "מתקדם",
     "auto-search": "חיפוש אוטומטי",
-    "no-results": "לא נמצאו תוצאות",
-    "recipes": "מתכונים"
+    "no-results": "לא נמצאו תוצאות"
   },
   "settings": {
     "add-a-new-theme": "הוסף ערכת נושא חדשה",
@@ -837,8 +836,7 @@
     "parser": "מפענך",
     "developer": "מפתח",
     "cookbook": "ספר בישול",
-    "create-cookbook": "צור ספר בישול חדש",
-    "recipes": "מתכונים"
+    "create-cookbook": "צור ספר בישול חדש"
   },
   "signup": {
     "error-signing-up": "שגיאה בהרשמה",

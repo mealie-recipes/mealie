@@ -630,8 +630,7 @@
     "search-hint": "Druk '/'",
     "advanced": "Gevorderd",
     "auto-search": "Outomatiese soektog",
-    "no-results": "No results found",
-    "recipes": "Resepte"
+    "no-results": "No results found"
   },
   "settings": {
     "add-a-new-theme": "Voeg 'n nuwe tema by",
@@ -837,8 +836,7 @@
     "parser": "Parser",
     "developer": "Ontwikkelaar",
     "cookbook": "Kookboek",
-    "create-cookbook": "Skep 'n nuwe kookboek",
-    "recipes": "Resepte"
+    "create-cookbook": "Skep 'n nuwe kookboek"
   },
   "signup": {
     "error-signing-up": "Fout tydens registrasie",

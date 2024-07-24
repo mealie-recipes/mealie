@@ -630,8 +630,7 @@
     "search-hint": "'/' を押す",
     "advanced": "詳細",
     "auto-search": "自動検索",
-    "no-results": "結果は見つかりませんでした。",
-    "recipes": "レシピ"
+    "no-results": "結果は見つかりませんでした。"
   },
   "settings": {
     "add-a-new-theme": "新しいテーマを追加",
@@ -837,8 +836,7 @@
     "parser": "構文解析",
     "developer": "開発者",
     "cookbook": "料理本",
-    "create-cookbook": "新しい料理本を作成",
-    "recipes": "レシピ"
+    "create-cookbook": "新しい料理本を作成"
   },
   "signup": {
     "error-signing-up": "登録エラー",
