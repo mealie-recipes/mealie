@@ -72,8 +72,8 @@ export interface ReadWebhook {
   id: string;
 }
 export interface HouseholdOut {
-  name: string;
   groupId: string;
+  name: string;
   id: string;
   slug: string;
   preferences?: ReadHouseholdPreferences | null;

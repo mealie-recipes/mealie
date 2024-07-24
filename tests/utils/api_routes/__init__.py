@@ -183,6 +183,16 @@ users_self_ratings = "/api/users/self/ratings"
 """`/api/users/self/ratings`"""
 utils_download = "/api/utils/download"
 """`/api/utils/download`"""
+validators_group = "/api/validators/group"
+"""`/api/validators/group`"""
+validators_household = "/api/validators/household"
+"""`/api/validators/household`"""
+validators_recipe = "/api/validators/recipe"
+"""`/api/validators/recipe`"""
+validators_user_email = "/api/validators/user/email"
+"""`/api/validators/user/email`"""
+validators_user_name = "/api/validators/user/name"
+"""`/api/validators/user/name`"""
 
 
 def admin_backups_file_name(file_name):

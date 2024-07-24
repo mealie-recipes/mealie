@@ -166,11 +166,12 @@ export interface GroupRecipeActionOut {
   id: string;
 }
 export interface HouseholdCreate {
+  groupId?: string | null;
   name: string;
 }
 export interface HouseholdOut {
-  name: string;
   groupId: string;
+  name: string;
   id: string;
   slug: string;
   preferences?: ReadHouseholdPreferences | null;
@@ -187,8 +188,8 @@ export interface ReadHouseholdPreferences {
   id: string;
 }
 export interface HouseholdSave {
-  name: string;
   groupId: string;
+  name: string;
 }
 export interface HouseholdStatistics {
   totalRecipes: number;
@@ -617,14 +618,14 @@ export interface ShoppingListUpdate {
   listItems?: ShoppingListItemOut[];
 }
 export interface UpdateHousehold {
-  name: string;
   groupId: string;
+  name: string;
   id: string;
   slug: string;
 }
 export interface UpdateHouseholdAdmin {
-  name: string;
   groupId: string;
+  name: string;
   id: string;
   slug: string;
   preferences?: UpdateHouseholdPreferences | null;
