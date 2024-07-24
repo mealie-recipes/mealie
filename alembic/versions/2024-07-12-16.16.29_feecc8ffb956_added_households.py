@@ -201,52 +201,52 @@ def upgrade():
     )
 
     with op.batch_alter_table("cookbooks") as batch_op:
-        batch_op.add_column(sa.Column("household_id", sa.Integer(), nullable=True))
+        batch_op.add_column(sa.Column("household_id", mealie.db.migration_types.GUID(), nullable=True))
         batch_op.create_index(op.f("ix_cookbooks_household_id"), ["household_id"], unique=False)
         batch_op.create_foreign_key("fk_cookbooks_household_id", "households", ["household_id"], ["id"])
 
     with op.batch_alter_table("group_events_notifiers") as batch_op:
-        batch_op.add_column(sa.Column("household_id", sa.Integer(), nullable=True))
+        batch_op.add_column(sa.Column("household_id", mealie.db.migration_types.GUID(), nullable=True))
         batch_op.create_index(op.f("ix_group_events_notifiers_household_id"), ["household_id"], unique=False)
         batch_op.create_foreign_key("fk_group_events_notifiers_household_id", "households", ["household_id"], ["id"])
 
     with op.batch_alter_table("group_meal_plan_rules") as batch_op:
-        batch_op.add_column(sa.Column("household_id", sa.Integer(), nullable=True))
+        batch_op.add_column(sa.Column("household_id", mealie.db.migration_types.GUID(), nullable=True))
         batch_op.create_index(op.f("ix_group_meal_plan_rules_household_id"), ["household_id"], unique=False)
         batch_op.create_foreign_key("fk_group_meal_plan_rules_household_id", "households", ["household_id"], ["id"])
 
     with op.batch_alter_table("group_meal_plans") as batch_op:
-        batch_op.add_column(sa.Column("household_id", sa.Integer(), nullable=True))
+        batch_op.add_column(sa.Column("household_id", mealie.db.migration_types.GUID(), nullable=True))
         batch_op.create_index(op.f("ix_group_meal_plans_household_id"), ["household_id"], unique=False)
         batch_op.create_foreign_key("fk_group_meal_plans_household_id", "households", ["household_id"], ["id"])
 
     with op.batch_alter_table("invite_tokens") as batch_op:
-        batch_op.add_column(sa.Column("household_id", sa.Integer(), nullable=True))
+        batch_op.add_column(sa.Column("household_id", mealie.db.migration_types.GUID(), nullable=True))
         batch_op.create_index(op.f("ix_invite_tokens_household_id"), ["household_id"], unique=False)
         batch_op.create_foreign_key("fk_invite_tokens_household_id", "households", ["household_id"], ["id"])
 
     with op.batch_alter_table("recipe_actions") as batch_op:
-        batch_op.add_column(sa.Column("household_id", sa.Integer(), nullable=True))
+        batch_op.add_column(sa.Column("household_id", mealie.db.migration_types.GUID(), nullable=True))
         batch_op.create_index(op.f("ix_recipe_actions_household_id"), ["household_id"], unique=False)
         batch_op.create_foreign_key("fk_recipe_actions_household_id", "households", ["household_id"], ["id"])
 
     with op.batch_alter_table("recipes") as batch_op:
-        batch_op.add_column(sa.Column("household_id", sa.Integer(), nullable=True))
+        batch_op.add_column(sa.Column("household_id", mealie.db.migration_types.GUID(), nullable=True))
         batch_op.create_index(op.f("ix_recipes_household_id"), ["household_id"], unique=False)
         batch_op.create_foreign_key("fk_recipes_household_id", "households", ["household_id"], ["id"])
 
     with op.batch_alter_table("shopping_lists") as batch_op:
-        batch_op.add_column(sa.Column("household_id", sa.Integer(), nullable=True))
+        batch_op.add_column(sa.Column("household_id", mealie.db.migration_types.GUID(), nullable=True))
         batch_op.create_index(op.f("ix_shopping_lists_household_id"), ["household_id"], unique=False)
         batch_op.create_foreign_key("fk_shopping_lists_household_id", "households", ["household_id"], ["id"])
 
     with op.batch_alter_table("users") as batch_op:
-        batch_op.add_column(sa.Column("household_id", sa.Integer(), nullable=True))
+        batch_op.add_column(sa.Column("household_id", mealie.db.migration_types.GUID(), nullable=True))
         batch_op.create_index(op.f("ix_users_household_id"), ["household_id"], unique=False)
         batch_op.create_foreign_key("fk_users_household_id", "households", ["household_id"], ["id"])
 
     with op.batch_alter_table("webhook_urls") as batch_op:
-        batch_op.add_column(sa.Column("household_id", sa.Integer(), nullable=True))
+        batch_op.add_column(sa.Column("household_id", mealie.db.migration_types.GUID(), nullable=True))
         batch_op.create_index(op.f("ix_webhook_urls_household_id"), ["household_id"], unique=False)
         batch_op.create_foreign_key("fk_webhook_urls_household_id", "households", ["household_id"], ["id"])
     # ### end Alembic commands ###
