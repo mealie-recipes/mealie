@@ -15,7 +15,7 @@ def test_associate_ingredient_with_step(api_client: TestClient, unique_user: Tes
     # Associate an ingredient with a step
     steps = {}  # key=step_id, value=ingredient_id
 
-    for idx, step in enumerate(recipe.recipe_instructions):
+    for idx, step in enumerate(recipe.recipe_instructions or []):
         ingredients = random.choices(recipe.recipe_ingredient, k=2)
 
         step.ingredient_references = [
@@ -39,7 +39,7 @@ def test_associate_ingredient_with_step(api_client: TestClient, unique_user: Tes
 
     data: dict = json.loads(response.text)
 
-    for idx, stp in enumerate(data.get("recipeInstructions")):
+    for idx, stp in enumerate(data.get("recipeInstructions") or []):
         all_refs = [ref["referenceId"] for ref in stp.get("ingredientReferences")]
 
         assert len(all_refs) == 2

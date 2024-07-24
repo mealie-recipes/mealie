@@ -24,6 +24,7 @@ def recipes(user_tuple: tuple[TestUser, TestUser]) -> Generator[list[Recipe], No
             recipes_repo.create(
                 Recipe(
                     user_id=unique_user.user_id,
+                    household_id=unique_user.household_id,
                     group_id=unique_user.group_id,
                     name=slug,
                     slug=slug,
