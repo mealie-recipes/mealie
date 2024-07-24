@@ -23,6 +23,7 @@ def random_int(min=-4294967296, max=4294967296) -> int:
 def user_registration_factory(advanced=None, private=None) -> CreateUserRegistration:
     return CreateUserRegistration(
         group=random_string(),
+        household=random_string(),
         email=random_email(),
         username=random_string(),
         full_name=random_string(),
