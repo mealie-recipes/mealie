@@ -72,7 +72,7 @@ def test_repository_pagination(unique_user: TestUser):
     seeder = SeederService(AllRepositories(database.session, group_id=group.id))
     seeder.seed_foods("en-US")
 
-    foods_repo = database.ingredient_foods.by_group(unique_user.group_id)  # type: ignore
+    foods_repo = database.ingredient_foods
 
     query = PaginationQuery(
         page=1,
@@ -108,7 +108,7 @@ def test_pagination_response_and_metadata(unique_user: TestUser):
     seeder = SeederService(AllRepositories(database.session, group_id=group.id))
     seeder.seed_foods("en-US")
 
-    foods_repo = database.ingredient_foods.by_group(unique_user.group_id)  # type: ignore
+    foods_repo = database.ingredient_foods
 
     # this should get all results
     query = PaginationQuery(
@@ -138,7 +138,7 @@ def test_pagination_guides(unique_user: TestUser):
     seeder = SeederService(AllRepositories(database.session, group_id=group.id))
     seeder.seed_foods("en-US")
 
-    foods_repo = database.ingredient_foods.by_group(unique_user.group_id)  # type: ignore
+    foods_repo = database.ingredient_foods
     foods_route = (
         "/foods"  # this doesn't actually have to be accurate, it's just a placeholder to test for query params
     )
@@ -197,7 +197,7 @@ def query_units(unique_user: TestUser):
     )
 
     unit_ids = [unit.id for unit in [unit_1, unit_2, unit_3]]
-    units_repo = database.ingredient_units.by_group(unique_user.group_id)  # type: ignore
+    units_repo = database.ingredient_units
 
     yield units_repo, unit_1, unit_2, unit_3
 
@@ -242,7 +242,7 @@ def test_pagination_filter_null(unique_user: TestUser):
         )
     )
 
-    recipe_repo = database.recipes.by_group(unique_user.group_id)  # type: ignore
+    recipe_repo = database.recipes
 
     query = PaginationQuery(page=1, per_page=-1, query_filter="lastMade IS NONE")
     recipe_results = recipe_repo.page_all(query).items
@@ -452,7 +452,7 @@ def test_pagination_filter_keyword_namespace_conflict(unique_user: TestUser):
         )
     )
 
-    recipe_repo = database.recipes.by_group(unique_user.group_id)  # type: ignore
+    recipe_repo = database.recipes
 
     # "rating" contains the word "in", but we should not parse this as the keyword "IN"
     query = PaginationQuery(page=1, per_page=-1, query_filter="rating > 2")
@@ -517,7 +517,7 @@ def test_pagination_filter_logical_namespace_conflict(unique_user: TestUser):
 
     # "recipeCategory" has the substring "or" in it, which shouldn't break queries
     query = PaginationQuery(page=1, per_page=-1, query_filter=f'recipeCategory.id = "{category_1.id}"')
-    recipe_results = database.recipes.by_group(unique_user.group_id).page_all(query).items  # type: ignore
+    recipe_results = database.recipes.page_all(query).items
     assert len(recipe_results) == 1
     recipe_ids = {recipe.id for recipe in recipe_results}
     assert recipe_category_0.id not in recipe_ids
@@ -1181,7 +1181,7 @@ def test_pagination_filter_advanced_frontend_sort(unique_user: TestUser):
         )
     )
 
-    repo = database.recipes.by_group(unique_user.group_id)  # type: ignore
+    repo = database.recipes
 
     qf = f'recipeCategory.id IN ["{category_1.id}"] AND tools.id IN ["{tool_1.id}"]'
     query = PaginationQuery(page=1, per_page=-1, query_filter=qf)

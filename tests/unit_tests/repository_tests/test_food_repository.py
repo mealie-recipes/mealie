@@ -5,6 +5,7 @@ from tests.utils.fixture_schemas import TestUser
 
 
 def test_food_merger(unique_user: TestUser):
+    recipe: Recipe | None = None
     database = unique_user.repos
     slug1 = random_string(10)
 
@@ -26,6 +27,7 @@ def test_food_merger(unique_user: TestUser):
         Recipe(
             name=slug1,
             user_id=unique_user.group_id,
+            household_id=unique_user.household_id,
             group_id=unique_user.group_id,
             recipe_ingredient=[
                 RecipeIngredient(note="", food=food_1),  # type: ignore
@@ -43,6 +45,7 @@ def test_food_merger(unique_user: TestUser):
     database.ingredient_foods.merge(food_2.id, food_1.id)
 
     recipe = database.recipes.get_one(recipe.slug)
+    assert recipe
 
     for ingredient in recipe.recipe_ingredient:
         assert ingredient.food.id == food_1.id  # type: ignore
