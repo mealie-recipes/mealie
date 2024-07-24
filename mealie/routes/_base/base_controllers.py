@@ -6,7 +6,13 @@ from pydantic import UUID4, ConfigDict
 from sqlalchemy.orm import Session
 
 from mealie.core.config import get_app_dirs, get_app_settings
-from mealie.core.dependencies.dependencies import get_admin_user, get_current_user, get_integration_id, get_public_group
+from mealie.core.dependencies.dependencies import (
+    get_admin_user,
+    get_current_user,
+    get_integration_id,
+    get_public_group,
+    get_public_household,
+)
 from mealie.core.exceptions import mealie_registered_exceptions
 from mealie.core.root_logger import get_logger
 from mealie.core.settings.directories import AppDirectories
@@ -81,11 +87,9 @@ class BasePublicController(_BaseController):
     ...
 
 
-class BasePublicExploreController(BasePublicController):
+class BasePublicGroupExploreController(BasePublicController):
     """
-    This is a public class for all User restricted controllers in the API.
-    It includes the common SharedDependencies and some common methods used
-    by all Admin controllers.
+    Base class for all controllers that are public and explore group data.
     """
 
     group: GroupInDB = Depends(get_public_group)
@@ -93,6 +97,18 @@ class BasePublicExploreController(BasePublicController):
     @property
     def group_id(self) -> UUID4 | None | NotSet:
         return self.group.id
+
+
+class BasePublicHouseholdExploreController(BasePublicGroupExploreController):
+    """
+    Base class for all controllers that are public and explore household data.
+    """
+
+    household: HouseholdOut = Depends(get_public_household)
+
+    @property
+    def household_id(self) -> UUID4 | None | NotSet:
+        return self.household.id
 
 
 class BaseUserController(_BaseController):

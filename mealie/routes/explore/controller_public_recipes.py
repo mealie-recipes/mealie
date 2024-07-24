@@ -5,7 +5,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from pydantic import UUID4
 
 from mealie.routes._base import controller
-from mealie.routes._base.base_controllers import BasePublicExploreController
+from mealie.routes._base.base_controllers import BasePublicHouseholdExploreController
 from mealie.routes.recipe.recipe_crud_routes import JSONBytes
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.make_dependable import make_dependable
@@ -13,11 +13,11 @@ from mealie.schema.recipe import Recipe
 from mealie.schema.recipe.recipe import RecipeSummary
 from mealie.schema.response.pagination import PaginationBase, PaginationQuery, RecipeSearchQuery
 
-router = APIRouter(prefix="/recipes/{group_slug}")
+router = APIRouter(prefix="/recipes")
 
 
 @controller(router)
-class PublicRecipesController(BasePublicExploreController):
+class PublicRecipesController(BasePublicHouseholdExploreController):
     @property
     def cookbooks(self):
         return self.repos.cookbooks
@@ -75,7 +75,7 @@ class PublicRecipesController(BasePublicExploreController):
         # merge default pagination with the request's query params
         query_params = q.model_dump() | {**request.query_params}
         pagination_response.set_pagination_guides(
-            router.url_path_for("get_all", group_slug=self.group.slug),
+            request.url_for("get_all", group_slug=self.group.slug, household_slug=self.household.slug),
             {k: v for k, v in query_params.items() if v is not None},
         )
 

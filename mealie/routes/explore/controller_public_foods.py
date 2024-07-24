@@ -2,16 +2,16 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydantic import UUID4
 
 from mealie.routes._base import controller
-from mealie.routes._base.base_controllers import BasePublicExploreController
+from mealie.routes._base.base_controllers import BasePublicGroupExploreController
 from mealie.schema.make_dependable import make_dependable
 from mealie.schema.recipe.recipe_ingredient import IngredientFood
 from mealie.schema.response.pagination import PaginationBase, PaginationQuery
 
-router = APIRouter(prefix="/foods/{group_slug}")
+router = APIRouter(prefix="/foods")
 
 
 @controller(router)
-class PublicFoodsController(BasePublicExploreController):
+class PublicFoodsController(BasePublicGroupExploreController):
     @property
     def ingredient_foods(self):
         return self.repos.ingredient_foods

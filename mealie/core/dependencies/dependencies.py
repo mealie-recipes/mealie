@@ -76,9 +76,10 @@ async def get_public_group(group_slug: str = fastapi.Path(...), session=Depends(
 
 
 async def get_public_household(
-    group_slug: str = fastapi.Path(...), household_slug: str = fastapi.Path(...), session=Depends(generate_session)
-) -> HouseholdOut:
-    group = await get_public_group(group_slug, session)
+    household_slug: str = fastapi.Path(...),
+    group: GroupInDB = Depends(get_public_group),
+    session=Depends(generate_session),
+) -> tuple[GroupInDB, HouseholdOut]:
     repos = get_repositories(session, group_id=group.id)
     household = repos.households.get_by_slug_or_id(household_slug)
 
