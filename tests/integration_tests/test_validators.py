@@ -8,7 +8,7 @@ from tests.utils import api_routes, random_string
 from tests.utils.fixture_schemas import TestUser
 
 
-@dataclass(slots=True)
+@dataclass()
 class SimpleCase:
     value: str
     is_valid: bool
@@ -43,6 +43,7 @@ def test_validators_email(api_client: TestClient, unique_user: TestUser):
 def test_validators_group_name(api_client: TestClient, unique_user: TestUser):
     database = unique_user.repos
     group = database.groups.get_one(unique_user.group_id)
+    assert group
 
     groups = [
         SimpleCase(value=group.name, is_valid=False),
@@ -65,7 +66,7 @@ class RecipeValidators:
 
 def test_validators_recipe(api_client: TestClient, random_recipe: Recipe):
     recipes = [
-        RecipeValidators(name=random_recipe.name, group=random_recipe.group_id, is_valid=False),
+        RecipeValidators(name=random_recipe.name or "", group=random_recipe.group_id, is_valid=False),
         RecipeValidators(name=random_string(), group=random_recipe.group_id, is_valid=True),
         RecipeValidators(name=random_string(), group=random_recipe.group_id, is_valid=True),
     ]
