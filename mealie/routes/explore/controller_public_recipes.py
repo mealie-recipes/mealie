@@ -75,7 +75,7 @@ class PublicRecipesController(BasePublicHouseholdExploreController):
         # merge default pagination with the request's query params
         query_params = q.model_dump() | {**request.query_params}
         pagination_response.set_pagination_guides(
-            request.url_for("get_all", group_slug=self.group.slug, household_slug=self.household.slug),
+            self.get_explore_url_path(router.url_path_for("get_all")),
             {k: v for k, v in query_params.items() if v is not None},
         )
 

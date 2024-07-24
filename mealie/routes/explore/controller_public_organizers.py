@@ -23,7 +23,9 @@ class PublicCategoriesController(BasePublicGroupExploreController):
 
     @categories_router.get("", response_model=PaginationBase[RecipeCategory])
     def get_all(
-        self, q: PaginationQuery = Depends(make_dependable(PaginationQuery)), search: str | None = None
+        self,
+        q: PaginationQuery = Depends(make_dependable(PaginationQuery)),
+        search: str | None = None,
     ) -> PaginationBase[RecipeCategory]:
         response = self.categories.page_all(
             pagination=q,
@@ -31,9 +33,7 @@ class PublicCategoriesController(BasePublicGroupExploreController):
             search=search,
         )
 
-        response.set_pagination_guides(
-            categories_router.url_path_for("get_all", group_slug=self.group.slug), q.model_dump()
-        )
+        response.set_pagination_guides(self.get_explore_url_path(tags_router.url_path_for("get_all")), q.model_dump())
         return response
 
     @categories_router.get("/{item_id}", response_model=CategoryOut)
@@ -53,7 +53,9 @@ class PublicTagsController(BasePublicGroupExploreController):
 
     @tags_router.get("", response_model=PaginationBase[RecipeTag])
     def get_all(
-        self, q: PaginationQuery = Depends(make_dependable(PaginationQuery)), search: str | None = None
+        self,
+        q: PaginationQuery = Depends(make_dependable(PaginationQuery)),
+        search: str | None = None,
     ) -> PaginationBase[RecipeTag]:
         response = self.tags.page_all(
             pagination=q,
@@ -61,7 +63,7 @@ class PublicTagsController(BasePublicGroupExploreController):
             search=search,
         )
 
-        response.set_pagination_guides(tags_router.url_path_for("get_all", group_slug=self.group.slug), q.model_dump())
+        response.set_pagination_guides(self.get_explore_url_path(tags_router.url_path_for("get_all")), q.model_dump())
         return response
 
     @tags_router.get("/{item_id}", response_model=TagOut)
@@ -81,7 +83,9 @@ class PublicToolsController(BasePublicGroupExploreController):
 
     @tools_router.get("", response_model=PaginationBase[RecipeTool])
     def get_all(
-        self, q: PaginationQuery = Depends(make_dependable(PaginationQuery)), search: str | None = None
+        self,
+        q: PaginationQuery = Depends(make_dependable(PaginationQuery)),
+        search: str | None = None,
     ) -> PaginationBase[RecipeTool]:
         response = self.tools.page_all(
             pagination=q,
@@ -89,7 +93,7 @@ class PublicToolsController(BasePublicGroupExploreController):
             search=search,
         )
 
-        response.set_pagination_guides(tools_router.url_path_for("get_all", group_slug=self.group.slug), q.model_dump())
+        response.set_pagination_guides(self.get_explore_url_path(tools_router.url_path_for("get_all")), q.model_dump())
         return response
 
     @tools_router.get("/{item_id}", response_model=RecipeToolOut)

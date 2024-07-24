@@ -18,7 +18,9 @@ class PublicFoodsController(BasePublicGroupExploreController):
 
     @router.get("", response_model=PaginationBase[IngredientFood])
     def get_all(
-        self, q: PaginationQuery = Depends(make_dependable(PaginationQuery)), search: str | None = None
+        self,
+        q: PaginationQuery = Depends(make_dependable(PaginationQuery)),
+        search: str | None = None,
     ) -> PaginationBase[IngredientFood]:
         response = self.ingredient_foods.page_all(
             pagination=q,
@@ -26,7 +28,7 @@ class PublicFoodsController(BasePublicGroupExploreController):
             search=search,
         )
 
-        response.set_pagination_guides(router.url_path_for("get_all", group_slug=self.group.slug), q.model_dump())
+        response.set_pagination_guides(self.get_explore_url_path(router.url_path_for("get_all")), q.model_dump())
         return response
 
     @router.get("/{item_id}", response_model=IngredientFood)

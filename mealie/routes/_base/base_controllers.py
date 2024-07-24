@@ -98,6 +98,9 @@ class BasePublicGroupExploreController(BasePublicController):
     def group_id(self) -> UUID4 | None | NotSet:
         return self.group.id
 
+    def get_explore_url_path(self, endpoint: str) -> str:
+        return f"/explore/groups/{self.group.slug}{endpoint}"
+
 
 class BasePublicHouseholdExploreController(BasePublicGroupExploreController):
     """
@@ -109,6 +112,9 @@ class BasePublicHouseholdExploreController(BasePublicGroupExploreController):
     @property
     def household_id(self) -> UUID4 | None | NotSet:
         return self.household.id
+
+    def get_explore_url_path(self, endpoint: str) -> str:
+        return f"/explore/groups/{self.group.slug}/households/{self.household.slug}{endpoint}"
 
 
 class BaseUserController(_BaseController):

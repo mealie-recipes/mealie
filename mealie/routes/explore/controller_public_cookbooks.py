@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi import APIRouter, Depends, HTTPException
 from pydantic import UUID4
 
 from mealie.routes._base import controller
@@ -25,7 +25,6 @@ class PublicCookbooksController(BasePublicHouseholdExploreController):
     @router.get("", response_model=PaginationBase[ReadCookBook])
     def get_all(
         self,
-        request: Request,
         q: PaginationQuery = Depends(make_dependable(PaginationQuery)),
         search: str | None = None,
     ) -> PaginationBase[ReadCookBook]:
@@ -41,10 +40,7 @@ class PublicCookbooksController(BasePublicHouseholdExploreController):
             search=search,
         )
 
-        response.set_pagination_guides(
-            request.url_for("get_all", group_slug=self.group.slug, household_slug=self.household.slug),
-            q.model_dump(),
-        )
+        response.set_pagination_guides(self.get_explore_url_path(router.url_path_for("get_all")), q.model_dump())
         return response
 
     @router.get("/{item_id}", response_model=RecipeCookBook)
