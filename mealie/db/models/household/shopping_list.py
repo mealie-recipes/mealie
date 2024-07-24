@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING, Optional
 
 from pydantic import ConfigDict
 from sqlalchemy import Boolean, Float, ForeignKey, Integer, String, UniqueConstraint, event, orm
+from sqlalchemy.ext.associationproxy import AssociationProxy, association_proxy
 from sqlalchemy.ext.orderinglist import ordering_list
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -26,12 +27,19 @@ class ShoppingListItemRecipeReference(BaseMixins, SqlAlchemyBase):
     __tablename__ = "shopping_list_item_recipe_reference"
     id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
 
+    shopping_list_item: Mapped["ShoppingListItem"] = orm.relationship(
+        "ShoppingListItem", back_populates="recipe_references"
+    )
     shopping_list_item_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("shopping_list_items.id"), primary_key=True)
+
     recipe_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"), index=True)
     recipe: Mapped[Optional["RecipeModel"]] = orm.relationship("RecipeModel", back_populates="shopping_list_item_refs")
     recipe_quantity: Mapped[float] = mapped_column(Float, nullable=False)
     recipe_scale: Mapped[float] = mapped_column(Float, default=1)
     recipe_note: Mapped[str | None] = mapped_column(String)
+
+    group_id: AssociationProxy[GUID] = association_proxy("shopping_list_item", "group_id")
+    household_id: AssociationProxy[GUID] = association_proxy("shopping_list_item", "household_id")
 
     @auto_init()
     def __init__(self, **_) -> None:
@@ -43,7 +51,11 @@ class ShoppingListItem(SqlAlchemyBase, BaseMixins):
 
     # Id's
     id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
+    shopping_list: Mapped["ShoppingList"] = orm.relationship("ShoppingList", back_populates="list_items")
     shopping_list_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("shopping_lists.id"), index=True)
+
+    group_id: AssociationProxy[GUID] = association_proxy("shopping_list", "group_id")
+    household_id: AssociationProxy[GUID] = association_proxy("shopping_list", "household_id")
 
     # Meta
     is_ingredient: Mapped[bool | None] = mapped_column(Boolean, default=True)
@@ -86,7 +98,10 @@ class ShoppingListRecipeReference(BaseMixins, SqlAlchemyBase):
     __tablename__ = "shopping_list_recipe_reference"
     id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
 
+    shopping_list: Mapped["ShoppingList"] = orm.relationship("ShoppingList", back_populates="recipe_references")
     shopping_list_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("shopping_lists.id"), primary_key=True)
+    group_id: AssociationProxy[GUID] = association_proxy("shopping_list", "group_id")
+    household_id: AssociationProxy[GUID] = association_proxy("shopping_list", "household_id")
 
     recipe_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"), index=True)
     recipe: Mapped[Optional["RecipeModel"]] = orm.relationship(
@@ -108,10 +123,15 @@ class ShoppingListMultiPurposeLabel(SqlAlchemyBase, BaseMixins):
 
     shopping_list_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("shopping_lists.id"), primary_key=True)
     shopping_list: Mapped["ShoppingList"] = orm.relationship("ShoppingList", back_populates="label_settings")
+
     label_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("multi_purpose_labels.id"), primary_key=True)
     label: Mapped["MultiPurposeLabel"] = orm.relationship(
         "MultiPurposeLabel", back_populates="shopping_lists_label_settings"
     )
+
+    group_id: AssociationProxy[GUID] = association_proxy("shopping_list", "group_id")
+    household_id: AssociationProxy[GUID] = association_proxy("shopping_list", "household_id")
+
     position: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     model_config = ConfigDict(exclude={"label"})
 
