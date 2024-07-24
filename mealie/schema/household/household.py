@@ -9,6 +9,7 @@ from .household_preferences import ReadHouseholdPreferences, UpdateHouseholdPref
 
 
 class HouseholdCreate(MealieModel):
+    group_id: UUID4 | None = None
     name: Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
     model_config = ConfigDict(from_attributes=True)
 

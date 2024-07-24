@@ -24,7 +24,8 @@ class RepositoryHousehold(GroupRepositoryGeneric[HouseholdOut, Household]):
         if isinstance(data, HouseholdCreate):
             data = data.model_dump()
 
-        data["group_id"] = self.group_id
+        if not data.get("group_id"):
+            data["group_id"] = self.group_id
         max_attempts = 10
         original_name = cast(str, data["name"])
 
