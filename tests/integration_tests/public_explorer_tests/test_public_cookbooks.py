@@ -11,11 +11,13 @@ from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser
 
 
-@pytest.mark.parametrize("is_private_group", [True, False], ids=["group_is_private", "group_is_public"])
+@pytest.mark.parametrize("is_private_group", [True, False])
+@pytest.mark.parametrize("is_private_household", [True, False])
 def test_get_all_cookbooks(
     api_client: TestClient,
     unique_user: TestUser,
     is_private_group: bool,
+    is_private_household: bool,
 ):
     database = unique_user.repos
 
@@ -24,12 +26,22 @@ def test_get_all_cookbooks(
     assert group and group.preferences
 
     group.preferences.private_group = is_private_group
-    group.preferences.recipe_public = not is_private_group
     database.group_preferences.update(group.id, group.preferences)
+
+    ## Set Up Household
+    household = database.households.get_one(unique_user.household_id)
+    assert household and household.preferences
+
+    household.preferences.private_household = is_private_household
+    household.preferences.recipe_public = not is_private_household
+    database.household_preferences.update(household.id, household.preferences)
 
     ## Set Up Cookbooks
     default_cookbooks = database.cookbooks.create_many(
-        [SaveCookBook(name=random_string(), group_id=unique_user.group_id) for _ in range(random_int(15, 20))]
+        [
+            SaveCookBook(name=random_string(), group_id=unique_user.group_id, household_id=unique_user.household_id)
+            for _ in range(random_int(15, 20))
+        ]
     )
 
     random.shuffle(default_cookbooks)
@@ -46,8 +58,12 @@ def test_get_all_cookbooks(
     database.cookbooks.update_many(public_cookbooks + private_cookbooks)
 
     ## Test Cookbooks
-    response = api_client.get(api_routes.explore_cookbooks_group_slug(unique_user.group_id))
-    if is_private_group:
+    response = api_client.get(
+        api_routes.explore_groups_group_slug_households_household_slug_cookbooks(
+            unique_user.group_id, unique_user.household_id
+        )
+    )
+    if is_private_group or is_private_household:
         assert response.status_code == 404
         return
 
@@ -62,25 +78,14 @@ def test_get_all_cookbooks(
         assert str(cookbook.id) not in fetched_ids
 
 
-@pytest.mark.parametrize(
-    "is_private_group, is_private_cookbook",
-    [
-        (True, True),
-        (True, False),
-        (False, True),
-        (False, False),
-    ],
-    ids=[
-        "group_is_private_cookbook_is_private",
-        "group_is_private_cookbook_is_public",
-        "group_is_public_cookbook_is_private",
-        "group_is_public_cookbook_is_public",
-    ],
-)
+@pytest.mark.parametrize("is_private_group", [True, False])
+@pytest.mark.parametrize("is_private_household", [True, False])
+@pytest.mark.parametrize("is_private_cookbook", [True, False])
 def test_get_one_cookbook(
     api_client: TestClient,
     unique_user: TestUser,
     is_private_group: bool,
+    is_private_household: bool,
     is_private_cookbook: bool,
 ):
     database = unique_user.repos
@@ -90,21 +95,33 @@ def test_get_one_cookbook(
     assert group and group.preferences
 
     group.preferences.private_group = is_private_group
-    group.preferences.recipe_public = not is_private_group
     database.group_preferences.update(group.id, group.preferences)
+
+    ## Set Up Household
+    household = database.households.get_one(unique_user.household_id)
+    assert household and household.preferences
+
+    household.preferences.private_household = is_private_household
+    household.preferences.recipe_public = not is_private_household
+    database.household_preferences.update(household.id, household.preferences)
 
     ## Set Up Cookbook
     cookbook = database.cookbooks.create(
         SaveCookBook(
             name=random_string(),
             group_id=unique_user.group_id,
+            household_id=unique_user.household_id,
             public=not is_private_cookbook,
         )
     )
 
     ## Test Cookbook
-    response = api_client.get(api_routes.explore_cookbooks_group_slug_item_id(unique_user.group_id, cookbook.id))
-    if is_private_group or is_private_cookbook:
+    response = api_client.get(
+        api_routes.explore_groups_group_slug_households_household_slug_cookbooks_item_id(
+            unique_user.group_id, unique_user.household_id, cookbook.id
+        )
+    )
+    if is_private_group or is_private_household or is_private_cookbook:
         assert response.status_code == 404
         return
 
@@ -121,12 +138,24 @@ def test_get_cookbooks_with_recipes(api_client: TestClient, unique_user: TestUse
     assert group and group.preferences
 
     group.preferences.private_group = False
-    group.preferences.recipe_public = True
     database.group_preferences.update(group.id, group.preferences)
+
+    household = database.households.get_one(unique_user.household_id)
+    assert household and household.preferences
+
+    household.preferences.private_household = False
+    household.preferences.recipe_public = True
+    database.household_preferences.update(household.id, household.preferences)
 
     tag = database.tags.create(TagSave(name=random_string(), group_id=unique_user.group_id))
     public_recipe, private_recipe = database.recipes.create_many(
-        Recipe(user_id=unique_user.user_id, group_id=unique_user.group_id, name=random_string()) for _ in range(2)
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            household_id=unique_user.household_id,
+            name=random_string(),
+        )
+        for _ in range(2)
     )
 
     assert public_recipe.settings
@@ -141,12 +170,22 @@ def test_get_cookbooks_with_recipes(api_client: TestClient, unique_user: TestUse
 
     # Create a public cookbook with tag
     cookbook = database.cookbooks.create(
-        SaveCookBook(name=random_string(), group_id=unique_user.group_id, public=True, tags=[tag])
+        SaveCookBook(
+            name=random_string(),
+            group_id=unique_user.group_id,
+            household_id=unique_user.household_id,
+            public=True,
+            tags=[tag],
+        )
     )
     database.cookbooks.create(cookbook)
 
     # Get the cookbook and make sure we only get the public recipe
-    response = api_client.get(api_routes.explore_cookbooks_group_slug_item_id(unique_user.group_id, cookbook.id))
+    response = api_client.get(
+        api_routes.explore_groups_group_slug_households_household_slug_cookbooks_item_id(
+            unique_user.group_id, unique_user.household_id, cookbook.id
+        )
+    )
     assert response.status_code == 200
     cookbook_data = response.json()
     assert cookbook_data["id"] == str(cookbook.id)

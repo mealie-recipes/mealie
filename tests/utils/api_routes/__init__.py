@@ -225,64 +225,64 @@ def comments_item_id(item_id):
     return f"{prefix}/comments/{item_id}"
 
 
-def explore_cookbooks_group_slug(group_slug):
-    """`/api/explore/cookbooks/{group_slug}`"""
-    return f"{prefix}/explore/cookbooks/{group_slug}"
+def explore_groups_group_slug_foods(group_slug):
+    """`/api/explore/groups/{group_slug}/foods`"""
+    return f"{prefix}/explore/groups/{group_slug}/foods"
 
 
-def explore_cookbooks_group_slug_item_id(group_slug, item_id):
-    """`/api/explore/cookbooks/{group_slug}/{item_id}`"""
-    return f"{prefix}/explore/cookbooks/{group_slug}/{item_id}"
+def explore_groups_group_slug_foods_item_id(group_slug, item_id):
+    """`/api/explore/groups/{group_slug}/foods/{item_id}`"""
+    return f"{prefix}/explore/groups/{group_slug}/foods/{item_id}"
 
 
-def explore_foods_group_slug(group_slug):
-    """`/api/explore/foods/{group_slug}`"""
-    return f"{prefix}/explore/foods/{group_slug}"
+def explore_groups_group_slug_households_household_slug_cookbooks(group_slug, household_slug):
+    """`/api/explore/groups/{group_slug}/households/{household_slug}/cookbooks`"""
+    return f"{prefix}/explore/groups/{group_slug}/households/{household_slug}/cookbooks"
 
 
-def explore_foods_group_slug_item_id(group_slug, item_id):
-    """`/api/explore/foods/{group_slug}/{item_id}`"""
-    return f"{prefix}/explore/foods/{group_slug}/{item_id}"
+def explore_groups_group_slug_households_household_slug_cookbooks_item_id(group_slug, household_slug, item_id):
+    """`/api/explore/groups/{group_slug}/households/{household_slug}/cookbooks/{item_id}`"""
+    return f"{prefix}/explore/groups/{group_slug}/households/{household_slug}/cookbooks/{item_id}"
 
 
-def explore_organizers_group_slug_categories(group_slug):
-    """`/api/explore/organizers/{group_slug}/categories`"""
-    return f"{prefix}/explore/organizers/{group_slug}/categories"
+def explore_groups_group_slug_households_household_slug_recipes(group_slug, household_slug):
+    """`/api/explore/groups/{group_slug}/households/{household_slug}/recipes`"""
+    return f"{prefix}/explore/groups/{group_slug}/households/{household_slug}/recipes"
 
 
-def explore_organizers_group_slug_categories_item_id(group_slug, item_id):
-    """`/api/explore/organizers/{group_slug}/categories/{item_id}`"""
-    return f"{prefix}/explore/organizers/{group_slug}/categories/{item_id}"
+def explore_groups_group_slug_households_household_slug_recipes_recipe_slug(group_slug, household_slug, recipe_slug):
+    """`/api/explore/groups/{group_slug}/households/{household_slug}/recipes/{recipe_slug}`"""
+    return f"{prefix}/explore/groups/{group_slug}/households/{household_slug}/recipes/{recipe_slug}"
 
 
-def explore_organizers_group_slug_tags(group_slug):
-    """`/api/explore/organizers/{group_slug}/tags`"""
-    return f"{prefix}/explore/organizers/{group_slug}/tags"
+def explore_groups_group_slug_organizers_categories(group_slug):
+    """`/api/explore/groups/{group_slug}/organizers/categories`"""
+    return f"{prefix}/explore/groups/{group_slug}/organizers/categories"
 
 
-def explore_organizers_group_slug_tags_item_id(group_slug, item_id):
-    """`/api/explore/organizers/{group_slug}/tags/{item_id}`"""
-    return f"{prefix}/explore/organizers/{group_slug}/tags/{item_id}"
+def explore_groups_group_slug_organizers_categories_item_id(group_slug, item_id):
+    """`/api/explore/groups/{group_slug}/organizers/categories/{item_id}`"""
+    return f"{prefix}/explore/groups/{group_slug}/organizers/categories/{item_id}"
 
 
-def explore_organizers_group_slug_tools(group_slug):
-    """`/api/explore/organizers/{group_slug}/tools`"""
-    return f"{prefix}/explore/organizers/{group_slug}/tools"
+def explore_groups_group_slug_organizers_tags(group_slug):
+    """`/api/explore/groups/{group_slug}/organizers/tags`"""
+    return f"{prefix}/explore/groups/{group_slug}/organizers/tags"
 
 
-def explore_organizers_group_slug_tools_item_id(group_slug, item_id):
-    """`/api/explore/organizers/{group_slug}/tools/{item_id}`"""
-    return f"{prefix}/explore/organizers/{group_slug}/tools/{item_id}"
+def explore_groups_group_slug_organizers_tags_item_id(group_slug, item_id):
+    """`/api/explore/groups/{group_slug}/organizers/tags/{item_id}`"""
+    return f"{prefix}/explore/groups/{group_slug}/organizers/tags/{item_id}"
 
 
-def explore_recipes_group_slug(group_slug):
-    """`/api/explore/recipes/{group_slug}`"""
-    return f"{prefix}/explore/recipes/{group_slug}"
+def explore_groups_group_slug_organizers_tools(group_slug):
+    """`/api/explore/groups/{group_slug}/organizers/tools`"""
+    return f"{prefix}/explore/groups/{group_slug}/organizers/tools"
 
 
-def explore_recipes_group_slug_recipe_slug(group_slug, recipe_slug):
-    """`/api/explore/recipes/{group_slug}/{recipe_slug}`"""
-    return f"{prefix}/explore/recipes/{group_slug}/{recipe_slug}"
+def explore_groups_group_slug_organizers_tools_item_id(group_slug, item_id):
+    """`/api/explore/groups/{group_slug}/organizers/tools/{item_id}`"""
+    return f"{prefix}/explore/groups/{group_slug}/organizers/tools/{item_id}"
 
 
 def foods_item_id(item_id):
