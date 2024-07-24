@@ -72,11 +72,13 @@ def g2_user(admin_token, api_client: TestClient):
 
     user_id = json.loads(self_response.text).get("id")
     group_id = json.loads(self_response.text).get("groupId")
+    household_id = json.loads(self_response.text).get("householdId")
 
     try:
         yield utils.TestUser(
             user_id=user_id,
             _group_id=group_id,
+            _household_id=household_id,
             token=token,
             email=create_data["email"],  # type: ignore
             username=create_data.get("username"),  # type: ignore
@@ -122,6 +124,8 @@ def unique_user(session: Session, api_client: TestClient):
 @fixture(scope="module")
 def user_tuple(session: Session, admin_token, api_client: TestClient) -> Generator[list[utils.TestUser], None, None]:
     group_name = utils.random_string()
+    household_name = utils.random_string()
+
     # Create the user
     create_data_1 = {
         "fullName": utils.random_string(),
@@ -129,6 +133,7 @@ def user_tuple(session: Session, admin_token, api_client: TestClient) -> Generat
         "email": utils.random_email(),
         "password": "useruser",
         "group": group_name,
+        "household": household_name,
         "admin": False,
         "tokens": [],
     }
@@ -139,11 +144,15 @@ def user_tuple(session: Session, admin_token, api_client: TestClient) -> Generat
         "email": utils.random_email(),
         "password": "useruser",
         "group": group_name,
+        "household": household_name,
         "admin": False,
         "tokens": [],
     }
 
-    api_client.post(api_routes.admin_groups, json={"name": group_name}, headers=admin_token)
+    r = api_client.post(api_routes.admin_groups, json={"name": group_name}, headers=admin_token)
+    api_client.post(
+        api_routes.admin_households, json={"name": household_name, "groupId": r.json()["id"]}, headers=admin_token
+    )
 
     users_out = []
 

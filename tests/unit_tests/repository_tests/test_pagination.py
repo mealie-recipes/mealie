@@ -220,6 +220,7 @@ def test_pagination_filter_null(unique_user: TestUser):
     recipe_not_made_1 = database.recipes.create(
         Recipe(
             user_id=unique_user.user_id,
+            household_id=unique_user.household_id,
             group_id=unique_user.group_id,
             name=random_string(),
         )
@@ -227,6 +228,7 @@ def test_pagination_filter_null(unique_user: TestUser):
     recipe_not_made_2 = database.recipes.create(
         Recipe(
             user_id=unique_user.user_id,
+            household_id=unique_user.household_id,
             group_id=unique_user.group_id,
             name=random_string(),
         )
@@ -236,6 +238,7 @@ def test_pagination_filter_null(unique_user: TestUser):
     recipe_made = database.recipes.create(
         Recipe(
             user_id=unique_user.user_id,
+            household_id=unique_user.household_id,
             group_id=unique_user.group_id,
             name=random_string(),
             last_made=datetime.now(timezone.utc),
@@ -321,6 +324,7 @@ def test_pagination_filter_in_advanced(unique_user: TestUser):
     recipe_0 = database.recipes.create(
         Recipe(
             user_id=unique_user.user_id,
+            household_id=unique_user.household_id,
             group_id=unique_user.group_id,
             name=slug,
             slug=slug,
@@ -332,6 +336,7 @@ def test_pagination_filter_in_advanced(unique_user: TestUser):
     recipe_1 = database.recipes.create(
         Recipe(
             user_id=unique_user.user_id,
+            household_id=unique_user.household_id,
             group_id=unique_user.group_id,
             name=slug,
             slug=slug,
@@ -343,6 +348,7 @@ def test_pagination_filter_in_advanced(unique_user: TestUser):
     recipe_2 = database.recipes.create(
         Recipe(
             user_id=unique_user.user_id,
+            household_id=unique_user.household_id,
             group_id=unique_user.group_id,
             name=slug,
             slug=slug,
@@ -354,6 +360,7 @@ def test_pagination_filter_in_advanced(unique_user: TestUser):
     recipe_1_2 = database.recipes.create(
         Recipe(
             user_id=unique_user.user_id,
+            household_id=unique_user.household_id,
             group_id=unique_user.group_id,
             name=slug,
             slug=slug,
@@ -429,6 +436,7 @@ def test_pagination_filter_keyword_namespace_conflict(unique_user: TestUser):
     recipe_rating_1 = database.recipes.create(
         Recipe(
             user_id=unique_user.user_id,
+            household_id=unique_user.household_id,
             group_id=unique_user.group_id,
             name=random_string(),
             rating=1,
@@ -437,6 +445,7 @@ def test_pagination_filter_keyword_namespace_conflict(unique_user: TestUser):
     recipe_rating_2 = database.recipes.create(
         Recipe(
             user_id=unique_user.user_id,
+            household_id=unique_user.household_id,
             group_id=unique_user.group_id,
             name=random_string(),
             rating=2,
@@ -446,6 +455,7 @@ def test_pagination_filter_keyword_namespace_conflict(unique_user: TestUser):
     recipe_rating_3 = database.recipes.create(
         Recipe(
             user_id=unique_user.user_id,
+            household_id=unique_user.household_id,
             group_id=unique_user.group_id,
             name=random_string(),
             rating=3,
@@ -487,6 +497,7 @@ def test_pagination_filter_logical_namespace_conflict(unique_user: TestUser):
     recipe_category_0 = database.recipes.create(
         Recipe(
             user_id=unique_user.user_id,
+            household_id=unique_user.household_id,
             group_id=unique_user.group_id,
             name=slug,
             slug=slug,
@@ -497,6 +508,7 @@ def test_pagination_filter_logical_namespace_conflict(unique_user: TestUser):
     recipe_category_1 = database.recipes.create(
         Recipe(
             user_id=unique_user.user_id,
+            household_id=unique_user.household_id,
             group_id=unique_user.group_id,
             name=slug,
             slug=slug,
@@ -508,6 +520,7 @@ def test_pagination_filter_logical_namespace_conflict(unique_user: TestUser):
     recipe_category_2 = database.recipes.create(
         Recipe(
             user_id=unique_user.user_id,
+            household_id=unique_user.household_id,
             group_id=unique_user.group_id,
             name=slug,
             slug=slug,
@@ -1104,6 +1117,7 @@ def test_pagination_filter_advanced_frontend_sort(unique_user: TestUser):
     recipe_ct0_tg0_tl0 = database.recipes.create(
         Recipe(
             user_id=unique_user.user_id,
+            household_id=unique_user.household_id,
             group_id=unique_user.group_id,
             name=slug,
             slug=slug,
@@ -1114,6 +1128,7 @@ def test_pagination_filter_advanced_frontend_sort(unique_user: TestUser):
     recipe_ct1_tg0_tl0 = database.recipes.create(
         Recipe(
             user_id=unique_user.user_id,
+            household_id=unique_user.household_id,
             group_id=unique_user.group_id,
             name=slug,
             slug=slug,
@@ -1125,6 +1140,7 @@ def test_pagination_filter_advanced_frontend_sort(unique_user: TestUser):
     recipe_ct12_tg0_tl0 = database.recipes.create(
         Recipe(
             user_id=unique_user.user_id,
+            household_id=unique_user.household_id,
             group_id=unique_user.group_id,
             name=slug,
             slug=slug,
@@ -1136,6 +1152,7 @@ def test_pagination_filter_advanced_frontend_sort(unique_user: TestUser):
     recipe_ct1_tg1_tl0 = database.recipes.create(
         Recipe(
             user_id=unique_user.user_id,
+            household_id=unique_user.household_id,
             group_id=unique_user.group_id,
             name=slug,
             slug=slug,
@@ -1148,6 +1165,7 @@ def test_pagination_filter_advanced_frontend_sort(unique_user: TestUser):
     recipe_ct1_tg0_tl1 = database.recipes.create(
         Recipe(
             user_id=unique_user.user_id,
+            household_id=unique_user.household_id,
             group_id=unique_user.group_id,
             name=slug,
             slug=slug,
@@ -1160,6 +1178,7 @@ def test_pagination_filter_advanced_frontend_sort(unique_user: TestUser):
     recipe_ct0_tg2_tl2 = database.recipes.create(
         Recipe(
             user_id=unique_user.user_id,
+            household_id=unique_user.household_id,
             group_id=unique_user.group_id,
             name=slug,
             slug=slug,
@@ -1172,6 +1191,7 @@ def test_pagination_filter_advanced_frontend_sort(unique_user: TestUser):
     recipe_ct12_tg12_tl2 = database.recipes.create(
         Recipe(
             user_id=unique_user.user_id,
+            household_id=unique_user.household_id,
             group_id=unique_user.group_id,
             name=slug,
             slug=slug,

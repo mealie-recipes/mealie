@@ -27,7 +27,9 @@ def unique_local_group_id(unfiltered_database: AllRepositories) -> str:
 @pytest.fixture()
 def unique_local_household_id(unfiltered_database: AllRepositories, unique_local_group_id: str) -> str:
     database = get_repositories(unfiltered_database.session, group_id=UUID(unique_local_group_id), household_id=None)
-    return str(database.households.create(HouseholdCreate(name=random_string())).id)
+    return str(
+        database.households.create(HouseholdCreate(group_id=UUID(unique_local_group_id), name=random_string())).id
+    )
 
 
 @pytest.fixture()
