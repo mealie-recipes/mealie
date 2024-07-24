@@ -2,6 +2,7 @@ from typing import TYPE_CHECKING, Optional
 
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
+from sqlalchemy.ext.associationproxy import AssociationProxy, association_proxy
 from sqlalchemy.orm import Mapped, mapped_column
 
 from .._model_base import BaseMixins, SqlAlchemyBase
@@ -18,6 +19,7 @@ class HouseholdPreferencesModel(SqlAlchemyBase, BaseMixins):
 
     household_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("households.id"), nullable=False, index=True)
     household: Mapped[Optional["Household"]] = orm.relationship("Household", back_populates="preferences")
+    group_id: AssociationProxy[GUID] = association_proxy("household", "group_id")
 
     private_household: Mapped[bool | None] = mapped_column(sa.Boolean, default=True)
     first_day_of_week: Mapped[int | None] = mapped_column(sa.Integer, default=0)

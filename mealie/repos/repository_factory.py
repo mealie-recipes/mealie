@@ -80,6 +80,7 @@ PK_ID = "id"
 PK_SLUG = "slug"
 PK_TOKEN = "token"
 PK_GROUP_ID = "group_id"
+PK_HOUSEHOLD_ID = "household_id"
 
 
 class RepositoryCategories(GroupRepositoryGeneric[CategoryOut, Category]):
@@ -222,7 +223,7 @@ class AllRepositories:
     def household_preferences(self) -> HouseholdRepositoryGeneric[ReadHouseholdPreferences, HouseholdPreferencesModel]:
         return HouseholdRepositoryGeneric(
             self.session,
-            PK_GROUP_ID,
+            PK_HOUSEHOLD_ID,
             HouseholdPreferencesModel,
             ReadHouseholdPreferences,
             group_id=self.group_id,
