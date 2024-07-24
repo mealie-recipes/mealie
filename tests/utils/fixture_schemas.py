@@ -25,7 +25,3 @@ class TestUser:
     @property
     def household_id(self) -> str:
         return str(self._household_id)
-
-    @property
-    def auth_headers(self):
-        return {"Authorization": f"Bearer {self.token}"}
