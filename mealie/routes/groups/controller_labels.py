@@ -24,7 +24,7 @@ router = APIRouter(prefix="/groups/labels", tags=["Groups: Multi Purpose Labels"
 class MultiPurposeLabelsController(BaseUserController):
     @cached_property
     def service(self):
-        return MultiPurposeLabelService(self.repos, self.group.id)
+        return MultiPurposeLabelService(self.repos)
 
     @cached_property
     def repo(self):
