@@ -9,7 +9,7 @@ from tests.utils.fixture_schemas import TestUser
 @pytest.fixture(scope="function")
 def invite(api_client: TestClient, unique_user: TestUser) -> None:
     # Test Creation
-    r = api_client.post(api_routes.groups_invitations, json={"uses": 2}, headers=unique_user.token)
+    r = api_client.post(api_routes.households_invitations, json={"uses": 2}, headers=unique_user.token)
     assert r.status_code == 201
     invitation = r.json()
     return invitation["token"]
@@ -17,7 +17,7 @@ def invite(api_client: TestClient, unique_user: TestUser) -> None:
 
 def test_get_all_invitation(api_client: TestClient, unique_user: TestUser, invite: str) -> None:
     # Get All Invites
-    r = api_client.get(api_routes.groups_invitations, headers=unique_user.token)
+    r = api_client.get(api_routes.households_invitations, headers=unique_user.token)
 
     assert r.status_code == 200
 
@@ -27,13 +27,15 @@ def test_get_all_invitation(api_client: TestClient, unique_user: TestUser, invit
 
     for item in items:
         assert item["groupId"] == unique_user.group_id
+        assert item["householdId"] == unique_user.household_id
         assert item["token"] == invite
 
 
-def register_user(api_client, invite):
+def register_user(api_client: TestClient, invite: str):
     # Test User can Join Group
     registration = user_registration_factory()
     registration.group = ""
+    registration.household = ""
     registration.group_token = invite
 
     response = api_client.post(api_routes.users_register, json=registration.model_dump(by_alias=True))
@@ -52,11 +54,12 @@ def test_group_invitation_link(api_client: TestClient, unique_user: TestUser, in
     token = r.json().get("access_token")
     assert token is not None
 
-    # Check user Group is Same
+    # Check user Group and Household match
     r = api_client.get(api_routes.users_self, headers={"Authorization": f"Bearer {token}"})
 
     assert r.status_code == 200
     assert r.json()["groupId"] == unique_user.group_id
+    assert r.json()["householdId"] == unique_user.household_id
 
 
 def test_group_invitation_delete_after_uses(api_client: TestClient, invite: str) -> None:

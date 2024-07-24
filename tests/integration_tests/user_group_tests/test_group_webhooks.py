@@ -20,7 +20,7 @@ def webhook_data():
 
 def test_create_webhook(api_client: TestClient, unique_user: TestUser, webhook_data):
     response = api_client.post(
-        api_routes.groups_webhooks,
+        api_routes.households_webhooks,
         json=jsonify(webhook_data),
         headers=unique_user.token,
     )
@@ -29,13 +29,13 @@ def test_create_webhook(api_client: TestClient, unique_user: TestUser, webhook_d
 
 def test_read_webhook(api_client: TestClient, unique_user: TestUser, webhook_data):
     response = api_client.post(
-        api_routes.groups_webhooks,
+        api_routes.households_webhooks,
         json=jsonify(webhook_data),
         headers=unique_user.token,
     )
     item_id = response.json()["id"]
 
-    response = api_client.get(api_routes.groups_webhooks_item_id(item_id), headers=unique_user.token)
+    response = api_client.get(api_routes.households_webhooks_item_id(item_id), headers=unique_user.token)
     webhook = assert_deserialize(response, 200)
 
     assert webhook["id"] == item_id
@@ -47,7 +47,7 @@ def test_read_webhook(api_client: TestClient, unique_user: TestUser, webhook_dat
 
 def test_update_webhook(api_client: TestClient, webhook_data, unique_user: TestUser):
     response = api_client.post(
-        api_routes.groups_webhooks,
+        api_routes.households_webhooks,
         json=jsonify(webhook_data),
         headers=unique_user.token,
     )
@@ -59,7 +59,7 @@ def test_update_webhook(api_client: TestClient, webhook_data, unique_user: TestU
     webhook_data["enabled"] = False
 
     response = api_client.put(
-        api_routes.groups_webhooks_item_id(item_id),
+        api_routes.households_webhooks_item_id(item_id),
         json=jsonify(webhook_data),
         headers=unique_user.token,
     )
@@ -72,15 +72,15 @@ def test_update_webhook(api_client: TestClient, webhook_data, unique_user: TestU
 
 def test_delete_webhook(api_client: TestClient, webhook_data, unique_user: TestUser):
     response = api_client.post(
-        api_routes.groups_webhooks,
+        api_routes.households_webhooks,
         json=jsonify(webhook_data),
         headers=unique_user.token,
     )
     item_dict = assert_deserialize(response, 201)
     item_id = item_dict["id"]
 
-    response = api_client.delete(api_routes.groups_webhooks_item_id(item_id), headers=unique_user.token)
+    response = api_client.delete(api_routes.households_webhooks_item_id(item_id), headers=unique_user.token)
     assert response.status_code == 200
 
-    response = api_client.get(api_routes.groups_webhooks_item_id(item_id), headers=unique_user.token)
+    response = api_client.get(api_routes.households_webhooks_item_id(item_id), headers=unique_user.token)
     assert response.status_code == 404

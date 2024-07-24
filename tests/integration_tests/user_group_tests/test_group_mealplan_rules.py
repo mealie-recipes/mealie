@@ -3,7 +3,6 @@ from uuid import UUID
 import pytest
 from fastapi.testclient import TestClient
 
-from mealie.repos.all_repositories import AllRepositories
 from mealie.schema.meal_plan.plan_rules import PlanRulesOut, PlanRulesSave
 from mealie.schema.recipe.recipe import RecipeCategory
 from mealie.schema.recipe.recipe_category import CategorySave
@@ -31,6 +30,7 @@ def plan_rule(unique_user: TestUser):
     database = unique_user.repos
     schema = PlanRulesSave(
         group_id=unique_user.group_id,
+        household_id=unique_user.household_id,
         day="monday",
         entry_type="breakfast",
         categories=[],
@@ -50,6 +50,7 @@ def test_group_mealplan_rules_create(api_client: TestClient, unique_user: TestUs
     database = unique_user.repos
     payload = {
         "groupId": unique_user.group_id,
+        "householdId": unique_user.household_id,
         "day": "monday",
         "entryType": "breakfast",
         "categories": [category.model_dump()],
@@ -63,6 +64,7 @@ def test_group_mealplan_rules_create(api_client: TestClient, unique_user: TestUs
     # Validate the response data
     response_data = response.json()
     assert response_data["groupId"] == str(unique_user.group_id)
+    assert response_data["householdId"] == str(unique_user.household_id)
     assert response_data["day"] == "monday"
     assert response_data["entryType"] == "breakfast"
     assert len(response_data["categories"]) == 1
@@ -73,6 +75,7 @@ def test_group_mealplan_rules_create(api_client: TestClient, unique_user: TestUs
     assert rule
 
     assert str(rule.group_id) == unique_user.group_id
+    assert str(rule.household_id) == unique_user.household_id
     assert rule.day == "monday"
     assert rule.entry_type == "breakfast"
     assert len(rule.categories) == 1
@@ -90,6 +93,7 @@ def test_group_mealplan_rules_read(api_client: TestClient, unique_user: TestUser
     response_data = response.json()
     assert response_data["id"] == str(plan_rule.id)
     assert response_data["groupId"] == str(unique_user.group_id)
+    assert response_data["householdId"] == str(unique_user.household_id)
     assert response_data["day"] == "monday"
     assert response_data["entryType"] == "breakfast"
     assert len(response_data["categories"]) == 0
@@ -98,6 +102,7 @@ def test_group_mealplan_rules_read(api_client: TestClient, unique_user: TestUser
 def test_group_mealplan_rules_update(api_client: TestClient, unique_user: TestUser, plan_rule: PlanRulesOut):
     payload = {
         "groupId": unique_user.group_id,
+        "householdId": unique_user.household_id,
         "day": "tuesday",
         "entryType": "lunch",
     }
@@ -111,6 +116,7 @@ def test_group_mealplan_rules_update(api_client: TestClient, unique_user: TestUs
     response_data = response.json()
     assert response_data["id"] == str(plan_rule.id)
     assert response_data["groupId"] == str(unique_user.group_id)
+    assert response_data["householdId"] == str(unique_user.household_id)
     assert response_data["day"] == "tuesday"
     assert response_data["entryType"] == "lunch"
     assert len(response_data["categories"]) == 0

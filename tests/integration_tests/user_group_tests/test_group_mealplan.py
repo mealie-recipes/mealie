@@ -73,7 +73,7 @@ def test_crud_mealplan(api_client: TestClient, unique_user: TestUser):
     response_json["text"] = random_string()
 
     response = api_client.put(
-        api_routes.groups_mealplans_item_id(plan_id), headers=unique_user.token, json=response_json
+        api_routes.households_mealplans_item_id(plan_id), headers=unique_user.token, json=response_json
     )
 
     assert response.status_code == 200
@@ -82,11 +82,11 @@ def test_crud_mealplan(api_client: TestClient, unique_user: TestUser):
     assert response.json()["text"] == response_json["text"]
 
     # Delete
-    response = api_client.delete(api_routes.groups_mealplans_item_id(plan_id), headers=unique_user.token)
+    response = api_client.delete(api_routes.households_mealplans_item_id(plan_id), headers=unique_user.token)
 
     assert response.status_code == 200
 
-    response = api_client.get(api_routes.groups_mealplans_item_id(plan_id), headers=unique_user.token)
+    response = api_client.get(api_routes.households_mealplans_item_id(plan_id), headers=unique_user.token)
     assert response.status_code == 404
 
 
@@ -159,7 +159,7 @@ def test_get_mealplan_today(api_client: TestClient, unique_user: TestUser):
         assert response.status_code == 201
 
     # Get meal plan for today
-    response = api_client.get(api_routes.groups_mealplans_today, headers=unique_user.token)
+    response = api_client.get(api_routes.households_mealplans_today, headers=unique_user.token)
 
     assert response.status_code == 200
 

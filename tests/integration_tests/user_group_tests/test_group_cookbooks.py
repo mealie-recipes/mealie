@@ -13,7 +13,7 @@ from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 
 
-def get_page_data(group_id: UUID | str):
+def get_page_data(group_id: UUID | str, household_id: UUID4 | str):
     name_and_slug = random_string(10)
     return {
         "name": name_and_slug,
@@ -22,6 +22,7 @@ def get_page_data(group_id: UUID | str):
         "position": 0,
         "categories": [],
         "group_id": str(group_id),
+        "household_id": str(household_id),
     }
 
 
@@ -40,7 +41,7 @@ def cookbooks(unique_user: TestUser) -> list[TestCookbook]:
     data: list[ReadCookBook] = []
     yield_data: list[TestCookbook] = []
     for _ in range(3):
-        cb = database.cookbooks.create(SaveCookBook(**get_page_data(unique_user.group_id)))
+        cb = database.cookbooks.create(SaveCookBook(**get_page_data(unique_user.group_id, unique_user.household_id)))
         data.append(cb)
         yield_data.append(TestCookbook(id=cb.id, slug=cb.slug, name=cb.name, data=cb.model_dump()))
 
@@ -54,7 +55,7 @@ def cookbooks(unique_user: TestUser) -> list[TestCookbook]:
 
 
 def test_create_cookbook(api_client: TestClient, unique_user: TestUser):
-    page_data = get_page_data(unique_user.group_id)
+    page_data = get_page_data(unique_user.group_id, unique_user.household_id)
     response = api_client.post(api_routes.households_cookbooks, json=page_data, headers=unique_user.token)
     assert response.status_code == 201
 
@@ -75,7 +76,7 @@ def test_read_cookbook(api_client: TestClient, unique_user: TestUser, cookbooks:
 def test_update_cookbook(api_client: TestClient, unique_user: TestUser, cookbooks: list[TestCookbook]):
     cookbook = random.choice(cookbooks)
 
-    update_data = get_page_data(unique_user.group_id)
+    update_data = get_page_data(unique_user.group_id, unique_user.household_id)
 
     update_data["name"] = random_string(10)
 

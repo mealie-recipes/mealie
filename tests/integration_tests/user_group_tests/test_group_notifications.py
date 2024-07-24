@@ -59,7 +59,7 @@ def event_generator():
 
 def test_create_notification(api_client: TestClient, unique_user: TestUser):
     payload = notifier_generator()
-    response = api_client.post(api_routes.groups_events_notifications, json=payload, headers=unique_user.token)
+    response = api_client.post(api_routes.households_events_notifications, json=payload, headers=unique_user.token)
     assert response.status_code == 201
 
     payload_as_dict = response.json()
@@ -72,13 +72,13 @@ def test_create_notification(api_client: TestClient, unique_user: TestUser):
 
     # Cleanup
     response = api_client.delete(
-        api_routes.groups_events_notifications_item_id(payload_as_dict["id"]), headers=unique_user.token
+        api_routes.households_events_notifications_item_id(payload_as_dict["id"]), headers=unique_user.token
     )
 
 
 def test_ensure_apprise_url_is_secret(api_client: TestClient, unique_user: TestUser):
     payload = notifier_generator()
-    response = api_client.post(api_routes.groups_events_notifications, json=payload, headers=unique_user.token)
+    response = api_client.post(api_routes.households_events_notifications, json=payload, headers=unique_user.token)
     assert response.status_code == 201
 
     payload_as_dict = response.json()
@@ -89,7 +89,7 @@ def test_ensure_apprise_url_is_secret(api_client: TestClient, unique_user: TestU
 
 def test_update_apprise_notification(api_client: TestClient, unique_user: TestUser):
     payload = notifier_generator()
-    response = api_client.post(api_routes.groups_events_notifications, json=payload, headers=unique_user.token)
+    response = api_client.post(api_routes.households_events_notifications, json=payload, headers=unique_user.token)
     assert response.status_code == 201
 
     update_payload = response.json()
@@ -100,7 +100,7 @@ def test_update_apprise_notification(api_client: TestClient, unique_user: TestUs
     update_payload["options"] = preferences_generator()
 
     response = api_client.put(
-        api_routes.groups_events_notifications_item_id(update_payload["id"]),
+        api_routes.households_events_notifications_item_id(update_payload["id"]),
         json=update_payload,
         headers=unique_user.token,
     )
@@ -109,7 +109,7 @@ def test_update_apprise_notification(api_client: TestClient, unique_user: TestUs
 
     # Re-Get The Item
     response = api_client.get(
-        api_routes.groups_events_notifications_item_id(update_payload["id"]), headers=unique_user.token
+        api_routes.households_events_notifications_item_id(update_payload["id"]), headers=unique_user.token
     )
     assert response.status_code == 200
 
@@ -122,24 +122,24 @@ def test_update_apprise_notification(api_client: TestClient, unique_user: TestUs
 
     # Cleanup
     response = api_client.delete(
-        api_routes.groups_events_notifications_item_id(update_payload["id"]), headers=unique_user.token
+        api_routes.households_events_notifications_item_id(update_payload["id"]), headers=unique_user.token
     )
 
 
 def test_delete_apprise_notification(api_client: TestClient, unique_user: TestUser):
     payload = notifier_generator()
-    response = api_client.post(api_routes.groups_events_notifications, json=payload, headers=unique_user.token)
+    response = api_client.post(api_routes.households_events_notifications, json=payload, headers=unique_user.token)
     assert response.status_code == 201
 
     payload_as_dict = response.json()
 
     response = api_client.delete(
-        api_routes.groups_events_notifications_item_id(payload_as_dict["id"]), headers=unique_user.token
+        api_routes.households_events_notifications_item_id(payload_as_dict["id"]), headers=unique_user.token
     )
     assert response.status_code == 204
 
     response = api_client.get(
-        api_routes.groups_events_notifications_item_id(payload_as_dict["id"]), headers=unique_user.token
+        api_routes.households_events_notifications_item_id(payload_as_dict["id"]), headers=unique_user.token
     )
     assert response.status_code == 404
 

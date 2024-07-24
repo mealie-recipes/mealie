@@ -2,7 +2,6 @@ from uuid import uuid4
 
 from fastapi.testclient import TestClient
 
-from mealie.repos.repository_factory import AllRepositories
 from tests.utils import api_routes
 from tests.utils.factories import random_bool
 from tests.utils.fixture_schemas import TestUser
