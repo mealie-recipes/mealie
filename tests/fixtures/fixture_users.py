@@ -43,8 +43,10 @@ def build_unique_user(session: Session, group: str, api_client: TestClient) -> u
 
 
 @fixture(scope="module")
-def g2_user(admin_token, api_client: TestClient):
+def g2_user(session: Session, admin_token, api_client: TestClient):
     group = random_string(12)
+    household = random_string(12)
+
     # Create the user
     create_data = {
         "fullName": utils.random_string(),
@@ -52,11 +54,17 @@ def g2_user(admin_token, api_client: TestClient):
         "email": utils.random_email(),
         "password": "useruser",
         "group": group,
+        "household": household,
         "admin": False,
         "tokens": [],
     }
 
-    response = api_client.post(api_routes.admin_groups, json={"name": group}, headers=admin_token)
+    group_response = api_client.post(api_routes.admin_groups, json={"name": group}, headers=admin_token)
+    api_client.post(
+        api_routes.admin_households,
+        json={"name": household, "groupId": group_response.json()["id"]},
+        headers=admin_token,
+    )
     response = api_client.post(api_routes.users, json=create_data, headers=admin_token)
 
     assert response.status_code == 201
@@ -83,6 +91,7 @@ def g2_user(admin_token, api_client: TestClient):
             email=create_data["email"],  # type: ignore
             username=create_data.get("username"),  # type: ignore
             password=create_data.get("password"),  # type: ignore
+            repos=get_repositories(session, group_id=group_id, household_id=household_id),
         )
     finally:
         # TODO: Delete User after test

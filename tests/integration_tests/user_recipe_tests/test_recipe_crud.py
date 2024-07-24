@@ -20,14 +20,13 @@ from recipe_scrapers.plugins import SchemaOrgFillPlugin
 from slugify import slugify
 
 from mealie.pkgs.safehttp.transport import AsyncSafeTransport
-from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import Recipe, RecipeCategory, RecipeSummary, RecipeTag
 from mealie.schema.recipe.recipe_category import CategorySave, TagSave
 from mealie.schema.recipe.recipe_notes import RecipeNote
 from mealie.schema.recipe.recipe_tool import RecipeToolSave
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.scraper.recipe_scraper import DEFAULT_SCRAPER_STRATEGIES
-from tests import data, utils
+from tests import utils
 from tests.utils import api_routes
 from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser
@@ -82,7 +81,7 @@ def get_init(html_path: Path):
                 current_method = getattr(self.__class__, name)
                 current_method = SchemaOrgFillPlugin.run(current_method)
                 setattr(self.__class__, name, current_method)
-            setattr(self.__class__, "plugins_initialized", True)
+            self.__class__.plugins_initialized = True
 
     return init_override
 
@@ -727,6 +726,7 @@ def test_get_recipes_organizer_filter(api_client: TestClient, unique_user: utils
             Recipe(
                 id=uuid4(),
                 user_id=unique_user.user_id,
+                household_id=unique_user.household_id,
                 group_id=unique_user.group_id,
                 name=name,
                 slug=name,
@@ -736,7 +736,7 @@ def test_get_recipes_organizer_filter(api_client: TestClient, unique_user: utils
             )
         )
 
-    recipes = database.recipes.by_group(unique_user.group_id).create_many(new_recipes_data)  # type: ignore
+    recipes = database.recipes.create_many(new_recipes_data)  # type: ignore
 
     # get recipes by organizer
     if organizer_type == "tags":
