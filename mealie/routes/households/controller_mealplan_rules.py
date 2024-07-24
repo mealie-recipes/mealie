@@ -36,7 +36,7 @@ class GroupMealplanConfigController(BaseUserController):
 
     @router.post("", response_model=PlanRulesOut, status_code=201)
     def create_one(self, data: PlanRulesCreate):
-        save = mapper.cast(data, PlanRulesSave, group_id=self.group.id)
+        save = mapper.cast(data, PlanRulesSave, group_id=self.group.id, household_id=self.household.id)
         return self.mixins.create_one(save)
 
     @router.get("/{item_id}", response_model=PlanRulesOut)
