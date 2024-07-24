@@ -34,7 +34,7 @@ def UpdatedAtField(*args, **kwargs):
     # https://docs.pydantic.dev/latest/concepts/alias/#alias-priority
     kwargs["alias_priority"] = 2
 
-    kwargs["validation_alias"] = AliasChoices("update_at", "updateAt", "updated_at", "updateAt")
+    kwargs["validation_alias"] = AliasChoices("update_at", "updateAt", "updated_at", "updatedAt")
     kwargs["serialization_alias"] = "updatedAt"
 
     return Field(*args, **kwargs)
