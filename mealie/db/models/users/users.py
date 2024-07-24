@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING, Optional
 
 from pydantic import ConfigDict
 from sqlalchemy import Boolean, DateTime, Enum, ForeignKey, Integer, String, orm, select
+from sqlalchemy.ext.associationproxy import AssociationProxy, association_proxy
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import Mapped, Session, mapped_column
 
@@ -30,6 +31,9 @@ class LongLiveToken(SqlAlchemyBase, BaseMixins):
 
     user_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("users.id"), index=True)
     user: Mapped[Optional["User"]] = orm.relationship("User")
+
+    group_id: AssociationProxy[GUID] = association_proxy("user", "group_id")
+    household_id: AssociationProxy[GUID] = association_proxy("user", "household_id")
 
     def __init__(self, name, token, user_id, **_) -> None:
         self.name = name
