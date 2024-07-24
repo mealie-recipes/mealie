@@ -29,7 +29,12 @@ def shopping_lists(unique_user: TestUser):
 
     for _ in range(3):
         model = database.group_shopping_lists.create(
-            ShoppingListSave(name=random_string(10), group_id=unique_user.group_id, user_id=unique_user.user_id),
+            ShoppingListSave(
+                name=random_string(10),
+                group_id=unique_user.group_id,
+                household_id=unique_user.household_id,
+                user_id=unique_user.user_id,
+            ),
         )
 
         models.append(model)
@@ -47,7 +52,12 @@ def shopping_lists(unique_user: TestUser):
 def shopping_list(unique_user: TestUser):
     database = unique_user.repos
     model = database.group_shopping_lists.create(
-        ShoppingListSave(name=random_string(10), group_id=unique_user.group_id, user_id=unique_user.user_id),
+        ShoppingListSave(
+            name=random_string(10),
+            group_id=unique_user.group_id,
+            household_id=unique_user.household_id,
+            user_id=unique_user.user_id,
+        ),
     )
 
     yield model
@@ -62,7 +72,12 @@ def shopping_list(unique_user: TestUser):
 def list_with_items(unique_user: TestUser):
     database = unique_user.repos
     list_model = database.group_shopping_lists.create(
-        ShoppingListSave(name=random_string(10), group_id=unique_user.group_id, user_id=unique_user.user_id),
+        ShoppingListSave(
+            name=random_string(10),
+            group_id=unique_user.group_id,
+            household_id=unique_user.household_id,
+            user_id=unique_user.user_id,
+        ),
     )
 
     for _ in range(10):

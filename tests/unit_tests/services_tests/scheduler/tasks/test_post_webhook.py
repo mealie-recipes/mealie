@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta, timezone
+from uuid import UUID
 
 from pydantic import UUID4
 
@@ -11,6 +12,7 @@ from tests.utils.fixture_schemas import TestUser
 
 def webhook_factory(
     group_id: str | UUID4,
+    household_id: str | UUID4,
     enabled: bool = True,
     name: str = "",
     url: str = "",
@@ -24,6 +26,7 @@ def webhook_factory(
         webhook_type=webhook_type,
         scheduled_time=scheduled_time.time() if scheduled_time else datetime.now(timezone.utc).time(),
         group_id=group_id,
+        household_id=household_id,
     )
 
 
@@ -38,9 +41,12 @@ def test_get_scheduled_webhooks_filter_query(unique_user: TestUser):
     start = datetime.now(timezone.utc)
 
     for _ in range(5):
-        new_item = webhook_factory(group_id=unique_user.group_id, enabled=random_bool())
+        new_item = webhook_factory(
+            group_id=unique_user.group_id, household_id=unique_user.household_id, enabled=random_bool()
+        )
         out_of_range_item = webhook_factory(
             group_id=unique_user.group_id,
+            household_id=unique_user.household_id,
             enabled=random_bool(),
             scheduled_time=(start - timedelta(minutes=20)),
         )
@@ -51,7 +57,7 @@ def test_get_scheduled_webhooks_filter_query(unique_user: TestUser):
         if new_item.enabled:
             expected.append(new_item)
 
-    event_bus_listener = WebhookEventListener(unique_user.group_id)  # type: ignore
+    event_bus_listener = WebhookEventListener(UUID(unique_user.group_id), UUID(unique_user.household_id))
     results = event_bus_listener.get_scheduled_webhooks(start, datetime.now(timezone.utc) + timedelta(minutes=5))
 
     assert len(results) == len(expected)
