@@ -35,10 +35,10 @@ class RecipeService(BaseService):
         self.user = user
         self.household = household
 
-        if repos.group_id != user.group_id:
-            raise Exception("user and group do not match")
+        if repos.group_id != user.group_id != household.group_id:
+            raise Exception("group ids do not match")
         if repos.household_id != user.household_id != household.id:
-            raise Exception("user and household do not match")
+            raise Exception("household ids do not match")
 
         self.translator = translator
         self.t = translator.t
@@ -95,8 +95,8 @@ class RecipeService(BaseService):
         additional_attrs = additional_attrs or {}
         additional_attrs["name"] = name
         additional_attrs["user_id"] = self.user.id
-        additional_attrs["household_id"] = self.user.household_id
-        additional_attrs["group_id"] = self.user.group_id
+        additional_attrs["household_id"] = self.household.id
+        additional_attrs["group_id"] = self.household.group_id
 
         if additional_attrs.get("tags"):
             for i in range(len(additional_attrs.get("tags", []))):
