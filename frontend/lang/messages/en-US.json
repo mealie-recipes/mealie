@@ -836,8 +836,7 @@
     "parser": "Parser",
     "developer": "Developer",
     "cookbook": "Cookbook",
-    "create-cookbook": "Create a new cookbook",
-    "recipes": "Recipes"
+    "create-cookbook": "Create a new cookbook"
   },
   "signup": {
     "error-signing-up": "Error Signing Up",
