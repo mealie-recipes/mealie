@@ -58,6 +58,46 @@ def test_new_label_creates_list_labels(api_client: TestClient, unique_user: Test
         assert label.id in label_settings_label_ids
 
 
+def test_new_label_creates_list_labels_in_all_households(
+    api_client: TestClient, unique_user: TestUser, h2_user: TestUser
+):
+    # unique_user and h2_user are in the same group, so these labels should be for both of them
+    create_labels(api_client, unique_user)
+
+    # create a list with some labels for each user
+    response = api_client.post(
+        api_routes.households_shopping_lists, json={"name": random_string()}, headers=unique_user.token
+    )
+    new_list_h1 = ShoppingListOut.model_validate(response.json())
+    existing_label_settings_h1 = new_list_h1.label_settings
+
+    response = api_client.post(
+        api_routes.households_shopping_lists, json={"name": random_string()}, headers=h2_user.token
+    )
+    new_list_h2 = ShoppingListOut.model_validate(response.json())
+    existing_label_settings_h2 = new_list_h2.label_settings
+
+    # create more labels and make sure they were added to both lists' label settings
+    new_labels = create_labels(api_client, unique_user)
+
+    for user, new_list, existing_label_settings in [
+        (unique_user, new_list_h1, existing_label_settings_h1),
+        (h2_user, new_list_h2, existing_label_settings_h2),
+    ]:
+        response = api_client.get(api_routes.households_shopping_lists_item_id(new_list.id), headers=user.token)
+        updated_list = ShoppingListOut.model_validate(response.json())
+        updated_label_settings = updated_list.label_settings
+        assert len(updated_label_settings) == len(existing_label_settings) + len(new_labels)
+
+        label_settings_ids = [setting.id for setting in updated_list.label_settings]
+        for label_setting in existing_label_settings:
+            assert label_setting.id in label_settings_ids
+
+        label_settings_label_ids = [setting.label_id for setting in updated_list.label_settings]
+        for label in new_labels:
+            assert label.id in label_settings_label_ids
+
+
 def test_seed_label_creates_list_labels(api_client: TestClient, unique_user: TestUser):
     CREATED_LABELS = 21
     database = unique_user.repos
