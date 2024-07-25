@@ -627,7 +627,6 @@ export interface UpdateHouseholdAdmin {
   groupId: string;
   name: string;
   id: string;
-  slug: string;
   preferences?: UpdateHouseholdPreferences | null;
 }
 export interface UpdateHouseholdPreferences {
