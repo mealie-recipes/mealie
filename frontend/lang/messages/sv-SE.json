@@ -211,7 +211,7 @@
     "clipboard-copy-failure": "Det gick inte att kopiera till urklipp.",
     "confirm-delete-generic-items": "Är du säker på att du vill radera följande objekt?",
     "organizers": "Organisatörer",
-    "caution": "Caution"
+    "caution": "Varning"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Är du säker på att du vill radera <b>{groupName}<b/>?",
@@ -449,8 +449,8 @@
     "ingredients": "Ingredienser",
     "insert-ingredient": "Infoga ingrediens",
     "insert-section": "Infoga avdelning",
-    "insert-above": "Insert Above",
-    "insert-below": "Insert Below",
+    "insert-above": "Infoga Ovan",
+    "insert-below": "Infoga Nedan",
     "instructions": "Instruktioner",
     "key-name-required": "Nyckelnamn krävs",
     "landscape-view-coming-soon": "Landskapsvy (kommer snart)",
@@ -810,11 +810,11 @@
     "items-checked-count": "Inga artiklar markerade|En artikel markerad|{count} artiklar markerade",
     "no-label": "Ingen etikett",
     "completed-on": "Slutförd på {date}",
-    "you-are-offline": "You are offline",
-    "you-are-offline-description": "Not all features are available while offline. You can still add, modify, and remove items, but you will not be able to sync your changes to the server until you are back online.",
-    "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
-    "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
-    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
+    "you-are-offline": "Du är offline",
+    "you-are-offline-description": "Alla funktioner är inte tillgängliga när du är offline. Du kan fortfarande lägga till, ändra och ta bort objekt, men du kommer ej kunna synka dina ändringar till servern förrän du är online igen.",
+    "are-you-sure-you-want-to-check-all-items": "Är du säker på att du vill markera alla objekt?",
+    "are-you-sure-you-want-to-uncheck-all-items": "Är du säker på att du vill avmarkera alla objekt?",
+    "are-you-sure-you-want-to-delete-checked-items": "Är du säker på att du vill ta bort alla markerade objekt?"
   },
   "sidebar": {
     "all-recipes": "Recept",
@@ -958,7 +958,7 @@
     "authentication-method-hint": "This specifies how a user will authenticate with Mealie. If you're not sure, choose 'Mealie",
     "permissions": "Behörigheter",
     "administrator": "Administratör",
-    "user-can-invite-other-to-group": "User can invite others to group",
+    "user-can-invite-other-to-group": "Användaren kan bjuda in andra till gruppen",
     "user-can-manage-group": "Användare kan hantera grupp",
     "user-can-organize-group-data": "Användaren kan organisera gruppdata",
     "enable-advanced-features": "Aktivera avancerade funktioner",
@@ -990,8 +990,8 @@
       "food-data": "Mat data",
       "example-food-singular": "ex: Lök",
       "example-food-plural": "ex: Lökar",
-      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels.",
-      "on-hand-checkbox-label": "Setting this flag will make this food unchecked by default when adding a recipe to a shopping list."
+      "label-overwrite-warning": "Detta kommer att tilldela den valda etiketten till alla utvalda måltider och potentiellt skriva över dina befintliga etiketter.",
+      "on-hand-checkbox-label": "Om du ställer in den här flaggan kommer de här livsmedlen att avmarkeras som standard när du lägger till ett recept i en inköpslista."
     },
     "units": {
       "seed-dialog-text": "Fyll databasen med vanliga enheter baserade på ditt språk.",
@@ -1020,7 +1020,7 @@
       "edit-label": "Redigera etikett",
       "new-label": "Ny etikett",
       "labels": "Etiketter",
-      "assign-label": "Assign Label"
+      "assign-label": "Tilldela etikett"
     },
     "recipes": {
       "purge-exports": "Rensa exporter",
