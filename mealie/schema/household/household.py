@@ -23,7 +23,8 @@ class UpdateHousehold(HouseholdSave):
     slug: str
 
 
-class UpdateHouseholdAdmin(UpdateHousehold):
+class UpdateHouseholdAdmin(HouseholdCreate):
+    id: UUID4
     preferences: UpdateHouseholdPreferences | None = None
 
 
