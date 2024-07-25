@@ -65,6 +65,16 @@ def test_admin_delete_group(api_client: TestClient, admin_user: TestUser, unique
     response = api_client.delete(api_routes.admin_users_item_id(unique_user.user_id), headers=admin_user.token)
     assert response.status_code == 200
 
+    # Delete Household
+    response = api_client.delete(
+        api_routes.admin_households_item_id(unique_user.household_id), headers=admin_user.token
+    )
+    assert response.status_code == 200
+
+    # Ensure Household is Deleted
+    response = api_client.get(api_routes.admin_households_item_id(unique_user.household_id), headers=admin_user.token)
+    assert response.status_code == 404
+
     # Delete Group
     response = api_client.delete(api_routes.admin_groups_item_id(unique_user.group_id), headers=admin_user.token)
     assert response.status_code == 200
