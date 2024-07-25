@@ -53,6 +53,9 @@ class HouseholdSelfServiceController(BaseUserController):
         if target_user.group_id != self.group_id:
             raise HTTPException(status.HTTP_403_FORBIDDEN, detail="User is not a member of this group")
 
+        if target_user.household_id != self.household_id:
+            raise HTTPException(status.HTTP_403_FORBIDDEN, detail="User is not a member of this household")
+
         target_user.can_invite = permissions.can_invite
         target_user.can_manage = permissions.can_manage
         target_user.can_organize = permissions.can_organize
