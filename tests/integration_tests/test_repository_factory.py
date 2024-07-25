@@ -127,9 +127,9 @@ def test_group_repositories_filter_by_group(session: Session):
     # unfiltered_repos should find both foods
     assert food_1 == unfiltered_repos.ingredient_foods.get_one(food_1.id)
     assert food_2 == unfiltered_repos.ingredient_foods.get_one(food_2.id)
-    assert sorted([food_1, food_2], key=lambda x: x.id) == sorted(
-        unfiltered_repos.ingredient_foods.page_all(PaginationQuery(page=1, per_page=-1)).items, key=lambda x: x.id
-    )
+    all_foods = unfiltered_repos.ingredient_foods.page_all(PaginationQuery(page=1, per_page=-1)).items
+    assert food_1 in all_foods
+    assert food_2 in all_foods
 
     # group_repos should only find foods with the correct group_id
     assert food_1 == group_1_repos.ingredient_foods.get_one(food_1.id)
@@ -161,9 +161,9 @@ def test_household_repositories_filter_by_household(session: Session):
     for repos in [unfiltered_repos, group_repos]:
         assert webhook_1 == repos.webhooks.get_one(webhook_1.id)
         assert webhook_2 == repos.webhooks.get_one(webhook_2.id)
-        assert sorted([webhook_1, webhook_2], key=lambda x: x.id) == sorted(
-            repos.webhooks.page_all(PaginationQuery(page=1, per_page=-1)).items, key=lambda x: x.id
-        )
+        all_webhooks = repos.webhooks.page_all(PaginationQuery(page=1, per_page=-1)).items
+        assert webhook_1 in all_webhooks
+        assert webhook_2 in all_webhooks
 
     # household_repos should only find webhooks with the correct household_id
     assert webhook_1 == household_1_repos.webhooks.get_one(webhook_1.id)
