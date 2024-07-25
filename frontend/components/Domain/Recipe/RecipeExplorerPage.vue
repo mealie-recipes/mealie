@@ -127,7 +127,7 @@
         v-if="state.ready"
         class="mt-n5"
         :icon="$globals.icons.silverwareFork"
-        :title="$tc('search.recipes')"
+        :title="$tc('general.recipes')"
         :recipes="recipes"
         :query="passedQueryWithSeed"
         @replaceRecipes="replaceRecipes"
