@@ -159,7 +159,7 @@
         {
           icon: $globals.icons.silverwareFork,
           to: `/g/${groupSlug.value}`,
-          title: i18n.tc("sidebar.recipes"),
+          title: i18n.tc("general.recipes"),
           restricted: true,
         },
         {
