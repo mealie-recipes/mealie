@@ -43,6 +43,62 @@ def build_unique_user(session: Session, group: str, api_client: TestClient) -> u
 
 
 @fixture(scope="module")
+def h2_user(session: Session, admin_token, api_client: TestClient, unique_user: utils.TestUser):
+    group: str = api_client.get(api_routes.groups_self, headers=unique_user.token).json()["name"]
+    household = random_string(12)
+
+    # Create the user
+    create_data = {
+        "fullName": utils.random_string(),
+        "username": utils.random_string(),
+        "email": utils.random_email(),
+        "password": "useruser",
+        "group": group,
+        "household": household,
+        "admin": False,
+        "tokens": [],
+    }
+
+    group_response = api_client.post(api_routes.admin_groups, json={"name": group}, headers=admin_token)
+    api_client.post(
+        api_routes.admin_households,
+        json={"name": household, "groupId": group_response.json()["id"]},
+        headers=admin_token,
+    )
+    response = api_client.post(api_routes.users, json=create_data, headers=admin_token)
+
+    assert response.status_code == 201
+
+    # Log in as this user
+    form_data = {"username": create_data["email"], "password": "useruser"}
+
+    token = utils.login(form_data, api_client)
+
+    self_response = api_client.get(api_routes.users_self, headers=token)
+
+    assert self_response.status_code == 200
+
+    user_id = json.loads(self_response.text).get("id")
+    group_id = json.loads(self_response.text).get("groupId")
+    household_id = json.loads(self_response.text).get("householdId")
+
+    try:
+        yield utils.TestUser(
+            user_id=user_id,
+            _group_id=group_id,
+            _household_id=household_id,
+            token=token,
+            email=create_data["email"],  # type: ignore
+            username=create_data.get("username"),  # type: ignore
+            password=create_data.get("password"),  # type: ignore
+            repos=get_repositories(session, group_id=group_id, household_id=household_id),
+        )
+    finally:
+        # TODO: Delete User after test
+        pass
+
+
+@fixture(scope="module")
 def g2_user(session: Session, admin_token, api_client: TestClient):
     group = random_string(12)
     household = random_string(12)

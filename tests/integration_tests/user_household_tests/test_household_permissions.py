@@ -16,7 +16,7 @@ def get_permissions_payload(user_id: str, can_manage=None) -> dict:
     }
 
 
-def test_get_group_members(api_client: TestClient, user_tuple: list[TestUser]):
+def test_get_household_members(api_client: TestClient, user_tuple: list[TestUser]):
     usr_1, usr_2 = user_tuple
 
     response = api_client.get(api_routes.households_members, headers=usr_1.token)
@@ -36,13 +36,14 @@ def test_set_member_permissions(api_client: TestClient, user_tuple: list[TestUse
 
     # Set Acting User
     acting_user = usr_1.repos.users.get_one(usr_1.user_id)
+    assert acting_user
     acting_user.can_manage = True
     usr_1.repos.users.update(acting_user.id, acting_user)
 
     payload = get_permissions_payload(str(usr_2.user_id))
 
     # Test
-    response = api_client.put(api_routes.groups_permissions, json=payload, headers=usr_1.token)
+    response = api_client.put(api_routes.households_permissions, json=payload, headers=usr_1.token)
     assert response.status_code == 200
 
 
@@ -51,6 +52,7 @@ def test_set_member_permissions_unauthorized(api_client: TestClient, unique_user
 
     # Setup
     user = database.users.get_one(unique_user.user_id)
+    assert user
     user.can_manage = False
     database.users.update(user.id, user)
 
@@ -63,23 +65,24 @@ def test_set_member_permissions_unauthorized(api_client: TestClient, unique_user
     }
 
     # Test
-    response = api_client.put(api_routes.groups_permissions, json=payload, headers=unique_user.token)
+    response = api_client.put(api_routes.households_permissions, json=payload, headers=unique_user.token)
     assert response.status_code == 403
 
 
-def test_set_member_permissions_other_group(
+def test_set_member_permissions_other_household(
     api_client: TestClient,
     unique_user: TestUser,
-    g2_user: TestUser,
+    h2_user: TestUser,
 ):
     database = unique_user.repos
 
     user = database.users.get_one(unique_user.user_id)
+    assert user
     user.can_manage = True
     database.users.update(user.id, user)
 
-    payload = get_permissions_payload(str(g2_user.user_id))
-    response = api_client.put(api_routes.groups_permissions, json=payload, headers=unique_user.token)
+    payload = get_permissions_payload(str(h2_user.user_id))
+    response = api_client.put(api_routes.households_permissions, json=payload, headers=unique_user.token)
     assert response.status_code == 403
 
 
@@ -90,9 +93,10 @@ def test_set_member_permissions_no_user(
     database = unique_user.repos
 
     user = database.users.get_one(unique_user.user_id)
+    assert user
     user.can_manage = True
     database.users.update(user.id, user)
 
     payload = get_permissions_payload(str(uuid4()))
-    response = api_client.put(api_routes.groups_permissions, json=payload, headers=unique_user.token)
+    response = api_client.put(api_routes.households_permissions, json=payload, headers=unique_user.token)
     assert response.status_code == 404
