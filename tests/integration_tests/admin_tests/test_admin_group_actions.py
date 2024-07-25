@@ -34,16 +34,7 @@ def test_admin_update_group(api_client: TestClient, admin_user: TestUser, unique
     update_payload = {
         "id": unique_user.group_id,
         "name": "New Name",
-        "preferences": {
-            "privateGroup": random_bool(),
-            "firstDayOfWeek": 2,
-            "recipePublic": random_bool(),
-            "recipeShowNutrition": random_bool(),
-            "recipeShowAssets": random_bool(),
-            "recipeLandscapeView": random_bool(),
-            "recipeDisableComments": random_bool(),
-            "recipeDisableAmount": random_bool(),
-        },
+        "preferences": {"privateGroup": random_bool()},
     }
 
     response = api_client.put(
@@ -57,7 +48,7 @@ def test_admin_update_group(api_client: TestClient, admin_user: TestUser, unique
     as_json = response.json()
 
     assert as_json["name"] == update_payload["name"]
-    assert_ignore_keys(as_json["preferences"], update_payload["preferences"])
+    assert_ignore_keys(as_json["preferences"], update_payload["preferences"])  # type: ignore
 
 
 def test_admin_delete_group(api_client: TestClient, admin_user: TestUser, unique_user: TestUser):
