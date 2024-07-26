@@ -39,7 +39,7 @@
 import { computed, defineComponent, reactive, ref, toRefs, useContext } from "@nuxtjs/composition-api";
 import { Recipe } from "~/lib/api/types/recipe";
 import RecipeDialogAddToShoppingList from "~/components/Domain/Recipe/RecipeDialogAddToShoppingList.vue";
-import { ShoppingListSummary } from "~/lib/api/types/group";
+import { ShoppingListSummary } from "~/lib/api/types/household";
 import { useUserApi } from "~/composables/api";
 
 export interface ContextMenuItem {

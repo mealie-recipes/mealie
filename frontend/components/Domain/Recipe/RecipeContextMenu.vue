@@ -142,7 +142,7 @@ import { useGroupSelf } from "~/composables/use-groups";
 import { alert } from "~/composables/use-toast";
 import { usePlanTypeOptions } from "~/composables/use-group-mealplan";
 import { Recipe } from "~/lib/api/types/recipe";
-import { GroupRecipeActionOut, ShoppingListSummary } from "~/lib/api/types/group";
+import { GroupRecipeActionOut, ShoppingListSummary } from "~/lib/api/types/household";
 import { PlanEntryType } from "~/lib/api/types/meal-plan";
 import { useAxiosDownloader } from "~/composables/api/use-axios-download";
 

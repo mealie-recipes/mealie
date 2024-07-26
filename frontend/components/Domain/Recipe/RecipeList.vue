@@ -31,7 +31,7 @@
 import { computed, defineComponent, useContext, useRoute } from "@nuxtjs/composition-api";
 import DOMPurify from "dompurify";
 import { useFraction } from "~/composables/recipes/use-fraction";
-import { ShoppingListItemOut } from "~/lib/api/types/group";
+import { ShoppingListItemOut } from "~/lib/api/types/household";
 import { RecipeSummary } from "~/lib/api/types/recipe";
 
 export default defineComponent({

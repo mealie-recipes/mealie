@@ -35,7 +35,7 @@
 
 <script lang="ts">
 import { defineComponent, computed, ref } from "@nuxtjs/composition-api";
-import { ReadWebhook } from "~/lib/api/types/group";
+import { ReadWebhook } from "~/lib/api/types/household";
 import { timeLocalToUTC, timeUTCToLocal } from "~/composables/use-group-webhooks";
 
 export default defineComponent({

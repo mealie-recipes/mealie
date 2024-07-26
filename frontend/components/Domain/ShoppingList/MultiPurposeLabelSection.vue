@@ -29,7 +29,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, useContext } from "@nuxtjs/composition-api";
-import { ShoppingListMultiPurposeLabelOut } from "~/lib/api/types/group";
+import { ShoppingListMultiPurposeLabelOut } from "~/lib/api/types/household";
 
 interface actions {
   text: string;

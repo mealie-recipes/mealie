@@ -109,7 +109,7 @@
 import { defineComponent, useAsync, reactive, useContext, toRefs } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 import { useAsyncKey } from "~/composables/use-utils";
-import { GroupEventNotifierCreate, GroupEventNotifierOut } from "~/lib/api/types/group";
+import { GroupEventNotifierCreate, GroupEventNotifierOut } from "~/lib/api/types/household";
 
 interface OptionKey {
   text: string;

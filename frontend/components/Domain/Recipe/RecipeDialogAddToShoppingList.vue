@@ -133,7 +133,7 @@ import RecipeIngredientListItem from "./RecipeIngredientListItem.vue";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { useShoppingListPreferences } from "~/composables/use-users/preferences";
-import { ShoppingListSummary } from "~/lib/api/types/group";
+import { ShoppingListSummary } from "~/lib/api/types/household";
 import { Recipe, RecipeIngredient } from "~/lib/api/types/recipe";
 
 export interface RecipeWithScale extends Recipe {

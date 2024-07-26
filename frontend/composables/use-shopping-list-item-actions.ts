@@ -1,7 +1,7 @@
 import { computed, ref } from "@nuxtjs/composition-api";
 import { useLocalStorage } from "@vueuse/core";
 import { useUserApi } from "~/composables/api";
-import { ShoppingListItemOut } from "~/lib/api/types/group";
+import { ShoppingListItemOut } from "~/lib/api/types/household";
 
 const localStorageKey = "shopping-list-queue";
 const queueTimeout = 5 * 60 * 1000;  // 5 minutes
