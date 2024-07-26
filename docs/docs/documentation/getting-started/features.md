@@ -73,13 +73,13 @@ Mealie uses a calendar like view to help you plan your meals. It shows you the p
 !!! tip
     You can also add a "Note" type entry to your meal-plan when you want to include something that might not have a specific recipes. This is great for leftovers, or for ordering out.
 
-[Mealplanner Demo](https://demo.mealie.io/group/mealplan/planner/view){ .md-button .md-button--primary }
+[Mealplanner Demo](https://demo.mealie.io/household/mealplan/planner/view){ .md-button .md-button--primary }
 
 ### Planner Rules
 
 The meal planner has the concept of plan rules. These offer a flexible way to use your organizers to customize how a random recipe is inserted into your meal plan. You can set rules to restrict the pool of recipes based on the Tags and/or Categories of a recipe. Additionally, since meal plans have a Breakfast, Lunch, Dinner, and Snack labels, you can specifically set a rule to be active for a **specific meal type** or even a **specific day of the week.**
 
-[Planner Settings Demo](https://demo.mealie.io/group/mealplan/settings){ .md-button .md-button--primary }
+[Planner Settings Demo](https://demo.mealie.io/household/mealplan/settings){ .md-button .md-button--primary }
 
 ## Shopping Lists
 
@@ -105,13 +105,13 @@ Notifiers use the [Apprise library](https://github.com/caronc/apprise/wiki), whi
 - `json` and `jsons`
 - `xml` and `xmls`
 
-[Notifiers Demo](https://demo.mealie.io/group/notifiers){ .md-button .md-button--primary }
+[Notifiers Demo](https://demo.mealie.io/household/notifiers){ .md-button .md-button--primary }
 
 ### Webhooks
 
 Unlike notifiers, which are event-driven notifications, Webhooks allow you to send scheduled notifications to your desired endpoint. Webhooks are sent on the day of a scheduled mealplan, at the specified time, and contain the mealplan data in the request.
 
-[Webhooks Demo](https://demo.mealie.io/group/webhooks){ .md-button .md-button--primary }
+[Webhooks Demo](https://demo.mealie.io/household/webhooks){ .md-button .md-button--primary }
 
 ### Recipe Actions
 

@@ -39,10 +39,10 @@
 
     <div class="d-flex flex-wrap align-center justify-space-between mb-2">
       <v-tabs style="width: fit-content;">
-        <v-tab :to="`/group/mealplan/planner/view`">{{ $t('meal-plan.meal-planner') }}</v-tab>
-        <v-tab :to="`/group/mealplan/planner/edit`">{{ $t('general.edit') }}</v-tab>
+        <v-tab :to="`/household/mealplan/planner/view`">{{ $t('meal-plan.meal-planner') }}</v-tab>
+        <v-tab :to="`/household/mealplan/planner/edit`">{{ $t('general.edit') }}</v-tab>
       </v-tabs>
-      <ButtonLink :icon="$globals.icons.calendar" :to="`/group/mealplan/settings`" :text="$tc('general.settings')" />
+      <ButtonLink :icon="$globals.icons.calendar" :to="`/household/mealplan/settings`" :text="$tc('general.settings')" />
     </div>
 
     <div>
@@ -74,8 +74,8 @@ export default defineComponent({
     });
 
     // Force to /view if current route is /planner
-    if (route.value.path === "/group/mealplan/planner") {
-      router.push("/group/mealplan/planner/view");
+    if (route.value.path === "/household/mealplan/planner") {
+      router.push("/household/mealplan/planner/view");
     }
 
     function fmtYYYYMMDD(date: Date) {

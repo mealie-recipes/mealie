@@ -133,7 +133,7 @@
         </v-col>
         <v-col v-if="user.canManage" cols="12" sm="12" md="6">
           <UserProfileLinkCard
-            :link="{ text: $tc('profile.manage-members'), to: `/group/members` }"
+            :link="{ text: $tc('profile.manage-members'), to: `/household/members` }"
             :image="require('~/static/svgs/manage-members.svg')"
           >
             <template #title> {{ $t('profile.members') }} </template>
@@ -143,7 +143,7 @@
         <AdvancedOnly>
           <v-col v-if="user.advanced" cols="12" sm="12" md="6">
             <UserProfileLinkCard
-              :link="{ text: $tc('profile.manage-webhooks'), to: `/group/webhooks` }"
+              :link="{ text: $tc('profile.manage-webhooks'), to: `/household/webhooks` }"
               :image="require('~/static/svgs/manage-webhooks.svg')"
             >
               <template #title> {{ $t('settings.webhooks.webhooks') }} </template>
@@ -154,7 +154,7 @@
         <AdvancedOnly>
           <v-col cols="12" sm="12" md="6">
             <UserProfileLinkCard
-              :link="{ text: $tc('profile.manage-notifiers'), to: `/group/notifiers` }"
+              :link="{ text: $tc('profile.manage-notifiers'), to: `/household/notifiers` }"
               :image="require('~/static/svgs/manage-notifiers.svg')"
             >
               <template #title> {{ $t('profile.notifiers') }} </template>
@@ -306,7 +306,7 @@ export default defineComponent({
 
     const statsTo = computed<{ [key: string]: string }>(() => { return {
       totalRecipes: `/g/${groupSlug.value}/`,
-      totalUsers: "/group/members",
+      totalUsers: "/household/members",
       totalCategories: `/g/${groupSlug.value}/recipes/categories`,
       totalTags: `/g/${groupSlug.value}/recipes/tags`,
       totalTools: `/g/${groupSlug.value}/recipes/tools`,
