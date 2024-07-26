@@ -48,7 +48,7 @@ import UserAvatar from "../User/UserAvatar.vue";
 import RecipeChip from "./RecipeChips.vue";
 import { Recipe } from "~/lib/api/types/recipe";
 import { useUserApi } from "~/composables/api";
-import { UserOut } from "~/lib/api/types/user";
+import { UserSummary } from "~/lib/api/types/user";
 
 const INPUT_EVENT = "input";
 
@@ -134,7 +134,7 @@ export default defineComponent({
     // ============
     // Group Members
     const api = useUserApi();
-    const members = ref<UserOut[]>([]);
+    const members = ref<UserSummary[]>([]);
 
     async function refreshMembers() {
       const { data } = await api.groups.fetchMembers();
@@ -149,7 +149,7 @@ export default defineComponent({
 
     function getMember(id: string) {
       if (members.value[0]) {
-        return members.value.find((m) => m.id === id)?.username;
+        return members.value.find((m) => m.id === id)?.fullName;
       }
 
       return i18n.t("general.none");

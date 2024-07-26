@@ -97,7 +97,7 @@ export default defineComponent({
     ];
 
     async function refreshMembers() {
-      const { data } = await api.groups.fetchMembers();
+      const { data } = await api.households.fetchMembers();
       if (data) {
         members.value = data;
       }
@@ -111,7 +111,7 @@ export default defineComponent({
         canOrganize: user.canOrganize,
       };
 
-      await api.groups.setMemberPermissions(payload);
+      await api.households.setMemberPermissions(payload);
     }
 
     onMounted(async () => {

@@ -224,7 +224,7 @@ export default defineComponent({
     const api = useUserApi();
 
     async function getSignupLink() {
-      const { data } = await api.groups.createInvitation({ uses: 1 });
+      const { data } = await api.households.createInvitation({ uses: 1 });
       if (data) {
         token.value = data.token;
         generatedSignupLink.value = constructLink(data.token);

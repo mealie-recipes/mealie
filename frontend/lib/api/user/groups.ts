@@ -1,32 +1,24 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import { GroupBase, GroupInDB, GroupSummary, UserOut } from "~/lib/api/types/user";
+import { GroupBase, GroupInDB, GroupSummary, UserSummary } from "~/lib/api/types/user";
 import {
   GroupAdminUpdate,
-  GroupStatistics,
   GroupStorage,
   ReadGroupPreferences,
-  SetPermissions,
   UpdateGroupPreferences,
 } from "~/lib/api/types/group";
-import {
-  CreateInviteToken,
-  ReadInviteToken,
-} from "~/lib/api/types/household";
 
 const prefix = "/api";
 
 const routes = {
   groups: `${prefix}/admin/groups`,
   groupsSelf: `${prefix}/groups/self`,
-  members: `${prefix}/groups/members`,
-  permissions: `${prefix}/groups/permissions`,
-
   preferences: `${prefix}/groups/preferences`,
-  statistics: `${prefix}/groups/statistics`,
   storage: `${prefix}/groups/storage`,
-
-  invitation: `${prefix}/households/invitations`,
-
+  membersHouseholdId: (householdId: string | number | null) => {
+    return householdId ?
+      `${prefix}/households/members?household_id=${householdId}` :
+      `${prefix}/groups/members`;
+  },
   groupsId: (id: string | number) => `${prefix}/admin/groups/${id}`,
 };
 
@@ -48,21 +40,8 @@ export class GroupAPI extends BaseCRUDAPI<GroupBase, GroupInDB, GroupAdminUpdate
     return await this.requests.put<ReadGroupPreferences, UpdateGroupPreferences>(routes.preferences, payload);
   }
 
-  async createInvitation(payload: CreateInviteToken) {
-    return await this.requests.post<ReadInviteToken>(routes.invitation, payload);
-  }
-
-  async fetchMembers() {
-    return await this.requests.get<UserOut[]>(routes.members);
-  }
-
-  async setMemberPermissions(payload: SetPermissions) {
-    // TODO: This should probably be a patch request, which isn't offered by the API currently
-    return await this.requests.put<UserOut, SetPermissions>(routes.permissions, payload);
-  }
-
-  async statistics() {
-    return await this.requests.get<GroupStatistics>(routes.statistics);
+  async fetchMembers(householdId: string | number | null = null) {
+    return await this.requests.get<UserSummary[]>(routes.membersHouseholdId(householdId));
   }
 
   async storage() {
