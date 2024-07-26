@@ -1,11 +1,16 @@
 from functools import cached_property
 
+from fastapi import Query
+from pydantic import UUID4
+
+from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.group.group_preferences import ReadGroupPreferences, UpdateGroupPreferences
 from mealie.schema.group.group_statistics import GroupStorage
-from mealie.schema.user.user import GroupSummary
+from mealie.schema.response.pagination import PaginationQuery
+from mealie.schema.user.user import GroupSummary, UserSummary
 from mealie.services.group_services.group_service import GroupService
 
 router = UserAPIRouter(prefix="/groups", tags=["Groups: Self Service"])
@@ -21,6 +26,14 @@ class GroupSelfServiceController(BaseUserController):
     def get_logged_in_user_group(self):
         """Returns the Group Data for the Current User"""
         return self.group.cast(GroupSummary)
+
+    @router.get("/members", response_model=list[UserSummary])
+    def get_group_members(self, household_id: UUID4 | None = Query(None)):
+        """Returns all users belonging to the current group, optionally filtered by household_id"""
+
+        filtered_repos = get_repositories(self.repos.session, group_id=self.group_id, household_id=household_id)
+        private_users = filtered_repos.users.page_all(PaginationQuery(page=1, per_page=-1)).items
+        return [user.cast(UserSummary) for user in private_users]
 
     @router.get("/preferences", response_model=ReadGroupPreferences)
     def get_group_preferences(self):
