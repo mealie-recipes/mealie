@@ -89,7 +89,7 @@
 import { defineComponent, ref, useAsync } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 import { PlanRulesCreate, PlanRulesOut } from "~/lib/api/types/meal-plan";
-import GroupMealPlanRuleForm from "~/components/Domain/Group/GroupMealPlanRuleForm.vue";
+import GroupMealPlanRuleForm from "~/components/Domain/Household/GroupMealPlanRuleForm.vue";
 import { useAsyncKey } from "~/composables/use-utils";
 import RecipeChips from "~/components/Domain/Recipe/RecipeChips.vue";
 

@@ -45,7 +45,7 @@
 <script lang="ts">
 import { defineComponent } from "@nuxtjs/composition-api";
 import { useGroupWebhooks, timeUTC } from "~/composables/use-group-webhooks";
-import GroupWebhookEditor from "~/components/Domain/Group/GroupWebhookEditor.vue";
+import GroupWebhookEditor from "~/components/Domain/Household/GroupWebhookEditor.vue";
 import { alert } from "~/composables/use-toast";
 
 export default defineComponent({

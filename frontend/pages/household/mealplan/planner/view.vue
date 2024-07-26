@@ -54,7 +54,7 @@
 import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
 import { MealsByDate } from "./types";
 import { ReadPlanEntry } from "~/lib/api/types/meal-plan";
-import GroupMealPlanDayContextMenu from "~/components/Domain/Group/GroupMealPlanDayContextMenu.vue";
+import GroupMealPlanDayContextMenu from "~/components/Domain/Household/GroupMealPlanDayContextMenu.vue";
 import RecipeCardMobile from "~/components/Domain/Recipe/RecipeCardMobile.vue";
 import { RecipeSummary } from "~/lib/api/types/recipe";
 
