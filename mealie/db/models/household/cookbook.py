@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING, Optional
 
-from sqlalchemy import Boolean, ForeignKey, Integer, String, orm
+from sqlalchemy import Boolean, ForeignKey, Integer, String, UniqueConstraint, orm
 from sqlalchemy.orm import Mapped, mapped_column
 
 from .._model_base import BaseMixins, SqlAlchemyBase
@@ -17,6 +17,10 @@ if TYPE_CHECKING:
 
 class CookBook(SqlAlchemyBase, BaseMixins):
     __tablename__ = "cookbooks"
+    __table_args__: tuple[UniqueConstraint, ...] = (
+        UniqueConstraint("slug", "group_id", name="cookbook_slug_group_id_key"),
+    )
+
     id: Mapped[guid.GUID] = mapped_column(guid.GUID, primary_key=True, default=guid.GUID.generate)
     position: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
 
