@@ -75,20 +75,6 @@ async def get_public_group(group_slug: str = fastapi.Path(...), session=Depends(
         return group
 
 
-async def get_public_household(
-    household_slug: str = fastapi.Path(...),
-    group: GroupInDB = Depends(get_public_group),
-    session=Depends(generate_session),
-) -> tuple[GroupInDB, HouseholdOut]:
-    repos = get_repositories(session, group_id=group.id)
-    household = repos.households.get_by_slug_or_id(household_slug)
-
-    if not household or household.preferences.private_household or not household.preferences.recipe_public:
-        raise HTTPException(404, "household not found")
-    else:
-        return household
-
-
 async def try_get_current_user(
     request: Request,
     token: str = Depends(oauth2_scheme_soft_fail),

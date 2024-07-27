@@ -19,12 +19,12 @@ router = APIRouter(prefix="/recipes")
 @controller(router)
 class PublicRecipesController(BasePublicHouseholdExploreController):
     @property
-    def cookbooks(self):
-        return self.repos.cookbooks
+    def cross_household_cookbooks(self):
+        return self.cross_household_repos.cookbooks
 
     @property
-    def recipes(self):
-        return self.repos.recipes
+    def cross_household_recipes(self):
+        return self.cross_household_repos.recipes
 
     @router.get("", response_model=PaginationBase[RecipeSummary])
     def get_all(
@@ -39,6 +39,7 @@ class PublicRecipesController(BasePublicHouseholdExploreController):
     ) -> PaginationBase[RecipeSummary]:
         cookbook_data: ReadCookBook | None = None
         if search_query.cookbook:
+            COOKBOOK_NOT_FOUND_EXCEPTION = HTTPException(404, "cookbook not found")
             if isinstance(search_query.cookbook, UUID):
                 cb_match_attr = "id"
             else:
@@ -47,18 +48,21 @@ class PublicRecipesController(BasePublicHouseholdExploreController):
                     cb_match_attr = "id"
                 except ValueError:
                     cb_match_attr = "slug"
-            cookbook_data = self.cookbooks.get_one(search_query.cookbook, cb_match_attr)
+            cookbook_data = self.cross_household_cookbooks.get_one(search_query.cookbook, cb_match_attr)
 
             if cookbook_data is None or not cookbook_data.public:
-                raise HTTPException(status_code=404, detail="cookbook not found")
+                raise COOKBOOK_NOT_FOUND_EXCEPTION
+            household = self.repos.households.get_one(cookbook_data.household_id)
+            if not household or household.preferences.private_household:
+                raise COOKBOOK_NOT_FOUND_EXCEPTION
 
-        public_filter = "settings.public = TRUE"
+        public_filter = "(household.preferences.privateHousehold = FALSE AND settings.public = TRUE)"
         if q.query_filter:
             q.query_filter = f"({q.query_filter}) AND {public_filter}"
         else:
             q.query_filter = public_filter
 
-        pagination_response = self.recipes.page_all(
+        pagination_response = self.cross_household_recipes.page_all(
             pagination=q,
             cookbook=cookbook_data,
             categories=categories,
@@ -86,9 +90,13 @@ class PublicRecipesController(BasePublicHouseholdExploreController):
 
     @router.get("/{recipe_slug}", response_model=Recipe)
     def get_recipe(self, recipe_slug: str) -> Recipe:
-        recipe = self.repos.recipes.get_one(recipe_slug)
+        RECIPE_NOT_FOUND_EXCEPTION = HTTPException(404, "recipe not found")
+        recipe = self.cross_household_recipes.get_one(recipe_slug)
 
         if not recipe or not recipe.settings.public:
-            raise HTTPException(404, "recipe not found")
+            raise RECIPE_NOT_FOUND_EXCEPTION
+        household = self.repos.households.get_one(recipe.household_id)
+        if not household or household.preferences.private_household:
+            raise RECIPE_NOT_FOUND_EXCEPTION
 
         return recipe

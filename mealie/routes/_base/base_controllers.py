@@ -11,7 +11,6 @@ from mealie.core.dependencies.dependencies import (
     get_current_user,
     get_integration_id,
     get_public_group,
-    get_public_household,
 )
 from mealie.core.exceptions import mealie_registered_exceptions
 from mealie.core.root_logger import get_logger
@@ -21,7 +20,7 @@ from mealie.db.db_setup import generate_session
 from mealie.lang import local_provider
 from mealie.lang.providers import Translator
 from mealie.repos._utils import NOT_SET, NotSet
-from mealie.repos.all_repositories import AllRepositories
+from mealie.repos.all_repositories import AllRepositories, get_repositories
 from mealie.routes._base.checks import OperationChecks
 from mealie.schema.household.household import HouseholdOut
 from mealie.schema.user.user import GroupInDB, PrivateUser
@@ -99,7 +98,9 @@ class BasePublicGroupExploreController(BasePublicController):
         return self.group.id
 
     def get_explore_url_path(self, endpoint: str) -> str:
-        return f"/explore/groups/{self.group.slug}{endpoint}"
+        if endpoint.startswith("/"):
+            endpoint = endpoint[1:]
+        return f"/explore/groups/{self.group.slug}/{endpoint}"
 
 
 class BasePublicHouseholdExploreController(BasePublicGroupExploreController):
@@ -107,14 +108,17 @@ class BasePublicHouseholdExploreController(BasePublicGroupExploreController):
     Base class for all controllers that are public and explore household data.
     """
 
-    household: HouseholdOut = Depends(get_public_household)
-
     @property
-    def household_id(self) -> UUID4 | None | NotSet:
-        return self.household.id
+    def cross_household_repos(self):
+        """
+        Household-level repos with no household filter. Public controllers don't have access to a household identifier;
+        instead, they return all public data, filtered by the household preferences.
 
-    def get_explore_url_path(self, endpoint: str) -> str:
-        return f"/explore/groups/{self.group.slug}/households/{self.household.slug}{endpoint}"
+        When using this repo, the caller should filter by household preferences, e.g.:
+
+        `household.preferences.privateHousehold = FALSE`
+        """
+        return get_repositories(self.repos.session, group_id=self.group_id, household_id=None)
 
 
 class BaseUserController(_BaseController):
