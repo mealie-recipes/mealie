@@ -272,7 +272,7 @@ export default defineComponent({
     });
 
     const stats = useAsync(async () => {
-      const { data } = await api.groups.statistics();
+      const { data } = await api.households.statistics();
 
       if (data) {
         return data;
