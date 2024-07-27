@@ -55,6 +55,8 @@ foods_merge = "/api/foods/merge"
 """`/api/foods/merge`"""
 groups_labels = "/api/groups/labels"
 """`/api/groups/labels`"""
+groups_members = "/api/groups/members"
+"""`/api/groups/members`"""
 groups_migrations = "/api/groups/migrations"
 """`/api/groups/migrations`"""
 groups_preferences = "/api/groups/preferences"
@@ -221,6 +223,16 @@ def comments_item_id(item_id):
     return f"{prefix}/comments/{item_id}"
 
 
+def explore_groups_group_slug_cookbooks(group_slug):
+    """`/api/explore/groups/{group_slug}/cookbooks`"""
+    return f"{prefix}/explore/groups/{group_slug}/cookbooks"
+
+
+def explore_groups_group_slug_cookbooks_item_id(group_slug, item_id):
+    """`/api/explore/groups/{group_slug}/cookbooks/{item_id}`"""
+    return f"{prefix}/explore/groups/{group_slug}/cookbooks/{item_id}"
+
+
 def explore_groups_group_slug_foods(group_slug):
     """`/api/explore/groups/{group_slug}/foods`"""
     return f"{prefix}/explore/groups/{group_slug}/foods"
@@ -229,26 +241,6 @@ def explore_groups_group_slug_foods(group_slug):
 def explore_groups_group_slug_foods_item_id(group_slug, item_id):
     """`/api/explore/groups/{group_slug}/foods/{item_id}`"""
     return f"{prefix}/explore/groups/{group_slug}/foods/{item_id}"
-
-
-def explore_groups_group_slug_households_household_slug_cookbooks(group_slug, household_slug):
-    """`/api/explore/groups/{group_slug}/households/{household_slug}/cookbooks`"""
-    return f"{prefix}/explore/groups/{group_slug}/households/{household_slug}/cookbooks"
-
-
-def explore_groups_group_slug_households_household_slug_cookbooks_item_id(group_slug, household_slug, item_id):
-    """`/api/explore/groups/{group_slug}/households/{household_slug}/cookbooks/{item_id}`"""
-    return f"{prefix}/explore/groups/{group_slug}/households/{household_slug}/cookbooks/{item_id}"
-
-
-def explore_groups_group_slug_households_household_slug_recipes(group_slug, household_slug):
-    """`/api/explore/groups/{group_slug}/households/{household_slug}/recipes`"""
-    return f"{prefix}/explore/groups/{group_slug}/households/{household_slug}/recipes"
-
-
-def explore_groups_group_slug_households_household_slug_recipes_recipe_slug(group_slug, household_slug, recipe_slug):
-    """`/api/explore/groups/{group_slug}/households/{household_slug}/recipes/{recipe_slug}`"""
-    return f"{prefix}/explore/groups/{group_slug}/households/{household_slug}/recipes/{recipe_slug}"
 
 
 def explore_groups_group_slug_organizers_categories(group_slug):
@@ -279,6 +271,16 @@ def explore_groups_group_slug_organizers_tools(group_slug):
 def explore_groups_group_slug_organizers_tools_item_id(group_slug, item_id):
     """`/api/explore/groups/{group_slug}/organizers/tools/{item_id}`"""
     return f"{prefix}/explore/groups/{group_slug}/organizers/tools/{item_id}"
+
+
+def explore_groups_group_slug_recipes(group_slug):
+    """`/api/explore/groups/{group_slug}/recipes`"""
+    return f"{prefix}/explore/groups/{group_slug}/recipes"
+
+
+def explore_groups_group_slug_recipes_recipe_slug(group_slug, recipe_slug):
+    """`/api/explore/groups/{group_slug}/recipes/{recipe_slug}`"""
+    return f"{prefix}/explore/groups/{group_slug}/recipes/{recipe_slug}"
 
 
 def foods_item_id(item_id):
