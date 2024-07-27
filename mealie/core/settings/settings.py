@@ -307,10 +307,16 @@ class AppSettings(BaseSettings):
     # Testing Config
 
     TESTING: bool = False
-    model_config = SettingsConfigDict(arbitrary_types_allowed=True, extra="allow", secrets_dir="/run/secrets")
+    model_config = SettingsConfigDict(arbitrary_types_allowed=True, extra="allow")
 
 
-def app_settings_constructor(data_dir: Path, production: bool, env_file: Path, env_encoding="utf-8") -> AppSettings:
+def app_settings_constructor(
+    data_dir: Path,
+    secrets_dir: str | Path | None,
+    production: bool,
+    env_file: Path,
+    env_encoding="utf-8",
+) -> AppSettings:
     """
     app_settings_constructor is a factory function that returns an AppSettings object. It is used to inject the
     required dependencies into the AppSettings object and nested child objects. AppSettings should not be substantiated
@@ -319,12 +325,14 @@ def app_settings_constructor(data_dir: Path, production: bool, env_file: Path, e
     app_settings = AppSettings(
         _env_file=env_file,  # type: ignore
         _env_file_encoding=env_encoding,  # type: ignore
+        _secrets_dir=secrets_dir,
         **{"SECRET": determine_secrets(data_dir, production)},
     )
 
     app_settings.DB_PROVIDER = db_provider_factory(
         app_settings.DB_ENGINE or "sqlite",
         data_dir,
+        secrets_dir,
         env_file=env_file,
         env_encoding=env_encoding,
     )

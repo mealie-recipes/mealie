@@ -16,6 +16,7 @@ dotenv.load_dotenv(ENV)
 PRODUCTION = os.getenv("PRODUCTION", "True").lower() in ["true", "1"]
 TESTING = os.getenv("TESTING", "False").lower() in ["true", "1"]
 DATA_DIR = os.getenv("DATA_DIR")
+USE_SECRETS_DIR = os.getenv("USE_SECRETS_DIR", "True").lower() in ["true", "1"]
 
 
 def determine_data_dir() -> Path:
@@ -37,4 +38,9 @@ def get_app_dirs() -> AppDirectories:
 
 @lru_cache
 def get_app_settings() -> AppSettings:
-    return app_settings_constructor(env_file=ENV, production=PRODUCTION, data_dir=determine_data_dir())
+    return app_settings_constructor(
+        env_file=ENV,
+        production=PRODUCTION,
+        data_dir=determine_data_dir(),
+        secrets_dir="/run/secrets" if USE_SECRETS_DIR else None,
+    )
