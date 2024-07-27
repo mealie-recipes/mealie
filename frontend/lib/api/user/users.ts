@@ -26,7 +26,6 @@ export interface UserRatingsOut {
 const prefix = "/api";
 
 const routes = {
-  groupUsers: `${prefix}/users/group-users`,
   usersSelf: `${prefix}/users/self`,
   ratingsSelf: `${prefix}/users/self/ratings`,
   passwordReset: `${prefix}/users/reset-password`,
@@ -50,10 +49,6 @@ const routes = {
 export class UserApi extends BaseCRUDAPI<UserIn, UserOut, UserBase> {
   baseRoute: string = routes.users;
   itemRoute = (itemid: string) => routes.usersId(itemid);
-
-  async getGroupUsers(page = 1, perPage = -1, params = {} as Record<string, QueryValue>) {
-    return await this.requests.get<PaginationData<UserSummary>>(route(routes.groupUsers, { page, perPage, ...params }));
-  }
 
   async addFavorite(id: string, slug: string) {
     return await this.requests.post(routes.usersIdFavoritesSlug(id, slug), {});
