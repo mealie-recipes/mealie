@@ -14,9 +14,11 @@
           <div class="d-flex">
             <p> {{ $t("user.user-id-with-value", {id: user.id} ) }}</p>
           </div>
+          <!-- This is disabled since we can't properly handle changing the user's group in most scenarios -->
           <v-select
             v-if="groups"
             v-model="user.group"
+            disabled
             :items="groups"
             rounded
             class="rounded-lg"
