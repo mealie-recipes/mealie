@@ -4,10 +4,14 @@ from pydantic import UUID4
 
 from mealie.db.db_setup import session_context
 from mealie.repos.all_repositories import get_repositories
+from mealie.schema.group.webhook import ReadWebhook
 from mealie.schema.response.pagination import PaginationQuery
+from mealie.services.event_bus_service.event_bus_listeners import WebhookEventListener
 from mealie.services.event_bus_service.event_bus_service import EventBusService
 from mealie.services.event_bus_service.event_types import (
     INTERNAL_INTEGRATION_ID,
+    Event,
+    EventBusMessage,
     EventDocumentType,
     EventOperation,
     EventTypes,
@@ -61,3 +65,24 @@ def post_group_webhooks(start_dt: datetime | None = None, group_id: UUID4 | None
             event_type=event_type,
             document_data=event_document_data,
         )
+
+
+def post_single_webhook(webhook: ReadWebhook, message: str = "") -> None:
+    dt = datetime.min.replace(tzinfo=timezone.utc)
+    event_type = EventTypes.webhook_task
+
+    event_document_data = EventWebhookData(
+        document_type=EventDocumentType.mealplan,
+        operation=EventOperation.info,
+        webhook_start_dt=dt,
+        webhook_end_dt=dt,
+    )
+    event = Event(
+        message=EventBusMessage.from_type(event_type, body=message),
+        event_type=event_type,
+        integration_id=INTERNAL_INTEGRATION_ID,
+        document_data=event_document_data,
+    )
+
+    listener = WebhookEventListener(webhook.group_id)
+    listener.publish_to_subscribers(event, [webhook])

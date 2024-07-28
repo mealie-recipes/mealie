@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from typing import TYPE_CHECKING
 
 import sqlalchemy as sa
@@ -10,10 +10,11 @@ from sqlalchemy.orm import Mapped, mapped_column, validates
 from sqlalchemy.orm.attributes import get_history
 from sqlalchemy.orm.session import object_session
 
+from mealie.db.models._model_utils.auto_init import auto_init
+from mealie.db.models._model_utils.datetime import get_utc_today
 from mealie.db.models._model_utils.guid import GUID
 
 from .._model_base import BaseMixins, SqlAlchemyBase
-from .._model_utils import auto_init
 from ..users.user_to_recipe import UserToRecipe
 from .api_extras import ApiExtras, api_extras
 from .assets import RecipeAsset
@@ -125,7 +126,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     is_ocr_recipe: Mapped[bool | None] = mapped_column(sa.Boolean, default=False)
 
     # Time Stamp Properties
-    date_added: Mapped[date | None] = mapped_column(sa.Date, default=date.today)
+    date_added: Mapped[date | None] = mapped_column(sa.Date, default=get_utc_today)
     date_updated: Mapped[datetime | None] = mapped_column(sa.DateTime)
     last_made: Mapped[datetime | None] = mapped_column(sa.DateTime)
 
@@ -194,7 +195,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         if notes:
             self.notes = [Note(**n) for n in notes]
 
-        self.date_updated = datetime.now()
+        self.date_updated = datetime.now(timezone.utc)
 
         # SQLAlchemy events do not seem to register things that are set during auto_init
         if name is not None:

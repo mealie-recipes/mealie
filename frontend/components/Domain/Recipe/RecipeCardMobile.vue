@@ -36,6 +36,9 @@
           <v-list-item-subtitle>
             <SafeMarkdown :source="description" />
           </v-list-item-subtitle>
+          <div class="d-flex flex-wrap justify-start">
+            <RecipeChips :truncate="true" :items="tags" :title="false" :limit="2" :small="true" url-prefix="tags" />
+          </div>
           <div class="d-flex flex-wrap justify-end align-center">
             <slot name="actions">
               <RecipeFavoriteBadge v-if="isOwnGroup && showRecipeContent" :recipe-id="recipeId" show-always />
@@ -83,6 +86,7 @@ import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
 import RecipeContextMenu from "./RecipeContextMenu.vue";
 import RecipeCardImage from "./RecipeCardImage.vue";
 import RecipeRating from "./RecipeRating.vue";
+import RecipeChips from "./RecipeChips.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 
 export default defineComponent({
@@ -91,6 +95,7 @@ export default defineComponent({
     RecipeContextMenu,
     RecipeRating,
     RecipeCardImage,
+    RecipeChips,
   },
   props: {
     name: {
@@ -113,6 +118,10 @@ export default defineComponent({
       type: String,
       required: false,
       default: "abc123",
+    },
+    tags: {
+      type: Array,
+      default: () => [],
     },
     recipeId: {
       type: String,

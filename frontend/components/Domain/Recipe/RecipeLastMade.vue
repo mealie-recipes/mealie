@@ -102,7 +102,7 @@
           <v-icon left>
             {{ $globals.icons.calendar }}
           </v-icon>
-            {{ $t('recipe.last-made-date', { date: value ? new Date(value+"Z").toLocaleDateString($i18n.locale) : $t("general.never") } ) }}
+            {{ $t('recipe.last-made-date', { date: value ? new Date(value).toLocaleDateString($i18n.locale) : $t("general.never") } ) }}
         </v-chip>
       </div>
     </div>
@@ -199,11 +199,7 @@ export default defineComponent({
         await userApi.recipes.updateLastMade(props.recipe.slug,  newTimelineEvent.value.timestamp);
 
         // update recipe in parent so the user can see it
-        // we remove the trailing "Z" since this is how the API returns it
-        context.emit(
-          "input", newTimelineEvent.value.timestamp
-            .substring(0, newTimelineEvent.value.timestamp.length - 1)
-        );
+        context.emit("input", newTimelineEvent.value.timestamp);
       }
 
       // update the image, if provided

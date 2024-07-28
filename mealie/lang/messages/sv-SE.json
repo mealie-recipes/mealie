@@ -44,5 +44,28 @@
         "second": "sekund|sekunder",
         "millisecond": "millisekund millisekunder",
         "microsecond": "mikrosekund mikrosekunder"
+    },
+    "emails": {
+        "password": {
+            "subject": "Mealie Glömt Lösenord",
+            "header_text": "Glömt Lösenord",
+            "message_top": "Du har begärt återställning av ditt lösenord.",
+            "message_bottom": "Klicka på knappen ovan för att återställa ditt lösenord.",
+            "button_text": "Återställ Lösenord"
+        },
+        "invitation": {
+            "subject": "Inbjudan till Mealie",
+            "header_text": "Du är inbjuden!",
+            "message_top": "Du har blivit inbjuden till Mealie.",
+            "message_bottom": "Klicka på knappen ovan för att acceptera inbjudan.",
+            "button_text": "Acceptera inbjudan"
+        },
+        "test": {
+            "subject": "Mealie Test Email",
+            "header_text": "Test Email",
+            "message_top": "Detta är ett test email.",
+            "message_bottom": "Klicka på knappen ovan för att testa email.",
+            "button_text": "Öppna Mealie"
+        }
     }
 }
