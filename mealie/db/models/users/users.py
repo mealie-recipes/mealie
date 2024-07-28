@@ -92,7 +92,7 @@ class User(SqlAlchemyBase, BaseMixins):
     )
     shopping_lists: Mapped[Optional["ShoppingList"]] = orm.relationship("ShoppingList", **sp_args)
     rated_recipes: Mapped[list["RecipeModel"]] = orm.relationship(
-        "RecipeModel", secondary=UserToRecipe.__tablename__, back_populates="rated_by"
+        "RecipeModel", secondary=UserToRecipe.__tablename__, back_populates="rated_by", viewonly=True
     )
     favorite_recipes: Mapped[list["RecipeModel"]] = orm.relationship(
         "RecipeModel",

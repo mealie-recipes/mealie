@@ -60,7 +60,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
 
     rating: Mapped[float | None] = mapped_column(sa.Float, index=True, nullable=True)
     rated_by: Mapped[list["User"]] = orm.relationship(
-        "User", secondary=UserToRecipe.__tablename__, back_populates="rated_recipes"
+        "User", secondary=UserToRecipe.__tablename__, back_populates="rated_recipes", viewonly=True
     )
     favorited_by: Mapped[list["User"]] = orm.relationship(
         "User",
