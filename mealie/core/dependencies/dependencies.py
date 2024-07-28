@@ -16,7 +16,6 @@ from mealie.core import root_logger
 from mealie.core.config import get_app_dirs, get_app_settings
 from mealie.db.db_setup import generate_session
 from mealie.repos.all_repositories import get_repositories
-from mealie.schema.household.household import HouseholdOut
 from mealie.schema.user import PrivateUser, TokenData
 from mealie.schema.user.user import DEFAULT_INTEGRATION_ID, GroupInDB
 
