@@ -62,7 +62,13 @@ class RepositoryHousehold(GroupRepositoryGeneric[HouseholdOut, Household]):
         ]
 
     def get_by_name(self, name: str) -> HouseholdOut | None:
-        dbhousehold = self.session.execute(select(self.model).filter_by(name=name)).scalars().one_or_none()
+        if not self.group_id:
+            raise Exception("group_id not set")
+        dbhousehold = (
+            self.session.execute(select(self.model).filter_by(name=name, group_id=self.group_id))
+            .scalars()
+            .one_or_none()
+        )
         if dbhousehold is None:
             return None
         return self.schema.model_validate(dbhousehold)

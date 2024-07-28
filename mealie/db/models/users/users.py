@@ -134,7 +134,16 @@ class User(SqlAlchemyBase, BaseMixins):
         from mealie.db.models.household import Household
 
         self.group = session.execute(select(Group).filter(Group.name == group)).scalars().one_or_none()
-        self.household = session.execute(select(Household).filter(Household.name == household)).scalars().one_or_none()
+        if self.group:
+            self.household = (
+                session.execute(
+                    select(Household).filter(Household.name == household, Household.group_id == self.group.id)
+                )
+                .scalars()
+                .one_or_none()
+            )
+        else:
+            self.household = None
 
         self.rated_recipes = []
 
@@ -155,7 +164,16 @@ class User(SqlAlchemyBase, BaseMixins):
         from mealie.db.models.household import Household
 
         self.group = session.execute(select(Group).filter(Group.name == group)).scalars().one_or_none()
-        self.household = session.execute(select(Household).filter(Household.name == household)).scalars().one_or_none()
+        if self.group:
+            self.household = (
+                session.execute(
+                    select(Household).filter(Household.name == household, Household.group_id == self.group.id)
+                )
+                .scalars()
+                .one_or_none()
+            )
+        else:
+            self.household = None
 
         if self.username is None:
             self.username = full_name
