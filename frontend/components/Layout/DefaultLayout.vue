@@ -157,7 +157,7 @@
 
       const topLinks = computed<SidebarLinks>(() => [
         {
-          icon: $globals.icons.silverwareFork,
+          icon: $globals.icons.silverwareForkKnife,
           to: `/g/${groupSlug.value}`,
           title: i18n.tc("general.recipes"),
           restricted: true,

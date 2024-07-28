@@ -126,7 +126,7 @@
       <RecipeCardSection
         v-if="state.ready"
         class="mt-n5"
-        :icon="$globals.icons.silverwareFork"
+        :icon="$globals.icons.silverwareForkKnife"
         :title="$tc('general.recipes')"
         :recipes="recipes"
         :query="passedQueryWithSeed"
