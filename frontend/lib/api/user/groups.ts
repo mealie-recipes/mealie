@@ -16,7 +16,7 @@ const routes = {
   storage: `${prefix}/groups/storage`,
   membersHouseholdId: (householdId: string | number | null) => {
     return householdId ?
-      `${prefix}/households/members?household_id=${householdId}` :
+      `${prefix}/households/members?householdId=${householdId}` :
       `${prefix}/groups/members`;
   },
   groupsId: (id: string | number) => `${prefix}/admin/groups/${id}`,

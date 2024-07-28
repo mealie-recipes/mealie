@@ -28,7 +28,7 @@ class GroupSelfServiceController(BaseUserController):
         return self.group.cast(GroupSummary)
 
     @router.get("/members", response_model=list[UserSummary])
-    def get_group_members(self, household_id: UUID4 | None = Query(None)):
+    def get_group_members(self, household_id: UUID4 | None = Query(None, alias="householdId")):
         """Returns all users belonging to the current group, optionally filtered by household_id"""
 
         filtered_repos = get_repositories(self.repos.session, group_id=self.group_id, household_id=household_id)
