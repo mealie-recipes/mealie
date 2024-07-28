@@ -30,7 +30,9 @@ class HouseholdSelfServiceController(BaseUserController):
     @router.get("/members", response_model=list[UserOut])
     def get_household_members(self):
         """Returns all users belonging to the current household"""
-        private_users = self.repos.users.page_all(PaginationQuery(page=1, per_page=-1)).items
+        private_users = self.repos.users.page_all(
+            PaginationQuery(page=1, per_page=-1, query_filter=f"household_id={self.household_id}")
+        ).items
         return [user.cast(UserOut) for user in private_users]
 
     @router.get("/preferences", response_model=ReadHouseholdPreferences)
