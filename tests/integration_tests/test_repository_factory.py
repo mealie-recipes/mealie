@@ -295,3 +295,70 @@ def test_generic_repo_filter_by_household_with_proxy(session: Session):
     result = household_2_repos.group_shopping_lists.page_all(PaginationQuery(page=1, per_page=-1)).items
     assert len(result) == 1
     assert result[0].id == shopping_list_2.id
+
+
+def test_changing_user_changes_household(session: Session):
+    unfiltered_repos = get_repositories(session, group_id=None, household_id=None)
+    group = unfiltered_repos.groups.create({"name": random_string()})
+    group_repos = get_repositories(session, group_id=group.id, household_id=None)
+    household_1 = group_repos.households.create({"name": random_string(), "group_id": group.id})
+    household_2 = group_repos.households.create({"name": random_string(), "group_id": group.id})
+
+    user_1 = group_repos.users.create(
+        {
+            "username": random_string(),
+            "email": random_email(),
+            "group": group.name,
+            "household": household_1.name,
+            "full_name": random_string(),
+            "password": random_string(),
+            "admin": False,
+        }
+    )
+    user_2 = group_repos.users.create(
+        {
+            "username": random_string(),
+            "email": random_email(),
+            "group": group.name,
+            "household": household_2.name,
+            "full_name": random_string(),
+            "password": random_string(),
+            "admin": False,
+        }
+    )
+
+    household_1_repos = get_repositories(session, group_id=group.id, household_id=household_1.id)
+    household_2_repos = get_repositories(session, group_id=group.id, household_id=household_2.id)
+
+    # create shopping list with user_1/household_1
+    shopping_list = ShoppingListService(household_1_repos).create_one_list(
+        ShoppingListCreate(name=random_string()), user_1.id
+    )
+
+    # only household_1_repos should find the list
+    response = household_1_repos.group_shopping_lists.get_one(shopping_list.id)
+    assert response
+    assert response.user_id == user_1.id
+    response = household_2_repos.group_shopping_lists.get_one(shopping_list.id)
+    assert response is None
+
+    items = household_1_repos.group_shopping_lists.page_all(PaginationQuery(page=1, per_page=-1)).items
+    assert len(items) == 1
+    assert items[0].id == shopping_list.id
+    assert household_2_repos.group_shopping_lists.page_all(PaginationQuery(page=1, per_page=-1)).items == []
+
+    # update shopping list to user_2/household_2 using household_1_repos
+    shopping_list.user_id = user_2.id
+    household_1_repos.group_shopping_lists.update(shopping_list.id, shopping_list)
+
+    # now only household_2_repos should find the list
+    response = household_1_repos.group_shopping_lists.get_one(shopping_list.id)
+    assert response is None
+    response = household_2_repos.group_shopping_lists.get_one(shopping_list.id)
+    assert response
+    assert response.user_id == user_2.id
+
+    items = household_2_repos.group_shopping_lists.page_all(PaginationQuery(page=1, per_page=-1)).items
+    assert len(items) == 1
+    assert items[0].id == shopping_list.id
+    assert household_1_repos.group_shopping_lists.page_all(PaginationQuery(page=1, per_page=-1)).items == []
