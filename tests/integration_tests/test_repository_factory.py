@@ -12,10 +12,13 @@ from mealie.repos._utils import NOT_SET, NotSet
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_generic import GroupRepositoryGeneric, HouseholdRepositoryGeneric, RepositoryGeneric
 from mealie.schema._mealie.mealie_model import MealieModel
+from mealie.schema.household.group_shopping_list import ShoppingListCreate
 from mealie.schema.household.webhook import SaveWebhook
+from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.recipe.recipe_ingredient import SaveIngredientFood
 from mealie.schema.response.pagination import PaginationQuery
-from tests.utils.factories import random_string
+from mealie.services.household_services.shopping_lists import ShoppingListService
+from tests.utils.factories import random_email, random_string
 
 
 @pytest.mark.parametrize("group_id", [uuid4(), None, NOT_SET])
@@ -181,3 +184,114 @@ def test_household_repositories_filter_by_household(session: Session):
         assert other_group_repos.webhooks.get_one(webhook_1.id) is None
         assert other_group_repos.webhooks.get_one(webhook_2.id) is None
         assert other_group_repos.webhooks.page_all(PaginationQuery(page=1, per_page=-1)).items == []
+
+
+def test_recipe_repo_filter_by_household_with_proxy(session: Session):
+    unfiltered_repos = get_repositories(session, group_id=None, household_id=None)
+    group = unfiltered_repos.groups.create({"name": random_string()})
+    group_repos = get_repositories(session, group_id=group.id, household_id=None)
+    household_1 = group_repos.households.create({"name": random_string(), "group_id": group.id})
+    household_2 = group_repos.households.create({"name": random_string(), "group_id": group.id})
+
+    user_1 = group_repos.users.create(
+        {
+            "username": random_string(),
+            "email": random_email(),
+            "group": group.name,
+            "household": household_1.name,
+            "full_name": random_string(),
+            "password": random_string(),
+            "admin": False,
+        }
+    )
+    user_2 = group_repos.users.create(
+        {
+            "username": random_string(),
+            "email": random_email(),
+            "group": group.name,
+            "household": household_2.name,
+            "full_name": random_string(),
+            "password": random_string(),
+            "admin": False,
+        }
+    )
+
+    household_1_repos = get_repositories(session, group_id=group.id, household_id=household_1.id)
+    household_2_repos = get_repositories(session, group_id=group.id, household_id=household_2.id)
+    recipe_1 = household_1_repos.recipes.create(
+        Recipe(
+            user_id=user_1.id,
+            group_id=group.id,
+            name=random_string(),
+        )
+    )
+    recipe_2 = household_2_repos.recipes.create(
+        Recipe(
+            user_id=user_2.id,
+            group_id=group.id,
+            name=random_string(),
+        )
+    )
+    assert recipe_1.id and recipe_2.id
+
+    assert household_1_repos.recipes.get_one(recipe_1.slug) == recipe_1
+    assert household_1_repos.recipes.get_one(recipe_2.slug) is None
+    result = household_1_repos.recipes.page_all(PaginationQuery(page=1, per_page=-1)).items
+    assert len(result) == 1
+    assert result[0].id == recipe_1.id
+
+    assert household_2_repos.recipes.get_one(recipe_1.slug) is None
+    assert household_2_repos.recipes.get_one(recipe_2.slug) == recipe_2
+    result = household_2_repos.recipes.page_all(PaginationQuery(page=1, per_page=-1)).items
+    assert len(result) == 1
+    assert result[0].id == recipe_2.id
+
+
+def test_generic_repo_filter_by_household_with_proxy(session: Session):
+    unfiltered_repos = get_repositories(session, group_id=None, household_id=None)
+    group = unfiltered_repos.groups.create({"name": random_string()})
+    group_repos = get_repositories(session, group_id=group.id, household_id=None)
+    household_1 = group_repos.households.create({"name": random_string(), "group_id": group.id})
+    household_2 = group_repos.households.create({"name": random_string(), "group_id": group.id})
+
+    user_1 = group_repos.users.create(
+        {
+            "username": random_string(),
+            "email": random_email(),
+            "group": group.name,
+            "household": household_1.name,
+            "full_name": random_string(),
+            "password": random_string(),
+            "admin": False,
+        }
+    )
+    user_2 = group_repos.users.create(
+        {
+            "username": random_string(),
+            "email": random_email(),
+            "group": group.name,
+            "household": household_2.name,
+            "full_name": random_string(),
+            "password": random_string(),
+            "admin": False,
+        }
+    )
+
+    household_1_repos = get_repositories(session, group_id=group.id, household_id=household_1.id)
+    household_2_repos = get_repositories(session, group_id=group.id, household_id=household_2.id)
+    shopping_list_service_1 = ShoppingListService(household_1_repos)
+    shopping_list_service_2 = ShoppingListService(household_2_repos)
+    shopping_list_1 = shopping_list_service_1.create_one_list(ShoppingListCreate(name=random_string()), user_1.id)
+    shopping_list_2 = shopping_list_service_2.create_one_list(ShoppingListCreate(name=random_string()), user_2.id)
+
+    assert household_1_repos.group_shopping_lists.get_one(shopping_list_1.id) == shopping_list_1
+    assert household_1_repos.group_shopping_lists.get_one(shopping_list_2.id) is None
+    result = household_1_repos.group_shopping_lists.page_all(PaginationQuery(page=1, per_page=-1)).items
+    assert len(result) == 1
+    assert result[0].id == shopping_list_1.id
+
+    assert household_2_repos.group_shopping_lists.get_one(shopping_list_1.id) is None
+    assert household_2_repos.group_shopping_lists.get_one(shopping_list_2.id) == shopping_list_2
+    result = household_2_repos.group_shopping_lists.page_all(PaginationQuery(page=1, per_page=-1)).items
+    assert len(result) == 1
+    assert result[0].id == shopping_list_2.id
