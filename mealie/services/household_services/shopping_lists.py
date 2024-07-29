@@ -494,9 +494,7 @@ class ShoppingListService:
         return self.shopping_lists.get_one(shopping_list.id), items  # type: ignore
 
     def create_one_list(self, data: ShoppingListCreate, owner_id: UUID4):
-        create_data = data.cast(
-            ShoppingListSave, group_id=self.repos.group_id, household_id=self.repos.household_id, user_id=owner_id
-        )
+        create_data = data.cast(ShoppingListSave, group_id=self.repos.group_id, user_id=owner_id)
         new_list = self.shopping_lists.create(create_data)  # type: ignore
 
         labels = self.repos.group_multi_purpose_labels.page_all(

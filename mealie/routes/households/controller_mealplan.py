@@ -84,7 +84,6 @@ class GroupMealplanController(BaseCrudController):
                     entry_type=data.entry_type,
                     recipe_id=recipe.id,
                     group_id=self.group_id,
-                    household_id=self.household_id,
                     user_id=self.user.id,
                 )
             )
@@ -121,9 +120,7 @@ class GroupMealplanController(BaseCrudController):
 
     @router.post("", response_model=ReadPlanEntry, status_code=201)
     def create_one(self, data: CreatePlanEntry):
-        data = mapper.cast(
-            data, SavePlanEntry, group_id=self.group_id, household_id=self.household_id, user_id=self.user.id
-        )
+        data = mapper.cast(data, SavePlanEntry, group_id=self.group_id, user_id=self.user.id)
         result = self.mixins.create_one(data)
 
         self.publish_event(

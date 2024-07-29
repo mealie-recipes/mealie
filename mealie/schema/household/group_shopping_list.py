@@ -205,12 +205,12 @@ class ShoppingListRecipeRefOut(MealieModel):
 
 class ShoppingListSave(ShoppingListCreate):
     group_id: UUID4
-    household_id: UUID4
     user_id: UUID4
 
 
 class ShoppingListSummary(ShoppingListSave):
     id: UUID4
+    household_id: UUID4
     recipe_references: list[ShoppingListRecipeRefOut]
     label_settings: list[ShoppingListMultiPurposeLabelOut]
     model_config = ConfigDict(from_attributes=True)
