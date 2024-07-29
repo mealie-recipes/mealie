@@ -238,6 +238,8 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
             sa.select(RecipeModel)
             .join(RecipeModel.recipe_category)
             .filter(RecipeModel.recipe_category.any(Category.id.in_(ids)))
+            .filter(RecipeModel.group_id == self.group_id)
+            .filter(RecipeModel.household_id == self.household_id)
         )
         return [RecipeSummary.model_validate(x) for x in self.session.execute(stmt).unique().scalars().all()]
 
@@ -327,6 +329,7 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         stmt = (
             sa.select(RecipeModel)
             .filter(RecipeModel.group_id == self.group_id)
+            .filter(RecipeModel.household_id == self.household_id)
             .order_by(sa.func.random())  # Postgres and SQLite specific
             .limit(limit)
         )
