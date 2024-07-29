@@ -13,7 +13,6 @@ from typing_extensions import Self
 from mealie.db.models.recipe.category import Category
 from mealie.db.models.recipe.ingredient import RecipeIngredientModel
 from mealie.db.models.recipe.recipe import RecipeModel
-from mealie.db.models.recipe.settings import RecipeSettings
 from mealie.db.models.recipe.tag import Tag
 from mealie.db.models.recipe.tool import Tool
 from mealie.db.models.users.user_to_recipe import UserToRecipe
