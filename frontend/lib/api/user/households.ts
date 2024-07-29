@@ -2,7 +2,7 @@ import { BaseCRUDAPI } from "../base/base-clients";
 import { UserOut } from "~/lib/api/types/user";
 import {
   HouseholdCreate,
-  HouseholdOut,
+  HouseholdInDB,
   UpdateHouseholdAdmin,
   HouseholdStatistics,
   ReadHouseholdPreferences,
@@ -27,13 +27,13 @@ const routes = {
   householdsId: (id: string | number) => `${prefix}/admin/households/${id}`,
 };
 
-export class HouseholdAPI extends BaseCRUDAPI<HouseholdCreate, HouseholdOut, UpdateHouseholdAdmin> {
+export class HouseholdAPI extends BaseCRUDAPI<HouseholdCreate, HouseholdInDB, UpdateHouseholdAdmin> {
   baseRoute = routes.households;
   itemRoute = routes.householdsId;
   /** Returns the Group Data for the Current User
    */
   async getCurrentUserHousehold() {
-    return await this.requests.get<HouseholdOut>(routes.householdsSelf);
+    return await this.requests.get<HouseholdInDB>(routes.householdsSelf);
   }
 
   async getPreferences() {

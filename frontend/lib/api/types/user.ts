@@ -46,13 +46,17 @@ export interface ForgotPassword {
 export interface GroupBase {
   name: string;
 }
+export interface GroupHouseholdSummary {
+  id: string;
+  name: string;
+}
 export interface GroupInDB {
   name: string;
   id: string;
   slug: string;
   categories?: CategoryBase[] | null;
   webhooks?: ReadWebhook[];
-  households?: HouseholdOut[] | null;
+  households?: GroupHouseholdSummary[] | null;
   users?: UserSummary[] | null;
   preferences?: ReadGroupPreferences | null;
 }
@@ -70,25 +74,6 @@ export interface ReadWebhook {
   groupId: string;
   householdId: string;
   id: string;
-}
-export interface HouseholdOut {
-  groupId: string;
-  name: string;
-  id: string;
-  slug: string;
-  preferences?: ReadHouseholdPreferences | null;
-}
-export interface ReadHouseholdPreferences {
-  privateHousehold?: boolean;
-  firstDayOfWeek?: number;
-  recipePublic?: boolean;
-  recipeShowNutrition?: boolean;
-  recipeShowAssets?: boolean;
-  recipeLandscapeView?: boolean;
-  recipeDisableComments?: boolean;
-  recipeDisableAmount?: boolean;
-  id: string;
-  [k: string]: unknown;
 }
 export interface UserSummary {
   id: string;

@@ -1,5 +1,6 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import { GroupBase, GroupInDB, GroupSummary, HouseholdOut, UserSummary } from "~/lib/api/types/user";
+import { GroupBase, GroupInDB, GroupSummary, UserSummary } from "~/lib/api/types/user";
+import { HouseholdSummary } from "~/lib/api/types/household";
 import {
   GroupAdminUpdate,
   GroupStorage,
@@ -46,7 +47,7 @@ export class GroupAPI extends BaseCRUDAPI<GroupBase, GroupInDB, GroupAdminUpdate
   }
 
   async fetchHouseholds() {
-    return await this.requests.get<HouseholdOut[]>(routes.households);
+    return await this.requests.get<HouseholdSummary[]>(routes.households);
   }
 
   async storage() {

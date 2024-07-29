@@ -1,8 +1,8 @@
 import { computed, ref, Ref, useAsync } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
-import { HouseholdCreate, HouseholdOut } from "~/lib/api/types/household";
+import { HouseholdCreate, HouseholdInDB } from "~/lib/api/types/household";
 
-const householdSelfRef = ref<HouseholdOut | null>(null);
+const householdSelfRef = ref<HouseholdInDB | null>(null);
 const loading = ref(false);
 
 export const useHouseholdSelf = function () {

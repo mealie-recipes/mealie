@@ -169,12 +169,14 @@ export interface HouseholdCreate {
   groupId?: string | null;
   name: string;
 }
-export interface HouseholdOut {
+export interface HouseholdInDB {
   groupId: string;
   name: string;
   id: string;
   slug: string;
   preferences?: ReadHouseholdPreferences | null;
+  users?: HouseholdUserSummary[] | null;
+  webhooks?: ReadWebhook[];
 }
 export interface ReadHouseholdPreferences {
   privateHousehold?: boolean;
@@ -185,6 +187,20 @@ export interface ReadHouseholdPreferences {
   recipeLandscapeView?: boolean;
   recipeDisableComments?: boolean;
   recipeDisableAmount?: boolean;
+  id: string;
+}
+export interface HouseholdUserSummary {
+  id: string;
+  fullName: string;
+}
+export interface ReadWebhook {
+  enabled?: boolean;
+  name?: string;
+  url?: string;
+  webhookType?: WebhookType & string;
+  scheduledTime: string;
+  groupId: string;
+  householdId: string;
   id: string;
 }
 export interface HouseholdSave {
@@ -198,21 +214,18 @@ export interface HouseholdStatistics {
   totalTags: number;
   totalTools: number;
 }
+export interface HouseholdSummary {
+  groupId: string;
+  name: string;
+  id: string;
+  slug: string;
+  preferences?: ReadHouseholdPreferences | null;
+}
 export interface ReadInviteToken {
   token: string;
   usesLeft: number;
   groupId: string;
   householdId: string;
-}
-export interface ReadWebhook {
-  enabled?: boolean;
-  name?: string;
-  url?: string;
-  webhookType?: WebhookType & string;
-  scheduledTime: string;
-  groupId: string;
-  householdId: string;
-  id: string;
 }
 export interface SaveGroupRecipeAction {
   actionType: GroupRecipeActionType;
