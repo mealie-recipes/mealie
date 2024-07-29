@@ -1,8 +1,13 @@
 from typing import Annotated
 
 from pydantic import UUID4, ConfigDict, StringConstraints
+from sqlalchemy.orm import joinedload, selectinload
+from sqlalchemy.orm.interfaces import LoaderOption
 
+from mealie.db.models.household.household import Household
+from mealie.db.models.users.users import User
 from mealie.schema._mealie.mealie_model import MealieModel
+from mealie.schema.household.webhook import ReadWebhook
 from mealie.schema.response.pagination import PaginationBase
 
 from .household_preferences import ReadHouseholdPreferences, UpdateHouseholdPreferences
@@ -28,10 +33,31 @@ class UpdateHouseholdAdmin(HouseholdSave):
     preferences: UpdateHouseholdPreferences | None = None
 
 
-class HouseholdOut(UpdateHousehold):
-    model_config = ConfigDict(from_attributes=True)
+class HouseholdSummary(UpdateHousehold):
     preferences: ReadHouseholdPreferences | None = None
+    model_config = ConfigDict(from_attributes=True)
+
+
+class HouseholdUserSummary(MealieModel):
+    id: UUID4
+    full_name: str
+    model_config = ConfigDict(from_attributes=True)
+
+
+class HouseholdInDB(HouseholdSummary):
+    users: list[HouseholdUserSummary] | None = None
+    webhooks: list[ReadWebhook] = []
+    model_config = ConfigDict(from_attributes=True)
+
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [
+            joinedload(Household.webhooks),
+            joinedload(Household.preferences),
+            selectinload(Household.users).joinedload(User.group),
+            selectinload(Household.users).joinedload(User.tokens),
+        ]
 
 
 class HouseholdPagination(PaginationBase):
-    items: list[HouseholdOut]
+    items: list[HouseholdInDB]

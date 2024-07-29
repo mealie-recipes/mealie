@@ -5,7 +5,7 @@ from fastapi import HTTPException, status
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.routers import UserAPIRouter
-from mealie.schema.household.household import HouseholdOut
+from mealie.schema.household.household import HouseholdInDB
 from mealie.schema.household.household_permissions import SetPermissions
 from mealie.schema.household.household_preferences import ReadHouseholdPreferences, UpdateHouseholdPreferences
 from mealie.schema.household.household_statistics import HouseholdStatistics
@@ -22,7 +22,7 @@ class HouseholdSelfServiceController(BaseUserController):
     def service(self) -> HouseholdService:
         return HouseholdService(self.group_id, self.household_id, self.repos)
 
-    @router.get("/self", response_model=HouseholdOut)
+    @router.get("/self", response_model=HouseholdInDB)
     def get_logged_in_user_household(self):
         """Returns the Household Data for the Current User"""
         return self.household

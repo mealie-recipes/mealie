@@ -43,9 +43,11 @@ from .group_shopping_list import (
 )
 from .household import (
     HouseholdCreate,
-    HouseholdOut,
+    HouseholdInDB,
     HouseholdPagination,
     HouseholdSave,
+    HouseholdSummary,
+    HouseholdUserSummary,
     UpdateHousehold,
     UpdateHouseholdAdmin,
 )
@@ -85,9 +87,11 @@ __all__ = [
     "SaveHouseholdPreferences",
     "UpdateHouseholdPreferences",
     "HouseholdCreate",
-    "HouseholdOut",
+    "HouseholdInDB",
     "HouseholdPagination",
     "HouseholdSave",
+    "HouseholdSummary",
+    "HouseholdUserSummary",
     "UpdateHousehold",
     "UpdateHouseholdAdmin",
     "HouseholdStatistics",

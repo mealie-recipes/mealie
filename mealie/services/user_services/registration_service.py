@@ -9,7 +9,7 @@ from mealie.lang.providers import Translator
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.group.group_preferences import CreateGroupPreferences
-from mealie.schema.household.household import HouseholdCreate, HouseholdOut
+from mealie.schema.household.household import HouseholdCreate, HouseholdInDB
 from mealie.schema.household.household_preferences import CreateHouseholdPreferences
 from mealie.schema.user.registration import CreateUserRegistration
 from mealie.schema.user.user import GroupBase, GroupInDB, PrivateUser, UserIn
@@ -27,7 +27,7 @@ class RegistrationService:
         self.repos = db
         self.t = translator.t
 
-    def _create_new_user(self, group: GroupInDB, household: HouseholdOut, new_household: bool) -> PrivateUser:
+    def _create_new_user(self, group: GroupInDB, household: HouseholdInDB, new_household: bool) -> PrivateUser:
         new_user = UserIn(
             email=self.registration.email,
             username=self.registration.username,
@@ -54,7 +54,7 @@ class RegistrationService:
 
         return GroupService.create_group(self.repos, group_data, group_preferences)
 
-    def _register_new_household(self, group_id: UUID4) -> HouseholdOut:
+    def _register_new_household(self, group_id: UUID4) -> HouseholdInDB:
         household_data = HouseholdCreate(name=self.registration.household)
 
         household_preferences = CreateHouseholdPreferences(

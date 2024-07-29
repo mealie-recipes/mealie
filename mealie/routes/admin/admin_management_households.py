@@ -5,7 +5,12 @@ from pydantic import UUID4
 from sqlalchemy import func, select
 
 from mealie.db.models.users.users import User
-from mealie.schema.household.household import HouseholdCreate, HouseholdOut, HouseholdPagination, UpdateHouseholdAdmin
+from mealie.schema.household.household import (
+    HouseholdCreate,
+    HouseholdInDB,
+    HouseholdPagination,
+    UpdateHouseholdAdmin,
+)
 from mealie.schema.mapper import mapper
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.response.responses import ErrorResponse
@@ -31,7 +36,7 @@ class AdminHouseholdManagementRoutes(BaseAdminController):
 
     @property
     def mixins(self):
-        return HttpRepo[HouseholdCreate, HouseholdOut, UpdateHouseholdAdmin](
+        return HttpRepo[HouseholdCreate, HouseholdInDB, UpdateHouseholdAdmin](
             self.repo,
             self.logger,
             self.registered_exceptions,
@@ -41,21 +46,21 @@ class AdminHouseholdManagementRoutes(BaseAdminController):
     def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
         response = self.repo.page_all(
             pagination=q,
-            override=HouseholdOut,
+            override=HouseholdInDB,
         )
 
         response.set_pagination_guides(router.url_path_for("get_all"), q.model_dump())
         return response
 
-    @router.post("", response_model=HouseholdOut, status_code=status.HTTP_201_CREATED)
+    @router.post("", response_model=HouseholdInDB, status_code=status.HTTP_201_CREATED)
     def create_one(self, data: HouseholdCreate):
         return HouseholdService.create_household(self.repos, data)
 
-    @router.get("/{item_id}", response_model=HouseholdOut)
+    @router.get("/{item_id}", response_model=HouseholdInDB)
     def get_one(self, item_id: UUID4):
         return self.mixins.get_one(item_id)
 
-    @router.put("/{item_id}", response_model=HouseholdOut)
+    @router.put("/{item_id}", response_model=HouseholdInDB)
     def update_one(self, item_id: UUID4, data: UpdateHouseholdAdmin):
         household = self.repo.get_one(item_id)
 
@@ -71,7 +76,7 @@ class AdminHouseholdManagementRoutes(BaseAdminController):
 
         return household
 
-    @router.delete("/{item_id}", response_model=HouseholdOut)
+    @router.delete("/{item_id}", response_model=HouseholdInDB)
     def delete_one(self, item_id: UUID4):
         item = self.repo.get_one(item_id)
         if item:

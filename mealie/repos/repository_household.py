@@ -15,12 +15,12 @@ from mealie.db.models.recipe.tag import Tag
 from mealie.db.models.recipe.tool import Tool
 from mealie.db.models.users.users import User
 from mealie.repos.repository_generic import GroupRepositoryGeneric
-from mealie.schema.household.household import HouseholdCreate, HouseholdOut, UpdateHousehold
+from mealie.schema.household.household import HouseholdCreate, HouseholdInDB, UpdateHousehold
 from mealie.schema.household.household_statistics import HouseholdStatistics
 
 
-class RepositoryHousehold(GroupRepositoryGeneric[HouseholdOut, Household]):
-    def create(self, data: HouseholdCreate | dict) -> HouseholdOut:
+class RepositoryHousehold(GroupRepositoryGeneric[HouseholdInDB, Household]):
+    def create(self, data: HouseholdCreate | dict) -> HouseholdInDB:
         if isinstance(data, HouseholdCreate):
             data = data.model_dump()
 
@@ -42,11 +42,11 @@ class RepositoryHousehold(GroupRepositoryGeneric[HouseholdOut, Household]):
 
                 data["name"] = f"{original_name} ({attempts})"
 
-    def create_many(self, data: Iterable[HouseholdOut | dict]) -> list[HouseholdOut]:
+    def create_many(self, data: Iterable[HouseholdInDB | dict]) -> list[HouseholdInDB]:
         # since create uses special logic for resolving slugs, we don't want to use the standard create_many method
         return [self.create(new_household) for new_household in data]
 
-    def update(self, match_value: str | int | UUID4, new_data: UpdateHousehold | dict) -> HouseholdOut:
+    def update(self, match_value: str | int | UUID4, new_data: UpdateHousehold | dict) -> HouseholdInDB:
         if isinstance(new_data, HouseholdCreate):
             new_data.slug = slugify(new_data.name)
         else:
@@ -54,14 +54,14 @@ class RepositoryHousehold(GroupRepositoryGeneric[HouseholdOut, Household]):
 
         return super().update(match_value, new_data)
 
-    def update_many(self, data: Iterable[UpdateHousehold | dict]) -> list[HouseholdOut]:
+    def update_many(self, data: Iterable[UpdateHousehold | dict]) -> list[HouseholdInDB]:
         # since update uses special logic for resolving slugs, we don't want to use the standard update_many method
         return [
             self.update(household["id"] if isinstance(household, dict) else household.id, household)
             for household in data
         ]
 
-    def get_by_name(self, name: str) -> HouseholdOut | None:
+    def get_by_name(self, name: str) -> HouseholdInDB | None:
         if not self.group_id:
             raise Exception("group_id not set")
         dbhousehold = (
@@ -73,7 +73,7 @@ class RepositoryHousehold(GroupRepositoryGeneric[HouseholdOut, Household]):
             return None
         return self.schema.model_validate(dbhousehold)
 
-    def get_by_slug_or_id(self, slug_or_id: str | UUID) -> HouseholdOut | None:
+    def get_by_slug_or_id(self, slug_or_id: str | UUID) -> HouseholdInDB | None:
         if isinstance(slug_or_id, str):
             try:
                 slug_or_id = UUID(slug_or_id)

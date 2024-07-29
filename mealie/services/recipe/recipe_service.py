@@ -15,7 +15,7 @@ from mealie.lang.providers import Translator
 from mealie.pkgs import cache
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_generic import RepositoryGeneric
-from mealie.schema.household.household import HouseholdOut
+from mealie.schema.household.household import HouseholdInDB
 from mealie.schema.recipe.recipe import CreateRecipe, Recipe
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_settings import RecipeSettings
@@ -30,7 +30,7 @@ from .template_service import TemplateService
 
 
 class RecipeService(BaseService):
-    def __init__(self, repos: AllRepositories, user: PrivateUser, household: HouseholdOut, translator: Translator):
+    def __init__(self, repos: AllRepositories, user: PrivateUser, household: HouseholdInDB, translator: Translator):
         self.repos = repos
         self.user = user
         self.household = household

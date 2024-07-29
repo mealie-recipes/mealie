@@ -12,7 +12,6 @@ from mealie.db.models.users import User
 from mealie.db.models.users.users import AuthMethod
 from mealie.schema._mealie import MealieModel
 from mealie.schema.group.group_preferences import ReadGroupPreferences
-from mealie.schema.household.household import HouseholdOut
 from mealie.schema.household.webhook import CreateWebhook, ReadWebhook
 from mealie.schema.response.pagination import PaginationBase
 
@@ -220,8 +219,14 @@ class UpdateGroup(GroupBase):
     webhooks: list[CreateWebhook] = []
 
 
+class GroupHouseholdSummary(MealieModel):
+    id: UUID4
+    name: str
+    model_config = ConfigDict(from_attributes=True)
+
+
 class GroupInDB(UpdateGroup):
-    households: list[HouseholdOut] | None = None
+    households: list[GroupHouseholdSummary] | None = None
     users: list[UserSummary] | None = None
     preferences: ReadGroupPreferences | None = None
     webhooks: list[ReadWebhook] = []

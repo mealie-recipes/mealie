@@ -22,7 +22,7 @@ from mealie.lang.providers import Translator
 from mealie.repos._utils import NOT_SET, NotSet
 from mealie.repos.all_repositories import AllRepositories, get_repositories
 from mealie.routes._base.checks import OperationChecks
-from mealie.schema.household.household import HouseholdOut
+from mealie.schema.household.household import HouseholdInDB
 from mealie.schema.user.user import GroupInDB, PrivateUser
 from mealie.services.event_bus_service.event_bus_service import EventBusService
 from mealie.services.event_bus_service.event_types import EventDocumentDataBase, EventTypes
@@ -154,7 +154,7 @@ class BaseUserController(_BaseController):
         return self.repos.groups.get_one(self.group_id)
 
     @property
-    def household(self) -> HouseholdOut:
+    def household(self) -> HouseholdInDB:
         return self.repos.households.get_one(self.household_id)
 
     @property

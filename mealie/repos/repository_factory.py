@@ -51,7 +51,7 @@ from mealie.schema.household.group_shopping_list import (
     ShoppingListOut,
     ShoppingListRecipeRefOut,
 )
-from mealie.schema.household.household import HouseholdOut
+from mealie.schema.household.household import HouseholdInDB
 from mealie.schema.household.household_preferences import ReadHouseholdPreferences
 from mealie.schema.household.invite_token import ReadInviteToken
 from mealie.schema.household.webhook import ReadWebhook
@@ -217,7 +217,7 @@ class AllRepositories:
 
     @cached_property
     def households(self) -> RepositoryHousehold:
-        return RepositoryHousehold(self.session, PK_ID, Household, HouseholdOut, group_id=self.group_id)
+        return RepositoryHousehold(self.session, PK_ID, Household, HouseholdInDB, group_id=self.group_id)
 
     @cached_property
     def household_preferences(self) -> HouseholdRepositoryGeneric[ReadHouseholdPreferences, HouseholdPreferencesModel]:
