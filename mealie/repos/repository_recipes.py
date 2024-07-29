@@ -61,30 +61,6 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
                 if i >= max_retries:
                     raise
 
-    def get_all_public(self, limit: int | None = None, order_by: str | None = None, start=0, override_schema=None):
-        eff_schema = override_schema or self.schema
-
-        if order_by:
-            order_attr = getattr(self.model, str(order_by))
-            stmt = (
-                sa.select(self.model)
-                .join(RecipeSettings)
-                .filter(RecipeSettings.public == True)  # noqa: E712
-                .order_by(order_attr.desc())
-                .offset(start)
-                .limit(limit)
-            )
-            return [eff_schema.model_validate(x) for x in self.session.execute(stmt).scalars().all()]
-
-        stmt = (
-            sa.select(self.model)
-            .join(RecipeSettings)
-            .filter(RecipeSettings.public == True)  # noqa: E712
-            .offset(start)
-            .limit(limit)
-        )
-        return [eff_schema.model_validate(x) for x in self.session.execute(stmt).scalars().all()]
-
     def update_image(self, slug: str, _: str | None = None) -> int:
         entry: RecipeModel = self._query_one(match_value=slug)
         entry.image = randint(0, 255)
@@ -107,45 +83,6 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
             count=count,
             override_schema=override_schema,
         )
-
-    def summary(
-        self, group_id, start=0, limit=99999, load_foods=False, order_by="created_at", order_descending=True
-    ) -> Sequence[RecipeModel]:
-        args = [
-            joinedload(RecipeModel.recipe_category),
-            joinedload(RecipeModel.tags),
-            joinedload(RecipeModel.tools),
-            joinedload(RecipeModel.user),
-        ]
-
-        if load_foods:
-            args.append(joinedload(RecipeModel.recipe_ingredient).options(joinedload(RecipeIngredientModel.food)))
-
-        try:
-            if order_by:
-                order_attr = getattr(RecipeModel, order_by)
-            else:
-                order_attr = RecipeModel.created_at
-
-        except AttributeError:
-            self.logger.info(f'Attempted to sort by unknown sort property "{order_by}"; ignoring')
-            order_attr = RecipeModel.created_at
-
-        if order_descending:
-            order_attr = order_attr.desc()
-
-        else:
-            order_attr = order_attr.asc()
-
-        stmt = (
-            sa.select(RecipeModel)
-            .options(*args)
-            .filter(RecipeModel.group_id == group_id)
-            .order_by(order_attr)
-            .offset(start)
-            .limit(limit)
-        )
-        return self.session.execute(stmt).scalars().all()
 
     def _uuids_for_items(self, items: list[UUID | str] | None, model: type[SqlAlchemyBase]) -> list[UUID] | None:
         if not items:
