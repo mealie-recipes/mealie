@@ -270,6 +270,10 @@
     "admin-group-management-text": "Changes to this group will be reflected immediately.",
     "group-id-value": "Group Id: {0}"
   },
+  "household": {
+    "household": "Household",
+    "user-household": "User Household"
+  },
   "meal-plan": {
     "create-a-new-meal-plan": "Create a New Meal Plan",
     "update-this-meal-plan": "Update this Meal Plan",

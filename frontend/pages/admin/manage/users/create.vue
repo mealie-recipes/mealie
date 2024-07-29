@@ -12,17 +12,30 @@
         <v-card-text>
           <v-select
             v-if="groups"
-            v-model="newUserData.group"
+            v-model="selectedGroupId"
             :items="groups"
+            rounded
+            class="rounded-lg"
+            item-text="name"
+            item-value="id"
+            :return-object="false"
+            filled
+            :label="$t('group.user-group')"
+            :rules="[validators.required]"
+          />
+          <v-select
+            v-if="households"
+            v-model="newUserData.household"
+            :items="households"
             rounded
             class="rounded-lg"
             item-text="name"
             item-value="name"
             :return-object="false"
             filled
-            :label="$t('group.user-group')"
+            :label="$t('household.user-household')"
             :rules="[validators.required]"
-          ></v-select>
+          />
           <AutoForm v-model="newUserData" :items="userForm" />
         </v-card-text>
       </v-card>
@@ -34,9 +47,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useRouter, reactive, ref, toRefs } from "@nuxtjs/composition-api";
+import { computed, defineComponent, useRouter, reactive, ref, toRefs, watch } from "@nuxtjs/composition-api";
 import { useAdminApi } from "~/composables/api";
 import { useGroups } from "~/composables/use-groups";
+import { useHouseholds } from "~/composables/use-households";
 import { useUserForm } from "~/composables/use-users";
 import { validators } from "~/composables/use-validators";
 import { VForm } from "~/types/vuetify";
@@ -46,6 +60,7 @@ export default defineComponent({
   setup() {
     const { userForm } = useUserForm();
     const { groups } = useGroups();
+    const { useHouseholdsInGroup } = useHouseholds();
     const router = useRouter();
 
     // ==============================================
@@ -55,13 +70,20 @@ export default defineComponent({
 
     const adminApi = useAdminApi();
 
+    const selectedGroupId = ref<string>("");
+    const households = useHouseholdsInGroup(selectedGroupId);
+
+    const selectedGroup = computed(() => {
+      return groups.value?.find((group) => group.id === selectedGroupId.value);
+    });
     const state = reactive({
       newUserData: {
         username: "",
         fullName: "",
         email: "",
         admin: false,
-        group: "",
+        group: selectedGroup.value?.name || "",
+        household: "",
         advanced: false,
         canInvite: false,
         canManage: false,
@@ -69,6 +91,10 @@ export default defineComponent({
         password: "",
         authMethod: "Mealie",
       },
+    });
+    watch(selectedGroup, (newGroup) => {
+      state.newUserData.group = newGroup?.name || "";
+      state.newUserData.household = "";
     });
 
     async function handleSubmit() {
@@ -87,6 +113,8 @@ export default defineComponent({
       refNewUserForm,
       handleSubmit,
       groups,
+      selectedGroupId,
+      households,
       validators,
     };
   },
