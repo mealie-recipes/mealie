@@ -31,36 +31,6 @@ export interface ListItem {
   quantity?: number;
   checked?: boolean;
 }
-export interface MealDayIn {
-  date?: string | null;
-  meals: MealIn[];
-}
-export interface MealIn {
-  slug?: string | null;
-  name?: string | null;
-  description?: string | null;
-}
-export interface MealDayOut {
-  date?: string | null;
-  meals: MealIn[];
-  id: number;
-}
-export interface MealPlanIn {
-  group: string;
-  household: string;
-  startDate: string;
-  endDate: string;
-  planDays: MealDayIn[];
-}
-export interface MealPlanOut {
-  group: string;
-  household: string;
-  startDate: string;
-  endDate: string;
-  planDays: MealDayIn[];
-  id: number;
-  shoppingList?: number | null;
-}
 export interface PlanRulesCreate {
   day?: PlanRulesDay & string;
   entryType?: PlanRulesType & string;
@@ -97,8 +67,8 @@ export interface ReadPlanEntry {
   recipeId?: string | null;
   id: number;
   groupId: string;
-  householdId: string;
   userId?: string | null;
+  householdId: string;
   recipe?: RecipeSummary | null;
 }
 export interface RecipeSummary {
@@ -151,7 +121,6 @@ export interface SavePlanEntry {
   text?: string;
   recipeId?: string | null;
   groupId: string;
-  householdId: string;
   userId?: string | null;
 }
 export interface ShoppingListIn {
@@ -173,6 +142,5 @@ export interface UpdatePlanEntry {
   recipeId?: string | null;
   id: number;
   groupId: string;
-  householdId: string;
   userId?: string | null;
 }
