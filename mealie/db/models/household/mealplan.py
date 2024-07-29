@@ -2,6 +2,7 @@ import datetime
 from typing import TYPE_CHECKING, Optional
 
 from sqlalchemy import Date, ForeignKey, String, orm
+from sqlalchemy.ext.associationproxy import AssociationProxy, association_proxy
 from sqlalchemy.orm import Mapped, mapped_column
 
 from mealie.db.models.recipe.tag import Tag, plan_rules_to_tags
@@ -50,8 +51,8 @@ class GroupMealPlan(SqlAlchemyBase, BaseMixins):
 
     group_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("groups.id"), index=True)
     group: Mapped[Optional["Group"]] = orm.relationship("Group", back_populates="mealplans")
-    household_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("households.id"), index=True)
-    household: Mapped[Optional["Household"]] = orm.relationship("Household", back_populates="mealplans")
+    household_id: AssociationProxy[GUID] = association_proxy("user", "household_id")
+    household: AssociationProxy["Household"] = association_proxy("user", "household")
     user_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("users.id"), index=True)
     user: Mapped[Optional["User"]] = orm.relationship("User", back_populates="mealplans")
 

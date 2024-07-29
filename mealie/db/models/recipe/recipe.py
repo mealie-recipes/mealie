@@ -5,6 +5,7 @@ import sqlalchemy as sa
 import sqlalchemy.orm as orm
 from pydantic import ConfigDict
 from sqlalchemy import event
+from sqlalchemy.ext.associationproxy import AssociationProxy, association_proxy
 from sqlalchemy.ext.orderinglist import ordering_list
 from sqlalchemy.orm import Mapped, mapped_column, validates
 from sqlalchemy.orm.attributes import get_history
@@ -50,10 +51,8 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     group_id: Mapped[GUID] = mapped_column(GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)
     group: Mapped["Group"] = orm.relationship("Group", back_populates="recipes", foreign_keys=[group_id])
 
-    household_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("households.id"), index=True)
-    household: Mapped["Household"] = orm.relationship(
-        "Household", back_populates="recipes", foreign_keys=[household_id]
-    )
+    household_id: AssociationProxy[GUID] = association_proxy("user", "household_id")
+    household: AssociationProxy["Household"] = association_proxy("user", "household")
 
     user_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("users.id", use_alter=True), index=True)
     user: Mapped["User"] = orm.relationship("User", uselist=False, foreign_keys=[user_id])

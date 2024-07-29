@@ -146,8 +146,8 @@ class ShoppingList(SqlAlchemyBase, BaseMixins):
 
     group_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
     group: Mapped["Group"] = orm.relationship("Group", back_populates="shopping_lists")
-    household_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("households.id"), index=True)
-    household: Mapped["Household"] = orm.relationship("Household", back_populates="shopping_lists")
+    household_id: AssociationProxy[GUID] = association_proxy("user", "household_id")
+    household: AssociationProxy["Household"] = association_proxy("user", "household")
     user_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("users.id"), nullable=False, index=True)
     user: Mapped["User"] = orm.relationship("User", back_populates="shopping_lists")
 

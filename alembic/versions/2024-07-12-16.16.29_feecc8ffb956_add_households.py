@@ -1,4 +1,4 @@
-"""added households
+"""add households
 
 Revision ID: feecc8ffb956
 Revises: 32d69327997b
@@ -176,11 +176,8 @@ def assign_households(group_id_household_id_map: dict[str, str]):
         "cookbooks",
         "group_events_notifiers",
         "group_meal_plan_rules",
-        "group_meal_plans",
         "invite_tokens",
         "recipe_actions",
-        "recipes",
-        "shopping_lists",
         "users",
         "webhook_urls",
     ]
@@ -265,11 +262,6 @@ def upgrade():
         batch_op.create_index(op.f("ix_group_meal_plan_rules_household_id"), ["household_id"], unique=False)
         batch_op.create_foreign_key("fk_group_meal_plan_rules_household_id", "households", ["household_id"], ["id"])
 
-    with op.batch_alter_table("group_meal_plans") as batch_op:
-        batch_op.add_column(sa.Column("household_id", mealie.db.migration_types.GUID(), nullable=True))
-        batch_op.create_index(op.f("ix_group_meal_plans_household_id"), ["household_id"], unique=False)
-        batch_op.create_foreign_key("fk_group_meal_plans_household_id", "households", ["household_id"], ["id"])
-
     with op.batch_alter_table("invite_tokens") as batch_op:
         batch_op.add_column(sa.Column("household_id", mealie.db.migration_types.GUID(), nullable=True))
         batch_op.create_index(op.f("ix_invite_tokens_household_id"), ["household_id"], unique=False)
@@ -279,16 +271,6 @@ def upgrade():
         batch_op.add_column(sa.Column("household_id", mealie.db.migration_types.GUID(), nullable=True))
         batch_op.create_index(op.f("ix_recipe_actions_household_id"), ["household_id"], unique=False)
         batch_op.create_foreign_key("fk_recipe_actions_household_id", "households", ["household_id"], ["id"])
-
-    with op.batch_alter_table("recipes") as batch_op:
-        batch_op.add_column(sa.Column("household_id", mealie.db.migration_types.GUID(), nullable=True))
-        batch_op.create_index(op.f("ix_recipes_household_id"), ["household_id"], unique=False)
-        batch_op.create_foreign_key("fk_recipes_household_id", "households", ["household_id"], ["id"])
-
-    with op.batch_alter_table("shopping_lists") as batch_op:
-        batch_op.add_column(sa.Column("household_id", mealie.db.migration_types.GUID(), nullable=True))
-        batch_op.create_index(op.f("ix_shopping_lists_household_id"), ["household_id"], unique=False)
-        batch_op.create_foreign_key("fk_shopping_lists_household_id", "households", ["household_id"], ["id"])
 
     with op.batch_alter_table("users") as batch_op:
         batch_op.add_column(sa.Column("household_id", mealie.db.migration_types.GUID(), nullable=True))
@@ -312,21 +294,12 @@ def downgrade():
     op.drop_constraint(None, "users", type_="foreignkey")
     op.drop_index(op.f("ix_users_household_id"), table_name="users")
     op.drop_column("users", "household_id")
-    op.drop_constraint(None, "shopping_lists", type_="foreignkey")
-    op.drop_index(op.f("ix_shopping_lists_household_id"), table_name="shopping_lists")
-    op.drop_column("shopping_lists", "household_id")
-    op.drop_constraint(None, "recipes", type_="foreignkey")
-    op.drop_index(op.f("ix_recipes_household_id"), table_name="recipes")
-    op.drop_column("recipes", "household_id")
     op.drop_constraint(None, "recipe_actions", type_="foreignkey")
     op.drop_index(op.f("ix_recipe_actions_household_id"), table_name="recipe_actions")
     op.drop_column("recipe_actions", "household_id")
     op.drop_constraint(None, "invite_tokens", type_="foreignkey")
     op.drop_index(op.f("ix_invite_tokens_household_id"), table_name="invite_tokens")
     op.drop_column("invite_tokens", "household_id")
-    op.drop_constraint(None, "group_meal_plans", type_="foreignkey")
-    op.drop_index(op.f("ix_group_meal_plans_household_id"), table_name="group_meal_plans")
-    op.drop_column("group_meal_plans", "household_id")
     op.drop_constraint(None, "group_meal_plan_rules", type_="foreignkey")
     op.drop_index(op.f("ix_group_meal_plan_rules_household_id"), table_name="group_meal_plan_rules")
     op.drop_column("group_meal_plan_rules", "household_id")

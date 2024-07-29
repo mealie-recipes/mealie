@@ -11,17 +11,14 @@ from .._model_utils.guid import GUID
 
 if TYPE_CHECKING:
     from ..group import Group
-    from ..recipe import RecipeModel
     from ..users import User
     from . import (
         CookBook,
         GroupEventNotifierModel,
         GroupInviteToken,
-        GroupMealPlan,
         GroupRecipeAction,
         GroupWebhooksModel,
         HouseholdPreferencesModel,
-        ShoppingList,
     )
 
 
@@ -57,14 +54,8 @@ class Household(SqlAlchemyBase, BaseMixins):
         "single_parent": True,
     }
 
-    recipes: Mapped[list["RecipeModel"]] = orm.relationship("RecipeModel", back_populates="household")
     recipe_actions: Mapped[list["GroupRecipeAction"]] = orm.relationship("GroupRecipeAction", **COMMON_ARGS)
     cookbooks: Mapped[list["CookBook"]] = orm.relationship("CookBook", **COMMON_ARGS)
-
-    mealplans: Mapped[list["GroupMealPlan"]] = orm.relationship(
-        "GroupMealPlan", order_by="GroupMealPlan.date", **COMMON_ARGS
-    )
-    shopping_lists: Mapped[list["ShoppingList"]] = orm.relationship("ShoppingList", **COMMON_ARGS)
 
     webhooks: Mapped[list["GroupWebhooksModel"]] = orm.relationship("GroupWebhooksModel", **COMMON_ARGS)
     group_event_notifiers: Mapped[list["GroupEventNotifierModel"]] = orm.relationship(
@@ -76,11 +67,9 @@ class Household(SqlAlchemyBase, BaseMixins):
             "users",
             "webhooks",
             "recipe_actions",
-            "shopping_lists",
             "cookbooks",
             "preferences",
             "invite_tokens",
-            "mealplans",
         }
     )
 
