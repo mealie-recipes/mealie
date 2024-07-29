@@ -1,5 +1,5 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import { GroupBase, GroupInDB, GroupSummary, UserSummary } from "~/lib/api/types/user";
+import { GroupBase, GroupInDB, GroupSummary, HouseholdOut, UserSummary } from "~/lib/api/types/user";
 import {
   GroupAdminUpdate,
   GroupStorage,
@@ -14,6 +14,7 @@ const routes = {
   groupsSelf: `${prefix}/groups/self`,
   preferences: `${prefix}/groups/preferences`,
   storage: `${prefix}/groups/storage`,
+  households: `${prefix}/households`,
   membersHouseholdId: (householdId: string | number | null) => {
     return householdId ?
       `${prefix}/households/members?householdId=${householdId}` :
@@ -42,6 +43,10 @@ export class GroupAPI extends BaseCRUDAPI<GroupBase, GroupInDB, GroupAdminUpdate
 
   async fetchMembers(householdId: string | number | null = null) {
     return await this.requests.get<UserSummary[]>(routes.membersHouseholdId(householdId));
+  }
+
+  async fetchHouseholds() {
+    return await this.requests.get<HouseholdOut[]>(routes.households);
   }
 
   async storage() {
