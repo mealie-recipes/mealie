@@ -1,15 +1,14 @@
-// TODO: Edit Group
 <template>
   <v-container fluid>
     <BaseDialog
       v-model="createDialog"
       :title="$t('group.create-group')"
       :icon="$globals.icons.group"
-      @submit="createGroup(createUserForm.data)"
+      @submit="createGroup(createGroupForm.data)"
     >
       <template #activator> </template>
       <v-card-text>
-        <AutoForm v-model="createUserForm.data" :update-mode="updateMode" :items="createUserForm.items" />
+        <AutoForm v-model="createGroupForm.data" :update-mode="updateMode" :items="createGroupForm.items" />
       </v-card-text>
     </BaseDialog>
 
@@ -43,9 +42,6 @@
       >
         <template #item.users="{ item }">
           {{ item.users.length }}
-        </template>
-        <template #item.webhookEnable="{ item }">
-          {{ item.webhooks.length > 0 ? $t("general.yes") : $t("general.no") }}
         </template>
         <template #item.actions="{ item }">
           <v-btn
@@ -95,11 +91,10 @@ export default defineComponent({
         },
         { text: i18n.t("general.name"), value: "name" },
         { text: i18n.t("user.total-users"), value: "users" },
-        { text: i18n.t("user.webhooks-enabled"), value: "webhookEnable" },
         { text: i18n.t("general.delete"), value: "actions" },
       ],
       updateMode: false,
-      createUserForm: {
+      createGroupForm: {
         items: [
           {
             label: i18n.t("group.group-name"),
@@ -116,7 +111,7 @@ export default defineComponent({
 
     function openDialog() {
       state.createDialog = true;
-      state.createUserForm.data.name = "";
+      state.createGroupForm.data.name = "";
     }
 
     const router = useRouter();
