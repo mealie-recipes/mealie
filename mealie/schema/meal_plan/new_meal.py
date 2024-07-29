@@ -66,6 +66,7 @@ class ReadPlanEntry(UpdatePlanEntry):
             selectinload(GroupMealPlan.recipe).joinedload(RecipeModel.recipe_category),
             selectinload(GroupMealPlan.recipe).joinedload(RecipeModel.tags),
             selectinload(GroupMealPlan.recipe).joinedload(RecipeModel.tools),
+            selectinload(GroupMealPlan.user),
         ]
 
 

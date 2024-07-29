@@ -5,6 +5,7 @@ from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.db.models.recipe import RecipeComment
+from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.schema._mealie import MealieModel
 from mealie.schema._mealie.mealie_model import UpdatedAtField
 from mealie.schema.response.pagination import PaginationBase
@@ -42,7 +43,10 @@ class RecipeCommentOut(RecipeCommentCreate):
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
-        return [joinedload(RecipeComment.user)]
+        return [
+            joinedload(RecipeComment.user),
+            joinedload(RecipeComment.recipe).joinedload(RecipeModel.user),
+        ]
 
 
 class RecipeCommentPagination(PaginationBase):

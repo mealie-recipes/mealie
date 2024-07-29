@@ -135,6 +135,7 @@ class ShoppingListItemOut(ShoppingListItemBase):
             joinedload(ShoppingListItem.label),
             joinedload(ShoppingListItem.unit),
             selectinload(ShoppingListItem.recipe_references),
+            joinedload(ShoppingListItem.shopping_list).joinedload(ShoppingList.user),
         ]
 
 
@@ -229,6 +230,7 @@ class ShoppingListSummary(ShoppingListSave):
             .joinedload(ShoppingListRecipeReference.recipe)
             .joinedload(RecipeModel.tools),
             selectinload(ShoppingList.label_settings).joinedload(ShoppingListMultiPurposeLabel.label),
+            joinedload(ShoppingList.user),
         ]
 
 
@@ -274,6 +276,7 @@ class ShoppingListOut(ShoppingListUpdate):
             .joinedload(ShoppingListRecipeReference.recipe)
             .joinedload(RecipeModel.tools),
             selectinload(ShoppingList.label_settings).joinedload(ShoppingListMultiPurposeLabel.label),
+            joinedload(ShoppingList.user),
         ]
 
 

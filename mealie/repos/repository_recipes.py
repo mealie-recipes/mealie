@@ -115,6 +115,7 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
             joinedload(RecipeModel.recipe_category),
             joinedload(RecipeModel.tags),
             joinedload(RecipeModel.tools),
+            joinedload(RecipeModel.user),
         ]
 
         if load_foods:
@@ -232,6 +233,7 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
             joinedload(RecipeModel.recipe_category),
             joinedload(RecipeModel.tags),
             joinedload(RecipeModel.tools),
+            joinedload(RecipeModel.user),
         ]
 
         q = q.options(*args)
