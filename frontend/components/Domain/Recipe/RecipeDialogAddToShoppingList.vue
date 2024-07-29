@@ -1,6 +1,6 @@
 <template>
   <div v-if="dialog">
-    <BaseDialog v-if="shoppingListDialog" v-model="dialog" :title="$t('recipe.add-to-list')" :icon="$globals.icons.cartCheck">
+    <BaseDialog v-if="shoppingListDialog && ready" v-model="dialog" :title="$t('recipe.add-to-list')" :icon="$globals.icons.cartCheck">
       <v-card-text>
         <v-card
           v-for="list in shoppingListChoices"
@@ -127,14 +127,14 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, ref, useContext } from "@nuxtjs/composition-api";
-import { toRefs } from "@vueuse/core";
-import RecipeIngredientListItem from "./RecipeIngredientListItem.vue";
-import { useUserApi } from "~/composables/api";
-import { alert } from "~/composables/use-toast";
-import { useShoppingListPreferences } from "~/composables/use-users/preferences";
-import { ShoppingListSummary } from "~/lib/api/types/group";
-import { Recipe, RecipeIngredient } from "~/lib/api/types/recipe";
+  import { computed, defineComponent, reactive, ref, useContext, watchEffect } from "@nuxtjs/composition-api"
+  import { toRefs } from "@vueuse/core"
+  import RecipeIngredientListItem from "./RecipeIngredientListItem.vue"
+  import { useUserApi } from "~/composables/api"
+  import { alert } from "~/composables/use-toast"
+  import { useShoppingListPreferences } from "~/composables/use-users/preferences"
+  import { ShoppingListSummary } from "~/lib/api/types/group"
+  import { Recipe, RecipeIngredient } from "~/lib/api/types/recipe"
 
 export interface RecipeWithScale extends Recipe {
   scale: number;
@@ -180,6 +180,7 @@ export default defineComponent({
     const { $auth, i18n } = useContext();
     const api = useUserApi();
     const preferences = useShoppingListPreferences();
+    const ready = ref(false);
 
     // v-model support
     const dialog = computed({
@@ -203,6 +204,16 @@ export default defineComponent({
 
     const recipeIngredientSections = ref<ShoppingListRecipeIngredientSection[]>([]);
     const selectedShoppingList = ref<ShoppingListSummary | null>(null);
+
+    watchEffect(
+      () => {
+        if (shoppingListChoices.value.length === 1) {
+          openShoppingListIngredientDialog(shoppingListChoices.value[0]);
+        } else {
+          ready.value = true;
+        }
+      },
+    );
 
     async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
       const recipeSectionMap = new Map<string, ShoppingListRecipeIngredientSection>();
@@ -363,6 +374,7 @@ export default defineComponent({
     return {
       dialog,
       preferences,
+      ready,
       shoppingListChoices,
       ...toRefs(state),
       addRecipesToList,
