@@ -18,7 +18,6 @@ def test_cleanup(unique_user: TestUser):
         ShoppingListSave(
             name=random_string(),
             group_id=unique_user.group_id,
-            household_id=unique_user.household_id,
             user_id=unique_user.user_id,
         )
     )
@@ -69,7 +68,6 @@ def test_no_cleanup(unique_user: TestUser):
         ShoppingListSave(
             name=random_string(),
             group_id=unique_user.group_id,
-            household_id=unique_user.household_id,
             user_id=unique_user.user_id,
         )
     )

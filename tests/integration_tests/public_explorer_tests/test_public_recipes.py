@@ -49,7 +49,6 @@ def test_get_all_public_recipes(
             [
                 Recipe(
                     user_id=unique_user.user_id,
-                    household_id=unique_user.household_id,
                     group_id=unique_user.group_id,
                     name=random_string(),
                 )

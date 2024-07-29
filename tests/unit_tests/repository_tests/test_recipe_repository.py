@@ -73,7 +73,6 @@ def search_recipes(unique_db: AllRepositories, unique_ids: tuple[str, str, str])
     recipes = [
         Recipe(
             group_id=group_id,
-            household_id=household_id,
             user_id=user_id,
             name="Steinbock Sloop",
             description="My favorite horns are delicious",
@@ -83,7 +82,6 @@ def search_recipes(unique_db: AllRepositories, unique_ids: tuple[str, str, str])
         ),
         Recipe(
             group_id=group_id,
-            household_id=household_id,
             user_id=user_id,
             name="Fiddlehead Fern Stir Fry",
             recipe_ingredient=[
@@ -92,51 +90,43 @@ def search_recipes(unique_db: AllRepositories, unique_ids: tuple[str, str, str])
         ),
         Recipe(
             group_id=group_id,
-            household_id=household_id,
             user_id=user_id,
             name="Animal Sloop",
         ),
         # Test diacritics
         Recipe(
             group_id=group_id,
-            household_id=household_id,
             user_id=user_id,
             name="Rátàtôuile",
         ),
         # Add a bunch of recipes for stable randomization
         Recipe(
             group_id=group_id,
-            household_id=household_id,
             user_id=user_id,
             name=f"{random_string(10)} soup",
         ),
         Recipe(
             group_id=group_id,
-            household_id=household_id,
             user_id=user_id,
             name=f"{random_string(10)} soup",
         ),
         Recipe(
             group_id=group_id,
-            household_id=household_id,
             user_id=user_id,
             name=f"{random_string(10)} soup",
         ),
         Recipe(
             group_id=group_id,
-            household_id=household_id,
             user_id=user_id,
             name=f"{random_string(10)} soup",
         ),
         Recipe(
             group_id=group_id,
-            household_id=household_id,
             user_id=user_id,
             name=f"{random_string(10)} soup",
         ),
         Recipe(
             group_id=group_id,
-            household_id=household_id,
             user_id=user_id,
             name=f"{random_string(10)} soup",
         ),
@@ -178,7 +168,6 @@ def test_recipe_repo_get_by_categories_basic(unique_user: TestUser):
             Recipe(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
-                household_id=unique_user.household_id,
                 name=random_string(),
                 recipe_category=[category],
             ),
@@ -232,7 +221,6 @@ def test_recipe_repo_get_by_categories_multi(unique_user: TestUser):
             Recipe(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
-                household_id=unique_user.household_id,
                 name=random_string(),
                 recipe_category=created_categories,
             ),
@@ -243,7 +231,6 @@ def test_recipe_repo_get_by_categories_multi(unique_user: TestUser):
             Recipe(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
-                household_id=unique_user.household_id,
                 name=random_string(),
             )
         )
@@ -282,7 +269,6 @@ def test_recipe_repo_pagination_by_categories(unique_user: TestUser):
             Recipe(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
-                household_id=unique_user.household_id,
                 name=random_string(),
             )
         )
@@ -292,7 +278,6 @@ def test_recipe_repo_pagination_by_categories(unique_user: TestUser):
             Recipe(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
-                household_id=unique_user.household_id,
                 name=random_string(),
                 recipe_category=[created_categories[i % 2]],
             ),
@@ -303,7 +288,6 @@ def test_recipe_repo_pagination_by_categories(unique_user: TestUser):
             Recipe(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
-                household_id=unique_user.household_id,
                 name=random_string(),
                 recipe_category=created_categories,
             )
@@ -384,7 +368,6 @@ def test_recipe_repo_pagination_by_tags(unique_user: TestUser):
             Recipe(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
-                household_id=unique_user.household_id,
                 name=random_string(),
             )
         )
@@ -394,7 +377,6 @@ def test_recipe_repo_pagination_by_tags(unique_user: TestUser):
             Recipe(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
-                household_id=unique_user.household_id,
                 name=random_string(),
                 tags=[created_tags[i % 2]],
             ),
@@ -405,7 +387,6 @@ def test_recipe_repo_pagination_by_tags(unique_user: TestUser):
             Recipe(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
-                household_id=unique_user.household_id,
                 name=random_string(),
                 tags=created_tags,
             )
@@ -485,7 +466,6 @@ def test_recipe_repo_pagination_by_tools(unique_user: TestUser):
             Recipe(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
-                household_id=unique_user.household_id,
                 name=random_string(),
             )
         )
@@ -495,7 +475,6 @@ def test_recipe_repo_pagination_by_tools(unique_user: TestUser):
             Recipe(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
-                household_id=unique_user.household_id,
                 name=random_string(),
                 tools=[created_tools[i % 2]],
             ),
@@ -506,7 +485,6 @@ def test_recipe_repo_pagination_by_tools(unique_user: TestUser):
             Recipe(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
-                household_id=unique_user.household_id,
                 name=random_string(),
                 tools=created_tools,
             )
@@ -585,7 +563,6 @@ def test_recipe_repo_pagination_by_foods(unique_user: TestUser):
             Recipe(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
-                household_id=unique_user.household_id,
                 name=random_string(),
             )
         )
@@ -595,7 +572,6 @@ def test_recipe_repo_pagination_by_foods(unique_user: TestUser):
             Recipe(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
-                household_id=unique_user.household_id,
                 name=random_string(),
                 recipe_ingredient=[RecipeIngredient(food=created_foods[i % 2])],
             ),
@@ -606,7 +582,6 @@ def test_recipe_repo_pagination_by_foods(unique_user: TestUser):
             Recipe(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
-                household_id=unique_user.household_id,
                 name=random_string(),
                 recipe_ingredient=[RecipeIngredient(food=created_foods[0]), RecipeIngredient(food=created_foods[1])],
             )
@@ -742,7 +717,6 @@ def test_order_by_rating(user_tuple: tuple[TestUser, TestUser]):
                 Recipe(
                     user_id=user_1.user_id,
                     group_id=user_1.group_id,
-                    household_id=user_1.household_id,
                     name=slug,
                     slug=slug,
                 )

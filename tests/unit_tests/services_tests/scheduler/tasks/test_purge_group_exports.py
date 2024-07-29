@@ -18,9 +18,7 @@ def test_purge_group_exports(unique_user: TestUser):
     assert user
     recipe_exporter = RecipeBulkActionsService(database, user, group)
     recipes = [
-        database.recipes.create(
-            Recipe(name=random_string(), group_id=unique_user.group_id, household_id=unique_user.household_id)
-        )
+        database.recipes.create(Recipe(name=random_string(), group_id=unique_user.group_id))
         for _ in range(random_int(2, 5))
     ]
 

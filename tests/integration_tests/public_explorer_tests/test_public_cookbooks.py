@@ -162,7 +162,6 @@ def test_get_cookbooks_with_recipes(api_client: TestClient, unique_user: TestUse
         Recipe(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
-            household_id=unique_user.household_id,
             name=random_string(),
         )
         for _ in range(2)
@@ -191,7 +190,6 @@ def test_get_cookbooks_with_recipes(api_client: TestClient, unique_user: TestUse
         Recipe(
             user_id=h2_user.user_id,
             group_id=h2_user.group_id,
-            household_id=h2_user.household_id,
             name=random_string(),
         )
     )

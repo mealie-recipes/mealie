@@ -27,7 +27,6 @@ def test_food_merger(unique_user: TestUser):
         Recipe(
             name=slug1,
             user_id=unique_user.group_id,
-            household_id=unique_user.household_id,
             group_id=unique_user.group_id,
             recipe_ingredient=[
                 RecipeIngredient(note="", food=food_1),  # type: ignore

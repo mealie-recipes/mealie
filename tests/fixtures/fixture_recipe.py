@@ -34,7 +34,6 @@ def recipe_ingredient_only(unique_user: TestUser):
     # Create a recipe
     recipe = Recipe(
         user_id=unique_user.user_id,
-        household_id=unique_user.household_id,
         group_id=unique_user.group_id,
         name=random_string(10),
         recipe_ingredient=[
@@ -79,7 +78,6 @@ def random_recipe(unique_user: TestUser) -> Generator[Recipe, None, None]:
     database = unique_user.repos
     recipe = Recipe(
         user_id=unique_user.user_id,
-        household_id=unique_user.household_id,
         group_id=unique_user.group_id,
         name=random_string(10),
         recipe_ingredient=[

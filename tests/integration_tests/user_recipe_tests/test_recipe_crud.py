@@ -726,7 +726,6 @@ def test_get_recipes_organizer_filter(api_client: TestClient, unique_user: utils
             Recipe(
                 id=uuid4(),
                 user_id=unique_user.user_id,
-                household_id=unique_user.household_id,
                 group_id=unique_user.group_id,
                 name=name,
                 slug=name,
