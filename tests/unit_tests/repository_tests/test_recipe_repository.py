@@ -39,13 +39,15 @@ def unique_local_user_id(
     database = get_repositories(
         unfiltered_database.session, group_id=UUID(unique_local_group_id), household_id=UUID(unique_local_household_id)
     )
+    group = database.groups.get_one(unique_local_group_id)
+    household = database.households.get_one(unique_local_household_id)
     return str(
         database.users.create(
             {
                 "username": random_string(),
                 "email": random_email(),
-                "group_id": unique_local_group_id,
-                "household_id": unique_local_household_id,
+                "group": group.name,
+                "household": household.name,
                 "full_name": random_string(),
                 "password": random_string(),
                 "admin": False,
@@ -69,7 +71,7 @@ def unique_db(session: Session, unique_ids: tuple[str, str, str]):
 
 @pytest.fixture()
 def search_recipes(unique_db: AllRepositories, unique_ids: tuple[str, str, str]) -> list[Recipe]:
-    group_id, household_id, user_id = unique_ids
+    group_id, _, user_id = unique_ids
     recipes = [
         Recipe(
             group_id=group_id,
