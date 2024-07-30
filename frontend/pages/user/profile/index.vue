@@ -115,7 +115,7 @@
       <v-row tag="section">
         <v-col v-if="$auth.user.canManage" cols="12" sm="12" md="6">
           <UserProfileLinkCard
-            :link="{ text: $tc('profile.household-settings'), to: `/group` }"
+            :link="{ text: $tc('profile.household-settings'), to: `/household` }"
             :image="require('~/static/svgs/manage-group-settings.svg')"
           >
             <template #title> {{ $t('profile.household-settings') }} </template>
