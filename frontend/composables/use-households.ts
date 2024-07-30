@@ -52,7 +52,7 @@ export const useHouseholds = function () {
     loading.value = true;
     const asyncKey = String(Date.now());
     const households = useAsync(async () => {
-      const { data } = await api.households.getAll();
+      const { data } = await api.households.getAll(1, -1, {orderBy: "name, group.name", orderDirection: "asc"});
 
       if (data) {
         return data.items;
@@ -67,7 +67,7 @@ export const useHouseholds = function () {
 
   async function refreshAllHouseholds() {
     loading.value = true;
-    const { data } = await api.households.getAll();
+    const { data } = await api.households.getAll(1, -1, {orderBy: "name, group.name", orderDirection: "asc"});;
 
     if (data) {
       households.value = data.items;
