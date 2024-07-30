@@ -4,6 +4,7 @@ from uuid import uuid4
 from fastapi import HTTPException, status
 from pydantic import UUID4
 
+from mealie.core.config import get_app_settings
 from mealie.core.security import hash_password
 from mealie.lang.providers import Translator
 from mealie.repos.all_repositories import get_repositories
@@ -27,7 +28,7 @@ class RegistrationService:
         self.repos = db
         self.t = translator.t
 
-    def _create_new_user(self, group: GroupInDB, household: HouseholdInDB, new_household: bool) -> PrivateUser:
+    def _create_new_user(self, group: GroupInDB, household: HouseholdInDB, new_group: bool) -> PrivateUser:
         new_user = UserIn(
             email=self.registration.email,
             username=self.registration.username,
@@ -36,9 +37,9 @@ class RegistrationService:
             advanced=self.registration.advanced,
             group=group,
             household=household,
-            can_invite=new_household,
-            can_manage=new_household,
-            can_organize=new_household,
+            can_invite=new_group,
+            can_manage=new_group,
+            can_organize=new_group,
         )
 
         # TODO: problem with repository type, not type here
@@ -54,9 +55,16 @@ class RegistrationService:
 
         return GroupService.create_group(self.repos, group_data, group_preferences)
 
-    def _register_new_household(self, group_id: UUID4) -> HouseholdInDB:
-        household_data = HouseholdCreate(name=self.registration.household)
+    def _fetch_or_register_new_household(self, group_id: UUID4) -> HouseholdInDB:
+        settings = get_app_settings()
+        new_household_name = self.registration.household or settings.DEFAULT_HOUSEHOLD
 
+        group_repos = get_repositories(self.repos.session, group_id=group_id)
+        household_fetch = group_repos.households.get_by_name(new_household_name)
+        if household_fetch:
+            return household_fetch
+
+        household_data = HouseholdCreate(name=new_household_name)
         household_preferences = CreateHouseholdPreferences(
             private_household=self.registration.private,
             first_day_of_week=0,
@@ -67,8 +75,6 @@ class RegistrationService:
             recipe_disable_comments=self.registration.advanced,
             recipe_disable_amount=self.registration.advanced,
         )
-
-        group_repos = get_repositories(self.repos.session, group_id=group_id)
         return HouseholdService.create_household(group_repos, household_data, household_preferences)
 
     def register_user(self, registration: CreateUserRegistration) -> PrivateUser:
@@ -81,7 +87,6 @@ class RegistrationService:
 
         token_entry = None
         new_group = False
-        new_household = False
 
         if registration.group_token:
             token_entry = self.repos.group_invite_tokens.get_one(registration.group_token)
@@ -97,25 +102,15 @@ class RegistrationService:
             if maybe_none_household is None:
                 raise HTTPException(status.HTTP_400_BAD_REQUEST, {"message": "Invalid group token"})
             household = maybe_none_household
-
-        elif registration.group and registration.household:
+        elif registration.group:
             new_group = True
             group = self._register_new_group()
-            new_household = True
-            household = self._register_new_household(group.id)
+            household = self._fetch_or_register_new_household(group.id)
         else:
-            has_group = registration.group is not None
-            has_household = registration.household is not None
-            if not has_group and not has_household:
-                msg = "Missing group and household"
-            elif not has_group:
-                msg = "Missing group"
-            else:
-                msg = "Missing household"
-            raise HTTPException(status.HTTP_400_BAD_REQUEST, {"message": msg})
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, {"message": "Missing group"})
 
         self.logger.info(f"Registering user {registration.username}")
-        user = self._create_new_user(group, household, new_household)
+        user = self._create_new_user(group, household, new_group)
 
         if new_group and registration.seed_data:
             seeder_service = SeederService(self.repos)

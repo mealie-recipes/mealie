@@ -37,8 +37,8 @@ class CreateUserRegistration(MealieModel):
 
     @field_validator("group_token")
     @classmethod
-    def group_and_household_or_token(cls, value, info: ValidationInfo):
-        if not bool(value) and not (bool(info.data["group"]) and bool(info.data["household"])):
-            raise ValueError("group and household, or group_token, must be provided")
+    def group_or_token(cls, value, info: ValidationInfo):
+        if not bool(value) and not bool(info.data["group"]):
+            raise ValueError("group or group_token must be provided")
 
         return value
