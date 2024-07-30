@@ -60,7 +60,7 @@ class PublicRecipesController(BasePublicHouseholdExploreController):
 
             # filter recipes by the cookbook's household
             recipes_repo = get_repositories(
-                self.repos.session, group_id=self.group_id, household_id=cookbook_data.household_id
+                self.session, group_id=self.group_id, household_id=cookbook_data.household_id
             ).recipes
 
         public_filter = "(household.preferences.privateHousehold = FALSE AND settings.public = TRUE)"

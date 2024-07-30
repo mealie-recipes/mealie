@@ -61,7 +61,7 @@ class PublicCookbooksController(BasePublicHouseholdExploreController):
 
         # limit recipes to only the household the cookbook belongs to
         recipes_repo = get_repositories(
-            self.repos.session, group_id=self.group_id, household_id=cookbook.household_id
+            self.session, group_id=self.group_id, household_id=cookbook.household_id
         ).recipes
         recipes = recipes_repo.page_all(
             PaginationQuery(

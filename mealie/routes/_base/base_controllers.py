@@ -118,7 +118,7 @@ class BasePublicHouseholdExploreController(BasePublicGroupExploreController):
 
         `household.preferences.privateHousehold = FALSE`
         """
-        return get_repositories(self.repos.session, group_id=self.group_id, household_id=None)
+        return get_repositories(self.session, group_id=self.group_id, household_id=None)
 
 
 class BaseUserController(_BaseController):
