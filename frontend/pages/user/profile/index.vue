@@ -57,9 +57,9 @@
       <v-row tag="section">
         <v-col cols="12" sm="12" md="12">
           <v-card outlined>
-            <v-card-title class="headline pb-0"> {{ $t('profile.group-statistics') }} </v-card-title>
+            <v-card-title class="headline pb-0"> {{ $t('profile.household-statistics') }} </v-card-title>
             <v-card-text class="py-0">
-              {{ $t('profile.group-statistics-description') }}
+              {{ $t('profile.household-statistics-description') }}
             </v-card-text>
             <v-card-text class="d-flex flex-wrap justify-center align-center" style="gap: 0.8rem">
               <StatsCards
@@ -106,20 +106,20 @@
         </AdvancedOnly>
       </v-row>
     </section>
-    <v-divider class="my-7"></v-divider>
+    <v-divider class="my-7" />
     <section>
       <div>
-        <h3 class="headline">{{ $t('group.group') }}</h3>
-        <p>{{ $t('profile.group-description') }}</p>
+        <h3 class="headline">{{ $t('household.household') }}</h3>
+        <p>{{ $t('profile.household-description') }}</p>
       </div>
       <v-row tag="section">
         <v-col v-if="$auth.user.canManage" cols="12" sm="12" md="6">
           <UserProfileLinkCard
-            :link="{ text: $tc('profile.group-settings'), to: `/group` }"
+            :link="{ text: $tc('profile.household-settings'), to: `/group` }"
             :image="require('~/static/svgs/manage-group-settings.svg')"
           >
-            <template #title> {{ $t('profile.group-settings') }} </template>
-            {{ $t('profile.group-settings-description') }}
+            <template #title> {{ $t('profile.household-settings') }} </template>
+            {{ $t('profile.household-settings-description') }}
           </UserProfileLinkCard>
         </v-col>
         <v-col cols="12" sm="12" md="6">
@@ -162,6 +162,24 @@
             </UserProfileLinkCard>
           </v-col>
         </AdvancedOnly>
+      </v-row>
+    </section>
+    <v-divider class="my-7" />
+    <section v-if="$auth.user.canManage || $auth.user.canOrganize || $auth.user.advanced">
+      <div>
+        <h3 class="headline">{{ $t('group.group') }}</h3>
+        <p>{{ $t('profile.group-description') }}</p>
+      </div>
+      <v-row tag="section">
+        <v-col v-if="$auth.user.canManage" cols="12" sm="12" md="6">
+          <UserProfileLinkCard
+            :link="{ text: $tc('profile.group-settings'), to: `/group` }"
+            :image="require('~/static/svgs/manage-group-settings.svg')"
+          >
+            <template #title> {{ $t('profile.group-settings') }} </template>
+            {{ $t('profile.group-settings-description') }}
+          </UserProfileLinkCard>
+        </v-col>
         <!-- $auth.user.canOrganize should not be null because of the auth middleware -->
         <v-col v-if="$auth.user.canOrganize" cols="12" sm="12" md="6">
           <UserProfileLinkCard
