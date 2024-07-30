@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from pydantic import UUID4, ConfigDict, StringConstraints
+from pydantic import UUID4, ConfigDict, StringConstraints, field_validator
 from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -45,6 +45,7 @@ class HouseholdUserSummary(MealieModel):
 
 
 class HouseholdInDB(HouseholdSummary):
+    group: str
     users: list[HouseholdUserSummary] | None = None
     webhooks: list[ReadWebhook] = []
     model_config = ConfigDict(from_attributes=True)
@@ -52,11 +53,22 @@ class HouseholdInDB(HouseholdSummary):
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
         return [
+            joinedload(Household.group),
             joinedload(Household.webhooks),
             joinedload(Household.preferences),
             selectinload(Household.users).joinedload(User.group),
             selectinload(Household.users).joinedload(User.tokens),
         ]
+
+    @field_validator("group", mode="before")
+    def convert_group_to_name(cls, v):
+        if not v or isinstance(v, str):
+            return v
+
+        try:
+            return v.name
+        except AttributeError:
+            return v
 
 
 class HouseholdPagination(PaginationBase):
