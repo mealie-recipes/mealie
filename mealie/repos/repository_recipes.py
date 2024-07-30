@@ -238,9 +238,12 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
             sa.select(RecipeModel)
             .join(RecipeModel.recipe_category)
             .filter(RecipeModel.recipe_category.any(Category.id.in_(ids)))
-            .filter(RecipeModel.group_id == self.group_id)
-            .filter(RecipeModel.household_id == self.household_id)
         )
+        if self.group_id:
+            stmt = stmt.filter(RecipeModel.group_id == self.group_id)
+        if self.household_id:
+            stmt = stmt.filter(RecipeModel.household_id == self.household_id)
+
         return [RecipeSummary.model_validate(x) for x in self.session.execute(stmt).unique().scalars().all()]
 
     def _build_recipe_filter(
@@ -326,13 +329,12 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         return [self.schema.model_validate(x) for x in self.session.execute(stmt).scalars().all()]
 
     def get_random(self, limit=1) -> list[Recipe]:
-        stmt = (
-            sa.select(RecipeModel)
-            .filter(RecipeModel.group_id == self.group_id)
-            .filter(RecipeModel.household_id == self.household_id)
-            .order_by(sa.func.random())  # Postgres and SQLite specific
-            .limit(limit)
-        )
+        stmt = sa.select(RecipeModel).order_by(sa.func.random()).limit(limit)  # Postgres and SQLite specific
+        if self.group_id:
+            stmt = stmt.filter(RecipeModel.group_id == self.group_id)
+        if self.household_id:
+            stmt = stmt.filter(RecipeModel.household_id == self.household_id)
+
         return [self.schema.model_validate(x) for x in self.session.execute(stmt).scalars().all()]
 
     def get_by_slug(self, group_id: UUID4, slug: str) -> Recipe | None:

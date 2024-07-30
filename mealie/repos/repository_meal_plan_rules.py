@@ -21,6 +21,11 @@ class RepositoryMealPlanRules(HouseholdRepositoryGeneric[PlanRulesOut, GroupMeal
             ),
         )
 
+        if self.group_id:
+            stmt = stmt.filter(GroupMealPlanRules.group_id == self.group_id)
+        if self.household_id:
+            stmt = stmt.filter(GroupMealPlanRules.household_id == self.household_id)
+
         rules = self.session.execute(stmt).scalars().all()
 
         return [self.schema.model_validate(x) for x in rules]
