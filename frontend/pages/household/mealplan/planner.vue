@@ -56,7 +56,7 @@
 <script lang="ts">
 import { computed, defineComponent, ref, useRoute, useRouter, watch } from "@nuxtjs/composition-api";
 import { isSameDay, addDays, parseISO } from "date-fns";
-import { useGroupSelf } from "~/composables/use-groups";
+import { useHouseholdSelf } from "~/composables/use-households";
 import { useMealplans } from "~/composables/use-group-mealplan";
 import { useUserMealPlanPreferences } from "~/composables/use-users/preferences";
 
@@ -65,7 +65,7 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     const router = useRouter();
-    const { group } = useGroupSelf();
+    const { household } = useHouseholdSelf();
 
     const mealPlanPreferences = useUserMealPlanPreferences();
     const numberOfDays = ref<number>(mealPlanPreferences.value.numberOfDays || 7);
@@ -95,7 +95,7 @@ export default defineComponent({
     });
 
     const firstDayOfWeek = computed(() => {
-      return group.value?.preferences?.firstDayOfWeek || 0;
+      return household.value?.preferences?.firstDayOfWeek || 0;
     });
 
     const weekRange = computed(() => {

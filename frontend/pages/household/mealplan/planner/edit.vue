@@ -229,7 +229,7 @@ import { useMealplans, usePlanTypeOptions, getEntryTypeText } from "~/composable
 import RecipeCardImage from "~/components/Domain/Recipe/RecipeCardImage.vue";
 import { PlanEntryType, UpdatePlanEntry } from "~/lib/api/types/meal-plan";
 import { useUserApi } from "~/composables/api";
-import { useGroupSelf } from "~/composables/use-groups";
+import { useHouseholdSelf } from "~/composables/use-households";
 import { useRecipeSearch } from "~/composables/recipes/use-recipe-search";
 
 export default defineComponent({
@@ -249,7 +249,7 @@ export default defineComponent({
   },
   setup(props) {
     const api = useUserApi();
-    const { group } = useGroupSelf();
+    const { household } = useHouseholdSelf();
 
     const state = ref({
       dialog: false,
@@ -257,7 +257,7 @@ export default defineComponent({
     });
 
     const firstDayOfWeek = computed(() => {
-      return group.value?.preferences?.firstDayOfWeek || 0;
+      return household.value?.preferences?.firstDayOfWeek || 0;
     });
 
     function onMoveCallback(evt: SortableEvent) {
@@ -308,7 +308,7 @@ export default defineComponent({
       entryType: "dinner" as PlanEntryType,
       existing: false,
       id: 0,
-      groupId: ""
+      groupId: "",
     });
 
     function openDialog(date: Date) {
