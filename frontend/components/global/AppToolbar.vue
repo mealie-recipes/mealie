@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar flat>
+  <v-toolbar color="transparent" flat>
     <BaseButton color="null" rounded secondary @click="$router.go(-1)">
       <template #icon> {{ $globals.icons.arrowLeftBold }}</template>
       {{ $t('general.back') }}
