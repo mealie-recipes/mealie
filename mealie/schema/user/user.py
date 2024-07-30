@@ -9,7 +9,7 @@ from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.core.config import get_app_dirs, get_app_settings
 from mealie.db.models.users import User
-from mealie.db.models.users.users import AuthMethod
+from mealie.db.models.users.users import AuthMethod, LongLiveToken
 from mealie.schema._mealie import MealieModel
 from mealie.schema.group.group_preferences import ReadGroupPreferences
 from mealie.schema.household.webhook import CreateWebhook, ReadWebhook
@@ -34,6 +34,10 @@ class LongLiveTokenOut(MealieModel):
     id: int
     created_at: datetime | None = None
     model_config = ConfigDict(from_attributes=True)
+
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [joinedload(LongLiveToken.user)]
 
 
 class CreateToken(LongLiveTokenIn):
