@@ -3,14 +3,15 @@ import { RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
 import { ApiRequestInstance } from "~/lib/api/types/non-generated";
 
 const prefix = "/api";
+const exploreGroupSlug = (groupSlug: string | number) => `${prefix}/explore/groups/${groupSlug}`
 
 const routes = {
-    categoriesGroupSlug: (groupSlug: string | number) => `${prefix}/explore/organizers/${groupSlug}/categories`,
-    categoriesGroupSlugCategoryId: (groupSlug: string | number, categoryId: string | number) => `${prefix}/explore/organizers/${groupSlug}/categories/${categoryId}`,
-    tagsGroupSlug: (groupSlug: string | number) => `${prefix}/explore/organizers/${groupSlug}/tags`,
-    tagsGroupSlugTagId: (groupSlug: string | number, tagId: string | number) => `${prefix}/explore/organizers/${groupSlug}/tags/${tagId}`,
-    toolsGroupSlug: (groupSlug: string | number) => `${prefix}/explore/organizers/${groupSlug}/tools`,
-    toolsGroupSlugToolId: (groupSlug: string | number, toolId: string | number) => `${prefix}/explore/organizers/${groupSlug}/tools/${toolId}`,
+    categoriesGroupSlug: (groupSlug: string | number) => `${exploreGroupSlug(groupSlug)}/organizers/categories`,
+    categoriesGroupSlugCategoryId: (groupSlug: string | number, categoryId: string | number) => `${exploreGroupSlug(groupSlug)}/organizers/categories/${categoryId}`,
+    tagsGroupSlug: (groupSlug: string | number) => `${exploreGroupSlug(groupSlug)}/organizers/tags`,
+    tagsGroupSlugTagId: (groupSlug: string | number, tagId: string | number) => `${exploreGroupSlug(groupSlug)}/organizers/tags/${tagId}`,
+    toolsGroupSlug: (groupSlug: string | number) => `${exploreGroupSlug(groupSlug)}/organizers/tools`,
+    toolsGroupSlugToolId: (groupSlug: string | number, toolId: string | number) => `${exploreGroupSlug(groupSlug)}/organizers/tools`,
 };
 
 export class PublicCategoriesApi extends BaseCRUDAPIReadOnly<RecipeCategory> {
