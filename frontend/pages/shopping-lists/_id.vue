@@ -28,7 +28,7 @@
       <template #title> {{ shoppingList.name }} </template>
     </BasePageTitle>
     <BannerWarning
-      v-if="isOffline"
+      v-if="$nuxt.isOffline"
       :title="$tc('shopping-list.you-are-offline')"
       :description="$tc('shopping-list.you-are-offline-description')"
     />
@@ -46,7 +46,6 @@
               :units="allUnits || []"
               :foods="allFoods || []"
               :recipes="recipeMap"
-              :is-offline="isOffline"
               @checked="saveListItem"
               @save="saveListItem"
               @delete="deleteListItem(item)"
@@ -75,7 +74,6 @@
                 :units="allUnits || []"
                 :foods="allFoods || []"
                 :recipes="recipeMap"
-                :is-offline="isOffline"
                 @checked="saveListItem"
                 @save="saveListItem"
                 @delete="deleteListItem(item)"
@@ -132,7 +130,6 @@
           :labels="allLabels || []"
           :units="allUnits || []"
           :foods="allFoods || []"
-          :is-offline="isOffline"
           @delete="createEditorOpen = false"
           @cancel="createEditorOpen = false"
           @save="createListItem"
@@ -141,7 +138,7 @@
       <div v-else class="mt-4 d-flex justify-end">
         <BaseButton
           v-if="preferences.viewByLabel" edit class="mr-2"
-          :disabled="isOffline"
+          :disabled="$nuxt.isOffline"
           @click="toggleReorderLabelsDialog">
           <template #icon> {{ $globals.icons.tags }} </template>
           {{ $t('shopping-list.reorder-labels') }}
@@ -221,7 +218,6 @@
                 :labels="allLabels || []"
                 :units="allUnits || []"
                 :foods="allFoods || []"
-                :is-offline="isOffline"
                 @checked="saveListItem"
                 @save="saveListItem"
                 @delete="deleteListItem(item)"
@@ -244,10 +240,10 @@
           {{ $tc('shopping-list.linked-recipes-count', shoppingList.recipeReferences ? shoppingList.recipeReferences.length : 0) }}
         </div>
         <v-divider class="my-4"></v-divider>
-        <RecipeList :recipes="Array.from(recipeMap.values())" show-description :disabled="isOffline">
+        <RecipeList :recipes="Array.from(recipeMap.values())" show-description :disabled="$nuxt.isOffline">
           <template v-for="(recipe, index) in recipeMap.values()" #[`actions-${recipe.id}`]>
             <v-list-item-action :key="'item-actions-decrease' + recipe.id">
-              <v-btn icon :disabled="isOffline" @click.prevent="removeRecipeReferenceToList(recipe.id)">
+              <v-btn icon :disabled="$nuxt.isOffline" @click.prevent="removeRecipeReferenceToList(recipe.id)">
                 <v-icon color="grey lighten-1">{{ $globals.icons.minus }}</v-icon>
               </v-btn>
             </v-list-item-action>
@@ -255,7 +251,7 @@
               {{ shoppingList.recipeReferences[index].recipeQuantity }}
             </div>
             <v-list-item-action :key="'item-actions-increase' + recipe.id">
-              <v-btn icon :disabled="isOffline" @click.prevent="addRecipeReferenceToList(recipe.id)">
+              <v-btn icon :disabled="$nuxt.isOffline" @click.prevent="addRecipeReferenceToList(recipe.id)">
                 <v-icon color="grey lighten-1">{{ $globals.icons.createAlt }}</v-icon>
               </v-btn>
             </v-list-item-action>
@@ -268,7 +264,7 @@
       <div class="d-flex justify-end">
         <BaseButton
           edit
-          :disabled="isOffline"
+          :disabled="$nuxt.isOffline"
           @click="toggleSettingsDialog"
         >
           <template #icon> {{ $globals.icons.cog }} </template>
@@ -278,7 +274,7 @@
     </v-lazy>
 
     <v-lazy>
-      <div v-if="!isOffline" class="d-flex justify-end mt-10">
+      <div v-if="$nuxt.isOnline" class="d-flex justify-end mt-10">
         <ButtonLink
           :to="`/group/data/labels`"
           :text="$tc('shopping-list.manage-labels')"
@@ -1072,7 +1068,6 @@ export default defineComponent({
       getLabelColor,
       groupSlug,
       itemsByLabel,
-      isOffline: shoppingListItemActions.isOffline,
       listItems,
       loadingCounter,
       preferences,
