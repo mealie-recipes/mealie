@@ -260,7 +260,7 @@
     "disable-users-from-commenting-on-recipes": "Disable users from commenting on recipes",
     "disable-users-from-commenting-on-recipes-description": "Hides the comment section on the recipe page and disables commenting",
     "disable-organizing-recipe-ingredients-by-units-and-food": "Disable organizing recipe ingredients by units and food",
-    "disable-organizing-recipe-ingredients-by-units-and-food-description": "Hides the Food, Unit, and Amount fields for ingredients and treats ingredients as plain text fields.",
+    "disable-organizing-recipe-ingredients-by-units-and-food-description": "Hides the Food, Unit, and Amount fields for ingredients and treats ingredients as plain text fields",
     "general-preferences": "General Preferences",
     "group-recipe-preferences": "Group Recipe Preferences",
     "report": "Report",
@@ -285,9 +285,10 @@
     "private-household": "Private Household",
     "private-household-description": "Setting your household to private will default all public view options to default. This overrides any individual recipes public view settings.",
     "household-recipe-preferences": "Household Recipe Preferences",
+    "default-recipe-preferences-description": "These are the default settings when a new recipe is created in your household. These can be changed for individual recipes in the recipe settings menu.",
     "allow-users-outside-of-your-household-to-see-your-recipes": "Allow users outside of your household to see your recipes",
-    "allow-users-outside-of-your-household-to-see-your-recipes-description": "When enabled you can use a public share link to share specific recipes without authorizing the user. When disabled, you can only share recipes with users who are in your household or with a pre-generated private link"
-
+    "allow-users-outside-of-your-household-to-see-your-recipes-description": "When enabled you can use a public share link to share specific recipes without authorizing the user. When disabled, you can only share recipes with users who are in your household or with a pre-generated private link",
+    "household-preferences": "Household Preferences"
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Create a New Meal Plan",
@@ -1253,7 +1254,10 @@
     "api-tokens-description": "Manage your API Tokens for access from external applications.",
     "group-description": "These items are shared within your group. Editing one of them will change it for the whole group!",
     "group-settings": "Group Settings",
-    "group-settings-description": "Manage your common group settings like mealplan and privacy settings.",
+    "group-settings-description": "Manage your common group settings, like privacy settings.",
+    "household-description": "These items are shared within your household. Editing one of them will change it for the whole household!",
+    "household-settings": "Household Settings",
+    "household-settings-description": "Manage your household settings, like mealplan and privacy settings.",
     "cookbooks-description": "Manage a collection of recipe categories and generate pages for them.",
     "members": "Members",
     "members-description": "See who's in your group and manage their permissions.",
