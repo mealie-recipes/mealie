@@ -246,7 +246,7 @@
     "default-recipe-preferences": "Default Recipe Preferences",
     "group-preferences": "Group Preferences",
     "private-group": "Private Group",
-    "private-group-description": "Setting your group to private will default all public view options to default. This overrides an individual recipes public view settings.",
+    "private-group-description": "Setting your group to private will default all public view options to default. This overrides any individual households or recipes public view settings.",
     "enable-public-access": "Enable Public Access",
     "enable-public-access-description": "Make group recipes public by default, and allow visitors to view recipes without logging-in",
     "allow-users-outside-of-your-group-to-see-your-recipes": "Allow users outside of your group to see your recipes",
@@ -272,7 +272,22 @@
   },
   "household": {
     "household": "Household",
-    "user-household": "User Household"
+    "households": "Households",
+    "user-household": "User Household",
+    "create-household": "Create Household",
+    "household-name": "Household Name",
+    "household-group": "Household Group",
+    "household-management": "Household Management",
+    "manage-households": "Manage Households",
+    "admin-household-management": "Admin Household Management",
+    "admin-household-management-text": "Changes to this household will be reflected immediately.",
+    "household-id-value": "Household Id: {0}",
+    "private-household": "Private Household",
+    "private-household-description": "Setting your household to private will default all public view options to default. This overrides any individual recipes public view settings.",
+    "household-recipe-preferences": "Household Recipe Preferences",
+    "allow-users-outside-of-your-household-to-see-your-recipes": "Allow users outside of your household to see your recipes",
+    "allow-users-outside-of-your-household-to-see-your-recipes-description": "When enabled you can use a public share link to share specific recipes without authorizing the user. When disabled, you can only share recipes with users who are in your household or with a pre-generated private link"
+
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Create a New Meal Plan",
