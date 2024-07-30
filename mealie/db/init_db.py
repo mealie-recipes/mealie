@@ -34,14 +34,15 @@ def init_db(session: orm.Session) -> None:
     default_group = default_group_init(instance_repos, settings.DEFAULT_GROUP)
 
     group_repos = get_repositories(session, group_id=default_group.id, household_id=None)
-    default_household = default_household_init(group_repos, settings.DEFAULT_HOUSEHOLD)
-
+    default_household = group_repos.households.get_by_name(settings.DEFAULT_HOUSEHOLD)
+    if default_household is None:
+        default_household = default_household_init(group_repos, settings.DEFAULT_HOUSEHOLD)
     household_repos = get_repositories(session, group_id=default_group.id, household_id=default_household.id)
     default_user_init(household_repos)
 
 
 def default_group_init(repos: AllRepositories, name: str) -> GroupInDB:
-    logger.info("Generating Default Group")
+    logger.info("Generating Default Group and Household")
     return GroupService.create_group(repos, GroupBase(name=name))
 
 

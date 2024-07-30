@@ -1,12 +1,16 @@
 from pydantic import UUID4
 
+from mealie.core.config import get_app_settings
 from mealie.pkgs.stats import fs_stats
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.group.group_preferences import CreateGroupPreferences
 from mealie.schema.group.group_statistics import GroupStorage
+from mealie.schema.household.household import HouseholdCreate
+from mealie.schema.household.household_preferences import CreateHouseholdPreferences
 from mealie.schema.user.user import GroupBase
 from mealie.services._base_service import BaseService
+from mealie.services.household_services.household_service import HouseholdService
 
 ALLOWED_SIZE = 500 * fs_stats.megabyte
 
@@ -21,7 +25,7 @@ class GroupService(BaseService):
     def create_group(repos: AllRepositories, g_base: GroupBase, prefs: CreateGroupPreferences | None = None):
         """
         Creates a new group in the database with the required associated table references to ensure
-        the group includes required preferences.
+        the group includes required preferences and default household.
         """
         new_group = repos.groups.create(g_base)
 
@@ -31,7 +35,20 @@ class GroupService(BaseService):
             prefs.group_id = new_group.id
 
         group_repos = get_repositories(repos.session, group_id=new_group.id, household_id=None)
-        group_repos.group_preferences.create(prefs)
+        group_preferences = group_repos.group_preferences.create(prefs)
+
+        settings = get_app_settings()
+        household = HouseholdService.create_household(
+            group_repos,
+            HouseholdCreate(name=settings.DEFAULT_HOUSEHOLD, group_id=new_group.id),
+            prefs=CreateHouseholdPreferences(
+                private_household=group_preferences.private_group,
+                recipe_public=not group_preferences.private_group,
+            ),
+        )
+
+        new_group.preferences = group_preferences
+        new_group.households = [household]
 
         return new_group
 
