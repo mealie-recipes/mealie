@@ -21,9 +21,15 @@ class HouseholdService(BaseService):
     ):
         new_household = repos.households.create(h_base)
         if prefs is None:
-            save_prefs = SaveHouseholdPreferences(household_id=new_household.id)
-        else:
-            save_prefs = prefs.cast(SaveHouseholdPreferences, household_id=new_household.id)
+            group = repos.groups.get_one(new_household.group_id)
+            if group and group.preferences:
+                prefs = CreateHouseholdPreferences(
+                    private_household=group.preferences.private_group,
+                    recipe_public=not group.preferences.private_group,
+                )
+            else:
+                prefs = CreateHouseholdPreferences()
+        save_prefs = prefs.cast(SaveHouseholdPreferences, household_id=new_household.id)
 
         household_repos = get_repositories(
             repos.session, group_id=new_household.group_id, household_id=new_household.id
