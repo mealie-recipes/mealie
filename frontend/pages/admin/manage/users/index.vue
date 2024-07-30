@@ -18,7 +18,7 @@
 
     <BaseCardSectionTitle :title="$tc('user.user-management')"> </BaseCardSectionTitle>
     <section>
-      <v-toolbar color="background" flat class="justify-between">
+      <v-toolbar color="transparent" flat class="justify-between">
         <BaseButton to="/admin/manage/users/create" class="mr-2">
           {{ $t("general.create") }}
         </BaseButton>
