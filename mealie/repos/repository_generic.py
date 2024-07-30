@@ -384,14 +384,14 @@ class RepositoryGeneric(Generic[Schema, Model]):
         order_dir: OrderDirection,
         order_by_null: OrderByNullPosition | None,
     ) -> Select:
+        # queries handle uppercase and lowercase differently, which is undesirable
+        if isinstance(order_attr.type, sqltypes.String):
+            order_attr = func.lower(order_attr)
+
         if order_dir is OrderDirection.asc:
             order_attr = order_attr.asc()
         elif order_dir is OrderDirection.desc:
             order_attr = order_attr.desc()
-
-        # queries handle uppercase and lowercase differently, which is undesirable
-        if isinstance(order_attr.type, sqltypes.String):
-            order_attr = func.lower(order_attr)
 
         if order_by_null is OrderByNullPosition.first:
             order_attr = nulls_first(order_attr)
