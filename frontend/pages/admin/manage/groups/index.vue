@@ -40,12 +40,15 @@
         :search="search"
         @click:row="handleRowClick"
       >
+        <template #item.households="{ item }">
+          {{ item.households.length }}
+        </template>
         <template #item.users="{ item }">
           {{ item.users.length }}
         </template>
         <template #item.actions="{ item }">
           <v-btn
-            :disabled="item && item.users.length > 0"
+            :disabled="item && (item.households.length > 0 || item.users.length > 0)"
             class="mr-1"
             icon
             color="error"
@@ -90,6 +93,7 @@ export default defineComponent({
           value: "id",
         },
         { text: i18n.t("general.name"), value: "name" },
+        { text: i18n.t("group.total-households"), value: "households" },
         { text: i18n.t("user.total-users"), value: "users" },
         { text: i18n.t("general.delete"), value: "actions" },
       ],
