@@ -175,6 +175,7 @@ export interface HouseholdInDB {
   id: string;
   slug: string;
   preferences?: ReadHouseholdPreferences | null;
+  group: string;
   users?: HouseholdUserSummary[] | null;
   webhooks?: ReadWebhook[];
 }

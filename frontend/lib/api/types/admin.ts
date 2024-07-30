@@ -22,6 +22,7 @@ export interface AdminAboutInfo {
   dbType: string;
   dbUrl?: string | null;
   defaultGroup: string;
+  defaultHousehold: string;
   buildId: string;
   recipeScraperVersion: string;
 }

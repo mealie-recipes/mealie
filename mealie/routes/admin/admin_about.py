@@ -27,6 +27,7 @@ class AdminAboutController(BaseAdminController):
             db_type=settings.DB_ENGINE,
             db_url=settings.DB_URL_PUBLIC,
             default_group=settings.DEFAULT_GROUP,
+            default_household=settings.DEFAULT_HOUSEHOLD,
             allow_signup=settings.ALLOW_SIGNUP,
             build_id=settings.GIT_COMMIT_HASH,
             recipe_scraper_version=recipe_scraper_version.__version__,

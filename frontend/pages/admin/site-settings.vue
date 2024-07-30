@@ -368,6 +368,11 @@ export default defineComponent({
                             value: data.defaultGroup,
                         },
                         {
+                            name: i18n.t("about.default-household"),
+                            icon: $globals.icons.household,
+                            value: data.defaultHousehold,
+                        },
+                        {
                             slot: "recipe-scraper",
                             name: i18n.t("settings.recipe-scraper-version"),
                             icon: $globals.icons.primary,
