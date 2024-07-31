@@ -1,9 +1,11 @@
-from fastapi import BackgroundTasks, Depends, Query
+from fastapi import BackgroundTasks, Depends
 from pydantic import UUID4
 from sqlalchemy.orm.session import Session
 
 from mealie.core.config import get_app_settings
 from mealie.db.db_setup import generate_session
+from mealie.repos.all_repositories import get_repositories
+from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.event_bus_service.event_bus_listeners import (
     AppriseEventListener,
     EventListenerBase,
@@ -65,7 +67,7 @@ class EventBusService:
         self,
         integration_id: str,
         group_id: UUID4,
-        household_id: UUID4,
+        household_id: UUID4 | None,
         event_type: EventTypes,
         document_data: EventDocumentDataBase | None,
         message: str = "",
@@ -77,10 +79,21 @@ class EventBusService:
             document_data=document_data,
         )
 
-        if self.bg:
-            self.bg.add_task(self._publish_event, event=event, group_id=group_id, household_id=household_id)
+        if not household_id:
+            if not self.session:
+                raise ValueError("Session is required if household_id is not provided")
+
+            repos = get_repositories(self.session, group_id=group_id)
+            households = repos.households.page_all(PaginationQuery(page=1, per_page=-1)).items
+            household_ids = [household.id for household in households]
         else:
-            self._publish_event(event, group_id, household_id)
+            household_ids = [household_id]
+
+        for household_id in household_ids:
+            if self.bg:
+                self.bg.add_task(self._publish_event, event=event, group_id=group_id, household_id=household_id)
+            else:
+                self._publish_event(event, group_id, household_id)
 
     @classmethod
     def as_dependency(

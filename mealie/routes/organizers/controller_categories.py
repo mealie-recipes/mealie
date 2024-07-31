@@ -8,7 +8,7 @@ from mealie.routes._base.mixins import HttpRepo
 from mealie.schema import mapper
 from mealie.schema.recipe import CategoryIn, RecipeCategoryResponse
 from mealie.schema.recipe.recipe import RecipeCategory, RecipeCategoryPagination
-from mealie.schema.recipe.recipe_category import CategoryBase, CategorySave
+from mealie.schema.recipe.recipe_category import CategoryBase, CategoryOut, CategorySave
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services import urls
 from mealie.services.event_bus_service.event_types import EventCategoryData, EventOperation, EventTypes
@@ -33,7 +33,7 @@ class RecipeCategoryController(BaseCrudController):
 
     @cached_property
     def mixins(self):
-        return HttpRepo(self.repo, self.logger)
+        return HttpRepo[CategorySave, CategoryOut, CategorySave](self.repo, self.logger)
 
     @router.get("", response_model=RecipeCategoryPagination)
     def get_all(self, q: PaginationQuery = Depends(PaginationQuery), search: str | None = None):
@@ -56,6 +56,8 @@ class RecipeCategoryController(BaseCrudController):
             self.publish_event(
                 event_type=EventTypes.category_created,
                 document_data=EventCategoryData(operation=EventOperation.create, category_id=new_category.id),
+                group_id=new_category.group_id,
+                household_id=None,
                 message=self.t(
                     "notifications.generic-created-with-url",
                     name=new_category.name,
@@ -82,6 +84,8 @@ class RecipeCategoryController(BaseCrudController):
             self.publish_event(
                 event_type=EventTypes.category_updated,
                 document_data=EventCategoryData(operation=EventOperation.update, category_id=category.id),
+                group_id=category.group_id,
+                household_id=None,
                 message=self.t(
                     "notifications.generic-updated-with-url",
                     name=category.name,
@@ -102,6 +106,8 @@ class RecipeCategoryController(BaseCrudController):
             self.publish_event(
                 event_type=EventTypes.category_deleted,
                 document_data=EventCategoryData(operation=EventOperation.delete, category_id=category.id),
+                group_id=category.group_id,
+                household_id=None,
                 message=self.t("notifications.generic-deleted", name=category.name),
             )
 

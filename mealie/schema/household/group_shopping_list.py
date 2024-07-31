@@ -105,6 +105,8 @@ class ShoppingListItemUpdateBulk(ShoppingListItemUpdate):
 
 class ShoppingListItemOut(ShoppingListItemBase):
     id: UUID4
+    group_id: UUID4
+    household_id: UUID4
 
     food: IngredientFood | None = None
     label: MultiPurposeLabelSummary | None = None
@@ -244,6 +246,7 @@ class ShoppingListUpdate(ShoppingListSave):
 
 
 class ShoppingListOut(ShoppingListUpdate):
+    household_id: UUID4
     recipe_references: list[ShoppingListRecipeRefOut] = []
     label_settings: list[ShoppingListMultiPurposeLabelOut] = []
     model_config = ConfigDict(from_attributes=True)

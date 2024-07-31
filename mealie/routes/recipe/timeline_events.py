@@ -69,6 +69,8 @@ class RecipeTimelineEventsController(BaseCrudController):
             document_data=EventRecipeTimelineEventData(
                 operation=EventOperation.create, recipe_slug=recipe.slug, recipe_timeline_event_id=event.id
             ),
+            group_id=recipe.group_id,
+            household_id=recipe.household_id,
             message=self.t(
                 "notifications.generic-updated-with-url",
                 name=recipe.name,
@@ -92,6 +94,8 @@ class RecipeTimelineEventsController(BaseCrudController):
                 document_data=EventRecipeTimelineEventData(
                     operation=EventOperation.update, recipe_slug=recipe.slug, recipe_timeline_event_id=event.id
                 ),
+                group_id=recipe.group_id,
+                household_id=recipe.household_id,
                 message=self.t(
                     "notifications.generic-updated-with-url",
                     name=recipe.name,
@@ -117,6 +121,8 @@ class RecipeTimelineEventsController(BaseCrudController):
                 document_data=EventRecipeTimelineEventData(
                     operation=EventOperation.delete, recipe_slug=recipe.slug, recipe_timeline_event_id=event.id
                 ),
+                group_id=recipe.group_id,
+                household_id=recipe.household_id,
                 message=self.t(
                     "notifications.generic-updated-with-url",
                     name=recipe.name,
@@ -145,6 +151,8 @@ class RecipeTimelineEventsController(BaseCrudController):
                     document_data=EventRecipeTimelineEventData(
                         operation=EventOperation.update, recipe_slug=recipe.slug, recipe_timeline_event_id=event.id
                     ),
+                    group_id=recipe.group_id,
+                    household_id=recipe.household_id,
                     message=self.t(
                         "notifications.generic-updated-with-url",
                         name=recipe.name,

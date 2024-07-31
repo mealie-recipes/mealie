@@ -188,11 +188,18 @@ class BaseCrudController(BaseUserController):
 
     event_bus: EventBusService = Depends(EventBusService.as_dependency)
 
-    def publish_event(self, event_type: EventTypes, document_data: EventDocumentDataBase, message: str = "") -> None:
+    def publish_event(
+        self,
+        event_type: EventTypes,
+        document_data: EventDocumentDataBase,
+        group_id: UUID4,
+        household_id: UUID4 | None,
+        message: str = "",
+    ) -> None:
         self.event_bus.dispatch(
             integration_id=self.integration_id,
-            group_id=self.group_id,
-            household_id=self.household_id,
+            group_id=group_id,
+            household_id=household_id,
             event_type=event_type,
             document_data=document_data,
             message=message,

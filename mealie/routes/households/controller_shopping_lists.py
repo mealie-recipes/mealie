@@ -66,6 +66,9 @@ def publish_list_item_events(publisher: Callable, items_collection: ShoppingList
                     operation=EventOperation.update,
                     shopping_list_id=shopping_list_id,
                     shopping_list_item_ids=[item.id for item in items],
+                    # since these are all the same shopping list, they share a group_id and household_id
+                    group_id=items[0].group_id,
+                    household_id=items[0].household_id,
                 ),
             )
 
@@ -180,6 +183,8 @@ class ShoppingListController(BaseCrudController):
             self.publish_event(
                 event_type=EventTypes.shopping_list_created,
                 document_data=EventShoppingListData(operation=EventOperation.create, shopping_list_id=shopping_list.id),
+                group_id=shopping_list.group_id,
+                household_id=shopping_list.household_id,
                 message=self.t("notifications.generic-created", name=shopping_list.name),
             )
 
@@ -195,6 +200,8 @@ class ShoppingListController(BaseCrudController):
         self.publish_event(
             event_type=EventTypes.shopping_list_updated,
             document_data=EventShoppingListData(operation=EventOperation.update, shopping_list_id=shopping_list.id),
+            group_id=shopping_list.group_id,
+            household_id=shopping_list.household_id,
             message=self.t("notifications.generic-updated", name=shopping_list.name),
         )
 
@@ -207,6 +214,8 @@ class ShoppingListController(BaseCrudController):
             self.publish_event(
                 event_type=EventTypes.shopping_list_deleted,
                 document_data=EventShoppingListData(operation=EventOperation.delete, shopping_list_id=shopping_list.id),
+                group_id=shopping_list.group_id,
+                household_id=shopping_list.household_id,
                 message=self.t("notifications.generic-deleted", name=shopping_list.name),
             )
 
@@ -252,6 +261,8 @@ class ShoppingListController(BaseCrudController):
         self.publish_event(
             event_type=EventTypes.shopping_list_updated,
             document_data=EventShoppingListData(operation=EventOperation.update, shopping_list_id=updated_list.id),
+            group_id=updated_list.group_id,
+            household_id=updated_list.household_id,
             message=self.t("notifications.generic-updated", name=updated_list.name),
         )
 

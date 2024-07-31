@@ -1,3 +1,4 @@
+from collections import defaultdict
 from functools import cached_property
 from uuid import UUID
 
@@ -61,6 +62,8 @@ class GroupCookbookController(BaseCrudController):
             self.publish_event(
                 event_type=EventTypes.cookbook_created,
                 document_data=EventCookbookData(operation=EventOperation.create, cookbook_id=cookbook.id),
+                group_id=cookbook.group_id,
+                household_id=cookbook.household_id,
                 message=self.t("notifications.generic-created", name=cookbook.name),
             )
 
@@ -68,19 +71,25 @@ class GroupCookbookController(BaseCrudController):
 
     @router.put("", response_model=list[ReadCookBook])
     def update_many(self, data: list[UpdateCookBook]):
-        updated = []
+        updated_by_group_and_household: defaultdict[UUID4, defaultdict[UUID4, list[ReadCookBook]]] = defaultdict(
+            lambda: defaultdict(list)
+        )
 
         for cookbook in data:
             cb = self.mixins.update_one(cookbook, cookbook.id)
-            updated.append(cb)
+            updated_by_group_and_household[cb.group_id][cb.household_id].append(cb)
 
-        if updated:
-            self.publish_event(
-                event_type=EventTypes.cookbook_updated,
-                document_data=EventCookbookBulkData(
-                    operation=EventOperation.update, cookbook_ids=[cb.id for cb in updated]
-                ),
-            )
+        if updated_by_group_and_household:
+            for group_id, household_dict in updated_by_group_and_household.items():
+                for household_id, updated in household_dict.items():
+                    self.publish_event(
+                        event_type=EventTypes.cookbook_updated,
+                        document_data=EventCookbookBulkData(
+                            operation=EventOperation.update, cookbook_ids=[cb.id for cb in updated]
+                        ),
+                        group_id=group_id,
+                        household_id=household_id,
+                    )
 
         return updated
 
@@ -119,6 +128,8 @@ class GroupCookbookController(BaseCrudController):
             self.publish_event(
                 event_type=EventTypes.cookbook_updated,
                 document_data=EventCookbookData(operation=EventOperation.update, cookbook_id=cookbook.id),
+                group_id=cookbook.group_id,
+                household_id=cookbook.household_id,
                 message=self.t("notifications.generic-updated", name=cookbook.name),
             )
 
@@ -131,6 +142,8 @@ class GroupCookbookController(BaseCrudController):
             self.publish_event(
                 event_type=EventTypes.cookbook_deleted,
                 document_data=EventCookbookData(operation=EventOperation.delete, cookbook_id=cookbook.id),
+                group_id=cookbook.group_id,
+                household_id=cookbook.household_id,
                 message=self.t("notifications.generic-deleted", name=cookbook.name),
             )
 

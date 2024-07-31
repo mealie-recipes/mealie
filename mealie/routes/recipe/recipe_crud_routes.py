@@ -217,6 +217,8 @@ class RecipeController(BaseRecipeController):
             self.publish_event(
                 event_type=EventTypes.recipe_created,
                 document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=new_recipe.slug),
+                group_id=new_recipe.group_id,
+                household_id=new_recipe.household_id,
                 message=self.t(
                     "notifications.generic-created-with-url",
                     name=new_recipe.name,
@@ -236,6 +238,8 @@ class RecipeController(BaseRecipeController):
         self.publish_event(
             event_type=EventTypes.recipe_created,
             document_data=EventRecipeBulkReportData(operation=EventOperation.create, report_id=report_id),
+            group_id=self.group_id,
+            household_id=self.household_id,
         )
 
         return {"reportId": report_id}
@@ -262,6 +266,8 @@ class RecipeController(BaseRecipeController):
             self.publish_event(
                 event_type=EventTypes.recipe_created,
                 document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=recipe.slug),
+                group_id=recipe.group_id,
+                household_id=recipe.household_id,
             )
 
         return recipe.slug
@@ -346,6 +352,8 @@ class RecipeController(BaseRecipeController):
             self.publish_event(
                 event_type=EventTypes.recipe_created,
                 document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=new_recipe.slug),
+                group_id=new_recipe.group_id,
+                household_id=new_recipe.household_id,
                 message=self.t(
                     "notifications.generic-created-with-url",
                     name=new_recipe.name,
@@ -367,6 +375,8 @@ class RecipeController(BaseRecipeController):
             self.publish_event(
                 event_type=EventTypes.recipe_created,
                 document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=new_recipe.slug),
+                group_id=new_recipe.group_id,
+                household_id=new_recipe.household_id,
                 message=self.t(
                     "notifications.generic-duplicated",
                     name=new_recipe.name,
@@ -387,6 +397,8 @@ class RecipeController(BaseRecipeController):
             self.publish_event(
                 event_type=EventTypes.recipe_updated,
                 document_data=EventRecipeData(operation=EventOperation.update, recipe_slug=recipe.slug),
+                group_id=recipe.group_id,
+                household_id=recipe.household_id,
                 message=self.t(
                     "notifications.generic-updated-with-url",
                     name=recipe.name,
@@ -408,6 +420,8 @@ class RecipeController(BaseRecipeController):
             self.publish_event(
                 event_type=EventTypes.recipe_updated,
                 document_data=EventRecipeData(operation=EventOperation.update, recipe_slug=recipe.slug),
+                group_id=recipe.group_id,
+                household_id=recipe.household_id,
                 message=self.t(
                     "notifications.generic-updated-with-url",
                     name=recipe.name,
@@ -430,6 +444,8 @@ class RecipeController(BaseRecipeController):
             self.publish_event(
                 event_type=EventTypes.recipe_updated,
                 document_data=EventRecipeData(operation=EventOperation.update, recipe_slug=recipe.slug),
+                group_id=recipe.group_id,
+                household_id=recipe.household_id,
                 message=self.t(
                     "notifications.generic-updated-with-url",
                     name=recipe.name,
@@ -451,6 +467,8 @@ class RecipeController(BaseRecipeController):
             self.publish_event(
                 event_type=EventTypes.recipe_deleted,
                 document_data=EventRecipeData(operation=EventOperation.delete, recipe_slug=recipe.slug),
+                group_id=recipe.group_id,
+                household_id=recipe.household_id,
                 message=self.t("notifications.generic-deleted", name=recipe.name),
             )
 
