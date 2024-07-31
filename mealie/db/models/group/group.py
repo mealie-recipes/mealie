@@ -1,13 +1,10 @@
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING
 
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
 from pydantic import ConfigDict
-from sqlalchemy import select
 from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy.orm.session import Session
 
-from mealie.core.config import get_app_settings
 from mealie.db.models.labels import MultiPurposeLabel
 
 from .._model_base import BaseMixins, SqlAlchemyBase
