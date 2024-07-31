@@ -436,6 +436,8 @@ export interface ShoppingListItemOut {
     [k: string]: unknown;
   } | null;
   id: string;
+  groupId: string;
+  householdId: string;
   label?: MultiPurposeLabelSummary | null;
   recipeReferences?: ShoppingListItemRecipeRefOut[];
   createdAt?: string | null;
@@ -536,6 +538,7 @@ export interface ShoppingListOut {
   userId: string;
   id: string;
   listItems?: ShoppingListItemOut[];
+  householdId: string;
   recipeReferences?: ShoppingListRecipeRefOut[];
   labelSettings?: ShoppingListMultiPurposeLabelOut[];
 }
