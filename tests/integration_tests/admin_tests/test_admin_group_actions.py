@@ -1,7 +1,7 @@
 from fastapi.testclient import TestClient
 
 from mealie.core.config import get_app_settings
-from mealie.schema.household.household import HouseholdInDB
+from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.user.user import GroupInDB
 from tests.utils import api_routes
 from tests.utils.assertion_helpers import assert_ignore_keys
@@ -76,25 +76,10 @@ def test_admin_update_group(api_client: TestClient, admin_user: TestUser, unique
     assert_ignore_keys(as_json["preferences"], update_payload["preferences"])  # type: ignore
 
 
-def test_admin_delete_group(api_client: TestClient, admin_user: TestUser, unique_user: TestUser):
-    # Delete User
-    response = api_client.delete(api_routes.admin_users_item_id(unique_user.user_id), headers=admin_user.token)
+def test_admin_delete_group(unfiltered_database: AllRepositories, api_client: TestClient, admin_user: TestUser):
+    group = unfiltered_database.groups.create({"name": random_string()})
+    response = api_client.delete(api_routes.admin_groups_item_id(group.id), headers=admin_user.token)
     assert response.status_code == 200
 
-    # Delete Household
-    response = api_client.delete(
-        api_routes.admin_households_item_id(unique_user.household_id), headers=admin_user.token
-    )
-    assert response.status_code == 200
-
-    # Ensure Household is Deleted
-    response = api_client.get(api_routes.admin_households_item_id(unique_user.household_id), headers=admin_user.token)
-    assert response.status_code == 404
-
-    # Delete Group
-    response = api_client.delete(api_routes.admin_groups_item_id(unique_user.group_id), headers=admin_user.token)
-    assert response.status_code == 200
-
-    # Ensure Group is Deleted
-    response = api_client.get(api_routes.admin_groups_item_id(unique_user.group_id), headers=admin_user.token)
+    response = api_client.get(api_routes.admin_groups_item_id(group.id), headers=admin_user.token)
     assert response.status_code == 404
