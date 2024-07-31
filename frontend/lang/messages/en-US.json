@@ -1299,6 +1299,7 @@
     "require-all-tools": "Require All Tools",
     "cookbook-name": "Cookbook Name",
     "cookbook-with-name": "Cookbook {0}",
+    "household-cookbook-name": "{0} Cookbook {1}",
     "create-a-cookbook": "Create a Cookbook",
     "cookbook": "Cookbook"
   }
