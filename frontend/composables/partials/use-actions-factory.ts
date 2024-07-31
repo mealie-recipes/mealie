@@ -4,7 +4,7 @@ import { BaseCRUDAPI, BaseCRUDAPIReadOnly } from "~/lib/api/base/base-clients";
 import { QueryValue } from "~/lib/api/base/route";
 
 type BoundT = {
-  id?: string | number;
+  id?: string | number | null;
 };
 
 interface PublicStoreActions<T extends BoundT> {
