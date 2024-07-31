@@ -46,7 +46,7 @@ export function useParsedIngredientText(ingredient: RecipeIngredient, disableAmo
   }
 
   const { quantity, food, unit, note } = ingredient;
-  const usePluralUnit = quantity !== undefined && (quantity * scale > 1 || quantity * scale === 0);
+  const usePluralUnit = quantity !== undefined && ((quantity || 0) * scale > 1 || (quantity || 0) * scale === 0);
   const usePluralFood = (!quantity) || quantity * scale > 1
 
   let returnQty = "";
@@ -69,8 +69,8 @@ export function useParsedIngredientText(ingredient: RecipeIngredient, disableAmo
     }
   }
 
-  const unitName = useUnitName(unit, usePluralUnit);
-  const foodName = useFoodName(food, usePluralFood);
+  const unitName = useUnitName(unit || undefined, usePluralUnit);
+  const foodName = useFoodName(food || undefined, usePluralFood);
 
   return {
     quantity: returnQty ? sanitizeIngredientHTML(returnQty) : undefined,
