@@ -93,7 +93,7 @@ def test_update_other_user_as_not_admin(api_client: TestClient, unique_user: Tes
     settings = get_app_settings()
 
     update_data = {
-        "id": unique_user.user_id,
+        "id": str(unique_user.user_id),
         "fullName": "Updated Name",
         "email": settings._DEFAULT_EMAIL,
         "group": "Home",
@@ -122,7 +122,7 @@ def test_self_demote_admin(api_client: TestClient, admin_user: TestUser):
 
 def test_self_promote_admin(api_client: TestClient, unique_user: TestUser):
     update_data = {
-        "id": unique_user.user_id,
+        "id": str(unique_user.user_id),
         "fullName": "Updated Name",
         "email": "user@example.com",
         "group": "Home",

@@ -28,13 +28,21 @@ def build_unique_user(session: Session, group: str, api_client: TestClient) -> u
     user_data = api_client.get(api_routes.users_self, headers=token).json()
     assert token is not None
 
+    user_id = user_data.get("id")
     group_id = user_data.get("groupId")
     household_id = user_data.get("householdId")
+
+    if not isinstance(user_id, UUID):
+        user_id = UUID(user_id)
+    if not isinstance(group_id, UUID):
+        group_id = UUID(group_id)
+    if not isinstance(household_id, UUID):
+        household_id = UUID(household_id)
 
     return utils.TestUser(
         _group_id=group_id,
         _household_id=household_id,
-        user_id=user_data.get("id"),
+        user_id=user_id,
         email=user_data.get("email"),
         username=user_data.get("username"),
         password=registration.password,
@@ -84,6 +92,13 @@ def h2_user(session: Session, admin_token, api_client: TestClient, unique_user: 
     assert user_id
     assert group_id
     assert household_id
+
+    if not isinstance(user_id, UUID):
+        user_id = UUID(user_id)
+    if not isinstance(group_id, UUID):
+        group_id = UUID(group_id)
+    if not isinstance(household_id, UUID):
+        household_id = UUID(household_id)
 
     try:
         yield utils.TestUser(
@@ -140,6 +155,13 @@ def g2_user(session: Session, admin_token, api_client: TestClient):
     user_id = json.loads(self_response.text).get("id")
     group_id = json.loads(self_response.text).get("groupId")
     household_id = json.loads(self_response.text).get("householdId")
+
+    if not isinstance(user_id, UUID):
+        user_id = UUID(user_id)
+    if not isinstance(group_id, UUID):
+        group_id = UUID(group_id)
+    if not isinstance(household_id, UUID):
+        household_id = UUID(household_id)
 
     try:
         yield utils.TestUser(
@@ -243,14 +265,22 @@ def user_tuple(session: Session, admin_token, api_client: TestClient) -> Generat
         assert response.status_code == 200
         user_data = json.loads(response.text)
 
+        user_id = user_data.get("id")
         group_id = user_data.get("groupId")
         household_id = user_data.get("householdId")
+
+        if not isinstance(user_id, UUID):
+            user_id = UUID(user_id)
+        if not isinstance(group_id, UUID):
+            group_id = UUID(group_id)
+        if not isinstance(household_id, UUID):
+            household_id = UUID(household_id)
 
         users_out.append(
             utils.TestUser(
                 _group_id=group_id,
                 _household_id=household_id,
-                user_id=user_data.get("id"),
+                user_id=user_id,
                 username=user_data.get("username"),
                 email=user_data.get("email"),
                 password="useruser",

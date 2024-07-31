@@ -39,7 +39,7 @@ def test_create_timeline_event(api_client: TestClient, unique_user: TestUser, re
     recipe = recipes[0]
     new_event = {
         "recipe_id": str(recipe.id),
-        "user_id": unique_user.user_id,
+        "user_id": str(unique_user.user_id),
         "subject": random_string(),
         "event_type": "info",
         "message": random_string(),
@@ -63,7 +63,7 @@ def test_get_all_timeline_events(api_client: TestClient, unique_user: TestUser, 
     events_data = [
         {
             "recipe_id": str(recipe.id),
-            "user_id": unique_user.user_id,
+            "user_id": str(unique_user.user_id),
             "subject": random_string(),
             "event_type": "info",
             "message": random_string(),
@@ -98,7 +98,7 @@ def test_get_timeline_event(api_client: TestClient, unique_user: TestUser, recip
     recipe = recipes[0]
     new_event_data = {
         "recipe_id": str(recipe.id),
-        "user_id": unique_user.user_id,
+        "user_id": str(unique_user.user_id),
         "subject": random_string(),
         "event_type": "info",
         "message": random_string(),
@@ -127,7 +127,7 @@ def test_update_timeline_event(api_client: TestClient, unique_user: TestUser, re
     recipe = recipes[0]
     new_event_data = {
         "recipe_id": str(recipe.id),
-        "user_id": unique_user.user_id,
+        "user_id": str(unique_user.user_id),
         "subject": old_subject,
         "event_type": "info",
     }
@@ -157,7 +157,7 @@ def test_delete_timeline_event(api_client: TestClient, unique_user: TestUser, re
     recipe = recipes[0]
     new_event_data = {
         "recipe_id": str(recipe.id),
-        "user_id": unique_user.user_id,
+        "user_id": str(unique_user.user_id),
         "subject": random_string(),
         "event_type": "info",
         "message": random_string(),
@@ -187,7 +187,7 @@ def test_timeline_event_message_alias(api_client: TestClient, unique_user: TestU
     recipe = recipes[0]
     new_event_data = {
         "recipeId": str(recipe.id),
-        "userId": unique_user.user_id,
+        "userId": str(unique_user.user_id),
         "subject": random_string(),
         "eventType": "info",
         "eventMessage": random_string(),  # eventMessage is the correct alias for the message
@@ -234,7 +234,7 @@ def test_timeline_event_update_image(
     recipe = recipes[0]
     new_event_data = {
         "recipe_id": str(recipe.id),
-        "user_id": unique_user.user_id,
+        "user_id": str(unique_user.user_id),
         "subject": random_string(),
         "message": random_string(),
         "event_type": "info",
@@ -281,7 +281,7 @@ def test_create_recipe_with_timeline_event(api_client: TestClient, unique_user: 
 def test_invalid_recipe_id(api_client: TestClient, unique_user: TestUser):
     new_event_data = {
         "recipe_id": str(uuid4()),
-        "user_id": unique_user.user_id,
+        "user_id": str(unique_user.user_id),
         "subject": random_string(),
         "event_type": "info",
         "message": random_string(),
