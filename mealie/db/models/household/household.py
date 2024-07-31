@@ -70,6 +70,8 @@ class Household(SqlAlchemyBase, BaseMixins):
             "cookbooks",
             "preferences",
             "invite_tokens",
+            "group_event_notifiers",
+            "group",
         }
     )
 
