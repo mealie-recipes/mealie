@@ -52,6 +52,9 @@ def publish_list_item_events(publisher: Callable, items_collection: ShoppingList
                     shopping_list_id=shopping_list_id,
                     shopping_list_item_ids=[item.id for item in items],
                 ),
+                # since these are all the same shopping list, they share a group_id and household_id
+                group_id=items[0].group_id,
+                household_id=items[0].household_id,
             )
 
     if items_collection.updated_items:
@@ -66,10 +69,10 @@ def publish_list_item_events(publisher: Callable, items_collection: ShoppingList
                     operation=EventOperation.update,
                     shopping_list_id=shopping_list_id,
                     shopping_list_item_ids=[item.id for item in items],
-                    # since these are all the same shopping list, they share a group_id and household_id
-                    group_id=items[0].group_id,
-                    household_id=items[0].household_id,
                 ),
+                # since these are all the same shopping list, they share a group_id and household_id
+                group_id=items[0].group_id,
+                household_id=items[0].household_id,
             )
 
     if items_collection.deleted_items:
@@ -85,6 +88,9 @@ def publish_list_item_events(publisher: Callable, items_collection: ShoppingList
                     shopping_list_id=shopping_list_id,
                     shopping_list_item_ids=[item.id for item in items],
                 ),
+                # since these are all the same shopping list, they share a group_id and household_id
+                group_id=items[0].group_id,
+                household_id=items[0].household_id,
             )
 
 
