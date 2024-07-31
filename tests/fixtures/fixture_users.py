@@ -1,5 +1,6 @@
 import json
 from collections.abc import Generator
+from uuid import UUID
 
 from pytest import fixture
 from sqlalchemy.orm import Session
@@ -169,14 +170,22 @@ def unique_user(session: Session, api_client: TestClient):
     user_data = api_client.get(api_routes.users_self, headers=token).json()
     assert token is not None
 
+    assert (user_id := user_data.get("id")) is not None
     assert (group_id := user_data.get("groupId")) is not None
     assert (household_id := user_data.get("householdId")) is not None
+
+    if not isinstance(user_id, UUID):
+        user_id = UUID(user_id)
+    if not isinstance(group_id, UUID):
+        group_id = UUID(group_id)
+    if not isinstance(household_id, UUID):
+        household_id = UUID(household_id)
 
     try:
         yield utils.TestUser(
             _group_id=group_id,
             _household_id=household_id,
-            user_id=user_data.get("id"),
+            user_id=user_id,
             email=user_data.get("email"),
             username=user_data.get("username"),
             password=registration.password,

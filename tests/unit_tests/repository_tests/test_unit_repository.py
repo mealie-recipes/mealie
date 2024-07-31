@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient, SaveIngredientUnit
 from tests.utils.factories import random_string
@@ -26,8 +28,8 @@ def test_unit_merger(unique_user: TestUser):
     recipe = database.recipes.create(
         Recipe(
             name=slug1,
-            user_id=unique_user.group_id,
-            group_id=unique_user.group_id,
+            user_id=unique_user.user_id,
+            group_id=UUID(unique_user.group_id),
             recipe_ingredient=[
                 RecipeIngredient(note="", unit=unit_1),  # type: ignore
                 RecipeIngredient(note="", unit=unit_2),  # type: ignore

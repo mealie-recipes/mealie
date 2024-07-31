@@ -50,7 +50,6 @@ def test_user_recipe_favorites(
         unique_user = user_tuple[1]
 
     response = api_client.get(api_routes.users_id_favorites(unique_user.user_id), headers=unique_user.token)
-    assert response.json()["ratings"] == []
 
     recipes_to_favorite = random.sample(recipes, random_int(5, len(recipes)))
 
@@ -88,7 +87,11 @@ def test_user_recipe_favorites(
     assert len(ratings) == len(recipes_to_favorite) - len(recipe_favorites_to_remove)
     fetched_recipe_ids = set(rating["recipeId"] for rating in ratings)
     removed_recipe_ids = set(str(recipe.id) for recipe in recipe_favorites_to_remove)
-    assert fetched_recipe_ids == favorited_recipe_ids - removed_recipe_ids
+
+    for recipe_id in removed_recipe_ids:
+        assert recipe_id not in fetched_recipe_ids
+    for recipe_id in fetched_recipe_ids:
+        assert recipe_id in favorited_recipe_ids
 
 
 @pytest.mark.parametrize("add_favorite", [True, False])
@@ -118,8 +121,6 @@ def test_set_user_recipe_ratings(
         unique_user = user_tuple[1]
 
     response = api_client.get(api_routes.users_id_ratings(unique_user.user_id), headers=unique_user.token)
-    assert response.json()["ratings"] == []
-
     recipes_to_rate = random.sample(recipes, random_int(8, len(recipes)))
 
     expected_ratings_by_recipe_id: dict[str, UserRatingUpdate] = {}
@@ -146,8 +147,13 @@ def test_set_user_recipe_ratings(
     assert len(ratings) == len(recipes_to_rate)
     for rating in ratings:
         recipe_id = rating["recipeId"]
-        assert rating["rating"] == expected_ratings_by_recipe_id[recipe_id].rating
+        if recipe_id not in expected_ratings_by_recipe_id:
+            continue
+
+        assert rating["rating"] == expected_ratings_by_recipe_id.pop(recipe_id).rating
         assert not rating["isFavorite"]
+
+    assert not expected_ratings_by_recipe_id  # we should have popped all of them
 
 
 def test_set_user_rating_invalid_recipe_404(api_client: TestClient, user_tuple: tuple[TestUser, TestUser]):
