@@ -76,8 +76,8 @@ export default defineComponent({
     }
 
     async function handle404() {
-      const normalizedRoute = route.value.fullPath.replace(/\/$/, '');
-      const newRoute = normalizedRoute.replace(/^\/group\/(mealplan|members|notifiers|webhooks)(\/.*)?$/, '/household/$1$2');
+      const normalizedRoute = route.value.fullPath.replace(/\/$/, "");
+      const newRoute = normalizedRoute.replace(/^\/group\/(mealplan|members|notifiers|webhooks)(\/.*)?$/, "/household/$1$2");
 
       if (newRoute !== normalizedRoute) {
         await router.replace(newRoute);

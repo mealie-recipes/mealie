@@ -1,6 +1,4 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import { QueryValue, route } from "~/lib/api/base/route";
-import { PaginationData } from "~/lib/api/types/non-generated";
 import {
   ChangePassword,
   DeleteTokenResponse,
@@ -12,7 +10,6 @@ import {
   UserOut,
   UserRatingOut,
   UserRatingSummary,
-  UserSummary,
 } from "~/lib/api/types/user";
 
 export interface UserRatingsSummaries {
