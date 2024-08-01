@@ -3,7 +3,7 @@ from uuid import UUID
 import pytest
 from fastapi.testclient import TestClient
 
-from mealie.schema.meal_plan.plan_rules import PlanRulesOut, PlanRulesSave
+from mealie.schema.meal_plan.plan_rules import PlanRulesOut
 from mealie.schema.recipe.recipe import RecipeCategory
 from mealie.schema.recipe.recipe_category import CategorySave
 from tests import utils
@@ -26,24 +26,24 @@ def category(unique_user: TestUser):
 
 
 @pytest.fixture(scope="function")
-def plan_rule(unique_user: TestUser):
-    database = unique_user.repos
-    schema = PlanRulesSave(
-        group_id=unique_user.group_id,
-        household_id=unique_user.household_id,
-        day="monday",
-        entry_type="breakfast",
-        categories=[],
+def plan_rule(api_client: TestClient, unique_user: TestUser):
+    payload = {
+        "groupId": unique_user.group_id,
+        "householdId": unique_user.household_id,
+        "day": "monday",
+        "entryType": "breakfast",
+        "categories": [],
+    }
+
+    response = api_client.post(
+        api_routes.households_mealplans_rules, json=utils.jsonify(payload), headers=unique_user.token
     )
+    assert response.status_code == 201
+    plan_rule = PlanRulesOut.model_validate(response.json())
+    yield plan_rule
 
-    model = database.group_meal_plan_rules.create(schema)
-
-    yield model
-
-    try:
-        database.group_meal_plan_rules.delete(model.id)
-    except Exception:
-        pass
+    # cleanup
+    api_client.delete(api_routes.households_mealplans_rules_item_id(plan_rule.id), headers=unique_user.token)
 
 
 def test_group_mealplan_rules_create(api_client: TestClient, unique_user: TestUser, category: RecipeCategory):
@@ -123,9 +123,11 @@ def test_group_mealplan_rules_update(api_client: TestClient, unique_user: TestUs
 
 
 def test_group_mealplan_rules_delete(api_client: TestClient, unique_user: TestUser, plan_rule: PlanRulesOut):
-    database = unique_user.repos
+    response = api_client.get(api_routes.households_mealplans_rules_item_id(plan_rule.id), headers=unique_user.token)
+    assert response.status_code == 200
+
     response = api_client.delete(api_routes.households_mealplans_rules_item_id(plan_rule.id), headers=unique_user.token)
     assert response.status_code == 200
 
-    # Validate no entry in database
-    assert database.group_meal_plan_rules.get_one(plan_rule.id) is None
+    response = api_client.get(api_routes.households_mealplans_rules_item_id(plan_rule.id), headers=unique_user.token)
+    assert response.status_code == 404
