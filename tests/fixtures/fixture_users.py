@@ -119,7 +119,6 @@ def h2_user(session: Session, admin_token, api_client: TestClient, unique_user: 
 @fixture(scope="module")
 def g2_user(session: Session, admin_token, api_client: TestClient):
     group = random_string(12)
-    household = random_string(12)
 
     # Create the user
     create_data = {
@@ -128,17 +127,12 @@ def g2_user(session: Session, admin_token, api_client: TestClient):
         "email": utils.random_email(),
         "password": "useruser",
         "group": group,
-        "household": household,
+        "household": "Family",
         "admin": False,
         "tokens": [],
     }
 
-    group_response = api_client.post(api_routes.admin_groups, json={"name": group}, headers=admin_token)
-    api_client.post(
-        api_routes.admin_households,
-        json={"name": household, "groupId": group_response.json()["id"]},
-        headers=admin_token,
-    )
+    api_client.post(api_routes.admin_groups, json={"name": group}, headers=admin_token)
     response = api_client.post(api_routes.users, json=create_data, headers=admin_token)
 
     assert response.status_code == 201
@@ -222,7 +216,6 @@ def unique_user(session: Session, api_client: TestClient):
 @fixture(scope="module")
 def user_tuple(session: Session, admin_token, api_client: TestClient) -> Generator[list[utils.TestUser], None, None]:
     group_name = utils.random_string()
-    household_name = utils.random_string()
 
     # Create the user
     create_data_1 = {
@@ -231,7 +224,7 @@ def user_tuple(session: Session, admin_token, api_client: TestClient) -> Generat
         "email": utils.random_email(),
         "password": "useruser",
         "group": group_name,
-        "household": household_name,
+        "household": "Family",
         "admin": False,
         "tokens": [],
     }
@@ -242,15 +235,12 @@ def user_tuple(session: Session, admin_token, api_client: TestClient) -> Generat
         "email": utils.random_email(),
         "password": "useruser",
         "group": group_name,
-        "household": household_name,
+        "household": "Family",
         "admin": False,
         "tokens": [],
     }
 
-    r = api_client.post(api_routes.admin_groups, json={"name": group_name}, headers=admin_token)
-    api_client.post(
-        api_routes.admin_households, json={"name": household_name, "groupId": r.json()["id"]}, headers=admin_token
-    )
+    api_client.post(api_routes.admin_groups, json={"name": group_name}, headers=admin_token)
 
     users_out = []
 
