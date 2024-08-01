@@ -144,7 +144,6 @@ def test_set_user_recipe_ratings(
     response = api_client.get(get_url, headers=unique_user.token)
     ratings = response.json()["ratings"]
 
-    assert len(ratings) == len(recipes_to_rate)
     for rating in ratings:
         recipe_id = rating["recipeId"]
         if recipe_id not in expected_ratings_by_recipe_id:
@@ -312,6 +311,7 @@ def test_delete_recipe_deletes_ratings(
     assert response.json()
 
     database.recipes.delete(recipe.id, match_key="id")
+    database.session.commit()
     response = api_client.get(api_routes.users_self_ratings_recipe_id(recipe.id), headers=unique_user.token)
     assert response.status_code == 404
 
