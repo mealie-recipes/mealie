@@ -1,3 +1,5 @@
+import uuid
+
 from mealie.schema.household.group_shopping_list import ShoppingListItemOut
 
 
@@ -30,6 +32,8 @@ def test_shopping_list_ingredient_validation():
         "id": "80f4df25-6139-4d30-be0c-4100f50e5396",
         "label": None,
         "recipeReferences": [],
+        "groupId": uuid.uuid4(),
+        "householdId": uuid.uuid4(),
         "createdAt": "2024-02-27T10:18:19.274677",
         "updatedAt": "2024-02-27T11:26:32.643392",
     }

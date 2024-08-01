@@ -1,5 +1,6 @@
 import tempfile
 from pathlib import Path
+from uuid import UUID
 
 from mealie.schema.recipe.recipe import Recipe
 from mealie.services.recipe.recipe_bulk_service import RecipeBulkActionsService
@@ -18,7 +19,13 @@ def test_purge_group_exports(unique_user: TestUser):
     assert user
     recipe_exporter = RecipeBulkActionsService(database, user, group)
     recipes = [
-        database.recipes.create(Recipe(name=random_string(), group_id=unique_user.group_id))
+        database.recipes.create(
+            Recipe(
+                name=random_string(),
+                group_id=UUID(unique_user.group_id),
+                user_id=unique_user.user_id,
+            )
+        )
         for _ in range(random_int(2, 5))
     ]
 
