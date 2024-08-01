@@ -1,6 +1,8 @@
-from .openai import OpenAIDataInjection, OpenAIService
+from .openai import OpenAIDataInjection, OpenAIImageExternal, OpenAILocalImage, OpenAIService
 
 __all__ = [
     "OpenAIDataInjection",
+    "OpenAIImageExternal",
+    "OpenAILocalImage",
     "OpenAIService",
 ]
