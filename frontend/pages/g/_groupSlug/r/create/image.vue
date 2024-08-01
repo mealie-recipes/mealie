@@ -41,12 +41,12 @@
                   </v-card-text>
                 </v-col>
               </v-row>
-              <v-row>
+              <v-row class="mx-auto px-auto" style="max-width: 600px;">
                 <v-spacer />
-                <v-col cols="8" align-self="center">
+                <v-col cols="12" align-self="center">
                   <ImageCropper
                     :img="uploadedImagePreviewUrl"
-                    cropper-height="20vh"
+                    cropper-height="50vh"
                     cropper-width="100%"
                     @save="updateUploadedImage"
                   />
