@@ -877,7 +877,6 @@ def test_shopping_list_extras(
 def test_modify_shopping_list_items_updates_shopping_list(
     api_client: TestClient, unique_user: TestUser, shopping_lists: list[ShoppingListOut]
 ):
-    database = unique_user.repos
     shopping_list = random.choice(shopping_lists)
     last_update_at = shopping_list.updated_at
     assert last_update_at
@@ -886,13 +885,19 @@ def test_modify_shopping_list_items_updates_shopping_list(
     new_item_data = {"note": random_string(), "shopping_list_id": str(shopping_list.id)}
     response = api_client.post(api_routes.households_shopping_items, json=new_item_data, headers=unique_user.token)
     data = assert_deserialize(response, 201)
-    updated_list = database.group_shopping_lists.get_one(shopping_list.id)
+    updated_list = ShoppingListOut.model_validate_json(
+        api_client.get(
+            api_routes.households_shopping_lists_item_id(shopping_list.id), headers=unique_user.token
+        ).content
+    )
     assert updated_list and updated_list.updated_at
     assert updated_list.updated_at > last_update_at
     last_update_at = updated_list.updated_at
 
     list_item_id = data["createdItems"][0]["id"]
-    list_item = database.group_shopping_list_item.get_one(list_item_id)
+    list_item = ShoppingListItemOut.model_validate_json(
+        api_client.get(api_routes.households_shopping_items_item_id(list_item_id), headers=unique_user.token).content
+    )
     assert list_item
 
     # Update
@@ -903,7 +908,11 @@ def test_modify_shopping_list_items_updates_shopping_list(
         headers=unique_user.token,
     )
     assert response.status_code == 200
-    updated_list = database.group_shopping_lists.get_one(shopping_list.id)
+    updated_list = ShoppingListOut.model_validate_json(
+        api_client.get(
+            api_routes.households_shopping_lists_item_id(shopping_list.id), headers=unique_user.token
+        ).content
+    )
     assert updated_list and updated_list.updated_at
     assert updated_list.updated_at > last_update_at
     last_update_at = updated_list.updated_at
@@ -914,7 +923,11 @@ def test_modify_shopping_list_items_updates_shopping_list(
         headers=unique_user.token,
     )
     assert response.status_code == 200
-    updated_list = database.group_shopping_lists.get_one(shopping_list.id)
+    updated_list = ShoppingListOut.model_validate_json(
+        api_client.get(
+            api_routes.households_shopping_lists_item_id(shopping_list.id), headers=unique_user.token
+        ).content
+    )
     assert updated_list and updated_list.updated_at
     assert updated_list.updated_at > last_update_at
 
@@ -922,7 +935,6 @@ def test_modify_shopping_list_items_updates_shopping_list(
 def test_bulk_modify_shopping_list_items_updates_shopping_list(
     api_client: TestClient, unique_user: TestUser, shopping_lists: list[ShoppingListOut]
 ):
-    database = unique_user.repos
     shopping_list = random.choice(shopping_lists)
     last_update_at = shopping_list.updated_at
     assert last_update_at
@@ -937,7 +949,11 @@ def test_bulk_modify_shopping_list_items_updates_shopping_list(
         headers=unique_user.token,
     )
     data = assert_deserialize(response, 201)
-    updated_list = database.group_shopping_lists.get_one(shopping_list.id)
+    updated_list = ShoppingListOut.model_validate_json(
+        api_client.get(
+            api_routes.households_shopping_lists_item_id(shopping_list.id), headers=unique_user.token
+        ).content
+    )
     assert updated_list and updated_list.updated_at
     assert updated_list.updated_at > last_update_at
     last_update_at = updated_list.updated_at
@@ -946,7 +962,12 @@ def test_bulk_modify_shopping_list_items_updates_shopping_list(
     list_item_ids = [item["id"] for item in data["createdItems"]]
     list_items: list[ShoppingListItemOut] = []
     for list_item_id in list_item_ids:
-        list_item = database.group_shopping_list_item.get_one(list_item_id)
+        list_item = ShoppingListItemOut.model_validate_json(
+            api_client.get(
+                api_routes.households_shopping_items_item_id(list_item_id), headers=unique_user.token
+            ).content
+        )
+        assert list_item
         assert list_item
         list_item.note = random_string()
         list_items.append(list_item)
@@ -954,7 +975,11 @@ def test_bulk_modify_shopping_list_items_updates_shopping_list(
     payload = [utils.jsonify(list_item.cast(ShoppingListItemUpdateBulk).model_dump()) for list_item in list_items]
     response = api_client.put(api_routes.households_shopping_items, json=payload, headers=unique_user.token)
     assert response.status_code == 200
-    updated_list = database.group_shopping_lists.get_one(shopping_list.id)
+    updated_list = ShoppingListOut.model_validate_json(
+        api_client.get(
+            api_routes.households_shopping_lists_item_id(shopping_list.id), headers=unique_user.token
+        ).content
+    )
     assert updated_list and updated_list.updated_at
     assert updated_list.updated_at > last_update_at
     last_update_at = updated_list.updated_at
@@ -966,6 +991,10 @@ def test_bulk_modify_shopping_list_items_updates_shopping_list(
         headers=unique_user.token,
     )
     assert response.status_code == 200
-    updated_list = database.group_shopping_lists.get_one(shopping_list.id)
+    updated_list = ShoppingListOut.model_validate_json(
+        api_client.get(
+            api_routes.households_shopping_lists_item_id(shopping_list.id), headers=unique_user.token
+        ).content
+    )
     assert updated_list and updated_list.updated_at
     assert updated_list.updated_at > last_update_at
