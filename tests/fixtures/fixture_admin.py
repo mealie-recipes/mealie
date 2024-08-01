@@ -33,7 +33,6 @@ def admin_user(session: Session, api_client: TestClient):
     assert (user_id := user_data.get("id")) is not None
     assert (group_id := user_data.get("groupId")) is not None
     assert (household_id := user_data.get("householdId")) is not None
-    assert user_data.get("id") is not None
 
     if not isinstance(user_id, UUID):
         user_id = UUID(user_id)
@@ -44,8 +43,8 @@ def admin_user(session: Session, api_client: TestClient):
 
     try:
         yield utils.TestUser(
-            _group_id=user_data.get("groupId"),
-            _household_id=user_data.get("householdId"),
+            _group_id=group_id,
+            _household_id=household_id,
             user_id=user_id,
             password=settings._DEFAULT_PASSWORD,
             username=user_data.get("username"),
