@@ -254,6 +254,9 @@ class RecipeController(BaseRecipeController):
 
         return "recipe_scrapers was unable to scrape this URL"
 
+    # ==================================================================================================================
+    # Other Create Operations
+
     @router.post("/create-from-zip", status_code=201)
     def create_recipe_from_zip(self, archive: UploadFile = File(...)):
         """Create recipe from archive"""
@@ -263,6 +266,16 @@ class RecipeController(BaseRecipeController):
                 event_type=EventTypes.recipe_created,
                 document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=recipe.slug),
             )
+
+        return recipe.slug
+
+    @router.post("/create-from-image", status_code=201)
+    async def create_recipe_from_image(self, images: list[UploadFile] = File(...)):
+        recipe = await self.service.create_from_images(images)
+        self.publish_event(
+            event_type=EventTypes.recipe_created,
+            document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=recipe.slug),
+        )
 
         return recipe.slug
 
