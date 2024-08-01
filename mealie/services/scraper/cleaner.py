@@ -368,9 +368,9 @@ def clean_time(time_entry: str | timedelta | None, translator: Translator) -> No
         case timedelta():
             return pretty_print_timedelta(time_entry, translator)
         case {"minValue": str(value)}:
-            return clean_time(value)
+            return clean_time(value, translator)
         case [str(), *_]:
-            return clean_time(time_entry[0])
+            return clean_time(time_entry[0], translator)
         case datetime():
             # TODO: Not sure what to do here
             return str(time_entry)
