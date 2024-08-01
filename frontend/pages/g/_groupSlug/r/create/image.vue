@@ -7,7 +7,6 @@
           <p>{{ $t('recipe.create-recipe-from-an-image-description') }}</p>
           <v-container class="pa-0">
             <v-row>
-              <v-spacer />
               <v-col cols="auto" align-self="center">
                 <AppButtonUpload
                   v-if="!uploadedImage"
@@ -32,10 +31,19 @@
               <v-spacer />
             </v-row>
 
-            <div v-if="uploadedImage && uploadedImagePreviewUrl">
+            <div v-if="uploadedImage && uploadedImagePreviewUrl" class="mt-3">
+              <v-row>
+                <v-col cols="12" align-self="center" class="pb-0">
+                  <v-card-text class="pa-0">
+                    <p class="mb-0">
+                      {{ $t('recipe.crop-and-rotate-the-image') }}
+                    </p>
+                  </v-card-text>
+                </v-col>
+              </v-row>
               <v-row>
                 <v-spacer />
-                <v-col cols="auto" align-self="center">
+                <v-col cols="8" align-self="center">
                   <ImageCropper
                     :img="uploadedImagePreviewUrl"
                     cropper-height="20vh"
@@ -45,17 +53,15 @@
                 </v-col>
                 <v-spacer />
               </v-row>
-              <v-row>
-                <v-col cols="12" align-self="center" class="pb-0">
-                  <v-card-text class="pa-0"><p class="mb-0">{{ $t('recipe.crop-and-rotate-the-image') }}</p></v-card-text>
-                </v-col>
-              </v-row>
             </div>
           </v-container>
         </v-card-text>
         <v-card-actions v-if="uploadedImage" class="justify-center">
-          <div style="width: 250px">
-            <BaseButton rounded block type="submit" :loading="loading" />
+          <div>
+            <p class="mx-auto" style="width: 250px"><BaseButton rounded block type="submit" :loading="loading" /></p>
+            <p v-if="loading" class="mb-0">
+              {{ $t('recipe.please-wait-image-procesing') }}
+            </p>
           </div>
         </v-card-actions>
       </div>
