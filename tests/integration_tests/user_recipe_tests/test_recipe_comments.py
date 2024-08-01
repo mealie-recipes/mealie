@@ -42,7 +42,7 @@ def test_create_comment(api_client: TestClient, unique_recipe: Recipe, unique_us
 
     assert response_data["recipeId"] == str(unique_recipe.id)
     assert response_data["text"] == create_data["text"]
-    assert response_data["userId"] == unique_user.user_id
+    assert response_data["userId"] == str(unique_user.user_id)
 
     # Check for Proper Association
     response = api_client.get(api_routes.recipes_slug_comments(unique_recipe.slug), headers=unique_user.token)
@@ -53,7 +53,7 @@ def test_create_comment(api_client: TestClient, unique_recipe: Recipe, unique_us
     assert len(response_data) == 1
     assert response_data[0]["recipeId"] == str(unique_recipe.id)
     assert response_data[0]["text"] == create_data["text"]
-    assert response_data[0]["userId"] == unique_user.user_id
+    assert response_data[0]["userId"] == str(unique_user.user_id)
 
 
 def test_update_comment(api_client: TestClient, unique_recipe: Recipe, unique_user: TestUser):
@@ -76,7 +76,7 @@ def test_update_comment(api_client: TestClient, unique_recipe: Recipe, unique_us
 
     assert response_data["recipeId"] == str(unique_recipe.id)
     assert response_data["text"] == update_data["text"]
-    assert response_data["userId"] == unique_user.user_id
+    assert response_data["userId"] == str(unique_user.user_id)
 
 
 def test_delete_comment(api_client: TestClient, unique_recipe: Recipe, unique_user: TestUser):

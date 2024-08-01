@@ -32,7 +32,7 @@ def test_init_superuser(api_client: TestClient, admin_user: TestUser):
 
     admin_data = response.json()
 
-    assert admin_data["id"] == admin_user.user_id
+    assert admin_data["id"] == str(admin_user.user_id)
     assert admin_data["groupId"] == admin_user.group_id
 
     assert admin_data["fullName"] == "Change Me"
