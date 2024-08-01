@@ -106,14 +106,15 @@ For usage, see [Usage - OpenID Connect](../authentication/oidc.md)
 
 Mealie supports various integrations using OpenAI. To enable OpenAI, [you must provide your OpenAI API key](https://platform.openai.com/api-keys). You can tweak how OpenAI is used using these backend settings. Please note that while OpenAI usage is optimized to reduce API costs, you're unlikely to be able to use OpenAI features with the free tier limits.
 
-| Variables                 | Default | Description                                                                                                                                                                  |
-| ------------------------- | :-----: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| OPENAI_BASE_URL           |  None   | The base URL for the OpenAI API. If you're not sure, leave this empty to use the standard OpenAI platform                                                                    |
-| OPENAI_API_KEY            |  None   | Your OpenAI API Key. Enables OpenAI-related features                                                                                                                         |
-| OPENAI_MODEL              | gpt-4o  | Which OpenAI model to use. If you're not sure, leave this empty                                                                                                              |
-| OPENAI_WORKERS            |    2    | Number of OpenAI workers per request. Higher values may increase processing speed, but will incur additional API costs                                                       |
-| OPENAI_SEND_DATABASE_DATA |  True   | Whether to send Mealie data to OpenAI to improve request accuracy. This will incur additional API costs                                                                      |
-| OPENAI_REQUEST_TIMEOUT    |  10     | The number of seconds to wait for an OpenAI request to complete before cancelling the request. Leave this empty unless you're running into timeout issues on slower hardware |
+| Variables                    | Default | Description                                                                                                                                                                  |
+| ---------------------------- | :-----: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| OPENAI_BASE_URL              |  None   | The base URL for the OpenAI API. If you're not sure, leave this empty to use the standard OpenAI platform                                                                    |
+| OPENAI_API_KEY               |  None   | Your OpenAI API Key. Enables OpenAI-related features                                                                                                                         |
+| OPENAI_MODEL                 | gpt-4o  | Which OpenAI model to use. If you're not sure, leave this empty                                                                                                              |
+| OPENAI_ENABLE_IMAGE_SERVICES |  True   | Whether to enable OpenAI image services, such as creating recipes via image. Leave this enabled unless your custom model doesn't support it, or you want to reduce costs     |
+| OPENAI_WORKERS               |    2    | Number of OpenAI workers per request. Higher values may increase processing speed, but will incur additional API costs                                                       |
+| OPENAI_SEND_DATABASE_DATA    |  True   | Whether to send Mealie data to OpenAI to improve request accuracy. This will incur additional API costs                                                                      |
+| OPENAI_REQUEST_TIMEOUT       |  60     | The number of seconds to wait for an OpenAI request to complete before cancelling the request. Leave this empty unless you're running into timeout issues on slower hardware |
 
 ### Themeing
 
