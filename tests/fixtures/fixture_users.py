@@ -285,7 +285,7 @@ def user_tuple(session: Session, admin_token, api_client: TestClient) -> Generat
         pass
 
 
-@fixture(scope="session")
+@fixture(scope="module")
 def user_token(admin_token, api_client: TestClient):
     # Create the user
     create_data = {

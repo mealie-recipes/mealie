@@ -18,7 +18,7 @@ def admin_token(api_client: TestClient):
     return utils.login(form_data, api_client)
 
 
-@fixture(scope="session")
+@fixture(scope="module")
 def admin_user(session: Session, api_client: TestClient):
     settings = get_app_settings()
 
