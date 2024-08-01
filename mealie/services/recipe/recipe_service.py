@@ -418,7 +418,7 @@ class OpenAIRecipeService(RecipeServiceBase):
             recipe_yield=openai_recipe.recipe_yield,
             total_time=openai_recipe.total_time,
             prep_time=openai_recipe.prep_time,
-            cook_time=openai_recipe.cook_time,
+            perform_time=openai_recipe.perform_time,
             recipe_ingredient=[
                 RecipeIngredient(title=ingredient.title, note=ingredient.text)
                 for ingredient in openai_recipe.ingredients

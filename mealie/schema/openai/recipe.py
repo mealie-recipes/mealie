@@ -134,8 +134,8 @@ class OpenAIRecipe(OpenAIBase):
             The total time it takes to make the recipe. This should be a string that describes a duration of time,
             such as "1 hour and 30 minutes", "90 minutes", or "1.5 hours". If the recipe has multiple times, choose
             the longest time. If the recipe doesn't specify a total time or duration, or it specifies a prep time or
-            cook time but not a total time, you should return None. Do not duplicate times between total time, prep
-            time and cook time.
+            perform time but not a total time, you should return None. Do not duplicate times between total time, prep
+            time and perform time.
             """
         ),
     )
@@ -148,21 +148,21 @@ class OpenAIRecipe(OpenAIBase):
             such as "30 minutes", "1 hour", or "1.5 hours". If the recipe has a total time, the prep time should be
             less than the total time. If the recipe doesn't specify a prep time, you should return None. If the recipe
             supplies only one time, it should be the total time. Do not duplicate times between total time, prep
-            time and cook time.
+            time and coperformok time.
             """
         ),
     )
 
-    cook_time: str | None = Field(
+    perform_time: str | None = Field(
         None,
         description=dedent(
             """
             The time it takes to cook the recipe. This should be a string that describes a duration of time,
-            such as "30 minutes", "1 hour", or "1.5 hours". If the recipe has a total time, the cook time should be
-            less than the total time. If the recipe doesn't specify a cook time, you should return None. If the
-            recipe specifies a perform time, active time, or other time besides total or prep, you should use that
-            time as the cook time. If the recipe supplies only one time, it should be the total time, and not the cook
-            time. Do not duplicate times between total time, prep time and cook time.
+            such as "30 minutes", "1 hour", or "1.5 hours". If the recipe has a total time, the perform time should be
+            less than the total time. If the recipe doesn't specify a perform time, you should return None. If the
+            recipe specifies a cook time, active time, or other time besides total or prep, you should use that
+            time as the perform time. If the recipe supplies only one time, it should be the total time, and not the
+            perform time. Do not duplicate times between total time, prep time and perform time.
             """
         ),
     )
