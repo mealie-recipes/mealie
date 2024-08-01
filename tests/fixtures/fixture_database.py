@@ -7,7 +7,7 @@ from mealie.db.db_setup import SessionLocal
 from mealie.repos.all_repositories import AllRepositories, get_repositories
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="module")
 def session() -> Generator[sessionmaker[Session], None, None]:
     try:
         sess = SessionLocal()
