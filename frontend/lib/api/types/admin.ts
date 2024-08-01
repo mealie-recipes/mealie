@@ -42,6 +42,7 @@ export interface AppInfo {
   oidcRedirect: boolean;
   oidcProviderName: string;
   enableOpenai: boolean;
+  enableOpenaiImageServices: boolean;
 }
 export interface AppStartupInfo {
   isFirstLogin: boolean;
