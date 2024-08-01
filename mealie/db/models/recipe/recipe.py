@@ -59,14 +59,17 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
 
     rating: Mapped[float | None] = mapped_column(sa.Float, index=True, nullable=True)
     rated_by: Mapped[list["User"]] = orm.relationship(
-        "User", secondary=UserToRecipe.__tablename__, back_populates="rated_recipes", viewonly=True
+        "User",
+        secondary=UserToRecipe.__tablename__,
+        back_populates="rated_recipes",
+        overlaps="recipe,favorited_by,favorited_recipes",
     )
     favorited_by: Mapped[list["User"]] = orm.relationship(
         "User",
         secondary=UserToRecipe.__tablename__,
         primaryjoin="and_(RecipeModel.id==UserToRecipe.recipe_id, UserToRecipe.is_favorite==True)",
         back_populates="favorite_recipes",
-        viewonly=True,
+        overlaps="recipe,rated_by,rated_recipes",
     )
 
     meal_entries: Mapped[list["GroupMealPlan"]] = orm.relationship(

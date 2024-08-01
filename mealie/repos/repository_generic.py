@@ -352,7 +352,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
                 self.logger.error(e)
                 raise HTTPException(status_code=400, detail=str(e)) from e
 
-        count_query = select(func.count()).select_from(query)
+        count_query = select(func.count()).select_from(query.subquery())
         count = self.session.scalar(count_query)
         if not count:
             count = 0

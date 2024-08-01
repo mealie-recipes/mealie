@@ -14,8 +14,8 @@ def test_ownership_on_new_with_admin(api_client: TestClient, admin_user: TestUse
 
     recipe = api_client.get(api_routes.recipes + f"/{recipe_name}", headers=admin_user.token).json()
 
-    assert recipe["userId"] == admin_user.user_id
-    assert recipe["groupId"] == admin_user.group_id
+    assert recipe["userId"] == str(admin_user.user_id)
+    assert recipe["groupId"] == str(admin_user.group_id)
 
 
 def test_ownership_on_new_with_user(api_client: TestClient, g2_user: TestUser):
@@ -29,8 +29,8 @@ def test_ownership_on_new_with_user(api_client: TestClient, g2_user: TestUser):
 
     recipe = response.json()
 
-    assert recipe["userId"] == g2_user.user_id
-    assert recipe["groupId"] == g2_user.group_id
+    assert recipe["userId"] == str(g2_user.user_id)
+    assert recipe["groupId"] == str(g2_user.group_id)
 
 
 def test_get_all_only_includes_group_recipes(api_client: TestClient, unique_user: TestUser):
@@ -47,8 +47,8 @@ def test_get_all_only_includes_group_recipes(api_client: TestClient, unique_user
     assert len(recipes) == 5
 
     for recipe in recipes:
-        assert recipe["groupId"] == unique_user.group_id
-        assert recipe["userId"] == unique_user.user_id
+        assert recipe["groupId"] == str(unique_user.group_id)
+        assert recipe["userId"] == str(unique_user.user_id)
 
 
 def test_unique_slug_by_group(api_client: TestClient, unique_user: TestUser, g2_user: TestUser) -> None:
