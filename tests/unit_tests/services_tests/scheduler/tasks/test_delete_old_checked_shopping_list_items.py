@@ -50,6 +50,7 @@ def test_cleanup(unique_user: TestUser):
 
     # make sure we only see the expected items
     delete_old_checked_list_items()
+    database.session.commit()
     shopping_list = list_repo.get_one(shopping_list.id)  # type: ignore
     assert shopping_list
     assert len(shopping_list.list_items) == len(expected_kept_items)
@@ -96,6 +97,7 @@ def test_no_cleanup(unique_user: TestUser):
 
     # make sure we still see all items
     delete_old_checked_list_items()
+    database.session.commit()
     shopping_list = list_repo.get_one(shopping_list.id)  # type: ignore
     assert shopping_list
     assert len(shopping_list.list_items) == len(unchecked_items) + len(checked_items)
