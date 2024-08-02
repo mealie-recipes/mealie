@@ -141,12 +141,17 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
     return await this.requests.post<string>(routes.recipesCreateUrlBulk, payload);
   }
 
-  async createOneFromImage(fileObject: Blob | File, fileName: string) {
+  async createOneFromImage(fileObject: Blob | File, fileName: string, translateLanguage: string | null = null) {
     const formData = new FormData();
     formData.append("images", fileObject);
     formData.append("extension", fileName.split(".").pop() ?? "");
 
-    return await this.requests.post<string>(routes.recipesCreateFromImage, formData);
+    let apiRoute = routes.recipesCreateFromImage
+    if (translateLanguage) {
+      apiRoute = `${apiRoute}?translateLanguage=${translateLanguage}`
+    }
+
+    return await this.requests.post<string>(apiRoute, formData);
   }
 
   async parseIngredients(parser: Parser, ingredients: Array<string>) {

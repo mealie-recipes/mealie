@@ -33,7 +33,7 @@
 
             <div v-if="uploadedImage && uploadedImagePreviewUrl" class="mt-3">
               <v-row>
-                <v-col cols="12" align-self="center" class="pb-0">
+                <v-col cols="12" class="pb-0">
                   <v-card-text class="pa-0">
                     <p class="mb-0">
                       {{ $t('recipe.crop-and-rotate-the-image') }}
@@ -41,9 +41,9 @@
                   </v-card-text>
                 </v-col>
               </v-row>
-              <v-row class="mx-auto px-auto" style="max-width: 600px;">
+              <v-row style="max-width: 600px;">
                 <v-spacer />
-                <v-col cols="12" align-self="center">
+                <v-col cols="12">
                   <ImageCropper
                     :img="uploadedImagePreviewUrl"
                     cropper-height="50vh"
@@ -56,9 +56,19 @@
             </div>
           </v-container>
         </v-card-text>
-        <v-card-actions v-if="uploadedImage" class="justify-center">
+        <v-card-actions v-if="uploadedImage">
           <div>
-            <p class="mx-auto" style="width: 250px"><BaseButton rounded block type="submit" :loading="loading" /></p>
+            <p style="width: 250px">
+              <BaseButton rounded block type="submit" :loading="loading" />
+            </p>
+            <p>
+              <v-checkbox
+                v-model="shouldTranslate"
+                hide-details
+                :label="$t('recipe.should-translate-description')"
+                :disabled="loading"
+              />
+            </p>
             <p v-if="loading" class="mb-0">
               {{ $t('recipe.please-wait-image-procesing') }}
             </p>
@@ -100,6 +110,7 @@ export default defineComponent({
     const uploadedImage = ref<Blob | File>();
     const uploadedImageName = ref<string>("");
     const uploadedImagePreviewUrl = ref<string>();
+    const shouldTranslate = ref(true);
 
     function uploadImage(fileObject: File) {
       uploadedImage.value = fileObject;
@@ -124,7 +135,8 @@ export default defineComponent({
       }
 
       state.loading = true;
-      const { data, error } = await api.recipes.createOneFromImage(uploadedImage.value, uploadedImageName.value);
+      const translateLanguage = shouldTranslate.value ? i18n.locale : undefined;
+      const { data, error } = await api.recipes.createOneFromImage(uploadedImage.value, uploadedImageName.value, translateLanguage);
       if (error || !data) {
         alert.error(i18n.tc("events.something-went-wrong"));
         state.loading = false;
@@ -138,6 +150,7 @@ export default defineComponent({
       domUrlForm,
       uploadedImage,
       uploadedImagePreviewUrl,
+      shouldTranslate,
       uploadImage,
       updateUploadedImage,
       clearImage,
