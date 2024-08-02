@@ -2,12 +2,12 @@
     "teaspoon": {
         "name": "culleradeta/es de cafè",
         "description": "",
-        "abbreviation": "cc"
+        "abbreviation": "tsp"
     },
     "tablespoon": {
-        "name": "cullera/es sopera/es",
+        "name": "cullerada/des sopera/es",
         "description": "",
-        "abbreviation": "cs"
+        "abbreviation": "tbsp"
     },
     "cup": {
         "name": "tassa",
@@ -15,14 +15,14 @@
         "abbreviation": "tassa"
     },
     "fluid-ounce": {
-        "name": "centilitre/s",
+        "name": "unça líquida",
         "description": "",
         "abbreviation": "cl"
     },
     "pint": {
-        "name": "got/s",
+        "name": "pinta",
         "description": "",
-        "abbreviation": "got/s"
+        "abbreviation": "pt"
     },
     "quart": {
         "name": "quart",
@@ -30,7 +30,7 @@
         "abbreviation": "qt"
     },
     "gallon": {
-        "name": "galó/ns",
+        "name": "galó/galons",
         "description": "",
         "abbreviation": "gal"
     },
@@ -52,10 +52,10 @@
     "ounce": {
         "name": "gotet/s",
         "description": "",
-        "abbreviation": "gotet/s"
+        "abbreviation": "oz"
     },
     "gram": {
-        "name": "gram/s",
+        "name": "gram(s)",
         "description": "",
         "abbreviation": "g"
     },
@@ -70,7 +70,7 @@
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "pot/s",
+        "name": "esquitxada",
         "description": "",
         "abbreviation": ""
     },
@@ -85,7 +85,7 @@
         "abbreviation": ""
     },
     "head": {
-        "name": "cap/s",
+        "name": "cap(s)",
         "description": "",
         "abbreviation": ""
     },
@@ -95,7 +95,7 @@
         "abbreviation": ""
     },
     "can": {
-        "name": "llauna/es",
+        "name": "llauna(es)",
         "description": "",
         "abbreviation": ""
     }
