@@ -280,6 +280,12 @@ class RecipeController(BaseRecipeController):
         Optionally specify a language for it to translate the recipe to.
         """
 
+        if not (self.settings.OPENAI_ENABLED and self.settings.OPENAI_ENABLE_IMAGE_SERVICES):
+            raise HTTPException(
+                status_code=400,
+                detail=ErrorResponse.respond("OpenAI image services are not enabled"),
+            )
+
         recipe = await self.service.create_from_images(images, translate_language)
         self.publish_event(
             event_type=EventTypes.recipe_created,
