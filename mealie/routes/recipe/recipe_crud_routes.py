@@ -270,8 +270,17 @@ class RecipeController(BaseRecipeController):
         return recipe.slug
 
     @router.post("/create-from-image", status_code=201)
-    async def create_recipe_from_image(self, images: list[UploadFile] = File(...)):
-        recipe = await self.service.create_from_images(images)
+    async def create_recipe_from_image(
+        self,
+        images: list[UploadFile] = File(...),
+        translate_language: str | None = Query(None, alias="translateLanguage"),
+    ):
+        """
+        Create a recipe from an image using OpenAI.
+        Optionally specify a language for it to translate the recipe to.
+        """
+
+        recipe = await self.service.create_from_images(images, translate_language)
         self.publish_event(
             event_type=EventTypes.recipe_created,
             document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=recipe.slug),

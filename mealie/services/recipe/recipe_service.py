@@ -258,7 +258,7 @@ class RecipeService(RecipeServiceBase):
 
         return recipe
 
-    async def create_from_images(self, images: list[UploadFile]) -> Recipe:
+    async def create_from_images(self, images: list[UploadFile], translate_language: str | None = None) -> Recipe:
         openai_recipe_service = OpenAIRecipeService(self.repos, self.user, self.group, self.translator)
         with get_temporary_path() as temp_path:
             local_images: list[Path] = []
@@ -267,7 +267,9 @@ class RecipeService(RecipeServiceBase):
                     shutil.copyfileobj(image.file, buffer)
                 local_images.append(temp_path.joinpath(image.filename))
 
-            recipe_data = await openai_recipe_service.build_recipe_from_images(local_images)
+            recipe_data = await openai_recipe_service.build_recipe_from_images(
+                local_images, translate_language=translate_language
+            )
 
             recipe = self.create_one(recipe_data)
             data_service = RecipeDataService(recipe.id)
@@ -432,7 +434,7 @@ class OpenAIRecipeService(RecipeServiceBase):
             notes=[RecipeNote(title=note.title or "", text=note.text) for note in openai_recipe.notes if note.text],
         )
 
-    async def build_recipe_from_images(self, images: list[Path]) -> Recipe:
+    async def build_recipe_from_images(self, images: list[Path], translate_language: str | None) -> Recipe:
         settings = get_app_settings()
         if not (settings.OPENAI_ENABLED and settings.OPENAI_ENABLE_IMAGE_SERVICES):
             raise ValueError("OpenAI image services are not available")
@@ -457,6 +459,10 @@ class OpenAIRecipeService(RecipeServiceBase):
             f"Please extract the recipe from the {'images' if len(openai_images) > 1 else 'image'} provided."
             "There should be exactly one recipe."
         )
+
+        if translate_language:
+            message += f" Please translate the recipe to {translate_language}."
+
         response = await openai_service.get_response(prompt, message, images=openai_images, force_json_response=True)
         try:
             openai_recipe = OpenAIRecipe.parse_openai_response(response)
