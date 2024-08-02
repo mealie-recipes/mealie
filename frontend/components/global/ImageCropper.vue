@@ -1,6 +1,16 @@
 <template>
     <v-container class="pa-0">
         <v-row no-gutters>
+            <v-col cols="8" align-self="center">
+                <Cropper
+                    ref="cropper"
+                    class="cropper"
+                    :src="img"
+                    :default-size="defaultSize"
+                    :style="`height: ${cropperHeight}; width: ${cropperWidth};`"
+                />
+            </v-col>
+            <v-spacer />
             <v-col cols="2" align-self="center">
                 <v-container class="pa-0 mx-0">
                     <v-row v-for="(row, keyRow) in controls" :key="keyRow">
@@ -16,16 +26,6 @@
                         </v-col>
                     </v-row>
                 </v-container>
-            </v-col>
-            <v-spacer />
-            <v-col cols="8" align-self="center">
-                <Cropper
-                    ref="cropper"
-                    class="cropper"
-                    :src="img"
-                    :default-size="defaultSize"
-                    :style="`height: ${cropperHeight}; width: ${cropperWidth};`"
-                />
             </v-col>
         </v-row>
     </v-container>
