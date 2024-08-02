@@ -20,7 +20,7 @@
         </template>
         <v-list dense class="my-0 py-0">
           <template v-for="(item, index) in createLinks">
-            <div v-if="!item.hide">
+            <div v-if="!item.hide" :key="item.title">
               <v-divider v-if="item.insertDivider" :key="index" class="mx-2"></v-divider>
               <v-list-item v-if="!item.restricted || isOwnGroup" :key="item.title" :to="item.to" exact>
                 <v-list-item-avatar>
