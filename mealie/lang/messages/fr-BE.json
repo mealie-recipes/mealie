@@ -1,0 +1,71 @@
+{
+    "generic": {
+        "server-error": "Une erreur inattendue s’est produite"
+    },
+    "recipe": {
+        "unique-name-error": "Les noms de recette doivent être uniques",
+        "recipe-defaults": {
+            "ingredient-note": "100 g de farine",
+            "step-text": "Les étapes de la recette ainsi que les autres champs de la page de recette supportent la syntaxe markdown.\n\n**Ajouter un lien**\n\n[Mon lien](https://demo.mealie.io)\n"
+        }
+    },
+    "mealplan": {
+        "no-recipes-match-your-rules": "Aucune recette ne correspond à vos règles"
+    },
+    "user": {
+        "user-updated": "Utilisateur mis à jour",
+        "password-updated": "Mot de passe mis à jour",
+        "invalid-current-password": "Mot de passe actuel non valide",
+        "ldap-update-password-unavailable": "Impossible de mettre à jour le mot de passe, l'utilisateur est géré par LDAP"
+    },
+    "group": {
+        "report-deleted": "Rapport supprimé."
+    },
+    "exceptions": {
+        "permission_denied": "Vous n’avez pas la permission d’effectuer cette action",
+        "no-entry-found": "La ressource demandée est introuvable",
+        "integrity-error": "Erreur d’intégrité de la base de données",
+        "username-conflict-error": "Ce nom d’utilisateur est déjà pris",
+        "email-conflict-error": "Cette adresse e-mail est déjà utilisée"
+    },
+    "notifications": {
+        "generic-created": "{name} a été créé",
+        "generic-updated": "{name} a été mis à jour",
+        "generic-created-with-url": "{name} a été créé, {url}",
+        "generic-updated-with-url": "{name} a été mis à jour, {url}",
+        "generic-duplicated": "{name} a été dupliqué",
+        "generic-deleted": "{name} a été supprimé"
+    },
+    "datetime": {
+        "year": "année|années",
+        "day": "jour|jours",
+        "hour": "heure|heures",
+        "minute": "minute|minutes",
+        "second": "seconde|secondes",
+        "millisecond": "milliseconde|millisecondes",
+        "microsecond": "microseconde|microsecondes"
+    },
+    "emails": {
+        "password": {
+            "subject": "Mot de passe oublié pour Mealie",
+            "header_text": "Forgot Password",
+            "message_top": "You have requested to reset your password.",
+            "message_bottom": "Please click the button above to reset your password.",
+            "button_text": "Reset Password"
+        },
+        "invitation": {
+            "subject": "Invitation to join Mealie",
+            "header_text": "You're Invited!",
+            "message_top": "You have been invited to join Mealie.",
+            "message_bottom": "Veuillez cliquer sur le bouton ci-dessus pour accepter l'invitation.",
+            "button_text": "Accept Invitation"
+        },
+        "test": {
+            "subject": "Mealie Test Email",
+            "header_text": "Test Email",
+            "message_top": "This is a test email.",
+            "message_bottom": "Please click the button above to test the email.",
+            "button_text": "Open Mealie"
+        }
+    }
+}
