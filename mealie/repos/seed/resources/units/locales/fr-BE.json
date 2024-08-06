@@ -1,0 +1,102 @@
+{
+    "teaspoon": {
+        "name": "cuillère à café",
+        "description": "",
+        "abbreviation": "càc"
+    },
+    "tablespoon": {
+        "name": "cuillère à soupe",
+        "description": "",
+        "abbreviation": "càS"
+    },
+    "cup": {
+        "name": "tasse",
+        "description": "",
+        "abbreviation": "tasse"
+    },
+    "fluid-ounce": {
+        "name": "centilitre",
+        "description": "",
+        "abbreviation": "cL"
+    },
+    "pint": {
+        "name": "pinte",
+        "description": "",
+        "abbreviation": "pt"
+    },
+    "quart": {
+        "name": "quart",
+        "description": "",
+        "abbreviation": "qt"
+    },
+    "gallon": {
+        "name": "gallon",
+        "description": "",
+        "abbreviation": "gal"
+    },
+    "milliliter": {
+        "name": "mililitre",
+        "description": "",
+        "abbreviation": "mL"
+    },
+    "liter": {
+        "name": "litre",
+        "description": "",
+        "abbreviation": "L"
+    },
+    "pound": {
+        "name": "livre",
+        "description": "",
+        "abbreviation": "lb"
+    },
+    "ounce": {
+        "name": "once",
+        "description": "",
+        "abbreviation": "oz"
+    },
+    "gram": {
+        "name": "gramme",
+        "description": "",
+        "abbreviation": "g"
+    },
+    "kilogram": {
+        "name": "kilogramme",
+        "description": "",
+        "abbreviation": "kg"
+    },
+    "milligram": {
+        "name": "milligramme",
+        "description": "",
+        "abbreviation": "mg"
+    },
+    "splash": {
+        "name": "éclaboussure",
+        "description": "",
+        "abbreviation": ""
+    },
+    "dash": {
+        "name": "trait",
+        "description": "",
+        "abbreviation": ""
+    },
+    "serving": {
+        "name": "part",
+        "description": "",
+        "abbreviation": ""
+    },
+    "head": {
+        "name": "tête",
+        "description": "",
+        "abbreviation": ""
+    },
+    "clove": {
+        "name": "gousse",
+        "description": "",
+        "abbreviation": ""
+    },
+    "can": {
+        "name": "boîte",
+        "description": "",
+        "abbreviation": ""
+    }
+}
