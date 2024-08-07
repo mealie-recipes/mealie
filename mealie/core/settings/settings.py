@@ -1,4 +1,5 @@
 import logging
+import os
 import secrets
 from datetime import datetime, timezone
 from pathlib import Path
@@ -32,6 +33,27 @@ def determine_secrets(data_dir: Path, production: bool) -> str:
             new_secret = secrets.token_hex(32)
             f.write(new_secret)
         return new_secret
+
+
+def get_secrets_dir() -> str | None:
+    """
+    Returns a directory to load secret settings from, or `None` if the secrets
+    directory does not exist or cannot be accessed.
+    """
+    secrets_dir = "/run/secrets"
+
+    # Check that the secrets directory exists.
+    if not os.path.exists(secrets_dir):
+        print(f"Secrets directory '{secrets_dir}' does not exist")
+        return None
+
+    # Likewise, check we have permission to read from the secrets directory.
+    if not os.access(secrets_dir, os.R_OK):
+        print(f"Secrets directory '{secrets_dir}' cannot be read from. Check permissions")
+        return None
+
+    # The secrets directory exists and can be accessed.
+    return secrets_dir
 
 
 class AppSettings(BaseSettings):
@@ -307,7 +329,8 @@ class AppSettings(BaseSettings):
     # Testing Config
 
     TESTING: bool = False
-    model_config = SettingsConfigDict(arbitrary_types_allowed=True, extra="allow", secrets_dir="/run/secrets")
+
+    model_config = SettingsConfigDict(arbitrary_types_allowed=True, extra="allow", secrets_dir=get_secrets_dir())
 
 
 def app_settings_constructor(data_dir: Path, production: bool, env_file: Path, env_encoding="utf-8") -> AppSettings:
