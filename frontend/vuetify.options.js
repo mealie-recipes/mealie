@@ -67,6 +67,7 @@ export default {
       "sr-SP": locale.srCyrl,
       "cs-CZ": locale.cs,
       "fr-FR": locale.fr,
+      "fr-BE": locale.fr,
       "zh-TW": locale.zhHant,
       "af-ZA": locale.af,
       "sl-SI": locale.sl,
