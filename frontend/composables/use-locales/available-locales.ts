@@ -163,6 +163,12 @@ export const LOCALES = [
     dir: "ltr",
   },
   {
+    name: "Belge (Belgian)",
+    value: "fr-BE",
+    progress: 100,
+    dir: "ltr",
+  },
+  {
     name: "French, Canada",
     value: "fr-CA",
     progress: 95,
