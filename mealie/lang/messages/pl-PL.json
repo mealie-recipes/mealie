@@ -62,10 +62,10 @@
         },
         "test": {
             "subject": "Mealie Test Email",
-            "header_text": "Test Email",
-            "message_top": "This is a test email.",
-            "message_bottom": "Please click the button above to test the email.",
-            "button_text": "Open Mealie"
+            "header_text": "E-mail testowy",
+            "message_top": "To jest e-mail testowy.",
+            "message_bottom": "Kliknij przycisk powyżej, aby przetestować e-mail.",
+            "button_text": "Otwórz Mealie"
         }
     }
 }

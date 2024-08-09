@@ -110,11 +110,11 @@ def clean_image(image: str | list | dict | None = None, default: str = "no image
         case [str(_), *_]:
             return [x for x in image if x]  # Only return non-null strings in list
         case [{"url": str(_)}, *_]:
-            return [x["url"] for x in image]
+            return [x["url"] for x in image if "url" in x]
         case {"url": str(image)}:
             return [image]
         case [{"@id": str(_)}, *_]:
-            return [x["@id"] for x in image]
+            return [x["@id"] for x in image if "@id" in x]
         case _:
             logger.exception(f"Unexpected type for image: {type(image)}, {image}")
             return [default]
@@ -149,7 +149,7 @@ def clean_instructions(steps_object: list | dict | str, default: list | None = N
             return [
                 {"text": _sanitize_instruction_text(instruction["text"])}
                 for instruction in steps_object
-                if instruction["text"].strip()
+                if "text" in instruction and instruction["text"].strip()
             ]
         case {0: {"text": str()}} | {"0": {"text": str()}} | {1: {"text": str()}} | {"1": {"text": str()}}:
             # Some recipes have a dict with a string key representing the index, unsure if these can
@@ -368,9 +368,9 @@ def clean_time(time_entry: str | timedelta | None, translator: Translator) -> No
         case timedelta():
             return pretty_print_timedelta(time_entry, translator)
         case {"minValue": str(value)}:
-            return clean_time(value)
+            return clean_time(value, translator)
         case [str(), *_]:
-            return clean_time(time_entry[0])
+            return clean_time(time_entry[0], translator)
         case datetime():
             # TODO: Not sure what to do here
             return str(time_entry)
