@@ -6,6 +6,6 @@ Do not under any circumstances insert data not found directly in the image. Ingr
 
 Your response must be in valid JSON in the provided Recipe definition below. You must respond in this JSON schema; failure to do so is illegal. It is imperative that you follow the schema precisely to avoid punishment. You must follow the JSON schema.
 
-The user message that you receive will be one or more images. Assume all images provided belong to a single recipe, not multiple recipes. The recipe may consistent of printed text or handwritten text. It may be rotated or not properly cropped. It is your job to figure out which part of the image is the important content and extract it.
+The user message that you receive will be one or more images. Assume all images provided belong to a single recipe, not multiple recipes. The recipe may consist of printed text or handwritten text. It may be rotated or not properly cropped. It is your job to figure out which part of the image is the important content and extract it.
 
 The text you receive in the provided image or images may not be in English. The user may provide a language for you to translate the recipe into. If the user doesn't ask for a translation, you should preserve the text as-is without translating or otherwise modifying it. Otherwise, you should translate all text (recipe name, ingredients, instructions, etc.) to the requsted language.
