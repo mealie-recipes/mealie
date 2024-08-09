@@ -35,6 +35,7 @@ LOCALE_DATA: dict[str, LocaleData] = {
     "es-ES": LocaleData(name="Español (Spanish)"),
     "fi-FI": LocaleData(name="Suomi (Finnish)"),
     "fr-FR": LocaleData(name="Français (French)"),
+    "fr-BE": LocaleData(name="Belge (Belgian)"),
     "gl-ES": LocaleData(name="Galego (Galician)"),
     "he-IL": LocaleData(name="עברית (Hebrew)", dir="rtl"),
     "hr-HR": LocaleData(name="Hrvatski (Croatian)"),

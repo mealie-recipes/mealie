@@ -48,7 +48,7 @@ services:
     restart: unless-stopped
 ```
 
-Don't forget to change the <code>mydomain.duckns</code> into your personal domain and the <code>duckdnstoken</code> into your token and remove the brackets.
+Don't forget to change the <code>mydomain.duckdns</code> into your personal domain and the <code>duckdnstoken</code> into your token and remove the brackets.
 
 ## Step 3: Change the config files
 
