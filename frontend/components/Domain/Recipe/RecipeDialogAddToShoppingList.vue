@@ -23,7 +23,7 @@
           {{ $t("general.cancel") }}
         </v-btn>
         <div class="d-flex justify-end" style="width: 100%;">
-          <v-checkbox v-model="preferences.viewAllLists" hide-details :label="$tc('general.show-all')" class="my-auto mr-4" />
+          <v-checkbox v-model="preferences.viewAllLists" hide-details :label="$tc('general.show-all')" class="my-auto mr-4" @click="setShowAllToggled()" />
         </div>
       </template>
     </BaseDialog>
@@ -196,6 +196,7 @@ export default defineComponent({
     const state = reactive({
       shoppingListDialog: true,
       shoppingListIngredientDialog: false,
+      shoppingListShowAllToggled: false,
     });
 
     const shoppingListChoices = computed(() => {
@@ -207,7 +208,7 @@ export default defineComponent({
 
     watchEffect(
       () => {
-        if (shoppingListChoices.value.length === 1) {
+        if (shoppingListChoices.value.length === 1 && !state.shoppingListShowAllToggled) {
           openShoppingListIngredientDialog(shoppingListChoices.value[0]);
         } else {
           ready.value = true;
@@ -296,6 +297,7 @@ export default defineComponent({
     function initState() {
       state.shoppingListDialog = true;
       state.shoppingListIngredientDialog = false;
+      state.shoppingListShowAllToggled = false;
       recipeIngredientSections.value = [];
       selectedShoppingList.value = null;
     }
@@ -311,6 +313,10 @@ export default defineComponent({
       await consolidateRecipesIntoSections(props.recipes);
       state.shoppingListDialog = false;
       state.shoppingListIngredientDialog = true;
+    }
+
+    function setShowAllToggled() {
+      state.shoppingListShowAllToggled = true;
     }
 
     function bulkCheckIngredients(value = true) {
@@ -380,6 +386,7 @@ export default defineComponent({
       addRecipesToList,
       bulkCheckIngredients,
       openShoppingListIngredientDialog,
+      setShowAllToggled,
       recipeIngredientSections,
       selectedShoppingList,
     }
