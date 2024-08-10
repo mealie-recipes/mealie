@@ -31,9 +31,9 @@
     "notifications": {
         "generic-created": "Δημιουργήθηκε το {name}",
         "generic-updated": "Ενημερώθηκε το {name}",
-        "generic-created-with-url": "{name} has been created, {url}",
-        "generic-updated-with-url": "{name} has been updated, {url}",
-        "generic-duplicated": "{name} has been duplicated",
+        "generic-created-with-url": "Το {name} δημιουργήθηκε, {url}",
+        "generic-updated-with-url": "Το {name} ενημερώθηκε, {url}",
+        "generic-duplicated": "Δημιουργήθηκε διπλότυπο του {name}",
         "generic-deleted": "Το {name} διαγράφηκε"
     },
     "datetime": {
