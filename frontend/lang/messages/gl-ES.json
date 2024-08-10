@@ -211,7 +211,7 @@
     "clipboard-copy-failure": "Produciuse un erro ao copiar contido no portapapeis.",
     "confirm-delete-generic-items": "Estás seguro de que queres eliminar os seguintes elementos?",
     "organizers": "Organizadores",
-    "caution": "Caution"
+    "caution": "Coidado"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Estás seguro de que queres eliminar <b>{groupName}<b/>?",
@@ -342,13 +342,13 @@
       "title": "Chowdown"
     },
     "nextcloud": {
-      "description": "Migrate data from a Nextcloud Cookbook instance",
-      "description-long": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
+      "description": "Migrar datos dunha instancia de Nextcloud Cookbook",
+      "description-long": "As receitas poden ser importadas dun ficheiro zip que contén os datos almacenados en Nextcloud. Revise a estrutura de cartafoles de abaixo como exemplo para asegurar que as túas receitas pódense importar.",
       "title": "Nextcloud Cookbook"
     },
     "copymethat": {
-      "description-long": "Mealie can import recipes from Copy Me That. Export your recipes in HTML format, then upload the .zip below.",
-      "title": "Copy Me That Recipe Manager"
+      "description-long": "Mealie pode importar receitas de Copy Me That. Exporta as túas receitas en formato HTML e sube aquí embaixo o zip.",
+      "title": "Xestor de Receitas Copy Me That"
     },
     "paprika": {
       "description-long": "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
@@ -412,8 +412,8 @@
     "404-page-not-found": "404 Page not found",
     "all-recipes": "All Recipes",
     "new-page-created": "New page created",
-    "page": "Page",
-    "page-creation-failed": "Page creation failed",
+    "page": "Páxina",
+    "page-creation-failed": "Produciuse un erro ao creala páxina",
     "page-deleted": "Páxina eliminada",
     "page-deletion-failed": "Produciuse un erro ao eliminar a páxina",
     "page-update-failed": "Produciuse un erro na actualización da páxina",
@@ -438,10 +438,10 @@
     "delete-recipe": "Eliminar Receita",
     "description": "Descrición",
     "disable-amount": "Desactivar as Cantidades de Ingredientes",
-    "disable-comments": "Disable Comments",
+    "disable-comments": "Desactivar comentarios",
     "duplicate": "Duplicar a receita",
     "duplicate-name": "Nome da nova receita",
-    "edit-scale": "Edit Scale",
+    "edit-scale": "Editar escala",
     "fat-content": "Graxa",
     "fiber-content": "Fibra",
     "grams": "gramos",
@@ -449,8 +449,8 @@
     "ingredients": "Ingredientes",
     "insert-ingredient": "Inserir Ingrediente",
     "insert-section": "Inserir Sección",
-    "insert-above": "Insert Above",
-    "insert-below": "Insert Below",
+    "insert-above": "Inserir enriba",
+    "insert-below": "Inserir enbaixo",
     "instructions": "Instrucións",
     "key-name-required": "Nome da Chave Obrigatorio",
     "landscape-view-coming-soon": "Vista Horizontal",
@@ -493,7 +493,7 @@
     "join-the-conversation": "Únete á Conversa",
     "add-recipe-to-mealplan": "Add Recipe to Mealplan",
     "entry-type": "Entry Type",
-    "date-format-hint": "MM/DD/YYYY format",
+    "date-format-hint": "Formato MM/DD/YYYY",
     "date-format-hint-yyyy-mm-dd": "YYYY-MM-DD format",
     "add-to-list": "Add to List",
     "add-to-plan": "Add to Plan",
