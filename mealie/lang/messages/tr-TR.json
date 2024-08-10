@@ -40,7 +40,7 @@
         "year": "yıl|yıllar",
         "day": "gün|günler",
         "hour": "saat|saatler",
-        "minute": "dakika|dakikalar",
+        "minute": "dakika|dakika",
         "second": "saniye|saniyeler",
         "millisecond": "milisaniye|milisaniyeler",
         "microsecond": "mikrosaniye|mikrosaniyeler"
