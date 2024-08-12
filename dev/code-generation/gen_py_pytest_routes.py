@@ -4,7 +4,7 @@ from pathlib import Path
 from fastapi import FastAPI
 from jinja2 import Template
 from pydantic import BaseModel, ConfigDict
-from utils import PROJECT_DIR, CodeTemplates, HTTPRequest, RouteObject, RequestType
+from utils import PROJECT_DIR, CodeTemplates, HTTPRequest, RouteObject
 
 CWD = Path(__file__).parent
 
