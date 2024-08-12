@@ -15,6 +15,7 @@ def validate_locale(locale: str) -> bool:
         "fi-FI",
         "fr-CA",
         "fr-FR",
+        "fr-BE",
         "gl-ES",
         "he-IL",
         "hr-HR",

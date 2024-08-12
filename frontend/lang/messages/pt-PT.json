@@ -211,7 +211,7 @@
     "clipboard-copy-failure": "Erro ao copiar para a área de transferência.",
     "confirm-delete-generic-items": "Tem a certeza de que deseja eliminar os seguintes itens?",
     "organizers": "Organizadores",
-    "caution": "Caution"
+    "caution": "Cuidado"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Tem a certeza que quer eliminar <b>{groupName}<b/>?",
@@ -449,8 +449,8 @@
     "ingredients": "Ingredientes",
     "insert-ingredient": "Inserir Ingrediente",
     "insert-section": "Inserir Secção",
-    "insert-above": "Insert Above",
-    "insert-below": "Insert Below",
+    "insert-above": "Inserir Acima",
+    "insert-below": "Inserir Abaixo",
     "instructions": "Instruções",
     "key-name-required": "Nome da Chave é Obrigatório",
     "landscape-view-coming-soon": "Modo paisagem",
@@ -810,11 +810,11 @@
     "items-checked-count": "Sem itens selecionados|Um item selecionado|{count} itens selecionados",
     "no-label": "Sem Rótulo",
     "completed-on": "Concluída em {date}",
-    "you-are-offline": "You are offline",
-    "you-are-offline-description": "Not all features are available while offline. You can still add, modify, and remove items, but you will not be able to sync your changes to the server until you are back online.",
-    "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
-    "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
-    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
+    "you-are-offline": "Está offline",
+    "you-are-offline-description": "Nem todas as funcionalidades estão disponíveis enquanto estiver offline. Continua a poder adicionar, modificar e remover itens, mas não poderá sincronizar as suas alterações com o servidor até estar novamente online.",
+    "are-you-sure-you-want-to-check-all-items": "Tem a certeza de que pretende selecionar todos os itens?",
+    "are-you-sure-you-want-to-uncheck-all-items": "Tem a certeza de que pretende desmarcar todos os itens?",
+    "are-you-sure-you-want-to-delete-checked-items": "Tem a certeza de que pretende eliminar todos os itens selecionados?"
   },
   "sidebar": {
     "all-recipes": "Todas as Receitas",
@@ -958,7 +958,7 @@
     "authentication-method-hint": "This specifies how a user will authenticate with Mealie. If you're not sure, choose 'Mealie",
     "permissions": "Permissões",
     "administrator": "Administrador",
-    "user-can-invite-other-to-group": "User can invite others to group",
+    "user-can-invite-other-to-group": "O utilizador pode convidar outros para o grupo",
     "user-can-manage-group": "O utilizador pode gerir o grupo",
     "user-can-organize-group-data": "O utilizador pode organizar dados do grupo",
     "enable-advanced-features": "Habilitar recursos avançados",
@@ -990,8 +990,8 @@
       "food-data": "Dados do Alimento",
       "example-food-singular": "ex: Cebola",
       "example-food-plural": "ex: Cebolas",
-      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels.",
-      "on-hand-checkbox-label": "Setting this flag will make this food unchecked by default when adding a recipe to a shopping list."
+      "label-overwrite-warning": "Isto irá atribuir o rótulo escolhido a todos os alimentos selecionados e, eventualmente, substituir os rótulos existentes.",
+      "on-hand-checkbox-label": "A ativação deste sinalizador fará com que este alimento seja desmarcado por defeito ao adicionar uma receita a uma lista de compras."
     },
     "units": {
       "seed-dialog-text": "Popule a base de dados com unidades comuns no seu idioma.",
@@ -1020,7 +1020,7 @@
       "edit-label": "Editar Rótulo",
       "new-label": "Novo rótulo",
       "labels": "Rótulos",
-      "assign-label": "Assign Label"
+      "assign-label": "Atribuir Rótulo"
     },
     "recipes": {
       "purge-exports": "Limpar exportações",
