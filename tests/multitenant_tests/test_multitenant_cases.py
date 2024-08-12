@@ -65,8 +65,8 @@ def test_multitenant_cases_same_named_resources(
 ):
     """
     This test is used to ensure that the same resource can be created with the same values in different tenants.
-    i.e. the same category can exist in multiple groups. This is important to validate that the compound unique constraints
-    are operating in SQLAlchemy correctly.
+    i.e. the same category can exist in multiple groups. This is important to validate that the compound unique
+    constraints are operating in SQLAlchemy correctly.
     """
     user1 = multitenants.user_one
     user2 = multitenants.user_two

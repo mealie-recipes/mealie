@@ -4,9 +4,12 @@ from pathlib import Path
 
 import dotenv
 
-from mealie.core.settings import app_settings_constructor
-
-from .settings import AppDirectories, AppSettings
+from mealie.core.settings import (
+    AppDirectories,
+    AppLoggingSettings,
+    AppSettings,
+    app_settings_constructor,
+)
 
 CWD = Path(__file__).parent
 BASE_DIR = CWD.parent.parent
@@ -38,3 +41,8 @@ def get_app_dirs() -> AppDirectories:
 @lru_cache
 def get_app_settings() -> AppSettings:
     return app_settings_constructor(env_file=ENV, production=PRODUCTION, data_dir=determine_data_dir())
+
+
+@lru_cache
+def get_logging_settings() -> AppLoggingSettings:
+    return AppLoggingSettings(PRODUCTION=PRODUCTION)

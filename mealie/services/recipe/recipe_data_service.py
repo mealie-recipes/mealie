@@ -135,7 +135,7 @@ class RecipeDataService(BaseService):
         if ext not in img.IMAGE_EXTENSIONS:
             ext = "jpg"  # Guess the extension
 
-        file_name = f"{str(self.recipe_id)}.{ext}"
+        file_name = f"{self.recipe_id!s}.{ext}"
         file_path = Recipe.directory_from_id(self.recipe_id).joinpath("images", file_name)
 
         async with AsyncClient(transport=AsyncSafeTransport()) as client:

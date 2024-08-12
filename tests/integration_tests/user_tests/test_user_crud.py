@@ -40,6 +40,6 @@ def test_get_all_users_admin(request: pytest.FixtureRequest, api_client: TestCli
     assert response.status_code == 200
 
     # assert all users from all groups are returned
-    response_user_ids = set(user["id"] for user in response.json()["items"])
+    response_user_ids = {user["id"] for user in response.json()["items"]}
     for user_id in user_ids:
         assert user_id in response_user_ids

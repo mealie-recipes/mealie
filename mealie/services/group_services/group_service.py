@@ -66,7 +66,7 @@ class GroupService(BaseService):
         all_ids = group_repos.recipes.all_ids(target_id)
 
         used_size = sum(
-            fs_stats.get_dir_size(f"{self.directories.RECIPE_DATA_DIR}/{str(recipe_id)}") for recipe_id in all_ids
+            fs_stats.get_dir_size(f"{self.directories.RECIPE_DATA_DIR}/{recipe_id!s}") for recipe_id in all_ids
         )
 
         return GroupStorage.bytes(used_size, ALLOWED_SIZE)

@@ -536,7 +536,7 @@ def test_pagination_filter_datetimes(
     dt = past_dt.isoformat()
     query = PaginationQuery(page=1, per_page=-1, query_filter=f'createdAt>"{dt}"')
     unit_results = units_repo.page_all(query).items
-    unit_ids = set(unit.id for unit in unit_results)
+    unit_ids = {unit.id for unit in unit_results}
     assert len(unit_ids) == 3
     assert unit_1.id in unit_ids
     assert unit_2.id in unit_ids
@@ -545,7 +545,7 @@ def test_pagination_filter_datetimes(
     dt = unit_1.created_at.isoformat()  # type: ignore
     query = PaginationQuery(page=1, per_page=-1, query_filter=f'createdAt>"{dt}"')
     unit_results = units_repo.page_all(query).items
-    unit_ids = set(unit.id for unit in unit_results)
+    unit_ids = {unit.id for unit in unit_results}
     assert len(unit_ids) == 2
     assert unit_1.id not in unit_ids
     assert unit_2.id in unit_ids
@@ -554,7 +554,7 @@ def test_pagination_filter_datetimes(
     dt = unit_2.created_at.isoformat()  # type: ignore
     query = PaginationQuery(page=1, per_page=-1, query_filter=f'createdAt>"{dt}"')
     unit_results = units_repo.page_all(query).items
-    unit_ids = set(unit.id for unit in unit_results)
+    unit_ids = {unit.id for unit in unit_results}
     assert len(unit_ids) == 1
     assert unit_1.id not in unit_ids
     assert unit_2.id not in unit_ids
@@ -563,14 +563,14 @@ def test_pagination_filter_datetimes(
     dt = unit_3.created_at.isoformat()  # type: ignore
     query = PaginationQuery(page=1, per_page=-1, query_filter=f'createdAt>"{dt}"')
     unit_results = units_repo.page_all(query).items
-    unit_ids = set(unit.id for unit in unit_results)
+    unit_ids = {unit.id for unit in unit_results}
     assert len(unit_ids) == 0
 
     future_dt: datetime = unit_3.created_at + timedelta(seconds=1)  # type: ignore
     dt = future_dt.isoformat()
     query = PaginationQuery(page=1, per_page=-1, query_filter=f'createdAt>"{dt}"')
     unit_results = units_repo.page_all(query).items
-    unit_ids = set(unit.id for unit in unit_results)
+    unit_ids = {unit.id for unit in unit_results}
     assert len(unit_ids) == 0
 
     ## GTE
@@ -578,7 +578,7 @@ def test_pagination_filter_datetimes(
     dt = past_dt.isoformat()
     query = PaginationQuery(page=1, per_page=-1, query_filter=f'createdAt>="{dt}"')
     unit_results = units_repo.page_all(query).items
-    unit_ids = set(unit.id for unit in unit_results)
+    unit_ids = {unit.id for unit in unit_results}
     assert len(unit_ids) == 3
     assert unit_1.id in unit_ids
     assert unit_2.id in unit_ids
@@ -587,7 +587,7 @@ def test_pagination_filter_datetimes(
     dt = unit_1.created_at.isoformat()  # type: ignore
     query = PaginationQuery(page=1, per_page=-1, query_filter=f'createdAt>="{dt}"')
     unit_results = units_repo.page_all(query).items
-    unit_ids = set(unit.id for unit in unit_results)
+    unit_ids = {unit.id for unit in unit_results}
     assert len(unit_ids) == 3
     assert unit_1.id in unit_ids
     assert unit_2.id in unit_ids
@@ -596,7 +596,7 @@ def test_pagination_filter_datetimes(
     dt = unit_2.created_at.isoformat()  # type: ignore
     query = PaginationQuery(page=1, per_page=-1, query_filter=f'createdAt>="{dt}"')
     unit_results = units_repo.page_all(query).items
-    unit_ids = set(unit.id for unit in unit_results)
+    unit_ids = {unit.id for unit in unit_results}
     assert len(unit_ids) == 2
     assert unit_1.id not in unit_ids
     assert unit_2.id in unit_ids
@@ -605,7 +605,7 @@ def test_pagination_filter_datetimes(
     dt = unit_3.created_at.isoformat()  # type: ignore
     query = PaginationQuery(page=1, per_page=-1, query_filter=f'createdAt>="{dt}"')
     unit_results = units_repo.page_all(query).items
-    unit_ids = set(unit.id for unit in unit_results)
+    unit_ids = {unit.id for unit in unit_results}
     assert len(unit_ids) == 1
     assert unit_1.id not in unit_ids
     assert unit_2.id not in unit_ids
@@ -615,7 +615,7 @@ def test_pagination_filter_datetimes(
     dt = future_dt.isoformat()
     query = PaginationQuery(page=1, per_page=-1, query_filter=f'createdAt>="{dt}"')
     unit_results = units_repo.page_all(query).items
-    unit_ids = set(unit.id for unit in unit_results)
+    unit_ids = {unit.id for unit in unit_results}
     assert len(unit_ids) == 0
 
 
@@ -945,7 +945,7 @@ def test_pagination_filter_dates(api_client: TestClient, unique_user: TestUser):
     response_json = response.json()
 
     assert len(response_json["items"]) == 2
-    fetched_mealplan_titles = set(mp["title"] for mp in response_json["items"])
+    fetched_mealplan_titles = {mp["title"] for mp in response_json["items"]}
     assert mealplan_today.title in fetched_mealplan_titles
     assert mealplan_tomorrow.title in fetched_mealplan_titles
 
@@ -959,7 +959,7 @@ def test_pagination_filter_dates(api_client: TestClient, unique_user: TestUser):
     response_json = response.json()
 
     assert len(response_json["items"]) == 2
-    fetched_mealplan_titles = set(mp["title"] for mp in response_json["items"])
+    fetched_mealplan_titles = {mp["title"] for mp in response_json["items"]}
     assert mealplan_today.title in fetched_mealplan_titles
     assert mealplan_tomorrow.title in fetched_mealplan_titles
 
@@ -974,7 +974,7 @@ def test_pagination_filter_dates(api_client: TestClient, unique_user: TestUser):
     response_json = response.json()
 
     assert len(response_json["items"]) == 2
-    fetched_mealplan_titles = set(mp["title"] for mp in response_json["items"])
+    fetched_mealplan_titles = {mp["title"] for mp in response_json["items"]}
     assert mealplan_today.title in fetched_mealplan_titles
     assert mealplan_tomorrow.title in fetched_mealplan_titles
 
@@ -988,7 +988,7 @@ def test_pagination_filter_dates(api_client: TestClient, unique_user: TestUser):
     response_json = response.json()
 
     assert len(response_json["items"]) == 1
-    fetched_mealplan_titles = set(mp["title"] for mp in response_json["items"])
+    fetched_mealplan_titles = {mp["title"] for mp in response_json["items"]}
     assert mealplan_today.title not in fetched_mealplan_titles
     assert mealplan_tomorrow.title in fetched_mealplan_titles
 
@@ -1003,7 +1003,7 @@ def test_pagination_filter_dates(api_client: TestClient, unique_user: TestUser):
     response_json = response.json()
 
     assert len(response_json["items"]) == 1
-    fetched_mealplan_titles = set(mp["title"] for mp in response_json["items"])
+    fetched_mealplan_titles = {mp["title"] for mp in response_json["items"]}
     assert mealplan_today.title not in fetched_mealplan_titles
     assert mealplan_tomorrow.title in fetched_mealplan_titles
 

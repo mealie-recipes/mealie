@@ -234,7 +234,10 @@ def test_ldap_user_login_simple_filter(api_client: TestClient):
 @pytest.mark.skipif(not os.environ.get("GITHUB_ACTIONS", False), reason="requires ldap service in github actions")
 def test_ldap_user_login_complex_filter(api_client: TestClient):
     settings = get_app_settings()
-    settings.LDAP_USER_FILTER = "(&(objectClass=inetOrgPerson)(|(memberOf=cn=ship_crew,ou=people,dc=planetexpress,dc=com)(memberOf=cn=admin_staff,ou=people,dc=planetexpress,dc=com)))"
+    settings.LDAP_USER_FILTER = (
+        "(&(objectClass=inetOrgPerson)(|(memberOf=cn=ship_crew,ou=people,dc=planetexpress,dc=com)"
+        "(memberOf=cn=admin_staff,ou=people,dc=planetexpress,dc=com)))"
+    )
 
     form_data = {"username": "professor", "password": "professor"}
     response = api_client.post(api_routes.auth_token, data=form_data)
