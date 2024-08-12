@@ -56,13 +56,19 @@ class RecipeTimelineEventUpdate(MealieModel):
 
 class RecipeTimelineEventOut(RecipeTimelineEventCreate):
     id: UUID4
+    group_id: UUID4
+    household_id: UUID4
+
     created_at: datetime
     updated_at: datetime = UpdatedAtField(...)
     model_config = ConfigDict(from_attributes=True)
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
-        return [joinedload(RecipeTimelineEvent.user)]
+        return [
+            joinedload(RecipeTimelineEvent.recipe),
+            joinedload(RecipeTimelineEvent.user),
+        ]
 
     @classmethod
     def image_dir_from_id(cls, recipe_id: UUID4 | str, timeline_event_id: UUID4 | str) -> Path:

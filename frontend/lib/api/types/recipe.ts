@@ -407,6 +407,8 @@ export interface RecipeTimelineEventOut {
   image?: TimelineEventImage | null;
   timestamp?: string;
   id: string;
+  groupId: string;
+  householdId: string;
   createdAt: string;
   updatedAt: string;
 }
