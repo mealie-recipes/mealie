@@ -1,4 +1,5 @@
 import logging
+import os
 import secrets
 from datetime import datetime, timezone
 from pathlib import Path
@@ -34,10 +35,54 @@ def determine_secrets(data_dir: Path, production: bool) -> str:
         return new_secret
 
 
-class AppSettings(BaseSettings):
+def get_secrets_dir() -> str | None:
+    """
+    Returns a directory to load secret settings from, or `None` if the secrets
+    directory does not exist or cannot be accessed.
+    """
+    # Avoid a circular import by importing here instead of at the file's top-level.
+    # get_logger -> AppSettings -> get_logger
+    from mealie.core.root_logger import get_logger
+
+    logger = get_logger()
+
+    secrets_dir = "/run/secrets"
+
+    # Check that the secrets directory exists.
+    if not os.path.exists(secrets_dir):
+        logger.warning(f"Secrets directory '{secrets_dir}' does not exist")
+        return None
+
+    # Likewise, check we have permission to read from the secrets directory.
+    if not os.access(secrets_dir, os.R_OK):
+        logger.warning(f"Secrets directory '{secrets_dir}' cannot be read from. Check permissions")
+        return None
+
+    # The secrets directory exists and can be accessed.
+    return secrets_dir
+
+
+class AppLoggingSettings(BaseSettings):
+    """
+    Subset of AppSettings to only access logging-related settings.
+
+    This is separated out from AppSettings to allow logging during construction
+    of AppSettings.
+    """
+
+    TESTING: bool = False
+    PRODUCTION: bool
+
+    LOG_CONFIG_OVERRIDE: Path | None = None
+    """path to custom logging configuration file"""
+
+    LOG_LEVEL: str = "info"
+    """corresponds to standard Python log levels"""
+
+
+class AppSettings(AppLoggingSettings):
     theme: Theme = Theme()
 
-    PRODUCTION: bool
     BASE_URL: str = "http://localhost:8080"
     """trailing slashes are trimmed (ex. `http://localhost:8080/` becomes ``http://localhost:8080`)"""
 
@@ -56,12 +101,6 @@ class AppSettings(BaseSettings):
 
     SECRET: str
 
-    LOG_CONFIG_OVERRIDE: Path | None = None
-    """path to custom logging configuration file"""
-
-    LOG_LEVEL: str = "info"
-    """corresponds to standard Python log levels"""
-
     GIT_COMMIT_HASH: str = "unknown"
 
     ALLOW_SIGNUP: bool = False
@@ -69,17 +108,13 @@ class AppSettings(BaseSettings):
     DAILY_SCHEDULE_TIME: str = "23:45"
     """Local server time, in HH:MM format. See `DAILY_SCHEDULE_TIME_UTC` for the parsed UTC equivalent"""
 
-    _logger: logging.Logger | None = None
-
     @property
     def logger(self) -> logging.Logger:
-        if self._logger is None:
-            # lazy load the logger, since get_logger depends on the settings being loaded
-            from mealie.core.root_logger import get_logger
+        # Avoid a circular import by importing here instead of at the file's top-level.
+        # get_logger -> AppSettings -> get_logger
+        from mealie.core.root_logger import get_logger
 
-            self._logger = get_logger()
-
-        return self._logger
+        return get_logger()
 
     @property
     def DAILY_SCHEDULE_TIME_UTC(self) -> ScheduleTime:
@@ -303,11 +338,7 @@ class AppSettings(BaseSettings):
         """Validates OpenAI settings are all set"""
         return bool(self.OPENAI_API_KEY and self.OPENAI_MODEL)
 
-    # ===============================================
-    # Testing Config
-
-    TESTING: bool = False
-    model_config = SettingsConfigDict(arbitrary_types_allowed=True, extra="allow", secrets_dir="/run/secrets")
+    model_config = SettingsConfigDict(arbitrary_types_allowed=True, extra="allow")
 
 
 def app_settings_constructor(data_dir: Path, production: bool, env_file: Path, env_encoding="utf-8") -> AppSettings:
@@ -319,6 +350,9 @@ def app_settings_constructor(data_dir: Path, production: bool, env_file: Path, e
     app_settings = AppSettings(
         _env_file=env_file,  # type: ignore
         _env_file_encoding=env_encoding,  # type: ignore
+        # `get_secrets_dir` must be called here rather than within `AppSettings`
+        # to avoid a circular import.
+        _secrets_dir=get_secrets_dir(),  # type: ignore
         **{"SECRET": determine_secrets(data_dir, production)},
     )
 
