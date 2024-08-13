@@ -268,6 +268,7 @@ class AppSettings(AppLoggingSettings):
     # OIDC Configuration
     OIDC_AUTH_ENABLED: bool = False
     OIDC_CLIENT_ID: str | None = None
+    OIDC_CLIENT_SECRET: str | None = None
     OIDC_CONFIGURATION_URL: str | None = None
     OIDC_SIGNUP_ENABLED: bool = True
     OIDC_USER_GROUP: str | None = None
@@ -286,6 +287,7 @@ class AppSettings(AppLoggingSettings):
 
         required = {
             self.OIDC_CLIENT_ID,
+            self.OIDC_CLIENT_SECRET,
             self.OIDC_CONFIGURATION_URL,
             self.OIDC_USER_CLAIM,
         }

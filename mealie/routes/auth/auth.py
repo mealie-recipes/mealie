@@ -27,12 +27,15 @@ remember_me_duration = timedelta(days=14)
 settings = get_app_settings()
 if settings.OIDC_READY:
     oauth = OAuth()
+    scope = "openid email profile"
+    if settings.OIDC_USER_GROUP:
+        scope += " " + settings.OIDC_GROUPS_CLAIM
     oauth.register(
         "oidc",
-        client_id="mealie2",
-        client_secret="tjRdWbhX7BP47n7izJoqyHAkZhu3mEOO5cQRsGbGlgFgagw4f8FpxgeAQJFf7u50",
+        client_id=settings.OIDC_CLIENT_ID,
+        client_secret=settings.OIDC_CLIENT_SECRET,
         server_metadata_url=settings.OIDC_CONFIGURATION_URL,
-        client_kwargs={"scope": "openid email profile groups"},
+        client_kwargs={"scope": scope},
     )
 
 
@@ -76,7 +79,11 @@ async def get_token(
 
     expires_in = duration.total_seconds() if duration else None
     response.set_cookie(
-        key="mealie.access_token", value=access_token, httponly=True, max_age=expires_in, expires=expires_in
+        key="mealie.access_token",
+        value=access_token,
+        httponly=True,
+        max_age=expires_in,
+        expires=expires_in,
     )
 
     return MealieAuthToken.respond(access_token)
@@ -86,7 +93,8 @@ async def get_token(
 async def oauth_login(request: Request):
     if oauth:
         client = oauth.create_client("oidc")
-        redirect_uri = request.url_for("oauth_callback")
+        # redirect_uri = request.url_for("oauth_callback")
+        redirect_uri = "http://localhost:9091/api/auth/oauth/callback"
         return await client.authorize_redirect(request, redirect_uri)
 
 
@@ -95,7 +103,6 @@ async def oauth_callback(request: Request, session: Session = Depends(generate_s
     if oauth:
         client = oauth.create_client("oidc")
         token = await client.authorize_access_token(request)
-        print(token["userinfo"])
         try:
             auth_provider = OpenIDProvider(session, OIDCRequest(id_token="", userinfo=token["userinfo"]))
             auth = await auth_provider.authenticate()
@@ -111,12 +118,23 @@ async def oauth_callback(request: Request, session: Session = Depends(generate_s
         access_token, duration = auth
 
         expires_in = duration.total_seconds() if duration else None
-        response = RedirectResponse(url="http://localhost:3000?direct=1")
+        response = RedirectResponse(url="http://localhost:9091/login?direct=1&oauth_authenticated=1")
         response.set_cookie(
-            key="mealie.access_token", value=access_token, httponly=True, max_age=expires_in, expires=expires_in
+            key="mealie.access_token",
+            value=access_token,
+            httponly=True,
+            max_age=expires_in,
+            expires=expires_in,
         )
 
         return response
+
+
+@user_router.get("/oauth/verify")
+async def oauth_verify(request: Request, current_user: PrivateUser = Depends(get_current_user)):
+    if current_user:
+        return MealieAuthToken.respond(request.cookies.get("mealie.access_token"))
+    raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
 
 @user_router.get("/refresh")

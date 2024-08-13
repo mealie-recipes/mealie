@@ -168,6 +168,28 @@ export default {
           configuration: "",
         }
       },
+      oauth: {
+        scheme: "local",
+        resetOnError: true,
+        token: {
+          property: "access_token",
+          global: true,
+        },
+        user: {
+          property: "",
+          autoFetch: true,
+        },
+        endpoints: {
+          login: {
+            url: "api/auth/oauth/verify",
+            method: "get",
+            propertyName: "access_token",
+          },
+          refresh: { url: "api/auth/refresh", method: "post" },
+          logout: { url: "api/auth/logout", method: "post" },
+          user: { url: "api/users/self", method: "get" },
+        },
+      },
     },
   },
 

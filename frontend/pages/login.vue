@@ -85,7 +85,7 @@
           </div>
           <v-card-actions v-if="allowOidc" class="justify-center">
           <div class="max-button">
-            <v-btn color="primary" large rounded class="rounded-xl" block @click.native="oidcAuthenticate">
+            <v-btn color="primary" large rounded class="rounded-xl" block @click.native="() => oidcAuthenticate(false)">
                 {{ $t("user.login-oidc") }} {{ oidcProviderName }}
             </v-btn>
           </div>
@@ -196,19 +196,39 @@ export default defineComponent({
         {immediate: true}
     )
 
+    whenever(
+        () => allowOidc.value && isAuthenticated(),
+        () => oidcAuthenticate(true),
+        {immediate: true}
+    )
+
     function isCallback() {
         return router.currentRoute.query.state;
+    }
+
+    function isAuthenticated() {
+        return Object.keys(router.currentRoute.query).includes("oauth_authenticated")
     }
 
     function isDirectLogin() {
         return Object.keys(router.currentRoute.query).includes("direct")
     }
 
-    function oidcAuthenticate() {
-        try {
+    async function oidcAuthenticate(authenticated = false) {
+        if (authenticated) {
+            console.log("authenticated -- attempting oauth login")
+            try {
+            await $auth.loginWith("oauth")
+            } catch (error) {
+                if (error.response?.status === 401) {
+          alert.error(i18n.t("user.invalid-credentials") as string);
+          // @ts-ignore - see above
+        } else {
+          alert.error(i18n.t("events.something-went-wrong") as string);
+        }
+            }
+        } else {
             window.location.replace("/api/auth/oauth")
-        } catch (error) {
-            alert.error(i18n.t("events.something-went-wrong") as string);
         }
     }
 
