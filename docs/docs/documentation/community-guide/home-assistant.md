@@ -3,7 +3,7 @@
 
 In a lot of ways, Home Assistant is why this project exists! Since Mealie has a robust API it makes it a great fit for interacting with Home Assistant and pulling information into your dashboard.
 
-### Display Today's Meal in Lovelace
+## Display Today's Meal in Lovelace
 
 You can use the Mealie API to get access to meal plans in Home Assistant like in the image below.
 
@@ -83,3 +83,102 @@ card_mod:
 
 !!! tip
 Due to how Home Assistant works with images, I had to include the additional styling to get the images to not appear distorted. This requires an [additional installation](https://github.com/thomasloven/lovelace-card-mod) from HACS.
+
+## Extended Example
+
+![api-extras-gif](../../assets/img/home-assistant-cards.png)
+
+Steps:
+
+#### 1. Repeat Step 1 Above to get Your API Token
+
+#### 2. Create Home Assistant Sensors
+
+Create REST sensors in home assistant
+
+Make sure the url and port (`http://mealie:9000` ) matches your installation's address and _API_ port. Configure the page (`1`), perPage (`5`), and orderDirection (`asc`) as desired. This example will return 1 page with 5 meals per page in ascending order starting today to exclude yesterday's meals. 
+
+```yaml
+rest:
+  - resource_template: http://mealie:9000/api/groups/mealplans?start_date={{ now().strftime('%Y-%m-%d') }}&page=1&perPage=5&orderDirection=asc
+    method: GET <<API_TOKEN>>
+    headers:
+      Authorization: Bearer 
+    scan_interval: 30
+    
+    sensor:
+      - name: "Mealie 1 name"
+        value_template: "{{ value_json['items'][0].recipe.name | default }}"
+      - name: "Mealie 1 id"
+        value_template: "{{ value_json['items'][0].recipe.id | default }}"
+      - name: "Mealie 1 date"
+        value_template: "{{ value_json['items'][0].date | default }}"
+      - name: "Mealie 1 type"
+        value_template: "{{ value_json['items'][0].entryType | default }}"
+      - name: "Mealie 1 day"
+        value_template: >-
+            {% if now().strftime('%Y-%m-%d') == value_json['items'][0].date %}
+            Today
+            {% elif ((now().date() + timedelta(days=1)) | as_datetime) == (value_json['items'][0].date | as_datetime) %}
+            Tomorrow
+            {% else %}
+            {{ (value_json['items'][0].date|as_datetime).strftime('%A') | default }}
+            {% endif %}
+            
+      - name: "Mealie 2 name"
+        value_template: "{{ value_json['items'][1].recipe.name | default }}"
+      - name: "Mealie 2 id"
+        value_template: "{{ value_json['items'][1].recipe.id | default }}"
+      - name: "Mealie 2 date"
+        value_template: "{{ value_json['items'][1].date | default }}"
+      - name: "Mealie 2 type"
+        value_template: "{{ value_json['items'][1].entryType | default }}"
+      - name: "Mealie 2 day"
+        value_template: >-
+            {% if now().strftime('%Y-%m-%d') == value_json['items'][1].date %}
+            Today
+            {% elif ((now().date() + timedelta(days=1)) | as_datetime) == (value_json['items'][1].date | as_datetime) %}
+            Tomorrow
+            {% else %}
+            {{ (value_json['items'][1].date|as_datetime).strftime('%A') | default }}
+            {% endif %}
+
+      etc...
+```
+
+#### 3. Repeat Step 3 Above to Create a Camera Entity for Each Meal
+
+#### 4. Create Lovelace Cards for Each Meal
+
+```yaml
+type: conditional
+conditions:
+  - condition: state
+    entity: sensor.mealie_1_name
+    state_not: unknown
+card:
+  type: custom:config-template-card
+  variables:
+    DAY: states['sensor.mealie_1_day'].state
+    TYPE: states['sensor.mealie_1_type'].state
+    ID: states['sensor.mealie_1_id'].state
+  entities:
+    - sensor.mealie_1_day
+    - sensor.mealie_1_type
+    - sensor.mealie_1_id
+  card:
+    type: picture-entity
+    show_state: true
+    show_name: true
+    camera_view: auto
+    entity: sensor.mealie_1_name
+    name: ${TYPE[0].toUpperCase() + TYPE.slice(1) + " " + DAY}
+    camera_image: camera.mealie_1_image
+    aspect_ratio: 16x9
+    tap_action:
+      action: url
+      url_path: ${"https://mealie:9000/g/home/r/" + ID}
+```
+
+!!! tip
+The [config-template-card]([https://github.com/iantrich/config-template-card]) from HACS allows us to dynamically use our sesnor values in the `picture-entity` card. 
