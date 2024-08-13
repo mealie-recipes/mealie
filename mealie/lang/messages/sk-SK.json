@@ -5,8 +5,8 @@
     "recipe": {
         "unique-name-error": "Názov receptu musí byť unikátny",
         "recipe-defaults": {
-            "ingredient-note": "1 Cup Flour",
-            "step-text": "Recipe steps as well as other fields in the recipe page support markdown syntax.\n\n**Add a link**\n\n[My Link](https://demo.mealie.io)\n"
+            "ingredient-note": "1 šálka múky",
+            "step-text": "Kroky receptu, ako aj ďalšie polia na stránke receptu podporujú markdown syntax.\n\n**Pridanie odkazu**\n\n[Môj odkaz](https://demo.mealie.io)\n"
         }
     },
     "mealplan": {
@@ -47,25 +47,25 @@
     },
     "emails": {
         "password": {
-            "subject": "Mealie Forgot Password",
-            "header_text": "Forgot Password",
-            "message_top": "You have requested to reset your password.",
-            "message_bottom": "Please click the button above to reset your password.",
-            "button_text": "Reset Password"
+            "subject": "Mealie zabudnuté heslo",
+            "header_text": "Zabudnuté heslo",
+            "message_top": "Požiadali ste o obnovenie hesla.",
+            "message_bottom": "Prosím stlačte tlačidlo vyššie, na obnovenie vášho hesla.",
+            "button_text": "Obnovenie hesla"
         },
         "invitation": {
-            "subject": "Invitation to join Mealie",
-            "header_text": "You're Invited!",
-            "message_top": "You have been invited to join Mealie.",
-            "message_bottom": "Please click the button above to accept the invitation.",
-            "button_text": "Accept Invitation"
+            "subject": "Pozvanie na pripojenie k Mealie",
+            "header_text": "Boli ste pozvaní!",
+            "message_top": "Boli ste pozvaní na pripojenie k Mealie.",
+            "message_bottom": "Prosím, kliknite na tlačidlo vyššie pre akceptáciu pozvánky.",
+            "button_text": "Prijat pozvanie"
         },
         "test": {
-            "subject": "Mealie Test Email",
-            "header_text": "Test Email",
-            "message_top": "This is a test email.",
-            "message_bottom": "Please click the button above to test the email.",
-            "button_text": "Open Mealie"
+            "subject": "Testovací email Mealie",
+            "header_text": "Testovací email",
+            "message_top": "Toto je testovací email.",
+            "message_bottom": "Prosím, kliknite na tlačidlo vyššie, aby ste otestovali email.",
+            "button_text": "Otvoriť Mealie"
         }
     }
 }
