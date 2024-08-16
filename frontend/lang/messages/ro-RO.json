@@ -211,7 +211,7 @@
     "clipboard-copy-failure": "Copierea în clipboard a eșuat.",
     "confirm-delete-generic-items": "Sunteți sigur că doriți să ștergeți următoarele?",
     "organizers": "Organizatori",
-    "caution": "Caution"
+    "caution": "Atenție"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Sunteți sigur că doriți să ștergeți <b>{groupName}<b/>?",
@@ -292,8 +292,8 @@
     "mealplan-updated": "Plan de mese actualizat",
     "no-meal-plan-defined-yet": "Nici un plan de mese definit încă",
     "no-meal-planned-for-today": "Nicio masă planificată pentru astăzi",
-    "numberOfDays-hint": "Number of days on page load",
-    "numberOfDays-label": "Default Days",
+    "numberOfDays-hint": "Număr de zile pe pagină încărcată",
+    "numberOfDays-label": "Zile implicite",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Numai rețetele cu aceste categorii vor fi utilizate în Planurile de mese",
     "planner": "Planificator",
     "quick-week": "Săptămână rapidă",
@@ -379,10 +379,10 @@
     },
     "myrecipebox": {
       "title": "Cutia mea de rețete",
-      "description-long": "Mealie can import recipes from My Recipe Box. Export your recipes in CSV format, then upload the .csv file below."
+      "description-long": "Mealie poate importa rețete din Cutia mea de rețete. Exportă rețetele în format CSV, apoi încarcă fișierul .csv de mai jos."
     },
     "recipekeeper": {
-      "title": "Recipe Keeper",
+      "title": "Oraganizator de rețete",
       "description-long": "Mealie can import recipes from Recipe Keeper. Export your recipes in zip format, then upload the .zip file below."
     }
   },
@@ -699,7 +699,7 @@
       "error-updating-theme": "Error updating theme",
       "info": "Info",
       "light": "Light",
-      "primary": "Primary",
+      "primary": "Primară",
       "secondary": "Secondary",
       "success": "Succes",
       "switch-to-dark-mode": "Switch to dark mode",
