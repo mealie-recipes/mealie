@@ -562,7 +562,7 @@
     "create-recipes": "Create Recipes",
     "import-with-zip": "Import with .zip",
     "create-recipe-from-an-image": "Create Recipe from an Image",
-    "create-recipe-from-an-image-description": "Create a recipe by uploading an image of a it. Mealie will attempt to extract the text from the image using AI and create a recipe from it.",
+    "create-recipe-from-an-image-description": "Create a recipe by uploading an image of it. Mealie will attempt to extract the text from the image using AI and create a recipe from it.",
     "crop-and-rotate-the-image": "Crop and rotate the image so that only the text is visible, and it's in the correct orientation.",
     "create-from-image": "Create from Image",
     "should-translate-description": "Translate the recipe into my language",
