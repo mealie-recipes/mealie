@@ -304,6 +304,8 @@ class AppSettings(AppLoggingSettings):
     """Your OpenAI API key. Required to enable OpenAI features"""
     OPENAI_MODEL: str = "gpt-4o"
     """Which OpenAI model to send requests to. Leave this unset for most usecases"""
+    OPENAI_ENABLE_IMAGE_SERVICES: bool = True
+    """Whether to enable image-related features in OpenAI"""
     OPENAI_WORKERS: int = 2
     """
     Number of OpenAI workers per request. Higher values may increase
@@ -314,8 +316,7 @@ class AppSettings(AppLoggingSettings):
     Sending database data may increase accuracy in certain requests,
     but will incur additional API costs
     """
-
-    OPENAI_REQUEST_TIMEOUT: int = 10
+    OPENAI_REQUEST_TIMEOUT: int = 60
     """
     The number of seconds to wait for an OpenAI request to complete before cancelling the request
     """

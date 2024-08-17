@@ -17,20 +17,14 @@ admin_email = "/api/admin/email"
 """`/api/admin/email`"""
 admin_groups = "/api/admin/groups"
 """`/api/admin/groups`"""
-admin_logs = "/api/admin/logs"
-"""`/api/admin/logs`"""
 admin_maintenance = "/api/admin/maintenance"
 """`/api/admin/maintenance`"""
 admin_maintenance_clean_images = "/api/admin/maintenance/clean/images"
 """`/api/admin/maintenance/clean/images`"""
-admin_maintenance_clean_logs = "/api/admin/maintenance/clean/logs"
-"""`/api/admin/maintenance/clean/logs`"""
 admin_maintenance_clean_recipe_folders = "/api/admin/maintenance/clean/recipe-folders"
 """`/api/admin/maintenance/clean/recipe-folders`"""
 admin_maintenance_clean_temp = "/api/admin/maintenance/clean/temp"
 """`/api/admin/maintenance/clean/temp`"""
-admin_maintenance_logs = "/api/admin/maintenance/logs"
-"""`/api/admin/maintenance/logs`"""
 admin_maintenance_storage = "/api/admin/maintenance/storage"
 """`/api/admin/maintenance/storage`"""
 admin_users = "/api/admin/users"
@@ -47,6 +41,8 @@ app_about_startup_info = "/api/app/about/startup-info"
 """`/api/app/about/startup-info`"""
 app_about_theme = "/api/app/about/theme"
 """`/api/app/about/theme`"""
+auth_logout = "/api/auth/logout"
+"""`/api/auth/logout`"""
 auth_refresh = "/api/auth/refresh"
 """`/api/auth/refresh`"""
 auth_token = "/api/auth/token"
@@ -143,6 +139,8 @@ recipes_bulk_actions_settings = "/api/recipes/bulk-actions/settings"
 """`/api/recipes/bulk-actions/settings`"""
 recipes_bulk_actions_tag = "/api/recipes/bulk-actions/tag"
 """`/api/recipes/bulk-actions/tag`"""
+recipes_create_from_image = "/api/recipes/create-from-image"
+"""`/api/recipes/create-from-image`"""
 recipes_create_from_zip = "/api/recipes/create-from-zip"
 """`/api/recipes/create-from-zip`"""
 recipes_create_url = "/api/recipes/create-url"
@@ -210,11 +208,6 @@ def admin_backups_file_name_restore(file_name):
 def admin_groups_item_id(item_id):
     """`/api/admin/groups/{item_id}`"""
     return f"{prefix}/admin/groups/{item_id}"
-
-
-def admin_logs_num(num):
-    """`/api/admin/logs/{num}`"""
-    return f"{prefix}/admin/logs/{num}"
 
 
 def admin_users_item_id(item_id):
@@ -360,6 +353,11 @@ def groups_shopping_lists_item_id_recipe_recipe_id_delete(item_id, recipe_id):
 def groups_webhooks_item_id(item_id):
     """`/api/groups/webhooks/{item_id}`"""
     return f"{prefix}/groups/webhooks/{item_id}"
+
+
+def groups_webhooks_item_id_test(item_id):
+    """`/api/groups/webhooks/{item_id}/test`"""
+    return f"{prefix}/groups/webhooks/{item_id}/test"
 
 
 def media_recipes_recipe_id_assets_file_name(recipe_id, file_name):

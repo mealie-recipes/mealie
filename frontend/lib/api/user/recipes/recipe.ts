@@ -35,6 +35,7 @@ const routes = {
   recipesCreateUrl: `${prefix}/recipes/create-url`,
   recipesCreateUrlBulk: `${prefix}/recipes/create-url/bulk`,
   recipesCreateFromZip: `${prefix}/recipes/create-from-zip`,
+  recipesCreateFromImage: `${prefix}/recipes/create-from-image`,
   recipesCategory: `${prefix}/recipes/category`,
   recipesParseIngredient: `${prefix}/parser/ingredient`,
   recipesParseIngredients: `${prefix}/parser/ingredients`,
@@ -138,6 +139,19 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
 
   async createManyByUrl(payload: CreateRecipeByUrlBulk) {
     return await this.requests.post<string>(routes.recipesCreateUrlBulk, payload);
+  }
+
+  async createOneFromImage(fileObject: Blob | File, fileName: string, translateLanguage: string | null = null) {
+    const formData = new FormData();
+    formData.append("images", fileObject);
+    formData.append("extension", fileName.split(".").pop() ?? "");
+
+    let apiRoute = routes.recipesCreateFromImage
+    if (translateLanguage) {
+      apiRoute = `${apiRoute}?translateLanguage=${translateLanguage}`
+    }
+
+    return await this.requests.post<string>(apiRoute, formData);
   }
 
   async parseIngredients(parser: Parser, ingredients: Array<string>) {
