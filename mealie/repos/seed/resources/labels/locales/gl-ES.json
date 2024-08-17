@@ -1,65 +1,65 @@
 [
     {
-        "name": "Produce"
+        "name": "Froitas e verduras"
     },
     {
-        "name": "Grains"
+        "name": "Grans"
     },
     {
-        "name": "Fruits"
+        "name": "Froitas"
     },
     {
-        "name": "Vegetables"
+        "name": "Vexetais"
     },
     {
-        "name": "Meat"
+        "name": "Carne"
     },
     {
-        "name": "Seafood"
+        "name": "Marisco"
     },
     {
-        "name": "Beverages"
+        "name": "Bebidas"
     },
     {
-        "name": "Baked Goods"
+        "name": "Padaría"
     },
     {
-        "name": "Canned Goods"
+        "name": "Latas"
     },
     {
-        "name": "Condiments"
+        "name": "Condimentos"
     },
     {
-        "name": "Confectionary"
+        "name": "Repostería"
     },
     {
-        "name": "Dairy Products"
+        "name": "Lácteos"
     },
     {
-        "name": "Frozen Foods"
+        "name": "Conxelados"
     },
     {
-        "name": "Health Foods"
+        "name": "Alimentos saudables"
     },
     {
-        "name": "Household"
+        "name": "Fogar"
     },
     {
-        "name": "Meat Products"
+        "name": "Produtos cárnicos"
     },
     {
-        "name": "Snacks"
+        "name": "Petiscos"
     },
     {
-        "name": "Spices"
+        "name": "Especias"
     },
     {
-        "name": "Sweets"
+        "name": "Doces"
     },
     {
-        "name": "Alcohol"
+        "name": "Alcol"
     },
     {
-        "name": "Other"
+        "name": "Outros"
     }
 ]

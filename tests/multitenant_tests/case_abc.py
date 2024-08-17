@@ -24,7 +24,7 @@ class ABCMultiTenantTestCase(ABC):
     @abstractmethod
     def cleanup(self) -> None: ...
 
-    def __enter__(self):
+    def __enter__(self):  # noqa: B027
         pass
 
     def __exit__(self, exc_type, exc_val, exc_tb):

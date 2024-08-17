@@ -14,8 +14,8 @@
     },
     "user": {
         "user-updated": "Χρήστης ενημερώθηκε",
-        "password-updated": "Ο κωδικός ενημερώθηκε",
-        "invalid-current-password": "Μη έγκυρος κωδικός",
+        "password-updated": "Ο κωδικός πρόσβασης ενημερώθηκε",
+        "invalid-current-password": "Μη έγκυρος κωδικός πρόσβασης",
         "ldap-update-password-unavailable": "Αδυναμία ενημέρωσης του κωδικού πρόσβασης, ο χρήστης ελέγχεται από LDAP"
     },
     "group": {
@@ -31,9 +31,9 @@
     "notifications": {
         "generic-created": "Δημιουργήθηκε το {name}",
         "generic-updated": "Ενημερώθηκε το {name}",
-        "generic-created-with-url": "{name} has been created, {url}",
-        "generic-updated-with-url": "{name} has been updated, {url}",
-        "generic-duplicated": "{name} has been duplicated",
+        "generic-created-with-url": "Το {name} δημιουργήθηκε, {url}",
+        "generic-updated-with-url": "Το {name} ενημερώθηκε, {url}",
+        "generic-duplicated": "Δημιουργήθηκε διπλότυπο του {name}",
         "generic-deleted": "Το {name} διαγράφηκε"
     },
     "datetime": {
@@ -48,7 +48,7 @@
     "emails": {
         "password": {
             "subject": "Mealie Ξέχασα τον κωδικό πρόσβασης",
-            "header_text": "Ξεχάσατε τον κωδικό πρόσβασής σας;",
+            "header_text": "Ξέχασα τον κωδικό πρόσβασης",
             "message_top": "Εχετε ζητήσει να επαναφέρετε τον κωδικό πρόσβασής σας.",
             "message_bottom": "Παρακαλώ κάντε κλικ στο παραπάνω κουμπί για να επαναφέρετε τον κωδικό πρόσβασής σας.",
             "button_text": "Επαναφορά κωδικού πρόσβασης"

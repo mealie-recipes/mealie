@@ -12,6 +12,7 @@ repos:
         exclude: ^tests/data/
   - repo: https://github.com/astral-sh/ruff-pre-commit
     # Ruff version.
-    rev: v0.5.5
+    rev: v0.5.7
     hooks:
+      - id: ruff
       - id: ruff-format

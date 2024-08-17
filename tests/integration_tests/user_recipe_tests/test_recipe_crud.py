@@ -4,8 +4,8 @@ import os
 import random
 import shutil
 import tempfile
+from collections.abc import Generator
 from pathlib import Path
-from typing import Generator
 from uuid import uuid4
 from zipfile import ZipFile
 
@@ -489,9 +489,9 @@ def test_duplicate(api_client: TestClient, recipe_data: RecipeSiteTestCase, uniq
 
     # Ingredients should have the same texts, but different ids
     assert duplicate_recipe["recipeIngredient"] != initial_recipe["recipeIngredient"]
-    assert list(map(lambda i: i["note"], duplicate_recipe["recipeIngredient"])) == list(
-        map(lambda i: i["note"], initial_recipe["recipeIngredient"])
-    )
+    assert [i["note"] for i in duplicate_recipe["recipeIngredient"]] == [
+        i["note"] for i in initial_recipe["recipeIngredient"]
+    ]
 
     previous_categories = initial_recipe["recipeCategory"]
     assert duplicate_recipe["recipeCategory"] == previous_categories
@@ -748,21 +748,21 @@ def test_get_recipes_organizer_filter(
     # get recipes by organizer
     if organizer_type == "tags":
         organizer = random.choice(tags)
-        expected_recipe_ids = set(
+        expected_recipe_ids = {
             str(recipe.id) for recipe in recipes if organizer.id in [tag.id for tag in recipe.tags or []]
-        )
+        }
     elif organizer_type == "categories":
         organizer = random.choice(categories)
-        expected_recipe_ids = set(
+        expected_recipe_ids = {
             str(recipe.id)
             for recipe in recipes
             if organizer.id in [category.id for category in recipe.recipe_category or []]
-        )
+        }
     elif organizer_type == "tools":
         organizer = random.choice(tools)
-        expected_recipe_ids = set(
+        expected_recipe_ids = {
             str(recipe.id) for recipe in recipes if organizer.id in [tool.id for tool in recipe.tools or []]
-        )
+        }
     else:
         raise ValueError(f"Unknown organizer type: {organizer_type}")
 
