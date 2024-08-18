@@ -449,8 +449,8 @@
     "ingredients": "Ingredienser",
     "insert-ingredient": "Sett inn ingrediens",
     "insert-section": "Sett inn avsnitt",
-    "insert-above": "Insert Above",
-    "insert-below": "Insert Below",
+    "insert-above": "Sett inn over",
+    "insert-below": "Sett inn under",
     "instructions": "Instruksjoner",
     "key-name-required": "Navn på nøkkel er påkrevd",
     "landscape-view-coming-soon": "Landskapsvisning",
@@ -562,6 +562,11 @@
     "create-recipes": "Opprett oppskrifter",
     "import-with-zip": "Importer fra .zip-fil",
     "create-recipe-from-an-image": "Opprett oppskrift fra et bilde",
+    "create-recipe-from-an-image-description": "Opprett en oppskrift ved å laste opp et bilde av den. Mealie vil forsøke å hente ut teksten fra bildet ved bruk av AI, og lage en ny oppskrift.",
+    "crop-and-rotate-the-image": "Crop and rotate the image so that only the text is visible, and it's in the correct orientation.",
+    "create-from-image": "Create from Image",
+    "should-translate-description": "Oversett oppskriften til mitt språk",
+    "please-wait-image-procesing": "Vent litt, bildet blir prosessert. Dette kan ta litt tid.",
     "bulk-url-import": "Importer flere nettadresser",
     "debug-scraper": "Feilsøk skraper",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Opprett en oppskrift ved å angi navnet. Alle oppskrifter må ha unike navn.",
@@ -586,7 +591,7 @@
     "report-deletion-failed": "Sletting av rapport mislyktes",
     "recipe-debugger": "Oppskriftsfeilsøker",
     "recipe-debugger-description": "Hent nettadressen til oppskriften du vil feilsøke og lim den inn her. Nettsiden vil bli skrapt og resultatene vil bli vist. Hvis du ikke ser noen data returnert, er ikke nettstedet du prøver å skrape støttet av Mealie eller skraper-biblioteket.",
-    "use-openai": "Use OpenAI",
+    "use-openai": "Bruk OpenAI",
     "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Feilsøk",
     "tree-view": "Trevisning",
@@ -610,7 +615,7 @@
       "no-unit": "No unit",
       "missing-unit": "Create missing unit: {unit}",
       "missing-food": "Create missing food: {food}",
-      "no-food": "No Food"
+      "no-food": "Ingen matvarer"
     }
   },
   "search": {
@@ -778,7 +783,7 @@
     "oidc-ready": "OIDC klar",
     "oidc-ready-error-text": "Ikke alle OIDC-verdier er konfigurert. Dette kan ignoreres hvis du ikke bruker OIDC-autentisering.",
     "oidc-ready-success-text": "Alle obligratoriske OIDC-variabler er satt.",
-    "openai-ready": "OpenAI Ready",
+    "openai-ready": "OpenAI klar",
     "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
     "openai-ready-success-text": "Required OpenAI variables are all set."
   },
@@ -810,11 +815,11 @@
     "items-checked-count": "Ingen elementer krysset av|Ett element krysset av|{count} elementer krysset av",
     "no-label": "Ingen etikett",
     "completed-on": "Fullført den {date}",
-    "you-are-offline": "You are offline",
+    "you-are-offline": "Du er offline",
     "you-are-offline-description": "Not all features are available while offline. You can still add, modify, and remove items, but you will not be able to sync your changes to the server until you are back online.",
-    "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
-    "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
-    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
+    "are-you-sure-you-want-to-check-all-items": "Er du sikker på at du vil velge alle elementer?",
+    "are-you-sure-you-want-to-uncheck-all-items": "Er du sikker på at du vil fjerne valg av alle elementer?",
+    "are-you-sure-you-want-to-delete-checked-items": "Er du sikker på at du vil slette alle valgte elementer?"
   },
   "sidebar": {
     "all-recipes": "Alle oppskrifter",
@@ -958,7 +963,7 @@
     "authentication-method-hint": "This specifies how a user will authenticate with Mealie. If you're not sure, choose 'Mealie",
     "permissions": "Rettigheter",
     "administrator": "Administrator",
-    "user-can-invite-other-to-group": "User can invite others to group",
+    "user-can-invite-other-to-group": "Bruker kan invitere andre til gruppe",
     "user-can-manage-group": "Brukeren kan administrere gruppe",
     "user-can-organize-group-data": "Brukeren kan organisere gruppedata",
     "enable-advanced-features": "Aktiver avanserte funksjoner",
