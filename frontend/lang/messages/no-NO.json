@@ -211,7 +211,7 @@
     "clipboard-copy-failure": "Kunne ikke kopiere til utklippstavlen.",
     "confirm-delete-generic-items": "Er du sikker på at du vil følgende elementer?",
     "organizers": "Organisatorer",
-    "caution": "Caution"
+    "caution": "Forsiktig"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Er du sikker på at du vil slette <b>{groupName}<b/>?",
@@ -292,8 +292,8 @@
     "mealplan-updated": "Måltidsplan oppdatert",
     "no-meal-plan-defined-yet": "Ingen måltidsplan er definert ennå",
     "no-meal-planned-for-today": "Ingen måltid planlagt i dag",
-    "numberOfDays-hint": "Number of days on page load",
-    "numberOfDays-label": "Default Days",
+    "numberOfDays-hint": "Antall dager på sideinnlasting",
+    "numberOfDays-label": "Standard antall dager",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Kun oppskrifter med disse kategoriene vil bli brukt i måltidsplaner",
     "planner": "Planlegger",
     "quick-week": "Hurtigplan",
@@ -383,7 +383,7 @@
     },
     "recipekeeper": {
       "title": "Recipe Keeper",
-      "description-long": "Mealie can import recipes from Recipe Keeper. Export your recipes in zip format, then upload the .zip file below."
+      "description-long": "Meali kan importere oppskrifter fra Recipe Keeper. Eksporter oppskrifter i zip-format, og last deretter opp .zip-filen nedenfor."
     }
   },
   "new-recipe": {
@@ -563,8 +563,8 @@
     "import-with-zip": "Importer fra .zip-fil",
     "create-recipe-from-an-image": "Opprett oppskrift fra et bilde",
     "create-recipe-from-an-image-description": "Opprett en oppskrift ved å laste opp et bilde av den. Mealie vil forsøke å hente ut teksten fra bildet ved bruk av AI, og lage en ny oppskrift.",
-    "crop-and-rotate-the-image": "Crop and rotate the image so that only the text is visible, and it's in the correct orientation.",
-    "create-from-image": "Create from Image",
+    "crop-and-rotate-the-image": "Beskjær og roter bildet slik at bare teksten er synlig, og at det er i riktig retning.",
+    "create-from-image": "Opprett fra bilde",
     "should-translate-description": "Oversett oppskriften til mitt språk",
     "please-wait-image-procesing": "Vent litt, bildet blir prosessert. Dette kan ta litt tid.",
     "bulk-url-import": "Importer flere nettadresser",
@@ -592,7 +592,7 @@
     "recipe-debugger": "Oppskriftsfeilsøker",
     "recipe-debugger-description": "Hent nettadressen til oppskriften du vil feilsøke og lim den inn her. Nettsiden vil bli skrapt og resultatene vil bli vist. Hvis du ikke ser noen data returnert, er ikke nettstedet du prøver å skrape støttet av Mealie eller skraper-biblioteket.",
     "use-openai": "Bruk OpenAI",
-    "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
+    "recipe-debugger-use-openai-description": "Bruke OpenAI til å analysere resultatene i stedet for å basere seg på scraper-biblioteket. Når du oppretter en oppskrift via URL, blir dette gjort automatisk hvis scraper-biblioteket mislykkes, men du kan teste det manuelt her.",
     "debug": "Feilsøk",
     "tree-view": "Trevisning",
     "recipe-yield": "Utbytte av oppskrift",
@@ -603,18 +603,18 @@
     "nextStep": "Neste trinn",
     "recipe-actions": "Oppskriftshandlinger",
     "parser": {
-      "experimental-alert-text": "Mealie uses natural language processing to parse and create units and food items for your recipe ingredients. This feature is experimental and may not always work as expected. If you prefer not to use the parsed results, you can select 'Cancel' and your changes will not be saved.",
+      "experimental-alert-text": "Mealie bruker naturlig språkbehandling til å analysere og lage enheter og matvarer til oppskriftsingrediensene dine. Denne funksjonen er eksperimentell og fungerer kanskje ikke som forventet. Hvis du foretrekker ikke å bruke de foreslåtte resultatene, kan du velge 'Avbryt', og endringene dine vil ikke bli lagret.",
       "ingredient-parser": "Ingrediens-parser",
-      "explanation": "To use the ingredient parser, click the 'Parse All' button to start the process. Once the processed ingredients are available, you can review the items and verify that they were parsed correctly. The model's confidence score is displayed on the right of the item title. This score is an average of all the individual scores and may not always be completely accurate.",
-      "alerts-explainer": "Alerts will be displayed if a matching foods or unit is found but does not exists in the database.",
-      "select-parser": "Select Parser",
-      "natural-language-processor": "Natural Language Processor",
-      "brute-parser": "Brute Parser",
-      "openai-parser": "OpenAI Parser",
-      "parse-all": "Parse All",
-      "no-unit": "No unit",
-      "missing-unit": "Create missing unit: {unit}",
-      "missing-food": "Create missing food: {food}",
+      "explanation": "For å bruke ingrediens-forslag, klikk på 'Analyser alle' for å starte prosessen. Når de prosesserte ingrediensene er tilgjengelige, kan du se gjennom elementene og kontrollere at de er sjekket korrekt. Modellens tillitsverdi vises på høyre side av elementet. Denne scoren er et gjennomsnitt av alle de individuelle poengene og alltid er ikke helt nøyaktige.",
+      "alerts-explainer": "Varsler vil bli vist dersom en matchende matvare eller enhet blir funnet, men ikke finnes i databasen.",
+      "select-parser": "Velg analyserer",
+      "natural-language-processor": "Prosessor for naturlig språk",
+      "brute-parser": "Enkel analyse",
+      "openai-parser": "OpenAI-analyse",
+      "parse-all": "Analyser alle",
+      "no-unit": "Ingen enhet",
+      "missing-unit": "Opprett manglende enhet: {unit}",
+      "missing-food": "Opprett manglende mat: {food}",
       "no-food": "Ingen matvarer"
     }
   },
@@ -645,7 +645,7 @@
       "backup-created-at-response-export_path": "Sikkerhetskopi opprettet i {path}",
       "backup-deleted": "Sikkerhetskopi slettet",
       "restore-success": "Gjenopprettingen var vellykket",
-      "restore-fail": "Restore failed. Check your server logs for more details",
+      "restore-fail": "Gjenoppretting mislyktes. Sjekk serverloggene for flere detaljer",
       "backup-tag": "Emneord for sikkerhetskopi",
       "create-heading": "Opprett en sikkerhetskopi",
       "delete-backup": "Slett sikkerhetskopi",
@@ -784,8 +784,8 @@
     "oidc-ready-error-text": "Ikke alle OIDC-verdier er konfigurert. Dette kan ignoreres hvis du ikke bruker OIDC-autentisering.",
     "oidc-ready-success-text": "Alle obligratoriske OIDC-variabler er satt.",
     "openai-ready": "OpenAI klar",
-    "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
-    "openai-ready-success-text": "Required OpenAI variables are all set."
+    "openai-ready-error-text": "Ikke alle OpenAI-verdier er konfigurert. Dette kan ignoreres hvis du ikke bruker OpenAI-funksjoner.",
+    "openai-ready-success-text": "Alle påkrevde OpenAI-variabler er satt."
   },
   "shopping-list": {
     "all-lists": "Alle lister",
@@ -799,7 +799,7 @@
     "food": "Matvare",
     "note": "Notat",
     "label": "Etikett",
-    "save-label": "Save Label",
+    "save-label": "Lagre etikett",
     "linked-item-warning": "Dette elementet er koblet til én eller flere oppskrifter. Å endre enheter eller matvarer vil føre til uventede resultater når oppskriften legges til eller fjernes fra denne listen.",
     "toggle-food": "Vis/skjul matvare",
     "manage-labels": "Administrer etiketter",
@@ -816,7 +816,7 @@
     "no-label": "Ingen etikett",
     "completed-on": "Fullført den {date}",
     "you-are-offline": "Du er offline",
-    "you-are-offline-description": "Not all features are available while offline. You can still add, modify, and remove items, but you will not be able to sync your changes to the server until you are back online.",
+    "you-are-offline-description": "Ikke alle funksjoner er tilgjengelige i frakoblet modus. Du kan fremdeles legge til, endre og fjerne elementer. men du vil ikke kunne synkronisere endringene dine med serveren før du er logget på igjen.",
     "are-you-sure-you-want-to-check-all-items": "Er du sikker på at du vil velge alle elementer?",
     "are-you-sure-you-want-to-uncheck-all-items": "Er du sikker på at du vil fjerne valg av alle elementer?",
     "are-you-sure-you-want-to-delete-checked-items": "Er du sikker på at du vil slette alle valgte elementer?"
@@ -995,8 +995,8 @@
       "food-data": "Matvaredata",
       "example-food-singular": "f.eks: tomat",
       "example-food-plural": "f.eks: tomater",
-      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels.",
-      "on-hand-checkbox-label": "Setting this flag will make this food unchecked by default when adding a recipe to a shopping list."
+      "label-overwrite-warning": "Dette vil tildele den valgte etiketten til alle valgte matvarer og potensielt overskrive dine eksisterende etiketter.",
+      "on-hand-checkbox-label": "Ved å angi dette flagget blir ikke maten valgt som standard når du legger til en oppskrift på en handleliste."
     },
     "units": {
       "seed-dialog-text": "Tilfør typiske enheter i databasen basert på ditt lokale språk.",
@@ -1025,7 +1025,7 @@
       "edit-label": "Rediger etikett",
       "new-label": "Ny etikett",
       "labels": "Etiketter",
-      "assign-label": "Assign Label"
+      "assign-label": "Tilordne etikett"
     },
     "recipes": {
       "purge-exports": "Fjern eksporter",

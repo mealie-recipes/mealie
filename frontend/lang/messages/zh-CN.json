@@ -211,7 +211,7 @@
     "clipboard-copy-failure": "未能复制到剪切板。",
     "confirm-delete-generic-items": "你确定删除以下条目吗？",
     "organizers": "管理器",
-    "caution": "Caution"
+    "caution": "注意！"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "您确定要删除<b>{groupName}<b/>吗？",
@@ -382,7 +382,7 @@
       "description-long": "Mealie可以从“My Recipe Box\"导入食谱。把你的食谱导出为CSV模式，然后在下面上传.csv文件。"
     },
     "recipekeeper": {
-      "title": "Recipe Keeper",
+      "title": "食谱保存者",
       "description-long": "Mealie can import recipes from Recipe Keeper. Export your recipes in zip format, then upload the .zip file below."
     }
   },
