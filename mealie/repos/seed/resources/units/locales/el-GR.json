@@ -1,101 +1,140 @@
 {
     "teaspoon": {
         "name": "Κουταλάκι Γλυκού",
+        "plural_name": "teaspoons",
         "description": "",
         "abbreviation": "κ.γ."
     },
     "tablespoon": {
         "name": "κουταλιά της σούπας",
+        "plural_name": "tablespoons",
         "description": "",
         "abbreviation": "κ.σ."
     },
     "cup": {
         "name": "φλιτζάνι",
+        "plural_name": "cups",
         "description": "",
-        "abbreviation": "φλ."
+        "abbreviation": "c"
     },
     "fluid-ounce": {
         "name": "ρευστή ουγγιά",
+        "plural_name": "fluid ounces",
         "description": "",
         "abbreviation": "fl oz"
     },
     "pint": {
         "name": "πίντα",
+        "plural_name": "pints",
         "description": "",
         "abbreviation": "pt"
     },
     "quart": {
         "name": "1/4",
+        "plural_name": "quarts",
         "description": "",
         "abbreviation": "1/4"
     },
     "gallon": {
         "name": "γαλόνι",
+        "plural_name": "gallons",
         "description": "",
         "abbreviation": "γαλ"
     },
     "milliliter": {
         "name": "χιλιοστόλιτρο",
+        "plural_name": "milliliters",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
         "name": "λίτρο",
+        "plural_name": "liters",
         "description": "",
         "abbreviation": "l"
     },
     "pound": {
         "name": "λίβρα",
+        "plural_name": "pounds",
         "description": "",
-        "abbreviation": "λβρ"
+        "abbreviation": "λβρ",
+        "plural_abbreviation": "lbs"
     },
     "ounce": {
         "name": "ουγγιά",
+        "plural_name": "ounces",
         "description": "",
         "abbreviation": "οζ"
     },
     "gram": {
         "name": "γραμμάριο",
+        "plural_name": "grams",
         "description": "",
         "abbreviation": "γρ."
     },
     "kilogram": {
         "name": "κιλό",
+        "plural_name": "kilograms",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
         "name": "χιλιοστόγραμμο",
+        "plural_name": "milligrams",
         "description": "",
         "abbreviation": "mg"
     },
     "splash": {
         "name": "splash",
+        "plural_name": "splashes",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
         "name": "παύλα",
+        "plural_name": "dashes",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
         "name": "μερίδα",
+        "plural_name": "servings",
         "description": "",
         "abbreviation": ""
     },
     "head": {
         "name": "κεφάλι",
+        "plural_name": "heads",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
         "name": "σκελίδα",
+        "plural_name": "cloves",
         "description": "",
         "abbreviation": ""
     },
     "can": {
         "name": "κονσέρβα",
+        "plural_name": "cans",
+        "description": "",
+        "abbreviation": ""
+    },
+    "bunch": {
+        "name": "bunch",
+        "plural_name": "bunches",
+        "description": "",
+        "abbreviation": ""
+    },
+    "pack": {
+        "name": "pack",
+        "plural_name": "packs",
+        "description": "",
+        "abbreviation": ""
+    },
+    "pinch": {
+        "name": "pinch",
+        "plural_name": "pinches",
         "description": "",
         "abbreviation": ""
     }
