@@ -6,9 +6,6 @@ Create Date: 2024-03-10 05:08:32.397027
 
 """
 
-import sqlalchemy as sa
-
-import mealie.db.migration_types
 from alembic import op
 
 # revision identifiers, used by Alembic.

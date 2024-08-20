@@ -26,7 +26,7 @@ class SQLiteProvider(AbstractDBProvider, BaseModel):
 
     @property
     def db_url(self) -> str:
-        return f"sqlite:///{str(self.db_path.absolute())}"
+        return f"sqlite:///{self.db_path.absolute()!s}"
 
     @property
     def db_url_public(self) -> str:

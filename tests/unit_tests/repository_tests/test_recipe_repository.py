@@ -44,7 +44,7 @@ def search_recipes(database: AllRepositories, unique_local_group_id: str, unique
             user_id=unique_local_user_id,
             group_id=unique_local_group_id,
             name="Steinbock Sloop",
-            description=f"My favorite horns are delicious",
+            description="My favorite horns are delicious",
             recipe_ingredient=[
                 RecipeIngredient(note="alpine animal"),
             ],
@@ -302,7 +302,7 @@ def test_recipe_repo_pagination_by_categories(database: AllRepositories, unique_
         order_direction=OrderDirection.asc,
     )
     random_ordered = []
-    for i in range(5):
+    for _ in range(5):
         pagination_query.pagination_seed = str(datetime.now(timezone.utc))
         random_ordered.append(database.recipes.page_all(pagination_query, categories=[category_slug]).items)
     assert not all(i == random_ordered[0] for i in random_ordered)
@@ -395,7 +395,7 @@ def test_recipe_repo_pagination_by_tags(database: AllRepositories, unique_user: 
         order_direction=OrderDirection.asc,
     )
     random_ordered = []
-    for i in range(5):
+    for _ in range(5):
         pagination_query.pagination_seed = str(datetime.now(timezone.utc))
         random_ordered.append(database.recipes.page_all(pagination_query, tags=[tag_slug]).items)
     assert len(random_ordered[0]) == 15
@@ -491,7 +491,7 @@ def test_recipe_repo_pagination_by_tools(database: AllRepositories, unique_user:
         order_direction=OrderDirection.asc,
     )
     random_ordered = []
-    for i in range(5):
+    for _ in range(5):
         pagination_query.pagination_seed = str(datetime.now(timezone.utc))
         random_ordered.append(database.recipes.page_all(pagination_query, tools=[tool_id]).items)
     assert len(random_ordered[0]) == 15
@@ -575,7 +575,7 @@ def test_recipe_repo_pagination_by_foods(database: AllRepositories, unique_user:
         order_direction=OrderDirection.asc,
     )
     random_ordered = []
-    for i in range(5):
+    for _ in range(5):
         pagination_query.pagination_seed = str(datetime.now(timezone.utc))
         random_ordered.append(database.recipes.page_all(pagination_query, foods=[food_id]).items)
     assert len(random_ordered[0]) == 15

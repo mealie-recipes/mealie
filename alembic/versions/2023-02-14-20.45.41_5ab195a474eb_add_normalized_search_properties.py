@@ -11,7 +11,6 @@ from sqlalchemy import orm, select
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from text_unidecode import unidecode
 
-import mealie.db.migration_types
 from alembic import op
 from mealie.db.models._model_utils.guid import GUID
 

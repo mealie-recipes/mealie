@@ -4,7 +4,7 @@ from pathlib import Path
 from fastapi import FastAPI
 from jinja2 import Template
 from pydantic import BaseModel, ConfigDict
-from utils import PROJECT_DIR, CodeTemplates, HTTPRequest, RouteObject, RequestType
+from utils import PROJECT_DIR, CodeTemplates, HTTPRequest, RouteObject
 
 CWD = Path(__file__).parent
 
@@ -17,9 +17,16 @@ class PathObject(BaseModel):
     http_verbs: list[HTTPRequest]
 
 
-def get_path_objects(app: FastAPI):
-    paths = []
+def force_include_in_schema(app: FastAPI):
+    # clear schema cache
+    app.openapi_schema = None
+    for route in app.routes:
+        route.include_in_schema = True
 
+
+def get_path_objects(app: FastAPI):
+    force_include_in_schema(app)
+    paths = []
     for key, value in app.openapi().items():
         if key == "paths":
             for key, value2 in value.items():
