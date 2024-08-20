@@ -65,7 +65,7 @@
             "header_text": "Test Email",
             "message_top": "This is a test email.",
             "message_bottom": "Please click the button above to test the email.",
-            "button_text": "Open Mealie"
+            "button_text": "打开Mealie"
         }
     }
 }

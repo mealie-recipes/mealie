@@ -1,4 +1,5 @@
 import json
+import os
 import shutil
 from datetime import datetime, timezone
 from pathlib import Path
@@ -11,25 +12,30 @@ from fastapi import UploadFile
 from slugify import slugify
 
 from mealie.core import exceptions
+from mealie.core.config import get_app_settings
+from mealie.core.dependencies.dependencies import get_temporary_path
 from mealie.lang.providers import Translator
 from mealie.pkgs import cache
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_generic import RepositoryGeneric
 from mealie.schema.household.household import HouseholdInDB
+from mealie.schema.openai.recipe import OpenAIRecipe
 from mealie.schema.recipe.recipe import CreateRecipe, Recipe
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
+from mealie.schema.recipe.recipe_notes import RecipeNote
 from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.recipe.recipe_step import RecipeStep
 from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventCreate, TimelineEventType
 from mealie.schema.recipe.request_helpers import RecipeDuplicate
 from mealie.schema.user.user import PrivateUser, UserRatingCreate
 from mealie.services._base_service import BaseService
+from mealie.services.openai import OpenAIDataInjection, OpenAILocalImage, OpenAIService
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 
 from .template_service import TemplateService
 
 
-class RecipeService(BaseService):
+class RecipeServiceBase(BaseService):
     def __init__(self, repos: AllRepositories, user: PrivateUser, household: HouseholdInDB, translator: Translator):
         self.repos = repos
         self.user = user
@@ -45,6 +51,8 @@ class RecipeService(BaseService):
 
         super().__init__()
 
+
+class RecipeService(RecipeServiceBase):
     def _get_recipe(self, data: str | UUID, key: str | None = None) -> Recipe:
         recipe = self.repos.recipes.get_one(data, key)
         if recipe is None:
@@ -258,6 +266,26 @@ class RecipeService(BaseService):
 
         return recipe
 
+    async def create_from_images(self, images: list[UploadFile], translate_language: str | None = None) -> Recipe:
+        openai_recipe_service = OpenAIRecipeService(self.repos, self.user, self.household, self.translator)
+        with get_temporary_path() as temp_path:
+            local_images: list[Path] = []
+            for image in images:
+                with temp_path.joinpath(image.filename).open("wb") as buffer:
+                    shutil.copyfileobj(image.file, buffer)
+                local_images.append(temp_path.joinpath(image.filename))
+
+            recipe_data = await openai_recipe_service.build_recipe_from_images(
+                local_images, translate_language=translate_language
+            )
+
+            recipe = self.create_one(recipe_data)
+            data_service = RecipeDataService(recipe.id)
+
+            with open(local_images[0], "rb") as f:
+                data_service.write_image(f.read(), "webp")
+            return recipe
+
     def duplicate_one(self, old_slug: str, dup_data: RecipeDuplicate) -> Recipe:
         """Duplicates a recipe and returns the new recipe."""
 
@@ -385,3 +413,68 @@ class RecipeService(BaseService):
     def render_template(self, recipe: Recipe, temp_dir: Path, template: str) -> Path:
         t_service = TemplateService(temp_dir)
         return t_service.render(recipe, template)
+
+
+class OpenAIRecipeService(RecipeServiceBase):
+    def _convert_recipe(self, openai_recipe: OpenAIRecipe) -> Recipe:
+        return Recipe(
+            user_id=self.user.id,
+            group_id=self.user.group_id,
+            household_id=self.household.id,
+            name=openai_recipe.name,
+            slug=slugify(openai_recipe.name),
+            description=openai_recipe.description,
+            recipe_yield=openai_recipe.recipe_yield,
+            total_time=openai_recipe.total_time,
+            prep_time=openai_recipe.prep_time,
+            perform_time=openai_recipe.perform_time,
+            recipe_ingredient=[
+                RecipeIngredient(title=ingredient.title, note=ingredient.text)
+                for ingredient in openai_recipe.ingredients
+                if ingredient.text
+            ],
+            recipe_instructions=[
+                RecipeStep(title=instruction.title, text=instruction.text)
+                for instruction in openai_recipe.instructions
+                if instruction.text
+            ],
+            notes=[RecipeNote(title=note.title or "", text=note.text) for note in openai_recipe.notes if note.text],
+        )
+
+    async def build_recipe_from_images(self, images: list[Path], translate_language: str | None) -> Recipe:
+        settings = get_app_settings()
+        if not (settings.OPENAI_ENABLED and settings.OPENAI_ENABLE_IMAGE_SERVICES):
+            raise ValueError("OpenAI image services are not available")
+
+        openai_service = OpenAIService()
+        prompt = openai_service.get_prompt(
+            "recipes.parse-recipe-image",
+            data_injections=[
+                OpenAIDataInjection(
+                    description=(
+                        "This is the JSON response schema. You must respond in valid JSON that follows this schema. "
+                        "Your payload should be as compact as possible, eliminating unncessesary whitespace. "
+                        "Any fields with default values which you do not populate should not be in the payload."
+                    ),
+                    value=OpenAIRecipe,
+                )
+            ],
+        )
+
+        openai_images = [OpenAILocalImage(filename=os.path.basename(image), path=image) for image in images]
+        message = (
+            f"Please extract the recipe from the {'images' if len(openai_images) > 1 else 'image'} provided."
+            "There should be exactly one recipe."
+        )
+
+        if translate_language:
+            message += f" Please translate the recipe to {translate_language}."
+
+        response = await openai_service.get_response(prompt, message, images=openai_images, force_json_response=True)
+        try:
+            openai_recipe = OpenAIRecipe.parse_openai_response(response)
+            recipe = self._convert_recipe(openai_recipe)
+        except Exception as e:
+            raise ValueError("Unable to parse recipe from image") from e
+
+        return recipe

@@ -28,6 +28,7 @@
 
 <script lang="ts">
 import { defineComponent, useRouter, useContext, computed, useRoute } from "@nuxtjs/composition-api";
+import { useAppInfo } from "~/composables/api";
 import { MenuItem } from "~/components/global/BaseOverflowButton.vue";
 import AdvancedOnly from "~/components/global/AdvancedOnly.vue";
 
@@ -37,7 +38,10 @@ export default defineComponent({
   setup() {
     const { $auth, $globals, i18n } = useContext();
 
-    const subpages: MenuItem[] = [
+    const appInfo = useAppInfo();
+    const enableOpenAIImages = computed(() => appInfo.value?.enableOpenaiImageServices);
+
+    const subpages = computed<MenuItem[]>(() => [
       {
         icon: $globals.icons.link,
         text: i18n.tc("recipe.import-with-url"),
@@ -47,6 +51,12 @@ export default defineComponent({
         icon: $globals.icons.link,
         text: i18n.tc("recipe.bulk-url-import"),
         value: "bulk",
+      },
+      {
+        icon: $globals.icons.fileImage,
+        text: i18n.tc("recipe.create-from-image"),
+        value: "image",
+        hide: !enableOpenAIImages.value,
       },
       {
         icon: $globals.icons.edit,
@@ -63,7 +73,7 @@ export default defineComponent({
         text: i18n.tc("recipe.debug-scraper"),
         value: "debug",
       },
-    ];
+    ]);
 
     const route = useRoute();
     const router = useRouter();

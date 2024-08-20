@@ -1,65 +1,65 @@
 [
     {
-        "name": "Produce"
+        "name": "Rau củ"
     },
     {
-        "name": "Grains"
+        "name": "Các loại hạt"
     },
     {
-        "name": "Fruits"
+        "name": "Trái cây"
     },
     {
-        "name": "Vegetables"
+        "name": "Rau củ"
     },
     {
-        "name": "Meat"
+        "name": "Thịt"
     },
     {
-        "name": "Seafood"
+        "name": "Hải sản"
     },
     {
-        "name": "Beverages"
+        "name": "Đồ uống"
     },
     {
-        "name": "Baked Goods"
+        "name": "Bánh"
     },
     {
-        "name": "Canned Goods"
+        "name": "Đồ hộp"
     },
     {
-        "name": "Condiments"
+        "name": "Đồ gia vị"
     },
     {
-        "name": "Confectionary"
+        "name": "Kẹo"
     },
     {
-        "name": "Dairy Products"
+        "name": "Sản phẩm từ sữa"
     },
     {
-        "name": "Frozen Foods"
+        "name": "Đồ đông lạnh"
     },
     {
-        "name": "Health Foods"
+        "name": "Đồ tốt cho sức khỏe"
     },
     {
-        "name": "Household"
+        "name": "Gia đình"
     },
     {
-        "name": "Meat Products"
+        "name": "Sản phẩm thịt"
     },
     {
-        "name": "Snacks"
+        "name": "Đồ ăn vặt"
     },
     {
-        "name": "Spices"
+        "name": "Gia vị"
     },
     {
-        "name": "Sweets"
+        "name": "Đồ ngọt"
     },
     {
-        "name": "Alcohol"
+        "name": "Cồn"
     },
     {
-        "name": "Other"
+        "name": "Khác"
     }
 ]

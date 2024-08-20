@@ -211,7 +211,7 @@
     "clipboard-copy-failure": "未能复制到剪切板。",
     "confirm-delete-generic-items": "你确定删除以下条目吗？",
     "organizers": "管理器",
-    "caution": "Caution"
+    "caution": "注意！"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "您确定要删除<b>{groupName}<b/>吗？",
@@ -382,7 +382,7 @@
       "description-long": "Mealie可以从“My Recipe Box\"导入食谱。把你的食谱导出为CSV模式，然后在下面上传.csv文件。"
     },
     "recipekeeper": {
-      "title": "Recipe Keeper",
+      "title": "食谱保存者",
       "description-long": "Mealie can import recipes from Recipe Keeper. Export your recipes in zip format, then upload the .zip file below."
     }
   },
@@ -561,7 +561,12 @@
     "create-recipe-description": "从头创建一个新食谱。",
     "create-recipes": "创建食谱",
     "import-with-zip": "使用 .zip 导入",
-    "create-recipe-from-an-image": "用图片创建食谱",
+    "create-recipe-from-an-image": "Create Recipe from an Image",
+    "create-recipe-from-an-image-description": "Create a recipe by uploading an image of it. Mealie will attempt to extract the text from the image using AI and create a recipe from it.",
+    "crop-and-rotate-the-image": "Crop and rotate the image so that only the text is visible, and it's in the correct orientation.",
+    "create-from-image": "Create from Image",
+    "should-translate-description": "Translate the recipe into my language",
+    "please-wait-image-procesing": "Please wait, the image is processing. This may take some time.",
     "bulk-url-import": "批量URL导入",
     "debug-scraper": "调试刮削器",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "通过名称创建食谱，食谱不可重名。",

@@ -64,7 +64,7 @@
     "something-went-wrong": "Vyskytla sa chyba",
     "subscribed-events": "Prihlásené akcie",
     "test-message-sent": "Testovacia správa bola odoslaná",
-    "message-sent": "Message Sent",
+    "message-sent": "Správa odoslaná",
     "new-notification": "Nové upozornenie",
     "event-notifiers": "Upozornenia udalostí",
     "apprise-url-skipped-if-blank": "Informačná URL (preskočená, ak je prázdna)",
@@ -161,7 +161,7 @@
     "test": "Otestovať",
     "themes": "Motívy",
     "thursday": "Štvrtok",
-    "title": "Title",
+    "title": "Názov",
     "token": "Token",
     "tuesday": "Utorok",
     "type": "Typ",
@@ -210,8 +210,8 @@
     "unsaved-changes": "Posledne vykonané zmeny nie sú uložené. Želáte si ich uložiť alebo zrušiť?",
     "clipboard-copy-failure": "Skopírovanie do schránky zlyhalo.",
     "confirm-delete-generic-items": "Ste si istý, že chcete odstrániť nasledujúce položky?",
-    "organizers": "Organizers",
-    "caution": "Caution"
+    "organizers": "Organizátori",
+    "caution": "Výstraha"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Naozaj chcete odstrániť <b>{groupName}<b/>?",
@@ -292,8 +292,8 @@
     "mealplan-updated": "Jedálniček aktualizovaný",
     "no-meal-plan-defined-yet": "Nebol vytvorený žiadny jedálniček",
     "no-meal-planned-for-today": "Pre dnešok žiadne jedlo v jedálničku",
-    "numberOfDays-hint": "Number of days on page load",
-    "numberOfDays-label": "Default Days",
+    "numberOfDays-hint": "Počet dní na stránke",
+    "numberOfDays-label": "Predvolený počet dní",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "V jedálničkoch budú použité iba recepty z nasledovných kategórií",
     "planner": "Plánovač",
     "quick-week": "Rýchly návrh týždňa",
@@ -368,7 +368,7 @@
     "choose-migration-type": "Vyberte spôsob migrácie",
     "tag-all-recipes": "Označte všetky recepty štítkom {tag-name}",
     "nextcloud-text": "Recepty z Nextcloud-u je možné importovať priamo zo zip-súboru, ktorý obsahuje dáta uložené na Nextcloud-e. Pozrite sa nižšie na príklad adresárovej štruktúry, aby ste sa uistili, že je možné vaše recepty importovať.",
-    "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
+    "chowdown-text": "Mealie natívne podporuje formát úložiska chowdown. Stiahnite si repozitár ako súbor .zip a nahrajte ho nižšie.",
     "recipe-1": "Recept 1",
     "recipe-2": "Recept 2",
     "paprika-text": "Mealie dokáže importovať recepty z aplikácie Paprika. Exportujte vaše recepty z Papriky, premenujte príponu exportovaného súboru na .zip a nahrajte ho nižšie.",
@@ -378,12 +378,12 @@
       "description-long": "Mealie dokáže importovať recepty z Plan To Eat."
     },
     "myrecipebox": {
-      "title": "My Recipe Box",
-      "description-long": "Mealie can import recipes from My Recipe Box. Export your recipes in CSV format, then upload the .csv file below."
+      "title": "Môj receptár",
+      "description-long": "Mealie dokáže importovať recepty z My Recipe Box. Exportujte recepty vo formáte CSV a nižšie nahrajte csv súbor."
     },
     "recipekeeper": {
-      "title": "Recipe Keeper",
-      "description-long": "Mealie can import recipes from Recipe Keeper. Export your recipes in zip format, then upload the .zip file below."
+      "title": "Strážca receptov",
+      "description-long": "Mealie dokáže importovať recepty z Recipe Keeper. Exportujte recepty vo formáte Zip a nižšie nahrajte zip súbor."
     }
   },
   "new-recipe": {
@@ -449,8 +449,8 @@
     "ingredients": "Suroviny",
     "insert-ingredient": "Vložiť prísadu",
     "insert-section": "Vložiť sekciu",
-    "insert-above": "Insert Above",
-    "insert-below": "Insert Below",
+    "insert-above": "Vložte vyššie",
+    "insert-below": "Vložte nižšie",
     "instructions": "Postup",
     "key-name-required": "Názov kľúča je povinným údajom",
     "landscape-view-coming-soon": "Orientácia na šírku (čoskoro)",
@@ -561,7 +561,12 @@
     "create-recipe-description": "Vytvoriť nový recept od začiatku.",
     "create-recipes": "Vytvoriť recept",
     "import-with-zip": "Importovať .zip súbor",
-    "create-recipe-from-an-image": "Vytvoriť recept z obrázku",
+    "create-recipe-from-an-image": "Create Recipe from an Image",
+    "create-recipe-from-an-image-description": "Create a recipe by uploading an image of it. Mealie will attempt to extract the text from the image using AI and create a recipe from it.",
+    "crop-and-rotate-the-image": "Crop and rotate the image so that only the text is visible, and it's in the correct orientation.",
+    "create-from-image": "Create from Image",
+    "should-translate-description": "Translate the recipe into my language",
+    "please-wait-image-procesing": "Please wait, the image is processing. This may take some time.",
     "bulk-url-import": "Hromadný URL import",
     "debug-scraper": "Debugovať scraper",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Vytvoriť recept zadaním názvu. Všetky recepty musia mať jedinečné názvy.",
@@ -586,8 +591,8 @@
     "report-deletion-failed": "Vymazanie reportov zlyhalo",
     "recipe-debugger": "Debugger receptov",
     "recipe-debugger-description": "Vezmite URL odkaz receptu, ktorý chcete opraviť a vložte ju sem. Recept bude stiahnutý z URL odkazu pomocou scrapera receptov a zobrazí sa výsledok sťahovania. V prípade, ak nevidíte žiadne zobrazené dáta, stránka z URL odkazu nie je podporovaná Mealie alebo jej scrapovacou knižnicou.",
-    "use-openai": "Use OpenAI",
-    "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
+    "use-openai": "Použite OpenAI",
+    "recipe-debugger-use-openai-description": "Použite OpenAI na analýzu výsledkov namiesto spoliehania sa na knižnicu scraper. Pri vytváraní receptu cez URL sa to vykoná automaticky, ak knižnica scraper zlyhá, ale tu to môžete otestovať manuálne.",
     "debug": "Debugovať",
     "tree-view": "Stromový pohľad",
     "recipe-yield": "Počet porcií",
@@ -596,21 +601,21 @@
     "screen-awake": "Ponechať obrazovku stále zapnutú",
     "remove-image": "Odstrániť obrázok",
     "nextStep": "Ďalší krok",
-    "recipe-actions": "Recipe Actions",
+    "recipe-actions": "Akcie s receptom",
     "parser": {
-      "experimental-alert-text": "Mealie uses natural language processing to parse and create units and food items for your recipe ingredients. This feature is experimental and may not always work as expected. If you prefer not to use the parsed results, you can select 'Cancel' and your changes will not be saved.",
-      "ingredient-parser": "Ingredient Parser",
-      "explanation": "To use the ingredient parser, click the 'Parse All' button to start the process. Once the processed ingredients are available, you can review the items and verify that they were parsed correctly. The model's confidence score is displayed on the right of the item title. This score is an average of all the individual scores and may not always be completely accurate.",
-      "alerts-explainer": "Alerts will be displayed if a matching foods or unit is found but does not exists in the database.",
-      "select-parser": "Select Parser",
-      "natural-language-processor": "Natural Language Processor",
-      "brute-parser": "Brute Parser",
-      "openai-parser": "OpenAI Parser",
-      "parse-all": "Parse All",
-      "no-unit": "No unit",
-      "missing-unit": "Create missing unit: {unit}",
-      "missing-food": "Create missing food: {food}",
-      "no-food": "No Food"
+      "experimental-alert-text": "Mealie používa spracovanie prirodzeného jazyka na analýzu a vytváranie jednotiek a potravín pre ingrediencie vášho receptu. Táto funkcia je experimentálna a nemusí vždy fungovať podľa očakávania. Ak nechcete použiť analyzované výsledky, môžete vybrať možnosť „Zrušiť“ a vaše zmeny sa neuložia.",
+      "ingredient-parser": "Parser ingrediencií",
+      "explanation": "Ak chcete použiť parser ingrediencií, kliknutím na tlačidlo „Spracovať všetko“ spustite proces parsovania. Keď budú spracované ingrediencie k dispozícii, môžete položky skontrolovať a overiť, či boli správne analyzované. Skóre spoľahlivosti modelu sa zobrazuje napravo od názvu položky. Toto skóre je priemerom všetkých individuálnych skóre a nemusí byť vždy úplne presné.",
+      "alerts-explainer": "Upozornenia sa zobrazia, ak sa nájde zodpovedajúce jedlo alebo jednotka, ktoré v databáze ešte neexistuje.",
+      "select-parser": "Vyber si parser",
+      "natural-language-processor": "Spracovanie prirodzeného jazyka",
+      "brute-parser": "Parsovanie hrubou silou",
+      "openai-parser": "OpenAI parser",
+      "parse-all": "Spracovať všetko",
+      "no-unit": "Bez jednotky",
+      "missing-unit": "Vytvoriť chýbajúcu jednotku: {unit}",
+      "missing-food": "Vytvoriť chýbajúcu surovinu: {food}",
+      "no-food": "Žiadne suroviny"
     }
   },
   "search": {
@@ -640,7 +645,7 @@
       "backup-created-at-response-export_path": "Záloha vytvorená v {path}",
       "backup-deleted": "Záloha bola odstránená",
       "restore-success": "Obnovenie bolo úspešné",
-      "restore-fail": "Restore failed. Check your server logs for more details",
+      "restore-fail": "Obnovenie zlyhalo. Ďalšie podrobnosti nájdete v denníkoch servera",
       "backup-tag": "Označenie zálohy",
       "create-heading": "Vytvoriť zálohu",
       "delete-backup": "Odstrániť zálohu",
@@ -778,9 +783,9 @@
     "oidc-ready": "OIDC pripravené",
     "oidc-ready-error-text": "Niektoré z OIDC hodnôt nie sú nakonfigurované. Toto varovanie je možné ignorovať, ak nepoužívate OIDC autentifikáciu.",
     "oidc-ready-success-text": "Všetky potrebné OIDC premenné sú nastavené.",
-    "openai-ready": "OpenAI Ready",
-    "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
-    "openai-ready-success-text": "Required OpenAI variables are all set."
+    "openai-ready": "OpenAI pripravené",
+    "openai-ready-error-text": "Nie všetky hodnoty pre OpenAI sú nakonfigurované. Toto môžete ignorovať, ak nepoužívate funkcie OpenAI.",
+    "openai-ready-success-text": "Všetky požadované premenné pre OpenAI sú nastavené."
   },
   "shopping-list": {
     "all-lists": "Všetky zoznamy",
@@ -794,7 +799,7 @@
     "food": "Jedlo",
     "note": "Poznámka",
     "label": "Štítok",
-    "save-label": "Save Label",
+    "save-label": "Uložiť štítok",
     "linked-item-warning": "Táto položka je prepojená s jedným alebo viacerými receptami. Zmena jednotiek alebo jedál bude viesť k neželaným zmenám pri pridávaní alebo odoberaní receptov z tohto zoznamu.",
     "toggle-food": "Prepnúť jedlo",
     "manage-labels": "Spravovať štítky",
@@ -810,11 +815,11 @@
     "items-checked-count": "Nie sú označené žiadne položky|Jedna označená položka|{count} označených položiek",
     "no-label": "Žiadny štítok",
     "completed-on": "Ukončené {date}",
-    "you-are-offline": "You are offline",
-    "you-are-offline-description": "Not all features are available while offline. You can still add, modify, and remove items, but you will not be able to sync your changes to the server until you are back online.",
-    "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
-    "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
-    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
+    "you-are-offline": "Nemáte prístup k internetu",
+    "you-are-offline-description": "V režime offline nie sú dostupné všetky funkcie. Stále môžete pridávať, upravovať a odstraňovať položky, ale nebudete môcť synchronizovať svoje zmeny so serverom, kým nebudete opäť online.",
+    "are-you-sure-you-want-to-check-all-items": "Naozaj chcete označiť všetky položky?",
+    "are-you-sure-you-want-to-uncheck-all-items": "Naozaj chcete zrušiť označenie všetkých položiek?",
+    "are-you-sure-you-want-to-delete-checked-items": "Naozaj chcete odstrániť všetky označené položky?"
   },
   "sidebar": {
     "all-recipes": "Všetky recepty",
@@ -958,7 +963,7 @@
     "authentication-method-hint": "Toto určuje ako bude overený užívateľ. Ak si nie ste istý, zvoľte 'Mealie'",
     "permissions": "Povolenia",
     "administrator": "Administrátor",
-    "user-can-invite-other-to-group": "User can invite others to group",
+    "user-can-invite-other-to-group": "Používateľ môže pozvať ostatných do skupiny",
     "user-can-manage-group": "Užívateľ môže spravovať skupinu",
     "user-can-organize-group-data": "Užívateľ môže spravovať údaje skupiny",
     "enable-advanced-features": "Povoliť pokročilé funkcie",
@@ -985,13 +990,13 @@
       "source-food": "Zdrojové jedlo",
       "target-food": "Cieľové jedlo",
       "create-food": "Vytvoriť jedlo",
-      "food-label": "Značka jedla",
+      "food-label": "Štítok jedla",
       "edit-food": "Upraviť jedlo",
       "food-data": "Údaje o jedle",
       "example-food-singular": "napr.: cibuľa",
       "example-food-plural": "napr.: cibule",
-      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels.",
-      "on-hand-checkbox-label": "Setting this flag will make this food unchecked by default when adding a recipe to a shopping list."
+      "label-overwrite-warning": "Toto priradí zvolený štítok všetkým vybraným potravinám a potenciálne prepíše vaše existujúce štítky.",
+      "on-hand-checkbox-label": "Nastavením tohto príznaku bude táto surovina, pri pridávaní receptu do nákupného zoznamu, predvolene nezačiarknutá."
     },
     "units": {
       "seed-dialog-text": "Naplniť databázu z bežnými štítkami podla vášho lokálneho jazyka.",
@@ -1017,10 +1022,10 @@
     },
     "labels": {
       "seed-dialog-text": "Naplniť databázu z bežnými štítkami podla vášho lokálneho jazyka.",
-      "edit-label": "Upraviť značku",
-      "new-label": "Nová značka",
-      "labels": "Značky",
-      "assign-label": "Assign Label"
+      "edit-label": "Upraviť štítok",
+      "new-label": "Nový štítok",
+      "labels": "Štítky",
+      "assign-label": "Priradiť štítok"
     },
     "recipes": {
       "purge-exports": "Vyčistiť exporty",
@@ -1044,10 +1049,10 @@
       "source-unit-will-be-deleted": "Zdroj bude vymazaný"
     },
     "recipe-actions": {
-      "recipe-actions-data": "Recipe Actions Data",
-      "new-recipe-action": "New Recipe Action",
-      "edit-recipe-action": "Edit Recipe Action",
-      "action-type": "Action Type"
+      "recipe-actions-data": "Dáta akcií receptu",
+      "new-recipe-action": "Nová akcia receptu",
+      "edit-recipe-action": "Upraviť akciu receptu",
+      "action-type": "Typ akcie"
     },
     "create-alias": "Vytvoriť alias",
     "manage-aliases": "Spravovať aliasy",
@@ -1217,21 +1222,21 @@
     }
   },
   "profile": {
-    "welcome-user": "👋 Welcome, {0}!",
+    "welcome-user": "👋 Vitajte, {0}!",
     "description": "Spravujte svoj profil, recepty a nastavenia skupín.",
     "get-invite-link": "Odkaz s pozvánkou",
     "get-public-link": "Vytvoriť verejný odkaz",
     "account-summary": "Zhrnutie účtu",
-    "account-summary-description": "Here's a summary of your group's information.",
+    "account-summary-description": "Tu je súhrn informácií o vašej skupine.",
     "group-statistics": "Štatistiky skupiny",
     "group-statistics-description": "Štatistiky vašej skupiny poskytujú ďalší pohľad na to, ako využívate Mealie.",
     "storage-capacity": "Kapacita úložiska",
     "storage-capacity-description": "Kapacita vášho úložiska sa počíta ako celkový objem obrázkov a príloh, ktoré máte nahraté.",
     "personal": "Osobné",
-    "personal-description": "These are settings that are personal to you. Changes here won't affect other users.",
+    "personal-description": "Toto sú vaše osobné nastavenia. Zmeny týchto nastavení neovplyvnia ostatných používateľov.",
     "user-settings": "Užívateľské nastavenia",
-    "user-settings-description": "Manage your preferences, change your password, and update your email.",
-    "api-tokens-description": "Manage your API Tokens for access from external applications.",
+    "user-settings-description": "Spravujte svoje preferencie, zmeňte svoje heslo a aktualizujte svoj e-mail.",
+    "api-tokens-description": "Spravujte svoje API tokeny pre prístup z externých aplikácií.",
     "group-description": "Tieto položky sú zdieľané v rámci vašej skupiny. Zmena ktorejkoľvek z nich sa prejaví v celej skupine!",
     "group-settings": "Nastavenia skupiny",
     "group-settings-description": "Spravujte bežné nastavenia vašej skupiny ako napr. jedálniček, či nastavenia súkromia.",
@@ -1242,9 +1247,9 @@
     "notifiers": "Notifikátory",
     "notifiers-description": "Nastaviť e-mail a push notifikácie, ktoré sa spúšťajú pri špecifických udalostiach.",
     "manage-data": "Spravovať dáta",
-    "manage-data-description": "Manage your Mealie data; Foods, Units, Categories, Tags and more.",
+    "manage-data-description": "Spravujte svoje údaje, jedlá, jednotky, kategórie, štítky a ďalšie.",
     "data-migrations": "Migrácie dát",
-    "data-migrations-description": "Migrate your existing data from other applications like Nextcloud Recipes and Chowdown.",
+    "data-migrations-description": "Migrujte svoje existujúce údaje z iných aplikácií, ako sú Nextcloud Recipes a Chowdown.",
     "email-sent": "E-mail Odoslaný",
     "error-sending-email": "Chyba pri odosielaní e-mailu",
     "personal-information": "Osobné údaje",
