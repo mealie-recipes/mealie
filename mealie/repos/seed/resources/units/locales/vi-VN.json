@@ -1,18 +1,18 @@
 {
     "teaspoon": {
-        "name": "teaspoon",
+        "name": "muỗng cà phê",
         "description": "",
         "abbreviation": "tsp"
     },
     "tablespoon": {
-        "name": "tablespoon",
+        "name": "muỗng canh",
         "description": "",
         "abbreviation": "tbsp"
     },
     "cup": {
-        "name": "cup",
+        "name": "cốc",
         "description": "",
-        "abbreviation": "cup"
+        "abbreviation": "cốc"
     },
     "fluid-ounce": {
         "name": "fluid ounce",
@@ -40,7 +40,7 @@
         "abbreviation": "ml"
     },
     "liter": {
-        "name": "liter",
+        "name": "lít",
         "description": "",
         "abbreviation": "l"
     },
@@ -65,7 +65,7 @@
         "abbreviation": "kg"
     },
     "milligram": {
-        "name": "milligram",
+        "name": "miligram",
         "description": "",
         "abbreviation": "mg"
     },
