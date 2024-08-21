@@ -1,13 +1,13 @@
 {
     "teaspoon": {
         "name": "Teelöffel",
-        "plural_name": "teaspoons",
+        "plural_name": "Teelöffel",
         "description": "",
         "abbreviation": "TL"
     },
     "tablespoon": {
         "name": "Esslöffel",
-        "plural_name": "tablespoons",
+        "plural_name": "Esslöffel",
         "description": "",
         "abbreviation": "EL"
     },
@@ -43,13 +43,13 @@
     },
     "milliliter": {
         "name": "Milliliter",
-        "plural_name": "milliliters",
+        "plural_name": "Milliliter",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
         "name": "Liter",
-        "plural_name": "liters",
+        "plural_name": "Liter",
         "description": "",
         "abbreviation": "L"
     },
@@ -68,25 +68,25 @@
     },
     "gram": {
         "name": "Gramm",
-        "plural_name": "grams",
+        "plural_name": "Gramm",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
         "name": "Kilogramm",
-        "plural_name": "kilograms",
+        "plural_name": "Kilogramm",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
         "name": "Milligramm",
-        "plural_name": "milligrams",
+        "plural_name": "Milligramm",
         "description": "",
         "abbreviation": "mg"
     },
     "splash": {
         "name": "Spritzer",
-        "plural_name": "splashes",
+        "plural_name": "Spritzer",
         "description": "",
         "abbreviation": ""
     },
@@ -98,43 +98,43 @@
     },
     "serving": {
         "name": "Portion",
-        "plural_name": "servings",
+        "plural_name": "Portionen",
         "description": "",
         "abbreviation": ""
     },
     "head": {
         "name": "Kopf",
-        "plural_name": "heads",
+        "plural_name": "Köpfe",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
         "name": "Zehe",
-        "plural_name": "cloves",
+        "plural_name": "Zehen",
         "description": "",
         "abbreviation": ""
     },
     "can": {
         "name": "Dose",
-        "plural_name": "cans",
+        "plural_name": "Dosen",
         "description": "",
         "abbreviation": ""
     },
     "bunch": {
-        "name": "bunch",
-        "plural_name": "bunches",
+        "name": "Bund",
+        "plural_name": "Bünde",
         "description": "",
         "abbreviation": ""
     },
     "pack": {
-        "name": "pack",
-        "plural_name": "packs",
+        "name": "Packung",
+        "plural_name": "Packungen",
         "description": "",
         "abbreviation": ""
     },
     "pinch": {
-        "name": "pinch",
-        "plural_name": "pinches",
+        "name": "Prise",
+        "plural_name": "Prisen",
         "description": "",
         "abbreviation": ""
     }
