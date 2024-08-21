@@ -3,7 +3,7 @@ authors = ["Hayden <hay-kot@pm.me>"]
 description = "A Recipe Manager"
 license = "AGPL"
 name = "mealie"
-version = "1.11.0"
+version = "1.12.0"
 
 [tool.poetry.scripts]
 start = "mealie.app:main"
@@ -64,7 +64,7 @@ pylint = "^3.0.0"
 pytest = "^8.0.0"
 pytest-asyncio = "^0.23.0"
 rich = "^13.5.2"
-ruff = "^0.5.0"
+ruff = "^0.6.0"
 types-PyYAML = "^6.0.4"
 types-python-dateutil = "^2.8.18"
 types-python-slugify = "^6.0.0"
@@ -139,23 +139,29 @@ target-version = "py310"
 # Enable Pyflakes `E` and `F` codes by default.
 ignore = ["F403", "TID252", "B008"]
 select = [
+  "B",  # flake8-bugbear
+  "C4", # McCabe complexity
+  "C90", # flake8-comprehensions
+  "DTZ", # flake8-datetimez
   "E",  # pycodestyles
   "F",  # pyflakes
   "I",  # isort
   "T",  # flake8-print
   "UP", # pyupgrade
-  "B",  # flake8-bugbear
-  "DTZ", # flake8-datetimez
   # "ANN", # flake8-annotations
-  # "C", # McCabe complexity
-  # "RUF", # Ruff specific
   # "BLE", # blind-except
+  # "RUF", # Ruff specific
 ]
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["E402", "E501"]
+"alembic/versions/2022*" = ["E501"]
+"alembic/versions/2023*" = ["E501"]
+"dev/scripts/all_recipes_stress_test.py" = ["E501"]
 "ldap_provider.py" = ["UP032"]
+"tests/conftest.py" = ["E402"]
+"tests/utils/routes/__init__.py" = ["F401"]
 
 [tool.ruff.lint.mccabe]
 # Unlike Flake8, default to a complexity level of 10.
-max-complexity = 10
+max-complexity = 24  # Default is 10.

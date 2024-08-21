@@ -18,7 +18,7 @@ Create an API token from Mealie's User Settings page (https://hay-kot.github.io/
 #### 2. Create Home Assistant Sensors
 
 Create REST sensors in home assistant to get the details of today's meal.
-We will create sensors to get the name and ID of the first meal in today's meal plan (note that this may not be what is wanted if there is more than one meal planned for the day). We need the ID as well as the name to be able to retreive the image for the meal.
+We will create sensors to get the name and ID of the first meal in today's meal plan (note that this may not be what is wanted if there is more than one meal planned for the day). We need the ID as well as the name to be able to retrieve the image for the meal.
 
 Make sure the url and port (`http://mealie:9000` ) matches your installation's address and _API_ port.
 

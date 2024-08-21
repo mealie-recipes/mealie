@@ -308,7 +308,7 @@ def test_pagination_filter_in_advanced(database: AllRepositories, unique_user: T
         TagSave(group_id=unique_user.group_id, name=slug2, slug=slug2),
     ]
 
-    tag_1, tag_2 = [database.tags.create(tag) for tag in tags]
+    tag_1, tag_2 = (database.tags.create(tag) for tag in tags)
 
     # Bootstrap the database with recipes
     slug = random_string()
@@ -472,7 +472,7 @@ def test_pagination_filter_logical_namespace_conflict(database: AllRepositories,
         CategorySave(group_id=unique_user.group_id, name=random_string(10)),
         CategorySave(group_id=unique_user.group_id, name=random_string(10)),
     ]
-    category_1, category_2 = [database.categories.create(category) for category in categories]
+    category_1, category_2 = (database.categories.create(category) for category in categories)
 
     # Bootstrap the database with recipes
     slug = random_string()
@@ -528,7 +528,7 @@ def test_pagination_filter_datetimes(
     dt = past_dt.isoformat()
     query = PaginationQuery(page=1, per_page=-1, query_filter=f'createdAt>"{dt}"')
     unit_results = units_repo.page_all(query).items
-    unit_ids = set(unit.id for unit in unit_results)
+    unit_ids = {unit.id for unit in unit_results}
     assert len(unit_ids) == 3
     assert unit_1.id in unit_ids
     assert unit_2.id in unit_ids
@@ -537,7 +537,7 @@ def test_pagination_filter_datetimes(
     dt = unit_1.created_at.isoformat()  # type: ignore
     query = PaginationQuery(page=1, per_page=-1, query_filter=f'createdAt>"{dt}"')
     unit_results = units_repo.page_all(query).items
-    unit_ids = set(unit.id for unit in unit_results)
+    unit_ids = {unit.id for unit in unit_results}
     assert len(unit_ids) == 2
     assert unit_1.id not in unit_ids
     assert unit_2.id in unit_ids
@@ -546,7 +546,7 @@ def test_pagination_filter_datetimes(
     dt = unit_2.created_at.isoformat()  # type: ignore
     query = PaginationQuery(page=1, per_page=-1, query_filter=f'createdAt>"{dt}"')
     unit_results = units_repo.page_all(query).items
-    unit_ids = set(unit.id for unit in unit_results)
+    unit_ids = {unit.id for unit in unit_results}
     assert len(unit_ids) == 1
     assert unit_1.id not in unit_ids
     assert unit_2.id not in unit_ids
@@ -555,14 +555,14 @@ def test_pagination_filter_datetimes(
     dt = unit_3.created_at.isoformat()  # type: ignore
     query = PaginationQuery(page=1, per_page=-1, query_filter=f'createdAt>"{dt}"')
     unit_results = units_repo.page_all(query).items
-    unit_ids = set(unit.id for unit in unit_results)
+    unit_ids = {unit.id for unit in unit_results}
     assert len(unit_ids) == 0
 
     future_dt: datetime = unit_3.created_at + timedelta(seconds=1)  # type: ignore
     dt = future_dt.isoformat()
     query = PaginationQuery(page=1, per_page=-1, query_filter=f'createdAt>"{dt}"')
     unit_results = units_repo.page_all(query).items
-    unit_ids = set(unit.id for unit in unit_results)
+    unit_ids = {unit.id for unit in unit_results}
     assert len(unit_ids) == 0
 
     ## GTE
@@ -570,7 +570,7 @@ def test_pagination_filter_datetimes(
     dt = past_dt.isoformat()
     query = PaginationQuery(page=1, per_page=-1, query_filter=f'createdAt>="{dt}"')
     unit_results = units_repo.page_all(query).items
-    unit_ids = set(unit.id for unit in unit_results)
+    unit_ids = {unit.id for unit in unit_results}
     assert len(unit_ids) == 3
     assert unit_1.id in unit_ids
     assert unit_2.id in unit_ids
@@ -579,7 +579,7 @@ def test_pagination_filter_datetimes(
     dt = unit_1.created_at.isoformat()  # type: ignore
     query = PaginationQuery(page=1, per_page=-1, query_filter=f'createdAt>="{dt}"')
     unit_results = units_repo.page_all(query).items
-    unit_ids = set(unit.id for unit in unit_results)
+    unit_ids = {unit.id for unit in unit_results}
     assert len(unit_ids) == 3
     assert unit_1.id in unit_ids
     assert unit_2.id in unit_ids
@@ -588,7 +588,7 @@ def test_pagination_filter_datetimes(
     dt = unit_2.created_at.isoformat()  # type: ignore
     query = PaginationQuery(page=1, per_page=-1, query_filter=f'createdAt>="{dt}"')
     unit_results = units_repo.page_all(query).items
-    unit_ids = set(unit.id for unit in unit_results)
+    unit_ids = {unit.id for unit in unit_results}
     assert len(unit_ids) == 2
     assert unit_1.id not in unit_ids
     assert unit_2.id in unit_ids
@@ -597,7 +597,7 @@ def test_pagination_filter_datetimes(
     dt = unit_3.created_at.isoformat()  # type: ignore
     query = PaginationQuery(page=1, per_page=-1, query_filter=f'createdAt>="{dt}"')
     unit_results = units_repo.page_all(query).items
-    unit_ids = set(unit.id for unit in unit_results)
+    unit_ids = {unit.id for unit in unit_results}
     assert len(unit_ids) == 1
     assert unit_1.id not in unit_ids
     assert unit_2.id not in unit_ids
@@ -607,7 +607,7 @@ def test_pagination_filter_datetimes(
     dt = future_dt.isoformat()
     query = PaginationQuery(page=1, per_page=-1, query_filter=f'createdAt>="{dt}"')
     unit_results = units_repo.page_all(query).items
-    unit_ids = set(unit.id for unit in unit_results)
+    unit_ids = {unit.id for unit in unit_results}
     assert len(unit_ids) == 0
 
 
@@ -931,7 +931,7 @@ def test_pagination_filter_dates(api_client: TestClient, unique_user: TestUser):
 
     ## Yesterday
     params = {
-        f"page": 1,
+        "page": 1,
         "perPage": -1,
         "queryFilter": f"date >= {yesterday.strftime('%Y-%m-%d')}",
     }
@@ -940,12 +940,12 @@ def test_pagination_filter_dates(api_client: TestClient, unique_user: TestUser):
     response_json = response.json()
 
     assert len(response_json["items"]) == 2
-    fetched_mealplan_titles = set(mp["title"] for mp in response_json["items"])
+    fetched_mealplan_titles = {mp["title"] for mp in response_json["items"]}
     assert mealplan_today.title in fetched_mealplan_titles
     assert mealplan_tomorrow.title in fetched_mealplan_titles
 
     params = {
-        f"page": 1,
+        "page": 1,
         "perPage": -1,
         "queryFilter": f"date > {yesterday.strftime('%Y-%m-%d')}",
     }
@@ -954,13 +954,13 @@ def test_pagination_filter_dates(api_client: TestClient, unique_user: TestUser):
     response_json = response.json()
 
     assert len(response_json["items"]) == 2
-    fetched_mealplan_titles = set(mp["title"] for mp in response_json["items"])
+    fetched_mealplan_titles = {mp["title"] for mp in response_json["items"]}
     assert mealplan_today.title in fetched_mealplan_titles
     assert mealplan_tomorrow.title in fetched_mealplan_titles
 
     ## Today
     params = {
-        f"page": 1,
+        "page": 1,
         "perPage": -1,
         "queryFilter": f"date >= {today.strftime('%Y-%m-%d')}",
     }
@@ -969,12 +969,12 @@ def test_pagination_filter_dates(api_client: TestClient, unique_user: TestUser):
     response_json = response.json()
 
     assert len(response_json["items"]) == 2
-    fetched_mealplan_titles = set(mp["title"] for mp in response_json["items"])
+    fetched_mealplan_titles = {mp["title"] for mp in response_json["items"]}
     assert mealplan_today.title in fetched_mealplan_titles
     assert mealplan_tomorrow.title in fetched_mealplan_titles
 
     params = {
-        f"page": 1,
+        "page": 1,
         "perPage": -1,
         "queryFilter": f"date > {today.strftime('%Y-%m-%d')}",
     }
@@ -983,13 +983,13 @@ def test_pagination_filter_dates(api_client: TestClient, unique_user: TestUser):
     response_json = response.json()
 
     assert len(response_json["items"]) == 1
-    fetched_mealplan_titles = set(mp["title"] for mp in response_json["items"])
+    fetched_mealplan_titles = {mp["title"] for mp in response_json["items"]}
     assert mealplan_today.title not in fetched_mealplan_titles
     assert mealplan_tomorrow.title in fetched_mealplan_titles
 
     ## Tomorrow
     params = {
-        f"page": 1,
+        "page": 1,
         "perPage": -1,
         "queryFilter": f"date >= {tomorrow.strftime('%Y-%m-%d')}",
     }
@@ -998,12 +998,12 @@ def test_pagination_filter_dates(api_client: TestClient, unique_user: TestUser):
     response_json = response.json()
 
     assert len(response_json["items"]) == 1
-    fetched_mealplan_titles = set(mp["title"] for mp in response_json["items"])
+    fetched_mealplan_titles = {mp["title"] for mp in response_json["items"]}
     assert mealplan_today.title not in fetched_mealplan_titles
     assert mealplan_tomorrow.title in fetched_mealplan_titles
 
     params = {
-        f"page": 1,
+        "page": 1,
         "perPage": -1,
         "queryFilter": f"date > {tomorrow.strftime('%Y-%m-%d')}",
     }
@@ -1015,7 +1015,7 @@ def test_pagination_filter_dates(api_client: TestClient, unique_user: TestUser):
 
     ## Day After Tomorrow
     params = {
-        f"page": 1,
+        "page": 1,
         "perPage": -1,
         "queryFilter": f"date >= {day_after_tomorrow.strftime('%Y-%m-%d')}",
     }
@@ -1025,7 +1025,7 @@ def test_pagination_filter_dates(api_client: TestClient, unique_user: TestUser):
     assert len(response_json["items"]) == 0
 
     params = {
-        f"page": 1,
+        "page": 1,
         "perPage": -1,
         "queryFilter": f"date > {day_after_tomorrow.strftime('%Y-%m-%d')}",
     }
@@ -1077,20 +1077,20 @@ def test_pagination_filter_advanced_frontend_sort(database: AllRepositories, uni
         CategorySave(group_id=unique_user.group_id, name=random_string(10)),
         CategorySave(group_id=unique_user.group_id, name=random_string(10)),
     ]
-    category_1, category_2 = [database.categories.create(category) for category in categories]
+    category_1, category_2 = (database.categories.create(category) for category in categories)
 
     slug1, slug2 = (random_string(10) for _ in range(2))
     tags = [
         TagSave(group_id=unique_user.group_id, name=slug1, slug=slug1),
         TagSave(group_id=unique_user.group_id, name=slug2, slug=slug2),
     ]
-    tag_1, tag_2 = [database.tags.create(tag) for tag in tags]
+    tag_1, tag_2 = (database.tags.create(tag) for tag in tags)
 
     tools = [
         RecipeToolSave(group_id=unique_user.group_id, name=random_string(10)),
         RecipeToolSave(group_id=unique_user.group_id, name=random_string(10)),
     ]
-    tool_1, tool_2 = [database.tools.create(tool) for tool in tools]
+    tool_1, tool_2 = (database.tools.create(tool) for tool in tools)
 
     # Bootstrap the database with recipes
     slug = random_string()

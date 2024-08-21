@@ -55,7 +55,7 @@ async def create_from_url(url: str, translator: Translator) -> tuple[Recipe, Scr
         new_recipe.image = "no image"
 
     if new_recipe.name is None or new_recipe.name == "":
-        new_recipe.name = f"No Recipe Name Found - {str(uuid4())}"
+        new_recipe.name = f"No Recipe Name Found - {uuid4()!s}"
         new_recipe.slug = slugify(new_recipe.name)
 
     return new_recipe, extras

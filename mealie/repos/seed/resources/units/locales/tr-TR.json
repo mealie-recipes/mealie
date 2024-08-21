@@ -1,101 +1,140 @@
 {
     "teaspoon": {
         "name": "çay kaşığı",
+        "plural_name": "teaspoons",
         "description": "",
         "abbreviation": "tsp"
     },
     "tablespoon": {
         "name": "yemek kaşığı",
+        "plural_name": "tablespoons",
         "description": "",
         "abbreviation": "tbsp"
     },
     "cup": {
         "name": "fincan",
+        "plural_name": "cups",
         "description": "",
-        "abbreviation": "fincan"
+        "abbreviation": "c"
     },
     "fluid-ounce": {
         "name": "sıvı ons",
+        "plural_name": "fluid ounces",
         "description": "",
         "abbreviation": "sıvı ons"
     },
     "pint": {
         "name": "pint",
+        "plural_name": "pints",
         "description": "",
         "abbreviation": "pt"
     },
     "quart": {
         "name": "1/4 galon",
+        "plural_name": "quarts",
         "description": "",
         "abbreviation": "1/4 galon"
     },
     "gallon": {
         "name": "galon",
+        "plural_name": "gallons",
         "description": "",
         "abbreviation": "galon"
     },
     "milliliter": {
         "name": "mililitre",
+        "plural_name": "milliliters",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
         "name": "litre",
+        "plural_name": "liters",
         "description": "",
         "abbreviation": "l"
     },
     "pound": {
         "name": "pound",
+        "plural_name": "pounds",
         "description": "",
-        "abbreviation": "lb"
+        "abbreviation": "lb",
+        "plural_abbreviation": "lbs"
     },
     "ounce": {
         "name": "ons",
+        "plural_name": "ounces",
         "description": "",
         "abbreviation": "oz"
     },
     "gram": {
         "name": "gram",
+        "plural_name": "grams",
         "description": "",
         "abbreviation": "gr"
     },
     "kilogram": {
         "name": "kilogram",
+        "plural_name": "kilograms",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
         "name": "miligram",
+        "plural_name": "milligrams",
         "description": "",
         "abbreviation": "mg"
     },
     "splash": {
         "name": "serpme",
+        "plural_name": "splashes",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
         "name": "tutam",
+        "plural_name": "dashes",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
         "name": "porsiyon",
+        "plural_name": "servings",
         "description": "",
         "abbreviation": ""
     },
     "head": {
         "name": "baş",
+        "plural_name": "heads",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
         "name": "diş",
+        "plural_name": "cloves",
         "description": "",
         "abbreviation": ""
     },
     "can": {
         "name": "teneke kutu",
+        "plural_name": "cans",
+        "description": "",
+        "abbreviation": ""
+    },
+    "bunch": {
+        "name": "bunch",
+        "plural_name": "bunches",
+        "description": "",
+        "abbreviation": ""
+    },
+    "pack": {
+        "name": "pack",
+        "plural_name": "packs",
+        "description": "",
+        "abbreviation": ""
+    },
+    "pinch": {
+        "name": "pinch",
+        "plural_name": "pinches",
         "description": "",
         "abbreviation": ""
     }

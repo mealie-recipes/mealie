@@ -1,101 +1,140 @@
 {
     "teaspoon": {
         "name": "茶匙",
+        "plural_name": "teaspoons",
         "description": "",
         "abbreviation": "茶匙"
     },
     "tablespoon": {
         "name": "湯匙",
+        "plural_name": "tablespoons",
         "description": "",
         "abbreviation": "湯匙"
     },
     "cup": {
         "name": "杯",
+        "plural_name": "cups",
         "description": "",
-        "abbreviation": "杯"
+        "abbreviation": "c"
     },
     "fluid-ounce": {
         "name": "液體盎司",
+        "plural_name": "fluid ounces",
         "description": "",
         "abbreviation": "液體盎司"
     },
     "pint": {
         "name": "品脫",
+        "plural_name": "pints",
         "description": "",
         "abbreviation": "品脫"
     },
     "quart": {
         "name": "夸脫",
+        "plural_name": "quarts",
         "description": "",
         "abbreviation": "夸脫"
     },
     "gallon": {
         "name": "加侖",
+        "plural_name": "gallons",
         "description": "",
         "abbreviation": "加侖"
     },
     "milliliter": {
         "name": "毫升",
+        "plural_name": "milliliters",
         "description": "",
         "abbreviation": "毫升"
     },
     "liter": {
         "name": "公升",
+        "plural_name": "liters",
         "description": "",
         "abbreviation": "公升"
     },
     "pound": {
         "name": "磅",
+        "plural_name": "pounds",
         "description": "",
-        "abbreviation": "磅"
+        "abbreviation": "磅",
+        "plural_abbreviation": "lbs"
     },
     "ounce": {
         "name": "盎司",
+        "plural_name": "ounces",
         "description": "",
         "abbreviation": "盎司"
     },
     "gram": {
         "name": "克",
+        "plural_name": "grams",
         "description": "",
         "abbreviation": "克"
     },
     "kilogram": {
         "name": "公斤",
+        "plural_name": "kilograms",
         "description": "",
         "abbreviation": "公斤"
     },
     "milligram": {
         "name": "毫克",
+        "plural_name": "milligrams",
         "description": "",
         "abbreviation": "毫克"
     },
     "splash": {
         "name": "少許",
+        "plural_name": "splashes",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
         "name": "少許",
+        "plural_name": "dashes",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
         "name": "份量",
+        "plural_name": "servings",
         "description": "",
         "abbreviation": ""
     },
     "head": {
         "name": "頭",
+        "plural_name": "heads",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
         "name": "瓣",
+        "plural_name": "cloves",
         "description": "",
         "abbreviation": ""
     },
     "can": {
         "name": "罐",
+        "plural_name": "cans",
+        "description": "",
+        "abbreviation": ""
+    },
+    "bunch": {
+        "name": "bunch",
+        "plural_name": "bunches",
+        "description": "",
+        "abbreviation": ""
+    },
+    "pack": {
+        "name": "pack",
+        "plural_name": "packs",
+        "description": "",
+        "abbreviation": ""
+    },
+    "pinch": {
+        "name": "pinch",
+        "plural_name": "pinches",
         "description": "",
         "abbreviation": ""
     }

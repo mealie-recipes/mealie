@@ -82,7 +82,7 @@ class OpenAIParser(ABCIngredientParser):
         # re-combine chunks into one response
         responses_json = await asyncio.gather(*tasks)
         responses = [
-            OpenAIIngredients.model_validate_json(response_json) for response_json in responses_json if responses_json
+            OpenAIIngredients.parse_openai_response(response_json) for response_json in responses_json if responses_json
         ]
         if not responses:
             raise Exception("No response from OpenAI")
