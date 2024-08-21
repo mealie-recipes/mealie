@@ -292,8 +292,8 @@
     "mealplan-updated": "Jedilnik je posodobljen",
     "no-meal-plan-defined-yet": "Za danes ni definiranjega načrta obroka",
     "no-meal-planned-for-today": "Za danes ni planiranega načrta obroka",
-    "numberOfDays-hint": "Number of days on page load",
-    "numberOfDays-label": "Default Days",
+    "numberOfDays-hint": "Število dni na začetni strani",
+    "numberOfDays-label": "Privzeto dni",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Samo recepti v teh kategorija bodo uporabljeni v načrtu obroka",
     "planner": "Načrtovalec",
     "quick-week": "Hiter pogled tedna",
@@ -383,7 +383,7 @@
     },
     "recipekeeper": {
       "title": "Recipe Keeper",
-      "description-long": "Mealie can import recipes from Recipe Keeper. Export your recipes in zip format, then upload the .zip file below."
+      "description-long": "Mealie lahko uvozi recepte iz Recipe Keeper. Izvozi svoje recepte v .zip formatu, nato spodaj naloži .zip datoteko."
     }
   },
   "new-recipe": {
@@ -561,12 +561,12 @@
     "create-recipe-description": "Ustvari nov recept.",
     "create-recipes": "Ustvari recepte",
     "import-with-zip": "Uvozi z .zip",
-    "create-recipe-from-an-image": "Create Recipe from an Image",
-    "create-recipe-from-an-image-description": "Create a recipe by uploading an image of it. Mealie will attempt to extract the text from the image using AI and create a recipe from it.",
-    "crop-and-rotate-the-image": "Crop and rotate the image so that only the text is visible, and it's in the correct orientation.",
-    "create-from-image": "Create from Image",
-    "should-translate-description": "Translate the recipe into my language",
-    "please-wait-image-procesing": "Please wait, the image is processing. This may take some time.",
+    "create-recipe-from-an-image": "Ustvari recept iz slike",
+    "create-recipe-from-an-image-description": "Ustvarite recept tako, da naložite njegovo sliko. Mealie bo s pomočjo umetne inteligence poskušal izluščiti besedilo iz slike in iz njega ustvariti recept.",
+    "crop-and-rotate-the-image": "Obrežite in zasukajte sliko, tako da bo vidno samo besedilo in da bo v pravilnem položaju.",
+    "create-from-image": "Ustvari iz slike",
+    "should-translate-description": "Prevedi recept v moj jezik",
+    "please-wait-image-procesing": "Počakajte, slika je v obdelavi. To lahko traja nekaj časa.",
     "bulk-url-import": "Masovno uvozi preko URLja",
     "debug-scraper": "Odpravljanje težav s strgalnikom",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Ustvari recept z izbranim imenom. Vsi recepti morajo imeti unikatna imena.",
@@ -592,7 +592,7 @@
     "recipe-debugger": "Odpravljanje težav v strganju recepta",
     "recipe-debugger-description": "Prilepi povezavo do recepta, ki ga želiš postrgati. Strgalnik receptov bo postrgal spletno stran in prikazal rezultate. Če ne vidiš nobenih podatkov, potem spletna stran, ki jo želiš strgati ni podprta v Mealie oz. v strgalniku, ki ga uporablja.",
     "use-openai": "Uporabi OpenAI",
-    "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
+    "recipe-debugger-use-openai-description": "Za razčlenitev rezultatov uporabite OpenAI, namesto da se zanašate na knjižnico strgala. Ko ustvarjate recept prek URL-ja, se to izvede samodejno, če knjižnica strgala odpove, vendar ga lahko tukaj preizkusite ročno.",
     "debug": "Debug",
     "tree-view": "Drevesni prikaz",
     "recipe-yield": "Število porcij",
@@ -609,8 +609,8 @@
       "alerts-explainer": "Opozorila bodo prikazana v primeru, da obstaja ujemajoče živilo ali enota, ampak še ne obstaja v podatkovni bazi.",
       "select-parser": "Izberi razčlenjevalnik",
       "natural-language-processor": "Procesor naravnega jezika",
-      "brute-parser": "Brute Parser",
-      "openai-parser": "OpenAI Parser",
+      "brute-parser": "Surov razčlenjevalnik",
+      "openai-parser": "Razčlenjevalnik OpenAI",
       "parse-all": "Razčleni vse",
       "no-unit": "Ni enote",
       "missing-unit": "Ustvari manjkajočo enoto: {unit}",
@@ -645,7 +645,7 @@
       "backup-created-at-response-export_path": "Varnostna kopija ustvarjena v {path}",
       "backup-deleted": "Varnostna kopija je izbrisana",
       "restore-success": "Obnovitev uspešna",
-      "restore-fail": "Restore failed. Check your server logs for more details",
+      "restore-fail": "Obnovitev ni uspela. Za več podrobnosti preverite dnevnike strežnika",
       "backup-tag": "Oznaka varnostne kopije",
       "create-heading": "Izdelaj varnostno kopijo",
       "delete-backup": "Izbriši varnostno kopijo",
@@ -753,9 +753,9 @@
     "tracker": "Tracker",
     "configuration": "Nastavitve",
     "docker-volume": "Docker Volume",
-    "docker-volume-help": "Mealie requires that the frontend container and the backend share the same docker volume or storage. This ensures that the frontend container can properly access the images and assets stored on disk.",
-    "volumes-are-misconfigured": "Volumes are misconfigured.",
-    "volumes-are-configured-correctly": "Volumes are configured correctly.",
+    "docker-volume-help": "Mealie zahteva, da vsebnik sprednjega dela in zadnji del delita isto mapo ali shrambo priklopne postaje. To zagotavlja, da lahko sprednji vsebnik pravilno dostopa do slik in sredstev, shranjenih na disku.",
+    "volumes-are-misconfigured": "Mape so napačno nastavljene.",
+    "volumes-are-configured-correctly": "Mape so nastavljene pravilno.",
     "status-unknown-try-running-a-validation": "Status ni znan. Poženi validacijo.",
     "validate": "Validiraj",
     "email-configuration-status": "Email status",
@@ -783,9 +783,9 @@
     "oidc-ready": "OIDC Ready",
     "oidc-ready-error-text": "Nekatere OIDC vrednosti niso nastavljene. To lahko ignoriraš, če ne uporabljaš OIDC avtentikacije.",
     "oidc-ready-success-text": "Vse zahtevane OIDC spremenljivke so nastavljene.",
-    "openai-ready": "OpenAI Ready",
-    "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
-    "openai-ready-success-text": "Required OpenAI variables are all set."
+    "openai-ready": "OpenAI pripravljen",
+    "openai-ready-error-text": "Niso nastavljene vse OpenAI vrednosti. To lahko prezrete, če ne uporabljate OpenAi funkcij.",
+    "openai-ready-success-text": "Vse zahtevane spremenljivke OpenAI so nastavljene."
   },
   "shopping-list": {
     "all-lists": "Vsi seznami",
@@ -799,7 +799,7 @@
     "food": "Živilo",
     "note": "Opomba",
     "label": "Oznaka",
-    "save-label": "Save Label",
+    "save-label": "Shranite oznako",
     "linked-item-warning": "Ta sestavina je povezana na en ali več receptov. Če spremenite enote količin, se lahko kaj podre, ko dodajate ali odstranjujete iz seznama.",
     "toggle-food": "Preklopi med hrano",
     "manage-labels": "Upravljanje oznak",
@@ -815,11 +815,11 @@
     "items-checked-count": "Nobena postavka ni izbrana|Ena postavka izbrana|{count} postavk izbranih",
     "no-label": "Brez oznake",
     "completed-on": "Zaključena {date}",
-    "you-are-offline": "You are offline",
-    "you-are-offline-description": "Not all features are available while offline. You can still add, modify, and remove items, but you will not be able to sync your changes to the server until you are back online.",
-    "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
-    "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
-    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
+    "you-are-offline": "Niste povezani",
+    "you-are-offline-description": "V načinu brez povezave niso na voljo vse funkcije. Še vedno lahko dodajate, spreminjate in odstranjujete elemente, vendar ne boste mogli sinhronizirati svojih sprememb s strežnikom, dokler ne boste spet povezani.",
+    "are-you-sure-you-want-to-check-all-items": "Ali res želite izbrati vse elemente?",
+    "are-you-sure-you-want-to-uncheck-all-items": "Ali res ne želite izbrati vseh elementov?",
+    "are-you-sure-you-want-to-delete-checked-items": "Ali ste prepričani, da želite izbrisati vse izbrane elemente?"
   },
   "sidebar": {
     "all-recipes": "Vsi recepti",
@@ -963,7 +963,7 @@
     "authentication-method-hint": "This specifies how a user will authenticate with Mealie. If you're not sure, choose 'Mealie",
     "permissions": "Dovoljenja",
     "administrator": "Administrator",
-    "user-can-invite-other-to-group": "User can invite others to group",
+    "user-can-invite-other-to-group": "Uporabnih lahko povabi druge v skupino",
     "user-can-manage-group": "Uporabnik lahko upravlja s skupino",
     "user-can-organize-group-data": "Uporabnik lahko organizira podatke skupine",
     "enable-advanced-features": "Vključi napredne funkcije",
@@ -995,8 +995,8 @@
       "food-data": "Podatki o živilih",
       "example-food-singular": "npr: Čebula",
       "example-food-plural": "npr: Čebule",
-      "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels.",
-      "on-hand-checkbox-label": "Setting this flag will make this food unchecked by default when adding a recipe to a shopping list."
+      "label-overwrite-warning": "S tem boste izbrano oznako dodelili vsem izbranim živilom in morda prepisali vaše obstoječe oznake.",
+      "on-hand-checkbox-label": "Če nastavite to zastavico, bo to živilo privzeto odstranjeno, ko dodate recept na nakupovalni seznam."
     },
     "units": {
       "seed-dialog-text": "Napolni podatkovno bazo z običajnimi enotami, glede na vaš lokalni jezik.",
@@ -1025,7 +1025,7 @@
       "edit-label": "Uredi oznako",
       "new-label": "Nova oznaka",
       "labels": "Oznake",
-      "assign-label": "Assign Label"
+      "assign-label": "Dodeli oznako"
     },
     "recipes": {
       "purge-exports": "Počisti izvoze",

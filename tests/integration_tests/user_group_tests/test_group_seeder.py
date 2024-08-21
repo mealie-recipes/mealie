@@ -28,7 +28,7 @@ def test_seed_foods(api_client: TestClient, unique_user: TestUser):
 
 
 def test_seed_units(api_client: TestClient, unique_user: TestUser):
-    CREATED_UNITS = 20
+    CREATED_UNITS = 23
     database = unique_user.repos
 
     # Check that the foods was created
