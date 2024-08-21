@@ -18,7 +18,7 @@
       </tr>
     </template>
     <template #item.name="{ item }">
-      <a :href="`/g/${item.groupSlug}/r/${item.slug}`" style="color: inherit; text-decoration: inherit; " @click="$emit('click')">{{ item.name }}</a>
+      <a :href="`/g/${groupSlug}/r/${item.slug}`" style="color: inherit; text-decoration: inherit; " @click="$emit('click')">{{ item.name }}</a>
     </template>
     <template #item.tags="{ item }">
       <RecipeChip small :items="item.tags" :is-category="false" url-prefix="tags" />
@@ -95,7 +95,8 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-    const { i18n } = useContext();
+    const { $auth, i18n } = useContext();
+    const groupSlug = $auth.user?.groupSlug;
 
     function setValue(value: Recipe[]) {
       context.emit(INPUT_EVENT, value);
@@ -155,7 +156,13 @@ export default defineComponent({
       return i18n.t("general.none");
     }
 
-    return { setValue, headers, members, getMember };
+    return {
+      groupSlug,
+      setValue,
+      headers,
+      members,
+      getMember,
+    };
   },
 
   data() {
