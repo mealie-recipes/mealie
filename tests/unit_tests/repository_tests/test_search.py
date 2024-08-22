@@ -1,7 +1,9 @@
 from datetime import datetime, timezone
 
 import pytest
+from sqlalchemy.orm import Session
 
+from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe_ingredient import IngredientUnit, SaveIngredientUnit
 from mealie.schema.response.pagination import OrderDirection, PaginationQuery
@@ -10,12 +12,17 @@ from tests.utils.factories import random_int, random_string
 
 
 @pytest.fixture()
-def unique_local_group_id(database: AllRepositories) -> str:
-    return str(database.groups.create(GroupBase(name=random_string())).id)
+def unique_local_group_id(unfiltered_database: AllRepositories) -> str:
+    return str(unfiltered_database.groups.create(GroupBase(name=random_string())).id)
 
 
 @pytest.fixture()
-def search_units(database: AllRepositories, unique_local_group_id: str) -> list[IngredientUnit]:
+def unique_db(session: Session, unique_local_group_id: str):
+    return get_repositories(session, group_id=unique_local_group_id)
+
+
+@pytest.fixture()
+def search_units(unique_db: AllRepositories, unique_local_group_id: str) -> list[IngredientUnit]:
     units = [
         SaveIngredientUnit(
             group_id=unique_local_group_id,
@@ -57,7 +64,7 @@ def search_units(database: AllRepositories, unique_local_group_id: str) -> list[
         ]
     )
 
-    return database.ingredient_units.create_many(units)
+    return unique_db.ingredient_units.create_many(units)
 
 
 @pytest.mark.parametrize(
@@ -82,11 +89,10 @@ def search_units(database: AllRepositories, unique_local_group_id: str) -> list[
 def test_basic_search(
     search: str,
     expected_names: list[str],
-    database: AllRepositories,
+    unique_db: AllRepositories,
     search_units: list[IngredientUnit],  # required so database is populated
-    unique_local_group_id: str,
 ):
-    repo = database.ingredient_units.by_group(unique_local_group_id)
+    repo = unique_db.ingredient_units
     pagination = PaginationQuery(page=1, per_page=-1, order_by="created_at", order_direction=OrderDirection.asc)
     results = repo.page_all(pagination, search=search).items
 
@@ -100,15 +106,14 @@ def test_basic_search(
 
 
 def test_fuzzy_search(
-    database: AllRepositories,
+    unique_db: AllRepositories,
     search_units: list[IngredientUnit],  # required so database is populated
-    unique_local_group_id: str,
 ):
     # this only works on postgres
-    if database.session.get_bind().name != "postgresql":
+    if unique_db.session.get_bind().name != "postgresql":
         return
 
-    repo = database.ingredient_units.by_group(unique_local_group_id)
+    repo = unique_db.ingredient_units
     pagination = PaginationQuery(page=1, per_page=-1, order_by="created_at", order_direction=OrderDirection.asc)
     results = repo.page_all(pagination, search="tabel spoone").items
 
@@ -116,11 +121,10 @@ def test_fuzzy_search(
 
 
 def test_random_order_search(
-    database: AllRepositories,
+    unique_db: AllRepositories,
     search_units: list[IngredientUnit],  # required so database is populated
-    unique_local_group_id: str,
 ):
-    repo = database.ingredient_units.by_group(unique_local_group_id)
+    repo = unique_db.ingredient_units
     pagination = PaginationQuery(
         page=1,
         per_page=-1,

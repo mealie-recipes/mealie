@@ -16,9 +16,8 @@ from tests.utils.fixture_schemas import TestUser
 
 
 @pytest.fixture(scope="function")
-def ten_slugs(
-    api_client: TestClient, unique_user: TestUser, database: AllRepositories
-) -> Generator[list[str], None, None]:
+def ten_slugs(api_client: TestClient, unique_user: TestUser) -> Generator[list[str], None, None]:
+    database = unique_user.repos
     slugs: list[str] = []
 
     for _ in range(10):
@@ -38,9 +37,9 @@ def ten_slugs(
             pass
 
 
-def test_bulk_tag_recipes(
-    api_client: TestClient, unique_user: TestUser, database: AllRepositories, ten_slugs: list[str]
-):
+def test_bulk_tag_recipes(api_client: TestClient, unique_user: TestUser, ten_slugs: list[str]):
+    database = unique_user.repos
+
     # Setup Tags
     tags = []
     for _ in range(3):
@@ -66,9 +65,10 @@ def test_bulk_tag_recipes(
 def test_bulk_categorize_recipes(
     api_client: TestClient,
     unique_user: TestUser,
-    database: AllRepositories,
     ten_slugs: list[str],
 ):
+    database = unique_user.repos
+
     # Setup Tags
     categories = []
     for _ in range(3):
@@ -94,9 +94,9 @@ def test_bulk_categorize_recipes(
 def test_bulk_delete_recipes(
     api_client: TestClient,
     unique_user: TestUser,
-    database: AllRepositories,
     ten_slugs: list[str],
 ):
+    database = unique_user.repos
     payload = {"recipes": ten_slugs}
 
     response = api_client.post(api_routes.recipes_bulk_actions_delete, json=payload, headers=unique_user.token)

@@ -1,13 +1,10 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import { CategoryBase, GroupBase, GroupInDB, GroupSummary, UserOut } from "~/lib/api/types/user";
+import { GroupBase, GroupInDB, GroupSummary, UserSummary } from "~/lib/api/types/user";
+import { HouseholdSummary } from "~/lib/api/types/household";
 import {
-  CreateInviteToken,
   GroupAdminUpdate,
-  GroupStatistics,
   GroupStorage,
   ReadGroupPreferences,
-  ReadInviteToken,
-  SetPermissions,
   UpdateGroupPreferences,
 } from "~/lib/api/types/group";
 
@@ -16,16 +13,14 @@ const prefix = "/api";
 const routes = {
   groups: `${prefix}/admin/groups`,
   groupsSelf: `${prefix}/groups/self`,
-  categories: `${prefix}/groups/categories`,
-  members: `${prefix}/groups/members`,
-  permissions: `${prefix}/groups/permissions`,
-
   preferences: `${prefix}/groups/preferences`,
-  statistics: `${prefix}/groups/statistics`,
   storage: `${prefix}/groups/storage`,
-
-  invitation: `${prefix}/groups/invitations`,
-
+  households: `${prefix}/households`,
+  membersHouseholdId: (householdId: string | number | null) => {
+    return householdId ?
+      `${prefix}/households/members?householdId=${householdId}` :
+      `${prefix}/groups/members`;
+  },
   groupsId: (id: string | number) => `${prefix}/admin/groups/${id}`,
 };
 
@@ -38,14 +33,6 @@ export class GroupAPI extends BaseCRUDAPI<GroupBase, GroupInDB, GroupAdminUpdate
     return await this.requests.get<GroupSummary>(routes.groupsSelf);
   }
 
-  async getCategories() {
-    return await this.requests.get<CategoryBase[]>(routes.categories);
-  }
-
-  async setCategories(payload: CategoryBase[]) {
-    return await this.requests.put<CategoryBase[]>(routes.categories, payload);
-  }
-
   async getPreferences() {
     return await this.requests.get<ReadGroupPreferences>(routes.preferences);
   }
@@ -55,21 +42,12 @@ export class GroupAPI extends BaseCRUDAPI<GroupBase, GroupInDB, GroupAdminUpdate
     return await this.requests.put<ReadGroupPreferences, UpdateGroupPreferences>(routes.preferences, payload);
   }
 
-  async createInvitation(payload: CreateInviteToken) {
-    return await this.requests.post<ReadInviteToken>(routes.invitation, payload);
+  async fetchMembers(householdId: string | number | null = null) {
+    return await this.requests.get<UserSummary[]>(routes.membersHouseholdId(householdId));
   }
 
-  async fetchMembers() {
-    return await this.requests.get<UserOut[]>(routes.members);
-  }
-
-  async setMemberPermissions(payload: SetPermissions) {
-    // TODO: This should probably be a patch request, which isn't offered by the API currently
-    return await this.requests.put<UserOut, SetPermissions>(routes.permissions, payload);
-  }
-
-  async statistics() {
-    return await this.requests.get<GroupStatistics>(routes.statistics);
+  async fetchHouseholds() {
+    return await this.requests.get<HouseholdSummary[]>(routes.households);
   }
 
   async storage() {

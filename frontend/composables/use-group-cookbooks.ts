@@ -1,6 +1,7 @@
 import { useAsync, ref, Ref, useContext } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "./use-utils";
 import { usePublicExploreApi } from "./api/api-client";
+import { useHouseholdSelf } from "./use-households";
 import { useUserApi } from "~/composables/api";
 import { ReadCookBook, UpdateCookBook } from "~/lib/api/types/cookbook";
 
@@ -67,6 +68,7 @@ export const usePublicCookbooks = function (groupSlug: string) {
 
 export const useCookbooks = function () {
   const api = useUserApi();
+  const { household } = useHouseholdSelf();
   const loading = ref(false);
 
   const { i18n } = useContext();
@@ -100,7 +102,7 @@ export const useCookbooks = function () {
     async createOne() {
       loading.value = true;
       const { data } = await api.cookbooks.createOne({
-        name: i18n.t("cookbook.cookbook-with-name", [String((cookbookStore?.value?.length ?? 0) + 1)]) as string,
+        name: i18n.t("cookbook.household-cookbook-name", [household.value?.name || "", String((cookbookStore?.value?.length ?? 0) + 1)]) as string,
       });
       if (data && cookbookStore?.value) {
         cookbookStore.value.push(data);

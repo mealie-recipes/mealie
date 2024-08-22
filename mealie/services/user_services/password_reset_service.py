@@ -11,7 +11,7 @@ from mealie.services.email import EmailService
 
 class PasswordResetService(BaseService):
     def __init__(self, session: Session) -> None:
-        self.db = get_repositories(session)
+        self.db = get_repositories(session, group_id=None, household_id=None)
         super().__init__()
 
     def generate_reset_token(self, email: str) -> SavePasswordResetToken | None:

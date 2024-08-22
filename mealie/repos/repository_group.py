@@ -4,19 +4,12 @@ from uuid import UUID
 
 from pydantic import UUID4
 from slugify import slugify
-from sqlalchemy import func, select
+from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 
 from mealie.db.models.group import Group
-from mealie.db.models.recipe.category import Category
-from mealie.db.models.recipe.recipe import RecipeModel
-from mealie.db.models.recipe.tag import Tag
-from mealie.db.models.recipe.tool import Tool
-from mealie.db.models.users.users import User
-from mealie.schema.group.group_statistics import GroupStatistics
 from mealie.schema.user.user import GroupBase, GroupInDB, UpdateGroup
 
-from ..db.models._model_base import SqlAlchemyBase
 from .repository_generic import RepositoryGeneric
 
 
@@ -74,16 +67,3 @@ class RepositoryGroup(RepositoryGeneric[GroupInDB, Group]):
             return self.get_one(slug_or_id)
         else:
             return self.get_one(slug_or_id, key="slug")
-
-    def statistics(self, group_id: UUID4) -> GroupStatistics:
-        def model_count(model: type[SqlAlchemyBase]) -> int:
-            stmt = select(func.count(model.id)).filter_by(group_id=group_id)
-            return self.session.scalar(stmt)
-
-        return GroupStatistics(
-            total_recipes=model_count(RecipeModel),
-            total_users=model_count(User),
-            total_categories=model_count(Category),
-            total_tags=model_count(Tag),
-            total_tools=model_count(Tool),
-        )

@@ -23,12 +23,10 @@ T = TypeVar("T", bound=BaseModel)
 class DataMatcher:
     def __init__(
         self,
-        group_id: UUID4,
         repos: AllRepositories,
         food_fuzzy_match_threshold: int = 85,
         unit_fuzzy_match_threshold: int = 70,
     ) -> None:
-        self.group_id = group_id
         self.repos = repos
 
         self._food_fuzzy_match_threshold = food_fuzzy_match_threshold
@@ -39,7 +37,7 @@ class DataMatcher:
     @property
     def foods_by_alias(self) -> dict[str, IngredientFood]:
         if self._foods_by_alias is None:
-            foods_repo = self.repos.ingredient_foods.by_group(self.group_id)
+            foods_repo = self.repos.ingredient_foods
             query = PaginationQuery(page=1, per_page=-1)
             all_foods = foods_repo.page_all(query).items
 
@@ -61,7 +59,7 @@ class DataMatcher:
     @property
     def units_by_alias(self) -> dict[str, IngredientUnit]:
         if self._units_by_alias is None:
-            units_repo = self.repos.ingredient_units.by_group(self.group_id)
+            units_repo = self.repos.ingredient_units
             query = PaginationQuery(page=1, per_page=-1)
             all_units = units_repo.page_all(query).items
 
@@ -132,13 +130,11 @@ class ABCIngredientParser(ABC):
     def __init__(self, group_id: UUID4, session: Session) -> None:
         self.group_id = group_id
         self.session = session
-        self.data_matcher = DataMatcher(
-            self.group_id, self._repos, self.food_fuzzy_match_threshold, self.unit_fuzzy_match_threshold
-        )
+        self.data_matcher = DataMatcher(self._repos, self.food_fuzzy_match_threshold, self.unit_fuzzy_match_threshold)
 
     @property
     def _repos(self) -> AllRepositories:
-        return get_repositories(self.session)
+        return get_repositories(self.session, group_id=self.group_id)
 
     @property
     def food_fuzzy_match_threshold(self) -> int:

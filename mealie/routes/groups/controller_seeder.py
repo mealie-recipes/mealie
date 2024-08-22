@@ -15,7 +15,7 @@ router = APIRouter(prefix="/groups/seeders", tags=["Groups: Seeders"])
 class DataSeederController(BaseUserController):
     @cached_property
     def service(self) -> SeederService:
-        return SeederService(self.repos, self.user, self.group)
+        return SeederService(self.repos)
 
     def _wrap(self, func):
         try:

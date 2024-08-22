@@ -24,7 +24,7 @@ Make sure the url and port (`http://mealie:9000` ) matches your installation's a
 
 ```yaml
 - platform: rest
-  resource: "http://mealie:9000/api/groups/mealplans/today"
+  resource: "http://mealie:9000/api/households/mealplans/today"
   method: GET
   name: Mealie todays meal
   headers:
@@ -36,7 +36,7 @@ Make sure the url and port (`http://mealie:9000` ) matches your installation's a
 
 ```yaml
 - platform: rest
-  resource: "http://mealie:9000/api/groups/mealplans/today"
+  resource: "http://mealie:9000/api/households/mealplans/today"
   method: GET
   name: Mealie todays meal ID
   headers:

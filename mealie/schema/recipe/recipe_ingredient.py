@@ -12,6 +12,7 @@ from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.db.models.recipe import IngredientFoodModel
 from mealie.schema._mealie import MealieModel
+from mealie.schema._mealie.mealie_model import UpdatedAtField
 from mealie.schema._mealie.types import NoneFloat
 from mealie.schema.response.pagination import PaginationBase
 
@@ -78,7 +79,7 @@ class IngredientFood(CreateIngredientFood):
     aliases: list[IngredientFoodAlias] = []
 
     created_at: datetime.datetime | None = None
-    update_at: datetime.datetime | None = None
+    updated_at: datetime.datetime | None = UpdatedAtField(None)
 
     _searchable_properties: ClassVar[list[str]] = [
         "name_normalized",
@@ -124,7 +125,7 @@ class IngredientUnit(CreateIngredientUnit):
     aliases: list[IngredientUnitAlias] = []
 
     created_at: datetime.datetime | None = None
-    update_at: datetime.datetime | None = None
+    updated_at: datetime.datetime | None = UpdatedAtField(None)
 
     _searchable_properties: ClassVar[list[str]] = [
         "name_normalized",

@@ -183,7 +183,7 @@ export default defineComponent({
       {
         icon: $globals.icons.calendarMultiselect,
         title: i18n.tc("meal-plan.meal-planner"),
-        to: "/group/mealplan/planner/view",
+        to: "/household/mealplan/planner/view",
         restricted: true,
       },
       {

@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from sqlalchemy import DateTime, Integer
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy.orm import DeclarativeBase, Mapped, declared_attr, mapped_column, synonym
 from text_unidecode import unidecode
 
 from ._model_utils.datetime import get_utc_now
@@ -11,6 +11,10 @@ class SqlAlchemyBase(DeclarativeBase):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     created_at: Mapped[datetime | None] = mapped_column(DateTime, default=get_utc_now, index=True)
     update_at: Mapped[datetime | None] = mapped_column(DateTime, default=get_utc_now, onupdate=get_utc_now)
+
+    @declared_attr
+    def updated_at(cls) -> Mapped[datetime | None]:
+        return synonym("update_at")
 
     @classmethod
     def normalize(cls, val: str) -> str:

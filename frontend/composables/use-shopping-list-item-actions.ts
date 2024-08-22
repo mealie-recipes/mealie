@@ -1,7 +1,7 @@
 import { computed, reactive, watch } from "@nuxtjs/composition-api";
 import { useLocalStorage } from "@vueuse/core";
 import { useUserApi } from "~/composables/api";
-import { ShoppingListItemOut, ShoppingListOut } from "~/lib/api/types/group";
+import { ShoppingListItemOut, ShoppingListOut } from "~/lib/api/types/household";
 import { RequestResponse } from "~/lib/api/types/non-generated";
 
 const localStorageKey = "shopping-list-queue";
@@ -144,7 +144,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
 
   function checkUpdateState(list: ShoppingListOut) {
     const cutoffDate = new Date(queue.lastUpdate + queueTimeout).toISOString();
-    if (list.updateAt && list.updateAt > cutoffDate) {
+    if (list.updatedAt && list.updatedAt > cutoffDate) {
       // If the queue is too far behind the shopping list to reliably do updates, we clear the queue
       console.log("Out of sync with server; clearing queue");
       clearQueueItems("all");

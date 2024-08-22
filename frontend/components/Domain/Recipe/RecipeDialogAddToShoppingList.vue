@@ -127,14 +127,14 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, reactive, ref, useContext, watchEffect } from "@nuxtjs/composition-api"
-  import { toRefs } from "@vueuse/core"
-  import RecipeIngredientListItem from "./RecipeIngredientListItem.vue"
-  import { useUserApi } from "~/composables/api"
-  import { alert } from "~/composables/use-toast"
-  import { useShoppingListPreferences } from "~/composables/use-users/preferences"
-  import { ShoppingListSummary } from "~/lib/api/types/group"
-  import { Recipe, RecipeIngredient } from "~/lib/api/types/recipe"
+import { computed, defineComponent, reactive, ref, useContext, watchEffect } from "@nuxtjs/composition-api";
+import { toRefs } from "@vueuse/core";
+import RecipeIngredientListItem from "./RecipeIngredientListItem.vue";
+import { useUserApi } from "~/composables/api";
+import { alert } from "~/composables/use-toast";
+import { useShoppingListPreferences } from "~/composables/use-users/preferences";
+import { ShoppingListSummary } from "~/lib/api/types/household";
+import { Recipe, RecipeIngredient } from "~/lib/api/types/recipe";
 
 export interface RecipeWithScale extends Recipe {
   scale: number;
@@ -209,7 +209,8 @@ export default defineComponent({
     watchEffect(
       () => {
         if (shoppingListChoices.value.length === 1 && !state.shoppingListShowAllToggled) {
-          openShoppingListIngredientDialog(shoppingListChoices.value[0]);
+          selectedShoppingList.value = shoppingListChoices.value[0];
+          openShoppingListIngredientDialog(selectedShoppingList.value);
         } else {
           ready.value = true;
         }
@@ -365,12 +366,8 @@ export default defineComponent({
         }
       })
 
-      const successMessage = promises.length === 1
-        ? i18n.t("recipe.successfully-added-to-list") as string
-        : i18n.t("recipe.failed-to-add-to-list") as string;
-
-      success ? alert.success(successMessage)
-      : alert.error(i18n.t("failed-to-add-recipes-to-list") as string)
+      success ? alert.success(i18n.tc("recipe.successfully-added-to-list"))
+      : alert.error(i18n.tc("failed-to-add-recipes-to-list"))
 
       state.shoppingListDialog = false;
       state.shoppingListIngredientDialog = false;

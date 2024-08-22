@@ -12,11 +12,11 @@ from typing import Any
 
 import sqlalchemy as sa
 from pydantic import UUID4
+from sqlalchemy import orm
 from sqlalchemy.orm import Session, load_only
 
 from alembic import op
-from mealie.db.models._model_base import SqlAlchemyBase
-from mealie.db.models.group.shopping_list import ShoppingListItem
+from mealie.db.models._model_utils.guid import GUID
 from mealie.db.models.labels import MultiPurposeLabel
 from mealie.db.models.recipe.ingredient import IngredientFoodModel, IngredientUnitModel, RecipeIngredientModel
 
@@ -25,6 +25,27 @@ revision = "dded3119c1fe"
 down_revision = "0341b154f79a"
 branch_labels = None
 depends_on = None
+
+
+# Intermediate table definitions
+class SqlAlchemyBase(orm.DeclarativeBase):
+    pass
+
+
+class ShoppingList(SqlAlchemyBase):
+    __tablename__ = "shopping_lists"
+
+    id: orm.Mapped[GUID] = orm.mapped_column(GUID, primary_key=True, default=GUID.generate)
+    group_id: orm.Mapped[GUID] = orm.mapped_column(GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)
+
+
+class ShoppingListItem(SqlAlchemyBase):
+    __tablename__ = "shopping_list_items"
+
+    id: orm.Mapped[GUID] = orm.mapped_column(GUID, primary_key=True, default=GUID.generate)
+    food_id: orm.Mapped[GUID] = orm.mapped_column(GUID, sa.ForeignKey("ingredient_foods.id"))
+    unit_id: orm.Mapped[GUID] = orm.mapped_column(GUID, sa.ForeignKey("ingredient_units.id"))
+    label_id: orm.Mapped[GUID] = orm.mapped_column(GUID, sa.ForeignKey("multi_purpose_labels.id"))
 
 
 @dataclass
@@ -42,7 +63,7 @@ def _is_postgres():
     return op.get_context().dialect.name == "postgresql"
 
 
-def _get_duplicates(session: Session, model: SqlAlchemyBase) -> defaultdict[str, list]:
+def _get_duplicates(session: Session, model: orm.DeclarativeBase) -> defaultdict[str, list]:
     duplicate_map: defaultdict[str, list] = defaultdict(list)
 
     query = session.execute(sa.text(f"SELECT id, group_id, name FROM {model.__tablename__}"))

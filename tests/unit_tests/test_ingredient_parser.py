@@ -6,8 +6,10 @@ from fractions import Fraction
 
 import pytest
 from pydantic import UUID4
+from sqlalchemy.orm import Session
 
 from mealie.db.db_setup import session_context
+from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.openai.recipe_ingredient import OpenAIIngredient, OpenAIIngredients
 from mealie.schema.recipe.recipe_ingredient import (
@@ -56,15 +58,20 @@ def build_parsed_ing(food: str | None, unit: str | None) -> ParsedIngredient:
 
 
 @pytest.fixture()
-def unique_local_group_id(database: AllRepositories) -> UUID4:
-    return str(database.groups.create(GroupBase(name=random_string())).id)
+def unique_local_group_id(unfiltered_database: AllRepositories) -> UUID4:
+    return str(unfiltered_database.groups.create(GroupBase(name=random_string())).id)
+
+
+@pytest.fixture()
+def unique_db(session: Session, unique_local_group_id: str):
+    return get_repositories(session, group_id=unique_local_group_id)
 
 
 @pytest.fixture()
 def parsed_ingredient_data(
-    database: AllRepositories, unique_local_group_id: UUID4
+    unique_db: AllRepositories, unique_local_group_id: UUID4
 ) -> tuple[list[IngredientFood], list[IngredientUnit]]:
-    foods = database.ingredient_foods.create_many(
+    foods = unique_db.ingredient_foods.create_many(
         [
             SaveIngredientFood(name="potatoes", group_id=unique_local_group_id),
             SaveIngredientFood(name="onion", group_id=unique_local_group_id),
@@ -85,7 +92,7 @@ def parsed_ingredient_data(
     )
 
     foods.extend(
-        database.ingredient_foods.create_many(
+        unique_db.ingredient_foods.create_many(
             [
                 SaveIngredientFood(name=f"{random_string()} food", group_id=unique_local_group_id)
                 for _ in range(random_int(10, 15))
@@ -93,7 +100,7 @@ def parsed_ingredient_data(
         )
     )
 
-    units = database.ingredient_units.create_many(
+    units = unique_db.ingredient_units.create_many(
         [
             SaveIngredientUnit(name="Cups", group_id=unique_local_group_id),
             SaveIngredientUnit(name="Tablespoon", group_id=unique_local_group_id),
@@ -116,7 +123,7 @@ def parsed_ingredient_data(
     )
 
     units.extend(
-        database.ingredient_foods.create_many(
+        unique_db.ingredient_foods.create_many(
             [
                 SaveIngredientUnit(name=f"{random_string()} unit", group_id=unique_local_group_id)
                 for _ in range(random_int(10, 15))

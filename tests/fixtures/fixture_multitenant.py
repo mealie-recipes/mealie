@@ -2,6 +2,7 @@ from dataclasses import dataclass
 
 import pytest
 from fastapi.testclient import TestClient
+from sqlalchemy.orm import Session
 
 from tests import utils
 from tests.fixtures.fixture_users import build_unique_user
@@ -15,8 +16,8 @@ class MultiTenant:
 
 
 @pytest.fixture(scope="module")
-def multitenants(api_client: TestClient) -> MultiTenant:
+def multitenants(session: Session, api_client: TestClient) -> MultiTenant:
     yield MultiTenant(
-        user_one=build_unique_user(random_string(12), api_client),
-        user_two=build_unique_user(random_string(12), api_client),
+        user_one=build_unique_user(session, random_string(12), api_client),
+        user_two=build_unique_user(session, random_string(12), api_client),
     )

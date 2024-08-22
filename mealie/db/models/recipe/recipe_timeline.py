@@ -2,6 +2,7 @@ from datetime import datetime, timezone
 from typing import TYPE_CHECKING
 
 from sqlalchemy import DateTime, ForeignKey, String
+from sqlalchemy.ext.associationproxy import AssociationProxy, association_proxy
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .._model_base import BaseMixins, SqlAlchemyBase
@@ -20,6 +21,9 @@ class RecipeTimelineEvent(SqlAlchemyBase, BaseMixins):
     # Parent Recipe
     recipe_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("recipes.id"), nullable=False, index=True)
     recipe: Mapped["RecipeModel"] = relationship("RecipeModel", back_populates="timeline_events")
+
+    group_id: AssociationProxy[GUID] = association_proxy("recipe", "group_id")
+    household_id: AssociationProxy[GUID] = association_proxy("recipe", "household_id")
 
     # Related User (Actor)
     user_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("users.id"), nullable=False, index=True)

@@ -2,23 +2,25 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydantic import UUID4
 
 from mealie.routes._base import controller
-from mealie.routes._base.base_controllers import BasePublicExploreController
+from mealie.routes._base.base_controllers import BasePublicGroupExploreController
 from mealie.schema.make_dependable import make_dependable
 from mealie.schema.recipe.recipe_ingredient import IngredientFood
 from mealie.schema.response.pagination import PaginationBase, PaginationQuery
 
-router = APIRouter(prefix="/foods/{group_slug}")
+router = APIRouter(prefix="/foods")
 
 
 @controller(router)
-class PublicFoodsController(BasePublicExploreController):
+class PublicFoodsController(BasePublicGroupExploreController):
     @property
     def ingredient_foods(self):
-        return self.repos.ingredient_foods.by_group(self.group.id)
+        return self.repos.ingredient_foods
 
     @router.get("", response_model=PaginationBase[IngredientFood])
     def get_all(
-        self, q: PaginationQuery = Depends(make_dependable(PaginationQuery)), search: str | None = None
+        self,
+        q: PaginationQuery = Depends(make_dependable(PaginationQuery)),
+        search: str | None = None,
     ) -> PaginationBase[IngredientFood]:
         response = self.ingredient_foods.page_all(
             pagination=q,
@@ -26,7 +28,7 @@ class PublicFoodsController(BasePublicExploreController):
             search=search,
         )
 
-        response.set_pagination_guides(router.url_path_for("get_all", group_slug=self.group.slug), q.model_dump())
+        response.set_pagination_guides(self.get_explore_url_path(router.url_path_for("get_all")), q.model_dump())
         return response
 
     @router.get("/{item_id}", response_model=IngredientFood)

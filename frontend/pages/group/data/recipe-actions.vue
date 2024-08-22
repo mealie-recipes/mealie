@@ -121,7 +121,7 @@
 import { defineComponent, reactive, ref, useContext } from "@nuxtjs/composition-api";
 import { validators } from "~/composables/use-validators";
 import { useGroupRecipeActions, useGroupRecipeActionData } from "~/composables/use-group-recipe-actions";
-import { GroupRecipeActionOut } from "~/lib/api/types/group";
+import { GroupRecipeActionOut } from "~/lib/api/types/household";
 
 export default defineComponent({
   setup() {

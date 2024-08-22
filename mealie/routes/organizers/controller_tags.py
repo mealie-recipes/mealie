@@ -20,7 +20,7 @@ router = APIRouter(prefix="/tags", tags=["Organizer: Tags"])
 class TagController(BaseCrudController):
     @cached_property
     def repo(self):
-        return self.repos.tags.by_group(self.group_id)
+        return self.repos.tags
 
     @cached_property
     def mixins(self):
@@ -58,6 +58,8 @@ class TagController(BaseCrudController):
             self.publish_event(
                 event_type=EventTypes.tag_created,
                 document_data=EventTagData(operation=EventOperation.create, tag_id=new_tag.id),
+                group_id=new_tag.group_id,
+                household_id=None,
                 message=self.t(
                     "notifications.generic-created-with-url",
                     name=new_tag.name,
@@ -77,6 +79,8 @@ class TagController(BaseCrudController):
             self.publish_event(
                 event_type=EventTypes.tag_updated,
                 document_data=EventTagData(operation=EventOperation.update, tag_id=tag.id),
+                group_id=tag.group_id,
+                household_id=None,
                 message=self.t(
                     "notifications.generic-updated-with-url",
                     name=tag.name,
@@ -103,6 +107,8 @@ class TagController(BaseCrudController):
             self.publish_event(
                 event_type=EventTypes.tag_deleted,
                 document_data=EventTagData(operation=EventOperation.delete, tag_id=tag.id),
+                group_id=tag.group_id,
+                household_id=None,
                 message=self.t("notifications.generic-deleted", name=tag.name),
             )
 

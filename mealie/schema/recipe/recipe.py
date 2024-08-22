@@ -15,6 +15,7 @@ from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.core.config import get_app_dirs
 from mealie.schema._mealie import MealieModel, SearchType
+from mealie.schema._mealie.mealie_model import UpdatedAtField
 from mealie.schema.response.pagination import PaginationBase
 
 from ...db.models.recipe import (
@@ -83,6 +84,7 @@ class RecipeSummary(MealieModel):
     _normalize_search: ClassVar[bool] = True
 
     user_id: UUID4 = Field(default_factory=uuid4, validate_default=True)
+    household_id: UUID4 = Field(default_factory=uuid4, validate_default=True)
     group_id: UUID4 = Field(default_factory=uuid4, validate_default=True)
 
     name: str | None = None
@@ -106,7 +108,7 @@ class RecipeSummary(MealieModel):
     date_updated: datetime.datetime | None = None
 
     created_at: datetime.datetime | None = None
-    update_at: datetime.datetime | None = None
+    updated_at: datetime.datetime | None = UpdatedAtField(None)
     last_made: datetime.datetime | None = None
     model_config = ConfigDict(from_attributes=True)
 
@@ -229,6 +231,12 @@ class Recipe(RecipeSummary):
         if isinstance(group_id, int):
             return uuid4()
         return group_id
+
+    @field_validator("household_id", mode="before")
+    def validate_household_id(household_id: Any):
+        if isinstance(household_id, int):
+            return uuid4()
+        return household_id
 
     @field_validator("user_id", mode="before")
     def validate_user_id(user_id: Any):
