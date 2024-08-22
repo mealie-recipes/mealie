@@ -62,25 +62,25 @@
     },
     "ounce": {
         "name": "unca",
-        "plural_name": "ounces",
+        "plural_name": "unce",
         "description": "",
         "abbreviation": "oz"
     },
     "gram": {
         "name": "gram",
-        "plural_name": "grams",
+        "plural_name": "gramy",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
         "name": "kilogram",
-        "plural_name": "kilograms",
+        "plural_name": "kilogramy",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
         "name": "milligram",
-        "plural_name": "milligrams",
+        "plural_name": "miligramy",
         "description": "",
         "abbreviation": "mg"
     },
@@ -98,7 +98,7 @@
     },
     "serving": {
         "name": "porcia",
-        "plural_name": "servings",
+        "plural_name": "porcie",
         "description": "",
         "abbreviation": ""
     },

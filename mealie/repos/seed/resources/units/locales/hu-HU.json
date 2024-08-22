@@ -1,140 +1,140 @@
 {
     "teaspoon": {
         "name": "teáskanál",
-        "plural_name": "teaspoons",
+        "plural_name": "teáskanál",
         "description": "",
         "abbreviation": "tk"
     },
     "tablespoon": {
         "name": "evőkanál",
-        "plural_name": "tablespoons",
+        "plural_name": "evőkanál",
         "description": "",
         "abbreviation": "ek"
     },
     "cup": {
         "name": "csésze",
-        "plural_name": "cups",
+        "plural_name": "csésze",
         "description": "",
         "abbreviation": "c"
     },
     "fluid-ounce": {
         "name": "uncia",
-        "plural_name": "fluid ounces",
+        "plural_name": "folyadék uncia",
         "description": "",
         "abbreviation": "uncia"
     },
     "pint": {
         "name": "pint",
-        "plural_name": "pints",
+        "plural_name": "pint",
         "description": "",
         "abbreviation": "pint"
     },
     "quart": {
         "name": "quart",
-        "plural_name": "quarts",
+        "plural_name": "negyed gallon",
         "description": "",
         "abbreviation": "quart"
     },
     "gallon": {
         "name": "gallon",
-        "plural_name": "gallons",
+        "plural_name": "gallon",
         "description": "",
         "abbreviation": "gallon"
     },
     "milliliter": {
         "name": "milliliter",
-        "plural_name": "milliliters",
+        "plural_name": "milliliter",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
         "name": "liter",
-        "plural_name": "liters",
+        "plural_name": "liter",
         "description": "",
         "abbreviation": "l"
     },
     "pound": {
         "name": "font",
-        "plural_name": "pounds",
+        "plural_name": "font",
         "description": "",
         "abbreviation": "font",
-        "plural_abbreviation": "lbs"
+        "plural_abbreviation": "font"
     },
     "ounce": {
         "name": "uncia",
-        "plural_name": "ounces",
+        "plural_name": "uncia",
         "description": "",
         "abbreviation": "uncia"
     },
     "gram": {
         "name": "gramm",
-        "plural_name": "grams",
+        "plural_name": "gramm",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
         "name": "kilogramm",
-        "plural_name": "kilograms",
+        "plural_name": "kilogramm",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
         "name": "miligramm",
-        "plural_name": "milligrams",
+        "plural_name": "milligramm",
         "description": "",
         "abbreviation": "mg"
     },
     "splash": {
         "name": "fröccsintés",
-        "plural_name": "splashes",
+        "plural_name": "fröccsintés",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
         "name": "csipetnyi",
-        "plural_name": "dashes",
+        "plural_name": "csepp",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
         "name": "adag",
-        "plural_name": "servings",
+        "plural_name": "adag",
         "description": "",
         "abbreviation": ""
     },
     "head": {
         "name": "fej",
-        "plural_name": "heads",
+        "plural_name": "fej",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
         "name": "gerezd",
-        "plural_name": "cloves",
+        "plural_name": "gerezd",
         "description": "",
         "abbreviation": ""
     },
     "can": {
         "name": "konzerv",
-        "plural_name": "cans",
+        "plural_name": "doboz",
         "description": "",
         "abbreviation": ""
     },
     "bunch": {
-        "name": "bunch",
-        "plural_name": "bunches",
+        "name": "csokor",
+        "plural_name": "csokor",
         "description": "",
         "abbreviation": ""
     },
     "pack": {
-        "name": "pack",
-        "plural_name": "packs",
+        "name": "csomag",
+        "plural_name": "csomag",
         "description": "",
         "abbreviation": ""
     },
     "pinch": {
-        "name": "pinch",
-        "plural_name": "pinches",
+        "name": "csipet",
+        "plural_name": "csipet",
         "description": "",
         "abbreviation": ""
     }
