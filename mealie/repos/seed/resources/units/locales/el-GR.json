@@ -1,140 +1,140 @@
 {
     "teaspoon": {
         "name": "Κουταλάκι Γλυκού",
-        "plural_name": "teaspoons",
+        "plural_name": "κουταλάκια του γλυκού",
         "description": "",
         "abbreviation": "κ.γ."
     },
     "tablespoon": {
         "name": "κουταλιά της σούπας",
-        "plural_name": "tablespoons",
+        "plural_name": "κουταλιές της σούπας",
         "description": "",
         "abbreviation": "κ.σ."
     },
     "cup": {
         "name": "φλιτζάνι",
-        "plural_name": "cups",
+        "plural_name": "φλιτζάνια",
         "description": "",
-        "abbreviation": "c"
+        "abbreviation": "φλ."
     },
     "fluid-ounce": {
         "name": "ρευστή ουγγιά",
-        "plural_name": "fluid ounces",
+        "plural_name": "ρευστές ουγγιές",
         "description": "",
         "abbreviation": "fl oz"
     },
     "pint": {
         "name": "πίντα",
-        "plural_name": "pints",
+        "plural_name": "πίντες",
         "description": "",
         "abbreviation": "pt"
     },
     "quart": {
         "name": "1/4",
-        "plural_name": "quarts",
+        "plural_name": "τέταρτα",
         "description": "",
         "abbreviation": "1/4"
     },
     "gallon": {
         "name": "γαλόνι",
-        "plural_name": "gallons",
+        "plural_name": "γαλόνια",
         "description": "",
         "abbreviation": "γαλ"
     },
     "milliliter": {
         "name": "χιλιοστόλιτρο",
-        "plural_name": "milliliters",
+        "plural_name": "χιλιοστόλιτρα",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
         "name": "λίτρο",
-        "plural_name": "liters",
+        "plural_name": "λίτρα",
         "description": "",
         "abbreviation": "l"
     },
     "pound": {
         "name": "λίβρα",
-        "plural_name": "pounds",
+        "plural_name": "λίβρες",
         "description": "",
         "abbreviation": "λβρ",
-        "plural_abbreviation": "lbs"
+        "plural_abbreviation": "λβρ"
     },
     "ounce": {
         "name": "ουγγιά",
-        "plural_name": "ounces",
+        "plural_name": "ουγγιές",
         "description": "",
         "abbreviation": "οζ"
     },
     "gram": {
         "name": "γραμμάριο",
-        "plural_name": "grams",
+        "plural_name": "γραμμάρια",
         "description": "",
         "abbreviation": "γρ."
     },
     "kilogram": {
         "name": "κιλό",
-        "plural_name": "kilograms",
+        "plural_name": "κιλά",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
         "name": "χιλιοστόγραμμο",
-        "plural_name": "milligrams",
+        "plural_name": "χιλιοστόγραμμα",
         "description": "",
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "splash",
-        "plural_name": "splashes",
+        "name": "σταγόνα",
+        "plural_name": "σταγόνες",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
         "name": "παύλα",
-        "plural_name": "dashes",
+        "plural_name": "παύλες",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
         "name": "μερίδα",
-        "plural_name": "servings",
+        "plural_name": "μερίδες",
         "description": "",
         "abbreviation": ""
     },
     "head": {
         "name": "κεφάλι",
-        "plural_name": "heads",
+        "plural_name": "κεφάλια",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
         "name": "σκελίδα",
-        "plural_name": "cloves",
+        "plural_name": "σκελίδες",
         "description": "",
         "abbreviation": ""
     },
     "can": {
         "name": "κονσέρβα",
-        "plural_name": "cans",
+        "plural_name": "κονσέρβες",
         "description": "",
         "abbreviation": ""
     },
     "bunch": {
-        "name": "bunch",
-        "plural_name": "bunches",
+        "name": "δεμάτι",
+        "plural_name": "δεμάτια",
         "description": "",
         "abbreviation": ""
     },
     "pack": {
-        "name": "pack",
-        "plural_name": "packs",
+        "name": "πακέτο",
+        "plural_name": "πακέτα",
         "description": "",
         "abbreviation": ""
     },
     "pinch": {
-        "name": "pinch",
-        "plural_name": "pinches",
+        "name": "πρέζα",
+        "plural_name": "πρέζες",
         "description": "",
         "abbreviation": ""
     }

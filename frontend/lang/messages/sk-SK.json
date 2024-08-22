@@ -189,7 +189,7 @@
     "delete-with-name": "Vymazať {name}",
     "confirm-delete-generic-with-name": "Naozaj chcete odstrániť {name}?",
     "confirm-delete-own-admin-account": "Prosím spozornite, chystáte sa zmazať Váš administrátorský účet! Táto operácia nemôže byť spätne zrušená a Váš účet bude natrvalo vymazaný?",
-    "organizer": "Organizátor",
+    "organizer": "Organizér",
     "transfer": "Presun",
     "copy": "Kopírovať",
     "color": "Farba",
@@ -210,7 +210,7 @@
     "unsaved-changes": "Posledne vykonané zmeny nie sú uložené. Želáte si ich uložiť alebo zrušiť?",
     "clipboard-copy-failure": "Skopírovanie do schránky zlyhalo.",
     "confirm-delete-generic-items": "Ste si istý, že chcete odstrániť nasledujúce položky?",
-    "organizers": "Organizátori",
+    "organizers": "Organizéry",
     "caution": "Výstraha"
   },
   "group": {
