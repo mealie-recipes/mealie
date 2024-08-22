@@ -90,20 +90,18 @@
       <div v-if="!preferences.viewByLabel">
         <draggable :value="listItems.unchecked" handle=".handle" delay="250" :delay-on-touch-only="true"  @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndexUnchecked">
           <v-lazy v-for="(item, index) in listItems.unchecked" :key="item.id" class="my-2">
-            <v-card>
-              <ShoppingListItem
-                v-model="listItems.unchecked[index]"
-                class="my-2 my-sm-0"
-                :show-label=true
-                :labels="allLabels || []"
-                :units="allUnits || []"
-                :foods="allFoods || []"
-                :recipes="recipeMap"
-                @checked="saveListItem"
-                @save="saveListItem"
-                @delete="deleteListItem(item)"
-              />
-            </v-card>
+            <ShoppingListItem
+              v-model="listItems.unchecked[index]"
+              class="my-2 my-sm-0"
+              :show-label=true
+              :labels="allLabels || []"
+              :units="allUnits || []"
+              :foods="allFoods || []"
+              :recipes="recipeMap"
+              @checked="saveListItem"
+              @save="saveListItem"
+              @delete="deleteListItem(item)"
+            />
           </v-lazy>
         </draggable>
       </div>
@@ -132,19 +130,17 @@
           </div>
           <draggable :value="value" handle=".handle" delay="250" :delay-on-touch-only="true" @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndexUncheckedByLabel(key, $event)">
             <v-lazy v-for="(item, index) in value" :key="item.id" class="ml-2 my-2">
-              <v-card>
-                <ShoppingListItem
-                  v-model="value[index]"
-                  :show-label=false
-                  :labels="allLabels || []"
-                  :units="allUnits || []"
-                  :foods="allFoods || []"
-                  :recipes="recipeMap"
-                  @checked="saveListItem"
-                  @save="saveListItem"
-                  @delete="deleteListItem(item)"
-                />
-              </v-card>
+              <ShoppingListItem
+                v-model="value[index]"
+                :show-label=false
+                :labels="allLabels || []"
+                :units="allUnits || []"
+                :foods="allFoods || []"
+                :recipes="recipeMap"
+                @checked="saveListItem"
+                @save="saveListItem"
+                @delete="deleteListItem(item)"
+              />
             </v-lazy>
           </draggable>
         </div>
