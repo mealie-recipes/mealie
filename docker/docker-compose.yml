@@ -1,4 +1,3 @@
-version: "3.4"
 services:
   mealie:
     container_name: mealie
