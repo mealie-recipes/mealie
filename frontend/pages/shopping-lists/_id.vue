@@ -22,6 +22,58 @@
             <v-col cols="6" class="d-flex justify-center">
               <v-img max-height="100" max-width="100" :src="require('~/static/svgs/shopping-cart.svg')"></v-img>
             </v-col>
+            <v-col cols="3" class="text-right">
+              <BaseButtonGroup
+                :buttons="[
+                  {
+                    icon: $globals.icons.dotsVertical,
+                    text: '',
+                    event: 'edit',
+                    children: [
+                      {
+                        icon: $globals.icons.contentCopy,
+                        text: $tc('shopping-list.copy-as-text'),
+                        event: 'copy-plain',
+                      },
+                      {
+                        icon: $globals.icons.contentCopy,
+                        text: $tc('shopping-list.copy-as-markdown'),
+                        event: 'copy-markdown',
+                      },
+                      {
+                        icon: $globals.icons.checkboxOutline,
+                        text: $tc('shopping-list.check-all-items'),
+                        event: 'check',
+                      },
+                      {
+                        icon: $globals.icons.checkboxBlankOutline,
+                        text: $tc('shopping-list.uncheck-all-items'),
+                        event: 'uncheck',
+                      },
+                      {
+                        icon: $globals.icons.cog,
+                        text: $tc('general.options'),
+                        event: 'options',
+                        color: 'info',
+                      },
+                      {
+                        icon: $globals.icons.delete,
+                        text: $tc('shopping-list.delete-checked'),
+                        event: 'delete',
+                        color: 'error',
+                      },
+                    ],
+                  },
+                ]"
+                @edit="edit = true"
+                @delete="openDeleteChecked"
+                @uncheck="openUncheckAll"
+                @check="openCheckAll"
+                @copy-plain="copyListItems('plain')"
+                @copy-markdown="copyListItems('markdown')"
+                @options="toggleOptionsDialog()"
+              />
+            </v-col>
           </v-row>
         </v-container>
       </template>
@@ -38,38 +90,11 @@
       <div v-if="!preferences.viewByLabel">
         <draggable :value="listItems.unchecked" handle=".handle" delay="250" :delay-on-touch-only="true"  @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndexUnchecked">
           <v-lazy v-for="(item, index) in listItems.unchecked" :key="item.id" class="my-2">
-            <ShoppingListItem
-              v-model="listItems.unchecked[index]"
-              class="my-2 my-sm-0"
-              :show-label=true
-              :labels="allLabels || []"
-              :units="allUnits || []"
-              :foods="allFoods || []"
-              :recipes="recipeMap"
-              @checked="saveListItem"
-              @save="saveListItem"
-              @delete="deleteListItem(item)"
-            />
-          </v-lazy>
-        </draggable>
-      </div>
-
-      <!-- View By Label -->
-      <div v-else>
-        <div v-for="(value, key, idx) in itemsByLabel" :key="key" class="mb-6">
-          <div @click="toggleShowChecked()">
-            <span v-if="idx || key !== $tc('shopping-list.no-label')">
-              <v-icon :color="getLabelColor(value[0])">
-                {{ $globals.icons.tags }}
-              </v-icon>
-            </span>
-            {{ key }}
-          </div>
-          <draggable :value="value" handle=".handle" delay="250" :delay-on-touch-only="true" @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndexUncheckedByLabel(key, $event)">
-            <v-lazy v-for="(item, index) in value" :key="item.id" class="ml-2 my-2">
+            <v-card>
               <ShoppingListItem
-                v-model="value[index]"
-                :show-label=false
+                v-model="listItems.unchecked[index]"
+                class="my-2 my-sm-0"
+                :show-label=true
                 :labels="allLabels || []"
                 :units="allUnits || []"
                 :foods="allFoods || []"
@@ -78,6 +103,48 @@
                 @save="saveListItem"
                 @delete="deleteListItem(item)"
               />
+            </v-card>
+          </v-lazy>
+        </draggable>
+      </div>
+
+      <!-- View By Label -->
+      <div v-else>
+        <div v-for="(value, key, idx) in itemsByLabel" :key="key" class="mb-6">
+          <div @click="toggleShowChecked()">
+            <!-- Create Item -->
+            <div v-if="createEditorOpen">
+              <ShoppingListItemEditor
+                v-model="createListItemData"
+                class="my-4"
+                :labels="allLabels || []"
+                :units="allUnits || []"
+                :foods="allFoods || []"
+                @delete="createEditorOpen = false"
+                @cancel="createEditorOpen = false"
+                @save="createListItem"
+              />
+            </div>
+            <div v-else class="text-left">
+              <BaseButton create :color="getLabelColor(value[0])" @click="createEditorOpen = true">{{ key }}</BaseButton>
+            </div>
+            <v-divider/>
+          </div>
+          <draggable :value="value" handle=".handle" delay="250" :delay-on-touch-only="true" @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndexUncheckedByLabel(key, $event)">
+            <v-lazy v-for="(item, index) in value" :key="item.id" class="ml-2 my-2">
+              <v-card>
+                <ShoppingListItem
+                  v-model="value[index]"
+                  :show-label=false
+                  :labels="allLabels || []"
+                  :units="allUnits || []"
+                  :foods="allFoods || []"
+                  :recipes="recipeMap"
+                  @checked="saveListItem"
+                  @save="saveListItem"
+                  @delete="deleteListItem(item)"
+                />
+              </v-card>
             </v-lazy>
           </draggable>
         </div>
@@ -99,6 +166,29 @@
             </div>
           </draggable>
         </v-card>
+      </BaseDialog>
+
+      <!-- Options dialog -->
+      <BaseDialog
+        v-model="optionsDialog"
+        :icon="$globals.icons.cog"
+        :title="$t('general.options')"
+      >
+        <v-container>
+          <BaseButton edit :disabled="$nuxt.isOffline" @click="sortByLabels">
+            <template #icon> {{ $globals.icons.tags }} </template>
+            {{ $t('shopping-list.toggle-label-sort') }}
+          </BaseButton>
+          <BaseButton v-if="preferences.viewByLabel" edit class="mr-2" :disabled="$nuxt.isOffline" @click="toggleReorderLabelsDialog">
+            <template #icon> {{ $globals.icons.tags }} </template>
+            {{ $t('shopping-list.reorder-labels') }}
+          </BaseButton>
+          <BaseButton edit :disabled="$nuxt.isOffline" @click="toggleSettingsDialog">
+            <template #icon> {{ $globals.icons.cog }} </template>
+            {{ $t('general.settings') }}
+          </BaseButton>
+          <ButtonLink :to="`/group/data/labels`" :text="$tc('shopping-list.manage-labels')" :icon="$globals.icons.tags"/>
+        </v-container>
       </BaseDialog>
 
       <!-- Settings -->
@@ -136,66 +226,7 @@
         />
       </div>
       <div v-else class="mt-4 d-flex justify-end">
-        <BaseButton
-          v-if="preferences.viewByLabel" edit class="mr-2"
-          :disabled="$nuxt.isOffline"
-          @click="toggleReorderLabelsDialog">
-          <template #icon> {{ $globals.icons.tags }} </template>
-          {{ $t('shopping-list.reorder-labels') }}
-        </BaseButton>
         <BaseButton create @click="createEditorOpen = true" > {{ $t('general.add') }} </BaseButton>
-      </div>
-
-      <!-- Action Bar -->
-      <div class="d-flex justify-end mb-4 mt-2">
-        <BaseButtonGroup
-          :buttons="[
-            {
-              icon: $globals.icons.contentCopy,
-              text: '',
-              event: 'edit',
-              children: [
-                {
-                  icon: $globals.icons.contentCopy,
-                  text: $tc('shopping-list.copy-as-text'),
-                  event: 'copy-plain',
-                },
-                {
-                  icon: $globals.icons.contentCopy,
-                  text: $tc('shopping-list.copy-as-markdown'),
-                  event: 'copy-markdown',
-                },
-              ],
-            },
-            {
-              icon: $globals.icons.delete,
-              text: $tc('shopping-list.delete-checked'),
-              event: 'delete',
-            },
-            {
-              icon: $globals.icons.tags,
-              text: $tc('shopping-list.toggle-label-sort'),
-              event: 'sort-by-labels',
-            },
-            {
-              icon: $globals.icons.checkboxBlankOutline,
-              text: $tc('shopping-list.uncheck-all-items'),
-              event: 'uncheck',
-            },
-            {
-              icon: $globals.icons.checkboxOutline,
-              text: $tc('shopping-list.check-all-items'),
-              event: 'check',
-            },
-          ]"
-          @edit="edit = true"
-          @delete="openDeleteChecked"
-          @uncheck="openUncheckAll"
-          @check="openCheckAll"
-          @sort-by-labels="sortByLabels"
-          @copy-plain="copyListItems('plain')"
-          @copy-markdown="copyListItems('markdown')"
-        />
       </div>
 
       <!-- Checked Items -->
@@ -212,16 +243,18 @@
         <v-expand-transition>
           <div v-show="showChecked">
             <div v-for="(item, idx) in listItems.checked" :key="item.id">
-              <ShoppingListItem
-                v-model="listItems.checked[idx]"
-                class="strike-through-note"
-                :labels="allLabels || []"
-                :units="allUnits || []"
-                :foods="allFoods || []"
-                @checked="saveListItem"
-                @save="saveListItem"
-                @delete="deleteListItem(item)"
-              />
+              <v-card>
+                <ShoppingListItem
+                  v-model="listItems.checked[idx]"
+                  class="strike-through-note"
+                  :labels="allLabels || []"
+                  :units="allUnits || []"
+                  :foods="allFoods || []"
+                  @checked="saveListItem"
+                  @save="saveListItem"
+                  @delete="deleteListItem(item)"
+                />
+              </v-card>
             </div>
           </div>
         </v-expand-transition>
@@ -258,29 +291,6 @@
           </template>
         </RecipeList>
       </section>
-    </v-lazy>
-
-    <v-lazy>
-      <div class="d-flex justify-end">
-        <BaseButton
-          edit
-          :disabled="$nuxt.isOffline"
-          @click="toggleSettingsDialog"
-        >
-          <template #icon> {{ $globals.icons.cog }} </template>
-          {{ $t('general.settings') }}
-        </BaseButton>
-      </div>
-    </v-lazy>
-
-    <v-lazy>
-      <div v-if="$nuxt.isOnline" class="d-flex justify-end mt-10">
-        <ButtonLink
-          :to="`/group/data/labels`"
-          :text="$tc('shopping-list.manage-labels')"
-          :icon="$globals.icons.tags"
-        />
-      </div>
     </v-lazy>
   </v-container>
 </template>
@@ -331,6 +341,7 @@ export default defineComponent({
     const edit = ref(false);
     const reorderLabelsDialog = ref(false);
     const settingsDialog = ref(false);
+    const optionsDialog = ref(false);
     const preserveItemOrder = ref(false);
 
     const route = useRoute();
@@ -626,6 +637,13 @@ export default defineComponent({
         await fetchAllUsers();
       }
       settingsDialog.value = !settingsDialog.value;
+    }
+
+    async function toggleOptionsDialog() {
+      if (!optionsDialog.value) {
+        await fetchAllUsers();
+      }
+      optionsDialog.value = !optionsDialog.value;
     }
 
     function updateLabelOrder(labelSettings: ShoppingListMultiPurposeLabelOut[]) {
@@ -1078,6 +1096,8 @@ export default defineComponent({
       toggleReorderLabelsDialog,
       settingsDialog,
       toggleSettingsDialog,
+      optionsDialog,
+      toggleOptionsDialog,
       localLabels,
       updateLabelOrder,
       cancelLabelOrder,

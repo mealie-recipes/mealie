@@ -4,14 +4,13 @@
       <v-menu v-if="btn.children" :key="'menu-' + btn.event" active-class="pa-0" offset-y top left :style="stretch ? 'width: 100%;' : ''">
         <template #activator="{ on, attrs }">
           <v-btn tile :large="large" icon v-bind="attrs" v-on="on">
-            <v-icon>
-              {{ btn.icon }}
-            </v-icon>
+            <v-icon>{{ btn.icon }}</v-icon>
           </v-btn>
         </template>
         <v-list dense>
           <template v-for="(child, idx) in btn.children">
             <v-list-item :key="idx" dense @click="$emit(child.event)">
+              <v-icon :color=child.color>{{ child.icon }}</v-icon>
               <v-list-item-title>{{ child.text }}</v-list-item-title>
             </v-list-item>
             <v-divider v-if="child.divider" :key="`divider-${idx}`" class="my-1"></v-divider>
