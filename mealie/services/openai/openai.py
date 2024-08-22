@@ -1,6 +1,8 @@
+import base64
 import inspect
 import json
 import os
+from abc import ABC, abstractmethod
 from pathlib import Path
 from textwrap import dedent
 
@@ -9,6 +11,7 @@ from openai.resources.chat.completions import ChatCompletion
 from pydantic import BaseModel, field_validator
 
 from mealie.core.config import get_app_settings
+from mealie.pkgs import img
 
 from .._base_service import BaseService
 
@@ -39,6 +42,37 @@ class OpenAIDataInjection(BaseModel):
             return value
 
 
+class OpenAIImageBase(BaseModel, ABC):
+    @abstractmethod
+    def get_image_url(self) -> str: ...
+
+    def build_message(self) -> dict:
+        return {
+            "type": "image_url",
+            "image_url": {"url": self.get_image_url()},
+        }
+
+
+class OpenAIImageExternal(OpenAIImageBase):
+    url: str
+
+    def get_image_url(self) -> str:
+        return self.url
+
+
+class OpenAILocalImage(OpenAIImageBase):
+    filename: str
+    path: Path
+
+    def get_image_url(self) -> str:
+        image = img.PillowMinifier.to_webp(
+            self.path, dest=self.path.parent.joinpath(f"{self.filename}-min-original.webp")
+        )
+        with open(image, "rb") as f:
+            b64content = base64.b64encode(f.read()).decode("utf-8")
+        return f"data:image/webp;base64,{b64content}"
+
+
 class OpenAIService(BaseService):
     PROMPTS_DIR = Path(os.path.dirname(os.path.abspath(__file__))) / "prompts"
 
@@ -50,6 +84,7 @@ class OpenAIService(BaseService):
         self.model = settings.OPENAI_MODEL
         self.workers = settings.OPENAI_WORKERS
         self.send_db_data = settings.OPENAI_SEND_DATABASE_DATA
+        self.enable_image_services = settings.OPENAI_ENABLE_IMAGE_SERVICES
 
         self.get_client = lambda: AsyncOpenAI(
             base_url=settings.OPENAI_BASE_URL,
@@ -99,7 +134,7 @@ class OpenAIService(BaseService):
         return "\n".join(content_parts)
 
     async def _get_raw_response(
-        self, prompt: str, message: str, temperature=0.2, force_json_response=True
+        self, prompt: str, content: list[dict], temperature=0.2, force_json_response=True
     ) -> ChatCompletion:
         client = self.get_client()
         return await client.chat.completions.create(
@@ -110,7 +145,7 @@ class OpenAIService(BaseService):
                 },
                 {
                     "role": "user",
-                    "content": message,
+                    "content": content,
                 },
             ],
             model=self.model,
@@ -118,10 +153,26 @@ class OpenAIService(BaseService):
             response_format={"type": "json_object"} if force_json_response else NOT_GIVEN,
         )
 
-    async def get_response(self, prompt: str, message: str, temperature=0.2, force_json_response=True) -> str | None:
+    async def get_response(
+        self,
+        prompt: str,
+        message: str,
+        *,
+        images: list[OpenAIImageBase] | None = None,
+        temperature=0.2,
+        force_json_response=True,
+    ) -> str | None:
         """Send data to OpenAI and return the response message content"""
+        if images and not self.enable_image_services:
+            self.logger.warning("OpenAI image services are disabled, ignoring images")
+            images = None
+
         try:
-            response = await self._get_raw_response(prompt, message, temperature, force_json_response)
+            user_messages = [{"type": "text", "text": message}]
+            for image in images or []:
+                user_messages.append(image.build_message())
+
+            response = await self._get_raw_response(prompt, user_messages, temperature, force_json_response)
             if not response.choices:
                 return None
             return response.choices[0].message.content

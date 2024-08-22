@@ -40,7 +40,7 @@ def test_new_mealplan_event(api_client: TestClient, unique_user: TestUser):
     new_plan["date"] = datetime.now(timezone.utc).date().isoformat()
     new_plan["recipeId"] = str(recipe_id)
 
-    response = api_client.post(api_routes.groups_mealplans, json=new_plan, headers=unique_user.token)
+    response = api_client.post(api_routes.households_mealplans, json=new_plan, headers=unique_user.token)
     assert response.status_code == 201
 
     # run the task and check to make sure a new event was created from the mealplan
@@ -70,7 +70,7 @@ def test_new_mealplan_event(api_client: TestClient, unique_user: TestUser):
     # make sure nothing else was updated
     for data in [original_recipe_data, new_recipe_data]:
         data.pop("dateUpdated")
-        data.pop("updateAt")
+        data.pop("updatedAt")
         data.pop("lastMade")
 
     # instructions ids are generated randomly and aren't consistent between get requests
@@ -107,7 +107,7 @@ def test_new_mealplan_event_duplicates(api_client: TestClient, unique_user: Test
     new_plan["date"] = datetime.now(timezone.utc).date().isoformat()
     new_plan["recipeId"] = str(recipe_id)
 
-    response = api_client.post(api_routes.groups_mealplans, json=new_plan, headers=unique_user.token)
+    response = api_client.post(api_routes.households_mealplans, json=new_plan, headers=unique_user.token)
     assert response.status_code == 201
 
     # run the task multiple times and make sure we only create one event
@@ -153,7 +153,7 @@ def test_new_mealplan_events_with_multiple_recipes(api_client: TestClient, uniqu
             new_plan["date"] = datetime.now(timezone.utc).date().isoformat()
             new_plan["recipeId"] = str(recipe.id)
 
-            response = api_client.post(api_routes.groups_mealplans, json=new_plan, headers=unique_user.token)
+            response = api_client.post(api_routes.households_mealplans, json=new_plan, headers=unique_user.token)
             assert response.status_code == 201
             mealplan_count_by_recipe_id[recipe.id] += 1  # type: ignore
 
@@ -213,7 +213,7 @@ def test_preserve_future_made_date(api_client: TestClient, unique_user: TestUser
     new_plan["date"] = datetime.now(timezone.utc).date().isoformat()
     new_plan["recipeId"] = str(recipe_id)
 
-    response = api_client.post(api_routes.groups_mealplans, json=new_plan, headers=unique_user.token)
+    response = api_client.post(api_routes.households_mealplans, json=new_plan, headers=unique_user.token)
     assert response.status_code == 201
 
     # run the task and make sure the recipe's last made date was not updated

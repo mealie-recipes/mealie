@@ -1,4 +1,6 @@
-from mealie.schema.group.group_shopping_list import ShoppingListItemOut
+import uuid
+
+from mealie.schema.household.group_shopping_list import ShoppingListItemOut
 
 
 def test_shopping_list_ingredient_validation():
@@ -15,7 +17,7 @@ def test_shopping_list_ingredient_validation():
             "aliases": [],
             "label": None,
             "createdAt": "2024-02-26T18:29:46.190754",
-            "updateAt": "2024-02-26T18:29:46.190758",
+            "updatedAt": "2024-02-26T18:29:46.190758",
         },
         "note": "",
         "isFood": True,
@@ -30,8 +32,10 @@ def test_shopping_list_ingredient_validation():
         "id": "80f4df25-6139-4d30-be0c-4100f50e5396",
         "label": None,
         "recipeReferences": [],
+        "groupId": uuid.uuid4(),
+        "householdId": uuid.uuid4(),
         "createdAt": "2024-02-27T10:18:19.274677",
-        "updateAt": "2024-02-27T11:26:32.643392",
+        "updatedAt": "2024-02-27T11:26:32.643392",
     }
     out = ShoppingListItemOut.model_validate(db_obj)
     assert out.display == "8 bell peppers"

@@ -18,7 +18,7 @@ router = APIRouter(prefix="/tools", tags=["Organizer: Tools"])
 class RecipeToolController(BaseUserController):
     @cached_property
     def repo(self):
-        return self.repos.tools.by_group(self.group_id)
+        return self.repos.tools
 
     @property
     def mixins(self) -> HttpRepo:

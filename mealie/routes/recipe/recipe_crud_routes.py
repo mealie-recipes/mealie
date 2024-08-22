@@ -30,7 +30,7 @@ from mealie.core.dependencies import (
     validate_recipe_token,
 )
 from mealie.core.security import create_recipe_slug_token
-from mealie.db.models.group.cookbook import CookBook
+from mealie.db.models.household.cookbook import CookBook
 from mealie.pkgs import cache
 from mealie.repos.repository_generic import RepositoryGeneric
 from mealie.repos.repository_recipes import RepositoryRecipes
@@ -95,15 +95,15 @@ class JSONBytes(JSONResponse):
 class BaseRecipeController(BaseCrudController):
     @cached_property
     def repo(self) -> RepositoryRecipes:
-        return self.repos.recipes.by_group(self.group_id)
+        return self.repos.recipes
 
     @cached_property
     def cookbooks_repo(self) -> RepositoryGeneric[ReadCookBook, CookBook]:
-        return self.repos.cookbooks.by_group(self.group_id)
+        return self.repos.cookbooks
 
     @cached_property
     def service(self) -> RecipeService:
-        return RecipeService(self.repos, self.user, self.group, translator=self.translator)
+        return RecipeService(self.repos, self.user, self.household, translator=self.translator)
 
     @cached_property
     def mixins(self):
@@ -207,7 +207,7 @@ class RecipeController(BaseRecipeController):
             ) from e
 
         if req.include_tags:
-            ctx = ScraperContext(self.user.id, self.group_id, self.repos)
+            ctx = ScraperContext(self.repos)
 
             recipe.tags = extras.use_tags(ctx)  # type: ignore
 
@@ -217,6 +217,8 @@ class RecipeController(BaseRecipeController):
             self.publish_event(
                 event_type=EventTypes.recipe_created,
                 document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=new_recipe.slug),
+                group_id=new_recipe.group_id,
+                household_id=new_recipe.household_id,
                 message=self.t(
                     "notifications.generic-created-with-url",
                     name=new_recipe.name,
@@ -236,6 +238,8 @@ class RecipeController(BaseRecipeController):
         self.publish_event(
             event_type=EventTypes.recipe_created,
             document_data=EventRecipeBulkReportData(operation=EventOperation.create, report_id=report_id),
+            group_id=self.group_id,
+            household_id=self.household_id,
         )
 
         return {"reportId": report_id}
@@ -254,6 +258,9 @@ class RecipeController(BaseRecipeController):
 
         return "recipe_scrapers was unable to scrape this URL"
 
+    # ==================================================================================================================
+    # Other Create Operations
+
     @router.post("/create-from-zip", status_code=201)
     def create_recipe_from_zip(self, archive: UploadFile = File(...)):
         """Create recipe from archive"""
@@ -262,7 +269,36 @@ class RecipeController(BaseRecipeController):
             self.publish_event(
                 event_type=EventTypes.recipe_created,
                 document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=recipe.slug),
+                group_id=recipe.group_id,
+                household_id=recipe.household_id,
             )
+
+        return recipe.slug
+
+    @router.post("/create-from-image", status_code=201)
+    async def create_recipe_from_image(
+        self,
+        images: list[UploadFile] = File(...),
+        translate_language: str | None = Query(None, alias="translateLanguage"),
+    ):
+        """
+        Create a recipe from an image using OpenAI.
+        Optionally specify a language for it to translate the recipe to.
+        """
+
+        if not (self.settings.OPENAI_ENABLED and self.settings.OPENAI_ENABLE_IMAGE_SERVICES):
+            raise HTTPException(
+                status_code=400,
+                detail=ErrorResponse.respond("OpenAI image services are not enabled"),
+            )
+
+        recipe = await self.service.create_from_images(images, translate_language)
+        self.publish_event(
+            event_type=EventTypes.recipe_created,
+            document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=recipe.slug),
+            group_id=recipe.group_id,
+            household_id=recipe.household_id,
+        )
 
         return recipe.slug
 
@@ -296,7 +332,7 @@ class RecipeController(BaseRecipeController):
                 raise HTTPException(status_code=404, detail="cookbook not found")
 
         # we use the repo by user so we can sort favorites correctly
-        pagination_response = self.repo.by_user(self.user.id).page_all(
+        pagination_response = self.repos.recipes.by_user(self.user.id).page_all(
             pagination=q,
             cookbook=cookbook_data,
             categories=categories,
@@ -346,6 +382,8 @@ class RecipeController(BaseRecipeController):
             self.publish_event(
                 event_type=EventTypes.recipe_created,
                 document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=new_recipe.slug),
+                group_id=new_recipe.group_id,
+                household_id=new_recipe.household_id,
                 message=self.t(
                     "notifications.generic-created-with-url",
                     name=new_recipe.name,
@@ -367,6 +405,8 @@ class RecipeController(BaseRecipeController):
             self.publish_event(
                 event_type=EventTypes.recipe_created,
                 document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=new_recipe.slug),
+                group_id=new_recipe.group_id,
+                household_id=new_recipe.household_id,
                 message=self.t(
                     "notifications.generic-duplicated",
                     name=new_recipe.name,
@@ -387,6 +427,8 @@ class RecipeController(BaseRecipeController):
             self.publish_event(
                 event_type=EventTypes.recipe_updated,
                 document_data=EventRecipeData(operation=EventOperation.update, recipe_slug=recipe.slug),
+                group_id=recipe.group_id,
+                household_id=recipe.household_id,
                 message=self.t(
                     "notifications.generic-updated-with-url",
                     name=recipe.name,
@@ -408,6 +450,8 @@ class RecipeController(BaseRecipeController):
             self.publish_event(
                 event_type=EventTypes.recipe_updated,
                 document_data=EventRecipeData(operation=EventOperation.update, recipe_slug=recipe.slug),
+                group_id=recipe.group_id,
+                household_id=recipe.household_id,
                 message=self.t(
                     "notifications.generic-updated-with-url",
                     name=recipe.name,
@@ -430,6 +474,8 @@ class RecipeController(BaseRecipeController):
             self.publish_event(
                 event_type=EventTypes.recipe_updated,
                 document_data=EventRecipeData(operation=EventOperation.update, recipe_slug=recipe.slug),
+                group_id=recipe.group_id,
+                household_id=recipe.household_id,
                 message=self.t(
                     "notifications.generic-updated-with-url",
                     name=recipe.name,
@@ -451,6 +497,8 @@ class RecipeController(BaseRecipeController):
             self.publish_event(
                 event_type=EventTypes.recipe_deleted,
                 document_data=EventRecipeData(operation=EventOperation.delete, recipe_slug=recipe.slug),
+                group_id=recipe.group_id,
+                household_id=recipe.household_id,
                 message=self.t("notifications.generic-deleted", name=recipe.name),
             )
 

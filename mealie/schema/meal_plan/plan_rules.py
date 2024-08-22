@@ -5,7 +5,7 @@ from pydantic import UUID4, ConfigDict
 from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.interfaces import LoaderOption
 
-from mealie.db.models.group import GroupMealPlanRules
+from mealie.db.models.household import GroupMealPlanRules
 from mealie.schema._mealie import MealieModel
 from mealie.schema.response.pagination import PaginationBase
 
@@ -57,6 +57,7 @@ class PlanRulesCreate(MealieModel):
 
 class PlanRulesSave(PlanRulesCreate):
     group_id: UUID4
+    household_id: UUID4
 
 
 class PlanRulesOut(PlanRulesSave):

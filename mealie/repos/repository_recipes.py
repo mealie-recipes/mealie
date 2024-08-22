@@ -8,11 +8,11 @@ from pydantic import UUID4
 from slugify import slugify
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import InstrumentedAttribute, joinedload
+from typing_extensions import Self
 
 from mealie.db.models.recipe.category import Category
 from mealie.db.models.recipe.ingredient import RecipeIngredientModel
 from mealie.db.models.recipe.recipe import RecipeModel
-from mealie.db.models.recipe.settings import RecipeSettings
 from mealie.db.models.recipe.tag import Tag
 from mealie.db.models.recipe.tool import Tool
 from mealie.db.models.users.user_to_recipe import UserToRecipe
@@ -34,10 +34,17 @@ from mealie.schema.response.pagination import (
 
 from ..db.models._model_base import SqlAlchemyBase
 from ..schema._mealie.mealie_model import extract_uuids
-from .repository_generic import RepositoryGeneric
+from .repository_generic import HouseholdRepositoryGeneric
 
 
-class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
+class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
+    user_id: UUID4 | None = None
+
+    def by_user(self: Self, user_id: UUID4) -> Self:
+        """Add a user_id to the repo, which will be used to handle recipe ratings"""
+        self.user_id = user_id
+        return self
+
     def create(self, document: Recipe) -> Recipe:  # type: ignore
         max_retries = 10
         original_name: str = document.name  # type: ignore
@@ -52,33 +59,6 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
 
                 if i >= max_retries:
                     raise
-
-    def by_group(self, group_id: UUID) -> "RepositoryRecipes":
-        return super().by_group(group_id)
-
-    def get_all_public(self, limit: int | None = None, order_by: str | None = None, start=0, override_schema=None):
-        eff_schema = override_schema or self.schema
-
-        if order_by:
-            order_attr = getattr(self.model, str(order_by))
-            stmt = (
-                sa.select(self.model)
-                .join(RecipeSettings)
-                .filter(RecipeSettings.public == True)  # noqa: E712
-                .order_by(order_attr.desc())
-                .offset(start)
-                .limit(limit)
-            )
-            return [eff_schema.model_validate(x) for x in self.session.execute(stmt).scalars().all()]
-
-        stmt = (
-            sa.select(self.model)
-            .join(RecipeSettings)
-            .filter(RecipeSettings.public == True)  # noqa: E712
-            .offset(start)
-            .limit(limit)
-        )
-        return [eff_schema.model_validate(x) for x in self.session.execute(stmt).scalars().all()]
 
     def update_image(self, slug: str, _: str | None = None) -> int:
         entry: RecipeModel = self._query_one(match_value=slug)
@@ -102,44 +82,6 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             count=count,
             override_schema=override_schema,
         )
-
-    def summary(
-        self, group_id, start=0, limit=99999, load_foods=False, order_by="created_at", order_descending=True
-    ) -> Sequence[RecipeModel]:
-        args = [
-            joinedload(RecipeModel.recipe_category),
-            joinedload(RecipeModel.tags),
-            joinedload(RecipeModel.tools),
-        ]
-
-        if load_foods:
-            args.append(joinedload(RecipeModel.recipe_ingredient).options(joinedload(RecipeIngredientModel.food)))
-
-        try:
-            if order_by:
-                order_attr = getattr(RecipeModel, order_by)
-            else:
-                order_attr = RecipeModel.created_at
-
-        except AttributeError:
-            self.logger.info(f'Attempted to sort by unknown sort property "{order_by}"; ignoring')
-            order_attr = RecipeModel.created_at
-
-        if order_descending:
-            order_attr = order_attr.desc()
-
-        else:
-            order_attr = order_attr.asc()
-
-        stmt = (
-            sa.select(RecipeModel)
-            .options(*args)
-            .filter(RecipeModel.group_id == group_id)
-            .order_by(order_attr)
-            .offset(start)
-            .limit(limit)
-        )
-        return self.session.execute(stmt).scalars().all()
 
     def _uuids_for_items(self, items: list[UUID | str] | None, model: type[SqlAlchemyBase]) -> list[UUID] | None:
         if not items:
@@ -227,6 +169,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             joinedload(RecipeModel.recipe_category),
             joinedload(RecipeModel.tags),
             joinedload(RecipeModel.tools),
+            joinedload(RecipeModel.user),
         ]
 
         q = q.options(*args)
@@ -296,6 +239,11 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             .join(RecipeModel.recipe_category)
             .filter(RecipeModel.recipe_category.any(Category.id.in_(ids)))
         )
+        if self.group_id:
+            stmt = stmt.filter(RecipeModel.group_id == self.group_id)
+        if self.household_id:
+            stmt = stmt.filter(RecipeModel.household_id == self.household_id)
+
         return [RecipeSummary.model_validate(x) for x in self.session.execute(stmt).unique().scalars().all()]
 
     def _build_recipe_filter(
@@ -309,12 +257,11 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         require_all_tools: bool = True,
         require_all_foods: bool = True,
     ) -> list:
+        fltr: list[sa.ColumnElement] = []
         if self.group_id:
-            fltr = [
-                RecipeModel.group_id == self.group_id,
-            ]
-        else:
-            fltr = []
+            fltr.append(RecipeModel.group_id == self.group_id)
+        if self.household_id:
+            fltr.append(RecipeModel.household_id == self.household_id)
 
         if categories:
             if require_all_categories:
@@ -382,12 +329,12 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         return [self.schema.model_validate(x) for x in self.session.execute(stmt).scalars().all()]
 
     def get_random(self, limit=1) -> list[Recipe]:
-        stmt = (
-            sa.select(RecipeModel)
-            .filter(RecipeModel.group_id == self.group_id)
-            .order_by(sa.func.random())  # Postgres and SQLite specific
-            .limit(limit)
-        )
+        stmt = sa.select(RecipeModel).order_by(sa.func.random()).limit(limit)  # Postgres and SQLite specific
+        if self.group_id:
+            stmt = stmt.filter(RecipeModel.group_id == self.group_id)
+        if self.household_id:
+            stmt = stmt.filter(RecipeModel.household_id == self.household_id)
+
         return [self.schema.model_validate(x) for x in self.session.execute(stmt).scalars().all()]
 
     def get_by_slug(self, group_id: UUID4, slug: str) -> Recipe | None:

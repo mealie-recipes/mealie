@@ -5,14 +5,16 @@ from mealie.services.user_services.user_service import UserService
 from tests.utils.fixture_schemas import TestUser
 
 
-def test_get_locked_users(database: AllRepositories, user_tuple: list[TestUser]) -> None:
+def test_get_locked_users(user_tuple: list[TestUser]) -> None:
     usr_1, usr_2 = user_tuple
+    database = usr_1.repos
 
     # Setup
     user_service = UserService(database)
 
     user_1 = database.users.get_one(usr_1.user_id)
     user_2 = database.users.get_one(usr_2.user_id)
+    assert user_1 and user_2
 
     locked_users = user_service.get_locked_users()
     assert len(locked_users) == 0
@@ -41,11 +43,13 @@ def test_get_locked_users(database: AllRepositories, user_tuple: list[TestUser])
     user_service.unlock_user(user_2)
 
 
-def test_lock_unlocker_user(database: AllRepositories, unique_user: TestUser) -> None:
+def test_lock_unlocker_user(unique_user: TestUser) -> None:
+    database = unique_user.repos
     user_service = UserService(database)
 
     # Test that the user is unlocked
     user = database.users.get_one(unique_user.user_id)
+    assert user
     assert not user.locked_at
 
     # Test that the user is locked
@@ -63,11 +67,13 @@ def test_lock_unlocker_user(database: AllRepositories, unique_user: TestUser) ->
     assert not user.is_locked
 
 
-def test_reset_locked_users(database: AllRepositories, unique_user: TestUser) -> None:
+def test_reset_locked_users(unique_user: TestUser) -> None:
+    database = unique_user.repos
     user_service = UserService(database)
 
     # Test that the user is unlocked
     user = database.users.get_one(unique_user.user_id)
+    assert user
     assert not user.is_locked
     assert not user.locked_at
 
@@ -80,6 +86,7 @@ def test_reset_locked_users(database: AllRepositories, unique_user: TestUser) ->
     # Test that the locked user is not unlocked by reset
     unlocked = user_service.reset_locked_users()
     user = database.users.get_one(unique_user.user_id)
+    assert user
     assert unlocked == 0
     assert user.is_locked
     assert user.login_attemps == 5
@@ -89,6 +96,7 @@ def test_reset_locked_users(database: AllRepositories, unique_user: TestUser) ->
     database.users.update(user.id, user)
     unlocked = user_service.reset_locked_users()
     user = database.users.get_one(unique_user.user_id)
+    assert user
     assert unlocked == 1
     assert not user.is_locked
     assert user.login_attemps == 0

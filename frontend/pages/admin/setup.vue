@@ -312,7 +312,6 @@ export default defineComponent({
       const preferences = {
         ...data.preferences,
         privateGroup: !commonSettings.value.makeGroupRecipesPublic,
-        recipePublic: commonSettings.value.makeGroupRecipesPublic,
       }
 
       const payload = {
@@ -322,6 +321,32 @@ export default defineComponent({
 
       // @ts-ignore-next-line user will never be null here
       const { response } = await api.groups.updateOne($auth.user?.groupId, payload);
+      if (!response || response.status !== 200) {
+        alert.error(i18n.tc("events.something-went-wrong"));
+      }
+    }
+
+    async function updateHousehold() {
+      // @ts-ignore-next-line user will never be null here
+      const { data } = await api.households.getOne($auth.user?.householdId);
+      if (!data || !data.preferences) {
+        alert.error(i18n.tc("events.something-went-wrong"));
+        return;
+      }
+
+      const preferences = {
+        ...data.preferences,
+        privateHousehold: !commonSettings.value.makeGroupRecipesPublic,
+        recipePublic: commonSettings.value.makeGroupRecipesPublic,
+      }
+
+      const payload = {
+        ...data,
+        preferences,
+      }
+
+      // @ts-ignore-next-line user will never be null here
+      const { response } = await api.households.updateOne($auth.user?.householdId, payload);
       if (!response || response.status !== 200) {
         alert.error(i18n.tc("events.something-went-wrong"));
       }
@@ -365,6 +390,7 @@ export default defineComponent({
     async function submitCommonSettings() {
       const tasks = [
         updateGroup(),
+        updateHousehold(),
         seedData(),
       ]
 

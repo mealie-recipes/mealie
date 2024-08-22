@@ -12,7 +12,7 @@ router = APIRouter()
 
 @router.get("/shared/{token_id}", response_model=Recipe)
 def get_shared_recipe(token_id: UUID4, session: Session = Depends(generate_session)):
-    db = get_repositories(session)
+    db = get_repositories(session, group_id=None, household_id=None)
 
     token_summary = db.recipe_share_tokens.get_one(token_id)
 

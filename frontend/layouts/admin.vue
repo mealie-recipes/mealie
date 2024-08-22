@@ -65,6 +65,12 @@ export default defineComponent({
         restricted: true,
       },
       {
+        icon: $globals.icons.household,
+        to: "/admin/manage/households",
+        title: i18n.tc("household.households"),
+        restricted: true,
+      },
+      {
         icon: $globals.icons.group,
         to: "/admin/manage/groups",
         title: i18n.tc("group.groups"),

@@ -1,7 +1,7 @@
 import { computed, reactive, ref } from "@nuxtjs/composition-api";
 import { useStoreActions } from "./partials/use-actions-factory";
 import { useUserApi } from "~/composables/api";
-import { GroupRecipeActionOut, RecipeActionType } from "~/lib/api/types/group";
+import { GroupRecipeActionOut, GroupRecipeActionType } from "~/lib/api/types/household";
 import { Recipe } from "~/lib/api/types/recipe";
 
 const groupRecipeActions = ref<GroupRecipeActionOut[] | null>(null);
@@ -10,7 +10,7 @@ const loading = ref(false);
 export function useGroupRecipeActionData() {
   const data = reactive({
     id: "",
-    actionType: "link" as RecipeActionType,
+    actionType: "link" as GroupRecipeActionType,
     title: "",
     url: "",
   });

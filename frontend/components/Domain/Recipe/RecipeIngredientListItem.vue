@@ -11,7 +11,7 @@
 </template>
 <script lang="ts">
 import { computed, defineComponent } from "@nuxtjs/composition-api";
-import { RecipeIngredient } from "~/lib/api/types/group";
+import { RecipeIngredient } from "~/lib/api/types/household";
 import { useParsedIngredientText } from "~/composables/recipes";
 
 export default defineComponent({

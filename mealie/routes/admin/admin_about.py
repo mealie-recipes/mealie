@@ -27,6 +27,7 @@ class AdminAboutController(BaseAdminController):
             db_type=settings.DB_ENGINE,
             db_url=settings.DB_URL_PUBLIC,
             default_group=settings.DEFAULT_GROUP,
+            default_household=settings.DEFAULT_HOUSEHOLD,
             allow_signup=settings.ALLOW_SIGNUP,
             build_id=settings.GIT_COMMIT_HASH,
             recipe_scraper_version=recipe_scraper_version.__version__,
@@ -34,6 +35,7 @@ class AdminAboutController(BaseAdminController):
             oidc_redirect=settings.OIDC_AUTO_REDIRECT,
             oidc_provider_name=settings.OIDC_PROVIDER_NAME,
             enable_openai=settings.OPENAI_ENABLED,
+            enable_openai_image_services=settings.OPENAI_ENABLED and settings.OPENAI_ENABLE_IMAGE_SERVICES,
         )
 
     @router.get("/statistics", response_model=AppStatistics)
@@ -43,6 +45,7 @@ class AdminAboutController(BaseAdminController):
             uncategorized_recipes=self.repos.recipes.count_uncategorized(),  # type: ignore
             untagged_recipes=self.repos.recipes.count_untagged(),  # type: ignore
             total_users=self.repos.users.count_all(),
+            total_households=self.repos.households.count_all(),
             total_groups=self.repos.groups.count_all(),
         )
 

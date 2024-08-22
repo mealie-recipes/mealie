@@ -349,7 +349,7 @@ export default defineComponent({
       {
         icon: $globals.icons.update,
         name: i18n.tc("general.updated"),
-        value: "update_at",
+        value: "updated_at",
       },
       {
         icon: $globals.icons.diceMultiple,

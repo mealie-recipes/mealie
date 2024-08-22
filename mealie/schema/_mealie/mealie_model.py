@@ -7,7 +7,7 @@ from enum import Enum
 from typing import ClassVar, Protocol, TypeVar
 
 from humps.main import camelize
-from pydantic import UUID4, BaseModel, ConfigDict, model_validator
+from pydantic import UUID4, AliasChoices, BaseModel, ConfigDict, Field, model_validator
 from sqlalchemy import Select, desc, func, or_, text
 from sqlalchemy.orm import InstrumentedAttribute, Session
 from sqlalchemy.orm.interfaces import LoaderOption
@@ -18,6 +18,26 @@ from mealie.db.models._model_base import SqlAlchemyBase
 T = TypeVar("T", bound=BaseModel)
 
 HOUR_ONLY_TZ_PATTERN = re.compile(r"[+-]\d{2}$")
+
+
+def UpdatedAtField(*args, **kwargs):
+    """
+    Wrapper for Pydantic's Field, which sets default values for our update_at aliases
+
+    Since the database stores this value as update_at, we want to accept this as a possible value
+    """
+
+    kwargs.pop("alias", None)
+    kwargs.pop("alias_generator", None)
+
+    # ensure the alias is not overwritten by the generator, if there is one
+    # https://docs.pydantic.dev/latest/concepts/alias/#alias-priority
+    kwargs["alias_priority"] = 2
+
+    kwargs["validation_alias"] = AliasChoices("update_at", "updateAt", "updated_at", "updatedAt")
+    kwargs["serialization_alias"] = "updatedAt"
+
+    return Field(*args, **kwargs)
 
 
 class SearchType(Enum):
@@ -77,7 +97,7 @@ class MealieModel(BaseModel):
         Cast the current model to another with additional arguments. Useful for
         transforming DTOs into models that are saved to a database
         """
-        create_data = {field: getattr(self, field) for field in self.__fields__ if field in cls.__fields__}
+        create_data = {field: getattr(self, field) for field in self.model_fields if field in cls.model_fields}
         create_data.update(kwargs or {})
         return cls(**create_data)
 
