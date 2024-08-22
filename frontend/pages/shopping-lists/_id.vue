@@ -52,8 +52,8 @@
                       },
                       {
                         icon: $globals.icons.cog,
-                        text: $tc('general.options'),
-                        event: 'options',
+                        text: $tc('general.menu'),
+                        event: 'menu',
                         color: 'info',
                       },
                       {
@@ -71,7 +71,7 @@
                 @check="openCheckAll"
                 @copy-plain="copyListItems('plain')"
                 @copy-markdown="copyListItems('markdown')"
-                @options="toggleOptionsDialog()"
+                @menu="toggleMenuDialog()"
               />
             </v-col>
           </v-row>
@@ -164,26 +164,42 @@
         </v-card>
       </BaseDialog>
 
-      <!-- Options dialog -->
+      <!-- Menu dialog -->
       <BaseDialog
-        v-model="optionsDialog"
+        v-model="menuDialog"
         :icon="$globals.icons.cog"
-        :title="$t('general.options')"
+        :title="$t('general.menu')"
       >
         <v-container>
-          <BaseButton edit :disabled="$nuxt.isOffline" @click="sortByLabels">
-            <template #icon> {{ $globals.icons.tags }} </template>
-            {{ $t('shopping-list.toggle-label-sort') }}
-          </BaseButton>
-          <BaseButton v-if="preferences.viewByLabel" edit class="mr-2" :disabled="$nuxt.isOffline" @click="toggleReorderLabelsDialog">
-            <template #icon> {{ $globals.icons.tags }} </template>
-            {{ $t('shopping-list.reorder-labels') }}
-          </BaseButton>
-          <BaseButton edit :disabled="$nuxt.isOffline" @click="toggleSettingsDialog">
-            <template #icon> {{ $globals.icons.cog }} </template>
-            {{ $t('general.settings') }}
-          </BaseButton>
-          <ButtonLink :to="`/group/data/labels`" :text="$tc('shopping-list.manage-labels')" :icon="$globals.icons.tags"/>
+          <v-row>
+            <v-col cols="1" class="text-left">
+              <BaseButton edit :disabled="$nuxt.isOffline" @click="sortByLabels">
+                <template #icon> {{ $globals.icons.tags }} </template>
+                {{ $t('shopping-list.toggle-label-sort') }}
+              </BaseButton>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="1" class="text-left">
+              <BaseButton v-if="preferences.viewByLabel" edit class="mr-2" :disabled="$nuxt.isOffline" @click="toggleReorderLabelsDialog">
+                <template #icon> {{ $globals.icons.tags }} </template>
+                {{ $t('shopping-list.reorder-labels') }}
+              </BaseButton>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="1" class="text-left">
+              <BaseButton edit :disabled="$nuxt.isOffline" @click="toggleSettingsDialog">
+                <template #icon> {{ $globals.icons.cog }} </template>
+                {{ $t('general.settings') }}
+              </BaseButton>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="1" class="text-left">
+              <ButtonLink :to="`/group/data/labels`" :text="$tc('shopping-list.manage-labels')" :icon="$globals.icons.tags"/>
+            </v-col>
+          </v-row>
         </v-container>
       </BaseDialog>
 
@@ -344,7 +360,7 @@ export default defineComponent({
     const edit = ref(false);
     const reorderLabelsDialog = ref(false);
     const settingsDialog = ref(false);
-    const optionsDialog = ref(false);
+    const menuDialog = ref(false);
     const preserveItemOrder = ref(false);
 
     const route = useRoute();
@@ -642,11 +658,11 @@ export default defineComponent({
       settingsDialog.value = !settingsDialog.value;
     }
 
-    async function toggleOptionsDialog() {
-      if (!optionsDialog.value) {
+    async function toggleMenuDialog() {
+      if (!menuDialog.value) {
         await fetchAllUsers();
       }
-      optionsDialog.value = !optionsDialog.value;
+      menuDialog.value = !menuDialog.value;
     }
 
     function updateLabelOrder(labelSettings: ShoppingListMultiPurposeLabelOut[]) {
@@ -1133,8 +1149,8 @@ export default defineComponent({
       toggleReorderLabelsDialog,
       settingsDialog,
       toggleSettingsDialog,
-      optionsDialog,
-      toggleOptionsDialog,
+      menuDialog,
+      toggleMenuDialog,
       localLabels,
       updateLabelOrder,
       cancelLabelOrder,
