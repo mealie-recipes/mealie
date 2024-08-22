@@ -209,7 +209,8 @@ export default defineComponent({
     watchEffect(
       () => {
         if (shoppingListChoices.value.length === 1 && !state.shoppingListShowAllToggled) {
-          openShoppingListIngredientDialog(shoppingListChoices.value[0]);
+          selectedShoppingList.value = shoppingListChoices.value[0];
+          openShoppingListIngredientDialog(selectedShoppingList.value);
         } else {
           ready.value = true;
         }
