@@ -45,7 +45,7 @@
       :recipe="recipe"
       :slug="recipe.slug"
       :recipe-scale="recipeScale"
-      :locked="isOwnGroup && user.id !== recipe.userId && recipe.settings.locked"
+      :can-edit="canEdit"
       :name="recipe.name"
       :logged-in="isOwnGroup"
       :open="isEditMode"
@@ -100,6 +100,31 @@ export default defineComponent({
     const { user } = usePageUser();
     const { isOwnGroup } = useLoggedInState();
 
+    const canEdit = computed(() => {
+      // Check recipe owner
+      if (!user.id) {
+        return false;
+      }
+      if (user.id === props.recipe.userId) {
+        return true;
+      }
+
+      // Check group and household
+      if (!isOwnGroup.value) {
+        return false;
+      }
+      if (user.householdId !== props.recipe.householdId) {
+        return false;
+      }
+
+      // Check recipe
+      if (props.recipe.settings.locked) {
+        return false;
+      }
+
+      return true;
+    })
+
     function printRecipe() {
       window.print();
     }
@@ -125,6 +150,7 @@ export default defineComponent({
       setMode,
       toggleEditMode,
       recipeImage,
+      canEdit,
       imageKey,
       user,
       PageMode,
