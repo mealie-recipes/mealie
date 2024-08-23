@@ -1304,7 +1304,7 @@
     "require-all-tools": "Minden szükséges eszköz",
     "cookbook-name": "Szakácskönyv neve",
     "cookbook-with-name": "Szakácskönyv {0}",
-    "household-cookbook-name": "{0} Cookbook {1}",
+    "household-cookbook-name": "{0} Szakácskönyv {1}",
     "create-a-cookbook": "Szakácskönyv létrehozása",
     "cookbook": "Szakácskönyv"
   }
