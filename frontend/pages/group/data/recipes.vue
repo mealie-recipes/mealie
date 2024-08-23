@@ -179,7 +179,7 @@ export default defineComponent({
   scrollToTop: true,
   setup() {
     const { $auth, $globals, i18n } = useContext();
-    const { getAllRecipes, refreshRecipes } = useRecipes(true, true, false, `householdId=${$auth.user?.householdId || ''}`);
+    const { getAllRecipes, refreshRecipes } = useRecipes(true, true, false, `householdId=${$auth.user?.householdId || ""}`);
     const selected = ref<Recipe[]>([]);
 
     function resetAll() {
