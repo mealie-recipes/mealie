@@ -408,9 +408,10 @@ class RecipeService(RecipeServiceBase):
         return new_data
 
     def update_last_made(self, slug: str, timestamp: datetime) -> Recipe:
-        # we bypass the pre update check since any user can update a recipe's last made date, even if it's locked
+        # we bypass the pre update check since any user can update a recipe's last made date, even if it's locked,
+        # or if the user belongs to a different household
         recipe = self._get_recipe(slug)
-        return self.repos.recipes.patch(recipe.slug, {"last_made": timestamp})
+        return self.group_recipes.patch(recipe.slug, {"last_made": timestamp})
 
     def delete_one(self, slug) -> Recipe:
         recipe = self._get_recipe(slug)
