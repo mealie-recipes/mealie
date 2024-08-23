@@ -124,3 +124,20 @@ def test_admin_can_delete(
     response = api_client.get(api_routes.comments_item_id(comment_id), headers=admin_user.token)
 
     assert response.status_code == 404
+
+
+def test_user_can_comment_on_other_household(api_client: TestClient, unique_recipe: Recipe, h2_user: TestUser):
+    # Create Comment
+    create_data = random_comment(unique_recipe.id)
+    response = api_client.post(api_routes.comments, json=create_data, headers=h2_user.token)
+    assert response.status_code == 201
+
+    # Delete Comment
+    comment_id = response.json()["id"]
+    response = api_client.delete(api_routes.comments_item_id(comment_id), headers=h2_user.token)
+    assert response.status_code == 200
+
+    # Validate Deletion
+    response = api_client.get(api_routes.comments_item_id(comment_id), headers=h2_user.token)
+
+    assert response.status_code == 404

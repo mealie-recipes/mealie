@@ -368,3 +368,47 @@ def test_recipe_rating_is_readonly(
     assert response.status_code == 200
     data = response.json()
     assert data["rating"] == rating.rating
+
+
+def test_user_can_rate_recipes_in_other_households(api_client: TestClient, unique_user: TestUser, h2_user: TestUser):
+    response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=unique_user.token)
+    assert response.status_code == 201
+    recipe = unique_user.repos.recipes.get_one(response.json())
+    assert recipe and recipe.id
+
+    rating = UserRatingUpdate(rating=random.uniform(1, 5), is_favorite=True)
+    response = api_client.post(
+        api_routes.users_id_ratings_slug(h2_user.user_id, recipe.slug),
+        json=rating.model_dump(),
+        headers=h2_user.token,
+    )
+    assert response.status_code == 200
+
+    response = api_client.get(api_routes.users_self_ratings_recipe_id(recipe.id), headers=h2_user.token)
+    data = response.json()
+    assert data["recipeId"] == str(recipe.id)
+    assert data["rating"] == rating.rating
+    assert data["isFavorite"] is True
+
+
+def test_average_recipe_rating_includes_all_households(
+    api_client: TestClient, unique_user: TestUser, h2_user: TestUser
+):
+    response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=unique_user.token)
+    assert response.status_code == 201
+    recipe = unique_user.repos.recipes.get_one(response.json())
+    assert recipe
+
+    user_ratings = (UserRatingUpdate(rating=5), UserRatingUpdate(rating=2))
+    for i, user in enumerate([unique_user, h2_user]):
+        response = api_client.post(
+            api_routes.users_id_ratings_slug(user.user_id, recipe.slug),
+            json=user_ratings[i].model_dump(),
+            headers=user.token,
+        )
+        assert response.status_code == 200
+
+    response = api_client.get(api_routes.recipes_slug(recipe.slug), headers=unique_user.token)
+    assert response.status_code == 200
+    data = response.json()
+    assert data["rating"] == 3.5
