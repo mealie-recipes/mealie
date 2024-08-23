@@ -337,7 +337,7 @@ export default defineComponent({
           );
           break;
         case EVENTS.updated:
-          setter("update_at", $globals.icons.sortClockAscending, $globals.icons.sortClockDescending, "desc", false);
+          setter("updated_at", $globals.icons.sortClockAscending, $globals.icons.sortClockDescending, "desc", false);
           break;
         case EVENTS.lastMade:
           setter(

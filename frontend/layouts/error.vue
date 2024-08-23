@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app v-if="ready" dark>
     <v-card-title>
       <slot>
         <h1 class="mx-auto">{{ $t("page.404-page-not-found") }}</h1>
@@ -75,9 +75,21 @@ export default defineComponent({
       }
     }
 
+    async function handle404() {
+      const normalizedRoute = route.value.fullPath.replace(/\/$/, "");
+      const newRoute = normalizedRoute.replace(/^\/group\/(mealplan|members|notifiers|webhooks)(\/.*)?$/, "/household/$1$2");
+
+      if (newRoute !== normalizedRoute) {
+        await router.replace(newRoute);
+      } else {
+        await insertGroupSlugIntoRoute();
+      }
+
+      ready.value = true;
+    }
+
     if (props.error.statusCode === 404) {
-      // see if adding the groupSlug fixes the error
-      insertGroupSlugIntoRoute().then(() => { ready.value = true });
+      handle404();
     } else {
       ready.value = true;
     }

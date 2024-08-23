@@ -6,7 +6,12 @@ from pydantic import UUID4, ConfigDict
 from sqlalchemy.orm import Session
 
 from mealie.core.config import get_app_dirs, get_app_settings
-from mealie.core.dependencies.dependencies import get_admin_user, get_current_user, get_integration_id, get_public_group
+from mealie.core.dependencies.dependencies import (
+    get_admin_user,
+    get_current_user,
+    get_integration_id,
+    get_public_group,
+)
 from mealie.core.exceptions import mealie_registered_exceptions
 from mealie.core.root_logger import get_logger
 from mealie.core.settings.directories import AppDirectories
@@ -14,8 +19,10 @@ from mealie.core.settings.settings import AppSettings
 from mealie.db.db_setup import generate_session
 from mealie.lang import local_provider
 from mealie.lang.providers import Translator
-from mealie.repos.all_repositories import AllRepositories
+from mealie.repos._utils import NOT_SET, NotSet
+from mealie.repos.all_repositories import AllRepositories, get_repositories
 from mealie.routes._base.checks import OperationChecks
+from mealie.schema.household.household import HouseholdInDB
 from mealie.schema.user.user import GroupInDB, PrivateUser
 from mealie.services.event_bus_service.event_bus_service import EventBusService
 from mealie.services.event_bus_service.event_types import EventDocumentDataBase, EventTypes
@@ -37,7 +44,7 @@ class _BaseController(ABC):  # noqa: B024
     @property
     def repos(self):
         if not self._repos:
-            self._repos = AllRepositories(self.session)
+            self._repos = AllRepositories(self.session, group_id=self.group_id, household_id=self.household_id)
         return self._repos
 
     @property
@@ -58,6 +65,14 @@ class _BaseController(ABC):  # noqa: B024
             self._folders = get_app_dirs()
         return self._folders
 
+    @property
+    def group_id(self) -> UUID4 | None | NotSet:
+        return NOT_SET
+
+    @property
+    def household_id(self) -> UUID4 | None | NotSet:
+        return NOT_SET
+
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
 
@@ -71,14 +86,39 @@ class BasePublicController(_BaseController):
     ...
 
 
-class BasePublicExploreController(BasePublicController):
+class BasePublicGroupExploreController(BasePublicController):
     """
-    This is a public class for all User restricted controllers in the API.
-    It includes the common SharedDependencies and some common methods used
-    by all Admin controllers.
+    Base class for all controllers that are public and explore group data.
     """
 
     group: GroupInDB = Depends(get_public_group)
+
+    @property
+    def group_id(self) -> UUID4 | None | NotSet:
+        return self.group.id
+
+    def get_explore_url_path(self, endpoint: str) -> str:
+        if endpoint.startswith("/"):
+            endpoint = endpoint[1:]
+        return f"/explore/groups/{self.group.slug}/{endpoint}"
+
+
+class BasePublicHouseholdExploreController(BasePublicGroupExploreController):
+    """
+    Base class for all controllers that are public and explore household data.
+    """
+
+    @property
+    def cross_household_repos(self):
+        """
+        Household-level repos with no household filter. Public controllers don't have access to a household identifier;
+        instead, they return all public data, filtered by the household preferences.
+
+        When using this repo, the caller should filter by household preferences, e.g.:
+
+        `household.preferences.privateHousehold = FALSE`
+        """
+        return get_repositories(self.session, group_id=self.group_id, household_id=None)
 
 
 class BaseUserController(_BaseController):
@@ -106,8 +146,16 @@ class BaseUserController(_BaseController):
         return self.user.group_id
 
     @property
+    def household_id(self) -> UUID4:
+        return self.user.household_id
+
+    @property
     def group(self) -> GroupInDB:
         return self.repos.groups.get_one(self.group_id)
+
+    @property
+    def household(self) -> HouseholdInDB:
+        return self.repos.households.get_one(self.household_id)
 
     @property
     def checks(self) -> OperationChecks:
@@ -125,6 +173,13 @@ class BaseAdminController(BaseUserController):
 
     user: PrivateUser = Depends(get_admin_user)
 
+    @property
+    def repos(self):
+        if not self._repos:
+            # Admins have access to all groups and households, so we don't want to filter by group_id or household_id
+            self._repos = AllRepositories(self.session, group_id=None, household_id=None)
+        return self._repos
+
 
 class BaseCrudController(BaseUserController):
     """
@@ -133,10 +188,18 @@ class BaseCrudController(BaseUserController):
 
     event_bus: EventBusService = Depends(EventBusService.as_dependency)
 
-    def publish_event(self, event_type: EventTypes, document_data: EventDocumentDataBase, message: str = "") -> None:
+    def publish_event(
+        self,
+        event_type: EventTypes,
+        document_data: EventDocumentDataBase,
+        group_id: UUID4,
+        household_id: UUID4 | None,
+        message: str = "",
+    ) -> None:
         self.event_bus.dispatch(
             integration_id=self.integration_id,
-            group_id=self.group_id,
+            group_id=group_id,
+            household_id=household_id,
             event_type=event_type,
             document_data=document_data,
             message=message,

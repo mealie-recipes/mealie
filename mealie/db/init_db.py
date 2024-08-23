@@ -17,25 +17,38 @@ from mealie.db.fixes.fix_slug_foods import fix_slug_food_names
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.seed.init_users import default_user_init
-from mealie.schema.user.user import GroupBase
+from mealie.schema.household.household import HouseholdCreate, HouseholdInDB
+from mealie.schema.user.user import GroupBase, GroupInDB
 from mealie.services.group_services.group_service import GroupService
+from mealie.services.household_services.household_service import HouseholdService
 
 PROJECT_DIR = Path(__file__).parent.parent.parent
 
 logger = root_logger.get_logger()
 
 
-def init_db(db: AllRepositories) -> None:
-    default_group_init(db)
-    default_user_init(db)
-
-
-def default_group_init(db: AllRepositories):
+def init_db(session: orm.Session) -> None:
     settings = get_app_settings()
 
-    logger.info("Generating Default Group")
+    instance_repos = get_repositories(session)
+    default_group = default_group_init(instance_repos, settings.DEFAULT_GROUP)
 
-    GroupService.create_group(db, GroupBase(name=settings.DEFAULT_GROUP))
+    group_repos = get_repositories(session, group_id=default_group.id, household_id=None)
+    default_household = group_repos.households.get_by_name(settings.DEFAULT_HOUSEHOLD)
+    if default_household is None:
+        default_household = default_household_init(group_repos, settings.DEFAULT_HOUSEHOLD)
+    household_repos = get_repositories(session, group_id=default_group.id, household_id=default_household.id)
+    default_user_init(household_repos)
+
+
+def default_group_init(repos: AllRepositories, name: str) -> GroupInDB:
+    logger.info("Generating Default Group and Household")
+    return GroupService.create_group(repos, GroupBase(name=name))
+
+
+def default_household_init(repos: AllRepositories, name: str) -> HouseholdInDB:
+    logger.info("Generating Default Household")
+    return HouseholdService.create_household(repos, HouseholdCreate(name=name))
 
 
 # Adapted from https://alembic.sqlalchemy.org/en/latest/cookbook.html#test-current-database-revision-is-at-head-s
@@ -103,7 +116,7 @@ def main():
         if session.get_bind().name == "postgresql":  # needed for fuzzy search and fast GIN text indices
             session.execute(text("CREATE EXTENSION IF NOT EXISTS pg_trgm;"))
 
-        db = get_repositories(session)
+        db = get_repositories(session, group_id=None, household_id=None)
         safe_try(lambda: fix_migration_data(session))
         safe_try(lambda: fix_slug_food_names(db))
         safe_try(lambda: fix_group_with_no_name(session))
@@ -112,7 +125,7 @@ def main():
             logger.debug("Database exists")
         else:
             logger.info("Database contains no users, initializing...")
-            init_db(db)
+            init_db(session)
 
 
 if __name__ == "__main__":

@@ -4,7 +4,7 @@ from pydantic import UUID4
 
 from mealie.db.db_setup import session_context
 from mealie.repos.all_repositories import get_repositories
-from mealie.schema.group.webhook import ReadWebhook
+from mealie.schema.household.webhook import ReadWebhook
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.event_bus_service.event_bus_listeners import WebhookEventListener
 from mealie.services.event_bus_service.event_bus_service import EventBusService
@@ -21,7 +21,9 @@ from mealie.services.event_bus_service.event_types import (
 last_ran = datetime.now(timezone.utc)
 
 
-def post_group_webhooks(start_dt: datetime | None = None, group_id: UUID4 | None = None) -> None:
+def post_group_webhooks(
+    start_dt: datetime | None = None, group_id: UUID4 | None = None, household_id: UUID4 | None = None
+) -> None:
     """Post webhook events to specified group, or all groups"""
 
     global last_ran
@@ -58,13 +60,23 @@ def post_group_webhooks(start_dt: datetime | None = None, group_id: UUID4 | None
     )
 
     for group_id in group_ids:
-        event_bus = EventBusService(group_id=group_id)
-        event_bus.dispatch(
-            integration_id=INTERNAL_INTEGRATION_ID,
-            group_id=group_id,
-            event_type=event_type,
-            document_data=event_document_data,
-        )
+        if household_id is None:
+            with session_context() as session:
+                household_repos = get_repositories(session, group_id=group_id)
+                households_data = household_repos.households.page_all(PaginationQuery(page=1, per_page=-1))
+                household_ids = [household.id for household in households_data.items]
+        else:
+            household_ids = [household_id]
+
+        for household_id in household_ids:
+            event_bus = EventBusService()
+            event_bus.dispatch(
+                integration_id=INTERNAL_INTEGRATION_ID,
+                group_id=group_id,
+                household_id=household_id,
+                event_type=event_type,
+                document_data=event_document_data,
+            )
 
 
 def post_single_webhook(webhook: ReadWebhook, message: str = "") -> None:
@@ -84,5 +96,5 @@ def post_single_webhook(webhook: ReadWebhook, message: str = "") -> None:
         document_data=event_document_data,
     )
 
-    listener = WebhookEventListener(webhook.group_id)
+    listener = WebhookEventListener(webhook.group_id, webhook.household_id)
     listener.publish_to_subscribers(event, [webhook])

@@ -18,7 +18,7 @@
       </tr>
     </template>
     <template #item.name="{ item }">
-      <a :href="`/r/${item.slug}`" style="color: inherit; text-decoration: inherit; " @click="$emit('click')">{{ item.name }}</a>
+      <a :href="`/g/${groupSlug}/r/${item.slug}`" style="color: inherit; text-decoration: inherit; " @click="$emit('click')">{{ item.name }}</a>
     </template>
     <template #item.tags="{ item }">
       <RecipeChip small :items="item.tags" :is-category="false" url-prefix="tags" />
@@ -48,7 +48,7 @@ import UserAvatar from "../User/UserAvatar.vue";
 import RecipeChip from "./RecipeChips.vue";
 import { Recipe } from "~/lib/api/types/recipe";
 import { useUserApi } from "~/composables/api";
-import { UserOut } from "~/lib/api/types/user";
+import { UserSummary } from "~/lib/api/types/user";
 
 const INPUT_EVENT = "input";
 
@@ -95,7 +95,8 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-    const { i18n } = useContext();
+    const { $auth, i18n } = useContext();
+    const groupSlug = $auth.user?.groupSlug;
 
     function setValue(value: Recipe[]) {
       context.emit(INPUT_EVENT, value);
@@ -134,7 +135,7 @@ export default defineComponent({
     // ============
     // Group Members
     const api = useUserApi();
-    const members = ref<UserOut[]>([]);
+    const members = ref<UserSummary[]>([]);
 
     async function refreshMembers() {
       const { data } = await api.groups.fetchMembers();
@@ -149,13 +150,19 @@ export default defineComponent({
 
     function getMember(id: string) {
       if (members.value[0]) {
-        return members.value.find((m) => m.id === id)?.username;
+        return members.value.find((m) => m.id === id)?.fullName;
       }
 
       return i18n.t("general.none");
     }
 
-    return { setValue, headers, members, getMember };
+    return {
+      groupSlug,
+      setValue,
+      headers,
+      members,
+      getMember,
+    };
   },
 
   data() {

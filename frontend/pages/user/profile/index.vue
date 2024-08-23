@@ -7,7 +7,7 @@
       <p class="subtitle-1 mb-0 text-center">
        {{ $t('profile.description') }}
       </p>
-      <v-card flat color="background" width="100%" max-width="600px">
+      <v-card flat color="transparent" width="100%" max-width="600px">
         <v-card-actions class="d-flex justify-center my-4">
           <v-btn v-if="$auth.user.canInvite"  outlined rounded @click="getSignupLink()">
             <v-icon left>
@@ -57,9 +57,9 @@
       <v-row tag="section">
         <v-col cols="12" sm="12" md="12">
           <v-card outlined>
-            <v-card-title class="headline pb-0"> {{ $t('profile.group-statistics') }} </v-card-title>
+            <v-card-title class="headline pb-0"> {{ $t('profile.household-statistics') }} </v-card-title>
             <v-card-text class="py-0">
-              {{ $t('profile.group-statistics-description') }}
+              {{ $t('profile.household-statistics-description') }}
             </v-card-text>
             <v-card-text class="d-flex flex-wrap justify-center align-center" style="gap: 0.8rem">
               <StatsCards
@@ -106,8 +106,66 @@
         </AdvancedOnly>
       </v-row>
     </section>
-    <v-divider class="my-7"></v-divider>
+    <v-divider class="my-7" />
     <section>
+      <div>
+        <h3 class="headline">{{ $t('household.household') }}</h3>
+        <p>{{ $t('profile.household-description') }}</p>
+      </div>
+      <v-row tag="section">
+        <v-col v-if="$auth.user.canManage" cols="12" sm="12" md="6">
+          <UserProfileLinkCard
+            :link="{ text: $tc('profile.household-settings'), to: `/household` }"
+            :image="require('~/static/svgs/manage-group-settings.svg')"
+          >
+            <template #title> {{ $t('profile.household-settings') }} </template>
+            {{ $t('profile.household-settings-description') }}
+          </UserProfileLinkCard>
+        </v-col>
+        <v-col cols="12" sm="12" md="6">
+          <UserProfileLinkCard
+            :link="{ text: $tc('profile.manage-cookbooks'), to: `/g/${groupSlug}/cookbooks` }"
+            :image="require('~/static/svgs/manage-cookbooks.svg')"
+          >
+            <template #title> {{ $t('sidebar.cookbooks') }} </template>
+            {{ $t('profile.cookbooks-description') }}
+          </UserProfileLinkCard>
+        </v-col>
+        <v-col v-if="user.canManage" cols="12" sm="12" md="6">
+          <UserProfileLinkCard
+            :link="{ text: $tc('profile.manage-members'), to: `/household/members` }"
+            :image="require('~/static/svgs/manage-members.svg')"
+          >
+            <template #title> {{ $t('profile.members') }} </template>
+            {{ $t('profile.members-description') }}
+          </UserProfileLinkCard>
+        </v-col>
+        <AdvancedOnly>
+          <v-col v-if="user.advanced" cols="12" sm="12" md="6">
+            <UserProfileLinkCard
+              :link="{ text: $tc('profile.manage-webhooks'), to: `/household/webhooks` }"
+              :image="require('~/static/svgs/manage-webhooks.svg')"
+            >
+              <template #title> {{ $t('settings.webhooks.webhooks') }} </template>
+              {{ $t('profile.webhooks-description') }}
+            </UserProfileLinkCard>
+          </v-col>
+        </AdvancedOnly>
+        <AdvancedOnly>
+          <v-col cols="12" sm="12" md="6">
+            <UserProfileLinkCard
+              :link="{ text: $tc('profile.manage-notifiers'), to: `/household/notifiers` }"
+              :image="require('~/static/svgs/manage-notifiers.svg')"
+            >
+              <template #title> {{ $t('profile.notifiers') }} </template>
+              {{ $t('profile.notifiers-description') }}
+            </UserProfileLinkCard>
+          </v-col>
+        </AdvancedOnly>
+      </v-row>
+    </section>
+    <v-divider class="my-7" />
+    <section v-if="$auth.user.canManage || $auth.user.canOrganize || $auth.user.advanced">
       <div>
         <h3 class="headline">{{ $t('group.group') }}</h3>
         <p>{{ $t('profile.group-description') }}</p>
@@ -122,46 +180,6 @@
             {{ $t('profile.group-settings-description') }}
           </UserProfileLinkCard>
         </v-col>
-        <v-col cols="12" sm="12" md="6">
-          <UserProfileLinkCard
-            :link="{ text: $tc('profile.manage-cookbooks'), to: `/g/${groupSlug}/cookbooks` }"
-            :image="require('~/static/svgs/manage-cookbooks.svg')"
-          >
-            <template #title> {{ $t('sidebar.cookbooks') }} </template>
-            {{ $t('profile.cookbooks-description') }}
-          </UserProfileLinkCard>
-        </v-col>
-        <v-col v-if="user.canManage" cols="12" sm="12" md="6">
-          <UserProfileLinkCard
-            :link="{ text: $tc('profile.manage-members'), to: `/group/members` }"
-            :image="require('~/static/svgs/manage-members.svg')"
-          >
-            <template #title> {{ $t('profile.members') }} </template>
-            {{ $t('profile.members-description') }}
-          </UserProfileLinkCard>
-        </v-col>
-        <AdvancedOnly>
-          <v-col v-if="user.advanced" cols="12" sm="12" md="6">
-            <UserProfileLinkCard
-              :link="{ text: $tc('profile.manage-webhooks'), to: `/group/webhooks` }"
-              :image="require('~/static/svgs/manage-webhooks.svg')"
-            >
-              <template #title> {{ $t('settings.webhooks.webhooks') }} </template>
-              {{ $t('profile.webhooks-description') }}
-            </UserProfileLinkCard>
-          </v-col>
-        </AdvancedOnly>
-        <AdvancedOnly>
-          <v-col cols="12" sm="12" md="6">
-            <UserProfileLinkCard
-              :link="{ text: $tc('profile.manage-notifiers'), to: `/group/notifiers` }"
-              :image="require('~/static/svgs/manage-notifiers.svg')"
-            >
-              <template #title> {{ $t('profile.notifiers') }} </template>
-              {{ $t('profile.notifiers-description') }}
-            </UserProfileLinkCard>
-          </v-col>
-        </AdvancedOnly>
         <!-- $auth.user.canOrganize should not be null because of the auth middleware -->
         <v-col v-if="$auth.user.canOrganize" cols="12" sm="12" md="6">
           <UserProfileLinkCard
@@ -224,7 +242,7 @@ export default defineComponent({
     const api = useUserApi();
 
     async function getSignupLink() {
-      const { data } = await api.groups.createInvitation({ uses: 1 });
+      const { data } = await api.households.createInvitation({ uses: 1 });
       if (data) {
         token.value = data.token;
         generatedSignupLink.value = constructLink(data.token);
@@ -272,7 +290,7 @@ export default defineComponent({
     });
 
     const stats = useAsync(async () => {
-      const { data } = await api.groups.statistics();
+      const { data } = await api.households.statistics();
 
       if (data) {
         return data;
@@ -306,7 +324,7 @@ export default defineComponent({
 
     const statsTo = computed<{ [key: string]: string }>(() => { return {
       totalRecipes: `/g/${groupSlug.value}/`,
-      totalUsers: "/group/members",
+      totalUsers: "/household/members",
       totalCategories: `/g/${groupSlug.value}/recipes/categories`,
       totalTags: `/g/${groupSlug.value}/recipes/tags`,
       totalTools: `/g/${groupSlug.value}/recipes/tools`,

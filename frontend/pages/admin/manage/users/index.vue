@@ -18,7 +18,7 @@
 
     <BaseCardSectionTitle :title="$tc('user.user-management')"> </BaseCardSectionTitle>
     <section>
-      <v-toolbar color="background" flat class="justify-between">
+      <v-toolbar color="transparent" flat class="justify-between">
         <BaseButton to="/admin/manage/users/create" class="mr-2">
           {{ $t("general.create") }}
         </BaseButton>
@@ -129,6 +129,7 @@ export default defineComponent({
       { text: i18n.t("user.full-name"), value: "fullName" },
       { text: i18n.t("user.email"), value: "email" },
       { text: i18n.t("group.group"), value: "group" },
+      { text: i18n.t("household.household"), value: "household" },
       { text: i18n.t("user.auth-method"), value: "authMethod" },
       { text: i18n.t("user.admin"), value: "admin" },
       { text: i18n.t("general.delete"), value: "actions", sortable: false, align: "center" },

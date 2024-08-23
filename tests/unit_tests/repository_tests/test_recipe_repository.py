@@ -3,9 +3,12 @@ from typing import cast
 from uuid import UUID
 
 import pytest
+from sqlalchemy.orm import Session
 
+from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_recipes import RepositoryRecipes
+from mealie.schema.household.household import HouseholdCreate
 from mealie.schema.recipe import RecipeIngredient, SaveIngredientFood
 from mealie.schema.recipe.recipe import Recipe, RecipeCategory, RecipeSummary
 from mealie.schema.recipe.recipe_category import CategoryOut, CategorySave, TagSave
@@ -17,18 +20,34 @@ from tests.utils.fixture_schemas import TestUser
 
 
 @pytest.fixture()
-def unique_local_group_id(database: AllRepositories) -> str:
-    return str(database.groups.create(GroupBase(name=random_string())).id)
+def unique_local_group_id(unfiltered_database: AllRepositories) -> str:
+    return str(unfiltered_database.groups.create(GroupBase(name=random_string())).id)
 
 
 @pytest.fixture()
-def unique_local_user_id(database: AllRepositories, unique_local_group_id: str) -> str:
+def unique_local_household_id(unfiltered_database: AllRepositories, unique_local_group_id: str) -> str:
+    database = get_repositories(unfiltered_database.session, group_id=UUID(unique_local_group_id), household_id=None)
+    return str(
+        database.households.create(HouseholdCreate(group_id=UUID(unique_local_group_id), name=random_string())).id
+    )
+
+
+@pytest.fixture()
+def unique_local_user_id(
+    unfiltered_database: AllRepositories, unique_local_group_id: str, unique_local_household_id: str
+) -> str:
+    database = get_repositories(
+        unfiltered_database.session, group_id=UUID(unique_local_group_id), household_id=UUID(unique_local_household_id)
+    )
+    group = database.groups.get_one(unique_local_group_id)
+    household = database.households.get_one(unique_local_household_id)
     return str(
         database.users.create(
             {
                 "username": random_string(),
                 "email": random_email(),
-                "group_id": unique_local_group_id,
+                "group": group.name,
+                "household": household.name,
                 "full_name": random_string(),
                 "password": random_string(),
                 "admin": False,
@@ -38,11 +57,25 @@ def unique_local_user_id(database: AllRepositories, unique_local_group_id: str) 
 
 
 @pytest.fixture()
-def search_recipes(database: AllRepositories, unique_local_group_id: str, unique_local_user_id: str) -> list[Recipe]:
+def unique_ids(
+    unique_local_group_id: str, unique_local_household_id: str, unique_local_user_id: str
+) -> tuple[str, str, str]:
+    return unique_local_group_id, unique_local_household_id, unique_local_user_id
+
+
+@pytest.fixture()
+def unique_db(session: Session, unique_ids: tuple[str, str, str]):
+    group_id, household_id, _ = unique_ids
+    return get_repositories(session, group_id=group_id, household_id=household_id)
+
+
+@pytest.fixture()
+def search_recipes(unique_db: AllRepositories, unique_ids: tuple[str, str, str]) -> list[Recipe]:
+    group_id, _, user_id = unique_ids
     recipes = [
         Recipe(
-            user_id=unique_local_user_id,
-            group_id=unique_local_group_id,
+            group_id=group_id,
+            user_id=user_id,
             name="Steinbock Sloop",
             description="My favorite horns are delicious",
             recipe_ingredient=[
@@ -50,61 +83,63 @@ def search_recipes(database: AllRepositories, unique_local_group_id: str, unique
             ],
         ),
         Recipe(
-            user_id=unique_local_user_id,
-            group_id=unique_local_group_id,
+            group_id=group_id,
+            user_id=user_id,
             name="Fiddlehead Fern Stir Fry",
             recipe_ingredient=[
                 RecipeIngredient(note="moss"),
             ],
         ),
         Recipe(
-            user_id=unique_local_user_id,
-            group_id=unique_local_group_id,
+            group_id=group_id,
+            user_id=user_id,
             name="Animal Sloop",
         ),
         # Test diacritics
         Recipe(
-            user_id=unique_local_user_id,
-            group_id=unique_local_group_id,
+            group_id=group_id,
+            user_id=user_id,
             name="Rátàtôuile",
         ),
         # Add a bunch of recipes for stable randomization
         Recipe(
-            user_id=unique_local_user_id,
-            group_id=unique_local_group_id,
+            group_id=group_id,
+            user_id=user_id,
             name=f"{random_string(10)} soup",
         ),
         Recipe(
-            user_id=unique_local_user_id,
-            group_id=unique_local_group_id,
+            group_id=group_id,
+            user_id=user_id,
             name=f"{random_string(10)} soup",
         ),
         Recipe(
-            user_id=unique_local_user_id,
-            group_id=unique_local_group_id,
+            group_id=group_id,
+            user_id=user_id,
             name=f"{random_string(10)} soup",
         ),
         Recipe(
-            user_id=unique_local_user_id,
-            group_id=unique_local_group_id,
+            group_id=group_id,
+            user_id=user_id,
             name=f"{random_string(10)} soup",
         ),
         Recipe(
-            user_id=unique_local_user_id,
-            group_id=unique_local_group_id,
+            group_id=group_id,
+            user_id=user_id,
             name=f"{random_string(10)} soup",
         ),
         Recipe(
-            user_id=unique_local_user_id,
-            group_id=unique_local_group_id,
+            group_id=group_id,
+            user_id=user_id,
             name=f"{random_string(10)} soup",
         ),
     ]
 
-    return database.recipes.create_many(recipes)
+    return unique_db.recipes.create_many(recipes)
 
 
-def test_recipe_repo_get_by_categories_basic(database: AllRepositories, unique_user: TestUser):
+def test_recipe_repo_get_by_categories_basic(unique_user: TestUser):
+    database = unique_user.repos
+
     # Bootstrap the database with categories
     slug1, slug2, slug3 = (random_string(10) for _ in range(3))
 
@@ -149,12 +184,13 @@ def test_recipe_repo_get_by_categories_basic(database: AllRepositories, unique_u
     # Get all recipes by category
 
     for category in created_categories:
-        repo: RepositoryRecipes = database.recipes.by_group(unique_user.group_id)  # type: ignore
+        repo: RepositoryRecipes = database.recipes
         recipes = repo.get_by_categories([cast(RecipeCategory, category)])
 
         assert len(recipes) == 5
 
         for recipe in recipes:
+            assert recipe.recipe_category is not None
             found_cat = recipe.recipe_category[0]
 
             assert found_cat.name == category.name
@@ -162,7 +198,8 @@ def test_recipe_repo_get_by_categories_basic(database: AllRepositories, unique_u
             assert found_cat.id == category.id
 
 
-def test_recipe_repo_get_by_categories_multi(database: AllRepositories, unique_user: TestUser):
+def test_recipe_repo_get_by_categories_multi(unique_user: TestUser):
+    database = unique_user.repos
     slug1, slug2 = (random_string(10) for _ in range(2))
 
     categories = [
@@ -204,16 +241,18 @@ def test_recipe_repo_get_by_categories_multi(database: AllRepositories, unique_u
         database.recipes.create(recipe)
 
     # Get all recipes by both categories
-    repo: RepositoryRecipes = database.recipes.by_group(unique_local_group_id)  # type: ignore
+    repo: RepositoryRecipes = database.recipes
     by_category = repo.get_by_categories(cast(list[RecipeCategory], created_categories))
 
     assert len(by_category) == 10
     for recipe_summary in by_category:
+        assert recipe_summary.recipe_category is not None
         for recipe_category in recipe_summary.recipe_category:
             assert recipe_category.id in known_category_ids
 
 
-def test_recipe_repo_pagination_by_categories(database: AllRepositories, unique_user: TestUser):
+def test_recipe_repo_pagination_by_categories(unique_user: TestUser):
+    database = unique_user.repos
     slug1, slug2 = (random_string(10) for _ in range(2))
 
     categories = [
@@ -270,6 +309,7 @@ def test_recipe_repo_pagination_by_categories(database: AllRepositories, unique_
     assert len(recipes_with_one_category) == 15
 
     for recipe_summary in recipes_with_one_category:
+        assert recipe_summary.recipe_category is not None
         category_ids = [category.id for category in recipe_summary.recipe_category]
         assert category_id in category_ids
 
@@ -279,6 +319,7 @@ def test_recipe_repo_pagination_by_categories(database: AllRepositories, unique_
     assert len(recipes_with_one_category) == 15
 
     for recipe_summary in recipes_with_one_category:
+        assert recipe_summary.recipe_category is not None
         category_slugs = [category.slug for category in recipe_summary.recipe_category]
         assert category_slug in category_slugs
 
@@ -289,6 +330,7 @@ def test_recipe_repo_pagination_by_categories(database: AllRepositories, unique_
     assert len(recipes_with_both_categories) == 10
 
     for recipe_summary in recipes_with_both_categories:
+        assert recipe_summary.recipe_category is not None
         category_ids = [category.id for category in recipe_summary.recipe_category]
         for category in created_categories:
             assert category.id in category_ids
@@ -308,7 +350,8 @@ def test_recipe_repo_pagination_by_categories(database: AllRepositories, unique_
     assert not all(i == random_ordered[0] for i in random_ordered)
 
 
-def test_recipe_repo_pagination_by_tags(database: AllRepositories, unique_user: TestUser):
+def test_recipe_repo_pagination_by_tags(unique_user: TestUser):
+    database = unique_user.repos
     slug1, slug2 = (random_string(10) for _ in range(2))
 
     tags = [
@@ -365,6 +408,7 @@ def test_recipe_repo_pagination_by_tags(database: AllRepositories, unique_user: 
     assert len(recipes_with_one_tag) == 15
 
     for recipe_summary in recipes_with_one_tag:
+        assert recipe_summary.tags is not None
         tag_ids = [tag.id for tag in recipe_summary.tags]
         assert tag_id in tag_ids
 
@@ -374,6 +418,7 @@ def test_recipe_repo_pagination_by_tags(database: AllRepositories, unique_user: 
     assert len(recipes_with_one_tag) == 15
 
     for recipe_summary in recipes_with_one_tag:
+        assert recipe_summary.tags is not None
         tag_slugs = [tag.slug for tag in recipe_summary.tags]
         assert tag_slug in tag_slugs
 
@@ -382,6 +427,7 @@ def test_recipe_repo_pagination_by_tags(database: AllRepositories, unique_user: 
     assert len(recipes_with_both_tags) == 10
 
     for recipe_summary in recipes_with_both_tags:
+        assert recipe_summary.tags is not None
         tag_ids = [tag.id for tag in recipe_summary.tags]
         for tag in created_tags:
             assert tag.id in tag_ids
@@ -402,7 +448,8 @@ def test_recipe_repo_pagination_by_tags(database: AllRepositories, unique_user: 
     assert not all(i == random_ordered[0] for i in random_ordered)
 
 
-def test_recipe_repo_pagination_by_tools(database: AllRepositories, unique_user: TestUser):
+def test_recipe_repo_pagination_by_tools(unique_user: TestUser):
+    database = unique_user.repos
     slug1, slug2 = (random_string(10) for _ in range(2))
 
     tools = [
@@ -498,7 +545,8 @@ def test_recipe_repo_pagination_by_tools(database: AllRepositories, unique_user:
     assert not all(i == random_ordered[0] for i in random_ordered)
 
 
-def test_recipe_repo_pagination_by_foods(database: AllRepositories, unique_user: TestUser):
+def test_recipe_repo_pagination_by_foods(unique_user: TestUser):
+    database = unique_user.repos
     slug1, slug2 = (random_string(10) for _ in range(2))
 
     foods = [
@@ -606,13 +654,12 @@ def test_recipe_repo_pagination_by_foods(database: AllRepositories, unique_user:
     ],
 )
 def test_basic_recipe_search(
+    unique_db: AllRepositories,
     search: str,
     expected_names: list[str],
-    database: AllRepositories,
     search_recipes: list[Recipe],  # required so database is populated
-    unique_local_group_id: str,
 ):
-    repo = database.recipes.by_group(unique_local_group_id)  # type: ignore
+    repo = unique_db.recipes
     pagination = PaginationQuery(page=1, per_page=-1, order_by="created_at", order_direction=OrderDirection.asc)
     results = repo.page_all(pagination, search=search).items
 
@@ -626,15 +673,14 @@ def test_basic_recipe_search(
 
 
 def test_fuzzy_recipe_search(
-    database: AllRepositories,
+    unique_db: AllRepositories,
     search_recipes: list[Recipe],  # required so database is populated
-    unique_local_group_id: str,
 ):
     # this only works on postgres
-    if database.session.get_bind().name != "postgresql":
+    if unique_db.session.get_bind().name != "postgresql":
         return
 
-    repo = database.recipes.by_group(unique_local_group_id)  # type: ignore
+    repo = unique_db.recipes
     pagination = PaginationQuery(page=1, per_page=-1, order_by="created_at", order_direction=OrderDirection.asc)
     results = repo.page_all(pagination, search="Steinbuck").items
 
@@ -642,11 +688,10 @@ def test_fuzzy_recipe_search(
 
 
 def test_random_order_recipe_search(
-    database: AllRepositories,
+    unique_db: AllRepositories,
     search_recipes: list[Recipe],  # required so database is populated
-    unique_local_group_id: str,
 ):
-    repo = database.recipes.by_group(unique_local_group_id)  # type: ignore
+    repo = unique_db.recipes
     pagination = PaginationQuery(
         page=1,
         per_page=-1,
@@ -661,15 +706,16 @@ def test_random_order_recipe_search(
     assert not all(i == random_ordered[0] for i in random_ordered)
 
 
-def test_order_by_rating(database: AllRepositories, user_tuple: tuple[TestUser, TestUser]):
+def test_order_by_rating(user_tuple: tuple[TestUser, TestUser]):
     user_1, user_2 = user_tuple
-    repo = database.recipes.by_group(UUID(user_1.group_id))
+    database = user_1.repos
+    repo = database.recipes
 
     recipes: list[Recipe] = []
     for i in range(3):
         slug = f"recipe-{i+1}-{random_string(5)}"
         recipes.append(
-            database.recipes.create(
+            repo.create(
                 Recipe(
                     user_id=user_1.user_id,
                     group_id=user_1.group_id,
@@ -768,7 +814,7 @@ def test_order_by_rating(database: AllRepositories, user_tuple: tuple[TestUser, 
     )
 
     pq = PaginationQuery(page=1, per_page=-1, order_by="rating", order_direction=OrderDirection.desc)
-    data = database.recipes.by_group(UUID(user_1.group_id)).page_all(pq).items
+    data = database.recipes.page_all(pq).items
 
     assert len(data) == 3
     assert data[0].slug == recipe_1.slug  # global rating == 4.25 (avg of 5 and 3.5)
@@ -776,7 +822,7 @@ def test_order_by_rating(database: AllRepositories, user_tuple: tuple[TestUser, 
     assert data[2].slug == recipe_2.slug  # global rating == 2.5 (avg of 4 and 1)
 
     pq = PaginationQuery(page=1, per_page=-1, order_by="rating", order_direction=OrderDirection.asc)
-    data = database.recipes.by_group(UUID(user_1.group_id)).page_all(pq).items
+    data = database.recipes.page_all(pq).items
 
     assert len(data) == 3
     assert data[0].slug == recipe_2.slug  # global rating == 2.5 (avg of 4 and 1)

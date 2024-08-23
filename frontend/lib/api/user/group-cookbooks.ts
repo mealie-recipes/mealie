@@ -4,8 +4,8 @@ import { CreateCookBook, RecipeCookBook, UpdateCookBook } from "~/lib/api/types/
 const prefix = "/api";
 
 const routes = {
-  cookbooks: `${prefix}/groups/cookbooks`,
-  cookbooksId: (id: number) => `${prefix}/groups/cookbooks/${id}`,
+  cookbooks: `${prefix}/households/cookbooks`,
+  cookbooksId: (id: number) => `${prefix}/households/cookbooks/${id}`,
 };
 
 export class CookbookAPI extends BaseCRUDAPI<CreateCookBook, RecipeCookBook, UpdateCookBook> {

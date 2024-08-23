@@ -23,7 +23,7 @@ class CredentialsProvider(AuthProvider[CredentialsRequest]):
     async def authenticate(self) -> tuple[str, timedelta] | None:
         """Attempt to authenticate a user given a username and password"""
         settings = get_app_settings()
-        db = get_repositories(self.session)
+        db = get_repositories(self.session, group_id=None, household_id=None)
         user = self.try_get_user(self.data.username)
 
         if not user:

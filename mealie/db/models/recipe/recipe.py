@@ -5,6 +5,7 @@ import sqlalchemy as sa
 import sqlalchemy.orm as orm
 from pydantic import ConfigDict
 from sqlalchemy import event
+from sqlalchemy.ext.associationproxy import AssociationProxy, association_proxy
 from sqlalchemy.ext.orderinglist import ordering_list
 from sqlalchemy.orm import Mapped, mapped_column, validates
 from sqlalchemy.orm.attributes import get_history
@@ -31,7 +32,8 @@ from .tag import recipes_to_tags
 from .tool import recipes_to_tools
 
 if TYPE_CHECKING:
-    from ..group import Group, GroupMealPlan, ShoppingListItemRecipeReference, ShoppingListRecipeReference
+    from ..group import Group, GroupMealPlan
+    from ..household import Household, ShoppingListItemRecipeReference, ShoppingListRecipeReference
     from ..users import User
     from . import Category, Tag, Tool
 
@@ -49,19 +51,25 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     group_id: Mapped[GUID] = mapped_column(GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)
     group: Mapped["Group"] = orm.relationship("Group", back_populates="recipes", foreign_keys=[group_id])
 
+    household_id: AssociationProxy[GUID] = association_proxy("user", "household_id")
+    household: AssociationProxy["Household"] = association_proxy("user", "household")
+
     user_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("users.id", use_alter=True), index=True)
     user: Mapped["User"] = orm.relationship("User", uselist=False, foreign_keys=[user_id])
 
     rating: Mapped[float | None] = mapped_column(sa.Float, index=True, nullable=True)
     rated_by: Mapped[list["User"]] = orm.relationship(
-        "User", secondary=UserToRecipe.__tablename__, back_populates="rated_recipes"
+        "User",
+        secondary=UserToRecipe.__tablename__,
+        back_populates="rated_recipes",
+        overlaps="recipe,favorited_by,favorited_recipes",
     )
     favorited_by: Mapped[list["User"]] = orm.relationship(
         "User",
         secondary=UserToRecipe.__tablename__,
         primaryjoin="and_(RecipeModel.id==UserToRecipe.recipe_id, UserToRecipe.is_favorite==True)",
         back_populates="favorite_recipes",
-        viewonly=True,
+        overlaps="recipe,rated_by,rated_recipes",
     )
 
     meal_entries: Mapped[list["GroupMealPlan"]] = orm.relationship(

@@ -2199,14 +2199,14 @@ toml = ["tomli (>=2.0.1)"]
 yaml = ["pyyaml (>=6.0.1)"]
 
 [[package]]
-name = "pydantic-to-typescript"
-version = "1.0.10"
-description = "Convert pydantic models to typescript interfaces"
+name = "pydantic-to-typescript2"
+version = "1.0.4"
+description = "Convert pydantic v1 and pydantic v2 models to typescript interfaces"
 optional = false
 python-versions = "*"
 files = [
-    {file = "pydantic-to-typescript-1.0.10.tar.gz", hash = "sha256:c0d030f213b9b225381fc59a5ad7544a0e20bfb6856323f324fd3cf73e4fd447"},
-    {file = "pydantic_to_typescript-1.0.10-py3-none-any.whl", hash = "sha256:b2b3954fd4aa55f367aa0513ee3c21cd327221936c0cfbeb8d46b51542eceea7"},
+    {file = "pydantic-to-typescript2-1.0.4.tar.gz", hash = "sha256:1bd25dea0e1ce4220c495ad408d028ddd905376cbed1a856b2caa6f31c344371"},
+    {file = "pydantic_to_typescript2-1.0.4-py3-none-any.whl", hash = "sha256:597f1848e918d0b95879c9a371ff664c8f300894d43aafb0b7f693f6c84f3657"},
 ]
 
 [package.dependencies]
@@ -3435,4 +3435,4 @@ pgsql = ["psycopg2-binary"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "24b404250ff1853863f56183866275d349190113b171a41fe9e8323289de49ee"
+content-hash = "13eabb9a760de4bb8277b11ca6ba6f20e77114737228d1e0813555bd9db449d2"

@@ -18,6 +18,7 @@ from mealie.lang.providers import Translator
 from mealie.pkgs import cache
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_generic import RepositoryGeneric
+from mealie.schema.household.household import HouseholdInDB
 from mealie.schema.openai.recipe import OpenAIRecipe
 from mealie.schema.recipe.recipe import CreateRecipe, Recipe
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
@@ -26,7 +27,7 @@ from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.recipe.recipe_step import RecipeStep
 from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventCreate, TimelineEventType
 from mealie.schema.recipe.request_helpers import RecipeDuplicate
-from mealie.schema.user.user import GroupInDB, PrivateUser, UserRatingCreate
+from mealie.schema.user.user import PrivateUser, UserRatingCreate
 from mealie.services._base_service import BaseService
 from mealie.services.openai import OpenAIDataInjection, OpenAILocalImage, OpenAIService
 from mealie.services.recipe.recipe_data_service import RecipeDataService
@@ -35,10 +36,15 @@ from .template_service import TemplateService
 
 
 class RecipeServiceBase(BaseService):
-    def __init__(self, repos: AllRepositories, user: PrivateUser, group: GroupInDB, translator: Translator):
+    def __init__(self, repos: AllRepositories, user: PrivateUser, household: HouseholdInDB, translator: Translator):
         self.repos = repos
         self.user = user
-        self.group = group
+        self.household = household
+
+        if repos.group_id != user.group_id != household.group_id:
+            raise Exception("group ids do not match")
+        if repos.household_id != user.household_id != household.id:
+            raise Exception("household ids do not match")
 
         self.translator = translator
         self.t = translator.t
@@ -48,7 +54,7 @@ class RecipeServiceBase(BaseService):
 
 class RecipeService(RecipeServiceBase):
     def _get_recipe(self, data: str | UUID, key: str | None = None) -> Recipe:
-        recipe = self.repos.recipes.by_group(self.group.id).get_one(data, key)
+        recipe = self.repos.recipes.get_one(data, key)
         if recipe is None:
             raise exceptions.NoEntryFound("Recipe not found.")
         return recipe
@@ -97,7 +103,8 @@ class RecipeService(RecipeServiceBase):
         additional_attrs = additional_attrs or {}
         additional_attrs["name"] = name
         additional_attrs["user_id"] = self.user.id
-        additional_attrs["group_id"] = self.user.group_id
+        additional_attrs["household_id"] = self.household.id
+        additional_attrs["group_id"] = self.household.group_id
 
         if additional_attrs.get("tags"):
             for i in range(len(additional_attrs.get("tags", []))):
@@ -133,14 +140,14 @@ class RecipeService(RecipeServiceBase):
         data: Recipe = self._recipe_creation_factory(name=create_data.name, additional_attrs=create_data.model_dump())
 
         if isinstance(create_data, CreateRecipe) or create_data.settings is None:
-            if self.group.preferences is not None:
+            if self.household.preferences is not None:
                 data.settings = RecipeSettings(
-                    public=self.group.preferences.recipe_public,
-                    show_nutrition=self.group.preferences.recipe_show_nutrition,
-                    show_assets=self.group.preferences.recipe_show_assets,
-                    landscape_view=self.group.preferences.recipe_landscape_view,
-                    disable_comments=self.group.preferences.recipe_disable_comments,
-                    disable_amount=self.group.preferences.recipe_disable_amount,
+                    public=self.household.preferences.recipe_public,
+                    show_nutrition=self.household.preferences.recipe_show_nutrition,
+                    show_assets=self.household.preferences.recipe_show_assets,
+                    landscape_view=self.household.preferences.recipe_landscape_view,
+                    disable_comments=self.household.preferences.recipe_disable_comments,
+                    disable_amount=self.household.preferences.recipe_disable_amount,
                 )
             else:
                 data.settings = RecipeSettings()
@@ -172,7 +179,7 @@ class RecipeService(RecipeServiceBase):
         return new_recipe
 
     def _transform_user_id(self, user_id: str) -> str:
-        query = self.repos.users.by_group(self.group.id).get_one(user_id)
+        query = self.repos.users.get_one(user_id)
         if query:
             return user_id
         else:
@@ -207,14 +214,15 @@ class RecipeService(RecipeServiceBase):
         elif not isinstance(data, dict):
             return data
 
-        # force group_id to match the group id of the current user
-        data["group_id"] = str(self.group.id)
+        # force group_id and household_id to match the group id of the current user
+        data["group_id"] = str(self.user.group_id)
+        data["household_id"] = str(self.user.household_id)
 
         # make sure categories and tags are valid
         if key == "recipe_category":
-            return self._transform_category_or_tag(data, self.repos.categories.by_group(self.group.id))
+            return self._transform_category_or_tag(data, self.repos.categories)
         elif key == "tags":
-            return self._transform_category_or_tag(data, self.repos.tags.by_group(self.group.id))
+            return self._transform_category_or_tag(data, self.repos.tags)
 
         # recursively process other objects
         for k, v in data.items():
@@ -259,7 +267,7 @@ class RecipeService(RecipeServiceBase):
         return recipe
 
     async def create_from_images(self, images: list[UploadFile], translate_language: str | None = None) -> Recipe:
-        openai_recipe_service = OpenAIRecipeService(self.repos, self.user, self.group, self.translator)
+        openai_recipe_service = OpenAIRecipeService(self.repos, self.user, self.household, self.translator)
         with get_temporary_path() as temp_path:
             local_images: list[Path] = []
             for image in images:
@@ -321,8 +329,8 @@ class RecipeService(RecipeServiceBase):
         # Copy all assets (including images) to the new recipe directory
         # This assures that replaced links in recipe steps continue to work when the old recipe is deleted
         try:
-            new_service = RecipeDataService(new_recipe.id, group_id=old_recipe.group_id)
-            old_service = RecipeDataService(old_recipe.id, group_id=old_recipe.group_id)
+            new_service = RecipeDataService(new_recipe.id)
+            old_service = RecipeDataService(old_recipe.id)
             copytree(
                 old_service.dir_data,
                 new_service.dir_data,
@@ -379,9 +387,7 @@ class RecipeService(RecipeServiceBase):
         if recipe is None:
             raise exceptions.NoEntryFound("Recipe not found.")
 
-        new_data = self.repos.recipes.by_group(self.group.id).patch(
-            recipe.slug, patch_data.model_dump(exclude_unset=True)
-        )
+        new_data = self.repos.recipes.patch(recipe.slug, patch_data.model_dump(exclude_unset=True))
 
         self.check_assets(new_data, recipe.slug)
         return new_data
@@ -389,7 +395,7 @@ class RecipeService(RecipeServiceBase):
     def update_last_made(self, slug: str, timestamp: datetime) -> Recipe:
         # we bypass the pre update check since any user can update a recipe's last made date, even if it's locked
         recipe = self._get_recipe(slug)
-        return self.repos.recipes.by_group(self.group.id).patch(recipe.slug, {"last_made": timestamp})
+        return self.repos.recipes.patch(recipe.slug, {"last_made": timestamp})
 
     def delete_one(self, slug) -> Recipe:
         recipe = self._get_recipe(slug)
@@ -414,6 +420,7 @@ class OpenAIRecipeService(RecipeServiceBase):
         return Recipe(
             user_id=self.user.id,
             group_id=self.user.group_id,
+            household_id=self.household.id,
             name=openai_recipe.name,
             slug=slugify(openai_recipe.name),
             description=openai_recipe.description,

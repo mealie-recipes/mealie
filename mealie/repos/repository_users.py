@@ -10,12 +10,12 @@ from mealie.db.models.users.user_to_recipe import UserToRecipe
 from mealie.schema.user.user import PrivateUser, UserRatingOut
 
 from ..db.models.users import User
-from .repository_generic import RepositoryGeneric
+from .repository_generic import GroupRepositoryGeneric
 
 settings = get_app_settings()
 
 
-class RepositoryUsers(RepositoryGeneric[PrivateUser, User]):
+class RepositoryUsers(GroupRepositoryGeneric[PrivateUser, User]):
     def update_password(self, id, password: str):
         entry = self._query_one(match_value=id)
         if settings.IS_DEMO:
@@ -75,7 +75,10 @@ class RepositoryUsers(RepositoryGeneric[PrivateUser, User]):
         return [self.schema.model_validate(x) for x in results]
 
 
-class RepositoryUserRatings(RepositoryGeneric[UserRatingOut, UserToRecipe]):
+class RepositoryUserRatings(GroupRepositoryGeneric[UserRatingOut, UserToRecipe]):
+    # Since users can post events on recipes that belong to other households,
+    # this is a group repository, rather than a household repository.
+
     def get_by_user(self, user_id: UUID4, favorites_only=False) -> list[UserRatingOut]:
         stmt = select(UserToRecipe).filter(UserToRecipe.user_id == user_id)
         if favorites_only:
