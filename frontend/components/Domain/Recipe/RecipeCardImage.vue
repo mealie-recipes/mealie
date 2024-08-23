@@ -2,6 +2,8 @@
   <v-img
     v-if="!fallBackImage"
     :height="height"
+    min-height="125"
+    max-height="fill-height"
     :src="getImage(recipeId)"
     @click="$emit('click')"
     @load="fallBackImage = false"
@@ -52,8 +54,8 @@ export default defineComponent({
       default: null,
     },
     height: {
-      type: Number,
-      default: 200,
+      type: [Number, String],
+      default: "fill-height",
     },
   },
   setup(props) {

@@ -58,7 +58,7 @@
         </v-list>
       </v-menu>
       <ContextMenu
-        v-if="!$vuetify.breakpoint.xsOnly"
+        v-if="!$vuetify.breakpoint.smAndDown"
         :items="[
           {
             title: $tc('general.toggle-view'),
@@ -104,6 +104,7 @@
               :image="recipe.image"
               :tags="recipe.tags"
               :recipe-id="recipe.id"
+              avatar-size="fill-height"
             />
           </v-lazy>
         </v-col>
