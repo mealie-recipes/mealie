@@ -100,7 +100,7 @@ Make sure the url and port (`http://mealie:9000` ) matches your installation's a
 
 ```yaml
 rest:
-  - resource_template: http://mealie:9000/api/groups/mealplans?start_date={{ now().strftime('%Y-%m-%d') }}&page=1&perPage=5&orderBy=date&orderDirection=asc
+  - resource_template: http://mealie:9000/api/households/mealplans?start_date={{ now().strftime('%Y-%m-%d') }}&page=1&perPage=5&orderBy=date&orderDirection=asc
     method: GET <<API_TOKEN>>
     headers:
       Authorization: Bearer 
