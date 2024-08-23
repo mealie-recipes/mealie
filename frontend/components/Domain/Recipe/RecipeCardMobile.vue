@@ -20,14 +20,14 @@
       </v-img>
       <v-list-item three-line :class="vertical ? 'px-2' : 'px-0'">
         <slot v-if="!vertical" name="avatar">
-          <v-list-item-avatar tile size="125" class="v-mobile-img rounded-sm my-0">
+          <v-list-item-avatar tile width="125" height="avatarSize" class="v-mobile-img rounded-sm my-0">
             <RecipeCardImage
               :icon-size="100"
-              :height="125"
+              :height="avatarSize"
               :slug="slug"
               :recipe-id="recipeId"
-              small
               :image-version="image"
+              small
             />
           </v-list-item-avatar>
         </slot>
@@ -134,6 +134,10 @@ export default defineComponent({
     isFlat: {
       type: Boolean,
       default: false,
+    },
+    avatarSize: {
+      type: [Number, String],
+      default: 125,
     },
   },
   setup(props) {
