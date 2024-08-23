@@ -1,140 +1,140 @@
 {
     "teaspoon": {
         "name": "cucchiaino",
-        "plural_name": "teaspoons",
+        "plural_name": "cucchiaini",
         "description": "",
         "abbreviation": "cucchiaino"
     },
     "tablespoon": {
         "name": "cucchiaio",
-        "plural_name": "tablespoons",
+        "plural_name": "cucchiaio da tavola",
         "description": "",
         "abbreviation": "cucch.o"
     },
     "cup": {
         "name": "tazza",
-        "plural_name": "cups",
+        "plural_name": "tazze",
         "description": "",
         "abbreviation": "c"
     },
     "fluid-ounce": {
         "name": "oncia liquida",
-        "plural_name": "fluid ounces",
+        "plural_name": "once fluide",
         "description": "",
         "abbreviation": "fl oz"
     },
     "pint": {
         "name": "pinta",
-        "plural_name": "pints",
+        "plural_name": "pinte",
         "description": "",
         "abbreviation": "pt"
     },
     "quart": {
         "name": "quarto di pinta",
-        "plural_name": "quarts",
+        "plural_name": "quarti",
         "description": "",
         "abbreviation": "qt"
     },
     "gallon": {
         "name": "gallone",
-        "plural_name": "gallons",
+        "plural_name": "galloni",
         "description": "",
         "abbreviation": "gal"
     },
     "milliliter": {
         "name": "millilitro",
-        "plural_name": "milliliters",
+        "plural_name": "millilitri",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
         "name": "litro",
-        "plural_name": "liters",
+        "plural_name": "litri",
         "description": "",
         "abbreviation": "l"
     },
     "pound": {
         "name": "libbra",
-        "plural_name": "pounds",
+        "plural_name": "libbre",
         "description": "",
         "abbreviation": "lb",
-        "plural_abbreviation": "lbs"
+        "plural_abbreviation": "lb"
     },
     "ounce": {
         "name": "oncia",
-        "plural_name": "ounces",
+        "plural_name": "once",
         "description": "",
         "abbreviation": "oz"
     },
     "gram": {
         "name": "grammo",
-        "plural_name": "grams",
+        "plural_name": "grammi",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
         "name": "chilogrammo",
-        "plural_name": "kilograms",
+        "plural_name": "chilogrammi",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
         "name": "milligrammo",
-        "plural_name": "milligrams",
+        "plural_name": "milligrammi",
         "description": "",
         "abbreviation": "mg"
     },
     "splash": {
         "name": "spruzzo",
-        "plural_name": "splashes",
+        "plural_name": "spruzzi",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
         "name": "pizzico",
-        "plural_name": "dashes",
+        "plural_name": "trattini",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
         "name": "porzione",
-        "plural_name": "servings",
+        "plural_name": "porzioni",
         "description": "",
         "abbreviation": ""
     },
     "head": {
         "name": "testa",
-        "plural_name": "heads",
+        "plural_name": "teste",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
         "name": "spicchio",
-        "plural_name": "cloves",
+        "plural_name": "spicchi",
         "description": "",
         "abbreviation": ""
     },
     "can": {
         "name": "lattina",
-        "plural_name": "cans",
+        "plural_name": "lattine",
         "description": "",
         "abbreviation": ""
     },
     "bunch": {
-        "name": "bunch",
-        "plural_name": "bunches",
+        "name": "mucchio",
+        "plural_name": "mucchi",
         "description": "",
         "abbreviation": ""
     },
     "pack": {
-        "name": "pack",
-        "plural_name": "packs",
+        "name": "confezione",
+        "plural_name": "confezioni",
         "description": "",
         "abbreviation": ""
     },
     "pinch": {
-        "name": "pinch",
-        "plural_name": "pinches",
+        "name": "pizzico",
+        "plural_name": "pizzichi",
         "description": "",
         "abbreviation": ""
     }
