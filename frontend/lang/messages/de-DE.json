@@ -279,7 +279,7 @@
     "create-household": "Haushalt erstellen",
     "household-name": "Haushalt Name",
     "household-group": "Haushalt Gruppe",
-    "household-management": "Haushalt Verwaltung",
+    "household-management": "Haushaltsverwaltung",
     "manage-households": "Haushalte verwalten",
     "admin-household-management": "Administrator Haushaltverwaltung",
     "admin-household-management-text": "Änderungen an diesem Haushalt sind sofort wirksam.",
@@ -290,7 +290,7 @@
     "default-recipe-preferences-description": "Das sind die Standardeinstellungen, wenn ein neues Rezept in deinem Haushalt erstellt wird. Sie können für einzelne Rezepte in den Rezepteinstellungen geändert werden.",
     "allow-users-outside-of-your-household-to-see-your-recipes": "Erlaube Benutzern außerhalb deines Haushalts, deine Rezepte zu sehen",
     "allow-users-outside-of-your-household-to-see-your-recipes-description": "Wenn aktiviert, kannst du einen öffentlichen Link verwenden, um ausgewählte Rezepte zu teilen, ohne dass Benutzer sich anmelden müssen. Wenn deaktiviert, kannst du nur Rezepte mit Benutzern in deinem Haushalt teilen oder einen vorher erstellten privaten Link verwenden",
-    "household-preferences": "Haushalt Konfiguration"
+    "household-preferences": "Haushaltskonfiguration"
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Neue Mahlzeit planen",
@@ -1252,7 +1252,7 @@
     "account-summary-description": "Hier ist eine Zusammenfassung der Details deiner Gruppe.",
     "group-statistics": "Gruppenstatistik",
     "group-statistics-description": "Deine Gruppenstatistik gibt dir einen Einblick, wie du Mealie verwendest.",
-    "household-statistics": "Haushalt Statistik",
+    "household-statistics": "Haushaltsstatistik",
     "household-statistics-description": "Deine Haushaltsstatistik gibt dir einen Einblick, wie du Mealie verwendest.",
     "storage-capacity": "Speicherplatz",
     "storage-capacity-description": "Dein Speicherplatz wird anhand der Bilder und Anhänge berechnet, die du hochgeladen hast.",
@@ -1265,7 +1265,7 @@
     "group-settings": "Gruppen-Einstellungen",
     "group-settings-description": "Verwalte deine allgemeinen Gruppeneinstellungen wie Essenspläne und Privatsphäre.",
     "household-description": "Diese Einstellungen betreffen deinen Haushalt. Änderung wirken sich auf den gesamten Haushalt aus!",
-    "household-settings": "Haushalt Einstellungen",
+    "household-settings": "Haushaltseinstellungen",
     "household-settings-description": "Verwalte deine Haushaltseinstellungen wie zum Beispiel Essenspläne und Privatsphäre.",
     "cookbooks-description": "Verwalte eine Sammlung mit Rezept-Kategorien und erstelle Seiten für sie.",
     "members": "Mitglieder",
