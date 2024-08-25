@@ -13,31 +13,31 @@
     },
     "cup": {
         "name": "Tasse",
-        "plural_name": "cups",
+        "plural_name": "Tassen",
         "description": "",
         "abbreviation": "c"
     },
     "fluid-ounce": {
         "name": "Flüssigunze",
-        "plural_name": "fluid ounces",
+        "plural_name": "Flüssigunzen",
         "description": "",
         "abbreviation": "fl oz"
     },
     "pint": {
         "name": "Pint",
-        "plural_name": "pints",
+        "plural_name": "Pints",
         "description": "",
         "abbreviation": "pt"
     },
     "quart": {
         "name": "quart",
-        "plural_name": "quarts",
+        "plural_name": "Quarts",
         "description": "",
         "abbreviation": "qt"
     },
     "gallon": {
         "name": "Gallone",
-        "plural_name": "gallons",
+        "plural_name": "Gallonen",
         "description": "",
         "abbreviation": "gal"
     },
@@ -55,14 +55,14 @@
     },
     "pound": {
         "name": "Pfund",
-        "plural_name": "pounds",
+        "plural_name": "Pfunde",
         "description": "",
         "abbreviation": "lb",
         "plural_abbreviation": "lbs"
     },
     "ounce": {
         "name": "Unze",
-        "plural_name": "ounces",
+        "plural_name": "Unzen",
         "description": "",
         "abbreviation": "oz"
     },
