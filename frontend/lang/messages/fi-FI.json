@@ -79,7 +79,7 @@
     "tag-events": "Valitse tapahtumat",
     "category-events": "Luokkatapahtumat",
     "when-a-new-user-joins-your-group": "Kun ryhmääsi liittyy uusi jäsen",
-    "recipe-events": "Recipe Events"
+    "recipe-events": "Reseptitapahtumat"
   },
   "general": {
     "add": "Lisää",
@@ -239,7 +239,7 @@
       "keep-my-recipes-private-description": "Asettaa ryhmäsi ja kaikki reseptit yksityisiksi. Voit aina muuttaa tätä myöhemmin."
     },
     "manage-members": "Hallitse jäseniä",
-    "manage-members-description": "Manage the permissions of the members in your household. {manage} allows the user to access the data-management page, and {invite} allows the user to generate invitation links for other users. Group owners cannot change their own permissions.",
+    "manage-members-description": "Hallitse kotitaloutesi jäsenten oikeuksia. {manage} antaa jäsenelle pääsyn tietojenkäsittelysivulle, ja {invite} antaa käyttäjän luoda kutsulinkkejä muille käyttäjille. Ryhmien omistajat eivät voi muuttaa omia oikeuksiaan.",
     "manage": "Hallitse",
     "invite": "Kutsu",
     "looking-to-update-your-profile": "Haluatko päivittää käyttäjäsivusi?",
@@ -247,7 +247,7 @@
     "default-recipe-preferences": "Oletusreseptiasetukset",
     "group-preferences": "Ryhmän oletusasetukset",
     "private-group": "Yksityinen ryhmä",
-    "private-group-description": "Setting your group to private will default all public view options to default. This overrides any individual households or recipes public view settings.",
+    "private-group-description": "Ryhmäsi asettaminen yksityiseksi muuttaa kaikki julkisen näkymän asetukset oletusarvoiksi. Tämä ajaa kaikkien yksittäisten kotitalouksien ja reseptien julkisen näkymien asetusten yli.",
     "enable-public-access": "Salli julkinen käyttö",
     "enable-public-access-description": "Julkista ryhmän reseptit automaattisesti ja anna vierailijoiden nähdä reseptit kirjautumatta sisään",
     "allow-users-outside-of-your-group-to-see-your-recipes": "Anna muiden kuin ryhmäsi jäsenten nähdä reseptisi",
@@ -261,7 +261,7 @@
     "disable-users-from-commenting-on-recipes": "Estä käyttäjiä kommentoimasta reseptiä",
     "disable-users-from-commenting-on-recipes-description": "Piilottaa reseptisivun kommenttiosion ja kytkee kommentoinnin pois käytöstä",
     "disable-organizing-recipe-ingredients-by-units-and-food": "Poista reseptien lajittelu yksiköiden ja ruoan mukaan",
-    "disable-organizing-recipe-ingredients-by-units-and-food-description": "Hides the Food, Unit, and Amount fields for ingredients and treats ingredients as plain text fields",
+    "disable-organizing-recipe-ingredients-by-units-and-food-description": "Piilottaa ruoan, yksikön ja määrän kentät ainesosien osalta ja käsittelee niitä tekstikenttinä",
     "general-preferences": "Yleiset Asetukset",
     "group-recipe-preferences": "Ryhmän reseptiasetukset",
     "report": "Raportti",
@@ -285,9 +285,9 @@
     "admin-household-management-text": "Muutokset tähän kotitalouteen astuvat välittömästi voimaan.",
     "household-id-value": "Kotitalouden tunniste: {0}",
     "private-household": "Yksityinen Kotitalous",
-    "private-household-description": "Setting your household to private will default all public view options to default. This overrides any individual recipes public view settings.",
+    "private-household-description": "Kotitalouden asettaminen yksityiseksi muuttaa kaikki julkisen näkymän asetukset oletusarvoisiksi. Tämä ohittaa yksittäisten reseptien julkisten näkymien asetukset.",
     "household-recipe-preferences": "Kotitalouksien reseptiasetukset",
-    "default-recipe-preferences-description": "These are the default settings when a new recipe is created in your household. These can be changed for individual recipes in the recipe settings menu.",
+    "default-recipe-preferences-description": "Tässä on kotitaloutesi uuden reseptin oletusasetukset. Näitä voi muuttaa yksittäisten reseptien osalta reseptin asetuksissa.",
     "allow-users-outside-of-your-household-to-see-your-recipes": "Salli kotitalouden ulkopuolisten käyttäjien nähdä reseptit",
     "allow-users-outside-of-your-household-to-see-your-recipes-description": "When enabled you can use a public share link to share specific recipes without authorizing the user. When disabled, you can only share recipes with users who are in your household or with a pre-generated private link",
     "household-preferences": "Kotitalouksien asetukset"
