@@ -2824,13 +2824,13 @@ rsa = ["oauthlib[signedtoken] (>=3.0.0)"]
 
 [[package]]
 name = "rich"
-version = "13.7.1"
+version = "13.8.0"
 description = "Render rich text, tables, progress bars, syntax highlighting, markdown and more to the terminal"
 optional = false
 python-versions = ">=3.7.0"
 files = [
-    {file = "rich-13.7.1-py3-none-any.whl", hash = "sha256:4edbae314f59eb482f54e9e30bf00d33350aaa94f4bfcd4e9e3110e64d0d7222"},
-    {file = "rich-13.7.1.tar.gz", hash = "sha256:9be308cb1fe2f1f57d67ce99e95af38a1e2bc71ad9813b0e247cf7ffbcc3a432"},
+    {file = "rich-13.8.0-py3-none-any.whl", hash = "sha256:2e85306a063b9492dffc86278197a60cbece75bcb766022f3436f567cae11bdc"},
+    {file = "rich-13.8.0.tar.gz", hash = "sha256:a5ac1f1cd448ade0d59cc3356f7db7a7ccda2c8cbae9c7a90c28ff463d3e91f4"},
 ]
 
 [package.dependencies]
