@@ -27,7 +27,7 @@ class RepositoryMeals(HouseholdRepositoryGeneric[ReadPlanEntry, GroupMealPlan]):
         stmt = select(GroupMealPlan).filter(
             GroupMealPlan.date >= start_date.date(),
             GroupMealPlan.date <= end_date.date(),
-            GroupMealPlan.household_id == self.household_id
+            GroupMealPlan.household_id == self.household_id,
         )
         plans = self.session.execute(stmt).scalars().all()
         return [self.schema.model_validate(x) for x in plans]

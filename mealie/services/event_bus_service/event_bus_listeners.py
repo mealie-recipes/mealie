@@ -146,8 +146,7 @@ class WebhookEventListener(EventListenerBase):
                 webhook_data = cast(EventWebhookData, event.document_data)
                 meal_repo = repos.meals
                 meal_data = meal_repo.get_meals_by_date_range(
-                    webhook_data.webhook_start_dt,
-                    webhook_data.webhook_end_dt
+                    webhook_data.webhook_start_dt, webhook_data.webhook_end_dt
                 )
                 if meal_data:
                     webhook_data.webhook_body = meal_data
