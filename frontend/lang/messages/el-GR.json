@@ -235,7 +235,7 @@
     "user-group-created": "Η Ομάδα Χρηστών Δημιουργήθηκε",
     "user-group-creation-failed": "Αποτυχία Δημιουργίας Ομάδας Χρηστών",
     "settings": {
-      "keep-my-recipes-private": "Κρατήστε Τις Συνταγές Μου Ιδιωτικές",
+      "keep-my-recipes-private": "Να διατηρούνται οι συνταγές μου ιδιωτικές",
       "keep-my-recipes-private-description": "Ορίζει την ομάδα σας και όλες τις συνταγές ιδιωτικές από προεπιλογή. Μπορείτε πάντα να το αλλάξετε αργότερα."
     },
     "manage-members": "Διαχείριση Μελών",
@@ -361,20 +361,20 @@
     "chowdown": {
       "description": "Μετεγκατάσταση δεδομένων από Chowdown",
       "description-long": "Το Mealie υποστηρίζει εγγενώς τη μορφή αποθετηρίου chowdown. Κατεβάστε το αποθετήριο κώδικα ως αρχείο .zip και ανεβάστε το παρακάτω.",
-      "title": "Μετατόπιση"
+      "title": "Chowdown"
     },
     "nextcloud": {
       "description": "Μετεγκατάσταση δεδομένων από μια υπόσταση Nextcloud Cookbook",
       "description-long": "Οι συνταγές Nextcloud μπορούν να εισαχθούν από ένα αρχείο zip που περιέχει τα δεδομένα που είναι αποθηκευμένα στο Nextcloud. Δείτε τη δομή του φακέλου-παραδείγματος παρακάτω για να βεβαιωθείτε ότι οι συνταγές σας είναι σε θέση να εισαχθούν.",
-      "title": "Βιβλίο Cookbook Nextcloud"
+      "title": "Nextcloud Cookbook"
     },
     "copymethat": {
       "description-long": "Το Mealie μπορεί να εισάγει συνταγές από το Copy Me That. Εξάγετε τις συνταγές σας σε μορφή HTML, στη συνέχεια, ανεβάστε το .zip παρακάτω.",
-      "title": "Διαχειριστής Συνταγών Copy Me That"
+      "title": "Copy Me That Recipe Manager"
     },
     "paprika": {
       "description-long": "Το Mealie μπορεί να εισάγει συνταγές από την εφαρμογή Paprika. Εξάγετε τις συνταγές σας από το paprika, μετονομάστε την επέκταση εξαγωγής σε .zip και ανεβάστε την παρακάτω.",
-      "title": "Διαχειριστής Συνταγών Paprika"
+      "title": "Paprika Recipe Manager"
     },
     "mealie-pre-v1": {
       "description-long": "Το Mealie μπορεί να εισάγει συνταγές από την εφαρμογή Mealie από μια έκδοση πριν την v1.0. Εξάγετε τις συνταγές σας από την παλιά υπόστασή σας, και ανεβάστε το παρακάτω αρχείο zip. Σημειώστε ότι από την εξαγωγή μπορούν να εισαχθούν μόνο συνταγές.",
@@ -382,7 +382,7 @@
     },
     "tandoor": {
       "description-long": "Το Mealie μπορεί να εισάγει συνταγές από το Tandoor. Εξαγάγετε τα δεδομένα σας στην \"Προεπιλεγμένη\" (default) μορφή, στη συνέχεια, ανεβάστε το .zip παρακάτω.",
-      "title": "Συνταγές Tandoor"
+      "title": "Tandoor Recipes"
     },
     "recipe-data-migrations": "Μετεγκατάσταση Δεδομένων Συνταγής",
     "recipe-data-migrations-explanation": "Συνταγές μπορούν να μετεγκατασταθούν από άλλη υποστηριζόμενη εφαρμογή στο Mealie. Αυτός είναι ένας πολύ καλός τρόπος για να ξεκινήσετε με Mealie.",
@@ -400,7 +400,7 @@
       "description-long": "Το Mealie μπορεί να εισάγει συνταγές από το Plan to Eat."
     },
     "myrecipebox": {
-      "title": "Κιβώτιο Συνταγών",
+      "title": "My Recipe Box",
       "description-long": "Το Mealie μπορεί να εισάγει συνταγές από το Κουτί Συνταγών. Εξάγετε τις συνταγές σας σε μορφή CSV, στη συνέχεια, ανεβάστε το αρχείο .csv παρακάτω."
     },
     "recipekeeper": {
