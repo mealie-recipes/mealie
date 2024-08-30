@@ -4,7 +4,7 @@ description: "CONTRIBUTORS ONLY: Submit a Task that needs to be completed"
 title: "[Task] - TASK DESCRIPTION"
 labels:
   - task
-  - v1
+  - v2
 body:
   - type: markdown
     attributes:
