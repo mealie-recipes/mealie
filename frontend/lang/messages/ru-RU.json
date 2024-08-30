@@ -8,7 +8,7 @@
     "database-type": "Тип базы данных",
     "database-url": "URL базы данных",
     "default-group": "Группа по умолчанию",
-    "default-household": "Default Household",
+    "default-household": "Дом по умолчанию",
     "demo": "Демо",
     "demo-status": "Демо-статус",
     "development": "В разработке",
@@ -65,7 +65,7 @@
     "something-went-wrong": "Что-то пошло не так!",
     "subscribed-events": "События с подпиской",
     "test-message-sent": "Тестовое сообщение отправлено",
-    "message-sent": "Message Sent",
+    "message-sent": "Сообщение отправлено",
     "new-notification": "Новое уведомление",
     "event-notifiers": "Уведомления о событии",
     "apprise-url-skipped-if-blank": "URL-адрес (пропущен, если пусто)",
@@ -211,7 +211,7 @@
     "unsaved-changes": "У вас есть несохраненные изменения. Вы хотите сохранить их перед выходом?",
     "clipboard-copy-failure": "Не удалось скопировать текст.",
     "confirm-delete-generic-items": "Вы уверены, что хотите удалить следующие элементы?",
-    "organizers": "Organizers",
+    "organizers": "Организаторы",
     "caution": "Caution"
   },
   "group": {
@@ -637,7 +637,7 @@
       "no-unit": "No unit",
       "missing-unit": "Create missing unit: {unit}",
       "missing-food": "Create missing food: {food}",
-      "no-food": "No Food"
+      "no-food": "Нет еды"
     }
   },
   "search": {
@@ -802,12 +802,12 @@
     "ldap-ready-success-text": "Все требуемые переменные для LDAP установлены.",
     "build": "Сборка",
     "recipe-scraper-version": "Версия скрейпера рецептов",
-    "oidc-ready": "OIDC Ready",
+    "oidc-ready": "OIDC Готов",
     "oidc-ready-error-text": "Not all OIDC Values are configured. This can be ignored if you are not using OIDC Authentication.",
-    "oidc-ready-success-text": "Required OIDC variables are all set.",
-    "openai-ready": "OpenAI Ready",
+    "oidc-ready-success-text": "Все требуемые переменные для OIDC установлены.",
+    "openai-ready": "OpenAI Готов",
     "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
-    "openai-ready-success-text": "Required OpenAI variables are all set."
+    "openai-ready-success-text": "Все требуемые переменные для OpenAI установлены."
   },
   "shopping-list": {
     "all-lists": "Все списки",
@@ -837,7 +837,7 @@
     "items-checked-count": "Нет выбранных элементов|Один элемент выбран|{count} элементов выбрано",
     "no-label": "Без метки",
     "completed-on": "Выполнено в {date}",
-    "you-are-offline": "You are offline",
+    "you-are-offline": "Вы не в сети",
     "you-are-offline-description": "Not all features are available while offline. You can still add, modify, and remove items, but you will not be able to sync your changes to the server until you are back online.",
     "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
     "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
@@ -985,7 +985,7 @@
     "authentication-method-hint": "This specifies how a user will authenticate with Mealie. If you're not sure, choose 'Mealie",
     "permissions": "Права доступа",
     "administrator": "Администратор",
-    "user-can-invite-other-to-group": "User can invite others to group",
+    "user-can-invite-other-to-group": "Пользователь может пригласить других в группу",
     "user-can-manage-group": "Пользователь может управлять группой",
     "user-can-organize-group-data": "Пользователь может менять групповые данные",
     "enable-advanced-features": "Включить доп. функции",
@@ -1074,7 +1074,7 @@
       "recipe-actions-data": "Recipe Actions Data",
       "new-recipe-action": "New Recipe Action",
       "edit-recipe-action": "Edit Recipe Action",
-      "action-type": "Action Type"
+      "action-type": "Тип Действия"
     },
     "create-alias": "Создать псевдоним",
     "manage-aliases": "Управление псевдонимами",
@@ -1237,14 +1237,14 @@
       "welcome-to-mealie-get-started": "Добро пожаловать в Mealie! Давайте начнем",
       "already-set-up-bring-to-homepage": "Я уже готов, просто открой домашнюю страницу",
       "common-settings-for-new-sites": "Here are some common settings for new sites",
-      "setup-complete": "Setup Complete!",
+      "setup-complete": "Настройка завершена!",
       "here-are-a-few-things-to-help-you-get-started": "Here are a few things to help you get started with Mealie",
       "restore-from-v1-backup": "Have a backup from a previous instance of Mealie v1? You can restore it here.",
       "manage-profile-or-get-invite-link": "Manage your own profile, or grab an invite link to share with others."
     }
   },
   "profile": {
-    "welcome-user": "👋 Welcome, {0}!",
+    "welcome-user": "👋 Добро пожаловать, {0}!",
     "description": "Управление настройками профиля, рецептов и группы.",
     "get-invite-link": "Получить ссылку для приглашения",
     "get-public-link": "Получить публичную ссылку",

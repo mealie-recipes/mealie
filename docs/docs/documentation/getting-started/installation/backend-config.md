@@ -58,7 +58,7 @@ Changing the webworker settings may cause unforeseen memory leak issues with Mea
 
 | Variables       | Default | Description                                                                   |
 | --------------- | :-----: | ----------------------------------------------------------------------------- |
-| UVICORN_WORKERS |    1    | Sets the number of works for the web server [more info here][unicorn_workers] |
+| UVICORN_WORKERS |    1    | Sets the number of workers for the web server. [More info here][unicorn_workers] |
 
 ### LDAP
 
