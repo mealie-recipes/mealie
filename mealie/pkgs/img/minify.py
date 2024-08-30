@@ -74,6 +74,11 @@ class PillowMinifier(ABCMinifier):
     def _convert_image(
         image_file: Path, image_format: ImageFormat, dest: Path | None = None, quality: int = 100
     ) -> Path:
+        """
+        Converts an image to the specified format in-place. The original image is not
+        removed. By default, the quality is set to 100.
+        """
+
         img = Image.open(image_file)
         if img.mode not in image_format.modes:
             img = img.convert(image_format.modes[0])
