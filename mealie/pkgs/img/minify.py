@@ -14,10 +14,12 @@ register_avif_opener()
 class ImageFormat:
     suffix: str
     format: str
+    modes: list[str]
+    """If the image is not in the correct mode, it will be converted to the first mode in the list"""
 
 
-JPG = ImageFormat(".jpg", "JPEG")
-WEBP = ImageFormat(".webp", "WEBP")
+JPG = ImageFormat(".jpg", "JPEG", ["RGB"])
+WEBP = ImageFormat(".webp", "WEBP", ["RGB", "RGBA"])
 IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp", ".heic", ".avif"}
 
 
@@ -73,6 +75,8 @@ class PillowMinifier(ABCMinifier):
         image_file: Path, image_format: ImageFormat, dest: Path | None = None, quality: int = 100
     ) -> Path:
         img = Image.open(image_file)
+        if img.mode not in image_format.modes:
+            img = img.convert(image_format.modes[0])
 
         dest = dest or image_file.with_suffix(image_format.suffix)
         img.save(dest, image_format.format, quality=quality)
