@@ -806,8 +806,8 @@
     "oidc-ready-error-text": "某些OIDC环境变量尚未配置。（如果你不使用OIDC验证可以忽略该报错）",
     "oidc-ready-success-text": "OIDC所需的环境变量均已配置。",
     "openai-ready": "OpenAI Ready",
-    "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
-    "openai-ready-success-text": "Required OpenAI variables are all set."
+    "openai-ready-error-text": "并非所有的 OpenAI 值都已配置。如果您不使用 OpenAI 功能，这将被忽略。",
+    "openai-ready-success-text": "所需的 OpenAI 变量已全部设置。"
   },
   "shopping-list": {
     "all-lists": "所有购物清单",
@@ -821,7 +821,7 @@
     "food": "食品",
     "note": "备注",
     "label": "标注",
-    "save-label": "Save Label",
+    "save-label": "保存标签",
     "linked-item-warning": "此条目已经与一个或多个食谱有关。若强行变更它的单位或食品，会在增减下方关联食谱份数时产生意外结果。",
     "toggle-food": "是否为数据库中的食品",
     "manage-labels": "管理标签",
@@ -837,7 +837,7 @@
     "items-checked-count": "未选中条目|已选中1个条目|已选中{count}个条目",
     "no-label": "无标签",
     "completed-on": "于 {date} 完成",
-    "you-are-offline": "You are offline",
+    "you-are-offline": "你已离线",
     "you-are-offline-description": "Not all features are available while offline. You can still add, modify, and remove items, but you will not be able to sync your changes to the server until you are back online.",
     "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
     "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
