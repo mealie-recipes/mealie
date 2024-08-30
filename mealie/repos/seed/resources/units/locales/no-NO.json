@@ -1,140 +1,140 @@
 {
     "teaspoon": {
         "name": "teskje",
-        "plural_name": "teaspoons",
+        "plural_name": "teskjeer",
         "description": "",
         "abbreviation": "ts"
     },
     "tablespoon": {
         "name": "spiseskje",
-        "plural_name": "tablespoons",
+        "plural_name": "spiseskjeer",
         "description": "",
         "abbreviation": "ss"
     },
     "cup": {
         "name": "kopp",
-        "plural_name": "cups",
+        "plural_name": "kopper",
         "description": "",
-        "abbreviation": "c"
+        "abbreviation": "kopp"
     },
     "fluid-ounce": {
         "name": "væskeunse",
-        "plural_name": "fluid ounces",
+        "plural_name": "flytende ounces",
         "description": "",
         "abbreviation": "fl oz"
     },
     "pint": {
         "name": "pint",
-        "plural_name": "pints",
+        "plural_name": "pint",
         "description": "",
         "abbreviation": "pt"
     },
     "quart": {
         "name": "kvart",
-        "plural_name": "quarts",
+        "plural_name": "kvart",
         "description": "",
         "abbreviation": "qt"
     },
     "gallon": {
         "name": "gallon",
-        "plural_name": "gallons",
+        "plural_name": "gallon",
         "description": "",
         "abbreviation": "gal"
     },
     "milliliter": {
         "name": "milliliter",
-        "plural_name": "milliliters",
+        "plural_name": "milliliter",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
         "name": "liter",
-        "plural_name": "liters",
+        "plural_name": "liter",
         "description": "",
         "abbreviation": "l"
     },
     "pound": {
         "name": "pund",
-        "plural_name": "pounds",
+        "plural_name": "pund",
         "description": "",
         "abbreviation": "lb",
         "plural_abbreviation": "lbs"
     },
     "ounce": {
         "name": "unse",
-        "plural_name": "ounces",
+        "plural_name": "ounce",
         "description": "",
         "abbreviation": "oz"
     },
     "gram": {
         "name": "gram",
-        "plural_name": "grams",
+        "plural_name": "gram",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
         "name": "kilogram",
-        "plural_name": "kilograms",
+        "plural_name": "kilogram",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
         "name": "milligram",
-        "plural_name": "milligrams",
+        "plural_name": "milligram",
         "description": "",
         "abbreviation": "mg"
     },
     "splash": {
         "name": "skvett",
-        "plural_name": "splashes",
+        "plural_name": "skvetter",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
         "name": "klype",
-        "plural_name": "dashes",
+        "plural_name": "dæsjer",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
         "name": "porsjon",
-        "plural_name": "servings",
+        "plural_name": "porsjoner",
         "description": "",
         "abbreviation": ""
     },
     "head": {
         "name": "hode",
-        "plural_name": "heads",
+        "plural_name": "hoder",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
         "name": "fedd",
-        "plural_name": "cloves",
+        "plural_name": "fedd",
         "description": "",
         "abbreviation": ""
     },
     "can": {
         "name": "boks",
-        "plural_name": "cans",
+        "plural_name": "bokser",
         "description": "",
         "abbreviation": ""
     },
     "bunch": {
-        "name": "bunch",
-        "plural_name": "bunches",
+        "name": "haug",
+        "plural_name": "hauger",
         "description": "",
         "abbreviation": ""
     },
     "pack": {
-        "name": "pack",
-        "plural_name": "packs",
+        "name": "pakke",
+        "plural_name": "pakker",
         "description": "",
         "abbreviation": ""
     },
     "pinch": {
-        "name": "pinch",
-        "plural_name": "pinches",
+        "name": "klype",
+        "plural_name": "klyper",
         "description": "",
         "abbreviation": ""
     }
