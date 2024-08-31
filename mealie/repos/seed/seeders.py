@@ -87,7 +87,7 @@ class IngredientFoodsSeeder(AbstractSeeder):
         for food in json.loads(file.read_text(encoding="utf-8")).values():
             if food["name"] in seen_foods_names:
                 continue
-            
+
             seen_foods_names.add(food["name"])
             yield SaveIngredientFood(
                 group_id=self.repos.group_id,
