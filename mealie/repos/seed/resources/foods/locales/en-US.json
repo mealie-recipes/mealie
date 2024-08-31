@@ -9,7 +9,8 @@
         "name": "anchovies"
     },
     "apples": {
-        "name": "apples"
+        "name": "apple",
+        "plural_name": "apples"
     },
     "artichoke": {
         "name": "artichoke"
@@ -24,7 +25,8 @@
         "name": "aubergine"
     },
     "avocado": {
-        "name": "avocado"
+        "name": "avocado",
+        "plural_name": "avocado"
     },
     "bacon": {
         "name": "bacon"
@@ -45,7 +47,8 @@
         "name": "basil"
     },
     "bell-peppers": {
-        "name": "bell peppers"
+        "name": "bell peppers",
+        "plural_name": "bell peppers"
     },
     "blackberries": {
         "name": "blackberries"
@@ -72,10 +75,12 @@
         "name": "brussels sprouts"
     },
     "cabbage": {
-        "name": "cabbage"
+        "name": "cabbage",
+        "plural_name": "cabbages"
     },
     "cauliflower": {
-        "name": "cauliflower"
+        "name": "cauliflower",
+        "plural_name": "cauliflowers"
     },
     "chinese-leaves": {
         "name": "chinese leaves"
@@ -123,7 +128,8 @@
         "name": "caraway"
     },
     "carrot": {
-        "name": "carrot"
+        "name": "carrot",
+        "plural_name": "carrots"
     },
     "castor-sugar": {
         "name": "castor sugar"
@@ -153,7 +159,8 @@
         "name": "chicory"
     },
     "chilli-peppers": {
-        "name": "chilli peppers"
+        "name": "chilli pepper",
+        "plural_name": "chilli peppers"
     },
     "chives": {
         "name": "chives"
@@ -171,7 +178,8 @@
         "name": "clarified butter"
     },
     "coconut": {
-        "name": "coconut"
+        "name": "coconut",
+        "plural_name": "coconuts"
     },
     "coconut-milk": {
         "name": "coconut milk"
@@ -186,7 +194,8 @@
         "name": "coriander"
     },
     "corn": {
-        "name": "corn"
+        "name": "corn",
+        "plural_name": "corns"
     },
     "corn-syrup": {
         "name": "corn syrup"
@@ -201,19 +210,22 @@
         "name": "cream of tartar"
     },
     "cucumber": {
-        "name": "cucumber"
+        "name": "cucumber",
+        "plural_name": "cucumbers"
     },
     "cumin": {
         "name": "cumin"
     },
     "daikon": {
-        "name": "daikon"
+        "name": "daikon",
+        "plural_name": "daikons"
     },
     "dairy-products-and-dairy-substitutes": {
         "name": "dairy products and dairy substitutes"
     },
     "eggs": {
-        "name": "eggs"
+        "name": "egg",
+        "plural_name": "eggs"
     },
     "ghee": {
         "name": "ghee"
@@ -234,10 +246,12 @@
         "name": "edible cactus"
     },
     "eggplant": {
-        "name": "eggplant"
+        "name": "eggplant",
+        "plural_name": "eggplants"
     },
     "endive": {
-        "name": "endive"
+        "name": "endive",
+        "plural_name": "endives"
     },
     "fats": {
         "name": "fats"
@@ -255,7 +269,7 @@
         "name": "fish"
     },
     "catfish": {
-        "name": "catfish "
+        "name": "catfish"
     },
     "cod": {
         "name": "cod"
@@ -293,17 +307,17 @@
     "fruit": {
         "name": "fruit"
     },
-    "apple": {
-        "name": "apple"
-    },
     "oranges": {
-        "name": "oranges"
+        "name": "orange",
+        "plural_name": "oranges"
     },
     "pear": {
-        "name": "pear"
+        "name": "pear",
+        "plural_name": "pears"
     },
     "tomato": {
-        "name": "tomato "
+        "name": "tomato",
+        "plural_name": "tomatoes"
     },
     "fruit-sugar": {
         "name": "fruit sugar"
@@ -312,7 +326,8 @@
         "name": "garam masala"
     },
     "garlic": {
-        "name": "garlic"
+        "name": "garlic",
+        "plural_name": "garlics"
     },
     "gem-squash": {
         "name": "gem squash"
@@ -330,7 +345,8 @@
         "name": "maize"
     },
     "sweetcorn": {
-        "name": "sweetcorn"
+        "name": "sweetcorn",
+        "plural_name": "sweetcorns"
     },
     "teff": {
         "name": "teff"
@@ -339,10 +355,12 @@
         "name": "grape seed oil"
     },
     "green-onion": {
-        "name": "green onion"
+        "name": "green onion",
+        "plural_name": "green onions"
     },
     "heart-of-palm": {
-        "name": "heart of palm"
+        "name": "heart of palm",
+        "plural_name": "heart of palms"
     },
     "hemp": {
         "name": "hemp"
@@ -366,7 +384,8 @@
         "name": "isomalt"
     },
     "jackfruit": {
-        "name": "jackfruit"
+        "name": "jackfruit",
+        "plural_name": "jackfruits"
     },
     "jaggery": {
         "name": "jaggery"
@@ -393,10 +412,11 @@
         "name": "leavening agents"
     },
     "leek": {
-        "name": "leek"
+        "name": "leek",
+        "plural_name": "leeks"
     },
     "legumes": {
-        "name": "legumes "
+        "name": "legumes"
     },
     "peas": {
         "name": "peas"
@@ -414,7 +434,8 @@
         "name": "lettuce"
     },
     "liver": {
-        "name": "liver"
+        "name": "liver",
+        "plural_name": "livers"
     },
     "maple-syrup": {
         "name": "maple syrup"
@@ -426,10 +447,12 @@
         "name": "mortadella"
     },
     "mushroom": {
-        "name": "mushroom"
+        "name": "mushroom",
+        "plural_name": "mushrooms"
     },
     "white-mushroom": {
-        "name": "white mushroom"
+        "name": "white mushroom",
+        "plural_name": "white mushrooms"
     },
     "mussels": {
         "name": "mussels"
@@ -450,7 +473,8 @@
         "name": "nanaimo bar mix"
     },
     "octopuses": {
-        "name": "octopuses"
+        "name": "octopuse",
+        "plural_name": "octopuses"
     },
     "oils": {
         "name": "oils"
@@ -471,13 +495,16 @@
         "name": "onion"
     },
     "scallion": {
-        "name": "scallion"
+        "name": "scallion",
+        "plural_name": "scallions"
     },
     "shallot": {
-        "name": "shallot"
+        "name": "shallot",
+        "plural_name": "shallots"
     },
     "spring-onion": {
-        "name": "spring onion"
+        "name": "spring onion",
+        "plural_name": "spring onions"
     },
     "orange-blossom-water": {
         "name": "orange blossom water"
@@ -492,25 +519,27 @@
         "name": "paprika"
     },
     "parsnip": {
-        "name": "parsnip"
+        "name": "parsnip",
+        "plural_name": "parsnips"
     },
     "pepper": {
-        "name": "pepper"
-    },
-    "peppers": {
-        "name": "peppers"
+        "name": "pepper",
+        "plural_name": "peppers"
     },
     "plantain": {
-        "name": "plantain"
+        "name": "plantain",
+        "plural_name": "plantains"
     },
     "pineapple": {
-        "name": "pineapple"
+        "name": "pineapple",
+        "plural_name": "pineapples"
     },
     "poppy-seeds": {
         "name": "poppy seeds"
     },
     "potatoes": {
-        "name": "potatoes"
+        "name": "potatoe",
+        "plural_name": "potatoes"
     },
     "poultry": {
         "name": "poultry"
@@ -519,13 +548,15 @@
         "name": "powdered sugar"
     },
     "pumpkin": {
-        "name": "pumpkin"
+        "name": "pumpkin",
+        "plural_name": "pumpkins"
     },
     "pumpkin-seeds": {
         "name": "pumpkin seeds"
     },
     "radish": {
-        "name": "radish"
+        "name": "radish",
+        "plural_name": "radishes"
     },
     "raw-sugar": {
         "name": "raw sugar"
@@ -567,7 +598,8 @@
         "name": "soybean"
     },
     "spaghetti-squash": {
-        "name": "spaghetti squash"
+        "name": "spaghetti squash",
+        "plural_name": "spaghetti squashes"
     },
     "spices": {
         "name": "spices"
@@ -579,10 +611,12 @@
         "name": "squash family"
     },
     "squash": {
-        "name": "squash"
+        "name": "squash",
+        "plural_name": "squashes"
     },
     "zucchini": {
-        "name": "zucchini"
+        "name": "zucchini",
+        "plural_name": "zucchinis"
     },
     "sugar": {
         "name": "sugar"
@@ -606,7 +640,8 @@
         "name": "white sugar"
     },
     "sweet-potato": {
-        "name": "sweet potato"
+        "name": "sweet potato",
+        "plural_name": "sweet potatoes"
     },
     "sweeteners": {
         "name": "sweeteners"
@@ -618,22 +653,28 @@
         "name": "tahini"
     },
     "tubers": {
-        "name": "tubers"
+        "name": "tuber",
+        "plural_name": "tubers"
     },
     "potato": {
-        "name": "potato"
+        "name": "potato",
+        "plural_name": "potatoes"
     },
     "sunchoke": {
-        "name": "sunchoke"
+        "name": "sunchoke",
+        "plural_name": "sunchokes"
     },
     "taro": {
-        "name": "taro"
+        "name": "taro",
+        "plural_name": "taroes"
     },
     "yam": {
-        "name": "yam"
+        "name": "yam",
+        "plural_name": "yams"
     },
     "turnip": {
-        "name": "turnip"
+        "name": "turnip",
+        "plural_name": "turnips"
     },
     "vanilla": {
         "name": "vanilla"
@@ -642,7 +683,8 @@
         "name": "vegetables"
     },
     "fiddlehead-fern": {
-        "name": "fiddlehead fern"
+        "name": "fiddlehead fern",
+        "plural_name": "fiddlehead ferns"
     },
     "ful": {
         "name": "ful"
@@ -651,7 +693,8 @@
         "name": "watercress"
     },
     "watermelon": {
-        "name": "watermelon"
+        "name": "watermelon",
+        "plural_name": "watermelons"
     },
     "xanthan-gum": {
         "name": "xanthan gum"
