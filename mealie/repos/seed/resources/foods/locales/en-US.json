@@ -21,9 +21,6 @@
     "asparagus": {
         "name": "asparagus"
     },
-    "aubergine": {
-        "name": "aubergine"
-    },
     "avocado": {
         "name": "avocado",
         "plural_name": "avocado"
@@ -67,9 +64,6 @@
     },
     "breadfruit": {
         "name": "breadfruit"
-    },
-    "broad-beans": {
-        "name": "broad beans"
     },
     "broccoflower": {
         "name": "broccoflower"
@@ -141,7 +135,7 @@
         "name": "cayenne pepper"
     },
     "celeriac": {
-        "name": "celeriac"
+        "name": "celery root"
     },
     "celery": {
         "name": "celery"
@@ -337,9 +331,6 @@
     },
     "honey": {
         "name": "honey"
-    },
-    "icing-sugar": {
-        "name": "icing sugar"
     },
     "isomalt": {
         "name": "isomalt"
