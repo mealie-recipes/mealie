@@ -1,42 +1,42 @@
 {
     "teaspoon": {
-        "name": "teaspoon",
+        "name": "티스푼",
         "plural_name": "teaspoons",
         "description": "",
         "abbreviation": "tsp"
     },
     "tablespoon": {
-        "name": "tablespoon",
+        "name": "테이블스푼",
         "plural_name": "tablespoons",
         "description": "",
         "abbreviation": "tbsp"
     },
     "cup": {
-        "name": "cup",
+        "name": "컵",
         "plural_name": "cups",
         "description": "",
         "abbreviation": "c"
     },
     "fluid-ounce": {
-        "name": "fluid ounce",
+        "name": "액량 온스",
         "plural_name": "fluid ounces",
         "description": "",
         "abbreviation": "fl oz"
     },
     "pint": {
-        "name": "pint",
+        "name": "파인트",
         "plural_name": "pints",
         "description": "",
         "abbreviation": "pt"
     },
     "quart": {
-        "name": "quart",
+        "name": "쿼트",
         "plural_name": "quarts",
         "description": "",
         "abbreviation": "qt"
     },
     "gallon": {
-        "name": "gallon",
+        "name": "갤런",
         "plural_name": "gallons",
         "description": "",
         "abbreviation": "gal"
