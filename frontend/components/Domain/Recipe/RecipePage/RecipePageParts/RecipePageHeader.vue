@@ -64,7 +64,7 @@
 <script lang="ts">
 import { defineComponent, useContext, computed, ref, watch } from "@nuxtjs/composition-api";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
-import { useRecipePermissions } from "~/composables/recipes/use-recipe-permissions";
+import { useRecipePermissions } from "~/composables/recipes";
 import RecipeRating from "~/components/Domain/Recipe/RecipeRating.vue";
 import RecipeLastMade from "~/components/Domain/Recipe/RecipeLastMade.vue";
 import RecipeActionMenu from "~/components/Domain/Recipe/RecipeActionMenu.vue";
