@@ -8,7 +8,7 @@ describe("test use recipe permissions", () => {
   const commonGroupId = "my-group-id";
   const commonHouseholdId = "my-household-id";
 
-  const createRecipe = (overrides: Partial<Recipe>, isLocked: boolean = false): Recipe => ({
+  const createRecipe = (overrides: Partial<Recipe>, isLocked = false): Recipe => ({
     id: "my-recipe-id",
     userId: commonUserId,
     groupId: commonGroupId,
