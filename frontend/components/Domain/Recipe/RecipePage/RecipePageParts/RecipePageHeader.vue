@@ -45,7 +45,7 @@
       :recipe="recipe"
       :slug="recipe.slug"
       :recipe-scale="recipeScale"
-      :locked="isOwnGroup && user.id !== recipe.userId && recipe.settings.locked"
+      :can-edit="canEditRecipe"
       :name="recipe.name"
       :logged-in="isOwnGroup"
       :open="isEditMode"
@@ -64,6 +64,7 @@
 <script lang="ts">
 import { defineComponent, useContext, computed, ref, watch } from "@nuxtjs/composition-api";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
+import { useRecipePermissions } from "~/composables/recipes";
 import RecipeRating from "~/components/Domain/Recipe/RecipeRating.vue";
 import RecipeLastMade from "~/components/Domain/Recipe/RecipeLastMade.vue";
 import RecipeActionMenu from "~/components/Domain/Recipe/RecipeActionMenu.vue";
@@ -99,6 +100,7 @@ export default defineComponent({
     const { imageKey, pageMode, editMode, setMode, toggleEditMode, isEditMode } = usePageState(props.recipe.slug);
     const { user } = usePageUser();
     const { isOwnGroup } = useLoggedInState();
+    const { canEditRecipe } = useRecipePermissions(props.recipe, user);
 
     function printRecipe() {
       window.print();
@@ -125,6 +127,7 @@ export default defineComponent({
       setMode,
       toggleEditMode,
       recipeImage,
+      canEditRecipe,
       imageKey,
       user,
       PageMode,
