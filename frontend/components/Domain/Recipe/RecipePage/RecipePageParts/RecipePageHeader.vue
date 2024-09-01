@@ -100,7 +100,7 @@ export default defineComponent({
     const { imageKey, pageMode, editMode, setMode, toggleEditMode, isEditMode } = usePageState(props.recipe.slug);
     const { user } = usePageUser();
     const { isOwnGroup } = useLoggedInState();
-    const { canEditRecipe } = useRecipePermissions(props.recipe);
+    const { canEditRecipe } = useRecipePermissions(props.recipe, user);
 
     function printRecipe() {
       window.print();

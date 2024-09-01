@@ -1,13 +1,10 @@
-import { computed, useContext } from "@nuxtjs/composition-api";
+import { computed } from "@nuxtjs/composition-api";
 import { Recipe } from "~/lib/api/types/recipe";
-import { useLoggedInState } from "~/composables/use-logged-in-state";
+import { UserOut } from "~/lib/api/types/user";
 
-export function useRecipePermissions(recipe: Recipe) {
-    const { $auth } = useContext();
-    const user = $auth.user;
 
-    const { isOwnGroup } = useLoggedInState();
 
+export function useRecipePermissions(recipe: Recipe, user: UserOut | null) {
     const canEditRecipe = computed(() => {
         // Check recipe owner
         if (!user?.id) {
@@ -18,7 +15,7 @@ export function useRecipePermissions(recipe: Recipe) {
         }
 
         // Check group and household
-        if (!isOwnGroup.value) {
+        if (user.groupId !== recipe.groupId) {
           return false;
         }
         if (user.householdId !== recipe.householdId) {
