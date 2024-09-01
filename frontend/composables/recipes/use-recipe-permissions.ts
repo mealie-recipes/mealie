@@ -2,8 +2,6 @@ import { computed } from "@nuxtjs/composition-api";
 import { Recipe } from "~/lib/api/types/recipe";
 import { UserOut } from "~/lib/api/types/user";
 
-
-
 export function useRecipePermissions(recipe: Recipe, user: UserOut | null) {
     const canEditRecipe = computed(() => {
         // Check recipe owner
