@@ -65,12 +65,12 @@ class OpenAILocalImage(OpenAIImageBase):
     path: Path
 
     def get_image_url(self) -> str:
-        image = img.PillowMinifier.to_webp(
-            self.path, dest=self.path.parent.joinpath(f"{self.filename}-min-original.webp")
+        image = img.PillowMinifier.to_jpg(
+            self.path, dest=self.path.parent.joinpath(f"{self.filename}-min-original.jpg")
         )
         with open(image, "rb") as f:
             b64content = base64.b64encode(f.read()).decode("utf-8")
-        return f"data:image/webp;base64,{b64content}"
+        return f"data:image/jpg;base64,{b64content}"
 
 
 class OpenAIService(BaseService):

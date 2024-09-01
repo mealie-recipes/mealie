@@ -13,7 +13,7 @@
     },
     "cup": {
         "name": "taza/s",
-        "plural_name": "cups",
+        "plural_name": "tazas",
         "description": "",
         "abbreviation": "c"
     },
@@ -37,7 +37,7 @@
     },
     "gallon": {
         "name": "galón",
-        "plural_name": "gallons",
+        "plural_name": "galón/es",
         "description": "",
         "abbreviation": "gal"
     },

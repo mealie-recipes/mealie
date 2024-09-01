@@ -5,7 +5,7 @@
     "recipe": {
         "unique-name-error": "Reseptien nimien täytyy olla yksilöllisiä",
         "recipe-defaults": {
-            "ingredient-note": "1 Cup Flour",
+            "ingredient-note": "1 kuppi jauhoja",
             "step-text": "Recipe steps as well as other fields in the recipe page support markdown syntax.\n\n**Add a link**\n\n[My Link](https://demo.mealie.io)\n"
         }
     },
