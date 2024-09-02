@@ -4,7 +4,7 @@ name: Release Drafter
 on:
   push:
     branches:
-      - main
+      - mealie-next
   workflow_dispatch:
 
 jobs:
