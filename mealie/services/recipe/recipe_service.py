@@ -73,7 +73,11 @@ class RecipeService(RecipeServiceBase):
 
         # Check if this user has permission to edit this recipe
         if self.household.id != recipe.household_id:
-            return False
+            other_household = self.repos.households.get_one(recipe.household_id)
+            if not (other_household and other_household.preferences):
+                return False
+            if other_household.preferences.lock_recipe_edits_from_other_households:
+                return False
         if recipe.settings.locked:
             return False
 
