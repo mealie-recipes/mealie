@@ -286,6 +286,8 @@
     "household-id-value": "Household Id: {0}",
     "private-household": "Private Household",
     "private-household-description": "Setting your household to private will default all public view options to default. This overrides any individual recipes public view settings.",
+    "lock-recipe-edits-from-other-households": "Lock recipe edits from other households",
+    "lock-recipe-edits-from-other-households-description": "When enabled, only users in your household can edit recipes created by your household",
     "household-recipe-preferences": "Household Recipe Preferences",
     "default-recipe-preferences-description": "These are the default settings when a new recipe is created in your household. These can be changed for individual recipes in the recipe settings menu.",
     "allow-users-outside-of-your-household-to-see-your-recipes": "Allow users outside of your household to see your recipes",

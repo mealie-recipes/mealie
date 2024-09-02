@@ -25,6 +25,20 @@
           <DocLink class="mt-2" link="/documentation/getting-started/faq/#how-do-private-groups-and-recipes-work" />
         </div>
       </div>
+      <div class="mb-6">
+        <v-checkbox
+          v-model="household.preferences?.lockRecipeEditsFromOtherHouseholds"
+          hide-details
+          dense
+          :label="$t('household.lock-recipe-edits-from-other-households')"
+          @change="householdActions.updatePreferences()"
+        />
+        <div class="ml-8">
+          <p class="text-subtitle-2 my-0 py-0">
+            {{ $t("household.lock-recipe-edits-from-other-households-description") }}
+          </p>
+        </div>
+      </div>
       <v-select
         v-model="household.preferences.firstDayOfWeek"
         :prepend-icon="$globals.icons.calendarWeekBegin"
