@@ -266,6 +266,7 @@ export interface SaveWebhook {
 }
 export interface SetPermissions {
   userId: string;
+  canManageHousehold?: boolean;
   canManage?: boolean;
   canInvite?: boolean;
   canOrganize?: boolean;
