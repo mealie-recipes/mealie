@@ -16,6 +16,7 @@ export interface AdminAboutInfo {
   oidcRedirect: boolean;
   oidcProviderName: string;
   enableOpenai: boolean;
+  enableOpenaiImageServices: boolean;
   versionLatest: string;
   apiPort: number;
   apiDocs: boolean;
