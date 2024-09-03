@@ -1,83 +1,85 @@
 <template>
-  <v-expand-transition>
-    <v-card
-      :ripple="false"
-      :class="isFlat ? 'mx-auto flat' : 'mx-auto'"
-      :style="{ cursor }"
-      hover
-      :to="$listeners.selected ? undefined : recipeRoute"
-      @click="$emit('selected')"
-    >
-      <v-img v-if="vertical" class="rounded-sm">
-        <RecipeCardImage
-          :icon-size="100"
-          :height="150"
-          :slug="slug"
-          :recipe-id="recipeId"
-          small
-          :image-version="image"
-        />
-      </v-img>
-      <v-list-item three-line :class="vertical ? 'px-2' : 'px-0'">
-        <slot v-if="!vertical" name="avatar">
-          <v-list-item-avatar tile width="125" height="avatarSize" class="v-mobile-img rounded-sm my-0">
-            <RecipeCardImage
-              :icon-size="100"
-              :height="avatarSize"
-              :slug="slug"
-              :recipe-id="recipeId"
-              :image-version="image"
-              small
-            />
-          </v-list-item-avatar>
-        </slot>
-        <v-list-item-content class="py-0">
-          <v-list-item-title class="mt-3 mb-1">{{ name }} </v-list-item-title>
-          <v-list-item-subtitle>
-            <SafeMarkdown :source="description" />
-          </v-list-item-subtitle>
-          <div class="d-flex flex-wrap justify-start">
-            <RecipeChips :truncate="true" :items="tags" :title="false" :limit="2" :small="true" url-prefix="tags" />
-          </div>
-          <div class="d-flex flex-wrap justify-end align-center">
-            <slot name="actions">
-              <RecipeFavoriteBadge v-if="isOwnGroup && showRecipeContent" :recipe-id="recipeId" show-always />
-              <RecipeRating
-                :class="isOwnGroup ? 'ml-auto' : 'ml-auto pb-2'"
-                :value="rating"
-                :recipe-id="recipeId"
+  <div :style="`height: ${height}`">
+    <v-expand-transition>
+      <v-card
+        :ripple="false"
+        :class="isFlat ? 'mx-auto flat' : 'mx-auto'"
+        :style="{ cursor }"
+        hover
+        :to="$listeners.selected ? undefined : recipeRoute"
+        @click="$emit('selected')"
+      >
+        <v-img v-if="vertical" class="rounded-sm">
+          <RecipeCardImage
+            :icon-size="100"
+            :height="height"
+            :slug="slug"
+            :recipe-id="recipeId"
+            small
+            :image-version="image"
+          />
+        </v-img>
+        <v-list-item three-line :class="vertical ? 'px-2' : 'px-0'">
+          <slot v-if="!vertical" name="avatar">
+            <v-list-item-avatar tile :height="height" width="125" class="v-mobile-img rounded-sm my-0">
+              <RecipeCardImage
+                :icon-size="100"
+                :height="height"
                 :slug="slug"
-                :small="true"
+                :recipe-id="recipeId"
+                :image-version="image"
+                small
               />
-              <v-spacer></v-spacer>
+            </v-list-item-avatar>
+          </slot>
+          <v-list-item-content class="py-0">
+            <v-list-item-title class="mt-3 mb-1">{{ name }} </v-list-item-title>
+            <v-list-item-subtitle>
+              <SafeMarkdown :source="description" />
+            </v-list-item-subtitle>
+            <div class="d-flex flex-wrap justify-start">
+              <RecipeChips :truncate="true" :items="tags" :title="false" :limit="2" :small="true" url-prefix="tags" />
+            </div>
+            <div class="d-flex flex-wrap justify-end align-center">
+              <slot name="actions">
+                <RecipeFavoriteBadge v-if="isOwnGroup && showRecipeContent" :recipe-id="recipeId" show-always />
+                <RecipeRating
+                  :class="isOwnGroup ? 'ml-auto' : 'ml-auto pb-2'"
+                  :value="rating"
+                  :recipe-id="recipeId"
+                  :slug="slug"
+                  :small="true"
+                />
+                <v-spacer></v-spacer>
 
-              <!-- If we're not logged-in, no items display, so we hide this menu -->
-              <!-- We also add padding to the v-rating above to compensate -->
-              <RecipeContextMenu
-                v-if="isOwnGroup && showRecipeContent"
-                :slug="slug"
-                :menu-icon="$globals.icons.dotsHorizontal"
-                :name="name"
-                :recipe-id="recipeId"
-                :use-items="{
-                  delete: false,
-                  edit: true,
-                  download: true,
-                  mealplanner: true,
-                  shoppingList: true,
-                  print: false,
-                  printPreferences: false,
-                  share: true,
-                }"
-                @deleted="$emit('delete', slug)"
-              />
-            </slot>
-          </div>
-        </v-list-item-content>
-      </v-list-item>
-      <slot />
-    </v-card>
-  </v-expand-transition>
+                <!-- If we're not logged-in, no items display, so we hide this menu -->
+                <!-- We also add padding to the v-rating above to compensate -->
+                <RecipeContextMenu
+                  v-if="isOwnGroup && showRecipeContent"
+                  :slug="slug"
+                  :menu-icon="$globals.icons.dotsHorizontal"
+                  :name="name"
+                  :recipe-id="recipeId"
+                  :use-items="{
+                    delete: false,
+                    edit: true,
+                    download: true,
+                    mealplanner: true,
+                    shoppingList: true,
+                    print: false,
+                    printPreferences: false,
+                    share: true,
+                  }"
+                  @deleted="$emit('delete', slug)"
+                />
+              </slot>
+            </div>
+          </v-list-item-content>
+        </v-list-item>
+        <slot />
+      </v-card>
+    </v-expand-transition>
+  </div>
 </template>
 
 <script lang="ts">
@@ -135,9 +137,13 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    avatarSize: {
+    height: {
       type: [Number, String],
-      default: 125,
+      default: 150,
+    },
+    imageHeight: {
+      type: [Number, String],
+      default: "fill-height",
     },
   },
   setup(props) {
