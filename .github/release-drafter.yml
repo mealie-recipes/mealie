@@ -17,6 +17,7 @@ categories:
     labels:
       - "bugfix"
   - title: "🧰 Maintenance"
+    collapse-after: 3
     labels:
       - "ci"
       - "chore"
@@ -25,6 +26,7 @@ categories:
     labels:
       - "documentation"
   - title: "⬆️ Dependency updates"
+    collapse-after: 3
     labels:
       - "dependencies"
 
