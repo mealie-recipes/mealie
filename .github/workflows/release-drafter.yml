@@ -1,0 +1,21 @@
+---
+name: Release Drafter
+
+on:
+  push:
+    branches:
+      - mealie-next
+  workflow_dispatch:
+
+jobs:
+  update_release_draft:
+    permissions:
+      # write permission is required to create a github release
+      contents: write
+    name: ✏️ Draft release
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚀 Run Release Drafter
+        uses: release-drafter/release-drafter@v6.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
