@@ -15,26 +15,42 @@ from alembic import op
 # revision identifiers, used by Alembic.
 revision = "be568e39ffdf"
 down_revision = "feecc8ffb956"
-branch_labels = None
-depends_on = None
+branch_labels = None  # type: ignore
+depends_on = None  # type: ignore
 
 
 def populate_defaults():
+    if op.get_context().dialect.name == "postgresql":
+        TRUE = "TRUE"
+        FALSE = "FALSE"
+    else:
+        TRUE = "1"
+        FALSE = "0"
+
     op.execute(
         dedent(
-            """
+            f"""
             UPDATE household_preferences
-            SET lock_recipe_edits_from_other_households = True
+            SET lock_recipe_edits_from_other_households = {TRUE}
             WHERE lock_recipe_edits_from_other_households IS NULL
             """
         )
     )
     op.execute(
         dedent(
-            """
+            f"""
             UPDATE users
-            SET can_manage_household = False
-            WHERE can_manage_household IS NULL
+            SET can_manage_household = {FALSE}
+            WHERE can_manage_household IS NULL AND admin = {FALSE}
+            """
+        )
+    )
+    op.execute(
+        dedent(
+            f"""
+            UPDATE users
+            SET can_manage_household = {TRUE}
+            WHERE can_manage_household IS NULL AND admin = {TRUE}
             """
         )
     )
