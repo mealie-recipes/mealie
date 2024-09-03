@@ -9,6 +9,9 @@ on:
 
 jobs:
   update_release_draft:
+    permissions:
+      # write permission is required to create a github release
+      contents: write
     name: ✏️ Draft release
     runs-on: ubuntu-latest
     steps:
