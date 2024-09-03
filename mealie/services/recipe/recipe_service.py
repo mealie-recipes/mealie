@@ -395,7 +395,7 @@ class RecipeService(RecipeServiceBase):
     def update_one(self, slug: str, update_data: Recipe) -> Recipe:
         recipe = self._pre_update_check(slug, update_data)
 
-        new_data = self.repos.recipes.update(slug, update_data)
+        new_data = self.group_recipes.update(slug, update_data)
         self.check_assets(new_data, recipe.slug)
         return new_data
 
@@ -406,7 +406,7 @@ class RecipeService(RecipeServiceBase):
         if recipe is None:
             raise exceptions.NoEntryFound("Recipe not found.")
 
-        new_data = self.repos.recipes.patch(recipe.slug, patch_data.model_dump(exclude_unset=True))
+        new_data = self.group_recipes.patch(recipe.slug, patch_data.model_dump(exclude_unset=True))
 
         self.check_assets(new_data, recipe.slug)
         return new_data
