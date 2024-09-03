@@ -27,7 +27,7 @@
       </div>
       <div class="mb-6">
         <v-checkbox
-          v-model="household.preferences?.lockRecipeEditsFromOtherHouseholds"
+          v-model="household.preferences.lockRecipeEditsFromOtherHouseholds"
           hide-details
           dense
           :label="$t('household.lock-recipe-edits-from-other-households')"
