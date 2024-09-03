@@ -53,7 +53,7 @@ import { VForm } from "~/types/vuetify";
 
 export default defineComponent({
   components: {
-      HouseholdPreferencesEditor,
+    HouseholdPreferencesEditor,
   },
   layout: "admin",
   setup() {
@@ -94,11 +94,8 @@ export default defineComponent({
 
       const { response, data } = await userApi.households.updateOne(household.value.id, household.value);
       if (response?.status === 200 && data) {
-        if (household.value.slug !== data.slug) {
-          // the slug updated, which invalidates the nav URLs
-          window.location.reload();
-        }
         household.value = data;
+        alert.success(i18n.tc("settings.settings-updated"));
       } else {
         alert.error(i18n.tc("settings.settings-update-failed"));
       }
