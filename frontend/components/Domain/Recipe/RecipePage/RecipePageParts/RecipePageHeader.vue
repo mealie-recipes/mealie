@@ -106,13 +106,8 @@ export default defineComponent({
     const recipeHousehold = ref<HouseholdSummary>();
     if (user) {
       const userApi = useUserApi();
-      userApi.groups.fetchHouseholds().then(({ data }) => {
-        if (!data) {
-          return;
-        }
-
-        recipeHousehold.value = data.find((household) => household.id === props.recipe.householdId);
-        console.log(recipeHousehold.value);
+      userApi.groups.fetchHousehold(props.recipe.householdId).then(({ data }) => {
+        recipeHousehold.value = data || undefined;
       });
     }
     const { canEditRecipe } = useRecipePermissions(props.recipe, recipeHousehold, user);

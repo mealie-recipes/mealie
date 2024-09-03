@@ -16,6 +16,7 @@ const routes = {
   preferences: `${prefix}/groups/preferences`,
   storage: `${prefix}/groups/storage`,
   households: `${prefix}/groups/households`,
+  householdsId: (id: string | number) => `${prefix}/groups/households/${id}`,
   membersHouseholdId: (householdId: string | number | null) => {
     return householdId ?
       `${prefix}/households/members?householdId=${householdId}` :
@@ -48,6 +49,10 @@ export class GroupAPI extends BaseCRUDAPI<GroupBase, GroupInDB, GroupAdminUpdate
 
   async fetchHouseholds() {
     return await this.requests.get<HouseholdSummary[]>(routes.households);
+  }
+
+  async fetchHousehold(householdId: string | number) {
+    return await this.requests.get<HouseholdSummary>(routes.householdsId(householdId));
   }
 
   async storage() {
