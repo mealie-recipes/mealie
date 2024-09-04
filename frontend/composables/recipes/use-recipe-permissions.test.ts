@@ -34,7 +34,11 @@ describe("test use recipe permissions", () => {
     ...overrides,
   });
 
-  const createRecipeHousehold = (overrides: Partial<HouseholdSummary>, lockRecipeEdits = false): Ref<HouseholdSummary> => (
+  const createRecipeHousehold = (
+    overrides: Partial<HouseholdSummary>,
+    privateHousehold = false,
+    lockRecipeEdits = false,
+  ): Ref<HouseholdSummary> => (
     ref({
       id: commonHouseholdId,
       groupId: commonGroupId,
@@ -42,6 +46,7 @@ describe("test use recipe permissions", () => {
       slug: "my-household",
       preferences: {
         id: "my-household-preferences-id",
+        privateHousehold,
         lockRecipeEditsFromOtherHouseholds: lockRecipeEdits,
       },
       ...overrides,
@@ -71,11 +76,11 @@ describe("test use recipe permissions", () => {
   );
 
   test(
-    "when user is not recipe owner, is correct group and household, recipe is unlocked, but household is locked, can edit",
+    "when user is not recipe owner, is correct group and household, recipe is unlocked, but household is locked and private, can edit",
     () => {
       const result = useRecipePermissions(
         createRecipe({}),
-        createRecipeHousehold({}, true),
+        createRecipeHousehold({}, true, true),
         createUser({ id: "other-user-id" }),
       );
       expect(result.canEditRecipe.value).toBe(true);
@@ -100,10 +105,19 @@ describe("test use recipe permissions", () => {
     expect(result.canEditRecipe.value).toBe(true);
   });
 
+  test("when user is not recipe owner, and user is other household, and household is private, cannot edit", () => {
+    const result = useRecipePermissions(
+      createRecipe({}),
+      createRecipeHousehold({}, true, false),
+      createUser({ id: "other-user-id", householdId: "other-household-id" }),
+    );
+    expect(result.canEditRecipe.value).toBe(false);
+  });
+
   test("when user is not recipe owner, and user is other household, and household is locked, cannot edit", () => {
     const result = useRecipePermissions(
       createRecipe({}),
-      createRecipeHousehold({}, true),
+      createRecipeHousehold({}, false, true),
       createUser({ id: "other-user-id", householdId: "other-household-id" }),
     );
     expect(result.canEditRecipe.value).toBe(false);
@@ -119,7 +133,7 @@ describe("test use recipe permissions", () => {
   });
 
   test("when user is recipe owner, and recipe is locked, and household is locked, can edit", () => {
-    const result = useRecipePermissions(createRecipe({}, true), createRecipeHousehold({}, true), createUser({}));
+    const result = useRecipePermissions(createRecipe({}, true), createRecipeHousehold({}, true, true), createUser({}));
     expect(result.canEditRecipe.value).toBe(true);
   });
 });
