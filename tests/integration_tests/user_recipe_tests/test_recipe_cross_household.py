@@ -138,12 +138,18 @@ def test_update_recipes_in_other_households(
 
 
 @pytest.mark.parametrize("is_private_household", [True, False])
-def test_prevent_deletes_to_recipes_from_other_households(
-    api_client: TestClient, unique_user: TestUser, h2_user: TestUser, is_private_household: bool
+@pytest.mark.parametrize("household_lock_recipe_edits", [True, False])
+def test_delete_recipes_from_other_households(
+    api_client: TestClient,
+    unique_user: TestUser,
+    h2_user: TestUser,
+    is_private_household: bool,
+    household_lock_recipe_edits: bool,
 ):
     household = unique_user.repos.households.get_one(h2_user.household_id)
     assert household and household.preferences
     household.preferences.private_household = is_private_household
+    household.preferences.lock_recipe_edits_from_other_households = household_lock_recipe_edits
     unique_user.repos.household_preferences.update(household.id, household.preferences)
 
     response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=h2_user.token)
@@ -158,21 +164,34 @@ def test_prevent_deletes_to_recipes_from_other_households(
     assert recipe_json["id"] == h2_recipe_id
 
     response = api_client.delete(api_routes.recipes_slug(recipe_json["slug"]), headers=unique_user.token)
-    assert response.status_code == 403
+    if household_lock_recipe_edits:
+        assert response.status_code == 403
 
-    # confirm the recipe still exists
-    response = api_client.get(api_routes.recipes_slug(h2_recipe_id), headers=unique_user.token)
-    assert response.status_code == 200
-    assert response.json()["id"] == h2_recipe_id
+        # confirm the recipe still exists
+        response = api_client.get(api_routes.recipes_slug(h2_recipe_id), headers=unique_user.token)
+        assert response.status_code == 200
+        assert response.json()["id"] == h2_recipe_id
+    else:
+        assert response.status_code == 200
+
+        # confirm the recipe was deleted
+        response = api_client.get(api_routes.recipes_slug(h2_recipe_id), headers=unique_user.token)
+        assert response.status_code == 404
 
 
 @pytest.mark.parametrize("is_private_household", [True, False])
+@pytest.mark.parametrize("household_lock_recipe_edits", [True, False])
 def test_user_can_update_last_made_on_other_household(
-    api_client: TestClient, unique_user: TestUser, h2_user: TestUser, is_private_household: bool
+    api_client: TestClient,
+    unique_user: TestUser,
+    h2_user: TestUser,
+    is_private_household: bool,
+    household_lock_recipe_edits: bool,
 ):
     household = unique_user.repos.households.get_one(h2_user.household_id)
     assert household and household.preferences
     household.preferences.private_household = is_private_household
+    household.preferences.lock_recipe_edits_from_other_households = household_lock_recipe_edits
     unique_user.repos.household_preferences.update(household.id, household.preferences)
 
     response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=h2_user.token)
