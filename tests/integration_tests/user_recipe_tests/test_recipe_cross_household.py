@@ -119,7 +119,7 @@ def test_update_recipes_in_other_households(
     updated_name = random_string()
     recipe["name"] = updated_name
     client_func = api_client.patch if use_patch else api_client.put
-    response = client_func(api_routes.recipes_slug(recipe["slug"]), json=recipe, headers=unique_user.token)
+    response = client_func(api_routes.recipes_slug(recipe["id"]), json=recipe, headers=unique_user.token)
 
     if not recipe_should_be_editable:
         assert response.status_code == 403
