@@ -25,10 +25,7 @@ export function useRecipePermissions(
       if (!recipeHousehold.value?.preferences) {
         return false;
       }
-      if (
-        recipeHousehold.value?.preferences.privateHousehold ||
-        recipeHousehold.value?.preferences.lockRecipeEditsFromOtherHouseholds
-      ) {
+      if (recipeHousehold.value?.preferences.lockRecipeEditsFromOtherHouseholds) {
         return false;
       }
     }

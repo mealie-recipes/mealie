@@ -102,8 +102,6 @@ def test_update_recipes_in_other_households(
     household.preferences.lock_recipe_edits_from_other_households = household_lock_recipe_edits
     unique_user.repos.household_preferences.update(household.id, household.preferences)
 
-    recipe_should_be_editable = not is_private_household and not household_lock_recipe_edits
-
     original_name = random_string()
     response = api_client.post(api_routes.recipes, json={"name": original_name}, headers=h2_user.token)
     assert response.status_code == 201
@@ -121,7 +119,7 @@ def test_update_recipes_in_other_households(
     client_func = api_client.patch if use_patch else api_client.put
     response = client_func(api_routes.recipes_slug(recipe["id"]), json=recipe, headers=unique_user.token)
 
-    if not recipe_should_be_editable:
+    if household_lock_recipe_edits:
         assert response.status_code == 403
 
         # confirm the recipe is unchanged
