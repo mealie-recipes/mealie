@@ -1,0 +1,57 @@
+---
+name-template: "v$RESOLVED_VERSION"
+tag-template: "v$RESOLVED_VERSION"
+change-template: "- $TITLE @$AUTHOR (#$NUMBER)"
+sort-direction: ascending
+
+categories:
+  - title: "🚨 Breaking changes"
+    labels:
+      - "breaking-change"
+      - "major"
+  - title: "✨ New features"
+    labels:
+      - "feature"
+      - "minor"
+  - title: "🐛 Bug fixes"
+    labels:
+      - "bugfix"
+  - title: "🧰 Maintenance"
+    collapse-after: 3
+    labels:
+      - "ci"
+      - "chore"
+      - "l10n"
+  - title: "📚 Documentation"
+    labels:
+      - "documentation"
+  - title: "⬆️ Dependency updates"
+    collapse-after: 3
+    labels:
+      - "dependencies"
+
+version-resolver:
+  major:
+    labels:
+      - "major"
+      - "breaking-change"
+  minor:
+    labels:
+      - "minor"
+      - "feature"
+  patch:
+    labels:
+      - "bugfix"
+      - "chore"
+      - "ci"
+      - "dependencies"
+      - "documentation"
+      - "l10n"
+  default: patch
+
+template: |
+  # 🍴🍴🍴🍴🍴🍴🍴🍴🍴🍴
+
+  $CHANGES
+
+  # 🍴🍴🍴🍴🍴🍴🍴🍴🍴🍴
