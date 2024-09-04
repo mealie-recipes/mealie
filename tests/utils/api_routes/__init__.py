@@ -292,6 +292,11 @@ def foods_item_id(item_id):
     return f"{prefix}/foods/{item_id}"
 
 
+def groups_households_slug(slug):
+    """`/api/groups/households/{slug}`"""
+    return f"{prefix}/groups/households/{slug}"
+
+
 def groups_labels_item_id(item_id):
     """`/api/groups/labels/{item_id}`"""
     return f"{prefix}/groups/labels/{item_id}"
