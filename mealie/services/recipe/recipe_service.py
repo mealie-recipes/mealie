@@ -420,7 +420,7 @@ class RecipeService(RecipeServiceBase):
         if not self.can_update(recipe):
             raise exceptions.PermissionDenied("You do not have permission to delete this recipe.")
 
-        data = self.repos.recipes.delete(recipe.id, "id")
+        data = self.group_recipes.delete(recipe.id, "id")
         self.delete_assets(data)
         return data
 
