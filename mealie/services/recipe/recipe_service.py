@@ -76,7 +76,10 @@ class RecipeService(RecipeServiceBase):
             other_household = self.repos.households.get_one(recipe.household_id)
             if not (other_household and other_household.preferences):
                 return False
-            if other_household.preferences.lock_recipe_edits_from_other_households:
+            if (
+                other_household.preferences.private_household
+                or other_household.preferences.lock_recipe_edits_from_other_households
+            ):
                 return False
         if recipe.settings.locked:
             return False
