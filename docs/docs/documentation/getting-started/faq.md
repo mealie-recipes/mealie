@@ -151,7 +151,7 @@ As to why we need a database?
 - **Multi User Support:** With a solid database as backend storage for your data, Mealie can better support multi-user sites and avoid read/write access errors when multiple actions are taken at the same time.
 
 ## Why is there no "Keep Screen Alive" button when I access a recipe?
-You've perhaps visited the Mealie Demo and noticed that it had a Keep Screen Alive button, but it doesn't show up in your own Mealie instance.
+You've perhaps visited the Mealie Demo and noticed that it had a "Keep Screen Alive" button, but it doesn't show up in your own Mealie instance.
 There are typically two possible reasons for this.
 - You're accessing your Mealie instance without using HTTPS. The Wake Lock API is only available if HTTPS is used. Read more here: https://developer.mozilla.org/en-US/docs/Web/API/Screen_Wake_Lock_API
 - Or, you're accessing your Mealie instance on a browser which is not supported. You can test this here: https://vueuse.org/core/useWakeLock/#demo
