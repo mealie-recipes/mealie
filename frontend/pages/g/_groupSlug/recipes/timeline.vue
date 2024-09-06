@@ -27,8 +27,7 @@ export default defineComponent({
     async function fetchHousehold() {
       const { data } = await api.households.getCurrentUserHousehold();
       if (data) {
-        // TODO: once users are able to fetch other households' recipes, remove the household filter
-        queryFilter.value = `recipe.group_id="${data.groupId}" AND recipe.household_id="${data.id}"`;
+        queryFilter.value = `recipe.group_id="${data.groupId}"`;
         groupName.value = data.group;
       }
 

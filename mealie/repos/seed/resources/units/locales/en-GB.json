@@ -12,7 +12,7 @@
         "abbreviation": "tbsp"
     },
     "cup": {
-        "name": "US cup",
+        "name": "cup",
         "plural_name": "cups",
         "description": "",
         "abbreviation": "c"
@@ -43,13 +43,13 @@
     },
     "milliliter": {
         "name": "millilitre",
-        "plural_name": "milliliters",
+        "plural_name": "millilitres",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
         "name": "litre",
-        "plural_name": "liters",
+        "plural_name": "litres",
         "description": "",
         "abbreviation": "l"
     },
