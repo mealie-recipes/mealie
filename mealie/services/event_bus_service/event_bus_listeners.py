@@ -16,7 +16,6 @@ from mealie.db.models.household.webhooks import GroupWebhooksModel
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.household.group_events import GroupEventNotifierPrivate
 from mealie.schema.household.webhook import ReadWebhook
-from mealie.schema.response.pagination import PaginationQuery
 
 from .event_types import Event, EventDocumentType, EventTypes, EventWebhookData
 from .publisher import ApprisePublisher, PublisherLike, WebhookPublisher
@@ -123,7 +122,14 @@ class AppriseEventListener(EventListenerBase):
 
     @staticmethod
     def is_custom_url(url: str):
-        return url.split(":", 1)[0].lower() in ["form", "forms", "json", "jsons", "xml", "xmls"]
+        return url.split(":", 1)[0].lower() in [
+            "form",
+            "forms",
+            "json",
+            "jsons",
+            "xml",
+            "xmls",
+        ]
 
 
 class WebhookEventListener(EventListenerBase):
@@ -143,12 +149,12 @@ class WebhookEventListener(EventListenerBase):
     def publish_to_subscribers(self, event: Event, subscribers: list[ReadWebhook]) -> None:
         with self.ensure_repos(self.group_id, self.household_id) as repos:
             if event.document_data.document_type == EventDocumentType.mealplan:
-                # TODO: limit mealplan data to a date range instead of returning all mealplans
+                webhook_data = cast(EventWebhookData, event.document_data)
                 meal_repo = repos.meals
-                meal_pagination_data = meal_repo.page_all(pagination=PaginationQuery(page=1, per_page=-1))
-                meal_data = meal_pagination_data.items
+                meal_data = meal_repo.get_meals_by_date_range(
+                    webhook_data.webhook_start_dt, webhook_data.webhook_end_dt
+                )
                 if meal_data:
-                    webhook_data = cast(EventWebhookData, event.document_data)
                     webhook_data.webhook_body = meal_data
                     self.publisher.publish(event, [webhook.url for webhook in subscribers])
 
