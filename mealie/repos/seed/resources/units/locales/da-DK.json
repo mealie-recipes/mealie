@@ -19,7 +19,7 @@
     },
     "fluid-ounce": {
         "name": "flydende ounce",
-        "plural_name": "fluid ounces",
+        "plural_name": "flydende ounces",
         "description": "",
         "abbreviation": "fl oz"
     },
@@ -92,7 +92,7 @@
     },
     "dash": {
         "name": "knivspids",
-        "plural_name": "dashes",
+        "plural_name": "strejfer",
         "description": "",
         "abbreviation": ""
     },
