@@ -1,4 +1,5 @@
 from enum import Enum
+from re import search as regex_search
 from uuid import uuid4
 
 from fastapi import HTTPException, status
@@ -31,7 +32,13 @@ async def create_from_url(url: str, translator: Translator) -> tuple[Recipe, Scr
         Recipe: Recipe Object
     """
     scraper = RecipeScraper(translator)
-    new_recipe, extras = await scraper.scrape(url)
+
+    extracted_url = regex_search(r"(https?://|www\.)[^\s]+", url)
+
+    if not extracted_url:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, {"details": ParserErrors.BAD_RECIPE_DATA.value})
+
+    new_recipe, extras = await scraper.scrape(extracted_url.group(0))
 
     if not new_recipe:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, {"details": ParserErrors.BAD_RECIPE_DATA.value})
