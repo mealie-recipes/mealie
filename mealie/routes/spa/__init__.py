@@ -165,13 +165,13 @@ def serve_recipe_with_meta_public(
         public_repos = AllRepositories(session)
         group = public_repos.groups.get_by_slug_or_id(group_slug)
 
-        if not group or group.preferences.private_group:  # type: ignore
+        if not (group and group.preferences) or group.preferences.private_group:
             return response_404()
 
         group_repos = AllRepositories(session, group_id=group.id)
         recipe = group_repos.recipes.get_one(recipe_slug)
 
-        if not recipe or not recipe.settings.public:  # type: ignore
+        if not (recipe and recipe.settings) or not recipe.settings.public:
             return response_404()
 
         # Inject meta tags
