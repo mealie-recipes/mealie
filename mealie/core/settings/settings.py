@@ -19,11 +19,11 @@ class ScheduleTime(NamedTuple):
     minute: int
 
 
-def determine_secrets(data_dir: Path, production: bool) -> str:
+def determine_secrets(data_dir: Path, secret: str, production: bool) -> str:
     if not production:
         return "shh-secret-test-key"
 
-    secrets_file = data_dir.joinpath(".secret")
+    secrets_file = data_dir.joinpath(secret)
     if secrets_file.is_file():
         with open(secrets_file) as f:
             return f.read()
@@ -100,6 +100,7 @@ class AppSettings(AppLoggingSettings):
     """time in hours"""
 
     SECRET: str
+    SESSION_SECRET: str
 
     GIT_COMMIT_HASH: str = "unknown"
 
@@ -351,13 +352,17 @@ def app_settings_constructor(data_dir: Path, production: bool, env_file: Path, e
     required dependencies into the AppSettings object and nested child objects. AppSettings should not be substantiated
     directly, but rather through this factory function.
     """
+    secret_settings = {
+        "SECRET": determine_secrets(data_dir, ".secret", production),
+        "SESSION_SECRET": determine_secrets(data_dir, ".session_secret", production),
+    }
     app_settings = AppSettings(
         _env_file=env_file,  # type: ignore
         _env_file_encoding=env_encoding,  # type: ignore
         # `get_secrets_dir` must be called here rather than within `AppSettings`
         # to avoid a circular import.
         _secrets_dir=get_secrets_dir(),  # type: ignore
-        **{"SECRET": determine_secrets(data_dir, production)},
+        **secret_settings,
     )
 
     app_settings.DB_PROVIDER = db_provider_factory(

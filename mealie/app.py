@@ -73,6 +73,7 @@ async def lifespan_fn(_: FastAPI) -> AsyncGenerator[None, None]:
                 "DB_PROVIDER",
                 "SMTP_USER",
                 "SMTP_PASSWORD",
+                "OIDC_CLIENT_SECRET",
             },
         )
     )
@@ -92,7 +93,7 @@ app = FastAPI(
 )
 
 app.add_middleware(GZipMiddleware, minimum_size=1000)
-app.add_middleware(SessionMiddleware, secret_key="secret")
+app.add_middleware(SessionMiddleware, secret_key=settings.SESSION_SECRET)
 
 if not settings.PRODUCTION:
     allowed_origins = ["http://localhost:3000"]
