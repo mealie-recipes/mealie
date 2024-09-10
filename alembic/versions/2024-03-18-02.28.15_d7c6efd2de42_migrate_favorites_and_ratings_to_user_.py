@@ -202,8 +202,6 @@ def downgrade():
     )
     op.drop_index(op.f("ix_recipes_rating"), table_name="recipes")
     op.alter_column("recipes", "rating", existing_type=sa.Float(), type_=sa.INTEGER(), existing_nullable=True)
-    op.create_unique_constraint("ingredient_units_name_group_id_key", "ingredient_units", ["name", "group_id"])
-    op.create_unique_constraint("ingredient_foods_name_group_id_key", "ingredient_foods", ["name", "group_id"])
     op.create_table(
         "users_to_favorites",
         sa.Column("user_id", sa.CHAR(length=32), nullable=True),
