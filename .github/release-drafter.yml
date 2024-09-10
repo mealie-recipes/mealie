@@ -50,8 +50,22 @@ version-resolver:
   default: patch
 
 template: |
-  # 🍴🍴🍴🍴🍴🍴🍴🍴🍴🍴
+  # 🍴🍴🍴🍴🍴🍴
 
   $CHANGES
 
-  # 🍴🍴🍴🍴🍴🍴🍴🍴🍴🍴
+  # 🍴🍴🍴🍴🍴🍴
+
+autolabeler:
+  - label: 'feature'
+    title:
+      - '/feat/i'
+  - label: 'bugfix'
+    title:
+      - '/fix/i'
+  - label: 'documentation'
+    title:
+      - '/docs/i'
+  - label: 'chore'
+    title:
+      - '/chore/i'
