@@ -68,7 +68,10 @@ def run_migrations_online():
 
     with connectable.connect() as connection:
         context.configure(
-            connection=connection, target_metadata=target_metadata, user_module_prefix="mealie.db.migration_types."
+            connection=connection,
+            target_metadata=target_metadata,
+            user_module_prefix="mealie.db.migration_types.",
+            render_as_batch=True,
         )
 
         with context.begin_transaction():
