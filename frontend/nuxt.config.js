@@ -161,14 +161,6 @@ export default {
         },
       },
       oidc: {
-        scheme: "~/schemes/DynamicOpenIDConnectScheme",
-        resetOnError: true,
-        clientId: "",
-        endpoints: {
-          configuration: "",
-        }
-      },
-      oauth: {
         scheme: "local",
         resetOnError: true,
         token: {
@@ -181,7 +173,7 @@ export default {
         },
         endpoints: {
           login: {
-            url: "api/auth/oauth/verify",
+            url: "api/auth/oauth/callback",
             method: "get",
             propertyName: "access_token",
           },

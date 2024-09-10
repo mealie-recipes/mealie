@@ -3,9 +3,9 @@ from datetime import timedelta
 from authlib.integrations.starlette_client import OAuth
 from fastapi import APIRouter, Depends, Request, Response, status
 from fastapi.exceptions import HTTPException
-from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 from sqlalchemy.orm.session import Session
+from starlette.datastructures import URLPath
 
 from mealie.core import root_logger, security
 from mealie.core.config import get_app_settings
@@ -16,7 +16,7 @@ from mealie.core.security.security import get_auth_provider
 from mealie.db.db_setup import generate_session
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.user import PrivateUser
-from mealie.schema.user.auth import CredentialsRequestForm, OIDCRequest
+from mealie.schema.user.auth import CredentialsRequestForm
 
 public_router = APIRouter(tags=["Users: Authentication"])
 user_router = UserAPIRouter(tags=["Users: Authentication"])
@@ -27,15 +27,13 @@ remember_me_duration = timedelta(days=14)
 settings = get_app_settings()
 if settings.OIDC_READY:
     oauth = OAuth()
-    scope = "openid email profile"
-    if settings.OIDC_USER_GROUP:
-        scope += " " + settings.OIDC_GROUPS_CLAIM
+    scope = f"openid email profile {settings.OIDC_GROUPS_CLAIM or ''}"
     oauth.register(
         "oidc",
         client_id=settings.OIDC_CLIENT_ID,
         client_secret=settings.OIDC_CLIENT_SECRET,
         server_metadata_url=settings.OIDC_CONFIGURATION_URL,
-        client_kwargs={"scope": scope},
+        client_kwargs={"scope": scope.rstrip()},
     )
 
 
@@ -64,7 +62,7 @@ async def get_token(
         ip = request.client.host if request.client else "unknown"
 
     try:
-        auth_provider = get_auth_provider(session, request, data)
+        auth_provider = get_auth_provider(session, data)
         auth = await auth_provider.authenticate()
     except UserLockedOut as e:
         logger.error(f"User is locked out from {ip}")
@@ -93,48 +91,44 @@ async def get_token(
 async def oauth_login(request: Request):
     if oauth:
         client = oauth.create_client("oidc")
-        # redirect_uri = request.url_for("oauth_callback")
-        redirect_uri = "http://localhost:9091/api/auth/oauth/callback"
-        return await client.authorize_redirect(request, redirect_uri)
+        redirect_url = None
+        if not settings.PRODUCTION:
+            # in development, we want to redirect to the frontend
+            redirect_url = "http://localhost:3000/login"
+        else:
+            redirect_url = URLPath("/login").make_absolute_url(request.base_url)
+        return await client.authorize_redirect(request, redirect_url)
 
 
 @public_router.get("/oauth/callback")
-async def oauth_callback(request: Request, session: Session = Depends(generate_session)):
-    if oauth:
-        client = oauth.create_client("oidc")
-        token = await client.authorize_access_token(request)
-        try:
-            auth_provider = OpenIDProvider(session, OIDCRequest(id_token="", userinfo=token["userinfo"]))
-            auth = await auth_provider.authenticate()
-        except UserLockedOut as e:
-            # logger.error(f"User is locked out from {ip}")
-            raise HTTPException(status_code=status.HTTP_423_LOCKED, detail="User is locked out") from e
-
-        if not auth:
-            # logger.error(f"Incorrect username or password from {ip}")
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-            )
-        access_token, duration = auth
-
-        expires_in = duration.total_seconds() if duration else None
-        response = RedirectResponse(url="http://localhost:9091/login?direct=1&oauth_authenticated=1")
-        response.set_cookie(
-            key="mealie.access_token",
-            value=access_token,
-            httponly=True,
-            max_age=expires_in,
-            expires=expires_in,
+async def oauth_callback(request: Request, response: Response, session: Session = Depends(generate_session)):
+    if not oauth:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Could not initialize OAuth client",
         )
+    client = oauth.create_client("oidc")
+    token = await client.authorize_access_token(request)
+    auth_provider = OpenIDProvider(session, token["userinfo"])
+    auth = await auth_provider.authenticate()
 
-        return response
+    if not auth:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+        )
+    access_token, duration = auth
 
+    expires_in = duration.total_seconds() if duration else None
 
-@user_router.get("/oauth/verify")
-async def oauth_verify(request: Request, current_user: PrivateUser = Depends(get_current_user)):
-    if current_user:
-        return MealieAuthToken.respond(request.cookies.get("mealie.access_token"))
-    raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+    response.set_cookie(
+        key="mealie.access_token",
+        value=access_token,
+        httponly=True,
+        max_age=expires_in,
+        expires=expires_in,
+    )
+
+    return MealieAuthToken.respond(access_token)
 
 
 @user_router.get("/refresh")
