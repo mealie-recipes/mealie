@@ -17,8 +17,8 @@ from mealie.db.models._model_utils.guid import GUID
 # revision identifiers, used by Alembic.
 revision = "5ab195a474eb"
 down_revision = "16160bf731a0"
-branch_labels = None
-depends_on = None
+branch_labels: str | tuple[str, ...] | None = None
+depends_on: str | tuple[str, ...] | None = None
 
 
 class SqlAlchemyBase(DeclarativeBase):

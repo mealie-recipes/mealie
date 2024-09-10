@@ -11,12 +11,11 @@ from sqlalchemy import orm
 
 from alembic import op
 
-
 # revision identifiers, used by Alembic.
 revision = "32d69327997b"
 down_revision = "7788478a0338"
-branch_labels = None
-depends_on = None
+branch_labels: str | tuple[str, ...] | None = None
+depends_on: str | tuple[str, ...] | None = None
 
 
 def is_postgres():
