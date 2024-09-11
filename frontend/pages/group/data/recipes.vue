@@ -178,10 +178,8 @@ export default defineComponent({
   components: { RecipeDataTable, RecipeOrganizerSelector, GroupExportData, RecipeSettingsSwitches },
   scrollToTop: true,
   setup() {
-    const { getAllRecipes, refreshRecipes } = useRecipes(true, true);
-
-    const { $globals, i18n } = useContext();
-
+    const { $auth, $globals, i18n } = useContext();
+    const { getAllRecipes, refreshRecipes } = useRecipes(true, true, false, `householdId=${$auth.user?.householdId || ""}`);
     const selected = ref<Recipe[]>([]);
 
     function resetAll() {
