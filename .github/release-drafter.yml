@@ -62,10 +62,10 @@ autolabeler:
       - '/feat/i'
   - label: 'bugfix'
     title:
-      - '/fix/i'
+      - '/fix:/i'
   - label: 'documentation'
     title:
-      - '/docs/i'
+      - '/docs:/i'
   - label: 'chore'
     title:
-      - '/chore/i'
+      - '/chore:/i'
