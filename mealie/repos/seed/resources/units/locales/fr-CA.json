@@ -1,31 +1,31 @@
 {
     "teaspoon": {
         "name": "cuillère à thé",
-        "plural_name": "teaspoons",
+        "plural_name": "cuillères à thé",
         "description": "",
         "abbreviation": "càc"
     },
     "tablespoon": {
         "name": "cuillère à soupe",
-        "plural_name": "tablespoons",
+        "plural_name": "cuillères à soupe",
         "description": "",
-        "abbreviation": "càS"
+        "abbreviation": "càs"
     },
     "cup": {
         "name": "tasse",
-        "plural_name": "cups",
+        "plural_name": "tasses",
         "description": "",
-        "abbreviation": "c"
+        "abbreviation": "t"
     },
     "fluid-ounce": {
-        "name": "centilitre",
-        "plural_name": "fluid ounces",
+        "name": "once fluide",
+        "plural_name": "onces liquides",
         "description": "",
-        "abbreviation": "cL"
+        "abbreviation": "fl oz"
     },
     "pint": {
         "name": "pinte",
-        "plural_name": "pints",
+        "plural_name": "pintes",
         "description": "",
         "abbreviation": "pt"
     },
@@ -42,99 +42,99 @@
         "abbreviation": "gal"
     },
     "milliliter": {
-        "name": "mililitre",
-        "plural_name": "milliliters",
+        "name": "millilitre",
+        "plural_name": "millilitres",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
         "name": "litre",
-        "plural_name": "liters",
+        "plural_name": "litres",
         "description": "",
-        "abbreviation": "L"
+        "abbreviation": "l"
     },
     "pound": {
         "name": "livre",
-        "plural_name": "pounds",
+        "plural_name": "livres",
         "description": "",
         "abbreviation": "lb",
         "plural_abbreviation": "lbs"
     },
     "ounce": {
         "name": "once",
-        "plural_name": "ounces",
+        "plural_name": "onces",
         "description": "",
         "abbreviation": "oz"
     },
     "gram": {
         "name": "gramme",
-        "plural_name": "grams",
+        "plural_name": "grammes",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
         "name": "kilogramme",
-        "plural_name": "kilograms",
+        "plural_name": "kilogrammes",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
         "name": "milligramme",
-        "plural_name": "milligrams",
+        "plural_name": "milligrammes",
         "description": "",
         "abbreviation": "mg"
     },
     "splash": {
         "name": "éclaboussure",
-        "plural_name": "splashes",
+        "plural_name": "gouttes",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
         "name": "trait",
-        "plural_name": "dashes",
+        "plural_name": "gouttes",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
         "name": "part",
-        "plural_name": "servings",
+        "plural_name": "portions",
         "description": "",
         "abbreviation": ""
     },
     "head": {
         "name": "tête",
-        "plural_name": "heads",
+        "plural_name": "têtes",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
         "name": "gousse",
-        "plural_name": "cloves",
+        "plural_name": "gousses",
         "description": "",
         "abbreviation": ""
     },
     "can": {
         "name": "boîte",
-        "plural_name": "cans",
+        "plural_name": "cannes",
         "description": "",
         "abbreviation": ""
     },
     "bunch": {
-        "name": "bunch",
-        "plural_name": "bunches",
+        "name": "bouquet",
+        "plural_name": "bouquets",
         "description": "",
         "abbreviation": ""
     },
     "pack": {
-        "name": "pack",
-        "plural_name": "packs",
+        "name": "paquet",
+        "plural_name": "paquets",
         "description": "",
         "abbreviation": ""
     },
     "pinch": {
-        "name": "pinch",
-        "plural_name": "pinches",
+        "name": "pincée",
+        "plural_name": "pincées",
         "description": "",
         "abbreviation": ""
     }
