@@ -8,7 +8,6 @@ from mealie.routes._base.controller import controller
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.group.group_preferences import ReadGroupPreferences, UpdateGroupPreferences
 from mealie.schema.group.group_statistics import GroupStorage
-from mealie.schema.household.household import HouseholdSummary
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.user.user import GroupSummary, UserSummary
 from mealie.services.group_services.group_service import GroupService
@@ -34,13 +33,6 @@ class GroupSelfServiceController(BaseUserController):
         query_filter = f"household_id={household_id}" if household_id else None
         private_users = self.repos.users.page_all(PaginationQuery(page=1, per_page=-1, query_filter=query_filter)).items
         return [user.cast(UserSummary) for user in private_users]
-
-    @router.get("/households", response_model=list[HouseholdSummary])
-    def get_group_households(self):
-        """Returns all households belonging to the current group"""
-
-        households = self.repos.households.page_all(PaginationQuery(page=1, per_page=-1)).items
-        return [household.cast(HouseholdSummary) for household in households]
 
     @router.get("/preferences", response_model=ReadGroupPreferences)
     def get_group_preferences(self):

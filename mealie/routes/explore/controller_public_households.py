@@ -17,9 +17,7 @@ class PublicHouseholdsController(BasePublicGroupExploreController):
 
     @router.get("", response_model=PaginationBase[HouseholdSummary])
     def get_all(
-        self,
-        q: PaginationQuery = Depends(make_dependable(PaginationQuery)),
-        search: str | None = None,
+        self, q: PaginationQuery = Depends(make_dependable(PaginationQuery))
     ) -> PaginationBase[HouseholdSummary]:
         public_filter = "(preferences.private_household = FALSE)"
         if q.query_filter:
@@ -27,7 +25,7 @@ class PublicHouseholdsController(BasePublicGroupExploreController):
         else:
             q.query_filter = public_filter
 
-        response = self.households.page_all(pagination=q, override=HouseholdSummary, search=search)
+        response = self.households.page_all(pagination=q, override=HouseholdSummary)
         response.set_pagination_guides(self.get_explore_url_path(router.url_path_for("get_all")), q.model_dump())
         return response
 
