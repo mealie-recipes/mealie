@@ -209,7 +209,7 @@ export default defineComponent({
       state,
       tableConfig,
       tableHeaders,
-      tools: toolStore.items,
+      tools: toolStore.store,
       validators,
 
       // create

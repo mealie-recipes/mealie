@@ -198,7 +198,7 @@ export default defineComponent({
       state,
       tableConfig,
       tableHeaders,
-      categories: categoryStore.items,
+      categories: categoryStore.store,
       validators,
 
       // create

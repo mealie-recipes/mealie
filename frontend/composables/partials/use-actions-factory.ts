@@ -1,11 +1,8 @@
 import { Ref, useAsync } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "../use-utils";
+import { BoundT } from "./types";
 import { BaseCRUDAPI, BaseCRUDAPIReadOnly } from "~/lib/api/base/base-clients";
 import { QueryValue } from "~/lib/api/base/route";
-
-type BoundT = {
-  id?: string | number | null;
-};
 
 interface PublicStoreActions<T extends BoundT> {
   getAll(page?: number, perPage?: number, params?: any): Ref<T[] | null>;

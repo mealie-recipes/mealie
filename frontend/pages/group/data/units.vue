@@ -9,11 +9,11 @@
         </template>
       </i18n>
 
-        <v-autocomplete v-model="fromUnit" return-object :items="units" item-text="id" :label="$t('data-pages.units.source-unit')">
+        <v-autocomplete v-model="fromUnit" return-object :items="store" item-text="id" :label="$t('data-pages.units.source-unit')">
           <template #selection="{ item }"> {{ item.name }}</template>
           <template #item="{ item }"> {{ item.name }} </template>
         </v-autocomplete>
-        <v-autocomplete v-model="toUnit" return-object :items="units" item-text="id" :label="$t('data-pages.units.target-unit')">
+        <v-autocomplete v-model="toUnit" return-object :items="store" item-text="id" :label="$t('data-pages.units.target-unit')">
           <template #selection="{ item }"> {{ item.name }}</template>
           <template #item="{ item }"> {{ item.name }} </template>
         </v-autocomplete>
@@ -185,7 +185,7 @@
           </template>
         </v-autocomplete>
 
-        <v-alert v-if="units && units.length > 0" type="error" class="mb-0 text-body-2">
+        <v-alert v-if="store && store.length > 0" type="error" class="mb-0 text-body-2">
           {{ $t("data-pages.foods.seed-dialog-warning") }}
         </v-alert>
       </v-card-text>
@@ -196,7 +196,7 @@
     <CrudTable
       :table-config="tableConfig"
       :headers.sync="tableHeaders"
-      :data="units || []"
+      :data="store"
       :bulk-actions="[{icon: $globals.icons.delete, text: $tc('general.delete'), event: 'delete-selected'}]"
       @delete-one="deleteEventHandler"
       @edit-one="editEventHandler"
@@ -294,7 +294,7 @@ export default defineComponent({
       },
     ];
 
-    const { units, actions: unitActions } = useUnitStore();
+    const { store, actions: unitActions } = useUnitStore();
 
     // ============================================================
     // Create Units
@@ -447,7 +447,7 @@ export default defineComponent({
     return {
       tableConfig,
       tableHeaders,
-      units,
+      store,
       validators,
       // Create
       createDialog,

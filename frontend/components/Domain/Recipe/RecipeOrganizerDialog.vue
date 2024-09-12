@@ -135,7 +135,7 @@ export default defineComponent({
         await store.actions.createOne({ ...state });
       }
 
-      const newItem = store.items.value.find((item) => item.name === state.name);
+      const newItem = store.store.value.find((item) => item.name === state.name);
 
       context.emit(CREATED_ITEM_EVENT, newItem);
       dialog.value = false;

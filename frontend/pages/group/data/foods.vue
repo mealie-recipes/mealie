@@ -453,7 +453,7 @@ export default defineComponent({
     // ============================================================
     // Labels
 
-    const { labels: allLabels } = useLabelStore();
+    const { store: allLabels } = useLabelStore();
 
     // ============================================================
     // Seed
@@ -501,14 +501,12 @@ export default defineComponent({
       bulkAssignTarget.value = [];
       bulkAssignLabelId.value = undefined;
       foodStore.actions.refresh();
-      // reload page, because foodStore.actions.refresh() does not update the table, reactivity for this seems to be broken (again)
-      document.location.reload();
     }
 
     return {
       tableConfig,
       tableHeaders,
-      foods: foodStore.foods,
+      foods: foodStore.store,
       allLabels,
       validators,
       // Create

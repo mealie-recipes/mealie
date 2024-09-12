@@ -271,7 +271,7 @@ export default defineComponent({
       state,
       tableConfig,
       tableHeaders,
-      labels: labelStore.labels,
+      labels: labelStore.store,
       validators,
 
       // create

@@ -272,12 +272,10 @@ export default defineComponent({
     const errors = ref<Error[]>([]);
 
     function checkForUnit(unit?: IngredientUnit | CreateIngredientUnit) {
-      // @ts-expect-error; we're just checking if there's an id on this unit and returning a boolean
       return !!unit?.id;
     }
 
     function checkForFood(food?: IngredientFood | CreateIngredientFood) {
-      // @ts-expect-error; we're just checking if there's an id on this food and returning a boolean
       return !!food?.id;
     }
 

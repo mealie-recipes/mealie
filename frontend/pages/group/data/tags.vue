@@ -199,7 +199,7 @@ export default defineComponent({
       state,
       tableConfig,
       tableHeaders,
-      tags: tagStore.items,
+      tags: tagStore.store,
       validators,
 
       // create

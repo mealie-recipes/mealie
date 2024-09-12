@@ -423,9 +423,9 @@ export default defineComponent({
       if (query.categories?.length) {
         promises.push(
           waitUntilAndExecute(
-            () => categories.items.value.length > 0,
+            () => categories.store.value.length > 0,
             () => {
-              const result = categories.items.value.filter((item) =>
+              const result = categories.store.value.filter((item) =>
                 (query.categories as string[]).includes(item.id as string)
               );
 
@@ -440,9 +440,9 @@ export default defineComponent({
       if (query.tags?.length) {
         promises.push(
           waitUntilAndExecute(
-            () => tags.items.value.length > 0,
+            () => tags.store.value.length > 0,
             () => {
-              const result = tags.items.value.filter((item) => (query.tags as string[]).includes(item.id as string));
+              const result = tags.store.value.filter((item) => (query.tags as string[]).includes(item.id as string));
               selectedTags.value = result as NoUndefinedField<RecipeTag>[];
             }
           )
@@ -454,9 +454,9 @@ export default defineComponent({
       if (query.tools?.length) {
         promises.push(
           waitUntilAndExecute(
-            () => tools.items.value.length > 0,
+            () => tools.store.value.length > 0,
             () => {
-              const result = tools.items.value.filter((item) => (query.tools as string[]).includes(item.id));
+              const result = tools.store.value.filter((item) => (query.tools as string[]).includes(item.id));
               selectedTools.value = result as NoUndefinedField<RecipeTool>[];
             }
           )
@@ -469,13 +469,13 @@ export default defineComponent({
         promises.push(
           waitUntilAndExecute(
             () => {
-              if (foods.foods.value) {
-                return foods.foods.value.length > 0;
+              if (foods.store.value) {
+                return foods.store.value.length > 0;
               }
               return false;
             },
             () => {
-              const result = foods.foods.value?.filter((item) => (query.foods as string[]).includes(item.id));
+              const result = foods.store.value?.filter((item) => (query.foods as string[]).includes(item.id));
               selectedFoods.value = result ?? [];
             }
           )
@@ -533,10 +533,10 @@ export default defineComponent({
       search,
       reset,
       state,
-      categories: categories.items as unknown as NoUndefinedField<RecipeCategory>[],
-      tags: tags.items as unknown as NoUndefinedField<RecipeTag>[],
-      foods: foods.foods,
-      tools: tools.items as unknown as NoUndefinedField<RecipeTool>[],
+      categories: categories.store as unknown as NoUndefinedField<RecipeCategory>[],
+      tags: tags.store as unknown as NoUndefinedField<RecipeTag>[],
+      foods: foods.store,
+      tools: tools.store as unknown as NoUndefinedField<RecipeTool>[],
 
       sortable,
       toggleOrderDirection,
