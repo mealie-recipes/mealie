@@ -14,7 +14,7 @@ import {
 const prefix = "/api";
 
 const routes = {
-  households: `${prefix}/admin/households`,
+  households: `${prefix}/groups/households`,
   householdsSelf: `${prefix}/households/self`,
   members: `${prefix}/households/members`,
   permissions: `${prefix}/households/permissions`,
@@ -23,7 +23,7 @@ const routes = {
   statistics: `${prefix}/households/statistics`,
   invitation: `${prefix}/households/invitations`,
 
-  householdsId: (id: string | number) => `${prefix}/admin/households/${id}`,
+  householdsId: (id: string | number) => `${prefix}/groups/households/${id}`,
 };
 
 export class HouseholdAPI extends BaseCRUDAPIReadOnly<HouseholdSummary> {
