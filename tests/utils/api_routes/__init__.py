@@ -302,6 +302,11 @@ def foods_item_id(item_id):
     return f"{prefix}/foods/{item_id}"
 
 
+def groups_households_household_slug(household_slug):
+    """`/api/groups/households/{household_slug}`"""
+    return f"{prefix}/groups/households/{household_slug}"
+
+
 def groups_labels_item_id(item_id):
     """`/api/groups/labels/{item_id}`"""
     return f"{prefix}/groups/labels/{item_id}"
