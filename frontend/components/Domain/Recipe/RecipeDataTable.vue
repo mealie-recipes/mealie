@@ -3,6 +3,8 @@
     v-model="selected"
     item-key="id"
     show-select
+    sort-by="createdAt"
+    sort-desc
     :headers="headers"
     :items="recipes"
     :items-per-page="15"

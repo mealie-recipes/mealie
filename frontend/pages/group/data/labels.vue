@@ -115,6 +115,7 @@
       :headers.sync="tableHeaders"
       :data="labels || []"
       :bulk-actions="[{icon: $globals.icons.delete, text: $tc('general.delete'), event: 'delete-selected'}]"
+      initial-sort="name"
       @delete-one="deleteEventHandler"
       @edit-one="editEventHandler"
       @delete-selected="bulkDeleteEventHandler"

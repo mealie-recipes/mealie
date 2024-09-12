@@ -241,6 +241,7 @@
         {icon: $globals.icons.delete, text: $tc('general.delete'), event: 'delete-selected'},
         {icon: $globals.icons.tags, text: $tc('data-pages.labels.assign-label'), event: 'assign-selected'}
       ]"
+      initial-sort="name"
       @delete-one="deleteEventHandler"
       @edit-one="editEventHandler"
       @create-one="createEventHandler"
