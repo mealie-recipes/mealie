@@ -104,7 +104,6 @@
               :image="recipe.image"
               :tags="recipe.tags"
               :recipe-id="recipe.id"
-              avatar-size="fill-height"
             />
           </v-lazy>
         </v-col>
