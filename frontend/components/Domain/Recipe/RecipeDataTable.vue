@@ -3,7 +3,7 @@
     v-model="selected"
     item-key="id"
     show-select
-    sort-by="createdAt"
+    sort-by="dateAdded"
     sort-desc
     :headers="headers"
     :items="recipes"
