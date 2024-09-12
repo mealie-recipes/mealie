@@ -203,7 +203,7 @@ export default defineComponent({
     const selectedFoods = ref<IngredientFood[]>([]);
 
     const households = isOwnGroup.value ? useHouseholdStore() : usePublicHouseholdStore(groupSlug.value);
-    const selectedHouseholds = ref([...households.store.value] as NoUndefinedField<HouseholdSummary>[]);
+    const selectedHouseholds = ref([] as NoUndefinedField<HouseholdSummary>[]);
 
     const tags = isOwnGroup.value ? useTagStore() : usePublicTagStore(groupSlug.value);
     const selectedTags = ref<NoUndefinedField<RecipeTag>[]>([]);
@@ -247,7 +247,6 @@ export default defineComponent({
       requireAllTags: false,
       requireAllTools: false,
       requireAllFoods: false,
-      selectedHouseholds: [...households.store.value] as NoUndefinedField<HouseholdSummary>[],
     }
 
     function reset() {
@@ -260,7 +259,7 @@ export default defineComponent({
       state.value.requireAllFoods = queryDefaults.requireAllFoods;
       selectedCategories.value = [];
       selectedFoods.value = [];
-      selectedHouseholds.value = queryDefaults.selectedHouseholds;
+      selectedHouseholds.value = [];
       selectedTags.value = [];
       selectedTools.value = [];
 
@@ -523,7 +522,7 @@ export default defineComponent({
           )
         );
       } else {
-        selectedHouseholds.value = queryDefaults.selectedHouseholds;
+        selectedHouseholds.value = [];
       }
 
       await Promise.allSettled(promises);
