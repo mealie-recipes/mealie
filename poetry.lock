@@ -2202,13 +2202,13 @@ yaml = ["pyyaml (>=6.0.1)"]
 
 [[package]]
 name = "pydantic-to-typescript2"
-version = "1.0.4"
+version = "1.0.6"
 description = "Convert pydantic v1 and pydantic v2 models to typescript interfaces"
 optional = false
 python-versions = "*"
 files = [
-    {file = "pydantic-to-typescript2-1.0.4.tar.gz", hash = "sha256:1bd25dea0e1ce4220c495ad408d028ddd905376cbed1a856b2caa6f31c344371"},
-    {file = "pydantic_to_typescript2-1.0.4-py3-none-any.whl", hash = "sha256:597f1848e918d0b95879c9a371ff664c8f300894d43aafb0b7f693f6c84f3657"},
+    {file = "pydantic-to-typescript2-1.0.6.tar.gz", hash = "sha256:19cc0fb03802abcb508b02fbc334f1667ff50e0853a782b58df9dd0409290163"},
+    {file = "pydantic_to_typescript2-1.0.6-py3-none-any.whl", hash = "sha256:89bbdd4b84b72d9f8ada33fd4d7d6605457be302dd6d4c6d48faa9310841bb69"},
 ]
 
 [package.dependencies]
