@@ -53,6 +53,14 @@
             {{ $t("general.foods") }}
           </SearchFilter>
 
+          <!-- Household Filter -->
+          <SearchFilter v-if="households" v-model="selectedHouseholds" :items="households" radio>
+            <v-icon left>
+              {{ $globals.icons.household }}
+            </v-icon>
+            {{ $t("household.households") }}
+          </SearchFilter>
+
           <!-- Sort Options -->
           <v-menu offset-y nudge-bottom="3">
             <template #activator="{ on, attrs }">
