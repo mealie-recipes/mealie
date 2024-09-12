@@ -1,5 +1,5 @@
 import { ref, reactive, Ref } from "@nuxtjs/composition-api";
-import { usePublicStoreActions, useStoreActions } from "./use-actions-factory";
+import { useReadOnlyActions, useStoreActions } from "./use-actions-factory";
 import { BoundT } from "./types";
 import { BaseCRUDAPI, BaseCRUDAPIReadOnly } from "~/lib/api/base/base-clients";
 
@@ -12,13 +12,13 @@ export const useData = function<T extends BoundT>(defaultObject: T) {
   return { data, reset };
 }
 
-export const usePublicStore = function<T extends BoundT>(
+export const useReadOnlyStore = function<T extends BoundT>(
   store: Ref<T[]>,
   loading: Ref<boolean>,
   api: BaseCRUDAPIReadOnly<T>,
 ) {
   const actions = {
-    ...usePublicStoreActions(api, store, loading),
+    ...useReadOnlyActions(api, store, loading),
     flushStore() {
       store.value = [];
     },

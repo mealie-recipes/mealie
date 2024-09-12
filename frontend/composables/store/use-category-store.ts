@@ -1,6 +1,6 @@
 import { ref, Ref } from "@nuxtjs/composition-api";
 import { RecipeCategory } from "~/lib/api/types/recipe";
-import { useData, usePublicStore, useStore } from "../partials/use-store-factory";
+import { useData, useReadOnlyStore, useStore } from "../partials/use-store-factory";
 import { usePublicExploreApi, useUserApi } from "~/composables/api";
 
 const store: Ref<RecipeCategory[]> = ref([]);
@@ -22,5 +22,5 @@ export const useCategoryStore = function () {
 
 export const usePublicCategoryStore = function (groupSlug: string) {
   const api = usePublicExploreApi(groupSlug).explore;
-  return usePublicStore<RecipeCategory>(store, publicLoading, api.categories);
+  return useReadOnlyStore<RecipeCategory>(store, publicLoading, api.categories);
 }
