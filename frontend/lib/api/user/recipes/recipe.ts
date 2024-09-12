@@ -63,6 +63,7 @@ export type RecipeSearchQuery = {
   queryFilter?: string;
 
   cookbook?: string;
+  households?: string[];
 
   categories?: string[];
   requireAllCategories?: boolean;
