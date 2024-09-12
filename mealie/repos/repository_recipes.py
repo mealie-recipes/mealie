@@ -10,6 +10,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import InstrumentedAttribute, joinedload
 from typing_extensions import Self
 
+from mealie.db.models.household.household import Household
 from mealie.db.models.recipe.category import Category
 from mealie.db.models.recipe.ingredient import RecipeIngredientModel
 from mealie.db.models.recipe.recipe import RecipeModel
@@ -26,6 +27,7 @@ from mealie.schema.recipe.recipe import (
     RecipeTool,
 )
 from mealie.schema.recipe.recipe_category import CategoryBase, TagBase
+from mealie.schema.recipe.recipe_ingredient import IngredientFood
 from mealie.schema.response.pagination import (
     OrderByNullPosition,
     OrderDirection,
@@ -155,6 +157,7 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         tags: list[UUID4 | str] | None = None,
         tools: list[UUID4 | str] | None = None,
         foods: list[UUID4 | str] | None = None,
+        households: list[UUID4 | str] | None = None,
         require_all_categories=True,
         require_all_tags=True,
         require_all_tools=True,
@@ -179,6 +182,7 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
 
         if cookbook:
             cb_filters = self._build_recipe_filter(
+                households=[cookbook.household_id],
                 categories=extract_uuids(cookbook.categories),
                 tags=extract_uuids(cookbook.tags),
                 tools=extract_uuids(cookbook.tools),
@@ -192,11 +196,14 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
             category_ids = self._uuids_for_items(categories, Category)
             tag_ids = self._uuids_for_items(tags, Tag)
             tool_ids = self._uuids_for_items(tools, Tool)
+            food_ids = self._uuids_for_items(foods, IngredientFood)
+            household_ids = self._uuids_for_items(households, Household)
             filters = self._build_recipe_filter(
                 categories=category_ids,
                 tags=tag_ids,
                 tools=tool_ids,
-                foods=foods,
+                foods=food_ids,
+                households=household_ids,
                 require_all_categories=require_all_categories,
                 require_all_tags=require_all_tags,
                 require_all_tools=require_all_tools,
@@ -252,6 +259,7 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         tags: list[UUID4] | None = None,
         tools: list[UUID4] | None = None,
         foods: list[UUID4] | None = None,
+        households: list[UUID4] | None = None,
         require_all_categories: bool = True,
         require_all_tags: bool = True,
         require_all_tools: bool = True,
@@ -285,6 +293,8 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
                 fltr.extend(RecipeModel.recipe_ingredient.any(RecipeIngredientModel.food_id == food) for food in foods)
             else:
                 fltr.append(RecipeModel.recipe_ingredient.any(RecipeIngredientModel.food_id.in_(foods)))
+        if households:
+            fltr.append(RecipeModel.household_id.in_(households))
         return fltr
 
     def by_category_and_tags(
