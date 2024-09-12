@@ -371,7 +371,7 @@
         "plural_name": "leeks"
     },
     "legumes": {
-        "name": "legumes "
+        "name": "legumes"
     },
     "lemongrass": {
         "name": "lemongrass"
@@ -639,7 +639,7 @@
         "name": "p\u0103str\u0103v"
     },
     "tubers": {
-        "name": "tubers",
+        "name": "tuber",
         "plural_name": "tubers"
     },
     "tuna": {

@@ -9,7 +9,7 @@
         "name": "anchovies"
     },
     "apples": {
-        "name": "apples",
+        "name": "apple",
         "plural_name": "apples"
     },
     "artichoke": {
@@ -125,7 +125,7 @@
         "name": "caster sugar"
     },
     "catfish": {
-        "name": "catfish "
+        "name": "catfish"
     },
     "cauliflower": {
         "name": "cauliflower",
@@ -135,7 +135,7 @@
         "name": "cayenne pepper"
     },
     "celeriac": {
-        "name": "celeriac"
+        "name": "celery root"
     },
     "celery": {
         "name": "celery"
@@ -153,7 +153,7 @@
         "name": "chicory"
     },
     "chilli-peppers": {
-        "name": "chilli peppers",
+        "name": "chilli pepper",
         "plural_name": "chilli peppers"
     },
     "chinese-leaves": {
@@ -243,7 +243,7 @@
         "plural_name": "eggplants"
     },
     "eggs": {
-        "name": "eggs",
+        "name": "egg",
         "plural_name": "eggs"
     },
     "endive": {
@@ -371,7 +371,7 @@
         "plural_name": "leeks"
     },
     "legumes": {
-        "name": "legumes "
+        "name": "legumes"
     },
     "lemongrass": {
         "name": "lemongrass"
@@ -424,7 +424,7 @@
         "name": "nuts"
     },
     "octopuses": {
-        "name": "octopuses",
+        "name": "octopus",
         "plural_name": "octopuses"
     },
     "oils": {
@@ -449,7 +449,7 @@
         "name": "orange blossom water"
     },
     "oranges": {
-        "name": "oranges",
+        "name": "orange",
         "plural_name": "oranges"
     },
     "oregano": {
@@ -639,7 +639,7 @@
         "name": "trout"
     },
     "tubers": {
-        "name": "tubers",
+        "name": "tuber",
         "plural_name": "tubers"
     },
     "tuna": {

@@ -125,7 +125,7 @@
         "name": "\u7d30\u7802\u767d\u7cd6"
     },
     "catfish": {
-        "name": "\u9bf0\u9b5a "
+        "name": "\u9bf0\u9b5a"
     },
     "cauliflower": {
         "name": "\u767d\u82b1\u83dc",
@@ -135,7 +135,7 @@
         "name": "cayenne pepper"
     },
     "celeriac": {
-        "name": "celeriac"
+        "name": "celery root"
     },
     "celery": {
         "name": "\u897f\u82b9"
@@ -371,7 +371,7 @@
         "plural_name": "leeks"
     },
     "legumes": {
-        "name": "legumes "
+        "name": "legumes"
     },
     "lemongrass": {
         "name": "lemongrass"
@@ -632,14 +632,14 @@
         "name": "teff"
     },
     "tomato": {
-        "name": "\u8543\u8304 ",
+        "name": "\u8543\u8304",
         "plural_name": "tomatoes"
     },
     "trout": {
         "name": "\u9c52\u9b5a"
     },
     "tubers": {
-        "name": "tubers",
+        "name": "tuber",
         "plural_name": "tubers"
     },
     "tuna": {

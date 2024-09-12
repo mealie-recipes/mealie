@@ -125,7 +125,7 @@
         "name": "pudra \u015fekeri"
     },
     "catfish": {
-        "name": "kedibal\u0131\u011f\u0131 "
+        "name": "kedibal\u0131\u011f\u0131"
     },
     "cauliflower": {
         "name": "karnabahar",
@@ -371,7 +371,7 @@
         "plural_name": "leeks"
     },
     "legumes": {
-        "name": "baklagiller "
+        "name": "baklagiller"
     },
     "lemongrass": {
         "name": "limon otu"
@@ -632,14 +632,14 @@
         "name": "teff"
     },
     "tomato": {
-        "name": "domates ",
+        "name": "domates",
         "plural_name": "tomatoes"
     },
     "trout": {
         "name": "alabal\u0131k"
     },
     "tubers": {
-        "name": "tubers",
+        "name": "tuber",
         "plural_name": "tubers"
     },
     "tuna": {

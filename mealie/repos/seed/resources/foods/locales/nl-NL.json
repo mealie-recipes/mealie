@@ -125,7 +125,7 @@
         "name": "basterdsuiker"
     },
     "catfish": {
-        "name": "meerval "
+        "name": "meerval"
     },
     "cauliflower": {
         "name": "bloemkool",
@@ -371,7 +371,7 @@
         "plural_name": "leeks"
     },
     "legumes": {
-        "name": "peulvruchten "
+        "name": "peulvruchten"
     },
     "lemongrass": {
         "name": "citroengras"
@@ -632,7 +632,7 @@
         "name": "abessijns liefdegras"
     },
     "tomato": {
-        "name": "tomaat ",
+        "name": "tomaat",
         "plural_name": "tomatoes"
     },
     "trout": {

@@ -125,7 +125,7 @@
         "name": "a\u00e7\u00facar de confeiteiro"
     },
     "catfish": {
-        "name": "bagre "
+        "name": "bagre"
     },
     "cauliflower": {
         "name": "couve-flor",
@@ -371,7 +371,7 @@
         "plural_name": "leeks"
     },
     "legumes": {
-        "name": "leguminosas "
+        "name": "leguminosas"
     },
     "lemongrass": {
         "name": "capim-lim\u00e3o"
@@ -632,7 +632,7 @@
         "name": "tefe"
     },
     "tomato": {
-        "name": "tomate ",
+        "name": "tomate",
         "plural_name": "tomatoes"
     },
     "trout": {

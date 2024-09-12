@@ -125,7 +125,7 @@
         "name": "strooisuiker"
     },
     "catfish": {
-        "name": "catfish "
+        "name": "catfish"
     },
     "cauliflower": {
         "name": "blomkool",
@@ -153,7 +153,7 @@
         "name": "chicory"
     },
     "chilli-peppers": {
-        "name": "chilli peppers",
+        "name": "chilli pepper",
         "plural_name": "chilli peppers"
     },
     "chinese-leaves": {
@@ -243,7 +243,7 @@
         "plural_name": "eggplants"
     },
     "eggs": {
-        "name": "eggs",
+        "name": "egg",
         "plural_name": "eggs"
     },
     "endive": {
@@ -371,7 +371,7 @@
         "plural_name": "leeks"
     },
     "legumes": {
-        "name": "peulgewasse "
+        "name": "peulgewasse"
     },
     "lemongrass": {
         "name": "sitroengras"
@@ -424,7 +424,7 @@
         "name": "neute"
     },
     "octopuses": {
-        "name": "octopuses",
+        "name": "octopus",
         "plural_name": "octopuses"
     },
     "oils": {
@@ -449,7 +449,7 @@
         "name": "orange blossom water"
     },
     "oranges": {
-        "name": "oranges",
+        "name": "orange",
         "plural_name": "oranges"
     },
     "oregano": {
@@ -632,7 +632,7 @@
         "name": "abessiniese liefdesgras"
     },
     "tomato": {
-        "name": "tamatie ",
+        "name": "tamatie",
         "plural_name": "tomatoes"
     },
     "trout": {

@@ -9,7 +9,7 @@
         "name": "anchovies"
     },
     "apples": {
-        "name": "apples",
+        "name": "apple",
         "plural_name": "apples"
     },
     "artichoke": {
@@ -125,7 +125,7 @@
         "name": "castor sugar"
     },
     "catfish": {
-        "name": "catfish "
+        "name": "catfish"
     },
     "cauliflower": {
         "name": "cauliflower",
@@ -135,7 +135,7 @@
         "name": "cayenne pepper"
     },
     "celeriac": {
-        "name": "celeriac"
+        "name": "celery root"
     },
     "celery": {
         "name": "celery"
@@ -153,7 +153,7 @@
         "name": "chicory"
     },
     "chilli-peppers": {
-        "name": "chilli peppers",
+        "name": "chilli pepper",
         "plural_name": "chilli peppers"
     },
     "chinese-leaves": {
@@ -371,7 +371,7 @@
         "plural_name": "leeks"
     },
     "legumes": {
-        "name": "legumes "
+        "name": "legumes"
     },
     "lemongrass": {
         "name": "lemongrass"
@@ -424,7 +424,7 @@
         "name": "nuts"
     },
     "octopuses": {
-        "name": "octopuses",
+        "name": "octopus",
         "plural_name": "octopuses"
     },
     "oils": {
@@ -632,14 +632,14 @@
         "name": "teff"
     },
     "tomato": {
-        "name": "tomate ",
+        "name": "tomate",
         "plural_name": "tomatoes"
     },
     "trout": {
         "name": "troita"
     },
     "tubers": {
-        "name": "tubers",
+        "name": "tuber",
         "plural_name": "tubers"
     },
     "tuna": {

@@ -125,7 +125,7 @@
         "name": "castor sugar"
     },
     "catfish": {
-        "name": "\u9cb6\u9c7c "
+        "name": "\u9cb6\u9c7c"
     },
     "cauliflower": {
         "name": "\u83dc\u82b1",
@@ -135,7 +135,7 @@
         "name": "cayenne pepper"
     },
     "celeriac": {
-        "name": "celeriac"
+        "name": "celery root"
     },
     "celery": {
         "name": "\u82b9\u83dc"
@@ -153,7 +153,7 @@
         "name": "chicory"
     },
     "chilli-peppers": {
-        "name": "chilli peppers",
+        "name": "chilli pepper",
         "plural_name": "chilli peppers"
     },
     "chinese-leaves": {
@@ -371,7 +371,7 @@
         "plural_name": "leeks"
     },
     "legumes": {
-        "name": "\u8c46\u7c7b "
+        "name": "\u8c46\u7c7b"
     },
     "lemongrass": {
         "name": "lemongrass"
@@ -632,14 +632,14 @@
         "name": "\u82d4\u9eb8"
     },
     "tomato": {
-        "name": "\u756a\u8304 ",
+        "name": "\u756a\u8304",
         "plural_name": "tomatoes"
     },
     "trout": {
         "name": "\u9cdf\u9c7c"
     },
     "tubers": {
-        "name": "tubers",
+        "name": "tuber",
         "plural_name": "tubers"
     },
     "tuna": {
