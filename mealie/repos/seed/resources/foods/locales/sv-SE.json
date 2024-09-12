@@ -1,222 +1,692 @@
 {
-    "acorn-squash": "peppar squash",
-    "alfalfa-sprouts": "alfalfagroddar",
-    "anchovies": "ansjovis",
-    "apples": "äpplen",
-    "artichoke": "kronärtskocka",
-    "arugula": "ruccola",
-    "asparagus": "sparris",
-    "aubergine": "äggplanta",
-    "avocado": "avokado",
-    "bacon": "bacon",
-    "baking-powder": "bakpulver",
-    "baking-soda": "bikarbonat",
-    "baking-sugar": "florsocker",
-    "bar-sugar": "socker från sockerrör",
-    "basil": "basilika",
-    "bell-peppers": "paprika",
-    "blackberries": "björnbär",
-    "brassicas": "kål",
-    "bok-choy": "pak choi",
-    "broccoflower": "broccolo",
-    "broccoli": "broccoli",
-    "broccolini": "broccolini",
-    "broccoli-rabe": "broccolirybs",
-    "brussels-sprouts": "brysselkål",
-    "cabbage": "vitkål",
-    "cauliflower": "blomkål",
-    "chinese-leaves": "salladskål",
-    "collard-greens": "collard",
-    "kohlrabi": "kålrabbi",
-    "bread": "bröd",
-    "breadfruit": "brödfrukt",
-    "broad-beans": "bondbönor",
-    "brown-sugar": "brunt socker",
-    "butter": "smör",
-    "butternut-pumpkin": "butternut pumpa",
-    "butternut-squash": "butternut squash",
-    "cactus-edible": "kaktus, ätbar",
-    "calabrese": "calabrese",
-    "cannabis": "cannabis",
-    "capsicum": "spanskpeppar",
-    "caraway": "kummin",
-    "carrot": "morot",
-    "castor-sugar": "strösocker",
-    "cayenne-pepper": "cayennepeppar",
-    "celeriac": "rotselleri",
-    "celery": "selleri",
-    "cereal-grains": "sädesslag",
-    "rice": "ris",
-    "chard": "mangold",
-    "cheese": "ost",
-    "chicory": "cikoria",
-    "chilli-peppers": "chilipeppar",
-    "chives": "gräslök",
-    "chocolate": "choklad",
-    "cilantro": "koriander",
-    "cinnamon": "kanel",
-    "clarified-butter": "skirat smör",
-    "coconut": "kokos",
-    "coconut-milk": "kokosmjölk",
-    "coffee": "kaffe",
-    "confectioners-sugar": "florsocker",
-    "coriander": "koriander",
-    "corn": "majs",
-    "corn-syrup": "majssirap",
-    "cottonseed-oil": "bomullsfröolja",
-    "courgette": "zucchini",
-    "cream-of-tartar": "vinsten",
-    "cucumber": "gurka",
-    "cumin": "spiskummin",
-    "daikon": "rättika",
-    "dairy-products-and-dairy-substitutes": "mejeriprodukter och mejerisubstitut",
-    "eggs": "ägg",
-    "ghee": "ghee",
-    "milk": "mjölk",
-    "dandelion": "maskros",
-    "demerara-sugar": "råsocker",
-    "dough": "deg",
-    "edible-cactus": "ätbar kaktus",
-    "eggplant": "äggplanta",
-    "endive": "endiv",
-    "fats": "fetter",
-    "speck": "speck",
-    "fava-beans": "bondböna",
-    "fiddlehead": "strutbräken",
-    "fish": "fisk",
-    "catfish": "havskatt ",
-    "cod": "torsk",
-    "salt-cod": "salt torsk",
-    "salmon": "lax",
-    "skate": "skate",
-    "stockfish": "torkad fisk",
-    "trout": "öring",
-    "tuna": "tonfisk",
-    "five-spice-powder": "femkrydda",
-    "flour": "mjöl",
-    "frisee": "frisésallat",
-    "fructose": "fruktos",
-    "fruit": "frukt",
-    "apple": "äpple",
-    "oranges": "apelsiner",
-    "pear": "päron",
-    "tomato": "tomat ",
-    "fruit-sugar": "fruktsocker",
-    "garam-masala": "garam masala",
-    "garlic": "vitlök",
-    "gem-squash": "gem squash",
-    "ginger": "ingefära",
-    "giblets": "inkråm",
-    "grains": "korn",
-    "maize": "majs",
-    "sweetcorn": "sockermajs",
-    "teff": "teff",
-    "grape-seed-oil": "druvkärneolja",
-    "green-onion": "salladslök",
-    "heart-of-palm": "palmhjärta",
-    "hemp": "hampa",
-    "herbs": "örter",
-    "oregano": "oregano",
-    "parsley": "persilja",
-    "honey": "honung",
-    "icing-sugar": "florsocker",
-    "isomalt": "isomalt",
-    "jackfruit": "jackfrukt",
-    "jaggery": "jaggery",
-    "jams": "sylt",
-    "jellies": "geléer",
-    "jerusalem-artichoke": "jordärtskocka",
-    "jicama": "jamsbönrot",
-    "kale": "grönkål",
-    "kumara": "sötpotatis",
-    "leavening-agents": "jäsmedel",
-    "leek": "purjolök",
-    "legumes": "baljväxter ",
-    "peas": "ärtor",
-    "beans": "bönor",
-    "lentils": "linser",
-    "lemongrass": "citrongräs",
-    "lettuce": "sallad",
-    "liver": "lever",
-    "maple-syrup": "lönnsirap",
-    "meat": "kött",
-    "mortadella": "mortadella",
-    "mushroom": "svamp",
-    "white-mushroom": "schampinjon",
-    "mussels": "musslor",
-    "nori": "nori",
-    "nutmeg": "muskotnöt",
-    "nutritional-yeast-flakes": "näringsrika jästflingor",
-    "nuts": "nötter",
-    "nanaimo-bar-mix": "nanaimo bar mix",
-    "octopuses": "bläckfiskar",
-    "oils": "oljor",
-    "olive-oil": "olivolja",
-    "okra": "okra",
-    "olive": "oliv",
-    "onion-family": "lökfamilj",
-    "onion": "lök",
-    "scallion": "salladslök",
-    "shallot": "schalottenlök",
-    "spring-onion": "vårlök",
-    "orange-blossom-water": "apelsinblomsvatten",
-    "oysters": "ostron",
-    "panch-puran": "panch phoron",
-    "paprika": "paprika",
-    "parsnip": "palsternacka",
-    "pepper": "peppar",
-    "peppers": "paprika",
-    "plantain": "kokbanan",
-    "pineapple": "ananas",
-    "poppy-seeds": "vallmofrön",
-    "potatoes": "potatis",
-    "poultry": "kyckling",
-    "powdered-sugar": "florsocker",
-    "pumpkin": "pumpa",
-    "pumpkin-seeds": "pumpafrön",
-    "radish": "rädisa",
-    "raw-sugar": "brunt socker",
-    "refined-sugar": "raffinerat socker",
-    "rice-flour": "rismjöl",
-    "rock-sugar": "sten socker",
-    "rum": "rom",
-    "salt": "salt",
-    "seafood": "fisk och skaldjur",
-    "seeds": "frön",
-    "sesame-seeds": "sesamfrön",
-    "sunflower-seeds": "solrosfrön",
-    "soda": "natriumkarbonat",
-    "soda-baking": "bikarbonat",
-    "soybean": "sojaböna",
-    "spaghetti-squash": "spagettipumpa",
-    "spices": "kryddor",
-    "spinach": "spenat",
-    "squash-family": "squash-familj",
-    "squash": "squash",
-    "zucchini": "zucchini",
-    "sugar": "socker",
-    "caster-sugar": "strösocker",
-    "granulated-sugar": "strösocker",
-    "superfine-sugar": "strösocker",
-    "turbanado-sugar": "brunt råsocker",
-    "unrefined-sugar": "råsocker",
-    "white-sugar": "strösocker",
-    "sweet-potato": "sötpotatis",
-    "sweeteners": "sötningsmedel",
-    "cane-sugar": "socker från sockerrör",
-    "tahini": "tahini",
-    "tubers": "knölar",
-    "potato": "potatis",
-    "sunchoke": "jordärtskocka",
-    "taro": "taro",
-    "yam": "jams",
-    "turnip": "majrova",
-    "vanilla": "vanilj",
-    "vegetables": "grönsaker",
-    "fiddlehead-fern": "strutbräken",
-    "ful": "full",
-    "watercress": "vattenkrasse",
-    "watermelon": "vattenmelon",
-    "xanthan-gum": "xantangummi",
-    "yeast": "jäst"
+    "acorn-squash": {
+        "name": "peppar squash"
+    },
+    "alfalfa-sprouts": {
+        "name": "alfalfagroddar"
+    },
+    "anchovies": {
+        "name": "ansjovis"
+    },
+    "apples": {
+        "name": "\u00e4pplen",
+        "plural_name": "apples"
+    },
+    "artichoke": {
+        "name": "kron\u00e4rtskocka"
+    },
+    "arugula": {
+        "name": "ruccola"
+    },
+    "asparagus": {
+        "name": "sparris"
+    },
+    "avocado": {
+        "name": "avokado",
+        "plural_name": "avocado"
+    },
+    "bacon": {
+        "name": "bacon"
+    },
+    "baking-powder": {
+        "name": "bakpulver"
+    },
+    "baking-soda": {
+        "name": "bikarbonat"
+    },
+    "baking-sugar": {
+        "name": "florsocker"
+    },
+    "bar-sugar": {
+        "name": "socker fr\u00e5n sockerr\u00f6r"
+    },
+    "basil": {
+        "name": "basilika"
+    },
+    "beans": {
+        "name": "b\u00f6nor"
+    },
+    "bell-peppers": {
+        "name": "paprika",
+        "plural_name": "bell peppers"
+    },
+    "blackberries": {
+        "name": "bj\u00f6rnb\u00e4r"
+    },
+    "bok-choy": {
+        "name": "pak choi"
+    },
+    "brassicas": {
+        "name": "k\u00e5l"
+    },
+    "bread": {
+        "name": "br\u00f6d"
+    },
+    "breadfruit": {
+        "name": "br\u00f6dfrukt"
+    },
+    "broccoflower": {
+        "name": "broccolo"
+    },
+    "broccoli": {
+        "name": "broccoli"
+    },
+    "broccoli-rabe": {
+        "name": "broccolirybs"
+    },
+    "broccolini": {
+        "name": "broccolini"
+    },
+    "brown-sugar": {
+        "name": "brunt socker"
+    },
+    "brussels-sprouts": {
+        "name": "brysselk\u00e5l"
+    },
+    "butter": {
+        "name": "sm\u00f6r"
+    },
+    "butternut-pumpkin": {
+        "name": "butternut pumpa"
+    },
+    "butternut-squash": {
+        "name": "butternut squash"
+    },
+    "cabbage": {
+        "name": "vitk\u00e5l",
+        "plural_name": "cabbages"
+    },
+    "cactus-edible": {
+        "name": "kaktus, \u00e4tbar"
+    },
+    "calabrese": {
+        "name": "calabrese"
+    },
+    "cane-sugar": {
+        "name": "socker fr\u00e5n sockerr\u00f6r"
+    },
+    "cannabis": {
+        "name": "cannabis"
+    },
+    "capsicum": {
+        "name": "spanskpeppar"
+    },
+    "caraway": {
+        "name": "kummin"
+    },
+    "carrot": {
+        "name": "morot",
+        "plural_name": "carrots"
+    },
+    "caster-sugar": {
+        "name": "str\u00f6socker"
+    },
+    "castor-sugar": {
+        "name": "str\u00f6socker"
+    },
+    "catfish": {
+        "name": "havskatt "
+    },
+    "cauliflower": {
+        "name": "blomk\u00e5l",
+        "plural_name": "cauliflowers"
+    },
+    "cayenne-pepper": {
+        "name": "cayennepeppar"
+    },
+    "celeriac": {
+        "name": "rotselleri"
+    },
+    "celery": {
+        "name": "selleri"
+    },
+    "cereal-grains": {
+        "name": "s\u00e4desslag"
+    },
+    "chard": {
+        "name": "mangold"
+    },
+    "cheese": {
+        "name": "ost"
+    },
+    "chicory": {
+        "name": "cikoria"
+    },
+    "chilli-peppers": {
+        "name": "chilipeppar",
+        "plural_name": "chilli peppers"
+    },
+    "chinese-leaves": {
+        "name": "salladsk\u00e5l"
+    },
+    "chives": {
+        "name": "gr\u00e4sl\u00f6k"
+    },
+    "chocolate": {
+        "name": "choklad"
+    },
+    "cilantro": {
+        "name": "koriander"
+    },
+    "cinnamon": {
+        "name": "kanel"
+    },
+    "clarified-butter": {
+        "name": "skirat sm\u00f6r"
+    },
+    "coconut": {
+        "name": "kokos",
+        "plural_name": "coconuts"
+    },
+    "coconut-milk": {
+        "name": "kokosmj\u00f6lk"
+    },
+    "cod": {
+        "name": "torsk"
+    },
+    "coffee": {
+        "name": "kaffe"
+    },
+    "collard-greens": {
+        "name": "collard"
+    },
+    "confectioners-sugar": {
+        "name": "florsocker"
+    },
+    "coriander": {
+        "name": "koriander"
+    },
+    "corn": {
+        "name": "majs",
+        "plural_name": "corns"
+    },
+    "corn-syrup": {
+        "name": "majssirap"
+    },
+    "cottonseed-oil": {
+        "name": "bomullsfr\u00f6olja"
+    },
+    "courgette": {
+        "name": "zucchini"
+    },
+    "cream-of-tartar": {
+        "name": "vinsten"
+    },
+    "cucumber": {
+        "name": "gurka",
+        "plural_name": "cucumbers"
+    },
+    "cumin": {
+        "name": "spiskummin"
+    },
+    "daikon": {
+        "name": "r\u00e4ttika",
+        "plural_name": "daikons"
+    },
+    "dairy-products-and-dairy-substitutes": {
+        "name": "mejeriprodukter och mejerisubstitut"
+    },
+    "dandelion": {
+        "name": "maskros"
+    },
+    "demerara-sugar": {
+        "name": "r\u00e5socker"
+    },
+    "dough": {
+        "name": "deg"
+    },
+    "edible-cactus": {
+        "name": "\u00e4tbar kaktus"
+    },
+    "eggplant": {
+        "name": "\u00e4ggplanta",
+        "plural_name": "eggplants"
+    },
+    "eggs": {
+        "name": "\u00e4gg",
+        "plural_name": "eggs"
+    },
+    "endive": {
+        "name": "endiv",
+        "plural_name": "endives"
+    },
+    "fats": {
+        "name": "fetter"
+    },
+    "fava-beans": {
+        "name": "bondb\u00f6na"
+    },
+    "fiddlehead": {
+        "name": "strutbr\u00e4ken"
+    },
+    "fiddlehead-fern": {
+        "name": "strutbr\u00e4ken",
+        "plural_name": "fiddlehead ferns"
+    },
+    "fish": {
+        "name": "fisk"
+    },
+    "five-spice-powder": {
+        "name": "femkrydda"
+    },
+    "flour": {
+        "name": "mj\u00f6l"
+    },
+    "frisee": {
+        "name": "fris\u00e9sallat"
+    },
+    "fructose": {
+        "name": "fruktos"
+    },
+    "fruit": {
+        "name": "frukt"
+    },
+    "fruit-sugar": {
+        "name": "fruktsocker"
+    },
+    "ful": {
+        "name": "full"
+    },
+    "garam-masala": {
+        "name": "garam masala"
+    },
+    "garlic": {
+        "name": "vitl\u00f6k",
+        "plural_name": "garlics"
+    },
+    "gem-squash": {
+        "name": "gem squash"
+    },
+    "ghee": {
+        "name": "ghee"
+    },
+    "giblets": {
+        "name": "inkr\u00e5m"
+    },
+    "ginger": {
+        "name": "ingef\u00e4ra"
+    },
+    "grains": {
+        "name": "korn"
+    },
+    "granulated-sugar": {
+        "name": "str\u00f6socker"
+    },
+    "grape-seed-oil": {
+        "name": "druvk\u00e4rneolja"
+    },
+    "green-onion": {
+        "name": "salladsl\u00f6k",
+        "plural_name": "green onions"
+    },
+    "heart-of-palm": {
+        "name": "palmhj\u00e4rta",
+        "plural_name": "heart of palms"
+    },
+    "hemp": {
+        "name": "hampa"
+    },
+    "herbs": {
+        "name": "\u00f6rter"
+    },
+    "honey": {
+        "name": "honung"
+    },
+    "isomalt": {
+        "name": "isomalt"
+    },
+    "jackfruit": {
+        "name": "jackfrukt",
+        "plural_name": "jackfruits"
+    },
+    "jaggery": {
+        "name": "jaggery"
+    },
+    "jams": {
+        "name": "sylt"
+    },
+    "jellies": {
+        "name": "gel\u00e9er"
+    },
+    "jerusalem-artichoke": {
+        "name": "jord\u00e4rtskocka"
+    },
+    "jicama": {
+        "name": "jamsb\u00f6nrot"
+    },
+    "kale": {
+        "name": "gr\u00f6nk\u00e5l"
+    },
+    "kohlrabi": {
+        "name": "k\u00e5lrabbi"
+    },
+    "kumara": {
+        "name": "s\u00f6tpotatis"
+    },
+    "leavening-agents": {
+        "name": "j\u00e4smedel"
+    },
+    "leek": {
+        "name": "purjol\u00f6k",
+        "plural_name": "leeks"
+    },
+    "legumes": {
+        "name": "baljv\u00e4xter "
+    },
+    "lemongrass": {
+        "name": "citrongr\u00e4s"
+    },
+    "lentils": {
+        "name": "linser"
+    },
+    "lettuce": {
+        "name": "sallad"
+    },
+    "liver": {
+        "name": "lever",
+        "plural_name": "livers"
+    },
+    "maize": {
+        "name": "majs"
+    },
+    "maple-syrup": {
+        "name": "l\u00f6nnsirap"
+    },
+    "meat": {
+        "name": "k\u00f6tt"
+    },
+    "milk": {
+        "name": "mj\u00f6lk"
+    },
+    "mortadella": {
+        "name": "mortadella"
+    },
+    "mushroom": {
+        "name": "svamp",
+        "plural_name": "mushrooms"
+    },
+    "mussels": {
+        "name": "musslor"
+    },
+    "nanaimo-bar-mix": {
+        "name": "nanaimo bar mix"
+    },
+    "nori": {
+        "name": "nori"
+    },
+    "nutmeg": {
+        "name": "muskotn\u00f6t"
+    },
+    "nutritional-yeast-flakes": {
+        "name": "n\u00e4ringsrika j\u00e4stflingor"
+    },
+    "nuts": {
+        "name": "n\u00f6tter"
+    },
+    "octopuses": {
+        "name": "bl\u00e4ckfiskar",
+        "plural_name": "octopuses"
+    },
+    "oils": {
+        "name": "oljor"
+    },
+    "okra": {
+        "name": "okra"
+    },
+    "olive": {
+        "name": "oliv"
+    },
+    "olive-oil": {
+        "name": "olivolja"
+    },
+    "onion": {
+        "name": "l\u00f6k"
+    },
+    "onion-family": {
+        "name": "l\u00f6kfamilj"
+    },
+    "orange-blossom-water": {
+        "name": "apelsinblomsvatten"
+    },
+    "oranges": {
+        "name": "apelsiner",
+        "plural_name": "oranges"
+    },
+    "oregano": {
+        "name": "oregano"
+    },
+    "oysters": {
+        "name": "ostron"
+    },
+    "panch-puran": {
+        "name": "panch phoron"
+    },
+    "paprika": {
+        "name": "paprika"
+    },
+    "parsley": {
+        "name": "persilja"
+    },
+    "parsnip": {
+        "name": "palsternacka",
+        "plural_name": "parsnips"
+    },
+    "pear": {
+        "name": "p\u00e4ron",
+        "plural_name": "pears"
+    },
+    "peas": {
+        "name": "\u00e4rtor"
+    },
+    "pepper": {
+        "name": "peppar",
+        "plural_name": "peppers"
+    },
+    "pineapple": {
+        "name": "ananas",
+        "plural_name": "pineapples"
+    },
+    "plantain": {
+        "name": "kokbanan",
+        "plural_name": "plantains"
+    },
+    "poppy-seeds": {
+        "name": "vallmofr\u00f6n"
+    },
+    "potato": {
+        "name": "potatis",
+        "plural_name": "potatoes"
+    },
+    "poultry": {
+        "name": "kyckling"
+    },
+    "powdered-sugar": {
+        "name": "florsocker"
+    },
+    "pumpkin": {
+        "name": "pumpa",
+        "plural_name": "pumpkins"
+    },
+    "pumpkin-seeds": {
+        "name": "pumpafr\u00f6n"
+    },
+    "radish": {
+        "name": "r\u00e4disa",
+        "plural_name": "radishes"
+    },
+    "raw-sugar": {
+        "name": "brunt socker"
+    },
+    "refined-sugar": {
+        "name": "raffinerat socker"
+    },
+    "rice": {
+        "name": "ris"
+    },
+    "rice-flour": {
+        "name": "rismj\u00f6l"
+    },
+    "rock-sugar": {
+        "name": "sten socker"
+    },
+    "rum": {
+        "name": "rom"
+    },
+    "salmon": {
+        "name": "lax"
+    },
+    "salt": {
+        "name": "salt"
+    },
+    "salt-cod": {
+        "name": "salt torsk"
+    },
+    "scallion": {
+        "name": "salladsl\u00f6k",
+        "plural_name": "scallions"
+    },
+    "seafood": {
+        "name": "fisk och skaldjur"
+    },
+    "seeds": {
+        "name": "fr\u00f6n"
+    },
+    "sesame-seeds": {
+        "name": "sesamfr\u00f6n"
+    },
+    "shallot": {
+        "name": "schalottenl\u00f6k",
+        "plural_name": "shallots"
+    },
+    "skate": {
+        "name": "skate"
+    },
+    "soda": {
+        "name": "natriumkarbonat"
+    },
+    "soda-baking": {
+        "name": "bikarbonat"
+    },
+    "soybean": {
+        "name": "sojab\u00f6na"
+    },
+    "spaghetti-squash": {
+        "name": "spagettipumpa",
+        "plural_name": "spaghetti squashes"
+    },
+    "speck": {
+        "name": "speck"
+    },
+    "spices": {
+        "name": "kryddor"
+    },
+    "spinach": {
+        "name": "spenat"
+    },
+    "spring-onion": {
+        "name": "v\u00e5rl\u00f6k",
+        "plural_name": "spring onions"
+    },
+    "squash": {
+        "name": "squash",
+        "plural_name": "squashes"
+    },
+    "squash-family": {
+        "name": "squash-familj"
+    },
+    "stockfish": {
+        "name": "torkad fisk"
+    },
+    "sugar": {
+        "name": "socker"
+    },
+    "sunchoke": {
+        "name": "jord\u00e4rtskocka",
+        "plural_name": "sunchokes"
+    },
+    "sunflower-seeds": {
+        "name": "solrosfr\u00f6n"
+    },
+    "superfine-sugar": {
+        "name": "str\u00f6socker"
+    },
+    "sweet-potato": {
+        "name": "s\u00f6tpotatis",
+        "plural_name": "sweet potatoes"
+    },
+    "sweetcorn": {
+        "name": "sockermajs",
+        "plural_name": "sweetcorns"
+    },
+    "sweeteners": {
+        "name": "s\u00f6tningsmedel"
+    },
+    "tahini": {
+        "name": "tahini"
+    },
+    "taro": {
+        "name": "taro",
+        "plural_name": "taroes"
+    },
+    "teff": {
+        "name": "teff"
+    },
+    "tomato": {
+        "name": "tomat ",
+        "plural_name": "tomatoes"
+    },
+    "trout": {
+        "name": "\u00f6ring"
+    },
+    "tubers": {
+        "name": "kn\u00f6lar",
+        "plural_name": "tubers"
+    },
+    "tuna": {
+        "name": "tonfisk"
+    },
+    "turbanado-sugar": {
+        "name": "brunt r\u00e5socker"
+    },
+    "turnip": {
+        "name": "majrova",
+        "plural_name": "turnips"
+    },
+    "unrefined-sugar": {
+        "name": "r\u00e5socker"
+    },
+    "vanilla": {
+        "name": "vanilj"
+    },
+    "vegetables": {
+        "name": "gr\u00f6nsaker"
+    },
+    "watercress": {
+        "name": "vattenkrasse"
+    },
+    "watermelon": {
+        "name": "vattenmelon",
+        "plural_name": "watermelons"
+    },
+    "white-mushroom": {
+        "name": "schampinjon",
+        "plural_name": "white mushrooms"
+    },
+    "white-sugar": {
+        "name": "str\u00f6socker"
+    },
+    "xanthan-gum": {
+        "name": "xantangummi"
+    },
+    "yam": {
+        "name": "jams",
+        "plural_name": "yams"
+    },
+    "yeast": {
+        "name": "j\u00e4st"
+    },
+    "zucchini": {
+        "name": "zucchini",
+        "plural_name": "zucchinis"
+    }
 }
