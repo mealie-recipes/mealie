@@ -294,9 +294,10 @@ export default defineComponent({
         page.value = page.value + 1;
 
         const newRecipes = await fetchRecipes();
-        if (!newRecipes.length) {
+        if (newRecipes.length < perPage) {
           hasMore.value = false;
-        } else {
+        }
+        if (newRecipes.length) {
           context.emit(APPEND_RECIPES_EVENT, newRecipes);
         }
 
