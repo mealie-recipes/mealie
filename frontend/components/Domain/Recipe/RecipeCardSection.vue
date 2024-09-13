@@ -69,50 +69,52 @@
         @toggle-dense-view="toggleMobileCards()"
       />
     </v-app-bar>
-    <div v-if="recipes && ready" class="mt-2">
-      <v-row v-if="!useMobileCards">
-        <v-col v-for="(recipe, index) in recipes" :key="recipe.slug + index" :sm="6" :md="6" :lg="4" :xl="3">
-          <v-lazy>
-            <RecipeCard
-              :name="recipe.name"
-              :description="recipe.description"
-              :slug="recipe.slug"
-              :rating="recipe.rating"
-              :image="recipe.image"
-              :tags="recipe.tags"
-              :recipe-id="recipe.id"
-            />
-          </v-lazy>
-        </v-col>
-      </v-row>
-      <v-row v-else dense>
-        <v-col
-          v-for="recipe in recipes"
-          :key="recipe.name"
-          cols="12"
-          :sm="singleColumn ? '12' : '12'"
-          :md="singleColumn ? '12' : '6'"
-          :lg="singleColumn ? '12' : '4'"
-          :xl="singleColumn ? '12' : '3'"
-        >
-          <v-lazy>
-            <RecipeCardMobile
-              :name="recipe.name"
-              :description="recipe.description"
-              :slug="recipe.slug"
-              :rating="recipe.rating"
-              :image="recipe.image"
-              :tags="recipe.tags"
-              :recipe-id="recipe.id"
-            />
-          </v-lazy>
-        </v-col>
-      </v-row>
+    <div v-if="recipes && ready">
+      <div class="mt-2">
+        <v-row v-if="!useMobileCards">
+          <v-col v-for="(recipe, index) in recipes" :key="recipe.slug + index" :sm="6" :md="6" :lg="4" :xl="3">
+            <v-lazy>
+              <RecipeCard
+                :name="recipe.name"
+                :description="recipe.description"
+                :slug="recipe.slug"
+                :rating="recipe.rating"
+                :image="recipe.image"
+                :tags="recipe.tags"
+                :recipe-id="recipe.id"
+              />
+            </v-lazy>
+          </v-col>
+        </v-row>
+        <v-row v-else dense>
+          <v-col
+            v-for="recipe in recipes"
+            :key="recipe.name"
+            cols="12"
+            :sm="singleColumn ? '12' : '12'"
+            :md="singleColumn ? '12' : '6'"
+            :lg="singleColumn ? '12' : '4'"
+            :xl="singleColumn ? '12' : '3'"
+          >
+            <v-lazy>
+              <RecipeCardMobile
+                :name="recipe.name"
+                :description="recipe.description"
+                :slug="recipe.slug"
+                :rating="recipe.rating"
+                :image="recipe.image"
+                :tags="recipe.tags"
+                :recipe-id="recipe.id"
+              />
+            </v-lazy>
+          </v-col>
+        </v-row>
+      </div>
+      <v-card v-intersect="infiniteScroll"></v-card>
+      <v-fade-transition>
+        <AppLoader v-if="loading" :loading="loading" />
+      </v-fade-transition>
     </div>
-    <v-card v-intersect="infiniteScroll"></v-card>
-    <v-fade-transition>
-      <AppLoader v-if="loading" :loading="loading" />
-    </v-fade-transition>
   </div>
 </template>
 
@@ -243,12 +245,12 @@ export default defineComponent({
       ready.value = true;
     });
 
-    let lastQuery: string | undefined;
+    let lastQuery: string | undefined = JSON.stringify(props.query);
     watch(
       () => props.query,
       async (newValue: RecipeSearchQuery | undefined) => {
         const newValueString = JSON.stringify(newValue)
-        if (newValue && (!ready.value || lastQuery !== newValueString)) {
+        if (lastQuery !== newValueString) {
           lastQuery = newValueString;
           ready.value = false;
           await initRecipes();
@@ -259,11 +261,12 @@ export default defineComponent({
 
     async function initRecipes() {
       page.value = 1;
+      hasMore.value = true;
 
       // we double-up the first call to avoid a bug with large screens that render
       // the entire first page without scrolling, preventing additional loading
       const newRecipes = await fetchRecipes(2);
-      if (!newRecipes.length) {
+      if (newRecipes.length < perPage) {
         hasMore.value = false;
       }
 
@@ -275,7 +278,7 @@ export default defineComponent({
 
     const infiniteScroll = useThrottleFn(() => {
       useAsync(async () => {
-        if (!ready.value || !hasMore.value || loading.value) {
+        if (!hasMore.value || loading.value) {
           return;
         }
 
