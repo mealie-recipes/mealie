@@ -11,7 +11,7 @@ export const useUserSelfRatings = function () {
     const api = useUserApi();
 
     async function refreshUserRatings() {
-        if (loading.value) {
+        if (!$auth.user || loading.value) {
             return;
         }
 
@@ -30,7 +30,10 @@ export const useUserSelfRatings = function () {
         await refreshUserRatings();
     }
 
-    refreshUserRatings();
+    if (!ready.value) {
+        refreshUserRatings();
+    }
+
     return {
         userRatings,
         refreshUserRatings,
