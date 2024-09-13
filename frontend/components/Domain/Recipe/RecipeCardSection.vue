@@ -225,7 +225,15 @@ export default defineComponent({
 
     const queryFilter = computed(() => {
       const orderBy = props.query?.orderBy || preferences.value.orderBy;
-      return preferences.value.filterNull && orderBy ? `${orderBy} IS NOT NULL` : null;
+      const orderByFilter = preferences.value.filterNull && orderBy ? `${orderBy} IS NOT NULL` : null;
+
+      if (props.query.queryFilter && orderByFilter) {
+        return `(${props.query.queryFilter}) AND ${orderByFilter}`;
+      } else if (props.query.queryFilter) {
+        return props.query.queryFilter;
+      } else {
+        return orderByFilter;
+      }
     });
 
     async function fetchRecipes(pageCount = 1) {
@@ -235,7 +243,7 @@ export default defineComponent({
         props.query?.orderBy || preferences.value.orderBy,
         props.query?.orderDirection || preferences.value.orderDirection,
         props.query,
-        // filter out recipes that have a null value for the property we're sorting by
+        // we use a computed queryFilter to filter out recipes that have a null value for the property we're sorting by
         queryFilter.value
       );
     }
