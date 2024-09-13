@@ -146,7 +146,7 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, useRouter, onMounted, useContext, computed, Ref, useRoute, watch } from "@nuxtjs/composition-api";
+import { ref, defineComponent, useRouter, onMounted, useContext, computed, Ref, useRoute } from "@nuxtjs/composition-api";
 import { watchDebounced } from "@vueuse/shared";
 import SearchFilter from "~/components/Domain/SearchFilter.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
@@ -379,18 +379,6 @@ export default defineComponent({
         value: "random",
       },
     ];
-
-    watch(
-      () => route.value.query,
-      () => {
-        if (state.value.ready) {
-          hydrateSearch();
-        }
-      },
-      {
-        deep: true,
-      },
-    )
 
     async function hydrateSearch() {
       const query = router.currentRoute.query;
