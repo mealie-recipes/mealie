@@ -69,7 +69,7 @@
         @toggle-dense-view="toggleMobileCards()"
       />
     </v-app-bar>
-    <div v-if="recipes" class="mt-2">
+    <div v-if="recipes && ready" class="mt-2">
       <v-row v-if="!useMobileCards">
         <v-col v-for="(recipe, index) in recipes" :key="recipe.slug + index" :sm="6" :md="6" :lg="4" :xl="3">
           <v-lazy>
@@ -229,7 +229,6 @@ export default defineComponent({
     async function fetchRecipes(pageCount = 1) {
       return await fetchMore(
         page.value,
-        // we double-up the first call to avoid a bug with large screens that render the entire first page without scrolling, preventing additional loading
         perPage * pageCount,
         props.query?.orderBy || preferences.value.orderBy,
         props.query?.orderDirection || preferences.value.orderDirection,
@@ -240,10 +239,8 @@ export default defineComponent({
     }
 
     onMounted(async () => {
-      if (props.query) {
-        await initRecipes();
-        ready.value = true;
-      }
+      await initRecipes();
+      ready.value = true;
     });
 
     let lastQuery: string | undefined;
@@ -253,6 +250,7 @@ export default defineComponent({
         const newValueString = JSON.stringify(newValue)
         if (newValue && (!ready.value || lastQuery !== newValueString)) {
           lastQuery = newValueString;
+          ready.value = false;
           await initRecipes();
           ready.value = true;
         }
@@ -261,6 +259,9 @@ export default defineComponent({
 
     async function initRecipes() {
       page.value = 1;
+
+      // we double-up the first call to avoid a bug with large screens that render
+      // the entire first page without scrolling, preventing additional loading
       const newRecipes = await fetchRecipes(2);
       if (!newRecipes.length) {
         hasMore.value = false;
@@ -379,6 +380,7 @@ export default defineComponent({
       displayTitleIcon,
       EVENTS,
       infiniteScroll,
+      ready,
       loading,
       navigateRandom,
       preferences,
