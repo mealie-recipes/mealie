@@ -56,7 +56,7 @@ const routes = {
 };
 
 export type RecipeSearchQuery = {
-  search: string;
+  search?: string;
   orderDirection?: "asc" | "desc";
   groupId?: string;
 
