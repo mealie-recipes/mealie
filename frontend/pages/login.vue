@@ -133,7 +133,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useContext, computed, reactive, useRouter, useAsync, onMounted } from "@nuxtjs/composition-api";
+import { defineComponent, ref, useContext, computed, reactive, useRouter, useAsync, onBeforeMount } from "@nuxtjs/composition-api";
 import { useDark, whenever } from "@vueuse/core";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useAppInfo } from "~/composables/api";
@@ -197,7 +197,7 @@ export default defineComponent({
         {immediate: true}
     )
 
-    onMounted(async () => {
+    onBeforeMount(async () => {
         if (isCallback()) {
             await oidcAuthenticate(true)
         }
@@ -220,6 +220,7 @@ export default defineComponent({
                 await $auth.loginWith("oidc", { params: new URLSearchParams(window.location.search)})
             } catch (error) {
                 alertOnError(error)
+                router.replace("/login")
             }
             oidcLoggingIn.value = false
         } else {
