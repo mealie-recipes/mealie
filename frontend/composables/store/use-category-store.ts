@@ -1,6 +1,6 @@
 import { ref, Ref } from "@nuxtjs/composition-api";
-import { RecipeCategory } from "~/lib/api/types/recipe";
 import { useData, useReadOnlyStore, useStore } from "../partials/use-store-factory";
+import { RecipeCategory } from "~/lib/api/types/recipe";
 import { usePublicExploreApi, useUserApi } from "~/composables/api";
 
 const store: Ref<RecipeCategory[]> = ref([]);

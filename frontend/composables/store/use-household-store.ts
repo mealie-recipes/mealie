@@ -1,6 +1,6 @@
 import { ref, Ref } from "@nuxtjs/composition-api";
-import { HouseholdSummary } from "~/lib/api/types/household";
 import { useReadOnlyStore } from "../partials/use-store-factory";
+import { HouseholdSummary } from "~/lib/api/types/household";
 import { usePublicExploreApi, useUserApi } from "~/composables/api";
 
 const store: Ref<HouseholdSummary[]> = ref([]);

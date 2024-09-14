@@ -1,6 +1,6 @@
 import { ref, Ref } from "@nuxtjs/composition-api";
-import { IngredientFood } from "~/lib/api/types/recipe";
 import { useData, useReadOnlyStore, useStore } from "../partials/use-store-factory";
+import { IngredientFood } from "~/lib/api/types/recipe";
 import { usePublicExploreApi, useUserApi } from "~/composables/api";
 
 const store: Ref<IngredientFood[]> = ref([]);
