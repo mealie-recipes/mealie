@@ -1,6 +1,6 @@
 {
     "acorn-squash": {
-        "name": "courge poivr\u00e9e"
+        "name": "courge poivrée"
     },
     "alfalfa-sprouts": {
         "name": "germes de luzerne"
@@ -29,7 +29,7 @@
         "name": "bacon"
     },
     "baking-powder": {
-        "name": "poudre \u00e0 p\u00e2te"
+        "name": "poudre à pâte"
     },
     "baking-soda": {
         "name": "bicarbonate de soude"
@@ -51,13 +51,13 @@
         "plural_name": "bell peppers"
     },
     "blackberries": {
-        "name": "m\u00fbres"
+        "name": "mûres"
     },
     "bok-choy": {
         "name": "bok choy"
     },
     "brassicas": {
-        "name": "crucif\u00e8res"
+        "name": "crucifères"
     },
     "bread": {
         "name": "pain"
@@ -135,13 +135,13 @@
         "name": "poivre de cayenne"
     },
     "celeriac": {
-        "name": "c\u00e9leri-rave"
+        "name": "céleri-rave"
     },
     "celery": {
-        "name": "c\u00e9leri"
+        "name": "céleri"
     },
     "cereal-grains": {
-        "name": "grains de c\u00e9r\u00e9ales"
+        "name": "grains de céréales"
     },
     "chard": {
         "name": "blette"
@@ -150,7 +150,7 @@
         "name": "fromage"
     },
     "chicory": {
-        "name": "chicor\u00e9e"
+        "name": "chicorée"
     },
     "chilli-peppers": {
         "name": "piment",
@@ -172,7 +172,7 @@
         "name": "cannelle"
     },
     "clarified-butter": {
-        "name": "beurre clarifi\u00e9"
+        "name": "beurre clarifié"
     },
     "coconut": {
         "name": "noix de coco",
@@ -185,23 +185,23 @@
         "name": "morue"
     },
     "coffee": {
-        "name": "caf\u00e9"
+        "name": "café"
     },
     "collard-greens": {
         "name": "chou vert"
     },
     "confectioners-sugar": {
-        "name": "sucre des p\u00e2tissiers"
+        "name": "sucre des pâtissiers"
     },
     "coriander": {
         "name": "coriandre"
     },
     "corn": {
-        "name": "ma\u00efs",
+        "name": "maïs",
         "plural_name": "corns"
     },
     "corn-syrup": {
-        "name": "sirop de ma\u00efs"
+        "name": "sirop de maïs"
     },
     "cottonseed-oil": {
         "name": "huile de coton"
@@ -210,7 +210,7 @@
         "name": "courgette"
     },
     "cream-of-tartar": {
-        "name": "cr\u00e8me de tartre"
+        "name": "crème de tartre"
     },
     "cucumber": {
         "name": "concombre",
@@ -233,7 +233,7 @@
         "name": "sucre demerara"
     },
     "dough": {
-        "name": "p\u00e2te"
+        "name": "pâte"
     },
     "edible-cactus": {
         "name": "cactus"
@@ -243,7 +243,7 @@
         "plural_name": "eggplants"
     },
     "eggs": {
-        "name": "\u0153ufs",
+        "name": "œufs",
         "plural_name": "eggs"
     },
     "endive": {
@@ -251,29 +251,29 @@
         "plural_name": "endives"
     },
     "fats": {
-        "name": "mati\u00e8res grasses"
+        "name": "matières grasses"
     },
     "fava-beans": {
-        "name": "f\u00e8ves"
+        "name": "fèves"
     },
     "fiddlehead": {
-        "name": "crosse de foug\u00e8re"
+        "name": "crosse de fougère"
     },
     "fiddlehead-fern": {
-        "name": "crosse de foug\u00e8re",
+        "name": "crosse de fougère",
         "plural_name": "fiddlehead ferns"
     },
     "fish": {
         "name": "poisson"
     },
     "five-spice-powder": {
-        "name": "m\u00e9lange 5 \u00e9pices"
+        "name": "mélange 5 épices"
     },
     "flour": {
         "name": "farine"
     },
     "frisee": {
-        "name": "fris\u00e9(e)"
+        "name": "frisé(e)"
     },
     "fructose": {
         "name": "fructose"
@@ -307,20 +307,20 @@
         "name": "gingembre"
     },
     "grains": {
-        "name": "c\u00e9r\u00e9ales"
+        "name": "céréales"
     },
     "granulated-sugar": {
-        "name": "sucre granul\u00e9"
+        "name": "sucre granulé"
     },
     "grape-seed-oil": {
-        "name": "huile de p\u00e9pins de raisin"
+        "name": "huile de pépins de raisin"
     },
     "green-onion": {
         "name": "oignon vert",
         "plural_name": "green onions"
     },
     "heart-of-palm": {
-        "name": "c\u0153ur de palmier",
+        "name": "cœur de palmier",
         "plural_name": "heart of palms"
     },
     "hemp": {
@@ -346,7 +346,7 @@
         "name": "confitures"
     },
     "jellies": {
-        "name": "gel\u00e9es"
+        "name": "gelées"
     },
     "jerusalem-artichoke": {
         "name": "topinambour"
@@ -355,7 +355,7 @@
         "name": "igname"
     },
     "kale": {
-        "name": "chou fris\u00e9"
+        "name": "chou frisé"
     },
     "kohlrabi": {
         "name": "chou-rave"
@@ -371,7 +371,7 @@
         "plural_name": "leeks"
     },
     "legumes": {
-        "name": "l\u00e9gumineuses"
+        "name": "légumineuses"
     },
     "lemongrass": {
         "name": "citronnelle"
@@ -387,10 +387,10 @@
         "plural_name": "livers"
     },
     "maize": {
-        "name": "ma\u00efs"
+        "name": "maïs"
     },
     "maple-syrup": {
-        "name": "sirop d'\u00e9rable"
+        "name": "sirop d'érable"
     },
     "meat": {
         "name": "viande"
@@ -409,7 +409,7 @@
         "name": "moules"
     },
     "nanaimo-bar-mix": {
-        "name": "m\u00e9lange de barres nanaimo"
+        "name": "mélange de barres nanaimo"
     },
     "nori": {
         "name": "algue"
@@ -456,7 +456,7 @@
         "name": "origan"
     },
     "oysters": {
-        "name": "hu\u00eetres"
+        "name": "huîtres"
     },
     "panch-puran": {
         "name": "panch phoron"
@@ -518,7 +518,7 @@
         "name": "sucre brut"
     },
     "refined-sugar": {
-        "name": "sucre raffin\u00e9"
+        "name": "sucre raffiné"
     },
     "rice": {
         "name": "riz"
@@ -539,10 +539,10 @@
         "name": "sel"
     },
     "salt-cod": {
-        "name": "morue sal\u00e9e"
+        "name": "morue salée"
     },
     "scallion": {
-        "name": "\u00e9chalote",
+        "name": "échalote",
         "plural_name": "scallions"
     },
     "seafood": {
@@ -552,10 +552,10 @@
         "name": "graines"
     },
     "sesame-seeds": {
-        "name": "graines de s\u00e9same"
+        "name": "graines de sésame"
     },
     "shallot": {
-        "name": "\u00e9chalote",
+        "name": "échalote",
         "plural_name": "shallots"
     },
     "skate": {
@@ -578,10 +578,10 @@
         "name": "speck"
     },
     "spices": {
-        "name": "\u00e9pices"
+        "name": "épices"
     },
     "spinach": {
-        "name": "\u00e9pinard"
+        "name": "épinard"
     },
     "spring-onion": {
         "name": "oignons de printemps",
@@ -615,11 +615,11 @@
         "plural_name": "sweet potatoes"
     },
     "sweetcorn": {
-        "name": "ma\u00efs doux",
+        "name": "maïs doux",
         "plural_name": "sweetcorns"
     },
     "sweeteners": {
-        "name": "\u00e9dulcorant"
+        "name": "édulcorant"
     },
     "tahini": {
         "name": "tahini"
@@ -653,13 +653,13 @@
         "plural_name": "turnips"
     },
     "unrefined-sugar": {
-        "name": "sucre non raffin\u00e9"
+        "name": "sucre non raffiné"
     },
     "vanilla": {
         "name": "vanille"
     },
     "vegetables": {
-        "name": "l\u00e9gumes"
+        "name": "légumes"
     },
     "watercress": {
         "name": "cresson de fontaine"

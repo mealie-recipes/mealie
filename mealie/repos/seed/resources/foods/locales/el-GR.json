@@ -1,692 +1,692 @@
 {
     "acorn-squash": {
-        "name": "\u03b2\u03b5\u03bb\u03b1\u03bd\u03af\u03b4\u03b9 \u03c3\u03ba\u03bf\u03c5\u03cc\u03c2"
+        "name": "βελανίδι σκουός"
     },
     "alfalfa-sprouts": {
-        "name": "\u03c6\u03cd\u03c4\u03c1\u03b1 \u03c3\u03c0\u03cc\u03c1\u03c9\u03bd \u03b1\u03bb\u03c6\u03ac\u03bb\u03c6\u03b1"
+        "name": "φύτρα σπόρων αλφάλφα"
     },
     "anchovies": {
-        "name": "\u03b1\u03bd\u03c4\u03b6\u03bf\u03cd\u03b3\u03b9\u03b5\u03c2"
+        "name": "αντζούγιες"
     },
     "apples": {
-        "name": "\u03bc\u03ae\u03bb\u03b1",
+        "name": "μήλα",
         "plural_name": "apples"
     },
     "artichoke": {
-        "name": "\u03b1\u03b3\u03ba\u03b9\u03bd\u03ac\u03c1\u03b1"
+        "name": "αγκινάρα"
     },
     "arugula": {
-        "name": "\u03c1\u03cc\u03ba\u03b1"
+        "name": "ρόκα"
     },
     "asparagus": {
-        "name": "\u03c3\u03c0\u03b1\u03c1\u03ac\u03b3\u03b3\u03b9"
+        "name": "σπαράγγι"
     },
     "avocado": {
-        "name": "\u03b1\u03b2\u03bf\u03ba\u03ac\u03bd\u03c4\u03bf",
+        "name": "αβοκάντο",
         "plural_name": "avocado"
     },
     "bacon": {
-        "name": "\u03bc\u03c0\u03ad\u03b9\u03ba\u03bf\u03bd"
+        "name": "μπέικον"
     },
     "baking-powder": {
-        "name": "\u03bc\u03c0\u03ad\u03b9\u03ba\u03b9\u03bd \u03c0\u03ac\u03bf\u03c5\u03bd\u03c4\u03b5\u03c1"
+        "name": "μπέικιν πάουντερ"
     },
     "baking-soda": {
-        "name": "\u03bc\u03b1\u03b3\u03b5\u03b9\u03c1\u03b9\u03ba\u03ae \u03c3\u03cc\u03b4\u03b1"
+        "name": "μαγειρική σόδα"
     },
     "baking-sugar": {
-        "name": "\u03bc\u03b1\u03b3\u03b5\u03b9\u03c1\u03b9\u03ba\u03ae \u03b6\u03ac\u03c7\u03b1\u03c1\u03b7"
+        "name": "μαγειρική ζάχαρη"
     },
     "bar-sugar": {
-        "name": "\u03bc\u03c0\u03ac\u03c1\u03b1 \u03b6\u03ac\u03c7\u03b1\u03c1\u03b7\u03c2"
+        "name": "μπάρα ζάχαρης"
     },
     "basil": {
-        "name": "\u03b2\u03b1\u03c3\u03b9\u03bb\u03b9\u03ba\u03cc\u03c2"
+        "name": "βασιλικός"
     },
     "beans": {
-        "name": "\u03c6\u03b1\u03c3\u03cc\u03bb\u03b9\u03b1"
+        "name": "φασόλια"
     },
     "bell-peppers": {
-        "name": "\u03c0\u03b9\u03c0\u03b5\u03c1\u03b9\u03ad\u03c2",
+        "name": "πιπεριές",
         "plural_name": "bell peppers"
     },
     "blackberries": {
-        "name": "\u03b2\u03b1\u03c4\u03cc\u03bc\u03bf\u03c5\u03c1\u03b1"
+        "name": "βατόμουρα"
     },
     "bok-choy": {
-        "name": "\u03bc\u03c0\u03bf\u03ba \u03c4\u03c3\u03cc\u03b9"
+        "name": "μποκ τσόι"
     },
     "brassicas": {
-        "name": "\u03bc\u03c0\u03c1\u03ac\u03c3\u03b9\u03ba\u03b5\u03c2"
+        "name": "μπράσικες"
     },
     "bread": {
-        "name": "\u03c8\u03c9\u03bc\u03af"
+        "name": "ψωμί"
     },
     "breadfruit": {
-        "name": "\u03b1\u03c1\u03c4\u03cc\u03ba\u03b1\u03c1\u03c0\u03bf\u03c2"
+        "name": "αρτόκαρπος"
     },
     "broccoflower": {
-        "name": "\u03c1\u03bf\u03bc\u03b1\u03bd\u03ad\u03c3\u03ba\u03bf"
+        "name": "ρομανέσκο"
     },
     "broccoli": {
-        "name": "\u03bc\u03c0\u03c1\u03cc\u03ba\u03bf\u03bb\u03bf"
+        "name": "μπρόκολο"
     },
     "broccoli-rabe": {
-        "name": "\u03c1\u03b1\u03c0\u03af\u03bd\u03b9"
+        "name": "ραπίνι"
     },
     "broccolini": {
-        "name": "\u03bc\u03c0\u03c1\u03bf\u03ba\u03bf\u03bb\u03af\u03bd\u03b9"
+        "name": "μπροκολίνι"
     },
     "brown-sugar": {
-        "name": "\u03ba\u03b1\u03c3\u03c4\u03b1\u03bd\u03ae \u03b6\u03ac\u03c7\u03b1\u03c1\u03b7"
+        "name": "καστανή ζάχαρη"
     },
     "brussels-sprouts": {
-        "name": "\u03bb\u03b1\u03c7\u03b1\u03bd\u03ac\u03ba\u03b9\u03b1 \u0392\u03c1\u03c5\u03be\u03b5\u03bb\u03bb\u03ce\u03bd"
+        "name": "λαχανάκια Βρυξελλών"
     },
     "butter": {
-        "name": "\u03b2\u03bf\u03cd\u03c4\u03c5\u03c1\u03bf"
+        "name": "βούτυρο"
     },
     "butternut-pumpkin": {
-        "name": "\u03ba\u03bf\u03bb\u03bf\u03ba\u03cd\u03b8\u03b1 \u03b2\u03bf\u03c5\u03c4\u03c5\u03c1\u03ac\u03c4\u03b7"
+        "name": "κολοκύθα βουτυράτη"
     },
     "butternut-squash": {
-        "name": "\u03ba\u03bf\u03bb\u03bf\u03ba\u03cd\u03b8\u03b1 \u03b2\u03bf\u03c5\u03c4\u03c5\u03c1\u03ac\u03c4\u03b7"
+        "name": "κολοκύθα βουτυράτη"
     },
     "cabbage": {
-        "name": "\u03bb\u03ac\u03c7\u03b1\u03bd\u03bf",
+        "name": "λάχανο",
         "plural_name": "cabbages"
     },
     "cactus-edible": {
-        "name": "\u03ba\u03ac\u03ba\u03c4\u03bf\u03c2, \u03b2\u03c1\u03ce\u03c3\u03b9\u03bc\u03bf\u03c2"
+        "name": "κάκτος, βρώσιμος"
     },
     "calabrese": {
         "name": "calabrese"
     },
     "cane-sugar": {
-        "name": "\u03b6\u03ac\u03c7\u03b1\u03c1\u03b7 \u03b6\u03b1\u03c7\u03b1\u03c1\u03bf\u03ba\u03b1\u03bb\u03ac\u03bc\u03bf\u03c5"
+        "name": "ζάχαρη ζαχαροκαλάμου"
     },
     "cannabis": {
-        "name": "\u03ba\u03ac\u03bd\u03bd\u03b1\u03b2\u03b7"
+        "name": "κάνναβη"
     },
     "capsicum": {
-        "name": "\u03ba\u03b1\u03c8\u03b9\u03ba\u03cc\u03bd"
+        "name": "καψικόν"
     },
     "caraway": {
-        "name": "\u03ac\u03b3\u03c1\u03b9\u03bf \u03ba\u03cd\u03bc\u03b9\u03bd\u03bf"
+        "name": "άγριο κύμινο"
     },
     "carrot": {
-        "name": "\u03ba\u03b1\u03c1\u03cc\u03c4\u03bf",
+        "name": "καρότο",
         "plural_name": "carrots"
     },
     "caster-sugar": {
-        "name": "\u03ac\u03c7\u03bd\u03b7 \u03b6\u03ac\u03c7\u03b1\u03c1\u03b7"
+        "name": "άχνη ζάχαρη"
     },
     "castor-sugar": {
         "name": "castor sugar"
     },
     "catfish": {
-        "name": "\u03b3\u03b1\u03c4\u03cc\u03c8\u03b1\u03c1\u03bf"
+        "name": "γατόψαρο"
     },
     "cauliflower": {
-        "name": "\u03ba\u03bf\u03c5\u03bd\u03bf\u03c5\u03c0\u03af\u03b4\u03b9",
+        "name": "κουνουπίδι",
         "plural_name": "cauliflowers"
     },
     "cayenne-pepper": {
-        "name": "\u03c0\u03b9\u03c0\u03ad\u03c1\u03b9 \u03ba\u03b1\u03b3\u03b9\u03ad\u03bd"
+        "name": "πιπέρι καγιέν"
     },
     "celeriac": {
-        "name": "\u03c3\u03ad\u03bb\u03b9\u03bd\u03bf"
+        "name": "σέλινο"
     },
     "celery": {
-        "name": "\u03c3\u03ad\u03bb\u03b9\u03bd\u03bf"
+        "name": "σέλινο"
     },
     "cereal-grains": {
-        "name": "\u03c0\u03af\u03c4\u03bf\u03c5\u03c1\u03bf \u03b4\u03b7\u03bc\u03b7\u03c4\u03c1\u03b9\u03b1\u03ba\u03ce\u03bd"
+        "name": "πίτουρο δημητριακών"
     },
     "chard": {
-        "name": "\u03c3\u03ad\u03c3\u03ba\u03bf\u03c5\u03bb\u03bf"
+        "name": "σέσκουλο"
     },
     "cheese": {
-        "name": "\u03c4\u03c5\u03c1\u03af"
+        "name": "τυρί"
     },
     "chicory": {
-        "name": "\u03c1\u03b1\u03b4\u03af\u03ba\u03b9"
+        "name": "ραδίκι"
     },
     "chilli-peppers": {
-        "name": "\u03c0\u03b9\u03c0\u03b5\u03c1\u03b9\u03ad\u03c2 \u03c4\u03c3\u03af\u03bb\u03b9",
+        "name": "πιπεριές τσίλι",
         "plural_name": "chilli peppers"
     },
     "chinese-leaves": {
-        "name": "\u03ba\u03b9\u03bd\u03ad\u03b6\u03b9\u03ba\u03b1 \u03c6\u03cd\u03bb\u03bb\u03b1"
+        "name": "κινέζικα φύλλα"
     },
     "chives": {
-        "name": "\u03c3\u03c7\u03bf\u03b9\u03bd\u03cc\u03c0\u03c1\u03b1\u03c3\u03bf"
+        "name": "σχοινόπρασο"
     },
     "chocolate": {
-        "name": "\u03c3\u03bf\u03ba\u03bf\u03bb\u03ac\u03c4\u03b1"
+        "name": "σοκολάτα"
     },
     "cilantro": {
-        "name": "\u03ba\u03cc\u03bb\u03b9\u03b1\u03bd\u03b4\u03c1\u03bf\u03c2"
+        "name": "κόλιανδρος"
     },
     "cinnamon": {
-        "name": "\u03ba\u03b1\u03bd\u03ad\u03bb\u03b1"
+        "name": "κανέλα"
     },
     "clarified-butter": {
-        "name": "\u03b4\u03b9\u03b1\u03c5\u03b3\u03ad\u03c2 \u03b2\u03bf\u03cd\u03c4\u03c5\u03c1\u03bf"
+        "name": "διαυγές βούτυρο"
     },
     "coconut": {
-        "name": "\u03ba\u03b1\u03c1\u03cd\u03b4\u03b1",
+        "name": "καρύδα",
         "plural_name": "coconuts"
     },
     "coconut-milk": {
-        "name": "\u03b3\u03ac\u03bb\u03b1 \u03ba\u03b1\u03c1\u03cd\u03b4\u03b1\u03c2"
+        "name": "γάλα καρύδας"
     },
     "cod": {
-        "name": "\u03bc\u03c0\u03b1\u03ba\u03b1\u03bb\u03b9\u03ac\u03c1\u03bf\u03c2"
+        "name": "μπακαλιάρος"
     },
     "coffee": {
-        "name": "\u03ba\u03b1\u03c6\u03ad\u03c2"
+        "name": "καφές"
     },
     "collard-greens": {
-        "name": "\u03bb\u03b1\u03c7\u03b1\u03bd\u03af\u03b4\u03b5\u03c2"
+        "name": "λαχανίδες"
     },
     "confectioners-sugar": {
-        "name": "\u03b6\u03ac\u03c7\u03b1\u03c1\u03b7 \u03ac\u03c7\u03bd\u03b7"
+        "name": "ζάχαρη άχνη"
     },
     "coriander": {
-        "name": "\u03ba\u03cc\u03bb\u03b9\u03b1\u03bd\u03b4\u03c1\u03bf\u03c2"
+        "name": "κόλιανδρος"
     },
     "corn": {
-        "name": "\u03ba\u03b1\u03bb\u03b1\u03bc\u03c0\u03cc\u03ba\u03b9",
+        "name": "καλαμπόκι",
         "plural_name": "corns"
     },
     "corn-syrup": {
-        "name": "\u03c3\u03b9\u03c1\u03cc\u03c0\u03b9 \u03ba\u03b1\u03bb\u03b1\u03bc\u03c0\u03bf\u03ba\u03b9\u03bf\u03cd"
+        "name": "σιρόπι καλαμποκιού"
     },
     "cottonseed-oil": {
-        "name": "\u03b2\u03b1\u03bc\u03b2\u03b1\u03ba\u03ad\u03bb\u03b1\u03b9\u03bf"
+        "name": "βαμβακέλαιο"
     },
     "courgette": {
-        "name": "\u03ba\u03bf\u03bb\u03bf\u03ba\u03cd\u03b8\u03b9"
+        "name": "κολοκύθι"
     },
     "cream-of-tartar": {
-        "name": "\u03ba\u03c1\u03ad\u03bc\u03b1 \u03c4\u03b1\u03c1\u03c4\u03ac\u03c1"
+        "name": "κρέμα ταρτάρ"
     },
     "cucumber": {
-        "name": "\u03b1\u03b3\u03b3\u03bf\u03cd\u03c1\u03b9",
+        "name": "αγγούρι",
         "plural_name": "cucumbers"
     },
     "cumin": {
-        "name": "\u03ba\u03cd\u03bc\u03b9\u03bd\u03bf"
+        "name": "κύμινο"
     },
     "daikon": {
-        "name": "\u03bd\u03c4\u03b1\u03ca\u03ba\u03cc\u03bd",
+        "name": "νταϊκόν",
         "plural_name": "daikons"
     },
     "dairy-products-and-dairy-substitutes": {
-        "name": "\u03b3\u03b1\u03bb\u03b1\u03ba\u03c4\u03bf\u03ba\u03bf\u03bc\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u03c5\u03c0\u03bf\u03ba\u03b1\u03c4\u03ac\u03c3\u03c4\u03b1\u03c4\u03b1 \u03b3\u03b1\u03bb\u03b1\u03ba\u03c4\u03bf\u03ba\u03bf\u03bc\u03b9\u03ba\u03ce\u03bd"
+        "name": "γαλακτοκομικά και υποκατάστατα γαλακτοκομικών"
     },
     "dandelion": {
-        "name": "\u03c0\u03b9\u03ba\u03c1\u03b1\u03bb\u03af\u03b4\u03b1"
+        "name": "πικραλίδα"
     },
     "demerara-sugar": {
-        "name": "\u03b6\u03ac\u03c7\u03b1\u03c1\u03b7 demerara"
+        "name": "ζάχαρη demerara"
     },
     "dough": {
-        "name": "\u03b6\u03c5\u03bc\u03ac\u03c1\u03b9"
+        "name": "ζυμάρι"
     },
     "edible-cactus": {
-        "name": "\u03ba\u03ac\u03ba\u03c4\u03bf\u03c2 \u03c0\u03bf\u03c5 \u03c4\u03c1\u03ce\u03b3\u03b5\u03c4\u03b1\u03b9"
+        "name": "κάκτος που τρώγεται"
     },
     "eggplant": {
-        "name": "\u03bc\u03b5\u03bb\u03b9\u03c4\u03b6\u03ac\u03bd\u03b1",
+        "name": "μελιτζάνα",
         "plural_name": "eggplants"
     },
     "eggs": {
-        "name": "\u03b1\u03b2\u03b3\u03ac",
+        "name": "αβγά",
         "plural_name": "eggs"
     },
     "endive": {
-        "name": "\u03b1\u03bd\u03c4\u03af\u03b4\u03b9",
+        "name": "αντίδι",
         "plural_name": "endives"
     },
     "fats": {
-        "name": "\u03bb\u03b9\u03c0\u03b1\u03c1\u03ac"
+        "name": "λιπαρά"
     },
     "fava-beans": {
-        "name": "\u03ba\u03bf\u03c5\u03ba\u03b9\u03ac"
+        "name": "κουκιά"
     },
     "fiddlehead": {
-        "name": "\u03b2\u03bb\u03b1\u03c3\u03c4\u03ac\u03c1\u03b9\u03b1 \u03c6\u03c4\u03ad\u03c1\u03b7\u03c2"
+        "name": "βλαστάρια φτέρης"
     },
     "fiddlehead-fern": {
         "name": "fiddlehead fern",
         "plural_name": "fiddlehead ferns"
     },
     "fish": {
-        "name": "\u03c8\u03ac\u03c1\u03b9"
+        "name": "ψάρι"
     },
     "five-spice-powder": {
-        "name": "\u03c3\u03ba\u03cc\u03bd\u03b7 \u03c0\u03ad\u03bd\u03c4\u03b5 \u03bc\u03c0\u03b1\u03c7\u03b1\u03c1\u03b9\u03ba\u03ce\u03bd"
+        "name": "σκόνη πέντε μπαχαρικών"
     },
     "flour": {
-        "name": "\u03b1\u03bb\u03b5\u03cd\u03c1\u03b9"
+        "name": "αλεύρι"
     },
     "frisee": {
-        "name": "\u03ba\u03b1\u03c4\u03c3\u03b1\u03c1\u03cc \u03b1\u03bd\u03c4\u03af\u03b4\u03b9"
+        "name": "κατσαρό αντίδι"
     },
     "fructose": {
-        "name": "\u03c6\u03c1\u03bf\u03c5\u03ba\u03c4\u03cc\u03b6\u03b7"
+        "name": "φρουκτόζη"
     },
     "fruit": {
-        "name": "\u03c6\u03c1\u03bf\u03cd\u03c4\u03bf"
+        "name": "φρούτο"
     },
     "fruit-sugar": {
-        "name": "\u03b6\u03ac\u03c7\u03b1\u03c1\u03b7 \u03c6\u03c1\u03bf\u03cd\u03c4\u03c9\u03bd"
+        "name": "ζάχαρη φρούτων"
     },
     "ful": {
         "name": "ful"
     },
     "garam-masala": {
-        "name": "\u03b3\u03ba\u03b1\u03c1\u03ac\u03bc \u03bc\u03b1\u03c3\u03ac\u03bb\u03b1"
+        "name": "γκαράμ μασάλα"
     },
     "garlic": {
-        "name": "\u03c3\u03ba\u03cc\u03c1\u03b4\u03bf",
+        "name": "σκόρδο",
         "plural_name": "garlics"
     },
     "gem-squash": {
         "name": "gem squash"
     },
     "ghee": {
-        "name": "\u03b3\u03ba\u03b9 (\u03b2\u03bf\u03cd\u03c4\u03c5\u03c1\u03bf)"
+        "name": "γκι (βούτυρο)"
     },
     "giblets": {
-        "name": "\u03b5\u03bd\u03c4\u03cc\u03c3\u03b8\u03b9\u03b1 \u03c0\u03bf\u03c5\u03bb\u03b5\u03c1\u03b9\u03ba\u03ce\u03bd"
+        "name": "εντόσθια πουλερικών"
     },
     "ginger": {
-        "name": "\u03c4\u03b6\u03af\u03bd\u03c4\u03b6\u03b5\u03c1"
+        "name": "τζίντζερ"
     },
     "grains": {
-        "name": "\u03c3\u03b9\u03c4\u03b7\u03c1\u03ac"
+        "name": "σιτηρά"
     },
     "granulated-sugar": {
-        "name": "\u03b6\u03ac\u03c7\u03b1\u03c1\u03b7 \u03c3\u03b5 \u03ba\u03cc\u03ba\u03ba\u03bf\u03c5\u03c2"
+        "name": "ζάχαρη σε κόκκους"
     },
     "grape-seed-oil": {
-        "name": "\u03ad\u03bb\u03b1\u03b9\u03bf \u03b1\u03c0\u03cc \u03c3\u03c4\u03b1\u03c6\u03cd\u03bb\u03b9\u03b1"
+        "name": "έλαιο από σταφύλια"
     },
     "green-onion": {
-        "name": "\u03c0\u03c1\u03ac\u03c3\u03b9\u03bd\u03bf \u03ba\u03c1\u03b5\u03bc\u03bc\u03cd\u03b4\u03b9",
+        "name": "πράσινο κρεμμύδι",
         "plural_name": "green onions"
     },
     "heart-of-palm": {
-        "name": "\u03ba\u03b1\u03c1\u03b4\u03b9\u03ac \u03c6\u03bf\u03af\u03bd\u03b9\u03ba\u03b1",
+        "name": "καρδιά φοίνικα",
         "plural_name": "heart of palms"
     },
     "hemp": {
-        "name": "\u03b2\u03b9\u03bf\u03bc\u03b7\u03c7\u03b1\u03bd\u03b9\u03ba\u03ae \u03ba\u03ac\u03bd\u03bd\u03b1\u03b2\u03b7"
+        "name": "βιομηχανική κάνναβη"
     },
     "herbs": {
-        "name": "\u03b2\u03cc\u03c4\u03b1\u03bd\u03b1"
+        "name": "βότανα"
     },
     "honey": {
-        "name": "\u03bc\u03ad\u03bb\u03b9"
+        "name": "μέλι"
     },
     "isomalt": {
-        "name": "\u03b9\u03c3\u03bf\u03bc\u03b1\u03bb\u03c4\u03cc\u03b6\u03b7"
+        "name": "ισομαλτόζη"
     },
     "jackfruit": {
-        "name": "\u03c4\u03b6\u03ac\u03ba\u03c6\u03c1\u03bf\u03c5\u03c4",
+        "name": "τζάκφρουτ",
         "plural_name": "jackfruits"
     },
     "jaggery": {
-        "name": "\u03b6\u03ac\u03c7\u03b1\u03c1\u03b7 jaggery"
+        "name": "ζάχαρη jaggery"
     },
     "jams": {
-        "name": "\u03bc\u03b1\u03c1\u03bc\u03b5\u03bb\u03ac\u03b4\u03b1"
+        "name": "μαρμελάδα"
     },
     "jellies": {
-        "name": "\u03b6\u03b5\u03bb\u03ad\u03b4\u03b5\u03c2"
+        "name": "ζελέδες"
     },
     "jerusalem-artichoke": {
-        "name": "\u03b1\u03b3\u03ba\u03b9\u03bd\u03ac\u03c1\u03b1 \u03c4\u03b7\u03c2 \u0399\u03b5\u03c1\u03bf\u03c5\u03c3\u03b1\u03bb\u03ae\u03bc"
+        "name": "αγκινάρα της Ιερουσαλήμ"
     },
     "jicama": {
-        "name": "\u03c7\u03af\u03ba\u03b1\u03bc\u03b1"
+        "name": "χίκαμα"
     },
     "kale": {
-        "name": "\u03bb\u03b1\u03c7\u03b1\u03bd\u03af\u03b4\u03b1"
+        "name": "λαχανίδα"
     },
     "kohlrabi": {
-        "name": "\u03bb\u03b1\u03c7\u03b1\u03bd\u03cc\u03c1\u03b9\u03b6\u03b1"
+        "name": "λαχανόριζα"
     },
     "kumara": {
-        "name": "\u03ba\u03bf\u03cd\u03bc\u03b1\u03c1\u03b1"
+        "name": "κούμαρα"
     },
     "leavening-agents": {
-        "name": "\u03b4\u03b9\u03bf\u03b3\u03ba\u03c9\u03c4\u03b9\u03ba\u03ac"
+        "name": "διογκωτικά"
     },
     "leek": {
-        "name": "\u03c0\u03c1\u03ac\u03c3\u03bf",
+        "name": "πράσο",
         "plural_name": "leeks"
     },
     "legumes": {
-        "name": "\u03cc\u03c3\u03c0\u03c1\u03b9\u03b1"
+        "name": "όσπρια"
     },
     "lemongrass": {
-        "name": "\u03bb\u03b5\u03bc\u03bf\u03bd\u03cc\u03c7\u03bf\u03c1\u03c4\u03bf"
+        "name": "λεμονόχορτο"
     },
     "lentils": {
-        "name": "\u03c6\u03b1\u03ba\u03ad\u03c2"
+        "name": "φακές"
     },
     "lettuce": {
-        "name": "\u03bc\u03b1\u03c1\u03bf\u03cd\u03bb\u03b9"
+        "name": "μαρούλι"
     },
     "liver": {
-        "name": "\u03c3\u03c5\u03ba\u03ce\u03c4\u03b9",
+        "name": "συκώτι",
         "plural_name": "livers"
     },
     "maize": {
-        "name": "\u03ba\u03b1\u03bb\u03b1\u03bc\u03c0\u03cc\u03ba\u03b9"
+        "name": "καλαμπόκι"
     },
     "maple-syrup": {
-        "name": "\u03c3\u03b9\u03c1\u03cc\u03c0\u03b9 \u03c3\u03c6\u03b5\u03bd\u03b4\u03ac\u03bc\u03bf\u03c5"
+        "name": "σιρόπι σφενδάμου"
     },
     "meat": {
-        "name": "\u03ba\u03c1\u03ad\u03b1\u03c2"
+        "name": "κρέας"
     },
     "milk": {
-        "name": "\u03b3\u03ac\u03bb\u03b1"
+        "name": "γάλα"
     },
     "mortadella": {
-        "name": "\u03bc\u03bf\u03c1\u03c4\u03b1\u03b4\u03ad\u03bb\u03b1"
+        "name": "μορταδέλα"
     },
     "mushroom": {
-        "name": "\u03bc\u03b1\u03bd\u03b9\u03c4\u03ac\u03c1\u03b9",
+        "name": "μανιτάρι",
         "plural_name": "mushrooms"
     },
     "mussels": {
-        "name": "\u03bc\u03cd\u03b4\u03b9\u03b1"
+        "name": "μύδια"
     },
     "nanaimo-bar-mix": {
         "name": "nanaimo bar mix"
     },
     "nori": {
-        "name": "\u03bd\u03cc\u03c1\u03b9"
+        "name": "νόρι"
     },
     "nutmeg": {
-        "name": "\u03bc\u03bf\u03c3\u03c7\u03bf\u03ba\u03ac\u03c1\u03c5\u03b4\u03bf"
+        "name": "μοσχοκάρυδο"
     },
     "nutritional-yeast-flakes": {
-        "name": "\u03bd\u03b9\u03c6\u03ac\u03b4\u03b5\u03c2 \u03bc\u03b1\u03b3\u03b9\u03ac\u03c2"
+        "name": "νιφάδες μαγιάς"
     },
     "nuts": {
-        "name": "\u03be\u03b7\u03c1\u03bf\u03af \u03ba\u03b1\u03c1\u03c0\u03bf\u03af"
+        "name": "ξηροί καρποί"
     },
     "octopuses": {
-        "name": "\u03c7\u03c4\u03b1\u03c0\u03cc\u03b4\u03b9\u03b1",
+        "name": "χταπόδια",
         "plural_name": "octopuses"
     },
     "oils": {
-        "name": "\u03bb\u03ac\u03b4\u03b9\u03b1"
+        "name": "λάδια"
     },
     "okra": {
-        "name": "\u03bc\u03c0\u03ac\u03bc\u03b9\u03b1"
+        "name": "μπάμια"
     },
     "olive": {
-        "name": "\u03b5\u03bb\u03b9\u03ac"
+        "name": "ελιά"
     },
     "olive-oil": {
-        "name": "\u03b5\u03bb\u03b1\u03b9\u03cc\u03bb\u03b1\u03b4\u03bf"
+        "name": "ελαιόλαδο"
     },
     "onion": {
-        "name": "\u03ba\u03c1\u03b5\u03bc\u03bc\u03cd\u03b4\u03b9"
+        "name": "κρεμμύδι"
     },
     "onion-family": {
-        "name": "\u03ba\u03c1\u03b5\u03bc\u03bc\u03c5\u03b4\u03bf\u03b5\u03b9\u03b4\u03ae"
+        "name": "κρεμμυδοειδή"
     },
     "orange-blossom-water": {
-        "name": "\u03bd\u03b5\u03c1\u03cc \u03b1\u03c0\u03cc \u03ac\u03bd\u03b8\u03b7 \u03c0\u03bf\u03c1\u03c4\u03bf\u03ba\u03b1\u03bb\u03b9\u03ac\u03c2"
+        "name": "νερό από άνθη πορτοκαλιάς"
     },
     "oranges": {
-        "name": "\u03c0\u03bf\u03c1\u03c4\u03bf\u03ba\u03ac\u03bb\u03b9",
+        "name": "πορτοκάλι",
         "plural_name": "oranges"
     },
     "oregano": {
-        "name": "\u03c1\u03af\u03b3\u03b1\u03bd\u03b7"
+        "name": "ρίγανη"
     },
     "oysters": {
-        "name": "\u03c3\u03c4\u03c1\u03b5\u03af\u03b4\u03b9\u03b1"
+        "name": "στρείδια"
     },
     "panch-puran": {
         "name": "panch puran"
     },
     "paprika": {
-        "name": "\u03c0\u03ac\u03c0\u03c1\u03b9\u03ba\u03b1"
+        "name": "πάπρικα"
     },
     "parsley": {
-        "name": "\u03bc\u03b1\u03ca\u03bd\u03c4\u03b1\u03bd\u03cc\u03c2"
+        "name": "μαϊντανός"
     },
     "parsnip": {
-        "name": "\u03c0\u03b1\u03c3\u03c4\u03b9\u03bd\u03ac\u03ba\u03b9",
+        "name": "παστινάκι",
         "plural_name": "parsnips"
     },
     "pear": {
-        "name": "\u03b1\u03c7\u03bb\u03ac\u03b4\u03b9",
+        "name": "αχλάδι",
         "plural_name": "pears"
     },
     "peas": {
-        "name": "\u03b1\u03c1\u03b1\u03ba\u03ac\u03c2"
+        "name": "αρακάς"
     },
     "pepper": {
-        "name": "\u03c0\u03b9\u03c0\u03ad\u03c1\u03b9",
+        "name": "πιπέρι",
         "plural_name": "peppers"
     },
     "pineapple": {
-        "name": "\u03b1\u03bd\u03b1\u03bd\u03ac\u03c2",
+        "name": "ανανάς",
         "plural_name": "pineapples"
     },
     "plantain": {
-        "name": "\u03bc\u03c0\u03b1\u03bd\u03ac\u03bd\u03b5\u03c2 \u0391\u03bd\u03c4\u03b9\u03bb\u03bb\u03ce\u03bd",
+        "name": "μπανάνες Αντιλλών",
         "plural_name": "plantains"
     },
     "poppy-seeds": {
-        "name": "\u03c0\u03b1\u03c0\u03b1\u03c1\u03bf\u03c5\u03bd\u03cc\u03c3\u03c0\u03bf\u03c1\u03bf\u03c2"
+        "name": "παπαρουνόσπορος"
     },
     "potato": {
-        "name": "\u03c0\u03b1\u03c4\u03ac\u03c4\u03b1",
+        "name": "πατάτα",
         "plural_name": "potatoes"
     },
     "poultry": {
-        "name": "\u03c0\u03bf\u03c5\u03bb\u03b5\u03c1\u03b9\u03ba\u03ac"
+        "name": "πουλερικά"
     },
     "powdered-sugar": {
-        "name": "\u03b6\u03ac\u03c7\u03b1\u03c1\u03b7 \u03ac\u03c7\u03bd\u03b7"
+        "name": "ζάχαρη άχνη"
     },
     "pumpkin": {
-        "name": "\u03ba\u03bf\u03bb\u03bf\u03ba\u03cd\u03b8\u03b1",
+        "name": "κολοκύθα",
         "plural_name": "pumpkins"
     },
     "pumpkin-seeds": {
-        "name": "\u03c3\u03c0\u03cc\u03c1\u03bf\u03b9 \u03ba\u03bf\u03bb\u03bf\u03ba\u03cd\u03b8\u03b1\u03c2"
+        "name": "σπόροι κολοκύθας"
     },
     "radish": {
-        "name": "\u03c1\u03b1\u03c0\u03b1\u03bd\u03ac\u03ba\u03b9",
+        "name": "ραπανάκι",
         "plural_name": "radishes"
     },
     "raw-sugar": {
-        "name": "\u03b1\u03ba\u03b1\u03c4\u03ad\u03c1\u03b3\u03b1\u03c3\u03c4\u03b7 \u03b6\u03ac\u03c7\u03b1\u03c1\u03b7"
+        "name": "ακατέργαστη ζάχαρη"
     },
     "refined-sugar": {
-        "name": "\u03c1\u03b1\u03c6\u03b9\u03bd\u03b1\u03c1\u03b9\u03c3\u03bc\u03ad\u03bd\u03b7 \u03b6\u03ac\u03c7\u03b1\u03c1\u03b7"
+        "name": "ραφιναρισμένη ζάχαρη"
     },
     "rice": {
-        "name": "\u03c1\u03cd\u03b6\u03b9"
+        "name": "ρύζι"
     },
     "rice-flour": {
-        "name": "\u03c1\u03c5\u03b6\u03ac\u03bb\u03b5\u03c5\u03c1\u03bf"
+        "name": "ρυζάλευρο"
     },
     "rock-sugar": {
-        "name": "\u03ba\u03cd\u03b2\u03bf\u03b9 \u03b6\u03ac\u03c7\u03b1\u03c1\u03b7\u03c2"
+        "name": "κύβοι ζάχαρης"
     },
     "rum": {
-        "name": "\u03c1\u03bf\u03cd\u03bc\u03b9"
+        "name": "ρούμι"
     },
     "salmon": {
-        "name": "\u03c3\u03bf\u03bb\u03bf\u03bc\u03cc\u03c2"
+        "name": "σολομός"
     },
     "salt": {
-        "name": "\u03b1\u03bb\u03ac\u03c4\u03b9"
+        "name": "αλάτι"
     },
     "salt-cod": {
-        "name": "\u03b1\u03bb\u03b1\u03c4\u03b9\u03c3\u03bc\u03ad\u03bd\u03bf\u03c2 \u03bc\u03c0\u03b1\u03ba\u03b1\u03bb\u03b9\u03ac\u03c1\u03bf\u03c2"
+        "name": "αλατισμένος μπακαλιάρος"
     },
     "scallion": {
-        "name": "\u03c6\u03c1\u03ad\u03c3\u03ba\u03bf \u03ba\u03c1\u03b5\u03bc\u03bc\u03c5\u03b4\u03ac\u03ba\u03b9",
+        "name": "φρέσκο κρεμμυδάκι",
         "plural_name": "scallions"
     },
     "seafood": {
-        "name": "\u03b8\u03b1\u03bb\u03b1\u03c3\u03c3\u03b9\u03bd\u03ac"
+        "name": "θαλασσινά"
     },
     "seeds": {
-        "name": "\u03c3\u03c0\u03cc\u03c1\u03bf\u03b9"
+        "name": "σπόροι"
     },
     "sesame-seeds": {
-        "name": "\u03c3\u03c0\u03cc\u03c1\u03bf\u03b9 \u03c3\u03bf\u03c5\u03c3\u03b1\u03bc\u03b9\u03bf\u03cd"
+        "name": "σπόροι σουσαμιού"
     },
     "shallot": {
-        "name": "\u03b5\u03c3\u03b1\u03bb\u03cc\u03c4",
+        "name": "εσαλότ",
         "plural_name": "shallots"
     },
     "skate": {
-        "name": "\u03c3\u03b1\u03bb\u03ac\u03c7\u03b9"
+        "name": "σαλάχι"
     },
     "soda": {
-        "name": "\u03c3\u03cc\u03b4\u03b1"
+        "name": "σόδα"
     },
     "soda-baking": {
-        "name": "\u03c3\u03cc\u03b4\u03b1, \u03bc\u03c0\u03ad\u03b9\u03ba\u03b9\u03bd"
+        "name": "σόδα, μπέικιν"
     },
     "soybean": {
-        "name": "\u03c3\u03cc\u03b3\u03b9\u03b1"
+        "name": "σόγια"
     },
     "spaghetti-squash": {
-        "name": "\u03bc\u03b1\u03ba\u03b1\u03c1\u03cc\u03bd\u03b9\u03b1 \u03ba\u03bf\u03bb\u03bf\u03ba\u03cd\u03b8\u03b1\u03c2",
+        "name": "μακαρόνια κολοκύθας",
         "plural_name": "spaghetti squashes"
     },
     "speck": {
-        "name": "\u03c3\u03c0\u03b5\u03ba"
+        "name": "σπεκ"
     },
     "spices": {
-        "name": "\u03bc\u03c0\u03b1\u03c7\u03b1\u03c1\u03b9\u03ba\u03ac"
+        "name": "μπαχαρικά"
     },
     "spinach": {
-        "name": "\u03c3\u03c0\u03b1\u03bd\u03ac\u03ba\u03b9"
+        "name": "σπανάκι"
     },
     "spring-onion": {
-        "name": "\u03c6\u03c1\u03ad\u03c3\u03ba\u03bf \u03ba\u03c1\u03b5\u03bc\u03bc\u03c5\u03b4\u03ac\u03ba\u03b9",
+        "name": "φρέσκο κρεμμυδάκι",
         "plural_name": "spring onions"
     },
     "squash": {
-        "name": "\u03ba\u03bf\u03bb\u03bf\u03ba\u03cd\u03b8\u03b1",
+        "name": "κολοκύθα",
         "plural_name": "squashes"
     },
     "squash-family": {
-        "name": "\u03ba\u03bf\u03bb\u03bf\u03ba\u03c5\u03b8\u03bf\u03b5\u03b9\u03b4\u03ae"
+        "name": "κολοκυθοειδή"
     },
     "stockfish": {
-        "name": "\u03be\u03b7\u03c1\u03cc\u03c2 \u03bc\u03c0\u03b1\u03ba\u03b1\u03bb\u03ac\u03bf\u03c2"
+        "name": "ξηρός μπακαλάος"
     },
     "sugar": {
-        "name": "\u03b6\u03ac\u03c7\u03b1\u03c1\u03b7"
+        "name": "ζάχαρη"
     },
     "sunchoke": {
-        "name": "\u03c4\u03bf\u03c0\u03b9\u03bd\u03b1\u03bc\u03c0\u03bf\u03cd\u03c1",
+        "name": "τοπιναμπούρ",
         "plural_name": "sunchokes"
     },
     "sunflower-seeds": {
-        "name": "\u03c3\u03c0\u03cc\u03c1\u03bf\u03b9 \u03b7\u03bb\u03af\u03b1\u03bd\u03b8\u03bf\u03c5"
+        "name": "σπόροι ηλίανθου"
     },
     "superfine-sugar": {
-        "name": "\u03c5\u03c0\u03b5\u03c1\u03bb\u03b5\u03c0\u03c4\u03ae \u03b6\u03ac\u03c7\u03b1\u03c1\u03b7"
+        "name": "υπερλεπτή ζάχαρη"
     },
     "sweet-potato": {
-        "name": "\u03b3\u03bb\u03c5\u03ba\u03bf\u03c0\u03b1\u03c4\u03ac\u03c4\u03b1",
+        "name": "γλυκοπατάτα",
         "plural_name": "sweet potatoes"
     },
     "sweetcorn": {
-        "name": "\u03b3\u03bb\u03c5\u03ba\u03bf \u03ba\u03b1\u03bb\u03b1\u03bc\u03c0\u03bf\u03ba\u03b9",
+        "name": "γλυκο καλαμποκι",
         "plural_name": "sweetcorns"
     },
     "sweeteners": {
-        "name": "\u03b3\u03bb\u03c5\u03ba\u03b1\u03bd\u03c4\u03b9\u03ba\u03ac"
+        "name": "γλυκαντικά"
     },
     "tahini": {
-        "name": "\u03c4\u03b1\u03c7\u03af\u03bd\u03b9"
+        "name": "ταχίνι"
     },
     "taro": {
-        "name": "\u03ba\u03bf\u03bb\u03bf\u03ba\u03b1\u03c3\u03af\u03b1 (\u03b5\u03b4\u03ce\u03b4\u03b9\u03bc\u03bf\u03c2)",
+        "name": "κολοκασία (εδώδιμος)",
         "plural_name": "taroes"
     },
     "teff": {
-        "name": "\u03c4\u03b5\u03c6"
+        "name": "τεφ"
     },
     "tomato": {
-        "name": "\u03bd\u03c4\u03bf\u03bc\u03ac\u03c4\u03b1",
+        "name": "ντομάτα",
         "plural_name": "tomatoes"
     },
     "trout": {
-        "name": "\u03c0\u03ad\u03c3\u03c4\u03c1\u03bf\u03c6\u03b1"
+        "name": "πέστροφα"
     },
     "tubers": {
-        "name": "\u03ba\u03cc\u03bd\u03b4\u03c5\u03bb\u03bf\u03b9",
+        "name": "κόνδυλοι",
         "plural_name": "tubers"
     },
     "tuna": {
-        "name": "\u03c4\u03cc\u03bd\u03bf\u03c2"
+        "name": "τόνος"
     },
     "turbanado-sugar": {
-        "name": "\u03b1\u03ba\u03b1\u03c4\u03ad\u03c1\u03b3\u03b1\u03c3\u03c4\u03b7 \u03b6\u03ac\u03c7\u03b1\u03c1\u03b7"
+        "name": "ακατέργαστη ζάχαρη"
     },
     "turnip": {
-        "name": "\u03b3\u03bf\u03b3\u03b3\u03cd\u03bb\u03b9",
+        "name": "γογγύλι",
         "plural_name": "turnips"
     },
     "unrefined-sugar": {
-        "name": "\u03b1\u03c1\u03b1\u03c6\u03b9\u03bd\u03ac\u03c1\u03b9\u03c3\u03c4\u03b7 \u03b6\u03ac\u03c7\u03b1\u03c1\u03b7"
+        "name": "αραφινάριστη ζάχαρη"
     },
     "vanilla": {
-        "name": "\u03b2\u03b1\u03bd\u03af\u03bb\u03b9\u03b1"
+        "name": "βανίλια"
     },
     "vegetables": {
-        "name": "\u03bb\u03b1\u03c7\u03b1\u03bd\u03b9\u03ba\u03ac"
+        "name": "λαχανικά"
     },
     "watercress": {
-        "name": "\u03bd\u03b5\u03c1\u03bf\u03ba\u03ac\u03c1\u03b4\u03b1\u03bc\u03bf"
+        "name": "νεροκάρδαμο"
     },
     "watermelon": {
-        "name": "\u03ba\u03b1\u03c1\u03c0\u03bf\u03cd\u03b6\u03b9",
+        "name": "καρπούζι",
         "plural_name": "watermelons"
     },
     "white-mushroom": {
-        "name": "\u03bb\u03b5\u03c5\u03ba\u03cc \u03bc\u03b1\u03bd\u03b9\u03c4\u03ac\u03c1\u03b9",
+        "name": "λευκό μανιτάρι",
         "plural_name": "white mushrooms"
     },
     "white-sugar": {
-        "name": "\u03bb\u03b5\u03c5\u03ba\u03ae \u03b6\u03ac\u03c7\u03b1\u03c1\u03b7"
+        "name": "λευκή ζάχαρη"
     },
     "xanthan-gum": {
-        "name": "\u03be\u03b1\u03bd\u03b8\u03ac\u03bd\u03b7"
+        "name": "ξανθάνη"
     },
     "yam": {
-        "name": "\u03b3\u03b9\u03b1\u03bc",
+        "name": "γιαμ",
         "plural_name": "yams"
     },
     "yeast": {
-        "name": "\u03bc\u03b1\u03b3\u03b9\u03ac"
+        "name": "μαγιά"
     },
     "zucchini": {
-        "name": "\u03ba\u03bf\u03bb\u03bf\u03ba\u03cd\u03b8\u03b9",
+        "name": "κολοκύθι",
         "plural_name": "zucchinis"
     }
 }

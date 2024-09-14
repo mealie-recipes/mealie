@@ -1,6 +1,6 @@
 {
     "acorn-squash": {
-        "name": "ab\u00f3bora-bolota"
+        "name": "abóbora-bolota"
     },
     "alfalfa-sprouts": {
         "name": "rebentos de alfafa"
@@ -9,14 +9,14 @@
         "name": "anchovas"
     },
     "apples": {
-        "name": "ma\u00e7\u00e3s",
+        "name": "maçãs",
         "plural_name": "apples"
     },
     "artichoke": {
         "name": "alcachofra"
     },
     "arugula": {
-        "name": "r\u00facula"
+        "name": "rúcula"
     },
     "asparagus": {
         "name": "espargos"
@@ -29,25 +29,25 @@
         "name": "bacon"
     },
     "baking-powder": {
-        "name": "fermento em p\u00f3"
+        "name": "fermento em pó"
     },
     "baking-soda": {
-        "name": "bicarbonato de s\u00f3dio"
+        "name": "bicarbonato de sódio"
     },
     "baking-sugar": {
-        "name": "a\u00e7\u00facar granulado"
+        "name": "açúcar granulado"
     },
     "bar-sugar": {
-        "name": "a\u00e7\u00facar em p\u00f3"
+        "name": "açúcar em pó"
     },
     "basil": {
-        "name": "manjeric\u00e3o"
+        "name": "manjericão"
     },
     "beans": {
-        "name": "feij\u00f5es"
+        "name": "feijões"
     },
     "bell-peppers": {
-        "name": "piment\u00f5es",
+        "name": "pimentões",
         "plural_name": "bell peppers"
     },
     "blackberries": {
@@ -57,28 +57,28 @@
         "name": "couve chinesa"
     },
     "brassicas": {
-        "name": "cruc\u00edferas"
+        "name": "crucíferas"
     },
     "bread": {
-        "name": "p\u00e3o"
+        "name": "pão"
     },
     "breadfruit": {
-        "name": "fruta-p\u00e3o"
+        "name": "fruta-pão"
     },
     "broccoflower": {
         "name": "couve-romanesca"
     },
     "broccoli": {
-        "name": "br\u00f3colos"
+        "name": "brócolos"
     },
     "broccoli-rabe": {
-        "name": "grelo de br\u00f3colo"
+        "name": "grelo de brócolo"
     },
     "broccolini": {
         "name": "bimi"
     },
     "brown-sugar": {
-        "name": "a\u00e7\u00facar mascavado"
+        "name": "açúcar mascavado"
     },
     "brussels-sprouts": {
         "name": "couve-de-bruxelas"
@@ -87,42 +87,42 @@
         "name": "manteiga"
     },
     "butternut-pumpkin": {
-        "name": "ab\u00f3bora manteiga"
+        "name": "abóbora manteiga"
     },
     "butternut-squash": {
-        "name": "pur\u00e9 de ab\u00f3bora manteiga"
+        "name": "puré de abóbora manteiga"
     },
     "cabbage": {
         "name": "repolho",
         "plural_name": "cabbages"
     },
     "cactus-edible": {
-        "name": "cato, comest\u00edvel"
+        "name": "cato, comestível"
     },
     "calabrese": {
-        "name": "br\u00f3colo calabrese"
+        "name": "brócolo calabrese"
     },
     "cane-sugar": {
-        "name": "a\u00e7\u00facar de cana"
+        "name": "açúcar de cana"
     },
     "cannabis": {
-        "name": "can\u00e1bis"
+        "name": "canábis"
     },
     "capsicum": {
         "name": "capsicum"
     },
     "caraway": {
-        "name": "alcar\u00e1via"
+        "name": "alcarávia"
     },
     "carrot": {
         "name": "cenoura",
         "plural_name": "carrots"
     },
     "caster-sugar": {
-        "name": "a\u00e7ucar refinado"
+        "name": "açucar refinado"
     },
     "castor-sugar": {
-        "name": "a\u00e7\u00facar de confeiteiro"
+        "name": "açúcar de confeiteiro"
     },
     "catfish": {
         "name": "peixe-gato"
@@ -135,13 +135,13 @@
         "name": "pimenta caiena"
     },
     "celeriac": {
-        "name": "aipo-r\u00e1bano"
+        "name": "aipo-rábano"
     },
     "celery": {
         "name": "aipo"
     },
     "cereal-grains": {
-        "name": "gr\u00e3os de cereal"
+        "name": "grãos de cereal"
     },
     "chard": {
         "name": "acelga"
@@ -150,7 +150,7 @@
         "name": "queijo"
     },
     "chicory": {
-        "name": "chic\u00f3ria"
+        "name": "chicória"
     },
     "chilli-peppers": {
         "name": "pimenta chili",
@@ -185,13 +185,13 @@
         "name": "bacalhau"
     },
     "coffee": {
-        "name": "caf\u00e9"
+        "name": "café"
     },
     "collard-greens": {
         "name": "couve-galega"
     },
     "confectioners-sugar": {
-        "name": "a\u00e7\u00facar em p\u00f3"
+        "name": "açúcar em pó"
     },
     "coriander": {
         "name": "coentro"
@@ -204,13 +204,13 @@
         "name": "xarope de milho"
     },
     "cottonseed-oil": {
-        "name": "\u00f3leo de algod\u00e3o"
+        "name": "óleo de algodão"
     },
     "courgette": {
         "name": "curgete"
     },
     "cream-of-tartar": {
-        "name": "cremor t\u00e1rtaro"
+        "name": "cremor tártaro"
     },
     "cucumber": {
         "name": "pepino",
@@ -224,19 +224,19 @@
         "plural_name": "daikons"
     },
     "dairy-products-and-dairy-substitutes": {
-        "name": "produtos l\u00e1cteos e substitutos de leite"
+        "name": "produtos lácteos e substitutos de leite"
     },
     "dandelion": {
-        "name": "dente-de-le\u00e3o"
+        "name": "dente-de-leão"
     },
     "demerara-sugar": {
-        "name": "a\u00e7\u00facar demerara"
+        "name": "açúcar demerara"
     },
     "dough": {
         "name": "massa"
     },
     "edible-cactus": {
-        "name": "cato comest\u00edvel"
+        "name": "cato comestível"
     },
     "eggplant": {
         "name": "beringela",
@@ -247,7 +247,7 @@
         "plural_name": "eggs"
     },
     "endive": {
-        "name": "end\u00edvia",
+        "name": "endívia",
         "plural_name": "endives"
     },
     "fats": {
@@ -257,7 +257,7 @@
         "name": "favas"
     },
     "fiddlehead": {
-        "name": "rebentos de feto comest\u00edveis"
+        "name": "rebentos de feto comestíveis"
     },
     "fiddlehead-fern": {
         "name": "rebentos de fetos",
@@ -267,13 +267,13 @@
         "name": "peixe"
     },
     "five-spice-powder": {
-        "name": "cinco especiarias chinesas em p\u00f3"
+        "name": "cinco especiarias chinesas em pó"
     },
     "flour": {
         "name": "farinha"
     },
     "frisee": {
-        "name": "chic\u00f3ria"
+        "name": "chicória"
     },
     "fructose": {
         "name": "frutose"
@@ -295,25 +295,25 @@
         "plural_name": "garlics"
     },
     "gem-squash": {
-        "name": "ab\u00f3bora gem"
+        "name": "abóbora gem"
     },
     "ghee": {
         "name": "manteiga ghee"
     },
     "giblets": {
-        "name": "mi\u00fados de aves"
+        "name": "miúdos de aves"
     },
     "ginger": {
         "name": "gengibre"
     },
     "grains": {
-        "name": "gr\u00e3os"
+        "name": "grãos"
     },
     "granulated-sugar": {
-        "name": "a\u00e7\u00facar granulado"
+        "name": "açúcar granulado"
     },
     "grape-seed-oil": {
-        "name": "\u00f3leo de semente de uva"
+        "name": "óleo de semente de uva"
     },
     "green-onion": {
         "name": "cebola verde",
@@ -324,7 +324,7 @@
         "plural_name": "heart of palms"
     },
     "hemp": {
-        "name": "c\u00e2nhamo"
+        "name": "cânhamo"
     },
     "herbs": {
         "name": "ervas"
@@ -340,7 +340,7 @@
         "plural_name": "jackfruits"
     },
     "jaggery": {
-        "name": "a\u00e7\u00facar mascavo"
+        "name": "açúcar mascavo"
     },
     "jams": {
         "name": "geleias"
@@ -349,7 +349,7 @@
         "name": "gelatinas"
     },
     "jerusalem-artichoke": {
-        "name": "alcachofra-de-jerusal\u00e9m"
+        "name": "alcachofra-de-jerusalém"
     },
     "jicama": {
         "name": "nabo-mexicano"
@@ -358,7 +358,7 @@
         "name": "couve"
     },
     "kohlrabi": {
-        "name": "couve-r\u00e1bano"
+        "name": "couve-rábano"
     },
     "kumara": {
         "name": "batata-doce"
@@ -367,14 +367,14 @@
         "name": "fermentos"
     },
     "leek": {
-        "name": "alho-fran\u00e7\u00eas",
+        "name": "alho-françês",
         "plural_name": "leeks"
     },
     "legumes": {
         "name": "legumes"
     },
     "lemongrass": {
-        "name": "erva-pr\u00edncipe"
+        "name": "erva-príncipe"
     },
     "lentils": {
         "name": "lentilhas"
@@ -383,7 +383,7 @@
         "name": "alface"
     },
     "liver": {
-        "name": "f\u00edgado",
+        "name": "fígado",
         "plural_name": "livers"
     },
     "maize": {
@@ -406,7 +406,7 @@
         "plural_name": "mushrooms"
     },
     "mussels": {
-        "name": "mexilh\u00e3o"
+        "name": "mexilhão"
     },
     "nanaimo-bar-mix": {
         "name": "mistura de barras nanaimo"
@@ -428,7 +428,7 @@
         "plural_name": "octopuses"
     },
     "oils": {
-        "name": "\u00f3leos"
+        "name": "óleos"
     },
     "okra": {
         "name": "quiabo"
@@ -443,17 +443,17 @@
         "name": "cebola"
     },
     "onion-family": {
-        "name": "fam\u00edlia das cebolas"
+        "name": "família das cebolas"
     },
     "orange-blossom-water": {
-        "name": "\u00e1gua de flor de laranjeira"
+        "name": "água de flor de laranjeira"
     },
     "oranges": {
         "name": "laranjas",
         "plural_name": "oranges"
     },
     "oregano": {
-        "name": "or\u00e9g\u00e3o"
+        "name": "orégão"
     },
     "oysters": {
         "name": "ostras"
@@ -483,11 +483,11 @@
         "plural_name": "peppers"
     },
     "pineapple": {
-        "name": "anan\u00e1s",
+        "name": "ananás",
         "plural_name": "pineapples"
     },
     "plantain": {
-        "name": "pl\u00e1tano",
+        "name": "plátano",
         "plural_name": "plantains"
     },
     "poppy-seeds": {
@@ -501,24 +501,24 @@
         "name": "carne de aves"
     },
     "powdered-sugar": {
-        "name": "a\u00e7\u00facar em p\u00f3"
+        "name": "açúcar em pó"
     },
     "pumpkin": {
-        "name": "ab\u00f3bora",
+        "name": "abóbora",
         "plural_name": "pumpkins"
     },
     "pumpkin-seeds": {
-        "name": "sementes de ab\u00f3bora"
+        "name": "sementes de abóbora"
     },
     "radish": {
         "name": "rabanete",
         "plural_name": "radishes"
     },
     "raw-sugar": {
-        "name": "a\u00e7\u00facar mascavado"
+        "name": "açúcar mascavado"
     },
     "refined-sugar": {
-        "name": "a\u00e7\u00facar refinado"
+        "name": "açúcar refinado"
     },
     "rice": {
         "name": "arroz"
@@ -527,13 +527,13 @@
         "name": "farinha de arroz"
     },
     "rock-sugar": {
-        "name": "a\u00e7\u00facar mascavo"
+        "name": "açúcar mascavo"
     },
     "rum": {
         "name": "rum"
     },
     "salmon": {
-        "name": "salm\u00e3o"
+        "name": "salmão"
     },
     "salt": {
         "name": "sal"
@@ -552,7 +552,7 @@
         "name": "sementes"
     },
     "sesame-seeds": {
-        "name": "sementes de s\u00e9samo"
+        "name": "sementes de sésamo"
     },
     "shallot": {
         "name": "chalota",
@@ -565,17 +565,17 @@
         "name": "gasosa"
     },
     "soda-baking": {
-        "name": "bicaburnato de s\u00f3dio"
+        "name": "bicaburnato de sódio"
     },
     "soybean": {
         "name": "soja"
     },
     "spaghetti-squash": {
-        "name": "ab\u00f3bora esparguete",
+        "name": "abóbora esparguete",
         "plural_name": "spaghetti squashes"
     },
     "speck": {
-        "name": "presunto tirol\u00eas"
+        "name": "presunto tirolês"
     },
     "spices": {
         "name": "especiarias"
@@ -588,17 +588,17 @@
         "plural_name": "spring onions"
     },
     "squash": {
-        "name": "ab\u00f3bora",
+        "name": "abóbora",
         "plural_name": "squashes"
     },
     "squash-family": {
-        "name": "fam\u00edlia das ab\u00f3boras"
+        "name": "família das abóboras"
     },
     "stockfish": {
         "name": "bacalhau seco"
     },
     "sugar": {
-        "name": "a\u00e7\u00facar"
+        "name": "açúcar"
     },
     "sunchoke": {
         "name": "alcachofra-girassol",
@@ -608,7 +608,7 @@
         "name": "sementes de girassol"
     },
     "superfine-sugar": {
-        "name": "a\u00e7\u00facar superfino"
+        "name": "açúcar superfino"
     },
     "sweet-potato": {
         "name": "batata-doce",
@@ -619,7 +619,7 @@
         "plural_name": "sweetcorns"
     },
     "sweeteners": {
-        "name": "ado\u00e7antes"
+        "name": "adoçantes"
     },
     "tahini": {
         "name": "tahini"
@@ -646,14 +646,14 @@
         "name": "atum"
     },
     "turbanado-sugar": {
-        "name": "a\u00e7ucar turbinado"
+        "name": "açucar turbinado"
     },
     "turnip": {
         "name": "nabo",
         "plural_name": "turnips"
     },
     "unrefined-sugar": {
-        "name": "a\u00e7\u00facar n\u00e3o refinado"
+        "name": "açúcar não refinado"
     },
     "vanilla": {
         "name": "baunilha"
@@ -662,7 +662,7 @@
         "name": "vegetais"
     },
     "watercress": {
-        "name": "agri\u00e3o"
+        "name": "agrião"
     },
     "watermelon": {
         "name": "melancia",
@@ -673,7 +673,7 @@
         "plural_name": "white mushrooms"
     },
     "white-sugar": {
-        "name": "a\u00e7\u00facar branco"
+        "name": "açúcar branco"
     },
     "xanthan-gum": {
         "name": "goma xantana"

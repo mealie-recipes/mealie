@@ -1,15 +1,15 @@
 {
     "acorn-squash": {
-        "name": "dynia \u017co\u0142\u0119dziowa"
+        "name": "dynia żołędziowa"
     },
     "alfalfa-sprouts": {
-        "name": "kie\u0142ki lucerny"
+        "name": "kiełki lucerny"
     },
     "anchovies": {
         "name": "sardele"
     },
     "apples": {
-        "name": "jab\u0142ka",
+        "name": "jabłka",
         "plural_name": "apples"
     },
     "artichoke": {
@@ -51,10 +51,10 @@
         "plural_name": "bell peppers"
     },
     "blackberries": {
-        "name": "je\u017cyna"
+        "name": "jeżyna"
     },
     "bok-choy": {
-        "name": "kapusta w\u0142a\u015bciwa chi\u0144ska"
+        "name": "kapusta właściwa chińska"
     },
     "brassicas": {
         "name": "kapusty"
@@ -69,28 +69,28 @@
         "name": "zielony kalafior"
     },
     "broccoli": {
-        "name": "broku\u0142"
+        "name": "brokuł"
     },
     "broccoli-rabe": {
         "name": "rapini"
     },
     "broccolini": {
-        "name": "broku\u0142y"
+        "name": "brokuły"
     },
     "brown-sugar": {
-        "name": "cukier br\u0105zowy"
+        "name": "cukier brązowy"
     },
     "brussels-sprouts": {
         "name": "brukselka"
     },
     "butter": {
-        "name": "mas\u0142o"
+        "name": "masło"
     },
     "butternut-pumpkin": {
-        "name": "dynia pi\u017cmowa"
+        "name": "dynia piżmowa"
     },
     "butternut-squash": {
-        "name": "mi\u0105\u017csz dyni pi\u017cmowej"
+        "name": "miąższ dyni piżmowej"
     },
     "cabbage": {
         "name": "kapusta",
@@ -141,7 +141,7 @@
         "name": "seler"
     },
     "cereal-grains": {
-        "name": "ziarna zb\u00f3\u017c"
+        "name": "ziarna zbóż"
     },
     "chard": {
         "name": "botwina"
@@ -157,7 +157,7 @@
         "plural_name": "chilli peppers"
     },
     "chinese-leaves": {
-        "name": "kapusta w\u0142a\u015bciwa peki\u0144ska"
+        "name": "kapusta właściwa pekińska"
     },
     "chives": {
         "name": "szczypiorek"
@@ -172,7 +172,7 @@
         "name": "cynamon"
     },
     "clarified-butter": {
-        "name": "klarowane mas\u0142o"
+        "name": "klarowane masło"
     },
     "coconut": {
         "name": "kokos",
@@ -191,7 +191,7 @@
         "name": "warzywa kapustne"
     },
     "confectioners-sugar": {
-        "name": "cukier cukiernik\u00f3w"
+        "name": "cukier cukierników"
     },
     "coriander": {
         "name": "kolendra"
@@ -204,23 +204,23 @@
         "name": "syrop kukurydziany"
     },
     "cottonseed-oil": {
-        "name": "olej bawe\u0142niany"
+        "name": "olej bawełniany"
     },
     "courgette": {
         "name": "cukinia"
     },
     "cream-of-tartar": {
-        "name": "kwa\u015bny winian potasu"
+        "name": "kwaśny winian potasu"
     },
     "cucumber": {
-        "name": "og\u00f3rek",
+        "name": "ogórek",
         "plural_name": "cucumbers"
     },
     "cumin": {
         "name": "kminek"
     },
     "daikon": {
-        "name": "rzodkiew japo\u0144ska",
+        "name": "rzodkiew japońska",
         "plural_name": "daikons"
     },
     "dairy-products-and-dairy-substitutes": {
@@ -239,7 +239,7 @@
         "name": "kaktus jadalny"
     },
     "eggplant": {
-        "name": "bak\u0142a\u017can",
+        "name": "bakłażan",
         "plural_name": "eggplants"
     },
     "eggs": {
@@ -251,29 +251,29 @@
         "plural_name": "endives"
     },
     "fats": {
-        "name": "t\u0142uszcze"
+        "name": "tłuszcze"
     },
     "fava-beans": {
-        "name": "b\u00f3b"
+        "name": "bób"
     },
     "fiddlehead": {
-        "name": "p\u0119dy paproci"
+        "name": "pędy paproci"
     },
     "fiddlehead-fern": {
-        "name": "pastora\u0142 paproci",
+        "name": "pastorał paproci",
         "plural_name": "fiddlehead ferns"
     },
     "fish": {
         "name": "ryba"
     },
     "five-spice-powder": {
-        "name": "przyprawa pi\u0119ciu smak\u00f3w"
+        "name": "przyprawa pięciu smaków"
     },
     "flour": {
-        "name": "m\u0105ka"
+        "name": "mąka"
     },
     "frisee": {
-        "name": "endywia k\u0119dzierzawa"
+        "name": "endywia kędzierzawa"
     },
     "fructose": {
         "name": "fruktoza"
@@ -282,10 +282,10 @@
         "name": "owoc"
     },
     "fruit-sugar": {
-        "name": "cukier z owoc\u00f3w"
+        "name": "cukier z owoców"
     },
     "ful": {
-        "name": "s\u0142onecznik bulwiasty"
+        "name": "słonecznik bulwiasty"
     },
     "garam-masala": {
         "name": "garam masala"
@@ -307,7 +307,7 @@
         "name": "imbir"
     },
     "grains": {
-        "name": "zbo\u017ce"
+        "name": "zboże"
     },
     "granulated-sugar": {
         "name": "cukier granulowany"
@@ -327,23 +327,23 @@
         "name": "konopia"
     },
     "herbs": {
-        "name": "zio\u0142a"
+        "name": "zioła"
     },
     "honey": {
-        "name": "mi\u00f3d"
+        "name": "miód"
     },
     "isomalt": {
         "name": "izomalt"
     },
     "jackfruit": {
-        "name": "chlebowiec r\u00f3\u017cnolistny",
+        "name": "chlebowiec różnolistny",
         "plural_name": "jackfruits"
     },
     "jaggery": {
         "name": "cukier trzcinowy"
     },
     "jams": {
-        "name": "d\u017cemy"
+        "name": "dżemy"
     },
     "jellies": {
         "name": "galaretki"
@@ -352,10 +352,10 @@
         "name": "topinambur"
     },
     "jicama": {
-        "name": "k\u0142\u0119bian k\u0105towaty"
+        "name": "kłębian kątowaty"
     },
     "kale": {
-        "name": "jarmu\u017c"
+        "name": "jarmuż"
     },
     "kohlrabi": {
         "name": "kalarepa"
@@ -364,14 +364,14 @@
         "name": "kumara"
     },
     "leavening-agents": {
-        "name": "\u015brodki spulchniaj\u0105ce"
+        "name": "środki spulchniające"
     },
     "leek": {
         "name": "por",
         "plural_name": "leeks"
     },
     "legumes": {
-        "name": "ro\u015bliny str\u0105czkowe"
+        "name": "rośliny strączkowe"
     },
     "lemongrass": {
         "name": "trawa cytrynowa"
@@ -380,10 +380,10 @@
         "name": "soczewica"
     },
     "lettuce": {
-        "name": "sa\u0142ata"
+        "name": "sałata"
     },
     "liver": {
-        "name": "w\u0105tr\u00f3bka",
+        "name": "wątróbka",
         "plural_name": "livers"
     },
     "maize": {
@@ -393,7 +393,7 @@
         "name": "syrop klonowy"
     },
     "meat": {
-        "name": "mi\u0119so"
+        "name": "mięso"
     },
     "milk": {
         "name": "mleko"
@@ -406,32 +406,32 @@
         "plural_name": "mushrooms"
     },
     "mussels": {
-        "name": "ma\u0142\u017ce"
+        "name": "małże"
     },
     "nanaimo-bar-mix": {
-        "name": "mieszanka batonik\u00f3w nanaimo"
+        "name": "mieszanka batoników nanaimo"
     },
     "nori": {
         "name": "nori"
     },
     "nutmeg": {
-        "name": "ga\u0142ka muszkato\u0142owa"
+        "name": "gałka muszkatołowa"
     },
     "nutritional-yeast-flakes": {
-        "name": "p\u0142atki dro\u017cd\u017cowe"
+        "name": "płatki drożdżowe"
     },
     "nuts": {
         "name": "orzechy"
     },
     "octopuses": {
-        "name": "o\u015bmiornice",
+        "name": "ośmiornice",
         "plural_name": "octopuses"
     },
     "oils": {
         "name": "oleje"
     },
     "okra": {
-        "name": "pi\u017cmian jadalny"
+        "name": "piżmian jadalny"
     },
     "olive": {
         "name": "oliwa"
@@ -446,10 +446,10 @@
         "name": "rodzina cebul"
     },
     "orange-blossom-water": {
-        "name": "woda z kwiatu pomara\u0144czy"
+        "name": "woda z kwiatu pomarańczy"
     },
     "oranges": {
-        "name": "pomara\u0144cza",
+        "name": "pomarańcza",
         "plural_name": "oranges"
     },
     "oregano": {
@@ -498,7 +498,7 @@
         "plural_name": "potatoes"
     },
     "poultry": {
-        "name": "dr\u00f3b"
+        "name": "drób"
     },
     "powdered-sugar": {
         "name": "cukier w proszku"
@@ -521,22 +521,22 @@
         "name": "cukier rafinowany"
     },
     "rice": {
-        "name": "ry\u017c"
+        "name": "ryż"
     },
     "rice-flour": {
-        "name": "m\u0105ka ry\u017cowa"
+        "name": "mąka ryżowa"
     },
     "rock-sugar": {
-        "name": "kryszta\u0142ki cukru"
+        "name": "kryształki cukru"
     },
     "rum": {
         "name": "rum"
     },
     "salmon": {
-        "name": "\u0142oso\u015b"
+        "name": "łosoś"
     },
     "salt": {
-        "name": "s\u00f3l"
+        "name": "sól"
     },
     "salt-cod": {
         "name": "solny dorsz"
@@ -601,11 +601,11 @@
         "name": "cukier"
     },
     "sunchoke": {
-        "name": "s\u0142onecznik bulwiasty",
+        "name": "słonecznik bulwiasty",
         "plural_name": "sunchokes"
     },
     "sunflower-seeds": {
-        "name": "nasiona s\u0142onecznika"
+        "name": "nasiona słonecznika"
     },
     "superfine-sugar": {
         "name": "bardzo drobny cukier"
@@ -619,7 +619,7 @@
         "plural_name": "sweetcorns"
     },
     "sweeteners": {
-        "name": "s\u0142odziki"
+        "name": "słodziki"
     },
     "tahini": {
         "name": "tahini"
@@ -629,21 +629,21 @@
         "plural_name": "taroes"
     },
     "teff": {
-        "name": "mi\u0142ka abisy\u0144ska"
+        "name": "miłka abisyńska"
     },
     "tomato": {
         "name": "pomidor",
         "plural_name": "tomatoes"
     },
     "trout": {
-        "name": "pstr\u0105g"
+        "name": "pstrąg"
     },
     "tubers": {
         "name": "bulwy",
         "plural_name": "tubers"
     },
     "tuna": {
-        "name": "tu\u0144czyk"
+        "name": "tuńczyk"
     },
     "turbanado-sugar": {
         "name": "cukier turbinado"
@@ -673,7 +673,7 @@
         "plural_name": "white mushrooms"
     },
     "white-sugar": {
-        "name": "cukier bia\u0142y"
+        "name": "cukier biały"
     },
     "xanthan-gum": {
         "name": "guma ksantanowa"
@@ -683,7 +683,7 @@
         "plural_name": "yams"
     },
     "yeast": {
-        "name": "dro\u017cd\u017ce"
+        "name": "drożdże"
     },
     "zucchini": {
         "name": "cukinia",

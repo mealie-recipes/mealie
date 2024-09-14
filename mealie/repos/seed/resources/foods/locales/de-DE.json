@@ -1,6 +1,6 @@
 {
     "acorn-squash": {
-        "name": "Eichelk\u00fcrbis"
+        "name": "Eichelkürbis"
     },
     "alfalfa-sprouts": {
         "name": "Alfalfasprossen"
@@ -9,7 +9,7 @@
         "name": "Sardellen"
     },
     "apples": {
-        "name": "\u00c4pfel",
+        "name": "Äpfel",
         "plural_name": "apples"
     },
     "artichoke": {
@@ -87,10 +87,10 @@
         "name": "Butter"
     },
     "butternut-pumpkin": {
-        "name": "Butternut-K\u00fcrbis"
+        "name": "Butternut-Kürbis"
     },
     "butternut-squash": {
-        "name": "Butternut-K\u00fcrbis"
+        "name": "Butternut-Kürbis"
     },
     "cabbage": {
         "name": "Kohl",
@@ -112,7 +112,7 @@
         "name": "Paprika"
     },
     "caraway": {
-        "name": "K\u00fcmmel"
+        "name": "Kümmel"
     },
     "carrot": {
         "name": "Karotte",
@@ -141,16 +141,16 @@
         "name": "Sellerie"
     },
     "cereal-grains": {
-        "name": "Getreidek\u00f6rner"
+        "name": "Getreidekörner"
     },
     "chard": {
         "name": "Mangold"
     },
     "cheese": {
-        "name": "K\u00e4se"
+        "name": "Käse"
     },
     "chicory": {
-        "name": "Chicor\u00e9e"
+        "name": "Chicorée"
     },
     "chilli-peppers": {
         "name": "Chilischoten",
@@ -172,7 +172,7 @@
         "name": "Zimt"
     },
     "clarified-butter": {
-        "name": "gekl\u00e4rte Butter"
+        "name": "geklärte Butter"
     },
     "coconut": {
         "name": "Kokosnuss",
@@ -188,7 +188,7 @@
         "name": "Kaffee"
     },
     "collard-greens": {
-        "name": "Kohlbl\u00e4tter"
+        "name": "Kohlblätter"
     },
     "confectioners-sugar": {
         "name": "Konditorzucker"
@@ -204,7 +204,7 @@
         "name": "Maissirup"
     },
     "cottonseed-oil": {
-        "name": "Baumwollsaat\u00f6l"
+        "name": "Baumwollsaatöl"
     },
     "courgette": {
         "name": "Zucchini"
@@ -217,7 +217,7 @@
         "plural_name": "cucumbers"
     },
     "cumin": {
-        "name": "Kreuzk\u00fcmmel"
+        "name": "Kreuzkümmel"
     },
     "daikon": {
         "name": "Daikon",
@@ -227,7 +227,7 @@
         "name": "Milchprodukte und Milchersatzprodukte"
     },
     "dandelion": {
-        "name": "L\u00f6wenzahn"
+        "name": "Löwenzahn"
     },
     "demerara-sugar": {
         "name": "Demerara-Zucker"
@@ -267,13 +267,13 @@
         "name": "Fisch"
     },
     "five-spice-powder": {
-        "name": "F\u00fcnf-Gew\u00fcrze-Pulver"
+        "name": "Fünf-Gewürze-Pulver"
     },
     "flour": {
         "name": "Mehl"
     },
     "frisee": {
-        "name": "Fris\u00e9e"
+        "name": "Frisée"
     },
     "fructose": {
         "name": "Fruktose"
@@ -313,10 +313,10 @@
         "name": "granulierter Zucker"
     },
     "grape-seed-oil": {
-        "name": "Traubenkern\u00f6l"
+        "name": "Traubenkernöl"
     },
     "green-onion": {
-        "name": "Fr\u00fchlingszwiebeln",
+        "name": "Frühlingszwiebeln",
         "plural_name": "green onions"
     },
     "heart-of-palm": {
@@ -327,7 +327,7 @@
         "name": "Hanf"
     },
     "herbs": {
-        "name": "Kr\u00e4uter"
+        "name": "Kräuter"
     },
     "honey": {
         "name": "Honig"
@@ -355,13 +355,13 @@
         "name": "Yambohnenknolle"
     },
     "kale": {
-        "name": "Gr\u00fcnkohl"
+        "name": "Grünkohl"
     },
     "kohlrabi": {
         "name": "Kohlrabi"
     },
     "kumara": {
-        "name": "S\u00fc\u00dfkartoffel"
+        "name": "Süßkartoffel"
     },
     "leavening-agents": {
         "name": "Backtriebmittel"
@@ -371,7 +371,7 @@
         "plural_name": "leeks"
     },
     "legumes": {
-        "name": "H\u00fclsenfr\u00fcchte"
+        "name": "Hülsenfrüchte"
     },
     "lemongrass": {
         "name": "Zitronengras"
@@ -421,14 +421,14 @@
         "name": "Nahrungsmittelhefeflocken"
     },
     "nuts": {
-        "name": "N\u00fcsse"
+        "name": "Nüsse"
     },
     "octopuses": {
         "name": "Tintenfische",
         "plural_name": "octopuses"
     },
     "oils": {
-        "name": "\u00d6le"
+        "name": "Öle"
     },
     "okra": {
         "name": "Okra"
@@ -437,16 +437,16 @@
         "name": "Olive"
     },
     "olive-oil": {
-        "name": "Oliven\u00f6l"
+        "name": "Olivenöl"
     },
     "onion": {
         "name": "Zwiebel"
     },
     "onion-family": {
-        "name": "Zwiebelgew\u00e4chse"
+        "name": "Zwiebelgewächse"
     },
     "orange-blossom-water": {
-        "name": "Orangenbl\u00fctenwasser"
+        "name": "Orangenblütenwasser"
     },
     "oranges": {
         "name": "Orangen",
@@ -498,17 +498,17 @@
         "plural_name": "potatoes"
     },
     "poultry": {
-        "name": "Gefl\u00fcgel"
+        "name": "Geflügel"
     },
     "powdered-sugar": {
         "name": "Puderzucker"
     },
     "pumpkin": {
-        "name": "K\u00fcrbis",
+        "name": "Kürbis",
         "plural_name": "pumpkins"
     },
     "pumpkin-seeds": {
-        "name": "K\u00fcrbiskerne"
+        "name": "Kürbiskerne"
     },
     "radish": {
         "name": "Radieschen",
@@ -546,7 +546,7 @@
         "plural_name": "scallions"
     },
     "seafood": {
-        "name": "Meeresfr\u00fcchte"
+        "name": "Meeresfrüchte"
     },
     "seeds": {
         "name": "Samen"
@@ -571,28 +571,28 @@
         "name": "Sojabohne"
     },
     "spaghetti-squash": {
-        "name": "Spaghettik\u00fcrbis",
+        "name": "Spaghettikürbis",
         "plural_name": "spaghetti squashes"
     },
     "speck": {
         "name": "Speck"
     },
     "spices": {
-        "name": "Gew\u00fcrze"
+        "name": "Gewürze"
     },
     "spinach": {
         "name": "Spinat"
     },
     "spring-onion": {
-        "name": "Fr\u00fchlingszwiebeln",
+        "name": "Frühlingszwiebeln",
         "plural_name": "spring onions"
     },
     "squash": {
-        "name": "K\u00fcrbis",
+        "name": "Kürbis",
         "plural_name": "squashes"
     },
     "squash-family": {
-        "name": "K\u00fcrbisgew\u00e4chse"
+        "name": "Kürbisgewächse"
     },
     "stockfish": {
         "name": "Stockfisch"
@@ -611,7 +611,7 @@
         "name": "superfeiner Zucker"
     },
     "sweet-potato": {
-        "name": "S\u00fc\u00dfkartoffel",
+        "name": "Süßkartoffel",
         "plural_name": "sweet potatoes"
     },
     "sweetcorn": {
@@ -619,7 +619,7 @@
         "plural_name": "sweetcorns"
     },
     "sweeteners": {
-        "name": "S\u00fc\u00dfstoffe"
+        "name": "Süßstoffe"
     },
     "tahini": {
         "name": "Tahina"
@@ -649,7 +649,7 @@
         "name": "Turbinado-Zucker"
     },
     "turnip": {
-        "name": "Steckr\u00fcbe",
+        "name": "Steckrübe",
         "plural_name": "turnips"
     },
     "unrefined-sugar": {
@@ -659,7 +659,7 @@
         "name": "Vanille"
     },
     "vegetables": {
-        "name": "Gem\u00fcse"
+        "name": "Gemüse"
     },
     "watercress": {
         "name": "Brunnenkresse"
@@ -669,17 +669,17 @@
         "plural_name": "watermelons"
     },
     "white-mushroom": {
-        "name": "Wei\u00dfer Pilz",
+        "name": "Weißer Pilz",
         "plural_name": "white mushrooms"
     },
     "white-sugar": {
-        "name": "wei\u00dfer Zucker"
+        "name": "weißer Zucker"
     },
     "xanthan-gum": {
         "name": "Xanthan"
     },
     "yam": {
-        "name": "S\u00fc\u00dfkartoffel",
+        "name": "Süßkartoffel",
         "plural_name": "yams"
     },
     "yeast": {

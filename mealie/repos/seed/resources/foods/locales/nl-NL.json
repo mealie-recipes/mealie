@@ -197,7 +197,7 @@
         "name": "koriander"
     },
     "corn": {
-        "name": "ma\u00efs",
+        "name": "maïs",
         "plural_name": "corns"
     },
     "corn-syrup": {
@@ -387,7 +387,7 @@
         "plural_name": "livers"
     },
     "maize": {
-        "name": "ma\u00efs"
+        "name": "maïs"
     },
     "maple-syrup": {
         "name": "ahornsiroop"
@@ -428,7 +428,7 @@
         "plural_name": "octopuses"
     },
     "oils": {
-        "name": "oli\u00ebn"
+        "name": "oliën"
     },
     "okra": {
         "name": "okra"
@@ -615,7 +615,7 @@
         "plural_name": "sweet potatoes"
     },
     "sweetcorn": {
-        "name": "zoete ma\u00efs",
+        "name": "zoete maïs",
         "plural_name": "sweetcorns"
     },
     "sweeteners": {

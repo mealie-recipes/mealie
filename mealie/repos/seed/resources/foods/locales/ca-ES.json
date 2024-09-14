@@ -1,6 +1,6 @@
 {
     "acorn-squash": {
-        "name": "carabassa de pelegr\u00ed"
+        "name": "carabassa de pelegrí"
     },
     "alfalfa-sprouts": {
         "name": "brots d'alfals"
@@ -19,7 +19,7 @@
         "name": "ruca"
     },
     "asparagus": {
-        "name": "esp\u00e0rrec"
+        "name": "espàrrec"
     },
     "avocado": {
         "name": "alvocat",
@@ -32,7 +32,7 @@
         "name": "rent"
     },
     "baking-soda": {
-        "name": "bicarbonat s\u00f2dic"
+        "name": "bicarbonat sòdic"
     },
     "baking-sugar": {
         "name": "sucre blanc"
@@ -41,7 +41,7 @@
         "name": "sucre de canya"
     },
     "basil": {
-        "name": "alf\u00e0brega"
+        "name": "alfàbrega"
     },
     "beans": {
         "name": "fesols/mongetes"
@@ -69,7 +69,7 @@
         "name": "romanesco"
     },
     "broccoli": {
-        "name": "br\u00f2coli"
+        "name": "bròcoli"
     },
     "broccoli-rabe": {
         "name": "grelos"
@@ -78,10 +78,10 @@
         "name": "bimi"
     },
     "brown-sugar": {
-        "name": "sucre mor\u00e8"
+        "name": "sucre morè"
     },
     "brussels-sprouts": {
-        "name": "col de Brussel\u00b7les"
+        "name": "col de Brussel·les"
     },
     "butter": {
         "name": "mantega"
@@ -100,19 +100,19 @@
         "name": "figues de pala"
     },
     "calabrese": {
-        "name": "br\u00f2coli"
+        "name": "bròcoli"
     },
     "cane-sugar": {
         "name": "sucre de canya"
     },
     "cannabis": {
-        "name": "c\u00e0nnabis"
+        "name": "cànnabis"
     },
     "capsicum": {
         "name": "nyora"
     },
     "caraway": {
-        "name": "com\u00ed"
+        "name": "comí"
     },
     "carrot": {
         "name": "carlota",
@@ -182,16 +182,16 @@
         "name": "llet de coco"
     },
     "cod": {
-        "name": "bacall\u00e0"
+        "name": "bacallà"
     },
     "coffee": {
-        "name": "caf\u00e8"
+        "name": "cafè"
     },
     "collard-greens": {
         "name": "col de cabdell"
     },
     "confectioners-sugar": {
-        "name": "sucre glac\u00e9"
+        "name": "sucre glacé"
     },
     "coriander": {
         "name": "coriandre"
@@ -204,23 +204,23 @@
         "name": "xarop de dacsa"
     },
     "cottonseed-oil": {
-        "name": "oli de cot\u00f3"
+        "name": "oli de cotó"
     },
     "courgette": {
         "name": "carabasseta"
     },
     "cream-of-tartar": {
-        "name": "crema de t\u00e0rtar"
+        "name": "crema de tàrtar"
     },
     "cucumber": {
         "name": "cogombre",
         "plural_name": "cucumbers"
     },
     "cumin": {
-        "name": "com\u00ed"
+        "name": "comí"
     },
     "daikon": {
-        "name": "daikon (rave japon\u00e9s)",
+        "name": "daikon (rave japonés)",
         "plural_name": "daikons"
     },
     "dairy-products-and-dairy-substitutes": {
@@ -239,7 +239,7 @@
         "name": "figa palera"
     },
     "eggplant": {
-        "name": "alberg\u00ednia",
+        "name": "albergínia",
         "plural_name": "eggplants"
     },
     "eggs": {
@@ -247,7 +247,7 @@
         "plural_name": "eggs"
     },
     "endive": {
-        "name": "end\u00edvia",
+        "name": "endívia",
         "plural_name": "endives"
     },
     "fats": {
@@ -267,7 +267,7 @@
         "name": "peix"
     },
     "five-spice-powder": {
-        "name": "cinc esp\u00e8cies (esp\u00e8cies xineses)"
+        "name": "cinc espècies (espècies xineses)"
     },
     "flour": {
         "name": "farina"
@@ -301,7 +301,7 @@
         "name": "ghee"
     },
     "giblets": {
-        "name": "v\u00edsceres d'au"
+        "name": "vísceres d'au"
     },
     "ginger": {
         "name": "gingebre"
@@ -313,7 +313,7 @@
         "name": "sucre granulat"
     },
     "grape-seed-oil": {
-        "name": "oli de llavors de ra\u00efm"
+        "name": "oli de llavors de raïm"
     },
     "green-onion": {
         "name": "ceba tendra",
@@ -324,7 +324,7 @@
         "plural_name": "heart of palms"
     },
     "hemp": {
-        "name": "c\u00e0nem"
+        "name": "cànem"
     },
     "herbs": {
         "name": "herbes"
@@ -349,10 +349,10 @@
         "name": "gominoles"
     },
     "jerusalem-artichoke": {
-        "name": "ny\u00e0mera"
+        "name": "nyàmera"
     },
     "jicama": {
-        "name": "j\u00edcama"
+        "name": "jícama"
     },
     "kale": {
         "name": "kale"
@@ -390,7 +390,7 @@
         "name": "dacsa"
     },
     "maple-syrup": {
-        "name": "xarop d'aur\u00f3"
+        "name": "xarop d'auró"
     },
     "meat": {
         "name": "carn"
@@ -399,14 +399,14 @@
         "name": "llet"
     },
     "mortadella": {
-        "name": "mortadel\u00b7la"
+        "name": "mortadel·la"
     },
     "mushroom": {
-        "name": "xampiny\u00f3",
+        "name": "xampinyó",
         "plural_name": "mushrooms"
     },
     "mussels": {
-        "name": "cl\u00f2xitnes/musclos"
+        "name": "clòxitnes/musclos"
     },
     "nanaimo-bar-mix": {
         "name": "nanaimo bar mix"
@@ -462,7 +462,7 @@
         "name": "panch puran"
     },
     "paprika": {
-        "name": "pebre dol\u00e7"
+        "name": "pebre dolç"
     },
     "parsley": {
         "name": "julivert"
@@ -476,10 +476,10 @@
         "plural_name": "pears"
     },
     "peas": {
-        "name": "p\u00e8sols"
+        "name": "pèsols"
     },
     "pepper": {
-        "name": "piment\u00f3/bajoca",
+        "name": "pimentó/bajoca",
         "plural_name": "peppers"
     },
     "pineapple": {
@@ -487,14 +487,14 @@
         "plural_name": "pineapples"
     },
     "plantain": {
-        "name": "pl\u00e0tan de cuinar",
+        "name": "plàtan de cuinar",
         "plural_name": "plantains"
     },
     "poppy-seeds": {
         "name": "llavors de rosella"
     },
     "potato": {
-        "name": "cre\u00eflla",
+        "name": "creïlla",
         "plural_name": "potatoes"
     },
     "poultry": {
@@ -521,10 +521,10 @@
         "name": "sucre blanc"
     },
     "rice": {
-        "name": "arr\u00f2s"
+        "name": "arròs"
     },
     "rice-flour": {
-        "name": "farina d'arr\u00f2s"
+        "name": "farina d'arròs"
     },
     "rock-sugar": {
         "name": "sucre candi"
@@ -533,16 +533,16 @@
         "name": "rom"
     },
     "salmon": {
-        "name": "salm\u00f3"
+        "name": "salmó"
     },
     "salt": {
         "name": "sal"
     },
     "salt-cod": {
-        "name": "bacall\u00e0 salat"
+        "name": "bacallà salat"
     },
     "scallion": {
-        "name": "cal\u00e7ots",
+        "name": "calçots",
         "plural_name": "scallions"
     },
     "seafood": {
@@ -552,7 +552,7 @@
         "name": "llavors"
     },
     "sesame-seeds": {
-        "name": "llavors de s\u00e8sam"
+        "name": "llavors de sèsam"
     },
     "shallot": {
         "name": "escalunya",
@@ -578,7 +578,7 @@
         "name": "speck (pernil)"
     },
     "spices": {
-        "name": "esp\u00e8cies"
+        "name": "espècies"
     },
     "spinach": {
         "name": "espinacs"
@@ -588,7 +588,7 @@
         "plural_name": "spring onions"
     },
     "squash": {
-        "name": "carabassa cabell d'\u00e0ngel",
+        "name": "carabassa cabell d'àngel",
         "plural_name": "squashes"
     },
     "squash-family": {
@@ -601,21 +601,21 @@
         "name": "sucre"
     },
     "sunchoke": {
-        "name": "ny\u00e0mera",
+        "name": "nyàmera",
         "plural_name": "sunchokes"
     },
     "sunflower-seeds": {
         "name": "pipes de gira-sol"
     },
     "superfine-sugar": {
-        "name": "sucre extraf\u00ed"
+        "name": "sucre extrafí"
     },
     "sweet-potato": {
         "name": "moniato",
         "plural_name": "sweet potatoes"
     },
     "sweetcorn": {
-        "name": "dacsa dol\u00e7a",
+        "name": "dacsa dolça",
         "plural_name": "sweetcorns"
     },
     "sweeteners": {
@@ -639,7 +639,7 @@
         "name": "truita"
     },
     "tubers": {
-        "name": "tub\u00e8rculs",
+        "name": "tubèrculs",
         "plural_name": "tubers"
     },
     "tuna": {
@@ -665,11 +665,11 @@
         "name": "creixen"
     },
     "watermelon": {
-        "name": "mel\u00f3 d'Alger/s\u00edndria",
+        "name": "meló d'Alger/síndria",
         "plural_name": "watermelons"
     },
     "white-mushroom": {
-        "name": "xampiny\u00f3 blanc",
+        "name": "xampinyó blanc",
         "plural_name": "white mushrooms"
     },
     "white-sugar": {

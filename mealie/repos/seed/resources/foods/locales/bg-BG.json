@@ -1,692 +1,692 @@
 {
     "acorn-squash": {
-        "name": "\u0446\u0438\u043a\u043e\u0440\u0438\u044f"
+        "name": "цикория"
     },
     "alfalfa-sprouts": {
-        "name": "\u0430\u043b\u0444\u0430\u043b\u0444\u0430 \u043a\u044a\u043b\u043d\u043e\u0432\u0435"
+        "name": "алфалфа кълнове"
     },
     "anchovies": {
-        "name": "\u0430\u043d\u0448\u043e\u0430"
+        "name": "аншоа"
     },
     "apples": {
-        "name": "\u044f\u0431\u044a\u043b\u043a\u0438",
+        "name": "ябълки",
         "plural_name": "apples"
     },
     "artichoke": {
-        "name": "\u0430\u0440\u0442\u0438\u0448\u043e\u043a"
+        "name": "артишок"
     },
     "arugula": {
-        "name": "\u0440\u0443\u043a\u043e\u043b\u0430"
+        "name": "рукола"
     },
     "asparagus": {
-        "name": "\u0430\u0441\u043f\u0435\u0440\u0436\u0438"
+        "name": "аспержи"
     },
     "avocado": {
-        "name": "\u0430\u0432\u043e\u043a\u0430\u0434\u043e",
+        "name": "авокадо",
         "plural_name": "avocado"
     },
     "bacon": {
-        "name": "\u0431\u0435\u043a\u043e\u043d"
+        "name": "бекон"
     },
     "baking-powder": {
-        "name": "\u0431\u0430\u043a\u043f\u0443\u043b\u0432\u0435\u0440"
+        "name": "бакпулвер"
     },
     "baking-soda": {
-        "name": "\u0441\u043e\u0434\u0430 \u0437\u0430 \u0445\u043b\u044f\u0431"
+        "name": "сода за хляб"
     },
     "baking-sugar": {
-        "name": "\u0437\u0430\u0445\u0430\u0440"
+        "name": "захар"
     },
     "bar-sugar": {
-        "name": "\u0437\u0430\u0445\u0430\u0440"
+        "name": "захар"
     },
     "basil": {
-        "name": "\u0431\u043e\u0441\u0438\u043b\u0435\u043a"
+        "name": "босилек"
     },
     "beans": {
-        "name": "\u0431\u043e\u0431"
+        "name": "боб"
     },
     "bell-peppers": {
-        "name": "\u043a\u0430\u043c\u0431\u0438",
+        "name": "камби",
         "plural_name": "bell peppers"
     },
     "blackberries": {
-        "name": "\u043a\u044a\u043f\u0438\u043d\u0438"
+        "name": "къпини"
     },
     "bok-choy": {
-        "name": "\u0431\u043e\u043a \u0447\u043e\u0439"
+        "name": "бок чой"
     },
     "brassicas": {
-        "name": "\u0441\u0435\u043c\u0435\u0439\u0441\u0442\u0432\u043e \u041a\u0440\u044a\u0441\u0442\u043e\u0446\u0432\u0435\u0442\u043d\u0438"
+        "name": "семейство Кръстоцветни"
     },
     "bread": {
-        "name": "\u0445\u043b\u044f\u0431"
+        "name": "хляб"
     },
     "breadfruit": {
-        "name": "\u043f\u043b\u043e\u0434 \u043e\u0442 \u0445\u043b\u0435\u0431\u043d\u043e \u0434\u044a\u0440\u0432\u043e"
+        "name": "плод от хлебно дърво"
     },
     "broccoflower": {
-        "name": "\u0440\u043e\u043c\u0430\u043d\u0435\u0441\u043a\u043e"
+        "name": "романеско"
     },
     "broccoli": {
-        "name": "\u0431\u0440\u043e\u043a\u043e\u043b\u0438"
+        "name": "броколи"
     },
     "broccoli-rabe": {
-        "name": "\u0431\u0440\u043e\u043a\u043e\u043b\u0438 \u0440\u0430\u0431\u0435"
+        "name": "броколи рабе"
     },
     "broccolini": {
-        "name": "\u0431\u0440\u043e\u043a\u043e\u043b\u0438\u043d\u0438"
+        "name": "броколини"
     },
     "brown-sugar": {
-        "name": "\u043a\u0430\u0444\u044f\u0432\u0430 \u0437\u0430\u0445\u0430\u0440"
+        "name": "кафява захар"
     },
     "brussels-sprouts": {
-        "name": "\u0431\u0440\u044e\u043a\u0441\u0435\u043b\u0441\u043a\u043e \u0437\u0435\u043b\u0435"
+        "name": "брюкселско зеле"
     },
     "butter": {
-        "name": "\u043c\u0430\u0441\u043b\u043e"
+        "name": "масло"
     },
     "butternut-pumpkin": {
-        "name": "\u0442\u0438\u043a\u0432\u0430 \u0446\u0438\u0433\u0443\u043b\u043a\u0430 (\u041c\u0430\u0442\u0438\u043b\u0434\u0430)"
+        "name": "тиква цигулка (Матилда)"
     },
     "butternut-squash": {
-        "name": "\u0442\u0438\u043a\u0432\u0430 \u0446\u0438\u0433\u0443\u043b\u043a\u0430 (\u041c\u0430\u0442\u0438\u043b\u0434\u0430)"
+        "name": "тиква цигулка (Матилда)"
     },
     "cabbage": {
-        "name": "\u0437\u0435\u043b\u0435",
+        "name": "зеле",
         "plural_name": "cabbages"
     },
     "cactus-edible": {
-        "name": "\u044f\u0434\u043b\u0438\u0432 \u043a\u0430\u043a\u0442\u0443\u0441"
+        "name": "ядлив кактус"
     },
     "calabrese": {
-        "name": "\u0438\u0442. \u0441\u0430\u043b\u0430\u043c \u041a\u0430\u043b\u0430\u0431\u0440\u0435\u0437\u0435"
+        "name": "ит. салам Калабрезе"
     },
     "cane-sugar": {
-        "name": "\u0442\u0440\u044a\u0441\u0442\u0438\u043a\u043e\u0432\u0430 \u0437\u0430\u0445\u0430\u0440"
+        "name": "тръстикова захар"
     },
     "cannabis": {
-        "name": "\u043a\u0430\u043d\u0430\u0431\u0438\u0441"
+        "name": "канабис"
     },
     "capsicum": {
-        "name": "\u043a\u0438\u0442. \u043b\u044e\u0442\u0430 \u0447\u0443\u0448\u043a\u0430, \u043f\u043e\u0434\u043e\u0431\u043d\u0430 \u043d\u0430 \u0445\u0430\u0431\u0430\u043d\u0435\u0440\u043e"
+        "name": "кит. люта чушка, подобна на хабанеро"
     },
     "caraway": {
-        "name": "\u043a\u0438\u043c\u0438\u043e\u043d"
+        "name": "кимион"
     },
     "carrot": {
-        "name": "\u043c\u043e\u0440\u043a\u043e\u0432",
+        "name": "морков",
         "plural_name": "carrots"
     },
     "caster-sugar": {
-        "name": "\u0437\u0430\u0445\u0430\u0440"
+        "name": "захар"
     },
     "castor-sugar": {
-        "name": "\u0437\u0430\u0445\u0430\u0440"
+        "name": "захар"
     },
     "catfish": {
-        "name": "\u0441\u043e\u043c"
+        "name": "сом"
     },
     "cauliflower": {
-        "name": "\u043a\u0430\u0440\u0444\u0438\u043e\u043b",
+        "name": "карфиол",
         "plural_name": "cauliflowers"
     },
     "cayenne-pepper": {
-        "name": "\u043b\u044e\u0442 \u0447\u0435\u0440\u0432\u0435\u043d \u043f\u0438\u043f\u0435\u0440"
+        "name": "лют червен пипер"
     },
     "celeriac": {
-        "name": "\u0446\u0435\u043b\u0438\u043d\u0430"
+        "name": "целина"
     },
     "celery": {
-        "name": "\u0446\u0435\u043b\u0438\u043d\u0430"
+        "name": "целина"
     },
     "cereal-grains": {
-        "name": "\u0436\u0438\u0442\u043d\u0438 \u0437\u044a\u0440\u043d\u0430"
+        "name": "житни зърна"
     },
     "chard": {
-        "name": "\u043c\u0430\u043d\u0433\u043e\u043b\u0434"
+        "name": "манголд"
     },
     "cheese": {
-        "name": "\u043a\u0430\u0448\u043a\u0430\u0432\u0430\u043b"
+        "name": "кашкавал"
     },
     "chicory": {
-        "name": "\u0446\u0438\u043a\u043e\u0440\u0438\u044f"
+        "name": "цикория"
     },
     "chilli-peppers": {
-        "name": "\u043b\u044e\u0442 \u043f\u0438\u043f\u0435\u0440",
+        "name": "лют пипер",
         "plural_name": "chilli peppers"
     },
     "chinese-leaves": {
-        "name": "\u043a\u0438\u0442\u0430\u0439\u0441\u043a\u043e \u0437\u0435\u043b\u0435"
+        "name": "китайско зеле"
     },
     "chives": {
-        "name": "\u0434\u0438\u0432 \u043b\u0443\u043a"
+        "name": "див лук"
     },
     "chocolate": {
-        "name": "\u0448\u043e\u043a\u043e\u043b\u0430\u0434"
+        "name": "шоколад"
     },
     "cilantro": {
-        "name": "\u043a\u043e\u0440\u0438\u0430\u043d\u0434\u044a\u0440"
+        "name": "кориандър"
     },
     "cinnamon": {
-        "name": "\u043a\u0430\u043d\u0435\u043b\u0430"
+        "name": "канела"
     },
     "clarified-butter": {
-        "name": "\u0438\u0437\u0431\u0438\u0441\u0442\u0440\u0435\u043d\u043e \u043c\u0430\u0441\u043b\u043e"
+        "name": "избистрено масло"
     },
     "coconut": {
-        "name": "\u043a\u043e\u043a\u043e\u0441",
+        "name": "кокос",
         "plural_name": "coconuts"
     },
     "coconut-milk": {
-        "name": "\u043a\u043e\u043a\u043e\u0441\u043e\u0432\u043e \u043c\u043b\u044f\u043a\u043e"
+        "name": "кокосово мляко"
     },
     "cod": {
-        "name": "\u0442\u0440\u0435\u0441\u043a\u0430"
+        "name": "треска"
     },
     "coffee": {
-        "name": "\u043a\u0430\u0444\u0435"
+        "name": "кафе"
     },
     "collard-greens": {
-        "name": "\u043a\u043e\u0443\u0430\u0440\u0434 (\u0432\u0438\u0434 \u0437\u0435\u043b\u0435)"
+        "name": "коуард (вид зеле)"
     },
     "confectioners-sugar": {
-        "name": "\u043f\u0443\u0434\u0440\u0430 \u0437\u0430\u0445\u0430\u0440"
+        "name": "пудра захар"
     },
     "coriander": {
-        "name": "\u043a\u043e\u0440\u0438\u0430\u043d\u0434\u044a\u0440"
+        "name": "кориандър"
     },
     "corn": {
-        "name": "\u0446\u0430\u0440\u0435\u0432\u0438\u0446\u0430",
+        "name": "царевица",
         "plural_name": "corns"
     },
     "corn-syrup": {
-        "name": "\u0446\u0430\u0440\u0435\u0432\u0438\u0447\u0435\u043d \u0441\u0438\u0440\u043e\u043f"
+        "name": "царевичен сироп"
     },
     "cottonseed-oil": {
-        "name": "\u043c\u0430\u0441\u043b\u043e \u043e\u0442 \u043f\u0430\u043c\u0443\u0447\u043d\u043e \u0441\u0435\u043c\u0435"
+        "name": "масло от памучно семе"
     },
     "courgette": {
-        "name": "\u0442\u0438\u043a\u0432\u0438\u0447\u043a\u0430"
+        "name": "тиквичка"
     },
     "cream-of-tartar": {
-        "name": "\u043a\u0440\u0435\u043c \u043e\u0442 \u0442\u0430\u0440\u0442\u0430\u0440"
+        "name": "крем от тартар"
     },
     "cucumber": {
-        "name": "\u043a\u0440\u0430\u0441\u0442\u0430\u0432\u0438\u0446\u0430",
+        "name": "краставица",
         "plural_name": "cucumbers"
     },
     "cumin": {
-        "name": "\u043a\u0438\u043c\u0438\u043e\u043d"
+        "name": "кимион"
     },
     "daikon": {
-        "name": "\u0440\u044f\u043f\u0430 \u0434\u0430\u0439\u043a\u043e\u043d",
+        "name": "ряпа дайкон",
         "plural_name": "daikons"
     },
     "dairy-products-and-dairy-substitutes": {
-        "name": "\u043c\u043b\u0435\u0447\u043d\u0438 \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u0438 \u0438 \u043c\u043b\u0435\u0447\u043d\u0438 \u0437\u0430\u043c\u0435\u0441\u0442\u0438\u0442\u0435\u043b\u0438"
+        "name": "млечни продукти и млечни заместители"
     },
     "dandelion": {
-        "name": "\u0433\u043b\u0443\u0445\u0430\u0440\u0447\u0435"
+        "name": "глухарче"
     },
     "demerara-sugar": {
-        "name": "\u0437\u0430\u0445\u0430\u0440"
+        "name": "захар"
     },
     "dough": {
-        "name": "\u0442\u0435\u0441\u0442\u043e"
+        "name": "тесто"
     },
     "edible-cactus": {
-        "name": "\u044f\u0434\u043b\u0438\u0432 \u043a\u0430\u043a\u0442\u0443\u0441"
+        "name": "ядлив кактус"
     },
     "eggplant": {
-        "name": "\u043f\u0430\u0442\u043b\u0430\u0434\u0436\u0430\u043d",
+        "name": "патладжан",
         "plural_name": "eggplants"
     },
     "eggs": {
-        "name": "\u044f\u0439\u0446\u0430",
+        "name": "яйца",
         "plural_name": "eggs"
     },
     "endive": {
-        "name": "\u0435\u043d\u0434\u0438\u0432\u0438\u044f",
+        "name": "ендивия",
         "plural_name": "endives"
     },
     "fats": {
-        "name": "\u043c\u0430\u0437\u043d\u0438\u043d\u0438"
+        "name": "мазнини"
     },
     "fava-beans": {
-        "name": "\u0431\u043e\u0431 \u0431\u0430\u043a\u043b\u0430"
+        "name": "боб бакла"
     },
     "fiddlehead": {
         "name": "fiddlehead"
     },
     "fiddlehead-fern": {
-        "name": "\u0446\u0438\u0433\u0443\u043b\u043a\u043e\u0432\u0430 \u043f\u0430\u043f\u0440\u0430\u0442",
+        "name": "цигулкова папрат",
         "plural_name": "fiddlehead ferns"
     },
     "fish": {
-        "name": "\u0440\u0438\u0431\u0430"
+        "name": "риба"
     },
     "five-spice-powder": {
-        "name": "\u043c\u0438\u043a\u0441 \u043e\u0442 \u043f\u0435\u0442 \u043a\u0438\u0442\u0430\u0439\u0441\u043a\u0438 \u043f\u043e\u0434\u043f\u0440\u0430\u0432\u043a\u0438 \u043d\u0430 \u043f\u0440\u0430\u0445"
+        "name": "микс от пет китайски подправки на прах"
     },
     "flour": {
-        "name": "\u0431\u0440\u0430\u0448\u043d\u043e"
+        "name": "брашно"
     },
     "frisee": {
-        "name": "\u0444\u0440\u0438\u0437\u0435"
+        "name": "фризе"
     },
     "fructose": {
-        "name": "\u0444\u0440\u0443\u043a\u0442\u043e\u0437\u0430"
+        "name": "фруктоза"
     },
     "fruit": {
-        "name": "\u043f\u043b\u043e\u0434"
+        "name": "плод"
     },
     "fruit-sugar": {
-        "name": "\u0444\u0440\u0443\u043a\u0442\u043e\u0437\u0430"
+        "name": "фруктоза"
     },
     "ful": {
-        "name": "\u0444\u0443\u043b"
+        "name": "фул"
     },
     "garam-masala": {
-        "name": "\u0433\u0430\u0440\u0430\u043c \u043c\u0430\u0441\u0430\u043b\u0430"
+        "name": "гарам масала"
     },
     "garlic": {
-        "name": "\u0447\u0435\u0441\u044a\u043d",
+        "name": "чесън",
         "plural_name": "garlics"
     },
     "gem-squash": {
-        "name": "\u0442\u0438\u043a\u0432\u0430 (\u0442\u044a\u043c\u043d\u043e\u0437\u0435\u043b\u0435\u043d\u0430)"
+        "name": "тиква (тъмнозелена)"
     },
     "ghee": {
-        "name": "\u043c\u0430\u0441\u043b\u043e \u0413\u0445\u0438"
+        "name": "масло Гхи"
     },
     "giblets": {
-        "name": "\u043a\u0430\u0440\u0430\u043d\u0442\u0438\u044f"
+        "name": "карантия"
     },
     "ginger": {
-        "name": "\u0434\u0436\u0438\u043d\u0434\u0436\u0438\u0444\u0438\u043b"
+        "name": "джинджифил"
     },
     "grains": {
-        "name": "\u0437\u044a\u0440\u043d\u0435\u043d\u0438 \u043a\u0443\u043b\u0442\u0443\u0440\u0438"
+        "name": "зърнени култури"
     },
     "granulated-sugar": {
-        "name": "\u0433\u0440\u0430\u043d\u0443\u043b\u0438\u0440\u0430\u043d\u0430 \u0437\u0430\u0445\u0430\u0440"
+        "name": "гранулирана захар"
     },
     "grape-seed-oil": {
-        "name": "\u043c\u0430\u0441\u043b\u043e \u043e\u0442 \u0433\u0440\u043e\u0437\u0434\u043e\u0432\u0438 \u0441\u0435\u043c\u043a\u0438"
+        "name": "масло от гроздови семки"
     },
     "green-onion": {
-        "name": "\u0437\u0435\u043b\u0435\u043d \u043b\u0443\u043a",
+        "name": "зелен лук",
         "plural_name": "green onions"
     },
     "heart-of-palm": {
-        "name": "\u0441\u044a\u0440\u0446\u0435\u0432\u0438\u043d\u0430 \u043e\u0442 \u043f\u0430\u043b\u043c\u0430",
+        "name": "сърцевина от палма",
         "plural_name": "heart of palms"
     },
     "hemp": {
-        "name": "\u043a\u043e\u043d\u043e\u043f"
+        "name": "коноп"
     },
     "herbs": {
-        "name": "\u043f\u043e\u0434\u0440\u0430\u0432\u043a\u0438"
+        "name": "подравки"
     },
     "honey": {
-        "name": "\u043c\u0435\u0434"
+        "name": "мед"
     },
     "isomalt": {
-        "name": "\u0438\u0437\u043e\u043c\u0430\u043b\u0442"
+        "name": "изомалт"
     },
     "jackfruit": {
-        "name": "\u0434\u0436\u0430\u043a\u0444\u0440\u0443\u0442",
+        "name": "джакфрут",
         "plural_name": "jackfruits"
     },
     "jaggery": {
-        "name": "\u0442\u0440\u044a\u0441\u0442\u0438\u043a\u043e\u0432\u0430 \u0437\u0430\u0445\u0430\u0440"
+        "name": "тръстикова захар"
     },
     "jams": {
-        "name": "\u043f\u043b\u043e\u0434\u043e\u0432\u043e \u0441\u043b\u0430\u0434\u043a\u043e"
+        "name": "плодово сладко"
     },
     "jellies": {
-        "name": "\u043c\u0430\u0440\u043c\u0430\u043b\u0430\u0434"
+        "name": "мармалад"
     },
     "jerusalem-artichoke": {
-        "name": "\u0439\u0435\u0440\u0443\u0441\u0430\u043b\u0438\u043c\u0441\u043a\u0438 \u0430\u0440\u0442\u0438\u0448\u043e\u043a"
+        "name": "йерусалимски артишок"
     },
     "jicama": {
-        "name": "\u0434\u0436\u0438\u043a\u0430\u043c\u0430 (\u043c\u0435\u043a\u0441\u0438\u043a\u0430\u043d\u0441\u043a\u0438 \u043a\u0430\u0440\u0442\u043e\u0444)"
+        "name": "джикама (мексикански картоф)"
     },
     "kale": {
-        "name": "\u043a\u0435\u0439\u043b"
+        "name": "кейл"
     },
     "kohlrabi": {
-        "name": "\u0430\u043b\u0430\u0431\u0430\u0448"
+        "name": "алабаш"
     },
     "kumara": {
-        "name": "\u043a\u0443\u043c\u0430\u0440\u0430"
+        "name": "кумара"
     },
     "leavening-agents": {
-        "name": "\u043d\u0430\u0431\u0443\u0445\u0432\u0430\u0442\u0435\u043b\u0438"
+        "name": "набухватели"
     },
     "leek": {
-        "name": "\u043f\u0440\u0430\u0437 \u043b\u0443\u043a",
+        "name": "праз лук",
         "plural_name": "leeks"
     },
     "legumes": {
-        "name": "\u0432\u0430\u0440\u0438\u0432\u0430"
+        "name": "варива"
     },
     "lemongrass": {
-        "name": "\u043b\u0438\u043c\u043e\u043d\u0435\u043d\u0430 \u0442\u0440\u0435\u0432\u0430"
+        "name": "лимонена трева"
     },
     "lentils": {
-        "name": "\u043b\u0435\u0449\u0430"
+        "name": "леща"
     },
     "lettuce": {
-        "name": "\u043c\u0430\u0440\u0443\u043b\u044f"
+        "name": "маруля"
     },
     "liver": {
-        "name": "\u0447\u0435\u0440\u0435\u043d \u0434\u0440\u043e\u0431",
+        "name": "черен дроб",
         "plural_name": "livers"
     },
     "maize": {
-        "name": "\u0446\u0430\u0440\u0435\u0432\u0438\u0446\u0430"
+        "name": "царевица"
     },
     "maple-syrup": {
-        "name": "\u043a\u043b\u0435\u043d\u043e\u0432 \u0441\u0438\u0440\u043e\u043f"
+        "name": "кленов сироп"
     },
     "meat": {
-        "name": "\u043c\u0435\u0441\u043e"
+        "name": "месо"
     },
     "milk": {
-        "name": "\u043f\u0440\u044f\u0441\u043d\u043e \u043c\u043b\u044f\u043a\u043e"
+        "name": "прясно мляко"
     },
     "mortadella": {
-        "name": "\u0441\u0430\u043b\u0430\u043c \u041c\u043e\u0440\u0442\u0430\u0434\u0435\u043b\u0430"
+        "name": "салам Мортадела"
     },
     "mushroom": {
-        "name": "\u0433\u044a\u0431\u0430",
+        "name": "гъба",
         "plural_name": "mushrooms"
     },
     "mussels": {
-        "name": "\u043c\u0438\u0434\u0438"
+        "name": "миди"
     },
     "nanaimo-bar-mix": {
-        "name": "nanaimo \u0431\u0430\u0440 \u043c\u0438\u043a\u0441"
+        "name": "nanaimo бар микс"
     },
     "nori": {
-        "name": "\u043d\u043e\u0440\u0438"
+        "name": "нори"
     },
     "nutmeg": {
-        "name": "\u0438\u043d\u0434\u0438\u0439\u0441\u043a\u043e \u043e\u0440\u0435\u0445\u0447\u0435"
+        "name": "индийско орехче"
     },
     "nutritional-yeast-flakes": {
-        "name": "\u0445\u0440\u0430\u043d\u0438\u0442\u0435\u043b\u043d\u0430 \u043c\u0430\u044f \u043d\u0430 \u043b\u044e\u0441\u043f\u0438"
+        "name": "хранителна мая на люспи"
     },
     "nuts": {
-        "name": "\u044f\u0434\u043a\u0438"
+        "name": "ядки"
     },
     "octopuses": {
-        "name": "\u043e\u043a\u0442\u043e\u043f\u043e\u0434",
+        "name": "октопод",
         "plural_name": "octopuses"
     },
     "oils": {
-        "name": "\u043c\u0430\u0441\u043b\u0430"
+        "name": "масла"
     },
     "okra": {
-        "name": "\u0431\u0430\u043c\u044f"
+        "name": "бамя"
     },
     "olive": {
-        "name": "\u043c\u0430\u0441\u043b\u0438\u043d\u0430"
+        "name": "маслина"
     },
     "olive-oil": {
-        "name": "\u0437\u0435\u0445\u0442\u0438\u043d"
+        "name": "зехтин"
     },
     "onion": {
-        "name": "\u043b\u0443\u043a"
+        "name": "лук"
     },
     "onion-family": {
-        "name": "\u0441\u0435\u043c\u0435\u0439\u0441\u0442\u0432\u043e \u041b\u0443\u0447\u0435\u043d\u0438"
+        "name": "семейство Лучени"
     },
     "orange-blossom-water": {
-        "name": "\u0432\u043e\u0434\u0430 \u043e\u0442 \u043f\u043e\u0440\u0442\u043e\u043a\u0430\u043b\u043e\u0432 \u0446\u0432\u044f\u0442"
+        "name": "вода от портокалов цвят"
     },
     "oranges": {
-        "name": "\u043f\u043e\u0440\u0442\u043e\u043a\u0430\u043b\u0438",
+        "name": "портокали",
         "plural_name": "oranges"
     },
     "oregano": {
-        "name": "\u0440\u0438\u0433\u0430\u043d"
+        "name": "риган"
     },
     "oysters": {
-        "name": "\u0441\u0442\u0440\u0438\u0434\u0438"
+        "name": "стриди"
     },
     "panch-puran": {
-        "name": "\u043f\u0435\u0442 \u043f\u0443\u0440\u0430\u043d\u0438 (\u043c\u0438\u043a\u0441 \u043e\u0442 \u043f\u0435\u0442 \u0438\u043d\u0434\u0438\u0439\u0441\u043a\u0438 \u043f\u043e\u0434\u043f\u0440\u0430\u0432\u043a\u0438)"
+        "name": "пет пурани (микс от пет индийски подправки)"
     },
     "paprika": {
-        "name": "\u0447\u0435\u0440\u0432\u0435\u043d \u043f\u0438\u043f\u0435\u0440"
+        "name": "червен пипер"
     },
     "parsley": {
-        "name": "\u043c\u0430\u0433\u0434\u0430\u043d\u043e\u0437"
+        "name": "магданоз"
     },
     "parsnip": {
-        "name": "\u043f\u0430\u0449\u044a\u0440\u043d\u0430\u043a",
+        "name": "пащърнак",
         "plural_name": "parsnips"
     },
     "pear": {
-        "name": "\u043a\u0440\u0443\u0448\u0430",
+        "name": "круша",
         "plural_name": "pears"
     },
     "peas": {
-        "name": "\u0433\u0440\u0430\u0445"
+        "name": "грах"
     },
     "pepper": {
-        "name": "\u0447\u0435\u0440\u0435\u043d \u043f\u0438\u043f\u0435\u0440",
+        "name": "черен пипер",
         "plural_name": "peppers"
     },
     "pineapple": {
-        "name": "\u0430\u043d\u0430\u043d\u0430\u0441",
+        "name": "ананас",
         "plural_name": "pineapples"
     },
     "plantain": {
-        "name": "\u0436\u0438\u0432\u043e\u0432\u043b\u044f\u043a",
+        "name": "живовляк",
         "plural_name": "plantains"
     },
     "poppy-seeds": {
-        "name": "\u043c\u0430\u043a\u043e\u0432\u043e \u0441\u0435\u043c\u0435"
+        "name": "маково семе"
     },
     "potato": {
-        "name": "\u043a\u0430\u0440\u0442\u043e\u0444",
+        "name": "картоф",
         "plural_name": "potatoes"
     },
     "poultry": {
-        "name": "\u043f\u0442\u0438\u0447\u0435 \u043c\u0435\u0441\u043e"
+        "name": "птиче месо"
     },
     "powdered-sugar": {
-        "name": "\u043f\u0443\u0434\u0440\u0430 \u0437\u0430\u0445\u0430\u0440"
+        "name": "пудра захар"
     },
     "pumpkin": {
-        "name": "\u0442\u0438\u043a\u0432\u0430",
+        "name": "тиква",
         "plural_name": "pumpkins"
     },
     "pumpkin-seeds": {
-        "name": "\u0442\u0438\u043a\u0432\u0435\u043d\u0438 \u0441\u0435\u043c\u043a\u0438"
+        "name": "тиквени семки"
     },
     "radish": {
-        "name": "\u0440\u044f\u043f\u0430",
+        "name": "ряпа",
         "plural_name": "radishes"
     },
     "raw-sugar": {
-        "name": "\u0437\u0430\u0445\u0430\u0440"
+        "name": "захар"
     },
     "refined-sugar": {
-        "name": "\u0440\u0430\u0444\u0438\u043d\u0438\u0440\u0430\u043d\u0430 \u0437\u0430\u0445\u0430\u0440"
+        "name": "рафинирана захар"
     },
     "rice": {
-        "name": "\u043e\u0440\u0438\u0437"
+        "name": "ориз"
     },
     "rice-flour": {
-        "name": "\u043e\u0440\u0438\u0437\u043e\u0432\u043e \u0431\u0440\u0430\u0448\u043d\u043e"
+        "name": "оризово брашно"
     },
     "rock-sugar": {
-        "name": "\u0437\u0430\u0445\u0430\u0440 \u043d\u0430 \u0431\u0443\u0447\u043a\u0438"
+        "name": "захар на бучки"
     },
     "rum": {
-        "name": "\u0440\u043e\u043c"
+        "name": "ром"
     },
     "salmon": {
-        "name": "\u0441\u044c\u043e\u043c\u0433\u0430"
+        "name": "сьомга"
     },
     "salt": {
-        "name": "\u0441\u043e\u043b"
+        "name": "сол"
     },
     "salt-cod": {
-        "name": "\u043e\u0441\u043e\u043b\u0435\u043d\u0430 \u0442\u0440\u0435\u0441\u043a\u0430"
+        "name": "осолена треска"
     },
     "scallion": {
-        "name": "\u0437\u0435\u043b\u0435\u043d \u043b\u0443\u043a",
+        "name": "зелен лук",
         "plural_name": "scallions"
     },
     "seafood": {
-        "name": "\u043c\u043e\u0440\u0441\u043a\u0430 \u0445\u0440\u0430\u043d\u0430"
+        "name": "морска храна"
     },
     "seeds": {
-        "name": "\u0441\u0435\u043c\u0435\u043d\u0430"
+        "name": "семена"
     },
     "sesame-seeds": {
-        "name": "\u0441\u0443\u0441\u0430\u043c\u043e\u0432\u043e \u0441\u0435\u043c\u0435"
+        "name": "сусамово семе"
     },
     "shallot": {
-        "name": "\u0448\u0430\u043b\u043e\u0442 (\u0434\u0440\u0435\u0431\u0435\u043d \u043b\u0443\u043a)",
+        "name": "шалот (дребен лук)",
         "plural_name": "shallots"
     },
     "skate": {
-        "name": "\u043c\u043e\u0440\u0441\u043a\u0430 \u043b\u0438\u0441\u0438\u0446\u0430"
+        "name": "морска лисица"
     },
     "soda": {
-        "name": "\u0441\u043e\u0434\u0430"
+        "name": "сода"
     },
     "soda-baking": {
-        "name": "\u0441\u043e\u0434\u0430 \u0437\u0430 \u0445\u043b\u044f\u0431"
+        "name": "сода за хляб"
     },
     "soybean": {
-        "name": "\u0441\u043e\u0435\u0432\u0438 \u0437\u044a\u0440\u043d\u0430"
+        "name": "соеви зърна"
     },
     "spaghetti-squash": {
-        "name": "\u0441\u043f\u0430\u0433\u0435\u0442\u0435\u043d\u0430 \u0442\u0438\u043a\u0432\u0430",
+        "name": "спагетена тиква",
         "plural_name": "spaghetti squashes"
     },
     "speck": {
-        "name": "\u0438\u0442\u0430\u043b\u0438\u0430\u043d\u0441\u043a\u0438 \u0431\u0435\u043a\u043e\u043d \u0421\u043f\u0435\u043a"
+        "name": "италиански бекон Спек"
     },
     "spices": {
-        "name": "\u043f\u043e\u0434\u043f\u0440\u0430\u0432\u043a\u0438"
+        "name": "подправки"
     },
     "spinach": {
-        "name": "\u0441\u043f\u0430\u043d\u0430\u043a"
+        "name": "спанак"
     },
     "spring-onion": {
-        "name": "\u043f\u0440\u0435\u0441\u0435\u043d \u043b\u0443\u043a",
+        "name": "пресен лук",
         "plural_name": "spring onions"
     },
     "squash": {
-        "name": "\u0441\u043a\u0443\u043e\u0448",
+        "name": "скуош",
         "plural_name": "squashes"
     },
     "squash-family": {
-        "name": "\u0441\u0435\u043c\u0435\u0439\u0441\u0442\u0432\u043e \u0442\u0438\u043a\u0432\u0438"
+        "name": "семейство тикви"
     },
     "stockfish": {
-        "name": "\u0441\u0442\u0443\u0434\u0435\u043d\u043e \u0441\u0443\u0448\u0435\u043d\u0430 \u0440\u0438\u0431\u0430"
+        "name": "студено сушена риба"
     },
     "sugar": {
-        "name": "\u0437\u0430\u0445\u0430\u0440"
+        "name": "захар"
     },
     "sunchoke": {
-        "name": "\u0439\u0435\u0440\u0443\u0441\u0430\u043b\u0438\u043c\u0441\u043a\u0438 \u0430\u0440\u0442\u0438\u0448\u043e\u043a",
+        "name": "йерусалимски артишок",
         "plural_name": "sunchokes"
     },
     "sunflower-seeds": {
-        "name": "\u0441\u043b\u044a\u043d\u0447\u043e\u0433\u043b\u0435\u0434\u043e\u0432\u043e \u0441\u0435\u043c\u0435"
+        "name": "слънчогледово семе"
     },
     "superfine-sugar": {
-        "name": "\u0444\u0438\u043d\u0430 \u0437\u0430\u0445\u0430\u0440"
+        "name": "фина захар"
     },
     "sweet-potato": {
-        "name": "\u0441\u043b\u0430\u0434\u044a\u043a \u043a\u0430\u0440\u0442\u043e\u0444",
+        "name": "сладък картоф",
         "plural_name": "sweet potatoes"
     },
     "sweetcorn": {
-        "name": "\u0441\u043b\u0430\u0434\u043a\u0430 \u0446\u0430\u0440\u0435\u0432\u0438\u0446\u0430",
+        "name": "сладка царевица",
         "plural_name": "sweetcorns"
     },
     "sweeteners": {
-        "name": "\u043f\u043e\u0434\u0441\u043b\u0430\u0434\u0438\u0442\u0435\u043b\u0438"
+        "name": "подсладители"
     },
     "tahini": {
-        "name": "\u0442\u0430\u0445\u0430\u043d"
+        "name": "тахан"
     },
     "taro": {
-        "name": "\u0442\u0430\u0440\u043e",
+        "name": "таро",
         "plural_name": "taroes"
     },
     "teff": {
-        "name": "\u0442\u0435\u0444"
+        "name": "теф"
     },
     "tomato": {
-        "name": "\u0434\u043e\u043c\u0430\u0442",
+        "name": "домат",
         "plural_name": "tomatoes"
     },
     "trout": {
-        "name": "\u043f\u044a\u0441\u0442\u044a\u0440\u0432\u0430"
+        "name": "пъстърва"
     },
     "tubers": {
-        "name": "\u0442\u0440\u044e\u0444\u0435\u043b\u0438",
+        "name": "трюфели",
         "plural_name": "tubers"
     },
     "tuna": {
-        "name": "\u0440\u0438\u0431\u0430 \u0442\u043e\u043d"
+        "name": "риба тон"
     },
     "turbanado-sugar": {
-        "name": "\u0442\u0443\u0440\u0431\u0438\u043d\u0430\u0434\u043e \u0437\u0430\u0445\u0430\u0440"
+        "name": "турбинадо захар"
     },
     "turnip": {
-        "name": "\u0440\u044f\u043f\u0430",
+        "name": "ряпа",
         "plural_name": "turnips"
     },
     "unrefined-sugar": {
-        "name": "\u043d\u0435\u0440\u0430\u0444\u0438\u043d\u0438\u0440\u0430\u043d\u0430 \u0437\u0430\u0445\u0430\u0440"
+        "name": "нерафинирана захар"
     },
     "vanilla": {
-        "name": "\u0432\u0430\u043d\u0438\u043b\u0438\u044f"
+        "name": "ванилия"
     },
     "vegetables": {
-        "name": "\u0437\u0435\u043b\u0435\u043d\u0447\u0443\u0446\u0438"
+        "name": "зеленчуци"
     },
     "watercress": {
-        "name": "\u043a\u0440\u0435\u0441\u043e\u043d"
+        "name": "кресон"
     },
     "watermelon": {
-        "name": "\u0434\u0438\u043d\u044f",
+        "name": "диня",
         "plural_name": "watermelons"
     },
     "white-mushroom": {
-        "name": "\u0431\u044f\u043b\u0430 \u0433\u044a\u0431\u0430",
+        "name": "бяла гъба",
         "plural_name": "white mushrooms"
     },
     "white-sugar": {
-        "name": "\u0431\u044f\u043b\u0430 \u0437\u0430\u0445\u0430\u0440"
+        "name": "бяла захар"
     },
     "xanthan-gum": {
-        "name": "\u043a\u0441\u0430\u043d\u0442\u0430\u043d\u043e\u0432\u0430 \u0433\u0443\u043c\u0430"
+        "name": "ксантанова гума"
     },
     "yam": {
-        "name": "\u043a\u0430\u0440\u0442\u043e\u0444 \u044f\u043c",
+        "name": "картоф ям",
         "plural_name": "yams"
     },
     "yeast": {
-        "name": "\u043c\u0430\u044f"
+        "name": "мая"
     },
     "zucchini": {
-        "name": "\u0442\u0438\u043a\u0432\u0438\u0447\u043a\u0430",
+        "name": "тиквичка",
         "plural_name": "zucchinis"
     }
 }

@@ -60,10 +60,10 @@
         "name": "kaalit"
     },
     "bread": {
-        "name": "leip\u00e4"
+        "name": "leipä"
     },
     "breadfruit": {
-        "name": "leip\u00e4puun hedelm\u00e4"
+        "name": "leipäpuun hedelmä"
     },
     "broccoflower": {
         "name": "parsakukkakaali"
@@ -97,7 +97,7 @@
         "plural_name": "cabbages"
     },
     "cactus-edible": {
-        "name": "kaktus, sy\u00f6t\u00e4v\u00e4"
+        "name": "kaktus, syötävä"
     },
     "calabrese": {
         "name": "calabrese"
@@ -141,7 +141,7 @@
         "name": "selleri"
     },
     "cereal-grains": {
-        "name": "viljanjyv\u00e4t"
+        "name": "viljanjyvät"
     },
     "chard": {
         "name": "mangoldi"
@@ -175,7 +175,7 @@
         "name": "kirkastettu voi"
     },
     "coconut": {
-        "name": "kookosp\u00e4hkin\u00e4",
+        "name": "kookospähkinä",
         "plural_name": "coconuts"
     },
     "coconut-milk": {
@@ -204,10 +204,10 @@
         "name": "maissisiirappi"
     },
     "cottonseed-oil": {
-        "name": "pellavansiemen\u00f6ljy"
+        "name": "pellavansiemenöljy"
     },
     "courgette": {
-        "name": "kes\u00e4kurpitsa"
+        "name": "kesäkurpitsa"
     },
     "cream-of-tartar": {
         "name": "viinikivi"
@@ -236,7 +236,7 @@
         "name": "taikina"
     },
     "edible-cactus": {
-        "name": "sy\u00f6t\u00e4v\u00e4 kaktus"
+        "name": "syötävä kaktus"
     },
     "eggplant": {
         "name": "munakoiso",
@@ -254,7 +254,7 @@
         "name": "rasvat"
     },
     "fava-beans": {
-        "name": "h\u00e4rk\u00e4papu"
+        "name": "härkäpapu"
     },
     "fiddlehead": {
         "name": "viulunkierukka"
@@ -279,10 +279,10 @@
         "name": "fruktoosi"
     },
     "fruit": {
-        "name": "hedelm\u00e4"
+        "name": "hedelmä"
     },
     "fruit-sugar": {
-        "name": "hedelm\u00e4sokeri"
+        "name": "hedelmäsokeri"
     },
     "ful": {
         "name": "ful-pavut"
@@ -301,10 +301,10 @@
         "name": "ghee-voi"
     },
     "giblets": {
-        "name": "linnun sis\u00e4elimet"
+        "name": "linnun sisäelimet"
     },
     "ginger": {
-        "name": "inkiv\u00e4\u00e4ri"
+        "name": "inkivääri"
     },
     "grains": {
         "name": "viljat"
@@ -313,14 +313,14 @@
         "name": "taloussokeri"
     },
     "grape-seed-oil": {
-        "name": "viiniryp\u00e4leiden siemen\u00f6ljy"
+        "name": "viinirypäleiden siemenöljy"
     },
     "green-onion": {
-        "name": "vihre\u00e4 sipuli",
+        "name": "vihreä sipuli",
         "plural_name": "green onions"
     },
     "heart-of-palm": {
-        "name": "palmun syd\u00e4n",
+        "name": "palmun sydän",
         "plural_name": "heart of palms"
     },
     "hemp": {
@@ -336,7 +336,7 @@
         "name": "isomaltoosi"
     },
     "jackfruit": {
-        "name": "jakkihedelm\u00e4",
+        "name": "jakkihedelmä",
         "plural_name": "jackfruits"
     },
     "jaggery": {
@@ -346,7 +346,7 @@
         "name": "jamssi"
     },
     "jellies": {
-        "name": "hyytel\u00f6t"
+        "name": "hyytelöt"
     },
     "jerusalem-artichoke": {
         "name": "jerusalemin artisokka"
@@ -358,7 +358,7 @@
         "name": "lehtikaali"
     },
     "kohlrabi": {
-        "name": "kyss\u00e4kaali"
+        "name": "kyssäkaali"
     },
     "kumara": {
         "name": "kumara"
@@ -415,20 +415,20 @@
         "name": "nori"
     },
     "nutmeg": {
-        "name": "muskottip\u00e4hkin\u00e4"
+        "name": "muskottipähkinä"
     },
     "nutritional-yeast-flakes": {
         "name": "hiivahiutaleet"
     },
     "nuts": {
-        "name": "p\u00e4hkin\u00e4t"
+        "name": "pähkinät"
     },
     "octopuses": {
         "name": "mustekalat",
         "plural_name": "octopuses"
     },
     "oils": {
-        "name": "\u00f6ljyt"
+        "name": "öljyt"
     },
     "okra": {
         "name": "okra"
@@ -437,7 +437,7 @@
         "name": "oliivi"
     },
     "olive-oil": {
-        "name": "oliivi\u00f6ljy"
+        "name": "oliiviöljy"
     },
     "onion": {
         "name": "sipuli"
@@ -472,7 +472,7 @@
         "plural_name": "parsnips"
     },
     "pear": {
-        "name": "p\u00e4\u00e4ryn\u00e4",
+        "name": "päärynä",
         "plural_name": "pears"
     },
     "peas": {
@@ -546,7 +546,7 @@
         "plural_name": "scallions"
     },
     "seafood": {
-        "name": "merenel\u00e4v\u00e4t"
+        "name": "merenelävät"
     },
     "seeds": {
         "name": "siemenet"
@@ -584,7 +584,7 @@
         "name": "pinaatti"
     },
     "spring-onion": {
-        "name": "kev\u00e4tsipuli",
+        "name": "kevätsipuli",
         "plural_name": "spring onions"
     },
     "squash": {
@@ -686,7 +686,7 @@
         "name": "hiiva"
     },
     "zucchini": {
-        "name": "kes\u00e4kurpitsa",
+        "name": "kesäkurpitsa",
         "plural_name": "zucchinis"
     }
 }
