@@ -117,10 +117,10 @@ Unlike notifiers, which are event-driven notifications, Webhooks allow you to se
 
 Recipe Actions are custom actions you can add to all recipes in Mealie. This is a great way to add custom integrations that are fired manually. There are two types of recipe actions:
 
-1. link - these actions will take you directly to an external page
+1. link - these actions will take you directly to an external page. Merge fields can be used to customize the URL for each recipe
 2. post - these actions will send a `POST` request to the specified URL, with the recipe JSON in the request body. These can be used, for instance, to manually trigger a webhook in Home Assistant
 
-Recipe Action URLs can include merge fields to inject the current recipe's data. For instance, you can use the following URL to include a Google search with the recipe's slug:
+When using the "link" action type, Recipe Action URLs can include merge fields to inject the current recipe's data. For instance, you can use the following URL to include a Google search with the recipe's slug:
 ```
 https://www.google.com/search?q=${slug}
 ```
