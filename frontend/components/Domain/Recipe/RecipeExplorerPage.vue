@@ -54,7 +54,7 @@
           </SearchFilter>
 
           <!-- Household Filter -->
-          <SearchFilter v-if="households" v-model="selectedHouseholds" :items="households" radio>
+          <SearchFilter v-if="households.length > 1" v-model="selectedHouseholds" :items="households" radio>
             <v-icon left>
               {{ $globals.icons.household }}
             </v-icon>
