@@ -22,7 +22,7 @@ class LDAPProvider(CredentialsProvider):
         super().__init__(session, data)
         self.conn = None
 
-    async def authenticate(self) -> tuple[str, timedelta] | None:
+    def authenticate(self) -> tuple[str, timedelta] | None:
         """Attempt to authenticate a user given a username and password"""
         user = self.try_get_user(self.data.username)
         if not user or user.password == "LDAP" or user.auth_method == AuthMethod.LDAP:
@@ -30,7 +30,7 @@ class LDAPProvider(CredentialsProvider):
             if user:
                 return self.get_access_token(user, self.data.remember_me)
 
-        return await super().authenticate()
+        return super().authenticate()
 
     def search_user(self, conn: LDAPObject) -> list[tuple[str, dict[str, list[bytes]]]] | None:
         """
@@ -64,7 +64,11 @@ class LDAPProvider(CredentialsProvider):
                 settings.LDAP_BASE_DN,
                 ldap.SCOPE_SUBTREE,
                 search_filter,
-                [settings.LDAP_ID_ATTRIBUTE, settings.LDAP_NAME_ATTRIBUTE, settings.LDAP_MAIL_ATTRIBUTE],
+                [
+                    settings.LDAP_ID_ATTRIBUTE,
+                    settings.LDAP_NAME_ATTRIBUTE,
+                    settings.LDAP_MAIL_ATTRIBUTE,
+                ],
             )
         except ldap.FILTER_ERROR:
             self._logger.error("[LDAP] Bad user search filter")

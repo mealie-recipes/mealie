@@ -47,7 +47,7 @@ class MealieAuthToken(BaseModel):
 
 
 @public_router.post("/token")
-async def get_token(
+def get_token(
     request: Request,
     response: Response,
     data: CredentialsRequestForm = Depends(),
@@ -63,7 +63,7 @@ async def get_token(
 
     try:
         auth_provider = get_auth_provider(session, data)
-        auth = await auth_provider.authenticate()
+        auth = auth_provider.authenticate()
     except UserLockedOut as e:
         logger.error(f"User is locked out from {ip}")
         raise HTTPException(status_code=status.HTTP_423_LOCKED, detail="User is locked out") from e
@@ -110,7 +110,7 @@ async def oauth_callback(request: Request, response: Response, session: Session 
     client = oauth.create_client("oidc")
     token = await client.authorize_access_token(request)
     auth_provider = OpenIDProvider(session, token["userinfo"])
-    auth = await auth_provider.authenticate()
+    auth = auth_provider.authenticate()
 
     if not auth:
         raise HTTPException(

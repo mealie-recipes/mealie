@@ -18,7 +18,7 @@ class OpenIDProvider(AuthProvider[UserInfo]):
     def __init__(self, session: Session, data: UserInfo) -> None:
         super().__init__(session, data)
 
-    async def authenticate(self) -> tuple[str, timedelta] | None:
+    def authenticate(self) -> tuple[str, timedelta] | None:
         """Attempt to authenticate a user given a username and password"""
 
         settings = get_app_settings()
@@ -27,9 +27,16 @@ class OpenIDProvider(AuthProvider[UserInfo]):
             self._logger.error("[OIDC] No claims in the id_token")
             return None
 
+        if not self.required_claims.issubset(claims.keys()):
+            self._logger.error(
+                "[OIDC] Required claims not present. Expected: %s Actual: %s",
+                self.required_claims,
+                claims.keys(),
+            )
+            return None
+
         repos = get_repositories(self.session, group_id=None, household_id=None)
 
-        user = self.try_get_user(claims.get(settings.OIDC_USER_CLAIM))
         is_admin = False
         if settings.OIDC_USER_GROUP or settings.OIDC_ADMIN_GROUP:
             group_claim = claims.get(settings.OIDC_GROUPS_CLAIM, []) or []
@@ -45,6 +52,7 @@ class OpenIDProvider(AuthProvider[UserInfo]):
                 )
                 return None
 
+        user = self.try_get_user(claims.get(settings.OIDC_USER_CLAIM))
         if not user:
             if not settings.OIDC_SIGNUP_ENABLED:
                 self._logger.debug("[OIDC] No user found. Not creating a new user - new user creation is disabled.")
@@ -80,3 +88,12 @@ class OpenIDProvider(AuthProvider[UserInfo]):
 
         self._logger.warning("[OIDC] Found user but their AuthMethod does not match OIDC")
         return None
+
+    @property
+    def required_claims(self):
+        settings = get_app_settings()
+
+        claims = {"preferred_username", "name", "email", settings.OIDC_USER_CLAIM}
+        if settings.OIDC_USER_CLAIM or settings.OIDC_ADMIN_GROUP:
+            claims.add(settings.OIDC_GROUPS_CLAIM)
+        return claims
