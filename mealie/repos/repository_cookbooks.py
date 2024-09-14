@@ -1,3 +1,4 @@
+import re
 from collections.abc import Iterable
 
 from fastapi import HTTPException, status
@@ -35,8 +36,8 @@ class RepositoryCookbooks(HouseholdRepositoryGeneric[ReadCookBook, CookBook]):
             data = SaveCookBook(**data)
 
         new_slug = slugify(data.name)
-        if not (data.slug and data.slug.startswith(new_slug)):
-            data.slug = slugify(data.name)
+        if not (data.slug and re.match(f"^({new_slug})(-\d+)?$", data.slug)):
+            data.slug = new_slug
 
         max_retries = 10
         for i in range(max_retries):
