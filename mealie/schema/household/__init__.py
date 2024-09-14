@@ -14,6 +14,7 @@ from .group_recipe_action import (
     CreateGroupRecipeAction,
     GroupRecipeActionOut,
     GroupRecipeActionPagination,
+    GroupRecipeActionPayload,
     GroupRecipeActionType,
     SaveGroupRecipeAction,
 )
@@ -75,6 +76,7 @@ __all__ = [
     "CreateGroupRecipeAction",
     "GroupRecipeActionOut",
     "GroupRecipeActionPagination",
+    "GroupRecipeActionPayload",
     "GroupRecipeActionType",
     "SaveGroupRecipeAction",
     "CreateWebhook",
