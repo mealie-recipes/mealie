@@ -69,6 +69,38 @@ def test_get_all_recipes_includes_all_households(
 
 
 @pytest.mark.parametrize("is_private_household", [True, False])
+def test_get_all_recipes_with_household_filter(
+    api_client: TestClient, unique_user: TestUser, h2_user: TestUser, is_private_household: bool
+):
+    household = unique_user.repos.households.get_one(h2_user.household_id)
+    assert household and household.preferences
+    household.preferences.private_household = is_private_household
+    unique_user.repos.household_preferences.update(household.id, household.preferences)
+
+    response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=unique_user.token)
+    assert response.status_code == 201
+    recipe = unique_user.repos.recipes.get_one(response.json())
+    assert recipe and recipe.id
+    recipe_id = recipe.id
+
+    response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=h2_user.token)
+    assert response.status_code == 201
+    h2_recipe = h2_user.repos.recipes.get_one(response.json())
+    assert h2_recipe and h2_recipe.id
+    h2_recipe_id = h2_recipe.id
+
+    response = api_client.get(
+        api_routes.recipes,
+        params={"households": [h2_recipe.household_id], "page": 1, "perPage": -1},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+    response_ids = {recipe["id"] for recipe in response.json()["items"]}
+    assert str(recipe_id) not in response_ids
+    assert str(h2_recipe_id) in response_ids
+
+
+@pytest.mark.parametrize("is_private_household", [True, False])
 def test_get_one_recipe_from_another_household(
     api_client: TestClient, unique_user: TestUser, h2_user: TestUser, is_private_household: bool
 ):
