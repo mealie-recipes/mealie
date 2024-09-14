@@ -19,3 +19,15 @@ class RepositoryMeals(HouseholdRepositoryGeneric[ReadPlanEntry, GroupMealPlan]):
         )
         plans = self.session.execute(stmt).scalars().all()
         return [self.schema.model_validate(x) for x in plans]
+
+    def get_meals_by_date_range(self, start_date: datetime, end_date: datetime) -> list[ReadPlanEntry]:
+        if not self.household_id:
+            raise Exception("household_id not set")
+
+        stmt = select(GroupMealPlan).filter(
+            GroupMealPlan.date >= start_date.date(),
+            GroupMealPlan.date <= end_date.date(),
+            GroupMealPlan.household_id == self.household_id,
+        )
+        plans = self.session.execute(stmt).scalars().all()
+        return [self.schema.model_validate(x) for x in plans]
