@@ -27,7 +27,6 @@ from mealie.schema.recipe.recipe import (
     RecipeTool,
 )
 from mealie.schema.recipe.recipe_category import CategoryBase, TagBase
-from mealie.schema.recipe.recipe_ingredient import IngredientFood
 from mealie.schema.response.pagination import (
     OrderByNullPosition,
     OrderDirection,
@@ -196,13 +195,12 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
             category_ids = self._uuids_for_items(categories, Category)
             tag_ids = self._uuids_for_items(tags, Tag)
             tool_ids = self._uuids_for_items(tools, Tool)
-            food_ids = self._uuids_for_items(foods, IngredientFood)
             household_ids = self._uuids_for_items(households, Household)
             filters = self._build_recipe_filter(
                 categories=category_ids,
                 tags=tag_ids,
                 tools=tool_ids,
-                foods=food_ids,
+                foods=foods,
                 households=household_ids,
                 require_all_categories=require_all_categories,
                 require_all_tags=require_all_tags,
