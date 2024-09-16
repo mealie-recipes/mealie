@@ -15,8 +15,8 @@ from mealie.db.models.recipe.ingredient import IngredientFoodModel, IngredientUn
 # revision identifiers, used by Alembic.
 revision = "0341b154f79a"
 down_revision = "bcfdad6b7355"
-branch_labels = None
-depends_on = None
+branch_labels: str | tuple[str, ...] | None = None
+depends_on: str | tuple[str, ...] | None = None
 
 
 def populate_normalized_fields():
