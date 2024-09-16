@@ -165,6 +165,10 @@ export interface GroupRecipeActionOut {
   householdId: string;
   id: string;
 }
+export interface GroupRecipeActionPayload {
+  action: GroupRecipeActionOut;
+  content: unknown;
+}
 export interface HouseholdCreate {
   groupId?: string | null;
   name: string;

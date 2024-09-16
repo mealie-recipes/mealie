@@ -1,8 +1,6 @@
 from typing import Annotated
 
 from pydantic import UUID4, ConfigDict, Field, field_validator
-from pydantic_core.core_schema import ValidationInfo
-from slugify import slugify
 from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -30,16 +28,6 @@ class CreateCookBook(MealieModel):
     @field_validator("public", mode="before")
     def validate_public(public: bool | None) -> bool:
         return False if public is None else public
-
-    @field_validator("slug", mode="before")
-    def validate_slug(slug: str, info: ValidationInfo):
-        name: str = info.data["name"]
-        calc_slug: str = slugify(name)
-
-        if slug != calc_slug:
-            slug = calc_slug
-
-        return slug
 
 
 class SaveCookBook(CreateCookBook):
