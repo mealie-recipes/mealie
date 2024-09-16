@@ -8,7 +8,9 @@ from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.core.config import get_app_dirs, get_app_settings
+from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.users import User
+from mealie.db.models.users.user_to_recipe import UserToRecipe
 from mealie.db.models.users.users import AuthMethod, LongLiveToken
 from mealie.schema._mealie import MealieModel
 from mealie.schema.group.group_preferences import ReadGroupPreferences
@@ -87,6 +89,12 @@ class UserRatingUpdate(MealieModel):
 
 class UserRatingOut(UserRatingCreate):
     id: UUID4
+
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [
+            joinedload(UserToRecipe.recipe).joinedload(RecipeModel.user).load_only(User.household_id, User.group_id)
+        ]
 
 
 class UserRatings(BaseModel, Generic[DataT]):
