@@ -108,7 +108,7 @@
 
       <!-- View By Label -->
       <div v-else>
-        <div v-for="(value, key, idx) in itemsByLabel" :key="key" class="mb-6">
+        <div v-for="(value, key) in itemsByLabel" :key="key" class="mb-6">
           <div @click="toggleShowChecked()">
             <!-- Create Item -->
             <div v-if="createEditorOpen">
