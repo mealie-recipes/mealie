@@ -121,6 +121,15 @@ class RecipeSummary(MealieModel):
 
         return val
 
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [
+            joinedload(RecipeModel.recipe_category),
+            joinedload(RecipeModel.tags),
+            joinedload(RecipeModel.tools),
+            joinedload(RecipeModel.user).load_only("household_id"),
+        ]
+
 
 class RecipePagination(PaginationBase):
     items: list[RecipeSummary]
