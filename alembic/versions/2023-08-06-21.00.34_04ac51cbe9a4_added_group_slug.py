@@ -16,8 +16,8 @@ from mealie.db.models.group.group import Group
 # revision identifiers, used by Alembic.
 revision = "04ac51cbe9a4"
 down_revision = "b3dbb554ba53"
-branch_labels = None
-depends_on = None
+branch_labels: str | tuple[str, ...] | None = None
+depends_on: str | tuple[str, ...] | None = None
 
 
 def populate_group_slugs(session: Session):

@@ -13,8 +13,8 @@ from alembic import op
 # revision identifiers, used by Alembic.
 revision = "263dd6707191"
 down_revision = "6b0f5f32d602"
-branch_labels = None
-depends_on = None
+branch_labels: str | tuple[str, ...] | None = None
+depends_on: str | tuple[str, ...] | None = None
 
 
 def is_postgres():

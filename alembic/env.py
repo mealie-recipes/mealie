@@ -1,4 +1,6 @@
-from sqlalchemy import engine_from_config, pool
+from typing import Any
+
+import sqlalchemy as sa
 
 import mealie.db.models._all_models  # noqa: F401
 from alembic import context
@@ -27,6 +29,28 @@ if not settings.DB_URL:
     raise Exception("DB URL not set in config")
 
 config.set_main_option("sqlalchemy.url", settings.DB_URL.replace("%", "%%"))
+
+
+def include_object(object: Any, name: str, type_: str, reflected: bool, compare_to: Any):
+    # skip dropping food/unit unique constraints; they are defined manually so alembic doesn't see them
+    # see: revision dded3119c1fe
+    if type_ == "unique_constraint" and name == "ingredient_foods_name_group_id_key" and compare_to is None:
+        return False
+    if type_ == "unique_constraint" and name == "ingredient_units_name_group_id_key" and compare_to is None:
+        return False
+
+    # skip changing the quantity column in recipes_ingredients; it's a float on postgres, but an integer on sqlite
+    # see: revision 263dd6707191
+    if (
+        type_ == "column"
+        and name == "quantity"
+        and object.table.name == "recipes_ingredients"
+        and hasattr(compare_to, "type")
+        and isinstance(compare_to.type, sa.Integer)
+    ):
+        return False
+
+    return True
 
 
 def run_migrations_offline():
@@ -60,15 +84,19 @@ def run_migrations_online():
     and associate a connection with the context.
 
     """
-    connectable = engine_from_config(
+    connectable = sa.engine_from_config(
         config.get_section(config.config_ini_section),
         prefix="sqlalchemy.",
-        poolclass=pool.NullPool,
+        poolclass=sa.pool.NullPool,
     )
 
     with connectable.connect() as connection:
         context.configure(
-            connection=connection, target_metadata=target_metadata, user_module_prefix="mealie.db.migration_types."
+            connection=connection,
+            target_metadata=target_metadata,
+            user_module_prefix="mealie.db.migration_types.",
+            render_as_batch=True,
+            include_object=include_object,
         )
 
         with context.begin_transaction():
