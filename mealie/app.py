@@ -63,6 +63,9 @@ async def lifespan_fn(_: FastAPI) -> AsyncGenerator[None, None]:
         settings.model_dump_json(
             indent=4,
             exclude={
+                "LDAP_QUERY_PASSWORD",
+                "OIDC_CLIENT_ID",
+                "OPENAI_API_KEY",
                 "SECRET",
                 "SFTP_PASSWORD",
                 "SFTP_USERNAME",
