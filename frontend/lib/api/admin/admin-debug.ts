@@ -8,7 +8,7 @@ const routes = {
 };
 
 export class AdminDebugAPI extends BaseAPI {
-  async debugOpenAI(fileObject: Blob | File | undefined = undefined, fileName: string = "") {
+  async debugOpenAI(fileObject: Blob | File | undefined = undefined, fileName = "") {
     let formData: FormData | null = null;
     if (fileObject) {
       formData = new FormData();
