@@ -77,8 +77,8 @@ export default defineComponent({
     const recipePreferences: Preference[] = [
       {
         key: "recipePublic",
-        label: i18n.tc("household.allow-users-outside-of-your-household-to-see-your-recipes"),
-        description: i18n.tc("household.allow-users-outside-of-your-household-to-see-your-recipes-description"),
+        label: i18n.tc("group.allow-users-outside-of-your-group-to-see-your-recipes"),
+        description: i18n.tc("group.allow-users-outside-of-your-group-to-see-your-recipes-description"),
       },
       {
         key: "recipeShowNutrition",
