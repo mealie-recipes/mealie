@@ -178,6 +178,5 @@ class OpenAIService(BaseService):
             if not response.choices:
                 return None
             return response.choices[0].message.content
-        except Exception:
-            self.logger.exception("OpenAI Request Failed")
-            return None
+        except Exception as e:
+            raise Exception("OpenAI Request Failed") from e

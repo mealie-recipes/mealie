@@ -80,10 +80,20 @@ class OpenAIParser(ABCIngredientParser):
             tasks.append(service.get_response(prompt, message, force_json_response=True))
 
         # re-combine chunks into one response
-        responses_json = await asyncio.gather(*tasks)
-        responses = [
-            OpenAIIngredients.parse_openai_response(response_json) for response_json in responses_json if responses_json
-        ]
+        try:
+            responses_json = await asyncio.gather(*tasks)
+        except Exception as e:
+            raise Exception("Failed to call OpenAI services") from e
+
+        try:
+            responses = [
+                OpenAIIngredients.parse_openai_response(response_json)
+                for response_json in responses_json
+                if responses_json
+            ]
+        except Exception as e:
+            raise Exception("Failed to parse OpenAI response") from e
+
         if not responses:
             raise Exception("No response from OpenAI")
 
