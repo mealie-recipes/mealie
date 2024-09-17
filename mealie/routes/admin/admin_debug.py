@@ -46,4 +46,7 @@ class AdminDebugController(BaseAdminController):
 
             except Exception as e:
                 self.logger.exception(e)
-                return DebugResponse(success=False, response="OpenAI request failed. Error has been logged")
+                return DebugResponse(
+                    success=False,
+                    response=f'OpenAI request failed. Full error has been logged. {e.__class__.__name__}: "{e}"',
+                )

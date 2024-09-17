@@ -179,4 +179,4 @@ class OpenAIService(BaseService):
                 return None
             return response.choices[0].message.content
         except Exception as e:
-            raise Exception("OpenAI Request Failed") from e
+            raise Exception(f"OpenAI Request Failed. {e.__class__.__name__}: {e}") from e
