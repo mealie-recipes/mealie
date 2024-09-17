@@ -26,11 +26,11 @@
     <template v-if="topLink">
       <v-list nav dense>
         <template v-for="nav in topLink">
-          <div v-if="!nav.restricted || isOwnGroup" :key="nav.title">
+          <div v-if="!nav.restricted || isOwnGroup" :key="nav.key || nav.title">
             <!-- Multi Items -->
             <v-list-group
               v-if="nav.children"
-              :key="nav.title + 'multi-item'"
+              :key="(nav.key || nav.title) + 'multi-item'"
               v-model="dropDowns[nav.title]"
               color="primary"
               :prepend-icon="nav.icon"
@@ -39,7 +39,7 @@
                 <v-list-item-title>{{ nav.title }}</v-list-item-title>
               </template>
 
-              <v-list-item v-for="child in nav.children" :key="child.title" exact :to="child.to" class="ml-2">
+              <v-list-item v-for="child in nav.children" :key="child.key || child.title" exact :to="child.to" class="ml-2">
                 <v-list-item-icon>
                   <v-icon>{{ child.icon }}</v-icon>
                 </v-list-item-icon>
@@ -50,7 +50,7 @@
             <!-- Single Item -->
             <v-list-item-group
               v-else
-              :key="nav.title + 'single-item'"
+              :key="(nav.key || nav.title) + 'single-item'"
               v-model="secondarySelected"
               color="primary"
             >
@@ -71,11 +71,11 @@
       <v-divider class="mt-2"></v-divider>
       <v-list nav dense exact>
         <template v-for="nav in secondaryLinks">
-          <div v-if="!nav.restricted || isOwnGroup" :key="nav.title">
+          <div v-if="!nav.restricted || isOwnGroup" :key="nav.key || nav.title">
             <!-- Multi Items -->
             <v-list-group
               v-if="nav.children"
-              :key="nav.title + 'multi-item'"
+              :key="(nav.key || nav.title) + 'multi-item'"
               v-model="dropDowns[nav.title]"
               color="primary"
               :prepend-icon="nav.icon"
@@ -84,7 +84,7 @@
                 <v-list-item-title>{{ nav.title }}</v-list-item-title>
               </template>
 
-              <v-list-item v-for="child in nav.children" :key="child.title" exact :to="child.to">
+              <v-list-item v-for="child in nav.children" :key="child.key || child.title" exact :to="child.to">
                 <v-list-item-icon>
                   <v-icon>{{ child.icon }}</v-icon>
                 </v-list-item-icon>
@@ -94,7 +94,7 @@
             </v-list-group>
 
             <!-- Single Item -->
-            <v-list-item-group v-else :key="nav.title + 'single-item'" v-model="secondarySelected" color="primary">
+            <v-list-item-group v-else :key="(nav.key || nav.title) + 'single-item'" v-model="secondarySelected" color="primary">
               <v-list-item exact link :to="nav.to">
                 <v-list-item-icon>
                   <v-icon>{{ nav.icon }}</v-icon>
@@ -112,9 +112,9 @@
       <v-list nav dense>
         <v-list-item-group v-model="bottomSelected" color="primary">
           <template v-for="nav in bottomLinks">
-            <div v-if="!nav.restricted || isOwnGroup" :key="nav.title">
+            <div v-if="!nav.restricted || isOwnGroup" :key="nav.key || nav.title">
               <v-list-item
-                :key="nav.title"
+                :key="nav.key || nav.title"
                 exact
                 link
                 :to="nav.to || null"

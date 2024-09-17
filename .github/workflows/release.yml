@@ -80,6 +80,8 @@ jobs:
         with:
           commit-message: "Update image tag, for release ${{ github.event.release.tag_name }}"
           branch: "docs/newrelease-update-version-${{ github.event.release.tag_name }}"
+          labels: |
+            documentation
           delete-branch: true
           base: mealie-next
           title: "docs(auto): Update image tag, for release ${{ github.event.release.tag_name }}"

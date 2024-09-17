@@ -20,8 +20,8 @@ logger = get_logger()
 # revision identifiers, used by Alembic.
 revision = "2298bb460ffd"
 down_revision = "ba1e4a6cfe99"
-branch_labels = None
-depends_on = None
+branch_labels: str | tuple[str, ...] | None = None
+depends_on: str | tuple[str, ...] | None = None
 
 
 def is_postgres():

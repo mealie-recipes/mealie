@@ -1,0 +1,30 @@
+---
+name: Release Drafter
+
+on:
+  push:
+    branches:
+      - mealie-next
+  # pull_request event is required for autolabeler
+  pull_request:
+    types: [opened, labeled, unlabeled, reopened, synchronize]
+  # pull_request_target event is required for autolabeler to support PRs from forks
+  pull_request_target:
+    types: [opened, labeled, unlabeled, reopened, synchronize]
+  workflow_dispatch:
+
+jobs:
+  update_release_draft:
+    permissions:
+      # write permission is required to create a github release
+      contents: write
+      # write permission is required for autolabeler
+      # otherwise, read permission is required at least
+      pull-requests: write
+    name: ✏️ Draft release
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚀 Run Release Drafter
+        uses: release-drafter/release-drafter@v6.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -23,8 +23,8 @@ from mealie.db.models.recipe.ingredient import IngredientFoodModel, IngredientUn
 # revision identifiers, used by Alembic.
 revision = "dded3119c1fe"
 down_revision = "0341b154f79a"
-branch_labels = None
-depends_on = None
+branch_labels: str | tuple[str, ...] | None = None
+depends_on: str | tuple[str, ...] | None = None
 
 
 # Intermediate table definitions
