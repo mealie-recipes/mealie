@@ -102,6 +102,12 @@ export default defineComponent({
             title: i18n.tc("admin.openai"),
             restricted: true,
           },
+          {
+            icon: $globals.icons.slotMachine,
+            to: "/admin/debug/parser",
+            title: i18n.tc("sidebar.parser"),
+            restricted: true,
+          },
         ]
       },
     ];
