@@ -3,6 +3,8 @@
     <v-container>
       <BaseCardSectionTitle :title="$tc('admin.debug-openai-services')">
         {{ $t('admin.debug-openai-services-description') }}
+        <br />
+        <DocLink class="mt-2" link="/documentation/getting-started/installation/open-ai" />
       </BaseCardSectionTitle>
     </v-container>
     <v-form ref="uploadForm" @submit.prevent="testOpenAI">
