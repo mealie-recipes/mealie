@@ -90,6 +90,8 @@ class OpenAIService(BaseService):
             base_url=settings.OPENAI_BASE_URL,
             api_key=settings.OPENAI_API_KEY,
             timeout=settings.OPENAI_REQUEST_TIMEOUT,
+            default_headers=settings.OPENAI_CUSTOM_HEADERS,
+            default_query=settings.OPENAI_CUSTOM_PARAMS,
         )
 
         super().__init__()
