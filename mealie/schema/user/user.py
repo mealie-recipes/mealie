@@ -106,6 +106,7 @@ class UserBase(MealieModel):
 
     can_invite: bool = False
     can_manage: bool = False
+    can_manage_household: bool = False
     can_organize: bool = False
     model_config = ConfigDict(
         from_attributes=True,

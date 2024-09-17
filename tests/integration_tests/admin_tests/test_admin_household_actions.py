@@ -42,6 +42,7 @@ def test_admin_update_household(api_client: TestClient, admin_user: TestUser, un
         "name": "New Name",
         "preferences": {
             "privateHousehold": random_bool(),
+            "lockRecipeEditsFromOtherHouseholds": random_bool(),
             "firstDayOfWeek": 2,
             "recipePublic": random_bool(),
             "recipeShowNutrition": random_bool(),

@@ -41,6 +41,8 @@ class HouseholdSelfServiceController(BaseUserController):
 
     @router.put("/preferences", response_model=ReadHouseholdPreferences)
     def update_household_preferences(self, new_pref: UpdateHouseholdPreferences):
+        self.checks.can_manage_household()
+
         return self.repos.household_preferences.update(self.household_id, new_pref)
 
     @router.put("/permissions", response_model=UserOut)
@@ -60,6 +62,7 @@ class HouseholdSelfServiceController(BaseUserController):
 
         target_user.can_invite = permissions.can_invite
         target_user.can_manage = permissions.can_manage
+        target_user.can_manage_household = permissions.can_manage_household
         target_user.can_organize = permissions.can_organize
 
         return self.repos.users.update(permissions.user_id, target_user)
