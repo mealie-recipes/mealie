@@ -175,7 +175,7 @@ export interface CustomPageOut {
 }
 export interface DebugResponse {
   success: boolean;
-  message?: string | null;
+  response?: string | null;
 }
 export interface EmailReady {
   ready: boolean;
