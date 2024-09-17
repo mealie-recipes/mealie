@@ -32,7 +32,7 @@ export default defineComponent({
   components: {
     HouseholdPreferencesEditor,
   },
-  middleware: ["auth", "can-manage-only"],
+  middleware: ["auth", "can-manage-household-only"],
   setup() {
     const { household, actions: householdActions } = useHouseholdSelf();
     const { i18n } = useContext();
