@@ -66,6 +66,12 @@ export const useUserForm = () => {
       rules: ["required"],
     },
     {
+      label: i18n.tc("user.user-can-manage-household"),
+      varName: "canManageHousehold",
+      type: fieldTypes.BOOLEAN,
+      rules: ["required"],
+    },
+    {
       label: i18n.tc("user.enable-advanced-features"),
       varName: "advanced",
       type: fieldTypes.BOOLEAN,

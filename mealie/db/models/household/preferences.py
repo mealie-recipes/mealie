@@ -22,6 +22,7 @@ class HouseholdPreferencesModel(SqlAlchemyBase, BaseMixins):
     group_id: AssociationProxy[GUID] = association_proxy("household", "group_id")
 
     private_household: Mapped[bool | None] = mapped_column(sa.Boolean, default=True)
+    lock_recipe_edits_from_other_households: Mapped[bool | None] = mapped_column(sa.Boolean, default=True)
     first_day_of_week: Mapped[int | None] = mapped_column(sa.Integer, default=0)
 
     # Recipe Defaults
