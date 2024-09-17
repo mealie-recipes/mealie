@@ -64,13 +64,12 @@
 <script lang="ts">
 import { defineComponent, useContext, computed, ref, watch } from "@nuxtjs/composition-api";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
-import { useUserApi } from "~/composables/api";
 import { useRecipePermissions } from "~/composables/recipes";
 import RecipeRating from "~/components/Domain/Recipe/RecipeRating.vue";
 import RecipeLastMade from "~/components/Domain/Recipe/RecipeLastMade.vue";
 import RecipeActionMenu from "~/components/Domain/Recipe/RecipeActionMenu.vue";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
-import { useStaticRoutes } from "~/composables/api";
+import { useStaticRoutes, useUserApi  } from "~/composables/api";
 import { HouseholdSummary } from "~/lib/api/types/household";
 import { Recipe } from "~/lib/api/types/recipe";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
