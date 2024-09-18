@@ -6,18 +6,28 @@ from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.db.models.household import GroupMealPlanRules
+from mealie.db.models.household import Household as HouseholdModel
+from mealie.db.models.recipe import Category as CategoryModel
+from mealie.db.models.recipe import Tag as TagModel
 from mealie.schema._mealie import MealieModel
 from mealie.schema.response.pagination import PaginationBase
 
 
-class Category(MealieModel):
+class BasePlanRuleFilter(MealieModel):
     id: UUID4
     name: str
     slug: str
+
+
+class Category(BasePlanRuleFilter):
     model_config = ConfigDict(from_attributes=True)
 
 
-class Tag(Category):
+class Tag(BasePlanRuleFilter):
+    model_config = ConfigDict(from_attributes=True)
+
+
+class Household(BasePlanRuleFilter):
     model_config = ConfigDict(from_attributes=True)
 
 
@@ -53,6 +63,7 @@ class PlanRulesCreate(MealieModel):
     entry_type: PlanRulesType = PlanRulesType.unset
     categories: list[Category] = []
     tags: list[Tag] = []
+    households: list[Household] = []
 
 
 class PlanRulesSave(PlanRulesCreate):
@@ -66,7 +77,23 @@ class PlanRulesOut(PlanRulesSave):
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
-        return [joinedload(GroupMealPlanRules.categories), joinedload(GroupMealPlanRules.tags)]
+        return [
+            joinedload(GroupMealPlanRules.categories).load_only(
+                CategoryModel.id,
+                CategoryModel.name,
+                CategoryModel.slug,
+            ),
+            joinedload(GroupMealPlanRules.tags).load_only(
+                TagModel.id,
+                TagModel.name,
+                TagModel.slug,
+            ),
+            joinedload(GroupMealPlanRules.households).load_only(
+                HouseholdModel.id,
+                HouseholdModel.name,
+                HouseholdModel.slug,
+            ),
+        ]
 
 
 class PlanRulesPagination(PaginationBase):
