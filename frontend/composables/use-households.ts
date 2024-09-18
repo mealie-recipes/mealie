@@ -36,6 +36,8 @@ export const useHouseholdSelf = function () {
       if (data) {
         householdSelfRef.value.preferences = data;
       }
+
+      return data || undefined;
     },
   };
 

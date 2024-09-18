@@ -39,6 +39,7 @@ class RegistrationService:
             household=household,
             can_invite=new_group,
             can_manage=new_group,
+            can_manage_household=new_group,
             can_organize=new_group,
         )
 

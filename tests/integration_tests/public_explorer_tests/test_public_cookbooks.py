@@ -34,11 +34,12 @@ def test_get_all_cookbooks(
     household_private_map: dict[UUID4, bool] = {}
     public_cookbooks: list[ReadCookBook] = []
     private_cookbooks: list[ReadCookBook] = []
-    for database, is_private_household in [
-        (unique_user.repos, is_household_1_private),
-        (h2_user.repos, is_household_2_private),
+    for user, is_private_household in [
+        (unique_user, is_household_1_private),
+        (h2_user, is_household_2_private),
     ]:
-        household = database.households.get_one(unique_user.household_id)
+        database = user.repos
+        household = database.households.get_one(user.household_id)
         assert household and household.preferences
 
         household_private_map[household.id] = is_private_household
@@ -49,7 +50,7 @@ def test_get_all_cookbooks(
         ## Set Up Cookbooks
         default_cookbooks = database.cookbooks.create_many(
             [
-                SaveCookBook(name=random_string(), group_id=unique_user.group_id, household_id=unique_user.household_id)
+                SaveCookBook(name=random_string(), group_id=user.group_id, household_id=user.household_id)
                 for _ in range(random_int(15, 20))
             ]
         )

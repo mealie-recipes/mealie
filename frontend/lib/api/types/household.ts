@@ -15,6 +15,7 @@ export interface CreateGroupRecipeAction {
 }
 export interface CreateHouseholdPreferences {
   privateHousehold?: boolean;
+  lockRecipeEditsFromOtherHouseholds?: boolean;
   firstDayOfWeek?: number;
   recipePublic?: boolean;
   recipeShowNutrition?: boolean;
@@ -165,6 +166,10 @@ export interface GroupRecipeActionOut {
   householdId: string;
   id: string;
 }
+export interface GroupRecipeActionPayload {
+  action: GroupRecipeActionOut;
+  content: unknown;
+}
 export interface HouseholdCreate {
   groupId?: string | null;
   name: string;
@@ -181,6 +186,7 @@ export interface HouseholdInDB {
 }
 export interface ReadHouseholdPreferences {
   privateHousehold?: boolean;
+  lockRecipeEditsFromOtherHouseholds?: boolean;
   firstDayOfWeek?: number;
   recipePublic?: boolean;
   recipeShowNutrition?: boolean;
@@ -237,6 +243,7 @@ export interface SaveGroupRecipeAction {
 }
 export interface SaveHouseholdPreferences {
   privateHousehold?: boolean;
+  lockRecipeEditsFromOtherHouseholds?: boolean;
   firstDayOfWeek?: number;
   recipePublic?: boolean;
   recipeShowNutrition?: boolean;
@@ -263,6 +270,7 @@ export interface SaveWebhook {
 }
 export interface SetPermissions {
   userId: string;
+  canManageHousehold?: boolean;
   canManage?: boolean;
   canInvite?: boolean;
   canOrganize?: boolean;
@@ -645,6 +653,7 @@ export interface UpdateHouseholdAdmin {
 }
 export interface UpdateHouseholdPreferences {
   privateHousehold?: boolean;
+  lockRecipeEditsFromOtherHouseholds?: boolean;
   firstDayOfWeek?: number;
   recipePublic?: boolean;
   recipeShowNutrition?: boolean;

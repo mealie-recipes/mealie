@@ -18,8 +18,8 @@ from mealie.db.models._model_utils.guid import GUID
 # revision identifiers, used by Alembic.
 revision = "b04a08da2108"
 down_revision = "5ab195a474eb"
-branch_labels = None
-depends_on = None
+branch_labels: str | tuple[str, ...] | None = None
+depends_on: str | tuple[str, ...] | None = None
 
 
 # Intermediate table definitions

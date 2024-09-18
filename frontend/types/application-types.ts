@@ -1,4 +1,5 @@
 export interface SideBarLink {
+  key?: string;
   icon: string;
   to?: string;
   href?: string;

@@ -1,9 +1,13 @@
 from enum import Enum
+from typing import Any
 
 from pydantic import UUID4, ConfigDict
 
 from mealie.schema._mealie import MealieModel
 from mealie.schema.response.pagination import PaginationBase
+
+# ==================================================================================================================
+# CRUD
 
 
 class GroupRecipeActionType(Enum):
@@ -31,3 +35,12 @@ class GroupRecipeActionOut(SaveGroupRecipeAction):
 
 class GroupRecipeActionPagination(PaginationBase):
     items: list[GroupRecipeActionOut]
+
+
+# ==================================================================================================================
+# Actions
+
+
+class GroupRecipeActionPayload(MealieModel):
+    action: GroupRecipeActionOut
+    content: Any

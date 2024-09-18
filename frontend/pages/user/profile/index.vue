@@ -1,7 +1,7 @@
 <template>
   <v-container v-if="user">
     <section class="d-flex flex-column align-center mt-4">
-      <UserAvatar size="96" :user-id="$auth.user.id" />
+      <UserAvatar size="96" :user-id="user.id" />
 
       <h2 class="headline">{{ $t('profile.welcome-user', [user.fullName]) }}</h2>
       <p class="subtitle-1 mb-0 text-center">
@@ -9,7 +9,7 @@
       </p>
       <v-card flat color="transparent" width="100%" max-width="600px">
         <v-card-actions class="d-flex justify-center my-4">
-          <v-btn v-if="$auth.user.canInvite"  outlined rounded @click="getSignupLink()">
+          <v-btn v-if="user.canInvite"  outlined rounded @click="getSignupLink()">
             <v-icon left>
               {{ $globals.icons.createAlt }}
             </v-icon>
@@ -113,7 +113,7 @@
         <p>{{ $t('profile.household-description') }}</p>
       </div>
       <v-row tag="section">
-        <v-col v-if="$auth.user.canManage" cols="12" sm="12" md="6">
+        <v-col v-if="user.canManageHousehold" cols="12" sm="12" md="6">
           <UserProfileLinkCard
             :link="{ text: $tc('profile.household-settings'), to: `/household` }"
             :image="require('~/static/svgs/manage-group-settings.svg')"
@@ -165,13 +165,13 @@
       </v-row>
     </section>
     <v-divider class="my-7" />
-    <section v-if="$auth.user.canManage || $auth.user.canOrganize || $auth.user.advanced">
+    <section v-if="user.canManage || user.canOrganize || user.advanced">
       <div>
         <h3 class="headline">{{ $t('group.group') }}</h3>
         <p>{{ $t('profile.group-description') }}</p>
       </div>
       <v-row tag="section">
-        <v-col v-if="$auth.user.canManage" cols="12" sm="12" md="6">
+        <v-col v-if="user.canManage" cols="12" sm="12" md="6">
           <UserProfileLinkCard
             :link="{ text: $tc('profile.group-settings'), to: `/group` }"
             :image="require('~/static/svgs/manage-group-settings.svg')"
@@ -180,8 +180,7 @@
             {{ $t('profile.group-settings-description') }}
           </UserProfileLinkCard>
         </v-col>
-        <!-- $auth.user.canOrganize should not be null because of the auth middleware -->
-        <v-col v-if="$auth.user.canOrganize" cols="12" sm="12" md="6">
+        <v-col v-if="user.canOrganize" cols="12" sm="12" md="6">
           <UserProfileLinkCard
             :link="{ text: $tc('profile.manage-data'), to: `/group/data/foods` }"
             :image="require('~/static/svgs/manage-recipes.svg')"
