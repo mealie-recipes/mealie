@@ -118,10 +118,10 @@ export default defineComponent({
       testOpenAI,
     };
   },
-  // head() {
-  //   return {
-  //     title: this.$t("admin.debug-openai-services"),
-  //   };
-  // },
+  head() {
+    return {
+      title: this.$t("admin.debug-openai-services"),
+    };
+  },
 });
 </script>
