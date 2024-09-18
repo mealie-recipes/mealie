@@ -273,7 +273,7 @@ export default defineComponent({
 
       // we double-up the first call to avoid a bug with large screens that render
       // the entire first page without scrolling, preventing additional loading
-      const newRecipes = await fetchRecipes(2);
+      const newRecipes = await fetchRecipes(page.value + 1);
       if (newRecipes.length < perPage) {
         hasMore.value = false;
       }
