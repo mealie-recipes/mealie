@@ -1,7 +1,7 @@
 import datetime
 from typing import TYPE_CHECKING, Optional
 
-from sqlalchemy import Date, ForeignKey, String, orm
+from sqlalchemy import Column, Date, ForeignKey, String, Table, UniqueConstraint, orm
 from sqlalchemy.ext.associationproxy import AssociationProxy, association_proxy
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -18,6 +18,14 @@ if TYPE_CHECKING:
     from ..users import User
     from .household import Household
 
+plan_rules_to_households = Table(
+    "plan_rules_to_households",
+    SqlAlchemyBase.metadata,
+    Column("group_plan_rule_id", GUID, ForeignKey("group_meal_plan_rules.id"), index=True),
+    Column("household_id", GUID, ForeignKey("households.id"), index=True),
+    UniqueConstraint("group_plan_rule_id", "household_id", name="group_plan_rule_id_household_id_key"),
+)
+
 
 class GroupMealPlanRules(BaseMixins, SqlAlchemyBase):
     __tablename__ = "group_meal_plan_rules"
@@ -33,8 +41,10 @@ class GroupMealPlanRules(BaseMixins, SqlAlchemyBase):
         String, nullable=False, default=""
     )  # "breakfast", "lunch", "dinner", "side"
 
+    # Filters
     categories: Mapped[list[Category]] = orm.relationship(Category, secondary=plan_rules_to_categories)
     tags: Mapped[list[Tag]] = orm.relationship(Tag, secondary=plan_rules_to_tags)
+    households: Mapped[list["Household"]] = orm.relationship("Household", secondary=plan_rules_to_households)
 
     @auto_init()
     def __init__(self, **_) -> None:
