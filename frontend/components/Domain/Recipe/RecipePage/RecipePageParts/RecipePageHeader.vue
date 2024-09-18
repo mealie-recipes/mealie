@@ -69,7 +69,8 @@ import RecipeRating from "~/components/Domain/Recipe/RecipeRating.vue";
 import RecipeLastMade from "~/components/Domain/Recipe/RecipeLastMade.vue";
 import RecipeActionMenu from "~/components/Domain/Recipe/RecipeActionMenu.vue";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
-import { useStaticRoutes } from "~/composables/api";
+import { useStaticRoutes, useUserApi  } from "~/composables/api";
+import { HouseholdSummary } from "~/lib/api/types/household";
 import { Recipe } from "~/lib/api/types/recipe";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { usePageState, usePageUser, PageMode, EditorMode } from "~/composables/recipe-page/shared-state";
@@ -100,7 +101,15 @@ export default defineComponent({
     const { imageKey, pageMode, editMode, setMode, toggleEditMode, isEditMode } = usePageState(props.recipe.slug);
     const { user } = usePageUser();
     const { isOwnGroup } = useLoggedInState();
-    const { canEditRecipe } = useRecipePermissions(props.recipe, user);
+
+    const recipeHousehold = ref<HouseholdSummary>();
+    if (user) {
+      const userApi = useUserApi();
+      userApi.groups.fetchHousehold(props.recipe.householdId).then(({ data }) => {
+        recipeHousehold.value = data || undefined;
+      });
+    }
+    const { canEditRecipe } = useRecipePermissions(props.recipe, recipeHousehold, user);
 
     function printRecipe() {
       window.print();

@@ -1,5 +1,5 @@
 <template>
-  <v-container class="narrow-container">
+  <v-container v-if="household" class="narrow-container">
     <BasePageTitle class="mb-5">
       <template #header>
         <v-img max-height="100" max-width="100" :src="require('~/static/svgs/manage-group-settings.svg')"></v-img>
@@ -7,69 +7,37 @@
       <template #title> {{ $t("profile.household-settings") }} </template>
       {{ $t("profile.household-description") }}
     </BasePageTitle>
-
-    <section v-if="household">
-      <BaseCardSectionTitle class="mt-10" :title="$tc('household.household-preferences')"></BaseCardSectionTitle>
-      <div class="mb-6">
-        <v-checkbox
-          v-model="household.preferences.privateHousehold"
-          hide-details
-          dense
-          :label="$t('household.private-household')"
-          @change="householdActions.updatePreferences()"
-        />
-        <div class="ml-8">
-          <p class="text-subtitle-2 my-0 py-0">
-            {{ $t("household.private-household-description") }}
-          </p>
-          <DocLink class="mt-2" link="/documentation/getting-started/faq/#how-do-private-groups-and-recipes-work" />
-        </div>
+    <v-form ref="refHouseholdEditForm" @submit.prevent="handleSubmit">
+      <v-card outlined>
+        <v-card-text>
+          <HouseholdPreferencesEditor v-if="household.preferences" v-model="household.preferences" />
+        </v-card-text>
+      </v-card>
+      <div class="d-flex pa-2">
+        <BaseButton type="submit" edit class="ml-auto"> {{ $t("general.update") }}</BaseButton>
       </div>
-      <v-select
-        v-model="household.preferences.firstDayOfWeek"
-        :prepend-icon="$globals.icons.calendarWeekBegin"
-        :items="allDays"
-        item-text="name"
-        item-value="value"
-        :label="$t('settings.first-day-of-week')"
-        @change="householdActions.updatePreferences()"
-      />
-    </section>
-
-    <section v-if="household">
-      <BaseCardSectionTitle class="mt-10" :title="$tc('group.default-recipe-preferences')">
-        {{ $t("household.default-recipe-preferences-description") }}
-      </BaseCardSectionTitle>
-
-      <div class="preference-container">
-        <div v-for="p in preferencesEditor" :key="p.key">
-          <v-checkbox
-            v-model="household.preferences[p.key]"
-            hide-details
-            dense
-            :label="p.label"
-            @change="householdActions.updatePreferences()"
-          />
-          <p class="ml-8 text-subtitle-2 my-0 py-0">
-            {{ p.description }}
-          </p>
-        </div>
-      </div>
-    </section>
+    </v-form>
   </v-container>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
+import { computed, defineComponent, ref, useContext } from "@nuxtjs/composition-api";
+import HouseholdPreferencesEditor from "~/components/Domain/Household/HouseholdPreferencesEditor.vue";
+import { VForm } from "~/types/vuetify";
 import { useHouseholdSelf } from "~/composables/use-households";
 import { ReadHouseholdPreferences } from "~/lib/api/types/household";
+import { alert } from "~/composables/use-toast";
 
 export default defineComponent({
-  middleware: ["auth", "can-manage-only"],
+  components: {
+    HouseholdPreferencesEditor,
+  },
+  middleware: ["auth", "can-manage-household-only"],
   setup() {
     const { household, actions: householdActions } = useHouseholdSelf();
-
     const { i18n } = useContext();
+
+    const refHouseholdEditForm = ref<VForm | null>(null);
 
     type Preference = {
       key: keyof ReadHouseholdPreferences;
@@ -153,11 +121,27 @@ export default defineComponent({
       },
     ];
 
+    async function handleSubmit() {
+      if (!refHouseholdEditForm.value?.validate() || !household.value?.preferences) {
+        console.log(refHouseholdEditForm.value?.validate());
+        return;
+      }
+
+      const data = await householdActions.updatePreferences();
+      if (data) {
+        alert.success(i18n.tc("settings.settings-updated"));
+      } else {
+        alert.error(i18n.tc("settings.settings-update-failed"));
+      }
+    }
+
     return {
       household,
       householdActions,
       allDays,
       preferencesEditor,
+      refHouseholdEditForm,
+      handleSubmit,
     };
   },
   head() {
