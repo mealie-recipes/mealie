@@ -98,6 +98,9 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
                     ids.append(i_as_uuid)
                 except ValueError:
                     slugs.append(i)
+
+        if not slugs:
+            return ids
         additional_ids = self.session.execute(sa.select(model.id).filter(model.slug.in_(slugs))).scalars().all()
         return ids + additional_ids
 

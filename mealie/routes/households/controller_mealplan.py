@@ -73,7 +73,9 @@ class GroupMealplanController(BaseCrudController):
         household_ids = [household.id for household in households] or None
 
         recipes_data = cross_household_recipes.page_all(
-            pagination=PaginationQuery(page=1, per_page=limit, order_by="random"),
+            pagination=PaginationQuery(
+                page=1, per_page=limit, order_by="random", pagination_seed=self.repo._random_seed()
+            ),
             categories=category_ids,
             tags=tag_ids,
             households=household_ids,
