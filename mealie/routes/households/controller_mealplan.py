@@ -12,7 +12,7 @@ from mealie.routes._base.mixins import HttpRepo
 from mealie.schema import mapper
 from mealie.schema.meal_plan import CreatePlanEntry, ReadPlanEntry, SavePlanEntry, UpdatePlanEntry
 from mealie.schema.meal_plan.new_meal import CreateRandomEntry, PlanEntryPagination, PlanEntryType
-from mealie.schema.meal_plan.plan_rules import Category, Household, PlanRulesDay, Tag
+from mealie.schema.meal_plan.plan_rules import PlanCategory, PlanHousehold, PlanRulesDay, PlanTag
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.response.responses import ErrorResponse
@@ -54,9 +54,9 @@ class GroupMealplanController(BaseCrudController):
         rules = self.repos.group_meal_plan_rules.get_rules(PlanRulesDay.from_date(plan_date), entry_type.value)
         cross_household_recipes = get_repositories(self.session, group_id=self.group_id, household_id=None).recipes
 
-        tags: list[Tag] = []
-        categories: list[Category] = []
-        households: list[Household] = []
+        tags: list[PlanTag] = []
+        categories: list[PlanCategory] = []
+        households: list[PlanHousehold] = []
         for rule in rules:
             if rule.tags:
                 tags.extend(rule.tags)

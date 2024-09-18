@@ -5,10 +5,8 @@ from pydantic import UUID4, ConfigDict
 from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.interfaces import LoaderOption
 
-from mealie.db.models.household import GroupMealPlanRules
-from mealie.db.models.household import Household as HouseholdModel
-from mealie.db.models.recipe import Category as CategoryModel
-from mealie.db.models.recipe import Tag as TagModel
+from mealie.db.models.household import GroupMealPlanRules, Household
+from mealie.db.models.recipe import Category, Tag
 from mealie.schema._mealie import MealieModel
 from mealie.schema.response.pagination import PaginationBase
 
@@ -19,15 +17,15 @@ class BasePlanRuleFilter(MealieModel):
     slug: str
 
 
-class Category(BasePlanRuleFilter):
+class PlanCategory(BasePlanRuleFilter):
     model_config = ConfigDict(from_attributes=True)
 
 
-class Tag(BasePlanRuleFilter):
+class PlanTag(BasePlanRuleFilter):
     model_config = ConfigDict(from_attributes=True)
 
 
-class Household(BasePlanRuleFilter):
+class PlanHousehold(BasePlanRuleFilter):
     model_config = ConfigDict(from_attributes=True)
 
 
@@ -61,9 +59,9 @@ class PlanRulesType(str, Enum):
 class PlanRulesCreate(MealieModel):
     day: PlanRulesDay = PlanRulesDay.unset
     entry_type: PlanRulesType = PlanRulesType.unset
-    categories: list[Category] = []
-    tags: list[Tag] = []
-    households: list[Household] = []
+    categories: list[PlanCategory] = []
+    tags: list[PlanTag] = []
+    households: list[PlanHousehold] = []
 
 
 class PlanRulesSave(PlanRulesCreate):
@@ -79,19 +77,19 @@ class PlanRulesOut(PlanRulesSave):
     def loader_options(cls) -> list[LoaderOption]:
         return [
             joinedload(GroupMealPlanRules.categories).load_only(
-                CategoryModel.id,
-                CategoryModel.name,
-                CategoryModel.slug,
+                Category.id,
+                Category.name,
+                Category.slug,
             ),
             joinedload(GroupMealPlanRules.tags).load_only(
-                TagModel.id,
-                TagModel.name,
-                TagModel.slug,
+                Tag.id,
+                Tag.name,
+                Tag.slug,
             ),
             joinedload(GroupMealPlanRules.households).load_only(
-                HouseholdModel.id,
-                HouseholdModel.name,
-                HouseholdModel.slug,
+                Household.id,
+                Household.name,
+                Household.slug,
             ),
         ]
 
