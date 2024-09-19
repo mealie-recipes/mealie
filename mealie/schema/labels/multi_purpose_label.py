@@ -10,7 +10,7 @@ from mealie.schema.response.pagination import PaginationBase
 
 class MultiPurposeLabelCreate(MealieModel):
     name: str
-    color: str = "#E0E0E0"
+    color: str = "#757575"
 
 
 class MultiPurposeLabelSave(MultiPurposeLabelCreate):
