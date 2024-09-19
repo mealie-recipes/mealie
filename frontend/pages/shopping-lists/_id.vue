@@ -56,14 +56,12 @@
 
       <!-- View By Label -->
       <div v-else>
-        <div v-for="(value, key, idx) in itemsByLabel" :key="key" class="mb-6">
+        <div v-for="(value, key) in itemsByLabel" :key="key" class="mb-6">
           <div @click="toggleShowChecked()">
-            <span v-if="idx || key !== $tc('shopping-list.no-label')">
-              <v-icon :color="getLabelColor(value[0])">
-                {{ $globals.icons.tags }}
-              </v-icon>
-            </span>
-            {{ key }}
+            <div class="text-left">
+              <BaseButton create :color="getLabelColor(value[0])" @click="createEditorOpen = true">{{ key }}</BaseButton>
+            </div>
+            <v-divider/>
           </div>
           <draggable :value="value" handle=".handle" delay="250" :delay-on-touch-only="true" @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndexUncheckedByLabel(key, $event)">
             <v-lazy v-for="(item, index) in value" :key="item.id" class="ml-2 my-2">
