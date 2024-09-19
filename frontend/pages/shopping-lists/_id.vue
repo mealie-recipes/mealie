@@ -282,14 +282,21 @@
         />
       </div>
     </v-lazy>
+    <div
+      v-if="wakeIsSupported"
+      class="d-print-none d-flex px-2"
+      :class="$vuetify.breakpoint.smAndDown ? 'justify-center' : 'justify-end'"
+    >
+      <v-switch v-model="wakeLock" small :label="$t('recipe.screen-awake')" />
+    </div>
   </v-container>
 </template>
 
 <script lang="ts">
 import draggable from "vuedraggable";
 
-import { defineComponent, useRoute, computed, ref, toRefs, onUnmounted, useContext, reactive } from "@nuxtjs/composition-api";
-import { useIdle, useToggle } from "@vueuse/core";
+import { defineComponent, useRoute, computed, ref, toRefs, onMounted, onUnmounted, useContext, reactive } from "@nuxtjs/composition-api";
+import { useIdle, useToggle, useWakeLock } from "@vueuse/core";
 import { useCopyList } from "~/composables/use-copy";
 import { useUserApi } from "~/composables/api";
 import MultiPurposeLabelSection from "~/components/Domain/ShoppingList/MultiPurposeLabelSection.vue"
@@ -1050,6 +1057,40 @@ export default defineComponent({
       }
     }
 
+    /** =============================================================
+     * Wake Lock
+     */
+
+     const { isSupported: wakeIsSupported, isActive, request, release } = useWakeLock();
+
+      const wakeLock = computed({
+        get: () => isActive,
+        set: () => {
+          if (isActive.value) {
+            unlockScreen();
+          } else {
+            lockScreen();
+          }
+        },
+      });
+
+      async function lockScreen() {
+        if (wakeIsSupported) {
+          console.log("Wake Lock Requested");
+          await request("screen");
+        }
+      }
+
+      async function unlockScreen() {
+        if (wakeIsSupported || isActive) {
+          console.log("Wake Lock Released");
+          await release();
+        }
+      }
+
+      onMounted(() => lockScreen());
+      onUnmounted(() => unlockScreen());
+
     return {
       ...toRefs(state),
       addRecipeReferenceToList,
@@ -1098,6 +1139,8 @@ export default defineComponent({
       allUsers,
       currentUserId,
       updateSettings,
+      wakeLock,
+      wakeIsSupported,
     };
   },
   head() {
