@@ -41,6 +41,9 @@
         </v-list-item-content>
       </v-list-item>
     </template>
+    <template #item.dateAdded="{ item }">
+      {{ formatDate(item.dateAdded) }}
+    </template>
   </v-data-table>
 </template>
 
@@ -134,6 +137,14 @@ export default defineComponent({
       return hdrs;
     });
 
+    function formatDate(date: string) {
+      try {
+        return i18n.d(Date.parse(date), "medium");
+      } catch {
+        return "";
+      }
+    }
+
     // ============
     // Group Members
     const api = useUserApi();
@@ -162,6 +173,7 @@ export default defineComponent({
       groupSlug,
       setValue,
       headers,
+      formatDate,
       members,
       getMember,
     };
