@@ -115,7 +115,7 @@ export function useShoppingListPreferences(): Ref<UserShoppingListPreferences> {
     "shopping-list-preferences",
     {
       viewAllLists: false,
-      viewByLabel: false,
+      viewByLabel: true,
     },
     { mergeDefaults: true }
     // we cast to a Ref because by default it will return an optional type ref
