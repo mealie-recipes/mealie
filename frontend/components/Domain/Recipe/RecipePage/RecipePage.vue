@@ -63,13 +63,7 @@
       </v-card-text>
     </v-card>
 
-    <div
-      v-if="recipe && wakeIsSupported"
-      class="d-print-none d-flex px-2"
-      :class="$vuetify.breakpoint.smAndDown ? 'justify-center' : 'justify-end'"
-    >
-      <v-switch v-model="wakeLock" small :label="$t('recipe.screen-awake')" />
-    </div>
+    <Wakelock/>
 
     <RecipePageComments
       v-if="!recipe.settings.disableComments && !isEditForm && !isCookMode"
@@ -91,7 +85,7 @@ import {
   onUnmounted,
 useRoute,
 } from "@nuxtjs/composition-api";
-import { invoke, until, useWakeLock } from "@vueuse/core";
+import { invoke, until } from "@vueuse/core";
 import RecipePageEditorToolbar from "./RecipePageParts/RecipePageEditorToolbar.vue";
 import RecipePageFooter from "./RecipePageParts/RecipePageFooter.vue";
 import RecipePageHeader from "./RecipePageParts/RecipePageHeader.vue";
@@ -104,6 +98,7 @@ import RecipePageTitleContent from "./RecipePageParts/RecipePageTitleContent.vue
 import RecipePageComments from "./RecipePageParts/RecipePageComments.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipePrintContainer from "~/components/Domain/Recipe/RecipePrintContainer.vue";
+import Wakelock from "~/components/global/Wakelock.vue";
 import { EditorMode, PageMode, usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { Recipe } from "~/lib/api/types/recipe";
@@ -195,40 +190,6 @@ export default defineComponent({
     });
 
     /** =============================================================
-     * Wake Lock
-     */
-
-    const { isSupported: wakeIsSupported, isActive, request, release } = useWakeLock();
-
-    const wakeLock = computed({
-      get: () => isActive,
-      set: () => {
-        if (isActive.value) {
-          unlockScreen();
-        } else {
-          lockScreen();
-        }
-      },
-    });
-
-    async function lockScreen() {
-      if (wakeIsSupported) {
-        console.log("Wake Lock Requested");
-        await request("screen");
-      }
-    }
-
-    async function unlockScreen() {
-      if (wakeIsSupported || isActive) {
-        console.log("Wake Lock Released");
-        await release();
-      }
-    }
-
-    onMounted(() => lockScreen());
-    onUnmounted(() => unlockScreen());
-
-    /** =============================================================
      * Recipe Save Delete
      */
 
@@ -308,9 +269,6 @@ export default defineComponent({
       isEditJSON,
       isCookMode,
       toggleCookMode,
-
-      wakeLock,
-      wakeIsSupported,
       saveRecipe,
       deleteRecipe,
       addStep,
