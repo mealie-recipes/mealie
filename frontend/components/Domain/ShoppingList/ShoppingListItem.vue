@@ -140,7 +140,7 @@ export default defineComponent({
   setup(props, context) {
     const { i18n } = useContext();
     const displayRecipeRefs = ref(false);
-    const itemLabelCols = ref<string>(props.value.checked ? "auto" : props.showLabel ? "8" : "9");
+    const itemLabelCols = ref<string>(props.value.checked ? "auto" : props.showLabel ? "4" : "6");
 
     const contextMenu: actions[] = [
       {
