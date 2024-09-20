@@ -17,7 +17,8 @@
         <v-container>
           <v-row>
             <v-col cols="3" class="text-left">
-              <ButtonLink :to="`/shopping-lists?disableRedirect=true`" :text="$tc('general.back')" :icon="$globals.icons.backArrow" />
+              <ButtonLink :to="`/shopping-lists?disableRedirect=true`" :text="$tc('general.back')"
+                :icon="$globals.icons.backArrow" />
             </v-col>
             <v-col cols="6" class="d-flex justify-center">
               <v-img max-height="100" max-width="100" :src="require('~/static/svgs/shopping-cart.svg')"></v-img>
@@ -27,29 +28,18 @@
       </template>
       <template #title> {{ shoppingList.name }} </template>
     </BasePageTitle>
-    <BannerWarning
-      v-if="$nuxt.isOffline"
-      :title="$tc('shopping-list.you-are-offline')"
-      :description="$tc('shopping-list.you-are-offline-description')"
-    />
+    <BannerWarning v-if="$nuxt.isOffline" :title="$tc('shopping-list.you-are-offline')"
+      :description="$tc('shopping-list.you-are-offline-description')" />
 
     <!-- Viewer -->
     <section v-if="!edit" class="py-2">
       <div v-if="!preferences.viewByLabel">
-        <draggable :value="listItems.unchecked" handle=".handle" delay="250" :delay-on-touch-only="true"  @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndexUnchecked">
+        <draggable :value="listItems.unchecked" handle=".handle" delay="250" :delay-on-touch-only="true"
+          @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndexUnchecked">
           <v-lazy v-for="(item, index) in listItems.unchecked" :key="item.id" class="my-2">
-            <ShoppingListItem
-              v-model="listItems.unchecked[index]"
-              class="my-2 my-sm-0"
-              :show-label=true
-              :labels="allLabels || []"
-              :units="allUnits || []"
-              :foods="allFoods || []"
-              :recipes="recipeMap"
-              @checked="saveListItem"
-              @save="saveListItem"
-              @delete="deleteListItem(item)"
-            />
+            <ShoppingListItem v-model="listItems.unchecked[index]" class="my-2 my-sm-0" :show-label=true
+              :labels="allLabels || []" :units="allUnits || []" :foods="allFoods || []" :recipes="recipeMap"
+              @checked="saveListItem" @save="saveListItem" @delete="deleteListItem(item)" />
           </v-lazy>
         </draggable>
       </div>
@@ -57,39 +47,25 @@
       <!-- View By Label -->
       <div v-else>
         <div v-for="(value, key) in itemsByLabel" :key="key" class="mb-6">
-          <div @click="toggleShowChecked()">
-            <div class="text-left">
-              <BaseButton create :color="getLabelColor(value[0])" @click="createEditorOpen = true">{{ key }}</BaseButton>
-            </div>
-            <v-divider/>
+          <div class="text-left">
+            <v-btn :color="getLabelColor(value[0]) ? getLabelColor(value[0]) : '#959595'">{{ key }}</v-btn>
           </div>
-          <draggable :value="value" handle=".handle" delay="250" :delay-on-touch-only="true" @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndexUncheckedByLabel(key, $event)">
+          <v-divider />
+          <draggable :value="value" handle=".handle" delay="250" :delay-on-touch-only="true"
+            @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndexUncheckedByLabel(key, $event)">
             <v-lazy v-for="(item, index) in value" :key="item.id" class="ml-2 my-2">
-              <ShoppingListItem
-                v-model="value[index]"
-                :show-label=false
-                :labels="allLabels || []"
-                :units="allUnits || []"
-                :foods="allFoods || []"
-                :recipes="recipeMap"
-                @checked="saveListItem"
-                @save="saveListItem"
-                @delete="deleteListItem(item)"
-              />
+              <ShoppingListItem v-model="value[index]" :show-label=false :labels="allLabels || []"
+                :units="allUnits || []" :foods="allFoods || []" :recipes="recipeMap" @checked="saveListItem"
+                @save="saveListItem" @delete="deleteListItem(item)" />
             </v-lazy>
           </draggable>
         </div>
       </div>
 
       <!-- Reorder Labels -->
-      <BaseDialog
-        v-model="reorderLabelsDialog"
-        :icon="$globals.icons.tagArrowUp"
-        :title="$t('shopping-list.reorder-labels')"
-        :submit-icon="$globals.icons.save"
-        :submit-text="$tc('general.save')"
-        @submit="saveLabelOrder"
-        @close="cancelLabelOrder">
+      <BaseDialog v-model="reorderLabelsDialog" :icon="$globals.icons.tagArrowUp"
+        :title="$t('shopping-list.reorder-labels')" :submit-icon="$globals.icons.save"
+        :submit-text="$tc('general.save')" @submit="saveLabelOrder" @close="cancelLabelOrder">
         <v-card height="fit-content" max-height="70vh" style="overflow-y: auto;">
           <draggable v-if="localLabels" :value="localLabels" handle=".handle" class="my-2" @input="updateLabelOrder">
             <div v-for="(labelSetting, index) in localLabels" :key="labelSetting.id">
@@ -100,100 +76,74 @@
       </BaseDialog>
 
       <!-- Settings -->
-      <BaseDialog
-        v-model="settingsDialog"
-        :icon="$globals.icons.cog"
-        :title="$t('general.settings')"
-        @confirm="updateSettings"
-      >
+      <BaseDialog v-model="settingsDialog" :icon="$globals.icons.cog" :title="$t('general.settings')"
+        @confirm="updateSettings">
         <v-container>
           <v-form>
-            <v-select
-              v-model="currentUserId"
-              :items="allUsers"
-              item-text="fullName"
-              item-value="id"
-              :label="$t('general.owner')"
-              :prepend-icon="$globals.icons.user"
-            />
+            <v-select v-model="currentUserId" :items="allUsers" item-text="fullName" item-value="id"
+              :label="$t('general.owner')" :prepend-icon="$globals.icons.user" />
           </v-form>
         </v-container>
       </BaseDialog>
 
       <!-- Create Item -->
       <div v-if="createEditorOpen">
-        <ShoppingListItemEditor
-          v-model="createListItemData"
-          class="my-4"
-          :labels="allLabels || []"
-          :units="allUnits || []"
-          :foods="allFoods || []"
-          @delete="createEditorOpen = false"
-          @cancel="createEditorOpen = false"
-          @save="createListItem"
-        />
+        <ShoppingListItemEditor v-model="createListItemData" class="my-4" :labels="allLabels || []"
+          :units="allUnits || []" :foods="allFoods || []" @delete="createEditorOpen = false"
+          @cancel="createEditorOpen = false" @save="createListItem" />
       </div>
       <div v-else class="mt-4 d-flex justify-end">
-        <BaseButton
-          v-if="preferences.viewByLabel" edit class="mr-2"
-          :disabled="$nuxt.isOffline"
+        <BaseButton v-if="preferences.viewByLabel" edit class="mr-2" :disabled="$nuxt.isOffline"
           @click="toggleReorderLabelsDialog">
           <template #icon> {{ $globals.icons.tags }} </template>
           {{ $t('shopping-list.reorder-labels') }}
         </BaseButton>
-        <BaseButton create @click="createEditorOpen = true" > {{ $t('general.add') }} </BaseButton>
+        <BaseButton create @click="createEditorOpen = true"> {{ $t('general.add') }} </BaseButton>
       </div>
 
       <!-- Action Bar -->
       <div class="d-flex justify-end mb-4 mt-2">
-        <BaseButtonGroup
-          :buttons="[
-            {
-              icon: $globals.icons.contentCopy,
-              text: '',
-              event: 'edit',
-              children: [
-                {
-                  icon: $globals.icons.contentCopy,
-                  text: $tc('shopping-list.copy-as-text'),
-                  event: 'copy-plain',
-                },
-                {
-                  icon: $globals.icons.contentCopy,
-                  text: $tc('shopping-list.copy-as-markdown'),
-                  event: 'copy-markdown',
-                },
-              ],
-            },
-            {
-              icon: $globals.icons.delete,
-              text: $tc('shopping-list.delete-checked'),
-              event: 'delete',
-            },
-            {
-              icon: $globals.icons.tags,
-              text: $tc('shopping-list.toggle-label-sort'),
-              event: 'sort-by-labels',
-            },
-            {
-              icon: $globals.icons.checkboxBlankOutline,
-              text: $tc('shopping-list.uncheck-all-items'),
-              event: 'uncheck',
-            },
-            {
-              icon: $globals.icons.checkboxOutline,
-              text: $tc('shopping-list.check-all-items'),
-              event: 'check',
-            },
-          ]"
-          @edit="edit = true"
-          @delete="openDeleteChecked"
-          @uncheck="openUncheckAll"
-          @check="openCheckAll"
-          @sort-by-labels="sortByLabels"
-          @copy-plain="copyListItems('plain')"
-          @copy-markdown="copyListItems('markdown')"
-        />
+        <BaseButtonGroup :buttons="[
+          {
+            icon: $globals.icons.contentCopy,
+            text: '',
+            event: 'edit',
+            children: [
+              {
+                icon: $globals.icons.contentCopy,
+                text: $tc('shopping-list.copy-as-text'),
+                event: 'copy-plain',
+              },
+              {
+                icon: $globals.icons.contentCopy,
+                text: $tc('shopping-list.copy-as-markdown'),
+                event: 'copy-markdown',
+              },
+            ],
+          },
+          {
+            icon: $globals.icons.delete,
+            text: $tc('shopping-list.delete-checked'),
+            event: 'delete',
+          },
+          {
+            icon: $globals.icons.tags,
+            text: $tc('shopping-list.toggle-label-sort'),
+            event: 'sort-by-labels',
+          },
+          {
+            icon: $globals.icons.checkboxBlankOutline,
+            text: $tc('shopping-list.uncheck-all-items'),
+            event: 'uncheck',
+          },
+          {
+            icon: $globals.icons.checkboxOutline,
+            text: $tc('shopping-list.check-all-items'),
+            event: 'check',
+          },
+        ]" @edit="edit = true" @delete="openDeleteChecked" @uncheck="openUncheckAll" @check="openCheckAll"
+          @sort-by-labels="sortByLabels" @copy-plain="copyListItems('plain')"
+          @copy-markdown="copyListItems('markdown')" />
       </div>
 
       <!-- Checked Items -->
@@ -210,16 +160,9 @@
         <v-expand-transition>
           <div v-show="showChecked">
             <div v-for="(item, idx) in listItems.checked" :key="item.id">
-              <ShoppingListItem
-                v-model="listItems.checked[idx]"
-                class="strike-through-note"
-                :labels="allLabels || []"
-                :units="allUnits || []"
-                :foods="allFoods || []"
-                @checked="saveListItem"
-                @save="saveListItem"
-                @delete="deleteListItem(item)"
-              />
+              <ShoppingListItem v-model="listItems.checked[idx]" class="strike-through-note" :labels="allLabels || []"
+                :units="allUnits || []" :foods="allFoods || []" @checked="saveListItem" @save="saveListItem"
+                @delete="deleteListItem(item)" />
             </div>
           </div>
         </v-expand-transition>
@@ -235,7 +178,9 @@
               {{ $globals.icons.primary }}
             </v-icon>
           </span>
-          {{ $tc('shopping-list.linked-recipes-count', shoppingList.recipeReferences ? shoppingList.recipeReferences.length : 0) }}
+          {{ $tc('shopping-list.linked-recipes-count', shoppingList.recipeReferences ?
+            shoppingList.recipeReferences.length
+            : 0) }}
         </div>
         <v-divider class="my-4"></v-divider>
         <RecipeList :recipes="Array.from(recipeMap.values())" show-description :disabled="$nuxt.isOffline">
@@ -260,11 +205,7 @@
 
     <v-lazy>
       <div class="d-flex justify-end">
-        <BaseButton
-          edit
-          :disabled="$nuxt.isOffline"
-          @click="toggleSettingsDialog"
-        >
+        <BaseButton edit :disabled="$nuxt.isOffline" @click="toggleSettingsDialog">
           <template #icon> {{ $globals.icons.cog }} </template>
           {{ $t('general.settings') }}
         </BaseButton>
@@ -273,11 +214,7 @@
 
     <v-lazy>
       <div v-if="$nuxt.isOnline" class="d-flex justify-end mt-10">
-        <ButtonLink
-          :to="`/group/data/labels`"
-          :text="$tc('shopping-list.manage-labels')"
-          :icon="$globals.icons.tags"
-        />
+        <ButtonLink :to="`/group/data/labels`" :text="$tc('shopping-list.manage-labels')" :icon="$globals.icons.tags" />
       </div>
     </v-lazy>
   </v-container>
@@ -406,11 +343,11 @@ export default defineComponent({
         }
 
         // if the refresh was unsuccessful, the shopping list will be null, so we increment the attempt counter
-        attempts ++;
+        attempts++;
       }
 
       catch (error) {
-        attempts ++;
+        attempts++;
       }
 
       // if we hit too many errors, stop polling
@@ -690,8 +627,8 @@ export default defineComponent({
     function sortItems(a: ShoppingListItemOut | ListItemGroup, b: ShoppingListItemOut | ListItemGroup) {
       return (
         ((a.position || 0) > (b.position || 0)) ||
-        ((a.createdAt || "") < (b.createdAt || ""))
-        ? 1 : -1
+          ((a.createdAt || "") < (b.createdAt || ""))
+          ? 1 : -1
       );
     }
 
@@ -702,7 +639,7 @@ export default defineComponent({
 
       const checkedItemKey = "__checkedItem"
       const listItemGroupsMap = new Map<string, ListItemGroup>();
-      listItemGroupsMap.set(checkedItemKey, {position: Number.MAX_SAFE_INTEGER, createdAt: "", items: []});
+      listItemGroupsMap.set(checkedItemKey, { position: Number.MAX_SAFE_INTEGER, createdAt: "", items: [] });
 
       // group items by checked status, food, or note
       shoppingList.value.listItems.forEach((item) => {
@@ -712,7 +649,7 @@ export default defineComponent({
 
         const group = listItemGroupsMap.get(key);
         if (!group) {
-          listItemGroupsMap.set(key, {position: item.position || 0, createdAt: item.createdAt || "", items: [item]});
+          listItemGroupsMap.set(key, { position: item.position || 0, createdAt: item.createdAt || "", items: [item] });
         } else {
           group.items.push(item);
         }
@@ -940,10 +877,10 @@ export default defineComponent({
       loadingCounter.value -= 1;
 
       if (shoppingList.value.listItems) {
-          // add the item to the list immediately so the user sees the change
-          shoppingList.value.listItems.push(createListItemData.value);
-          updateListItemOrder();
-        }
+        // add the item to the list immediately so the user sees the change
+        shoppingList.value.listItems.push(createListItemData.value);
+        updateListItemOrder();
+      }
       createListItemData.value = listItemFactory(createListItemData.value.isFood || false);
       refresh();
     }
@@ -1039,7 +976,7 @@ export default defineComponent({
       loadingCounter.value += 1;
       const { data } = await userApi.shopping.lists.updateOne(
         shoppingList.value.id,
-        {...shoppingList.value, userId: currentUserId.value},
+        { ...shoppingList.value, userId: currentUserId.value },
       );
       loadingCounter.value -= 1;
 

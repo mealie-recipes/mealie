@@ -231,7 +231,7 @@ export default defineComponent({
       editLabel.value = item;
 
       if (!editLabel.value.color) {
-        editLabel.value.color = "#757575";
+        editLabel.value.color = "#959595";
       }
     }
 
