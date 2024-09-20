@@ -7,7 +7,7 @@ import sqlalchemy as sa
 from pydantic import UUID4
 from slugify import slugify
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy.orm import InstrumentedAttribute, joinedload
+from sqlalchemy.orm import InstrumentedAttribute
 from typing_extensions import Self
 
 from mealie.db.models.recipe.category import Category
@@ -165,15 +165,6 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         pagination_result = pagination.model_copy()
         q = sa.select(self.model)
 
-        args = [
-            joinedload(RecipeModel.recipe_category),
-            joinedload(RecipeModel.tags),
-            joinedload(RecipeModel.tools),
-            joinedload(RecipeModel.user),
-        ]
-
-        q = q.options(*args)
-
         fltr = self._filter_builder()
         q = q.filter_by(**fltr)
 
@@ -212,6 +203,8 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
 
         q, count, total_pages = self.add_pagination_to_query(q, pagination_result)
 
+        # Apply options late, so they do not get used for counting
+        q = q.options(*RecipeSummary.loader_options())
         try:
             data = self.session.execute(q).scalars().unique().all()
         except Exception as e:

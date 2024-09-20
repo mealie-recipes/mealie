@@ -10,6 +10,7 @@ from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.db.models.household import GroupMealPlan
 from mealie.db.models.recipe import RecipeModel
+from mealie.db.models.users.users import User
 from mealie.schema._mealie import MealieModel
 from mealie.schema.recipe.recipe import RecipeSummary
 from mealie.schema.response.pagination import PaginationBase
@@ -66,7 +67,7 @@ class ReadPlanEntry(UpdatePlanEntry):
             selectinload(GroupMealPlan.recipe).joinedload(RecipeModel.recipe_category),
             selectinload(GroupMealPlan.recipe).joinedload(RecipeModel.tags),
             selectinload(GroupMealPlan.recipe).joinedload(RecipeModel.tools),
-            selectinload(GroupMealPlan.user),
+            selectinload(GroupMealPlan.user).load_only(User.household_id),
         ]
 
 
