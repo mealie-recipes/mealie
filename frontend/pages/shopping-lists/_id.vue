@@ -282,7 +282,7 @@
         />
       </div>
     </v-lazy>
-    <Wakelock/>
+    <WakelockSwitch/>
   </v-container>
 </template>
 
@@ -298,7 +298,6 @@ import ShoppingListItem from "~/components/Domain/ShoppingList/ShoppingListItem.
 import { ShoppingListItemOut, ShoppingListMultiPurposeLabelOut, ShoppingListOut } from "~/lib/api/types/household";
 import { UserOut } from "~/lib/api/types/user";
 import RecipeList from "~/components/Domain/Recipe/RecipeList.vue";
-import Wakelock from "~/components/global/Wakelock.vue";
 import ShoppingListItemEditor from "~/components/Domain/ShoppingList/ShoppingListItemEditor.vue";
 import { useFoodStore, useLabelStore, useUnitStore } from "~/composables/store";
 import { useShoppingListItemActions } from "~/composables/use-shopping-list-item-actions";

@@ -62,9 +62,7 @@
         <RecipePageFooter :recipe="recipe" />
       </v-card-text>
     </v-card>
-
-    <Wakelock/>
-
+    <WakelockSwitch/>
     <RecipePageComments
       v-if="!recipe.settings.disableComments && !isEditForm && !isCookMode"
       :recipe="recipe"
@@ -98,7 +96,6 @@ import RecipePageTitleContent from "./RecipePageParts/RecipePageTitleContent.vue
 import RecipePageComments from "./RecipePageParts/RecipePageComments.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipePrintContainer from "~/components/Domain/Recipe/RecipePrintContainer.vue";
-import Wakelock from "~/components/global/Wakelock.vue";
 import { EditorMode, PageMode, usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { Recipe } from "~/lib/api/types/recipe";

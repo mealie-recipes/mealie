@@ -11,8 +11,7 @@ import { computed, onMounted, onUnmounted } from "@nuxtjs/composition-api";
 import { useWakeLock } from "@vueuse/core";
 
 export default defineComponent({
-    setup(props, context) {
-
+    setup() {
         const { isSupported: wakeIsSupported, isActive, request, release } = useWakeLock();
         const wakeLock = computed({
             get: () => isActive,
