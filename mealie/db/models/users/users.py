@@ -68,6 +68,7 @@ class User(SqlAlchemyBase, BaseMixins):
     locked_at: Mapped[datetime | None] = mapped_column(DateTime, default=None)
 
     # Group Permissions
+    can_manage_household: Mapped[bool | None] = mapped_column(Boolean, default=False)
     can_manage: Mapped[bool | None] = mapped_column(Boolean, default=False)
     can_invite: Mapped[bool | None] = mapped_column(Boolean, default=False)
     can_organize: Mapped[bool | None] = mapped_column(Boolean, default=False)
@@ -108,6 +109,7 @@ class User(SqlAlchemyBase, BaseMixins):
         exclude={
             "password",
             "admin",
+            "can_manage_household",
             "can_manage",
             "can_invite",
             "can_organize",
@@ -186,22 +188,27 @@ class User(SqlAlchemyBase, BaseMixins):
     def update_password(self, password):
         self.password = password
 
-    def _set_permissions(self, admin, can_manage=False, can_invite=False, can_organize=False, **_):
+    def _set_permissions(
+        self, admin, can_manage_household=False, can_manage=False, can_invite=False, can_organize=False, **_
+    ):
         """Set user permissions based on the admin flag and the passed in kwargs
 
         Args:
             admin (bool):
+            can_manage_household (bool):
             can_manage (bool):
             can_invite (bool):
             can_organize (bool):
         """
         self.admin = admin
         if self.admin:
+            self.can_manage_household = True
             self.can_manage = True
             self.can_invite = True
             self.can_organize = True
             self.advanced = True
         else:
+            self.can_manage_household = can_manage_household
             self.can_manage = can_manage
             self.can_invite = can_invite
             self.can_organize = can_organize

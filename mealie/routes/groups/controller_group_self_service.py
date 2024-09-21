@@ -1,6 +1,6 @@
 from functools import cached_property
 
-from fastapi import Query
+from fastapi import HTTPException, Query
 from pydantic import UUID4
 
 from mealie.routes._base.base_controllers import BaseUserController
@@ -10,6 +10,7 @@ from mealie.schema.group.group_preferences import ReadGroupPreferences, UpdateGr
 from mealie.schema.group.group_statistics import GroupStorage
 from mealie.schema.household.household import HouseholdSummary
 from mealie.schema.response.pagination import PaginationQuery
+from mealie.schema.response.responses import ErrorResponse
 from mealie.schema.user.user import GroupSummary, UserSummary
 from mealie.services.group_services.group_service import GroupService
 
@@ -41,6 +42,16 @@ class GroupSelfServiceController(BaseUserController):
 
         households = self.repos.households.page_all(PaginationQuery(page=1, per_page=-1)).items
         return [household.cast(HouseholdSummary) for household in households]
+
+    @router.get("/households/{slug}", response_model=HouseholdSummary)
+    def get_group_household(self, slug: str):
+        """Returns a single household belonging to the current group"""
+
+        household = self.repos.households.get_by_slug_or_id(slug)
+        if not household:
+            raise HTTPException(status_code=404, detail=ErrorResponse.respond(message="No Entry Found"))
+
+        return household.cast(HouseholdSummary)
 
     @router.get("/preferences", response_model=ReadGroupPreferences)
     def get_group_preferences(self):

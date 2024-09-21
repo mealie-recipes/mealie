@@ -14,6 +14,7 @@ from sqlalchemy.orm import Session, joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.core.config import get_app_dirs
+from mealie.db.models.users.users import User
 from mealie.schema._mealie import MealieModel, SearchType
 from mealie.schema._mealie.mealie_model import UpdatedAtField
 from mealie.schema.response.pagination import PaginationBase
@@ -120,6 +121,15 @@ class RecipeSummary(MealieModel):
             return str(val)
 
         return val
+
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [
+            joinedload(RecipeModel.recipe_category),
+            joinedload(RecipeModel.tags),
+            joinedload(RecipeModel.tools),
+            joinedload(RecipeModel.user).load_only(User.household_id),
+        ]
 
 
 class RecipePagination(PaginationBase):

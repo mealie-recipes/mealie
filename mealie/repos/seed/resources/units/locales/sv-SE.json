@@ -1,19 +1,19 @@
 {
     "teaspoon": {
         "name": "tesked",
-        "plural_name": "teaspoons",
+        "plural_name": "teskedar",
         "description": "",
         "abbreviation": "tsk"
     },
     "tablespoon": {
         "name": "matsked",
-        "plural_name": "tablespoons",
+        "plural_name": "matskedar",
         "description": "",
         "abbreviation": "msk"
     },
     "cup": {
         "name": "kopp",
-        "plural_name": "cups",
+        "plural_name": "koppar",
         "description": "",
         "abbreviation": "c"
     },
@@ -43,13 +43,13 @@
     },
     "milliliter": {
         "name": "milliliter",
-        "plural_name": "milliliters",
+        "plural_name": "milliliter",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
         "name": "liter",
-        "plural_name": "liters",
+        "plural_name": "liter",
         "description": "",
         "abbreviation": "l"
     },
@@ -68,25 +68,25 @@
     },
     "gram": {
         "name": "gram",
-        "plural_name": "grams",
+        "plural_name": "gram",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
         "name": "kilogram",
-        "plural_name": "kilograms",
+        "plural_name": "kilogram",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
         "name": "milligram",
-        "plural_name": "milligrams",
+        "plural_name": "milligram",
         "description": "",
         "abbreviation": "mg"
     },
     "splash": {
         "name": "skvätt",
-        "plural_name": "splashes",
+        "plural_name": "stänk",
         "description": "",
         "abbreviation": ""
     },
@@ -98,43 +98,43 @@
     },
     "serving": {
         "name": "portion",
-        "plural_name": "servings",
+        "plural_name": "portioner",
         "description": "",
         "abbreviation": ""
     },
     "head": {
         "name": "huvud",
-        "plural_name": "heads",
+        "plural_name": "huvuden",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
         "name": "klyfta",
-        "plural_name": "cloves",
+        "plural_name": "klyftor",
         "description": "",
         "abbreviation": ""
     },
     "can": {
         "name": "burk",
-        "plural_name": "cans",
+        "plural_name": "burkar",
         "description": "",
         "abbreviation": ""
     },
     "bunch": {
-        "name": "bunch",
-        "plural_name": "bunches",
+        "name": "bunt",
+        "plural_name": "buntar",
         "description": "",
         "abbreviation": ""
     },
     "pack": {
-        "name": "pack",
-        "plural_name": "packs",
+        "name": "paket",
+        "plural_name": "paket",
         "description": "",
         "abbreviation": ""
     },
     "pinch": {
-        "name": "pinch",
-        "plural_name": "pinches",
+        "name": "nypa",
+        "plural_name": "nypor",
         "description": "",
         "abbreviation": ""
     }
