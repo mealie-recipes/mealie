@@ -3,6 +3,7 @@ from datetime import timedelta
 from authlib.integrations.starlette_client import OAuth
 from fastapi import APIRouter, Depends, Request, Response, status
 from fastapi.exceptions import HTTPException
+from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 from sqlalchemy.orm.session import Session
 from starlette.datastructures import URLPath
@@ -34,6 +35,7 @@ if settings.OIDC_READY:
         client_secret=settings.OIDC_CLIENT_SECRET,
         server_metadata_url=settings.OIDC_CONFIGURATION_URL,
         client_kwargs={"scope": scope.rstrip()},
+        code_challenge_method="S256",
     )
 
 
@@ -89,15 +91,21 @@ def get_token(
 
 @public_router.get("/oauth")
 async def oauth_login(request: Request):
-    if oauth:
-        client = oauth.create_client("oidc")
-        redirect_url = None
-        if not settings.PRODUCTION:
-            # in development, we want to redirect to the frontend
-            redirect_url = "http://localhost:3000/login"
-        else:
-            redirect_url = URLPath("/login").make_absolute_url(request.base_url)
-        return await client.authorize_redirect(request, redirect_url)
+    if not oauth:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Could not initialize OAuth client",
+        )
+    client = oauth.create_client("oidc")
+    redirect_url = None
+    if not settings.PRODUCTION:
+        # in development, we want to redirect to the frontend
+        redirect_url = "http://localhost:3000/login"
+    else:
+        redirect_url = URLPath("/login").make_absolute_url(request.base_url)
+
+    response: RedirectResponse = await client.authorize_redirect(request, redirect_url)
+    return response
 
 
 @public_router.get("/oauth/callback")
@@ -125,7 +133,6 @@ async def oauth_callback(request: Request, response: Response, session: Session 
         value=access_token,
         httponly=True,
         max_age=expires_in,
-        expires=expires_in,
     )
 
     return MealieAuthToken.respond(access_token)
