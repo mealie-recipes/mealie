@@ -64,7 +64,6 @@ async def lifespan_fn(_: FastAPI) -> AsyncGenerator[None, None]:
             indent=4,
             exclude={
                 "LDAP_QUERY_PASSWORD",
-                "OIDC_CLIENT_ID",
                 "OPENAI_API_KEY",
                 "SECRET",
                 "SFTP_PASSWORD",
