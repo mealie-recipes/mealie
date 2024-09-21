@@ -67,6 +67,7 @@ async def lifespan_fn(_: FastAPI) -> AsyncGenerator[None, None]:
                 "LDAP_QUERY_PASSWORD",
                 "OPENAI_API_KEY",
                 "SECRET",
+                "SESSION_SECRET",
                 "SFTP_PASSWORD",
                 "SFTP_USERNAME",
                 "DB_URL",  # replace by DB_URL_PUBLIC for logs
