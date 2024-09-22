@@ -14,6 +14,7 @@ from mealie.db.models.household import (
     ShoppingListRecipeReference,
 )
 from mealie.db.models.recipe import IngredientFoodModel, RecipeModel
+from mealie.db.models.users.users import User
 from mealie.schema._mealie import MealieModel
 from mealie.schema._mealie.mealie_model import UpdatedAtField
 from mealie.schema._mealie.types import NoneFloat
@@ -137,7 +138,9 @@ class ShoppingListItemOut(ShoppingListItemBase):
             joinedload(ShoppingListItem.label),
             joinedload(ShoppingListItem.unit),
             selectinload(ShoppingListItem.recipe_references),
-            joinedload(ShoppingListItem.shopping_list).joinedload(ShoppingList.user),
+            joinedload(ShoppingListItem.shopping_list)
+            .joinedload(ShoppingList.user)
+            .load_only(User.household_id, User.group_id),
         ]
 
 
@@ -232,7 +235,7 @@ class ShoppingListSummary(ShoppingListSave):
             .joinedload(ShoppingListRecipeReference.recipe)
             .joinedload(RecipeModel.tools),
             selectinload(ShoppingList.label_settings).joinedload(ShoppingListMultiPurposeLabel.label),
-            joinedload(ShoppingList.user),
+            joinedload(ShoppingList.user).load_only(User.household_id, User.group_id),
         ]
 
 
@@ -279,7 +282,7 @@ class ShoppingListOut(ShoppingListUpdate):
             .joinedload(ShoppingListRecipeReference.recipe)
             .joinedload(RecipeModel.tools),
             selectinload(ShoppingList.label_settings).joinedload(ShoppingListMultiPurposeLabel.label),
-            joinedload(ShoppingList.user),
+            joinedload(ShoppingList.user).load_only(User.household_id, User.group_id),
         ]
 
 
