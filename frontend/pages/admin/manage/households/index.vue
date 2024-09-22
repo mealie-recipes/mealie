@@ -88,7 +88,7 @@
 import { defineComponent, reactive, toRefs, useContext, useRouter } from "@nuxtjs/composition-api";
 import { fieldTypes } from "~/composables/forms";
 import { useGroups } from "~/composables/use-groups";
-import { useHouseholds } from "~/composables/use-households";
+import { useAdminHouseholds } from "~/composables/use-households";
 import { validators } from "~/composables/use-validators";
 import { HouseholdInDB } from "~/lib/api/types/household";
 
@@ -97,7 +97,7 @@ export default defineComponent({
   setup() {
     const { i18n } = useContext();
     const { groups } = useGroups();
-    const { households, refreshAllHouseholds, deleteHousehold, createHousehold } = useHouseholds();
+    const { households, refreshAllHouseholds, deleteHousehold, createHousehold } = useAdminHouseholds();
 
     const state = reactive({
       createDialog: false,

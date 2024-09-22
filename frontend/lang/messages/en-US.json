@@ -652,6 +652,7 @@
     "or": "Or",
     "has-any": "Has Any",
     "has-all": "Has All",
+    "clear-selection": "Clear Selection",
     "results": "Results",
     "search": "Search",
     "search-mealie": "Search Mealie (press /)",

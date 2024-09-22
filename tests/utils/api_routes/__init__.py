@@ -247,6 +247,16 @@ def explore_groups_group_slug_foods_item_id(group_slug, item_id):
     return f"{prefix}/explore/groups/{group_slug}/foods/{item_id}"
 
 
+def explore_groups_group_slug_households(group_slug):
+    """`/api/explore/groups/{group_slug}/households`"""
+    return f"{prefix}/explore/groups/{group_slug}/households"
+
+
+def explore_groups_group_slug_households_household_slug(group_slug, household_slug):
+    """`/api/explore/groups/{group_slug}/households/{household_slug}`"""
+    return f"{prefix}/explore/groups/{group_slug}/households/{household_slug}"
+
+
 def explore_groups_group_slug_organizers_categories(group_slug):
     """`/api/explore/groups/{group_slug}/organizers/categories`"""
     return f"{prefix}/explore/groups/{group_slug}/organizers/categories"
@@ -292,9 +302,9 @@ def foods_item_id(item_id):
     return f"{prefix}/foods/{item_id}"
 
 
-def groups_households_slug(slug):
-    """`/api/groups/households/{slug}`"""
-    return f"{prefix}/groups/households/{slug}"
+def groups_households_household_slug(household_slug):
+    """`/api/groups/households/{household_slug}`"""
+    return f"{prefix}/groups/households/{household_slug}"
 
 
 def groups_labels_item_id(item_id):

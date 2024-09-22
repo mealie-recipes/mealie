@@ -32,6 +32,7 @@ export const useLazyRecipes = function (publicGroupSlug: string | null = null) {
       searchSeed: query?._searchSeed, // unused, but pass it along for completeness of data
       search: query?.search,
       cookbook: query?.cookbook,
+      households: query?.households,
       categories: query?.categories,
       requireAllCategories: query?.requireAllCategories,
       tags: query?.tags,

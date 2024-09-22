@@ -1,3 +1,5 @@
+import random
+
 from fastapi.testclient import TestClient
 
 from mealie.repos.repository_factory import AllRepositories
@@ -33,13 +35,10 @@ def test_get_group_members_filtered(api_client: TestClient, unique_user: TestUse
     assert str(h2_user.user_id) in all_ids
 
 
-def test_get_households(unfiltered_database: AllRepositories, api_client: TestClient, unique_user: TestUser):
-    households = [
-        unfiltered_database.households.create({"name": random_string(), "group_id": unique_user.group_id})
-        for _ in range(5)
-    ]
+def test_get_households(api_client: TestClient, unique_user: TestUser):
+    households = [unique_user.repos.households.create({"name": random_string()}) for _ in range(5)]
     response = api_client.get(api_routes.groups_households, headers=unique_user.token)
-    response_ids = [item["id"] for item in response.json()]
+    response_ids = [item["id"] for item in response.json()["items"]]
     for household in households:
         assert str(household.id) in response_ids
 
@@ -58,23 +57,22 @@ def test_get_households_filtered(unfiltered_database: AllRepositories, api_clien
     ]
 
     response = api_client.get(api_routes.groups_households, headers=unique_user.token)
-    response_ids = [item["id"] for item in response.json()]
+    response_ids = [item["id"] for item in response.json()["items"]]
     for household in group_1_households:
         assert str(household.id) in response_ids
     for household in group_2_households:
         assert str(household.id) not in response_ids
 
 
-def test_get_household(unfiltered_database: AllRepositories, api_client: TestClient, unique_user: TestUser):
-    group_1_id = unique_user.group_id
-    group_2_id = str(unfiltered_database.groups.create({"name": random_string()}).id)
+def test_get_one_household(api_client: TestClient, unique_user: TestUser):
+    households = [unique_user.repos.households.create({"name": random_string()}) for _ in range(5)]
+    household = random.choice(households)
 
-    group_1_household = unfiltered_database.households.create({"name": random_string(), "group_id": group_1_id})
-    group_2_household = unfiltered_database.households.create({"name": random_string(), "group_id": group_2_id})
-
-    response = api_client.get(api_routes.groups_households_slug(group_1_household.slug), headers=unique_user.token)
+    response = api_client.get(api_routes.groups_households_household_slug(household.slug), headers=unique_user.token)
     assert response.status_code == 200
-    assert response.json()["id"] == str(group_1_household.id)
+    assert response.json()["id"] == str(household.id)
 
-    response = api_client.get(api_routes.groups_households_slug(group_2_household.slug), headers=unique_user.token)
+
+def test_get_one_household_not_found(api_client: TestClient, unique_user: TestUser):
+    response = api_client.get(api_routes.groups_households_household_slug(random_string()), headers=unique_user.token)
     assert response.status_code == 404
