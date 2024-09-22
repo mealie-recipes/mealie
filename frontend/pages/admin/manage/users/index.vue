@@ -1,5 +1,6 @@
 <template>
   <v-container fluid>
+    <UserInviteDialog v-model="inviteDialog" :show-link="false" :groups="groups" :households="households" />
     <BaseDialog
       v-model="deleteDialog"
       :title="$tc('general.confirm')"
@@ -21,6 +22,9 @@
       <v-toolbar color="transparent" flat class="justify-between">
         <BaseButton to="/admin/manage/users/create" class="mr-2">
           {{ $t("general.create") }}
+        </BaseButton>
+        <BaseButton class="mr-2" color="info" :icon="$globals.icons.email" @click="inviteDialog = true">
+          {{ $t("group.invite") }}
         </BaseButton>
 
         <BaseOverflowButton mode="event" :items="ACTIONS_OPTIONS" @unlock-all-users="unlockAllUsers">
@@ -69,12 +73,20 @@ import { useAdminApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { useUser, useAllUsers } from "~/composables/use-user";
 import { UserOut } from "~/lib/api/types/user";
+import { validators } from "~/composables/use-validators";
+import { useGroups } from "~/composables/use-groups";
+import { useHouseholds } from "~/composables/use-households";
+import UserInviteDialog from "~/components/Domain/User/UserInviteDialog.vue";
 
 export default defineComponent({
+  components: {
+    UserInviteDialog,
+  },
   layout: "admin",
   setup() {
     const api = useAdminApi();
     const refUserDialog = ref();
+    const inviteDialog = ref();
     const { $auth } = useContext();
 
     const user = computed(() => $auth.user);
@@ -99,10 +111,16 @@ export default defineComponent({
       deleteDialog: false,
       deleteTargetId: "",
       search: "",
+      groups: [],
+      households: [],
+      sendTo: "",
     });
 
     const { users, refreshAllUsers } = useAllUsers();
     const { loading, deleteUser: deleteUserMixin } = useUser(refreshAllUsers);
+
+    const { groups } = useGroups();
+    const { households } = useHouseholds();
 
     function deleteUser(id: string) {
       deleteUserMixin(id);
@@ -115,6 +133,19 @@ export default defineComponent({
     function handleRowClick(item: UserOut) {
       router.push(`/admin/manage/users/${item.id}`);
     }
+
+    const validEmail = computed(() => {
+      if (state.sendTo === "") {
+        return false;
+      }
+      const valid = validators.email(state.sendTo);
+
+      // Explicit bool check because validators.email sometimes returns a string
+      if (valid === true) {
+        return true;
+      }
+      return false;
+    });
 
     // ==========================================================
     // Constants / Non-reactive
@@ -154,10 +185,15 @@ export default defineComponent({
       deleteUser,
       loading,
       refUserDialog,
+      inviteDialog,
       users,
       user,
       handleRowClick,
       ACTIONS_OPTIONS,
+      validators,
+      validEmail,
+      groups,
+      households,
     };
   },
   head() {
