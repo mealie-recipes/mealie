@@ -75,7 +75,7 @@ import { useUser, useAllUsers } from "~/composables/use-user";
 import { UserOut } from "~/lib/api/types/user";
 import { validators } from "~/composables/use-validators";
 import { useGroups } from "~/composables/use-groups";
-import { useHouseholds } from "~/composables/use-households";
+import { useAdminHouseholds } from "~/composables/use-households";
 import UserInviteDialog from "~/components/Domain/User/UserInviteDialog.vue";
 
 export default defineComponent({
@@ -120,7 +120,7 @@ export default defineComponent({
     const { loading, deleteUser: deleteUserMixin } = useUser(refreshAllUsers);
 
     const { groups } = useGroups();
-    const { households } = useHouseholds();
+    const { households } = useAdminHouseholds();
 
     function deleteUser(id: string) {
       deleteUserMixin(id);
