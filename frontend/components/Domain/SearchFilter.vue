@@ -12,6 +12,16 @@
         <v-card-text>
           <v-text-field v-model="state.search" class="mb-2" hide-details dense :label="$tc('search.search')" clearable />
           <div class="d-flex py-4">
+            <v-switch
+              v-if="requireAll != undefined"
+              v-model="requireAllValue"
+              dense
+              small
+              hide-details
+              class="my-auto"
+              :label="`${requireAll ? $tc('search.has-all') : $tc('search.has-any')}`"
+            />
+            <v-spacer />
             <v-btn
               small
               color="accent"
@@ -20,15 +30,6 @@
             >
               {{ $tc("search.clear-selection") }}
             </v-btn>
-            <v-switch
-              v-if="requireAll != undefined"
-              v-model="requireAllValue"
-              dense
-              small
-              hide-details
-              class="ml-2 my-auto"
-              :label="`${requireAll ? $tc('search.has-all') : $tc('search.has-any')}`"
-            />
           </div>
           <v-card v-if="filtered.length > 0" flat outlined>
             <v-radio-group v-model="selectedRadio" class="ma-0 pa-0">

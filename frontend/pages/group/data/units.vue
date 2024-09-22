@@ -198,7 +198,8 @@
       :headers.sync="tableHeaders"
       :data="store"
       :bulk-actions="[{icon: $globals.icons.delete, text: $tc('general.delete'), event: 'delete-selected'}]"
-      initial-sort="name"
+      initial-sort="createdAt"
+      initial-sort-desc
       @delete-one="deleteEventHandler"
       @edit-one="editEventHandler"
       @create-one="createEventHandler"
@@ -221,6 +222,9 @@
         <v-icon :color="item.fraction ? 'success' : undefined">
           {{ item.fraction ? $globals.icons.check : $globals.icons.close }}
         </v-icon>
+      </template>
+      <template #item.createdAt="{ item }">
+        {{ formatDate(item.createdAt) }}
       </template>
       <template #button-bottom>
         <BaseButton @click="seedDialog = true">
@@ -293,7 +297,20 @@ export default defineComponent({
         value: "fraction",
         show: true,
       },
+      {
+        text: i18n.tc("general.date-added"),
+        value: "createdAt",
+        show: false,
+      },
     ];
+
+    function formatDate(date: string) {
+      try {
+        return i18n.d(Date.parse(date), "medium");
+      } catch {
+        return "";
+      }
+    }
 
     const { store, actions: unitActions } = useUnitStore();
 
@@ -450,6 +467,7 @@ export default defineComponent({
       tableHeaders,
       store,
       validators,
+      formatDate,
       // Create
       createDialog,
       domNewUnitForm,
