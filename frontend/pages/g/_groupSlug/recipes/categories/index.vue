@@ -1,8 +1,8 @@
 <template>
   <v-container>
     <RecipeOrganizerPage
-      v-if="items"
-      :items="items"
+      v-if="store"
+      :items="store"
       :icon="$globals.icons.categories"
       item-type="categories"
       @delete="actions.deleteOne"
@@ -24,10 +24,10 @@ export default defineComponent({
   },
   middleware: ["auth", "group-only"],
   setup() {
-    const { items, actions } = useCategoryStore();
+    const { store, actions } = useCategoryStore();
 
     return {
-      items,
+      store,
       actions,
     };
   },

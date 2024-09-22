@@ -3,6 +3,9 @@ from datetime import datetime, timezone
 import pytest
 from fastapi.testclient import TestClient
 
+from mealie.schema.cookbook.cookbook import SaveCookBook
+from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe_category import TagSave
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
@@ -62,6 +65,38 @@ def test_get_all_recipes_includes_all_households(
     assert response.status_code == 200
     response_ids = {recipe["id"] for recipe in response.json()["items"]}
     assert str(recipe_id) in response_ids
+    assert str(h2_recipe_id) in response_ids
+
+
+@pytest.mark.parametrize("is_private_household", [True, False])
+def test_get_all_recipes_with_household_filter(
+    api_client: TestClient, unique_user: TestUser, h2_user: TestUser, is_private_household: bool
+):
+    household = unique_user.repos.households.get_one(h2_user.household_id)
+    assert household and household.preferences
+    household.preferences.private_household = is_private_household
+    unique_user.repos.household_preferences.update(household.id, household.preferences)
+
+    response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=unique_user.token)
+    assert response.status_code == 201
+    recipe = unique_user.repos.recipes.get_one(response.json())
+    assert recipe and recipe.id
+    recipe_id = recipe.id
+
+    response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=h2_user.token)
+    assert response.status_code == 201
+    h2_recipe = h2_user.repos.recipes.get_one(response.json())
+    assert h2_recipe and h2_recipe.id
+    h2_recipe_id = h2_recipe.id
+
+    response = api_client.get(
+        api_routes.recipes,
+        params={"households": [h2_recipe.household_id], "page": 1, "perPage": -1},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+    response_ids = {recipe["id"] for recipe in response.json()["items"]}
+    assert str(recipe_id) not in response_ids
     assert str(h2_recipe_id) in response_ids
 
 
@@ -220,3 +255,49 @@ def test_user_can_update_last_made_on_other_household(
     assert recipe["id"] == str(h2_recipe_id)
     new_last_made = recipe["lastMade"]
     assert new_last_made == now != old_last_made
+
+
+def test_cookbook_recipes_only_includes_current_households(
+    api_client: TestClient, unique_user: TestUser, h2_user: TestUser
+):
+    tag = unique_user.repos.tags.create(TagSave(name=random_string(), group_id=unique_user.group_id))
+    recipes = unique_user.repos.recipes.create_many(
+        [
+            Recipe(
+                user_id=unique_user.user_id,
+                group_id=unique_user.group_id,
+                name=random_string(),
+                tags=[tag],
+            )
+            for _ in range(3)
+        ]
+    )
+    other_recipes = h2_user.repos.recipes.create_many(
+        [
+            Recipe(
+                user_id=h2_user.user_id,
+                group_id=h2_user.group_id,
+                name=random_string(),
+            )
+            for _ in range(3)
+        ]
+    )
+
+    cookbook = unique_user.repos.cookbooks.create(
+        SaveCookBook(
+            name=random_string(),
+            group_id=unique_user.group_id,
+            household_id=unique_user.household_id,
+            tags=[tag],
+        )
+    )
+
+    response = api_client.get(api_routes.recipes, params={"cookbook": cookbook.slug}, headers=unique_user.token)
+    assert response.status_code == 200
+    recipes = [Recipe.model_validate(data) for data in response.json()["items"]]
+
+    fetched_recipe_ids = {recipe.id for recipe in recipes}
+    for recipe in recipes:
+        assert recipe.id in fetched_recipe_ids
+    for recipe in other_recipes:
+        assert recipe.id not in fetched_recipe_ids

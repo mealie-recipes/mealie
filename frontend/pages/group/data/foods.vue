@@ -241,6 +241,8 @@
         {icon: $globals.icons.delete, text: $tc('general.delete'), event: 'delete-selected'},
         {icon: $globals.icons.tags, text: $tc('data-pages.labels.assign-label'), event: 'assign-selected'}
       ]"
+      initial-sort="createdAt"
+      initial-sort-desc
       @delete-one="deleteEventHandler"
       @edit-one="editEventHandler"
       @create-one="createEventHandler"
@@ -263,6 +265,9 @@
         <v-icon :color="item.onHand ? 'success' : undefined">
           {{ item.onHand ? $globals.icons.check : $globals.icons.close }}
         </v-icon>
+      </template>
+      <template #item.createdAt="{ item }">
+        {{ formatDate(item.createdAt) }}
       </template>
       <template #button-bottom>
         <BaseButton @click="seedDialog = true">
@@ -326,7 +331,20 @@ export default defineComponent({
         value: "onHand",
         show: true,
       },
+      {
+        text: i18n.tc("general.date-added"),
+        value: "createdAt",
+        show: false,
+      }
     ];
+
+    function formatDate(date: string) {
+      try {
+        return i18n.d(Date.parse(date), "medium");
+      } catch {
+        return "";
+      }
+    }
 
     const foodStore = useFoodStore();
 
@@ -453,7 +471,7 @@ export default defineComponent({
     // ============================================================
     // Labels
 
-    const { labels: allLabels } = useLabelStore();
+    const { store: allLabels } = useLabelStore();
 
     // ============================================================
     // Seed
@@ -501,16 +519,15 @@ export default defineComponent({
       bulkAssignTarget.value = [];
       bulkAssignLabelId.value = undefined;
       foodStore.actions.refresh();
-      // reload page, because foodStore.actions.refresh() does not update the table, reactivity for this seems to be broken (again)
-      document.location.reload();
     }
 
     return {
       tableConfig,
       tableHeaders,
-      foods: foodStore.foods,
+      foods: foodStore.store,
       allLabels,
       validators,
+      formatDate,
       // Create
       createDialog,
       domNewFoodForm,
