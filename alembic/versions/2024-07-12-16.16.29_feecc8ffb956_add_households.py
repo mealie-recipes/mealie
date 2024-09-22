@@ -22,8 +22,8 @@ from mealie.core.config import get_app_settings
 # revision identifiers, used by Alembic.
 revision = "feecc8ffb956"
 down_revision = "32d69327997b"
-branch_labels = None  # type: ignore
-depends_on = None  # type: ignore
+branch_labels: str | tuple[str, ...] | None = None
+depends_on: str | tuple[str, ...] | None = None
 
 settings = get_app_settings()
 

@@ -376,7 +376,7 @@ export default defineComponent({
       const response = await groupRecipeActionsStore.execute(action, props.recipe);
 
       if (action.actionType === "post") {
-        if (!response || (response.status >= 200  && response.status < 300)) {
+        if (!response?.error) {
           alert.success(i18n.tc("events.message-sent"));
         } else {
           alert.error(i18n.tc("events.something-went-wrong"));

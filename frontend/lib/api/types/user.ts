@@ -114,6 +114,7 @@ export interface PrivateUser {
   advanced?: boolean;
   canInvite?: boolean;
   canManage?: boolean;
+  canManageHousehold?: boolean;
   canOrganize?: boolean;
   groupId: string;
   groupSlug: string;
@@ -189,6 +190,7 @@ export interface UserBase {
   advanced?: boolean;
   canInvite?: boolean;
   canManage?: boolean;
+  canManageHousehold?: boolean;
   canOrganize?: boolean;
 }
 export interface UserIn {
@@ -203,6 +205,7 @@ export interface UserIn {
   advanced?: boolean;
   canInvite?: boolean;
   canManage?: boolean;
+  canManageHousehold?: boolean;
   canOrganize?: boolean;
   password: string;
 }
@@ -218,6 +221,7 @@ export interface UserOut {
   advanced?: boolean;
   canInvite?: boolean;
   canManage?: boolean;
+  canManageHousehold?: boolean;
   canOrganize?: boolean;
   groupId: string;
   groupSlug: string;

@@ -2,6 +2,7 @@ import { computed, reactive, ref } from "@nuxtjs/composition-api";
 import { useStoreActions } from "./partials/use-actions-factory";
 import { useUserApi } from "~/composables/api";
 import { GroupRecipeActionOut, GroupRecipeActionType } from "~/lib/api/types/household";
+import { RequestResponse } from "~/lib/api/types/non-generated";
 import { Recipe } from "~/lib/api/types/recipe";
 
 const groupRecipeActions = ref<GroupRecipeActionOut[] | null>(null);
@@ -54,26 +55,15 @@ export const useGroupRecipeActions = function (
     /* eslint-enable no-template-curly-in-string */
   };
 
-  async function execute(action: GroupRecipeActionOut, recipe: Recipe): Promise<void | Response> {
+  async function execute(action: GroupRecipeActionOut, recipe: Recipe): Promise<void | RequestResponse<unknown>> {
     const url = parseRecipeActionUrl(action.url, recipe);
 
     switch (action.actionType) {
       case "link":
         window.open(url, "_blank")?.focus();
-        break;
+        return;
       case "post":
-        return await fetch(url, {
-          method: "POST",
-          headers: {
-            // The "text/plain" content type header is used here to skip the CORS preflight request,
-            // since it may fail. This is fine, since we don't care about the response, we just want
-            // the request to get sent.
-            "Content-Type": "text/plain",
-          },
-          body: JSON.stringify(recipe),
-        }).catch((error) => {
-          console.error(error);
-        });
+        return await api.groupRecipeActions.triggerAction(action.id, recipe.slug || "");
       default:
         break;
     }

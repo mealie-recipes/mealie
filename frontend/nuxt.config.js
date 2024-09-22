@@ -492,7 +492,6 @@ export default {
       ],
       prefer_related_applications: false,
       handle_links: "preferred",
-      orientation: "any",
       categories: [
         "food"
       ],

@@ -66,6 +66,7 @@ jobs:
 
       - name: Modify version strings
         run: |
+          sed -i 's/:v[0-9]*.[0-9]*.[0-9]*/:v${{ env.VERSION_NUM }}/' docs/docs/documentation/getting-started/installation/installation-checklist.md
           sed -i 's/:v[0-9]*.[0-9]*.[0-9]*/:v${{ env.VERSION_NUM }}/' docs/docs/documentation/getting-started/installation/sqlite.md
           sed -i 's/:v[0-9]*.[0-9]*.[0-9]*/:v${{ env.VERSION_NUM }}/' docs/docs/documentation/getting-started/installation/postgres.md
           sed -i 's/^version = "[^"]*"/version = "${{ env.VERSION_NUM }}"/' pyproject.toml
@@ -79,6 +80,8 @@ jobs:
         with:
           commit-message: "Update image tag, for release ${{ github.event.release.tag_name }}"
           branch: "docs/newrelease-update-version-${{ github.event.release.tag_name }}"
+          labels: |
+            documentation
           delete-branch: true
           base: mealie-next
           title: "docs(auto): Update image tag, for release ${{ github.event.release.tag_name }}"

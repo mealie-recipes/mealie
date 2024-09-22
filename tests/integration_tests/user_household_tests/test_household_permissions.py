@@ -7,10 +7,11 @@ from tests.utils.factories import random_bool
 from tests.utils.fixture_schemas import TestUser
 
 
-def get_permissions_payload(user_id: str, can_manage=None) -> dict:
+def get_permissions_payload(user_id: str, can_manage=None, can_manage_household=None) -> dict:
     return {
         "user_id": user_id,
         "can_manage": random_bool() if can_manage is None else can_manage,
+        "can_manage_household": random_bool(),
         "can_invite": random_bool(),
         "can_organize": random_bool(),
     }

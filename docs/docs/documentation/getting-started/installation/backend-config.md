@@ -58,7 +58,7 @@ Changing the webworker settings may cause unforeseen memory leak issues with Mea
 
 | Variables       | Default | Description                                                                   |
 | --------------- | :-----: | ----------------------------------------------------------------------------- |
-| UVICORN_WORKERS |    1    | Sets the number of works for the web server [more info here][unicorn_workers] |
+| UVICORN_WORKERS |    1    | Sets the number of workers for the web server. [More info here][unicorn_workers] |
 
 ### LDAP
 
@@ -104,7 +104,7 @@ For usage, see [Usage - OpenID Connect](../authentication/oidc.md)
 
 :octicons-tag-24: v1.7.0
 
-Mealie supports various integrations using OpenAI. To enable OpenAI, [you must provide your OpenAI API key](https://platform.openai.com/api-keys). You can tweak how OpenAI is used using these backend settings. Please note that while OpenAI usage is optimized to reduce API costs, you're unlikely to be able to use OpenAI features with the free tier limits.
+Mealie supports various integrations using OpenAI. For more information, check out our [OpenAI documentation](./open-ai.md).
 
 | Variables                    | Default | Description                                                                                                                                                                  |
 | ---------------------------- | :-----: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

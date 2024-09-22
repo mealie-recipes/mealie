@@ -16,6 +16,7 @@ from mealie.core.config import get_app_settings
 from mealie.core.dependencies.dependencies import get_temporary_path
 from mealie.lang.providers import Translator
 from mealie.pkgs import cache
+from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_generic import RepositoryGeneric
 from mealie.schema.household.household import HouseholdInDB
@@ -46,6 +47,9 @@ class RecipeServiceBase(BaseService):
         if repos.household_id != user.household_id != household.id:
             raise Exception("household ids do not match")
 
+        self.group_recipes = get_repositories(repos.session, group_id=repos.group_id, household_id=None).recipes
+        """Recipes repo without a Household filter"""
+
         self.translator = translator
         self.t = translator.t
 
@@ -54,7 +58,7 @@ class RecipeServiceBase(BaseService):
 
 class RecipeService(RecipeServiceBase):
     def _get_recipe(self, data: str | UUID, key: str | None = None) -> Recipe:
-        recipe = self.repos.recipes.get_one(data, key)
+        recipe = self.group_recipes.get_one(data, key)
         if recipe is None:
             raise exceptions.NoEntryFound("Recipe not found.")
         return recipe
@@ -62,7 +66,22 @@ class RecipeService(RecipeServiceBase):
     def can_update(self, recipe: Recipe) -> bool:
         if recipe.settings is None:
             raise exceptions.UnexpectedNone("Recipe Settings is None")
-        return recipe.settings.locked is False or self.user.id == recipe.user_id
+
+        # Check if this user owns the recipe
+        if self.user.id == recipe.user_id:
+            return True
+
+        # Check if this user has permission to edit this recipe
+        if self.household.id != recipe.household_id:
+            other_household = self.repos.households.get_one(recipe.household_id)
+            if not (other_household and other_household.preferences):
+                return False
+            if other_household.preferences.lock_recipe_edits_from_other_households:
+                return False
+        if recipe.settings.locked:
+            return False
+
+        return True
 
     def can_lock_unlock(self, recipe: Recipe) -> bool:
         return recipe.user_id == self.user.id
@@ -120,7 +139,7 @@ class RecipeService(RecipeServiceBase):
 
         return Recipe(**additional_attrs)
 
-    def get_one_by_slug_or_id(self, slug_or_id: str | UUID) -> Recipe | None:
+    def get_one(self, slug_or_id: str | UUID) -> Recipe:
         if isinstance(slug_or_id, str):
             try:
                 slug_or_id = UUID(slug_or_id)
@@ -286,10 +305,10 @@ class RecipeService(RecipeServiceBase):
                 data_service.write_image(f.read(), "webp")
             return recipe
 
-    def duplicate_one(self, old_slug: str, dup_data: RecipeDuplicate) -> Recipe:
+    def duplicate_one(self, old_slug_or_id: str | UUID, dup_data: RecipeDuplicate) -> Recipe:
         """Duplicates a recipe and returns the new recipe."""
 
-        old_recipe = self._get_recipe(old_slug)
+        old_recipe = self.get_one(old_slug_or_id)
         new_recipe_data = old_recipe.model_dump(exclude={"id", "name", "slug", "image", "comments"}, round_trip=True)
         new_recipe = Recipe.model_validate(new_recipe_data)
 
@@ -341,7 +360,7 @@ class RecipeService(RecipeServiceBase):
 
         return new_recipe
 
-    def _pre_update_check(self, slug: str, new_data: Recipe) -> Recipe:
+    def _pre_update_check(self, slug_or_id: str | UUID, new_data: Recipe) -> Recipe:
         """
         gets the recipe from the database and performs a check to see if the user can update the recipe.
         If the user can't update the recipe, an exception is raised.
@@ -352,14 +371,14 @@ class RecipeService(RecipeServiceBase):
             - _if_ the user is locking the recipe, that they can lock the recipe (user is the owner)
 
         Args:
-            slug (str): recipe slug
+            slug_or_id (str | UUID): recipe slug or id
             new_data (Recipe): the new recipe data
 
         Raises:
             exceptions.PermissionDenied (403)
         """
 
-        recipe = self._get_recipe(slug)
+        recipe = self.get_one(slug_or_id)
 
         if recipe is None or recipe.settings is None:
             raise exceptions.NoEntryFound("Recipe not found.")
@@ -373,37 +392,35 @@ class RecipeService(RecipeServiceBase):
 
         return recipe
 
-    def update_one(self, slug: str, update_data: Recipe) -> Recipe:
-        recipe = self._pre_update_check(slug, update_data)
+    def update_one(self, slug_or_id: str | UUID, update_data: Recipe) -> Recipe:
+        recipe = self._pre_update_check(slug_or_id, update_data)
 
-        new_data = self.repos.recipes.update(slug, update_data)
+        new_data = self.group_recipes.update(recipe.slug, update_data)
         self.check_assets(new_data, recipe.slug)
         return new_data
 
-    def patch_one(self, slug: str, patch_data: Recipe) -> Recipe:
-        recipe: Recipe | None = self._pre_update_check(slug, patch_data)
-        recipe = self._get_recipe(slug)
+    def patch_one(self, slug_or_id: str | UUID, patch_data: Recipe) -> Recipe:
+        recipe: Recipe | None = self._pre_update_check(slug_or_id, patch_data)
+        recipe = self.get_one(slug_or_id)
 
-        if recipe is None:
-            raise exceptions.NoEntryFound("Recipe not found.")
-
-        new_data = self.repos.recipes.patch(recipe.slug, patch_data.model_dump(exclude_unset=True))
+        new_data = self.group_recipes.patch(recipe.slug, patch_data.model_dump(exclude_unset=True))
 
         self.check_assets(new_data, recipe.slug)
         return new_data
 
-    def update_last_made(self, slug: str, timestamp: datetime) -> Recipe:
-        # we bypass the pre update check since any user can update a recipe's last made date, even if it's locked
-        recipe = self._get_recipe(slug)
-        return self.repos.recipes.patch(recipe.slug, {"last_made": timestamp})
+    def update_last_made(self, slug_or_id: str | UUID, timestamp: datetime) -> Recipe:
+        # we bypass the pre update check since any user can update a recipe's last made date, even if it's locked,
+        # or if the user belongs to a different household
+        recipe = self.get_one(slug_or_id)
+        return self.group_recipes.patch(recipe.slug, {"last_made": timestamp})
 
-    def delete_one(self, slug) -> Recipe:
-        recipe = self._get_recipe(slug)
+    def delete_one(self, slug_or_id: str | UUID) -> Recipe:
+        recipe = self.get_one(slug_or_id)
 
         if not self.can_update(recipe):
             raise exceptions.PermissionDenied("You do not have permission to delete this recipe.")
 
-        data = self.repos.recipes.delete(recipe.id, "id")
+        data = self.group_recipes.delete(recipe.id, "id")
         self.delete_assets(data)
         return data
 

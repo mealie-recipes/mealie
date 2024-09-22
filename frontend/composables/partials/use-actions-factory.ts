@@ -1,18 +1,15 @@
 import { Ref, useAsync } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "../use-utils";
+import { BoundT } from "./types";
 import { BaseCRUDAPI, BaseCRUDAPIReadOnly } from "~/lib/api/base/base-clients";
 import { QueryValue } from "~/lib/api/base/route";
 
-type BoundT = {
-  id?: string | number | null;
-};
-
-interface PublicStoreActions<T extends BoundT> {
+interface ReadOnlyStoreActions<T extends BoundT> {
   getAll(page?: number, perPage?: number, params?: any): Ref<T[] | null>;
   refresh(): Promise<void>;
 }
 
-interface StoreActions<T extends BoundT> extends PublicStoreActions<T> {
+interface StoreActions<T extends BoundT> extends ReadOnlyStoreActions<T> {
   createOne(createData: T): Promise<T | null>;
   updateOne(updateData: T): Promise<T | null>;
   deleteOne(id: string | number): Promise<T | null>;
@@ -20,16 +17,16 @@ interface StoreActions<T extends BoundT> extends PublicStoreActions<T> {
 
 
 /**
- * usePublicStoreActions is a factory function that returns a set of methods
+ * useReadOnlyActions is a factory function that returns a set of methods
  * that can be reused to manage the state of a data store without using
  * Vuex. This is primarily used for basic GET/GETALL operations that required
  * a lot of refreshing hooks to be called on operations
  */
-export function usePublicStoreActions<T extends BoundT>(
+export function useReadOnlyActions<T extends BoundT>(
   api: BaseCRUDAPIReadOnly<T>,
   allRef: Ref<T[] | null> | null,
   loading: Ref<boolean>
-): PublicStoreActions<T> {
+): ReadOnlyStoreActions<T> {
   function getAll(page = 1, perPage = -1, params = {} as Record<string, QueryValue>) {
     params.orderBy ??= "name";
     params.orderDirection ??= "asc";

@@ -35,6 +35,7 @@ from mealie.db.models.recipe.tool import Tool
 from mealie.db.models.users import LongLiveToken, User
 from mealie.db.models.users.password_reset import PasswordResetModel
 from mealie.db.models.users.user_to_recipe import UserToRecipe
+from mealie.repos.repository_cookbooks import RepositoryCookbooks
 from mealie.repos.repository_foods import RepositoryFood
 from mealie.repos.repository_household import RepositoryHousehold
 from mealie.repos.repository_meal_plan_rules import RepositoryMealPlanRules
@@ -231,8 +232,8 @@ class AllRepositories:
         )
 
     @cached_property
-    def cookbooks(self) -> HouseholdRepositoryGeneric[ReadCookBook, CookBook]:
-        return HouseholdRepositoryGeneric(
+    def cookbooks(self) -> RepositoryCookbooks:
+        return RepositoryCookbooks(
             self.session, PK_ID, CookBook, ReadCookBook, group_id=self.group_id, household_id=self.household_id
         )
 

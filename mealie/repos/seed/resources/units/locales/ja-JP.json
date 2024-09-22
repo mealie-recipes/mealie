@@ -1,104 +1,104 @@
 {
     "teaspoon": {
         "name": "小さじ",
-        "plural_name": "teaspoons",
+        "plural_name": "小さじ",
         "description": "",
         "abbreviation": "小さじ"
     },
     "tablespoon": {
         "name": "大さじ",
-        "plural_name": "tablespoons",
+        "plural_name": "大さじ",
         "description": "",
         "abbreviation": "大さじ"
     },
     "cup": {
         "name": "カップ",
-        "plural_name": "cups",
+        "plural_name": "カップ",
         "description": "",
         "abbreviation": "c"
     },
     "fluid-ounce": {
         "name": "液量オンス",
-        "plural_name": "fluid ounces",
+        "plural_name": "液量オンス",
         "description": "",
         "abbreviation": "液量オンス"
     },
     "pint": {
         "name": "パイント",
-        "plural_name": "pints",
+        "plural_name": "パイント",
         "description": "",
         "abbreviation": "パイント"
     },
     "quart": {
         "name": "クォート",
-        "plural_name": "quarts",
+        "plural_name": "クォート",
         "description": "",
         "abbreviation": "クォート"
     },
     "gallon": {
         "name": "ガロン",
-        "plural_name": "gallons",
+        "plural_name": "ガロン",
         "description": "",
         "abbreviation": "ガロン"
     },
     "milliliter": {
         "name": "ミリリットル",
-        "plural_name": "milliliters",
+        "plural_name": "ミリリットル",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
         "name": "リットル",
-        "plural_name": "liters",
+        "plural_name": "リットル",
         "description": "",
         "abbreviation": "l"
     },
     "pound": {
         "name": "ポンド",
-        "plural_name": "pounds",
+        "plural_name": "ポンド",
         "description": "",
         "abbreviation": "ポンド",
-        "plural_abbreviation": "lbs"
+        "plural_abbreviation": "ポンド"
     },
     "ounce": {
         "name": "オンス",
-        "plural_name": "ounces",
+        "plural_name": "オンス",
         "description": "",
         "abbreviation": "オンス"
     },
     "gram": {
         "name": "グラム",
-        "plural_name": "grams",
+        "plural_name": "グラム",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
         "name": "キログラム",
-        "plural_name": "kilograms",
+        "plural_name": "キログラム",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
         "name": "ミリグラム",
-        "plural_name": "milligrams",
+        "plural_name": "ミリグラム",
         "description": "",
         "abbreviation": "mg"
     },
     "splash": {
         "name": "少量",
-        "plural_name": "splashes",
+        "plural_name": "少量",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
         "name": "少量",
-        "plural_name": "dashes",
+        "plural_name": "小さじ1/8",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
         "name": "人前",
-        "plural_name": "servings",
+        "plural_name": "人前",
         "description": "",
         "abbreviation": ""
     },
@@ -110,31 +110,31 @@
     },
     "clove": {
         "name": "欠片",
-        "plural_name": "cloves",
+        "plural_name": "欠片",
         "description": "",
         "abbreviation": ""
     },
     "can": {
         "name": "缶",
-        "plural_name": "cans",
+        "plural_name": "缶",
         "description": "",
         "abbreviation": ""
     },
     "bunch": {
-        "name": "bunch",
-        "plural_name": "bunches",
+        "name": "束",
+        "plural_name": "束",
         "description": "",
         "abbreviation": ""
     },
     "pack": {
-        "name": "pack",
-        "plural_name": "packs",
+        "name": "パック",
+        "plural_name": "パック",
         "description": "",
         "abbreviation": ""
     },
     "pinch": {
-        "name": "pinch",
-        "plural_name": "pinches",
+        "name": "小さじ1/16",
+        "plural_name": "小さじ1/16",
         "description": "",
         "abbreviation": ""
     }

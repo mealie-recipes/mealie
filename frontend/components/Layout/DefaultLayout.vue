@@ -117,6 +117,7 @@ export default defineComponent({
       if (!cookbooks.value) return [];
       return cookbooks.value.map((cookbook) => {
         return {
+          key: cookbook.slug,
           icon: $globals.icons.pages,
           title: cookbook.name,
           to: `/g/${groupSlug.value}/cookbooks/${cookbook.slug as string}`,

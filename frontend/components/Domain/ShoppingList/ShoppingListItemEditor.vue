@@ -3,14 +3,9 @@
     <v-card outlined>
       <v-card-text class="pb-3 pt-1">
         <div v-if="listItem.isFood" class="d-md-flex align-center mb-2" style="gap: 20px">
-          <InputLabelType
-            v-model="listItem.food"
-            :items="foods"
-            :item-id.sync="listItem.foodId"
-            :label="$t('shopping-list.food')"
-            :icon="$globals.icons.foods"
-            @create="createAssignFood"
-          />
+          <div>
+            <InputQuantity v-model="listItem.quantity" />
+          </div>
           <InputLabelType
             v-model="listItem.unit"
             :items="units"
@@ -19,8 +14,20 @@
             :icon="$globals.icons.units"
             @create="createAssignUnit"
           />
+          <InputLabelType
+            v-model="listItem.food"
+            :items="foods"
+            :item-id.sync="listItem.foodId"
+            :label="$t('shopping-list.food')"
+            :icon="$globals.icons.foods"
+            @create="createAssignFood"
+          />
+
         </div>
         <div class="d-md-flex align-center" style="gap: 20px">
+          <div v-if="!listItem.isFood">
+              <InputQuantity v-model="listItem.quantity" />
+            </div>
           <v-textarea
             v-model="listItem.note"
             hide-details
@@ -32,9 +39,7 @@
         </div>
         <div class="d-flex flex-wrap align-end" style="gap: 20px">
           <div class="d-flex align-end">
-            <div>
-              <InputQuantity v-model="listItem.quantity" />
-            </div>
+
             <div style="max-width: 300px" class="mt-3 mr-auto">
               <InputLabelType
                 v-model="listItem.label"

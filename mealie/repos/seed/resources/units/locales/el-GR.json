@@ -30,8 +30,8 @@
         "abbreviation": "pt"
     },
     "quart": {
-        "name": "1/4",
-        "plural_name": "τέταρτα",
+        "name": "τέταρτο γαλονιού",
+        "plural_name": "τέταρτα γαλονιού",
         "description": "",
         "abbreviation": "1/4"
     },
@@ -64,7 +64,7 @@
         "name": "ουγγιά",
         "plural_name": "ουγγιές",
         "description": "",
-        "abbreviation": "οζ"
+        "abbreviation": "oz"
     },
     "gram": {
         "name": "γραμμάριο",
@@ -91,8 +91,8 @@
         "abbreviation": ""
     },
     "dash": {
-        "name": "παύλα",
-        "plural_name": "παύλες",
+        "name": "σπυρί",
+        "plural_name": "σπυριά",
         "description": "",
         "abbreviation": ""
     },

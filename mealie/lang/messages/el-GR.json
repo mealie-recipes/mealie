@@ -13,7 +13,7 @@
         "no-recipes-match-your-rules": "Καμία συνταγή δεν ταιριάζει στα κριτήρια αναζήτησης"
     },
     "user": {
-        "user-updated": "Χρήστης ενημερώθηκε",
+        "user-updated": "Ο χρήστης ενημερώθηκε",
         "password-updated": "Ο κωδικός πρόσβασης ενημερώθηκε",
         "invalid-current-password": "Μη έγκυρος κωδικός πρόσβασης",
         "ldap-update-password-unavailable": "Αδυναμία ενημέρωσης του κωδικού πρόσβασης, ο χρήστης ελέγχεται από LDAP"

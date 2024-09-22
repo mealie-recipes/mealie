@@ -31,6 +31,17 @@
       <template #item.admin="{ item }">
         {{ item.admin ? $t('user.admin') : $t('user.user') }}
       </template>
+      <template #item.manageHousehold="{ item }">
+        <div class="d-flex justify-center">
+          <v-checkbox
+            v-model="item.canManageHousehold"
+            :disabled="item.id === $auth.user.id || item.admin"
+            class=""
+            style="max-width: 30px"
+            @change="setPermissions(item)"
+          ></v-checkbox>
+        </div>
+      </template>
       <template #item.manage="{ item }">
         <div class="d-flex justify-center">
           <v-checkbox
@@ -94,6 +105,7 @@ export default defineComponent({
       { text: i18n.t("group.manage"), value: "manage", sortable: false, align: "center" },
       { text: i18n.t("settings.organize"), value: "organize", sortable: false, align: "center" },
       { text: i18n.t("group.invite"), value: "invite", sortable: false, align: "center" },
+      { text: i18n.t("group.manage-household"), value: "manageHousehold", sortable: false, align: "center" },
     ];
 
     async function refreshMembers() {
@@ -107,6 +119,7 @@ export default defineComponent({
       const payload = {
         userId: user.id,
         canInvite: user.canInvite,
+        canManageHousehold: user.canManageHousehold,
         canManage: user.canManage,
         canOrganize: user.canOrganize,
       };
