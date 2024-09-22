@@ -14,10 +14,15 @@ from mealie.schema.labels import (
     MultiPurposeLabelUpdate,
 )
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelPagination
-from mealie.schema.response.pagination import PaginationQuery
+from mealie.schema.response.pagination import OrderDirection, PaginationQuery
 from mealie.services.group_services.labels_service import MultiPurposeLabelService
 
 router = APIRouter(prefix="/groups/labels", tags=["Groups: Multi Purpose Labels"], route_class=MealieCrudRoute)
+
+
+class LabelPaginationQuery(PaginationQuery):
+    order_by: str | None = "name"
+    order_direction: OrderDirection = OrderDirection.asc
 
 
 @controller(router)
@@ -41,7 +46,7 @@ class MultiPurposeLabelsController(BaseUserController):
         return HttpRepo(self.repo, self.logger, self.registered_exceptions, self.t("generic.server-error"))
 
     @router.get("", response_model=MultiPurposeLabelPagination)
-    def get_all(self, q: PaginationQuery = Depends(PaginationQuery), search: str | None = None):
+    def get_all(self, q: PaginationQuery = Depends(LabelPaginationQuery), search: str | None = None):
         response = self.repo.page_all(
             pagination=q,
             override=MultiPurposeLabelSummary,
