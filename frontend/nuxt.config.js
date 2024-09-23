@@ -123,7 +123,7 @@ export default {
   auth: {
     redirect: {
       login: "/login",
-      logout: "/login?direct=1",
+      logout: "/login",
       callback: "/login",
       home: "/",
     },
@@ -175,9 +175,7 @@ export default {
           login: {
             url: "api/auth/oauth/callback",
             method: "get",
-            propertyName: "access_token",
           },
-          refresh: { url: "api/auth/refresh", method: "post" },
           logout: { url: "api/auth/logout", method: "post" },
           user: { url: "api/users/self", method: "get" },
         },
