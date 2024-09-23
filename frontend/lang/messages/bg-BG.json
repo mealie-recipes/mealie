@@ -652,6 +652,7 @@
     "or": "Или",
     "has-any": "Има някое",
     "has-all": "Има всички",
+    "clear-selection": "Clear Selection",
     "results": "Резултати",
     "search": "Търсене",
     "search-mealie": "Търсене в Mealie (Натисни /)",
@@ -1245,7 +1246,11 @@
       "here-are-a-few-things-to-help-you-get-started": "Ето няколко неща, които ще Ви помогнат да започнете с Mealie",
       "restore-from-v1-backup": "Имате резервно копие от предишна инстанция на Mealie v1? Можете да го възстановите тук.",
       "manage-profile-or-get-invite-link": "Управлявайте собствения си профил или вземете връзка за покана, която да споделите с други."
-    }
+    },
+    "debug-openai-services": "Debug OpenAI Services",
+    "debug-openai-services-description": "Use this page to debug OpenAI services. You can test your OpenAI connection and see the results here. If you have image services enabled, you can also provide an image.",
+    "run-test": "Run Test",
+    "test-results": "Test Results"
   },
   "profile": {
     "welcome-user": "👋 Добре дошъл(а), {0}!",
