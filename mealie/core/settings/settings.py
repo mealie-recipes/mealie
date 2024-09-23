@@ -3,7 +3,7 @@ import os
 import secrets
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import NamedTuple
+from typing import Any, NamedTuple
 
 from dateutil.tz import tzlocal
 from pydantic import field_validator
@@ -305,6 +305,10 @@ class AppSettings(AppLoggingSettings):
     """Your OpenAI API key. Required to enable OpenAI features"""
     OPENAI_MODEL: str = "gpt-4o"
     """Which OpenAI model to send requests to. Leave this unset for most usecases"""
+    OPENAI_CUSTOM_HEADERS: dict[str, str] = {}
+    """Custom HTTP headers to send with each OpenAI request"""
+    OPENAI_CUSTOM_PARAMS: dict[str, Any] = {}
+    """Custom HTTP parameters to send with each OpenAI request"""
     OPENAI_ENABLE_IMAGE_SERVICES: bool = True
     """Whether to enable image-related features in OpenAI"""
     OPENAI_WORKERS: int = 2
