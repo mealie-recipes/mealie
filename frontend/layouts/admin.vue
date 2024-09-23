@@ -92,10 +92,23 @@ export default defineComponent({
         restricted: true,
       },
       {
-        icon: $globals.icons.slotMachine,
-        to: "/admin/parser",
-        title: i18n.tc("sidebar.parser"),
+        icon: $globals.icons.robot,
+        title: i18n.tc("recipe.debug"),
         restricted: true,
+        children: [
+          {
+            icon: $globals.icons.robot,
+            to: "/admin/debug/openai",
+            title: i18n.tc("admin.openai"),
+            restricted: true,
+          },
+          {
+            icon: $globals.icons.slotMachine,
+            to: "/admin/debug/parser",
+            title: i18n.tc("sidebar.parser"),
+            restricted: true,
+          },
+        ]
       },
     ];
 
