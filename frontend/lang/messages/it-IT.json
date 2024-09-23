@@ -652,6 +652,7 @@
     "or": "O",
     "has-any": "Una Delle Scelte",
     "has-all": "Tutte Le Scelte",
+    "clear-selection": "Clear Selection",
     "results": "Risultati",
     "search": "Cerca",
     "search-mealie": "Cerca Mealie (premi /)",
@@ -1245,7 +1246,11 @@
       "here-are-a-few-things-to-help-you-get-started": "Qui ci sono alcune cose per aiutarvi a iniziare con Mealie",
       "restore-from-v1-backup": "Hai un backup da un'istanza precedente di Mealie v1? Puoi ripristinarlo qui.",
       "manage-profile-or-get-invite-link": "Gestisci il tuo profilo, o parti da un link di invito per condividere con gli altri."
-    }
+    },
+    "debug-openai-services": "Debug OpenAI Services",
+    "debug-openai-services-description": "Use this page to debug OpenAI services. You can test your OpenAI connection and see the results here. If you have image services enabled, you can also provide an image.",
+    "run-test": "Run Test",
+    "test-results": "Test Results"
   },
   "profile": {
     "welcome-user": "👋 Benvenutǝ, {0}!",

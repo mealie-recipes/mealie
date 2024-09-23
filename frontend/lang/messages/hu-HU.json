@@ -652,6 +652,7 @@
     "or": "Vagy",
     "has-any": "Bármely",
     "has-all": "Mind",
+    "clear-selection": "Clear Selection",
     "results": "Találatok",
     "search": "Keresés",
     "search-mealie": "Keresés a Mealie-ben (/ gombbal)",
@@ -1245,7 +1246,11 @@
       "here-are-a-few-things-to-help-you-get-started": "Itt van egy pár dolog ami segíthet a kezdésben a Mealie-vel",
       "restore-from-v1-backup": "Van egy korábbi Mealie v1 biztonsági másolatod? Itt visszaállíthatod.",
       "manage-profile-or-get-invite-link": "Alakítsa a profilját vagy szerezze meg a meghívó link-jét hogy megoszthassa másokkal."
-    }
+    },
+    "debug-openai-services": "Debug OpenAI Services",
+    "debug-openai-services-description": "Use this page to debug OpenAI services. You can test your OpenAI connection and see the results here. If you have image services enabled, you can also provide an image.",
+    "run-test": "Run Test",
+    "test-results": "Test Results"
   },
   "profile": {
     "welcome-user": "👋 Üdvözöljük, {0}!",

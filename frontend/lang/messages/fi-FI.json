@@ -652,6 +652,7 @@
     "or": "Tai",
     "has-any": "On Mikä Tahansa",
     "has-all": "On Kaikki",
+    "clear-selection": "Clear Selection",
     "results": "Tulokset",
     "search": "Hae",
     "search-mealie": "Hae Mealiestä (paina /)",
@@ -1245,7 +1246,11 @@
       "here-are-a-few-things-to-help-you-get-started": "Näillä muutamilla asioilla pääset alkuun",
       "restore-from-v1-backup": "Onko sinulla varmuuskopio aiemmasta Mealie v1 -instanssista? Palauta se tästä.",
       "manage-profile-or-get-invite-link": "Hallitse profiiliasi tai hanki kutsulinkki muille."
-    }
+    },
+    "debug-openai-services": "Debug OpenAI Services",
+    "debug-openai-services-description": "Use this page to debug OpenAI services. You can test your OpenAI connection and see the results here. If you have image services enabled, you can also provide an image.",
+    "run-test": "Run Test",
+    "test-results": "Test Results"
   },
   "profile": {
     "welcome-user": "👋 Tervetuloa, {0}!",
