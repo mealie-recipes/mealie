@@ -652,6 +652,7 @@
     "or": "Ali",
     "has-any": "Ima enega izmed",
     "has-all": "Ima vse",
+    "clear-selection": "Clear Selection",
     "results": "Rezultati",
     "search": "Iskanje",
     "search-mealie": "Išči po Mealie (pritisni /)",
@@ -1245,7 +1246,11 @@
       "here-are-a-few-things-to-help-you-get-started": "Par stvari, ki to bodo pomagale začeti z Mealie",
       "restore-from-v1-backup": "Imaš varnostno kopijo iz predhodnje instance Mealie v1? Obnoviš jo lahko tule.",
       "manage-profile-or-get-invite-link": "Upravljaj s svojim profilom ali skopiraj povezavo z vabilom in jo deli z drugimi."
-    }
+    },
+    "debug-openai-services": "Debug OpenAI Services",
+    "debug-openai-services-description": "Use this page to debug OpenAI services. You can test your OpenAI connection and see the results here. If you have image services enabled, you can also provide an image.",
+    "run-test": "Run Test",
+    "test-results": "Test Results"
   },
   "profile": {
     "welcome-user": "👋 Živjo, {0}!",
