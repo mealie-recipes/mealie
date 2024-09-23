@@ -28,7 +28,8 @@ remember_me_duration = timedelta(days=14)
 settings = get_app_settings()
 if settings.OIDC_READY:
     oauth = OAuth()
-    scope = f"openid email profile {settings.OIDC_GROUPS_CLAIM or ''}"
+    groups_claim = settings.OIDC_GROUPS_CLAIM if settings.OIDC_REQUIRES_GROUP_CLAIM else ""
+    scope = f"openid email profile {groups_claim}"
     oauth.register(
         "oidc",
         client_id=settings.OIDC_CLIENT_ID,

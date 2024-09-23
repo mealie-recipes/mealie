@@ -283,6 +283,10 @@ class AppSettings(AppLoggingSettings):
     OIDC_TLS_CACERTFILE: str | None = None
 
     @property
+    def OIDC_REQUIRES_GROUP_CLAIM(self) -> bool:
+        return self.OIDC_USER_GROUP is not None or self.OIDC_ADMIN_GROUP is not None
+
+    @property
     def OIDC_READY(self) -> bool:
         """Validates OIDC settings are all set"""
 
@@ -294,7 +298,8 @@ class AppSettings(AppLoggingSettings):
         }
         not_none = None not in required
         valid_group_claim = True
-        if (not self.OIDC_USER_GROUP or not self.OIDC_ADMIN_GROUP) and not self.OIDC_GROUPS_CLAIM:
+
+        if self.OIDC_REQUIRES_GROUP_CLAIM and self.OIDC_GROUPS_CLAIM is None:
             valid_group_claim = False
 
         return self.OIDC_AUTH_ENABLED and not_none and valid_group_claim

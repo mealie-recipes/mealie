@@ -38,7 +38,7 @@ class OpenIDProvider(AuthProvider[UserInfo]):
         repos = get_repositories(self.session, group_id=None, household_id=None)
 
         is_admin = False
-        if settings.OIDC_USER_GROUP or settings.OIDC_ADMIN_GROUP:
+        if settings.OIDC_REQUIRES_GROUP_CLAIM:
             group_claim = claims.get(settings.OIDC_GROUPS_CLAIM, []) or []
             is_admin = settings.OIDC_ADMIN_GROUP in group_claim if settings.OIDC_ADMIN_GROUP else False
             is_valid_user = settings.OIDC_USER_GROUP in group_claim if settings.OIDC_USER_GROUP else True
@@ -94,6 +94,6 @@ class OpenIDProvider(AuthProvider[UserInfo]):
         settings = get_app_settings()
 
         claims = {"preferred_username", "name", "email", settings.OIDC_USER_CLAIM}
-        if settings.OIDC_USER_CLAIM or settings.OIDC_ADMIN_GROUP:
+        if settings.OIDC_REQUIRES_GROUP_CLAIM:
             claims.add(settings.OIDC_GROUPS_CLAIM)
         return claims
