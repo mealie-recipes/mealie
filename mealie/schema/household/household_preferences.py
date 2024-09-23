@@ -1,5 +1,9 @@
 from pydantic import UUID4, ConfigDict
+from sqlalchemy.orm import joinedload
+from sqlalchemy.orm.interfaces import LoaderOption
 
+from mealie.db.models.household.household import Household
+from mealie.db.models.household.preferences import HouseholdPreferencesModel
 from mealie.schema._mealie import MealieModel
 
 
@@ -27,3 +31,9 @@ class SaveHouseholdPreferences(UpdateHouseholdPreferences):
 class ReadHouseholdPreferences(CreateHouseholdPreferences):
     id: UUID4
     model_config = ConfigDict(from_attributes=True)
+
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [
+            joinedload(HouseholdPreferencesModel.household).load_only(Household.group_id),
+        ]

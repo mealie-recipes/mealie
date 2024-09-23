@@ -1,4 +1,5 @@
 import random
+from collections.abc import Generator
 from dataclasses import dataclass
 from uuid import UUID
 
@@ -35,19 +36,20 @@ class TestCookbook:
 
 
 @pytest.fixture(scope="function")
-def cookbooks(unique_user: TestUser) -> list[TestCookbook]:
+def cookbooks(unique_user: TestUser) -> Generator[list[TestCookbook]]:
     database = unique_user.repos
 
     data: list[ReadCookBook] = []
     yield_data: list[TestCookbook] = []
     for _ in range(3):
         cb = database.cookbooks.create(SaveCookBook(**get_page_data(unique_user.group_id, unique_user.household_id)))
+        assert cb.slug
         data.append(cb)
         yield_data.append(TestCookbook(id=cb.id, slug=cb.slug, name=cb.name, data=cb.model_dump()))
 
     yield yield_data
 
-    for cb in yield_data:
+    for cb in data:
         try:
             database.cookbooks.delete(cb.id)
         except Exception:
