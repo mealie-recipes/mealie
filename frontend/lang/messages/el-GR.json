@@ -652,6 +652,7 @@
     "or": "Ή",
     "has-any": "Περιέχει",
     "has-all": "Περιέχει τα πάντα",
+    "clear-selection": "Απαλοιφή επιλογής",
     "results": "Αποτελέσματα",
     "search": "Αναζήτηση",
     "search-mealie": "Αναζήτηση στο Mealie (πατήστε /)",
@@ -1245,7 +1246,11 @@
       "here-are-a-few-things-to-help-you-get-started": "Εδώ είναι μερικά πράγματα που θα σας βοηθήσουν να ξεκινήσετε με το Mealie",
       "restore-from-v1-backup": "Εχετε ένα αντίγραφο ασφαλείας από μια προηγούμενη υπόσταση του Mealie v1; Μπορείτε να το επαναφέρετε εδώ.",
       "manage-profile-or-get-invite-link": "Διαχειριστείτε το δικό σας προφίλ, ή λάβετε έναν σύνδεσμο πρόσκλησης για να μοιραστείτε με άλλους."
-    }
+    },
+    "debug-openai-services": "Debug OpenAI Services",
+    "debug-openai-services-description": "Use this page to debug OpenAI services. You can test your OpenAI connection and see the results here. If you have image services enabled, you can also provide an image.",
+    "run-test": "Run Test",
+    "test-results": "Test Results"
   },
   "profile": {
     "welcome-user": "👋 Καλώς ορίσατε, {0}!",
