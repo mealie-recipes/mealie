@@ -219,8 +219,8 @@ export default defineComponent({
             try {
                 await $auth.loginWith("oidc", { params: new URLSearchParams(window.location.search)})
             } catch (error) {
+                await router.replace("/login?direct=1")
                 alertOnError(error)
-                router.replace("/login")
             }
             oidcLoggingIn.value = false
         } else {
