@@ -652,6 +652,7 @@
     "or": "Alebo",
     "has-any": "Obsahuje ktorýkoľvek",
     "has-all": "Obsahuje všetky",
+    "clear-selection": "Clear Selection",
     "results": "Výsledky",
     "search": "Vyhľadať",
     "search-mealie": "Prehľadať Mealie (stlač /)",
@@ -1245,7 +1246,11 @@
       "here-are-a-few-things-to-help-you-get-started": "Tu je niekoľko bodov, ktoré vám pomôžu na začiatku v Mealie",
       "restore-from-v1-backup": "Máte zálohu z predchádzajúcej inštalácie Mealie v1? Tu ju môžete obnoviť.",
       "manage-profile-or-get-invite-link": "Spravujte svoj profil ako súkromný alebo ho s pomocou pozývacieho linku zdieľajte s ostatnými."
-    }
+    },
+    "debug-openai-services": "Debug OpenAI Services",
+    "debug-openai-services-description": "Use this page to debug OpenAI services. You can test your OpenAI connection and see the results here. If you have image services enabled, you can also provide an image.",
+    "run-test": "Run Test",
+    "test-results": "Test Results"
   },
   "profile": {
     "welcome-user": "👋 Vitajte, {0}!",
