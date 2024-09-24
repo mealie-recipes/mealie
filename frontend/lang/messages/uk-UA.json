@@ -652,7 +652,7 @@
     "or": "Або",
     "has-any": "Є будь-яке",
     "has-all": "Є всі",
-    "clear-selection": "Clear Selection",
+    "clear-selection": "Зняти позначення",
     "results": "Результати",
     "search": "Пошук",
     "search-mealie": "Пошук по Mealie (натисніть /)",
@@ -1247,10 +1247,10 @@
       "restore-from-v1-backup": "Маєте резервну копію з попереднього екземпляра Меаліе v1? Ви можете використати його тут.",
       "manage-profile-or-get-invite-link": "Керуйте вашим власним профілем, або отримайте посилання-запрошення щоб поділитися з іншими."
     },
-    "debug-openai-services": "Debug OpenAI Services",
-    "debug-openai-services-description": "Use this page to debug OpenAI services. You can test your OpenAI connection and see the results here. If you have image services enabled, you can also provide an image.",
-    "run-test": "Run Test",
-    "test-results": "Test Results"
+    "debug-openai-services": "Налагодження служб OpenAI",
+    "debug-openai-services-description": "Використовуйте цю сторінку, щоб налагодити служби OpenAI. Ви можете перевірити ваше з'єднання з OpenAI й побачити результати тут. Якщо ввімкнено служби зображень, ви також можете надати зображення.",
+    "run-test": "Запустити перевірку",
+    "test-results": "Результати перевірки"
   },
   "profile": {
     "welcome-user": "👋 Ласкаво просимо, {0}!",
