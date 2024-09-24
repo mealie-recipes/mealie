@@ -8,7 +8,7 @@
     "database-type": "Adatbázis típusa",
     "database-url": "Adatbázis URL",
     "default-group": "Alapértelmezett csoport",
-    "default-household": "Default Household",
+    "default-household": "Alapértelmezett háztartás",
     "demo": "Demó",
     "demo-status": "Demó állapot",
     "development": "Fejlesztői",
@@ -239,7 +239,7 @@
       "keep-my-recipes-private-description": "A csoport és az összes recept alapértelmezett beállítása privátra. Ezt később bármikor megváltoztathatod."
     },
     "manage-members": "Tagok Kezelése",
-    "manage-members-description": "Manage the permissions of the members in your household. {manage} allows the user to access the data-management page, and {invite} allows the user to generate invitation links for other users. Group owners cannot change their own permissions.",
+    "manage-members-description": "Kezelje a háztartás tagjainak jogosultságait. A {manage} lehetővé teszi a felhasználó számára az adatkezelési oldal elérését, a {invite} pedig lehetővé teszi a felhasználó számára, hogy meghívó linkeket hozzon létre más felhasználók számára. A csoporttulajdonosok nem módosíthatják saját jogosultságaikat.",
     "manage": "Kezelés",
     "manage-household": "Manage Household",
     "invite": "Meghívás",
@@ -652,7 +652,7 @@
     "or": "Vagy",
     "has-any": "Bármely",
     "has-all": "Mind",
-    "clear-selection": "Clear Selection",
+    "clear-selection": "Kijelölés törlése",
     "results": "Találatok",
     "search": "Keresés",
     "search-mealie": "Keresés a Mealie-ben (/ gombbal)",
@@ -1247,10 +1247,10 @@
       "restore-from-v1-backup": "Van egy korábbi Mealie v1 biztonsági másolatod? Itt visszaállíthatod.",
       "manage-profile-or-get-invite-link": "Alakítsa a profilját vagy szerezze meg a meghívó link-jét hogy megoszthassa másokkal."
     },
-    "debug-openai-services": "Debug OpenAI Services",
-    "debug-openai-services-description": "Use this page to debug OpenAI services. You can test your OpenAI connection and see the results here. If you have image services enabled, you can also provide an image.",
-    "run-test": "Run Test",
-    "test-results": "Test Results"
+    "debug-openai-services": "OpenAI-szolgáltatások hibakeresése",
+    "debug-openai-services-description": "Ezt az oldalt az OpenAI szolgáltatások hibakeresésére használhatja. Itt tesztelheti az OpenAI-kapcsolatot, és láthatja az eredményeket. Ha engedélyezte a képszolgáltatásokat, akkor képet is megadhat.",
+    "run-test": "Teszt futtatása",
+    "test-results": "Teszt eredmények"
   },
   "profile": {
     "welcome-user": "👋 Üdvözöljük, {0}!",
@@ -1261,7 +1261,7 @@
     "account-summary-description": "Itt egy áttekintés a csoportja információiról.",
     "group-statistics": "Csoportstatisztikák",
     "group-statistics-description": "Az Ön csoportstatisztikái betekintést nyújtanak abba, hogyan használja a Mealie-t.",
-    "household-statistics": "Household Statistics",
+    "household-statistics": "Háztartási statisztikák",
     "household-statistics-description": "Your Household Statistics provide some insight how you're using Mealie.",
     "storage-capacity": "Tárhely mérete",
     "storage-capacity-description": "A tárhely kapacitása az Ön által feltöltött képek és eszközök számításából adódik.",
