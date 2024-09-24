@@ -602,7 +602,7 @@ export default defineComponent({
 
     const localLabels = ref<ShoppingListMultiPurposeLabelOut[]>()
 
-    const { store: allLabels, actions: labelActions } = useLabelStore();
+    const { store: allLabels } = useLabelStore();
     const { store: allUnits } = useUnitStore();
     const { store: allFoods } = useFoodStore();
 
@@ -791,8 +791,6 @@ export default defineComponent({
 
       itemsByLabel.value = itemsSorted;
     }
-
-    labelActions.getAll()
 
     // =====================================
     // Add/Remove Recipe References
