@@ -793,7 +793,7 @@ export default defineComponent({
     }
 
     async function refreshLabels() {
-      const { data } = await userApi.multiPurposeLabels.getAll();
+      const { data } = await userApi.multiPurposeLabels.getAll(1, -1, {orderBy: "name", orderDirection: "asc"});
 
       if (data) {
         allLabels.value = data.items ?? [];
