@@ -602,7 +602,7 @@ export default defineComponent({
 
     const localLabels = ref<ShoppingListMultiPurposeLabelOut[]>()
 
-    const { store: allLabels } = useLabelStore();
+    const { store: allLabels, actions: labelActions } = useLabelStore();
     const { store: allUnits } = useUnitStore();
     const { store: allFoods } = useFoodStore();
 
@@ -792,15 +792,7 @@ export default defineComponent({
       itemsByLabel.value = itemsSorted;
     }
 
-    async function refreshLabels() {
-      const { data } = await userApi.multiPurposeLabels.getAll(1, -1, {orderBy: "name", orderDirection: "asc"});
-
-      if (data) {
-        allLabels.value = data.items ?? [];
-      }
-    }
-
-    refreshLabels();
+    labelActions.getAll()
 
     // =====================================
     // Add/Remove Recipe References
