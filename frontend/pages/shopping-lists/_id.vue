@@ -788,16 +788,6 @@ export default defineComponent({
       itemsByLabel.value = itemsSorted;
     }
 
-    async function refreshLabels() {
-      const { data } = await userApi.multiPurposeLabels.getAll();
-
-      if (data) {
-        allLabels.value = data.items ?? [];
-      }
-    }
-
-    refreshLabels();
-
     // =====================================
     // Add/Remove Recipe References
 
