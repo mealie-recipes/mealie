@@ -101,5 +101,6 @@ nav:
           - Dev Getting Started: "contributors/developers-guide/starting-dev-server.md"
           - Database Changes: "contributors/developers-guide/database-changes.md"
           - Maintainers Guide: "contributors/developers-guide/maintainers.md"
+          - Migration Guide: "contributors/developers-guide/migration-guide.md"
       - Guides:
           - Improving Ingredient Parser: "contributors/guides/ingredient-parser.md"
