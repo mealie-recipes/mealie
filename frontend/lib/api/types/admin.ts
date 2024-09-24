@@ -173,6 +173,10 @@ export interface CustomPageOut {
   categories?: RecipeCategoryResponse[];
   id: number;
 }
+export interface DebugResponse {
+  success: boolean;
+  response?: string | null;
+}
 export interface EmailReady {
   ready: boolean;
 }

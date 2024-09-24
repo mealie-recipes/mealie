@@ -90,6 +90,8 @@ class OpenAIService(BaseService):
             base_url=settings.OPENAI_BASE_URL,
             api_key=settings.OPENAI_API_KEY,
             timeout=settings.OPENAI_REQUEST_TIMEOUT,
+            default_headers=settings.OPENAI_CUSTOM_HEADERS,
+            default_query=settings.OPENAI_CUSTOM_PARAMS,
         )
 
         super().__init__()
@@ -176,6 +178,5 @@ class OpenAIService(BaseService):
             if not response.choices:
                 return None
             return response.choices[0].message.content
-        except Exception:
-            self.logger.exception("OpenAI Request Failed")
-            return None
+        except Exception as e:
+            raise Exception(f"OpenAI Request Failed. {e.__class__.__name__}: {e}") from e

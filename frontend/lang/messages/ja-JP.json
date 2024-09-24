@@ -652,6 +652,7 @@
     "or": "または",
     "has-any": "いずれかの",
     "has-all": "すべての",
+    "clear-selection": "Clear Selection",
     "results": "検索結果",
     "search": "検索",
     "search-mealie": "Mealieを検索 (/キーを押す)",
@@ -1245,7 +1246,11 @@
       "here-are-a-few-things-to-help-you-get-started": "Mealieを始めるのに役立つことがいくつかあります",
       "restore-from-v1-backup": "Mealie v1以前のインスタンスからのバックアップはありますか？ここで復元できます。",
       "manage-profile-or-get-invite-link": "自分のプロフィールを管理するか、招待リンクを取得して他の人と共有します。"
-    }
+    },
+    "debug-openai-services": "Debug OpenAI Services",
+    "debug-openai-services-description": "Use this page to debug OpenAI services. You can test your OpenAI connection and see the results here. If you have image services enabled, you can also provide an image.",
+    "run-test": "Run Test",
+    "test-results": "Test Results"
   },
   "profile": {
     "welcome-user": "👋 ようこそ, {0}!",

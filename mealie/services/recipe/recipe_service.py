@@ -487,7 +487,13 @@ class OpenAIRecipeService(RecipeServiceBase):
         if translate_language:
             message += f" Please translate the recipe to {translate_language}."
 
-        response = await openai_service.get_response(prompt, message, images=openai_images, force_json_response=True)
+        try:
+            response = await openai_service.get_response(
+                prompt, message, images=openai_images, force_json_response=True
+            )
+        except Exception as e:
+            raise Exception("Failed to call OpenAI services") from e
+
         try:
             openai_recipe = OpenAIRecipe.parse_openai_response(response)
             recipe = self._convert_recipe(openai_recipe)
