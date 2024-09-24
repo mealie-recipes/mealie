@@ -1247,10 +1247,10 @@
       "restore-from-v1-backup": "Heb je een back-up van een vorig exemplaar van Mealie v1? Deze kan je hier terugzetten.",
       "manage-profile-or-get-invite-link": "Beheer je eigen profiel, of gebruik een uitnodigingslink om te delen met anderen."
     },
-    "debug-openai-services": "Debug OpenAI Services",
-    "debug-openai-services-description": "Use this page to debug OpenAI services. You can test your OpenAI connection and see the results here. If you have image services enabled, you can also provide an image.",
-    "run-test": "Run Test",
-    "test-results": "Test Results"
+    "debug-openai-services": "Debug OpenAI diensten",
+    "debug-openai-services-description": "Gebruik deze pagina om de OpenAI-diensten te debuggen. U kunt uw OpenAI-verbinding testen en de resultaten hier bekijken. Als u afbeeldingsdiensten hebt ingeschakeld, kunt u ook een afbeelding geven.",
+    "run-test": "Test starten",
+    "test-results": "Resultaten van de test"
   },
   "profile": {
     "welcome-user": "👋 Welkom, {0}!",
