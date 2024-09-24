@@ -3,6 +3,8 @@
     v-model="selected"
     item-key="id"
     show-select
+    sort-by="dateAdded"
+    sort-desc
     :headers="headers"
     :items="recipes"
     :items-per-page="15"
@@ -38,6 +40,9 @@
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
+    </template>
+    <template #item.dateAdded="{ item }">
+      {{ formatDate(item.dateAdded) }}
     </template>
   </v-data-table>
 </template>
@@ -132,6 +137,14 @@ export default defineComponent({
       return hdrs;
     });
 
+    function formatDate(date: string) {
+      try {
+        return i18n.d(Date.parse(date), "medium");
+      } catch {
+        return "";
+      }
+    }
+
     // ============
     // Group Members
     const api = useUserApi();
@@ -160,6 +173,7 @@ export default defineComponent({
       groupSlug,
       setValue,
       headers,
+      formatDate,
       members,
       getMember,
     };

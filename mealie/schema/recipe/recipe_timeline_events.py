@@ -9,6 +9,7 @@ from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.core.config import get_app_dirs
 from mealie.db.models.recipe.recipe_timeline import RecipeTimelineEvent
+from mealie.db.models.users.users import User
 from mealie.schema._mealie import MealieModel
 from mealie.schema._mealie.mealie_model import UpdatedAtField
 from mealie.schema.recipe.recipe import Recipe
@@ -67,7 +68,7 @@ class RecipeTimelineEventOut(RecipeTimelineEventCreate):
     def loader_options(cls) -> list[LoaderOption]:
         return [
             joinedload(RecipeTimelineEvent.recipe),
-            joinedload(RecipeTimelineEvent.user),
+            joinedload(RecipeTimelineEvent.user).load_only(User.household_id, User.group_id),
         ]
 
     @classmethod

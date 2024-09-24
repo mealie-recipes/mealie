@@ -53,6 +53,14 @@
             {{ $t("general.foods") }}
           </SearchFilter>
 
+          <!-- Household Filter -->
+          <SearchFilter v-if="households.length > 1" v-model="selectedHouseholds" :items="households" radio>
+            <v-icon left>
+              {{ $globals.icons.household }}
+            </v-icon>
+            {{ $t("household.households") }}
+          </SearchFilter>
+
           <!-- Sort Options -->
           <v-menu offset-y nudge-bottom="3">
             <template #activator="{ on, attrs }">
@@ -142,17 +150,25 @@ import { ref, defineComponent, useRouter, onMounted, useContext, computed, Ref, 
 import { watchDebounced } from "@vueuse/shared";
 import SearchFilter from "~/components/Domain/SearchFilter.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
-import { useCategoryStore, useFoodStore, useTagStore, useToolStore } from "~/composables/store";
+import {
+  useCategoryStore,
+  usePublicCategoryStore,
+  useFoodStore,
+  usePublicFoodStore,
+  useHouseholdStore,
+  usePublicHouseholdStore,
+  useTagStore,
+  usePublicTagStore,
+  useToolStore,
+  usePublicToolStore,
+} from "~/composables/store";
 import { useUserSearchQuerySession } from "~/composables/use-users/preferences";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
 import { IngredientFood, RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { useLazyRecipes } from "~/composables/recipes";
 import { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
-import { usePublicCategoryStore } from "~/composables/store/use-category-store";
-import { usePublicFoodStore } from "~/composables/store/use-food-store";
-import { usePublicTagStore } from "~/composables/store/use-tag-store";
-import { usePublicToolStore } from "~/composables/store/use-tool-store";
+import { HouseholdSummary } from "~/lib/api/types/household";
 
 export default defineComponent({
   components: { SearchFilter, RecipeCardSection },
@@ -186,6 +202,9 @@ export default defineComponent({
     const foods = isOwnGroup.value ? useFoodStore() : usePublicFoodStore(groupSlug.value);
     const selectedFoods = ref<IngredientFood[]>([]);
 
+    const households = isOwnGroup.value ? useHouseholdStore() : usePublicHouseholdStore(groupSlug.value);
+    const selectedHouseholds = ref([] as NoUndefinedField<HouseholdSummary>[]);
+
     const tags = isOwnGroup.value ? useTagStore() : usePublicTagStore(groupSlug.value);
     const selectedTags = ref<NoUndefinedField<RecipeTag>[]>([]);
 
@@ -199,6 +218,7 @@ export default defineComponent({
         search: state.value.search ? state.value.search : "",
         categories: toIDArray(selectedCategories.value),
         foods: toIDArray(selectedFoods.value),
+        households: toIDArray(selectedHouseholds.value),
         tags: toIDArray(selectedTags.value),
         tools: toIDArray(selectedTools.value),
         requireAllCategories: state.value.requireAllCategories,
@@ -239,10 +259,9 @@ export default defineComponent({
       state.value.requireAllFoods = queryDefaults.requireAllFoods;
       selectedCategories.value = [];
       selectedFoods.value = [];
+      selectedHouseholds.value = [];
       selectedTags.value = [];
       selectedTools.value = [];
-
-      search();
     }
 
     function toggleOrderDirection() {
@@ -280,6 +299,7 @@ export default defineComponent({
           search: passedQuery.value.search === queryDefaults.search ? undefined : passedQuery.value.search,
           orderBy: passedQuery.value.orderBy === queryDefaults.orderBy ? undefined : passedQuery.value.orderBy,
           orderDirection: passedQuery.value.orderDirection === queryDefaults.orderDirection ? undefined : passedQuery.value.orderDirection,
+          households: !passedQuery.value.households?.length || passedQuery.value.households?.length === households.store.value.length ? undefined : passedQuery.value.households,
           requireAllCategories: passedQuery.value.requireAllCategories ? "true" : undefined,
           requireAllTags: passedQuery.value.requireAllTags ? "true" : undefined,
           requireAllTools: passedQuery.value.requireAllTools ? "true" : undefined,
@@ -361,13 +381,10 @@ export default defineComponent({
     watch(
       () => route.value.query,
       () => {
-        if (state.value.ready) {
-          hydrateSearch();
+        if (!Object.keys(route.value.query).length) {
+          reset();
         }
-      },
-      {
-        deep: true,
-      },
+      }
     )
 
     async function hydrateSearch() {
@@ -423,9 +440,9 @@ export default defineComponent({
       if (query.categories?.length) {
         promises.push(
           waitUntilAndExecute(
-            () => categories.items.value.length > 0,
+            () => categories.store.value.length > 0,
             () => {
-              const result = categories.items.value.filter((item) =>
+              const result = categories.store.value.filter((item) =>
                 (query.categories as string[]).includes(item.id as string)
               );
 
@@ -440,9 +457,9 @@ export default defineComponent({
       if (query.tags?.length) {
         promises.push(
           waitUntilAndExecute(
-            () => tags.items.value.length > 0,
+            () => tags.store.value.length > 0,
             () => {
-              const result = tags.items.value.filter((item) => (query.tags as string[]).includes(item.id as string));
+              const result = tags.store.value.filter((item) => (query.tags as string[]).includes(item.id as string));
               selectedTags.value = result as NoUndefinedField<RecipeTag>[];
             }
           )
@@ -454,9 +471,9 @@ export default defineComponent({
       if (query.tools?.length) {
         promises.push(
           waitUntilAndExecute(
-            () => tools.items.value.length > 0,
+            () => tools.store.value.length > 0,
             () => {
-              const result = tools.items.value.filter((item) => (query.tools as string[]).includes(item.id));
+              const result = tools.store.value.filter((item) => (query.tools as string[]).includes(item.id));
               selectedTools.value = result as NoUndefinedField<RecipeTool>[];
             }
           )
@@ -469,19 +486,38 @@ export default defineComponent({
         promises.push(
           waitUntilAndExecute(
             () => {
-              if (foods.foods.value) {
-                return foods.foods.value.length > 0;
+              if (foods.store.value) {
+                return foods.store.value.length > 0;
               }
               return false;
             },
             () => {
-              const result = foods.foods.value?.filter((item) => (query.foods as string[]).includes(item.id));
+              const result = foods.store.value?.filter((item) => (query.foods as string[]).includes(item.id));
               selectedFoods.value = result ?? [];
             }
           )
         );
       } else {
         selectedFoods.value = [];
+      }
+
+      if (query.households?.length) {
+        promises.push(
+          waitUntilAndExecute(
+            () => {
+              if (households.store.value) {
+                return households.store.value.length > 0;
+              }
+              return false;
+            },
+            () => {
+              const result = households.store.value?.filter((item) => (query.households as string[]).includes(item.id));
+              selectedHouseholds.value = result as NoUndefinedField<HouseholdSummary>[] ?? [];
+            }
+          )
+        );
+      } else {
+        selectedHouseholds.value = [];
       }
 
       await Promise.allSettled(promises);
@@ -515,6 +551,7 @@ export default defineComponent({
         () => state.value.orderDirection,
         selectedCategories,
         selectedFoods,
+        selectedHouseholds,
         selectedTags,
         selectedTools,
       ],
@@ -533,10 +570,11 @@ export default defineComponent({
       search,
       reset,
       state,
-      categories: categories.items as unknown as NoUndefinedField<RecipeCategory>[],
-      tags: tags.items as unknown as NoUndefinedField<RecipeTag>[],
-      foods: foods.foods,
-      tools: tools.items as unknown as NoUndefinedField<RecipeTool>[],
+      categories: categories.store as unknown as NoUndefinedField<RecipeCategory>[],
+      tags: tags.store as unknown as NoUndefinedField<RecipeTag>[],
+      foods: foods.store,
+      tools: tools.store as unknown as NoUndefinedField<RecipeTool>[],
+      households: households.store as unknown as NoUndefinedField<HouseholdSummary>[],
 
       sortable,
       toggleOrderDirection,
@@ -545,6 +583,7 @@ export default defineComponent({
 
       selectedCategories,
       selectedFoods,
+      selectedHouseholds,
       selectedTags,
       selectedTools,
       appendRecipes,

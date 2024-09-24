@@ -1,7 +1,7 @@
 from abc import ABC
 from logging import Logger
 
-from fastapi import Depends
+from fastapi import Depends, HTTPException
 from pydantic import UUID4, ConfigDict
 from sqlalchemy.orm import Session
 
@@ -96,6 +96,12 @@ class BasePublicGroupExploreController(BasePublicController):
     @property
     def group_id(self) -> UUID4 | None | NotSet:
         return self.group.id
+
+    def get_public_household(self, household_slug_or_id: str | UUID4) -> HouseholdInDB:
+        household = self.repos.households.get_by_slug_or_id(household_slug_or_id)
+        if not household or household.preferences.private_household:
+            raise HTTPException(404, "household not found")
+        return household
 
     def get_explore_url_path(self, endpoint: str) -> str:
         if endpoint.startswith("/"):

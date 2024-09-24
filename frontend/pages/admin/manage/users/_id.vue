@@ -80,7 +80,7 @@
 import { computed, defineComponent, useRoute, onMounted, ref, useContext } from "@nuxtjs/composition-api";
 import { useAdminApi, useUserApi } from "~/composables/api";
 import { useGroups } from "~/composables/use-groups";
-import { useHouseholds } from "~/composables/use-households";
+import { useAdminHouseholds } from "~/composables/use-households";
 import { alert } from "~/composables/use-toast";
 import { useUserForm } from "~/composables/use-users";
 import { validators } from "~/composables/use-validators";
@@ -92,7 +92,7 @@ export default defineComponent({
   setup() {
     const { userForm } = useUserForm();
     const { groups } = useGroups();
-    const { useHouseholdsInGroup } = useHouseholds();
+    const { useHouseholdsInGroup } = useAdminHouseholds();
     const { i18n } = useContext();
     const route = useRoute();
 

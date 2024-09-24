@@ -598,9 +598,9 @@ export default defineComponent({
 
     const localLabels = ref<ShoppingListMultiPurposeLabelOut[]>()
 
-    const { labels: allLabels } = useLabelStore();
-    const { units: allUnits } = useUnitStore();
-    const { foods: allFoods } = useFoodStore();
+    const { store: allLabels } = useLabelStore();
+    const { store: allUnits } = useUnitStore();
+    const { store: allFoods } = useFoodStore();
 
     function getLabelColor(item: ShoppingListItemOut | null) {
       return item?.label?.color;
