@@ -84,13 +84,12 @@
                 <v-list-item-title>{{ nav.title }}</v-list-item-title>
               </template>
 
-              <v-list-item v-for="child in nav.children" :key="child.key || child.title" exact :to="child.to">
+              <v-list-item v-for="child in nav.children" :key="child.key || child.title" exact :to="child.to" class="ml-2">
                 <v-list-item-icon>
                   <v-icon>{{ child.icon }}</v-icon>
                 </v-list-item-icon>
                 <v-list-item-title>{{ child.title }}</v-list-item-title>
               </v-list-item>
-              <v-divider class="mb-4"></v-divider>
             </v-list-group>
 
             <!-- Single Item -->
