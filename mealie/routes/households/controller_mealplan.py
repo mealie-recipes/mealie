@@ -48,7 +48,7 @@ class GroupMealplanController(BaseCrudController):
         Gets rules for a mealplan and returns a list of random recipes based on the rules.
         May return zero recipes if no recipes match the filter criteria.
 
-        Recipes from all households are included unless the rules specify a a household filter.
+        Recipes from all households are included unless the rules specify a household filter.
         """
 
         rules = self.repos.group_meal_plan_rules.get_rules(PlanRulesDay.from_date(plan_date), entry_type.value)
