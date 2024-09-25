@@ -186,28 +186,21 @@ Common use cases for households include:
 
 ```mermaid
 flowchart TB
-    mealie[(Mealie)]:::primary ==> groups
+    mealie[(Mealie)] ==> groups
 
     %% Groups
-    groups((Groups)):::secondary --> ingredients & organizers
-    groups((Groups)):::secondary ====> households
+    groups((Groups)) --> ingredients & organizers
+    groups((Groups)) ====> households
     ingredients("Ingredients<br/>(Foods, Units, Labels)")
     organizers("Organizers<br/>(Categories, Tags, Tools)")
 
     %% Households
-    households((Households)):::secondary --> recipes & mealplans & shoppinglists & integrations
+    households((Households)) --> recipes & mealplans & shoppinglists & integrations
 
     recipes(Recipes & Cookbooks)
     mealplans(Meal Plans)
     shoppinglists(Shopping Lists)
     integrations("Integrations<br/>(Notifiers, Webhooks)")
-
-    %% Styling
-    classDef primary fill:#E58325,stroke:#B4B7C2,color:#FFFFFF
-    classDef secondary fill:#1976D2,stroke:#B4B7C2,color:#FFFFFF
-
-    classDef default fill:#1F2332,stroke:#E58325,color:#B4B7C2
-    linkStyle default stroke:#B4B7C2
 ```
 
 ## Server Administration
