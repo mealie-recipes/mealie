@@ -44,7 +44,7 @@ def tempdir() -> Generator[str, None, None]:
 
 def zip_recipe(tempdir: str, recipe: RecipeSummary) -> dict:
     data_file = tempfile.NamedTemporaryFile(mode="w+", dir=tempdir, suffix=".json", delete=False)
-    json.dump(json.loads(recipe.json()), data_file)
+    json.dump(json.loads(recipe.model_dump_json()), data_file)
     data_file.flush()
 
     zip_file = shutil.make_archive(os.path.join(tempdir, "zipfile"), "zip")
@@ -173,9 +173,7 @@ def test_create_recipe_from_zip(api_client: TestClient, unique_user: TestUser, t
         slug=recipe_name,
     )
 
-    r = api_client.post(
-        api_routes.recipes_create_from_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token
-    )
+    r = api_client.post(api_routes.recipes_create_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token)
     assert r.status_code == 201
 
     fetched_recipe = database.recipes.get_by_slug(unique_user.group_id, recipe.slug)
@@ -193,9 +191,7 @@ def test_create_recipe_from_zip_invalid_group(api_client: TestClient, unique_use
         slug=recipe_name,
     )
 
-    r = api_client.post(
-        api_routes.recipes_create_from_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token
-    )
+    r = api_client.post(api_routes.recipes_create_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token)
     assert r.status_code == 201
 
     fetched_recipe = database.recipes.get_by_slug(unique_user.group_id, recipe.slug)
@@ -216,9 +212,7 @@ def test_create_recipe_from_zip_invalid_user(api_client: TestClient, unique_user
         slug=recipe_name,
     )
 
-    r = api_client.post(
-        api_routes.recipes_create_from_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token
-    )
+    r = api_client.post(api_routes.recipes_create_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token)
     assert r.status_code == 201
 
     fetched_recipe = database.recipes.get_by_slug(unique_user.group_id, recipe.slug)
@@ -245,9 +239,7 @@ def test_create_recipe_from_zip_existing_category(api_client: TestClient, unique
         recipe_category=[category],
     )
 
-    r = api_client.post(
-        api_routes.recipes_create_from_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token
-    )
+    r = api_client.post(api_routes.recipes_create_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token)
     assert r.status_code == 201
 
     fetched_recipe = database.recipes.get_by_slug(unique_user.group_id, recipe.slug)
@@ -274,9 +266,7 @@ def test_create_recipe_from_zip_existing_tag(api_client: TestClient, unique_user
         tags=[tag],
     )
 
-    r = api_client.post(
-        api_routes.recipes_create_from_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token
-    )
+    r = api_client.post(api_routes.recipes_create_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token)
     assert r.status_code == 201
 
     fetched_recipe = database.recipes.get_by_slug(unique_user.group_id, recipe.slug)
@@ -306,9 +296,7 @@ def test_create_recipe_from_zip_existing_category_wrong_ids(
         recipe_category=[invalid_category],
     )
 
-    r = api_client.post(
-        api_routes.recipes_create_from_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token
-    )
+    r = api_client.post(api_routes.recipes_create_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token)
     assert r.status_code == 201
 
     fetched_recipe = database.recipes.get_by_slug(unique_user.group_id, recipe.slug)
@@ -336,9 +324,7 @@ def test_create_recipe_from_zip_existing_tag_wrong_ids(api_client: TestClient, u
         tags=[invalid_tag],
     )
 
-    r = api_client.post(
-        api_routes.recipes_create_from_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token
-    )
+    r = api_client.post(api_routes.recipes_create_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token)
     assert r.status_code == 201
 
     fetched_recipe = database.recipes.get_by_slug(unique_user.group_id, recipe.slug)
@@ -363,9 +349,7 @@ def test_create_recipe_from_zip_invalid_category(api_client: TestClient, unique_
         recipe_category=[invalid_category],
     )
 
-    r = api_client.post(
-        api_routes.recipes_create_from_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token
-    )
+    r = api_client.post(api_routes.recipes_create_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token)
     assert r.status_code == 201
 
     fetched_recipe = database.recipes.get_by_slug(unique_user.group_id, recipe.slug)
@@ -393,9 +377,7 @@ def test_create_recipe_from_zip_invalid_tag(api_client: TestClient, unique_user:
         tags=[invalid_tag],
     )
 
-    r = api_client.post(
-        api_routes.recipes_create_from_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token
-    )
+    r = api_client.post(api_routes.recipes_create_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token)
     assert r.status_code == 201
 
     fetched_recipe = database.recipes.get_by_slug(unique_user.group_id, recipe.slug)
