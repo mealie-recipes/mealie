@@ -201,7 +201,7 @@ class RecipeController(BaseRecipeController):
     # =======================================================================
     # URL Scraping Operations
 
-    @router.post("/create-url", status_code=201, response_model=str)
+    @router.post("/create/url", status_code=201, response_model=str)
     async def parse_recipe_url(self, req: ScrapeRecipe):
         """Takes in a URL and attempts to scrape data and load it into the database"""
         try:
@@ -233,7 +233,7 @@ class RecipeController(BaseRecipeController):
 
         return new_recipe.slug
 
-    @router.post("/create-url/bulk", status_code=202)
+    @router.post("/create/url/bulk", status_code=202)
     def parse_recipe_url_bulk(self, bulk: CreateRecipeByUrlBulk, bg_tasks: BackgroundTasks):
         """Takes in a URL and attempts to scrape data and load it into the database"""
         bulk_scraper = RecipeBulkScraperService(self.service, self.repos, self.group, self.translator)
@@ -266,7 +266,7 @@ class RecipeController(BaseRecipeController):
     # ==================================================================================================================
     # Other Create Operations
 
-    @router.post("/create-from-zip", status_code=201)
+    @router.post("/create/zip", status_code=201)
     def create_recipe_from_zip(self, archive: UploadFile = File(...)):
         """Create recipe from archive"""
         with get_temporary_zip_path() as temp_path:
@@ -280,7 +280,7 @@ class RecipeController(BaseRecipeController):
 
         return recipe.slug
 
-    @router.post("/create-from-image", status_code=201)
+    @router.post("/create/image", status_code=201)
     async def create_recipe_from_image(
         self,
         images: list[UploadFile] = File(...),
