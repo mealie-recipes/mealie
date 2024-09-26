@@ -3,7 +3,13 @@
       <div>
         <v-card-title class="headline"> {{ $tc('recipe.import-from-html-or-json') }} </v-card-title>
         <v-card-text>
-          {{ $tc('recipe.import-from-html-or-json-description') }}
+          <p>
+            {{ $tc("recipe.import-from-html-or-json-description") }}
+          </p>
+          <p>
+            {{ $tc("recipe.json-import-format-description-colon") }}
+            <a href="https://schema.org/Recipe" target="_blank">https://schema.org/Recipe</a>
+          </p>
           <v-switch
             v-model="isEditJSON"
             :label="$tc('recipe.json-editor')"
