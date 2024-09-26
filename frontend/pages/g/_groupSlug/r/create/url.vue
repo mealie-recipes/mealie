@@ -5,7 +5,13 @@
         <v-card-title class="headline"> {{ $t('recipe.scrape-recipe') }} </v-card-title>
         <v-card-text>
           <p>{{ $t('recipe.scrape-recipe-description') }}</p>
-          <p>{{ $t('recipe.scrape-recipe-have-a-lot-of-recipes') }} <a :href="bulkImporterTarget">{{ $t('recipe.scrape-recipe-suggest-bulk-importer') }}</a>.</p>
+          <p>
+            {{ $t('recipe.scrape-recipe-have-a-lot-of-recipes') }}
+            <a :href="bulkImporterTarget">{{ $t('recipe.scrape-recipe-suggest-bulk-importer') }}</a>.
+            <br />
+            {{ $t('recipe.scrape-recipe-have-raw-html-or-json-data') }}
+            <a :href="htmlOrJsonImporterTarget">{{ $t('recipe.scrape-recipe-you-can-import-from-raw-data-directly') }}</a>.
+          </p>
           <v-text-field
             v-model="recipeUrl"
             :label="$t('new-recipe.recipe-url')"
@@ -96,6 +102,7 @@ export default defineComponent({
     const tags = useTagStore();
 
     const bulkImporterTarget = computed(() => `/g/${groupSlug.value}/r/create/bulk`);
+    const htmlOrJsonImporterTarget = computed(() => `/g/${groupSlug.value}/r/create/html`);
 
     function handleResponse(response: AxiosResponse<string> | null, edit = false, refreshTags = false) {
       if (response?.status !== 201) {
@@ -171,6 +178,7 @@ export default defineComponent({
 
     return {
       bulkImporterTarget,
+      htmlOrJsonImporterTarget,
       recipeUrl,
       importKeywordsAsTags,
       stayInEditMode,
