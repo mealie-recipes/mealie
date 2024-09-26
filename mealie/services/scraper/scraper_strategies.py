@@ -192,7 +192,7 @@ class RecipeScraperPackage(ABCScraperStrategy):
             total_time=try_get_default(None, "totalTime", None, cleaner.clean_time, translator=self.translator),
             prep_time=try_get_default(None, "prepTime", None, cleaner.clean_time, translator=self.translator),
             perform_time=cook_time,
-            org_url=url,
+            org_url=url or try_get_default(None, "url", None, cleaner.clean_string),
         )
 
         return recipe, extras
@@ -340,7 +340,7 @@ class RecipeScraperOpenGraph(ABCScraperStrategy):
             "recipeIngredient": ["Could not detect ingredients"],
             "recipeInstructions": [{"text": "Could not detect instructions"}],
             "slug": slugify(og_field(properties, "og:title")),
-            "orgURL": self.url,
+            "orgURL": self.url or og_field(properties, "og:url"),
             "categories": [],
             "tags": og_fields(properties, "og:article:tag"),
             "dateAdded": None,

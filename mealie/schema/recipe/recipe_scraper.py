@@ -19,3 +19,8 @@ class ScrapeRecipe(MealieModel):
             },
         }
     )
+
+
+class ScrapeRecipeHTML(MealieModel):
+    html: str
+    include_tags: bool = False

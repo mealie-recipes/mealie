@@ -40,7 +40,7 @@ from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.make_dependable import make_dependable
-from mealie.schema.recipe import Recipe, RecipeImageTypes, ScrapeRecipe
+from mealie.schema.recipe import Recipe, RecipeImageTypes, ScrapeRecipe, ScrapeRecipeHTML
 from mealie.schema.recipe.recipe import (
     CreateRecipe,
     CreateRecipeByUrlBulk,
@@ -73,7 +73,7 @@ from mealie.services.recipe.recipe_service import RecipeService
 from mealie.services.recipe.template_service import TemplateService
 from mealie.services.scraper.recipe_bulk_scraper import RecipeBulkScraperService
 from mealie.services.scraper.scraped_extras import ScraperContext
-from mealie.services.scraper.scraper import create_from_url
+from mealie.services.scraper.scraper import create_from_html
 from mealie.services.scraper.scraper_strategies import (
     ForceTimeoutException,
     RecipeScraperOpenAI,
@@ -201,11 +201,28 @@ class RecipeController(BaseRecipeController):
     # =======================================================================
     # URL Scraping Operations
 
+    @router.post("/create/html", status_code=201)
+    async def create_recipe_from_html(self, req: ScrapeRecipeHTML):
+        """Takes in HTML and attempts to scrape data and load it into the database"""
+
+        return await self._create_recipe_from_web(req)
+
     @router.post("/create/url", status_code=201, response_model=str)
     async def parse_recipe_url(self, req: ScrapeRecipe):
         """Takes in a URL and attempts to scrape data and load it into the database"""
+
+        return await self._create_recipe_from_web(req)
+
+    async def _create_recipe_from_web(self, req: ScrapeRecipe | ScrapeRecipeHTML):
+        if isinstance(req, ScrapeRecipeHTML):
+            html = req.html
+            url = ""
+        else:
+            html = None
+            url = req.url
+
         try:
-            recipe, extras = await create_from_url(req.url, self.translator)
+            recipe, extras = await create_from_html(url, self.translator, html)
         except ForceTimeoutException as e:
             raise HTTPException(
                 status_code=408, detail=ErrorResponse.respond(message="Recipe Scraping Timed Out")
