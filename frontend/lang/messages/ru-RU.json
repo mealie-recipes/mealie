@@ -591,7 +591,7 @@
     "crop-and-rotate-the-image": "Crop and rotate the image so that only the text is visible, and it's in the correct orientation.",
     "create-from-image": "Create from Image",
     "should-translate-description": "Translate the recipe into my language",
-    "please-wait-image-procesing": "Please wait, the image is processing. This may take some time.",
+    "please-wait-image-procesing": "Подождите, идет обработка изображения.",
     "bulk-url-import": "Массовый импорт по URL",
     "debug-scraper": "Отладка сканирования",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Создайте рецепт, указав имя. Все рецепты должны иметь уникальные имена.",
@@ -636,7 +636,7 @@
       "natural-language-processor": "Natural Language Processor",
       "brute-parser": "Brute Parser",
       "openai-parser": "OpenAI Parser",
-      "parse-all": "Parse All",
+      "parse-all": "Обработать все",
       "no-unit": "No unit",
       "missing-unit": "Create missing unit: {unit}",
       "missing-food": "Create missing food: {food}",
@@ -1052,7 +1052,7 @@
       "edit-label": "Изменить метку",
       "new-label": "Новая метка",
       "labels": "Метки",
-      "assign-label": "Assign Label"
+      "assign-label": "Присвоить метку"
     },
     "recipes": {
       "purge-exports": "Очистить экспорты",
