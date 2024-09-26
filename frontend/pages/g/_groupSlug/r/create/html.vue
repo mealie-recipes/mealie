@@ -125,17 +125,15 @@ export default defineComponent({
           try {
             newRecipeData.value = JSON.parse(newRecipeData.value as string);
           } catch {
-            newRecipeData.value = {"data": newRecipeData.value};
+            newRecipeData.value = { "data": newRecipeData.value };
           }
         } else {
-          newRecipeData.value = new Object();
+          newRecipeData.value = {};
         }
+      } else if (newRecipeData.value && Object.keys(newRecipeData.value).length > 0) {
+        newRecipeData.value = JSON.stringify(newRecipeData.value);
       } else {
-        if (newRecipeData.value && Object.keys(newRecipeData.value).length > 0) {
-          newRecipeData.value = JSON.stringify(newRecipeData.value);
-        } else {
-          newRecipeData.value = null;
-        }
+        newRecipeData.value = null;
       }
     }
     handleIsEditJson();
