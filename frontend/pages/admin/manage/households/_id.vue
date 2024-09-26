@@ -45,7 +45,7 @@
 import { defineComponent, useRoute, onMounted, ref, useContext } from "@nuxtjs/composition-api";
 import HouseholdPreferencesEditor from "~/components/Domain/Household/HouseholdPreferencesEditor.vue";
 import { useGroups } from "~/composables/use-groups";
-import { useUserApi } from "~/composables/api";
+import { useAdminApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { validators } from "~/composables/use-validators";
 import { HouseholdInDB } from "~/lib/api/types/household";
@@ -68,14 +68,14 @@ export default defineComponent({
 
     const refHouseholdEditForm = ref<VForm | null>(null);
 
-    const userApi = useUserApi();
+    const adminApi = useAdminApi();
 
     const household = ref<HouseholdInDB | null>(null);
 
     const userError = ref(false);
 
     onMounted(async () => {
-      const { data, error } = await userApi.households.getOne(householdId);
+      const { data, error } = await adminApi.households.getOne(householdId);
 
       if (error?.response?.status === 404) {
         alert.error(i18n.tc("user.user-not-found"));
@@ -92,7 +92,7 @@ export default defineComponent({
         return;
       }
 
-      const { response, data } = await userApi.households.updateOne(household.value.id, household.value);
+      const { response, data } = await adminApi.households.updateOne(household.value.id, household.value);
       if (response?.status === 200 && data) {
         household.value = data;
         alert.success(i18n.tc("settings.settings-updated"));

@@ -56,13 +56,14 @@ const routes = {
 };
 
 export type RecipeSearchQuery = {
-  search: string;
+  search?: string;
   orderDirection?: "asc" | "desc";
   groupId?: string;
 
   queryFilter?: string;
 
   cookbook?: string;
+  households?: string[];
 
   categories?: string[];
   requireAllCategories?: boolean;

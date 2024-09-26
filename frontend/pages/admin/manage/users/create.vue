@@ -50,7 +50,7 @@
 import { computed, defineComponent, useRouter, reactive, ref, toRefs, watch } from "@nuxtjs/composition-api";
 import { useAdminApi } from "~/composables/api";
 import { useGroups } from "~/composables/use-groups";
-import { useHouseholds } from "~/composables/use-households";
+import { useAdminHouseholds } from "~/composables/use-households";
 import { useUserForm } from "~/composables/use-users";
 import { validators } from "~/composables/use-validators";
 import { VForm } from "~/types/vuetify";
@@ -60,7 +60,7 @@ export default defineComponent({
   setup() {
     const { userForm } = useUserForm();
     const { groups } = useGroups();
-    const { useHouseholdsInGroup } = useHouseholds();
+    const { useHouseholdsInGroup } = useAdminHouseholds();
     const router = useRouter();
 
     // ==============================================

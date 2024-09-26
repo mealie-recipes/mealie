@@ -105,7 +105,7 @@ export default defineComponent({
     const recipeHousehold = ref<HouseholdSummary>();
     if (user) {
       const userApi = useUserApi();
-      userApi.groups.fetchHousehold(props.recipe.householdId).then(({ data }) => {
+      userApi.households.getOne(props.recipe.householdId).then(({ data }) => {
         recipeHousehold.value = data || undefined;
       });
     }

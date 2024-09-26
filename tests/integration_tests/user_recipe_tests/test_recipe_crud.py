@@ -20,6 +20,7 @@ from recipe_scrapers.plugins import SchemaOrgFillPlugin
 from slugify import slugify
 
 from mealie.pkgs.safehttp.transport import AsyncSafeTransport
+from mealie.schema.cookbook.cookbook import SaveCookBook
 from mealie.schema.recipe.recipe import Recipe, RecipeCategory, RecipeSummary, RecipeTag
 from mealie.schema.recipe.recipe_category import CategorySave, TagSave
 from mealie.schema.recipe.recipe_notes import RecipeNote
@@ -791,3 +792,47 @@ def test_get_random_order(api_client: TestClient, unique_user: utils.TestUser):
     badparams: dict[str, int | str] = {"page": 1, "perPage": -1, "orderBy": "random"}
     response = api_client.get(api_routes.recipes, params=badparams, headers=unique_user.token)
     assert response.status_code == 422
+
+
+def test_get_cookbook_recipes(api_client: TestClient, unique_user: utils.TestUser):
+    tag = unique_user.repos.tags.create(TagSave(name=random_string(), group_id=unique_user.group_id))
+    cookbook_recipes = unique_user.repos.recipes.create_many(
+        [
+            Recipe(
+                user_id=unique_user.user_id,
+                group_id=unique_user.group_id,
+                name=random_string(),
+                tags=[tag],
+            )
+            for _ in range(3)
+        ]
+    )
+    other_recipes = unique_user.repos.recipes.create_many(
+        [
+            Recipe(
+                user_id=unique_user.user_id,
+                group_id=unique_user.group_id,
+                name=random_string(),
+            )
+            for _ in range(3)
+        ]
+    )
+
+    cookbook = unique_user.repos.cookbooks.create(
+        SaveCookBook(
+            name=random_string(),
+            group_id=unique_user.group_id,
+            household_id=unique_user.household_id,
+            tags=[tag],
+        )
+    )
+
+    response = api_client.get(api_routes.recipes, params={"cookbook": cookbook.slug}, headers=unique_user.token)
+    assert response.status_code == 200
+    recipes = [Recipe.model_validate(data) for data in response.json()["items"]]
+
+    fetched_recipe_ids = {recipe.id for recipe in recipes}
+    for recipe in cookbook_recipes:
+        assert recipe.id in fetched_recipe_ids
+    for recipe in other_recipes:
+        assert recipe.id not in fetched_recipe_ids

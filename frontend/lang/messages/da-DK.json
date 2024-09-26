@@ -652,6 +652,7 @@
     "or": "Eller",
     "has-any": "Har Nogen",
     "has-all": "Har Alle",
+    "clear-selection": "Clear Selection",
     "results": "Resultater",
     "search": "Søg",
     "search-mealie": "Søg Mealie (tryk /)",
@@ -1245,7 +1246,11 @@
       "here-are-a-few-things-to-help-you-get-started": "Her er et par ting, der kan hjælpe dig i gang med Mealie",
       "restore-from-v1-backup": "Har du en sikkerhedskopi fra en tidligere udgave af Mealie v1? Du kan gendanne den her.",
       "manage-profile-or-get-invite-link": "Administrer din egen profil, eller tag et invitationslink til at dele med andre."
-    }
+    },
+    "debug-openai-services": "Debug OpenAI Services",
+    "debug-openai-services-description": "Use this page to debug OpenAI services. You can test your OpenAI connection and see the results here. If you have image services enabled, you can also provide an image.",
+    "run-test": "Run Test",
+    "test-results": "Test Results"
   },
   "profile": {
     "welcome-user": "👋 Velkommen, {0}!",

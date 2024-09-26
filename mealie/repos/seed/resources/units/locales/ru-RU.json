@@ -92,7 +92,7 @@
     },
     "dash": {
         "name": "щепотка",
-        "plural_name": "dashes",
+        "plural_name": "",
         "description": "",
         "abbreviation": ""
     },
@@ -104,7 +104,7 @@
     },
     "head": {
         "name": "головка",
-        "plural_name": "heads",
+        "plural_name": "головки",
         "description": "",
         "abbreviation": ""
     },

@@ -9,11 +9,11 @@
         </template>
       </i18n>
 
-        <v-autocomplete v-model="fromUnit" return-object :items="units" item-text="id" :label="$t('data-pages.units.source-unit')">
+        <v-autocomplete v-model="fromUnit" return-object :items="store" item-text="id" :label="$t('data-pages.units.source-unit')">
           <template #selection="{ item }"> {{ item.name }}</template>
           <template #item="{ item }"> {{ item.name }} </template>
         </v-autocomplete>
-        <v-autocomplete v-model="toUnit" return-object :items="units" item-text="id" :label="$t('data-pages.units.target-unit')">
+        <v-autocomplete v-model="toUnit" return-object :items="store" item-text="id" :label="$t('data-pages.units.target-unit')">
           <template #selection="{ item }"> {{ item.name }}</template>
           <template #item="{ item }"> {{ item.name }} </template>
         </v-autocomplete>
@@ -185,7 +185,7 @@
           </template>
         </v-autocomplete>
 
-        <v-alert v-if="units && units.length > 0" type="error" class="mb-0 text-body-2">
+        <v-alert v-if="store && store.length > 0" type="error" class="mb-0 text-body-2">
           {{ $t("data-pages.foods.seed-dialog-warning") }}
         </v-alert>
       </v-card-text>
@@ -196,8 +196,10 @@
     <CrudTable
       :table-config="tableConfig"
       :headers.sync="tableHeaders"
-      :data="units || []"
+      :data="store"
       :bulk-actions="[{icon: $globals.icons.delete, text: $tc('general.delete'), event: 'delete-selected'}]"
+      initial-sort="createdAt"
+      initial-sort-desc
       @delete-one="deleteEventHandler"
       @edit-one="editEventHandler"
       @create-one="createEventHandler"
@@ -220,6 +222,9 @@
         <v-icon :color="item.fraction ? 'success' : undefined">
           {{ item.fraction ? $globals.icons.check : $globals.icons.close }}
         </v-icon>
+      </template>
+      <template #item.createdAt="{ item }">
+        {{ formatDate(item.createdAt) }}
       </template>
       <template #button-bottom>
         <BaseButton @click="seedDialog = true">
@@ -292,9 +297,22 @@ export default defineComponent({
         value: "fraction",
         show: true,
       },
+      {
+        text: i18n.tc("general.date-added"),
+        value: "createdAt",
+        show: false,
+      },
     ];
 
-    const { units, actions: unitActions } = useUnitStore();
+    function formatDate(date: string) {
+      try {
+        return i18n.d(Date.parse(date), "medium");
+      } catch {
+        return "";
+      }
+    }
+
+    const { store, actions: unitActions } = useUnitStore();
 
     // ============================================================
     // Create Units
@@ -447,8 +465,9 @@ export default defineComponent({
     return {
       tableConfig,
       tableHeaders,
-      units,
+      store,
       validators,
+      formatDate,
       // Create
       createDialog,
       domNewUnitForm,

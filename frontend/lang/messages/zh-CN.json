@@ -652,6 +652,7 @@
     "or": "或",
     "has-any": "包含任意",
     "has-all": "包含所有",
+    "clear-selection": "Clear Selection",
     "results": "结果",
     "search": "搜索",
     "search-mealie": "搜索Mealie (按 /)",
@@ -1245,7 +1246,11 @@
       "here-are-a-few-things-to-help-you-get-started": "以下这些可以帮助你开始使用Mealie",
       "restore-from-v1-backup": "有之前Mealie v1实例的备份数据？你可以在这里恢复它们。",
       "manage-profile-or-get-invite-link": "管理你自己的个人资料，或者获取邀请链接分享给其他人。"
-    }
+    },
+    "debug-openai-services": "Debug OpenAI Services",
+    "debug-openai-services-description": "Use this page to debug OpenAI services. You can test your OpenAI connection and see the results here. If you have image services enabled, you can also provide an image.",
+    "run-test": "Run Test",
+    "test-results": "Test Results"
   },
   "profile": {
     "welcome-user": "👋 欢迎，{0}！",

@@ -105,18 +105,21 @@ For usage, see [Usage - OpenID Connect](../authentication/oidc.md)
 :octicons-tag-24: v1.7.0
 
 Mealie supports various integrations using OpenAI. For more information, check out our [OpenAI documentation](./open-ai.md).
+For custom mapping variables (e.g. OPENAI_CUSTOM_HEADERS) you should pass values as JSON encoded strings (e.g. `OPENAI_CUSTOM_PARAMS='{"k1": "v1", "k2": "v2"}'`)
 
 | Variables                    | Default | Description                                                                                                                                                                  |
 | ---------------------------- | :-----: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | OPENAI_BASE_URL              |  None   | The base URL for the OpenAI API. If you're not sure, leave this empty to use the standard OpenAI platform                                                                    |
 | OPENAI_API_KEY               |  None   | Your OpenAI API Key. Enables OpenAI-related features                                                                                                                         |
 | OPENAI_MODEL                 | gpt-4o  | Which OpenAI model to use. If you're not sure, leave this empty                                                                                                              |
+| OPENAI_CUSTOM_HEADERS        |  None   | Custom HTTP headers to add to all OpenAI requests. This should generally be left empty unless your custom service requires them                                              |
+| OPENAI_CUSTOM_PARAMS         |  None   | Custom HTTP query params to add to all OpenAI requests. This should generally be left empty unless your custom service requires them                                         |
 | OPENAI_ENABLE_IMAGE_SERVICES |  True   | Whether to enable OpenAI image services, such as creating recipes via image. Leave this enabled unless your custom model doesn't support it, or you want to reduce costs     |
 | OPENAI_WORKERS               |    2    | Number of OpenAI workers per request. Higher values may increase processing speed, but will incur additional API costs                                                       |
 | OPENAI_SEND_DATABASE_DATA    |  True   | Whether to send Mealie data to OpenAI to improve request accuracy. This will incur additional API costs                                                                      |
 | OPENAI_REQUEST_TIMEOUT       |  60     | The number of seconds to wait for an OpenAI request to complete before cancelling the request. Leave this empty unless you're running into timeout issues on slower hardware |
 
-### Themeing
+### Theming
 
 Setting the following environmental variables will change the theme of the frontend. Note that the themes are the same for all users. This is a break-change when migration from v0.x.x -> 1.x.x.
 

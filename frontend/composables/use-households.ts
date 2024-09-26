@@ -1,5 +1,5 @@
 import { computed, ref, Ref, useAsync } from "@nuxtjs/composition-api";
-import { useUserApi } from "~/composables/api";
+import { useAdminApi, useUserApi } from "~/composables/api";
 import { HouseholdCreate, HouseholdInDB } from "~/lib/api/types/household";
 
 const householdSelfRef = ref<HouseholdInDB | null>(null);
@@ -46,8 +46,8 @@ export const useHouseholdSelf = function () {
   return { actions, household };
 };
 
-export const useHouseholds = function () {
-  const api = useUserApi();
+export const useAdminHouseholds = function () {
+  const api = useAdminApi();
   const loading = ref(false);
 
   function getAllHouseholds() {
