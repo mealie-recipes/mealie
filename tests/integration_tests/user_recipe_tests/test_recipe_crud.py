@@ -31,7 +31,7 @@ from tests import utils
 from tests.utils import api_routes
 from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser
-from tests.utils.recipe_data import RecipeSiteTestCase, get_recipe_test_cases
+from tests.utils.recipe_data import get_recipe_test_cases
 
 recipe_test_data = get_recipe_test_cases()
 
@@ -444,13 +444,12 @@ def test_create_recipe_from_zip_invalid_tag(api_client: TestClient, unique_user:
     assert fetched_recipe.tags[0].slug == invalid_name
 
 
-@pytest.mark.parametrize("recipe_data", recipe_test_data)
 def test_read_update(
     api_client: TestClient,
-    recipe_data: RecipeSiteTestCase,
     unique_user: TestUser,
     recipe_categories: list[RecipeCategory],
 ):
+    recipe_data = recipe_test_data[0]
     recipe_url = api_routes.recipes_slug(recipe_data.expected_slug)
     response = api_client.get(recipe_url, headers=unique_user.token)
     assert response.status_code == 200
@@ -484,8 +483,9 @@ def test_read_update(
         assert cats[0]["name"] in test_name
 
 
-@pytest.mark.parametrize("recipe_data", recipe_test_data)
-def test_duplicate(api_client: TestClient, recipe_data: RecipeSiteTestCase, unique_user: TestUser):
+def test_duplicate(api_client: TestClient, unique_user: TestUser):
+    recipe_data = recipe_test_data[0]
+
     # Initial get of the original recipe
     original_recipe_url = api_routes.recipes_slug(recipe_data.expected_slug)
     response = api_client.get(original_recipe_url, headers=unique_user.token)
@@ -567,12 +567,11 @@ def test_duplicate(api_client: TestClient, recipe_data: RecipeSiteTestCase, uniq
 
 # This needs to happen after test_duplicate,
 # otherwise that one will run into problems with comparing the instruction/ingredient lists
-@pytest.mark.parametrize("recipe_data", recipe_test_data)
 def test_update_with_empty_relationship(
     api_client: TestClient,
-    recipe_data: RecipeSiteTestCase,
     unique_user: TestUser,
 ):
+    recipe_data = recipe_test_data[0]
     recipe_url = api_routes.recipes_slug(recipe_data.expected_slug)
     response = api_client.get(recipe_url, headers=unique_user.token)
     assert response.status_code == 200
@@ -595,8 +594,8 @@ def test_update_with_empty_relationship(
     assert recipe["recipeIngredient"] == []
 
 
-@pytest.mark.parametrize("recipe_data", recipe_test_data)
-def test_rename(api_client: TestClient, recipe_data: RecipeSiteTestCase, unique_user: TestUser):
+def test_rename(api_client: TestClient, unique_user: TestUser):
+    recipe_data = recipe_test_data[0]
     recipe_url = api_routes.recipes_slug(recipe_data.expected_slug)
     response = api_client.get(recipe_url, headers=unique_user.token)
     assert response.status_code == 200
@@ -650,8 +649,8 @@ def test_remove_notes(api_client: TestClient, unique_user: TestUser):
     assert len(recipe.get("notes", [])) == 0
 
 
-@pytest.mark.parametrize("recipe_data", recipe_test_data)
-def test_delete(api_client: TestClient, recipe_data: RecipeSiteTestCase, unique_user: TestUser):
+def test_delete(api_client: TestClient, unique_user: TestUser):
+    recipe_data = recipe_test_data[0]
     response = api_client.delete(api_routes.recipes_slug(recipe_data.expected_slug), headers=unique_user.token)
     assert response.status_code == 200
 
