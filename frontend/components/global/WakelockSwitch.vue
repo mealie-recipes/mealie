@@ -1,13 +1,15 @@
 <template>
-    <div v-if="wakeIsSupported" class="d-print-none d-flex px-2"
-        :class="$vuetify.breakpoint.smAndDown ? 'justify-center' : 'justify-end'">
+    <div
+        v-if="wakeIsSupported"
+        class="d-print-none d-flex px-2"
+        :class="$vuetify.breakpoint.smAndDown ? 'justify-center' : 'justify-end'"
+    >
         <v-switch v-model="wakeLock" small :label="$t('recipe.screen-awake')" />
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
-import { computed, onMounted, onUnmounted } from "@nuxtjs/composition-api";
+import { defineComponent, computed, onMounted, onUnmounted } from "@nuxtjs/composition-api";
 import { useWakeLock } from "@vueuse/core";
 
 export default defineComponent({
