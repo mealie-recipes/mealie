@@ -162,6 +162,61 @@ def test_create_by_url(
         assert tag["name"] in expected_tags
 
 
+@pytest.mark.parametrize("use_json", [True, False])
+def test_create_by_html_or_json(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: MonkeyPatch,
+    use_json: bool,
+):
+    # Skip image downloader
+    monkeypatch.setattr(
+        RecipeDataService,
+        "scrape_image",
+        lambda *_: "TEST_IMAGE",
+    )
+
+    recipe_data = recipe_test_data[0]
+    api_client.delete(api_routes.recipes_slug(recipe_data.expected_slug), headers=unique_user.token)
+
+    data = recipe_data.html_file.read_text()
+    if use_json:
+        soup = BeautifulSoup(data, "lxml")
+        ld_json_data = soup.find("script", type="application/ld+json")
+        if ld_json_data:
+            data = json.dumps(json.loads(ld_json_data.string))
+        else:
+            data = "{}"
+
+    response = api_client.post(
+        api_routes.recipes_create_html_or_json,
+        json={"data": data, "include_tags": recipe_data.include_tags},
+        headers=unique_user.token,
+    )
+
+    assert response.status_code == 201
+    assert json.loads(response.text) == recipe_data.expected_slug
+
+    recipe = api_client.get(api_routes.recipes_slug(recipe_data.expected_slug), headers=unique_user.token)
+
+    assert recipe.status_code == 200
+
+    recipe_dict: dict = json.loads(recipe.text)
+
+    assert recipe_dict["slug"] == recipe_data.expected_slug
+    assert len(recipe_dict["recipeInstructions"]) == recipe_data.num_steps
+    assert len(recipe_dict["recipeIngredient"]) == recipe_data.num_ingredients
+
+    if not recipe_data.include_tags:
+        return
+
+    expected_tags = recipe_data.expected_tags or set()
+    assert len(recipe_dict["tags"]) == len(expected_tags)
+
+    for tag in recipe_dict["tags"]:
+        assert tag["name"] in expected_tags
+
+
 def test_create_recipe_from_zip(api_client: TestClient, unique_user: TestUser, tempdir: str):
     database = unique_user.repos
     recipe_name = random_string()
