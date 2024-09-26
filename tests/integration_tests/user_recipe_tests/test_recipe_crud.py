@@ -94,72 +94,71 @@ def open_graph_override(html: str):
     return get_html
 
 
-@pytest.mark.parametrize("recipe_data", recipe_test_data)
 def test_create_by_url(
     api_client: TestClient,
-    recipe_data: RecipeSiteTestCase,
     unique_user: TestUser,
     monkeypatch: MonkeyPatch,
 ):
-    # Override init function for AbstractScraper to use the test html instead of calling the url
-    monkeypatch.setattr(
-        AbstractScraper,
-        "__init__",
-        get_init(recipe_data.html_file),
-    )
-    # Override the get_html method of the RecipeScraperOpenGraph to return the test html
-    for scraper_cls in DEFAULT_SCRAPER_STRATEGIES:
+    for recipe_data in recipe_test_data:
+        # Override init function for AbstractScraper to use the test html instead of calling the url
         monkeypatch.setattr(
-            scraper_cls,
-            "get_html",
-            open_graph_override(recipe_data.html_file.read_text()),
+            AbstractScraper,
+            "__init__",
+            get_init(recipe_data.html_file),
+        )
+        # Override the get_html method of the RecipeScraperOpenGraph to return the test html
+        for scraper_cls in DEFAULT_SCRAPER_STRATEGIES:
+            monkeypatch.setattr(
+                scraper_cls,
+                "get_html",
+                open_graph_override(recipe_data.html_file.read_text()),
+            )
+
+        # Skip AsyncSafeTransport requests
+        async def return_empty_response(*args, **kwargs):
+            return Response(200, content=b"")
+
+        monkeypatch.setattr(
+            AsyncSafeTransport,
+            "handle_async_request",
+            return_empty_response,
+        )
+        # Skip image downloader
+        monkeypatch.setattr(
+            RecipeDataService,
+            "scrape_image",
+            lambda *_: "TEST_IMAGE",
         )
 
-    # Skip AsyncSafeTransport requests
-    async def return_empty_response(*args, **kwargs):
-        return Response(200, content=b"")
+        api_client.delete(api_routes.recipes_slug(recipe_data.expected_slug), headers=unique_user.token)
 
-    monkeypatch.setattr(
-        AsyncSafeTransport,
-        "handle_async_request",
-        return_empty_response,
-    )
-    # Skip image downloader
-    monkeypatch.setattr(
-        RecipeDataService,
-        "scrape_image",
-        lambda *_: "TEST_IMAGE",
-    )
+        response = api_client.post(
+            api_routes.recipes_create_url,
+            json={"url": recipe_data.url, "include_tags": recipe_data.include_tags},
+            headers=unique_user.token,
+        )
 
-    api_client.delete(api_routes.recipes_slug(recipe_data.expected_slug), headers=unique_user.token)
+        assert response.status_code == 201
+        assert json.loads(response.text) == recipe_data.expected_slug
 
-    response = api_client.post(
-        api_routes.recipes_create_url,
-        json={"url": recipe_data.url, "include_tags": recipe_data.include_tags},
-        headers=unique_user.token,
-    )
+        recipe = api_client.get(api_routes.recipes_slug(recipe_data.expected_slug), headers=unique_user.token)
 
-    assert response.status_code == 201
-    assert json.loads(response.text) == recipe_data.expected_slug
+        assert recipe.status_code == 200
 
-    recipe = api_client.get(api_routes.recipes_slug(recipe_data.expected_slug), headers=unique_user.token)
+        recipe_dict: dict = json.loads(recipe.text)
 
-    assert recipe.status_code == 200
+        assert recipe_dict["slug"] == recipe_data.expected_slug
+        assert len(recipe_dict["recipeInstructions"]) == recipe_data.num_steps
+        assert len(recipe_dict["recipeIngredient"]) == recipe_data.num_ingredients
 
-    recipe_dict: dict = json.loads(recipe.text)
+        if not recipe_data.include_tags:
+            return
 
-    assert recipe_dict["slug"] == recipe_data.expected_slug
-    assert len(recipe_dict["recipeInstructions"]) == recipe_data.num_steps
-    assert len(recipe_dict["recipeIngredient"]) == recipe_data.num_ingredients
+        expected_tags = recipe_data.expected_tags or set()
+        assert len(recipe_dict["tags"]) == len(expected_tags)
 
-    if not recipe_data.include_tags:
-        return
-
-    expected_tags = recipe_data.expected_tags or set()
-    assert len(recipe_dict["tags"]) == len(expected_tags)
-
-    for tag in recipe_dict["tags"]:
-        assert tag["name"] in expected_tags
+        for tag in recipe_dict["tags"]:
+            assert tag["name"] in expected_tags
 
 
 @pytest.mark.parametrize("use_json", [True, False])
