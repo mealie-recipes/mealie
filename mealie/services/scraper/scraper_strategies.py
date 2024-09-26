@@ -119,6 +119,14 @@ class ABCScraperStrategy(ABC):
 
 
 class RecipeScraperPackage(ABCScraperStrategy):
+    @staticmethod
+    def ld_json_to_html(ld_json: str) -> str:
+        return (
+            "<!DOCTYPE html><html><head>"
+            f'<script type="application/ld+json">{ld_json}</script>'
+            "</head><body></body></html>"
+        )
+
     async def get_html(self, url: str) -> str:
         return self.raw_html or await safe_scrape_html(url)
 
@@ -300,11 +308,10 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
             prompt = service.get_prompt("recipes.scrape-recipe")
 
             response_json = await service.get_response(prompt, text, force_json_response=True)
-            return (
-                "<!DOCTYPE html><html><head>"
-                f'<script type="application/ld+json">{response_json}</script>'
-                "</head><body></body></html>"
-            )
+            if not response_json:
+                raise Exception("OpenAI did not return any data")
+
+            return self.ld_json_to_html(response_json)
         except Exception:
             self.logger.exception(f"OpenAI was unable to extract a recipe from {url}")
             return ""

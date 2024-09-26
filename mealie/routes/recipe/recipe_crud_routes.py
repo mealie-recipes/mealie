@@ -40,7 +40,7 @@ from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.make_dependable import make_dependable
-from mealie.schema.recipe import Recipe, RecipeImageTypes, ScrapeRecipe, ScrapeRecipeHTML
+from mealie.schema.recipe import Recipe, RecipeImageTypes, ScrapeRecipe, ScrapeRecipeData
 from mealie.schema.recipe.recipe import (
     CreateRecipe,
     CreateRecipeByUrlBulk,
@@ -201,9 +201,12 @@ class RecipeController(BaseRecipeController):
     # =======================================================================
     # URL Scraping Operations
 
-    @router.post("/create/html", status_code=201)
-    async def create_recipe_from_html(self, req: ScrapeRecipeHTML):
-        """Takes in HTML and attempts to scrape data and load it into the database"""
+    @router.post("/create/html-or-json", status_code=201)
+    async def create_recipe_from_html_or_json(self, req: ScrapeRecipeData):
+        """Takes in raw HTML or a https://schema.org/Recipe object as a JSON string and parses it like a URL"""
+
+        if req.data.startswith("{"):
+            req.data = RecipeScraperPackage.ld_json_to_html(req.data)
 
         return await self._create_recipe_from_web(req)
 
@@ -213,9 +216,9 @@ class RecipeController(BaseRecipeController):
 
         return await self._create_recipe_from_web(req)
 
-    async def _create_recipe_from_web(self, req: ScrapeRecipe | ScrapeRecipeHTML):
-        if isinstance(req, ScrapeRecipeHTML):
-            html = req.html
+    async def _create_recipe_from_web(self, req: ScrapeRecipe | ScrapeRecipeData):
+        if isinstance(req, ScrapeRecipeData):
+            html = req.data
             url = ""
         else:
             html = None
