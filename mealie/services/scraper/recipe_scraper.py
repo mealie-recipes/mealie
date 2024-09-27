@@ -35,6 +35,7 @@ class RecipeScraper:
     async def scrape(self, url: str, html: str | None = None) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
         """
         Scrapes a recipe from the web.
+        Skips the network request if `html` is provided.
         """
 
         raw_html = html or await safe_scrape_html(url)
