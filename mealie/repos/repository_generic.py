@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import random
 from collections.abc import Iterable
+from datetime import datetime, timezone
 from math import ceil
 from typing import Any, Generic, TypeVar
 
@@ -61,6 +62,9 @@ class RepositoryGeneric(Generic[Schema, Model]):
     @property
     def household_id(self) -> UUID4 | None:
         return self._household_id
+
+    def _random_seed(self) -> str:
+        return str(datetime.now(tz=timezone.utc))
 
     def _log_exception(self, e: Exception) -> None:
         self.logger.error(f"Error processing query for Repo model={self.model.__name__} schema={self.schema.__name__}")
@@ -409,6 +413,9 @@ class RepositoryGeneric(Generic[Schema, Model]):
             # this solution is db-independent & stable to paging
             temp_query = query.with_only_columns(self.model.id)
             allids = self.session.execute(temp_query).scalars().all()  # fast because id is indexed
+            if not allids:
+                return query
+
             order = list(range(len(allids)))
             random.seed(pagination.pagination_seed)
             random.shuffle(order)

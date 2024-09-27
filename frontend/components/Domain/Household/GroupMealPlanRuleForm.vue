@@ -5,8 +5,15 @@
       <v-select v-model="inputEntryType" :items="MEAL_TYPE_OPTIONS" :label="$t('meal-plan.meal-type')"></v-select>
     </div>
 
-    <RecipeOrganizerSelector v-model="inputCategories" selector-type="categories" />
-    <RecipeOrganizerSelector v-model="inputTags" selector-type="tags" />
+    <div class="mb-5">
+      <RecipeOrganizerSelector v-model="inputCategories" selector-type="categories" />
+      <RecipeOrganizerSelector v-model="inputTags" selector-type="tags" />
+      <GroupHouseholdSelector
+        v-model="inputHouseholds"
+        multiselect
+        :description="$tc('meal-plan.mealplan-households-description')"
+      />
+    </div>
 
     <!-- TODO: proper pluralization of inputDay -->
     {{ $t('meal-plan.this-rule-will-apply', {
@@ -18,11 +25,13 @@
 
 <script lang="ts">
 import { defineComponent, computed, useContext } from "@nuxtjs/composition-api";
+import GroupHouseholdSelector from "~/components/Domain/Household/GroupHouseholdSelector.vue";
 import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
-import { RecipeTag, RecipeCategory } from "~/lib/api/types/recipe";
+import { PlanCategory, PlanHousehold, PlanTag } from "~/lib/api/types/meal-plan";
 
 export default defineComponent({
   components: {
+    GroupHouseholdSelector,
     RecipeOrganizerSelector,
   },
   props: {
@@ -35,11 +44,15 @@ export default defineComponent({
       default: "unset",
     },
     categories: {
-      type: Array as () => RecipeCategory[],
+      type: Array as () => PlanCategory[],
       default: () => [],
     },
     tags: {
-      type: Array as () => RecipeTag[],
+      type: Array as () => PlanTag[],
+      default: () => [],
+    },
+    households: {
+      type: Array as () => PlanHousehold[],
       default: () => [],
     },
     showHelp: {
@@ -105,6 +118,15 @@ export default defineComponent({
       },
     });
 
+    const inputHouseholds = computed({
+      get: () => {
+        return props.households;
+      },
+      set: (val) => {
+        context.emit("update:households", val);
+      },
+    });
+
     return {
       MEAL_TYPE_OPTIONS,
       MEAL_DAY_OPTIONS,
@@ -112,6 +134,7 @@ export default defineComponent({
       inputEntryType,
       inputCategories,
       inputTags,
+      inputHouseholds,
     };
   },
 });
