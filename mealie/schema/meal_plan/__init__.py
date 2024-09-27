@@ -9,14 +9,16 @@ from .new_meal import (
     UpdatePlanEntry,
 )
 from .plan_rules import (
-    Category,
+    BasePlanRuleFilter,
+    PlanCategory,
+    PlanHousehold,
     PlanRulesCreate,
     PlanRulesDay,
     PlanRulesOut,
     PlanRulesPagination,
     PlanRulesSave,
     PlanRulesType,
-    Tag,
+    PlanTag,
 )
 from .shopping_list import ListItem, ShoppingListIn, ShoppingListOut
 
@@ -31,12 +33,14 @@ __all__ = [
     "ReadPlanEntry",
     "SavePlanEntry",
     "UpdatePlanEntry",
-    "Category",
+    "BasePlanRuleFilter",
+    "PlanCategory",
+    "PlanHousehold",
     "PlanRulesCreate",
     "PlanRulesDay",
     "PlanRulesOut",
     "PlanRulesPagination",
     "PlanRulesSave",
     "PlanRulesType",
-    "Tag",
+    "PlanTag",
 ]

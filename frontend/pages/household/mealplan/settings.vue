@@ -20,6 +20,7 @@
           :entry-type.sync="createData.entryType"
           :categories.sync="createData.categories"
           :tags.sync="createData.tags"
+          :households.sync="createData.households"
         />
       </v-card-text>
       <v-card-actions class="justify-end">
@@ -58,12 +59,58 @@
               <template v-if="!editState[rule.id]">
                 <div v-if="rule.categories">
                   <h4 class="py-1">{{ $t("category.categories") }}:</h4>
-                  <RecipeChips :items="rule.categories" small />
+                  <RecipeChips v-if="rule.categories.length" :items="rule.categories" small class="pb-3" />
+                  <v-card-text
+                    v-else
+                    label
+                    class="ma-0 px-0 pt-0 pb-3"
+                    text-color="accent"
+                    small
+                    dark
+                  >
+                    {{ $tc("meal-plan.any-category") }}
+                  </v-card-text>
                 </div>
 
                 <div v-if="rule.tags">
                   <h4 class="py-1">{{ $t("tag.tags") }}:</h4>
-                  <RecipeChips :items="rule.tags" url-prefix="tags" small />
+                  <RecipeChips v-if="rule.tags.length" :items="rule.tags" url-prefix="tags" small class="pb-3" />
+                  <v-card-text
+                    v-else
+                    label
+                    class="ma-0 px-0 pt-0 pb-3"
+                    text-color="accent"
+                    small
+                    dark
+                  >
+                    {{ $tc("meal-plan.any-tag") }}
+                  </v-card-text>
+                </div>
+                <div v-if="rule.households">
+                  <h4 class="py-1">{{ $t("household.households") }}:</h4>
+                  <div v-if="rule.households.length">
+                    <v-chip
+                      v-for="household in rule.households"
+                      :key="household.id"
+                      label
+                      class="ma-1"
+                      color="accent"
+                      small
+                      dark
+                    >
+                      {{ household.name }}
+                    </v-chip>
+                  </div>
+                  <v-card-text
+                    v-else
+                    label
+                    class="ma-0 px-0 pt-0 pb-3"
+                    text-color="accent"
+                    small
+                    dark
+                  >
+                    {{ $tc("meal-plan.any-household") }}
+                  </v-card-text>
                 </div>
               </template>
               <template v-else>
@@ -72,6 +119,7 @@
                   :entry-type.sync="allRules[idx].entryType"
                   :categories.sync="allRules[idx].categories"
                   :tags.sync="allRules[idx].tags"
+                  :households.sync="allRules[idx].households"
                 />
                 <div class="d-flex justify-end">
                   <BaseButton update @click="updateRule(rule)" />
@@ -138,6 +186,7 @@ export default defineComponent({
       day: "unset",
       categories: [],
       tags: [],
+      households: [],
     });
 
     async function createRule() {
@@ -149,6 +198,7 @@ export default defineComponent({
           day: "unset",
           categories: [],
           tags: [],
+          households: [],
         };
       }
     }
