@@ -35,7 +35,6 @@ Mealie has a robust and flexible recipe organization system with a few different
 
 #### Categories
 
-
 Categories are the overarching organizer for recipes. You can assign as many categories as you'd like to a recipe, but we recommend that you try to limit the categories you assign to a recipe to one or two. This helps keep categories as focused as possible while still allowing you to find recipes that are related to each other. For example, you might assign a recipe to the category **Breakfast**, **Lunch**, **Dinner**, or **Side**.
 
 [Categories Demo](https://demo.mealie.io/g/home/recipes/categories){ .md-button .md-button--primary }
@@ -164,6 +163,46 @@ Managing a robust collection of recipes inevitable requires a lot of data. Meali
 
 [Data Management Demo](https://demo.mealie.io/group/data/foods){ .md-button .md-button--primary }
 
+## Groups and Households
+
+Mealie lets you fully customize how you organize your users. You can use Groups to host multiple instances (or tenants) of Mealie which are completely isolated from each other. Within each Group you can organize users into Households which allow users to share recipes, but keep other items separate (e.g. meal plans and shopping lists).
+
+### Groups
+
+Groups are fully isolated instances of Mealie. Think of a goup as a completely separate, fully self-contained site. There is no data shared between groups. Each group has its own users, recipes, tags, categories, etc. A user logged-in to one group cannot make any changes to another.
+
+Common use cases for groups include:
+- Hosting multiple instances of Mealie for others who want to keep their data private and secure
+- Creating completely isolated recipe pools
+
+### Households
+
+Households are subdivisions within a single Group. Households maintain their own users and settings, while sharing their recipes with other households. Households also share organizers (tags, categories, etc.) with the entire group. Meal Plans, Shopping Lists, and Integrations are only accessible within a household.
+
+Common use cases for households include:
+- Sharing a common recipe pool amongst families
+- Maintaining separate meal plans and shopping lists from other households
+- Maintaining separate integrations and customizations from other households
+
+```mermaid
+flowchart TB
+    mealie[(Mealie)] ==> groups
+
+    %% Groups
+    groups((Groups)) --> ingredients & organizers
+    groups((Groups)) ====> households
+    ingredients("Ingredients<br/>(Foods, Units, Labels)")
+    organizers("Organizers<br/>(Categories, Tags, Tools)")
+
+    %% Households
+    households((Households)) --> recipes & mealplans & shoppinglists & integrations
+
+    recipes(Recipes & Cookbooks)
+    mealplans(Meal Plans)
+    shoppinglists(Shopping Lists)
+    integrations("Integrations<br/>(Notifiers, Webhooks)")
+```
+
 ## Server Administration
 
 ### Site Settings
@@ -172,11 +211,13 @@ The site settings page contains general information about your installation like
 
 [Settings Demo](https://demo.mealie.io/admin/site-settings){ .md-button .md-button--primary }
 
-### Users and Group
+### Users, Households, and Groups
 
-There is a small management area for users and groups that allows you to create, edit, and delete users and groups.
+There is a small management area for users, households, and groups.
 
 [Users Demo](https://demo.mealie.io/admin/manage/users){ .md-button .md-button--primary }
+[Households Demo](https://demo.mealie.io/admin/manage/households){ .md-button .md-button--primary }
+[Groups Demo](https://demo.mealie.io/admin/manage/groups){ .md-button .md-button--primary }
 
 ### Backups
 
