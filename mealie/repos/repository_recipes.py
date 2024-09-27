@@ -23,7 +23,6 @@ from mealie.schema.recipe.recipe import (
     RecipeCategory,
     RecipePagination,
     RecipeSummary,
-    RecipeTag,
     RecipeTool,
 )
 from mealie.schema.recipe.recipe_category import CategoryBase, TagBase
@@ -99,6 +98,9 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
                     ids.append(i_as_uuid)
                 except ValueError:
                     slugs.append(i)
+
+        if not slugs:
+            return ids
         additional_ids = self.session.execute(sa.select(model.id).filter(model.slug.in_(slugs))).scalars().all()
         return ids + additional_ids
 
@@ -306,27 +308,6 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
             require_all_tools=require_all_tools,
         )
         stmt = sa.select(RecipeModel).filter(*fltr)
-        return [self.schema.model_validate(x) for x in self.session.execute(stmt).scalars().all()]
-
-    def get_random_by_categories_and_tags(
-        self, categories: list[RecipeCategory], tags: list[RecipeTag]
-    ) -> list[Recipe]:
-        """
-        get_random_by_categories returns a single random Recipe that contains every category provided
-        in the list. This uses a function built in to Postgres and SQLite to get a random row limited
-        to 1 entry.
-        """
-
-        # See Also:
-        # - https://stackoverflow.com/questions/60805/getting-random-row-through-sqlalchemy
-
-        filters = self._build_recipe_filter(extract_uuids(categories), extract_uuids(tags))  # type: ignore
-        stmt = (
-            sa.select(RecipeModel)
-            .filter(sa.and_(*filters))
-            .order_by(sa.func.random())
-            .limit(1)  # Postgres and SQLite specific
-        )
         return [self.schema.model_validate(x) for x in self.session.execute(stmt).scalars().all()]
 
     def get_random(self, limit=1) -> list[Recipe]:
