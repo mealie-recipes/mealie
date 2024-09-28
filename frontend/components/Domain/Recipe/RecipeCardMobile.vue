@@ -43,6 +43,7 @@
             <slot name="actions">
               <RecipeFavoriteBadge v-if="isOwnGroup && showRecipeContent" :recipe-id="recipeId" show-always />
               <RecipeRating
+                v-if="showRecipeContent"
                 :class="isOwnGroup ? 'ml-auto' : 'ml-auto pb-2'"
                 :value="rating"
                 :recipe-id="recipeId"
