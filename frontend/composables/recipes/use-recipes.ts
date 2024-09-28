@@ -32,6 +32,7 @@ export const useLazyRecipes = function (publicGroupSlug: string | null = null) {
       searchSeed: query?._searchSeed, // unused, but pass it along for completeness of data
       search: query?.search,
       cookbook: query?.cookbook,
+      households: query?.households,
       categories: query?.categories,
       requireAllCategories: query?.requireAllCategories,
       tags: query?.tags,
@@ -84,8 +85,10 @@ export const useLazyRecipes = function (publicGroupSlug: string | null = null) {
 };
 
 export const useRecipes = (
-  all = false, fetchRecipes = true,
+  all = false,
+  fetchRecipes = true,
   loadFood = false,
+  queryFilter: string | null = null,
   publicGroupSlug: string | null = null
 ) => {
   const api = publicGroupSlug ? usePublicExploreApi(publicGroupSlug).explore : useUserApi();
@@ -108,7 +111,7 @@ export const useRecipes = (
   })();
 
   async function refreshRecipes() {
-    const { data } = await api.recipes.getAll(page, perPage, { loadFood, orderBy: "created_at" });
+    const { data } = await api.recipes.getAll(page, perPage, { loadFood, orderBy: "created_at", queryFilter });
     if (data) {
       recipes.value = data.items;
     }

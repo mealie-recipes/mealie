@@ -138,11 +138,11 @@ import RecipeDialogShare from "./RecipeDialogShare.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useUserApi } from "~/composables/api";
 import { useGroupRecipeActions } from "~/composables/use-group-recipe-actions";
-import { useGroupSelf } from "~/composables/use-groups";
+import { useHouseholdSelf } from "~/composables/use-households";
 import { alert } from "~/composables/use-toast";
 import { usePlanTypeOptions } from "~/composables/use-group-mealplan";
 import { Recipe } from "~/lib/api/types/recipe";
-import { GroupRecipeActionOut, ShoppingListSummary } from "~/lib/api/types/group";
+import { GroupRecipeActionOut, ShoppingListSummary } from "~/lib/api/types/household";
 import { PlanEntryType } from "~/lib/api/types/meal-plan";
 import { useAxiosDownloader } from "~/composables/api/use-axios-download";
 
@@ -254,14 +254,14 @@ export default defineComponent({
     });
 
     const { i18n, $auth, $globals } = useContext();
-    const { group } = useGroupSelf();
+    const { household } = useHouseholdSelf();
     const { isOwnGroup } = useLoggedInState();
 
     const route = useRoute();
     const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
 
     const firstDayOfWeek = computed(() => {
-      return group.value?.preferences?.firstDayOfWeek || 0;
+      return household.value?.preferences?.firstDayOfWeek || 0;
     });
 
     // ===========================================================================
@@ -376,7 +376,7 @@ export default defineComponent({
       const response = await groupRecipeActionsStore.execute(action, props.recipe);
 
       if (action.actionType === "post") {
-        if (!response || (response.status >= 200  && response.status < 300)) {
+        if (!response?.error) {
           alert.success(i18n.tc("events.message-sent"));
         } else {
           alert.error(i18n.tc("events.something-went-wrong"));

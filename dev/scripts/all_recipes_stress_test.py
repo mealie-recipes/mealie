@@ -173,7 +173,7 @@ def recipe_data(name: str, slug: str, id: str, userId: str, groupId: str) -> dic
         "dateAdded": "2022-09-03",
         "dateUpdated": "2022-09-10T15:18:19.866085",
         "createdAt": "2022-09-03T18:31:17.488118",
-        "updateAt": "2022-09-10T15:18:19.869630",
+        "updatedAt": "2022-09-10T15:18:19.869630",
         "recipeInstructions": [
             {
                 "id": "60ae53a3-b3ff-40ee-bae3-89fea0b1c637",

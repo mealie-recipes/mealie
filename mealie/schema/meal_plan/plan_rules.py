@@ -5,19 +5,27 @@ from pydantic import UUID4, ConfigDict
 from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.interfaces import LoaderOption
 
-from mealie.db.models.group import GroupMealPlanRules
+from mealie.db.models.household import GroupMealPlanRules, Household
+from mealie.db.models.recipe import Category, Tag
 from mealie.schema._mealie import MealieModel
 from mealie.schema.response.pagination import PaginationBase
 
 
-class Category(MealieModel):
+class BasePlanRuleFilter(MealieModel):
     id: UUID4
     name: str
     slug: str
+
+
+class PlanCategory(BasePlanRuleFilter):
     model_config = ConfigDict(from_attributes=True)
 
 
-class Tag(Category):
+class PlanTag(BasePlanRuleFilter):
+    model_config = ConfigDict(from_attributes=True)
+
+
+class PlanHousehold(BasePlanRuleFilter):
     model_config = ConfigDict(from_attributes=True)
 
 
@@ -51,12 +59,14 @@ class PlanRulesType(str, Enum):
 class PlanRulesCreate(MealieModel):
     day: PlanRulesDay = PlanRulesDay.unset
     entry_type: PlanRulesType = PlanRulesType.unset
-    categories: list[Category] = []
-    tags: list[Tag] = []
+    categories: list[PlanCategory] = []
+    tags: list[PlanTag] = []
+    households: list[PlanHousehold] = []
 
 
 class PlanRulesSave(PlanRulesCreate):
     group_id: UUID4
+    household_id: UUID4
 
 
 class PlanRulesOut(PlanRulesSave):
@@ -65,7 +75,23 @@ class PlanRulesOut(PlanRulesSave):
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
-        return [joinedload(GroupMealPlanRules.categories), joinedload(GroupMealPlanRules.tags)]
+        return [
+            joinedload(GroupMealPlanRules.categories).load_only(
+                Category.id,
+                Category.name,
+                Category.slug,
+            ),
+            joinedload(GroupMealPlanRules.tags).load_only(
+                Tag.id,
+                Tag.name,
+                Tag.slug,
+            ),
+            joinedload(GroupMealPlanRules.households).load_only(
+                Household.id,
+                Household.name,
+                Household.slug,
+            ),
+        ]
 
 
 class PlanRulesPagination(PaginationBase):

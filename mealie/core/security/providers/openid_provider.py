@@ -33,7 +33,7 @@ class OpenIDProvider(AuthProvider[OIDCRequest]):
         if not claims:
             return None
 
-        repos = get_repositories(self.session)
+        repos = get_repositories(self.session, group_id=None, household_id=None)
 
         user = self.try_get_user(claims.get(settings.OIDC_USER_CLAIM))
         is_admin = False

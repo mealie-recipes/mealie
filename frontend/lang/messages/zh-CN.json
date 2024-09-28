@@ -8,6 +8,7 @@
     "database-type": "数据库类型",
     "database-url": "数据库 URL",
     "default-group": "默认群组",
+    "default-household": "Default Household",
     "demo": "演示",
     "demo-status": "演示状态",
     "development": "开发版",
@@ -211,7 +212,7 @@
     "clipboard-copy-failure": "未能复制到剪切板。",
     "confirm-delete-generic-items": "你确定删除以下条目吗？",
     "organizers": "管理器",
-    "caution": "Caution"
+    "caution": "注意！"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "您确定要删除<b>{groupName}<b/>吗？",
@@ -238,15 +239,16 @@
       "keep-my-recipes-private-description": "将您的群组和所有食谱默认设置为私人可见。您可以随时更改此设置"
     },
     "manage-members": "管理成员",
-    "manage-members-description": "管理您组中成员的权限。 {manage} 允许用户访问数据管理页面 {invite} 允许用户生成链接邀请其他用户。 群组所有者不能更改自己的权限。",
+    "manage-members-description": "Manage the permissions of the members in your household. {manage} allows the user to access the data-management page, and {invite} allows the user to generate invitation links for other users. Group owners cannot change their own permissions.",
     "manage": "管理",
+    "manage-household": "Manage Household",
     "invite": "邀请",
     "looking-to-update-your-profile": "想要更新您的个人档案吗？",
     "default-recipe-preferences-description": "当本组中新建食谱时会应用这些默认设置，你可以在具体某个食谱的设置中重新修改",
     "default-recipe-preferences": "食谱默认偏好设置",
     "group-preferences": "群组偏好设置",
     "private-group": "私人群组",
-    "private-group-description": "将群组设置为私有后，群组内每个食谱单独配置的可见性选项都将被覆盖，所有食谱都无法被公开访问。",
+    "private-group-description": "Setting your group to private will disable all public view options. This overrides any individual public view settings",
     "enable-public-access": "启用公开访问",
     "enable-public-access-description": "默认公开群组食谱，即访客用户无需登录便可查看食谱",
     "allow-users-outside-of-your-group-to-see-your-recipes": "允许组外用户查看你的食谱",
@@ -260,7 +262,7 @@
     "disable-users-from-commenting-on-recipes": "禁止用户评论食谱",
     "disable-users-from-commenting-on-recipes-description": "隐藏食谱的评论区并禁止评论",
     "disable-organizing-recipe-ingredients-by-units-and-food": "不使用预定义的食品种类和计量单位来编辑食材条目",
-    "disable-organizing-recipe-ingredients-by-units-and-food-description": "食材条目无需按照食品数量、计量单位、食品种类依次填空，而是作为纯文本字段自由填写。",
+    "disable-organizing-recipe-ingredients-by-units-and-food-description": "Hides the Food, Unit, and Amount fields for ingredients and treats ingredients as plain text fields",
     "general-preferences": "通用设置",
     "group-recipe-preferences": "群组食谱偏好设置",
     "report": "报告",
@@ -268,7 +270,30 @@
     "group-management": "群组管理",
     "admin-group-management": "管理员组管理",
     "admin-group-management-text": "对本群组的更改将被立即应用。",
-    "group-id-value": "群组ID：{0}"
+    "group-id-value": "群组ID：{0}",
+    "total-households": "Total Households"
+  },
+  "household": {
+    "household": "Household",
+    "households": "Households",
+    "user-household": "User Household",
+    "create-household": "Create Household",
+    "household-name": "Household Name",
+    "household-group": "Household Group",
+    "household-management": "Household Management",
+    "manage-households": "Manage Households",
+    "admin-household-management": "Admin Household Management",
+    "admin-household-management-text": "Changes to this household will be reflected immediately.",
+    "household-id-value": "Household Id: {0}",
+    "private-household": "Private Household",
+    "private-household-description": "Setting your household to private will disable all public view options. This overrides any individual public view settings",
+    "lock-recipe-edits-from-other-households": "Lock recipe edits from other households",
+    "lock-recipe-edits-from-other-households-description": "When enabled only users in your household can edit recipes created by your household",
+    "household-recipe-preferences": "Household Recipe Preferences",
+    "default-recipe-preferences-description": "These are the default settings when a new recipe is created in your household. These can be changed for individual recipes in the recipe settings menu.",
+    "allow-users-outside-of-your-household-to-see-your-recipes": "Allow users outside of your household to see your recipes",
+    "allow-users-outside-of-your-household-to-see-your-recipes-description": "When enabled you can use a public share link to share specific recipes without authorizing the user. When disabled, you can only share recipes with users who are in your household or with a pre-generated private link",
+    "household-preferences": "Household Preferences"
   },
   "meal-plan": {
     "create-a-new-meal-plan": "新建饮食计划",
@@ -382,7 +407,7 @@
       "description-long": "Mealie可以从“My Recipe Box\"导入食谱。把你的食谱导出为CSV模式，然后在下面上传.csv文件。"
     },
     "recipekeeper": {
-      "title": "Recipe Keeper",
+      "title": "食谱保存者",
       "description-long": "Mealie can import recipes from Recipe Keeper. Export your recipes in zip format, then upload the .zip file below."
     }
   },
@@ -561,7 +586,12 @@
     "create-recipe-description": "从头创建一个新食谱。",
     "create-recipes": "创建食谱",
     "import-with-zip": "使用 .zip 导入",
-    "create-recipe-from-an-image": "用图片创建食谱",
+    "create-recipe-from-an-image": "Create Recipe from an Image",
+    "create-recipe-from-an-image-description": "Create a recipe by uploading an image of it. Mealie will attempt to extract the text from the image using AI and create a recipe from it.",
+    "crop-and-rotate-the-image": "Crop and rotate the image so that only the text is visible, and it's in the correct orientation.",
+    "create-from-image": "Create from Image",
+    "should-translate-description": "Translate the recipe into my language",
+    "please-wait-image-procesing": "Please wait, the image is processing. This may take some time.",
     "bulk-url-import": "批量URL导入",
     "debug-scraper": "调试刮削器",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "通过名称创建食谱，食谱不可重名。",
@@ -622,6 +652,7 @@
     "or": "或",
     "has-any": "包含任意",
     "has-all": "包含所有",
+    "clear-selection": "Clear Selection",
     "results": "结果",
     "search": "搜索",
     "search-mealie": "搜索Mealie (按 /)",
@@ -779,8 +810,8 @@
     "oidc-ready-error-text": "某些OIDC环境变量尚未配置。（如果你不使用OIDC验证可以忽略该报错）",
     "oidc-ready-success-text": "OIDC所需的环境变量均已配置。",
     "openai-ready": "OpenAI Ready",
-    "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
-    "openai-ready-success-text": "Required OpenAI variables are all set."
+    "openai-ready-error-text": "并非所有的 OpenAI 值都已配置。如果您不使用 OpenAI 功能，这将被忽略。",
+    "openai-ready-success-text": "所需的 OpenAI 变量已全部设置。"
   },
   "shopping-list": {
     "all-lists": "所有购物清单",
@@ -794,7 +825,7 @@
     "food": "食品",
     "note": "备注",
     "label": "标注",
-    "save-label": "Save Label",
+    "save-label": "保存标签",
     "linked-item-warning": "此条目已经与一个或多个食谱有关。若强行变更它的单位或食品，会在增减下方关联食谱份数时产生意外结果。",
     "toggle-food": "是否为数据库中的食品",
     "manage-labels": "管理标签",
@@ -810,7 +841,7 @@
     "items-checked-count": "未选中条目|已选中1个条目|已选中{count}个条目",
     "no-label": "无标签",
     "completed-on": "于 {date} 完成",
-    "you-are-offline": "You are offline",
+    "you-are-offline": "你已离线",
     "you-are-offline-description": "Not all features are available while offline. You can still add, modify, and remove items, but you will not be able to sync your changes to the server until you are back online.",
     "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
     "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
@@ -960,6 +991,7 @@
     "administrator": "管理员",
     "user-can-invite-other-to-group": "User can invite others to group",
     "user-can-manage-group": "用户可以管理群组",
+    "user-can-manage-household": "User can manage household",
     "user-can-organize-group-data": "用户可以整理群组数据",
     "enable-advanced-features": "启用高级功能",
     "it-looks-like-this-is-your-first-time-logging-in": "看起来这是你第一次登录。",
@@ -1214,7 +1246,11 @@
       "here-are-a-few-things-to-help-you-get-started": "以下这些可以帮助你开始使用Mealie",
       "restore-from-v1-backup": "有之前Mealie v1实例的备份数据？你可以在这里恢复它们。",
       "manage-profile-or-get-invite-link": "管理你自己的个人资料，或者获取邀请链接分享给其他人。"
-    }
+    },
+    "debug-openai-services": "Debug OpenAI Services",
+    "debug-openai-services-description": "Use this page to debug OpenAI services. You can test your OpenAI connection and see the results here. If you have image services enabled, you can also provide an image.",
+    "run-test": "Run Test",
+    "test-results": "Test Results"
   },
   "profile": {
     "welcome-user": "👋 欢迎，{0}！",
@@ -1225,6 +1261,8 @@
     "account-summary-description": "以下是你群组信息的摘要。",
     "group-statistics": "群组统计",
     "group-statistics-description": "群组统计为你如何使用Mealie提供一些深入信息。",
+    "household-statistics": "Household Statistics",
+    "household-statistics-description": "Your Household Statistics provide some insight how you're using Mealie.",
     "storage-capacity": "总储存容量",
     "storage-capacity-description": "你的存储容量基于你上传的图片和资源计算得出。",
     "personal": "个人设置",
@@ -1234,10 +1272,13 @@
     "api-tokens-description": "管理用于外部程序访问的API令牌。",
     "group-description": "这些项目已在你的群组中共享，一旦被编辑，更改之处会对所有群组成员生效！",
     "group-settings": "基础选项",
-    "group-settings-description": "管理常见的群组设置，如饮食计划和隐私设置。",
+    "group-settings-description": "Manage your common group settings, like privacy settings.",
+    "household-description": "These items are shared within your household. Editing one of them will change it for the whole household!",
+    "household-settings": "Household Settings",
+    "household-settings-description": "Manage your household settings, like mealplan and privacy settings.",
     "cookbooks-description": "管理一套食谱分类并为它们生成页面。",
     "members": "成员列表",
-    "members-description": "查看哪些人在你的群组中，并管理他们的权限。",
+    "members-description": "See who's in your household and manage their permissions.",
     "webhooks-description": "配置在你某天有饮食计划时，当日触发的webhooks。",
     "notifiers": "通知方案",
     "notifiers-description": "设置基于特定事件触发的邮件提醒和通知推送。",
@@ -1272,6 +1313,7 @@
     "require-all-tools": "包含全部工具",
     "cookbook-name": "食谱名称",
     "cookbook-with-name": "{0}合集",
+    "household-cookbook-name": "{0} Cookbook {1}",
     "create-a-cookbook": "创建一个食谱合集",
     "cookbook": "食谱合集"
   }

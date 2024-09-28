@@ -7,12 +7,13 @@ import sqlalchemy as sa
 from pydantic import UUID4
 from slugify import slugify
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy.orm import InstrumentedAttribute, joinedload
+from sqlalchemy.orm import InstrumentedAttribute
+from typing_extensions import Self
 
+from mealie.db.models.household.household import Household
 from mealie.db.models.recipe.category import Category
 from mealie.db.models.recipe.ingredient import RecipeIngredientModel
 from mealie.db.models.recipe.recipe import RecipeModel
-from mealie.db.models.recipe.settings import RecipeSettings
 from mealie.db.models.recipe.tag import Tag
 from mealie.db.models.recipe.tool import Tool
 from mealie.db.models.users.user_to_recipe import UserToRecipe
@@ -22,7 +23,6 @@ from mealie.schema.recipe.recipe import (
     RecipeCategory,
     RecipePagination,
     RecipeSummary,
-    RecipeTag,
     RecipeTool,
 )
 from mealie.schema.recipe.recipe_category import CategoryBase, TagBase
@@ -34,10 +34,17 @@ from mealie.schema.response.pagination import (
 
 from ..db.models._model_base import SqlAlchemyBase
 from ..schema._mealie.mealie_model import extract_uuids
-from .repository_generic import RepositoryGeneric
+from .repository_generic import HouseholdRepositoryGeneric
 
 
-class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
+class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
+    user_id: UUID4 | None = None
+
+    def by_user(self: Self, user_id: UUID4) -> Self:
+        """Add a user_id to the repo, which will be used to handle recipe ratings"""
+        self.user_id = user_id
+        return self
+
     def create(self, document: Recipe) -> Recipe:  # type: ignore
         max_retries = 10
         original_name: str = document.name  # type: ignore
@@ -52,33 +59,6 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
 
                 if i >= max_retries:
                     raise
-
-    def by_group(self, group_id: UUID) -> "RepositoryRecipes":
-        return super().by_group(group_id)
-
-    def get_all_public(self, limit: int | None = None, order_by: str | None = None, start=0, override_schema=None):
-        eff_schema = override_schema or self.schema
-
-        if order_by:
-            order_attr = getattr(self.model, str(order_by))
-            stmt = (
-                sa.select(self.model)
-                .join(RecipeSettings)
-                .filter(RecipeSettings.public == True)  # noqa: E712
-                .order_by(order_attr.desc())
-                .offset(start)
-                .limit(limit)
-            )
-            return [eff_schema.model_validate(x) for x in self.session.execute(stmt).scalars().all()]
-
-        stmt = (
-            sa.select(self.model)
-            .join(RecipeSettings)
-            .filter(RecipeSettings.public == True)  # noqa: E712
-            .offset(start)
-            .limit(limit)
-        )
-        return [eff_schema.model_validate(x) for x in self.session.execute(stmt).scalars().all()]
 
     def update_image(self, slug: str, _: str | None = None) -> int:
         entry: RecipeModel = self._query_one(match_value=slug)
@@ -103,44 +83,6 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             override_schema=override_schema,
         )
 
-    def summary(
-        self, group_id, start=0, limit=99999, load_foods=False, order_by="created_at", order_descending=True
-    ) -> Sequence[RecipeModel]:
-        args = [
-            joinedload(RecipeModel.recipe_category),
-            joinedload(RecipeModel.tags),
-            joinedload(RecipeModel.tools),
-        ]
-
-        if load_foods:
-            args.append(joinedload(RecipeModel.recipe_ingredient).options(joinedload(RecipeIngredientModel.food)))
-
-        try:
-            if order_by:
-                order_attr = getattr(RecipeModel, order_by)
-            else:
-                order_attr = RecipeModel.created_at
-
-        except AttributeError:
-            self.logger.info(f'Attempted to sort by unknown sort property "{order_by}"; ignoring')
-            order_attr = RecipeModel.created_at
-
-        if order_descending:
-            order_attr = order_attr.desc()
-
-        else:
-            order_attr = order_attr.asc()
-
-        stmt = (
-            sa.select(RecipeModel)
-            .options(*args)
-            .filter(RecipeModel.group_id == group_id)
-            .order_by(order_attr)
-            .offset(start)
-            .limit(limit)
-        )
-        return self.session.execute(stmt).scalars().all()
-
     def _uuids_for_items(self, items: list[UUID | str] | None, model: type[SqlAlchemyBase]) -> list[UUID] | None:
         if not items:
             return None
@@ -156,6 +98,9 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
                     ids.append(i_as_uuid)
                 except ValueError:
                     slugs.append(i)
+
+        if not slugs:
+            return ids
         additional_ids = self.session.execute(sa.select(model.id).filter(model.slug.in_(slugs))).scalars().all()
         return ids + additional_ids
 
@@ -213,6 +158,7 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         tags: list[UUID4 | str] | None = None,
         tools: list[UUID4 | str] | None = None,
         foods: list[UUID4 | str] | None = None,
+        households: list[UUID4 | str] | None = None,
         require_all_categories=True,
         require_all_tags=True,
         require_all_tools=True,
@@ -223,19 +169,12 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         pagination_result = pagination.model_copy()
         q = sa.select(self.model)
 
-        args = [
-            joinedload(RecipeModel.recipe_category),
-            joinedload(RecipeModel.tags),
-            joinedload(RecipeModel.tools),
-        ]
-
-        q = q.options(*args)
-
         fltr = self._filter_builder()
         q = q.filter_by(**fltr)
 
         if cookbook:
             cb_filters = self._build_recipe_filter(
+                households=[cookbook.household_id],
                 categories=extract_uuids(cookbook.categories),
                 tags=extract_uuids(cookbook.tags),
                 tools=extract_uuids(cookbook.tools),
@@ -249,11 +188,13 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             category_ids = self._uuids_for_items(categories, Category)
             tag_ids = self._uuids_for_items(tags, Tag)
             tool_ids = self._uuids_for_items(tools, Tool)
+            household_ids = self._uuids_for_items(households, Household)
             filters = self._build_recipe_filter(
                 categories=category_ids,
                 tags=tag_ids,
                 tools=tool_ids,
                 foods=foods,
+                households=household_ids,
                 require_all_categories=require_all_categories,
                 require_all_tags=require_all_tags,
                 require_all_tools=require_all_tools,
@@ -269,6 +210,8 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
 
         q, count, total_pages = self.add_pagination_to_query(q, pagination_result)
 
+        # Apply options late, so they do not get used for counting
+        q = q.options(*RecipeSummary.loader_options())
         try:
             data = self.session.execute(q).scalars().unique().all()
         except Exception as e:
@@ -296,6 +239,11 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
             .join(RecipeModel.recipe_category)
             .filter(RecipeModel.recipe_category.any(Category.id.in_(ids)))
         )
+        if self.group_id:
+            stmt = stmt.filter(RecipeModel.group_id == self.group_id)
+        if self.household_id:
+            stmt = stmt.filter(RecipeModel.household_id == self.household_id)
+
         return [RecipeSummary.model_validate(x) for x in self.session.execute(stmt).unique().scalars().all()]
 
     def _build_recipe_filter(
@@ -304,17 +252,17 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         tags: list[UUID4] | None = None,
         tools: list[UUID4] | None = None,
         foods: list[UUID4] | None = None,
+        households: list[UUID4] | None = None,
         require_all_categories: bool = True,
         require_all_tags: bool = True,
         require_all_tools: bool = True,
         require_all_foods: bool = True,
     ) -> list:
+        fltr: list[sa.ColumnElement] = []
         if self.group_id:
-            fltr = [
-                RecipeModel.group_id == self.group_id,
-            ]
-        else:
-            fltr = []
+            fltr.append(RecipeModel.group_id == self.group_id)
+        if self.household_id:
+            fltr.append(RecipeModel.household_id == self.household_id)
 
         if categories:
             if require_all_categories:
@@ -338,6 +286,8 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
                 fltr.extend(RecipeModel.recipe_ingredient.any(RecipeIngredientModel.food_id == food) for food in foods)
             else:
                 fltr.append(RecipeModel.recipe_ingredient.any(RecipeIngredientModel.food_id.in_(foods)))
+        if households:
+            fltr.append(RecipeModel.household_id.in_(households))
         return fltr
 
     def by_category_and_tags(
@@ -360,34 +310,13 @@ class RepositoryRecipes(RepositoryGeneric[Recipe, RecipeModel]):
         stmt = sa.select(RecipeModel).filter(*fltr)
         return [self.schema.model_validate(x) for x in self.session.execute(stmt).scalars().all()]
 
-    def get_random_by_categories_and_tags(
-        self, categories: list[RecipeCategory], tags: list[RecipeTag]
-    ) -> list[Recipe]:
-        """
-        get_random_by_categories returns a single random Recipe that contains every category provided
-        in the list. This uses a function built in to Postgres and SQLite to get a random row limited
-        to 1 entry.
-        """
-
-        # See Also:
-        # - https://stackoverflow.com/questions/60805/getting-random-row-through-sqlalchemy
-
-        filters = self._build_recipe_filter(extract_uuids(categories), extract_uuids(tags))  # type: ignore
-        stmt = (
-            sa.select(RecipeModel)
-            .filter(sa.and_(*filters))
-            .order_by(sa.func.random())
-            .limit(1)  # Postgres and SQLite specific
-        )
-        return [self.schema.model_validate(x) for x in self.session.execute(stmt).scalars().all()]
-
     def get_random(self, limit=1) -> list[Recipe]:
-        stmt = (
-            sa.select(RecipeModel)
-            .filter(RecipeModel.group_id == self.group_id)
-            .order_by(sa.func.random())  # Postgres and SQLite specific
-            .limit(limit)
-        )
+        stmt = sa.select(RecipeModel).order_by(sa.func.random()).limit(limit)  # Postgres and SQLite specific
+        if self.group_id:
+            stmt = stmt.filter(RecipeModel.group_id == self.group_id)
+        if self.household_id:
+            stmt = stmt.filter(RecipeModel.household_id == self.household_id)
+
         return [self.schema.model_validate(x) for x in self.session.execute(stmt).scalars().all()]
 
     def get_by_slug(self, group_id: UUID4, slug: str) -> Recipe | None:

@@ -65,6 +65,12 @@ export default defineComponent({
         restricted: true,
       },
       {
+        icon: $globals.icons.household,
+        to: "/admin/manage/households",
+        title: i18n.tc("household.households"),
+        restricted: true,
+      },
+      {
         icon: $globals.icons.group,
         to: "/admin/manage/groups",
         title: i18n.tc("group.groups"),
@@ -86,10 +92,23 @@ export default defineComponent({
         restricted: true,
       },
       {
-        icon: $globals.icons.slotMachine,
-        to: "/admin/parser",
-        title: i18n.tc("sidebar.parser"),
+        icon: $globals.icons.robot,
+        title: i18n.tc("recipe.debug"),
         restricted: true,
+        children: [
+          {
+            icon: $globals.icons.robot,
+            to: "/admin/debug/openai",
+            title: i18n.tc("admin.openai"),
+            restricted: true,
+          },
+          {
+            icon: $globals.icons.slotMachine,
+            to: "/admin/debug/parser",
+            title: i18n.tc("sidebar.parser"),
+            restricted: true,
+          },
+        ]
       },
     ];
 

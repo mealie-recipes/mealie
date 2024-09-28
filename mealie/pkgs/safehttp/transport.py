@@ -34,7 +34,7 @@ class AsyncSafeTransport(httpx.AsyncBaseTransport):
         self._wrapper = httpx.AsyncHTTPTransport(**kwargs)
         self._log = log
 
-    async def handle_async_request(self, request):
+    async def handle_async_request(self, request) -> httpx.Response:
         # override timeout value for _all_ requests
         request.extensions["timeout"] = httpx.Timeout(self.timeout, pool=self.timeout).as_dict()
 

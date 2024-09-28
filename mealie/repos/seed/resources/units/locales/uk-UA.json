@@ -1,101 +1,140 @@
 {
     "teaspoon": {
         "name": "ч. ложка",
+        "plural_name": "чайні ложки",
         "description": "",
         "abbreviation": "ч. ложка"
     },
     "tablespoon": {
         "name": "ст. ложка",
+        "plural_name": "столові ложки",
         "description": "",
         "abbreviation": "ст. ложка"
     },
     "cup": {
         "name": "чашка",
+        "plural_name": "чашки",
         "description": "",
-        "abbreviation": "чашка"
+        "abbreviation": "ч"
     },
     "fluid-ounce": {
         "name": "рідка унція",
+        "plural_name": "рідкі унції",
         "description": "",
         "abbreviation": "р. унц"
     },
     "pint": {
         "name": "пінта",
+        "plural_name": "пінти",
         "description": "",
         "abbreviation": "пт"
     },
     "quart": {
         "name": "кварта",
+        "plural_name": "кварти",
         "description": "",
         "abbreviation": "кв"
     },
     "gallon": {
         "name": "галон",
+        "plural_name": "галони",
         "description": "",
         "abbreviation": "гл"
     },
     "milliliter": {
         "name": "мілілітр",
+        "plural_name": "мілілітри",
         "description": "",
         "abbreviation": "мл"
     },
     "liter": {
         "name": "літр",
+        "plural_name": "літри",
         "description": "",
         "abbreviation": "л"
     },
     "pound": {
         "name": "фунт",
+        "plural_name": "фунти",
         "description": "",
-        "abbreviation": "фт"
+        "abbreviation": "фт",
+        "plural_abbreviation": "фнт"
     },
     "ounce": {
         "name": "унція",
+        "plural_name": "унції",
         "description": "",
         "abbreviation": "унц"
     },
     "gram": {
         "name": "грам",
+        "plural_name": "грами",
         "description": "",
         "abbreviation": "г"
     },
     "kilogram": {
         "name": "кілограм",
+        "plural_name": "кілограм",
         "description": "",
         "abbreviation": "кг"
     },
     "milligram": {
         "name": "міліграм",
+        "plural_name": "міліграм",
         "description": "",
         "abbreviation": "мг"
     },
     "splash": {
         "name": "трохи",
+        "plural_name": "splashes",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
         "name": "трохи",
+        "plural_name": "dashes",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
         "name": "порція",
+        "plural_name": "порції",
         "description": "",
         "abbreviation": ""
     },
     "head": {
         "name": "голівка",
+        "plural_name": "голівки",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
         "name": "зубчик",
+        "plural_name": "зубчики",
         "description": "",
         "abbreviation": ""
     },
     "can": {
         "name": "банка",
+        "plural_name": "банки",
+        "description": "",
+        "abbreviation": ""
+    },
+    "bunch": {
+        "name": "жменя",
+        "plural_name": "жмені",
+        "description": "",
+        "abbreviation": ""
+    },
+    "pack": {
+        "name": "пачка",
+        "plural_name": "пачки",
+        "description": "",
+        "abbreviation": ""
+    },
+    "pinch": {
+        "name": "дрібка",
+        "plural_name": "дрібки",
         "description": "",
         "abbreviation": ""
     }

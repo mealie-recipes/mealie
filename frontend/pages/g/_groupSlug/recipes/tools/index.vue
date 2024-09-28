@@ -29,7 +29,7 @@ export default defineComponent({
 
     return {
       dialog,
-      tools: toolStore.items,
+      tools: toolStore.store,
       actions: toolStore.actions,
     };
   },

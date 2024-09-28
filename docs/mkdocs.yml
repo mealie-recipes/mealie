@@ -74,6 +74,7 @@ nav:
           - Backend Configuration: "documentation/getting-started/installation/backend-config.md"
           - Security: "documentation/getting-started/installation/security.md"
           - Logs: "documentation/getting-started/installation/logs.md"
+          - OpenAI: "documentation/getting-started/installation/open-ai.md"
       - Usage:
           - Backup and Restoring: "documentation/getting-started/usage/backups-and-restoring.md"
           - Permissions and Public Access: "documentation/getting-started/usage/permissions-and-public-access.md"
@@ -100,5 +101,6 @@ nav:
           - Dev Getting Started: "contributors/developers-guide/starting-dev-server.md"
           - Database Changes: "contributors/developers-guide/database-changes.md"
           - Maintainers Guide: "contributors/developers-guide/maintainers.md"
+          - Migration Guide: "contributors/developers-guide/migration-guide.md"
       - Guides:
           - Improving Ingredient Parser: "contributors/guides/ingredient-parser.md"

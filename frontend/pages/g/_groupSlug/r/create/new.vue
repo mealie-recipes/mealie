@@ -24,7 +24,7 @@
     <v-card-actions class="justify-center">
       <div style="width: 250px">
         <BaseButton
-          :disabled="newRecipeName === ''"
+          :disabled="newRecipeName.trim() === ''"
           rounded
           block
           :loading="loading"

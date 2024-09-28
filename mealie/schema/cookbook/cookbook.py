@@ -1,8 +1,6 @@
 from typing import Annotated
 
 from pydantic import UUID4, ConfigDict, Field, field_validator
-from pydantic_core.core_schema import ValidationInfo
-from slugify import slugify
 from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -10,7 +8,7 @@ from mealie.schema._mealie import MealieModel
 from mealie.schema.recipe.recipe import RecipeSummary, RecipeTool
 from mealie.schema.response.pagination import PaginationBase
 
-from ...db.models.group import CookBook
+from ...db.models.household import CookBook
 from ..recipe.recipe_category import CategoryBase, TagBase
 
 
@@ -31,19 +29,10 @@ class CreateCookBook(MealieModel):
     def validate_public(public: bool | None) -> bool:
         return False if public is None else public
 
-    @field_validator("slug", mode="before")
-    def validate_slug(slug: str, info: ValidationInfo):
-        name: str = info.data["name"]
-        calc_slug: str = slugify(name)
-
-        if slug != calc_slug:
-            slug = calc_slug
-
-        return slug
-
 
 class SaveCookBook(CreateCookBook):
     group_id: UUID4
+    household_id: UUID4
 
 
 class UpdateCookBook(SaveCookBook):
@@ -52,6 +41,7 @@ class UpdateCookBook(SaveCookBook):
 
 class ReadCookBook(UpdateCookBook):
     group_id: UUID4
+    household_id: UUID4
     categories: list[CategoryBase] = []
     model_config = ConfigDict(from_attributes=True)
 
@@ -66,5 +56,6 @@ class CookBookPagination(PaginationBase):
 
 class RecipeCookBook(ReadCookBook):
     group_id: UUID4
+    household_id: UUID4
     recipes: list[RecipeSummary]
     model_config = ConfigDict(from_attributes=True)

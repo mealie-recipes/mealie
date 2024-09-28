@@ -9,9 +9,17 @@ from pillow_heif import register_avif_opener, register_heif_opener
 register_heif_opener()
 register_avif_opener()
 
-WEBP = ".webp"
-FORMAT = "WEBP"
 
+@dataclass
+class ImageFormat:
+    suffix: str
+    format: str
+    modes: list[str]
+    """If the image is not in the correct mode, it will be converted to the first mode in the list"""
+
+
+JPG = ImageFormat(".jpg", "JPEG", ["RGB"])
+WEBP = ImageFormat(".webp", "WEBP", ["RGB", "RGBA"])
 IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp", ".heic", ".avif"}
 
 
@@ -57,23 +65,36 @@ class ABCMinifier(ABC):
             return
 
         for file in image.parent.glob("*.*"):
-            if file.suffix != WEBP:
+            if file.suffix != WEBP.suffix:
                 file.unlink()
 
 
 class PillowMinifier(ABCMinifier):
     @staticmethod
-    def to_webp(image_file: Path, dest: Path | None = None, quality: int = 100) -> Path:
+    def _convert_image(
+        image_file: Path, image_format: ImageFormat, dest: Path | None = None, quality: int = 100
+    ) -> Path:
         """
-        Converts an image to the webp format in-place. The original image is not
-        removed By default, the quality is set to 100.
+        Converts an image to the specified format in-place. The original image is not
+        removed. By default, the quality is set to 100.
         """
-        img = Image.open(image_file)
 
-        dest = dest or image_file.with_suffix(WEBP)
-        img.save(dest, FORMAT, quality=quality)
+        img = Image.open(image_file)
+        if img.mode not in image_format.modes:
+            img = img.convert(image_format.modes[0])
+
+        dest = dest or image_file.with_suffix(image_format.suffix)
+        img.save(dest, image_format.format, quality=quality)
 
         return dest
+
+    @staticmethod
+    def to_jpg(image_file: Path, dest: Path | None = None, quality: int = 100) -> Path:
+        return PillowMinifier._convert_image(image_file, JPG, dest, quality)
+
+    @staticmethod
+    def to_webp(image_file: Path, dest: Path | None = None, quality: int = 100) -> Path:
+        return PillowMinifier._convert_image(image_file, WEBP, dest, quality)
 
     @staticmethod
     def crop_center(pil_img: Image, crop_width=300, crop_height=300):
@@ -122,7 +143,7 @@ class PillowMinifier(ABCMinifier):
             else:
                 img = Image.open(image_file)
                 tiny_image = PillowMinifier.crop_center(img)
-                tiny_image.save(tiny_dest, FORMAT, quality=70)
+                tiny_image.save(tiny_dest, WEBP.format, quality=70)
                 self._logger.info("Tiny image saved")
                 success = True
 

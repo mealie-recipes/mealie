@@ -56,15 +56,11 @@
 
       <!-- View By Label -->
       <div v-else>
-        <div v-for="(value, key, idx) in itemsByLabel" :key="key" class="mb-6">
-          <div @click="toggleShowChecked()">
-            <span v-if="idx || key !== $tc('shopping-list.no-label')">
-              <v-icon :color="getLabelColor(value[0])">
-                {{ $globals.icons.tags }}
-              </v-icon>
-            </span>
-            {{ key }}
+        <div v-for="(value, key) in itemsByLabel" :key="key" class="mb-6">
+          <div class="text-left">
+            <v-btn :color="getLabelColor(value[0]) ? getLabelColor(value[0]) : '#959595'">{{ key }}</v-btn>
           </div>
+          <v-divider/>
           <draggable :value="value" handle=".handle" delay="250" :delay-on-touch-only="true" @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndexUncheckedByLabel(key, $event)">
             <v-lazy v-for="(item, index) in value" :key="item.id" class="ml-2 my-2">
               <ShoppingListItem
@@ -294,8 +290,8 @@ import { useCopyList } from "~/composables/use-copy";
 import { useUserApi } from "~/composables/api";
 import MultiPurposeLabelSection from "~/components/Domain/ShoppingList/MultiPurposeLabelSection.vue"
 import ShoppingListItem from "~/components/Domain/ShoppingList/ShoppingListItem.vue";
-import { ShoppingListItemOut, ShoppingListMultiPurposeLabelOut, ShoppingListOut } from "~/lib/api/types/group";
-import { UserSummary } from "~/lib/api/types/user";
+import { ShoppingListItemOut, ShoppingListMultiPurposeLabelOut, ShoppingListOut } from "~/lib/api/types/household";
+import { UserOut } from "~/lib/api/types/user";
 import RecipeList from "~/components/Domain/Recipe/RecipeList.vue";
 import ShoppingListItemEditor from "~/components/Domain/ShoppingList/ShoppingListItemEditor.vue";
 import { useFoodStore, useLabelStore, useUnitStore } from "~/composables/store";
@@ -444,7 +440,7 @@ export default defineComponent({
         unchecked: shoppingList.value?.listItems?.filter((item) => !item.checked) ?? [],
         checked: shoppingList.value?.listItems
           ?.filter((item) => item.checked)
-          .sort((a, b) => (a.updateAt < b.updateAt ? 1 : -1))
+          .sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1))
           ?? [],
       };
     });
@@ -602,9 +598,9 @@ export default defineComponent({
 
     const localLabels = ref<ShoppingListMultiPurposeLabelOut[]>()
 
-    const { labels: allLabels } = useLabelStore();
-    const { units: allUnits } = useUnitStore();
-    const { foods: allFoods } = useFoodStore();
+    const { store: allLabels } = useLabelStore();
+    const { store: allUnits } = useUnitStore();
+    const { store: allFoods } = useFoodStore();
 
     function getLabelColor(item: ShoppingListItemOut | null) {
       return item?.label?.color;
@@ -792,16 +788,6 @@ export default defineComponent({
       itemsByLabel.value = itemsSorted;
     }
 
-    async function refreshLabels() {
-      const { data } = await userApi.multiPurposeLabels.getAll();
-
-      if (data) {
-        allLabels.value = data.items ?? [];
-      }
-    }
-
-    refreshLabels();
-
     // =====================================
     // Add/Remove Recipe References
 
@@ -863,7 +849,7 @@ export default defineComponent({
         item.position = shoppingList.value.listItems.length;
 
         // set a temporary updatedAt timestamp prior to refresh so it appears at the top of the checked items
-        item.updateAt = new Date().toISOString();
+        item.updatedAt = new Date().toISOString();
       }
 
       // make updates reflect immediately
@@ -934,7 +920,7 @@ export default defineComponent({
         : 0;
 
       createListItemData.value.createdAt = new Date().toISOString();
-      createListItemData.value.updateAt = createListItemData.value.createdAt;
+      createListItemData.value.updatedAt = createListItemData.value.createdAt;
 
       updateListItemOrder();
 
@@ -1020,16 +1006,16 @@ export default defineComponent({
     // ===============================================================
     // Shopping List Settings
 
-    const allUsers = ref<UserSummary[]>([]);
+    const allUsers = ref<UserOut[]>([]);
     const currentUserId = ref<string | undefined>();
     async function fetchAllUsers() {
-      const { data } = await userApi.users.getGroupUsers(1, -1, { orderBy: "full_name", orderDirection: "asc" });
+      const { data } = await userApi.households.fetchMembers();
       if (!data) {
         return;
       }
 
       // update current user
-      allUsers.value = data.items;
+      allUsers.value = data.sort((a, b) => ((a.fullName || "") < (b.fullName || "") ? -1 : 1));
       currentUserId.value = shoppingList.value?.userId;
     }
 

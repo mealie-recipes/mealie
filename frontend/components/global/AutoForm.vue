@@ -85,6 +85,8 @@
           :label="inputField.label"
           :name="inputField.varName"
           :items="inputField.options"
+          :item-text="inputField.itemText"
+          :item-value="inputField.itemValue"
           :return-object="false"
           :hint="inputField.hint"
           persistent-hint

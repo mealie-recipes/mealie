@@ -127,9 +127,9 @@ export default defineComponent({
 
     const items = computed(() => {
       if (!props.returnObject) {
-        return store.items.value.map((item) => item.name);
+        return store.store.value.map((item) => item.name);
       }
-      return store.items.value;
+      return store.store.value;
     });
 
     function removeByIndex(index: number) {

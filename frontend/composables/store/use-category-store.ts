@@ -1,73 +1,26 @@
-import { reactive, ref, Ref } from "@nuxtjs/composition-api";
-import { usePublicStoreActions, useStoreActions } from "../partials/use-actions-factory";
-import { usePublicExploreApi } from "../api/api-client";
-import { useUserApi } from "~/composables/api";
+import { ref, Ref } from "@nuxtjs/composition-api";
+import { useData, useReadOnlyStore, useStore } from "../partials/use-store-factory";
 import { RecipeCategory } from "~/lib/api/types/recipe";
+import { usePublicExploreApi, useUserApi } from "~/composables/api";
 
-const categoryStore: Ref<RecipeCategory[]> = ref([]);
-const publicStoreLoading = ref(false);
-const storeLoading = ref(false);
+const store: Ref<RecipeCategory[]> = ref([]);
+const loading = ref(false);
+const publicLoading = ref(false);
 
-export function useCategoryData() {
-  const data = reactive({
+export const useCategoryData = function () {
+  return useData<RecipeCategory>({
     id: "",
     name: "",
-    slug: undefined,
+    slug: "",
   });
-
-  function reset() {
-    data.id = "";
-    data.name = "";
-    data.slug = undefined;
-  }
-
-  return {
-    data,
-    reset,
-  };
 }
 
-export function usePublicCategoryStore(groupSlug: string) {
-  const api = usePublicExploreApi(groupSlug).explore;
-  const loading = publicStoreLoading;
-
-  const actions = {
-    ...usePublicStoreActions<RecipeCategory>(api.categories, categoryStore, loading),
-    flushStore() {
-      categoryStore.value = [];
-    },
-  };
-
-  if (!loading.value && (!categoryStore.value || categoryStore.value?.length === 0)) {
-    actions.getAll();
-  }
-
-  return {
-    items: categoryStore,
-    actions,
-    loading,
-  };
-}
-
-export function useCategoryStore() {
-  // passing the group slug switches to using the public API
+export const useCategoryStore = function () {
   const api = useUserApi();
-  const loading = storeLoading;
+  return useStore<RecipeCategory>(store, loading, api.categories);
+}
 
-  const actions = {
-    ...useStoreActions<RecipeCategory>(api.categories, categoryStore, loading),
-    flushStore() {
-      categoryStore.value = [];
-    },
-  };
-
-  if (!loading.value && (!categoryStore.value || categoryStore.value?.length === 0)) {
-    actions.getAll();
-  }
-
-  return {
-    items: categoryStore,
-    actions,
-    loading,
-  };
+export const usePublicCategoryStore = function (groupSlug: string) {
+  const api = usePublicExploreApi(groupSlug).explore;
+  return useReadOnlyStore<RecipeCategory>(store, publicLoading, api.categories);
 }

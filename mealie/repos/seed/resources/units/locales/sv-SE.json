@@ -1,101 +1,140 @@
 {
     "teaspoon": {
         "name": "tesked",
+        "plural_name": "teskedar",
         "description": "",
         "abbreviation": "tsk"
     },
     "tablespoon": {
         "name": "matsked",
+        "plural_name": "matskedar",
         "description": "",
         "abbreviation": "msk"
     },
     "cup": {
         "name": "kopp",
+        "plural_name": "koppar",
         "description": "",
-        "abbreviation": "kopp"
+        "abbreviation": "c"
     },
     "fluid-ounce": {
         "name": "fluid ounce",
+        "plural_name": "fluid ounces",
         "description": "",
         "abbreviation": "fl oz"
     },
     "pint": {
         "name": "pint",
+        "plural_name": "pints",
         "description": "",
         "abbreviation": "pt"
     },
     "quart": {
         "name": "quart",
+        "plural_name": "quarts",
         "description": "",
         "abbreviation": "qt"
     },
     "gallon": {
         "name": "gallon",
+        "plural_name": "gallons",
         "description": "",
         "abbreviation": "gal"
     },
     "milliliter": {
         "name": "milliliter",
+        "plural_name": "milliliter",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
         "name": "liter",
+        "plural_name": "liter",
         "description": "",
         "abbreviation": "l"
     },
     "pound": {
         "name": "pund",
+        "plural_name": "pounds",
         "description": "",
-        "abbreviation": "lb"
+        "abbreviation": "lb",
+        "plural_abbreviation": "lbs"
     },
     "ounce": {
         "name": "ounce",
+        "plural_name": "ounces",
         "description": "",
         "abbreviation": "oz"
     },
     "gram": {
         "name": "gram",
+        "plural_name": "gram",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
         "name": "kilogram",
+        "plural_name": "kilogram",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
         "name": "milligram",
+        "plural_name": "milligram",
         "description": "",
         "abbreviation": "mg"
     },
     "splash": {
         "name": "skvätt",
+        "plural_name": "stänk",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
         "name": "stänk",
+        "plural_name": "dashes",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
         "name": "portion",
+        "plural_name": "portioner",
         "description": "",
         "abbreviation": ""
     },
     "head": {
         "name": "huvud",
+        "plural_name": "huvuden",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
         "name": "klyfta",
+        "plural_name": "klyftor",
         "description": "",
         "abbreviation": ""
     },
     "can": {
         "name": "burk",
+        "plural_name": "burkar",
+        "description": "",
+        "abbreviation": ""
+    },
+    "bunch": {
+        "name": "bunt",
+        "plural_name": "buntar",
+        "description": "",
+        "abbreviation": ""
+    },
+    "pack": {
+        "name": "paket",
+        "plural_name": "paket",
+        "description": "",
+        "abbreviation": ""
+    },
+    "pinch": {
+        "name": "nypa",
+        "plural_name": "nypor",
         "description": "",
         "abbreviation": ""
     }

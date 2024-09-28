@@ -117,6 +117,7 @@ export default defineComponent({
       if (!cookbooks.value) return [];
       return cookbooks.value.map((cookbook) => {
         return {
+          key: cookbook.slug,
           icon: $globals.icons.pages,
           title: cookbook.name,
           to: `/g/${groupSlug.value}/cookbooks/${cookbook.slug as string}`,
@@ -183,7 +184,7 @@ export default defineComponent({
       {
         icon: $globals.icons.calendarMultiselect,
         title: i18n.tc("meal-plan.meal-planner"),
-        to: "/group/mealplan/planner/view",
+        to: "/household/mealplan/planner/view",
         restricted: true,
       },
       {
