@@ -4,8 +4,8 @@ from contextlib import asynccontextmanager
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.routing import APIRoute
+from starlette_compress import CompressMiddleware
 
 from mealie.core.config import get_app_settings
 from mealie.core.root_logger import get_logger
@@ -90,7 +90,7 @@ app = FastAPI(
     lifespan=lifespan_fn,
 )
 
-app.add_middleware(GZipMiddleware, minimum_size=1000)
+app.add_middleware(CompressMiddleware, mininum_size=1000)
 
 if not settings.PRODUCTION:
     allowed_origins = ["http://localhost:3000"]
