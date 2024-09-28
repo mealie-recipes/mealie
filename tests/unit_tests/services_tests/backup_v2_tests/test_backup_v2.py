@@ -11,7 +11,7 @@ from mealie.core.config import get_app_settings
 from mealie.db.db_setup import session_context
 from mealie.db.models._model_utils.guid import GUID
 from mealie.db.models.group import Group
-from mealie.db.models.group.shopping_list import ShoppingList
+from mealie.db.models.household.shopping_list import ShoppingList
 from mealie.db.models.labels import MultiPurposeLabel
 from mealie.db.models.recipe.ingredient import IngredientFoodModel, IngredientUnitModel
 from mealie.db.models.recipe.recipe import RecipeModel

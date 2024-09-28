@@ -21,31 +21,23 @@
 
     <v-spacer></v-spacer>
     <div v-if="!open" class="custom-btn-group ma-1">
-      <RecipeFavoriteBadge v-if="loggedIn" class="mx-1" color="info" button-style :recipe-id="recipe.id" show-always />
-      <RecipeTimelineBadge v-if="loggedIn" button-style :slug="recipe.slug" :recipe-name="recipe.name" />
+      <RecipeFavoriteBadge v-if="loggedIn" class="ml-1" color="info" button-style :recipe-id="recipe.id" show-always />
+      <RecipeTimelineBadge v-if="loggedIn" button-style class="ml-1" :slug="recipe.slug" :recipe-name="recipe.name" />
       <div v-if="loggedIn">
-        <v-tooltip v-if="!locked" bottom color="info">
+        <v-tooltip v-if="canEdit" bottom color="info">
           <template #activator="{ on, attrs }">
-            <v-btn fab small class="mx-1" color="info" v-bind="attrs" v-on="on" @click="$emit('edit', true)">
+            <v-btn fab small class="ml-1" color="info" v-bind="attrs" v-on="on" @click="$emit('edit', true)">
               <v-icon> {{ $globals.icons.edit }} </v-icon>
             </v-btn>
           </template>
           <span>{{ $t("general.edit") }}</span>
-        </v-tooltip>
-        <v-tooltip v-else bottom color="info">
-          <template #activator="{ on, attrs }">
-            <v-btn fab small class="mx-1" color="info" v-bind="attrs" v-on="on">
-              <v-icon> {{ $globals.icons.lock }} </v-icon>
-            </v-btn>
-          </template>
-          <span> {{ $t("recipe.locked-by-owner") }} </span>
         </v-tooltip>
       </div>
 
       <RecipeTimerMenu
         fab
         color="info"
-        class="mr-1"
+        class="ml-1"
       />
 
       <RecipeContextMenu
@@ -72,6 +64,7 @@
           share: loggedIn,
           recipeActions: true,
         }"
+        class="ml-1"
         @print="$emit('print')"
       />
     </div>
@@ -135,7 +128,7 @@ export default defineComponent({
       required: true,
       type: String,
     },
-    locked: {
+    canEdit: {
       type: Boolean,
       default: false,
     },

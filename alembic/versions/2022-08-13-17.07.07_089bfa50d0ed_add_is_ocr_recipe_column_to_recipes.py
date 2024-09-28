@@ -13,8 +13,8 @@ from alembic import op
 # revision identifiers, used by Alembic.
 revision = "089bfa50d0ed"
 down_revision = "188374910655"
-branch_labels = None
-depends_on = None
+branch_labels: str | tuple[str, ...] | None = None
+depends_on: str | tuple[str, ...] | None = None
 
 
 def upgrade():

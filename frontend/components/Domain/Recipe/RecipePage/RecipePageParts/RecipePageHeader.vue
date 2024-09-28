@@ -45,7 +45,7 @@
       :recipe="recipe"
       :slug="recipe.slug"
       :recipe-scale="recipeScale"
-      :locked="isOwnGroup && user.id !== recipe.userId && recipe.settings.locked"
+      :can-edit="canEditRecipe"
       :name="recipe.name"
       :logged-in="isOwnGroup"
       :open="isEditMode"
@@ -64,11 +64,13 @@
 <script lang="ts">
 import { defineComponent, useContext, computed, ref, watch } from "@nuxtjs/composition-api";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
+import { useRecipePermissions } from "~/composables/recipes";
 import RecipeRating from "~/components/Domain/Recipe/RecipeRating.vue";
 import RecipeLastMade from "~/components/Domain/Recipe/RecipeLastMade.vue";
 import RecipeActionMenu from "~/components/Domain/Recipe/RecipeActionMenu.vue";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
-import { useStaticRoutes } from "~/composables/api";
+import { useStaticRoutes, useUserApi  } from "~/composables/api";
+import { HouseholdSummary } from "~/lib/api/types/household";
 import { Recipe } from "~/lib/api/types/recipe";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { usePageState, usePageUser, PageMode, EditorMode } from "~/composables/recipe-page/shared-state";
@@ -100,6 +102,15 @@ export default defineComponent({
     const { user } = usePageUser();
     const { isOwnGroup } = useLoggedInState();
 
+    const recipeHousehold = ref<HouseholdSummary>();
+    if (user) {
+      const userApi = useUserApi();
+      userApi.households.getOne(props.recipe.householdId).then(({ data }) => {
+        recipeHousehold.value = data || undefined;
+      });
+    }
+    const { canEditRecipe } = useRecipePermissions(props.recipe, recipeHousehold, user);
+
     function printRecipe() {
       window.print();
     }
@@ -125,6 +136,7 @@ export default defineComponent({
       setMode,
       toggleEditMode,
       recipeImage,
+      canEditRecipe,
       imageKey,
       user,
       PageMode,

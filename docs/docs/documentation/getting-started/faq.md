@@ -98,13 +98,14 @@ python /app/mealie/scripts/change_password.py
 
 Follow the [steps above](#how-can-i-change-my-password) for changing your password. You will be prompted if you would like to switch your authentication method back to local auth so you can log in again.
 
-## How do private groups and recipes work?
+## How do private groups, households, and recipes work?
 
 Managing private groups and recipes can be confusing. The following diagram and notes should help explain how they work to determine if a recipe can be shared publicly.
 
 - Private links that are generated from the recipe page using the `Share` button bypass all group and recipe permissions
 - Private groups block all access to recipes, including those that are public, except as noted above.
-- Groups with "Allow users outside of your group to see your recipes" disabled block all access to recipes, except as noted above.
+- Private households, similar to private groups, block all access to recipes, except as noted above.
+- Households with "Allow users outside of your group to see your recipes" disabled block all access to recipes, except as noted above.
 - Private recipes block all access to the recipe from public links. This does not affect Private Links.
 
 ```mermaid
@@ -112,7 +113,8 @@ stateDiagram-v2
   r1: Request Access
   p1: Using Private Link?
   p2: Is Group Private?
-  p3: Is Recipe Private?
+  p3: Is Household Private?
+  p4: Is Recipe Private?
   s1: Deny Access
   n1: Allow Access
 
@@ -125,10 +127,13 @@ stateDiagram-v2
   p2 --> p3: No
 
   p3 --> s1: Yes
-  p3 --> n1: No
+  p3 --> p4: No
+
+  p4 --> s1: Yes
+  p4 --> n1: No
 ```
 
-For more information, check out the [Permissions and Public Access guide](./usage/permissions-and-public-access.md).
+For more information on public access, check out the [Permissions and Public Access guide](./usage/permissions-and-public-access.md). For more information on groups vs. households, check out the [Groups and Households](./features.md#groups-and-households) section in the Features guide.
 
 ## Can I use fail2ban with Mealie?
 Yes, Mealie is configured to properly forward external IP addresses into the `mealie.log` logfile. Note that due to restrictions in docker, IP address forwarding only works on Linux.
@@ -149,3 +154,11 @@ As to why we need a database?
 
 - **Developer Experience:** Without a database, a lot of the work to maintain your data is taken on by the developer instead of a battle-tested platform for storing data.
 - **Multi User Support:** With a solid database as backend storage for your data, Mealie can better support multi-user sites and avoid read/write access errors when multiple actions are taken at the same time.
+
+## Why is there no "Keep Screen Alive" button when I access a recipe?
+You've perhaps visited the Mealie Demo and noticed that it had a "Keep Screen Alive" button, but it doesn't show up in your own Mealie instance.
+There are typically two possible reasons for this:
+1. You're accessing your Mealie instance without using HTTPS. The Wake Lock API is only available if HTTPS is used. Read more here: https://developer.mozilla.org/en-US/docs/Web/API/Screen_Wake_Lock_API
+2. You're accessing your Mealie instance on a browser which doesn't support the API. You can test this here: https://vueuse.org/core/useWakeLock/#demo
+
+Solving the above points will most likely resolve your issues. However, if you're still having problems, you are welcome to create an issue. Just remember to add that you've tried the above two options first in your description.

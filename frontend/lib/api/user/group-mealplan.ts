@@ -4,9 +4,9 @@ import { CreatePlanEntry, CreateRandomEntry, ReadPlanEntry, UpdatePlanEntry } fr
 const prefix = "/api";
 
 const routes = {
-  mealplan: `${prefix}/groups/mealplans`,
-  random: `${prefix}/groups/mealplans/random`,
-  mealplanId: (id: string | number) => `${prefix}/groups/mealplans/${id}`,
+  mealplan: `${prefix}/households/mealplans`,
+  random: `${prefix}/households/mealplans/random`,
+  mealplanId: (id: string | number) => `${prefix}/households/mealplans/${id}`,
 };
 
 export class MealPlanAPI extends BaseCRUDAPI<CreatePlanEntry, ReadPlanEntry, UpdatePlanEntry> {

@@ -20,6 +20,11 @@ class OperationChecks:
     # =========================================
     # User Permission Checks
 
+    def can_manage_household(self) -> bool:
+        if not self.user.can_manage_household:
+            raise self.ForbiddenException
+        return True
+
     def can_manage(self) -> bool:
         if not self.user.can_manage:
             raise self.ForbiddenException

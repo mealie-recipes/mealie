@@ -1,101 +1,140 @@
 {
     "teaspoon": {
         "name": "cuillère à café",
+        "plural_name": "cuillères à café",
         "description": "",
         "abbreviation": "càc"
     },
     "tablespoon": {
         "name": "cuillère à soupe",
+        "plural_name": "cuillères à soupe",
         "description": "",
         "abbreviation": "càS"
     },
     "cup": {
         "name": "tasse",
+        "plural_name": "tasses",
         "description": "",
-        "abbreviation": "tasse"
+        "abbreviation": "tasses"
     },
     "fluid-ounce": {
         "name": "centilitre",
+        "plural_name": "onces liquides",
         "description": "",
         "abbreviation": "cL"
     },
     "pint": {
         "name": "pinte",
+        "plural_name": "pintes",
         "description": "",
         "abbreviation": "pt"
     },
     "quart": {
         "name": "quart",
+        "plural_name": "quarts",
         "description": "",
         "abbreviation": "qt"
     },
     "gallon": {
         "name": "gallon",
+        "plural_name": "gallons",
         "description": "",
         "abbreviation": "gal"
     },
     "milliliter": {
-        "name": "mililitre",
+        "name": "millilitre",
+        "plural_name": "millilitres",
         "description": "",
         "abbreviation": "mL"
     },
     "liter": {
         "name": "litre",
+        "plural_name": "litres",
         "description": "",
         "abbreviation": "L"
     },
     "pound": {
         "name": "livre",
+        "plural_name": "livres",
         "description": "",
-        "abbreviation": "lb"
+        "abbreviation": "lb",
+        "plural_abbreviation": "livres"
     },
     "ounce": {
         "name": "once",
+        "plural_name": "onces",
         "description": "",
         "abbreviation": "oz"
     },
     "gram": {
         "name": "gramme",
+        "plural_name": "grammes",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
         "name": "kilogramme",
+        "plural_name": "kilogrammes",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
         "name": "milligramme",
+        "plural_name": "milligrammes",
         "description": "",
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "éclaboussure",
+        "name": "goutte",
+        "plural_name": "gouttes",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
-        "name": "trait",
+        "name": "1/8 de cuillère à café",
+        "plural_name": "1/8 de cuillères à café",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
         "name": "part",
+        "plural_name": "portions",
         "description": "",
         "abbreviation": ""
     },
     "head": {
         "name": "tête",
+        "plural_name": "têtes",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
         "name": "gousse",
+        "plural_name": "gousses",
         "description": "",
         "abbreviation": ""
     },
     "can": {
         "name": "boîte",
+        "plural_name": "boîtes",
+        "description": "",
+        "abbreviation": ""
+    },
+    "bunch": {
+        "name": "botte",
+        "plural_name": "bottes",
+        "description": "",
+        "abbreviation": ""
+    },
+    "pack": {
+        "name": "paquet",
+        "plural_name": "paquets",
+        "description": "",
+        "abbreviation": ""
+    },
+    "pinch": {
+        "name": "pincée",
+        "plural_name": "pincées",
         "description": "",
         "abbreviation": ""
     }

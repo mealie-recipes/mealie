@@ -81,6 +81,7 @@
       :headers.sync="tableHeaders"
       :data="tags || []"
       :bulk-actions="[{icon: $globals.icons.delete, text: $tc('general.delete'), event: 'delete-selected'}]"
+      initial-sort="name"
       @delete-one="deleteEventHandler"
       @edit-one="editEventHandler"
       @delete-selected="bulkDeleteEventHandler"
@@ -199,7 +200,7 @@ export default defineComponent({
       state,
       tableConfig,
       tableHeaders,
-      tags: tagStore.items,
+      tags: tagStore.store,
       validators,
 
       // create

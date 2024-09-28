@@ -94,7 +94,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref, useContext, useRouter } from "@nuxtjs/composition-api";
-import { useUserApi } from "~/composables/api";
+import { useAdminApi, useUserApi } from "~/composables/api";
 import { useLocales } from "~/composables/use-locales";
 import { alert } from "~/composables/use-toast";
 import { useUserRegistrationForm } from "~/composables/use-users/user-registration-form";
@@ -108,7 +108,8 @@ export default defineComponent({
     // ================================================================
     // Setup
     const { $auth, $globals, i18n } = useContext();
-    const api = useUserApi();
+    const userApi = useUserApi();
+    const adminApi = useAdminApi();
 
     const groupSlug = computed(() => $auth.user?.groupSlug);
     const { locale } = useLocales();
@@ -264,7 +265,7 @@ export default defineComponent({
 
     async function updateUser() {
       // @ts-ignore-next-line user will never be null here
-      const { response } = await api.users.updateOne($auth.user?.id, {
+      const { response } = await userApi.users.updateOne($auth.user?.id, {
         ...$auth.user,
         email: accountDetails.email.value,
         username: accountDetails.username.value,
@@ -285,7 +286,7 @@ export default defineComponent({
     }
 
     async function updatePassword() {
-      const { response } = await api.users.changePassword({
+      const { response } = await userApi.users.changePassword({
         currentPassword: "MyPassword",
         newPassword: credentials.password1.value,
       });
@@ -303,7 +304,7 @@ export default defineComponent({
 
     async function updateGroup() {
       // @ts-ignore-next-line user will never be null here
-      const { data } = await api.groups.getOne($auth.user?.groupId);
+      const { data } = await userApi.groups.getOne($auth.user?.groupId);
       if (!data || !data.preferences) {
         alert.error(i18n.tc("events.something-went-wrong"));
         return;
@@ -312,6 +313,31 @@ export default defineComponent({
       const preferences = {
         ...data.preferences,
         privateGroup: !commonSettings.value.makeGroupRecipesPublic,
+      }
+
+      const payload = {
+        ...data,
+        preferences,
+      }
+
+      // @ts-ignore-next-line user will never be null here
+      const { response } = await userApi.groups.updateOne($auth.user?.groupId, payload);
+      if (!response || response.status !== 200) {
+        alert.error(i18n.tc("events.something-went-wrong"));
+      }
+    }
+
+    async function updateHousehold() {
+      // @ts-ignore-next-line user will never be null here
+      const { data } = await adminApi.households.getOne($auth.user?.householdId);
+      if (!data || !data.preferences) {
+        alert.error(i18n.tc("events.something-went-wrong"));
+        return;
+      }
+
+      const preferences = {
+        ...data.preferences,
+        privateHousehold: !commonSettings.value.makeGroupRecipesPublic,
         recipePublic: commonSettings.value.makeGroupRecipesPublic,
       }
 
@@ -321,28 +347,28 @@ export default defineComponent({
       }
 
       // @ts-ignore-next-line user will never be null here
-      const { response } = await api.groups.updateOne($auth.user?.groupId, payload);
+      const { response } = await adminApi.households.updateOne($auth.user?.householdId, payload);
       if (!response || response.status !== 200) {
         alert.error(i18n.tc("events.something-went-wrong"));
       }
     }
 
     async function seedFoods() {
-      const { response } = await api.seeders.foods({ locale: locale.value })
+      const { response } = await userApi.seeders.foods({ locale: locale.value })
       if (!response || response.status !== 200) {
         alert.error(i18n.tc("events.something-went-wrong"));
       }
     }
 
     async function seedUnits() {
-      const { response } = await api.seeders.units({ locale: locale.value })
+      const { response } = await userApi.seeders.units({ locale: locale.value })
       if (!response || response.status !== 200) {
         alert.error(i18n.tc("events.something-went-wrong"));
       }
     }
 
     async function seedLabels() {
-      const { response } = await api.seeders.labels({ locale: locale.value })
+      const { response } = await userApi.seeders.labels({ locale: locale.value })
       if (!response || response.status !== 200) {
         alert.error(i18n.tc("events.something-went-wrong"));
       }
@@ -365,6 +391,7 @@ export default defineComponent({
     async function submitCommonSettings() {
       const tasks = [
         updateGroup(),
+        updateHousehold(),
         seedData(),
       ]
 

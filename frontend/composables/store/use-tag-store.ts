@@ -1,72 +1,26 @@
-import { reactive, ref, Ref } from "@nuxtjs/composition-api";
-import { usePublicStoreActions, useStoreActions } from "../partials/use-actions-factory";
-import { usePublicExploreApi } from "../api/api-client";
-import { useUserApi } from "~/composables/api";
-import { RecipeTag } from "~/lib/api/types/admin";
+import { ref, Ref } from "@nuxtjs/composition-api";
+import { useData, useReadOnlyStore, useStore } from "../partials/use-store-factory";
+import { RecipeTag } from "~/lib/api/types/recipe";
+import { usePublicExploreApi, useUserApi } from "~/composables/api";
 
-const items: Ref<RecipeTag[]> = ref([]);
-const publicStoreLoading = ref(false);
-const storeLoading = ref(false);
+const store: Ref<RecipeTag[]> = ref([]);
+const loading = ref(false);
+const publicLoading = ref(false);
 
-export function useTagData() {
-  const data = reactive({
+export const useTagData = function () {
+  return useData<RecipeTag>({
     id: "",
     name: "",
-    slug: undefined,
+    slug: "",
   });
-
-  function reset() {
-    data.id = "";
-    data.name = "";
-    data.slug = undefined;
-  }
-
-  return {
-    data,
-    reset,
-  };
 }
 
-export function usePublicTagStore(groupSlug: string) {
-  const api = usePublicExploreApi(groupSlug).explore;
-  const loading = publicStoreLoading;
-
-  const actions = {
-    ...usePublicStoreActions<RecipeTag>(api.tags, items, loading),
-    flushStore() {
-      items.value = [];
-    },
-  };
-
-  if (!loading.value && (!items.value || items.value?.length === 0)) {
-    actions.getAll();
-  }
-
-  return {
-    items,
-    actions,
-    loading,
-  };
-}
-
-export function useTagStore() {
+export const useTagStore = function () {
   const api = useUserApi();
-  const loading = storeLoading;
+  return useStore<RecipeTag>(store, loading, api.tags);
+}
 
-  const actions = {
-    ...useStoreActions<RecipeTag>(api.tags, items, loading),
-    flushStore() {
-      items.value = [];
-    },
-  };
-
-  if (!loading.value && (!items.value || items.value?.length === 0)) {
-    actions.getAll();
-  }
-
-  return {
-    items,
-    actions,
-    loading,
-  };
+export const usePublicTagStore = function (groupSlug: string) {
+  const api = usePublicExploreApi(groupSlug).explore;
+  return useReadOnlyStore<RecipeTag>(store, publicLoading, api.tags);
 }

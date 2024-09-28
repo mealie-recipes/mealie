@@ -83,6 +83,7 @@
       :headers.sync="tableHeaders"
       :data="tools || []"
       :bulk-actions="[{icon: $globals.icons.delete, text: $tc('general.delete'), event: 'delete-selected'}]"
+      initial-sort="name"
       @delete-one="deleteEventHandler"
       @edit-one="editEventHandler"
       @delete-selected="bulkDeleteEventHandler"
@@ -209,7 +210,7 @@ export default defineComponent({
       state,
       tableConfig,
       tableHeaders,
-      tools: toolStore.items,
+      tools: toolStore.store,
       validators,
 
       // create

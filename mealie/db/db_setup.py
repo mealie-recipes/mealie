@@ -26,7 +26,7 @@ SessionLocal, engine = sql_global_init(settings.DB_URL)  # type: ignore
 
 
 @contextmanager
-def session_context() -> Session:
+def session_context() -> Generator[Session, None, None]:
     """
     session_context() provides a managed session to the database that is automatically
     closed when the context is exited. This is the preferred method of accessing the

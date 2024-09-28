@@ -14,9 +14,11 @@
           <div class="d-flex">
             <p> {{ $t("user.user-id-with-value", {id: user.id} ) }}</p>
           </div>
+          <!-- This is disabled since we can't properly handle changing the user's group in most scenarios -->
           <v-select
             v-if="groups"
             v-model="user.group"
+            disabled
             :items="groups"
             rounded
             class="rounded-lg"
@@ -26,7 +28,20 @@
             filled
             :label="$tc('group.user-group')"
             :rules="[validators.required]"
-          ></v-select>
+          />
+          <v-select
+            v-if="households"
+            v-model="user.household"
+            :items="households"
+            rounded
+            class="rounded-lg"
+            item-text="name"
+            item-value="name"
+            :return-object="false"
+            filled
+            :label="$tc('household.user-household')"
+            :rules="[validators.required]"
+          />
           <div class="d-flex py-2 pr-2">
             <BaseButton type="button" :loading="generatingToken" create @click.prevent="handlePasswordReset">
               {{ $t("user.generate-password-reset-link") }}
@@ -65,6 +80,7 @@
 import { computed, defineComponent, useRoute, onMounted, ref, useContext } from "@nuxtjs/composition-api";
 import { useAdminApi, useUserApi } from "~/composables/api";
 import { useGroups } from "~/composables/use-groups";
+import { useAdminHouseholds } from "~/composables/use-households";
 import { alert } from "~/composables/use-toast";
 import { useUserForm } from "~/composables/use-users";
 import { validators } from "~/composables/use-validators";
@@ -76,6 +92,7 @@ export default defineComponent({
   setup() {
     const { userForm } = useUserForm();
     const { groups } = useGroups();
+    const { useHouseholdsInGroup } = useAdminHouseholds();
     const { i18n } = useContext();
     const route = useRoute();
 
@@ -89,6 +106,8 @@ export default defineComponent({
     const adminApi = useAdminApi();
 
     const user = ref<UserOut | null>(null);
+    const households = useHouseholdsInGroup(computed(() => user.value?.groupId || ""));
+
     const disabledFields = computed(() => {
       return user.value?.authMethod !== "Mealie" ? ["admin"] : [];
     })
@@ -154,6 +173,7 @@ export default defineComponent({
       refNewUserForm,
       handleSubmit,
       groups,
+      households,
       validators,
       handlePasswordReset,
       resetUrl,

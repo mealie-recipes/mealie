@@ -56,7 +56,7 @@ class AuthProvider(Generic[T], metaclass=abc.ABCMeta):
         if self.__has_tried_user:
             return self.user
 
-        db = get_repositories(self.session)
+        db = get_repositories(self.session, group_id=None, household_id=None)
 
         user = user = db.users.get_one(username, "username", any_case=True)
         if not user:

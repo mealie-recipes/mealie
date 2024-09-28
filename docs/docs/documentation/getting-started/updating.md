@@ -9,8 +9,8 @@
      - Create a Backup and Download from the UI
      - Upgrade
 
-## Upgrading to Mealie v1
-If you are upgrading from pre-v1.0.0 to v1.0.0, make sure you read [Migrating to Mealie v1](./migrating-to-mealie-v1.md)!
+## Upgrading to Mealie v1 or later
+If you are upgrading from pre-v1.0.0 to v1.0.0 or later (v2.0.0, etc.), make sure you read [Migrating to Mealie v1](./migrating-to-mealie-v1.md)!
 
 ## Backing Up Your Data
 

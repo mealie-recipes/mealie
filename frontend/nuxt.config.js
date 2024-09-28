@@ -477,7 +477,7 @@ export default {
           "name": "Meal Planner",
           "short_name": "Meal Planner",
           "description": "Open the meal planner",
-          "url": "/group/mealplan/planner/view",
+          "url": "/household/mealplan/planner/view",
           "icons": [
             {
               "src": "/icons/mdiCalendarMultiselect-192x192.png",
@@ -492,7 +492,6 @@ export default {
       ],
       prefer_related_applications: false,
       handle_links: "preferred",
-      orientation: "any",
       categories: [
         "food"
       ],

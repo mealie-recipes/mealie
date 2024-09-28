@@ -11,7 +11,7 @@ from mealie.routes.users._helpers import assert_user_change_allowed
 from mealie.schema.response import ErrorResponse, SuccessResponse
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.user import ChangePassword, UserBase, UserIn, UserOut
-from mealie.schema.user.user import UserPagination, UserRatings, UserRatingSummary, UserSummary, UserSummaryPagination
+from mealie.schema.user.user import UserPagination, UserRatings, UserRatingSummary
 
 user_router = UserAPIRouter(prefix="/users", tags=["Users: CRUD"])
 admin_router = AdminAPIRouter(prefix="/users", tags=["Users: Admin CRUD"])
@@ -58,18 +58,6 @@ class AdminUserController(BaseAdminController):
 
 @controller(user_router)
 class UserController(BaseUserController):
-    @user_router.get("/group-users", response_model=UserSummaryPagination)
-    def get_all_group_users(self, q: PaginationQuery = Depends(PaginationQuery)):
-        """Returns all users from the current group"""
-
-        response = self.repos.users.by_group(self.group_id).page_all(
-            pagination=q,
-            override=UserSummary,
-        )
-
-        response.set_pagination_guides(user_router.url_path_for("get_all_group_users"), q.model_dump())
-        return response
-
     @user_router.get("/self", response_model=UserOut)
     def get_logged_in_user(self):
         return self.user

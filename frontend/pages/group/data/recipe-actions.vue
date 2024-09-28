@@ -101,6 +101,7 @@
       :headers.sync="tableHeaders"
       :data="actions || []"
       :bulk-actions="[{icon: $globals.icons.delete, text: $tc('general.delete'), event: 'delete-selected'}]"
+      initial-sort="title"
       @delete-one="deleteEventHandler"
       @edit-one="editEventHandler"
       @delete-selected="bulkDeleteEventHandler"
@@ -121,7 +122,7 @@
 import { defineComponent, reactive, ref, useContext } from "@nuxtjs/composition-api";
 import { validators } from "~/composables/use-validators";
 import { useGroupRecipeActions, useGroupRecipeActionData } from "~/composables/use-group-recipe-actions";
-import { GroupRecipeActionOut } from "~/lib/api/types/group";
+import { GroupRecipeActionOut } from "~/lib/api/types/household";
 
 export default defineComponent({
   setup() {

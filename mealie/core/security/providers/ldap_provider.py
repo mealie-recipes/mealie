@@ -95,7 +95,7 @@ class LDAPProvider(CredentialsProvider):
         """
 
         settings = get_app_settings()
-        db = get_repositories(self.session)
+        db = get_repositories(self.session, group_id=None, household_id=None)
         if not self.data:
             return None
         data = self.data

@@ -3,7 +3,6 @@ from enum import Enum
 import pytest
 from fastapi.testclient import TestClient
 
-from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe_category import CategorySave, TagSave
 from mealie.schema.recipe.recipe_tool import RecipeToolSave
 from tests.utils import api_routes
@@ -17,53 +16,46 @@ class OrganizerType(Enum):
     tools = "tools"
 
 
-@pytest.mark.parametrize(
-    "organizer_type, is_private_group",
-    [
-        (OrganizerType.categories, True),
-        (OrganizerType.categories, False),
-        (OrganizerType.tags, True),
-        (OrganizerType.tags, False),
-        (OrganizerType.tools, True),
-        (OrganizerType.tools, False),
-    ],
-    ids=[
-        "private_group_categories",
-        "public_group_categories",
-        "private_group_tags",
-        "public_group_tags",
-        "private_group_tools",
-        "public_group_tools",
-    ],
-)
+@pytest.mark.parametrize("organizer_type", [OrganizerType.categories, OrganizerType.tags, OrganizerType.tools])
+@pytest.mark.parametrize("is_private_group", [True, False])
+@pytest.mark.parametrize("is_private_household", [True, False])
 def test_get_all_organizers(
     api_client: TestClient,
     unique_user: TestUser,
-    database: AllRepositories,
     organizer_type: OrganizerType,
     is_private_group: bool,
+    is_private_household: bool,
 ):
+    database = unique_user.repos
+
     ## Set Up Group
     group = database.groups.get_one(unique_user.group_id)
     assert group and group.preferences
 
     group.preferences.private_group = is_private_group
-    group.preferences.recipe_public = not is_private_group
     database.group_preferences.update(group.id, group.preferences)
+
+    ## Set Up Household
+    household = database.households.get_one(unique_user.household_id)
+    assert household and household.preferences
+
+    household.preferences.private_household = is_private_household
+    household.preferences.recipe_public = not is_private_household
+    database.household_preferences.update(household.id, household.preferences)
 
     ## Set Up Organizers
     if organizer_type is OrganizerType.categories:
         item_class = CategorySave
         repo = database.categories  # type: ignore
-        route = api_routes.explore_organizers_group_slug_categories
+        route = api_routes.explore_groups_group_slug_organizers_categories
     elif organizer_type is OrganizerType.tags:
         item_class = TagSave
         repo = database.tags  # type: ignore
-        route = api_routes.explore_organizers_group_slug_tags
+        route = api_routes.explore_groups_group_slug_organizers_tags
     else:
         item_class = RecipeToolSave
         repo = database.tools  # type: ignore
-        route = api_routes.explore_organizers_group_slug_tools
+        route = api_routes.explore_groups_group_slug_organizers_tools
 
     organizers = repo.create_many(
         [item_class(name=random_string(), group_id=unique_user.group_id) for _ in range(random_int(15, 20))]
@@ -71,6 +63,8 @@ def test_get_all_organizers(
 
     ## Test Organizers
     response = api_client.get(route(unique_user.group_id))
+
+    # whether or not the household is private shouldn't affect food visibility
     if is_private_group:
         assert response.status_code == 404
         return
@@ -83,58 +77,53 @@ def test_get_all_organizers(
         assert str(organizer.id) in fetched_ids
 
 
-@pytest.mark.parametrize(
-    "organizer_type, is_private_group",
-    [
-        (OrganizerType.categories, True),
-        (OrganizerType.categories, False),
-        (OrganizerType.tags, True),
-        (OrganizerType.tags, False),
-        (OrganizerType.tools, True),
-        (OrganizerType.tools, False),
-    ],
-    ids=[
-        "private_group_category",
-        "public_group_category",
-        "private_group_tag",
-        "public_group_tag",
-        "private_group_tool",
-        "public_group_tool",
-    ],
-)
+@pytest.mark.parametrize("organizer_type", [OrganizerType.categories, OrganizerType.tags, OrganizerType.tools])
+@pytest.mark.parametrize("is_private_group", [True, False])
+@pytest.mark.parametrize("is_private_household", [True, False])
 def test_get_one_organizer(
     api_client: TestClient,
     unique_user: TestUser,
-    database: AllRepositories,
     organizer_type: OrganizerType,
     is_private_group: bool,
+    is_private_household: bool,
 ):
+    database = unique_user.repos
+
     ## Set Up Group
     group = database.groups.get_one(unique_user.group_id)
     assert group and group.preferences
 
     group.preferences.private_group = is_private_group
-    group.preferences.recipe_public = not is_private_group
     database.group_preferences.update(group.id, group.preferences)
+
+    ## Set Up Household
+    household = database.households.get_one(unique_user.household_id)
+    assert household and household.preferences
+
+    household.preferences.private_household = is_private_household
+    household.preferences.recipe_public = not is_private_household
+    database.household_preferences.update(household.id, household.preferences)
 
     ## Set Up Organizer
     if organizer_type is OrganizerType.categories:
         item_class = CategorySave
         repo = database.categories  # type: ignore
-        route = api_routes.explore_organizers_group_slug_categories_item_id
+        route = api_routes.explore_groups_group_slug_organizers_categories_item_id
     elif organizer_type is OrganizerType.tags:
         item_class = TagSave
         repo = database.tags  # type: ignore
-        route = api_routes.explore_organizers_group_slug_tags_item_id
+        route = api_routes.explore_groups_group_slug_organizers_tags_item_id
     else:
         item_class = RecipeToolSave
         repo = database.tools  # type: ignore
-        route = api_routes.explore_organizers_group_slug_tools_item_id
+        route = api_routes.explore_groups_group_slug_organizers_tools_item_id
 
     organizer = repo.create(item_class(name=random_string(), group_id=unique_user.group_id))
 
     ## Test Organizer
     response = api_client.get(route(unique_user.group_id, organizer.id))
+
+    # whether or not the household is private shouldn't affect food visibility
     if is_private_group:
         assert response.status_code == 404
         return

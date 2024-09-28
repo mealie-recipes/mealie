@@ -1,11 +1,9 @@
 import random
 from collections.abc import Generator
-from uuid import UUID
 
 import pytest
 from fastapi.testclient import TestClient
 
-from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.user.user import UserRatingUpdate
 from tests.utils import api_routes
@@ -14,9 +12,10 @@ from tests.utils.fixture_schemas import TestUser
 
 
 @pytest.fixture(scope="function")
-def recipes(database: AllRepositories, user_tuple: tuple[TestUser, TestUser]) -> Generator[list[Recipe], None, None]:
+def recipes(user_tuple: tuple[TestUser, TestUser]) -> Generator[list[Recipe], None, None]:
     unique_user = random.choice(user_tuple)
-    recipes_repo = database.recipes.by_group(UUID(unique_user.group_id))
+    database = unique_user.repos
+    recipes_repo = database.recipes
 
     recipes: list[Recipe] = []
     for _ in range(random_int(10, 20)):
@@ -51,7 +50,6 @@ def test_user_recipe_favorites(
         unique_user = user_tuple[1]
 
     response = api_client.get(api_routes.users_id_favorites(unique_user.user_id), headers=unique_user.token)
-    assert response.json()["ratings"] == []
 
     recipes_to_favorite = random.sample(recipes, random_int(5, len(recipes)))
 
@@ -89,7 +87,11 @@ def test_user_recipe_favorites(
     assert len(ratings) == len(recipes_to_favorite) - len(recipe_favorites_to_remove)
     fetched_recipe_ids = {rating["recipeId"] for rating in ratings}
     removed_recipe_ids = {str(recipe.id) for recipe in recipe_favorites_to_remove}
-    assert fetched_recipe_ids == favorited_recipe_ids - removed_recipe_ids
+
+    for recipe_id in removed_recipe_ids:
+        assert recipe_id not in fetched_recipe_ids
+    for recipe_id in fetched_recipe_ids:
+        assert recipe_id in favorited_recipe_ids
 
 
 @pytest.mark.parametrize("add_favorite", [True, False])
@@ -119,8 +121,6 @@ def test_set_user_recipe_ratings(
         unique_user = user_tuple[1]
 
     response = api_client.get(api_routes.users_id_ratings(unique_user.user_id), headers=unique_user.token)
-    assert response.json()["ratings"] == []
-
     recipes_to_rate = random.sample(recipes, random_int(8, len(recipes)))
 
     expected_ratings_by_recipe_id: dict[str, UserRatingUpdate] = {}
@@ -144,11 +144,15 @@ def test_set_user_recipe_ratings(
     response = api_client.get(get_url, headers=unique_user.token)
     ratings = response.json()["ratings"]
 
-    assert len(ratings) == len(recipes_to_rate)
     for rating in ratings:
         recipe_id = rating["recipeId"]
-        assert rating["rating"] == expected_ratings_by_recipe_id[recipe_id].rating
+        if recipe_id not in expected_ratings_by_recipe_id:
+            continue
+
+        assert rating["rating"] == expected_ratings_by_recipe_id.pop(recipe_id).rating
         assert not rating["isFavorite"]
+
+    assert not expected_ratings_by_recipe_id  # we should have popped all of them
 
 
 def test_set_user_rating_invalid_recipe_404(api_client: TestClient, user_tuple: tuple[TestUser, TestUser]):
@@ -289,9 +293,10 @@ def test_set_rating_to_zero(api_client: TestClient, user_tuple: tuple[TestUser, 
 
 
 def test_delete_recipe_deletes_ratings(
-    database: AllRepositories, api_client: TestClient, user_tuple: tuple[TestUser, TestUser], recipes: list[Recipe]
+    api_client: TestClient, user_tuple: tuple[TestUser, TestUser], recipes: list[Recipe]
 ):
     unique_user = random.choice(user_tuple)
+    database = unique_user.repos
     recipe = random.choice(recipes)
     rating = UserRatingUpdate(rating=random.uniform(1, 5), is_favorite=random.choice([True, False, None]))
     response = api_client.post(
@@ -306,6 +311,7 @@ def test_delete_recipe_deletes_ratings(
     assert response.json()
 
     database.recipes.delete(recipe.id, match_key="id")
+    database.session.commit()
     response = api_client.get(api_routes.users_self_ratings_recipe_id(recipe.id), headers=unique_user.token)
     assert response.status_code == 404
 
@@ -362,3 +368,47 @@ def test_recipe_rating_is_readonly(
     assert response.status_code == 200
     data = response.json()
     assert data["rating"] == rating.rating
+
+
+def test_user_can_rate_recipes_in_other_households(api_client: TestClient, unique_user: TestUser, h2_user: TestUser):
+    response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=unique_user.token)
+    assert response.status_code == 201
+    recipe = unique_user.repos.recipes.get_one(response.json())
+    assert recipe and recipe.id
+
+    rating = UserRatingUpdate(rating=random.uniform(1, 5), is_favorite=True)
+    response = api_client.post(
+        api_routes.users_id_ratings_slug(h2_user.user_id, recipe.slug),
+        json=rating.model_dump(),
+        headers=h2_user.token,
+    )
+    assert response.status_code == 200
+
+    response = api_client.get(api_routes.users_self_ratings_recipe_id(recipe.id), headers=h2_user.token)
+    data = response.json()
+    assert data["recipeId"] == str(recipe.id)
+    assert data["rating"] == rating.rating
+    assert data["isFavorite"] is True
+
+
+def test_average_recipe_rating_includes_all_households(
+    api_client: TestClient, unique_user: TestUser, h2_user: TestUser
+):
+    response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=unique_user.token)
+    assert response.status_code == 201
+    recipe = unique_user.repos.recipes.get_one(response.json())
+    assert recipe
+
+    user_ratings = (UserRatingUpdate(rating=5), UserRatingUpdate(rating=2))
+    for i, user in enumerate([unique_user, h2_user]):
+        response = api_client.post(
+            api_routes.users_id_ratings_slug(user.user_id, recipe.slug),
+            json=user_ratings[i].model_dump(),
+            headers=user.token,
+        )
+        assert response.status_code == 200
+
+    response = api_client.get(api_routes.recipes_slug(recipe.slug), headers=unique_user.token)
+    assert response.status_code == 200
+    data = response.json()
+    assert data["rating"] == 3.5

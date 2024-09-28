@@ -1,14 +1,21 @@
+from collections.abc import Generator
+
 import pytest
+from sqlalchemy.orm import Session, sessionmaker
 
 from mealie.db.db_setup import SessionLocal
 from mealie.repos.all_repositories import AllRepositories, get_repositories
 
 
-@pytest.fixture()
-def database() -> AllRepositories:
+@pytest.fixture(scope="module")
+def session() -> Generator[sessionmaker[Session], None, None]:
     try:
-        db = SessionLocal()
-        yield get_repositories(db)
-
+        sess = SessionLocal()
+        yield sess
     finally:
-        db.close()
+        sess.close()
+
+
+@pytest.fixture()
+def unfiltered_database(session: Session) -> Generator[AllRepositories, None, None]:
+    yield get_repositories(session, group_id=None, household_id=None)

@@ -4,6 +4,7 @@ from functools import cached_property
 from fastapi import Depends, File, Form, HTTPException
 from pydantic import UUID4
 
+from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import BaseCrudController, controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
@@ -31,8 +32,8 @@ class RecipeTimelineEventsController(BaseCrudController):
         return self.repos.recipe_timeline_events
 
     @cached_property
-    def recipes_repo(self):
-        return self.repos.recipes.by_group(self.group_id)
+    def group_recipes(self):
+        return get_repositories(self.session, group_id=self.group_id, household_id=None).recipes
 
     @cached_property
     def mixins(self):
@@ -57,7 +58,7 @@ class RecipeTimelineEventsController(BaseCrudController):
         # if the user id is not specified, use the currently-authenticated user
         data.user_id = data.user_id or self.user.id
 
-        recipe = self.recipes_repo.get_one(data.recipe_id, "id")
+        recipe = self.group_recipes.get_one(data.recipe_id, "id")
         if not recipe:
             raise HTTPException(status_code=404, detail="recipe not found")
 
@@ -69,6 +70,8 @@ class RecipeTimelineEventsController(BaseCrudController):
             document_data=EventRecipeTimelineEventData(
                 operation=EventOperation.create, recipe_slug=recipe.slug, recipe_timeline_event_id=event.id
             ),
+            group_id=recipe.group_id,
+            household_id=recipe.household_id,
             message=self.t(
                 "notifications.generic-updated-with-url",
                 name=recipe.name,
@@ -85,13 +88,15 @@ class RecipeTimelineEventsController(BaseCrudController):
     @events_router.put("/{item_id}", response_model=RecipeTimelineEventOut)
     def update_one(self, item_id: UUID4, data: RecipeTimelineEventUpdate):
         event = self.mixins.patch_one(data, item_id)
-        recipe = self.recipes_repo.get_one(event.recipe_id, "id")
+        recipe = self.group_recipes.get_one(event.recipe_id, "id")
         if recipe:
             self.publish_event(
                 event_type=EventTypes.recipe_updated,
                 document_data=EventRecipeTimelineEventData(
                     operation=EventOperation.update, recipe_slug=recipe.slug, recipe_timeline_event_id=event.id
                 ),
+                group_id=recipe.group_id,
+                household_id=recipe.household_id,
                 message=self.t(
                     "notifications.generic-updated-with-url",
                     name=recipe.name,
@@ -110,13 +115,15 @@ class RecipeTimelineEventsController(BaseCrudController):
             except FileNotFoundError:
                 pass
 
-        recipe = self.recipes_repo.get_one(event.recipe_id, "id")
+        recipe = self.group_recipes.get_one(event.recipe_id, "id")
         if recipe:
             self.publish_event(
                 event_type=EventTypes.recipe_updated,
                 document_data=EventRecipeTimelineEventData(
                     operation=EventOperation.delete, recipe_slug=recipe.slug, recipe_timeline_event_id=event.id
                 ),
+                group_id=recipe.group_id,
+                household_id=recipe.household_id,
                 message=self.t(
                     "notifications.generic-updated-with-url",
                     name=recipe.name,
@@ -138,13 +145,15 @@ class RecipeTimelineEventsController(BaseCrudController):
         if event.image != TimelineEventImage.has_image.value:
             event.image = TimelineEventImage.has_image
             event = self.mixins.patch_one(event.cast(RecipeTimelineEventUpdate), event.id)
-            recipe = self.recipes_repo.get_one(event.recipe_id, "id")
+            recipe = self.group_recipes.get_one(event.recipe_id, "id")
             if recipe:
                 self.publish_event(
                     event_type=EventTypes.recipe_updated,
                     document_data=EventRecipeTimelineEventData(
                         operation=EventOperation.update, recipe_slug=recipe.slug, recipe_timeline_event_id=event.id
                     ),
+                    group_id=recipe.group_id,
+                    household_id=recipe.household_id,
                     message=self.t(
                         "notifications.generic-updated-with-url",
                         name=recipe.name,

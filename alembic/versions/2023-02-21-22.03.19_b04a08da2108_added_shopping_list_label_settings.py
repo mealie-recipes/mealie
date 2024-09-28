@@ -13,14 +13,32 @@ from sqlalchemy import orm
 
 import mealie.db.migration_types
 from alembic import op
-from mealie.db.models.group.shopping_list import ShoppingList
-from mealie.db.models.labels import MultiPurposeLabel
+from mealie.db.models._model_utils.guid import GUID
 
 # revision identifiers, used by Alembic.
 revision = "b04a08da2108"
 down_revision = "5ab195a474eb"
-branch_labels = None
-depends_on = None
+branch_labels: str | tuple[str, ...] | None = None
+depends_on: str | tuple[str, ...] | None = None
+
+
+# Intermediate table definitions
+class SqlAlchemyBase(orm.DeclarativeBase):
+    pass
+
+
+class ShoppingList(SqlAlchemyBase):
+    __tablename__ = "shopping_lists"
+
+    id: orm.Mapped[GUID] = orm.mapped_column(GUID, primary_key=True, default=GUID.generate)
+    group_id: orm.Mapped[GUID] = orm.mapped_column(GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)
+
+
+class MultiPurposeLabel(SqlAlchemyBase):
+    __tablename__ = "multi_purpose_labels"
+
+    id: orm.Mapped[GUID] = orm.mapped_column(GUID, primary_key=True, default=GUID.generate)
+    group_id: orm.Mapped[GUID] = orm.mapped_column(GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)
 
 
 def populate_shopping_lists_multi_purpose_labels(

@@ -65,12 +65,12 @@ class OpenAILocalImage(OpenAIImageBase):
     path: Path
 
     def get_image_url(self) -> str:
-        image = img.PillowMinifier.to_webp(
-            self.path, dest=self.path.parent.joinpath(f"{self.filename}-min-original.webp")
+        image = img.PillowMinifier.to_jpg(
+            self.path, dest=self.path.parent.joinpath(f"{self.filename}-min-original.jpg")
         )
         with open(image, "rb") as f:
             b64content = base64.b64encode(f.read()).decode("utf-8")
-        return f"data:image/webp;base64,{b64content}"
+        return f"data:image/jpg;base64,{b64content}"
 
 
 class OpenAIService(BaseService):
@@ -90,6 +90,8 @@ class OpenAIService(BaseService):
             base_url=settings.OPENAI_BASE_URL,
             api_key=settings.OPENAI_API_KEY,
             timeout=settings.OPENAI_REQUEST_TIMEOUT,
+            default_headers=settings.OPENAI_CUSTOM_HEADERS,
+            default_query=settings.OPENAI_CUSTOM_PARAMS,
         )
 
         super().__init__()
@@ -176,6 +178,5 @@ class OpenAIService(BaseService):
             if not response.choices:
                 return None
             return response.choices[0].message.content
-        except Exception:
-            self.logger.exception("OpenAI Request Failed")
-            return None
+        except Exception as e:
+            raise Exception(f"OpenAI Request Failed. {e.__class__.__name__}: {e}") from e

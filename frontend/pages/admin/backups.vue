@@ -60,7 +60,7 @@
           <i18n path="settings.backup.experimental-description" />
           </v-card-text>
         </BaseCardSectionTitle>
-        <v-toolbar color="background" flat class="justify-between">
+        <v-toolbar color="transparent" flat class="justify-between">
         <BaseButton class="mr-2" @click="createBackup"> {{ $t("settings.backup.create-heading") }} </BaseButton>
         <AppButtonUpload
                 :text-btn="false"

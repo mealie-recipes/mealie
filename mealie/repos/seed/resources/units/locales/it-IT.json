@@ -1,101 +1,140 @@
 {
     "teaspoon": {
         "name": "cucchiaino",
+        "plural_name": "cucchiaini",
         "description": "",
         "abbreviation": "cucchiaino"
     },
     "tablespoon": {
         "name": "cucchiaio",
+        "plural_name": "cucchiaio da tavola",
         "description": "",
         "abbreviation": "cucch.o"
     },
     "cup": {
         "name": "tazza",
+        "plural_name": "tazze",
         "description": "",
-        "abbreviation": "tazza"
+        "abbreviation": "c"
     },
     "fluid-ounce": {
         "name": "oncia liquida",
+        "plural_name": "once fluide",
         "description": "",
         "abbreviation": "fl oz"
     },
     "pint": {
         "name": "pinta",
+        "plural_name": "pinte",
         "description": "",
         "abbreviation": "pt"
     },
     "quart": {
         "name": "quarto di pinta",
+        "plural_name": "quarti",
         "description": "",
         "abbreviation": "qt"
     },
     "gallon": {
         "name": "gallone",
+        "plural_name": "galloni",
         "description": "",
         "abbreviation": "gal"
     },
     "milliliter": {
         "name": "millilitro",
+        "plural_name": "millilitri",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
         "name": "litro",
+        "plural_name": "litri",
         "description": "",
         "abbreviation": "l"
     },
     "pound": {
         "name": "libbra",
+        "plural_name": "libbre",
         "description": "",
-        "abbreviation": "lb"
+        "abbreviation": "lb",
+        "plural_abbreviation": "lb"
     },
     "ounce": {
         "name": "oncia",
+        "plural_name": "once",
         "description": "",
         "abbreviation": "oz"
     },
     "gram": {
         "name": "grammo",
+        "plural_name": "grammi",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
         "name": "chilogrammo",
+        "plural_name": "chilogrammi",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
         "name": "milligrammo",
+        "plural_name": "milligrammi",
         "description": "",
         "abbreviation": "mg"
     },
     "splash": {
         "name": "spruzzo",
+        "plural_name": "spruzzi",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
         "name": "pizzico",
+        "plural_name": "trattini",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
         "name": "porzione",
+        "plural_name": "porzioni",
         "description": "",
         "abbreviation": ""
     },
     "head": {
         "name": "testa",
+        "plural_name": "teste",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
         "name": "spicchio",
+        "plural_name": "spicchi",
         "description": "",
         "abbreviation": ""
     },
     "can": {
         "name": "lattina",
+        "plural_name": "lattine",
+        "description": "",
+        "abbreviation": ""
+    },
+    "bunch": {
+        "name": "mucchio",
+        "plural_name": "mucchi",
+        "description": "",
+        "abbreviation": ""
+    },
+    "pack": {
+        "name": "confezione",
+        "plural_name": "confezioni",
+        "description": "",
+        "abbreviation": ""
+    },
+    "pinch": {
+        "name": "pizzico",
+        "plural_name": "pizzichi",
         "description": "",
         "abbreviation": ""
     }

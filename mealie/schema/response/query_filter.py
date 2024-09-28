@@ -10,6 +10,7 @@ from dateutil import parser as date_parser
 from dateutil.parser import ParserError
 from humps import decamelize
 from sqlalchemy import ColumnElement, Select, and_, inspect, or_
+from sqlalchemy.ext.associationproxy import AssociationProxyInstance
 from sqlalchemy.orm import InstrumentedAttribute, Mapper
 from sqlalchemy.sql import sqltypes
 
@@ -255,7 +256,9 @@ class QueryFilter:
         Works with shallow attributes (e.g. "slug" from `RecipeModel`)
         and arbitrarily deep ones (e.g. "recipe.group.preferences" on `RecipeTimelineEvent`).
         """
+        mapper: Mapper
         model_attr: InstrumentedAttribute | None = None
+
         attribute_chain = attr_string.split(".")
         if not attribute_chain:
             raise ValueError("invalid query string: attribute name cannot be empty")
@@ -265,16 +268,29 @@ class QueryFilter:
             try:
                 model_attr = getattr(current_model, attribute_link)
 
+                # proxied attributes can't be joined to the query directly, so we need to inspect the proxy
+                # and get the actual model and its attribute
+                if isinstance(model_attr, AssociationProxyInstance):
+                    proxied_attribute_link = model_attr.target_collection
+                    next_attribute_link = model_attr.value_attr
+                    model_attr = getattr(current_model, proxied_attribute_link)
+
+                    if query is not None:
+                        query = query.join(model_attr, isouter=True)
+
+                    mapper = inspect(current_model)
+                    relationship = mapper.relationships[proxied_attribute_link]
+                    current_model = relationship.mapper.class_
+                    model_attr = getattr(current_model, next_attribute_link)
+
                 # at the end of the chain there are no more relationships to inspect
                 if i == len(attribute_chain) - 1:
                     break
 
                 if query is not None:
-                    query = query.join(
-                        model_attr, isouter=True
-                    )  # we use outer joins to not unintentionally filter out values
+                    query = query.join(model_attr, isouter=True)
 
-                mapper: Mapper = inspect(current_model)
+                mapper = inspect(current_model)
                 relationship = mapper.relationships[attribute_link]
                 current_model = relationship.mapper.class_
 
