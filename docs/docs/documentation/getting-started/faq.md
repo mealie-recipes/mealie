@@ -33,7 +33,7 @@ Do the following for each recipe you want to intelligently handle ingredients.
 
 Scaling up this recipe or adding it to a Shopping List will now smartly take care of ingredient amounts and duplicate combinations.
 
-Note: Each recipe must have a servings count set for recipe scaling handling to work.
+Note: Each recipe must have a servings count set for recipe scaling to work.
 
 ## Is it safe to upgrade Mealie?
 
