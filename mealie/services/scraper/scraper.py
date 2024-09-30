@@ -50,6 +50,8 @@ async def create_from_url(url: str, translator: Translator) -> tuple[Recipe, Scr
     recipe_data_service = RecipeDataService(new_recipe.id)
 
     try:
+        if new_recipe.image and isinstance(new_recipe.image, list):
+            new_recipe.image = new_recipe.image[0]
         await recipe_data_service.scrape_image(new_recipe.image)  # type: ignore
 
         if new_recipe.name is None:
