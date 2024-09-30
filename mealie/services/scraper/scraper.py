@@ -21,24 +21,28 @@ class ParserErrors(str, Enum):
     CONNECTION_ERROR = "CONNECTION_ERROR"
 
 
-async def create_from_url(url: str, translator: Translator) -> tuple[Recipe, ScrapedExtras | None]:
+async def create_from_html(
+    url: str, translator: Translator, html: str | None = None
+) -> tuple[Recipe, ScrapedExtras | None]:
     """Main entry point for generating a recipe from a URL. Pass in a URL and
-    a Recipe object will be returned if successful.
+    a Recipe object will be returned if successful. Optionally pass in the HTML to skip fetching it.
 
     Args:
         url (str): a valid string representing a URL
+        html (str | None): optional HTML string to skip network request. Defaults to None.
 
     Returns:
         Recipe: Recipe Object
     """
     scraper = RecipeScraper(translator)
 
-    extracted_url = regex_search(r"(https?://|www\.)[^\s]+", url)
+    if not html:
+        extracted_url = regex_search(r"(https?://|www\.)[^\s]+", url)
+        if not extracted_url:
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, {"details": ParserErrors.BAD_RECIPE_DATA.value})
+        url = extracted_url.group(0)
 
-    if not extracted_url:
-        raise HTTPException(status.HTTP_400_BAD_REQUEST, {"details": ParserErrors.BAD_RECIPE_DATA.value})
-
-    new_recipe, extras = await scraper.scrape(extracted_url.group(0))
+    new_recipe, extras = await scraper.scrape(url, html)
 
     if not new_recipe:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, {"details": ParserErrors.BAD_RECIPE_DATA.value})

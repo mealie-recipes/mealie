@@ -40,7 +40,7 @@ from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.make_dependable import make_dependable
-from mealie.schema.recipe import Recipe, RecipeImageTypes, ScrapeRecipe
+from mealie.schema.recipe import Recipe, RecipeImageTypes, ScrapeRecipe, ScrapeRecipeData
 from mealie.schema.recipe.recipe import (
     CreateRecipe,
     CreateRecipeByUrlBulk,
@@ -73,7 +73,7 @@ from mealie.services.recipe.recipe_service import RecipeService
 from mealie.services.recipe.template_service import TemplateService
 from mealie.services.scraper.recipe_bulk_scraper import RecipeBulkScraperService
 from mealie.services.scraper.scraped_extras import ScraperContext
-from mealie.services.scraper.scraper import create_from_url
+from mealie.services.scraper.scraper import create_from_html
 from mealie.services.scraper.scraper_strategies import (
     ForceTimeoutException,
     RecipeScraperOpenAI,
@@ -201,11 +201,31 @@ class RecipeController(BaseRecipeController):
     # =======================================================================
     # URL Scraping Operations
 
-    @router.post("/create-url", status_code=201, response_model=str)
+    @router.post("/create/html-or-json", status_code=201)
+    async def create_recipe_from_html_or_json(self, req: ScrapeRecipeData):
+        """Takes in raw HTML or a https://schema.org/Recipe object as a JSON string and parses it like a URL"""
+
+        if req.data.startswith("{"):
+            req.data = RecipeScraperPackage.ld_json_to_html(req.data)
+
+        return await self._create_recipe_from_web(req)
+
+    @router.post("/create/url", status_code=201, response_model=str)
     async def parse_recipe_url(self, req: ScrapeRecipe):
         """Takes in a URL and attempts to scrape data and load it into the database"""
+
+        return await self._create_recipe_from_web(req)
+
+    async def _create_recipe_from_web(self, req: ScrapeRecipe | ScrapeRecipeData):
+        if isinstance(req, ScrapeRecipeData):
+            html = req.data
+            url = ""
+        else:
+            html = None
+            url = req.url
+
         try:
-            recipe, extras = await create_from_url(req.url, self.translator)
+            recipe, extras = await create_from_html(url, self.translator, html)
         except ForceTimeoutException as e:
             raise HTTPException(
                 status_code=408, detail=ErrorResponse.respond(message="Recipe Scraping Timed Out")
@@ -233,7 +253,7 @@ class RecipeController(BaseRecipeController):
 
         return new_recipe.slug
 
-    @router.post("/create-url/bulk", status_code=202)
+    @router.post("/create/url/bulk", status_code=202)
     def parse_recipe_url_bulk(self, bulk: CreateRecipeByUrlBulk, bg_tasks: BackgroundTasks):
         """Takes in a URL and attempts to scrape data and load it into the database"""
         bulk_scraper = RecipeBulkScraperService(self.service, self.repos, self.group, self.translator)
@@ -266,7 +286,7 @@ class RecipeController(BaseRecipeController):
     # ==================================================================================================================
     # Other Create Operations
 
-    @router.post("/create-from-zip", status_code=201)
+    @router.post("/create/zip", status_code=201)
     def create_recipe_from_zip(self, archive: UploadFile = File(...)):
         """Create recipe from archive"""
         with get_temporary_zip_path() as temp_path:
@@ -280,7 +300,7 @@ class RecipeController(BaseRecipeController):
 
         return recipe.slug
 
-    @router.post("/create-from-image", status_code=201)
+    @router.post("/create/image", status_code=201)
     async def create_recipe_from_image(
         self,
         images: list[UploadFile] = File(...),
