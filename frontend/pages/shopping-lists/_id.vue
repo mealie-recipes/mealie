@@ -278,6 +278,7 @@
         />
       </div>
     </v-lazy>
+    <WakelockSwitch/>
   </v-container>
 </template>
 
