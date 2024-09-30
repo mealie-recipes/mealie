@@ -119,6 +119,14 @@ class ABCScraperStrategy(ABC):
 
 
 class RecipeScraperPackage(ABCScraperStrategy):
+    @staticmethod
+    def ld_json_to_html(ld_json: str) -> str:
+        return (
+            "<!DOCTYPE html><html><head>"
+            f'<script type="application/ld+json">{ld_json}</script>'
+            "</head><body></body></html>"
+        )
+
     async def get_html(self, url: str) -> str:
         return self.raw_html or await safe_scrape_html(url)
 
@@ -192,7 +200,7 @@ class RecipeScraperPackage(ABCScraperStrategy):
             total_time=try_get_default(None, "totalTime", None, cleaner.clean_time, translator=self.translator),
             prep_time=try_get_default(None, "prepTime", None, cleaner.clean_time, translator=self.translator),
             perform_time=cook_time,
-            org_url=url,
+            org_url=url or try_get_default(None, "url", None, cleaner.clean_string),
         )
 
         return recipe, extras
@@ -201,7 +209,8 @@ class RecipeScraperPackage(ABCScraperStrategy):
         recipe_html = await self.get_html(self.url)
 
         try:
-            scraped_schema = scrape_html(recipe_html, org_url=self.url, supported_only=False)
+            # scrape_html requires a URL, but we might not have one, so we default to a dummy URL
+            scraped_schema = scrape_html(recipe_html, org_url=self.url or "https://example.com", supported_only=False)
         except (NoSchemaFoundInWildMode, AttributeError):
             self.logger.error(f"Recipe Scraper was unable to extract a recipe from {self.url}")
             return None
@@ -300,11 +309,10 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
             prompt = service.get_prompt("recipes.scrape-recipe")
 
             response_json = await service.get_response(prompt, text, force_json_response=True)
-            return (
-                "<!DOCTYPE html><html><head>"
-                f'<script type="application/ld+json">{response_json}</script>'
-                "</head><body></body></html>"
-            )
+            if not response_json:
+                raise Exception("OpenAI did not return any data")
+
+            return self.ld_json_to_html(response_json)
         except Exception:
             self.logger.exception(f"OpenAI was unable to extract a recipe from {url}")
             return ""
@@ -340,7 +348,7 @@ class RecipeScraperOpenGraph(ABCScraperStrategy):
             "recipeIngredient": ["Could not detect ingredients"],
             "recipeInstructions": [{"text": "Could not detect instructions"}],
             "slug": slugify(og_field(properties, "og:title")),
-            "orgURL": self.url,
+            "orgURL": self.url or og_field(properties, "og:url"),
             "categories": [],
             "tags": og_fields(properties, "og:article:tag"),
             "dateAdded": None,

@@ -32,12 +32,13 @@ class RecipeScraper:
         self.scrapers = scrapers
         self.translator = translator
 
-    async def scrape(self, url: str) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
+    async def scrape(self, url: str, html: str | None = None) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
         """
         Scrapes a recipe from the web.
+        Skips the network request if `html` is provided.
         """
 
-        raw_html = await safe_scrape_html(url)
+        raw_html = html or await safe_scrape_html(url)
         for scraper_type in self.scrapers:
             scraper = scraper_type(url, self.translator, raw_html=raw_html)
             result = await scraper.parse()

@@ -15,6 +15,10 @@ We have renamed the `updateAt` field to `updatedAt`. While the API will still ac
 ### Backend Endpoint Changes
 
 These endpoints have moved, but are otherwise unchanged:
+- `/recipes/create-url` -> `/recipes/create/url`
+- `/recipes/create-url/bulk` -> `/recipes/create/url/bulk`
+- `/recipes/create-from-zip` -> `/recipes/create/zip`
+- `/recipes/create-from-image` -> `/recipes/create/image`
 - `/groups/webhooks` -> `/households/webhooks`
 - `/groups/shopping/items` -> `/households/shopping/items`
 - `/groups/shopping/lists` -> `/households/shopping/lists`
