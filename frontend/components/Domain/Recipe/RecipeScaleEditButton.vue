@@ -8,7 +8,7 @@
               <span v-if="!recipeYield"> x {{ scale }} </span>
               <div v-else-if="!numberParsed && recipeYield">
                 <span v-if="numerator === 1"> {{ recipeYield }} </span>
-                <span v-else> {{ numerator }}x {{ recipeYield }} </span>
+                <span v-else> {{ numerator }}x {{ scaledYield }} </span>
               </div>
               <span v-else> {{ scaledYield }} </span>
 
@@ -97,13 +97,12 @@ export default defineComponent({
       },
     });
 
-    const numerator = ref<number>(props.basicYieldNum ?? 1);
-    const denominator = props.basicYieldNum ?? 1;
+    const numerator = ref<number>(parseFloat(props.basicYieldNum.toFixed(3)) ?? 1);
+    const denominator = parseFloat(props.basicYieldNum.toFixed(32)) ?? 1;
     const numberParsed = !!props.basicYieldNum;
 
-    watch(() => numerator.value, (newValue) => {
-      console.log("newValue", newValue);
-      scale.value = numerator.value / denominator;
+    watch(() => numerator.value, () => {
+      scale.value = parseFloat((numerator.value / denominator).toFixed(3));
     });
     const disableDecrement = computed(() => {
       return numerator.value <= 1;
