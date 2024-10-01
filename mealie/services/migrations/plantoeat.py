@@ -74,6 +74,8 @@ class PlanToEatMigrator(BaseMigrator):
         nut_dict["sodiumContent"] = get_value_as_string_or_none(row, "Sodium")
         nut_dict["sugarContent"] = get_value_as_string_or_none(row, "Sugar")
 
+        # FIXME: do we have the other schema.org values here to migrate?
+
         return cleaner.clean_nutrition(nut_dict)
 
     def _get_categories_from_row(self, row: dict) -> list[str]:
