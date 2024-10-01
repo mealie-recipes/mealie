@@ -31,13 +31,24 @@ export interface ListItem {
   quantity?: number;
   checked?: boolean;
 }
+export interface PlanCategory {
+  id: string;
+  name: string;
+  slug: string;
+}
+export interface PlanHousehold {
+  id: string;
+  name: string;
+  slug: string;
+}
 export interface PlanRulesCreate {
   day?: PlanRulesDay & string;
   entryType?: PlanRulesType & string;
-  categories?: Category[];
-  tags?: Tag[];
+  categories?: PlanCategory[];
+  tags?: PlanTag[];
+  households?: PlanHousehold[];
 }
-export interface Tag {
+export interface PlanTag {
   id: string;
   name: string;
   slug: string;
@@ -45,8 +56,9 @@ export interface Tag {
 export interface PlanRulesOut {
   day?: PlanRulesDay & string;
   entryType?: PlanRulesType & string;
-  categories?: Category[];
-  tags?: Tag[];
+  categories?: PlanCategory[];
+  tags?: PlanTag[];
+  households?: PlanHousehold[];
   groupId: string;
   householdId: string;
   id: string;
@@ -54,8 +66,9 @@ export interface PlanRulesOut {
 export interface PlanRulesSave {
   day?: PlanRulesDay & string;
   entryType?: PlanRulesType & string;
-  categories?: Category[];
-  tags?: Tag[];
+  categories?: PlanCategory[];
+  tags?: PlanTag[];
+  households?: PlanHousehold[];
   groupId: string;
   householdId: string;
 }

@@ -232,7 +232,7 @@ export default defineComponent({
       editLabel.value = item;
 
       if (!editLabel.value.color) {
-        editLabel.value.color = "#E0E0E0";
+        editLabel.value.color = "#959595";
       }
     }
 

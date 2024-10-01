@@ -315,6 +315,10 @@
     "mealplan-settings": "Mealplan Settings",
     "mealplan-update-failed": "Mealplan update failed",
     "mealplan-updated": "Mealplan Updated",
+    "mealplan-households-description": "If no household is selected, recipes can be added from any household",
+    "any-category": "Any Category",
+    "any-tag": "Any Tag",
+    "any-household": "Any Household",
     "no-meal-plan-defined-yet": "No meal plan defined yet",
     "no-meal-planned-for-today": "No meal planned for today",
     "numberOfDays-hint": "Number of days on page load",
@@ -652,6 +656,7 @@
     "or": "Or",
     "has-any": "Has Any",
     "has-all": "Has All",
+    "clear-selection": "Clear Selection",
     "results": "Results",
     "search": "검색",
     "search-mealie": "Search Mealie (press /)",
@@ -1245,7 +1250,11 @@
       "here-are-a-few-things-to-help-you-get-started": "Here are a few things to help you get started with Mealie",
       "restore-from-v1-backup": "Have a backup from a previous instance of Mealie v1? You can restore it here.",
       "manage-profile-or-get-invite-link": "Manage your own profile, or grab an invite link to share with others."
-    }
+    },
+    "debug-openai-services": "Debug OpenAI Services",
+    "debug-openai-services-description": "Use this page to debug OpenAI services. You can test your OpenAI connection and see the results here. If you have image services enabled, you can also provide an image.",
+    "run-test": "Run Test",
+    "test-results": "Test Results"
   },
   "profile": {
     "welcome-user": "👋 Welcome, {0}!",

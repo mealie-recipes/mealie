@@ -4,14 +4,15 @@ from functools import cached_property
 from fastapi import APIRouter, Depends, HTTPException
 
 from mealie.core.exceptions import mealie_registered_exceptions
+from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_meals import RepositoryMeals
 from mealie.routes._base import controller
 from mealie.routes._base.base_controllers import BaseCrudController
 from mealie.routes._base.mixins import HttpRepo
 from mealie.schema import mapper
 from mealie.schema.meal_plan import CreatePlanEntry, ReadPlanEntry, SavePlanEntry, UpdatePlanEntry
-from mealie.schema.meal_plan.new_meal import CreateRandomEntry, PlanEntryPagination
-from mealie.schema.meal_plan.plan_rules import PlanRulesDay
+from mealie.schema.meal_plan.new_meal import CreateRandomEntry, PlanEntryPagination, PlanEntryType
+from mealie.schema.meal_plan.plan_rules import PlanCategory, PlanHousehold, PlanRulesDay, PlanTag
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.response.responses import ErrorResponse
@@ -40,6 +41,47 @@ class GroupMealplanController(BaseCrudController):
             self.registered_exceptions,
         )
 
+    def _get_random_recipes_from_mealplan(
+        self, plan_date: date, entry_type: PlanEntryType, limit: int = 1
+    ) -> list[Recipe]:
+        """
+        Gets rules for a mealplan and returns a list of random recipes based on the rules.
+        May return zero recipes if no recipes match the filter criteria.
+
+        Recipes from all households are included unless the rules specify a household filter.
+        """
+
+        rules = self.repos.group_meal_plan_rules.get_rules(PlanRulesDay.from_date(plan_date), entry_type.value)
+        cross_household_recipes = get_repositories(self.session, group_id=self.group_id, household_id=None).recipes
+
+        tags: list[PlanTag] = []
+        categories: list[PlanCategory] = []
+        households: list[PlanHousehold] = []
+        for rule in rules:
+            if rule.tags:
+                tags.extend(rule.tags)
+            if rule.categories:
+                categories.extend(rule.categories)
+            if rule.households:
+                households.extend(rule.households)
+
+        if not (tags or categories or households):
+            return cross_household_recipes.get_random(limit=limit)
+
+        category_ids = [category.id for category in categories] or None
+        tag_ids = [tag.id for tag in tags] or None
+        household_ids = [household.id for household in households] or None
+
+        recipes_data = cross_household_recipes.page_all(
+            pagination=PaginationQuery(
+                page=1, per_page=limit, order_by="random", pagination_seed=self.repo._random_seed()
+            ),
+            categories=category_ids,
+            tags=tag_ids,
+            households=household_ids,
+        )
+        return recipes_data.items
+
     @router.get("/today")
     def get_todays_meals(self):
         return self.repo.get_today()
@@ -47,50 +89,29 @@ class GroupMealplanController(BaseCrudController):
     @router.post("/random", response_model=ReadPlanEntry)
     def create_random_meal(self, data: CreateRandomEntry):
         """
-        create_random_meal is a route that provides the randomized functionality for mealplaners.
-        It operates by following the rules setout in the Groups mealplan settings. If not settings
-        are set, it will default return any random meal.
+        `create_random_meal` is a route that provides the randomized functionality for mealplaners.
+        It operates by following the rules set out in the household's mealplan settings. If no settings
+        are set, it will return any random meal.
 
         Refer to the mealplan settings routes for more information on how rules can be applied
         to the random meal selector.
         """
-        # Get relevant group rules
-        rules = self.repos.group_meal_plan_rules.get_rules(PlanRulesDay.from_date(data.date), data.entry_type.value)
-
-        recipe_repo = self.repos.recipes
-        random_recipes: list[Recipe] = []
-
-        if not rules:  # If no rules are set, return any random recipe from the group
-            random_recipes = recipe_repo.get_random()
-        else:  # otherwise construct a query based on the rules
-            tags = []
-            categories = []
-            for rule in rules:
-                if rule.tags:
-                    tags.extend(rule.tags)
-                if rule.categories:
-                    categories.extend(rule.categories)
-
-            if tags or categories:
-                random_recipes = self.repos.recipes.get_random_by_categories_and_tags(categories, tags)
-            else:
-                random_recipes = recipe_repo.get_random()
-
-        try:
-            recipe = random_recipes[0]
-            return self.mixins.create_one(
-                SavePlanEntry(
-                    date=data.date,
-                    entry_type=data.entry_type,
-                    recipe_id=recipe.id,
-                    group_id=self.group_id,
-                    user_id=self.user.id,
-                )
-            )
-        except IndexError as e:
+        random_recipes = self._get_random_recipes_from_mealplan(data.date, data.entry_type)
+        if not random_recipes:
             raise HTTPException(
                 status_code=404, detail=ErrorResponse.respond(message=self.t("mealplan.no-recipes-match-your-rules"))
-            ) from e
+            )
+
+        recipe = random_recipes[0]
+        return self.mixins.create_one(
+            SavePlanEntry(
+                date=data.date,
+                entry_type=data.entry_type,
+                recipe_id=recipe.id,
+                group_id=self.group_id,
+                user_id=self.user.id,
+            )
+        )
 
     @router.get("", response_model=PlanEntryPagination)
     def get_all(

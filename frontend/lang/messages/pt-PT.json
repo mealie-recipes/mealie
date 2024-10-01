@@ -315,6 +315,10 @@
     "mealplan-settings": "Definições do Plano de Refeições",
     "mealplan-update-failed": "Erro ao atualizar o Plano de Refeições",
     "mealplan-updated": "Plano de Refeições atualizado",
+    "mealplan-households-description": "If no household is selected, recipes can be added from any household",
+    "any-category": "Any Category",
+    "any-tag": "Any Tag",
+    "any-household": "Any Household",
     "no-meal-plan-defined-yet": "Nenhum plano de refeições definido",
     "no-meal-planned-for-today": "Nenhum plano de refeições definido para hoje",
     "numberOfDays-hint": "Número de dias no carregamento da página",
@@ -652,6 +656,7 @@
     "or": "Ou",
     "has-any": "Tem algum",
     "has-all": "Tem todos",
+    "clear-selection": "Clear Selection",
     "results": "Resultados",
     "search": "Pesquisar",
     "search-mealie": "Procurar no Mealie (prima /)",
@@ -1245,7 +1250,11 @@
       "here-are-a-few-things-to-help-you-get-started": "Aqui estão algumas coisas para ajudar a começar com o Mealie",
       "restore-from-v1-backup": "Tem uma cópia de segurança de uma instância do Mealie v1? Pode restaurá-la aqui.",
       "manage-profile-or-get-invite-link": "Gira o seu próprio perfil ou pegue num convite para partilhar com outros."
-    }
+    },
+    "debug-openai-services": "Debug OpenAI Services",
+    "debug-openai-services-description": "Use this page to debug OpenAI services. You can test your OpenAI connection and see the results here. If you have image services enabled, you can also provide an image.",
+    "run-test": "Run Test",
+    "test-results": "Test Results"
   },
   "profile": {
     "welcome-user": "👋 Bem-vindo, {0}!",

@@ -33,6 +33,8 @@ Do the following for each recipe you want to intelligently handle ingredients.
 
 Scaling up this recipe or adding it to a Shopping List will now smartly take care of ingredient amounts and duplicate combinations.
 
+Note: Each recipe must have a servings count set for recipe scaling to work.
+
 ## Is it safe to upgrade Mealie?
 
 Yes. If you are using the v1 branches (including beta), you can upgrade to the latest version of Mealie without performing a site Export/Restore. This process was required in previous versions of Mealie, however we've automated the database migration process to make it easier to upgrade. Note that if you were using the v0.5.x version, you CANNOT upgrade to the latest version automatically. You must follow the migration instructions in the documentation.
@@ -98,13 +100,14 @@ python /app/mealie/scripts/change_password.py
 
 Follow the [steps above](#how-can-i-change-my-password) for changing your password. You will be prompted if you would like to switch your authentication method back to local auth so you can log in again.
 
-## How do private groups and recipes work?
+## How do private groups, households, and recipes work?
 
 Managing private groups and recipes can be confusing. The following diagram and notes should help explain how they work to determine if a recipe can be shared publicly.
 
 - Private links that are generated from the recipe page using the `Share` button bypass all group and recipe permissions
 - Private groups block all access to recipes, including those that are public, except as noted above.
-- Groups with "Allow users outside of your group to see your recipes" disabled block all access to recipes, except as noted above.
+- Private households, similar to private groups, block all access to recipes, except as noted above.
+- Households with "Allow users outside of your group to see your recipes" disabled block all access to recipes, except as noted above.
 - Private recipes block all access to the recipe from public links. This does not affect Private Links.
 
 ```mermaid
@@ -112,7 +115,8 @@ stateDiagram-v2
   r1: Request Access
   p1: Using Private Link?
   p2: Is Group Private?
-  p3: Is Recipe Private?
+  p3: Is Household Private?
+  p4: Is Recipe Private?
   s1: Deny Access
   n1: Allow Access
 
@@ -125,10 +129,13 @@ stateDiagram-v2
   p2 --> p3: No
 
   p3 --> s1: Yes
-  p3 --> n1: No
+  p3 --> p4: No
+
+  p4 --> s1: Yes
+  p4 --> n1: No
 ```
 
-For more information, check out the [Permissions and Public Access guide](./usage/permissions-and-public-access.md).
+For more information on public access, check out the [Permissions and Public Access guide](./usage/permissions-and-public-access.md). For more information on groups vs. households, check out the [Groups and Households](./features.md#groups-and-households) section in the Features guide.
 
 ## Can I use fail2ban with Mealie?
 Yes, Mealie is configured to properly forward external IP addresses into the `mealie.log` logfile. Note that due to restrictions in docker, IP address forwarding only works on Linux.

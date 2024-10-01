@@ -315,6 +315,10 @@
     "mealplan-settings": "Настройки плана питания",
     "mealplan-update-failed": "Не удалось обновить план питания",
     "mealplan-updated": "План питания обновлен",
+    "mealplan-households-description": "If no household is selected, recipes can be added from any household",
+    "any-category": "Any Category",
+    "any-tag": "Any Tag",
+    "any-household": "Any Household",
     "no-meal-plan-defined-yet": "План питания еще не определен",
     "no-meal-planned-for-today": "На сегодня нет запланированных блюд",
     "numberOfDays-hint": "Количество дней при загрузке страницы",
@@ -591,7 +595,7 @@
     "crop-and-rotate-the-image": "Crop and rotate the image so that only the text is visible, and it's in the correct orientation.",
     "create-from-image": "Create from Image",
     "should-translate-description": "Translate the recipe into my language",
-    "please-wait-image-procesing": "Please wait, the image is processing. This may take some time.",
+    "please-wait-image-procesing": "Подождите, идет обработка изображения.",
     "bulk-url-import": "Массовый импорт по URL",
     "debug-scraper": "Отладка сканирования",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Создайте рецепт, указав имя. Все рецепты должны иметь уникальные имена.",
@@ -636,7 +640,7 @@
       "natural-language-processor": "Natural Language Processor",
       "brute-parser": "Brute Parser",
       "openai-parser": "OpenAI Parser",
-      "parse-all": "Parse All",
+      "parse-all": "Обработать все",
       "no-unit": "No unit",
       "missing-unit": "Create missing unit: {unit}",
       "missing-food": "Create missing food: {food}",
@@ -652,6 +656,7 @@
     "or": "Или",
     "has-any": "Включает любое",
     "has-all": "Включает все",
+    "clear-selection": "Clear Selection",
     "results": "Результаты",
     "search": "Поиск",
     "search-mealie": "Поиск Mealie (нажмите /)",
@@ -1051,7 +1056,7 @@
       "edit-label": "Изменить метку",
       "new-label": "Новая метка",
       "labels": "Метки",
-      "assign-label": "Assign Label"
+      "assign-label": "Присвоить метку"
     },
     "recipes": {
       "purge-exports": "Очистить экспорты",
@@ -1245,7 +1250,11 @@
       "here-are-a-few-things-to-help-you-get-started": "Here are a few things to help you get started with Mealie",
       "restore-from-v1-backup": "Have a backup from a previous instance of Mealie v1? You can restore it here.",
       "manage-profile-or-get-invite-link": "Manage your own profile, or grab an invite link to share with others."
-    }
+    },
+    "debug-openai-services": "Debug OpenAI Services",
+    "debug-openai-services-description": "Use this page to debug OpenAI services. You can test your OpenAI connection and see the results here. If you have image services enabled, you can also provide an image.",
+    "run-test": "Run Test",
+    "test-results": "Test Results"
   },
   "profile": {
     "welcome-user": "👋 Добро пожаловать, {0}!",

@@ -315,6 +315,10 @@
     "mealplan-settings": "Madplansindstillinger",
     "mealplan-update-failed": "Ændring af madplanen fejlede",
     "mealplan-updated": "Madplanen blev ændret",
+    "mealplan-households-description": "If no household is selected, recipes can be added from any household",
+    "any-category": "Any Category",
+    "any-tag": "Any Tag",
+    "any-household": "Any Household",
     "no-meal-plan-defined-yet": "Ingen madplan er defineret",
     "no-meal-planned-for-today": "Ingen ret er planlagt til i dag",
     "numberOfDays-hint": "Antal dage ved sideindlæsning",
@@ -652,6 +656,7 @@
     "or": "Eller",
     "has-any": "Har Nogen",
     "has-all": "Har Alle",
+    "clear-selection": "Clear Selection",
     "results": "Resultater",
     "search": "Søg",
     "search-mealie": "Søg Mealie (tryk /)",
@@ -1245,7 +1250,11 @@
       "here-are-a-few-things-to-help-you-get-started": "Her er et par ting, der kan hjælpe dig i gang med Mealie",
       "restore-from-v1-backup": "Har du en sikkerhedskopi fra en tidligere udgave af Mealie v1? Du kan gendanne den her.",
       "manage-profile-or-get-invite-link": "Administrer din egen profil, eller tag et invitationslink til at dele med andre."
-    }
+    },
+    "debug-openai-services": "Debug OpenAI Services",
+    "debug-openai-services-description": "Use this page to debug OpenAI services. You can test your OpenAI connection and see the results here. If you have image services enabled, you can also provide an image.",
+    "run-test": "Run Test",
+    "test-results": "Test Results"
   },
   "profile": {
     "welcome-user": "👋 Velkommen, {0}!",

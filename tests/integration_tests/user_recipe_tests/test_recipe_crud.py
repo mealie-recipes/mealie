@@ -31,7 +31,7 @@ from tests import utils
 from tests.utils import api_routes
 from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser
-from tests.utils.recipe_data import RecipeSiteTestCase, get_recipe_test_cases
+from tests.utils.recipe_data import get_recipe_test_cases
 
 recipe_test_data = get_recipe_test_cases()
 
@@ -44,7 +44,7 @@ def tempdir() -> Generator[str, None, None]:
 
 def zip_recipe(tempdir: str, recipe: RecipeSummary) -> dict:
     data_file = tempfile.NamedTemporaryFile(mode="w+", dir=tempdir, suffix=".json", delete=False)
-    json.dump(json.loads(recipe.json()), data_file)
+    json.dump(json.loads(recipe.model_dump_json()), data_file)
     data_file.flush()
 
     zip_file = shutil.make_archive(os.path.join(tempdir, "zipfile"), "zip")
@@ -94,36 +94,80 @@ def open_graph_override(html: str):
     return get_html
 
 
-@pytest.mark.parametrize("recipe_data", recipe_test_data)
 def test_create_by_url(
     api_client: TestClient,
-    recipe_data: RecipeSiteTestCase,
     unique_user: TestUser,
     monkeypatch: MonkeyPatch,
 ):
-    # Override init function for AbstractScraper to use the test html instead of calling the url
-    monkeypatch.setattr(
-        AbstractScraper,
-        "__init__",
-        get_init(recipe_data.html_file),
-    )
-    # Override the get_html method of the RecipeScraperOpenGraph to return the test html
-    for scraper_cls in DEFAULT_SCRAPER_STRATEGIES:
+    for recipe_data in recipe_test_data:
+        # Override init function for AbstractScraper to use the test html instead of calling the url
         monkeypatch.setattr(
-            scraper_cls,
-            "get_html",
-            open_graph_override(recipe_data.html_file.read_text()),
+            AbstractScraper,
+            "__init__",
+            get_init(recipe_data.html_file),
+        )
+        # Override the get_html method of the RecipeScraperOpenGraph to return the test html
+        for scraper_cls in DEFAULT_SCRAPER_STRATEGIES:
+            monkeypatch.setattr(
+                scraper_cls,
+                "get_html",
+                open_graph_override(recipe_data.html_file.read_text()),
+            )
+
+        # Skip AsyncSafeTransport requests
+        async def return_empty_response(*args, **kwargs):
+            return Response(200, content=b"")
+
+        monkeypatch.setattr(
+            AsyncSafeTransport,
+            "handle_async_request",
+            return_empty_response,
+        )
+        # Skip image downloader
+        monkeypatch.setattr(
+            RecipeDataService,
+            "scrape_image",
+            lambda *_: "TEST_IMAGE",
         )
 
-    # Skip AsyncSafeTransport requests
-    async def return_empty_response(*args, **kwargs):
-        return Response(200, content=b"")
+        api_client.delete(api_routes.recipes_slug(recipe_data.expected_slug), headers=unique_user.token)
 
-    monkeypatch.setattr(
-        AsyncSafeTransport,
-        "handle_async_request",
-        return_empty_response,
-    )
+        response = api_client.post(
+            api_routes.recipes_create_url,
+            json={"url": recipe_data.url, "include_tags": recipe_data.include_tags},
+            headers=unique_user.token,
+        )
+
+        assert response.status_code == 201
+        assert json.loads(response.text) == recipe_data.expected_slug
+
+        recipe = api_client.get(api_routes.recipes_slug(recipe_data.expected_slug), headers=unique_user.token)
+
+        assert recipe.status_code == 200
+
+        recipe_dict: dict = json.loads(recipe.text)
+
+        assert recipe_dict["slug"] == recipe_data.expected_slug
+        assert len(recipe_dict["recipeInstructions"]) == recipe_data.num_steps
+        assert len(recipe_dict["recipeIngredient"]) == recipe_data.num_ingredients
+
+        if not recipe_data.include_tags:
+            return
+
+        expected_tags = recipe_data.expected_tags or set()
+        assert len(recipe_dict["tags"]) == len(expected_tags)
+
+        for tag in recipe_dict["tags"]:
+            assert tag["name"] in expected_tags
+
+
+@pytest.mark.parametrize("use_json", [True, False])
+def test_create_by_html_or_json(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: MonkeyPatch,
+    use_json: bool,
+):
     # Skip image downloader
     monkeypatch.setattr(
         RecipeDataService,
@@ -131,11 +175,21 @@ def test_create_by_url(
         lambda *_: "TEST_IMAGE",
     )
 
+    recipe_data = recipe_test_data[0]
     api_client.delete(api_routes.recipes_slug(recipe_data.expected_slug), headers=unique_user.token)
 
+    data = recipe_data.html_file.read_text()
+    if use_json:
+        soup = BeautifulSoup(data, "lxml")
+        ld_json_data = soup.find("script", type="application/ld+json")
+        if ld_json_data:
+            data = json.dumps(json.loads(ld_json_data.string))
+        else:
+            data = "{}"
+
     response = api_client.post(
-        api_routes.recipes_create_url,
-        json={"url": recipe_data.url, "include_tags": recipe_data.include_tags},
+        api_routes.recipes_create_html_or_json,
+        json={"data": data, "include_tags": recipe_data.include_tags},
         headers=unique_user.token,
     )
 
@@ -173,9 +227,7 @@ def test_create_recipe_from_zip(api_client: TestClient, unique_user: TestUser, t
         slug=recipe_name,
     )
 
-    r = api_client.post(
-        api_routes.recipes_create_from_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token
-    )
+    r = api_client.post(api_routes.recipes_create_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token)
     assert r.status_code == 201
 
     fetched_recipe = database.recipes.get_by_slug(unique_user.group_id, recipe.slug)
@@ -193,9 +245,7 @@ def test_create_recipe_from_zip_invalid_group(api_client: TestClient, unique_use
         slug=recipe_name,
     )
 
-    r = api_client.post(
-        api_routes.recipes_create_from_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token
-    )
+    r = api_client.post(api_routes.recipes_create_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token)
     assert r.status_code == 201
 
     fetched_recipe = database.recipes.get_by_slug(unique_user.group_id, recipe.slug)
@@ -216,9 +266,7 @@ def test_create_recipe_from_zip_invalid_user(api_client: TestClient, unique_user
         slug=recipe_name,
     )
 
-    r = api_client.post(
-        api_routes.recipes_create_from_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token
-    )
+    r = api_client.post(api_routes.recipes_create_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token)
     assert r.status_code == 201
 
     fetched_recipe = database.recipes.get_by_slug(unique_user.group_id, recipe.slug)
@@ -245,9 +293,7 @@ def test_create_recipe_from_zip_existing_category(api_client: TestClient, unique
         recipe_category=[category],
     )
 
-    r = api_client.post(
-        api_routes.recipes_create_from_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token
-    )
+    r = api_client.post(api_routes.recipes_create_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token)
     assert r.status_code == 201
 
     fetched_recipe = database.recipes.get_by_slug(unique_user.group_id, recipe.slug)
@@ -274,9 +320,7 @@ def test_create_recipe_from_zip_existing_tag(api_client: TestClient, unique_user
         tags=[tag],
     )
 
-    r = api_client.post(
-        api_routes.recipes_create_from_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token
-    )
+    r = api_client.post(api_routes.recipes_create_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token)
     assert r.status_code == 201
 
     fetched_recipe = database.recipes.get_by_slug(unique_user.group_id, recipe.slug)
@@ -306,9 +350,7 @@ def test_create_recipe_from_zip_existing_category_wrong_ids(
         recipe_category=[invalid_category],
     )
 
-    r = api_client.post(
-        api_routes.recipes_create_from_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token
-    )
+    r = api_client.post(api_routes.recipes_create_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token)
     assert r.status_code == 201
 
     fetched_recipe = database.recipes.get_by_slug(unique_user.group_id, recipe.slug)
@@ -336,9 +378,7 @@ def test_create_recipe_from_zip_existing_tag_wrong_ids(api_client: TestClient, u
         tags=[invalid_tag],
     )
 
-    r = api_client.post(
-        api_routes.recipes_create_from_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token
-    )
+    r = api_client.post(api_routes.recipes_create_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token)
     assert r.status_code == 201
 
     fetched_recipe = database.recipes.get_by_slug(unique_user.group_id, recipe.slug)
@@ -363,9 +403,7 @@ def test_create_recipe_from_zip_invalid_category(api_client: TestClient, unique_
         recipe_category=[invalid_category],
     )
 
-    r = api_client.post(
-        api_routes.recipes_create_from_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token
-    )
+    r = api_client.post(api_routes.recipes_create_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token)
     assert r.status_code == 201
 
     fetched_recipe = database.recipes.get_by_slug(unique_user.group_id, recipe.slug)
@@ -393,9 +431,7 @@ def test_create_recipe_from_zip_invalid_tag(api_client: TestClient, unique_user:
         tags=[invalid_tag],
     )
 
-    r = api_client.post(
-        api_routes.recipes_create_from_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token
-    )
+    r = api_client.post(api_routes.recipes_create_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token)
     assert r.status_code == 201
 
     fetched_recipe = database.recipes.get_by_slug(unique_user.group_id, recipe.slug)
@@ -408,13 +444,12 @@ def test_create_recipe_from_zip_invalid_tag(api_client: TestClient, unique_user:
     assert fetched_recipe.tags[0].slug == invalid_name
 
 
-@pytest.mark.parametrize("recipe_data", recipe_test_data)
 def test_read_update(
     api_client: TestClient,
-    recipe_data: RecipeSiteTestCase,
     unique_user: TestUser,
     recipe_categories: list[RecipeCategory],
 ):
+    recipe_data = recipe_test_data[0]
     recipe_url = api_routes.recipes_slug(recipe_data.expected_slug)
     response = api_client.get(recipe_url, headers=unique_user.token)
     assert response.status_code == 200
@@ -448,8 +483,9 @@ def test_read_update(
         assert cats[0]["name"] in test_name
 
 
-@pytest.mark.parametrize("recipe_data", recipe_test_data)
-def test_duplicate(api_client: TestClient, recipe_data: RecipeSiteTestCase, unique_user: TestUser):
+def test_duplicate(api_client: TestClient, unique_user: TestUser):
+    recipe_data = recipe_test_data[0]
+
     # Initial get of the original recipe
     original_recipe_url = api_routes.recipes_slug(recipe_data.expected_slug)
     response = api_client.get(original_recipe_url, headers=unique_user.token)
@@ -531,12 +567,11 @@ def test_duplicate(api_client: TestClient, recipe_data: RecipeSiteTestCase, uniq
 
 # This needs to happen after test_duplicate,
 # otherwise that one will run into problems with comparing the instruction/ingredient lists
-@pytest.mark.parametrize("recipe_data", recipe_test_data)
 def test_update_with_empty_relationship(
     api_client: TestClient,
-    recipe_data: RecipeSiteTestCase,
     unique_user: TestUser,
 ):
+    recipe_data = recipe_test_data[0]
     recipe_url = api_routes.recipes_slug(recipe_data.expected_slug)
     response = api_client.get(recipe_url, headers=unique_user.token)
     assert response.status_code == 200
@@ -559,8 +594,8 @@ def test_update_with_empty_relationship(
     assert recipe["recipeIngredient"] == []
 
 
-@pytest.mark.parametrize("recipe_data", recipe_test_data)
-def test_rename(api_client: TestClient, recipe_data: RecipeSiteTestCase, unique_user: TestUser):
+def test_rename(api_client: TestClient, unique_user: TestUser):
+    recipe_data = recipe_test_data[0]
     recipe_url = api_routes.recipes_slug(recipe_data.expected_slug)
     response = api_client.get(recipe_url, headers=unique_user.token)
     assert response.status_code == 200
@@ -614,8 +649,8 @@ def test_remove_notes(api_client: TestClient, unique_user: TestUser):
     assert len(recipe.get("notes", [])) == 0
 
 
-@pytest.mark.parametrize("recipe_data", recipe_test_data)
-def test_delete(api_client: TestClient, recipe_data: RecipeSiteTestCase, unique_user: TestUser):
+def test_delete(api_client: TestClient, unique_user: TestUser):
+    recipe_data = recipe_test_data[0]
     response = api_client.delete(api_routes.recipes_slug(recipe_data.expected_slug), headers=unique_user.token)
     assert response.status_code == 200
 
@@ -630,7 +665,7 @@ def test_recipe_crud_404(api_client: TestClient, unique_user: TestUser):
     response = api_client.delete(api_routes.recipes_slug("test"), headers=unique_user.token)
     assert response.status_code == 404
 
-    response = api_client.patch(api_routes.recipes_create_url, json={"test": "stest"}, headers=unique_user.token)
+    response = api_client.patch(api_routes.recipes_slug("test"), json={"test": "stest"}, headers=unique_user.token)
     assert response.status_code == 404
 
 

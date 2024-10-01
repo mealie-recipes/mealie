@@ -315,6 +315,10 @@
     "mealplan-settings": "Setările planului de mese",
     "mealplan-update-failed": "Actualizarea planului de mese a eșuat",
     "mealplan-updated": "Plan de mese actualizat",
+    "mealplan-households-description": "If no household is selected, recipes can be added from any household",
+    "any-category": "Any Category",
+    "any-tag": "Any Tag",
+    "any-household": "Any Household",
     "no-meal-plan-defined-yet": "Nici un plan de mese definit încă",
     "no-meal-planned-for-today": "Nicio masă planificată pentru astăzi",
     "numberOfDays-hint": "Număr de zile pe pagină încărcată",
@@ -652,6 +656,7 @@
     "or": "Sau",
     "has-any": "Are orice",
     "has-all": "Are toate",
+    "clear-selection": "Clear Selection",
     "results": "Rezultate",
     "search": "Caută",
     "search-mealie": "Căutare Mealie (apasă /)",
@@ -1245,7 +1250,11 @@
       "here-are-a-few-things-to-help-you-get-started": "Here are a few things to help you get started with Mealie",
       "restore-from-v1-backup": "Have a backup from a previous instance of Mealie v1? You can restore it here.",
       "manage-profile-or-get-invite-link": "Manage your own profile, or grab an invite link to share with others."
-    }
+    },
+    "debug-openai-services": "Debug OpenAI Services",
+    "debug-openai-services-description": "Use this page to debug OpenAI services. You can test your OpenAI connection and see the results here. If you have image services enabled, you can also provide an image.",
+    "run-test": "Run Test",
+    "test-results": "Test Results"
   },
   "profile": {
     "welcome-user": "👋 Welcome, {0}!",

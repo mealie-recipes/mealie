@@ -150,7 +150,8 @@ import {
   mdiRotateRight,
   mdiBookOpenPageVariant,
   mdiFileCabinet,
-  mdiSilverwareForkKnife
+  mdiSilverwareForkKnife,
+  mdiCodeTags,
 } from "@mdi/js";
 
 export const icons = {
@@ -192,6 +193,7 @@ export const icons = {
   clockOutline: mdiClockTimeFourOutline,
   codeBraces: mdiCodeJson,
   codeJson: mdiCodeJson,
+  codeTags: mdiCodeTags,
   cog: mdiCog,
   commentTextMultiple: mdiCommentTextMultiple,
   commentTextMultipleOutline: mdiCommentTextMultipleOutline,

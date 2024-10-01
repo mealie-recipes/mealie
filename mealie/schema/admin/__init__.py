@@ -8,6 +8,7 @@ from .about import (
     CheckAppConfig,
 )
 from .backup import AllBackups, BackupFile, BackupOptions, CreateBackup, ImportJob
+from .debug import DebugResponse
 from .email import EmailReady, EmailSuccess, EmailTest
 from .maintenance import MaintenanceLogs, MaintenanceStorageDetails, MaintenanceSummary
 from .migration import ChowdownURL, MigrationFile, MigrationImport, Migrations
@@ -55,4 +56,5 @@ __all__ = [
     "EmailReady",
     "EmailSuccess",
     "EmailTest",
+    "DebugResponse",
 ]

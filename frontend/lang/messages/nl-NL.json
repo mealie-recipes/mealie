@@ -315,6 +315,10 @@
     "mealplan-settings": "Maaltijdplaninstellingen",
     "mealplan-update-failed": "Maaltijdplan bijwerken mislukt",
     "mealplan-updated": "Maaltijdplan bijgewerkt",
+    "mealplan-households-description": "Als geen huishouden is geselecteerd, kunnen recepten vanuit elk huishouden worden toegevoegd",
+    "any-category": "Elke categorie",
+    "any-tag": "Elk label",
+    "any-household": "Elk huishouden",
     "no-meal-plan-defined-yet": "Nog geen maaltijdplan opgesteld",
     "no-meal-planned-for-today": "Geen maaltijd gepland voor vandaag",
     "numberOfDays-hint": "Aantal dagen bij laden van de pagina",
@@ -652,6 +656,7 @@
     "or": "Of",
     "has-any": "Heeft een van",
     "has-all": "Bevat alles",
+    "clear-selection": "Selectie wissen",
     "results": "Resultaten",
     "search": "Zoek",
     "search-mealie": "Zoek in Mealie (druk /)",
@@ -1245,7 +1250,11 @@
       "here-are-a-few-things-to-help-you-get-started": "Hier zijn een aantal dingen om je op weg te helpen met Mealie",
       "restore-from-v1-backup": "Heb je een back-up van een vorig exemplaar van Mealie v1? Deze kan je hier terugzetten.",
       "manage-profile-or-get-invite-link": "Beheer je eigen profiel, of gebruik een uitnodigingslink om te delen met anderen."
-    }
+    },
+    "debug-openai-services": "Debug OpenAI diensten",
+    "debug-openai-services-description": "Gebruik deze pagina om de OpenAI-diensten te debuggen. U kunt uw OpenAI-verbinding testen en de resultaten hier bekijken. Als u afbeeldingsdiensten hebt ingeschakeld, kunt u ook een afbeelding geven.",
+    "run-test": "Test starten",
+    "test-results": "Resultaten van de test"
   },
   "profile": {
     "welcome-user": "👋 Welkom, {0}!",

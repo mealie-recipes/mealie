@@ -472,8 +472,15 @@ export interface SaveIngredientUnit {
   groupId: string;
 }
 export interface ScrapeRecipe {
-  url: string;
   includeTags?: boolean;
+  url: string;
+}
+export interface ScrapeRecipeBase {
+  includeTags?: boolean;
+}
+export interface ScrapeRecipeData {
+  includeTags?: boolean;
+  data: string;
 }
 export interface ScrapeRecipeTest {
   url: string;
