@@ -1,13 +1,13 @@
 <template>
   <div class="d-flex justify-space-between align-center pt-2 pb-3">
-    <v-tooltip v-if="!isEditMode && recipe.recipeYield" small top color="secondary darken-1">
+    <v-tooltip v-if="!isEditMode" small top color="secondary darken-1">
       <template #activator="{ on, attrs }">
         <RecipeScaleEditButton
           v-model.number="scaleValue"
           v-bind="attrs"
           :recipe-yield="recipe.recipeYield"
-          :basic-yield="basicYield"
           :scaled-yield="scaledYield"
+          :basic-yield-num="basicYieldNum"
           :edit-scale="!recipe.settings.disableAmount && !isEditMode"
           v-on="on"
         />
@@ -27,13 +27,13 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "@nuxtjs/composition-api";
+import { computed, defineComponent, ref } from "@nuxtjs/composition-api";
 import RecipeScaleEditButton from "~/components/Domain/Recipe/RecipeScaleEditButton.vue";
 import RecipeRating from "~/components/Domain/Recipe/RecipeRating.vue";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { Recipe } from "~/lib/api/types/recipe";
 import { usePageState } from "~/composables/recipe-page/shared-state";
-import { useExtractRecipeYield } from "~/composables/recipe-page/use-extract-recipe-yield";
+import { useExtractRecipeYield, findMatch } from "~/composables/recipe-page/use-extract-recipe-yield";
 
 export default defineComponent({
   components: {
@@ -70,14 +70,13 @@ export default defineComponent({
       return useExtractRecipeYield(props.recipe.recipeYield, scaleValue.value);
     });
 
-    const basicYield = computed(() => {
-      return useExtractRecipeYield(props.recipe.recipeYield, 1);
-    });
+    const match = findMatch(props.recipe.recipeYield);
+    const basicYieldNum = ref<number |null>(match ? match[1] : null);
 
     return {
       scaleValue,
-      basicYield,
       scaledYield,
+      basicYieldNum,
       isEditMode,
     };
   },
