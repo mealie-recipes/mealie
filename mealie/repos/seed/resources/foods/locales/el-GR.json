@@ -3,7 +3,7 @@
         "name": "βελανίδι σκουός"
     },
     "alfalfa-sprouts": {
-        "name": "φύτρα σπόρων αλφάλφα"
+        "name": "alfalfa sprouts"
     },
     "anchovies": {
         "name": "αντζούγιες"
@@ -75,7 +75,7 @@
         "name": "ραπίνι"
     },
     "broccolini": {
-        "name": "μπροκολίνι"
+        "name": "broccolini"
     },
     "brown-sugar": {
         "name": "καστανή ζάχαρη"
@@ -188,10 +188,10 @@
         "name": "καφές"
     },
     "collard-greens": {
-        "name": "λαχανίδες"
+        "name": "collard greens"
     },
     "confectioners-sugar": {
-        "name": "ζάχαρη άχνη"
+        "name": "confectioners' sugar"
     },
     "coriander": {
         "name": "κόλιανδρος"
@@ -207,7 +207,7 @@
         "name": "βαμβακέλαιο"
     },
     "courgette": {
-        "name": "κολοκύθι"
+        "name": "courgette"
     },
     "cream-of-tartar": {
         "name": "κρέμα ταρτάρ"
@@ -257,7 +257,7 @@
         "name": "κουκιά"
     },
     "fiddlehead": {
-        "name": "βλαστάρια φτέρης"
+        "name": "fiddlehead"
     },
     "fiddlehead-fern": {
         "name": "fiddlehead fern",
@@ -364,7 +364,7 @@
         "name": "κούμαρα"
     },
     "leavening-agents": {
-        "name": "διογκωτικά"
+        "name": "leavening agents"
     },
     "leek": {
         "name": "πράσο",
@@ -418,10 +418,10 @@
         "name": "μοσχοκάρυδο"
     },
     "nutritional-yeast-flakes": {
-        "name": "νιφάδες μαγιάς"
+        "name": "nutritional yeast flakes"
     },
     "nuts": {
-        "name": "ξηροί καρποί"
+        "name": "nuts"
     },
     "octopuses": {
         "name": "χταπόδια",
@@ -443,7 +443,7 @@
         "name": "κρεμμύδι"
     },
     "onion-family": {
-        "name": "κρεμμυδοειδή"
+        "name": "onion family"
     },
     "orange-blossom-water": {
         "name": "νερό από άνθη πορτοκαλιάς"
@@ -542,7 +542,7 @@
         "name": "αλατισμένος μπακαλιάρος"
     },
     "scallion": {
-        "name": "φρέσκο κρεμμυδάκι",
+        "name": "scallion",
         "plural_name": "scallions"
     },
     "seafood": {
@@ -575,7 +575,7 @@
         "plural_name": "spaghetti squashes"
     },
     "speck": {
-        "name": "σπεκ"
+        "name": "speck"
     },
     "spices": {
         "name": "μπαχαρικά"
@@ -584,15 +584,15 @@
         "name": "σπανάκι"
     },
     "spring-onion": {
-        "name": "φρέσκο κρεμμυδάκι",
+        "name": "spring onion",
         "plural_name": "spring onions"
     },
     "squash": {
-        "name": "κολοκύθα",
+        "name": "squash",
         "plural_name": "squashes"
     },
     "squash-family": {
-        "name": "κολοκυθοειδή"
+        "name": "squash family"
     },
     "stockfish": {
         "name": "ξηρός μπακαλάος"
@@ -646,7 +646,7 @@
         "name": "τόνος"
     },
     "turbanado-sugar": {
-        "name": "ακατέργαστη ζάχαρη"
+        "name": "turbanado sugar"
     },
     "turnip": {
         "name": "γογγύλι",
