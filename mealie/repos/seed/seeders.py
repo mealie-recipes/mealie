@@ -83,11 +83,16 @@ class IngredientFoodsSeeder(AbstractSeeder):
     def load_data(self, locale: str | None = None) -> Generator[SaveIngredientFood, None, None]:
         file = self.get_file(locale)
 
-        seed_foods: dict[str, str] = json.loads(file.read_text(encoding="utf-8"))
-        for food in set(seed_foods.values()):
+        seed_foods_names = set()
+        for food in json.loads(file.read_text(encoding="utf-8")).values():
+            if food["name"] in seed_foods_names:
+                continue
+
+            seed_foods_names.add(food["name"])
             yield SaveIngredientFood(
                 group_id=self.repos.group_id,
-                name=food,
+                name=food["name"],
+                plural_name=food.get("plural_name"),
                 description="",
             )
 
