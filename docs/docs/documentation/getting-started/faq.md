@@ -33,8 +33,6 @@ Do the following for each recipe you want to intelligently handle ingredients.
 
 Scaling up this recipe or adding it to a Shopping List will now smartly take care of ingredient amounts and duplicate combinations.
 
-Note: Each recipe must have a servings count set for recipe scaling to work.
-
 ## Is it safe to upgrade Mealie?
 
 Yes. If you are using the v1 branches (including beta), you can upgrade to the latest version of Mealie without performing a site Export/Restore. This process was required in previous versions of Mealie, however we've automated the database migration process to make it easier to upgrade. Note that if you were using the v0.5.x version, you CANNOT upgrade to the latest version automatically. You must follow the migration instructions in the documentation.
