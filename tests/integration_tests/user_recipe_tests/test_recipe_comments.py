@@ -54,6 +54,7 @@ def test_create_comment(api_client: TestClient, unique_recipe: Recipe, unique_us
     assert response_data[0]["recipeId"] == str(unique_recipe.id)
     assert response_data[0]["text"] == create_data["text"]
     assert response_data[0]["userId"] == str(unique_user.user_id)
+    assert len(response_data[0]["user"]["fullName"]) > 0
 
 
 def test_update_comment(api_client: TestClient, unique_recipe: Recipe, unique_user: TestUser):
