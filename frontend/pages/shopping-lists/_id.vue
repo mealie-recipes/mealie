@@ -58,7 +58,15 @@
       <div v-else>
         <div v-for="(value, key) in itemsByLabel" :key="key" class="mb-6">
           <div class="text-left">
-            <v-btn :color="getLabelColor(value[0]) ? getLabelColor(value[0]) : '#959595'">{{ key }}</v-btn>
+            <v-btn
+              :color="getLabelColor(value[0]) ? getLabelColor(value[0]) : '#959595'"
+              :style="{
+                'color': getTextColor(getLabelColor(value[0])),
+                'letter-spacing': 'normal',
+              }"
+            >
+              {{ key }}
+          </v-btn>
           </div>
           <v-divider/>
           <draggable :value="value" handle=".handle" delay="250" :delay-on-touch-only="true" @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndexUncheckedByLabel(key, $event)">
@@ -298,6 +306,7 @@ import ShoppingListItemEditor from "~/components/Domain/ShoppingList/ShoppingLis
 import { useFoodStore, useLabelStore, useUnitStore } from "~/composables/store";
 import { useShoppingListItemActions } from "~/composables/use-shopping-list-item-actions";
 import { useShoppingListPreferences } from "~/composables/use-users/preferences";
+import { getTextColor } from "~/composables/use-text-color";
 import { uuid4 } from "~/composables/use-utils";
 
 type CopyTypes = "plain" | "markdown";
@@ -1085,6 +1094,7 @@ export default defineComponent({
       allUsers,
       currentUserId,
       updateSettings,
+      getTextColor,
     };
   },
   head() {
