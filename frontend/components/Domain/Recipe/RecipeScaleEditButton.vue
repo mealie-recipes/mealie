@@ -16,7 +16,7 @@
           </template>
           <v-card min-width="300px">
             <v-card-title class="mb-0">
-              {{ $t("recipe.edit-scale") }}
+              {{ $t("recipe.servings") }}
             </v-card-title>
             <v-card-text class="mt-n5">
               <div class="mt-4 d-flex align-center">
@@ -29,7 +29,7 @@
                       </v-icon>
                     </v-btn>
                   </template>
-                  <span> {{ $t("recipe.reset-scale") }} </span>
+                  <span> {{ $t("recipe.reset-servings-count") }} </span>
                 </v-tooltip>
               </div>
             </v-card-text>
