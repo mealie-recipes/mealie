@@ -652,7 +652,8 @@
       "missing-unit": "Crear unitat que manca: {unit}",
       "missing-food": "Crear menjar que manca: {food}",
       "no-food": "Sense menjar"
-    }
+    },
+    "reset-servings-count": "Reset Servings Count"
   },
   "search": {
     "advanced-search": "Cerca avançada",
