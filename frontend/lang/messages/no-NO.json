@@ -652,7 +652,8 @@
       "missing-unit": "Opprett manglende enhet: {unit}",
       "missing-food": "Opprett manglende mat: {food}",
       "no-food": "Ingen matvarer"
-    }
+    },
+    "reset-servings-count": "Reset Servings Count"
   },
   "search": {
     "advanced-search": "Avansert søk",

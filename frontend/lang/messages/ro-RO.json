@@ -652,7 +652,8 @@
       "missing-unit": "Creează unitate lipsă: {unit}",
       "missing-food": "Creează mâncare lipsă: {food}",
       "no-food": "Niciun aliment"
-    }
+    },
+    "reset-servings-count": "Reset Servings Count"
   },
   "search": {
     "advanced-search": "Căutare avansată",
