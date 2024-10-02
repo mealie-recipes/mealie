@@ -652,7 +652,8 @@
       "missing-unit": "Vytvoriť chýbajúcu jednotku: {unit}",
       "missing-food": "Vytvoriť chýbajúcu surovinu: {food}",
       "no-food": "Žiadne suroviny"
-    }
+    },
+    "reset-servings-count": "Reset Servings Count"
   },
   "search": {
     "advanced-search": "Rozšírené vyhľadávanie",
