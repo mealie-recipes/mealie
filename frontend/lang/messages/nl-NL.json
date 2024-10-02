@@ -652,7 +652,8 @@
       "missing-unit": "Maak ontbrekende eenheid aan: {unit}",
       "missing-food": "Ontbrekend levensmiddel maken: {food}",
       "no-food": "Geen levensmiddel"
-    }
+    },
+    "reset-servings-count": "Zet de teller van aantal keer gegeten op nul"
   },
   "search": {
     "advanced-search": "Geavanceerd zoeken",

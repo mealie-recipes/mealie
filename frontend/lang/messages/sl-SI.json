@@ -652,7 +652,8 @@
       "missing-unit": "Ustvari manjkajočo enoto: {unit}",
       "missing-food": "Ustvari manjkajoče živilo: {food}",
       "no-food": "Ni živila"
-    }
+    },
+    "reset-servings-count": "Reset Servings Count"
   },
   "search": {
     "advanced-search": "Napredno iskanje",
