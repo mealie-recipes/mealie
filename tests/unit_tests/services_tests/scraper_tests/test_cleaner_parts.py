@@ -481,20 +481,24 @@ nutrition_test_cases = (
         },
     ),
     CleanerCase(
-        test_id="special support for sodiumContent (g -> mg)",
+        test_id="special support for sodiumContent/cholesterolContent (g -> mg)",
         input={
+            "cholesterolContent": "10g",
             "sodiumContent": "10g",
         },
         expected={
+            "cholesterolContent": "10000.0",
             "sodiumContent": "10000.0",
         },
     ),
     CleanerCase(
-        test_id="special support for sodiumContent (mg -> mg)",
+        test_id="special support for sodiumContent/cholesterolContent (mg -> mg)",
         input={
+            "cholesterolContent": "10000mg",
             "sodiumContent": "10000mg",
         },
         expected={
+            "cholesterolContent": "10000",
             "sodiumContent": "10000",
         },
     ),
