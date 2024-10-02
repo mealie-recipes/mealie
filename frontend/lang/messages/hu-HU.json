@@ -652,7 +652,8 @@
       "missing-unit": "Hiányzó mértékegység létrehozása: {unit}",
       "missing-food": "Hiányzó élelmiszer létrehozása: {food}",
       "no-food": "Élelmiszer nélküli"
-    }
+    },
+    "reset-servings-count": "Adagok számának visszaállítása"
   },
   "search": {
     "advanced-search": "Részletes keresés",
