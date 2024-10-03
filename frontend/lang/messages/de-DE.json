@@ -652,7 +652,8 @@
       "missing-unit": "Fehlende Einheit erstellen: {unit}",
       "missing-food": "Fehlendes Lebensmittel erstellen: {food}",
       "no-food": "Kein Lebensmittel"
-    }
+    },
+    "reset-servings-count": "Portionen zurücksetzen"
   },
   "search": {
     "advanced-search": "Erweiterte Suche",
