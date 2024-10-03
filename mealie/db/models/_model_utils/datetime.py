@@ -33,11 +33,18 @@ class NaiveDateTime(TypeDecorator):
         if value is None:
             return value
 
-        if value.tzinfo is not None:
-            value = value.astimezone(timezone.utc)
-        return value.replace(tzinfo=None)
+        try:
+            if value.tzinfo is not None:
+                value = value.astimezone(timezone.utc)
+            return value.replace(tzinfo=None)
+        except Exception:
+            return value
 
     def process_result_value(self, value: datetime | None, dialect):
-        if value is not None:
-            value = value.replace(tzinfo=timezone.utc)
+        try:
+            if value is not None:
+                value = value.replace(tzinfo=timezone.utc)
+        except Exception:
+            pass
+
         return value
