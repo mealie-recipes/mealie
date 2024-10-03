@@ -175,8 +175,9 @@ def test_recipe_migration(api_client: TestClient, unique_user_fn_scoped: TestUse
 
     if mig.nutrition_entries:
         assert recipe.nutrition is not None
+        nutrition = recipe.nutrition.model_dump(by_alias=True)
+
         for k in mig.nutrition_entries.difference(mig.nutrition_filter):
-            nutrition = recipe.nutrition.model_dump(by_alias=True)
             assert k in nutrition and nutrition[k] is not None
 
     # TODO: validate other types of content
