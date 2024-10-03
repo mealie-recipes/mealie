@@ -72,6 +72,7 @@ If you don't see your provider and have successfully set it up, please consider 
 - A Client Secret is now required
 - CORS is no longer a requirement since all authentication happens server-side
 - A user will be successfully authenticated if they are part of *either* `OIDC_USER_GROUP` or `OIDC_ADMIN_GROUP`. Admins no longer need to be part of both groups
+- ID Token signing algorithm is now inferred using the `id_token_signing_alg_values_supported` metadata from the discovery URL
 
 ### Changes in your IdP
 
@@ -86,4 +87,10 @@ If you don't see your provider and have successfully set it up, please consider 
 
 ### Changes in Mealie
 
-After obtaining the **client secret** from your IdP, you must add it to Mealie using the `OIDC_CLIENT_SECRET` environment variable or via [docker secrets](../installation/backend-config.md#docker-secrets). This secret will not be logged on startup.
+**Required**
+
+- After obtaining the **client secret** from your IdP, you must add it to Mealie using the `OIDC_CLIENT_SECRET` environment variable or via [docker secrets](../installation/backend-config.md#docker-secrets). This secret will not be logged on startup.
+
+**Optional**
+
+- Remove `OIDC_SIGNING_ALGORITHM` from your environment. It will no longer have any effect.

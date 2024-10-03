@@ -277,7 +277,6 @@ class AppSettings(AppLoggingSettings):
     OIDC_AUTO_REDIRECT: bool = False
     OIDC_PROVIDER_NAME: str = "OAuth"
     OIDC_REMEMBER_ME: bool = False
-    OIDC_SIGNING_ALGORITHM: str = "RS256"
     OIDC_USER_CLAIM: str = "email"
     OIDC_GROUPS_CLAIM: str | None = "groups"
     OIDC_TLS_CACERTFILE: str | None = None
