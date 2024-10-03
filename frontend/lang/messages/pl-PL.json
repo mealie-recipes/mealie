@@ -426,6 +426,7 @@
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Wklej zawartość przepisu. Każda indywidualna linia traktowana będzie jako pozycja na liście",
     "recipe-markup-specification": "Specyfikacja znaczników przepisów",
     "recipe-url": "Adres URL przepisu",
+    "recipe-html-or-json": "Recipe HTML or JSON",
     "upload-a-recipe": "Wrzuć przepis",
     "upload-individual-zip-file": "Prześlij pojedynczy plik .zip wyeksportowany z innej instancji Mealie.",
     "url-form-hint": "Skopiuj i wklej link ze swojej ulubionej strony z przepisami",
@@ -604,10 +605,16 @@
     "scrape-recipe-description": "Wczytaj przepis przez URL. Podaj adres URL witryny z przepisem, który chcesz wczytać, a Mealie spróbuje wyodrębnić przepis z tej strony i dodać go do kolekcji.",
     "scrape-recipe-have-a-lot-of-recipes": "Masz mnóstwo przepisów, które chcesz zescrapować naraz?",
     "scrape-recipe-suggest-bulk-importer": "Wypróbuj importer zbiorczy",
+    "scrape-recipe-have-raw-html-or-json-data": "Have raw HTML or JSON data?",
+    "scrape-recipe-you-can-import-from-raw-data-directly": "You can import from raw data directly",
     "import-original-keywords-as-tags": "Importuj oryginalne słowa kluczowe jako tagi",
     "stay-in-edit-mode": "Pozostań w trybie edycji",
     "import-from-zip": "Importuj z pliku Zip",
     "import-from-zip-description": "Importuj pojedynczy przepis, który został wyeksportowany z innej instancji Mealie.",
+    "import-from-html-or-json": "Import from HTML or JSON",
+    "import-from-html-or-json-description": "Import a single recipe from raw HTML or JSON. This is useful if you have a recipe from a site that Mealie can't scrape normally, or from some other external source.",
+    "json-import-format-description-colon": "To import via JSON, it must be in valid format:",
+    "json-editor": "JSON Editor",
     "zip-files-must-have-been-exported-from-mealie": "Pliki .zip muszą zostać wyeksportowane z Mealie",
     "create-a-recipe-by-uploading-a-scan": "Utwórz przepis przesyłając skan.",
     "upload-a-png-image-from-a-recipe-book": "Prześlij obrazek png z książki przepisów",
@@ -645,7 +652,8 @@
       "missing-unit": "Create missing unit: {unit}",
       "missing-food": "Create missing food: {food}",
       "no-food": "No Food"
-    }
+    },
+    "reset-servings-count": "Reset Servings Count"
   },
   "search": {
     "advanced-search": "Wyszukiwanie zaawansowane",

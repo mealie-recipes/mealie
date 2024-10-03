@@ -426,6 +426,7 @@
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Füge deine Rezeptdaten ein. Jede Zeile wird als Eintrag in einer Liste dargestellt",
     "recipe-markup-specification": "Rezept Markup Spezifikation",
     "recipe-url": "Rezept URL",
+    "recipe-html-or-json": "Recipe HTML or JSON",
     "upload-a-recipe": "Rezept hochladen",
     "upload-individual-zip-file": "Lade eine individuelle .zip-Datei hoch, die von einer anderen Mealie-Instanz exportiert wird.",
     "url-form-hint": "Kopiere einen Link von deiner Lieblingsrezept-Website und füge ihn ein",
@@ -604,10 +605,16 @@
     "scrape-recipe-description": "Importiere ein Rezept mit der URL. Gib die URL für die Seite an, die du importieren möchtest und Mealie wird versuchen, das Rezept von dieser Seite einzulesen und deiner Sammlung hinzuzufügen.",
     "scrape-recipe-have-a-lot-of-recipes": "Hast Du viele Rezepte, die Du auf einmal einlesen willst?",
     "scrape-recipe-suggest-bulk-importer": "Probiere den Massenimporter aus",
+    "scrape-recipe-have-raw-html-or-json-data": "Have raw HTML or JSON data?",
+    "scrape-recipe-you-can-import-from-raw-data-directly": "You can import from raw data directly",
     "import-original-keywords-as-tags": "Importiere ursprüngliche Stichwörter als Schlagwörter",
     "stay-in-edit-mode": "Im Bearbeitungsmodus bleiben",
     "import-from-zip": "Von Zip importieren",
     "import-from-zip-description": "Importiere ein einzelnes Rezept, das von einer anderen Mealie-Instanz exportiert wurde.",
+    "import-from-html-or-json": "Import from HTML or JSON",
+    "import-from-html-or-json-description": "Import a single recipe from raw HTML or JSON. This is useful if you have a recipe from a site that Mealie can't scrape normally, or from some other external source.",
+    "json-import-format-description-colon": "To import via JSON, it must be in valid format:",
+    "json-editor": "JSON Editor",
     "zip-files-must-have-been-exported-from-mealie": ".zip Dateien müssen aus Mealie exportiert worden sein",
     "create-a-recipe-by-uploading-a-scan": "Erstelle ein Rezept durch Hochladen eines Scans.",
     "upload-a-png-image-from-a-recipe-book": "Lade ein PNG-Bild aus einem Kochbuch hoch",
@@ -645,7 +652,8 @@
       "missing-unit": "Fehlende Einheit erstellen: {unit}",
       "missing-food": "Fehlendes Lebensmittel erstellen: {food}",
       "no-food": "Kein Lebensmittel"
-    }
+    },
+    "reset-servings-count": "Portionen zurücksetzen"
   },
   "search": {
     "advanced-search": "Erweiterte Suche",

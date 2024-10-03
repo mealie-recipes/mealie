@@ -426,6 +426,7 @@
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Επικόλληση δεδομένων συνταγών σας. Κάθε γραμμή θα αντιμετωπίζεται ως αντικείμενο σε μια λίστα",
     "recipe-markup-specification": "Προδιαγραφή Σημείωσης Συνταγής",
     "recipe-url": "URL Συνταγής",
+    "recipe-html-or-json": "Συνταγή HTML ή JSON",
     "upload-a-recipe": "Ανεβάστε μια συνταγή",
     "upload-individual-zip-file": "Ανεβάστε ένα μεμονωμένο αρχείο .zip που εξάγεται από μια άλλη περίπτωση Mealie.",
     "url-form-hint": "Αντιγράψτε και επικολλήστε έναν σύνδεσμο από την αγαπημένη σας ιστοσελίδα συνταγών",
@@ -604,10 +605,16 @@
     "scrape-recipe-description": "Κάντε scrape μια συνταγή από μια διεύθυνση url. Δώστε τη διεύθυνση url για την ιστοσελίδα που θέλετε να κάνετε scrape, και το Mealie θα προσπαθήσει να εξάγει τη συνταγή από αυτή την ιστοσελίδα και να την προσθέσει στη συλλογή σας.",
     "scrape-recipe-have-a-lot-of-recipes": "Εχετε πολλές συνταγές που θέλετε να κάνετε scrape από ένα μέρος;",
     "scrape-recipe-suggest-bulk-importer": "Δοκιμάστε τον μαζικό εισαγωγέα συνταγών μας",
+    "scrape-recipe-have-raw-html-or-json-data": "Εχουν ακατέργαστα δεδομένα HTML ή JSON;",
+    "scrape-recipe-you-can-import-from-raw-data-directly": "Μπορείτε να κάνετε εισαγωγή απευθείας από ακατέργαστα δεδομένα",
     "import-original-keywords-as-tags": "Εισαγωγή αρχικών λέξεων-κλειδιών ως ετικέτες",
     "stay-in-edit-mode": "Παραμονή σε λειτουργία επεξεργασίας",
     "import-from-zip": "Εισαγωγή μέσω zip",
     "import-from-zip-description": "Εισαγωγή μιας μόνο συνταγής που εξάχθηκε από μια άλλη υπόσταση Mealie.",
+    "import-from-html-or-json": "Εισαγωγή από HTML ή JSON",
+    "import-from-html-or-json-description": "Εισαγωγή μιας μόνο συνταγής από ακατέργαστο HTML ή JSON. Αυτό είναι χρήσιμο αν έχετε μια συνταγή από μια ιστοσελίδα που το Mealie δεν μπορεί να κάνει σωστά scrape, ή από κάποια άλλη εξωτερική πηγή.",
+    "json-import-format-description-colon": "Για να γίνει εισαγωγή μέσω JSON, πρέπει να είναι σε έγκυρη μορφή:",
+    "json-editor": "Επεξεργαστής JSON",
     "zip-files-must-have-been-exported-from-mealie": "Τα .zip αρχεία πρέπει να έχουν εξαχθεί από το Mealie",
     "create-a-recipe-by-uploading-a-scan": "Δημιουργήστε μια συνταγή ανεβάζοντας μια σάρωση.",
     "upload-a-png-image-from-a-recipe-book": "Ανεβάστε μια εικόνα png από ένα βιβλίο συνταγών",
@@ -645,7 +652,8 @@
       "missing-unit": "Δημιουργία μονάδας που λείπει: {unit}",
       "missing-food": "Δημιουργία τροφίμου που λείπει: {food}",
       "no-food": "Χωρίς Τρόφιμο"
-    }
+    },
+    "reset-servings-count": "Επαναφορά μέτρησης μερίδων"
   },
   "search": {
     "advanced-search": "Σύνθετη Αναζήτηση",

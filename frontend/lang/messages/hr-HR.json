@@ -426,6 +426,7 @@
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Zalijepite podatke svog recepta. Svaka linija će se tretirati kao stavka u popisu",
     "recipe-markup-specification": "Specifikacije Maekup Recepta",
     "recipe-url": "URL Recepta",
+    "recipe-html-or-json": "Recipe HTML or JSON",
     "upload-a-recipe": "Učitaj Recept",
     "upload-individual-zip-file": "Prenesite pojedinačnu .zip datoteku koja je izvezena iz druge instance Mealie aplikacije.",
     "url-form-hint": "Kopirajte i zalijepite poveznicu s vaše omiljene web stranice za recepte",
@@ -604,10 +605,16 @@
     "scrape-recipe-description": "Prikupi (skraperaj) recept putem URL-a. Priložite URL web stranice s koje želite prikupiti recept, a Mealie će pokušati prikupiti recept s te stranice i dodati ga u vašu kolekciju.",
     "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
     "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
+    "scrape-recipe-have-raw-html-or-json-data": "Have raw HTML or JSON data?",
+    "scrape-recipe-you-can-import-from-raw-data-directly": "You can import from raw data directly",
     "import-original-keywords-as-tags": "Uvezi originalne ključne riječi kao oznake",
     "stay-in-edit-mode": "Ostanite u načinu uređivanja",
     "import-from-zip": "Uvoz iz Zip-a",
     "import-from-zip-description": "Uvezi pojedinačni recept koji je izvezen iz druge instance Mealie aplikacije.",
+    "import-from-html-or-json": "Import from HTML or JSON",
+    "import-from-html-or-json-description": "Import a single recipe from raw HTML or JSON. This is useful if you have a recipe from a site that Mealie can't scrape normally, or from some other external source.",
+    "json-import-format-description-colon": "To import via JSON, it must be in valid format:",
+    "json-editor": "JSON Editor",
     "zip-files-must-have-been-exported-from-mealie": ".zip datoteke moraju biti izvezeni iz Mealie-a",
     "create-a-recipe-by-uploading-a-scan": "Izradite recept tako što ćete učitati skeniranu kopiju.",
     "upload-a-png-image-from-a-recipe-book": "Učitajte png sliku iz kuharice",
@@ -645,7 +652,8 @@
       "missing-unit": "Create missing unit: {unit}",
       "missing-food": "Create missing food: {food}",
       "no-food": "No Food"
-    }
+    },
+    "reset-servings-count": "Reset Servings Count"
   },
   "search": {
     "advanced-search": "Napredno Pretraživanje",

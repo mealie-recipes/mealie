@@ -426,6 +426,7 @@
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Plak je receptgegevens. Elke regel wordt behandeld als een item in een lijst",
     "recipe-markup-specification": "Opmaakspecificatie recept",
     "recipe-url": "Recept-URL",
+    "recipe-html-or-json": "Recept HTML of JSON",
     "upload-a-recipe": "Upload een recept",
     "upload-individual-zip-file": "Upload een .zip-bestand dat uit een andere Mealie-instantie is geëxporteerd.",
     "url-form-hint": "Kopieer en plak een link vanuit jouw favoriete receptenwebsite",
@@ -604,10 +605,16 @@
     "scrape-recipe-description": "Voeg een recept toe via een URL. Geef de URL op van de site die je wil scannen voor een recept en Mealie zal proberen het recept vanaf die plek te scannen en aan je collectie toe te voegen.",
     "scrape-recipe-have-a-lot-of-recipes": "Heb je veel recepten die je in één keer wil importeren?",
     "scrape-recipe-suggest-bulk-importer": "Probeer importeren in bulk",
+    "scrape-recipe-have-raw-html-or-json-data": "Heb je onbewerkte HTML of JSON gegevens?",
+    "scrape-recipe-you-can-import-from-raw-data-directly": "U kunt direct importeren uit onbewerkte gegevens",
     "import-original-keywords-as-tags": "Importeer oorspronkelijke trefwoorden als labels",
     "stay-in-edit-mode": "Blijf in bewerkingsmodus",
     "import-from-zip": "Importeren uit zip",
     "import-from-zip-description": "Importeer een recept dat geëxporteerd was uit een andere Mealie instantie.",
+    "import-from-html-or-json": "Importeer van HTML of JSON",
+    "import-from-html-or-json-description": "Importeer een enkel recept van ruwe HTML of JSON. Dit is handig als je een recept hebt van een site dat Mealie niet normaal kan scrapen, of van een andere externe bron.",
+    "json-import-format-description-colon": "Om via JSON te kunnen importeren, moet deze in geldig formaat zijn:",
+    "json-editor": "JSON-bewerker",
     "zip-files-must-have-been-exported-from-mealie": ".zip-bestanden moeten uit Mealie geëxporteerd zijn",
     "create-a-recipe-by-uploading-a-scan": "Een recept maken door een scan te uploaden.",
     "upload-a-png-image-from-a-recipe-book": "Upload een png-afbeelding uit een receptenboek",
@@ -645,7 +652,8 @@
       "missing-unit": "Maak ontbrekende eenheid aan: {unit}",
       "missing-food": "Ontbrekend levensmiddel maken: {food}",
       "no-food": "Geen levensmiddel"
-    }
+    },
+    "reset-servings-count": "Zet de teller van aantal keer gegeten op nul"
   },
   "search": {
     "advanced-search": "Geavanceerd zoeken",

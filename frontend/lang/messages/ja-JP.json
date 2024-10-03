@@ -426,6 +426,7 @@
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "レシピデータを貼り付けます。各行はリスト内のアイテムとして扱われます。",
     "recipe-markup-specification": "レシピマークアップ仕様",
     "recipe-url": "レシピのURL",
+    "recipe-html-or-json": "Recipe HTML or JSON",
     "upload-a-recipe": "レシピのアップロード",
     "upload-individual-zip-file": "別のMealieインスタンスからエクスポートされた個別の.zipファイルをアップロードします。",
     "url-form-hint": "お気に入りのレシピサイトからリンクをコピーして貼り付け",
@@ -604,10 +605,16 @@
     "scrape-recipe-description": "URLからレシピをスクレイプします。 スクレイプしたいサイトのURLを入力してください。Mealieはそのサイトからレシピを抽出してコレクションに追加しようとします。",
     "scrape-recipe-have-a-lot-of-recipes": "一度に読み込みたいレシピがたくさんありますか？",
     "scrape-recipe-suggest-bulk-importer": "一括インポートを試す",
+    "scrape-recipe-have-raw-html-or-json-data": "Have raw HTML or JSON data?",
+    "scrape-recipe-you-can-import-from-raw-data-directly": "You can import from raw data directly",
     "import-original-keywords-as-tags": "元のキーワードをタグとしてインポート",
     "stay-in-edit-mode": "編集モードを維持",
     "import-from-zip": "Zipからインポート",
     "import-from-zip-description": "別のMealieインスタンスからエクスポートされた1つのレシピをインポートします。",
+    "import-from-html-or-json": "Import from HTML or JSON",
+    "import-from-html-or-json-description": "Import a single recipe from raw HTML or JSON. This is useful if you have a recipe from a site that Mealie can't scrape normally, or from some other external source.",
+    "json-import-format-description-colon": "To import via JSON, it must be in valid format:",
+    "json-editor": "JSON Editor",
     "zip-files-must-have-been-exported-from-mealie": ".zipファイルはMealieからエクスポートされている必要があります",
     "create-a-recipe-by-uploading-a-scan": "スキャンをアップロードしてレシピを作成します。",
     "upload-a-png-image-from-a-recipe-book": "レシピ本から png 画像をアップロード",
@@ -645,7 +652,8 @@
       "missing-unit": "欠けている単位を作成: {unit}",
       "missing-food": "欠けている食材を作成: {food}",
       "no-food": "食材はありません"
-    }
+    },
+    "reset-servings-count": "Reset Servings Count"
   },
   "search": {
     "advanced-search": "詳細検索",

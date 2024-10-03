@@ -426,6 +426,7 @@
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Įklijuokite receptą. Kiekviena nauja eilutė bus traktuojama kaip sąrašo elementas",
     "recipe-markup-specification": "Recepto žymėjimų specifikacija",
     "recipe-url": "Recepto nuoroda",
+    "recipe-html-or-json": "Recipe HTML or JSON",
     "upload-a-recipe": "Įkelti receptą",
     "upload-individual-zip-file": "Įkelkite .zip failą, eksportuotą iš kitos \"Mealie\" sistemos.",
     "url-form-hint": "Nukopijuokite ir įklijuokite nuorodą iš mėgstamų receptų svetainės",
@@ -604,10 +605,16 @@
     "scrape-recipe-description": "Nuskaityti receptą iš URL nuorodos. Pateikite recepto nuorodą, ir Mealie pabandys paimti recepto informaciją iš šios svetainės ir patalpinti ją jūsų kolekcijoje.",
     "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
     "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
+    "scrape-recipe-have-raw-html-or-json-data": "Have raw HTML or JSON data?",
+    "scrape-recipe-you-can-import-from-raw-data-directly": "You can import from raw data directly",
     "import-original-keywords-as-tags": "Įkelti pradinius raktažodžius kaip žymas",
     "stay-in-edit-mode": "Toliau redaguoti",
     "import-from-zip": "Įkelti iš .ZIP archyvo",
     "import-from-zip-description": "Įkelti atskirą receptą, išsaugotą iš Mealie.",
+    "import-from-html-or-json": "Import from HTML or JSON",
+    "import-from-html-or-json-description": "Import a single recipe from raw HTML or JSON. This is useful if you have a recipe from a site that Mealie can't scrape normally, or from some other external source.",
+    "json-import-format-description-colon": "To import via JSON, it must be in valid format:",
+    "json-editor": "JSON Editor",
     "zip-files-must-have-been-exported-from-mealie": ".ZIP archyvai privalo būti išsaugoti iš Mealie",
     "create-a-recipe-by-uploading-a-scan": "Sukurti receptą iš nuskenuoto dokumento.",
     "upload-a-png-image-from-a-recipe-book": "Įkelti .PNG nuotrauką iš receptų knygos",
@@ -645,7 +652,8 @@
       "missing-unit": "Create missing unit: {unit}",
       "missing-food": "Create missing food: {food}",
       "no-food": "No Food"
-    }
+    },
+    "reset-servings-count": "Reset Servings Count"
   },
   "search": {
     "advanced-search": "Išplėstinė paieška",

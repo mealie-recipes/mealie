@@ -426,6 +426,7 @@
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Indsæt dine opskriftsdata. \nHver linje behandles som et element på en liste",
     "recipe-markup-specification": "Opskriftsmarkupspecifikation",
     "recipe-url": "URL på opskrift",
+    "recipe-html-or-json": "Recipe HTML or JSON",
     "upload-a-recipe": "Upload en opskrift",
     "upload-individual-zip-file": "Opload en individuel .zip-fil, eksporteret fra en anden Mealie-instans.",
     "url-form-hint": "Kopiér og indsæt et link fra din foretrukne opskrifts hjemmeside",
@@ -604,10 +605,16 @@
     "scrape-recipe-description": "Hent en opskrift fra en hjemmeside. Angiv URL'en til den hjemmeside, du vil hente data fra, og Mealie vil forsøge at hente opskriften og tilføje den til din samling.",
     "scrape-recipe-have-a-lot-of-recipes": "Har du en masse opskrifter, du ønsker at scrappe på en gang?",
     "scrape-recipe-suggest-bulk-importer": "Prøv masse import",
+    "scrape-recipe-have-raw-html-or-json-data": "Have raw HTML or JSON data?",
+    "scrape-recipe-you-can-import-from-raw-data-directly": "You can import from raw data directly",
     "import-original-keywords-as-tags": "Importér originale nøgleord som mærker",
     "stay-in-edit-mode": "Bliv i redigeringstilstand",
     "import-from-zip": "Importer fra zip-fil",
     "import-from-zip-description": "Importer en enkelt opskrift, der blev eksporteret fra en anden Mealie instans.",
+    "import-from-html-or-json": "Import from HTML or JSON",
+    "import-from-html-or-json-description": "Import a single recipe from raw HTML or JSON. This is useful if you have a recipe from a site that Mealie can't scrape normally, or from some other external source.",
+    "json-import-format-description-colon": "To import via JSON, it must be in valid format:",
+    "json-editor": "JSON Editor",
     "zip-files-must-have-been-exported-from-mealie": "Zip-filer skal være blevet eksporteret fra Mealie",
     "create-a-recipe-by-uploading-a-scan": "Opret en opskrift ved at uploade en scanning.",
     "upload-a-png-image-from-a-recipe-book": "Upload et billede med en opskrift, f.eks. fra en bog eller en udskrift",
@@ -645,7 +652,8 @@
       "missing-unit": "Opret manglende måleenhed: {unit}",
       "missing-food": "Opret manglende fødevare: {food}",
       "no-food": "Ingen fødevarer"
-    }
+    },
+    "reset-servings-count": "Reset Servings Count"
   },
   "search": {
     "advanced-search": "Avanceret søgning",

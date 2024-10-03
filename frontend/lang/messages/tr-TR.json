@@ -426,6 +426,7 @@
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Tarif bilgilerini gir. Her satır bir liste elemanı olarak değerlendirilecek",
     "recipe-markup-specification": "Tarif İşaretleme Spesifikasyonu",
     "recipe-url": "Tarif Bağlantısı",
+    "recipe-html-or-json": "Recipe HTML or JSON",
     "upload-a-recipe": "Tarif Yükle",
     "upload-individual-zip-file": "Başka bir Mealie örneğinden dışa aktarılan ayrı bir .zip dosyası yükleyin.",
     "url-form-hint": "Favori tarif sitenizden bir bağlantıyı kopyalayıp yapıştırın",
@@ -604,10 +605,16 @@
     "scrape-recipe-description": "Url'den bir tarif kazıyın. Kazımak istediğiniz sitenin url'sini verin ve Mealie, tarifi o siteden alıp koleksiyonunuza eklemeye çalışacaktır.",
     "scrape-recipe-have-a-lot-of-recipes": "Aynı anda kazımak istediğiniz birçok tarifiniz mi var?",
     "scrape-recipe-suggest-bulk-importer": "Toplu ithalatçıyı deneyin",
+    "scrape-recipe-have-raw-html-or-json-data": "Have raw HTML or JSON data?",
+    "scrape-recipe-you-can-import-from-raw-data-directly": "You can import from raw data directly",
     "import-original-keywords-as-tags": "Orijinal anahtar kelimeleri etiket olarak içe aktar",
     "stay-in-edit-mode": "Düzenleme modunda kalın",
     "import-from-zip": "Zip'ten içeri aktar",
     "import-from-zip-description": "Başka bir Mealie örneğinden dışa aktarılmış tek bir tarifi içe aktarın.",
+    "import-from-html-or-json": "Import from HTML or JSON",
+    "import-from-html-or-json-description": "Import a single recipe from raw HTML or JSON. This is useful if you have a recipe from a site that Mealie can't scrape normally, or from some other external source.",
+    "json-import-format-description-colon": "To import via JSON, it must be in valid format:",
+    "json-editor": "JSON Editor",
     "zip-files-must-have-been-exported-from-mealie": ".zip dosyası Mealie'den dışa aktarılmış olmalıdır",
     "create-a-recipe-by-uploading-a-scan": "Bir tarama yükleyerek tarif oluşturun.",
     "upload-a-png-image-from-a-recipe-book": "Yemek tarifi kitabından bir png resmi yükleyin",
@@ -645,7 +652,8 @@
       "missing-unit": "Eksik birimi oluştur: {unit}",
       "missing-food": "Eksik gıdayı oluştur: {food}",
       "no-food": "Gıda yok"
-    }
+    },
+    "reset-servings-count": "Reset Servings Count"
   },
   "search": {
     "advanced-search": "Gelişmiş Arama",
