@@ -61,9 +61,12 @@ class OpenIDProvider(AuthProvider[UserInfo]):
             self._logger.debug("[OIDC] No user found. Creating new OIDC user.")
 
             try:
+                # some IdPs don't provide a username (looking at you Google), so if we don't have the claim,
+                # we'll create the user with whatever the USER_CLAIM is (default email)
+                username = claims.get("preferred_username", claims.get(settings.OIDC_USER_CLAIM))
                 user = repos.users.create(
                     {
-                        "username": claims.get("preferred_username"),
+                        "username": username,
                         "password": "OIDC",
                         "full_name": claims.get("name"),
                         "email": claims.get("email"),
@@ -93,7 +96,7 @@ class OpenIDProvider(AuthProvider[UserInfo]):
     def required_claims(self):
         settings = get_app_settings()
 
-        claims = {"preferred_username", "name", "email", settings.OIDC_USER_CLAIM}
+        claims = {"name", "email", settings.OIDC_USER_CLAIM}
         if settings.OIDC_REQUIRES_GROUP_CLAIM:
             claims.add(settings.OIDC_GROUPS_CLAIM)
         return claims
