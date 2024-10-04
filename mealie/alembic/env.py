@@ -1,9 +1,9 @@
 from typing import Any
 
 import sqlalchemy as sa
+from alembic import context
 
 import mealie.db.models._all_models  # noqa: F401
-from alembic import context
 from mealie.core.config import get_app_settings
 from mealie.db.models._model_base import SqlAlchemyBase
 
