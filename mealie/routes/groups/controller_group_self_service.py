@@ -1,6 +1,7 @@
 from functools import cached_property
+from uuid import UUID
 
-from fastapi import Query
+from fastapi import HTTPException, Query
 from pydantic import UUID4
 
 from mealie.routes._base.base_controllers import BaseUserController
@@ -33,6 +34,22 @@ class GroupSelfServiceController(BaseUserController):
         query_filter = f"household_id={household_id}" if household_id else None
         private_users = self.repos.users.page_all(PaginationQuery(page=1, per_page=-1, query_filter=query_filter)).items
         return [user.cast(UserSummary) for user in private_users]
+
+    @router.get("/members/{username_or_id}", response_model=UserSummary)
+    def get_group_member(self, username_or_id: str | UUID4):
+        """Returns a single user belonging to the current group"""
+
+        try:
+            UUID(username_or_id)
+            key = "id"
+        except ValueError:
+            key = "username"
+
+        private_user = self.repos.users.get_one(username_or_id, key)
+        if not private_user:
+            raise HTTPException(status_code=404, detail="User Not Found")
+
+        return private_user.cast(UserSummary)
 
     @router.get("/preferences", response_model=ReadGroupPreferences)
     def get_group_preferences(self):
