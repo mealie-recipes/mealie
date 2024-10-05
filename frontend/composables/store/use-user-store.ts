@@ -8,7 +8,7 @@ const store: Ref<UserSummary[]> = ref([]);
 const loading = ref(false);
 
 class GroupUserAPIReadOnly extends BaseCRUDAPIReadOnly<UserSummary> {
-  baseRoute = "/groups/members";
+  baseRoute = "/api/groups/members";
   itemRoute = (idOrUsername: string | number) => `/groups/members/${idOrUsername}`;
 }
 
