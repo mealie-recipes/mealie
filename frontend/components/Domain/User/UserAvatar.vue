@@ -4,7 +4,7 @@
     :disabled="!user || !tooltip"
     right
   >
-    <template v-slot:activator="{ on, attrs }">
+    <template #activator="{ on, attrs }">
       <v-list-item-avatar v-if="list" v-bind="attrs" v-on="on">
         <v-img :src="imageURL" :alt="userId" @load="error = false" @error="error = true"> </v-img>
       </v-list-item-avatar>

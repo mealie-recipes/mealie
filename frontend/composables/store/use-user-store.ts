@@ -1,7 +1,7 @@
 import { ref, Ref } from "@nuxtjs/composition-api";
 import { useReadOnlyStore } from "../partials/use-store-factory";
-import { UserSummary } from "~/lib/api/types/user";
 import { useRequests } from "../api/api-client";
+import { UserSummary } from "~/lib/api/types/user";
 import { BaseCRUDAPIReadOnly } from "~/lib/api/base/base-clients";
 
 const store: Ref<UserSummary[]> = ref([]);

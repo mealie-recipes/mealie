@@ -1,4 +1,6 @@
 import { BaseCRUDAPIReadOnly } from "../base/base-clients";
+import { PaginationData } from "../types/non-generated";
+import { QueryValue } from "../base/route";
 import { UserOut } from "~/lib/api/types/user";
 import {
   HouseholdInDB,
@@ -10,8 +12,6 @@ import {
   ReadInviteToken,
   HouseholdSummary,
 } from "~/lib/api/types/household";
-import { PaginationData } from "../types/non-generated";
-import { QueryValue } from "../base/route";
 
 const prefix = "/api";
 

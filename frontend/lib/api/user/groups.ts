@@ -1,4 +1,6 @@
 import { BaseCRUDAPI } from "../base/base-clients";
+import { PaginationData } from "../types/non-generated";
+import { QueryValue } from "../base/route";
 import { GroupBase, GroupInDB, GroupSummary, UserSummary } from "~/lib/api/types/user";
 import {
   GroupAdminUpdate,
@@ -6,8 +8,6 @@ import {
   ReadGroupPreferences,
   UpdateGroupPreferences,
 } from "~/lib/api/types/group";
-import { PaginationData } from "../types/non-generated";
-import { QueryValue } from "../base/route";
 
 const prefix = "/api";
 
