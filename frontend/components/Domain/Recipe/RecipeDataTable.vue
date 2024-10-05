@@ -153,7 +153,7 @@ export default defineComponent({
     async function refreshMembers() {
       const { data } = await api.groups.fetchMembers();
       if (data) {
-        members.value = data;
+        members.value = data.items;
       }
     }
 

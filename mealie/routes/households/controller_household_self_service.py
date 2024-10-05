@@ -1,6 +1,6 @@
 from functools import cached_property
 
-from fastapi import HTTPException, status
+from fastapi import Depends, HTTPException, status
 
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
@@ -9,7 +9,7 @@ from mealie.schema.household.household import HouseholdInDB
 from mealie.schema.household.household_permissions import SetPermissions
 from mealie.schema.household.household_preferences import ReadHouseholdPreferences, UpdateHouseholdPreferences
 from mealie.schema.household.household_statistics import HouseholdStatistics
-from mealie.schema.response.pagination import PaginationQuery
+from mealie.schema.response.pagination import PaginationBase, PaginationQuery
 from mealie.schema.user.user import UserOut
 from mealie.services.household_services.household_service import HouseholdService
 
@@ -27,13 +27,20 @@ class HouseholdSelfServiceController(BaseUserController):
         """Returns the Household Data for the Current User"""
         return self.household
 
-    @router.get("/members", response_model=list[UserOut])
-    def get_household_members(self):
+    @router.get("/members", response_model=PaginationBase[UserOut])
+    def get_household_members(self, q: PaginationQuery = Depends()):
         """Returns all users belonging to the current household"""
-        private_users = self.repos.users.page_all(
-            PaginationQuery(page=1, per_page=-1, query_filter=f"household_id={self.household_id}")
-        ).items
-        return [user.cast(UserOut) for user in private_users]
+
+        qf_part = f"household_id={self.household_id}"
+        if q.query_filter:
+            q.query_filter = f"({q.query_filter}) AND {qf_part}"
+        else:
+            q.query_filter = qf_part
+
+        response = self.repos.users.page_all(q, override=UserOut)
+
+        response.set_pagination_guides(router.url_path_for("get_household_members"), q.model_dump())
+        return response
 
     @router.get("/preferences", response_model=ReadHouseholdPreferences)
     def get_household_preferences(self):

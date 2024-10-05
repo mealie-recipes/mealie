@@ -10,6 +10,8 @@ import {
   ReadInviteToken,
   HouseholdSummary,
 } from "~/lib/api/types/household";
+import { PaginationData } from "../types/non-generated";
+import { QueryValue } from "../base/route";
 
 const prefix = "/api";
 
@@ -48,8 +50,8 @@ export class HouseholdAPI extends BaseCRUDAPIReadOnly<HouseholdSummary> {
     return await this.requests.post<ReadInviteToken>(routes.invitation, payload);
   }
 
-  async fetchMembers() {
-    return await this.requests.get<UserOut[]>(routes.members);
+  async fetchMembers(page = 1, perPage = -1, params = {} as Record<string, QueryValue>) {
+    return await this.requests.get<PaginationData<UserOut>>(routes.members, { page, perPage, ...params });
   }
 
   async setMemberPermissions(payload: SetPermissions) {

@@ -1025,7 +1025,7 @@ export default defineComponent({
       }
 
       // update current user
-      allUsers.value = data.sort((a, b) => ((a.fullName || "") < (b.fullName || "") ? -1 : 1));
+      allUsers.value = data.items.sort((a, b) => ((a.fullName || "") < (b.fullName || "") ? -1 : 1));
       currentUserId.value = shoppingList.value?.userId;
     }
 
