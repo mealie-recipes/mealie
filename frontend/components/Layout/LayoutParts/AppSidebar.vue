@@ -3,7 +3,7 @@
     <!-- User Profile -->
     <template v-if="loggedIn">
       <v-list-item two-line :to="userProfileLink" exact>
-        <UserAvatar list :user-id="$auth.user.id" />
+        <UserAvatar list :user-id="$auth.user.id" :tooltip="false" />
 
         <v-list-item-content>
           <v-list-item-title class="pr-2"> {{ $auth.user.fullName }}</v-list-item-title>

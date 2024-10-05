@@ -26,7 +26,7 @@
       disable-pagination
     >
       <template #item.avatar="{ item }">
-        <UserAvatar :user-id="item.id" />
+        <UserAvatar :tooltip="false" :user-id="item.id" />
       </template>
       <template #item.admin="{ item }">
         {{ item.admin ? $t('user.admin') : $t('user.user') }}

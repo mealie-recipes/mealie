@@ -33,7 +33,7 @@
     </template>
     <template #item.userId="{ item }">
       <v-list-item class="justify-start">
-        <UserAvatar :user-id="item.userId" size="40" />
+        <UserAvatar :user-id="item.userId" :tooltip="false" size="40" />
         <v-list-item-content>
           <v-list-item-title>
             {{ getMember(item.userId) }}
