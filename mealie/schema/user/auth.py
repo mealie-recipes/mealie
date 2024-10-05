@@ -26,14 +26,15 @@ class CredentialsRequest(BaseModel):
     remember_me: bool = False
 
 
-class OIDCRequest(BaseModel):
-    id_token: str
-
-
 class CredentialsRequestForm:
     """Class that represents a user's credentials from the login form"""
 
-    def __init__(self, username: str = Form(""), password: str = Form(""), remember_me: bool = Form(False)):
+    def __init__(
+        self,
+        username: str = Form(""),
+        password: str = Form(""),
+        remember_me: bool = Form(False),
+    ):
         self.username = username
         self.password = password
         self.remember_me = remember_me
