@@ -16,5 +16,5 @@ export const useUserStore = function () {
   const requests = useRequests();
   const api = new GroupUserAPIReadOnly(requests);
 
-  return useReadOnlyStore<UserSummary>(store, loading, api);
+  return useReadOnlyStore<UserSummary>(store, loading, api, {orderBy: "full_name"});
 }
