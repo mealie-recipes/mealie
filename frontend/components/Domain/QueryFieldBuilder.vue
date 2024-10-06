@@ -6,7 +6,7 @@
           v-for="(field, index) in fields"
           :key="index"
         >
-          <v-col cols="2">
+          <v-col :cols="attrs.fields.logicalOperator.cols">
             <v-select
               v-if="index"
               v-model="field.logicalOperator"
@@ -20,7 +20,20 @@
               </template>
             </v-select>
           </v-col>
-          <v-col cols="4">
+          <v-col v-if="showAdvanced" :cols="attrs.fields.leftParens.cols">
+            <v-select
+              v-model="field.leftParenthesis"
+              :items="['', '(', '((']"
+              @input="setLeftParenthesisValue(field, index, $event)"
+            >
+              <template #selection="{ item }">
+                <span class="d-flex justify-center" style="width: 100%;">
+                  {{ item }}
+                </span>
+              </template>
+            </v-select>
+          </v-col>
+          <v-col :cols="attrs.fields.fieldName.cols">
             <v-select
               v-model="field.label"
               :items="fieldDefs"
@@ -34,7 +47,7 @@
               </template>
             </v-select>
           </v-col>
-          <v-col cols="2">
+          <v-col :cols="attrs.fields.relationalOperator.cols">
             <v-select
               v-if="field.type !== 'boolean'"
               v-model="field.relationalOperatorValue"
@@ -48,7 +61,7 @@
               </template>
             </v-select>
           </v-col>
-          <v-col cols="4">
+          <v-col :cols="attrs.fields.fieldValue.cols">
             <v-select
               v-if="field.fieldOptions"
               v-model="field.values"
@@ -56,6 +69,7 @@
               item-text="label"
               item-value="value"
               multiple
+              @input="setFieldValues(field, index, $event)"
             />
             <v-text-field
               v-else-if="field.type === 'string'"
@@ -71,7 +85,7 @@
             <v-checkbox
               v-else-if="field.type === 'boolean'"
               v-model="field.value"
-              @input="setFieldValue(field, index, $event)"
+              @change="setFieldValue(field, index, $event)"
             />
             <v-date-picker
               v-else-if="field.type === 'Date'"
@@ -80,17 +94,35 @@
               @input="setFieldValue(field, index, $event)"
             />
           </v-col>
+          <v-col v-if="showAdvanced" :cols="attrs.fields.rightParens.cols">
+            <v-select
+              v-model="field.rightParenthesis"
+              :items="['', ')', '))']"
+              @input="setRightParenthesisValue(field, index, $event)"
+            >
+              <template #selection="{ item }">
+                <span class="d-flex justify-center" style="width: 100%;">
+                  {{ item }}
+                </span>
+              </template>
+            </v-select>
+          </v-col>
         </v-row>
       </v-container>
     </v-card-text>
     <v-card-actions>
+      <v-checkbox v-model="showAdvanced" label="Show Advanced" />
+      <v-spacer />
       <v-btn @click="addField(fieldDefs[0])">Add Field</v-btn>
+      <v-spacer />
+      <span v-if="qfValid" class="green">QF Valid</span>
+      <span v-else class="red">QF Not Valid</span>
     </v-card-actions>
   </v-card>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from "@nuxtjs/composition-api";
+import { computed, defineComponent, reactive, ref, toRefs, watch } from "@nuxtjs/composition-api";
 
 export type FieldType =
   | string
@@ -113,11 +145,13 @@ export interface FieldDefinition {
 type LogicalOperator = "AND" | "OR";
 
 interface Field extends FieldDefinition {
+  leftParenthesis: string | undefined;
   logicalOperator: LogicalOperator | undefined;
   value: FieldType;
   values: FieldType[];
   relationalOperatorValue: string;
   relationalOperatorOptions: string[];
+  rightParenthesis: string | undefined;
 }
 
 export default defineComponent({
@@ -128,6 +162,11 @@ export default defineComponent({
     },
   },
   setup(props, context) {
+    const state = reactive({
+      showAdvanced: false,
+      qfValid: false,
+    });
+
     function getFieldFromFieldDef(field: Field | FieldDefinition, resetValue = false): Field {
       const updatedField = {logicalOperator: "AND", ...field} as Field;
       let operatorOptions: string[];
@@ -137,8 +176,6 @@ export default defineComponent({
           "NOT IN",
           "CONTAINS ALL",
         ];
-        updatedField.value = "";
-        updatedField.values = [];
       } else {
         switch (updatedField.type) {
           case "string":
@@ -206,6 +243,20 @@ export default defineComponent({
       fields.value.splice(index, 1, getFieldFromFieldDef(updatedField, resetValue));
     }
 
+    function setLeftParenthesisValue(field: Field, index: number, value: string) {
+      fields.value.splice(index, 1, {
+        ...field,
+        leftParenthesis: value,
+      });
+    }
+
+    function setRightParenthesisValue(field: Field, index: number, value: string) {
+      fields.value.splice(index, 1, {
+        ...field,
+        rightParenthesis: value,
+      });
+    }
+
     function setLogicalOperatorValue(field: Field, index: number, value: LogicalOperator | undefined) {
       if (!index) {
         value = undefined;
@@ -233,29 +284,120 @@ export default defineComponent({
       });
     }
 
+    function setFieldValues(field: Field, index: number, values: FieldType[]) {
+      fields.value.splice(index, 1, {
+        ...field,
+        values: values,
+      });
+    }
+
     function removeField(index: number) {
       fields.value.splice(index, 1);
     };
 
     function buildQueryFilterString() {
-      // TODO
-      console.log(fields.value);
-      return "";
+      let isValid = true;
+      let lParenCounter = 0;
+      let rParenCounter = 0;
+
+      const parts: string[] = [];
+      fields.value.forEach((field, index) => {
+        if (index) {
+          if (field.logicalOperator) {
+            parts.push(field.logicalOperator);
+          } else {
+            isValid = false;
+          }
+        }
+
+        if (field.leftParenthesis && state.showAdvanced) {
+          lParenCounter += field.leftParenthesis.length;
+          parts.push(field.leftParenthesis);
+        }
+
+        if (field.label) {
+          parts.push(field.name);
+        } else {
+          isValid = false;
+        }
+
+        if (field.relationalOperatorValue) {
+          parts.push(field.relationalOperatorValue);
+        } else {
+          if (field.type !== "boolean") {
+            isValid = false;
+          }
+        }
+
+        if (field.fieldOptions?.length) {
+          if (field.values?.length) {
+            let val: string;
+            if (field.type === "string" || field.type === "Date") {
+              val = field.values.map((value) => `"${value}"`).join(",");
+            } else {
+              val = field.values.join(",");
+            }
+            parts.push(`[${val}]`);
+          } else {
+            isValid = false;
+          }
+        } else {
+          if (field.value) {
+            if (field.type === "string" || field.type === "Date") {
+              parts.push(`"${field.value}"`);
+            } else {
+              parts.push(field.value.toString());
+            }
+          } else {
+            if (field.type === "boolean") {
+              parts.push("false");
+            } else {
+              isValid = false;
+            }
+          }
+        }
+
+        if (field.rightParenthesis && state.showAdvanced) {
+          rParenCounter += field.rightParenthesis.length;
+          parts.push(field.rightParenthesis);
+        }
+      });
+
+      if (lParenCounter !== rParenCounter) {
+        isValid = false;
+      }
+
+      state.qfValid = isValid;
+      return isValid ? parts.join(" ") : "";
     }
+
+    watch(
+      // Toggling showAdvanced changes the builder logic without changing the field values,
+      // so we need to manually trigger reactivity to re-run the builder.
+      () => state.showAdvanced,
+      () => {
+        if (fields.value?.length) {
+          fields.value = [...fields.value];
+        }
+      },
+    )
 
     watch(
       () => fields.value,
       (newFields) => {
         newFields.forEach((field, index) => {
           const updatedField = getFieldFromFieldDef(field);
+
+          // The first field shouldn't have a logical operator, but all other fields should.
           if (!index) {
             updatedField.logicalOperator = undefined;
           }
 
           fields.value[index] = updatedField;
-          const qf = buildQueryFilterString();
-          context.emit("input", qf);
         });
+
+        const qf = buildQueryFilterString();
+        context.emit("input", qf || undefined);
       },
       {
         deep: true
@@ -266,13 +408,45 @@ export default defineComponent({
       addField(props.fieldDefs[0]);
     }
 
+    const attrs = computed(() => {
+      const attrs = {
+        fields: {
+          leftParens: {
+            cols: state.showAdvanced ? 1 : 0,
+          },
+          logicalOperator: {
+            cols: 2,
+          },
+          fieldName: {
+            cols: state.showAdvanced ? 2 : 3,
+          },
+          relationalOperator: {
+            cols: 3,
+          },
+          fieldValue: {
+            cols: state.showAdvanced ? 3 : 4,
+          },
+          rightParens: {
+            cols: state.showAdvanced ? 1 : 0,
+          },
+        },
+      }
+
+      return attrs
+    })
+
     return {
+      ...toRefs(state),
+      attrs,
       fields,
       addField,
       setField,
+      setLeftParenthesisValue,
+      setRightParenthesisValue,
       setLogicalOperatorValue,
       setRelationalOperatorValue,
       setFieldValue,
+      setFieldValues,
       removeField,
     };
   },
