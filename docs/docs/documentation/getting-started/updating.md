@@ -17,7 +17,7 @@ If you are upgrading from pre-v1.0.0 to v1.0.0 or later (v2.0.0, etc.), make sur
 [See Backups and Restore Section](../getting-started/usage/backups-and-restoring.md) for details on backing up your data
 
 ## Docker
-For all setups using Docker the updating process looks something like this
+For all setups using Docker, the updating process looks something like this:
 
 - Stop the container using `docker compose down`
 - If you are not using the latest tag, change the version (image tag) in your docker-compose file

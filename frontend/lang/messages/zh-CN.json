@@ -652,7 +652,8 @@
       "missing-unit": "创建缺失的计量单位：{unit}",
       "missing-food": "创建缺失的食物：{food}",
       "no-food": "没有食物"
-    }
+    },
+    "reset-servings-count": "Reset Servings Count"
   },
   "search": {
     "advanced-search": "高级搜索",

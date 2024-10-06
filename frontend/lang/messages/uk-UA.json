@@ -652,7 +652,8 @@
       "missing-unit": "Створити відсутню одиниці: {unit}",
       "missing-food": "Створити відсутню їжу: {food}",
       "no-food": "Немає їжі"
-    }
+    },
+    "reset-servings-count": "Reset Servings Count"
   },
   "search": {
     "advanced-search": "Розширений пошук",

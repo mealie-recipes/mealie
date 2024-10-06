@@ -20,7 +20,7 @@ class CredentialsProvider(AuthProvider[CredentialsRequest]):
     def __init__(self, session: Session, data: CredentialsRequest) -> None:
         super().__init__(session, data)
 
-    async def authenticate(self) -> tuple[str, timedelta] | None:
+    def authenticate(self) -> tuple[str, timedelta] | None:
         """Attempt to authenticate a user given a username and password"""
         settings = get_app_settings()
         db = get_repositories(self.session, group_id=None, household_id=None)
@@ -30,7 +30,8 @@ class CredentialsProvider(AuthProvider[CredentialsRequest]):
             # To prevent user enumeration we perform the verify_password computation to ensure
             # server side time is relatively constant and not vulnerable to timing attacks.
             CredentialsProvider.verify_password(
-                "abc123cba321", "$2b$12$JdHtJOlkPFwyxdjdygEzPOtYmdQF5/R5tHxw5Tq8pxjubyLqdIX5i"
+                "abc123cba321",
+                "$2b$12$JdHtJOlkPFwyxdjdygEzPOtYmdQF5/R5tHxw5Tq8pxjubyLqdIX5i",
             )
             return None
 

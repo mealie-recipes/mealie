@@ -6,6 +6,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.routing import APIRoute
+from starlette.middleware.sessions import SessionMiddleware
 
 from mealie.core.config import get_app_settings
 from mealie.core.root_logger import get_logger
@@ -66,12 +67,14 @@ async def lifespan_fn(_: FastAPI) -> AsyncGenerator[None, None]:
                 "LDAP_QUERY_PASSWORD",
                 "OPENAI_API_KEY",
                 "SECRET",
+                "SESSION_SECRET",
                 "SFTP_PASSWORD",
                 "SFTP_USERNAME",
                 "DB_URL",  # replace by DB_URL_PUBLIC for logs
                 "DB_PROVIDER",
                 "SMTP_USER",
                 "SMTP_PASSWORD",
+                "OIDC_CLIENT_SECRET",
             },
         )
     )
@@ -91,6 +94,7 @@ app = FastAPI(
 )
 
 app.add_middleware(GZipMiddleware, minimum_size=1000)
+app.add_middleware(SessionMiddleware, secret_key=settings.SESSION_SECRET)
 
 if not settings.PRODUCTION:
     allowed_origins = ["http://localhost:3000"]

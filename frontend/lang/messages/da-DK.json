@@ -652,7 +652,8 @@
       "missing-unit": "Opret manglende måleenhed: {unit}",
       "missing-food": "Opret manglende fødevare: {food}",
       "no-food": "Ingen fødevarer"
-    }
+    },
+    "reset-servings-count": "Reset Servings Count"
   },
   "search": {
     "advanced-search": "Avanceret søgning",
