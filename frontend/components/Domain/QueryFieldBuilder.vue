@@ -17,7 +17,7 @@
             v-for="(field, index) in fields"
             :key="index"
           >
-            <v-col :cols="attrs.fields.icon.cols" :class="attrs.fields.icon.class">
+            <v-col :cols="attrs.fields.icon.cols" :class="attrs.col.class">
               <v-icon
                 class="handle"
                 style="width: 100%; height: 100%;"
@@ -25,7 +25,7 @@
                 {{ $globals.icons.arrowUpDown }}
             </v-icon>
             </v-col>
-            <v-col :cols="attrs.fields.logicalOperator.cols" :class="attrs.fields.logicalOperator.class">
+            <v-col :cols="attrs.fields.logicalOperator.cols" :class="attrs.col.class">
               <v-select
                 v-if="index"
                 v-model="field.logicalOperator"
@@ -33,26 +33,26 @@
                 @input="setLogicalOperatorValue(field, index, $event)"
               >
                 <template #selection="{ item }">
-                  <span class="d-flex justify-center" style="width: 100%;">
+                  <span :class="attrs.select.textClass" style="width: 100%;">
                     {{ item }}
                   </span>
                 </template>
               </v-select>
             </v-col>
-            <v-col v-if="showAdvanced" :cols="attrs.fields.leftParens.cols" :class="attrs.fields.leftParens.class">
+            <v-col v-if="showAdvanced" :cols="attrs.fields.leftParens.cols" :class="attrs.col.class">
               <v-select
                 v-model="field.leftParenthesis"
                 :items="['', '(', '((', '(((']"
                 @input="setLeftParenthesisValue(field, index, $event)"
               >
                 <template #selection="{ item }">
-                  <span class="d-flex justify-center" style="width: 100%;">
+                  <span :class="attrs.select.textClass" style="width: 100%;">
                     {{ item }}
                   </span>
                 </template>
               </v-select>
             </v-col>
-            <v-col :cols="attrs.fields.fieldName.cols" :class="attrs.fields.fieldName.class">
+            <v-col :cols="attrs.fields.fieldName.cols" :class="attrs.col.class">
               <v-select
                 v-model="field.label"
                 :items="fieldDefs"
@@ -60,13 +60,13 @@
                 @change="setField(index, $event)"
               >
                 <template #selection="{ item }">
-                  <span class="d-flex justify-center" style="width: 100%;">
+                  <span :class="attrs.select.textClass" style="width: 100%;">
                     {{ item.label }}
                   </span>
                 </template>
               </v-select>
             </v-col>
-            <v-col :cols="attrs.fields.relationalOperator.cols" :class="attrs.fields.relationalOperator.class">
+            <v-col :cols="attrs.fields.relationalOperator.cols" :class="attrs.col.class">
               <v-select
                 v-if="field.type !== 'boolean'"
                 v-model="field.relationalOperatorValue"
@@ -74,13 +74,13 @@
                 @input="setRelationalOperatorValue(field, index, $event)"
               >
                 <template #selection="{ item }">
-                  <span class="d-flex justify-center" style="width: 100%;">
+                  <span :class="attrs.select.textClass" style="width: 100%;">
                     {{ item }}
                   </span>
                 </template>
               </v-select>
             </v-col>
-            <v-col :cols="attrs.fields.fieldValue.cols" :class="attrs.fields.fieldValue.class">
+            <v-col :cols="attrs.fields.fieldValue.cols" :class="attrs.col.class">
               <v-select
                 v-if="field.fieldOptions"
                 v-model="field.values"
@@ -134,14 +134,14 @@
                 />
               </v-menu>
             </v-col>
-            <v-col v-if="showAdvanced" :cols="attrs.fields.rightParens.cols" :class="attrs.fields.rightParens.class">
+            <v-col v-if="showAdvanced" :cols="attrs.fields.rightParens.cols" :class="attrs.col.class">
               <v-select
                 v-model="field.rightParenthesis"
                 :items="['', ')', '))', ')))']"
                 @input="setRightParenthesisValue(field, index, $event)"
               >
                 <template #selection="{ item }">
-                  <span class="d-flex justify-center" style="width: 100%;">
+                  <span :class="attrs.select.textClass" style="width: 100%;">
                     {{ item }}
                   </span>
                 </template>
@@ -483,34 +483,33 @@ export default defineComponent({
 
     const attrs = computed(() => {
       const attrs = {
+        col: {
+          class: "d-flex justify-center",
+        },
+        select: {
+          textClass: "d-flex justify-center text-center",
+        },
         fields: {
           icon: {
             cols: 1,
-            class: "d-flex justify-center",
           },
           leftParens: {
             cols: state.showAdvanced ? 1 : 0,
-            class: "d-flex justify-center",
           },
           logicalOperator: {
             cols: 2,
-            class: "d-flex justify-center",
           },
           fieldName: {
             cols: state.showAdvanced ? 2 : 3,
-            class: "d-flex justify-center",
           },
           relationalOperator: {
             cols: 3,
-            class: "d-flex justify-center",
           },
           fieldValue: {
             cols: state.showAdvanced ? 2 : 3,
-            class: "d-flex justify-center",
           },
           rightParens: {
             cols: state.showAdvanced ? 1 : 0,
-            class: "d-flex justify-center",
           },
         },
       }
