@@ -1,6 +1,7 @@
 from uuid import uuid4
 
 from slugify import slugify
+from sqlalchemy import update
 from sqlalchemy.orm import Session
 
 from mealie.core import root_logger
@@ -9,8 +10,47 @@ from mealie.db.models.household.shopping_list import ShoppingList, ShoppingListM
 from mealie.db.models.labels import MultiPurposeLabel
 from mealie.db.models.recipe.ingredient import IngredientFoodModel, IngredientUnitModel
 from mealie.db.models.recipe.recipe import RecipeModel
+from mealie.db.models.users.users import User
 
 logger = root_logger.get_logger("init_db")
+
+
+def fix_dangling_refs(session: Session):
+    REASSIGN_REF_TABLES = ["GroupMealPlan", "RecipeModel", "ShoppingList"]
+    DELETE_REF_TABLES = ["LongLiveToken", "PasswordResetModel", "RecipeComment", "RecipeTimelineEvent"]
+
+    engine = session.get_bind()
+    groups = session.query(Group).all()
+    for group in groups:
+        default_user = session.query(User).filter(User.group_id == group.id).first()
+        if not default_user:
+            continue
+
+        valid_user_ids = {user.id for user in group.users}
+
+        for table_name in REASSIGN_REF_TABLES:
+            table = engine.metadata.tables[table_name]
+            update_stmt = update(table).where(~table.c.user_id.in_(valid_user_ids)).values(user_id=default_user.id)
+            result = session.execute(update_stmt)
+
+            if result.rowcount:
+                logger.info(
+                    f'Reassigned {result.rowcount} {"row" if result.rowcount == 1 else "rows"}'
+                    f'in "{table_name}" table to default user ({default_user.id})'
+                )
+
+        for table_name in DELETE_REF_TABLES:
+            table = engine.metadata.tables[table_name]
+            delete_stmt = table.delete().where(~table.c.user_id.in_(valid_user_ids))
+            result = session.execute(delete_stmt)
+
+            if result.rowcount:
+                logger.info(
+                    f'Deleted {result.rowcount} {"row" if result.rowcount == 1 else "rows"}'
+                    f'in "{table_name}" table with invalid user ids'
+                )
+
+    session.commit()
 
 
 def fix_recipe_normalized_search_properties(session: Session):
@@ -144,6 +184,8 @@ def fix_normalized_unit_and_food_names(session: Session):
 
 def fix_migration_data(session: Session):
     logger.info("Checking for migration data fixes")
+
+    fix_dangling_refs(session)
     fix_recipe_normalized_search_properties(session)
     fix_shopping_list_label_settings(session)
     fix_group_slugs(session)
