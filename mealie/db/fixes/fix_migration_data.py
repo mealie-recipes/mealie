@@ -22,9 +22,15 @@ def fix_dangling_refs(session: Session):
 
     groups = session.query(Group).all()
     for group in groups:
-        default_user = session.query(User).filter(User.group_id == group.id).first()
+        # Find an arbitrary admin user in the group
+        default_user = session.query(User).filter(User.group_id == group.id, User.admin == True).first()  # noqa: E712 - required for SQLAlchemy comparison
         if not default_user:
-            continue
+            # If there is no admin user, just pick the first user
+            default_user = session.query(User).filter(User.group_id == group.id).first()
+
+            # If there are no users in the group, we can't do anything
+            if not default_user:
+                continue
 
         valid_user_ids = {user.id for user in group.users}
 
