@@ -1,7 +1,7 @@
 from uuid import uuid4
 
 from slugify import slugify
-from sqlalchemy import update
+from sqlalchemy import and_, update
 from sqlalchemy.orm import Session
 
 from mealie.core import root_logger
@@ -36,7 +36,16 @@ def fix_dangling_refs(session: Session):
 
         for table_name in REASSIGN_REF_TABLES:
             table = SqlAlchemyBase.metadata.tables[table_name]
-            update_stmt = update(table).where(~table.c.user_id.in_(valid_user_ids)).values(user_id=default_user.id)
+            update_stmt = (
+                update(table)
+                .where(
+                    and_(
+                        ~table.c.user_id.in_(valid_user_ids),
+                        table.c.group_id == group.id,
+                    )
+                )
+                .values(user_id=default_user.id)
+            )
             result = session.execute(update_stmt)
 
             if result.rowcount:
