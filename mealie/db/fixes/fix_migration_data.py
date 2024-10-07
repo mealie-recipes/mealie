@@ -5,6 +5,7 @@ from sqlalchemy import update
 from sqlalchemy.orm import Session
 
 from mealie.core import root_logger
+from mealie.db.models._model_base import SqlAlchemyBase
 from mealie.db.models.group.group import Group
 from mealie.db.models.household.shopping_list import ShoppingList, ShoppingListMultiPurposeLabel
 from mealie.db.models.labels import MultiPurposeLabel
@@ -16,10 +17,9 @@ logger = root_logger.get_logger("init_db")
 
 
 def fix_dangling_refs(session: Session):
-    REASSIGN_REF_TABLES = ["GroupMealPlan", "RecipeModel", "ShoppingList"]
-    DELETE_REF_TABLES = ["LongLiveToken", "PasswordResetModel", "RecipeComment", "RecipeTimelineEvent"]
+    REASSIGN_REF_TABLES = ["group_meal_plans", "recipes", "shopping_lists"]
+    DELETE_REF_TABLES = ["long_live_tokens", "password_reset_tokens", "recipe_comments", "recipe_timeline_events"]
 
-    engine = session.get_bind()
     groups = session.query(Group).all()
     for group in groups:
         default_user = session.query(User).filter(User.group_id == group.id).first()
@@ -29,18 +29,18 @@ def fix_dangling_refs(session: Session):
         valid_user_ids = {user.id for user in group.users}
 
         for table_name in REASSIGN_REF_TABLES:
-            table = engine.metadata.tables[table_name]
+            table = SqlAlchemyBase.metadata.tables[table_name]
             update_stmt = update(table).where(~table.c.user_id.in_(valid_user_ids)).values(user_id=default_user.id)
             result = session.execute(update_stmt)
 
             if result.rowcount:
                 logger.info(
-                    f'Reassigned {result.rowcount} {"row" if result.rowcount == 1 else "rows"}'
+                    f'Reassigned {result.rowcount} {"row" if result.rowcount == 1 else "rows"} '
                     f'in "{table_name}" table to default user ({default_user.id})'
                 )
 
         for table_name in DELETE_REF_TABLES:
-            table = engine.metadata.tables[table_name]
+            table = SqlAlchemyBase.metadata.tables[table_name]
             delete_stmt = table.delete().where(~table.c.user_id.in_(valid_user_ids))
             result = session.execute(delete_stmt)
 
