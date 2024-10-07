@@ -14,6 +14,7 @@ from sqlalchemy.orm import sessionmaker
 from alembic import command
 from alembic.config import Config
 from mealie.db import init_db
+from mealie.db.fixes.fix_migration_data import fix_migration_data
 from mealie.db.models._model_utils.guid import GUID
 from mealie.services._base_service import BaseService
 
@@ -137,6 +138,14 @@ class AlchemyExporter(BaseService):
         Returns the entire SQLAlchemy database as a python dictionary. This dictionary is wrapped by
         jsonable_encoder to ensure that the object can be converted to a json string.
         """
+
+        # run database fixes first so we aren't backing up bad data
+        with self.session_maker() as session:
+            try:
+                fix_migration_data(session)
+            except Exception:
+                self.logger.error("Error fixing migration data during export; continuing anyway")
+
         with self.engine.connect() as connection:
             self.meta.reflect(bind=self.engine)  #  http://docs.sqlalchemy.org/en/rel_0_9/core/reflection.html
 
