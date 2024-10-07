@@ -2,133 +2,153 @@
   <v-card>
     <v-card-text>
       <v-container>
-        <v-row
-          v-for="(field, index) in fields"
-          :key="index"
+        <draggable
+          :value="fields"
+          handle=".handle"
+          v-bind="{
+            animation: 200,
+            group: 'recipe-instructions',
+            ghostClass: 'ghost',
+          }"
+          @start="drag = true"
+          @end="onDragEnd"
         >
-          <v-col :cols="attrs.fields.logicalOperator.cols">
-            <v-select
-              v-if="index"
-              v-model="field.logicalOperator"
-              :items="['AND', 'OR']"
-              @input="setLogicalOperatorValue(field, index, $event)"
-            >
-              <template #selection="{ item }">
-                <span class="d-flex justify-center" style="width: 100%;">
-                  {{ item }}
-                </span>
-              </template>
-            </v-select>
-          </v-col>
-          <v-col v-if="showAdvanced" :cols="attrs.fields.leftParens.cols">
-            <v-select
-              v-model="field.leftParenthesis"
-              :items="['', '(', '((', '(((']"
-              @input="setLeftParenthesisValue(field, index, $event)"
-            >
-              <template #selection="{ item }">
-                <span class="d-flex justify-center" style="width: 100%;">
-                  {{ item }}
-                </span>
-              </template>
-            </v-select>
-          </v-col>
-          <v-col :cols="attrs.fields.fieldName.cols">
-            <v-select
-              v-model="field.label"
-              :items="fieldDefs"
-              item-text="label"
-              @change="setField(index, $event)"
-            >
-              <template #selection="{ item }">
-                <span class="d-flex justify-center" style="width: 100%;">
-                  {{ item.label }}
-                </span>
-              </template>
-            </v-select>
-          </v-col>
-          <v-col :cols="attrs.fields.relationalOperator.cols">
-            <v-select
-              v-if="field.type !== 'boolean'"
-              v-model="field.relationalOperatorValue"
-              :items="field.relationalOperatorOptions"
-              @input="setRelationalOperatorValue(field, index, $event)"
-            >
-              <template #selection="{ item }">
-                <span class="d-flex justify-center" style="width: 100%;">
-                  {{ item }}
-                </span>
-              </template>
-            </v-select>
-          </v-col>
-          <v-col :cols="attrs.fields.fieldValue.cols">
-            <v-select
-              v-if="field.fieldOptions"
-              v-model="field.values"
-              :items="field.fieldOptions"
-              item-text="label"
-              item-value="value"
-              multiple
-              @input="setFieldValues(field, index, $event)"
-            />
-            <v-text-field
-              v-else-if="field.type === 'string'"
-              v-model="field.value"
-              @input="setFieldValue(field, index, $event)"
-            />
-            <v-text-field
-              v-else-if="field.type === 'number'"
-              type="number"
-              v-model="field.value"
-              @input="setFieldValue(field, index, $event)"
-            />
-            <v-checkbox
-              v-else-if="field.type === 'boolean'"
-              v-model="field.value"
-              @change="setFieldValue(field, index, $event)"
-            />
-            <v-menu
-              v-else-if="field.type === 'Date'"
-              v-model="datePickers[index]"
-              :close-on-content-click="false"
-              transition="scale-transition"
-              offset-y
-              max-width="290px"
-              min-width="auto"
-            >
-              <template #activator="{ on, attrs }">
-                <v-text-field
-                  v-model="field.value"
-                  persistent-hint
-                  :prepend-icon="$globals.icons.calendar"
-                  v-bind="attrs"
-                  readonly
-                  v-on="on"
-                />
-              </template>
-              <v-date-picker
+          <v-row
+            v-for="(field, index) in fields"
+            :key="index"
+          >
+            <v-col :cols="attrs.fields.icon.cols" :class="attrs.fields.icon.class">
+              <v-icon
+                class="handle"
+                style="width: 100%; height: 100%;"
+              >
+                {{ $globals.icons.arrowUpDown }}
+            </v-icon>
+            </v-col>
+            <v-col :cols="attrs.fields.logicalOperator.cols" :class="attrs.fields.logicalOperator.class">
+              <v-select
+                v-if="index"
+                v-model="field.logicalOperator"
+                :items="['AND', 'OR']"
+                @input="setLogicalOperatorValue(field, index, $event)"
+              >
+                <template #selection="{ item }">
+                  <span class="d-flex justify-center" style="width: 100%;">
+                    {{ item }}
+                  </span>
+                </template>
+              </v-select>
+            </v-col>
+            <v-col v-if="showAdvanced" :cols="attrs.fields.leftParens.cols" :class="attrs.fields.leftParens.class">
+              <v-select
+                v-model="field.leftParenthesis"
+                :items="['', '(', '((', '(((']"
+                @input="setLeftParenthesisValue(field, index, $event)"
+              >
+                <template #selection="{ item }">
+                  <span class="d-flex justify-center" style="width: 100%;">
+                    {{ item }}
+                  </span>
+                </template>
+              </v-select>
+            </v-col>
+            <v-col :cols="attrs.fields.fieldName.cols" :class="attrs.fields.fieldName.class">
+              <v-select
+                v-model="field.label"
+                :items="fieldDefs"
+                item-text="label"
+                @change="setField(index, $event)"
+              >
+                <template #selection="{ item }">
+                  <span class="d-flex justify-center" style="width: 100%;">
+                    {{ item.label }}
+                  </span>
+                </template>
+              </v-select>
+            </v-col>
+            <v-col :cols="attrs.fields.relationalOperator.cols" :class="attrs.fields.relationalOperator.class">
+              <v-select
+                v-if="field.type !== 'boolean'"
+                v-model="field.relationalOperatorValue"
+                :items="field.relationalOperatorOptions"
+                @input="setRelationalOperatorValue(field, index, $event)"
+              >
+                <template #selection="{ item }">
+                  <span class="d-flex justify-center" style="width: 100%;">
+                    {{ item }}
+                  </span>
+                </template>
+              </v-select>
+            </v-col>
+            <v-col :cols="attrs.fields.fieldValue.cols" :class="attrs.fields.fieldValue.class">
+              <v-select
+                v-if="field.fieldOptions"
+                v-model="field.values"
+                :items="field.fieldOptions"
+                item-text="label"
+                item-value="value"
+                multiple
+                @input="setFieldValues(field, index, $event)"
+              />
+              <v-text-field
+                v-else-if="field.type === 'string'"
                 v-model="field.value"
-                no-title
-                :first-day-of-week="firstDayOfWeek"
-                :local="$i18n.locale"
                 @input="setFieldValue(field, index, $event)"
               />
-            </v-menu>
-          </v-col>
-          <v-col v-if="showAdvanced" :cols="attrs.fields.rightParens.cols">
-            <v-select
-              v-model="field.rightParenthesis"
-              :items="['', ')', '))', ')))']"
-              @input="setRightParenthesisValue(field, index, $event)"
-            >
-              <template #selection="{ item }">
-                <span class="d-flex justify-center" style="width: 100%;">
-                  {{ item }}
-                </span>
-              </template>
-            </v-select>
-          </v-col>
-        </v-row>
+              <v-text-field
+                v-else-if="field.type === 'number'"
+                type="number"
+                v-model="field.value"
+                @input="setFieldValue(field, index, $event)"
+              />
+              <v-checkbox
+                v-else-if="field.type === 'boolean'"
+                v-model="field.value"
+                @change="setFieldValue(field, index, $event)"
+              />
+              <v-menu
+                v-else-if="field.type === 'Date'"
+                v-model="datePickers[index]"
+                :close-on-content-click="false"
+                transition="scale-transition"
+                offset-y
+                max-width="290px"
+                min-width="auto"
+              >
+                <template #activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="field.value"
+                    persistent-hint
+                    :prepend-icon="$globals.icons.calendar"
+                    v-bind="attrs"
+                    readonly
+                    v-on="on"
+                  />
+                </template>
+                <v-date-picker
+                  v-model="field.value"
+                  no-title
+                  :first-day-of-week="firstDayOfWeek"
+                  :local="$i18n.locale"
+                  @input="setFieldValue(field, index, $event)"
+                />
+              </v-menu>
+            </v-col>
+            <v-col v-if="showAdvanced" :cols="attrs.fields.rightParens.cols" :class="attrs.fields.rightParens.class">
+              <v-select
+                v-model="field.rightParenthesis"
+                :items="['', ')', '))', ')))']"
+                @input="setRightParenthesisValue(field, index, $event)"
+              >
+                <template #selection="{ item }">
+                  <span class="d-flex justify-center" style="width: 100%;">
+                    {{ item }}
+                  </span>
+                </template>
+              </v-select>
+            </v-col>
+          </v-row>
+        </draggable>
       </v-container>
     </v-card-text>
     <v-card-actions>
@@ -143,6 +163,7 @@
 </template>
 
 <script lang="ts">
+import draggable from "vuedraggable";
 import { computed, defineComponent, reactive, ref, toRefs, watch } from "@nuxtjs/composition-api";
 import { useHouseholdSelf } from "~/composables/use-households";
 
@@ -177,6 +198,9 @@ interface Field extends FieldDefinition {
 }
 
 export default defineComponent({
+  components: {
+    draggable,
+  },
   props: {
     fieldDefs: {
       type: Array as () => FieldDefinition[],
@@ -193,7 +217,21 @@ export default defineComponent({
       showAdvanced: false,
       qfValid: false,
       datePickers: [] as boolean[],
+      drag: false,
     });
+
+    function onDragEnd(event: any) {
+      state.drag = false;
+
+      const oldIndex: number = event.oldIndex;
+      const newIndex: number = event.newIndex;
+      state.datePickers[oldIndex] = false;
+      state.datePickers[newIndex] = false;
+
+      const field = fields.value.splice(oldIndex, 1)[0];
+      fields.value.splice(newIndex, 0, field);
+      fields.value = [...fields.value];
+    }
 
     function getFieldFromFieldDef(field: Field | FieldDefinition, resetValue = false): Field {
       const updatedField = {logicalOperator: "AND", ...field} as Field;
@@ -339,11 +377,10 @@ export default defineComponent({
       const parts: string[] = [];
       fields.value.forEach((field, index) => {
         if (index) {
-          if (field.logicalOperator) {
-            parts.push(field.logicalOperator);
-          } else {
-            isValid = false;
+          if (!field.logicalOperator) {
+            field.logicalOperator = "AND";
           }
+          parts.push(field.logicalOperator);
         }
 
         if (field.leftParenthesis && state.showAdvanced) {
@@ -447,23 +484,33 @@ export default defineComponent({
     const attrs = computed(() => {
       const attrs = {
         fields: {
+          icon: {
+            cols: 1,
+            class: "d-flex justify-center",
+          },
           leftParens: {
             cols: state.showAdvanced ? 1 : 0,
+            class: "d-flex justify-center",
           },
           logicalOperator: {
             cols: 2,
+            class: "d-flex justify-center",
           },
           fieldName: {
             cols: state.showAdvanced ? 2 : 3,
+            class: "d-flex justify-center",
           },
           relationalOperator: {
             cols: 3,
+            class: "d-flex justify-center",
           },
           fieldValue: {
-            cols: state.showAdvanced ? 3 : 4,
+            cols: state.showAdvanced ? 2 : 3,
+            class: "d-flex justify-center",
           },
           rightParens: {
             cols: state.showAdvanced ? 1 : 0,
+            class: "d-flex justify-center",
           },
         },
       }
@@ -474,6 +521,7 @@ export default defineComponent({
     return {
       ...toRefs(state),
       attrs,
+      onDragEnd,
       fields,
       firstDayOfWeek,
       addField,
