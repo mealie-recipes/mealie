@@ -212,7 +212,9 @@
     "clipboard-copy-failure": "Failed to copy to the clipboard.",
     "confirm-delete-generic-items": "Are you sure you want to delete the following items?",
     "organizers": "Organizers",
-    "caution": "Caution"
+    "caution": "Caution",
+    "show-advanced": "Show Advanced",
+    "add-field": "Add Field"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Are you sure you want to delete <b>{groupName}<b/>?",
@@ -1328,5 +1330,9 @@
     "household-cookbook-name": "{0} Cookbook {1}",
     "create-a-cookbook": "Create a Cookbook",
     "cookbook": "Cookbook"
+  },
+  "query-filter": {
+    "query-filter-is-valid": "Query filter is valid",
+    "query-filter-is-invalid": "Query filter is invalid"
   }
 }

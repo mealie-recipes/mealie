@@ -1,7 +1,7 @@
 <template>
   <v-card class="ma-0">
     <v-card-text class="ma-0 pa-0">
-      <v-container>
+      <v-container fluid class="ma-0 pa-0">
         <draggable
           :value="fields"
           handle=".handle"
@@ -23,7 +23,7 @@
                 style="width: 100%; height: 100%;"
               >
                 {{ $globals.icons.arrowUpDown }}
-            </v-icon>
+              </v-icon>
             </v-col>
             <v-col :cols="attrs.fields.logicalOperator.cols" :class="attrs.col.class">
               <v-select
@@ -147,17 +147,34 @@
                 </template>
               </v-select>
             </v-col>
+            <v-col :cols="attrs.fields.fieldActions.cols" :class="attrs.col.class">
+              <BaseButtonGroup
+                :buttons="[
+                  {
+                    icon: $globals.icons.delete,
+                    text: $tc('general.delete'),
+                    event: 'delete',
+                    disabled: fields.length === 1,
+                  }
+                ]"
+                class="my-auto"
+                @delete="removeField(index)"
+              />
+            </v-col>
           </v-row>
         </draggable>
       </v-container>
     </v-card-text>
     <v-card-actions>
-      <v-checkbox v-model="showAdvanced" label="Show Advanced" />
-      <v-spacer />
-      <v-btn @click="addField(fieldDefs[0])">Add Field</v-btn>
-      <v-spacer />
-      <span v-if="qfValid" class="green">QF Valid</span>
-      <span v-else class="red">QF Not Valid</span>
+      <v-container fluid class="d-flex justify-end pa-0">
+        <v-checkbox
+          v-model="showAdvanced"
+          hide-details
+          :label="$tc('general.show-advanced')"
+          class="my-auto mr-4"
+        />
+        <BaseButton create :text="$tc('general.add-field')" @click="addField(fieldDefs[0])" />
+      </v-container>
     </v-card-actions>
   </v-card>
 </template>
@@ -230,7 +247,6 @@ export default defineComponent({
 
       const field = fields.value.splice(oldIndex, 1)[0];
       fields.value.splice(newIndex, 0, field);
-      fields.value = [...fields.value];
     }
 
     function getFieldFromFieldDef(field: Field | FieldDefinition, resetValue = false): Field {
@@ -503,13 +519,16 @@ export default defineComponent({
             cols: state.showAdvanced ? 2 : 3,
           },
           relationalOperator: {
-            cols: 3,
+            cols: 2,
           },
           fieldValue: {
             cols: state.showAdvanced ? 2 : 3,
           },
           rightParens: {
             cols: state.showAdvanced ? 1 : 0,
+          },
+          fieldActions: {
+            cols: 1,
           },
         },
       }
