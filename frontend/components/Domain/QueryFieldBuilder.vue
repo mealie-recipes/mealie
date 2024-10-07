@@ -238,8 +238,12 @@ export default defineComponent({
         return;
       }
 
-      const resetValue = fieldDef.type !== fields.value[index].type
+      const resetValue = (fieldDef.type !== fields.value[index].type) || (fieldDef.fieldOptions !== fields.value[index].fieldOptions);
       const updatedField = {...fields.value[index], ...fieldDef};
+
+      // we have to set this explicitly since it might be undefined
+      updatedField.fieldOptions = fieldDef.fieldOptions;
+
       fields.value.splice(index, 1, getFieldFromFieldDef(updatedField, resetValue));
     }
 
