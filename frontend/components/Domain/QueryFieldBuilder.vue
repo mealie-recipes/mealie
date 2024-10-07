@@ -23,7 +23,7 @@
           <v-col v-if="showAdvanced" :cols="attrs.fields.leftParens.cols">
             <v-select
               v-model="field.leftParenthesis"
-              :items="['', '(', '((']"
+              :items="['', '(', '((', '(((']"
               @input="setLeftParenthesisValue(field, index, $event)"
             >
               <template #selection="{ item }">
@@ -97,7 +97,7 @@
           <v-col v-if="showAdvanced" :cols="attrs.fields.rightParens.cols">
             <v-select
               v-model="field.rightParenthesis"
-              :items="['', ')', '))']"
+              :items="['', ')', '))', ')))']"
               @input="setRightParenthesisValue(field, index, $event)"
             >
               <template #selection="{ item }">
