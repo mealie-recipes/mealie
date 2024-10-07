@@ -87,12 +87,33 @@
               v-model="field.value"
               @change="setFieldValue(field, index, $event)"
             />
-            <v-date-picker
+            <v-menu
               v-else-if="field.type === 'Date'"
-              v-model="field.value"
-              no-title
-              @input="setFieldValue(field, index, $event)"
-            />
+              v-model="datePickers[index]"
+              :close-on-content-click="false"
+              transition="scale-transition"
+              offset-y
+              max-width="290px"
+              min-width="auto"
+            >
+              <template #activator="{ on, attrs }">
+                <v-text-field
+                  v-model="field.value"
+                  persistent-hint
+                  :prepend-icon="$globals.icons.calendar"
+                  v-bind="attrs"
+                  readonly
+                  v-on="on"
+                />
+              </template>
+              <v-date-picker
+                v-model="field.value"
+                no-title
+                :first-day-of-week="firstDayOfWeek"
+                :local="$i18n.locale"
+                @input="setFieldValue(field, index, $event)"
+              />
+            </v-menu>
           </v-col>
           <v-col v-if="showAdvanced" :cols="attrs.fields.rightParens.cols">
             <v-select
@@ -123,6 +144,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, reactive, ref, toRefs, watch } from "@nuxtjs/composition-api";
+import { useHouseholdSelf } from "~/composables/use-households";
 
 export type FieldType =
   | string
@@ -145,13 +167,13 @@ export interface FieldDefinition {
 type LogicalOperator = "AND" | "OR";
 
 interface Field extends FieldDefinition {
-  leftParenthesis: string | undefined;
-  logicalOperator: LogicalOperator | undefined;
+  leftParenthesis?: string;
+  logicalOperator?: LogicalOperator;
   value: FieldType;
   values: FieldType[];
   relationalOperatorValue: string;
   relationalOperatorOptions: string[];
-  rightParenthesis: string | undefined;
+  rightParenthesis?: string;
 }
 
 export default defineComponent({
@@ -162,9 +184,15 @@ export default defineComponent({
     },
   },
   setup(props, context) {
+    const { household } = useHouseholdSelf();
+    const firstDayOfWeek = computed(() => {
+      return household.value?.preferences?.firstDayOfWeek || 0;
+    });
+
     const state = reactive({
       showAdvanced: false,
       qfValid: false,
+      datePickers: [] as boolean[],
     });
 
     function getFieldFromFieldDef(field: Field | FieldDefinition, resetValue = false): Field {
@@ -230,9 +258,11 @@ export default defineComponent({
 
     function addField(field: FieldDefinition) {
       fields.value.push(getFieldFromFieldDef(field));
+      state.datePickers.push(false);
     };
 
     function setField(index: number, fieldLabel: string) {
+      state.datePickers[index] = false;
       const fieldDef = props.fieldDefs.find((fieldDef) => fieldDef.label === fieldLabel);
       if (!fieldDef) {
         return;
@@ -282,6 +312,7 @@ export default defineComponent({
     }
 
     function setFieldValue(field: Field, index: number, value: FieldType) {
+      state.datePickers[index] = false;
       fields.value.splice(index, 1, {
         ...field,
         value: value,
@@ -297,6 +328,7 @@ export default defineComponent({
 
     function removeField(index: number) {
       fields.value.splice(index, 1);
+      state.datePickers.splice(index, 1);
     };
 
     function buildQueryFilterString() {
@@ -443,6 +475,7 @@ export default defineComponent({
       ...toRefs(state),
       attrs,
       fields,
+      firstDayOfWeek,
       addField,
       setField,
       setLeftParenthesisValue,
