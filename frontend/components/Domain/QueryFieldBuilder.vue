@@ -1,6 +1,6 @@
 <template>
-  <v-card>
-    <v-card-text>
+  <v-card class="ma-0">
+    <v-card-text class="ma-0 pa-0">
       <v-container>
         <draggable
           :value="fields"
