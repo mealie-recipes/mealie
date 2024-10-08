@@ -4,6 +4,8 @@ from .query_filter import (
     LogicalOperator,
     QueryFilterBuilder,
     QueryFilterBuilderComponent,
+    QueryFilterJSON,
+    QueryFilterJSONPart,
     RelationalKeyword,
     RelationalOperator,
 )
@@ -15,6 +17,8 @@ __all__ = [
     "LogicalOperator",
     "QueryFilterBuilder",
     "QueryFilterBuilderComponent",
+    "QueryFilterJSON",
+    "QueryFilterJSONPart",
     "RelationalKeyword",
     "RelationalOperator",
     "ValidationResponse",
