@@ -134,25 +134,25 @@
                 />
               </v-menu>
               <RecipeOrganizerSelector
-                v-else-if="field.type === 'category'"
+                v-else-if="field.type === Organizer.Category"
                 v-model="field.organizers"
-                selector-type="categories"
+                :selector-type="Organizer.Category"
                 :show-add="false"
                 :show-label="false"
                 @input="setOrganizerValues(field, index, $event)"
               />
               <RecipeOrganizerSelector
-                v-else-if="field.type === 'tag'"
+                v-else-if="field.type === Organizer.Tag"
                 v-model="field.organizers"
-                selector-type="tags"
+                :selector-type="Organizer.Tag"
                 :show-add="false"
                 :show-label="false"
                 @input="setOrganizerValues(field, index, $event)"
               />
               <RecipeOrganizerSelector
-                v-else-if="field.type === 'tool'"
+                v-else-if="field.type === Organizer.Tool"
                 v-model="field.organizers"
-                selector-type="tools"
+                :selector-type="Organizer.Tool"
                 :show-add="false"
                 :show-label="false"
                 @input="setOrganizerValues(field, index, $event)"
@@ -208,8 +208,7 @@ import draggable from "vuedraggable";
 import { computed, defineComponent, reactive, ref, toRefs, watch } from "@nuxtjs/composition-api";
 import { useHouseholdSelf } from "~/composables/use-households";
 import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
-
-export type OrganizerType = "category" | "tag" | "tool";
+import { Organizer, RecipeOrganizer } from "~/lib/api/types/non-generated";
 
 interface OrganizerBase {
   id: number;
@@ -221,7 +220,7 @@ export type FieldType =
   | number
   | boolean
   | Date
-  | OrganizerType;
+  | RecipeOrganizer;
 
 interface SelectableItem {
   label: string;
@@ -276,8 +275,12 @@ export default defineComponent({
       drag: false,
     });
 
-    function isOrganizerType(type: FieldType): type is OrganizerType {
-      return type === "category" || type === "tag" || type === "tool";
+    function isOrganizerType(type: FieldType): type is Organizer {
+      return (
+        type === Organizer.Category ||
+        type === Organizer.Tag ||
+        type === Organizer.Tool
+      );
     }
 
     function onDragEnd(event: any) {
@@ -585,6 +588,7 @@ export default defineComponent({
     })
 
     return {
+      Organizer,
       ...toRefs(state),
       attrs,
       firstDayOfWeek,
