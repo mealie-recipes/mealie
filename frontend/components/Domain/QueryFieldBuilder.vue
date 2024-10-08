@@ -157,6 +157,22 @@
                 :show-label="false"
                 @input="setOrganizerValues(field, index, $event)"
               />
+              <RecipeOrganizerSelector
+                v-else-if="field.type === Organizer.Food"
+                v-model="field.organizers"
+                :selector-type="Organizer.Food"
+                :show-add="false"
+                :show-label="false"
+                @input="setOrganizerValues(field, index, $event)"
+              />
+              <RecipeOrganizerSelector
+                v-else-if="field.type === Organizer.Household"
+                v-model="field.organizers"
+                :selector-type="Organizer.Household"
+                :show-add="false"
+                :show-label="false"
+                @input="setOrganizerValues(field, index, $event)"
+              />
             </v-col>
             <v-col v-if="showAdvanced" :cols="attrs.fields.rightParens.cols" :class="attrs.col.class">
               <v-select
@@ -279,7 +295,9 @@ export default defineComponent({
       return (
         type === Organizer.Category ||
         type === Organizer.Tag ||
-        type === Organizer.Tool
+        type === Organizer.Tool ||
+        type === Organizer.Food ||
+        type === Organizer.Household
       );
     }
 
