@@ -173,17 +173,10 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         q = q.filter_by(**fltr)
 
         if cookbook:
-            cb_filters = self._build_recipe_filter(
-                households=[cookbook.household_id],
-                categories=extract_uuids(cookbook.categories),
-                tags=extract_uuids(cookbook.tags),
-                tools=extract_uuids(cookbook.tools),
-                require_all_categories=cookbook.require_all_categories,
-                require_all_tags=cookbook.require_all_tags,
-                require_all_tools=cookbook.require_all_tools,
-            )
-
-            q = q.filter(*cb_filters)
+            if pagination.query_filter and cookbook.query_filter_string:
+                pagination.query_filter = f"({pagination.query_filter}) AND ({cookbook.query_filter_string})"
+            else:
+                pagination.query_filter = cookbook.query_filter_string
         else:
             category_ids = self._uuids_for_items(categories, Category)
             tag_ids = self._uuids_for_items(tags, Tag)

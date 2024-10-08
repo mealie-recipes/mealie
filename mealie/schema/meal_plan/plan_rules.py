@@ -1,32 +1,11 @@
 import datetime
 from enum import Enum
 
-from pydantic import UUID4, ConfigDict
-from sqlalchemy.orm import joinedload
-from sqlalchemy.orm.interfaces import LoaderOption
+from pydantic import UUID4, ConfigDict, field_validator
 
-from mealie.db.models.household import GroupMealPlanRules, Household
-from mealie.db.models.recipe import Category, Tag
 from mealie.schema._mealie import MealieModel
 from mealie.schema.response.pagination import PaginationBase
-
-
-class BasePlanRuleFilter(MealieModel):
-    id: UUID4
-    name: str
-    slug: str
-
-
-class PlanCategory(BasePlanRuleFilter):
-    model_config = ConfigDict(from_attributes=True)
-
-
-class PlanTag(BasePlanRuleFilter):
-    model_config = ConfigDict(from_attributes=True)
-
-
-class PlanHousehold(BasePlanRuleFilter):
-    model_config = ConfigDict(from_attributes=True)
+from mealie.schema.response.query_filter import QueryFilterBuilder, QueryFilterJSON
 
 
 class PlanRulesDay(str, Enum):
@@ -59,9 +38,7 @@ class PlanRulesType(str, Enum):
 class PlanRulesCreate(MealieModel):
     day: PlanRulesDay = PlanRulesDay.unset
     entry_type: PlanRulesType = PlanRulesType.unset
-    categories: list[PlanCategory] = []
-    tags: list[PlanTag] = []
-    households: list[PlanHousehold] = []
+    query_filter_string: str
 
 
 class PlanRulesSave(PlanRulesCreate):
@@ -71,27 +48,15 @@ class PlanRulesSave(PlanRulesCreate):
 
 class PlanRulesOut(PlanRulesSave):
     id: UUID4
+    query_filter: QueryFilterJSON
+
     model_config = ConfigDict(from_attributes=True)
 
-    @classmethod
-    def loader_options(cls) -> list[LoaderOption]:
-        return [
-            joinedload(GroupMealPlanRules.categories).load_only(
-                Category.id,
-                Category.name,
-                Category.slug,
-            ),
-            joinedload(GroupMealPlanRules.tags).load_only(
-                Tag.id,
-                Tag.name,
-                Tag.slug,
-            ),
-            joinedload(GroupMealPlanRules.households).load_only(
-                Household.id,
-                Household.name,
-                Household.slug,
-            ),
-        ]
+    @field_validator("query_filter_string", mode="before")
+    def validate_query_filter(_, values) -> QueryFilterJSON:
+        query_filter_string: str = values.get("query_filter_string") or ""
+        builder = QueryFilterBuilder(query_filter_string)
+        return builder.as_json_model()
 
 
 class PlanRulesPagination(PaginationBase):
