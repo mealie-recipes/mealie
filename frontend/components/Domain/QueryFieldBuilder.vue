@@ -133,6 +133,30 @@
                   @input="setFieldValue(field, index, $event)"
                 />
               </v-menu>
+              <RecipeOrganizerSelector
+                v-else-if="field.type === 'category'"
+                v-model="field.organizers"
+                selector-type="categories"
+                :show-add="false"
+                :show-label="false"
+                @input="setOrganizerValues(field, index, $event)"
+              />
+              <RecipeOrganizerSelector
+                v-else-if="field.type === 'tag'"
+                v-model="field.organizers"
+                selector-type="tags"
+                :show-add="false"
+                :show-label="false"
+                @input="setOrganizerValues(field, index, $event)"
+              />
+              <RecipeOrganizerSelector
+                v-else-if="field.type === 'tool'"
+                v-model="field.organizers"
+                selector-type="tools"
+                :show-add="false"
+                :show-label="false"
+                @input="setOrganizerValues(field, index, $event)"
+              />
             </v-col>
             <v-col v-if="showAdvanced" :cols="attrs.fields.rightParens.cols" :class="attrs.col.class">
               <v-select
@@ -183,12 +207,21 @@
 import draggable from "vuedraggable";
 import { computed, defineComponent, reactive, ref, toRefs, watch } from "@nuxtjs/composition-api";
 import { useHouseholdSelf } from "~/composables/use-households";
+import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
+
+export type OrganizerType = "category" | "tag" | "tool";
+
+interface OrganizerBase {
+  id: number;
+  name: string;
+}
 
 export type FieldType =
   | string
   | number
   | boolean
-  | Date;
+  | Date
+  | OrganizerType;
 
 interface SelectableItem {
   label: string;
@@ -199,6 +232,8 @@ export interface FieldDefinition {
   name: string;
   label: string;
   type: FieldType;
+
+  // only for select/organizer fields
   fieldOptions?: SelectableItem[];
 }
 
@@ -208,15 +243,19 @@ interface Field extends FieldDefinition {
   leftParenthesis?: string;
   logicalOperator?: LogicalOperator;
   value: FieldType;
-  values: FieldType[];
   relationalOperatorValue: string;
   relationalOperatorOptions: string[];
   rightParenthesis?: string;
+
+  // only for select/organizer fields
+  values: FieldType[];
+  organizers: OrganizerBase[];
 }
 
 export default defineComponent({
   components: {
     draggable,
+    RecipeOrganizerSelector,
   },
   props: {
     fieldDefs: {
@@ -237,6 +276,10 @@ export default defineComponent({
       drag: false,
     });
 
+    function isOrganizerType(type: FieldType): type is OrganizerType {
+      return type === "category" || type === "tag" || type === "tool";
+    }
+
     function onDragEnd(event: any) {
       state.drag = false;
 
@@ -252,7 +295,7 @@ export default defineComponent({
     function getFieldFromFieldDef(field: Field | FieldDefinition, resetValue = false): Field {
       const updatedField = {logicalOperator: "AND", ...field} as Field;
       let operatorOptions: string[];
-      if (updatedField.fieldOptions?.length) {
+      if (updatedField.fieldOptions?.length || isOrganizerType(updatedField.type)) {
         operatorOptions = [
           "IN",
           "NOT IN",
@@ -303,6 +346,7 @@ export default defineComponent({
       if (resetValue) {
         updatedField.value = "";
         updatedField.values = [];
+        updatedField.organizers = [];
       }
 
       return updatedField;
@@ -380,6 +424,10 @@ export default defineComponent({
       });
     }
 
+    function setOrganizerValues(field: Field, index: number, values: OrganizerBase[]) {
+      setFieldValues(field, index, values.map((value) => value.id.toString()));
+    }
+
     function removeField(index: number) {
       fields.value.splice(index, 1);
       state.datePickers.splice(index, 1);
@@ -418,10 +466,10 @@ export default defineComponent({
           }
         }
 
-        if (field.fieldOptions?.length) {
+        if (field.fieldOptions?.length || isOrganizerType(field.type)) {
           if (field.values?.length) {
             let val: string;
-            if (field.type === "string" || field.type === "Date") {
+            if (field.type === "string" || field.type === "Date" || isOrganizerType(field.type)) {
               val = field.values.map((value) => `"${value}"`).join(",");
             } else {
               val = field.values.join(",");
@@ -539,9 +587,10 @@ export default defineComponent({
     return {
       ...toRefs(state),
       attrs,
-      onDragEnd,
-      fields,
       firstDayOfWeek,
+      onDragEnd,
+      // Fields
+      fields,
       addField,
       setField,
       setLeftParenthesisValue,
@@ -550,6 +599,7 @@ export default defineComponent({
       setRelationalOperatorValue,
       setFieldValue,
       setFieldValues,
+      setOrganizerValues,
       removeField,
     };
   },

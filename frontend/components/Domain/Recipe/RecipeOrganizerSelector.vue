@@ -15,6 +15,7 @@
     v-bind="inputAttrs"
     auto-select-first
     :search-input.sync="searchInput"
+    class="pa-0"
     @change="resetSearchInput"
   >
     <template #selection="data">
@@ -80,6 +81,10 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
+    showLabel: {
+      type: Boolean,
+      default: true,
+    },
   },
 
   setup(props, context) {
@@ -99,6 +104,10 @@ export default defineComponent({
     const { i18n } = useContext();
 
     const label = computed(() => {
+      if (!props.showLabel) {
+        return "";
+      }
+
       switch (props.selectorType) {
         case Organizer.Tag:
           return i18n.t("tag.tags");
@@ -170,3 +179,10 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+.v-autocomplete {
+  /* This aligns the input with other standard input fields */
+  margin-top: 6px;
+}
+</style>
