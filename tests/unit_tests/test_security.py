@@ -6,7 +6,10 @@ from pytest import MonkeyPatch
 from mealie.core import security
 from mealie.core.config import get_app_settings
 from mealie.core.dependencies import validate_file_token
-from mealie.core.security.providers.credentials_provider import CredentialsProvider, CredentialsRequest
+from mealie.core.security.providers.credentials_provider import (
+    CredentialsProvider,
+    CredentialsRequest,
+)
 from mealie.core.security.providers.ldap_provider import LDAPProvider
 from mealie.db.db_setup import session_context
 from mealie.db.models.users.users import AuthMethod
@@ -102,7 +105,10 @@ def setup_env(monkeypatch: MonkeyPatch):
     monkeypatch.setenv("LDAP_BASE_DN", base_dn)
     monkeypatch.setenv("LDAP_QUERY_BIND", query_bind)
     monkeypatch.setenv("LDAP_QUERY_PASSWORD", query_password)
-    monkeypatch.setenv("LDAP_USER_FILTER", "(&(objectClass=user)(|({id_attribute}={input})({mail_attribute}={input})))")
+    monkeypatch.setenv(
+        "LDAP_USER_FILTER",
+        "(&(objectClass=user)(|({id_attribute}={input})({mail_attribute}={input})))",
+    )
 
     return user, mail, name, password, query_bind, query_password
 
@@ -208,15 +214,11 @@ def test_ldap_user_creation_admin(monkeypatch: MonkeyPatch):
 def test_ldap_disabled(monkeypatch: MonkeyPatch):
     monkeypatch.setenv("LDAP_AUTH_ENABLED", "False")
 
-    class Request:
-        def __init__(self, auth_strategy: str):
-            self.cookies = {"mealie.auth.strategy": auth_strategy}
-
     get_app_settings.cache_clear()
 
     with session_context() as session:
         form = CredentialsRequestForm("username", "password", False)
-        provider = security.get_auth_provider(session, Request("local"), form)
+        provider = security.get_auth_provider(session, form)
 
     assert isinstance(provider, CredentialsProvider)
 
@@ -230,7 +232,15 @@ def test_user_login_ldap_auth_method(monkeypatch: MonkeyPatch, ldap_user: Privat
 
     def ldap_initialize_mock(url):
         assert url == ""
-        return LdapConnMock(ldap_user.username, ldap_password, False, query_bind, query_password, ldap_user.email, name)
+        return LdapConnMock(
+            ldap_user.username,
+            ldap_password,
+            False,
+            query_bind,
+            query_password,
+            ldap_user.email,
+            name,
+        )
 
     monkeypatch.setattr(ldap, "initialize", ldap_initialize_mock)
 

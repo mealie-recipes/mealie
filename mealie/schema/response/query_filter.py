@@ -15,6 +15,7 @@ from sqlalchemy.orm import InstrumentedAttribute, Mapper
 from sqlalchemy.sql import sqltypes
 
 from mealie.db.models._model_base import SqlAlchemyBase
+from mealie.db.models._model_utils.datetime import NaiveDateTime
 from mealie.db.models._model_utils.guid import GUID
 
 Model = TypeVar("Model", bound=SqlAlchemyBase)
@@ -177,7 +178,7 @@ class QueryFilterComponent:
                 except ValueError as e:
                     raise ValueError(f"invalid query string: invalid UUID '{v}'") from e
 
-            if isinstance(model_attr_type, sqltypes.Date | sqltypes.DateTime):
+            if isinstance(model_attr_type, sqltypes.Date | sqltypes.DateTime | NaiveDateTime):
                 try:
                     dt = date_parser.parse(v)
                     sanitized_values[i] = dt.date() if isinstance(model_attr_type, sqltypes.Date) else dt

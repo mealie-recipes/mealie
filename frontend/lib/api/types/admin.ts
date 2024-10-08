@@ -242,11 +242,6 @@ export interface NotificationImport {
   status: boolean;
   exception?: string | null;
 }
-export interface OIDCInfo {
-  configurationUrl: string | null;
-  clientId: string | null;
-  groupsClaim: string | null;
-}
 export interface RecipeImport {
   name: string;
   status: boolean;

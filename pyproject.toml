@@ -49,6 +49,7 @@ pillow-heif = "^0.18.0"
 pyjwt = "^2.8.0"
 openai = "^1.27.0"
 typing-extensions = "^4.12.2"
+itsdangerous = "^2.2.0"
 
 [tool.poetry.group.postgres.dependencies]
 psycopg2-binary = { version = "^2.9.1" }
@@ -58,7 +59,7 @@ coverage = "^7.0"
 coveragepy-lcov = "^0.1.1"
 mkdocs-material = "^9.0.0"
 mypy = "^1.5.1"
-pre-commit = "^3.3.3"
+pre-commit = "^4.0.0"
 pylint = "^3.0.0"
 pytest = "^8.0.0"
 pytest-asyncio = "^0.24.0"
