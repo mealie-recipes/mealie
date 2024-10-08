@@ -1,9 +1,11 @@
 from datetime import datetime, timezone
 from typing import TYPE_CHECKING
 
-from sqlalchemy import DateTime, ForeignKey, String
+from sqlalchemy import ForeignKey, String
 from sqlalchemy.ext.associationproxy import AssociationProxy, association_proxy
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from mealie.db.models._model_utils.datetime import NaiveDateTime
 
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils.auto_init import auto_init
@@ -38,7 +40,7 @@ class RecipeTimelineEvent(SqlAlchemyBase, BaseMixins):
     image: Mapped[str | None] = mapped_column(String)
 
     # Timestamps
-    timestamp: Mapped[datetime | None] = mapped_column(DateTime, index=True)
+    timestamp: Mapped[datetime | None] = mapped_column(NaiveDateTime, index=True)
 
     @auto_init()
     def __init__(
