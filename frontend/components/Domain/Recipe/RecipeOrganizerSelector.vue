@@ -8,9 +8,7 @@
     deletable-chips
     item-text="name"
     multiple
-    :prepend-inner-icon="selectorType === Organizer.Tool ? $globals.icons.potSteam :
-      selectorType === Organizer.Category ? $globals.icons.categories :
-      $globals.icons.tags"
+    :prepend-inner-icon="icon"
     return-object
     v-bind="inputAttrs"
     auto-select-first
@@ -49,8 +47,7 @@ import { defineComponent, ref, useContext, computed, onMounted } from "@nuxtjs/c
 import RecipeOrganizerDialog from "./RecipeOrganizerDialog.vue";
 import { RecipeCategory, RecipeTag } from "~/lib/api/types/recipe";
 import { RecipeTool } from "~/lib/api/types/admin";
-import { useTagStore } from "~/composables/store/use-tag-store";
-import { useCategoryStore, useToolStore } from "~/composables/store";
+import { useCategoryStore, useFoodStore, useHouseholdStore, useTagStore, useToolStore } from "~/composables/store";
 import { Organizer, RecipeOrganizer } from "~/lib/api/types/non-generated";
 
 export default defineComponent({
@@ -101,7 +98,7 @@ export default defineComponent({
       }
     });
 
-    const { i18n } = useContext();
+    const { $globals, i18n } = useContext();
 
     const label = computed(() => {
       if (!props.showLabel) {
@@ -115,8 +112,29 @@ export default defineComponent({
           return i18n.t("category.categories");
         case Organizer.Tool:
           return i18n.t("tool.tools");
+        case Organizer.Food:
+          return i18n.t("general.foods");
+        case Organizer.Household:
+          return i18n.t("household.households");
         default:
           return i18n.t("general.organizer");
+      }
+    });
+
+    const icon = computed(() => {
+      switch (props.selectorType) {
+        case Organizer.Tag:
+          return $globals.icons.tags;
+        case Organizer.Category:
+          return $globals.icons.categories;
+        case Organizer.Tool:
+          return $globals.icons.tools;
+        case Organizer.Food:
+          return $globals.icons.foods;
+        case Organizer.Household:
+          return $globals.icons.household;
+        default:
+          return $globals.icons.tags;
       }
     });
 
@@ -129,6 +147,12 @@ export default defineComponent({
           return useTagStore();
         case Organizer.Tool:
           return useToolStore();
+        case Organizer.Category:
+          return useCategoryStore();
+        case Organizer.Food:
+          return useFoodStore();
+        case Organizer.Household:
+          return useHouseholdStore();
         default:
           return useCategoryStore();
       }
@@ -149,7 +173,7 @@ export default defineComponent({
       selected.value = [...newSelected];
     }
 
-    function appendCreated(item: RecipeTag | RecipeCategory | RecipeTool) {
+    function appendCreated(item: any) {
       if (selected.value === undefined) {
         return;
       }
@@ -171,6 +195,7 @@ export default defineComponent({
       dialog,
       storeItem: items,
       label,
+      icon,
       selected,
       removeByIndex,
       searchInput,
