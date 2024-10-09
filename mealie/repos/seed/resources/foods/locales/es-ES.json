@@ -1,222 +1,692 @@
 {
-    "acorn-squash": "calabaza cabello de ángel",
-    "alfalfa-sprouts": "brotes de alfalfa",
-    "anchovies": "anchoas",
-    "apples": "manzanas",
-    "artichoke": "alcachofa",
-    "arugula": "rúcula",
-    "asparagus": "espárragos",
-    "aubergine": "berenjena",
-    "avocado": "aguacate",
-    "bacon": "panceta",
-    "baking-powder": "levadura",
-    "baking-soda": "gaseosa (gasificante)",
-    "baking-sugar": "azúcar glass",
-    "bar-sugar": "azúcar de caña",
-    "basil": "albahaca",
-    "bell-peppers": "pimiento morrón",
-    "blackberries": "moras",
-    "brassicas": "coles",
-    "bok-choy": "col china (pak choi)",
-    "broccoflower": "romanesco",
-    "broccoli": "brócoli",
-    "broccolini": "bimi",
-    "broccoli-rabe": "grelos",
-    "brussels-sprouts": "coles de Bruselas",
-    "cabbage": "repollo",
-    "cauliflower": "coliflor",
-    "chinese-leaves": "col china",
-    "collard-greens": "berza",
-    "kohlrabi": "colirrábano",
-    "bread": "pan",
-    "breadfruit": "fruta del pan",
-    "broad-beans": "habas",
-    "brown-sugar": "azucar moreno",
-    "butter": "mantequilla",
-    "butternut-pumpkin": "calabaza cacahuete",
-    "butternut-squash": "calabaza moscada",
-    "cactus-edible": "higo chumbo",
-    "calabrese": "brócoli",
-    "cannabis": "cannabis",
-    "capsicum": "ñora",
-    "caraway": "comino",
-    "carrot": "zanahoria",
-    "castor-sugar": "azúcar",
-    "cayenne-pepper": "pimienta de cayena",
-    "celeriac": "apio nabo",
-    "celery": "apio",
-    "cereal-grains": "cereales en grano",
-    "rice": "arroz",
-    "chard": "acelgas",
-    "cheese": "queso",
-    "chicory": "achicoria",
-    "chilli-peppers": "chile/guindilla",
-    "chives": "cebollino",
-    "chocolate": "chocolate",
-    "cilantro": "cilantro",
-    "cinnamon": "canela",
-    "clarified-butter": "mantequilla clarificada",
-    "coconut": "coco",
-    "coconut-milk": "leche de coco",
-    "coffee": "café",
-    "confectioners-sugar": "azúcar",
-    "coriander": "cilantro",
-    "corn": "maíz",
-    "corn-syrup": "jarabe de maíz",
-    "cottonseed-oil": "aceite de algodón",
-    "courgette": "calabacín",
-    "cream-of-tartar": "crémor tártaro",
-    "cucumber": "pepino",
-    "cumin": "comino",
-    "daikon": "daikon",
-    "dairy-products-and-dairy-substitutes": "productos lácteos y sustitutos de lácteos",
-    "eggs": "huevos",
-    "ghee": "ghee",
-    "milk": "leche",
-    "dandelion": "diente de león",
-    "demerara-sugar": "azúcar moreno",
-    "dough": "masa",
-    "edible-cactus": "higo chumbo",
-    "eggplant": "berenjena",
-    "endive": "endibia",
-    "fats": "grasas",
-    "speck": "speck (jamón)",
-    "fava-beans": "habas",
-    "fiddlehead": "brotes de helecho",
-    "fish": "pescado",
-    "catfish": "siluro",
-    "cod": "bacalao",
-    "salt-cod": "bacalao salado",
-    "salmon": "salmón",
-    "skate": "raya",
-    "stockfish": "pescado seco",
-    "trout": "trucha",
-    "tuna": "atún",
-    "five-spice-powder": "cinco especias (espcias chinas)",
-    "flour": "harina",
-    "frisee": "lechuga rizada",
-    "fructose": "fructosa",
-    "fruit": "fruta",
-    "apple": "manzana",
-    "oranges": "naranjas",
-    "pear": "pera",
-    "tomato": "tomate",
-    "fruit-sugar": "fructosa",
-    "garam-masala": "garam masala",
-    "garlic": "ajo",
-    "gem-squash": "calabaza gem",
-    "ginger": "jengibre",
-    "giblets": "menudillos",
-    "grains": "cereales",
-    "maize": "maíz",
-    "sweetcorn": "maíz dulce",
-    "teff": "teff",
-    "grape-seed-oil": "aceite de pepitas de uva",
-    "green-onion": "cebolleta",
-    "heart-of-palm": "palmito",
-    "hemp": "cáñamo",
-    "herbs": "hierbas",
-    "oregano": "orégano",
-    "parsley": "perejil",
-    "honey": "miel",
-    "icing-sugar": "azucar glacé",
-    "isomalt": "isomalt",
-    "jackfruit": "yaca",
-    "jaggery": "sazúcar de caña",
-    "jams": "mermelada",
-    "jellies": "gominolas",
-    "jerusalem-artichoke": "alcachofa de Jerusalén",
-    "jicama": "jícama",
-    "kale": "col rizada",
-    "kumara": "batata/boniato",
-    "leavening-agents": "agentes gasificantes",
-    "leek": "puerro",
-    "legumes": "legumbres ",
-    "peas": "guisantes/chícharos",
-    "beans": "judías/alubias/frijoles",
-    "lentils": "lentejas",
-    "lemongrass": "zacate limón",
-    "lettuce": "lechuga",
-    "liver": "hígado",
-    "maple-syrup": "sirope de arce",
-    "meat": "carne",
-    "mortadella": "mortadela",
-    "mushroom": "champiñón",
-    "white-mushroom": "champiñón blanco",
-    "mussels": "mejillones",
-    "nori": "nori",
-    "nutmeg": "nuez moscada",
-    "nutritional-yeast-flakes": "levadura nutricional",
-    "nuts": "frutos secos",
-    "nanaimo-bar-mix": "nanaimo bar mix",
-    "octopuses": "pulpo",
-    "oils": "aceites",
-    "olive-oil": "aceite de oliva",
-    "okra": "abelmosco",
-    "olive": "aceituna",
-    "onion-family": "cebollas",
-    "onion": "cebolla",
-    "scallion": "cebollita china",
-    "shallot": "chalote",
-    "spring-onion": "cebolleta",
-    "orange-blossom-water": "agua de azahar",
-    "oysters": "ostras",
-    "panch-puran": "panch puran",
-    "paprika": "pimentón dulce",
-    "parsnip": "chirivía",
-    "pepper": "pimiento",
-    "peppers": "pimientos",
-    "plantain": "plátano macho",
-    "pineapple": "piña",
-    "poppy-seeds": "semillas de amapola",
-    "potatoes": "patatas",
-    "poultry": "aves de corral",
-    "powdered-sugar": "azúcar en polvo",
-    "pumpkin": "calabaza",
-    "pumpkin-seeds": "semillas de calabaza",
-    "radish": "rábano",
-    "raw-sugar": "azúcar integral",
-    "refined-sugar": "azúcar refinado",
-    "rice-flour": "harina de arroz",
-    "rock-sugar": "azucar moreno",
-    "rum": "ron",
-    "salt": "sal",
-    "seafood": "marisco",
-    "seeds": "semillas",
-    "sesame-seeds": "semillas de sésamo",
-    "sunflower-seeds": "pipas de girasol",
-    "soda": "gaseosa",
-    "soda-baking": "soda gasificante",
-    "soybean": "soya/soja",
-    "spaghetti-squash": "calabaza espagueti",
-    "spices": "especias",
-    "spinach": "espinacas",
-    "squash-family": "calabazas",
-    "squash": "calabaza dulce",
-    "zucchini": "calabacín",
-    "sugar": "azúcar",
-    "caster-sugar": "azúcar de caña",
-    "granulated-sugar": "azúcar granulado",
-    "superfine-sugar": "azúcar superfina",
-    "turbanado-sugar": "azúcar",
-    "unrefined-sugar": "azúcar sin refinar",
-    "white-sugar": "azúcar blanco",
-    "sweet-potato": "batata",
-    "sweeteners": "edulcorantes",
-    "cane-sugar": "azúcar de caña",
-    "tahini": "tahini",
-    "tubers": "tubérculos",
-    "potato": "papa/patata",
-    "sunchoke": "girasol de Canadá",
-    "taro": "taro",
-    "yam": "ñame",
-    "turnip": "nabo",
-    "vanilla": "vainilla",
-    "vegetables": "verduras",
-    "fiddlehead-fern": "brotes de helecho",
-    "ful": "ful",
-    "watercress": "berro de agua",
-    "watermelon": "sandía/melón de agua",
-    "xanthan-gum": "goma xantana",
-    "yeast": "levadura"
+    "acorn-squash": {
+        "name": "calabaza cabello de ángel"
+    },
+    "alfalfa-sprouts": {
+        "name": "brotes de alfalfa"
+    },
+    "anchovies": {
+        "name": "anchoas"
+    },
+    "apples": {
+        "name": "manzanas",
+        "plural_name": "apples"
+    },
+    "artichoke": {
+        "name": "alcachofa"
+    },
+    "arugula": {
+        "name": "rúcula"
+    },
+    "asparagus": {
+        "name": "espárragos"
+    },
+    "avocado": {
+        "name": "aguacate",
+        "plural_name": "avocado"
+    },
+    "bacon": {
+        "name": "panceta"
+    },
+    "baking-powder": {
+        "name": "levadura"
+    },
+    "baking-soda": {
+        "name": "gaseosa (gasificante)"
+    },
+    "baking-sugar": {
+        "name": "azúcar glass"
+    },
+    "bar-sugar": {
+        "name": "azúcar de caña"
+    },
+    "basil": {
+        "name": "albahaca"
+    },
+    "beans": {
+        "name": "judías/alubias/frijoles"
+    },
+    "bell-peppers": {
+        "name": "pimiento morrón",
+        "plural_name": "bell peppers"
+    },
+    "blackberries": {
+        "name": "moras"
+    },
+    "bok-choy": {
+        "name": "col china (pak choi)"
+    },
+    "brassicas": {
+        "name": "coles"
+    },
+    "bread": {
+        "name": "pan"
+    },
+    "breadfruit": {
+        "name": "fruta del pan"
+    },
+    "broccoflower": {
+        "name": "romanesco"
+    },
+    "broccoli": {
+        "name": "brócoli"
+    },
+    "broccoli-rabe": {
+        "name": "grelos"
+    },
+    "broccolini": {
+        "name": "bimi"
+    },
+    "brown-sugar": {
+        "name": "azucar moreno"
+    },
+    "brussels-sprouts": {
+        "name": "coles de Bruselas"
+    },
+    "butter": {
+        "name": "mantequilla"
+    },
+    "butternut-pumpkin": {
+        "name": "calabaza cacahuete"
+    },
+    "butternut-squash": {
+        "name": "calabaza moscada"
+    },
+    "cabbage": {
+        "name": "repollo",
+        "plural_name": "cabbages"
+    },
+    "cactus-edible": {
+        "name": "higo chumbo"
+    },
+    "calabrese": {
+        "name": "brócoli"
+    },
+    "cane-sugar": {
+        "name": "azúcar de caña"
+    },
+    "cannabis": {
+        "name": "cannabis"
+    },
+    "capsicum": {
+        "name": "ñora"
+    },
+    "caraway": {
+        "name": "comino"
+    },
+    "carrot": {
+        "name": "zanahoria",
+        "plural_name": "carrots"
+    },
+    "caster-sugar": {
+        "name": "azúcar de caña"
+    },
+    "castor-sugar": {
+        "name": "azúcar"
+    },
+    "catfish": {
+        "name": "siluro"
+    },
+    "cauliflower": {
+        "name": "coliflor",
+        "plural_name": "cauliflowers"
+    },
+    "cayenne-pepper": {
+        "name": "pimienta de cayena"
+    },
+    "celeriac": {
+        "name": "apio nabo"
+    },
+    "celery": {
+        "name": "apio"
+    },
+    "cereal-grains": {
+        "name": "cereales en grano"
+    },
+    "chard": {
+        "name": "acelgas"
+    },
+    "cheese": {
+        "name": "queso"
+    },
+    "chicory": {
+        "name": "achicoria"
+    },
+    "chilli-peppers": {
+        "name": "chile/guindilla",
+        "plural_name": "chilli peppers"
+    },
+    "chinese-leaves": {
+        "name": "col china"
+    },
+    "chives": {
+        "name": "cebollino"
+    },
+    "chocolate": {
+        "name": "chocolate"
+    },
+    "cilantro": {
+        "name": "cilantro"
+    },
+    "cinnamon": {
+        "name": "canela"
+    },
+    "clarified-butter": {
+        "name": "mantequilla clarificada"
+    },
+    "coconut": {
+        "name": "coco",
+        "plural_name": "coconuts"
+    },
+    "coconut-milk": {
+        "name": "leche de coco"
+    },
+    "cod": {
+        "name": "bacalao"
+    },
+    "coffee": {
+        "name": "café"
+    },
+    "collard-greens": {
+        "name": "berza"
+    },
+    "confectioners-sugar": {
+        "name": "azúcar"
+    },
+    "coriander": {
+        "name": "cilantro"
+    },
+    "corn": {
+        "name": "maíz",
+        "plural_name": "corns"
+    },
+    "corn-syrup": {
+        "name": "jarabe de maíz"
+    },
+    "cottonseed-oil": {
+        "name": "aceite de algodón"
+    },
+    "courgette": {
+        "name": "calabacín"
+    },
+    "cream-of-tartar": {
+        "name": "crémor tártaro"
+    },
+    "cucumber": {
+        "name": "pepino",
+        "plural_name": "cucumbers"
+    },
+    "cumin": {
+        "name": "comino"
+    },
+    "daikon": {
+        "name": "daikon",
+        "plural_name": "daikons"
+    },
+    "dairy-products-and-dairy-substitutes": {
+        "name": "productos lácteos y sustitutos de lácteos"
+    },
+    "dandelion": {
+        "name": "diente de león"
+    },
+    "demerara-sugar": {
+        "name": "azúcar moreno"
+    },
+    "dough": {
+        "name": "masa"
+    },
+    "edible-cactus": {
+        "name": "higo chumbo"
+    },
+    "eggplant": {
+        "name": "berenjena",
+        "plural_name": "eggplants"
+    },
+    "eggs": {
+        "name": "huevos",
+        "plural_name": "eggs"
+    },
+    "endive": {
+        "name": "endibia",
+        "plural_name": "endives"
+    },
+    "fats": {
+        "name": "grasas"
+    },
+    "fava-beans": {
+        "name": "habas"
+    },
+    "fiddlehead": {
+        "name": "brotes de helecho"
+    },
+    "fiddlehead-fern": {
+        "name": "brotes de helecho",
+        "plural_name": "fiddlehead ferns"
+    },
+    "fish": {
+        "name": "pescado"
+    },
+    "five-spice-powder": {
+        "name": "cinco especias (espcias chinas)"
+    },
+    "flour": {
+        "name": "harina"
+    },
+    "frisee": {
+        "name": "lechuga rizada"
+    },
+    "fructose": {
+        "name": "fructosa"
+    },
+    "fruit": {
+        "name": "fruta"
+    },
+    "fruit-sugar": {
+        "name": "fructosa"
+    },
+    "ful": {
+        "name": "ful"
+    },
+    "garam-masala": {
+        "name": "garam masala"
+    },
+    "garlic": {
+        "name": "ajo",
+        "plural_name": "garlics"
+    },
+    "gem-squash": {
+        "name": "calabaza gem"
+    },
+    "ghee": {
+        "name": "ghee"
+    },
+    "giblets": {
+        "name": "menudillos"
+    },
+    "ginger": {
+        "name": "jengibre"
+    },
+    "grains": {
+        "name": "cereales"
+    },
+    "granulated-sugar": {
+        "name": "azúcar granulado"
+    },
+    "grape-seed-oil": {
+        "name": "aceite de pepitas de uva"
+    },
+    "green-onion": {
+        "name": "cebolleta",
+        "plural_name": "green onions"
+    },
+    "heart-of-palm": {
+        "name": "palmito",
+        "plural_name": "heart of palms"
+    },
+    "hemp": {
+        "name": "cáñamo"
+    },
+    "herbs": {
+        "name": "hierbas"
+    },
+    "honey": {
+        "name": "miel"
+    },
+    "isomalt": {
+        "name": "isomalt"
+    },
+    "jackfruit": {
+        "name": "yaca",
+        "plural_name": "jackfruits"
+    },
+    "jaggery": {
+        "name": "sazúcar de caña"
+    },
+    "jams": {
+        "name": "mermelada"
+    },
+    "jellies": {
+        "name": "gominolas"
+    },
+    "jerusalem-artichoke": {
+        "name": "alcachofa de Jerusalén"
+    },
+    "jicama": {
+        "name": "jícama"
+    },
+    "kale": {
+        "name": "col rizada"
+    },
+    "kohlrabi": {
+        "name": "colirrábano"
+    },
+    "kumara": {
+        "name": "batata/boniato"
+    },
+    "leavening-agents": {
+        "name": "agentes gasificantes"
+    },
+    "leek": {
+        "name": "puerro",
+        "plural_name": "leeks"
+    },
+    "legumes": {
+        "name": "legumbres"
+    },
+    "lemongrass": {
+        "name": "zacate limón"
+    },
+    "lentils": {
+        "name": "lentejas"
+    },
+    "lettuce": {
+        "name": "lechuga"
+    },
+    "liver": {
+        "name": "hígado",
+        "plural_name": "livers"
+    },
+    "maize": {
+        "name": "maíz"
+    },
+    "maple-syrup": {
+        "name": "sirope de arce"
+    },
+    "meat": {
+        "name": "carne"
+    },
+    "milk": {
+        "name": "leche"
+    },
+    "mortadella": {
+        "name": "mortadela"
+    },
+    "mushroom": {
+        "name": "champiñón",
+        "plural_name": "mushrooms"
+    },
+    "mussels": {
+        "name": "mejillones"
+    },
+    "nanaimo-bar-mix": {
+        "name": "nanaimo bar mix"
+    },
+    "nori": {
+        "name": "nori"
+    },
+    "nutmeg": {
+        "name": "nuez moscada"
+    },
+    "nutritional-yeast-flakes": {
+        "name": "levadura nutricional"
+    },
+    "nuts": {
+        "name": "frutos secos"
+    },
+    "octopuses": {
+        "name": "pulpo",
+        "plural_name": "octopuses"
+    },
+    "oils": {
+        "name": "aceites"
+    },
+    "okra": {
+        "name": "abelmosco"
+    },
+    "olive": {
+        "name": "aceituna"
+    },
+    "olive-oil": {
+        "name": "aceite de oliva"
+    },
+    "onion": {
+        "name": "cebolla"
+    },
+    "onion-family": {
+        "name": "cebollas"
+    },
+    "orange-blossom-water": {
+        "name": "agua de azahar"
+    },
+    "oranges": {
+        "name": "naranjas",
+        "plural_name": "oranges"
+    },
+    "oregano": {
+        "name": "orégano"
+    },
+    "oysters": {
+        "name": "ostras"
+    },
+    "panch-puran": {
+        "name": "panch puran"
+    },
+    "paprika": {
+        "name": "pimentón dulce"
+    },
+    "parsley": {
+        "name": "perejil"
+    },
+    "parsnip": {
+        "name": "chirivía",
+        "plural_name": "parsnips"
+    },
+    "pear": {
+        "name": "pera",
+        "plural_name": "pears"
+    },
+    "peas": {
+        "name": "guisantes/chícharos"
+    },
+    "pepper": {
+        "name": "pimiento",
+        "plural_name": "peppers"
+    },
+    "pineapple": {
+        "name": "piña",
+        "plural_name": "pineapples"
+    },
+    "plantain": {
+        "name": "plátano macho",
+        "plural_name": "plantains"
+    },
+    "poppy-seeds": {
+        "name": "semillas de amapola"
+    },
+    "potato": {
+        "name": "papa/patata",
+        "plural_name": "potatoes"
+    },
+    "poultry": {
+        "name": "aves de corral"
+    },
+    "powdered-sugar": {
+        "name": "azúcar en polvo"
+    },
+    "pumpkin": {
+        "name": "calabaza",
+        "plural_name": "pumpkins"
+    },
+    "pumpkin-seeds": {
+        "name": "semillas de calabaza"
+    },
+    "radish": {
+        "name": "rábano",
+        "plural_name": "radishes"
+    },
+    "raw-sugar": {
+        "name": "azúcar integral"
+    },
+    "refined-sugar": {
+        "name": "azúcar refinado"
+    },
+    "rice": {
+        "name": "arroz"
+    },
+    "rice-flour": {
+        "name": "harina de arroz"
+    },
+    "rock-sugar": {
+        "name": "azucar moreno"
+    },
+    "rum": {
+        "name": "ron"
+    },
+    "salmon": {
+        "name": "salmón"
+    },
+    "salt": {
+        "name": "sal"
+    },
+    "salt-cod": {
+        "name": "bacalao salado"
+    },
+    "scallion": {
+        "name": "cebollita china",
+        "plural_name": "scallions"
+    },
+    "seafood": {
+        "name": "marisco"
+    },
+    "seeds": {
+        "name": "semillas"
+    },
+    "sesame-seeds": {
+        "name": "semillas de sésamo"
+    },
+    "shallot": {
+        "name": "chalote",
+        "plural_name": "shallots"
+    },
+    "skate": {
+        "name": "raya"
+    },
+    "soda": {
+        "name": "gaseosa"
+    },
+    "soda-baking": {
+        "name": "soda gasificante"
+    },
+    "soybean": {
+        "name": "soya/soja"
+    },
+    "spaghetti-squash": {
+        "name": "calabaza espagueti",
+        "plural_name": "spaghetti squashes"
+    },
+    "speck": {
+        "name": "speck (jamón)"
+    },
+    "spices": {
+        "name": "especias"
+    },
+    "spinach": {
+        "name": "espinacas"
+    },
+    "spring-onion": {
+        "name": "cebolleta",
+        "plural_name": "spring onions"
+    },
+    "squash": {
+        "name": "calabaza dulce",
+        "plural_name": "squashes"
+    },
+    "squash-family": {
+        "name": "calabazas"
+    },
+    "stockfish": {
+        "name": "pescado seco"
+    },
+    "sugar": {
+        "name": "azúcar"
+    },
+    "sunchoke": {
+        "name": "girasol de Canadá",
+        "plural_name": "sunchokes"
+    },
+    "sunflower-seeds": {
+        "name": "pipas de girasol"
+    },
+    "superfine-sugar": {
+        "name": "azúcar superfina"
+    },
+    "sweet-potato": {
+        "name": "batata",
+        "plural_name": "sweet potatoes"
+    },
+    "sweetcorn": {
+        "name": "maíz dulce",
+        "plural_name": "sweetcorns"
+    },
+    "sweeteners": {
+        "name": "edulcorantes"
+    },
+    "tahini": {
+        "name": "tahini"
+    },
+    "taro": {
+        "name": "taro",
+        "plural_name": "taroes"
+    },
+    "teff": {
+        "name": "teff"
+    },
+    "tomato": {
+        "name": "tomate",
+        "plural_name": "tomatoes"
+    },
+    "trout": {
+        "name": "trucha"
+    },
+    "tubers": {
+        "name": "tubérculos",
+        "plural_name": "tubers"
+    },
+    "tuna": {
+        "name": "atún"
+    },
+    "turbanado-sugar": {
+        "name": "azúcar"
+    },
+    "turnip": {
+        "name": "nabo",
+        "plural_name": "turnips"
+    },
+    "unrefined-sugar": {
+        "name": "azúcar sin refinar"
+    },
+    "vanilla": {
+        "name": "vainilla"
+    },
+    "vegetables": {
+        "name": "verduras"
+    },
+    "watercress": {
+        "name": "berro de agua"
+    },
+    "watermelon": {
+        "name": "sandía/melón de agua",
+        "plural_name": "watermelons"
+    },
+    "white-mushroom": {
+        "name": "champiñón blanco",
+        "plural_name": "white mushrooms"
+    },
+    "white-sugar": {
+        "name": "azúcar blanco"
+    },
+    "xanthan-gum": {
+        "name": "goma xantana"
+    },
+    "yam": {
+        "name": "ñame",
+        "plural_name": "yams"
+    },
+    "yeast": {
+        "name": "levadura"
+    },
+    "zucchini": {
+        "name": "calabacín",
+        "plural_name": "zucchinis"
+    }
 }
