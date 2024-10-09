@@ -109,37 +109,37 @@ export default defineComponent({
     const fieldDefs: FieldDefinition[] = [
       {
         name: "recipe_category.id",
-        label: "Categories",
+        label: i18n.tc("category.categories"),
         type: Organizer.Category,
       },
       {
         name: "tags.id",
-        label: "Tags",
+        label: i18n.tc("tag.tags"),
         type: Organizer.Tag,
       },
       {
         name: "tools.id",
-        label: "Tools",
+        label: i18n.tc("tool.tools"),
         type: Organizer.Tool,
       },
       {
         name: "household_id",
-        label: "Households",
+        label: i18n.tc("household.households"),
         type: Organizer.Household,
       },
       {
         name: "last_made",
-        label: "Last Made",
+        label: i18n.tc("general.last-made"),
         type: "date",
       },
       {
         name: "created_at",
-        label: "Created At",
+        label: i18n.tc("general.date-created"),
         type: "date",
       },
       {
         name: "updated_at",
-        label: "Updated At",
+        label: i18n.tc("general.date-updated"),
         type: "date",
       },
     ];

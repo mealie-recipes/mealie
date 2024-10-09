@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
+import { defineComponent, useContext } from "@nuxtjs/composition-api";
 import { ReadCookBook } from "~/lib/api/types/cookbook";
 import { Organizer } from "~/lib/api/types/non-generated";
 import QueryFilterBuilder, { FieldDefinition } from "~/components/Domain/QueryFilterBuilder.vue";
@@ -39,6 +39,8 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const { i18n } = useContext();
+
     function handleInput(value: string | undefined) {
       props.cookbook.queryFilterString = value || "";
     }
@@ -46,32 +48,32 @@ export default defineComponent({
     const fieldDefs: FieldDefinition[] = [
       {
         name: "recipe_category.id",
-        label: "Categories",
+        label: i18n.tc("category.categories"),
         type: Organizer.Category,
       },
       {
         name: "tags.id",
-        label: "Tags",
+        label: i18n.tc("tag.tags"),
         type: Organizer.Tag,
       },
       {
         name: "tools.id",
-        label: "Tools",
+        label: i18n.tc("tool.tools"),
         type: Organizer.Tool,
       },
       {
         name: "household_id",
-        label: "Households",
+        label: i18n.tc("household.households"),
         type: Organizer.Household,
       },
       {
         name: "created_at",
-        label: "Created At",
+        label: i18n.tc("general.date-created"),
         type: "date",
       },
       {
         name: "updated_at",
-        label: "Updated At",
+        label: i18n.tc("general.date-updated"),
         type: "date",
       },
     ];
