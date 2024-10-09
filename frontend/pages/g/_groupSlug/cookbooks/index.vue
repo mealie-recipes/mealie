@@ -4,16 +4,18 @@
     <BaseDialog
       v-if="createTarget"
       v-model="dialogStates.create"
-      :width="650"
+      :width="700"
       :icon="$globals.icons.pages"
       :title="$t('cookbook.create-a-cookbook')"
       :submit-icon="$globals.icons.save"
       :submit-text="$tc('general.save')"
+      :submit-disabled="!createTarget.queryFilterString"
       @submit="actions.updateOne(createTarget)"
-      @cancel="actions.deleteOne(createTarget.id)"
+      @cancel="deleteCreateTarget()"
     >
       <v-card-text>
         <CookbookEditor
+          :key="createTargetKey"
           :cookbook=createTarget
           :actions="actions"
         />
@@ -100,7 +102,7 @@
 
 <script lang="ts">
 
-import { defineComponent, reactive, ref } from "@nuxtjs/composition-api";
+import { defineComponent, onBeforeUnmount, onMounted, reactive, ref } from "@nuxtjs/composition-api";
 import draggable from "vuedraggable";
 import { useCookbooks } from "@/composables/use-group-cookbooks";
 import CookbookEditor from "~/components/Domain/Cookbook/CookbookEditor.vue";
@@ -117,10 +119,12 @@ export default defineComponent({
     const { cookbooks, actions } = useCookbooks();
 
     // create
+    const createTargetKey = ref(0);
     const createTarget = ref<ReadCookBook | null>(null);
     async function createCookbook() {
       await actions.createOne().then((cookbook) => {
         createTarget.value = cookbook as ReadCookBook;
+        createTargetKey.value++;
       });
       dialogStates.create = true;
     }
@@ -139,11 +143,37 @@ export default defineComponent({
       dialogStates.delete = false;
       deleteTarget.value = null;
     }
+
+    function deleteCreateTarget() {
+      if (!createTarget.value?.id) {
+        return;
+      }
+
+      actions.deleteOne(createTarget.value.id);
+      dialogStates.create = false;
+      createTarget.value = null;
+    }
+    function handleUnmount() {
+      if(!createTarget.value?.id || createTarget.value.queryFilterString) {
+        return;
+      }
+
+      deleteCreateTarget();
+    }
+    onMounted(() => {
+      window.addEventListener('beforeunload', handleUnmount);
+    });
+    onBeforeUnmount(() => {
+      handleUnmount();
+      window.removeEventListener('beforeunload', handleUnmount);
+    });
+
     return {
       cookbooks,
       actions,
       dialogStates,
       // create
+      createTargetKey,
       createTarget,
       createCookbook,
 
@@ -151,6 +181,7 @@ export default defineComponent({
       deleteTarget,
       deleteEventHandler,
       deleteCookbook,
+      deleteCreateTarget,
     };
   },
   head() {
