@@ -6,7 +6,7 @@
     </div>
 
     <div class="mb-5">
-      <QueryFieldBuilder
+      <QueryFilterBuilder
         :field-defs="fieldDefs"
         :initial-query-filter="queryFilter"
         @input="handleQueryFilterInput"
@@ -23,12 +23,12 @@
 
 <script lang="ts">
 import { defineComponent, computed, useContext } from "@nuxtjs/composition-api";
-import QueryFieldBuilder, { FieldDefinition } from "~/components/Domain/QueryFieldBuilder.vue";
+import QueryFilterBuilder, { FieldDefinition } from "~/components/Domain/QueryFilterBuilder.vue";
 import { QueryFilterJSON } from "~/lib/api/types/response";
 
 export default defineComponent({
   components: {
-    QueryFieldBuilder,
+    QueryFilterBuilder,
   },
   props: {
     day: {

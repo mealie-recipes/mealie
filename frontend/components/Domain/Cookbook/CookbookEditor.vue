@@ -3,7 +3,7 @@
     <v-card-text v-if="cookbook" class="px-1">
       <v-text-field v-model="cookbook.name" :label="$t('cookbook.cookbook-name')"></v-text-field>
       <v-textarea v-model="cookbook.description" auto-grow :rows="2" :label="$t('recipe.description')"></v-textarea>
-      <QueryFieldBuilder
+      <QueryFilterBuilder
         :field-defs="fieldDefs"
         :initial-query-filter="cookbook.queryFilter"
         @input="handleInput"
@@ -23,9 +23,9 @@
 <script lang="ts">
 import { defineComponent } from "@nuxtjs/composition-api";
 import { ReadCookBook } from "~/lib/api/types/cookbook";
-import QueryFieldBuilder, { FieldDefinition } from "~/components/Domain/QueryFieldBuilder.vue";
+import QueryFilterBuilder, { FieldDefinition } from "~/components/Domain/QueryFilterBuilder.vue";
 export default defineComponent({
-  components: { QueryFieldBuilder },
+  components: { QueryFilterBuilder },
   props: {
     cookbook: {
       type: Object as () => ReadCookBook,
