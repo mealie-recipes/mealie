@@ -21,7 +21,7 @@ on:
 jobs:
   analyze:
     name: Analyze
-    # Runner size impacts CodeQL analysis time. To learn more, please see: (tmp change)
+    # Runner size impacts CodeQL analysis time. To learn more, please see:
     #   - https://gh.io/recommended-hardware-resources-for-running-codeql
     #   - https://gh.io/supported-runners-and-hardware-resources
     #   - https://gh.io/using-larger-runners
