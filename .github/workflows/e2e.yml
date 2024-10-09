@@ -1,12 +1,6 @@
 name: E2E Tests
 on:
-  pull_request:
-    branches:
-      - mealie-next
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
-  cancel-in-progress: true
+  workflow_call:
 
 jobs:
   test:

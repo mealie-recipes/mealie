@@ -25,3 +25,11 @@ jobs:
   container-scanning:
     name: "Trivy Container Scanning"
     uses: ./.github/workflows/partial-trivy-container-scanning.yml
+
+  end-to-end:
+    name: "End-to-End Tests"
+    uses: ./.github/workflows/e2e.yml
+
+  code-ql:
+    name: "CodeQL"
+    uses: ./.github/workflows/codeql.yml
