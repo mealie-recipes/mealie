@@ -24,6 +24,7 @@
 <script lang="ts">
 import { defineComponent, computed, useContext } from "@nuxtjs/composition-api";
 import QueryFilterBuilder, { FieldDefinition } from "~/components/Domain/QueryFilterBuilder.vue";
+import { Organizer } from "~/lib/api/types/non-generated";
 import { QueryFilterJSON } from "~/lib/api/types/response";
 
 export default defineComponent({
@@ -109,17 +110,37 @@ export default defineComponent({
       {
         name: "recipe_category.id",
         label: "Categories",
-        type: "categories",
+        type: Organizer.Category,
       },
       {
         name: "tags.id",
         label: "Tags",
-        type: "tags",
+        type: Organizer.Tag,
+      },
+      {
+        name: "tools.id",
+        label: "Tools",
+        type: Organizer.Tool,
       },
       {
         name: "household_id",
         label: "Households",
-        type: "households",
+        type: Organizer.Household,
+      },
+      {
+        name: "last_made",
+        label: "Last Made",
+        type: "date",
+      },
+      {
+        name: "created_at",
+        label: "Created At",
+        type: "date",
+      },
+      {
+        name: "updated_at",
+        label: "Updated At",
+        type: "date",
       },
     ];
 

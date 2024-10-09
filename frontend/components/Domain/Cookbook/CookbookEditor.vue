@@ -23,7 +23,9 @@
 <script lang="ts">
 import { defineComponent } from "@nuxtjs/composition-api";
 import { ReadCookBook } from "~/lib/api/types/cookbook";
+import { Organizer } from "~/lib/api/types/non-generated";
 import QueryFilterBuilder, { FieldDefinition } from "~/components/Domain/QueryFilterBuilder.vue";
+
 export default defineComponent({
   components: { QueryFilterBuilder },
   props: {
@@ -45,22 +47,32 @@ export default defineComponent({
       {
         name: "recipe_category.id",
         label: "Categories",
-        type: "categories",
+        type: Organizer.Category,
       },
       {
         name: "tags.id",
         label: "Tags",
-        type: "tags",
+        type: Organizer.Tag,
       },
       {
         name: "tools.id",
         label: "Tools",
-        type: "tools",
+        type: Organizer.Tool,
       },
       {
         name: "household_id",
         label: "Households",
-        type: "households",
+        type: Organizer.Household,
+      },
+      {
+        name: "created_at",
+        label: "Created At",
+        type: "date",
+      },
+      {
+        name: "updated_at",
+        label: "Updated At",
+        type: "date",
       },
     ];
 
