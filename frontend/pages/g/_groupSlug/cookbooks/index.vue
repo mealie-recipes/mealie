@@ -36,7 +36,7 @@
 
     <!-- Cookbook Page -->
     <!-- Page Title -->
-    <v-container class="narrow-container">
+    <v-container class="md-container">
       <BasePageTitle divider>
         <template #header>
           <v-img max-height="100" max-width="100" :src="require('~/static/svgs/manage-cookbooks.svg')"></v-img>
@@ -51,7 +51,7 @@
       <!-- Cookbook List -->
       <v-expansion-panels class="mt-2">
         <draggable v-model="cookbooks" handle=".handle" style="width: 100%" @change="actions.updateOrder()">
-          <v-expansion-panel v-for="(cookbook, index) in cookbooks" :key="index" class="my-2 left-border rounded">
+          <v-expansion-panel v-for="cookbook in cookbooks" :key="cookbook.id" class="my-2 left-border rounded">
             <v-expansion-panel-header disable-icon-rotate class="headline">
               <div class="d-flex align-center">
                 <v-icon large left>
@@ -84,6 +84,7 @@
                     icon: $globals.icons.save,
                     text: $tc('general.save'),
                     event: 'save',
+                    disabled: !cookbook.queryFilterString
                   },
                 ]"
                 @delete="deleteEventHandler(cookbook)"

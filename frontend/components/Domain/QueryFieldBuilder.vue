@@ -423,7 +423,12 @@ export default defineComponent({
         updatedField.value = "";
         updatedField.values = [];
         updatedField.organizers = [];
+      } else {
+        updatedField.value = updatedField.value || "";
+        updatedField.values = updatedField.values || [];
+        updatedField.organizers = updatedField.organizers || [];
       }
+
 
       return updatedField;
     };
