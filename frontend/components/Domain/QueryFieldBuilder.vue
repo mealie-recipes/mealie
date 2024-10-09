@@ -1,5 +1,5 @@
 <template>
-  <v-card class="ma-0">
+  <v-card class="ma-0" style="overflow-x: auto;">
     <v-card-text class="ma-0 pa-0">
       <v-container fluid class="ma-0 pa-0">
         <draggable
@@ -16,8 +16,14 @@
           <v-row
             v-for="(field, index) in fields"
             :key="index"
+            class="d-flex flex-nowrap"
+            style="max-width: 100%;"
           >
-            <v-col :cols="attrs.fields.icon.cols" :class="attrs.col.class">
+            <v-col
+              :cols="attrs.fields.icon.cols"
+              :class="attrs.col.class"
+              :style="attrs.fields.icon.style"
+            >
               <v-icon
                 class="handle"
                 style="width: 100%; height: 100%;"
@@ -25,7 +31,11 @@
                 {{ $globals.icons.arrowUpDown }}
               </v-icon>
             </v-col>
-            <v-col :cols="attrs.fields.logicalOperator.cols" :class="attrs.col.class">
+            <v-col
+              :cols="attrs.fields.logicalOperator.cols"
+              :class="attrs.col.class"
+              :style="attrs.fields.logicalOperator.style"
+            >
               <v-select
                 v-if="index"
                 v-model="field.logicalOperator"
@@ -39,7 +49,12 @@
                 </template>
               </v-select>
             </v-col>
-            <v-col v-if="showAdvanced" :cols="attrs.fields.leftParens.cols" :class="attrs.col.class">
+            <v-col
+              v-if="showAdvanced"
+              :cols="attrs.fields.leftParens.cols"
+              :class="attrs.col.class"
+              :style="attrs.fields.leftParens.style"
+            >
               <v-select
                 v-model="field.leftParenthesis"
                 :items="['', '(', '((', '(((']"
@@ -52,7 +67,11 @@
                 </template>
               </v-select>
             </v-col>
-            <v-col :cols="attrs.fields.fieldName.cols" :class="attrs.col.class">
+            <v-col
+              :cols="attrs.fields.fieldName.cols"
+              :class="attrs.col.class"
+              :style="attrs.fields.fieldName.style"
+            >
               <v-select
                 v-model="field.label"
                 :items="fieldDefs"
@@ -66,7 +85,11 @@
                 </template>
               </v-select>
             </v-col>
-            <v-col :cols="attrs.fields.relationalOperator.cols" :class="attrs.col.class">
+            <v-col
+              :cols="attrs.fields.relationalOperator.cols"
+              :class="attrs.col.class"
+              :style="attrs.fields.relationalOperator.style"
+            >
               <v-select
                 v-if="field.type !== 'boolean'"
                 v-model="field.relationalOperatorValue"
@@ -80,7 +103,11 @@
                 </template>
               </v-select>
             </v-col>
-            <v-col :cols="attrs.fields.fieldValue.cols" :class="attrs.col.class">
+            <v-col
+              :cols="attrs.fields.fieldValue.cols"
+              :class="attrs.col.class"
+              :style="attrs.fields.fieldValue.style"
+            >
               <v-select
                 v-if="field.fieldOptions"
                 v-model="field.values"
@@ -174,7 +201,12 @@
                 @input="setOrganizerValues(field, index, $event)"
               />
             </v-col>
-            <v-col v-if="showAdvanced" :cols="attrs.fields.rightParens.cols" :class="attrs.col.class">
+            <v-col
+              v-if="showAdvanced"
+              :cols="attrs.fields.rightParens.cols"
+              :class="attrs.col.class"
+              :style="attrs.fields.rightParens.style"
+            >
               <v-select
                 v-model="field.rightParenthesis"
                 :items="['', ')', '))', ')))']"
@@ -187,7 +219,11 @@
                 </template>
               </v-select>
             </v-col>
-            <v-col :cols="attrs.fields.fieldActions.cols" :class="attrs.col.class">
+            <v-col
+              :cols="attrs.fields.fieldActions.cols"
+              :class="attrs.col.class"
+              :style="attrs.fields.fieldActions.style"
+            >
               <BaseButtonGroup
                 :buttons="[
                   {
@@ -679,9 +715,10 @@ export default defineComponent({
 
 
     const attrs = computed(() => {
+      const baseColMaxWidth = 60;
       const attrs = {
         col: {
-          class: "d-flex justify-center",
+          class: "d-flex justify-center field-col",
         },
         select: {
           textClass: "d-flex justify-center text-center",
@@ -689,27 +726,35 @@ export default defineComponent({
         fields: {
           icon: {
             cols: 1,
+            style: `min-width: ${baseColMaxWidth}px;`,
           },
           leftParens: {
             cols: state.showAdvanced ? 1 : 0,
+            style: `min-width: ${state.showAdvanced ? baseColMaxWidth : 0}px;`,
           },
           logicalOperator: {
             cols: 2,
+            style: `min-width: ${baseColMaxWidth * 2}px;`,
           },
           fieldName: {
             cols: state.showAdvanced ? 2 : 3,
+            style: `min-width: ${state.showAdvanced ? baseColMaxWidth * 2 : baseColMaxWidth * 3}px;`,
           },
           relationalOperator: {
             cols: 2,
+            style: `min-width: ${baseColMaxWidth * 2}px;`,
           },
           fieldValue: {
             cols: state.showAdvanced ? 2 : 3,
+            style: `min-width: ${state.showAdvanced ? baseColMaxWidth * 2 : baseColMaxWidth * 3}px;`,
           },
           rightParens: {
             cols: state.showAdvanced ? 1 : 0,
+            style: `min-width: ${state.showAdvanced ? baseColMaxWidth : 0}px;`,
           },
           fieldActions: {
             cols: 1,
+            style: `min-width: ${baseColMaxWidth}px;`,
           },
         },
       }
