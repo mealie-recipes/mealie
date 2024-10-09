@@ -6,12 +6,10 @@
     </div>
 
     <div class="mb-5">
-      <RecipeOrganizerSelector v-model="inputCategories" selector-type="categories" />
-      <RecipeOrganizerSelector v-model="inputTags" selector-type="tags" />
-      <GroupHouseholdSelector
-        v-model="inputHouseholds"
-        multiselect
-        :description="$tc('meal-plan.mealplan-households-description')"
+      <QueryFieldBuilder
+        :field-defs="fieldDefs"
+        :initial-query-filter="queryFilter"
+        @input="handleQueryFilterInput"
       />
     </div>
 
@@ -25,14 +23,12 @@
 
 <script lang="ts">
 import { defineComponent, computed, useContext } from "@nuxtjs/composition-api";
-import GroupHouseholdSelector from "~/components/Domain/Household/GroupHouseholdSelector.vue";
-import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
-import { PlanCategory, PlanHousehold, PlanTag } from "~/lib/api/types/meal-plan";
+import QueryFieldBuilder, { FieldDefinition } from "~/components/Domain/QueryFieldBuilder.vue";
+import { QueryFilterJSON } from "~/lib/api/types/response";
 
 export default defineComponent({
   components: {
-    GroupHouseholdSelector,
-    RecipeOrganizerSelector,
+    QueryFieldBuilder,
   },
   props: {
     day: {
@@ -43,17 +39,13 @@ export default defineComponent({
       type: String,
       default: "unset",
     },
-    categories: {
-      type: Array as () => PlanCategory[],
-      default: () => [],
+    queryFilterString: {
+      type: String,
+      default: "",
     },
-    tags: {
-      type: Array as () => PlanTag[],
-      default: () => [],
-    },
-    households: {
-      type: Array as () => PlanHousehold[],
-      default: () => [],
+    queryFilter: {
+      type: Object as () => QueryFilterJSON,
+      default: null,
     },
     showHelp: {
       type: Boolean,
@@ -100,41 +92,45 @@ export default defineComponent({
       },
     });
 
-    const inputCategories = computed({
+    const inputQueryFilterString = computed({
       get: () => {
-        return props.categories;
+        return props.queryFilterString;
       },
       set: (val) => {
-        context.emit("update:categories", val);
+        context.emit("update:query-filter-string", val);
       },
     });
 
-    const inputTags = computed({
-      get: () => {
-        return props.tags;
-      },
-      set: (val) => {
-        context.emit("update:tags", val);
-      },
-    });
+    function handleQueryFilterInput(value: string | undefined) {
+      inputQueryFilterString.value = value || "";
+    };
 
-    const inputHouseholds = computed({
-      get: () => {
-        return props.households;
+    const fieldDefs: FieldDefinition[] = [
+      {
+        name: "recipe_category.id",
+        label: "Categories",
+        type: "categories",
       },
-      set: (val) => {
-        context.emit("update:households", val);
+      {
+        name: "tags.id",
+        label: "Tags",
+        type: "tags",
       },
-    });
+      {
+        name: "household_id",
+        label: "Households",
+        type: "households",
+      },
+    ];
 
     return {
       MEAL_TYPE_OPTIONS,
       MEAL_DAY_OPTIONS,
       inputDay,
       inputEntryType,
-      inputCategories,
-      inputTags,
-      inputHouseholds,
+      inputQueryFilterString,
+      handleQueryFilterInput,
+      fieldDefs,
     };
   },
 });
