@@ -39,7 +39,7 @@ class PlanRulesType(str, Enum):
 class PlanRulesCreate(MealieModel):
     day: PlanRulesDay = PlanRulesDay.unset
     entry_type: PlanRulesType = PlanRulesType.unset
-    query_filter_string: str
+    query_filter_string: str = ""
 
 
 class PlanRulesSave(PlanRulesCreate):

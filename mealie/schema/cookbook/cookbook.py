@@ -14,7 +14,7 @@ class CreateCookBook(MealieModel):
     slug: Annotated[str | None, Field(validate_default=True)] = None
     position: int = 1
     public: Annotated[bool, Field(validate_default=True)] = False
-    query_filter_string: str
+    query_filter_string: str = ""
 
     @field_validator("public", mode="before")
     def validate_public(public: bool | None) -> bool:
