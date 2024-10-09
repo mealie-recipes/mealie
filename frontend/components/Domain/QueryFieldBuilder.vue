@@ -225,9 +225,11 @@ import { computed, defineComponent, reactive, ref, toRefs, watch } from "@nuxtjs
 import { useHouseholdSelf } from "~/composables/use-households";
 import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
 import { Organizer, RecipeOrganizer } from "~/lib/api/types/non-generated";
+import { QueryFilterJSON, QueryFilterJSONPart } from "~/lib/api/types/response";
+import { useCategoryStore, useFoodStore, useHouseholdStore, useTagStore, useToolStore } from "~/composables/store";
 
 interface OrganizerBase {
-  id: number;
+  id: string | number;
   name: string;
 }
 
@@ -277,6 +279,10 @@ export default defineComponent({
       type: Array as () => FieldDefinition[],
       required: true,
     },
+    initialQueryFilter: {
+      type: Object as () => QueryFilterJSON | null,
+      default: null,
+    }
   },
   setup(props, context) {
     const { household } = useHouseholdSelf();
@@ -290,6 +296,14 @@ export default defineComponent({
       datePickers: [] as boolean[],
       drag: false,
     });
+
+    const storeMapping = {
+      [Organizer.Category]: useCategoryStore(),
+      [Organizer.Tag]: useTagStore(),
+      [Organizer.Tool]: useToolStore(),
+      [Organizer.Food]: useFoodStore(),
+      [Organizer.Household]: useHouseholdStore(),
+    };
 
     function isOrganizerType(type: FieldType): type is Organizer {
       return (
@@ -562,9 +576,107 @@ export default defineComponent({
       },
     );
 
-    if (props.fieldDefs.length) {
-      addField(props.fieldDefs[0]);
+    function hydrateOrganizers(field: Field, index: number) {
+      if (!field.values?.length || !isOrganizerType(field.type)) {
+        return;
+      }
+
+      field.organizers = [];
+
+      const { store, actions } = storeMapping[field.type];
+      actions.refresh().then(() => {
+        const organizers = field.values.map((value) => store.value.find((organizer) => organizer.id === value));
+        field.organizers = organizers.filter((organizer) => organizer !== undefined) as OrganizerBase[];
+        setOrganizerValues(field, index, field.organizers);
+      });
     }
+
+    function initFieldsError(error: string = "") {
+      if (error) {
+        console.error(error);
+      }
+
+      fields.value = [];
+      if (props.fieldDefs.length) {
+        addField(props.fieldDefs[0]);
+      }
+    }
+
+    function initializeFields() {
+      if (!props.initialQueryFilter?.parts?.length) {
+        return initFieldsError();
+      };
+
+      const initFields: Field[] = [];
+      let error = false;
+      props.initialQueryFilter.parts.forEach((part: QueryFilterJSONPart, index: number) => {
+        const fieldDef = props.fieldDefs.find((fieldDef) => fieldDef.name === part.attributeName);
+        if (!fieldDef) {
+          error = true;
+          return initFieldsError(`"Invalid query filter; unknown attribute name "${part.attributeName}"`);
+        }
+
+        const field: Field = getFieldFromFieldDef(fieldDef);
+        field.leftParenthesis = part.leftParenthesis || field.leftParenthesis;
+        field.rightParenthesis = part.rightParenthesis || field.rightParenthesis;
+        field.logicalOperator = part.logicalOperator || field.logicalOperator;
+        field.relationalOperatorValue = part.relationalOperator || field.relationalOperatorValue
+
+        if (field.leftParenthesis || field.rightParenthesis) {
+          state.showAdvanced = true;
+        }
+
+        if (field.fieldOptions?.length || isOrganizerType(field.type)) {
+          if (typeof part.value === "string") {
+            field.values = part.value ? [part.value] : [];
+          } else {
+            field.values = part.value || [];
+          }
+
+          if (isOrganizerType(field.type)) {
+            hydrateOrganizers(field, index);
+          }
+
+        } else if (field.type === "boolean") {
+          const boolString = part.value || "false";
+          field.value = (
+            boolString[0].toLowerCase() === "t" ||
+            boolString[0].toLowerCase() === "y" ||
+            boolString[0] === "1"
+          );
+        } else if (field.type === "number") {
+          field.value = Number(part.value as string || "0");
+          if (isNaN(field.value)) {
+            error = true;
+            return initFieldsError(`Invalid query filter; invalid number value "${part.value}"`);
+          }
+        } else if (field.type === "Date") {
+          field.value = part.value as string || "";
+          const date = new Date(field.value);
+          if (isNaN(date.getTime())) {
+            error = true;
+            return initFieldsError(`Invalid query filter; invalid date value "${part.value}"`);
+          }
+        } else {
+          field.value = part.value as string || "";
+        }
+
+        initFields.push(field);
+      });
+
+      if (initFields.length && !error) {
+        fields.value = initFields;
+      } else {
+        initFieldsError();
+      }
+    };
+
+    try {
+      initializeFields();
+    } catch (error) {
+      initFieldsError(`Error initializing fields: ${error}`);
+    }
+
 
     const attrs = computed(() => {
       const attrs = {
