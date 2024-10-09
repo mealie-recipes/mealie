@@ -1,7 +1,8 @@
 import datetime
 from enum import Enum
+from typing import Annotated
 
-from pydantic import UUID4, ConfigDict, field_validator
+from pydantic import UUID4, ConfigDict, Field, ValidationInfo, field_validator
 
 from mealie.schema._mealie import MealieModel
 from mealie.schema.response.pagination import PaginationBase
@@ -48,13 +49,13 @@ class PlanRulesSave(PlanRulesCreate):
 
 class PlanRulesOut(PlanRulesSave):
     id: UUID4
-    query_filter: QueryFilterJSON
+    query_filter: Annotated[QueryFilterJSON, Field(validate_default=True)] = None  # type: ignore
 
     model_config = ConfigDict(from_attributes=True)
 
-    @field_validator("query_filter_string", mode="before")
-    def validate_query_filter(_, values) -> QueryFilterJSON:
-        query_filter_string: str = values.get("query_filter_string") or ""
+    @field_validator("query_filter", mode="before")
+    def validate_query_filter(cls, _, info: ValidationInfo) -> QueryFilterJSON:
+        query_filter_string: str = info.data.get("query_filter_string") or ""
         builder = QueryFilterBuilder(query_filter_string)
         return builder.as_json_model()
 
