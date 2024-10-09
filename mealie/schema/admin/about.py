@@ -72,9 +72,3 @@ class CheckAppConfig(MealieModel):
     enable_openai: bool
     base_url_set: bool
     is_up_to_date: bool
-
-
-class OIDCInfo(MealieModel):
-    configuration_url: str | None
-    client_id: str | None
-    groups_claim: str | None

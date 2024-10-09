@@ -78,6 +78,7 @@ RUN echo "crfpp-container"
 # Production Image
 ###############################################
 FROM python-base as production
+LABEL org.opencontainers.image.source="https://github.com/mealie-recipes/mealie"
 ENV PRODUCTION=true
 ENV TESTING=false
 

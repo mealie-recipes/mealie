@@ -3,13 +3,14 @@ from datetime import datetime
 from typing import TYPE_CHECKING, Optional
 
 from pydantic import ConfigDict
-from sqlalchemy import Boolean, DateTime, Enum, ForeignKey, Integer, String, orm, select
+from sqlalchemy import Boolean, Enum, ForeignKey, Integer, String, orm, select
 from sqlalchemy.ext.associationproxy import AssociationProxy, association_proxy
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import Mapped, Session, mapped_column
 
 from mealie.core.config import get_app_settings
 from mealie.db.models._model_utils.auto_init import auto_init
+from mealie.db.models._model_utils.datetime import NaiveDateTime
 from mealie.db.models._model_utils.guid import GUID
 
 from .._model_base import BaseMixins, SqlAlchemyBase
@@ -65,7 +66,7 @@ class User(SqlAlchemyBase, BaseMixins):
 
     cache_key: Mapped[str | None] = mapped_column(String, default="1234")
     login_attemps: Mapped[int | None] = mapped_column(Integer, default=0)
-    locked_at: Mapped[datetime | None] = mapped_column(DateTime, default=None)
+    locked_at: Mapped[datetime | None] = mapped_column(NaiveDateTime, default=None)
 
     # Group Permissions
     can_manage_household: Mapped[bool | None] = mapped_column(Boolean, default=False)

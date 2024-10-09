@@ -426,6 +426,7 @@
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Copiez votre recette ici. Chaque ligne sera traitée comme un objet de la liste",
     "recipe-markup-specification": "Spécification du marquage des recettes",
     "recipe-url": "Adresse de la recette",
+    "recipe-html-or-json": "Recette HTML ou JSON",
     "upload-a-recipe": "Télécharger une recette",
     "upload-individual-zip-file": "Chargez un fichier .zip exporté depuis une autre instance Mealie.",
     "url-form-hint": "Copiez et collez un lien depuis votre site de recettes favori",
@@ -604,10 +605,16 @@
     "scrape-recipe-description": "Récupérer une recette par URL. Fournissez l'URL de la page que vous voulez récupérer, et Mealie essaiera d'en extraire la recette pour l'ajouter à votre collection.",
     "scrape-recipe-have-a-lot-of-recipes": "Vous avez un tas de recettes à récupérer d’un coup ?",
     "scrape-recipe-suggest-bulk-importer": "Essayez l’importateur de masse",
+    "scrape-recipe-have-raw-html-or-json-data": "Vous avez des données brutes en HTML ou JSON ?",
+    "scrape-recipe-you-can-import-from-raw-data-directly": "Vous pouvez directement importer des données brutes",
     "import-original-keywords-as-tags": "Importer les mots-clés d'origine en tant que tags",
     "stay-in-edit-mode": "Rester en mode édition",
     "import-from-zip": "Importer depuis un zip",
     "import-from-zip-description": "Importer une recette qui a été exportée depuis une autre instance de Mealie.",
+    "import-from-html-or-json": "Importer depuis HTML ou JSON",
+    "import-from-html-or-json-description": "Importe une unique recette à partir de HTML ou JSON brut. C’est utile si vous avez une recette venant d’un site que Mealie ne peut pas analyser normalement, ou bien d’une autre source externe.",
+    "json-import-format-description-colon": "Pour importer via JSON, le format doit être valide :",
+    "json-editor": "Éditeur JSON",
     "zip-files-must-have-been-exported-from-mealie": "Les fichiers .zip doivent avoir été exportés depuis Mealie",
     "create-a-recipe-by-uploading-a-scan": "Créer une recette en envoyant un scan.",
     "upload-a-png-image-from-a-recipe-book": "Importer une image png d'un livre de recettes",
@@ -645,7 +652,8 @@
       "missing-unit": "Créer une unité manquante : {unit}",
       "missing-food": "Créer un aliment manquant : {food}",
       "no-food": "Aucun aliment"
-    }
+    },
+    "reset-servings-count": "Réinitialiser le nombre de portions"
   },
   "search": {
     "advanced-search": "Recherche avancée",

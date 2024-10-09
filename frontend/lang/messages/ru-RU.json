@@ -426,6 +426,7 @@
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Вставьте в данные рецепта. Каждая строка будет рассматриваться как отдельный предмет в списке",
     "recipe-markup-specification": "Спецификация разметки рецепта",
     "recipe-url": "URL-адрес рецепта",
+    "recipe-html-or-json": "Recipe HTML or JSON",
     "upload-a-recipe": "Загрузить рецепт",
     "upload-individual-zip-file": "Загрузить отдельный .zip файл, экспортированный из другой Mealie.",
     "url-form-hint": "Скопируйте и вставьте ссылку из вашего любимого сайта рецептов",
@@ -604,10 +605,16 @@
     "scrape-recipe-description": "Отсканировать рецепт по ссылке. Предоставьте ссылку на страницу, которую вы хотите отсканировать, и Mealie попытается вырезать рецепт с этого сайта и добавить его в свою коллекцию.",
     "scrape-recipe-have-a-lot-of-recipes": "Хотите отсканировать несколько рецептов за раз?",
     "scrape-recipe-suggest-bulk-importer": "Воспользуйтесь массовым импортом",
+    "scrape-recipe-have-raw-html-or-json-data": "Have raw HTML or JSON data?",
+    "scrape-recipe-you-can-import-from-raw-data-directly": "You can import from raw data directly",
     "import-original-keywords-as-tags": "Импортировать исходные ключевые слова как теги",
     "stay-in-edit-mode": "Остаться в режиме редактирования",
     "import-from-zip": "Импорт из архива",
     "import-from-zip-description": "Импорт одного рецепта, который был экспортирован из другого экземпляра Mealie.",
+    "import-from-html-or-json": "Import from HTML or JSON",
+    "import-from-html-or-json-description": "Import a single recipe from raw HTML or JSON. This is useful if you have a recipe from a site that Mealie can't scrape normally, or from some other external source.",
+    "json-import-format-description-colon": "To import via JSON, it must be in valid format:",
+    "json-editor": "JSON Editor",
     "zip-files-must-have-been-exported-from-mealie": ".zip файлы должны быть экспортированы из Mealie",
     "create-a-recipe-by-uploading-a-scan": "Создайте рецепт, загрузив скан.",
     "upload-a-png-image-from-a-recipe-book": "Загрузить png изображение из книги рецептов",
@@ -645,7 +652,8 @@
       "missing-unit": "Create missing unit: {unit}",
       "missing-food": "Create missing food: {food}",
       "no-food": "Нет еды"
-    }
+    },
+    "reset-servings-count": "Reset Servings Count"
   },
   "search": {
     "advanced-search": "Расширенный поиск",

@@ -39,7 +39,7 @@ function extractServingsFromFraction(fractionString: string): number | undefined
 
 
 
-function findMatch(yieldString: string): [matchString: string, servings: number, isFraction: boolean] | null {
+export function findMatch(yieldString: string): [matchString: string, servings: number, isFraction: boolean] | null {
     if (!yieldString) {
         return null;
     }

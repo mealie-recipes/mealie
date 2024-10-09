@@ -426,6 +426,7 @@
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Вставте дані рецепту. Кожен рядок буде використаний як елемент у списку",
     "recipe-markup-specification": "Налаштування розмітки рецептів",
     "recipe-url": "URL-адреса рецепту",
+    "recipe-html-or-json": "Recipe HTML or JSON",
     "upload-a-recipe": "Відвантажити рецепт",
     "upload-individual-zip-file": "Відвантажити окремий .zip файл, експортований з іншого Mealie.",
     "url-form-hint": "Скопіюйте та вставте посилання з вашого улюбленого кулінарного веб-сайту",
@@ -604,10 +605,16 @@
     "scrape-recipe-description": "Розпізнати рецепт за посиланням. Вкажіть посилання на рецепт який ви хочете розпізнати й Mealie спробує розпізнати його і додати в вашу колекцію.",
     "scrape-recipe-have-a-lot-of-recipes": "Багато рецептів, які ви хочете розпізнати відразу?",
     "scrape-recipe-suggest-bulk-importer": "Спробуйте масовий розпізнавач",
+    "scrape-recipe-have-raw-html-or-json-data": "Have raw HTML or JSON data?",
+    "scrape-recipe-you-can-import-from-raw-data-directly": "You can import from raw data directly",
     "import-original-keywords-as-tags": "Імпортувати оригінальні ключові слова як теги",
     "stay-in-edit-mode": "Залишитися в режимі редактора",
     "import-from-zip": "Імпортувати з Zip",
     "import-from-zip-description": "Імпортувати один рецепт, який був експортований з іншої Mealie.",
+    "import-from-html-or-json": "Import from HTML or JSON",
+    "import-from-html-or-json-description": "Import a single recipe from raw HTML or JSON. This is useful if you have a recipe from a site that Mealie can't scrape normally, or from some other external source.",
+    "json-import-format-description-colon": "To import via JSON, it must be in valid format:",
+    "json-editor": "JSON Editor",
     "zip-files-must-have-been-exported-from-mealie": ".zip файли повинні бути експортовані з Mealie",
     "create-a-recipe-by-uploading-a-scan": "Створити рецепт, завантаживши скан.",
     "upload-a-png-image-from-a-recipe-book": "Завантажити png зображення з книги рецептів",
@@ -645,7 +652,8 @@
       "missing-unit": "Створити відсутню одиниці: {unit}",
       "missing-food": "Створити відсутню їжу: {food}",
       "no-food": "Немає їжі"
-    }
+    },
+    "reset-servings-count": "Reset Servings Count"
   },
   "search": {
     "advanced-search": "Розширений пошук",

@@ -2,7 +2,7 @@ version: "3.4"
 services:
   oidc-mock-server:
     container_name: oidc-mock-server
-    image: ghcr.io/navikt/mock-oauth2-server:2.1.0
+    image: ghcr.io/navikt/mock-oauth2-server:2.1.9
     network_mode: host
     environment:
       LOG_LEVEL: "debug"
@@ -34,6 +34,7 @@ services:
       OIDC_ADMIN_GROUP: admin
       OIDC_CONFIGURATION_URL: http://localhost:8080/default/.well-known/openid-configuration
       OIDC_CLIENT_ID: default
+      OIDC_CLIENT_SECRET: secret
 
       LDAP_AUTH_ENABLED: True
       LDAP_SERVER_URL: ldap://localhost:10389

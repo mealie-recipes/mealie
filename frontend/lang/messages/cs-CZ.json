@@ -426,6 +426,7 @@
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Vložte data receptu. Každý řádek bude považován za položku v seznamu",
     "recipe-markup-specification": "Specifikace Markupu pro recept",
     "recipe-url": "URL receptu",
+    "recipe-html-or-json": "Recipe HTML or JSON",
     "upload-a-recipe": "Nahrát recept",
     "upload-individual-zip-file": "Nahrát individuální .zip soubor exportovaný z jiné instance Mealie.",
     "url-form-hint": "Zkopírujte a vložte odkaz z vaší oblíbené stránky s recepty",
@@ -604,10 +605,16 @@
     "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
     "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
     "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
+    "scrape-recipe-have-raw-html-or-json-data": "Have raw HTML or JSON data?",
+    "scrape-recipe-you-can-import-from-raw-data-directly": "You can import from raw data directly",
     "import-original-keywords-as-tags": "Import original keywords as tags",
     "stay-in-edit-mode": "Zůstat v režimu úprav",
     "import-from-zip": "Importovat ze zipu",
     "import-from-zip-description": "Import a single recipe that was exported from another Mealie instance.",
+    "import-from-html-or-json": "Import from HTML or JSON",
+    "import-from-html-or-json-description": "Import a single recipe from raw HTML or JSON. This is useful if you have a recipe from a site that Mealie can't scrape normally, or from some other external source.",
+    "json-import-format-description-colon": "To import via JSON, it must be in valid format:",
+    "json-editor": "JSON Editor",
     "zip-files-must-have-been-exported-from-mealie": ".zip files must have been exported from Mealie",
     "create-a-recipe-by-uploading-a-scan": "Create a recipe by uploading a scan.",
     "upload-a-png-image-from-a-recipe-book": "Upload a png image from a recipe book",
@@ -645,7 +652,8 @@
       "missing-unit": "Create missing unit: {unit}",
       "missing-food": "Create missing food: {food}",
       "no-food": "No Food"
-    }
+    },
+    "reset-servings-count": "Reset Servings Count"
   },
   "search": {
     "advanced-search": "Pokročilé vyhledávání",
