@@ -134,7 +134,7 @@
                 @change="setFieldValue(field, index, $event)"
               />
               <v-menu
-                v-else-if="field.type === 'Date'"
+                v-else-if="field.type === 'date'"
                 v-model="datePickers[index]"
                 :close-on-content-click="false"
                 transition="scale-transition"
@@ -275,15 +275,22 @@ interface OrganizerBase {
 }
 
 export type FieldType =
+  | "string"
+  | "number"
+  | "boolean"
+  | "date"
+  | RecipeOrganizer;
+
+export type FieldValue =
   | string
   | number
   | boolean
   | Date
-  | RecipeOrganizer;
+  | Organizer;
 
 interface SelectableItem {
   label: string;
-  value: FieldType;
+  value: FieldValue;
 };
 
 export interface FieldDefinition {
@@ -300,13 +307,13 @@ type LogicalOperator = "AND" | "OR";
 interface Field extends FieldDefinition {
   leftParenthesis?: string;
   logicalOperator?: LogicalOperator;
-  value: FieldType;
+  value: FieldValue;
   relationalOperatorValue: string;
   relationalOperatorOptions: string[];
   rightParenthesis?: string;
 
   // only for select/organizer fields
-  values: FieldType[];
+  values: FieldValue[];
   organizers: OrganizerBase[];
 }
 
@@ -400,7 +407,7 @@ export default defineComponent({
           case "boolean":
             operatorOptions = ["="];
             break;
-          case "Date":
+          case "date":
             operatorOptions = [
               "=",
               "<>",
@@ -490,7 +497,7 @@ export default defineComponent({
       });
     }
 
-    function setFieldValue(field: Field, index: number, value: FieldType) {
+    function setFieldValue(field: Field, index: number, value: FieldValue) {
       state.datePickers[index] = false;
       fields.value.splice(index, 1, {
         ...field,
@@ -498,7 +505,7 @@ export default defineComponent({
       });
     }
 
-    function setFieldValues(field: Field, index: number, values: FieldType[]) {
+    function setFieldValues(field: Field, index: number, values: FieldValue[]) {
       fields.value.splice(index, 1, {
         ...field,
         values: values,
@@ -550,7 +557,7 @@ export default defineComponent({
         if (field.fieldOptions?.length || isOrganizerType(field.type)) {
           if (field.values?.length) {
             let val: string;
-            if (field.type === "string" || field.type === "Date" || isOrganizerType(field.type)) {
+            if (field.type === "string" || field.type === "date" || isOrganizerType(field.type)) {
               val = field.values.map((value) => `"${value}"`).join(",");
             } else {
               val = field.values.join(",");
@@ -561,7 +568,7 @@ export default defineComponent({
           }
         } else {
           if (field.value) {
-            if (field.type === "string" || field.type === "Date") {
+            if (field.type === "string" || field.type === "date") {
               parts.push(`"${field.value}"`);
             } else {
               parts.push(field.value.toString());
@@ -698,7 +705,7 @@ export default defineComponent({
             error = true;
             return initFieldsError(`Invalid query filter; invalid number value "${part.value}"`);
           }
-        } else if (field.type === "Date") {
+        } else if (field.type === "date") {
           field.value = part.value as string || "";
           const date = new Date(field.value);
           if (isNaN(date.getTime())) {
