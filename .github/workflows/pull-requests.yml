@@ -5,6 +5,10 @@ on:
     branches:
       - mealie-next
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 jobs:
   pull-request-lint:
     name: "Lint PR"
