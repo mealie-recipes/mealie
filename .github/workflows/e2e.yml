@@ -1,8 +1,7 @@
 name: E2E Tests
 on:
-  pull_request:
-    branches:
-      - mealie-next
+  workflow_call:
+
 jobs:
   test:
     timeout-minutes: 60
