@@ -166,6 +166,7 @@
                 :selector-type="Organizer.Category"
                 :show-add="false"
                 :show-label="false"
+                :show-icon="false"
                 @input="setOrganizerValues(field, index, $event)"
               />
               <RecipeOrganizerSelector
@@ -174,6 +175,7 @@
                 :selector-type="Organizer.Tag"
                 :show-add="false"
                 :show-label="false"
+                :show-icon="false"
                 @input="setOrganizerValues(field, index, $event)"
               />
               <RecipeOrganizerSelector
@@ -182,6 +184,7 @@
                 :selector-type="Organizer.Tool"
                 :show-add="false"
                 :show-label="false"
+                :show-icon="false"
                 @input="setOrganizerValues(field, index, $event)"
               />
               <RecipeOrganizerSelector
@@ -190,6 +193,7 @@
                 :selector-type="Organizer.Food"
                 :show-add="false"
                 :show-label="false"
+                :show-icon="false"
                 @input="setOrganizerValues(field, index, $event)"
               />
               <RecipeOrganizerSelector
@@ -198,6 +202,7 @@
                 :selector-type="Organizer.Household"
                 :show-add="false"
                 :show-label="false"
+                :show-icon="false"
                 @input="setOrganizerValues(field, index, $event)"
               />
             </v-col>
@@ -715,10 +720,10 @@ export default defineComponent({
 
 
     const attrs = computed(() => {
-      const baseColMaxWidth = 60;
+      const baseColMaxWidth = 50;
       const attrs = {
         col: {
-          class: "d-flex justify-center field-col",
+          class: "d-flex justify-center align-end field-col pa-1",
         },
         select: {
           textClass: "d-flex justify-center text-center",
@@ -726,15 +731,15 @@ export default defineComponent({
         fields: {
           icon: {
             cols: 1,
-            style: `min-width: ${baseColMaxWidth}px;`,
+            style: `width: fit-content;`,
           },
           leftParens: {
             cols: state.showAdvanced ? 1 : 0,
             style: `min-width: ${state.showAdvanced ? baseColMaxWidth : 0}px;`,
           },
           logicalOperator: {
-            cols: 2,
-            style: `min-width: ${baseColMaxWidth * 2}px;`,
+            cols: 1,
+            style: `min-width: ${baseColMaxWidth}px;`,
           },
           fieldName: {
             cols: state.showAdvanced ? 2 : 3,
@@ -784,3 +789,9 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+* {
+  font-size: 1em;
+}
+</style>

@@ -82,6 +82,10 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
+    showIcon: {
+      type: Boolean,
+      default: true,
+    },
   },
 
   setup(props, context) {
@@ -122,6 +126,10 @@ export default defineComponent({
     });
 
     const icon = computed(() => {
+      if (!props.showIcon) {
+        return "";
+      }
+
       switch (props.selectorType) {
         case Organizer.Tag:
           return $globals.icons.tags;
