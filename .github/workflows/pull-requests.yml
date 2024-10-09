@@ -5,6 +5,10 @@ on:
     branches:
       - mealie-next
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 jobs:
   pull-request-lint:
     name: "Lint PR"
@@ -21,3 +25,15 @@ jobs:
   container-scanning:
     name: "Trivy Container Scanning"
     uses: ./.github/workflows/partial-trivy-container-scanning.yml
+
+  end-to-end:
+    name: "End-to-End Tests"
+    uses: ./.github/workflows/e2e.yml
+
+  code-ql:
+    name: "CodeQL"
+    uses: ./.github/workflows/codeql.yml
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
