@@ -338,7 +338,7 @@ export default defineComponent({
       drag: false,
     });
 
-    const storeMapping = {
+    const storeMap = {
       [Organizer.Category]: useCategoryStore(),
       [Organizer.Tag]: useTagStore(),
       [Organizer.Tool]: useToolStore(),
@@ -617,19 +617,21 @@ export default defineComponent({
       },
     );
 
-    function hydrateOrganizers(field: Field, index: number) {
+    async function hydrateOrganizers(field: Field, index: number) {
       if (!field.values?.length || !isOrganizerType(field.type)) {
         return;
       }
 
       field.organizers = [];
 
-      const { store, actions } = storeMapping[field.type];
-      actions.refresh().then(() => {
-        const organizers = field.values.map((value) => store.value.find((organizer) => organizer.id === value));
-        field.organizers = organizers.filter((organizer) => organizer !== undefined) as OrganizerBase[];
-        setOrganizerValues(field, index, field.organizers);
-      });
+      const { store, actions } = storeMap[field.type];
+      if (!store.value.length) {
+        await actions.refresh();
+      }
+
+      const organizers = field.values.map((value) => store.value.find((organizer) => organizer.id === value));
+      field.organizers = organizers.filter((organizer) => organizer !== undefined) as OrganizerBase[];
+      setOrganizerValues(field, index, field.organizers);
     }
 
     function initFieldsError(error: string = "") {

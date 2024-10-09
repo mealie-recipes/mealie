@@ -149,28 +149,24 @@ export default defineComponent({
     // ===========================================================================
     // Store & Items Setup
 
-    const store = (() => {
-      switch (props.selectorType) {
-        case Organizer.Tag:
-          return useTagStore();
-        case Organizer.Tool:
-          return useToolStore();
-        case Organizer.Category:
-          return useCategoryStore();
-        case Organizer.Food:
-          return useFoodStore();
-        case Organizer.Household:
-          return useHouseholdStore();
-        default:
-          return useCategoryStore();
-      }
-    })();
+    const storeMap = {
+      [Organizer.Category]: useCategoryStore(),
+      [Organizer.Tag]: useTagStore(),
+      [Organizer.Tool]: useToolStore(),
+      [Organizer.Food]: useFoodStore(),
+      [Organizer.Household]: useHouseholdStore(),
+    };
+
+    const store = computed(() => {
+      const { store } = storeMap[props.selectorType];
+      return store.value;
+    })
 
     const items = computed(() => {
       if (!props.returnObject) {
-        return store.store.value.map((item) => item.name);
+        return store.value.map((item) => item.name);
       }
-      return store.store.value;
+      return store.value;
     });
 
     function removeByIndex(index: number) {
