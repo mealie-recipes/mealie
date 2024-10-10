@@ -550,7 +550,7 @@ export default defineComponent({
 
 
     const attrs = computed(() => {
-      const baseColMaxWidth = 50;
+      const baseColMaxWidth = 55;
       const attrs = {
         col: {
           class: "d-flex justify-center align-end field-col pa-1",
