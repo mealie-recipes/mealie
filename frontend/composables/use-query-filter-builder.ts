@@ -289,12 +289,10 @@ export function useQueryFilterBuilder() {
         } else {
           parts.push(field.value.toString());
         }
+      } else if (field.type === "boolean") {
+        parts.push("false");
       } else {
-        if (field.type === "boolean") {
-          parts.push("false");
-        } else {
-          isValid = false;
-        }
+        isValid = false;
       }
 
       if (field.rightParenthesis && useParenthesis) {

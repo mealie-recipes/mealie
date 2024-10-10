@@ -483,7 +483,7 @@ export default defineComponent({
         const fieldDef = props.fieldDefs.find((fieldDef) => fieldDef.name === part.attributeName);
         if (!fieldDef) {
           error = true;
-          return initFieldsError(`"Invalid query filter; unknown attribute name "${part.attributeName || ''}"`);
+          return initFieldsError(`Invalid query filter; unknown attribute name "${part.attributeName || ""}"`);
         }
 
         const field = getFieldFromFieldDef(fieldDef);
@@ -520,14 +520,14 @@ export default defineComponent({
           field.value = Number(part.value as string || "0");
           if (isNaN(field.value)) {
             error = true;
-            return initFieldsError(`Invalid query filter; invalid number value "${part.value}"`);
+            return initFieldsError(`Invalid query filter; invalid number value "${part.value || ""}"`);
           }
         } else if (field.type === "date") {
           field.value = part.value as string || "";
           const date = new Date(field.value);
           if (isNaN(date.getTime())) {
             error = true;
-            return initFieldsError(`Invalid query filter; invalid date value "${part.value}"`);
+            return initFieldsError(`Invalid query filter; invalid date value "${part.value || ""}"`);
           }
         } else {
           field.value = part.value as string || "";
@@ -546,7 +546,7 @@ export default defineComponent({
     try {
       initializeFields();
     } catch (error) {
-      initFieldsError(`Error initializing fields: ${error}`);
+      initFieldsError(`Error initializing fields: ${(error || "").toString()}`);
     }
 
 
