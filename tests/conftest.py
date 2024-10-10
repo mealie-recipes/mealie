@@ -3,6 +3,19 @@ from collections.abc import Generator
 
 from pytest import MonkeyPatch, fixture
 
+
+def _clean_temp_dir():
+    with contextlib.suppress(Exception):
+        temp_dir = Path(__file__).parent / ".temp"
+
+        if temp_dir.exists():
+            import shutil
+
+            shutil.rmtree(temp_dir, ignore_errors=True)
+
+
+_clean_temp_dir()
+
 mp = MonkeyPatch()
 mp.setenv("PRODUCTION", "True")
 mp.setenv("TESTING", "True")
@@ -54,11 +67,6 @@ def test_image_png():
 @fixture(scope="session", autouse=True)
 def global_cleanup() -> Generator[None, None, None]:
     """Purges the .temp directory used for testing"""
+
     yield None
-    with contextlib.suppress(Exception):
-        temp_dir = Path(__file__).parent / ".temp"
-
-        if temp_dir.exists():
-            import shutil
-
-            shutil.rmtree(temp_dir, ignore_errors=True)
+    _clean_temp_dir()
