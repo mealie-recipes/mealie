@@ -32,7 +32,7 @@ def plan_rule(api_client: TestClient, unique_user: TestUser):
         "householdId": unique_user.household_id,
         "day": "monday",
         "entryType": "breakfast",
-        "categories": [],
+        "queryFilterString": "",
     }
 
     response = api_client.post(
@@ -48,12 +48,13 @@ def plan_rule(api_client: TestClient, unique_user: TestUser):
 
 def test_group_mealplan_rules_create(api_client: TestClient, unique_user: TestUser, category: RecipeCategory):
     database = unique_user.repos
+    query_filter_string = f'recipe_category.id IN ["{category.id}"]'
     payload = {
         "groupId": unique_user.group_id,
         "householdId": unique_user.household_id,
         "day": "monday",
         "entryType": "breakfast",
-        "categories": [category.model_dump()],
+        "queryFilterString": query_filter_string,
     }
 
     response = api_client.post(
@@ -67,8 +68,8 @@ def test_group_mealplan_rules_create(api_client: TestClient, unique_user: TestUs
     assert response_data["householdId"] == str(unique_user.household_id)
     assert response_data["day"] == "monday"
     assert response_data["entryType"] == "breakfast"
-    assert len(response_data["categories"]) == 1
-    assert response_data["categories"][0]["slug"] == category.slug
+    assert len(response_data["queryFilter"]["parts"]) == 1
+    assert response_data["queryFilter"]["parts"][0]["value"] == [str(category.id)]
 
     # Validate database entry
     rule = database.group_meal_plan_rules.get_one(UUID(response_data["id"]))
@@ -78,8 +79,7 @@ def test_group_mealplan_rules_create(api_client: TestClient, unique_user: TestUs
     assert str(rule.household_id) == unique_user.household_id
     assert rule.day == "monday"
     assert rule.entry_type == "breakfast"
-    assert len(rule.categories) == 1
-    assert rule.categories[0].slug == category.slug
+    assert rule.query_filter_string == query_filter_string
 
     # Cleanup
     database.group_meal_plan_rules.delete(rule.id)
@@ -96,7 +96,8 @@ def test_group_mealplan_rules_read(api_client: TestClient, unique_user: TestUser
     assert response_data["householdId"] == str(unique_user.household_id)
     assert response_data["day"] == "monday"
     assert response_data["entryType"] == "breakfast"
-    assert len(response_data["categories"]) == 0
+    assert response_data["queryFilterString"] == ""
+    assert len(response_data["queryFilter"]["parts"]) == 0
 
 
 def test_group_mealplan_rules_update(api_client: TestClient, unique_user: TestUser, plan_rule: PlanRulesOut):
@@ -119,7 +120,8 @@ def test_group_mealplan_rules_update(api_client: TestClient, unique_user: TestUs
     assert response_data["householdId"] == str(unique_user.household_id)
     assert response_data["day"] == "tuesday"
     assert response_data["entryType"] == "lunch"
-    assert len(response_data["categories"]) == 0
+    assert response_data["queryFilterString"] == ""
+    assert len(response_data["queryFilter"]["parts"]) == 0
 
 
 def test_group_mealplan_rules_delete(api_client: TestClient, unique_user: TestUser, plan_rule: PlanRulesOut):
