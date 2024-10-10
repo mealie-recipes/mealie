@@ -39,12 +39,14 @@
               <v-select
                 v-if="index"
                 v-model="field.logicalOperator"
-                :items="['AND', 'OR']"
+                :items="[logOps.AND, logOps.OR]"
+                item-text="label"
+                item-value="value"
                 @input="setLogicalOperatorValue(field, index, $event)"
               >
                 <template #selection="{ item }">
                   <span :class="attrs.select.textClass" style="width: 100%;">
-                    {{ item }}
+                    {{ item.label }}
                   </span>
                 </template>
               </v-select>
@@ -94,11 +96,13 @@
                 v-if="field.type !== 'boolean'"
                 v-model="field.relationalOperatorValue"
                 :items="field.relationalOperatorOptions"
+                item-text="label"
+                item-value="value"
                 @input="setRelationalOperatorValue(field, index, $event)"
               >
                 <template #selection="{ item }">
                   <span :class="attrs.select.textClass" style="width: 100%;">
-                    {{ item }}
+                    {{ item.label }}
                   </span>
                 </template>
               </v-select>
@@ -266,8 +270,9 @@ import { computed, defineComponent, reactive, ref, toRefs, watch } from "@nuxtjs
 import { useHouseholdSelf } from "~/composables/use-households";
 import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
 import { Organizer, RecipeOrganizer } from "~/lib/api/types/non-generated";
-import { QueryFilterJSON, QueryFilterJSONPart } from "~/lib/api/types/response";
+import { LogicalOperator, QueryFilterJSON, QueryFilterJSONPart, RelationalKeyword, RelationalOperator } from "~/lib/api/types/response";
 import { useCategoryStore, useFoodStore, useHouseholdStore, useTagStore, useToolStore } from "~/composables/store";
+import { FieldLogicalOperator, FieldRelationalOperator, useQueryFilterBuilder } from "~/composables/use-query-filter-builder";
 
 interface OrganizerBase {
   id: string | number;
@@ -302,14 +307,12 @@ export interface FieldDefinition {
   fieldOptions?: SelectableItem[];
 }
 
-type LogicalOperator = "AND" | "OR";
-
 interface Field extends FieldDefinition {
   leftParenthesis?: string;
-  logicalOperator?: LogicalOperator;
+  logicalOperator?: FieldLogicalOperator;
   value: FieldValue;
-  relationalOperatorValue: string;
-  relationalOperatorOptions: string[];
+  relationalOperatorValue: FieldRelationalOperator;
+  relationalOperatorOptions: FieldRelationalOperator[];
   rightParenthesis?: string;
 
   // only for select/organizer fields
@@ -334,6 +337,8 @@ export default defineComponent({
   },
   setup(props, context) {
     const { household } = useHouseholdSelf();
+    const { logOps, relOps } = useQueryFilterBuilder();
+
     const firstDayOfWeek = computed(() => {
       return household.value?.preferences?.firstDayOfWeek || 0;
     });
@@ -376,49 +381,49 @@ export default defineComponent({
     }
 
     function getFieldFromFieldDef(field: Field | FieldDefinition, resetValue = false): Field {
-      const updatedField = {logicalOperator: "AND", ...field} as Field;
-      let operatorOptions: string[];
+      const updatedField = {logicalOperator: logOps.value.AND, ...field} as Field;
+      let operatorOptions: FieldRelationalOperator[];
       if (updatedField.fieldOptions?.length || isOrganizerType(updatedField.type)) {
         operatorOptions = [
-          "IN",
-          "NOT IN",
-          "CONTAINS ALL",
+          relOps.value["IN"],
+          relOps.value["NOT IN"],
+          relOps.value["CONTAINS ALL"],
         ];
       } else {
         switch (updatedField.type) {
           case "string":
             operatorOptions = [
-              "=",
-              "<>",
-              "LIKE",
-              "NOT LIKE",
+              relOps.value["="],
+              relOps.value["<>"],
+              relOps.value["LIKE"],
+              relOps.value["NOT LIKE"],
             ];
             break;
           case "number":
             operatorOptions = [
-              "=",
-              "<>",
-              ">",
-              ">=",
-              "<",
-              "<=",
+              relOps.value["="],
+              relOps.value["<>"],
+              relOps.value[">"],
+              relOps.value[">="],
+              relOps.value["<"],
+              relOps.value["<="],
             ];
             break;
           case "boolean":
-            operatorOptions = ["="];
+            operatorOptions = [relOps.value["="]];
             break;
           case "date":
             operatorOptions = [
-              "=",
-              "<>",
-              ">",
-              ">=",
-              "<",
-              "<=",
+            relOps.value["="],
+              relOps.value["<>"],
+              relOps.value[">"],
+              relOps.value[">="],
+              relOps.value["<"],
+              relOps.value["<="],
             ];
             break;
           default:
-            operatorOptions = ["=", "<>"];
+            operatorOptions = [relOps.value["="], relOps.value["<>"]];
         }
       }
       updatedField.relationalOperatorOptions = operatorOptions;
@@ -481,19 +486,19 @@ export default defineComponent({
       if (!index) {
         value = undefined;
       } else if (!value) {
-        value = "AND";
+        value = logOps.value.AND.value;
       }
 
       fields.value.splice(index, 1, {
         ...field,
-        logicalOperator: value,
+        logicalOperator: value ? logOps.value[value] : undefined,
       });
     }
 
-    function setRelationalOperatorValue(field: Field, index: number, value: string) {
+    function setRelationalOperatorValue(field: Field, index: number, value: RelationalKeyword | RelationalOperator) {
       fields.value.splice(index, 1, {
         ...field,
-        relationalOperatorValue: value,
+        relationalOperatorValue: relOps.value[value],
       });
     }
 
@@ -530,9 +535,9 @@ export default defineComponent({
       fields.value.forEach((field, index) => {
         if (index) {
           if (!field.logicalOperator) {
-            field.logicalOperator = "AND";
+            field.logicalOperator = logOps.value.AND;
           }
-          parts.push(field.logicalOperator);
+          parts.push(field.logicalOperator.value);
         }
 
         if (field.leftParenthesis && state.showAdvanced) {
@@ -547,7 +552,7 @@ export default defineComponent({
         }
 
         if (field.relationalOperatorValue) {
-          parts.push(field.relationalOperatorValue);
+          parts.push(field.relationalOperatorValue.value);
         } else {
           if (field.type !== "boolean") {
             isValid = false;
@@ -622,6 +627,10 @@ export default defineComponent({
         });
 
         const qf = buildQueryFilterString();
+        if (qf) {
+          console.debug(`Set query filter: ${qf}`);
+        }
+
         context.emit("input", qf || undefined);
       },
       {
@@ -674,8 +683,10 @@ export default defineComponent({
         const field: Field = getFieldFromFieldDef(fieldDef);
         field.leftParenthesis = part.leftParenthesis || field.leftParenthesis;
         field.rightParenthesis = part.rightParenthesis || field.rightParenthesis;
-        field.logicalOperator = part.logicalOperator || field.logicalOperator;
-        field.relationalOperatorValue = part.relationalOperator || field.relationalOperatorValue
+        field.logicalOperator = part.logicalOperator ?
+          logOps.value[part.logicalOperator] : field.logicalOperator;
+        field.relationalOperatorValue = part.relationalOperator ?
+          relOps.value[part.relationalOperator] : field.relationalOperatorValue;
 
         if (field.leftParenthesis || field.rightParenthesis) {
           state.showAdvanced = true;
@@ -784,6 +795,8 @@ export default defineComponent({
     return {
       Organizer,
       ...toRefs(state),
+      logOps,
+      relOps,
       attrs,
       firstDayOfWeek,
       onDragEnd,

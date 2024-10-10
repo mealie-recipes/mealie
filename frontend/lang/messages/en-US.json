@@ -1334,7 +1334,18 @@
     "cookbook": "Cookbook"
   },
   "query-filter": {
-    "query-filter-is-valid": "Query filter is valid",
-    "query-filter-is-invalid": "Query filter is invalid"
+    "logical-operators": {
+      "and": "AND",
+      "or": "OR"
+    },
+    "relational-keywords": {
+      "is": "IS",
+      "is-not": "IS NOT",
+      "in": "IN",
+      "not-in": "NOT IN",
+      "contains-all": "CONTAINS ALL",
+      "like": "LIKE",
+      "not-like": "NOT LIKE"
+    }
   }
 }
