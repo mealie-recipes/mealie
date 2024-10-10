@@ -128,8 +128,8 @@
               />
               <v-text-field
                 v-else-if="field.type === 'number'"
-                type="number"
                 v-model="field.value"
+                type="number"
                 @input="setFieldValue(field, index, $event)"
               />
               <v-checkbox
@@ -146,12 +146,12 @@
                 max-width="290px"
                 min-width="auto"
               >
-                <template #activator="{ on, attrs }">
+                <template #activator="{ on, attrs: menuAttrs }">
                   <v-text-field
                     v-model="field.value"
                     persistent-hint
                     :prepend-icon="$globals.icons.calendar"
-                    v-bind="attrs"
+                    v-bind="menuAttrs"
                     readonly
                     v-on="on"
                   />
@@ -520,14 +520,14 @@ export default defineComponent({
           field.value = Number(part.value as string || "0");
           if (isNaN(field.value)) {
             error = true;
-            return initFieldsError(`Invalid query filter; invalid number value "${part.value || ""}"`);
+            return initFieldsError(`Invalid query filter; invalid number value "${(part.value || "").toString()}"`);
           }
         } else if (field.type === "date") {
           field.value = part.value as string || "";
           const date = new Date(field.value);
           if (isNaN(date.getTime())) {
             error = true;
-            return initFieldsError(`Invalid query filter; invalid date value "${part.value || ""}"`);
+            return initFieldsError(`Invalid query filter; invalid date value "${(part.value || "").toString()}"`);
           }
         } else {
           field.value = part.value as string || "";
