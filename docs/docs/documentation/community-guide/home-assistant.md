@@ -23,27 +23,21 @@ We will create sensors to get the name and ID of the first meal in today's meal 
 Make sure the url and port (`http://mealie:9000` ) matches your installation's address and _API_ port.
 
 ```yaml
-- platform: rest
-  resource: "http://mealie:9000/api/households/mealplans/today"
-  method: GET
-  name: Mealie todays meal
-  headers:
-    Authorization: Bearer <<API_TOKEN>>
-  value_template: "{{ value_json[0].recipe.name }}"
-  force_update: true
-  scan_interval: 30
-```
-
-```yaml
-- platform: rest
-  resource: "http://mealie:9000/api/households/mealplans/today"
-  method: GET
-  name: Mealie todays meal ID
-  headers:
-    Authorization: Bearer <<API_TOKEN>>
-  value_template: "{{ value_json[0].recipe.id }}"
-  force_update: true
-  scan_interval: 30
+rest:
+  - resource: "http://mealie:9000/api/groups/mealplans/today"
+    method: GET
+    headers:
+      Authorization: Bearer <<API_TOKEN>>
+    scan_interval: 3600
+    sensor:
+      - name: Mealie todays meal
+        value_template: "{{ value_json[0]['recipe']['name'] }}"
+        force_update: true
+        unique_id: mealie_todays_meal
+      - name: Mealie todays meal ID
+        value_template: "{{ value_json[0]['recipe']['id'] }}"
+        force_update: true
+        unique_id: mealie_todays_meal_id
 ```
 
 #### 3. Create a Camera Entity
