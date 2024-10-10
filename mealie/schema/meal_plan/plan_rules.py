@@ -4,9 +4,12 @@ from typing import Annotated
 
 from pydantic import UUID4, ConfigDict, Field, ValidationInfo, field_validator
 
+from mealie.core.root_logger import get_logger
 from mealie.schema._mealie import MealieModel
 from mealie.schema.response.pagination import PaginationBase
 from mealie.schema.response.query_filter import QueryFilterBuilder, QueryFilterJSON
+
+logger = get_logger()
 
 
 class PlanRulesDay(str, Enum):
@@ -55,9 +58,13 @@ class PlanRulesOut(PlanRulesSave):
 
     @field_validator("query_filter", mode="before")
     def validate_query_filter(cls, _, info: ValidationInfo) -> QueryFilterJSON:
-        query_filter_string: str = info.data.get("query_filter_string") or ""
-        builder = QueryFilterBuilder(query_filter_string)
-        return builder.as_json_model()
+        try:
+            query_filter_string: str = info.data.get("query_filter_string") or ""
+            builder = QueryFilterBuilder(query_filter_string)
+            return builder.as_json_model()
+        except Exception:
+            logger.exception(f"Invalid query filter string: {query_filter_string}")
+            return QueryFilterJSON()
 
 
 class PlanRulesPagination(PaginationBase):
