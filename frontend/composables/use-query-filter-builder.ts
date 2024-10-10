@@ -74,8 +74,8 @@ export function useQueryFilterBuilder() {
     } as FieldLogicalOperator;
 
     return {
-      "AND": AND,
-      "OR": OR,
+      AND,
+      OR,
     };
   });
 
@@ -145,6 +145,7 @@ export function useQueryFilterBuilder() {
       value: "NOT LIKE",
     } as FieldRelationalOperator;
 
+    /* eslint-disable object-shorthand */
     return {
       "=": EQ,
       "<>": NOT_EQ,
@@ -160,6 +161,7 @@ export function useQueryFilterBuilder() {
       "LIKE": LIKE,
       "NOT LIKE": NOT_LIKE,
     };
+    /* eslint-enable object-shorthand */
   });
 
   function isOrganizerType(type: FieldType): type is Organizer {
@@ -173,6 +175,7 @@ export function useQueryFilterBuilder() {
   };
 
   function getFieldFromFieldDef(field: Field | FieldDefinition, resetValue = false): Field {
+    /* eslint-disable dot-notation */
     const updatedField = {logicalOperator: logOps.value.AND, ...field} as Field;
     let operatorOptions: FieldRelationalOperator[];
     if (updatedField.fieldOptions?.length || isOrganizerType(updatedField.type)) {
@@ -234,6 +237,7 @@ export function useQueryFilterBuilder() {
     }
 
     return updatedField;
+    /* eslint-enable dot-notation */
   };
 
   function buildQueryFilterString(fields: Field[], useParenthesis: boolean): string {
@@ -263,17 +267,15 @@ export function useQueryFilterBuilder() {
 
       if (field.relationalOperatorValue) {
         parts.push(field.relationalOperatorValue.value);
-      } else {
-        if (field.type !== "boolean") {
-          isValid = false;
-        }
+      } else if (field.type !== "boolean") {
+        isValid = false;
       }
 
       if (field.fieldOptions?.length || isOrganizerType(field.type)) {
         if (field.values?.length) {
           let val: string;
           if (field.type === "string" || field.type === "date" || isOrganizerType(field.type)) {
-            val = field.values.map((value) => `"${value}"`).join(",");
+            val = field.values.map((value) => `"${value.toString()}"`).join(",");
           } else {
             val = field.values.join(",");
           }
@@ -281,19 +283,17 @@ export function useQueryFilterBuilder() {
         } else {
           isValid = false;
         }
-      } else {
-        if (field.value) {
-          if (field.type === "string" || field.type === "date") {
-            parts.push(`"${field.value}"`);
-          } else {
-            parts.push(field.value.toString());
-          }
+      } else if (field.value) {
+        if (field.type === "string" || field.type === "date") {
+          parts.push(`"${field.value.toString()}"`);
         } else {
-          if (field.type === "boolean") {
-            parts.push("false");
-          } else {
-            isValid = false;
-          }
+          parts.push(field.value.toString());
+        }
+      } else {
+        if (field.type === "boolean") {
+          parts.push("false");
+        } else {
+          isValid = false;
         }
       }
 

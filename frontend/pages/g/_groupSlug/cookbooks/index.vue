@@ -161,11 +161,11 @@ export default defineComponent({
       deleteCreateTarget();
     }
     onMounted(() => {
-      window.addEventListener('beforeunload', handleUnmount);
+      window.addEventListener("beforeunload", handleUnmount);
     });
     onBeforeUnmount(() => {
       handleUnmount();
-      window.removeEventListener('beforeunload', handleUnmount);
+      window.removeEventListener("beforeunload", handleUnmount);
     });
 
     return {

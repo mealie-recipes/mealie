@@ -385,14 +385,14 @@ export default defineComponent({
       state.datePickers[index] = false;
       fields.value.splice(index, 1, {
         ...field,
-        value: value,
+        value,
       });
     }
 
     function setFieldValues(field: Field, index: number, values: FieldValue[]) {
       fields.value.splice(index, 1, {
         ...field,
-        values: values,
+        values,
       });
     }
 
@@ -455,12 +455,13 @@ export default defineComponent({
         await actions.refresh();
       }
 
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       const organizers = field.values.map((value) => store.value.find((organizer) => organizer.id === value));
       field.organizers = organizers.filter((organizer) => organizer !== undefined) as OrganizerBase[];
       setOrganizerValues(field, index, field.organizers);
     }
 
-    function initFieldsError(error: string = "") {
+    function initFieldsError(error = "") {
       if (error) {
         console.error(error);
       }
@@ -482,7 +483,7 @@ export default defineComponent({
         const fieldDef = props.fieldDefs.find((fieldDef) => fieldDef.name === part.attributeName);
         if (!fieldDef) {
           error = true;
-          return initFieldsError(`"Invalid query filter; unknown attribute name "${part.attributeName}"`);
+          return initFieldsError(`"Invalid query filter; unknown attribute name "${part.attributeName || ''}"`);
         }
 
         const field = getFieldFromFieldDef(fieldDef);
@@ -561,7 +562,7 @@ export default defineComponent({
         fields: {
           icon: {
             cols: 1,
-            style: `width: fit-content;`,
+            style: "width: fit-content;",
           },
           leftParens: {
             cols: state.showAdvanced ? 1 : 0,
