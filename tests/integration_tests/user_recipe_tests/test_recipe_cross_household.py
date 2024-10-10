@@ -257,9 +257,7 @@ def test_user_can_update_last_made_on_other_household(
     assert new_last_made == now != old_last_made
 
 
-def test_cookbook_recipes_only_includes_current_households(
-    api_client: TestClient, unique_user: TestUser, h2_user: TestUser
-):
+def test_cookbook_recipes_includes_all_households(api_client: TestClient, unique_user: TestUser, h2_user: TestUser):
     tag = unique_user.repos.tags.create(TagSave(name=random_string(), group_id=unique_user.group_id))
     recipes = unique_user.repos.recipes.create_many(
         [
@@ -300,4 +298,4 @@ def test_cookbook_recipes_only_includes_current_households(
     for recipe in recipes:
         assert recipe.id in fetched_recipe_ids
     for recipe in other_recipes:
-        assert recipe.id not in fetched_recipe_ids
+        assert recipe.id in fetched_recipe_ids
