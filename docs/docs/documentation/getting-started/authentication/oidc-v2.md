@@ -56,7 +56,7 @@ There are two (optional) [environment variables](../installation/backend-config.
 
 `OIDC_USER_GROUP`: Users must be a part of this group (within your IdP) to be able to log in.
 
-`OIDC_ADMIN_GROUP`: Users that are in this group (within your IdP) will be made an **admin** in Mealie. Users in this group do not also need to be in the `OIDC_USER_GROUP`
+`OIDC_ADMIN_GROUP`: Users that are in this group (within your IdP) will be made an **admin** in Mealie. Users in this group do not need to be in the `OIDC_USER_GROUP`
 
 ## Examples
 
@@ -78,7 +78,7 @@ If you don't see your provider and have successfully set it up, please consider 
 
 **Required**
 
-- You must change the Mealie client in your IdP to be **private**. The option is different for every provider, but you need to obtain a **client secret**.
+- You must change the Mealie client in your IdP to be **confidential**. The option is different for every provider, but you need to obtain a **client secret**.
 
 **Optional**
 
