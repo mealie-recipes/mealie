@@ -45,10 +45,11 @@
 <script lang="ts">
 import { defineComponent, ref, useContext, computed, onMounted } from "@nuxtjs/composition-api";
 import RecipeOrganizerDialog from "./RecipeOrganizerDialog.vue";
-import { RecipeCategory, RecipeTag } from "~/lib/api/types/recipe";
+import { IngredientFood, RecipeCategory, RecipeTag } from "~/lib/api/types/recipe";
 import { RecipeTool } from "~/lib/api/types/admin";
 import { useCategoryStore, useFoodStore, useHouseholdStore, useTagStore, useToolStore } from "~/composables/store";
 import { Organizer, RecipeOrganizer } from "~/lib/api/types/non-generated";
+import { HouseholdSummary } from "~/lib/api/types/household";
 
 export default defineComponent({
   components: {
@@ -56,7 +57,14 @@ export default defineComponent({
   },
   props: {
     value: {
-      type: Array as () => (RecipeTag | RecipeCategory | RecipeTool | string)[] | undefined,
+      type: Array as () => (
+        | HouseholdSummary
+        | RecipeTag
+        | RecipeCategory
+        | RecipeTool
+        | IngredientFood
+        | string
+      )[] | undefined,
       required: true,
     },
     /**
