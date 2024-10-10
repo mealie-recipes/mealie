@@ -21,7 +21,7 @@ def get_page_data(group_id: UUID | str, household_id: UUID4 | str):
         "slug": name_and_slug,
         "description": "",
         "position": 0,
-        "categories": [],
+        "query_filter_string": "",
         "group_id": str(group_id),
         "household_id": str(household_id),
     }
