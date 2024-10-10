@@ -25,7 +25,7 @@ Before you can start using OIDC Authentication, you must first configure a new c
 1. Create a new client application
     - The Provider type should be OIDC or OAuth2
     - The Grant type should be `Authorization Code`
-    - The Client type should be `private` (you should have a **Client Secret**)
+    - The Client type should be `confidential` (you should have a **Client Secret**)
 
 2. Configure redirect URI
 
