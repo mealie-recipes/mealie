@@ -3,13 +3,13 @@
 		"name": "eikelpompoen"
 	},
 	"alfalfa-sprouts": {
-		"name": "kiemgroenten"
+		"name": "kiemgroente"
 	},
 	"anchovies": {
 		"name": "ansjovis"
 	},
 	"apples": {
-		"name": "appel",
+		"name": "appels",
 		"plural_name": "appels"
 	},
 	"artichoke": {
@@ -35,10 +35,10 @@
 		"name": "baksoda"
 	},
 	"baking-sugar": {
-		"name": "poedersuiker"
+		"name": "bak suiker"
 	},
 	"bar-sugar": {
-		"name": "ruwe suiker"
+		"name": "rietsuiker"
 	},
 	"basil": {
 		"name": "basilicum"
@@ -51,7 +51,7 @@
 		"plural_name": "paprika"
 	},
 	"blackberries": {
-		"name": "zwarte bessen"
+		"name": "braambessen"
 	},
 	"bok-choy": {
 		"name": "paksoi"
@@ -87,17 +87,17 @@
 		"name": "boter"
 	},
 	"butternut-pumpkin": {
-		"name": "flespompoen"
+		"name": "butternut pompoen"
 	},
 	"butternut-squash": {
-		"name": "flespompoen"
+		"name": "butternut pompoen"
 	},
 	"cabbage": {
 		"name": "kool",
 		"plural_name": "kolen"
 	},
 	"cactus-edible": {
-		"name": "cactusfruit, eetbaar"
+		"name": "cactus, eetbaar"
 	},
 	"calabrese": {
 		"name": "calabrese"
@@ -135,7 +135,7 @@
 		"name": "cayenne peper"
 	},
 	"celeriac": {
-		"name": "selderij"
+		"name": "knolselder"
 	},
 	"celery": {
 		"name": "selderij"
@@ -243,7 +243,7 @@
 		"plural_name": "aubergines"
 	},
 	"eggs": {
-		"name": "ei",
+		"name": "eieren",
 		"plural_name": "eieren"
 	},
 	"endive": {
@@ -254,7 +254,7 @@
 		"name": "vetten"
 	},
 	"fava-beans": {
-		"name": "fava bonen"
+		"name": "tuinbonen"
 	},
 	"fiddlehead": {
 		"name": "varenkrul"
@@ -402,7 +402,7 @@
 		"name": "mortadella"
 	},
 	"mushroom": {
-		"name": "paddenstoel",
+		"name": "paddestoel",
 		"plural_name": "paddenstoelen"
 	},
 	"mussels": {
@@ -424,7 +424,7 @@
 		"name": "noten"
 	},
 	"octopuses": {
-		"name": "octopus",
+		"name": "octopussen",
 		"plural_name": "octopussen"
 	},
 	"oils": {
@@ -446,7 +446,7 @@
 		"name": "uien familie"
 	},
 	"orange-blossom-water": {
-		"name": "sinaasappelbloesem water"
+		"name": "sinaasappelbloesem"
 	},
 	"oranges": {
 		"name": "sinaasappel",
@@ -456,7 +456,7 @@
 		"name": "oregano"
 	},
 	"oysters": {
-		"name": "oesters"
+		"name": "oester"
 	},
 	"panch-puran": {
 		"name": "panch puran"
@@ -518,7 +518,7 @@
 		"name": "ruwe suiker"
 	},
 	"refined-sugar": {
-		"name": "geraffineerde suiker"
+		"name": "gerafineerde suiker"
 	},
 	"rice": {
 		"name": "rijst"
@@ -555,7 +555,7 @@
 		"name": "sesamzaad"
 	},
 	"shallot": {
-		"name": "sjalotje",
+		"name": "sjalotte",
 		"plural_name": "sjalotjes"
 	},
 	"skate": {
@@ -622,7 +622,7 @@
 		"name": "zoetstoffen"
 	},
 	"tahini": {
-		"name": "tahini"
+		"name": "tahin"
 	},
 	"taro": {
 		"name": "taro",
