@@ -16,7 +16,7 @@
 		"name": "artichoke"
 	},
 	"arugula": {
-		"name": "arugula"
+		"name": "rocket"
 	},
 	"asparagus": {
 		"name": "asparagus"
@@ -32,7 +32,7 @@
 		"name": "baking powder"
 	},
 	"baking-soda": {
-		"name": "baking soda"
+		"name": "bicarbonate of soda"
 	},
 	"baking-sugar": {
 		"name": "baking sugar"
@@ -54,7 +54,7 @@
 		"name": "blackberries"
 	},
 	"bok-choy": {
-		"name": "bok choy"
+		"name": "pak choi"
 	},
 	"brassicas": {
 		"name": "brassicas"
@@ -75,7 +75,7 @@
 		"name": "broccoli rabe"
 	},
 	"broccolini": {
-		"name": "broccolini"
+		"name": "tenderstem broccoli"
 	},
 	"brown-sugar": {
 		"name": "brown sugar"
@@ -122,7 +122,7 @@
 		"name": "caster sugar"
 	},
 	"castor-sugar": {
-		"name": "castor sugar"
+		"name": "caster sugar"
 	},
 	"catfish": {
 		"name": "catfish"
@@ -239,7 +239,7 @@
 		"name": "edible cactus"
 	},
 	"eggplant": {
-		"name": "eggplant",
+		"name": "aubergine",
 		"plural_name": "eggplants"
 	},
 	"eggs": {
@@ -254,7 +254,7 @@
 		"name": "fats"
 	},
 	"fava-beans": {
-		"name": "fava beans"
+		"name": "broad beans"
 	},
 	"fiddlehead": {
 		"name": "fiddlehead"
@@ -542,7 +542,7 @@
 		"name": "salt cod"
 	},
 	"scallion": {
-		"name": "scallion",
+		"name": "spring onion",
 		"plural_name": "scallions"
 	},
 	"seafood": {
@@ -565,10 +565,10 @@
 		"name": "soda"
 	},
 	"soda-baking": {
-		"name": "soda, baking"
+		"name": "bicarbonate of soda"
 	},
 	"soybean": {
-		"name": "soybean"
+		"name": "soya beans"
 	},
 	"spaghetti-squash": {
 		"name": "spaghetti squash",
