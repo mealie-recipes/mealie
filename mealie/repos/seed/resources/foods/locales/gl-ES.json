@@ -147,7 +147,7 @@
 		"name": "chard"
 	},
 	"cheese": {
-		"name": "cheese"
+		"name": "queixo"
 	},
 	"chicory": {
 		"name": "chicory"
@@ -166,26 +166,26 @@
 		"name": "chocolate"
 	},
 	"cilantro": {
-		"name": "cilantro"
+		"name": "coandro"
 	},
 	"cinnamon": {
-		"name": "cinnamon"
+		"name": "canela"
 	},
 	"clarified-butter": {
-		"name": "clarified butter"
+		"name": "manteiga clarificada"
 	},
 	"coconut": {
-		"name": "coconut",
+		"name": "coco",
 		"plural_name": "coconuts"
 	},
 	"coconut-milk": {
-		"name": "coconut milk"
+		"name": "leite de coco"
 	},
 	"cod": {
-		"name": "cod"
+		"name": "bacallau"
 	},
 	"coffee": {
-		"name": "coffee"
+		"name": "café"
 	},
 	"collard-greens": {
 		"name": "collard greens"
@@ -197,11 +197,11 @@
 		"name": "coriander"
 	},
 	"corn": {
-		"name": "corn",
+		"name": "millo",
 		"plural_name": "corns"
 	},
 	"corn-syrup": {
-		"name": "corn syrup"
+		"name": "xarope de millo"
 	},
 	"cottonseed-oil": {
 		"name": "cottonseed oil"
@@ -213,7 +213,7 @@
 		"name": "cream of tartar"
 	},
 	"cucumber": {
-		"name": "cucumber",
+		"name": "pepino",
 		"plural_name": "cucumbers"
 	},
 	"cumin": {
@@ -227,23 +227,23 @@
 		"name": "dairy products and dairy substitutes"
 	},
 	"dandelion": {
-		"name": "dandelion"
+		"name": "dente de león"
 	},
 	"demerara-sugar": {
 		"name": "demerara sugar"
 	},
 	"dough": {
-		"name": "dough"
+		"name": "masa"
 	},
 	"edible-cactus": {
 		"name": "edible cactus"
 	},
 	"eggplant": {
-		"name": "eggplant",
+		"name": "berenxena",
 		"plural_name": "eggplants"
 	},
 	"eggs": {
-		"name": "egg",
+		"name": "ovos",
 		"plural_name": "eggs"
 	},
 	"endive": {
@@ -251,7 +251,7 @@
 		"plural_name": "endives"
 	},
 	"fats": {
-		"name": "fats"
+		"name": "graxas"
 	},
 	"fava-beans": {
 		"name": "fava beans"
@@ -264,22 +264,22 @@
 		"plural_name": "fiddlehead ferns"
 	},
 	"fish": {
-		"name": "fish"
+		"name": "peixe"
 	},
 	"five-spice-powder": {
 		"name": "five spice powder"
 	},
 	"flour": {
-		"name": "flour"
+		"name": "fariña"
 	},
 	"frisee": {
 		"name": "frisee"
 	},
 	"fructose": {
-		"name": "fructose"
+		"name": "frutosa"
 	},
 	"fruit": {
-		"name": "fruit"
+		"name": "froita"
 	},
 	"fruit-sugar": {
 		"name": "fruit sugar"
@@ -396,7 +396,7 @@
 		"name": "meat"
 	},
 	"milk": {
-		"name": "milk"
+		"name": "leite"
 	},
 	"mortadella": {
 		"name": "mortadella"
@@ -449,7 +449,7 @@
 		"name": "orange blossom water"
 	},
 	"oranges": {
-		"name": "orange",
+		"name": "laranxas",
 		"plural_name": "oranges"
 	},
 	"oregano": {
@@ -472,7 +472,7 @@
 		"plural_name": "parsnips"
 	},
 	"pear": {
-		"name": "pear",
+		"name": "pera",
 		"plural_name": "pears"
 	},
 	"peas": {
@@ -521,7 +521,7 @@
 		"name": "refined sugar"
 	},
 	"rice": {
-		"name": "rice"
+		"name": "arroz"
 	},
 	"rice-flour": {
 		"name": "rice flour"
@@ -533,13 +533,13 @@
 		"name": "rum"
 	},
 	"salmon": {
-		"name": "salmon"
+		"name": "salmón"
 	},
 	"salt": {
 		"name": "salt"
 	},
 	"salt-cod": {
-		"name": "salt cod"
+		"name": "bacallau en salgadura"
 	},
 	"scallion": {
 		"name": "scallion",
@@ -632,18 +632,18 @@
 		"name": "teff"
 	},
 	"tomato": {
-		"name": "tomato",
+		"name": "tomate",
 		"plural_name": "tomatoes"
 	},
 	"trout": {
-		"name": "trout"
+		"name": "troita"
 	},
 	"tubers": {
 		"name": "tuber",
 		"plural_name": "tubers"
 	},
 	"tuna": {
-		"name": "tuna"
+		"name": "bonito"
 	},
 	"turbanado-sugar": {
 		"name": "turbanado sugar"
