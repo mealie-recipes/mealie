@@ -1,20 +1,10 @@
 <template>
   <BaseDialog
-v-model="inviteDialog"
-    :title="showLink ? $tc('profile.get-invite-link') : $tc('profile.send-invite-link')"
-    :icon="showLink ? $globals.icons.accountPlusOutline : $globals.icons.email" color="primary">
+    v-model="inviteDialog"
+    :title="$tc('profile.get-invite-link')"
+    :icon="$globals.icons.accountPlusOutline" color="primary">
     <v-container>
       <v-form class="mt-5">
-        <v-row v-if="showLink">
-          <v-col cols="9">
-            <v-text-field
-:label="$tc('profile.invite-link')" type="text" readonly filled
-              :value="generatedSignupLink" />
-          </v-col>
-          <v-col cols="3" class="pl-1 mt-3">
-            <AppButtonCopy :icon="false" color="info" :copy-text="generatedSignupLink" />
-          </v-col>
-        </v-row>
         <v-select
 v-if="groups && groups.length" v-model="selectedGroup" :items="groups" item-text="name"
           item-value="id" :return-object="false" filled :label="$tc('group.user-group')"
@@ -23,6 +13,16 @@ v-if="groups && groups.length" v-model="selectedGroup" :items="groups" item-text
 v-if="households && households.length" v-model="selectedHousehold" :items="filteredHouseholds"
           item-text="name" item-value="id" :return-object="false" filled :label="$tc('household.user-household')"
           :rules="[validators.required]" />
+        <v-row>
+          <v-col cols="9">
+            <v-text-field :label="$tc('profile.invite-link')" type="text" readonly filled :value="generatedSignupLink" />
+          </v-col>
+          <v-col cols="3" class="pl-1 mt-3">
+            <AppButtonCopy
+:icon="false" color="info" :copy-text="generatedSignupLink"
+              :disabled="generatedSignupLink" />
+          </v-col>
+        </v-row>
         <v-text-field
 v-model="sendTo" :label="$t('user.email')" :rules="[validators.email]" outlined
           @keydown.enter="sendInvite" />
@@ -103,7 +103,7 @@ export default defineComponent({
     });
 
     function constructLink(token: string) {
-      return `${window.location.origin}/register?token=${token}`;
+      return token ? `${window.location.origin}/register?token=${token}` : "";
     }
 
     const generatedSignupLink = computed(() => {
@@ -170,6 +170,11 @@ export default defineComponent({
           this.getSignupLink();
         }
       },
+    },
+    selectedHousehold(newVal) {
+      if (newVal && this.selectedGroup) {
+        this.getSignupLink();
+      }
     },
   },
 

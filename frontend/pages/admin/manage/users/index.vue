@@ -23,7 +23,7 @@
         <BaseButton to="/admin/manage/users/create" class="mr-2">
           {{ $t("general.create") }}
         </BaseButton>
-        <BaseButton class="mr-2" color="info" :icon="$globals.icons.email" @click="inviteDialog = true">
+        <BaseButton class="mr-2" color="info" :icon="$globals.icons.link" @click="inviteDialog = true">
           {{ $t("group.invite") }}
         </BaseButton>
 
