@@ -42,7 +42,7 @@
         "abbreviation": "gal"
     },
     "milliliter": {
-        "name": "millilitre",
+        "name": "mililitre",
         "plural_name": "millilitres",
         "description": "",
         "abbreviation": "mL"
@@ -85,13 +85,13 @@
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "goutte",
+        "name": "éclaboussure",
         "plural_name": "gouttes",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
-        "name": "1/8 de cuillère à café",
+        "name": "trait",
         "plural_name": "1/8 de cuillères à café",
         "description": "",
         "abbreviation": ""
