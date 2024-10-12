@@ -474,7 +474,7 @@ class RecipeController(BaseRecipeController):
             lambda: defaultdict(list)
         )
         for recipe in data:
-            r = self.service.update_one(recipe.slug, recipe)
+            r = self.service.update_one(recipe.id, recipe)  # type: ignore
             updated_by_group_and_household[r.group_id][r.household_id].append(r)
 
         all_updated: list[Recipe] = []
