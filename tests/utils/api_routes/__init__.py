@@ -320,6 +320,11 @@ def groups_labels_item_id(item_id):
     return f"{prefix}/groups/labels/{item_id}"
 
 
+def groups_members_username_or_id(username_or_id):
+    """`/api/groups/members/{username_or_id}`"""
+    return f"{prefix}/groups/members/{username_or_id}"
+
+
 def groups_reports_item_id(item_id):
     """`/api/groups/reports/{item_id}`"""
     return f"{prefix}/groups/reports/{item_id}"

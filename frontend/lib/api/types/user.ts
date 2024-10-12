@@ -77,6 +77,7 @@ export interface ReadWebhook {
 }
 export interface UserSummary {
   id: string;
+  username: string;
   fullName: string;
 }
 export interface ReadGroupPreferences {

@@ -57,35 +57,30 @@ function getRequests(axiosInstance: NuxtAxiosInstance): ApiRequestInstance {
   };
 }
 
-export const useAdminApi = function (): AdminAPI {
+export const useRequests = function (): ApiRequestInstance {
   const { $axios, i18n } = useContext();
 
   $axios.setHeader("Accept-Language", i18n.locale);
 
-  const requests = getRequests($axios);
+  return getRequests($axios);
+};
+
+export const useAdminApi = function (): AdminAPI {
+  const requests = useRequests();
   return new AdminAPI(requests);
 };
 
 export const useUserApi = function (): UserApi {
-  const { $axios, i18n } = useContext();
-  $axios.setHeader("Accept-Language", i18n.locale);
-
-  const requests = getRequests($axios);
+  const requests = useRequests();
   return new UserApi(requests);
 };
 
 export const usePublicApi = function (): PublicApi {
-  const { $axios, i18n } = useContext();
-  $axios.setHeader("Accept-Language", i18n.locale);
-
-  const requests = getRequests($axios);
+  const requests = useRequests();
   return new PublicApi(requests);
 };
 
 export const usePublicExploreApi = function (groupSlug: string): PublicExploreApi {
-  const { $axios, i18n } = useContext();
-  $axios.setHeader("Accept-Language", i18n.locale);
-
-  const requests = getRequests($axios);
+  const requests = useRequests();
   return new PublicExploreApi(requests, groupSlug);
 }
