@@ -23,7 +23,7 @@
 	},
 	"avocado": {
 		"name": "avocado",
-		"plural_name": "avocado"
+		"plural_name": "avocados"
 	},
 	"bacon": {
 		"name": "bacon"
@@ -47,7 +47,7 @@
 		"name": "beans"
 	},
 	"bell-peppers": {
-		"name": "bell peppers",
+		"name": "bell pepper",
 		"plural_name": "bell peppers"
 	},
 	"blackberries": {
@@ -307,7 +307,7 @@
 		"name": "ginger"
 	},
 	"grains": {
-		"name": "grains"
+		"name": "grain"
 	},
 	"granulated-sugar": {
 		"name": "granulated sugar"
@@ -456,7 +456,7 @@
 		"name": "oregano"
 	},
 	"oysters": {
-		"name": "oysters"
+		"name": "oyster"
 	},
 	"panch-puran": {
 		"name": "panch puran"
