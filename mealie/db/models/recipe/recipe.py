@@ -12,7 +12,7 @@ from sqlalchemy.orm.attributes import get_history
 from sqlalchemy.orm.session import object_session
 
 from mealie.db.models._model_utils.auto_init import auto_init
-from mealie.db.models._model_utils.datetime import get_utc_today
+from mealie.db.models._model_utils.datetime import NaiveDateTime, get_utc_today
 from mealie.db.models._model_utils.guid import GUID
 
 from .._model_base import BaseMixins, SqlAlchemyBase
@@ -135,8 +135,8 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
 
     # Time Stamp Properties
     date_added: Mapped[date | None] = mapped_column(sa.Date, default=get_utc_today)
-    date_updated: Mapped[datetime | None] = mapped_column(sa.DateTime)
-    last_made: Mapped[datetime | None] = mapped_column(sa.DateTime)
+    date_updated: Mapped[datetime | None] = mapped_column(NaiveDateTime)
+    last_made: Mapped[datetime | None] = mapped_column(NaiveDateTime)
 
     # Shopping List Refs
     shopping_list_refs: Mapped[list["ShoppingListRecipeReference"]] = orm.relationship(

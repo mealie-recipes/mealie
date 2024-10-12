@@ -123,7 +123,7 @@ export default {
   auth: {
     redirect: {
       login: "/login",
-      logout: "/login?direct=1",
+      logout: "/login",
       callback: "/login",
       home: "/",
     },
@@ -161,12 +161,24 @@ export default {
         },
       },
       oidc: {
-        scheme: "~/schemes/DynamicOpenIDConnectScheme",
+        scheme: "local",
         resetOnError: true,
-        clientId: "",
+        token: {
+          property: "access_token",
+          global: true,
+        },
+        user: {
+          property: "",
+          autoFetch: true,
+        },
         endpoints: {
-          configuration: "",
-        }
+          login: {
+            url: "api/auth/oauth/callback",
+            method: "get",
+          },
+          logout: { url: "api/auth/logout", method: "post" },
+          user: { url: "api/users/self", method: "get" },
+        },
       },
     },
   },

@@ -152,6 +152,8 @@ class UserBase(MealieModel):
 
 
 class UserIn(UserBase):
+    username: str
+    full_name: str
     password: str
 
 

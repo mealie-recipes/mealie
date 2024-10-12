@@ -19,11 +19,11 @@ class ScheduleTime(NamedTuple):
     minute: int
 
 
-def determine_secrets(data_dir: Path, production: bool) -> str:
+def determine_secrets(data_dir: Path, secret: str, production: bool) -> str:
     if not production:
         return "shh-secret-test-key"
 
-    secrets_file = data_dir.joinpath(".secret")
+    secrets_file = data_dir.joinpath(secret)
     if secrets_file.is_file():
         with open(secrets_file) as f:
             return f.read()
@@ -100,6 +100,7 @@ class AppSettings(AppLoggingSettings):
     """time in hours"""
 
     SECRET: str
+    SESSION_SECRET: str
 
     GIT_COMMIT_HASH: str = "unknown"
 
@@ -268,6 +269,7 @@ class AppSettings(AppLoggingSettings):
     # OIDC Configuration
     OIDC_AUTH_ENABLED: bool = False
     OIDC_CLIENT_ID: str | None = None
+    OIDC_CLIENT_SECRET: str | None = None
     OIDC_CONFIGURATION_URL: str | None = None
     OIDC_SIGNUP_ENABLED: bool = True
     OIDC_USER_GROUP: str | None = None
@@ -275,10 +277,13 @@ class AppSettings(AppLoggingSettings):
     OIDC_AUTO_REDIRECT: bool = False
     OIDC_PROVIDER_NAME: str = "OAuth"
     OIDC_REMEMBER_ME: bool = False
-    OIDC_SIGNING_ALGORITHM: str = "RS256"
     OIDC_USER_CLAIM: str = "email"
     OIDC_GROUPS_CLAIM: str | None = "groups"
     OIDC_TLS_CACERTFILE: str | None = None
+
+    @property
+    def OIDC_REQUIRES_GROUP_CLAIM(self) -> bool:
+        return self.OIDC_USER_GROUP is not None or self.OIDC_ADMIN_GROUP is not None
 
     @property
     def OIDC_READY(self) -> bool:
@@ -286,12 +291,14 @@ class AppSettings(AppLoggingSettings):
 
         required = {
             self.OIDC_CLIENT_ID,
+            self.OIDC_CLIENT_SECRET,
             self.OIDC_CONFIGURATION_URL,
             self.OIDC_USER_CLAIM,
         }
         not_none = None not in required
         valid_group_claim = True
-        if (not self.OIDC_USER_GROUP or not self.OIDC_ADMIN_GROUP) and not self.OIDC_GROUPS_CLAIM:
+
+        if self.OIDC_REQUIRES_GROUP_CLAIM and self.OIDC_GROUPS_CLAIM is None:
             valid_group_claim = False
 
         return self.OIDC_AUTH_ENABLED and not_none and valid_group_claim
@@ -353,13 +360,17 @@ def app_settings_constructor(data_dir: Path, production: bool, env_file: Path, e
     required dependencies into the AppSettings object and nested child objects. AppSettings should not be substantiated
     directly, but rather through this factory function.
     """
+    secret_settings = {
+        "SECRET": determine_secrets(data_dir, ".secret", production),
+        "SESSION_SECRET": determine_secrets(data_dir, ".session_secret", production),
+    }
     app_settings = AppSettings(
         _env_file=env_file,  # type: ignore
         _env_file_encoding=env_encoding,  # type: ignore
         # `get_secrets_dir` must be called here rather than within `AppSettings`
         # to avoid a circular import.
         _secrets_dir=get_secrets_dir(),  # type: ignore
-        **{"SECRET": determine_secrets(data_dir, production)},
+        **secret_settings,
     )
 
     app_settings.DB_PROVIDER = db_provider_factory(

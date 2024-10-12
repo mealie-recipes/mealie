@@ -15,6 +15,7 @@ We have renamed the `updateAt` field to `updatedAt`. While the API will still ac
 ### Backend Endpoint Changes
 
 These endpoints have moved, but are otherwise unchanged:
+
 - `/recipes/create-url` -> `/recipes/create/url`
 - `/recipes/create-url/bulk` -> `/recipes/create/url/bulk`
 - `/recipes/create-from-zip` -> `/recipes/create/zip`
@@ -39,6 +40,7 @@ These endpoints have moved, but are otherwise unchanged:
 `/groups/members` previously returned a list of users, but now returns paginated users (similar to all other list endpoints).
 
 These endpoints have been completely removed:
+
 - `/admin/analytics` (no longer used)
 - `/groups/permissions` (see household permissions)
 - `/groups/statistics` (see household statistics)
@@ -50,6 +52,7 @@ These endpoints have been completely removed:
 ### Frontend Links
 
 These frontend pages have moved:
+
 - `/group/mealplan/...` -> `/household/mealplan/...`
 - `/group/members` -> `/household/members`
 - `/group/notifiers` -> `/household/notifiers`

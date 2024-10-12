@@ -81,7 +81,7 @@ nav:
 
       - Authentication:
           - LDAP: "documentation/getting-started/authentication/ldap.md"
-          - OpenID Connect: "documentation/getting-started/authentication/oidc.md"
+          - OpenID Connect: "documentation/getting-started/authentication/oidc-v2.md"
 
       - Community Guides:
           - iOS Shortcuts: "documentation/community-guide/ios.md"

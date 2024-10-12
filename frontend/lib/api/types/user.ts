@@ -133,9 +133,6 @@ export interface LongLiveTokenOut {
   id: number;
   createdAt?: string | null;
 }
-export interface OIDCRequest {
-  id_token: string;
-}
 export interface PasswordResetToken {
   token: string;
 }

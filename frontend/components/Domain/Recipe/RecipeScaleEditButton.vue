@@ -102,7 +102,7 @@ export default defineComponent({
     const numberParsed = !!props.basicYieldNum;
 
     watch(() => numerator.value, () => {
-      scale.value = parseFloat((numerator.value / denominator).toFixed(3));
+      scale.value = parseFloat((numerator.value / denominator).toFixed(32));
     });
     const disableDecrement = computed(() => {
       return numerator.value <= 1;

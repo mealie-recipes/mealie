@@ -652,7 +652,8 @@
       "missing-unit": "Skapa saknad enhet: {unit}",
       "missing-food": "Skapa saknad ingrediens: {food}",
       "no-food": "Ingen mat"
-    }
+    },
+    "reset-servings-count": "Reset Servings Count"
   },
   "search": {
     "advanced-search": "Avancerad sökning",
