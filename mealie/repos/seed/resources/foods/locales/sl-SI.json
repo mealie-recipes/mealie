@@ -1,692 +1,692 @@
 {
-    "acorn-squash": {
-        "name": "želodova buča"
-    },
-    "alfalfa-sprouts": {
-        "name": "alfalfa kalčki"
-    },
-    "anchovies": {
-        "name": "inčuni"
-    },
-    "apples": {
-        "name": "jabolka",
-        "plural_name": "apples"
-    },
-    "artichoke": {
-        "name": "artičoke"
-    },
-    "arugula": {
-        "name": "rukola"
-    },
-    "asparagus": {
-        "name": "šparglji"
-    },
-    "avocado": {
-        "name": "avokado",
-        "plural_name": "avocado"
-    },
-    "bacon": {
-        "name": "slanina"
-    },
-    "baking-powder": {
-        "name": "pecilni prašek"
-    },
-    "baking-soda": {
-        "name": "soda bikarbona"
-    },
-    "baking-sugar": {
-        "name": "sladkor za peko"
-    },
-    "bar-sugar": {
-        "name": "palični sladkor"
-    },
-    "basil": {
-        "name": "bazilika"
-    },
-    "beans": {
-        "name": "fižol"
-    },
-    "bell-peppers": {
-        "name": "podolgovate paprike",
-        "plural_name": "bell peppers"
-    },
-    "blackberries": {
-        "name": "robide"
-    },
-    "bok-choy": {
-        "name": "bok choy"
-    },
-    "brassicas": {
-        "name": "repa"
-    },
-    "bread": {
-        "name": "kruh"
-    },
-    "breadfruit": {
-        "name": "sadni kruh"
-    },
-    "broccoflower": {
-        "name": "cvetovi brokolija"
-    },
-    "broccoli": {
-        "name": "brokoli"
-    },
-    "broccoli-rabe": {
-        "name": "brokoli rabe"
-    },
-    "broccolini": {
-        "name": "brokolini"
-    },
-    "brown-sugar": {
-        "name": "rjavi sladkor"
-    },
-    "brussels-sprouts": {
-        "name": "brstični ohrovt"
-    },
-    "butter": {
-        "name": "maslo"
-    },
-    "butternut-pumpkin": {
-        "name": "sladka buča"
-    },
-    "butternut-squash": {
-        "name": "buče"
-    },
-    "cabbage": {
-        "name": "zelje",
-        "plural_name": "cabbages"
-    },
-    "cactus-edible": {
-        "name": "jedilni kaktus"
-    },
-    "calabrese": {
-        "name": "kalabrez"
-    },
-    "cane-sugar": {
-        "name": "trsni sladkor"
-    },
-    "cannabis": {
-        "name": "konoplja"
-    },
-    "capsicum": {
-        "name": "paprika"
-    },
-    "caraway": {
-        "name": "kumina"
-    },
-    "carrot": {
-        "name": "korenje",
-        "plural_name": "carrots"
-    },
-    "caster-sugar": {
-        "name": "trsni sladkor"
-    },
-    "castor-sugar": {
-        "name": "sladkor v prahu"
-    },
-    "catfish": {
-        "name": "som"
-    },
-    "cauliflower": {
-        "name": "cvetača",
-        "plural_name": "cauliflowers"
-    },
-    "cayenne-pepper": {
-        "name": "kajenski poper"
-    },
-    "celeriac": {
-        "name": "zelena"
-    },
-    "celery": {
-        "name": "zelena"
-    },
-    "cereal-grains": {
-        "name": "žitna zrna"
-    },
-    "chard": {
-        "name": "blitva"
-    },
-    "cheese": {
-        "name": "sir"
-    },
-    "chicory": {
-        "name": "radič"
-    },
-    "chilli-peppers": {
-        "name": "čili paprika",
-        "plural_name": "chilli peppers"
-    },
-    "chinese-leaves": {
-        "name": "kitajski listi"
-    },
-    "chives": {
-        "name": "chives"
-    },
-    "chocolate": {
-        "name": "čokolada"
-    },
-    "cilantro": {
-        "name": "koriander"
-    },
-    "cinnamon": {
-        "name": "cimet"
-    },
-    "clarified-butter": {
-        "name": "prečiščeno maslo"
-    },
-    "coconut": {
-        "name": "kokos",
-        "plural_name": "coconuts"
-    },
-    "coconut-milk": {
-        "name": "kokosovo mleko"
-    },
-    "cod": {
-        "name": "trska"
-    },
-    "coffee": {
-        "name": "kava"
-    },
-    "collard-greens": {
-        "name": "ovratnik"
-    },
-    "confectioners-sugar": {
-        "name": "slaščičarski sladkor"
-    },
-    "coriander": {
-        "name": "koriander"
-    },
-    "corn": {
-        "name": "koruza",
-        "plural_name": "corns"
-    },
-    "corn-syrup": {
-        "name": "koruzni sirup"
-    },
-    "cottonseed-oil": {
-        "name": "bombažno olje"
-    },
-    "courgette": {
-        "name": "bučke"
-    },
-    "cream-of-tartar": {
-        "name": "tatarska omaka"
-    },
-    "cucumber": {
-        "name": "kumare",
-        "plural_name": "cucumbers"
-    },
-    "cumin": {
-        "name": "kumina"
-    },
-    "daikon": {
-        "name": "daikon redkev",
-        "plural_name": "daikons"
-    },
-    "dairy-products-and-dairy-substitutes": {
-        "name": "mlečni izdelki in mlečni nadomestki"
-    },
-    "dandelion": {
-        "name": "regrat"
-    },
-    "demerara-sugar": {
-        "name": "demerara sladkor"
-    },
-    "dough": {
-        "name": "testo"
-    },
-    "edible-cactus": {
-        "name": "jedilni kaktus"
-    },
-    "eggplant": {
-        "name": "jajčevec",
-        "plural_name": "eggplants"
-    },
-    "eggs": {
-        "name": "jajca",
-        "plural_name": "eggs"
-    },
-    "endive": {
-        "name": "endivija",
-        "plural_name": "endives"
-    },
-    "fats": {
-        "name": "maščobe"
-    },
-    "fava-beans": {
-        "name": "fava fižol"
-    },
-    "fiddlehead": {
-        "name": "praprotni poganjki"
-    },
-    "fiddlehead-fern": {
-        "name": "gosličasta praprot",
-        "plural_name": "fiddlehead ferns"
-    },
-    "fish": {
-        "name": "ribe"
-    },
-    "five-spice-powder": {
-        "name": "pet začimb v prahu"
-    },
-    "flour": {
-        "name": "moka"
-    },
-    "frisee": {
-        "name": "frise solata"
-    },
-    "fructose": {
-        "name": "fruktoza"
-    },
-    "fruit": {
-        "name": "sadje"
-    },
-    "fruit-sugar": {
-        "name": "sadni sladkor"
-    },
-    "ful": {
-        "name": "fižol"
-    },
-    "garam-masala": {
-        "name": "garam masala"
-    },
-    "garlic": {
-        "name": "česen",
-        "plural_name": "garlics"
-    },
-    "gem-squash": {
-        "name": "gem squash"
-    },
-    "ghee": {
-        "name": "ghee"
-    },
-    "giblets": {
-        "name": "drobovje"
-    },
-    "ginger": {
-        "name": "ingver"
-    },
-    "grains": {
-        "name": "zrna"
-    },
-    "granulated-sugar": {
-        "name": "sladkor v zrnih"
-    },
-    "grape-seed-oil": {
-        "name": "olje grozdnih pečk"
-    },
-    "green-onion": {
-        "name": "zelena čebula",
-        "plural_name": "green onions"
-    },
-    "heart-of-palm": {
-        "name": "srce palme",
-        "plural_name": "heart of palms"
-    },
-    "hemp": {
-        "name": "konoplja"
-    },
-    "herbs": {
-        "name": "zelišča"
-    },
-    "honey": {
-        "name": "med"
-    },
-    "isomalt": {
-        "name": "izomalt"
-    },
-    "jackfruit": {
-        "name": "nangka",
-        "plural_name": "jackfruits"
-    },
-    "jaggery": {
-        "name": "trsni sladkor"
-    },
-    "jams": {
-        "name": "džemi"
-    },
-    "jellies": {
-        "name": "želeji"
-    },
-    "jerusalem-artichoke": {
-        "name": "jerozalemska artičoka"
-    },
-    "jicama": {
-        "name": "jicama"
-    },
-    "kale": {
-        "name": "ohrovt"
-    },
-    "kohlrabi": {
-        "name": "kolerabe"
-    },
-    "kumara": {
-        "name": "kumara"
-    },
-    "leavening-agents": {
-        "name": "kvas"
-    },
-    "leek": {
-        "name": "por",
-        "plural_name": "leeks"
-    },
-    "legumes": {
-        "name": "stročnice"
-    },
-    "lemongrass": {
-        "name": "limonina trava"
-    },
-    "lentils": {
-        "name": "lentils"
-    },
-    "lettuce": {
-        "name": "solata"
-    },
-    "liver": {
-        "name": "jetra",
-        "plural_name": "livers"
-    },
-    "maize": {
-        "name": "koruza"
-    },
-    "maple-syrup": {
-        "name": "javorjev sirup"
-    },
-    "meat": {
-        "name": "meso"
-    },
-    "milk": {
-        "name": "mleko"
-    },
-    "mortadella": {
-        "name": "mortadela"
-    },
-    "mushroom": {
-        "name": "gobe",
-        "plural_name": "mushrooms"
-    },
-    "mussels": {
-        "name": "školjke"
-    },
-    "nanaimo-bar-mix": {
-        "name": "nanaimo ploščice"
-    },
-    "nori": {
-        "name": "nori alge"
-    },
-    "nutmeg": {
-        "name": "muškatni orešček"
-    },
-    "nutritional-yeast-flakes": {
-        "name": "prehranski kvasni kosmiči"
-    },
-    "nuts": {
-        "name": "oreščki"
-    },
-    "octopuses": {
-        "name": "hobotnice",
-        "plural_name": "octopuses"
-    },
-    "oils": {
-        "name": "olja"
-    },
-    "okra": {
-        "name": "jedilni oslez"
-    },
-    "olive": {
-        "name": "olive"
-    },
-    "olive-oil": {
-        "name": "olivno olje"
-    },
-    "onion": {
-        "name": "čebula"
-    },
-    "onion-family": {
-        "name": "družina čebul"
-    },
-    "orange-blossom-water": {
-        "name": "voda pomarančnih cvetov"
-    },
-    "oranges": {
-        "name": "pomaranče",
-        "plural_name": "oranges"
-    },
-    "oregano": {
-        "name": "origano"
-    },
-    "oysters": {
-        "name": "ostrige"
-    },
-    "panch-puran": {
-        "name": "panch puran"
-    },
-    "paprika": {
-        "name": "paprika"
-    },
-    "parsley": {
-        "name": "peteršilj"
-    },
-    "parsnip": {
-        "name": "pastinak",
-        "plural_name": "parsnips"
-    },
-    "pear": {
-        "name": "hruška",
-        "plural_name": "pears"
-    },
-    "peas": {
-        "name": "grah"
-    },
-    "pepper": {
-        "name": "poper",
-        "plural_name": "peppers"
-    },
-    "pineapple": {
-        "name": "ananas",
-        "plural_name": "pineapples"
-    },
-    "plantain": {
-        "name": "trpotec",
-        "plural_name": "plantains"
-    },
-    "poppy-seeds": {
-        "name": "makova semena"
-    },
-    "potato": {
-        "name": "krompir",
-        "plural_name": "potatoes"
-    },
-    "poultry": {
-        "name": "perutnina"
-    },
-    "powdered-sugar": {
-        "name": "sladkor v prahu"
-    },
-    "pumpkin": {
-        "name": "buča",
-        "plural_name": "pumpkins"
-    },
-    "pumpkin-seeds": {
-        "name": "bučna semena"
-    },
-    "radish": {
-        "name": "redkev",
-        "plural_name": "radishes"
-    },
-    "raw-sugar": {
-        "name": "surovi sladkor"
-    },
-    "refined-sugar": {
-        "name": "rafiniran sladkor"
-    },
-    "rice": {
-        "name": "riž"
-    },
-    "rice-flour": {
-        "name": "riževa moka"
-    },
-    "rock-sugar": {
-        "name": "rjavi sladkor"
-    },
-    "rum": {
-        "name": "rum"
-    },
-    "salmon": {
-        "name": "losos"
-    },
-    "salt": {
-        "name": "sol"
-    },
-    "salt-cod": {
-        "name": "slana trska"
-    },
-    "scallion": {
-        "name": "česen",
-        "plural_name": "scallions"
-    },
-    "seafood": {
-        "name": "morska hrana"
-    },
-    "seeds": {
-        "name": "semena"
-    },
-    "sesame-seeds": {
-        "name": "sezamova semena"
-    },
-    "shallot": {
-        "name": "šalotka",
-        "plural_name": "shallots"
-    },
-    "skate": {
-        "name": "skat"
-    },
-    "soda": {
-        "name": "soda"
-    },
-    "soda-baking": {
-        "name": "soda, pecilna"
-    },
-    "soybean": {
-        "name": "soja"
-    },
-    "spaghetti-squash": {
-        "name": "špageti buča",
-        "plural_name": "spaghetti squashes"
-    },
-    "speck": {
-        "name": "špeh"
-    },
-    "spices": {
-        "name": "začimbe"
-    },
-    "spinach": {
-        "name": "špinača"
-    },
-    "spring-onion": {
-        "name": "mlada čebulica",
-        "plural_name": "spring onions"
-    },
-    "squash": {
-        "name": "buča",
-        "plural_name": "squashes"
-    },
-    "squash-family": {
-        "name": "družina buč"
-    },
-    "stockfish": {
-        "name": "stock riba"
-    },
-    "sugar": {
-        "name": "sladkor"
-    },
-    "sunchoke": {
-        "name": "topinambur",
-        "plural_name": "sunchokes"
-    },
-    "sunflower-seeds": {
-        "name": "sončnična semena"
-    },
-    "superfine-sugar": {
-        "name": "sladkor v prahu"
-    },
-    "sweet-potato": {
-        "name": "sladki krompir",
-        "plural_name": "sweet potatoes"
-    },
-    "sweetcorn": {
-        "name": "sladka koruza",
-        "plural_name": "sweetcorns"
-    },
-    "sweeteners": {
-        "name": "sladilo"
-    },
-    "tahini": {
-        "name": "tahin"
-    },
-    "taro": {
-        "name": "taro",
-        "plural_name": "taroes"
-    },
-    "teff": {
-        "name": "tef"
-    },
-    "tomato": {
-        "name": "paradižnik",
-        "plural_name": "tomatoes"
-    },
-    "trout": {
-        "name": "postrv"
-    },
-    "tubers": {
-        "name": "gomolji",
-        "plural_name": "tubers"
-    },
-    "tuna": {
-        "name": "tuna"
-    },
-    "turbanado-sugar": {
-        "name": "turbinado sladkor"
-    },
-    "turnip": {
-        "name": "repa",
-        "plural_name": "turnips"
-    },
-    "unrefined-sugar": {
-        "name": "nerafiniran sladkor"
-    },
-    "vanilla": {
-        "name": "vanilija"
-    },
-    "vegetables": {
-        "name": "zelenjava"
-    },
-    "watercress": {
-        "name": "vodna kreša"
-    },
-    "watermelon": {
-        "name": "lubenica",
-        "plural_name": "watermelons"
-    },
-    "white-mushroom": {
-        "name": "bele gobe",
-        "plural_name": "white mushrooms"
-    },
-    "white-sugar": {
-        "name": "beli sladkor"
-    },
-    "xanthan-gum": {
-        "name": "ksantan gumi"
-    },
-    "yam": {
-        "name": "marmelada",
-        "plural_name": "yams"
-    },
-    "yeast": {
-        "name": "kvas"
-    },
-    "zucchini": {
-        "name": "bučke",
-        "plural_name": "zucchinis"
-    }
+	"acorn-squash": {
+		"name": "želodova buča"
+	},
+	"alfalfa-sprouts": {
+		"name": "alfalfa kalčki"
+	},
+	"anchovies": {
+		"name": "inčuni"
+	},
+	"apples": {
+		"name": "jabolka",
+		"plural_name": "apples"
+	},
+	"artichoke": {
+		"name": "artičoke"
+	},
+	"arugula": {
+		"name": "rukola"
+	},
+	"asparagus": {
+		"name": "šparglji"
+	},
+	"avocado": {
+		"name": "avokado",
+		"plural_name": "avocado"
+	},
+	"bacon": {
+		"name": "slanina"
+	},
+	"baking-powder": {
+		"name": "pecilni prašek"
+	},
+	"baking-soda": {
+		"name": "soda bikarbona"
+	},
+	"baking-sugar": {
+		"name": "sladkor za peko"
+	},
+	"bar-sugar": {
+		"name": "palični sladkor"
+	},
+	"basil": {
+		"name": "bazilika"
+	},
+	"beans": {
+		"name": "fižol"
+	},
+	"bell-peppers": {
+		"name": "podolgovate paprike",
+		"plural_name": "bell peppers"
+	},
+	"blackberries": {
+		"name": "robide"
+	},
+	"bok-choy": {
+		"name": "bok choy"
+	},
+	"brassicas": {
+		"name": "repa"
+	},
+	"bread": {
+		"name": "kruh"
+	},
+	"breadfruit": {
+		"name": "sadni kruh"
+	},
+	"broccoflower": {
+		"name": "cvetovi brokolija"
+	},
+	"broccoli": {
+		"name": "brokoli"
+	},
+	"broccoli-rabe": {
+		"name": "brokoli rabe"
+	},
+	"broccolini": {
+		"name": "brokolini"
+	},
+	"brown-sugar": {
+		"name": "rjavi sladkor"
+	},
+	"brussels-sprouts": {
+		"name": "brstični ohrovt"
+	},
+	"butter": {
+		"name": "maslo"
+	},
+	"butternut-pumpkin": {
+		"name": "sladka buča"
+	},
+	"butternut-squash": {
+		"name": "buče"
+	},
+	"cabbage": {
+		"name": "zelje",
+		"plural_name": "cabbages"
+	},
+	"cactus-edible": {
+		"name": "jedilni kaktus"
+	},
+	"calabrese": {
+		"name": "kalabrez"
+	},
+	"cane-sugar": {
+		"name": "trsni sladkor"
+	},
+	"cannabis": {
+		"name": "konoplja"
+	},
+	"capsicum": {
+		"name": "paprika"
+	},
+	"caraway": {
+		"name": "kumina"
+	},
+	"carrot": {
+		"name": "korenje",
+		"plural_name": "carrots"
+	},
+	"caster-sugar": {
+		"name": "trsni sladkor"
+	},
+	"castor-sugar": {
+		"name": "sladkor v prahu"
+	},
+	"catfish": {
+		"name": "som"
+	},
+	"cauliflower": {
+		"name": "cvetača",
+		"plural_name": "cauliflowers"
+	},
+	"cayenne-pepper": {
+		"name": "kajenski poper"
+	},
+	"celeriac": {
+		"name": "zelena"
+	},
+	"celery": {
+		"name": "zelena"
+	},
+	"cereal-grains": {
+		"name": "žitna zrna"
+	},
+	"chard": {
+		"name": "blitva"
+	},
+	"cheese": {
+		"name": "sir"
+	},
+	"chicory": {
+		"name": "radič"
+	},
+	"chilli-peppers": {
+		"name": "čili paprika",
+		"plural_name": "chilli peppers"
+	},
+	"chinese-leaves": {
+		"name": "kitajski listi"
+	},
+	"chives": {
+		"name": "chives"
+	},
+	"chocolate": {
+		"name": "čokolada"
+	},
+	"cilantro": {
+		"name": "koriander"
+	},
+	"cinnamon": {
+		"name": "cimet"
+	},
+	"clarified-butter": {
+		"name": "prečiščeno maslo"
+	},
+	"coconut": {
+		"name": "kokos",
+		"plural_name": "coconuts"
+	},
+	"coconut-milk": {
+		"name": "kokosovo mleko"
+	},
+	"cod": {
+		"name": "trska"
+	},
+	"coffee": {
+		"name": "kava"
+	},
+	"collard-greens": {
+		"name": "ovratnik"
+	},
+	"confectioners-sugar": {
+		"name": "slaščičarski sladkor"
+	},
+	"coriander": {
+		"name": "koriander"
+	},
+	"corn": {
+		"name": "koruza",
+		"plural_name": "corns"
+	},
+	"corn-syrup": {
+		"name": "koruzni sirup"
+	},
+	"cottonseed-oil": {
+		"name": "bombažno olje"
+	},
+	"courgette": {
+		"name": "bučke"
+	},
+	"cream-of-tartar": {
+		"name": "tatarska omaka"
+	},
+	"cucumber": {
+		"name": "kumare",
+		"plural_name": "cucumbers"
+	},
+	"cumin": {
+		"name": "kumina"
+	},
+	"daikon": {
+		"name": "daikon redkev",
+		"plural_name": "daikons"
+	},
+	"dairy-products-and-dairy-substitutes": {
+		"name": "mlečni izdelki in mlečni nadomestki"
+	},
+	"dandelion": {
+		"name": "regrat"
+	},
+	"demerara-sugar": {
+		"name": "demerara sladkor"
+	},
+	"dough": {
+		"name": "testo"
+	},
+	"edible-cactus": {
+		"name": "jedilni kaktus"
+	},
+	"eggplant": {
+		"name": "jajčevec",
+		"plural_name": "eggplants"
+	},
+	"eggs": {
+		"name": "jajca",
+		"plural_name": "eggs"
+	},
+	"endive": {
+		"name": "endivija",
+		"plural_name": "endives"
+	},
+	"fats": {
+		"name": "maščobe"
+	},
+	"fava-beans": {
+		"name": "fava fižol"
+	},
+	"fiddlehead": {
+		"name": "praprotni poganjki"
+	},
+	"fiddlehead-fern": {
+		"name": "gosličasta praprot",
+		"plural_name": "fiddlehead ferns"
+	},
+	"fish": {
+		"name": "ribe"
+	},
+	"five-spice-powder": {
+		"name": "pet začimb v prahu"
+	},
+	"flour": {
+		"name": "moka"
+	},
+	"frisee": {
+		"name": "frise solata"
+	},
+	"fructose": {
+		"name": "fruktoza"
+	},
+	"fruit": {
+		"name": "sadje"
+	},
+	"fruit-sugar": {
+		"name": "sadni sladkor"
+	},
+	"ful": {
+		"name": "fižol"
+	},
+	"garam-masala": {
+		"name": "garam masala"
+	},
+	"garlic": {
+		"name": "česen",
+		"plural_name": "garlics"
+	},
+	"gem-squash": {
+		"name": "gem squash"
+	},
+	"ghee": {
+		"name": "ghee"
+	},
+	"giblets": {
+		"name": "drobovje"
+	},
+	"ginger": {
+		"name": "ingver"
+	},
+	"grains": {
+		"name": "zrna"
+	},
+	"granulated-sugar": {
+		"name": "sladkor v zrnih"
+	},
+	"grape-seed-oil": {
+		"name": "olje grozdnih pečk"
+	},
+	"green-onion": {
+		"name": "zelena čebula",
+		"plural_name": "green onions"
+	},
+	"heart-of-palm": {
+		"name": "srce palme",
+		"plural_name": "heart of palms"
+	},
+	"hemp": {
+		"name": "konoplja"
+	},
+	"herbs": {
+		"name": "zelišča"
+	},
+	"honey": {
+		"name": "med"
+	},
+	"isomalt": {
+		"name": "izomalt"
+	},
+	"jackfruit": {
+		"name": "nangka",
+		"plural_name": "jackfruits"
+	},
+	"jaggery": {
+		"name": "trsni sladkor"
+	},
+	"jams": {
+		"name": "džemi"
+	},
+	"jellies": {
+		"name": "želeji"
+	},
+	"jerusalem-artichoke": {
+		"name": "jerozalemska artičoka"
+	},
+	"jicama": {
+		"name": "jicama"
+	},
+	"kale": {
+		"name": "ohrovt"
+	},
+	"kohlrabi": {
+		"name": "kolerabe"
+	},
+	"kumara": {
+		"name": "kumara"
+	},
+	"leavening-agents": {
+		"name": "kvas"
+	},
+	"leek": {
+		"name": "por",
+		"plural_name": "leeks"
+	},
+	"legumes": {
+		"name": "stročnice"
+	},
+	"lemongrass": {
+		"name": "limonina trava"
+	},
+	"lentils": {
+		"name": "lentils"
+	},
+	"lettuce": {
+		"name": "solata"
+	},
+	"liver": {
+		"name": "jetra",
+		"plural_name": "livers"
+	},
+	"maize": {
+		"name": "koruza"
+	},
+	"maple-syrup": {
+		"name": "javorjev sirup"
+	},
+	"meat": {
+		"name": "meso"
+	},
+	"milk": {
+		"name": "mleko"
+	},
+	"mortadella": {
+		"name": "mortadela"
+	},
+	"mushroom": {
+		"name": "gobe",
+		"plural_name": "mushrooms"
+	},
+	"mussels": {
+		"name": "školjke"
+	},
+	"nanaimo-bar-mix": {
+		"name": "nanaimo ploščice"
+	},
+	"nori": {
+		"name": "nori alge"
+	},
+	"nutmeg": {
+		"name": "muškatni orešček"
+	},
+	"nutritional-yeast-flakes": {
+		"name": "prehranski kvasni kosmiči"
+	},
+	"nuts": {
+		"name": "oreščki"
+	},
+	"octopuses": {
+		"name": "hobotnice",
+		"plural_name": "octopuses"
+	},
+	"oils": {
+		"name": "olja"
+	},
+	"okra": {
+		"name": "jedilni oslez"
+	},
+	"olive": {
+		"name": "olive"
+	},
+	"olive-oil": {
+		"name": "olivno olje"
+	},
+	"onion": {
+		"name": "čebula"
+	},
+	"onion-family": {
+		"name": "družina čebul"
+	},
+	"orange-blossom-water": {
+		"name": "voda pomarančnih cvetov"
+	},
+	"oranges": {
+		"name": "pomaranče",
+		"plural_name": "oranges"
+	},
+	"oregano": {
+		"name": "origano"
+	},
+	"oysters": {
+		"name": "ostrige"
+	},
+	"panch-puran": {
+		"name": "panch puran"
+	},
+	"paprika": {
+		"name": "paprika"
+	},
+	"parsley": {
+		"name": "peteršilj"
+	},
+	"parsnip": {
+		"name": "pastinak",
+		"plural_name": "parsnips"
+	},
+	"pear": {
+		"name": "hruška",
+		"plural_name": "pears"
+	},
+	"peas": {
+		"name": "grah"
+	},
+	"pepper": {
+		"name": "poper",
+		"plural_name": "peppers"
+	},
+	"pineapple": {
+		"name": "ananas",
+		"plural_name": "pineapples"
+	},
+	"plantain": {
+		"name": "trpotec",
+		"plural_name": "plantains"
+	},
+	"poppy-seeds": {
+		"name": "makova semena"
+	},
+	"potato": {
+		"name": "krompir",
+		"plural_name": "potatoes"
+	},
+	"poultry": {
+		"name": "perutnina"
+	},
+	"powdered-sugar": {
+		"name": "sladkor v prahu"
+	},
+	"pumpkin": {
+		"name": "buča",
+		"plural_name": "pumpkins"
+	},
+	"pumpkin-seeds": {
+		"name": "bučna semena"
+	},
+	"radish": {
+		"name": "redkev",
+		"plural_name": "radishes"
+	},
+	"raw-sugar": {
+		"name": "surovi sladkor"
+	},
+	"refined-sugar": {
+		"name": "rafiniran sladkor"
+	},
+	"rice": {
+		"name": "riž"
+	},
+	"rice-flour": {
+		"name": "riževa moka"
+	},
+	"rock-sugar": {
+		"name": "rjavi sladkor"
+	},
+	"rum": {
+		"name": "rum"
+	},
+	"salmon": {
+		"name": "losos"
+	},
+	"salt": {
+		"name": "sol"
+	},
+	"salt-cod": {
+		"name": "slana trska"
+	},
+	"scallion": {
+		"name": "česen",
+		"plural_name": "scallions"
+	},
+	"seafood": {
+		"name": "morska hrana"
+	},
+	"seeds": {
+		"name": "semena"
+	},
+	"sesame-seeds": {
+		"name": "sezamova semena"
+	},
+	"shallot": {
+		"name": "šalotka",
+		"plural_name": "shallots"
+	},
+	"skate": {
+		"name": "skat"
+	},
+	"soda": {
+		"name": "soda"
+	},
+	"soda-baking": {
+		"name": "soda, pecilna"
+	},
+	"soybean": {
+		"name": "soja"
+	},
+	"spaghetti-squash": {
+		"name": "špageti buča",
+		"plural_name": "spaghetti squashes"
+	},
+	"speck": {
+		"name": "špeh"
+	},
+	"spices": {
+		"name": "začimbe"
+	},
+	"spinach": {
+		"name": "špinača"
+	},
+	"spring-onion": {
+		"name": "mlada čebulica",
+		"plural_name": "spring onions"
+	},
+	"squash": {
+		"name": "buča",
+		"plural_name": "squashes"
+	},
+	"squash-family": {
+		"name": "družina buč"
+	},
+	"stockfish": {
+		"name": "stock riba"
+	},
+	"sugar": {
+		"name": "sladkor"
+	},
+	"sunchoke": {
+		"name": "topinambur",
+		"plural_name": "sunchokes"
+	},
+	"sunflower-seeds": {
+		"name": "sončnična semena"
+	},
+	"superfine-sugar": {
+		"name": "sladkor v prahu"
+	},
+	"sweet-potato": {
+		"name": "sladki krompir",
+		"plural_name": "sweet potatoes"
+	},
+	"sweetcorn": {
+		"name": "sladka koruza",
+		"plural_name": "sweetcorns"
+	},
+	"sweeteners": {
+		"name": "sladilo"
+	},
+	"tahini": {
+		"name": "tahin"
+	},
+	"taro": {
+		"name": "taro",
+		"plural_name": "taroes"
+	},
+	"teff": {
+		"name": "tef"
+	},
+	"tomato": {
+		"name": "paradižnik",
+		"plural_name": "tomatoes"
+	},
+	"trout": {
+		"name": "postrv"
+	},
+	"tubers": {
+		"name": "gomolji",
+		"plural_name": "tubers"
+	},
+	"tuna": {
+		"name": "tuna"
+	},
+	"turbanado-sugar": {
+		"name": "turbinado sladkor"
+	},
+	"turnip": {
+		"name": "repa",
+		"plural_name": "turnips"
+	},
+	"unrefined-sugar": {
+		"name": "nerafiniran sladkor"
+	},
+	"vanilla": {
+		"name": "vanilija"
+	},
+	"vegetables": {
+		"name": "zelenjava"
+	},
+	"watercress": {
+		"name": "vodna kreša"
+	},
+	"watermelon": {
+		"name": "lubenica",
+		"plural_name": "watermelons"
+	},
+	"white-mushroom": {
+		"name": "bele gobe",
+		"plural_name": "white mushrooms"
+	},
+	"white-sugar": {
+		"name": "beli sladkor"
+	},
+	"xanthan-gum": {
+		"name": "ksantan gumi"
+	},
+	"yam": {
+		"name": "marmelada",
+		"plural_name": "yams"
+	},
+	"yeast": {
+		"name": "kvas"
+	},
+	"zucchini": {
+		"name": "bučke",
+		"plural_name": "zucchinis"
+	}
 }
