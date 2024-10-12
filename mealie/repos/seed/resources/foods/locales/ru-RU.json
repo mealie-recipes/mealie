@@ -1,222 +1,692 @@
 {
-    "acorn-squash": "желудевый сквош",
-    "alfalfa-sprouts": "ростки люцерны",
-    "anchovies": "анчоусы",
-    "apples": "яблоки",
-    "artichoke": "артишок",
-    "arugula": "руккола",
-    "asparagus": "спаржа",
-    "aubergine": "баклажан",
-    "avocado": "авокадо",
-    "bacon": "бекон",
-    "baking-powder": "разрыхлитель",
-    "baking-soda": "пищевая сода",
-    "baking-sugar": "сахар-песок",
-    "bar-sugar": "брусковый сахар",
-    "basil": "базилик",
-    "bell-peppers": "болгарский перец",
-    "blackberries": "ежевика",
-    "brassicas": "капуста",
-    "bok-choy": "пекинская капуста",
-    "broccoflower": "романеско",
-    "broccoli": "брокколи",
-    "broccolini": "брокколини",
-    "broccoli-rabe": "рапини",
-    "brussels-sprouts": "брюссельская капуста",
-    "cabbage": "капуста",
-    "cauliflower": "цветная капуста",
-    "chinese-leaves": "китайская капуста",
-    "collard-greens": "листовая капуста",
-    "kohlrabi": "кольраби",
-    "bread": "хлеб",
-    "breadfruit": "плод хлебного дерева",
-    "broad-beans": "бобы",
-    "brown-sugar": "коричневый сахар",
-    "butter": "сливочное масло",
-    "butternut-pumpkin": "тыква баттернат",
-    "butternut-squash": "мускатная тыква",
-    "cactus-edible": "кактус, съедобный",
-    "calabrese": "брокколи калабрезе",
-    "cannabis": "конопля",
-    "capsicum": "стручковый перец",
-    "caraway": "тмин",
-    "carrot": "морковь",
-    "castor-sugar": "сахарная пудра",
-    "cayenne-pepper": "кайенский перец",
-    "celeriac": "корень сельдерея",
-    "celery": "сельдерей",
-    "cereal-grains": "злаковое зерно",
-    "rice": "рис",
-    "chard": "мангольд",
-    "cheese": "сыр",
-    "chicory": "цикорий",
-    "chilli-peppers": "перец чили",
-    "chives": "шнитт-лук",
-    "chocolate": "шоколад",
-    "cilantro": "кинза",
-    "cinnamon": "корица",
-    "clarified-butter": "топленое масло",
-    "coconut": "кокос",
-    "coconut-milk": "кокосовое молоко",
-    "coffee": "кофе",
-    "confectioners-sugar": "кондитерский сахар",
-    "coriander": "кориандр",
-    "corn": "кукуруза",
-    "corn-syrup": "кукурузный сироп",
-    "cottonseed-oil": "хлопковое масло",
-    "courgette": "цукини",
-    "cream-of-tartar": "винный камень",
-    "cucumber": "огурцы",
-    "cumin": "зира",
-    "daikon": "дайкон",
-    "dairy-products-and-dairy-substitutes": "молочные продукты и заменители молочных продуктов",
-    "eggs": "яйца",
-    "ghee": "гхи",
-    "milk": "молоко",
-    "dandelion": "одуванчик",
-    "demerara-sugar": "сахар демерара",
-    "dough": "тесто",
-    "edible-cactus": "съедобный кактус",
-    "eggplant": "баклажан",
-    "endive": "эндивий",
-    "fats": "жиры",
-    "speck": "шпик",
-    "fava-beans": "бобы обыкновенные",
-    "fiddlehead": "побеги папоротника",
-    "fish": "рыба",
-    "catfish": "сом ",
-    "cod": "треска",
-    "salt-cod": "вяленая треска",
-    "salmon": "лосось",
-    "skate": "скат",
-    "stockfish": "стокфиск",
-    "trout": "форель",
-    "tuna": "тунец",
-    "five-spice-powder": "приправа 5 специй",
-    "flour": "мука",
-    "frisee": "фризе",
-    "fructose": "фруктоза",
-    "fruit": "фрукты",
-    "apple": "яблоко",
-    "oranges": "апельсины",
-    "pear": "груша",
-    "tomato": "помидор ",
-    "fruit-sugar": "фруктоза",
-    "garam-masala": "гарам масала",
-    "garlic": "чеснок",
-    "gem-squash": "тыква Драгоценный камень",
-    "ginger": "имбирь",
-    "giblets": "птичьи потроха",
-    "grains": "крупы",
-    "maize": "кукуруза",
-    "sweetcorn": "кукуруза сахарная",
-    "teff": "теф",
-    "grape-seed-oil": "масло из семян винограда",
-    "green-onion": "зеленый лук",
-    "heart-of-palm": "сердцевина пальмы",
-    "hemp": "конопля",
-    "herbs": "травы",
-    "oregano": "душица",
-    "parsley": "петрушка",
-    "honey": "мёд",
-    "icing-sugar": "сахарная пудра",
-    "isomalt": "изомальт",
-    "jackfruit": "джекфрут",
-    "jaggery": "джаггери",
-    "jams": "джем",
-    "jellies": "желе",
-    "jerusalem-artichoke": "топинамбур",
-    "jicama": "хикама",
-    "kale": "кудрявая капуста",
-    "kumara": "батат",
-    "leavening-agents": "разрыхлитель",
-    "leek": "лук-порей",
-    "legumes": "бобовые ",
-    "peas": "горох",
-    "beans": "фасоль",
-    "lentils": "чечевица",
-    "lemongrass": "лемонграсс",
-    "lettuce": "салат",
-    "liver": "печень",
-    "maple-syrup": "кленовый сироп",
-    "meat": "мясо",
-    "mortadella": "мортаделла",
-    "mushroom": "грибы",
-    "white-mushroom": "белый гриб",
-    "mussels": "мидии",
-    "nori": "нори",
-    "nutmeg": "мускат",
-    "nutritional-yeast-flakes": "пищевые дрожжи",
-    "nuts": "орехи",
-    "nanaimo-bar-mix": "смесь для батончика нанаймо",
-    "octopuses": "осьминоги",
-    "oils": "масла",
-    "olive-oil": "оливковое масло",
-    "okra": "абельмош",
-    "olive": "оливки",
-    "onion-family": "лук",
-    "onion": "лук",
-    "scallion": "зеленый лук",
-    "shallot": "шалот",
-    "spring-onion": "зелёный лук",
-    "orange-blossom-water": "флердоранжевая вода",
-    "oysters": "устрицы",
-    "panch-puran": "панч пуран",
-    "paprika": "паприка",
-    "parsnip": "пастернак",
-    "pepper": "перец",
-    "peppers": "перец",
-    "plantain": "плантан",
-    "pineapple": "ананас",
-    "poppy-seeds": "семена мака",
-    "potatoes": "картофель",
-    "poultry": "мясо птицы",
-    "powdered-sugar": "сахарная пудра",
-    "pumpkin": "тыква",
-    "pumpkin-seeds": "семена тыквы",
-    "radish": "редис",
-    "raw-sugar": "нерафинированный сахар",
-    "refined-sugar": "рафинад",
-    "rice-flour": "рисовая мука",
-    "rock-sugar": "сахар-кандис",
-    "rum": "ром",
-    "salt": "соль",
-    "seafood": "морепродукты",
-    "seeds": "семена",
-    "sesame-seeds": "семена кунжута",
-    "sunflower-seeds": "семена подсолнечника",
-    "soda": "сода",
-    "soda-baking": "пищевая сода",
-    "soybean": "соевые бобы",
-    "spaghetti-squash": "тыква-спагетти",
-    "spices": "специи",
-    "spinach": "шпинат",
-    "squash-family": "тыквы",
-    "squash": "тыква",
-    "zucchini": "цуккини",
-    "sugar": "сахар",
-    "caster-sugar": "мелкозернистый сахар",
-    "granulated-sugar": "гранулированный сахар",
-    "superfine-sugar": "ультрамелкий сахар",
-    "turbanado-sugar": "сахар турбинадо",
-    "unrefined-sugar": "нерафинированный сахар",
-    "white-sugar": "рафинад",
-    "sweet-potato": "сладкий картофель",
-    "sweeteners": "подсластители",
-    "cane-sugar": "тростниковый сахар",
-    "tahini": "тахини",
-    "tubers": "клубни",
-    "potato": "картофель",
-    "sunchoke": "топинамбур",
-    "taro": "таро",
-    "yam": "ямс",
-    "turnip": "репа",
-    "vanilla": "ваниль",
-    "vegetables": "овощи",
-    "fiddlehead-fern": "побеги папоротника",
-    "ful": "фул",
-    "watercress": "жеруха",
-    "watermelon": "арбуз",
-    "xanthan-gum": "ксантановая камедь",
-    "yeast": "дрожжи"
+	"acorn-squash": {
+		"name": "желудевый сквош"
+	},
+	"alfalfa-sprouts": {
+		"name": "ростки люцерны"
+	},
+	"anchovies": {
+		"name": "анчоусы"
+	},
+	"apples": {
+		"name": "яблоки",
+		"plural_name": "apples"
+	},
+	"artichoke": {
+		"name": "артишок"
+	},
+	"arugula": {
+		"name": "руккола"
+	},
+	"asparagus": {
+		"name": "спаржа"
+	},
+	"avocado": {
+		"name": "авокадо",
+		"plural_name": "avocado"
+	},
+	"bacon": {
+		"name": "бекон"
+	},
+	"baking-powder": {
+		"name": "разрыхлитель"
+	},
+	"baking-soda": {
+		"name": "пищевая сода"
+	},
+	"baking-sugar": {
+		"name": "сахар-песок"
+	},
+	"bar-sugar": {
+		"name": "брусковый сахар"
+	},
+	"basil": {
+		"name": "базилик"
+	},
+	"beans": {
+		"name": "фасоль"
+	},
+	"bell-peppers": {
+		"name": "болгарский перец",
+		"plural_name": "bell peppers"
+	},
+	"blackberries": {
+		"name": "ежевика"
+	},
+	"bok-choy": {
+		"name": "пекинская капуста"
+	},
+	"brassicas": {
+		"name": "капуста"
+	},
+	"bread": {
+		"name": "хлеб"
+	},
+	"breadfruit": {
+		"name": "плод хлебного дерева"
+	},
+	"broccoflower": {
+		"name": "романеско"
+	},
+	"broccoli": {
+		"name": "брокколи"
+	},
+	"broccoli-rabe": {
+		"name": "рапини"
+	},
+	"broccolini": {
+		"name": "брокколини"
+	},
+	"brown-sugar": {
+		"name": "коричневый сахар"
+	},
+	"brussels-sprouts": {
+		"name": "брюссельская капуста"
+	},
+	"butter": {
+		"name": "сливочное масло"
+	},
+	"butternut-pumpkin": {
+		"name": "тыква баттернат"
+	},
+	"butternut-squash": {
+		"name": "мускатная тыква"
+	},
+	"cabbage": {
+		"name": "капуста",
+		"plural_name": "cabbages"
+	},
+	"cactus-edible": {
+		"name": "кактус, съедобный"
+	},
+	"calabrese": {
+		"name": "брокколи калабрезе"
+	},
+	"cane-sugar": {
+		"name": "тростниковый сахар"
+	},
+	"cannabis": {
+		"name": "конопля"
+	},
+	"capsicum": {
+		"name": "стручковый перец"
+	},
+	"caraway": {
+		"name": "тмин"
+	},
+	"carrot": {
+		"name": "морковь",
+		"plural_name": "carrots"
+	},
+	"caster-sugar": {
+		"name": "мелкозернистый сахар"
+	},
+	"castor-sugar": {
+		"name": "сахарная пудра"
+	},
+	"catfish": {
+		"name": "сом"
+	},
+	"cauliflower": {
+		"name": "цветная капуста",
+		"plural_name": "cauliflowers"
+	},
+	"cayenne-pepper": {
+		"name": "кайенский перец"
+	},
+	"celeriac": {
+		"name": "корень сельдерея"
+	},
+	"celery": {
+		"name": "сельдерей"
+	},
+	"cereal-grains": {
+		"name": "злаковое зерно"
+	},
+	"chard": {
+		"name": "мангольд"
+	},
+	"cheese": {
+		"name": "сыр"
+	},
+	"chicory": {
+		"name": "цикорий"
+	},
+	"chilli-peppers": {
+		"name": "перец чили",
+		"plural_name": "chilli peppers"
+	},
+	"chinese-leaves": {
+		"name": "китайская капуста"
+	},
+	"chives": {
+		"name": "шнитт-лук"
+	},
+	"chocolate": {
+		"name": "шоколад"
+	},
+	"cilantro": {
+		"name": "кинза"
+	},
+	"cinnamon": {
+		"name": "корица"
+	},
+	"clarified-butter": {
+		"name": "топленое масло"
+	},
+	"coconut": {
+		"name": "кокос",
+		"plural_name": "coconuts"
+	},
+	"coconut-milk": {
+		"name": "кокосовое молоко"
+	},
+	"cod": {
+		"name": "треска"
+	},
+	"coffee": {
+		"name": "кофе"
+	},
+	"collard-greens": {
+		"name": "листовая капуста"
+	},
+	"confectioners-sugar": {
+		"name": "кондитерский сахар"
+	},
+	"coriander": {
+		"name": "кориандр"
+	},
+	"corn": {
+		"name": "кукуруза",
+		"plural_name": "corns"
+	},
+	"corn-syrup": {
+		"name": "кукурузный сироп"
+	},
+	"cottonseed-oil": {
+		"name": "хлопковое масло"
+	},
+	"courgette": {
+		"name": "цукини"
+	},
+	"cream-of-tartar": {
+		"name": "винный камень"
+	},
+	"cucumber": {
+		"name": "огурцы",
+		"plural_name": "cucumbers"
+	},
+	"cumin": {
+		"name": "зира"
+	},
+	"daikon": {
+		"name": "дайкон",
+		"plural_name": "daikons"
+	},
+	"dairy-products-and-dairy-substitutes": {
+		"name": "молочные продукты и заменители молочных продуктов"
+	},
+	"dandelion": {
+		"name": "одуванчик"
+	},
+	"demerara-sugar": {
+		"name": "сахар демерара"
+	},
+	"dough": {
+		"name": "тесто"
+	},
+	"edible-cactus": {
+		"name": "съедобный кактус"
+	},
+	"eggplant": {
+		"name": "баклажан",
+		"plural_name": "eggplants"
+	},
+	"eggs": {
+		"name": "яйца",
+		"plural_name": "eggs"
+	},
+	"endive": {
+		"name": "эндивий",
+		"plural_name": "endives"
+	},
+	"fats": {
+		"name": "жиры"
+	},
+	"fava-beans": {
+		"name": "бобы обыкновенные"
+	},
+	"fiddlehead": {
+		"name": "побеги папоротника"
+	},
+	"fiddlehead-fern": {
+		"name": "побеги папоротника",
+		"plural_name": "fiddlehead ferns"
+	},
+	"fish": {
+		"name": "рыба"
+	},
+	"five-spice-powder": {
+		"name": "приправа 5 специй"
+	},
+	"flour": {
+		"name": "мука"
+	},
+	"frisee": {
+		"name": "фризе"
+	},
+	"fructose": {
+		"name": "фруктоза"
+	},
+	"fruit": {
+		"name": "фрукты"
+	},
+	"fruit-sugar": {
+		"name": "фруктоза"
+	},
+	"ful": {
+		"name": "фул"
+	},
+	"garam-masala": {
+		"name": "гарам масала"
+	},
+	"garlic": {
+		"name": "чеснок",
+		"plural_name": "garlics"
+	},
+	"gem-squash": {
+		"name": "тыква Драгоценный камень"
+	},
+	"ghee": {
+		"name": "гхи"
+	},
+	"giblets": {
+		"name": "птичьи потроха"
+	},
+	"ginger": {
+		"name": "имбирь"
+	},
+	"grains": {
+		"name": "крупы"
+	},
+	"granulated-sugar": {
+		"name": "гранулированный сахар"
+	},
+	"grape-seed-oil": {
+		"name": "масло из семян винограда"
+	},
+	"green-onion": {
+		"name": "зеленый лук",
+		"plural_name": "green onions"
+	},
+	"heart-of-palm": {
+		"name": "сердцевина пальмы",
+		"plural_name": "heart of palms"
+	},
+	"hemp": {
+		"name": "конопля"
+	},
+	"herbs": {
+		"name": "травы"
+	},
+	"honey": {
+		"name": "мёд"
+	},
+	"isomalt": {
+		"name": "изомальт"
+	},
+	"jackfruit": {
+		"name": "джекфрут",
+		"plural_name": "jackfruits"
+	},
+	"jaggery": {
+		"name": "джаггери"
+	},
+	"jams": {
+		"name": "джем"
+	},
+	"jellies": {
+		"name": "желе"
+	},
+	"jerusalem-artichoke": {
+		"name": "топинамбур"
+	},
+	"jicama": {
+		"name": "хикама"
+	},
+	"kale": {
+		"name": "кудрявая капуста"
+	},
+	"kohlrabi": {
+		"name": "кольраби"
+	},
+	"kumara": {
+		"name": "батат"
+	},
+	"leavening-agents": {
+		"name": "разрыхлитель"
+	},
+	"leek": {
+		"name": "лук-порей",
+		"plural_name": "leeks"
+	},
+	"legumes": {
+		"name": "бобовые"
+	},
+	"lemongrass": {
+		"name": "лемонграсс"
+	},
+	"lentils": {
+		"name": "чечевица"
+	},
+	"lettuce": {
+		"name": "салат"
+	},
+	"liver": {
+		"name": "печень",
+		"plural_name": "livers"
+	},
+	"maize": {
+		"name": "кукуруза"
+	},
+	"maple-syrup": {
+		"name": "кленовый сироп"
+	},
+	"meat": {
+		"name": "мясо"
+	},
+	"milk": {
+		"name": "молоко"
+	},
+	"mortadella": {
+		"name": "мортаделла"
+	},
+	"mushroom": {
+		"name": "грибы",
+		"plural_name": "mushrooms"
+	},
+	"mussels": {
+		"name": "мидии"
+	},
+	"nanaimo-bar-mix": {
+		"name": "смесь для батончика нанаймо"
+	},
+	"nori": {
+		"name": "нори"
+	},
+	"nutmeg": {
+		"name": "мускат"
+	},
+	"nutritional-yeast-flakes": {
+		"name": "пищевые дрожжи"
+	},
+	"nuts": {
+		"name": "орехи"
+	},
+	"octopuses": {
+		"name": "осьминоги",
+		"plural_name": "octopuses"
+	},
+	"oils": {
+		"name": "масла"
+	},
+	"okra": {
+		"name": "абельмош"
+	},
+	"olive": {
+		"name": "оливки"
+	},
+	"olive-oil": {
+		"name": "оливковое масло"
+	},
+	"onion": {
+		"name": "лук"
+	},
+	"onion-family": {
+		"name": "лук"
+	},
+	"orange-blossom-water": {
+		"name": "флердоранжевая вода"
+	},
+	"oranges": {
+		"name": "апельсины",
+		"plural_name": "oranges"
+	},
+	"oregano": {
+		"name": "душица"
+	},
+	"oysters": {
+		"name": "устрицы"
+	},
+	"panch-puran": {
+		"name": "панч пуран"
+	},
+	"paprika": {
+		"name": "паприка"
+	},
+	"parsley": {
+		"name": "петрушка"
+	},
+	"parsnip": {
+		"name": "пастернак",
+		"plural_name": "parsnips"
+	},
+	"pear": {
+		"name": "груша",
+		"plural_name": "pears"
+	},
+	"peas": {
+		"name": "горох"
+	},
+	"pepper": {
+		"name": "перец",
+		"plural_name": "peppers"
+	},
+	"pineapple": {
+		"name": "ананас",
+		"plural_name": "pineapples"
+	},
+	"plantain": {
+		"name": "плантан",
+		"plural_name": "plantains"
+	},
+	"poppy-seeds": {
+		"name": "семена мака"
+	},
+	"potato": {
+		"name": "картофель",
+		"plural_name": "potatoes"
+	},
+	"poultry": {
+		"name": "мясо птицы"
+	},
+	"powdered-sugar": {
+		"name": "сахарная пудра"
+	},
+	"pumpkin": {
+		"name": "тыква",
+		"plural_name": "pumpkins"
+	},
+	"pumpkin-seeds": {
+		"name": "семена тыквы"
+	},
+	"radish": {
+		"name": "редис",
+		"plural_name": "radishes"
+	},
+	"raw-sugar": {
+		"name": "нерафинированный сахар"
+	},
+	"refined-sugar": {
+		"name": "рафинад"
+	},
+	"rice": {
+		"name": "рис"
+	},
+	"rice-flour": {
+		"name": "рисовая мука"
+	},
+	"rock-sugar": {
+		"name": "сахар-кандис"
+	},
+	"rum": {
+		"name": "ром"
+	},
+	"salmon": {
+		"name": "лосось"
+	},
+	"salt": {
+		"name": "соль"
+	},
+	"salt-cod": {
+		"name": "вяленая треска"
+	},
+	"scallion": {
+		"name": "зеленый лук",
+		"plural_name": "scallions"
+	},
+	"seafood": {
+		"name": "морепродукты"
+	},
+	"seeds": {
+		"name": "семена"
+	},
+	"sesame-seeds": {
+		"name": "семена кунжута"
+	},
+	"shallot": {
+		"name": "шалот",
+		"plural_name": "shallots"
+	},
+	"skate": {
+		"name": "скат"
+	},
+	"soda": {
+		"name": "сода"
+	},
+	"soda-baking": {
+		"name": "пищевая сода"
+	},
+	"soybean": {
+		"name": "соевые бобы"
+	},
+	"spaghetti-squash": {
+		"name": "тыква-спагетти",
+		"plural_name": "spaghetti squashes"
+	},
+	"speck": {
+		"name": "шпик"
+	},
+	"spices": {
+		"name": "специи"
+	},
+	"spinach": {
+		"name": "шпинат"
+	},
+	"spring-onion": {
+		"name": "зелёный лук",
+		"plural_name": "spring onions"
+	},
+	"squash": {
+		"name": "тыква",
+		"plural_name": "squashes"
+	},
+	"squash-family": {
+		"name": "тыквы"
+	},
+	"stockfish": {
+		"name": "стокфиск"
+	},
+	"sugar": {
+		"name": "сахар"
+	},
+	"sunchoke": {
+		"name": "топинамбур",
+		"plural_name": "sunchokes"
+	},
+	"sunflower-seeds": {
+		"name": "семена подсолнечника"
+	},
+	"superfine-sugar": {
+		"name": "ультрамелкий сахар"
+	},
+	"sweet-potato": {
+		"name": "сладкий картофель",
+		"plural_name": "sweet potatoes"
+	},
+	"sweetcorn": {
+		"name": "кукуруза сахарная",
+		"plural_name": "sweetcorns"
+	},
+	"sweeteners": {
+		"name": "подсластители"
+	},
+	"tahini": {
+		"name": "тахини"
+	},
+	"taro": {
+		"name": "таро",
+		"plural_name": "taroes"
+	},
+	"teff": {
+		"name": "теф"
+	},
+	"tomato": {
+		"name": "помидор",
+		"plural_name": "tomatoes"
+	},
+	"trout": {
+		"name": "форель"
+	},
+	"tubers": {
+		"name": "клубни",
+		"plural_name": "tubers"
+	},
+	"tuna": {
+		"name": "тунец"
+	},
+	"turbanado-sugar": {
+		"name": "сахар турбинадо"
+	},
+	"turnip": {
+		"name": "репа",
+		"plural_name": "turnips"
+	},
+	"unrefined-sugar": {
+		"name": "нерафинированный сахар"
+	},
+	"vanilla": {
+		"name": "ваниль"
+	},
+	"vegetables": {
+		"name": "овощи"
+	},
+	"watercress": {
+		"name": "жеруха"
+	},
+	"watermelon": {
+		"name": "арбуз",
+		"plural_name": "watermelons"
+	},
+	"white-mushroom": {
+		"name": "белый гриб",
+		"plural_name": "white mushrooms"
+	},
+	"white-sugar": {
+		"name": "рафинад"
+	},
+	"xanthan-gum": {
+		"name": "ксантановая камедь"
+	},
+	"yam": {
+		"name": "ямс",
+		"plural_name": "yams"
+	},
+	"yeast": {
+		"name": "дрожжи"
+	},
+	"zucchini": {
+		"name": "цуккини",
+		"plural_name": "zucchinis"
+	}
 }
