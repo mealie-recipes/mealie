@@ -180,6 +180,7 @@ class UserOut(UserBase):
 
 class UserSummary(MealieModel):
     id: UUID4
+    username: str
     full_name: str
     model_config = ConfigDict(from_attributes=True)
 

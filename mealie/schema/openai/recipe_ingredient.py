@@ -1,4 +1,5 @@
 from textwrap import dedent
+from typing import Any
 
 from pydantic import Field, field_validator
 
@@ -72,8 +73,8 @@ class OpenAIIngredient(OpenAIBase):
         ),
     )
 
-    @field_validator("quantity")
-    def coerce_none_qty(cls, v: float | None) -> float:
+    @field_validator("confidence", "quantity", mode="before")
+    def coerce_none_float(cls, v: Any) -> Any:
         return v or 0
 
     @field_validator("confidence")

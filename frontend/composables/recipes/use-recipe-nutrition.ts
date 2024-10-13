@@ -17,6 +17,14 @@ export function useNutritionLabels() {
       label: i18n.tc("recipe.calories"),
       suffix: i18n.tc("recipe.calories-suffix"),
     },
+    carbohydrateContent: {
+      label: i18n.tc("recipe.carbohydrate-content"),
+      suffix: i18n.tc("recipe.grams"),
+    },
+    cholesterolContent: {
+      label: i18n.tc("recipe.cholesterol-content"),
+      suffix: i18n.tc("recipe.milligrams"),
+    },
     fatContent: {
       label: i18n.tc("recipe.fat-content"),
       suffix: i18n.tc("recipe.grams"),
@@ -29,6 +37,10 @@ export function useNutritionLabels() {
       label: i18n.tc("recipe.protein-content"),
       suffix: i18n.tc("recipe.grams"),
     },
+    saturatedFatContent: {
+      label: i18n.tc("recipe.saturated-fat-content"),
+      suffix: i18n.tc("recipe.grams"),
+    },
     sodiumContent: {
       label: i18n.tc("recipe.sodium-content"),
       suffix: i18n.tc("recipe.milligrams"),
@@ -37,8 +49,12 @@ export function useNutritionLabels() {
       label: i18n.tc("recipe.sugar-content"),
       suffix: i18n.tc("recipe.grams"),
     },
-    carbohydrateContent: {
-      label: i18n.tc("recipe.carbohydrate-content"),
+    transFatContent: {
+      label: i18n.tc("recipe.trans-fat-content"),
+      suffix: i18n.tc("recipe.grams"),
+    },
+    unsaturatedFatContent: {
+      label: i18n.tc("recipe.unsaturated-fat-content"),
       suffix: i18n.tc("recipe.grams"),
     },
   };

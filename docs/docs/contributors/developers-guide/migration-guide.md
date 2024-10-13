@@ -37,6 +37,7 @@ These endpoints have moved, but are otherwise unchanged:
 - `/explore/recipes/{group_slug}` -> `/explore/groups/{group_slug}/recipes`
 
 `/groups/members` previously returned a `UserOut` object, but now returns a `UserSummary`. Should you need the full user information (username, email, etc.), rather than just the summary, see `/households/members` instead for the household members.
+`/groups/members` previously returned a list of users, but now returns paginated users (similar to all other list endpoints).
 
 These endpoints have been completely removed:
 

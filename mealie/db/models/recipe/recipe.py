@@ -187,7 +187,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         settings: dict | None = None,
         **_,
     ) -> None:
-        self.nutrition = Nutrition(**nutrition) if nutrition else Nutrition()
+        self.nutrition = Nutrition(**(nutrition or {}))
 
         if recipe_instructions is not None:
             self.recipe_instructions = [RecipeInstruction(**step, session=session) for step in recipe_instructions]
@@ -198,7 +198,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         if assets:
             self.assets = [RecipeAsset(**a) for a in assets]
 
-        self.settings = RecipeSettings(**settings) if settings else RecipeSettings()
+        self.settings = RecipeSettings(**(settings or {}))
 
         if notes:
             self.notes = [Note(**n) for n in notes]
