@@ -1,7 +1,7 @@
 """added query_filter_string to cookbook and mealplan
 
 Revision ID: 86054b40fd06
-Revises: 1fe4bd37ccc8
+Revises: 602927e1013e
 Create Date: 2024-10-08 21:17:31.601903
 
 """
@@ -14,7 +14,7 @@ from mealie.db.models._model_utils import guid
 
 # revision identifiers, used by Alembic.
 revision = "86054b40fd06"
-down_revision: str | None = "1fe4bd37ccc8"
+down_revision: str | None = "602927e1013e"
 branch_labels: str | tuple[str, ...] | None = None
 depends_on: str | tuple[str, ...] | None = None
 
