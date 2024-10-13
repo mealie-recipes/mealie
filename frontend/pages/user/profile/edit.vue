@@ -3,7 +3,7 @@
     <BasePageTitle divider>
       <template #header>
         <div class="d-flex flex-column align-center justify-center">
-          <UserAvatar size="96" :user-id="$auth.user.id" />
+          <UserAvatar :tooltip="false" size="96" :user-id="$auth.user.id" />
           <AppButtonUpload
             class="my-1"
             file-name="profile"

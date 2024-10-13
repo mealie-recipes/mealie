@@ -6,7 +6,7 @@ import { QueryValue } from "~/lib/api/base/route";
 
 interface ReadOnlyStoreActions<T extends BoundT> {
   getAll(page?: number, perPage?: number, params?: any): Ref<T[] | null>;
-  refresh(): Promise<void>;
+  refresh(page?: number, perPage?: number, params?: any): Promise<void>;
 }
 
 interface StoreActions<T extends BoundT> extends ReadOnlyStoreActions<T> {
@@ -50,9 +50,9 @@ export function useReadOnlyActions<T extends BoundT>(
     return allItems;
   }
 
-  async function refresh() {
+  async function refresh(page = 1, perPage = -1, params = {} as Record<string, QueryValue>) {
     loading.value = true;
-    const { data } = await api.getAll();
+    const { data } = await api.getAll(page, perPage, params);
 
     if (data && data.items && allRef) {
       allRef.value = data.items;
@@ -101,9 +101,9 @@ export function useStoreActions<T extends BoundT>(
     return allItems;
   }
 
-  async function refresh() {
+  async function refresh(page = 1, perPage = -1, params = {} as Record<string, QueryValue>) {
     loading.value = true;
-    const { data } = await api.getAll();
+    const { data } = await api.getAll(page, perPage, params);
 
     if (data && data.items && allRef) {
       allRef.value = data.items;

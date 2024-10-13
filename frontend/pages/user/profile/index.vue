@@ -1,7 +1,7 @@
 <template>
   <v-container v-if="user">
     <section class="d-flex flex-column align-center mt-4">
-      <UserAvatar size="96" :user-id="user.id" />
+      <UserAvatar :tooltip="false" size="96" :user-id="user.id" />
 
       <h2 class="headline">{{ $t('profile.welcome-user', [user.fullName]) }}</h2>
       <p class="subtitle-1 mb-0 text-center">

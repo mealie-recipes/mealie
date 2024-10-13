@@ -26,7 +26,7 @@
       disable-pagination
     >
       <template #item.avatar="{ item }">
-        <UserAvatar :user-id="item.id" />
+        <UserAvatar :tooltip="false" :user-id="item.id" />
       </template>
       <template #item.admin="{ item }">
         {{ item.admin ? $t('user.admin') : $t('user.user') }}
@@ -111,7 +111,7 @@ export default defineComponent({
     async function refreshMembers() {
       const { data } = await api.households.fetchMembers();
       if (data) {
-        members.value = data;
+        members.value = data.items;
       }
     }
 
