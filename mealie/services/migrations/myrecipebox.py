@@ -12,6 +12,18 @@ from mealie.services.scraper import cleaner
 from ._migration_base import BaseMigrator
 from .utils.migration_helpers import scrape_image, split_by_line_break, split_by_semicolon
 
+nutrition_map = {
+    "carbohydrate": "carbohydrateContent",
+    "protein": "proteinContent",
+    "fat": "fatContent",
+    "saturatedfat": "saturatedFatContent",
+    "transfat": "transFatContent",
+    "sodium": "sodiumContent",
+    "fiber": "fiberContent",
+    "sugar": "sugarContent",
+    "unsaturatedfat": "unsaturatedFatContent",
+}
+
 
 class MyRecipeBoxMigrator(BaseMigrator):
     def __init__(self, **kwargs):
@@ -53,22 +65,26 @@ class MyRecipeBoxMigrator(BaseMigrator):
         except Exception:
             return None
 
-    def parse_nutrition(self, input: Any) -> dict | None:
-        if not input or not isinstance(input, str):
+    def parse_nutrition(self, input_: Any) -> dict | None:
+        if not input_ or not isinstance(input_, str):
             return None
 
         nutrition = {}
 
-        vals = [x.strip() for x in input.split(",") if x]
+        vals = (x.strip() for x in input_.split("\n") if x)
         for val in vals:
             try:
-                key, value = val.split(":", maxsplit=1)
+                key, value = (x.strip() for x in val.split(":", maxsplit=1))
+
                 if not (key and value):
                     continue
+
+                key = nutrition_map.get(key.lower(), key)
+
             except ValueError:
                 continue
 
-            nutrition[key.strip()] = value.strip()
+            nutrition[key] = value
 
         return cleaner.clean_nutrition(nutrition) if nutrition else None
 

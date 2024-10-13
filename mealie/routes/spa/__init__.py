@@ -104,15 +104,7 @@ def content_with_meta(group_slug: str, recipe: Recipe) -> str:
 
             ingredients.append(s)
 
-    nutrition: dict[str, str | None] = {}
-    if recipe.nutrition:
-        nutrition["calories"] = recipe.nutrition.calories
-        nutrition["fatContent"] = recipe.nutrition.fat_content
-        nutrition["fiberContent"] = recipe.nutrition.fiber_content
-        nutrition["proteinContent"] = recipe.nutrition.protein_content
-        nutrition["carbohydrateContent"] = recipe.nutrition.carbohydrate_content
-        nutrition["sodiumContent"] = recipe.nutrition.sodium_content
-        nutrition["sugarContent"] = recipe.nutrition.sugar_content
+    nutrition: dict[str, str | None] = recipe.nutrition.model_dump(by_alias=True) if recipe.nutrition else {}
 
     as_schema_org = {
         "@context": "https://schema.org",

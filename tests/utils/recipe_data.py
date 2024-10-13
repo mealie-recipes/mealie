@@ -13,6 +13,7 @@ class RecipeSiteTestCase:
     num_steps: int
     html_file: Path
 
+    num_nutrition_entries: int = 0
     include_tags: bool = False
     expected_tags: set[str] | None = None
 
@@ -26,6 +27,7 @@ def get_recipe_test_cases():
             expected_slug="taiwanese-three-cup-chicken-san-bei-ji-recipe",
             num_ingredients=10,
             num_steps=3,
+            num_nutrition_entries=11,
         ),
         RecipeSiteTestCase(
             url="https://www.rezeptwelt.de/backen-herzhaft-rezepte/schinken-kaese-waffeln-ohne-viel-schnickschnack/4j0bkiig-94d4d-106529-cfcd2-is97x2ml",

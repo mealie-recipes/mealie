@@ -495,7 +495,7 @@ def clean_nutrition(nutrition: dict | None) -> dict[str, str]:
     list of valid keys
 
     Assumptionas:
-        - All units are supplied in grams, expect sodium which maybe be in milligrams
+        - All units are supplied in grams, expect sodium and cholesterol which maybe be in milligrams
 
     Returns:
         dict[str, str]: If the argument is None, or not a dictionary, an empty dictionary is returned
@@ -509,9 +509,10 @@ def clean_nutrition(nutrition: dict | None) -> dict[str, str]:
             if matched_digits := MATCH_DIGITS.search(val):
                 output_nutrition[key] = matched_digits.group(0).replace(",", ".")
 
-    if sodium := nutrition.get("sodiumContent", None):
-        if isinstance(sodium, str) and "m" not in sodium and "g" in sodium:
-            with contextlib.suppress(AttributeError, TypeError):
-                output_nutrition["sodiumContent"] = str(float(output_nutrition["sodiumContent"]) * 1000)
+    for key in ["sodiumContent", "cholesterolContent"]:
+        if val := nutrition.get(key, None):
+            if isinstance(val, str) and "m" not in val and "g" in val:
+                with contextlib.suppress(AttributeError, TypeError):
+                    output_nutrition[key] = str(float(output_nutrition[key]) * 1000)
 
     return output_nutrition

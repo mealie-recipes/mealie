@@ -173,8 +173,7 @@ def g2_user(session: Session, admin_token, api_client: TestClient):
         pass
 
 
-@fixture(scope="module")
-def unique_user(session: Session, api_client: TestClient):
+def _unique_user(session: Session, api_client: TestClient):
     registration = utils.user_registration_factory()
     response = api_client.post("/api/users/register", json=registration.model_dump(by_alias=True))
     assert response.status_code == 201
@@ -211,6 +210,16 @@ def unique_user(session: Session, api_client: TestClient):
     finally:
         # TODO: Delete User after test
         pass
+
+
+@fixture(scope="function")
+def unique_user_fn_scoped(session: Session, api_client: TestClient):
+    yield from _unique_user(session, api_client)
+
+
+@fixture(scope="module")
+def unique_user(session: Session, api_client: TestClient):
+    yield from _unique_user(session, api_client)
 
 
 @fixture(scope="module")
