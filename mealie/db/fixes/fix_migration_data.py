@@ -40,7 +40,7 @@ def fix_dangling_refs(session: Session):
                 update(table)
                 .where(
                     and_(
-                        ~table.c.user_id.in_(valid_user_ids),
+                        table.c.user_id.notin_(valid_user_ids),
                         table.c.group_id == group.id,
                     )
                 )
