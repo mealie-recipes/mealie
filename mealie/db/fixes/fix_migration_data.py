@@ -56,7 +56,7 @@ def fix_dangling_refs(session: Session):
 
         for table_name in DELETE_REF_TABLES:
             table = SqlAlchemyBase.metadata.tables[table_name]
-            delete_stmt = table.delete().where(~table.c.user_id.in_(valid_user_ids))
+            delete_stmt = table.delete().where(table.c.user_id.notin_(valid_user_ids))
             result = session.execute(delete_stmt)
 
             if result.rowcount:
