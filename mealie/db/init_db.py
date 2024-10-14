@@ -3,11 +3,11 @@ from collections.abc import Callable
 from pathlib import Path
 from time import sleep
 
-from sqlalchemy import engine, orm, text
-
 from alembic import command, config, script
 from alembic.config import Config
 from alembic.runtime import migration
+from sqlalchemy import engine, orm, text
+
 from mealie.core import root_logger
 from mealie.core.config import get_app_settings
 from mealie.db.db_setup import session_context
@@ -22,7 +22,7 @@ from mealie.schema.user.user import GroupBase, GroupInDB
 from mealie.services.group_services.group_service import GroupService
 from mealie.services.household_services.household_service import HouseholdService
 
-PROJECT_DIR = Path(__file__).parent.parent.parent
+ALEMBIC_DIR = Path(__file__).parent.parent / "alembic"
 
 logger = root_logger.get_logger()
 
@@ -101,7 +101,7 @@ def main():
             if max_retry == 0:
                 raise ConnectionError("Database connection failed - exiting application.")
 
-        alembic_cfg_path = os.getenv("ALEMBIC_CONFIG_FILE", default=str(PROJECT_DIR / "alembic.ini"))
+        alembic_cfg_path = os.getenv("ALEMBIC_CONFIG_FILE", default=str(ALEMBIC_DIR / "alembic.ini"))
 
         if not os.path.isfile(alembic_cfg_path):
             raise Exception("Provided alembic config path doesn't exist")

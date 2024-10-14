@@ -9,10 +9,10 @@ Create Date: 2024-02-23 16:15:07.115641
 from uuid import UUID
 
 import sqlalchemy as sa
+from alembic import op
 from sqlalchemy import orm
 
 import mealie.db.migration_types
-from alembic import op
 from mealie.core.root_logger import get_logger
 
 logger = get_logger()
