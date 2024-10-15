@@ -1342,14 +1342,22 @@
       "and": "AND",
       "or": "OR"
     },
+    "relational-operators": {
+      "equals": "equals",
+      "does-not-equal": "does not equal",
+      "is-greater-than": "is greater than",
+      "is-greater-than-or-equal-to": "is greater than or equal to",
+      "is-less-than": "is less than",
+      "is-less-than-or-equal-to": "is less than or equal to"
+    },
     "relational-keywords": {
-      "is": "IS",
-      "is-not": "IS NOT",
-      "in": "IN",
-      "not-in": "NOT IN",
-      "contains-all": "CONTAINS ALL",
-      "like": "LIKE",
-      "not-like": "NOT LIKE"
+      "is": "is",
+      "is-not": "is not",
+      "is-one-of": "is one of",
+      "is-not-one-of": "is not one of",
+      "contains-all-of": "contains all of",
+      "is-like": "is like",
+      "is-not-like": "is not like"
     }
   }
 }

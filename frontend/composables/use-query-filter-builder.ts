@@ -81,32 +81,32 @@ export function useQueryFilterBuilder() {
 
   const relOps = computed<Record<RelationalKeyword | RelationalOperator, FieldRelationalOperator>>(() => {
     const EQ = {
-      label: "=",
+      label: i18n.tc("query-filter.relational-operators.equals"),
       value: "=",
     } as FieldRelationalOperator;
 
     const NOT_EQ = {
-      label: "<>",
+      label: i18n.tc("query-filter.relational-operators.does-not-equal"),
       value: "<>",
     } as FieldRelationalOperator;
 
     const GT = {
-      label: ">",
+      label: i18n.tc("query-filter.relational-operators.is-greater-than"),
       value: ">",
     } as FieldRelationalOperator;
 
     const GTE = {
-      label: ">=",
+      label: i18n.tc("query-filter.relational-operators.is-greater-than-or-equal-to"),
       value: ">=",
     } as FieldRelationalOperator;
 
     const LT = {
-      label: "<",
+      label: i18n.tc("query-filter.relational-operators.is-less-than"),
       value: "<",
     } as FieldRelationalOperator;
 
     const LTE = {
-      label: "<=",
+      label: i18n.tc("query-filter.relational-operators.is-less-than-or-equal-to"),
       value: "<=",
     } as FieldRelationalOperator;
 
@@ -121,27 +121,27 @@ export function useQueryFilterBuilder() {
     } as FieldRelationalOperator;
 
     const IN = {
-      label: i18n.tc("query-filter.relational-keywords.in"),
+      label: i18n.tc("query-filter.relational-keywords.is-one-of"),
       value: "IN",
     } as FieldRelationalOperator;
 
     const NOT_IN = {
-      label: i18n.tc("query-filter.relational-keywords.not-in"),
+      label: i18n.tc("query-filter.relational-keywords.is-not-one-of"),
       value: "NOT IN",
     } as FieldRelationalOperator;
 
     const CONTAINS_ALL = {
-      label: i18n.tc("query-filter.relational-keywords.contains-all"),
+      label: i18n.tc("query-filter.relational-keywords.contains-all-of"),
       value: "CONTAINS ALL",
     } as FieldRelationalOperator;
 
     const LIKE = {
-      label: i18n.tc("query-filter.relational-keywords.like"),
+      label: i18n.tc("query-filter.relational-keywords.is-like"),
       value: "LIKE",
     } as FieldRelationalOperator;
 
     const NOT_LIKE = {
-      label: i18n.tc("query-filter.relational-keywords.not-like"),
+      label: i18n.tc("query-filter.relational-keywords.is-not-like"),
       value: "NOT LIKE",
     } as FieldRelationalOperator;
 
