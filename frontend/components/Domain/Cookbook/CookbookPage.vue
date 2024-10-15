@@ -4,7 +4,7 @@
     <BaseDialog
       v-if="editTarget"
       v-model="dialogStates.edit"
-      :width="'100%'"
+      width="85%"
       :icon="$globals.icons.pages"
       :title="$t('general.edit')"
       :submit-icon="$globals.icons.save"
