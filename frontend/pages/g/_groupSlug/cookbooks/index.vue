@@ -4,7 +4,8 @@
     <BaseDialog
       v-if="createTarget"
       v-model="dialogStates.create"
-      width="85%"
+      width="100%"
+      max-width="1100px"
       :icon="$globals.icons.pages"
       :title="$t('cookbook.create-a-cookbook')"
       :submit-icon="$globals.icons.save"
