@@ -362,9 +362,7 @@ export default defineComponent({
     }
 
     function setLogicalOperatorValue(field: Field, index: number, value: LogicalOperator | undefined) {
-      if (!index) {
-        value = undefined;
-      } else if (!value) {
+      if (!value) {
         value = logOps.value.AND.value;
       }
 
@@ -421,12 +419,6 @@ export default defineComponent({
       (newFields) => {
         newFields.forEach((field, index) => {
           const updatedField = getFieldFromFieldDef(field);
-
-          // The first field shouldn't have a logical operator, but all other fields should.
-          if (!index) {
-            updatedField.logicalOperator = undefined;
-          }
-
           fields.value[index] = updatedField;
         });
 
