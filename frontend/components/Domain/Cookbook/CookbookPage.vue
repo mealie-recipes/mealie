@@ -9,6 +9,7 @@
       :title="$t('general.edit')"
       :submit-icon="$globals.icons.save"
       :submit-text="$tc('general.save')"
+      :submit-disabled="!editTarget.queryFilterString"
       @submit="editCookbook"
     >
       <v-card-text>
