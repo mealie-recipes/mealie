@@ -62,6 +62,22 @@ def test_create_cookbook(api_client: TestClient, unique_user: TestUser):
     assert response.status_code == 201
 
 
+@pytest.mark.parametrize("name_input", ["", " ", "@"])
+def test_create_cookbook_bad_name(api_client: TestClient, unique_user: TestUser, name_input: str):
+    data = {
+        "name": name_input,
+        "slug": name_input,
+        "description": "",
+        "position": 0,
+        "categories": [],
+        "group_id": str(unique_user.group_id),
+        "household_id": str(unique_user.household_id),
+    }
+
+    response = api_client.post(api_routes.households_cookbooks, json=data, headers=unique_user.token)
+    assert response.status_code == 422
+
+
 def test_read_cookbook(api_client: TestClient, unique_user: TestUser, cookbooks: list[TestCookbook]):
     sample = random.choice(cookbooks)
     response = api_client.get(api_routes.households_cookbooks_item_id(sample.id), headers=unique_user.token)
