@@ -38,6 +38,7 @@ v-model="sendTo" :label="$t('user.email')" :rules="[validators.email]" outlined
 
 <script lang="ts">
 import { computed, defineComponent, useContext, ref, toRefs, reactive } from "@nuxtjs/composition-api";
+import { watchEffect } from "vue";
 import { useUserApi } from "@/composables/api";
 import BaseDialog from "~/components/global/BaseDialog.vue";
 import AppButtonCopy from "~/components/global/AppButtonCopy.vue";
@@ -46,6 +47,8 @@ import { validators } from "~/composables/use-validators";
 import { alert } from "~/composables/use-toast";
 import { GroupInDB } from "~/lib/api/types/user";
 import { HouseholdInDB } from "~/lib/api/types/household";
+import { useGroups } from "~/composables/use-groups";
+import { useAdminHouseholds } from "~/composables/use-households";
 
 export default defineComponent({
   name: "UserInviteDialog",
@@ -59,17 +62,9 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    showLink: {
+    isAdmin: {
       type: Boolean,
-      default: true,
-    },
-    groups: {
-      type: Array as () => (GroupInDB[] | null),
-      default: null,
-    },
-    households: {
-      type: Array as () => (HouseholdInDB[] | null),
-      default: null,
+      default: false,
     },
   },
   setup(props, context) {
@@ -78,7 +73,20 @@ export default defineComponent({
     const token = ref("");
     const selectedGroup = ref<string | null>(null);
     const selectedHousehold = ref<string | null>(null);
+    const groups = ref<GroupInDB[]>([]);
+    const households = ref<HouseholdInDB[]>([]);
     const api = useUserApi();
+
+    const fetchGroupsAndHouseholds = () => {
+      if (props.isAdmin) {
+        const groupsResponse = useGroups();
+        const householdsResponse = useAdminHouseholds();
+        watchEffect(() => {
+          groups.value = groupsResponse.groups.value || [];
+          households.value = householdsResponse.households.value || [];
+        });
+      }
+    };
 
     const inviteDialog = computed<boolean>({
       get() {
@@ -99,7 +107,7 @@ export default defineComponent({
 
     const filteredHouseholds = computed(() => {
       if (!selectedGroup.value) return [];
-      return props.households?.filter(household => household.groupId === selectedGroup.value);
+      return households.value?.filter(household => household.groupId === selectedGroup.value);
     });
 
     function constructLink(token: string) {
@@ -159,6 +167,9 @@ export default defineComponent({
       selectedGroup,
       selectedHousehold,
       filteredHouseholds,
+      groups,
+      households,
+      fetchGroupsAndHouseholds,
       ...toRefs(state),
     };
   },
@@ -166,7 +177,7 @@ export default defineComponent({
     value: {
       immediate: false,
       handler(val) {
-        if (val && !this.groups) {
+        if (val && !this.isAdmin) {
           this.getSignupLink();
         }
       },
@@ -177,6 +188,8 @@ export default defineComponent({
       }
     },
   },
-
+  created() {
+    this.fetchGroupsAndHouseholds();
+  },
 });
 </script>

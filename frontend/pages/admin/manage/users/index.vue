@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <UserInviteDialog v-model="inviteDialog" :show-link="false" :groups="groups" :households="households" />
+    <UserInviteDialog v-model="inviteDialog" :is-admin="true" />
     <BaseDialog
       v-model="deleteDialog"
       :title="$tc('general.confirm')"
@@ -73,9 +73,6 @@ import { useAdminApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { useUser, useAllUsers } from "~/composables/use-user";
 import { UserOut } from "~/lib/api/types/user";
-import { validators } from "~/composables/use-validators";
-import { useGroups } from "~/composables/use-groups";
-import { useAdminHouseholds } from "~/composables/use-households";
 import UserInviteDialog from "~/components/Domain/User/UserInviteDialog.vue";
 
 export default defineComponent({
@@ -119,9 +116,6 @@ export default defineComponent({
     const { users, refreshAllUsers } = useAllUsers();
     const { loading, deleteUser: deleteUserMixin } = useUser(refreshAllUsers);
 
-    const { groups } = useGroups();
-    const { households } = useAdminHouseholds();
-
     function deleteUser(id: string) {
       deleteUserMixin(id);
 
@@ -133,19 +127,6 @@ export default defineComponent({
     function handleRowClick(item: UserOut) {
       router.push(`/admin/manage/users/${item.id}`);
     }
-
-    const validEmail = computed(() => {
-      if (state.sendTo === "") {
-        return false;
-      }
-      const valid = validators.email(state.sendTo);
-
-      // Explicit bool check because validators.email sometimes returns a string
-      if (valid === true) {
-        return true;
-      }
-      return false;
-    });
 
     // ==========================================================
     // Constants / Non-reactive
@@ -190,10 +171,6 @@ export default defineComponent({
       user,
       handleRowClick,
       ACTIONS_OPTIONS,
-      validators,
-      validEmail,
-      groups,
-      households,
     };
   },
   head() {
