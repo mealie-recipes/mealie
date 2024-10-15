@@ -581,7 +581,7 @@ export default defineComponent({
             style: `min-width: ${baseColMaxWidth * 2}px;`,
           },
           fieldValue: {
-            cols: state.showAdvanced ? 2 : 3,
+            cols: state.showAdvanced ? 3 : 4,
             style: `min-width: ${state.showAdvanced ? baseColMaxWidth * 2 : baseColMaxWidth * 3}px;`,
           },
           rightParens: {
