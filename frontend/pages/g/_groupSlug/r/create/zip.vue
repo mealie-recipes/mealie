@@ -67,7 +67,7 @@ export default defineComponent({
       const formData = new FormData();
       formData.append(newRecipeZipFileName, newRecipeZip.value);
 
-      const { response } = await api.upload.file("/api/recipes/create-from-zip", formData);
+      const { response } = await api.upload.file("/api/recipes/create/zip", formData);
       handleResponse(response);
     }
 

@@ -20,9 +20,15 @@ and then use this test case by removing the `@pytest.mark.skip` and than testing
 @pytest.mark.asyncio
 async def test_recipe_parser(recipe_test_data: RecipeSiteTestCase):
     translator = local_provider()
-    recipe, _ = await scraper.create_from_url(recipe_test_data.url, translator)
+    recipe, _ = await scraper.create_from_html(recipe_test_data.url, translator)
 
     assert recipe.slug == recipe_test_data.expected_slug
+
     assert len(recipe.recipe_instructions or []) == recipe_test_data.num_steps
+
     assert len(recipe.recipe_ingredient) == recipe_test_data.num_ingredients
+
+    actual = recipe.nutrition.model_dump() if recipe.nutrition else {}
+    assert recipe_test_data.num_nutrition_entries == len(actual.items())
+
     assert recipe.org_url == recipe_test_data.url

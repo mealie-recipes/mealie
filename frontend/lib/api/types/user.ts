@@ -77,6 +77,7 @@ export interface ReadWebhook {
 }
 export interface UserSummary {
   id: string;
+  username: string;
   fullName: string;
 }
 export interface ReadGroupPreferences {
@@ -131,9 +132,6 @@ export interface LongLiveTokenOut {
   name: string;
   id: number;
   createdAt?: string | null;
-}
-export interface OIDCRequest {
-  id_token: string;
 }
 export interface PasswordResetToken {
   token: string;

@@ -5,17 +5,22 @@
         <v-menu v-model="menu" :disabled="!editScale" offset-y top nudge-top="6" :close-on-content-click="false">
           <template #activator="{ on, attrs }">
             <v-card class="pa-1 px-2" dark color="secondary darken-1" small v-bind="attrs" v-on="on">
-              <span v-if="recipeYield"> {{ scaledYield }} </span>
               <span v-if="!recipeYield"> x {{ scale }} </span>
+              <div v-else-if="!numberParsed && recipeYield">
+                <span v-if="numerator === 1"> {{ recipeYield }} </span>
+                <span v-else> {{ numerator }}x {{ scaledYield }} </span>
+              </div>
+              <span v-else> {{ scaledYield }} </span>
+
             </v-card>
           </template>
           <v-card min-width="300px">
             <v-card-title class="mb-0">
-              {{ $t("recipe.edit-scale") }}
+              {{ $t("recipe.servings") }}
             </v-card-title>
             <v-card-text class="mt-n5">
               <div class="mt-4 d-flex align-center">
-                <v-text-field v-model.number="scale" type="number" :min="0" :label="$t('recipe.edit-scale')" />
+                <v-text-field v-model="numerator" type="number" :min="0" hide-spin-buttons />
                 <v-tooltip right color="secondary darken-1">
                   <template #activator="{ on, attrs }">
                     <v-btn v-bind="attrs" icon class="mx-1" small v-on="on" @click="scale = 1">
@@ -24,7 +29,7 @@
                       </v-icon>
                     </v-btn>
                   </template>
-                  <span> {{ $t("recipe.reset-scale") }} </span>
+                  <span> {{ $t("recipe.reset-servings-count") }} </span>
                 </v-tooltip>
               </div>
             </v-card-text>
@@ -38,24 +43,25 @@
         :buttons="[
           {
             icon: $globals.icons.minus,
-            text: $t('recipe.decrease-scale-label'),
+            text: $tc('recipe.decrease-scale-label'),
             event: 'decrement',
+            disabled: disableDecrement,
           },
           {
             icon: $globals.icons.createAlt,
-            text: $t('recipe.increase-scale-label'),
+            text: $tc('recipe.increase-scale-label'),
             event: 'increment',
           },
         ]"
-        @decrement="scale > 1 ? scale-- : null"
-        @increment="scale++"
+        @decrement="numerator--"
+        @increment="numerator++"
       />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, computed } from "@nuxtjs/composition-api";
+import { defineComponent, ref, computed, watch  } from "@nuxtjs/composition-api";
 
 export default defineComponent({
   props: {
@@ -63,12 +69,12 @@ export default defineComponent({
       type: String,
       default: null,
     },
-    basicYield: {
+    scaledYield: {
       type: String,
       default: null,
     },
-    scaledYield: {
-      type: String,
+    basicYieldNum: {
+      type: Number,
       default: null,
     },
     editScale: {
@@ -81,10 +87,7 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
-    const state = reactive({
-      tempScale: 1,
-      menu: false,
-    });
+    const menu = ref<boolean>(false);
 
     const scale = computed({
       get: () => props.value,
@@ -94,9 +97,24 @@ export default defineComponent({
       },
     });
 
+    const numerator = ref<number>(parseFloat(props.basicYieldNum.toFixed(3)) ?? 1);
+    const denominator = parseFloat(props.basicYieldNum.toFixed(32)) ?? 1;
+    const numberParsed = !!props.basicYieldNum;
+
+    watch(() => numerator.value, () => {
+      scale.value = parseFloat((numerator.value / denominator).toFixed(32));
+    });
+    const disableDecrement = computed(() => {
+      return numerator.value <= 1;
+    });
+
+
     return {
+      menu,
       scale,
-      ...toRefs(state),
+      numerator,
+      disableDecrement,
+      numberParsed,
     };
   },
 });

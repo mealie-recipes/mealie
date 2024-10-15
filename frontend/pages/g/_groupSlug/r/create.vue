@@ -53,6 +53,11 @@ export default defineComponent({
         value: "bulk",
       },
       {
+        icon: $globals.icons.codeTags,
+        text: i18n.tc("recipe.import-from-html-or-json"),
+        value: "html",
+      },
+      {
         icon: $globals.icons.fileImage,
         text: i18n.tc("recipe.create-from-image"),
         value: "image",

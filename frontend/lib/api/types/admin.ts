@@ -173,6 +173,10 @@ export interface CustomPageOut {
   categories?: RecipeCategoryResponse[];
   id: number;
 }
+export interface DebugResponse {
+  success: boolean;
+  response?: string | null;
+}
 export interface EmailReady {
   ready: boolean;
 }
@@ -237,11 +241,6 @@ export interface NotificationImport {
   name: string;
   status: boolean;
   exception?: string | null;
-}
-export interface OIDCInfo {
-  configurationUrl: string | null;
-  clientId: string | null;
-  groupsClaim: string | null;
 }
 export interface RecipeImport {
   name: string;

@@ -15,7 +15,7 @@ from mealie.schema.reports.reports import (
 from mealie.schema.user.user import GroupInDB
 from mealie.services._base_service import BaseService
 from mealie.services.recipe.recipe_service import RecipeService
-from mealie.services.scraper.scraper import create_from_url
+from mealie.services.scraper.scraper import create_from_html
 
 
 class RecipeBulkScraperService(BaseService):
@@ -85,7 +85,7 @@ class RecipeBulkScraperService(BaseService):
         async def _do(url: str) -> Recipe | None:
             async with sem:
                 try:
-                    recipe, _ = await create_from_url(url, self.translator)
+                    recipe, _ = await create_from_html(url, self.translator)
                     return recipe
                 except Exception as e:
                     self.service.logger.error(f"failed to scrape url during bulk url import {url}")

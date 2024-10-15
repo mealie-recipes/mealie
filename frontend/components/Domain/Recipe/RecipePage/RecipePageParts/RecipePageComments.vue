@@ -9,7 +9,7 @@
     <v-divider class="mx-2"></v-divider>
     <div v-if="user.id" class="d-flex flex-column">
       <div class="d-flex mt-3" style="gap: 10px">
-        <UserAvatar size="40" :user-id="user.id" />
+        <UserAvatar :tooltip="false" size="40" :user-id="user.id" />
 
         <v-textarea
           v-model="comment"
@@ -31,7 +31,7 @@
       </div>
     </div>
     <div v-for="comment in recipe.comments" :key="comment.id" class="d-flex my-2" style="gap: 10px">
-      <UserAvatar size="40" :user-id="comment.userId" />
+      <UserAvatar :tooltip="false" size="40" :user-id="comment.userId" />
       <v-card outlined class="flex-grow-1">
         <v-card-text class="pa-3 pb-0">
           <p class="">{{ comment.user.username }} • {{ $d(Date.parse(comment.createdAt), "medium") }}</p>

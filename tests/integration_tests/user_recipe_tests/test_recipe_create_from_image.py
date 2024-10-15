@@ -38,7 +38,7 @@ def test_openai_create_recipe_from_image(
     monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
     with open(test_image_jpg, "rb") as f:
         r = api_client.post(
-            api_routes.recipes_create_from_image,
+            api_routes.recipes_create_image,
             files={"images": ("test_image_jpg.jpg", f, "image/jpeg")},
             data={"extension": "jpg"},
             headers=unique_user.token,

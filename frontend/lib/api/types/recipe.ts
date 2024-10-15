@@ -194,12 +194,16 @@ export interface MergeUnit {
 }
 export interface Nutrition {
   calories?: string | null;
-  fatContent?: string | null;
-  proteinContent?: string | null;
   carbohydrateContent?: string | null;
+  cholesterolContent?: string | null;
+  fatContent?: string | null;
   fiberContent?: string | null;
+  proteinContent?: string | null;
+  saturatedFatContent?: string | null;
   sodiumContent?: string | null;
   sugarContent?: string | null;
+  transFatContent?: string | null;
+  unsaturatedFatContent?: string | null;
 }
 export interface ParsedIngredient {
   input?: string | null;
@@ -472,14 +476,21 @@ export interface SaveIngredientUnit {
   groupId: string;
 }
 export interface ScrapeRecipe {
-  url: string;
   includeTags?: boolean;
+  url: string;
+}
+export interface ScrapeRecipeBase {
+  includeTags?: boolean;
+}
+export interface ScrapeRecipeData {
+  includeTags?: boolean;
+  data: string;
 }
 export interface ScrapeRecipeTest {
   url: string;
   useOpenAI?: boolean;
 }
-export interface SlugResponse {}
+export interface SlugResponse { }
 export interface TagIn {
   name: string;
 }

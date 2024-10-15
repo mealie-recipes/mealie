@@ -1,222 +1,692 @@
 {
-    "acorn-squash": "acorn squash",
-    "alfalfa-sprouts": "alfalfa sprouts",
-    "anchovies": "anchovies",
-    "apples": "mere",
-    "artichoke": "artichoke",
-    "arugula": "arugula",
-    "asparagus": "sparanghel",
-    "aubergine": "vânătă",
-    "avocado": "avocado",
-    "bacon": "bacon",
-    "baking-powder": "praf de copt",
-    "baking-soda": "bicarbonat de sodiu",
-    "baking-sugar": "baking sugar",
-    "bar-sugar": "bar sugar",
-    "basil": "busuioc",
-    "bell-peppers": "ardei gras",
-    "blackberries": "mure",
-    "brassicas": "brassicas",
-    "bok-choy": "bok choy",
-    "broccoflower": "broccoflower",
-    "broccoli": "broccoli",
-    "broccolini": "broccolini",
-    "broccoli-rabe": "broccoli rabe",
-    "brussels-sprouts": "varză de Bruxelles",
-    "cabbage": "varză",
-    "cauliflower": "conopidă",
-    "chinese-leaves": "chinese leaves",
-    "collard-greens": "collard greens",
-    "kohlrabi": "gulie",
-    "bread": "pâine",
-    "breadfruit": "breadfruit",
-    "broad-beans": "broad beans",
-    "brown-sugar": "zahăr brun",
-    "butter": "unt",
-    "butternut-pumpkin": "butternut pumpkin",
-    "butternut-squash": "butternut squash",
-    "cactus-edible": "cactus, comestibil",
-    "calabrese": "calabrese",
-    "cannabis": "cannabis",
-    "capsicum": "capsicum",
-    "caraway": "caraway",
-    "carrot": "morcov",
-    "castor-sugar": "castor sugar",
-    "cayenne-pepper": "piper cayenne",
-    "celeriac": "țelină",
-    "celery": "țelină",
-    "cereal-grains": "cereal grains",
-    "rice": "orez",
-    "chard": "chard",
-    "cheese": "brânză",
-    "chicory": "cicoare",
-    "chilli-peppers": "ardei iuţi",
-    "chives": "arpagic",
-    "chocolate": "ciocolată",
-    "cilantro": "coriandru",
-    "cinnamon": "scorţişoară",
-    "clarified-butter": "clarified butter",
-    "coconut": "nucă de cocos",
-    "coconut-milk": "lapte de cocos",
-    "coffee": "cafea",
-    "confectioners-sugar": "confectioners' sugar",
-    "coriander": "coriandru",
-    "corn": "porumb",
-    "corn-syrup": "sirop de porumb",
-    "cottonseed-oil": "cottonseed oil",
-    "courgette": "dovlecel",
-    "cream-of-tartar": "cream of tartar",
-    "cucumber": "castravete",
-    "cumin": "chimion",
-    "daikon": "ridiche albă",
-    "dairy-products-and-dairy-substitutes": "produse lactate şi înlocuitori ai acestora",
-    "eggs": "ouă",
-    "ghee": "ghee",
-    "milk": "lapte",
-    "dandelion": "dandelion",
-    "demerara-sugar": "demerara sugar",
-    "dough": "aluat",
-    "edible-cactus": "cactus comestibil",
-    "eggplant": "vânătă",
-    "endive": "andivă",
-    "fats": "grăsimi",
-    "speck": "speck",
-    "fava-beans": "fava beans",
-    "fiddlehead": "fiddlehead",
-    "fish": "peşte",
-    "catfish": "somn",
-    "cod": "cod",
-    "salt-cod": "salt cod",
-    "salmon": "somon",
-    "skate": "skate",
-    "stockfish": "stockfish",
-    "trout": "păstrăv",
-    "tuna": "ton",
-    "five-spice-powder": "five spice powder",
-    "flour": "făină",
-    "frisee": "frisee",
-    "fructose": "fructoză",
-    "fruit": "fruct",
-    "apple": "măr",
-    "oranges": "portocale",
-    "pear": "pară",
-    "tomato": "roșie",
-    "fruit-sugar": "fruit sugar",
-    "garam-masala": "garam masala",
-    "garlic": "usturoi",
-    "gem-squash": "gem squash",
-    "ginger": "ghimbir",
-    "giblets": "giblets",
-    "grains": "grains",
-    "maize": "porumb",
-    "sweetcorn": "porumb dulce",
-    "teff": "teff",
-    "grape-seed-oil": "grape seed oil",
-    "green-onion": "ceapă verde",
-    "heart-of-palm": "heart of palm",
-    "hemp": "cânepă",
-    "herbs": "herbs",
-    "oregano": "oregano",
-    "parsley": "parsley",
-    "honey": "miere",
-    "icing-sugar": "icing sugar",
-    "isomalt": "isomalt",
-    "jackfruit": "jackfruit",
-    "jaggery": "jaggery",
-    "jams": "jams",
-    "jellies": "jellies",
-    "jerusalem-artichoke": "jerusalem artichoke",
-    "jicama": "jicama",
-    "kale": "kale",
-    "kumara": "kumara",
-    "leavening-agents": "leavening agents",
-    "leek": "leek",
-    "legumes": "legumes ",
-    "peas": "peas",
-    "beans": "fasole",
-    "lentils": "linte",
-    "lemongrass": "lemongrass",
-    "lettuce": "lettuce",
-    "liver": "ficat",
-    "maple-syrup": "sirop de arțar",
-    "meat": "carne",
-    "mortadella": "mortadella",
-    "mushroom": "ciupercă",
-    "white-mushroom": "ciupercă albă",
-    "mussels": "midii",
-    "nori": "nori",
-    "nutmeg": "nucşoară",
-    "nutritional-yeast-flakes": "nutritional yeast flakes",
-    "nuts": "nuci",
-    "nanaimo-bar-mix": "nanaimo bar mix",
-    "octopuses": "caracatiţe",
-    "oils": "uleiuri",
-    "olive-oil": "ulei de măsline",
-    "okra": "okra",
-    "olive": "măslină",
-    "onion-family": "onion family",
-    "onion": "ceapă",
-    "scallion": "scallion",
-    "shallot": "shallot",
-    "spring-onion": "spring onion",
-    "orange-blossom-water": "orange blossom water",
-    "oysters": "stridii",
-    "panch-puran": "panch puran",
-    "paprika": "paprika",
-    "parsnip": "păstârnac",
-    "pepper": "piper",
-    "peppers": "ardei",
-    "plantain": "plantain",
-    "pineapple": "ananas",
-    "poppy-seeds": "semințe de mac",
-    "potatoes": "cartofi",
-    "poultry": "poultry",
-    "powdered-sugar": "zahăr praf",
-    "pumpkin": "dovleac",
-    "pumpkin-seeds": "semințe de dovleac",
-    "radish": "ridiche",
-    "raw-sugar": "zahăr brut",
-    "refined-sugar": "zahăr rafinat",
-    "rice-flour": "făină de orez",
-    "rock-sugar": "rock sugar",
-    "rum": "rom",
-    "salt": "sare",
-    "seafood": "fruct de mare",
-    "seeds": "semințe",
-    "sesame-seeds": "semințe de susan",
-    "sunflower-seeds": "semințe de floarea-soarelui",
-    "soda": "soda",
-    "soda-baking": "soda, baking",
-    "soybean": "boabe de soia",
-    "spaghetti-squash": "spaghetti squash",
-    "spices": "condimente",
-    "spinach": "spanac",
-    "squash-family": "squash family",
-    "squash": "squash",
-    "zucchini": "zucchini",
-    "sugar": "sugar",
-    "caster-sugar": "caster sugar",
-    "granulated-sugar": "granulated sugar",
-    "superfine-sugar": "superfine sugar",
-    "turbanado-sugar": "turbanado sugar",
-    "unrefined-sugar": "zahăr nerafinat",
-    "white-sugar": "zahăr alb",
-    "sweet-potato": "cartof dulce",
-    "sweeteners": "îndulcitori",
-    "cane-sugar": "cane sugar",
-    "tahini": "tahini",
-    "tubers": "tubers",
-    "potato": "cartof",
-    "sunchoke": "sunchoke",
-    "taro": "taro",
-    "yam": "yam",
-    "turnip": "nap",
-    "vanilla": "vanilla",
-    "vegetables": "legume",
-    "fiddlehead-fern": "fiddlehead fern",
-    "ful": "ful",
-    "watercress": "watercress",
-    "watermelon": "pepene",
-    "xanthan-gum": "gumă xanthan",
-    "yeast": "drojdie"
+	"acorn-squash": {
+		"name": "acorn squash"
+	},
+	"alfalfa-sprouts": {
+		"name": "alfalfa sprouts"
+	},
+	"anchovies": {
+		"name": "anchovies"
+	},
+	"apples": {
+		"name": "mere",
+		"plural_name": "apples"
+	},
+	"artichoke": {
+		"name": "artichoke"
+	},
+	"arugula": {
+		"name": "arugula"
+	},
+	"asparagus": {
+		"name": "sparanghel"
+	},
+	"avocado": {
+		"name": "avocado",
+		"plural_name": "avocado"
+	},
+	"bacon": {
+		"name": "bacon"
+	},
+	"baking-powder": {
+		"name": "praf de copt"
+	},
+	"baking-soda": {
+		"name": "bicarbonat de sodiu"
+	},
+	"baking-sugar": {
+		"name": "baking sugar"
+	},
+	"bar-sugar": {
+		"name": "bar sugar"
+	},
+	"basil": {
+		"name": "busuioc"
+	},
+	"beans": {
+		"name": "fasole"
+	},
+	"bell-peppers": {
+		"name": "ardei gras",
+		"plural_name": "bell peppers"
+	},
+	"blackberries": {
+		"name": "mure"
+	},
+	"bok-choy": {
+		"name": "bok choy"
+	},
+	"brassicas": {
+		"name": "brassicas"
+	},
+	"bread": {
+		"name": "pâine"
+	},
+	"breadfruit": {
+		"name": "breadfruit"
+	},
+	"broccoflower": {
+		"name": "broccoflower"
+	},
+	"broccoli": {
+		"name": "broccoli"
+	},
+	"broccoli-rabe": {
+		"name": "broccoli rabe"
+	},
+	"broccolini": {
+		"name": "broccolini"
+	},
+	"brown-sugar": {
+		"name": "zahăr brun"
+	},
+	"brussels-sprouts": {
+		"name": "varză de Bruxelles"
+	},
+	"butter": {
+		"name": "unt"
+	},
+	"butternut-pumpkin": {
+		"name": "butternut pumpkin"
+	},
+	"butternut-squash": {
+		"name": "butternut squash"
+	},
+	"cabbage": {
+		"name": "varză",
+		"plural_name": "cabbages"
+	},
+	"cactus-edible": {
+		"name": "cactus, comestibil"
+	},
+	"calabrese": {
+		"name": "calabrese"
+	},
+	"cane-sugar": {
+		"name": "cane sugar"
+	},
+	"cannabis": {
+		"name": "cannabis"
+	},
+	"capsicum": {
+		"name": "capsicum"
+	},
+	"caraway": {
+		"name": "caraway"
+	},
+	"carrot": {
+		"name": "morcov",
+		"plural_name": "carrots"
+	},
+	"caster-sugar": {
+		"name": "caster sugar"
+	},
+	"castor-sugar": {
+		"name": "castor sugar"
+	},
+	"catfish": {
+		"name": "somn"
+	},
+	"cauliflower": {
+		"name": "conopidă",
+		"plural_name": "cauliflowers"
+	},
+	"cayenne-pepper": {
+		"name": "piper cayenne"
+	},
+	"celeriac": {
+		"name": "țelină"
+	},
+	"celery": {
+		"name": "țelină"
+	},
+	"cereal-grains": {
+		"name": "cereal grains"
+	},
+	"chard": {
+		"name": "chard"
+	},
+	"cheese": {
+		"name": "brânză"
+	},
+	"chicory": {
+		"name": "cicoare"
+	},
+	"chilli-peppers": {
+		"name": "ardei iuţi",
+		"plural_name": "chilli peppers"
+	},
+	"chinese-leaves": {
+		"name": "chinese leaves"
+	},
+	"chives": {
+		"name": "arpagic"
+	},
+	"chocolate": {
+		"name": "ciocolată"
+	},
+	"cilantro": {
+		"name": "coriandru"
+	},
+	"cinnamon": {
+		"name": "scorţişoară"
+	},
+	"clarified-butter": {
+		"name": "clarified butter"
+	},
+	"coconut": {
+		"name": "nucă de cocos",
+		"plural_name": "coconuts"
+	},
+	"coconut-milk": {
+		"name": "lapte de cocos"
+	},
+	"cod": {
+		"name": "cod"
+	},
+	"coffee": {
+		"name": "cafea"
+	},
+	"collard-greens": {
+		"name": "collard greens"
+	},
+	"confectioners-sugar": {
+		"name": "confectioners' sugar"
+	},
+	"coriander": {
+		"name": "coriandru"
+	},
+	"corn": {
+		"name": "porumb",
+		"plural_name": "corns"
+	},
+	"corn-syrup": {
+		"name": "sirop de porumb"
+	},
+	"cottonseed-oil": {
+		"name": "cottonseed oil"
+	},
+	"courgette": {
+		"name": "dovlecel"
+	},
+	"cream-of-tartar": {
+		"name": "cream of tartar"
+	},
+	"cucumber": {
+		"name": "castravete",
+		"plural_name": "cucumbers"
+	},
+	"cumin": {
+		"name": "chimion"
+	},
+	"daikon": {
+		"name": "ridiche albă",
+		"plural_name": "daikons"
+	},
+	"dairy-products-and-dairy-substitutes": {
+		"name": "produse lactate şi înlocuitori ai acestora"
+	},
+	"dandelion": {
+		"name": "dandelion"
+	},
+	"demerara-sugar": {
+		"name": "demerara sugar"
+	},
+	"dough": {
+		"name": "aluat"
+	},
+	"edible-cactus": {
+		"name": "cactus comestibil"
+	},
+	"eggplant": {
+		"name": "vânătă",
+		"plural_name": "eggplants"
+	},
+	"eggs": {
+		"name": "ouă",
+		"plural_name": "eggs"
+	},
+	"endive": {
+		"name": "andivă",
+		"plural_name": "endives"
+	},
+	"fats": {
+		"name": "grăsimi"
+	},
+	"fava-beans": {
+		"name": "fava beans"
+	},
+	"fiddlehead": {
+		"name": "fiddlehead"
+	},
+	"fiddlehead-fern": {
+		"name": "fiddlehead fern",
+		"plural_name": "fiddlehead ferns"
+	},
+	"fish": {
+		"name": "peşte"
+	},
+	"five-spice-powder": {
+		"name": "five spice powder"
+	},
+	"flour": {
+		"name": "făină"
+	},
+	"frisee": {
+		"name": "frisee"
+	},
+	"fructose": {
+		"name": "fructoză"
+	},
+	"fruit": {
+		"name": "fruct"
+	},
+	"fruit-sugar": {
+		"name": "fruit sugar"
+	},
+	"ful": {
+		"name": "ful"
+	},
+	"garam-masala": {
+		"name": "garam masala"
+	},
+	"garlic": {
+		"name": "usturoi",
+		"plural_name": "garlics"
+	},
+	"gem-squash": {
+		"name": "gem squash"
+	},
+	"ghee": {
+		"name": "ghee"
+	},
+	"giblets": {
+		"name": "giblets"
+	},
+	"ginger": {
+		"name": "ghimbir"
+	},
+	"grains": {
+		"name": "grains"
+	},
+	"granulated-sugar": {
+		"name": "granulated sugar"
+	},
+	"grape-seed-oil": {
+		"name": "grape seed oil"
+	},
+	"green-onion": {
+		"name": "ceapă verde",
+		"plural_name": "green onions"
+	},
+	"heart-of-palm": {
+		"name": "heart of palm",
+		"plural_name": "heart of palms"
+	},
+	"hemp": {
+		"name": "cânepă"
+	},
+	"herbs": {
+		"name": "herbs"
+	},
+	"honey": {
+		"name": "miere"
+	},
+	"isomalt": {
+		"name": "isomalt"
+	},
+	"jackfruit": {
+		"name": "jackfruit",
+		"plural_name": "jackfruits"
+	},
+	"jaggery": {
+		"name": "jaggery"
+	},
+	"jams": {
+		"name": "jams"
+	},
+	"jellies": {
+		"name": "jellies"
+	},
+	"jerusalem-artichoke": {
+		"name": "jerusalem artichoke"
+	},
+	"jicama": {
+		"name": "jicama"
+	},
+	"kale": {
+		"name": "kale"
+	},
+	"kohlrabi": {
+		"name": "gulie"
+	},
+	"kumara": {
+		"name": "kumara"
+	},
+	"leavening-agents": {
+		"name": "leavening agents"
+	},
+	"leek": {
+		"name": "leek",
+		"plural_name": "leeks"
+	},
+	"legumes": {
+		"name": "legumes"
+	},
+	"lemongrass": {
+		"name": "lemongrass"
+	},
+	"lentils": {
+		"name": "linte"
+	},
+	"lettuce": {
+		"name": "lettuce"
+	},
+	"liver": {
+		"name": "ficat",
+		"plural_name": "livers"
+	},
+	"maize": {
+		"name": "porumb"
+	},
+	"maple-syrup": {
+		"name": "sirop de arțar"
+	},
+	"meat": {
+		"name": "carne"
+	},
+	"milk": {
+		"name": "lapte"
+	},
+	"mortadella": {
+		"name": "mortadella"
+	},
+	"mushroom": {
+		"name": "ciupercă",
+		"plural_name": "mushrooms"
+	},
+	"mussels": {
+		"name": "midii"
+	},
+	"nanaimo-bar-mix": {
+		"name": "nanaimo bar mix"
+	},
+	"nori": {
+		"name": "nori"
+	},
+	"nutmeg": {
+		"name": "nucşoară"
+	},
+	"nutritional-yeast-flakes": {
+		"name": "nutritional yeast flakes"
+	},
+	"nuts": {
+		"name": "nuci"
+	},
+	"octopuses": {
+		"name": "caracatiţe",
+		"plural_name": "octopuses"
+	},
+	"oils": {
+		"name": "uleiuri"
+	},
+	"okra": {
+		"name": "okra"
+	},
+	"olive": {
+		"name": "măslină"
+	},
+	"olive-oil": {
+		"name": "ulei de măsline"
+	},
+	"onion": {
+		"name": "ceapă"
+	},
+	"onion-family": {
+		"name": "onion family"
+	},
+	"orange-blossom-water": {
+		"name": "orange blossom water"
+	},
+	"oranges": {
+		"name": "portocale",
+		"plural_name": "oranges"
+	},
+	"oregano": {
+		"name": "oregano"
+	},
+	"oysters": {
+		"name": "stridii"
+	},
+	"panch-puran": {
+		"name": "panch puran"
+	},
+	"paprika": {
+		"name": "paprika"
+	},
+	"parsley": {
+		"name": "parsley"
+	},
+	"parsnip": {
+		"name": "păstârnac",
+		"plural_name": "parsnips"
+	},
+	"pear": {
+		"name": "pară",
+		"plural_name": "pears"
+	},
+	"peas": {
+		"name": "peas"
+	},
+	"pepper": {
+		"name": "piper",
+		"plural_name": "peppers"
+	},
+	"pineapple": {
+		"name": "ananas",
+		"plural_name": "pineapples"
+	},
+	"plantain": {
+		"name": "plantain",
+		"plural_name": "plantains"
+	},
+	"poppy-seeds": {
+		"name": "semințe de mac"
+	},
+	"potato": {
+		"name": "cartof",
+		"plural_name": "potatoes"
+	},
+	"poultry": {
+		"name": "poultry"
+	},
+	"powdered-sugar": {
+		"name": "zahăr praf"
+	},
+	"pumpkin": {
+		"name": "dovleac",
+		"plural_name": "pumpkins"
+	},
+	"pumpkin-seeds": {
+		"name": "semințe de dovleac"
+	},
+	"radish": {
+		"name": "ridiche",
+		"plural_name": "radishes"
+	},
+	"raw-sugar": {
+		"name": "zahăr brut"
+	},
+	"refined-sugar": {
+		"name": "zahăr rafinat"
+	},
+	"rice": {
+		"name": "orez"
+	},
+	"rice-flour": {
+		"name": "făină de orez"
+	},
+	"rock-sugar": {
+		"name": "rock sugar"
+	},
+	"rum": {
+		"name": "rom"
+	},
+	"salmon": {
+		"name": "somon"
+	},
+	"salt": {
+		"name": "sare"
+	},
+	"salt-cod": {
+		"name": "salt cod"
+	},
+	"scallion": {
+		"name": "scallion",
+		"plural_name": "scallions"
+	},
+	"seafood": {
+		"name": "fruct de mare"
+	},
+	"seeds": {
+		"name": "semințe"
+	},
+	"sesame-seeds": {
+		"name": "semințe de susan"
+	},
+	"shallot": {
+		"name": "shallot",
+		"plural_name": "shallots"
+	},
+	"skate": {
+		"name": "skate"
+	},
+	"soda": {
+		"name": "soda"
+	},
+	"soda-baking": {
+		"name": "soda, baking"
+	},
+	"soybean": {
+		"name": "boabe de soia"
+	},
+	"spaghetti-squash": {
+		"name": "spaghetti squash",
+		"plural_name": "spaghetti squashes"
+	},
+	"speck": {
+		"name": "speck"
+	},
+	"spices": {
+		"name": "condimente"
+	},
+	"spinach": {
+		"name": "spanac"
+	},
+	"spring-onion": {
+		"name": "spring onion",
+		"plural_name": "spring onions"
+	},
+	"squash": {
+		"name": "squash",
+		"plural_name": "squashes"
+	},
+	"squash-family": {
+		"name": "squash family"
+	},
+	"stockfish": {
+		"name": "stockfish"
+	},
+	"sugar": {
+		"name": "sugar"
+	},
+	"sunchoke": {
+		"name": "sunchoke",
+		"plural_name": "sunchokes"
+	},
+	"sunflower-seeds": {
+		"name": "semințe de floarea-soarelui"
+	},
+	"superfine-sugar": {
+		"name": "superfine sugar"
+	},
+	"sweet-potato": {
+		"name": "cartof dulce",
+		"plural_name": "sweet potatoes"
+	},
+	"sweetcorn": {
+		"name": "porumb dulce",
+		"plural_name": "sweetcorns"
+	},
+	"sweeteners": {
+		"name": "îndulcitori"
+	},
+	"tahini": {
+		"name": "tahini"
+	},
+	"taro": {
+		"name": "taro",
+		"plural_name": "taroes"
+	},
+	"teff": {
+		"name": "teff"
+	},
+	"tomato": {
+		"name": "roșie",
+		"plural_name": "tomatoes"
+	},
+	"trout": {
+		"name": "păstrăv"
+	},
+	"tubers": {
+		"name": "tuber",
+		"plural_name": "tubers"
+	},
+	"tuna": {
+		"name": "ton"
+	},
+	"turbanado-sugar": {
+		"name": "turbanado sugar"
+	},
+	"turnip": {
+		"name": "nap",
+		"plural_name": "turnips"
+	},
+	"unrefined-sugar": {
+		"name": "zahăr nerafinat"
+	},
+	"vanilla": {
+		"name": "vanilla"
+	},
+	"vegetables": {
+		"name": "legume"
+	},
+	"watercress": {
+		"name": "watercress"
+	},
+	"watermelon": {
+		"name": "pepene",
+		"plural_name": "watermelons"
+	},
+	"white-mushroom": {
+		"name": "ciupercă albă",
+		"plural_name": "white mushrooms"
+	},
+	"white-sugar": {
+		"name": "zahăr alb"
+	},
+	"xanthan-gum": {
+		"name": "gumă xanthan"
+	},
+	"yam": {
+		"name": "yam",
+		"plural_name": "yams"
+	},
+	"yeast": {
+		"name": "drojdie"
+	},
+	"zucchini": {
+		"name": "zucchini",
+		"plural_name": "zucchinis"
+	}
 }

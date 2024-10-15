@@ -82,7 +82,7 @@ Changing the webworker settings may cause unforeseen memory leak issues with Mea
 
 :octicons-tag-24: v1.4.0
 
-For usage, see [Usage - OpenID Connect](../authentication/oidc.md)
+For usage, see [Usage - OpenID Connect](../authentication/oidc-v2.md)
 
 | Variables              | Default | Description                                                                                                                                                                                                                                                                                            |
 | ---------------------- | :-----: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -90,12 +90,12 @@ For usage, see [Usage - OpenID Connect](../authentication/oidc.md)
 | OIDC_SIGNUP_ENABLED    |  True   | Enables new users to be created when signing in for the first time with OIDC                                                                                                                                                                                                                           |
 | OIDC_CONFIGURATION_URL |  None   | The URL to the OIDC configuration of your provider. This is usually something like https://auth.example.com/.well-known/openid-configuration                                                                                                                                                           |
 | OIDC_CLIENT_ID         |  None   | The client id of your configured client in your provider                                                                                                                                                                                                                                               |
-| OIDC_USER_GROUP        |  None   | If specified, only users belonging to this group will be able to successfully authenticate, regardless of the `OIDC_ADMIN_GROUP`. For more information see [this page](../authentication/oidc.md#groups)                                                                                               |
-| OIDC_ADMIN_GROUP       |  None   | If specified, users belonging to this group will be made an admin. For more information see [this page](../authentication/oidc.md#groups)                                                                                                                                                              |
+| OIDC_CLIENT_SECRET <br/> :octicons-tag-24: v2.0.0    |  None   | The client secret of your configured client in your provider|
+| OIDC_USER_GROUP        |  None   | If specified, only users belonging to this group will be able to successfully authenticate. For more information see [this page](../authentication/oidc-v2.md#groups)                                                                                               |
+| OIDC_ADMIN_GROUP       |  None   | If specified, users belonging to this group will be able to successfully authenticate *and* be made an admin. For more information see [this page](../authentication/oidc-v2.md#groups)                                                                                                                                                              |
 | OIDC_AUTO_REDIRECT     |  False  | If `True`, then the login page will be bypassed an you will be sent directly to your Identity Provider. You can still get to the login page by adding `?direct=1` to the login URL                                                                                                                     |
 | OIDC_PROVIDER_NAME     |  OAuth  | The provider name is shown in SSO login button. "Login with <OIDC_PROVIDER_NAME\>"                                                                                                                                                                                                                     |
 | OIDC_REMEMBER_ME       |  False  | Because redirects bypass the login screen, you cant extend your session by clicking the "Remember Me" checkbox. By setting this value to true, a session will be extended as if "Remember Me" was checked                                                                                              |
-| OIDC_SIGNING_ALGORITHM |  RS256  | The algorithm used to sign the id token (examples: RS256, HS256)                                                                                                                                                                                                                                       |
 | OIDC_USER_CLAIM        |  email  | This is the claim which Mealie will use to look up an existing user by (e.g. "email", "preferred_username")                                                                                                                                                                                            |
 | OIDC_GROUPS_CLAIM      | groups  | Optional if not using `OIDC_USER_GROUP` or `OIDC_ADMIN_GROUP`. This is the claim Mealie will request from your IdP and will use to compare to `OIDC_USER_GROUP` or `OIDC_ADMIN_GROUP` to allow the user to log in to Mealie or is set as an admin. **Your IdP must be configured to grant this claim** |
 | OIDC_TLS_CACERTFILE    |  None   | File path to Certificate Authority used to verify server certificate (e.g. `/path/to/ca.crt`)                                                                                                                                                                                                          |
@@ -105,18 +105,21 @@ For usage, see [Usage - OpenID Connect](../authentication/oidc.md)
 :octicons-tag-24: v1.7.0
 
 Mealie supports various integrations using OpenAI. For more information, check out our [OpenAI documentation](./open-ai.md).
+For custom mapping variables (e.g. OPENAI_CUSTOM_HEADERS) you should pass values as JSON encoded strings (e.g. `OPENAI_CUSTOM_PARAMS='{"k1": "v1", "k2": "v2"}'`)
 
 | Variables                    | Default | Description                                                                                                                                                                  |
 | ---------------------------- | :-----: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | OPENAI_BASE_URL              |  None   | The base URL for the OpenAI API. If you're not sure, leave this empty to use the standard OpenAI platform                                                                    |
 | OPENAI_API_KEY               |  None   | Your OpenAI API Key. Enables OpenAI-related features                                                                                                                         |
 | OPENAI_MODEL                 | gpt-4o  | Which OpenAI model to use. If you're not sure, leave this empty                                                                                                              |
+| OPENAI_CUSTOM_HEADERS        |  None   | Custom HTTP headers to add to all OpenAI requests. This should generally be left empty unless your custom service requires them                                              |
+| OPENAI_CUSTOM_PARAMS         |  None   | Custom HTTP query params to add to all OpenAI requests. This should generally be left empty unless your custom service requires them                                         |
 | OPENAI_ENABLE_IMAGE_SERVICES |  True   | Whether to enable OpenAI image services, such as creating recipes via image. Leave this enabled unless your custom model doesn't support it, or you want to reduce costs     |
 | OPENAI_WORKERS               |    2    | Number of OpenAI workers per request. Higher values may increase processing speed, but will incur additional API costs                                                       |
 | OPENAI_SEND_DATABASE_DATA    |  True   | Whether to send Mealie data to OpenAI to improve request accuracy. This will incur additional API costs                                                                      |
 | OPENAI_REQUEST_TIMEOUT       |  60     | The number of seconds to wait for an OpenAI request to complete before cancelling the request. Leave this empty unless you're running into timeout issues on slower hardware |
 
-### Themeing
+### Theming
 
 Setting the following environmental variables will change the theme of the frontend. Note that the themes are the same for all users. This is a break-change when migration from v0.x.x -> 1.x.x.
 

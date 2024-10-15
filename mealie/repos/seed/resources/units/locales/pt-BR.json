@@ -1,21 +1,21 @@
 {
     "teaspoon": {
         "name": "colher de chá",
-        "plural_name": "teaspoons",
+        "plural_name": "colheres de chá",
         "description": "",
         "abbreviation": "cc"
     },
     "tablespoon": {
         "name": "colher de sopa",
-        "plural_name": "tablespoons",
+        "plural_name": "colheres de sopa",
         "description": "",
         "abbreviation": "col. de sopa"
     },
     "cup": {
         "name": "xícara",
-        "plural_name": "cups",
+        "plural_name": "xícaras",
         "description": "",
-        "abbreviation": "c"
+        "abbreviation": "xíc"
     },
     "fluid-ounce": {
         "name": "onça fluida",
@@ -37,25 +37,25 @@
     },
     "gallon": {
         "name": "galão",
-        "plural_name": "gallons",
+        "plural_name": "galões",
         "description": "",
         "abbreviation": "gal"
     },
     "milliliter": {
         "name": "mililitro",
-        "plural_name": "milliliters",
+        "plural_name": "mililitros",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
         "name": "litro",
-        "plural_name": "liters",
+        "plural_name": "litros",
         "description": "",
         "abbreviation": "l"
     },
     "pound": {
         "name": "libra",
-        "plural_name": "pounds",
+        "plural_name": "libras",
         "description": "",
         "abbreviation": "lb",
         "plural_abbreviation": "lbs"
@@ -68,19 +68,19 @@
     },
     "gram": {
         "name": "grama",
-        "plural_name": "grams",
+        "plural_name": "gramas",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
         "name": "kilograma",
-        "plural_name": "kilograms",
+        "plural_name": "quilos",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
         "name": "miligrama",
-        "plural_name": "milligrams",
+        "plural_name": "miligramas",
         "description": "",
         "abbreviation": "mg"
     },
@@ -98,7 +98,7 @@
     },
     "serving": {
         "name": "porção",
-        "plural_name": "servings",
+        "plural_name": "porções",
         "description": "",
         "abbreviation": ""
     },
@@ -116,7 +116,7 @@
     },
     "can": {
         "name": "lata",
-        "plural_name": "cans",
+        "plural_name": "latas",
         "description": "",
         "abbreviation": ""
     },
@@ -133,8 +133,8 @@
         "abbreviation": ""
     },
     "pinch": {
-        "name": "pinch",
-        "plural_name": "pinches",
+        "name": "pitada",
+        "plural_name": "pitadas",
         "description": "",
         "abbreviation": ""
     }

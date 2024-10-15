@@ -56,15 +56,19 @@
 
       <!-- View By Label -->
       <div v-else>
-        <div v-for="(value, key, idx) in itemsByLabel" :key="key" class="mb-6">
-          <div @click="toggleShowChecked()">
-            <span v-if="idx || key !== $tc('shopping-list.no-label')">
-              <v-icon :color="getLabelColor(value[0])">
-                {{ $globals.icons.tags }}
-              </v-icon>
-            </span>
-            {{ key }}
+        <div v-for="(value, key) in itemsByLabel" :key="key" class="mb-6">
+          <div class="text-left">
+            <v-btn
+              :color="getLabelColor(value[0]) ? getLabelColor(value[0]) : '#959595'"
+              :style="{
+                'color': getTextColor(getLabelColor(value[0])),
+                'letter-spacing': 'normal',
+              }"
+            >
+              {{ key }}
+          </v-btn>
           </div>
+          <v-divider/>
           <draggable :value="value" handle=".handle" delay="250" :delay-on-touch-only="true" @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndexUncheckedByLabel(key, $event)">
             <v-lazy v-for="(item, index) in value" :key="item.id" class="ml-2 my-2">
               <ShoppingListItem
@@ -282,6 +286,7 @@
         />
       </div>
     </v-lazy>
+    <WakelockSwitch/>
   </v-container>
 </template>
 
@@ -301,6 +306,7 @@ import ShoppingListItemEditor from "~/components/Domain/ShoppingList/ShoppingLis
 import { useFoodStore, useLabelStore, useUnitStore } from "~/composables/store";
 import { useShoppingListItemActions } from "~/composables/use-shopping-list-item-actions";
 import { useShoppingListPreferences } from "~/composables/use-users/preferences";
+import { getTextColor } from "~/composables/use-text-color";
 import { uuid4 } from "~/composables/use-utils";
 
 type CopyTypes = "plain" | "markdown";
@@ -792,16 +798,6 @@ export default defineComponent({
       itemsByLabel.value = itemsSorted;
     }
 
-    async function refreshLabels() {
-      const { data } = await userApi.multiPurposeLabels.getAll();
-
-      if (data) {
-        allLabels.value = data.items ?? [];
-      }
-    }
-
-    refreshLabels();
-
     // =====================================
     // Add/Remove Recipe References
 
@@ -1029,7 +1025,7 @@ export default defineComponent({
       }
 
       // update current user
-      allUsers.value = data.sort((a, b) => ((a.fullName || "") < (b.fullName || "") ? -1 : 1));
+      allUsers.value = data.items.sort((a, b) => ((a.fullName || "") < (b.fullName || "") ? -1 : 1));
       currentUserId.value = shoppingList.value?.userId;
     }
 
@@ -1098,6 +1094,7 @@ export default defineComponent({
       allUsers,
       currentUserId,
       updateSettings,
+      getTextColor,
     };
   },
   head() {
