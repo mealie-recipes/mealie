@@ -21,7 +21,10 @@ router = APIRouter(prefix="/households/invitations", tags=["Households: Invitati
 class GroupInvitationsController(BaseUserController):
     @router.get("", response_model=list[ReadInviteToken])
     def get_invite_tokens(self):
-        return self.repos.group_invite_tokens.page_all(PaginationQuery(page=1, per_page=-1)).items
+        if self.user.admin:
+            return self.repos.all_groups_invite_tokens.page_all(PaginationQuery(page=1, per_page=-1)).items
+        else:
+            return self.repos.group_invite_tokens.page_all(PaginationQuery(page=1, per_page=-1)).items
 
     @router.post("", response_model=ReadInviteToken, status_code=status.HTTP_201_CREATED)
     def create_invite_token(self, body: CreateInviteToken):
