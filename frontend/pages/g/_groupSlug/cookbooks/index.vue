@@ -4,7 +4,7 @@
     <BaseDialog
       v-if="createTarget"
       v-model="dialogStates.create"
-      :width="700"
+      :width="'100%'"
       :icon="$globals.icons.pages"
       :title="$t('cookbook.create-a-cookbook')"
       :submit-icon="$globals.icons.save"
@@ -38,7 +38,7 @@
 
     <!-- Cookbook Page -->
     <!-- Page Title -->
-    <v-container class="md-container">
+    <v-container class="px-12">
       <BasePageTitle divider>
         <template #header>
           <v-img max-height="100" max-width="100" :src="require('~/static/svgs/manage-cookbooks.svg')"></v-img>
