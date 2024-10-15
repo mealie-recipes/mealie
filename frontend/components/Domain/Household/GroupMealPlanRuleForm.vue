@@ -23,7 +23,8 @@
 
 <script lang="ts">
 import { defineComponent, computed, useContext } from "@nuxtjs/composition-api";
-import QueryFilterBuilder, { FieldDefinition } from "~/components/Domain/QueryFilterBuilder.vue";
+import QueryFilterBuilder from "~/components/Domain/QueryFilterBuilder.vue";
+import { FieldDefinition } from "~/composables/use-query-filter-builder";
 import { Organizer } from "~/lib/api/types/non-generated";
 import { QueryFilterJSON } from "~/lib/api/types/response";
 

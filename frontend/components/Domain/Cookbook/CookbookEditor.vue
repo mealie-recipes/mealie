@@ -24,7 +24,8 @@
 import { defineComponent, useContext } from "@nuxtjs/composition-api";
 import { ReadCookBook } from "~/lib/api/types/cookbook";
 import { Organizer } from "~/lib/api/types/non-generated";
-import QueryFilterBuilder, { FieldDefinition } from "~/components/Domain/QueryFilterBuilder.vue";
+import QueryFilterBuilder from "~/components/Domain/QueryFilterBuilder.vue";
+import { FieldDefinition } from "~/composables/use-query-filter-builder";
 
 export default defineComponent({
   components: { QueryFilterBuilder },
