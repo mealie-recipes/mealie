@@ -173,7 +173,7 @@ export default defineComponent({
     },
     selectedHousehold(newVal) {
       if (newVal && this.selectedGroup) {
-        this.getSignupLink();
+        this.getSignupLink(this.selectedGroup, this.selectedHousehold);
       }
     },
   },
