@@ -7,6 +7,7 @@ from mealie.core.config import get_app_settings
 from mealie.core.exceptions import UserLockedOut
 from mealie.core.security.hasher import get_hasher
 from mealie.core.security.providers.auth_provider import AuthProvider
+from mealie.db.models.users.users import AuthMethod
 from mealie.repos.all_repositories import get_repositories
 from mealie.schema.user.auth import CredentialsRequest
 from mealie.services.user_services.user_service import UserService
@@ -27,11 +28,13 @@ class CredentialsProvider(AuthProvider[CredentialsRequest]):
         user = self.try_get_user(self.data.username)
 
         if not user:
-            # To prevent user enumeration we perform the verify_password computation to ensure
-            # server side time is relatively constant and not vulnerable to timing attacks.
-            CredentialsProvider.verify_password(
-                "abc123cba321",
-                "$2b$12$JdHtJOlkPFwyxdjdygEzPOtYmdQF5/R5tHxw5Tq8pxjubyLqdIX5i",
+            self.verify_fake_password()
+            return None
+
+        if user.auth_method != AuthMethod.MEALIE:
+            self.verify_fake_password()
+            self._logger.warning(
+                "Found user but their auth method is not 'Mealie'. Unable to continue with credentials login"
             )
             return None
 
@@ -51,6 +54,14 @@ class CredentialsProvider(AuthProvider[CredentialsRequest]):
         user.login_attemps = 0
         user = db.users.update(user.id, user)
         return self.get_access_token(user, self.data.remember_me)  # type: ignore
+
+    def verify_fake_password(self):
+        # To prevent user enumeration we perform the verify_password computation to ensure
+        # server side time is relatively constant and not vulnerable to timing attacks.
+        CredentialsProvider.verify_password(
+            "abc123cba321",
+            "$2b$12$JdHtJOlkPFwyxdjdygEzPOtYmdQF5/R5tHxw5Tq8pxjubyLqdIX5i",
+        )
 
     @staticmethod
     def verify_password(plain_password: str, hashed_password: str) -> bool:
