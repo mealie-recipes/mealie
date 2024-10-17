@@ -178,6 +178,10 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
     return `${routes.recipesRecipeSlugExportZip(recipeSlug)}?token=${token}`;
   }
 
+  async updateMany(payload: Recipe[]) {
+    return await this.requests.put<Recipe[]>(routes.recipesBase, payload);
+  }
+
   async updateLastMade(recipeSlug: string, timestamp: string) {
     return await this.requests.patch<Recipe, RecipeLastMade>(routes.recipesSlugLastMade(recipeSlug), { timestamp })
   }
