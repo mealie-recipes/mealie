@@ -15,6 +15,7 @@
         :color="color"
         retain-focus-on-click
         :class="btnClass"
+        :disabled="copyText !== '' ? false : true"
         @click="
           on.click;
           textToClipboard();

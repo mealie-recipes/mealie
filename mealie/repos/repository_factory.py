@@ -249,6 +249,17 @@ class AllRepositories:
         )
 
     @cached_property
+    def all_groups_invite_tokens(self) -> HouseholdRepositoryGeneric[ReadInviteToken, GroupInviteToken]:
+        return HouseholdRepositoryGeneric(
+            self.session,
+            PK_TOKEN,
+            GroupInviteToken,
+            ReadInviteToken,
+            group_id=None,
+            household_id=None,
+        )
+
+    @cached_property
     def group_recipe_actions(self) -> HouseholdRepositoryGeneric[GroupRecipeActionOut, GroupRecipeAction]:
         return HouseholdRepositoryGeneric(
             self.session,

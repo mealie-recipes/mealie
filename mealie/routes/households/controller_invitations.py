@@ -21,18 +21,31 @@ router = APIRouter(prefix="/households/invitations", tags=["Households: Invitati
 class GroupInvitationsController(BaseUserController):
     @router.get("", response_model=list[ReadInviteToken])
     def get_invite_tokens(self):
-        return self.repos.group_invite_tokens.page_all(PaginationQuery(page=1, per_page=-1)).items
+        if self.user.admin:
+            return self.repos.all_groups_invite_tokens.page_all(PaginationQuery(page=1, per_page=-1)).items
+        else:
+            return self.repos.group_invite_tokens.page_all(PaginationQuery(page=1, per_page=-1)).items
 
     @router.post("", response_model=ReadInviteToken, status_code=status.HTTP_201_CREATED)
-    def create_invite_token(self, uses: CreateInviteToken):
+    def create_invite_token(self, body: CreateInviteToken):
         if not self.user.can_invite:
             raise HTTPException(
                 status.HTTP_403_FORBIDDEN,
                 detail="User is not allowed to create invite tokens",
             )
 
+        if body.group_id and body.household_id and not self.user.admin:
+            raise HTTPException(
+                status.HTTP_403_FORBIDDEN,
+                detail="Only admins can create invite tokens for other groups or households",
+            )
+
+        if not body.group_id or not body.household_id:
+            body.group_id = self.group_id
+            body.household_id = self.household_id
+
         token = SaveInviteToken(
-            uses_left=uses.uses, group_id=self.group_id, household_id=self.household_id, token=url_safe_token()
+            uses_left=body.uses, group_id=body.group_id, household_id=body.household_id, token=url_safe_token()
         )
         return self.repos.group_invite_tokens.create(token)
 
