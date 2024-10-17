@@ -3,7 +3,6 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import UUID4
 
-from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import controller
 from mealie.routes._base.base_controllers import BasePublicHouseholdExploreController
 from mealie.schema.cookbook.cookbook import ReadCookBook, RecipeCookBook
@@ -59,15 +58,12 @@ class PublicCookbooksController(BasePublicHouseholdExploreController):
         if not household or household.preferences.private_household:
             raise NOT_FOUND_EXCEPTION
 
-        # limit recipes to only the household the cookbook belongs to
-        recipes_repo = get_repositories(
-            self.session, group_id=self.group_id, household_id=cookbook.household_id
-        ).recipes
-        recipes = recipes_repo.page_all(
+        cross_household_recipes = self.cross_household_repos.recipes
+        recipes = cross_household_recipes.page_all(
             PaginationQuery(
                 page=1,
                 per_page=-1,
-                query_filter="settings.public = TRUE",
+                query_filter="settings.public = TRUE AND household.preferences.privateHousehold = FALSE",
             ),
             cookbook=cookbook,
         )

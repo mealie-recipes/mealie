@@ -17,6 +17,7 @@ from sqlalchemy.sql import sqltypes
 from mealie.db.models._model_base import SqlAlchemyBase
 from mealie.db.models._model_utils.datetime import NaiveDateTime
 from mealie.db.models._model_utils.guid import GUID
+from mealie.schema._mealie.mealie_model import MealieModel
 
 Model = TypeVar("Model", bound=SqlAlchemyBase)
 
@@ -104,7 +105,21 @@ class LogicalOperator(Enum):
     OR = "OR"
 
 
-class QueryFilterComponent:
+class QueryFilterJSONPart(MealieModel):
+    left_parenthesis: str | None = None
+    right_parenthesis: str | None = None
+    logical_operator: LogicalOperator | None = None
+
+    attribute_name: str | None = None
+    relational_operator: RelationalKeyword | RelationalOperator | None = None
+    value: str | list[str] | None = None
+
+
+class QueryFilterJSON(MealieModel):
+    parts: list[QueryFilterJSONPart] = []
+
+
+class QueryFilterBuilderComponent:
     """A single relational statement"""
 
     @staticmethod
@@ -135,7 +150,7 @@ class QueryFilterComponent:
         ] and not isinstance(value, list):
             raise ValueError(
                 f"invalid query string: {relationship.value} must be given a list of values"
-                f"enclosed by {QueryFilter.l_list_sep} and {QueryFilter.r_list_sep}"
+                f"enclosed by {QueryFilterBuilder.l_list_sep} and {QueryFilterBuilder.r_list_sep}"
             )
 
         if relationship is RelationalKeyword.IS or relationship is RelationalKeyword.IS_NOT:
@@ -193,8 +208,18 @@ class QueryFilterComponent:
 
         return sanitized_values if isinstance(self.value, list) else sanitized_values[0]
 
+    def as_json_model(self) -> QueryFilterJSONPart:
+        return QueryFilterJSONPart(
+            left_parenthesis=None,
+            right_parenthesis=None,
+            logical_operator=None,
+            attribute_name=self.attribute_name,
+            relational_operator=self.relationship,
+            value=self.value,
+        )
 
-class QueryFilter:
+
+class QueryFilterBuilder:
     l_group_sep: str = "("
     r_group_sep: str = ")"
     group_seps: set[str] = {l_group_sep, r_group_sep}
@@ -205,13 +230,15 @@ class QueryFilter:
 
     def __init__(self, filter_string: str) -> None:
         # parse filter string
-        components = QueryFilter._break_filter_string_into_components(filter_string)
-        base_components = QueryFilter._break_components_into_base_components(components)
-        if base_components.count(QueryFilter.l_group_sep) != base_components.count(QueryFilter.r_group_sep):
+        components = QueryFilterBuilder._break_filter_string_into_components(filter_string)
+        base_components = QueryFilterBuilder._break_components_into_base_components(components)
+        if base_components.count(QueryFilterBuilder.l_group_sep) != base_components.count(
+            QueryFilterBuilder.r_group_sep
+        ):
             raise ValueError("invalid query string: parenthesis are unbalanced")
 
         # parse base components into a filter group
-        self.filter_components = QueryFilter._parse_base_components_into_filter_components(base_components)
+        self.filter_components = QueryFilterBuilder._parse_base_components_into_filter_components(base_components)
 
     def __repr__(self) -> str:
         joined = " ".join(
@@ -308,7 +335,7 @@ class QueryFilter:
         attr_model_map: dict[int, Any] = {}
         model_attr: InstrumentedAttribute
         for i, component in enumerate(self.filter_components):
-            if not isinstance(component, QueryFilterComponent):
+            if not isinstance(component, QueryFilterBuilderComponent):
                 continue
 
             nested_model, model_attr, query = self.get_model_and_model_attr_from_attr_string(
@@ -337,7 +364,7 @@ class QueryFilter:
                 logical_operator_stack.append(component)
 
             else:
-                component = cast(QueryFilterComponent, component)
+                component = cast(QueryFilterBuilderComponent, component)
                 model_attr = getattr(attr_model_map[i], component.attribute_name.split(".")[-1])
 
                 # Keywords
@@ -395,7 +422,7 @@ class QueryFilter:
             subcomponents = []
             for component in components:
                 # don't parse components comprised of only a separator
-                if component in QueryFilter.group_seps:
+                if component in QueryFilterBuilder.group_seps:
                     subcomponents.append(component)
                     continue
 
@@ -406,7 +433,7 @@ class QueryFilter:
                     if c == '"':
                         in_quotes = not in_quotes
 
-                    if c in QueryFilter.group_seps and not in_quotes:
+                    if c in QueryFilterBuilder.group_seps and not in_quotes:
                         if new_component:
                             subcomponents.append(new_component)
 
@@ -437,17 +464,17 @@ class QueryFilter:
         list_value_components = []
         for component in components:
             # parse out lists as their own singular sub component
-            subcomponents = component.split(QueryFilter.l_list_sep)
+            subcomponents = component.split(QueryFilterBuilder.l_list_sep)
             for i, subcomponent in enumerate(subcomponents):
                 if not i:
                     continue
 
-                for j, list_value_string in enumerate(subcomponent.split(QueryFilter.r_list_sep)):
+                for j, list_value_string in enumerate(subcomponent.split(QueryFilterBuilder.r_list_sep)):
                     if j % 2:
                         continue
 
                     list_value_components.append(
-                        [val.strip() for val in list_value_string.split(QueryFilter.list_item_sep)]
+                        [val.strip() for val in list_value_string.split(QueryFilterBuilder.list_item_sep)]
                     )
 
             quote_offset = 0
@@ -455,16 +482,16 @@ class QueryFilter:
             for i, subcomponent in enumerate(subcomponents):
                 # we are in a list subcomponent, which is already handled
                 if in_list:
-                    if QueryFilter.r_list_sep in subcomponent:
+                    if QueryFilterBuilder.r_list_sep in subcomponent:
                         # filter out the remainder of the list subcomponent and continue parsing
                         base_components.append(list_value_components.pop(0))
-                        subcomponent = subcomponent.split(QueryFilter.r_list_sep, maxsplit=1)[-1].strip()
+                        subcomponent = subcomponent.split(QueryFilterBuilder.r_list_sep, maxsplit=1)[-1].strip()
                         in_list = False
                     else:
                         continue
 
                 # don't parse components comprised of only a separator
-                if subcomponent in QueryFilter.group_seps:
+                if subcomponent in QueryFilterBuilder.group_seps:
                     quote_offset += 1
                     base_components.append(subcomponent)
                     continue
@@ -479,8 +506,8 @@ class QueryFilter:
                     continue
 
                 # continue parsing this subcomponent up to the list, then skip over subsequent subcomponents
-                if not in_list and QueryFilter.l_list_sep in subcomponent:
-                    subcomponent, _new_sub_component = subcomponent.split(QueryFilter.l_list_sep, maxsplit=1)
+                if not in_list and QueryFilterBuilder.l_list_sep in subcomponent:
+                    subcomponent, _new_sub_component = subcomponent.split(QueryFilterBuilder.l_list_sep, maxsplit=1)
                     subcomponent = subcomponent.strip()
                     subcomponents.insert(i + 1, _new_sub_component)
                     quote_offset += 1
@@ -516,19 +543,19 @@ class QueryFilter:
     @staticmethod
     def _parse_base_components_into_filter_components(
         base_components: list[str | list[str]],
-    ) -> list[str | QueryFilterComponent | LogicalOperator]:
+    ) -> list[str | QueryFilterBuilderComponent | LogicalOperator]:
         """Walk through base components and construct filter collections"""
         relational_keywords = [kw.value for kw in RelationalKeyword]
         relational_operators = [op.value for op in RelationalOperator]
         logical_operators = [op.value for op in LogicalOperator]
 
         # parse QueryFilterComponents and logical operators
-        components: list[str | QueryFilterComponent | LogicalOperator] = []
+        components: list[str | QueryFilterBuilderComponent | LogicalOperator] = []
         for i, base_component in enumerate(base_components):
             if isinstance(base_component, list):
                 continue
 
-            if base_component in QueryFilter.group_seps:
+            if base_component in QueryFilterBuilder.group_seps:
                 components.append(base_component)
 
             elif base_component in relational_keywords or base_component in relational_operators:
@@ -539,7 +566,7 @@ class QueryFilter:
                     relationship = RelationalOperator(base_components[i])
 
                 components.append(
-                    QueryFilterComponent(
+                    QueryFilterBuilderComponent(
                         attribute_name=base_components[i - 1],  # type: ignore
                         relationship=relationship,
                         value=base_components[i + 1],
@@ -550,3 +577,47 @@ class QueryFilter:
                 components.append(LogicalOperator(base_component.upper()))
 
         return components
+
+    def as_json_model(self) -> QueryFilterJSON:
+        parts: list[QueryFilterJSONPart] = []
+
+        current_part: QueryFilterJSONPart | None = None
+        left_parens: list[str] = []
+        right_parens: list[str] = []
+        last_logical_operator: LogicalOperator | None = None
+
+        def add_part():
+            nonlocal current_part, left_parens, right_parens, last_logical_operator
+            if not current_part:
+                return
+
+            current_part.left_parenthesis = "".join(left_parens) or None
+            current_part.right_parenthesis = "".join(right_parens) or None
+            current_part.logical_operator = last_logical_operator
+
+            parts.append(current_part)
+            current_part = None
+            left_parens.clear()
+            right_parens.clear()
+            last_logical_operator = None
+
+        for component in self.filter_components:
+            if isinstance(component, QueryFilterBuilderComponent):
+                if current_part:
+                    add_part()
+                current_part = component.as_json_model()
+
+            elif isinstance(component, LogicalOperator):
+                if current_part:
+                    add_part()
+                last_logical_operator = component
+
+            elif isinstance(component, str):
+                if component == QueryFilterBuilder.l_group_sep:
+                    left_parens.append(component)
+                elif component == QueryFilterBuilder.r_group_sep:
+                    right_parens.append(component)
+
+        # add last part, if any
+        add_part()
+        return QueryFilterJSON(parts=parts)

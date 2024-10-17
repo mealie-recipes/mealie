@@ -15,16 +15,15 @@
         {{ $t('meal-plan.new-rule-description') }}
 
         <GroupMealPlanRuleForm
+          :key="createDataFormKey"
           class="mt-2"
           :day.sync="createData.day"
           :entry-type.sync="createData.entryType"
-          :categories.sync="createData.categories"
-          :tags.sync="createData.tags"
-          :households.sync="createData.households"
+          :query-filter-string.sync="createData.queryFilterString"
         />
       </v-card-text>
       <v-card-actions class="justify-end">
-        <BaseButton create @click="createRule" />
+        <BaseButton create :disabled="!createData.queryFilterString" @click="createRule" />
       </v-card-actions>
     </v-card>
 
@@ -117,12 +116,11 @@
                 <GroupMealPlanRuleForm
                   :day.sync="allRules[idx].day"
                   :entry-type.sync="allRules[idx].entryType"
-                  :categories.sync="allRules[idx].categories"
-                  :tags.sync="allRules[idx].tags"
-                  :households.sync="allRules[idx].households"
+                  :query-filter-string.sync="allRules[idx].queryFilterString"
+                  :query-filter="allRules[idx].queryFilter"
                 />
                 <div class="d-flex justify-end">
-                  <BaseButton update @click="updateRule(rule)" />
+                  <BaseButton update :disabled="!allRules[idx].queryFilterString" @click="updateRule(rule)" />
                 </div>
               </template>
             </v-card-text>
@@ -181,12 +179,11 @@ export default defineComponent({
     // ======================================================
     // Creating Rules
 
+    const createDataFormKey = ref(0);
     const createData = ref<PlanRulesCreate>({
       entryType: "unset",
       day: "unset",
-      categories: [],
-      tags: [],
-      households: [],
+      queryFilterString: "",
     });
 
     async function createRule() {
@@ -196,10 +193,9 @@ export default defineComponent({
         createData.value = {
           entryType: "unset",
           day: "unset",
-          categories: [],
-          tags: [],
-          households: [],
+          queryFilterString: "",
         };
+        createDataFormKey.value++;
       }
     }
 
@@ -220,6 +216,7 @@ export default defineComponent({
 
     return {
       allRules,
+      createDataFormKey,
       createData,
       createRule,
       deleteRule,

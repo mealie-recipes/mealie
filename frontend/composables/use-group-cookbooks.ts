@@ -103,6 +103,8 @@ export const useCookbooks = function () {
       loading.value = true;
       const { data } = await api.cookbooks.createOne({
         name: i18n.t("cookbook.household-cookbook-name", [household.value?.name || "", String((cookbookStore?.value?.length ?? 0) + 1)]) as string,
+        position: (cookbookStore?.value?.length ?? 0) + 1,
+        queryFilterString: "",
       });
       if (data && cookbookStore?.value) {
         cookbookStore.value.push(data);

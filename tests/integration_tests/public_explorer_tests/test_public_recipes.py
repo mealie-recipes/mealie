@@ -244,8 +244,12 @@ def test_public_recipe_cookbook_filter(
         assert response.status_code == 200
 
 
-def test_public_recipe_cookbook_filter_with_recipes(api_client: TestClient, unique_user: TestUser, h2_user: TestUser):
+@pytest.mark.parametrize("other_household_private", [True, False])
+def test_public_recipe_cookbook_filter_with_recipes(
+    api_client: TestClient, unique_user: TestUser, h2_user: TestUser, other_household_private: bool
+):
     database = unique_user.repos
+    database.session.rollback()
 
     # Create a public and private recipe with a known tag
     group = database.groups.get_one(unique_user.group_id)
@@ -281,14 +285,14 @@ def test_public_recipe_cookbook_filter_with_recipes(api_client: TestClient, uniq
 
     database.recipes.update_many([public_recipe, private_recipe])
 
-    # Create a recipe in another household that's public with the same known tag
+    # Create a recipe in another household with the same known tag
     other_database = h2_user.repos
     other_household = other_database.households.get_one(h2_user.household_id)
     assert other_household and other_household.preferences
 
-    other_household.preferences.private_household = False
+    other_household.preferences.private_household = other_household_private
     other_household.preferences.recipe_public = True
-    other_database.household_preferences.update(household.id, household.preferences)
+    other_database.household_preferences.update(other_household.id, other_household.preferences)
 
     other_household_recipe = other_database.recipes.create(
         Recipe(
@@ -309,17 +313,25 @@ def test_public_recipe_cookbook_filter_with_recipes(api_client: TestClient, uniq
             group_id=unique_user.group_id,
             household_id=unique_user.household_id,
             public=True,
-            tags=[tag],
+            query_filter_string=f'tags.id IN ["{tag.id}"]',
         )
     )
 
-    # Get the cookbook's recipes and make sure we only get the public recipe from the correct household
+    # Get the cookbook's recipes and make sure we get both public recipes
     response = api_client.get(
         api_routes.explore_groups_group_slug_recipes(unique_user.group_id), params={"cookbook": cookbook.id}
     )
     assert response.status_code == 200
     recipe_ids: set[str] = {recipe["id"] for recipe in response.json()["items"]}
-    assert len(recipe_ids) == 1
+    if other_household_private:
+        assert len(recipe_ids) == 1
+    else:
+        assert len(recipe_ids) == 2
+
     assert str(public_recipe.id) in recipe_ids
     assert str(private_recipe.id) not in recipe_ids
-    assert str(other_household_recipe.id) not in recipe_ids
+
+    if other_household_private:
+        assert str(other_household_recipe.id) not in recipe_ids
+    else:
+        assert str(other_household_recipe.id) in recipe_ids

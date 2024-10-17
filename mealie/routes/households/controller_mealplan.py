@@ -12,7 +12,7 @@ from mealie.routes._base.mixins import HttpRepo
 from mealie.schema import mapper
 from mealie.schema.meal_plan import CreatePlanEntry, ReadPlanEntry, SavePlanEntry, UpdatePlanEntry
 from mealie.schema.meal_plan.new_meal import CreateRandomEntry, PlanEntryPagination, PlanEntryType
-from mealie.schema.meal_plan.plan_rules import PlanCategory, PlanHousehold, PlanRulesDay, PlanTag
+from mealie.schema.meal_plan.plan_rules import PlanRulesDay
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.response.responses import ErrorResponse
@@ -54,31 +54,15 @@ class GroupMealplanController(BaseCrudController):
         rules = self.repos.group_meal_plan_rules.get_rules(PlanRulesDay.from_date(plan_date), entry_type.value)
         cross_household_recipes = get_repositories(self.session, group_id=self.group_id, household_id=None).recipes
 
-        tags: list[PlanTag] = []
-        categories: list[PlanCategory] = []
-        households: list[PlanHousehold] = []
-        for rule in rules:
-            if rule.tags:
-                tags.extend(rule.tags)
-            if rule.categories:
-                categories.extend(rule.categories)
-            if rule.households:
-                households.extend(rule.households)
-
-        if not (tags or categories or households):
-            return cross_household_recipes.get_random(limit=limit)
-
-        category_ids = [category.id for category in categories] or None
-        tag_ids = [tag.id for tag in tags] or None
-        household_ids = [household.id for household in households] or None
-
+        qf_string = " AND ".join([f"({rule.query_filter_string})" for rule in rules if rule.query_filter_string])
         recipes_data = cross_household_recipes.page_all(
             pagination=PaginationQuery(
-                page=1, per_page=limit, order_by="random", pagination_seed=self.repo._random_seed()
-            ),
-            categories=category_ids,
-            tags=tag_ids,
-            households=household_ids,
+                page=1,
+                per_page=limit,
+                query_filter=qf_string,
+                order_by="random",
+                pagination_seed=self.repo._random_seed(),
+            )
         )
         return recipes_data.items
 
