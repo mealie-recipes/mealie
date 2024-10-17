@@ -52,6 +52,14 @@ Mealie is a self hosted recipe manager, meal planner and shopping list with a Re
 - Docker: Easy **Docker** deployment
 - Localisation: **Translations** for 35+ languages
 
+## Self-Hosting
+
+### Elestio
+
+You can deploy Mealie on Elestio using one-click deployment. Elestio handles version updates, maintenance, securtiy, backups, etc. Additionally, Elestio supports Mealie by providing revenue share so go ahead and click below to deploy and start using.
+
+[![Deploy on Elestio](https://elest.io/images/logos/deploy-to-elestio-btn.png)](https://elest.io/open-source/mealie)
+
 <!-- CONTRIBUTING -->
 ## Contributing
 
