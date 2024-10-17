@@ -1,16 +1,73 @@
 from uuid import uuid4
 
 from slugify import slugify
+from sqlalchemy import and_, update
 from sqlalchemy.orm import Session
 
 from mealie.core import root_logger
+from mealie.db.models._model_base import SqlAlchemyBase
 from mealie.db.models.group.group import Group
 from mealie.db.models.household.shopping_list import ShoppingList, ShoppingListMultiPurposeLabel
 from mealie.db.models.labels import MultiPurposeLabel
 from mealie.db.models.recipe.ingredient import IngredientFoodModel, IngredientUnitModel
 from mealie.db.models.recipe.recipe import RecipeModel
+from mealie.db.models.users.users import User
 
 logger = root_logger.get_logger("init_db")
+
+
+def fix_dangling_refs(session: Session):
+    REASSIGN_REF_TABLES = ["group_meal_plans", "recipes", "shopping_lists"]
+    DELETE_REF_TABLES = ["long_live_tokens", "password_reset_tokens", "recipe_comments", "recipe_timeline_events"]
+
+    all_groups = session.query(Group).all()
+    all_users = session.query(User).all()
+    for group in all_groups:
+        # Find an arbitrary admin user in the group
+        default_user = session.query(User).filter(User.group_id == group.id, User.admin == True).first()  # noqa: E712 - required for SQLAlchemy comparison
+        if not default_user:
+            # If there is no admin user, just pick the first user
+            default_user = session.query(User).filter(User.group_id == group.id).first()
+
+            # If there are no users in the group, we can't do anything
+            if not default_user:
+                continue
+
+        valid_group_user_ids = {user.id for user in all_users if user.group_id == group.id}
+
+        for table_name in REASSIGN_REF_TABLES:
+            table = SqlAlchemyBase.metadata.tables[table_name]
+            update_stmt = (
+                update(table)
+                .where(
+                    and_(
+                        table.c.user_id.notin_(valid_group_user_ids),
+                        table.c.group_id == group.id,
+                    )
+                )
+                .values(user_id=default_user.id)
+            )
+            result = session.execute(update_stmt)
+
+            if result.rowcount:
+                logger.info(
+                    f'Reassigned {result.rowcount} {"row" if result.rowcount == 1 else "rows"} '
+                    f'in "{table_name}" table to default user ({default_user.id})'
+                )
+
+    valid_user_ids_all_groups = {user.id for user in all_users}
+    for table_name in DELETE_REF_TABLES:
+        table = SqlAlchemyBase.metadata.tables[table_name]
+        delete_stmt = table.delete().where(table.c.user_id.notin_(valid_user_ids_all_groups))
+        result = session.execute(delete_stmt)
+
+        if result.rowcount:
+            logger.info(
+                f'Deleted {result.rowcount} {"row" if result.rowcount == 1 else "rows"} '
+                f'in "{table_name}" table with invalid user ids'
+            )
+
+    session.commit()
 
 
 def fix_recipe_normalized_search_properties(session: Session):
@@ -144,6 +201,8 @@ def fix_normalized_unit_and_food_names(session: Session):
 
 def fix_migration_data(session: Session):
     logger.info("Checking for migration data fixes")
+
+    fix_dangling_refs(session)
     fix_recipe_normalized_search_properties(session)
     fix_shopping_list_label_settings(session)
     fix_group_slugs(session)

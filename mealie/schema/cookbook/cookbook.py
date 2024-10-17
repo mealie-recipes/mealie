@@ -1,6 +1,7 @@
 from typing import Annotated
 
 from pydantic import UUID4, ConfigDict, Field, field_validator
+from slugify import slugify
 from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -28,6 +29,18 @@ class CreateCookBook(MealieModel):
     @field_validator("public", mode="before")
     def validate_public(public: bool | None) -> bool:
         return False if public is None else public
+
+    @field_validator("name")
+    def validate_name(name: str) -> str:
+        name = name.strip()
+
+        # we calculate the slug later leveraging the database,
+        # but we still need to validate the name can be slugified
+        possible_slug = slugify(name)
+        if not (name and possible_slug):
+            raise ValueError("Name cannot be empty")
+
+        return name
 
 
 class SaveCookBook(CreateCookBook):
