@@ -69,7 +69,7 @@
 		"name": "cavolfiore verde"
 	},
 	"broccoli": {
-		"name": "broccoli"
+		"name": "broccolo"
 	},
 	"broccoli-rabe": {
 		"name": "friarielli"
@@ -94,7 +94,7 @@
 	},
 	"cabbage": {
 		"name": "cavolo",
-		"plural_name": "cabbages"
+		"plural_name": "cavoli"
 	},
 	"cactus-edible": {
 		"name": "cactus, commestibile"
@@ -116,7 +116,7 @@
 	},
 	"carrot": {
 		"name": "carota",
-		"plural_name": "carrots"
+		"plural_name": "carote"
 	},
 	"caster-sugar": {
 		"name": "zucchero semolato"
@@ -129,7 +129,7 @@
 	},
 	"cauliflower": {
 		"name": "cavolfiore",
-		"plural_name": "cauliflowers"
+		"plural_name": "cavolfiori"
 	},
 	"cayenne-pepper": {
 		"name": "pepe di cayenne"
@@ -154,7 +154,7 @@
 	},
 	"chilli-peppers": {
 		"name": "peperoncino",
-		"plural_name": "chilli peppers"
+		"plural_name": "peperoncino"
 	},
 	"chinese-leaves": {
 		"name": "cavolo di pechino"
@@ -198,7 +198,7 @@
 	},
 	"corn": {
 		"name": "granoturco",
-		"plural_name": "corns"
+		"plural_name": "mais"
 	},
 	"corn-syrup": {
 		"name": "sciroppo di mais"
@@ -244,7 +244,7 @@
 	},
 	"eggs": {
 		"name": "uova",
-		"plural_name": "eggs"
+		"plural_name": "uova"
 	},
 	"endive": {
 		"name": "cicoria",
@@ -292,7 +292,7 @@
 	},
 	"garlic": {
 		"name": "aglio",
-		"plural_name": "garlics"
+		"plural_name": "agli"
 	},
 	"gem-squash": {
 		"name": "gem squash"
@@ -450,7 +450,7 @@
 	},
 	"oranges": {
 		"name": "arance",
-		"plural_name": "oranges"
+		"plural_name": "arance"
 	},
 	"oregano": {
 		"name": "origano"
@@ -473,18 +473,18 @@
 	},
 	"pear": {
 		"name": "pera",
-		"plural_name": "pears"
+		"plural_name": "pere"
 	},
 	"peas": {
 		"name": "piselli"
 	},
 	"pepper": {
 		"name": "pepe",
-		"plural_name": "peppers"
+		"plural_name": "peperoni"
 	},
 	"pineapple": {
 		"name": "ananas",
-		"plural_name": "pineapples"
+		"plural_name": "ananas"
 	},
 	"plantain": {
 		"name": "platano",
@@ -495,7 +495,7 @@
 	},
 	"potato": {
 		"name": "patata",
-		"plural_name": "potatoes"
+		"plural_name": "patate"
 	},
 	"poultry": {
 		"name": "pollame"
@@ -505,7 +505,7 @@
 	},
 	"pumpkin": {
 		"name": "zucca",
-		"plural_name": "pumpkins"
+		"plural_name": "zucca"
 	},
 	"pumpkin-seeds": {
 		"name": "semi di zucca"
@@ -543,7 +543,7 @@
 	},
 	"scallion": {
 		"name": "scalogno",
-		"plural_name": "scallions"
+		"plural_name": "scalogno"
 	},
 	"seafood": {
 		"name": "frutti di mare"
@@ -612,7 +612,7 @@
 	},
 	"sweet-potato": {
 		"name": "patata dolce",
-		"plural_name": "sweet potatoes"
+		"plural_name": "patate dolci"
 	},
 	"sweetcorn": {
 		"name": "mais dolce",

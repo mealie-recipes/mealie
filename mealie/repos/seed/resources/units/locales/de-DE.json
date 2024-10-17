@@ -30,7 +30,7 @@
         "abbreviation": "pt"
     },
     "quart": {
-        "name": "quart",
+        "name": "Quart",
         "plural_name": "Quarts",
         "description": "",
         "abbreviation": "qt"
@@ -55,10 +55,10 @@
     },
     "pound": {
         "name": "Pfund",
-        "plural_name": "Pfunde",
+        "plural_name": "Pfund",
         "description": "",
-        "abbreviation": "lb",
-        "plural_abbreviation": "lbs"
+        "abbreviation": "Pfd.",
+        "plural_abbreviation": "Pfd."
     },
     "ounce": {
         "name": "Unze",
@@ -91,8 +91,8 @@
         "abbreviation": ""
     },
     "dash": {
-        "name": "Prise",
-        "plural_name": "Spritzer",
+        "name": "Schuss",
+        "plural_name": "Schuss",
         "description": "",
         "abbreviation": ""
     },
@@ -122,7 +122,7 @@
     },
     "bunch": {
         "name": "Bund",
-        "plural_name": "Bünde",
+        "plural_name": "Bund",
         "description": "",
         "abbreviation": ""
     },
