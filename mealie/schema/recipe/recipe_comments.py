@@ -14,6 +14,7 @@ from mealie.schema.response.pagination import PaginationBase
 class UserBase(MealieModel):
     id: UUID4
     username: str | None = None
+    full_name: str | None = None
     admin: bool
     model_config = ConfigDict(from_attributes=True)
 
