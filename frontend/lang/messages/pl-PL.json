@@ -212,7 +212,11 @@
     "clipboard-copy-failure": "Nie udało się skopiować do schowka.",
     "confirm-delete-generic-items": "Czy na pewno chcesz usunąć następujące elementy?",
     "organizers": "Organizers",
-    "caution": "Caution"
+    "caution": "Caution",
+    "show-advanced": "Show Advanced",
+    "add-field": "Add Field",
+    "date-created": "Date Created",
+    "date-updated": "Date Updated"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Czy na pewno chcesz usunąć <b>{groupName}<b/>?",
@@ -351,7 +355,7 @@
     "for-type-meal-types": "dla {0} rodzajów posiłków",
     "meal-plan-rules": "Zasady planu posiłków",
     "new-rule": "Nowa reguła",
-    "meal-plan-rules-description": "Możesz tworzyć reguły automatycznego wyboru przepisów dla planów posiłkowych. Te reguły są używane przez serwer do określenia losowej puli przepisów do wyboru podczas tworzenia planów posiłków. Zauważ, że jeśli reguły mają ograniczenia tego samego dnia/typu, kategorie reguł zostaną połączone. W praktyce tworzenie duplikatów reguł jest zbędne, ale jest to możliwe.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the rule filters will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "Przy tworzeniu nowej reguły dotyczącej planu posiłków można ograniczyć regułę, tak aby miała zastosowanie do określonego dnia tygodnia i/lub określonego rodzaju posiłku. Aby zastosować regułę do wszystkich dni lub wszystkich rodzajów posiłków można ustawić regułę na \"Dowolny\", co będzie miało zastosowanie do wszystkich możliwych wartości dla dnia i/lub typu posiłku.",
     "recipe-rules": "Reguły przepisów",
     "applies-to-all-days": "Dotyczy wszystkich dni",
@@ -1319,7 +1323,7 @@
   },
   "cookbook": {
     "cookbooks": "Książki kucharskie",
-    "description": "Książki kucharskie to inny sposób na organizowanie przepisów, tworząc przekrojowe sekcje przepisów i tagów. Stworzenie książki kuchennej spowoduje dodanie wpisu do paska bocznego, a wszystkie pasujące przepisy z wybranymi tagami i kategoriami będą wyświetlane w książce kucharskiej.",
+    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
     "public-cookbook": "Publiczka książka kucharska",
     "public-cookbook-description": "Publiczne Książki kucharskie mogą być udostępniane użytkownikom spoza Mealie i będą wyświetlane na stronie Twoich grup.",
     "filter-options": "Filtruj opcje",
@@ -1332,5 +1336,28 @@
     "household-cookbook-name": "{0} Cookbook {1}",
     "create-a-cookbook": "Utwórz nową książkę kucharską",
     "cookbook": "Książka kucharska"
+  },
+  "query-filter": {
+    "logical-operators": {
+      "and": "AND",
+      "or": "OR"
+    },
+    "relational-operators": {
+      "equals": "equals",
+      "does-not-equal": "does not equal",
+      "is-greater-than": "is greater than",
+      "is-greater-than-or-equal-to": "is greater than or equal to",
+      "is-less-than": "is less than",
+      "is-less-than-or-equal-to": "is less than or equal to"
+    },
+    "relational-keywords": {
+      "is": "is",
+      "is-not": "is not",
+      "is-one-of": "is one of",
+      "is-not-one-of": "is not one of",
+      "contains-all-of": "contains all of",
+      "is-like": "is like",
+      "is-not-like": "is not like"
+    }
   }
 }
