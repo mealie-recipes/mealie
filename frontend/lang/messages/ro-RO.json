@@ -212,7 +212,11 @@
     "clipboard-copy-failure": "Copierea în clipboard a eșuat.",
     "confirm-delete-generic-items": "Sunteți sigur că doriți să ștergeți următoarele?",
     "organizers": "Organizatori",
-    "caution": "Atenție"
+    "caution": "Atenție",
+    "show-advanced": "Show Advanced",
+    "add-field": "Add Field",
+    "date-created": "Date Created",
+    "date-updated": "Date Updated"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Sunteți sigur că doriți să ștergeți <b>{groupName}<b/>?",
@@ -351,7 +355,7 @@
     "for-type-meal-types": "pentru {0} tipuri de mese",
     "meal-plan-rules": "Regulile Planului de Masă",
     "new-rule": "Regulă nouă",
-    "meal-plan-rules-description": "Puteți crea reguli pentru selectarea automată a rețetelor pentru planurile dumneavoastră de masă. Aceste reguli sunt folosite de către server pentru a determina rețetele valabile pentru selecție, atunci când creezi planurile de masă. În cazul in care regulile au aceleași constrângeri de zi sau de tip, atunci categoriile regulilor vor fi fuzionate. În practică, este inutilă creerea regulilor dublate, dar este posibil să se întample acest lucru.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the rule filters will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "Atunci când creați o nouă regulă pentru un plan de masă puteți restricționa regula aplicabilă pentru o anumită zi a săptămânii și/sau pentru un anumit tip de masă. Pentru a aplica o regulă pentru toate zilele sau toate tipurile de mese puteţi seta regula la \"Oricare\" ce va fi aplicată la toate valorile posibile pentru ziua şi/sau tipul mesei.",
     "recipe-rules": "Reguli rețetă",
     "applies-to-all-days": "Se aplică pentru toate zilele",
@@ -1319,7 +1323,7 @@
   },
   "cookbook": {
     "cookbooks": "Cookbooks",
-    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes and tags. Creating a cookbook will add an entry to the side-bar and all the recipes with the tags and categories chosen will be displayed in the cookbook.",
+    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
     "public-cookbook": "Public Cookbook",
     "public-cookbook-description": "Public Cookbooks can be shared with non-mealie users and will be displayed on your groups page.",
     "filter-options": "Filter Options",
@@ -1332,5 +1336,28 @@
     "household-cookbook-name": "{0} Cookbook {1}",
     "create-a-cookbook": "Create a Cookbook",
     "cookbook": "Cookbook"
+  },
+  "query-filter": {
+    "logical-operators": {
+      "and": "AND",
+      "or": "OR"
+    },
+    "relational-operators": {
+      "equals": "equals",
+      "does-not-equal": "does not equal",
+      "is-greater-than": "is greater than",
+      "is-greater-than-or-equal-to": "is greater than or equal to",
+      "is-less-than": "is less than",
+      "is-less-than-or-equal-to": "is less than or equal to"
+    },
+    "relational-keywords": {
+      "is": "is",
+      "is-not": "is not",
+      "is-one-of": "is one of",
+      "is-not-one-of": "is not one of",
+      "contains-all-of": "contains all of",
+      "is-like": "is like",
+      "is-not-like": "is not like"
+    }
   }
 }

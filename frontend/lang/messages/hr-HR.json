@@ -212,7 +212,11 @@
     "clipboard-copy-failure": "Failed to copy to the clipboard.",
     "confirm-delete-generic-items": "Are you sure you want to delete the following items?",
     "organizers": "Organizers",
-    "caution": "Caution"
+    "caution": "Caution",
+    "show-advanced": "Show Advanced",
+    "add-field": "Add Field",
+    "date-created": "Date Created",
+    "date-updated": "Date Updated"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Jeste li sigurni da želite izbrisati <b>{groupName}<b/>?",
@@ -351,7 +355,7 @@
     "for-type-meal-types": "za {0} vrste obroka",
     "meal-plan-rules": "Pravila Plana Obroka",
     "new-rule": "Novo Pravilo",
-    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the rule filters will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "Prilikom stvaranja novog pravila za plan obroka možete ograničiti primjenu pravila na određeni dan u tjednu i/ili određenu vrstu obroka. Da biste primijenili pravilo na sve dane ili sve vrste obroka, možete postaviti pravilo na \"Bilo koji\" (\"Any\"), što će ga primijeniti na sve moguće vrijednosti za dan i/ili vrstu obroka.",
     "recipe-rules": "Pravila Recepata",
     "applies-to-all-days": "Primjeni na sve dane",
@@ -1319,7 +1323,7 @@
   },
   "cookbook": {
     "cookbooks": "Zbirka recepata",
-    "description": "Zbirke recepata su još jedan način organiziranja recepata stvaranjem presjeka recepata i oznaka. Stvaranje zbirki dodaje unos na bočnu traku, a svi recepti s odabranim oznakama i kategorijama bit će prikazani u zbirci.",
+    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
     "public-cookbook": "Javna zbirka recepata",
     "public-cookbook-description": "Javne zbirke recepata mogu se dijeliti s korisnicima koji nisu Mealie korisnici i bit će prikazane na stranici vaše grupe.",
     "filter-options": "Opcije filtra",
@@ -1332,5 +1336,28 @@
     "household-cookbook-name": "{0} Cookbook {1}",
     "create-a-cookbook": "Create a Cookbook",
     "cookbook": "Cookbook"
+  },
+  "query-filter": {
+    "logical-operators": {
+      "and": "AND",
+      "or": "OR"
+    },
+    "relational-operators": {
+      "equals": "equals",
+      "does-not-equal": "does not equal",
+      "is-greater-than": "is greater than",
+      "is-greater-than-or-equal-to": "is greater than or equal to",
+      "is-less-than": "is less than",
+      "is-less-than-or-equal-to": "is less than or equal to"
+    },
+    "relational-keywords": {
+      "is": "is",
+      "is-not": "is not",
+      "is-one-of": "is one of",
+      "is-not-one-of": "is not one of",
+      "contains-all-of": "contains all of",
+      "is-like": "is like",
+      "is-not-like": "is not like"
+    }
   }
 }

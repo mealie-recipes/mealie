@@ -212,7 +212,11 @@
     "clipboard-copy-failure": "Nem sikerült a vágólapra másolás.",
     "confirm-delete-generic-items": "Biztos benne, hogy törölni szeretné az alábbi tételeket?",
     "organizers": "Rendszerezők",
-    "caution": "Figyelmeztetés"
+    "caution": "Figyelmeztetés",
+    "show-advanced": "Haladó beállítások megjelenítése",
+    "add-field": "Mező hozzáadása",
+    "date-created": "Létrehozás dátuma",
+    "date-updated": "Frissítés dátuma"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Biztosan törölni szeretnéd ezt: <b>{groupName}<b/>?",
@@ -351,7 +355,7 @@
     "for-type-meal-types": "{0} étkezés fajtához",
     "meal-plan-rules": "Menüterv szabályok",
     "new-rule": "Új szabály",
-    "meal-plan-rules-description": "A menütervekhez szükséges receptek automatikus kiválasztásához létrehozhat szabályokat. Ezeket a szabályokat a kiszolgáló arra használja, hogy meghatározza a receptek véletlenszerű választékát, amelyből a menütervek létrehozásakor választani fog. Vegye figyelembe, hogy ha a szabályoknak azonos nap/típus megkötései vannak, akkor a szabályok kategóriái összevonásra kerülnek. A gyakorlatban nem szükséges duplikált szabályokat létrehozni, de lehetséges.",
+    "meal-plan-rules-description": "A menütervekhez szükséges receptek automatikus kiválasztásához létrehozhat szabályokat. Ezeket a szabályokat a kiszolgáló arra használja, hogy meghatározza a receptek véletlenszerű választékát, amelyből a menütervek létrehozásakor választania kell. Vegye figyelembe, hogy ha a szabályoknak azonos nap/típus megkötései vannak, akkor a szabályszűrők összevonásra kerülnek. A gyakorlatban nem szükséges duplikált szabályokat létrehozni, de lehetséges.",
     "new-rule-description": "Amikor új szabályt hoz létre egy menütervhez, korlátozhatja a szabályt, hogy a hét egy adott napjára és/vagy egy adott típusú étkezésre vonatkozzon. Ha egy szabályt minden napra vagy étkezési típusra alkalmazni szeretne, akkor a szabályt \"Bármely\" értékre állíthatja be, amely azt az adott nap és/vagy étkezési típus összes lehetséges értékére alkalmazza.",
     "recipe-rules": "Recept szabályok",
     "applies-to-all-days": "Minden napra vonatkozóan",
@@ -1319,7 +1323,7 @@
   },
   "cookbook": {
     "cookbooks": "Szakácskönyvek",
-    "description": "A szakácskönyvek egy másik módja a receptek rendszerezésének a receptek és címkék metszeteinek összeállításával. Egy szakácskönyv létrehozása egy bejegyzést ad az oldalsávhoz, és a kiválasztott címkékkel és kategóriákkal rendelkező összes recept megjelenik a szakácskönyvben.",
+    "description": "A szakácskönyvek egy másik módja a receptek rendszerezésének a receptek, szervezők és egyéb szűrők keresztmetszeteinek létrehozásával. Egy szakácskönyv létrehozása egy bejegyzést ad az oldalsávhoz, és a kiválasztott szűrőkkel rendelkező összes recept megjelenik a szakácskönyvben.",
     "public-cookbook": "Nyilvános szakácskönyv",
     "public-cookbook-description": "A nyilvános szakácskönyvek megoszthatók a nem mealie felhasználókkal, és megjelennek a csoportod oldalán.",
     "filter-options": "Szűrési beállítások",
@@ -1332,5 +1336,28 @@
     "household-cookbook-name": "{0} Szakácskönyv {1}",
     "create-a-cookbook": "Szakácskönyv létrehozása",
     "cookbook": "Szakácskönyv"
+  },
+  "query-filter": {
+    "logical-operators": {
+      "and": "ÉS",
+      "or": "VAGY"
+    },
+    "relational-operators": {
+      "equals": "egyenlő",
+      "does-not-equal": "nem egyenlő",
+      "is-greater-than": "nagyobb, mint",
+      "is-greater-than-or-equal-to": "nagyobb vagy egyenlő",
+      "is-less-than": "kevesebb, mint",
+      "is-less-than-or-equal-to": "kevesebb vagy egyenlő"
+    },
+    "relational-keywords": {
+      "is": "van",
+      "is-not": "nem",
+      "is-one-of": "egy ebből",
+      "is-not-one-of": "nem az egyike",
+      "contains-all-of": "tartalmazza az összes",
+      "is-like": "hasonló",
+      "is-not-like": "nem hasonló"
+    }
   }
 }

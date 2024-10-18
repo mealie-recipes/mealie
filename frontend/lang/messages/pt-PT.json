@@ -212,7 +212,11 @@
     "clipboard-copy-failure": "Erro ao copiar para a área de transferência.",
     "confirm-delete-generic-items": "Tem a certeza de que deseja eliminar os seguintes itens?",
     "organizers": "Organizadores",
-    "caution": "Cuidado"
+    "caution": "Cuidado",
+    "show-advanced": "Show Advanced",
+    "add-field": "Add Field",
+    "date-created": "Date Created",
+    "date-updated": "Date Updated"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Tem a certeza que quer eliminar <b>{groupName}<b/>?",
@@ -351,7 +355,7 @@
     "for-type-meal-types": "para {0} tipos de refeições",
     "meal-plan-rules": "Regras do Plano de Refeições",
     "new-rule": "Nova regra",
-    "meal-plan-rules-description": "Pode criar regras para auto selecionar receitas para os seus planos de refeições. Estas regras são usadas pelo servidor para determinar o conjunto aleatório de receitas a serem selecionadas quando se criam planos de refeições. Note que se as regras tiverem as mesmas restrições dia/tipo, as categorias das regras serão fundidas. Na prática, é desnecessário criar regras em duplicado, mas é possível fazê-lo.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the rule filters will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "Ao criar uma regra para um plano de refeições, pode restringir a regra para ser aplicada a um dia da semana específico e/ou a um tipo de refeição específico. Para aplicar a regra a todos os dias oua todos os tipos de refeição, pode definir a regra para \"Qualquer um\" o que a aplicará a todos os valores possíveis para o dia e/ou tipo de refeição.",
     "recipe-rules": "Regras das receitas",
     "applies-to-all-days": "Aplica-se a todos os dias",
@@ -1319,7 +1323,7 @@
   },
   "cookbook": {
     "cookbooks": "Livros de Receitas",
-    "description": "Os Livros de Receitas são outra forma de organizar receitas, criando secções cruzadas de receitas e marcadores. Criar um livro de receitas adiciona uma entrada na barra lateral e todas as receitas, com as etiquetas e categorias escolhidas, serão exibidas no livro de receitas.",
+    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
     "public-cookbook": "Livro de Receitas público",
     "public-cookbook-description": "Os Livros de Receitas públicos podem ser partilhados com utilizadores não registados e serão exibidos na sua página de grupos.",
     "filter-options": "Opções de Filtro",
@@ -1332,5 +1336,28 @@
     "household-cookbook-name": "{0} Cookbook {1}",
     "create-a-cookbook": "Criar um Livro de Receitas",
     "cookbook": "Livro de Receitas"
+  },
+  "query-filter": {
+    "logical-operators": {
+      "and": "AND",
+      "or": "OR"
+    },
+    "relational-operators": {
+      "equals": "equals",
+      "does-not-equal": "does not equal",
+      "is-greater-than": "is greater than",
+      "is-greater-than-or-equal-to": "is greater than or equal to",
+      "is-less-than": "is less than",
+      "is-less-than-or-equal-to": "is less than or equal to"
+    },
+    "relational-keywords": {
+      "is": "is",
+      "is-not": "is not",
+      "is-one-of": "is one of",
+      "is-not-one-of": "is not one of",
+      "contains-all-of": "contains all of",
+      "is-like": "is like",
+      "is-not-like": "is not like"
+    }
   }
 }

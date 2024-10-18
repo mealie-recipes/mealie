@@ -212,7 +212,11 @@
     "clipboard-copy-failure": "Failed to copy to the clipboard.",
     "confirm-delete-generic-items": "Are you sure you want to delete the following items?",
     "organizers": "Organizers",
-    "caution": "Caution"
+    "caution": "Caution",
+    "show-advanced": "Show Advanced",
+    "add-field": "Add Field",
+    "date-created": "Date Created",
+    "date-updated": "Date Updated"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Да ли сте сигурни да желите да обришете <b>{groupName}<b/>?",
@@ -351,7 +355,7 @@
     "for-type-meal-types": "for {0} meal types",
     "meal-plan-rules": "Meal Plan Rules",
     "new-rule": "Ново правило",
-    "meal-plan-rules-description": "Можете креирати правила за аутоматски избор рецепата за ваше јеловнике. Ова правила користи сервер за одређивање случајног сета рецепата из којег ће бити изабране при креирању јеловника. Обратите пажњу да ако правила имају исто ограничење дана/типа, категорије правила ће бити спојене. У пракси, није потребно креирати дупла правила, али је могуће то учинити.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the rule filters will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "При креирању новог правила за јеловник, можете ограничити примену правила на одређени дан у недељи и/или на одређени тип оброка. Како бисте применили правило на све дане или све типове оброка, можете поставити правило на 'Било који', што ће га применити на све могуће вредности за дан и/или тип оброка.",
     "recipe-rules": "Правила за рецепт",
     "applies-to-all-days": "Applies to all days",
@@ -1319,7 +1323,7 @@
   },
   "cookbook": {
     "cookbooks": "Кувари",
-    "description": "Кувари су још један начин за организовање рецепата креирањем пресека рецепата и ознака. Креирање кувара додаће ставку на бочну траку и све рецепте са изабраним ознакама и категоријама биће приказане у кувару.",
+    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
     "public-cookbook": "Јавни кувар",
     "public-cookbook-description": "Public Cookbooks can be shared with non-mealie users and will be displayed on your groups page.",
     "filter-options": "Опције филтера",
@@ -1332,5 +1336,28 @@
     "household-cookbook-name": "{0} Cookbook {1}",
     "create-a-cookbook": "Create a Cookbook",
     "cookbook": "Cookbook"
+  },
+  "query-filter": {
+    "logical-operators": {
+      "and": "AND",
+      "or": "OR"
+    },
+    "relational-operators": {
+      "equals": "equals",
+      "does-not-equal": "does not equal",
+      "is-greater-than": "is greater than",
+      "is-greater-than-or-equal-to": "is greater than or equal to",
+      "is-less-than": "is less than",
+      "is-less-than-or-equal-to": "is less than or equal to"
+    },
+    "relational-keywords": {
+      "is": "is",
+      "is-not": "is not",
+      "is-one-of": "is one of",
+      "is-not-one-of": "is not one of",
+      "contains-all-of": "contains all of",
+      "is-like": "is like",
+      "is-not-like": "is not like"
+    }
   }
 }

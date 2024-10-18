@@ -212,7 +212,11 @@
     "clipboard-copy-failure": "Kopiering til udklipsholderen mislykkedes.",
     "confirm-delete-generic-items": "Er du sikker på at du ønsker at slette de valgte emner?",
     "organizers": "Organisatorer",
-    "caution": "Bemærk"
+    "caution": "Bemærk",
+    "show-advanced": "Show Advanced",
+    "add-field": "Add Field",
+    "date-created": "Date Created",
+    "date-updated": "Date Updated"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Er du sikker på, du vil slette <b>{groupName}<b/>?",
@@ -351,7 +355,7 @@
     "for-type-meal-types": "for {0} måltidstyper",
     "meal-plan-rules": "Regler for madplanlægning",
     "new-rule": "Ny Regel",
-    "meal-plan-rules-description": "Du kan oprette regler for automatisk valg af opskrifter til dine måltidsplaner. Disse regler bruges af Mealie til at udvælge de opskrifter, som der skal vælges tilfældigt imellem, når du opretter madplaner. Bemærk, at hvis reglerne har samme dag/type begrænsninger, så vil kategorierne af reglerne blive sammenlagt. I praksis er det unødvendigt at skabe dobbelte regler, men det er muligt at gøre det.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the rule filters will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "Når du opretter en ny regel for en madplan, kan du begrænse reglen til at være gældende for en bestemt dag i ugen og/eller en bestemt måltidstype. For at anvende en regel for alle dage eller alle måltider typer kan du indstille reglen til \"Any\", som vil anvende den til alle mulige værdier for dag og/eller måltid.",
     "recipe-rules": "Opskriftsregler",
     "applies-to-all-days": "Gælder for alle dage",
@@ -1319,7 +1323,7 @@
   },
   "cookbook": {
     "cookbooks": "Kogebøger",
-    "description": "Kogebøger er en anden måde at organisere opskrifter ved at oprette en samling af opskrifter og mærker. Oprettelse af en kogebog vil tilføje et link i sidemenuen til kogebogen. Alle opskrifter med de valgte mærker og kategorier vil blive vist i kogebogen.",
+    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
     "public-cookbook": "Offentlig kogebog",
     "public-cookbook-description": "Offentlige kogebøger kan deles med personer, der ikke er oprettet som brugere i Mealie og vil blive vist på din gruppe side.",
     "filter-options": "Filtreringsindstillinger",
@@ -1332,5 +1336,28 @@
     "household-cookbook-name": "{0} Kogebog {1}",
     "create-a-cookbook": "Opret en ny kogebog",
     "cookbook": "Kogebog"
+  },
+  "query-filter": {
+    "logical-operators": {
+      "and": "AND",
+      "or": "OR"
+    },
+    "relational-operators": {
+      "equals": "equals",
+      "does-not-equal": "does not equal",
+      "is-greater-than": "is greater than",
+      "is-greater-than-or-equal-to": "is greater than or equal to",
+      "is-less-than": "is less than",
+      "is-less-than-or-equal-to": "is less than or equal to"
+    },
+    "relational-keywords": {
+      "is": "is",
+      "is-not": "is not",
+      "is-one-of": "is one of",
+      "is-not-one-of": "is not one of",
+      "contains-all-of": "contains all of",
+      "is-like": "is like",
+      "is-not-like": "is not like"
+    }
   }
 }

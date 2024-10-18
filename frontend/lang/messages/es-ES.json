@@ -212,7 +212,11 @@
     "clipboard-copy-failure": "No se pudo copiar al portapapeles.",
     "confirm-delete-generic-items": "¿Estás seguro que quieres eliminar los siguientes elementos?",
     "organizers": "Organizadores",
-    "caution": "Precaución"
+    "caution": "Precaución",
+    "show-advanced": "Show Advanced",
+    "add-field": "Add Field",
+    "date-created": "Date Created",
+    "date-updated": "Date Updated"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Por favor, confirma que deseas eliminar <b>{groupName}<b/>",
@@ -351,7 +355,7 @@
     "for-type-meal-types": "para {0} tipos de comida",
     "meal-plan-rules": "Reglas del Plan de Comida",
     "new-rule": "Nueva Regla",
-    "meal-plan-rules-description": "Puedes crear reglas para la selección automática de recetas para tus planes de comida. Estas reglas son usadas por el servidor para determinar el conjunto aleatorio de recetas para crear planes de comidas. Ten en cuenta que si las reglas tienen las mismas restricciones diarias/tipos, las categorías de las reglas se fusionaran. En la práctica, no es necesario crear reglas duplicadas, pero es posible.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the rule filters will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "Al crear una nueva regla para un plan de comidas, puede restringir la regla para que se aplique a un día específico de la semana y/o un tipo específico de comida. Para aplicar una regla a todos los días o a todos los tipos de comida, puede establecer la regla en \"Cualquiera\", lo que la aplicará a todos los valores posibles para el día y/o el tipo de comida.",
     "recipe-rules": "Reglas de Recetas",
     "applies-to-all-days": "Aplica para todos los días",
@@ -1319,7 +1323,7 @@
   },
   "cookbook": {
     "cookbooks": "Recetarios",
-    "description": "Los recetarios son otra forma de organizar recetas creando secciones cruzadas de recetas y etiquetas. Crear un recetario añadirá una entrada a la barra lateral y todas las recetas con las etiquetas y categorías elegidas se mostrarán en el recetario.",
+    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
     "public-cookbook": "Recetario público",
     "public-cookbook-description": "Los recetarios públicos se pueden compartir con usuarios externos y se mostrarán en su página de grupos.",
     "filter-options": "Opciones de filtro",
@@ -1332,5 +1336,28 @@
     "household-cookbook-name": "{0} Libro de Cocina {1}",
     "create-a-cookbook": "Crear Recetario",
     "cookbook": "Recetario"
+  },
+  "query-filter": {
+    "logical-operators": {
+      "and": "AND",
+      "or": "OR"
+    },
+    "relational-operators": {
+      "equals": "equals",
+      "does-not-equal": "does not equal",
+      "is-greater-than": "is greater than",
+      "is-greater-than-or-equal-to": "is greater than or equal to",
+      "is-less-than": "is less than",
+      "is-less-than-or-equal-to": "is less than or equal to"
+    },
+    "relational-keywords": {
+      "is": "is",
+      "is-not": "is not",
+      "is-one-of": "is one of",
+      "is-not-one-of": "is not one of",
+      "contains-all-of": "contains all of",
+      "is-like": "is like",
+      "is-not-like": "is not like"
+    }
   }
 }

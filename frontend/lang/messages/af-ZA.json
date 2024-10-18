@@ -212,7 +212,11 @@
     "clipboard-copy-failure": "Failed to copy to the clipboard.",
     "confirm-delete-generic-items": "Are you sure you want to delete the following items?",
     "organizers": "Organizers",
-    "caution": "Caution"
+    "caution": "Caution",
+    "show-advanced": "Show Advanced",
+    "add-field": "Add Field",
+    "date-created": "Date Created",
+    "date-updated": "Date Updated"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Is jy seker jy wil <b>{groupName}<b/> uitvee?",
@@ -351,7 +355,7 @@
     "for-type-meal-types": "vir {0} maaltydtipes",
     "meal-plan-rules": "Maaltydplanreëls",
     "new-rule": "Nuwe reël",
-    "meal-plan-rules-description": "Jy kan reëls skep om resepte vir jou maaltydplanne outomaties te kies. Hierdie reëls word deur die bediener gebruik om die willekeurige poel resepte te bepaal om van te kies wanneer maaltydplanne geskep word. Let daarop dat as reëls dieselfde dag/tipe beperkings het, dan sal die kategorieë van die reëls saamgevoeg word. In praktyk is dit onnodig om duplikaatreëls te skep, hoewel dit moontlik is om dit te doen.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the rule filters will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "Wanneer 'n nuwe reël vir 'n maaltydplan geskep word, kan jy die reël beperk tot 'n spesifieke dag van die week en/of 'n spesifieke tipe maaltyd. Om 'n reël op alle dae of alle maaltye toe te pas, kan jy die reël op \"Enige\" stel wat dit op alle moontlike waardes vir die dag en/of maaltydtipe sal toepas.",
     "recipe-rules": "Resepreëls",
     "applies-to-all-days": "Van toepassing op alle dae",
@@ -1319,7 +1323,7 @@
   },
   "cookbook": {
     "cookbooks": "Kookboeke",
-    "description": "'n Kookboek is 'n alternatief om resepte te organiseer deur resepte en merkers te kombineer. Die skep van 'n kookboek sal 'n item by die sybalk voeg en alle resepte met die merkers en kategorieë wat gekies is, sal in die kookboek vertoon word.",
+    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
     "public-cookbook": "Openbare kookboek",
     "public-cookbook-description": "Publieke kookboeke kan met nie-mealie-gebruikers gedeel word en sal op jou groepbladsy verskyn.",
     "filter-options": "Filter opsies",
@@ -1332,5 +1336,28 @@
     "household-cookbook-name": "{0} Cookbook {1}",
     "create-a-cookbook": "Create a Cookbook",
     "cookbook": "Cookbook"
+  },
+  "query-filter": {
+    "logical-operators": {
+      "and": "AND",
+      "or": "OR"
+    },
+    "relational-operators": {
+      "equals": "equals",
+      "does-not-equal": "does not equal",
+      "is-greater-than": "is greater than",
+      "is-greater-than-or-equal-to": "is greater than or equal to",
+      "is-less-than": "is less than",
+      "is-less-than-or-equal-to": "is less than or equal to"
+    },
+    "relational-keywords": {
+      "is": "is",
+      "is-not": "is not",
+      "is-one-of": "is one of",
+      "is-not-one-of": "is not one of",
+      "contains-all-of": "contains all of",
+      "is-like": "is like",
+      "is-not-like": "is not like"
+    }
   }
 }

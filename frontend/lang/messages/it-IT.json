@@ -212,7 +212,11 @@
     "clipboard-copy-failure": "Impossibile copiare negli appunti.",
     "confirm-delete-generic-items": "Sei sicuro di voler eliminare i seguenti elementi?",
     "organizers": "Organizzatori",
-    "caution": "Attenzione"
+    "caution": "Attenzione",
+    "show-advanced": "Show Advanced",
+    "add-field": "Add Field",
+    "date-created": "Date Created",
+    "date-updated": "Date Updated"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Sei sicuro di volerlo eliminare <b>{groupName}<b/>'?",
@@ -351,7 +355,7 @@
     "for-type-meal-types": "per {0} tipi di pasto",
     "meal-plan-rules": "Regole del piano alimentare",
     "new-rule": "Nuova regola",
-    "meal-plan-rules-description": "Puoi creare regole per la selezione automatica delle ricette per i tuoi piani alimentari. Queste regole vengono utilizzate dal server per determinare le ricette da selezionare durante la creazione dei piani alimentari. Tieni presente che se le regole hanno gli stessi vincoli di giorno/tipo, le categorie delle regole verranno unite. In pratica non è necessario creare regole duplicate, ma è possibile farlo.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the rule filters will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "Quando si crea una nuova regola per un piano alimentare è possibile limitare la sua applicazione ad un giorno specifico della settimana e/o un tipo specifico di pasto. Per applicare una regola a tutti i giorni o a tutti i tipi di pasto, è possibile impostare la regola a \"Qualsiasi\", applicandola a tutti i possibili valori per il tipo di giorno e/o di pasto.",
     "recipe-rules": "Regole per le ricette",
     "applies-to-all-days": "Si applica a ogni giorno",
@@ -1319,7 +1323,7 @@
   },
   "cookbook": {
     "cookbooks": "Ricettari",
-    "description": "I Ricettari sono un modo diverso di organizzare ricette creando sezioni trasversali di ricette e tag. La creazione di un ricettario aggiungerà una voce alla barra laterale e tutte le ricette con i tag e le categorie selezionate saranno visualizzate al suo interno.",
+    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
     "public-cookbook": "Ricettario Pubblico",
     "public-cookbook-description": "I ricettari pubblici possono essere condivisi con gli utenti non-mealie e saranno visualizzati nella pagina dei gruppi.",
     "filter-options": "Opzioni Filtro",
@@ -1332,5 +1336,28 @@
     "household-cookbook-name": "{0} Cookbook {1}",
     "create-a-cookbook": "Crea un libro di cucina",
     "cookbook": "Libro di cucina"
+  },
+  "query-filter": {
+    "logical-operators": {
+      "and": "AND",
+      "or": "OR"
+    },
+    "relational-operators": {
+      "equals": "equals",
+      "does-not-equal": "does not equal",
+      "is-greater-than": "is greater than",
+      "is-greater-than-or-equal-to": "is greater than or equal to",
+      "is-less-than": "is less than",
+      "is-less-than-or-equal-to": "is less than or equal to"
+    },
+    "relational-keywords": {
+      "is": "is",
+      "is-not": "is not",
+      "is-one-of": "is one of",
+      "is-not-one-of": "is not one of",
+      "contains-all-of": "contains all of",
+      "is-like": "is like",
+      "is-not-like": "is not like"
+    }
   }
 }
