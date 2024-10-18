@@ -212,7 +212,11 @@
     "clipboard-copy-failure": "クリップボードにコピーできませんでした",
     "confirm-delete-generic-items": "次のアイテムを本当に削除しますか？",
     "organizers": "収納",
-    "caution": "注意"
+    "caution": "注意",
+    "show-advanced": "Show Advanced",
+    "add-field": "Add Field",
+    "date-created": "Date Created",
+    "date-updated": "Date Updated"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "<b>{groupName}<b/> を削除しますか？",
@@ -351,7 +355,7 @@
     "for-type-meal-types": "{0} の食事の種類",
     "meal-plan-rules": "食事プランのルール",
     "new-rule": "新しいルール",
-    "meal-plan-rules-description": "食事計画のレシピを自動的に選択するためのルールを作成できます。 これらのルールは、食事計画を作成するときから選択するレシピのランダムプールを決定するためにサーバーによって使用されます。 ルールが同じ日/型の制約を持つ場合、ルールのカテゴリが統合されることに注意してください。 実際には、重複したルールを作成する必要はありませんが、そうすることは可能です。",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the rule filters will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "食事プランの新しいルールを作成する場合は、特定の曜日および/または特定の種類の食事に適用されるルールを制限できます。 すべての日またはすべての食事タイプにルールを適用するには、その日または食事タイプのすべての可能な値に適用されるルールを \"すべて\" に設定できます。",
     "recipe-rules": "レシピのルール",
     "applies-to-all-days": "すべての日に適用",
@@ -1319,7 +1323,7 @@
   },
   "cookbook": {
     "cookbooks": "料理本",
-    "description": "料理本は、レシピの見本とタグを作成してレシピを整理するもう 1 つの方法です。料理本を作成すると、サイドバーにエントリが追加され、選択したタグとカテゴリを持つすべてのレシピが料理本に表示されます。",
+    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
     "public-cookbook": "公開料理本",
     "public-cookbook-description": "公開料理本は非Mealieユーザーと共有でき、グループページに表示されます。",
     "filter-options": "フィルタオプション",
@@ -1332,5 +1336,28 @@
     "household-cookbook-name": "{0} 料理本 {1}",
     "create-a-cookbook": "料理本を作成",
     "cookbook": "料理本"
+  },
+  "query-filter": {
+    "logical-operators": {
+      "and": "AND",
+      "or": "OR"
+    },
+    "relational-operators": {
+      "equals": "equals",
+      "does-not-equal": "does not equal",
+      "is-greater-than": "is greater than",
+      "is-greater-than-or-equal-to": "is greater than or equal to",
+      "is-less-than": "is less than",
+      "is-less-than-or-equal-to": "is less than or equal to"
+    },
+    "relational-keywords": {
+      "is": "is",
+      "is-not": "is not",
+      "is-one-of": "is one of",
+      "is-not-one-of": "is not one of",
+      "contains-all-of": "contains all of",
+      "is-like": "is like",
+      "is-not-like": "is not like"
+    }
   }
 }
