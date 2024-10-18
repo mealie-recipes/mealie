@@ -342,8 +342,6 @@ export default defineComponent({
 
       const { response, data } = await api.bulk.bulkDelete({ recipes });
 
-      console.log(response, data);
-
       await refreshRecipes();
       resetAll();
     }
@@ -365,8 +363,6 @@ export default defineComponent({
 
       const { response, data } = await api.bulk.bulkSetSettings({ recipes, settings: recipeSettings });
 
-      console.log(response, data);
-
       await refreshRecipes();
       resetAll();
     }
@@ -382,8 +378,6 @@ export default defineComponent({
 
       loading.value = true;
       const { response, data } = await api.recipes.updateMany(selected.value);
-
-      console.log(response, data);
 
       await refreshRecipes();
       resetAll();
