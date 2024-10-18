@@ -212,7 +212,11 @@
     "clipboard-copy-failure": "Η αντιγραφή στο πρόχειρο απέτυχε.",
     "confirm-delete-generic-items": "Θέλετε σίγουρα να διαγράψετε τα ακόλουθα αντικείμενα;",
     "organizers": "Οργανωτές",
-    "caution": "Προσοχή"
+    "caution": "Προσοχή",
+    "show-advanced": "Εμφάνιση προχωρημένων επιλογών",
+    "add-field": "Προσθήκη πεδίου",
+    "date-created": "Ημερομηνία δημιουργίας",
+    "date-updated": "Ημερομηνία ενημέρωσης"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Θέλετε σίγουρα να διαγράψετε αυτό τον ασφαλή σύνδεσμο <b>{groupName}<b/>;",
@@ -351,7 +355,7 @@
     "for-type-meal-types": "για γεύματα τύπου {0}",
     "meal-plan-rules": "Κανόνες Προγράμματος Γευμάτων",
     "new-rule": "Νέος κανόνας",
-    "meal-plan-rules-description": "Μπορείτε να δημιουργήσετε κανόνες για την αυτόματη επιλογή συνταγών για τα προγράμματα γευμάτων. Αυτοί οι κανόνες χρησιμοποιούνται από το διακομιστή για τον προσδιορισμό της τυχαίας δεξαμενής συνταγών από τις οποίες μπορείτε να επιλέξετε κατά τη δημιουργία προγραμμάτων γευμάτων. Σημειώστε ότι αν οι κανόνες έχουν τους ίδιους περιορισμούς ημέρας/τύπου τότε οι κατηγορίες των κανόνων θα συγχωνευθούν. Στην πράξη, είναι περιττή η δημιουργία διπλότυπων κανόνων, είναι όμως εφικτή.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the rule filters will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "Κατά τη δημιουργία ενός νέου κανόνα για ένα σχέδιο γεύματος, μπορείτε να περιορίσετε τον κανόνα ώστε να ισχύει για μια συγκεκριμένη ημέρα της εβδομάδας ή/και ένα συγκεκριμένο τύπο γεύματος. Για να εφαρμόσετε έναν κανόνα σε όλες τις ημέρες ή σε όλους τους τύπους γεύματος μπορείτε να ορίσετε τον κανόνα σε \"Ολα\" που θα τον εφαρμόσει σε όλες τις πιθανές τιμές για την ημέρα ή/και τον τύπο γεύματος.",
     "recipe-rules": "Κανόνες Συνταγής",
     "applies-to-all-days": "Εφαρμόζεται για όλες τις ημέρες",
@@ -1319,7 +1323,7 @@
   },
   "cookbook": {
     "cookbooks": "Βιβλία Μαγειρικής",
-    "description": "Τα βιβλία μαγειρικής είναι ένας άλλος τρόπος για να οργανώσετε συνταγές δημιουργώντας τμήματα συνταγών και ετικετών. Η δημιουργία ενός βιβλίου μαγειρικής θα προσθέσει μια καταχώρηση στην πλευρική μπάρα και όλες οι συνταγές με τις ετικέτες και τις κατηγορίες που θα επιλεγούν θα εμφανιστούν στο βιβλίο μαγειρικής.",
+    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
     "public-cookbook": "Δημόσιο Βιβλίο Μαγειρικής",
     "public-cookbook-description": "Τα δημόσια βιβλία μαγειρικής μπορούν να μοιραστούν με χρήστες εκτός του mealie και θα εμφανιστούν στη σελίδα των ομάδων σας.",
     "filter-options": "Επιλογές φίλτρου",
@@ -1332,5 +1336,28 @@
     "household-cookbook-name": "{0} Βιβλίο Μαγειρικής {1}",
     "create-a-cookbook": "Δημιουργία ενός βιβλίου μαγειρικής",
     "cookbook": "Βιβλίο Μαγειρικής"
+  },
+  "query-filter": {
+    "logical-operators": {
+      "and": "ΚΑΙ",
+      "or": "Ή"
+    },
+    "relational-operators": {
+      "equals": "ίσο με",
+      "does-not-equal": "δεν είναι ίσο με",
+      "is-greater-than": "είναι μεγαλύτερο από",
+      "is-greater-than-or-equal-to": "είναι μεγαλύτερο από ή ίσο με",
+      "is-less-than": "είναι μικρότερο από",
+      "is-less-than-or-equal-to": "είναι μικρότερο από ή ίσο με"
+    },
+    "relational-keywords": {
+      "is": "είναι",
+      "is-not": "δεν είναι",
+      "is-one-of": "είναι ένα από τα",
+      "is-not-one-of": "δεν είναι ένα από τα",
+      "contains-all-of": "περιέχει όλα τα",
+      "is-like": "είναι όμοιο με",
+      "is-not-like": "δεν είναι όμοιο με"
+    }
   }
 }
