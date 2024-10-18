@@ -212,7 +212,11 @@
     "clipboard-copy-failure": "Не удалось скопировать текст.",
     "confirm-delete-generic-items": "Вы уверены, что хотите удалить следующие элементы?",
     "organizers": "Организаторы",
-    "caution": "Caution"
+    "caution": "Caution",
+    "show-advanced": "Show Advanced",
+    "add-field": "Add Field",
+    "date-created": "Date Created",
+    "date-updated": "Date Updated"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Вы действительно хотите удалить <b>{groupName}<b/>?",
@@ -351,7 +355,7 @@
     "for-type-meal-types": "для типов блюд {0}",
     "meal-plan-rules": "Правила плана питания",
     "new-rule": "Новое правило",
-    "meal-plan-rules-description": "Вы можете создать правила для автоматического выбора рецептов в ваши планы питания. Эти правила используются сервером для определения случайной выборки рецептов при создании планов питания. Обратите внимание, что если правила имеют один и тот же день/тип ограничений, то категории правил будут объединены. На практике нет необходимости создавать дублирующие правила, но делать это можно.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the rule filters will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "При создании нового правила для плана питания вы можете ограничить действие правила для определенного дня недели и/или определенного типа питания. Чтобы применить правило ко всем дням или всем типам еды вы можете установить правило \"Любое\", которое применит его ко всем возможным значениям дня и/или питания.",
     "recipe-rules": "Правила рецептов",
     "applies-to-all-days": "Применяется к всем дням",
@@ -1319,7 +1323,7 @@
   },
   "cookbook": {
     "cookbooks": "Книги рецептов",
-    "description": "Книги рецептов – это еще один способ организовать рецепты путем создания раздельных секций рецептов и тегов. Создание книги рецептов добавит запись в боковую панель, и все рецепты с выбранными тегами и категориями будут отображаться в книге рецептов.",
+    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
     "public-cookbook": "Публичные книги рецептов",
     "public-cookbook-description": "Публичными книгами рецептов можно делиться с людьми без аккаунта в Mealie, и они будут отображаться на странице вашей группы.",
     "filter-options": "Параметры фильтрации",
@@ -1332,5 +1336,28 @@
     "household-cookbook-name": "{0} Cookbook {1}",
     "create-a-cookbook": "Создать книгу рецептов",
     "cookbook": "Книга рецептов"
+  },
+  "query-filter": {
+    "logical-operators": {
+      "and": "AND",
+      "or": "OR"
+    },
+    "relational-operators": {
+      "equals": "equals",
+      "does-not-equal": "does not equal",
+      "is-greater-than": "is greater than",
+      "is-greater-than-or-equal-to": "is greater than or equal to",
+      "is-less-than": "is less than",
+      "is-less-than-or-equal-to": "is less than or equal to"
+    },
+    "relational-keywords": {
+      "is": "is",
+      "is-not": "is not",
+      "is-one-of": "is one of",
+      "is-not-one-of": "is not one of",
+      "contains-all-of": "contains all of",
+      "is-like": "is like",
+      "is-not-like": "is not like"
+    }
   }
 }
