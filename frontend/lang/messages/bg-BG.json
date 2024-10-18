@@ -212,7 +212,11 @@
     "clipboard-copy-failure": "Линкът към рецептата е копиран в клипборда.",
     "confirm-delete-generic-items": "Сигурни ли сте, че желаете да изтриете следните елементи?",
     "organizers": "Органайзер",
-    "caution": "Caution"
+    "caution": "Caution",
+    "show-advanced": "Show Advanced",
+    "add-field": "Add Field",
+    "date-created": "Date Created",
+    "date-updated": "Date Updated"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Сигурни ли сте, че искате да изтриете <b>{groupName}<b/>?",
@@ -351,7 +355,7 @@
     "for-type-meal-types": "за {0}",
     "meal-plan-rules": "Правила за съставяне на седмично меню",
     "new-rule": "Ново правило",
-    "meal-plan-rules-description": "Може да създадете правила за автоматично избиране на рецепти в седмичното меню. Тези правила ще бъдат използвани за създаване на седмично маню от произволното избрани рецепти. Бележка: ако тези правила имат еднакви ограничения по ден/тип, тогава техните категории ще бъдат обединени. На практика, не е нужно да създавате дублиращи се правила, но все пак това е възможно.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the rule filters will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "Когато създавате ново правило за създаване на седмично меню, може да зададете ограничение правилото да бъде приложено за определен ден от седмицата и/или специфичен вид ястие. За да добавите правило за всички дни или всички типове ястия, Вие може да изберете \"Всички\", което ще го приложи за всички дни и/или видове ястия.",
     "recipe-rules": "Правила на рецептата",
     "applies-to-all-days": "Прилага се за всички дни",
@@ -1319,7 +1323,7 @@
   },
   "cookbook": {
     "cookbooks": "Готварски книги",
-    "description": "Готварските книги са друг начин за организиране на рецепти чрез създаване на напречни сечения на рецепти и етикети. Създаването на готварска книга ще добави запис към страничната лента и всички рецепти с избраните категории и етикети ще бъдат показани в готварската книга.",
+    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
     "public-cookbook": "Публична книга с рецепти",
     "public-cookbook-description": "Публичните готварски книги могат да се споделят с потребители, които не са в Mealie, и ще се показват на страницата на вашите групи.",
     "filter-options": "Опции на филтъра",
@@ -1332,5 +1336,28 @@
     "household-cookbook-name": "{0} Cookbook {1}",
     "create-a-cookbook": "Създай Готварска книга",
     "cookbook": "Готварска книга"
+  },
+  "query-filter": {
+    "logical-operators": {
+      "and": "AND",
+      "or": "OR"
+    },
+    "relational-operators": {
+      "equals": "equals",
+      "does-not-equal": "does not equal",
+      "is-greater-than": "is greater than",
+      "is-greater-than-or-equal-to": "is greater than or equal to",
+      "is-less-than": "is less than",
+      "is-less-than-or-equal-to": "is less than or equal to"
+    },
+    "relational-keywords": {
+      "is": "is",
+      "is-not": "is not",
+      "is-one-of": "is one of",
+      "is-not-one-of": "is not one of",
+      "contains-all-of": "contains all of",
+      "is-like": "is like",
+      "is-not-like": "is not like"
+    }
   }
 }
