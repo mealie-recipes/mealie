@@ -212,7 +212,11 @@
     "clipboard-copy-failure": "Panoya kopyalanamadı.",
     "confirm-delete-generic-items": "Aşağıdaki öğeleri silmek istediğinizden emin misiniz?",
     "organizers": "Organizatörler",
-    "caution": "Dikkat"
+    "caution": "Dikkat",
+    "show-advanced": "Show Advanced",
+    "add-field": "Add Field",
+    "date-created": "Date Created",
+    "date-updated": "Date Updated"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "<b>{groupName}<b/>'i silmek istediğine emin misin?",
@@ -351,7 +355,7 @@
     "for-type-meal-types": "{0} öğün tipleri",
     "meal-plan-rules": "Öğün Planı Kuralları",
     "new-rule": "Yeni Kural",
-    "meal-plan-rules-description": "Yemek planlarınız için tariflerin otomatik seçilmesine yönelik kurallar oluşturabilirsiniz. Bu kurallar, sunucu tarafından yemek planları oluştururken seçilecek rastgele tarif havuzunu belirlemek için kullanılır. Kuralların aynı gün/tür kısıtlamalarına sahip olması durumunda kuralların kategorilerinin birleştirileceğini unutmayın. Uygulamada yinelenen kurallar oluşturmak gereksizdir ancak bunu yapmak mümkündür.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the rule filters will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "Yemek planı için yeni bir kural oluştururken, kuralı haftanın belirli bir günü ve/veya belirli bir yemek türü için geçerli olacak şekilde kısıtlayabilirsiniz. Bir kuralı tüm günlere veya tüm yemek türlerine uygulamak için kuralı \"Herhangi biri\" olarak ayarlayabilirsiniz; bu, onu gün ve/veya yemek türü için olası tüm değerlere uygulayacaktır.",
     "recipe-rules": "Tarif Kuralları",
     "applies-to-all-days": "Tüm günler için geçerlidir",
@@ -1319,7 +1323,7 @@
   },
   "cookbook": {
     "cookbooks": "Tarif Kitapları",
-    "description": "Tarif kitapları, tariflerin ve etiketlerin kesitlerini oluşturarak tarifleri düzenlemenin başka bir yoludur. Bir tarif kitabı oluşturduğunuzda kenar çubuğuna bir giriş eklenecek ve seçilen etiketler ve kategorilerle birlikte tüm tarifler yemek kitabında görüntülenecektir.",
+    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
     "public-cookbook": "Herkese Açık Tarif Kitabı",
     "public-cookbook-description": "Herkese Açık Tarif Kitapları, mealie kullanıcısı olmayanlarla paylaşılabilir ve grup sayfanızda görüntülenir.",
     "filter-options": "Filtre Seçenekleri",
@@ -1332,5 +1336,28 @@
     "household-cookbook-name": "{0} Cookbook {1}",
     "create-a-cookbook": "Yemek Kitabı Oluştur",
     "cookbook": "Yemek kitabı"
+  },
+  "query-filter": {
+    "logical-operators": {
+      "and": "AND",
+      "or": "OR"
+    },
+    "relational-operators": {
+      "equals": "equals",
+      "does-not-equal": "does not equal",
+      "is-greater-than": "is greater than",
+      "is-greater-than-or-equal-to": "is greater than or equal to",
+      "is-less-than": "is less than",
+      "is-less-than-or-equal-to": "is less than or equal to"
+    },
+    "relational-keywords": {
+      "is": "is",
+      "is-not": "is not",
+      "is-one-of": "is one of",
+      "is-not-one-of": "is not one of",
+      "contains-all-of": "contains all of",
+      "is-like": "is like",
+      "is-not-like": "is not like"
+    }
   }
 }
