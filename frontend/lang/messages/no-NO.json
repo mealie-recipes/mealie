@@ -212,7 +212,11 @@
     "clipboard-copy-failure": "Kunne ikke kopiere til utklippstavlen.",
     "confirm-delete-generic-items": "Er du sikker på at du vil slette følgende elementer?",
     "organizers": "Organisatorer",
-    "caution": "Forsiktig"
+    "caution": "Forsiktig",
+    "show-advanced": "Show Advanced",
+    "add-field": "Add Field",
+    "date-created": "Date Created",
+    "date-updated": "Date Updated"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Er du sikker på at du vil slette <b>{groupName}<b/>?",
@@ -351,7 +355,7 @@
     "for-type-meal-types": "for {0} måltidstyper",
     "meal-plan-rules": "Regler for måltidsplan",
     "new-rule": "Ny regel",
-    "meal-plan-rules-description": "Du kan opprette regler for automatisk valg av oppskrifter for dine måltidsplaner. Disse reglene brukes av serveren til å bestemme det tilfeldige utvalget av oppskrifter som skal velges fra når det opprettes måltidsplaner. Vær oppmerksom på at hvis regler har de samme begrensningene for dag/type, vil kategoriene til reglene bli slått sammen. I praksis er det unødvendig å opprette duplikater av regler, men det er mulig å gjøre det.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the rule filters will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "Ved opprettelse av en ny regel for en måltidsplan kan du begrense regelen til å gjelde for en bestemt ukedag og/eller en bestemt type måltid. For å ta i bruk en regen alle dager eller alle måltider kan du sette regelen til \"Enhver\" som gjelder for alle mulige verdier for dag- og/eller måltidstyper.",
     "recipe-rules": "Regler for oppskrifter",
     "applies-to-all-days": "Gjelder for alle dager",
@@ -1319,7 +1323,7 @@
   },
   "cookbook": {
     "cookbooks": "Kokebøker",
-    "description": "Kokebøker er en annen måte å organisere oppskrifter på ved å lage tverrsnitt av oppskrifter og emneord. Å lage en kokebok vil legge til en oppføring i sidepanelet, og alle oppskriftene med de valgte emneordene og kategoriene vil bli vist i kokeboken.",
+    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
     "public-cookbook": "Offentlig kokebok",
     "public-cookbook-description": "Offentlige kokebøker kan deles med ikke-Mealie-brukere og vil bli vist på din gruppeside.",
     "filter-options": "Filteralternativer",
@@ -1332,5 +1336,28 @@
     "household-cookbook-name": "{0} kokebok {1}",
     "create-a-cookbook": "Opprett en kokebok",
     "cookbook": "Kokebok"
+  },
+  "query-filter": {
+    "logical-operators": {
+      "and": "AND",
+      "or": "OR"
+    },
+    "relational-operators": {
+      "equals": "equals",
+      "does-not-equal": "does not equal",
+      "is-greater-than": "is greater than",
+      "is-greater-than-or-equal-to": "is greater than or equal to",
+      "is-less-than": "is less than",
+      "is-less-than-or-equal-to": "is less than or equal to"
+    },
+    "relational-keywords": {
+      "is": "is",
+      "is-not": "is not",
+      "is-one-of": "is one of",
+      "is-not-one-of": "is not one of",
+      "contains-all-of": "contains all of",
+      "is-like": "is like",
+      "is-not-like": "is not like"
+    }
   }
 }
