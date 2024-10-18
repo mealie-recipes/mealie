@@ -212,7 +212,11 @@
     "clipboard-copy-failure": "Det gick inte att kopiera till urklipp.",
     "confirm-delete-generic-items": "Är du säker på att du vill radera följande objekt?",
     "organizers": "Organisatörer",
-    "caution": "Varning"
+    "caution": "Varning",
+    "show-advanced": "Show Advanced",
+    "add-field": "Add Field",
+    "date-created": "Date Created",
+    "date-updated": "Date Updated"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Är du säker på att du vill radera <b>{groupName}<b/>?",
@@ -351,7 +355,7 @@
     "for-type-meal-types": "för {0} måltidstyper",
     "meal-plan-rules": "Regler för måltidsplan",
     "new-rule": "Ny Regel",
-    "meal-plan-rules-description": "Du kan skapa regler för att automatisk väja av recept för din måltidsplanerare. Dessa regler används av servern för att bestämma den slumpmässiga poolen av recept att välja från när du skapar måltidsplaner. Observera att om reglerna har samma dag/typ-begränsningar så kommer kategorierna av reglerna att slås samman. I praktiken är det onödigt att skapa dubbla regler, men det går att göra det.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the rule filters will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "När du skapar en ny regel för en måltidsplan kan du begränsa regeln för en viss veckodag och/eller en viss typ av måltid. För att tillämpa en regel på alla dagar eller alla måltidstyper kan du ställa in regeln till \"Any\" som kommer att tillämpa den på alla möjliga värden för dagen och/eller måltidstypen.",
     "recipe-rules": "Recept regler",
     "applies-to-all-days": "Gäller för alla dagar",
@@ -1319,7 +1323,7 @@
   },
   "cookbook": {
     "cookbooks": "Kokböcker",
-    "description": "Kokböcker är ett annat sätt att organisera recept genom att skapa tvärsnitt av recept och taggar. När du skapar en kokbok kommer den att lägga till en post i sidofältet och alla recept med de taggar och kategorier som valts kommer att visas i kokboken.",
+    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
     "public-cookbook": "Offentlig kokbok",
     "public-cookbook-description": "Offentliga kokböcker kan delas med icke-mealie användare och kommer att visas på din gruppsida.",
     "filter-options": "Filterinställningar",
@@ -1332,5 +1336,28 @@
     "household-cookbook-name": "{0} kokbok {1}",
     "create-a-cookbook": "Skapa en kokbok",
     "cookbook": "Kokbok"
+  },
+  "query-filter": {
+    "logical-operators": {
+      "and": "AND",
+      "or": "OR"
+    },
+    "relational-operators": {
+      "equals": "equals",
+      "does-not-equal": "does not equal",
+      "is-greater-than": "is greater than",
+      "is-greater-than-or-equal-to": "is greater than or equal to",
+      "is-less-than": "is less than",
+      "is-less-than-or-equal-to": "is less than or equal to"
+    },
+    "relational-keywords": {
+      "is": "is",
+      "is-not": "is not",
+      "is-one-of": "is one of",
+      "is-not-one-of": "is not one of",
+      "contains-all-of": "contains all of",
+      "is-like": "is like",
+      "is-not-like": "is not like"
+    }
   }
 }
