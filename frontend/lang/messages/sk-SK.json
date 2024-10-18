@@ -212,7 +212,11 @@
     "clipboard-copy-failure": "Skopírovanie do schránky zlyhalo.",
     "confirm-delete-generic-items": "Ste si istý, že chcete odstrániť nasledujúce položky?",
     "organizers": "Organizéry",
-    "caution": "Výstraha"
+    "caution": "Výstraha",
+    "show-advanced": "Show Advanced",
+    "add-field": "Add Field",
+    "date-created": "Date Created",
+    "date-updated": "Date Updated"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Naozaj chcete odstrániť <b>{groupName}<b/>?",
@@ -351,7 +355,7 @@
     "for-type-meal-types": "na {0} druhy jedál",
     "meal-plan-rules": "Pravidlá jedálnička",
     "new-rule": "Nové pravidlo",
-    "meal-plan-rules-description": "Môžete vytvárať pravidlá pre automatizovaný výber receptov pre váše jedálničky. Tieto pravidlá používa server pre určenie skupiny receptov, z ktorých náhodne vyberá pri tvorbe jedálničkov. V prípade, ak majú pravidlá rovnaké obmedzenia na dni/typy jedál, sú príslušné kategórie pravidiel zlúčené. Bežne nie je nutné vytvárať duplicitné pravidlá, ale v prípade potreby je to možné.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the rule filters will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "Pri tvorbe nového pravidla pre jedálniček môžete účinnosť pravidla obmedziť len na špecifický deň v týždni a/alebo špecifický typ jedla. Pre uplatnenie pravidla na všetky dni v týždni alebo všetky typy jedál nastavte pravidlo pre \"Všetky\", čím uplatníte pravidlo na všetky dni a/alebo typy jedál.",
     "recipe-rules": "Pravidlá receptov",
     "applies-to-all-days": "Platí pre všetky dni",
@@ -1319,7 +1323,7 @@
   },
   "cookbook": {
     "cookbooks": "Kuchárky",
-    "description": "Kuchárky sú ďalší spôsob, ako si organizovať recepty vytváraním prienikov skupín receptov a štítkov. Vytvorenie kuchárky pridá novú položku na bočnú lištu a všetky recepty so zvolenými štítkami a kategóriami sa zobrazia v danej kuchárke.",
+    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
     "public-cookbook": "Verejná kuchárka",
     "public-cookbook-description": "Verejné kuchárky je možné zdielať s užívateľmi mimo Mealie a budú zobrazené na stránke vašej skupiny.",
     "filter-options": "Možnosti filtrovania",
@@ -1332,5 +1336,28 @@
     "household-cookbook-name": "{0} Cookbook {1}",
     "create-a-cookbook": "Vytvoriť kuchárku",
     "cookbook": "Kuchárka"
+  },
+  "query-filter": {
+    "logical-operators": {
+      "and": "AND",
+      "or": "OR"
+    },
+    "relational-operators": {
+      "equals": "equals",
+      "does-not-equal": "does not equal",
+      "is-greater-than": "is greater than",
+      "is-greater-than-or-equal-to": "is greater than or equal to",
+      "is-less-than": "is less than",
+      "is-less-than-or-equal-to": "is less than or equal to"
+    },
+    "relational-keywords": {
+      "is": "is",
+      "is-not": "is not",
+      "is-one-of": "is one of",
+      "is-not-one-of": "is not one of",
+      "contains-all-of": "contains all of",
+      "is-like": "is like",
+      "is-not-like": "is not like"
+    }
   }
 }
