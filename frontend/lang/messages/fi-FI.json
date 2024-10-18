@@ -212,7 +212,11 @@
     "clipboard-copy-failure": "Kopioiminen leikepöydälle epäonnistui.",
     "confirm-delete-generic-items": "Haluatko varmasti poistaa seuraavat kohteet?",
     "organizers": "Järjestäjät",
-    "caution": "Huomio"
+    "caution": "Huomio",
+    "show-advanced": "Show Advanced",
+    "add-field": "Add Field",
+    "date-created": "Date Created",
+    "date-updated": "Date Updated"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Haluatko varmasti poistaa ryhmän <b>{groupName}<b/>?",
@@ -351,7 +355,7 @@
     "for-type-meal-types": "kaikille {0} ateriatyypeille",
     "meal-plan-rules": "Ateriasuunnitelman määritykset",
     "new-rule": "Uusi sääntö",
-    "meal-plan-rules-description": "Voit luoda sääntöjä reseptien automaattiseen valitsemiseen ateriasuunnitelmia varten. Palvelin käyttää näitä sääntöjä määrittääkseen satunnaisen valikoiman reseptejä, joista valita luodessaan ateriasuunnitelmia. Huomaa, että jos säännöillä on samat päivä-/tyyppirajoitukset, sääntöjen luokat yhdistetään. Käytännössä ei ole tarpeen luoda päällekkäisiä sääntöjä, mutta se on mahdollista.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the rule filters will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "Kun luot uuden säännön ateriasuunnitelmalle, voit rajoittaa säännön koskemaan tiettyä viikonpäivää ja/tai tietyntyyppistä ateriaa. Jos haluat soveltaa sääntöä kaikkiin päiviin tai kaikkiin ateriatyyppeihin, voit asettaa säännön asetukseksi \"Mikä tahansa\", jolloin sitä sovelletaan kaikkiin mahdollisiin päivän ja/tai ateriatyypin arvoihin.",
     "recipe-rules": "Reseptimääritykset",
     "applies-to-all-days": "Sovelletaan kaikkiin päiviin",
@@ -1319,7 +1323,7 @@
   },
   "cookbook": {
     "cookbooks": "Keittokirjat",
-    "description": "Keittokirjat ovat toinen tapa järjestää reseptejä luomalla poikkileikkauksia resepteistä ja tunnisteista. Keittokirjan luominen lisää merkinnän sivupalkkiin ja kaikki reseptit, joissa on valitut tunnisteet ja kategoriat, näkyvät keittokirjassa.",
+    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
     "public-cookbook": "Julkinen Keittokirja",
     "public-cookbook-description": "Julkisia keittokirjoja voidaan jakaa ei-Mealien käyttäjille, ja ne näkyvät ryhmäsi sivulla.",
     "filter-options": "Suodatuksen asetukset",
@@ -1332,5 +1336,28 @@
     "household-cookbook-name": "{0} Keittokirja {1}",
     "create-a-cookbook": "Luo keittokirja",
     "cookbook": "Keittokirja"
+  },
+  "query-filter": {
+    "logical-operators": {
+      "and": "AND",
+      "or": "OR"
+    },
+    "relational-operators": {
+      "equals": "equals",
+      "does-not-equal": "does not equal",
+      "is-greater-than": "is greater than",
+      "is-greater-than-or-equal-to": "is greater than or equal to",
+      "is-less-than": "is less than",
+      "is-less-than-or-equal-to": "is less than or equal to"
+    },
+    "relational-keywords": {
+      "is": "is",
+      "is-not": "is not",
+      "is-one-of": "is one of",
+      "is-not-one-of": "is not one of",
+      "contains-all-of": "contains all of",
+      "is-like": "is like",
+      "is-not-like": "is not like"
+    }
   }
 }
