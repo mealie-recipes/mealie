@@ -212,7 +212,11 @@
     "clipboard-copy-failure": "Failed to copy to the clipboard.",
     "confirm-delete-generic-items": "Are you sure you want to delete the following items?",
     "organizers": "Organizers",
-    "caution": "Caution"
+    "caution": "Caution",
+    "show-advanced": "Show Advanced",
+    "add-field": "Add Field",
+    "date-created": "Date Created",
+    "date-updated": "Date Updated"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Ar tikrai norite ištrinti <b>{groupName}<b/>?",
@@ -351,7 +355,7 @@
     "for-type-meal-types": "{0} patiekalų tipams",
     "meal-plan-rules": "Valgių planavimo taisyklės",
     "new-rule": "Nauja taisyklė",
-    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the categories of the rules will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the rule filters will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "Kurdami naują taisyklę valgių planui galite įvesti apribojimą konkrečiai savaitės dienai ar valgio tipui. Jei norite pritaikyti taisyklę visoms dienoms ar visiems valgių tipams, pasirinkite \"Bet kuri (-is)\".",
     "recipe-rules": "Recepto taisyklės",
     "applies-to-all-days": "Galioja visoms dienoms",
@@ -1319,7 +1323,7 @@
   },
   "cookbook": {
     "cookbooks": "Receptų knygos",
-    "description": "Receptų knygos yra dar vienas receptų organizavimo būdas. Sukūrus receptų knygą ji bus rodoma šoniniame meniu, ir visi receptai su pasirinktomis žymomis ir kategorijomis bus pateikiami jos viduje.",
+    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
     "public-cookbook": "Vieša receptų knyga",
     "public-cookbook-description": "Viešos receptų knygos gali būti bendrinamos su Mealie paskyros neturinčiais naudotojais ir bus rodomos jūsų grupių puslapyje.",
     "filter-options": "Filtro parinktys",
@@ -1332,5 +1336,28 @@
     "household-cookbook-name": "{0} Cookbook {1}",
     "create-a-cookbook": "Create a Cookbook",
     "cookbook": "Cookbook"
+  },
+  "query-filter": {
+    "logical-operators": {
+      "and": "AND",
+      "or": "OR"
+    },
+    "relational-operators": {
+      "equals": "equals",
+      "does-not-equal": "does not equal",
+      "is-greater-than": "is greater than",
+      "is-greater-than-or-equal-to": "is greater than or equal to",
+      "is-less-than": "is less than",
+      "is-less-than-or-equal-to": "is less than or equal to"
+    },
+    "relational-keywords": {
+      "is": "is",
+      "is-not": "is not",
+      "is-one-of": "is one of",
+      "is-not-one-of": "is not one of",
+      "contains-all-of": "contains all of",
+      "is-like": "is like",
+      "is-not-like": "is not like"
+    }
   }
 }
