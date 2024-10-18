@@ -143,7 +143,9 @@ export default defineComponent({
       const typeMap = {
         "categories": "category.category",
         "tags": "tag.tag",
-        "tools": "tool.tool"
+        "tools": "tool.tool",
+        "foods": "shopping-list.food",
+        "households": "household.household",
       };
       return typeMap[props.itemType] || "";
     });

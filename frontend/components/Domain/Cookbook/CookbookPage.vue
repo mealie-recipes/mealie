@@ -4,11 +4,13 @@
     <BaseDialog
       v-if="editTarget"
       v-model="dialogStates.edit"
-      :width="650"
+      width="100%"
+      max-width="1100px"
       :icon="$globals.icons.pages"
       :title="$t('general.edit')"
       :submit-icon="$globals.icons.save"
       :submit-text="$tc('general.save')"
+      :submit-disabled="!editTarget.queryFilterString"
       @submit="editCookbook"
     >
       <v-card-text>

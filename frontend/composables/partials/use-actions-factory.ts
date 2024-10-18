@@ -51,6 +51,9 @@ export function useReadOnlyActions<T extends BoundT>(
   }
 
   async function refresh(page = 1, perPage = -1, params = {} as Record<string, QueryValue>) {
+    params.orderBy ??= "name";
+    params.orderDirection ??= "asc";
+
     loading.value = true;
     const { data } = await api.getAll(page, perPage, params);
 
@@ -102,6 +105,9 @@ export function useStoreActions<T extends BoundT>(
   }
 
   async function refresh(page = 1, perPage = -1, params = {} as Record<string, QueryValue>) {
+    params.orderBy ??= "name";
+    params.orderDirection ??= "asc";
+
     loading.value = true;
     const { data } = await api.getAll(page, perPage, params);
 

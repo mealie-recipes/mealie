@@ -212,7 +212,11 @@
     "clipboard-copy-failure": "未能复制到剪切板。",
     "confirm-delete-generic-items": "你确定删除以下条目吗？",
     "organizers": "管理器",
-    "caution": "注意！"
+    "caution": "注意！",
+    "show-advanced": "Show Advanced",
+    "add-field": "Add Field",
+    "date-created": "Date Created",
+    "date-updated": "Date Updated"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "您确定要删除<b>{groupName}<b/>吗？",
@@ -351,7 +355,7 @@
     "for-type-meal-types": "作为 {0}",
     "meal-plan-rules": "饮食计划规则",
     "new-rule": "新建规则",
-    "meal-plan-rules-description": "您可以创建规则，为您的饮食计划自动选择食谱。当新建饮食计划时，这些规则被服务器用来确定菜谱随机选择的范围。请注意，如果规则中含有相同的日期/类型的限制，那么将合并规则的分类。实际上，没有必要创建重复的规则，但是可以这样做。",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the rule filters will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "当为饮食计划新建规则时，您可以限制此规则应用于一周的特定某天和/或特定的用餐类型。若将规则应用于所有时间或者所有用餐类型，您可以设定规则为“任意”，此字段值适用于任何时间或用餐类型。",
     "recipe-rules": "食谱规则",
     "applies-to-all-days": "应用到所有日期",
@@ -1319,7 +1323,7 @@
   },
   "cookbook": {
     "cookbooks": "食谱合集",
-    "description": "食谱合集是通过结合分类、标签两套系统来归纳食谱的方案。每创建一个合集，侧栏都会新增一个对应入口，所有满足该合集所指定标签与分类的食谱都会显示在此。",
+    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
     "public-cookbook": "公开食谱合集",
     "public-cookbook-description": "公开食谱合集可以分享和非Mealie用户，同时也会显示在你的群组页面上。",
     "filter-options": "过滤器选项",
@@ -1332,5 +1336,28 @@
     "household-cookbook-name": "{0} Cookbook {1}",
     "create-a-cookbook": "创建一个食谱合集",
     "cookbook": "食谱合集"
+  },
+  "query-filter": {
+    "logical-operators": {
+      "and": "AND",
+      "or": "OR"
+    },
+    "relational-operators": {
+      "equals": "equals",
+      "does-not-equal": "does not equal",
+      "is-greater-than": "is greater than",
+      "is-greater-than-or-equal-to": "is greater than or equal to",
+      "is-less-than": "is less than",
+      "is-less-than-or-equal-to": "is less than or equal to"
+    },
+    "relational-keywords": {
+      "is": "is",
+      "is-not": "is not",
+      "is-one-of": "is one of",
+      "is-not-one-of": "is not one of",
+      "contains-all-of": "contains all of",
+      "is-like": "is like",
+      "is-not-like": "is not like"
+    }
   }
 }

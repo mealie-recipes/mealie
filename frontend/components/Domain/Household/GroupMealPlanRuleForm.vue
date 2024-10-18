@@ -6,12 +6,10 @@
     </div>
 
     <div class="mb-5">
-      <RecipeOrganizerSelector v-model="inputCategories" selector-type="categories" />
-      <RecipeOrganizerSelector v-model="inputTags" selector-type="tags" />
-      <GroupHouseholdSelector
-        v-model="inputHouseholds"
-        multiselect
-        :description="$tc('meal-plan.mealplan-households-description')"
+      <QueryFilterBuilder
+        :field-defs="fieldDefs"
+        :initial-query-filter="queryFilter"
+        @input="handleQueryFilterInput"
       />
     </div>
 
@@ -25,14 +23,14 @@
 
 <script lang="ts">
 import { defineComponent, computed, useContext } from "@nuxtjs/composition-api";
-import GroupHouseholdSelector from "~/components/Domain/Household/GroupHouseholdSelector.vue";
-import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
-import { PlanCategory, PlanHousehold, PlanTag } from "~/lib/api/types/meal-plan";
+import QueryFilterBuilder from "~/components/Domain/QueryFilterBuilder.vue";
+import { FieldDefinition } from "~/composables/use-query-filter-builder";
+import { Organizer } from "~/lib/api/types/non-generated";
+import { QueryFilterJSON } from "~/lib/api/types/response";
 
 export default defineComponent({
   components: {
-    GroupHouseholdSelector,
-    RecipeOrganizerSelector,
+    QueryFilterBuilder,
   },
   props: {
     day: {
@@ -43,17 +41,13 @@ export default defineComponent({
       type: String,
       default: "unset",
     },
-    categories: {
-      type: Array as () => PlanCategory[],
-      default: () => [],
+    queryFilterString: {
+      type: String,
+      default: "",
     },
-    tags: {
-      type: Array as () => PlanTag[],
-      default: () => [],
-    },
-    households: {
-      type: Array as () => PlanHousehold[],
-      default: () => [],
+    queryFilter: {
+      type: Object as () => QueryFilterJSON,
+      default: null,
     },
     showHelp: {
       type: Boolean,
@@ -100,41 +94,65 @@ export default defineComponent({
       },
     });
 
-    const inputCategories = computed({
+    const inputQueryFilterString = computed({
       get: () => {
-        return props.categories;
+        return props.queryFilterString;
       },
       set: (val) => {
-        context.emit("update:categories", val);
+        context.emit("update:query-filter-string", val);
       },
     });
 
-    const inputTags = computed({
-      get: () => {
-        return props.tags;
-      },
-      set: (val) => {
-        context.emit("update:tags", val);
-      },
-    });
+    function handleQueryFilterInput(value: string | undefined) {
+      inputQueryFilterString.value = value || "";
+    };
 
-    const inputHouseholds = computed({
-      get: () => {
-        return props.households;
+    const fieldDefs: FieldDefinition[] = [
+      {
+        name: "recipe_category.id",
+        label: i18n.tc("category.categories"),
+        type: Organizer.Category,
       },
-      set: (val) => {
-        context.emit("update:households", val);
+      {
+        name: "tags.id",
+        label: i18n.tc("tag.tags"),
+        type: Organizer.Tag,
       },
-    });
+      {
+        name: "tools.id",
+        label: i18n.tc("tool.tools"),
+        type: Organizer.Tool,
+      },
+      {
+        name: "household_id",
+        label: i18n.tc("household.households"),
+        type: Organizer.Household,
+      },
+      {
+        name: "last_made",
+        label: i18n.tc("general.last-made"),
+        type: "date",
+      },
+      {
+        name: "created_at",
+        label: i18n.tc("general.date-created"),
+        type: "date",
+      },
+      {
+        name: "updated_at",
+        label: i18n.tc("general.date-updated"),
+        type: "date",
+      },
+    ];
 
     return {
       MEAL_TYPE_OPTIONS,
       MEAL_DAY_OPTIONS,
       inputDay,
       inputEntryType,
-      inputCategories,
-      inputTags,
-      inputHouseholds,
+      inputQueryFilterString,
+      handleQueryFilterInput,
+      fieldDefs,
     };
   },
 });

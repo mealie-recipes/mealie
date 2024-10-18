@@ -212,7 +212,11 @@
     "clipboard-copy-failure": "Не вдалося скопіювати до буфера обміну.",
     "confirm-delete-generic-items": "Ви впевнені, що хочете видалити вибрані елементи?",
     "organizers": "Організатори",
-    "caution": "Увага"
+    "caution": "Увага",
+    "show-advanced": "Show Advanced",
+    "add-field": "Add Field",
+    "date-created": "Date Created",
+    "date-updated": "Date Updated"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Ви дійсно бажаєте видалити <b>{groupName}<b/>?",
@@ -351,7 +355,7 @@
     "for-type-meal-types": "для {0} типів харчування",
     "meal-plan-rules": "Правила планів харчування",
     "new-rule": "Нове правило",
-    "meal-plan-rules-description": "Ви можете створити правила для автоматичного вибору рецептів для ваших планів харчування. Ці правила використовуються сервером для вибору рецептів при створенні плану харчування. Зверніть увагу, що якщо правила мають обмеження на день/тип, то їх категорії будуть об'єднані. Дублювати правила немає сенсу, але можливо.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the rule filters will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "При створенні нового правила для плану харчування, ви можете обмежити правило на певний день тижня та/або певний тип їжі. Щоб застосувати правило до всіх днів або всіх типів їжі, ви можете встановити правило \"Будь-який\", що застосовуватиме його до всіх можливих значень для дня та/або типу їжі.",
     "recipe-rules": "Правила рецептів",
     "applies-to-all-days": "Застосовується до всіх днів",
@@ -1319,7 +1323,7 @@
   },
   "cookbook": {
     "cookbooks": "Кулінарні книги",
-    "description": "Кулінарні книги - це ще один спосіб організації рецептів за допомогою розділів і міток. Нова кулінарна книга з'явиться на боковій панелі, і всі рецепти з вибраними розділами та мітками будуть відображатися в кулінарній книзі.",
+    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
     "public-cookbook": "Публічна кулінарна книга",
     "public-cookbook-description": "Публічними кулінарними книгами можна поділитися з будь-ким, і вони будуть відображатися на сторінці вашої групи.",
     "filter-options": "Параметри фільтра",
@@ -1332,5 +1336,28 @@
     "household-cookbook-name": "{0} Кулінарна книга {1}",
     "create-a-cookbook": "Створити кулінарну книгу",
     "cookbook": "Кулінарна книга"
+  },
+  "query-filter": {
+    "logical-operators": {
+      "and": "AND",
+      "or": "OR"
+    },
+    "relational-operators": {
+      "equals": "equals",
+      "does-not-equal": "does not equal",
+      "is-greater-than": "is greater than",
+      "is-greater-than-or-equal-to": "is greater than or equal to",
+      "is-less-than": "is less than",
+      "is-less-than-or-equal-to": "is less than or equal to"
+    },
+    "relational-keywords": {
+      "is": "is",
+      "is-not": "is not",
+      "is-one-of": "is one of",
+      "is-not-one-of": "is not one of",
+      "contains-all-of": "contains all of",
+      "is-like": "is like",
+      "is-not-like": "is not like"
+    }
   }
 }

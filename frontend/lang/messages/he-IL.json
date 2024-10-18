@@ -212,7 +212,11 @@
     "clipboard-copy-failure": "כשלון בהעתקה ללוח ההדבקה.",
     "confirm-delete-generic-items": "האם אתה בטוח שברצונך למחוק את הפריטים הנבחרים?",
     "organizers": "Organizers",
-    "caution": "Caution"
+    "caution": "Caution",
+    "show-advanced": "Show Advanced",
+    "add-field": "Add Field",
+    "date-created": "Date Created",
+    "date-updated": "Date Updated"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "האם את/ה בטוח/ה שברצונך למחוק את <b>{groupName}<b/>?",
@@ -351,7 +355,7 @@
     "for-type-meal-types": "לכל סוגי הארוחות {0}",
     "meal-plan-rules": "חוקי תכנון ארוחות",
     "new-rule": "חוק חדש",
-    "meal-plan-rules-description": "אתה יכול ליצור כללים לבחירה אוטומטית של מתכונים עבור תוכניות הארוחות שלך. כללים אלה משמשים את השרת כדי לקבוע את מאגר המתכונים האקראי לבחירה בעת יצירת תוכניות ארוחות. שימו לב שאם לכללים יש אילוצי יום/סוג זהים אז הקטגוריות של הכללים ימוזגו. בפועל, מיותר ליצור חוקים כפולים, אבל אפשר לעשות זאת.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the rule filters will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "ביצירת חוק חדש עבור תוכנית ארוחות ניתן להגביל את החוק עבור יום בשבוע או סוג של ארוחה. בכדי שהחוק יכסה את כל הימים והארוחות יש לבחור ב- \"הכל\", מה שיכלול את כל הימים והארוחות.",
     "recipe-rules": "חוקי מתכון",
     "applies-to-all-days": "החל על כל הימים",
@@ -1319,7 +1323,7 @@
   },
   "cookbook": {
     "cookbooks": "ספרי בישול",
-    "description": "ספרי בישול הם עוד דרך לנהל את המתכונים שלך ע\"י יצירה של נושאים ותגיות. יצירת ספר בישול יוסיף אופציה בתפריט הצד וכל המתכונים עם התגית או הקטגוריה שנבחרה יוצגו בתוכם.",
+    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
     "public-cookbook": "ספר בישול פומבי",
     "public-cookbook-description": "ספרי בישול ניתנים לשיתוף עם משתמשים מחוץ למילי ויופיעו בתוך עמוד הקבוצות.",
     "filter-options": "אפשרויות סינון",
@@ -1332,5 +1336,28 @@
     "household-cookbook-name": "{0} Cookbook {1}",
     "create-a-cookbook": "צור ספר בישול חדש",
     "cookbook": "ספר בישול"
+  },
+  "query-filter": {
+    "logical-operators": {
+      "and": "AND",
+      "or": "OR"
+    },
+    "relational-operators": {
+      "equals": "equals",
+      "does-not-equal": "does not equal",
+      "is-greater-than": "is greater than",
+      "is-greater-than-or-equal-to": "is greater than or equal to",
+      "is-less-than": "is less than",
+      "is-less-than-or-equal-to": "is less than or equal to"
+    },
+    "relational-keywords": {
+      "is": "is",
+      "is-not": "is not",
+      "is-one-of": "is one of",
+      "is-not-one-of": "is not one of",
+      "contains-all-of": "contains all of",
+      "is-like": "is like",
+      "is-not-like": "is not like"
+    }
   }
 }

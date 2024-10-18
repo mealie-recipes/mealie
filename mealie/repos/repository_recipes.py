@@ -19,13 +19,7 @@ from mealie.db.models.recipe.tool import Tool
 from mealie.db.models.users.user_to_recipe import UserToRecipe
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.recipe import Recipe
-from mealie.schema.recipe.recipe import (
-    RecipeCategory,
-    RecipePagination,
-    RecipeSummary,
-    RecipeTool,
-)
-from mealie.schema.recipe.recipe_category import CategoryBase, TagBase
+from mealie.schema.recipe.recipe import RecipeCategory, RecipePagination, RecipeSummary
 from mealie.schema.response.pagination import (
     OrderByNullPosition,
     OrderDirection,
@@ -33,7 +27,6 @@ from mealie.schema.response.pagination import (
 )
 
 from ..db.models._model_base import SqlAlchemyBase
-from ..schema._mealie.mealie_model import extract_uuids
 from .repository_generic import HouseholdRepositoryGeneric
 
 
@@ -173,17 +166,12 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         q = q.filter_by(**fltr)
 
         if cookbook:
-            cb_filters = self._build_recipe_filter(
-                households=[cookbook.household_id],
-                categories=extract_uuids(cookbook.categories),
-                tags=extract_uuids(cookbook.tags),
-                tools=extract_uuids(cookbook.tools),
-                require_all_categories=cookbook.require_all_categories,
-                require_all_tags=cookbook.require_all_tags,
-                require_all_tools=cookbook.require_all_tools,
-            )
-
-            q = q.filter(*cb_filters)
+            if pagination_result.query_filter and cookbook.query_filter_string:
+                pagination_result.query_filter = (
+                    f"({pagination_result.query_filter}) AND ({cookbook.query_filter_string})"
+                )
+            else:
+                pagination_result.query_filter = cookbook.query_filter_string
         else:
             category_ids = self._uuids_for_items(categories, Category)
             tag_ids = self._uuids_for_items(tags, Tag)
@@ -289,26 +277,6 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         if households:
             fltr.append(RecipeModel.household_id.in_(households))
         return fltr
-
-    def by_category_and_tags(
-        self,
-        categories: list[CategoryBase] | None = None,
-        tags: list[TagBase] | None = None,
-        tools: list[RecipeTool] | None = None,
-        require_all_categories: bool = True,
-        require_all_tags: bool = True,
-        require_all_tools: bool = True,
-    ) -> list[Recipe]:
-        fltr = self._build_recipe_filter(
-            categories=extract_uuids(categories) if categories else None,
-            tags=extract_uuids(tags) if tags else None,
-            tools=extract_uuids(tools) if tools else None,
-            require_all_categories=require_all_categories,
-            require_all_tags=require_all_tags,
-            require_all_tools=require_all_tools,
-        )
-        stmt = sa.select(RecipeModel).filter(*fltr)
-        return [self.schema.model_validate(x) for x in self.session.execute(stmt).scalars().all()]
 
     def get_random(self, limit=1) -> list[Recipe]:
         stmt = sa.select(RecipeModel).order_by(sa.func.random()).limit(limit)  # Postgres and SQLite specific

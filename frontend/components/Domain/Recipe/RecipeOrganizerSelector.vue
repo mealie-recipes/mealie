@@ -8,13 +8,12 @@
     deletable-chips
     item-text="name"
     multiple
-    :prepend-inner-icon="selectorType === Organizer.Tool ? $globals.icons.potSteam :
-      selectorType === Organizer.Category ? $globals.icons.categories :
-      $globals.icons.tags"
+    :prepend-inner-icon="icon"
     return-object
     v-bind="inputAttrs"
     auto-select-first
     :search-input.sync="searchInput"
+    class="pa-0"
     @change="resetSearchInput"
   >
     <template #selection="data">
@@ -46,11 +45,11 @@
 <script lang="ts">
 import { defineComponent, ref, useContext, computed, onMounted } from "@nuxtjs/composition-api";
 import RecipeOrganizerDialog from "./RecipeOrganizerDialog.vue";
-import { RecipeCategory, RecipeTag } from "~/lib/api/types/recipe";
+import { IngredientFood, RecipeCategory, RecipeTag } from "~/lib/api/types/recipe";
 import { RecipeTool } from "~/lib/api/types/admin";
-import { useTagStore } from "~/composables/store/use-tag-store";
-import { useCategoryStore, useToolStore } from "~/composables/store";
+import { useCategoryStore, useFoodStore, useHouseholdStore, useTagStore, useToolStore } from "~/composables/store";
 import { Organizer, RecipeOrganizer } from "~/lib/api/types/non-generated";
+import { HouseholdSummary } from "~/lib/api/types/household";
 
 export default defineComponent({
   components: {
@@ -58,7 +57,14 @@ export default defineComponent({
   },
   props: {
     value: {
-      type: Array as () => (RecipeTag | RecipeCategory | RecipeTool | string)[] | undefined,
+      type: Array as () => (
+        | HouseholdSummary
+        | RecipeTag
+        | RecipeCategory
+        | RecipeTool
+        | IngredientFood
+        | string
+      )[] | undefined,
       required: true,
     },
     /**
@@ -80,6 +86,14 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
+    showLabel: {
+      type: Boolean,
+      default: true,
+    },
+    showIcon: {
+      type: Boolean,
+      default: true,
+    },
   },
 
   setup(props, context) {
@@ -96,9 +110,13 @@ export default defineComponent({
       }
     });
 
-    const { i18n } = useContext();
+    const { $globals, i18n } = useContext();
 
     const label = computed(() => {
+      if (!props.showLabel) {
+        return "";
+      }
+
       switch (props.selectorType) {
         case Organizer.Tag:
           return i18n.t("tag.tags");
@@ -106,30 +124,57 @@ export default defineComponent({
           return i18n.t("category.categories");
         case Organizer.Tool:
           return i18n.t("tool.tools");
+        case Organizer.Food:
+          return i18n.t("general.foods");
+        case Organizer.Household:
+          return i18n.t("household.households");
         default:
           return i18n.t("general.organizer");
+      }
+    });
+
+    const icon = computed(() => {
+      if (!props.showIcon) {
+        return "";
+      }
+
+      switch (props.selectorType) {
+        case Organizer.Tag:
+          return $globals.icons.tags;
+        case Organizer.Category:
+          return $globals.icons.categories;
+        case Organizer.Tool:
+          return $globals.icons.tools;
+        case Organizer.Food:
+          return $globals.icons.foods;
+        case Organizer.Household:
+          return $globals.icons.household;
+        default:
+          return $globals.icons.tags;
       }
     });
 
     // ===========================================================================
     // Store & Items Setup
 
-    const store = (() => {
-      switch (props.selectorType) {
-        case Organizer.Tag:
-          return useTagStore();
-        case Organizer.Tool:
-          return useToolStore();
-        default:
-          return useCategoryStore();
-      }
-    })();
+    const storeMap = {
+      [Organizer.Category]: useCategoryStore(),
+      [Organizer.Tag]: useTagStore(),
+      [Organizer.Tool]: useToolStore(),
+      [Organizer.Food]: useFoodStore(),
+      [Organizer.Household]: useHouseholdStore(),
+    };
+
+    const store = computed(() => {
+      const { store } = storeMap[props.selectorType];
+      return store.value;
+    })
 
     const items = computed(() => {
       if (!props.returnObject) {
-        return store.store.value.map((item) => item.name);
+        return store.value.map((item) => item.name);
       }
-      return store.store.value;
+      return store.value;
     });
 
     function removeByIndex(index: number) {
@@ -140,7 +185,7 @@ export default defineComponent({
       selected.value = [...newSelected];
     }
 
-    function appendCreated(item: RecipeTag | RecipeCategory | RecipeTool) {
+    function appendCreated(item: any) {
       if (selected.value === undefined) {
         return;
       }
@@ -162,6 +207,7 @@ export default defineComponent({
       dialog,
       storeItem: items,
       label,
+      icon,
       selected,
       removeByIndex,
       searchInput,
@@ -170,3 +216,10 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+.v-autocomplete {
+  /* This aligns the input with other standard input fields */
+  margin-top: 6px;
+}
+</style>

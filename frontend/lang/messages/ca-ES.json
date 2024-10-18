@@ -212,7 +212,11 @@
     "clipboard-copy-failure": "No s'ha pogut copiar al porta-retalls.",
     "confirm-delete-generic-items": "Are you sure you want to delete the following items?",
     "organizers": "Organitzadors",
-    "caution": "Precaució"
+    "caution": "Precaució",
+    "show-advanced": "Show Advanced",
+    "add-field": "Add Field",
+    "date-created": "Date Created",
+    "date-updated": "Date Updated"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Esteu segur de voler suprimir el grup <b>{groupName}<b/>?",
@@ -351,7 +355,7 @@
     "for-type-meal-types": "per {0} tipus de menús",
     "meal-plan-rules": "Normes del planificador de menús",
     "new-rule": "Nova norma",
-    "meal-plan-rules-description": "Podeu crear regles per a la selecció automàtica de receptes per als vostres plans d'àpats. El servidor utilitza aquestes regles per determinar el conjunt aleatori de receptes per seleccionar quan es creen plans d'àpats. Tingueu en compte que si les regles tenen les mateixes restriccions de dia/tipus, les categories de les regles es fusionaran. A la pràctica, no és necessari crear regles duplicades, però és possible fer-ho.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the rule filters will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "Quan creis una nova norma per una planificació d'àpats, pots restringir la norma per a què s'apliqui un dia específic de la setmana i/o un tipus d'àpat específic. Per aplicar la norma a tots els dies o a tots els tipus d'àpats, pots configurar la norma a \"Qualsevol\" que l'aplicarà a tots els valors possibles pel dia i/o tipus d'àpat.",
     "recipe-rules": "Normes per la recepta",
     "applies-to-all-days": "Aplica a tots els dies",
@@ -1319,7 +1323,7 @@
   },
   "cookbook": {
     "cookbooks": "Receptaris",
-    "description": "Els llibres de cuina són una altra manera d'organitzar les receptes creant seccions transversals de receptes i etiquetes. La creació d'un llibre de cuina afegirà una entrada a la barra lateral i totes les receptes amb les etiquetes i categories escollides es mostraran al llibre de cuina.",
+    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
     "public-cookbook": "Receptari públic",
     "public-cookbook-description": "Els receptaris públics es poden compartir amb usuaris que no estiguin dins l'aplicació i es mostraran a la pàgina del vostre grup.",
     "filter-options": "Opcions de filtres",
@@ -1332,5 +1336,28 @@
     "household-cookbook-name": "{0} Cookbook {1}",
     "create-a-cookbook": "Crea un receptari",
     "cookbook": "Receptari"
+  },
+  "query-filter": {
+    "logical-operators": {
+      "and": "AND",
+      "or": "OR"
+    },
+    "relational-operators": {
+      "equals": "equals",
+      "does-not-equal": "does not equal",
+      "is-greater-than": "is greater than",
+      "is-greater-than-or-equal-to": "is greater than or equal to",
+      "is-less-than": "is less than",
+      "is-less-than-or-equal-to": "is less than or equal to"
+    },
+    "relational-keywords": {
+      "is": "is",
+      "is-not": "is not",
+      "is-one-of": "is one of",
+      "is-not-one-of": "is not one of",
+      "contains-all-of": "contains all of",
+      "is-like": "is like",
+      "is-not-like": "is not like"
+    }
   }
 }

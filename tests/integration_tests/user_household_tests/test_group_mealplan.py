@@ -40,15 +40,22 @@ def create_rule(
     categories: list[CategoryOut] | None = None,
     households: list[HouseholdSummary] | None = None,
 ):
+    qf_parts: list[str] = []
+    if tags:
+        qf_parts.append(f'tags.id CONTAINS ALL [{",".join([str(tag.id) for tag in tags])}]')
+    if categories:
+        qf_parts.append(f'recipe_category.id CONTAINS ALL [{",".join([str(cat.id) for cat in categories])}]')
+    if households:
+        qf_parts.append(f'household_id IN [{",".join([str(household.id) for household in households])}]')
+
+    query_filter_string = " AND ".join(qf_parts)
     return unique_user.repos.group_meal_plan_rules.create(
         PlanRulesSave(
             group_id=UUID(unique_user.group_id),
             household_id=UUID(unique_user.household_id),
             day=day,
             entry_type=entry_type,
-            tags=tags or [],
-            categories=categories or [],
-            households=households or [],
+            query_filter_string=query_filter_string,
         )
     )
 

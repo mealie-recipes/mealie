@@ -111,17 +111,8 @@ class GroupCookbookController(BaseCrudController):
         if cookbook is None:
             raise HTTPException(status_code=404)
 
-        return cookbook.cast(
-            RecipeCookBook,
-            recipes=self.repos.recipes.by_category_and_tags(
-                cookbook.categories,
-                cookbook.tags,
-                cookbook.tools,
-                cookbook.require_all_categories,
-                cookbook.require_all_tags,
-                cookbook.require_all_tools,
-            ),
-        )
+        recipe_pagination = self.repos.recipes.page_all(PaginationQuery(page=1, per_page=-1, cookbook=cookbook))
+        return cookbook.cast(RecipeCookBook, recipes=recipe_pagination.items)
 
     @router.put("/{item_id}", response_model=ReadCookBook)
     def update_one(self, item_id: str, data: CreateCookBook):

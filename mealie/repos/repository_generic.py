@@ -17,7 +17,7 @@ from mealie.core.root_logger import get_logger
 from mealie.db.models._model_base import SqlAlchemyBase
 from mealie.schema._mealie import MealieModel
 from mealie.schema.response.pagination import OrderByNullPosition, OrderDirection, PaginationBase, PaginationQuery
-from mealie.schema.response.query_filter import QueryFilter
+from mealie.schema.response.query_filter import QueryFilterBuilder
 from mealie.schema.response.query_search import SearchFilter
 
 from ._utils import NOT_SET, NotSet
@@ -349,8 +349,8 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
         if pagination.query_filter:
             try:
-                query_filter = QueryFilter(pagination.query_filter)
-                query = query_filter.filter_query(query, model=self.model)
+                query_filter_builder = QueryFilterBuilder(pagination.query_filter)
+                query = query_filter_builder.filter_query(query, model=self.model)
 
             except ValueError as e:
                 self.logger.error(e)
@@ -434,7 +434,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
                         order_by = order_by_val
                         order_dir = pagination.order_direction
 
-                    _, order_attr, query = QueryFilter.get_model_and_model_attr_from_attr_string(
+                    _, order_attr, query = QueryFilterBuilder.get_model_and_model_attr_from_attr_string(
                         order_by, self.model, query=query
                     )
 

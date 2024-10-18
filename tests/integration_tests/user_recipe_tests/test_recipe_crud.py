@@ -882,7 +882,7 @@ def test_get_cookbook_recipes(api_client: TestClient, unique_user: utils.TestUse
             name=random_string(),
             group_id=unique_user.group_id,
             household_id=unique_user.household_id,
-            tags=[tag],
+            query_filter_string=f'tags.id IN ["{tag.id}"]',
         )
     )
 

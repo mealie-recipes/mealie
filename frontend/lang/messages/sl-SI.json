@@ -212,7 +212,11 @@
     "clipboard-copy-failure": "Kopiranje na odložišče ni bilo uspešno.",
     "confirm-delete-generic-items": "Ali ste prepričani, da želite izbrisati izbrane elemente?",
     "organizers": "Organizatorji",
-    "caution": "Pozor"
+    "caution": "Pozor",
+    "show-advanced": "Show Advanced",
+    "add-field": "Add Field",
+    "date-created": "Date Created",
+    "date-updated": "Date Updated"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Ste prepričani, da želite izbrisati <b>{groupName}<b/>?",
@@ -351,7 +355,7 @@
     "for-type-meal-types": "za obrok {0}",
     "meal-plan-rules": "Pravila za jedilnik",
     "new-rule": "Novo pravilo",
-    "meal-plan-rules-description": "Ustvariš lahko pravila za avtomatično izbiro receptov za tvoje jedilnike. Ta pravila strežnik uporablja, da izbere nabor receptov iz katerih potem naključno izbere recept za jedilnik. Upoštevaj, da če imata dve pravili ista določila za dan in tip, potem bodo kategorije pravil združene. V praksi ni potrebno podvajati pravil, je pa to možno.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the rule filters will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "Ko dodajaš novo pravilo za jedilnik lahko pravilo omejiš na določen dan v tednu in/ali na določen tip obroka. Če želiš pravilo nastaviti za vse dni ali za vse tipe obrokov, potem izberi \"Katerikoli\".",
     "recipe-rules": "Pravila za recepte",
     "applies-to-all-days": "Velja za vse dneve",
@@ -1319,7 +1323,7 @@
   },
   "cookbook": {
     "cookbooks": "Kuharske knjige",
-    "description": "Kuharske knjige so še en način za organizacijo receptov z ustvarjanjem presekov receptov in značk. Ustvarjanje kuharske knjige bo dodalo povezavo v stranski meni, ki bo prikazala vse recepte z izbranimi značkami in kategorijami.",
+    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
     "public-cookbook": "Javna kuharska knjiga",
     "public-cookbook-description": "Javne kuharske knjige lahko deliš z zunanjimi uporabniki, prav tako bodo prikazane tudi na strani tvoje skupine.",
     "filter-options": "Nastavitve filtrov",
@@ -1332,5 +1336,28 @@
     "household-cookbook-name": "{0} Kuharska knjiga {1}",
     "create-a-cookbook": "Ustvari kuharsko knjigo",
     "cookbook": "Kuharska knjiga"
+  },
+  "query-filter": {
+    "logical-operators": {
+      "and": "AND",
+      "or": "OR"
+    },
+    "relational-operators": {
+      "equals": "equals",
+      "does-not-equal": "does not equal",
+      "is-greater-than": "is greater than",
+      "is-greater-than-or-equal-to": "is greater than or equal to",
+      "is-less-than": "is less than",
+      "is-less-than-or-equal-to": "is less than or equal to"
+    },
+    "relational-keywords": {
+      "is": "is",
+      "is-not": "is not",
+      "is-one-of": "is one of",
+      "is-not-one-of": "is not one of",
+      "contains-all-of": "contains all of",
+      "is-like": "is like",
+      "is-not-like": "is not like"
+    }
   }
 }
