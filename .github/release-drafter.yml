@@ -25,6 +25,9 @@ categories:
   - title: "📚 Documentation"
     labels:
       - "documentation"
+  - title: "🔨 Internal development"
+    labels:
+      - "dev"
   - title: "⬆️ Dependency updates"
     collapse-after: 3
     labels:
@@ -47,6 +50,7 @@ version-resolver:
       - "dependencies"
       - "documentation"
       - "l10n"
+      - "dev"
   default: patch
 
 template: |
@@ -69,3 +73,6 @@ autolabeler:
   - label: 'chore'
     title:
       - '/chore:/i'
+  - label: 'dev'
+    title:
+      - '/dev:/i'
