@@ -20,10 +20,11 @@ jobs:
           # Configure which types are allowed (newline-delimited).
           # Default: https://github.com/commitizen/conventional-commit-types
           types: |
-            fix
-            feat
-            docs
-            chore
+            feature
+            bug
+            documentation
+            cleanup
+            dev
           # Configure which scopes are allowed (newline-delimited).
           # These are regex patterns auto-wrapped in `^ $`.
           scopes: |
