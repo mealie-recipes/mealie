@@ -56,7 +56,17 @@ version-resolver:
 template: |
   # 🍴🍴🍴🍴🍴🍴
 
+  ## 🎉 Highlights
+
+  - Highlight 1
+
+  - Highlight 2
+
   $CHANGES
+
+  ## 🙏 New Contributors
+
+  !!! Need to source this from GitHub's auto generated release notes !!!
 
   # 🍴🍴🍴🍴🍴🍴
 
