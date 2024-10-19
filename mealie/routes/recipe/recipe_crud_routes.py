@@ -480,12 +480,12 @@ class RecipeController(BaseRecipeController):
         all_updated: list[Recipe] = []
         if updated_by_group_and_household:
             for group_id, household_dict in updated_by_group_and_household.items():
-                for household_id, updated in household_dict.items():
-                    all_updated.extend(updated)
+                for household_id, updated_recipes in household_dict.items():
+                    all_updated.extend(updated_recipes)
                     self.publish_event(
                         event_type=EventTypes.recipe_updated,
                         document_data=EventRecipeBulkData(
-                            operation=EventOperation.update, recipe_slugs=[r.slug for r in updated]
+                            operation=EventOperation.update, recipe_slugs=[r.slug for r in updated_recipes]
                         ),
                         group_id=group_id,
                         household_id=household_id,
