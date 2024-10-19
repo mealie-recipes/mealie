@@ -483,7 +483,8 @@ def test_read_update(
         assert cats[0]["name"] in test_name
 
 
-def test_update_many(api_client: TestClient, unique_user: TestUser):
+@pytest.mark.parametrize("use_patch", [True, False])
+def test_update_many(api_client: TestClient, unique_user: TestUser, use_patch: bool):
     recipe_slugs = [random_string() for _ in range(3)]
     for slug in recipe_slugs:
         api_client.post(api_routes.recipes, json={"name": slug}, headers=unique_user.token)
@@ -498,7 +499,11 @@ def test_update_many(api_client: TestClient, unique_user: TestUser):
         recipe_data["name"] = new_slug_by_id[recipe_data["id"]]
         recipe_data["slug"] = new_slug_by_id[recipe_data["id"]]
 
-    response = api_client.put(api_routes.recipes, json=recipes_data, headers=unique_user.token)
+    if use_patch:
+        api_client_func = api_client.patch
+    else:
+        api_client_func = api_client.put
+    response = api_client_func(api_routes.recipes, json=recipes_data, headers=unique_user.token)
     assert response.status_code == 200
     for updated_recipe_data in response.json():
         assert updated_recipe_data["slug"] == new_slug_by_id[updated_recipe_data["id"]]
