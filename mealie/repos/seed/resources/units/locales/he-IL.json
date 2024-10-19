@@ -1,140 +1,140 @@
 {
     "teaspoon": {
         "name": "כפית",
-        "plural_name": "teaspoons",
+        "plural_name": "כפיות",
         "description": "",
         "abbreviation": "כפיות"
     },
     "tablespoon": {
         "name": "כף",
-        "plural_name": "tablespoons",
+        "plural_name": "כפות",
         "description": "",
         "abbreviation": "כפות"
     },
     "cup": {
         "name": "כוס",
-        "plural_name": "cups",
+        "plural_name": "כוסות",
         "description": "",
-        "abbreviation": "c"
+        "abbreviation": "כוסות"
     },
     "fluid-ounce": {
-        "name": "אונקיה",
-        "plural_name": "fluid ounces",
+        "name": "אונקיה נוזלית",
+        "plural_name": "אונקיות נוזליות",
         "description": "",
-        "abbreviation": "אונקיות"
+        "abbreviation": "אונקיות נוזליות"
     },
     "pint": {
         "name": "פיינט",
-        "plural_name": "pints",
+        "plural_name": "פיינטים",
         "description": "",
         "abbreviation": "פיינטים"
     },
     "quart": {
         "name": "קוארט",
-        "plural_name": "quarts",
+        "plural_name": "קוארטים",
         "description": "",
         "abbreviation": "קוארטים"
     },
     "gallon": {
-        "name": "גאלון",
-        "plural_name": "gallons",
+        "name": "גלון",
+        "plural_name": "גלונים",
         "description": "",
-        "abbreviation": "גאלונים"
+        "abbreviation": "גלונים"
     },
     "milliliter": {
         "name": "מיליליטר",
-        "plural_name": "milliliters",
+        "plural_name": "מיליליטרים",
         "description": "",
         "abbreviation": "מ\"ל"
     },
     "liter": {
         "name": "ליטר",
-        "plural_name": "liters",
+        "plural_name": "ליטרים",
         "description": "",
         "abbreviation": "ליטרים"
     },
     "pound": {
         "name": "פאונד",
-        "plural_name": "pounds",
+        "plural_name": "פאונדים",
         "description": "",
-        "abbreviation": "פאונדים",
-        "plural_abbreviation": "lbs"
+        "abbreviation": "פאונד",
+        "plural_abbreviation": "פאונדים"
     },
     "ounce": {
         "name": "אונקיה",
-        "plural_name": "ounces",
+        "plural_name": "אונקיות",
         "description": "",
         "abbreviation": "אונקיות"
     },
     "gram": {
         "name": "גרם",
-        "plural_name": "grams",
+        "plural_name": "גרמים",
         "description": "",
         "abbreviation": "גרמים"
     },
     "kilogram": {
         "name": "ק״ג",
-        "plural_name": "kilograms",
+        "plural_name": "קילוגרמים",
         "description": "",
         "abbreviation": "ק״ג"
     },
     "milligram": {
         "name": "מיליגרם",
-        "plural_name": "milligrams",
+        "plural_name": "מיליגרמים",
         "description": "",
         "abbreviation": "מ״ג"
     },
     "splash": {
         "name": "התזה",
-        "plural_name": "splashes",
+        "plural_name": "התזות",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
-        "name": "קמצוץ",
-        "plural_name": "dashes",
+        "name": "קורטוב",
+        "plural_name": "קורטובים",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
         "name": "מנה",
-        "plural_name": "servings",
+        "plural_name": "מנות",
         "description": "",
         "abbreviation": ""
     },
     "head": {
         "name": "ראש",
-        "plural_name": "heads",
+        "plural_name": "ראשים",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
         "name": "שן",
-        "plural_name": "cloves",
+        "plural_name": "שיניים",
         "description": "",
         "abbreviation": ""
     },
     "can": {
         "name": "פחית",
-        "plural_name": "cans",
+        "plural_name": "פחיות",
         "description": "",
         "abbreviation": ""
     },
     "bunch": {
-        "name": "bunch",
-        "plural_name": "bunches",
+        "name": "אשכול",
+        "plural_name": "אשכולות",
         "description": "",
         "abbreviation": ""
     },
     "pack": {
-        "name": "pack",
-        "plural_name": "packs",
+        "name": "חבילה",
+        "plural_name": "חבילות",
         "description": "",
         "abbreviation": ""
     },
     "pinch": {
-        "name": "pinch",
-        "plural_name": "pinches",
+        "name": "קמצוץ",
+        "plural_name": "קמצוצים",
         "description": "",
         "abbreviation": ""
     }
