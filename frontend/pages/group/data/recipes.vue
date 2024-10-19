@@ -340,7 +340,7 @@ export default defineComponent({
 
       const recipes = selected.value.map((x: Recipe) => x.slug ?? "");
 
-      const { response, data } = await api.bulk.bulkDelete({ recipes });
+      await api.bulk.bulkDelete({ recipes });
 
       await refreshRecipes();
       resetAll();
