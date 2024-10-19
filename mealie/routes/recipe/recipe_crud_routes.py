@@ -516,6 +516,31 @@ class RecipeController(BaseRecipeController):
 
         return recipe
 
+    @router.patch("")
+    def patch_many(self, data: list[Recipe]):
+        updated_by_group_and_household: defaultdict[UUID4, defaultdict[UUID4, list[Recipe]]] = defaultdict(
+            lambda: defaultdict(list)
+        )
+        for recipe in data:
+            r = self.service.patch_one(recipe.id, recipe)  # type: ignore
+            updated_by_group_and_household[r.group_id][r.household_id].append(r)
+
+        all_updated: list[Recipe] = []
+        if updated_by_group_and_household:
+            for group_id, household_dict in updated_by_group_and_household.items():
+                for household_id, updated_recipes in household_dict.items():
+                    all_updated.extend(updated_recipes)
+                    self.publish_event(
+                        event_type=EventTypes.recipe_updated,
+                        document_data=EventRecipeBulkData(
+                            operation=EventOperation.update, recipe_slugs=[r.slug for r in updated_recipes]
+                        ),
+                        group_id=group_id,
+                        household_id=household_id,
+                    )
+
+        return all_updated
+
     @router.patch("/{slug}/last-made")
     def update_last_made(self, slug: str, data: RecipeLastMade):
         """Update a recipe's last made timestamp"""
