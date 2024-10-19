@@ -25,13 +25,13 @@ categories:
   - title: "📚 Documentation"
     labels:
       - "documentation"
+  - title: "🔨 Internal development"
+    labels:
+      - "dev"
   - title: "⬆️ Dependency updates"
     collapse-after: 3
     labels:
       - "dependencies"
-  - title: "🔨 Internal development"
-    labels:
-      - "dev"
 
 version-resolver:
   major:
