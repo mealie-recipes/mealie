@@ -64,6 +64,24 @@
           <i>{{ $tc('data-pages.recipes.selected-length-recipe-s-settings-will-be-updated', selected.length) }}</i>
         </p>
       </v-card-text>
+      <v-card-text v-else-if="dialog.mode == MODES.changeOwner">
+        <v-select
+          v-model="selectedOwner"
+          :items="allUsers"
+          item-text="fullName"
+          item-value="id"
+          :label="$tc('general.owner')"
+          hide-details
+        >
+          <template #prepend>
+            <UserAvatar :user-id="selectedOwner" :tooltip="false" />
+          </template>
+        </v-select>
+        <v-card-text v-if="selectedOwnerHousehold" class="d-flex" style="align-items: flex-end;">
+          <v-icon>{{ $globals.icons.household }}</v-icon>
+          <span class="pl-1">{{ selectedOwnerHousehold.name }}</span>
+        </v-card-text>
+      </v-card-text>
     </BaseDialog>
     <section>
       <!-- Recipe Data Table -->
@@ -109,6 +127,7 @@
           @categorize-selected="openDialog(MODES.category)"
           @delete-selected="openDialog(MODES.delete)"
           @update-settings="openDialog(MODES.updateSettings)"
+          @change-owner="openDialog(MODES.changeOwner)"
         >
         </BaseOverflowButton>
 
@@ -155,7 +174,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, useContext, onMounted } from "@nuxtjs/composition-api";
+import { computed, defineComponent, reactive, ref, useContext, onMounted } from "@nuxtjs/composition-api";
 import RecipeDataTable from "~/components/Domain/Recipe/RecipeDataTable.vue";
 import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
 import { useUserApi } from "~/composables/api";
@@ -165,6 +184,9 @@ import GroupExportData from "~/components/Domain/Group/GroupExportData.vue";
 import { GroupDataExport } from "~/lib/api/types/group";
 import { MenuItem } from "~/components/global/BaseOverflowButton.vue";
 import RecipeSettingsSwitches from "~/components/Domain/Recipe/RecipeSettingsSwitches.vue";
+import { useUserStore } from "~/composables/store/use-user-store";
+import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
+import { useHouseholdStore } from "~/composables/store/use-household-store";
 
 enum MODES {
   tag = "tag",
@@ -172,10 +194,11 @@ enum MODES {
   export = "export",
   delete = "delete",
   updateSettings = "updateSettings",
+  changeOwner = "changeOwner",
 }
 
 export default defineComponent({
-  components: { RecipeDataTable, RecipeOrganizerSelector, GroupExportData, RecipeSettingsSwitches },
+  components: { RecipeDataTable, RecipeOrganizerSelector, GroupExportData, RecipeSettingsSwitches, UserAvatar },
   scrollToTop: true,
   setup() {
     const { $auth, $globals, i18n } = useContext();
@@ -229,6 +252,11 @@ export default defineComponent({
         icon: $globals.icons.cog,
         text: i18n.tc("data-pages.recipes.update-settings"),
         event: "update-settings",
+      },
+      {
+        icon: $globals.icons.user,
+        text: i18n.tc("general.change-owner"),
+        event: "change-owner",
       },
       {
         icon: $globals.icons.delete,
@@ -312,9 +340,7 @@ export default defineComponent({
 
       const recipes = selected.value.map((x: Recipe) => x.slug ?? "");
 
-      const { response, data } = await api.bulk.bulkDelete({ recipes });
-
-      console.log(response, data);
+      await api.bulk.bulkDelete({ recipes });
 
       await refreshRecipes();
       resetAll();
@@ -335,9 +361,23 @@ export default defineComponent({
 
       const recipes = selected.value.map((x: Recipe) => x.slug ?? "");
 
-      const { response, data } = await api.bulk.bulkSetSettings({ recipes, settings: recipeSettings });
+      await api.bulk.bulkSetSettings({ recipes, settings: recipeSettings });
 
-      console.log(response, data);
+      await refreshRecipes();
+      resetAll();
+    }
+
+    async function changeOwner() {
+      if(!selected.value.length || !selectedOwner.value) {
+        return;
+      }
+
+      selected.value.forEach((r) => {
+        r.userId = selectedOwner.value;
+      });
+
+      loading.value = true;
+      await api.recipes.updateMany(selected.value);
 
       await refreshRecipes();
       resetAll();
@@ -365,6 +405,7 @@ export default defineComponent({
         [MODES.export]: i18n.tc("data-pages.recipes.export-recipes"),
         [MODES.delete]: i18n.tc("data-pages.recipes.delete-recipes"),
         [MODES.updateSettings]: i18n.tc("data-pages.recipes.update-settings"),
+        [MODES.changeOwner]: i18n.tc("general.change-owner"),
       };
 
       const callbacks: Record<MODES, () => Promise<void>> = {
@@ -373,6 +414,7 @@ export default defineComponent({
         [MODES.export]: exportSelected,
         [MODES.delete]: deleteSelected,
         [MODES.updateSettings]: updateSettings,
+        [MODES.changeOwner]: changeOwner,
       };
 
       const icons: Record<MODES, string> = {
@@ -381,6 +423,7 @@ export default defineComponent({
         [MODES.export]: $globals.icons.database,
         [MODES.delete]: $globals.icons.delete,
         [MODES.updateSettings]: $globals.icons.cog,
+        [MODES.changeOwner]: $globals.icons.user,
       };
 
       dialog.mode = mode;
@@ -389,6 +432,22 @@ export default defineComponent({
       dialog.icon = icons[mode];
       dialog.state = true;
     }
+
+    const { store: allUsers } = useUserStore();
+    const { store: households } = useHouseholdStore();
+    const selectedOwner = ref("");
+    const selectedOwnerHousehold = computed(() => {
+      if(!selectedOwner.value) {
+        return null;
+      }
+
+      const owner = allUsers.value.find((u) => u.id === selectedOwner.value);
+      if (!owner) {
+        return null;
+      };
+
+      return households.value.find((h) => h.id === owner.householdId);
+    });
 
     return {
       recipeSettings,
@@ -412,6 +471,9 @@ export default defineComponent({
       groupExports,
       purgeExportsDialog,
       purgeExports,
+      allUsers,
+      selectedOwner,
+      selectedOwnerHousehold,
     };
   },
   head() {

@@ -483,6 +483,30 @@ def test_read_update(
         assert cats[0]["name"] in test_name
 
 
+def test_update_many(api_client: TestClient, unique_user: TestUser):
+    recipe_slugs = [random_string() for _ in range(3)]
+    for slug in recipe_slugs:
+        api_client.post(api_routes.recipes, json={"name": slug}, headers=unique_user.token)
+
+    recipes_data: list[dict] = [
+        json.loads(api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).text)
+        for slug in recipe_slugs
+    ]
+
+    new_slug_by_id = {r["id"]: random_string() for r in recipes_data}
+    for recipe_data in recipes_data:
+        recipe_data["name"] = new_slug_by_id[recipe_data["id"]]
+        recipe_data["slug"] = new_slug_by_id[recipe_data["id"]]
+
+    response = api_client.put(api_routes.recipes, json=recipes_data, headers=unique_user.token)
+    assert response.status_code == 200
+    for updated_recipe_data in response.json():
+        assert updated_recipe_data["slug"] == new_slug_by_id[updated_recipe_data["id"]]
+        get_response = api_client.get(api_routes.recipes_slug(updated_recipe_data["slug"]), headers=unique_user.token)
+        assert get_response.status_code == 200
+        assert get_response.json()["slug"] == updated_recipe_data["slug"]
+
+
 def test_duplicate(api_client: TestClient, unique_user: TestUser):
     recipe_data = recipe_test_data[0]
 
