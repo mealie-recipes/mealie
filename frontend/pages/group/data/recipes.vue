@@ -377,7 +377,7 @@ export default defineComponent({
       });
 
       loading.value = true;
-      await api.recipes.updateMany(selected.value);
+      await api.recipes.patchMany(selected.value);
 
       await refreshRecipes();
       resetAll();
