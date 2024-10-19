@@ -377,7 +377,7 @@ export default defineComponent({
       });
 
       loading.value = true;
-      const { response, data } = await api.recipes.updateMany(selected.value);
+      await api.recipes.updateMany(selected.value);
 
       await refreshRecipes();
       resetAll();
