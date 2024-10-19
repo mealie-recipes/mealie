@@ -16,6 +16,7 @@
         item-value="id"
         :label="$tc('general.owner')"
         hide-details
+        :disabled="!canEditOwner"
       >
         <template #prepend>
           <UserAvatar :user-id="recipe.userId" :tooltip="false" />
@@ -59,6 +60,10 @@ export default defineComponent({
     const api = useUserApi();
     const { imageKey } = usePageState(props.recipe.slug);
 
+    const canEditOwner = computed(() => {
+      return user.id === props.recipe.userId || user.admin;
+    })
+
     const { store: allUsers } = useUserStore();
     const { store: households } = useHouseholdStore();
     const ownerHousehold = computed(() => {
@@ -87,6 +92,7 @@ export default defineComponent({
 
     return {
       user,
+      canEditOwner,
       uploadImage,
       imageKey,
       allUsers,
