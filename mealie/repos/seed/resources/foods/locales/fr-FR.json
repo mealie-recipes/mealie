@@ -1,15 +1,15 @@
 {
 	"acorn-squash": {
-		"name": "courge poivrée"
+		"name": "courgeron"
 	},
 	"alfalfa-sprouts": {
-		"name": "luzerne"
+		"name": "pousses de luzerne"
 	},
 	"anchovies": {
 		"name": "anchois"
 	},
 	"apples": {
-		"name": "pommes",
+		"name": "pomme",
 		"plural_name": "pommes"
 	},
 	"artichoke": {
@@ -35,7 +35,7 @@
 		"name": "bicarbonate de soude"
 	},
 	"baking-sugar": {
-		"name": "sucre de cuisson"
+		"name": "sucre semoule"
 	},
 	"bar-sugar": {
 		"name": "barre de sucre"
@@ -47,7 +47,7 @@
 		"name": "haricots"
 	},
 	"bell-peppers": {
-		"name": "poivrons",
+		"name": "poivron",
 		"plural_name": "poivrons"
 	},
 	"blackberries": {
@@ -66,7 +66,7 @@
 		"name": "fruit à pain"
 	},
 	"broccoflower": {
-		"name": "chou-fleur"
+		"name": "brocofleur"
 	},
 	"broccoli": {
 		"name": "brocoli"
@@ -75,7 +75,7 @@
 		"name": "brocoli-rave"
 	},
 	"broccolini": {
-		"name": "brocolini"
+		"name": "broccolini"
 	},
 	"brown-sugar": {
 		"name": "cassonade"
@@ -90,14 +90,14 @@
 		"name": "courge butternut"
 	},
 	"butternut-squash": {
-		"name": "courge butternut"
+		"name": "doubeurre"
 	},
 	"cabbage": {
 		"name": "chou",
 		"plural_name": "choux"
 	},
 	"cactus-edible": {
-		"name": "cactus"
+		"name": "cactus, comestible"
 	},
 	"calabrese": {
 		"name": "brocoli calabrese"
@@ -109,7 +109,7 @@
 		"name": "cannabis"
 	},
 	"capsicum": {
-		"name": "poivron"
+		"name": "capsicum"
 	},
 	"caraway": {
 		"name": "cumin"
@@ -132,7 +132,7 @@
 		"plural_name": "choux-fleur"
 	},
 	"cayenne-pepper": {
-		"name": "piment de cayenne"
+		"name": "piment de Cayenne"
 	},
 	"celeriac": {
 		"name": "céleri-rave"
@@ -191,7 +191,7 @@
 		"name": "chou cavalier"
 	},
 	"confectioners-sugar": {
-		"name": "sucre des pâtissiers"
+		"name": "sucre glace"
 	},
 	"coriander": {
 		"name": "coriandre"
@@ -221,7 +221,7 @@
 	},
 	"daikon": {
 		"name": "radis blanc",
-		"plural_name": "radis blancs japonais"
+		"plural_name": "radis blancs"
 	},
 	"dairy-products-and-dairy-substitutes": {
 		"name": "produits laitiers et substituts laitiers"
