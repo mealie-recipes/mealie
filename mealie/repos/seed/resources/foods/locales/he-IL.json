@@ -10,7 +10,7 @@
 	},
 	"apples": {
 		"name": "תפוחים",
-		"plural_name": "apples"
+		"plural_name": "תפוחים"
 	},
 	"artichoke": {
 		"name": "ארטישוק"
@@ -23,7 +23,7 @@
 	},
 	"avocado": {
 		"name": "אבוקדו",
-		"plural_name": "avocado"
+		"plural_name": "אבוקדו"
 	},
 	"bacon": {
 		"name": "בייקון"
@@ -48,7 +48,7 @@
 	},
 	"bell-peppers": {
 		"name": "פלפל מתוק",
-		"plural_name": "bell peppers"
+		"plural_name": "פלפלים"
 	},
 	"blackberries": {
 		"name": "אוכמניות"
@@ -94,7 +94,7 @@
 	},
 	"cabbage": {
 		"name": "כרוב",
-		"plural_name": "cabbages"
+		"plural_name": "כרובים"
 	},
 	"cactus-edible": {
 		"name": "סברס"
@@ -116,7 +116,7 @@
 	},
 	"carrot": {
 		"name": "גזר",
-		"plural_name": "carrots"
+		"plural_name": "גזרים"
 	},
 	"caster-sugar": {
 		"name": "סוכר דק"
@@ -129,7 +129,7 @@
 	},
 	"cauliflower": {
 		"name": "כרובית",
-		"plural_name": "cauliflowers"
+		"plural_name": "כרוביות"
 	},
 	"cayenne-pepper": {
 		"name": "פלפל קאיין"
@@ -154,7 +154,7 @@
 	},
 	"chilli-peppers": {
 		"name": "צ'ילי",
-		"plural_name": "chilli peppers"
+		"plural_name": "פלפלים חריפים"
 	},
 	"chinese-leaves": {
 		"name": "עלים סינים"
@@ -176,7 +176,7 @@
 	},
 	"coconut": {
 		"name": "קוקוס",
-		"plural_name": "coconuts"
+		"plural_name": "אגוזי קוקוס"
 	},
 	"coconut-milk": {
 		"name": "חלב קוקוס"
@@ -198,7 +198,7 @@
 	},
 	"corn": {
 		"name": "תירס",
-		"plural_name": "corns"
+		"plural_name": "תירס"
 	},
 	"corn-syrup": {
 		"name": "סירופ תירס"
@@ -214,14 +214,14 @@
 	},
 	"cucumber": {
 		"name": "מלפפון",
-		"plural_name": "cucumbers"
+		"plural_name": "מלפפונים"
 	},
 	"cumin": {
 		"name": "כמון"
 	},
 	"daikon": {
 		"name": "צנון דייקון",
-		"plural_name": "daikons"
+		"plural_name": "צנוני דייקון"
 	},
 	"dairy-products-and-dairy-substitutes": {
 		"name": "מוצרי חלב ותחליפי חלב"
@@ -240,15 +240,15 @@
 	},
 	"eggplant": {
 		"name": "חציל",
-		"plural_name": "eggplants"
+		"plural_name": "חצילים"
 	},
 	"eggs": {
 		"name": "ביצים",
-		"plural_name": "eggs"
+		"plural_name": "ביצים"
 	},
 	"endive": {
 		"name": "אנדיב",
-		"plural_name": "endives"
+		"plural_name": "אנדיבים"
 	},
 	"fats": {
 		"name": "שומנים"
@@ -261,7 +261,7 @@
 	},
 	"fiddlehead-fern": {
 		"name": "שרך ראש הכינור",
-		"plural_name": "fiddlehead ferns"
+		"plural_name": "שרכי ראש הכינור"
 	},
 	"fish": {
 		"name": "דג"
@@ -292,7 +292,7 @@
 	},
 	"garlic": {
 		"name": "שום",
-		"plural_name": "garlics"
+		"plural_name": "שום"
 	},
 	"gem-squash": {
 		"name": "דלעת פנינה"
@@ -317,11 +317,11 @@
 	},
 	"green-onion": {
 		"name": "בצל ירוק",
-		"plural_name": "green onions"
+		"plural_name": "בצלים ירוקים"
 	},
 	"heart-of-palm": {
 		"name": "לב דקל",
-		"plural_name": "heart of palms"
+		"plural_name": "לבבות דקל"
 	},
 	"hemp": {
 		"name": "האמפ"
@@ -337,7 +337,7 @@
 	},
 	"jackfruit": {
 		"name": "ג׳קפרוט",
-		"plural_name": "jackfruits"
+		"plural_name": "ג'קפרוטים"
 	},
 	"jaggery": {
 		"name": "ג’אגרי"
@@ -368,7 +368,7 @@
 	},
 	"leek": {
 		"name": "כרישה",
-		"plural_name": "leeks"
+		"plural_name": "כרישה"
 	},
 	"legumes": {
 		"name": "קטניות"
@@ -384,7 +384,7 @@
 	},
 	"liver": {
 		"name": "כבד",
-		"plural_name": "livers"
+		"plural_name": "כבדים"
 	},
 	"maize": {
 		"name": "תירס"
@@ -403,7 +403,7 @@
 	},
 	"mushroom": {
 		"name": "פטריה",
-		"plural_name": "mushrooms"
+		"plural_name": "פטריות"
 	},
 	"mussels": {
 		"name": "צדפות"
@@ -425,7 +425,7 @@
 	},
 	"octopuses": {
 		"name": "תמנונים",
-		"plural_name": "octopuses"
+		"plural_name": "תמנונים"
 	},
 	"oils": {
 		"name": "שמנים"
@@ -450,7 +450,7 @@
 	},
 	"oranges": {
 		"name": "תפוזים",
-		"plural_name": "oranges"
+		"plural_name": "תפוזים"
 	},
 	"oregano": {
 		"name": "אורגנו"
@@ -469,33 +469,33 @@
 	},
 	"parsnip": {
 		"name": "גזר לבן",
-		"plural_name": "parsnips"
+		"plural_name": "גזרים לבנים"
 	},
 	"pear": {
 		"name": "אגס",
-		"plural_name": "pears"
+		"plural_name": "אגסים"
 	},
 	"peas": {
 		"name": "אפונה"
 	},
 	"pepper": {
 		"name": "פלפל",
-		"plural_name": "peppers"
+		"plural_name": "פלפלים"
 	},
 	"pineapple": {
 		"name": "אננס",
-		"plural_name": "pineapples"
+		"plural_name": "אננסים"
 	},
 	"plantain": {
 		"name": "פלנטיין",
-		"plural_name": "plantains"
+		"plural_name": "פלנטיינים"
 	},
 	"poppy-seeds": {
 		"name": "פרג"
 	},
 	"potato": {
 		"name": "תפוח אדמה",
-		"plural_name": "potatoes"
+		"plural_name": "תפוחי אדמה"
 	},
 	"poultry": {
 		"name": "עוף"
@@ -505,14 +505,14 @@
 	},
 	"pumpkin": {
 		"name": "דלעת",
-		"plural_name": "pumpkins"
+		"plural_name": "דלעות"
 	},
 	"pumpkin-seeds": {
 		"name": "זרעי דלעת"
 	},
 	"radish": {
 		"name": "צנון",
-		"plural_name": "radishes"
+		"plural_name": "צנוניות"
 	},
 	"raw-sugar": {
 		"name": "סוכר גולמי"
@@ -543,7 +543,7 @@
 	},
 	"scallion": {
 		"name": "בצל ירוק",
-		"plural_name": "scallions"
+		"plural_name": "בצלים ירוקים"
 	},
 	"seafood": {
 		"name": "מאכלי ים"
@@ -556,7 +556,7 @@
 	},
 	"shallot": {
 		"name": "בצל שאלוט",
-		"plural_name": "shallots"
+		"plural_name": "בצלצלי שאלוט"
 	},
 	"skate": {
 		"name": "דג תריסנית"
@@ -572,7 +572,7 @@
 	},
 	"spaghetti-squash": {
 		"name": "דלעת ספגטי",
-		"plural_name": "spaghetti squashes"
+		"plural_name": "דלעות ספגטי"
 	},
 	"speck": {
 		"name": "גרגר"
@@ -585,11 +585,11 @@
 	},
 	"spring-onion": {
 		"name": "בצל אביב",
-		"plural_name": "spring onions"
+		"plural_name": "בצלי אביב"
 	},
 	"squash": {
 		"name": "דלעת",
-		"plural_name": "squashes"
+		"plural_name": "דלעות"
 	},
 	"squash-family": {
 		"name": "משפחת הדלועים"
@@ -602,7 +602,7 @@
 	},
 	"sunchoke": {
 		"name": "ארטישוק ירושלמי",
-		"plural_name": "sunchokes"
+		"plural_name": "ארטישוק ירושלמי"
 	},
 	"sunflower-seeds": {
 		"name": "זרעי חמניה"
@@ -612,11 +612,11 @@
 	},
 	"sweet-potato": {
 		"name": "בטטה",
-		"plural_name": "sweet potatoes"
+		"plural_name": "בטטות"
 	},
 	"sweetcorn": {
 		"name": "תירס מתוק",
-		"plural_name": "sweetcorns"
+		"plural_name": "תירס מתוק"
 	},
 	"sweeteners": {
 		"name": "ממתיקים"
@@ -626,21 +626,21 @@
 	},
 	"taro": {
 		"name": "טארו",
-		"plural_name": "taroes"
+		"plural_name": "טארואים"
 	},
 	"teff": {
 		"name": "טף"
 	},
 	"tomato": {
 		"name": "עגבנייה",
-		"plural_name": "tomatoes"
+		"plural_name": "עגבניות"
 	},
 	"trout": {
 		"name": "טרוטה"
 	},
 	"tubers": {
 		"name": "שורשיים",
-		"plural_name": "tubers"
+		"plural_name": "שורשיים"
 	},
 	"tuna": {
 		"name": "טונה"
@@ -650,7 +650,7 @@
 	},
 	"turnip": {
 		"name": "לפת",
-		"plural_name": "turnips"
+		"plural_name": "לפתות"
 	},
 	"unrefined-sugar": {
 		"name": "סוכר לא מנופה"
@@ -666,11 +666,11 @@
 	},
 	"watermelon": {
 		"name": "אבטיח",
-		"plural_name": "watermelons"
+		"plural_name": "אבטיחים"
 	},
 	"white-mushroom": {
 		"name": "פטריה לבנה",
-		"plural_name": "white mushrooms"
+		"plural_name": "פטריות לבנות"
 	},
 	"white-sugar": {
 		"name": "סוכר לבן"
@@ -680,13 +680,13 @@
 	},
 	"yam": {
 		"name": "בטטה",
-		"plural_name": "yams"
+		"plural_name": "בטטות"
 	},
 	"yeast": {
 		"name": "שמרים"
 	},
 	"zucchini": {
 		"name": "זוקיני",
-		"plural_name": "zucchinis"
+		"plural_name": "זוקיני"
 	}
 }

@@ -5,8 +5,8 @@
     "recipe": {
         "unique-name-error": "שמות מתכונים חייבים להיות יחודיים",
         "recipe-defaults": {
-            "ingredient-note": "1 Cup Flour",
-            "step-text": "Recipe steps as well as other fields in the recipe page support markdown syntax.\n\n**Add a link**\n\n[My Link](https://demo.mealie.io)\n"
+            "ingredient-note": "כוס קמח",
+            "step-text": "שלבי המתכון, כמו גם שדות אחרים בעמוד המתכון, תומכים בתחביר markdown.\n\n**הוספת קישור**\n\n[הקישור שלי](https://demo.mealie.io)\n"
         }
     },
     "mealplan": {
