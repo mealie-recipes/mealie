@@ -11,6 +11,8 @@ from typing import Any
 
 from starlette.concurrency import run_in_threadpool
 
+SECONDS_IN_MINUTE = 60
+
 NoArgsNoReturnFuncT = Callable[[], None]
 NoArgsNoReturnAsyncFuncT = Callable[[], Coroutine[Any, Any, None]]
 NoArgsNoReturnDecorator = Callable[[NoArgsNoReturnFuncT | NoArgsNoReturnAsyncFuncT], NoArgsNoReturnAsyncFuncT]
@@ -60,7 +62,7 @@ def repeat_every(
             async def loop() -> None:
                 nonlocal repetitions
                 if wait_first:
-                    await asyncio.sleep(minutes * 60)
+                    await asyncio.sleep(minutes * SECONDS_IN_MINUTE)
                 while max_repetitions is None or repetitions < max_repetitions:
                     try:
                         if is_coroutine:
@@ -74,7 +76,7 @@ def repeat_every(
                             logger.error(formatted_exception)
                         if raise_exceptions:
                             raise exc
-                    await asyncio.sleep(minutes * 60)
+                    await asyncio.sleep(minutes * SECONDS_IN_MINUTE)
 
             ensure_future(loop())
 
