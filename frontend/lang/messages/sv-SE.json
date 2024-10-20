@@ -182,6 +182,7 @@
     "date": "Datum",
     "id": "ID",
     "owner": "Ägare",
+    "change-owner": "Change Owner",
     "date-added": "Skapad",
     "none": "Inga",
     "run": "Kör",
