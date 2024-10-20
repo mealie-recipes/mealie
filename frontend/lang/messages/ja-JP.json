@@ -182,6 +182,7 @@
     "date": "日付",
     "id": "Id",
     "owner": "所有者",
+    "change-owner": "Change Owner",
     "date-added": "追加日",
     "none": "なし",
     "run": "実行",

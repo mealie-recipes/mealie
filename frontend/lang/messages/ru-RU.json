@@ -182,6 +182,7 @@
     "date": "Дата",
     "id": "Id",
     "owner": "Владелец",
+    "change-owner": "Change Owner",
     "date-added": "Дата добавления",
     "none": "Ничего",
     "run": "Запустить",

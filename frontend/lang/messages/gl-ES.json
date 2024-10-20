@@ -182,6 +182,7 @@
     "date": "Data",
     "id": "Id",
     "owner": "Dono",
+    "change-owner": "Change Owner",
     "date-added": "Engadida o",
     "none": "Nada",
     "run": "Executar",

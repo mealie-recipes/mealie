@@ -182,6 +182,7 @@
     "date": "Dátum",
     "id": "Azonosító",
     "owner": "Tulajdonos",
+    "change-owner": "Change Owner",
     "date-added": "Hozzáadás Dátuma",
     "none": "Nincs",
     "run": "Futtatás",
