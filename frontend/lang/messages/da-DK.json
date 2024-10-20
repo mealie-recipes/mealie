@@ -182,6 +182,7 @@
     "date": "Dato",
     "id": "Id",
     "owner": "Ejer",
+    "change-owner": "Change Owner",
     "date-added": "Oprettelsesdato",
     "none": "Ingen",
     "run": "Start",
