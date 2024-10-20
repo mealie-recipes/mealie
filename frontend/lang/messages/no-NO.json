@@ -182,6 +182,7 @@
     "date": "Dato",
     "id": "Id",
     "owner": "Eier",
+    "change-owner": "Change Owner",
     "date-added": "Dato lagt til",
     "none": "Ingen",
     "run": "Kjør",

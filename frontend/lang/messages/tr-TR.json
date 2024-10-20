@@ -182,6 +182,7 @@
     "date": "Tarih",
     "id": "Kimlik",
     "owner": "Sahip",
+    "change-owner": "Change Owner",
     "date-added": "Eklenme Tarihi",
     "none": "Yok",
     "run": "Çalıştır",

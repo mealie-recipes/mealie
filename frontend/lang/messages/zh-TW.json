@@ -182,6 +182,7 @@
     "date": "日期",
     "id": "ID",
     "owner": "擁有者",
+    "change-owner": "Change Owner",
     "date-added": "新增日期",
     "none": "無",
     "run": "運行",

@@ -182,6 +182,7 @@
     "date": "Date",
     "id": "Id",
     "owner": "작성자",
+    "change-owner": "Change Owner",
     "date-added": "Date Added",
     "none": "없음",
     "run": "실행",
