@@ -7,6 +7,8 @@ from mealie.schema._mealie import MealieModel
 
 class CreateInviteToken(MealieModel):
     uses: int
+    group_id: UUID | None = None
+    household_id: UUID | None = None
 
 
 class SaveInviteToken(MealieModel):
