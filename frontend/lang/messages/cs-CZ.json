@@ -182,6 +182,7 @@
     "date": "Datum",
     "id": "Id",
     "owner": "Vlastník",
+    "change-owner": "Change Owner",
     "date-added": "Datum přidání",
     "none": "Žádný",
     "run": "Spustit",
