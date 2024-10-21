@@ -112,6 +112,30 @@
             >
             </v-text-field>
           </v-app-bar>
+          <BaseDialog
+            v-model="showSummaryEditor[step.id]"
+            :title="$tc('recipe.update-summary')"
+            :submit-text="$tc('general.update')"
+            color="primary"
+            :icon="$globals.icons.primary"
+            :submitIcon="$globals.icons.update"
+            @submit="
+              step.summary = summaryInput
+              showSummaryEditor[step.id] = false
+            "
+            @cancel="
+              showSummaryEditor[step.id] = false
+            "
+          >
+          <v-card-text>
+            <v-card-text>
+              <div class="ml-auto">
+                {{  $t('recipe.summary-overview', { default: $t("recipe.step-index", { step: index + 1 }) }) }}
+              </div>
+              <v-text-field v-model="summaryInput" :label="$t('recipe.instruction-summary')" />
+            </v-card-text>
+          </v-card-text>
+          </BaseDialog>
           <v-hover v-slot="{ hover }">
             <v-card
               class="my-3"
@@ -123,7 +147,7 @@
               <v-card-title :class="{ 'pb-0': !isChecked(index) }">
                 <span :class="isEditForm ? 'handle' : ''">
                   <v-icon v-if="isEditForm" size="26" class="pb-1">{{ $globals.icons.arrowUpDown }}</v-icon>
-                  {{ $t("recipe.step-index", { step: index + 1 }) }}
+                  {{ step.summary ? step.summary : $t("recipe.step-index", { step: index + 1 }) }}
                 </span>
                 <template v-if="isEditForm">
                   <div class="ml-auto">
@@ -140,6 +164,10 @@
                           text: '',
                           event: 'open',
                           children: [
+                            {
+                              text: $tc('recipe.update-summary'),
+                              event: 'update-summary',
+                            },
                             {
                               text: $tc('recipe.toggle-section'),
                               event: 'toggle-section',
@@ -187,6 +215,7 @@
                       @insert-above="insert(index)"
                       @insert-below="insert(index+1)"
                       @toggle-section="toggleShowTitle(step.id)"
+                      @update-summary="toggleShowSummary(step)"
                       @link-ingredients="openDialog(index, step.text, step.ingredientReferences)"
                       @preview-step="togglePreviewState(index)"
                       @upload-image="openImageUpload(index)"
@@ -317,11 +346,18 @@ export default defineComponent({
       disabledSteps: [] as number[],
       unusedIngredients: [] as RecipeIngredient[],
       usedIngredients: [] as RecipeIngredient[],
+      summaryInput: '',
     });
 
     const showTitleEditor = ref<{ [key: string]: boolean }>({});
+    // TODO: Is this overly complex, and not needed because I'm not trying to display static content?
+    const showSummaryEditor = ref<{ [key: string]: boolean }>({});
 
     const actionEvents = [
+      {
+        text: i18n.t("recipe.update-summary") as string,
+        event: "update-summary",
+      },
       {
         text: i18n.t("recipe.toggle-section") as string,
         event: "toggle-section",
@@ -339,7 +375,7 @@ export default defineComponent({
     // ===============================================================
     // UI State Helpers
 
-    function validateTitle(title: string | undefined) {
+    function hasSectionTitle(title: string | undefined) {
       return !(title === null || title === "" || title === undefined);
     }
 
@@ -348,7 +384,7 @@ export default defineComponent({
 
       v.forEach((element: RecipeStep) => {
         if (element.id !== undefined) {
-          showTitleEditor.value[element.id] = validateTitle(element.title);
+          showTitleEditor.value[element.id] = hasSectionTitle(element.title);
         }
       });
     });
@@ -359,7 +395,7 @@ export default defineComponent({
     onMounted(() => {
       props.value.forEach((element: RecipeStep) => {
         if (element.id !== undefined) {
-          showTitleEditor.value[element.id] = validateTitle(element.title);
+          showTitleEditor.value[element.id] = hasSectionTitle(element.title);
         }
 
         // showCookMode.value = false;
@@ -400,6 +436,17 @@ export default defineComponent({
 
       const temp = { ...showTitleEditor.value };
       showTitleEditor.value = temp;
+    }
+
+    function toggleShowSummary(step: RecipeStep) {
+      const id = step.id
+      
+      state.summaryInput = step.summary
+
+      showSummaryEditor.value[id] = !showSummaryEditor.value[id];
+
+      const temp = { ...showSummaryEditor.value };
+      showSummaryEditor.value = temp;
     }
 
     function updateIndex(data: RecipeStep) {
@@ -576,7 +623,7 @@ export default defineComponent({
       const sectionSteps: number[] = [];
 
       for (let i = index; i < props.value.length; i++) {
-        if (!(i === index) && validateTitle(props.value[i].title)) {
+        if (!(i === index) && hasSectionTitle(props.value[i].title)) {
           break;
         } else {
           sectionSteps.push(i);
@@ -678,6 +725,7 @@ export default defineComponent({
       activeText,
       getIngredientByRefId,
       showTitleEditor,
+      showSummaryEditor,
       mergeAbove,
       moveTo,
       openDialog,
@@ -688,6 +736,7 @@ export default defineComponent({
       toggleDisabled,
       isChecked,
       toggleShowTitle,
+      toggleShowSummary,
       updateIndex,
       autoSetReferences,
       parseIngredientText,
