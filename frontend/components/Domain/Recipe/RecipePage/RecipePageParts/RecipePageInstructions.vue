@@ -118,7 +118,7 @@
             :submit-text="$tc('general.update')"
             color="primary"
             :icon="$globals.icons.primary"
-            :submitIcon="$globals.icons.update"
+            :submit-icon="$globals.icons.update"
             @submit="
               step.summary = summaryInput
               showSummaryEditor[step.id] = false
@@ -346,7 +346,7 @@ export default defineComponent({
       disabledSteps: [] as number[],
       unusedIngredients: [] as RecipeIngredient[],
       usedIngredients: [] as RecipeIngredient[],
-      summaryInput: '',
+      summaryInput: "",
     });
 
     const showTitleEditor = ref<{ [key: string]: boolean }>({});
