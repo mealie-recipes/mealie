@@ -123,7 +123,7 @@ class FormatResponse(BaseModel):
     jinja2: list[str]
 
 
-router_exports = UserAPIRouter(prefix="/recipes", tags=["Recipe: Exports"])
+router_exports = UserAPIRouter(prefix="/recipes")
 
 
 @controller(router_exports)
@@ -176,7 +176,7 @@ class RecipeExportController(BaseRecipeController):
             )
 
 
-router = UserAPIRouter(prefix="/recipes", tags=["Recipe: CRUD"], route_class=MealieCrudRoute)
+router = UserAPIRouter(prefix="/recipes", route_class=MealieCrudRoute)
 
 
 @controller(router)

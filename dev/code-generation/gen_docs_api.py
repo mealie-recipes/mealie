@@ -1,5 +1,8 @@
 import json
 
+from fastapi import FastAPI
+from freezegun import freeze_time
+
 from mealie.app import app
 from mealie.core.config import determine_data_dir
 
@@ -36,11 +39,12 @@ HTML_TEMPLATE = """<!-- Custom HTML site displayed as the Home chapter -->
 HTML_PATH = DATA_DIR.parent.parent.joinpath("docs/docs/overrides/api.html")
 
 
-def generate_api_docs(my_app):
+def generate_api_docs(my_app: FastAPI):
     with open(HTML_PATH, "w") as fd:
         text = HTML_TEMPLATE.replace("MY_SPECIFIC_TEXT", json.dumps(my_app.openapi()))
         fd.write(text)
 
 
 if __name__ == "__main__":
-    generate_api_docs(app)
+    with freeze_time("2024-01-20T17:00:55Z"):
+        generate_api_docs(app)
