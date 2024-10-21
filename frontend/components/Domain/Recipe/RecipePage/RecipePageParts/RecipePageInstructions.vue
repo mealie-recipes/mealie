@@ -350,7 +350,6 @@ export default defineComponent({
     });
 
     const showTitleEditor = ref<{ [key: string]: boolean }>({});
-    // TODO: Is this overly complex, and not needed because I'm not trying to display static content?
     const showSummaryEditor = ref<{ [key: string]: boolean }>({});
 
     const actionEvents = [
