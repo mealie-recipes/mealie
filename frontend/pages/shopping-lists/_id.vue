@@ -57,18 +57,21 @@
       <!-- View By Label -->
       <div v-else>
         <div v-for="(value, key) in itemsByLabel" :key="key" class="mb-6">
-          <div class="text-left">
-            <v-btn
-              :color="getLabelColor(value[0]) ? getLabelColor(value[0]) : '#959595'"
-              :style="{
-                'color': getTextColor(getLabelColor(value[0])),
-                'letter-spacing': 'normal',
-              }"
-            >
-              {{ key }}
-          </v-btn>
-          </div>
-          <v-divider/>
+          <span>
+            <div class="text-left">
+              <button @click="toggleShowLabel(key)">
+                <v-btn :color="getLabelColor(value[0]) ? getLabelColor(value[0]) : '#959595'">
+                  <v-icon>
+                    {{ labelOpenState[key] ? $globals.icons.chevronDown : $globals.icons.chevronRight }}
+                  </v-icon>
+                  {{ key }}
+                </v-btn>
+              </button>
+            </div>
+          </span>
+        <v-divider/>
+        <v-expand-transition group>
+          <div v-show="labelOpenState[key]">
           <draggable :value="value" handle=".handle" delay="250" :delay-on-touch-only="true" @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndexUncheckedByLabel(key, $event)">
             <v-lazy v-for="(item, index) in value" :key="item.id" class="ml-2 my-2">
               <ShoppingListItem
@@ -83,7 +86,9 @@
                 @delete="deleteListItem(item)"
               />
             </v-lazy>
-          </draggable>
+            </draggable>
+          </div>
+        </v-expand-transition>
         </div>
       </div>
 
@@ -293,7 +298,7 @@
 <script lang="ts">
 import draggable from "vuedraggable";
 
-import { defineComponent, useRoute, computed, ref, toRefs, onUnmounted, useContext, reactive } from "@nuxtjs/composition-api";
+import { defineComponent, useRoute, computed, ref, toRefs, onUnmounted, useContext, reactive, watch } from "@nuxtjs/composition-api";
 import { useIdle, useToggle } from "@vueuse/core";
 import { useCopyList } from "~/composables/use-copy";
 import { useUserApi } from "~/composables/api";
@@ -306,7 +311,6 @@ import ShoppingListItemEditor from "~/components/Domain/ShoppingList/ShoppingLis
 import { useFoodStore, useLabelStore, useUnitStore } from "~/composables/store";
 import { useShoppingListItemActions } from "~/composables/use-shopping-list-item-actions";
 import { useShoppingListPreferences } from "~/composables/use-users/preferences";
-import { getTextColor } from "~/composables/use-text-color";
 import { uuid4 } from "~/composables/use-utils";
 
 type CopyTypes = "plain" | "markdown";
@@ -454,6 +458,39 @@ export default defineComponent({
           ?? [],
       };
     });
+
+    // =====================================
+    // Collapsables
+    const labelOpenState = ref<{ [key: string]: boolean }>({});
+
+    const initializeLabelOpenStates = () => {
+      if (!shoppingList.value?.listItems) return;
+
+      const existingLabels = new Set(Object.keys(labelOpenState.value));
+      let hasChanges = false;
+
+      for (const item of shoppingList.value.listItems) {
+        const labelName = item.label?.name;
+        if (labelName && !existingLabels.has(labelName) && !(labelName in labelOpenState.value)) {
+          labelOpenState.value[labelName] = true;
+          hasChanges = true;
+        }
+      }
+
+      if (hasChanges) {
+        labelOpenState.value = { ...labelOpenState.value };
+      }
+    };
+
+    const labelNames = computed(() =>
+      new Set(shoppingList.value?.listItems?.map(item => item.label?.name).filter(Boolean) ?? [])
+    );
+
+    watch(labelNames, initializeLabelOpenStates, { immediate: true });
+
+    function toggleShowLabel(key: string) {
+      labelOpenState.value[key] = !labelOpenState.value[key];
+    }
 
     const [showChecked, toggleShowChecked] = useToggle(false);
 
@@ -1025,7 +1062,7 @@ export default defineComponent({
       }
 
       // update current user
-      allUsers.value = data.items.sort((a, b) => ((a.fullName || "") < (b.fullName || "") ? -1 : 1));
+      allUsers.value = data.sort((a, b) => ((a.fullName || "") < (b.fullName || "") ? -1 : 1));
       currentUserId.value = shoppingList.value?.userId;
     }
 
@@ -1082,6 +1119,8 @@ export default defineComponent({
       shoppingList,
       showChecked,
       sortByLabels,
+      labelOpenState,
+      toggleShowLabel,
       toggleShowChecked,
       uncheckAll,
       openUncheckAll,
@@ -1094,7 +1133,6 @@ export default defineComponent({
       allUsers,
       currentUserId,
       updateSettings,
-      getTextColor,
     };
   },
   head() {
