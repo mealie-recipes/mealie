@@ -182,7 +182,7 @@
     "date": "Datum",
     "id": "ID",
     "owner": "Besitzer",
-    "change-owner": "Change Owner",
+    "change-owner": "Besitzer ändern",
     "date-added": "Hinzugefügt am",
     "none": "Nichts",
     "run": "Starten",
@@ -214,10 +214,10 @@
     "confirm-delete-generic-items": "Bist du dir sicher, dass du die folgenden Einträge löschen möchtest?",
     "organizers": "Organisieren",
     "caution": "Vorsicht",
-    "show-advanced": "Show Advanced",
-    "add-field": "Add Field",
-    "date-created": "Date Created",
-    "date-updated": "Date Updated"
+    "show-advanced": "Erweiterte Optionen anzeigen",
+    "add-field": "Feld Hinzufügen",
+    "date-created": "Erstellungsdatum",
+    "date-updated": "Aktualisiert am"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Bist du dir sicher, dass du die Gruppe <b>{groupName}<b/> löschen möchtest?",
@@ -431,7 +431,7 @@
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Füge deine Rezeptdaten ein. Jede Zeile wird als Eintrag in einer Liste dargestellt",
     "recipe-markup-specification": "Rezept Markup Spezifikation",
     "recipe-url": "Rezept URL",
-    "recipe-html-or-json": "Recipe HTML or JSON",
+    "recipe-html-or-json": "Rezept HTML oder JSON",
     "upload-a-recipe": "Rezept hochladen",
     "upload-individual-zip-file": "Lade eine individuelle .zip-Datei hoch, die von einer anderen Mealie-Instanz exportiert wird.",
     "url-form-hint": "Kopiere einen Link von deiner Lieblingsrezept-Website und füge ihn ein",
@@ -466,7 +466,7 @@
     "calories-suffix": "Kalorien",
     "carbohydrate-content": "Kohlenhydrate",
     "categories": "Kategorien",
-    "cholesterol-content": "Cholesterol",
+    "cholesterol-content": "Cholesterin",
     "comment-action": "Kommentieren",
     "comment": "Kommentar",
     "comments": "Kommentare",
@@ -513,7 +513,7 @@
     "recipe-updated": "Rezept aktualisiert",
     "remove-from-favorites": "Von Favoriten entfernen",
     "remove-section": "Abschnitt entfernen",
-    "saturated-fat-content": "Saturated fat",
+    "saturated-fat-content": "Gesättigte Fettsäuren",
     "save-recipe-before-use": "Rezept vor Verwendung speichern",
     "section-title": "Titel des Abschnitts",
     "servings": "Portionen",
@@ -526,7 +526,7 @@
     "total-time": "Gesamtzeit",
     "trans-fat-content": "Trans-fat",
     "unable-to-delete-recipe": "Rezept kann nicht gelöscht werden",
-    "unsaturated-fat-content": "Unsaturated fat",
+    "unsaturated-fat-content": "Ungesättigte Fettsäuren",
     "no-recipe": "Kein Rezept",
     "locked-by-owner": "Vom Besitzer gesperrt",
     "join-the-conversation": "Beteilige dich an der Unterhaltung",
@@ -1348,17 +1348,17 @@
       "does-not-equal": "does not equal",
       "is-greater-than": "is greater than",
       "is-greater-than-or-equal-to": "is greater than or equal to",
-      "is-less-than": "is less than",
+      "is-less-than": "ist weniger als",
       "is-less-than-or-equal-to": "is less than or equal to"
     },
     "relational-keywords": {
-      "is": "is",
-      "is-not": "is not",
-      "is-one-of": "is one of",
-      "is-not-one-of": "is not one of",
-      "contains-all-of": "contains all of",
-      "is-like": "is like",
-      "is-not-like": "is not like"
+      "is": "ist",
+      "is-not": "ist nicht",
+      "is-one-of": "ist eines von",
+      "is-not-one-of": "ist nicht einer von",
+      "contains-all-of": "enthält alle",
+      "is-like": "ist wie",
+      "is-not-like": "ist nicht wie"
     }
   }
 }
