@@ -127,14 +127,14 @@
               showSummaryEditor[step.id] = false
             "
           >
-          <v-card-text>
             <v-card-text>
-              <div class="ml-auto">
-                {{  $t('recipe.summary-overview', { default: $t("recipe.step-index", { step: index + 1 }) }) }}
-              </div>
-              <v-text-field v-model="summaryInput" :label="$t('recipe.instruction-summary')" />
+              <v-card-text>
+                <div class="ml-auto">
+                  {{  $t('recipe.summary-overview', { default: $t("recipe.step-index", { step: index + 1 }) }) }}
+                </div>
+                <v-text-field v-model="summaryInput" :label="$t('recipe.instruction-summary')" />
+              </v-card-text>
             </v-card-text>
-          </v-card-text>
           </BaseDialog>
           <v-hover v-slot="{ hover }">
             <v-card
