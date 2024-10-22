@@ -182,6 +182,7 @@
     "date": "Päivämäärä",
     "id": "Id",
     "owner": "Omistaja",
+    "change-owner": "Change Owner",
     "date-added": "Lisätty",
     "none": "Tyhjä",
     "run": "Suorita",

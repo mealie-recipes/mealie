@@ -182,6 +182,7 @@
     "date": "Date",
     "id": "Id",
     "owner": "Owner",
+    "change-owner": "Change Owner",
     "date-added": "Date Added",
     "none": "None",
     "run": "Run",

@@ -3,7 +3,7 @@ authors = ["Hayden <hay-kot@pm.me>"]
 description = "A Recipe Manager"
 license = "AGPL"
 name = "mealie"
-version = "1.12.0"
+version = "2.0.0"
 
 [tool.poetry.scripts]
 start = "mealie.app:main"
@@ -45,7 +45,7 @@ authlib = "^1.3.0"
 html2text = "^2024.0.0"
 paho-mqtt = "^1.6.1"
 pydantic-settings = "^2.1.0"
-pillow-heif = "^0.18.0"
+pillow-heif = "^0.20.0"
 pyjwt = "^2.8.0"
 openai = "^1.27.0"
 typing-extensions = "^4.12.2"
@@ -71,6 +71,7 @@ types-python-slugify = "^6.0.0"
 types-requests = "^2.27.12"
 types-urllib3 = "^1.26.11"
 pydantic-to-typescript2 = "^1.0.4"
+freezegun = "^1.5.1"
 
 
 [build-system]

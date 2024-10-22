@@ -182,6 +182,7 @@
     "date": "Datum",
     "id": "Id",
     "owner": "Vlasnik",
+    "change-owner": "Change Owner",
     "date-added": "Datum Dodavanja",
     "none": "Ništa",
     "run": "Pokreni",
