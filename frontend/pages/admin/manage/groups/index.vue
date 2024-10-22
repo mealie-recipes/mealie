@@ -76,7 +76,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, shallowReactive, toRefs, useContext, useRouter } from "@nuxtjs/composition-api";
+import { defineComponent, reactive, toRefs, useContext, useRouter } from "@nuxtjs/composition-api";
 import { fieldTypes } from "~/composables/forms";
 import { useGroups } from "~/composables/use-groups";
 import { GroupInDB } from "~/lib/api/types/user";
