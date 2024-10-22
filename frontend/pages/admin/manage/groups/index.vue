@@ -47,20 +47,27 @@
           {{ item.users.length }}
         </template>
         <template #item.actions="{ item }">
-          <v-btn
-            :disabled="item && (item.households.length > 0 || item.users.length > 0)"
-            class="mr-1"
-            icon
-            color="error"
-            @click.stop="
-              confirmDialog = true;
-              deleteTarget = item.id;
-            "
-          >
-            <v-icon>
-              {{ $globals.icons.delete }}
-            </v-icon>
-          </v-btn>
+          <v-tooltip bottom :disabled="!(item && (item.households.length > 0 || item.users.length > 0))">
+            <template #activator="{ on, attrs }">
+              <div v-bind="attrs" v-on="on" >
+                <v-btn
+                  :disabled="item && (item.households.length > 0 || item.users.length > 0)"
+                  class="mr-1"
+                  icon
+                  color="error"
+                  @click.stop="
+                    confirmDialog = true;
+                    deleteTarget = item.id;
+                  "
+                >
+                  <v-icon>
+                    {{ $globals.icons.delete }}
+                  </v-icon>
+                </v-btn>
+              </div>
+            </template>
+            <span>{{ $tc("admin.group-delete-note") }}</span>
+          </v-tooltip>
         </template>
       </v-data-table>
       <v-divider></v-divider>
@@ -69,7 +76,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, useContext, useRouter } from "@nuxtjs/composition-api";
+import { defineComponent, reactive, shallowReactive, toRefs, useContext, useRouter } from "@nuxtjs/composition-api";
 import { fieldTypes } from "~/composables/forms";
 import { useGroups } from "~/composables/use-groups";
 import { GroupInDB } from "~/lib/api/types/user";
