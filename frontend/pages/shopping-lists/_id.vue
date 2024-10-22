@@ -57,18 +57,15 @@
       <!-- View By Label -->
       <div v-else>
         <div v-for="(value, key) in itemsByLabel" :key="key" class="mb-6">
-          <span>
-            <div class="text-left">
-              <button @click="toggleShowLabel(key)">
-                <v-btn :color="getLabelColor(value[0]) ? getLabelColor(value[0]) : '#959595'">
-                  <v-icon>
-                    {{ labelOpenState[key] ? $globals.icons.chevronDown : $globals.icons.chevronRight }}
-                  </v-icon>
-                  {{ key }}
-                </v-btn>
-              </button>
-            </div>
-          </span>
+          <v-btn 
+            :color="getLabelColor(value[0]) ? getLabelColor(value[0]) : '#959595'"
+            @click="toggleShowLabel(key)"
+          >
+            <v-icon>
+              {{ labelOpenState[key] ? $globals.icons.chevronDown : $globals.icons.chevronRight }}
+            </v-icon>
+            {{ key }}
+          </v-btn>
         <v-divider/>
         <v-expand-transition group>
           <div v-show="labelOpenState[key]">
