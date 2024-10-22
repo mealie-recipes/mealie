@@ -182,6 +182,7 @@
     "date": "Data",
     "id": "Id",
     "owner": "Savininkas",
+    "change-owner": "Change Owner",
     "date-added": "Įkėlimo data",
     "none": "Nėra",
     "run": "Paleisti",

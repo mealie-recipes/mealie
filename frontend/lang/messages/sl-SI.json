@@ -182,6 +182,7 @@
     "date": "Datum",
     "id": "Id",
     "owner": "Lastnik",
+    "change-owner": "Change Owner",
     "date-added": "Dodano dne",
     "none": "Brez",
     "run": "Zaženi",

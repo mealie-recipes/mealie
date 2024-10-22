@@ -182,6 +182,7 @@
     "date": "Datum",
     "id": "Id",
     "owner": "Eienaar",
+    "change-owner": "Change Owner",
     "date-added": "Datum bygevoeg",
     "none": "Geen",
     "run": "Hardloop",

@@ -182,6 +182,7 @@
     "date": "التاريخ",
     "id": "المعرف",
     "owner": "المالك",
+    "change-owner": "Change Owner",
     "date-added": "تاريخ الإضافة",
     "none": "لا شيء",
     "run": "شغّل",

@@ -182,6 +182,7 @@
     "date": "Датум",
     "id": "Ид",
     "owner": "Власник",
+    "change-owner": "Change Owner",
     "date-added": "Датум додавања",
     "none": "Ниједно",
     "run": "Покрени",

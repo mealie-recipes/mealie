@@ -182,6 +182,7 @@
     "date": "Fecha",
     "id": "Id",
     "owner": "Propietario",
+    "change-owner": "Change Owner",
     "date-added": "Fecha creación",
     "none": "Nada",
     "run": "Ejecutar",
