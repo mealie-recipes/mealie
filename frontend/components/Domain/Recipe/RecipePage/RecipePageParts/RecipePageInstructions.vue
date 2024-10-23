@@ -112,30 +112,6 @@
             >
             </v-text-field>
           </v-app-bar>
-          <BaseDialog
-            v-model="showSummaryEditor[step.id]"
-            :title="$tc('recipe.update-summary')"
-            :submit-text="$tc('general.update')"
-            color="primary"
-            :icon="$globals.icons.primary"
-            :submit-icon="$globals.icons.update"
-            @submit="
-              step.summary = summaryInput
-              showSummaryEditor[step.id] = false
-            "
-            @cancel="
-              showSummaryEditor[step.id] = false
-            "
-          >
-            <v-card-text>
-              <v-card-text>
-                <div class="ml-auto">
-                  {{  $t('recipe.summary-overview', { default: $t("recipe.step-index", { step: index + 1 }) }) }}
-                </div>
-                <v-text-field v-model="summaryInput" :label="$t('recipe.instruction-summary')" />
-              </v-card-text>
-            </v-card-text>
-          </BaseDialog>
           <v-hover v-slot="{ hover }">
             <v-card
               class="my-3"
@@ -145,8 +121,21 @@
               @click="toggleDisabled(index)"
             >
               <v-card-title :class="{ 'pb-0': !isChecked(index) }">
-                <span :class="isEditForm ? 'handle' : ''">
-                  <v-icon v-if="isEditForm" size="26" class="pb-1">{{ $globals.icons.arrowUpDown }}</v-icon>
+                <v-text-field
+                  v-if="isEditForm"
+                  v-model="step.summary"
+                  class="headline handle"
+                  hide-details
+                  dense
+                  solo
+                  flat
+                  :placeholder="$t('recipe.step-index', { step: index + 1 })"
+                >
+                  <template #prepend>
+                    <v-icon size="26">{{ $globals.icons.arrowUpDown }}</v-icon>
+                  </template>
+                </v-text-field>
+                <span v-else>
                   {{ step.summary ? step.summary : $t("recipe.step-index", { step: index + 1 }) }}
                 </span>
                 <template v-if="isEditForm">
@@ -164,10 +153,6 @@
                           text: '',
                           event: 'open',
                           children: [
-                            {
-                              text: $tc('recipe.update-summary'),
-                              event: 'update-summary',
-                            },
                             {
                               text: $tc('recipe.toggle-section'),
                               event: 'toggle-section',
@@ -215,7 +200,6 @@
                       @insert-above="insert(index)"
                       @insert-below="insert(index+1)"
                       @toggle-section="toggleShowTitle(step.id)"
-                      @update-summary="toggleShowSummary(step)"
                       @link-ingredients="openDialog(index, step.text, step.ingredientReferences)"
                       @preview-step="togglePreviewState(index)"
                       @upload-image="openImageUpload(index)"
@@ -346,17 +330,11 @@ export default defineComponent({
       disabledSteps: [] as number[],
       unusedIngredients: [] as RecipeIngredient[],
       usedIngredients: [] as RecipeIngredient[],
-      summaryInput: "",
     });
 
     const showTitleEditor = ref<{ [key: string]: boolean }>({});
-    const showSummaryEditor = ref<{ [key: string]: boolean }>({});
-
+    
     const actionEvents = [
-      {
-        text: i18n.t("recipe.update-summary") as string,
-        event: "update-summary",
-      },
       {
         text: i18n.t("recipe.toggle-section") as string,
         event: "toggle-section",
@@ -435,17 +413,6 @@ export default defineComponent({
 
       const temp = { ...showTitleEditor.value };
       showTitleEditor.value = temp;
-    }
-
-    function toggleShowSummary(step: RecipeStep) {
-      const id = step.id
-      
-      state.summaryInput = step.summary
-
-      showSummaryEditor.value[id] = !showSummaryEditor.value[id];
-
-      const temp = { ...showSummaryEditor.value };
-      showSummaryEditor.value = temp;
     }
 
     function updateIndex(data: RecipeStep) {
@@ -724,7 +691,6 @@ export default defineComponent({
       activeText,
       getIngredientByRefId,
       showTitleEditor,
-      showSummaryEditor,
       mergeAbove,
       moveTo,
       openDialog,
@@ -735,7 +701,6 @@ export default defineComponent({
       toggleDisabled,
       isChecked,
       toggleShowTitle,
-      toggleShowSummary,
       updateIndex,
       autoSetReferences,
       parseIngredientText,
