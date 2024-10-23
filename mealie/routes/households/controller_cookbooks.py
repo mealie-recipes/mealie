@@ -6,6 +6,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydantic import UUID4
 
 from mealie.core.exceptions import mealie_registered_exceptions
+from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import BaseCrudController, controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import MealieCrudRoute
@@ -29,6 +30,10 @@ class GroupCookbookController(BaseCrudController):
     def cookbooks(self):
         return self.repos.cookbooks
 
+    @cached_property
+    def group_cookbooks(self):
+        return get_repositories(self.session, group_id=self.group_id, household_id=None).cookbooks
+
     def registered_exceptions(self, ex: type[Exception]) -> str:
         registered = {
             **mealie_registered_exceptions(self.translator),
@@ -45,7 +50,8 @@ class GroupCookbookController(BaseCrudController):
 
     @router.get("", response_model=CookBookPagination)
     def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
-        response = self.cookbooks.page_all(
+        # Fetch all cookbooks for the group, rather than the household
+        response = self.group_cookbooks.page_all(
             pagination=q,
             override=ReadCookBook,
         )
@@ -106,7 +112,8 @@ class GroupCookbookController(BaseCrudController):
             except ValueError:
                 match_attr = "slug"
 
-        cookbook = self.cookbooks.get_one(item_id, match_attr)
+        # Allow fetching other households' cookbooks
+        cookbook = self.group_cookbooks.get_one(item_id, match_attr)
 
         if cookbook is None:
             raise HTTPException(status_code=404)
