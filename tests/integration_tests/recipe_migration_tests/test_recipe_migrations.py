@@ -156,7 +156,6 @@ def test_recipe_migration(api_client: TestClient, unique_user_fn_scoped: TestUse
         assert item["success"]
 
 
-
 def test_bad_mealie_alpha_data_is_ignored(api_client: TestClient, unique_user: TestUser):
     with TemporaryDirectory() as tmpdir:
         with ZipFile(test_data.migrations_mealie) as zf:
