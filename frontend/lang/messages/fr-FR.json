@@ -1271,7 +1271,9 @@
     "debug-openai-services": "Déboguer les services OpenAI",
     "debug-openai-services-description": "Utilisez cette page pour déboguer les services OpenAI. Vous pouvez tester votre connexion OpenAI et voir les résultats ici. Si vous avez activé les services d'image, vous pouvez également fournir une image.",
     "run-test": "Lancer le test",
-    "test-results": "Résultats du test"
+    "test-results": "Résultats du test",
+    "group-delete-note": "Groups with users or households cannot be deleted",
+    "household-delete-note": "Households with users cannot be deleted"
   },
   "profile": {
     "welcome-user": "👋 Bienvenue, {0} !",

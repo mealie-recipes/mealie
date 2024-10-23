@@ -31,7 +31,7 @@
     },
     "quart": {
         "name": "cuarto",
-        "plural_name": "quarts",
+        "plural_name": "cuartos de galón",
         "description": "",
         "abbreviation": "qt"
     },
@@ -43,44 +43,44 @@
     },
     "milliliter": {
         "name": "mililitro/s",
-        "plural_name": "milliliters",
+        "plural_name": "mililitros",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
         "name": "litro/s",
-        "plural_name": "liters",
+        "plural_name": "litros",
         "description": "",
         "abbreviation": "l"
     },
     "pound": {
         "name": "libra/s",
-        "plural_name": "pounds",
+        "plural_name": "libras",
         "description": "",
         "abbreviation": "lb",
         "plural_abbreviation": "lbs"
     },
     "ounce": {
         "name": "onza/s",
-        "plural_name": "ounces",
+        "plural_name": "onzas",
         "description": "",
         "abbreviation": "onz"
     },
     "gram": {
         "name": "gramo/s",
-        "plural_name": "grams",
+        "plural_name": "gramos",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
         "name": "kilogramo/s",
-        "plural_name": "kilograms",
+        "plural_name": "kilogramos",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
         "name": "miligramo/s",
-        "plural_name": "milligrams",
+        "plural_name": "miligramos",
         "description": "",
         "abbreviation": "mg"
     },
