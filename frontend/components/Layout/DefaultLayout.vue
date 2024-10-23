@@ -82,12 +82,16 @@ import { computed, defineComponent, onMounted, ref, useContext, useRoute } from 
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import AppHeader from "@/components/Layout/LayoutParts/AppHeader.vue";
 import AppSidebar from "@/components/Layout/LayoutParts/AppSidebar.vue";
-import { SidebarLinks } from "~/types/application-types";
+import { SideBarLink } from "~/types/application-types";
 import LanguageDialog from "~/components/global/LanguageDialog.vue";
 import TheSnackbar from "@/components/Layout/LayoutParts/TheSnackbar.vue";
 import { useAppInfo } from "~/composables/api";
 import { useCookbooks, usePublicCookbooks } from "~/composables/use-group-cookbooks";
+import { useHouseholdStore } from "~/composables/store/use-household-store";
 import { useToggleDarkMode } from "~/composables/use-utils";
+import { ReadCookBook } from "~/lib/api/types/cookbook";
+import { HouseholdSummary } from "~/lib/api/types/household";
+
 
 export default defineComponent({
   components: { AppHeader, AppSidebar, LanguageDialog, TheSnackbar },
@@ -99,6 +103,14 @@ export default defineComponent({
     const route = useRoute();
     const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
     const { cookbooks } = isOwnGroup.value ? useCookbooks() : usePublicCookbooks(groupSlug.value || "");
+
+    const { store: households } = useHouseholdStore();
+    const householdsById = computed(() => {
+      return households.value.reduce((acc, household) => {
+        acc[household.id] = household;
+        return acc;
+      }, {} as { [key: string]: HouseholdSummary });
+    });
 
     const appInfo = useAppInfo();
     const showImageImport = computed(() => appInfo.value?.enableOpenaiImageServices);
@@ -113,29 +125,57 @@ export default defineComponent({
       sidebar.value = !$vuetify.breakpoint.md;
     });
 
-    const cookbookLinks = computed(() => {
-      if (!cookbooks.value) return [];
-      return cookbooks.value.map((cookbook) => {
-        return {
-          key: cookbook.slug,
-          icon: $globals.icons.pages,
-          title: cookbook.name,
-          to: `/g/${groupSlug.value}/cookbooks/${cookbook.slug as string}`,
-        };
-      });
-    });
-
-    interface Link {
-      insertDivider: boolean;
-      icon: string;
-      title: string;
-      subtitle: string | null;
-      to: string;
-      restricted: boolean;
-      hide: boolean;
+    function cookbookAsLink(cookbook: ReadCookBook): SideBarLink {
+      return {
+        key: cookbook.slug || "",
+        icon: $globals.icons.pages,
+        title: cookbook.name,
+        to: `/g/${groupSlug.value}/cookbooks/${cookbook.slug}`,
+        restricted: false,
+      };
     }
 
-    const createLinks = computed<Link[]>(() => [
+    const currentUserHouseholdId = computed(() => $auth.user?.householdId);
+    const cookbookLinks = computed<SideBarLink[]>(() => {
+      if (!cookbooks.value) return [];
+      if (!currentUserHouseholdId.value) {
+        return cookbooks.value.map((cookbook) => cookbookAsLink(cookbook));
+      }
+
+      const ownLinks: SideBarLink[] = [];
+      const links: SideBarLink[] = [];
+      const cookbooksByHousehold = cookbooks.value.reduce((acc, cookbook) => {
+        const householdName = householdsById.value[cookbook.householdId]?.name || "";
+        if (!acc[householdName]) {
+          acc[householdName] = [];
+        }
+        acc[householdName].push(cookbook);
+        return acc;
+      }, {} as Record<string, ReadCookBook[]>);
+
+      const sortedCookbooksByHousehold = Object.keys(cookbooksByHousehold)
+        .sort()
+        .map(key => [key, cookbooksByHousehold[key]] as [string, ReadCookBook[]]);
+
+      sortedCookbooksByHousehold.forEach(([householdName, cookbooks]) => {
+        const householdLinks = {
+          key: householdName,
+          icon: $globals.icons.book,
+          title: householdName,
+          children: cookbooks.map(cookbookAsLink),
+          restricted: false,
+        }
+        if (cookbooks[0].householdId === currentUserHouseholdId.value) {
+          ownLinks.push(householdLinks);
+        } else {
+          links.push(householdLinks);
+        }
+      });
+
+      return [...ownLinks, ...links];
+    });
+
+    const createLinks = computed<SideBarLink[]>(() => [
       {
         insertDivider: false,
         icon: $globals.icons.link,
@@ -165,7 +205,7 @@ export default defineComponent({
       },
     ]);
 
-    const bottomLinks = computed<SidebarLinks>(() => [
+    const bottomLinks = computed<SideBarLink[]>(() => [
       {
         icon: $globals.icons.cog,
         title: i18n.tc("general.settings"),
@@ -174,7 +214,7 @@ export default defineComponent({
       },
     ]);
 
-    const topLinks = computed<SidebarLinks>(() => [
+    const topLinks = computed<SideBarLink[]>(() => [
       {
         icon: $globals.icons.silverwareForkKnife,
         to: `/g/${groupSlug.value}`,
