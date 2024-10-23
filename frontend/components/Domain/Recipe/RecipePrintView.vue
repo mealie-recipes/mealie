@@ -66,7 +66,7 @@
             <h4 v-if="step.title" :key="`instruction-title-${stepIndex}`" class="instruction-title mb-2">
               {{ step.title }}
             </h4>
-            <h5>{{ $t("recipe.step-index", { step: stepIndex + instructionSection.stepOffset + 1 }) }}</h5>
+            <h5>{{ step.summary ? step.summary : $t("recipe.step-index", { step: stepIndex + instructionSection.stepOffset + 1 }) }}</h5>
             <SafeMarkdown :source="step.text" class="recipe-step-body" />
           </div>
         </div>
