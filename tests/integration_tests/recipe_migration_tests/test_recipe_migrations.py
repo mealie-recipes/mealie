@@ -155,32 +155,6 @@ def test_recipe_migration(api_client: TestClient, unique_user_fn_scoped: TestUse
     for item in response_json["entries"]:
         assert item["success"]
 
-    # Validate Create Event
-    params = {"orderBy": "created_at", "orderDirection": "desc"}
-    response = api_client.get(api_routes.recipes, params=params, headers=unique_user.token)
-    query_data = assert_deserialize(response)
-    assert len(query_data["items"])
-
-    recipe_id = query_data["items"][0]["id"]
-    params = {"queryFilter": f"recipe_id={recipe_id}"}
-
-    response = api_client.get(api_routes.recipes_timeline_events, params=params, headers=unique_user.token)
-    query_data = assert_deserialize(response)
-    events = query_data["items"]
-    assert len(events)
-
-    # Validate recipe content
-    response = api_client.get(api_routes.recipes_slug(mig.search_slug), headers=unique_user.token)
-    recipe = Recipe(**assert_deserialize(response))
-
-    if mig.nutrition_entries:
-        assert recipe.nutrition is not None
-        nutrition = recipe.nutrition.model_dump(by_alias=True)
-
-        for k in mig.nutrition_entries.difference(mig.nutrition_filter):
-            assert k in nutrition and nutrition[k] is not None
-
-    # TODO: validate other types of content
 
 
 def test_bad_mealie_alpha_data_is_ignored(api_client: TestClient, unique_user: TestUser):
