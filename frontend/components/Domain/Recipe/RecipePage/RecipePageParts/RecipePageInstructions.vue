@@ -333,7 +333,7 @@ export default defineComponent({
     });
 
     const showTitleEditor = ref<{ [key: string]: boolean }>({});
-    
+
     const actionEvents = [
       {
         text: i18n.t("recipe.toggle-section") as string,
