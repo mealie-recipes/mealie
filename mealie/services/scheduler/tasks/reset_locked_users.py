@@ -15,3 +15,4 @@ def locked_user_reset():
         unlocked = user_service.reset_locked_users()
         logger.debug(f"scheduled task unlocked {unlocked} users in the database")
         logger.info("locked users reset")
+        return unlocked
