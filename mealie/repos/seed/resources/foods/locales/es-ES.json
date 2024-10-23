@@ -10,7 +10,7 @@
 	},
 	"apples": {
 		"name": "manzanas",
-		"plural_name": "apples"
+		"plural_name": "manzanas"
 	},
 	"artichoke": {
 		"name": "alcachofa"
@@ -23,7 +23,7 @@
 	},
 	"avocado": {
 		"name": "aguacate",
-		"plural_name": "avocado"
+		"plural_name": "palta"
 	},
 	"bacon": {
 		"name": "panceta"
@@ -116,7 +116,7 @@
 	},
 	"carrot": {
 		"name": "zanahoria",
-		"plural_name": "carrots"
+		"plural_name": "zanahorias"
 	},
 	"caster-sugar": {
 		"name": "azúcar de caña"
@@ -176,7 +176,7 @@
 	},
 	"coconut": {
 		"name": "coco",
-		"plural_name": "coconuts"
+		"plural_name": "cocos"
 	},
 	"coconut-milk": {
 		"name": "leche de coco"
@@ -240,11 +240,11 @@
 	},
 	"eggplant": {
 		"name": "berenjena",
-		"plural_name": "eggplants"
+		"plural_name": "berenjenas"
 	},
 	"eggs": {
 		"name": "huevos",
-		"plural_name": "eggs"
+		"plural_name": "huevos"
 	},
 	"endive": {
 		"name": "endibia",
@@ -292,7 +292,7 @@
 	},
 	"garlic": {
 		"name": "ajo",
-		"plural_name": "garlics"
+		"plural_name": "ajos"
 	},
 	"gem-squash": {
 		"name": "calabaza gem"
@@ -368,7 +368,7 @@
 	},
 	"leek": {
 		"name": "puerro",
-		"plural_name": "leeks"
+		"plural_name": "puerros"
 	},
 	"legumes": {
 		"name": "legumbres"
@@ -384,7 +384,7 @@
 	},
 	"liver": {
 		"name": "hígado",
-		"plural_name": "livers"
+		"plural_name": "hígados"
 	},
 	"maize": {
 		"name": "maíz"
@@ -425,7 +425,7 @@
 	},
 	"octopuses": {
 		"name": "pulpo",
-		"plural_name": "octopuses"
+		"plural_name": "pulpos"
 	},
 	"oils": {
 		"name": "aceites"
@@ -450,7 +450,7 @@
 	},
 	"oranges": {
 		"name": "naranjas",
-		"plural_name": "oranges"
+		"plural_name": "naranjas"
 	},
 	"oregano": {
 		"name": "orégano"
@@ -473,22 +473,22 @@
 	},
 	"pear": {
 		"name": "pera",
-		"plural_name": "pears"
+		"plural_name": "peras"
 	},
 	"peas": {
 		"name": "guisantes/chícharos"
 	},
 	"pepper": {
 		"name": "pimiento",
-		"plural_name": "peppers"
+		"plural_name": "pimientos"
 	},
 	"pineapple": {
 		"name": "piña",
-		"plural_name": "pineapples"
+		"plural_name": "piñas"
 	},
 	"plantain": {
 		"name": "plátano macho",
-		"plural_name": "plantains"
+		"plural_name": "plátanos"
 	},
 	"poppy-seeds": {
 		"name": "semillas de amapola"
@@ -505,14 +505,14 @@
 	},
 	"pumpkin": {
 		"name": "calabaza",
-		"plural_name": "pumpkins"
+		"plural_name": "calabazas"
 	},
 	"pumpkin-seeds": {
 		"name": "semillas de calabaza"
 	},
 	"radish": {
 		"name": "rábano",
-		"plural_name": "radishes"
+		"plural_name": "rábanos"
 	},
 	"raw-sugar": {
 		"name": "azúcar integral"
@@ -543,7 +543,7 @@
 	},
 	"scallion": {
 		"name": "cebollita china",
-		"plural_name": "scallions"
+		"plural_name": "cebolletas"
 	},
 	"seafood": {
 		"name": "marisco"
@@ -556,7 +556,7 @@
 	},
 	"shallot": {
 		"name": "chalote",
-		"plural_name": "shallots"
+		"plural_name": "chalotes"
 	},
 	"skate": {
 		"name": "raya"
@@ -589,7 +589,7 @@
 	},
 	"squash": {
 		"name": "calabaza dulce",
-		"plural_name": "squashes"
+		"plural_name": "calabazas"
 	},
 	"squash-family": {
 		"name": "calabazas"

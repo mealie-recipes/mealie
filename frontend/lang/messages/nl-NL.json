@@ -1271,7 +1271,9 @@
     "debug-openai-services": "Debug OpenAI diensten",
     "debug-openai-services-description": "Gebruik deze pagina om de OpenAI-diensten te debuggen. U kunt uw OpenAI-verbinding testen en de resultaten hier bekijken. Als u afbeeldingsdiensten hebt ingeschakeld, kunt u ook een afbeelding geven.",
     "run-test": "Test starten",
-    "test-results": "Resultaten van de test"
+    "test-results": "Resultaten van de test",
+    "group-delete-note": "Groepen met gebruikers of huishoudens kunnen niet worden verwijderd",
+    "household-delete-note": "Huishoudens met gebruikers kunnen niet worden verwijderd"
   },
   "profile": {
     "welcome-user": "👋 Welkom, {0}!",

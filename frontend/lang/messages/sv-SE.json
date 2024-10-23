@@ -1271,7 +1271,9 @@
     "debug-openai-services": "Felsök OpenAI-tjänster",
     "debug-openai-services-description": "Använd denna sida för att felsöka OpenAI-tjänster. Du kan testa din OpenAI-anslutning och se resultaten här. Om du har bildtjänster aktiverade, kan du också ge en bild.",
     "run-test": "Kör test",
-    "test-results": "Testresultat"
+    "test-results": "Testresultat",
+    "group-delete-note": "Groups with users or households cannot be deleted",
+    "household-delete-note": "Households with users cannot be deleted"
   },
   "profile": {
     "welcome-user": "👋 Välkommen, {0}!",
