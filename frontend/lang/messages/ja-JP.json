@@ -1271,7 +1271,9 @@
     "debug-openai-services": "OpenAIサービスのデバッグ",
     "debug-openai-services-description": "このページを使用して、OpenAIサービスをデバッグします。ここでOpenAI接続をテストし、結果を確認できます。画像サービスが有効になっている場合は、画像を提供することもできます。",
     "run-test": "テスト実行",
-    "test-results": "テスト結果"
+    "test-results": "テスト結果",
+    "group-delete-note": "Groups with users or households cannot be deleted",
+    "household-delete-note": "Households with users cannot be deleted"
   },
   "profile": {
     "welcome-user": "👋 ようこそ, {0}!",
