@@ -26,7 +26,7 @@ router = APIRouter(prefix="/households/cookbooks", tags=["Households: Cookbooks"
 @controller(router)
 class GroupCookbookController(BaseCrudController):
     @cached_property
-    def repo(self):
+    def cookbooks(self):
         return self.repos.cookbooks
 
     def registered_exceptions(self, ex: type[Exception]) -> str:
@@ -38,14 +38,14 @@ class GroupCookbookController(BaseCrudController):
     @cached_property
     def mixins(self):
         return HttpRepo[CreateCookBook, ReadCookBook, UpdateCookBook](
-            self.repo,
+            self.cookbooks,
             self.logger,
             self.registered_exceptions,
         )
 
     @router.get("", response_model=CookBookPagination)
     def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
-        response = self.repo.page_all(
+        response = self.cookbooks.page_all(
             pagination=q,
             override=ReadCookBook,
         )
@@ -106,7 +106,7 @@ class GroupCookbookController(BaseCrudController):
             except ValueError:
                 match_attr = "slug"
 
-        cookbook = self.repo.get_one(item_id, match_attr)
+        cookbook = self.cookbooks.get_one(item_id, match_attr)
 
         if cookbook is None:
             raise HTTPException(status_code=404)
