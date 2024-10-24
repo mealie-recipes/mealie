@@ -100,7 +100,10 @@ def test_reset_locked_users(unique_user: TestUser, use_task: bool) -> None:
     # Test that the locked user is unlocked by reset
     user.locked_at = datetime.now(timezone.utc) - timedelta(days=2)
     database.users.update(user.id, user)
-    unlocked = user_service.reset_locked_users()
+    if use_task:
+        unlocked = locked_user_reset()
+    else:
+        unlocked = user_service.reset_locked_users()
     user = database.users.get_one(unique_user.user_id)
     assert user
     assert unlocked == 1
