@@ -84,15 +84,17 @@ def test_database_restore():
         test_data.backup_version_ba1e4a6cfe99_1,
         test_data.backup_version_bcfdad6b7355_1,
         test_data.backup_version_09aba125b57a_1,
+        test_data.backup_version_86054b40fd06_1,
     ],
     ids=[
         "44e8d670719d_1: add extras to shopping lists, list items, and ingredient foods",
         "44e8d670719d_2: add extras to shopping lists, list items, and ingredient foods",
         "44e8d670719d_3: add extras to shopping lists, list items, and ingredient foods",
         "44e8d670719d_4: add extras to shopping lists, list items, and ingredient foods",
-        "ba1e4a6cfe99_1: added plural names and alias tables for foods and units",
         "bcfdad6b7355_1: remove tool name and slug unique contraints",
-        "09aba125b57a: add OIDC auth method (Safari-mangled ZIP structure)",
+        "ba1e4a6cfe99_1: added plural names and alias tables for foods and units",
+        "09aba125b57a_1: add OIDC auth method (Safari-mangled ZIP structure)",
+        "86054b40fd06_1: added query_filter_string to cookbook and mealplan",
     ],
 )
 def test_database_restore_data(backup_path: Path):
