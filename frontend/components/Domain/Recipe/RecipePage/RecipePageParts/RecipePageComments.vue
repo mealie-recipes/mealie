@@ -34,7 +34,7 @@
       <UserAvatar :tooltip="false" size="40" :user-id="comment.userId" />
       <v-card outlined class="flex-grow-1">
         <v-card-text class="pa-3 pb-0">
-          <p class="">{{ comment.user.username }} • {{ $d(Date.parse(comment.createdAt), "medium") }}</p>
+          <p class="">{{ comment.user.fullName }} • {{ $d(Date.parse(comment.createdAt), "medium") }}</p>
           <SafeMarkdown :source="comment.text" />
         </v-card-text>
         <v-card-actions class="justify-end mt-0 pt-0">
