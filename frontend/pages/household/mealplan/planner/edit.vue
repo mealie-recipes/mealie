@@ -100,6 +100,8 @@
         <draggable
           tag="div"
           handle=".handle"
+          delay="250"
+          delay-on-touch-only
           :value="plan.meals"
           group="meals"
           :data-index="index"
