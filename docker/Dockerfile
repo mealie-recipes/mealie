@@ -131,7 +131,6 @@ HEALTHCHECK CMD python $MEALIE_HOME/mealie/scripts/healthcheck.py || exit 1
 # ----------------------------------
 # Copy Frontend
 
-# copying caddy into image
 ENV STATIC_FILES=/spa/static
 COPY --from=builder /app/dist  ${STATIC_FILES}
 

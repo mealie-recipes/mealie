@@ -29,7 +29,6 @@ If you'd like to mitigate this risk, we suggest that you rate limit the API in g
 
 - [Traefik](https://doc.traefik.io/traefik/middlewares/http/ratelimit/)
 - [Nginx](https://nginx.org/en/docs/http/ngx_http_limit_req_module.html)
-- [Caddy](https://caddyserver.com/docs/modules/http.handlers.rate_limit)
 
 ## Server Side Request Forgery
 

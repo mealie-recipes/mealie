@@ -7,12 +7,7 @@ from starlette.responses import FileResponse
 from mealie.schema.recipe import Recipe
 from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventOut
 
-"""
-These routes are for development only! These assets are served by Caddy when not
-in development mode. If you make changes, be sure to test the production container.
-"""
-
-router = APIRouter(prefix="/recipes", include_in_schema=False)
+router = APIRouter(prefix="/recipes")
 
 
 class ImageType(str, Enum):
