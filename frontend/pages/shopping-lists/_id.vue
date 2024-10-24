@@ -22,6 +22,88 @@
             <v-col cols="6" class="d-flex justify-center">
               <v-img max-height="100" max-width="100" :src="require('~/static/svgs/shopping-cart.svg')"></v-img>
             </v-col>
+            <v-col class="d-flex justify-end">
+              <div class="d-flex justify-end mb-4 mt-2">
+                <v-btn-group dense>
+                  <v-btn text @click="openDeleteChecked()">
+                    <v-icon color="error">
+                      {{ $globals.icons.delete }}
+                    </v-icon>
+                  </v-btn>
+                  <v-menu offset-y>
+                    <template #activator="{ on, attrs }">
+                      <v-btn text v-bind="attrs" v-on="on">
+                        <v-icon>
+                          {{ $globals.icons.dotsVertical }}
+                        </v-icon>
+                      </v-btn>
+                    </template>
+                    <v-list>
+                      <v-list-item @click="copyListItems('plain')">
+                        <v-icon left>
+                          {{ $globals.icons.contentCopy }}
+                        </v-icon>
+                        <v-list-item-title>{{ $t("shopping-list.copy-as-text") }}</v-list-item-title>
+                      </v-list-item>
+                      <v-list-item @click="copyListItems('markdown')">
+                        <v-icon left>
+                          {{ $globals.icons.contentCopy }}
+                        </v-icon>
+                        <v-list-item-title>{{ $t("shopping-list.copy-as-markdown") }}</v-list-item-title>
+                      </v-list-item>
+                      <v-list-item @click="openUncheckAll()">
+                        <v-icon left>
+                          {{ $globals.icons.checkboxBlankOutline }}
+                        </v-icon>
+                        <v-list-item-title>{{ $t("shopping-list.uncheck-all-items") }}</v-list-item-title>
+                      </v-list-item>
+                      <v-list-item @click="openCheckAll()">
+                        <v-icon left>
+                          {{ $globals.icons.checkboxOutline }}
+                        </v-icon>
+                        <v-list-item-title>{{ $t("shopping-list.check-all-items") }}</v-list-item-title>
+                      </v-list-item>
+                      <v-menu open-on-hover offset-x>
+                        <template #activator="{ on: menu, attrs }">
+                          <v-list-item v-bind="attrs" v-on="menu">
+                            <v-list-item-icon>
+                              <v-icon>{{ $globals.icons.dotsVertical }}</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-title>{{ "More" }}</v-list-item-title>
+                          </v-list-item>
+                        </template>
+                        <v-list>
+                          <v-list-item @click="sortByLabels()">
+                            <v-icon left>
+                              {{ $globals.icons.tags }}
+                            </v-icon>
+                            <v-list-item-title>{{ $t("shopping-list.toggle-label-sort") }}</v-list-item-title>
+                          </v-list-item>
+                          <v-list-item v-if="preferences.viewByLabel" @click="toggleReorderLabelsDialog()">
+                            <v-icon left>
+                              {{ $globals.icons.tags }}
+                            </v-icon>
+                            <v-list-item-title>{{ $t("shopping-list.reorder-labels") }}</v-list-item-title>
+                          </v-list-item>
+                          <v-list-item :to="`/group/data/labels`">
+                            <v-icon left>
+                              {{ $globals.icons.tags }}
+                            </v-icon>
+                            <v-list-item-title>{{ $t("shopping-list.manage-labels") }}</v-list-item-title>
+                          </v-list-item>
+                          <v-list-item @click="toggleSettingsDialog()">
+                            <v-icon left>
+                              {{ $globals.icons.cog }}
+                            </v-icon>
+                            <v-list-item-title>{{ $t('general.settings') }}</v-list-item-title>
+                          </v-list-item>
+                        </v-list>
+                      </v-menu>
+                    </v-list>
+                  </v-menu>
+                </v-btn-group>
+              </div>
+            </v-col>
           </v-row>
         </v-container>
       </template>
@@ -140,66 +222,7 @@
         />
       </div>
       <div v-else class="mt-4 d-flex justify-end">
-        <BaseButton
-          v-if="preferences.viewByLabel" edit class="mr-2"
-          :disabled="$nuxt.isOffline"
-          @click="toggleReorderLabelsDialog">
-          <template #icon> {{ $globals.icons.tags }} </template>
-          {{ $t('shopping-list.reorder-labels') }}
-        </BaseButton>
         <BaseButton create @click="createEditorOpen = true" > {{ $t('general.add') }} </BaseButton>
-      </div>
-
-      <!-- Action Bar -->
-      <div class="d-flex justify-end mb-4 mt-2">
-        <BaseButtonGroup
-          :buttons="[
-            {
-              icon: $globals.icons.contentCopy,
-              text: '',
-              event: 'edit',
-              children: [
-                {
-                  icon: $globals.icons.contentCopy,
-                  text: $tc('shopping-list.copy-as-text'),
-                  event: 'copy-plain',
-                },
-                {
-                  icon: $globals.icons.contentCopy,
-                  text: $tc('shopping-list.copy-as-markdown'),
-                  event: 'copy-markdown',
-                },
-              ],
-            },
-            {
-              icon: $globals.icons.delete,
-              text: $tc('shopping-list.delete-checked'),
-              event: 'delete',
-            },
-            {
-              icon: $globals.icons.tags,
-              text: $tc('shopping-list.toggle-label-sort'),
-              event: 'sort-by-labels',
-            },
-            {
-              icon: $globals.icons.checkboxBlankOutline,
-              text: $tc('shopping-list.uncheck-all-items'),
-              event: 'uncheck',
-            },
-            {
-              icon: $globals.icons.checkboxOutline,
-              text: $tc('shopping-list.check-all-items'),
-              event: 'check',
-            },
-          ]"
-          @edit="edit = true"
-          @delete="openDeleteChecked"
-          @uncheck="openUncheckAll"
-          @check="openCheckAll"
-          @sort-by-labels="sortByLabels"
-          @copy-plain="copyListItems('plain')"
-          @copy-markdown="copyListItems('markdown')"
-        />
       </div>
 
       <!-- Checked Items -->
@@ -262,29 +285,6 @@
           </template>
         </RecipeList>
       </section>
-    </v-lazy>
-
-    <v-lazy>
-      <div class="d-flex justify-end">
-        <BaseButton
-          edit
-          :disabled="$nuxt.isOffline"
-          @click="toggleSettingsDialog"
-        >
-          <template #icon> {{ $globals.icons.cog }} </template>
-          {{ $t('general.settings') }}
-        </BaseButton>
-      </div>
-    </v-lazy>
-
-    <v-lazy>
-      <div v-if="$nuxt.isOnline" class="d-flex justify-end mt-10">
-        <ButtonLink
-          :to="`/group/data/labels`"
-          :text="$tc('shopping-list.manage-labels')"
-          :icon="$globals.icons.tags"
-        />
-      </div>
     </v-lazy>
     <WakelockSwitch/>
   </v-container>
