@@ -77,6 +77,8 @@
       :disabled="!isEditForm"
       :value="value"
       handle=".handle"
+      delay="250"
+      delay-on-touch-only
       v-bind="{
         animation: 200,
         group: 'recipe-instructions',

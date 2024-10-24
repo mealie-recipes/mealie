@@ -48,7 +48,7 @@
 	},
 	"bell-peppers": {
 		"name": "pimiento morrón",
-		"plural_name": "bell peppers"
+		"plural_name": "pimiento morrón"
 	},
 	"blackberries": {
 		"name": "moras"
@@ -94,7 +94,7 @@
 	},
 	"cabbage": {
 		"name": "repollo",
-		"plural_name": "cabbages"
+		"plural_name": "repollos"
 	},
 	"cactus-edible": {
 		"name": "higo chumbo"
@@ -129,7 +129,7 @@
 	},
 	"cauliflower": {
 		"name": "coliflor",
-		"plural_name": "cauliflowers"
+		"plural_name": "coliflor"
 	},
 	"cayenne-pepper": {
 		"name": "pimienta de cayena"
@@ -154,7 +154,7 @@
 	},
 	"chilli-peppers": {
 		"name": "chile/guindilla",
-		"plural_name": "chilli peppers"
+		"plural_name": "chile/guindilla"
 	},
 	"chinese-leaves": {
 		"name": "col china"
@@ -198,7 +198,7 @@
 	},
 	"corn": {
 		"name": "maíz",
-		"plural_name": "corns"
+		"plural_name": "maíz"
 	},
 	"corn-syrup": {
 		"name": "jarabe de maíz"
@@ -214,7 +214,7 @@
 	},
 	"cucumber": {
 		"name": "pepino",
-		"plural_name": "cucumbers"
+		"plural_name": "pepino"
 	},
 	"cumin": {
 		"name": "comino"
@@ -317,7 +317,7 @@
 	},
 	"green-onion": {
 		"name": "cebolleta",
-		"plural_name": "green onions"
+		"plural_name": "cebolletas"
 	},
 	"heart-of-palm": {
 		"name": "palmito",
@@ -403,7 +403,7 @@
 	},
 	"mushroom": {
 		"name": "champiñón",
-		"plural_name": "mushrooms"
+		"plural_name": "setas"
 	},
 	"mussels": {
 		"name": "mejillones"
@@ -495,7 +495,7 @@
 	},
 	"potato": {
 		"name": "papa/patata",
-		"plural_name": "potatoes"
+		"plural_name": "patatas"
 	},
 	"poultry": {
 		"name": "aves de corral"
@@ -612,11 +612,11 @@
 	},
 	"sweet-potato": {
 		"name": "batata",
-		"plural_name": "sweet potatoes"
+		"plural_name": "batatas"
 	},
 	"sweetcorn": {
 		"name": "maíz dulce",
-		"plural_name": "sweetcorns"
+		"plural_name": "maíz dulce"
 	},
 	"sweeteners": {
 		"name": "edulcorantes"
@@ -633,7 +633,7 @@
 	},
 	"tomato": {
 		"name": "tomate",
-		"plural_name": "tomatoes"
+		"plural_name": "tomates"
 	},
 	"trout": {
 		"name": "trucha"
@@ -666,7 +666,7 @@
 	},
 	"watermelon": {
 		"name": "sandía/melón de agua",
-		"plural_name": "watermelons"
+		"plural_name": "sandías"
 	},
 	"white-mushroom": {
 		"name": "champiñón blanco",
