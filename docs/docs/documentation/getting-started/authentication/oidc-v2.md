@@ -34,7 +34,7 @@ Before you can start using OIDC Authentication, you must first configure a new c
     The redirect URI(s) that are needed:
 
     1. `http(s)://DOMAIN:PORT/login`
-    2. `https(s)://DOMAIN:PORT/login?direct=1`
+    2. `http(s)://DOMAIN:PORT/login?direct=1`
         1. This URI is only required if your IdP supports [RP-Initiated Logout](https://openid.net/specs/openid-connect-rpinitiated-1_0.html) such as Keycloak. You may also be able to combine this into the previous URI by using a wildcard: `http(s)://DOMAIN:PORT/login*`
 
     The redirect URI(s) should include any URL that Mealie is accessible from. Some examples include
