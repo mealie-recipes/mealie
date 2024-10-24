@@ -97,7 +97,15 @@
         @submit="saveLabelOrder"
         @close="cancelLabelOrder">
         <v-card height="fit-content" max-height="70vh" style="overflow-y: auto;">
-          <draggable v-if="localLabels" :value="localLabels" handle=".handle" class="my-2" @input="updateLabelOrder">
+          <draggable
+            v-if="localLabels"
+            :value="localLabels"
+            handle=".handle"
+            delay="250"
+            delay-on-touch-only
+            class="my-2"
+            @input="updateLabelOrder"
+          >
             <div v-for="(labelSetting, index) in localLabels" :key="labelSetting.id">
               <MultiPurposeLabelSection v-model="localLabels[index]" use-color />
             </div>
