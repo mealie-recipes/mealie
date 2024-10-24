@@ -15,8 +15,30 @@ jobs:
       - name: Checkout 🛎
         uses: actions/checkout@v4
 
-      - name: Update pre-commit Hooks
-        uses: vrslev/pre-commit-autoupdate@v1.0.0
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Set PY
+        shell: bash
+        run: echo "PY=$(python -VV | sha256sum | cut -d' ' -f1)" >> $GITHUB_ENV
+
+      - name: Cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pre-commit
+            ~/.cache/pip
+          key: pre-commit-${{ env.PY }}-${{ hashFiles('.pre-commit-config.yaml') }}
+
+      - name: Install pre-commit
+        shell: bash
+        run: pip install -U pre-commit
+
+      - name: Run `pre-commit autoupdate`
+        shell: bash
+        run: pre-commit autoupdate --color=always
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
