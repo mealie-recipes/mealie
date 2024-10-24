@@ -1,6 +1,8 @@
 from datetime import datetime, timedelta, timezone
 
-from mealie.repos.repository_factory import AllRepositories
+import pytest
+
+from mealie.services.scheduler.tasks.reset_locked_users import locked_user_reset
 from mealie.services.user_services.user_service import UserService
 from tests.utils.fixture_schemas import TestUser
 
@@ -67,7 +69,8 @@ def test_lock_unlocker_user(unique_user: TestUser) -> None:
     assert not user.is_locked
 
 
-def test_reset_locked_users(unique_user: TestUser) -> None:
+@pytest.mark.parametrize("use_task", [True, False])
+def test_reset_locked_users(unique_user: TestUser, use_task: bool) -> None:
     database = unique_user.repos
     user_service = UserService(database)
 
@@ -84,7 +87,10 @@ def test_reset_locked_users(unique_user: TestUser) -> None:
     assert user.login_attemps == 5
 
     # Test that the locked user is not unlocked by reset
-    unlocked = user_service.reset_locked_users()
+    if use_task:
+        unlocked = locked_user_reset()
+    else:
+        unlocked = user_service.reset_locked_users()
     user = database.users.get_one(unique_user.user_id)
     assert user
     assert unlocked == 0
@@ -94,7 +100,10 @@ def test_reset_locked_users(unique_user: TestUser) -> None:
     # Test that the locked user is unlocked by reset
     user.locked_at = datetime.now(timezone.utc) - timedelta(days=2)
     database.users.update(user.id, user)
-    unlocked = user_service.reset_locked_users()
+    if use_task:
+        unlocked = locked_user_reset()
+    else:
+        unlocked = user_service.reset_locked_users()
     user = database.users.get_one(unique_user.user_id)
     assert user
     assert unlocked == 1
