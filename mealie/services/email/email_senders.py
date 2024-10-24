@@ -10,6 +10,9 @@ from html2text import html2text
 
 from mealie.services._base_service import BaseService
 
+SMTP_TIMEOUT = 10
+"""Timeout in seconds for SMTP connection"""
+
 
 @dataclass(slots=True)
 class EmailOptions:
@@ -55,13 +58,13 @@ class Message:
         msg["MIME-Version"] = "1.0"
 
         if smtp.ssl:
-            with smtplib.SMTP_SSL(smtp.host, smtp.port) as server:
+            with smtplib.SMTP_SSL(smtp.host, smtp.port, timeout=SMTP_TIMEOUT) as server:
                 if smtp.username and smtp.password:
                     server.login(smtp.username, smtp.password)
 
                 errors = server.send_message(msg)
         else:
-            with smtplib.SMTP(smtp.host, smtp.port) as server:
+            with smtplib.SMTP(smtp.host, smtp.port, timeout=SMTP_TIMEOUT) as server:
                 if smtp.tls:
                     server.starttls()
                 if smtp.username and smtp.password:
