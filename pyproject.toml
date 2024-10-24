@@ -6,7 +6,7 @@ name = "mealie"
 version = "2.0.0"
 
 [tool.poetry.scripts]
-start = "mealie.app:main"
+mealie = "mealie.main:main"
 
 [tool.poetry.dependencies]
 Jinja2 = "^3.1.2"
