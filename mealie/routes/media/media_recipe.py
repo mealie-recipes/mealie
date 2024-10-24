@@ -7,12 +7,7 @@ from starlette.responses import FileResponse
 from mealie.schema.recipe import Recipe
 from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventOut
 
-"""
-These routes are for development only! These assets are served by Caddy when not
-in development mode. If you make changes, be sure to test the production container.
-"""
-
-router = APIRouter(prefix="/recipes", include_in_schema=False)
+router = APIRouter(prefix="/recipes")
 
 
 class ImageType(str, Enum):
@@ -30,7 +25,7 @@ async def get_recipe_img(recipe_id: str, file_name: ImageType = ImageType.origin
     recipe_image = Recipe.directory_from_id(recipe_id).joinpath("images", file_name.value)
 
     if recipe_image.exists():
-        return FileResponse(recipe_image)
+        return FileResponse(recipe_image, media_type="image/webp")
     else:
         raise HTTPException(status.HTTP_404_NOT_FOUND)
 
@@ -48,7 +43,7 @@ async def get_recipe_timeline_event_img(
     )
 
     if timeline_event_image.exists():
-        return FileResponse(timeline_event_image)
+        return FileResponse(timeline_event_image, media_type="image/webp")
     else:
         raise HTTPException(status.HTTP_404_NOT_FOUND)
 
