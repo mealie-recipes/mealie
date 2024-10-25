@@ -103,7 +103,7 @@
 
 <script lang="ts">
 
-import {  defineComponent, onBeforeUnmount, onMounted, reactive, ref } from "@nuxtjs/composition-api";
+import { defineComponent, onBeforeUnmount, onMounted, reactive, ref } from "@nuxtjs/composition-api";
 import draggable from "vuedraggable";
 import { useMyCookbooks } from "@/composables/use-group-cookbooks";
 import CookbookEditor from "~/components/Domain/Cookbook/CookbookEditor.vue";
