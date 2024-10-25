@@ -34,15 +34,14 @@ class GroupInvitationsController(BaseUserController):
                 detail="User is not allowed to create invite tokens",
             )
 
-        if body.group_id and body.household_id and not self.user.admin:
+        body.group_id = body.group_id or self.group_id
+        body.household_id = body.household_id or self.household_id
+
+        if not self.user.admin and (body.group_id != self.group_id or body.household_id != self.household_id):
             raise HTTPException(
                 status.HTTP_403_FORBIDDEN,
                 detail="Only admins can create invite tokens for other groups or households",
             )
-
-        if not body.group_id or not body.household_id:
-            body.group_id = self.group_id
-            body.household_id = self.household_id
 
         token = SaveInviteToken(
             uses_left=body.uses, group_id=body.group_id, household_id=body.household_id, token=url_safe_token()
