@@ -6,6 +6,8 @@ import { useUserApi } from "~/composables/api";
 import { ReadCookBook, UpdateCookBook } from "~/lib/api/types/cookbook";
 
 let cookbookStore: Ref<ReadCookBook[] | null> | null = null;
+let myCookbookStore: Ref<ReadCookBook[] | null> | null = null;
+let publicCookbookStore: Ref<ReadCookBook[] | null> | null = null;
 
 export const useCookbook = function (publicGroupSlug: string | null = null) {
   function getOne(id: string | number) {
@@ -48,36 +50,40 @@ export const usePublicCookbooks = function (groupSlug: string) {
       loading.value = true;
       const { data } = await api.cookbooks.getAll(1, -1, { orderBy: "position", orderDirection: "asc" });
 
-      if (data && data.items && cookbookStore) {
-        cookbookStore.value = data.items;
+      if (data && data.items && publicCookbookStore) {
+        publicCookbookStore.value = data.items;
       }
 
       loading.value = false;
     },
     flushStore() {
-      cookbookStore = null;
+      publicCookbookStore = null;
     },
   };
 
-  if (!cookbookStore) {
-    cookbookStore = actions.getAll();
+  if (!publicCookbookStore) {
+    publicCookbookStore = actions.getAll();
   }
 
-  return { cookbooks: cookbookStore, actions };
+  return { cookbooks: publicCookbookStore, actions };
 }
 
-export const useCookbooks = function () {
+function useCookbooksFactory(store: Ref<ReadCookBook[] | null> | null, onlyMine = false) {
   const api = useUserApi();
   const { household } = useHouseholdSelf();
   const loading = ref(false);
 
-  const { i18n } = useContext();
+  let queryFilter = "";
+  const { $auth, i18n } = useContext();
+  if (onlyMine) {
+    queryFilter = `householdId = "${$auth.user?.householdId}"`;
+  }
 
   const actions = {
     getAll() {
       loading.value = true;
       const units = useAsync(async () => {
-        const { data } = await api.cookbooks.getAll(1, -1, { orderBy: "position", orderDirection: "asc" });
+        const { data } = await api.cookbooks.getAll(1, -1, { orderBy: "position", orderDirection: "asc", queryFilter });
 
         if (data) {
           return data.items;
@@ -91,10 +97,10 @@ export const useCookbooks = function () {
     },
     async refreshAll() {
       loading.value = true;
-      const { data } = await api.cookbooks.getAll(1, -1, { orderBy: "position", orderDirection: "asc" });
+      const { data } = await api.cookbooks.getAll(1, -1, { orderBy: "position", orderDirection: "asc", queryFilter });
 
-      if (data && data.items && cookbookStore) {
-        cookbookStore.value = data.items;
+      if (data && data.items && store) {
+        store.value = data.items;
       }
 
       loading.value = false;
@@ -102,12 +108,12 @@ export const useCookbooks = function () {
     async createOne() {
       loading.value = true;
       const { data } = await api.cookbooks.createOne({
-        name: i18n.t("cookbook.household-cookbook-name", [household.value?.name || "", String((cookbookStore?.value?.length ?? 0) + 1)]) as string,
-        position: (cookbookStore?.value?.length ?? 0) + 1,
+        name: i18n.t("cookbook.household-cookbook-name", [household.value?.name || "", String((store?.value?.length ?? 0) + 1)]) as string,
+        position: (store?.value?.length ?? 0) + 1,
         queryFilterString: "",
       });
-      if (data && cookbookStore?.value) {
-        cookbookStore.value.push(data);
+      if (data && store?.value) {
+        store.value.push(data);
       } else {
         this.refreshAll();
       }
@@ -122,7 +128,7 @@ export const useCookbooks = function () {
 
       loading.value = true;
       const { data } = await api.cookbooks.updateOne(updateData.id, updateData);
-      if (data && cookbookStore?.value) {
+      if (data && store?.value) {
         this.refreshAll();
       }
       loading.value = false;
@@ -130,19 +136,19 @@ export const useCookbooks = function () {
     },
 
     async updateOrder() {
-      if (!cookbookStore?.value) {
+      if (!store?.value) {
         return;
       }
 
       loading.value = true;
 
-      cookbookStore.value.forEach((element, index) => {
+      store.value.forEach((element, index) => {
         element.position = index + 1;
       });
 
-      const { data } = await api.cookbooks.updateAll(cookbookStore.value);
+      const { data } = await api.cookbooks.updateAll(store.value);
 
-      if (data && cookbookStore?.value) {
+      if (data && store?.value) {
         this.refreshAll();
       }
 
@@ -151,18 +157,26 @@ export const useCookbooks = function () {
     async deleteOne(id: string | number) {
       loading.value = true;
       const { data } = await api.cookbooks.deleteOne(id);
-      if (data && cookbookStore?.value) {
+      if (data && store?.value) {
         this.refreshAll();
       }
     },
     flushStore() {
-      cookbookStore = null;
+      store = null;
     },
   };
 
-  if (!cookbookStore) {
-    cookbookStore = actions.getAll();
+  if (!store) {
+    store = actions.getAll();
   }
 
-  return { cookbooks: cookbookStore, actions };
+  return { cookbooks: store, actions };
+}
+
+export const useCookbooks = function () {
+  return useCookbooksFactory(cookbookStore);
 };
+
+export const useMyCookbooks = function () {
+  return useCookbooksFactory(myCookbookStore, true);
+}
