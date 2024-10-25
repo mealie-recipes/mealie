@@ -76,7 +76,7 @@ function useCookbooksFactory(store: Ref<ReadCookBook[] | null> | null, onlyMine 
   let queryFilter = "";
   const { $auth, i18n } = useContext();
   if (onlyMine) {
-    queryFilter = `householdId = "${$auth.user?.householdId}"`;
+    queryFilter = `householdId = "${$auth.user?.householdId || ""}"`;
   }
 
   const actions = {

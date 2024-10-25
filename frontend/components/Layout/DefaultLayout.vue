@@ -130,7 +130,7 @@ export default defineComponent({
         key: cookbook.slug || "",
         icon: $globals.icons.pages,
         title: cookbook.name,
-        to: `/g/${groupSlug.value}/cookbooks/${cookbook.slug}`,
+        to: `/g/${groupSlug.value}/cookbooks/${cookbook.slug || ""}`,
         restricted: false,
       };
     }
