@@ -53,7 +53,14 @@
 
       <!-- Cookbook List -->
       <v-expansion-panels class="mt-2">
-        <draggable v-model="cookbooks" handle=".handle" style="width: 100%" @change="actions.updateOrder()">
+        <draggable
+          v-model="cookbooks"
+          handle=".handle"
+          delay="250"
+          delay-on-touch-only
+          style="width: 100%"
+          @change="actions.updateOrder()"
+        >
           <v-expansion-panel v-for="cookbook in cookbooks" :key="cookbook.id" class="my-2 left-border rounded">
             <v-expansion-panel-header disable-icon-rotate class="headline">
               <div class="d-flex align-center">
