@@ -47,7 +47,7 @@
             v-model="parsedIng"
             handle=".handle"
             delay="250"
-            delay-on-touch-only
+            :delay-on-touch-only="true"
             :style="{ width: '100%' }"
             ghost-class="ghost"
           >
