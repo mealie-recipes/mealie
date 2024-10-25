@@ -617,6 +617,9 @@ class RecipeController(BaseRecipeController):
 
         return {"reportId": report_id}
 
+    # ==================================================================================================================
+    # Other Create Operations
+
     @router.post("/create/zip", status_code=201)
     def create_recipe_from_zip(self, archive: UploadFile = File(...)):
         """Create recipe from archive"""
