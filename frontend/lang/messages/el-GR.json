@@ -356,7 +356,7 @@
     "for-type-meal-types": "για γεύματα τύπου {0}",
     "meal-plan-rules": "Κανόνες Προγράμματος Γευμάτων",
     "new-rule": "Νέος κανόνας",
-    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the rule filters will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
+    "meal-plan-rules-description": "Μπορείτε να δημιουργήσετε κανόνες για την αυτόματη επιλογή συνταγών για τα προγράμματα γευμάτων. Αυτοί οι κανόνες χρησιμοποιούνται από το διακομιστή για τον προσδιορισμό της τυχαίας δεξαμενής συνταγών από τις οποίες μπορείτε να επιλέξετε κατά τη δημιουργία προγραμμάτων γευμάτων. Σημειώστε ότι αν οι κανόνες έχουν τους ίδιους περιορισμούς ημέρας/τύπου τότε τα φίλτρα κανόνων θα συγχωνευθούν. Στην πράξη, είναι περιττή η δημιουργία διπλότυπων κανόνων, είναι όμως εφικτή.",
     "new-rule-description": "Κατά τη δημιουργία ενός νέου κανόνα για ένα σχέδιο γεύματος, μπορείτε να περιορίσετε τον κανόνα ώστε να ισχύει για μια συγκεκριμένη ημέρα της εβδομάδας ή/και ένα συγκεκριμένο τύπο γεύματος. Για να εφαρμόσετε έναν κανόνα σε όλες τις ημέρες ή σε όλους τους τύπους γεύματος μπορείτε να ορίσετε τον κανόνα σε \"Ολα\" που θα τον εφαρμόσει σε όλες τις πιθανές τιμές για την ημέρα ή/και τον τύπο γεύματος.",
     "recipe-rules": "Κανόνες Συνταγής",
     "applies-to-all-days": "Εφαρμόζεται για όλες τις ημέρες",
@@ -440,7 +440,7 @@
     "trim-prefix-description": "Περικοπή πρώτου χαρακτήρα από κάθε γραμμή",
     "split-by-numbered-line-description": "Προσπάθεια για χωρισμό μιας παραγράφου ταιριάζοντας μοτίβα '1)' ή '1.'",
     "import-by-url": "Εισαγωγή μιας συνταγής από URL",
-    "create-manually": "Δημιούργησε μια συνταγή χειροκίνητα",
+    "create-manually": "Δημιουργήστε μια συνταγή χειροκίνητα",
     "make-recipe-image": "Ορισμός ως εικόνας συνταγής"
   },
   "page": {
@@ -1326,7 +1326,7 @@
   },
   "cookbook": {
     "cookbooks": "Βιβλία Μαγειρικής",
-    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
+    "description": "Τα βιβλία μαγειρικής είναι ένας άλλος τρόπος για να οργανώσετε τις συνταγές δημιουργώντας τμήματα συνταγών, οργανωτών και άλλων φίλτρων. Η δημιουργία ενός βιβλίου μαγειρικής θα προσθέσει μια καταχώρηση στην πλευρική μπάρα και όλες οι συνταγές με τα φίλτρα που έχουν επιλεγεί θα εμφανιστούν στο βιβλίο μαγειρικών.",
     "public-cookbook": "Δημόσιο Βιβλίο Μαγειρικής",
     "public-cookbook-description": "Τα δημόσια βιβλία μαγειρικής μπορούν να μοιραστούν με χρήστες εκτός του mealie και θα εμφανιστούν στη σελίδα των ομάδων σας.",
     "filter-options": "Επιλογές φίλτρου",
