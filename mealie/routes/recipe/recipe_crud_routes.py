@@ -200,135 +200,6 @@ class RecipeController(BaseRecipeController):
                 status_code=500, detail=ErrorResponse.respond(message="Unknown Error", exception=ex.__class__.__name__)
             )
 
-    # =======================================================================
-    # URL Scraping Operations
-
-    @router.post("/create/html-or-json", status_code=201)
-    async def create_recipe_from_html_or_json(self, req: ScrapeRecipeData):
-        """Takes in raw HTML or a https://schema.org/Recipe object as a JSON string and parses it like a URL"""
-
-        if req.data.startswith("{"):
-            req.data = RecipeScraperPackage.ld_json_to_html(req.data)
-
-        return await self._create_recipe_from_web(req)
-
-    @router.post("/create/url", status_code=201, response_model=str)
-    async def parse_recipe_url(self, req: ScrapeRecipe):
-        """Takes in a URL and attempts to scrape data and load it into the database"""
-
-        return await self._create_recipe_from_web(req)
-
-    async def _create_recipe_from_web(self, req: ScrapeRecipe | ScrapeRecipeData):
-        if isinstance(req, ScrapeRecipeData):
-            html = req.data
-            url = ""
-        else:
-            html = None
-            url = req.url
-
-        try:
-            recipe, extras = await create_from_html(url, self.translator, html)
-        except ForceTimeoutException as e:
-            raise HTTPException(
-                status_code=408, detail=ErrorResponse.respond(message="Recipe Scraping Timed Out")
-            ) from e
-
-        if req.include_tags:
-            ctx = ScraperContext(self.repos)
-
-            recipe.tags = extras.use_tags(ctx)  # type: ignore
-
-        new_recipe = self.service.create_one(recipe)
-
-        if new_recipe:
-            self.publish_event(
-                event_type=EventTypes.recipe_created,
-                document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=new_recipe.slug),
-                group_id=new_recipe.group_id,
-                household_id=new_recipe.household_id,
-                message=self.t(
-                    "notifications.generic-created-with-url",
-                    name=new_recipe.name,
-                    url=urls.recipe_url(self.group.slug, new_recipe.slug, self.settings.BASE_URL),
-                ),
-            )
-
-        return new_recipe.slug
-
-    @router.post("/create/url/bulk", status_code=202)
-    def parse_recipe_url_bulk(self, bulk: CreateRecipeByUrlBulk, bg_tasks: BackgroundTasks):
-        """Takes in a URL and attempts to scrape data and load it into the database"""
-        bulk_scraper = RecipeBulkScraperService(self.service, self.repos, self.group, self.translator)
-        report_id = bulk_scraper.get_report_id()
-        bg_tasks.add_task(bulk_scraper.scrape, bulk)
-
-        self.publish_event(
-            event_type=EventTypes.recipe_created,
-            document_data=EventRecipeBulkReportData(operation=EventOperation.create, report_id=report_id),
-            group_id=self.group_id,
-            household_id=self.household_id,
-        )
-
-        return {"reportId": report_id}
-
-    @router.post("/test-scrape-url")
-    async def test_parse_recipe_url(self, data: ScrapeRecipeTest):
-        # Debugger should produce the same result as the scraper sees before cleaning
-        ScraperClass = RecipeScraperOpenAI if data.use_openai else RecipeScraperPackage
-        try:
-            if scraped_data := await ScraperClass(data.url, self.translator).scrape_url():
-                return scraped_data.schema.data
-        except ForceTimeoutException as e:
-            raise HTTPException(
-                status_code=408, detail=ErrorResponse.respond(message="Recipe Scraping Timed Out")
-            ) from e
-
-        return "recipe_scrapers was unable to scrape this URL"
-
-    # ==================================================================================================================
-    # Other Create Operations
-
-    @router.post("/create/zip", status_code=201)
-    def create_recipe_from_zip(self, archive: UploadFile = File(...)):
-        """Create recipe from archive"""
-        with get_temporary_zip_path() as temp_path:
-            recipe = self.service.create_from_zip(archive, temp_path)
-            self.publish_event(
-                event_type=EventTypes.recipe_created,
-                document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=recipe.slug),
-                group_id=recipe.group_id,
-                household_id=recipe.household_id,
-            )
-
-        return recipe.slug
-
-    @router.post("/create/image", status_code=201)
-    async def create_recipe_from_image(
-        self,
-        images: list[UploadFile] = File(...),
-        translate_language: str | None = Query(None, alias="translateLanguage"),
-    ):
-        """
-        Create a recipe from an image using OpenAI.
-        Optionally specify a language for it to translate the recipe to.
-        """
-
-        if not (self.settings.OPENAI_ENABLED and self.settings.OPENAI_ENABLE_IMAGE_SERVICES):
-            raise HTTPException(
-                status_code=400,
-                detail=ErrorResponse.respond("OpenAI image services are not enabled"),
-            )
-
-        recipe = await self.service.create_from_images(images, translate_language)
-        self.publish_event(
-            event_type=EventTypes.recipe_created,
-            document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=recipe.slug),
-            group_id=recipe.group_id,
-            household_id=recipe.household_id,
-        )
-
-        return recipe.slug
-
     # ==================================================================================================================
     # CRUD Operations
 
@@ -660,3 +531,132 @@ class RecipeController(BaseRecipeController):
         self.mixins.update_one(recipe, slug)
 
         return asset_in
+
+    # =======================================================================
+    # URL Scraping Operations
+
+    @router.post("/test-scrape-url")
+    async def test_parse_recipe_url(self, data: ScrapeRecipeTest):
+        # Debugger should produce the same result as the scraper sees before cleaning
+        ScraperClass = RecipeScraperOpenAI if data.use_openai else RecipeScraperPackage
+        try:
+            if scraped_data := await ScraperClass(data.url, self.translator).scrape_url():
+                return scraped_data.schema.data
+        except ForceTimeoutException as e:
+            raise HTTPException(
+                status_code=408, detail=ErrorResponse.respond(message="Recipe Scraping Timed Out")
+            ) from e
+
+        return "recipe_scrapers was unable to scrape this URL"
+
+    @router.post("/create/html-or-json", status_code=201)
+    async def create_recipe_from_html_or_json(self, req: ScrapeRecipeData):
+        """Takes in raw HTML or a https://schema.org/Recipe object as a JSON string and parses it like a URL"""
+
+        if req.data.startswith("{"):
+            req.data = RecipeScraperPackage.ld_json_to_html(req.data)
+
+        return await self._create_recipe_from_web(req)
+
+    @router.post("/create/url", status_code=201, response_model=str)
+    async def parse_recipe_url(self, req: ScrapeRecipe):
+        """Takes in a URL and attempts to scrape data and load it into the database"""
+
+        return await self._create_recipe_from_web(req)
+
+    async def _create_recipe_from_web(self, req: ScrapeRecipe | ScrapeRecipeData):
+        if isinstance(req, ScrapeRecipeData):
+            html = req.data
+            url = ""
+        else:
+            html = None
+            url = req.url
+
+        try:
+            recipe, extras = await create_from_html(url, self.translator, html)
+        except ForceTimeoutException as e:
+            raise HTTPException(
+                status_code=408, detail=ErrorResponse.respond(message="Recipe Scraping Timed Out")
+            ) from e
+
+        if req.include_tags:
+            ctx = ScraperContext(self.repos)
+
+            recipe.tags = extras.use_tags(ctx)  # type: ignore
+
+        new_recipe = self.service.create_one(recipe)
+
+        if new_recipe:
+            self.publish_event(
+                event_type=EventTypes.recipe_created,
+                document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=new_recipe.slug),
+                group_id=new_recipe.group_id,
+                household_id=new_recipe.household_id,
+                message=self.t(
+                    "notifications.generic-created-with-url",
+                    name=new_recipe.name,
+                    url=urls.recipe_url(self.group.slug, new_recipe.slug, self.settings.BASE_URL),
+                ),
+            )
+
+        return new_recipe.slug
+
+    @router.post("/create/url/bulk", status_code=202)
+    def parse_recipe_url_bulk(self, bulk: CreateRecipeByUrlBulk, bg_tasks: BackgroundTasks):
+        """Takes in a URL and attempts to scrape data and load it into the database"""
+        bulk_scraper = RecipeBulkScraperService(self.service, self.repos, self.group, self.translator)
+        report_id = bulk_scraper.get_report_id()
+        bg_tasks.add_task(bulk_scraper.scrape, bulk)
+
+        self.publish_event(
+            event_type=EventTypes.recipe_created,
+            document_data=EventRecipeBulkReportData(operation=EventOperation.create, report_id=report_id),
+            group_id=self.group_id,
+            household_id=self.household_id,
+        )
+
+        return {"reportId": report_id}
+
+    # ==================================================================================================================
+    # Other Create Operations
+
+    @router.post("/create/zip", status_code=201)
+    def create_recipe_from_zip(self, archive: UploadFile = File(...)):
+        """Create recipe from archive"""
+        with get_temporary_zip_path() as temp_path:
+            recipe = self.service.create_from_zip(archive, temp_path)
+            self.publish_event(
+                event_type=EventTypes.recipe_created,
+                document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=recipe.slug),
+                group_id=recipe.group_id,
+                household_id=recipe.household_id,
+            )
+
+        return recipe.slug
+
+    @router.post("/create/image", status_code=201)
+    async def create_recipe_from_image(
+        self,
+        images: list[UploadFile] = File(...),
+        translate_language: str | None = Query(None, alias="translateLanguage"),
+    ):
+        """
+        Create a recipe from an image using OpenAI.
+        Optionally specify a language for it to translate the recipe to.
+        """
+
+        if not (self.settings.OPENAI_ENABLED and self.settings.OPENAI_ENABLE_IMAGE_SERVICES):
+            raise HTTPException(
+                status_code=400,
+                detail=ErrorResponse.respond("OpenAI image services are not enabled"),
+            )
+
+        recipe = await self.service.create_from_images(images, translate_language)
+        self.publish_event(
+            event_type=EventTypes.recipe_created,
+            document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=recipe.slug),
+            group_id=recipe.group_id,
+            household_id=recipe.household_id,
+        )
+
+        return recipe.slug

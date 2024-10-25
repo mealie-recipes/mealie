@@ -230,28 +230,6 @@ class ShoppingListController(BaseCrudController):
     # =======================================================================
     # Other Operations
 
-    @router.post("/{item_id}/recipe/{recipe_id}", response_model=ShoppingListOut)
-    def add_recipe_ingredients_to_list(
-        self, item_id: UUID4, recipe_id: UUID4, data: ShoppingListAddRecipeParams | None = None
-    ):
-        shopping_list, items = self.service.add_recipe_ingredients_to_list(
-            item_id, recipe_id, data.recipe_increment_quantity if data else 1, data.recipe_ingredients if data else None
-        )
-
-        publish_list_item_events(self.publish_event, items)
-        return shopping_list
-
-    @router.post("/{item_id}/recipe/{recipe_id}/delete", response_model=ShoppingListOut)
-    def remove_recipe_ingredients_from_list(
-        self, item_id: UUID4, recipe_id: UUID4, data: ShoppingListRemoveRecipeParams | None = None
-    ):
-        shopping_list, items = self.service.remove_recipe_ingredients_from_list(
-            item_id, recipe_id, data.recipe_decrement_quantity if data else 1
-        )
-
-        publish_list_item_events(self.publish_event, items)
-        return shopping_list
-
     @router.put("/{item_id}/label-settings", response_model=ShoppingListOut)
     def update_label_settings(self, item_id: UUID4, data: list[ShoppingListMultiPurposeLabelUpdate]):
         for setting in data:
@@ -273,3 +251,25 @@ class ShoppingListController(BaseCrudController):
         )
 
         return updated_list
+
+    @router.post("/{item_id}/recipe/{recipe_id}", response_model=ShoppingListOut)
+    def add_recipe_ingredients_to_list(
+        self, item_id: UUID4, recipe_id: UUID4, data: ShoppingListAddRecipeParams | None = None
+    ):
+        shopping_list, items = self.service.add_recipe_ingredients_to_list(
+            item_id, recipe_id, data.recipe_increment_quantity if data else 1, data.recipe_ingredients if data else None
+        )
+
+        publish_list_item_events(self.publish_event, items)
+        return shopping_list
+
+    @router.post("/{item_id}/recipe/{recipe_id}/delete", response_model=ShoppingListOut)
+    def remove_recipe_ingredients_from_list(
+        self, item_id: UUID4, recipe_id: UUID4, data: ShoppingListRemoveRecipeParams | None = None
+    ):
+        shopping_list, items = self.service.remove_recipe_ingredients_from_list(
+            item_id, recipe_id, data.recipe_decrement_quantity if data else 1
+        )
+
+        publish_list_item_events(self.publish_event, items)
+        return shopping_list
