@@ -103,9 +103,9 @@
 
 <script lang="ts">
 
-import { computed, defineComponent, onBeforeUnmount, onMounted, reactive, ref, useContext } from "@nuxtjs/composition-api";
+import {  defineComponent, onBeforeUnmount, onMounted, reactive, ref } from "@nuxtjs/composition-api";
 import draggable from "vuedraggable";
-import { useCookbooks } from "@/composables/use-group-cookbooks";
+import { useMyCookbooks } from "@/composables/use-group-cookbooks";
 import CookbookEditor from "~/components/Domain/Cookbook/CookbookEditor.vue";
 import { ReadCookBook } from "~/lib/api/types/cookbook";
 
@@ -118,9 +118,7 @@ export default defineComponent({
       delete: false,
     });
 
-    const { $auth } = useContext();
-    const { cookbooks: allCookbooks, actions } = useCookbooks();
-    const cookbooks = computed(() => allCookbooks.value?.filter((cb) => cb.householdId === $auth.user?.householdId));
+    const { cookbooks, actions } = useMyCookbooks();
 
     // create
     const createTargetKey = ref(0);
