@@ -87,7 +87,7 @@ import LanguageDialog from "~/components/global/LanguageDialog.vue";
 import TheSnackbar from "@/components/Layout/LayoutParts/TheSnackbar.vue";
 import { useAppInfo } from "~/composables/api";
 import { useCookbooks, usePublicCookbooks } from "~/composables/use-group-cookbooks";
-import { useHouseholdStore } from "~/composables/store/use-household-store";
+import { useHouseholdStore, usePublicHouseholdStore } from "~/composables/store/use-household-store";
 import { useToggleDarkMode } from "~/composables/use-utils";
 import { ReadCookBook } from "~/lib/api/types/cookbook";
 import { HouseholdSummary } from "~/lib/api/types/household";
@@ -103,8 +103,8 @@ export default defineComponent({
     const route = useRoute();
     const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
     const { cookbooks } = isOwnGroup.value ? useCookbooks() : usePublicCookbooks(groupSlug.value || "");
+    const { store: households } = isOwnGroup.value ? useHouseholdStore() : usePublicHouseholdStore(groupSlug.value || "");
 
-    const { store: households } = useHouseholdStore();
     const householdsById = computed(() => {
       return households.value.reduce((acc, household) => {
         acc[household.id] = household;
@@ -137,10 +137,10 @@ export default defineComponent({
 
     const currentUserHouseholdId = computed(() => $auth.user?.householdId);
     const cookbookLinks = computed<SideBarLink[]>(() => {
-      if (!cookbooks.value) return [];
-      if (!currentUserHouseholdId.value) {
-        return cookbooks.value.map((cookbook) => cookbookAsLink(cookbook));
+      if (!cookbooks.value) {
+        return [];
       }
+      cookbooks.value.sort((a, b) => (a.position || 0) - (b.position || 0));
 
       const ownLinks: SideBarLink[] = [];
       const links: SideBarLink[] = [];
@@ -153,24 +153,22 @@ export default defineComponent({
         return acc;
       }, {} as Record<string, ReadCookBook[]>);
 
-      const sortedCookbooksByHousehold = Object.keys(cookbooksByHousehold)
-        .sort()
-        .map(key => [key, cookbooksByHousehold[key]] as [string, ReadCookBook[]]);
-
-      sortedCookbooksByHousehold.forEach(([householdName, cookbooks]) => {
-        const householdLinks = {
-          key: householdName,
-          icon: $globals.icons.book,
-          title: householdName,
-          children: cookbooks.map(cookbookAsLink),
-          restricted: false,
-        }
+      Object.entries(cookbooksByHousehold).forEach(([householdName, cookbooks]) => {
         if (cookbooks[0].householdId === currentUserHouseholdId.value) {
-          ownLinks.push(householdLinks);
+          ownLinks.push(...cookbooks.map(cookbookAsLink));
         } else {
-          links.push(householdLinks);
+          links.push({
+            key: householdName,
+            icon: $globals.icons.book,
+            title: householdName,
+            children: cookbooks.map(cookbookAsLink),
+            restricted: false,
+          });
         }
       });
+
+      ownLinks.sort((a, b) => a.title.localeCompare(b.title));
+      links.sort((a, b) => a.title.localeCompare(b.title));
 
       return [...ownLinks, ...links];
     });
