@@ -5,9 +5,41 @@ import { useHouseholdSelf } from "./use-households";
 import { useUserApi } from "~/composables/api";
 import { ReadCookBook, UpdateCookBook } from "~/lib/api/types/cookbook";
 
-let cookbookStore: Ref<ReadCookBook[] | null> | null = null;
-let myCookbookStore: Ref<ReadCookBook[] | null> | null = null;
-let publicCookbookStore: Ref<ReadCookBook[] | null> | null = null;
+interface StoreInterface {
+  get ref(): Ref<ReadCookBook[] | null> | null;
+  set ref(newValue: Ref<ReadCookBook[] | null> | null);
+}
+
+let _cookbookStore: Ref<ReadCookBook[] | null> | null = null;
+let _myCookbookStore: Ref<ReadCookBook[] | null> | null = null;
+let _publicCookbookStore: Ref<ReadCookBook[] | null> | null = null;
+
+const cookbookStore: StoreInterface = {
+  get ref() {
+    return _cookbookStore;
+  },
+  set ref(newValue: Ref<ReadCookBook[] | null> | null) {
+    _cookbookStore = newValue;
+  },
+};
+
+const myCookbookStore: StoreInterface = {
+  get ref() {
+    return _myCookbookStore;
+  },
+  set ref(newValue: Ref<ReadCookBook[] | null> | null) {
+    _myCookbookStore = newValue;
+  },
+};
+
+const publicCookbookStore: StoreInterface = {
+  get ref() {
+    return _publicCookbookStore;
+  },
+  set ref(newValue: Ref<ReadCookBook[] | null> | null) {
+    _publicCookbookStore = newValue;
+  },
+};
 
 export const useCookbook = function (publicGroupSlug: string | null = null) {
   function getOne(id: string | number) {
@@ -50,25 +82,25 @@ export const usePublicCookbooks = function (groupSlug: string) {
       loading.value = true;
       const { data } = await api.cookbooks.getAll(1, -1, { orderBy: "position", orderDirection: "asc" });
 
-      if (data && data.items && publicCookbookStore) {
-        publicCookbookStore.value = data.items;
+      if (data && data.items && publicCookbookStore.ref) {
+        publicCookbookStore.ref.value = data.items;
       }
 
       loading.value = false;
     },
     flushStore() {
-      publicCookbookStore = null;
+      publicCookbookStore.ref = null;
     },
   };
 
-  if (!publicCookbookStore) {
-    publicCookbookStore = actions.getAll();
+  if (!publicCookbookStore.ref) {
+    publicCookbookStore.ref = actions.getAll();
   }
 
-  return { cookbooks: publicCookbookStore, actions };
+  return { cookbooks: publicCookbookStore.ref, actions };
 }
 
-function useCookbooksFactory(store: Ref<ReadCookBook[] | null> | null, onlyMine = false) {
+function useCookbooksFactory(store: StoreInterface, onlyMine = false) {
   const api = useUserApi();
   const { household } = useHouseholdSelf();
   const loading = ref(false);
@@ -99,8 +131,8 @@ function useCookbooksFactory(store: Ref<ReadCookBook[] | null> | null, onlyMine 
       loading.value = true;
       const { data } = await api.cookbooks.getAll(1, -1, { orderBy: "position", orderDirection: "asc", queryFilter });
 
-      if (data && data.items && store) {
-        store.value = data.items;
+      if (data && data.items && store.ref?.value) {
+        store.ref.value = data.items;
       }
 
       loading.value = false;
@@ -108,12 +140,12 @@ function useCookbooksFactory(store: Ref<ReadCookBook[] | null> | null, onlyMine 
     async createOne() {
       loading.value = true;
       const { data } = await api.cookbooks.createOne({
-        name: i18n.t("cookbook.household-cookbook-name", [household.value?.name || "", String((store?.value?.length ?? 0) + 1)]) as string,
-        position: (store?.value?.length ?? 0) + 1,
+        name: i18n.t("cookbook.household-cookbook-name", [household.value?.name || "", String((store.ref?.value?.length ?? 0) + 1)]) as string,
+        position: (store.ref?.value?.length ?? 0) + 1,
         queryFilterString: "",
       });
-      if (data && store?.value) {
-        store.value.push(data);
+      if (data && store.ref?.value) {
+        store.ref.value.push(data);
       } else {
         this.refreshAll();
       }
@@ -128,7 +160,7 @@ function useCookbooksFactory(store: Ref<ReadCookBook[] | null> | null, onlyMine 
 
       loading.value = true;
       const { data } = await api.cookbooks.updateOne(updateData.id, updateData);
-      if (data && store?.value) {
+      if (data && store.ref?.value) {
         this.refreshAll();
       }
       loading.value = false;
@@ -136,19 +168,19 @@ function useCookbooksFactory(store: Ref<ReadCookBook[] | null> | null, onlyMine 
     },
 
     async updateOrder() {
-      if (!store?.value) {
+      if (!store.ref?.value) {
         return;
       }
 
       loading.value = true;
 
-      store.value.forEach((element, index) => {
+      store.ref.value.forEach((element, index) => {
         element.position = index + 1;
       });
 
-      const { data } = await api.cookbooks.updateAll(store.value);
+      const { data } = await api.cookbooks.updateAll(store.ref.value);
 
-      if (data && store?.value) {
+      if (data && store.ref.value) {
         this.refreshAll();
       }
 
@@ -157,20 +189,20 @@ function useCookbooksFactory(store: Ref<ReadCookBook[] | null> | null, onlyMine 
     async deleteOne(id: string | number) {
       loading.value = true;
       const { data } = await api.cookbooks.deleteOne(id);
-      if (data && store?.value) {
+      if (data && store.ref?.value) {
         this.refreshAll();
       }
     },
     flushStore() {
-      store = null;
+      store.ref = null;
     },
   };
 
-  if (!store) {
-    store = actions.getAll();
+  if (!store.ref) {
+    store.ref = actions.getAll();
   }
 
-  return { cookbooks: store, actions };
+  return { cookbooks: store.ref, actions };
 }
 
 export const useCookbooks = function () {
