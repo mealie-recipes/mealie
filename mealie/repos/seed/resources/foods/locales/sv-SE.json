@@ -10,7 +10,7 @@
 	},
 	"apples": {
 		"name": "äpplen",
-		"plural_name": "apples"
+		"plural_name": "äpplen"
 	},
 	"artichoke": {
 		"name": "kronärtskocka"
@@ -23,7 +23,7 @@
 	},
 	"avocado": {
 		"name": "avokado",
-		"plural_name": "avocado"
+		"plural_name": "avokado"
 	},
 	"bacon": {
 		"name": "bacon"
@@ -48,7 +48,7 @@
 	},
 	"bell-peppers": {
 		"name": "paprika",
-		"plural_name": "bell peppers"
+		"plural_name": "paprika"
 	},
 	"blackberries": {
 		"name": "björnbär"
@@ -94,7 +94,7 @@
 	},
 	"cabbage": {
 		"name": "vitkål",
-		"plural_name": "cabbages"
+		"plural_name": "kål"
 	},
 	"cactus-edible": {
 		"name": "kaktus, ätbar"
@@ -116,7 +116,7 @@
 	},
 	"carrot": {
 		"name": "morot",
-		"plural_name": "carrots"
+		"plural_name": "morötter"
 	},
 	"caster-sugar": {
 		"name": "strösocker"
@@ -129,7 +129,7 @@
 	},
 	"cauliflower": {
 		"name": "blomkål",
-		"plural_name": "cauliflowers"
+		"plural_name": "blomkål"
 	},
 	"cayenne-pepper": {
 		"name": "cayennepeppar"
@@ -154,7 +154,7 @@
 	},
 	"chilli-peppers": {
 		"name": "chilipeppar",
-		"plural_name": "chilli peppers"
+		"plural_name": "chilipeppar"
 	},
 	"chinese-leaves": {
 		"name": "salladskål"
@@ -176,7 +176,7 @@
 	},
 	"coconut": {
 		"name": "kokos",
-		"plural_name": "coconuts"
+		"plural_name": "kokosnötter"
 	},
 	"coconut-milk": {
 		"name": "kokosmjölk"
@@ -198,7 +198,7 @@
 	},
 	"corn": {
 		"name": "majs",
-		"plural_name": "corns"
+		"plural_name": "majs"
 	},
 	"corn-syrup": {
 		"name": "majssirap"
@@ -214,14 +214,14 @@
 	},
 	"cucumber": {
 		"name": "gurka",
-		"plural_name": "cucumbers"
+		"plural_name": "gurkor"
 	},
 	"cumin": {
 		"name": "spiskummin"
 	},
 	"daikon": {
 		"name": "rättika",
-		"plural_name": "daikons"
+		"plural_name": "rättikor"
 	},
 	"dairy-products-and-dairy-substitutes": {
 		"name": "mejeriprodukter och mejerisubstitut"
@@ -240,11 +240,11 @@
 	},
 	"eggplant": {
 		"name": "äggplanta",
-		"plural_name": "eggplants"
+		"plural_name": "äggplantor"
 	},
 	"eggs": {
 		"name": "ägg",
-		"plural_name": "eggs"
+		"plural_name": "ägg"
 	},
 	"endive": {
 		"name": "endiv",
@@ -292,7 +292,7 @@
 	},
 	"garlic": {
 		"name": "vitlök",
-		"plural_name": "garlics"
+		"plural_name": "vitlökar"
 	},
 	"gem-squash": {
 		"name": "gem squash"
@@ -317,11 +317,11 @@
 	},
 	"green-onion": {
 		"name": "salladslök",
-		"plural_name": "green onions"
+		"plural_name": "salladslökar"
 	},
 	"heart-of-palm": {
 		"name": "palmhjärta",
-		"plural_name": "heart of palms"
+		"plural_name": "palmhjärta"
 	},
 	"hemp": {
 		"name": "hampa"
@@ -337,7 +337,7 @@
 	},
 	"jackfruit": {
 		"name": "jackfrukt",
-		"plural_name": "jackfruits"
+		"plural_name": "jackfrukter"
 	},
 	"jaggery": {
 		"name": "jaggery"
@@ -368,7 +368,7 @@
 	},
 	"leek": {
 		"name": "purjolök",
-		"plural_name": "leeks"
+		"plural_name": "purjolökar"
 	},
 	"legumes": {
 		"name": "baljväxter"
@@ -403,7 +403,7 @@
 	},
 	"mushroom": {
 		"name": "svamp",
-		"plural_name": "mushrooms"
+		"plural_name": "svampar"
 	},
 	"mussels": {
 		"name": "musslor"
@@ -425,7 +425,7 @@
 	},
 	"octopuses": {
 		"name": "bläckfiskar",
-		"plural_name": "octopuses"
+		"plural_name": "bläckfiskar"
 	},
 	"oils": {
 		"name": "oljor"
@@ -450,7 +450,7 @@
 	},
 	"oranges": {
 		"name": "apelsiner",
-		"plural_name": "oranges"
+		"plural_name": "apelsiner"
 	},
 	"oregano": {
 		"name": "oregano"
@@ -469,11 +469,11 @@
 	},
 	"parsnip": {
 		"name": "palsternacka",
-		"plural_name": "parsnips"
+		"plural_name": "palsternackor"
 	},
 	"pear": {
 		"name": "päron",
-		"plural_name": "pears"
+		"plural_name": "päron"
 	},
 	"peas": {
 		"name": "ärtor"
@@ -484,7 +484,7 @@
 	},
 	"pineapple": {
 		"name": "ananas",
-		"plural_name": "pineapples"
+		"plural_name": "ananas"
 	},
 	"plantain": {
 		"name": "kokbanan",
@@ -495,7 +495,7 @@
 	},
 	"potato": {
 		"name": "potatis",
-		"plural_name": "potatoes"
+		"plural_name": "potatis"
 	},
 	"poultry": {
 		"name": "kyckling"
@@ -505,14 +505,14 @@
 	},
 	"pumpkin": {
 		"name": "pumpa",
-		"plural_name": "pumpkins"
+		"plural_name": "pumpor"
 	},
 	"pumpkin-seeds": {
 		"name": "pumpafrön"
 	},
 	"radish": {
 		"name": "rädisa",
-		"plural_name": "radishes"
+		"plural_name": "rädisor"
 	},
 	"raw-sugar": {
 		"name": "brunt socker"

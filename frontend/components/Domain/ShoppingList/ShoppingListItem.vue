@@ -151,10 +151,6 @@ export default defineComponent({
         text: i18n.t("general.delete") as string,
         event: "delete",
       },
-      {
-        text: i18n.t("general.transfer") as string,
-        event: "transfer",
-      },
     ];
 
     // copy prop value so a refresh doesn't interrupt the user
