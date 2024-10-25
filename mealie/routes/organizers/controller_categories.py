@@ -67,6 +67,11 @@ class RecipeCategoryController(BaseCrudController):
 
         return new_category
 
+    @router.get("/empty", response_model=list[CategoryBase])
+    def get_all_empty(self):
+        """Returns a list of categories that do not contain any recipes"""
+        return self.repos.categories.get_empty()
+
     @router.get("/{item_id}", response_model=CategorySummary)
     def get_one(self, item_id: UUID4):
         """Returns a list of recipes associated with the provided category."""
@@ -113,11 +118,6 @@ class RecipeCategoryController(BaseCrudController):
 
     # =========================================================================
     # Read All Operations
-
-    @router.get("/empty", response_model=list[CategoryBase])
-    def get_all_empty(self):
-        """Returns a list of categories that do not contain any recipes"""
-        return self.repos.categories.get_empty()
 
     @router.get("/slug/{category_slug}")
     def get_one_by_slug(self, category_slug: str):
