@@ -57,7 +57,7 @@
           v-model="cookbooks"
           handle=".handle"
           delay="250"
-          delay-on-touch-only
+          :delay-on-touch-only="true"
           style="width: 100%"
           @change="actions.updateOrder()"
         >

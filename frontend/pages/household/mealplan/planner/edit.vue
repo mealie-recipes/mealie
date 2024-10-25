@@ -101,7 +101,7 @@
           tag="div"
           handle=".handle"
           delay="250"
-          delay-on-touch-only
+          :delay-on-touch-only="true"
           :value="plan.meals"
           group="meals"
           :data-index="index"

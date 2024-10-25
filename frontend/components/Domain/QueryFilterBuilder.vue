@@ -6,7 +6,7 @@
           :value="fields"
           handle=".handle"
           delay="250"
-          delay-on-touch-only
+          :delay-on-touch-only="true"
           v-bind="{
             animation: 200,
             group: 'recipe-instructions',
