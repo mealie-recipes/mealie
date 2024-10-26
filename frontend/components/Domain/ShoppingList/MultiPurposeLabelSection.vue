@@ -17,24 +17,14 @@
             </v-icon>
           </v-btn>
         </template>
-        <v-list dense>
-          <v-list-item v-for="action in contextMenu" :key="action.event" dense @click="contextHandler(action.event)">
-            <v-list-item-title>{{ action.text }}</v-list-item-title>
-          </v-list-item>
-        </v-list>
       </v-menu>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useContext } from "@nuxtjs/composition-api";
+import { defineComponent, ref } from "@nuxtjs/composition-api";
 import { ShoppingListMultiPurposeLabelOut } from "~/lib/api/types/household";
-
-interface actions {
-  text: string;
-  event: string;
-}
 
 export default defineComponent({
   props: {
@@ -48,15 +38,7 @@ export default defineComponent({
     }
   },
   setup(props, context) {
-    const { i18n } = useContext();
     const labelColor = ref<string | undefined>(props.useColor ? props.value.label.color : undefined);
-
-    const contextMenu: actions[] = [
-      {
-        text: i18n.t("general.transfer") as string,
-        event: "transfer",
-      },
-    ];
 
     function contextHandler(event: string) {
       context.emit(event);
@@ -64,7 +46,6 @@ export default defineComponent({
 
     return {
       contextHandler,
-      contextMenu,
       labelColor,
     };
   },
