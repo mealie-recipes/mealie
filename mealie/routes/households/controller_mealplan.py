@@ -66,37 +66,6 @@ class GroupMealplanController(BaseCrudController):
         )
         return recipes_data.items
 
-    @router.get("/today")
-    def get_todays_meals(self):
-        return self.repo.get_today()
-
-    @router.post("/random", response_model=ReadPlanEntry)
-    def create_random_meal(self, data: CreateRandomEntry):
-        """
-        `create_random_meal` is a route that provides the randomized functionality for mealplaners.
-        It operates by following the rules set out in the household's mealplan settings. If no settings
-        are set, it will return any random meal.
-
-        Refer to the mealplan settings routes for more information on how rules can be applied
-        to the random meal selector.
-        """
-        random_recipes = self._get_random_recipes_from_mealplan(data.date, data.entry_type)
-        if not random_recipes:
-            raise HTTPException(
-                status_code=404, detail=ErrorResponse.respond(message=self.t("mealplan.no-recipes-match-your-rules"))
-            )
-
-        recipe = random_recipes[0]
-        return self.mixins.create_one(
-            SavePlanEntry(
-                date=data.date,
-                entry_type=data.entry_type,
-                recipe_id=recipe.id,
-                group_id=self.group_id,
-                user_id=self.user.id,
-            )
-        )
-
     @router.get("", response_model=PlanEntryPagination)
     def get_all(
         self,
@@ -143,6 +112,37 @@ class GroupMealplanController(BaseCrudController):
         )
 
         return result
+
+    @router.get("/today")
+    def get_todays_meals(self):
+        return self.repo.get_today()
+
+    @router.post("/random", response_model=ReadPlanEntry)
+    def create_random_meal(self, data: CreateRandomEntry):
+        """
+        `create_random_meal` is a route that provides the randomized functionality for mealplaners.
+        It operates by following the rules set out in the household's mealplan settings. If no settings
+        are set, it will return any random meal.
+
+        Refer to the mealplan settings routes for more information on how rules can be applied
+        to the random meal selector.
+        """
+        random_recipes = self._get_random_recipes_from_mealplan(data.date, data.entry_type)
+        if not random_recipes:
+            raise HTTPException(
+                status_code=404, detail=ErrorResponse.respond(message=self.t("mealplan.no-recipes-match-your-rules"))
+            )
+
+        recipe = random_recipes[0]
+        return self.mixins.create_one(
+            SavePlanEntry(
+                date=data.date,
+                entry_type=data.entry_type,
+                recipe_id=recipe.id,
+                group_id=self.group_id,
+                user_id=self.user.id,
+            )
+        )
 
     @router.get("/{item_id}", response_model=ReadPlanEntry)
     def get_one(self, item_id: int):
