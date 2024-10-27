@@ -93,7 +93,7 @@ For usage, see [Usage - OpenID Connect](../authentication/oidc-v2.md)
 | OIDC_CLIENT_SECRET <br/> :octicons-tag-24: v2.0.0    |  None   | The client secret of your configured client in your provider|
 | OIDC_USER_GROUP        |  None   | If specified, only users belonging to this group will be able to successfully authenticate. For more information see [this page](../authentication/oidc-v2.md#groups)                                                                                               |
 | OIDC_ADMIN_GROUP       |  None   | If specified, users belonging to this group will be able to successfully authenticate *and* be made an admin. For more information see [this page](../authentication/oidc-v2.md#groups)                                                                                                                                                              |
-| OIDC_AUTO_REDIRECT     |  False  | If `True`, then the login page will be bypassed an you will be sent directly to your Identity Provider. You can still get to the login page by adding `?direct=1` to the login URL                                                                                                                     |
+| OIDC_AUTO_REDIRECT     |  False  | If `True`, then the login page will be bypassed and you will be sent directly to your Identity Provider. You can still get to the login page by adding `?direct=1` to the login URL                                                                                                                     |
 | OIDC_PROVIDER_NAME     |  OAuth  | The provider name is shown in SSO login button. "Login with <OIDC_PROVIDER_NAME\>"                                                                                                                                                                                                                     |
 | OIDC_REMEMBER_ME       |  False  | Because redirects bypass the login screen, you cant extend your session by clicking the "Remember Me" checkbox. By setting this value to true, a session will be extended as if "Remember Me" was checked                                                                                              |
 | OIDC_USER_CLAIM        |  email  | This is the claim which Mealie will use to look up an existing user by (e.g. "email", "preferred_username")                                                                                                                                                                                            |
@@ -147,7 +147,7 @@ This can be used to avoid leaking passwords through compose files, environment v
 For example, to configure the Postgres database password in Docker compose, create a file on the host that contains only the password, and expose that file to the Mealie service as a secret with the correct name.
 Note that environment variables take priority over secrets, so any previously defined environment variables should be removed when migrating to secrets.
 
-```
+```yaml
 services:
   mealie:
     ...

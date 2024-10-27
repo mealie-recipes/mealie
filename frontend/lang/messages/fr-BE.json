@@ -182,7 +182,7 @@
     "date": "Date",
     "id": "Identifiant",
     "owner": "Propriétaire",
-    "change-owner": "Change Owner",
+    "change-owner": "Modifier le propriétaire",
     "date-added": "Date d’ajout",
     "none": "Aucun",
     "run": "Exécuter",
@@ -214,10 +214,10 @@
     "confirm-delete-generic-items": "Êtes-vous sûr de vouloir supprimer les éléments suivants ?",
     "organizers": "Classification",
     "caution": "Avertissement",
-    "show-advanced": "Show Advanced",
-    "add-field": "Add Field",
-    "date-created": "Date Created",
-    "date-updated": "Date Updated"
+    "show-advanced": "Afficher les paramètres avancés",
+    "add-field": "Ajouter un champ",
+    "date-created": "Date de création",
+    "date-updated": "Date de mise à jour"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Voulez-vous vraiment supprimer <b>{groupName}<b/> ?",
@@ -356,7 +356,7 @@
     "for-type-meal-types": "pour les types de repas {0}",
     "meal-plan-rules": "Règles du menu",
     "new-rule": "Nouvelle règle",
-    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the rule filters will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
+    "meal-plan-rules-description": "Vous pouvez créer des règles pour ajouter automatiquement des recettes à votre menu. Ces règles sont utilisées par le serveur pour établir la liste aléatoire de recettes utilisée lors de la création de menus. Notez que si les règles ont les mêmes contraintes jour/type, alors les filtres des règles seront fusionnées. Dans la pratique, il est inutile de créer des règles en double, mais il est possible de le faire.",
     "new-rule-description": "Lorsque vous créez une nouvelle règle pour un menu, vous pouvez restreindre la règle à un jour précis de la semaine et/ou un type de repas particulier. Pour appliquer une règle à tous les jours ou à tous les types de repas, vous pouvez définir la règle à \"Tous\".",
     "recipe-rules": "Règles de recette",
     "applies-to-all-days": "S'applique à tous les jours",
@@ -1271,7 +1271,9 @@
     "debug-openai-services": "Déboguer les services OpenAI",
     "debug-openai-services-description": "Utilisez cette page pour déboguer les services OpenAI. Vous pouvez tester votre connexion OpenAI et voir les résultats ici. Si vous avez activé les services d'image, vous pouvez également fournir une image.",
     "run-test": "Lancer le test",
-    "test-results": "Résultats du test"
+    "test-results": "Résultats du test",
+    "group-delete-note": "Groups with users or households cannot be deleted",
+    "household-delete-note": "Households with users cannot be deleted"
   },
   "profile": {
     "welcome-user": "👋 Bienvenue, {0} !",
@@ -1324,7 +1326,7 @@
   },
   "cookbook": {
     "cookbooks": "Livres de recettes",
-    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
+    "description": "Les livres de recettes sont un autre moyen d’organiser des recettes en sélectionnant un ensemble précis de recettes, de classification et de filtres. La création d'un livre de recettes ajoute une entrée à la barre latérale et toutes les recettes avec les filtres choisies seront affichées dans le livre de recettes.",
     "public-cookbook": "Livre de recettes public",
     "public-cookbook-description": "Les livres de recettes publics peuvent être partagés avec des personnes qui n'ont pas Mealie et seront affichés sur la page de vos groupes.",
     "filter-options": "Options de filtres",
@@ -1340,8 +1342,8 @@
   },
   "query-filter": {
     "logical-operators": {
-      "and": "AND",
-      "or": "OR"
+      "and": "ET",
+      "or": "OU"
     },
     "relational-operators": {
       "equals": "equals",

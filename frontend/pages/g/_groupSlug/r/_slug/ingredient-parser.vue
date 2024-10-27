@@ -46,6 +46,8 @@
             v-if="parsedIng.length > 0"
             v-model="parsedIng"
             handle=".handle"
+            delay="250"
+            :delay-on-touch-only="true"
             :style="{ width: '100%' }"
             ghost-class="ghost"
           >

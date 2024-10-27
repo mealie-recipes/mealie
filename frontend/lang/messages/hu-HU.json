@@ -182,7 +182,7 @@
     "date": "Dátum",
     "id": "Azonosító",
     "owner": "Tulajdonos",
-    "change-owner": "Change Owner",
+    "change-owner": "Tulajdonos módosítása",
     "date-added": "Hozzáadás Dátuma",
     "none": "Nincs",
     "run": "Futtatás",
@@ -1271,7 +1271,9 @@
     "debug-openai-services": "OpenAI-szolgáltatások hibakeresése",
     "debug-openai-services-description": "Ezt az oldalt az OpenAI szolgáltatások hibakeresésére használhatja. Itt tesztelheti az OpenAI-kapcsolatot, és láthatja az eredményeket. Ha engedélyezte a képszolgáltatásokat, akkor képet is megadhat.",
     "run-test": "Teszt futtatása",
-    "test-results": "Teszt eredmények"
+    "test-results": "Teszt eredmények",
+    "group-delete-note": "Groups with users or households cannot be deleted",
+    "household-delete-note": "Households with users cannot be deleted"
   },
   "profile": {
     "welcome-user": "👋 Üdvözöljük, {0}!",

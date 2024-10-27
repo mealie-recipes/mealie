@@ -123,7 +123,7 @@ class FormatResponse(BaseModel):
     jinja2: list[str]
 
 
-router_exports = UserAPIRouter(prefix="/recipes", tags=["Recipe: Exports"])
+router_exports = UserAPIRouter(prefix="/recipes")
 
 
 @controller(router_exports)
@@ -176,7 +176,7 @@ class RecipeExportController(BaseRecipeController):
             )
 
 
-router = UserAPIRouter(prefix="/recipes", tags=["Recipe: CRUD"], route_class=MealieCrudRoute)
+router = UserAPIRouter(prefix="/recipes", route_class=MealieCrudRoute)
 
 
 @controller(router)
@@ -202,6 +202,20 @@ class RecipeController(BaseRecipeController):
 
     # =======================================================================
     # URL Scraping Operations
+
+    @router.post("/test-scrape-url")
+    async def test_parse_recipe_url(self, data: ScrapeRecipeTest):
+        # Debugger should produce the same result as the scraper sees before cleaning
+        ScraperClass = RecipeScraperOpenAI if data.use_openai else RecipeScraperPackage
+        try:
+            if scraped_data := await ScraperClass(data.url, self.translator).scrape_url():
+                return scraped_data.schema.data
+        except ForceTimeoutException as e:
+            raise HTTPException(
+                status_code=408, detail=ErrorResponse.respond(message="Recipe Scraping Timed Out")
+            ) from e
+
+        return "recipe_scrapers was unable to scrape this URL"
 
     @router.post("/create/html-or-json", status_code=201)
     async def create_recipe_from_html_or_json(self, req: ScrapeRecipeData):
@@ -270,20 +284,6 @@ class RecipeController(BaseRecipeController):
         )
 
         return {"reportId": report_id}
-
-    @router.post("/test-scrape-url")
-    async def test_parse_recipe_url(self, data: ScrapeRecipeTest):
-        # Debugger should produce the same result as the scraper sees before cleaning
-        ScraperClass = RecipeScraperOpenAI if data.use_openai else RecipeScraperPackage
-        try:
-            if scraped_data := await ScraperClass(data.url, self.translator).scrape_url():
-                return scraped_data.schema.data
-        except ForceTimeoutException as e:
-            raise HTTPException(
-                status_code=408, detail=ErrorResponse.respond(message="Recipe Scraping Timed Out")
-            ) from e
-
-        return "recipe_scrapers was unable to scrape this URL"
 
     # ==================================================================================================================
     # Other Create Operations
