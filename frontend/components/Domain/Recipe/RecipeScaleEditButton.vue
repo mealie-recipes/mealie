@@ -97,8 +97,8 @@ export default defineComponent({
       },
     });
 
-    const numerator = ref<number>(parseFloat(props.basicYieldNum.toFixed(3)) ?? 1);
-    const denominator = parseFloat(props.basicYieldNum.toFixed(32)) ?? 1;
+    const numerator = ref<number>(props.basicYieldNum != null ? parseFloat(props.basicYieldNum.toFixed(3)) : 1);
+    const denominator = props.basicYieldNum != null ? parseFloat(props.basicYieldNum.toFixed(32)) : 1;
     const numberParsed = !!props.basicYieldNum;
 
     watch(() => numerator.value, () => {
