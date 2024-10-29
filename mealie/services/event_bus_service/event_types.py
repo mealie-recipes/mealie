@@ -138,6 +138,11 @@ class EventRecipeData(EventDocumentDataBase):
     recipe_slug: str
 
 
+class EventRecipeBulkData(EventDocumentDataBase):
+    document_type: EventDocumentType = EventDocumentType.recipe
+    recipe_slugs: list[str]
+
+
 class EventRecipeBulkReportData(EventDocumentDataBase):
     document_type: EventDocumentType = EventDocumentType.recipe_bulk_report
     report_id: UUID4

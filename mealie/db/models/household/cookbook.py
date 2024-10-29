@@ -33,7 +33,9 @@ class CookBook(SqlAlchemyBase, BaseMixins):
     slug: Mapped[str] = mapped_column(String, nullable=False, index=True)
     description: Mapped[str | None] = mapped_column(String, default="")
     public: Mapped[str | None] = mapped_column(Boolean, default=False)
+    query_filter_string: Mapped[str] = mapped_column(String, nullable=False, default="")
 
+    # Old filters - deprecated in favor of query filter strings
     categories: Mapped[list[Category]] = orm.relationship(
         Category, secondary=cookbooks_to_categories, single_parent=True
     )

@@ -23,9 +23,13 @@ class LDAPProvider(CredentialsProvider):
         self.conn = None
 
     def authenticate(self) -> tuple[str, timedelta] | None:
-        """Attempt to authenticate a user given a username and password"""
+        """Attempt to authenticate a user given a username and password against an LDAP provider"""
+        # When LDAP is enabled, we need to still also support authentication with Mealie backend
+        # First we look to see if we have a user. If we don't we'll attempt to create one with LDAP
+        # If we do find a user, we will check if their auth method is LDAP and attempt to authenticate
+        # Otherwise, we will proceed with Mealie authentication
         user = self.try_get_user(self.data.username)
-        if not user or user.password == "LDAP" or user.auth_method == AuthMethod.LDAP:
+        if not user or user.auth_method == AuthMethod.LDAP:
             user = self.get_user()
             if user:
                 return self.get_access_token(user, self.data.remember_me)

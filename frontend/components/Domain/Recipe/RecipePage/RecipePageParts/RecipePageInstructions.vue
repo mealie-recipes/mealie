@@ -77,6 +77,8 @@
       :disabled="!isEditForm"
       :value="value"
       handle=".handle"
+      delay="250"
+      :delay-on-touch-only="true"
       v-bind="{
         animation: 200,
         group: 'recipe-instructions',
@@ -121,9 +123,22 @@
               @click="toggleDisabled(index)"
             >
               <v-card-title :class="{ 'pb-0': !isChecked(index) }">
-                <span :class="isEditForm ? 'handle' : ''">
-                  <v-icon v-if="isEditForm" size="26" class="pb-1">{{ $globals.icons.arrowUpDown }}</v-icon>
-                  {{ $t("recipe.step-index", { step: index + 1 }) }}
+                <v-text-field
+                  v-if="isEditForm"
+                  v-model="step.summary"
+                  class="headline handle"
+                  hide-details
+                  dense
+                  solo
+                  flat
+                  :placeholder="$t('recipe.step-index', { step: index + 1 })"
+                >
+                  <template #prepend>
+                    <v-icon size="26">{{ $globals.icons.arrowUpDown }}</v-icon>
+                  </template>
+                </v-text-field>
+                <span v-else>
+                  {{ step.summary ? step.summary : $t("recipe.step-index", { step: index + 1 }) }}
                 </span>
                 <template v-if="isEditForm">
                   <div class="ml-auto">
@@ -339,7 +354,7 @@ export default defineComponent({
     // ===============================================================
     // UI State Helpers
 
-    function validateTitle(title: string | undefined) {
+    function hasSectionTitle(title: string | undefined) {
       return !(title === null || title === "" || title === undefined);
     }
 
@@ -348,7 +363,7 @@ export default defineComponent({
 
       v.forEach((element: RecipeStep) => {
         if (element.id !== undefined) {
-          showTitleEditor.value[element.id] = validateTitle(element.title);
+          showTitleEditor.value[element.id] = hasSectionTitle(element.title);
         }
       });
     });
@@ -359,7 +374,7 @@ export default defineComponent({
     onMounted(() => {
       props.value.forEach((element: RecipeStep) => {
         if (element.id !== undefined) {
-          showTitleEditor.value[element.id] = validateTitle(element.title);
+          showTitleEditor.value[element.id] = hasSectionTitle(element.title);
         }
 
         // showCookMode.value = false;
@@ -576,7 +591,7 @@ export default defineComponent({
       const sectionSteps: number[] = [];
 
       for (let i = index; i < props.value.length; i++) {
-        if (!(i === index) && validateTitle(props.value[i].title)) {
+        if (!(i === index) && hasSectionTitle(props.value[i].title)) {
           break;
         } else {
           sectionSteps.push(i);

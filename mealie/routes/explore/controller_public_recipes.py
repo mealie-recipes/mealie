@@ -4,7 +4,6 @@ import orjson
 from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from pydantic import UUID4
 
-from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import controller
 from mealie.routes._base.base_controllers import BasePublicHouseholdExploreController
 from mealie.routes.recipe.recipe_crud_routes import JSONBytes
@@ -40,7 +39,6 @@ class PublicRecipesController(BasePublicHouseholdExploreController):
         households: list[UUID4 | str] | None = Query(None),
     ) -> PaginationBase[RecipeSummary]:
         cookbook_data: ReadCookBook | None = None
-        recipes_repo = self.cross_household_recipes
         if search_query.cookbook:
             COOKBOOK_NOT_FOUND_EXCEPTION = HTTPException(404, "cookbook not found")
             if isinstance(search_query.cookbook, UUID):
@@ -59,18 +57,13 @@ class PublicRecipesController(BasePublicHouseholdExploreController):
             if not household or household.preferences.private_household:
                 raise COOKBOOK_NOT_FOUND_EXCEPTION
 
-            # filter recipes by the cookbook's household
-            recipes_repo = get_repositories(
-                self.session, group_id=self.group_id, household_id=cookbook_data.household_id
-            ).recipes
-
         public_filter = "(household.preferences.privateHousehold = FALSE AND settings.public = TRUE)"
         if q.query_filter:
             q.query_filter = f"({q.query_filter}) AND {public_filter}"
         else:
             q.query_filter = public_filter
 
-        pagination_response = recipes_repo.page_all(
+        pagination_response = self.cross_household_recipes.page_all(
             pagination=q,
             cookbook=cookbook_data,
             categories=categories,

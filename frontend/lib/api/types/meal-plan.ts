@@ -8,6 +8,9 @@
 export type PlanEntryType = "breakfast" | "lunch" | "dinner" | "side";
 export type PlanRulesDay = "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday" | "unset";
 export type PlanRulesType = "breakfast" | "lunch" | "dinner" | "side" | "unset";
+export type LogicalOperator = "AND" | "OR";
+export type RelationalKeyword = "IS" | "IS NOT" | "IN" | "NOT IN" | "CONTAINS ALL" | "LIKE" | "NOT LIKE";
+export type RelationalOperator = "=" | "<>" | ">" | "<" | ">=" | "<=";
 
 export interface Category {
   id: string;
@@ -31,44 +34,36 @@ export interface ListItem {
   quantity?: number;
   checked?: boolean;
 }
-export interface PlanCategory {
-  id: string;
-  name: string;
-  slug: string;
-}
-export interface PlanHousehold {
-  id: string;
-  name: string;
-  slug: string;
-}
 export interface PlanRulesCreate {
   day?: PlanRulesDay & string;
   entryType?: PlanRulesType & string;
-  categories?: PlanCategory[];
-  tags?: PlanTag[];
-  households?: PlanHousehold[];
-}
-export interface PlanTag {
-  id: string;
-  name: string;
-  slug: string;
+  queryFilterString: string;
 }
 export interface PlanRulesOut {
   day?: PlanRulesDay & string;
   entryType?: PlanRulesType & string;
-  categories?: PlanCategory[];
-  tags?: PlanTag[];
-  households?: PlanHousehold[];
+  queryFilterString: string;
   groupId: string;
   householdId: string;
   id: string;
+  queryFilter: QueryFilterJSON;
+}
+export interface QueryFilterJSON {
+  parts?: QueryFilterJSONPart[];
+}
+export interface QueryFilterJSONPart {
+  leftParenthesis?: string | null;
+  rightParenthesis?: string | null;
+  logicalOperator?: LogicalOperator | null;
+  attributeName?: string | null;
+  relationalOperator?: RelationalKeyword | RelationalOperator | null;
+  value?: string | string[] | null;
+  [k: string]: unknown;
 }
 export interface PlanRulesSave {
   day?: PlanRulesDay & string;
   entryType?: PlanRulesType & string;
-  categories?: PlanCategory[];
-  tags?: PlanTag[];
-  households?: PlanHousehold[];
+  queryFilterString: string;
   groupId: string;
   householdId: string;
 }
@@ -126,6 +121,7 @@ export interface RecipeTool {
   name: string;
   slug: string;
   onHand?: boolean;
+  [k: string]: unknown;
 }
 export interface SavePlanEntry {
   date: string;

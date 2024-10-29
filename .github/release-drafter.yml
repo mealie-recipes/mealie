@@ -25,6 +25,9 @@ categories:
   - title: "📚 Documentation"
     labels:
       - "documentation"
+  - title: "🔨 Internal development"
+    labels:
+      - "dev"
   - title: "⬆️ Dependency updates"
     collapse-after: 3
     labels:
@@ -47,12 +50,23 @@ version-resolver:
       - "dependencies"
       - "documentation"
       - "l10n"
+      - "dev"
   default: patch
 
 template: |
   # 🍴🍴🍴🍴🍴🍴
 
+  ## 🎉 Highlights
+
+  - Highlight 1
+
+  - Highlight 2
+
   $CHANGES
+
+  ## 🙏 New Contributors
+
+  !!! Need to source this from GitHub's auto generated release notes !!!
 
   # 🍴🍴🍴🍴🍴🍴
 
@@ -69,3 +83,6 @@ autolabeler:
   - label: 'chore'
     title:
       - '/chore:/i'
+  - label: 'dev'
+    title:
+      - '/dev:/i'

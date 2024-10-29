@@ -1,6 +1,6 @@
 [
     {
-        "name": "Produkte"
+        "name": "Obst & Gemüse"
     },
     {
         "name": "Getreide"
@@ -27,7 +27,7 @@
         "name": "Konserven"
     },
     {
-        "name": "Gewürz"
+        "name": "Würzmittel"
     },
     {
         "name": "Konditorwaren"
@@ -39,7 +39,7 @@
         "name": "Tiefkühlware"
     },
     {
-        "name": "Reformkost"
+        "name": "Bio-Lebensmittel"
     },
     {
         "name": "Haushalt"
@@ -54,7 +54,7 @@
         "name": "Gewürze"
     },
     {
-        "name": "Süßigkeiten"
+        "name": "Süßwaren"
     },
     {
         "name": "Alkohol"

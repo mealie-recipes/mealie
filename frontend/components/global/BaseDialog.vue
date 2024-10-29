@@ -61,7 +61,7 @@
               {{ $t("general.confirm") }}
             </BaseButton>
             <slot name="custom-card-action"></slot>
-            <BaseButton v-if="$listeners.submit" type="submit" @click="submitEvent">
+            <BaseButton v-if="$listeners.submit" type="submit" :disabled="submitDisabled" @click="submitEvent">
               {{ submitText }}
               <template v-if="submitIcon" #icon>
                 {{ submitIcon }}
@@ -124,6 +124,10 @@ export default defineComponent({
       default: function () {
         return this.$t("general.create");
       },
+    },
+    submitDisabled: {
+      type: Boolean,
+      default: false,
     },
     keepOpen: {
       default: false,

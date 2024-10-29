@@ -21,7 +21,7 @@ def get_page_data(group_id: UUID | str, household_id: UUID4 | str):
         "slug": name_and_slug,
         "description": "",
         "position": 0,
-        "categories": [],
+        "query_filter_string": "",
         "group_id": str(group_id),
         "household_id": str(household_id),
     }
@@ -60,6 +60,22 @@ def test_create_cookbook(api_client: TestClient, unique_user: TestUser):
     page_data = get_page_data(unique_user.group_id, unique_user.household_id)
     response = api_client.post(api_routes.households_cookbooks, json=page_data, headers=unique_user.token)
     assert response.status_code == 201
+
+
+@pytest.mark.parametrize("name_input", ["", " ", "@"])
+def test_create_cookbook_bad_name(api_client: TestClient, unique_user: TestUser, name_input: str):
+    data = {
+        "name": name_input,
+        "slug": name_input,
+        "description": "",
+        "position": 0,
+        "categories": [],
+        "group_id": str(unique_user.group_id),
+        "household_id": str(unique_user.household_id),
+    }
+
+    response = api_client.post(api_routes.households_cookbooks, json=data, headers=unique_user.token)
+    assert response.status_code == 422
 
 
 def test_read_cookbook(api_client: TestClient, unique_user: TestUser, cookbooks: list[TestCookbook]):
@@ -127,3 +143,42 @@ def test_delete_cookbook(api_client: TestClient, unique_user: TestUser, cookbook
 
     response = api_client.get(api_routes.households_cookbooks_item_id(sample.slug), headers=unique_user.token)
     assert response.status_code == 404
+
+
+@pytest.mark.parametrize(
+    "qf_string, expected_code",
+    [
+        ('tags.name CONTAINS ALL ["tag1","tag2"]', 200),
+        ('badfield = "badvalue"', 422),
+        ('recipe_category.id IN ["1"]', 422),
+        ('created_at >= "not-a-date"', 422),
+    ],
+    ids=[
+        "valid qf",
+        "invalid field",
+        "invalid UUID",
+        "invalid date",
+    ],
+)
+def test_cookbook_validate_query_filter_string(
+    api_client: TestClient, unique_user: TestUser, qf_string: str, expected_code: int
+):
+    # Create
+    cb_data = {"name": random_string(10), "slug": random_string(10), "query_filter_string": qf_string}
+    response = api_client.post(api_routes.households_cookbooks, json=cb_data, headers=unique_user.token)
+    assert response.status_code == expected_code if expected_code != 200 else 201
+
+    # Update
+    cb_data = {"name": random_string(10), "slug": random_string(10), "query_filter_string": ""}
+    response = api_client.post(api_routes.households_cookbooks, json=cb_data, headers=unique_user.token)
+    assert response.status_code == 201
+    cb_data = response.json()
+
+    cb_data["queryFilterString"] = qf_string
+    response = api_client.put(
+        api_routes.households_cookbooks_item_id(cb_data["id"]), json=cb_data, headers=unique_user.token
+    )
+    assert response.status_code == expected_code if expected_code != 201 else 200
+
+    # Out; should skip validation, so this should never error out
+    ReadCookBook(**cb_data)

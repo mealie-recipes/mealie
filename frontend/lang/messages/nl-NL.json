@@ -182,6 +182,7 @@
     "date": "Datum",
     "id": "Id",
     "owner": "Eigenaar",
+    "change-owner": "Verander eigenaar",
     "date-added": "Toegevoegd op",
     "none": "Geen",
     "run": "Start",
@@ -212,7 +213,11 @@
     "clipboard-copy-failure": "Kopiëren naar klembord mislukt.",
     "confirm-delete-generic-items": "Weet je zeker dat je de volgende items wilt verwijderen?",
     "organizers": "Organisatoren",
-    "caution": "Let op"
+    "caution": "Let op",
+    "show-advanced": "Laat geavanceerde keuzes zien",
+    "add-field": "Veld toevoegen",
+    "date-created": "Datum aangemaakt",
+    "date-updated": "Datum bijgewerkt"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Weet je zeker dat je <b>{groupName}<b/> wil verwijderen?",
@@ -1266,7 +1271,9 @@
     "debug-openai-services": "Debug OpenAI diensten",
     "debug-openai-services-description": "Gebruik deze pagina om de OpenAI-diensten te debuggen. U kunt uw OpenAI-verbinding testen en de resultaten hier bekijken. Als u afbeeldingsdiensten hebt ingeschakeld, kunt u ook een afbeelding geven.",
     "run-test": "Test starten",
-    "test-results": "Resultaten van de test"
+    "test-results": "Resultaten van de test",
+    "group-delete-note": "Groepen met gebruikers of huishoudens kunnen niet worden verwijderd",
+    "household-delete-note": "Huishoudens met gebruikers kunnen niet worden verwijderd"
   },
   "profile": {
     "welcome-user": "👋 Welkom, {0}!",
@@ -1319,7 +1326,7 @@
   },
   "cookbook": {
     "cookbooks": "Kookboeken",
-    "description": "Een kookboek is een alternatief om recepten te organiseren door het combineren van recepten en labels. Het maken van een kookboek zal een item toevoegen aan de zijbalk en alle recepten met de tags en categorieën die gekozen zijn zullen worden weergegeven in het kookboek.",
+    "description": "Kookboeken zijn een andere manier om recepten te organiseren door verzamelingen van recepten, organisatoren en andere filters te maken. Het maken van een kookboek voegt een item toe aan de zijbalk. Alle recepten met de gekozen filters worden in het kookboek getoond.",
     "public-cookbook": "Openbaar kookboek",
     "public-cookbook-description": "Openbare kookboeken kunnen worden gedeeld met niet-Mealie-gebruikers en zullen worden weergegeven op jouw groepspagina.",
     "filter-options": "Filteropties",
@@ -1332,5 +1339,28 @@
     "household-cookbook-name": "{0} Cookbook {1}",
     "create-a-cookbook": "Maak een kookboek",
     "cookbook": "Kookboek"
+  },
+  "query-filter": {
+    "logical-operators": {
+      "and": "EN",
+      "or": "OF"
+    },
+    "relational-operators": {
+      "equals": "is gelijk aan",
+      "does-not-equal": "is niet gelijk aan",
+      "is-greater-than": "is groter dan",
+      "is-greater-than-or-equal-to": "is groter dan of gelijk aan",
+      "is-less-than": "is kleiner dan",
+      "is-less-than-or-equal-to": "is kleiner dan of gelijk aan"
+    },
+    "relational-keywords": {
+      "is": "is",
+      "is-not": "is niet",
+      "is-one-of": "is één van",
+      "is-not-one-of": "is niet één van",
+      "contains-all-of": "bevat alles van",
+      "is-like": "is zoals",
+      "is-not-like": "is niet zoals"
+    }
   }
 }

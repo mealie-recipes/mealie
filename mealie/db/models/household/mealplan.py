@@ -40,8 +40,9 @@ class GroupMealPlanRules(BaseMixins, SqlAlchemyBase):
     entry_type: Mapped[str] = mapped_column(
         String, nullable=False, default=""
     )  # "breakfast", "lunch", "dinner", "side"
+    query_filter_string: Mapped[str] = mapped_column(String, nullable=False, default="")
 
-    # Filters
+    # Old filters - deprecated in favor of query filter strings
     categories: Mapped[list[Category]] = orm.relationship(Category, secondary=plan_rules_to_categories)
     tags: Mapped[list[Tag]] = orm.relationship(Tag, secondary=plan_rules_to_tags)
     households: Mapped[list["Household"]] = orm.relationship("Household", secondary=plan_rules_to_households)

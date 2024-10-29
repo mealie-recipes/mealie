@@ -10,7 +10,7 @@
 	},
 	"apples": {
 		"name": "りんご",
-		"plural_name": "apples"
+		"plural_name": "りんご"
 	},
 	"artichoke": {
 		"name": "アーティチョーク"
@@ -23,7 +23,7 @@
 	},
 	"avocado": {
 		"name": "アボカド",
-		"plural_name": "avocado"
+		"plural_name": "アボカド"
 	},
 	"bacon": {
 		"name": "ベーコン"
@@ -48,7 +48,7 @@
 	},
 	"bell-peppers": {
 		"name": "ピーマン",
-		"plural_name": "bell peppers"
+		"plural_name": "ピーマン"
 	},
 	"blackberries": {
 		"name": "ブラックベリー"
@@ -94,7 +94,7 @@
 	},
 	"cabbage": {
 		"name": "キャベツ",
-		"plural_name": "cabbages"
+		"plural_name": "キャベツ"
 	},
 	"cactus-edible": {
 		"name": "食用サボテン"
@@ -116,7 +116,7 @@
 	},
 	"carrot": {
 		"name": "人参",
-		"plural_name": "carrots"
+		"plural_name": "人参"
 	},
 	"caster-sugar": {
 		"name": "微粒子グラニュー糖"
@@ -129,7 +129,7 @@
 	},
 	"cauliflower": {
 		"name": "カリフラワー",
-		"plural_name": "cauliflowers"
+		"plural_name": "カリフラワー"
 	},
 	"cayenne-pepper": {
 		"name": "カイエンペッパー"
@@ -154,7 +154,7 @@
 	},
 	"chilli-peppers": {
 		"name": "チリペッパー",
-		"plural_name": "chilli peppers"
+		"plural_name": "唐辛子"
 	},
 	"chinese-leaves": {
 		"name": "白菜"
@@ -176,7 +176,7 @@
 	},
 	"coconut": {
 		"name": "ココナッツ",
-		"plural_name": "coconuts"
+		"plural_name": "ココナッツ"
 	},
 	"coconut-milk": {
 		"name": "ココナッツミルク"
@@ -198,7 +198,7 @@
 	},
 	"corn": {
 		"name": "トウモロコシ",
-		"plural_name": "corns"
+		"plural_name": "トウモロコシ"
 	},
 	"corn-syrup": {
 		"name": "コーンシロップ"
@@ -214,14 +214,14 @@
 	},
 	"cucumber": {
 		"name": "きゅうり",
-		"plural_name": "cucumbers"
+		"plural_name": "きゅうり"
 	},
 	"cumin": {
 		"name": "クミン"
 	},
 	"daikon": {
 		"name": "大根",
-		"plural_name": "daikons"
+		"plural_name": "大根"
 	},
 	"dairy-products-and-dairy-substitutes": {
 		"name": "乳製品および乳製品代替品"
@@ -240,15 +240,15 @@
 	},
 	"eggplant": {
 		"name": "茄子",
-		"plural_name": "eggplants"
+		"plural_name": "茄子"
 	},
 	"eggs": {
 		"name": "卵",
-		"plural_name": "eggs"
+		"plural_name": "卵"
 	},
 	"endive": {
 		"name": "エンダイブ",
-		"plural_name": "endives"
+		"plural_name": "エンダイブ"
 	},
 	"fats": {
 		"name": "脂質"
@@ -261,7 +261,7 @@
 	},
 	"fiddlehead-fern": {
 		"name": "ゼンマイ",
-		"plural_name": "fiddlehead ferns"
+		"plural_name": "フィドルヘッド"
 	},
 	"fish": {
 		"name": "魚"
@@ -292,7 +292,7 @@
 	},
 	"garlic": {
 		"name": "ニンニク",
-		"plural_name": "garlics"
+		"plural_name": "ニンニク"
 	},
 	"gem-squash": {
 		"name": "ジェムスカッシュ"
@@ -317,11 +317,11 @@
 	},
 	"green-onion": {
 		"name": "ネギ",
-		"plural_name": "green onions"
+		"plural_name": "ネギ"
 	},
 	"heart-of-palm": {
 		"name": "ハート・オブ・パーム",
-		"plural_name": "heart of palms"
+		"plural_name": "ハート・オブ・パーム"
 	},
 	"hemp": {
 		"name": "ヘンプ"
@@ -337,7 +337,7 @@
 	},
 	"jackfruit": {
 		"name": "パラミツ",
-		"plural_name": "jackfruits"
+		"plural_name": "パラミツ"
 	},
 	"jaggery": {
 		"name": "ジャグリー"
@@ -368,7 +368,7 @@
 	},
 	"leek": {
 		"name": "ねぎ",
-		"plural_name": "leeks"
+		"plural_name": "セイヨウネギ"
 	},
 	"legumes": {
 		"name": "マメ"
@@ -384,7 +384,7 @@
 	},
 	"liver": {
 		"name": "レバー",
-		"plural_name": "livers"
+		"plural_name": "レバー"
 	},
 	"maize": {
 		"name": "トウモロコシ"
@@ -403,7 +403,7 @@
 	},
 	"mushroom": {
 		"name": "キノコ",
-		"plural_name": "mushrooms"
+		"plural_name": "キノコ"
 	},
 	"mussels": {
 		"name": "ムール貝"
@@ -425,7 +425,7 @@
 	},
 	"octopuses": {
 		"name": "タコ",
-		"plural_name": "octopuses"
+		"plural_name": "タコ"
 	},
 	"oils": {
 		"name": "油"
@@ -450,7 +450,7 @@
 	},
 	"oranges": {
 		"name": "オレンジ",
-		"plural_name": "oranges"
+		"plural_name": "オレンジ"
 	},
 	"oregano": {
 		"name": "オレガノ"
@@ -469,33 +469,33 @@
 	},
 	"parsnip": {
 		"name": "パースニプ",
-		"plural_name": "parsnips"
+		"plural_name": "パースニップ"
 	},
 	"pear": {
 		"name": "ナシ",
-		"plural_name": "pears"
+		"plural_name": "ナシ"
 	},
 	"peas": {
 		"name": "豆"
 	},
 	"pepper": {
 		"name": "コショウ",
-		"plural_name": "peppers"
+		"plural_name": "コショウ"
 	},
 	"pineapple": {
 		"name": "パイナップル",
-		"plural_name": "pineapples"
+		"plural_name": "パイナップル"
 	},
 	"plantain": {
 		"name": "プランテン",
-		"plural_name": "plantains"
+		"plural_name": "プランテン"
 	},
 	"poppy-seeds": {
 		"name": "ケシの種"
 	},
 	"potato": {
 		"name": "ジャガイモ",
-		"plural_name": "potatoes"
+		"plural_name": "ジャガイモ"
 	},
 	"poultry": {
 		"name": "鶏肉"
@@ -505,14 +505,14 @@
 	},
 	"pumpkin": {
 		"name": "カボチャ",
-		"plural_name": "pumpkins"
+		"plural_name": "ペポかぼちゃ"
 	},
 	"pumpkin-seeds": {
 		"name": "かぼちゃの種"
 	},
 	"radish": {
 		"name": "大根",
-		"plural_name": "radishes"
+		"plural_name": "ハツカダイコン"
 	},
 	"raw-sugar": {
 		"name": "生の砂糖"
@@ -543,7 +543,7 @@
 	},
 	"scallion": {
 		"name": "シャロット",
-		"plural_name": "scallions"
+		"plural_name": "シャロット"
 	},
 	"seafood": {
 		"name": "シーフード"
@@ -556,7 +556,7 @@
 	},
 	"shallot": {
 		"name": "エシャロット",
-		"plural_name": "shallots"
+		"plural_name": "エシャロット"
 	},
 	"skate": {
 		"name": "ガンギエイ"
@@ -572,7 +572,7 @@
 	},
 	"spaghetti-squash": {
 		"name": "スパゲッティスカッシュ",
-		"plural_name": "spaghetti squashes"
+		"plural_name": "キンシウリ"
 	},
 	"speck": {
 		"name": "スペック"
@@ -585,11 +585,11 @@
 	},
 	"spring-onion": {
 		"name": "ネギ",
-		"plural_name": "spring onions"
+		"plural_name": "葉タマネギ"
 	},
 	"squash": {
 		"name": "カボチャ",
-		"plural_name": "squashes"
+		"plural_name": "カボチャ"
 	},
 	"squash-family": {
 		"name": "カボチャの仲間"
@@ -602,7 +602,7 @@
 	},
 	"sunchoke": {
 		"name": "キクイモ",
-		"plural_name": "sunchokes"
+		"plural_name": "キクイモ"
 	},
 	"sunflower-seeds": {
 		"name": "ヒマワリの種"
@@ -612,11 +612,11 @@
 	},
 	"sweet-potato": {
 		"name": "サツマイモ",
-		"plural_name": "sweet potatoes"
+		"plural_name": "サツマイモ"
 	},
 	"sweetcorn": {
 		"name": "スイートコーン",
-		"plural_name": "sweetcorns"
+		"plural_name": "スイートコーン"
 	},
 	"sweeteners": {
 		"name": "甘味料"
@@ -626,21 +626,21 @@
 	},
 	"taro": {
 		"name": "タロ芋",
-		"plural_name": "taroes"
+		"plural_name": "タロイモ"
 	},
 	"teff": {
 		"name": "テフ"
 	},
 	"tomato": {
 		"name": "トマト",
-		"plural_name": "tomatoes"
+		"plural_name": "トマト"
 	},
 	"trout": {
 		"name": "マス"
 	},
 	"tubers": {
 		"name": "球根",
-		"plural_name": "tubers"
+		"plural_name": "塊茎"
 	},
 	"tuna": {
 		"name": "マグロ"
@@ -650,7 +650,7 @@
 	},
 	"turnip": {
 		"name": "カブ",
-		"plural_name": "turnips"
+		"plural_name": "カブ"
 	},
 	"unrefined-sugar": {
 		"name": "粗製糖"
@@ -666,11 +666,11 @@
 	},
 	"watermelon": {
 		"name": "スイカ",
-		"plural_name": "watermelons"
+		"plural_name": "スイカ"
 	},
 	"white-mushroom": {
 		"name": "マッシュルーム",
-		"plural_name": "white mushrooms"
+		"plural_name": "マッシュルーム"
 	},
 	"white-sugar": {
 		"name": "白砂糖"
@@ -680,13 +680,13 @@
 	},
 	"yam": {
 		"name": "ヤムイモ",
-		"plural_name": "yams"
+		"plural_name": "ヤムイモ"
 	},
 	"yeast": {
 		"name": "イースト"
 	},
 	"zucchini": {
 		"name": "ズッキーニ",
-		"plural_name": "zucchinis"
+		"plural_name": "ズッキーニ"
 	}
 }

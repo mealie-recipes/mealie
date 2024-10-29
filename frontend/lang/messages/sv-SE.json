@@ -182,6 +182,7 @@
     "date": "Datum",
     "id": "ID",
     "owner": "Ägare",
+    "change-owner": "Ändra ägare",
     "date-added": "Skapad",
     "none": "Inga",
     "run": "Kör",
@@ -212,7 +213,11 @@
     "clipboard-copy-failure": "Det gick inte att kopiera till urklipp.",
     "confirm-delete-generic-items": "Är du säker på att du vill radera följande objekt?",
     "organizers": "Organisatörer",
-    "caution": "Varning"
+    "caution": "Varning",
+    "show-advanced": "Visa avancerat",
+    "add-field": "Lägg till fält",
+    "date-created": "Datum skapad",
+    "date-updated": "Datum uppdaterat"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Är du säker på att du vill radera <b>{groupName}<b/>?",
@@ -315,10 +320,10 @@
     "mealplan-settings": "Måltidsplan inställningar",
     "mealplan-update-failed": "Måltidsplan gick inte att uppdatera",
     "mealplan-updated": "Måltidsplan uppdaterad",
-    "mealplan-households-description": "If no household is selected, recipes can be added from any household",
-    "any-category": "Any Category",
-    "any-tag": "Any Tag",
-    "any-household": "Any Household",
+    "mealplan-households-description": "Om inget hushåll har valts kan recept läggas till från vilket hushåll som helst",
+    "any-category": "Valfri kategori",
+    "any-tag": "Valfri tagg",
+    "any-household": "Valfritt hushåll",
     "no-meal-plan-defined-yet": "Ingen måltidsplan definierad ännu",
     "no-meal-planned-for-today": "Ingen måltidsplan för idag",
     "numberOfDays-hint": "Antal dagar vid sidhämtning",
@@ -351,7 +356,7 @@
     "for-type-meal-types": "för {0} måltidstyper",
     "meal-plan-rules": "Regler för måltidsplan",
     "new-rule": "Ny Regel",
-    "meal-plan-rules-description": "Du kan skapa regler för att automatisk väja av recept för din måltidsplanerare. Dessa regler används av servern för att bestämma den slumpmässiga poolen av recept att välja från när du skapar måltidsplaner. Observera att om reglerna har samma dag/typ-begränsningar så kommer kategorierna av reglerna att slås samman. I praktiken är det onödigt att skapa dubbla regler, men det går att göra det.",
+    "meal-plan-rules-description": "Du kan skapa regler för att automatisk väja recept för din måltidsplanerare. Dessa regler används av servern för att bestämma den slumpmässiga poolen av recept att välja från när du skapar måltidsplaner. Observera att om reglerna har samma dag/typ-begränsningar så kommer kategorierna av reglerna att slås samman. I praktiken är det onödigt att skapa dubbla regler, men det går att göra det.",
     "new-rule-description": "När du skapar en ny regel för en måltidsplan kan du begränsa regeln för en viss veckodag och/eller en viss typ av måltid. För att tillämpa en regel på alla dagar eller alla måltidstyper kan du ställa in regeln till \"Any\" som kommer att tillämpa den på alla möjliga värden för dagen och/eller måltidstypen.",
     "recipe-rules": "Recept regler",
     "applies-to-all-days": "Gäller för alla dagar",
@@ -426,7 +431,7 @@
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Klistra in din receptdata, varje rad kommer att hanteras som ett listelement",
     "recipe-markup-specification": "Specifikation för receptmärkning",
     "recipe-url": "Recept URL",
-    "recipe-html-or-json": "Recipe HTML or JSON",
+    "recipe-html-or-json": "Recept HTML eller JSON",
     "upload-a-recipe": "Ladda upp ett recept",
     "upload-individual-zip-file": "Ladda upp en individuell .zip-fil som exporteras från en annan Mealie-instans.",
     "url-form-hint": "Kopiera och klistra in en länk från din favorit recept webbplats",
@@ -461,7 +466,7 @@
     "calories-suffix": "kalorier",
     "carbohydrate-content": "Kolhydrat",
     "categories": "Kategorier",
-    "cholesterol-content": "Cholesterol",
+    "cholesterol-content": "Kolesterol",
     "comment-action": "Kommentar",
     "comment": "Kommentar",
     "comments": "Kommentarer",
@@ -508,7 +513,7 @@
     "recipe-updated": "Recept uppdaterad",
     "remove-from-favorites": "Ta bort från favoriter",
     "remove-section": "Ta bort avdelning",
-    "saturated-fat-content": "Saturated fat",
+    "saturated-fat-content": "Mättat fett",
     "save-recipe-before-use": "Spara recept innan användning",
     "section-title": "Avdelningens rubrik",
     "servings": "Portioner",
@@ -519,9 +524,9 @@
     "sugar-content": "Socker",
     "title": "Titel",
     "total-time": "Total tid",
-    "trans-fat-content": "Trans-fat",
+    "trans-fat-content": "Transfett",
     "unable-to-delete-recipe": "Gick inte att radera receptet",
-    "unsaturated-fat-content": "Unsaturated fat",
+    "unsaturated-fat-content": "Omättat fett",
     "no-recipe": "Inget recept",
     "locked-by-owner": "Låst av ägaren",
     "join-the-conversation": "Delta i diskussionen",
@@ -609,16 +614,16 @@
     "scrape-recipe-description": "Hämta ett recept med webbadress. Ange URL:en för webbplatsen du vill hämta, och Mealie kommer att försöka hämta receptet från den webbplatsen och lägga till det i din samling.",
     "scrape-recipe-have-a-lot-of-recipes": "Har du många recept som du vill skrapa på en gång?",
     "scrape-recipe-suggest-bulk-importer": "Testa massimportören",
-    "scrape-recipe-have-raw-html-or-json-data": "Have raw HTML or JSON data?",
-    "scrape-recipe-you-can-import-from-raw-data-directly": "You can import from raw data directly",
+    "scrape-recipe-have-raw-html-or-json-data": "Har rå HTML eller JSON-data?",
+    "scrape-recipe-you-can-import-from-raw-data-directly": "Du kan importera från rådata direkt",
     "import-original-keywords-as-tags": "Importera ursprungliga sökord som taggar",
     "stay-in-edit-mode": "Stanna kvar i redigeringsläge",
     "import-from-zip": "Importera från zip",
     "import-from-zip-description": "Importera ett enstaka recept som exporterades från en annan Mealie-instans.",
-    "import-from-html-or-json": "Import from HTML or JSON",
-    "import-from-html-or-json-description": "Import a single recipe from raw HTML or JSON. This is useful if you have a recipe from a site that Mealie can't scrape normally, or from some other external source.",
-    "json-import-format-description-colon": "To import via JSON, it must be in valid format:",
-    "json-editor": "JSON Editor",
+    "import-from-html-or-json": "Importera från HTML eller JSON",
+    "import-from-html-or-json-description": "Importera ett recept från rå HTML eller JSON. Detta är användbart om du har ett recept från en webbplats som Mealie inte kan skrapa normalt, eller från någon annan extern källa.",
+    "json-import-format-description-colon": "För att importera via JSON måste det vara i giltigt format:",
+    "json-editor": "JSON-redigerare",
     "zip-files-must-have-been-exported-from-mealie": ".zip-filer måste ha exporterats från Mealie",
     "create-a-recipe-by-uploading-a-scan": "Skapa ett recept genom att ladda upp en skanning.",
     "upload-a-png-image-from-a-recipe-book": "Ladda upp en png bild från en receptbok",
@@ -657,7 +662,7 @@
       "missing-food": "Skapa saknad ingrediens: {food}",
       "no-food": "Ingen mat"
     },
-    "reset-servings-count": "Reset Servings Count"
+    "reset-servings-count": "Nollställ antal serveringar"
   },
   "search": {
     "advanced-search": "Avancerad sökning",
@@ -1266,12 +1271,14 @@
     "debug-openai-services": "Felsök OpenAI-tjänster",
     "debug-openai-services-description": "Använd denna sida för att felsöka OpenAI-tjänster. Du kan testa din OpenAI-anslutning och se resultaten här. Om du har bildtjänster aktiverade, kan du också ge en bild.",
     "run-test": "Kör test",
-    "test-results": "Testresultat"
+    "test-results": "Testresultat",
+    "group-delete-note": "Grupper med användare eller hushåll kan inte raderas",
+    "household-delete-note": "Hushåll med användare kan inte tas bort"
   },
   "profile": {
     "welcome-user": "👋 Välkommen, {0}!",
     "description": "Hantera dina profil, recept och gruppinställningar.",
-    "get-invite-link": "Få inbjudningslänk",
+    "get-invite-link": "Skapa inbjudningslänk",
     "get-public-link": "Få offentlig länk",
     "account-summary": "Kontosammanfattning",
     "account-summary-description": "Här är en sammanfattning av din grupps information.",
@@ -1319,7 +1326,7 @@
   },
   "cookbook": {
     "cookbooks": "Kokböcker",
-    "description": "Kokböcker är ett annat sätt att organisera recept genom att skapa tvärsnitt av recept och taggar. När du skapar en kokbok kommer den att lägga till en post i sidofältet och alla recept med de taggar och kategorier som valts kommer att visas i kokboken.",
+    "description": "Kokböcker är ett annat sätt att organisera recept genom att skapa tvärsnitt av recept, organisatörer och andra filter. När du skapar en kokbok kommer den att lägga till en post i sidofältet och alla recept med de taggar och kategorier som valts kommer att visas i kokboken.",
     "public-cookbook": "Offentlig kokbok",
     "public-cookbook-description": "Offentliga kokböcker kan delas med icke-mealie användare och kommer att visas på din gruppsida.",
     "filter-options": "Filterinställningar",
@@ -1332,5 +1339,28 @@
     "household-cookbook-name": "{0} kokbok {1}",
     "create-a-cookbook": "Skapa en kokbok",
     "cookbook": "Kokbok"
+  },
+  "query-filter": {
+    "logical-operators": {
+      "and": "OCH",
+      "or": "ELLER"
+    },
+    "relational-operators": {
+      "equals": "lika med",
+      "does-not-equal": "inte lika med",
+      "is-greater-than": "är större än",
+      "is-greater-than-or-equal-to": "är större än eller lika med",
+      "is-less-than": "är mindre än",
+      "is-less-than-or-equal-to": "är mindre eller lika med"
+    },
+    "relational-keywords": {
+      "is": "är",
+      "is-not": "är inte",
+      "is-one-of": "är en av",
+      "is-not-one-of": "är inte en av",
+      "contains-all-of": "innehåller alla",
+      "is-like": "är som",
+      "is-not-like": "är inte som"
+    }
   }
 }

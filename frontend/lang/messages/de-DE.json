@@ -182,6 +182,7 @@
     "date": "Datum",
     "id": "ID",
     "owner": "Besitzer",
+    "change-owner": "Besitzer ändern",
     "date-added": "Hinzugefügt am",
     "none": "Nichts",
     "run": "Starten",
@@ -212,7 +213,11 @@
     "clipboard-copy-failure": "Fehler beim Kopieren in die Zwischenablage.",
     "confirm-delete-generic-items": "Bist du dir sicher, dass du die folgenden Einträge löschen möchtest?",
     "organizers": "Organisieren",
-    "caution": "Vorsicht"
+    "caution": "Vorsicht",
+    "show-advanced": "Erweiterte Optionen anzeigen",
+    "add-field": "Feld Hinzufügen",
+    "date-created": "Erstellungsdatum",
+    "date-updated": "Aktualisiert am"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Bist du dir sicher, dass du die Gruppe <b>{groupName}<b/> löschen möchtest?",
@@ -351,7 +356,7 @@
     "for-type-meal-types": "für {0}",
     "meal-plan-rules": "Essensplan Regeln",
     "new-rule": "Neue Regel",
-    "meal-plan-rules-description": "Du kannst Regeln für die automatische Auswahl von Rezepten für deine Mahlzeiten erstellen. Anhand dieser Regeln wird das Programm passende Rezepte suchen, die nach dem Zufallsprinzip bei der Erstellung von Essensplänen ausgewählt werden. Beachte, dass bei Regeln mit denselben Tag-/Mahlzeiten-Einschränkungen die Kategorien der Regeln zusammengeführt werden. In der Praxis ist es nicht notwendig, doppelte Regeln zu erstellen, aber es ist möglich.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the rule filters will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "Wenn du eine neue Regel für einen Essensplan erstellst, kannst du die Regel für einen bestimmten Wochentag und/oder eine bestimmte Mahlzeit einschränken. Um eine Regel auf alle Tage oder alle Mahlzeiten anzuwenden, kannst du die Regel auf \"Alle\" setzen, damit sämtliche Tage und/oder Mahlzeiten berücksichtigt werden.",
     "recipe-rules": "Rezeptregeln",
     "applies-to-all-days": "Gilt an allen Tagen",
@@ -426,7 +431,7 @@
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Füge deine Rezeptdaten ein. Jede Zeile wird als Eintrag in einer Liste dargestellt",
     "recipe-markup-specification": "Rezept Markup Spezifikation",
     "recipe-url": "Rezept URL",
-    "recipe-html-or-json": "Recipe HTML or JSON",
+    "recipe-html-or-json": "Rezept HTML oder JSON",
     "upload-a-recipe": "Rezept hochladen",
     "upload-individual-zip-file": "Lade eine individuelle .zip-Datei hoch, die von einer anderen Mealie-Instanz exportiert wird.",
     "url-form-hint": "Kopiere einen Link von deiner Lieblingsrezept-Website und füge ihn ein",
@@ -461,7 +466,7 @@
     "calories-suffix": "Kalorien",
     "carbohydrate-content": "Kohlenhydrate",
     "categories": "Kategorien",
-    "cholesterol-content": "Cholesterol",
+    "cholesterol-content": "Cholesterin",
     "comment-action": "Kommentieren",
     "comment": "Kommentar",
     "comments": "Kommentare",
@@ -508,7 +513,7 @@
     "recipe-updated": "Rezept aktualisiert",
     "remove-from-favorites": "Von Favoriten entfernen",
     "remove-section": "Abschnitt entfernen",
-    "saturated-fat-content": "Saturated fat",
+    "saturated-fat-content": "Gesättigte Fettsäuren",
     "save-recipe-before-use": "Rezept vor Verwendung speichern",
     "section-title": "Titel des Abschnitts",
     "servings": "Portionen",
@@ -521,7 +526,7 @@
     "total-time": "Gesamtzeit",
     "trans-fat-content": "Trans-fat",
     "unable-to-delete-recipe": "Rezept kann nicht gelöscht werden",
-    "unsaturated-fat-content": "Unsaturated fat",
+    "unsaturated-fat-content": "Ungesättigte Fettsäuren",
     "no-recipe": "Kein Rezept",
     "locked-by-owner": "Vom Besitzer gesperrt",
     "join-the-conversation": "Beteilige dich an der Unterhaltung",
@@ -1266,7 +1271,9 @@
     "debug-openai-services": "Debug OpenAI Services",
     "debug-openai-services-description": "Use this page to debug OpenAI services. You can test your OpenAI connection and see the results here. If you have image services enabled, you can also provide an image.",
     "run-test": "Run Test",
-    "test-results": "Test Results"
+    "test-results": "Test Results",
+    "group-delete-note": "Groups with users or households cannot be deleted",
+    "household-delete-note": "Households with users cannot be deleted"
   },
   "profile": {
     "welcome-user": "👋 Willkommen, {0}!",
@@ -1319,7 +1326,7 @@
   },
   "cookbook": {
     "cookbooks": "Kochbücher",
-    "description": "Kochbücher sind eine weitere Möglichkeit, die Rezeptsammlung anhand von Rezepten und Schlagwörtern zu organisieren. Ein neues Kochbuch wird in die Seitenleiste hinzugefügt und alle Rezepte mit den ausgewählten Tags und Kategorien werden im Kochbuch angezeigt.",
+    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
     "public-cookbook": "Öffentliches Kochbuch",
     "public-cookbook-description": "Öffentliche Kochbücher können mit Nicht-Mealie-Benutzern geteilt werden und werden auf deiner Gruppenseite angezeigt.",
     "filter-options": "Filteroptionen",
@@ -1332,5 +1339,28 @@
     "household-cookbook-name": "{0} Kochbuch {1}",
     "create-a-cookbook": "Ein Kochbuch erstellen",
     "cookbook": "Kochbuch"
+  },
+  "query-filter": {
+    "logical-operators": {
+      "and": "AND",
+      "or": "OR"
+    },
+    "relational-operators": {
+      "equals": "equals",
+      "does-not-equal": "does not equal",
+      "is-greater-than": "is greater than",
+      "is-greater-than-or-equal-to": "is greater than or equal to",
+      "is-less-than": "ist weniger als",
+      "is-less-than-or-equal-to": "is less than or equal to"
+    },
+    "relational-keywords": {
+      "is": "ist",
+      "is-not": "ist nicht",
+      "is-one-of": "ist eines von",
+      "is-not-one-of": "ist nicht einer von",
+      "contains-all-of": "enthält alle",
+      "is-like": "ist wie",
+      "is-not-like": "ist nicht wie"
+    }
   }
 }

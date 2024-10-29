@@ -100,6 +100,8 @@
         <draggable
           tag="div"
           handle=".handle"
+          delay="250"
+          :delay-on-touch-only="true"
           :value="plan.meals"
           group="meals"
           :data-index="index"
@@ -220,7 +222,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, reactive, ref, watch, onMounted } from "@nuxtjs/composition-api";
+import { defineComponent, computed, reactive, ref, watch, onMounted, useContext } from "@nuxtjs/composition-api";
 import { format } from "date-fns";
 import { SortableEvent } from "sortablejs";
 import draggable from "vuedraggable";
@@ -249,6 +251,7 @@ export default defineComponent({
   },
   setup(props) {
     const api = useUserApi();
+    const { $auth } = useContext();
     const { household } = useHouseholdSelf();
 
     const state = ref({
@@ -309,6 +312,7 @@ export default defineComponent({
       existing: false,
       id: 0,
       groupId: "",
+      userId: $auth.user?.id || "",
     });
 
     function openDialog(date: Date) {
@@ -317,17 +321,18 @@ export default defineComponent({
     }
 
     function editMeal(mealplan: UpdatePlanEntry) {
-      const { date, title, text, entryType, recipeId, id, groupId } = mealplan;
+      const { date, title, text, entryType, recipeId, id, groupId, userId } = mealplan;
       if (!entryType) return;
 
       newMeal.date = date;
       newMeal.title = title || "";
       newMeal.text = text || "";
-      newMeal.recipeId = recipeId;
+      newMeal.recipeId = recipeId || undefined;
       newMeal.entryType = entryType;
       newMeal.existing = true;
       newMeal.id = id;
       newMeal.groupId = groupId;
+      newMeal.userId = userId || $auth.user?.id || "";
 
       state.value.dialog = true;
       dialog.note = !recipeId;

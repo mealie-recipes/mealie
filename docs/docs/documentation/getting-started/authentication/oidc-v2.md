@@ -18,6 +18,8 @@ Mealie supports 3rd party authentication via [OpenID Connect (OIDC)](https://ope
 
 Signing in with OAuth will automatically find your account in Mealie and link to it. If a user does not exist in Mealie, then one will be created (if enabled), but will be unable to log in with any other authentication method. An admin can configure another authentication method for such a user.
 
+If a user previously accessed Mealie via credentials and you want to no longer allow users to log in with `LDAP` or `Mealie` credentials, then you can set the user's *Authentication Method* to `OIDC`. Conversely, if a user's auth method is not `OIDC`, then they can still log in with whatever their auth method is as well as OIDC.
+
 ## Provider Setup
 
 Before you can start using OIDC Authentication, you must first configure a new client application in your identity provider. Your identity provider must support the OAuth **Authorization Code flow with PKCE**. The steps will vary by provider, but generally, the steps are as follows.
@@ -32,7 +34,7 @@ Before you can start using OIDC Authentication, you must first configure a new c
     The redirect URI(s) that are needed:
 
     1. `http(s)://DOMAIN:PORT/login`
-    2. `https(s)://DOMAIN:PORT/login?direct=1`
+    2. `http(s)://DOMAIN:PORT/login?direct=1`
         1. This URI is only required if your IdP supports [RP-Initiated Logout](https://openid.net/specs/openid-connect-rpinitiated-1_0.html) such as Keycloak. You may also be able to combine this into the previous URI by using a wildcard: `http(s)://DOMAIN:PORT/login*`
 
     The redirect URI(s) should include any URL that Mealie is accessible from. Some examples include

@@ -16,14 +16,17 @@ backup_version_44e8d670719d_3 = CWD / "backups/backup-version-44e8d670719d-3.zip
 backup_version_44e8d670719d_4 = CWD / "backups/backup-version-44e8d670719d-4.zip"
 """44e8d670719d: add extras to shopping lists, list items, and ingredient foods"""
 
-backup_version_ba1e4a6cfe99_1 = CWD / "backups/backup-version-ba1e4a6cfe99-1.zip"
-"""ba1e4a6cfe99: added plural names and alias tables for foods and units"""
-
 backup_version_bcfdad6b7355_1 = CWD / "backups/backup-version-bcfdad6b7355-1.zip"
 """bcfdad6b7355: remove tool name and slug unique contraints"""
 
+backup_version_ba1e4a6cfe99_1 = CWD / "backups/backup-version-ba1e4a6cfe99-1.zip"
+"""ba1e4a6cfe99: added plural names and alias tables for foods and units"""
+
 backup_version_09aba125b57a_1 = CWD / "backups/backup-version-09aba125b57a-1.zip"
 """09aba125b57a: add OIDC auth method (Safari-mangled ZIP structure)"""
+
+backup_version_86054b40fd06_1 = CWD / "backups/backup-version-86054b40fd06-1.zip"
+"""86054b40fd06: added query_filter_string to cookbook and mealplan"""
 
 migrations_paprika = CWD / "migrations/paprika.zip"
 

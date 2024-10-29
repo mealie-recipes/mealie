@@ -14,7 +14,6 @@ export class MealPlanAPI extends BaseCRUDAPI<CreatePlanEntry, ReadPlanEntry, Upd
   itemRoute = routes.mealplanId;
 
   async setRandom(payload: CreateRandomEntry) {
-    console.log(payload);
     return await this.requests.post<ReadPlanEntry>(routes.random, payload);
   }
 }

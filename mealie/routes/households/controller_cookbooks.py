@@ -79,19 +79,21 @@ class GroupCookbookController(BaseCrudController):
             cb = self.mixins.update_one(cookbook, cookbook.id)
             updated_by_group_and_household[cb.group_id][cb.household_id].append(cb)
 
+        all_updated: list[ReadCookBook] = []
         if updated_by_group_and_household:
             for group_id, household_dict in updated_by_group_and_household.items():
-                for household_id, updated in household_dict.items():
+                for household_id, updated_cookbooks in household_dict.items():
+                    all_updated.extend(updated_cookbooks)
                     self.publish_event(
                         event_type=EventTypes.cookbook_updated,
                         document_data=EventCookbookBulkData(
-                            operation=EventOperation.update, cookbook_ids=[cb.id for cb in updated]
+                            operation=EventOperation.update, cookbook_ids=[cb.id for cb in updated_cookbooks]
                         ),
                         group_id=group_id,
                         household_id=household_id,
                     )
 
-        return updated
+        return all_updated
 
     @router.get("/{item_id}", response_model=RecipeCookBook)
     def get_one(self, item_id: UUID4 | str):
@@ -109,17 +111,8 @@ class GroupCookbookController(BaseCrudController):
         if cookbook is None:
             raise HTTPException(status_code=404)
 
-        return cookbook.cast(
-            RecipeCookBook,
-            recipes=self.repos.recipes.by_category_and_tags(
-                cookbook.categories,
-                cookbook.tags,
-                cookbook.tools,
-                cookbook.require_all_categories,
-                cookbook.require_all_tags,
-                cookbook.require_all_tools,
-            ),
-        )
+        recipe_pagination = self.repos.recipes.page_all(PaginationQuery(page=1, per_page=-1, cookbook=cookbook))
+        return cookbook.cast(RecipeCookBook, recipes=recipe_pagination.items)
 
     @router.put("/{item_id}", response_model=ReadCookBook)
     def update_one(self, item_id: str, data: CreateCookBook):

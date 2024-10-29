@@ -4,16 +4,19 @@
     <BaseDialog
       v-if="createTarget"
       v-model="dialogStates.create"
-      :width="650"
+      width="100%"
+      max-width="1100px"
       :icon="$globals.icons.pages"
       :title="$t('cookbook.create-a-cookbook')"
       :submit-icon="$globals.icons.save"
       :submit-text="$tc('general.save')"
+      :submit-disabled="!createTarget.queryFilterString"
       @submit="actions.updateOne(createTarget)"
-      @cancel="actions.deleteOne(createTarget.id)"
+      @cancel="deleteCreateTarget()"
     >
       <v-card-text>
         <CookbookEditor
+          :key="createTargetKey"
           :cookbook=createTarget
           :actions="actions"
         />
@@ -36,7 +39,7 @@
 
     <!-- Cookbook Page -->
     <!-- Page Title -->
-    <v-container class="narrow-container">
+    <v-container class="px-12">
       <BasePageTitle divider>
         <template #header>
           <v-img max-height="100" max-width="100" :src="require('~/static/svgs/manage-cookbooks.svg')"></v-img>
@@ -50,8 +53,15 @@
 
       <!-- Cookbook List -->
       <v-expansion-panels class="mt-2">
-        <draggable v-model="cookbooks" handle=".handle" style="width: 100%" @change="actions.updateOrder()">
-          <v-expansion-panel v-for="(cookbook, index) in cookbooks" :key="index" class="my-2 left-border rounded">
+        <draggable
+          v-model="cookbooks"
+          handle=".handle"
+          delay="250"
+          :delay-on-touch-only="true"
+          style="width: 100%"
+          @change="actions.updateOrder()"
+        >
+          <v-expansion-panel v-for="cookbook in cookbooks" :key="cookbook.id" class="my-2 left-border rounded">
             <v-expansion-panel-header disable-icon-rotate class="headline">
               <div class="d-flex align-center">
                 <v-icon large left>
@@ -84,6 +94,7 @@
                     icon: $globals.icons.save,
                     text: $tc('general.save'),
                     event: 'save',
+                    disabled: !cookbook.queryFilterString
                   },
                 ]"
                 @delete="deleteEventHandler(cookbook)"
@@ -99,7 +110,7 @@
 
 <script lang="ts">
 
-import { defineComponent, reactive, ref } from "@nuxtjs/composition-api";
+import { defineComponent, onBeforeUnmount, onMounted, reactive, ref } from "@nuxtjs/composition-api";
 import draggable from "vuedraggable";
 import { useCookbooks } from "@/composables/use-group-cookbooks";
 import CookbookEditor from "~/components/Domain/Cookbook/CookbookEditor.vue";
@@ -116,10 +127,12 @@ export default defineComponent({
     const { cookbooks, actions } = useCookbooks();
 
     // create
+    const createTargetKey = ref(0);
     const createTarget = ref<ReadCookBook | null>(null);
     async function createCookbook() {
       await actions.createOne().then((cookbook) => {
         createTarget.value = cookbook as ReadCookBook;
+        createTargetKey.value++;
       });
       dialogStates.create = true;
     }
@@ -138,11 +151,37 @@ export default defineComponent({
       dialogStates.delete = false;
       deleteTarget.value = null;
     }
+
+    function deleteCreateTarget() {
+      if (!createTarget.value?.id) {
+        return;
+      }
+
+      actions.deleteOne(createTarget.value.id);
+      dialogStates.create = false;
+      createTarget.value = null;
+    }
+    function handleUnmount() {
+      if(!createTarget.value?.id || createTarget.value.queryFilterString) {
+        return;
+      }
+
+      deleteCreateTarget();
+    }
+    onMounted(() => {
+      window.addEventListener("beforeunload", handleUnmount);
+    });
+    onBeforeUnmount(() => {
+      handleUnmount();
+      window.removeEventListener("beforeunload", handleUnmount);
+    });
+
     return {
       cookbooks,
       actions,
       dialogStates,
       // create
+      createTargetKey,
       createTarget,
       createCookbook,
 
@@ -150,6 +189,7 @@ export default defineComponent({
       deleteTarget,
       deleteEventHandler,
       deleteCookbook,
+      deleteCreateTarget,
     };
   },
   head() {

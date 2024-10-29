@@ -6,6 +6,7 @@
   - `fix: `
   - `docs: `
   - `chore: `
+  - `dev:`
 
   If a section of the PR template does not apply to this PR, then delete that section.
 
@@ -27,10 +28,11 @@ _(REQUIRED)_
   Delete any of the following that do not apply:
  -->
 
-- bug
-- cleanup
-- documentation
 - feature
+- bug
+- documentation
+- cleanup
+- dev (Internal development)
 
 ## What this PR does / why we need it:
 

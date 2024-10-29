@@ -20,8 +20,9 @@ def fix_dangling_refs(session: Session):
     REASSIGN_REF_TABLES = ["group_meal_plans", "recipes", "shopping_lists"]
     DELETE_REF_TABLES = ["long_live_tokens", "password_reset_tokens", "recipe_comments", "recipe_timeline_events"]
 
-    groups = session.query(Group).all()
-    for group in groups:
+    all_groups = session.query(Group).all()
+    all_users = session.query(User).all()
+    for group in all_groups:
         # Find an arbitrary admin user in the group
         default_user = session.query(User).filter(User.group_id == group.id, User.admin == True).first()  # noqa: E712 - required for SQLAlchemy comparison
         if not default_user:
@@ -32,7 +33,7 @@ def fix_dangling_refs(session: Session):
             if not default_user:
                 continue
 
-        valid_user_ids = {user.id for user in group.users}
+        valid_group_user_ids = {user.id for user in all_users if user.group_id == group.id}
 
         for table_name in REASSIGN_REF_TABLES:
             table = SqlAlchemyBase.metadata.tables[table_name]
@@ -40,7 +41,7 @@ def fix_dangling_refs(session: Session):
                 update(table)
                 .where(
                     and_(
-                        table.c.user_id.notin_(valid_user_ids),
+                        table.c.user_id.notin_(valid_group_user_ids),
                         table.c.group_id == group.id,
                     )
                 )
@@ -54,16 +55,17 @@ def fix_dangling_refs(session: Session):
                     f'in "{table_name}" table to default user ({default_user.id})'
                 )
 
-        for table_name in DELETE_REF_TABLES:
-            table = SqlAlchemyBase.metadata.tables[table_name]
-            delete_stmt = table.delete().where(table.c.user_id.notin_(valid_user_ids))
-            result = session.execute(delete_stmt)
+    valid_user_ids_all_groups = {user.id for user in all_users}
+    for table_name in DELETE_REF_TABLES:
+        table = SqlAlchemyBase.metadata.tables[table_name]
+        delete_stmt = table.delete().where(table.c.user_id.notin_(valid_user_ids_all_groups))
+        result = session.execute(delete_stmt)
 
-            if result.rowcount:
-                logger.info(
-                    f'Deleted {result.rowcount} {"row" if result.rowcount == 1 else "rows"} '
-                    f'in "{table_name}" table with invalid user ids'
-                )
+        if result.rowcount:
+            logger.info(
+                f'Deleted {result.rowcount} {"row" if result.rowcount == 1 else "rows"} '
+                f'in "{table_name}" table with invalid user ids'
+            )
 
     session.commit()
 

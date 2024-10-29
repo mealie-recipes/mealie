@@ -1,3 +1,4 @@
+from collections import defaultdict
 from functools import cached_property
 from shutil import copyfileobj, rmtree
 from uuid import UUID
@@ -60,6 +61,7 @@ from mealie.schema.response.responses import ErrorResponse
 from mealie.services import urls
 from mealie.services.event_bus_service.event_types import (
     EventOperation,
+    EventRecipeBulkData,
     EventRecipeBulkReportData,
     EventRecipeData,
     EventTypes,
@@ -121,7 +123,7 @@ class FormatResponse(BaseModel):
     jinja2: list[str]
 
 
-router_exports = UserAPIRouter(prefix="/recipes", tags=["Recipe: Exports"])
+router_exports = UserAPIRouter(prefix="/recipes")
 
 
 @controller(router_exports)
@@ -174,7 +176,7 @@ class RecipeExportController(BaseRecipeController):
             )
 
 
-router = UserAPIRouter(prefix="/recipes", tags=["Recipe: CRUD"], route_class=MealieCrudRoute)
+router = UserAPIRouter(prefix="/recipes", route_class=MealieCrudRoute)
 
 
 @controller(router)
@@ -200,6 +202,20 @@ class RecipeController(BaseRecipeController):
 
     # =======================================================================
     # URL Scraping Operations
+
+    @router.post("/test-scrape-url")
+    async def test_parse_recipe_url(self, data: ScrapeRecipeTest):
+        # Debugger should produce the same result as the scraper sees before cleaning
+        ScraperClass = RecipeScraperOpenAI if data.use_openai else RecipeScraperPackage
+        try:
+            if scraped_data := await ScraperClass(data.url, self.translator).scrape_url():
+                return scraped_data.schema.data
+        except ForceTimeoutException as e:
+            raise HTTPException(
+                status_code=408, detail=ErrorResponse.respond(message="Recipe Scraping Timed Out")
+            ) from e
+
+        return "recipe_scrapers was unable to scrape this URL"
 
     @router.post("/create/html-or-json", status_code=201)
     async def create_recipe_from_html_or_json(self, req: ScrapeRecipeData):
@@ -268,20 +284,6 @@ class RecipeController(BaseRecipeController):
         )
 
         return {"reportId": report_id}
-
-    @router.post("/test-scrape-url")
-    async def test_parse_recipe_url(self, data: ScrapeRecipeTest):
-        # Debugger should produce the same result as the scraper sees before cleaning
-        ScraperClass = RecipeScraperOpenAI if data.use_openai else RecipeScraperPackage
-        try:
-            if scraped_data := await ScraperClass(data.url, self.translator).scrape_url():
-                return scraped_data.schema.data
-        except ForceTimeoutException as e:
-            raise HTTPException(
-                status_code=408, detail=ErrorResponse.respond(message="Recipe Scraping Timed Out")
-            ) from e
-
-        return "recipe_scrapers was unable to scrape this URL"
 
     # ==================================================================================================================
     # Other Create Operations
@@ -466,6 +468,31 @@ class RecipeController(BaseRecipeController):
 
         return recipe
 
+    @router.put("")
+    def update_many(self, data: list[Recipe]):
+        updated_by_group_and_household: defaultdict[UUID4, defaultdict[UUID4, list[Recipe]]] = defaultdict(
+            lambda: defaultdict(list)
+        )
+        for recipe in data:
+            r = self.service.update_one(recipe.id, recipe)  # type: ignore
+            updated_by_group_and_household[r.group_id][r.household_id].append(r)
+
+        all_updated: list[Recipe] = []
+        if updated_by_group_and_household:
+            for group_id, household_dict in updated_by_group_and_household.items():
+                for household_id, updated_recipes in household_dict.items():
+                    all_updated.extend(updated_recipes)
+                    self.publish_event(
+                        event_type=EventTypes.recipe_updated,
+                        document_data=EventRecipeBulkData(
+                            operation=EventOperation.update, recipe_slugs=[r.slug for r in updated_recipes]
+                        ),
+                        group_id=group_id,
+                        household_id=household_id,
+                    )
+
+        return all_updated
+
     @router.patch("/{slug}")
     def patch_one(self, slug: str, data: Recipe):
         """Updates a recipe by existing slug and data."""
@@ -488,6 +515,31 @@ class RecipeController(BaseRecipeController):
             )
 
         return recipe
+
+    @router.patch("")
+    def patch_many(self, data: list[Recipe]):
+        updated_by_group_and_household: defaultdict[UUID4, defaultdict[UUID4, list[Recipe]]] = defaultdict(
+            lambda: defaultdict(list)
+        )
+        for recipe in data:
+            r = self.service.patch_one(recipe.id, recipe)  # type: ignore
+            updated_by_group_and_household[r.group_id][r.household_id].append(r)
+
+        all_updated: list[Recipe] = []
+        if updated_by_group_and_household:
+            for group_id, household_dict in updated_by_group_and_household.items():
+                for household_id, updated_recipes in household_dict.items():
+                    all_updated.extend(updated_recipes)
+                    self.publish_event(
+                        event_type=EventTypes.recipe_updated,
+                        document_data=EventRecipeBulkData(
+                            operation=EventOperation.update, recipe_slugs=[r.slug for r in updated_recipes]
+                        ),
+                        group_id=group_id,
+                        household_id=household_id,
+                    )
+
+        return all_updated
 
     @router.patch("/{slug}/last-made")
     def update_last_made(self, slug: str, data: RecipeLastMade):

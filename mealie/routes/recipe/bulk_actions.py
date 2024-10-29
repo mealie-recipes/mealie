@@ -17,7 +17,7 @@ from mealie.schema.recipe.recipe_bulk_actions import (
 from mealie.schema.response.responses import SuccessResponse
 from mealie.services.recipe.recipe_bulk_service import RecipeBulkActionsService
 
-router = APIRouter(prefix="/bulk-actions", tags=["Recipe: Bulk Actions"])
+router = APIRouter(prefix="/bulk-actions")
 
 
 @controller(router)

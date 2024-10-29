@@ -10,7 +10,7 @@ from ._model_utils.guid import GUID
 
 if TYPE_CHECKING:
     from .group.group import Group
-    from .group.shopping_list import ShoppingListItem, ShoppingListMultiPurposeLabel
+    from .household.shopping_list import ShoppingListItem, ShoppingListMultiPurposeLabel
     from .recipe import IngredientFoodModel
 
 

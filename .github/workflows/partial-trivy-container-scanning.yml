@@ -24,6 +24,8 @@ jobs:
           image-ref: "mealie"
           format: "sarif"
           output: "trivy-results.sarif"
+        env:
+          TRIVY_DB_REPOSITORY: ghcr.io/aquasecurity/trivy-db,public.ecr.aws/aquasecurity/trivy-db
 
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3

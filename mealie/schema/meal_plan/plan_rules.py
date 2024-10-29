@@ -1,32 +1,17 @@
 import datetime
 from enum import Enum
+from typing import Annotated
 
-from pydantic import UUID4, ConfigDict
-from sqlalchemy.orm import joinedload
-from sqlalchemy.orm.interfaces import LoaderOption
+import sqlalchemy as sa
+from pydantic import UUID4, ConfigDict, Field, ValidationInfo, field_validator
 
-from mealie.db.models.household import GroupMealPlanRules, Household
-from mealie.db.models.recipe import Category, Tag
+from mealie.core.root_logger import get_logger
+from mealie.db.models.recipe import RecipeModel
 from mealie.schema._mealie import MealieModel
 from mealie.schema.response.pagination import PaginationBase
+from mealie.schema.response.query_filter import QueryFilterBuilder, QueryFilterJSON
 
-
-class BasePlanRuleFilter(MealieModel):
-    id: UUID4
-    name: str
-    slug: str
-
-
-class PlanCategory(BasePlanRuleFilter):
-    model_config = ConfigDict(from_attributes=True)
-
-
-class PlanTag(BasePlanRuleFilter):
-    model_config = ConfigDict(from_attributes=True)
-
-
-class PlanHousehold(BasePlanRuleFilter):
-    model_config = ConfigDict(from_attributes=True)
+logger = get_logger()
 
 
 class PlanRulesDay(str, Enum):
@@ -59,9 +44,20 @@ class PlanRulesType(str, Enum):
 class PlanRulesCreate(MealieModel):
     day: PlanRulesDay = PlanRulesDay.unset
     entry_type: PlanRulesType = PlanRulesType.unset
-    categories: list[PlanCategory] = []
-    tags: list[PlanTag] = []
-    households: list[PlanHousehold] = []
+    query_filter_string: str = ""
+
+    @field_validator("query_filter_string")
+    def validate_query_filter_string(cls, value: str) -> str:
+        # The query filter builder does additional validations while building the
+        # database query, so we make sure constructing the query is successful
+        builder = QueryFilterBuilder(value)
+
+        try:
+            builder.filter_query(sa.select(RecipeModel), RecipeModel)
+        except Exception as e:
+            raise ValueError("Invalid query filter string") from e
+
+        return value
 
 
 class PlanRulesSave(PlanRulesCreate):
@@ -71,27 +67,24 @@ class PlanRulesSave(PlanRulesCreate):
 
 class PlanRulesOut(PlanRulesSave):
     id: UUID4
+    query_filter: Annotated[QueryFilterJSON, Field(validate_default=True)] = None  # type: ignore
+
     model_config = ConfigDict(from_attributes=True)
 
-    @classmethod
-    def loader_options(cls) -> list[LoaderOption]:
-        return [
-            joinedload(GroupMealPlanRules.categories).load_only(
-                Category.id,
-                Category.name,
-                Category.slug,
-            ),
-            joinedload(GroupMealPlanRules.tags).load_only(
-                Tag.id,
-                Tag.name,
-                Tag.slug,
-            ),
-            joinedload(GroupMealPlanRules.households).load_only(
-                Household.id,
-                Household.name,
-                Household.slug,
-            ),
-        ]
+    @field_validator("query_filter_string")
+    def validate_query_filter_string(value: str) -> str:
+        # Skip validation since we are not updating the query filter string
+        return value
+
+    @field_validator("query_filter", mode="before")
+    def validate_query_filter(cls, _, info: ValidationInfo) -> QueryFilterJSON:
+        try:
+            query_filter_string: str = info.data.get("query_filter_string") or ""
+            builder = QueryFilterBuilder(query_filter_string)
+            return builder.as_json_model()
+        except Exception:
+            logger.exception(f"Invalid query filter string: {query_filter_string}")
+            return QueryFilterJSON()
 
 
 class PlanRulesPagination(PaginationBase):

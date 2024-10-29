@@ -8,7 +8,7 @@
     "database-type": "Tipus de base de dades",
     "database-url": "URL del servidor de base de dades",
     "default-group": "Grup per defecte",
-    "default-household": "Default Household",
+    "default-household": "Llar per defecte",
     "demo": "Demo",
     "demo-status": "Estat",
     "development": "Desenvolupament",
@@ -182,6 +182,7 @@
     "date": "Data",
     "id": "Id",
     "owner": "Propietari",
+    "change-owner": "Change Owner",
     "date-added": "Data d'alta",
     "none": "Cap",
     "run": "Executa",
@@ -212,7 +213,11 @@
     "clipboard-copy-failure": "No s'ha pogut copiar al porta-retalls.",
     "confirm-delete-generic-items": "Are you sure you want to delete the following items?",
     "organizers": "Organitzadors",
-    "caution": "Precaució"
+    "caution": "Precaució",
+    "show-advanced": "Show Advanced",
+    "add-field": "Add Field",
+    "date-created": "Date Created",
+    "date-updated": "Date Updated"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Esteu segur de voler suprimir el grup <b>{groupName}<b/>?",
@@ -239,16 +244,16 @@
       "keep-my-recipes-private-description": "Posa el teu grup i totes les receptes com privades. Podeu canviar-lo després."
     },
     "manage-members": "Gestiona els membres",
-    "manage-members-description": "Manage the permissions of the members in your household. {manage} allows the user to access the data-management page, and {invite} allows the user to generate invitation links for other users. Group owners cannot change their own permissions.",
+    "manage-members-description": "Gestiona els permisos dels membres de la teva llar. {manage} permet a l'usuari accedir la pàgina de gestió de dades, i {invite} permet a l'usuari generar enllaços d'invitació per altres usuaris. Els propitetaris de grups no es poden canviar els seus propis permisos.",
     "manage": "Gestiona",
-    "manage-household": "Manage Household",
+    "manage-household": "Gestiona llar",
     "invite": "Convida",
     "looking-to-update-your-profile": "Voleu actualitzar el vostre perfil?",
     "default-recipe-preferences-description": "Aquestes són les configuracions per defecte quan una recepta es crea en el teu grup. Podeu canviar-les de forma individual en el menú d'opcions de cada recepta.",
     "default-recipe-preferences": "Preferències per defecte",
     "group-preferences": "Preferències per grup",
     "private-group": "Grup privat",
-    "private-group-description": "Setting your group to private will disable all public view options. This overrides any individual public view settings",
+    "private-group-description": "Configurar el teu grup com a privat en desactivarà totes les opcions de vista pública. Això sobreescriu qualsevol configuració de vista pública individual",
     "enable-public-access": "Permetre l'accés públic",
     "enable-public-access-description": "Fes les receptes en grup públiques per defecte, i permet a visitants veure receptes sense registrar-se",
     "allow-users-outside-of-your-group-to-see-your-recipes": "Permeteu als usuaris d'altres grups, visualitzar les vostres receptes",
@@ -262,7 +267,7 @@
     "disable-users-from-commenting-on-recipes": "Desactiva els comentaris a les receptes",
     "disable-users-from-commenting-on-recipes-description": "Amaga la secció de comentaris a les pàgines de recepta i deshabilita els comentaris",
     "disable-organizing-recipe-ingredients-by-units-and-food": "Desactiva l'organització dels ingredients de la recepta per unitats i aliments",
-    "disable-organizing-recipe-ingredients-by-units-and-food-description": "Hides the Food, Unit, and Amount fields for ingredients and treats ingredients as plain text fields",
+    "disable-organizing-recipe-ingredients-by-units-and-food-description": "Amaga els camps Menjar, Unitat, Quantitat dels ingredients i els tracta com a simples camps de text",
     "general-preferences": "Preferències generals",
     "group-recipe-preferences": "Preferències del grup de receptes",
     "report": "Informe",
@@ -271,25 +276,25 @@
     "admin-group-management": "Gestió del grup d'administradors",
     "admin-group-management-text": "Els canvis en aquest grup s'actualitzaran immediatament.",
     "group-id-value": "ID del grup: {0}",
-    "total-households": "Total Households"
+    "total-households": "Llars totals"
   },
   "household": {
-    "household": "Household",
-    "households": "Households",
-    "user-household": "User Household",
-    "create-household": "Create Household",
-    "household-name": "Household Name",
-    "household-group": "Household Group",
-    "household-management": "Household Management",
-    "manage-households": "Manage Households",
-    "admin-household-management": "Admin Household Management",
-    "admin-household-management-text": "Changes to this household will be reflected immediately.",
-    "household-id-value": "Household Id: {0}",
-    "private-household": "Private Household",
-    "private-household-description": "Setting your household to private will disable all public view options. This overrides any individual public view settings",
-    "lock-recipe-edits-from-other-households": "Lock recipe edits from other households",
-    "lock-recipe-edits-from-other-households-description": "When enabled only users in your household can edit recipes created by your household",
-    "household-recipe-preferences": "Household Recipe Preferences",
+    "household": "Llar",
+    "households": "Llars",
+    "user-household": "Llar de l'usuari",
+    "create-household": "Crea llar",
+    "household-name": "Nom de la llar",
+    "household-group": "Grup de llar",
+    "household-management": "Gestió de llar",
+    "manage-households": "Gestiona llars",
+    "admin-household-management": "Gestió de llar d'administrador",
+    "admin-household-management-text": "Canvis en aquesta llar s'actualitzaran immediatament.",
+    "household-id-value": "Id de llar: {0}",
+    "private-household": "Llar privada",
+    "private-household-description": "Configurar la teva llar com a privada en desactivarà totes les opcions de vista pública. Això sobreescriu qualsevol configuració de vista pública individual",
+    "lock-recipe-edits-from-other-households": "Bloqueja les edicions de receptes des d'altres llars",
+    "lock-recipe-edits-from-other-households-description": "Quan activat, només els usuaris de la teva llar poden editar les receptes creades per la teva llar",
+    "household-recipe-preferences": "Preferències de receptes de llar",
     "default-recipe-preferences-description": "These are the default settings when a new recipe is created in your household. These can be changed for individual recipes in the recipe settings menu.",
     "allow-users-outside-of-your-household-to-see-your-recipes": "Allow users outside of your household to see your recipes",
     "allow-users-outside-of-your-household-to-see-your-recipes-description": "When enabled you can use a public share link to share specific recipes without authorizing the user. When disabled, you can only share recipes with users who are in your household or with a pre-generated private link",
@@ -351,7 +356,7 @@
     "for-type-meal-types": "per {0} tipus de menús",
     "meal-plan-rules": "Normes del planificador de menús",
     "new-rule": "Nova norma",
-    "meal-plan-rules-description": "Podeu crear regles per a la selecció automàtica de receptes per als vostres plans d'àpats. El servidor utilitza aquestes regles per determinar el conjunt aleatori de receptes per seleccionar quan es creen plans d'àpats. Tingueu en compte que si les regles tenen les mateixes restriccions de dia/tipus, les categories de les regles es fusionaran. A la pràctica, no és necessari crear regles duplicades, però és possible fer-ho.",
+    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the rule filters will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
     "new-rule-description": "Quan creis una nova norma per una planificació d'àpats, pots restringir la norma per a què s'apliqui un dia específic de la setmana i/o un tipus d'àpat específic. Per aplicar la norma a tots els dies o a tots els tipus d'àpats, pots configurar la norma a \"Qualsevol\" que l'aplicarà a tots els valors possibles pel dia i/o tipus d'àpat.",
     "recipe-rules": "Normes per la recepta",
     "applies-to-all-days": "Aplica a tots els dies",
@@ -1266,7 +1271,9 @@
     "debug-openai-services": "Debug OpenAI Services",
     "debug-openai-services-description": "Use this page to debug OpenAI services. You can test your OpenAI connection and see the results here. If you have image services enabled, you can also provide an image.",
     "run-test": "Run Test",
-    "test-results": "Test Results"
+    "test-results": "Test Results",
+    "group-delete-note": "Groups with users or households cannot be deleted",
+    "household-delete-note": "Households with users cannot be deleted"
   },
   "profile": {
     "welcome-user": "👋 Benvingut/Benvinguda, {0}!",
@@ -1319,7 +1326,7 @@
   },
   "cookbook": {
     "cookbooks": "Receptaris",
-    "description": "Els llibres de cuina són una altra manera d'organitzar les receptes creant seccions transversals de receptes i etiquetes. La creació d'un llibre de cuina afegirà una entrada a la barra lateral i totes les receptes amb les etiquetes i categories escollides es mostraran al llibre de cuina.",
+    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
     "public-cookbook": "Receptari públic",
     "public-cookbook-description": "Els receptaris públics es poden compartir amb usuaris que no estiguin dins l'aplicació i es mostraran a la pàgina del vostre grup.",
     "filter-options": "Opcions de filtres",
@@ -1332,5 +1339,28 @@
     "household-cookbook-name": "{0} Cookbook {1}",
     "create-a-cookbook": "Crea un receptari",
     "cookbook": "Receptari"
+  },
+  "query-filter": {
+    "logical-operators": {
+      "and": "AND",
+      "or": "OR"
+    },
+    "relational-operators": {
+      "equals": "equals",
+      "does-not-equal": "does not equal",
+      "is-greater-than": "is greater than",
+      "is-greater-than-or-equal-to": "is greater than or equal to",
+      "is-less-than": "is less than",
+      "is-less-than-or-equal-to": "is less than or equal to"
+    },
+    "relational-keywords": {
+      "is": "is",
+      "is-not": "is not",
+      "is-one-of": "is one of",
+      "is-not-one-of": "is not one of",
+      "contains-all-of": "contains all of",
+      "is-like": "is like",
+      "is-not-like": "is not like"
+    }
   }
 }

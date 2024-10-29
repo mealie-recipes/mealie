@@ -34,8 +34,8 @@
     <template #item.userId="{ item }">
       <v-list-item class="justify-start">
         <UserAvatar :user-id="item.userId" :tooltip="false" size="40" />
-        <v-list-item-content>
-          <v-list-item-title>
+        <v-list-item-content class="pl-2">
+          <v-list-item-title class="text-left">
             {{ getMember(item.userId) }}
           </v-list-item-title>
         </v-list-item-content>

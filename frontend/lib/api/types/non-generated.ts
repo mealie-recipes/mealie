@@ -24,10 +24,17 @@ export interface PaginationData<T> {
   items: T[];
 }
 
-export type RecipeOrganizer = "categories" | "tags" | "tools";
+export type RecipeOrganizer =
+  | "categories"
+  | "tags"
+  | "tools"
+  | "foods"
+  | "households";
 
 export enum Organizer {
   Category = "categories",
   Tag = "tags",
   Tool = "tools",
+  Food = "foods",
+  Household = "households",
 }

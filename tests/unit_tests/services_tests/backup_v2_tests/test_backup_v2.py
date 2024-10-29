@@ -11,6 +11,8 @@ from mealie.core.config import get_app_settings
 from mealie.db.db_setup import session_context
 from mealie.db.models._model_utils.guid import GUID
 from mealie.db.models.group import Group
+from mealie.db.models.household.cookbook import CookBook
+from mealie.db.models.household.mealplan import GroupMealPlanRules
 from mealie.db.models.household.shopping_list import ShoppingList
 from mealie.db.models.labels import MultiPurposeLabel
 from mealie.db.models.recipe.ingredient import IngredientFoodModel, IngredientUnitModel
@@ -82,15 +84,17 @@ def test_database_restore():
         test_data.backup_version_ba1e4a6cfe99_1,
         test_data.backup_version_bcfdad6b7355_1,
         test_data.backup_version_09aba125b57a_1,
+        test_data.backup_version_86054b40fd06_1,
     ],
     ids=[
         "44e8d670719d_1: add extras to shopping lists, list items, and ingredient foods",
         "44e8d670719d_2: add extras to shopping lists, list items, and ingredient foods",
         "44e8d670719d_3: add extras to shopping lists, list items, and ingredient foods",
         "44e8d670719d_4: add extras to shopping lists, list items, and ingredient foods",
-        "ba1e4a6cfe99_1: added plural names and alias tables for foods and units",
         "bcfdad6b7355_1: remove tool name and slug unique contraints",
-        "09aba125b57a: add OIDC auth method (Safari-mangled ZIP structure)",
+        "ba1e4a6cfe99_1: added plural names and alias tables for foods and units",
+        "09aba125b57a_1: add OIDC auth method (Safari-mangled ZIP structure)",
+        "86054b40fd06_1: added query_filter_string to cookbook and mealplan",
     ],
 )
 def test_database_restore_data(backup_path: Path):
@@ -123,6 +127,9 @@ def test_database_restore_data(backup_path: Path):
 
             foods = session.query(IngredientFoodModel).all()
             units = session.query(IngredientUnitModel).all()
+
+            cookbooks = session.query(CookBook).all()
+            mealplan_rules = session.query(GroupMealPlanRules).all()
 
             # 2023-02-14-20.45.41_5ab195a474eb_add_normalized_search_properties
             for recipe in recipes:
@@ -173,6 +180,40 @@ def test_database_restore_data(backup_path: Path):
                 user_to_recipes = session.query(UserToRecipe).filter(UserToRecipe.recipe_id == recipe.id).all()
                 user_ratings = [x.rating for x in user_to_recipes if x.rating]
                 assert recipe.rating == (statistics.mean(user_ratings) if user_ratings else None)
+
+            # 2024-10-08-21.17.31_86054b40fd06_added_query_filter_string_to_cookbook_and_mealplan
+            for cookbook in cookbooks:
+                parts = []
+                if cookbook.categories:
+                    relop = "CONTAINS ALL" if cookbook.require_all_categories else "IN"
+                    vals = ",".join([f'"{cat.id}"' for cat in cookbook.categories])
+                    parts.append(f"recipe_category.id {relop} [{vals}]")
+                if cookbook.tags:
+                    relop = "CONTAINS ALL" if cookbook.require_all_tags else "IN"
+                    vals = ",".join([f'"{tag.id}"' for tag in cookbook.tags])
+                    parts.append(f"tags.id {relop} [{vals}]")
+                if cookbook.tools:
+                    relop = "CONTAINS ALL" if cookbook.require_all_tools else "IN"
+                    vals = ",".join([f'"{tool.id}"' for tool in cookbook.tools])
+                    parts.append(f"tools.id {relop} [{vals}]")
+
+                expected_query_filter_string = " AND ".join(parts)
+                assert cookbook.query_filter_string == expected_query_filter_string
+
+            for rule in mealplan_rules:
+                parts = []
+                if rule.categories:
+                    vals = ",".join([f'"{cat.id}"' for cat in rule.categories])
+                    parts.append(f"recipe_category.id CONTAINS ALL [{vals}]")
+                if rule.tags:
+                    vals = ",".join([f'"{tag.id}"' for tag in rule.tags])
+                    parts.append(f"tags.id CONTAINS ALL [{vals}]")
+                if rule.households:
+                    vals = ",".join([f'"{household.id}"' for household in rule.households])
+                    parts.append(f"household_id IN [{vals}]")
+
+                expected_query_filter_string = " AND ".join(parts)
+                assert rule.query_filter_string == expected_query_filter_string
 
     finally:
         backup_v2.restore(original_data_backup)

@@ -182,6 +182,7 @@
     "date": "Datum",
     "id": "Id",
     "owner": "Lastnik",
+    "change-owner": "Zamenjava lastnika",
     "date-added": "Dodano dne",
     "none": "Brez",
     "run": "Zaženi",
@@ -212,7 +213,11 @@
     "clipboard-copy-failure": "Kopiranje na odložišče ni bilo uspešno.",
     "confirm-delete-generic-items": "Ali ste prepričani, da želite izbrisati izbrane elemente?",
     "organizers": "Organizatorji",
-    "caution": "Pozor"
+    "caution": "Pozor",
+    "show-advanced": "Prikaži napredno",
+    "add-field": "Dodaj polje",
+    "date-created": "Datum nastanka",
+    "date-updated": "Datum posodobitve"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Ste prepričani, da želite izbrisati <b>{groupName}<b/>?",
@@ -315,10 +320,10 @@
     "mealplan-settings": "Nastavitve jedilnika",
     "mealplan-update-failed": "Napaka pri posodobitvi jedilnika",
     "mealplan-updated": "Jedilnik je posodobljen",
-    "mealplan-households-description": "If no household is selected, recipes can be added from any household",
-    "any-category": "Any Category",
-    "any-tag": "Any Tag",
-    "any-household": "Any Household",
+    "mealplan-households-description": "Recepti iz gospodinjstev ne morejo biti dodani, če ni izbranega nobenega gospodinjstva",
+    "any-category": "Vse kategorije",
+    "any-tag": "Vse oznake",
+    "any-household": "Vsa gospodinjstva",
     "no-meal-plan-defined-yet": "Za danes ni definiranjega načrta obroka",
     "no-meal-planned-for-today": "Za danes ni planiranega načrta obroka",
     "numberOfDays-hint": "Število dni na začetni strani",
@@ -426,7 +431,7 @@
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Prilepi podatke recepta. Vsaka vrsta bo obravnavana kot element v seznamu",
     "recipe-markup-specification": "Markup specifikacija recepta",
     "recipe-url": "URL recepta",
-    "recipe-html-or-json": "Recipe HTML or JSON",
+    "recipe-html-or-json": "Recept HTML ali JSON",
     "upload-a-recipe": "Naloži recept",
     "upload-individual-zip-file": "Naloži posamezno .zip datoteko, izvoženo iz druge Mealie namestitve.",
     "url-form-hint": "Kopiraj in prilepi povezavo iz vaše priljubljene strani z recepti",
@@ -461,7 +466,7 @@
     "calories-suffix": "kalorije",
     "carbohydrate-content": "Ogljikovi hidrati",
     "categories": "Kategorije",
-    "cholesterol-content": "Cholesterol",
+    "cholesterol-content": "Holesterol",
     "comment-action": "Pripomba",
     "comment": "Komentar",
     "comments": "Pripombe",
@@ -508,7 +513,7 @@
     "recipe-updated": "Recept je posodobljen",
     "remove-from-favorites": "Odstrani iz priljubljenih",
     "remove-section": "Odstrani odsek",
-    "saturated-fat-content": "Saturated fat",
+    "saturated-fat-content": "Nasičena maščoba",
     "save-recipe-before-use": "Shrani recept pred uporabo",
     "section-title": "Naslov odseka",
     "servings": "Porcija",
@@ -519,9 +524,9 @@
     "sugar-content": "Sladkor",
     "title": "Naslov",
     "total-time": "Skupni čas",
-    "trans-fat-content": "Trans-fat",
+    "trans-fat-content": "Transmaščoba",
     "unable-to-delete-recipe": "Ne morem izbrisati recepta",
-    "unsaturated-fat-content": "Unsaturated fat",
+    "unsaturated-fat-content": "Nenasičena maščoba",
     "no-recipe": "Ni recepta",
     "locked-by-owner": "Zakljenjeno od lastnika",
     "join-the-conversation": "Pridruži se pogovoru",
@@ -609,16 +614,16 @@
     "scrape-recipe-description": "Postrgaj recept preko povezave. Priskrbi povezavo do strani, ki jo želiš postrgati in Mealie bo poskusil uvoziti recept iz strani in ga dodati v tvojo zbirko.",
     "scrape-recipe-have-a-lot-of-recipes": "Imaš veliko receptov, ki jih želiš naenkrat postrgati s spleta?",
     "scrape-recipe-suggest-bulk-importer": "Preizkusi masovni uvoz",
-    "scrape-recipe-have-raw-html-or-json-data": "Have raw HTML or JSON data?",
-    "scrape-recipe-you-can-import-from-raw-data-directly": "You can import from raw data directly",
+    "scrape-recipe-have-raw-html-or-json-data": "Imaš surove HTML ali JSON podatke?",
+    "scrape-recipe-you-can-import-from-raw-data-directly": "Uvoziš lahko neposredno iz surovih podatkov",
     "import-original-keywords-as-tags": "Uvozi izvorne ključne besede kot značke",
     "stay-in-edit-mode": "Urejaj naprej",
     "import-from-zip": "Uvozi z Zip",
     "import-from-zip-description": "Uvozi posamezen recept, ki je bil izvožen iz druge instance Mealie aplikacije.",
-    "import-from-html-or-json": "Import from HTML or JSON",
-    "import-from-html-or-json-description": "Import a single recipe from raw HTML or JSON. This is useful if you have a recipe from a site that Mealie can't scrape normally, or from some other external source.",
-    "json-import-format-description-colon": "To import via JSON, it must be in valid format:",
-    "json-editor": "JSON Editor",
+    "import-from-html-or-json": "Uvozi iz HTML ali JSON",
+    "import-from-html-or-json-description": "Uvozi posamezen recept iz surovega HTML ali JSON. To je uporabno, če je recept iz spletne strani, ki jo Mealie ne more normalno postrgati, ali pa iz ostalih zunanjih virov.",
+    "json-import-format-description-colon": "Za uvoz preko JSON je zahtevan veljaven format:",
+    "json-editor": "JSON urejevalnik",
     "zip-files-must-have-been-exported-from-mealie": ".zip datoteka mora biti izvožena iz Mealie aplikacije",
     "create-a-recipe-by-uploading-a-scan": "Ustvari recept z nalaganjem skenirane datoteke.",
     "upload-a-png-image-from-a-recipe-book": "Naloži png sliko iz kuharske knjige",
@@ -657,7 +662,7 @@
       "missing-food": "Ustvari manjkajoče živilo: {food}",
       "no-food": "Ni živila"
     },
-    "reset-servings-count": "Reset Servings Count"
+    "reset-servings-count": "Ponastavi števec obrokov"
   },
   "search": {
     "advanced-search": "Napredno iskanje",
@@ -1266,7 +1271,9 @@
     "debug-openai-services": "Odpravljanje napak v storitvah OpenAI",
     "debug-openai-services-description": "Uporabite to stran za odpravljanje napak v storitvah OpenAI. Tukaj lahko preizkusite svojo povezavo OpenAI in si ogledate rezultate. Če imate omogočene slikovne storitve, lahko zagotovite tudi sliko.",
     "run-test": "Zaženi test",
-    "test-results": "Rezultati testa"
+    "test-results": "Rezultati testa",
+    "group-delete-note": "Groups with users or households cannot be deleted",
+    "household-delete-note": "Households with users cannot be deleted"
   },
   "profile": {
     "welcome-user": "👋 Živjo, {0}!",
@@ -1332,5 +1339,28 @@
     "household-cookbook-name": "{0} Kuharska knjiga {1}",
     "create-a-cookbook": "Ustvari kuharsko knjigo",
     "cookbook": "Kuharska knjiga"
+  },
+  "query-filter": {
+    "logical-operators": {
+      "and": "IN",
+      "or": "ALI"
+    },
+    "relational-operators": {
+      "equals": "je enako",
+      "does-not-equal": "ni enako",
+      "is-greater-than": "je več kot",
+      "is-greater-than-or-equal-to": "je več kot ali enako kot",
+      "is-less-than": "je manj kot",
+      "is-less-than-or-equal-to": "je manj kot ali enako kot"
+    },
+    "relational-keywords": {
+      "is": "je",
+      "is-not": "ni",
+      "is-one-of": "je en/a od",
+      "is-not-one-of": "ni en/a od",
+      "contains-all-of": "vsebuje vse",
+      "is-like": "je kot",
+      "is-not-like": "ni kot"
+    }
   }
 }
