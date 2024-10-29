@@ -65,7 +65,7 @@ After you've decided setup the files it's important to set a few ENV variables t
 - [x] You've configured the relevant ENV variables for your database selection in the `docker-compose.yaml` files.
 - [x] You've configured the [SMTP server settings](./backend-config.md#email) (used for invitations, password resets, etc). You can setup a [google app password](https://support.google.com/accounts/answer/185833?hl=en) if you want to send email via gmail.
 - [x] You've set the [`BASE_URL`](./backend-config.md#general) variable.
-- [x] You've set the `DEFAULT_EMAIL` and `DEFAULT_GROUP` variable.
+- [x] You've set the `DEFAULT_EMAIL`, `DEFAULT_GROUP`, and `DEFAULT_HOUSEHOLD` variables.
 
 ## Step 4: Startup
 
