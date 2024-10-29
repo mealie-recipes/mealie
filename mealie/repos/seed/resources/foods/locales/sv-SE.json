@@ -543,7 +543,7 @@
 	},
 	"scallion": {
 		"name": "salladslök",
-		"plural_name": "scallions"
+		"plural_name": "salladslökar"
 	},
 	"seafood": {
 		"name": "fisk och skaldjur"
@@ -556,7 +556,7 @@
 	},
 	"shallot": {
 		"name": "schalottenlök",
-		"plural_name": "shallots"
+		"plural_name": "schalottenlökar"
 	},
 	"skate": {
 		"name": "skate"
@@ -585,11 +585,11 @@
 	},
 	"spring-onion": {
 		"name": "vårlök",
-		"plural_name": "spring onions"
+		"plural_name": "vårlökar"
 	},
 	"squash": {
 		"name": "squash",
-		"plural_name": "squashes"
+		"plural_name": "squash"
 	},
 	"squash-family": {
 		"name": "squash-familj"
@@ -612,7 +612,7 @@
 	},
 	"sweet-potato": {
 		"name": "sötpotatis",
-		"plural_name": "sweet potatoes"
+		"plural_name": "sötpotatisar"
 	},
 	"sweetcorn": {
 		"name": "sockermajs",
@@ -633,7 +633,7 @@
 	},
 	"tomato": {
 		"name": "tomat",
-		"plural_name": "tomatoes"
+		"plural_name": "tomater"
 	},
 	"trout": {
 		"name": "öring"
@@ -650,7 +650,7 @@
 	},
 	"turnip": {
 		"name": "majrova",
-		"plural_name": "turnips"
+		"plural_name": "majrovor"
 	},
 	"unrefined-sugar": {
 		"name": "råsocker"
@@ -666,11 +666,11 @@
 	},
 	"watermelon": {
 		"name": "vattenmelon",
-		"plural_name": "watermelons"
+		"plural_name": "vattenmeloner"
 	},
 	"white-mushroom": {
 		"name": "schampinjon",
-		"plural_name": "white mushrooms"
+		"plural_name": "champinjoner"
 	},
 	"white-sugar": {
 		"name": "strösocker"
@@ -687,6 +687,6 @@
 	},
 	"zucchini": {
 		"name": "zucchini",
-		"plural_name": "zucchinis"
+		"plural_name": "zucchinins"
 	}
 }
