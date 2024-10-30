@@ -627,13 +627,13 @@ cli = ["requests"]
 
 [[package]]
 name = "fastapi"
-version = "0.115.3"
+version = "0.115.4"
 description = "FastAPI framework, high performance, easy to learn, fast to code, ready for production"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "fastapi-0.115.3-py3-none-any.whl", hash = "sha256:8035e8f9a2b0aa89cea03b6c77721178ed5358e1aea4cd8570d9466895c0638c"},
-    {file = "fastapi-0.115.3.tar.gz", hash = "sha256:c091c6a35599c036d676fa24bd4a6e19fa30058d93d950216cdc672881f6f7db"},
+    {file = "fastapi-0.115.4-py3-none-any.whl", hash = "sha256:0b504a063ffb3cf96a5e27dc1bc32c80ca743a2528574f9cdc77daa2d31b4742"},
+    {file = "fastapi-0.115.4.tar.gz", hash = "sha256:db653475586b091cb8b2fec2ac54a680ac6a158e07406e1abae31679e8826349"},
 ]
 
 [package.dependencies]
@@ -1598,13 +1598,13 @@ signedtoken = ["cryptography (>=3.0.0)", "pyjwt (>=2.0.0,<3)"]
 
 [[package]]
 name = "openai"
-version = "1.52.2"
+version = "1.53.0"
 description = "The official Python library for the openai API"
 optional = false
 python-versions = ">=3.7.1"
 files = [
-    {file = "openai-1.52.2-py3-none-any.whl", hash = "sha256:57e9e37bc407f39bb6ec3a27d7e8fb9728b2779936daa1fcf95df17d3edfaccc"},
-    {file = "openai-1.52.2.tar.gz", hash = "sha256:87b7d0f69d85f5641678d414b7ee3082363647a5c66a462ed7f3ccb59582da0d"},
+    {file = "openai-1.53.0-py3-none-any.whl", hash = "sha256:20f408c32fc5cb66e60c6882c994cdca580a5648e10045cd840734194f033418"},
+    {file = "openai-1.53.0.tar.gz", hash = "sha256:be2c4e77721b166cce8130e544178b7d579f751b4b074ffbaade3854b6f85ec5"},
 ]
 
 [package.dependencies]
@@ -2413,13 +2413,13 @@ pyasn1_modules = ">=0.1.5"
 
 [[package]]
 name = "python-multipart"
-version = "0.0.12"
+version = "0.0.16"
 description = "A streaming multipart parser for Python"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "python_multipart-0.0.12-py3-none-any.whl", hash = "sha256:43dcf96cf65888a9cd3423544dd0d75ac10f7aa0c3c28a175bbcd00c9ce1aebf"},
-    {file = "python_multipart-0.0.12.tar.gz", hash = "sha256:045e1f98d719c1ce085ed7f7e1ef9d8ccc8c02ba02b5566d5f7521410ced58cb"},
+    {file = "python_multipart-0.0.16-py3-none-any.whl", hash = "sha256:c2759b7b976ef3937214dfb592446b59dfaa5f04682a076f78b117c94776d87a"},
+    {file = "python_multipart-0.0.16.tar.gz", hash = "sha256:8dee37b88dab9b59922ca173c35acb627cc12ec74019f5cd4578369c6df36554"},
 ]
 
 [[package]]
@@ -3416,4 +3416,4 @@ pgsql = ["psycopg2-binary"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "455f4f29104e6614f7ff7e899cf2d63302cd84dd693b59ee17d48ca05fd39543"
+content-hash = "dcad328318ea89f09fa57a8cb8262f9381388c1dceba3fdfb5916bea7de330a1"
