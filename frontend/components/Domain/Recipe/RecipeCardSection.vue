@@ -205,23 +205,14 @@ export default defineComponent({
     const route = useRoute();
     const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
 
-    const router = useRouter();
-    function navigateRandom() {
-      if (props.recipes.length > 0) {
-        const recipe = props.recipes[Math.floor(Math.random() * props.recipes.length)];
-        if (recipe.slug !== undefined) {
-          router.push(`/g/${groupSlug.value}/r/${recipe.slug}`);
-        }
-      }
-    }
-
     const page = ref(1);
     const perPage = 32;
     const hasMore = ref(true);
     const ready = ref(false);
     const loading = ref(false);
 
-    const { fetchMore } = useLazyRecipes(isOwnGroup.value ? null : groupSlug.value);
+    const { fetchMore, getRandom } = useLazyRecipes(isOwnGroup.value ? null : groupSlug.value);
+    const router = useRouter();
 
     const queryFilter = computed(() => {
       const orderBy = props.query?.orderBy || preferences.value.orderBy;
@@ -381,6 +372,15 @@ export default defineComponent({
         state.sortLoading = false;
         loading.value = false;
       }, useAsyncKey());
+    }
+
+    async function navigateRandom() {
+      const recipe = await getRandom(props.query, queryFilter.value);
+      if (!recipe?.slug) {
+        return;
+      }
+
+      router.push(`/g/${groupSlug.value}/r/${recipe.slug}`);
     }
 
     function toggleMobileCards() {

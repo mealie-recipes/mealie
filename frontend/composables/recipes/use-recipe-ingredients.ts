@@ -54,7 +54,7 @@ export function useParsedIngredientText(ingredient: RecipeIngredient, disableAmo
   // casting to number is required as sometimes quantity is a string
   if (quantity && Number(quantity) !== 0) {
     if (unit && !unit.fraction) {
-      returnQty = (quantity * scale).toString();
+      returnQty = Number((quantity * scale).toPrecision(3)).toString();
     } else {
       const fraction = frac(quantity * scale, 10, true);
       if (fraction[0] !== undefined && fraction[0] > 0) {
