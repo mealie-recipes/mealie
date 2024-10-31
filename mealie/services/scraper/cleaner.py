@@ -11,6 +11,7 @@ from slugify import slugify
 
 from mealie.core.root_logger import get_logger
 from mealie.lang.providers import Translator
+from mealie.services.parser_services.parser_utils import extract_quantity_from_string
 
 logger = get_logger("recipe-scraper")
 
@@ -43,18 +44,20 @@ def clean(recipe_data: dict, translator: Translator, url=None) -> dict:
     Returns:
         dict: cleaned recipe dictionary
     """
+    recipe_data["slug"] = slugify(recipe_data.get("name", ""))
     recipe_data["description"] = clean_string(recipe_data.get("description", ""))
 
-    # Times
     recipe_data["prepTime"] = clean_time(recipe_data.get("prepTime"), translator)
     recipe_data["performTime"] = clean_time(recipe_data.get("performTime"), translator)
     recipe_data["totalTime"] = clean_time(recipe_data.get("totalTime"), translator)
+
+    recipe_data["recipeYieldQuantity"], recipe_data["recipeYield"] = clean_yield(recipe_data.get("recipeYield"))
     recipe_data["recipeCategory"] = clean_categories(recipe_data.get("recipeCategory", []))
     recipe_data["recipeYield"] = clean_yield(recipe_data.get("recipeYield"))
     recipe_data["recipeIngredient"] = clean_ingredients(recipe_data.get("recipeIngredient", []))
     recipe_data["recipeInstructions"] = clean_instructions(recipe_data.get("recipeInstructions", []))
+
     recipe_data["image"] = clean_image(recipe_data.get("image"))[0]
-    recipe_data["slug"] = slugify(recipe_data.get("name", ""))
     recipe_data["orgURL"] = url or recipe_data.get("orgURL")
     recipe_data["notes"] = clean_notes(recipe_data.get("notes"))
     recipe_data["rating"] = clean_int(recipe_data.get("rating"))
@@ -316,7 +319,7 @@ def clean_notes(notes: typing.Any) -> list[dict] | None:
     return parsed_notes
 
 
-def clean_yield(yld: str | list[str] | None) -> str:
+def clean_yield(yld: str | list[str] | None) -> tuple[float, str]:
     """
     yield_amount attemps to parse out the yield amount from a recipe.
 
@@ -325,15 +328,19 @@ def clean_yield(yld: str | list[str] | None) -> str:
         - `["4 servings", "4 Pies"]` - returns the last value
 
     Returns:
+        float: The yield quantity, if it can be parsed else 0
         str: The yield amount, if it can be parsed else an empty string
     """
     if not yld:
-        return ""
+        return 0, ""
 
     if isinstance(yld, list):
-        return yld[-1]
+        yld = yld[-1]
 
-    return yld
+    if not isinstance(yld, str):
+        yld = str(yld)
+
+    return parse_yield(yld)
 
 
 def clean_time(time_entry: str | timedelta | None, translator: Translator) -> None | str:
@@ -407,6 +414,19 @@ def parse_duration(iso_duration: str) -> timedelta:
             times[unit] = int(float(m.group(unit)))
 
     return timedelta(**times)
+
+
+def parse_yield(yield_str: str | None) -> tuple[float, str]:
+    """
+    Attempts to extract the yield quantity from a string. If no quantity is found, sets quantity to 0.
+
+    Returns the yield quantity and the rest of the string.
+    """
+
+    if not yield_str:
+        return 0, ""
+
+    return extract_quantity_from_string(yield_str)
 
 
 def pretty_print_timedelta(t: timedelta, translator: Translator, max_components=None, max_decimal_places=2):
