@@ -123,6 +123,13 @@ class RecipeSummary(MealieModel):
 
         return val
 
+    @property
+    def recipe_yield_display(self) -> str:
+        if self.recipe_yield_quantity and self.recipe_yield:
+            return f"{self.recipe_yield_quantity} {self.recipe_yield}"
+        else:
+            return str(self.recipe_yield_quantity or self.recipe_yield or "")
+
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
         return [
