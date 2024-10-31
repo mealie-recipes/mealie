@@ -2,7 +2,7 @@
   <div>
     <div class="text-center d-flex align-center">
       <div>
-        <v-menu v-model="menu" :disabled="!editScale" offset-y top nudge-top="6" :close-on-content-click="false">
+        <v-menu v-model="menu" :disabled="!canEditScale" offset-y top nudge-top="6" :close-on-content-click="false">
           <template #activator="{ on, attrs }">
             <v-card class="pa-1 px-2" dark color="secondary darken-1" small v-bind="attrs" v-on="on">
               <span v-if="!yieldDisplay"> x {{ scale }} </span>
@@ -34,7 +34,7 @@
         </v-menu>
       </div>
       <BaseButtonGroup
-        v-if="editScale"
+        v-if="canEditScale"
         class="pl-2"
         :large="false"
         :buttons="[
@@ -82,6 +82,7 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const menu = ref<boolean>(false);
+    const canEditScale = computed(() => props.editScale && props.recipeYieldQuantity > 0);
 
     const scale = computed({
       get: () => props.value,
@@ -96,7 +97,11 @@ export default defineComponent({
         return;
       }
 
-      scale.value = newYield / props.recipeYieldQuantity;
+      if (props.recipeYieldQuantity <= 0) {
+        scale.value = 1;
+      } else {
+        scale.value = newYield / props.recipeYieldQuantity;
+      }
     }
 
     const recipeYield = computed(() => {
@@ -124,6 +129,7 @@ export default defineComponent({
 
     return {
       menu,
+      canEditScale,
       scale,
       recalculateScale,
       yieldDisplay,
