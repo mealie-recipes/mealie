@@ -37,7 +37,29 @@
         :label="$t('recipe.recipe-name')"
         :rules="[validators.required]"
       />
-      <v-text-field v-model="recipe.recipeYield" dense :label="$t('recipe.servings')" />
+      <v-container class="ma-0 pa-0">
+        <v-row>
+          <v-col cols="3">
+            <v-text-field
+              v-model="recipeYieldQuantity"
+              type="number"
+              :min="0"
+              hide-spin-buttons
+              dense
+              :label="$t('recipe.servings')"
+              @input="validateNumberInput"
+            />
+          </v-col>
+          <v-col cols="9">
+            <v-text-field
+            v-model="recipe.recipeYield"
+            dense
+            :label="$t('recipe.servings-text')"
+          />
+          </v-col>
+        </v-row>
+      </v-container>
+
       <div class="d-flex flex-wrap" style="gap: 1rem">
         <v-text-field v-model="recipe.totalTime" :label="$t('recipe.total-time')" />
         <v-text-field v-model="recipe.prepTime" :label="$t('recipe.prep-time')" />
@@ -49,7 +71,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
+import { computed, defineComponent } from "@nuxtjs/composition-api";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import { validators } from "~/composables/use-validators";
@@ -80,12 +102,40 @@ export default defineComponent({
     const { imageKey, isEditMode } = usePageState(props.recipe.slug);
     const { isOwnGroup } = useLoggedInState();
 
+    let recipeYieldQuantityEditor = props.recipe.recipeYieldQuantity;
+    const recipeYieldQuantity = computed<number>({
+      get() {
+        return recipeYieldQuantityEditor;
+      },
+      set(val) {
+        validateNumberInput(val.toString());
+      },
+    });
+
+    function validateNumberInput(value: String | null) {
+      if (!value) {
+        props.recipe.recipeYieldQuantity = 0;
+        return;
+      }
+
+      const number = parseFloat(value.replace(/[^0-9.]/g, ""));
+      if (isNaN(number) || number <= 0) {
+        props.recipe.recipeYieldQuantity = 0;
+        return;
+      }
+
+      props.recipe.recipeYieldQuantity = number;
+      recipeYieldQuantityEditor = number;
+    }
+
     return {
       user,
       imageKey,
       validators,
       isEditMode,
       isOwnGroup,
+      recipeYieldQuantity,
+      validateNumberInput,
     };
   },
 });
