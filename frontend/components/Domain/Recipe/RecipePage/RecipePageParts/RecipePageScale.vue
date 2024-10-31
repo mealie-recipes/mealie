@@ -5,9 +5,8 @@
         <RecipeScaleEditButton
           v-model.number="scaleValue"
           v-bind="attrs"
+          :recipe-yield-quantity="recipe.recipeYieldQuantity"
           :recipe-yield="recipe.recipeYield"
-          :scaled-yield="scaledYield"
-          :basic-yield-num="basicYieldNum"
           :edit-scale="!recipe.settings.disableAmount && !isEditMode"
           v-on="on"
         />
@@ -33,7 +32,6 @@ import RecipeRating from "~/components/Domain/Recipe/RecipeRating.vue";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { Recipe } from "~/lib/api/types/recipe";
 import { usePageState } from "~/composables/recipe-page/shared-state";
-import { useExtractRecipeYield, findMatch } from "~/composables/recipe-page/use-extract-recipe-yield";
 
 export default defineComponent({
   components: {
@@ -66,17 +64,8 @@ export default defineComponent({
       },
     });
 
-    const scaledYield = computed(() => {
-      return useExtractRecipeYield(props.recipe.recipeYield, scaleValue.value);
-    });
-
-    const match = findMatch(props.recipe.recipeYield);
-    const basicYieldNum = ref<number |null>(match ? match[1] : null);
-
     return {
       scaleValue,
-      scaledYield,
-      basicYieldNum,
       isEditMode,
     };
   },
