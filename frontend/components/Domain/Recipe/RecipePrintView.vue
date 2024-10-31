@@ -31,7 +31,7 @@
     <section>
       <v-card-title class="headline pl-0"> {{ $t("recipe.ingredients") }} </v-card-title>
       <div class="font-italic px-0 py-0">
-        <SafeMarkdown :source="recipe.recipeYield" />
+        <SafeMarkdown :source="yieldDisplay" />
       </div>
       <div
         v-for="(ingredientSection, sectionIndex) in ingredientSections"
@@ -119,6 +119,7 @@ import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { ImagePosition, useUserPrintPreferences } from "~/composables/use-users/preferences";
 import { parseIngredientText, useNutritionLabels } from "~/composables/recipes";
 import { usePageState } from "~/composables/recipe-page/shared-state";
+import { useRecipeYield } from "~/composables/recipes/use-recipe-yield";
 
 
 type IngredientSection = {
@@ -156,8 +157,10 @@ export default defineComponent({
     const { imageKey } = usePageState(props.recipe.slug);
     const {labels} = useNutritionLabels();
 
-
-
+    const yieldDisplay = computed(() => {
+      const { yieldDisplay } = useRecipeYield(props.recipe.recipeYieldQuantity, props.recipe.recipeYield, props.scale);
+      return yieldDisplay;
+    });
 
     const recipeImageUrl = computed(() => {
       return recipeImage(props.recipe.id, props.recipe.image, imageKey.value);
@@ -258,6 +261,7 @@ export default defineComponent({
       parseIngredientText,
       preferences,
       recipeImageUrl,
+      yieldDisplay,
       ingredientSections,
       instructionSections,
     };
