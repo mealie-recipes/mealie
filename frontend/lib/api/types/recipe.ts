@@ -230,6 +230,7 @@ export interface Recipe {
   name?: string | null;
   slug?: string;
   image?: unknown;
+  recipeYieldQuantity?: number;
   recipeYield?: string | null;
   totalTime?: string | null;
   prepTime?: string | null;
@@ -306,6 +307,7 @@ export interface RecipeSummary {
   name?: string | null;
   slug?: string;
   image?: unknown;
+  recipeYieldQuantity?: number;
   recipeYield?: string | null;
   totalTime?: string | null;
   prepTime?: string | null;
