@@ -5,12 +5,9 @@
         <v-menu v-model="menu" :disabled="!editScale" offset-y top nudge-top="6" :close-on-content-click="false">
           <template #activator="{ on, attrs }">
             <v-card class="pa-1 px-2" dark color="secondary darken-1" small v-bind="attrs" v-on="on">
-              <span v-if="!recipeYield"> x {{ scale }} </span>
-              <div v-else-if="!numberParsed && recipeYield">
-                <span v-if="numerator === 1"> {{ recipeYield }} </span>
-                <span v-else> {{ numerator }}x {{ scaledYield }} </span>
-              </div>
-              <span v-else> {{ scaledYield }} </span>
+              <span v-if="!yieldDisplay"> x {{ scale }} </span>
+              <!-- eslint-disable-next-line vue/no-v-html -->
+              <span v-else v-html="yieldDisplay"></span>
 
             </v-card>
           </template>
@@ -20,7 +17,7 @@
             </v-card-title>
             <v-card-text class="mt-n5">
               <div class="mt-4 d-flex align-center">
-                <v-text-field v-model="numerator" type="number" :min="0" hide-spin-buttons />
+                <v-text-field v-model="yieldQuantityEditorValue" type="number" :min="0" hide-spin-buttons @input="recalculateScale(yieldQuantityEditorValue)" />
                 <v-tooltip right color="secondary darken-1">
                   <template #activator="{ on, attrs }">
                     <v-btn v-bind="attrs" icon class="mx-1" small v-on="on" @click="scale = 1">
@@ -53,37 +50,34 @@
             event: 'increment',
           },
         ]"
-        @decrement="numerator--"
-        @increment="numerator++"
+        @decrement="recalculateScale(yieldQuantity - 1)"
+        @increment="recalculateScale(yieldQuantity + 1)"
       />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, watch  } from "@nuxtjs/composition-api";
+import { computed, defineComponent, ref, watch  } from "@nuxtjs/composition-api";
+import { useRecipeYield } from "~/composables/recipes/use-recipe-yield";
 
 export default defineComponent({
   props: {
+    value: {
+      type: Number,
+      required: true,
+    },
+    recipeYieldQuantity: {
+      type: Number,
+      default: 0,
+    },
     recipeYield: {
       type: String,
-      default: null,
-    },
-    scaledYield: {
-      type: String,
-      default: null,
-    },
-    basicYieldNum: {
-      type: Number,
-      default: null,
+      default: "",
     },
     editScale: {
       type: Boolean,
       default: false,
-    },
-    value: {
-      type: Number,
-      required: true,
     },
   },
   setup(props, { emit }) {
@@ -97,24 +91,45 @@ export default defineComponent({
       },
     });
 
-    const numerator = ref<number>(props.basicYieldNum != null ? parseFloat(props.basicYieldNum.toFixed(3)) : 1);
-    const denominator = props.basicYieldNum != null ? parseFloat(props.basicYieldNum.toFixed(32)) : 1;
-    const numberParsed = !!props.basicYieldNum;
+    function recalculateScale(newYield: number) {
+      if (isNaN(newYield) || newYield <= 0) {
+        return;
+      }
 
-    watch(() => numerator.value, () => {
-      scale.value = parseFloat((numerator.value / denominator).toFixed(32));
+      scale.value = newYield / props.recipeYieldQuantity;
+    }
+
+    const recipeYield = computed(() => {
+      return useRecipeYield(props.recipeYieldQuantity, props.recipeYield, scale.value);
     });
+    const yieldDisplay = computed(() => recipeYield.value.yieldDisplay);
+    const yieldQuantity = computed(() => recipeYield.value.yieldQuantity);
+
+    // only update yield quantity when the menu opens, so we don't override the user's input
+    const yieldQuantityEditorValue = ref(recipeYield.value.yieldQuantity);
+    watch(
+      () => menu.value,
+      () => {
+        if (!menu.value) {
+          return;
+        }
+
+        yieldQuantityEditorValue.value = recipeYield.value.yieldQuantity;
+      }
+    )
+
     const disableDecrement = computed(() => {
-      return numerator.value <= 1;
+      return recipeYield.value.yieldQuantity <= 1;
     });
-
 
     return {
       menu,
       scale,
-      numerator,
+      recalculateScale,
+      yieldDisplay,
+      yieldQuantity,
+      yieldQuantityEditorValue,
       disableDecrement,
-      numberParsed,
     };
   },
 });
