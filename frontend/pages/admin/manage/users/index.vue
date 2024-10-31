@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <UserInviteDialog v-model="inviteDialog" :is-admin="true" />
+    <UserInviteDialog v-model="inviteDialog" />
     <BaseDialog
       v-model="deleteDialog"
       :title="$tc('general.confirm')"

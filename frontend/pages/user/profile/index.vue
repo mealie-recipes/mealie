@@ -16,7 +16,7 @@
             {{ $t('profile.get-invite-link') }}
           </v-btn>
         </v-card-actions>
-        <UserInviteDialog v-model="inviteDialog" :is-admin="user.admin" />
+        <UserInviteDialog v-model="inviteDialog" />
       </v-card>
     </section>
     <section class="my-3">

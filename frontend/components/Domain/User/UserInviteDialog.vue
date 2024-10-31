@@ -2,35 +2,58 @@
   <BaseDialog
     v-model="inviteDialog"
     :title="$tc('profile.get-invite-link')"
-    :icon="$globals.icons.accountPlusOutline" color="primary">
+    :icon="$globals.icons.accountPlusOutline"
+    color="primary">
     <v-container>
       <v-form class="mt-5">
         <v-select
-v-if="groups && groups.length" v-model="selectedGroup" :items="groups" item-text="name"
-          item-value="id" :return-object="false" filled :label="$tc('group.user-group')"
+          v-if="groups && groups.length"
+          v-model="selectedGroup"
+          :items="groups"
+          item-text="name"
+          item-value="id"
+          :return-object="false"
+          filled
+          :label="$tc('group.user-group')"
           :rules="[validators.required]" />
         <v-select
-v-if="households && households.length" v-model="selectedHousehold" :items="filteredHouseholds"
-          item-text="name" item-value="id" :return-object="false" filled :label="$tc('household.user-household')"
+          v-if="households && households.length"
+          v-model="selectedHousehold"
+          :items="filteredHouseholds"
+          item-text="name" item-value="id"
+          :return-object="false" filled
+          :label="$tc('household.user-household')"
           :rules="[validators.required]" />
         <v-row>
           <v-col cols="9">
-            <v-text-field :label="$tc('profile.invite-link')" type="text" readonly filled :value="generatedSignupLink" />
+            <v-text-field
+              :label="$tc('profile.invite-link')"
+              type="text" readonly filled
+              :value="generatedSignupLink" />
           </v-col>
           <v-col cols="3" class="pl-1 mt-3">
             <AppButtonCopy
-:icon="false" color="info" :copy-text="generatedSignupLink"
+              :icon="false"
+              color="info"
+              :copy-text="generatedSignupLink"
               :disabled="generatedSignupLink" />
           </v-col>
         </v-row>
         <v-text-field
-v-model="sendTo" :label="$t('user.email')" :rules="[validators.email]" outlined
+          v-model="sendTo"
+          :label="$t('user.email')"
+          :rules="[validators.email]"
+          outlined
           @keydown.enter="sendInvite" />
       </v-form>
     </v-container>
     <template #custom-card-action>
-      <BaseButton :disabled="!validEmail" :loading="loading" :icon="$globals.icons.email" @click="sendInvite">
-        {{ $t("group.invite") }}
+      <BaseButton
+        :disabled="!validEmail"
+        :loading="loading"
+        :icon="$globals.icons.email"
+        @click="sendInvite">
+          {{ $t("group.invite") }}
       </BaseButton>
     </template>
   </BaseDialog>
@@ -62,14 +85,11 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    isAdmin: {
-      type: Boolean,
-      default: false,
-    },
   },
   setup(props, context) {
-    const { i18n } = useContext();
+    const { $auth, i18n } = useContext();
 
+    const isAdmin = computed(() => $auth.user?.admin);
     const token = ref("");
     const selectedGroup = ref<string | null>(null);
     const selectedHousehold = ref<string | null>(null);
@@ -78,7 +98,7 @@ export default defineComponent({
     const api = useUserApi();
 
     const fetchGroupsAndHouseholds = () => {
-      if (props.isAdmin) {
+      if (isAdmin) {
         const groupsResponse = useGroups();
         const householdsResponse = useAdminHouseholds();
         watchEffect(() => {
