@@ -30,7 +30,7 @@ function formatQuantity(val: number): string {
 }
 
 export function useRecipeYield(recipeYieldQuantity: number, recipeYield: string, scale: number = 1) {
-  const yieldQuantity = (recipeYieldQuantity || 0) * scale;
+  const yieldQuantity = Number(((recipeYieldQuantity || 0) * scale).toFixed(3));
   const yieldString = recipeYield || "";
   const yieldQuantityDisplay = yieldQuantity ? formatQuantity(yieldQuantity) : "";
 
