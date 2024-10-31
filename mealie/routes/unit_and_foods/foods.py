@@ -35,15 +35,6 @@ class IngredientFoodsController(BaseUserController):
             self.registered_exceptions,
         )
 
-    @router.put("/merge", response_model=SuccessResponse)
-    def merge_one(self, data: MergeFood):
-        try:
-            self.repo.merge(data.from_food, data.to_food)
-            return SuccessResponse.respond("Successfully merged foods")
-        except Exception as e:
-            self.logger.error(e)
-            raise HTTPException(500, "Failed to merge foods") from e
-
     @router.get("", response_model=IngredientFoodPagination)
     def get_all(self, q: PaginationQuery = Depends(PaginationQuery), search: str | None = None):
         response = self.repo.page_all(
@@ -59,6 +50,15 @@ class IngredientFoodsController(BaseUserController):
     def create_one(self, data: CreateIngredientFood):
         save_data = mapper.cast(data, SaveIngredientFood, group_id=self.group_id)
         return self.mixins.create_one(save_data)
+
+    @router.put("/merge", response_model=SuccessResponse)
+    def merge_one(self, data: MergeFood):
+        try:
+            self.repo.merge(data.from_food, data.to_food)
+            return SuccessResponse.respond("Successfully merged foods")
+        except Exception as e:
+            self.logger.error(e)
+            raise HTTPException(500, "Failed to merge foods") from e
 
     @router.get("/{item_id}", response_model=IngredientFood)
     def get_one(self, item_id: UUID4):

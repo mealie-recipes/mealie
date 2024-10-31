@@ -5,6 +5,7 @@ vars:
   GREETING: Hello, World!
 env:
   DEFAULT_GROUP: Home
+  DEFAULT_HOUSEHOLD: Family
   PRODUCTION: false
   API_PORT: 9000
   API_DOCS: True
