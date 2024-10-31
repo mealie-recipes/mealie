@@ -15,12 +15,12 @@ def invite_same_group(api_client: TestClient, admin_user: TestUser) -> None:
 
 
 @pytest.fixture(scope="function")
-def invite_other_group(api_client: TestClient, admin_user: TestUser) -> None:
+def invite_other_group(api_client: TestClient, admin_user: TestUser, unique_user: TestUser) -> None:
     # Test User Creation with parameters (other group admin)
     body = {
         "uses": 1,
-        "groupId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-        "householdId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "groupId": unique_user.group_id,
+        "householdId": unique_user.household_id,
     }
     r = api_client.post(api_routes.households_invitations, json=body, headers=admin_user.token)
     assert r.status_code == 201
