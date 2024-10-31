@@ -30,6 +30,25 @@ def test_get_all_invitation(api_client: TestClient, unique_user: TestUser, invit
         assert item["householdId"] == unique_user.household_id
         assert item["token"] == invite
 
+    # Get All invites on admin route (must fail)
+    r = api_client.get(api_routes.admin_invitations, headers=unique_user.token)
+    assert r.status_code == 403
+
+
+def test_create_invitation(api_client: TestClient, unique_user: TestUser) -> None:
+    # Create invitation for the same group as user
+    r = api_client.post(api_routes.households_invitations, json={"uses": 1}, headers=unique_user.token)
+    assert r.status_code == 201
+
+    # Create invitation for other group as user
+    body = {
+        "uses": 1,
+        "groupId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "householdId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    }
+    r = api_client.post(api_routes.households_invitations, json=body, headers=unique_user.token)
+    assert r.status_code == 403
+
 
 def register_user(api_client: TestClient, invite: str):
     # Test User can Join Group
