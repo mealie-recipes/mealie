@@ -64,37 +64,41 @@ def extract_quantity_from_string(source_str: str) -> tuple[float, str]:
     fraction_pattern = re.compile(r"^(\d+)/(\d+)")
     number_pattern = re.compile(r"^\d+(\.\d+)?")
 
-    # Check for a mixed fraction (e.g. "1 1/2")
-    match = mixed_fraction_pattern.match(source_str)
-    if match:
-        whole_number = int(match.group(1))
-        numerator = int(match.group(2))
-        denominator = int(match.group(3))
-        quantity = whole_number + float(Fraction(numerator, denominator))
-        remaining_str = source_str[match.end() :].strip()
+    try:
+        # Check for a mixed fraction (e.g. "1 1/2")
+        match = mixed_fraction_pattern.match(source_str)
+        if match:
+            whole_number = int(match.group(1))
+            numerator = int(match.group(2))
+            denominator = int(match.group(3))
+            quantity = whole_number + float(Fraction(numerator, denominator))
+            remaining_str = source_str[match.end() :].strip()
 
-        remaining_str = remaining_str.strip()
-        return quantity, remaining_str
+            remaining_str = remaining_str.strip()
+            return quantity, remaining_str
 
-    # Check for a fraction (e.g. "1/2")
-    match = fraction_pattern.match(source_str)
-    if match:
-        numerator = int(match.group(1))
-        denominator = int(match.group(2))
-        quantity = float(Fraction(numerator, denominator))
-        remaining_str = source_str[match.end() :].strip()
+        # Check for a fraction (e.g. "1/2")
+        match = fraction_pattern.match(source_str)
+        if match:
+            numerator = int(match.group(1))
+            denominator = int(match.group(2))
+            quantity = float(Fraction(numerator, denominator))
+            remaining_str = source_str[match.end() :].strip()
 
-        remaining_str = remaining_str.strip()
-        return quantity, remaining_str
+            remaining_str = remaining_str.strip()
+            return quantity, remaining_str
 
-    # Check for a number (integer or float)
-    match = number_pattern.match(source_str)
-    if match:
-        quantity = float(match.group())
-        remaining_str = source_str[match.end() :].strip()
+        # Check for a number (integer or float)
+        match = number_pattern.match(source_str)
+        if match:
+            quantity = float(match.group())
+            remaining_str = source_str[match.end() :].strip()
 
-        remaining_str = remaining_str.strip()
-        return quantity, remaining_str
+            remaining_str = remaining_str.strip()
+            return quantity, remaining_str
+
+    except ZeroDivisionError:
+        pass
 
     # If no match, return 0 and the original string
     return 0, source_str
