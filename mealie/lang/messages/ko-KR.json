@@ -13,7 +13,7 @@
         "no-recipes-match-your-rules": "규칙과 일치하는 Recipe가 없습니다"
     },
     "user": {
-        "user-updated": "User updated",
+        "user-updated": "사용자 업데이트됨",
         "password-updated": "비밀번호가 변경되었습니다",
         "invalid-current-password": "현재 비밀번호가 잘못되었습니다",
         "ldap-update-password-unavailable": "사용자가 LDAP으로 제어되기 때문에 비밀번호를 변경할 수 없습니다"
@@ -22,11 +22,11 @@
         "report-deleted": "Report가 삭제됐습니다"
     },
     "exceptions": {
-        "permission_denied": "You do not have permission to perform this action",
-        "no-entry-found": "The requested resource was not found",
+        "permission_denied": "이 작업을 수행할 권한이 없습니다.",
+        "no-entry-found": "요청한 페이지를 찾을 수 없습니다. 주소를 정확히 입력했는지 확인해보세요.",
         "integrity-error": "Database integrity error",
-        "username-conflict-error": "This username is already taken",
-        "email-conflict-error": "This email is already in use"
+        "username-conflict-error": "이미 사용 중인 사용자 이름입니다.",
+        "email-conflict-error": "이 이메일은 이미 사용중입니다"
     },
     "notifications": {
         "generic-created": "{name} was created",
@@ -48,23 +48,23 @@
     "emails": {
         "password": {
             "subject": "Mealie Forgot Password",
-            "header_text": "Forgot Password",
-            "message_top": "You have requested to reset your password.",
-            "message_bottom": "Please click the button above to reset your password.",
-            "button_text": "Reset Password"
+            "header_text": "비밀번호를 분실",
+            "message_top": "비밀번호 재설정을 요청하셨습니다",
+            "message_bottom": "비밀번호를 변경하려면 아래 버튼을 클릭하십시오.",
+            "button_text": "비밀번호 재설정"
         },
         "invitation": {
             "subject": "Invitation to join Mealie",
-            "header_text": "You're Invited!",
+            "header_text": "귀하는 초대되었습니다!",
             "message_top": "You have been invited to join Mealie.",
             "message_bottom": "Please click the button above to accept the invitation.",
-            "button_text": "Accept Invitation"
+            "button_text": "초대 수락"
         },
         "test": {
             "subject": "Mealie Test Email",
-            "header_text": "Test Email",
-            "message_top": "This is a test email.",
-            "message_bottom": "Please click the button above to test the email.",
+            "header_text": "테스트 이메일",
+            "message_top": "이것은 테스트용 이메일입니다.",
+            "message_bottom": "비밀번호를 변경하려면 아래 버튼을 클릭하십시오.",
             "button_text": "Open Mealie"
         }
     }
