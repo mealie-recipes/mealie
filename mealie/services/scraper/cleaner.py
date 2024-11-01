@@ -53,7 +53,6 @@ def clean(recipe_data: dict, translator: Translator, url=None) -> dict:
 
     recipe_data["recipeYieldQuantity"], recipe_data["recipeYield"] = clean_yield(recipe_data.get("recipeYield"))
     recipe_data["recipeCategory"] = clean_categories(recipe_data.get("recipeCategory", []))
-    recipe_data["recipeYield"] = clean_yield(recipe_data.get("recipeYield"))
     recipe_data["recipeIngredient"] = clean_ingredients(recipe_data.get("recipeIngredient", []))
     recipe_data["recipeInstructions"] = clean_instructions(recipe_data.get("recipeInstructions", []))
 
