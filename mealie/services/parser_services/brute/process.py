@@ -99,6 +99,9 @@ def parse(ing_str, parser) -> BruteParsedIngredient:
                     raise ValueError
                 # try to parse second argument as amount and add that, in case of '2 1/2' or '2 ½'
                 adtl_amount, _ = extract_quantity_from_string(tokens[1])
+                if not adtl_amount:
+                    raise ValueError
+
                 amount += adtl_amount
                 # assume that units can't end with a comma
                 if len(tokens) > 3 and not tokens[2].endswith(","):
