@@ -19,6 +19,11 @@ def move_parens_to_end(ing_str) -> str:
     return ing_str
 
 
+def check_char(char, *eql) -> bool:
+    """Helper method to check if a characters matches any of the additional provided arguments"""
+    return any(char == eql_char for eql_char in eql)
+
+
 def convert_vulgar_fractions_to_regular_fractions(text: str) -> str:
     vulgar_fractions = {
         "¼": "1/4",

@@ -1,6 +1,9 @@
+import string
+import unicodedata
+
 from pydantic import BaseModel, ConfigDict
 
-from ..parser_utils import extract_quantity_from_string, move_parens_to_end
+from ..parser_utils import check_char, move_parens_to_end
 
 
 class BruteParsedIngredient(BaseModel):
@@ -11,15 +14,74 @@ class BruteParsedIngredient(BaseModel):
     model_config = ConfigDict(str_strip_whitespace=True)
 
 
-def parse_amount(ing_str) -> tuple[float, str, str]:
-    amount, unit = extract_quantity_from_string(ing_str)
+def parse_fraction(x):
+    if len(x) == 1 and "fraction" in unicodedata.decomposition(x):
+        frac_split = unicodedata.decomposition(x[-1:]).split()
+        return float((frac_split[1]).replace("003", "")) / float((frac_split[3]).replace("003", ""))
+    else:
+        frac_split = x.split("/")
+        if len(frac_split) != 2:
+            raise ValueError
+        try:
+            return int(frac_split[0]) / int(frac_split[1])
+        except ZeroDivisionError as e:
+            raise ValueError from e
 
-    # I don't know any unit that starts with ( or - so its likely an alternative like 1L (500ml) Water or 2-3
+
+def parse_amount(ing_str) -> tuple[float, str, str]:
+    def keep_looping(ing_str, end) -> bool:
+        """
+        Checks if:
+        1. the end of the string is reached
+        2. or if the next character is a digit
+        3. or if the next character looks like an number (e.g. 1/2, 1.3, 1,500)
+        """
+        if end >= len(ing_str):
+            return False
+
+        if ing_str[end] in string.digits:
+            return True
+
+        if check_char(ing_str[end], ".", ",", "/") and end + 1 < len(ing_str) and ing_str[end + 1] in string.digits:
+            return True
+
+        return False
+
+    amount = 0.0
+    unit = ""
+    note = ""
+
+    did_check_frac = False
+    end = 0
+
+    while keep_looping(ing_str, end):
+        end += 1
+
+    if end > 0:
+        if "/" in ing_str[:end]:
+            amount = parse_fraction(ing_str[:end])
+        else:
+            amount = float(ing_str[:end].replace(",", "."))
+    else:
+        amount = parse_fraction(ing_str[0])
+        end += 1
+        did_check_frac = True
+    if end < len(ing_str):
+        if did_check_frac:
+            unit = ing_str[end:]
+        else:
+            try:
+                amount += parse_fraction(ing_str[end])
+
+                unit_end = end + 1
+                unit = ing_str[unit_end:]
+            except ValueError:
+                unit = ing_str[end:]
+
+    # i dont know any unit that starts with ( or - so its likely an alternative like 1L (500ml) Water or 2-3
     if unit.startswith("(") or unit.startswith("-"):
         unit = ""
         note = ing_str
-    else:
-        note = ""
 
     return amount, unit, note
 
@@ -98,11 +160,7 @@ def parse(ing_str, parser) -> BruteParsedIngredient:
                     # probably not the best method to do it, but I didn't want to make an if check and paste the exact same thing in the else as already is in the except  # noqa: E501
                     raise ValueError
                 # try to parse second argument as amount and add that, in case of '2 1/2' or '2 ½'
-                adtl_amount, _ = extract_quantity_from_string(tokens[1])
-                if not adtl_amount:
-                    raise ValueError
-
-                amount += adtl_amount
+                amount += parse_fraction(tokens[1])
                 # assume that units can't end with a comma
                 if len(tokens) > 3 and not tokens[2].endswith(","):
                     # try to use third argument as unit and everything else as ingredient, use everything as ingredient if it fails  # noqa: E501
