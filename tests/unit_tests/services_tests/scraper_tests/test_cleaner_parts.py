@@ -275,22 +275,87 @@ yield_test_cases = (
     CleanerCase(
         test_id="empty string",
         input="",
-        expected="",
+        expected=(0, ""),
+    ),
+    CleanerCase(
+        test_id="regular string",
+        input="4 Batches",
+        expected=(4, "Batches"),
+    ),
+    CleanerCase(
+        test_id="regular string with whitespace",
+        input="4   Batches    ",
+        expected=(4, "Batches"),
     ),
     CleanerCase(
         test_id="list of strings",
         input=["Makes 4 Batches", "4 Batches"],
-        expected="4 Batches",
+        expected=(4, "Batches"),
     ),
     CleanerCase(
         test_id="basic string",
         input="Makes 4 Batches",
-        expected="Makes 4 Batches",
+        expected=(0, "Makes 4 Batches"),
     ),
     CleanerCase(
         test_id="empty list",
         input=[],
-        expected="",
+        expected=(0, ""),
+    ),
+    CleanerCase(
+        test_id="basic fraction",
+        input="1/2 Servings",
+        expected=(0.5, "Servings"),
+    ),
+    CleanerCase(
+        test_id="mixed fraction",
+        input="1 1/2 Servings",
+        expected=(1.5, "Servings"),
+    ),
+    CleanerCase(
+        test_id="improper fraction",
+        input="11/2 Servings",
+        expected=(5.5, "Servings"),
+    ),
+    CleanerCase(
+        test_id="vulgar fraction",
+        input="¾ Servings",
+        expected=(0.75, "Servings"),
+    ),
+    CleanerCase(
+        test_id="mixed vulgar fraction",
+        input="2¾ Servings",
+        expected=(2.75, "Servings"),
+    ),
+    CleanerCase(
+        test_id="mixed vulgar fraction with space",
+        input="2 ¾ Servings",
+        expected=(2.75, "Servings"),
+    ),
+    CleanerCase(
+        test_id="basic decimal",
+        input="0.5 Servings",
+        expected=(0.5, "Servings"),
+    ),
+    CleanerCase(
+        test_id="text with numbers",
+        input="6 Servings or 10 Servings",
+        expected=(6, "Servings or 10 Servings"),
+    ),
+    CleanerCase(
+        test_id="no qty",
+        input="A Lot of Servings",
+        expected=(0, "A Lot of Servings"),
+    ),
+    CleanerCase(
+        test_id="invalid qty",
+        input="1/0 Servings",
+        expected=(0, "1/0 Servings"),
+    ),
+    CleanerCase(
+        test_id="int as float",
+        input="3.0 Servings",
+        expected=(3, "Servings"),
     ),
 )
 
