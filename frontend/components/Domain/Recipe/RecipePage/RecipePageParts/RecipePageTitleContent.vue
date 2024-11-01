@@ -102,17 +102,16 @@ export default defineComponent({
     const { imageKey, isEditMode } = usePageState(props.recipe.slug);
     const { isOwnGroup } = useLoggedInState();
 
-    let recipeYieldQuantityEditor = props.recipe.recipeYieldQuantity;
     const recipeYieldQuantity = computed<number>({
       get() {
-        return recipeYieldQuantityEditor;
+        return props.recipe.recipeYieldQuantity;
       },
       set(val) {
         validateNumberInput(val.toString());
       },
     });
 
-    function validateNumberInput(value: String | null) {
+    function validateNumberInput(value: string | null) {
       if (!value) {
         props.recipe.recipeYieldQuantity = 0;
         return;
@@ -125,7 +124,6 @@ export default defineComponent({
       }
 
       props.recipe.recipeYieldQuantity = number;
-      recipeYieldQuantityEditor = number;
     }
 
     return {

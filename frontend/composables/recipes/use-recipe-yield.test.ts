@@ -98,7 +98,7 @@ describe("test use recipe yield", () => {
   });
 
   test("rounded decimal", () => {
-    const { yieldQuantity, yieldString, yieldDisplay } = useRecipeYield(1.3344556677889999999, "servings");
+    const { yieldQuantity, yieldString, yieldDisplay } = useRecipeYield(1.3344559997, "servings");
     expect(yieldQuantity).toStrictEqual(1.334);
     expect(yieldString).toStrictEqual("servings");
     expect(yieldDisplay).toStrictEqual(`1${asFrac(1, 3)} servings`);
