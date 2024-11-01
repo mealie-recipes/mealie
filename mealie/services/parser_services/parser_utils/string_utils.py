@@ -42,7 +42,9 @@ def convert_vulgar_fractions_to_regular_fractions(text: str) -> str:
     }
 
     for vulgar_fraction, regular_fraction in vulgar_fractions.items():
-        text = text.replace(vulgar_fraction, regular_fraction)
+        # if we don't add a space in front of the fraction, mixed fractions will be broken
+        # e.g. "1½" -> "11/2"
+        text = text.replace(vulgar_fraction, f" {regular_fraction}").strip()
 
     return text
 
