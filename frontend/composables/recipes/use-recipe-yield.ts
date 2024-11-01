@@ -31,14 +31,12 @@ function formatQuantity(val: number): string {
 
 export function useRecipeYield(recipeYieldQuantity: number, recipeYield: string, scale: number = 1) {
   const yieldQuantity = Number(((recipeYieldQuantity || 0) * scale).toFixed(3));
-  const yieldString = recipeYield || "";
+  const yieldString = sanitizeHTML(recipeYield || "");
   const yieldQuantityDisplay = yieldQuantity ? formatQuantity(yieldQuantity) : "";
 
-  const yieldDisplay = sanitizeHTML(
-    yieldQuantityDisplay
-      ? `${yieldQuantityDisplay} ${yieldString}`.trim()
-      : yieldString
-    );
+  const yieldDisplay = yieldQuantityDisplay
+    ? `${yieldQuantityDisplay} ${yieldString}`.trim()
+    : yieldString;
 
   return {
     yieldQuantity,
