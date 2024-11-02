@@ -152,10 +152,10 @@ class User(SqlAlchemyBase, BaseMixins):
             self.household = None
 
         if self.group is None:
-            raise ValueError(f"Group {settings.DEFAULT_GROUP} does not exist; cannot create user")
+            raise ValueError(f"Group {group} does not exist; cannot create user")
         if self.household is None:
             raise ValueError(
-                f'Household "{settings.DEFAULT_HOUSEHOLD}" does not exist on group '
+                f'Household "{household}" does not exist on group '
                 f'"{self.group.name}" ({self.group.id}); cannot create user'
             )
 
