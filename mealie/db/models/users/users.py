@@ -155,7 +155,8 @@ class User(SqlAlchemyBase, BaseMixins):
             raise ValueError(f"Group {settings.DEFAULT_GROUP} does not exist; cannot create user")
         if self.household is None:
             raise ValueError(
-                f'Household "{settings.DEFAULT_HOUSEHOLD}" does not exist on group "{self.group}"; cannot create user'
+                f'Household "{settings.DEFAULT_HOUSEHOLD}" does not exist on group '
+                f'"{self.group.name}" ({self.group.id}); cannot create user'
             )
 
         self.rated_recipes = []
