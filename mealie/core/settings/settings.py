@@ -22,7 +22,7 @@ class ScheduleTime(NamedTuple):
 class FeatureDetails(NamedTuple):
     enabled: bool
     """Indicates if the feature is enabled or not"""
-    description: str
+    description: str | None
     """Short description describing why the feature is not ready"""
 
     def __str__(self):
