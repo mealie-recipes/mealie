@@ -78,6 +78,16 @@ async def lifespan_fn(_: FastAPI) -> AsyncGenerator[None, None]:
             },
         )
     )
+    logger.info("------APP FEATURES------")
+    logger.info("--------==SMTP==--------")
+    logger.info(settings.SMTP_FEATURE)
+    logger.info("--------==LDAP==--------")
+    logger.info(settings.LDAP_FEATURE)
+    logger.info("--------==OIDC==--------")
+    logger.info(settings.OIDC_FEATURE)
+    logger.info("-------==OPENAI==-------")
+    logger.info(settings.OPENAI_FEATURE)
+    logger.info("------------------------")
 
     yield
 

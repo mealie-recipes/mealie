@@ -126,13 +126,27 @@ smtp_validation_cases = [
     (
         "good_data_tls",
         SMTPValidationCase(
-            "email.mealie.io", "587", "tls", "Mealie", "mealie@mealie.io", "mealie@mealie.io", "mealie-password", True
+            "email.mealie.io",
+            "587",
+            "tls",
+            "Mealie",
+            "mealie@mealie.io",
+            "mealie@mealie.io",
+            "mealie-password",
+            True,
         ),
     ),
     (
         "good_data_ssl",
         SMTPValidationCase(
-            "email.mealie.io", "465", "tls", "Mealie", "mealie@mealie.io", "mealie@mealie.io", "mealie-password", True
+            "email.mealie.io",
+            "465",
+            "tls",
+            "Mealie",
+            "mealie@mealie.io",
+            "mealie@mealie.io",
+            "mealie-password",
+            True,
         ),
     ),
 ]
@@ -151,6 +165,6 @@ def test_smtp_enable_with_bad_data_tls(data: SMTPValidationCase):
         data.auth_strategy,
         data.user,
         data.password,
-    )
+    ).enabled
 
     assert is_valid is data.is_valid
