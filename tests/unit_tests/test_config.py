@@ -1,3 +1,4 @@
+import json
 import re
 from dataclasses import dataclass
 
@@ -286,3 +287,24 @@ def test_oidc_settings_validation(data: OIDCValidationCase, monkeypatch: pytest.
     app_settings = get_app_settings()
 
     assert app_settings.OIDC_READY is data.is_valid
+
+
+def test_sensitive_settings_mask(monkeypatch: pytest.MonkeyPatch):
+    sensitive_settings = [
+        "LDAP_QUERY_PASSWORD",
+        "OPENAI_API_KEY",
+        "SMTP_USER",
+        "SMTP_PASSWORD",
+        "OIDC_CLIENT_SECRET",
+    ]
+    for setting in sensitive_settings:
+        monkeypatch.setenv(setting, "super_secret")
+
+    get_app_settings.cache_clear()
+    app_settings = get_app_settings()
+    settings = app_settings.model_dump()
+    settings_json = json.loads(app_settings.model_dump_json())
+
+    for setting in sensitive_settings:
+        assert settings[setting] == "*****"
+        assert settings_json[setting] == "*****"

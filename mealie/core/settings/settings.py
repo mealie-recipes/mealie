@@ -3,10 +3,10 @@ import os
 import secrets
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, NamedTuple
+from typing import Annotated, Any, NamedTuple
 
 from dateutil.tz import tzlocal
-from pydantic import field_validator
+from pydantic import PlainSerializer, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from mealie.core.settings.themes import Theme
@@ -30,6 +30,16 @@ class FeatureDetails(NamedTuple):
         if not self.enabled and self.description:
             s += f"\nReason: {self.description}"
         return s
+
+
+MaskedNoneString = Annotated[
+    str | None,
+    PlainSerializer(lambda x: None if x is None else "*****", return_type=str | None),
+]
+"""
+Custom serializer for sensitive settings. If the setting is None, then will serialize as null, otherwise,
+the secret will be serialized as '*****'
+"""
 
 
 def determine_secrets(data_dir: Path, secret: str, production: bool) -> str:
@@ -213,8 +223,8 @@ class AppSettings(AppLoggingSettings):
     SMTP_PORT: str | None = "587"
     SMTP_FROM_NAME: str | None = "Mealie"
     SMTP_FROM_EMAIL: str | None = None
-    SMTP_USER: str | None = None
-    SMTP_PASSWORD: str | None = None
+    SMTP_USER: MaskedNoneString = None
+    SMTP_PASSWORD: MaskedNoneString = None
     SMTP_AUTH_STRATEGY: str | None = "TLS"  # Options: 'TLS', 'SSL', 'NONE'
 
     @property
@@ -277,7 +287,7 @@ class AppSettings(AppLoggingSettings):
     LDAP_ENABLE_STARTTLS: bool = False
     LDAP_BASE_DN: str | None = None
     LDAP_QUERY_BIND: str | None = None
-    LDAP_QUERY_PASSWORD: str | None = None
+    LDAP_QUERY_PASSWORD: MaskedNoneString = None
     LDAP_USER_FILTER: str | None = None
     LDAP_ADMIN_FILTER: str | None = None
     LDAP_ID_ATTRIBUTE: str = "uid"
@@ -313,7 +323,7 @@ class AppSettings(AppLoggingSettings):
     # OIDC Configuration
     OIDC_AUTH_ENABLED: bool = False
     OIDC_CLIENT_ID: str | None = None
-    OIDC_CLIENT_SECRET: str | None = None
+    OIDC_CLIENT_SECRET: MaskedNoneString = None
     OIDC_CONFIGURATION_URL: str | None = None
     OIDC_SIGNUP_ENABLED: bool = True
     OIDC_USER_GROUP: str | None = None
@@ -364,7 +374,7 @@ class AppSettings(AppLoggingSettings):
 
     OPENAI_BASE_URL: str | None = None
     """The base URL for the OpenAI API. Leave this unset for most usecases"""
-    OPENAI_API_KEY: str | None = None
+    OPENAI_API_KEY: MaskedNoneString = None
     """Your OpenAI API key. Required to enable OpenAI features"""
     OPENAI_MODEL: str = "gpt-4o"
     """Which OpenAI model to send requests to. Leave this unset for most usecases"""
