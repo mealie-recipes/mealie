@@ -492,9 +492,13 @@ export default defineComponent({
       }
     };
 
-    const labelNames = computed(() =>
-      new Set(shoppingList.value?.listItems?.map(item => item.label?.name).filter(Boolean) ?? [])
-    );
+    const labelNames = computed(() => {
+      return new Set(
+        shoppingList.value?.listItems
+          ?.map(item => item.label?.name || i18n.tc("shopping-list.no-label"))
+          .filter(Boolean) ?? []
+      );
+    });
 
     watch(labelNames, initializeLabelOpenStates, { immediate: true });
 
