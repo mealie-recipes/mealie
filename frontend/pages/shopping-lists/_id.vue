@@ -88,7 +88,7 @@
                 />
               </v-lazy>
             </draggable>
-            </div>
+          </div>
         </v-expand-transition>
         </div>
       </div>
