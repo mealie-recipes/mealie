@@ -353,6 +353,15 @@ class AppSettings(AppLoggingSettings):
 
     model_config = SettingsConfigDict(arbitrary_types_allowed=True, extra="allow")
 
+    # ===============================================
+    # TLS
+
+    TLS_CERTIFICATE_PATH: str | os.PathLike[str] | None = None
+    """Path where the certificate resides."""
+
+    TLS_PRIVATE_KEY_PATH: str | os.PathLike[str] | None = None
+    """Path where the private key resides."""
+
 
 def app_settings_constructor(data_dir: Path, production: bool, env_file: Path, env_encoding="utf-8") -> AppSettings:
     """
