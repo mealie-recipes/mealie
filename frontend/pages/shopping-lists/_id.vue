@@ -480,8 +480,8 @@ export default defineComponent({
       let hasChanges = false;
 
       for (const item of shoppingList.value.listItems) {
-        const labelName = item.label?.name;
-        if (labelName && !existingLabels.has(labelName) && !(labelName in labelOpenState.value)) {
+        const labelName = item.label?.name || i18n.tc("shopping-list.no-label");
+        if (!existingLabels.has(labelName) && !(labelName in labelOpenState.value)) {
           labelOpenState.value[labelName] = true;
           hasChanges = true;
         }
