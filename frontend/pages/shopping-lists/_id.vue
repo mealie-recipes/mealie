@@ -56,7 +56,7 @@
 
       <!-- View By Label -->
       <div v-else>
-        <div v-for="(value, key) in itemsByLabel" :key="key" class="mb-6">
+        <div v-for="(value, key) in itemsByLabel" :key="key" class="pb-4">
           <v-btn
             :color="getLabelColor(value[0]) ? getLabelColor(value[0]) : '#959595'"
             :style="{
@@ -73,22 +73,22 @@
         <v-divider/>
         <v-expand-transition group>
           <div v-show="labelOpenState[key]">
-          <draggable :value="value" handle=".handle" delay="250" :delay-on-touch-only="true" @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndexUncheckedByLabel(key, $event)">
-            <v-lazy v-for="(item, index) in value" :key="item.id" class="ml-2 my-2">
-              <ShoppingListItem
-                v-model="value[index]"
-                :show-label=false
-                :labels="allLabels || []"
-                :units="allUnits || []"
-                :foods="allFoods || []"
-                :recipes="recipeMap"
-                @checked="saveListItem"
-                @save="saveListItem"
-                @delete="deleteListItem(item)"
-              />
-            </v-lazy>
+            <draggable :value="value" handle=".handle" delay="250" :delay-on-touch-only="true" @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndexUncheckedByLabel(key, $event)">
+              <v-lazy v-for="(item, index) in value" :key="item.id" class="ml-2 my-2">
+                <ShoppingListItem
+                  v-model="value[index]"
+                  :show-label=false
+                  :labels="allLabels || []"
+                  :units="allUnits || []"
+                  :foods="allFoods || []"
+                  :recipes="recipeMap"
+                  @checked="saveListItem"
+                  @save="saveListItem"
+                  @delete="deleteListItem(item)"
+                />
+              </v-lazy>
             </draggable>
-          </div>
+            </div>
         </v-expand-transition>
         </div>
       </div>
@@ -470,7 +470,7 @@ export default defineComponent({
     });
 
     // =====================================
-    // Collapsables
+    // Collapsable Labels
     const labelOpenState = ref<{ [key: string]: boolean }>({});
 
     const initializeLabelOpenStates = () => {
