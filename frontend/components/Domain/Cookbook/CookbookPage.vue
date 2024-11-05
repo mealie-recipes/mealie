@@ -7,7 +7,7 @@
       width="100%"
       max-width="1100px"
       :icon="$globals.icons.pages"
-      :title="$t('general.edit')"
+      :title="$tc('general.edit')"
       :submit-icon="$globals.icons.save"
       :submit-text="$tc('general.save')"
       :submit-disabled="!editTarget.queryFilterString"
@@ -25,7 +25,7 @@
         <v-toolbar-title class="headline"> {{ book.name }} </v-toolbar-title>
         <v-spacer></v-spacer>
         <BaseButton
-          v-if="isOwnGroup"
+          v-if="canEdit"
           class="mx-1"
           :edit="true"
           @click="handleEditCookbook"
@@ -79,6 +79,15 @@
       const tab = ref(null);
       const book = getOne(slug);
 
+      const isOwnHousehold = computed(() => {
+        if (!($auth.user && book.value?.householdId)) {
+          return false;
+        }
+
+        return $auth.user.householdId === book.value.householdId;
+      })
+      const canEdit = computed(() => isOwnGroup.value && isOwnHousehold.value);
+
       const dialogStates = reactive({
         edit: false,
       });
@@ -118,7 +127,7 @@
         recipes,
         removeRecipe,
         replaceRecipes,
-        isOwnGroup,
+        canEdit,
         dialogStates,
         editTarget,
         handleEditCookbook,

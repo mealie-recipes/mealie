@@ -45,6 +45,10 @@ export interface UserParsingPreferences {
   parser: RegisteredParser;
 }
 
+export interface UserCookbooksPreferences {
+  hideOtherHouseholds: boolean;
+}
+
 export function useUserMealPlanPreferences(): Ref<UserMealPlanPreferences> {
   const fromStorage = useLocalStorage(
     "meal-planner-preferences",
@@ -150,6 +154,20 @@ export function useParsingPreferences(): Ref<UserParsingPreferences> {
     // we cast to a Ref because by default it will return an optional type ref
     // but since we pass defaults we know all properties are set.
   ) as unknown as Ref<UserParsingPreferences>;
+
+  return fromStorage;
+}
+
+export function useCookbookPreferences(): Ref<UserCookbooksPreferences> {
+  const fromStorage = useLocalStorage(
+    "cookbook-preferences",
+    {
+      hideOtherHouseholds: false,
+    },
+    { mergeDefaults: true }
+    // we cast to a Ref because by default it will return an optional type ref
+    // but since we pass defaults we know all properties are set.
+  ) as unknown as Ref<UserCookbooksPreferences>;
 
   return fromStorage;
 }

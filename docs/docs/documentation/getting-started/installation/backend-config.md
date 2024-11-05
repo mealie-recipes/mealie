@@ -61,6 +61,15 @@ Changing the webworker settings may cause unforeseen memory leak issues with Mea
 | --------------- | :-----: | ----------------------------------------------------------------------------- |
 | UVICORN_WORKERS |    1    | Sets the number of workers for the web server. [More info here][unicorn_workers] |
 
+### TLS
+
+Use this only when mealie is run without a webserver or reverse proxy.
+
+| Variables            | Default | Description              |
+| -------------------- | :-----: | ------------------------ |
+| TLS_CERTIFICATE_PATH |  None   | File path to Certificate |
+| TLS_PRIVATE_KEY_PATH |  None   | File path to private key |
+
 ### LDAP
 
 | Variables            | Default | Description                                                                                                                         |

@@ -5,6 +5,7 @@ export interface SideBarLink {
   href?: string;
   title: string;
   children?: SideBarLink[];
+  childrenStartExpanded?: boolean;
   restricted: boolean;
 }
 
