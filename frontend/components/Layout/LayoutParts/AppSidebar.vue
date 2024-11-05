@@ -135,7 +135,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, toRefs, useContext } from "@nuxtjs/composition-api";
+import { computed, defineComponent, reactive, toRefs, useContext, watch } from "@nuxtjs/composition-api";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { SidebarLinks } from "~/types/application-types";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
@@ -192,12 +192,28 @@ export default defineComponent({
     const userProfileLink = computed(() => $auth.user ? "/user/profile" : undefined);
 
     const state = reactive({
-      dropDowns: {},
+      dropDowns: {} as Record<string, boolean>,
       topSelected: null as string[] | null,
       secondarySelected: null as string[] | null,
       bottomSelected: null as string[] | null,
       hasOpenedBefore: false as boolean,
     });
+
+    const allLinks = computed(() => [...props.topLink, ...(props.secondaryLinks || []), ...(props.bottomLinks || [])]);
+    function initDropdowns() {
+      allLinks.value.forEach((link) => {
+        state.dropDowns[link.title] = link.childrenStartExpanded || false;
+      })
+    }
+    watch(
+      () => allLinks,
+      () => {
+        initDropdowns();
+      },
+      {
+        deep: true,
+      }
+    );
 
     return {
       ...toRefs(state),
