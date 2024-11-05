@@ -1278,7 +1278,7 @@
   "profile": {
     "welcome-user": "👋 Välkommen, {0}!",
     "description": "Hantera dina profil, recept och gruppinställningar.",
-    "get-invite-link": "Få inbjudningslänk",
+    "get-invite-link": "Skapa inbjudningslänk",
     "get-public-link": "Få offentlig länk",
     "account-summary": "Kontosammanfattning",
     "account-summary-description": "Här är en sammanfattning av din grupps information.",

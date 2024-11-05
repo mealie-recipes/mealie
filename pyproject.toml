@@ -3,7 +3,7 @@ authors = ["Hayden <hay-kot@pm.me>"]
 description = "A Recipe Manager"
 license = "AGPL"
 name = "mealie"
-version = "2.0.0"
+version = "2.1.0"
 
 [tool.poetry.scripts]
 start = "mealie.app:main"
@@ -31,7 +31,7 @@ python = "^3.10"
 python-dateutil = "^2.8.2"
 python-dotenv = "^1.0.0"
 python-ldap = "^3.3.1"
-python-multipart = "^0.0.12"
+python-multipart = "^0.0.17"
 python-slugify = "^8.0.0"
 recipe-scrapers = "^15.0.0"
 requests = "^2.31.0"

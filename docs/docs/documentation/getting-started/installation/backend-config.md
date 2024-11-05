@@ -9,6 +9,7 @@
 | PUID                          |          911          | UserID permissions between host OS and container                                                          |
 | PGID                          |          911          | GroupID permissions between host OS and container                                                         |
 | DEFAULT_GROUP                 |         Home          | The default group for users                                                                               |
+| DEFAULT_HOUSEHOLD             |        Family         | The default household for users in each group                                                             |
 | BASE_URL                      | http://localhost:8080 | Used for Notifications                                                                                    |
 | TOKEN_TIME                    |          48           | The time in hours that a login/auth token is valid                                                        |
 | API_PORT                      |         9000          | The port exposed by backend API. **Do not change this if you're running in Docker**                       |
@@ -59,6 +60,15 @@ Changing the webworker settings may cause unforeseen memory leak issues with Mea
 | Variables       | Default | Description                                                                   |
 | --------------- | :-----: | ----------------------------------------------------------------------------- |
 | UVICORN_WORKERS |    1    | Sets the number of workers for the web server. [More info here][unicorn_workers] |
+
+### TLS
+
+Use this only when mealie is run without a webserver or reverse proxy.
+
+| Variables            | Default | Description              |
+| -------------------- | :-----: | ------------------------ |
+| TLS_CERTIFICATE_PATH |  None   | File path to Certificate |
+| TLS_PRIVATE_KEY_PATH |  None   | File path to private key |
 
 ### LDAP
 
