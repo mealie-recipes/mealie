@@ -169,7 +169,6 @@ export default defineComponent({
         }
       });
 
-      ownLinks.sort((a, b) => a.title.localeCompare(b.title));
       links.sort((a, b) => a.title.localeCompare(b.title));
       if ($auth.user && cookbookPreferences.value.hideOtherHouseholds) {
         return ownLinks;

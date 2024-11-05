@@ -72,7 +72,7 @@
           delay="250"
           :delay-on-touch-only="true"
           style="width: 100%"
-          @change="actions.updateOrder()"
+          @change="actions.updateOrder(myCookbooks)"
         >
           <v-expansion-panel v-for="cookbook in myCookbooks" :key="cookbook.id" class="my-2 left-border rounded">
             <v-expansion-panel-header disable-icon-rotate class="headline">
@@ -142,10 +142,15 @@ export default defineComponent({
 
     const { $auth, i18n } = useContext();
     const { cookbooks: allCookbooks, actions } = useCookbooks();
-    const myCookbooks = computed(() => {
-      return allCookbooks.value?.filter((cookbook) => {
-        return cookbook.householdId === $auth.user?.householdId;
-      });
+    const myCookbooks = computed<ReadCookBook[]>({
+      get: () => {
+        return allCookbooks.value?.filter((cookbook) => {
+          return cookbook.householdId === $auth.user?.householdId;
+        }) || [];
+      },
+      set: (value: ReadCookBook[]) => {
+        actions.updateOrder(value);
+      },
     });
     const { household } = useHouseholdSelf();
     const cookbookPreferences = useCookbookPreferences()
