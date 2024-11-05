@@ -5,41 +5,7 @@ import { useHouseholdSelf } from "./use-households";
 import { useUserApi } from "~/composables/api";
 import { ReadCookBook, UpdateCookBook } from "~/lib/api/types/cookbook";
 
-interface StoreInterface {
-  get ref(): Ref<ReadCookBook[] | null> | null;
-  set ref(newValue: Ref<ReadCookBook[] | null> | null);
-}
-
-let _cookbookStore: Ref<ReadCookBook[] | null> | null = null;
-let _myCookbookStore: Ref<ReadCookBook[] | null> | null = null;
-let _publicCookbookStore: Ref<ReadCookBook[] | null> | null = null;
-
-const cookbookStore: StoreInterface = {
-  get ref() {
-    return _cookbookStore;
-  },
-  set ref(newValue: Ref<ReadCookBook[] | null> | null) {
-    _cookbookStore = newValue;
-  },
-};
-
-const myCookbookStore: StoreInterface = {
-  get ref() {
-    return _myCookbookStore;
-  },
-  set ref(newValue: Ref<ReadCookBook[] | null> | null) {
-    _myCookbookStore = newValue;
-  },
-};
-
-const publicCookbookStore: StoreInterface = {
-  get ref() {
-    return _publicCookbookStore;
-  },
-  set ref(newValue: Ref<ReadCookBook[] | null> | null) {
-    _publicCookbookStore = newValue;
-  },
-};
+let cookbookStore: Ref<ReadCookBook[] | null> | null = null;
 
 export const useCookbook = function (publicGroupSlug: string | null = null) {
   function getOne(id: string | number) {
@@ -82,40 +48,36 @@ export const usePublicCookbooks = function (groupSlug: string) {
       loading.value = true;
       const { data } = await api.cookbooks.getAll(1, -1, { orderBy: "position", orderDirection: "asc" });
 
-      if (data && data.items && publicCookbookStore.ref) {
-        publicCookbookStore.ref.value = data.items;
+      if (data && data.items && cookbookStore) {
+        cookbookStore.value = data.items;
       }
 
       loading.value = false;
     },
     flushStore() {
-      publicCookbookStore.ref = null;
+      cookbookStore = null;
     },
   };
 
-  if (!publicCookbookStore.ref) {
-    publicCookbookStore.ref = actions.getAll();
+  if (!cookbookStore) {
+    cookbookStore = actions.getAll();
   }
 
-  return { cookbooks: publicCookbookStore.ref, actions };
+  return { cookbooks: cookbookStore, actions };
 }
 
-function useCookbooksFactory(store: StoreInterface, onlyMine = false) {
+export const useCookbooks = function () {
   const api = useUserApi();
   const { household } = useHouseholdSelf();
   const loading = ref(false);
 
-  let queryFilter = "";
-  const { $auth, i18n } = useContext();
-  if (onlyMine) {
-    queryFilter = `householdId = "${$auth.user?.householdId || ""}"`;
-  }
+  const { i18n } = useContext();
 
   const actions = {
     getAll() {
       loading.value = true;
       const units = useAsync(async () => {
-        const { data } = await api.cookbooks.getAll(1, -1, { orderBy: "position", orderDirection: "asc", queryFilter });
+        const { data } = await api.cookbooks.getAll(1, -1, { orderBy: "position", orderDirection: "asc" });
 
         if (data) {
           return data.items;
@@ -129,23 +91,23 @@ function useCookbooksFactory(store: StoreInterface, onlyMine = false) {
     },
     async refreshAll() {
       loading.value = true;
-      const { data } = await api.cookbooks.getAll(1, -1, { orderBy: "position", orderDirection: "asc", queryFilter });
+      const { data } = await api.cookbooks.getAll(1, -1, { orderBy: "position", orderDirection: "asc" });
 
-      if (data && data.items && store.ref?.value) {
-        store.ref.value = data.items;
+      if (data && data.items && cookbookStore) {
+        cookbookStore.value = data.items;
       }
 
       loading.value = false;
     },
-    async createOne() {
+    async createOne(name: string | null = null) {
       loading.value = true;
       const { data } = await api.cookbooks.createOne({
-        name: i18n.t("cookbook.household-cookbook-name", [household.value?.name || "", String((store.ref?.value?.length ?? 0) + 1)]) as string,
-        position: (store.ref?.value?.length ?? 0) + 1,
+        name: name || i18n.t("cookbook.household-cookbook-name", [household.value?.name || "", String((cookbookStore?.value?.length ?? 0) + 1)]) as string,
+        position: (cookbookStore?.value?.length ?? 0) + 1,
         queryFilterString: "",
       });
-      if (data && store.ref?.value) {
-        store.ref.value.push(data);
+      if (data && cookbookStore?.value) {
+        cookbookStore.value.push(data);
       } else {
         this.refreshAll();
       }
@@ -160,7 +122,7 @@ function useCookbooksFactory(store: StoreInterface, onlyMine = false) {
 
       loading.value = true;
       const { data } = await api.cookbooks.updateOne(updateData.id, updateData);
-      if (data && store.ref?.value) {
+      if (data && cookbookStore?.value) {
         this.refreshAll();
       }
       loading.value = false;
@@ -168,19 +130,19 @@ function useCookbooksFactory(store: StoreInterface, onlyMine = false) {
     },
 
     async updateOrder() {
-      if (!store.ref?.value) {
+      if (!cookbookStore?.value) {
         return;
       }
 
       loading.value = true;
 
-      store.ref.value.forEach((element, index) => {
+      cookbookStore.value.forEach((element, index) => {
         element.position = index + 1;
       });
 
-      const { data } = await api.cookbooks.updateAll(store.ref.value);
+      const { data } = await api.cookbooks.updateAll(cookbookStore.value);
 
-      if (data && store.ref.value) {
+      if (data && cookbookStore?.value) {
         this.refreshAll();
       }
 
@@ -189,26 +151,18 @@ function useCookbooksFactory(store: StoreInterface, onlyMine = false) {
     async deleteOne(id: string | number) {
       loading.value = true;
       const { data } = await api.cookbooks.deleteOne(id);
-      if (data && store.ref?.value) {
+      if (data && cookbookStore?.value) {
         this.refreshAll();
       }
     },
     flushStore() {
-      store.ref = null;
+      cookbookStore = null;
     },
   };
 
-  if (!store.ref) {
-    store.ref = actions.getAll();
+  if (!cookbookStore) {
+    cookbookStore = actions.getAll();
   }
 
-  return { cookbooks: store.ref, actions };
-}
-
-export const useCookbooks = function () {
-  return useCookbooksFactory(cookbookStore);
+  return { cookbooks: cookbookStore, actions };
 };
-
-export const useMyCookbooks = function () {
-  return useCookbooksFactory(myCookbookStore, true);
-}
