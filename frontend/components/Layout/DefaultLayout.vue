@@ -87,6 +87,7 @@ import LanguageDialog from "~/components/global/LanguageDialog.vue";
 import TheSnackbar from "@/components/Layout/LayoutParts/TheSnackbar.vue";
 import { useAppInfo } from "~/composables/api";
 import { useCookbooks, usePublicCookbooks } from "~/composables/use-group-cookbooks";
+import { useCookbookPreferences } from "~/composables/use-users/preferences";
 import { useHouseholdStore, usePublicHouseholdStore } from "~/composables/store/use-household-store";
 import { useToggleDarkMode } from "~/composables/use-utils";
 import { ReadCookBook } from "~/lib/api/types/cookbook";
@@ -103,6 +104,7 @@ export default defineComponent({
     const route = useRoute();
     const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
     const { cookbooks } = isOwnGroup.value ? useCookbooks() : usePublicCookbooks(groupSlug.value || "");
+    const cookbookPreferences = useCookbookPreferences();
     const { store: households } = isOwnGroup.value ? useHouseholdStore() : usePublicHouseholdStore(groupSlug.value || "");
 
     const householdsById = computed(() => {
@@ -169,8 +171,11 @@ export default defineComponent({
 
       ownLinks.sort((a, b) => a.title.localeCompare(b.title));
       links.sort((a, b) => a.title.localeCompare(b.title));
-
-      return [...ownLinks, ...links];
+      if ($auth.user && cookbookPreferences.value.hideOtherHouseholds) {
+        return ownLinks;
+      } else {
+        return [...ownLinks, ...links];
+      }
     });
 
     const createLinks = computed<SideBarLink[]>(() => [

@@ -48,6 +48,19 @@
         {{ $t('cookbook.description') }}
       </BasePageTitle>
 
+      <div class="my-6">
+        <v-checkbox
+          v-model="cookbookPreferences.hideOtherHouseholds"
+          :label="$tc('cookbook.hide-cookbooks-from-other-households')"
+          hide-details
+        />
+        <div class="ml-8">
+          <p class="text-subtitle-2 my-0 py-0">
+            {{ $tc("cookbook.hide-cookbooks-from-other-households-description") }}
+          </p>
+        </div>
+      </div>
+
       <!-- Create New -->
       <BaseButton create @click="createCookbook" />
 
@@ -115,6 +128,7 @@ import draggable from "vuedraggable";
 import { useMyCookbooks } from "@/composables/use-group-cookbooks";
 import CookbookEditor from "~/components/Domain/Cookbook/CookbookEditor.vue";
 import { ReadCookBook } from "~/lib/api/types/cookbook";
+import { useCookbookPreferences } from "~/composables/use-users/preferences";
 
 export default defineComponent({
   components: { CookbookEditor, draggable },
@@ -126,6 +140,7 @@ export default defineComponent({
     });
 
     const { cookbooks, actions } = useMyCookbooks();
+    const cookbookPreferences = useCookbookPreferences()
 
     // create
     const createTargetKey = ref(0);
@@ -179,6 +194,7 @@ export default defineComponent({
 
     return {
       cookbooks,
+      cookbookPreferences,
       actions,
       dialogStates,
       // create
