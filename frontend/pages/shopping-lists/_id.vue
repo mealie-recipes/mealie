@@ -56,7 +56,7 @@
 
       <!-- View By Label -->
       <div v-else>
-        <div v-for="(value, key) in itemsByLabel" :key="key" class="mb-6">
+        <div v-for="(value, key) in itemsByLabel" :key="key" class="pb-4">
           <v-btn
             :color="getLabelColor(value[0]) ? getLabelColor(value[0]) : '#959595'"
             :style="{
@@ -73,20 +73,20 @@
         <v-divider/>
         <v-expand-transition group>
           <div v-show="labelOpenState[key]">
-          <draggable :value="value" handle=".handle" delay="250" :delay-on-touch-only="true" @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndexUncheckedByLabel(key, $event)">
-            <v-lazy v-for="(item, index) in value" :key="item.id" class="ml-2 my-2">
-              <ShoppingListItem
-                v-model="value[index]"
-                :show-label=false
-                :labels="allLabels || []"
-                :units="allUnits || []"
-                :foods="allFoods || []"
-                :recipes="recipeMap"
-                @checked="saveListItem"
-                @save="saveListItem"
-                @delete="deleteListItem(item)"
-              />
-            </v-lazy>
+            <draggable :value="value" handle=".handle" delay="250" :delay-on-touch-only="true" @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndexUncheckedByLabel(key, $event)">
+              <v-lazy v-for="(item, index) in value" :key="item.id" class="ml-2 my-2">
+                <ShoppingListItem
+                  v-model="value[index]"
+                  :show-label=false
+                  :labels="allLabels || []"
+                  :units="allUnits || []"
+                  :foods="allFoods || []"
+                  :recipes="recipeMap"
+                  @checked="saveListItem"
+                  @save="saveListItem"
+                  @delete="deleteListItem(item)"
+                />
+              </v-lazy>
             </draggable>
           </div>
         </v-expand-transition>
@@ -470,7 +470,7 @@ export default defineComponent({
     });
 
     // =====================================
-    // Collapsables
+    // Collapsable Labels
     const labelOpenState = ref<{ [key: string]: boolean }>({});
 
     const initializeLabelOpenStates = () => {
@@ -480,8 +480,8 @@ export default defineComponent({
       let hasChanges = false;
 
       for (const item of shoppingList.value.listItems) {
-        const labelName = item.label?.name;
-        if (labelName && !existingLabels.has(labelName) && !(labelName in labelOpenState.value)) {
+        const labelName = item.label?.name || i18n.tc("shopping-list.no-label");
+        if (!existingLabels.has(labelName) && !(labelName in labelOpenState.value)) {
           labelOpenState.value[labelName] = true;
           hasChanges = true;
         }
@@ -492,9 +492,13 @@ export default defineComponent({
       }
     };
 
-    const labelNames = computed(() =>
-      new Set(shoppingList.value?.listItems?.map(item => item.label?.name).filter(Boolean) ?? [])
-    );
+    const labelNames = computed(() => {
+      return new Set(
+        shoppingList.value?.listItems
+          ?.map(item => item.label?.name || i18n.tc("shopping-list.no-label"))
+          .filter(Boolean) ?? []
+      );
+    });
 
     watch(labelNames, initializeLabelOpenStates, { immediate: true });
 

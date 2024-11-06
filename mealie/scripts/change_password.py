@@ -14,7 +14,7 @@ def main():
     logger = root_logger.get_logger()
 
     with session_context() as session:
-        repos = AllRepositories(session)
+        repos = AllRepositories(session, group_id=None, household_id=None)
 
         user = repos.users.get_one(confirmed, "email")
 
