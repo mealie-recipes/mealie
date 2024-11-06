@@ -39,7 +39,7 @@ def clean(recipe_data: Recipe | dict, translator: Translator, url=None) -> Recip
     and format the data into an accectable format for the database
 
     Args:
-        recipe_data (dict): raw recipe dictionary
+        recipe_data (dict): raw recipe or recipe dictionary
 
     Returns:
         dict: cleaned recipe dictionary
