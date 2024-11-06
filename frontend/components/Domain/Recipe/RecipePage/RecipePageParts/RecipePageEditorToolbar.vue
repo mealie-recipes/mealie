@@ -32,8 +32,8 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onUnmounted } from "@nuxtjs/composition-api";
-import { clearPageState, usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
+import { computed, defineComponent } from "@nuxtjs/composition-api";
+import { usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { Recipe } from "~/lib/api/types/recipe";
 import { useUserApi } from "~/composables/api";
@@ -75,10 +75,6 @@ export default defineComponent({
       return households.value.find((h) => h.id === owner.householdId);
     });
 
-    onUnmounted(() => {
-      clearPageState(props.recipe.slug);
-      console.debug("reset RecipePage state during unmount");
-    });
     async function uploadImage(fileObject: File) {
       if (!props.recipe || !props.recipe.slug) {
         return;
