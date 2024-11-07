@@ -20,13 +20,13 @@ export interface FileTokenResponse {
   fileToken: string;
 }
 export interface PaginationQuery {
-  page?: number;
-  perPage?: number;
   orderBy?: string | null;
   orderByNullPosition?: OrderByNullPosition | null;
-  orderDirection?: OrderDirection & string;
+  orderDirection?: OrderDirection;
   queryFilter?: string | null;
   paginationSeed?: string | null;
+  page?: number;
+  perPage?: number;
 }
 export interface QueryFilterJSON {
   parts?: QueryFilterJSONPart[];
@@ -46,6 +46,74 @@ export interface RecipeSearchQuery {
   requireAllTools?: boolean;
   requireAllFoods?: boolean;
   search?: string | null;
+}
+export interface RecipeSuggestionQuery {
+  orderBy?: string | null;
+  orderByNullPosition?: OrderByNullPosition | null;
+  orderDirection?: OrderDirection;
+  queryFilter?: string | null;
+  paginationSeed?: string | null;
+  limit?: number;
+  maxMissingFoods?: number;
+  maxMissingTools?: number;
+  includeFoodsOnHand?: boolean;
+  includeToolsOnHand?: boolean;
+}
+export interface RecipeSuggestionResponse {
+  items: RecipeSuggestionResponseItem[];
+}
+export interface RecipeSuggestionResponseItem {
+  recipe: RecipeSummary;
+  missingFoods: string[];
+  missingTools: string[];
+}
+export interface RecipeSummary {
+  id?: string | null;
+  userId?: string;
+  householdId?: string;
+  groupId?: string;
+  name?: string | null;
+  slug?: string;
+  image?: unknown;
+  recipeYield?: string | null;
+  totalTime?: string | null;
+  prepTime?: string | null;
+  cookTime?: string | null;
+  performTime?: string | null;
+  description?: string | null;
+  recipeCategory?: RecipeCategory[] | null;
+  tags?: RecipeTag[] | null;
+  tools?: RecipeTool[];
+  rating?: number | null;
+  orgURL?: string | null;
+  dateAdded?: string | null;
+  dateUpdated?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  lastMade?: string | null;
+}
+export interface RecipeCategory {
+  id?: string | null;
+  name: string;
+  slug: string;
+}
+export interface RecipeTag {
+  id?: string | null;
+  name: string;
+  slug: string;
+}
+export interface RecipeTool {
+  id: string;
+  name: string;
+  slug: string;
+  onHand?: boolean;
+}
+export interface RequestQuery {
+  orderBy?: string | null;
+  orderByNullPosition?: OrderByNullPosition | null;
+  orderDirection?: OrderDirection;
+  queryFilter?: string | null;
+  paginationSeed?: string | null;
 }
 export interface SuccessResponse {
   message: string;
