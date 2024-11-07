@@ -29,7 +29,7 @@ from mealie.schema.response.pagination import (
     PaginationQuery,
 )
 from mealie.schema.response.query_filter import QueryFilterBuilder
-from mealie.schema.response.recipe.filter import RecipeSuggestionQuery, RecipeSuggestionResponseItem
+from mealie.schema.response.recipe_filter import RecipeSuggestionQuery, RecipeSuggestionResponseItem
 
 from ..db.models._model_base import SqlAlchemyBase
 from .repository_generic import HouseholdRepositoryGeneric

@@ -43,7 +43,7 @@ from mealie.schema.recipe.request_helpers import (
 )
 from mealie.schema.response import PaginationBase, PaginationQuery
 from mealie.schema.response.pagination import RecipeSearchQuery
-from mealie.schema.response.recipe.filter import RecipeSuggestionQuery, RecipeSuggestionResponse
+from mealie.schema.response.recipe_filter import RecipeSuggestionQuery, RecipeSuggestionResponse
 from mealie.schema.response.responses import ErrorResponse
 from mealie.services import urls
 from mealie.services.event_bus_service.event_types import (

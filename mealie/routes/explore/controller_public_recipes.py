@@ -12,7 +12,7 @@ from mealie.schema.make_dependable import make_dependable
 from mealie.schema.recipe import Recipe
 from mealie.schema.recipe.recipe import RecipeSummary
 from mealie.schema.response.pagination import PaginationBase, PaginationQuery, RecipeSearchQuery
-from mealie.schema.response.recipe.filter import RecipeSuggestionQuery, RecipeSuggestionResponse
+from mealie.schema.response.recipe_filter import RecipeSuggestionQuery, RecipeSuggestionResponse
 
 router = APIRouter(prefix="/recipes")
 
