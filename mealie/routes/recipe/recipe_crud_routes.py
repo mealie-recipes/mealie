@@ -43,6 +43,7 @@ from mealie.schema.recipe.request_helpers import (
 )
 from mealie.schema.response import PaginationBase, PaginationQuery
 from mealie.schema.response.pagination import RecipeSearchQuery
+from mealie.schema.response.recipe.filter import RecipeSuggestionQuery, RecipeSuggestionResponse
 from mealie.schema.response.responses import ErrorResponse
 from mealie.services import urls
 from mealie.services.event_bus_service.event_types import (
@@ -276,6 +277,20 @@ class RecipeController(BaseRecipeController):
         )
 
         json_compatible_response = orjson.dumps(pagination_response.model_dump(by_alias=True))
+
+        # Response is returned directly, to avoid validation and improve performance
+        return JSONBytes(content=json_compatible_response)
+
+    @router.get("/suggestions", response_model=RecipeSuggestionResponse)
+    def suggest_recipes(
+        self,
+        q: RecipeSuggestionQuery = Depends(make_dependable(RecipeSuggestionQuery)),
+        foods: list[UUID4] | None = Query(None),
+        tools: list[UUID4] | None = Query(None),
+    ) -> RecipeSuggestionResponse:
+        recipes = self.group_recipes.find_suggested_recipes(q, foods, tools)
+        response = RecipeSuggestionResponse(items=recipes)
+        json_compatible_response = orjson.dumps(response.model_dump(by_alias=True))
 
         # Response is returned directly, to avoid validation and improve performance
         return JSONBytes(content=json_compatible_response)
