@@ -31,9 +31,7 @@ class RecipeSearchQuery(MealieModel):
     _search_seed: str | None = None
 
 
-class PaginationQuery(MealieModel):
-    page: int = 1
-    per_page: int = 50
+class RequestQuery(MealieModel):
     order_by: str | None = None
     order_by_null_position: OrderByNullPosition | None = None
     order_direction: OrderDirection = OrderDirection.desc
@@ -45,6 +43,11 @@ class PaginationQuery(MealieModel):
         if info.data.get("order_by") == "random" and not pagination_seed:
             raise ValueError("paginationSeed is required when orderBy is random")
         return pagination_seed
+
+
+class PaginationQuery(RequestQuery):
+    page: int = 1
+    per_page: int = 50
 
 
 class PaginationBase(BaseModel, Generic[DataT]):
