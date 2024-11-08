@@ -5,8 +5,7 @@
         <RecipeScaleEditButton
           v-model.number="scaleValue"
           v-bind="attrs"
-          :recipe-yield-quantity="recipe.recipeYieldQuantity"
-          :recipe-yield="recipe.recipeYield"
+          :recipe-servings="recipe.recipeServings"
           :edit-scale="!recipe.settings.disableAmount && !isEditMode"
           v-on="on"
         />

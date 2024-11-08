@@ -67,13 +67,9 @@ export default defineComponent({
       type: Number,
       required: true,
     },
-    recipeYieldQuantity: {
+    recipeServings: {
       type: Number,
       default: 0,
-    },
-    recipeYield: {
-      type: String,
-      default: "",
     },
     editScale: {
       type: Boolean,
@@ -82,7 +78,7 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const menu = ref<boolean>(false);
-    const canEditScale = computed(() => props.editScale && props.recipeYieldQuantity > 0);
+    const canEditScale = computed(() => props.editScale && props.recipeServings > 0);
 
     const scale = computed({
       get: () => props.value,
@@ -97,15 +93,15 @@ export default defineComponent({
         return;
       }
 
-      if (props.recipeYieldQuantity <= 0) {
+      if (props.recipeServings <= 0) {
         scale.value = 1;
       } else {
-        scale.value = newYield / props.recipeYieldQuantity;
+        scale.value = newYield / props.recipeServings;
       }
     }
 
     const recipeYield = computed(() => {
-      return useRecipeYield(props.recipeYieldQuantity, props.recipeYield, scale.value);
+      return useRecipeYield(props.recipeServings, "Servings", scale.value);
     });
     const yieldDisplay = computed(() => recipeYield.value.yieldDisplay);
     const yieldQuantity = computed(() => recipeYield.value.yieldQuantity);
