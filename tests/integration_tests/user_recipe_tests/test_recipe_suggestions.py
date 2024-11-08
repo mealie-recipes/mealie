@@ -56,8 +56,8 @@ def base_recipes(unique_user: TestUser, h2_user: TestUser):
         for _ in range(10):
             create_recipe(
                 user,
-                foods=[create_food(user) for _ in range(random_int(1, 5))],
-                tools=[create_tool(user) for _ in range(random_int(1, 5))],
+                foods=[create_food(user) for _ in range(random_int(3, 5))],
+                tools=[create_tool(user) for _ in range(random_int(3, 5))],
             )
 
 
@@ -95,17 +95,265 @@ def test_suggestion_filter(api_client: TestClient, unique_user: TestUser, filter
             unique_user.repos.recipes.delete(recipe.slug)
 
 
-# test filter each (max = 1)
-# 0 or 1 missing foods/tools
-# response matches
+def test_food_suggestion_filter_with_max(api_client: TestClient, unique_user: TestUser):
+    food_1, food_2, food_3 = (create_food(unique_user) for _ in range(3))
+    recipe_1 = create_recipe(unique_user, foods=[food_1])
+    recipe_2 = create_recipe(unique_user, foods=[food_2])
+    recipe_1_and_2 = create_recipe(unique_user, foods=[food_1, food_2])
+    recipe_3 = create_recipe(unique_user, foods=[food_3])
+    recipe_1_and_2_and_3 = create_recipe(unique_user, foods=[food_1, food_2, food_3])
 
-# test filter ignores foods/tools filters if none are provided
+    try:
+        response = api_client.get(
+            api_routes.recipes_suggestions,
+            params={"maxMissingFoods": 1, "foods": [str(food_1.id)]},
+            headers=unique_user.token,
+        )
+        response.raise_for_status()
+        data = response.json()
+        fetched_recipe_ids = {item["recipe"]["id"] for item in data["items"]}
+        assert set(fetched_recipe_ids) == {str(recipe_1.id), str(recipe_2.id), str(recipe_1_and_2.id), str(recipe_3.id)}
+        for item in data["items"]:
+            if item["recipe"]["id"] == str(recipe_1.id):
+                assert item["missingFoods"] == []
+            elif item["recipe"]["id"] == str(recipe_2.id) or item["recipe"]["id"] == str(recipe_1_and_2.id):
+                assert item["missingFoods"] == [str(food_2.id)]
+            else:
+                assert item["missingFoods"] == [str(food_3.id)]
 
-# test filter each include on hand
+    finally:
+        for recipe in [recipe_1, recipe_2, recipe_1_and_2, recipe_3, recipe_1_and_2_and_3]:
+            unique_user.repos.recipes.delete(recipe.slug)
 
-# test filter includes recipes with no tools
-# test filter includes recipes with no foods
-# test filter excludes recipes with ingredient amounts disabled when filtering by foods
+
+def test_tool_suggestion_filter_with_max(api_client: TestClient, unique_user: TestUser):
+    tool_1, tool_2, tool_3 = (create_tool(unique_user) for _ in range(3))
+    recipe_1 = create_recipe(unique_user, tools=[tool_1])
+    recipe_2 = create_recipe(unique_user, tools=[tool_2])
+    recipe_1_and_2 = create_recipe(unique_user, tools=[tool_1, tool_2])
+    recipe_3 = create_recipe(unique_user, tools=[tool_3])
+    recipe_1_and_2_and_3 = create_recipe(unique_user, tools=[tool_1, tool_2, tool_3])
+
+    try:
+        response = api_client.get(
+            api_routes.recipes_suggestions,
+            params={"maxMissingTools": 1, "tools": [str(tool_1.id)]},
+            headers=unique_user.token,
+        )
+        response.raise_for_status()
+
+        data = response.json()
+        fetched_recipe_ids = {item["recipe"]["id"] for item in data["items"]}
+        assert set(fetched_recipe_ids) == {str(recipe_1.id), str(recipe_2.id), str(recipe_1_and_2.id), str(recipe_3.id)}
+        for item in data["items"]:
+            if item["recipe"]["id"] == str(recipe_1.id):
+                assert item["missingTools"] == []
+            elif item["recipe"]["id"] == str(recipe_2.id) or item["recipe"]["id"] == str(recipe_1_and_2.id):
+                assert item["missingTools"] == [str(tool_2.id)]
+            else:
+                assert item["missingTools"] == [str(tool_3.id)]
+
+    finally:
+        for recipe in [recipe_1, recipe_2, recipe_1_and_2, recipe_3, recipe_1_and_2_and_3]:
+            unique_user.repos.recipes.delete(recipe.slug)
+
+
+def test_ignore_empty_food_filter(api_client: TestClient, unique_user: TestUser):
+    known_tool = create_tool(unique_user)
+    recipe = create_recipe(
+        unique_user, foods=[create_food(unique_user) for _ in range(random_int(3, 5))], tools=[known_tool]
+    )
+
+    try:
+        response = api_client.get(
+            api_routes.recipes_suggestions,
+            params={"maxMissingFoods": 0, "maxMissingTools": 0, "tools": [str(known_tool.id)]},
+            headers=unique_user.token,
+        )
+        response.raise_for_status()
+
+        data = response.json()
+        assert len(data["items"]) == 1
+        item = data["items"][0]
+        assert item["recipe"]["id"] == str(recipe.id)
+        assert item["missingFoods"] == []
+        assert item["missingTools"] == []
+
+    finally:
+        unique_user.repos.recipes.delete(recipe.slug)
+
+
+def test_ignore_empty_tool_filter(api_client: TestClient, unique_user: TestUser):
+    known_food = create_food(unique_user)
+    recipe = create_recipe(
+        unique_user, foods=[known_food], tools=[create_tool(unique_user) for _ in range(random_int(3, 5))]
+    )
+
+    try:
+        response = api_client.get(
+            api_routes.recipes_suggestions,
+            params={"maxMissingFoods": 0, "maxMissingTools": 0, "foods": [str(known_food.id)]},
+            headers=unique_user.token,
+        )
+        response.raise_for_status()
+
+        data = response.json()
+        assert len(data["items"]) == 1
+        item = data["items"][0]
+        assert item["recipe"]["id"] == str(recipe.id)
+        assert item["missingFoods"] == []
+        assert item["missingTools"] == []
+
+    finally:
+        unique_user.repos.recipes.delete(recipe.slug)
+
+
+def test_include_foods_on_hand(api_client: TestClient, unique_user: TestUser):
+    on_hand_food = create_food(unique_user, on_hand=True)
+    off_hand_food = create_food(unique_user, on_hand=False)
+    recipe = create_recipe(unique_user, foods=[on_hand_food, off_hand_food])
+
+    try:
+        response = api_client.get(
+            api_routes.recipes_suggestions,
+            params={"maxMissingFoods": 0, "maxMissingTools": 0, "foods": [str(off_hand_food.id)]},
+            headers=unique_user.token,
+        )
+        response.raise_for_status()
+
+        data = response.json()
+        assert len(data["items"]) == 1
+        item = data["items"][0]
+        assert item["recipe"]["id"] == str(recipe.id)
+        assert item["missingFoods"] == []
+
+    finally:
+        unique_user.repos.recipes.delete(recipe.slug)
+
+
+def test_include_tools_on_hand(api_client: TestClient, unique_user: TestUser):
+    on_hand_tool = create_tool(unique_user, on_hand=True)
+    off_hand_tool = create_tool(unique_user, on_hand=False)
+    recipe = create_recipe(unique_user, tools=[on_hand_tool, off_hand_tool])
+
+    try:
+        response = api_client.get(
+            api_routes.recipes_suggestions,
+            params={"maxMissingFoods": 0, "maxMissingTools": 0, "tools": [str(off_hand_tool.id)]},
+            headers=unique_user.token,
+        )
+        response.raise_for_status()
+
+        data = response.json()
+        assert len(data["items"]) == 1
+        item = data["items"][0]
+        assert item["recipe"]["id"] == str(recipe.id)
+        assert item["missingTools"] == []
+
+    finally:
+        unique_user.repos.recipes.delete(recipe.slug)
+
+
+def test_include_recipes_with_no_foods(api_client: TestClient, unique_user: TestUser):
+    known_food = create_food(unique_user)
+    recipe_with_foods = create_recipe(unique_user, foods=[known_food])
+    recipe_without_foods = create_recipe(unique_user, foods=[])
+
+    try:
+        response = api_client.get(
+            api_routes.recipes_suggestions,
+            params={"maxMissingFoods": 0, "maxMissingTools": 0, "foods": [str(known_food.id)]},
+            headers=unique_user.token,
+        )
+        response.raise_for_status()
+
+        data = response.json()
+        assert {item["recipe"]["id"] for item in data["items"]} == {
+            str(recipe_with_foods.id),
+            str(recipe_without_foods.id),
+        }
+        for item in data["items"]:
+            assert item["missingFoods"] == []
+
+    finally:
+        for recipe in [recipe_with_foods, recipe_without_foods]:
+            unique_user.repos.recipes.delete(recipe.slug)
+
+
+def test_include_recipes_with_no_tools(api_client: TestClient, unique_user: TestUser):
+    known_tool = create_tool(unique_user)
+    recipe_with_tools = create_recipe(unique_user, tools=[known_tool])
+    recipe_without_tools = create_recipe(unique_user, tools=[])
+
+    try:
+        response = api_client.get(
+            api_routes.recipes_suggestions,
+            params={"maxMissingFoods": 0, "maxMissingTools": 0, "tools": [str(known_tool.id)]},
+            headers=unique_user.token,
+        )
+        response.raise_for_status()
+
+        data = response.json()
+        assert {item["recipe"]["id"] for item in data["items"]} == {
+            str(recipe_with_tools.id),
+            str(recipe_without_tools.id),
+        }
+        for item in data["items"]:
+            assert item["missingTools"] == []
+
+    finally:
+        for recipe in [recipe_with_tools, recipe_without_tools]:
+            unique_user.repos.recipes.delete(recipe.slug)
+
+
+def test_ignore_recipes_with_ingredient_amounts_disabled_with_foods(api_client: TestClient, unique_user: TestUser):
+    known_food = create_food(unique_user)
+    recipe_with_amounts = create_recipe(unique_user, foods=[known_food])
+    recipe_without_amounts = create_recipe(unique_user, foods=[known_food], disable_amount=True)
+
+    try:
+        response = api_client.get(
+            api_routes.recipes_suggestions,
+            params={"maxMissingFoods": 0, "maxMissingTools": 0, "foods": [str(known_food.id)]},
+            headers=unique_user.token,
+        )
+        response.raise_for_status()
+
+        data = response.json()
+        assert {item["recipe"]["id"] for item in data["items"]} == {str(recipe_with_amounts.id)}
+        for item in data["items"]:
+            assert item["missingFoods"] == []
+
+    finally:
+        for recipe in [recipe_with_amounts, recipe_without_amounts]:
+            unique_user.repos.recipes.delete(recipe.slug)
+
+
+def test_include_recipes_with_ingredient_amounts_disabled_without_foods(api_client: TestClient, unique_user: TestUser):
+    known_tool = create_tool(unique_user)
+    recipe_with_amounts = create_recipe(unique_user, tools=[known_tool])
+    recipe_without_amounts = create_recipe(unique_user, tools=[known_tool], disable_amount=True)
+
+    try:
+        response = api_client.get(
+            api_routes.recipes_suggestions,
+            params={"maxMissingFoods": 0, "maxMissingTools": 0, "tools": [str(known_tool.id)]},
+            headers=unique_user.token,
+        )
+        response.raise_for_status()
+
+        data = response.json()
+        assert {item["recipe"]["id"] for item in data["items"]} == {
+            str(recipe_with_amounts.id),
+            str(recipe_without_amounts.id),
+        }
+        for item in data["items"]:
+            assert item["missingFoods"] == []
+
+    finally:
+        for recipe in [recipe_with_amounts, recipe_without_amounts]:
+            unique_user.repos.recipes.delete(recipe.slug)
+
 
 # test ordering
 # sort by missing tools asc
