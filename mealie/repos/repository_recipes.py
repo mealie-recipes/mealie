@@ -385,7 +385,7 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
                 .subquery()
             )
             total_user_foods_query = (
-                sa.select(ingredients_alias.recipe_id, sa.func.count().label("total_foods_count"))
+                sa.select(ingredients_alias.recipe_id, sa.func.count().label("total_user_foods_count"))
                 .filter(ingredients_alias.food_id.in_(user_food_ids))
                 .group_by(ingredients_alias.recipe_id)
                 .subquery()
@@ -404,7 +404,7 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
                 .order_by(
                     unmatched_foods_query.c.unmatched_foods_count.asc().nulls_first(),
                     # favor recipes with more matched foods, in case the user is looking for something specific
-                    total_user_foods_query.c.total_foods_count.desc().nulls_first(),
+                    total_user_foods_query.c.total_user_foods_count.desc().nulls_last(),
                 )
             )
 
