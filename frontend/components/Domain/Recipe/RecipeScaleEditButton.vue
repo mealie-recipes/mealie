@@ -1,13 +1,12 @@
 <template>
-  <div>
+  <div v-if="yieldDisplay">
     <div class="text-center d-flex align-center">
       <div>
         <v-menu v-model="menu" :disabled="!canEditScale" offset-y top nudge-top="6" :close-on-content-click="false">
           <template #activator="{ on, attrs }">
             <v-card class="pa-1 px-2" dark color="secondary darken-1" small v-bind="attrs" v-on="on">
-              <span v-if="!yieldDisplay"> x {{ scale }} </span>
               <!-- eslint-disable-next-line vue/no-v-html -->
-              <span v-else v-html="yieldDisplay"></span>
+              <span v-html="yieldDisplay"></span>
 
             </v-card>
           </template>
