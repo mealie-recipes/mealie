@@ -90,6 +90,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
 
     recipe_yield: Mapped[str | None] = mapped_column(sa.String)
     recipe_yield_quantity: Mapped[float] = mapped_column(sa.Float, index=True, default=0)
+    recipe_servings: Mapped[float] = mapped_column(sa.Float, index=True, default=0)
 
     assets: Mapped[list[RecipeAsset]] = orm.relationship("RecipeAsset", cascade="all, delete-orphan")
     nutrition: Mapped[Nutrition] = orm.relationship("Nutrition", uselist=False, cascade="all, delete-orphan")
