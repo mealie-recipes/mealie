@@ -67,39 +67,39 @@ def extract_quantity_from_string(source_str: str) -> tuple[float, str]:
 
     source_str = convert_vulgar_fractions_to_regular_fractions(source_str)
 
-    mixed_fraction_pattern = re.compile(r"^(\d+)\s+(\d+)/(\d+)")
-    fraction_pattern = re.compile(r"^(\d+)/(\d+)")
-    number_pattern = re.compile(r"^\d+(\.\d+)?")
+    mixed_fraction_pattern = re.compile(r"(\d+)\s+(\d+)/(\d+)")
+    fraction_pattern = re.compile(r"(\d+)/(\d+)")
+    number_pattern = re.compile(r"\d+(\.\d+)?")
 
     try:
         # Check for a mixed fraction (e.g. "1 1/2")
-        match = mixed_fraction_pattern.match(source_str)
+        match = mixed_fraction_pattern.search(source_str)
         if match:
             whole_number = int(match.group(1))
             numerator = int(match.group(2))
             denominator = int(match.group(3))
             quantity = whole_number + float(Fraction(numerator, denominator))
-            remaining_str = source_str[match.end() :].strip()
+            remaining_str = source_str[: match.start()] + source_str[match.end() :]
 
             remaining_str = remaining_str.strip()
             return quantity, remaining_str
 
         # Check for a fraction (e.g. "1/2")
-        match = fraction_pattern.match(source_str)
+        match = fraction_pattern.search(source_str)
         if match:
             numerator = int(match.group(1))
             denominator = int(match.group(2))
             quantity = float(Fraction(numerator, denominator))
-            remaining_str = source_str[match.end() :].strip()
+            remaining_str = source_str[: match.start()] + source_str[match.end() :]
 
             remaining_str = remaining_str.strip()
             return quantity, remaining_str
 
         # Check for a number (integer or float)
-        match = number_pattern.match(source_str)
+        match = number_pattern.search(source_str)
         if match:
             quantity = float(match.group())
-            remaining_str = source_str[match.end() :].strip()
+            remaining_str = source_str[: match.start()] + source_str[match.end() :]
 
             remaining_str = remaining_str.strip()
             return quantity, remaining_str
