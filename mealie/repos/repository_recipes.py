@@ -23,6 +23,8 @@ from mealie.db.models.users.user_to_recipe import UserToRecipe
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.recipe import Recipe
 from mealie.schema.recipe.recipe import RecipeCategory, RecipePagination, RecipeSummary
+from mealie.schema.recipe.recipe_ingredient import IngredientFood
+from mealie.schema.recipe.recipe_tool import RecipeToolOut
 from mealie.schema.response.pagination import (
     OrderByNullPosition,
     OrderDirection,
@@ -433,21 +435,29 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         for result in data:
             recipe = cast(RecipeModel, result)
 
+            missing_foods: list[IngredientFood] = []
             if food_ids:
-                missing_foods = list(
-                    {
-                        ingredient.food_id
-                        for ingredient in recipe.recipe_ingredient
-                        if ingredient.food_id and ingredient.food_id not in food_ids
-                    }
-                )
-            else:
-                missing_foods = []
+                seen_food_ids: set[UUID4] = set()
+                seen_food_ids.update(food_ids)
+                for ingredient in recipe.recipe_ingredient:
+                    if not ingredient.food:
+                        continue
+                    if ingredient.food.id in seen_food_ids:
+                        continue
 
+                    seen_food_ids.add(ingredient.food.id)
+                    missing_foods.append(IngredientFood.model_validate(ingredient.food))
+
+            missing_tools: list[RecipeToolOut] = []
             if tool_ids:
-                missing_tools = list({tool.id for tool in recipe.tools if tool.id and tool.id not in tool_ids})
-            else:
-                missing_tools = []
+                seen_tool_ids: set[UUID4] = set()
+                seen_tool_ids.update(tool_ids)
+                for tool in recipe.tools:
+                    if tool.id in seen_tool_ids:
+                        continue
+
+                    seen_tool_ids.add(tool.id)
+                    missing_tools.append(RecipeToolOut.model_validate(tool))
 
             suggestion = RecipeSuggestionResponseItem(
                 recipe=RecipeSummary.model_validate(recipe),
