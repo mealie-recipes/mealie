@@ -23,6 +23,7 @@
         <RecipePageEditorToolbar v-if="isEditForm" :recipe="recipe" />
         <RecipePageTitleContent :recipe="recipe" :landscape="landscape" />
         <RecipePageIngredientEditor v-if="isEditForm" :recipe="recipe" />
+        <RecipeYield :yield-quantity="recipe.recipeYieldQuantity" :scale.sync="scale" :yield="recipe.recipeYield" />
         <RecipePageScale :recipe="recipe" :scale.sync="scale" :landscape="landscape" />
 
         <!--
@@ -94,6 +95,7 @@ import RecipePageOrganizers from "./RecipePageParts/RecipePageOrganizers.vue";
 import RecipePageScale from "./RecipePageParts/RecipePageScale.vue";
 import RecipePageTitleContent from "./RecipePageParts/RecipePageTitleContent.vue";
 import RecipePageComments from "./RecipePageParts/RecipePageComments.vue";
+import RecipeYield from "~/components/Domain/Recipe/RecipeYield.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipePrintContainer from "~/components/Domain/Recipe/RecipePrintContainer.vue";
 import { EditorMode, PageMode, usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
@@ -127,6 +129,7 @@ export default defineComponent({
     RecipeNotes,
     RecipePageInstructions,
     RecipePageFooter,
+    RecipeYield,
   },
   props: {
     recipe: {
