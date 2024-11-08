@@ -41,20 +41,31 @@
         <v-row>
           <v-col cols="3">
             <v-text-field
-              v-model="recipeYieldQuantity"
+              v-model="recipeServings"
               type="number"
               :min="0"
               hide-spin-buttons
               dense
               :label="$t('recipe.servings')"
-              @input="validateNumberInput"
+              @input="validateInput($event, 'recipeServings')"
             />
           </v-col>
-          <v-col cols="9">
+          <v-col cols="3">
+            <v-text-field
+              v-model="recipeYieldQuantity"
+              type="number"
+              :min="0"
+              hide-spin-buttons
+              dense
+              :label="$t('recipe.yield')"
+              @input="validateInput($event, 'recipeYieldQuantity')"
+            />
+          </v-col>
+          <v-col cols="6">
             <v-text-field
             v-model="recipe.recipeYield"
             dense
-            :label="$t('recipe.servings-text')"
+            :label="$t('recipe.yield-text')"
           />
           </v-col>
         </v-row>
@@ -102,29 +113,38 @@ export default defineComponent({
     const { imageKey, isEditMode } = usePageState(props.recipe.slug);
     const { isOwnGroup } = useLoggedInState();
 
+    const recipeServings = computed<number>({
+      get() {
+        return props.recipe.recipeServings;
+      },
+      set(val) {
+        validateInput(val.toString(), "recipeServings");
+      },
+    });
+
     const recipeYieldQuantity = computed<number>({
       get() {
         return props.recipe.recipeYieldQuantity;
       },
       set(val) {
-        validateNumberInput(val.toString());
+        validateInput(val.toString(), "recipeYieldQuantity");
       },
     });
 
-    function validateNumberInput(value: string | null) {
-      if (!value) {
-        props.recipe.recipeYieldQuantity = 0;
-        return;
-      }
-
-      const number = parseFloat(value.replace(/[^0-9.]/g, ""));
-      if (isNaN(number) || number <= 0) {
-        props.recipe.recipeYieldQuantity = 0;
-        return;
-      }
-
-      props.recipe.recipeYieldQuantity = number;
+    function validateInput(value: string | null, property: "recipeServings" | "recipeYieldQuantity") {
+    if (!value) {
+      props.recipe[property] = 0;
+      return;
     }
+
+    const number = parseFloat(value.replace(/[^0-9.]/g, ""));
+    if (isNaN(number) || number <= 0) {
+      props.recipe[property] = 0;
+      return;
+    }
+
+    props.recipe[property] = number;
+  }
 
     return {
       user,
@@ -132,8 +152,9 @@ export default defineComponent({
       validators,
       isEditMode,
       isOwnGroup,
+      recipeServings,
       recipeYieldQuantity,
-      validateNumberInput,
+      validateInput,
     };
   },
 });
