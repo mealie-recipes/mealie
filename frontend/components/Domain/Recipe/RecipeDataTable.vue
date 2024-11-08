@@ -63,6 +63,7 @@ interface ShowHeaders {
   tags: boolean;
   categories: boolean;
   tools: boolean;
+  recipeServings: boolean;
   recipeYieldQuantity: boolean;
   recipeYield: boolean;
   dateAdded: boolean;
@@ -94,6 +95,7 @@ export default defineComponent({
           owner: false,
           tags: true,
           categories: true,
+          recipeServings: true,
           recipeYieldQuantity: true,
           recipeYield: true,
           dateAdded: true,
@@ -129,11 +131,14 @@ export default defineComponent({
       if (props.showHeaders.tools) {
         hdrs.push({ text: i18n.t("tool.tools"), value: "tools" });
       }
+      if (props.showHeaders.recipeServings) {
+        hdrs.push({ text: i18n.t("recipe.servings"), value: "recipeServings" });
+      }
       if (props.showHeaders.recipeYieldQuantity) {
-        hdrs.push({ text: i18n.t("recipe.yield-quantity"), value: "recipeYieldQuantity" });
+        hdrs.push({ text: i18n.t("recipe.yield"), value: "recipeYieldQuantity" });
       }
       if (props.showHeaders.recipeYield) {
-        hdrs.push({ text: i18n.t("recipe.yield"), value: "recipeYield" });
+        hdrs.push({ text: i18n.t("recipe.yield-text"), value: "recipeYield" });
       }
       if (props.showHeaders.dateAdded) {
         hdrs.push({ text: i18n.t("general.date-added"), value: "dateAdded" });
