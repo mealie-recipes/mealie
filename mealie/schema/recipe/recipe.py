@@ -91,6 +91,7 @@ class RecipeSummary(MealieModel):
     name: str | None = None
     slug: Annotated[str, Field(validate_default=True)] = ""
     image: Any | None = None
+    recipe_servings: float = 0
     recipe_yield_quantity: float = 0
     recipe_yield: str | None = None
 
