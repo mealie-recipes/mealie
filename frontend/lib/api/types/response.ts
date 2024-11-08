@@ -64,8 +64,8 @@ export interface RecipeSuggestionResponse {
 }
 export interface RecipeSuggestionResponseItem {
   recipe: RecipeSummary;
-  missingFoods: string[];
-  missingTools: string[];
+  missingFoods: IngredientFood[];
+  missingTools: RecipeTool[];
 }
 export interface RecipeSummary {
   id?: string | null;
@@ -107,6 +107,30 @@ export interface RecipeTool {
   name: string;
   slug: string;
   onHand?: boolean;
+}
+export interface IngredientFood {
+  id: string;
+  name: string;
+  pluralName?: string | null;
+  description?: string;
+  extras?: {
+    [k: string]: unknown;
+  } | null;
+  onHand?: boolean;
+  labelId?: string | null;
+  aliases?: IngredientFoodAlias[];
+  label?: MultiPurposeLabelSummary | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+}
+export interface IngredientFoodAlias {
+  name: string;
+}
+export interface MultiPurposeLabelSummary {
+  name: string;
+  color?: string;
+  groupId: string;
+  id: string;
 }
 export interface RequestQuery {
   orderBy?: string | null;
