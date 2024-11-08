@@ -31,7 +31,7 @@
     <section>
       <v-card-title class="headline pl-0"> {{ $t("recipe.ingredients") }} </v-card-title>
       <div class="font-italic px-0 py-0">
-        <SafeMarkdown :source="yieldDisplay" />
+        <SafeMarkdown :source="recipeYield" />
       </div>
       <div
         v-for="(ingredientSection, sectionIndex) in ingredientSections"
@@ -111,7 +111,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "@nuxtjs/composition-api";
+import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
 import { useStaticRoutes } from "~/composables/api";
 import { Recipe, RecipeIngredient, RecipeStep} from "~/lib/api/types/recipe";
@@ -119,7 +119,7 @@ import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { ImagePosition, useUserPrintPreferences } from "~/composables/use-users/preferences";
 import { parseIngredientText, useNutritionLabels } from "~/composables/recipes";
 import { usePageState } from "~/composables/recipe-page/shared-state";
-import { useRecipeYield } from "~/composables/recipes/use-recipe-yield";
+import { useScaledAmount } from "~/composables/recipes/use-scaled-amount";
 
 
 type IngredientSection = {
@@ -152,15 +152,32 @@ export default defineComponent({
     }
   },
   setup(props) {
+    const { i18n } = useContext();
     const preferences = useUserPrintPreferences();
     const { recipeImage } = useStaticRoutes();
     const { imageKey } = usePageState(props.recipe.slug);
     const {labels} = useNutritionLabels();
 
+    const servingsDisplay = computed(() => {
+      const { scaledAmountDisplay } = useScaledAmount(props.recipe.recipeYieldQuantity, props.scale);
+      return scaledAmountDisplay ? i18n.t("recipe.yields-amount-with-text", {
+        amount: scaledAmountDisplay,
+        text: props.recipe.recipeYield,
+      }) as string : "";
+    })
+
     const yieldDisplay = computed(() => {
-      const { yieldDisplay } = useRecipeYield(props.recipe.recipeYieldQuantity, props.recipe.recipeYield, props.scale);
-      return yieldDisplay;
+      const { scaledAmountDisplay } = useScaledAmount(props.recipe.recipeServings, props.scale);
+      return scaledAmountDisplay ? i18n.t("recipe.serves-amount", { amount: scaledAmountDisplay }) as string : "";
     });
+
+    const recipeYield = computed(() => {
+      if (servingsDisplay.value && yieldDisplay.value) {
+        return `${yieldDisplay.value}; ${servingsDisplay.value}`
+      } else {
+        return yieldDisplay.value || servingsDisplay.value;
+      }
+    })
 
     const recipeImageUrl = computed(() => {
       return recipeImage(props.recipe.id, props.recipe.image, imageKey.value);
@@ -261,7 +278,7 @@ export default defineComponent({
       parseIngredientText,
       preferences,
       recipeImageUrl,
-      yieldDisplay,
+      recipeYield,
       ingredientSections,
       instructionSections,
     };

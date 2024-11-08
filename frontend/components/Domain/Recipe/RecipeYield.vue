@@ -16,7 +16,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
-import { useRecipeYield } from "~/composables/recipes/use-recipe-yield";
+import { useScaledAmount } from "~/composables/recipes/use-scaled-amount";
 
 export default defineComponent({
   props: {
@@ -44,12 +44,12 @@ export default defineComponent({
         return "";
       }
 
-      const { yieldDisplay } = useRecipeYield(props.yieldQuantity, "", props.scale);
+      const { scaledAmountDisplay } = useScaledAmount(props.yieldQuantity, props.scale);
 
-      return i18n.t("recipe.yields-amount-with-text", {
-        amount: yieldDisplay,
+      return scaledAmountDisplay ? i18n.t("recipe.yields-amount-with-text", {
+        amount: scaledAmountDisplay,
         text: props.yield,
-      });
+      }) as string : "";
     });
 
     return {

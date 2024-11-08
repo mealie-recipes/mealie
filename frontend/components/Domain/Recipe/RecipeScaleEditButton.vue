@@ -58,8 +58,8 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, watch  } from "@nuxtjs/composition-api";
-import { useRecipeYield } from "~/composables/recipes/use-recipe-yield";
+import { computed, defineComponent, ref, useContext, watch } from "@nuxtjs/composition-api";
+import { useScaledAmount } from "~/composables/recipes/use-scaled-amount";
 
 export default defineComponent({
   props: {
@@ -77,6 +77,7 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
+    const { i18n } = useContext();
     const menu = ref<boolean>(false);
     const canEditScale = computed(() => props.editScale && props.recipeServings > 0);
 
@@ -100,14 +101,18 @@ export default defineComponent({
       }
     }
 
-    const recipeYield = computed(() => {
-      return useRecipeYield(props.recipeServings, "Servings", scale.value);
+    const recipeYieldAmount = computed(() => {
+      return useScaledAmount(props.recipeServings, scale.value);
     });
-    const yieldDisplay = computed(() => recipeYield.value.yieldDisplay);
-    const yieldQuantity = computed(() => recipeYield.value.yieldQuantity);
+    const yieldQuantity = computed(() => recipeYieldAmount.value.scaledAmount);
+    const yieldDisplay = computed(() => {
+      return yieldQuantity.value ? i18n.t(
+        "recipe.serves-amount", { amount: recipeYieldAmount.value.scaledAmountDisplay }
+      ) as string : "";
+    });
 
     // only update yield quantity when the menu opens, so we don't override the user's input
-    const yieldQuantityEditorValue = ref(recipeYield.value.yieldQuantity);
+    const yieldQuantityEditorValue = ref(recipeYieldAmount.value.scaledAmount);
     watch(
       () => menu.value,
       () => {
@@ -115,12 +120,12 @@ export default defineComponent({
           return;
         }
 
-        yieldQuantityEditorValue.value = recipeYield.value.yieldQuantity;
+        yieldQuantityEditorValue.value = recipeYieldAmount.value.scaledAmount;
       }
     )
 
     const disableDecrement = computed(() => {
-      return recipeYield.value.yieldQuantity <= 1;
+      return recipeYieldAmount.value.scaledAmount <= 1;
     });
 
     return {

@@ -29,18 +29,12 @@ function formatQuantity(val: number): string {
   return valString.trim();
 }
 
-export function useRecipeYield(recipeYieldQuantity: number, recipeYield: string, scale = 1) {
-  const yieldQuantity = Number(((recipeYieldQuantity || 0) * scale).toFixed(3));
-  const yieldString = sanitizeHTML(recipeYield || "");
-  const yieldQuantityDisplay = yieldQuantity ? formatQuantity(yieldQuantity) : "";
-
-  const yieldDisplay = yieldQuantityDisplay
-    ? `${yieldQuantityDisplay} ${yieldString}`.trim()
-    : yieldString;
+export function useScaledAmount(amount: number, scale = 1) {
+  const scaledAmount = Number(((amount || 0) * scale).toFixed(3));
+  const scaledAmountDisplay = scaledAmount ? formatQuantity(scaledAmount) : "";
 
   return {
-    yieldQuantity,
-    yieldString,
-    yieldDisplay,
+    scaledAmount,
+    scaledAmountDisplay,
   };
 }
