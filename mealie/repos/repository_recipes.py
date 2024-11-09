@@ -401,7 +401,7 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
                     sa.or_(
                         unmatched_foods_query.c.unmatched_foods_count.is_(None),
                         unmatched_foods_query.c.unmatched_foods_count <= params.max_missing_foods,
-                    )
+                    ),
                 )
                 .order_by(
                     unmatched_foods_query.c.unmatched_foods_count.asc().nulls_first(),
@@ -409,6 +409,10 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
                     total_user_foods_query.c.total_user_foods_count.desc().nulls_last(),
                 )
             )
+
+            # only include recipes that have at least one food in the user's list
+            if user_food_ids:
+                q = q.filter(total_user_foods_query.c.total_user_foods_count > 0)
 
         ## Add filters and loader options
         if params.query_filter:
