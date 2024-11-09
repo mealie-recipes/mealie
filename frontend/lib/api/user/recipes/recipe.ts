@@ -16,6 +16,7 @@ import {
   RecipeTimelineEventUpdate,
 } from "~/lib/api/types/recipe";
 import { ApiRequestInstance, PaginationData } from "~/lib/api/types/non-generated";
+import { RecipeSuggestionQuery, RecipeSuggestionResponse } from "~/lib/api/types/response";
 
 export type Parser = "nlp" | "brute" | "openai";
 
@@ -31,6 +32,7 @@ const prefix = "/api";
 const routes = {
   recipesCreate: `${prefix}/recipes/create`,
   recipesBase: `${prefix}/recipes`,
+  recipesSuggestions: `${prefix}/recipes/suggestions`,
   recipesTestScrapeUrl: `${prefix}/recipes/test-scrape-url`,
   recipesCreateUrl: `${prefix}/recipes/create/url`,
   recipesCreateUrlBulk: `${prefix}/recipes/create/url/bulk`,
@@ -107,6 +109,12 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
     return await this.requests.get<Recipe[]>(routes.recipesCategory, {
       categories,
     });
+  }
+
+  async getSuggestions(q: RecipeSuggestionQuery, foods: string[] | null = null, tools: string[]| null = null) {
+    return await this.requests.get<RecipeSuggestionResponse>(
+      route(routes.recipesSuggestions, { ...q, foods, tools })
+    );
   }
 
   async createAsset(recipeSlug: string, payload: CreateAsset) {
