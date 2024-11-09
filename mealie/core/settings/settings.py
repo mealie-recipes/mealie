@@ -333,6 +333,7 @@ class AppSettings(AppLoggingSettings):
     OIDC_REMEMBER_ME: bool = False
     OIDC_USER_CLAIM: str = "email"
     OIDC_GROUPS_CLAIM: str | None = "groups"
+    OIDC_SCOPES_OVERRIDE: str | None = None
     OIDC_TLS_CACERTFILE: str | None = None
 
     @property
