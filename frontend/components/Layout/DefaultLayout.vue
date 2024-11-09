@@ -221,7 +221,13 @@ export default defineComponent({
         icon: $globals.icons.silverwareForkKnife,
         to: `/g/${groupSlug.value}`,
         title: i18n.tc("general.recipes"),
-        restricted: true,
+        restricted: false,
+      },
+      {
+        icon: $globals.icons.search,
+        to: `/g/${groupSlug.value}/recipes/finder`,
+        title: i18n.tc("recipe-finder.recipe-finder"),
+        restricted: false,
       },
       {
         icon: $globals.icons.calendarMultiselect,

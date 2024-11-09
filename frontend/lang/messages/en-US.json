@@ -664,6 +664,9 @@
     },
     "reset-servings-count": "Reset Servings Count"
   },
+  "recipe-finder": {
+    "recipe-finder": "Recipe Finder"
+  },
   "search": {
     "advanced-search": "Advanced Search",
     "and": "and",
