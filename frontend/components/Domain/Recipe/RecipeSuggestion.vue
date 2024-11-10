@@ -12,7 +12,7 @@
         />
       </v-col>
       <v-col v-if="missingFoods && missingFoods.length" cols="12">
-        <div class="d-flex flex-row align-center pt-2">
+        <div class="d-flex flex-row flex-wrap align-center pt-2">
           <v-icon class="ma-0 pa-0">{{ $globals.icons.foods }}</v-icon>
           <v-card-text class="mr-2 my-0 pl-2 py-0" style="width: min-content;">Missing:</v-card-text>
           <v-chip
@@ -20,14 +20,14 @@
             :key="food.id"
             label
             color="secondary custom-transparent"
-            class="mr-2"
+            class="mr-2 my-1"
           >
             <span>{{ food.name }}</span>
           </v-chip>
         </div>
       </v-col>
       <v-col v-if="missingTools && missingTools.length" cols="12">
-        <div class="d-flex flex-row align-center pt-2">
+        <div class="d-flex flex-row flex-wrap align-center pt-2">
           <v-icon class="ma-0 pa-0">{{ $globals.icons.tools }}</v-icon>
           <v-card-text class="mr-2 my-0 pl-2 py-0" style="width: min-content;">Missing:</v-card-text>
           <v-chip
@@ -35,7 +35,7 @@
             :key="tool.id"
             label
             color="secondary custom-transparent"
-            class="mr-2"
+            class="mr-2 my-1"
           >
             <span>{{ tool.name }}</span>
           </v-chip>

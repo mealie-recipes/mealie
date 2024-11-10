@@ -2,43 +2,143 @@
   <v-container>
     <v-container>
       <v-row>
-        <v-col cols="2">
+        <v-col cols="3">
           <v-container class="ma-0 pa-0">
-            <v-row no-gutters class="mb-5">
-              <v-col cols="6" no-gutters>
-                <SearchFilter v-if="foods" v-model="selectedFoods" :items="foods">
+            <v-row no-gutters>
+              <v-col cols="12" no-gutters class="d-flex flex-wrap justify-start">
+                <SearchFilter v-if="foods" v-model="selectedFoods" :items="foods" class="mr-6 mb-2">
                   <v-icon left>
                     {{ $globals.icons.foods }}
                   </v-icon>
                   {{ $t("general.foods") }}
                 </SearchFilter>
-              </v-col>
-              <v-col cols="6" no-gutters>
-                <SearchFilter v-if="tools" v-model="selectedTools" :items="tools">
+                <SearchFilter v-if="tools" v-model="selectedTools" :items="tools" class="mr-6 mb-2">
                   <v-icon left>
                     {{ $globals.icons.potSteam }}
                   </v-icon>
                   {{ $t("tool.tools") }}
                 </SearchFilter>
+                <v-btn
+                  small
+                  color="accent"
+                  dark
+                  @click="queryFilterMenu = !queryFilterMenu"
+                  class="mr-6 mb-2"
+                >
+                  <v-icon left>
+                    {{ $globals.icons.filter }}
+                  </v-icon>
+                  Other Filters
+                  <BaseDialog
+                    v-model="queryFilterMenu"
+                    title="Other Filters"
+                    :icon="$globals.icons.filter"
+                  >
+                    <!-- <QueryFilterBuilder /> -->
+                  </BaseDialog>
+                </v-btn>
               </v-col>
             </v-row>
-            <v-row no-gutters>
+            <!-- Settings Menu -->
+            <v-row no-gutters class="mb-2">
+              <v-col cols="12">
+                <v-menu
+                  v-model="settingsMenu"
+                  offset-y
+                  nudge-bottom="3"
+                  :close-on-content-click="false"
+                >
+                  <template #activator="{ on, attrs }">
+                    <v-btn small color="primary" dark v-bind="attrs" v-on="on">
+                      <v-icon left>
+                        {{ $globals.icons.cog }}
+                      </v-icon>
+                      {{ $t("general.settings") }}
+                    </v-btn>
+                  </template>
+                  <v-card>
+                    <v-card-text>
+                      <div>
+                        <v-text-field
+                          v-model="settings.maxMissingFoods"
+                          type="number"
+                          hide-details
+                          hide-spin-buttons
+                          label="Max Missing Foods"
+                        />
+                        <v-text-field
+                          v-model="settings.maxMissingTools"
+                          type="number"
+                          hide-details
+                          hide-spin-buttons
+                          label="Max Missing Tools"
+                          class="mt-4"
+                        />
+                      </div>
+                      <div class="mt-1">
+                        <v-checkbox
+                          v-model="settings.includeFoodsOnHand"
+                          dense
+                          small
+                          hide-details
+                          class="my-auto"
+                          label="Include Foods On Hand"
+                        />
+                        <v-checkbox
+                          v-model="settings.includeToolsOnHand"
+                          dense
+                          small
+                          hide-details
+                          class="my-auto"
+                          label="Include Tools On Hand"
+                        />
+                      </div>
+                    </v-card-text>
+                  </v-card>
+                </v-menu>
+              </v-col>
+            </v-row>
+            <v-row no-gutters class="my-2">
+              <v-col cols="12">
+                <v-divider />
+              </v-col>
+            </v-row>
+            <v-row no-gutters class="mt-5">
               <v-card-title class="ma-0 pa-0">
                 Selected Foods
               </v-card-title>
-              <v-container no-gutters>
+              <v-container class="ma-0 pa-0" style="max-height: 60vh; overflow-y: auto;">
                 <v-card-text v-if="!selectedFoods.length" class="ma-0 pa-0">
                   No foods selected
                 </v-card-text>
                 <v-row v-for="food in selectedFoods" :key="food.id" no-gutters class="mb-1">
-                  <v-col no-gutters cols="12">
+                  <v-col cols="12">
                     <v-chip
                       label
                       color="accent custom-transparent"
                       close
                       @click:close="removeFood(food)"
                     >
-                      <span>{{ food.name }}</span>
+                      <span class="text-hide-overflow">{{ food.name }}</span>
+                    </v-chip>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-row>
+            <v-row v-if="selectedTools.length" no-gutters class="mt-5">
+              <v-card-title class="ma-0 pa-0">
+                Selected Tools
+              </v-card-title>
+              <v-container class="ma-0 pa-0">
+                <v-row v-for="tool in selectedTools" :key="tool.id" no-gutters class="mb-1">
+                  <v-col cols="12">
+                    <v-chip
+                      label
+                      color="accent custom-transparent"
+                      close
+                      @click:close="removeTool(tool)"
+                    >
+                      <span class="text-hide-overflow">{{ tool.name }}</span>
                     </v-chip>
                   </v-col>
                 </v-row>
@@ -46,8 +146,11 @@
             </v-row>
           </v-container>
         </v-col>
-        <v-col cols="10">
-          <v-container class="ma-0 pa-0">
+        <v-col cols="9">
+          <v-container
+            class="ma-0 pa-0"
+            v-if="recipeSuggestions.readyToMake.length || recipeSuggestions.missingItems.length"
+          >
             <v-row v-if="recipeSuggestions.readyToMake.length" dense>
               <v-col cols="12">
                 <v-card-title :class="attrs.class.title.readyToMake">
@@ -89,6 +192,16 @@
               </v-col>
             </v-row>
           </v-container>
+          <v-container v-else>
+            <v-row>
+              <v-col cols="12" class="d-flex flex-row flex-wrap justify-center">
+                <v-card-title class="ma-0 pa-0">No recipes found</v-card-title>
+                <v-card-text class="ma-0 pa-0 text-center">
+                  Try adding more foods to your search or adjusting your filters
+                </v-card-text>
+              </v-col>
+            </v-row>
+          </v-container>
         </v-col>
       </v-row>
     </v-container>
@@ -96,13 +209,14 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, useContext, useRoute } from "@nuxtjs/composition-api";
+import { computed, defineComponent, toRefs, reactive, ref, useContext, useRoute, watch } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 import { usePublicExploreApi } from "~/composables/api/api-client";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useFoodStore, usePublicFoodStore, useToolStore, usePublicToolStore } from "~/composables/store";
 import { IngredientFood, RecipeTool } from "~/lib/api/types/recipe";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
+import QueryFilterBuilder from "~/components/Domain/QueryFilterBuilder.vue";
 import RecipeSuggestion from "~/components/Domain/Recipe/RecipeSuggestion.vue";
 import SearchFilter from "~/components/Domain/SearchFilter.vue";
 import { RecipeSuggestionQuery, RecipeSuggestionResponseItem } from "~/lib/api/types/response";
@@ -114,8 +228,20 @@ interface RecipeSuggestions {
 }
 
 export default defineComponent({
-  components: { RecipeSuggestion, SearchFilter },
+  components: { QueryFilterBuilder, RecipeSuggestion, SearchFilter },
   setup() {
+    const state = reactive({
+      settingsMenu: false,
+      queryFilterMenu: false,
+      settings: {
+        maxMissingFoods: 5,
+        maxMissingTools: 5,
+        includeFoodsOnHand: true,
+        includeToolsOnHand: true,
+        queryFilter: "",
+      },
+    });
+
     const { $auth } = useContext();
     const route = useRoute();
 
@@ -139,12 +265,24 @@ export default defineComponent({
     function removeFood(food: IngredientFood) {
       selectedFoods.value = selectedFoods.value.filter((f) => f.id !== food.id);
     }
+    watch(
+      () => selectedFoods.value,
+      () => {
+        selectedFoods.value.sort((a, b) => a.name.localeCompare(b.name));
+      }
+    )
 
     const toolStore = isOwnGroup.value ? useToolStore() : usePublicToolStore(groupSlug.value);
     const selectedTools = ref<NoUndefinedField<RecipeTool>[]>([]);
     function removeTool(tool: NoUndefinedField<RecipeTool>) {
       selectedTools.value = selectedTools.value.filter((t) => t.id !== tool.id);
     }
+    watch(
+      () => selectedTools.value,
+      () => {
+        selectedTools.value.sort((a, b) => a.name.localeCompare(b.name));
+      }
+    )
 
     const recipeResponseItems = ref<RecipeSuggestionResponseItem[]>([]);
     const recipeSuggestions = computed<RecipeSuggestions>(() => {
@@ -166,20 +304,21 @@ export default defineComponent({
 
 
 
-    watchDebounced([selectedFoods, selectedTools], async () => {
-      if(!selectedFoods.value.length && !selectedTools.value.length) {
+    watchDebounced([selectedFoods, selectedTools, state.settings], async () => {
+      // don't search for suggestions if no foods are selected
+      if(!selectedFoods.value.length) {
         recipeResponseItems.value = [];
         return;
       }
-      console.log(selectedFoods.value);
 
       const { data } = await api.recipes.getSuggestions(
         {
           limit: 10,
-          maxMissingFoods: 5,
-          maxMissingTools: 5,
-          includeFoodsOnHand: true,
-          includeToolsOnHand: true,
+          queryFilter: state.settings.queryFilter,
+          maxMissingFoods: state.settings.maxMissingFoods,
+          maxMissingTools: state.settings.maxMissingTools,
+          includeFoodsOnHand: state.settings.includeFoodsOnHand,
+          includeToolsOnHand: state.settings.includeToolsOnHand,
         } as RecipeSuggestionQuery,
         selectedFoods.value.map((food) => food.id),
         selectedTools.value.map((tool) => tool.id),
@@ -191,6 +330,7 @@ export default defineComponent({
     });
 
     return {
+      ...toRefs(state),
       attrs,
       foods: foodStore.store,
       selectedFoods,
