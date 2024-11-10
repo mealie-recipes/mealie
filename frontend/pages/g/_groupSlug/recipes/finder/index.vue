@@ -304,30 +304,35 @@ export default defineComponent({
 
 
 
-    watchDebounced([selectedFoods, selectedTools, state.settings], async () => {
-      // don't search for suggestions if no foods are selected
-      if(!selectedFoods.value.length) {
-        recipeResponseItems.value = [];
-        return;
-      }
+    watchDebounced(
+      [selectedFoods, selectedTools, state.settings], async () => {
+        // don't search for suggestions if no foods are selected
+        if(!selectedFoods.value.length) {
+          recipeResponseItems.value = [];
+          return;
+        }
 
-      const { data } = await api.recipes.getSuggestions(
-        {
-          limit: 10,
-          queryFilter: state.settings.queryFilter,
-          maxMissingFoods: state.settings.maxMissingFoods,
-          maxMissingTools: state.settings.maxMissingTools,
-          includeFoodsOnHand: state.settings.includeFoodsOnHand,
-          includeToolsOnHand: state.settings.includeToolsOnHand,
-        } as RecipeSuggestionQuery,
-        selectedFoods.value.map((food) => food.id),
-        selectedTools.value.map((tool) => tool.id),
-      );
-      if (!data) {
-        return;
-      }
-      recipeResponseItems.value = data.items;
-    });
+        const { data } = await api.recipes.getSuggestions(
+          {
+            limit: 10,
+            queryFilter: state.settings.queryFilter,
+            maxMissingFoods: state.settings.maxMissingFoods,
+            maxMissingTools: state.settings.maxMissingTools,
+            includeFoodsOnHand: state.settings.includeFoodsOnHand,
+            includeToolsOnHand: state.settings.includeToolsOnHand,
+          } as RecipeSuggestionQuery,
+          selectedFoods.value.map((food) => food.id),
+          selectedTools.value.map((tool) => tool.id),
+        );
+        if (!data) {
+          return;
+        }
+        recipeResponseItems.value = data.items;
+      },
+      {
+        debounce: 1000,
+      },
+    );
 
     return {
       ...toRefs(state),
