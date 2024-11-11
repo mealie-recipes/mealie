@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-container>
+    <v-container v-if="ready">
       <v-row>
         <v-col cols="3">
           <v-container class="ma-0 pa-0">
@@ -231,23 +231,43 @@
         </v-col>
       </v-row>
     </v-container>
+    <v-container v-else>
+      <v-row>
+        <v-col cols="12" class="d-flex justify-center">
+          <div class="text-center">
+            <AppLoader waiting-text="" />
+          </div>
+        </v-col>
+      </v-row>
+    </v-container>
   </v-container>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRefs, reactive, ref, useContext, useRoute, watch } from "@nuxtjs/composition-api";
+import {
+  computed,
+  defineComponent,
+  onMounted,
+  reactive,
+  ref,
+  toRefs,
+  useContext,
+  useRoute,
+  watch
+} from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 import { usePublicExploreApi } from "~/composables/api/api-client";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useFoodStore, usePublicFoodStore, useToolStore, usePublicToolStore } from "~/composables/store";
 import { IngredientFood, RecipeTool } from "~/lib/api/types/recipe";
-import { NoUndefinedField, Organizer } from "~/lib/api/types/non-generated";
+import { Organizer } from "~/lib/api/types/non-generated";
 import QueryFilterBuilder from "~/components/Domain/QueryFilterBuilder.vue";
 import RecipeSuggestion from "~/components/Domain/Recipe/RecipeSuggestion.vue";
 import SearchFilter from "~/components/Domain/SearchFilter.vue";
 import { QueryFilterJSON, RecipeSuggestionQuery, RecipeSuggestionResponseItem } from "~/lib/api/types/response";
 import { watchDebounced } from "@vueuse/core";
 import { FieldDefinition } from "~/composables/use-query-filter-builder";
+import { useRecipeFinderPreferences } from "~/composables/use-users/preferences";
 
 interface RecipeSuggestions {
   readyToMake: RecipeSuggestionResponseItem[];
@@ -257,21 +277,38 @@ interface RecipeSuggestions {
 export default defineComponent({
   components: { QueryFilterBuilder, RecipeSuggestion, SearchFilter },
   setup() {
+    const preferences = useRecipeFinderPreferences();
     const state = reactive({
+      ready: false,
       settingsMenu: false,
       queryFilterMenu: false,
       queryFilterMenuKey: 0,
       queryFilterEditorValue: "",
       queryFilterEditorValueJSON: {},
-      queryFilterJSON: { parts: [] } as QueryFilterJSON,
+      queryFilterJSON: preferences.value.queryFilterJSON,
       settings: {
-        maxMissingFoods: 5,
-        maxMissingTools: 5,
-        includeFoodsOnHand: true,
-        includeToolsOnHand: true,
-        queryFilter: "",
+        maxMissingFoods: preferences.value.maxMissingFoods,
+        maxMissingTools: preferences.value.maxMissingTools,
+        includeFoodsOnHand: preferences.value.includeFoodsOnHand,
+        includeToolsOnHand: preferences.value.includeToolsOnHand,
+        queryFilter: preferences.value.queryFilter,
       },
     });
+
+    watch(
+      () => state,
+      (newState) => {
+        preferences.value.queryFilter = newState.settings.queryFilter;
+        preferences.value.queryFilterJSON = newState.queryFilterJSON;
+        preferences.value.maxMissingFoods = newState.settings.maxMissingFoods;
+        preferences.value.maxMissingTools = newState.settings.maxMissingTools;
+        preferences.value.includeFoodsOnHand = newState.settings.includeFoodsOnHand;
+        preferences.value.includeToolsOnHand = newState.settings.includeToolsOnHand;
+      },
+      {
+        deep: true,
+      },
+    );
 
     const { $auth, i18n } = useContext();
     const route = useRoute();
@@ -300,13 +337,15 @@ export default defineComponent({
       () => selectedFoods.value,
       () => {
         selectedFoods.value.sort((a, b) => a.name.localeCompare(b.name));
+        preferences.value.foodIds = selectedFoods.value.map((food) => food.id);
       }
     )
 
     const toolStore = isOwnGroup.value ? useToolStore() : usePublicToolStore(groupSlug.value);
-    const selectedTools = ref<NoUndefinedField<RecipeTool>[]>([]);
-    function removeTool(tool: NoUndefinedField<RecipeTool>) {
+    const selectedTools = ref<RecipeTool[]>([]);
+    function removeTool(tool: RecipeTool) {
       selectedTools.value = selectedTools.value.filter((t) => t.id !== tool.id);
+      preferences.value.toolIds = selectedTools.value.map((tool) => tool.id);
     }
     watch(
       () => selectedTools.value,
@@ -314,6 +353,41 @@ export default defineComponent({
         selectedTools.value.sort((a, b) => a.name.localeCompare(b.name));
       }
     )
+
+    async function hydrateFoods() {
+      if (!preferences.value.foodIds.length) {
+        return;
+      }
+      if (!foodStore.store.value.length) {
+        await foodStore.actions.refresh();
+      }
+
+      const foods = preferences.value.foodIds
+      .map((foodId) => foodStore.store.value.find((food) => food.id === foodId))
+      .filter((food) => !!food);
+
+      selectedFoods.value = foods;
+    }
+
+    async function hydrateTools() {
+      if (!preferences.value.toolIds.length) {
+        return;
+      }
+      if (!toolStore.store.value.length) {
+        await toolStore.actions.refresh();
+      }
+
+      const tools = preferences.value.toolIds
+      .map((toolId) => toolStore.store.value.find((tool) => tool.id === toolId))
+      .filter((tool) => !!tool);
+
+      selectedTools.value = tools;
+    }
+
+    onMounted(async () => {
+      await Promise.all([hydrateFoods(), hydrateTools()]);
+      state.ready = true;
+    });
 
     const recipeResponseItems = ref<RecipeSuggestionResponseItem[]>([]);
     const recipeSuggestions = computed<RecipeSuggestions>(() => {
