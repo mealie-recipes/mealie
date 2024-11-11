@@ -1,8 +1,10 @@
+import pytest
 from pytest import MonkeyPatch, Session
 
 from mealie.core.config import get_app_settings
 from mealie.core.security.providers.openid_provider import OpenIDProvider
 from mealie.repos.all_repositories import get_repositories
+from tests.utils.factories import random_email, random_string
 from tests.utils.fixture_schemas import TestUser
 
 
@@ -125,3 +127,38 @@ def test_has_admin_group_new_user(monkeypatch: MonkeyPatch, session: Session):
     user = db.users.get_one("dude2", "username")
     assert user is not None
     assert user.admin
+
+
+@pytest.mark.parametrize("valid_group", [True, False])
+@pytest.mark.parametrize("valid_household", [True, False])
+def test_ldap_user_creation_invalid_group_or_household(
+    monkeypatch: MonkeyPatch, session: Session, valid_group: bool, valid_household: bool
+):
+    monkeypatch.setenv("OIDC_USER_GROUP", "mealie_user")
+    monkeypatch.setenv("OIDC_ADMIN_GROUP", "mealie_admin")
+    if not valid_group:
+        monkeypatch.setenv("DEFAULT_GROUP", random_string())
+    if not valid_household:
+        monkeypatch.setenv("DEFAULT_HOUSEHOLD", random_string())
+    get_app_settings.cache_clear()
+
+    data = {
+        "preferred_username": random_string(),
+        "email": random_email(),
+        "name": random_string(),
+        "groups": ["mealie_user"],
+    }
+    auth_provider = OpenIDProvider(session, data)
+
+    if valid_group and valid_household:
+        assert auth_provider.authenticate() is not None
+    else:
+        assert auth_provider.authenticate() is None
+
+    db = get_repositories(session, group_id=None, household_id=None)
+    user = db.users.get_one(data["preferred_username"], "username")
+
+    if valid_group and valid_household:
+        assert user is not None
+    else:
+        assert user is None

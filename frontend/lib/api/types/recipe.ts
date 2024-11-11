@@ -268,6 +268,7 @@ export interface RecipeStep {
   title?: string | null;
   text: string;
   ingredientReferences?: IngredientReferences[];
+  summary?: string | null;
 }
 export interface RecipeAsset {
   name: string;

@@ -105,8 +105,8 @@ class BaseRecipeController(BaseCrudController):
         return get_repositories(self.session, group_id=self.group_id, household_id=None).recipes
 
     @cached_property
-    def cookbooks_repo(self) -> RepositoryGeneric[ReadCookBook, CookBook]:
-        return self.repos.cookbooks
+    def group_cookbooks(self) -> RepositoryGeneric[ReadCookBook, CookBook]:
+        return get_repositories(self.session, group_id=self.group_id, household_id=None).cookbooks
 
     @cached_property
     def service(self) -> RecipeService:
@@ -354,7 +354,7 @@ class RecipeController(BaseRecipeController):
                     cb_match_attr = "id"
                 except ValueError:
                     cb_match_attr = "slug"
-            cookbook_data = self.cookbooks_repo.get_one(search_query.cookbook, cb_match_attr)
+            cookbook_data = self.group_cookbooks.get_one(search_query.cookbook, cb_match_attr)
 
             if cookbook_data is None:
                 raise HTTPException(status_code=404, detail="cookbook not found")
