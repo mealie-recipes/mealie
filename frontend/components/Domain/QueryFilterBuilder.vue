@@ -547,7 +547,7 @@ export default defineComponent({
     function buildQueryFilterJSON(): QueryFilterJSON {
       const parts = fields.value.map((field) => {
         const part: QueryFilterJSONPart = {
-          attributeName: field.label,
+          attributeName: field.name,
           leftParenthesis: field.leftParenthesis,
           rightParenthesis: field.rightParenthesis,
           logicalOperator: field.logicalOperator?.value,
