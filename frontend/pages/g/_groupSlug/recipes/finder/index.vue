@@ -154,7 +154,7 @@
                       close
                       @click:close="removeFood(food)"
                     >
-                      <span class="text-hide-overflow">{{ food.name }}</span>
+                      <span class="text-hide-overflow">{{ food.pluralName || food.name }}</span>
                     </v-chip>
                   </v-col>
                 </v-row>
@@ -363,7 +363,7 @@ export default defineComponent({
     watch(
       () => selectedFoods.value,
       () => {
-        selectedFoods.value.sort((a, b) => a.name.localeCompare(b.name));
+        selectedFoods.value.sort((a, b) => (a.pluralName || a.name).localeCompare(b.pluralName || b.name));
         preferences.value.foodIds = selectedFoods.value.map((food) => food.id);
       }
     )
