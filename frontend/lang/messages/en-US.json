@@ -662,7 +662,8 @@
       "missing-food": "Create missing food: {food}",
       "no-food": "No Food"
     },
-    "reset-servings-count": "Reset Servings Count"
+    "reset-servings-count": "Reset Servings Count",
+    "not-linked-ingredients": "Additional Ingredients"
   },
   "search": {
     "advanced-search": "Advanced Search",
