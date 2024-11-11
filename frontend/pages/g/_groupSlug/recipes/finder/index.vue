@@ -292,6 +292,7 @@ export default defineComponent({
         includeFoodsOnHand: preferences.value.includeFoodsOnHand,
         includeToolsOnHand: preferences.value.includeToolsOnHand,
         queryFilter: preferences.value.queryFilter,
+        limit: 10,
       },
     });
 
@@ -417,7 +418,7 @@ export default defineComponent({
 
         const { data } = await api.recipes.getSuggestions(
           {
-            limit: 10,
+            limit: state.settings.limit,
             queryFilter: state.settings.queryFilter,
             maxMissingFoods: state.settings.maxMissingFoods,
             maxMissingTools: state.settings.maxMissingTools,
